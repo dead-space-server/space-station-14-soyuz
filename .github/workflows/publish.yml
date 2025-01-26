@@ -132,6 +132,9 @@ jobs:
 
     - name: Set publish type messages
       id: publish_messages
+      env:
+        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+        BUILD_SIZE: ${{ steps.build_size.outputs.size }}
       run: |
         TYPE="${{ github.event.inputs.type }}"
         case "$TYPE" in

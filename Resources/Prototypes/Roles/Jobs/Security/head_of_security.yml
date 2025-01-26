@@ -50,6 +50,16 @@
       - type: Skill
         group: BasicAndShuttleControl
       # DS14-End
+    ranks:
+    RMCRankStaffSergeant:
+    - !type:RoleTimeRequirement
+      role: CMJobMilitaryPolice
+      time: 252000 # 70 hours
+    RMCRankSergeant:
+    - !type:RoleTimeRequirement
+      role: CMJobMilitaryPolice
+      time: 36000 # 10 hours
+    RMCRankCorporal: []
 
 - type: startingGear
   id: HoSGear

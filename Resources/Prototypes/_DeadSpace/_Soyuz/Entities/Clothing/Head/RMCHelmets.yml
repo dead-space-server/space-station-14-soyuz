@@ -1,0 +1,51 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: RMCHelmetBase
+  abstract: true
+  name: helmet
+  components:
+  - type: Item
+    size: Normal
+    storedRotation: 0
+  - type: Storage
+    maxItemSize: Tiny
+    grid:
+    - 0,0,4,1 # 4 slots
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: IgnoreContentsSize
+    items:
+      components:
+      - HelmetAccessory
+  - type: Appearance
+  - type: HelmetAccessoryHolder
+    isHat: false
+  - type: Tag
+    tags:
+    - RMCHelmet
+
+- type: entity
+  parent: RMCHelmetBase
+  id: RMCMarineHelmetBase
+  abstract: true
+  components:
+  - type: IdentityBlocker
+
+- type: entity
+  parent: RMCMarineHelmetBase
+  id: AU14HeadHelmetRMCBallistic
+  name: Mk17 pattern ballistic helmet
+  suffix: AU14
+  description: A ballistic helmet featuring an attached mandible. Designed to be used by Royal Marines Commando as part of the kestrel armour system.
+  components:
+  - type: IdentityBlocker
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/helmets/ballistic.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/helmets/ballistic.rsi

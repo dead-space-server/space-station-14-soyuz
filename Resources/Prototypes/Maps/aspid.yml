@@ -3,7 +3,7 @@
   mapName: 'DS Aspid Station'
   mapPath: /Maps/ds_aspid.yml
   minPlayers: 20
-  maxPlayers: 60
+  # maxPlayers: 60
   stations:
     Aspid:
       stationProto: StandardNanotrasenStation

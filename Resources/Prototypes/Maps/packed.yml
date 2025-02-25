@@ -38,6 +38,7 @@
             MedicalDoctor: [ 3, 3 ]
             MedicalIntern: [ 2, 2 ]
             Paramedic: [ 1, 1 ]
+            Psychologist: [ 1, 1 ]
             # MedicalSurgeon: [ 1, 1 ]
             #science
             ResearchDirector: [ 1, 1 ]
@@ -61,6 +62,7 @@
             Clown: [ 1, 1 ]
             Mime: [ 1, 1 ]
             Musician: [ 1, 1 ]
+            Reporter: [ 1, 1 ]
             #silicon
             StationAi: [ 1, 1 ]
             Borg: [ 1, 1 ]

@@ -35,8 +35,8 @@
 - type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltTypan
-  name: полноразмерная кроваво - красная гарнитура 
-  description: Модифицированный модульный интерком синдиката.
+  name: полноразмерная болотно - зелёная гарнитура 
+  description: Модифицированный модульный интерком "Рассвета".
   components:
   - type: Headset
     color: "#8f4a4b"

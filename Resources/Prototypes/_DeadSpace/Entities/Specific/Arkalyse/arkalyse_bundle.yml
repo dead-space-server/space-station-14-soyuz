@@ -7,8 +7,8 @@
   - type: Paper
     content: paper-text-arkalyse-manual
     stampedBy:
-    - stampedColor: '#F00010'
-      stampedName: Синдикат
+    - stampedColor: '#192412'
+      stampedName: Рассвет
     stampState: paper_stamp-syndicate
 
 - type: entity

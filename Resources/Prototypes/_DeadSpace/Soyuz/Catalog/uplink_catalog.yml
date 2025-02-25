@@ -1,0 +1,46 @@
+- type: listing
+  id: UplinkLecterBundle
+  name: uplink-lecter-bundle-name
+  description: uplink-lecter-bundle-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Rifles/lecter.rsi, state: icon }
+  productEntity: ClothingBackpackDuffelSyndicateFilledLecter
+  cost:
+    Telecrystal: 12
+  categories:
+  - UplinkWeaponry
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - NukeOpsUplink
+    - !type:BuyerWhitelistCondition
+      blacklist:
+        components:
+          - SurplusBundle
+
+- type: listing
+  id: UplinkLecterAmmoBundle
+  name: uplink-lecter-ammo-bundle-name
+  description: uplink-lecter-ammo-bundle-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
+  productEntity: ClothingBackpackDuffelSyndicateFilledLecterAmmo
+  cost:
+    Telecrystal: 10
+  categories:
+  - UplinkAmmo
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMagazineRifle
+  name: uplink-rifle-magazine-name
+  description: uplink-rifle-magazine-desc
+  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
+  productEntity: MagazineRifle
+  cost:
+    Telecrystal: 3
+  categories:
+  - UplinkAmmo

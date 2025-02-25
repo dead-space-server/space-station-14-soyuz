@@ -150,7 +150,7 @@
   id: Security
   name: department-Security
   description: department-Security-description
-  color: "#1563bd"
+  color: "#dd3535"
   weight: 20
   roles:
   - HeadOfSecurity

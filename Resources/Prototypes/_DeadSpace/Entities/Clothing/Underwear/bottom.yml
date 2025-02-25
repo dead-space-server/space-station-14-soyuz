@@ -85,8 +85,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersQuartermaster
-  name: боксеры квартирмейстера
-  description: Cтандартное нижнее бельё квартирмейстера.
+  name: боксеры завхоза
+  description: Cтандартное нижнее бельё завхоза.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Cargo/quartermaster/man.rsi
@@ -94,8 +94,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSalvageSpecialist
-  name: боксеры утилизатора
-  description: Cтандартное нижнее бельё утилизатора.
+  name: боксеры шахтёра
+  description: Cтандартное нижнее бельё шахтёра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Cargo/salvage_specialist/man.rsi
@@ -113,8 +113,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersBotanist
-  name: боксеры ботаника
-  description: Cтандартное нижнее бельё ботаника.
+  name: боксеры агронома
+  description: Cтандартное нижнее бельё агронома.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/botanist/man.rsi
@@ -158,8 +158,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersHeadofPersonnel
-  name: боксеры главы персонала
-  description: Cтандартное нижнее бельё главы персонала.
+  name: боксеры начальника отдела кадров
+  description: Cтандартное нижнее бельё начальника отдела кадров.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/head_of_personnel/man.rsi
@@ -221,8 +221,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersZoo
-  name: боксеры зоотехника
-  description: Cтандартное нижнее бельё зоотехника.
+  name: боксеры ветеринара
+  description: Cтандартное нижнее бельё ветеринара.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/zoo/man.rsi
@@ -249,8 +249,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersCentcomm
-  name: боксеры центрального командования
-  description: Cтандартное нижнее бельё центрального командования.
+  name: боксеры генерального штаба
+  description: Cтандартное нижнее бельё генерального штаба.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/centcomm/man.rsi
@@ -258,8 +258,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersDeathSquad
-  name: боксеры эскадрона смерти
-  description: Cтандартное нижнее бельё эскадрона смерти.
+  name: боксеры бойца отряда специального назначения "Дым"
+  description: Cтандартное нижнее бельё бойца отряда специального назначения "Дым".
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/death_squad/man.rsi
@@ -267,8 +267,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersERT
-  name: боксеры ОБР
-  description: Cтандартное нижнее бельё ОБР.
+  name: боксеры СОБР
+  description: Cтандартное нижнее бельё СОБР.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/ert/man.rsi
@@ -276,8 +276,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersBlueShieldOfficer
-  name: боксеры ОСЩ
-  description: Cтандартное нижнее бельё ОСЩ.
+  name: боксеры оперативника КГБ
+  description: Cтандартное нижнее бельё оперативника КГБ.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/blueshield/man.rsi
@@ -313,8 +313,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSeniorEngineer
-  name: боксеры ведущего инженера
-  description: Cтандартное нижнее бельё ведущего инженера.
+  name: боксеры бригадира
+  description: Cтандартное нижнее бельё бригадира.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Engineering/senior_engineer/man.rsi
@@ -350,8 +350,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersMagistrat
-  name: боксеры магистрата
-  description: Cтандартное нижнее бельё магистрата.
+  name: боксеры судьи
+  description: Cтандартное нижнее бельё судьи.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Law/magistrat/man.rsi
@@ -396,8 +396,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersParamedic
-  name: боксеры парамедика
-  description: Cтандартное нижнее бельё парамедика.
+  name: боксеры фельдшера
+  description: Cтандартное нижнее бельё фельдшера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/paramedic/man.rsi
@@ -405,8 +405,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersPsychologist
-  name: боксеры психолога
-  description: Cтандартное нижнее бельё психолога.
+  name: боксеры психиатра
+  description: Cтандартное нижнее бельё психиатра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/man.rsi
@@ -423,8 +423,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersCoroner
-  name: боксеры коронера
-  description: Cтандартное нижнее бельё коронера.
+  name: боксеры патологоанатома
+  description: Cтандартное нижнее бельё патологоанатома.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/coroner/man.rsi
@@ -433,8 +433,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersResearchAssistant
-  name: боксеры научного ассистента
-  description: Cтандартное нижнее бельё научного ассистента.
+  name: боксеры младшего научного сотрудника
+  description: Cтандартное нижнее бельё младшего научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/research_assistant/man.rsi
@@ -442,8 +442,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersResearchDirector
-  name: боксеры научного руководителя
-  description: Cтандартное нижнее бельё научного руководителя.
+  name: боксеры главного научного сотрудника
+  description: Cтандартное нижнее бельё главного научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/research_director/man.rsi
@@ -451,8 +451,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersScientist
-  name: боксеры учёного
-  description: Cтандартное нижнее бельё учёного.
+  name: боксеры научного сотрудника
+  description: Cтандартное нижнее бельё научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/scientist/man.rsi
@@ -460,8 +460,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSeniorResearcher
-  name: боксеры ведущего учёного
-  description: Cтандартное нижнее бельё ведущего учёного.
+  name: боксеры ведущего научного сотрудника
+  description: Cтандартное нижнее бельё ведущего научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/senior_researcher/man.rsi
@@ -470,8 +470,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersBrigmedic
-  name: боксеры бригмедика
-  description: Cтандартное нижнее бельё бригмедика.
+  name: боксеры дежурного врача
+  description: Cтандартное нижнее бельё дежурного врача.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/brigmedic/man.rsi
@@ -479,8 +479,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersCadet
-  name: боксеры кадета СБ
-  description: Cтандартное нижнее бельё кадета СБ.
+  name: боксеры младшего милиционера
+  description: Cтандартное нижнее бельё младшего милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/cadet/man.rsi
@@ -488,8 +488,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersDetective
-  name: боксеры детектива
-  description: Cтандартное нижнее бельё детектива.
+  name: боксеры следователя
+  description: Cтандартное нижнее бельё следователя.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/detective/man.rsi
@@ -497,8 +497,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersHeadofSecurity
-  name: боксеры главы службы безопасности
-  description: Cтандартное нижнее бельё главы службы безопасности.
+  name: боксеры начальника милции
+  description: Cтандартное нижнее бельё начальника милции.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/head_of_security/man.rsi
@@ -506,8 +506,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSecurityOfficer
-  name: боксеры офицера СБ
-  description: Cтандартное нижнее бельё офицера СБ.
+  name: боксеры милиционера
+  description: Cтандартное нижнее бельё милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/security_officer/man.rsi
@@ -515,8 +515,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSeniorOfficer
-  name: боксеры инструктора СБ
-  description: Cтандартное нижнее бельё инструктора СБ.
+  name: боксеры старшего милиционера
+  description: Cтандартное нижнее бельё старшего милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/senior_officer/man.rsi
@@ -524,8 +524,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersWarden
-  name: боксеры смотрителя
-  description: Cтандартное нижнее бельё смотрителя.
+  name: боксеры участкового
+  description: Cтандартное нижнее бельё участкового.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/man.rsi
@@ -572,8 +572,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesQuartermaster
-  name: стринги квартирмейстера
-  description: Cтандартное нижнее бельё квартирмейстера.
+  name: стринги завхоза
+  description: Cтандартное нижнее бельё завхоза.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Cargo/quartermaster/women/pants.rsi
@@ -581,8 +581,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSalvageSpecialist
-  name: стринги утилизатора
-  description: Cтандартное нижнее бельё утилизатора.
+  name: стринги шахтёра
+  description: Cтандартное нижнее бельё шахтёра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Cargo/salvage_specialist/women/pants.rsi
@@ -600,8 +600,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesBotanist
-  name: стринги ботаника
-  description: Cтандартное нижнее бельё ботаника.
+  name: стринги агронома
+  description: Cтандартное нижнее бельё агронома.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/botanist/women/pants.rsi
@@ -645,8 +645,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesHeadofPersonnel
-  name: стринги главы персонала
-  description: Cтандартное нижнее бельё главы персонала.
+  name: стринги начальника отдела кадров
+  description: Cтандартное нижнее бельё начальника отдела кадров.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/head_of_personnel/women/pants.rsi
@@ -708,8 +708,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesZoo
-  name: стринги зоотехника
-  description: Cтандартное нижнее бельё зоотехника.
+  name: стринги ветеринара
+  description: Cтандартное нижнее бельё ветеринара.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Civilian/zoo/women/pants.rsi
@@ -736,8 +736,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesCentcomm
-  name: стринги центрального командования
-  description: Cтандартное нижнее бельё центрального командования.
+  name: стринги генерального штаба
+  description: Cтандартное нижнее бельё генерального штаба.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/centcomm/women/pants.rsi
@@ -745,8 +745,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesDeathSquad
-  name: стринги эскадрона смерти
-  description: Cтандартное нижнее бельё эскадрона смерти.
+  name: стринги бойца отряда специального назначения "Дым"
+  description: Cтандартное нижнее бельё бойца отряда специального назначения "Дым".
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/death_squad/women/pants.rsi
@@ -754,8 +754,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesERT
-  name: стринги ОБР
-  description: Cтандартное нижнее бельё ОБР.
+  name: стринги СОБР
+  description: Cтандартное нижнее бельё СОБР.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/ert/women/pants.rsi
@@ -763,8 +763,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesBlueShieldOfficer
-  name: стринги ОСЩ
-  description: Cтандартное нижнее бельё ОСЩ.
+  name: стринги оперативника КГБ
+  description: Cтандартное нижнее бельё оперативника КГБ.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/blueshield/women/pants.rsi
@@ -800,8 +800,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSeniorEngineer
-  name: стринги ведущего инженера
-  description: Cтандартное нижнее бельё ведущего инженера.
+  name: стринги бригадира
+  description: Cтандартное нижнее бельё бригадира.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Engineering/senior_engineer/women/pants.rsi
@@ -819,8 +819,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesIAA
-  name: стринги агента внутренних дел
-  description: Cтандартное нижнее бельё агента внутренних дел.
+  name: стринги агента следственного комитета
+  description: Cтандартное нижнее бельё агента следственного комитета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Law/iaa/women/pants.rsi
@@ -837,8 +837,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesMagistrat
-  name: стринги магистрата
-  description: Cтандартное нижнее бельё магистрата.
+  name: стринги судьи
+  description: Cтандартное нижнее бельё судьи.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Law/magistrat/women/pants.rsi
@@ -883,8 +883,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesParamedic
-  name: стринги парамедика
-  description: Cтандартное нижнее бельё парамедика.
+  name: стринги фельдшера
+  description: Cтандартное нижнее бельё фельдшера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/paramedic/women/pants.rsi
@@ -892,8 +892,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesPsychologist
-  name: стринги психолога
-  description: Cтандартное нижнее бельё психолога.
+  name: стринги психиатра
+  description: Cтандартное нижнее бельё психиатра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/women/pants.rsi
@@ -910,8 +910,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesCoroner
-  name: стринги коронера
-  description: Cтандартное нижнее бельё коронера.
+  name: стринги патологоанатома
+  description: Cтандартное нижнее бельё патологоанатома.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/coroner/women/pants.rsi
@@ -920,8 +920,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesResearchAssistant
-  name: стринги научного ассистента
-  description: Cтандартное нижнее бельё научного ассистента.
+  name: стринги младшего научного сотрудника
+  description: Cтандартное нижнее бельё младшего научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/research_assistant/women/pants.rsi
@@ -929,8 +929,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesResearchDirector
-  name: стринги научного руководителя
-  description: Cтандартное нижнее бельё научного руководителя.
+  name: стринги главного научного сотрудника
+  description: Cтандартное нижнее бельё главного научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/research_director/women/pants.rsi
@@ -938,8 +938,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesScientist
-  name: стринги учёного
-  description: Cтандартное нижнее бельё учёного.
+  name: стринги научного сотрудника
+  description: Cтандартное нижнее бельё научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/scientist/women/pants.rsi
@@ -947,8 +947,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSeniorResearcher
-  name: стринги ведущего учёного
-  description: Cтандартное нижнее бельё ведущего учёного.
+  name: стринги ведущего научного сотрудника
+  description: Cтандартное нижнее бельё ведущего научного сотрудника.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Science/senior_researcher/women/pants.rsi
@@ -957,8 +957,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesBrigmedic
-  name: стринги бригмедика
-  description: Cтандартное нижнее бельё бригмедика.
+  name: стринги дежурного врача
+  description: Cтандартное нижнее бельё дежурного врача.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/brigmedic/women/pants.rsi
@@ -966,8 +966,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesCadet
-  name: стринги кадета СБ
-  description: Cтандартное нижнее бельё кадета СБ.
+  name: стринги младшего милиционера
+  description: Cтандартное нижнее бельё младшего милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/cadet/women/pants.rsi
@@ -975,8 +975,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesDetective
-  name: стринги детектива
-  description: Cтандартное нижнее бельё детектива.
+  name: стринги следователя
+  description: Cтандартное нижнее бельё следователя.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/detective/women/pants.rsi
@@ -984,8 +984,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesHeadofSecurity
-  name: стринги главы службы безопасности
-  description: Cтандартное нижнее бельё главы службы безопасности.
+  name: стринги начальника милции
+  description: Cтандартное нижнее бельё начальника милции.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/head_of_security/women/pants.rsi
@@ -993,8 +993,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSecurityOfficer
-  name: стринги офицера СБ
-  description: Cтандартное нижнее бельё офицера СБ.
+  name: стринги милиционера
+  description: Cтандартное нижнее бельё милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/security_officer/women/pants.rsi
@@ -1002,8 +1002,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSeniorOfficer
-  name: стринги инструктора СБ
-  description: Cтандартное нижнее бельё инструктора СБ.
+  name: стринги старшего милиционера
+  description: Cтандартное нижнее бельё старшего милиционера.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/senior_officer/women/pants.rsi
@@ -1011,8 +1011,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesWarden
-  name: стринги смотрителя
-  description: Cтандартное нижнее бельё смотрителя.
+  name: стринги участкового
+  description: Cтандартное нижнее бельё участкового.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/women/pants.rsi

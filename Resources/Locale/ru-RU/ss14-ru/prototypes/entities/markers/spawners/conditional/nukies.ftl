@@ -1,2 +1,2 @@
-ent-SpawnPointNukies = точка спавна ядерный оперативник
+ent-SpawnPointNukies = точка спавна легионера
     .desc = { ent-MarkerBase.desc }

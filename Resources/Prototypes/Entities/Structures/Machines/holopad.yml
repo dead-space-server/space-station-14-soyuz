@@ -166,8 +166,8 @@
     rsiPath: Structures/Machines/holopad.rsi
     rsiState: icon_in_call
     shaderName: Hologram
-    color1: "#65b8e2"
-    color2: "#3a6981"
+    color1: "#ff2e2a"
+    color2: "#ffb4b5"
     alpha: 0.9
     intensity: 2
     scrollRate: 0.125

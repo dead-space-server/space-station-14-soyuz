@@ -52,25 +52,25 @@
       tags:
       - NukeOpsUplink
 
-- type: listing
-  id: UplinkAKMSBundle
-  name: uplink-akms-bundle-name
-  description: uplink-akms-bundle-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Rifles/ak.rsi, state: icon }
-  productEntity: ClothingBackpackDuffelSyndicateFilledAKMS
-  cost:
-    Telecrystal: 12
-  categories:
-  - UplinkWeaponry
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - NukeOpsUplink
-    - !type:BuyerWhitelistCondition
-      blacklist:
-        components:
-          - SurplusBundle
+# - type: listing
+#   id: UplinkAKMSBundle # DS14-Soyuz-disabled
+#   name: uplink-akms-bundle-name
+#   description: uplink-akms-bundle-desc
+#   icon: { sprite: /Textures/Objects/Weapons/Guns/Rifles/ak.rsi, state: icon }
+#   productEntity: ClothingBackpackDuffelSyndicateFilledAKMS
+#   cost:
+#     Telecrystal: 12
+#   categories:
+#   - UplinkWeaponry
+#   conditions:
+#     - !type:StoreWhitelistCondition
+#       whitelist:
+#         tags:
+#           - NukeOpsUplink
+#     - !type:BuyerWhitelistCondition
+#       blacklist:
+#         components:
+#           - SurplusBundle
 
 - type: listing
   id: UplinkXC67Bundle
@@ -152,21 +152,21 @@
       tags:
       - NukeOpsUplink
 
-- type: listing
-  id: UplinkAKAmmoBundle
-  name: uplink-ak-ammo-bundle-name
-  description: uplink-ak-ammo-bundle-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
-  productEntity: ClothingBackpackDuffelSyndicateFilledAKAmmo
-  cost:
-    Telecrystal: 10
-  categories:
-  - UplinkAmmo
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
+# - type: listing
+#   id: UplinkAKAmmoBundle # DS14-Soyuz-disabled
+#   name: uplink-ak-ammo-bundle-name
+#   description: uplink-ak-ammo-bundle-desc
+#   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
+#   productEntity: ClothingBackpackDuffelSyndicateFilledAKAmmo
+#   cost:
+#     Telecrystal: 10
+#   categories:
+#   - UplinkAmmo
+#   conditions:
+#   - !type:StoreWhitelistCondition
+#     whitelist:
+#       tags:
+#       - NukeOpsUplink
 
 - type: listing
   id: UplinkMagazineShothgun
@@ -190,16 +190,16 @@
   categories:
   - UplinkAmmo
 
-- type: listing
-  id: UplinkMagazineLightRifle
-  name: uplink-light-rifle-magazine-name
-  description: uplink-light-rifle-magazine-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
-  productEntity: MagazineLightRifle
-  cost:
-    Telecrystal: 3
-  categories:
-  - UplinkAmmo
+# - type: listing
+#   id: UplinkMagazineLightRifle #DS14-Soyuz disabled
+#   name: uplink-light-rifle-magazine-name
+#   description: uplink-light-rifle-magazine-desc
+#   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/light_rifle_mag.rsi, state: red }
+#   productEntity: MagazineLightRifle
+#   cost:
+#     Telecrystal: 3
+#   categories:
+#   - UplinkAmmo
 
 - type: listing
   id: UplinkSyndieCloak

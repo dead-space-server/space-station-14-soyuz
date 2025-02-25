@@ -1,4 +1,4 @@
 ent-RadioHandheld = портативная рация
     .desc = Удобная портативная рация.
-ent-RadioHandheldSecurity = рация СБ
-    .desc = Не очень удобная рация СБ.
+ent-RadioHandheldSecurity = рация милиции
+    .desc = Не очень удобная рация милиции.

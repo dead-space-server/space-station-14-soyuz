@@ -6,9 +6,9 @@ pai-system-role-name = Персональный ИИ
 pai-system-role-description =
     Станьте чьим-то персональным Искуственным Интеллектом!
     (Воспоминания *не* прилагаются.)
-pai-system-role-name-syndicate = Персональный ИИ Синдиката
+pai-system-role-name-syndicate = персональный ИИ "Рассвета"
 pai-system-role-description-syndicate =
-    Станьте чьим-нибудь приятелем из Синдиката!
+    Станьте чьим-нибудь приятелем из "Рассвета"!
     (Воспоминания *не* прилагаются.)
 pai-neco-system-role-name = персональный ИИ кошкогорничная
 pai-neco-system-role-description =

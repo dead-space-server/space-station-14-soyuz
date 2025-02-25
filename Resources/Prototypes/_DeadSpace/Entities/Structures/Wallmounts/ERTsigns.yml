@@ -2,7 +2,7 @@
   parent: BaseSign
   id: SignERTember
   name: ОБР "ЭМБЕР"
-  description: Стальной знак с эмблемой ОБР "ЭМБЕР"
+  description: Стальной знак с эмблемой специального отряда быстрого реагирования "Эмбер"
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -13,13 +13,13 @@
   parent: SignERTember
   id: SignERTemberDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла ОБР "ЭМБЕР"
+  description: Зона стыковки шаттла специального отряда быстрого реагирования "Эмбер"
 
 - type: entity
   parent: BaseSign
   id: SignERTred
-  name: ОБР кода "КРАСНЫЙ"
-  description: Стальной знак с эмблемой ОБР кода "КРАСНЫЙ"
+  name: СОБР кода "Красный"
+  description: Стальной знак с эмблемой специального отряда быстрого реагирования кода "Красный"
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -30,13 +30,13 @@
   parent: SignERTred
   id: SignERTredDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла ОБР кода "КРАСНЫЙ"
+  description: Зона стыковки шаттла специального отряда быстрого реагирования кода "Красный"
 
 - type: entity
   parent: BaseSign
   id: SignERTgamma
-  name: ОБР кода "ГАММА"
-  description: Стальной знак с эмблемой ОБР кода "ГАММА"
+  name: СОБР кода "Гамма"
+  description: Стальной знак с эмблемой специального отряда быстрого реагирования кода "Гамма"
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -47,13 +47,13 @@
   parent: SignERTgamma
   id: SignERTgammaDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла ОБР кода "ГАММА"
+  description: Зона стыковки шаттла специального отряда быстрого реагирования кода "Гамма"
 
 - type: entity
   parent: BaseSign
   id: SignERTengi
-  name: ОБР инженеров
-  description: Стальной знак с эмблемой ОБР Инженеров
+  name: СОБР инженеров
+  description: Стальной знак с эмблемой специального отряда быстрого реагирования инженеров
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -64,13 +64,13 @@
   parent: SignERTengi
   id: SignERTengiDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла ОБР Инженеров
+  description: Зона стыковки шаттла специального отряда быстрого реагирования инженеров
 
 - type: entity
   parent: BaseSign
   id: SignERTjanitor
-  name: ОБР уборщиков
-  description: Стальной знак с эмблемой ОБР Уборщиков
+  name: СОБР уборщиков
+  description: Стальной знак с эмблемой специального отряда быстрого реагирования уборщиков
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -81,13 +81,13 @@
   parent: SignERTjanitor
   id: SignERTjanitorDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла ОБР Уборщиков
+  description: Зона стыковки шаттла специального отряда быстрого реагирования уборщиков
 
 - type: entity
   parent: BaseSign
   id: SignERTcburn
-  name: отряд РХБЗЗ
-  description: Стальной знак с эмблемой отряда РХБЗЗ
+  name: бригада РХБЗЗ
+  description: Стальной знак с эмблемой эвакуационно-спасательной бригады радиационной, химической, биологической и зомби-защиты.
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -98,13 +98,13 @@
   parent: SignERTcburn
   id: SignERTcburnDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла отряда РХБЗЗ
+  description: Зона стыковки шаттла эвакуационно-спасательной бригады радиационной, химической, биологической и зомби-защиты.
 
 - type: entity
   parent: BaseSign
   id: SignERTsierra
-  name: отряд РХБЗЗ кода "СЬЕРРА"
-  description: Стальной знак с эмблемой отряда РХБЗЗ кода "СЬЕРРА"
+  name: бригада РХБЗЗ кода "Сьерра"
+  description: Стальной знак с эмблемой эвакуационно-спасательной бригады радиационной, химической, биологической и зомби-защиты кода "Сьерра".
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/ert.rsi
@@ -115,4 +115,4 @@
   parent: SignERTsierra
   id: SignERTsierraDocking
   suffix: Стыковка
-  description: Зона стыковки шаттла отряда РХБЗЗ кода "СЬЕРРА"
+  description: Зона стыковки шаттла эвакуационно-спасательной бригады радиационной, химической, биологической и зомби-защиты кода "Сьерра".

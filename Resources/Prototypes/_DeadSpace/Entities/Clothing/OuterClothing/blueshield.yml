@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitBlueShield
-  name: скафандр офицера "Синий Щит"
-  description: Скафандр предназначенный для защитника командования.
+  name: скафандр оперативника КГБ
+  description: Скафандр, предназначенный для тех, кто браво защищает руководство коллектива станции.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/blueshield.rsi
@@ -34,8 +34,8 @@
 - type: entity
   parent: ClothingOuterCoatHoSGreatcoat
   id: ClothingOuterArmorBasicBlueShield
-  name: бронежилет офицера "Синий Щит"
-  description: Защитные характеристики данного бронежилета превосходят обычный и идентичны бронированной шинели главы службы безопасности.
+  name: бронежилет оперативника КГБ
+  description: Защитные характеристики данного бронежилета превосходят обычный и идентичны бронированной шинели начальника милиции.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/OuterClothing/Armor/blueshield_armor.rsi

@@ -2,7 +2,7 @@
   parent: ChemicalMedipen
   id: NECROMedipen
   name: медипен ОПНУ
-  description: Разработка Нанотресен. Содержит вещества для лечения повреждений наносимых некроморфами.
+  description: Разработка СССП. Содержит вещества для лечения повреждений наносимых некроморфами.
   components:
   - type: Sprite
     sprite: Objects/Specific/Medical/medipen.rsi

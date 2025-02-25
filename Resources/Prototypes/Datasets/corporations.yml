@@ -1,8 +1,7 @@
 - type: dataset
   id: TraitorCorporations
   values:
-  - "CyberSun Industries"
-  - "Мародёры Горлекса"
+  - "Мародёры ОПЗ"
   - "MI13"
   - "Tiger Cooperative"
   - "S.E.L.F."

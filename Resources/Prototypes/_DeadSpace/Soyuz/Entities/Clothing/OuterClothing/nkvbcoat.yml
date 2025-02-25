@@ -1,0 +1,17 @@
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatNkvb
+  name: бронированный плащ пограничных войск НКВБ 
+  description: Теплый плащ, который точно поможет выследить контрабандиста и спекулянта.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Coats/nkvbcoat.rsi
+    - type: Clothing
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Coats/nkvbcoat.rsi
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.8
+          Slash: 0.8
+          Piercing: 0.4
+          Heat: 0.8

@@ -1,5 +1,5 @@
 ent-BaseWall = базовая стена
-    .desc = Удерживает воздух внутри, а ассистентов снаружи.
+    .desc = Удерживает воздух внутри, а разнорабочих снаружи.
 ent-WallBrick = кирпичная стена
     .desc = { ent-BaseWall.desc }
 ent-WallClock = заводная стена
@@ -49,8 +49,8 @@ ent-WallSandstone = песчаниковая стена
 ent-WallSilver = серебряная стена
     .desc = { ent-BaseWall.desc }
 ent-WallShuttleDiagonal = стена шаттла
-    .desc = Удерживает воздух внутри, а ассистентов снаружи.
-    .suffix = Диагональ
+    .desc = Удерживает воздух внутри, а разнорабочих снаружи.
+    .suffix = Диагональная
 ent-WallShuttle = стена шаттла
     .desc = { ent-BaseWall.desc }
     .suffix = Укреплённый, Внешний

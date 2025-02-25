@@ -1,27 +1,124 @@
-- files: ["sector11.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "-Sector11 by MashedByMachines. Converted to mono OGG."
-  source: "https://www.newgrounds.com/audio/listen/312622"
-
-- files: ["mod.flip-flap.ogg"]
+- files: ["AnthemRSSRInternacional.ogg"]
   license: "Custom"
-  copyright: "Flip Flap by X-ceed is licensed under a short but clear license (see flip-flap.txt in Audio/Lobby) and is free for non-commercial use. Converted to mono OGG."
-  source: "http://aminet.net/package/mods/xceed/Flipflap"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=76L1pBUw3H8"
 
-- files: ["title3.ogg"]
-  license: "CC-BY-NC-SA-3.0"
-  copyright: "Title3 by Cuboos. It is a remix of the song 'Tintin on the Moon'. Converted to mono OGG."
-  source: "https://www.youtube.com/watch?v=YKVmXn-Gv0M"
+- files: ["BlowWithTheFires.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
 
-- files:
-  - "constellations.ogg"
-  - "drifting.ogg"
-  - "starlight.ogg"
-  license: "CC-BY-3.0"
-  copyright: "Constellations by Qwertyquerty. Converted to mono OGG."
-  source: "https://www.youtube.com/channel/UCPYbhBUGhH7n_G4HLK2YipQ"
+- files: ["BravoEtotGorod.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=zXs2jD7Tfhs"
 
-- files: ["sunset.ogg"]
-  license: "CC-BY-SA-3.0"
-  copyright: "Sunset by PigeonBeans. Exported in Mono OGG."
-  source: "https://soundcloud.com/pigeonbeans/sunset"
+- files: ["DajjteTank.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["DVRSTKomarovo.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=7wFEQeR4kNM"
+
+- files: ["EgorLetovPoPlanu.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["GloryToTheOnesWhoLookForward.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=KYrDV_nICiM"
+
+- files: ["GostyaIzBudushhegoPrekrasnoeDaleko.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=KYrDV_nICiM"
+
+- files: ["GrazhdanskayaOboronaChuzhoe.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=RvTocHvxrro"
+
+- files: ["GrazhdanskayaOboronaDurachok.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["HappyNation.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["HardcoreDanceDiscoElysiumOST.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=2-Yvi2bC2to"
+
+- files: ["Metro2MarchOfTheCommunistBrigadesOST.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=54cn9tcGB-A"
+
+- files: ["NinaBrodskayaYanvarskayaVyuga.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["PapersPleaseMainTheme.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=OBQE_TNI7zw"
+
+- files: ["RabochayaMarseleza.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["RedArmyAnsambl.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["SeaPowerWhirlingInRags8AM.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=LeILSPhyExw"
+
+- files: ["SovietMarchRedAlert3RussianCover.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=GKvlt6rpb4Y"
+
+- files: ["TravaUDoma.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=jpne8fCwFJ8"
+
+- files: ["VladimirTroshinIBelieveMyFriends.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=Dvk_n7F4O3U"
+
+- files: ["YouAreEmptyMachineOfCommunism.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=jPGyR_3zpjA"
+
+- files: ["AnthemOfTheDemocratic.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["YoungBuildersMarch.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"
+
+- files: ["InvinciblePeoples.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "----"

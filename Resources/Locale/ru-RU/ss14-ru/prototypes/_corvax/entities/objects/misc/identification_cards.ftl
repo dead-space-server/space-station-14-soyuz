@@ -1,2 +1,2 @@
-ent-IAAIDCard = ID карта агента внутренних дел
+ent-IAAIDCard = ID карта агента следственного комитета
     .desc = { ent-IDCardStandard.desc }

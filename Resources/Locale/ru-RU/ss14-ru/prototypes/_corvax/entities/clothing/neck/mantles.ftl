@@ -1,2 +1,2 @@
-ent-ClothingNeckMantleERTLeader = мантия лидера ОБР
+ent-ClothingNeckMantleERTLeader = мантия лидера СОБР
     .desc = Необыкновенно украшенная драпировка на плечи.

@@ -1,7 +1,7 @@
 <Document>
   # Расы
 
-  В Nanotrasen работает множество разумных видов.
+  В Союзе Советских Социалистических Планет работает множество разумных видов.
 
   <Box>
   <GuideEntityEmbed Entity="MobArachnid" Caption="Арахнид"/>

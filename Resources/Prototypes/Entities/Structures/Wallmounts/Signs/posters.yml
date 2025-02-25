@@ -489,7 +489,7 @@
   description: "A stylish, sleek, and well illustrated poster for a \"Weh\"nderful new progressive candidate coming this election season."
   components:
   - type: Sprite
-    state: poster51_contraband
+    state: poster18_contraband
 
 # These 3 originally from VEEGEE
 - type: entity
@@ -761,7 +761,7 @@
   description: "A poster reprint of some cheap pop art."
   components:
   - type: Sprite
-    state: poster18_legit
+    state: poster18_contraband
 
 - type: entity
   parent: PosterBase

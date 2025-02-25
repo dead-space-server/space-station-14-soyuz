@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Derived by sprites from tgstation at https://github.com/tgstation/tgstation/commit/d0d81185f09ca30d3b0856d476544240dba0de53 and adapted by Saveliy360, all resprited except for the lgbt_flag by semkagamez (discord) for Space Station 14 server Мёртвый Космос",
+  "copyright": "Derived by sprites from tgstation at https://github.com/tgstation/tgstation/commit/d0d81185f09ca30d3b0856d476544240dba0de53 and adapted by Saveliy360, created Death Space another Discord:Gangut ~ Maelstorm, resprite blanck_flag, NT_flag, pirate_flag and syndie_flag by semkagamez (discord) for Space Station 14 server Мёртвый Космос",
   "size": {
     "x": 32,
     "y": 32
@@ -21,6 +21,18 @@
     },
     {
       "name": "pirate_flag"
+    },
+    {
+      "name": "USSPlosyngCentral"
+    },
+    {
+      "name": "USSPlosyngOne"
+    },
+    {
+      "name": "USSPtallflag"
+    },
+    {
+      "name": "USSPVimpelflag"
     }
   ]
 }

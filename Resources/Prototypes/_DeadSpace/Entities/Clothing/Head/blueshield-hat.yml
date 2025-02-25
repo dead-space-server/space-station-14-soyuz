@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatBeretBlueShield
-  name: берет офицера "Синий Щит"
-  description: Серый берет, с кокардой подразделения "Синий Щит".
+  name: берет оперативника КГБ
+  description: Серый берет с кокардой комитета государственной безопасности, символизирующий силу и мужество.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hats/beret_blueshield.rsi

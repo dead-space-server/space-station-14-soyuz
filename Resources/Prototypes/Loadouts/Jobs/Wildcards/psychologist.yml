@@ -8,3 +8,8 @@
   id: PsychologistJumpskirt
   equipment:
     jumpsuit: ClothingUniformJumpskirtPsychologist
+
+- type: loadout
+  id: PsychologistJumpsuitAlt #DS14-Soyuz
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPsychologistAlt

@@ -16,7 +16,7 @@ RELEASE_DIR = "release"
 # Forks should change these to publish to their own infrastructure.
 #
 ROBUST_CDN_URL = "https://cdn.deadspace14.net/"
-FORK_ID = "dsfobos"
+FORK_ID = "dssouz"
 
 def main():
     parser = argparse.ArgumentParser()

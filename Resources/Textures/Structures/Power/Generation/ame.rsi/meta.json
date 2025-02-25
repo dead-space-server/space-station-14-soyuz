@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from vgstation at https://github.com/vgstation-coders/vgstation13/commit/b440af09b52ba6bc5248e7934d148e991c928b07",
+  "copyright": "Taken from vgstation at https://github.com/vgstation-coders/vgstation13/commit/b440af09b52ba6bc5248e7934d148e991c928b07, edited by gribgear (discord) for Space Station 14 server Мёртвый Космос",
   "size": {
     "x": 32,
     "y": 32
@@ -90,32 +90,6 @@
 	{
       "name": "static"
     },
-	{
-      "name": "control_warning",
-      "delays": [
-        [
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1,
-          0.1
-        ]
-      ]
-    },
     {
       "name": "control_critical",
       "delays": [
@@ -187,6 +161,32 @@
         ]
       ]
     },
+    {
+        "name": "control_warning",
+        "delays": [
+          [
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1
+          ]
+        ]
+      },
     {
       "name": "control_on",
       "delays": [

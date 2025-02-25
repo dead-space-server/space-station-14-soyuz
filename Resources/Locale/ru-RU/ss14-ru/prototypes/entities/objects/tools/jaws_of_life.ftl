@@ -1,5 +1,5 @@
 ent-JawsOfLife = челюсти жизни
     .desc = Набор челюстей жизни, скомпонованных при помощи магии науки.
-ent-SyndicateJawsOfLife = кроваво-красные челюсти жизни
-    .suffix = челюсти жизни синдиката
+ent-SyndicateJawsOfLife = болотно-зелёные челюсти жизни
+    .suffix = челюсти жизни "Рассвета"
     .desc = { ent-JawsOfLife.desc }.

@@ -1,0 +1,15 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatClownUssp
+  name: фуражка мужичка
+  description: Часть костюма известного клоуна в СССП парадирующего патриархальный образ мужчины в ОПЗ.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Head/Hats/HatClownUSSP.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Head/Hats/HatClownUSSP.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon

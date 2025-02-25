@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackCoroner
-  name: рюкзак коронера
-  description: Рюкзак коронера - донеси свою любовь к трупам, не говоря даже слов.
+  name: рюкзак патологоанатома
+  description: Рюкзак патологоанатома - донеси свою любовь к трупам, не говоря даже слов.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Back/Backpacks/coroner.rsi
@@ -10,7 +10,7 @@
 - type: entity
   parent: ClothingBackpackDuffel
   id: ClothingBackpackDuffelCoroner
-  name: вещмешок коронера
+  name: вещмешок патологоанатома
   description: Большой вещмешок для хранения дополнительных медицинских припасов.
   components:
     - type: Sprite
@@ -19,7 +19,7 @@
 - type: entity
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelCoroner
-  name: сумка коронера
+  name: сумка патологоанатома
   description: Идеальная сумка, чтобы переносить свои тайны вместе с несколькими косточками в кармане.
   components:
   - type: Sprite

@@ -1,0 +1,18 @@
+- type: entity
+  parent: ClothingBackpackDuffelSyndicateBundle
+  id: ClothingBackpackDuffelSyndicateFilledLecter
+  components:
+  - type: StorageFill
+    contents:
+      - id: WeaponRifleLecter
+      - id: MagazineRifle
+        amount: 4
+
+- type: entity
+  parent: ClothingBackpackDuffelSyndicateAmmoBundle
+  id: ClothingBackpackDuffelSyndicateFilledLecterAmmo
+  components:
+  - type: StorageFill
+    contents:
+      - id: MagazineRifle
+        amount: 4

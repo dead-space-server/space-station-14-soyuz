@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPsychologistAlt
+  name: формальный врачебный костюм
+  description: Идеально подходит для врачей, которые хотят выглядеть стильно на торжественных мероприятиях или официальных собраниях. Потому что даже спасая жизни, можно оставаться стильным.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/med_medical.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/med_medical.rsi

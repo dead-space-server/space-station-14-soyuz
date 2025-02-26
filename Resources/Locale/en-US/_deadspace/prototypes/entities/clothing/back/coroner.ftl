@@ -1,6 +1,6 @@
-ent-ClothingBackpackCoroner = рюкзак коронера
-    .desc = Рюкзак коронера - донеси свою любовь к трупам, не говоря даже слов.
-ent-ClothingBackpackDuffelCoroner = вещмешок коронера
+ent-ClothingBackpackCoroner = рюкзак патологоанатома
+    .desc = Рюкзак патологоанатома - донеси свою любовь к трупам, не говоря даже слов.
+ent-ClothingBackpackDuffelCoroner = вещмешок патологоанатома
     .desc = Большой вещмешок для хранения дополнительных медицинских припасов.
-ent-ClothingBackpackSatchelCoroner = сумка коронера
+ent-ClothingBackpackSatchelCoroner = сумка патологоанатома
     .desc = Идеальная сумка, чтобы переносить свои тайны вместе с несколькими косточками в кармане.

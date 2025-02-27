@@ -44,5 +44,5 @@ ent-GunSafeLaserCarbine = оружейный сейф лазерных кара�
     .suffix = Лазерный карабин
     .desc = { ent-GunSafe.desc }
 ent-LockerBlueShieldFilled = { ent-LockerBlueShield }
-    .suffix = Оперативник КГБ, Синий щит, Заполненный, Скафандр
+    .suffix = Оперативник КГБ, Заполненный, Скафандр
     .desc = { ent-GunSafe.desc }

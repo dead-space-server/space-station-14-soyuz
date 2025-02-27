@@ -29,12 +29,12 @@ thief-backpack-category-chemistry-description =
     Вы достигли пика физической формы... с небольшой помощью.
     В комплект входят: имплантер-хранилище, имплантер-миксер ДНК,
     инъектор дезоксиэфедрина, шприц, пустой шейкер и омега мыло
-thief-backpack-category-syndie-name = Набор "Рассвета"
+thief-backpack-category-syndie-name = Набор Рассвета
 thief-backpack-category-syndie-description =
     Побрякушки из забытого прошлого или украденные у нерадивого агента?
     Вы нашли кое-какую связь. Виски, эхо...
     В комплект входят: Емаг, сигареты Interdyne,
-    кодовое слово "Рассвета", зажигалка, глушитель связи,
+    кодовое слово Рассвета, зажигалка, глушитель связи,
     и несколько странных красных кристаллов.
 thief-backpack-category-sleeper-name = Набор сони
 thief-backpack-category-sleeper-description =

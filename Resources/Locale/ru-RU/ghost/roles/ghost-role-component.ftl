@@ -165,21 +165,21 @@ ghost-role-information-BreadDog-description = Вы - любимое дитя п�
 ghost-role-information-space-ninja-name = Космический ниндзя
 ghost-role-information-space-ninja-description = Используйте хитрость и скрытность, чтобы выполнить цели которые поставил вам клан паука.
 ghost-role-information-space-ninja-rules = Вы элитный наёмник клана паука. Старайтесь действовать максимально скрытно, убивать только свои цели и тех кто попытается убить вас.
-ghost-role-information-syndicate-reinforcement-name = Агент "Рассвета"
-ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого "Рассвет" смог найти и послать на помощь.
+ghost-role-information-syndicate-reinforcement-name = Агент Рассвета
+ghost-role-information-syndicate-reinforcement-description = Кому-то нужно подкрепление. Вы первый, кого Рассвет смог найти и послать на помощь.
 ghost-role-information-syndicate-reinforcement-rules = Вы [color=red][bold]Командный антагонист[/bold][/color], в команде с агентом, который вас призвал.
-ghost-role-information-syndicate-reinforcement-medic-name = Медик "Рассвета"
+ghost-role-information-syndicate-reinforcement-medic-name = Медик Рассвета
 ghost-role-information-syndicate-reinforcement-medic-description = Кому-то нужно подкрепление. Ваша задача - сохранить жизнь вызвавшему вас агенту.
-ghost-role-information-syndicate-reinforcement-spy-name = Шпион "Рассвета"
+ghost-role-information-syndicate-reinforcement-spy-name = Шпион Рассвета
 ghost-role-information-syndicate-reinforcement-spy-description = Кому-то нужно подкрепление. Ваша специализация - шпионаж, постарайтесь не быть обнаруженными.
-ghost-role-information-syndicate-reinforcement-thief-name = Вор "Рассвета"
+ghost-role-information-syndicate-reinforcement-thief-name = Вор Рассвета
 ghost-role-information-syndicate-reinforcement-thief-description = Кому-то нужно подкрепление. Ваша задача - проникнуть и забрать что-то ценное для своего агента.
 ghost-role-information-nukeop-reinforcement-name = Оперативник Легиона
 ghost-role-information-nukeop-reinforcement-description = Оперативнику Легиона нужно подкрепление. Вы, резервный агент, поможете им.
 ghost-role-information-derelict-cyborg-name = Derelict Cyborg
 ghost-role-information-derelict-cyborg-description = You are a regular cyborg that got lost in space. After years of exposure to ion storms you find yourself near a space station.
 ghost-role-information-nukeop-reinforcement-rules = Вы [color=red][bold]Командный антагонист[/bold][/color], в команде с ядерным оперативником, который вас призвал.
-ghost-role-information-syndicate-monkey-reinforcement-name = Агент "Рассвета"-обезьяна
+ghost-role-information-syndicate-monkey-reinforcement-name = Агент Рассвета-обезьяна
 ghost-role-information-syndicate-monkey-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученная обезьяна, поможете им.
 ghost-role-information-syndicate-kobold-reinforcement-name = Агент Синдиката-кобольд
 ghost-role-information-syndicate-kobold-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученный кобольд, поможете им.
@@ -219,10 +219,10 @@ ghost-role-information-lost-challenge-cargo-technican-rules =
     Вы не помните ничего из своей предыдущей жизни и не помните ничего из того, что узнали, будучи призраком.
     Вам разрешается помнить знания об игре в целом, например, как готовить, как использовать предметы и т.д.
     Вам [color=red]НЕ[/color] разрешается помнить, имя, внешность и т.д. вашего предыдущего персонажа.
-ghost-role-information-syndie-soldier-name = Солдат "Рассвета"
-ghost-role-information-syndie-soldier-description = Вы солдат "Рассвета"
-ghost-role-information-syndie-soldier-teamlead-name = Командир команды "Рассвета"
-ghost-role-information-syndie-soldier-teamlead-description = Вы - командир огневой группы в оперативном отряде "Рассвета".
+ghost-role-information-syndie-soldier-name = Солдат Рассвета
+ghost-role-information-syndie-soldier-description = Вы солдат Рассвета
+ghost-role-information-syndie-soldier-teamlead-name = Командир команды Рассвета
+ghost-role-information-syndie-soldier-teamlead-description = Вы - командир огневой группы в оперативном отряде Рассвета.
 ghost-role-information-blackmarketeer-name = Торговец чёрного рынка
 ghost-role-information-blackmarketeer-description = Заключайте сделки или беритесь за непосильную работу, чтобы к концу смены собрать самые интересные предметы.
 ghost-role-information-cossack-name = Древний путешественник

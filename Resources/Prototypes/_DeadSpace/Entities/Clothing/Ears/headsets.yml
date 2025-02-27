@@ -36,7 +36,7 @@
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltTypan
   name: полноразмерная болотно - зелёная гарнитура 
-  description: Модифицированный модульный интерком "Рассвета".
+  description: Модифицированный модульный интерком Рассвета.
   components:
   - type: Headset
     color: "#8f4a4b"

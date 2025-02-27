@@ -69,8 +69,8 @@
 - type: entity
   parent: ClothingBeltSecurity
   id: ClothingBeltTypanSecurityWebbing
-  name: РПС "Рассвета"
-  description: Ременно-плечевая система тактических ремней, которую носят представители военных структур "Рассвета".
+  name: РПС Рассвета
+  description: Ременно-плечевая система тактических ремней, которую носят представители военных структур Рассвета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Belt/webbing.rsi

@@ -1,5 +1,5 @@
-ent-CrateSyndicateSurplusBundle = ящик "Рассвета"
-    .desc = Стальной ящик тёмного цвета с болотными полосами и выдавленной на передней панели логотипом "Рассвета".
+ent-CrateSyndicateSurplusBundle = ящик Рассвета
+    .desc = Стальной ящик тёмного цвета с болотными полосами и выдавленной на передней панели логотипом Рассвета.
     .suffix = Припасы
 ent-CrateCybersunJuggernautBundle = { ent-CrateSyndicate }
     .desc = { ent-CrateSyndicate.desc }

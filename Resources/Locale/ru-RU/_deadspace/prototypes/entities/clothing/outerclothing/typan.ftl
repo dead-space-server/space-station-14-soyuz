@@ -1,8 +1,8 @@
-ent-ClothingOuterApronTypanChef = фартук шеф-повара синдиката
+ent-ClothingOuterApronTypanChef = фартук шеф-повара Рассвета
     .desc = Пятна крови на нём смотрятся как влитые.
 ent-ClothingOuterCoatRDTypan = лабораторный халат директора исследований
     .desc = Яркий лабораторный халат, предоставляющий защиту от окружающей среды.
-ent-ClothingOuterMedTypan = халат медика синдиката
+ent-ClothingOuterMedTypan = халат медика Рассвета
     .desc = Халат с едва заметными неотстиранными пятнами крови. Пахнет пытками.
-ent-ClothingOuterWinterTypanChef = куртка шеф-повара синдиката
+ent-ClothingOuterWinterTypanChef = куртка шеф-повара Рассвета
     .desc = Куртка, разработанная специально для работы в холодильных камерах.

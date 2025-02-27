@@ -1,2 +1,2 @@
-ent-ClothingHeadHatBeretBlueShield = берет офицера "Синий Щит"
-    .desc = Серый берет, с кокардой подразделения "Синий Щит".
+ent-ClothingHeadHatBeretBlueShield = берет оперативника КГБ
+    .desc = Серый берет, с кокардой Коммитета Государственной Безопасности.

@@ -1,7 +1,7 @@
-roles-antag-syndicate-agent-name = Агент "Рассвета"
+roles-antag-syndicate-agent-name = Агент Рассвета
 roles-antag-syndicate-agent-objective = Выполните свои задачи и не попадитесь.
-roles-antag-syndicate-agent-sleeper-name = Спящий агент "Рассвета"
-roles-antag-syndicate-agent-sleeper-objective = Разновидность агента "Рассвета", который может активироваться и начать действие в любой момент смены.
+roles-antag-syndicate-agent-sleeper-name = Спящий агент Рассвета
+roles-antag-syndicate-agent-sleeper-objective = Разновидность агента Рассвета, который может активироваться и начать действие в любой момент смены.
 roles-antag-initial-infected-name = Нулевой заражённый
 roles-antag-initial-infected-objective = После превращения заразите как можно больше других членов экипажа.
 roles-antag-zombie-name = Зомби

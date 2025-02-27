@@ -96,8 +96,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackBlueShield
-  name: модифицированный рюкзак офицера "Синий Щит"
-  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
+  name: модифицированный рюкзак оперативника КГБ
+  description: Рюкзак оперативника КГБ с функцией РИГ.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Back/blueshield.rsi

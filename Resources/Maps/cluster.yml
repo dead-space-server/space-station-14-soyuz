@@ -8948,7 +8948,7 @@ entities:
       pos: 31.5,-9.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -9160.554
+      secondsUntilStateChange: -9176.894
       state: Opening
   - uid: 3301
     components:
@@ -9400,7 +9400,7 @@ entities:
       pos: -16.5,17.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -50432.88
+      secondsUntilStateChange: -50449.22
       state: Opening
   - uid: 3398
     components:
@@ -40449,7 +40449,7 @@ entities:
       pos: 31.5,15.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -74825.32
+      secondsUntilStateChange: -74841.66
       state: Closing
   - uid: 3214
     components:

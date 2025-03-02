@@ -110,5 +110,5 @@ ent-ClothingUnderwearTopBraSecurityOfficer = бра милиционера
     .desc = Стандартное нижнее бельё милиционера.
 ent-ClothingUnderwearTopBraSeniorOfficer = бра старшего милиционера
     .desc = Стандартное нижнее бельё старшего милиционера.
-ent-ClothingUnderwearTopBraWarden = бра участкового
-    .desc = Стандартное нижнее бельё участкового.
+ent-ClothingUnderwearTopBraWarden = бра оперативного дежурного
+    .desc = Стандартное нижнее бельё оперативного дежурного.

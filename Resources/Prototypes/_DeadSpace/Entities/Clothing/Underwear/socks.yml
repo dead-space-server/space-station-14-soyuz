@@ -494,8 +494,8 @@
 - type: entity
   parent: ClothingUnderwearSocksBase
   id: ClothingUnderwearSocksWarden
-  name: носки участкового
-  description: Стандартные носки участкового.
+  name: носки оперативного дежурного
+  description: Стандартные носки оперативного дежурного.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/socks.rsi

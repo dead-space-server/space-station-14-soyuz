@@ -533,8 +533,8 @@
 - type: entity
   parent: ClothingUnderwearTopBase
   id: ClothingUnderwearTopBraWarden
-  name: бра участкового
-  description: Cтандартное нижнее бельё участкового.
+  name: бра оперативного дежурного
+  description: Cтандартное нижнее бельё оперативного дежурного.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/women/bra.rsi

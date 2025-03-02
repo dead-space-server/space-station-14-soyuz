@@ -1,4 +1,4 @@
-job-name-warden = Участковый
+job-name-warden = Оперативный дежурный
 job-name-security = Милиционер
 job-name-cadet = Младший милиционер
 job-name-hos = Начальник милиции
@@ -168,7 +168,7 @@ JobSeniorPhysician = Врач-методист
 JobSeniorResearcher = Ведущий научный сотрудник
 JobStationEngineer = Инженер
 JobTechnicalAssistant = Слесарь
-JobWarden = Участковый
+JobWarden = Оперативный дежурный
 JobBoxer = Боксёр
 JobZookeeper = Ветеринар
 JobBlueShieldOfficer = Оперативник КГБ

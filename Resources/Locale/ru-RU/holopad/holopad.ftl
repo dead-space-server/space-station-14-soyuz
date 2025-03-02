@@ -54,19 +54,19 @@ holopad-command-bridge-hallway = Командование - Коридор мо�
 holopad-command-meeting-room = Командование - Комната собраний
 holopad-command-lounge = Командование - Зона отдыха
 holopad-command-captain = Командование - Капитан
-holopad-command-hop = Командование - ГП
+holopad-command-hop = Командование - НОК
 holopad-command-cmo = Командование - ГВ
-holopad-command-qm = Командование - КМ
+holopad-command-qm = Командование - Завхоз
 holopad-command-ce = Командование - СИ
-holopad-command-rd = Командование - НР
-holopad-command-hos = Командование - ГСБ
+holopad-command-rd = Командование - ГНС
+holopad-command-hos = Командование - НМ
 # Science
 holopad-science-anomaly = Научный - Аномалистика
 holopad-science-artifact = Научный - Ксеноархеология
 holopad-science-artifact-north = Научный - Ксеноархеология Север
 holopad-science-artifact-south = Научный - Ксеноархеология Юг
 holopad-science-robotics = Научный - Робототехника
-holopad-science-rnd = Научный - РНД
+holopad-science-rnd = Научный - НИО
 holopad-science-front = Научный - Приёмная
 holopad-science-breakroom = Научный - Комната отдыха
 # Medical
@@ -81,12 +81,12 @@ holopad-medical-front = Медицинский - Приёмная
 holopad-medical-breakroom = Медицинский - Комната отдыха
 holopad-medical-clinic = Медицинский - Клиника
 # Cargo
-holopad-cargo-front = Снабжение - Приёмная
-holopad-cargo-bay = Снабжение - Грузовой отсек
-holopad-cargo-salvage-bay = Снабжение - Утилизаторский отсек
-holopad-cargo-breakroom = Снабжение - Комната отдыха
-holopad-cargo-ats = Снабжение - АТС
-holopad-cargo-shuttle = Снабжение - Шаттл
+holopad-cargo-front = Почта - Приёмная
+holopad-cargo-bay = Почта - Грузовой отсек
+holopad-cargo-salvage-bay = Почта - Шахтёрский отсек
+holopad-cargo-breakroom = Почта - Комната отдыха
+holopad-cargo-ats = Почта - АТС
+holopad-cargo-shuttle = Почта - Шаттл
 holopad-cargo-mailroom = Снабжение - Почта
 # Engineering
 holopad-engineering-atmos-front = Атмос - Приёмная
@@ -103,7 +103,7 @@ holopad-engineering-main = Инженерный - Основной
 # Security
 holopad-security-front = Милиция - Приёмная
 holopad-security-brig = Милиция - Участок
-holopad-security-warden = Милиция - Комната участкового
+holopad-security-warden = Милиция - Комната оперативного дежурного
 holopad-security-interrogation = Милиция - Допрос
 holopad-security-breakroom = Милиция - Комната отдыха
 holopad-security-detective = Милиция - Каюта следователя

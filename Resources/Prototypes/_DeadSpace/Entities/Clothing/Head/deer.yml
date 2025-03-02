@@ -2,7 +2,7 @@
   parent: ClothingHeadBase
   id: ClothingHeadHatDeer
   name: рога оленя
-  description: Именно с такими рогами ходит ГСБ.
+  description: Именно с такими рогами ходит НМ.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hats/deer.rsi

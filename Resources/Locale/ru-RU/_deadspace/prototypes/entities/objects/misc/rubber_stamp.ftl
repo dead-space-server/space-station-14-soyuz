@@ -1,4 +1,4 @@
-ent-RubberStampMagistrat = печать магистрата
+ent-RubberStampMagistrat = печать судьи
     .desc = { ent-RubberStampBase.desc }
     .suffix = НЕ МАППИТЬ
 ent-RubberStampBrigmedic = печать дежурного врача

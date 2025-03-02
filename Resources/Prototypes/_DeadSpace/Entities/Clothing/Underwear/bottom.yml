@@ -524,8 +524,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersWarden
-  name: боксеры участкового
-  description: Cтандартное нижнее бельё участкового.
+  name: боксеры оперативного дежурного
+  description: Cтандартное нижнее бельё оперативного дежурного.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/man.rsi
@@ -1011,8 +1011,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesWarden
-  name: стринги участкового
-  description: Cтандартное нижнее бельё участкового.
+  name: стринги оперативного дежурного
+  description: Cтандартное нижнее бельё оперативного дежурного.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Security/warden/women/pants.rsi

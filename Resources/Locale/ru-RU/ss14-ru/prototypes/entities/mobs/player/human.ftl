@@ -19,3 +19,5 @@ ent-MobHumanNukeOp = Оперативник Легиона
     .desc = { ent-MobHuman.desc }
 ent-MobHumanLoneNuclearOperative = Одинокий оперативник
     .desc = { ent-MobHuman.desc }
+ent-MobHumanWizard = Wizard
+    .desc = { ent-MobHuman.desc }

@@ -17,9 +17,16 @@
           emergencyShuttlePath: /Maps/Shuttles/emergency_courser.yml
         - type: StationJobs
           availableJobs:
-            #service
+            # cmd
             Captain: [ 1, 1 ]
+            BlueShieldOfficer: [ 1, 1 ]
+            # law
+            # Magistrat: [ 1, 1 ]
+            IAA: [ 1, 1 ]
+            Lawyer: [ 2, 2 ]
+            #service
             HeadOfPersonnel: [ 1, 1 ]
+            SeniorAdministrator: [ 1, 1 ]
             Bartender: [ 2, 2 ]
             Botanist: [ 3, 3 ]
             Chef: [ 2, 2 ]
@@ -37,6 +44,7 @@
             ChiefMedicalOfficer: [ 1, 1 ]
             SeniorPhysician: [ 1, 1 ]
             Paramedic: [ 1, 1 ]
+            Coroner: [ 1, 1 ]
             Chemist: [ 2, 2 ]
             MedicalDoctor: [ 4, 4 ]
             MedicalIntern: [ 4, 4 ]
@@ -49,12 +57,15 @@
             #security
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
+            Brigmedic: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
+            SecurityPilot: [ 1, 1 ]
             Detective: [ 1, 1 ]
             SecurityOfficer: [ 4, 4 ]
             SecurityCadet: [ 3, 3 ]
             #supply
             Quartermaster: [ 1, 1 ]
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 4 ]
             CargoTechnician: [ 3, 3 ]
             #civillian
@@ -62,19 +73,9 @@
             Clown: [ 1, 1 ]
             Mime: [ 1, 1 ]
             Musician: [ 1, 1 ]
-            # law
-            # Magistrat: [ 1, 1 ]
-            IAA: [ 1, 1 ]
-            Lawyer: [ 2, 2 ]
             # silicon
             StationAi: [ 1, 1 ]
             Borg: [ 2, 2 ]
             BorgSecurity: [ 1, 1 ]
-            # DS14
-            BlueShieldOfficer: [ 1, 1 ]
-            Brigmedic: [ 1, 1 ]
+            # etc
             ClownSponsor: [ 0, 2 ]
-            Coroner: [ 1, 1 ]
-            SeniorSalvageSpecialist: [ 1, 1 ]
-            SeniorAdministrator: [ 1, 1 ]
-            SecurityPilot: [ 1, 1 ]

@@ -5403,6 +5403,21 @@ entities:
           - 0
           - 0
         - volume: 2500
+          temperature: 293.14975
+          moles:
+          - 20.078888
+          - 75.53487
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+        - volume: 2500
           temperature: 293.15
           moles:
           - 0
@@ -33895,6 +33910,8 @@ entities:
   entities:
   - uid: 5104
     components:
+    - type: MetaData
+      name: ящик с ураном
     - type: Transform
       pos: -40.5,-3.5
       parent: 2
@@ -33902,6 +33919,11 @@ entities:
     components:
     - type: Transform
       pos: -40.5,-4.5
+      parent: 2
+  - uid: 23909
+    components:
+    - type: Transform
+      pos: -48.5,-20.5
       parent: 2
 - proto: CrateFilledSpawner
   entities:
@@ -34701,12 +34723,13 @@ entities:
   - uid: 5211
     components:
     - type: Transform
-      pos: -5.5,12.5
+      rot: 1.5707963267948966 rad
+      pos: -21.5,-15.5
       parent: 2
   - uid: 5212
     components:
     - type: Transform
-      pos: -17.5,-19.5
+      pos: -5.5,12.5
       parent: 2
   - uid: 5213
     components:
@@ -34716,7 +34739,7 @@ entities:
   - uid: 5214
     components:
     - type: Transform
-      pos: -24.5,-21.5
+      pos: -17.5,-19.5
       parent: 2
   - uid: 5215
     components:
@@ -34726,8 +34749,7 @@ entities:
   - uid: 5216
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -18.5,-25.5
+      pos: -24.5,-21.5
       parent: 2
 - proto: DeskBell
   entities:
@@ -34837,14 +34859,13 @@ entities:
   - uid: 5232
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -10.5,-9.5
+      pos: -2.5,11.5
       parent: 2
   - uid: 5233
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -22.5,-6.5
+      pos: -10.5,-9.5
       parent: 2
   - uid: 5234
     components:
@@ -34855,14 +34876,14 @@ entities:
   - uid: 5235
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 17.5,19.5
+      rot: 1.5707963267948966 rad
+      pos: -22.5,-6.5
       parent: 2
   - uid: 5236
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 11.5,-11.5
+      pos: 17.5,19.5
       parent: 2
   - uid: 5237
     components:
@@ -34935,6 +34956,11 @@ entities:
       pos: -25.5,-11.5
       parent: 2
   - uid: 5249
+    components:
+    - type: Transform
+      pos: 5.5,-30.5
+      parent: 2
+  - uid: 6398
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -35099,8 +35125,7 @@ entities:
   - uid: 5277
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -37.5,-8.5
+      pos: -38.5,-7.5
       parent: 2
   - uid: 5278
     components:
@@ -35818,48 +35843,54 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -35.5,-8.5
+      pos: -37.5,-8.5
       parent: 2
   - uid: 5407
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -36.5,-8.5
+      pos: -35.5,-8.5
       parent: 2
   - uid: 5408
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -34.5,-8.5
+      pos: -36.5,-8.5
       parent: 2
   - uid: 5409
     components:
     - type: Transform
-      pos: -33.5,-5.5
+      rot: -1.5707963267948966 rad
+      pos: -34.5,-8.5
       parent: 2
   - uid: 5410
     components:
     - type: Transform
-      pos: -33.5,-3.5
+      pos: -33.5,-5.5
       parent: 2
   - uid: 5411
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 15.5,30.5
+      pos: -33.5,-3.5
       parent: 2
   - uid: 5412
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 15.5,29.5
+      pos: 15.5,30.5
       parent: 2
   - uid: 5413
     components:
     - type: Transform
-      pos: -33.5,-7.5
+      rot: 3.141592653589793 rad
+      pos: 15.5,29.5
       parent: 2
   - uid: 5414
+    components:
+    - type: Transform
+      pos: -33.5,-7.5
+      parent: 2
+  - uid: 6550
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -36055,237 +36086,236 @@ entities:
   - uid: 5449
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 28.5,-24.5
+      pos: 29.5,-23.5
       parent: 2
   - uid: 5450
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 27.5,-24.5
+      pos: 28.5,-24.5
       parent: 2
   - uid: 5451
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 26.5,-24.5
+      pos: 27.5,-24.5
       parent: 2
   - uid: 5452
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 25.5,-24.5
+      pos: 26.5,-24.5
       parent: 2
   - uid: 5453
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 24.5,-24.5
+      pos: 25.5,-24.5
       parent: 2
   - uid: 5454
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 23.5,-24.5
+      pos: 24.5,-24.5
       parent: 2
   - uid: 5455
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 22.5,-24.5
+      pos: 23.5,-24.5
       parent: 2
   - uid: 5456
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 21.5,-24.5
+      pos: 22.5,-24.5
       parent: 2
   - uid: 5457
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 20.5,-24.5
+      pos: 21.5,-24.5
       parent: 2
   - uid: 5458
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 19.5,-24.5
+      pos: 20.5,-24.5
       parent: 2
   - uid: 5459
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 18.5,-24.5
+      pos: 19.5,-24.5
       parent: 2
   - uid: 5460
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 17.5,-24.5
+      pos: 18.5,-24.5
       parent: 2
   - uid: 5461
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 16.5,-24.5
+      pos: 17.5,-24.5
       parent: 2
   - uid: 5462
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 15.5,-24.5
+      pos: 16.5,-24.5
       parent: 2
   - uid: 5463
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 14.5,-24.5
+      pos: 15.5,-24.5
       parent: 2
   - uid: 5464
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 13.5,-24.5
+      pos: 14.5,-24.5
       parent: 2
   - uid: 5465
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 12.5,-24.5
+      pos: 13.5,-24.5
       parent: 2
   - uid: 5466
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 11.5,-24.5
+      pos: 12.5,-24.5
       parent: 2
   - uid: 5467
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 10.5,-24.5
+      pos: 11.5,-24.5
       parent: 2
   - uid: 5468
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 9.5,-24.5
+      pos: 10.5,-24.5
       parent: 2
   - uid: 5469
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 8.5,-23.5
+      rot: -1.5707963267948966 rad
+      pos: 9.5,-24.5
       parent: 2
   - uid: 5470
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 8.5,-22.5
+      pos: 8.5,-23.5
       parent: 2
   - uid: 5471
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 8.5,-21.5
+      pos: 8.5,-22.5
       parent: 2
   - uid: 5472
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 7.5,-20.5
+      rot: 3.141592653589793 rad
+      pos: 8.5,-21.5
       parent: 2
   - uid: 5473
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 6.5,-20.5
+      pos: 7.5,-20.5
       parent: 2
   - uid: 5474
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 5.5,-20.5
+      pos: 6.5,-20.5
       parent: 2
   - uid: 5475
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 3.5,-20.5
+      pos: 5.5,-20.5
       parent: 2
   - uid: 5476
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 2.5,-20.5
+      pos: 3.5,-20.5
       parent: 2
   - uid: 5477
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 1.5,-20.5
+      pos: 2.5,-20.5
       parent: 2
   - uid: 5478
     components:
     - type: Transform
-      pos: 4.5,-19.5
+      rot: -1.5707963267948966 rad
+      pos: 1.5,-20.5
       parent: 2
   - uid: 5479
     components:
     - type: Transform
-      pos: 4.5,-18.5
+      pos: 4.5,-19.5
       parent: 2
   - uid: 5480
     components:
     - type: Transform
-      pos: 4.5,-17.5
+      pos: 4.5,-18.5
       parent: 2
   - uid: 5481
     components:
     - type: Transform
-      pos: 4.5,-16.5
+      pos: 4.5,-17.5
       parent: 2
   - uid: 5482
     components:
     - type: Transform
-      pos: 4.5,-15.5
+      pos: 4.5,-16.5
       parent: 2
   - uid: 5483
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 5.5,-14.5
+      pos: 4.5,-15.5
       parent: 2
   - uid: 5484
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 6.5,-14.5
+      pos: 5.5,-14.5
       parent: 2
   - uid: 5485
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 1.5,-30.5
+      rot: -1.5707963267948966 rad
+      pos: 6.5,-14.5
       parent: 2
   - uid: 5486
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 2.5,-30.5
+      pos: 1.5,-30.5
       parent: 2
   - uid: 5487
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 3.5,-30.5
+      pos: 2.5,-30.5
       parent: 2
   - uid: 5488
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 4.5,-30.5
+      pos: 3.5,-30.5
       parent: 2
   - uid: 5489
     components:
@@ -36300,6 +36330,11 @@ entities:
       pos: 6.5,-30.5
       parent: 2
   - uid: 5491
+    components:
+    - type: Transform
+      pos: 5.5,-33.5
+      parent: 2
+  - uid: 6626
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -36429,8 +36464,7 @@ entities:
   - uid: 5513
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -38.5,-37.5
+      pos: -37.5,-36.5
       parent: 2
   - uid: 5514
     components:
@@ -36447,111 +36481,112 @@ entities:
   - uid: 5516
     components:
     - type: Transform
-      pos: -33.5,0.5
+      rot: -1.5707963267948966 rad
+      pos: 47.5,-2.5
       parent: 2
   - uid: 5517
     components:
     - type: Transform
-      pos: -33.5,-0.5
+      pos: -33.5,0.5
       parent: 2
   - uid: 5518
     components:
     - type: Transform
-      pos: -33.5,-1.5
+      pos: -33.5,-0.5
       parent: 2
   - uid: 5519
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -32.5,-2.5
+      pos: -33.5,-1.5
       parent: 2
   - uid: 5520
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -31.5,-2.5
+      pos: -32.5,-2.5
       parent: 2
   - uid: 5521
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -30.5,-2.5
+      pos: -31.5,-2.5
       parent: 2
   - uid: 5522
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -29.5,-2.5
+      pos: -30.5,-2.5
       parent: 2
   - uid: 5523
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -28.5,-2.5
+      pos: -29.5,-2.5
       parent: 2
   - uid: 5524
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -27.5,-2.5
+      pos: -28.5,-2.5
       parent: 2
   - uid: 5525
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -23.5,-11.5
+      pos: -27.5,-2.5
       parent: 2
   - uid: 5526
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -24.5,-11.5
+      pos: -23.5,-11.5
       parent: 2
   - uid: 5527
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -26.5,-2.5
+      pos: -24.5,-11.5
       parent: 2
   - uid: 5528
     components:
     - type: Transform
-      pos: -25.5,-10.5
+      rot: 1.5707963267948966 rad
+      pos: -26.5,-2.5
       parent: 2
   - uid: 5529
     components:
     - type: Transform
-      pos: -25.5,-9.5
+      pos: -25.5,-10.5
       parent: 2
   - uid: 5530
     components:
     - type: Transform
-      pos: -25.5,-8.5
+      pos: -25.5,-9.5
       parent: 2
   - uid: 5531
     components:
     - type: Transform
-      pos: -25.5,-7.5
+      pos: -25.5,-8.5
       parent: 2
   - uid: 5532
     components:
     - type: Transform
-      pos: -25.5,-6.5
+      pos: -25.5,-7.5
       parent: 2
   - uid: 5533
     components:
     - type: Transform
-      pos: -25.5,-5.5
+      pos: -25.5,-6.5
       parent: 2
   - uid: 5534
     components:
     - type: Transform
-      pos: -25.5,-4.5
+      pos: -25.5,-5.5
       parent: 2
   - uid: 5535
     components:
     - type: Transform
-      pos: -25.5,-3.5
+      pos: -25.5,-4.5
       parent: 2
   - uid: 5536
     components:
@@ -36641,42 +36676,42 @@ entities:
   - uid: 5552
     components:
     - type: Transform
-      pos: -25.5,6.5
+      pos: -25.5,-3.5
       parent: 2
   - uid: 5553
     components:
     - type: Transform
-      pos: -25.5,5.5
+      pos: -25.5,6.5
       parent: 2
   - uid: 5554
     components:
     - type: Transform
-      pos: -25.5,4.5
+      pos: -25.5,5.5
       parent: 2
   - uid: 5555
     components:
     - type: Transform
-      pos: -25.5,3.5
+      pos: -25.5,4.5
       parent: 2
   - uid: 5556
     components:
     - type: Transform
-      pos: -25.5,2.5
+      pos: -25.5,3.5
       parent: 2
   - uid: 5557
     components:
     - type: Transform
-      pos: -25.5,0.5
+      pos: -25.5,2.5
       parent: 2
   - uid: 5558
     components:
     - type: Transform
-      pos: -25.5,-0.5
+      pos: -25.5,0.5
       parent: 2
   - uid: 5559
     components:
     - type: Transform
-      pos: -25.5,-1.5
+      pos: -25.5,-0.5
       parent: 2
   - uid: 5560
     components:
@@ -36771,76 +36806,87 @@ entities:
   - uid: 5575
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 6.5,33.5
+      pos: 5.5,-34.5
       parent: 2
   - uid: 5576
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,34.5
+      pos: 6.5,33.5
       parent: 2
   - uid: 5577
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,35.5
+      pos: 6.5,34.5
       parent: 2
   - uid: 5578
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,36.5
+      pos: 6.5,35.5
       parent: 2
   - uid: 5579
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,37.5
+      pos: 6.5,36.5
       parent: 2
   - uid: 5580
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,38.5
+      pos: 6.5,37.5
       parent: 2
   - uid: 5581
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,39.5
+      pos: 6.5,38.5
       parent: 2
   - uid: 5582
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,40.5
+      pos: 6.5,39.5
       parent: 2
   - uid: 5583
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,41.5
+      pos: 6.5,40.5
       parent: 2
   - uid: 5584
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,42.5
+      pos: 6.5,41.5
       parent: 2
   - uid: 5585
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 6.5,43.5
+      pos: 6.5,42.5
       parent: 2
   - uid: 5586
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 13.5,-2.5
+      parent: 2
+  - uid: 6737
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 9.5,-34.5
       parent: 2
   - uid: 5587
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -31.5,10.5
+      parent: 2
+  - uid: 6773
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -36951,9 +36997,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 13.5,-1.5
+      pos: 62.5,-2.5
       parent: 2
   - uid: 5606
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 13.5,-1.5
+      parent: 2
+  - uid: 6789
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -36984,16 +37036,21 @@ entities:
   - uid: 5611
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 2.5,-35.5
+      pos: -12.5,-20.5
       parent: 2
   - uid: 5612
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -8.5,-16.5
+      pos: 2.5,-35.5
       parent: 2
   - uid: 5613
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -8.5,-16.5
+      parent: 2
+  - uid: 6795
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -37007,14 +37064,13 @@ entities:
   - uid: 5615
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -39.5,-37.5
+      pos: -37.5,-35.5
       parent: 2
   - uid: 5616
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -34.5,1.5
+      pos: -39.5,-37.5
       parent: 2
   - uid: 5617
     components:
@@ -37030,9 +37086,15 @@ entities:
   - uid: 5619
     components:
     - type: Transform
-      pos: 6.5,44.5
+      rot: 1.5707963267948966 rad
+      pos: -34.5,1.5
       parent: 2
   - uid: 5620
+    components:
+    - type: Transform
+      pos: 6.5,44.5
+      parent: 2
+  - uid: 6800
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -37051,6 +37113,11 @@ entities:
       pos: -28.5,-9.5
       parent: 2
   - uid: 5623
+    components:
+    - type: Transform
+      pos: -34.5,12.5
+      parent: 2
+  - uid: 6805
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -37630,8 +37697,7 @@ entities:
   - uid: 5715
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -18.5,-23.5
+      pos: -4.5,-1.5
       parent: 2
   - uid: 5716
     components:
@@ -38676,28 +38742,33 @@ entities:
   - uid: 5841
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 1.5,-34.5
+      pos: 0.5,-32.5
       parent: 2
   - uid: 5842
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 0.5,-34.5
+      pos: 1.5,-34.5
       parent: 2
   - uid: 5843
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -5.5,-34.5
+      pos: 0.5,-34.5
       parent: 2
   - uid: 5844
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -6.5,-34.5
+      pos: -5.5,-34.5
       parent: 2
   - uid: 5845
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -6.5,-34.5
+      parent: 2
+  - uid: 7109
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -39880,7 +39951,7 @@ entities:
   - uid: 6056
     components:
     - type: Transform
-      pos: 8.455962,31.413256
+      pos: 8.536918,31.423676
       parent: 2
 - proto: FoodCartCold
   entities:
@@ -40520,8 +40591,7 @@ entities:
   - uid: 6142
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 20.5,27.5
+      pos: -12.5,3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -40529,18 +40599,26 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -8.5,33.5
+      pos: 20.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6144
     components:
     - type: Transform
-      pos: 3.5,33.5
+      rot: 1.5707963267948966 rad
+      pos: -8.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6145
+    components:
+    - type: Transform
+      pos: 3.5,33.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 7402
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -40788,12 +40866,19 @@ entities:
   - uid: 6177
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -26.5,-22.5
+      pos: 14.5,-17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6178
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -26.5,-22.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 7427
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -41595,8 +41680,7 @@ entities:
   - uid: 6286
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -0.5,-11.5
+      pos: -1.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41604,7 +41688,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 1.5,-11.5
+      pos: -0.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41612,7 +41696,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 2.5,-11.5
+      pos: 1.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41620,7 +41704,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 3.5,-11.5
+      pos: 2.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41628,7 +41712,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 4.5,-11.5
+      pos: 3.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41636,7 +41720,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 5.5,-11.5
+      pos: 4.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41644,7 +41728,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 6.5,-11.5
+      pos: 5.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41652,7 +41736,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 7.5,-11.5
+      pos: 6.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41660,7 +41744,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 8.5,-11.5
+      pos: 7.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41668,7 +41752,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 9.5,-11.5
+      pos: 8.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41676,7 +41760,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -2.5,-11.5
+      pos: 9.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41684,7 +41768,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -3.5,-11.5
+      pos: -2.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41692,7 +41776,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.5,-11.5
+      pos: -3.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41700,7 +41784,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -6.5,-11.5
+      pos: -4.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41708,7 +41792,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -7.5,-11.5
+      pos: -6.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41716,7 +41800,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -8.5,-11.5
+      pos: -7.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41724,11 +41808,19 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -9.5,-11.5
+      pos: -8.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6303
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -9.5,-11.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 7616
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -41965,7 +42057,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,11.5
+      pos: -22.5,10.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41973,7 +42065,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,12.5
+      pos: -22.5,11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41981,7 +42073,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,14.5
+      pos: -22.5,12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41989,7 +42081,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,15.5
+      pos: -22.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -41997,7 +42089,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,16.5
+      pos: -22.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42005,7 +42097,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,17.5
+      pos: -22.5,16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42013,15 +42105,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -22.5,18.5
+      pos: -22.5,17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6341
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -20.5,19.5
+      rot: 3.141592653589793 rad
+      pos: -22.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42029,7 +42121,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -19.5,19.5
+      pos: -20.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42037,7 +42129,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -18.5,19.5
+      pos: -19.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42045,7 +42137,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -17.5,19.5
+      pos: -18.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42053,7 +42145,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -16.5,19.5
+      pos: -17.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42061,7 +42153,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -15.5,19.5
+      pos: -16.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42069,7 +42161,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -14.5,19.5
+      pos: -15.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42077,7 +42169,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -13.5,19.5
+      pos: -14.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42085,7 +42177,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -12.5,19.5
+      pos: -13.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42093,7 +42185,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -10.5,19.5
+      pos: -12.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42101,7 +42193,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -9.5,19.5
+      pos: -10.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42109,7 +42201,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -8.5,19.5
+      pos: -9.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42117,7 +42209,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -6.5,19.5
+      pos: -8.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42125,7 +42217,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -5.5,19.5
+      pos: -6.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42133,7 +42225,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -3.5,19.5
+      pos: -5.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42141,7 +42233,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -2.5,19.5
+      pos: -3.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42149,7 +42241,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -0.5,19.5
+      pos: -2.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42157,7 +42249,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 0.5,19.5
+      pos: -0.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42165,7 +42257,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 1.5,19.5
+      pos: 0.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42173,7 +42265,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 3.5,19.5
+      pos: 1.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42181,7 +42273,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 4.5,19.5
+      pos: 3.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42189,7 +42281,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 5.5,19.5
+      pos: 4.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42197,7 +42289,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 7.5,19.5
+      pos: 5.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42205,7 +42297,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 8.5,19.5
+      pos: 7.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42213,168 +42305,169 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 9.5,19.5
+      pos: 8.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6366
     components:
     - type: Transform
-      pos: 11.5,18.5
+      rot: 1.5707963267948966 rad
+      pos: 9.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6367
     components:
     - type: Transform
-      pos: 11.5,17.5
+      pos: 11.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6368
     components:
     - type: Transform
-      pos: 11.5,16.5
+      pos: 11.5,17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6369
     components:
     - type: Transform
-      pos: 11.5,15.5
+      pos: 11.5,16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6370
     components:
     - type: Transform
-      pos: 11.5,13.5
+      pos: 11.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6371
     components:
     - type: Transform
-      pos: 11.5,12.5
+      pos: 11.5,13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6372
     components:
     - type: Transform
-      pos: 11.5,11.5
+      pos: 11.5,12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6373
     components:
     - type: Transform
-      pos: 11.5,10.5
+      pos: 11.5,11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6374
     components:
     - type: Transform
-      pos: 11.5,9.5
+      pos: 11.5,10.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6375
     components:
     - type: Transform
-      pos: 11.5,8.5
+      pos: 11.5,9.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6376
     components:
     - type: Transform
-      pos: 11.5,5.5
+      pos: 11.5,8.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6377
     components:
     - type: Transform
-      pos: 11.5,4.5
+      pos: 11.5,5.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6378
     components:
     - type: Transform
-      pos: 11.5,3.5
+      pos: 11.5,4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6379
     components:
     - type: Transform
-      pos: 11.5,2.5
+      pos: 11.5,3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6380
     components:
     - type: Transform
-      pos: 11.5,1.5
+      pos: 11.5,2.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6381
     components:
     - type: Transform
-      pos: 11.5,0.5
+      pos: 11.5,1.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6382
     components:
     - type: Transform
-      pos: 11.5,-0.5
+      pos: 11.5,0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6383
     components:
     - type: Transform
-      pos: 11.5,-2.5
+      pos: 11.5,-0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6384
     components:
     - type: Transform
-      pos: 11.5,-4.5
+      pos: 11.5,-2.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6385
     components:
     - type: Transform
-      pos: 11.5,-5.5
+      pos: 11.5,-4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6386
     components:
     - type: Transform
-      pos: 11.5,-6.5
+      pos: 11.5,-5.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6387
     components:
     - type: Transform
-      pos: 11.5,-7.5
+      pos: 11.5,-6.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6388
     components:
     - type: Transform
-      pos: 11.5,-8.5
+      pos: 11.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -42388,11 +42481,18 @@ entities:
   - uid: 6390
     components:
     - type: Transform
-      pos: 11.5,-10.5
+      pos: 11.5,-8.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6391
+    components:
+    - type: Transform
+      pos: 11.5,-10.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 7702
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -42410,8 +42510,7 @@ entities:
   - uid: 6393
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -2.5,20.5
+      pos: -3.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42419,7 +42518,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -1.5,20.5
+      pos: -2.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42427,7 +42526,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 0.5,20.5
+      pos: -1.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42435,7 +42534,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 1.5,20.5
+      pos: 0.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42443,7 +42542,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 2.5,20.5
+      pos: 1.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42451,7 +42550,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 4.5,20.5
+      pos: 2.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42459,7 +42558,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 5.5,20.5
+      pos: 4.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42467,7 +42566,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 6.5,20.5
+      pos: 5.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42475,7 +42574,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 7.5,20.5
+      pos: 6.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42483,7 +42582,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 9.5,20.5
+      pos: 7.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42491,7 +42590,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 10.5,20.5
+      pos: 9.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42499,15 +42598,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 11.5,20.5
+      pos: 10.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6405
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 12.5,18.5
+      rot: -1.5707963267948966 rad
+      pos: 11.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42515,7 +42614,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,17.5
+      pos: 12.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42523,7 +42622,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,16.5
+      pos: 12.5,17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42531,7 +42630,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,14.5
+      pos: 12.5,16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42539,7 +42638,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,13.5
+      pos: 12.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42547,7 +42646,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,12.5
+      pos: 12.5,13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42555,7 +42654,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,11.5
+      pos: 12.5,12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42563,7 +42662,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,10.5
+      pos: 12.5,11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42571,7 +42670,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,9.5
+      pos: 12.5,10.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42579,7 +42678,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,7.5
+      pos: 12.5,9.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42587,7 +42686,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,6.5
+      pos: 12.5,7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42595,7 +42694,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,5.5
+      pos: 12.5,6.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42603,7 +42702,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,4.5
+      pos: 12.5,5.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42611,7 +42710,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,3.5
+      pos: 12.5,4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42619,7 +42718,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,1.5
+      pos: 12.5,3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42627,7 +42726,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,0.5
+      pos: 12.5,1.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42635,7 +42734,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-0.5
+      pos: 12.5,0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42643,7 +42742,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-1.5
+      pos: 12.5,-0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42651,7 +42750,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-3.5
+      pos: 12.5,-1.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42659,7 +42758,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-4.5
+      pos: 12.5,-3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42667,7 +42766,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-5.5
+      pos: 12.5,-4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42675,7 +42774,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-6.5
+      pos: 12.5,-5.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42691,7 +42790,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-9.5
+      pos: 12.5,-6.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42699,7 +42798,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-10.5
+      pos: 12.5,-9.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42707,15 +42806,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 12.5,-11.5
+      pos: 12.5,-10.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6431
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 11.5,-12.5
+      rot: 3.141592653589793 rad
+      pos: 12.5,-11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42723,7 +42822,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 10.5,-12.5
+      pos: 11.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42731,7 +42830,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 7.5,-12.5
+      pos: 10.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42739,7 +42838,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 6.5,-12.5
+      pos: 7.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42747,7 +42846,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 5.5,-12.5
+      pos: 6.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42755,7 +42854,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 4.5,-12.5
+      pos: 5.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42763,7 +42862,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 3.5,-12.5
+      pos: 4.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42771,7 +42870,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 2.5,-12.5
+      pos: 3.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42779,7 +42878,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 0.5,-12.5
+      pos: 2.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42787,7 +42886,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -0.5,-12.5
+      pos: 0.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42795,7 +42894,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -1.5,-12.5
+      pos: -0.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42803,7 +42902,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -2.5,-12.5
+      pos: -1.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42811,7 +42910,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.5,-12.5
+      pos: -2.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42819,7 +42918,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -5.5,-12.5
+      pos: -4.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42827,7 +42926,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -7.5,-12.5
+      pos: -5.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42835,7 +42934,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -8.5,-12.5
+      pos: -7.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42843,7 +42942,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -9.5,-12.5
+      pos: -8.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42851,7 +42950,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -10.5,-12.5
+      pos: -9.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42859,7 +42958,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -11.5,-12.5
+      pos: -10.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42867,7 +42966,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -12.5,-12.5
+      pos: -11.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42875,7 +42974,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -13.5,-12.5
+      pos: -12.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42883,7 +42982,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -14.5,-12.5
+      pos: -13.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42891,7 +42990,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -15.5,-12.5
+      pos: -14.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42899,7 +42998,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -18.5,-12.5
+      pos: -15.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42907,7 +43006,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -20.5,-12.5
+      pos: -18.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -42915,11 +43014,19 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -21.5,-12.5
+      pos: -20.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6457
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -21.5,-12.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 7767
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -43065,8 +43172,7 @@ entities:
   - uid: 6477
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -25.5,8.5
+      pos: -26.5,7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43074,15 +43180,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -24.5,8.5
+      pos: -25.5,8.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6479
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -23.5,9.5
+      rot: -1.5707963267948966 rad
+      pos: -24.5,8.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43106,7 +43212,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -23.5,13.5
+      pos: -23.5,9.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43114,7 +43220,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -23.5,15.5
+      pos: -23.5,13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43122,7 +43228,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -23.5,18.5
+      pos: -23.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43130,15 +43236,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -23.5,19.5
+      pos: -23.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6486
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -22.5,20.5
+      rot: 3.141592653589793 rad
+      pos: -23.5,19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43146,7 +43252,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -21.5,20.5
+      pos: -22.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43154,7 +43260,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -20.5,20.5
+      pos: -21.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43162,7 +43268,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -19.5,20.5
+      pos: -20.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43170,7 +43276,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -18.5,20.5
+      pos: -19.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43178,7 +43284,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -17.5,20.5
+      pos: -18.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43186,7 +43292,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -16.5,20.5
+      pos: -17.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43194,7 +43300,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -15.5,20.5
+      pos: -16.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43202,7 +43308,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -14.5,20.5
+      pos: -15.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43210,7 +43316,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -12.5,20.5
+      pos: -14.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43218,7 +43324,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -11.5,20.5
+      pos: -12.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43226,7 +43332,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -10.5,20.5
+      pos: -11.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43234,7 +43340,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -9.5,20.5
+      pos: -10.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43242,7 +43348,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -7.5,20.5
+      pos: -9.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43250,7 +43356,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -6.5,20.5
+      pos: -7.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43258,7 +43364,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -5.5,20.5
+      pos: -6.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43266,15 +43372,15 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.5,20.5
+      pos: -5.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6503
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -17.5,-10.5
+      rot: 1.5707963267948966 rad
+      pos: -4.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43282,15 +43388,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -17.5,-9.5
+      pos: -17.5,-10.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6505
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -4.5,-7.5
+      rot: 3.141592653589793 rad
+      pos: -17.5,-9.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43298,7 +43404,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -5.5,-7.5
+      pos: -4.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43306,7 +43412,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -6.5,-7.5
+      pos: -5.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43314,7 +43420,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -7.5,-7.5
+      pos: -6.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43322,7 +43428,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -8.5,-7.5
+      pos: -7.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43330,7 +43436,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -9.5,-7.5
+      pos: -8.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43338,7 +43444,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -11.5,-7.5
+      pos: -9.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43346,7 +43452,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -12.5,-7.5
+      pos: -11.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43354,7 +43460,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -13.5,-7.5
+      pos: -12.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43362,7 +43468,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -14.5,-7.5
+      pos: -13.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43370,7 +43476,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -15.5,-7.5
+      pos: -14.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -43378,18 +43484,26 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -16.5,-7.5
+      pos: -15.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6517
     components:
     - type: Transform
-      pos: -17.5,-8.5
+      rot: 1.5707963267948966 rad
+      pos: -16.5,-7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6518
+    components:
+    - type: Transform
+      pos: -17.5,-8.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 7826
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -44086,8 +44200,7 @@ entities:
   - uid: 6612
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -8.5,21.5
+      pos: -3.5,22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44095,7 +44208,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,24.5
+      pos: -8.5,21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44103,7 +44216,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,25.5
+      pos: -8.5,24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44111,7 +44224,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,26.5
+      pos: -8.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44119,7 +44232,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,27.5
+      pos: -8.5,26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44127,7 +44240,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,28.5
+      pos: -8.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44135,7 +44248,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,30.5
+      pos: -8.5,28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44143,7 +44256,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,31.5
+      pos: -8.5,30.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44151,7 +44264,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -8.5,32.5
+      pos: -8.5,31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44159,7 +44272,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,21.5
+      pos: -8.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44167,7 +44280,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,23.5
+      pos: 3.5,21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44175,7 +44288,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,24.5
+      pos: 3.5,23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44183,7 +44296,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,26.5
+      pos: 3.5,24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44191,7 +44304,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,27.5
+      pos: 3.5,26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44199,7 +44312,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,28.5
+      pos: 3.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44207,7 +44320,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,30.5
+      pos: 3.5,28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44215,7 +44328,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,31.5
+      pos: 3.5,30.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44223,15 +44336,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 3.5,32.5
+      pos: 3.5,31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6630
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -7.5,33.5
+      rot: 3.141592653589793 rad
+      pos: 3.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44239,7 +44352,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -6.5,33.5
+      pos: -7.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44247,7 +44360,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -4.5,33.5
+      pos: -6.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44255,7 +44368,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -3.5,33.5
+      pos: -4.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44263,7 +44376,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -2.5,33.5
+      pos: -3.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44271,7 +44384,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -1.5,33.5
+      pos: -2.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44279,7 +44392,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -0.5,33.5
+      pos: -1.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44287,7 +44400,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 1.5,33.5
+      pos: -0.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44295,7 +44408,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 2.5,33.5
+      pos: 1.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44303,7 +44416,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 1.5,32.5
+      pos: 2.5,33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44311,7 +44424,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -0.5,32.5
+      pos: 1.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44319,7 +44432,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -1.5,32.5
+      pos: -0.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44327,7 +44440,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -2.5,32.5
+      pos: -1.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44335,7 +44448,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -3.5,32.5
+      pos: -2.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44343,7 +44456,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -4.5,32.5
+      pos: -3.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44351,15 +44464,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -6.5,32.5
+      pos: -4.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6646
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -7.5,31.5
+      rot: -1.5707963267948966 rad
+      pos: -6.5,32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44367,7 +44480,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,30.5
+      pos: -7.5,31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44375,7 +44488,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,29.5
+      pos: -7.5,30.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44383,7 +44496,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,28.5
+      pos: -7.5,29.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44391,7 +44504,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,27.5
+      pos: -7.5,28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44399,7 +44512,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,25.5
+      pos: -7.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44407,7 +44520,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,23.5
+      pos: -7.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44415,7 +44528,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,22.5
+      pos: -7.5,23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44423,7 +44536,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,21.5
+      pos: -7.5,22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44431,7 +44544,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -7.5,20.5
+      pos: -7.5,21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44439,7 +44552,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,20.5
+      pos: -7.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44447,7 +44560,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,21.5
+      pos: 2.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44455,7 +44568,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,22.5
+      pos: 2.5,21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44463,7 +44576,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,23.5
+      pos: 2.5,22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44471,7 +44584,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,25.5
+      pos: 2.5,23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44479,7 +44592,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,27.5
+      pos: 2.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44487,7 +44600,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,28.5
+      pos: 2.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44495,7 +44608,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,29.5
+      pos: 2.5,28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44503,7 +44616,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,30.5
+      pos: 2.5,29.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44511,11 +44624,19 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 2.5,31.5
+      pos: 2.5,30.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6666
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 2.5,31.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 7935
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -44788,7 +44909,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 20.5,15.5
+      pos: 19.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44796,7 +44917,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 21.5,15.5
+      pos: 20.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44804,7 +44925,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 22.5,15.5
+      pos: 21.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -44812,7 +44933,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 12.5,14.5
+      pos: 22.5,15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44820,7 +44941,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 13.5,14.5
+      pos: 12.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44828,7 +44949,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 14.5,14.5
+      pos: 13.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44836,7 +44957,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 15.5,14.5
+      pos: 14.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44844,7 +44965,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 16.5,14.5
+      pos: 15.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44852,7 +44973,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 17.5,14.5
+      pos: 16.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44860,7 +44981,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 18.5,14.5
+      pos: 17.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44868,7 +44989,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 20.5,14.5
+      pos: 18.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44876,7 +44997,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 21.5,14.5
+      pos: 20.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -44889,6 +45010,14 @@ entities:
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6713
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 21.5,14.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 7984
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -45036,32 +45165,40 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 17.5,25.5
+      pos: 18.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6732
     components:
     - type: Transform
-      pos: 16.5,26.5
+      rot: 1.5707963267948966 rad
+      pos: 17.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6733
     components:
     - type: Transform
-      pos: 16.5,27.5
+      pos: 16.5,26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6734
     components:
     - type: Transform
-      pos: 16.5,28.5
+      pos: 16.5,27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6735
+    components:
+    - type: Transform
+      pos: 16.5,28.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 8006
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -45136,7 +45273,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -31.5,-0.5
+      pos: -32.5,-0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -45144,14 +45281,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -33.5,-2.5
+      pos: -31.5,-0.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6746
     components:
     - type: Transform
-      pos: -32.5,-0.5
+      rot: -1.5707963267948966 rad
+      pos: -33.5,-2.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -45164,6 +45302,13 @@ entities:
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6748
+    components:
+    - type: Transform
+      pos: -32.5,-0.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8018
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -45233,8 +45378,7 @@ entities:
   - uid: 6757
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 7.5,45.5
+      pos: 11.5,49.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF1212FF'
@@ -45242,7 +45386,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 11.5,45.5
+      pos: 7.5,45.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF1212FF'
@@ -45250,11 +45394,19 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 11.5,44.5
+      pos: 11.5,45.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF1212FF'
   - uid: 6760
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 11.5,44.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#FF1212FF'
+  - uid: 8030
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -45832,8 +45984,7 @@ entities:
   - uid: 6833
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 24.5,4.5
+      pos: 25.5,3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -45841,7 +45992,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 23.5,4.5
+      pos: 24.5,4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -45973,12 +46124,19 @@ entities:
   - uid: 6851
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -16.5,-17.5
+      pos: -19.5,-14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6852
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -16.5,-17.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8110
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -46423,8 +46581,7 @@ entities:
   - uid: 6913
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -5.5,-35.5
+      pos: 1.5,-13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -46432,7 +46589,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.5,-35.5
+      pos: -5.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -46440,7 +46597,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -3.5,-35.5
+      pos: -4.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -46448,7 +46605,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -2.5,-35.5
+      pos: -3.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -46456,7 +46613,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -0.5,-35.5
+      pos: -2.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -46464,147 +46621,148 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 0.5,-35.5
+      pos: -0.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 6919
     components:
     - type: Transform
-      pos: -5.5,-13.5
+      rot: 1.5707963267948966 rad
+      pos: 0.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6920
     components:
     - type: Transform
-      pos: -5.5,-14.5
+      pos: -5.5,-13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6921
     components:
     - type: Transform
-      pos: -5.5,-15.5
+      pos: -5.5,-14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6922
     components:
     - type: Transform
-      pos: -5.5,-16.5
+      pos: -5.5,-15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6923
     components:
     - type: Transform
-      pos: -5.5,-17.5
+      pos: -5.5,-16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6924
     components:
     - type: Transform
-      pos: -5.5,-18.5
+      pos: -5.5,-17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6925
     components:
     - type: Transform
-      pos: -5.5,-19.5
+      pos: -5.5,-18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6926
     components:
     - type: Transform
-      pos: -5.5,-20.5
+      pos: -5.5,-19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6927
     components:
     - type: Transform
-      pos: -5.5,-22.5
+      pos: -5.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6928
     components:
     - type: Transform
-      pos: -5.5,-23.5
+      pos: -5.5,-22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6929
     components:
     - type: Transform
-      pos: -5.5,-24.5
+      pos: -5.5,-23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6930
     components:
     - type: Transform
-      pos: -5.5,-26.5
+      pos: -5.5,-24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6931
     components:
     - type: Transform
-      pos: -5.5,-27.5
+      pos: -5.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6932
     components:
     - type: Transform
-      pos: -5.5,-28.5
+      pos: -5.5,-27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6933
     components:
     - type: Transform
-      pos: -5.5,-29.5
+      pos: -5.5,-28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6934
     components:
     - type: Transform
-      pos: -5.5,-30.5
+      pos: -5.5,-29.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6935
     components:
     - type: Transform
-      pos: -5.5,-32.5
+      pos: -5.5,-30.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6936
     components:
     - type: Transform
-      pos: -5.5,-33.5
+      pos: -5.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6937
     components:
     - type: Transform
-      pos: 0.5,-33.5
+      pos: -5.5,-33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6938
     components:
     - type: Transform
-      pos: 0.5,-32.5
+      pos: 0.5,-33.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -46618,127 +46776,126 @@ entities:
   - uid: 6940
     components:
     - type: Transform
-      pos: 0.5,-29.5
+      pos: 0.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6941
     components:
     - type: Transform
-      pos: 0.5,-28.5
+      pos: 0.5,-29.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6942
     components:
     - type: Transform
-      pos: 0.5,-27.5
+      pos: 0.5,-28.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6943
     components:
     - type: Transform
-      pos: 0.5,-26.5
+      pos: 0.5,-27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6944
     components:
     - type: Transform
-      pos: 0.5,-25.5
+      pos: 0.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6945
     components:
     - type: Transform
-      pos: 0.5,-24.5
+      pos: 0.5,-25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6946
     components:
     - type: Transform
-      pos: 0.5,-23.5
+      pos: 0.5,-24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6947
     components:
     - type: Transform
-      pos: 0.5,-22.5
+      pos: 0.5,-23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6948
     components:
     - type: Transform
-      pos: 0.5,-20.5
+      pos: 0.5,-22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6949
     components:
     - type: Transform
-      pos: 0.5,-19.5
+      pos: 0.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6950
     components:
     - type: Transform
-      pos: 0.5,-18.5
+      pos: 0.5,-19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6951
     components:
     - type: Transform
-      pos: 0.5,-17.5
+      pos: 0.5,-18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6952
     components:
     - type: Transform
-      pos: 0.5,-16.5
+      pos: 0.5,-17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6953
     components:
     - type: Transform
-      pos: 0.5,-15.5
+      pos: 0.5,-16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6954
     components:
     - type: Transform
-      pos: 0.5,-14.5
+      pos: 0.5,-15.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6955
     components:
     - type: Transform
-      pos: 0.5,-13.5
+      pos: 0.5,-14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6956
     components:
     - type: Transform
-      pos: 0.5,-12.5
+      pos: 0.5,-13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6957
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -4.5,-34.5
+      pos: 0.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -46746,7 +46903,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -2.5,-34.5
+      pos: -4.5,-34.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -46754,7 +46911,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -1.5,-34.5
+      pos: -2.5,-34.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -46762,11 +46919,19 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -0.5,-34.5
+      pos: -1.5,-34.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 6961
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -0.5,-34.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 8217
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -47044,6 +47209,14 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
+      pos: 32.5,-24.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 8261
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
       pos: -16.5,-21.5
       parent: 2
     - type: AtmosPipeColor
@@ -47268,8 +47441,7 @@ entities:
   - uid: 7032
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 10.5,-20.5
+      pos: 9.5,-13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47277,7 +47449,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 11.5,-20.5
+      pos: 10.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47285,7 +47457,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 13.5,-20.5
+      pos: 11.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47293,7 +47465,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 14.5,-20.5
+      pos: 13.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47301,7 +47473,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 15.5,-20.5
+      pos: 14.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47309,7 +47481,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 16.5,-20.5
+      pos: 15.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47317,7 +47489,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 17.5,-20.5
+      pos: 16.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47325,7 +47497,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 18.5,-20.5
+      pos: 17.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47333,7 +47505,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 19.5,-20.5
+      pos: 18.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47341,7 +47513,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 20.5,-20.5
+      pos: 19.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47349,15 +47521,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 21.5,-20.5
+      pos: 20.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7043
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 9.5,-21.5
+      rot: -1.5707963267948966 rad
+      pos: 21.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47365,7 +47537,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 9.5,-22.5
+      pos: 9.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47373,7 +47545,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 9.5,-23.5
+      pos: 9.5,-22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47381,11 +47553,19 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 9.5,-24.5
+      pos: 9.5,-23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7047
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 9.5,-24.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8299
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -47707,7 +47887,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 10.5,-26.5
+      pos: 9.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47715,22 +47895,22 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 11.5,-26.5
+      pos: 10.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 7090
     components:
     - type: Transform
-      pos: 9.5,-26.5
+      rot: 1.5707963267948966 rad
+      pos: 11.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7091
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 23.5,-20.5
+      pos: 9.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47738,15 +47918,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 24.5,-20.5
+      pos: 23.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7093
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 22.5,-21.5
+      rot: -1.5707963267948966 rad
+      pos: 24.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47754,7 +47934,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 22.5,-22.5
+      pos: 22.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -47762,11 +47942,19 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 22.5,-23.5
+      pos: 22.5,-22.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7096
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 22.5,-23.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8348
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -47918,8 +48106,7 @@ entities:
   - uid: 7115
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 22.5,-26.5
+      pos: 21.5,-23.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47927,7 +48114,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 23.5,-26.5
+      pos: 22.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47935,7 +48122,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 24.5,-26.5
+      pos: 23.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47943,7 +48130,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 25.5,-26.5
+      pos: 24.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47951,7 +48138,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 26.5,-26.5
+      pos: 25.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47959,7 +48146,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 30.5,-26.5
+      pos: 26.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47967,7 +48154,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 31.5,-26.5
+      pos: 30.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47982,8 +48169,8 @@ entities:
   - uid: 7123
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 14.5,-20.5
+      rot: -1.5707963267948966 rad
+      pos: 31.5,-26.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -47991,7 +48178,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 14.5,-19.5
+      pos: 14.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48172,7 +48359,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -1.5,-31.5
+      pos: -2.5,-31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48180,7 +48367,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -0.5,-31.5
+      pos: -1.5,-31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48188,7 +48375,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 0.5,-32.5
+      pos: -0.5,-31.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48196,7 +48383,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -0.5,-32.5
+      pos: 0.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48204,7 +48391,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -3.5,-32.5
+      pos: -0.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48212,7 +48399,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.5,-32.5
+      pos: -3.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48220,11 +48407,19 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -5.5,-32.5
+      pos: -4.5,-32.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7154
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -5.5,-32.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8402
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -48465,7 +48660,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -20.5,-35.5
+      pos: -18.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48473,7 +48668,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -21.5,-35.5
+      pos: -20.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48481,7 +48676,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -22.5,-35.5
+      pos: -21.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48489,7 +48684,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -24.5,-35.5
+      pos: -22.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -48497,11 +48692,19 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -25.5,-35.5
+      pos: -24.5,-35.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7191
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -25.5,-35.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8433
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -48790,8 +48993,7 @@ entities:
   - uid: 7229
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -14.5,-21.5
+      pos: -17.5,-24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48799,15 +49001,15 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -16.5,-21.5
+      pos: -14.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 7231
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -6.5,-21.5
+      rot: 1.5707963267948966 rad
+      pos: -16.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48815,7 +49017,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -7.5,-21.5
+      pos: -6.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48823,7 +49025,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -9.5,-21.5
+      pos: -7.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -48831,11 +49033,19 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -10.5,-21.5
+      pos: -9.5,-21.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 7235
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -10.5,-21.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 8469
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -49462,7 +49672,7 @@ entities:
   - uid: 7315
     components:
     - type: Transform
-      pos: -34.5,12.5
+      pos: -35.5,14.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -49490,14 +49700,14 @@ entities:
   - uid: 7319
     components:
     - type: Transform
-      pos: -34.5,13.5
+      pos: -34.5,12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 7320
     components:
     - type: Transform
-      pos: -34.5,14.5
+      pos: -34.5,13.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -49579,6 +49789,14 @@ entities:
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7332
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -37.5,11.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 8895
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -51601,8 +51819,7 @@ entities:
   - uid: 7606
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -23.5,20.5
+      pos: -7.5,7.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -51610,7 +51827,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -26.5,0.5
+      pos: -23.5,20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -51966,8 +52183,7 @@ entities:
   - uid: 7653
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 25.5,-2.5
+      pos: 19.5,-2.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -52038,12 +52254,19 @@ entities:
   - uid: 7662
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -17.5,-25.5
+      pos: -21.5,-36.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 7663
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -17.5,-25.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#990000FF'
+  - uid: 9104
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -53354,8 +53577,7 @@ entities:
   - uid: 7839
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 14.5,25.5
+      pos: 15.5,29.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53363,15 +53585,15 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 19.5,25.5
+      pos: 14.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7841
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 14.5,18.5
+      rot: 3.141592653589793 rad
+      pos: 19.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53379,11 +53601,19 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 14.5,20.5
+      pos: 14.5,18.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7843
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 14.5,20.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 9305
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -53634,8 +53864,7 @@ entities:
   - uid: 7874
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 5.5,-24.5
+      pos: 4.5,-17.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53643,7 +53872,7 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 9.5,-27.5
+      pos: 5.5,-24.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53651,7 +53880,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 10.5,-19.5
+      pos: 12.5,-25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53659,14 +53888,15 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 25.5,-20.5
+      pos: 10.5,-19.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7878
     components:
     - type: Transform
-      pos: 27.5,-24.5
+      rot: -1.5707963267948966 rad
+      pos: 25.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53679,6 +53909,13 @@ entities:
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7880
+    components:
+    - type: Transform
+      pos: 27.5,-24.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 9335
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -53723,8 +53960,7 @@ entities:
   - uid: 7886
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -21.5,-27.5
+      pos: -16.5,-20.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53732,11 +53968,19 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -26.5,-35.5
+      pos: -21.5,-27.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7888
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -26.5,-35.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 9344
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -53870,8 +54114,7 @@ entities:
   - uid: 7905
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -22.5,25.5
+      pos: -22.5,3.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53879,7 +54122,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -19.5,16.5
+      pos: -22.5,25.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53887,11 +54130,19 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -22.5,17.5
+      pos: -19.5,16.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
   - uid: 7908
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -22.5,17.5
+      parent: 2
+    - type: AtmosPipeColor
+      color: '#0055CCFF'
+  - uid: 9354
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -53909,8 +54160,7 @@ entities:
   - uid: 7910
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -16.5,-28.5
+      pos: -18.5,11.5
       parent: 2
     - type: AtmosPipeColor
       color: '#0000FFFF'
@@ -53918,19 +54168,19 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -39.5,-34.5
+      pos: -16.5,-28.5
       parent: 2
   - uid: 7912
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -36.5,-37.5
+      pos: -39.5,-34.5
       parent: 2
   - uid: 7913
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -34.5,-34.5
+      pos: -36.5,-37.5
       parent: 2
   - uid: 7914
     components:
@@ -54737,8 +54987,7 @@ entities:
   - uid: 8017
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -30.5,-6.5
+      pos: -40.5,-6.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -54753,22 +55002,22 @@ entities:
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -14.5,-12.5
+      pos: -30.5,-6.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 8020
     components:
     - type: Transform
-      pos: -24.5,8.5
+      rot: 3.141592653589793 rad
+      pos: -14.5,-12.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
   - uid: 8021
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -26.5,-4.5
+      pos: -24.5,8.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -54776,7 +55025,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -26.5,-11.5
+      pos: -26.5,-4.5
       parent: 2
     - type: AtmosPipeColor
       color: '#FF0000FF'
@@ -54978,27 +55227,27 @@ entities:
   - uid: 8055
     components:
     - type: Transform
-      pos: -18.5,18.5
+      pos: -16.5,-10.5
       parent: 2
   - uid: 8056
     components:
     - type: Transform
-      pos: -19.5,18.5
+      pos: -18.5,18.5
       parent: 2
   - uid: 8057
     components:
     - type: Transform
-      pos: -21.5,14.5
+      pos: -19.5,18.5
       parent: 2
   - uid: 8058
     components:
     - type: Transform
-      pos: -21.5,11.5
+      pos: -21.5,14.5
       parent: 2
   - uid: 8059
     components:
     - type: Transform
-      pos: -21.5,8.5
+      pos: -21.5,11.5
       parent: 2
   - uid: 8060
     components:
@@ -58399,6 +58648,10 @@ entities:
         975:
         - Pressed: Toggle
         974:
+        - Pressed: Toggle
+        16872:
+        - Pressed: Toggle
+        16873:
         - Pressed: Toggle
 - proto: LockerAtmosphericsFilled
   entities:
@@ -83260,14 +83513,14 @@ entities:
   - uid: 12888
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 15.5,8.5
+      rot: -1.5707963267948966 rad
+      pos: -17.5,-32.5
       parent: 2
   - uid: 12889
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 15.5,6.5
+      pos: 15.5,8.5
       parent: 2
   - uid: 12890
     components:
@@ -83284,12 +83537,13 @@ entities:
   - uid: 12892
     components:
     - type: Transform
-      pos: -24.5,-31.5
+      rot: 1.5707963267948966 rad
+      pos: 15.5,6.5
       parent: 2
   - uid: 12893
     components:
     - type: Transform
-      pos: -38.5,-25.5
+      pos: -24.5,-31.5
       parent: 2
 - proto: WindoorCargoLocked
   entities:
@@ -83423,14 +83677,13 @@ entities:
   - uid: 12913
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -12.5,-24.5
+      pos: -23.5,-15.5
       parent: 2
   - uid: 12914
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: -16.5,-24.5
+      pos: -12.5,-24.5
       parent: 2
   - uid: 12915
     components:
@@ -83518,12 +83771,12 @@ entities:
   - uid: 12928
     components:
     - type: Transform
-      pos: -21.5,8.5
+      pos: 6.5,-37.5
       parent: 2
   - uid: 12929
     components:
     - type: Transform
-      pos: -21.5,11.5
+      pos: -21.5,8.5
       parent: 2
   - uid: 12930
     components:
@@ -83667,6 +83920,12 @@ entities:
       pos: -12.5,-47.5
       parent: 2
   - uid: 9726
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -0.5,-19.5
+      parent: 2
+  - uid: 15849
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -83829,6 +84088,17 @@ entities:
       pos: -3.5,7.5
       parent: 2
   - uid: 12965
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 37.5,73.5
+      parent: 16339
+  - uid: 23853
+    components:
+    - type: Transform
+      pos: 37.5,73.5
+      parent: 16339
+  - uid: 23854
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -84226,34 +84496,39 @@ entities:
   - uid: 13022
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
       pos: 6.5,21.5
       parent: 2
   - uid: 13023
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 7.5,21.5
+      pos: 6.5,21.5
       parent: 2
   - uid: 13024
     components:
     - type: Transform
       rot: 3.141592653589793 rad
-      pos: 8.5,21.5
+      pos: 7.5,21.5
       parent: 2
   - uid: 13025
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 24.5,-26.5
+      rot: -1.5707963267948966 rad
+      pos: 13.5,-27.5
       parent: 2
   - uid: 13026
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: 24.5,-25.5
+      pos: 24.5,-26.5
       parent: 2
   - uid: 13027
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 24.5,-25.5
+      parent: 2
+  - uid: 15991
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -84269,30 +84544,31 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -18.5,14.5
+      pos: -24.5,5.5
       parent: 2
   - uid: 13030
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -18.5,15.5
+      pos: -18.5,14.5
       parent: 2
   - uid: 13031
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -18.5,16.5
+      rot: -1.5707963267948966 rad
+      pos: -18.5,15.5
       parent: 2
   - uid: 13032
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -18.5,17.5
+      pos: -18.5,16.5
       parent: 2
   - uid: 13033
     components:
     - type: Transform
-      pos: -18.5,16.5
+      rot: 1.5707963267948966 rad
+      pos: -18.5,17.5
       parent: 2
   - uid: 13034
     components:

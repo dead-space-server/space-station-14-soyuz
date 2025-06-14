@@ -26,7 +26,7 @@
       "name": "inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "ATMOS-icon"
     },
     {
@@ -45,7 +45,7 @@
       "name": "ATMOS-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "SCI-icon"
     },
     {
@@ -64,7 +64,7 @@
       "name": "SCI-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CHEM-icon"
     },
     {
@@ -79,7 +79,7 @@
       "name": "CHEM-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "MIME-icon"
     },
     {
@@ -98,7 +98,7 @@
       "name": "MIME-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "BAR-icon"
     },
     {
@@ -117,7 +117,7 @@
       "name": "BAR-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "PARA-icon"
     },
     {
@@ -136,7 +136,7 @@
       "name": "PARA-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "MINER-icon"
     },
     {
@@ -155,7 +155,7 @@
       "name": "MINER-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CARGO-icon"
     },
     {
@@ -174,7 +174,7 @@
       "name": "CARGO-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "HYDRO-icon"
     },
     {
@@ -193,7 +193,7 @@
       "name": "HYDRO-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CHEF-icon"
     },
     {
@@ -208,7 +208,7 @@
       "name": "CHEF-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "GENE-icon"
     },
     {
@@ -223,7 +223,7 @@
       "name": "GENE-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "ENGI-icon"
     },
     {
@@ -242,7 +242,7 @@
       "name": "ENGI-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CAP-icon"
     },
     {
@@ -261,7 +261,7 @@
       "name": "CAP-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "WARD-icon"
     },
     {
@@ -276,7 +276,7 @@
       "name": "WARD-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "JANI-icon"
     },
     {
@@ -291,7 +291,7 @@
       "name": "JANI-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "HOP-icon"
     },
     {
@@ -306,7 +306,7 @@
       "name": "HOP-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "MED-icon"
     },
     {
@@ -325,7 +325,7 @@
       "name": "MED-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "SEC-icon"
     },
     {
@@ -344,7 +344,7 @@
       "name": "SEC-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "SYNDIECAP-icon"
     },
     {
@@ -359,7 +359,7 @@
       "name": "SYNDIECAP-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "SYNDIE-icon"
     },
     {
@@ -389,7 +389,7 @@
       "name": "CLOWN-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CMO-icon"
     },
     {
@@ -404,7 +404,7 @@
       "name": "CMO-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CE-icon"
     },
     {
@@ -423,7 +423,7 @@
       "name": "CE-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "ROBO-icon"
     },
     {
@@ -438,7 +438,7 @@
       "name": "ROBO-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "HOS-icon"
     },
     {
@@ -453,7 +453,7 @@
       "name": "HOS-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "CENTCOM-icon"
     },
     {
@@ -468,7 +468,7 @@
       "name": "CENTCOM-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "VIRO-icon"
     },
     {
@@ -483,7 +483,7 @@
       "name": "VIRO-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "QM-icon"
     },
     {
@@ -498,7 +498,7 @@
       "name": "QM-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "WEB-icon"
     },
     {
@@ -513,7 +513,7 @@
       "name": "WEB-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "RD-icon"
     },
     {
@@ -528,40 +528,40 @@
       "name": "RD-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "coatybits-icon"
     },
-	{
+    {
       "name": "winterbits-icon"
     },
-	{
+    {
       "name": "winterbits-tan-icon"
     },
-	{
+    {
       "name": "coatybits-equipped-OUTERCLOTHING",
       "directions": 4
     },
-	{
+    {
       "name": "winterbits-equipped-OUTERCLOTHING",
       "directions": 4
     },
-	{
+    {
       "name": "winterbits-tan-equipped-OUTERCLOTHING",
       "directions": 4
     },
-	{
+    {
       "name": "coatybits-equipped-OUTERCLOTHING-vox",
       "directions": 4
     },
-	{
+    {
       "name": "winterbits-equipped-OUTERCLOTHING-vox",
       "directions": 4
     },
-	{
+    {
       "name": "coatybits-inhand-left",
       "directions": 4
     },
-	{
+    {
       "name": "winterbits-inhand-left",
       "directions": 4
     },
@@ -573,28 +573,28 @@
       "name": "winterbits-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "ARMOR-equipped-OUTERCLOTHING",
       "directions": 4
     },
-	{
+    {
       "name": "ARMOR-inhand-right",
       "directions": 4
     },
-	{
+    {
       "name": "ARMOR-inhand-left",
       "directions": 4
     },
-	{
+    {
       "name": "WARDEN-ARMORED-icon"
     },
-	{
+    {
       "name": "HOS-ARMORED-icon"
     },
-	{
+    {
       "name": "SYNDIE-ARMORED-icon"
     },
-	{
+    {
       "name": "ARMOR-icon"
     }
   ]

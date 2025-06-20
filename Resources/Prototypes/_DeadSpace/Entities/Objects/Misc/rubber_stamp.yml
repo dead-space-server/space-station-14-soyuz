@@ -60,7 +60,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-blueshield
-    stampedColor: "#1b527f"
+    stampedColor: "#491a1e"
     stampState: "paper_stamp-blueshield"
   - type: Sprite
     state: stamp-cap
@@ -112,7 +112,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-senior-officer
-    stampedColor: "#1c8a97"
+    stampedColor: "#811116"
     stampState: "paper_stamp-hos"
   - type: Sprite
     state: stamp-senior-officer

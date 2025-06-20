@@ -39,7 +39,7 @@
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     - id: DerelictCyborgSpawn
-    - id: WizardSpawn
+#    - id: WizardSpawn
 
 - type: entity
   id: BaseStationEvent
@@ -337,7 +337,7 @@
     duration: 1
     earliestStart: 30
     reoccurrenceDelay: 60
-    minimumPlayers: 10
+    minimumPlayers: 40
   - type: AntagSelection
     agentName: wizard-round-end-name
     definitions:

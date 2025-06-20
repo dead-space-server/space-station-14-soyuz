@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingShoesBaseButcherable
   id: ClothingShoesBootsBrigmedic
-  name: кроссовки  бригмедика
+  name: кроссовки дежурного врача
   description: Лёгкие кроссовки для спорта и марш бросков, до раннего бойца отдела.
   components:
     - type: Sprite

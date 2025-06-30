@@ -34,7 +34,7 @@
 
 - type: entity
   parent: ClothingHeadsetAlt
-  id: ClothingHeadsetAltTypan
+  id: ClothingHeadsetAltTaipan
   name: полноразмерная болотно - зелёная гарнитура 
   description: Модифицированный модульный интерком Рассвета.
   components:
@@ -45,7 +45,7 @@
   - type: ContainerFill
     containers:
       key_slots:
-      - EncryptionKeyTypan
+      - EncryptionKeyTaipan
   - type: Sprite
     sprite: Clothing/Ears/Headsets/syndicate.rsi
   - type: Clothing

@@ -141,7 +141,7 @@
   - type: Grammar
     attributes:
       proper: true
-      gender: female
+      gender: male
   - type: Tag
     tags:
     - CannotSuicide
@@ -697,7 +697,7 @@
   - type: Grammar
     attributes:
       proper: true
-      gender: female
+      gender: male
   - type: Tag
     tags:
     - CannotSuicide

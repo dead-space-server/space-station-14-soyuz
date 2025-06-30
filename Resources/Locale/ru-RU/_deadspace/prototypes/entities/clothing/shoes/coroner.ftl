@@ -1,2 +1,2 @@
-ent-ClothingShoesBootsJackCoroner = сапоги коронера
+ent-ClothingShoesBootsJackCoroner = сапоги патологоанатомаера
     .desc = Кто сказал, что кровь не может быть модной? Ой, а что там на подошве...

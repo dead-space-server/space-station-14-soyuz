@@ -2,7 +2,7 @@
   parent: ClothingHeadHatHoodWinterBase
   id: ClothingHeadHatHoodWinterCoroner
   categories: [ HideSpawnMenu ]
-  name: капюшон зимней куртки коронера
+  name: капюшон зимней куртки патологоанатома
   description: Капюшон, чтобы держать голову в тепле.
   components:
   - type: Sprite
@@ -13,7 +13,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatCoroner
-  name: шапочка коронера
+  name: шапочка патологоанатома
   description: Чёрная шапочка, которая не дает вашим волосам щекотать внутренности трупов.
   components:
   - type: Sprite

@@ -1,0 +1,35 @@
+- type: entity
+  parent: BaseFlag
+  id: USSPlosyng
+  name: central USSP
+  description: "Serve for a bright future!"
+  components:
+  - type: Sprite
+    state: USSPlosyngCentral
+
+- type: entity
+  parent: BaseFlag
+  id: USSPlosyngOne
+  name: work is our everything
+  description: "Work, study, and serve!"
+  components:
+  - type: Sprite
+    state: USSPlosyngOne
+
+- type: entity
+  parent: BaseFlag
+  id: USSPtallflag
+  name: glory to USSP!
+  description: "Glory to USSP!"
+  components:
+  - type: Sprite
+    state: USSPtallflag
+
+- type: entity
+  parent: BaseFlag
+  id: USSPVimpelflag
+  name: Vimpel logo
+  description: Vimpel was a special unit of the KGB (Committee for State Security) of the Soviet Union.
+  components:
+  - type: Sprite
+    state: USSPVimpelflag

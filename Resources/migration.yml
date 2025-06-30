@@ -758,6 +758,30 @@ WeaponSubMachineGunVectorRubber: null
 ExplosionRuneBook: null
 IgniteRuneBook: null
 
+# 2025-02-26 - DS14-Soyuz
+BackmenVendingMachineCigs: VendingMachineCigs
+BackmenVendingMachineCoffee: VendingMachineCoffee
+BackmenVendingMachineCola: VendingMachineCola
+BackmenVendingMachineColaBlack: VendingMachineColaBlack
+BackmenVendingMachineDiscount: VendingMachineDiscount
+BackmenVendingMachineSnack: VendingMachineSnack
+BackmenVendingMachineSnackBlue: VendingMachineSnackBlue
+BackmenVendingMachineSnackGreen: VendingMachineSnackGreen
+BackmenVendingMachineSnackOrange: VendingMachineSnackOrange
+BackmenVendingMachineSnackTeal: VendingMachineSnackTeal
+BackmenVendingMachineSovietSoda: VendingMachineSovietSoda
+BackmenVendingMachineChang: VendingMachineChang 
+BackmenVendingMachineDonut: VendingMachineDonut
+BackmenVendingMachineSoda: VendingMachineSoda
+BackmenVendingMachineStarkist: VendingMachineStarkist
+BackmenVendingMachineDrGibb: VendingMachineDrGibb
+BackmenVendingMachinePwrGame: VendingMachinePwrGame
+BackmenVendingMachineShamblersJuice: VendingMachineShamblersJuice
+BackmenVendingMachineColaRed: VendingMachineColaRed
+BackmenVendingMachineSpaceUp: VendingMachineSpaceUp
+BackmenVendingMachineHappyHonk: VendingMachineHappyHonk
+
+
 # 2025-02-25 - DS14
 ClothingUnderwearSocksSecurityPilot: ClothingUnderwearSocksSecurityOfficer
 

@@ -1,8 +1,8 @@
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldFilled
   parent: ClothingBeltMilitaryWebbingMed
-  name: РПС офицера "Синий Щит"
-  description: РПС, которую носят офицеры "Синий Щит"
+  name: РПС оперативника КГБ
+  description: Ременно-плечевая система, которую используют оперативники комитета государственной безопасности. Довольно прочная.
   suffix: Заполненный
   components:
   - type: StorageFill

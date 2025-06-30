@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatBeretSeniorOfficer
-  name: берет инструктора СБ
+  name: берет старшего милиционера
   description: Берет показывающий мастерство и доблесть его владельца.
   components:
   - type: Sprite

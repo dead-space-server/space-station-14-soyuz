@@ -6,7 +6,7 @@ salvage-expedition-structure-remaining =
        *[other] целей.
     }
 salvage-expedition-type = Миссии
-salvage-expedition-window-title = Утилизаторские экспедиции
+salvage-expedition-window-title = Шахтёрские экспедиции
 salvage-expedition-window-difficulty = Сложность:
 salvage-expedition-window-details = Подробности:
 salvage-expedition-window-hostiles = Враги:
@@ -17,13 +17,13 @@ offering-window-claimed = Принято
 offering-window-claim = Принять
 salvage-expedition-window-next = Следующее предложение
 # Expedition descriptions
-salvage-expedition-difficulty-players = Рекомендовано утилизаторов:
+salvage-expedition-difficulty-players = Рекомендовано шахтёров:
 #  С вас удержат налог в размере { $tax }% от добытых ресурсов.
 salvage-expedition-difficulty-Moderate = Умеренная
 salvage-expedition-difficulty-Hazardous = Высокая
 salvage-expedition-difficulty-Extreme = Экстремальная
 # Runner
-salvage-expedition-not-all-present = Не все утилизаторы вернулись на борт шаттла!
+salvage-expedition-not-all-present = Не все шахтёры вернулись на борт шаттла!
 # Runner
 salvage-expedition-announcement-countdown-minutes =
     До окончания экспедиции осталась { $duration } { $duration ->

@@ -45,7 +45,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-captain
-    stampedColor: "#3681bb"
+    stampedColor: "#f04343"
     stampState: "paper_stamp-cap"
   - type: Sprite
     state: stamp-cap

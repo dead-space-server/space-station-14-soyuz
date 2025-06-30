@@ -1,4 +1,4 @@
-ent-ClothingHeadHatHoodWinterCoroner = капюшон зимней куртки коронера
+ent-ClothingHeadHatHoodWinterCoroner = капюшон зимней куртки патологоанатома
     .desc = Капюшон, чтобы держать голову в тепле.
-ent-ClothingHeadHatCoroner = шапочка коронера
+ent-ClothingHeadHatCoroner = шапочка патологоанатома
     .desc = Чёрная шапочка, которая не дает вашим волосам щекотать внутренности трупов.

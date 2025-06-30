@@ -1,41 +1,149 @@
 - type: jukebox
-  id: FlipFlap
-  name: X-CEED - Flip Flap
+  id: Internacional
+  name: Пролетарский гимн "Интернационал"
   path:
-    path: /Audio/Jukebox/flip-flap.ogg
+    path: /Audio/Jukebox/AnthemRSSRInternacional.ogg
 
 - type: jukebox
-  id: Tintin
-  name: Jeroen Tel - Tintin on the Moon
+  id: BlowWithTheFires
+  name: Между Августом и Декабрем - Blow with the Fires
   path:
-    path: /Audio/Jukebox/title3.ogg
+    path: /Audio/Jukebox/BlowWithTheFires.ogg
 
 - type: jukebox
-  id: Thunderdome
-  name: MashedByMachines - Sector 11
+  id: EtotGorod
+  name: Браво - Этот город
   path:
-    path: /Audio/Jukebox/sector11.ogg
+    path: /Audio/Jukebox/BravoEtotGorod.ogg
 
 - type: jukebox
-  id: Constellations
-  name: Qwertyquerty - Constellations
+  id: DajjteTank
+  name: Маленький - Дайте Танк
   path:
-    path: /Audio/Jukebox/constellations.ogg
+    path: /Audio/Jukebox/DajjteTank.ogg
 
 - type: jukebox
-  id: Drifting
-  name: Qwertyquerty - Drifting
+  id: Komarovo
+  name: DVRST - Комарово
   path:
-    path: /Audio/Jukebox/drifting.ogg
+    path: /Audio/Jukebox/DVRSTKomarovo.ogg
 
 - type: jukebox
-  id: starlight
-  name: Qwertyquerty - Starlight
+  id: PoPlany
+  name: Егор Летов - Всё идёт по плану
   path:
-    path: /Audio/Jukebox/starlight.ogg
+    path: /Audio/Jukebox/EgorLetovPoPlanu.ogg
 
 - type: jukebox
-  id: sunset
-  name: PigeonBeans - Sunset
+  id: WhoLookForward
+  name: Слава вперёдсмотрящему!
   path:
-    path: /Audio/Jukebox/sunset.ogg
+    path: /Audio/Jukebox/GloryToTheOnesWhoLookForward.ogg
+
+- type: jukebox
+  id: PrekrasnoeDaleko
+  name: Гостья из будущего - Прекрасное далеко
+  path:
+    path: /Audio/Jukebox/GostyaIzBudushhegoPrekrasnoeDaleko.ogg
+
+- type: jukebox
+  id: Chuzhoe
+  name: Гражданская оборона - Чужое
+  path:
+    path: /Audio/Jukebox/GrazhdanskayaOboronaChuzhoe.ogg
+
+- type: jukebox
+  id: Durachok
+  name: Гражданская оборона - Про дурачка
+  path:
+    path: /Audio/Jukebox/GrazhdanskayaOboronaDurachok.ogg
+
+- type: jukebox
+  id: HappyNation
+  name: Ace of Base - Happy nation
+  path:
+    path: /Audio/Jukebox/HappyNation.ogg
+
+- type: jukebox
+  id: DiscoElysiumHardcoreDance
+  name: Hard Dance
+  path:
+    path: /Audio/Jukebox/HardcoreDanceDiscoElysiumOST.ogg
+
+- type: jukebox
+  id: MarchOfTheCommunistBrigades
+  name: Марш коммунистических бригад
+  path:
+    path: /Audio/Jukebox/Metro2MarchOfTheCommunistBrigadesOST.ogg
+
+- type: jukebox
+  id: YanvarskayaVyuga
+  name: Нина Бродская - Звенит январьская вьюга 
+  path:
+    path: /Audio/Jukebox/NinaBrodskayaYanvarskayaVyuga.ogg
+
+- type: jukebox
+  id: PapersPleaseTheme
+  name: Бумаги, пожалуйста!
+  path:
+    path: /Audio/Jukebox/PapersPleaseMainTheme.ogg
+
+- type: jukebox
+  id: RabochayaMarseleza
+  name: Русская Марсельеза - Советское творчество
+  path:
+    path: /Audio/Jukebox/RabochayaMarseleza.ogg
+
+- type: jukebox
+  id: RedArmyAnsambl
+  name: Красная армия - Советское творчество 
+  path:
+    path: /Audio/Jukebox/RedArmyAnsambl.ogg
+
+- type: jukebox
+  id: WhirlingInRags
+  name: Танцующая в лохматьях
+  path:
+    path: /Audio/Jukebox/SeaPowerWhirlingInRags8AM.ogg
+
+- type: jukebox
+  id: RedAlertSovietMarch
+  name: Красная угроза
+  path:
+    path: /Audio/Jukebox/SovietMarchRedAlert3RussianCover.ogg
+
+- type: jukebox
+  id: TravaUDoma
+  name: Земляне - Трава у дома
+  path:
+    path: /Audio/Jukebox/TravaUDoma.ogg
+
+- type: jukebox
+  id: IBelieveMyFriends
+  name: Я верю, мои друзья
+  path:
+    path: /Audio/Jukebox/VladimirTroshinIBelieveMyFriends.ogg
+
+- type: jukebox
+  id: MachineOfCommunism
+  name: Коммунистическая машина
+  path:
+    path: /Audio/Jukebox/YouAreEmptyMachineOfCommunism.ogg
+
+- type: jukebox
+  id: YoungBuildersMarch
+  name: Марш молодых строителей
+  path:
+    path: /Audio/Jukebox/YoungBuildersMarch.ogg
+
+- type: jukebox
+  id: InvinciblePeoples
+  name: Когда народ един - он не победим
+  path:
+    path: /Audio/Jukebox/InvinciblePeoples.ogg
+  
+- type: jukebox
+  id: AnthemOfTheDemocratic
+  name: Гимн демократической молодежи мира
+  path:
+    path: /Audio/Jukebox/AnthemOfTheDemocratic.ogg

@@ -105,4 +105,4 @@
   - type: PointLight
     radius: 5
     energy: 2
-    color: "#0096FF"
+    color: "#00ffff"

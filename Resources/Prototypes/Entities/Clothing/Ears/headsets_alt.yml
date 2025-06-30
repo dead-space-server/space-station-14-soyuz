@@ -116,7 +116,7 @@
   - type: Clothing
     sprite: Clothing/Ears/Headsets/security.rsi
   - type: Headset
-    color: "#1563bd"
+    color: "#dd3535"
 
 - type: entity
   parent: [ClothingHeadsetAlt, BaseCommandContraband]

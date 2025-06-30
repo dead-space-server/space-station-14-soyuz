@@ -1,0 +1,8 @@
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakCat
+  name: кошачий плащик
+  description: Милый кошачий пващик OwO!
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Neck/Cloaks/catcloak.rsi

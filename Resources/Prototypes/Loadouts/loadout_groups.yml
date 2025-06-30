@@ -1831,6 +1831,7 @@
   loadouts:
   - PsychologistJumpsuit
   - PsychologistJumpskirt
+  - PsychologistJumpsuitAlt # DS14-Soyuz
 
 - type: loadoutGroup
   id: ReporterUnderwear

@@ -2,7 +2,7 @@
   parent: BaseMachinePowered
   id: PhotocopierBase
   name: копировальный аппарат
-  description: ЦК закупило их чтобы сэкономить на ручках для юридического отдела.
+  description: Они точно не были украдены у Nanotrasen.
   suffix: Стандартный
   components:
   - type: Sprite
@@ -60,7 +60,7 @@
   parent: PhotocopierBase
   id: PhotocopierCommand
   name: копировальный аппарат командования
-  description: ЦК закупило их чтобы сэкономить на ручках для юридического отдела.
+  description: Они точно не были украдены у Nanotrasen.
   suffix: Командование
   components:
   - type: Photocopier
@@ -74,7 +74,7 @@
 - type: entity
   parent: PhotocopierBase
   id: PhotocopierCentcomm
-  name: копировальный аппарат Центкома
+  name: копировальный аппарат Генштаба
   description: От этого копировального аппарата веет понижением зарплаты станции.
   suffix: Центком
   components:

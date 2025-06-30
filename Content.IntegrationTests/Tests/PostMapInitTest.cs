@@ -115,7 +115,8 @@ namespace Content.IntegrationTests.Tests
             "Plasma",
             "Convex",
             "Loop",
-            "Reach"
+            "Reach",
+            "Aspid"
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

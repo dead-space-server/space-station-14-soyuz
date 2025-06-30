@@ -1,7 +1,7 @@
 - type: entity
   parent: EncryptionKey
   id: EncryptionKeyDeathSquad
-  name: ключ шифрования эскадрона смерти
+  name: ключ шифрования отряда специального назначения "Дым"
   description: Ключ шифрования отряда, несущего смерть.
   components:
   - type: EncryptionKey

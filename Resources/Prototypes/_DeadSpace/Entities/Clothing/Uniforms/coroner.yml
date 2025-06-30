@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitCoroner
-  name: комбинезон коронера
+  name: комбинезон патологоанатома
   description: Форма, выдаваемая квалифицированным и прошедшим обучение лицам. Имеется надпись "я не просто работаю с мертвецами, я танцую с ними на их последнем параде!"
   components:
   - type: Sprite
@@ -12,7 +12,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtCoroner
-  name: юбка-комбинезон коронера
+  name: юбка-комбинезон патологоанатома
   description: Она изготовлена из специального волокна, обеспечивающего слабую защиту от биологических опасностей. Кто сказал, что стиль должен умирать вместе с пациентами?
   components:
   - type: Sprite

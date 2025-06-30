@@ -1,2 +1,2 @@
-ent-ClothingUniformJumpsuitBlueShield = комбинезон офицера "Синий щит"
+ent-ClothingUniformJumpsuitBlueShield = комбинезон оперативника КГБ
     .desc = Текстилевый комбинезон, обшитый в некоторых местах толстой кожей.

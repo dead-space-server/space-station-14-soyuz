@@ -1,2 +1,2 @@
-ent-ClothingHeadHelmetHardsuitBlueShield = шлем скафандра офицера "Синий Щит"
+ent-ClothingHeadHelmetHardsuitBlueShield = шлем скафандра оперативника КГБ
     .desc = Предназначен для защитника командования.

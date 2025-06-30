@@ -4,7 +4,7 @@ meta:
   engineVersion: 252.0.0
   forkId: ""
   forkVersion: ""
-  time: 06/18/2025 15:17:02
+  time: 06/21/2025 15:33:36
   entityCount: 24247
 maps:
 - 1
@@ -5900,7 +5900,7 @@ entities:
             5: 2184
           -13,4:
             4: 2184
-            7: 546
+            6: 546
           -12,5:
             0: 10224
           -13,5:
@@ -5918,7 +5918,7 @@ entities:
           -11,6:
             0: 48063
           -11,4:
-            6: 546
+            7: 546
             0: 34824
           -11,3:
             0: 34823
@@ -6350,9 +6350,9 @@ entities:
           temperature: 293.15
           moles:
           - 0
+          - 0
+          - 0
           - 6666.982
-          - 0
-          - 0
           - 0
           - 0
           - 0
@@ -6365,9 +6365,9 @@ entities:
           temperature: 293.15
           moles:
           - 0
-          - 0
-          - 0
           - 6666.982
+          - 0
+          - 0
           - 0
           - 0
           - 0
@@ -11384,7 +11384,7 @@ entities:
       pos: -17.5,35.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -3553.5122
+      secondsUntilStateChange: -3984.4382
       changeAirtight: False
       state: Opening
     - type: Docking
@@ -11482,7 +11482,7 @@ entities:
       pos: 0.5,-7.5
       parent: 6563
     - type: Door
-      secondsUntilStateChange: -3552.6123
+      secondsUntilStateChange: -3983.5383
       changeAirtight: False
       state: Opening
     - type: Docking
@@ -13483,6 +13483,8 @@ entities:
       pos: -45.5,41.5
       parent: 2
     - type: DeviceNetwork
+      configurators:
+      - invalid
       deviceLists:
       - 127
   - uid: 16432
@@ -19150,11 +19152,6 @@ entities:
     components:
     - type: Transform
       pos: -4.5,-29.5
-      parent: 2
-  - uid: 1210
-    components:
-    - type: Transform
-      pos: -0.5,-29.5
       parent: 2
 - proto: BackmenVendingMachineCigs
   entities:
@@ -57492,6 +57489,8 @@ entities:
       pos: -45.5,33.5
       parent: 2
     - type: DeviceNetwork
+      configurators:
+      - invalid
       deviceLists:
       - 127
   - uid: 7323
@@ -57501,6 +57500,8 @@ entities:
       pos: -45.5,32.5
       parent: 2
     - type: DeviceNetwork
+      configurators:
+      - invalid
       deviceLists:
       - 127
   - uid: 7324
@@ -58636,6 +58637,8 @@ entities:
       pos: -43.5,35.5
       parent: 2
     - type: DeviceNetwork
+      configurators:
+      - invalid
       deviceLists:
       - 127
   - uid: 7482
@@ -76719,6 +76722,8 @@ entities:
       pos: -43.5,38.5
       parent: 2
     - type: DeviceNetwork
+      configurators:
+      - invalid
       deviceLists:
       - 127
     - type: AtmosPipeColor
@@ -106899,6 +106904,13 @@ entities:
     - type: Transform
       pos: 1.5,85.5
       parent: 16692
+- proto: VendingMachineClothingCapes
+  entities:
+  - uid: 1210
+    components:
+    - type: Transform
+      pos: -0.5,-29.5
+      parent: 2
 - proto: VendingMachineClownvend
   entities:
   - uid: 13857

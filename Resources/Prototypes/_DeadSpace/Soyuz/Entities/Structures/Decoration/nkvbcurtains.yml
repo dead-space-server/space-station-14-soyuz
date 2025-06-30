@@ -1,0 +1,24 @@
+- type: entity
+  id: CurtainsNkvb
+  parent: BaseCurtains
+  suffix: Нквб
+  description: Чёрные шторы, скрывающие от народа то, что они не должны знать.
+  components:
+  - type: Sprite
+    snapCardinals: true
+    sprite: _DeadSpace/Soyuz/Structures/Decoration/Curtains/nkvbcurtains.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+
+- type: entity
+  id: CurtainsNkvbOpen
+  parent: CurtainsNkvb
+  suffix: Открытые, Нквб
+  components:
+  - type: Door
+    state: Open
+  - type: Occluder
+    enabled: false
+  - type: Physics
+    canCollide: false

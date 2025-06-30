@@ -1,0 +1,19 @@
+- type: entity
+  id: BannerFlagUSSP
+  parent: BannerBase
+  name: флаг СССП
+  description: Скромный государственный флаг Союза Советских Социалистических Планет.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Structures/Decoration/banner.rsi
+    state: USSPFlag
+
+- type: entity
+  id: BannerUSSP
+  parent: BannerBase
+  name: знамя СССП
+  description: Гордое, золотистое знамя Союза Советских Социалистических Планет, отражающие в себе культуру и волю народов.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Structures/Decoration/banner.rsi
+    state: USSPBanner

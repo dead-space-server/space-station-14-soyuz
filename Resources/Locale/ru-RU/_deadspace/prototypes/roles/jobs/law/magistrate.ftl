@@ -1,6 +1,6 @@
-ent-MagistratPDA = КПК магистрата
-    .desc = КПК магистрата
-ent-MagistratIDCard = ID-карта магистрата
-    .desc = ID-карта магистрата
-ent-ClothingHeadsetMagistrat = гарнитура магистрата
-    .desc = гарнитура магистрата
+ent-MagistratPDA = КПК судьи
+    .desc = КПК судьи.
+ent-MagistratIDCard = ID карта судьи
+    .desc = ID карта судьи.
+ent-ClothingHeadsetMagistrat = гарнитура судьи
+    .desc = гарнитура судьи.

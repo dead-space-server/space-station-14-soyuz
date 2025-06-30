@@ -73,3 +73,7 @@
 - type: stationGoal
   id: HydroponicsInVacuum
   text: "/Paperwork/StationGoal/HydroponicsInVacuum.xml"
+
+- type: stationGoal
+  id: PlanetoidUrbanization
+  text: /Paperwork/StationGoal/Planetoid.xml

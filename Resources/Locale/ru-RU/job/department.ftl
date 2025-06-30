@@ -1,11 +1,11 @@
-department-Cargo = Отдел снабжения
-department-Civilian = Сервисный отдел
+department-Cargo = Отдел почты
+department-Civilian = Обслуживающий отдел
 department-Command = Командование
-department-CentralCommand = Центральное Командование
+department-CentralCommand = Генеральный штаб
 department-Engineering = Инженерный отдел
 department-Medical = Медицинский отдел
-department-Security = Служба безопасности
-department-Science = Научный отдел
+department-Security = Милиция
+department-Science = Научно-исследовательский отдел
 department-Silicon = Синтетики
 department-Specific = На определённых станциях
 department-Law = Юридический отдел

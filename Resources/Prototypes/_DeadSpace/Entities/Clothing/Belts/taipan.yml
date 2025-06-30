@@ -69,10 +69,10 @@
 - type: entity
   parent: ClothingBeltSecurity
   id: ClothingBeltTaipanSecurityWebbing
-  name: РПС синдиката
-  description: Ременно-плечевая система тактических ремней, которую носят представители военных структур синдиката.
+  name: РПС Рассвета
+  description: Ременно-плечевая система тактических ремней, которую носят представители военных структур Рассвета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Belt/webbing.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Belt/wwebbing.rsi
+    sprite: _DeadSpace/Clothing/Belt/webbing.rsi

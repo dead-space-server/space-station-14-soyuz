@@ -82,6 +82,10 @@
     ADTClothingFootWrapsHighBlack: 4 # ADT
     ClothingHeadHatGreysoft: 4 # DS14-value
     ClothingHeadHatMimesoft: 4 # DS14-value
+    ClothingUnderwearStockingsBlackGrid: 2 # DS14-Soyuz
+    ClothingUnderwearStockingsWhiteGrid: 2 # DS14-Soyuz
+    ClothingUnderwearStockingsBlack: 2 # DS14-Soyuz
+    ClothingUnderwearStockingsBlackPaws: 2 # DS14-Soyuz
     ClothingHeadHatBluesoft: 2
     ClothingHeadHatYellowsoft: 2
     ClothingHeadHatGreensoft: 2

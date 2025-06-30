@@ -77,7 +77,7 @@
 - type: entity
   parent: ClothingOuterCoatSecurityOvercoat
   id: ClothingOuterCoatSeniorOfficerTrench
-  name: шинель инструктора СБ
+  name: шинель старшего милиционера
   description: Шинель из плотной ткани с вшитым под ней кевларом, так же виден бронежилет первого класса защиты.
   components:
   - type: Sprite

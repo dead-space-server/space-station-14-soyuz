@@ -1,8 +1,8 @@
 ent-BriefcaseIAAFilled = { ent-BriefcaseBrown }
-    .suffix = АВД
+    .suffix = АСК
     .desc = { ent-BriefcaseBrown.desc }
 ent-BriefcaseMagistratFilled = { ent-BriefcaseBrown }
-    .suffix = Магистрат
+    .suffix = Судья
     .desc = { ent-BriefcaseBrown.desc }
 ent-BriefcaseLawyerFilled = { ent-BriefcaseBrown }
     .suffix = Юрист

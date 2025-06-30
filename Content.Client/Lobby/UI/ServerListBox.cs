@@ -46,6 +46,7 @@ public sealed class ServerListBox : BoxContainer
         AddServerInfo(container, "Союз-1", "Сервер в сеттинге станции СССП", "ss14://s1.deadspace14.net:1215", null);
         AddServerInfo(container, "Фронтир", "Сервер про космические путешествия и торговлю", "ss14://ff.deadspace14.net:1214", null);
         AddServerInfo(container, "Конфедерация", "Сервер с альтернативной сборкой", "ss14s://backmen.ru/ss14/main", null);
+
     }
 
     private void AddServerInfo(BoxContainer container, string serverName, string description, string serverUrl, string? discord)

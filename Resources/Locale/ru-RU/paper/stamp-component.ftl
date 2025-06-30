@@ -31,3 +31,4 @@ stamp-component-stamped-name-senior-officer = Старший милицонер
 stamp-component-stamped-name-senior-researcher = Ведущий научный сотрудник
 stamp-component-stamped-name-senior-physician = Врач-методист
 stamp-component-stamped-name-senior-salvage = Мастер-шахтёр
+stamp-component-stamped-name-special-operation-officer = Офицер Специальных Операций

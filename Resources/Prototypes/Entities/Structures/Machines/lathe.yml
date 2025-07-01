@@ -405,7 +405,6 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
-    - SecurityPoliceBeta # DS14 Souz
   - type: MaterialStorage
     whitelist:
       tags:

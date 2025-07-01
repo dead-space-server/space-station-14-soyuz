@@ -25,6 +25,12 @@
   - ClothingOuterCoatOKGB
 
 - type: loadoutGroup
+  id: OKGBGasMask
+  name: loadout-group-blue-shield-officer-masks
+  loadouts:
+  - ClothingMaskGasSwat
+
+- type: loadoutGroup
   id: BlueShieldOfficerUnderwear
   name: loadout-group-blue-shield-officer-underwear
   minLimit: 2

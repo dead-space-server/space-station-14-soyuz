@@ -3,6 +3,7 @@ loadout-group-default-white-underwear = Стандартное нижнее бе
 # Command
 loadout-group-blue-shield-officer-jumpsuit = Оперативник КГБ, комбинезон
 loadout-group-blue-shield-officer-outerclothing = Оперативник КГБ, верхняя одежда
+loadout-group-blue-shield-officer-masks = Оперативник КГБ, противогаз
 loadout-group-blue-shield-officer-backpack = Оперативник КГБ, рюкзак
 loadout-group-blue-shield-officer-underwear = Оперативник КГБ, нижнее бельё
 # Civilian

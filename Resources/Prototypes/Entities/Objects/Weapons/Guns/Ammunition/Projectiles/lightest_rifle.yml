@@ -35,16 +35,12 @@
         Piercing: 10          
 
 - type: entity
-  id: CartridgeLightestRiflePractice
+  id: BulletLightestRiflePractice
   name: патрон (5.45х39 мм винтовочный тренировочный)
-  parent: BaseCartridgeLightestRifle
+  parent: BaseBulletPractice
+  categories: [ HideSpawnMenu ]
   components:
-  - type: CartridgeAmmo
-    proto: BulletLightestRiflePractice
-  - type: Sprite
-    layers:
-      - state: base
-        map: [ "enum.AmmoVisualLayers.Base" ]
-      - state: tip
-        map: [ "enum.AmmoVisualLayers.Tip" ]
-        color: "#dbdbdb"
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 1

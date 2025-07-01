@@ -150,3 +150,13 @@
   recipes:
   - WeaponDisabler
   - WeaponDisablerSMG
+
+# DS14 Souz-start
+- type: latheRecipePack 
+  id: SecurityPoliceBeta 
+  recipes:
+  - PoliceBetaLegs
+  - PoliceBetaHead
+  - PoliceBetaComp
+  - PoliceBetaBody
+# DS14 Souz-end

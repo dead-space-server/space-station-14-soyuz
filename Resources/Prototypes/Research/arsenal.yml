@@ -194,6 +194,23 @@
   - ClothingEyesPNV
 # DS14-end
 
+# DS14 Souz-start
+- type: technology
+  id: SecurityPoliceBetaTechnology
+  name: research-technology-police-beta-technology
+  icon:
+    sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - PoliceBetaLegs
+  - PoliceBetaHead
+  - PoliceBetaComp
+  - PoliceBetaBody
+# DS14 Souz-end
+
 # Tier 3
 
 - type: technology

@@ -1,248 +1,218 @@
 # All spelling mistakes and broken english are intentional!
 # I hate saving paper contents in ftl files
 
--delivery-header-nanotrasen = [color=blue]
-    ╔══════════════════╗
-    ║███░███░░░░██░░░░░║
-    ║░██░████░░░██░░░░░║
-    ║░░█░██░██░░██░█░░░║
-    ║░░░░██░░██░██░██░░║
-    ║░░░░██░░░████░███░║
-    ╚══════════════════╝[/color]
--delivery-header-nanotrasen-alternate-timeline = [color=red]
-    ╔══════════════════╗
-    ║███░███░░░░██░░░░░║
-    ║░██░████░░░██░░░░░║
-    ║░░█░██░██░░██░█░░░║
-    ║░░░░██░░██░██░██░░║
-    ║░░░░██░░░████░███░║
-    ╚══════════════════╝[/color]
--delivery-header-syndicate = [color=#ff0000]
-    ╔══════════════════╗
-    ║░░░░░████████░░░░░║
-    ║░░░░░██░░░░░░░░░░░║
-    ║░░░░░████████░░░░░║
-    ║░░░░░░░░░░░██░░░░░║
-    ║░░░░░████████░░░░░║
-    ╚══════════════════╝[/color]
 delivery-spam-robust-toolboxes = [color=blue][head=1]
-    ░░▄▀░░
-    ░▄█▄▄▀ [head=3]ROBUST - TOOLBOXES AND TOOLS[/head]
-    ██▀░░░ [/head][/color]
-    
-    { "[bold]BUY ONE TOOLBOX, GET ONE SET OF TOOLS FOR FREE![/bold]" }
-    
-    AS YOU ARE ONE OF OUR VALUED CUSTOMERS, YOU GET A CUSTOMER BONUS, YOUR TOOLS COME RUST AND LEAD-FREE!!! ISN'T THAT AMAZING? THE TOOLBOX ON THE OTHER HAND, COMES WITH EXTRA LEAD! AMAZING FOR SMASHING SKULLS AND STOPPING RADIATION ALIKE!
-    
-    { "[bold]ALL THIS AND POSSIBLY MORE FOR ONLY ONE ORGAN![/bold]" }
-    
-    ROBUST - TOOLBOXES AND TOOLS:
-    -LEAD AND ASBESTOS FREE!
-    -OR WITH LEAD AND ASBESTOS, IF YOU PREFER!
-    -CHEAP! ONLY ONE ORGAN! THAT'S LESS THAN TWO ORGANS!
-    -DOESN'T HAVE TO BE YOUR ORGAN! WE DON'T JUDGE!
-delivery-spam-reasons-to-chose-nanotrasen = [color=blue]
-                                   ╔══════════════════╗
-                                   ║███░███░░░░██░░░░░║
-                                   ║░██░████░░░██░░░░░║
-                                   ║░░█░██░██░░██░█░░░║
-                                   ║░░░░██░░██░██░██░░║
-                                   ║░░░░██░░░████░███░║
-                                   ╚══════════════════╝[/color]
-    
-    { "[head=2]TOP THREE REASONS WHY THE SYNDICATE IS INCOMPETENT[/head]" }
-    
-    { "[bold]NUMBER ONE[/bold]" }
-    THEIR SLEEPER AGENTS ARE INCOMPETENT! THEY CAN'T EVEN KILL A PASSENGER WITH A DEATHWISH!
-    
-    { "[bold]NUMBER TWO[/bold]" }
-    THEIR CIVILIANS ARE WEAK TO BULLETS! TRUST ME, WE TRIED! UNLIKE THE NANOTRASEN CIVILIANS, SYNDICATE CIVILIANS DIE FROM A BULLET TO THE SKULL! BULLETS WE HAVE!
-    
-    { "[bold]NUMBER THREE[/bold]" }
-    THEIR LOGO IS HORRIBLE! THEY THINK THEY'RE COOL WITH THEIR LOGO! OOH, LOOK AT ME, I'M SO COOL! OOH, SNAKE THAT'S ALSO AN S! HOW CREATIVE! MY THREE YEAR OLD SON COULD DRAW A BETTER LOGO!
-delivery-spam-reasons-to-choose-syndicate = [color=#ff0000]
-                                  ╔══════════════════╗
-                                  ║░░░░░████████░░░░░║
-                                  ║░░░░░██░░░░░░░░░░░║
-                                  ║░░░░░████████░░░░░║
-                                  ║░░░░░░░░░░░██░░░░░║
-                                  ║░░░░░████████░░░░░║
-                                  ╚══════════════════╝[/color]
-    
-    { "[head=2]TOP THREE REASONS WHY NANOTRASEN IS INCOMPETENT[/head]" }
-    
-    { "[bold]NUMBER ONE[/bold]" }
-    THEIR GUNS SUCK! THEY DON'T EVEN HAVE SNIPER RIFLES! THEIR SECURITY FORCES CAN'T EVEN CARRY BIG GUNS IN MOST SITUATIONS!
-    
-    { "[bold]NUMBER TWO[/bold]" }
-    THEIR COMMANDERS? THEY DIE FROM A SINGLE SHOT! NO COOL ARMOR! JUST BANG, DEAD! LAME! OUR COMMANDERS GET COOL HARDSUITS!
-    
-    { "[bold]NUMBER THREE[/bold]" }
-    THEIR MURDER METHODS ARE UNINSPIRED! IT'S JUST GUN! THERE'S NO THROWING PEOPLE INTO DEEP SPACE, NO FEEDING PEOPLE INTO RECYCLERS WITH SAFETY MODE DISENGAGED, NO SLIPPING BOMBS INTO POCKETS! SO BORING!
-delivery-spam-tired-of-science = [head=3]Science will LOVE you for this!!
-    
-    are [bold]YOU[/bold] Tired of your Station's Science Department blowing up withoutdoing any actual science?
-    Well Your in luck![/head]
-    
-    Folow this simple guide, and we'll ensure your Science [italic]Never Works Again![/italic]
-    
-    Simply do the following:
-    - Step One: Locate your Science Department's Research Server
-    - Step Two: Un-anchor the Research Server from the ground
-    - Step Three: Hurl the Research Server into space, preferably in the direction of the Spider Clan Super Secret Space Dojo
-    - Step Four: Wait appproximately 3-5 Business Shifts
-    - Step Five: Our Workers at Spid-ex Inc will provide your station with one (1) techdisk per week.
-    
-    { "[color=lightgray]Note: Spider Clan is not responsible for any punishment issued by your supervisors.[/color]" }
-delivery-spam-free-all-access = [head=3]Have You ever wanted to have [italic][color=green]Free [bold]All Axcess!?!?[/bold][/color][/italic][/head]
-    { "[head=2]Well NOW YOU CAN!![/head]!" }
-    
-    All you need to do is call [color=blue]555-GOUR-LECKSSS[/color] and state your Staton ID# !!!
-    Once youve done that,  we can simply remotely query the wallet of Yourstation's Cargo department, extacting our required fees of three [italic] EASY[/italic] payments, allowing you to claim your
-    { "[head=2][color=green] [bolditalic] FREE AA!!!!!!!!!![/bolditalic][/color][/head]" }
-    
-    
-    { "[color=gray]" }
-    { "[bullet/]Note: station ID must be stated in the format of \"NT/NX - ###\"" }
-    { "[bullet/]Note: Payments lodged to the client's station's cargo department amount to roughly $5000 spesos per transaction, not including individual processing fees" }
-    { "[bullet/]Note: We at Gour-Lecksss LMT. are not responsible if your station's HoP forces you to fill out an ACTUAL Free AA form if they find out about this letter" }
-    { "[/color]" }
-delivery-spam-centcomm-retribution = [color=red] THIS IS AN OFICAL NOTICE FROM THE HEAD OF [color=blue]NANOTRASN[/color][/color]
-    
-    Dear Sir, Madam, or Other Insignificat station personell
-    
-    If you do not wish for this station to be declared Unprofitable in the eyes of
-    { "[head=2][italic] Our Great and Glorious [color=blue]Nanotransen[[/color][/head]" }
-    Then you must organize for three [color=blue]Nt[/color] Standard Stacks of [color=blue]nt[/color] Standard Gold Ingots to be sent to your station's Away Trade Outpots within 5 [color=blue]nT[/color] Standard work shifts.
-    
-    { "[head=2][color=red]IGNORE THIS ORDER AT RISK OF RETRIBUTON FROM [color=green]CENTCO[/color]!!!!![/head][/color]" }
-delivery-spam-alternate-timeline = [color=red]
-                                 ╔══════════════════╗
-                                 ║███░███░░░░██░░░░░║
-                                 ║░██░████░░░██░░░░░║
-                                 ║░░█░██░██░░██░█░░░║
-                                 ║░░░░██░░██░██░██░░║
-                                 ║░░░░██░░░████░███░║
-                                 ╚══════════════════╝[/color]
-    { "[head=2]This is an official notice from the [color=red]Chief Security Officer[/color] at a Nanotrasen's Space Station 15.[/head]" }
-    
-    To whoever receives this letter. I am Sergeant Rigel. My occupation is the CSO. We need immediate assistance.
-    
-    Our station is currently under attack by Atomic Agents, this letter is being thrown into a destabilized bluespace anomaly created by our [color=purple]Head of Research[/color].
-    
-    I am currently bolted in the Bridge, if you receive this message, please send aid immediately. I don't know how much longer we can last.
-    
-    Glory to Nanotrasen.
-delivery-spam-narsie-cult = [color=#134975][head=2]The Children of Nar'Sie[/head][/color]
-                                 The Beginning of a New Era
-    { "[bold]══──══──══──══──══──══──══──══──══──══──══[/bold]" }
-    
-    { "[head=3]Do you feel lost in the vastness of our cosmos?[/head]" }
-    In the modern era, it's easy for wayward souls to feel like cogs in the machine of vast corporations.
-    
-    { "[head=3]Do you feel as if you're made for a better purpose?[/head]" }
-    Do you tire of the life of mundanity forced upon you? Mopping floors, delivering boxes, or filling out endless paperwork?
-    
-    { "[head=3]Do you want to make the galaxy a better place?[/head]" }
-    
-    
-    If you answered "Yes" to any of these questions, then contact one of our representatives today! We have members across stations all over the galaxy eager to welcome new members into our flock. Be one of the blades that helps welcome the Geometer of Blood into our universe so that all may know his bliss!
-    
-    All you have to do is say [color=#FF0000][italic]"Sas'so c'arta forbici!"[/italic][/color]
+                                 ░░▄▀░░
+                                 ░▄█▄▄▀ [head=3]РОБАСТ - ТУЛБОКСЫ И ИНСТРУМЕНТЫ[/head]
+                                 ██▀░░░ [/head][/color]
+
+                                 {"[bold]КУПИ 1 ТУЛБОКС, ПОЛУЧИ ВТОРОЙ АБСОЛЮТНО БЕСПЛАТНО![/bold]"}
+
+                                 ТАК КАК ВЫ ОДИН ИЗ НАШИХ ЦЕННЫХ КЛИЕНТОВ, ВЫ ПОЛУЧАЕТЕ КЛИЕНТСКИЙ БОНУС, ВАШИ ИНСТРУМЕНТЫ НЕ РЖАВЕЮТ И СОСТОЯТ ИЗ СВИНЦА АБСОЛЮТНО БЕСПЛАТНО!!! ЭТО ЛИ НЕ ПРЕКРАСНО? С ДРУГОЙ СТОРОНЫ НАШИ ТУЛБОКСЫ, ОНИ ПОСТАВЛЯЮТСЯ С ДОПОЛНИТЕЛЬНЫМ СВИНЦОМ! ПРОСТО ПРЕВОСХОДНО ДЛЯ РАЗБИВАНИЯ ЧЕРЕПОВ В ДРЕБЕЗГИ И ОСТАНОВКИ РАДИАЦИОННОГО ИЗЛУЧЕНИЯ!
+
+                                 {"[bold]ВСЁ ЭТО И ДАЖЕ БОЛЬШЕ ТОЛЬКО С ОДНИМ ОРГАНОМ![/bold]"}
+
+                                 РОБАСТ - ТУЛБОКСЫ И ИНСТРУМЕНТЫ:
+                                 -СВИНЕЦ И АСБЕСТ БЕСПЛАТНО!
+                                 -ИЛИ СО СВИНЦОМ ИЛИ АСБЕСТОМ, ЕСЛИ ВЫ ТАК ХОТИТЕ!
+                                 -ДЕШЕВО! ТОЛЬКО ОДИН ОРГАН! ЭТО МЕНЬШЕ, ЧЕМ ДВА ОРГАНА!
+                                 -ЭТО НЕ ОБЯЗАТЕЛЬНО ДОЛЖЕН БЫТЬ ВАШ ОРГАН! МЫ НЕ ОСУЖДАЕМ!
+
+delivery-spam-reasons-to-chose-nanotrasen =
+
+                                       {"[head=2]3 ПРИЧИНЫ ПОЧЕМУ РАССВЕТ НЕКОМПЕТЕНТЕН[/head]"}
+
+                                       {"[bold]НОМЕР ОДИН[/bold]"}
+                                       ИХ СПЯЩИЕ АГЕНТЫ НЕКОМПЕТЕНТНЫ! ОНИ МОГУТ УБИТЬ РАЗНОРАБОЧЕГО ПРОСТО ЖАЖДЯ СМЕРТИ!
+
+                                       {"[bold]НОМЕР ДВА[/bold]"}
+                                       ИХ СОТРУДНИКИ НЕ ВЫДЕРЖИВАЮТ ПУЛЬ! ПОВЕРЬ МНЕ, МЫ ПЫТАЛИСЬ! В ОТЛИЧИЕ ОТ ГРАЖДАН СССП, АГЕНТЫ РАССВЕТА УМИРАЮТ ОТ ПУЛИ В ГОЛОВУ! А ПУЛИ У НАС ЕСТЬ!
+
+                                       {"[bold]НОМЕР ТРИ[/bold]"}
+                                       ИХ ЛОГОТИП УЖАСНЫЙ! ОНИ ДУМАЮТ, ЧТО ИХ ЛОГОТИП ЛУЧШЕ ДРУГИХ! ООХ, ПОСМОТРИТЕ НА МЕНЯ, Я КЛАССНЫЙ! ООХ, БОЛОТНО-ЗЕЛЁНЫЙ КРЕСТ! КАК КРЕАТИВНО! МОЙ ТРЁХЛЕТНИЙ СЫН НАРИСУЕТ ЛОГОТИП ГОРАЗДО ЛУЧШЕ!
+
+delivery-spam-reasons-to-choose-syndicate =
+
+                                            {"[head=2]3 ПРИЧИНЫ ПОЧЕМУ СССП НЕКОМПЕТЕНТНЫ[/head]"}
+
+                                            {"[bold]НОМЕР ОДИН[/bold]"}
+                                            ИХ ОРУЖИЕ ОТСТОЙ! ОНИ ДАЖЕ НЕ ИМЕЮТ СНАЙПЕРСКИЙ ВНИТОВОК! ИХ ОХРАНА В БОЛЬШИНСТВЕ СИТУАЦИЙ ДАЖЕ НЕ МОЖЕТ ИМЕТЬ ПРИ СЕБЕ КРУПНОКАЛИБЕРНОЕ ОРУЖИЕ!
+
+                                            {"[bold]НОМЕР ДВА[/bold]"}
+                                            ИХ КОМАНДИРЫ? ОНИ УМИРАЮТ ОТ ОДНОГО ВЫСТРЕЛА! НЕТУ ХОРОШЕЙ БРАНИ! ОДИН ВЫСТРЕЛ, МЁРТВ! БРЕД! НАШИ КОМАНДИРЫ ПОЛУЧАЮТ КЛАССНЫЕ ЗАЩИТНЫЕ КОСТЮМЫ!
+
+                                            {"[bold]НОМЕР ТРИ[/bold]"}
+                                            ИХ МЕТОДЫ УБИЙСТВА НЕ ВООДУШЕВЛЯЮТ! ЭТО ПРОСТО ОРУЖИЕ! ЗДЕСЬ НЕ ВЫКИДЫВАЮТ ЛЮДЕЙ В ОТКРЫТЫЙ КОСМОС, НЕ КИДАЮТ В ПЕРЕРАБОТЧИК МУСОРА С ОТКЛЮЧЁННЫМ РЕЖИМОМ БЕЗОПАСНОСТИ, НЕ ПОДКИДЫВАЮТ БОМБЫ ПО КАРМАНАМ! ТАК СКУЧНО!
+
+delivery-spam-tired-of-science = [head=3]Учёные будут любить вас после этого!!
+
+                                 Если [bold]ТЫ[/bold] Устали от того, что научный отдел вашей станции взрывается не начиная заниматся наукой?
+                                 Хорошо, тебе повезло![/head]
+
+                                 Следуй этим простым пунктам и мы будет работать вместо вас [italic]Больше никакой работы![/italic]
+
+                                 Просто выполняйте следующие шаги:
+                                 - Шаг Один: Найдите сервер своего научного отдела
+                                 - Шаг Два: Открепите сервер от пола
+                                 - Шан Три: Киньте сервер в открытый космос, приблизительно в супер секретную штаб квартиру Клана Паука
+                                 - Шан Четыре: Ожидайте 3-5 рабочих смен
+                                 - Шан Пять: Наши работники с Spid-ex Inc будут обеспечивать вас одним (1) диском с технологиями в неделю.
+
+                                 {"[color=lightgray]Заметка: Клан Паука не несёт ответственность за какие-либо наказания, назначенные вашим руководством .[/color]"}
+
+delivery-spam-free-all-access = [head=3]Вы когда-нибудь хотели получать [italic][color=green]Бесплатные [bold]Полные допступы!?!?[/bold][/color][/italic][/head]
+                                {"[head=2]Хорошо, ТЕПЕРЬ ТЫ МОЖЕШЬ!![/head]!"}
+
+                                Всё что нужно это просто позвонить по номеру [color=blue]555-ГОР-ЛЕКССС[/color] и укажите номер вашей станции !!!
+                                Как только вы это сделает,  мы удалённо запросим доступ к счёту почты вашей станции, а после получим три [italic] ЛЁГКИХ[/italic] платежа, одобренные вами для получения
+                                {"[head=2][color=green] [bolditalic] БЕСПЛАТНЫХ ДОПСТУПОВ!!!!!!!!!![/bolditalic][/color][/head]"}
+
+
+                                {"[color=gray]"}
+                                {"[bullet/]Примечание: номер вашей станции должен быть в формате \"USSP/NX - ###\""}
+                                {"[bullet/]Примечание: Платежи, поступающие в отдел почты вашей станции составляют примерно 5000 кредитов за транзакцию, без учёта комиссии за обработку персональных данных"}
+                                {"[bullet/]Примечание: Мы в Гор-Лекссс LMT и не несём ответственность за то, что администрация вашей станции, узнав об этом письме, заставил вас заполнять официальный документ"}
+                                {"[/color]"}
+
+delivery-spam-centcomm-retribution = [color=red] Это официальное уведомление от ГенСека [color=red]СССП[/color][/color]
+
+                                     Сэр, Мадам, или другой персонал станции.
+
+                                     Если вы не хотите, чтобы эта станция была объявлена убыточной в глазах 
+                                     {"[head=2][italic] Нашего Великого и Славного [color=red]СССП[[/color][/head]"}
+                                     Тогда вы должны подготовить 3 стандартных слитков золота стандартного размера и отправить со станции на ваш Автономный Торговый Аванпост в течение 5 стандартных рабочих смен.
+
+                                     {"[head=2][color=red]ПРОИГНОРИРОВАЛ ЭТОТ ПРИКАЗ ВЫ РИСКУЕТЕ ПОЛУЧИТЬ НАКАЗАНИЕ СО СТОРОНЫ [color=green]ГЕНЕРАЛЬНОГО ШТАБА[/color]!!!!![/head][/color]"}
+
+delivery-spam-alternate-timeline = 
+                                   {"[head=2]Это официальное уведомление для [color=red]Начальника Милиции[/color] космической станции 15[/head]"}
+
+                                   Тому, кто получит это письмо. Я сержант Рэйгел. Моя профессия - Начальник Милиции. Нам нужна немедленная помощь.
+
+                                   Сейчас наша станция атакована оперативниками легиона, это письмо было выброшено в дестабилизированную блюспейс аномалию, созданную нашим [color=purple]Главным Научным Сотрудником[/color].
+
+                                   Я заперся на мосту, если вы получили это письмо, пришлите пожалуйста подкрепление. Я не знаю, как долго мы ещё сможем продержатся.
+
+                                   Слава СССП.
+
+delivery-spam-narsie-cult =                         [color=#134975][head=2]Дети Нар'Си[/head][/color]
+                                                 Начало Новой Эры
+                            {"[bold]══──══──══──══──══──══──══──══──══──══──══[/bold]"}
+
+                            {"[head=3]Чувствуете себя потерянным в бесконечных просторах нашего космоса?[/head]"}
+                            В современную эпоху своенравным душам легко почувствовать себя винтиками в механизме огромных корпораций.
+
+                            {"[head=3]Чувствуете ли вы, что созданы для более грандиозных целей?[/head]"}
+                            Вы устали от навязанной повседневной жизни? Мыть полы, разносить коробки, или заполнять бесконечное количество документов?
+
+                            {"[head=3] Вы хотите сделать галактику лучшим местом?[/head]"}
+
+
+                            Если вы ответили "Да" на любой из этих вопросов, то свяжитесь с одним из наших представителей сегодня! Наши участники есть на всех станциях по всей галактике, готовые приветствовать новобранцев в нашей пастве. Стань клинком, который поможет приветствовать Кровавого Геометра в нашей вселенной, что бы все могли познать его блаженство!
+
+                            Всё что нужно, это сказать [color=#FF0000][italic]"Sas'so c'arta forbici!"[/italic][/color]
+
 delivery-spam-rage-cage = [color=#aaaaaa]▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀[/color]
-                                 { "[bold][head=1]THE RAGE CAGE[/head][/bold]" }
-    { "[color=#aaaaaa]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[/color]" }
-    { "[bold][color=#FF0000][head=3]DO YOU WANT TO FIGHT?[/head][/color][/bold]" }
-    { "[bold][color=#FF0000][head=3]DO YOU WANT TO WIN?[/head][/color][/bold]" }
-    { "[bold][color=#FF0000][head=3]DO YOU WANT TO DOMINATE?![/head][/color][/bold]" }
-    
-    
-    
-    Then come on down to... [color=#FF0000][bold][head=2]THE RAGE CAGE[/head][/bold][/color]
-    
-    
-    
-    Hidden in the depths of your local Nanotrasen station is the patented [color=#FF0000][bold]RAGE CAGE[/bold][/color]. An electrified fighting arena designed for only the strongest of fighters, the [color=#FF0000][bold]RAGE CAGE[/bold][/color] seperates the Wimps from the Warriors, the Scrubs from the Soldiers, and the Losers from the Winners.
-    ──────────────────────────────────────────
-    In the [color=#FF0000][bold]RAGE CAGE[/bold][/color] there is only one rule: [italic]Two fighters enter. One fighter leaves. [/italic]
-    ──────────────────────────────────────────
-    No weapons, no armor, just pure unadulterated [bold]COMBAT[/bold]. Don't lose out and be a [bold]WIMP[/bold]. Win the glory of being your station's most robust fighter in the [color=#FF0000][bold]RAGE CAGE[/bold][/color] today!
-delivery-spam-evil-lizard = [color=#FF0000][bold][head=2]STOP[/head][/bold][/color]
-    
-    If yore reading this letter...[color=#FF0000][head=3]YOUR ALRAEDY CURSED!!![/head][/color]
-    
-    Im sorry to do this to you but I have to warn you about:
-    
-           { "[color=#FF0000][head=1]The Ghost of The Bloody Lizardd[/head][/color]" }
-    
-    It all started when i to got a letter in the mail: it was a scary image of a lizard plushie with BLOODY EYES staring RIGHT AT ME. the letter said I was cursed...and if I didn't send this letter to 30 people within 30 days then the Blood Lizard would come in the middle of the night...
-    
-    { "[italic]and KILL ME.[/italic]" }
-    
-    im sorry......but your one of the 30 people i have to send this too..and now yoor cursed too...
-    
-    please send this letter to 30 other people to stop the curse! you can still save yorself! theres still time! don't let the bloody lizard get you too, and take this thingie! it will keep you safe from dark spiirts...[head=3]FOR NOW[/head]
-    
-    
-    
-    
-    { "[head=1]OH NO THERE IT IS!!!!!!!![/head]" }
-    
-    ░░░░░░░░░█░░[color=#67CC40]████████[/color]█[color=#67CC40]███[/color]░░░░░░░░░░
-    ░░░░░░[color=#FF0000]████[/color]█[color=#6EC543]█[/color][color=#67CC40]███████[/color]█[color=#FF0000]██████[/color]░░░░░░░░
-    ░░░░[color=#FF0000]████[/color][color=#6EC543]██[/color][color=#67CC40]████████[/color][color=#FF0000]██████[/color][color=#FFFFFF]██[/color][color=#FF0000]█[/color][color=#B53737]█[/color]░░░░░░
-    ░░░░[color=#FF0000]██[/color][color=#6EC543]██[/color][color=#67CC40]██████████[color=#FF0000]████████[/color][color=#B53737]██[/color]░░░░░░
-    ░░[color=#6EC543]██████[/color][color=#67CC40]██████████[/color][color=#FF0000]███████[/color][color=#B53737]███[/color]░░░░░░
-    { "[color=#6EC543]██████[/color][color=#67CC40]██████████████[/color][color=#FF0000]███[/color][color=#B53737]███[/color]░░░░░░░░" }
-    { "[color=#6EC543]██████[/color][color=#67CC40]██████████████[/color][color=#FF0000]█[/color][color=#6EC543]█████[/color]░░░░░░░░" }
-    { "[color=#6EC543]██████████[/color][color=#67CC40]██████████[/color][color=#FF0000]█[/color][color=#67CC40]███[/color]░░░░░░░░░░" }
-    ░░[color=#6EC543]██[/color][color=#FF2020]██[/color][color=#FF3D3D]██[/color][color=#6EC543]████████[/color][color=#67CC40]████[/color][color=#86E158]██[/color]░░░░░░░░░░░░
-    ░░░░[color=#FF2020]██[/color][color=#FF3D3D]██[/color]░░░░[color=#86E158]████████[/color][color=#6EC543]██[/color][color=#61D034]██[/color]░░░░░░░░[color=#56B037]██[/color]
-    ░░░░[color=#FF2020]██[/color]░░░░[color=#A8EB7A]██[/color][color=#B5EE85]██████[/color][color=#A8EB7A]██[/color][color=#6EC543]████[/color][color=#61D034]██[/color]░░░░[color=#56B037]██[/color][color=#48A926]██[/color]
-    ░░░░░░░░[color=#A8EB7A]██[/color][color=#B5EE85]██████████[/color][color=#A8EB7A]██[/color][color=#6EC543]████[/color][color=#56B037]██[/color][color=#48A926]██████[/color]
-    ░░░░[color=#6EC543]██[/color][color=#61D034]██[/color][color=#A8EB7A]██[/color][color=#B5EE85]██████████[/color][color=#A8EB7A]██[/color][color=#48A926]████████████[/color]
-    ░░░░[color=#6EC543]████[/color][color=#86E158]██[/color][color=#A8EB7A]██[/color][color=#B5EE85]████[/color][color=#A8EB7A]██[/color][color=#86E158]██[/color][color=#61D034]████[/color][color=#6EC543]██[/color][color=#48A926]████[/color][color=#52A037]██[/color]░░
-    ░░░░[color=#6EC543]████[/color][color=#61D034]██[/color][color=#86E158]████████[/color][color=#61D034]██[/color][color=#6EC543]██████[/color][color=#52A037]████[/color]░░░░
-    ░░░░░░[color=#6EC543]████[/color]░░░░░░░░[color=#6EC543]████████[/color]░░░░░░░░
-    ░░░░░░░░░░░░░░░░░░░░[color=#6EC543]████[/color]░░░░░░░░░░
-delivery-spam-parents-need-money = [bold]Hello Child,[/bold]
-    
-    This is your Parents writing to you: we are in need of money! Our taxes have been audited and we owe $100,000 in spesos to governnment! please help! they only want gift cards so you will need to send us 100 $1000 spesos Bisa gift cards.
-    
-    please mail to:
-    50192 Spess Lane
-    Station City, Ignius 40195-243
-    Gamma Quadrant
-    Guilimin System
-    
-    if we do not get this money in 10 days then the govertment will come to take away childhood home and we will be homeless.
-    
-    { "[bold]thank you and we love you,[/bold]" }
-    { "[italic]parents[/italics]" }
-delivery-spam-voyage-advertisement = [head=2]Join us on the maiden voyage of the...[/head]
-    
-         ░█▀▀░█▀▀░░░█▀▄░█▀▀░█░░░█▀█░█░█░█▀█░█▀▄
-         ░▀▀█░▀▀█░░░█▀▄░█▀▀░█░░░█▀█░▄▀▄░█░█░█▀▄
-         ░▀▀▀░▀▀▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀
-    
-    
-    { "[bold]══════════════════════════════════════════[/bold]" }
-    
-    The latest in Comfortech™ and the most beautiful sights this side of the Iraxsi System! The [italic]SS Relaxor[/italic] is a state of the art luxury Cruiser taking you on the journey of a lifetime!
-    
-    { "[head=3]Experience the phosphorous lakes of Galimar* from the comfort of our LuxuCabins™ with the all the modern amenities you could ever wish for![/head]" }
-    
-    { "[head=3]Gaze in awe at the Eye of the Cosmos** while enjoying meals from our Five Star Galaxy class chefs![/head]" }
-    
-    { "[head=3]Explore the ruins of Agathar***, now open to the public with the assistance of Nanotrasen's top Scientists. All the mysteries of the old Agatharian civilization are excavated and displayed for your viewing pleasure![/head]" }
-    
-    For the low, low cost of $5,000 spesos a night, the six month luxury cruise could be yours for the vacation of your dreams! Call us today at [color=#00FF00]RELAX-NOW[/color] to book your cruise. Don't wait! Act now!
-    
-    
-    
-    
-    
-    
-    { "[italic]*Phosphorus lakes are not for swimming, you waive all rights to legal representations with Relaxination Destinations upon landing on Galimar.[/italic]" }
-    { "[italic]**Eye of the Cosmos must not be looked at for longer than five seconds at a time. You do not hear the call of the Eye.[/italic]" }
-    { "[italic]***Must sign safety waiver before landing, Relaxination Destinations does not guarantee the safety of the Agatharian ruins. Disappearances of tour groups are down to an acceptable margin of 0.23% of all tour groups that visit the ruins.[/italic]" }
+                                                       {"[bold][head=1]КЛЕТКА ЯРОСТИ[/head][/bold]"}
+                          {"[color=#aaaaaa]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[/color]"}
+                          {"[bold][color=#FF0000][head=3]ХОЧЕШЬ ЛИ ТЫ ДРАТЬСЯ?[/head][/color][/bold]"}
+                          {"[bold][color=#FF0000][head=3]ХОЧЕШЬ ЛИ ТЫ ПОБЕЖДАТЬ?[/head][/color][/bold]"}
+                          {"[bold][color=#FF0000][head=3]ХОЧЕШЬ ЛИ ТЫ ДОМИНИРОВАТЬ?![/head][/color][/bold]"}
+
+
+
+                          Тогда спускайся  в... [color=#FF0000][bold][head=2]КЛЕТКУ ЯРОСТИ[/head][/bold][/color]
+
+
+
+                          В недрах вашей станции СССП спрятана запатентованная [color=#FF0000][bold]КЛЕТКА ЯРОСТИ[/bold][/color]. Наэлектризованная боевая арена, предназначенная только для сильнейших бойцов, это [color=#FF0000][bold]КЛЕТКА ЯРОСТИ[/bold][/color] отделяет Слабаков от Воинов, Лентяев от Солдат, и Лузеров от Победивших.
+                          ──────────────────────────────────────────
+                          В [color=#FF0000][bold]КЛЕТКЕ ЯРОСТИ[/bold][/color] есть только 1 правило: [italic]Двое зашло. Один вышел. [/italic]
+                          ──────────────────────────────────────────
+                          Без оружия, без брони, только чистая и неподдельная [bold]БИТВА[/bold]. Не проиграй и не будь [bold]СЛАБАКОМ[/bold]. Завоюй славу самого сильного бойца вашей станции в [color=#FF0000][bold]КЛЕТКЕ ЯРОСТИ[/bold][/color] сегодня!
+
+delivery-spam-evil-lizard = [color=#FF0000][bold][head=2]СТОП[/head][/bold][/color]
+
+                            Если ты читаешь это письмо...[color=#FF0000][head=3]ТЫ УЖЕ ПРОКЛЯТ!!![/head][/color]
+
+                            Мне жаль так с тобой поступать, но я должен тебя предупредить о
+
+                                   {"[color=#FF0000][head=1]Призраке Кровавого Унатха[/head][/color]"}
+
+                            Всё началось когда я получил на почте письмо: там было ужасное изображение плюшевого унатха с КРОВАВЫМИ ГЛАЗАМИ смотрящими НА МЕНЯ. В письме говорилось, что я проклят...и если я не перешлю это письмо 30 людям в течение 30 дней, то Кровавый Унатх придёт ко мне посреди ночи...
+
+                            {"[italic]И УБЬЁТ МЕНЯ.[/italic]"}
+
+                            Мне очень жаль......но ты стал одним из 30 людей которым я переслал это письмо..и теперь ты проклят тоже...
+
+                            Пожалуйста, отправь это письмо 30 людям что бы остановить проклятье! Ты ещё можешь спасти себя! У нас ещё есть время! Не возволяй этому чёртову Унатху добраться до тебя, и возьми этот амулет! Он защитит тебя от тёмных духов...[head=3]ТОЛЬКО СЕГОДНЯ[/head]
+
+
+
+
+                            {"[head=1]О НЕТ, ОН ЗДЕСЬ!!!!!!!![/head]"}
+
+                            ░░░░░░░░░█░░[color=#67CC40]████████[/color]█[color=#67CC40]███[/color]░░░░░░░░░░
+                            ░░░░░░[color=#FF0000]████[/color]█[color=#6EC543]█[/color][color=#67CC40]███████[/color]█[color=#FF0000]██████[/color]░░░░░░░░
+                            ░░░░[color=#FF0000]████[/color][color=#6EC543]██[/color][color=#67CC40]████████[/color][color=#FF0000]██████[/color][color=#FFFFFF]██[/color][color=#FF0000]█[/color][color=#B53737]█[/color]░░░░░░
+                            ░░░░[color=#FF0000]██[/color][color=#6EC543]██[/color][color=#67CC40]██████████[color=#FF0000]████████[/color][color=#B53737]██[/color]░░░░░░
+                            ░░[color=#6EC543]██████[/color][color=#67CC40]██████████[/color][color=#FF0000]███████[/color][color=#B53737]███[/color]░░░░░░
+                            {"[color=#6EC543]██████[/color][color=#67CC40]██████████████[/color][color=#FF0000]███[/color][color=#B53737]███[/color]░░░░░░░░"}
+                            {"[color=#6EC543]██████[/color][color=#67CC40]██████████████[/color][color=#FF0000]█[/color][color=#6EC543]█████[/color]░░░░░░░░"}
+                            {"[color=#6EC543]██████████[/color][color=#67CC40]██████████[/color][color=#FF0000]█[/color][color=#67CC40]███[/color]░░░░░░░░░░"}
+                            ░░[color=#6EC543]██[/color][color=#FF2020]██[/color][color=#FF3D3D]██[/color][color=#6EC543]████████[/color][color=#67CC40]████[/color][color=#86E158]██[/color]░░░░░░░░░░░░
+                            ░░░░[color=#FF2020]██[/color][color=#FF3D3D]██[/color]░░░░[color=#86E158]████████[/color][color=#6EC543]██[/color][color=#61D034]██[/color]░░░░░░░░[color=#56B037]██[/color]
+                            ░░░░[color=#FF2020]██[/color]░░░░[color=#A8EB7A]██[/color][color=#B5EE85]██████[/color][color=#A8EB7A]██[/color][color=#6EC543]████[/color][color=#61D034]██[/color]░░░░[color=#56B037]██[/color][color=#48A926]██[/color]
+                            ░░░░░░░░[color=#A8EB7A]██[/color][color=#B5EE85]██████████[/color][color=#A8EB7A]██[/color][color=#6EC543]████[/color][color=#56B037]██[/color][color=#48A926]██████[/color]
+                            ░░░░[color=#6EC543]██[/color][color=#61D034]██[/color][color=#A8EB7A]██[/color][color=#B5EE85]██████████[/color][color=#A8EB7A]██[/color][color=#48A926]████████████[/color]
+                            ░░░░[color=#6EC543]████[/color][color=#86E158]██[/color][color=#A8EB7A]██[/color][color=#B5EE85]████[/color][color=#A8EB7A]██[/color][color=#86E158]██[/color][color=#61D034]████[/color][color=#6EC543]██[/color][color=#48A926]████[/color][color=#52A037]██[/color]░░
+                            ░░░░[color=#6EC543]████[/color][color=#61D034]██[/color][color=#86E158]████████[/color][color=#61D034]██[/color][color=#6EC543]██████[/color][color=#52A037]████[/color]░░░░
+                            ░░░░░░[color=#6EC543]████[/color]░░░░░░░░[color=#6EC543]████████[/color]░░░░░░░░
+                            ░░░░░░░░░░░░░░░░░░░░[color=#6EC543]████[/color]░░░░░░░░░░
+
+delivery-spam-parents-need-money = [bold]Привет, сынок,[/bold]
+
+                                   Это твои Родители пишут тебе: нам срочно нужны деньги! Налоговая служба проверил нас и мы задолжали правительству 100,000 кредитов! Пожалуйста, помоги! Им нужны только подарочные карты, поэтому отправь нам 100 карт Бисо на 1000 кредитов. 
+
+                                   Пожалуйста, отправь на:
+                                   50192 Спесс Линия
+                                   Станция Сити, Игнус 40195-243
+                                   Гамма Квадратум
+                                   Система Гуилум
+
+                                   Если мы не получим эти деньги в течение 10 дней, то правительство отберёт у нас семейный дом детства и мы останемся бездомными!
+
+                                   {"[bold]Спасибо тебе, с любовью твои[/bold]"}
+                                   {"[italic]родители[/italics]"}
+
+delivery-spam-voyage-advertisement = [head=2]Присоединяйся к нам в первый рейс...[/head]
+
+                                          ░█▀▀░█▀▀░░░█▀▄░█▀▀░█░░░█▀█░█░█░█▀█░█▀▄
+                                          ░▀▀█░▀▀█░░░█▀▄░█▀▀░█░░░█▀█░▄▀▄░█░█░█▀▄
+                                          ░▀▀▀░▀▀▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀
+
+
+                                     {"[bold]══════════════════════════════════════════[/bold]"}
+
+                                     Новейшая разработка Comfortech™ и самые замечательные достопримечательности системы Тракси! Это [italic]SS Relaxor[/italic], ультрасовременный круиз класса люкс, который отправит вас в путешествие всей вашей жизни.
+
+                                     {"[head=3]Познакомьтесь с фосфорными озёрами Галимара* не выходя из наших Luxury Cabins™ со всеми удобствами, о которых вы только могли мечтать![/head]"}
+
+                                     {"[head=3]С восхищением посмотрите на Око Космоса** наслаждаясь блюдами от наших пятизвёздочных шеф-поваров во всей вселенной.[/head]"}
+
+                                     {"[head=3]Изучите руины Агатара***, теперь они открыты для публики благодаря ведущим учёным СССП. Все тайны и загадки древнейшей Агатарской цивилизации теперь выставлены на всеобщее обозрение![/head]"}
+
+                                     За самую маленькую, маленькую стоимость в 5,000 кредитов за ночь, шестимесячный роскошный круиз может стать отдыхом вашей мечты! Звони сегодня по номеру [color=#00FF00]RELAX-NOW[/color] что бы забронировать свой круиз. Не стоит ждать! Действуй!
+
+
+
+
+
+
+                                     {"[italic]*Фосфорные озёра не для плаванья, поэтому, приземлившись на Галимаре, вы отказываетесь от всех прав на юридические услуги в отношение мест отдыха.[/italic]"}
+                                     {"[italic]**На Око Космоса нельзя смотреть больше пяти секунд. Вы не можете слышать зов Ока.[/italic]"}
+                                     {"[italic]***Перед посадкой необходимо подписать соглашение об отказе от ответственности, Relaxination Destinations не гаранитрует безопасность Агатарианских Руин. Количество исчезнувших туристических групп составляет не более 0.23% от суммарного числа туристических групп, посетивших руины.[/italic]"}
+
+
+
+                                     

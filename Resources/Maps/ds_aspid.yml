@@ -10458,8 +10458,6 @@ entities:
     - type: GridPathfinding
     - type: NavMap
   - uid: 4
-    mapInit: true
-    paused: true
     components:
     - type: MetaData
       name: solution - food
@@ -118705,8 +118703,6 @@ entities:
 - proto: Paper
   entities:
   - uid: 3
-    mapInit: true
-    paused: true
     components:
     - type: Transform
       pos: -29.27591,44.253685

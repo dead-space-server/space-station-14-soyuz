@@ -76008,16 +76008,6 @@ entities:
       parent: 2
 - proto: Firelock
   entities:
-  - uid: 1058
-    components:
-    - type: Transform
-      pos: -17.5,26.5
-      parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
-      deviceLists:
-      - 817
   - uid: 4211
     components:
     - type: Transform
@@ -100619,8 +100609,6 @@ entities:
       pos: -18.5,27.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 817
     - type: AtmosPipeColor
@@ -102040,8 +102028,6 @@ entities:
       pos: -17.5,27.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 817
     - type: AtmosPipeColor

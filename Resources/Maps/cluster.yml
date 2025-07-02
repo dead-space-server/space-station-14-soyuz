@@ -57193,8 +57193,6 @@ entities:
       pos: 2.5,0.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14110
@@ -57204,8 +57202,6 @@ entities:
       pos: 1.5,2.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14111
@@ -57214,8 +57210,6 @@ entities:
       pos: 1.5,7.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14112
@@ -57225,8 +57219,6 @@ entities:
       pos: -0.5,5.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
 - proto: GasVolumePump

@@ -108,7 +108,6 @@ namespace Content.IntegrationTests.Tests
             "Train",
             "Cog",
             // "DSTaipan",
-            "Aspid",
             "Amber",
             "Gate",
             "Amber",

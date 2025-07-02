@@ -69773,7 +69773,6 @@ entities:
       playLandSound: True
       landTime: 5667.8326976
       thrownTime: 5667.7609989
-      thrower: invalid
 - proto: Poweredlight
   entities:
   - uid: 10222

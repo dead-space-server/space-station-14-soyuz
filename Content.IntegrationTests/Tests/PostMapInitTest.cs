@@ -121,7 +121,6 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            "Aspid", //remap in progress
             "DSTaipan", //remap in progress
             "Elkridge" //remap in progress
         };

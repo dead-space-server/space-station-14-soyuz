@@ -49,7 +49,7 @@
   price: 0.60 # $60 for 1 unit
 
 - type: material
-  id: Brass
+  id: SheetTungsten
   stackEntity: SheetTungsten1
   name: materials-sheettungsten
   icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: tungsten }

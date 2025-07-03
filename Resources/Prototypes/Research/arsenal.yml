@@ -194,6 +194,20 @@
   - ClothingEyesPNV
 # DS14-end
 
+# DS14 Souz-start
+- type: technology
+  id:  ArmedTechFab
+  name: research-technology-armed-tech-fab-technology
+  icon:
+    sprite: Structures/Machines/techfab.rsi
+    state: icon_armed
+  discipline: Arsenal
+  tier: 2
+  cost: 12500
+  recipeUnlocks:
+  - ArmedTechFabCircuitboard
+# DS14 Souz-end
+
 # Tier 3
 
 - type: technology

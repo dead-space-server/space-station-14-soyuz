@@ -18,3 +18,10 @@
   icon: { sprite: /Textures/Objects/Materials/Sheets/metal.rsi, state: brass }
   spawn: SheetBrass1
   maxCount: 30
+
+- type: stack
+  id: Tungsten
+  name: tungsten
+  icon: { sprite: /Textures/Objects/Materials/Sheets/metal.rsi, state: tungsten }
+  spawn: SheetTungsten1
+  maxCount: 30

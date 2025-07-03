@@ -1,0 +1,47 @@
+- type: entity
+  id: BulletLightRifleTungsten
+  name: пуля (7.62х39 мм ППБС)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 9 # 50% decrease
+    ignoreResistances: true
+
+- type: entity
+  id: BulletMagnumTungsten
+  name: bullet (.45 магнум ППБС)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 17 # 50% decrease
+    ignoreResistances: true
+
+- type: entity
+  id: BulletPistolTungsten
+  name: bullet (9х19 мм ППБС)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 8 # 50% decrease
+    ignoreResistances: true
+
+- type: entity
+  id: BulletRifleTungsten
+  name: bullet (6.5х39 мм TSF ППБС)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 10 # 50% decrease
+    ignoreResistances: true

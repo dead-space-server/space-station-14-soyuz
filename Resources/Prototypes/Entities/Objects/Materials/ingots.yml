@@ -115,3 +115,50 @@
     state: silver
   - type: Stack
     count: 1
+
+- type: entity
+  parent: IngotBase
+  id: IngotTungsten
+  name: tungsten bar
+  suffix: Full
+  components:
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Tungsten: 100
+  - type: Stack
+    stackType: Tungsten
+    baseLayer: base
+    layerStates:
+    - tungsten
+    - tungsten_2
+    - tungsten_3
+  - type: Sprite
+    state: tungsten_3
+    layers:
+    - state: tungsten_3
+      map: ["base"]
+  - type: Item
+    heldPrefix: tungsten
+  - type: Appearance
+  - type: Extractable
+    grindableSolutionName: tungstenore
+  - type: SolutionContainerManager
+    solutions:
+      tungstenore:
+        reagents:
+        - ReagentId: Iron
+          Quantity: 10
+        - ReagentId: Carbon
+          Quantity: 10
+
+- type: entity
+  parent: IngotTungsten
+  id: IngotTungsten1
+  name: tungsten bar
+  suffix: Single
+  components:
+  - type: Sprite
+    state: tungsten
+  - type: Stack
+    count: 1

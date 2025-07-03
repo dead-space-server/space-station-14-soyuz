@@ -1,0 +1,60 @@
+- type: entity
+  id: MagazineBoxLightRifleTungsten
+  parent: BaseMagazineBoxLightRifle
+  name: коробка патронов (7.62х39 мм винтовочные ППБС)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleTungsten
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: tungsten
+
+- type: entity
+  parent: BaseMagazineBoxMagnum
+  id: MagazineBoxMagnumTungsten
+  name: коробка патронов (.45 магнум ППБС)
+  description: A cardboard box of .45 magnum rounds. Intended to hold non-harmful chalk ammunition.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeMagnumTungsten
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: tungsten
+
+- type: entity
+  parent: BaseMagazineBoxPistol
+  id: MagazineBoxPistolTungsten
+  name: коробка патронов (9х19 мм ППБС)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolTungsten
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: tungsten
+
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: MagazineBoxRifleTungsten
+  name: коробка патронов (6.5х39 мм TSF ППБС)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleTungsten
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: tungsten

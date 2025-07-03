@@ -183,6 +183,13 @@
     - !type:BiomeMarkerLoot
       proto: OreSilver
 
+- type: salvageLoot
+  id: TungstenOre
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: TungstenOre
+
 # - High value
 - type: salvageLoot
   id: OrePlasma

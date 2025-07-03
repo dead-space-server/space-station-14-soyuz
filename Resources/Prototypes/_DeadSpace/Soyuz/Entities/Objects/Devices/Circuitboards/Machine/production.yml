@@ -1,0 +1,17 @@
+- type: entity
+  id: ArmedTechFabCircuitboard
+  parent: BaseMachineCircuitboard
+  name: оружейный ТехФаб (машинная плата)
+  description: С помощью этой платы можно дотронуться до самых современных оружейных технологий СССП.
+  components: 
+    - type: Sprite
+      state: security
+    - type: MachineBoard
+      prototype: ArmedTechFab
+      stackRequirements:
+        MatterBin: 2
+        Manipulator: 2
+      tagRequirements:
+        GlassBeaker:
+          amount: 2
+          defaultPrototype: Beaker

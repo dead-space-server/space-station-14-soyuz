@@ -69,3 +69,4 @@ research-technology-advanced-spray = Продвинутые спреи
 research-technology-quantum-fiber-weaving = Плетение квантового волокна
 research-technology-bluespace-cargo-transport = Блюспейс-транспортировка грузов
 research-technology-night-vision-technology = Технология ночного зрения
+research-technology-police-beta-technology = Экспериментальный скафандр "Бета-1"

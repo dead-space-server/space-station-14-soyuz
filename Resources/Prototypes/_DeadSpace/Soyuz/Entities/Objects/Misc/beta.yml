@@ -1,0 +1,51 @@
+- type: entity
+  parent: BaseItem
+  id: PoliceBetaBody
+  name: корпус скафандра "Бета-1"
+  description: Странный кусок металла. В нем явно не хватает детали.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
+    state: body
+  - type: Tag
+    tags:
+    - PoliceBetaBody
+
+- type: entity
+  parent: BaseItem
+  id: PoliceBetaComp
+  name: Композит для "Бета-1"
+  description: Лист легко, но прочного композита.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
+    state: comp
+  - type: Tag
+    tags:
+    - PoliceBetaComp
+
+- type: entity
+  parent: BaseItem
+  id: PoliceBetaHead
+  name: шлем скафандра "Бета-1"
+  description: Шлем скафандра. В нем явно чего-то не хватает.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
+    state: head
+  - type: Tag
+    tags:
+    - PoliceBetaHead
+
+- type: entity
+  parent: BaseItem
+  id: PoliceBetaLegs
+  name: нижняя часть скафандра "Бета-1"
+  description: Нижняя часть скафандра из металла.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
+    state: legs
+  - type: Tag
+    tags:
+    - PoliceBetaLegs

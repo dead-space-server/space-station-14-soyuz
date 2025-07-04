@@ -208,6 +208,7 @@
     - Equipment
     # - FauxTiles # DS14: moved to CutterMachine recipes
     - NightVisionTech # DS14
+    - ProcessingTungsten
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo

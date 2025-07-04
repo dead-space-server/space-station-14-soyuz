@@ -8,6 +8,8 @@ materials-steel = сталь
 materials-gold = золото
 materials-silver = серебро
 materials-plasteel = пласталь
+materials-tungsten = вольфрам
+materials-sheettungsten = лист вольфрама
 # Other
 materials-biomass = биомасса
 materials-cardboard = картон
@@ -35,3 +37,4 @@ materials-raw-uranium = руда урана
 materials-raw-bananium = руда бананиума
 materials-raw-salt = каменная соль
 materials-raw-diamond = необработанные алмазы
+materials-raw-tungsten = руда вольфрама

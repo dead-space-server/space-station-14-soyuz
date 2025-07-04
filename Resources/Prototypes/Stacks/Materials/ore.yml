@@ -68,3 +68,10 @@
   icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: salt }
   spawn: Salt1
   maxCount: 30
+
+- type: stack
+  id: TungstenOre
+  name: tungsten
+  icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: tungsten }
+  spawn: TungstenOre1
+  maxCount: 30

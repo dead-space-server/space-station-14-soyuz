@@ -244,3 +244,33 @@
   completetime: 1
   materials:
     Wood: 50
+
+- type: latheRecipe
+  id: IngotTungsten1
+  result: IngotTungsten1
+  completetime: 0
+  materials:
+    RawTungsten: 500
+    Coal: 30
+
+- type: latheRecipe
+  id: IngotTungsten30
+  result: IngotTungsten
+  completetime: 2
+  materials:
+    RawTungsten: 15000
+    Coal: 1000
+
+- type: latheRecipe
+  id: SheetTungsten
+  result: SheetTungsten1
+  completetime: 0
+  materials:
+    IngotTungsten: 200
+
+- type: latheRecipe
+  id: SheetTungsten30
+  result: SheetTungsten
+  completetime: 2
+  materials:
+    IngotTungsten: 6000

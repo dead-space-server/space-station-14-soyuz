@@ -9,6 +9,8 @@ materials-steel = steel
 materials-gold = gold
 materials-silver = silver
 materials-plasteel = plasteel
+materials-tungsten = tungsten
+materials-sheettungsten = tungsten sheet
 
 # Other
 materials-biomass = biomass
@@ -38,3 +40,4 @@ materials-raw-uranium = raw uranium
 materials-raw-bananium = raw bananium
 materials-raw-salt = raw salt
 materials-raw-diamond = raw diamond
+materials-raw-tungsten = raw tungsten

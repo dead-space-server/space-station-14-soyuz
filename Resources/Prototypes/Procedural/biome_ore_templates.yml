@@ -144,3 +144,19 @@
   minGroupSize: 1
   maxGroupSize: 2
   radius: 4
+
+# Tungsten
+
+- type: biomeMarkerLayer
+  id: TungstenOre
+  entityMask:
+    AsteroidRock: AsteroidRockTungsten
+    WallRock: WallRockTungsten
+    WallRockBasalt: WallRockBasaltTungsten
+    WallRockChromite: WallRockChromiteTungsten
+    WallRockSand: WallRockSandTungsten
+    WallRockSnow: WallRockSnowTungsten
+  maxCount: 20
+  minGroupSize: 5
+  maxGroupSize: 10
+  radius: 4

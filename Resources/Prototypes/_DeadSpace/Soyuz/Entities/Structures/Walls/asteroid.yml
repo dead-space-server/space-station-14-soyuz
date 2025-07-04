@@ -1,0 +1,192 @@
+- type: entity
+  id: AsteroidRockTungsten
+  parent: AsteroidRock
+  description: An ore vein rich in tungsten.
+  suffix: Вольфрам
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_asteroid
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_asteroid_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_asteroid_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_asteroid_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_asteroid_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: IronRockTungsten
+  parent: IronRock
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: ironrock
+        - map: [ "enum.EdgeLayer.South" ]
+          state: ironrock_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: ironrock_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: ironrock_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: ironrock_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockTungsten
+  parent: WallRock
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+  - type: EntityRemap
+    mask:
+      AsteroidRock: AsteroidRockTungsten
+      WallRockBasalt: WallRockBasaltTungsten
+      WallRockChromite: WallRockChromiteTungsten
+      WallRockSand: WallRockSandTungsten
+      WallRockSnow: WallRockSnowTungsten
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: TungstenOre
+  - type: Sprite
+    layers:
+      - state: rock
+      - map: [ "enum.EdgeLayer.South" ]
+        state: rock_south
+      - map: [ "enum.EdgeLayer.East" ]
+        state: rock_east
+      - map: [ "enum.EdgeLayer.North" ]
+        state: rock_north
+      - map: [ "enum.EdgeLayer.West" ]
+        state: rock_west
+      - state: rock_tungsten
+        map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockBasaltTungsten
+  parent: WallRockBasalt
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_wall
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_wall_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_wall_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_wall_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_wall_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockSnowTungsten
+  parent: WallRockSnow
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_snow
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_snow_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_snow_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_snow_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_snow_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockSandTungsten
+  parent: WallRockSand
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_sand
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_sand_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_sand_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_sand_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_sand_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockChromiteTungsten
+  name: хромит
+  parent: WallRockChromite
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_chromite
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_chromite_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_chromite_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_chromite_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_chromite_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+- type: entity
+  id: WallRockAndesiteTungsten
+  name: андезит
+  parent: WallRockAndesite
+  description: An ore vein rich in tungsten.
+  suffix: Tungsten
+  components:
+    - type: OreVein
+      oreChance: 1.0
+      currentOre: TungstenOre
+    - type: Sprite
+      layers:
+        - state: rock_andesite
+        - map: [ "enum.EdgeLayer.South" ]
+          state: rock_andesite_south
+        - map: [ "enum.EdgeLayer.East" ]
+          state: rock_andesite_east
+        - map: [ "enum.EdgeLayer.North" ]
+          state: rock_andesite_north
+        - map: [ "enum.EdgeLayer.West" ]
+          state: rock_andesite_west
+        - state: rock_tungsten
+          map: [ "enum.MiningScannerVisualLayers.Overlay" ]

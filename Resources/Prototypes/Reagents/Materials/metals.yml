@@ -38,3 +38,20 @@
   icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: plasteel }
   color: "#696969" #Okay, this is epic
   price: 0.5 # 1-1 mix of plasma and steel.
+
+- type: material
+  id: Tungsten
+  stackEntity: IngotTungsten1
+  name: materials-tungsten
+  unit: materials-unit-bar
+  icon: { sprite: Objects/Materials/ingots.rsi, state: tungsten }
+  color: "#0e1014"
+  price: 0.65 # $60 for 1 unit
+
+- type: material
+  id: SheetTungsten
+  stackEntity: SheetTungsten1
+  name: materials-sheettungsten
+  icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: tungsten }
+  color: "#0e1014"
+  price: 1.30 # $130 for 1 unit

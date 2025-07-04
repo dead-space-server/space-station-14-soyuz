@@ -236,10 +236,12 @@
 - type: entity
   parent: SheetMetalBase
   id: SheetTungsten
-  name: tungsten
+  name: sheet tungsten
   suffix: Full
   components:
   - type: Material
+    materialComposition:
+      SheetTungsten: 100
   - type: Stack
     stackType: SheetTungsten
     baseLayer: base

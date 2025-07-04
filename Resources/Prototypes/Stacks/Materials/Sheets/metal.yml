@@ -20,7 +20,7 @@
   maxCount: 30
 
 - type: stack
-  id: Tungsten
+  id: SheetTungsten
   name: tungsten
   icon: { sprite: /Textures/Objects/Materials/Sheets/metal.rsi, state: tungsten }
   spawn: SheetTungsten1

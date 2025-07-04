@@ -30,4 +30,4 @@
 - type: latheRecipePack
   id: ProcessingTungsten
   recipes:
-  - SheetTungsten1
+  - SheetTungsten

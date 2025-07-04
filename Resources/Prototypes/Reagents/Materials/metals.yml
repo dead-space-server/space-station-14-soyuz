@@ -46,7 +46,7 @@
   unit: materials-unit-bar
   icon: { sprite: Objects/Materials/ingots.rsi, state: tungsten }
   color: "#0e1014"
-  price: 0.60 # $60 for 1 unit
+  price: 0.65 # $60 for 1 unit
 
 - type: material
   id: SheetTungsten
@@ -54,4 +54,4 @@
   name: materials-sheettungsten
   icon: { sprite: Objects/Materials/Sheets/metal.rsi, state: tungsten }
   color: "#0e1014"
-  price: 0.30 # $30 for 1 unit
+  price: 1.30 # $130 for 1 unit

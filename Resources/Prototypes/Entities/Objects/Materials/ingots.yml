@@ -125,7 +125,7 @@
   - type: Material
   - type: PhysicalComposition
     materialComposition:
-      Tungsten: 100
+      IngotTungsten: 100
   - type: Stack
     stackType: Tungsten
     baseLayer: base

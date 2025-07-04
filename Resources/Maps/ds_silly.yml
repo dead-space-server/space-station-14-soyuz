@@ -6876,7 +6876,6 @@ entities:
       pos: 2.5,-3.5
       parent: 6333
     - type: ActivatableUI
-      currentSingleUser: invalid
 - proto: APCHighCapacity
   entities:
   - uid: 149
@@ -22424,20 +22423,6 @@ entities:
       parent: 2
     - type: WarpPoint
       location: хранилище
-- proto: Defibrillator
-  entities:
-  - uid: 2472
-    components:
-    - type: Transform
-      parent: 2471
-    - type: Physics
-      canCollide: False
-  - uid: 2474
-    components:
-    - type: Transform
-      parent: 2473
-    - type: Physics
-      canCollide: False
 - proto: DefibrillatorCabinetFilled
   entities:
   - uid: 2471
@@ -22446,24 +22431,12 @@ entities:
       rot: 3.141592653589793 rad
       pos: 8.5,14.5
       parent: 2
-    - type: ContainerContainer
-      containers:
-        ItemCabinet: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 2472
   - uid: 2473
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 12.5,12.5
       parent: 2
-    - type: ContainerContainer
-      containers:
-        ItemCabinet: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 2474
 - proto: DeskBell
   entities:
   - uid: 2475

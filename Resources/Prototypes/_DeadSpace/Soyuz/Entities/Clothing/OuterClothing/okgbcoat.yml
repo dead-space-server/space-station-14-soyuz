@@ -2,7 +2,7 @@
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatOKGB
   name: бронешинель оперативника КГБ
-  description: Шинель, усиленная специальными сплавами для дополнительной защиты. Выдается только самым элитным оперативникам КГБ.
+  description: Шинель, усиленная специальными сплавами для дополнительной защиты.
   components:
     - type: Sprite
       sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Coats/okgb.rsi
@@ -14,5 +14,5 @@
           Blunt: 0.55
           Slash: 0.55
           Piercing: 0.4
-          Heat: 0.75
+          Heat: 0.55
           Caustic: 0.75

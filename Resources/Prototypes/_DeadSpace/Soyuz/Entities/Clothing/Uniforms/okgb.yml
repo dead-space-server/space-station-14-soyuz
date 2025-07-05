@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitTurtleOKGB
+  name: водолазка оперативника КГБ
+  description: Тактическая водолазка, созданая для оперативников КГБ.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/okgb.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/okgb.rsi

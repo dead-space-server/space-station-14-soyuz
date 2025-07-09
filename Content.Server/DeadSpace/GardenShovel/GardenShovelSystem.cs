@@ -71,14 +71,14 @@ public sealed class GardenSystem : EntitySystem
 
                 foreach (string tileID in ent.Comp.AvailableTiles)
                 {
-                    _haveAvailableTile = false;
+                    haveAvailableTile = false;
                     if (tileRef.GetContentTileDefinition().ID == tileID)
                     {
-                        _haveAvailableTile = true;
+                        haveAvailableTile = true;
                         break;
                     }
                 }
-                if (!_haveAvailableTile)
+                if (!haveAvailableTile)
                 {
                     _popup.PopupEntity(Loc.GetString("gardenshovel-not-available-tile"), args.User, args.User);
                     return;
@@ -89,7 +89,7 @@ public sealed class GardenSystem : EntitySystem
                 }
                 break;
             case Modes.Bury:
-                if (!HasComp<GardenShovelBuryComponent>(args.Target, out var _))
+                if (!TryComp<GardenShovelBuryComponent>(args.Target, out var _))
                     return;
                 break;
         }

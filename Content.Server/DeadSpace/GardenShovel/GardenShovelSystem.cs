@@ -9,7 +9,6 @@ using Content.Shared.Physics;
 using Content.Shared.RCD.Systems;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
-using Robust.Shared.Prototypes;
 using Content.Server.DeadSpace.GardenShovel.Components;
 
 namespace Content.Server.DeadSpace.GardenShovel;

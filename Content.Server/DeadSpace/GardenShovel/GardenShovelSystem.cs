@@ -120,7 +120,7 @@ public sealed class GardenSystem : EntitySystem
     }
     private bool IsCultivationValid(Entity<GardenShovelComponent> ent, MapGridData mapGridData)
     {
-        HashSet<EntityUid> intersectingEntities = new(); 
+        HashSet<EntityUid> intersectingEntities = new();
 
         intersectingEntities.Clear();
         _lookup.GetLocalEntitiesIntersecting(mapGridData.GridUid, mapGridData.Position, intersectingEntities, -0.05f, LookupFlags.Uncontained);

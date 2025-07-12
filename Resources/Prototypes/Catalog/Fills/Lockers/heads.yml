@@ -365,8 +365,8 @@
     - id: ClothingNeckBodyCamera # DS14
     - id: PortableCameraMonitor # DS14
     - id: PetBowlWater # DS14
-    - id: WeaponSubMachineGunWt550 # DS14
-    - id: MagazinePistolSubMachineGunTopMounted # DS14
+    - id: ADTAbakanRifleAEK # DS14
+    - id: MagazineLightRifle # DS14
       amount: !type:ConstantNumberSelector
         value: 4
 

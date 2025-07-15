@@ -710,7 +710,7 @@
     Plasma: 500
     Glass: 500
 
-# DS14 Souz-start
+# DS14 Soyuz-start
 - type: latheRecipe
   id: PoliceBetaLegs
   result: PoliceBetaLegs 
@@ -748,4 +748,4 @@
     Steel: 500
     Silver: 500
     Gold: 500
-# DS14 Souz-end
+# DS14 Soyuz-end

@@ -7366,7 +7366,6 @@ entities:
       pos: 2.5,-3.5
       parent: 6333
     - type: ActivatableUI
-      currentSingleUser: invalid
   - uid: 7909
     components:
     - type: Transform

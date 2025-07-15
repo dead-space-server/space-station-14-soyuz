@@ -23648,24 +23648,12 @@ entities:
       rot: 3.141592653589793 rad
       pos: 8.5,14.5
       parent: 2
-    - type: ContainerContainer
-      containers:
-        ItemCabinet: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 2472
   - uid: 2473
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 12.5,12.5
       parent: 2
-    - type: ContainerContainer
-      containers:
-        ItemCabinet: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 2474
 - proto: DeskBell
   entities:
   - uid: 2475

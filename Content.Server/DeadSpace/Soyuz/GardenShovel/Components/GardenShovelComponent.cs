@@ -1,6 +1,6 @@
 using Content.Shared.Physics;
 
-namespace Content.Server.DeadSpace.GardenShovel.Components;
+namespace Content.Server.DeadSpace.Soyuz.GardenShovel;
 
 [RegisterComponent]
 public sealed partial class GardenShovelComponent : Component

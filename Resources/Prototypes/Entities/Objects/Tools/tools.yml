@@ -489,6 +489,18 @@
   - type: StaticPrice
     price: 25
   - type: Shovel
+  - type: GardenShovel
+    collisionMask: FullTileMask
+    availableTiles:
+      - FloorMowedAstroGrass
+      - FloorJungleAstroGrass
+      - FloorAstroGrass
+      - FloorPlanetGrass
+      - FloorGrassDark
+      - FloorGrass
+      - FloorGrassJungle
+      - FloorPlanetDirt
+      - FloorGrassLight
 
 - type: entity
   parent: BaseItem

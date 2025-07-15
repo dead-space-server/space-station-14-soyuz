@@ -1,5 +1,5 @@
 using Content.Shared.Interaction;
-using Content.Shared.DeadSpace.GardenShovel;
+using Content.Shared.DeadSpace.Soyuz.GardenShovel;
 using Robust.Shared.Map;
 using Content.Shared.Maps;
 using Content.Server.DoAfter;
@@ -9,9 +9,9 @@ using Content.Shared.Physics;
 using Content.Shared.RCD.Systems;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
-using Content.Server.DeadSpace.GardenShovel.Components;
+using Content.Shared.Burial.Components;
 
-namespace Content.Server.DeadSpace.GardenShovel;
+namespace Content.Server.DeadSpace.Soyuz.GardenShovel;
 
 public sealed class GardenSystem : EntitySystem
 {
@@ -79,6 +79,11 @@ public sealed class GardenSystem : EntitySystem
                 }
                 if (!haveAvailableTile)
                 {
+                    if (HasComp<GraveComponent>(args.Target))
+                    {
+                        return;
+                    }
+
                     _popup.PopupEntity(Loc.GetString("gardenshovel-not-available-tile"), args.User, args.User);
                     return;
                 }

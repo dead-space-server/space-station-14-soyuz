@@ -194,7 +194,7 @@
   - ClothingEyesPNV
 # DS14-end
 
-# DS14 Soyuz-start
+# DS14-Soyuz-start
 - type: technology
   id: SecurityPoliceBetaTechnology
   name: research-technology-police-beta-technology
@@ -209,7 +209,7 @@
   - PoliceBetaHead
   - PoliceBetaComp
   - PoliceBetaBody
-# DS14 Soyuz-end
+# DS14-Soyuz-end
 
 # Tier 3
 

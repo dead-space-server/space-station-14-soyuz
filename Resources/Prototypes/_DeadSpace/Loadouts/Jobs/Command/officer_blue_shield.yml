@@ -30,7 +30,7 @@
 
 # OuterClothing
 - type: loadout
-  id: OKGBOuterClothing
+  id: ClothingOuterArmorBasicBlueShield
   equipment:
     outerClothing: ClothingOuterArmorBasicBlueShield
 

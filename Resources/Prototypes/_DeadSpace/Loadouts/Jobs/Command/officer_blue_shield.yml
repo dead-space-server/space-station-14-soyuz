@@ -24,7 +24,7 @@
     jumpsuit: ClothingUniformJumpsuitBlueShield
 
 - type: loadout
-  id: BlueShieldOfficerJumpsuit
+  id: ClothingUniformJumpsuitTurtleOKGB
   equipment:
     jumpsuit: ClothingUniformJumpsuitTurtleOKGB
 

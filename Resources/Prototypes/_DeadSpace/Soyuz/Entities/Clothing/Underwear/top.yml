@@ -1,0 +1,17 @@
+- type: entity
+  parent: ClothingUnderwearTopBase
+  id: ClothingUnderwearTopBraPolitOtdel
+  name: бра политического отдела
+  description: Стандартное нижнее белье для женского персонала Политического Отдела.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Underwear/Top/politotdelbra.rsi
+
+- type: entity
+  parent: ClothingUnderwearTopBase
+  id: ClothingUnderwearTopTelnikPolitOtdel
+  name: тельняшка политического отдела
+  description: Стандартное нижнее белье для персонала Политического Отдела.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Underwear/Top/politotdel_telnik

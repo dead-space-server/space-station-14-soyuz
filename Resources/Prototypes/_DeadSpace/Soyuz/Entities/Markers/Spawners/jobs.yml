@@ -1,15 +1,4 @@
 - type: entity
-  id: SpawnPointJobBase
-  parent: MarkerBase
-  abstract: true
-  suffix: Job Spawn
-  components:
-  - type: SpawnPoint
-    spawn_type: Job
-  - type: Sprite
-    sprite: Markers/jobs.rsi
-
-- type: entity
   id: SpawnPointPolitkom
   parent: SpawnPointJobBase
   name: политический комиссар

@@ -228,6 +228,12 @@
     },
     {
       "name": "SeniorService"
-    }
+    },
+    {
+      "name": "Politruk"
+    },
+    {
+      "name": "Politkom"
+    }    
   ]
 }

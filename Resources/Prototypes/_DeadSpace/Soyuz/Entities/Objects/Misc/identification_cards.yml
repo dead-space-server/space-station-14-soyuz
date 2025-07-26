@@ -8,7 +8,7 @@
         - state: NKVBCard
         - state: PolitRuk
     - type: PresetIdCard
-      job: Captain
+      job: Politruk
 
 - type: entity
   parent: IDCardStandard
@@ -20,4 +20,4 @@
         - state: NKVBCard
         - state: PolitKomissar
     - type: PresetIdCard
-      job: Captain    
+      job: PolitKom

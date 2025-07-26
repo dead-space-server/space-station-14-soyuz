@@ -5,7 +5,7 @@
   - !type:JobRequirementLoadoutEffect
     requirement:
       !type:RoleTimeRequirement
-      role: BlueShieldOfficer
+      role: JobBlueShieldOfficer
       time: 180000 #50 hrs
 
 - type: loadoutEffectGroup
@@ -14,7 +14,7 @@
   - !type:JobRequirementLoadoutEffect
     requirement:
       !type:RoleTimeRequirement
-      role: BlueShieldOfficer
+      role: JobBlueShieldOfficer
       time: 36000 #10 hrs
 
 # Jumpsuit
@@ -24,13 +24,13 @@
     jumpsuit: ClothingUniformJumpsuitBlueShield
 
 - type: loadout
-  id: BlueShieldOfficerJumpsuit
+  id: ClothingUniformJumpsuitTurtleOKGB
   equipment:
     jumpsuit: ClothingUniformJumpsuitTurtleOKGB
 
 # OuterClothing
 - type: loadout
-  id: OKGBOuterClothing
+  id: ClothingOuterArmorBasicBlueShield
   equipment:
     outerClothing: ClothingOuterArmorBasicBlueShield
 

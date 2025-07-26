@@ -22,13 +22,13 @@
   name: loadout-group-blue-shield-officer-outerclothing
   loadouts:
   - ClothingOuterArmorBasicBlueShield
-  - ClothingOuterCoatOKGB
+  - OKGBOuterClothing
 
 - type: loadoutGroup
   id: OKGBGasMask
   name: loadout-group-blue-shield-officer-masks
   loadouts:
-  - ClothingMaskGasSwat
+  - OKGBGasMask
 
 - type: loadoutGroup
   id: BlueShieldOfficerUnderwear

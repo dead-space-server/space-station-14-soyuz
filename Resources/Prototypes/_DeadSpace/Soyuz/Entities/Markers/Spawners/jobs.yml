@@ -27,7 +27,7 @@
   name: политический руководитель
   components:
   - type: SpawnPoint
-    job_id: Politruk
+    job_id: PolitRuk
   - type: Sprite
     layers:
       - state: green

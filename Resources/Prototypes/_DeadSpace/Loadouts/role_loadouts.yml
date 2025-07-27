@@ -8,6 +8,8 @@
   - Trinkets
   - GroupSpeciesBreathTool
   - BlueShieldOfficerUnderwear # DS14-Underwear
+  - OKGBOuterClothing # DS14-Soyuz
+  - OKGBGasMask # DS14-Soyuz
 
 # Civilian
 - type: roleLoadout

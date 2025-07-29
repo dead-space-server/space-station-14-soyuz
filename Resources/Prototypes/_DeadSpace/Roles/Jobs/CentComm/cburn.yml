@@ -18,7 +18,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: CBURNLeaderGear
@@ -69,7 +69,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: CBURNAgentGear

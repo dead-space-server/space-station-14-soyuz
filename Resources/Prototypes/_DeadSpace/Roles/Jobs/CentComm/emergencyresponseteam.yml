@@ -18,7 +18,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTLeaderGearAmber
@@ -68,7 +68,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTLeaderGearRed
@@ -117,7 +117,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTLeaderGearGamma
@@ -166,7 +166,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTSecurityGearAmber
@@ -213,7 +213,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTSecurityGearRed
@@ -259,7 +259,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTSecurityGearGamma
@@ -308,7 +308,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTMedicalGearAmber
@@ -359,7 +359,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTMedicalGearRed
@@ -410,7 +410,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTMedicalGearGamma
@@ -466,7 +466,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTEngineerGearAmber
@@ -512,7 +512,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTEngineerGearRed
@@ -558,7 +558,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTEngineerGearGamma
@@ -612,7 +612,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTJanitorGearAmber
@@ -660,7 +660,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTJanitorGearRed
@@ -708,7 +708,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, DeathRattleImplanterCentcomm ]
 
 - type: startingGear
   id: ERTJanitorGearGamma

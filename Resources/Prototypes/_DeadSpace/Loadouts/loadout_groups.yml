@@ -15,6 +15,20 @@
   name: loadout-group-blue-shield-officer-jumpsuit
   loadouts:
   - BlueShieldOfficerJumpsuit
+  - ClothingUniformJumpsuitTurtleOKGB
+
+- type: loadoutGroup
+  id: OKGBOuterClothing
+  name: loadout-group-blue-shield-officer-outerclothing
+  loadouts:
+  - ClothingOuterArmorBasicBlueShield
+  - OKGBOuterClothing
+
+- type: loadoutGroup
+  id: OKGBGasMask
+  name: loadout-group-blue-shield-officer-masks
+  loadouts:
+  - OKGBGasMask
 
 - type: loadoutGroup
   id: BlueShieldOfficerUnderwear

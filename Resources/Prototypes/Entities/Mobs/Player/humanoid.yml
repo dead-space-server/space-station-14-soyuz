@@ -829,7 +829,7 @@
       roleLoadout: [ RoleSurvivalStandard ]
     - type: AutoImplant
       implants:
-      - MicroBombImplant
+      - DeathRattleImplanterCentcomm
 
 - type: entity
   id: RandomHumanoidSpawnerCentcomAdministrator
@@ -875,7 +875,7 @@
       settings: CentcomSpecialOperationsOfficer
     - type: AutoImplant
       implants:
-      - MacroBombImplant
+      - DeathRattleImplanterCentcomm
 
 - type: randomHumanoidSettings
   id: CentcomSpecialOperationsOfficer

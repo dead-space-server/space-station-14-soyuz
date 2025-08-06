@@ -5,7 +5,7 @@
   description: Портативная консоль, позволяющая удалённо изменять статусы членов экипажа.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Objects/Devices/criminal_records_monitor.rsi
+    sprite: _DeadSpace/Soyuz/Objects/Devices/criminal_records_monitor.rsi
     state: icon
   - type: Item
   - type: ActivatableUI

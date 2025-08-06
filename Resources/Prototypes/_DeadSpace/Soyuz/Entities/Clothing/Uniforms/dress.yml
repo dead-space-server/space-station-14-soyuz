@@ -5,6 +5,6 @@
   description: Красивое бордовое платье.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/dress_politruk.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/dress_politruk.rsi
   - type: Clothing
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/dress_politruk.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/dress_politruk.rsi

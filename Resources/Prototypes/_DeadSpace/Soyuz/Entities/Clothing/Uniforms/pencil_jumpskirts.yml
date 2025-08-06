@@ -5,6 +5,6 @@
   description: Красивая бордовая юбка-карандаш.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi

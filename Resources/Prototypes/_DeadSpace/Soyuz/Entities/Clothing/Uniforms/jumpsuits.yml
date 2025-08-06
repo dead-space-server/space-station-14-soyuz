@@ -5,9 +5,9 @@
   description: Красивый бордовый костюм.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -16,9 +16,9 @@
   description: Красивая бордовая юбка-комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -27,6 +27,6 @@
   description: Красивый бордовый комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi

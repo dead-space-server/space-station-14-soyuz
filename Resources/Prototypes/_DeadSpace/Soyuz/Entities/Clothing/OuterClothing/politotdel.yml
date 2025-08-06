@@ -6,9 +6,9 @@
   description: Уставная двубортная шинель ПолитОтдела. Тяжелая и теплая, явно защитит вас от атак Контрреволюционеров и генерала Мороза.
   components:
     - type: Sprite
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelcoat.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelcoat.rsi
     - type: Clothing
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelcoat.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelcoat.rsi
     - type: Armor
       modifiers:
         coefficients:
@@ -34,9 +34,9 @@
   description: Поношенный френч ПолитОтдела. Несмотря на внешнюю старость, он все-еще сияет огнем революции. 
   components:
     - type: Sprite
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelfrench.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelfrench.rsi
     - type: Clothing
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelfrench.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelfrench.rsi
     - type: Armor
       modifiers:
         coefficients:
@@ -59,9 +59,9 @@
   description: Уставной двубортный мундир ПолитОтдела. Аккуратный, идеально выглаженный, его владелец показывает, как искренне он борется с контрреволюцией и буржуазной этикой.
   components:
     - type: Sprite
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelmundir.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi
     - type: Clothing
-      sprite: _DeadSpace/Clothing/OuterClothing/politotdelmundir.rsi
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi
     - type: Armor
       modifiers:
         coefficients:

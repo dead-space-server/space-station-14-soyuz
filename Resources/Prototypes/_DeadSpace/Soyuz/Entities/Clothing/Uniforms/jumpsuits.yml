@@ -27,6 +27,6 @@
   description: Красивый бордовый комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi
   - type: Clothing
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi

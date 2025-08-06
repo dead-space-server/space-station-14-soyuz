@@ -10,6 +10,7 @@
             <controls:ConfirmButton Name="ServerShutdownButton" Text="{Loc server-shutdown}" />
             <cc:CommandButton Name="SetOocButton" Command="setooc" Text="{Loc server-ooc-toggle}" ToggleMode="True" />
             <cc:CommandButton Name="SetLoocButton" Command="setlooc" Text="{Loc server-looc-toggle}" ToggleMode="True" />
+            <cc:CommandButton Command="setdchat" Text="{Loc rmc-ui-toggle-dchat}" />
             <Button
                 Name="OpenAutoMapVoteConfigButton"
                 Access="Public"

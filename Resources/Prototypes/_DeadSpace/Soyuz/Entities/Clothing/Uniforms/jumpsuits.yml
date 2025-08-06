@@ -16,9 +16,9 @@
   description: Красивая бордовая юбка-комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
   - type: Clothing
-    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]

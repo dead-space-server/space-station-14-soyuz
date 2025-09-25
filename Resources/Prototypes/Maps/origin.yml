@@ -2,7 +2,7 @@
   id: Origin
   mapName: 'Origin Station'
   mapPath: /Maps/origin.yml
-  minPlayers: 60
+  minPlayers: 40
   stations:
     Origin:
       stationProto: StandardNanotrasenStation

@@ -2,8 +2,8 @@
   id: Saltern
   mapName: 'Saltern Station'
   mapPath: /Maps/saltern.yml
-  minPlayers: 0
-  maxPlayers: 40
+  minPlayers: 5
+  maxPlayers: 30
   stations:
     Saltern:
       stationProto: StandardNanotrasenStation

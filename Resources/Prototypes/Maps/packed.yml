@@ -2,7 +2,7 @@
   id: Packed
   mapName: 'Packed Station'
   mapPath: /Maps/packed.yml
-  minPlayers: 10
+  minPlayers: 0
   maxPlayers: 35
   stations:
     Packed:

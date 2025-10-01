@@ -105,9 +105,7 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
-    - type: PhysicsMap
     - type: GridTree
-    - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
     - type: Parallax
@@ -14460,48 +14458,6 @@ entities:
     - type: Transform
       pos: -11.377782,-2.7411778
       parent: 2
-- proto: ActionStethoscope
-  entities:
-  - uid: 6
-    components:
-    - type: Transform
-      parent: 5
-    - type: EntityTargetAction
-      container: 5
-- proto: ActionToggleInternals
-  entities:
-  - uid: 9
-    components:
-    - type: Transform
-      parent: 8
-    - type: InstantAction
-      container: 8
-  - uid: 14
-    components:
-    - type: Transform
-      parent: 13
-    - type: InstantAction
-      container: 13
-- proto: ActionToggleLight
-  entities:
-  - uid: 19
-    components:
-    - type: Transform
-      parent: 18
-    - type: InstantAction
-      container: 18
-  - uid: 21
-    components:
-    - type: Transform
-      parent: 20
-    - type: InstantAction
-      container: 20
-  - uid: 21356
-    components:
-    - type: Transform
-      parent: 21355
-    - type: InstantAction
-      container: 21355
 - proto: ADTBlackChair
   entities:
   - uid: 22
@@ -65168,14 +65124,6 @@ entities:
     - type: Transform
       pos: 16.334103,34.37995
       parent: 2
-    - type: Stethoscope
-      actionEntity: 6
-    - type: ActionsContainer
-    - type: ContainerContainer
-      containers:
-        actions: !type:Container
-          ents:
-          - 6
   - uid: 8212
     components:
     - type: Transform
@@ -77853,20 +77801,6 @@ entities:
     - type: Transform
       pos: 26.538467,-12.267828
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 21
-    - type: ContainerContainer
-      containers:
-        cell_slot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        actions: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 21
-    - type: ActionsContainer
   - uid: 9997
     components:
     - type: Transform
@@ -77892,20 +77826,6 @@ entities:
     - type: Transform
       pos: 2.4978046,0.6471896
       parent: 21354
-    - type: HandheldLight
-      toggleActionEntity: 21356
-    - type: ContainerContainer
-      containers:
-        cell_slot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        actions: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 21356
-    - type: ActionsContainer
 - proto: Floodlight
   entities:
   - uid: 10001
@@ -111495,22 +111415,8 @@ entities:
     - type: Transform
       pos: 40.5008,47.975254
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 19
-    - type: ContainerContainer
-      containers:
-        cell_slot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        actions: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 19
     - type: Physics
       canCollide: True
-    - type: ActionsContainer
   - uid: 14285
     components:
     - type: Transform
@@ -118613,31 +118519,15 @@ entities:
     components:
     - type: Transform
       parent: 7
-    - type: GasTank
-      toggleActionEntity: 9
     - type: Physics
       canCollide: False
-    - type: ActionsContainer
-    - type: ContainerContainer
-      containers:
-        actions: !type:Container
-          ents:
-          - 9
     - type: InsideEntityStorage
   - uid: 13
     components:
     - type: Transform
       parent: 12
-    - type: GasTank
-      toggleActionEntity: 14
     - type: Physics
       canCollide: False
-    - type: ActionsContainer
-    - type: ContainerContainer
-      containers:
-        actions: !type:Container
-          ents:
-          - 14
     - type: InsideEntityStorage
 - proto: PackPaperRollingFilters
   entities:

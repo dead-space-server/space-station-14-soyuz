@@ -43,6 +43,7 @@ job-name-qm = Заведующий хозяйством
 job-name-cargotech = Грузчик
 job-name-chef = Повар
 job-name-visitor = Посетитель
+job-name-cluwne = Клувень
 job-name-clown = Клоун
 job-name-clown-sponsor = Клоун-стажёр
 job-name-ertleader-amber = Командир СОБР (Эмбер)

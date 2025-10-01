@@ -86,9 +86,7 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
-    - type: PhysicsMap
     - type: GridTree
-    - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
   - uid: 2
@@ -6922,7 +6920,7 @@ entities:
     - type: Transform
       pos: -14.584963,-35.484146
       parent: 2
-- proto: ADTAbakanRifleAEK
+- proto: WeaponRifleAEK
   entities:
   - uid: 5
     components:
@@ -73905,14 +73903,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 115.34842,-17.603699
       parent: 2
-- proto: ShuttleGunSvalinnMachineGun
-  entities:
-  - uid: 14727
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 0.5,8.5
-      parent: 14596
 - proto: SignAi
   entities:
   - uid: 11319

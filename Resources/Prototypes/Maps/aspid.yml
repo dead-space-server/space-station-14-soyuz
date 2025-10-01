@@ -1,9 +1,9 @@
 - type: gameMap
   id: Aspid
-  mapName: 'DS Aspid Station'
+  mapName: 'Aspid'
   mapPath: /Maps/ds_aspid.yml
-  minPlayers: 20
-  # maxPlayers: 60
+  minPlayers: 15
+  maxPlayers: 40
   stations:
     Aspid:
       stationProto: StandardNanotrasenStation
@@ -27,7 +27,6 @@
             #service
             HeadOfPersonnel: [ 1, 1 ]
             SeniorAdministrator: [ 1, 1 ]
-            Bartender: [ 2, 2 ]
             Botanist: [ 3, 3 ]
             Chef: [ 2, 2 ]
             Janitor: [ 4, 4 ]

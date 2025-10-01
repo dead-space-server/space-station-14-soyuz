@@ -91,9 +91,7 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
-    - type: PhysicsMap
     - type: GridTree
-    - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
   - uid: 2
@@ -6736,21 +6734,7 @@ entities:
     - type: Transform
       pos: 11.555438,5.426984
       parent: 2
-- proto: ActionToggleLight
-  entities:
-  - uid: 5
-    components:
-    - type: Transform
-      parent: 4
-    - type: InstantAction
-      container: 4
-  - uid: 7
-    components:
-    - type: Transform
-      parent: 6
-    - type: InstantAction
-      container: 6
-- proto: ADTAbakanRifleAEK
+- proto: WeaponRifleAEK
   entities:
   - uid: 8
     components:
@@ -41209,39 +41193,11 @@ entities:
     - type: Transform
       pos: 16.59333,23.726284
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 5
-    - type: ContainerContainer
-      containers:
-        cell_slot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        actions: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 5
-    - type: ActionsContainer
   - uid: 6
     components:
     - type: Transform
       pos: 16.59333,23.476284
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 7
-    - type: ContainerContainer
-      containers:
-        cell_slot: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        actions: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 7
-    - type: ActionsContainer
   - uid: 5999
     components:
     - type: Transform
@@ -57193,8 +57149,6 @@ entities:
       pos: 2.5,0.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14110
@@ -57204,8 +57158,6 @@ entities:
       pos: 1.5,2.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14111
@@ -57214,8 +57166,6 @@ entities:
       pos: 1.5,7.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
   - uid: 14112
@@ -57225,8 +57175,6 @@ entities:
       pos: -0.5,5.5
       parent: 14001
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 14002
 - proto: GasVolumePump
@@ -69781,7 +69729,6 @@ entities:
       playLandSound: True
       landTime: 5667.8326976
       thrownTime: 5667.7609989
-      thrower: invalid
 - proto: Poweredlight
   entities:
   - uid: 10222

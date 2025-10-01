@@ -2,7 +2,10 @@
 loadout-group-default-white-underwear = Стандартное нижнее бельё
 # Command
 loadout-group-blue-shield-officer-jumpsuit = Оперативник КГБ, комбинезон
+loadout-group-blue-shield-officer-outerclothing = Оперативник КГБ, верхняя одежда
+loadout-group-blue-shield-officer-masks = Оперативник КГБ, противогаз
 loadout-group-blue-shield-officer-backpack = Оперативник КГБ, рюкзак
+loadout-group-blue-shield-officer-neck = Оперативник КГБ, шея
 loadout-group-blue-shield-officer-underwear = Оперативник КГБ, нижнее бельё
 # Civilian
 loadout-group-senior-administrator-jumpsuit = Менеджер, комбинезон
@@ -29,6 +32,7 @@ loadout-group-brigmedic-backpack = Дежурный врач, рюкзак
 loadout-group-brigmedic-socks = Дежурный врач, ноги
 loadout-group-brigmedic-underwear = Дежурный врач, нижнее бельё
 loadout-group-brigmedic-medal = Дежурный врач, медаль
+loadout-group-security-pilot-jumpsuit = Пилот милиции, комбинезон
 loadout-group-senior-officer-jumpsuit = Старший милиционер, комбинезон
 loadout-group-senior-officer-backpack = Старший милиционер, рюкзак
 loadout-group-senior-officer-outerclothing = Старший милиционер, верхняя одежда
@@ -51,3 +55,5 @@ loadout-group-coroner-jumpsuit = Патологоанатом, комбинез�
 loadout-group-coroner-backpack = Патологоанатом, рюкзак
 loadout-group-coroner-head = Патологоанатом, голова
 loadout-group-coroner-underwear = Патологоанатом, нижнее бельё
+# Centcomm
+loadout-group-centcomm-officer-underwear = Офицер ЦК, нижнее бельё

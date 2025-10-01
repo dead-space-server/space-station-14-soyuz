@@ -1,0 +1,84 @@
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseMagazineBoxLightestRifle
+  name: коробка патронов (5.45х39 мм винтовочные)
+  components:
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgeLightestRifle
+    proto: CartridgeLightestRifle
+    capacity: 60
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Guns/Ammunition/Boxes/lightest_rifle.rsi
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+
+- type: entity
+  parent: BaseMagazineBoxLightestRifle
+  id: MagazineBoxLightestRiflePractice
+  name: коробка патронов (5.45х39 мм винтовочные тренировочные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightestRiflePractice
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: practice
+
+- type: entity
+  id: MagazineBoxLightestRifleIncendiary
+  parent: BaseMagazineBoxLightestRifle
+  name: коробка патронов (5.45х39 мм винтовочные зажигательные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightestRifleIncendiary
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: incendiary
+
+- type: entity
+  parent: BaseMagazineBoxLightestRifle
+  id: MagazineBoxLightestRifleUranium
+  name: коробка патронов (5.45х39 мм винтовочные урановые)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightestRifleUranium
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: uranium
+
+- type: entity
+  parent: BaseMagazineBoxLightestRifle
+  id: MagazineBoxLightestRifle
+  name: коробка патронов (5.45х39 мм винтовочный винтовочные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightestRifle
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]    

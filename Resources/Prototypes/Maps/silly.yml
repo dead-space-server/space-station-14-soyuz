@@ -1,11 +1,11 @@
 - type: gameMap
   id: CorvaxSilly
-  mapName: 'DS Silly Island'
+  mapName: 'Silly Island'
   mapPath: /Maps/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 0
-  # maxPlayers: 30
+  maxPlayers: 20
   stations:
     Silly:
       stationProto: StandardNanotrasenStation
@@ -25,15 +25,14 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # law
-            # Magistrat: [ 1, 1 ]
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
             # sec
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 1, 1 ]
             SecurityPilot: [ 1, 1 ]
+            Detective: [ 1, 1 ]
             SecurityOfficer: [ 3, 3 ]
             Brigmedic: [ 1, 1 ]
             SecurityCadet: [ 2, 2 ]
@@ -67,7 +66,6 @@
             SeniorAdministrator: [ 1, 1 ]
             Chef: [ 1, 1 ]
             Botanist: [ 1, 1 ]
-            Bartender: [ 1, 1 ]
             ServiceWorker: [ 2, 2 ]
             Janitor: [ 1, 1 ]
             Librarian: [ 1, 1 ]

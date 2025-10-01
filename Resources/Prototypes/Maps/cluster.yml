@@ -1,9 +1,9 @@
 ﻿- type: gameMap
   id: Cluster
-  mapName: 'Cluster Station'
+  mapName: 'Cluster'
   mapPath: /Maps/cluster.yml
-  minPlayers: 10
-  # maxPlayers: 35
+  minPlayers: 0
+  maxPlayers: 35
   stations:
     Cluster:
       stationProto: StandardNanotrasenStation
@@ -21,7 +21,6 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # law
-            # Magistrat: [ 1, 1 ]
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
             # sec
@@ -61,7 +60,6 @@
             SeniorAdministrator: [ 1, 1 ]
             Chef: [ 1, 1 ]
             Botanist: [ 2, 2 ]
-            Bartender: [ 1, 1 ]
             ServiceWorker: [ 2, 2 ]
             Janitor: [ 2, 2 ]
             Librarian: [ 1, 1 ]

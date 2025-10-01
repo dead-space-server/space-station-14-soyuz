@@ -1,0 +1,46 @@
+- type: entity
+  id: BulletLightestRifle
+  name: патрон (5.45х39 мм винтовочный)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 21
+
+- type: entity
+  id: BulletLightestRifleIncendiary
+  name: патрон (5.45х39 мм винтовочный зажигательный)
+  parent: BaseBulletIncendiary
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 1
+        Piercing: 3
+        Heat: 15
+
+- type: entity
+  id: BulletLightestRifleUranium
+  name: патрон (5.45х39 мм винтовочный урановый)
+  parent: BaseBulletUranium
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Radiation: 10
+        Piercing: 10          
+
+- type: entity
+  id: BulletLightestRiflePractice
+  name: патрон (5.45х39 мм винтовочный тренировочный)
+  parent: BaseBulletPractice
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 1

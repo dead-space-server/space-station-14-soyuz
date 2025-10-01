@@ -23,10 +23,34 @@
   id: BorgModuleSecurity
 
 - type: Tag
+  id: BulletLightestRiflePractice
+
+- type: Tag
+  id: BulletLightestRifleUranium  
+
+- type: Tag
+  id: BulletLightestRifleIncendiary
+
+- type: Tag
+  id: BulletLightestRifle
+
+- type: Tag
   id: CleanerGrenade
 
 - type: Tag
   id: ChefGoldenKnife
+
+- type: Tag
+  id: CartridgeLightestRifleUranium  
+
+- type: Tag
+  id: CartridgeLightestRifleIncendiary    
+
+- type: Tag
+  id: CartridgeLightestRiflePractice
+
+- type: Tag
+  id: CartridgeLightestRifle
 
 - type: Tag
   id: DockCentcommERT
@@ -39,9 +63,6 @@
 
 - type: Tag
   id: FittableInBackpackCase
-
-- type: Tag
-  id: GoldenPlunger
 
 - type: Tag
   id: HardHat
@@ -68,13 +89,34 @@
   id: MagazineTommyGun
 
 - type: Tag
+  id: Plasteel
+
+- type: Tag
   id: MagazineTommyGunCap
+
+- type: Tag
+  id: MagazineBoxLightestRiflePractice
+
+- type: Tag
+  id: MagazineBoxLightestRifleIncendiary
+
+- type: Tag
+  id: MagazineBoxLightestRifleUranium
+
+- type: Tag
+  id: MagazineBoxLightestRifle
+
+- type: Tag
+  id: SiliconIPSIPCEmotes
 
 - type: Tag
   id: SnapPop
 
 - type: Tag
   id: SoapSyndie
+
+- type: Tag
+  id: SyndieSabre
 
 - type: Tag
   id: ToySword

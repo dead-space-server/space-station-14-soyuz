@@ -14,13 +14,17 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant ]
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, MacroBombImplant ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: ZombieImmune
 
 - type: startingGear
   id: CentcomSpecialOperationsOfficerGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCentcomOfficerBlack
-    back: ClothingBackpackERTLeaderFilledSOO
+    # back: ClothingBackpackERTLeaderFilledSOO
     shoes: ClothingShoesCentcomBlack
     head: ClothingHeadCapCentcomBlack
     eyes: ClothingEyesGlassesSecurity
@@ -29,13 +33,6 @@
     neck: ClothingNeckCloakCentcomBlack
     id: CentcomSpecialOperationsOfficerPDA
     ears: ClothingHeadsetDeathSquad
-  #   underwearb: ClothingUnderwearBottomBoxersWhite # DS14-Underwear
-  # underweart: ClothingUnderwearTopBraWhite # DS14-Underwear
-  # underwearb: ClothingUnderwearBottomPantiesWhite # DS14-Underwear
-  # innerClothingSkirt: ClothingUniformJumpskirtPencilSpecialOperationsOfficer
-  # storage:
-  #   back:
-  #   - 
 
 - type: entity
   parent: ClothingBackpackERTLeader
@@ -62,8 +59,19 @@
       - id: Paper
         amount: 8
     - type: Sprite
-      sprite: Objects/Misc/bureaucracy.rsi
+      sprite: Objects/Misc/folders.rsi
       layers:
       - state: folder-colormap
         color: "#2365FF"
       - state: folder-base
+
+- type: chameleonOutfit
+  id: CentcomSpecialOperationsOfficerChameleonOutfit
+  job: CentralCommandSpecialOperationsOfficer
+  equipment:
+    shoes: ClothingShoesCentcomBlack
+    head: ClothingHeadCapCentcomBlack
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterVestWeb
+    neck: ClothingNeckCloakCentcomBlack

@@ -1,3 +1,12 @@
+- type: loadoutEffectGroup
+  id: MasterBlueShield
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 54000 #15 hrs
+
 # For coat
 - type: loadoutEffectGroup
   id: MasterOKGB
@@ -7,6 +16,12 @@
       !type:RoleTimeRequirement
       role: JobBlueShieldOfficer
       time: 180000 #50 hrs
+
+# Backpack
+- type: loadout
+  id: BlueShieldOfficerBackpack
+  equipment:
+    back: ClothingBackpackBlueShield
 
 - type: loadoutEffectGroup
   id: MaskOKGB
@@ -42,7 +57,6 @@
   - !type:GroupLoadoutEffect
     proto: MasterOKGB
 
-
 - type: loadout
   id: OKGBGasMask
   equipment:
@@ -50,6 +64,21 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: MaskOKGB
+
+# Cloak
+- type: loadout
+  id: BlueShieldOfficerCloak
+  equipment:
+    neck: ClothingNeckCapeBlueShield
+
+# Mantle
+- type: loadout
+  id: BlueShieldOfficerMantle
+  equipment:
+    neck: ClothingNeckMantleBlueShieldhoulder
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterBlueShield
 
 # Underwear
 - type: loadout

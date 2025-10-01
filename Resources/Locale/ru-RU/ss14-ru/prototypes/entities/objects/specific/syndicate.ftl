@@ -26,5 +26,5 @@ ent-BaseUplinkRadio60TC = { ent-BaseUplinkRadio }
     .suffix = 60 ТК, аплинк Рассвета, Одинокий оперативник Легиона
     .desc = { ent-BaseUplinkRadio.desc }
 ent-BaseUplinkRadioDebug = { ent-BaseUplinkRadio }
-    .suffix = DEBUG
+    .suffix = ДЕБАГ
     .desc = { ent-BaseUplinkRadio.desc }

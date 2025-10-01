@@ -65,9 +65,6 @@
   id: FittableInBackpackCase
 
 - type: Tag
-  id: GoldenPlunger
-
-- type: Tag
   id: HardHat
 
 - type: Tag
@@ -92,6 +89,9 @@
   id: MagazineTommyGun
 
 - type: Tag
+  id: Plasteel
+
+- type: Tag
   id: MagazineTommyGunCap
 
 - type: Tag
@@ -107,10 +107,16 @@
   id: MagazineBoxLightestRifle
 
 - type: Tag
+  id: SiliconIPSIPCEmotes
+
+- type: Tag
   id: SnapPop
 
 - type: Tag
   id: SoapSyndie
+
+- type: Tag
+  id: SyndieSabre
 
 - type: Tag
   id: ToySword

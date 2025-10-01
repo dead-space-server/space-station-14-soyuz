@@ -56,7 +56,6 @@
         solution: soil
   - type: Appearance
   - type: PlantHolderVisuals
-  - type: GardenShovelBury
 
 - type: entity
   parent: hydroponicsSoil

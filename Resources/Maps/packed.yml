@@ -86,9 +86,7 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
-    - type: PhysicsMap
     - type: GridTree
-    - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
   - uid: 2
@@ -6922,7 +6920,7 @@ entities:
     - type: Transform
       pos: -14.584963,-35.484146
       parent: 2
-- proto: ADTAbakanRifleAEK
+- proto: WeaponRifleAEK
   entities:
   - uid: 5
     components:

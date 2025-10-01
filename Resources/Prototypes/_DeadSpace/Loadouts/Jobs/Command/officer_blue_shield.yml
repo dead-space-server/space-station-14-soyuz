@@ -1,8 +1,84 @@
+- type: loadoutEffectGroup
+  id: MasterBlueShield
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 54000 #15 hrs
+
+# For coat
+- type: loadoutEffectGroup
+  id: MasterOKGB
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 180000 #50 hrs
+
+# Backpack
+- type: loadout
+  id: BlueShieldOfficerBackpack
+  equipment:
+    back: ClothingBackpackBlueShield
+
+- type: loadoutEffectGroup
+  id: MaskOKGB
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 36000 #10 hrs
+
 # Jumpsuit
 - type: loadout
   id: BlueShieldOfficerJumpsuit
   equipment:
     jumpsuit: ClothingUniformJumpsuitBlueShield
+
+- type: loadout
+  id: ClothingUniformJumpsuitTurtleOKGB
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitTurtleOKGB
+
+# OuterClothing
+- type: loadout
+  id: ClothingOuterArmorBasicBlueShield
+  equipment:
+    outerClothing: ClothingOuterArmorBasicBlueShield
+
+- type: loadout
+  id: OKGBOuterClothing
+  equipment:
+    outerClothing: ClothingOuterCoatOKGB
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterOKGB
+
+- type: loadout
+  id: OKGBGasMask
+  equipment:
+    masks: ClothingMaskGasSwat
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaskOKGB
+
+# Cloak
+- type: loadout
+  id: BlueShieldOfficerCloak
+  equipment:
+    neck: ClothingNeckCapeBlueShield
+
+# Mantle
+- type: loadout
+  id: BlueShieldOfficerMantle
+  equipment:
+    neck: ClothingNeckMantleBlueShieldhoulder
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterBlueShield
 
 # Underwear
 - type: loadout

@@ -182,7 +182,7 @@ ghost-role-information-nukeop-reinforcement-description = Ядерным опе�
 ghost-role-information-nukeop-reinforcement-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с ядернымы оперативниками, которые призвали вас.
 ghost-role-information-syndicate-monkey-reinforcement-name = Агент Синдиката-обезьяна
 ghost-role-information-syndicate-monkey-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученная обезьяна, поможете им.
-ghost-role-information-syndicate-kobold-reinforcement-name = Агент Рассвета-кобольд
+ghost-role-information-syndicate-kobold-reinforcement-name = Агент Синдиката-кобольд
 ghost-role-information-syndicate-kobold-reinforcement-description = Кому-то нужно подкрепление. Вы, специально обученный кобольд, поможете им.
 ghost-role-information-syndicate-cyborg-assault-name = Штурмовой киборг Синдиката
 ghost-role-information-syndicate-cyborg-saboteur-name = Саботажный киборг Синдиката

@@ -15,7 +15,7 @@
 - type: entity
   parent: ClothingHandsButcherable
   id: ClothingHandsScienceTaipan
-  name: перчатки ученого синдиката
+  name: перчатки ученого рассвета
   description: Удобные перчатки для проведения различных экспериментов.
   components:
   - type: Sprite

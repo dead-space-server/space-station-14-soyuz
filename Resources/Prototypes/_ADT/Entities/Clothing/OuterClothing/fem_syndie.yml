@@ -19,7 +19,7 @@
 - type: entity
   parent: ClothingOuterHardsuitSyndieElite
   id: ADTClothingOuterFemHardsuitSyndieElite
-  name: женский элитный скафандр синдиката
+  name: женский элитный скафандр рассвета
   description: Усовершенствованная версия женского кроваво-красного скафандра, отличающаяся повышенной огнеупорностью, устойчивостью к давлению и превосходной броней.
   components:
   - type: Sprite
@@ -36,8 +36,8 @@
 - type: entity
   parent: ClothingOuterHardsuitSyndieCommander
   id: ADTClothingOuterFemHardsuitSyndieCommander
-  name: женский командирский скафандр синдиката
-  description: Кроваво-красный женский скафандр, специально разработан для командиров синдиката.
+  name: женский командирский скафандр рассвета
+  description: Кроваво-красный женский скафандр, специально разработан для командиров рассвета.
   components:
   - type: Sprite
     sprite: _ADT/Clothing/OuterClothing/Hardsuits/syndiecommander_fem.rsi
@@ -68,7 +68,7 @@
 - type: entity
   parent: ClothingOuterHardsuitSyndieElite
   id: ADTClothingOuterFemHardsuitSyndieEliteNoHardsuitIdentification
-  name: женский элитный скафандр синдиката
+  name: женский элитный скафандр рассвета
   suffix: Без системы идентификации
   description: Усовершенствованная версия женского кроваво-красного скафандра, отличающаяся повышенной огнеупорностью, устойчивостью к давлению и превосходной броней.
   components:
@@ -82,9 +82,9 @@
 - type: entity
   parent: ClothingOuterHardsuitSyndieCommander
   id: ADTClothingOuterFemHardsuitSyndieCommanderNoHardsuitIdentification
-  name: женский командирский скафандр синдиката
+  name: женский командирский скафандр рассвета
   suffix: Без системы идентификации
-  description: Кроваво-красный женский скафандр, специально разработан для командиров синдиката.
+  description: Кроваво-красный женский скафандр, специально разработан для командиров рассвета.
   components:
   - type: Sprite
     sprite: _ADT/Clothing/OuterClothing/Hardsuits/syndiecommander_fem.rsi

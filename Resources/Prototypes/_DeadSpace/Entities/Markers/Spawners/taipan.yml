@@ -1,5 +1,5 @@
 - type: entity
-  name: атмосферный инженер Синдиката
+  name: атмосферный инженер Рассвета
   id: SpawnPointLatejoinTaipanAtmos
   parent: SpawnPointJobBase
   components:
@@ -10,7 +10,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: ботаник Синдиката
+  name: ботаник Рассвета
   id: SpawnPointLatejoinTaipanBotanist
   parent: SpawnPointJobBase
   components:
@@ -21,7 +21,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: грузчик Синдиката
+  name: грузчик Рассвета
   id: SpawnPointLatejoinTaipanCargotech
   parent: SpawnPointJobBase
   components:
@@ -32,7 +32,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: повар Синдиката
+  name: повар Рассвета
   id: SpawnPointLatejoinTaipanChef
   parent: SpawnPointJobBase
   components:
@@ -43,7 +43,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: медик Синдиката
+  name: медик Рассвета
   id: SpawnPointLatejoinTaipanMedic
   parent: SpawnPointJobBase
   components:
@@ -54,7 +54,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: директор исследований Синдиката
+  name: директор исследований Рассвета
   id: SpawnPointLatejoinTaipanRD
   parent: SpawnPointJobBase
   components:
@@ -65,7 +65,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: учёный Синдиката
+  name: учёный Рассвета
   id: SpawnPointLatejoinTaipanScience
   parent: SpawnPointJobBase
   components:
@@ -76,7 +76,7 @@
     spawn_type: LateJoin
 
 - type: entity
-  name: офицер телекоммуникаций Синдиката
+  name: офицер телекоммуникаций Рассвета
   id: SpawnPointLatejoinTaipanOfficer
   parent: SpawnPointJobBase
   components:

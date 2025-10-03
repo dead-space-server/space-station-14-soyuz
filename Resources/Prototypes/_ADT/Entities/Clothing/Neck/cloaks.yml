@@ -48,7 +48,7 @@
 - type: entity
   parent: ClothingNeckBase
   id: ADTClothingNeckSyndicateCloak
-  name: плащ Синдиката
+  name: плащ Рассвета
   description: Антагонизируй со стилем!
   components:
   - type: Sprite

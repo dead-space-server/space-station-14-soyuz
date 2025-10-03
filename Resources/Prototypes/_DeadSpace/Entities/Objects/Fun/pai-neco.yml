@@ -22,7 +22,7 @@
   id: SyndicatePersonalNecoAI
   name: персональный ИИ кошкогорничная
   description: Твоя персональная неко-горничная!
-  suffix: персональный ИИ кошкогорничная Синдиката
+  suffix: персональный ИИ кошкогорничная Рассвета
   components:
   - type: Sprite
     sprite: _DeadSpace/Objects/Fun/pai-neco.rsi

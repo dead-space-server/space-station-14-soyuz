@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterApronTaipanChef
-  name: фартук шеф-повара синдиката
+  name: фартук шеф-повара рассвета
   description: Пятна крови на нём смотрятся как влитые.
   components:
   - type: Sprite
@@ -27,7 +27,7 @@
 - type: entity
   parent: ClothingOuterStorageFoldableBase
   id: ClothingOuterMedTaipan
-  name: халат медика синдиката
+  name: халат медика рассвета
   description: Халат с едва заметными неотстиранными пятнами крови. Пахнет пытками.
   components:
   - type: Sprite
@@ -42,7 +42,7 @@
 - type: entity
   parent: ClothingOuterWinterCoat
   id: ClothingOuterWinterTaipanChef
-  name: куртка шеф-повара синдиката
+  name: куртка шеф-повара рассвета
   description:  Куртка, разработанная специально для работы в холодильных камерах.
   components:
   - type: Sprite

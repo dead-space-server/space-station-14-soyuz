@@ -2,7 +2,7 @@
   parent: DrinkShaker
   id: DrinkShakerSyndie
   name: синди-шейкер
-  description: Фирменный шейкер, которым пользуются большинство оперативников Синдиката.
+  description: Фирменный шейкер, которым пользуются большинство оперативников Рассвета.
   components:
   - type: SolutionContainerManager
     solutions:

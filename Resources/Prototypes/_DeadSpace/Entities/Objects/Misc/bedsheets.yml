@@ -338,7 +338,7 @@
 - type: entity
   id: DoubleBedsheetSyndie
   parent: DoubleBedsheetBase
-  name: двухспальное одеяло Синдиката
+  name: двухспальное одеяло Рассвета
   description: Одеяло с кроваво-красной эмблемой, излучающее ауру зла.
   components:
   - type: Sprite

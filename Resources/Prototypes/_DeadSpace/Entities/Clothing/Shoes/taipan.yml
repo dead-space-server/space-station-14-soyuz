@@ -2,7 +2,7 @@
   parent: ClothingShoesBaseButcherable
   id: ClothingShoesBootsTaipan
   name: ботинки атмосферного инженера
-  description: Кожаные ботинки, предпочитаемые инженерными работниками на станциях синдиката.
+  description: Кожаные ботинки, предпочитаемые инженерными работниками на станциях рассвета.
   components:
   - type: Sprite
     sprite: Clothing/Shoes/Boots/explorer.rsi
@@ -13,7 +13,7 @@
 - type: entity
   parent: ClothingShoesMilitaryBase
   id: ClothingShoesBootsCombatSyndie
-  name: ботинки синдиката
+  name: ботинки рассвета
   description: Ботинки для боевых операций или боевых действий.
   components:
   - type: Sprite

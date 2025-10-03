@@ -1,8 +1,8 @@
-ent-ClothingOuterApronTaipanChef = фартук шеф-повара синдиката
+ent-ClothingOuterApronTaipanChef = фартук шеф-повара рассвета
     .desc = Пятна крови на нём смотрятся как влитые.
 ent-ClothingOuterCoatRDTaipan = лабораторный халат директора исследований
     .desc = Яркий лабораторный халат, предоставляющий защиту от окружающей среды.
-ent-ClothingOuterMedTaipan = халат медика синдиката
+ent-ClothingOuterMedTaipan = халат медика рассвета
     .desc = Халат с едва заметными неотстиранными пятнами крови. Пахнет пытками.
-ent-ClothingOuterWinterTaipanChef = куртка шеф-повара синдиката
+ent-ClothingOuterWinterTaipanChef = куртка шеф-повара рассвета
     .desc = Куртка, разработанная специально для работы в холодильных камерах.

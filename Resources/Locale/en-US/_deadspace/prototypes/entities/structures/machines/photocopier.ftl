@@ -78,5 +78,5 @@ ent-PaperPrintedNukeopsSyndicateToNT = распечатанный докумен
     .desc = Лист бумаги с заголовком рассвета.
     .suffix = Рассвет-Nanotrasen, легионеры
 ent-PaperPrintedNukeopsSyndicateToUSSP = распечатанный документ
-    .desc = Лист бумаги с заголовком синдиката.
+    .desc = Лист бумаги с заголовком рассвета.
     .suffix = Рассвет-СССП, легионеры

@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpskirtTaipanChef
-  name: юбка-комбинезон шеф-повара синдиката
+  name: юбка-комбинезон шеф-повара рассвета
   description: Без неё ничего и никого не приготовить.
   components:
   - type: Sprite
@@ -12,7 +12,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpskirtTaipanMedic
-  name: юбка-комбинезон медика синдиката
+  name: юбка-комбинезон медика рассвета
   description: Практичность юбки обусловлена тяжестью стирания крови.
   components:
   - type: Sprite
@@ -23,7 +23,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitTaipanBotanist
-  name: комбинезон ботаника синдиката
+  name: комбинезон ботаника рассвета
   description: Имеет сильный запах земли. Будем надеяться, что он просто грязный, а не весь в земле.
   components:
   - type: Sprite
@@ -34,7 +34,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitTaipanCargotech
-  name: комбинезон карготехника синдиката
+  name: комбинезон карготехника рассвета
   description: Удобный прочный комбинезон.
   components:
   - type: Sprite
@@ -45,7 +45,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitTaipanChef
-  name: комбинезон шеф-повара синдиката
+  name: комбинезон шеф-повара рассвета
   description: Без него ничего и никого не приготовить.
   components:
   - type: Sprite
@@ -56,7 +56,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitTaipanDirectory
-  name: парадная форма директора исследований синдиката
+  name: парадная форма директора исследований рассвета
   description: Роскошная униформа директора исследований, для особых случаев.
   components:
   - type: Sprite
@@ -67,7 +67,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitTaipanMedic
-  name: комбинезон медика синдиката
+  name: комбинезон медика рассвета
   description: Удобный комбинезон для оказания различного рода медицинских услуг
   components:
   - type: Sprite
@@ -89,7 +89,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformScienceTaipan
-  name: комбинезон ученого синдиката
+  name: комбинезон ученого рассвета
   description: Чёрный тактический комбинезон, подходящий для всех видов исследований.
   components:
   - type: Sprite
@@ -100,7 +100,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpskirtTaipanBotanist
-  name: юбка-комбинезон ботаника синдиката
+  name: юбка-комбинезон ботаника рассвета
   description: Имеет сильный запах земли. Будем надеяться, что она просто грязная, а не вся в земле.
   components:
   - type: Sprite
@@ -111,7 +111,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpskirtTaipanCargotech
-  name: юбка-комбинезон карготехника синдиката
+  name: юбка-комбинезон карготехника рассвета
   description: Удобный прочный комбинезон, теперь с юбкой.
   components:
   - type: Sprite

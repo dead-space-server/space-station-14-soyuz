@@ -75,8 +75,8 @@
 - type: entity
   parent: ClothingUnderwearTopBase
   id: ClothingUnderwearTopBraSyndicateAgent
-  name: бра агента синдиката
-  description: Cтандартное нижнее бельё агента синдиката.
+  name: бра агента рассвета
+  description: Cтандартное нижнее бельё агента рассвета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Antag/syndicate_agent/women/bra.rsi

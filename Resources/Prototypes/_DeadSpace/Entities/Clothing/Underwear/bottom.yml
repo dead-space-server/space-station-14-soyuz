@@ -66,8 +66,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersSyndicateAgent
-  name: боксеры агента синдиката
-  description: Cтандартное нижнее бельё агента синдиката.
+  name: боксеры агента рассвета
+  description: Cтандартное нижнее бельё агента рассвета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Antag/syndicate_agent/man.rsi
@@ -553,8 +553,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesSyndicateAgent
-  name: стринги агента синдиката
-  description: Cтандартное нижнее бельё агента синдиката.
+  name: стринги агента рассвета
+  description: Cтандартное нижнее бельё агента рассвета.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Antag/syndicate_agent/women/pants.rsi

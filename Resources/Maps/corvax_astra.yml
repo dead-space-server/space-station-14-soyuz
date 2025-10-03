@@ -99635,7 +99635,7 @@ entities:
   - uid: 15287
     components:
     - type: MetaData
-      name: набор C-4 синдиката
+      name: набор C-4 рассвета
     - type: Transform
       pos: -13.352942,-5.15015
       parent: 2

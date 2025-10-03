@@ -19,5 +19,7 @@ ent-ClothingHeadsetAltCargo = полноразмерная гарнитура з
     .desc = { ent-ClothingHeadsetAlt.desc }
 ent-ClothingHeadsetAltSyndicate = полноразмерная болотно-зелёная гарнитура
     .desc = Модифицированный модульный интерком Рассвета, надеваемый на голову, и содержащий ключ шифрования. Имеет 5 ячеек для ключей шифрования.
+ent-ClothingHeadsetAltWizard = полноразмерная гарнитура мага
+    .desc = { ent-ClothingHeadsetAlt.desc }
 ent-ClothingHeadsetAltFreelancer = полноразмерная гарнитура независимого канала
     .desc = { ent-ClothingHeadsetAlt.desc }

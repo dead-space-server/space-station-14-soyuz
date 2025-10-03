@@ -35,28 +35,3 @@ names-ai-dataset-25 = Box
 names-ai-dataset-26 = Calculator
 names-ai-dataset-27 = Cassandra
 names-ai-dataset-28 = Cell
-names-ai-dataset-29 = Chii
-names-ai-dataset-30 = Chip
-names-ai-dataset-31 = C.R.A.I.G.
-
-# Commercial supercomputer from the 70s
-names-ai-dataset-32 = Cray-2
-
-# If we're going to have AOL we may as well have some of their major competitors
-names-ai-dataset-33 = CompuServe
-
-names-ai-dataset-34 = Computer
-names-ai-dataset-35 = Cutie
-names-ai-dataset-36 = Daedalus
-names-ai-dataset-37 = DecTalk
-names-ai-dataset-38 = Dee Model
-names-ai-dataset-39 = Dial Up
-names-ai-dataset-40 = Dorfl
-names-ai-dataset-41 = Duey
-names-ai-dataset-42 = Emma-2
-
-# Famous early computer
-names-ai-dataset-43 = ENIAC
-
-names-ai-dataset-44 = Erasmus
-names-ai-dataset-45 = Everything

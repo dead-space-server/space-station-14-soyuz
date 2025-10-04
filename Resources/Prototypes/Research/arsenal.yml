@@ -213,13 +213,13 @@
   id: DualWieldingTechnology
   name: research-technology-dual-wielding-technology
   icon:
-    sprite: Clothing/Back/Specific/harmpack.r
+    sprite: Clothing/Back/Specific/harmpack.rsi
     state: icon
   discipline: Arsenal
   tier: 2
   cost: 10000
   recipeUnlocks:
-    - ClothingBackpackHarmpack
+  - ClothingBackpackHarmpack
 
 # DS14-Soyuz-start
 - type: technology
@@ -227,6 +227,10 @@
   name: research-technology-police-beta-technology
   icon:
     sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+  discipline: Arsenal
+  tier: 2
+  cost: 12500
+  recipeUnlocks:
   - PoliceBetaLegs
   - PoliceBetaHead
   - PoliceBetaComp

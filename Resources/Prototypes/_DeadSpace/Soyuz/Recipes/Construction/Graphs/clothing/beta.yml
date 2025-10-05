@@ -7,22 +7,22 @@
         - to: hardsuitPoliceBeta
           steps:
             - tag: PoliceBetaBody
-              name: корпус скафандра "Бета-1"
+              name: construction-graph-police-beta-body
               icon:
                 sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
                 state: body
             - tag: PoliceBetaHead
-              name: шлем скафандра "Бета-1"
+              name: construction-graph-police-beta-head
               icon:
                 sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
                 state: head
             - tag: PoliceBetaLegs
-              name: нижняя часть скафандра "Бета-1"
+              name: construction-graph-police-beta-legs
               icon:
                 sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
                 state: legs
             - tag: PoliceBetaComp
-              name: Композит для "Бета-1"
+              name: construction-graph-police-beta-comp
               icon:
                 sprite: _DeadSpace/Soyuz/Objects/Misc/beta.rsi
                 state: comp

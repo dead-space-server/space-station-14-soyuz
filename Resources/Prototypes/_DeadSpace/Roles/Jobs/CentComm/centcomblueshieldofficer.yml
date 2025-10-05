@@ -30,7 +30,6 @@
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmorBasicBlueShield
     shoes: ClothingShoesBootsJackFilled
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield

@@ -60,7 +60,7 @@
 - type: loadout
   id: OKGBGasMask
   equipment:
-    masks: ClothingMaskGasSwat
+    mask: ClothingMaskGasSwat
   effects:
   - !type:GroupLoadoutEffect
     proto: MaskOKGB

@@ -144,7 +144,7 @@ ghost-role-information-cburn-leader-description = Руководите кома�
 ghost-role-information-cburn-agent-name = РХБЗЗ Оперативник
 ghost-role-information-cburn-agent-description = Высококвалифицированный оперативник, способный справиться с любыми угрозами.
 ghost-role-information-centcom-official-name = Представитель Генштаба
-ghost-role-information-centcom-official-description = Инспектируйте станцию, пишите служебные характеристики на руководителей, орудуйте факсом.ghost-role-information-centcom-official-description = Выполняйте обязанности, связанные с Центком, такие как инспекция станции, составление служебных характеристик на руководителей и работа с факсом.
+ghost-role-information-centcom-official-description = Инспектируйте станцию, пишите служебные характеристики на руководителей, орудуйте факсом.ghost-role-information-centcom-official-description = Выполняйте обязанности, связанные с Генштабом, такие как инспекция станции, составление служебных характеристик на руководителей и работа с факсом.
 ghost-role-information-nukeop-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими Ядерными оперативниками. Помощь агентов на станции не гарантируется.
 ghost-role-information-loneop-name = Одинокий оперативник
 ghost-role-information-loneop-description = Вы — одинокий ядерный оперативник. Уничтожьте станцию.
@@ -214,7 +214,7 @@ ghost-role-information-science-name = Научный
 ghost-role-information-science-description = Вы являетесь частью научной команды, но, похоже, попали в странную ситуацию...
 ghost-role-information-civilian-name = Гражданский
 ghost-role-information-civilian-description = Вы просто гуляли, но, похоже, попали в странную ситуацию...
-ghost-role-information-civilian-centcom-lawyer-name = Юрист Центкома
+ghost-role-information-civilian-centcom-lawyer-name = Юрист Генштаба
 ghost-role-information-civilian-centcom-lawyer-description = Юрист, прямо из того самого сериала.
 ghost-role-information-command-name = Коммандир
 ghost-role-information-command-description = Вы являетесь членом командования, но, похоже, попали в странную ситуацию...
@@ -262,8 +262,8 @@ ghost-role-information-wizard-name = Маг
 ghost-role-information-wizard-desc = ТЫ МАГ! Покажи станции, из чего сделана твоя магия.
 ghost-role-information-emotional-support-scurret-name = Слизенёк эмоциональной поддержки
 ghost-role-information-emotional-support-scurret-description = Поддерживайте экипаж, будьте очаровательными, часто говорите "ва".
-ghost-role-information-blueshieldofficer-name = Офицер "Синий Щит"
-ghost-role-information-blueshieldofficer-description = Вы - Офицер корпуса Синего Щита. Ваша задача защищать членов Центрального Командования и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
-ghost-role-information-centcomofficer-name = Офицер Центрального Командования
-ghost-role-information-centcomofficer-description = Вы - Офицер Центрального Командования. Вы должны защищать довереное вам место на котором вы появились и выполнять приказы вышестоящих сотрудников Центрального Командования.
+ghost-role-information-blueshieldofficer-name = Оперативник КГБ
+ghost-role-information-blueshieldofficer-description = Вы - Оперативник Комитета Государственной Безопасности. Ваша задача защищать членов Генерального Штаба и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
+ghost-role-information-centcomofficer-name = Офицер Генерального Штаба
+ghost-role-information-centcomofficer-description = Вы - Офицер Генерального Штаба. Вы должны защищать довереное вам место на котором вы появились и выполнять приказы вышестоящих сотрудников Генерального Штаба.
 ghost-role-information-centcom-personal-rules = Вы обязаны подчиняться приказам членов Центрального Командования.

@@ -1,8 +1,8 @@
 - type: entity
   parent: CustomizableSpawnerBase
   id: CustomizableSpawnerCentralCommandSpecialOperationsOfficer
-  name: Офицер Специальных Операций
-  suffix: ОСО, Кастомизируемый персонаж
+  name: Генерал Специальных Операций
+  suffix: ГСО, Кастомизируемый персонаж
   components:
   - type: Sprite
     layers:

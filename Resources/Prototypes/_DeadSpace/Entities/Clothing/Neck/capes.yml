@@ -42,7 +42,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/hqdishka/Neck/sirius.rsi
-    
+
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCapeLua
@@ -51,7 +51,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/hqdishka/Neck/lua.rsi
-    
+
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCapeFlame
@@ -64,8 +64,8 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckCapeBlueShield
-  name: плащ офицера "Синий Щит"
-  description: Данный плащ соткан из самой качественной ткани для офицера "Синий Щит".
+  name: плащ оперативника КГБ
+  description: Данный плащ соткан из самой качественной ткани для оперативника Комитета Государственной Безопасности.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Neck/blueshield.rsi

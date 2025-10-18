@@ -469,7 +469,10 @@
     sprite: _DeadSpace/Objects/Weapons/Guns/Battery/laser_rifle.rsi
     state: icon
   content:
-  - WeaponLaserRifle
+  - CartridgeLaserRifle
+  - EnergyCartridge
+  - EnergyCartridge
+  - EnergyCartridge
 
 - type: thiefBackpackSet
   id: XrayCannonSet

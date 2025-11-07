@@ -19,3 +19,29 @@
     damage:
       types:
         Blunt: 2
+
+# DS14-Soyuz-start
+- type: entity
+  id: BulletCaselessRifleIncendiary
+  name: bullet (.25 caseless incendiary)
+  parent: BaseBulletIncendiary
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 3
+        Heat: 16
+
+- type: entity
+  id: BulletCaselessRifleUranium
+  name: bullet (.25 caseless uranium)
+  parent: BaseBulletUranium
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 10
+        Radiation: 9
+# DS14-Soyuz-end

@@ -6,3 +6,7 @@ ent-CartridgeCaselessRiflePractice = патрон (4.7х33 мм безгильз
     .desc = { ent-BaseCartridgeCaselessRifle.desc }
 ent-CartridgeCaselessRifleRubber = патрон (4.7х33 мм безгильзовый резиновый)
     .desc = { ent-BaseCartridgeCaselessRifle.desc }
+ent-CartridgeCaselessRifleIncendiary = патрон (4.7х33 мм безгильзовый зажигательный)
+    .desc = { ent-BaseCartridgeCaselessRifle.desc }
+ent-CartridgeCaselessRifleUranium = патрон (4.7х33 мм безгильзовый урановый)
+    .desc = { ent-BaseCartridgeCaselessRifle.desc }

@@ -1,0 +1,401 @@
+- type: listing
+  id: UplinkERTDesoxyephedrineMedipen
+  name: инъектор дезоксиэфедрина
+  description: инъектор быстрого стимулятора.
+  productEntity: DesoxyephedrineMedipen
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMedical
+
+- type: listing
+  id: UplinkERTCombatMedipen
+  name: боевой медипен
+  description: Одноразовый медипен, содержащий химические вещества, восстанавливающие большинство видов повреждений.
+  productEntity: CombatMedipen
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMedical
+
+- type: listing
+  id: UplinkERTDefibrillatorCompact
+  name: компактный дефибриллятор
+  description: Теперь и в весёлом размере!
+  productEntity: DefibrillatorCompact
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTMedical
+
+- type: listing
+  id: UplinkERTMedicatedSuture
+  name: медицинская нить
+  description: Нить, пропитанная лекарством, эффективно лечит механические травмы и закрывает раны.
+  productEntity: MedicatedSuture
+  cost:
+    RedSpaceCoupons: 2
+  categories:
+  - UplinkERTMedical
+
+- type: listing
+  id: UplinkERTRegenerativeMesh
+  name: регенеративная сеть
+  description: Применяется для лечения даже самых неприятных ожогов. Эффективна также при кислотных ожогах.
+  productEntity: RegenerativeMesh
+  cost:
+    RedSpaceCoupons: 2
+  categories:
+  - UplinkERTMedical
+
+#Взрывчатка
+- type: listing
+  id: UplinkERTSmokeGrenade
+  name: дымовая граната
+  description: Граната тактического применения, при использовании выпускающая большое и продолжительное облако дыма.
+  productEntity: SmokeGrenade
+  cost:
+    RedSpaceCoupons: 2
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTGrenadeIncendiary
+  name: зажигательная граната
+  description: Зажгите этой ночью.
+  productEntity: GrenadeIncendiary
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTGrenadeShrapnel
+  name: осколочная граната
+  description: Выпускает смертоносную шрапнель, вызывающую сильное кровотечение.
+  productEntity: GrenadeShrapnel
+  cost:
+    RedSpaceCoupons: 9
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTMetalFoamGrenade
+  name: металлопенная граната
+  description: Аварийное приспособление, используемое для заделывания пробоин. Почти так же надёжно, как настоящие стены.
+  productEntity: MetalFoamGrenade
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTTearGasGrenade
+  name: слезоточивая граната
+  description: Граната со слезоточивым газом для борьбы с беспорядками. Вызывает раздражение, боль и заставляет вас выплакать глаза.
+  productEntity: TearGasGrenade
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTGrenadeStinger
+  name: травматическая граната
+  description: Здесь не на что смотреть, пожалуйста, расходитесь.
+  productEntity: GrenadeStinger
+  cost:
+    RedSpaceCoupons: 7
+  categories:
+  - UplinkERTGrenade
+
+- type: listing
+  id: UplinkERTGrenadeC4
+  name: взрывчатка C-4
+  description: Используется для проделывания аккуратных, не слишком больших, брешей в местах закладки. Любимое средство диверсантов.
+  productEntity: C4
+  cost:
+    RedSpaceCoupons: 7
+  categories:
+  - UplinkERTGrenade
+
+#Боеприпасы
+- type: listing
+  id: UplinkERTMagazinePistolSubMachineGunIncendiary
+  name: магазин ПП (9х19 мм зажигательные)
+  description: магазин с зажигательными патронами 9х19 мм.
+  productEntity: MagazinePistolSubMachineGunIncendiary
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazinePistolSubMachineGunUranium
+  name: магазин ПП (9х19 мм урановые)
+  description: магазин с урановыми патронами 9х19 мм.
+  productEntity: MagazinePistolSubMachineGunUranium
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineLightRifleIncendiary
+  name: магазин (7.62х39 мм винтовочный зажигательные)
+  description: магазин с зажигательными патронами 7.62х39 мм.
+  productEntity: MagazineLightRifleIncendiary
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineLightRifleUranium
+  name: магазин (7.62х39 мм винтовочный урановые)
+  description: магазин с урановыми патронами 7.62х39 мм.
+  productEntity: MagazineLightRifleUranium
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTADTExtMagazineRifle
+  name: расширенный магазин (6.5х39 мм TSF)
+  description: расширенный магазин с патронами 6.5х39 мм TSF, подходит к АН-94.
+  productEntity: ADTExtMagazineRifle
+  cost:
+    RedSpaceCoupons: 3
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTADTExtMagazineRifleIncendiary
+  name: расширенный магазин (6.5х39 мм TSF зажигательные)
+  description: расширенный магазин с зажигательными патронами 6.5х39 мм TSF, подходит к АН-94.
+  productEntity: ADTExtMagazineRifleIncendiary
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTADTExtMagazineRifleUranium
+  name: расширенный магазин (6.5х39 мм TSF урановые)
+  description: расширенный магазин с урановыми патронами 6.5х39 мм TSF, подходит к АН-94.
+  productEntity: ADTExtMagazineRifleUranium
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTDrumMagazineLightRifle
+  name: барабанный магазин (7.62х39 мм винтовочный)
+  description: барабанный магазин с патронами 7.62х39 мм, подходит к РПК-16.
+  productEntity: DrumMagazineLightRifle
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineShotgunIncendiary
+  name: барабан (12х70 зажигательные)
+  description: барабан с зажигательной дробью 12х70.
+  productEntity: MagazineShotgunIncendiary
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineMagnum
+  name: пистолетный магазин (.45 магнум)
+  description: магазин с патронами .45 магнум.
+  productEntity: MagazineMagnum
+  cost:
+    RedSpaceCoupons: 2
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTSpeedLoaderMagnumIncendiary
+  name: спидлоадер (.45 магнум зажигательные)
+  description: спидлоадер с зажигательными патронами .45 магнум.
+  productEntity: SpeedLoaderMagnumIncendiary
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTSpeedLoaderMagnumUranium
+  name: спидлоадер (.45 магнум урановый)
+  description: спидлоадер с урановыми патронами .45 магнум.
+  productEntity: SpeedLoaderMagnumUranium
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineAntiMaterielSV
+  name: магазин (.50 антиматериальный)
+  description: Магазин для снайперской винтовки СВ-98.
+  productEntity: MagazineAntiMaterielSV
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineBoxAntiMateriel
+  name: коробка патронов (.50 антиматериальные)
+  description: Коробка патронов для снайперской винтовки СВ-98.
+  productEntity: MagazineBoxAntiMateriel
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineMagnumSVD
+  name: магазин (.45 магнум)
+  description: Магазин для снайперской винтовки СВД.
+  productEntity: MagazineMagnumSVD
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineLightRifleBox
+  name: короб патронов (7.62х39 мм винтовочные)
+  description: Короб патронов для РПЛ-20.
+  productEntity: MagazineLightRifleBox
+  cost:
+    RedSpaceCoupons: 7
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazinePistolHighCapacity
+  name: автопистолетный магазин (9х19 мм)
+  description: Магазин с патронами 9х19 мм, подходит для ОЦ-33.
+  productEntity: MagazinePistolHighCapacity
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineCaselessRifle
+  name: магазин (4.7х33 мм безгильзовые)
+  description: Магазин с патронами 4.7х33 мм, подходит для СР-2 "Вереск".
+  productEntity: MagazineCaselessRifle
+  cost:
+    RedSpaceCoupons: 2
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineCaselessRifleIncendiary
+  name: магазин (4.7х33 мм безгильзовые зажигательные)
+  description: Магазин с зажигательными патронами 4.7х33 мм, подходит для СР-2 "Вереск".
+  productEntity: MagazineCaselessRifleIncendiary
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTMagazineCaselessRifleUranium
+  name: магазин (4.7х33 мм безгильзовые урановые)
+  description: Магазин с урановыми патронами 9х19 мм, подходит для СР-2 "Вереск".
+  productEntity: MagazineCaselessRifleUranium
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTMagazine
+
+- type: listing
+  id: UplinkERTPortableRecharger
+  name: переносной зарядник
+  description: Высокотехнологичное зарядное устройство, адаптированное для мобильности.
+  productEntity: PortableRecharger
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTMagazine
+#Разное
+- type: listing
+  id: UplinkERTRCDAmmo
+  name: картридж РСУ
+  description: Картридж для РСУ.
+  productEntity: RCDAmmo
+  cost:
+    RedSpaceCoupons: 3
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTPillAmbuzolPlus
+  name: баночка для таблеток
+  description: Содержит пять таблеток амбузола плюс.
+  productEntity: PillCanisterAmbuzolPlus
+  cost:
+    RedSpaceCoupons: 4
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTRiotBulletShield
+  name: противопульный щит
+  description: Щит на случай беспорядков, созданный противостоять пулям, но не более того.
+  productEntity: RiotBulletShield
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTRiotShield
+  name: противоударный щит
+  description: Большой башенный щит на случай беспорядков. Хорошо подходит для контроля толпы.
+  productEntity: RiotShield
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTRiotLaserShield
+  name: противолазерный щит
+  description: Щит на случай беспорядков, созданный противостоять лазерам, но не более того.
+  productEntity: RiotLaserShield
+  cost:
+    RedSpaceCoupons: 6
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTShieldVANT
+  name: бронещит ВАНТ-М
+  description: Передовой щит СССП предназначенный для проведения штурмовых операций. 
+  productEntity: ShieldVANT
+  cost:
+    RedSpaceCoupons: 10
+  categories:
+  - UplinkERTDifferent
+
+- type: listing
+  id: UplinkERTWeaponPistolCHIMP
+  name: излучатель М.А.Р.Т.Ы.Х.
+  description: Карманная версия МАКАКА.
+  productEntity: WeaponPistolCHIMP
+  cost:
+    RedSpaceCoupons: 5
+  categories:
+  - UplinkERTDifferent

@@ -2,7 +2,7 @@
   name: редспейс талон
   parent: BaseItem
   id: RedSpaceCoupons
-  description: Не большой талон.
+  description: Небольшой талон.
   components:
   - type: Sprite
     sprite: _DeadSpace/Soyuz/Objects/Specific/redspacecoupons.rsi

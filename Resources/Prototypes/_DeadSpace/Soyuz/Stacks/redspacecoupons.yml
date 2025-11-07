@@ -1,5 +1,5 @@
 - type: stack
   id: RedSpaceCouponsStack
-  name: редспейс талоны
+  name: redspacecoupons-stack
   icon: _DeadSpace/Soyuz/Objects/Specific/redspacecoupons.rsi
   spawn: RedSpaceCoupons

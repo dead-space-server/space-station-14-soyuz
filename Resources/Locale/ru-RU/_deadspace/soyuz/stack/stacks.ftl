@@ -1,1 +1,1 @@
-stack-redspacecoupons = редспейс талоны
+redspacecoupons-stacks = редспейс талоны

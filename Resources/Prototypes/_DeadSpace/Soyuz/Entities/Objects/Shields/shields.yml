@@ -17,7 +17,6 @@
     - type: Flash
     - type: LimitedCharges
       maxCharges: 2
-      charges: 2
     - type: AutoRecharge
       rechargeDuration: 30
     - type: Blocking

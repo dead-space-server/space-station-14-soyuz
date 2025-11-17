@@ -114398,7 +114398,7 @@ entities:
     - type: Transform
       pos: 20.5,-24.5
       parent: 2
-- proto: DefibrillatorCabinet
+- proto: DefibrillatorCabinetFilled
   entities:
   - uid: 15950
     components:
@@ -212748,7 +212748,7 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 12. 
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 12.
 
 
         Добавлены мигалки, которые активируются по кнопке, чтобы нарушитель правопорядка услышал через космическую тишину знакомые звуки сирен.

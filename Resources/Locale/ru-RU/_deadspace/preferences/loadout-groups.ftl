@@ -20,6 +20,7 @@ loadout-group-senior-engineer-head = Бригадир, голова
 loadout-group-senior-engineer-jumpsuit = Бригадир, комбинезон
 loadout-group-senior-engineer-id = Бригадир, ID
 loadout-group-senior-engineer-underwear = Бригадир, нижнее бельё
+loadout-group-senior-engineer-belt = Бригадир, пояс
 # Science
 loadout-group-senior-researcher-head = Ведущий научный сотрудник, голова
 loadout-group-senior-researcher-jumpsuit = Ведущий научный сотрудник, комбинезон

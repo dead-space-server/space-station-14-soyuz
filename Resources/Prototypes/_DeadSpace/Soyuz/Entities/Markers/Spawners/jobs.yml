@@ -1,0 +1,23 @@
+- type: entity
+  id: SpawnPointPolitkom
+  parent: SpawnPointJobBase
+  name: политический комиссар
+  components:
+  - type: SpawnPoint
+    job_id: PolitKom
+  - type: Sprite
+    layers:
+      - state: green
+      - state: Politkom
+
+- type: entity
+  id: SpawnPointPolitruk
+  parent: SpawnPointJobBase
+  name: политический руководитель
+  components:
+  - type: SpawnPoint
+    job_id: Politruk
+  - type: Sprite
+    layers:
+      - state: green
+      - state: Politruk

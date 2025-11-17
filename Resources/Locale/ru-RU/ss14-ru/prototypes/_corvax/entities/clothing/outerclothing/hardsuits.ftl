@@ -1,2 +1,2 @@
-ent-ClothingOuterHardsuitCBURNLeader = экзокостюм командира отряда АСЦ
+ent-ClothingOuterHardsuitCBURNLeader = экзокостюм командира отряда РХБЗЗ
     .desc = Легковесный но прочный экзокостюм, который используют специальные подразделения зачистки.

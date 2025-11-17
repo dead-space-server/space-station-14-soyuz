@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtPencilPolitRuk
+  name: юбка-карандаш политического отдела
+  description: Красивая бордовая юбка-карандаш.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/pencil_politruk.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/pencil_politruk.rsi

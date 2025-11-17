@@ -1,0 +1,34 @@
+- type: entity
+  id: RandomHumanoidSpawnerPolitRuk
+  components:
+    - type: Sprite
+      sprite: Markers/jobs.rsi
+      state: Politruk
+    - type: RandomHumanoidSpawner
+      settings: PolitOtdelPolitRuk
+
+
+- type: entity
+  id: RandomHumanoidSpawnerPolitKom
+  components:
+    - type: Sprite
+      sprite: Markers/jobs.rsi
+      state: Politkom
+    - type: RandomHumanoidSpawner
+      settings: PolitOtdelPolitKom
+
+- type: randomHumanoidSettings
+  id: PolitOtdelPolitRuk
+  parent: EventHumanoidMindShieldedHuman
+  components:
+    - type: Loadout
+      prototypes: [ PolitrukGear ]
+      roleLoadout: [ RoleSurvivalStandard ]
+
+- type: randomHumanoidSettings
+  id: PolitOtdelPolitKom
+  parent: EventHumanoidMindShieldedHuman
+  components:
+    - type: Loadout
+      prototypes: [ PolitkomGear ]
+      roleLoadout: [ RoleSurvivalStandard ]      

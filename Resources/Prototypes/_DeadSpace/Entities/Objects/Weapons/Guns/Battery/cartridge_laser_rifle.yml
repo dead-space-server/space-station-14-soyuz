@@ -19,11 +19,15 @@
     - Back
     - suitStorage
   - type: Gun
-    fireRate: 1.75
+    fireRate: 2
     soundGunshot:
       path: /Audio/_DeadSpace/Weapons/Guns/Gunshots/laser_rifle.ogg
       params:
         volume: 1
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
   - type: MagazineAmmoProvider
   - type: ItemSlots
     slots:
@@ -59,7 +63,7 @@
       state: o2
       shader: unshaded
   - type: Item
-    size: Normal
+    size: Small
   - type: Tag
     tags:
     - EnergyCartridge
@@ -67,7 +71,7 @@
     maxCharge: 1500
     startingCharge: 1500
   - type: HitscanBatteryAmmoProvider
-    proto: RedLaser
+    proto: RedMediumLaser
     fireCost: 100
   - type: PowerCell
   - type: Appearance

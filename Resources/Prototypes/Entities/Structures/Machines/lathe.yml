@@ -410,6 +410,7 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
+    - SecurityPoliceBeta # DS14-Soyuz
   - type: MaterialStorage
     whitelist:
       tags:

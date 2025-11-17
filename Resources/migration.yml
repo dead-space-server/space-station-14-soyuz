@@ -955,7 +955,7 @@ ClothingNeckHeadphones: ClothingMultipleHeadphones
 # 2025-06-23 - DS14
 EncryptionKeyTypan: EncryptionKeyTaipan
 ClothingBackpackSatchelTypan: ClothingBackpackSatchelTaipan
-ClothingBackpackSatchelTypanFilled: ClothingBackpackSatchelTaipanFilled
+ClothingBackpackSatchelTypanFilled: null
 ClothingBeltPlantTypan: ClothingBeltPlantTaipan
 ClothingBeltPlantTypanFilled: ClothingBeltPlantTaipanFilled
 TypanPlantBag: TaipanPlantBag
@@ -1069,3 +1069,18 @@ ClothingUnderwearWomenSocksCadet: null
 ClothingUnderwearWomenSocksDetective: null
 ClothingUnderwearWomenSocksSecurityOfficer: null
 ClothingUnderwearWomenSocksWarden: null
+
+# 2025-10-11 - DS14
+ADTClothingHeadHatsDungeonMasterHat: null
+ADTClothingUniformDungeonMasterSuit: null
+ClothingBackpackSatchelTaipanFilled: null
+ADTinquisitory: null
+ADTInquisitoryHead: null
+ADTClothingOuterCoatLabSec: null
+ADTVeteranSecHardsuit: null
+ADTVeteranSecHardsuitHelm: null
+LedLightTubeGreen: LightTubeCrystalGreen
+LedLightTubeRed: LightTubeCrystalRed
+LedLightTubeBlue: LightTubeCrystalBlue
+LedLightTubeYellow: LightTubeCrystalYellow
+LedLightTubeViolet: LightBulbCrystalPink

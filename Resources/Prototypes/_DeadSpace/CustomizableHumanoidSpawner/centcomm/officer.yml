@@ -1,8 +1,8 @@
 - type: entity
   parent: CustomizableSpawnerBase
   id: CustomizableSpawnerCentralCommandOfficer
-  name: Офицер безопасности ЦК
-  suffix: ОЦК, Призрачная роль, Кастомизируемый персонаж
+  name: Офицер безопасности ГШ
+  suffix: ОГШ, Призрачная роль, Кастомизируемый персонаж
   components:
   - type: Sprite
     layers:

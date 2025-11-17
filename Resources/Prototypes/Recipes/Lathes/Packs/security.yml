@@ -152,9 +152,22 @@
   - WeaponTemperatureGun
   - WeaponLaserRifle # DS14
   - WeaponIonRifle # DS14
+  - PhotonShotgun # DS14
+  - CartridgeLaserRifle # DS14
+  - EnergyCartridge # DS14
 
 - type: latheRecipePack
   id: SecurityDisablers
   recipes:
   - WeaponDisabler
   - WeaponDisablerSMG
+
+# DS14-Soyuz-start
+- type: latheRecipePack 
+  id: SecurityPoliceBeta 
+  recipes:
+  - PoliceBetaLegs
+  - PoliceBetaHead
+  - PoliceBetaComp
+  - PoliceBetaBody
+# DS14-Soyuz-end

@@ -23,7 +23,7 @@
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleBlueShieldhoulder
-  name: наплечная мантия офицера "Синий Щит"
+  name: наплечная мантия оперативника КГБ
   description: Эта мантия является символом преданности к делу защиты глав станции.
   components:
   - type: Sprite

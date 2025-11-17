@@ -136,6 +136,13 @@
   - UnderwearTopBraSeniorEngineer
   - UnderwearBottomPantiesSeniorEngineer
 
+- type: loadoutGroup
+  id: SeniorEngineerBelt
+  name: loadout-group-senior-engineer-belt
+  loadouts:
+  - StationEngineerBeltUtility
+  - StationEngineerBeltWebbing
+
 # Science
 - type: loadoutGroup
   id: SeniorResearcherHead
@@ -150,6 +157,9 @@
   loadouts:
   - SeniorResearcherJumpsuit
   - SeniorResearcherJumpskirt
+  - SeniorResearcherJumpsuitTurtleneck
+  - SeniorResearcherJumpskirtTurtleneck
+
 
 - type: loadoutGroup
   id: SeniorResearcherOuterClothing
@@ -157,6 +167,7 @@
   minLimit: 0
   loadouts:
   - SeniorResearcherLabCoat
+  - SeniorResearcherWinterCoat
 
 - type: loadoutGroup
   id: SeniorResearcherPDA

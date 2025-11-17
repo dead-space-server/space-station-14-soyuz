@@ -1,0 +1,69 @@
+- type: job
+  id: Politruk
+  name: Политический Руководитель
+  description: Ходите и надзирайте за станцией, напоминание станции о важности коммунизма, пока она погибает. 
+  playTimeTracker: JobPolitruk
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 180000 # 50 hours
+    - !type:RoleTimeRequirement
+      role: JobCaptain
+      time: 36000 # 10 hours
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 90000 # 25 hours            
+    - !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 36000 # 10 hours
+    - !type:OverallPlaytimeRequirement
+      time: 720000 # 200 hours
+    - !type:AgeRequirement
+      requiredAge: 24
+  weight: 20
+  startingGear: PolitrukGear
+  icon: "JobIconPolitruk"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  access:
+  - Command
+  - Brig
+  - Security
+  - Armory
+  - Maintenance
+  - Service
+  - External
+  - Research
+  - Medical
+  - Engineering
+  - Cargo
+  #start-backmen: currency
+  minBankBalance: 800
+  maxBankBalance: 1200
+  wageDepartment: Command
+  wage: 190
+  #end-backmen: currency
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      - type: CommandStaff
+
+- type: startingGear
+  id: PolitrukGear
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    id: PolitrukPDA
+    ears: ClothingHeadsetAltCommand
+    socks: ClothingUnderwearSocksPolitOtdelLong
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
+    head: ClothingHeadHatBeretPolitruk
+    back: ClothingBackpackSecurity
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+    underweart: ClothingUnderwearTopTelnikPolitOtdel
+  storage:
+    back:
+    - Flash

@@ -1,0 +1,47 @@
+- type: entity
+  parent: BaseWidePDA
+  id: PolitrukPDA
+  name: КПК Политического Руководителя
+  description: Скромный, алый как Советской флаг, КПК Политического руководителя Управления ПолитКонтроля НКВБ. В нем довольно много записей о разного рода коммунизме. Почему этот глаз смотрит вечно на тебя?
+  components:
+  - type: Pda
+    id: PolitrukIDCard
+    penSlot:
+      startingItem: LuxuryPen
+      priority: -1
+      whitelist:
+        tags:
+        - Write
+  - type: Appearance
+    appearanceDataInit:
+     enum.PdaVisuals.PdaType:
+       !type:String
+       pda-politruk
+  - type: PdaBorderColor
+    borderColor: "#9b2d30"
+  - type: Icon
+    state: pda-politruk
+
+- type: entity
+  parent: BaseWidePDA
+  id: PolitkomPDA
+  name: КПК Политического Комиссара
+  description: Грозный и властный кпк ПолитКомиссара Управления ПолитКонтроля НКВБ. Он бдит и следит, он направляет и кричит "НЕСИТЕ ТРУПОВОЗКИ!!!" 
+  components:
+  - type: Pda
+    id: PolitkomIDCard
+    penSlot:
+      startingItem: LuxuryPen
+      priority: -1
+      whitelist:
+        tags:
+        - Write
+  - type: Appearance
+    appearanceDataInit:
+     enum.PdaVisuals.PdaType:
+       !type:String
+       pda-politkom
+  - type: PdaBorderColor
+    borderColor: "#9b2d30"
+  - type: Icon
+    state: pda-politkom

@@ -466,10 +466,13 @@
   name: ert-loadout-category-laserrifle-name
   description: ert-loadout-category-laserrifle-description
   sprite:
-    sprite: _DeadSpace/Objects/Weapons/Guns/Battery/laser_rifle.rsi
+    sprite: _DeadSpace/Objects/Weapons/Guns/Battery/clr.rsi
     state: icon
   content:
-  - WeaponLaserRifle
+  - CartridgeLaserRifle
+  - EnergyCartridge
+  - EnergyCartridge
+  - EnergyCartridge
 
 - type: thiefBackpackSet
   id: XrayCannonSet

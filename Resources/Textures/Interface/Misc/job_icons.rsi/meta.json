@@ -233,6 +233,12 @@
             "name": "Surgeon"
         },
         {
+            "name": "Politruk"
+        },
+        {
+            "name": "Politkom"
+        },  
+        {
             "name": "ERT"
         },
         {
@@ -240,3 +246,4 @@
         }
     ]
 }
+

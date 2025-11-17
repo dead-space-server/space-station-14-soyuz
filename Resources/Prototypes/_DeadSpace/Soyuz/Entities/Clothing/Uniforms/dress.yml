@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformPolitRukDress
+  name: платье политического отдела
+  description: Красивое бордовое платье.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/dress_politruk.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/dress_politruk.rsi

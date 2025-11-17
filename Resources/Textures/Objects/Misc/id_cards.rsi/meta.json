@@ -17,6 +17,15 @@
             "name": "admin"
         },
         {
+            "name": "NKVBCard"
+        },
+        {
+            "name": "PolitKomissar"
+        },        
+        {
+            "name": "PolitRuk"
+        },    
+        {
             "name": "ert_chaplain"
         },
         {

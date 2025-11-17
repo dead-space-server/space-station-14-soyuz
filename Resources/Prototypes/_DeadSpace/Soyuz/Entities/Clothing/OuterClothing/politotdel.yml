@@ -1,0 +1,72 @@
+# Coat
+- type: entity
+  parent: ClothingOuterStorageFoldableBase
+  id: ClothingOuterCoatPolitotdel
+  name: бронешинель политического отдела
+  description: Уставная двубортная шинель ПолитОтдела. Тяжелая и теплая, явно защитит вас от атак Контрреволюционеров и генерала Мороза.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelcoat.rsi
+    - type: Clothing
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelcoat.rsi
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.70
+          Slash: 0.70
+          Piercing: 0.70
+          Heat: 0.70
+          Caustic: 0.85
+    - type: TemperatureProtection
+      heatingCoefficient: 1.1
+      coolingCoefficient: 0.1      
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatPolitotdel]
+  id: ClothingOuterCoatPolitotdelOpened
+  name: бронешинель политического отдела
+
+# French
+- type: entity
+  parent: ClothingOuterStorageFoldableBase
+  id: ClothingOuterFrenchPolitotdel
+  name: старый френч политического отдела
+  description: Поношенный френч ПолитОтдела. Несмотря на внешнюю старость, он все-еще сияет огнем революции. 
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelfrench.rsi
+    - type: Clothing
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelfrench.rsi
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.75
+          Slash: 0.75
+          Piercing: 0.75
+          Heat: 0.80
+          Caustic: 0.90
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterFrenchPolitotdel]
+  id: ClothingOuterFrenchPolitotdelOpened
+  name: старый френч политического отдела
+
+# Mundir
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterMundirPolitotdel
+  name: мундир политического отдела
+  description: Уставной двубортный мундир ПолитОтдела. Аккуратный, идеально выглаженный, его владелец показывает, как искренне он борется с контрреволюцией и буржуазной этикой.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi
+    - type: Clothing
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi
+    - type: Armor
+      modifiers:
+        coefficients:
+          Blunt: 0.75
+          Slash: 0.75
+          Piercing: 0.75
+          Heat: 0.80
+          Caustic: 0.90

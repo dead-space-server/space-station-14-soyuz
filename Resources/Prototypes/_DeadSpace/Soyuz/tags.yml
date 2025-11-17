@@ -1,8 +1,5 @@
 - type: Tag
-  id: MagazineAntiMaterielSV
-
-- type: Tag
-  id: MagazineMagnumSVD
+  id: PoliceBetaLegs
 
   id: PoliceBetaBody
 
@@ -13,4 +10,7 @@
   id: PoliceBetaHead
 
 - type: Tag
-  id: PoliceBetaLegs
+  id: MagazineMagnumSVD
+
+- type: Tag
+  id: MagazineAntiMaterielSV

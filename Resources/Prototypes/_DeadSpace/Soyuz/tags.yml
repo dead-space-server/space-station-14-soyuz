@@ -1,6 +1,7 @@
 - type: Tag
   id: PoliceBetaLegs
 
+- type: Tag
   id: PoliceBetaBody
 
 - type: Tag

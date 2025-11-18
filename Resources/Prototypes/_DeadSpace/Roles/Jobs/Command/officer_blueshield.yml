@@ -63,7 +63,7 @@
     ears: ClothingHeadsetAltCommand
     shoes: ClothingShoesBootsJackFilled
     socks: ClothingUnderwearSocksBlueShieldOfficer
-    outerClothing: ClothingOuterArmorBasicBlueShield
+    # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled
     gloves: ClothingHandsGlovesCombat
     id: BlueShieldOfficerPDA

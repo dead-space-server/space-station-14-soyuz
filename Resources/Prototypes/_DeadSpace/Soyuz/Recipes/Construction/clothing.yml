@@ -1,0 +1,7 @@
+- type: construction
+  id: HardsuitPoliceBeta
+  graph: HardsuitPoliceBeta
+  startNode: start
+  targetNode: hardsuitPoliceBeta
+  category: construction-category-clothing
+  objectType: Item

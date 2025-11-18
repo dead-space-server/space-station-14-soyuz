@@ -19,11 +19,15 @@
     - Back
     - suitStorage
   - type: Gun
-    fireRate: 1.75
+    fireRate: 2
     soundGunshot:
       path: /Audio/_DeadSpace/Weapons/Guns/Gunshots/laser_rifle.ogg
       params:
         volume: 1
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
   - type: MagazineAmmoProvider
   - type: ItemSlots
     slots:

@@ -1,0 +1,44 @@
+- type: job
+  id: PolitKom
+  name: Политический Комиссар
+  description: Расстреляете любого несогласного в вашей политической позиции. Получите инфаркт от того, что кто-то сжёг манифест компартии.
+  playTimeTracker: JobPolitkom
+  setPreference: false
+  startingGear: PolitkomGear
+  icon: "JobIconPolitkom"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess  
+  access:
+  - CentralCommand
+  #start-backmen: currency
+  minBankBalance: 800
+  maxBankBalance: 1200
+  wageDepartment: Command
+  wage: 200
+  #end-backmen: currency
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      - type: CommandStaff
+
+- type: startingGear
+  id: PolitkomGear
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    id: PolitkomPDA
+    ears: ClothingHeadsetAltCentCom
+    socks: ClothingUnderwearSocksPolitOtdelLong
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
+    head: ClothingHeadHatBeretPolitruk
+    back: ClothingBackpackSecurity
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+    underweart: ClothingUnderwearTopTelnikPolitOtdel
+  storage:
+    back:
+    - Flash

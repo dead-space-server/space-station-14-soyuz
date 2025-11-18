@@ -161,3 +161,13 @@
   recipes:
   - WeaponDisabler
   - WeaponDisablerSMG
+
+# DS14-Soyuz-start
+- type: latheRecipePack 
+  id: SecurityPoliceBeta 
+  recipes:
+  - PoliceBetaLegs
+  - PoliceBetaHead
+  - PoliceBetaComp
+  - PoliceBetaBody
+# DS14-Soyuz-end

@@ -1,0 +1,32 @@
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitPolitRukFormal
+  name: костюм политического отдела
+  description: Красивый бордовый костюм.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitPolitRukSkirt
+  name: юбка-комбинезон политического отдела
+  description: Красивая бордовая юбка-комбинезон.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
+
+- type: entity
+  parent: [ClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitPolitRuk
+  name: комбинезон политического отдела
+  description: Красивый бордовый комбинезон.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi

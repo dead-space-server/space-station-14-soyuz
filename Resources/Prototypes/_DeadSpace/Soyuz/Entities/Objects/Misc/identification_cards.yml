@@ -1,0 +1,23 @@
+- type: entity
+  parent: IDCardStandard
+  id: PolitrukIDCard
+  name: ID-карта Политического Руководителя
+  components:
+    - type: Sprite
+      layers:
+        - state: NKVBCard
+        - state: PolitRuk
+    - type: PresetIdCard
+      job: Politruk
+
+- type: entity
+  parent: IDCardStandard
+  id: PolitkomIDCard
+  name: ID-карта Политического Комиссара
+  components:
+    - type: Sprite
+      layers:
+        - state: NKVBCard
+        - state: PolitKomissar
+    - type: PresetIdCard
+      job: PolitKom

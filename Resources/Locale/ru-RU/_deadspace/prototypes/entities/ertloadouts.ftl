@@ -45,9 +45,10 @@ ert-loadout-category-lasercannon-name = Лазерная пушка
 ert-loadout-category-lasercannon-description =
     Тяжёлое и сверхмощное лазерное оружие.
     Для восполнения боезапаса потребуется зарядник энергооружия.
-ert-loadout-category-laserrifle-name = Лазерный автомат
+ert-loadout-category-laserrifle-name = Экспериментальная лазерная винтовка
 ert-loadout-category-laserrifle-description =
-    Продвинутое лазерное оружие с автоматическим режимом стрельбы.
+    Экспериментальная разработка НКВБ СССП, использует картриджи.
+    В наборе идёт 3 дополнительных картриджа.
     Для восполнения боезапаса потребуется зарядник энергооружия.
 ert-loadout-category-xraycannon-name = Рентгеновская пушка
 ert-loadout-category-xraycannon-description =

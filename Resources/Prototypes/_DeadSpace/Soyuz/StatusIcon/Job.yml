@@ -1,0 +1,15 @@
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconPolitruk
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Politruk
+  jobName: Политический Руководитель
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconPolitkom
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi
+    state: Politruk
+  jobName: Политический Комиссар

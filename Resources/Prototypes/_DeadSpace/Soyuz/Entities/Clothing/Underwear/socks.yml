@@ -33,3 +33,21 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Soyuz/Clothing/Underwear/Socks/stockingsblackpaws.rsi
+
+- type: entity
+  parent: ClothingUnderwearSocksBase
+  id: ClothingUnderwearSocksPolitOtdel
+  name: носки политического отдела
+  description: Приятные алые носки.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsock.rsi
+
+- type: entity
+  parent: ClothingUnderwearSocksBase
+  id: ClothingUnderwearSocksPolitOtdelLong
+  name: длинные носки политического отдела
+  description: Приятные длинные алые носки.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsocklong.rsi

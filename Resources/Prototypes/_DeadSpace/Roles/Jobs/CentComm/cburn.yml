@@ -31,7 +31,7 @@
     neck: ClothingNeckMantleCBURNLeaderShoulder
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitCBURNLeader
-    shoes: ClothingShoesBootsCombatFilled
+    shoes: ClothingShoesBootsJackSecFilled
     id: CBURNLeaderPDA
     belt: ClothingBeltMilitaryWebbing
     pocket1: DoubleEmergencyOxygenTankFilled
@@ -81,7 +81,7 @@
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitCBURN
-    shoes: ClothingShoesBootsCombatFilled
+    shoes: ClothingShoesBootsJackSecFilled
     id: CBURNPDA
     belt: ClothingBeltMilitaryWebbing
     pocket1: DoubleEmergencyOxygenTankFilled

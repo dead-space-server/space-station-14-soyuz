@@ -1,8 +1,8 @@
 - type: entity
   parent: CustomizableSpawnerBase
   id: CustomizableSpawnerCentralCommandAdministrator
-  name: Администратор ЦК
-  suffix: АЦК, Кастомизируемый персонаж
+  name: Администратор ГШ
+  suffix: АГШ, Кастомизируемый персонаж
   components:
   - type: Sprite
     layers:

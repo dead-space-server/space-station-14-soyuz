@@ -31,11 +31,12 @@
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesBootsJackSec
     head: ClothingHeadHelmetERTLeader
     id: ERTLeaderPDA
     belt: ClothingBeltERTSecurityFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - ERTloadoutAmberSecondary
@@ -85,6 +86,7 @@
     id: ERTLeaderRedPDA
     belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - ERTloadoutRedPrimary
@@ -147,6 +149,7 @@
     - Flare
     - WeaponDisabler
     - ClothingEyesPNVAdv
+    - KukriKnife
 
 # Security
 ## Amber
@@ -178,11 +181,12 @@
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    shoes: ClothingShoesBootsJackSecFilled
+    shoes: ClothingShoesBootsJackSec
     head: ClothingHeadHelmetERTSecurity
     id: ERTSecurityIDCard
     belt: ClothingBeltERTSecurityFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - TelescopicShield
@@ -229,6 +233,7 @@
     id: ERTSecurityRedIDCard
     belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - TelescopicShield
@@ -276,6 +281,7 @@
     id: ERTSecurityGammaIDCard
     belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - TelescopicShield
@@ -325,6 +331,7 @@
     id: ERTMedicIDCard
     belt: ClothingBeltMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - Defibrillator
@@ -375,6 +382,7 @@
     id: ERTMedicRedIDCard
     belt: ClothingBeltERTMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - ChemistryBottleOmnizine
@@ -427,6 +435,7 @@
     id: ERTMedicGammaIDCard
     belt: ClothingBeltERTMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - ChemistryBottleOmnizine
@@ -483,6 +492,7 @@
     id: ERTEngineerIDCard
     belt: ClothingUtilityWebbingEngineering
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - FlashlightLantern
@@ -528,6 +538,7 @@
     id: ERTEngineerRedIDCard
     belt: ClothingBeltChiefEngineerFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - RCD
@@ -575,6 +586,7 @@
     id: ERTEngineerGammaIDCard
     belt: ClothingBeltChiefEngineerFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - WeaponDisabler
@@ -629,6 +641,7 @@
     id: ERTJanitorIDCard
     belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - ERTloadoutAmberPrimary
@@ -676,6 +689,7 @@
     id: ERTJanitorRedIDCard
     belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - SoapNT
@@ -725,6 +739,7 @@
     id: ERTJanitorGammaIDCard
     belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
   storage:
     back:
     - SoapOmega

@@ -1,8 +1,8 @@
 - type: entity
   parent: CustomizableSpawnerBase
   id: CustomizableSpawnerCentralCommandBlueShieldOfficer
-  name: Офицер "Синий Щит" ЦК
-  suffix: ОСЩ, Призрачная роль, Кастомизируемый персонаж
+  name: Оперативник КГБ ГШ
+  suffix: ОКГБ, Призрачная роль, Кастомизируемый персонаж
   components:
   - type: Sprite
     layers:
@@ -38,7 +38,7 @@
 - type: dataset
   id: CustomizableSpawnerCentralCommandBlueShieldOfficerFirstName
   values:
-  - Офицер
+  - Сержант
 
 - type: roleLoadout
   id: JobCentralCommandBlueShieldOfficer

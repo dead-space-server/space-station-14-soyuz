@@ -223,6 +223,23 @@
   recipeUnlocks:
   - ClothingBackpackHarmpack
 
+# DS14-Soyuz-start
+- type: technology
+  id: SecurityPoliceBetaTechnology
+  name: research-technology-police-beta-technology
+  icon:
+    sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 12500
+  recipeUnlocks:
+  - PoliceBetaLegs
+  - PoliceBetaHead
+  - PoliceBetaComp
+  - PoliceBetaBody
+# DS14-Soyuz-end
+
 # Tier 3
 
 - type: technology

@@ -23,10 +23,15 @@
         Blunt: 0.7
         Slash: 0.7
         Piercing: 0.6
+        Poison: 0.40   
         Heat: 0.05
         Cold: 0.1
         Shock: 0.1
+        Stun: 0.55        
         Radiation: 0.1
+        Caustic: 0.1
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.20
   - type: ExplosionResistance
     damageCoefficient: 0.7
   - type: ToggleableClothing

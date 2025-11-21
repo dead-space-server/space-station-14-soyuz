@@ -410,8 +410,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersPsychologist
-  name: боксеры психиатра
-  description: Cтандартное нижнее бельё психиатра.
+  name: боксеры психолога
+  description: Cтандартное нижнее бельё психолога.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/man.rsi
@@ -897,8 +897,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomPantiesPsychologist
-  name: стринги психиатра
-  description: Cтандартное нижнее бельё психиатра.
+  name: стринги психолога
+  description: Cтандартное нижнее бельё психолога.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/women/pants.rsi

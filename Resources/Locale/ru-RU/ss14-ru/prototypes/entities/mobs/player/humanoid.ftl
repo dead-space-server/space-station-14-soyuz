@@ -93,6 +93,6 @@ ent-RandomHumanoidSyndieDisasterVictim = жертва катастрофы Ра�
 ent-RandomHumanoidSpawnerPolitRuk = Политический Руководитель
     .desc = { "" }
     .suffix = Политрук
-ent-RandomHumanoidSpawnerPolitKom = Политический Комиссар
+ent-RandomHumanoidSpawnerPolitkom = Политический Комиссар
     .desc = { "" }
     .suffix = Политком    

@@ -1,6 +1,6 @@
 - type: job
-  id: PolitKom
-  name: Политический Комиссар
+  id: Politkom
+  name: job-name-Politkom
   description: Расстреляете любого несогласного в вашей политической позиции. Получите инфаркт от того, что кто-то сжёг манифест компартии.
   playTimeTracker: JobPolitkom
   setPreference: false
@@ -42,3 +42,19 @@
   storage:
     back:
     - Flash
+
+- type: chameleonOutfit
+  id: PolitkomChameleonOutfit
+  job: Politkom
+  hasMindShield: true
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    ears: ClothingHeadsetAltCentCom
+    socks: ClothingUnderwearSocksPolitOtdelLong
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
+    head: ClothingHeadHatBeretPolitruk
+    back: ClothingBackpackSecurity
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+    underweart: ClothingUnderwearTopTelnikPolitOtdel

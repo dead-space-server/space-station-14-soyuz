@@ -11,6 +11,7 @@
   - IngotSilver1
   - MaterialBananium1
   - MaterialDiamond
+  - IngotTungsten1 # DS14-Soyuz
 
 - type: latheRecipePack
   id: RGlassSmelting

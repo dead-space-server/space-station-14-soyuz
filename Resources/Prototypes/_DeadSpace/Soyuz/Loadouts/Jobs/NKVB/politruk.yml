@@ -1,0 +1,123 @@
+# Effect
+- type: loadoutEffectGroup
+  id: BeretPolitruk
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobPolitruk
+      time: 18000 #5 hrs
+
+- type: loadoutEffectGroup
+  id: MundirPolitruk
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobPolitruk
+      time: 18000 #5 hrs
+
+- type: loadoutEffectGroup
+  id: CoatPolitruk
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobPolitruk
+      time: 10800 #3 hrs
+
+# Outerclothing
+- type: loadout
+  id: PolitrukOuterclothingCoat
+  equipment:
+    outerClothing: ClothingOuterCoatPolitotdel
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: CoatPolitruk    
+
+- type: loadout
+  id: PolitrukOuterclothingMundir
+  equipment:
+    outerClothing: ClothingOuterMundirPolitotdel
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MundirPolitruk
+
+# Head
+- type: loadout
+  id: PolitrukHeadBeret
+  equipment:
+    head: ClothingHeadHatBeretPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: BeretPolitruk
+
+- type: loadout
+  id: PolitrukHeadCap
+  equipment:
+    head: ClothingHeadPolitrukCap
+
+# Jumpsuit
+- type: loadout
+  id: PolitrukJumpsuitPencilskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtPencilPolitRuk
+
+- type: loadout
+  id: PolitrukJumpsuitSkirt
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPolitRukSkirt
+
+- type: loadout
+  id: PolitrukJumpsuitDress
+  equipment:
+    jumpsuit: ClothingUniformPolitRukDress
+
+- type: loadout
+  id: PolitrukJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPolitRuk
+
+# Socks
+- type: loadout
+  id: PolitrukSocksLong
+  equipment:
+    socks: ClothingUnderwearSocksPolitOtdelLong
+
+- type: loadout
+  id: PolitrukSocks
+  equipment:
+    socks: ClothingUnderwearSocksPolitOtdel
+
+# Underwear
+- type: loadout
+  id: UnderwearBottomBoxersPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+
+- type: loadout
+  id: UnderwearBottomPantiesPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomStringsolitOtdel
+
+- type: loadout
+  id: UnderwearTopBraPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopBraPolitOtdel
+
+- type: loadout
+  id: UnderwearTopTelnikPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopTelnikPolitOtdel

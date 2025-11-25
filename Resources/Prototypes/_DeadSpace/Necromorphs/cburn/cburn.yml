@@ -35,11 +35,11 @@
   storage:
     back:
     - BoxSurvivalEngineering
-    - WeaponShotgunBulldog
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
+    - WeaponShotgunSaigaM
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunDrumIncendiary
     - ObeliskStoper
     - NECROMedipen
     - NECROMedipen
@@ -69,11 +69,11 @@
   storage:
     back:
     - BoxSurvivalEngineering
-    - WeaponShotgunBulldog
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
+    - WeaponShotgunSaigaM
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunDrumIncendiary
     - NECROMedipen
     - NECROMedipen
     - NECROMedipen

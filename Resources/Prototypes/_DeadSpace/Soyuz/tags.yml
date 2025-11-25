@@ -2,6 +2,18 @@
   id: PoliceBetaLegs
 
 - type: Tag
+  id: MagazineLightRifleAsVal
+
+- type: Tag
+  id: MagazineLightRifleVSS
+
+- type: Tag
+  id: MagazineRifleASH
+
+- type: Tag
+  id: MagazineShotgunSaiga
+
+- type: Tag
   id: PoliceBetaBody
 
 - type: Tag
@@ -15,3 +27,6 @@
 
 - type: Tag
   id: MagazineAntiMaterielSV
+  
+- type: Tag
+  id: PoliceBetaLegs

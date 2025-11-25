@@ -206,6 +206,21 @@
     - SalvageExpeditionsComputerCircuitboard # Corvax-Cringe
     - BorgModuleAdvancedMining # DS14
 
+# DS14 Soyuz-start
+- type: technology
+  id: ProcessingTungsten
+  name: research-technology-processing-tungsten
+  icon:
+    sprite: Objects/Materials/Sheets/metal.rsi
+    state: tungsten
+  discipline: Industrial
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - SheetTungsten
+    - IngotTungsten1T
+# DS14 Soyuz-end
+
 # Tier 3
 
 - type: technology

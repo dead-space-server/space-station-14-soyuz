@@ -95,7 +95,7 @@
   - type: Clothing
     sprite: Clothing/Ears/Headsets/centcom.rsi
   - type: Headset
-    color: "#2681a5"
+    color: "#b64444"
 
 - type: entity
   parent: [ClothingHeadset, BaseCommandContraband]

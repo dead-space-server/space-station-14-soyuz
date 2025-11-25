@@ -1,0 +1,43 @@
+# NKVB
+- type: loadoutGroup
+  id: PolitrukOuterclothing
+  name: loadout-group-politruk-outerclothing
+  minLimit: 0  
+  loadouts:
+  - PolitrukOuterclothingCoat
+  - PolitrukOuterclothingMundir
+
+- type: loadoutGroup
+  id: PolitrukHead
+  name: loadout-group-politruk-head
+  minLimit: 0
+  loadouts:
+  - PolitrukHeadBeret
+  - PolitrukHeadCap
+
+- type: loadoutGroup
+  id: PolitrukJumpsuit
+  name: loadout-group-politruk-jumpsuit
+  loadouts:
+  - PolitrukJumpsuit  
+  - PolitrukJumpsuitPencilskirt
+  - PolitrukJumpsuitSkirt
+  - PolitrukJumpsuitDress
+
+- type: loadoutGroup
+  id: PolitrukSocks
+  name: loadout-group-politruk-socks
+  loadouts:
+  - PolitrukSocksLong
+  - PolitrukSocks
+
+- type: loadoutGroup
+  id: PolitrukUnderwear
+  name: loadout-group-politruk-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersPolitruk
+  - UnderwearBottomPantiesPolitruk
+  - UnderwearTopBraPolitruk
+  - UnderwearTopTelnikPolitruk

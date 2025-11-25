@@ -12,3 +12,12 @@
   - TaipanRD
   - TaipanScience
   - TaipanTelecommunicationsOfficer
+
+- type: department
+  id: NKVB
+  name: department-NKVB
+  description: department-NKVB-description
+  color: "#ad4040"
+  roles:
+  - Politkom
+  - Politruk

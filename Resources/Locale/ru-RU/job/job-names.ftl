@@ -152,7 +152,6 @@ JobMime = Мим
 JobMusician = Музыкант
 JobPassenger = Разнорабочий
 JobParamedic = Фельдшер
-JobPsychologist = психолог
 JobQuartermaster = Заведующий хозяйством
 JobReporter = Репортёр
 JobResearchDirector = Главный научный сотрудник
@@ -190,3 +189,4 @@ JobTaipanScience = Учёный Синдиката
 JobTaipanTelecommunicationsOfficer = Офицер телекоммуникаций Синдиката
 # DS14
 job-name-psychologist = Психолог
+JobPsychologist = Психолог

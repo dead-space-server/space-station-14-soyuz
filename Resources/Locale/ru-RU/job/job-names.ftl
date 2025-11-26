@@ -9,7 +9,6 @@ job-name-borg-security = Киборг милиции
 job-name-scientist = Научный сотрудник
 job-name-research-assistant = Младший научный сотрудник
 job-name-rd = Главный научный сотрудник
-job-name-psychologist = Психолог
 job-name-intern = Интерн
 job-name-doctor = Врач
 job-name-paramedic = Фельдшер
@@ -189,3 +188,5 @@ JobTaipanMedic = Медик Синдиката
 JobTaipanRD = Директор исследований Синдиката
 JobTaipanScience = Учёный Синдиката
 JobTaipanTelecommunicationsOfficer = Офицер телекоммуникаций Синдиката
+# DS14
+job-name-psychologist = Психолог

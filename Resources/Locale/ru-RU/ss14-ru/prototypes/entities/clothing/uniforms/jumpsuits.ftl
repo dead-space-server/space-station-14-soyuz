@@ -219,6 +219,6 @@ ent-ClothingUniformJumpsuitCasualGreen = повседневный зелёный
     .desc = Свободная потёртая зелёная рубашка с серыми штанами — идеальный вариант для тех, кто хочет расслабиться.
 ent-ClothingUniformJumpsuitFamilyGuy = семейный наряд
     .desc = Напоминает о времени, когда вы сделали что-то смешное.
-# DS14
+# DS14-Soyuz
 ent-ClothingUniformJumpsuitPsychologist = костюм психолога
     .desc = Я не теряю вещи. Я кладу вещи в места, которые потом ускользают от меня.

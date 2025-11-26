@@ -187,6 +187,6 @@ JobTaipanMedic = Медик Синдиката
 JobTaipanRD = Директор исследований Синдиката
 JobTaipanScience = Учёный Синдиката
 JobTaipanTelecommunicationsOfficer = Офицер телекоммуникаций Синдиката
-# DS14
+# DS14-Soyuz
 job-name-psychologist = Психолог
 JobPsychologist = Психолог

@@ -13,7 +13,7 @@
     id: DeathsquadPDA
     pocket1: EnergySword
     pocket2: DoubleEmergencyOxygenTankFilled
-    belt: ClothingBeltDeathSquadWebbingFilled
+    belt: ClothingBeltMilitaryWebbingDeathSquad # DS14-Souyz
     underwearb: ClothingUnderwearBottomBoxersDeathSquad # DS14-Underwear
   storage:
     back:
@@ -35,9 +35,3 @@
     - DesoxyephedrineMedipen
     - DesoxyephedrineMedipen
     - NukeCodePaper
-
-- type: entity
-  parent: ClothingBeltSecurityWebbing
-  id: ClothingBeltDeathSquadWebbingFilled
-  name: РПС эскадрона смерти
-  description: РПС члена отряда элитной эвакуации.

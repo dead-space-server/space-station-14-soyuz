@@ -1,0 +1,60 @@
+- type: entity
+  parent: SheetMetalBase
+  id: SheetTungsten
+  name: лист вольфрама
+  suffix: Полный
+  components:
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      SheetTungsten: 100
+  - type: Stack
+    stackType: SheetTungsten
+    baseLayer: base
+    layerStates:
+    - tungsten
+    - tungsten_2
+    - tungsten_3
+  - type: Sprite
+    state: tungsten_3
+    layers:
+    - state: tungsten_3
+      map: ["base"]
+  - type: Item
+    heldPrefix: sheettungsten
+  - type: Appearance
+  - type: FloorTile
+    outputs:
+    - Plating
+  - type: Extractable
+    grindableSolutionName: sheettungsten
+  - type: SolutionContainerManager
+    solutions:
+      sheettungsten:
+        reagents:
+        - ReagentId: Iron
+          Quantity: 10
+        - ReagentId: Carbon
+          Quantity: 10
+
+- type: entity
+  parent: SheetTungsten
+  id: SheetTungsten10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: tungsten
+  - type: Stack
+    stackType: SheetTungsten
+    count: 10
+
+- type: entity
+  parent: SheetTungsten
+  id: SheetTungsten1
+  suffix: Один
+  components:
+  - type: Sprite
+    state: tungsten
+  - type: Stack
+    stackType: SheetTungsten
+    count: 1

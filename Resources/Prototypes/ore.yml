@@ -39,6 +39,14 @@
   minOreYield: 1
   maxOreYield: 3
 
+# DS14-Soyuz-start
+- type: ore
+  id: TungstenOre
+  oreEntity: TungstenOre1
+  minOreYield: 1
+  maxOreYield: 3
+# DS14-Soyuz-end
+
 # Low yields
 - type: ore
   id: OrePlasma

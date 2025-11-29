@@ -45,7 +45,7 @@ stack-gold =
         [1] слиток
         [few] слитка
        *[other] слитков
-    } золота
+    } золота    
 stack-reinforced-glass =
     { $amount ->
         [1] лист

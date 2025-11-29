@@ -10,7 +10,7 @@
   name: chat-radio-centcom
   keycode: 'ц' # Corvax-Localization
   frequency: 1337
-  color: "#5b2a2a"
+  color: "#ad4040"
   longRange: true
 
 - type: radioChannel
@@ -99,7 +99,7 @@
 - type: radioChannel
   id: Xenoborg
   name: chat-radio-xenoborg
-  keycode: 'x'
+  keycode: 'в'
   frequency: 2002
   color: "#2288ff"
   # long range since I don't wanna make a special xenoborg telecomm server
@@ -108,7 +108,7 @@
 - type: radioChannel
   id: Mothership
   name: chat-radio-mothership
-  keycode: 'z'
+  keycode: 'ы'
   frequency: 2003
   color: "#ff2222"
   # long range since I don't wanna make a special xenoborg telecomm server

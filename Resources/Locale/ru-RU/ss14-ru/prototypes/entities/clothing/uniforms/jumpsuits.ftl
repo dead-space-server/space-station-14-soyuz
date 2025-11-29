@@ -150,8 +150,6 @@ ent-ClothingUniformJumpsuitAtmos = комбинезон атмосферного
     .desc = Я на работе. Я не могу бросить работу. Работа — это дыхание. Я проверяю качество воздуха.
 ent-ClothingUniformJumpsuitAtmosCasual = повседневный комбинезон атмосферного техника
     .desc = С такой простой работой, как у вас, можно и расслабиться.
-ent-ClothingUniformJumpsuitPsychologist = костюм психиатра
-    .desc = Я не теряю вещи. Я кладу вещи в места, которые потом ускользают от меня.
 ent-ClothingUniformJumpsuitReporter = костюм репортёра
     .desc = Хороший репортёр остаётся скептиком всю свою жизнь.
 ent-ClothingUniformJumpsuitSafari = костюм для сафари
@@ -221,3 +219,6 @@ ent-ClothingUniformJumpsuitCasualGreen = повседневный зелёный
     .desc = Свободная потёртая зелёная рубашка с серыми штанами — идеальный вариант для тех, кто хочет расслабиться.
 ent-ClothingUniformJumpsuitFamilyGuy = семейный наряд
     .desc = Напоминает о времени, когда вы сделали что-то смешное.
+# DS14-Soyuz
+ent-ClothingUniformJumpsuitPsychologist = костюм психолога
+    .desc = Я не теряю вещи. Я кладу вещи в места, которые потом ускользают от меня.

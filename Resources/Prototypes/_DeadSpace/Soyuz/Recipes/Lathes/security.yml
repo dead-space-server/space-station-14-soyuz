@@ -1,0 +1,376 @@
+# Base prototypes
+
+- type: latheRecipe
+  abstract: true
+  parent: BaseAmmoRecipe
+  id: BaseEmptyAmmoRecipe1
+  completetime: 1
+
+# Recipes
+
+- type: latheRecipe
+  abstract: true
+  parent: BaseWeaponRecipe
+  id: BaseWeaponRecipeVeryLong
+  completetime: 6
+
+## Weapons
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: ArmedTechFabCircuitboard
+  result: ArmedTechFabCircuitboard
+  materials:
+    Steel: 350
+    Plastic: 150
+    SheetTungsten: 100
+    Silver: 150
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazinePistolTungsten
+  result: MagazinePistolTungsten
+  materials:
+    Steel: 25
+    Plastic: 65
+    SheetTungsten: 120
+  
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazinePistolSubMachineGunTungsten
+  result: MagazinePistolSubMachineGunTungsten
+  materials:
+    Steel: 25
+    Plastic: 250
+    SheetTungsten: 250
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineRifleTungsten
+  result: MagazineRifleTungsten
+  materials:
+    Steel: 25
+    Plastic: 300
+    SheetTungsten: 300
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleTungsten
+  result: MagazineLightRifleTungsten
+  materials:
+    Steel: 25
+    Plastic: 360
+    SheetTungsten: 360
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: SpeedLoaderMagnumTungsten
+  result: SpeedLoaderMagnumTungsten
+  materials:
+    Steel: 50
+    Plastic: 150
+    SheetTungsten: 110
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineBoxPistolTungsten
+  result: MagazineBoxPistolTungsten
+  materials:
+    Plastic: 300
+    SheetTungsten: 600
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineBoxMagnumTungsten
+  result: MagazineBoxMagnumTungsten
+  materials:
+    Plastic: 240
+    SheetTungsten: 180
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineBoxLightRifleTungsten
+  result: MagazineBoxLightRifleTungsten
+  materials:
+    Plastic: 600
+    SheetTungsten: 600
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineBoxRifleTungsten
+  result: MagazineBoxRifleTungsten
+  materials:
+    Plastic: 500
+    SheetTungsten: 500
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsVal
+  result: MagazineLightRifleAsVal
+  materials:
+    Steel: 50
+    Plastic: 300
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsValEmpty
+  result: MagazineLightRifleAsValEmpty
+  materials:
+    Steel: 25
+    Plastic: 50
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsValPractice
+  result: MagazineLightRifleAsValPractice
+  materials:
+    Steel: 200
+    Plastic: 50
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsValUranium
+  result: MagazineLightRifleAsValUranium
+  materials:
+    Steel: 50
+    Plastic: 300
+    IngotTungsten: 100
+    Uranium: 300
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsValIncendiary
+  result: MagazineLightRifleAsValIncendiary
+  materials:
+    Steel: 50
+    Plastic: 400
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleAsValTungsten
+  result: MagazineLightRifleAsValTungsten
+  materials:
+    Steel: 50
+    Plastic: 300
+    IngotTungsten: 100
+    SheetTungsten: 360
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSS
+  result: MagazineLightRifleVSS
+  materials:
+    Steel: 50
+    Plastic: 150
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSSEmpty
+  result: MagazineLightRifleVSSEmpty
+  materials:
+    Steel: 25
+    Plastic: 25
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSSPractice
+  result: MagazineLightRifleVSSPractice
+  materials:
+    Steel: 100
+    Plastic: 50
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSSUranium
+  result: MagazineLightRifleVSSUranium
+  materials:
+    Steel: 25
+    Plastic: 150
+    IngotTungsten: 100
+    Uranium: 200
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSSIncendiary
+  result: MagazineLightRifleVSSIncendiary
+  materials:
+    Steel: 50
+    Plastic: 200
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineLightRifleVSSTungsten
+  result: MagazineLightRifleVSSTungsten
+  materials:
+    Steel: 50
+    Plastic: 150
+    IngotTungsten: 100
+    SheetTungsten: 180
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponPistolMk58
+  result: WeaponPistolMk58
+  materials:
+    Steel: 450
+    Plastic: 350
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponRevolverPython
+  result: WeaponRevolverPython
+  materials:
+    Steel: 450
+    Wood: 150
+    IngotTungsten: 150
+    Silver: 150
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponShotgunKammerer
+  result: WeaponShotgunKammerer
+  materials:
+    Steel: 750
+    Wood: 450
+    Plastic: 250
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponShotgunEnforcer
+  result: WeaponShotgunEnforcer
+  materials:
+    Steel: 900
+    Plastic: 350
+    Silver: 400
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponRifleAk
+  result: WeaponRifleAk
+  materials:
+    Steel: 1350
+    Plastic: 600
+    Wood: 300
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponSubMachineGunDrozd
+  result: WeaponSubMachineGunDrozd
+  materials:
+    Steel: 1000
+    Plastic: 750
+    Silver: 250
+    Wood: 150
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeVeryLong
+  id: WeaponShotgunSaiga
+  result: WeaponShotgunSaiga
+  materials:
+    Steel: 1400
+    Plastic: 550
+    Silver: 500
+    SheetTungsten: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponRifleAKMCY
+  result: WeaponRifleAKMCY
+  materials:
+    Steel: 1150
+    Plastic: 450
+    SheetTungsten: 350
+    Wood: 300
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeVeryLong
+  id: WeaponRifleAsVal
+  result: WeaponRifleAsVal
+  materials:
+    Steel: 1250
+    Plastic: 450
+    SheetTungsten: 350
+    Silver: 350
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeVeryLong
+  id: WeaponRifleVSS
+  result: WeaponRifleVSS
+  materials:
+    Steel: 1150
+    Plastic: 550
+    SheetTungsten: 300
+    Silver: 300
+    Wood: 150
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineRifleASH
+  result: MagazineRifleASH
+  materials:
+    Steel: 350
+    Plastic: 300
+    IngotTungsten: 200
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineRifleASHEmpty
+  result: MagazineRifleASHEmpty
+  materials:
+    Steel: 250
+    Plastic: 150
+    IngotTungsten: 200
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeVeryLong
+  id: WeaponRifleASH12
+  result: WeaponRifleASH12
+  materials:
+    Steel: 2000
+    Plastic: 1550
+    Silver: 700
+    SheetTungsten: 700
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineShotgunNew
+  result: MagazineShotgunNew
+  materials:
+    Steel: 50
+    Plastic: 300
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineShotgunNewEmpty
+  result: MagazineShotgunNewEmpty
+  materials:
+    Steel: 25
+    Plastic: 50
+    IngotTungsten: 100
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineShotgunDrum
+  result: MagazineShotgunDrum
+  materials:
+    Steel: 100
+    Plastic: 450
+    IngotTungsten: 150
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazineShotgunDrumEmpty
+  result: MagazineShotgunDrumEmpty
+  materials:
+    Steel: 75
+    Plastic: 125
+    IngotTungsten: 125

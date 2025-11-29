@@ -225,3 +225,7 @@
 - type: lobbyBackground
   id: dawning
   background: /Textures/LobbyScreens/Soyuz/dawning.png
+
+- type: lobbyBackground
+  id: SlavaMilicii
+  background: /Textures/LobbyScreens/Soyuz/SlavaMilicii.png

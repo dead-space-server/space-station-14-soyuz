@@ -1,0 +1,34 @@
+- type: entity
+  parent: OreBase
+  id: TungstenOre
+  name: руда вольфрама
+  suffix: Полный
+  components:
+  - type: Stack
+    stackType: TungstenOre
+  - type: Sprite
+    state: tungsten
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      RawTungsten: 300
+  - type: Extractable
+    grindableSolutionName: tungstenore
+  - type: SolutionContainerManager
+    solutions:
+      tungstenore:
+        reagents:
+        - ReagentId: Iron
+          Quantity: 10
+        - ReagentId: Carbon
+          Quantity: 10
+  - type: Item
+    heldPrefix: tungsten
+
+- type: entity
+  id: TungstenOre1
+  parent: TungstenOre
+  suffix: Один
+  components:
+    - type: Stack
+      count: 1

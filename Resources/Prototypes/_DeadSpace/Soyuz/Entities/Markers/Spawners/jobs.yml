@@ -4,7 +4,7 @@
   name: политический комиссар
   components:
   - type: SpawnPoint
-    job_id: PolitKom
+    job_id: Politkom
   - type: Sprite
     layers:
       - state: green

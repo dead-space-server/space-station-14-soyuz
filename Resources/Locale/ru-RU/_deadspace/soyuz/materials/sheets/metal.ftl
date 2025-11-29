@@ -1,0 +1,9 @@
+ent-SheetTungsten = лист вольфрама
+    .suffix = Полный
+    .desc = { ent-SheetMetalBase.desc }
+ent-SheetTungsten10 = лист вольфрама
+    .suffix = 10
+    .desc = { ent-SheetTungsten.desc }
+ent-SheetTungsten1 = лист вольфрама
+    .suffix = Один
+    .desc = { ent-SheetTungsten.desc }

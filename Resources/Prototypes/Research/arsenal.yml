@@ -210,7 +210,6 @@
   recipeUnlocks:
   - ClothingEyesPNV
 # DS14-end
-
 - type: technology
   id: DualWieldingTechnology
   name: research-technology-dual-wielding-technology
@@ -222,6 +221,102 @@
   cost: 10000
   recipeUnlocks:
   - ClothingBackpackHarmpack
+  
+# DS14-Soyuz-start
+- type: technology
+  id:  ArmedTechFab
+  name: research-technology-armed-tech-fab-technology
+  icon:
+    sprite: Structures/Machines/techfab.rsi
+    state: icon_armed
+  discipline: Arsenal
+  tier: 2
+  cost: 12500
+  recipeUnlocks:
+  - ArmedTechFabCircuitboard
+
+- type: technology
+  id: PosketDefenseWeaponry
+  name: research-technology-pistols
+  icon:
+    sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
+    state: icon
+  discipline: Arsenal  
+  tier: 2
+  cost: 10000
+  recipeUnlocks:    
+  - WeaponPistolMk58
+  - WeaponRevolverPython
+
+- type: technology
+  id: BallisticsShotguns
+  name: research-technology-shotguns
+  icon:
+    sprite: Objects/Weapons/Guns/Shotguns/pump.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 12000
+  recipeUnlocks:
+  - WeaponShotgunKammerer
+  - WeaponShotgunEnforcer
+
+- type: technology
+  id: BallisticsAutomaticWeapons
+  name: research-technology-automatic-weapons
+  icon:
+    sprite: Objects/Weapons/Guns/Rifles/ak.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+  - WeaponRifleAk
+  - WeaponSubMachineGunDrozd
+
+- type: technology
+  id: SecurityAmmoTungsten
+  name: research-technology-ammo-tungsten-technology
+  icon:
+    sprite: _DeadSpace/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
+    state: icon_tungsten
+  discipline: Arsenal
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+  - MagazineBoxRifleTungsten
+  - MagazineBoxLightRifleTungsten
+  - MagazineBoxMagnumTungsten
+  - MagazineBoxPistolTungsten
+  - SpeedLoaderMagnumTungsten
+  - MagazineLightRifleTungsten
+  - MagazineRifleTungsten
+  - MagazinePistolSubMachineGunTungsten
+  - MagazinePistolTungsten
+  - MagazineLightRifleVSSTungsten
+  - MagazineLightRifleAsValTungsten
+
+- type: technology
+  id: SecurityMagazine
+  name: research-technology-ammo-magazine
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/asval.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 2
+  cost: 15000
+  recipeUnlocks:
+  - MagazineLightRifleAsVal
+  - MagazineLightRifleAsValEmpty
+  - MagazineLightRifleAsValPractice
+  - MagazineLightRifleAsValUranium
+  - MagazineLightRifleAsValIncendiary
+  - MagazineLightRifleVSS
+  - MagazineLightRifleVSSEmpty
+  - MagazineLightRifleVSSPractice
+  - MagazineLightRifleVSSUranium
+  - MagazineLightRifleVSSIncendiary
+# DS14-Soyuz-end
 
 # DS14-Soyuz-start
 - type: technology
@@ -282,3 +377,71 @@
   - ShuttleGunDusterCircuitboard
   technologyPrerequisites:
   - BasicShuttleArmament
+
+# DS14-Soyuz-start
+- type: technology
+  id: AdvancedBallisticsShotguns
+  name: research-technology-advanced-shotguns
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Shotguns/saiga.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 15000
+  recipeUnlocks:
+  - WeaponShotgunSaiga
+
+- type: technology
+  id: AdvancedBallisticsAutomaticWeapons
+  name: research-technology-advanced-automatic-weapons
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/asval.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 20000
+  recipeUnlocks:
+  - WeaponRifleAKMCY
+  - WeaponRifleAsVal
+  - WeaponRifleVSS
+
+- type: technology
+  id: AdvancedShotgunMagazine
+  name: research-technology-advanced-shotgun-ammo-magazine
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/mag.rsi
+    state: base
+  discipline: Arsenal
+  tier: 3
+  cost: 17500
+  recipeUnlocks:
+  - MagazineShotgunNew
+  - MagazineShotgunNewEmpty
+  - MagazineShotgunDrum
+  - MagazineShotgunDrumEmpty
+
+- type: technology
+  id: AdvancedSecurityMagazine
+  name: research-technology-advanced-ammo-magazine
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/ash_mag.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 17500
+  recipeUnlocks:
+  - MagazineRifleASH
+  - MagazineRifleASHEmpty
+
+- type: technology
+  id: BallisticsLargeCaliberWeapons
+  name: research-technology-ballistics-large-caliber-weapons
+  icon:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/ash.rsi
+    state: icon
+  discipline: Arsenal
+  tier: 3
+  cost: 50000
+  recipeUnlocks:
+  - WeaponRifleASH12
+# DS14-Soyuz-end

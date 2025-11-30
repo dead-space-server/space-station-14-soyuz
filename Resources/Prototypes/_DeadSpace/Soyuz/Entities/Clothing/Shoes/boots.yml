@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingShoesMilitaryBase
+  id: ClothingShoesOKGB
+  name: ботинки ОКГБ
+  description: Когда хотите задать жару.
+  components:
+  - type: Sprite
+    sprite: Clothing/Shoes/Specific/swat.rsi
+  - type: Clothing
+    sprite: Clothing/Shoes/Specific/swat.rsi

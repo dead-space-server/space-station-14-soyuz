@@ -9,7 +9,7 @@
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     suitstorage: JetpackVoidFilled
-    shoes: ClothingShoesBootsMagAdv
+    shoes: ClothingShoesBootsMagDeathSquad # DS14-Shoes
     id: DeathsquadPDA
     pocket1: EnergySword
     pocket2: DoubleEmergencyOxygenTankFilled

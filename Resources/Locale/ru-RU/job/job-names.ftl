@@ -94,15 +94,6 @@ job-name-Politkom = Политический Комиссар
 job-title-visitor = Посетитель
 job-title-cluwne = Клувень
 job-title-universal = Администратор
-# Taipan
-job-name-taipan-atmos-tech = Атмосферный инженер Рассвета
-job-name-taipan-botanist = Ботаник Рассвета
-job-name-taipan-cargotech = Карготехник Рассвета
-job-name-taipan-chef = Повар Рассвета
-job-name-taipan-medic = Медик Рассвета
-job-name-taipan-rd = Директор исследований Рассвета
-job-name-taipan-science = Учёный Рассвета
-job-name-taipan-telecommunications-officer = Офицер телекоммуникаций Рассвета
 # Role timers - Make these alphabetical or I cut you
 JobAtmosphericTechnician = Атмосферный техник
 JobBartender = Бармен
@@ -176,21 +167,12 @@ JobBlueShieldOfficer = Оперативник КГБ
 JobMagistrat = Судья
 JobCoroner = Патологоанатом
 JobSecurityPilot = Пилот милиции
-JobSeniorSalvageSpecialist = Мастер шахтёр
+JobSeniorCourier = Ведущий логист
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
 JobPolitruk = Политический Руководитель
 JobPolitkom = Политический Комиссар
-# Taipan
-JobTaipanAtmosTech = Атмосферный инженер Рассвета
-JobTaipanBotanist = Ботаник Рассвета
-JobTaipanCargotech = Карготехник Рассвета
-JobTaipanChef = Повар Рассвета
-JobTaipanMedic = Медик Рассвета
-JobTaipanRD = Директор исследований Рассвета
-JobTaipanScience = Учёный Рассвета
-JobTaipanTelecommunicationsOfficer = Офицер телекоммуникаций Рассвета
 # DS14-Soyuz
 job-name-psychologist = Психолог
 JobPsychologist = Психолог

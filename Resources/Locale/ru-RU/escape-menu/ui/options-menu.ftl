@@ -162,6 +162,9 @@ ui-options-function-rotate-stored-item = Повернуть хранящийся
 ui-options-function-save-item-location = Сохранить расположение объекта
 ui-options-static-storage-ui = Закрепить интерфейс хранилища на хотбаре
 ui-options-function-smart-equip-backpack = Умная экипировка в рюкзак
+ui-options-function-smart-equip-suit-storage = Умная экипировка в хранилище скафандра
+ui-options-function-smart-equip-pocket1 = Умная экипировка в карман 1
+ui-options-function-smart-equip-pocket2 = Умная экипировка в карман 2
 ui-options-function-smart-equip-belt = Умная экипировка на пояс
 ui-options-function-open-backpack = Открыть рюкзак
 ui-options-function-open-belt = Открыть пояс
@@ -384,3 +387,6 @@ ui-options-enable-overlay-starting-job = Показывать начальную
 ui-options-overlay-merge-distance = Дальность сложения оверлея
 ui-options-overlay-ghost-fade-distance = Диапазон затухания наложения призрака от мыши
 ui-options-overlay-ghost-hide-distance = Диапазон скрытия наложения призрака от мыши
+
+# DS14
+ui-options-function-open-language-menu = Открыть меню выбора языка

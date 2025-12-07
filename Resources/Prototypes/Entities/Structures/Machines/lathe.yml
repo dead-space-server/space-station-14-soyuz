@@ -124,6 +124,7 @@
     - AtmosStatic
     - CablesStatic
     - PaperworkStatic
+    - TowelsStatic
     - CargoStatic
     - MaterialsStatic
     - BasicChemistryStatic
@@ -135,6 +136,7 @@
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SecurityAmmoStatic
+    - SyndicateAmmoStatic
   - type: BlueprintReceiver
     whitelist:
       tags:
@@ -209,9 +211,10 @@
     - Janitor
     - Instruments
     - Equipment
-    # - FauxTiles # DS14: moved to CutterMachine recipes
     - NightVisionTech # DS14
     - ProcessingTungsten # DS14-Soyuz
+    - LanguageImplanters # DS14
+    - MedicalDynamic # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo
@@ -259,7 +262,6 @@
     - CargoBoardsStatic
     - MedicalBoardsStatic
     - EngineeringBoardsStatic
-    # - CircuitFloorsStatic # DS14: moved to CutterMachine recipes
     dynamicPacks:
     - EngineeringBoards
     - CargoBoards
@@ -414,7 +416,9 @@
     - ArmedTechFabCircuitboard # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - SecurityPoliceBeta # DS14-Soyuz
-
+  - type: EmagLatheRecipes
+    emagStaticPacks:
+    - SyndicateAmmoStatic
   - type: MaterialStorage
     whitelist:
       tags:
@@ -451,6 +455,9 @@
       runningState: icon
       staticPacks:
       - SecurityAmmoStatic
+    - type: EmagLatheRecipes
+      emagStaticPacks:
+      - SyndicateAmmoStatic
     - type: MaterialStorage
       whitelist:
         tags:
@@ -491,6 +498,7 @@
     - SurgeryStatic
     dynamicPacks:
     - Chemistry
+    - MedicalDynamic # DS14
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
@@ -520,6 +528,7 @@
     idleState: icon
     runningState: building
     staticPacks:
+    - TowelsStatic
     - ClothingCivilian
     - ClothingCargo
     - ClothingCommand
@@ -588,6 +597,10 @@
     staticPacks:
     - BioGenIngredientsStatic
     - BioGenMaterialsStatic
+  - type: EmagLatheRecipes
+    emagStaticPacks:
+    - BioGenEmagStatic
+    - HostileCubesStatic
 
 - type: entity
   parent: BaseLathe
@@ -697,14 +710,22 @@
     idleState: icon
     runningState: building
     staticPacks:
-    - FloorTilesStatic
+    - FloorDarkTilesStatic
+    - FloorSteelTilesStatic
+    - FloorWhiteTilesStatic
+    - FloorMaintsTilesStatic
+    - FloorWoodTilesStatic
+    - FloorConcreteTilesStatic
     - CircuitFloorsStatic
+    - FloorMarbleTilesStatic
     dynamicPacks:
-    - FauxTiles # DS14
+    - FauxTiles
   - type: MaterialStorage
     whitelist:
       tags:
         - Sheet
+        - Metal
+        - Wooden
         - RawMaterial
         - Ingot
         - Plastic

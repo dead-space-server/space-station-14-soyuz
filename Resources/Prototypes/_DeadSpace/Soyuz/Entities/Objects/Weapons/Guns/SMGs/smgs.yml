@@ -1,4 +1,52 @@
 - type: entity
+  name: СР-2 "Вереск"
+  parent: [BaseWeaponSubMachineGun, BaseMajorContraband]
+  id: WeaponVeresk
+  description: Убойный пистолет-пулемёт специальной разработки, стоящий на вооружении СССП. Отточен под CQB.
+  components:
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+  - type: Clothing
+    slots:
+    - suitStorage
+    - Belt
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/SMGs/veresk.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 8
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/veresk.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineCaselessRifle
+        priority: 2
+        whitelist:
+          tags:
+          - MagazineCaselessRifle
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCaselessRifle
+        priority: 1
+        whitelist:
+          tags:
+          - CartridgeCaselessRifle
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+
+- type: entity
   name: ПП-91-01 "Кедр-Б"
   parent: [BaseWeaponSubMachineGun, BaseSecurityContraband]
   id: WeaponSubMachineGunKedr

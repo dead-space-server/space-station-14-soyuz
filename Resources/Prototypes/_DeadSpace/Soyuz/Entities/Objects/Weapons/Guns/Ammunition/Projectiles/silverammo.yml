@@ -1,0 +1,85 @@
+- type: entity
+  id: BulletMagnumSilver
+  name: пуля (.45 магнум серебряный)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 3
+        Holy: 50
+
+- type: entity
+  id: BulletLightestRifleSilver
+  name: пуля (5.45х39 мм винтовочный серебряный)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 2
+        Holy: 24
+
+- type: entity
+  id: BulletRifleSilver
+  name: пуля (6.5х39 мм TSF серебряный)
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 2
+        Holy: 24
+
+- type: entity
+  id: BulletLightRifleSilver
+  name: пуля (7.62х39 мм серебряный)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 2
+        Holy: 25
+
+- type: entity
+  id: BulletPistolSilver
+  name: пуля (9х19 мм серебряный)
+  parent: BaseBulletAP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 2
+        Holy: 23
+
+- type: entity
+  id: PelletShotgunSilver
+  name: дробь (12х70 дробь серебряный)
+  categories: [ HideSpawnMenu ]
+  parent: BaseBullet
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    state: buckshot
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 1
+        Structural: 5
+        Holy: 12
+
+- type: entity
+  id: PelletShotgunSpreadSilver
+  categories: [ HideSpawnMenu ]
+  parent: PelletShotgunSilver
+  components:
+  - type: ProjectileSpread
+    proto: PelletShotgunSilver
+    count: 6
+    spread: 15

@@ -1,4 +1,16 @@
 - type: Tag
+  id: PoliceBetaLegs
+
+- type: Tag
+  id: PoliceBetaBody
+
+- type: Tag
+  id: PoliceBetaComp
+
+- type: Tag
+  id: PoliceBetaHead
+  
+- type: Tag
   id: MagazineLightRifleAsVal
 
 - type: Tag
@@ -11,13 +23,7 @@
   id: MagazineShotgunSaiga
 
 - type: Tag
-  id: PoliceBetaBody
+  id: MagazineMagnumSVD
 
 - type: Tag
-  id: PoliceBetaComp
-
-- type: Tag
-  id: PoliceBetaHead
-
-- type: Tag
-  id: PoliceBetaLegs
+  id: MagazineAntiMaterielSV

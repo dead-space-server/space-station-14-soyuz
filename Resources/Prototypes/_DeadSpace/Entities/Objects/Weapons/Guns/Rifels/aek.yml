@@ -49,14 +49,14 @@
     price: 500
   - type: AmmoCounter
   - type: Gun
-    fireRate: 6.5
-    maxAngle: 7
+    fireRate: 6
+    maxAngle: 10
     angleIncrease: 1.5
     angleDecay: 6
     selectedMode: FullAuto
-    shotsPerBurst: 5
+    shotsPerBurst: 3
     burstCooldown: 0.2
-    burstFireRate: 7
+    burstFireRate: 6.5
     availableModes:
     - Burst
     - FullAuto

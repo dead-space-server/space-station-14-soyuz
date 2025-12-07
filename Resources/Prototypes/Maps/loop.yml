@@ -2,7 +2,7 @@
   id: Loop
   mapName: 'Loop'
   mapPath: /Maps/loop.yml
-  minPlayers: 10
+  minPlayers: 15
   maxPlayers: 40
   stations:
     Loop:

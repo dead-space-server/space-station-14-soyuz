@@ -89,8 +89,10 @@
     pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
+    - ERTloadoutRedPrimaryLeader
+    - ERTloadoutRedSecondaryLeader
+    - ERTloadoutRedSupport
+    - UplinkERTRed
     - BoxMRE
     - PinpointerNuclear
     - CrowbarRed
@@ -130,7 +132,7 @@
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     neck: ClothingNeckMantleERTLeader
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTLeader
     suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
@@ -140,8 +142,10 @@
     pocket2: DoorRemoteAll
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
+    - ERTloadoutGammaPrimaryLeader
+    - ERTloadoutGammaSecondaryLeader
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
     - PinpointerNuclear
     - CrowbarRed
     - EmergencyMedipen
@@ -246,6 +250,8 @@
     - Flare
     - Truncheon
     - PinpointerNuclear
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -274,7 +280,7 @@
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTSecurity
     suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
@@ -295,6 +301,8 @@
     - Truncheon
     - PinpointerNuclear
     - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Medical
 ## Amber
@@ -400,6 +408,8 @@
     - DefibrillatorCompact
     - WeaponDisabler
     - HandheldHealthAnalyzer
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -428,7 +438,7 @@
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTMedical
     suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
@@ -456,6 +466,8 @@
     - HandheldHealthAnalyzer
     - PinpointerNuclear
     - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Engineer
 ## Amber
@@ -551,6 +563,8 @@
     - RemoteSignaller
     - Flare
     - WeaponDisabler
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -579,7 +593,7 @@
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTEngineer
     suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
@@ -605,6 +619,8 @@
     - Flare
     - PinpointerNuclear
     - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Janitor
 ## Amber
@@ -704,6 +720,8 @@
     - TrashBagBlue
     - Flare
     - WeaponDisabler
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -732,7 +750,7 @@
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTJanitor
     suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
@@ -756,3 +774,5 @@
     - TrashBagBlue
     - PinpointerNuclear
     - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma

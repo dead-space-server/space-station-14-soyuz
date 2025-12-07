@@ -1,3 +1,27 @@
+- type: entity
+  id: MagazineShotgunSilver
+  name: барабан (12х70 серебряные)
+  parent: BaseMagazineShotgun
+  components:
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunSilver
+  - type: Sprite
+    layers:
+    - state: silver
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-stripe
+        color: "#f0f0f0"
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-stripe
+        color: "#f0f0f0"
+
 # Base
 - type: entity
   id: BaseMagazineShotgunNew

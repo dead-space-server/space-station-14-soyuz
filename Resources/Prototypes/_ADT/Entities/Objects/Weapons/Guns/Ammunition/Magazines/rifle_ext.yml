@@ -1,8 +1,8 @@
 # Empty mags
 - type: entity
   id: ADTBaseExtMagazineRifle
-  name: расширенный магазин 6.5 мм
-  description: Увеличенный магазин под патрон 6.5 мм, с вместимостью в 45 единиц
+  name: расширенный магазин (6.5х39 мм TSF)
+  description: Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
   parent: BaseItem
   abstract: true
   components:
@@ -36,8 +36,8 @@
 # Magazines
 - type: entity
   id: ADTExtMagazineRifle
-  name: расширенный магазин 6.5 мм
-  description: Увеличенный магазин под патрон 6.5 мм, с вместимостью в 45 единиц
+  name: расширенный магазин (6.5х39 мм TSF)
+  description: Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
   parent: ADTBaseExtMagazineRifle
   components:
   - type: BallisticAmmoProvider
@@ -48,3 +48,35 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
+
+# DS14-Soyuz-start
+- type: entity
+  id: ADTExtMagazineRifleIncendiary
+  name: расширенный магазин (6.5х39 мм TSF зажигательные)
+  description: Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
+  parent: ADTBaseExtMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleIncendiary
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: ADTExtMagazineRifleUranium
+  name: расширенный магазин (6.5х39 мм TSF урановые)
+  description: Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
+  parent: ADTBaseExtMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleUranium
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+# DS14-Soyuz-end

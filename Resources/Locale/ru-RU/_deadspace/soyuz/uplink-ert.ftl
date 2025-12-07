@@ -1,0 +1,1 @@
+store-preset-name-uplink-ert = устройство "FACADE"

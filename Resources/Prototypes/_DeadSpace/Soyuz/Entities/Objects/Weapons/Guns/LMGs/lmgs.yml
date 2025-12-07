@@ -1,0 +1,131 @@
+- type: entity
+  name: РПЛ-20
+  id: WeaponLightMachineGunRPL20
+  parent: BaseWeaponRifle
+  description: Пулемет предназначен для поражения живой силы, огневых и небронированных транспортных средств противника.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpl.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpl.rsi
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpl.rsi
+    size: Huge
+    shape:
+    - 0,0,4,3
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: true
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: Gun
+    minAngle: 35
+    maxAngle: 45
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 8
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/rpl-shot.ogg
+  - type: GunWieldBonus
+    minAngle: -27
+    maxAngle: -32
+  - type: ChamberMagazineAmmoProvider
+    soundBoltClosed: 
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+    soundBoltOpened: 
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+    soundRack:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineLightRifleBox
+        insertSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagIn/rpl-magin.ogg
+        ejectSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagOut/rpl-magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineLightRifleBox
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeLightRifle
+        priority: 1
+        whitelist:
+          tags:
+          - CartridgeLightRifle
+  - type: Appearance
+
+- type: entity
+  name: РПК-16
+  id: WeaponLightMachineGunRPK
+  parent: BaseWeaponRifle
+  description: Ручной пулемет на базе АКМСа, стоит на вооружении с 2686 года.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpk16.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpk16.rsi
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpk16.rsi
+    size: Huge
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: Gun
+    minAngle: 25
+    maxAngle: 35
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 7
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/rpk16.ogg
+  - type: GunWieldBonus
+    minAngle: -15
+    maxAngle: -20
+  - type: ChamberMagazineAmmoProvider
+    soundBoltClosed: 
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+    soundBoltOpened: 
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+    soundRack:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: DrumMagazineLightRifle
+        insertSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagIn/rpk16-magin.ogg
+        ejectSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagOut/rpk16-magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineLightRifle
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeLightRifle
+        priority: 1
+        whitelist:
+          tags:
+          - CartridgeLightRifle
+  - type: Appearance

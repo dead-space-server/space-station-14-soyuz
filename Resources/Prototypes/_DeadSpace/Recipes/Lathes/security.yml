@@ -43,3 +43,99 @@
   materials:
     Steel: 1000
     Plasma: 150
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineBox357Silver
+  result: MagazineBox357Silver
+  materials:
+    Steel: 100
+    Silver: 140
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineBoxLightestRifleSilver
+  result: MagazineBoxLightestRifleSilver
+  materials:
+    Steel: 100
+    Silver: 350
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineBoxRifleSilver
+  result: MagazineBoxRifleSilver
+  materials:
+    Steel: 100
+    Silver: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineBoxLightRifleSilver
+  result: MagazineBoxLightRifleSilver
+  materials:
+    Steel: 100
+    Silver: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineBoxPistolSilver
+  result: MagazineBoxPistolSilver
+  materials:
+    Steel: 100
+    Silver: 350
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: BoxLethalshotSilver
+  result: BoxLethalshotSilver
+  materials:
+    Steel: 100
+    Silver: 150
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazinePistolSilver
+  result: MagazinePistolSilver
+  materials:
+    Steel: 25
+    Silver: 100
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineLightRifleSilver
+  result: MagazineLightRifleSilver
+  materials:
+    Steel: 30
+    Silver: 300
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineRifleSilver
+  result: MagazineRifleSilver
+  materials:
+    Steel: 30
+    Silver: 300
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazineShotgunSilver
+  result: MagazineShotgunSilver
+  materials:
+    Steel: 100
+    Silver: 150
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: SpeedLoaderMagnumSilver
+  result: SpeedLoaderMagnumSilver
+  materials:
+    Steel: 50
+    Silver: 100
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: MagazinePistolSubMachineGunSilver
+  result: MagazinePistolSubMachineGunSilver
+  materials:
+    Steel: 25
+    Silver: 200

@@ -1,11 +1,10 @@
-ent-ClothingBeltSheathSyndie = ножны Рассвета
 ent-ClothingBeltPlantTaipan = пояс ботаника
     .desc = Пояс, используемый для хранения основных принадлежностей для гидропоники. На удивление, не чёрный.
     .suffix = Тайпан
 ent-TaipanPlantBag = сумка для растений
     .desc = Сумка для ботаников, чтобы легко переносить свои огромные урожаи.
     .suffix = Тайпан
-ent-ClothingBeltSheathSyndie = ножны синдиката
+ent-ClothingBeltSheathSyndie = ножны Рассвета
     .desc = Элегантные ножны, что хранят в себе лезвия смерти и убийства.
 ent-ClothingBeltUtilityBase = { ent-ClothingBeltStorageBase }
     .desc = { ent-ClothingBeltStorageBase.desc }

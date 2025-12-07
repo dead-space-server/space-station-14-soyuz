@@ -10,6 +10,8 @@
     scale: 0.7, 0.7 # bad practice, don't do it
   - type: Clothing
     sprite: _DeadSpace/Soyuz/Clothing/Eyes/Hud/pnv-gamma.rsi
-  - type: NightVisionClothing
+  - type: PNV
     color: "#ffffffe6"
+    activateSound:
+      path: /Audio/_DeadSpace/NightVision/pnv.ogg
   - type: ShowHealthBars

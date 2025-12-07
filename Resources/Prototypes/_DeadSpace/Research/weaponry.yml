@@ -327,7 +327,7 @@
 
 - type: technology
   id: TaipanShotguns
-  name: research-technology-shotguns
+  name: research-technology-shotgun
   icon:
     sprite: Objects/Weapons/Guns/Shotguns/bulldog.rsi
     state: icon

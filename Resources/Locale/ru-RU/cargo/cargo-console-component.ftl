@@ -56,10 +56,10 @@ cargo-console-paper-print-text =
     Причина: { $reason }
     Одобрил: { $approver }
 # Cargo shuttle console
-cargo-shuttle-console-menu-title = Консоль вызова грузового шаттла
+cargo-shuttle-console-menu-title = Консоль вызова почтового шаттла
 cargo-shuttle-console-station-unknown = Неизвестно
 cargo-shuttle-console-shuttle-not-found = Не найден
-cargo-no-shuttle = Грузовой шаттл не найден!
+cargo-no-shuttle = Шаттл почты не найден!
 cargo-shuttle-console-organics = На шаттле обнаружены органические формы жизни
 # Funding allocation console
 cargo-funding-alloc-console-menu-title = Консоль распределения финансов
@@ -67,9 +67,9 @@ cargo-funding-alloc-console-label-account = [bold]Аккаунт[/bold]
 cargo-funding-alloc-console-label-code = [bold] Код [/bold]
 cargo-funding-alloc-console-label-balance = [bold] Баланс [/bold]
 cargo-funding-alloc-console-label-cut = [bold] Разделение дохода (%) [/bold]
-cargo-funding-alloc-console-label-primary-cut = Доля дохода отдела снабжения от всего, кроме ящиков с замком (%):
-cargo-funding-alloc-console-label-lockbox-cut = Доля дохода отдела снабжения от продажи ящиков с замком (%):
-cargo-funding-alloc-console-label-help-non-adjustible = Отдел снабжения получает { $percent }% от всех доходов, кроме ящиков с замком. Остаток распределяется следующим образом:
+cargo-funding-alloc-console-label-primary-cut = Доля дохода почтового отделения от всего, кроме ящиков с замком (%):
+cargo-funding-alloc-console-label-lockbox-cut = Доля дохода почтового отделения от продажи ящиков с замком (%):
+cargo-funding-alloc-console-label-help-non-adjustible = Почтовое отделение получает { $percent }% от всех доходов, кроме ящиков с замком. Остаток распределяется следующим образом:
 cargo-funding-alloc-console-label-help-adjustible = Остаток доходов от всего, кроме ящиков с замком, распределяется следующим образом:
 cargo-funding-alloc-console-button-save = Сохранить изменения
 cargo-funding-alloc-console-label-save-fail = [bold]Разделение выручки невалидно![/bold] [color=red]({ $pos ->

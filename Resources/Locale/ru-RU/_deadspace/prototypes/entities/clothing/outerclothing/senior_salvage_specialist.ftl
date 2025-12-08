@@ -1,2 +1,2 @@
-ent-ClothingOuterHardsuitSeniorSalvage = скафандр ведущего утилизатора
+ent-ClothingOuterHardsuitSeniorSalvage = скафандр ведущего шахтёра
     .desc = { ent-ClothingOuterHardsuitSalvage.desc }

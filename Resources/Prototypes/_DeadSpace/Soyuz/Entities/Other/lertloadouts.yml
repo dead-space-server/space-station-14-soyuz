@@ -1,0 +1,197 @@
+# Loadout cases
+
+## Red
+- type: entity
+  id: ERTloadoutRedPrimaryLeader
+  name: кейс неопределённости лидера отряда
+  description: Прочный военный кейс для оружия. Принадлежит лидеру отряда "Красный".
+  suffix: ОБР, Красный, Основное, Лидер
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Sprite
+    state: lred
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - RPKSet
+    - SVDSet
+    - EnforcerSet
+    - LaserCannonSet
+    - XrayCannonSet
+    - LaserRifleSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+- type: entity
+  id: ERTloadoutRedSecondaryLeader
+  name: коробка неопределённости лидера отряда
+  description: Коробка с табельным оружием. Принадлежит лидеру отряда "Красный".
+  suffix: ОБР, Красный, Вторичное, Лидер
+  parent: BaseERTloadoutSecondary
+  components:
+  - type: Sprite
+    state: lred
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - OTSSet
+    - N1984Set
+    - LaserGunSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+## Gamma
+- type: entity
+  id: ERTloadoutGammaPrimaryLeader
+  name: кейс неопределённости лидера отряда
+  description: Прочный военный кейс для оружия. Принадлежит лидеру отряда "Гамма".
+  suffix: ОБР, Гамма, Основное, Лидер
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Sprite
+    state: lgamma
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - AbakanSet
+    - VereskSet
+    - RPLSet
+    - SVSet
+    - EnergyShotgunSet
+    - VectorSet
+    - PulseCarbineSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+- type: entity
+  id: ERTloadoutGammaSecondaryLeader
+  name: коробка неопределённости лидера отряда
+  description: Коробка с табельным оружием. Принадлежит лидеру отряда "Гамма".
+  suffix: ОБР, Гамма, Вторичное, Лидер
+  parent: BaseERTloadoutSecondary
+  components:
+  - type: Sprite
+    state: lgamma
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - OTSSet
+    - MatebaSet
+    - PulsePistolSet
+    - AdvancedLaserSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+# Sets
+- type: thiefBackpackSet
+  id: RPKSet
+  name: ert-loadout-category-rpk-name
+  description: ert-loadout-category-rpk-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpk16.rsi
+    state: icon
+  content:
+  - WeaponLightMachineGunRPK
+  - DrumMagazineLightRifle
+  - DrumMagazineLightRifle
+  - DrumMagazineLightRifle
+  - MagazineBoxLightRifle
+
+- type: thiefBackpackSet
+  id: SVDSet
+  name: ert-loadout-category-svd-name
+  description: ert-loadout-category-svd-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/svd.rsi
+    state: icon
+  content:
+  - WeaponSniperSVD
+  - MagazineMagnumSVD
+  - MagazineMagnumSVD
+  - MagazineMagnumSVD
+  - MagazineMagnumSVD
+  - MagazineBoxMagnum
+  - MagazineBoxMagnum
+
+- type: thiefBackpackSet
+  id: AbakanSet
+  name: ert-loadout-category-abakan-name
+  description: ert-loadout-category-abakan-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
+    state: icon
+  content:
+  - WeaponRifleAbakan
+  - ADTExtMagazineRifle
+  - ADTExtMagazineRifle
+  - ADTExtMagazineRifle
+  - MagazineBoxLightRifle
+
+- type: thiefBackpackSet
+  id: VereskSet
+  name: ert-loadout-category-veresk-name
+  description: ert-loadout-category-veresk-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/SMGs/veresk.rsi
+    state: icon
+  content:
+  - WeaponVeresk
+  - ShieldVANT
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineBoxCaselessRifle
+
+- type: thiefBackpackSet
+  id: RPLSet
+  name: ert-loadout-category-rpl-name
+  description: ert-loadout-category-rpl-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/LMGs/rpl.rsi
+    state: icon
+  content:
+  - WeaponLightMachineGunRPL20
+  - MagazineLightRifleBox
+  - MagazineLightRifleBox
+  - MagazineBoxLightRifle
+  - MagazineBoxLightRifle
+
+- type: thiefBackpackSet
+  id: SVSet
+  name: ert-loadout-category-sv-name
+  description: ert-loadout-category-sv-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/sv.rsi
+    state: icon
+  content:
+  - WeaponSniperSV98
+  - MagazineAntiMaterielSV
+  - MagazineAntiMaterielSV
+  - MagazineAntiMaterielSV
+  - MagazineBoxAntiMateriel
+
+- type: thiefBackpackSet
+  id: OTSSet
+  name: ert-loadout-category-ots-name
+  description: ert-loadout-category-ots-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Pistols/ots.rsi
+    state: icon
+  content:
+  - WeaponPistolOTS
+  - MagazinePistol
+  - MagazinePistol
+  - MagazineBoxPistol

@@ -5,13 +5,25 @@
         "y": 32
     },
     "license": "CC-BY-SA-3.0",
-    "copyright": "Created bu Adventure Time Team",
+    "copyright": "Created bu Adventure Time Team, resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос",
     "states": [
         {
             "name": "base"
         },
         {
             "name": "mag-1"
+        },
+        {
+            "name": "tungsten"
+        },
+        {
+            "name": "practice"
+        },
+        {
+            "name": "red"
+        },
+        {
+            "name": "uranium"
         }
     ]
 }

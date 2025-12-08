@@ -5,7 +5,7 @@ roles-antag-survivor-name = Выживший
 roles-antag-survivor-objective = Текущая задача: Выжить
 survivor-role-greeting =
     Вы — выживший.
-    Ваша главная задача остаться в живых и вернуться на Центком.
+    Ваша главная задача остаться в живых и вернуться на Генеральный Штаб.
     Никому не доверяйте.
 survivor-round-end-dead-count =
     { $deadCount ->

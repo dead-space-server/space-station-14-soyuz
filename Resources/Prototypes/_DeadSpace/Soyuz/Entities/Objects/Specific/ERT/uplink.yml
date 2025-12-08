@@ -1,0 +1,45 @@
+- type: entity
+  id: UplinkERTRed
+  name: устройство "FACADE" кода "Красный
+  description: Устройство НКВБ, его лучше не трогать.
+  parent: [ BaseItem, StorePresetUplinkERT ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Devices/communication.rsi
+    layers:
+    - state: radio-ert
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Devices/communication.rsi
+    heldPrefix: radio-ert
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+  - type: Store
+    balance:
+      RedSpaceCoupons: 10
+
+- type: entity
+  id: UplinkERTGamma
+  name: устройство "FACADE" кода "Гамма"
+  description: Устройство НКВБ, его лучше не трогать.
+  parent: [ BaseItem, StorePresetUplinkERT ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Devices/communication.rsi
+    layers:
+    - state: radio-ert
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Devices/communication.rsi
+    heldPrefix: radio-ert
+  - type: UserInterface
+    interfaces:
+      enum.StoreUiKey.Key:
+        type: StoreBoundUserInterface
+  - type: ActivatableUI
+    key: enum.StoreUiKey.Key
+  - type: Store
+    balance:
+      RedSpaceCoupons: 20

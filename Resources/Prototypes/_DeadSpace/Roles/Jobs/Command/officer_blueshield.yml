@@ -61,7 +61,7 @@
     # back: ClothingBackpackBlueShield
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetAltCommand
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesOKGB
     socks: ClothingUnderwearSocksBlueShieldOfficer
     # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled
@@ -128,9 +128,7 @@
       - id: Zipties
         amount: 3
       - id: ADTtelescopicBaton # ADT
-      - id: MagazinePistolSubMachineGun
-        amount: 4
-      - id: WeaponSubMachineGunDrozd
+      - id: KGBloadoutPrimary
       - id: HandheldCrewMonitor
   - type: ExplosionResistance
     damageCoefficient: 0.6

@@ -7,6 +7,12 @@ loadout-group-blue-shield-officer-masks = Оперативник КГБ, про�
 loadout-group-blue-shield-officer-backpack = Оперативник КГБ, рюкзак
 loadout-group-blue-shield-officer-neck = Оперативник КГБ, шея
 loadout-group-blue-shield-officer-underwear = Оперативник КГБ, нижнее бельё
+# NKVB
+loadout-group-politruk-outerclothing = Политический Руководитель, верхняя одежда 
+loadout-group-politruk-head = Политический Руководитель, голова
+loadout-group-politruk-jumpsuit = Политический Руководитель, униформа
+loadout-group-politruk-socks = Политический Руководитель, носки
+loadout-group-politruk-underwear = Политический Руководитель, нижнее бельё
 # Civilian
 loadout-group-senior-administrator-jumpsuit = Менеджер, комбинезон
 # Cargo
@@ -57,4 +63,4 @@ loadout-group-coroner-backpack = Патологоанатом, рюкзак
 loadout-group-coroner-head = Патологоанатом, голова
 loadout-group-coroner-underwear = Патологоанатом, нижнее бельё
 # Centcomm
-loadout-group-centcomm-officer-underwear = Офицер ЦК, нижнее бельё
+loadout-group-centcomm-officer-underwear = Офицер ГШ, нижнее бельё

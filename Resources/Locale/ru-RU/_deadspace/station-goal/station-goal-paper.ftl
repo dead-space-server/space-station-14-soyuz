@@ -1,1 +1,1 @@
-station-goal-paper-name = Цель станции
+station-goal-paper-name = Рабочий план

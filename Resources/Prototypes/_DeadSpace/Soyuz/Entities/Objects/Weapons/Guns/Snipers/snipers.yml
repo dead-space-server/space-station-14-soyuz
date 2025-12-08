@@ -1,0 +1,130 @@
+- type: entity
+  name: СВ-98
+  parent: [BaseWeaponRifle, BaseGunWieldable, BaseSecurityContraband]
+  id: WeaponSniperSV98
+  description: Магазинная снайперская винтовка созданная для сил специальных операции СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/sv.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/sv.rsi
+    slots:
+    - Back
+    quickEquip: false
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,6,1
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 0.6
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/sv98.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineAntiMaterielSV
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineAntiMaterielSV
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeAntiMateriel
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeAntiMateriel
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: SpeedModifiedOnWield
+    walkModifier: 0.75
+    sprintModifier: 0.75
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 5
+    pvsIncrease: 0.5
+
+- type: entity
+  name: СВД
+  parent: [BaseWeaponRifle, BaseSecurityContraband]
+  id: WeaponSniperSVD
+  description: Самозарядная снайперская винтовка созданная для Станционной Милиции и Специального Отряда Быстрого Реагирования.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/svd.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Snipers/svd.rsi
+    slots:
+    - Back
+    quickEquip: false
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,5,1
+  - type: Gun
+    fireRate: 0.95
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/svd.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineMagnumSVD
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineMagnumSVD
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeMagnum
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeMagnum
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: SpeedModifiedOnWield
+    walkModifier: 0.90
+    sprintModifier: 0.90
+  - type: CursorOffsetRequiresWield
+  - type: EyeCursorOffset
+    maxOffset: 5
+    pvsIncrease: 0.5

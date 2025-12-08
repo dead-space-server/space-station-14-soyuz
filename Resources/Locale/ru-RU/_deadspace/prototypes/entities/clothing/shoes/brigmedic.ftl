@@ -1,2 +1,2 @@
-ent-ClothingShoesBootsBrigmedic = кроссовки  дежурного врача
+ent-ClothingShoesBootsBrigmedic = кроссовки дежурного врача
     .desc = Лёгкие кроссовки для спорта и марш бросков, до раннего бойца отдела.

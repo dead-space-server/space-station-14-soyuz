@@ -1,0 +1,6 @@
+- type: stack
+  id: Tungsten
+  name: stack-tungsten-ingot
+  icon: { sprite: "/Textures/Objects/Materials/ingots.rsi", state: tungsten }
+  spawn: IngotTungsten1
+  maxCount: 30

@@ -1,0 +1,22 @@
+- type: entity
+  name: редспейс талон
+  parent: BaseItem
+  id: RedSpaceCoupons
+  description: Небольшой талон.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Specific/redspacecoupons.rsi
+    state: redspace
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Specific/redspacecoupons.rsi
+    size: Tiny
+  - type: Stack
+    count: 1
+    stackType: RedSpaceCouponsStack
+  - type: StaticPrice
+    price: 0
+  - type: StackPrice
+    price: 200
+  - type: Currency
+    price:
+      RedSpaceCoupons: 1

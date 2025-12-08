@@ -140,6 +140,20 @@
   - SpeedLoaderMagnumIncendiary
   - SpeedLoaderMagnumUranium
   - MagazineBox357Incendiary # ADT
+#DS14-soyuz-start
+  - MagazineBox357Silver
+  - MagazineBoxLightestRifleSilver
+  - MagazineBoxRifleSilver
+  - MagazineBoxLightRifleSilver
+  - MagazineBoxPistolSilver
+  - BoxLethalshotSilver
+  - MagazinePistolSilver
+  - MagazineLightRifleSilver
+  - MagazineRifleSilver
+  - MagazineShotgunSilver
+  - SpeedLoaderMagnumSilver
+  - MagazinePistolSubMachineGunSilver
+#DS14-soyuz-end
 
 - type: latheRecipePack
   id: SecurityWeapons
@@ -163,8 +177,8 @@
   - WeaponDisablerSMG
 
 # DS14-Soyuz-start
-- type: latheRecipePack 
-  id: SecurityPoliceBeta 
+- type: latheRecipePack
+  id: SecurityPoliceBeta
   recipes:
   - PoliceBetaLegs
   - PoliceBetaHead

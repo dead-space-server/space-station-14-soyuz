@@ -20,7 +20,7 @@ nukeops-cond-nukiesabandoned = Оперативники Легиона были 
 nukeops-cond-allnukiesdead = Все оперативники Легиона погибли.
 nukeops-cond-somenukiesalive = Несколько оперативников Легиона погибли.
 nukeops-cond-allnukiesalive = Все оперативники Легиона выжили.
-nukeops-list-start = оперативниками Легоина были:
+nukeops-list-start = оперативниками Легиона были:
 nukeops-list-name = - [color=White]{ $name }[/color]
 nukeops-list-name-user = - [color=White]{ $name }[/color] ([color=gray]{ $user }[/color])
 nukeops-not-enough-ready-players = Недостаточно игроков готовы к игре! { $readyPlayersCount } игроков из необходимых { $minimumPlayers } готовы. Нельзя запустить пресет оперативники Легиона.

@@ -3,7 +3,7 @@
   mapName: 'Reach'
   mapPath: /Maps/reach.yml
   minPlayers: 0
-  maxPlayers: 10
+  maxPlayers: 15
   stations:
     Reach:
       stationProto: StandardNanotrasenStation
@@ -20,6 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
+            # NKVB 
+#            Politruk: [ 1, 1 ]            
             # law
             # sec
             HeadOfSecurity: [ 1, 1 ]

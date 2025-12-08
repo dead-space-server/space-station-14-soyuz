@@ -1,4 +1,4 @@
-ent-ClothingBackpackSatchelDetective = сумка детектива
+ent-ClothingBackpackSatchelDetective = сумка следователя
     .desc = Стильная и функциональная сумка из синтетической кожи, с удобными отделениями для инструментов расследования.
-ent-ClothingBackpackSatchelDetectiveGrey = нуарная сумка детектива
+ent-ClothingBackpackSatchelDetectiveGrey = нуарная сумка следователя
     .desc = Стильная и функциональная сумка из чёрной синтетической кожи, с удобными отделениями для инструментов расследования.

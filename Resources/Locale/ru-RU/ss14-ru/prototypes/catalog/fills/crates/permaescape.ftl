@@ -1,5 +1,5 @@
 ent-CratePermaEscapeSpawner = { ent-CrateGenericSteel }
-    .suffix = Набор побега из пермабрига
+    .suffix = Набор побега из СИЗО
     .desc = { ent-CrateEmptySpawner.desc }
 ent-CratePermaEscapeDigging = { ent-CrateGenericSteel }
     .suffix = Копание

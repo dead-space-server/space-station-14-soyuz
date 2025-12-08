@@ -23,7 +23,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitSecPilot
-  name: комбинезон пилота службы безопасности
+  name: комбинезон пилота милиции
   description: Комбинезон из прочного материала, обеспечивающий надёжную защиту.
   components:
     - type: Sprite
@@ -34,7 +34,7 @@
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitSecBlack
-  name: чёрный комбинезон службы безопасности
+  name: чёрный комбинезон милиции
   description: Комбинезон из прочного материала, обеспечивающий надёжную защиту.
   components:
     - type: Sprite
@@ -45,7 +45,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilBrigmedic
-  name: костюм-карандаш бригмедика
+  name: костюм-карандаш дежурного врача
   description: ифицированным и прошедшим обучение лицам. Никого не волнует, что обучение продлилось полдня.
   components:
   - type: Sprite
@@ -67,7 +67,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilHoS
-  name: женский костюм-карандаш главы службы безопасности
+  name: женский костюм-карандаш начальника милиции
   description: С такого красивого костюма долго придёться выводить кровь.
   components:
   - type: Sprite
@@ -78,7 +78,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilSec
-  name: женский костюм-карандаш службы безопасности
+  name: женский костюм-карандаш милиции
   description: Костюм из прочного материала, обеспечивающий надёжную защиту.
   components:
   - type: Sprite
@@ -89,7 +89,7 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilSeniorOfficer
-  name: женский костюм-карандаш офицера-инструктора службы безопасности
+  name: женский костюм-карандаш старшего милиционера
   description: Признак мастерства и престижа.
   components:
   - type: Sprite
@@ -100,8 +100,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilWarden
-  name: женский костюм-карандаш смотрителя
-  description: Костюм-карандаш смотрителя отдела службы безопасности. Nanotrasen настоятельно не рекомендует проводить эротические игры с заключёнными.
+  name: женский костюм-карандаш оперативного дежурного
+  description: Костюм-карандаш оперативного дежурного Советской Гражданской Милиции. НКВБ настоятельно не рекомендует проводить эротические игры с заключёнными.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/pencil_warden.rsi

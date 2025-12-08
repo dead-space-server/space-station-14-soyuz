@@ -1,11 +1,11 @@
-ent-ClothingUniformJumpsuitSalvageFormal = официальная форма утилизатора.
+ent-ClothingUniformJumpsuitSalvageFormal = официальная форма шахтёра.
     .desc = Если копать, то только стильно!
-ent-ClothingUniformJumpskirtCargoSalvage = юбка-комбинезон утилизатора
+ent-ClothingUniformJumpskirtCargoSalvage = юбка-комбинезон шахтёра
     .desc = Отлично сочитается с киркой.
-ent-ClothingUniformJumpskirtCargoSalvageFormal = официальная юбка-комбинезон утилизатора
+ent-ClothingUniformJumpskirtCargoSalvageFormal = официальная юбка-комбинезон шахтёра
     .desc = Отлично сочитается с киркой.
 ent-ClothingUniformJumpsuitCargoAlt = костюм грузчика
-    .desc = Хороший костюм для работников отдела снабжения.
+    .desc = Хороший костюм для работников почтового отделения.
 ent-ClothingUniformJumpsuitCargoFormal = официальная форма грузчика
     .desc = Для модных показов на конвеерной ленте.
 ent-ClothingUniformJumpskirtCargoFormal = официальная юбка-комбинезон грузчика.

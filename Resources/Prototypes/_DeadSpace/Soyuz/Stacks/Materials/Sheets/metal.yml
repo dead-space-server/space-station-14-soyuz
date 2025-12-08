@@ -1,0 +1,6 @@
+- type: stack
+  id: SheetTungsten
+  name: stack-tungsten
+  icon: { sprite: /Textures/Objects/Materials/Sheets/metal.rsi, state: tungsten }
+  spawn: SheetTungsten1
+  maxCount: 30

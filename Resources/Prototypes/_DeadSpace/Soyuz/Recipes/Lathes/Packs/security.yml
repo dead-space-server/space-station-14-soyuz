@@ -1,0 +1,98 @@
+- type: latheRecipePack
+  id: ArmedTechFabCircuitboard
+  recipes:
+  - ArmedTechFabCircuitboard
+
+- type: latheRecipePack
+  id: SecurityAmmoTungsten
+  recipes:
+  - MagazineBoxRifleTungsten
+  - MagazineBoxLightRifleTungsten
+  - MagazineBoxMagnumTungsten
+  - MagazineBoxPistolTungsten
+  - SpeedLoaderMagnumTungsten
+  - MagazineLightRifleTungsten
+  - MagazineRifleTungsten
+  - MagazinePistolSubMachineGunTungsten
+  - MagazinePistolTungsten
+  - MagazineLightRifleVSSTungsten
+  - MagazineLightRifleAsValTungsten
+
+- type: latheRecipePack
+  id: SecurityMagazine
+  recipes:
+  - MagazineLightRifleAsVal
+  - MagazineLightRifleAsValEmpty
+  - MagazineLightRifleAsValPractice
+  - MagazineLightRifleAsValUranium
+  - MagazineLightRifleAsValIncendiary
+  - MagazineLightRifleVSS
+  - MagazineLightRifleVSSEmpty
+  - MagazineLightRifleVSSPractice
+  - MagazineLightRifleVSSUranium
+  - MagazineLightRifleVSSIncendiary
+
+- type: latheRecipePack
+  id: NonlethalAmmunition
+  recipes:
+  - MagazineShotgunBeanbag
+  - BoxShellTranquilizer
+  - BoxBeanbag
+  - WeaponDisabler
+
+- type: latheRecipePack
+  id: AdvancedRiotControl
+  recipes:
+  - Truncheon
+  - TelescopicShield
+  - HoloprojectorSecurity
+  - WeaponDisablerSMG
+
+- type: latheRecipePack
+  id: PosketDefenseWeaponry
+  recipes:
+  - WeaponPistolMk58
+  - WeaponRevolverPython
+
+- type: latheRecipePack
+  id: BallisticsShotguns
+  recipes:
+  - WeaponShotgunKammerer
+  - WeaponShotgunEnforcer
+
+- type: latheRecipePack
+  id: BallisticsAutomaticWeapons
+  recipes:
+  - WeaponRifleAk
+  - WeaponSubMachineGunDrozd
+
+- type: latheRecipePack
+  id: AdvancedBallisticsShotguns
+  recipes:
+  - WeaponShotgunSaiga
+
+- type: latheRecipePack
+  id: AdvancedBallisticsAutomaticWeapons
+  recipes:
+  - WeaponRifleAKMCY
+  - WeaponRifleAsVal
+  - WeaponRifleVSS
+
+- type: latheRecipePack
+  id: AdvancedSecurityMagazine
+  recipes:
+  - MagazineRifleASH
+  - MagazineRifleASHEmpty
+
+- type: latheRecipePack
+  id: BallisticsLargeCaliberWeapons
+  recipes:
+  - WeaponRifleASH12
+
+- type: latheRecipePack
+  id: AdvancedShotgunMagazine
+  recipes:
+  - MagazineShotgunNew
+  - MagazineShotgunNewEmpty
+  - MagazineShotgunDrum
+  - MagazineShotgunDrumEmpty

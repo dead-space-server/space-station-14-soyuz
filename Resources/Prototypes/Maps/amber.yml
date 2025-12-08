@@ -2,7 +2,7 @@
   id: Amber
   mapName: 'Amber'
   mapPath: /Maps/amber.yml
-  minPlayers: 20
+  minPlayers: 25
   maxPlayers: 45
   stations:
     Amber:
@@ -20,6 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
+            # NKVB 
+#            Politruk: [ 1, 1 ]            
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

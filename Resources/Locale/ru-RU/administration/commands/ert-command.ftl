@@ -1,5 +1,5 @@
 # Shell description
-accept-ert-command-description = Принимает запрос на спавн СОБР. Не одобренные запросы на вызов отрядов помимо "Эмбер" будут автоматически отклонены.
+accept-ert-command-description = Принимает запрос на спавн СОБР. Не одобренные запросы на вызов отрядов помимо "Оберег" будут автоматически отклонены.
 accept-ert-command-help-text = Использование: { $command }
 fake-accept-ert-command-description = Отменяет спавн СОБР с сообщением о якобы успешном спавне. Используйте если вы хотите заспавнить свой СОБР.
 fake-accept-ert-command-help-text = Использование: { $command }

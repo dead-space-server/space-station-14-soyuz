@@ -1,0 +1,163 @@
+# Loadout cases
+
+## Red
+- type: entity
+  id: ERTloadoutRedSupport
+  name: кейс неопределённости вспомогательного снаряжения
+  description: Прочный военный кейс для различного вспомогательного снаряжения. Принадлежит членам отряда "Красный".
+  suffix: ОБР, Красный, Вспомогательный
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Item
+    size: Large
+    shape:
+    - 0,0,2,1
+  - type: Sprite
+    state: sred
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 2
+    possibleSets:
+    - JawsSet
+    - MedSet
+    - MassSet
+    # Red
+    - PNVSet
+    - PenSet
+    - GlovesSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+## Gamma
+- type: entity
+  id: ERTloadoutGammaSupport
+  name: кейс неопределённости вспомогательного снаряжения
+  description: Прочный военный кейс для различного вспомогательного снаряжения. Принадлежит членам отряда "Гамма".
+  suffix: ОБР, Гамма, Вспомогательный
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Item
+    size: Large
+    shape:
+    - 0,0,2,1
+  - type: Sprite
+    state: sgamma
+  - type: ThiefUndeterminedBackpack
+    maxSelectedSets: 2
+    possibleSets:
+    - JawsSet
+    - MedSet
+    - MassSet
+    # Gamma
+    - PNVGSet
+    - PenGSet
+    - StSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+# Sets
+- type: thiefBackpackSet
+  id: JawsSet
+  name: ert-loadout-category-jaws-name
+  description: ert-loadout-category-jaws-name
+  sprite:
+    sprite: Objects/Tools/jaws_of_life.rsi
+    state: jaws_pry
+  content:
+  - JawsOfLife
+
+- type: thiefBackpackSet
+  id: MedSet
+  name: ert-loadout-category-med-name
+  description: ert-loadout-category-med-description
+  sprite:
+    sprite: Objects/Specific/Medical/firstaidkits.rsi
+    state: blackkit
+  content:
+  - MedkitCombatFilled
+
+- type: thiefBackpackSet
+  id: MassSet
+  name: ert-loadout-category-mass-name
+  description: ert-loadout-category-mass-description
+  sprite:
+    sprite: Objects/Tools/handheld_mass_scanner.rsi
+    state: icon
+  content:
+  - HandHeldMassScanner
+  - PowerCellMedium
+
+- type: thiefBackpackSet
+  id: PNVSet
+  name: ert-loadout-category-pnv-name
+  description: ert-loadout-category-pnv-description
+  sprite:
+    sprite: _DeadSpace/Clothing/Eyes/Hud/pnv-adv.rsi
+    state: icon
+  content:
+  - ClothingEyesPNVAdv
+
+- type: thiefBackpackSet
+  id: PNVGSet
+  name: ert-loadout-category-pnvg-name
+  description: ert-loadout-category-pnvg-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Clothing/Eyes/Hud/pnv-gamma.rsi
+    state: icon
+  content:
+  - ClothingEyesPNVAdvGamma
+
+- type: thiefBackpackSet
+  id: PenSet
+  name: ert-loadout-category-pen-name
+  description: ert-loadout-category-pen-description
+  sprite:
+    sprite: Objects/Specific/Medical/medipen.rsi
+    state: punctpen
+  content:
+  - PyraAutoInjector
+  - PunctAutoInjector
+  - DesoxyephedrineMedipen
+
+- type: thiefBackpackSet
+  id: PenGSet
+  name: ert-loadout-category-peng-name
+  description: ert-loadout-category-peng-description
+  sprite:
+    sprite: Objects/Specific/Medical/medipen.rsi
+    state: punctpen
+  content:
+  - PyraAutoInjector
+  - PunctAutoInjector
+  - PyraAutoInjector
+  - PunctAutoInjector
+  - AntiPoisonMedipen
+  - AirlossAutoInjector
+  - DesoxyephedrineMedipen
+
+- type: thiefBackpackSet
+  id: StSet
+  name: ert-loadout-category-st-name
+  description: ert-loadout-category-st-description
+  sprite:
+    sprite: Objects/Specific/Medical/medipen.rsi
+    state: microstimpen
+  content:
+  - StimkitFilled
+
+- type: thiefBackpackSet
+  id: GlovesSet
+  name: ert-loadout-category-gloves-name
+  description: ert-loadout-category-gloves-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Clothing/Hands/Gloves/gamma.rsi
+    state: icon
+  content:
+  - ClothingHandsGlovesGamma

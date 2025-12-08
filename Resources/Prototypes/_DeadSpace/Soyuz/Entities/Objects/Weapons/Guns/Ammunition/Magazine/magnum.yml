@@ -1,0 +1,68 @@
+# Base
+- type: entity
+  id: BaseMagazineMagnumSVD
+  name: магазин (.45 магнум)
+  parent: [ BaseItem, BaseSecurityContraband ]
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+      - MagazineMagnumSVD
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgeMagnum
+    proto: CartridgeLightRifle
+    capacity: 10
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/magnum_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+
+# Magazines
+- type: entity
+  id: MagazineMagnumSVD
+  name: магазин (.45 магнум)
+  parent: BaseMagazineMagnumSVD
+  description: Магазин для СВД.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeMagnum
+    capacity: 10
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineMagnumSVDEmpty
+  name: магазин (.45 магнум любой)
+  suffix: empty
+  parent: MagazineMagnumSVD
+  description: Магазин для СВД.
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+    capacity: 10
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

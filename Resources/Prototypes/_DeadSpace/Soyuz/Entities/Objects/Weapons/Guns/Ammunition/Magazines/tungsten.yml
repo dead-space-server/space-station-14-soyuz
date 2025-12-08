@@ -1,0 +1,55 @@
+- type: entity
+  id: MagazineLightRifleTungsten
+  name: магазин (7.62х39 мм винтовочные ППБС)
+  parent: BaseMagazineLightRifle
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazinePistolTungsten
+  name: автопистолетный магазин (9х19 мм ППБС)
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazinePistolSubMachineGunTungsten
+  name: магазин ПП (9х19 мм ППБС)
+  parent: BaseMagazinePistolSubMachineGun
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineRifleTungsten
+  name: магазин (6.5х39 мм TSF ППБС)
+  parent: BaseMagazineRifle
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

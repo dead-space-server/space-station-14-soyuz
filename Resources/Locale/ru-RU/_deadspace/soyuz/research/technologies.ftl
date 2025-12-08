@@ -1,0 +1,12 @@
+research-technology-armed-tech-fab-technology = Оруженый ТехФаб СССП
+research-technology-processing-tungsten = Прокат вольфрама
+research-technology-ammo-tungsten-technology = Боеприпасы ППБС
+research-technology-pistols = Манипулирование карманным вооружением
+research-technology-shotguns = Манипулирование помповым вооружением
+research-technology-automatic-weapons = Манипулирование автоматическим вооружением
+research-technology-ammo-magazine = Инженерия усовершенствованных магазинов
+research-technology-advanced-shotguns = Манипулирование продвинутым помповым вооружением
+research-technology-advanced-automatic-weapons = Манипулирование продвинутым автоматическим вооружением
+research-technology-advanced-shotgun-ammo-magazine = Инженерия продвинутых магазинов для Сайги-12
+research-technology-advanced-ammo-magazine = Инженерия крупнокалиберных магазинов
+research-technology-ballistics-large-caliber-weapons = Манипулирование крупнокалиберным вооружением

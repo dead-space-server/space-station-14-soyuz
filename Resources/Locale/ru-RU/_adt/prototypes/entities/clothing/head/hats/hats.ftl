@@ -6,5 +6,5 @@ ent-ADTClothingHeadMarineBeret = берет лейтенанта морской 
     .desc = Этот берет содержит эмблему Морской Пехоты ТСФ, 417-го полка, 2-го батальона, отряда «Браво».
 ent-ADTClothingHeadHatsJohanCap = фуражка Йохана
     .desc = Выглядит странно, но круто!
-ent-ADTClothingHeadHatsInvestigatorCap = фуражка следователя службы безопасности
-    .desc = Слава NanoTrasen!
+ent-ADTClothingHeadHatsInvestigatorCap = фуражка следователя
+    .desc = Слава СССП!

@@ -27,7 +27,7 @@ steal-target-groups-id-cards = ID-карты
 steal-target-groups-lamps = ЛАМПЫ
 # Thief single item
 steal-target-groups-forensic-scanner = криминалистический сканер
-steal-target-groups-flippo-engraved-lighter = гравированная зажигалка флиппо детектива
+steal-target-groups-flippo-engraved-lighter = гравированная зажигалка флиппо следователя
 steal-target-groups-ammo-tech-fab-circuitboard = машинная плата ТехФаба патронов
 steal-target-groups-clothing-head-hat-warden = фуражка оперативного дежурного
 steal-target-groups-clothing-outer-hardsuit-void-paramed = пустотный скафандр фельдшера

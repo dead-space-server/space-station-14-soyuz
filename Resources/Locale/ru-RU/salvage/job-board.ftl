@@ -1,13 +1,13 @@
-salvage-job-rank-title-0 = [color=gray]Мусорщик[/color]
+salvage-job-rank-title-0 = [color=gray]Нищий[/color]
 salvage-job-rank-title-1 = [color=white]Обломщик[/color]
 salvage-job-rank-title-2 = [color=yellow]Специалист[/color]
-salvage-job-rank-title-MAX = [color=gold]Верховный утилизатор[/color]
-job-board-radio-announce = Утилизаторский ранг повышен до [bold]{ $rank }[/bold]! В отделе снабжения можно купить новые товары.
+salvage-job-rank-title-MAX = [color=gold]Верховный шахтёр[/color]
+job-board-radio-announce = Шахтёрский ранг повышен до [bold]{ $rank }[/bold]! В Почтовом отделении можно купить новые товары.
 job-board-ui-window-title = Доска работ
 job-board-ui-label-rank = [bold]Ранг:[/bold]
 job-board-ui-label-items = Цель: [color=red]{ $item }[/color]
-job-board-label-text = [head=2]Поставка утилизаторкой работы[/head]
-    { "[italic]Для использования в официальных внестанционных утилизаторских поставках.[/italic]" }
+job-board-label-text = [head=2]Поставка шахтёрской работы[/head]
+    { "[italic]Для использования в официальных внестанционных шахтёрских поставках.[/italic]" }
 
     { "[bold]Цель:[/bold]" } { $target }
     { "[bold]Награда:[/bold]" } ${ $reward }

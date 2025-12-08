@@ -87,8 +87,8 @@
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - KammererSet
-    - DrozdSet
     - LaserCarbineSet
+    - KedrSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface
@@ -129,7 +129,7 @@
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - EnforcerSet
-    - WT550Set
+    - AKMCYSet
     - LaserCannonSet
     - XrayCannonSet
     - LaserRifleSet
@@ -215,7 +215,7 @@
     state: cburn
   - type: ThiefUndeterminedBackpack
     possibleSets:
-    - LecterSet
+    - AkSet
     - EnforcerCBURNSet
     - LaserCannonSet
     - LaserRifleSet
@@ -388,18 +388,18 @@
   - MagazinePistolSubMachineGun
 
 - type: thiefBackpackSet
-  id: WT550Set
-  name: ert-loadout-category-wt550-name
-  description: ert-loadout-category-wt550-description
+  id: AKMCYSet
+  name: ert-loadout-category-aksy-name
+  description: ert-loadout-category-aksy-description
   sprite:
-    sprite: Objects/Weapons/Guns/SMGs/wt550.rsi
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
     state: icon
   content:
-  - WeaponSubMachineGunWt550
-  - MagazinePistolSubMachineGunTopMounted
-  - MagazinePistolSubMachineGunTopMounted
-  - MagazinePistolSubMachineGunTopMounted
-  - MagazineBoxPistol
+  - WeaponRifleAKMCY
+  - MagazineLightRifle
+  - MagazineLightRifle
+  - MagazineLightRifle
+  - MagazineBoxLightRifle
 
 - type: thiefBackpackSet
   id: VectorSet
@@ -417,18 +417,34 @@
   - MagazineBoxPistol
 
 - type: thiefBackpackSet
-  id: LecterSet
-  name: ert-loadout-category-lecter-name
-  description: ert-loadout-category-lecter-description
+  id: AkSet
+  name: ert-loadout-category-ak-name
+  description: ert-loadout-category-ak-description
   sprite:
-    sprite: Objects/Weapons/Guns/Rifles/lecter.rsi
+    sprite: Objects/Weapons/Guns/Rifles/ak.rsi
     state: icon
   content:
-  - WeaponRifleLecter
-  - MagazineRifle
-  - MagazineRifle
-  - MagazineRifle
-  - MagazineBoxRifle
+  - WeaponRifleAk
+  - MagazineLightRifle
+  - MagazineLightRifle
+  - MagazineLightRifle
+  - MagazineBoxLightRifle
+
+# DS14-Soyuz-start
+- type: thiefBackpackSet
+  id: KedrSet
+  name: ert-loadout-category-kedr-name
+  description: ert-loadout-category-kedr-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/SMGs/pp91.rsi
+    state: icon
+  content:
+  - WeaponSubMachineGunKedr
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazineBoxPistol
+# DS14-Soyuz-end
 
 - type: thiefBackpackSet
   id: MinigunGunSet

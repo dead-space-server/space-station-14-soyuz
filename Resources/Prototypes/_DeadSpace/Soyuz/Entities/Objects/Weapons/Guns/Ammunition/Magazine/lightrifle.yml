@@ -1,0 +1,37 @@
+# Base
+- type: entity
+  id: DrumMagazineLightRifle
+  name: барабанный магазин (7.62х39 мм винтовочный)
+  parent: BaseMagazineLightRifle
+  description: Барабаный магазин на 75 патронов для РПК-16.
+  components:
+  - type: Item
+    size: Normal
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifle
+    capacity: 75
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/drum.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+# Magazine
+- type: entity
+  id: DrumMagazineLightRifleEmpty
+  name: барабанный магазин (7.62х39 мм винтовочный)
+  suffix: empty
+  parent: DrumMagazineLightRifle
+  description: Барабаный магазин на 75 патронов для РПК-16. Можно зарядить любой вид патрона 7.62х39 мм.
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+    capacity: 75
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

@@ -6,9 +6,9 @@
 # accent-italian-prefix-3 = Mamma-mia! That's a spicy meat-ball!
 # accemt-italian-prefix-4 = La la la la la funiculi funicula!
 
-accent-italian-words-1 = ассистент
+accent-italian-words-1 = разнорабочий
 accent-italian-words-replace-1 = goombah
-accent-italian-words-2 = ассистенты
+accent-italian-words-2 = разнорабочие
 accent-italian-words-replace-2 = goombahs
 accent-italian-words-3 = малыш
 accent-italian-words-replace-3 = bambino
@@ -55,11 +55,11 @@ accent-italian-words-replace-23 = greco
 accent-italian-words-24 = оперативники
 accent-italian-words-replace-24 = greci
 accent-italian-words-25 = милиция
-accent-italian-words-replace-25 = polizia
+accent-italian-words-replace-25 = milicia
 accent-italian-words-26 = охрана
-accent-italian-words-replace-26 = polizia
+accent-italian-words-replace-26 = milicia
 accent-italian-words-27 = офицер
-accent-italian-words-replace-27 = polizia
+accent-italian-words-replace-27 = milicia
 accent-italian-words-28 = щиткюр
 accent-italian-words-replace-28 = carabinieri
 accent-italian-words-29 = щитсек

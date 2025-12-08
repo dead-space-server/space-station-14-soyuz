@@ -20,12 +20,12 @@ ert-loadout-category-energyshotgun-description =
 ert-loadout-category-wt550-name = WT550
 ert-loadout-category-wt550-description =
     Отличный одноручный пистолет-пулемёт,
-    производства NanoTrasen's Small Arms Division.
+    производства Small Arms Division.
     Для точной стрельбы достаточно одной руки.
     Использует патроны калибра 9х19 мм.
-ert-loadout-category-drozd-name = ОЦ-94 "Гроза"
+ert-loadout-category-drozd-name = ОЦ-14 "Гроза"
 ert-loadout-category-drozd-description =
-    Полностью автоматический, двуручный штурмовой автомат. 
+    Полностью автоматический, двуручный штурмовой пистолет-пулемёт. 
     Использует патроны калибра 9х19 мм.
 ert-loadout-category-vector-name = Вектор
 ert-loadout-category-vector-description =
@@ -38,7 +38,7 @@ ert-loadout-category-lecter-description =
     Использует патроны калибра 6.5х39 мм TSF.
 ert-loadout-category-lasercarbine-name = Лазерная винтовка
 ert-loadout-category-lasercarbine-description =
-    Предпочитается милицией СССП 
+    Предпочитается милицией
     за дешевизну и простоту использования.
     Для восполнения боезапаса потребуется зарядник энергооружия.
 ert-loadout-category-lasercannon-name = Лазерная пушка
@@ -62,15 +62,15 @@ ert-loadout-category-pulsecarbine-description =
 ert-loadout-category-mk58-name = MK 58
 ert-loadout-category-mk58-description =
     Дешёвый и распространённый пистолет, 
-    производимый дочерней компанией СССП. 
+    производимый по заказу НКВБ. 
     Использует патроны калибра 9х19.
 ert-loadout-category-n1984-name = N1984
 ert-loadout-category-n1984-description =
     Запасное оружие любого уважающего себя офицера.
     Выпускается в калибре .45 магнум, самом богоугодном калибре.
-ert-loadout-category-mateba-name = Матеба
+ert-loadout-category-mateba-name = РШ-12
 ert-loadout-category-mateba-description =
-    Револьвер элитных сил СССП.
+    Револьвер элитных спецподразделений НКВБ.
     Использует калибр .45 магнум.
 ert-loadout-category-dominator-name = Доминатор
 ert-loadout-category-dominator-description =
@@ -107,7 +107,7 @@ ert-loadout-category-pulserifle-description =
     Имеет повышенную ёмкость батареи.
 ert-loadout-category-magnumap-name = Дополнительные спидлоадеры
 ert-loadout-category-magnumap-description =
-    Шесть дополнительных спидлоадеров для вашей Матебы.
+    Шесть дополнительных спидлоадеров для вашего РШ-12.
     Содержат бронебойные патроны калибра .45 магнум.
 ert-loadout-category-explosion-name = Дополнительная взрывчатка
 ert-loadout-category-explosion-description =
@@ -121,3 +121,15 @@ ert-loadout-category-combatmedicine-name = Набор автоинъекторо
 ert-loadout-category-combatmedicine-description =
     Состоит из четырёх боевых, двух пунктураза, двух пиразина и двух автоинъекторов от яда.
     Помогут вам залатать свои раны прямо в бою.
+ert-loadout-category-kedr-name = ПП-91-01 "Кедр-Б"
+ert-loadout-category-kedr-description =
+    Пистолет-пулемёт с интегрированным глушителем, разработанный в начале 2690-х годов по заказу НКВБ СССП для специальных структур.
+    Использует патроны калибра 9х19 мм.
+ert-loadout-category-ak-name = АКМС
+ert-loadout-category-ak-description =
+    Культовое оружие всех войн.
+    Использует магазины калибра 7.62х39 винтовочный.
+ert-loadout-category-aksy-name = АКМС-У
+ert-loadout-category-aksy-description =
+    Укороченный вариант автомата АКМС. В простонародии Ксюха
+    Использует магазины калибра 7.62х39 винтовочный.

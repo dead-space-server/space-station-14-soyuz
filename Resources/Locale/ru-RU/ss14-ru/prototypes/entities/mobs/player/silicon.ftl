@@ -75,5 +75,5 @@ ent-PlayerBorgDerelict = { ent-BorgChassisDerelict }
 ent-PlayerBorgDerelictGhostRole = { ent-PlayerBorgDerelict }
     .suffix = Роль призрака
     .desc = { ent-PlayerBorgDerelict.desc }
-ent-PlayerBorgSyndicateInvasionGhostRoleSpawner = спавнер штурмового борга синдиката
+ent-PlayerBorgSyndicateInvasionGhostRoleSpawner = спавнер штурмового борга Рассвета
     .desc = { ent-MarkerBase.desc }

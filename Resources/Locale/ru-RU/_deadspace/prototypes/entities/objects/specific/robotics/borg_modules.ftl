@@ -1,3 +1,3 @@
 
-ent-BorgModuleMiningWeapon = оружейный утилизаторский модуль
+ent-BorgModuleMiningWeapon = оружейный шахтёрский модуль
     .desc = { ent-BaseBorgModuleCargo.desc }

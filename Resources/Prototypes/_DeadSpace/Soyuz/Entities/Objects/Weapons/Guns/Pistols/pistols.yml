@@ -1,0 +1,46 @@
+- type: entity
+  name: оц-33 "Пернач"
+  parent: [BaseWeaponPistol, BaseSecurityContraband]
+  id: WeaponPistolOTS
+  description: Автоматический пистолет калибра 9 на 19 мм, создан для штурмовых операций.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Pistols/ots.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Pistols/ots.rsi
+  - type: Item
+    storedOffset: 0,-2
+  - type: Gun
+    fireRate: 6.5
+    maxAngle: 10
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/ots.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistol
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistolHighCapacity
+            - MagazinePistol
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgePistol
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgePistol

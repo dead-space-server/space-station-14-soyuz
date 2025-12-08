@@ -1,13 +1,13 @@
 cargo-gifts-event-announcement = Поздравляем! { $sender } решили отправить { $description } { $dest } станции. Всё прибудет со следующей партией груза.
 cargo-gift-default-description = набор подарков
-cargo-gift-default-sender = СССП
-cargo-gift-default-dest = отделу Почты
+cargo-gift-default-sender = Генеральный Штаб
+cargo-gift-default-dest = почтовому отделению
 cargo-gift-dest-bar = бару
 cargo-gift-dest-eng = инженерному отделу
 cargo-gift-dest-supp = отделу Почты
 cargo-gift-dest-janitor = сервисному отделу
 cargo-gift-dest-med = медицинскому отделу
-cargo-gift-dest-sec = службе безопасности
+cargo-gift-dest-sec = Советской Гражданской Милиции
 cargo-gift-dest-rnd = научному отделу
 cargo-gift-pizza-small = маленький набор пицц
 cargo-gift-pizza-large = большой набор пицц

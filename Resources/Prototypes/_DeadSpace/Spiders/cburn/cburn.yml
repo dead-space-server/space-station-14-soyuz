@@ -17,14 +17,14 @@
   storage:
     back:
     - BoxSurvivalEngineering
-    - WeaponShotgunBulldog
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
+    - WeaponShotgunSaigaM
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunDrumIncendiary
+    - MagazineShotgunDrumIncendiary
     - SCSTMedipen
     - SCSTMedipen
     - SCSTMedipen
@@ -52,14 +52,14 @@
   storage:
     back:
     - BoxSurvivalEngineering
-    - WeaponShotgunBulldog
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
-    - MagazineShotgunIncendiary
+    - WeaponShotgunSaigaM
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunNewIncendiary
+    - MagazineShotgunDrumIncendiary
+    - MagazineShotgunDrumIncendiary
     - SCSTMedipen
     - SCSTMedipen
     - SCSTMedipen

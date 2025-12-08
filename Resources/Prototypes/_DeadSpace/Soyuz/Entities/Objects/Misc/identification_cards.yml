@@ -20,4 +20,4 @@
         - state: NKVBCard
         - state: PolitKomissar
     - type: PresetIdCard
-      job: PolitKom
+      job: Politkom

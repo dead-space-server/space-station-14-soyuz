@@ -1,0 +1,52 @@
+- type: entity
+  id: MagazinePistolSilver
+  name: пистолетный магазин (9х19 мм серебряные)
+  parent: MagazinePistol
+  description: Держись, нечисть, я иду за тобой.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: stripe
+      color: "#f0f0f0"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-stripe
+        color: "#f0f0f0"
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-stripe
+        color: "#f0f0f0"
+
+- type: entity
+  parent: BaseMagazinePistolSubMachineGun
+  id: MagazinePistolSubMachineGunSilver
+  name: магазин ПП (9х19 мм серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: stripe
+      color: "#f0f0f0"
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-stripe
+        color: "#f0f0f0"
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-stripe
+        color: "#f0f0f0"

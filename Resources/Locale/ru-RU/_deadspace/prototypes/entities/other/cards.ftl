@@ -1,5 +1,5 @@
 ent-BaseCard = карта
-    .desc = Приятная на ощупь бумажная игральная карта выпуска NanoTrasen.
+    .desc = Приятная на ощупь бумажная игральная карта.
 ent-Clubs6 = { ent-BaseCard }
     .desc = { ent-BaseCard.desc }
 ent-Clubs7 = { ent-BaseCard }

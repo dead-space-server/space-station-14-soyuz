@@ -4,12 +4,12 @@
   icon:
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Politruk
-  jobName: Политический Руководитель
+  jobName: job-name-politruk
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconPolitkom
   icon:
     sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Politruk
-  jobName: Политический Комиссар
+    state: Politkom
+  jobName: job-name-Politkom

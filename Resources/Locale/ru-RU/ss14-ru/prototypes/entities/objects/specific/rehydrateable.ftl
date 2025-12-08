@@ -28,6 +28,6 @@ ent-DehydratedSpaceCarp = обезвоженный космический кар
     .desc = Выглядит как плюшевый игрушечный карп, но стоит только добавить воды, и он превращается в настоящего космического карпа!
 ent-SyndicateSponge = { ent-MonkeyCube }
     .desc = { ent-MonkeyCube.desc }
-    .suffix = Синдикат
+    .suffix = Рассвет
 ent-MopBucketCube = кубик ведра для швабры
     .desc = Просто добавь воды! А затем ещё больше воды!

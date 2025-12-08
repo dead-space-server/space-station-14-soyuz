@@ -20,11 +20,11 @@ construction-graph-tag-black-crayon = чёртый мелок
 construction-graph-tag-eva-suit = ВКД скафандр
 construction-graph-tag-eva-helmet = ВКД шлем
 # hud
-construction-graph-tag-security-hud = визор охраны
+construction-graph-tag-security-hud = визор милиции
 construction-graph-tag-medical-hud = медицинский визор
 # security
 construction-graph-tag-sun-glasses = солнцезащитные очки
-construction-graph-tag-security-helmet = шлем СБ
+construction-graph-tag-security-helmet = шлем милиции
 # materials
 construction-graph-tag-manipulator = модульная машинная часть
 construction-graph-tag-voice-trigger = голосовой триггер
@@ -105,7 +105,7 @@ construction-graph-tag-solar-tracker-electronics = микросхема солн
 construction-graph-tag-station-map-electronics = микросхема карты станции
 construction-graph-tag-signal-timer-electronics = микросхема таймера сигнала
 construction-graph-tag-screen-timer-electronics = микросхема таймера сигнала с экраном
-construction-graph-tag-brig-timer-electronics = микросхема бриг-таймера
+construction-graph-tag-brig-timer-electronics = микросхема участкового-таймера
 construction-graph-tag-wallmount-generator-circuit-board = микросхема настенного генератора
 construction-graph-tag-wallmount-apu-circuit-board = микросхема настенной ВСУ
 construction-graph-tag-wallmount-substation-circuit-board = микросхема настенной подстанции
@@ -129,6 +129,6 @@ construction-graph-tag-torch = факел
 construction-graph-tag-fire-extinguisher = огнетушитель
 construction-graph-tag-fire-helmet = пожарный шлем
 # salvage
-construction-graph-tag-spationaut-hardsuit = лёгкий скафандр утилизатора
+construction-graph-tag-spationaut-hardsuit = лёгкий скафандр шахтёра
 # clothing
 construction-graph-tag-backpack = рюкзак

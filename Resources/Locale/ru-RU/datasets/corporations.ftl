@@ -1,4 +1,4 @@
-traitor-corporations-dataset-1 = "Мародёры ОПЗ"
+traitor-corporations-dataset-1 = "Оперативники Легиона"
 traitor-corporations-dataset-2 = "MI13"
 traitor-corporations-dataset-3 = "Tiger Cooperative"
 traitor-corporations-dataset-4 = "S.E.L.F."

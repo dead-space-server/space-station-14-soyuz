@@ -1,13 +1,14 @@
 department-Cargo = Отдел почты
-department-Civilian = Обслуживающий отдел
+department-Civilian = Сервисный отдел
 department-Command = Командование
-department-CentralCommand = Генеральный штаб
+department-CentralCommand = Генеральный Штаб
 department-Engineering = Инженерный отдел
 department-Medical = Медицинский отдел
-department-Security = Милиция
+department-Security = Советская Гражданская Милиция
 department-Science = Научно-исследовательский отдел
 department-Silicon = Синтетики
 department-Specific = На определённых станциях
 department-Unknown = Неизвестный
 department-Law = Юридический отдел
 department-Taipan = ННКСС Тайпан
+department-NKVB = Народный Комиссариат Всесоюзной Безопасности

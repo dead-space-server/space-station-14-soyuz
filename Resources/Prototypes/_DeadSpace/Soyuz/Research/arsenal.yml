@@ -1,0 +1,24 @@
+# Tier 2
+
+- type: technology
+  id: SilverAmmo
+  name: research-technology-silver-ammo
+  icon:
+    sprite: Objects/Materials/ingots.rsi
+    state: silver
+  discipline: Arsenal
+  tier: 1
+  cost: 11000
+  recipeUnlocks:
+  - MagazineBox357Silver
+  - MagazineBoxLightestRifleSilver
+  - MagazineBoxRifleSilver
+  - MagazineBoxLightRifleSilver
+  - MagazineBoxPistolSilver
+  - BoxLethalshotSilver
+  - MagazinePistolSilver
+  - MagazineLightRifleSilver
+  - MagazineRifleSilver
+  - MagazineShotgunSilver
+  - SpeedLoaderMagnumSilver
+  - MagazinePistolSubMachineGunSilver

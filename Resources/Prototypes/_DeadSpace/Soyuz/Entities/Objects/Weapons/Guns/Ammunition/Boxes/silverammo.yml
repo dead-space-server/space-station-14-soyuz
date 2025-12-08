@@ -1,0 +1,89 @@
+- type: entity
+  parent: BaseMagazineBoxMagnum
+  id: MagazineBox357Silver
+  name: коробка патронов (.45 магнум серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeMagnumSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: silver
+
+- type: entity
+  parent: BaseMagazineBoxLightestRifle
+  id: MagazineBoxLightestRifleSilver
+  name: коробка патронов (5.45х39 мм винтовочные серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightestRifleSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: silver
+
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: MagazineBoxRifleSilver
+  name: коробка патронов (6.5х39 мм TSF серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: silver
+
+- type: entity
+  parent: BaseMagazineBoxLightRifle
+  id: MagazineBoxLightRifleSilver
+  name: коробка патронов (7.62х39 мм винтовочные серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: silver
+
+- type: entity
+  parent: BaseMagazineBoxPistol
+  id: MagazineBoxPistolSilver
+  name: коробка патронов (9х19 мм серебряные)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolSilver
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: silver
+
+- type: entity
+  parent: AmmoProviderShotgunShell
+  id: BoxLethalshotSilver
+  name: коробка ружейных патронов (12х70 дробь серебряная)
+  components:
+    - type: BallisticAmmoProvider
+      proto: ShellShotgunSilver
+    - type: Sprite
+      layers:
+      - state: base
+        map: ["enum.GunVisualLayers.Base"]
+      - state: mag-silver-4
+        map: ["enum.GunVisualLayers.Mag"]
+      - state: silver

@@ -50,6 +50,9 @@
           - id: WallRockArtifactFragment
             prob: 0.01
             orGroup: rock
+          - id: WallRockTungsten # DS14-Soyuz-start
+            prob: 0.05
+            orGroup: rock # DS14-Soyuz-end
     - type: IFF
       flags: HideLabel
       color: "#d67e27"

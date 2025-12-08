@@ -1,7 +1,7 @@
 ent-WeaponEnergyTurretStationControlPanelElectronicsBase = машинная плата панели управления охранной турелью
     .desc = Электронная плата, используемая в панели управления охранной турелью.
 ent-WeaponEnergyTurretSecurityControlPanelElectronics = { ent-WeaponEnergyTurretStationControlPanelElectronicsBase }
-    .suffix = Служба безопасности
+    .suffix = СГМ, Милиция
     .desc = { ent-WeaponEnergyTurretStationControlPanelElectronicsBase.desc }
 ent-WeaponEnergyTurretAIControlPanelElectronics = { ent-WeaponEnergyTurretStationControlPanelElectronicsBase }
     .suffix = ИИ, Киборги

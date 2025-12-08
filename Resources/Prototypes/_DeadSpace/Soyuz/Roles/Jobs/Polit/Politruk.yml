@@ -1,6 +1,6 @@
 - type: job
   id: Politruk
-  name: Политический Руководитель
+  name: job-name-politruk
   description: Ходите и надзирайте за станцией, напоминание станции о важности коммунизма, пока она погибает. 
   playTimeTracker: JobPolitruk
   requirements:
@@ -58,12 +58,20 @@
     gloves: ClothingHandsGlovesColorBlack
     id: PolitrukPDA
     ears: ClothingHeadsetAltCommand
-    socks: ClothingUnderwearSocksPolitOtdelLong
-    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
     head: ClothingHeadHatBeretPolitruk
     back: ClothingBackpackSecurity
-    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
-    underweart: ClothingUnderwearTopTelnikPolitOtdel
   storage:
     back:
     - Flash
+
+- type: chameleonOutfit
+  id: PolitrukChameleonOutfit
+  job: Politruk
+  hasMindShield: true
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    ears: ClothingHeadsetAltCommand
+    head: ClothingHeadHatBeretPolitruk
+    back: ClothingBackpackSecurity

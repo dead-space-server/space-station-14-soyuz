@@ -1,1 +1,1 @@
-loadout-group-psychologist-underwear = Психолог, нижнее бельё
+loadout-group-psychologist-underwear = психиатр, нижнее бельё

@@ -1,5 +1,10 @@
-ent-ClothingBeltDeathSquadWebbingFilled = РПС эскадрона смерти
-    .desc = РПС члена отряда элитной эвакуации.
+ent-ClothingBeltDeathSquadWebbingFilled = РПС бойца "Дым"
+    .desc = РПС члена отряда элитной эваукаци.
 ent-ClothingHeadsetDeathSquad = мастер гарнитура
     .desc = Уникальный образец гарнитуры c доступом во все каналы.
-    .suffix = Эскадрон смерти
+    .suffix = Дым
+
+ent-ClothingHeadsetDeathSquad = мастер гарнитура
+    .desc = Уникальный образец гарнитуры c доступом во все каналы.
+    .suffix = специальный отряд "Дым"
+

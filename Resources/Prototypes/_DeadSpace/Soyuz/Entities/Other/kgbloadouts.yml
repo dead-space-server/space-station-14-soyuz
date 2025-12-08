@@ -1,0 +1,48 @@
+- type: entity
+  id: KGBloadoutPrimary
+  name: кейс неопределённости
+  description: Прочный военный кейс для оружия. Принадлежит оперативнику КГБ. 
+  suffix: КГБ, Основное
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Sprite
+    state: kgb
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - DrozdSetOKGB
+    - SaigaSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+# Sets
+- type: thiefBackpackSet
+  id: DrozdSetOKGB
+  name: ert-loadout-category-drozd-name
+  description: ert-loadout-category-drozd-description
+  sprite:
+    sprite: Objects/Weapons/Guns/SMGs/drozd.rsi
+    state: icon
+  content:
+  - WeaponSubMachineGunDrozd
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+
+- type: thiefBackpackSet
+  id: SaigaSet
+  name: ert-loadout-category-saiga-name
+  description: ert-loadout-category-saiga-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Shotguns/saiga.rsi
+    state: icon
+  content:
+  - WeaponShotgunSaiga
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun

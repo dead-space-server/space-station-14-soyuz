@@ -4,7 +4,7 @@ ert-loadout-category-sawn-description =
     первые сотрудники РХБЗЗ. В связи с переоснащением,
     теперь укорочено и выступает лишь дополнительным оружием.
     Идёт в комплекте с коробкой зажигательных 12х70.
-ert-loadout-category-kammerer-name = Каммерер
+ert-loadout-category-kammerer-name = МР-153
 ert-loadout-category-kammerer-description =
     Любимое оружие ополченцев во многих мирах.
     Использует патроны калибра 12х70. В комплект включён бандольер.
@@ -59,7 +59,7 @@ ert-loadout-category-pulsecarbine-name = Импульсный карабин
 ert-loadout-category-pulsecarbine-description =
     Высокотехнологичный энергетический карабин военного класса.
     Для восполнения боезапаса потребуется зарядник энергооружия.
-ert-loadout-category-mk58-name = MK 58
+ert-loadout-category-mk58-name = Пистолет ТТ
 ert-loadout-category-mk58-description =
     Дешёвый и распространённый пистолет, 
     производимый по заказу НКВБ. 

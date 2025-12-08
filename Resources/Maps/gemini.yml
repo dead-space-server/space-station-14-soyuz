@@ -121544,7 +121544,7 @@ entities:
     components:
     - type: MetaData
       desc: Стандартное хранилище Nanotrasen.
-      name: оружейный сейф Каммереров
+      name: оружейный сейф МР-153
     - type: Transform
       pos: 49.5,-11.5
       parent: 2

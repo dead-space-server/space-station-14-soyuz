@@ -111704,13 +111704,6 @@ entities:
     - type: Transform
       pos: 30.5,24.5
       parent: 2
-- proto: SpawnPointPolitruk
-  entities:
-  - uid: 20351
-    components:
-    - type: Transform
-      pos: -17.5,-51.5
-      parent: 2
 - proto: SpawnPointPsychologist
   entities:
   - uid: 16386

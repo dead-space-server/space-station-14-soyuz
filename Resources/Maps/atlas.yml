@@ -42047,13 +42047,6 @@ entities:
     - pos: 13.5,-1.5
       parent: 30
       type: Transform
-- proto: SpawnPointPolitruk
-  entities:
-  - uid: 3
-    components:
-    - type: Transform
-      pos: 32.5,2.5
-      parent: 2
 - proto: SpawnPointQuartermaster
   entities:
   - uid: 5539

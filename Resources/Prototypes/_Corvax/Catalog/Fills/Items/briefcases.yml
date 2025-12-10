@@ -2,6 +2,7 @@
   id: BriefcaseIAAFilled
   parent: BriefcaseBrown
   suffix: IAA
+  categories: [ DoNotMap ]
   components:
     - type: StorageFill
       contents:
@@ -13,6 +14,7 @@
   id: BriefcaseMagistratFilled
   parent: BriefcaseBrown
   suffix: Magistrat
+  categories: [ DoNotMap ]
   components:
     - type: StorageFill
       contents:
@@ -24,6 +26,7 @@
   id: BriefcaseLawyerFilled
   parent: BriefcaseBrown
   suffix: Lawyer
+  categories: [ DoNotMap ]
   components:
     - type: StorageFill
       contents:

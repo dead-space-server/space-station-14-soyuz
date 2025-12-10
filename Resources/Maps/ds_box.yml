@@ -197493,6 +197493,14 @@ entities:
     - type: Transform
       pos: 23.535393,19.102627
       parent: 2
+- proto: RubberStampSyndicate
+  entities:
+  - uid: 36821
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Physics
+      canCollide: False
 - proto: SadTromboneImplanter
   entities:
   - uid: 27643

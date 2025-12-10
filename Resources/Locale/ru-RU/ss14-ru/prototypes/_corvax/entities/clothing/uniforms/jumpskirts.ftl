@@ -4,5 +4,7 @@ ent-ClothingUniformJumpskirtCentcomOfficer = водолазка с юбкой п
     .desc = Версия водолазки Генерального Штаба с юбкой, более редкая и востребованная, чем оригинал.
 ent-ClothingUniformColorJumpskirtRainbow = радужная юбка-комбинезон
     .desc = Разноцветная юбка-комбинезон!
+ent-ClothingUniformJumpskirtElegantMaid = элегантная форма горничной
+    .desc = Назови меня хозяином и принеси пивчански.
 ent-ClothingUniformJumpskirtSchool = школьная юбка
     .desc = Стильная и удобная школьная юбка.

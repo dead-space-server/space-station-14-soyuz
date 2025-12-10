@@ -11,6 +11,9 @@
       "name": "box"
     },
     {
+      "name": "box-open"
+    },
+    {
       "name": "box-inhand-left",
       "directions": 4
     },

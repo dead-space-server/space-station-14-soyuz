@@ -1116,6 +1116,15 @@ entities:
     - type: Transform
       pos: -1.5,2.5
       parent: 1
+- proto: RubberStampSyndicate
+  entities:
+  - uid: 94
+    components:
+    - type: Transform
+      parent: 92
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
 - proto: SubstationWallBasic
   entities:
   - uid: 88

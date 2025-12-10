@@ -57,7 +57,7 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/bagel.yml", ["RubberStampMime"]},
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
-            {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", []},
+            {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/cluster.yml", ["RubberStampMime"]},
@@ -65,10 +65,10 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/corvax_glacier.yml", ["ClothingHeadHatCatEarsValid"]},
             {"/Maps/corvax_paper.yml", ["ClothingHeadHatCatEars"]},
             {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
-            {"/Maps/ds_box.yml", []},
+            {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end
         };
 

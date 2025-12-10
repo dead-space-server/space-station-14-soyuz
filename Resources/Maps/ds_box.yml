@@ -96032,6 +96032,26 @@ entities:
           Nitrogen: 6.568249
     - type: Fixtures
       fixtures: {}
+- proto: ClothingBackpackDuffelSalvage
+  entities:
+  - uid: 36818
+    components:
+    - type: Transform
+      pos: 19.48266,1.4026048
+      parent: 36766
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 36821
+          - 36824
+          - 36819
+          - 36820
+          - 36822
+          - 36823
+          - 36825
 - proto: ClothingBackpackDuffelSurgeryFilled
   entities:
   - uid: 13911
@@ -96814,6 +96834,19 @@ entities:
     - type: Transform
       pos: 40.66756,-34.204346
       parent: 2
+- proto: ClothingHeadHatSyndie
+  entities:
+  - uid: 36819
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Physics
+      canCollide: False
+  - uid: 37710
+    components:
+    - type: Transform
+      pos: -3.1200604,-17.289778
+      parent: 37412
 - proto: ClothingHeadHatTophat
   entities:
   - uid: 14037
@@ -175306,6 +175339,16 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
+- proto: PlasmaOre1
+  entities:
+  - uid: 36820
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Stack
+      count: 3
+    - type: Physics
+      canCollide: False
 - proto: PlasmaReinforcedWindowDirectional
   entities:
   - uid: 24868
@@ -203406,6 +203449,16 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
+- proto: SilverOre1
+  entities:
+  - uid: 36822
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Stack
+      count: 2
+    - type: Physics
+      canCollide: False
 - proto: SingularityGenerator
   entities:
   - uid: 28267
@@ -207841,6 +207894,16 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
+- proto: SteelOre1
+  entities:
+  - uid: 36823
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Stack
+      count: 4
+    - type: Physics
+      canCollide: False
 - proto: Stool
   entities:
   - uid: 28991
@@ -211424,6 +211487,14 @@ entities:
     - type: Transform
       pos: -49.664337,-53.303722
       parent: 2
+- proto: SyndicatePersonalAI
+  entities:
+  - uid: 36824
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Physics
+      canCollide: False
 - proto: Syringe
   entities:
   - uid: 29347
@@ -217427,6 +217498,16 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
+- proto: UraniumOre1
+  entities:
+  - uid: 36825
+    components:
+    - type: Transform
+      parent: 36818
+    - type: Stack
+      count: 4
+    - type: Physics
+      canCollide: False
 - proto: Vaccinator
   entities:
   - uid: 30290

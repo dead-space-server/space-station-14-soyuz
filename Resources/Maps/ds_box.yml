@@ -96032,26 +96032,6 @@ entities:
           Nitrogen: 6.568249
     - type: Fixtures
       fixtures: {}
-- proto: ClothingBackpackDuffelSalvage
-  entities:
-  - uid: 36818
-    components:
-    - type: Transform
-      pos: 19.48266,1.4026048
-      parent: 36766
-    - type: ContainerContainer
-      containers:
-        storagebase: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 36821
-          - 36824
-          - 36819
-          - 36820
-          - 36822
-          - 36823
-          - 36825
 - proto: ClothingBackpackDuffelSurgeryFilled
   entities:
   - uid: 13911

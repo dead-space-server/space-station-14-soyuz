@@ -9721,7 +9721,7 @@ entities:
     - type: Transform
       pos: -17.436771,16.796585
       parent: 2
-- proto: BriefcaseLawyerFilled
+- proto: BriefcaseBrownFilled
   entities:
   - uid: 320
     components:

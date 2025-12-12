@@ -96814,19 +96814,6 @@ entities:
     - type: Transform
       pos: 40.66756,-34.204346
       parent: 2
-- proto: ClothingHeadHatSyndie
-  entities:
-  - uid: 36819
-    components:
-    - type: Transform
-      parent: 36818
-    - type: Physics
-      canCollide: False
-  - uid: 37710
-    components:
-    - type: Transform
-      pos: -3.1200604,-17.289778
-      parent: 37412
 - proto: ClothingHeadHatTophat
   entities:
   - uid: 14037

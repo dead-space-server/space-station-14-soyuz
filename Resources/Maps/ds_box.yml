@@ -203449,16 +203449,6 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
-- proto: SilverOre1
-  entities:
-  - uid: 36822
-    components:
-    - type: Transform
-      parent: 36818
-    - type: Stack
-      count: 2
-    - type: Physics
-      canCollide: False
 - proto: SingularityGenerator
   entities:
   - uid: 28267

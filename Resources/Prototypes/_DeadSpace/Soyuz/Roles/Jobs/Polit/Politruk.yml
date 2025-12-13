@@ -59,6 +59,7 @@
     id: PolitrukPDA
     ears: ClothingHeadsetAltCommand
     head: ClothingHeadHatBeretPolitruk
+    pocket1: WeaponPistolMTS
     back: ClothingBackpackSecurity
   storage:
     back:

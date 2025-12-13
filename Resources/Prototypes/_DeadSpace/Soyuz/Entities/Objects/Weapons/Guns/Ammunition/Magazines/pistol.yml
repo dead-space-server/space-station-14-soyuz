@@ -50,3 +50,100 @@
       - state: inhand-right-mag
       - state: inhand-right-stripe
         color: "#f0f0f0"
+
+- type: entity
+  id: MagazinePistolTungsten
+  name: автопистолетный магазин (9х19 мм ППБС)
+  parent: BaseMagazinePistol
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazinePistolSubMachineGunTungsten
+  name: магазин ПП (9х19 мм ППБС)
+  parent: BaseMagazinePistolSubMachineGun
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+# Base
+- type: entity
+  id: BaseMagazinePistolMTS
+  name: пистолетный магазин (9х19 мм)
+  parent: [ BaseItem, BaseSecurityContraband ]
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+      - MagazinePistolMTS
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgePistol
+    proto: CartridgePistol
+    capacity: 10
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/pistol_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+
+# Magazines
+- type: entity
+  id: MagazinePistolMTS
+  name: пистолетный магазин (9х19 мм)
+  parent: BaseMagazinePistolMTS
+  description: Магазин.
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistol
+    capacity: 10
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazinePistolMTSEmpty
+  name: магазин (9х19 мм любой)
+  suffix: пустой
+  parent: BaseMagazinePistolMTS
+  description: Магазин.
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+    capacity: 10
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

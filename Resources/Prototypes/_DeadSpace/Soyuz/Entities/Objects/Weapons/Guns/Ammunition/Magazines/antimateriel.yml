@@ -1,27 +1,27 @@
 # Base
 - type: entity
-  id: BaseMagazineMagnumSVD
-  name: магазин (.45 магнум)
+  id: BaseMagazineAntiMaterielSV
+  name: магазин (.50 антиматериальный)
   parent: [ BaseItem, BaseSecurityContraband ]
   abstract: true
   components:
   - type: Tag
     tags:
-      - MagazineMagnumSVD
+      - MagazineAntiMaterielSV
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeMagnum
+        - CartridgeAntiMateriel
     proto: CartridgeLightRifle
-    capacity: 10
+    capacity: 5
   - type: Item
     size: Small
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/magnum_mag.rsi
+    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/AntiMateriel/anti_materiel_mag.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
@@ -35,14 +35,14 @@
 
 # Magazines
 - type: entity
-  id: MagazineMagnumSVD
-  name: магазин (.45 магнум)
-  parent: BaseMagazineMagnumSVD
-  description: Магазин для СВД.
+  id: MagazineAntiMaterielSV
+  name: магазин (.50 антиматериальный)
+  parent: BaseMagazineAntiMaterielSV
+  description: Магазин для снайперской винтовки СВ-98.
   components:
   - type: BallisticAmmoProvider
-    proto: CartridgeMagnum
-    capacity: 10
+    proto: CartridgeAntiMateriel
+    capacity: 5
   - type: Sprite
     layers:
     - state: base
@@ -51,15 +51,15 @@
       map: ["enum.GunVisualLayers.Mag"]
 
 - type: entity
-  id: MagazineMagnumSVDEmpty
-  name: магазин (.45 магнум любой)
-  suffix: empty
-  parent: MagazineMagnumSVD
-  description: Магазин для СВД.
+  id: MagazineAntiMaterielSVEmpty
+  name: магазин (.50 антиматериальный)
+  suffix: пустой
+  parent: MagazineAntiMaterielSV
+  description: Магазин для снайперской винтовки СВ-98.
   components:
   - type: BallisticAmmoProvider
     proto: null
-    capacity: 10
+    capacity: 5
   - type: Sprite
     layers:
     - state: base

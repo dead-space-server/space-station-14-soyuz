@@ -24,10 +24,10 @@
         },
         {
             "name": "PolitKomissar"
-        },        
+        },
         {
             "name": "PolitRuk"
-        },    
+        },
         {
             "name": "ert_chaplain"
         },
@@ -222,9 +222,6 @@
         },
         {
             "name": "syndi"
-        },
-		{
-            "name": "syndie"
         },
         {
             "name": "syndi_operative"

@@ -27,9 +27,9 @@
     },
     {
       "name": "arrivals"
-        },
-        {
-            "name": "armory"
+    },
+    {
+      "name": "armory"
     },
     {
       "name": "barbershop"
@@ -158,10 +158,10 @@
     },
     {
       "name": "direction_chemistry",
-            "directions": 4
-        },
-        {
-            "name": "direction_evac_glow",
+      "directions": 4
+    },
+    {
+      "name": "direction_evac_glow",
       "directions": 4
     },
     {

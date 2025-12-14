@@ -72,8 +72,8 @@
 - type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltTaipan
-  name: полноразмерная болотно - зелёная гарнитура
-  description: Модифицированный модульный интерком Рассвета.
+  name: полноразмерная багровая гарнитура
+  suffix: Тайпан
   components:
   - type: Headset
     color: "#8B0000"

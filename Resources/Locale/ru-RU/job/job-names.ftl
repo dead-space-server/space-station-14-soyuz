@@ -74,7 +74,7 @@ job-name-blue-shield-officer = Оперативник КГБ
 job-name-magistrat = Судья
 job-name-coroner = Патологоанатом
 job-name-security-pilot = Пилот милиции
-job-name-senior-salvagespec = Мастер шахтёр
+job-name-senior-courier = Ведущий логист
 job-name-senior-administrator = Управленец сервисного отдела
 job-name-station-ai = Станционный ИИ
 # unused jobs

@@ -1413,7 +1413,7 @@ entities:
             9686: 57,56
             9687: 57,56
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BotGreyscale
           decals:
             1501: -41,106
@@ -1773,7 +1773,7 @@ entities:
             10259: -17,75
             10260: -17,76
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteCornerNe
           decals:
             978: -16,84

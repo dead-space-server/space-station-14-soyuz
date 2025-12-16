@@ -1,0 +1,14 @@
+- type: entity
+  parent: ClothingShoesBootsMagBase
+  id: ClothingShoesBootsMagDeath
+  name: продвинутые магнитные сапоги специального отряда "Дым"
+  description: Новейшие магнитные сапоги, которые не замедляют движения своего владельца.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Shoes/Boots/magboots.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Shoes/Boots/magboots.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1

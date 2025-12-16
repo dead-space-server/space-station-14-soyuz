@@ -3,13 +3,13 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitDeathSquad
     back: ClothingDeathSquadronBackpack
-    mask: ClothingMaskGasDeathSquad
+    mask: ClothingMaskGasSwat
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetDeathSquad
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     suitstorage: JetpackVoidFilled
-    shoes: ClothingShoesBootsMagDeathSquad # DS14-Shoes
+    shoes: ClothingShoesBootsMagDeath # DS14-Soyz
     id: DeathsquadPDA
     pocket1: EnergySword
     pocket2: DoubleEmergencyOxygenTankFilled

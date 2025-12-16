@@ -95,6 +95,14 @@
       count: 60 # you don't really hit it on purpose so it should be common
       minGroupSize: 1
       maxGroupSize: 1
+# DS14-Soyuz-start
+    - !type:OreDunGen 
+      replacement: IronRock
+      entity: IronRockTungsten
+      count: 35
+      minGroupSize: 4
+      maxGroupSize: 8
+# DS14-Soyuz-end
 
 # Configs
 - type: dungeonConfig

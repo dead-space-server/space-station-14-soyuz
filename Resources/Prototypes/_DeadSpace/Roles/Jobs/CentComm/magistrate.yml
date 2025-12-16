@@ -50,7 +50,7 @@
     eyes: ClothingEyesGlassesSunglasses
     head: ClothingHeadHatPwig
     id: MagistratPDA
-    ears: ClothingHeadsetMagistrat
+    ears: ClothingHeadsetCentCom
     socks: ClothingUnderwearSockMagistrat
     pocket1: ADTtelescopicBaton
     pocket2: RubberStampIAA

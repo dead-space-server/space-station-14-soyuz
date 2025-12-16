@@ -30,10 +30,10 @@
     shoes: ClothingShoesBootsJack
     head: ClothingHeadHatCentcomcap
     # eyes: ClothingEyesGlassesSunglasses
-    gloves: ClothingHandsGlovesColorBlack
+    gloves: ClothingHandsGlovesCentcomNaval
     id: CentcomOperatorPDA
     ears: ClothingHeadsetCentCom
-    neck: ClothingNeckTieDet
+    neck: ClothingNeckCloakCentcom
     belt: BoxFolderCentComClipboard
     pocket1: RubberStampCentcom
     pocket2: ClothingMaskGasCentcom
@@ -45,6 +45,6 @@
     jumpsuit: ClothingUniformJumpsuitCentcomOfficial
     shoes: ClothingShoesBootsJack
     head: ClothingHeadHatCentcomcap
-    gloves: ClothingHandsGlovesColorBlack
-    neck: ClothingNeckTieDet
+    gloves: ClothingHandsGlovesCentcomNaval
+    neck: ClothingNeckCloakCentcom
     belt: BoxFolderCentComClipboard

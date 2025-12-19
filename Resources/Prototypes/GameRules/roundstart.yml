@@ -128,11 +128,6 @@
       - RoleSurvivalNukie
       components:
       - type: NukeOperative
-#DS14-soyuz-start
-      - type: KvirinAccent
-      - type: ReplacementAccent
-        accent: kvirin
-#DS14-soyuz-end
       - type: RandomMetadata
         nameSegments:
         - NamesSyndicateElite
@@ -151,11 +146,6 @@
       - RoleSurvivalNukie
       components:
       - type: NukeOperative
-#DS14-soyuz-start
-      - type: KvirinAccent
-      - type: ReplacementAccent
-        accent: kvirin
-#DS14-soyuz-end
       - type: RandomMetadata
         nameSegments:
         - NamesSyndicateNormal
@@ -176,11 +166,6 @@
       - RoleSurvivalNukie
       components:
       - type: NukeOperative
-#DS14-soyuz-start
-      - type: KvirinAccent
-      - type: ReplacementAccent
-        accent: kvirin
-#DS14-soyuz-end
       - type: RandomMetadata
         nameSegments:
         - NamesSyndicateNormal

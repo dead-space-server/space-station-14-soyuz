@@ -5602,7 +5602,7 @@ entities:
     - type: Transform
       pos: 0.5,-31.5
       parent: 1
-- proto: Poweredlight
+- proto: PoweredlightOrange
   entities:
   - uid: 833
     components:
@@ -5823,7 +5823,7 @@ entities:
     - type: Transform
       pos: 5.5,4.5
       parent: 1
-- proto: ReinforcedWindow
+- proto: MiningWindow
   entities:
   - uid: 870
     components:

@@ -4634,7 +4634,7 @@ entities:
             23266: -52,-3
             23296: 11,-50
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelLineN
           decals:
             8021: -11,2
@@ -13277,12 +13277,12 @@ entities:
           decals:
             13378: -8,41
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerGreyscaleNE
           decals:
             7291: -10,12
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerGreyscaleNW
           decals:
             7287: -14,9
@@ -13295,13 +13295,13 @@ entities:
           decals:
             13389: -10,70
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerGreyscaleSE
           decals:
             7292: -10,10
             7293: -11,4
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerGreyscaleSW
           decals:
             7294: -14,4
@@ -13356,7 +13356,7 @@ entities:
           decals:
             13578: -18,54
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerSmallGreyscaleNW
           decals:
             7302: -13,9
@@ -13373,7 +13373,7 @@ entities:
           decals:
             13579: -14,54
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnCornerSmallGreyscaleSE
           decals:
             7305: -11,10
@@ -13531,7 +13531,7 @@ entities:
             30611: 102,-46
             34617: -31,-50
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnLineGreyscaleE
           decals:
             7297: -11,5
@@ -13653,7 +13653,7 @@ entities:
           decals:
             11309: -39,-10
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnLineGreyscaleS
           decals:
             7295: -13,4
@@ -13710,7 +13710,7 @@ entities:
             13548: -14,41
             13549: -13,41
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: WarnLineGreyscaleW
           decals:
             7283: -14,5
@@ -47427,7 +47427,7 @@ entities:
             1110: 49,52
             1111: 49,52
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MonoOverlay
           decals:
             1256: 70,74
@@ -230109,7 +230109,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -43.5,-12.5
       parent: 2
-- proto: Poweredlight
+- proto: PoweredlightOrange
   entities:
   - uid: 25110
     components:
@@ -240620,7 +240620,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: ReinforcedWindow
+- proto: MiningWindow
   entities:
   - uid: 26558
     components:
@@ -343418,7 +343418,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: Window
+- proto: MiningWindow
   entities:
   - uid: 41315
     components:

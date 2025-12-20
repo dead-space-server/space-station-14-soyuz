@@ -97,33 +97,33 @@ entities:
             4: 3,-12
             5: 5,-12
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteCornerNe
           decals:
             158: 1,0
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteCornerNw
           decals:
             159: 5,0
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteCornerSe
           decals:
             160: 1,6
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteCornerSw
           decals:
             161: 5,6
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteLineE
           decals:
             163: 1,4
             164: 1,2
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteLineN
           decals:
             145: 2,-2
@@ -132,19 +132,19 @@ entities:
             170: 3,6
             174: 3,4
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteLineS
           decals:
             171: 3,0
             175: 3,2
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: BrickTileWhiteLineW
           decals:
             162: 5,4
             165: 5,2
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileCornerOverlayNE
           decals:
             55: 9,2
@@ -157,7 +157,7 @@ entities:
             91: 15,-14
             99: 15,-10
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileCornerOverlayNW
           decals:
             56: 7,2
@@ -170,7 +170,7 @@ entities:
             94: 14,-14
             98: 11,-10
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileCornerOverlaySE
           decals:
             136: 13,4
@@ -187,7 +187,7 @@ entities:
           decals:
             22: 9,-12
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileCornerOverlaySW
           decals:
             57: 7,4
@@ -254,7 +254,7 @@ entities:
           decals:
             25: 7,-11
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileLineOverlayE
           decals:
             137: 13,5
@@ -264,7 +264,7 @@ entities:
           decals:
             102: 15,-11
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileLineOverlayN
           decals:
             54: 8,2
@@ -295,7 +295,7 @@ entities:
             12: 3,-10
             13: 4,-10
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileLineOverlayS
           decals:
             53: 8,4
@@ -329,7 +329,7 @@ entities:
             15: 3,-8
             16: 4,-8
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileLineOverlayW
           decals:
             62: 7,5
@@ -339,7 +339,7 @@ entities:
           decals:
             100: 11,-11
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: MiniTileOverlay
           decals:
             176: 3,8

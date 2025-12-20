@@ -69839,7 +69839,7 @@ entities:
     - type: Transform
       pos: 63.50305,8.626264
       parent: 2
-- proto: Poweredlight
+- proto: PoweredlightOrange
   entities:
   - uid: 10644
     components:

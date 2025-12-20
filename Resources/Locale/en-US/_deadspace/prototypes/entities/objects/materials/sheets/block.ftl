@@ -1,0 +1,9 @@
+ent-BlockSnow = блок снега
+    .desc = Блок плотного снега.
+    .suffix = Полный
+ent-BlockSnow10 = блок снега
+    .suffix = 10
+    .desc = { ent-BlockSnow.desc }
+ent-BlockSnow1 = блок снега
+    .suffix = Один
+    .desc = { ent-BlockSnow.desc }

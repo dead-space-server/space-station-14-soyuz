@@ -212,9 +212,9 @@
     - Instruments
     - Equipment
     - NightVisionTech # DS14
-    - ProcessingTungsten # DS14-Soyuz
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
+    - ProcessingTungsten # DS14-Soyuz
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo
@@ -271,6 +271,7 @@
     - CameraBoards
     - MechBoards
     - ShuttleBoards
+    - VirologyBoards # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards

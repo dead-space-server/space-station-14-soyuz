@@ -6,7 +6,6 @@ ent-ClothingHeadHelmetHardsuitCap = шлем скафандра капитана
     .desc = Особенный шлем скафандра, изготовленный для капитана станции.
 ent-ClothingHeadHelmetHardsuitDeathsquad = шлем скафандра бойца отряда специального назначения "Дым"
     .desc = Робастный шлем скафандра для специальных операций.
-    .suffix = Эскадрон смерти
 ent-ClothingHeadHelmetHardsuitEngineering = шлем скафандра инженера
     .desc = Шлем инженерного скафандра, предназначенный для работы в условиях низкого давления и высокой радиоактивности.
 ent-ClothingHeadHelmetHardsuitGoliath = шлем скафандра голиафа

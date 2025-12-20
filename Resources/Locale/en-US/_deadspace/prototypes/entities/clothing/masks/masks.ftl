@@ -3,3 +3,5 @@ ent-ClothingMaskRedNeckGaiter = красный шейный гетр
 ent-ClothingMaskBreathTaipan = чёрная боевая дыхательная маска
     .desc = Высокопрочная дыхательная маска с возможностью подключения к дыхательному баллону.
     .suffix = Дыхательная маска Синдиката
+ent-ClothingMaskClownPencil = маска и грим мужичка
+    .desc = Знаменитая маска клоуна в СССП.

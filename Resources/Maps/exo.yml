@@ -91942,7 +91942,7 @@ entities:
     - type: Transform
       pos: 27.420353,-62.29585
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 806
     components:
@@ -96514,7 +96514,7 @@ entities:
     - type: Transform
       pos: 15.5,-43.5
       parent: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 79
     components:

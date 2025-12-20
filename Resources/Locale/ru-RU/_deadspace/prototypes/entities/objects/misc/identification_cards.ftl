@@ -2,6 +2,7 @@ ent-MukhtarIDCard = ID-карта Мухтара
     .desc = { ent-IDCardStandard.desc }
 ent-LargoIDCard = ID-карта Ларго
     .desc = { ent-IDCardStandard.desc }
+
 ent-IDCardTaipan = { ent-Clothing }
     .desc = Чёрная ID-карта, предоставляющая различные доступы.
     .suffix = Тайпан

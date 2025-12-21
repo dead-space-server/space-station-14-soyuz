@@ -136,7 +136,7 @@ entities:
             308: 11,0
             309: 13,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNWSE
           decals:
             316: 4,-10
@@ -325,7 +325,7 @@ entities:
             180: 8,-11
             181: 9,-11
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale
           decals:
             215: 1,-4
@@ -386,7 +386,7 @@ entities:
             143: 4,-5
             144: 3,-5
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale270
           decals:
             218: 1,-2
@@ -437,7 +437,7 @@ entities:
           decals:
             185: 16,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleS
           decals:
             328: 2,-6
@@ -447,7 +447,7 @@ entities:
           decals:
             183: 8,-6
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleW
           decals:
             184: 1,-3

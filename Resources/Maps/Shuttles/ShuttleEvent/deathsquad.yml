@@ -59,13 +59,13 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale
           decals:
             11: 0,6
             18: 0,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale270
           decals:
             3: -1,1
@@ -73,7 +73,7 @@ entities:
             5: -1,3
             10: -1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale90
           decals:
             6: 1,3
@@ -81,106 +81,106 @@ entities:
             8: 1,1
             9: 1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileSteelLineS
           decals:
             33: 0,0
             34: -1,0
             35: 1,0
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteEndN
           decals:
             21: 0,3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteEndS
           decals:
             22: 0,2
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerNe
           decals:
             30: -1,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerNw
           decals:
             29: 1,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerSe
           decals:
             31: -1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerSw
           decals:
             32: 1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineE
           decals:
             26: -1,3
             27: -1,2
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineN
           decals:
             23: 0,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineS
           decals:
             28: 0,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineW
           decals:
             24: 1,2
             25: 1,3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale
           decals:
             19: 1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale90
           decals:
             20: -1,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerSmallSE
           decals:
             13: -1,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerSmallSW
           decals:
             12: 1,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnEndGreyscaleN
           decals:
             16: 0,6
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnEndGreyscaleS
           decals:
             17: 0,5
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnFullGreyscale
           decals:
             15: 0,-1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineN
           decals:
             14: 0,1
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineW
           decals:
             0: 0,0

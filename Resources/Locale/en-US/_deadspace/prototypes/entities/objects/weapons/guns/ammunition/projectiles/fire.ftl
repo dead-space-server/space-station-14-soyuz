@@ -1,2 +1,0 @@
-ent-BulletFireShot = fire
-    .desc = { "" }

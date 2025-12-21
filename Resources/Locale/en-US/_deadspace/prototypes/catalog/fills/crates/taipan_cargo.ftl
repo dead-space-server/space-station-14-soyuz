@@ -1,5 +1,7 @@
 ent-CrateNPCGiantSpiderSpace = ящик с космическим пауком
     .desc = Ящик для содержания гигантского космического паука.
+ent-CrateNPCXeno = ящик с ксеноморфом
+    .desc = Ящик для содержания ксеноморфа.
 ent-CrateRCDSyndicate = ящик РСУ
     .desc = Ящик содержащий РСУ.
 ent-CrateFoodDonk = доставка донкпокетов

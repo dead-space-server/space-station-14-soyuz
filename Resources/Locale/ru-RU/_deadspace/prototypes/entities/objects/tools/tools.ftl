@@ -9,3 +9,5 @@ ent-RCDSyndicate = кроваво-красный РСУ
 ent-RCDEmptySyndicate = { ent-RCDSyndicate }
     .suffix = Пустой
     .desc = { ent-RCDSyndicate.desc }
+ent-OmnitoolSyndicate = омнитул Синдиката
+    .desc = Многофункциональный инструмент, объединяющий в себе функции нескольких специализированных инструментов. Позволяет выполнять широкий спектр задач.

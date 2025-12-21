@@ -4,7 +4,7 @@ stack-tungsten =
         [1] лист
         [few] листа
        *[other] листов
-    } вольфрама    
+    } вольфрама
 stack-tungsten-ingot =
     { $amount ->
         [1] слиток

@@ -1,0 +1,9 @@
+ent-Nanopaste = нанопаста
+    .desc = Медицинский препарат, используемый для лечения повреждений у синтетических и кибернетических организмов. Она содержит наноботов, которые восстанавливают поврежденные ткани и улучшают функциональность систем организма.
+    .suffix = Полный
+ent-Nanopaste1 = { ent-Nanopaste }
+    .suffix = Один
+    .desc = { ent-Nanopaste.desc }
+ent-Nanopaste5 = { ent-Nanopaste }
+    .suffix = 5
+    .desc = { ent-Nanopaste.desc }

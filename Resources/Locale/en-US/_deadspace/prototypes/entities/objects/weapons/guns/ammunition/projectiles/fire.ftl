@@ -1,0 +1,2 @@
+ent-BulletFireShot = fire
+    .desc = { "" }

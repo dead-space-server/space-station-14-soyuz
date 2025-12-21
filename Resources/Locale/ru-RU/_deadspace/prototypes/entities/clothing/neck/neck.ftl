@@ -6,3 +6,5 @@ ent-ClothingNeckMantleBlueShieldhoulder = наплечная мантия офи
     .desc = Эта мантия является символом преданности к делу защиты глав станции.
 ent-ClothingNeckCloakCommunicationsOfficer = наплечная мантия офицера телекоммуникаций
     .desc = Шёлковая мантия багрового цвета. Выглядит одновременно роскошно и зловеще.
+ent-ClothingNeckMantleTechnicalOperationsSupervisor = мантия руководителя техобеспечения
+    .desc = Строгая мантия с кроваво-красными элементами и золотой окаймовкой.

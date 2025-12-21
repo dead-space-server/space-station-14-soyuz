@@ -8,7 +8,6 @@ arcade-villain-verbs-fight-7 = Очаруй
 arcade-villain-verbs-fight-8 = Спаси
 arcade-villain-verbs-fight-9 = Останови
 arcade-villain-verbs-fight-10 = Ударь
-
 arcade-villain-names-enemy-first-1 = Герцог
 arcade-villain-names-enemy-first-2 = Фермер
 arcade-villain-names-enemy-first-3 = Генерал

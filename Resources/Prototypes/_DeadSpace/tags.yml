@@ -32,6 +32,9 @@
   id: BorgSecTorso
 
 - type: Tag
+  id: CartridgeLightestRifle
+
+- type: Tag
   id: CakeBrain
 
 - type: Tag
@@ -233,7 +236,7 @@
   id: ShotgunBulldog
 
 - type: Tag
-  id: SiliconIPSIPCEmotes
+  id: SiliconIPCEmotes
 
 - type: Tag
   id: SlimePersonEmotes

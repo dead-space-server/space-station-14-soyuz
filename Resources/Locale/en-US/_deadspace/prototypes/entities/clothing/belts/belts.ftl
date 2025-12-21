@@ -10,3 +10,5 @@ ent-ClothingBeltUtilityBase = { ent-ClothingBeltStorageBase }
     .desc = { ent-ClothingBeltStorageBase.desc }
 ent-ClothingUtilityWebbing = РПС для инструментов
     .desc = Дизайнеры NanoTrasen ожидали заменить этим старый добрый пояс для инструментов.
+ent-RadianceSheath = ножны покояния
+    .desc = Эти ножны, то, что заставляет грешника дрожать в страхе при виде всего лишь рукояти святого мяча. Возле большой буквы S видно надпись "S - это sanity. А sanity, это S"

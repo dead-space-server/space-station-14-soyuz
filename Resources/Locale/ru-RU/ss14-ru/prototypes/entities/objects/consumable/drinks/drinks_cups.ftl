@@ -6,6 +6,7 @@ ent-DrinkBaseMug = обычная кружка
     .desc = Кружка.
 ent-DrinkTeacupEmpty = чайная чашка
     .desc = Обычная белая фарфоровая чашка для чая.
+
 ent-DrinkMug = кружка
     .desc = Обычная белая кружка.
 ent-DrinkMugBlack = чёрная кружка

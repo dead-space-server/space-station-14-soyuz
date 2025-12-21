@@ -13,12 +13,6 @@
     {
       "name": "equipped-SOCKS",
       "directions": 4
-    },
-	{
-      "name": "primary"
-    },
-	{
-      "name": "teleport"
     }
   ]
 }

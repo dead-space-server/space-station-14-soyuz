@@ -1,24 +1,20 @@
 {
-  "version": 1,
-  "license": "CC-BY-SA-3.0",
-  "copyright": "made by discord:gangut1925",
-  "size": {
-    "x": 32,
-    "y": 32
-  },
-  "states": [
-    {
-      "name": "icon"
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "https://www.freepik.com/",
+    "size": {
+        "x": 32,
+        "y": 32
     },
-    {
-      "name": "equipped-SOCKS",
-      "directions": 4
-    },
-	{
-      "name": "primary"
-    },
-	{
-      "name": "teleport"
-    }
-  ]
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "primary"
+        },
+        {
+            "name": "teleport"
+        }
+    ]
 }

@@ -146,3 +146,7 @@ holopad-centcomm-evac = Генеральный Штаб - Эвакуационн
 # DS14 Admin notification
 holopad-chat-notify = Получен новый звонок с "{$holopad}" от {$user}
 holopad-unknown-player = неизвестный игрок
+
+# DS14 Admin notification
+holopad-chat-notify = Получен новый звонок с "{$holopad}" от {$user}
+holopad-unknown-player = неизвестный игрок

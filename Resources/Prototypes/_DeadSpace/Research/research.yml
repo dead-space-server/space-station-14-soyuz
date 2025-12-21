@@ -76,8 +76,6 @@
   - EnergyDagger
   - BorgModuleSyndicateWeapon
 
-# Tier 2
-
 - type: technology
   id: TaipanAbnormalArtifactManipulation
   name: research-technology-abnormal-artifact-manipulation
@@ -156,8 +154,6 @@
   - BorgModuleEsword
   technologyPrerequisites:
   - TaipanEnergyDaggers
-
-# Tier 3
 
 - type: technology
   id: TaipanEmag

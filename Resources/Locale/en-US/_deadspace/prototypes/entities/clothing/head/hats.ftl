@@ -1,7 +1,7 @@
 ent-ClothingHeadHatBeretRobotics = берет робототехника
     .desc = Красный берет с белой кокардой. киборги будут в восторге от вашего стиля!
-ent-ClothingHeadHatBeretBlueShield = берет офицера "Синий Щит"
-    .desc = Серый берет, с кокардой подразделения "Синий Щит".
+ent-ClothingHeadHatBeretBlueShield = берет оперативника КГБ
+    .desc = Серый берет, с кокардой Коммитета Государственной Безопасности.
 ent-ClothingHeadHatBeretSeniorOfficer = берет инструктора СБ
     .desc = Берет показывающий мастерство и доблесть его владельца.
 ent-ClothingHeadHatBeretCargo = берет грузчика

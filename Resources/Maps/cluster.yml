@@ -2173,7 +2173,7 @@ entities:
             273: 2,1
             274: 3,1
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteLineW
           decals:
             605: -7,-32
@@ -2539,7 +2539,7 @@ entities:
           decals:
             1124: -33.9866,7.972084
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: FullTileOverlayGreyscale
           decals:
             185: -7,29
@@ -3282,7 +3282,7 @@ entities:
           decals:
             683: 33,-18
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale90
           decals:
             186: 1,27
@@ -4151,7 +4151,7 @@ entities:
             726: -14,14
             727: -14,15
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MonoOverlay
           decals:
             614: -8,-32
@@ -73780,7 +73780,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 0.5,65.5
       parent: 2
-- proto: ReinforcedWindow
+- proto: MiningWindow
   entities:
   - uid: 10928
     components:

@@ -57,43 +57,43 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteCornerNe
           decals:
             29: -1,6
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteCornerNw
           decals:
             28: -2,6
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteCornerSe
           decals:
             27: -1,-1
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteCornerSw
           decals:
             2: -3,7
             26: -2,-1
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteEndE
           decals:
             1: -2,7
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteEndN
           decals:
             0: -3,8
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteInnerNe
           decals:
             3: -3,7
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteLineE
           decals:
             14: -1,5
@@ -103,7 +103,7 @@ entities:
             18: -1,1
             19: -1,0
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileWhiteLineW
           decals:
             20: -2,0

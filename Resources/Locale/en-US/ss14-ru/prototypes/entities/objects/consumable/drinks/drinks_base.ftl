@@ -1,5 +1,3 @@
-ent-DrinkBase = { ent-BaseItem }
-    .desc = { ent-BaseItem.desc }
 ent-DrinkBaseEmptyTrash = { "" }
     .suffix = Empty
     .desc = { "" }

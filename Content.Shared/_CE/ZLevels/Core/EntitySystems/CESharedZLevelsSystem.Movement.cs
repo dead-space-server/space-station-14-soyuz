@@ -32,7 +32,7 @@ public abstract partial class CESharedZLevelsSystem
     /// <summary>
     /// The minimum speed required to trigger LandEvent events.
     /// </summary>
-    private const float ImpactVelocityLimit = 4.0f;
+    private const float ImpactVelocityLimit = 5.0f;
 
     private EntityQuery<CEZLevelHighGroundComponent> _highgroundQuery;
 
@@ -40,8 +40,15 @@ public abstract partial class CESharedZLevelsSystem
     {
         _highgroundQuery = GetEntityQuery<CEZLevelHighGroundComponent>();
 
+        SubscribeLocalEvent<CEZPhysicsComponent, CEGetZVelocityEvent>(OnGetVelocity);
+
         SubscribeLocalEvent<DamageableComponent, CEZLevelHitEvent>(OnFallDamage);
         SubscribeLocalEvent<PhysicsComponent, CEZLevelHitEvent>(OnFallAreaImpact);
+    }
+
+    private void OnGetVelocity(Entity<CEZPhysicsComponent> ent, ref CEGetZVelocityEvent args)
+    {
+        args.VelocityDelta -= ZGravityForce * ent.Comp.GravityMultiplier;
     }
 
     private void OnFallDamage(Entity<DamageableComponent> ent, ref CEZLevelHitEvent args) //TODO unhardcode
@@ -90,30 +97,41 @@ public abstract partial class CESharedZLevelsSystem
             var oldVelocity = zPhys.Velocity;
             var oldHeight = zPhys.LocalPosition;
 
-            //Gravity force application
-            if (physics.BodyStatus == BodyStatus.OnGround || zPhys.Velocity > 0)
-                zPhys.Velocity -= ZGravityForce * frameTime;
+            if (physics.BodyStatus == BodyStatus.OnGround)
+            {
+                //Velocity application
+                var velocityEv = new CEGetZVelocityEvent();
+                RaiseLocalEvent(uid, velocityEv);
+
+                zPhys.Velocity += velocityEv.VelocityDelta * frameTime;
+            }
 
             //Movement application
             zPhys.LocalPosition += zPhys.Velocity * frameTime;
 
-            var distanceToGround = DistanceToGround((uid, zPhys), out var stickyGround);
-
-            if ((distanceToGround <= 0.05f || stickyGround) && distanceToGround <= MaxStepHeight)
-                zPhys.LocalPosition -= distanceToGround;
-            if (distanceToGround <= 0.05f) //Theres a ground
+            var stickyGround = false;
+            if (zPhys.Velocity < 0) //Falling down
             {
-                if (MathF.Abs(zPhys.Velocity) >= ImpactVelocityLimit)
-                {
-                    RaiseLocalEvent(uid, new CEZLevelHitEvent(-zPhys.Velocity));
-                    var land = new LandEvent(null, true);
-                    RaiseLocalEvent(uid, ref land);
-                }
+                var distanceToGround = DistanceToGround(
+                    (uid, zPhys),
+                    out stickyGround);
 
-                zPhys.Velocity = -zPhys.Velocity * zPhys.Bounciness;
+                if ((distanceToGround <= 0.05f || stickyGround) && distanceToGround <= MaxStepHeight)
+                    zPhys.LocalPosition -= distanceToGround;
+                if (distanceToGround <= 0.05f) //There`s a ground
+                {
+                    if (MathF.Abs(zPhys.Velocity) >= ImpactVelocityLimit)
+                    {
+                        RaiseLocalEvent(uid, new CEZLevelHitEvent(-zPhys.Velocity));
+                        var land = new LandEvent(null, true);
+                        RaiseLocalEvent(uid, ref land);
+                    }
+
+                    zPhys.Velocity = -zPhys.Velocity * zPhys.Bounciness;
+                }
             }
 
-            if (zPhys.LocalPosition < 0) //We wanna fall down on ZLevel below
+            if (zPhys.LocalPosition < 0) //Need teleport to ZLevel down
             {
                 if (TryMoveDownOrChasm(uid))
                 {
@@ -126,7 +144,8 @@ public abstract partial class CESharedZLevelsSystem
                     }
                 }
             }
-            else if (zPhys.LocalPosition >= 1) //Going up
+
+            if (zPhys.LocalPosition >= 1) //Need teleport to ZLevel up
             {
                 if (HasTileAbove(uid)) //Hit roof
                 {
@@ -298,6 +317,16 @@ public abstract partial class CESharedZLevelsSystem
         return false;
     }
 
+    [PublicAPI]
+    public void SetZPosition(Entity<CEZPhysicsComponent?> ent, float newPosition)
+    {
+        if (!Resolve(ent.Owner, ref ent.Comp))
+            return;
+
+        ent.Comp.LocalPosition = newPosition;
+        DirtyField(ent, ent.Comp, nameof(CEZPhysicsComponent.LocalPosition));
+    }
+
     /// <summary>
     /// Sets the vertical velocity for the entity. Positive values make the entity fly upward. Negative values make it fly downward.
     /// </summary>
@@ -400,4 +429,12 @@ public sealed class CEZLevelFallEvent : EntityEventArgs;
 public sealed class CEZLevelHitEvent(float impactPower) : EntityEventArgs
 {
     public float ImpactPower = impactPower;
+}
+
+/// <summary>
+/// Is called every frame to calculate the current vertical velocity of the object with CEActiveZPhysicsComponent.
+/// </summary>
+public sealed class CEGetZVelocityEvent() : EntityEventArgs
+{
+    public float VelocityDelta = 0;
 }

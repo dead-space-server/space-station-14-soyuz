@@ -1,11 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsock.rsi/meta.json
   "copyright": "made by discord:gangut1925",
-========
-  "copyright": "https://www.freepik.com/",
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Virus/virus.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32
@@ -14,17 +10,9 @@
     {
       "name": "icon"
     },
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsock.rsi/meta.json
     {
       "name": "equipped-SOCKS",
       "directions": 4
-========
-	{
-      "name": "primary"
-    },
-	{
-      "name": "teleport"
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Virus/virus.rsi/meta.json
     }
   ]
 }

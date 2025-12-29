@@ -139170,7 +139170,7 @@ entities:
     - type: Transform
       pos: -140.5,-4.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 20378
     components:

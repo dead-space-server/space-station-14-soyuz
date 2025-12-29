@@ -126443,7 +126443,7 @@ entities:
     - type: Transform
       pos: -9.5,-39.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 19106
     components:

@@ -90270,7 +90270,7 @@ entities:
     - type: Transform
       pos: -2.5,-382.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 13334
     components:
@@ -98906,7 +98906,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: ReinforcedWindowDiagonal
+- proto: MiningWindowDiagonal
   entities:
   - uid: 14444
     components:

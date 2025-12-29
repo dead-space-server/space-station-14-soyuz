@@ -172968,7 +172968,7 @@ entities:
     - type: Transform
       pos: 53.51421,-41.376694
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 26067
     components:

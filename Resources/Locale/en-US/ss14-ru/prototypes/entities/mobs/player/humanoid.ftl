@@ -1,7 +1,7 @@
 ent-RandomHumanoidSpawnerDeathSquad = { ent-MarkerBase }
     .desc = { ent-MarkerBase.desc }
-ent-MobHumanDeathSquadUnit = { ent-MobHuman }
-    .desc = { ent-MobHuman.desc }
+ent-MobHumanDeathSquadUnit = { ent-MobSuperSoldier }
+    .desc = { ent-MobSuperSoldier.desc }
 ent-RandomHumanoidSpawnerERTLeaderAmber = ERT leader amber
     .desc = { "" }
 ent-RandomHumanoidSpawnerERTLeaderRed = ERT leader red

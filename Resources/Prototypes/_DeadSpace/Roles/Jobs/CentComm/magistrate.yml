@@ -53,7 +53,7 @@
     ears: ClothingHeadsetMagistrat
     socks: ClothingUnderwearSockMagistrat
     pocket1: ADTtelescopicBaton
-    pocket2: RubberStampIAA
+    pocket2: RubberStampMagistrat
   inhand:
     - BriefcaseBrownFilled
   storage:

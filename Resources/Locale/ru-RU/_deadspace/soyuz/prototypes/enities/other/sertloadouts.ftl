@@ -29,7 +29,7 @@ ert-loadout-category-pen-description =
 ert-loadout-category-st-name = Аптечка со стимуляторами
 ert-loadout-category-st-description =
     Среднегабаритная аптечка с малыми стимуляторами внутри
-    Содержит аптечку мини-стимпаков 
+    Содержит аптечку мини-стимпаков
 ert-loadout-category-gloves-name = Ударные перчатки
 ert-loadout-category-gloves-description =
     Перчатки с дополнительными металлическими вставками для увеличения силы удара

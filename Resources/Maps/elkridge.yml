@@ -88019,7 +88019,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,18.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 11883
     components:

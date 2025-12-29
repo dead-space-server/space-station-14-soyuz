@@ -1453,7 +1453,7 @@ entities:
           decals:
             1915: -26,-75
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: CheckerNESW
           decals:
             4934: -41,-40
@@ -3188,7 +3188,7 @@ entities:
             5169: 4,-11
             5174: -35,-13
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: StencilLetterB
           decals:
             5189: -33,-42
@@ -3231,12 +3231,12 @@ entities:
             5168: 3,-11
             5173: -36,-13
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: StencilNumber1
           decals:
             5126: -32,-42
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: StencilNumber2
           decals:
             5191: -32,-50
@@ -96514,7 +96514,7 @@ entities:
     - type: Transform
       pos: 15.5,-43.5
       parent: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 79
     components:
@@ -125930,7 +125930,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 27.5,-38.5
       parent: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 5232
     components:

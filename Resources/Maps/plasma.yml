@@ -1814,14 +1814,14 @@ entities:
             7072: -139,-14
             7073: -138,-14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineW
           decals:
             8681: -86,2
             8682: -86,1
             8683: -86,0
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             131: -65,-1
@@ -144397,7 +144397,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 21232
     components:
@@ -180237,7 +180237,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 26997
     components:

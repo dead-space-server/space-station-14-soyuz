@@ -35,3 +35,9 @@
     - DesoxyephedrineMedipen
     - DesoxyephedrineMedipen
     - NukeCodePaper
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: ClothingBeltDeathSquadWebbingFilled
+  name: штурмовой РПС
+  description: РПС члена отряда... какого-то отряда?

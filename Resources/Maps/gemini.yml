@@ -646,7 +646,7 @@ entities:
             4069: 12,73
             4070: 12,72
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             5102: 42,-6
@@ -5539,7 +5539,7 @@ entities:
             285: -9,-2
         - node:
             angle: 4.71238898038469 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MarkupSquareQuater
           decals:
             5101: 42,-6
@@ -6583,7 +6583,7 @@ entities:
             3554: 32,77
             4203: -3,11
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale
           decals:
             4841: 35,51
@@ -137500,7 +137500,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 20605
     components:
@@ -178230,7 +178230,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 27078
     components:

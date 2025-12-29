@@ -5212,7 +5212,7 @@ entities:
             3631: -3,39
             3632: 8,-14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnFullGreyscale
           decals:
             3274: -1,-70
@@ -134360,7 +134360,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 20090
     components:
@@ -174148,7 +174148,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 26755
     components:

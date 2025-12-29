@@ -83,21 +83,3 @@
     PillSpaceDrugs: 3
     FoodApple: 1
 
-- type: vendingMachineInventory
-  id: NanoMedCivilianInventory
-  startingInventory:
-    HandheldHealthAnalyzer: 3
-    AloeCream: 3
-    Gauze: 5
-    Brutepack: 5
-    Ointment: 4
-    Bloodpack: 5
-    Tourniquet: 1
-    ChemistryBottleEpinephrine: 3
-    Syringe: 5
-    BoxBottle: 3
-    ChemistryBottleBacterizine: 1 # DS14
-  contrabandInventory:
-    PillCanisterRandom: 1
-    PillSpaceDrugs: 3
-    FoodApple: 1

@@ -38,9 +38,6 @@
   id: DarkFlower
 
 - type: Tag
-  id: DrinkBeerBottleFull
-
-- type: Tag
   id: CakeBrain
 
 - type: Tag
@@ -63,10 +60,6 @@
 
 - type: Tag
   id: CompactDefibrillator
-
-- type: Tag
-
-  id: DarkFlower
 
 - type: Tag
   id: DeathNettle

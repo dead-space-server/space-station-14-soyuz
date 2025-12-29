@@ -1,3 +1,3 @@
-ent-CustomizableSpawnerCentralCommandSpecialOperationsOfficer = Офицер Специальных Операций
-    .suffix = ОСО, Кастомизируемый персонаж
+ent-CustomizableSpawnerCentralCommandSpecialOperationsOfficer = Генерал Специальных Операций
+    .suffix = ГСО, Кастомизируемый персонаж
     .desc = { ent-CustomizableSpawnerBase.desc }

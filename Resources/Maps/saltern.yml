@@ -65383,7 +65383,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 4.5,-29.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 9453
     components:
@@ -71607,7 +71607,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: ReinforcedWindowDiagonal
+- proto: MiningWindowDiagonal
   entities:
   - uid: 10365
     components:

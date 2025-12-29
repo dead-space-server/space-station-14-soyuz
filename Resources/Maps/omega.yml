@@ -88887,7 +88887,7 @@ entities:
     - type: Transform
       pos: 28.456348,-20.243092
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 11369
     components:

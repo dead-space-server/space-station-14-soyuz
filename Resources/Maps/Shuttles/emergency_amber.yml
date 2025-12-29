@@ -163,7 +163,7 @@ entities:
             256: 4,-7
         - node:
             zIndex: 1
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: FullTileOverlayGreyscale
           decals:
             218: -1,6
@@ -204,14 +204,14 @@ entities:
             251: 1,2
         - node:
             zIndex: 1
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale270
           decals:
             214: 0,7
             217: 0,6
         - node:
             zIndex: 1
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale90
           decals:
             215: 6,7

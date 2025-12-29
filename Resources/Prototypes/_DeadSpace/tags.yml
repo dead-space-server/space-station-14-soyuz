@@ -32,31 +32,10 @@
   id: BorgSecTorso
 
 - type: Tag
-  id: BulletLightestRifle
-
-- type: Tag
-  id: BulletLightestRifleIncendiary
-
-- type: Tag
-  id: BulletLightestRiflePractice
-
-- type: Tag
-  id: BulletLightestRifleUranium
-
-- type: Tag
-  id: CakeBrain
-
-- type: Tag
   id: CartridgeLightestRifle
 
 - type: Tag
-  id: CartridgeLightestRifleIncendiary
-
-- type: Tag
-  id: CartridgeLightestRiflePractice
-
-- type: Tag
-  id: CartridgeLightestRifleUranium
+  id: CakeBrain
 
 - type: Tag
   id: CatEmotes

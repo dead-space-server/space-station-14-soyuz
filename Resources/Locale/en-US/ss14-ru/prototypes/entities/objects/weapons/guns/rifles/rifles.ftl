@@ -13,7 +13,7 @@ ent-WeaponRifleLecter = Lecter
 ent-WeaponRifleLecterXL8 = XL8
     .desc =
         The Experimental Lecter 8
-        An unreasonably expensive military grade assault rifle with integrated optic. 
+        An unreasonably expensive military grade assault rifle with integrated optic.
         Uses .20 rifle ammo.
 ent-WeaponRifleEstoc = Estoc DMR
     .desc =

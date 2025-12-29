@@ -1,8 +1,10 @@
 ent-ActionRevenantShop = Shop
     .desc = Opens the ability shop.
-ent-ActionRevenantDefile = Defile
-    .desc = Costs 30 Essence.
-ent-ActionRevenantOverloadLights = Overload Lights
-    .desc = Costs 40 Essence.
 ent-ActionRevenantMalfunction = Malfunction
     .desc = Costs 60 Essence.
+ent-ActionRevenantBeamFire = Overload Lights
+    .desc = Costs 40 Essence.
+ent-ActionRevenantSleep = Усыпление
+    .desc = Цена 30 эссенций.
+ent-ActionRevenantMindCapture = Захват Разума
+    .desc = Цена 100 эссенций.

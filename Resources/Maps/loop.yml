@@ -136194,7 +136194,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -40.5,74.5
       parent: 2
-- proto: PoweredlightOrange
+- proto: Poweredlight
   entities:
   - uid: 19404
     components:
@@ -144595,7 +144595,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -53.5,84.5
       parent: 2
-- proto: ReinforcedWindow
+- proto: MiningWindow
   entities:
   - uid: 20803
     components:

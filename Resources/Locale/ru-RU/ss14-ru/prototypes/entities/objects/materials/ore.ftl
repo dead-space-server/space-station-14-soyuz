@@ -69,4 +69,3 @@ ent-SaltOre = соль
 ent-Salt1 = { ent-SaltOre }
     .suffix = Один
     .desc = { ent-SaltOre.desc }
-

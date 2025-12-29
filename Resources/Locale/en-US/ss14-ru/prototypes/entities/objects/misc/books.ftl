@@ -45,7 +45,3 @@ ent-BookAtmosAirAlarms = Newton's Guide to Atmos: Air Alarms
     .desc = There are endless illegible notes scribbled in the margins. Most of the text is covered in handwritten question marks.
 ent-BookAtmosVentsMore = Newton's Guide to Atmos: Vents and More
     .desc = There are endless illegible notes scribbled in the margins. Most of the text is covered in handwritten question marks.
-ent-BookNewFood = { ent-BaseItem }
-    .desc = { ent-BaseItem.desc }
-ent-BookNewDrink = { ent-BookBase }
-    .desc = { ent-BookBase.desc }

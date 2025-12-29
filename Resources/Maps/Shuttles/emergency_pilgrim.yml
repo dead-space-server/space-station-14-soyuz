@@ -202,7 +202,7 @@ entities:
           decals:
             312: 8,3
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: CheckerNESW
           decals:
             102: 0,7
@@ -293,7 +293,7 @@ entities:
             287: -3,-2
             288: 4,2
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale
           decals:
             105: -1,15
@@ -337,7 +337,7 @@ entities:
             131: -6,-13
             132: -5,-13
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale180
           decals:
             93: -1,11
@@ -391,7 +391,7 @@ entities:
             136: -6,-16
             137: -5,-16
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale270
           decals:
             90: -2,14
@@ -426,7 +426,7 @@ entities:
             133: -8,-14
             134: -8,-15
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: HalfTileOverlayGreyscale90
           decals:
             97: 2,12
@@ -736,7 +736,7 @@ entities:
             75: 3,-6
             76: 4,-7
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: ThreeQuarterTileOverlayGreyscale
           decals:
             108: -2,15
@@ -751,7 +751,7 @@ entities:
           decals:
             139: -8,-13
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: ThreeQuarterTileOverlayGreyscale180
           decals:
             101: 2,11
@@ -772,7 +772,7 @@ entities:
           decals:
             140: -4,-16
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: ThreeQuarterTileOverlayGreyscale270
           decals:
             100: -2,11
@@ -793,7 +793,7 @@ entities:
           decals:
             138: -8,-16
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: ThreeQuarterTileOverlayGreyscale90
           decals:
             109: 2,15

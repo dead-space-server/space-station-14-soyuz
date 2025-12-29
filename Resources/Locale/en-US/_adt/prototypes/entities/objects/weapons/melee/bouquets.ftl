@@ -8,5 +8,7 @@ ent-ADTObjectWeaponsMeleeBlackBouquet = чёрный букет
     .desc = Эти розы точно не окрашены. Они такие были всегда.
 ent-ADTObjectWeaponsMeleeLiliacBouquet = сиреневый букет
     .desc = Маленький шедевр генетики - розы сорта "Флидефарбен Розен". Приобрели не только цвет, но и запах сирени.
+ent-ObjectWeaponsMeleeRedBouquet = красный букет
+    .desc = Букет из красных роз, очень оригинально!
 ent-ADTObjectWeaponsMeleeBouquetWithBeer = пивной букет
     .desc = Будьте уникальным! Подарите букет который можно съесть, заодно опрокинув по бутылочке пивасика.

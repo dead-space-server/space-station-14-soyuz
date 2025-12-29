@@ -70,7 +70,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelCornerNe
           decals:
             61: 3,12
@@ -86,7 +86,7 @@ entities:
           decals:
             319: 4,-8
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelCornerNw
           decals:
             63: 1,12
@@ -101,7 +101,7 @@ entities:
           decals:
             316: 1,-8
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelCornerSe
           decals:
             71: 4,8
@@ -111,7 +111,7 @@ entities:
           decals:
             113: 1,-2
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelCornerSw
           decals:
             70: 1,8
@@ -121,12 +121,12 @@ entities:
           decals:
             114: -1,-2
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelInnerNe
           decals:
             74: 3,10
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelLineE
           decals:
             65: 3,11
@@ -144,7 +144,7 @@ entities:
           decals:
             320: 4,-9
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelLineN
           decals:
             64: 2,12
@@ -160,7 +160,7 @@ entities:
             317: 2,-8
             318: 3,-8
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelLineS
           decals:
             72: 2,8
@@ -171,7 +171,7 @@ entities:
           decals:
             115: 0,-2
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: BrickTileSteelLineW
           decals:
             67: 1,11
@@ -497,12 +497,12 @@ entities:
           decals:
             156: -2,11
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileInnerOverlayNE
           decals:
             147: 2,6
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileInnerOverlayNW
           decals:
             146: 4,6
@@ -522,7 +522,7 @@ entities:
           decals:
             142: -2,-6
         - node:
-            color: '#334E6DC8'
+            color: '#571212FF'
             id: MiniTileLineOverlayN
           decals:
             136: 3,6
@@ -653,12 +653,12 @@ entities:
             128: 3,-2
             129: 3,-3
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: MiniTileWhiteInnerNe
           decals:
             379: -4,6
         - node:
-            color: '#285A9196'
+            color: '#DE3A3A66'
             id: MiniTileWhiteInnerNw
           decals:
             376: -2,6

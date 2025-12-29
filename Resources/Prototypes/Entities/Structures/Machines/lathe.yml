@@ -271,6 +271,7 @@
     - CameraBoards
     - MechBoards
     - ShuttleBoards
+    - VirologyBoards # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards

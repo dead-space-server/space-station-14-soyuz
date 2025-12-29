@@ -1,7 +1,11 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
+<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi/meta.json
   "copyright": "made by discord:gangut1925",
+========
+  "copyright": "made by the.gypsybaron(discord) for Space Station 14 server Dead Space",
+>>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Clothing/OuterClothing/Coats/co_coat.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32

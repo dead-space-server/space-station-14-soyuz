@@ -202525,7 +202525,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 29924
     components:
@@ -248068,7 +248068,7 @@ entities:
       parent: 37857
     - type: DeltaPressure
       gridUid: 37857
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 37395
     components:

@@ -1,7 +1,12 @@
 {
   "version": 1,
+<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/Underwear/Socks/stockingsblackgrid.rsi/meta.json
   "license": "CC-BY-SA-3.0",
   "copyright": "made by sastr. (discord) for Space Station 14 server Мёртвый Космос",
+========
+  "license": "CC-BY-SA-4.0",
+  "copyright": "Made by pyfya (discord), recolored by andrew_fenriz (discord) for Space Station 14 server Мёртвый Космос",
+>>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Clothing/Underwear/Taipan/recruit/socks.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32

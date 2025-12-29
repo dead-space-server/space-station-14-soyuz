@@ -5328,7 +5328,7 @@ entities:
             16725: 17,10
             16726: 17,14
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: DiagonalCheckerBOverlay
           decals:
             17043: 74,48
@@ -9667,7 +9667,7 @@ entities:
           decals:
             7413: 53.9764,59.069416
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: OffsetCheckerAOverlay
           decals:
             17071: 67,57
@@ -9681,7 +9681,7 @@ entities:
             17086: 73,57
             17087: 68,58
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale
           decals:
             10139: 26,-1
@@ -11308,7 +11308,7 @@ entities:
             16681: 87,49
             16682: 91,49
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnFullGreyscale
           decals:
             8656: -37,41
@@ -100949,7 +100949,7 @@ entities:
       pos: 12.5,-10.5
       parent: 2
     - type: NavMapBeacon
-      color: '#DE3A3A66'
+      color: '#285A9196'
   - uid: 15527
     components:
     - type: Transform
@@ -184007,7 +184007,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 27530
     components:
@@ -233049,7 +233049,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 35795
     components:

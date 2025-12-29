@@ -1,6 +1,6 @@
 - type: entity
   name: чаша петри
-  parent: 
+  parent:
   - BaseStructureDynamic
   - BaseMob
   - MobAtmosStandard
@@ -50,10 +50,9 @@
           bounds: "-0.20,-0.20,0.20,0.20"
         density: 60
         mask:
-        - MachineMask
+        - TabletopMachineMask
         layer:
-        - MidImpassable
-        - LowImpassable
+        - TabletopMachineLayer
   - type: Destructible
     thresholds:
     - trigger:
@@ -82,7 +81,7 @@
   - type: VirusMutation
     changeApperance: true
   - type: Tag
-    tags: 
+    tags:
     - VirusAlwaysInfectable
     - IgnoreCanInfect
     - VirusIgnorSymptoms

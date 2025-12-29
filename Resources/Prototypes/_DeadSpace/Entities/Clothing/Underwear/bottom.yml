@@ -272,8 +272,8 @@
 - type: entity
   parent: ClothingUnderwearBottomBase
   id: ClothingUnderwearBottomBoxersDeathSquad
-  name: боксеры бойца отряда специального назначения "Дым"
-  description: Cтандартное нижнее бельё бойца отряда специального назначения "Дым".
+  name: чёрные боксеры
+  description: Cтандартное нижнее бельё крутых парней.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Command/death_squad/man.rsi

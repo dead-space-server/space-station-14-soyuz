@@ -224,7 +224,7 @@
   cost: 10000
   recipeUnlocks:
   - ClothingBackpackHarmpack
-  
+
 # DS14-Soyuz-start
 - type: technology
   id:  ArmedTechFab
@@ -244,16 +244,16 @@
   icon:
     sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
     state: icon
-  discipline: Arsenal  
+  discipline: Arsenal
   tier: 2
   cost: 10000
-  recipeUnlocks:    
+  recipeUnlocks:
   - WeaponPistolMk58
-  - WeaponRevolverPython
+  - WeaponRevolverPythonSoyuz
 
 - type: technology
   id: BallisticsShotguns
-  name: research-technology-shotguns
+  name: research-technology-shotguns-soyuz
   icon:
     sprite: Objects/Weapons/Guns/Shotguns/pump.rsi
     state: icon
@@ -274,7 +274,7 @@
   tier: 2
   cost: 15000
   recipeUnlocks:
-  - WeaponRifleAk
+  - WeaponRifleAkSoyuz
   - WeaponSubMachineGunDrozd
 
 - type: technology

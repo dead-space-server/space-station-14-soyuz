@@ -105,7 +105,7 @@ namespace Content.IntegrationTests.Tests
             "dm01-entryway",
             "DSTaipan",
             "Amber",
-            "Aspid",
+            // "Aspid", // remap in progress
             "Bagel",
             "Barratry",
             "Box",

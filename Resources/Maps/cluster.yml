@@ -6648,13 +6648,6 @@ entities:
           damping: 757.21313
           stiffness: 6796.7295
     - type: ImplicitRoof
-- proto: AcousticGuitarInstrument
-  entities:
-  - uid: 5
-    components:
-    - type: Transform
-      pos: 11.555438,5.426984
-      parent: 2
 - proto: ADTBlackChair
   entities:
   - uid: 5
@@ -31181,13 +31174,6 @@ entities:
     components:
     - type: Transform
       pos: -10.166879,-17.20337
-      parent: 2
-- proto: ChemistryEmptyBottle01
-  entities:
-  - uid: 4
-    components:
-    - type: Transform
-      pos: -16.144814,21.443367
       parent: 2
 - proto: ChemistryHotplate
   entities:

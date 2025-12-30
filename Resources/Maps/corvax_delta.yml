@@ -35810,18 +35810,6 @@ entities:
     - type: Transform
       pos: 38.5,-71.5
       parent: 2
-- proto: BackmenVendingMachineClothing
-  entities:
-  - uid: 1444
-    components:
-    - type: Transform
-      pos: -4.5,27.5
-      parent: 2
-  - uid: 1445
-    components:
-    - type: Transform
-      pos: 34.5,-16.5
-      parent: 2
 - proto: BackmenVendingMachineClothingCapes
   entities:
   - uid: 1446

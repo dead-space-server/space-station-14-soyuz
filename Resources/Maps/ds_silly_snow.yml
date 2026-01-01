@@ -6234,21 +6234,16 @@ entities:
       parent: 2
     - type: DeviceList
       devices:
-      - 7761
-      - 7762
       - 7709
       - 7710
       - 7708
       - 7711
-      - 7760
       - 7712
       - 7706
       - 7703
       - 7713
-      - 7759
       - 7707
       - 7714
-      - 7758
     - type: Fixtures
       fixtures: {}
   - uid: 9049

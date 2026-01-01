@@ -217,33 +217,33 @@ entities:
             103: -5,16
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNe
           decals:
             55: 2,20
             59: 3,19
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNw
           decals:
             54: -6,20
             58: -7,19
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNe
           decals:
             57: 2,19
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNw
           decals:
             56: -6,19
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineE
           decals:
             60: 3,18
@@ -273,14 +273,14 @@ entities:
             78: -3,-11
             79: -3,-10
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineN
           decals:
             80: -6,16
             81: 2,16
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineN
           decals:
             47: -5,20
@@ -332,7 +332,7 @@ entities:
             38: 2,-8
         - node:
             angle: 6.283185307179586 rad
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             61: -7,18

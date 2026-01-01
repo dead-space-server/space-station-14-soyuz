@@ -5888,6 +5888,40 @@ entities:
     - type: Transform
       pos: -7.5,-9.5
       parent: 1
+- proto: WindoorSecure
+  entities:
+  - uid: 733
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -3.5,-13.5
+      parent: 1
+    - type: DeltaPressure
+      gridUid: 1
+  - uid: 734
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -3.5,-13.5
+      parent: 1
+    - type: DeltaPressure
+      gridUid: 1
+  - uid: 735
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 4.5,-13.5
+      parent: 1
+    - type: DeltaPressure
+      gridUid: 1
+  - uid: 736
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 4.5,-13.5
+      parent: 1
+    - type: DeltaPressure
+      gridUid: 1
 - proto: WindoorSecureBrigLocked
   entities:
   - uid: 737

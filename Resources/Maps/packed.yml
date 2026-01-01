@@ -6902,14 +6902,6 @@ entities:
     - type: Transform
       pos: 104.5,-15.5
       parent: 2
-- proto: ADTClothingHeadHatBMF
-  entities:
-  - uid: 13
-    components:
-    - type: Transform
-      parent: 18
-    - type: Physics
-      canCollide: False
 - proto: ADTClothingHeadHatsGreatDruidWreath
   entities:
   - uid: 35

@@ -7916,38 +7916,6 @@ entities:
     - type: Transform
       pos: 3.5,5.5
       parent: 13999
-- proto: Airlock
-  entities:
-  - uid: 98
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -14.5,-25.5
-      parent: 2
-  - uid: 99
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -6.5,-27.5
-      parent: 2
-  - uid: 100
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -15.5,-26.5
-      parent: 2
-  - uid: 101
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -17.5,-26.5
-      parent: 2
-  - uid: 102
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -19.5,-26.5
-      parent: 2
 - proto: AirlockArmoryLocked
   entities:
   - uid: 103

@@ -20542,31 +20542,6 @@ entities:
     - type: DeviceNetwork
       address: 451C-7A37
       receiveFrequency: 1280
-- proto: AirlockCargoGlassLocked
-  entities:
-  - uid: 332
-    components:
-    - type: Transform
-      pos: -9.5,1.5
-      parent: 2
-  - uid: 333
-    components:
-    - type: MetaData
-      name: отдел снабжения
-    - type: Transform
-      pos: -29.5,-20.5
-      parent: 2
-  - uid: 334
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -21.5,-20.5
-      parent: 2
-  - uid: 335
-    components:
-    - type: Transform
-      pos: -31.5,-17.5
-      parent: 2
 - proto: AirlockChapelGlassLocked
   entities:
   - uid: 336

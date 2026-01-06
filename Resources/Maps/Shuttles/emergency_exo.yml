@@ -262,7 +262,7 @@ entities:
             179: 5,9
             180: 3,8
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale
           decals:
             97: 0,6

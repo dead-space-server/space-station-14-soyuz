@@ -5909,22 +5909,6 @@ entities:
   - uid: 735
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -3.5,-13.5
-      parent: 1
-    - type: DeltaPressure
-      gridUid: 1
-  - uid: 730
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -3.5,-13.5
-      parent: 1
-    - type: DeltaPressure
-      gridUid: 1
-  - uid: 731
-    components:
-    - type: Transform
       rot: -1.5707963267948966 rad
       pos: 4.5,-13.5
       parent: 1

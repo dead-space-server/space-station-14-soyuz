@@ -1,14 +1,10 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Objects/Weapons/Guns/SMGs/veresk.rsi/meta.json
     "copyright": "Made by sastr. (Dicord) for Space Station 14 Мёртвый Космос",
-========
-    "copyright": "Adventure Time Team, resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос ",
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Objects/Weapons/Guns/Rifels/xc67.rsi/meta.json
     "size": {
-        "x": 48,
-        "y": 48
+        "x": 32,
+        "y": 32
     },
     "states": [
         {
@@ -38,12 +34,6 @@
         {
             "name": "equipped-SUITSTORAGE",
             "directions": 4
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Objects/Weapons/Guns/SMGs/veresk.rsi/meta.json
-========
-        },
-        {
-            "name": "icon"
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Objects/Weapons/Guns/Rifels/xc67.rsi/meta.json
         }
     ]
 }

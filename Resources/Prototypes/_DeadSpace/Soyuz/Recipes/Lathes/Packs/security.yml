@@ -52,7 +52,7 @@
   id: PosketDefenseWeaponry
   recipes:
   - WeaponPistolMk58
-  - WeaponRevolverPython
+  - WeaponRevolverPythonSoyuz
 
 - type: latheRecipePack
   id: BallisticsShotguns
@@ -63,7 +63,7 @@
 - type: latheRecipePack
   id: BallisticsAutomaticWeapons
   recipes:
-  - WeaponRifleAk
+  - WeaponRifleAkSoyuz
   - WeaponSubMachineGunDrozd
 
 - type: latheRecipePack

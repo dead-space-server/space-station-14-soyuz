@@ -65,10 +65,6 @@
   id: CompactDefibrillator
 
 - type: Tag
-
-  id: DarkFlower
-
-- type: Tag
   id: DeathNettle
 
 - type: Tag
@@ -79,9 +75,6 @@
 
 - type: Tag
   id: DonkCo
-
-- type: Tag
-  id: DrinkBeerBottleFull
 
 - type: Tag
   id: EnergyCartridge

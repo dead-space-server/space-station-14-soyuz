@@ -34,7 +34,7 @@
     Steel: 25
     Plastic: 65
     SheetTungsten: 120
-  
+
 - type: latheRecipe
   parent: BaseAmmoRecipe
   id: MagazinePistolSubMachineGunTungsten
@@ -225,7 +225,7 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
-  id: WeaponRevolverPython
+  id: WeaponRevolverPythonSoyuz
   result: WeaponRevolverPython
   materials:
     Steel: 450
@@ -253,7 +253,7 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
-  id: WeaponRifleAk
+  id: WeaponRifleAkSoyuz
   result: WeaponRifleAk
   materials:
     Steel: 1350

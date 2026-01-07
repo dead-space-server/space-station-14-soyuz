@@ -1171,8 +1171,3 @@ ClothingUniformJumpsuitHoSBlack: null
 # 2025-12-14 - DS14
 BookNewDrink: null
 BookNewFood: null
-
-# 2026-01-07 - DS14-Soyuz
-ErtComputerShuttle: null # temporarily for next upstream
-ErtSpawnPoint: null # temporarily for next upstream
-ErtComputerShuttleCircuitboard: null # temporarily for next upstream

@@ -14,6 +14,7 @@ using Content.Shared.Bed.Cryostorage;
 using Content.Shared.Chat;
 using Content.Shared.Climbing.Systems;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace.Virus;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.Components;
 using Content.Shared.Mind.Components;

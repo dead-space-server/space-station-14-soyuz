@@ -264,8 +264,14 @@ ghost-role-information-wizard-name = Маг
 ghost-role-information-wizard-desc = ТЫ МАГ! Покажи станции, из чего сделана твоя магия.
 ghost-role-information-emotional-support-scurret-name = Слизенёк эмоциональной поддержки
 ghost-role-information-emotional-support-scurret-description = Поддерживайте экипаж, будьте очаровательными, часто говорите "ва".
-ghost-role-information-blueshieldofficer-name = Оперативник КГБ
-ghost-role-information-blueshieldofficer-description = Вы - Специально обученный оперативник подразделения ВОХР КГБ. Ваша задача защищать членов Генерального Штаба и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
+ghost-role-information-blueshieldofficer-name = Офицер КГБ
+ghost-role-information-blueshieldofficer-description = Вы - Офицер Комитета Государственной Безопасности. Ваша задача защищать членов Генерального Штаба и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
 ghost-role-information-centcomofficer-name = Офицер Генерального Штаба
 ghost-role-information-centcomofficer-description = Вы - Офицер Генерального Штаба. Вы должны защищать довереное вам место на котором вы появились и выполнять приказы вышестоящих сотрудников Генерального Штаба.
 ghost-role-information-centcom-personal-rules = Вы обязаны подчиняться приказам членов Генерального Штаба.
+
+ghost-role-information-ert-centcom-official-description =
+    Вы — Офицер Центрального Командования, направленный для инспекции станции по чрезвычайной ситуации.
+    Роль требует хорошего знания СРП и Корпоративного Закона.
+    Если вы не уверены в своих знаниях, пожалуйста, не берите эту роль.
+    Роль предполагает высокий уровень ответственности и может быть предметом административного контроля со стороны модерации/администрации.

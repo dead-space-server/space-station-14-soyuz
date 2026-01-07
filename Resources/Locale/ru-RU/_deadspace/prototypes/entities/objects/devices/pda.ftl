@@ -12,7 +12,6 @@ ent-ERTLeaderRedPDA = { ent-ERTLeaderPDA }
     .desc = { ent-ERTLeaderPDA.desc }
 ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
     .desc = { ent-ERTLeaderPDA.desc }
-
 ent-CoronerPDA = КПК патологоанатома
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!
 ent-SecurityPilotPDA = КПК пилота милиции

@@ -70,6 +70,10 @@
     ChemistryBottleEpinephrine: 3
     Syringe: 5
     BoxBottle: 3
+    PillCanisterTricordrazine: 2
+    PillCanisterIron: 1
+    PillCanisterCopper: 1
+    PillCanisterPotassiumIodide: 1
     ChemistryBottleBacterizine: 1 # DS14
   contrabandInventory:
     PillCanisterRandom: 1

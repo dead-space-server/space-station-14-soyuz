@@ -170,8 +170,8 @@ JobSeniorCourier = Ведущий логист
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
-JobPolitruk = Политический Руководитель
-JobPolitkom = Политический Комиссар
 # DS14-Soyuz
 job-name-psychologist = Психолог
 JobPsychologist = Психолог
+JobPolitruk = Политический Руководитель
+JobPolitkom = Политический Комиссар

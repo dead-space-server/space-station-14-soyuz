@@ -141,8 +141,8 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      75: Critical 
-      100: Dead 
+      60: Critical
+      80: Dead
   - type: Flammable
     damage:
       types: {}
@@ -187,7 +187,7 @@
   - type: Prying
     pryPowered: true
     force: true
-    speedModifier: 4 
+    speedModifier: 4
     useSound:
       path: /Audio/Items/crowbar.ogg
   - type: Language
@@ -307,8 +307,8 @@
       state: alive-unshaded-healer
       shader: unshaded
   - type: HipoHand
-    quantity: 5 
+    quantity: 5
     countReagent: 5
-    maxCountReagent: 15 
-    durationRegenReagent: 15 
+    maxCountReagent: 10
+    durationRegenReagent: 10
     reagent: Ichorosil

@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/OuterClothing/politotdelmundir.rsi/meta.json
+  "copyright": "made by discord:gangut1925",
+========
+  "copyright": "ADT Team, resprite by kieru01 (discord) for Space Station 14 server Мёртвый Космос",
+>>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Sponsor/CriticalForce/misc/tti-hypo.rsi/meta.json
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "equipped-OUTERCLOTHING",
+      "directions": 4
+    },
+    {
+      "name": "inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "inhand-right",
+      "directions": 4
+    }
+  ]
+}

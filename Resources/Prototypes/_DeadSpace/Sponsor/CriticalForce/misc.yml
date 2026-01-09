@@ -15,14 +15,6 @@
     - state: crypt_blue
     - state: nano_label
 
-- type: radioChannel
-  id: CriticalForce
-  name: chat-radio-tti
-  keycode: 'з'
-  frequency: 2707
-  color: "#00d0ff"
-  longRange: true
-
 # Implant
 
 - type: entity
@@ -43,7 +35,7 @@
       visible: false
   - type: Pinpointer
     targetName: vip
- 
+
 - type: entity
   id: DeathRattleImplanterCriticalForce
   name: имплантер трекер CriticalForce
@@ -53,35 +45,6 @@
   components:
     - type: Implanter
       implant: TrackingImplantCriticalForce
-
-- type: entity
-  parent: BaseSubdermalImplant
-  id: TrackingImplantCriticalForce
-  name: трекер имплант CriticalForce
-  description: Имплант, который следит за состоянием здоровья носителя и в случае падения в критическое состояние, сообщает об этом в радио-канал CriticalForce
-  categories: [ HideSpawnMenu ]
-  components:
-    - type: SubdermalImplant
-      whitelist:
-        components:
-        - MobState
-    - type: SuitSensor
-      randomMode: false
-      controlsLocked: true
-      mode: SensorCords
-      activationContainer: "implant"
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-      transmitFrequencyId: SuitSensor
-    - type: TriggerOnMobstateChange
-      mobState:
-      - Critical
-    - type: RattleOnTrigger
-      targetUser: true
-    - type: ResponceErtImplant
-      allowedStates:
-      - Critical
-      team: CriticalForce
 
 - type: entity
   parent: [ClothingShoesBootsMagBase, BaseJetpack]

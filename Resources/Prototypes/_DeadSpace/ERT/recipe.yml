@@ -1,4 +1,0 @@
-- type: latheRecipe
-  parent: [ BaseGoldCircuitboardRecipe, BaseSecurityMachineRecipeCategory ]
-  id: ErtResponceConsoleCircuitboardRecipe
-  result: ErtResponceConsoleCircuitboard

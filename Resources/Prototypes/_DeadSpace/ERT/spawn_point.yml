@@ -1,9 +1,0 @@
-- type: entity
-  name: точка спавна ОБР
-  id: ErtSpawnPoint
-  parent: MarkerBase
-  components:
-  - type: Sprite
-    sprite: Markers/jobs.rsi
-    state: green
-  - type: ErtSpawnPoint

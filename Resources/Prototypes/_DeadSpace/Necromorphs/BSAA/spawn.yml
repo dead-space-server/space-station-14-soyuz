@@ -209,7 +209,6 @@
       name: Боец АПБТ
       description: ghost-role-information-cburn-agent-description
       rules: ghost-role-information-nonantagonist-rules
-      category: ghost-role-information-centcomm-category
       requirements:
         - !type:DepartmentTimeRequirement
           department: Security
@@ -237,7 +236,6 @@
       name: Медик АПБТ
       description: ghost-role-information-cburn-agent-description
       rules: ghost-role-information-nonantagonist-rules
-      category: ghost-role-information-centcomm-category
       requirements:
         - !type:DepartmentTimeRequirement
           department: Medical

@@ -20,5 +20,3 @@ ert-computer-evac-title = начать эвакуацию
 ert-computer-evac-cancle-title = отменить эвакуацию
 
 ert-computer-time-until-eval = Осталось { $time } секунд до эвакуации.
-
-station-event-response-team-arrival = Отряд быстрого реагирования приступил к выполнению задачи на станции.

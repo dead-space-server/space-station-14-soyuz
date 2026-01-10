@@ -106,3 +106,9 @@ loadout-group-taipan-technical-supervisor-underwear = Руководитель �
 # Technician
 loadout-group-taipan-technician-uniform = Ремонтник, комбинезон
 loadout-group-taipan-technician-underwear = Ремонтник, нижнее бельё
+# Virologist
+loadout-group-virologist-jumpsuit = Вирусолог, комбинезон
+loadout-group-virologist-backpack = Вирусолог, рюкзак
+loadout-group-virologist-head = Вирусолог, голова
+loadout-group-senior-virologist-outerclothing = Вирусолог, верхняя одежда
+loadout-group-virologist-underwear = Вирусолог, нижнее бельё

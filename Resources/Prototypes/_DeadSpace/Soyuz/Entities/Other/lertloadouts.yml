@@ -126,7 +126,7 @@
   - MagazineBoxMagnum
 
 - type: thiefBackpackSet
-  id: AbakanSet
+  id: AbakanSetSoyuz
   name: ert-loadout-category-abakan-name
   description: ert-loadout-category-abakan-description
   sprite:

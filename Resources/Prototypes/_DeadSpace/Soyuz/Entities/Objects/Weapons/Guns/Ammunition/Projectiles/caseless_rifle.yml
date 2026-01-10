@@ -1,5 +1,5 @@
 - type: entity
-  id: BulletCaselessRifleIncendiary
+  id: BulletCaselessRifleIncendiarySoyuz
   name: bullet (.25 caseless incendiary)
   parent: BaseBulletIncendiary
   categories: [ HideSpawnMenu ]

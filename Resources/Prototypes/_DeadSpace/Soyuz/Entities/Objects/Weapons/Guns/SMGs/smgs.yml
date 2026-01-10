@@ -1,7 +1,7 @@
 - type: entity
   name: СР-2 "Вереск"
   parent: [BaseWeaponSubMachineGun, BaseMajorContraband]
-  id: WeaponVeresk
+  id: WeaponVereskSoyuz
   description: Убойный пистолет-пулемёт специальной разработки, стоящий на вооружении СССП. Отточен под CQB.
   components:
   - type: Item

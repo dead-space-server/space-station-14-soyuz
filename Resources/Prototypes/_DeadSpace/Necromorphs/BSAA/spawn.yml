@@ -176,7 +176,6 @@
       name: Лидер АПБТ
       description: ghost-role-information-cburn-leader-description
       rules: ghost-role-information-nonantagonist-rules
-      category: ghost-role-information-centcomm-category
       requirements:
         - !type:DepartmentTimeRequirement
           department: Medical
@@ -199,7 +198,7 @@
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAALeaderGear ]
-    - type: GhostRoleNotifys 
+    - type: GhostRoleNotifys
       groupPrototype: CBURNGroup
 
 - type: randomHumanoidSettings
@@ -227,7 +226,7 @@
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAAFighterGear ]
-    - type: GhostRoleNotifys 
+    - type: GhostRoleNotifys
       groupPrototype: CBURNGroup
 
 - type: randomHumanoidSettings
@@ -245,7 +244,7 @@
           time: 50400
         - !type:DepartmentTimeRequirement
           department: Security
-          time: 50400 
+          time: 50400
       raffle:
         settings: short
       job: BSAAMedicJob
@@ -258,5 +257,5 @@
     - type: ImmunNecroobelisk
     - type: Loadout
       prototypes: [ BSAAMedicGear ]
-    - type: GhostRoleNotifys 
+    - type: GhostRoleNotifys
       groupPrototype: CBURNGroup

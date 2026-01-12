@@ -1,8 +1,6 @@
-ent-ADTBaseExtMagazineRifle = расширенный магазин (6.5х39 мм TSF)
-    .desc = Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц.
-ent-ADTExtMagazineRifle = расширенный магазин (6.5х39 мм TSF)
-    .desc = Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц.
-ent-ADTExtMagazineRifleIncendiary = расширенный магазин (6.5х39 мм TSF зажигательные)
-    .desc = Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
-ent-ADTExtMagazineRifleUranium = расширенный магазин (6.5х39 мм TSF урановые)
-    .desc = Увеличенный магазин под патрон 6.5х39 мм TSF, с вместимостью в 45 единиц
+ent-ADTBaseExtMagazineRifle = расширенный магазин 6.5 мм
+    .desc = Увеличенный магазин под патрон 6.5 мм, с вместимостью в 45 единиц
+ent-ADTExtMagazineRifle = расширенный магазин 6.5 мм FMJ
+    .desc = Увеличенный магазин под патрон 6.5 мм, с вместимостью в 45 единиц
+ent-ADTExtMagazineRifleHP = расширенный магазин 6.5 мм HP
+    .desc = { ent-ADTExtMagazineRifle.desc }

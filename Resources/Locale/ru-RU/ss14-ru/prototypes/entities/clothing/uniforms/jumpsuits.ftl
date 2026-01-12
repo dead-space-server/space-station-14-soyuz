@@ -1,4 +1,4 @@
-ent-ClothingUniformJumpsuitDeathSquad = униформа бойца отряда специального назначения "Дым"
+ent-ClothingUniformJumpsuitDeathSquad = чёрная тактическая униформа
     .desc = Усовершенствованный бронированный комбинезон, используемый спецподразделениями при проведении специальных операций.
     .suffix = Эскадрон смерти
 ent-ClothingUniformJumpsuitAncient = старинный комбинезон

@@ -67,8 +67,19 @@ loadout-group-coroner-jumpsuit = Патологоанатом, комбинез�
 loadout-group-coroner-backpack = Патологоанатом, рюкзак
 loadout-group-coroner-head = Патологоанатом, голова
 loadout-group-coroner-underwear = Патологоанатом, нижнее бельё
+loadout-group-virologist-jumpsuit = Вирусолог, комбинезон
+loadout-group-virologist-backpack = Вирусолог, рюкзак
+loadout-group-virologist-head = Вирусолог, голова
+loadout-group-senior-virologist-outerclothing = Вирусолог, верхняя одежда
+loadout-group-virologist-underwear = Вирусолог, нижнее бельё
+loadout-group-cmo-socks = Главный врач, носки
+loadout-group-medical-socks = Врач, носки
+loadout-group-chemist-socks = Химик, носки
+loadout-group-paramedic-socks = Парамедик, носки
+loadout-group-psychologist-socks = Психолог, носки
+loadout-group-physiciant-socks = Ведущий врач, носки
 # Centcomm
-loadout-group-centcomm-officer-underwear = Офицер ГШ, нижнее бельё
+loadout-group-centcomm-officer-underwear = Офицер ЦК, нижнее бельё
 # Taipan
 # Atmospherics Engineer
 loadout-group-taipan-atmospherics-engineer-uniform = Атмосферный инженер, комбинезон

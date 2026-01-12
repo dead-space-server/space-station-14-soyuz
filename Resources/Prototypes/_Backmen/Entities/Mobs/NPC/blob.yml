@@ -19,6 +19,10 @@
       - state: green
       - sprite: _Backmen/Mobs/Aliens/blob.rsi
         state: blob_nuke_overlay
+  #DS14-start
+  - type: GhostRoleNotifys #DS14
+    groupPrototype: Blob
+  #DS14-end
 
 - type: entity
   id: MobBlobPod
@@ -210,13 +214,15 @@
         shader: unshaded
   # DS14-start
   - type: Language
-    knownLanguages: 
+    knownLanguages:
     - BlobLanguage
     selectedLanguage: BlobLanguage
   - type: NightVision
     animation: true
     color: "#D4C15A11"
     transitionSpeed: 100
+  - type: GhostRoleNotifys
+    groupPrototype: BlobGroup
   # DS14-end
 
 - type: entity
@@ -369,6 +375,10 @@
     raffle:
       settings: default
   - type: GhostTakeoverAvailable
+  #DS14-start
+  - type: GhostRoleNotifys
+    groupPrototype: Blob
+  #DS14-end
 
 - type: entity
   parent: BaseBlob
@@ -620,7 +630,9 @@
       - BypassInteractionRangeChecks
   # DS14-start
   - type: Language
-    knownLanguages: 
+    knownLanguages:
     - BlobLanguage
     selectedLanguage: BlobLanguage
+  - type: GhostRoleNotifys
+    groupPrototype: Blob
   # DS14-end

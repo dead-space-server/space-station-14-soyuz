@@ -258,7 +258,7 @@ entities:
             57: -11,-17
             58: -11,-16
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNWSE
           decals:
             176: -3,-1
@@ -303,14 +303,14 @@ entities:
           decals:
             155: -3,-18
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             173: 1,-3
             174: 0,-3
             175: -1,-3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale
           decals:
             139: -9,-3

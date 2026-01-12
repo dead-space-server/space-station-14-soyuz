@@ -187293,6 +187293,16 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
+- proto: ReinforcedWindow
+  entities:
+  - uid: 27754
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 58.5,-87.5
+      parent: 2
+    - type: DeltaPressure
+      gridUid: 2
 - proto: MiningWindow
   entities:
   - uid: 27754
@@ -243680,7 +243690,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 36711
     components:

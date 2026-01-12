@@ -35,6 +35,12 @@
   id: CartridgeLightestRifle
 
 - type: Tag
+  id: DarkFlower
+
+- type: Tag
+  id: DrinkBeerBottleFull
+
+- type: Tag
   id: CakeBrain
 
 - type: Tag
@@ -59,13 +65,7 @@
   id: CompactDefibrillator
 
 - type: Tag
-  id: DarkFlower
-
-- type: Tag
   id: DeathNettle
-
-- type: Tag
-  id: Demon
 
 - type: Tag
   id: DockCentcommERT
@@ -74,7 +74,7 @@
   id: DonkCo
 
 - type: Tag
-  id: DrinkBeerBottleFull
+  id: Demon
 
 - type: Tag
   id: EnergyCartridge
@@ -89,19 +89,19 @@
   id: EncryptionTaipan
 
 - type: Tag
-  id: FelinidEmotes
+  id: FlamethrowerBackTank
+
+- type: Tag
+  id: FlamethrowerNozzle
 
 - type: Tag
   id: FelinidFood
 
 - type: Tag
+  id: FelinidEmotes
+
+- type: Tag
   id: FittableInBackpackCase
-
-- type: Tag
-  id: FlamethrowerBackTank
-
-- type: Tag
-  id: FlamethrowerNozzle
 
 - type: Tag
   id: FoodCheeseSlice
@@ -194,6 +194,15 @@
   id: MukhtarWearable
 
 - type: Tag
+  id: PinkFlower
+
+- type: Tag
+  id: PurpleFlower
+
+- type: Tag
+  id: RedFlower
+
+- type: Tag
   id: Nanopaste
 
 - type: Tag
@@ -201,9 +210,6 @@
 
 - type: Tag
   id: NoodlesCopy
-
-- type: Tag
-  id: PinkFlower
 
 - type: Tag
   id: PistolCobra
@@ -218,16 +224,10 @@
   id: Plasteel
 
 - type: Tag
-  id: PurpleFlower
-
-- type: Tag
   id: Radiance
 
 - type: Tag
   id: RealCapfruit
-
-- type: Tag
-  id: RedFlower
 
 - type: Tag
   id: RevolverPython

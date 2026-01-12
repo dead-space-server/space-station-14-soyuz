@@ -1,4 +1,3 @@
-redspacecoupons-stacks = редспейс талоны
 stack-tungsten =
     { $amount ->
         [1] лист

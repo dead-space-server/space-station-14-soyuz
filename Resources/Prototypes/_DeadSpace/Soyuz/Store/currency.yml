@@ -1,6 +1,0 @@
-- type: currency
-  id: RedSpaceCoupons
-  displayName: редспейс талоны
-  cash:
-    1: RedSpaceCoupons
-  canWithdraw: true

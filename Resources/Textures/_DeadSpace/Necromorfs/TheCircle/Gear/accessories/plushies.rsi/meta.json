@@ -1,26 +1,14 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsock.rsi/meta.json
-  "copyright": "made by discord:gangut1925",
-========
   "copyright": "Created by hq._.dishka (discord)",
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Necromorfs/TheCircle/Gear/accessories/plushies.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
     {
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Soyuz/Clothing/Underwear/Socks/politotdelsock.rsi/meta.json
-      "name": "icon"
-    },
-    {
-      "name": "equipped-SOCKS",
-      "directions": 4
-========
       "name": "plushie_esther"
->>>>>>>> upstream/master:Resources/Textures/_DeadSpace/Necromorfs/TheCircle/Gear/accessories/plushies.rsi/meta.json
     }
   ]
 }

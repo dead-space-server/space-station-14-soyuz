@@ -325,7 +325,7 @@ entities:
             180: 8,-11
             181: 9,-11
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale
           decals:
             215: 1,-4
@@ -386,7 +386,7 @@ entities:
             143: 4,-5
             144: 3,-5
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale270
           decals:
             218: 1,-2

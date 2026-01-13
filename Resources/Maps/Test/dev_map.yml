@@ -755,7 +755,7 @@ entities:
             227: 56,43
             228: 56,42
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MarkupSquare
           decals:
             380: 45,57

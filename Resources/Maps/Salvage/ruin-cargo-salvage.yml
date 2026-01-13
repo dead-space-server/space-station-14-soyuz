@@ -113,7 +113,7 @@ entities:
           decals:
             35: 6,11
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineE
           decals:
             81: 2,-7
@@ -132,7 +132,7 @@ entities:
           decals:
             34: 5,11
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             83: 0,-7
@@ -309,22 +309,22 @@ entities:
           decals:
             64: 6,10
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale
           decals:
             80: 0,-5
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale180
           decals:
             78: 2,-8
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale270
           decals:
             79: 0,-8
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale90
           decals:
             77: 2,-5
@@ -335,12 +335,12 @@ entities:
             65: 4,11
             68: 1,-8
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerSmallGreyscaleSE
           decals:
             88: 0,-3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerSmallGreyscaleSW
           decals:
             87: 2,-3
@@ -357,7 +357,7 @@ entities:
             75: -4,-7
             76: -4,-6
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleN
           decals:
             85: 1,-5
@@ -367,7 +367,7 @@ entities:
           decals:
             41: 6,6
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleS
           decals:
             86: 1,-3

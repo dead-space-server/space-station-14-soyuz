@@ -4,8 +4,8 @@ meta:
   engineVersion: 267.2.0
   forkId: ""
   forkVersion: ""
-  time: 01/09/2026 00:48:47
-  entityCount: 2922
+  time: 01/01/2026 19:25:31
+  entityCount: 2916
 maps:
 - 1
 grids:
@@ -2287,12 +2287,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,-1.5
       parent: 2
-    - type: Door
-      secondsUntilStateChange: -37.90041
-      state: Opening
-    - type: DeviceLinkSource
-      lastSignals:
-        DoorStatus: True
   - uid: 51
     components:
     - type: Transform
@@ -2374,7 +2368,7 @@ entities:
       pos: -18.5,7.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -4745.8394
+      secondsUntilStateChange: -4198.151
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -3431,13 +3425,6 @@ entities:
     components:
     - type: Transform
       pos: -27.5,6.5
-      parent: 2
-- proto: Beaker
-  entities:
-  - uid: 2915
-    components:
-    - type: Transform
-      pos: -34.655792,-0.48789215
       parent: 2
 - proto: Bed
   entities:
@@ -7031,12 +7018,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 4.5,4.5
       parent: 2
-  - uid: 476
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 7.5,10.5
-      parent: 2
   - uid: 480
     components:
     - type: Transform
@@ -7873,15 +7854,13 @@ entities:
   - uid: 2386
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 1.5,11.5
-      parent: 2
+      pos: -4.5,-10.5
+      parent: 1534
   - uid: 2398
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 7.5,5.5
-      parent: 2
+      pos: 5.5,-10.5
+      parent: 1534
   - uid: 2532
     components:
     - type: Transform
@@ -8128,6 +8107,26 @@ entities:
       parent: 2
 - proto: ChemistryBottleUnstableMutagen
   entities:
+  - uid: 2667
+    components:
+    - type: Transform
+      pos: -25.681034,-2.223459
+      parent: 2
+  - uid: 2668
+    components:
+    - type: Transform
+      pos: -25.54041,-2.254709
+      parent: 2
+  - uid: 2669
+    components:
+    - type: Transform
+      pos: -25.35291,-2.223459
+      parent: 2
+  - uid: 2678
+    components:
+    - type: Transform
+      pos: -25.337284,-2.254709
+      parent: 2
   - uid: 2833
     components:
     - type: Transform
@@ -8808,14 +8807,6 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -33.5,6.5
-      parent: 2
-- proto: CombatKnife
-  entities:
-  - uid: 2669
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -29.823645,-4.423057
       parent: 2
 - proto: ComputerAlert
   entities:
@@ -13123,17 +13114,15 @@ entities:
       parent: 1534
     - type: Thruster
       thrust: 12000
-  - uid: 2921
+  - uid: 2914
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -5.5,-4.5
+      pos: -4.5,-10.5
       parent: 1534
-  - uid: 2922
+  - uid: 2915
     components:
     - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 6.5,-4.5
+      pos: 5.5,-10.5
       parent: 1534
 - proto: HeadVulpkanin
   entities:
@@ -13175,12 +13164,6 @@ entities:
     components:
     - type: Transform
       pos: -35.618263,3.7274747
-      parent: 2
-  - uid: 2914
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -35.30802,3.6098723
       parent: 2
 - proto: Jukebox
   entities:
@@ -13493,11 +13476,6 @@ entities:
     components:
     - type: Transform
       pos: 9.5,5.5
-      parent: 2
-  - uid: 2668
-    components:
-    - type: Transform
-      pos: 4.5,4.5
       parent: 2
 - proto: Paper
   entities:
@@ -14247,19 +14225,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 2.5,1.5
-      parent: 1534
-- proto: RailingCorner
-  entities:
-  - uid: 2919
-    components:
-    - type: Transform
-      pos: -5.5,-4.5
-      parent: 1534
-  - uid: 2920
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 6.5,-4.5
       parent: 1534
 - proto: RailingCornerSmall
   entities:
@@ -15509,20 +15474,10 @@ entities:
     - type: Transform
       pos: 7.5,7.5
       parent: 2
-  - uid: 2667
+  - uid: 476
     components:
     - type: Transform
-      pos: 7.5,5.5
-      parent: 2
-  - uid: 2678
-    components:
-    - type: Transform
-      pos: 7.5,10.5
-      parent: 2
-  - uid: 2840
-    components:
-    - type: Transform
-      pos: 1.5,11.5
+      pos: 4.5,4.5
       parent: 2
 - proto: StructureBlackObelisk2
   entities:
@@ -19473,18 +19428,6 @@ entities:
     - type: Transform
       pos: -34.5,-1.5
       parent: 2
-  - uid: 2917
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -4.5,-10.5
-      parent: 1534
-  - uid: 2918
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 5.5,-10.5
-      parent: 1534
 - proto: WallPlastitaniumDiagonal
   entities:
   - uid: 619
@@ -20052,6 +19995,14 @@ entities:
     - type: Transform
       pos: -3.5,-0.5
       parent: 1534
+- proto: WindoorAssembly
+  entities:
+  - uid: 2840
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -31.5,-3.5
+      parent: 2
 - proto: WindoorSecure
   entities:
   - uid: 224

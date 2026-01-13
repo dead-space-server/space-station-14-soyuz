@@ -145,7 +145,7 @@ public sealed class EntityEffectSystem : EntitySystem
         SubscribeLocalEvent<ExecuteEntityEffectEvent<CureInfectionDead>>(OnExecuteCureInfectionDead);
         SubscribeLocalEvent<ExecuteEntityEffectEvent<InfectiodDeadMutation>>(OnExecuteInfectiodDeadMutation);
         SubscribeLocalEvent<ExecuteEntityEffectEvent<CauseVirus>>(OnExecuteCauseVirus);
-        SubscribeLocalEvent<ExecuteEntityEffectEvent<DamageDisease>>(OnDamageDisease);
+        SubscribeLocalEvent<ExecuteEntityEffectEvent<Antibiotic>>(OnAntibiotic);
         // DS14-end
     }
 
@@ -1038,7 +1038,7 @@ public sealed class EntityEffectSystem : EntitySystem
         _virus.ProbInfect(component.Data, args.Args.TargetEntity);
     }
 
-    private void OnDamageDisease(ref ExecuteEntityEffectEvent<DamageDisease> args)
+    private void OnAntibiotic(ref ExecuteEntityEffectEvent<Antibiotic> args)
     {
         if (!TryComp<VirusComponent>(args.Args.TargetEntity, out var virusComponent))
             return;

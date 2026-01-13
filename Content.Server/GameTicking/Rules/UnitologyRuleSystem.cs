@@ -35,9 +35,6 @@ using Robust.Shared.Random;
 using Content.Shared.Cargo.Prototypes;
 using Content.Server.Cargo.Systems;
 using Content.Shared.Cargo.Components;
-using Content.Server.DeadSpace.ERT;
-using Content.Server.AlertLevel;
-using Content.Shared.DeadSpace.ERT.Prototypes;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -63,13 +60,11 @@ public sealed class UnitologyRuleSystem : GameRuleSystem<UnitologyRuleComponent>
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly CargoSystem _cargoSystem = default!;
-    [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
-    [Dependency] private readonly ErtResponceSystem _ertResponceSystem = default!;
+
     private static readonly EntProtoId UnitologyRule = "Unitology";
     public static readonly ProtoId<AntagPrototype> UnitologyAntagRole = "UniHead";
-    private static readonly ProtoId<ErtTeamPrototype> ErtTeam = "CburnSierra";
-    private static readonly ProtoId<CargoAccountPrototype> Account = "Security";
-    private const int AdditionalSupport = 70000;
+    private const int AddMoneyBreeding = 80000;
+    private readonly ProtoId<CargoAccountPrototype> _account = "Cargo";
 
     private const float ConvergenceSongLength = 60f + 37.6f;
 
@@ -102,12 +97,6 @@ public sealed class UnitologyRuleSystem : GameRuleSystem<UnitologyRuleComponent>
         TimeSpan uniWarningTime = TimeSpan.FromMinutes(minutes - component.TimeUntilUniWarning);
         TimeSpan spawnObeliskTime = TimeSpan.FromMinutes(seconds + component.TimeAfterTheExplosion);
 
-        if (component.IsStageObelisk == true && _timing.CurTime > component.TimeUntilCburn && component.CburnSended == false)
-        {
-            GameTicker.AddGameRule("ShuttleCBURNSCNT");
-            component.CburnSended = true;
-        }
-
         if (component.IsStageObelisk && component.TimeUtilStopTransformations > _timing.CurTime)
         {
             VictimTransformations(uid, component);
@@ -135,17 +124,15 @@ public sealed class UnitologyRuleSystem : GameRuleSystem<UnitologyRuleComponent>
             if (station == null)
                 return;
 
-            _alertLevel.SetLevel(station.Value, "sierra", true, true, true);
-
             if (!TryComp<StationBankAccountComponent>(station, out var stationAccount))
                 return;
 
-            var addMoneyAfterWarDeclared = _ertResponceSystem.GetErtPrice(ErtTeam) + AdditionalSupport;
+            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("unitology-centcomm-announcement-add-money"), playSound: true, colorOverride: Color.LightSeaGreen);
 
             _cargoSystem.UpdateBankAccount(
                                 (station.Value, stationAccount),
-                                addMoneyAfterWarDeclared,
-                                Account
+                                AddMoneyBreeding,
+                                _account
                             );
         }
 
@@ -303,7 +290,6 @@ public sealed class UnitologyRuleSystem : GameRuleSystem<UnitologyRuleComponent>
         component.Obelisk = ev.Obelisk;
         component.NextStageTime = _timing.CurTime + component.StageObeliskDuration;
         component.TimeUtilStopTransformations = _timing.CurTime + TimeSpan.FromSeconds(component.DurationTransformations);
-        component.TimeUntilCburn = _timing.CurTime + TimeSpan.FromSeconds(component.CburnDuration);
         component.IsStageObelisk = true;
     }
 

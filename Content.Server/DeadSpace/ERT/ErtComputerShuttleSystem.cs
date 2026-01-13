@@ -12,7 +12,6 @@ using Robust.Shared.Timing;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Shuttles.Events;
-using Content.Shared.Station.Components;
 
 namespace Content.Server.DeadSpace.ERT;
 
@@ -71,9 +70,6 @@ public sealed class ErtComputerShuttleSystem : EntitySystem
                         continue;
 
                     if (!TryComp(shuttleUid.Value, out ShuttleComponent? shuttleComp))
-                        continue;
-
-                    if (HasComp<StationMemberComponent>(shuttleUid.Value))
                         continue;
 
                     if (!_shuttleSystem.CanFTL(shuttleUid.Value, out _))

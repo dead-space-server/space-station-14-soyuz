@@ -6,6 +6,7 @@ using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Content.Server.DeadSpace.ERTCall;
 using Content.Shared.DeadSpace.ERT;
+using Content.Server.Cargo.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Cargo.Components;
 using Content.Server.Chat.Systems;
@@ -16,6 +17,7 @@ public sealed class ErtResponceConsoleSystem : EntitySystem
 {
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly PowerReceiverSystem _powerReceiverSystem = default!;
+    [Dependency] private readonly CargoSystem _cargoSystem = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly ErtResponceSystem _ertResponceSystem = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
@@ -49,20 +51,30 @@ public sealed class ErtResponceConsoleSystem : EntitySystem
             case ErtResponceConsoleUiButton.ResponceErt:
                 {
                     var price = _ertResponceSystem.GetErtPrice(args.Team);
-                    var stationUid = _station.GetOwningStation(uid);
-                    var balance = _ertResponceSystem.GetBalance();
+
+                    var balance = _cargoSystem.GetBalanceFromAccount(
+                        (station.Value, stationAccount),
+                        component.Account
+                    );
 
                     if (balance < price)
                         return;
 
-                    if (!_ertResponceSystem.TryCallErt(args.Team, stationUid, out var reason))
+                    if (_ertResponceSystem.TryCallErt(args.Team))
+                        _cargoSystem.UpdateBankAccount(
+                            (station.Value, stationAccount),
+                            -price,
+                            component.Account
+                        );
+                    else
                         _chatSystem.TrySendInGameICMessage(
                             uid,
-                            reason ?? Loc.GetString("ert-responce-call-cancel"),
+                            Loc.GetString("ert-responce-call-cancel"),
                             InGameICChatType.Speak,
                             ChatTransmitRange.Normal,
                             true
                         );
+
 
                     break;
                 }
@@ -111,7 +123,12 @@ public sealed class ErtResponceConsoleSystem : EntitySystem
         if (!Resolve(console, ref console.Comp, false))
             return default!;
 
-        var balance = _ertResponceSystem.GetBalance();
+        var station = _station.GetOwningStation(console);
+
+        var balance = 0;
+
+        if (TryComp<StationBankAccountComponent>(station, out var stationAccount))
+            balance = _cargoSystem.GetBalanceFromAccount((station.Value, stationAccount), console.Comp.Account);
 
         return new ErtResponceConsoleBoundUserInterfaceState(
             console.Comp.Teams,

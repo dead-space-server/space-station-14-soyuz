@@ -52,8 +52,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLightMachineGunRPL20
-      - id: MagazineRPL20
+      - id: WeaponLightMachineGunRPL20Circle
+      - id: MagazineRPL20Circle
         amount: 2
 
 - type: entity

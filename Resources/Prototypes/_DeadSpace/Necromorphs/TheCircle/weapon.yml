@@ -175,7 +175,7 @@
 ## РПЛ-20
 - type: entity
   name: РПЛ-20
-  id: WeaponLightMachineGunRPL20
+  id: WeaponLightMachineGunRPL20Circle
   parent: BaseWeaponRifle
   description: Пулемет предназначен для поражения живой силы, огневых и небронированных транспортных средств противника.
   components:
@@ -248,7 +248,7 @@
 
 ### Магазин
 - type: entity
-  id: MagazineRPL20
+  id: MagazineRPL20Circle
   parent: MagazineLightRifleBox
   description: Вмещает всего 85 патронов 5.45х39 мм калибра.
   name: короб патронов РПЛ-20

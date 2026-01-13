@@ -63,7 +63,7 @@
 - type: latheRecipePack
   id: BallisticsAutomaticWeapons
   recipes:
-  - WeaponRifleAk
+  - WeaponRifleAkSoyuz
   - WeaponSubMachineGunDrozd
 
 - type: latheRecipePack

@@ -270,7 +270,7 @@
   - type: Appearance
 
 - type: entity
-  id: CartridgeCaselessRifleIncendiary
+  id: CartridgeCaselessRifleIncendiaryCircle
   name: зажигательный патроны (4.7х33 мм безгильзовые)
   parent: BaseCartridgeCaselessRifle
   components:
@@ -278,7 +278,7 @@
     tags:
     - CartridgeCaselessRifleIncendiary
   - type: CartridgeAmmo
-    proto: BulletCaselessRifleIncendiary
+    proto: BulletCaselessRifleIncendiaryCircle
   - type: Sprite
     layers:
       - state: base
@@ -288,8 +288,8 @@
         color: "#ff6e52"
 
 - type: entity
-  id: BulletCaselessRifleIncendiary
-  parent: BaseBulletCaselessRifleIncendiary
+  id: BulletCaselessRifleIncendiaryCircle
+  parent: BaseBulletCaselessRifleIncendiaryCircle
   name: патрон (4.7х33 мм безгильзовые, зажигательные)
   categories: [ HideSpawnMenu ]
   components:
@@ -300,7 +300,7 @@
         Heat: 17
 
 - type: entity
-  id: BaseBulletCaselessRifleIncendiary
+  id: BaseBulletCaselessRifleIncendiaryCircle
   name: патрон (4.7х33 мм безгильзовые, зажигательные)
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
@@ -319,7 +319,7 @@
   parent: BaseMagazineCaselessRifle
   components:
   - type: BallisticAmmoProvider
-    proto: CartridgeCaselessRifleIncendiary
+    proto: CartridgeCaselessRifleIncendiaryCircle
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/weapons/veresk/caseless_rifle_mag_burn.rsi
     layers:
@@ -333,7 +333,7 @@
 - type: entity
   name: М8 "Арес"
   parent: [BaseWeaponRifle, BaseSecurityContraband]
-  id: WeaponRifleAbakan
+  id: WeaponRifleAbakanCircle
   description: Автомат имеет подвижный ствол, двухкамерный ДТК замкнутого типа и смещенный вправо относительно оси канала ствола магазин.
   suffix: Абакан
   components:

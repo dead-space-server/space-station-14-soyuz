@@ -200,7 +200,7 @@
   name: короб патронов РПЛ-20
   icon: { sprite: _DeadSpace/Necromorfs/TheCircle/Weapon/weapons/rpl20/rpl20-drum.rsi, state: base }
   description: Вмещает всего 85 патронов 5.45х39 мм калибра.
-  productEntity: MagazineRPL20Cirle
+  productEntity: MagazineRPL20Circle
   cost:
     Telecrystal: 2
   categories:

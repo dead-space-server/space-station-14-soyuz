@@ -219,7 +219,6 @@
     state: cburn
   - type: ThiefUndeterminedBackpack
     possibleSets:
-    - AkSet
     - EnforcerCBURNSet
     - LaserCannonSet
     - LaserRifleSet
@@ -419,11 +418,6 @@
   - MagazinePistolSubMachineGun
   - MagazineBoxPistol
   - MagazineBoxPistol
-
-- type: thiefBackpackSet
-  id: AkSet
-  name: ert-loadout-category-ak-name
-  description: ert-loadout-category-ak-description
 
 - type: thiefBackpackSet
   id: VectorFMJSet

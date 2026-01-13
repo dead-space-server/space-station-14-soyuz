@@ -218,9 +218,9 @@
     minAngle: -32
     maxAngle: -37
   - type: ChamberMagazineAmmoProvider
-    soundBoltClosed: 
+    soundBoltClosed:
       path: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-close.ogg
-    soundBoltOpened: 
+    soundBoltOpened:
       path: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-open.ogg
     soundRack:
       path: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-chamber.ogg
@@ -420,7 +420,7 @@
   id: MagazineRifleSCARAB
   name: SCARAB POLYMAG 30 GEN2
   parent: BaseMagazineRifle
-  description: Вмещает всего 30 патронов 6.8х51 мм калибра. 
+  description: Вмещает всего 30 патронов 6.8х51 мм калибра.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleSCARAB
@@ -547,7 +547,7 @@
 - type: entity
   name: АС "Вал"
   parent: [BaseWeaponRifle, BaseSecurityContraband]
-  id: WeaponRifleAsVal
+  id: WeaponRifleAsValCircle
   description: Бесшумный автомат, используется в ан-... Террористических операциях. Да, точно не украдено у СССП.
   components:
   - type: Sprite
@@ -577,7 +577,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineLightRifleAsVal
+        startingItem: MagazineLightRifleAsValCircle
         insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
         priority: 2
@@ -607,7 +607,7 @@
 ## Магазин VAL
 
 - type: entity
-  id: BaseMagazineLightRifleAsVal
+  id: BaseMagazineLightRifleAsValCircle
   name: магазин для АС "Вал" (7.62х39 мм винтовочные)
   parent: BaseItem
   description: Вмещает всего 20 патронов 7.62х39 мм калибра.
@@ -642,9 +642,9 @@
   - type: Appearance
 
 - type: entity
-  id: MagazineLightRifleAsVal
+  id: MagazineLightRifleAsValCircle
   name: магазин для АС "Вал"
-  parent: BaseMagazineLightRifleAsVal
+  parent: BaseMagazineLightRifleAsValCircle
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifle

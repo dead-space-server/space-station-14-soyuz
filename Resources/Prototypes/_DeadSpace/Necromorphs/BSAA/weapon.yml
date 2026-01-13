@@ -58,7 +58,7 @@
     - Back
     - suitStorage
   - type: AmmoCounter
-  - type: GunRequiresWield 
+  - type: GunRequiresWield
   - type: Gun
     fireRate: 2
     selectedMode: FullAuto
@@ -223,7 +223,7 @@
 - type: entity
   name: СР-2 Керск
   parent: [BaseWeaponSubMachineGun, BaseMajorContraband]
-  id: WeaponVeresk
+  id: WeaponVereskCircle
   description: Убойный пистолет-пулемёт специальной разработки, стоящий на вооружении у АПБТ. Отточен под CQB.
   components:
   - type: Item

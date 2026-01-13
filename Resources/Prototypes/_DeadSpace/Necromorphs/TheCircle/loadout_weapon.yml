@@ -96,8 +96,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRifleAsVal
-      - id: MagazineLightRifleAsVal
+      - id: WeaponRifleAsValCircle
+      - id: MagazineLightRifleAsValCircle
         amount: 4
 
 - type: entity
@@ -107,7 +107,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: MagazineLightRifleAsVal
+      - id: MagazineLightRifleAsValCircle
         amount: 2
       - id: MagazineVSK
         amount: 2

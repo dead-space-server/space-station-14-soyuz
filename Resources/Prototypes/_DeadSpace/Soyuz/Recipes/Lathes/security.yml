@@ -225,7 +225,7 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
-  id: WeaponRevolverPython
+  id: WeaponRevolverPythonSoyuz
   result: WeaponRevolverPython
   materials:
     Steel: 450

@@ -41,7 +41,7 @@
 - type: entity
   id: BSAAloadout
   name: кейс неопределённости
-  description: Прочный военный кейс для оружия. Принадлежит отряду АПБТ. 
+  description: Прочный военный кейс для оружия. Принадлежит отряду АПБТ.
   suffix: АПБТ, Основное
   parent: BaseERTloadoutPrimary
   components:
@@ -51,7 +51,7 @@
     possibleSets:
     - SAIGA12Set
     - VereskAndVANTSet
-    - AbakanSet
+    - AbakanSetBSAA
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface
@@ -92,7 +92,7 @@
     state: icon
   content:
   - VantShield
-  - WeaponVeresk
+  - WeaponVereskCircle
   - MagazineCaselessRifle
   - MagazineCaselessRifle
   - MagazineCaselessRifle
@@ -109,7 +109,7 @@
   - MagazineBoxCaselessRifle
 
 - type: thiefBackpackSet
-  id: AbakanSet
+  id: AbakanSetBSAA
   name: Набор М8 "Арес"
   description: В данный набор входит вооружение, модифицированное инженерами NT под нужды особого отряда — автомат М8 "Арес". Искорените биотерроризм оружием отточеным на быстрое убийство.
   sprite:
@@ -146,17 +146,17 @@
   - type: TTS
     voice: Lunara
   - type: EmitSoundOnUse
-    sound: 
+    sound:
       path: /Audio/Ambience/Antag/nukeops_start.ogg
       params:
         volume: -2
   - type: EmitSoundOnActivate
-    sound: 
+    sound:
       path: /Audio/Ambience/Antag/nukeops_start.ogg
       params:
         volume: -2
   - type: EmitSoundOnTrigger
-    sound: 
+    sound:
       path: /Audio/Ambience/Antag/nukeops_start.ogg
       params:
         volume: -2

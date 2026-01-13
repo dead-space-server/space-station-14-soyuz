@@ -266,7 +266,7 @@
 
 - type: technology
   id: BallisticsShotguns
-  name: research-technology-shotguns
+  name: research-technology-shotguns-soyuz
   icon:
     sprite: Objects/Weapons/Guns/Shotguns/pump.rsi
     state: icon

@@ -132,7 +132,6 @@
     possibleSets:
     - EnforcerSet
     - AKMCYSet
-    - WT550Set
     - LecterSet
     - LaserCannonSet
     - XrayCannonSet

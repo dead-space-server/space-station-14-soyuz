@@ -200,7 +200,7 @@
   name: короб патронов РПЛ-20
   icon: { sprite: _DeadSpace/Necromorfs/TheCircle/Weapon/weapons/rpl20/rpl20-drum.rsi, state: base }
   description: Вмещает всего 85 патронов 5.45х39 мм калибра.
-  productEntity: MagazineRPL20
+  productEntity: MagazineRPL20Cirle
   cost:
     Telecrystal: 2
   categories:
@@ -210,7 +210,7 @@
   id: UniPhoneUplinkMagSCARAB
   name: SCARAB POLYMAG 30 GEN2
   icon: { sprite: Objects/Weapons/Guns/Ammunition/Magazine/Rifle/rifle_mag.rsi, state: base }
-  description: Вмещает всего 30 патронов 6.8х51 мм калибра. 
+  description: Вмещает всего 30 патронов 6.8х51 мм калибра.
   productEntity: MagazineRifleSCARAB
   cost:
     Telecrystal: 2
@@ -241,7 +241,7 @@
 
 - type: listing
   id: UniPhoneUplinkMagazineVSK
-  name: магазин от VSK-94 
+  name: магазин от VSK-94
   icon: { sprite: Objects/Weapons/Guns/Ammunition/Magazine/Rifle/rifle_mag.rsi, state: base }
   description: Вмещает всего 22 патронов калибра 9х39, для VSK.
   productEntity: MagazineVSK

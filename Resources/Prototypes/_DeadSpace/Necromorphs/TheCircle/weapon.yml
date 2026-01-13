@@ -228,7 +228,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineRPL20
+        startingItem: MagazineRPL20Circle
         insertSound: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-magin.ogg
         ejectSound: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-magout.ogg
         priority: 2

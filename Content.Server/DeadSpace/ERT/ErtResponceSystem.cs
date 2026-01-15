@@ -235,7 +235,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
                 _chatSystem.DispatchGlobalAnnouncement(
                     message: prototype.CancelMessage,
                     sender: Loc.GetString("chat-manager-sender-announcement"),
-                    colorOverride: Color.FromHex("#B64444FF"),
+                    colorOverride: Color.FromHex("#B64444"),
                     playSound: true,
                     usePresetTTS: true,
                     languageId: LanguageSystem.DefaultLanguageId
@@ -322,7 +322,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             _chatSystem.DispatchGlobalAnnouncement(
                 message: Loc.GetString("ert-responce-caused-messager", ("team", prototype.Name)),
                 sender: Loc.GetString("chat-manager-sender-announcement"),
-                colorOverride: Color.FromHex("#B64444FF"),
+                colorOverride: Color.FromHex("#B64444"),
                 playSound: true,
                 usePresetTTS: true,
                 languageId: LanguageSystem.DefaultLanguageId

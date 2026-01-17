@@ -5222,6 +5222,8 @@ entities:
     - type: IFF
       color: '#791500FF'
     - type: NavMap
+    - type: BecomesStation
+      id: centcomm
 - proto: ActionHardsuitSaveDNA
   entities:
   - uid: 4

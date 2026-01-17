@@ -1,3 +1,3 @@
-ent-ClothingBeltDeathSquadWebbingFilled = РПС бойца "Дым"
-    .desc = РПС члена отряда элитной эваукаци.
-
+ent-ClothingBeltDeathSquadWebbingFilled = штурмовой РПС
+    .desc = РПС члена отряда... какого-то отряда?
+    .suffix = Рубрум

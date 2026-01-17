@@ -586,7 +586,7 @@ entities:
             3499: 12,-47
             3500: 13,-47
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickLineOverlayE
           decals:
             3579: 23,-6
@@ -958,7 +958,7 @@ entities:
             4648: -51,-18
             4939: 31,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelCornerNw
           decals:
             4079: -40,12
@@ -1055,7 +1055,7 @@ entities:
             4940: 31,-6
             4941: 31,-7
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelLineN
           decals:
             4080: -39,12
@@ -1132,7 +1132,7 @@ entities:
             4942: 27,-6
             4943: 27,-7
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerNe
           decals:
             4189: -43,29
@@ -1174,7 +1174,7 @@ entities:
           decals:
             4454: -23,-17
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerNw
           decals:
             3599: -31,11
@@ -1216,7 +1216,7 @@ entities:
           decals:
             4455: -24,-17
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerSe
           decals:
             3595: -29,7
@@ -1256,7 +1256,7 @@ entities:
           decals:
             4457: -23,-18
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerSw
           decals:
             3596: -31,7
@@ -1294,7 +1294,7 @@ entities:
           decals:
             4456: -24,-18
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerNe
           decals:
             4225: -32,24
@@ -1319,7 +1319,7 @@ entities:
           decals:
             4617: -51,-16
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerNw
           decals:
             4370: -48,39
@@ -1338,7 +1338,7 @@ entities:
             1069: 27,-27
             3150: 22,-17
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerSe
           decals:
             4257: -38,34
@@ -1370,7 +1370,7 @@ entities:
             1057: 25,-25
             1065: 28,-24
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineE
           decals:
             3322: 8,15
@@ -1459,7 +1459,7 @@ entities:
             3216: 35,-27
             3220: 35,-28
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineN
           decals:
             3600: -30,11
@@ -1553,7 +1553,7 @@ entities:
             3194: 28,-33
             3195: 27,-33
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineS
           decals:
             3597: -30,7
@@ -1640,7 +1640,7 @@ entities:
             3198: 29,-35
             3199: 30,-35
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineW
           decals:
             3598: -31,8
@@ -1691,7 +1691,7 @@ entities:
             4913: -54,38
             4926: -29,11
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             3318: 6,16
@@ -1843,7 +1843,7 @@ entities:
           decals:
             3155: 28,-13
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNESW
           decals:
             4411: -46,32
@@ -1881,13 +1881,13 @@ entities:
             939: -35,-1
             940: -35,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNWSE
           decals:
             4900: -52,27
             4901: -51,27
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: CheckerNWSE
           decals:
             1280: -25,-29
@@ -1972,7 +1972,7 @@ entities:
             735: -50,-8
             736: -51,-8
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ConcreteTrimCornerNe
           decals:
             4083: -33,12
@@ -2007,7 +2007,7 @@ entities:
           decals:
             4597: -56,-21
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ConcreteTrimInnerNe
           decals:
             4088: -33,8
@@ -2028,7 +2028,7 @@ entities:
           decals:
             4638: -51,-21
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ConcreteTrimLineE
           decals:
             4084: -33,11
@@ -2043,7 +2043,7 @@ entities:
             4633: -48,-19
             4634: -48,-20
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ConcreteTrimLineN
           decals:
             4090: -34,12
@@ -2149,7 +2149,7 @@ entities:
           decals:
             1609: -49,-26
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             4187: -42,28
@@ -2179,7 +2179,7 @@ entities:
             3241: 36,-26
             3242: 30,-26
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DiagonalCheckerAOverlay
           decals:
             4162: -40,29
@@ -2402,7 +2402,7 @@ entities:
           decals:
             332: -13.997947,-48.917717
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: FullTileOverlayGreyscale
           decals:
             4413: -46,37
@@ -2414,7 +2414,7 @@ entities:
             4425: -48,37
             4426: -45,36
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: FullTileOverlayGreyscale
           decals:
             109: -7,29
@@ -2572,7 +2572,7 @@ entities:
             4056: -39,11
             4057: -40,11
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: GrayConcreteTrimLineW
           decals:
             3662: -39,14
@@ -2587,14 +2587,14 @@ entities:
             3125: 20,-14
             3126: 20,-15
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             2408: 30,5
             2409: 29,5
             2410: 28,5
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale
           decals:
             104: -3,20
@@ -2682,7 +2682,7 @@ entities:
             451: -11,-15
             452: -12,-15
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             2403: 30,2
@@ -2764,13 +2764,13 @@ entities:
             460: -11,-19
             461: -12,-19
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             2406: 27,3
             2407: 27,4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale270
           decals:
             1102: -1,31
@@ -2842,13 +2842,13 @@ entities:
             454: -13,-17
             455: -13,-16
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             2411: 31,4
             2412: 31,3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale90
           decals:
             1094: -5,31
@@ -3000,19 +3000,19 @@ entities:
             4580: -55,-21
             4581: -56,-21
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineE
           decals:
             4847: -50,22
             4848: -50,21
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineW
           decals:
             4849: -48,22
             4850: -48,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale
           decals:
             83: -9,22
@@ -3209,7 +3209,7 @@ entities:
             680: -29,5
             682: -31,3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale180
           decals:
             1114: -4,34
@@ -3338,7 +3338,7 @@ entities:
             792: -31,-4
             793: -30,-4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale270
           decals:
             1112: -2,32
@@ -3498,7 +3498,7 @@ entities:
             2001: -47,-3
             2002: -47,-4
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: QuarterTileOverlayGreyscale90
           decals:
             74: 3,22
@@ -3734,7 +3734,7 @@ entities:
           decals:
             1608: -13,-40
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale
           decals:
             2399: 27,5
@@ -3776,7 +3776,7 @@ entities:
           decals:
             447: -13,-15
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale180
           decals:
             2401: 31,2
@@ -3819,7 +3819,7 @@ entities:
           decals:
             448: -9,-19
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale270
           decals:
             2402: 27,2
@@ -3861,7 +3861,7 @@ entities:
           decals:
             446: -13,-19
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale90
           decals:
             2400: 31,5
@@ -3993,12 +3993,12 @@ entities:
           decals:
             2282: -59,-14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerSmallGreyscaleSE
           decals:
             4856: -48,24
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerSmallGreyscaleSW
           decals:
             4853: -50,24
@@ -4119,7 +4119,7 @@ entities:
           decals:
             1598: -41,-11
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleS
           decals:
             4851: -51,24
@@ -6414,7 +6414,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             33: -1,-2
@@ -6437,7 +6437,7 @@ entities:
             13: 4,-5
             14: 3,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             34: -2,-1
@@ -6445,7 +6445,7 @@ entities:
             41: -1,-4
             46: 2,-6
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             8: 2,-3
@@ -6453,25 +6453,25 @@ entities:
             10: 4,-3
             26: 0,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             11: 3,-5
             12: 4,-5
             28: 0,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             25: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             27: 1,-1
         - node:
             angle: -3.141592653589793 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: LoadingAreaGreyscale
           decals:
             3: 0,-7
@@ -6512,44 +6512,44 @@ entities:
           decals:
             32: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlayNW
           decals:
             37: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlaySW
           decals:
             38: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayE
           decals:
             4: 0,-3
             36: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayN
           decals:
             39: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayS
           decals:
             40: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayW
           decals:
             5: 0,-3
             6: 0,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             42: 2,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale90
           decals:
             43: 2,-6
@@ -6569,7 +6569,7 @@ entities:
           decals:
             1: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             7: 0,-4
@@ -87180,7 +87180,7 @@ entities:
 
         ═════════════════════════════════════
 
-        Уважаемое командование, мы информируем вас о введении нового вида санкций для арестанов, направленных в места [bold]пожизненного заключения[/bold], на срок от 30 минут и более: Только для вашего сектора, штаб Центрального Командования, вводит в эксплуатацию образец эксперементального устройства перемещения на длительные расстояния посредством блюспейс-телепортации. Устройство будет направленно на неразведанную планету ближайшую к вашему сектору, исходя из данных нашей геологической разведки - она полна полезных ископаемых, мы проинфоримрованны о возможной опасности прибывания на данной планете, поэтому местной команде утилизаторов [bold]разрешено[/bold] содействовать заключенным, в качестве проводников и наставников. Утилизаторам разрешается выступать в роле надзирателей, если они пройдут курсы соответсвующего обучения по самообороне без применения летальной силы, а так же позволят вживить себе подкожный имплант защиты разума.
+        Уважаемое командование, мы информируем вас о введении нового вида санкций для арестанов, направленных в места [bold]пожизненного заключения[/bold], на срок от 30 минут и более: Только для вашего сектора, штаб Центрального Командования, вводит в эксплуатацию образец эксперементального устройства перемещения на длительные расстояния посредством блюспейс-телепортации. Устройство будет направленно на неразведанную планету ближайшую к вашему сектору, исходя из данных нашей геологической разведки - она полна полезных ископаемых, мы проинфоримрованны о возможной опасности прибывания на данной планете, поэтому местной команде утилизаторов [bold]разрешено[/bold] содействовать заключенным, в качестве проводников и наставников. Утилизаторам разрешается выступать в роле надзирателей, если они пройдут курсы соответсвующего обучения по самообороне без применения летальной силы, а так же позволят вживить себе подкожный имплант защиты разума. 
          - Ссылка арестантов на каторжные работы без приписанного им надзирателя [color=red][bold]Запрещена[/bold][/color], нарушенителям данного пункта инкриминуируется статья [color=red][bold]ГРУБАЯ ХАЛАТНОСТЬ[/bold][/color], в случае смерти заключенного без возможности восстановления его тела, следует применить обвинения в предумышленном/непредумышленном [color=red][bold]УБИЙСТВЕ[/bold][/color] для закрепленного за ним надзирателя
 
         - В случае нахождения каких-либо строений или же устройств, которые потенциально могут быть интересны для Центрального Командования, это следует указать это в [color=green][bold]отчёте о ситуации.[/bold][/color]
@@ -87248,7 +87248,7 @@ entities:
 
         ═════════════════════════════════════
 
-        Уважаемое командование, мы информируем вас о введении нового вида санкций для арестанов, направленных в места [bold]пожизненного заключения[/bold], на срок от 30 минут и более: Только для вашего сектора, штаб Центрального Командования, вводит в эксплуатацию образец эксперементального устройства перемещения на длительные расстояния посредством блюспейс-телепортации. Устройство будет направленно на неразведанную планету ближайшую к вашему сектору, исходя из данных нашей геологической разведки - она полна полезных ископаемых, мы проинфоримрованны о возможной опасности прибывания на данной планете, поэтому местной команде утилизаторов [bold]разрешено[/bold] содействовать заключенным, в качестве проводников и наставников. Утилизаторам разрешается выступать в роле надзирателей, если они пройдут курсы соответсвующего обучения по самообороне без применения летальной силы, а так же позволят вживить себе подкожный имплант защиты разума.
+        Уважаемое командование, мы информируем вас о введении нового вида санкций для арестанов, направленных в места [bold]пожизненного заключения[/bold], на срок от 30 минут и более: Только для вашего сектора, штаб Центрального Командования, вводит в эксплуатацию образец эксперементального устройства перемещения на длительные расстояния посредством блюспейс-телепортации. Устройство будет направленно на неразведанную планету ближайшую к вашему сектору, исходя из данных нашей геологической разведки - она полна полезных ископаемых, мы проинфоримрованны о возможной опасности прибывания на данной планете, поэтому местной команде утилизаторов [bold]разрешено[/bold] содействовать заключенным, в качестве проводников и наставников. Утилизаторам разрешается выступать в роле надзирателей, если они пройдут курсы соответсвующего обучения по самообороне без применения летальной силы, а так же позволят вживить себе подкожный имплант защиты разума. 
          - Ссылка арестантов на каторжные работы без приписанного им надзирателя [color=red][bold]Запрещена[/bold][/color], нарушенителям данного пункта инкриминуируется статья [color=red][bold]ГРУБАЯ ХАЛАТНОСТЬ[/bold][/color], в случае смерти заключенного без возможности восстановления его тела, следует применить обвинения в предумышленном/непредумышленном [color=red][bold]УБИЙСТВЕ[/bold][/color] для закрепленного за ним надзирателя
 
         - В случае нахождения каких-либо строений или же устройств, которые потенциально могут быть интересны для Центрального Командования, это следует указать это в [color=green][bold]отчёте о ситуации.[/bold][/color]
@@ -87312,10 +87312,10 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 09.
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 09. 
 
 
-        Добавлены экстерьерные осветительные приборы на внешней стороне шаттла, чтобы космический мрак космоса не мешал служебным обязанностям пилота службы безопасности станции.
+        Добавлены экстерьерные осветительные приборы на внешней стороне шаттла, чтобы космический мрак космоса не мешал служебным обязанностям пилота службы безопасности станции. 
 
 
         Так же мы учли недовольства по поводу кнопок, добавлена кнопка переключения гермозатвора оружия отдельно от остальных гермозатворов фонаря шаттла.
@@ -94183,7 +94183,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 12047
     components:
@@ -148604,7 +148604,7 @@ entities:
       parent: 16403
     - type: DeltaPressure
       gridUid: 16403
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 16103
     components:

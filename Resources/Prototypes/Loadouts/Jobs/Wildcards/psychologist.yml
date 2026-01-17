@@ -9,7 +9,15 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtPsychologist
 
+# DS14-start
 - type: loadout
-  id: PsychologistJumpsuitAlt #DS14-Soyuz
+  id: PsychologistJumpskirtPencil
   equipment:
-    jumpsuit: ClothingUniformJumpsuitPsychologistAlt
+    jumpsuit: ClothingUniformJumpskirtPencilPsychologist
+
+# Underwear
+- type: loadout
+  id: SocksPsychologist
+  equipment:
+    socks: ClothingUnderwearSocksPsychologist
+# DS14-end

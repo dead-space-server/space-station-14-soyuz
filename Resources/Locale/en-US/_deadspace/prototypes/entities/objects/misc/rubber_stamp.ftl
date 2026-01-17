@@ -20,7 +20,5 @@ ent-RubberStampSeniorResearcher = senior researcher rubber stamp
     .desc = { ent-RubberStampBase.desc }
 ent-RubberStampSeniorPhysician = senior physician rubber stamp
     .desc = { ent-RubberStampBase.desc }
-ent-RubberStampSeniorCourier = senior courier rubber stamp
-    .desc = { ent-RubberStampBase.desc }
 ent-RubberStampCentcomSpecialOperationOfficer = special operation officer rubber stamp
     .desc = { ent-RubberStampBase.desc }

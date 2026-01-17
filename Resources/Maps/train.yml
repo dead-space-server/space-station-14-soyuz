@@ -566,7 +566,7 @@ entities:
             1952: 0,1
             1953: -5,-302
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             1484: -14,-339
@@ -613,7 +613,7 @@ entities:
           decals:
             1292: -1,-337
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BoxGreyscale
           decals:
             1483: -15,-335
@@ -1496,7 +1496,7 @@ entities:
             1815: 3.8195314,-384.50763
             1816: 3.8195314,-384.50763
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNESW
           decals:
             1489: -15,-340
@@ -2541,12 +2541,12 @@ entities:
           decals:
             1923: 1,-363
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerNe
           decals:
             1482: -15,-333
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerNe
           decals:
             34: 2,-2
@@ -2600,7 +2600,7 @@ entities:
             1869: -8,-361
             1926: -1,-363
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerNw
           decals:
             33: 1,-2
@@ -2649,18 +2649,18 @@ entities:
           decals:
             1634: 11,-302
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerSe
           decals:
             1475: -15,-335
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerSe
           decals:
             1393: 1,-367
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerSe
           decals:
             3: 2,0
@@ -2711,12 +2711,12 @@ entities:
             1870: -8,-362
             1930: -1,-367
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerSw
           decals:
             1469: -16,-341
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerSw
           decals:
             4: -2,0
@@ -2780,13 +2780,13 @@ entities:
             1877: -3,-360
             1892: 3,-361
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteInnerNe
           decals:
             1473: -16,-339
             1494: -16,-333
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerNe
           decals:
             40: 2,-5
@@ -2839,7 +2839,7 @@ entities:
             1918: 1.78406,-361.75772
             1919: 2.0050638,-361.96606
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteInnerSe
           decals:
             1476: -16,-335
@@ -2889,7 +2889,7 @@ entities:
             1921: 1,-365
             1924: 1,-364
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineE
           decals:
             1474: -16,-338
@@ -2900,7 +2900,7 @@ entities:
           decals:
             1646: 12,-307
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineE
           decals:
             0: 2,1
@@ -3021,7 +3021,7 @@ entities:
             1867: -7,-361
             1925: 0,-363
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineN
           decals:
             1461: -12,-339
@@ -3029,7 +3029,7 @@ entities:
             1463: -14,-339
             1464: -15,-339
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineN
           decals:
             37: 3,-5
@@ -3110,7 +3110,7 @@ entities:
             1931: 0,-367
             1932: 1,-367
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineS
           decals:
             1465: -12,-341
@@ -3118,7 +3118,7 @@ entities:
             1467: -14,-341
             1468: -15,-341
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineS
           decals:
             50: 5,-13
@@ -3207,7 +3207,7 @@ entities:
             1928: -1,-365
             1929: -1,-366
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineW
           decals:
             1470: -16,-340
@@ -3218,7 +3218,7 @@ entities:
             1480: -16,-334
             1481: -16,-333
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineW
           decals:
             2: -2,2
@@ -3390,7 +3390,7 @@ entities:
             1684: -16,-331
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerGreyscaleNE
           decals:
             1457: -4,-355
@@ -3401,13 +3401,13 @@ entities:
             1031: -8,-314
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerGreyscaleNW
           decals:
             1454: -7,-356
             1456: -5,-355
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerGreyscaleNW
           decals:
             5: -1,3
@@ -3418,12 +3418,12 @@ entities:
             1032: -10,-314
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerGreyscaleSE
           decals:
             1458: -4,-359
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerGreyscaleSE
           decals:
             6: 1,2
@@ -3434,12 +3434,12 @@ entities:
             1029: -8,-316
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerGreyscaleSW
           decals:
             1459: -7,-359
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnCornerGreyscaleSW
           decals:
             7: -1,2
@@ -3466,7 +3466,7 @@ entities:
             901: 4,-315
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnCornerSmallGreyscaleNW
           decals:
             1460: -5,-356
@@ -3591,7 +3591,7 @@ entities:
             1590: 1,-24
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             1447: -4,-356
@@ -3604,12 +3604,12 @@ entities:
             1027: -8,-315
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleN
           decals:
             1453: -6,-356
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleN
           decals:
             8: 0,3
@@ -3641,13 +3641,13 @@ entities:
             1191: 10,-257
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleS
           decals:
             1451: -5,-359
             1452: -6,-359
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleS
           decals:
             9: 0,2
@@ -3679,13 +3679,13 @@ entities:
             1195: 13,-249
         - node:
             zIndex: 50
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleW
           decals:
             1450: -7,-358
             1455: -7,-357
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: WarnLineGreyscaleW
           decals:
             30: 1,-3
@@ -6565,7 +6565,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             33: -1,-2
@@ -6588,7 +6588,7 @@ entities:
             13: 4,-5
             14: 3,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             34: -2,-1
@@ -6596,7 +6596,7 @@ entities:
             41: -1,-4
             46: 2,-6
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             8: 2,-3
@@ -6604,25 +6604,25 @@ entities:
             10: 4,-3
             26: 0,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             11: 3,-5
             12: 4,-5
             28: 0,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             25: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             27: 1,-1
         - node:
             angle: -3.141592653589793 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: LoadingAreaGreyscale
           decals:
             3: 0,-7
@@ -6663,44 +6663,44 @@ entities:
           decals:
             32: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlayNW
           decals:
             37: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlaySW
           decals:
             38: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayE
           decals:
             4: 0,-3
             36: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayN
           decals:
             39: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayS
           decals:
             40: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayW
           decals:
             5: 0,-3
             6: 0,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             42: 2,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale90
           decals:
             43: 2,-6
@@ -6720,7 +6720,7 @@ entities:
           decals:
             1: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             7: 0,-4
@@ -89209,10 +89209,10 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 08.
+        Поздравляем, командование СССП решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 08. 
 
 
-        Обновление добавило атмос-конструкции (очень надеемся, что сотрудник безопасности умеет работать с насосом).
+        Обновление добавило атмос-конструкции (очень надеемся, что сотрудник безопасности умеет работать с насосом). 
 
 
         Так же мы учли недовольства по поводу кнопок, теперь гермозатворы переключает кнопка на консоли управление шаттлом, а в самой консоли управления шаттлом есть кнопка стрельбы пушкой шаттла.
@@ -96634,7 +96634,7 @@ entities:
     - type: Transform
       pos: 0.5,-382.5
       parent: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 14135
     components:
@@ -98906,7 +98906,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 14444
     components:
@@ -124955,7 +124955,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 18565
     components:

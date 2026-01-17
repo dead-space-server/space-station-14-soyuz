@@ -901,7 +901,7 @@ entities:
             6672: -121,-66
             6673: -121,-70
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelCornerNe
           decals:
             8130: -4,-36
@@ -914,7 +914,7 @@ entities:
             6693: -114,-45
             7670: -60,-31
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelCornerNw
           decals:
             8129: -6,-36
@@ -930,7 +930,7 @@ entities:
             7388: -81,-46
             7666: -64,-31
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelCornerSe
           decals:
             8127: -8,-38
@@ -944,7 +944,7 @@ entities:
             7655: -60,-25
             7672: -60,-33
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelCornerSw
           decals:
             8126: -12,-38
@@ -963,13 +963,13 @@ entities:
           decals:
             7383: -86,-49
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelInnerNe
           decals:
             8146: -8,-37
             8147: -4,-37
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelInnerNw
           decals:
             8148: -12,-37
@@ -981,13 +981,13 @@ entities:
             7389: -82,-49
             7390: -81,-48
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelInnerSe
           decals:
             8144: -8,-37
             8145: -4,-37
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelInnerSw
           decals:
             8142: -6,-37
@@ -1004,7 +1004,7 @@ entities:
             7663: -60,-23
             7664: -60,-32
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelLineN
           decals:
             8138: -11,-36
@@ -1037,7 +1037,7 @@ entities:
             7668: -62,-31
             7669: -61,-31
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileSteelLineS
           decals:
             8133: -11,-38
@@ -1080,14 +1080,14 @@ entities:
             7661: -64,-23
             7665: -64,-32
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerNe
           decals:
             8054: -99,-27
             8055: -99,-23
             8056: -99,-31
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNe
           decals:
             96: -63,-8
@@ -1138,7 +1138,7 @@ entities:
           decals:
             558: -37,-18
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNw
           decals:
             95: -61,-8
@@ -1178,14 +1178,14 @@ entities:
             6985: -124,-80
             7022: -124,-71
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerSe
           decals:
             8057: -99,-33
             8058: -99,-29
             8059: -99,-25
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSe
           decals:
             6038: -35,-10
@@ -1233,7 +1233,7 @@ entities:
           decals:
             550: -37,-26
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSw
           decals:
             6037: -37,-10
@@ -1270,7 +1270,7 @@ entities:
             6988: -124,-87
             7023: -124,-75
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNe
           decals:
             2488: -61,6
@@ -1311,7 +1311,7 @@ entities:
           decals:
             6315: -142,-21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNw
           decals:
             2489: -63,6
@@ -1351,7 +1351,7 @@ entities:
           decals:
             6314: -137,-21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerSe
           decals:
             6002: -35,-7
@@ -1418,14 +1418,14 @@ entities:
             6585: -83,-5
             7074: -137,-14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineE
           decals:
             8063: -99,-28
             8064: -99,-24
             8065: -99,-32
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineE
           decals:
             130: -59,-1
@@ -1573,14 +1573,14 @@ entities:
             8289: -81,-38
             8290: -80,-38
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineN
           decals:
             8060: -100,-23
             8061: -100,-27
             8062: -100,-31
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineN
           decals:
             88: -65,-8
@@ -1696,14 +1696,14 @@ entities:
             6307: -140,-21
             6308: -141,-21
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineS
           decals:
             8066: -100,-33
             8067: -100,-29
             8068: -100,-25
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineS
           decals:
             205: -66,2
@@ -1814,14 +1814,14 @@ entities:
             7072: -139,-14
             7073: -138,-14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineW
           decals:
             8681: -86,2
             8682: -86,1
             8683: -86,0
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             131: -65,-1
@@ -2497,7 +2497,7 @@ entities:
             8262: -88,-43
             8263: -87,-43
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: CheckerNWSE
           decals:
             7956: -85,-43
@@ -5950,7 +5950,7 @@ entities:
             8184: -6,-9
             8219: -92,-24
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale180
           decals:
             137: -62,2
@@ -6043,13 +6043,13 @@ entities:
             8214: -93,-21
             8321: -97,-28
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             8009: -97,-26
             8013: -97,-30
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale270
           decals:
             143: -63,3
@@ -6100,7 +6100,7 @@ entities:
             8217: -91,-20
             8218: -91,-23
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale90
           decals:
             139: -61,3
@@ -6195,7 +6195,7 @@ entities:
             8275: -25,8
             8276: -24,8
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale
           decals:
             8087: -91,-26
@@ -6354,7 +6354,7 @@ entities:
             8279: -25,4
             8280: -24,4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             8086: -91,-26
@@ -6675,7 +6675,7 @@ entities:
             8193: -3,-9
             8194: -91,-24
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale180
           decals:
             136: -61,2
@@ -6704,7 +6704,7 @@ entities:
             8195: -93,-24
             8199: -98,-20
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: ThreeQuarterTileOverlayGreyscale270
           decals:
             135: -63,2
@@ -10310,7 +10310,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             33: -1,-2
@@ -10333,7 +10333,7 @@ entities:
             13: 4,-5
             14: 3,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             34: -2,-1
@@ -10341,7 +10341,7 @@ entities:
             41: -1,-4
             46: 2,-6
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             8: 2,-3
@@ -10349,25 +10349,25 @@ entities:
             10: 4,-3
             26: 0,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             11: 3,-5
             12: 4,-5
             28: 0,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             25: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             27: 1,-1
         - node:
             angle: -3.141592653589793 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: LoadingAreaGreyscale
           decals:
             3: 0,-7
@@ -10408,44 +10408,44 @@ entities:
           decals:
             32: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlayNW
           decals:
             37: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlaySW
           decals:
             38: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayE
           decals:
             4: 0,-3
             36: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayN
           decals:
             39: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayS
           decals:
             40: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayW
           decals:
             5: 0,-3
             6: 0,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             42: 2,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale90
           decals:
             43: 2,-6
@@ -10465,7 +10465,7 @@ entities:
           decals:
             1: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             7: 0,-4
@@ -137096,10 +137096,10 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 09.
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 09. 
 
 
-        Добавлены экстерьерные осветительные приборы на внешней стороне шаттла, чтобы космический мрак космоса не мешал служебным обязанностям пилота службы безопасности станции.
+        Добавлены экстерьерные осветительные приборы на внешней стороне шаттла, чтобы космический мрак космоса не мешал служебным обязанностям пилота службы безопасности станции. 
 
 
         Так же мы учли недовольства по поводу кнопок, добавлена кнопка переключения гермозатвора оружия отдельно от остальных гермозатворов фонаря шаттла.
@@ -144397,7 +144397,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 21232
     components:
@@ -180237,7 +180237,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 26997
     components:

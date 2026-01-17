@@ -87,6 +87,8 @@
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - KammererSet
+    - LecterSet
+    - DrozdSet
     - LaserCarbineSet
     - KedrSet
   - type: ActivatableUI
@@ -130,6 +132,7 @@
     possibleSets:
     - EnforcerSet
     - AKMCYSet
+    - LecterSet
     - LaserCannonSet
     - XrayCannonSet
     - LaserRifleSet
@@ -173,7 +176,8 @@
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - EnergyShotgunSet
-    - VectorSet
+    - VectorFMJSet
+    - LecterFMJSet
     - PulseCarbineSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
@@ -215,7 +219,6 @@
     state: cburn
   - type: ThiefUndeterminedBackpack
     possibleSets:
-    - AkSet
     - EnforcerCBURNSet
     - LaserCannonSet
     - LaserRifleSet
@@ -417,9 +420,24 @@
   - MagazineBoxPistol
 
 - type: thiefBackpackSet
-  id: AkSet
-  name: ert-loadout-category-ak-name
-  description: ert-loadout-category-ak-description
+  id: VectorFMJSet
+  name: ert-loadout-category-vector-name
+  description: ert-loadout-category-vector-description
+  sprite:
+    sprite: Objects/Weapons/Guns/SMGs/vector.rsi
+    state: icon
+  content:
+  - WeaponSubMachineGunVectorFMJ
+  - MagazinePistolSubMachineGunFMJ
+  - MagazinePistolSubMachineGunFMJ
+  - MagazinePistolSubMachineGunFMJ
+  - MagazineBoxPistolFMJ
+  - MagazineBoxPistolFMJ
+
+- type: thiefBackpackSet
+  id: LecterSet
+  name: ert-loadout-category-lecter-name
+  description: ert-loadout-category-lecter-description
   sprite:
     sprite: Objects/Weapons/Guns/Rifles/ak.rsi
     state: icon
@@ -445,6 +463,20 @@
   - MagazinePistolSubMachineGun
   - MagazineBoxPistol
 # DS14-Soyuz-end
+
+- type: thiefBackpackSet
+  id: LecterFMJSet
+  name: ert-loadout-category-lecter-name
+  description: ert-loadout-category-lecter-description
+  sprite:
+    sprite: Objects/Weapons/Guns/Rifles/lecter.rsi
+    state: icon
+  content:
+  - WeaponRifleLecterFMJ
+  - MagazineRifleFMJ
+  - MagazineRifleFMJ
+  - MagazineRifleFMJ
+  - MagazineBoxRifleFMJ
 
 - type: thiefBackpackSet
   id: MinigunGunSet

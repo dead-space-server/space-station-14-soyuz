@@ -134019,7 +134019,7 @@ entities:
     - type: Transform
       pos: -38.5,-17.5
       parent: 2
-- proto: SpawnMobCatException
+- proto: SpawnMobCat
   entities:
   - uid: 17300
     components:

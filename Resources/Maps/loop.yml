@@ -1575,7 +1575,7 @@ entities:
             7807: -6,59
             8816: -64,69
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteBox
           decals:
             3122: -39,44
@@ -1601,7 +1601,7 @@ entities:
           decals:
             8545: -78,12
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerNe
           decals:
             2851: -9,15
@@ -1628,7 +1628,7 @@ entities:
             9130: -75.27192,45.982235
             9141: -73.983795,41.52085
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNe
           decals:
             4736: -31.74038,8.248039
@@ -1830,7 +1830,7 @@ entities:
           decals:
             6948: -57.74385,-0.27970433
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerNw
           decals:
             2854: -7,15
@@ -1859,7 +1859,7 @@ entities:
             9128: -79.75985,53.043877
             9142: -78.76854,45.99093
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNw
           decals:
             5251: -24,77
@@ -2057,7 +2057,7 @@ entities:
           decals:
             6955: -60.722603,-0.2492578
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerSe
           decals:
             2852: -9,17
@@ -2084,7 +2084,7 @@ entities:
             9120: -77,52
             9134: -73.97548,44.553726
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSe
           decals:
             5250: -20,72
@@ -2271,7 +2271,7 @@ entities:
           decals:
             6949: -57.245148,1.015733
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteCornerSw
           decals:
             2853: -7,17
@@ -2295,7 +2295,7 @@ entities:
             5752: -68,68
             8291: -78,25
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSw
           decals:
             4738: -28.271065,16.735235
@@ -2493,7 +2493,7 @@ entities:
             2426: -11,1
             2660: -20,11
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerNe
           decals:
             3058: -4,44
@@ -2510,7 +2510,7 @@ entities:
             4112: -14,44
             8298: -78.026634,25.738314
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNe
           decals:
             7830: -38,61
@@ -2703,7 +2703,7 @@ entities:
             5151: -31.020552,73.757286
             5152: -31.020552,73.52291
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerNw
           decals:
             3057: -6,44
@@ -2723,7 +2723,7 @@ entities:
             4109: -18,45
             4110: -16,42
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteInnerNw
           decals:
             7829: -33,61
@@ -3007,7 +3007,7 @@ entities:
             5166: -30.239302,73.27291
             5652: -64,76
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerSe
           decals:
             3056: -4,39
@@ -3160,7 +3160,7 @@ entities:
             4562: 20,38
             5144: -30.770552,73.02291
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteInnerSw
           decals:
             3054: -8,39
@@ -3309,7 +3309,7 @@ entities:
           decals:
             8544: -75,14
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineE
           decals:
             2857: -7,16
@@ -3342,7 +3342,7 @@ entities:
             9136: -74,43
             9145: -80.250885,45.248657
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineE
           decals:
             5279: -21.513897,69.50502
@@ -3537,7 +3537,7 @@ entities:
           decals:
             8543: -75,18
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineN
           decals:
             2858: -8,17
@@ -3565,7 +3565,7 @@ entities:
             9147: -72.49456,44.527496
             9148: -72.49456,40.767105
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineN
           decals:
             5267: -25.503248,70.99688
@@ -3865,7 +3865,7 @@ entities:
           decals:
             8546: -76,11
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineS
           decals:
             2855: -8,15
@@ -3895,7 +3895,7 @@ entities:
             8988: -75.71444,26.997595
             9140: -77,47
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineS
           decals:
             5253: -21.994715,78.23427
@@ -4078,7 +4078,7 @@ entities:
           decals:
             8542: -78,17
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BrickTileWhiteLineW
           decals:
             2856: -9,16
@@ -4113,7 +4113,7 @@ entities:
             9151: -71.01941,41.743946
             9152: -70.99494,44.238987
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             5263: -24.5261,74.49275
@@ -7710,7 +7710,7 @@ entities:
             4250: 12,23
             4251: 13,23
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: FullTileOverlayGreyscale
           decals:
             2703: -27,16
@@ -7721,7 +7721,7 @@ entities:
           decals:
             4248: 1,-6
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: FullTileOverlayGreyscale
           decals:
             2698: -27,17
@@ -9183,7 +9183,7 @@ entities:
             9313: -50,39
             9314: -49,39
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleW
           decals:
             8293: -78,26
@@ -12388,7 +12388,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             33: -1,-2
@@ -12411,7 +12411,7 @@ entities:
             13: 4,-5
             14: 3,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             34: -2,-1
@@ -12419,7 +12419,7 @@ entities:
             41: -1,-4
             46: 2,-6
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             8: 2,-3
@@ -12427,25 +12427,25 @@ entities:
             10: 4,-3
             26: 0,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             11: 3,-5
             12: 4,-5
             28: 0,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             25: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             27: 1,-1
         - node:
             angle: -3.141592653589793 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: LoadingAreaGreyscale
           decals:
             3: 0,-7
@@ -12486,44 +12486,44 @@ entities:
           decals:
             32: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlayNW
           decals:
             37: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlaySW
           decals:
             38: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayE
           decals:
             4: 0,-3
             36: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayN
           decals:
             39: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayS
           decals:
             40: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayW
           decals:
             5: 0,-3
             6: 0,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             42: 2,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale90
           decals:
             43: 2,-6
@@ -12543,7 +12543,7 @@ entities:
           decals:
             1: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             7: 0,-4
@@ -127903,12 +127903,12 @@ entities:
                                             как работает крио?
         Крио работает при определенной температуре тела пациента. В основном для препаратов крионики нужно 213K, но есть исключение, а именно оппорозидон, который работает с 150К. Ну а сами препараты крионики нужно вставлять в криокапсулу и не забыть включить охладитель, фильтр и насос.
                                                          глава II
-                                               настройка крио
+                                               настройка крио 
         Для начала нужно включить насос на 101 кПа, он находится возле шлюза. Далее выключить охладитель и поставить температуру,которая нужна для работы препаратов крионики.
 
         ( Можно ставить и меньше градусов в первый раз.)
 
-        Далее включить фильтр и установить газ, который выдыхает пациент. В основном это диоксид углерода, но воксы выдыхают аммиак, ну а слаймолюды - оксид азота.
+        Далее включить фильтр и установить газ, который выдыхает пациент. В основном это диоксид углерода, но воксы выдыхают аммиак, ну а слаймолюды - оксид азота.                
 
 
                                                                                         by werj_
@@ -129290,7 +129290,7 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 12.
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 12. 
 
 
         Добавлены мигалки, которые активируются по кнопке, чтобы нарушитель правопорядка услышал через космическую тишину знакомые звуки сирен.
@@ -144595,7 +144595,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -53.5,84.5
       parent: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 20803
     components:
@@ -175033,7 +175033,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 25848
     components:

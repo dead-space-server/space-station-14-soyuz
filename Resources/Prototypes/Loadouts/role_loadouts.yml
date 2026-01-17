@@ -188,6 +188,7 @@
   - GroupTankHarness
   - ClownHead
   - ClownJumpsuit
+  - ClownNeck #DS14
   - ClownBackpack
   - ClownOuterClothing
   - ClownShoes
@@ -478,11 +479,11 @@
   - ChiefMedicalOfficerHead
   - MedicalMask
   - ChiefMedicalOfficerJumpsuit
-  - MedicalGloves
   - ChiefMedicalOfficerBackpack
   - ChiefMedicalOfficerOuterClothing
   - ChiefMedicalOfficerNeck
   - ChiefMedicalOfficerShoes
+  - CMOSocks # DS14
   # - MedicalEyewear
   - SurvivalMedical
   - Trinkets
@@ -500,6 +501,7 @@
   - MedicalBackpack
   - MedicalDoctorOuterClothing
   - MedicalShoes
+  - DoctorSocks # DS14
 #  - MedicalDoctorPDA # DS14-disabled
   - MedicalEyewear
   - SurvivalMedical
@@ -529,7 +531,7 @@
   - MedicalGloves
   - MedicalBackpack
   - MedicalDoctorOuterClothing
-  - MedicalShoes
+  - MedicalShoes # DS14
 #  - MedicalDoctorPDA # DS14-disabled
   # - MedicalEyewear
   - SurvivalMedical
@@ -546,7 +548,8 @@
   - MedicalGloves
   - ChemistBackpack
   - ChemistOuterClothing
-  - MedicalShoes
+  - MedicalShoesChemist # DS14
+  - ChemistSocks # DS14
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
@@ -563,6 +566,7 @@
   - MedicalBackpack
   - ParamedicOuterClothing
   - ParamedicShoes
+  - ParamedicSocks # DS14
   - MedicalEyewear
   - SurvivalMedical
   - Trinkets
@@ -599,6 +603,7 @@
   - GroupTankHarness
   - PsychologistJumpsuit
   - MedicalBackpack
+  - PsychologistSocks # DS14
   - Glasses
   - Survival
   - Trinkets

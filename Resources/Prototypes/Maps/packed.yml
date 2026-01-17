@@ -1,7 +1,7 @@
 - type: gameMap
   id: Packed
   mapName: 'Packed'
-  mapPath: /Maps/packed.yml
+  mapPath: /Uploaded/packedd.yml
   minPlayers: 0
   maxPlayers: 35
   stations:
@@ -21,7 +21,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-#            Politruk: [ 1, 1 ] Я потом его верну, мне лень фиксить тест с ним
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

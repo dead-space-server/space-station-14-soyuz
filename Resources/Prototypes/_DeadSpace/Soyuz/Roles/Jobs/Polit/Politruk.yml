@@ -1,7 +1,7 @@
 - type: job
   id: Politruk
   name: job-name-politruk
-  description: Ходите и надзирайте за станцией, напоминание станции о важности коммунизма, пока она погибает. 
+  description: Ходите и надзирайте за станцией, напоминание станции о важности коммунизма, пока она погибает.
   playTimeTracker: JobPolitruk
   requirements:
     - !type:DepartmentTimeRequirement
@@ -12,7 +12,7 @@
       time: 36000 # 10 hours
     - !type:RoleTimeRequirement
       role: JobHeadOfSecurity
-      time: 90000 # 25 hours            
+      time: 90000 # 25 hours
     - !type:RoleTimeRequirement
       role: JobBlueShieldOfficer
       time: 36000 # 10 hours
@@ -58,12 +58,11 @@
     gloves: ClothingHandsGlovesColorBlack
     id: PolitrukPDA
     ears: ClothingHeadsetAltCommand
-    head: ClothingHeadHatBeretPolitruk
     pocket1: WeaponPistolMTS
-    back: ClothingBackpackSecurity
   storage:
     back:
     - Flash
+    - TelephoneIaa
 
 - type: chameleonOutfit
   id: PolitrukChameleonOutfit
@@ -74,5 +73,4 @@
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesColorBlack
     ears: ClothingHeadsetAltCommand
-    head: ClothingHeadHatBeretPolitruk
     back: ClothingBackpackSecurity

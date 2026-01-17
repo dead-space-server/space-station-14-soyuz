@@ -18,13 +18,13 @@
     Steel: 400
     Plastic: 200
 
-#- type: latheRecipe
-#  parent: BaseWeaponRecipe
-#  id: WeaponRevolverPython
-#  result: WeaponRevolverPython
-#  materials:
-#    Steel: 500
-#    Plastic: 150
+- type: latheRecipe
+  parent: BaseWeaponRecipe
+  id: WeaponRevolverPython
+  result: WeaponRevolverPython
+  materials:
+    Steel: 500
+    Plastic: 150
 
 - type: latheRecipe
   parent: BaseWeaponRecipe
@@ -122,14 +122,14 @@
     Plastic: 300
     Gold: 150
 
-#- type: latheRecipe
-#  parent: BaseWeaponRecipeLong
-#  id: WeaponRifleAk
-#  result: WeaponRifleAk
-#  materials:
-#    Steel: 900
-#    Wood: 400
-#    Plastic: 300
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
+  id: WeaponRifleAk
+  result: WeaponRifleAk
+  materials:
+    Steel: 900
+    Wood: 400
+    Plastic: 300
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong

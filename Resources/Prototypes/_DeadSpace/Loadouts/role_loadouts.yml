@@ -167,6 +167,7 @@
   - MedicalBackpack
   - SeniorPhysicianOuterClothing
   - MedicalShoes
+  - PhysicianSocks
   - SeniorPhysicianPDA
   - Glasses
   - Survival
@@ -188,3 +189,20 @@
   - Trinkets
   - GroupSpeciesBreathTool
   - CoronerUnderwear # DS14-Underwear
+
+- type: roleLoadout
+  id: JobVirologist
+  groups:
+  - GroupTankHarness
+  - VirologistHead
+  - MedicalMask
+  - VirologistJumpsuit
+  - MedicalGloves
+  - VirologistBackpack
+  - VirologistUnderwear
+  - MedicalShoes
+  - VirologistOuterclothing
+  - Glasses
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool

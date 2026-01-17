@@ -617,6 +617,7 @@
   loadouts:
   - JesterHat
   - JesterAltHat
+  - ClownUsspHat #DS14
 
 - type: loadoutGroup
   id: ClownJumpsuit
@@ -626,6 +627,14 @@
   - ClownSkirt
   - JesterSuit
   - JesterAltSuit
+
+# DS14 Start
+- type: loadoutGroup
+  id: ClownNeck
+  name: loadout-group-clown-neck
+  loadouts:
+  - ClownNeckUssp
+# DS14 End
 
 - type: loadoutGroup
   id: ClownBackpack
@@ -1555,6 +1564,8 @@
   loadouts:
   - DetectiveFedora
   - DetectiveFedoraGrey
+  - DetectiveGreyFlatCap # DS14
+  - DetectiveBrownFlatCap # DS14
 
 - type: loadoutGroup
   id: DetectiveNeck
@@ -1679,8 +1690,10 @@
   loadouts:
   - ChiefMedicalOfficerJumpsuit
   - ChiefMedicalOfficerJumpskirt
+  - CMOJumpskirtPencil # DS14
   - ChiefMedicalOfficerTurtleneckJumpsuit
   - ChiefMedicalOfficerTurtleneckJumpskirt
+  - CMOJumpskirtPencilAlt # DS14
 
 - type: loadoutGroup
   id: ChiefMedicalOfficerOuterClothing
@@ -1711,6 +1724,7 @@
   id: ChiefMedicalOfficerShoes
   name: loadout-group-chief-medical-officer-shoes
   loadouts:
+  - ShoesBootsSterileMedical # DS14
   - BrownShoes
   - MedicalWinterBoots
   - ShoesBootsLaceup
@@ -1744,6 +1758,7 @@
   loadouts:
   - MedicalDoctorJumpsuit
   - MedicalDoctorJumpskirt
+  - MedicalDoctorJumpskirtPencil # DS14
   # - SeniorPhysicianJumpsuit
   # - SeniorPhysicianJumpskirt
   - MedicalBlueScrubs
@@ -1771,6 +1786,7 @@
   id: MedicalShoes
   name: loadout-group-medical-doctor-shoes
   loadouts:
+  - ShoesBootsSterileMedical # DS14
   - WhiteShoes
   - MedicalWinterBoots
 
@@ -1830,6 +1846,7 @@
   loadouts:
   - ChemistJumpsuit
   - ChemistJumpskirt
+  - ChemistJumpskirtPencil # DS14
 
 - type: loadoutGroup
   id: ChemistOuterClothing
@@ -1870,6 +1887,7 @@
   name: loadout-group-paramedic-jumpsuit
   loadouts:
   - ParamedicJumpsuit
+  - ParamedicJumpsuitAlt # DS14
   - ParamedicJumpskirt
 
 - type: loadoutGroup
@@ -1879,11 +1897,13 @@
   loadouts:
   - ParamedicWindbreaker
   - ParamedicWintercoat
+  - ParamedicWindbreakerAlt # DS14
 
 - type: loadoutGroup
   id: ParamedicShoes
   name: loadout-group-paramedic-shoes
   loadouts:
+  - ShoesBootsSterileMedical # DS14
   - BlueShoes
   - WhiteShoes
   - MedicalWinterBoots
@@ -1951,7 +1971,7 @@
   loadouts:
   - PsychologistJumpsuit
   - PsychologistJumpskirt
-  - PsychologistJumpsuitAlt # DS14-Soyuz
+  - PsychologistJumpskirtPencil # DS14
 
 - type: loadoutGroup
   id: ReporterUnderwear

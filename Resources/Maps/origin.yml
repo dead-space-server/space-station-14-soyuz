@@ -1152,7 +1152,7 @@ entities:
             3142: 27,-1
             3143: 27,-2
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteBox
           decals:
             3366: 9,-21
@@ -1227,7 +1227,7 @@ entities:
           decals:
             3525: -42,0
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNe
           decals:
             3369: 12,-20
@@ -1243,7 +1243,7 @@ entities:
           decals:
             4411: -7,-64
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerNw
           decals:
             3372: 7,-20
@@ -1259,7 +1259,7 @@ entities:
           decals:
             4410: -9,-64
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSe
           decals:
             3370: 12,-24
@@ -1276,7 +1276,7 @@ entities:
           decals:
             4409: -7,-66
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteCornerSw
           decals:
             3371: 7,-24
@@ -1314,7 +1314,7 @@ entities:
             4428: -10,-64
             4432: -9,-67
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineE
           decals:
             3377: 12,-21
@@ -1335,7 +1335,7 @@ entities:
           decals:
             4424: -6,-65
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineN
           decals:
             3373: 8,-20
@@ -1352,7 +1352,7 @@ entities:
             3737: 24,3
             3738: 25,3
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineS
           decals:
             3383: 8,-24
@@ -1377,7 +1377,7 @@ entities:
             4429: -10,-67
             4430: -6,-67
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: BrickTileWhiteLineW
           decals:
             3380: 7,-21
@@ -1490,7 +1490,7 @@ entities:
           decals:
             4600: 34,22
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: CheckerNESW
           decals:
             27: 32,-26
@@ -1526,7 +1526,7 @@ entities:
             142: 43,-38
             143: 43,-39
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: CheckerNWSE
           decals:
             26: 18,-26
@@ -2148,7 +2148,7 @@ entities:
             3953: 11,0
             3954: 5,1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: FullTileOverlayGreyscale
           decals:
             4244: -22,-49
@@ -2363,7 +2363,7 @@ entities:
             423: 12.852351,53.9703
             3475: -7.1178155,17.671444
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             4224: -16,27
@@ -2449,7 +2449,7 @@ entities:
             612: -19,-62
             613: -20,-62
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             4223: -16,23
@@ -2514,7 +2514,7 @@ entities:
           decals:
             15: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             4225: -17,24
@@ -2534,7 +2534,7 @@ entities:
           decals:
             4999: 9,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: HalfTileOverlayGreyscale270
           decals:
             3847: 19,-30
@@ -2568,7 +2568,7 @@ entities:
           decals:
             2822: -15,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             4228: -15,24
@@ -4238,7 +4238,7 @@ entities:
             3084: -36,-11
             3085: -36,-12
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteBox
           decals:
             3843: 26,-32
@@ -4256,7 +4256,7 @@ entities:
             3420: 7,-46
             3448: -23,-58
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerNe
           decals:
             5351: 26,11
@@ -4293,7 +4293,7 @@ entities:
             5210: 21,18
             5607: 55,18
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerNe
           decals:
             2751: 32,-21
@@ -4473,7 +4473,7 @@ entities:
             3421: 2,-46
             3449: -27,-58
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerNw
           decals:
             5348: 24,11
@@ -4510,7 +4510,7 @@ entities:
             5211: 15,18
             5606: 52,18
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerNw
           decals:
             2749: 18,-21
@@ -4683,7 +4683,7 @@ entities:
             3422: 7,-51
             3452: -23,-63
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerSe
           decals:
             5350: 26,9
@@ -4731,7 +4731,7 @@ entities:
           decals:
             4834: 20,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerSe
           decals:
             2755: 32,-23
@@ -4893,7 +4893,7 @@ entities:
             3450: -27,-62
             3451: -26,-63
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteCornerSw
           decals:
             5349: 24,9
@@ -4938,7 +4938,7 @@ entities:
           decals:
             4832: 16,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteCornerSw
           decals:
             2753: 20,-26
@@ -5099,7 +5099,7 @@ entities:
             5039: 29,30
             5058: 29,27
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteEndE
           decals:
             3835: 25,-32
@@ -5195,7 +5195,7 @@ entities:
             4989: 5,22
             4990: 5,19
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerNe
           decals:
             2759: 19,-22
@@ -5293,7 +5293,7 @@ entities:
           decals:
             5642: 28,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerNw
           decals:
             2760: 31,-22
@@ -5385,7 +5385,7 @@ entities:
             4985: 5,22
             4986: 5,19
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerSe
           decals:
             2757: 30,-23
@@ -5476,7 +5476,7 @@ entities:
           decals:
             5641: 28,21
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteInnerSw
           decals:
             2758: 20,-23
@@ -5540,7 +5540,7 @@ entities:
             3446: -23,-61
             3447: -23,-62
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineE
           decals:
             5354: 26,10
@@ -5628,7 +5628,7 @@ entities:
           decals:
             5604: 55,17
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineE
           decals:
             2746: 32,-22
@@ -5972,7 +5972,7 @@ entities:
             3437: -26,-58
             3438: -24,-58
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineN
           decals:
             4271: 20,-17
@@ -6074,7 +6074,7 @@ entities:
             4983: 5,24
             4984: 11,24
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineN
           decals:
             983: 32,-59
@@ -6438,7 +6438,7 @@ entities:
             3439: -25,-63
             3440: -24,-63
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineS
           decals:
             5352: 25,9
@@ -6541,7 +6541,7 @@ entities:
             4981: 5,17
             4982: 11,17
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineS
           decals:
             2722: 28,-26
@@ -6889,7 +6889,7 @@ entities:
             3442: -27,-60
             3443: -27,-61
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileWhiteLineW
           decals:
             5355: 24,10
@@ -6971,7 +6971,7 @@ entities:
             5602: 52,15
             5603: 52,17
         - node:
-            color: '#571212FF'
+            color: '#334E6DC8'
             id: MiniTileWhiteLineW
           decals:
             2743: 20,-25
@@ -7634,7 +7634,7 @@ entities:
           decals:
             4536: 42,10
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale
           decals:
             4221: -17,27
@@ -7647,7 +7647,7 @@ entities:
           decals:
             930: 63,-48
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale180
           decals:
             4222: -15,23
@@ -7671,7 +7671,7 @@ entities:
             586: -17,-60
             625: -4,-60
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale270
           decals:
             4220: -17,23
@@ -7704,7 +7704,7 @@ entities:
             623: -2,-60
             624: 1,-60
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: ThreeQuarterTileOverlayGreyscale90
           decals:
             4219: -15,27
@@ -11761,7 +11761,7 @@ entities:
         version: 2
         nodes:
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: BotGreyscale
           decals:
             33: -1,-2
@@ -11784,7 +11784,7 @@ entities:
             13: 4,-5
             14: 3,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: DeliveryGreyscale
           decals:
             34: -2,-1
@@ -11792,7 +11792,7 @@ entities:
             41: -1,-4
             46: 2,-6
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale
           decals:
             8: 2,-3
@@ -11800,25 +11800,25 @@ entities:
             10: 4,-3
             26: 0,0
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale180
           decals:
             11: 3,-5
             12: 4,-5
             28: 0,-2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale270
           decals:
             25: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: HalfTileOverlayGreyscale90
           decals:
             27: 1,-1
         - node:
             angle: -3.141592653589793 rad
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: LoadingAreaGreyscale
           decals:
             3: 0,-7
@@ -11859,44 +11859,44 @@ entities:
           decals:
             32: -1,-1
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlayNW
           decals:
             37: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileInnerOverlaySW
           decals:
             38: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayE
           decals:
             4: 0,-3
             36: 0,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayN
           decals:
             39: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayS
           decals:
             40: -1,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: MiniTileLineOverlayW
           decals:
             5: 0,-3
             6: 0,-4
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale180
           decals:
             42: 2,-5
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: QuarterTileOverlayGreyscale90
           decals:
             43: 2,-6
@@ -11916,7 +11916,7 @@ entities:
           decals:
             1: 0,2
         - node:
-            color: '#DE3A3A66'
+            color: '#285A9196'
             id: WarnLineGreyscaleE
           decals:
             7: 0,-4
@@ -175773,7 +175773,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: ReinforcedWindow
   entities:
   - uid: 26104
     components:
@@ -180617,7 +180617,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindowDiagonal
+- proto: ReinforcedWindowDiagonal
   entities:
   - uid: 26753
     components:
@@ -227523,7 +227523,7 @@ entities:
       parent: 2
     - type: DeltaPressure
       gridUid: 2
-- proto: MiningWindow
+- proto: Window
   entities:
   - uid: 34271
     components:

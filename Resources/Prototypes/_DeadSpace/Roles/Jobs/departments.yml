@@ -19,10 +19,28 @@
   editorHidden: true
 
 - type: department
-  id: NKVB
-  name: department-NKVB
-  description: department-NKVB-description
-  color: "#ad4040"
+  id: SpecialOperationsCorps
+  name: department-SpecialOperationsCorps
+  description: department-SpecialOperationsCorps-description
+  color: "#7fffd4"
   roles:
-  - Politkom
-  - Politruk
+  - CentralCommandSpecialOperationsOfficer
+  - CBURNLeader
+  - CBURNAgent
+  - ERTLeaderAmber
+  - ERTLeaderRed
+  - ERTLeaderGamma
+  - ERTSecurityAmber
+  - ERTSecurityRed
+  - ERTSecurityGamma
+  - ERTMedicalAmber
+  - ERTMedicalRed
+  - ERTMedicalGamma
+  - ERTEngineerAmber
+  - ERTEngineerRed
+  - ERTEngineerGamma
+  - ERTJanitorAmber
+  - ERTJanitorRed
+  - ERTJanitorGamma
+  editorHidden: true
+  weight: 120

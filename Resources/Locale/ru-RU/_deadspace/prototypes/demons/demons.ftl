@@ -22,25 +22,9 @@ ent-FireballBullet = огненный шар
 ent-MobDemonBloodyArms = кроваворукий демон
     .desc = Его огромные руки кажется позволяют быстро открывать всё что он видит, но на вид он сам кажется слабым.
     .suffix = Демон, Призрачная роль
-ent-ActionDemonTentacle = [color=red]Наповал[/color]
-    .desc = Вы опускаете свой язык в пол, заставляя бедолаг падать на пол
-ent-DemonTentacle = tentacle
-    .desc = { ent-GoliathTentacle.desc }
-ent-BaseEffectDemonTentacleSpawn = tentacle
-    .desc = { "" }
-ent-EffectDemonTentacleSpawn = tentacle
-    .desc = { ent-BaseEffectDemonTentacleSpawn.desc }
-ent-EffectDemonTentacleRetract = { ent-BaseEffectDemonTentacleSpawn }
-    .desc = { ent-BaseEffectDemonTentacleSpawn.desc }
 ent-MobDemonSnake = змеедемон
     .desc = Огромный рот с большим и прытким языком явно намекают вам, что он не прочь сбить вас с ног.
     .suffix = Демон, Призрачная роль
-ent-ActionDemonBreath = [color=red]Плевок слюной[/color]
-    .desc = Каждые 15 секунд с силой выплёвывайте слюну в жертву, чтобы не дать ей сбежать.
-ent-DemonBreathGun = Плевок слюной
-    .desc = Вы плюёте в своего недруга своими слюнями, заставляя того падать на пол и быть замедленным, пока тот не скинет с себя это, нечто.
-ent-DemonBola = слюна демона
-    .desc = Фу! Какое оно мерзкое!
 ent-MobDemonMouth = зубастый демон
     .desc = Это существо, подобное цветку-мухоловке, способно разгрызть пополам всё, включая ваши кости. Похоже у него достаточно слюны, чтобы запустить её в вашу сторону.
     .suffix = Демон, Призрачная роль

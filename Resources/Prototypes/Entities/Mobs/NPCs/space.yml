@@ -490,7 +490,9 @@
     - type: SalvageMobRestrictions
 
 - type: entity
-  parent: SimpleSpaceMobBase
+  parent:
+  - SimpleSpaceMobBase
+  - BaseMobAnimal
   id: MobSnail
   name: snail
   description: Revolting unless you're french.
@@ -499,8 +501,6 @@
   - type: CarrySize
     size: Small
   # DS14-end
-  - type: Body
-    prototype: Mouse
   - type: GhostRole
     makeSentient: true
     allowSpeech: false
@@ -693,12 +693,10 @@
   - type: MovementAlwaysTouching
 
 - type: entity
-  parent: MobSnail
+  parent: [ BaseMobMothroach, MobSnail ]
   id: MobSnailMoth
   name: Snoth
   components:
-  - type: Body
-    prototype: Mothroach
   - type: GhostRole
     name: ghost-role-information-snoth-name
     description: ghost-role-information-snoth-description

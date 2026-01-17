@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Content.Server.Body.Components;
-using Content.Shared.Body.Components;
+using Content.Shared.Body;
 using Content.Shared.Body.Events;
-using Content.Shared.Body.Organ;
 using Content.Shared.Body.Prototypes;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
@@ -59,7 +58,7 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
         SubscribeLocalEvent<MetabolizerComponent, EntityUnpausedEvent>(OnMetabolizerUnpaused);
         // DS14-end
         SubscribeLocalEvent<MetabolizerComponent, MapInitEvent>(OnMapInit);
-        SubscribeLocalEvent<MetabolizerComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
+        SubscribeLocalEvent<MetabolizerComponent, BodyRelayedEvent<ApplyMetabolicMultiplierEvent>>(OnApplyMetabolicMultiplier);
     }
 
     private void OnMapInit(Entity<MetabolizerComponent> ent, ref MapInitEvent args)
@@ -80,9 +79,9 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
         }
     }
 
-    private void OnApplyMetabolicMultiplier(Entity<MetabolizerComponent> ent, ref ApplyMetabolicMultiplierEvent args)
+    private void OnApplyMetabolicMultiplier(Entity<MetabolizerComponent> ent, ref BodyRelayedEvent<ApplyMetabolicMultiplierEvent> args)
     {
-        ent.Comp.UpdateIntervalMultiplier = args.Multiplier;
+        ent.Comp.UpdateIntervalMultiplier = args.Args.Multiplier;
         ScheduleMetabolizer(ent); // DS14
     }
 

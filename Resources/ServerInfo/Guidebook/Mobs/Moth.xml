@@ -2,7 +2,7 @@
   # Нианы
 
   <Box>
-    <GuideEntityEmbed Entity="MobMoth" Caption=""/>
+    <GuideEntityEmbed Entity="AppearanceMoth" Caption=""/>
   </Box>
 
   Нианы могут есть хлопок, ткани и одежду, но они не способны употреблять в пищу почти ничего из того, что едят другие расы.

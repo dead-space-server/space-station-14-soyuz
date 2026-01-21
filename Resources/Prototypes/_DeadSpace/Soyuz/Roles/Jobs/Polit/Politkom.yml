@@ -9,7 +9,7 @@
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
-  - AllAccess  
+  - AllAccess
   access:
   - CentralCommand
   #start-backmen: currency
@@ -34,7 +34,7 @@
     id: PolitkomPDA
     ears: ClothingHeadsetAltCentCom
     socks: ClothingUnderwearSocksPolitOtdelLong
-    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal
     head: ClothingHeadHatBeretPolitruk
     back: ClothingBackpackSecurity
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel
@@ -42,6 +42,7 @@
   storage:
     back:
     - Flash
+    - RubberStampPolitkom
 
 - type: chameleonOutfit
   id: PolitkomChameleonOutfit
@@ -53,7 +54,7 @@
     gloves: ClothingHandsGlovesColorBlack
     ears: ClothingHeadsetAltCentCom
     socks: ClothingUnderwearSocksPolitOtdelLong
-    jumpsuit: ClothingUniformJumpsuitPolitRukFormal 
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal
     head: ClothingHeadHatBeretPolitruk
     back: ClothingBackpackSecurity
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel

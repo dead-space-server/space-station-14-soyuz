@@ -63,6 +63,7 @@
     back:
     - Flash
     - TelephoneIaa
+    - RubberStampPolitruk
 
 - type: chameleonOutfit
   id: PolitrukChameleonOutfit

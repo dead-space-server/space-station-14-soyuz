@@ -91,7 +91,7 @@
   - type: PdaBorderColor
     borderColor: "#12445b"
     accentHColor: "#772d32"
-    accentVColor: "#772d32"
+    accentVColor: "#772d31"
   - type: Icon
     state: pda-okgb
   - type: HealthAnalyzer

@@ -928,3 +928,78 @@
     accent-skeleton-words-7: accent-skeleton-words-replace-7
     accent-skeleton-words-8: accent-skeleton-words-replace-8
     accent-skeleton-words-9: accent-skeleton-words-replace-9
+
+#DS14-Kvirin-start
+- type: accent
+  id: kvirin
+  wordReplacements:
+    accent-kvirin-words-1-1: accent-kvirin-words-replace-1
+    accent-kvirin-words-1-2: accent-kvirin-words-replace-1
+    accent-kvirin-words-1-3: accent-kvirin-words-replace-1
+    accent-kvirin-words-2-1: accent-kvirin-words-replace-2
+    accent-kvirin-words-2-2: accent-kvirin-words-replace-2
+    accent-kvirin-words-3-1: accent-kvirin-words-replace-3
+    accent-kvirin-words-3-2: accent-kvirin-words-replace-3
+    accent-kvirin-words-3-3: accent-kvirin-words-replace-3
+    accent-kvirin-words-4-1: accent-kvirin-words-replace-4
+    accent-kvirin-words-4-2: accent-kvirin-words-replace-4
+    accent-kvirin-words-4-3: accent-kvirin-words-replace-4
+    accent-kvirin-words-5-1: accent-kvirin-words-replace-5
+    accent-kvirin-words-5-2: accent-kvirin-words-replace-5
+    accent-kvirin-words-6-1: accent-kvirin-words-replace-6
+    accent-kvirin-words-6-2: accent-kvirin-words-replace-6
+    accent-kvirin-words-7: accent-kvirin-words-replace-7
+    accent-kvirin-words-8-1: accent-kvirin-words-replace-8
+    accent-kvirin-words-8-2: accent-kvirin-words-replace-8
+    accent-kvirin-words-9: accent-kvirin-words-replace-9
+    accent-kvirin-words-10: accent-kvirin-words-replace-10
+    accent-kvirin-words-11-1: accent-kvirin-words-replace-11
+    accent-kvirin-words-11-2: accent-kvirin-words-replace-11
+    accent-kvirin-words-12-1: accent-kvirin-words-replace-12
+    accent-kvirin-words-12-2: accent-kvirin-words-replace-12
+    accent-kvirin-words-12-3: accent-kvirin-words-replace-12
+    accent-kvirin-words-12-4: accent-kvirin-words-replace-12
+    accent-kvirin-words-13-1: accent-kvirin-words-replace-13
+    accent-kvirin-words-13-2: accent-kvirin-words-replace-13
+    accent-kvirin-words-13-3: accent-kvirin-words-replace-13
+    accent-kvirin-words-13-4: accent-kvirin-words-replace-13
+    accent-kvirin-words-13-5: accent-kvirin-words-replace-13
+    accent-kvirin-words-13-6: accent-kvirin-words-replace-13
+    accent-kvirin-words-14-1: accent-kvirin-words-replace-14
+    accent-kvirin-words-14-2: accent-kvirin-words-replace-14
+    accent-kvirin-words-15-1: accent-kvirin-words-replace-15
+    accent-kvirin-words-15-2: accent-kvirin-words-replace-15
+    accent-kvirin-words-16-1: accent-kvirin-words-replace-16
+    accent-kvirin-words-16-2: accent-kvirin-words-replace-16
+    accent-kvirin-words-17-1: accent-kvirin-words-replace-17
+    accent-kvirin-words-17-2: accent-kvirin-words-replace-17
+    accent-kvirin-words-18: accent-kvirin-words-replace-18
+    accent-kvirin-words-19-1: accent-kvirin-words-replace-19
+    accent-kvirin-words-19-2: accent-kvirin-words-replace-19
+    accent-kvirin-words-20-1: accent-kvirin-words-replace-20
+    accent-kvirin-words-20-2: accent-kvirin-words-replace-20
+    accent-kvirin-words-20-3: accent-kvirin-words-replace-20
+    accent-kvirin-words-20-4: accent-kvirin-words-replace-20
+    accent-kvirin-words-21: accent-kvirin-words-replace-21
+    accent-kvirin-words-22-1: accent-kvirin-words-replace-22
+    accent-kvirin-words-22-2: accent-kvirin-words-replace-22
+    accent-kvirin-words-23-1: accent-kvirin-words-replace-23
+    accent-kvirin-words-23-2: accent-kvirin-words-replace-23
+    accent-kvirin-words-24-1: accent-kvirin-words-replace-24
+    accent-kvirin-words-24-2: accent-kvirin-words-replace-24
+    accent-kvirin-words-25-1: accent-kvirin-words-replace-25
+    accent-kvirin-words-25-2: accent-kvirin-words-replace-25
+    accent-kvirin-words-25-3: accent-kvirin-words-replace-25
+    accent-kvirin-words-25-4: accent-kvirin-words-replace-25
+    accent-kvirin-words-26: accent-kvirin-words-replace-26
+    accent-kvirin-words-27-1: accent-kvirin-words-replace-27
+    accent-kvirin-words-27-2: accent-kvirin-words-replace-27
+    accent-kvirin-words-27-3: accent-kvirin-words-replace-27
+    accent-kvirin-words-27-4: accent-kvirin-words-replace-27
+    accent-kvirin-words-28-1: accent-kvirin-words-replace-28
+    accent-kvirin-words-28-2: accent-kvirin-words-replace-28
+    accent-kvirin-words-28-3: accent-kvirin-words-replace-28
+    accent-kvirin-words-28-4: accent-kvirin-words-replace-28
+    accent-kvirin-words-28-5: accent-kvirin-words-replace-28
+    accent-kvirin-words-28-6: accent-kvirin-words-replace-28
+#DS14-Kvirin-end

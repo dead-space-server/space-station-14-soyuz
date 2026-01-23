@@ -1,5 +1,7 @@
 ent-BaseMobDemonRS = демон
     .desc = Монстр!
+ent-BaseMobDemonNarSi = { ent-BaseMobDemonRS }
+    .desc = { ent-BaseMobDemonRS.desc }
 ent-MobDemonSlaughter = бронированный демон
     .desc = Броня этого демона затвердела на нём, он выглядит холодным. Лазерное оружие должно быть эффективно против него.
     .suffix = Демон, Призрачная роль

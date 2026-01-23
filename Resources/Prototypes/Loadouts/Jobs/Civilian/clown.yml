@@ -9,6 +9,19 @@
   equipment:
     head: ClothingHeadHatJesterAlt
 
+# DS14 Start
+- type: loadout
+  id: ClownUsspHat
+  equipment:
+    head: ClothingHeadHatClownUssp
+
+# Neck
+- type: loadout
+  id: ClownNeckUssp
+  equipment:
+    neck: ClothingNeckScarfClownUssp
+# DS14 End
+
 # Jumpsuit
 - type: loadout
   id: ClownSuit
@@ -69,7 +82,7 @@
     outerClothing: ClothingOuterWinterClown
 
 - type: loadout
-  id: ClownDownjacket                         
+  id: ClownDownjacket
   equipment:
     outerClothing: ClothingOuterWinterClownDownjacket
 

@@ -1,3 +1,3 @@
-ent-CustomizableSpawnerCentralCommandBlueShieldOfficer = Офицер "Синий Щит" ЦК
-    .suffix = ОСЩ, Призрачная роль, Кастомизируемый персонаж
+ent-CustomizableSpawnerCentralCommandBlueShieldOfficer = Оперативник КГБ ГШ
+    .suffix = ОКГБ, Призрачная роль, Кастомизируемый персонаж
     .desc = { ent-CustomizableSpawnerBase.desc }

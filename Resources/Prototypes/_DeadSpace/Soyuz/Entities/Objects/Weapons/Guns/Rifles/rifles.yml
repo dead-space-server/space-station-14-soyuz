@@ -237,7 +237,7 @@
   - type: EyeCursorOffset
     maxOffset: 3
     pvsIncrease: 0.3
- 
+
 - type: entity
   name: АН-94
   parent: [BaseWeaponRifle, BaseSecurityContraband]

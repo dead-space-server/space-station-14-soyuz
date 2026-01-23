@@ -4,5 +4,7 @@ ent-ClothingUniformJumpskirtCentcomOfficer = CentCom turtleneck skirt
     .desc = A skirt version of the CentCom turtleneck, rarer and more sought after than the original.
 ent-ClothingUniformColorJumpskirtRainbow = rainbow jumpskirt
     .desc = A multi-colored jumpskirt!
+ent-ClothingUniformJumpskirtElegantMaid = elegant maid uniform
+    .desc = Call me master and bring me some beer.
 ent-ClothingUniformJumpskirtSchool = school skirt
     .desc = Stylish and comfortable school skirt.

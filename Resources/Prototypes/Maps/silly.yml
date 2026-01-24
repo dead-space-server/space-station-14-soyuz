@@ -1,11 +1,11 @@
 - type: gameMap
   id: CorvaxSilly
   mapName: 'Silly Island'
-  mapPath: /Maps/ds_silly.yml
+  mapPath: /Maps/Soyuz/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 0
-  maxPlayers: 25
+  maxPlayers: 20
   stations:
     Silly:
       stationProto: StandardNanotrasenStation
@@ -24,8 +24,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+#            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

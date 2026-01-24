@@ -1,7 +1,7 @@
 - type: gameMap
   id: Convex
   mapName: 'Convex'
-  mapPath: /Maps/convex.yml
+  mapPath: /Maps/Soyuz/convex.yml
   minPlayers: 40
   stations:
     Convex:
@@ -19,8 +19,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+#            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]

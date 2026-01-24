@@ -1,9 +1,9 @@
 - type: gameMap
   id: Reach
   mapName: 'Reach'
-  mapPath: /Maps/reach.yml
+  mapPath: /Maps/Soyuz/reach.yml
   minPlayers: 0
-  maxPlayers: 15
+  maxPlayers: 10
   stations:
     Reach:
       stationProto: StandardNanotrasenStation
@@ -20,8 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+#            Politruk: [ 1, 1 ]
             # law
             # sec
             HeadOfSecurity: [ 1, 1 ]

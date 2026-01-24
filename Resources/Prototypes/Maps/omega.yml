@@ -1,7 +1,7 @@
 - type: gameMap
   id: Omega
   mapName: 'Omega'
-  mapPath: /Maps/omega.yml
+  mapPath: /Maps/Soyuz/omega.yml
   minPlayers: 15
   maxPlayers: 40
   stations:

@@ -1,7 +1,7 @@
 - type: gameMap
   id: Fland
   mapName: 'Fland'
-  mapPath: /Maps/fland.yml
+  mapPath: /Maps/Soyuz/fland.yml
   minPlayers: 40
   stations:
     Fland:
@@ -21,8 +21,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+#            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]

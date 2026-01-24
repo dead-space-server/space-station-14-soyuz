@@ -1,0 +1,44 @@
+# Деревня дураков
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskClownPencil
+  name: маска и грим мужичка
+  description: Знаменитая маска клоуна в СССП.
+  suffix: Деревня дураков
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Masks/ClownUSSP.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Masks/ClownUSSP.rsi
+  - type: BreathMask
+  - type: IdentityBlocker
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - ClownMask
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    slots:
+    - Snout
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskMimePencil # Я его не доделал, но пусть будет лежит, а то потом забуду о нем
+  name: маска мима-морячка
+  description: Маска знаменитого мима СССП.
+  categories: [ HideSpawnMenu ]
+  suffix: Деревня дураков
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Masks/MimeUSSP.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Masks/MimeUSSP.rsi
+  - type: BreathMask
+  - type: IdentityBlocker
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    slots:
+    - Snout

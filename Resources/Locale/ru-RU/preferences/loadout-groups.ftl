@@ -79,6 +79,7 @@ loadout-group-botanist-backpack = Агроном, рюкзак
 loadout-group-botanist-outerclothing = Агроном, верхняя одежда
 loadout-group-botanist-underwear = Агроном, нижнее бельё
 loadout-group-clown-head = Клоун, голова
+loadout-group-clown-maks = Клоун, маска
 loadout-group-clown-jumpsuit = Клоун, комбинезон
 loadout-group-clown-neck = Клоун, шея
 loadout-group-clown-backpack = Клоун, рюкзак

@@ -24,11 +24,13 @@
 # Mask
 - type: loadout
   id: ClownMaskUssp
-  equipment: ClothingMaskClownPencil
+  equipment:
+    mask: ClothingMaskClownPencil
 
 - type: loadout
   id: ClownMask
-  equipment: ClothingMaskClownPencil
+  equipment:
+    mask: ClothingMaskClownPencil
 
 # DS14 End
 

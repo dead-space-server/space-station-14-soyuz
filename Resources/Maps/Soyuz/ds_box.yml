@@ -200021,14 +200021,6 @@ entities:
     - type: Transform
       pos: 23.535393,19.102627
       parent: 2
-- proto: RubberStampSyndicate
-  entities:
-  - uid: 37065
-    components:
-    - type: Transform
-      parent: 37062
-    - type: Physics
-      canCollide: False
 - proto: SadTromboneImplanter
   entities:
   - uid: 27903

@@ -91,6 +91,7 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/centcomm.yml",
+            "/Maps/Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan

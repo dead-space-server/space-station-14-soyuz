@@ -652,6 +652,10 @@ entities:
             4068: 12,74
             4069: 12,73
             4070: 12,72
+            5127: 37,34
+            5128: 42,37
+            5129: 43,37
+            5130: 44,37
         - node:
             color: '#285A9196'
             id: BotGreyscale
@@ -752,6 +756,14 @@ entities:
             738: 39,15
             739: 39,16
             1137: 36,16
+        - node:
+            color: '#FFFFFFFF'
+            id: BotRight
+          decals:
+            5131: 47,35
+            5132: 47,36
+            5133: 47,37
+            5134: 36,34
         - node:
             color: '#EFB34196'
             id: Box
@@ -66405,6 +66417,13 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 46.357616,16.331951
       parent: 2
+- proto: ClothingBeltSalvageWebbing
+  entities:
+  - uid: 27652
+    components:
+    - type: Transform
+      pos: 40.67755,34.634373
+      parent: 2
 - proto: ClothingBeltUtilityFilled
   entities:
   - uid: 10136
@@ -66435,7 +66454,7 @@ entities:
   - uid: 10141
     components:
     - type: Transform
-      pos: 40.561626,34.58628
+      pos: 42.45455,35.259373
       parent: 2
   - uid: 27375
     components:
@@ -123362,6 +123381,11 @@ entities:
     - type: Transform
       pos: 46.5,37.5
       parent: 2
+  - uid: 18916
+    components:
+    - type: Transform
+      pos: 36.5,34.5
+      parent: 2
 - proto: LockerScienceFilled
   entities:
   - uid: 18574
@@ -132960,6 +132984,13 @@ entities:
     components:
     - type: Transform
       pos: 10.676554,36.68377
+      parent: 2
+- proto: PurpleFlower
+  entities:
+  - uid: 27649
+    components:
+    - type: Transform
+      pos: 42.51705,34.759373
       parent: 2
 - proto: Rack
   entities:
@@ -154512,6 +154543,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 51.5,-8.5
       parent: 2
+  - uid: 27653
+    components:
+    - type: Transform
+      pos: 42.5,34.5
+      parent: 2
 - proto: TableCarpet
   entities:
   - uid: 22838
@@ -157186,6 +157222,18 @@ entities:
     components:
     - type: Transform
       pos: 10.407486,11.335569
+      parent: 2
+- proto: UraniumOre1
+  entities:
+  - uid: 27650
+    components:
+    - type: Transform
+      pos: 42.782677,34.665623
+      parent: 2
+  - uid: 27651
+    components:
+    - type: Transform
+      pos: 42.828377,35.024998
       parent: 2
 - proto: Vaccinator
   entities:

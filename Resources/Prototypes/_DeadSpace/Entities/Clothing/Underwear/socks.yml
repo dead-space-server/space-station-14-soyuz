@@ -115,22 +115,12 @@
 
 - type: entity
   parent: ClothingUnderwearSocksBase
-  id: ClothingUnderwearSocksSeniorCourier
-  name: носки ведущего логиста
-  description: Стандартные носки ведущего утилизатора.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/Clothing/Underwear/Cargo/salvage_specialist/socks.rsi
-
-- type: entity
-  parent: ClothingUnderwearSocksBase
   id: ClothingUnderwearSocksSeniorSalvage
   name: носки ведущего утилизатора
   description: Стандартные носки ведущего утилизатора.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Cargo/salvage_specialist/socks.rsi
-
 
 ## Civilian
 - type: entity

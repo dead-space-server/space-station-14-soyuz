@@ -165,3 +165,5 @@ ent-XenoborgIDCard = ID-карта ксеноборга
 ent-UniversalIDCard = универсальная ID-карта
     .desc = ID-карта, которая позволит вам осуществить свои самые сокровенные желания.
     .suffix = Админ
+ent-SeniorSalvageIDCard = ID-карта мастера шахтёра
+    .desc = { ent-IDCardStandard.desc }

@@ -33,3 +33,4 @@ stamp-component-stamped-name-senior-physician = Врач-методист
 stamp-component-stamped-name-senior-courier = Мастер шахтёр
 stamp-component-stamped-name-special-operation-officer = Генерал Специальных Операций
 stamp-component-stamped-name-administrator = Администратор ЦК
+stamp-component-stamped-name-senior-salvage = Мастер шахтёр

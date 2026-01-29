@@ -460,6 +460,84 @@
 
 - type: entity
   parent: IDCardStandard
+  id: BrigmedicIDCard
+  name: brigmedic ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idbrigmedic
+  - type: PresetIdCard
+    job: Brigmedic
+
+- type: entity
+  parent: IDCardStandard
+  id: SeniorSalvageIDCard # DS14
+  name: coroner ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idseniorcargo
+  - type: PresetIdCard
+    job: SeniorSalvageSpecialist
+
+- type: entity
+  parent: IDCardStandard
+  id: CentcomIDCard
+  name: command officer ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: centcom
+    - state: idcentcom
+  - type: Item
+    heldPrefix: blue
+  - type: PresetIdCard
+    job: CentralCommandOfficer # DS14
+
+# DS14-centcom-jobs-start
+
+- type: entity
+  parent: CentcomIDCard
+  id: CentcomOfficialIDCard
+  components:
+  - type: PresetIdCard
+    job: CentralCommandOfficial
+
+- type: entity
+  parent: CentcomIDCard
+  id: CentcomAdministratorIDCard
+  components:
+  - type: Sprite
+    layers:
+    - state: gold
+    - state: idcentcom
+  - type: PresetIdCard
+    job: CentralCommandAdministrator
+
+- type: entity
+  parent: CentcomIDCard
+  id: CentcomOperatorIDCard
+  components:
+  - type: PresetIdCard
+    job: CentralCommandOperator
+
+- type: entity
+  parent: CentcomIDCard
+  id: CentcomSpecialOperationsOfficerIDCard
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: idcentcom
+  - type: PresetIdCard
+    job: CentralCommandSpecialOperationsOfficer
+
+# DS14-centcom-jobs-end
+
+- type: entity
+  parent: IDCardStandard
   id: ERTLeaderIDCard
   name: ERT leader ID card
   components:

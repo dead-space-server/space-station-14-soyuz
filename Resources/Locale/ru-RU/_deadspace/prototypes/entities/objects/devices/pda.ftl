@@ -13,11 +13,11 @@ ent-ERTLeaderRedPDA = { ent-ERTLeaderPDA }
 ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
     .desc = { ent-ERTLeaderPDA.desc }
 
-ent-CoronerPDA = КПК коронера
+ent-CoronerPDA = КПК патологоанатома
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!
-ent-SecurityPilotPDA = КПК пилота СБ
-    .desc = Синий, чтобы пятна крови сбитого шаттлом ассистента были заметны на нём.
-ent-SeniorServicePDA = КПК менеджера
+ent-SecurityPilotPDA = КПК пилота милиции
+    .desc = Синий, чтобы пятна крови сбитого шаттлом разнорабочего были заметны на нём.
+ent-SeniorServicePDA = КПК управленца сервисного отдела
     .desc = Идеален для составления в нём меню бара и кухни.
 ent-BaseTaipanPDA = КПК
     .desc = Personal Data Assistant.

@@ -153908,8 +153908,8 @@ entities:
   - uid: 19218
     components:
     - type: MetaData
-      desc: Минифигурка офицера ОБР.
-      name: фигурка офицера ОБР
+      desc: Минифигурка офицера СОБР.
+      name: фигурка офицера СОБР
     - type: Transform
       pos: -22.067787,74.58561
       parent: 2

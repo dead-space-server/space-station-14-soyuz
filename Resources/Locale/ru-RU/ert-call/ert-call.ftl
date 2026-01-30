@@ -15,13 +15,6 @@ ert-call-announcement-gamma = Генеральный Штаб получил з�
 ert-team-name-cburn = Аварийно спасательная бригада "Рысь"
 ert-call-announcement-cburn = Генеральный Штаб получил запрос на отправку эвакуационно-спасательной бригады "Рысь".
 
-# ERT Console UI
-ert-responce-window-title = Консоль вызова СОБР
-ert-responce-available-teams = Доступные отряды:
-ert-responce-team-description = Описание отряда:
-ert-responce-call-cancel = Вызов отменён.
-responce-ert-team-button = Вызвать отряд
-
 # Call Reason
 ert-call-reason-label = Цель вызова:
 ert-call-reason-placeholder = Укажите причину вызова отряда...

@@ -1,7 +1,7 @@
 admin-announce-title = Сделать объявление
 admin-announce-announcement-placeholder = Текст объявления...
 admin-announce-announcer-placeholder = Отправитель
-admin-announce-announcer-default = Центральное командование
+admin-announce-announcer-default = Генеральный Штаб
 admin-announce-announcer-ai = Искусственный интеллект
 admin-announce-button = Сделать объявление
 admin-announce-type-station = Станция
@@ -18,4 +18,6 @@ admin-announce-sound-placeholder = Путь к звуку
 admin-announce-volume-placeholder = Громкость
 admin-announce-sender-placeholder = Подпись отправителя
 admin-announce-sender-default = Оператор ЦК
+
 # DS14-end
+

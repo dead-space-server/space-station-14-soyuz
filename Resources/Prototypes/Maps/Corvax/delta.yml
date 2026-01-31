@@ -1,7 +1,7 @@
 ﻿- type: gameMap
   id: CorvaxDelta
   mapName: 'Delta'
-  mapPath: /Maps/corvax_delta.yml
+  mapPath: /Maps/Soyuz/corvax_delta.yml
   minPlayers: 60
   stations:
     Delta:

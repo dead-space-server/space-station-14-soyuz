@@ -98,7 +98,7 @@
   text: "/Paperwork/StationGoal/OrbitalBunker.xml"
   modifyStationBalance: 30000
   extraStamps:
-    - stampedName: Департамент Вооруженных Сил СССП
+    - stampedName: Департамент Вооруженных Сил NanoTrasen
       stampedColor: "#505050"
     - stampedName: stamp-component-stamped-name-centcom
       stampedColor: "#006600"

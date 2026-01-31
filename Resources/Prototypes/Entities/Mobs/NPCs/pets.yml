@@ -191,7 +191,7 @@
   - type: Grammar
     attributes:
       proper: true
-      gender: male
+      gender: female
   - type: Tag
     tags:
     - CannotSuicide
@@ -725,7 +725,7 @@
     - GeneralLanguage
     unlockLanguagesAfterMakeSentient:
     - GeneralLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
 # DS14-end
 
@@ -833,7 +833,7 @@
     - GeneralLanguage
     unlockLanguagesAfterMakeSentient:
     - GeneralLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
 # DS14-end
 
@@ -910,7 +910,7 @@
   - type: Grammar
     attributes:
       proper: true
-      gender: male
+      gender: female
   - type: Tag
     tags:
     - CannotSuicide
@@ -968,7 +968,7 @@
     - GeneralLanguage
     unlockLanguagesAfterMakeSentient:
     - GeneralLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Kangarooping
 # DS14-end
 
@@ -1062,7 +1062,7 @@
     - GeneralLanguage
   - type: StealTarget
     stealGroup: SmileExtract
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
 # DS14-end
 
@@ -1114,7 +1114,7 @@
     - GeneralLanguage
     unlockLanguagesAfterMakeSentient:
     - GeneralLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PunPunping
 # DS14-end
 

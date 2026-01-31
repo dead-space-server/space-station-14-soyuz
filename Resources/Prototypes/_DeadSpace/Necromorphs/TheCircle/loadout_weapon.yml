@@ -52,8 +52,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponLightMachineGunRPL20Circle
-      - id: MagazineRPL20Circle
+      - id: WeaponLightMachineGunRPL20
+      - id: MagazineRPL20
         amount: 2
 
 - type: entity
@@ -96,8 +96,8 @@
   components:
   - type: StorageFill
     contents:
-      - id: WeaponRifleAsValCircle
-      - id: MagazineLightRifleAsValCircle
+      - id: WeaponRifleAsVal
+      - id: MagazineLightRifleAsVal
         amount: 4
 
 - type: entity
@@ -107,13 +107,13 @@
   components:
   - type: StorageFill
     contents:
-      - id: MagazineLightRifleAsValCircle
+      - id: MagazineLightRifleAsVal
         amount: 2
       - id: MagazineVSK
         amount: 2
       - id: MagazineASh12
         amount: 2
-      - id: MagazineRPL20Circle
+      - id: MagazineRPL20
         amount: 2
       - id: MagazineRifleSCARAB
         amount: 2

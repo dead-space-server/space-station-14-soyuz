@@ -1,7 +1,7 @@
 - type: gameMap
   id: Core
   mapName: 'Core'
-  mapPath: /Maps/core.yml
+  mapPath: /Maps/Soyuz/core.yml
   minPlayers: 40
   maxPlayers: 75
   stations:

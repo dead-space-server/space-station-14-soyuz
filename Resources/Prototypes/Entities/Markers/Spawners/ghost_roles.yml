@@ -39,7 +39,7 @@
       - sprite: Mobs/Animals/regalrat.rsi
         state: icon
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Ratking
   #DS14-end
 
@@ -93,7 +93,7 @@
       - sprite: Mobs/Pets/corgi.rsi
         state: narsian
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   #DS14-end
 
@@ -154,8 +154,8 @@
       - state: green
       - sprite: Structures/Wallmounts/signs.rsi
         state: radiation
-  #DS14-start
-  - type: GhostRoleNotifys
+  #DS14-start      
+  - type: GhostRoleNotifys 
     groupPrototype: LoneOper
   #DS14-end
 
@@ -181,7 +181,7 @@
       department: Command
       time: 72000 # 20 hours
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: CommanderOperatives
   #DS14-end
 
@@ -207,7 +207,7 @@
       department: Security
       time: 72000 # 20 hours
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: OperativeMedic
   #DS14-end
 
@@ -223,7 +223,7 @@
     mindRoles:
     - MindRoleNukeops
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Operativeping
   #DS14-end
 
@@ -247,7 +247,7 @@
     - sprite: Mobs/Aliens/Carps/dragon.rsi
       state: alive
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Dragonping
   #DS14-end
 
@@ -274,7 +274,7 @@
     - sprite: Objects/Weapons/Melee/energykatana.rsi
       state: icon
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Nijaping
   #DS14-end
 
@@ -302,7 +302,7 @@
     - sprite: Mobs/Aliens/paradox_clone.rsi
       state: preview
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Paradoxping
   #DS14-end
 
@@ -338,7 +338,7 @@
     - sprite: Mobs/Silicon/chassis.rsi
       state: derelict_icon
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: DerelictCyborg
   #DS14-end
 
@@ -415,6 +415,6 @@
     - sprite: Clothing/Head/Hats/wizardhat.rsi
       state: icon
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Wizardping
   #DS14-end

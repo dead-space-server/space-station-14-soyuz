@@ -17,6 +17,15 @@
     - Demon
     - Vulpkanin
     - Tajaran
+    - Arachnid
+    - Dwarf
+    - Felinid
+    - Kobolt
+    - Moth
+    - Reptilian
+    - SlimePerson
+    - Xenomorph
+    - Vox
   - type: GhostRole
     name: ghost-role-information-centcomofficer-name
     description: ghost-role-information-centcomofficer-description
@@ -53,10 +62,12 @@
     back: ClothingBackpackMilitarySatchel
     shoes: ClothingShoesBootsJackFilled
     eyes: ClothingEyesGlassesHiddenSecurity
-    suitstorage: WeaponEnergyShotgun
+    suitstorage: WeaponRifleAKMCY
     pocket1: TelescopicShield
     pocket2: WeaponPistolX01
   storage:
     back:
     - BoxZiptie
-    - PortableRecharger
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle

@@ -1,7 +1,7 @@
 - type: gameMap
   id: Loop
   mapName: 'Loop'
-  mapPath: /Maps/loop.yml
+  mapPath: /Maps/Soyuz/loop.yml
   minPlayers: 15
   maxPlayers: 40
   stations:

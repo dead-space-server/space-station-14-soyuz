@@ -658,7 +658,7 @@
             sprite: Mobs/Animals/mothroach/displacement.rsi
             state: neck
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   #DS14-end
 
@@ -1517,15 +1517,15 @@
   # DS14-start
   - type: Language
     selectedLanguage: MonkeyLanguage
-    knownLanguages:
+    knownLanguages: 
     - MonkeyLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   - type: Tag
     tags:
     - MonkeyKingTarget # DS14
   # DS14-end
-
+  
 - type: entity
   name: monkey
   id: MobBaseSyndicateMonkey
@@ -1559,7 +1559,7 @@
   - type: Loadout
     prototypes: [SyndicateOperativeGearMonkey]
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SyndicateGroup
   #DS14-end
 
@@ -1697,7 +1697,7 @@
     description: ghost-role-information-kobold-description
     rules: ghost-role-information-nonantagonist-rules
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   #DS14-end
 
@@ -1745,7 +1745,7 @@
   - type: AutoTraitor
     profile: TraitorReinforcement
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SyndicateGroup
   #DS14-end
 
@@ -1951,7 +1951,7 @@
   - type: NecromorfAfterInfection
     necroPrototype: NecroSmall
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   #DS14-end
 
@@ -2624,7 +2624,7 @@
   - type: ReplacementAccent
     accent: xeno
   - type: Language
-    knownLanguages:
+    knownLanguages: 
     - ArachnidLanguage
     selectedLanguage: ArachnidLanguage
   # DS14-end
@@ -2653,7 +2653,7 @@
       settings: short
   - type: GhostTakeoverAvailable
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SpidersGroup
   #DS14-end
 
@@ -3286,7 +3286,7 @@
     - GeneralLanguage
     unlockLanguagesAfterMakeSentient:
     - GeneralLanguage
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: ExplosiveCat
   # DS14-end
 
@@ -3644,9 +3644,9 @@
       - !type:GibBehavior
         recursive: false
   #DS14-start
-  - type: NecromorfAfterInfection
+  - type: NecromorfAfterInfection 
     necroPrototype: NecroSmall
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: PetsGroup
   #DS14-end
 

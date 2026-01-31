@@ -134,6 +134,9 @@
   id: Hypopen
 
 - type: Tag
+  id: HudCommand
+
+- type: Tag
   id: JellyAmanita
 
 - type: Tag

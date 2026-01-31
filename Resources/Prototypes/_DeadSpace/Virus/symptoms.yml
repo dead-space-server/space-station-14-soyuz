@@ -43,7 +43,7 @@
   symptomType: Necrosis
   danger: High
   price: 1200
-
+  
 - type: virusSymptom
   id: ZombificationSymptom
   name: зомби

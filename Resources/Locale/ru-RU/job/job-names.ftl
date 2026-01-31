@@ -11,6 +11,7 @@ job-name-research-assistant = Младший научный сотрудник
 job-name-rd = Главный научный сотрудник
 job-name-intern = Интерн
 job-name-doctor = Врач
+job-name-virologist = Вирусолог
 job-name-paramedic = Фельдшер
 job-name-cmo = Главный врач
 job-name-surgeon = Хирург

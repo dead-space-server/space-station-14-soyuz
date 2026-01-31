@@ -1,7 +1,7 @@
 - type: gameMap
   id: Plasma
   mapName: 'Plasma'
-  mapPath: /Maps/plasma.yml
+  mapPath: /Maps/Soyuz/plasma.yml
   minPlayers: 25
   maxPlayers: 40
   stations:

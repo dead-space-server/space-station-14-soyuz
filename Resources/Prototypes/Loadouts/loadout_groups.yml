@@ -634,6 +634,13 @@
   name: loadout-group-clown-neck
   loadouts:
   - ClownNeckUssp
+
+- type: loadoutGroup
+  id: ClownMask
+  name: loadout-group-clown-mask
+  minLimit: 1
+  loadouts:
+  - ClownMaskUssp
 # DS14 End
 
 - type: loadoutGroup

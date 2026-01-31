@@ -126,12 +126,10 @@ virus-mutation-verb = Очистить от вируса
 
 virus-evolution-window-title = Эволюция вируса
 
-
 ### TABS ###
 
 virus-evolution-tab-evolution = Эволюция
 virus-evolution-tab-whitelist = Белый список
-
 
 ### EVOLUTION TAB ###
 
@@ -276,12 +274,10 @@ accent-words-virus-4 = ххх… пффф…
 accent-words-virus-5 = бульк… ффф…
 accent-words-virus-6 = хрип… хрип…
 accent-words-virus-7 = м-м-м… эээ…
-
 # ANTAG
 roles-antag-sentient-virus-name = Разумный вирус
 roles-antag-sentient-virus-objective = Заразите как можно больше организмов на станции.
 role-subtype-sentient-virus = Разумный вирус
-
 ghost-role-information-sentient-virus-name = Разумный вирус
 ghost-role-information-sentient-virus-description = Заразите как можно больше организмов на станции.
 ghost-role-information-sentient-virus-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-solo-antagonist-name }[/bold][/color], распространите вирус по станции.

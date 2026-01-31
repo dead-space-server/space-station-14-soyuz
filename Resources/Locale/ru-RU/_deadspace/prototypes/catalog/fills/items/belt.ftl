@@ -13,3 +13,6 @@ ent-ClothingUtilityWebbingFilled = { ent-ClothingUtilityWebbing }
 ent-ClothingUtilityWebbingEngineering = { ent-ClothingUtilityWebbing }
     .suffix = Инженерный
     .desc = { ent-ClothingUtilityWebbing.desc }
+ent-RadianceSheathFilled = { ent-RadianceSheath }
+    .suffix = Filled
+    .desc = { ent-RadianceSheath.desc }

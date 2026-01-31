@@ -1,3 +1,4 @@
+
 - type: entity
   parent: BaseMobAsteroid
   id: BaseMobDemonRS
@@ -159,7 +160,7 @@
   - type: Reflect
     reflectProb: 0.25
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: DemonSlaughter
   #DS14-end
 
@@ -320,7 +321,7 @@
   - type: GhostRoleNotifys
     groupPrototype: DemonJaunt
   #DS14-end
-
+  
 - type: entity
   parent: BaseMobDemonNarSi
   id: MobDemonBloodyArms
@@ -328,7 +329,7 @@
   - type: Sprite
     layers:
     - map: [ "enum.DamageStateVisualLayers.Base" ]
-      state: bloody_army_soldier
+      state: bloody_army_soldier    
       scale: 0.7, 0.7
   - type: DamageStateVisuals
     states:
@@ -381,7 +382,7 @@
   - type: Sprite
     layers:
     - map: [ "enum.DamageStateVisualLayers.Base" ]
-      state: dark_rattlesnake
+      state: dark_rattlesnake  
       scale: 0.7, 0.7
   - type: DamageStateVisuals
     states:
@@ -446,7 +447,7 @@
       offsetDirections:
         - North
       extraSpawns: 0
-
+    
 - type: entity
   id: DemonTentacle
   parent: GoliathTentacle
@@ -584,7 +585,7 @@
     range: 0
   - type: WorldTargetAction
     event: !type:ActionGunShootEvent
-
+    
 - type: entity
   categories: [ HideSpawnMenu ]
   id: DemonBreathGun
@@ -607,7 +608,7 @@
   id: DemonBola
   categories: [ HideSpawnMenu ]
   parent: BaseItem
-  description: Фу! Какое оно мерзкое!
+  description: Фу! Какое оно мерзкое! 
   components:
   - type: Sprite
     sprite: _DeadSpace/Objects/Weapons/Throwable/demon_bola.rsi
@@ -616,7 +617,7 @@
     stunAmount: 1
     knockdownAmount: 1
   - type: EmitSoundOnThrow
-    sound:
+    sound: 
       path: "/Audio/_DeadSpace/Effects/Species/demon_bola_throw.ogg"
       params:
         volume: -5

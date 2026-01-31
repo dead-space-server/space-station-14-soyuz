@@ -4,8 +4,8 @@ meta:
   engineVersion: 267.2.0
   forkId: ""
   forkVersion: ""
-  time: 01/16/2026 20:19:44
-  entityCount: 2588
+  time: 01/08/2026 05:21:13
+  entityCount: 2587
 maps:
 - 1
 grids:
@@ -1982,6 +1982,13 @@ entities:
     - type: Transform
       pos: -0.5,10.5
       parent: 2
+- proto: BackmenVendingMachineCigs
+  entities:
+  - uid: 83
+    components:
+    - type: Transform
+      pos: -3.5,-4.5
+      parent: 2
 - proto: BackmenVendingMachineClothing
   entities:
   - uid: 84
@@ -1995,6 +2002,13 @@ entities:
     components:
     - type: Transform
       pos: 5.5,11.5
+      parent: 2
+- proto: BackmenVendingMachineCoffee
+  entities:
+  - uid: 86
+    components:
+    - type: Transform
+      pos: -2.5,-10.5
       parent: 2
 - proto: BackmenVendingMachineToys
   entities:
@@ -6664,6 +6678,9 @@ entities:
     - type: Transform
       pos: 24.5,4.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Quartermaster
 - proto: ComputerComms
   entities:
   - uid: 988
@@ -6672,6 +6689,9 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 25.5,3.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Command
 - proto: ComputerCrewMonitoring
   entities:
   - uid: 989
@@ -6695,6 +6715,9 @@ entities:
     - type: Transform
       pos: 23.5,4.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - HeadOfPersonnel
 - proto: ComputerId
   entities:
   - uid: 992
@@ -6702,14 +6725,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 23.5,-0.5
-      parent: 2
-- proto: ComputerMassMedia
-  entities:
-  - uid: 993
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 26.5,1.5
       parent: 2
 - proto: ComputerRadar
   entities:
@@ -7533,6 +7548,14 @@ entities:
     components:
     - type: Transform
       pos: 2.4829645,1.4854875
+      parent: 2
+- proto: ErtResponceConsole
+  entities:
+  - uid: 993
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 26.5,1.5
       parent: 2
 - proto: ExtinguisherCabinetFilled
   entities:
@@ -12078,7 +12101,7 @@ entities:
   - uid: 1722
     components:
     - type: Transform
-      pos: -3.43964,5.3541145
+      pos: -3.2942157,5.421692
       parent: 2
 - proto: LockerAtmosphericsFilledHardsuit
   entities:
@@ -14922,13 +14945,6 @@ entities:
     - type: Transform
       pos: 8.5,15.5
       parent: 2
-- proto: SpawnPointPolitruk
-  entities:
-  - uid: 2588
-    components:
-    - type: Transform
-      pos: 7.5,15.5
-      parent: 2
 - proto: SpawnPointQuartermaster
   entities:
   - uid: 2090
@@ -15818,20 +15834,6 @@ entities:
     components:
     - type: Transform
       pos: 7.5,1.5
-      parent: 2
-- proto: VendingMachineCigs
-  entities:
-  - uid: 83
-    components:
-    - type: Transform
-      pos: -3.5,-4.5
-      parent: 2
-- proto: VendingMachineCoffee
-  entities:
-  - uid: 86
-    components:
-    - type: Transform
-      pos: -2.5,-10.5
       parent: 2
 - proto: VendingMachineCondiments
   entities:

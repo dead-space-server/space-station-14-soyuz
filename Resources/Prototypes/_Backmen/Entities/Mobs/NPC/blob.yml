@@ -214,14 +214,14 @@
         shader: unshaded
   # DS14-start
   - type: Language
-    knownLanguages:
+    knownLanguages: 
     - BlobLanguage
     selectedLanguage: BlobLanguage
   - type: NightVision
     animation: true
     color: "#D4C15A11"
     transitionSpeed: 100
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: BlobGroup
   # DS14-end
 
@@ -376,7 +376,7 @@
       settings: default
   - type: GhostTakeoverAvailable
   #DS14-start
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Blob
   #DS14-end
 
@@ -630,9 +630,9 @@
       - BypassInteractionRangeChecks
   # DS14-start
   - type: Language
-    knownLanguages:
+    knownLanguages: 
     - BlobLanguage
     selectedLanguage: BlobLanguage
-  - type: GhostRoleNotifys
-    groupPrototype: Blob
+  - type: GhostRoleNotifys 
+    groupPrototype: Blob  
   # DS14-end

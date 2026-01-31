@@ -61,6 +61,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
+  - !type:AddComponentSpecial
+    components:
+    # DS14-Start
+    - type: Skill
+      group: BlueShield
+    # DS14-End
 
 - type: startingGear
   id: BlueShieldOfficerGear
@@ -91,7 +97,7 @@
   - type: PdaBorderColor
     borderColor: "#12445b"
     accentHColor: "#772d32"
-    accentVColor: "#772d32"
+    accentVColor: "#772d31"
   - type: Icon
     state: pda-okgb
   - type: HealthAnalyzer

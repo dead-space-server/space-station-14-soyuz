@@ -119,7 +119,7 @@
 - type: entity
   name: АС "Вал"
   parent: [BaseWeaponRifle, BaseSecurityContraband]
-  id: WeaponRifleAsVal
+  id: WeaponRifleAsValSoyuz
   description: Бесшумный автомат, используется в антитеррористических операциях.
   components:
   - type: Sprite

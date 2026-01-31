@@ -1,6 +1,6 @@
 - type: entity
   name: РПЛ-20
-  id: WeaponLightMachineGunRPL20
+  id: WeaponLightMachineGunRPL20Soyuz
   parent: BaseWeaponRifle
   description: Пулемет предназначен для поражения живой силы, огневых и небронированных транспортных средств противника.
   components:
@@ -39,9 +39,9 @@
     minAngle: -27
     maxAngle: -32
   - type: ChamberMagazineAmmoProvider
-    soundBoltClosed: 
+    soundBoltClosed:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
-    soundBoltOpened: 
+    soundBoltOpened:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
     soundRack:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
@@ -104,9 +104,9 @@
     minAngle: -15
     maxAngle: -20
   - type: ChamberMagazineAmmoProvider
-    soundBoltClosed: 
+    soundBoltClosed:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
-    soundBoltOpened: 
+    soundBoltOpened:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
     soundRack:
       path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg

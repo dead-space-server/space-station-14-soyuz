@@ -61,3 +61,7 @@
   id: CentralCommandBlueShieldOfficerLoadout
   equipment:
     back: ClothingBackpackBlueShield
+    outerClothing: ClothingOuterCoatOKGB
+  storage:
+    back:
+    - ClothingNeckCapeBlueShield

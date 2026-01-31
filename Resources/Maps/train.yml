@@ -4,7 +4,7 @@ meta:
   engineVersion: 267.2.0
   forkId: ""
   forkVersion: ""
-  time: 01/16/2026 20:33:13
+  time: 01/08/2026 05:24:19
   entityCount: 19242
 maps:
 - 1
@@ -12537,6 +12537,23 @@ entities:
     - type: Transform
       pos: 6.5271845,-122.9964
       parent: 2
+- proto: BackmenVendingMachineCigs
+  entities:
+  - uid: 693
+    components:
+    - type: Transform
+      pos: 3.5,-80.5
+      parent: 2
+  - uid: 694
+    components:
+    - type: Transform
+      pos: 3.5,-47.5
+      parent: 2
+  - uid: 695
+    components:
+    - type: Transform
+      pos: 3.5,-188.5
+      parent: 2
 - proto: BackmenVendingMachineClothing
   entities:
   - uid: 696
@@ -12550,6 +12567,46 @@ entities:
     components:
     - type: Transform
       pos: 6.5,-124.5
+      parent: 2
+- proto: BackmenVendingMachineCoffee
+  entities:
+  - uid: 698
+    components:
+    - type: Transform
+      pos: 16.5,-63.5
+      parent: 2
+- proto: BackmenVendingMachineDonut
+  entities:
+  - uid: 699
+    components:
+    - type: Transform
+      pos: 2.5,-356.5
+      parent: 2
+- proto: BackmenVendingMachineHappyHonk
+  entities:
+  - uid: 700
+    components:
+    - type: Transform
+      pos: 6.5,-17.5
+      parent: 2
+- proto: BackmenVendingMachineSnackOrange
+  entities:
+  - uid: 701
+    components:
+    - type: Transform
+      pos: -2.5,-242.5
+      parent: 2
+  - uid: 702
+    components:
+    - type: Transform
+      pos: 17.5,-63.5
+      parent: 2
+- proto: BackmenVendingMachineSovietSoda
+  entities:
+  - uid: 703
+    components:
+    - type: Transform
+      pos: 4.5,-56.5
       parent: 2
 - proto: BackmenVendingMachineToys
   entities:
@@ -41609,11 +41666,9 @@ entities:
     - type: Transform
       pos: 0.5,3.5
       parent: 2
-  - uid: 6157
-    components:
-    - type: Transform
-      pos: -2.5,-9.5
-      parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Command
 - proto: ComputerCrewMonitoring
   entities:
   - uid: 6158
@@ -51436,7 +51491,7 @@ entities:
   - uid: 7840
     components:
     - type: Transform
-      pos: -1.7968009,-1.2700026
+      pos: -1.6383951,-1.2957554
       parent: 2
 - proto: DrinkGreenTeaGlass
   entities:
@@ -52091,6 +52146,16 @@ entities:
       parent: 7954
     - type: Physics
       canCollide: False
+- proto: ErtResponceConsole
+  entities:
+  - uid: 6157
+    components:
+    - type: Transform
+      pos: -2.5,-9.5
+      parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Captain
 - proto: ExosuitFabricator
   entities:
   - uid: 7956
@@ -86209,6 +86274,13 @@ entities:
     - type: Transform
       pos: -12.261155,-263.19662
       parent: 2
+- proto: IngotGold
+  entities:
+  - uid: 18980
+    components:
+    - type: Transform
+      pos: -2.15402,-1.4363804
+      parent: 2
 - proto: IngotGold1
   entities:
   - uid: 12777
@@ -89152,7 +89224,7 @@ entities:
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
       content: >-
-        Поздравляем, командование СССП решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 08. 
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 08. 
 
 
         Обновление добавило атмос-конструкции (очень надеемся, что сотрудник безопасности умеет работать с насосом). 
@@ -103536,13 +103608,6 @@ entities:
     - type: Transform
       pos: -6.5,-112.5
       parent: 2
-- proto: SpawnPointPolitruk
-  entities:
-  - uid: 18980
-    components:
-    - type: Transform
-      pos: 5.5,-40.5
-      parent: 2
 - proto: SpawnPointQuartermaster
   entities:
   - uid: 15053
@@ -108999,36 +109064,12 @@ entities:
     - type: Transform
       pos: 3.5,-169.5
       parent: 2
-- proto: VendingMachineCigs
-  entities:
-  - uid: 693
-    components:
-    - type: Transform
-      pos: 3.5,-80.5
-      parent: 2
-  - uid: 694
-    components:
-    - type: Transform
-      pos: 3.5,-47.5
-      parent: 2
-  - uid: 695
-    components:
-    - type: Transform
-      pos: 3.5,-188.5
-      parent: 2
 - proto: VendingMachineClownvend
   entities:
   - uid: 15777
     components:
     - type: Transform
       pos: -8.5,-125.5
-      parent: 2
-- proto: VendingMachineCoffee
-  entities:
-  - uid: 698
-    components:
-    - type: Transform
-      pos: 16.5,-63.5
       parent: 2
 - proto: VendingMachineCondiments
   entities:
@@ -109057,13 +109098,6 @@ entities:
     components:
     - type: Transform
       pos: 1.5,-92.5
-      parent: 2
-- proto: VendingMachineDonut
-  entities:
-  - uid: 699
-    components:
-    - type: Transform
-      pos: 2.5,-356.5
       parent: 2
 - proto: VendingMachineEngiDrobe
   entities:
@@ -109100,13 +109134,6 @@ entities:
     components:
     - type: Transform
       pos: 13.5,-80.5
-      parent: 2
-- proto: VendingMachineHappyHonk
-  entities:
-  - uid: 700
-    components:
-    - type: Transform
-      pos: 6.5,-17.5
       parent: 2
 - proto: VendingMachineHydrobe
   entities:
@@ -109225,25 +109252,6 @@ entities:
     components:
     - type: Transform
       pos: 6.5,-373.5
-      parent: 2
-- proto: VendingMachineSnackOrange
-  entities:
-  - uid: 701
-    components:
-    - type: Transform
-      pos: -2.5,-242.5
-      parent: 2
-  - uid: 702
-    components:
-    - type: Transform
-      pos: 17.5,-63.5
-      parent: 2
-- proto: VendingMachineSovietSoda
-  entities:
-  - uid: 703
-    components:
-    - type: Transform
-      pos: 4.5,-56.5
       parent: 2
 - proto: VendingMachineTankDispenserEngineering
   entities:

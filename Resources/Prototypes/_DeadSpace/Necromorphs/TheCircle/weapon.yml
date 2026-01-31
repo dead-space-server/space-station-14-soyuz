@@ -175,7 +175,7 @@
 ## РПЛ-20
 - type: entity
   name: РПЛ-20
-  id: WeaponLightMachineGunRPL20Circle
+  id: WeaponLightMachineGunRPL20
   parent: BaseWeaponRifle
   description: Пулемет предназначен для поражения живой силы, огневых и небронированных транспортных средств противника.
   components:
@@ -228,7 +228,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineRPL20Circle
+        startingItem: MagazineRPL20
         insertSound: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-magin.ogg
         ejectSound: /Audio/_DeadSpace/Necromorfs/TheCircle/Weapon/sfx/rpl20-sfx/rpl-magout.ogg
         priority: 2
@@ -248,7 +248,7 @@
 
 ### Магазин
 - type: entity
-  id: MagazineRPL20Circle
+  id: MagazineRPL20
   parent: MagazineLightRifleBox
   description: Вмещает всего 85 патронов 5.45х39 мм калибра.
   name: короб патронов РПЛ-20
@@ -547,7 +547,7 @@
 - type: entity
   name: АС "Вал"
   parent: [BaseWeaponRifle, BaseSecurityContraband]
-  id: WeaponRifleAsValCircle
+  id: WeaponRifleAsVal
   description: Бесшумный автомат, используется в ан-... Террористических операциях. Да, точно не украдено у СССП.
   components:
   - type: Sprite
@@ -577,7 +577,7 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineLightRifleAsValCircle
+        startingItem: MagazineLightRifleAsVal
         insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
         priority: 2
@@ -603,57 +603,6 @@
   - type: Appearance
   - type: UseDelay
     delay: 1.5
-
-## Магазин VAL
-
-- type: entity
-  id: BaseMagazineLightRifleAsValCircle
-  name: магазин для АС "Вал" (7.62х39 мм винтовочные)
-  parent: BaseItem
-  description: Вмещает всего 20 патронов 7.62х39 мм калибра.
-  abstract: true
-  components:
-  - type: Tag
-    tags:
-      - MagazineLightRifleAsVal
-  - type: BallisticAmmoProvider
-    mayTransfer: true
-    whitelist:
-      tags:
-        - CartridgeLightRifle
-    proto: CartridgeLightRifle
-    capacity: 20
-  - type: Item
-    size: Small
-  - type: ContainerContainer
-    containers:
-      ballistic-ammo: !type:Container
-  - type: Sprite
-    sprite: _DeadSpace/Necromorfs/TheCircle/Weapon/weapons/asval/mag.rsi
-    layers:
-    - state: base
-      map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
-  - type: MagazineVisuals
-    magState: mag
-    steps: 2
-    zeroVisible: false
-  - type: Appearance
-
-- type: entity
-  id: MagazineLightRifleAsValCircle
-  name: магазин для АС "Вал"
-  parent: BaseMagazineLightRifleAsValCircle
-  components:
-  - type: BallisticAmmoProvider
-    proto: CartridgeLightRifle
-  - type: Sprite
-    layers:
-    - state: red
-      map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
 
 ## Клинок-обелиск
 - type: entity

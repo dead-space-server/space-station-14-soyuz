@@ -61,13 +61,22 @@ namespace Content.IntegrationTests.Tests
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_glacier.yml", ["ClothingHeadHatCatEarsValid"]},
             {"/Maps/corvax_paper.yml", ["ClothingHeadHatCatEars"]},
             {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
             {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
+            {"/Maps/Soyuz/bagel.yml", ["RubberStampMime"]},
+            {"/Maps/Soyuz/barratry.yml", ["RubberStampCaptain"]},
+            {"/Maps/Soyuz/cluster.yml", ["RubberStampMime"]},
+            {"/Maps/Soyuz/corvax_glacier.yml", ["ClothingHeadHatCatEarsValid"]},
+            {"/Maps/Soyuz/corvax_paper.yml", ["ClothingHeadHatCatEars"]},
+            {"/Maps/Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            {"/Maps/Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end
         };
 
@@ -81,6 +90,7 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/centcomm.yml",
+            "/Maps/Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan

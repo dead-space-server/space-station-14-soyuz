@@ -135,7 +135,7 @@
     color: "#7A886611"
     transitionSpeed: 100
   - type: ZombieImmune
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: Ratking
   # DS14-end
 

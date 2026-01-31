@@ -759,29 +759,6 @@ WeaponSubMachineGunVectorRubber: null
 ExplosionRuneBook: null
 IgniteRuneBook: null
 
-# 2025-02-26 - DS14-Soyuz
-BackmenVendingMachineCigs: VendingMachineCigs
-BackmenVendingMachineCoffee: VendingMachineCoffee
-BackmenVendingMachineCola: VendingMachineCola
-BackmenVendingMachineColaBlack: VendingMachineColaBlack
-BackmenVendingMachineDiscount: VendingMachineDiscount
-BackmenVendingMachineSnack: VendingMachineSnack
-BackmenVendingMachineSnackBlue: VendingMachineSnackBlue
-BackmenVendingMachineSnackGreen: VendingMachineSnackGreen
-BackmenVendingMachineSnackOrange: VendingMachineSnackOrange
-BackmenVendingMachineSnackTeal: VendingMachineSnackTeal
-BackmenVendingMachineSovietSoda: VendingMachineSovietSoda
-BackmenVendingMachineChang: VendingMachineChang
-BackmenVendingMachineDonut: VendingMachineDonut
-BackmenVendingMachineSoda: VendingMachineSoda
-BackmenVendingMachineStarkist: VendingMachineStarkist
-BackmenVendingMachineDrGibb: VendingMachineDrGibb
-BackmenVendingMachinePwrGame: VendingMachinePwrGame
-BackmenVendingMachineShamblersJuice: VendingMachineShamblersJuice
-BackmenVendingMachineColaRed: VendingMachineColaRed
-BackmenVendingMachineSpaceUp: VendingMachineSpaceUp
-BackmenVendingMachineHappyHonk: VendingMachineHappyHonk
-
 # 2025-02-25 - DS14
 ClothingUnderwearSocksSecurityPilot: ClothingUnderwearSocksSecurityOfficer
 
@@ -1020,7 +997,7 @@ SpawnPointLatejoinTaipanRd: null
 SpawnPointLatejoinTaipanScience: null
 
 # 2025-06-30 - DS14
-ADTAbakanRifleAEK: WeaponRifleAEK
+ADTTochmashRifleAEK: WeaponRifleAEK
 
 # 2025-07-12
 ClothingHandsRDTaipan: null
@@ -1099,6 +1076,17 @@ ClothingUnderwearWomenSocksCadet: null
 ClothingUnderwearWomenSocksDetective: null
 ClothingUnderwearWomenSocksSecurityOfficer: null
 ClothingUnderwearWomenSocksWarden: null
+
+# 2025-09-26 - DS14
+ClothingNeckSith: ClothingNeckRenegade
+ClothingHandsGlovesSith: ClothingHandsGlovesRenegade
+ClothingUniformJumpsuitSith: ClothingUniformJumpsuitRenegade
+ClothingShoesBootsSith: ClothingShoesBootsRenegade
+ClothingHeadHelmetSith: ClothingHeadHelmetRenegade
+ClothingHeadHatHoodSith: ClothingHeadHatHoodRenegade
+ClothingMaskSith: ClothingMaskRenegade
+ClothingOuterHardsuitSith: ClothingOuterHardsuitRenegade
+EnergySwordSith: EnergySwordRenegade
 
 # 2025-10-11 - DS14
 ADTClothingHeadHatsDungeonMasterHat: null
@@ -1183,3 +1171,9 @@ ClothingUniformJumpsuitHoSBlack: null
 # 2025-12-14 - DS14
 BookNewDrink: null
 BookNewFood: null
+
+# 2026-01-14 - DS14
+WeaponRifleLecterFMJ: WeaponRifleLecterHP
+CrateArmoryRifleFMJ: null
+MagazineRifleFMJ: MagazineRifleHP
+CartridgeRifleFMJ: MagazineRifleHP

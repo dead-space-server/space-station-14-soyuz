@@ -41,6 +41,12 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: BaseSkills
+      # DS14-End
 
 - type: startingGear
   id: MagistratGear
@@ -50,7 +56,7 @@
     eyes: ClothingEyesGlassesSunglasses
     head: ClothingHeadHatPwig
     id: MagistratPDA
-    ears: ClothingHeadsetMagistrat
+    ears: ClothingHeadsetCentCom
     socks: ClothingUnderwearSockMagistrat
     pocket1: ADTtelescopicBaton
     pocket2: RubberStampMagistrat

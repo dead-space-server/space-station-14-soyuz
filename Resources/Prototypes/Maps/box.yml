@@ -1,7 +1,7 @@
 - type: gameMap
   id: Box
   mapName: 'Box'
-  mapPath: /Maps/ds_box.yml
+  mapPath: /Maps/Soyuz/ds_box.yml
   minPlayers: 40
   stations:
     Boxstation:
@@ -19,8 +19,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+#            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]

@@ -1,6 +1,6 @@
 - type: entity
   name: чаша петри
-  parent:
+  parent: 
   - BaseStructureDynamic
   - BaseMob
   - MobAtmosStandard
@@ -81,7 +81,7 @@
   - type: VirusMutation
     changeApperance: true
   - type: Tag
-    tags:
+    tags: 
     - VirusAlwaysInfectable
     - IgnoreCanInfect
     - VirusIgnorSymptoms

@@ -136,6 +136,7 @@ reagent-effect-guidebook-status-effect =
                *[other] удаляют
             } { NATURALFIXED($time, 3) } от { LOC($key) }
     }
+
 reagent-effect-guidebook-status-effect-delay =
     { $type ->
         [add]
@@ -445,20 +446,24 @@ reagent-effect-guidebook-cause-zombie-infection =
         [1] Заражает
        *[other] заражают
     } человека зомби-вирусом
+
 reagent-effect-guidebook-innoculate-zombie-infection =
     { $chance ->
         [1] Лечит
        *[other] лечат
     } зомби-вирус и обеспечивает иммунитет к нему в будущем
+
 reagent-effect-guidebook-reduce-rotting =
     { $chance ->
         [1] Регенерирует
        *[other] регенерируют
+
     } { NATURALFIXED($time, 3) } { $time ->
         [one] секунду
         [few] секунды
        *[other] секунд
     } гниения
+
 reagent-effect-guidebook-area-reaction =
     { $chance ->
         [1] Вызывает

@@ -1,7 +1,7 @@
 - type: gameMap
   id: Gemini
   mapName: 'Gemini'
-  mapPath: /Maps/gemini.yml
+  mapPath: /Maps/Soyuz/gemini.yml
   minPlayers: 25
   maxPlayers: 40
   stations:

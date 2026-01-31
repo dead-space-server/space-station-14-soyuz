@@ -112,7 +112,7 @@
   - type: ExplosionResistance
     damageCoefficient: 0
   - type: MovementSpeedModifier # DS14
-    baseWalkSpeed: 20
+    baseWalkSpeed: 30
   - type: InteractionPopup # DS14
     successChance: 1
     interactSuccessString: hugging-success-generic

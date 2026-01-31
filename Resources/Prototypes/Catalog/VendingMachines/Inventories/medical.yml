@@ -52,6 +52,7 @@
     ClothingEyesHudMedical: 2
     ClothingEyesEyepatchHudMedical: 2
     ChemistryBottleInfectizine: 1 # DS14
+    ToolAlcoTester: 3 # DS14
   contrabandInventory:
     PillCanisterRandom: 3
     PillSpaceDrugs: 3
@@ -68,7 +69,6 @@
     Bloodpack: 5
     Tourniquet: 1
     ChemistryBottleEpinephrine: 3
-    ChemistryBottleBicaridine: 1
     Syringe: 5
     BoxBottle: 3
     PillCanisterTricordrazine: 2

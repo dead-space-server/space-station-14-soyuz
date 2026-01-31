@@ -20,6 +20,18 @@
   id: ClownNeckUssp
   equipment:
     neck: ClothingNeckScarfClownUssp
+
+# Mask
+- type: loadout
+  id: ClownMaskUssp
+  equipment:
+    mask: ClothingMaskClownPencil
+
+- type: loadout
+  id: ClownMask
+  equipment:
+    mask: ClothingMaskClownPencil
+
 # DS14 End
 
 # Jumpsuit

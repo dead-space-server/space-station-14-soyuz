@@ -8,3 +8,14 @@
     sprite: Clothing/Shoes/Specific/swat.rsi
   - type: Clothing
     sprite: Clothing/Shoes/Specific/swat.rsi
+  - type: ClothingSlowOnDamageModifier
+    modifier: 0.5
+  - type: ItemSlots
+    slots:
+      item:
+        startingItem: CombatKnife
+        name: clothing-military-boots-sidearm
+        whitelist:
+          tags:
+          - Knife
+          - Sidearm

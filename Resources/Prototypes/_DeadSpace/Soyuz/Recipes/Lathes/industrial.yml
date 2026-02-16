@@ -1,0 +1,20 @@
+- type: latheRecipe
+  id: SheetTitanium1Soyuz
+  result: SheetTitanium1
+  materials:
+    Steel: 100
+    Plastic: 100
+    IngotTungsten: 100
+    RawSalt: 100
+    Coal: 100
+
+- type: latheRecipe
+  id: SheetPlastitanium1Soyuz
+  result: SheetPlastitanium1
+  materials:
+    Steel: 125
+    Plastic: 150
+    IngotTungsten: 100
+    RawSalt: 200
+    RawIron: 200
+    Coal: 200

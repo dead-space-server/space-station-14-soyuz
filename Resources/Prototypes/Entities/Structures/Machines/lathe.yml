@@ -232,6 +232,21 @@
     sprite: Structures/Machines/protolathe_hypercon.rsi
   - type: Machine
     board: ProtolatheHyperConvectionMachineCircuitboard
+  #DS14-soyuz start
+  - type: MaterialStorage
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
+        - Ore
+  - type: Lathe
+    producingSound: /Audio/Machines/circuitprinter.ogg
+    idleState: icon
+    runningState: building
+    dynamicPacks:
+    - SheetPlastitanSoyuz
+  #DS14-soyuz end
 
 - type: entity
   id: CircuitImprinter
@@ -635,6 +650,7 @@
       staticPacks:
       - OreSmelting
       - RGlassSmelting
+    - type: OreSiloClient # DS14-soyuz
 
 - type: entity
   parent: OreProcessor

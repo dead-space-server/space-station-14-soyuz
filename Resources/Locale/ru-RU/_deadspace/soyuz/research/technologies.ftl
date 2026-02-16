@@ -10,3 +10,5 @@ research-technology-advanced-automatic-weapons = Манипулирование 
 research-technology-advanced-shotgun-ammo-magazine = Инженерия продвинутых магазинов для Сайги-12
 research-technology-advanced-ammo-magazine = Инженерия крупнокалиберных магазинов
 research-technology-ballistics-large-caliber-weapons = Манипулирование крупнокалиберным вооружением
+research-technology-silver-ammo = Серебряные боеприпасы
+research-technology-plastitan-titan = Изготовления пластитана и титана

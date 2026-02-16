@@ -2,8 +2,8 @@ meta:
   format: 7
   category: Grid
   engineVersion: 267.2.0
-  forkId: dsfobos
-  forkVersion: 2ce24bf3d81aa4586ca32828e3de530d31a0e2b1
+  forkId: ""
+  forkVersion: ""
   time: 02/15/2026 11:14:29
   entityCount: 7498
 maps: []
@@ -5519,6 +5519,8 @@ entities:
     - type: IFF
       color: '#791500FF'
     - type: NavMap
+    - type: BecomesStation
+      id: centcomm
 - proto: ActionHardsuitSaveDNA
   entities:
   - uid: 4

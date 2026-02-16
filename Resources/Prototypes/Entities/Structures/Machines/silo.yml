@@ -24,6 +24,7 @@
       - Sheet
       - RawMaterial
       - Ingot
+      - Ore #DS14
   - type: ActivatableUI
     key: enum.OreSiloUiKey.Key
   - type: ActivatableUIRequiresPower

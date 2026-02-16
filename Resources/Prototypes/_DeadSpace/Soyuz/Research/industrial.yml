@@ -1,0 +1,14 @@
+# Tier 3
+
+- type: technology
+  id: PlastitanCreate
+  name: research-technology-plastitan-titan
+  icon:
+    sprite: Objects/Materials/ingots.rsi
+    state: silver
+  discipline: Industrial
+  tier: 3
+  cost: 20000
+  recipeUnlocks:
+  - SheetPlastitanium1Soyuz
+  - SheetTitanium1Soyuz

@@ -48,7 +48,7 @@ jobs:
               "Исправлено": "🐛",
           }
 
-          pr_link = f"[#{pr_num}](<https://github.com{repo}/pull/{pr_num}>)"
+          pr_link = f"[#{pr_num}](<https://github.com/{repo}/pull/{pr_num}>)"
           content_lines = [f"**{author}** updated:"]
 
           found_any = False

@@ -1176,3 +1176,11 @@ BookNewFood: null
 SpawnPointSeniorCourier: null
 SpawnPointSeniorSalvageSpecialist: null
 SeniorCourier: null
+
+# 2026-02-18 - DS14 - Soyuz
+Grille: ClockworkGrille
+Poweredlight: PoweredlightSoyuz
+ReinforcedWindow: MiningWindow
+PoweredSmallLight: PoweredSmallLightSoyuz
+ReinforcedWindowDiagonal: MiningWindowDiagonal
+GrilleDiagonal: ClockworkGrilleDiagonal

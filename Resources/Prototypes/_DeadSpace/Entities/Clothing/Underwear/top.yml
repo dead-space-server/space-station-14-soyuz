@@ -428,8 +428,8 @@
 - type: entity
   parent: ClothingUnderwearTopBase
   id: ClothingUnderwearTopBraPsychologist
-  name: бра психолога
-  description: Cтандартное нижнее бельё психолога.
+  name: бра психиатра
+  description: Cтандартное нижнее бельё психиатра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/women/bra.rsi

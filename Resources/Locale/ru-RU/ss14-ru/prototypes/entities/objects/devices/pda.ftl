@@ -171,5 +171,5 @@ ent-SyndiAgentPDA = КПК агента Рассвета
 ent-WizardPDA = КПК мага
     .desc = Вы слышите доносящийся из него слабый шепот.
 # DS14-Soyuz
-ent-PsychologistPDA = КПК психолога
+ent-PsychologistPDA = КПК психиатра
     .desc = Выглядит безупречно чистым.

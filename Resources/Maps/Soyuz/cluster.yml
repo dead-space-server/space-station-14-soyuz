@@ -94,6 +94,8 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: Parallax
+      parallax: AsteroidsOutpost
   - uid: 2
     components:
     - type: MetaData

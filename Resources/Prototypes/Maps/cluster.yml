@@ -2,7 +2,7 @@
   id: Cluster
   mapName: 'Cluster'
   mapPath: /Maps/Soyuz/cluster.yml
-  minPlayers: 0
+  minPlayers: 5
   maxPlayers: 35
   stations:
     Cluster:

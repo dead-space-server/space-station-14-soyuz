@@ -1127,7 +1127,7 @@ ClothingUnderwearSocksSeniorSalvage: null
 SeniorSalvageIDCard: null
 SeniorSalvagePDA: null
 RubberStampSeniorSalvage: null
-SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
+#SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
 WeaponSeniorKinetik: WeaponAdvancedKinetik
 
 # 2025-11-26 - DS14

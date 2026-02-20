@@ -1,4 +1,4 @@
 ent-ClothingOuterWinterCoatLong = длинное зимнее пальто
     .desc = В этом стильном пальто даже вашим ногам будет тепло.
-ent-ClothingOuterWinterCoatSeniorResearcher = зимняя куртка ведущего учёного
+ent-ClothingOuterWinterCoatSeniorResearcher = зимняя куртка ведущего научного сотрудник
     .desc = Эта тёплая зимняя куртка сочетает в себе элементы бирюзового и фиолетового цветов, подчёркивая отличительный профессионализм носящего его учёного.

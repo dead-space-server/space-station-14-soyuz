@@ -79,7 +79,7 @@ loadout-group-paramedic-socks = Парамедик, носки
 loadout-group-psychologist-socks = Психолог, носки
 loadout-group-physiciant-socks = Ведущий врач, носки
 # Centcomm
-loadout-group-centcomm-officer-underwear = Офицер ЦК, нижнее бельё
+loadout-group-centcomm-officer-underwear = Офицер ГШ, нижнее бельё
 # Taipan
 # Atmospherics Engineer
 loadout-group-taipan-atmospherics-engineer-uniform = Атмосферный инженер, комбинезон

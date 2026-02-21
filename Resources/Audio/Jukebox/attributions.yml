@@ -122,3 +122,18 @@
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=UJmujWpXZ-g"
+
+- files: ["PerimeterAttack.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=gWMOarLxsOM&list=RDgWMOarLxsOM"
+
+- files: ["BattleoftheRoadside.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://web.ligaudio.ru/mp3/атака%20периметра"
+
+- files: ["BattleoftheSwamps.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://web.ligaudio.ru/mp3/атака%20периметра"

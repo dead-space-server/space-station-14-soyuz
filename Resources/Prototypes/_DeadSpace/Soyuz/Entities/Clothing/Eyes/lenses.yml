@@ -1,0 +1,18 @@
+- type: entity
+  parent: [ClothingEyesBase, ShowSecurityIcons, ShowMedicalIcons, BaseCommandContraband]
+  id: ClothingEyesLensesAdvanced
+  name: продвинутые линзы
+  description: Две продвинутые линзы для глаз, показывающие состояние здоровье и защищающие от вспышек.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Clothing/Eyes/Hud/Lenses/advanced.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Soyuz/Clothing/Eyes/Hud/Lenses/advanced.rsi
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological
+    - Inorganic
+    - Silicon
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5

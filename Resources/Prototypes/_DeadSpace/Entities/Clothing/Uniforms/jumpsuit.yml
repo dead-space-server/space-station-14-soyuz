@@ -12,7 +12,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitParamedicAlt
-  name: чёрный комбинезон парамедика
+  name: чёрный комбинезон фельдшера
   description: На нём есть плюс, это хорошо, верно?
   components:
   - type: Sprite

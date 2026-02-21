@@ -22,8 +22,8 @@ job-name-atmostech = Атмосферный техник
 job-name-hop = Начальник отдела кадров
 job-name-captain = Капитан
 job-name-serviceworker = Сервисный работник
-job-name-centcomoff = Секретарь комитета ГШ
-job-name-centcom-administrator = Администратор Генерального Штаба
+job-name-centcomoff = Представитель ГШ
+job-name-centcom-administrator = Администратор ГенШтаба
 job-name-centcom-operator = Оператор Генерального Штаба
 job-name-soo = Генерал Специальных Операций
 job-name-centcom-officer = Офицер Генерального Штаба
@@ -171,8 +171,8 @@ JobSeniorCourier = Ведущий логист
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
+# DS14-Soyuz
+job-name-psychologist = Психиатр
+JobPsychologist = Психиатр
 JobPolitruk = Политический Руководитель
 JobPolitkom = Политический Комиссар
-# DS14-Soyuz
-job-name-psychologist = Психолог
-JobPsychologist = Психолог

@@ -316,5 +316,5 @@ ent-SignSurvival = знак "Выживание"
 ent-SignNTMine = знак "Шахта"
     .desc = Знак. На нём написано "Шахта".
 # DS14-Soyuz
-ent-SignPsychology = знак "психолог"
-    .desc = Знак, указывающий на офис психолога.
+ent-SignPsychology = знак "психиатр"
+    .desc = Знак, указывающий на офис психиатра.

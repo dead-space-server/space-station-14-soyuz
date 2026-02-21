@@ -224,8 +224,8 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatCentcomOfficer
-  name: шинель офицера Центком
-  description: Шинель из плотной ткани с вшитыми элементами брони, которую носят офицеры Центком.
+  name: шинель офицера ГенШтаба
+  description: Шинель из плотной ткани с вшитыми элементами брони, которую носят офицеры ГенШтаба.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/OuterClothing/Coats/centcom_officer.rsi
@@ -244,7 +244,7 @@
 - type: entity
   parent: ClothingOuterCoatParamedicWB
   id: ClothingOuterCoatParamedicALT
-  name: чёрная ветровка парамедика
+  name: чёрная ветровка фельдшера
   description: Надёжная ветровка фельдшера, защита от любого космического ветра.
   components:
   - type: Sprite

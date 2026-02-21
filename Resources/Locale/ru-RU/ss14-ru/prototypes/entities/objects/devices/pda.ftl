@@ -69,7 +69,7 @@ ent-MedicalPDA = КПК врача
 ent-VisitorMedicalPDA = { ent-MedicalPDA }
     .suffix = Посетитель
     .desc = { ent-MedicalPDA.desc }
-ent-ParamedicPDA = КПК парамедика
+ent-ParamedicPDA = КПК фельдшера
     .desc = Блестящий и стерильный. Имеет встроенный анализатор здоровья.
 ent-ChemistryPDA = КПК химика
     .desc = На нём есть несколько обесцвеченных пятен.
@@ -171,5 +171,5 @@ ent-SyndiAgentPDA = КПК агента Рассвета
 ent-WizardPDA = КПК мага
     .desc = Вы слышите доносящийся из него слабый шепот.
 # DS14-Soyuz
-ent-PsychologistPDA = КПК психолога
+ent-PsychologistPDA = КПК психиатра
     .desc = Выглядит безупречно чистым.

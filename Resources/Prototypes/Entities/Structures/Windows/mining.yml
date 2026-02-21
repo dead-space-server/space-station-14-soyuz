@@ -18,13 +18,16 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 200
+        damage: 150 #DS14-soyuz 200>150
       behaviors:
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior #DS14-soyuz
+        sound: #DS14-soyuz
+          collection: WindowShatter #DS14-soyuz
     - trigger:
         !type:DamageTrigger
-        damage: 100
+        damage: 75 #DS14-soyuz 100>75
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -32,9 +35,6 @@
       - !type:SpawnEntitiesBehavior
         spawn:
           ShardGlassReinforced:
-            min: 1
-            max: 2
-          PartRodMetal:
             min: 1
             max: 2
       - !type:DoActsBehavior

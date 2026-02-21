@@ -113,7 +113,7 @@ ent-ClothingUniformOveralls = комбинезон на лямках
     .desc = Отлично подходит для работы на открытом воздухе.
 ent-ClothingUniformJumpsuitLibrarian = практичный костюм
     .desc = Он очень... практичный.
-ent-ClothingUniformJumpsuitCurator = костюм менеджера
+ent-ClothingUniformJumpsuitCurator = костюм управленца сервисного отдела
     .desc = Мужской костюм для того кто возьмёт в руки оружие в надежде заставить агрономов не растить наркотики.
 ent-ClothingUniformJumpsuitLawyerRed = красный костюм юриста
     .desc = Яркий красный костюм, который носят юристы и хвастуны.
@@ -221,5 +221,5 @@ ent-ClothingUniformJumpsuitCasualGreen = повседневный зелёный
 ent-ClothingUniformJumpsuitFamilyGuy = семейный наряд
     .desc = Напоминает о времени, когда вы сделали что-то смешное.
 # DS14-Soyuz
-ent-ClothingUniformJumpsuitPsychologist = костюм психолога
+ent-ClothingUniformJumpsuitPsychologist = костюм психиатра
     .desc = Я не теряю вещи. Я кладу вещи в места, которые потом ускользают от меня.

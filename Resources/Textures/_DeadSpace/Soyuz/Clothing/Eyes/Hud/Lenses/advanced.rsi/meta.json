@@ -11,11 +11,24 @@
             "name": "icon"
         },
         {
-            "name": "equipped-EYES",
+            "name": "equipped-EYES-arachnid",
             "directions": 4
         },
         {
-            "name": "equipped-EYES-vox"
+            "name": "equipped-EYES-diona",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES-moth",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES-vox",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES",
+            "directions": 4
         }
   ]
 }

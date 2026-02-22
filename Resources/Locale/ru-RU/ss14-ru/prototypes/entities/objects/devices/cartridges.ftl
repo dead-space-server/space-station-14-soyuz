@@ -1,6 +1,6 @@
 ent-NotekeeperCartridge = картридж Заметки
     .desc = Программа для хранения заметок.
-ent-NanoTaskCartridge = картридж НаноДела
+ent-NanoTaskCartridge = картридж Партийных Задач
     .desc = Программа для управления списками дел и отслеживания их выполнения.
 ent-NewsReaderCartridge = картридж Новости
     .desc = Программа для чтения новостей.

@@ -11,3 +11,4 @@
     sprite: _DeadSpace/Clothing/Hands/gloves_arkalis.rsi
   - type: Fiber
     fiberMaterial: fibers-nanomachines
+  - type: Insulated

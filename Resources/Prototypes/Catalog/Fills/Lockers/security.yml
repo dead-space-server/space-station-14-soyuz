@@ -32,7 +32,7 @@
     - id: ClothingBeltSecurityFilled
     - id: Flash
     - id: ClothingEyesGlassesSecurity
-    - id: ClothingHandsGlovesCombat
+    - id: ClothingHandsGlovesArkalyse # DS14-soyuz
     # - id: ClothingShoesBootsJack # DS14-disabled
     # - id: ClothingOuterCoatWarden # DS14-disabled
     - id: ClothingOuterWinterWarden
@@ -387,7 +387,7 @@
       - id: MedkitFilled
       - id: MedkitCombatFilled
       - id: MedkitAdvancedFilled
-      - id: ClothingEyesLensesAdvanced
+      - id: ClothingEyesLensesAdvanced # DS14-Soyuz
       - id: RubberStampBlueShield
       - id: WeaponDisabler
       - id: ClothingHeadHelmetSwat

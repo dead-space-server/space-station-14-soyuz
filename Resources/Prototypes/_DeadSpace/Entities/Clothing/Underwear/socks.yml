@@ -380,8 +380,8 @@
 - type: entity
   parent: ClothingUnderwearSocksBase
   id: ClothingUnderwearSocksPsychologist
-  name: носки психолога
-  description: Стандартные носки психолога.
+  name: носки психиатра
+  description: Стандартные носки психиатра.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Medical/psychologist/socks.rsi

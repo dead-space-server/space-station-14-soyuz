@@ -74,7 +74,7 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/Soyuz/corvax_paper.yml", ["ClothingHeadHatCatEars"]},
             {"/Maps/Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
             {"/Maps/Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
-            {"/Maps/Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/Soyuz/ds_silly.yml", ["RubberStampSyndicate"]},
             {"/Maps/Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end

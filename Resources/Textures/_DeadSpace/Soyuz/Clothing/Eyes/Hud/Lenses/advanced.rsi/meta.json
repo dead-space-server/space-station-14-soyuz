@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Created by _liras. (discord) for Space Station 14 server Мёртвый Космос Союз-1",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "equipped-EYES-arachnid",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES-diona",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES-moth",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES-vox",
+            "directions": 4
+        },
+        {
+            "name": "equipped-EYES",
+            "directions": 4
+        }
+  ]
+}

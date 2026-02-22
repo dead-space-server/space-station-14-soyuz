@@ -78,7 +78,7 @@
 
 - type: jukebox
   id: YanvarskayaVyuga
-  name: Нина Бродская - Звенит январьская вьюга 
+  name: Нина Бродская - Звенит январьская вьюга
   path:
     path: /Audio/Jukebox/NinaBrodskayaYanvarskayaVyuga.ogg
 
@@ -96,7 +96,7 @@
 
 - type: jukebox
   id: RedArmyAnsambl
-  name: Красная армия - Советское творчество 
+  name: Красная армия - Советское творчество
   path:
     path: /Audio/Jukebox/RedArmyAnsambl.ogg
 
@@ -141,9 +141,27 @@
   name: Когда народ един - он не победим
   path:
     path: /Audio/Jukebox/InvinciblePeoples.ogg
-  
+
 - type: jukebox
   id: AnthemOfTheDemocratic
   name: Гимн демократической молодежи мира
   path:
     path: /Audio/Jukebox/AnthemOfTheDemocratic.ogg
+
+- type: jukebox
+  id: PerimeterAttack
+  name: Атака Периметра
+  path:
+    path: /Audio/Jukebox/PerimeterAttack.ogg
+
+- type: jukebox
+  id: BattleoftheRoadside
+  name: Битва за Обочину
+  path:
+    path: /Audio/Jukebox/BattleoftheRoadside.ogg
+
+- type: jukebox
+  id: BattleoftheSwamps
+  name: Битва за Болота
+  path:
+    path: /Audio/Jukebox/BattleoftheSwamps.ogg

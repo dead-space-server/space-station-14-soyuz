@@ -241,11 +241,38 @@
         - Ingot
         - Ore
   - type: Lathe
-    producingSound: /Audio/Machines/circuitprinter.ogg
     idleState: icon
     runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ChemistryStatic
+    - SurgeryStatic
     dynamicPacks:
+    - AdvancedTools
+    - ScienceEquipment
+    - ScienceExplosives
+    - ScienceClothing
     - SheetPlastitanSoyuz
+    - PowerCells
+    - ScienceWeapons
+    - Mining
+    - AtmosTools
+    - EngineeringWeapons
+    - Chemistry
+    - Janitor
+    - Instruments
+    - Equipment
+    - NightVisionTech
+    - ProcessingTungsten
+    - LanguageImplanters
+    - MedicalDynamic
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons
   #DS14-soyuz end
 
 - type: entity

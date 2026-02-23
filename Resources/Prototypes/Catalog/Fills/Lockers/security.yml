@@ -387,7 +387,7 @@
       - id: MedkitFilled
       - id: MedkitCombatFilled
       - id: MedkitAdvancedFilled
-      - id: ClothingEyesLensesAdvanced # DS14-Soyuz
+      - id: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
       - id: RubberStampBlueShield
       - id: WeaponDisabler
       - id: ClothingHeadHelmetSwat

@@ -33,7 +33,7 @@
     outerClothing: ClothingOuterCoatPolitotdel
   effects:
   - !type:GroupLoadoutEffect
-    proto: CoatPolitruk    
+    proto: CoatPolitruk
 
 - type: loadout
   id: PolitrukOuterclothingMundir
@@ -62,21 +62,25 @@
   id: PolitrukJumpsuitPencilskirt
   equipment:
     jumpsuit: ClothingUniformJumpskirtPencilPolitRuk
+  groupBy: "jumpsuit"
 
 - type: loadout
   id: PolitrukJumpsuitSkirt
   equipment:
     jumpsuit: ClothingUniformJumpsuitPolitRukSkirt
+  groupBy: "jumpskirt"
 
 - type: loadout
   id: PolitrukJumpsuitDress
   equipment:
     jumpsuit: ClothingUniformPolitRukDress
+  groupBy: "jumpskirt"
 
 - type: loadout
   id: PolitrukJumpsuit
   equipment:
     jumpsuit: ClothingUniformJumpsuitPolitRuk
+  groupBy: "jumpsuit"
 
 # Socks
 - type: loadout

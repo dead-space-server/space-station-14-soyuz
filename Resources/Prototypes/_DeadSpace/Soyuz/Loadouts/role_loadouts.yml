@@ -2,12 +2,14 @@
 - type: roleLoadout
   id: JobPolitruk
   groups:
+  - GroupTankHarness
+  - SecurityMask
+  - SecurityBackpack
+  - SurvivalSecurity
+  - Trinkets
+  - GroupSpeciesBreathToolSecurity
+  - PolitrukJumpsuit
   - PolitrukOuterclothing
   - PolitrukHead
-  - PolitrukJumpsuit
   - PolitrukSocks
   - PolitrukUnderwear
-  - Trinkets
-  - GroupSpeciesBreathTool
-  - SurvivalSecurity
-  - SecurityBackpack

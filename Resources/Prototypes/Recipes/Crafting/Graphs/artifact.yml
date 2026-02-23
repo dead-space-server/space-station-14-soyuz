@@ -7,7 +7,7 @@
     - to: done
       steps:
       - material: ArtifactFragment
-        amount: 4
-        doAfter: 5
+        amount: 15 # DS14 4>15
+        doAfter: 4 # DS14 5>4
   - node: done
     entity: ComplexXenoArtifactItem

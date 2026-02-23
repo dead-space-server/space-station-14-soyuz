@@ -1,8 +1,8 @@
 - type: entity
   parent: [ClothingEyesBase, ShowSecurityIcons, ShowMedicalIcons, BaseCommandContraband]
-  id: ClothingEyesLensesAdvanced
-  name: продвинутые линзы
-  description: Две продвинутые линзы для глаз, показывающие состояние здоровье и защищающие от вспышек.
+  id: ClothingEyesLensesAdvancedOKGB
+  name: продвинутые линзы КГБ
+  description: Пара продвинутых линз для глаз, показывающие состояние здоровье и защищающие от вспышек.
   components:
   - type: Sprite
     sprite: _DeadSpace/Soyuz/Clothing/Eyes/Hud/Lenses/advanced.rsi
@@ -15,4 +15,4 @@
     - Silicon
   - type: FlashImmunity
   - type: EyeProtection
-    protectionTime: 5
+    protectionTime: 6

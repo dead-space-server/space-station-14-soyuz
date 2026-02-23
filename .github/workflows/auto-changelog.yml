@@ -26,7 +26,6 @@ jobs:
           echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
 
       - name: Parse PR description and update changelog
-        id: parse_step
         env:
           DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
           AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -35,39 +34,50 @@ jobs:
           python <<'EOF'
           import yaml, re, os
           from datetime import datetime, timezone
+
+          CHANGELOG = "Resources/Changelog/ChangelogDS14Soyuz.yml"
+
           import base64
 
           desc_b64 = os.environ.get("DESCRIPTION_B64", "")
           desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
+
           author = os.environ.get("AUTHOR", "")
           pr = os.environ.get("PR_NUMBER", "")
 
-          desc_no_comments = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
-
-          if ':v:' in desc_no_comments:
-              CHANGELOG = "Resources/Changelog/ChangelogDS14Soyuz.yml"
-          else:
-              CHANGELOG = "Resources/Changelog/ChangelogDS14.yml"
-
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f"selected_file={CHANGELOG}\n")
+          # Убираем HTML-комментарии
+          desc = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
 
           if ":cl:" not in desc:
               print("Нет :cl: — пропуск")
               exit(0)
 
-          sections = {"Добавлено": "Add", "Удалено": "Remove", "Изменено": "Tweak", "Исправлено": "Fix"}
+          sections = {
+              "Добавлено": "Add",
+              "Удалено": "Remove",
+              "Изменено": "Tweak",
+              "Исправлено": "Fix",
+          }
+
           changes = []
 
           for title, type_key in sections.items():
               pattern = rf"- {title}:\s*(.*?)(?=\n- [^:]|$)"
               for block in re.findall(pattern, desc, flags=re.DOTALL):
-                  lines = [l.strip("- ").strip() for l in block.splitlines() if l.strip()]
-                  if not lines: continue
+                  lines = [
+                      l.strip("- ").strip()
+                      for l in block.splitlines()
+                      if l.strip()
+                  ]
+                  if not lines:
+                      continue
                   message = " ".join(lines)
                   message = re.sub(r"\s+", " ", message).strip()
                   if message:
-                      changes.append({"type": type_key, "message": message})
+                      changes.append({
+                          "type": type_key,
+                          "message": message
+                      })
 
           if not changes:
               print("Изменения не найдены")
@@ -77,7 +87,9 @@ jobs:
               data = yaml.safe_load(f) or {}
 
           entries = data.get("Entries", [])
+
           last_id = max((e.get("id", 0) for e in entries), default=0)
+
           entries.append({
               "id": last_id + 1,
               "author": author,
@@ -85,12 +97,19 @@ jobs:
               "pr": int(pr),
               "changes": changes
           })
+
           data["Entries"] = entries
 
           with open(CHANGELOG, "w", encoding="utf-8") as f:
-              yaml.dump(data, f, allow_unicode=True, sort_keys=False, indent=2)
+              yaml.dump(
+                  data,
+                  f,
+                  allow_unicode=True,
+                  sort_keys=False,
+                  indent=2
+              )
 
-          print(f"Changelog обновлён: {CHANGELOG}")
+          print("Changelog обновлён")
           EOF
 
       - name: Commit and push to changelog
@@ -98,11 +117,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          SELECTED_FILE="${{ steps.parse_step.outputs.selected_file }}"
-
-          if [ -n "$SELECTED_FILE" ]; then
-            git add "$SELECTED_FILE"
-          fi
+          git add Resources/Changelog/ChangelogDS14Soyuz.yml
 
           if git diff --cached --quiet; then
             echo "Нет изменений для коммита"

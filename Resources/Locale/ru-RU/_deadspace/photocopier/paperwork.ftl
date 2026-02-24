@@ -107,5 +107,5 @@ paperwork-form-title-centcomm-operator-6 = Приказ о ведении отч
 paperwork-form-title-centcomm-operator-7 = Приказ об снижении выплаты
 paperwork-form-title-centcomm-operator-8 = Приказ об увольнении члена Командования
 paperwork-form-title-centcomm-operator-9 = Запрос отчётов по усилению бюрократизации
-paperwork-form-title-centcomm-operator-10 = Отчёт о штате сотрудников Командного состава и ВИП-персон
+paperwork-form-title-centcomm-operator-10 = Отчёт о трудовом коллективе станции
 paperwork-form-title-valentine-0 = Валентинка

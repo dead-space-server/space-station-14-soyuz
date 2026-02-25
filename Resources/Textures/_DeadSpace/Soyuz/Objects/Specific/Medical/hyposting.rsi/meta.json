@@ -1,14 +1,20 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Created by ADT Team, resprited by _liras. (discord) for Space Station 14 server Мёртвый Космос Союз-1",
+  "copyright": "Created by _liras. (discord) for Space Station 14 server Мёртвый Космос Союз-1",
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
     {
-      "name": "icon"
+      "name": "hypo"
+    },
+    {
+      "name": "hypo_fill1"
+    },
+    {
+      "name": "hypo_fill2"
     },
     {
       "name": "inhand-left",

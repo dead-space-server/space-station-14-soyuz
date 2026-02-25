@@ -7,6 +7,7 @@ loadout-group-blue-shield-officer-masks = Оперативник КГБ, про�
 loadout-group-blue-shield-officer-backpack = Оперативник КГБ, рюкзак
 loadout-group-blue-shield-officer-neck = Оперативник КГБ, шея
 loadout-group-blue-shield-officer-underwear = Оперативник КГБ, нижнее бельё
+loadout-group-blue-shield-officer-hypo = Оперативник КГБ, гипоспрей
 # NKVB
 loadout-group-politruk-outerclothing = Политический Руководитель, верхняя одежда
 loadout-group-politruk-head = Политический Руководитель, голова

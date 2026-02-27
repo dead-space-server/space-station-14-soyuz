@@ -2,8 +2,8 @@
   id: Elkridge
   mapName: 'Elkridge Depot'
   mapPath: /Maps/Soyuz/elkridge.yml
-  minPlayers: 20
-  maxPlayers: 50
+  minPlayers: 35
+  maxPlayers: 55
   stations:
     Elkridge:
       stationProto: StandardNanotrasenStation

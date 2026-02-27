@@ -47,7 +47,6 @@
   - CentralCommandAdministrator
   - CentralCommandOperator
   - CentralCommandOfficer
-  - BlueShieldOfficer
   - Magistrat
   editorHidden: false
   weight: 120

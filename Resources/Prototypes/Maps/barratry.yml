@@ -2,7 +2,7 @@
   id: Barratry
   mapName: 'Barratry'
   mapPath: /Maps/Soyuz/barratry.yml
-  minPlayers: 25
+  minPlayers: 35
   maxPlayers: 55
   stations:
     Barratry:

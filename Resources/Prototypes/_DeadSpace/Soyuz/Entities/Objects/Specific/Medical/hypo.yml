@@ -1,0 +1,49 @@
+# Гипоспрей ОКГБ
+- type: entity
+  parent: BaseItem
+  id: CombatHypoSting
+  name: боевой гипоспрей "Укол"
+  description: Модель гипоспрея, разработанная НКВБ СССП для бойцов Комиссариата. Быстро вводит реагенты, жертвуя вместительностью.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hyposting.rsi
+    layers:
+      - state: hypo
+        map: ["enum.SolutionContainerLayers.Base"]
+      - state: hypo_fill1
+        map: ["enum.SolutionContainerLayers.Fill"]
+        visible: false
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hyposting.rsi
+  - type: SolutionContainerManager
+    solutions:
+      hypospray:
+        maxVol: 10
+  - type: RefillableSolution
+    solution: hypospray
+  - type: ExaminableSolution
+    solution: hypospray
+    exactVolume: true
+  - type: Hypospray
+    onlyAffectsMobs: false
+  - type: UseDelay
+    delay: 0.4
+
+- type: loadout
+  id: CombatHypo
+  storage:
+    back:
+    - ADTCombatHypo
+
+- type: loadout
+  id: CombatHypoSting
+  storage:
+    back:
+    - CombatHypoSting
+
+- type: loadoutGroup
+  id: OKGBHypo
+  name: loadout-group-blue-shield-officer-hypo
+  loadouts:
+  - CombatHypo
+  - CombatHypoSting

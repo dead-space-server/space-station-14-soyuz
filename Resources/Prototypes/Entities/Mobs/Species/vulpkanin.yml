@@ -6,6 +6,11 @@
   name: Urist McBark
   components:
   # DS14-start
+  - type: InteractionPopup
+    successChance: 1
+    interactSuccessString: hugging-success-generic-no-erp # Я запрещаю вульпам обниматься
+    interactSuccessSound: /Audio/Effects/thudswoosh.ogg
+    messagePerceivedByOthers: hugging-success-generic-others-no-erp
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:

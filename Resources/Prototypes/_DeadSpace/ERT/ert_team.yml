@@ -1,25 +1,26 @@
 - type: ertTeam
   id: Cburn
-  name: РХБЗ
+  name: РХБЗЗ
   startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Специализированный отряд радиационной, химической и биологической зомби защиты
-    NanoTrasen. Предназначен для локализации утечек опасных веществ,
+    Специализированный отряд радиационной, химической, биологической и зомби защиты
+    НКВБ. Предназначен для локализации утечек опасных веществ,
     биологических угроз, а также проведения дезинфекции и эвакуации персонала
     в условиях заражения.
     5 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда от 10 до 15 минут.
+    Время прибытия отряда от 5 до 10 минут.
+  notification: ert-responce-caused-messager-cburn
   sender: ert-responce-cso-sender
   rule: SpawnCburnShuttle
   cooldown:
-    min: 15m
-    max: 15m
-  spawnWindow:
     min: 10m
-    max: 15m
+    max: 10m
+  spawnWindow:
+    min: 5m
+    max: 10m
   price: 4
   codeBlackList:
   - enigma
@@ -38,22 +39,22 @@
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Элитный специализированный отряд радиационной, химической и биологической зомби защиты
-    NanoTrasen. Предназначен для локализации утечек особо опасных веществ,
+    Элитный специализированный отряд радиационной, химической, биологической и зомби защиты
+    НКВБ. Предназначен для локализации утечек особо опасных веществ,
     биологических угроз, а также проведения дезинфекции и эвакуации персонала
     в условиях масштабного заражения.
     10 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда от 10 до 15 минут.
-  notification: ert-responce-caused-messager-sierra
+    Время прибытия отряда от 10 минут.
+  notification: ert-responce-caused-messager-cburn-sierra
   sender: ert-responce-cso-sender
   rule: SpawnSierraShuttle
   cooldown:
-    min: 15m
-    max: 15m
+    min: 10m
+    max: 10m
   spawnWindow:
     min: 10m
-    max: 15m
+    max: 10m
   price: 6
   codeBlackList:
   - enigma
@@ -67,12 +68,12 @@
 
 - type: ertTeam
   id: Engineers
-  name: ОБР Инженеры
+  name: СОБР Инженеры
   startAnnouncement: station-event-response-team-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Отряд инженеров NanoTrasen, специализирующихся на ремонте и техническом обслуживании
+    Отряд инженеров НКВБ, специализирующихся на ремонте и техническом обслуживании
     космических станций и кораблей. Они обладают обширными знаниями в области
     инженерии, систем жизнеобеспечения и ремонта оборудования.
     4 инженера прибывают на инженерном шаттле, оснащённом всем необходимым оборудованием
@@ -101,18 +102,19 @@
 
 - type: ertTeam
   id: Amber
-  name: ОБР Эмбер
-  startAnnouncement: station-event-response-team-arrival
+  name: СОБР Оберег
+  startAnnouncement: station-event-response-team-arrival-amber
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Отряд быстрого реагирования Эмбер NanoTrasen, предназначенный для
+    Специальный Отряд быстрого реагирования Оберег НКВБ, предназначенный для
     проведения разведывательных операций и оказания поддержки силам
-    Службы Безопасности в борьбе с незначительными угрозами, в случае
+    Милиции в борьбе с незначительными угрозами, в случае
     если текущий состав слишком мал.
-    5 членов отряда прибывают на шаттле Эмбер, который оснащён всем
+    5 членов отряда прибывают на шаттле Оберега, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 5 до 10 минут.
+  notification: ert-responce-caused-messager-amber
   rule: SpawnAmberShuttle
   cooldown:
     min: 10m
@@ -138,19 +140,20 @@
 
 - type: ertTeam
   id: Red
-  name: ОБР Красный
+  name: СОБР Вымпел
   startAnnouncement: station-event-response-team-arrival-red
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Отряд специального назначения NanoTrasen, предназначенный для
+    Отряд специального назначения НКВБ, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
     космических станциях и кораблях. Они обучены для выполнения различных
     задач, включая борьбу с пиратами, спасательные операции и обеспечение
     безопасности персонала.
-    7 членов отряда прибывают на шаттле типа Гамма, который оснащён всем
+    7 членов отряда прибывают на шаттле типа Альфа, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 10 до 15 минут.
+  notification: ert-responce-caused-messager-red
   sender: ert-responce-cso-sender
   rule: SpawnGammaShuttle # это буквально одинаковые шаттлы
   cooldown:
@@ -177,18 +180,18 @@
 
 - type: ertTeam
   id: Gamma
-  name: ОБР Гамма
+  name: СОБР Альфа
   startAnnouncement: station-event-response-team-arrival-gamma
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Отряд специального назначения NanoTrasen, предназначенный для
+    Отряд специального назначения НКВБ, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
     космических станциях и кораблях. Они обучены для выполнения различных
     задач. В основе их деятельности лежит защита станций от вторжения извне.
-    8 членов отряда и их лидер прибывают на шаттле Гамма, который оснащён всем
+    8 членов отряда и их лидер прибывают на шаттле Альфа, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда 20 минут.
+    Время прибытия отряда 15 минут.
   rule: SpawnGammaShuttle
   notification: ert-responce-caused-messager-gamma
   sender: ert-responce-cso-sender
@@ -196,8 +199,8 @@
     min: 20m
     max: 20m
   spawnWindow:
-    min: 20m
-    max: 20m
+    min: 15m
+    max: 15m
   price: 8
   codeBlackList:
   - sierra
@@ -219,7 +222,7 @@
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Альянс Противодействия Биологической и Террористической угрозе NanoTrasen,
+    Альянс Противодействия Биологической и Террористической угрозе СССП,
     предназначенный очистить станцию от биологической и террористической угрозы.
     Данный отряд отправляется при вторжении террористов Круг или в случае масштабного всплеска ред-спейс.
     Время прибытия отряда от 20 до 25 минут.
@@ -243,28 +246,28 @@
 
 - type: ertTeam
   id: CentralCommandOfficial
-  name: Представитель ЦК
+  name: Представитель ГШ
   startAnnouncement: station-event-centcomm-official-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Представитель Центрального Командования NanoTrasen, прибывающий на станцию
+    Представитель Генерального Штаба СССП, прибывающий на станцию
     для решения возникших проблем, которые не могут быть решены обычным способом.
-    Представитель Центрального Командования и 3 офицера Синий Щит прибывают
+    Представитель Генерального Штаба и 3 офицера Синий Щит прибывают
     на шаттле, который оснащён всем необходимым оборудованием
     для выполнения их миссии.
-    Время прибытия от 5 до 7 минут.
+    Время прибытия 5 минут.
   notification: ert-responce-caused-messager-official
   rule: SpawnCentCommOfficialShuttle
   cancelMessage:
     Представитель Центрального Командования NanoTrasen не смог прибыть на станцию
     из-за непредвиденных обстоятельств. Мы приносим извинения за возможные неудобства.
   cooldown:
-    min: 7m
-    max: 7m
+    min: 5m
+    max: 5m
   spawnWindow:
     min: 5m
-    max: 7m
+    max: 5m
   price: 0
   codeBlackList:
   - sierra

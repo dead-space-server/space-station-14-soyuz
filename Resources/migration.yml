@@ -1180,12 +1180,14 @@ SeniorCourier: null
 # 2026-02-18 - DS14 - Soyuz
 Grille: ClockworkGrille
 Poweredlight: PoweredlightSoyuz
-ReinforcedWindow: MiningWindow
+PoweredlightOrange: PoweredlightSoyuz
+ReinforcedWindow: MiningWindowSoyuz
 PoweredSmallLight: PoweredSmallLightSoyuz
-ReinforcedWindowDiagonal: MiningWindowDiagonal
+ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
 GrilleDiagonal: ClockworkGrilleDiagonal
 SignNanotrasen1: null
 SignNanotrasen2: null
 SignNanotrasen3: null
 SignNanotrasen4: null
 SignNanotrasen5: null
+GrilleBroken: ClockworkGrilleBroken

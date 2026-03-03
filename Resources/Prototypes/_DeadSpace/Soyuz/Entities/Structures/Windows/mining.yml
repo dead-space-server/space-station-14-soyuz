@@ -11,7 +11,6 @@
     sprite: Structures/Windows/mining.rsi
   - type: IconSmooth
     base: mwindow
-    node: miningWindow
 
 - type: entity
   parent: ReinforcedWindowDiagonal
@@ -33,4 +32,3 @@
     state: state0
   - type: Construction
     graph: DiagonalWindow
-    node: miningWindowDiagonal

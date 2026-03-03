@@ -30,5 +30,3 @@
   - type: Icon
     sprite: Structures/Windows/mining_diagonal.rsi
     state: state0
-  - type: Construction
-    graph: DiagonalWindow

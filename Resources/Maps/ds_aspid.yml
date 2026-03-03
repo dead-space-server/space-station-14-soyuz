@@ -147517,7 +147517,7 @@ entities:
     - type: Transform
       pos: -13.5,19.5
       parent: 2
-- proto: SpawnPointSeniorCourier
+- proto: SpawnPointSeniorSalvageSpecialist
   entities:
   - uid: 18373
     components:
@@ -148660,13 +148660,13 @@ entities:
     - type: Transform
       pos: -19.5,74.5
       parent: 2
-# - proto: SuitStorageSeniorSalvageSpecialistFilled
-#   entities:
-#   - uid: 18522
-#     components:
-#     - type: Transform
-#       pos: -36.5,28.5
-#       parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 18522
+    components:
+    - type: Transform
+      pos: -36.5,28.5
+      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 18523
@@ -153908,8 +153908,8 @@ entities:
   - uid: 19218
     components:
     - type: MetaData
-      desc: Минифигурка офицера СОБР.
-      name: фигурка офицера СОБР
+      desc: Минифигурка офицера ОБР.
+      name: фигурка офицера ОБР
     - type: Transform
       pos: -22.067787,74.58561
       parent: 2

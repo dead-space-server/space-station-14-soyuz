@@ -46,6 +46,11 @@
   components:
   - type: AutoRecharge
     rechargeDuration: 1
+# DS14-start
+  - type: LimitedCharges
+    maxCharges: 150000
+    lastCharges: 150000
+# DS14-end
 
 - type: entity
   parent: SprayPainter

@@ -103,22 +103,6 @@
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel
 
 - type: loadout
-  id: UnderwearBottomPantiesPolitruk
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: FemaleUnderwear
-  equipment:
-    underwearb: ClothingUnderwearBottomStringsolitOtdel
-
-- type: loadout
-  id: UnderwearTopBraPolitruk
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: FemaleUnderwear
-  equipment:
-    underweart: ClothingUnderwearTopBraPolitOtdel
-
-- type: loadout
   id: UnderwearTopTelnikPolitruk
   effects:
   - !type:GroupLoadoutEffect

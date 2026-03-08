@@ -1,13 +1,3 @@
-# Strings
-- type: entity
-  parent: ClothingUnderwearBottomBase
-  id: ClothingUnderwearBottomStringsolitOtdel
-  name: стринги политического отдела
-  description: Стандартное нижнее белье для женского персонала Политического Отдела.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/Soyuz/Clothing/Underwear/Bottom/politotdelstrings.rsi
-
 # Boxers
 - type: entity
   parent: ClothingUnderwearBottomBase

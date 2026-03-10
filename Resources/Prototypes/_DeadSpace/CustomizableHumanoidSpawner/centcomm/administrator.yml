@@ -17,6 +17,15 @@
     - Demon
     - Vulpkanin
     - Tajaran
+    - Arachnid
+    - Dwarf
+    - Felinid
+    - Kobolt
+    - Moth
+    - Reptilian
+    - SlimePerson
+    - Xenomorph
+    - Vox
 
 - type: roleLoadout
   id: JobCentralCommandAdministrator
@@ -39,3 +48,8 @@
   equipment:
     back: ClothingBackpackSatchelOfficial
     eyes: ClothingEyesGlassesHiddenSecurity
+  storage:
+    back:
+    - DoorRemoteAll
+    - RubberStampApproved
+    - RubberStampDenied

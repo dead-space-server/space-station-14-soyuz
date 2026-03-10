@@ -8,5 +8,5 @@ ent-ClothingHeadHelmetCosmonaut = шлем космонавта
     .desc = Древний дизайн, современное производство.
 ent-ClothingHeadHelmetVoidParamed = пустотный шлем фельдшера
     .desc = Пустотный шлем, предназначенный для фельдшера.
-ent-ClothingHeadHelmetAncient = пустотный шлем 
+ent-ClothingHeadHelmetAncient = пустотный шлем
     .desc = Древний космический шлем, разработанный по заказу Генерального Штаба НИИ космических исследований СССП.

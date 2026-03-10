@@ -1,4 +1,4 @@
-ent-AsteroidRockTungsten = { ent-AsteroidRock}
+ent-AsteroidRockTungsten = { ent-AsteroidRock }
     .desc = Рудная жила, богатая вольфрамом.
     .suffix = Вольфрам
 ent-IronRockTungsten = { ent-IronRock }
@@ -16,9 +16,9 @@ ent-WallRockSnowTungsten = { ent-WallRockSnow }
 ent-WallRockSandTungsten = { ent-WallRockSand }
     .desc = Рудная жила, богатая вольфрамом.
     .suffix = Вольфрам
-ent-WallRockChromiteTungsten = { ent-WallRockChromite}
+ent-WallRockChromiteTungsten = { ent-WallRockChromite }
     .desc = Рудная жила, богатая вольфрамом.
     .suffix = Вольфрам
-ent-WallRockAndesiteTungsten = { ent-WallRockAndesite}
+ent-WallRockAndesiteTungsten = { ent-WallRockAndesite }
     .desc = Рудная жила, богатая вольфрамом.
     .suffix = Вольфрам

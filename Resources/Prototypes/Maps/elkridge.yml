@@ -1,7 +1,7 @@
 - type: gameMap
   id: Elkridge
   mapName: 'Elkridge Depot'
-  mapPath: /Maps/elkridge.yml
+  mapPath: /Maps/Soyuz/elkridge.yml
   minPlayers: 20
   maxPlayers: 50
   stations:
@@ -22,8 +22,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

@@ -1,7 +1,7 @@
 - type: gameMap
   id: Barratry
   mapName: 'Barratry'
-  mapPath: /Maps/barratry.yml
+  mapPath: /Maps/Soyuz/barratry.yml
   minPlayers: 25
   maxPlayers: 55
   stations:
@@ -20,8 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]            
+            # NKVB
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

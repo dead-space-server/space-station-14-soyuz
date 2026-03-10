@@ -1,7 +1,7 @@
 - type: gameMap
   id: Train
   mapName: 'Train'
-  mapPath: /Maps/train.yml
+  mapPath: /Maps/Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 30
@@ -22,8 +22,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB 
-#            Politruk: [ 1, 1 ]
+            # NKVB
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

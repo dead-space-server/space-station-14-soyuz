@@ -15,27 +15,6 @@
   - type: IngestionBlocker
 
 - type: entity
-  parent: ClothingMaskBase
-  id: ClothingMaskClownPencil
-  name: маска и грим мужичка
-  description: Знаменитая маска клоуна в СССП.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/Clothing/Mask/ClownUSSP.rsi
-  - type: Clothing
-    sprite: _DeadSpace/Clothing/Mask/ClownUSSP.rsi
-  - type: BreathMask
-  - type: IdentityBlocker
-  - type: Tag
-    tags:
-    - HamsterWearable
-    - ClownMask
-    - WhitelistChameleon
-  - type: HideLayerClothing
-    slots:
-    - Snout
-
-- type: entity
   parent: ClothingMaskBreath
   id: ClothingMaskBreathTaipan
   name: чёрная боевая дыхательная маска

@@ -9,9 +9,6 @@
 
 - type: Tag
   id: PoliceBetaHead
-  
-- type: Tag
-  id: MagazineLightRifleAsVal
 
 - type: Tag
   id: MagazineLightRifleVSS

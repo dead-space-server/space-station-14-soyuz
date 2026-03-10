@@ -288,6 +288,15 @@
     Plastic: 300
     Uranium: 600
 
+#DS14-start
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazinePistolMTS
+  result: MagazinePistolMTS
+  materials:
+    Steel: 140
+#DS14-end
+
 # .45 Magnum
 - type: latheRecipe
   parent: BaseEmptyAmmoRecipe

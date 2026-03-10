@@ -383,7 +383,7 @@
 - type: listing
   id: UplinkERTShieldVANT
   name: бронещит ВАНТ-М
-  description: Передовой щит СССП предназначенный для проведения штурмовых операций. 
+  description: Передовой щит СССП предназначенный для проведения штурмовых операций.
   productEntity: ShieldVANT
   cost:
     RedSpaceCoupons: 10

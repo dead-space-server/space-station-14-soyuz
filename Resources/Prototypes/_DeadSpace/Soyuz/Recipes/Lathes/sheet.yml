@@ -27,17 +27,3 @@
   completetime: 4
   materials:
     IngotTungsten: 6000
-
-- type: latheRecipe
-  id: IngotTungsten1T
-  result: IngotTungsten1
-  completetime: 2
-  materials:
-    SheetTungsten: 50
-
-- type: latheRecipe
-  id: IngotTungsten30T
-  result: IngotTungsten
-  completetime: 4
-  materials:
-    SheetTungsten: 3000

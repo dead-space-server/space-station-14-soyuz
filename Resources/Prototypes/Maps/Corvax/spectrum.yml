@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxSpectrum
   mapName: 'Spectrum'
-  mapPath: /Maps/corvax_spectrum.yml
+  mapPath: /Maps/Soyuz/corvax_spectrum.yml
   minPlayers: 60
   stations:
     Spectrum:
@@ -40,6 +40,7 @@
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
             MedicalIntern: [ 3, 3 ]
+            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]

@@ -37,8 +37,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTCAP
-  name: фигурка Командира ОБР
-  description: Минифигурка командира ОБР.
+  name: фигурка Командира СОБР
+  description: Минифигурка командира СОБР.
   components:
   - type: Sprite
     state: ertcap
@@ -48,8 +48,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTEngi
-  name: фигурка инженера ОБР
-  description: Минифигурка инженера ОБР.
+  name: фигурка инженера СОБР
+  description: Минифигурка инженера СОБР.
   components:
   - type: Sprite
     state: ertengi
@@ -59,8 +59,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTJunitor
-  name: фигурка уборщика ОБР
-  description: Минифигурка уборщика ОБР.
+  name: фигурка уборщика СОБР
+  description: Минифигурка уборщика СОБР.
   components:
   - type: Sprite
     state: ertjunitor
@@ -70,8 +70,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTOfficer
-  name: фигурка офицера ОБР
-  description: Минифигурка офицера ОБР.
+  name: фигурка офицера СОБР
+  description: Минифигурка офицера СОБР.
   components:
   - type: Sprite
     state: ertofficer
@@ -81,8 +81,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTMedic
-  name: фигурка медика ОБР
-  description: Минифигурка медика ОБР.
+  name: фигурка медика СОБР
+  description: Минифигурка медика СОБР.
   components:
   - type: Sprite
     state: ertmedic

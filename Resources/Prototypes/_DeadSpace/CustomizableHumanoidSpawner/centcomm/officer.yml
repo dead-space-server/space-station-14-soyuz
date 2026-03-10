@@ -17,10 +17,20 @@
     - Demon
     - Vulpkanin
     - Tajaran
+    - Arachnid
+    - Dwarf
+    - Felinid
+    - Kobolt
+    - Moth
+    - Reptilian
+    - SlimePerson
+    - Xenomorph
+    - Vox
   - type: GhostRole
     name: ghost-role-information-centcomofficer-name
     description: ghost-role-information-centcomofficer-description
     rules: ghost-role-information-centcom-personal-rules
+    category: ghost-role-information-centcomm-category
     requirements:
       - !type:DepartmentTimeRequirement
         department: Security
@@ -52,10 +62,12 @@
     back: ClothingBackpackMilitarySatchel
     shoes: ClothingShoesBootsJackFilled
     eyes: ClothingEyesGlassesHiddenSecurity
-    suitstorage: WeaponEnergyShotgun
+    suitstorage: WeaponRifleAKMCY
     pocket1: TelescopicShield
     pocket2: WeaponPistolX01
   storage:
     back:
     - BoxZiptie
-    - PortableRecharger
+    - MagazineLightRifle
+    - MagazineLightRifle
+    - MagazineLightRifle

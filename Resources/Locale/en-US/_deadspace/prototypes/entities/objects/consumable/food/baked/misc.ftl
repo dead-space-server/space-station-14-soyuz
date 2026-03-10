@@ -1,0 +1,16 @@
+ent-FoodBakedGingerbreadMan = пряничный человек
+    .desc = Печенье в форме человека.
+ent-FoodBakedGingerbreadStar = пряничная звезда
+    .desc = Печенье в форме звезды.
+ent-FoodBakedGingerbreadBear = пряничный медведь
+    .desc = Печенье в форме медведя.
+ent-FoodBakedGingerbreadTree = пряничная ёлка
+    .desc = Печенье в форме ёлки.
+ent-FoodBakedGingerbreadCane = пряничная трость
+    .desc = Печенье в форме трости.
+ent-FoodBakedGingerbreadStocking = пряничный чулок
+    .desc = Печенье в форме чулка.
+ent-FoodBakedGingerbreadPresent = пряничный подарок
+    .desc = Печенье в форме подарка.
+ent-FoodBakedGingerbreadSanta = пряничный Санта
+    .desc = Печенье в форме Санты.

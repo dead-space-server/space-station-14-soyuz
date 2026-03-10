@@ -23,17 +23,17 @@
     idleState: icon
     runningState: icon
     dynamicPacks:
-    - SecurityAmmoTungsten 
-    - ProcessingTungsten 
-    - BallisticsShotguns 
-    - BallisticsAutomaticWeapons 
-    - SecurityMagazine 
-    - AdvancedBallisticsShotguns 
-    - AdvancedBallisticsAutomaticWeapons 
-    - AdvancedSecurityMagazine 
-    - BallisticsLargeCaliberWeapons 
-    - PosketDefenseWeaponry 
-    - AdvancedShotgunMagazine 
+    - SecurityAmmoTungsten
+    - ProcessingTungsten
+    - BallisticsShotguns
+    - BallisticsAutomaticWeapons
+    - SecurityMagazine
+    - AdvancedBallisticsShotguns
+    - AdvancedBallisticsAutomaticWeapons
+    - AdvancedSecurityMagazine
+    - BallisticsLargeCaliberWeapons
+    - PosketDefenseWeaponry
+    - AdvancedShotgunMagazine
     - AdvancedRiotControl
   - type: MaterialStorage
     whitelist:

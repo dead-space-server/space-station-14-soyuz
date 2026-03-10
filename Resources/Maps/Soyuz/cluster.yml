@@ -64654,7 +64654,7 @@ entities:
     - type: Transform
       pos: 36.40148,13.479853
       parent: 2
-- proto: MagazineLightRifleAsValIncendiary
+- proto: MagazineLightRifleAsVal
   entities:
   - uid: 9168
     components:

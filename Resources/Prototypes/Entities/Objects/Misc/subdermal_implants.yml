@@ -98,6 +98,16 @@
     - type: StationLimitedNetwork
     - type: WirelessNetworkConnection
       range: 500
+  #DS-14 start
+    - type: TriggerOnMobstateChange
+      mobState:
+      - Alive
+      - Critical
+      - Dead
+    - type: RattleOnTrigger
+      targetUser: true
+      radioChannel: Medical
+  #DS-14 end
 
 #Traitor implants
 
@@ -406,5 +416,12 @@
   description: This implant will inform the Centcomm radio channel should the user fall into critical condition or die.
   categories: [ HideSpawnMenu ]
   components:
+  #DS-14 start
+  - type: TriggerOnMobstateChange
+    mobState:
+    - Alive
+    - Critical
+    - Dead
+  #DS-14 end
   - type: RattleOnTrigger
     radioChannel: CentCom

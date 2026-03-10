@@ -1,0 +1,8 @@
+- type: trait
+  id: kvirinAccent
+  name: trait-kvirin-accent-name
+  description: trait-kvirin-accent-desc
+  category: SpeechTraits
+  cost: 2
+  components:
+  - type: KvirinAccent

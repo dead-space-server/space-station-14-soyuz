@@ -11,4 +11,4 @@ department-Specific = На определённых станциях
 department-Unknown = Неизвестный
 department-Law = Юридический отдел
 department-Taipan = ННКСС Тайпан
-department-SpecialOperationsCorps = Комитет Гос Безопасности
+department-SpecialOperationsCorps = Корпус Специальных Операций

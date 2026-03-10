@@ -2,7 +2,7 @@
   id: Packed
   mapName: 'Packed'
   mapPath: /Maps/Soyuz/packed.yml
-  minPlayers: 0
+  minPlayers: 5
   maxPlayers: 35
   stations:
     Packed:
@@ -42,6 +42,7 @@
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
             MedicalIntern: [ 2, 2 ]
+#            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
@@ -55,7 +56,7 @@
             TechnicalAssistant: [ 3, 3 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            SeniorCourier: [ 1, 1 ]
+            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 2, 2 ]
             # civ

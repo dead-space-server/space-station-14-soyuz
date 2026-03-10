@@ -241,8 +241,6 @@
     rules: ghost-role-information-rules-team-antagonist
   - type: GhostRoleNotifys
     groupPrototype: SpiderTerrorGeroick
-  - type: Damageable
-    damageModifierSet: HeadSpiderTerror
 
 - type: entity
   name: паук страж
@@ -255,8 +253,6 @@
       0: Alive
       100: Critical
       150: Dead
-  - type: Damageable
-    damageModifierSet: HeavySpiderTerror
   - type: MeleeWeapon
     animation: WeaponArcBite
     soundHit:
@@ -534,7 +530,7 @@
       path: /Audio/Effects/bite.ogg
     damage:
       types:
-        Slash: 4
+        Piercing: 4
         Poison: 2
         Structural: 20
       groups:
@@ -689,7 +685,7 @@
       path: /Audio/Effects/bite.ogg
     damage:
       types:
-        Slash: 3
+        Piercing: 3
         Poison: 3
       groups:
         Brute: 2
@@ -869,7 +865,7 @@
       path: /Audio/Effects/bite.ogg
     damage:
       types:
-        Slash: 7
+        Piercing: 7
         Poison: 3
         Structural: 30
       groups:
@@ -947,8 +943,6 @@
       0: Alive
       300: Critical
       350: Dead
-  - type: Damageable
-    damageModifierSet: HeavySpiderTerror
   - type: Fixtures
     fixtures:
       fix1:

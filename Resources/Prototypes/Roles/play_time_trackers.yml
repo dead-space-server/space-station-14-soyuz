@@ -238,8 +238,8 @@
 - type: playTimeTracker
   id: JobCoroner
 
-- type: playTimeTracker
-  id: JobSeniorCourier
+# - type: playTimeTracker
+#   id: JobSeniorCourier
 
 - type: playTimeTracker
   id: JobSeniorAdministrator

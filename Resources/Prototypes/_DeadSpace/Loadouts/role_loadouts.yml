@@ -8,6 +8,7 @@
   - BlueShieldOfficerNeck
   - OKGBOuterClothing # DS14-Soyuz
   - OKGBGasMask # DS14-Soyuz
+  - OKGBHypo # DS14-Soyuz
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
@@ -42,21 +43,6 @@
   - ClownUnderwear # DS14-Underwear
 
 # Cargo
-- type: roleLoadout
-  id: JobSeniorCourier
-  groups:
-  - GroupTankHarness
-  - SeniorCourierHead
-  - SeniorCourierJumpsuit
-  - CargoTechnicianBackpack
-  - SeniorCourierBelt
-  - SeniorCourierOuterClothing
-  - CargoTechnicianShoes
-  - Glasses
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
-  - SeniorCourierUnderwear # DS14-Underwear
 
 # Law
 - type: roleLoadout

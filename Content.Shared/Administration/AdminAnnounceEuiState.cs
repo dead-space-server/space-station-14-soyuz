@@ -29,7 +29,7 @@ namespace Content.Shared.Administration
             public string Voice = default!; // Corvax-TTS
             public bool EnableTTS = default!; // Corvax-TTS
             public bool CustomTTS = default!; // Corvax-TTS
-            public string ColorHex = "B64444FF"; // DS14-announce-color
+            public string ColorHex = "B64444"; // DS14-announce-color
             public string SoundPath = "/Audio/_DeadSpace/Announcements/centcomm.ogg"; // DS14-announce-audio
             public float SoundVolume = 5f; // DS14-announce-volume
             public string Sender = "Оператор ГШ"; // DS14-announce-sender

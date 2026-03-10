@@ -38,12 +38,6 @@
       "name": "closed"
     },
     {
-      "name": "animation-closed-unshaded",
-      "delays": [
-        [ 0.1, 0.1, 0.1, 0.1]
-      ]
-    },
-    {
       "name": "inhand-left",
       "directions": 4
     },

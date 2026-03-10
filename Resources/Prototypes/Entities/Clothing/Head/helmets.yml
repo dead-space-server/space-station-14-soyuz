@@ -42,9 +42,6 @@
     tags:
     - WhitelistChameleon
     - SecurityHelmet
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #Mercenary Helmet
 - type: entity
@@ -74,8 +71,6 @@
     sprite: Clothing/Head/Helmets/swat.rsi
   - type: Armor #This is intentionally not spaceproof, when the time comes to port the values from SS13 this should be buffed from what it was.
     modifiers:
-      armorLvls:
-        Piercing: 2
       coefficients:
         Blunt: 0.80
         Slash: 0.80
@@ -124,9 +119,6 @@
         Slash: 0.8
         Piercing: 0.95
         Heat: 0.95 # DS14-value
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #Bombsuit Helmet
 - type: entity
@@ -344,8 +336,6 @@
     sprite: Clothing/Head/Helmets/linghelmet.rsi
   - type: Armor #admeme item so it should be fine being overpowered while helmets are still intentionally kneecapped.
     modifiers:
-      armorLvls:
-        Piercing: 2
       coefficients:
         Blunt: 0.5
         Slash: 0.5
@@ -380,9 +370,6 @@
     sprite: Clothing/Head/Helmets/ert_leader.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/ert_leader.rsi
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #ERT Security Helmet
 - type: entity
@@ -395,9 +382,6 @@
     sprite: Clothing/Head/Helmets/ert_security.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/ert_security.rsi
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #ERT Medic Helmet
 - type: entity
@@ -410,9 +394,6 @@
     sprite: Clothing/Head/Helmets/ert_medic.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/ert_medic.rsi
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #ERT Engineer Helmet
 - type: entity
@@ -425,9 +406,6 @@
     sprite: Clothing/Head/Helmets/ert_engineer.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/ert_engineer.rsi
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 #ERT Janitor Helmet
 - type: entity
@@ -440,9 +418,6 @@
     sprite: Clothing/Head/Helmets/ert_janitor.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/ert_janitor.rsi
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 - type: entity
   parent: [ BaseSyndicateContraband, ClothingHeadHelmetBase ]
@@ -456,8 +431,6 @@
     sprite: Clothing/Head/Helmets/syndie-raid.rsi
   - type: Armor
     modifiers: #There's gotta be SOME reason to use this over other helmets.
-      armorLvls:
-        Piercing: 2
       coefficients:
         Blunt: 0.85
         Slash: 0.85
@@ -568,9 +541,6 @@
   - type: Construction
     graph: HelmetJustice
     node: helmet
-  - type: HideLayerClothing
-    layers:
-      Hair: HEAD
 
 - type: entity
   parent: ClothingHeadHelmetJustice

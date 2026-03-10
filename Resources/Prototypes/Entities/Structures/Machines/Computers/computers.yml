@@ -788,7 +788,7 @@
     access: [[ "CentralCommand" ]]
   - type: CommunicationsConsole
     title: comms-console-announcement-title-centcom
-    color: "#B64444FF"
+    color: "#B64444"
     canShuttle: false
     global: true
     sound:

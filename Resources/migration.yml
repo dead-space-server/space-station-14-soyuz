@@ -1119,7 +1119,7 @@ WarpPointBombing: null
 # 2025-11-08
 ADTWeaponRifleXC67: WeaponRifleXC67
 
-# 2025-11-09 - DS14
+## 2025-11-09 - DS14
 SuitStorageSeniorSalvageSpecialistFilled: null
 ClothingOuterHardsuitSeniorSalvage: null
 ClothingHeadHelmetHardsuitSeniorSalvage: null
@@ -1127,7 +1127,7 @@ ClothingUnderwearSocksSeniorSalvage: null
 SeniorSalvageIDCard: null
 SeniorSalvagePDA: null
 RubberStampSeniorSalvage: null
-SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
+#SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
 WeaponSeniorKinetik: WeaponAdvancedKinetik
 
 # 2025-11-26 - DS14
@@ -1172,8 +1172,22 @@ ClothingUniformJumpsuitHoSBlack: null
 BookNewDrink: null
 BookNewFood: null
 
-# 2026-01-14 - DS14
-WeaponRifleLecterFMJ: WeaponRifleLecterHP
-CrateArmoryRifleFMJ: null
-MagazineRifleFMJ: MagazineRifleHP
-CartridgeRifleFMJ: MagazineRifleHP
+# 2026-02-15 - DS14 - Soyuz
+SpawnPointSeniorCourier: null
+SpawnPointSeniorSalvageSpecialist: null
+SeniorCourier: null
+
+# 2026-02-18 - DS14 - Soyuz
+Grille: ClockworkGrille
+Poweredlight: PoweredlightSoyuz
+PoweredlightOrange: PoweredlightSoyuz
+ReinforcedWindow: MiningWindowSoyuz
+PoweredSmallLight: PoweredSmallLightSoyuz
+ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
+GrilleDiagonal: ClockworkGrilleDiagonal
+SignNanotrasen1: null
+SignNanotrasen2: null
+SignNanotrasen3: null
+SignNanotrasen4: null
+SignNanotrasen5: null
+GrilleBroken: ClockworkGrilleBroken

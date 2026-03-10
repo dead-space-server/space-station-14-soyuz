@@ -14,12 +14,12 @@
         color: "#ffffff"
 
 - type: entity
-  id: CartridgeLightestRifleSilver
-  name: патрон (5.45х39 мм винтовочный серебряный)
-  parent: BaseCartridgeLightestRifle
+  id: CartridgeRifleSilver
+  name: патрон (6.5х39 мм TSF серебряный)
+  parent: BaseCartridgeRifle
   components:
   - type: CartridgeAmmo
-    proto: BulletLightestRifleSilver
+    proto: BulletRifleSilver
   - type: Sprite
     layers:
       - state: base
@@ -29,12 +29,12 @@
         color: "#ffffff"
 
 - type: entity
-  id: CartridgeRifleSilver
-  name: патрон (6.5х39 мм TSF серебряный)
-  parent: BaseCartridgeRifle
+  id: CartridgeLightestRifleSilver
+  name: патрон (5.45х39 мм винтовочный серебряный)
+  parent: BaseCartridgeLightestRifle
   components:
   - type: CartridgeAmmo
-    proto: BulletRifleSilver
+    proto: BulletLightestRifleSilver
   - type: Sprite
     layers:
       - state: base

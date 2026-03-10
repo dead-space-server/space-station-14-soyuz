@@ -100,9 +100,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      350: Dead
-  - type: Damageable
-    damageModifierSet: HeavySpiderTerror
+      250: Dead
   - type: Fixtures
     fixtures:
       fix1:

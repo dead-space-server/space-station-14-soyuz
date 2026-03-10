@@ -22,6 +22,7 @@ using Content.Shared.Database;
 using Robust.Shared.Timing;
 using Content.Shared.Pinpointer;
 using Content.Server.DeadSpace.ERT.Components;
+using Content.Server.Ghost.Roles.Components;
 using Content.Server.Station.Systems;
 using Content.Server.GameTicking;
 using Content.Shared.GameTicking.Components;
@@ -255,6 +256,23 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             {
                 var spec = Spawn(prototype.Special.Value, Transform(uid).Coordinates);
 
+                if (Terminating(spec) || !HasComp<GhostRoleComponent>(spec))
+                {
+                    var ghostQuery = EntityQueryEnumerator<GhostRoleComponent, TransformComponent>();
+                    spec = EntityUid.Invalid;
+                    while (ghostQuery.MoveNext(out var ghostUid, out _, out var ghostXform))
+                    {
+                        if (ghostXform.MapID != args.Map)
+                            continue;
+
+                        spec = ghostUid;
+                        break;
+                    }
+
+                    if (!spec.IsValid())
+                        return;
+                }
+
                 var window = _defaultWindowWaitingSpecies.Clone();
                 var settings = new WaitingSpeciesSettings(args.Map, window, ent.Comp.Team, uid);
 
@@ -319,7 +337,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
                 _chatSystem.DispatchGlobalAnnouncement(
                     message: prototype.CancelMessage,
                     sender: Loc.GetString("chat-manager-sender-announcement"),
-                    colorOverride: Color.FromHex("#1d8bad"),
+                    colorOverride: Color.FromHex("#B64444"),
                     playSound: true,
                     usePresetTTS: true,
                     languageId: LanguageSystem.DefaultLanguageId
@@ -414,7 +432,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             _chatSystem.DispatchGlobalAnnouncement(
                 message: string.IsNullOrEmpty(prototype.Notification) ? Loc.GetString("ert-responce-caused-messager", ("team", prototype.Name)) : Loc.GetString(prototype.Notification),
                 sender: string.IsNullOrEmpty(prototype.Sender) ? Loc.GetString("chat-manager-sender-announcement") : Loc.GetString(prototype.Sender),
-                colorOverride: Color.FromHex("#1d8bad"),
+                colorOverride: Color.FromHex("#B64444"),
                 playSound: true,
                 usePresetTTS: true,
                 languageId: LanguageSystem.DefaultLanguageId
@@ -474,7 +492,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             _chatSystem.DispatchGlobalAnnouncement(
                     message: Loc.GetString(prototype.StartAnnouncement),
                     sender: string.IsNullOrEmpty(prototype.Sender) ? Loc.GetString("chat-manager-sender-announcement") : Loc.GetString(prototype.Sender),
-                    colorOverride: Color.FromHex("#1d8bad"),
+                    colorOverride: Color.FromHex("#B64444"),
                     announcementSound: prototype.StartAudio,
                     playSound: true,
                     usePresetTTS: true,

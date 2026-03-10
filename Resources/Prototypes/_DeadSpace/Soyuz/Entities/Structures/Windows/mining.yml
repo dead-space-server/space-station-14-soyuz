@@ -1,0 +1,32 @@
+- type: entity
+  id: MiningWindowSoyuz
+  name: шахтёрское окно
+  description: Смотри не заляпай.
+  parent: ReinforcedWindow
+  components:
+  - type: Sprite
+    drawdepth: WallTops
+    sprite: Structures/Windows/mining.rsi
+  - type: Icon
+    sprite: Structures/Windows/mining.rsi
+  - type: IconSmooth
+    base: mwindow
+
+- type: entity
+  parent: ReinforcedWindowDiagonal
+  name: шахтёрское окно
+  description: Смотри не заляпай.
+  id: MiningWindowDiagonalSoyuz
+  suffix: diagonal
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Window
+  components:
+  - type: Sprite
+    drawdepth: WallTops
+    sprite: Structures/Windows/mining_diagonal.rsi
+    state: state0
+  - type: Icon
+    sprite: Structures/Windows/mining_diagonal.rsi
+    state: state0

@@ -23,7 +23,7 @@
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#B64444FF"
+    color: "#B64444"
   - type: ActivatableUI
     key: enum.ErtResponceConsoleUiKey.Key
   - type: UserInterface
@@ -40,7 +40,6 @@
     teams:
     - Cburn
     - CburnSierra
-    - Red
     - Gamma
     - Amber
     - Engineers
@@ -76,7 +75,7 @@
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#B64444FF"
+    color: "#B64444"
   - type: ActivatableUI
     key: enum.ErtComputerShuttleUiKey.Key
   - type: UserInterface

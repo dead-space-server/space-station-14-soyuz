@@ -65,13 +65,13 @@
   id: SpawnPointSeniorCourier
   parent: SpawnPointJobBase
   name: senior сourier
-  components:
-  - type: SpawnPoint
-    job_id: SeniorCourier
-  - type: Sprite
-    layers:
-      - state: green
-      - state: miner
+  # components: # DS14-Soyuz-Removed
+  # - type: SpawnPoint
+  #   job_id: SeniorCourier
+  # - type: Sprite
+  #   layers:
+  #     - state: green
+  #     - state: miner
 
 - type: entity
   id: SpawnPointCargoTechnician

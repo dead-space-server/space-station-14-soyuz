@@ -62,7 +62,7 @@
   storage:
     back:
     - Flash
-    - TelephoneIaa
+    - TelephonePolitruk
     - RubberStampPolitruk
 
 - type: chameleonOutfit
@@ -75,3 +75,55 @@
     gloves: ClothingHandsGlovesColorBlack
     ears: ClothingHeadsetAltCommand
     back: ClothingBackpackSecurity
+
+# Я это сюда впихну
+- type: entity
+  parent:
+  - BaseItem
+  id: TelephonePolitruk
+  name: устройство связи с ГШ
+  description: Устройство связи, которое выдаётся политическим руководителям для связи с Генеральным Штабом в экстренных случаях.
+  components:
+  - type: ActivatableUI
+    key: enum.ErtResponceConsoleUiKey.Key
+    requiresComplex: true
+    requireActiveHand: false
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.ErtResponceConsoleUiKey.Key:
+        type: ErtResponceConsoleBoundUserInterface
+  - type: CrewManifestViewer
+    ownerKey: enum.ErtResponceConsoleUiKey.Key
+  - type: Item
+    size: Small
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+  - type: Sprite
+    sprite: _DeadSpace/Ert/telephone_iaa.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/Ert/telephone_iaa.rsi
+    quickEquip: false
+    slots:
+      - Belt
+  - type: Tag
+    tags:
+    - EmagImmune
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access:
+    - - Command
+      - Security
+      - Service
+      - Brig
+      - Maintenance
+  - type: ErtResponceConsole
+    teams:
+    - CentralCommandOfficial
+    - Amber
+  - type: Language
+    selectedLanguage: GeneralLanguage
+  - type: Speech
+    speechVerb: Robotic

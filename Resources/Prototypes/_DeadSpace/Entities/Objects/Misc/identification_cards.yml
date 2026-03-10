@@ -29,18 +29,6 @@
 
 - type: entity
   parent: IDCardStandard
-  id: SeniorCourierIDCard
-  name: senior courier ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idseniorcargo
-  - type: PresetIdCard
-    job: SeniorCourier
-
-- type: entity
-  parent: IDCardStandard
   id: SeniorServiceIDCard
   name: senior service ID card
   components:

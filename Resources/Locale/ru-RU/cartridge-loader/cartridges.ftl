@@ -1,9 +1,9 @@
 device-pda-slot-component-slot-name-cartridge = Картридж
 default-program-name = Программа
 notekeeper-program-name = Заметки
-nano-task-program-name = НаноДела
+nano-task-program-name = Партийные Задачи
 news-read-program-name = Новости станции
-crew-manifest-program-name = Манифест экипажа
+crew-manifest-program-name = Трудовой коллектив
 crew-manifest-cartridge-loading = Загрузка...
 net-probe-program-name = Зонд сетей
 net-probe-scan = Просканирован { $device }!

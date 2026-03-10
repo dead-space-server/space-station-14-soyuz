@@ -32,9 +32,6 @@
   id: BorgSecTorso
 
 - type: Tag
-  id: CartridgeLightestRifle
-
-- type: Tag
   id: DarkFlower
 
 - type: Tag
@@ -78,6 +75,9 @@
 
 - type: Tag
   id: EnergyCartridge
+
+- type: Tag
+  id: CartridgeLightestRifle
 
 - type: Tag
   id: EnergySword
@@ -131,10 +131,10 @@
   id: HolopadAdminNotification
 
 - type: Tag
-  id: Hypopen
+  id: HudCommand
 
 - type: Tag
-  id: HudCommand
+  id: Hypopen
 
 - type: Tag
   id: JellyAmanita
@@ -156,6 +156,7 @@
 
 - type: Tag
   id: LightReplacer
+
 
 - type: Tag
   id: MagazineBoxLightestRifle

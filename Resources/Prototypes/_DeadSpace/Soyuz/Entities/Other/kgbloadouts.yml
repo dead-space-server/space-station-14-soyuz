@@ -1,7 +1,7 @@
 - type: entity
   id: KGBloadoutPrimary
   name: кейс неопределённости
-  description: Прочный военный кейс для оружия. Принадлежит оперативнику КГБ. 
+  description: Прочный военный кейс для оружия. Принадлежит оперативнику КГБ.
   suffix: КГБ, Основное
   parent: BaseERTloadoutPrimary
   components:
@@ -11,6 +11,30 @@
     possibleSets:
     - DrozdSetOKGB
     - SaigaSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+- type: entity
+  id: KGBloadoutSecondary
+  name: коробка неопределённости
+  description: Коробка с гипоспреем. Принадлежит оперативнику КГБ.
+  suffix: КГБ, Вторичное
+  parent: BaseERTloadoutSecondary
+  components:
+  - type: Sprite
+    state: kgb
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,0,1
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - CombatHypoSet
+    - CombatHypoStingSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface
@@ -46,3 +70,23 @@
   - MagazineShotgun
   - MagazineShotgun
   - MagazineShotgun
+
+- type: thiefBackpackSet
+  id: CombatHypoSet
+  name: ert-loadout-category-combat-hypo-name
+  description: ert-loadout-category-combat-hypo-description
+  sprite:
+    sprite: _ADT/Objects/Specific/Medical/adt_combathypo.rsi
+    state: icon
+  content:
+  - ADTCombatHypo
+
+- type: thiefBackpackSet
+  id: CombatHypoStingSet
+  name: ert-loadout-category-sting-hypo-name
+  description: ert-loadout-category-sting-hypo-description
+  sprite:
+    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hyposting.rsi
+    state: hypo
+  content:
+  - CombatHypoSting

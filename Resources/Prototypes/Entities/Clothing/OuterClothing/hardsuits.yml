@@ -848,7 +848,7 @@
       coefficients:
         Blunt: 0.2
         Slash: 0.2
-        Piercing: 0.3 # DS14-value ибо баланс
+        Piercing: 0.2 # DS14-value ибо баланс
         Heat: 0.3 # DS14-value
         Radiation: 0.2
         Caustic: 0.2

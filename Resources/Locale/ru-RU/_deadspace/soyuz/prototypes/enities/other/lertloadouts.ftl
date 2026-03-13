@@ -17,7 +17,7 @@ ert-loadout-category-veresk-description =
 ert-loadout-category-rpl-name = РПЛ-20
 ert-loadout-category-rpl-description =
     Лучший ручной пулемёт
-    Использует коробы калибра 7.62х39 мм.
+    Использует коробы калибра 5.45х39 мм.
 ert-loadout-category-sv-name = СВ-98
 ert-loadout-category-sv-description =
     Магазинная снайперская винтовка убойной силы

@@ -1178,16 +1178,19 @@ SpawnPointSeniorSalvageSpecialist: null
 SeniorCourier: null
 
 # 2026-02-18 - DS14 - Soyuz
-Grille: ClockworkGrille
+#Grille: ClockworkGrille
 Poweredlight: PoweredlightSoyuz
 PoweredlightOrange: PoweredlightSoyuz
 ReinforcedWindow: MiningWindowSoyuz
 PoweredSmallLight: PoweredSmallLightSoyuz
 ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
-GrilleDiagonal: ClockworkGrilleDiagonal
+#GrilleDiagonal: ClockworkGrilleDiagonal
 SignNanotrasen1: null
 SignNanotrasen2: null
 SignNanotrasen3: null
 SignNanotrasen4: null
 SignNanotrasen5: null
-GrilleBroken: ClockworkGrilleBroken
+#GrilleBroken: ClockworkGrilleBroken
+
+# 2026-03-13 - DS14 - Soyuz
+NTFlag: BlankFlag

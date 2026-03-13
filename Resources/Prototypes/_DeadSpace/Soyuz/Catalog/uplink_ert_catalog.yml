@@ -272,9 +272,9 @@
 
 - type: listing
   id: UplinkERTMagazineLightRifleBox
-  name: короб патронов (7.62х39 мм винтовочные)
+  name: короб патронов (5.45х39 мм винтовочные)
   description: Короб патронов для РПЛ-20.
-  productEntity: MagazineLightRifleBox
+  productEntity: MagazineRPL20
   cost:
     RedSpaceCoupons: 7
   categories:

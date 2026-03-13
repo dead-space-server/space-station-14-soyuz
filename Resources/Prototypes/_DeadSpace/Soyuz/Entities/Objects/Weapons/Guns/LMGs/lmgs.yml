@@ -34,24 +34,24 @@
     availableModes:
     - FullAuto
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/rpl-shot.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/rpl-shot.ogg
   - type: GunWieldBonus
     minAngle: -27
     maxAngle: -32
   - type: ChamberMagazineAmmoProvider
     soundBoltClosed:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpl_bolt.ogg
     soundBoltOpened:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpl_bolt.ogg
     soundRack:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpl_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpl_bolt.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
         startingItem: MagazineLightRifleBox
-        insertSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagIn/rpl-magin.ogg
-        ejectSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagOut/rpl-magout.ogg
+        insertSound: /Audio/_DeadSpace/Soyuz/Weapons/Guns/MagIn/rpl-magin.ogg
+        ejectSound: /Audio/_DeadSpace/Soyuz/Weapons/Guns/MagOut/rpl-magout.ogg
         priority: 2
         whitelist:
           tags:
@@ -99,24 +99,24 @@
     availableModes:
     - FullAuto
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/rpk16.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/rpk16.ogg
   - type: GunWieldBonus
     minAngle: -15
     maxAngle: -20
   - type: ChamberMagazineAmmoProvider
     soundBoltClosed:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpk16_bolt.ogg
     soundBoltOpened:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpk16_bolt.ogg
     soundRack:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Bolt/rpk16_bolt.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Bolt/rpk16_bolt.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
         startingItem: DrumMagazineLightRifle
-        insertSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagIn/rpk16-magin.ogg
-        ejectSound: /Audio/_DeadSpace/Souyz/Weapons/Guns/MagOut/rpk16-magout.ogg
+        insertSound: /Audio/_DeadSpace/Soyuz/Weapons/Guns/MagIn/rpk16-magin.ogg
+        ejectSound: /Audio/_DeadSpace/Soyuz/Weapons/Guns/MagOut/rpk16-magout.ogg
         priority: 2
         whitelist:
           tags:

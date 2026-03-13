@@ -48,7 +48,7 @@
   - CentralCommandOperator
   - CentralCommandOfficer
   - Magistrat
-  editorHidden: false
+  editorHidden: true
   weight: 120
 
 - type: department

@@ -166,8 +166,8 @@
   - WeaponLightMachineGunRPL20
   - MagazineRPL20
   - MagazineRPL20
-  - MagazineBoxLightestRifle
-  - MagazineBoxLightestRifle
+  - MagazineBoxLightestRifleRPL20
+  - MagazineBoxLightestRifleRPL20
 
 - type: thiefBackpackSet
   id: SVSet

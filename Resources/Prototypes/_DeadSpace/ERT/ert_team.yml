@@ -219,6 +219,7 @@
 - type: ertTeam
   id: BSAA
   name: АПБТ
+  startAnnouncement: station-event-response-team-arrival-uni-ops
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:

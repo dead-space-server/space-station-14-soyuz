@@ -1,0 +1,7 @@
+- type: trait
+  id: Uncloning
+  name: Не клонируемый
+  description: Вас невозможно клонировать.
+  category: Disabilities
+  components:
+    - type: Uncloning

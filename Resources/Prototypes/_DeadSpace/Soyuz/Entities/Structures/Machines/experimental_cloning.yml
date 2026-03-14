@@ -1,0 +1,98 @@
+- type: entity
+  id: CloningPodExperimental
+  parent: BaseMachinePowered
+  name: экспериментальная капсула клонирования
+  description: Капсула клонирования. Безопасная, наверное..
+  components:
+  - type: CloningPod
+    cloningTime: 60
+    usedBiomass: 140
+  - type: DeviceList
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: BasicDevice
+  - type: DeviceLinkSink
+    ports:
+      - CloningPodReceiver
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Structures/Machines/cloning.rsi
+    snapCardinals: true
+    layers:
+      - state: pod_0
+        map: ["base"]
+  - type: Physics
+    bodyType: Static
+  - type: Construction
+    graph: Machine
+    node: machine
+    containers:
+     - machine_board
+     - machine_parts
+     - clonepod-bodyContainer
+  - type: EmptyOnMachineDeconstruct
+    containers:
+      - clonepod-bodyContainer
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StrongMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Machine
+    board: ExperimentalCloningPodMachineCircuitboard
+  - type: MaterialStorage
+    materialWhiteList:
+    - Biomass
+  - type: WiresPanel
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.CloningPodVisuals.Status:
+        base:
+          Cloning: { state: pod_1 }
+          NoMind: { state: pod_e }
+          Gore: { state: pod_g }
+          Idle: { state: pod_0 }
+  - type: Climbable
+  - type: StaticPrice
+    price: 1000
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      clonepod-bodyContainer: !type:ContainerSlot
+  - type: GuideHelp
+    guides:
+    - Cloning
+
+- type: entity
+  id: ExperimentalCloningPodMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: экспериментальная капсула клонирования (машинная плата)
+  description: Печатная плата экспериментальной капсулы клонирования.
+  components:
+    - type: Sprite
+      state: medical
+    - type: MachineBoard
+      prototype: CloningPodExperimental
+      stackRequirements:
+        Manipulator: 5
+        Glass: 2
+        Cable: 2
+        Gold: 2
+        Plasteel: 2
+    - type: Tag
+      tags:
+      - ExperimentalCloningPodMachineCircuitboard

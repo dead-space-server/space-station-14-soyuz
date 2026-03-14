@@ -1,0 +1,17 @@
+# Tier 2
+- type: technology
+  id: ExperimentalCloning
+  name: research-technology-experimental-cloning
+  icon:
+    sprite: _DeadSpace/Soyuz/Structures/Machines/cloning.rsi
+    state: pod_0
+  discipline: CivilianServices
+  tier: 2
+  cost: 25000
+  recipeUnlocks:
+  - MedicalScannerMachineCircuitboardSoyuz
+  - CloningConsoleComputerCircuitboardSoyuz
+  - ExperimentalCloningPodMachineCircuitboard
+  technologyPrerequisites:
+  - CompactDefibrillatorTechnology
+  - AdvancedAnomalyResearch

@@ -215,6 +215,7 @@
     - ProcessingTungsten # DS14-Soyuz
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
+    - ExperimentalCloning # DS14-Soyuz
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo

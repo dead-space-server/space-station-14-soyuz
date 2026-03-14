@@ -24,8 +24,19 @@
     - /Audio/_DeadSpace/Lobby/Vibrating.ogg
     - /Audio/_DeadSpace/Lobby/War_goes_hot.ogg
     - /Audio/_DeadSpace/Lobby/Wings.ogg
-    - /Audio/_Corvax/Lobby/NewYear/carol-of-the-bells.ogg # Corvax-NewYearMusic
-    - /Audio/_Corvax/Lobby/NewYear/dance-of-sugar-plum-fairy.ogg # Corvax-NewYearMusic
-    - /Audio/_Corvax/Lobby/NewYear/deck-in-the-halls.ogg # Corvax-NewYearMusic
-    - /Audio/_Corvax/Lobby/NewYear/jingle-bells.ogg # Corvax-NewYearMusic
-    - /Audio/_Corvax/Lobby/NewYear/wish-you-a-merry-christmas.ogg # Corvax-NewYearMusic
+#    - /Audio/_Corvax/Lobby/NewYear/carol-of-the-bells.ogg # Corvax-NewYearMusic
+#    - /Audio/_Corvax/Lobby/NewYear/dance-of-sugar-plum-fairy.ogg # Corvax-NewYearMusic
+#    - /Audio/_Corvax/Lobby/NewYear/deck-in-the-halls.ogg # Corvax-NewYearMusic
+#    - /Audio/_Corvax/Lobby/NewYear/jingle-bells.ogg # Corvax-NewYearMusic
+#    - /Audio/_Corvax/Lobby/NewYear/wish-you-a-merry-christmas.ogg # Corvax-NewYearMusic
+    - /Audio/_DeadSpace/Soyuz/Lobby/DajjteTankFriend.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/DajjteTankM.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/DajjteTankSmeshno.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/DyingLightHorizon.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/HotlineMiamiMoon.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/MarkBernesDarkNight.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/NirvanaSomethingInTheWay.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/SmuglyankaMoldavanka.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/ShuraDontBelieveYourTears.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/ICouldDrinkTheSea.ogg
+    - /Audio/_DeadSpace/Soyuz/Lobby/BiShambala.ogg

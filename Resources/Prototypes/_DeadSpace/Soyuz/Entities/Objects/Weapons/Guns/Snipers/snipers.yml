@@ -24,7 +24,7 @@
   - type: Gun
     fireRate: 0.6
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/sv98.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/sv98.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg
@@ -89,7 +89,7 @@
   - type: Gun
     fireRate: 0.95
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/svd.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/svd.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/smg_cock.ogg

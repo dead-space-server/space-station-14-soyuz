@@ -23,7 +23,7 @@
   - type: Gun
     fireRate: 8
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/veresk.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/veresk.ogg
   - type: ItemSlots
     slots:
       gun_magazine:

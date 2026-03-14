@@ -1,0 +1,38 @@
+- type: latheRecipe
+  id: MedicalScannerMachineCircuitboardSoyuz
+  result: MedicalScannerMachineCircuitboard
+  completetime: 5
+  materials:
+    Steel: 1234
+    Glass: 5678
+    Gold: 8012
+    Silver: 3456
+    Plastic: 7890
+    Plasma: 2345
+    Uranium: 1789
+
+- type: latheRecipe
+  id: CloningConsoleComputerCircuitboardSoyuz
+  result: CloningConsoleComputerCircuitboard
+  completetime: 5
+  materials:
+    Steel: 1357
+    Glass: 2468
+    Gold: 8024
+    Silver: 5791
+    Plastic: 6803
+    Plasma: 8136
+    Uranium: 1579
+
+- type: latheRecipe
+  id: ExperimentalCloningPodMachineCircuitboard
+  result: ExperimentalCloningPodMachineCircuitboard
+  completetime: 5
+  materials:
+    Steel: 4782
+    Glass: 5291
+    Gold: 7346
+    Silver: 8153
+    Plastic: 6370
+    Plasma: 8084
+    Uranium: 2615

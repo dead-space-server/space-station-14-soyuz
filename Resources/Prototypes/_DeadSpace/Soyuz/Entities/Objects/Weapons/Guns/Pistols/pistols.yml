@@ -23,7 +23,7 @@
     - FullAuto
     - SemiAuto
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/ots.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/ots.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
@@ -69,7 +69,7 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/mts.ogg
+      path: /Audio/_DeadSpace/Soyuz/Weapons/Guns/Gunshots/mts.ogg
   - type: ItemSlots
     slots:
       gun_magazine:

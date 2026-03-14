@@ -1,0 +1,53 @@
+- type: jukebox
+  id: DajjteTankFriend
+  name: Дайте танк - Друг
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/DajjteTankFriend.ogg
+
+- type: jukebox
+  id: DajjteTankM
+  name: Дайте танк - М
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/DajjteTankM.ogg
+
+- type: jukebox
+  id: DajjteTankSmeshno
+  name: Дайте танк - Смешно
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/DajjteTankSmeshno.ogg
+
+- type: jukebox
+  id: MarkBernesDarkNight
+  name: Тёмная ночь
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/MarkBernesDarkNight.ogg
+
+- type: jukebox
+  id: NirvanaSomethingInTheWay
+  name: Нирвана - Что-то на пути
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/NirvanaSomethingInTheWay.ogg
+
+- type: jukebox
+  id: SmuglyankaMoldavanka
+  name: Смуглянка
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/SmuglyankaMoldavanka.ogg
+
+- type: jukebox
+  id: ShuraDontBelieveYourTears
+  name: Шура - Ты не верь слезам
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/ShuraDontBelieveYourTears.ogg
+
+- type: jukebox
+  id: ICouldDrinkTheSea
+  name: Я мог бы выпить море
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/ICouldDrinkTheSea.ogg
+
+- type: jukebox
+  id: BiShambala
+  name: Би2 - Шамбала
+  path:
+    path: /Audio/_DeadSpace/Soyuz/Jukebox/BiShambala.ogg

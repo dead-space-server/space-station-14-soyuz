@@ -7,6 +7,7 @@
   - type: CloningPod
     cloningTime: 60
     usedBiomass: 140
+    canCloneUnclonable: False
   - type: DeviceList
   - type: DeviceNetwork
     deviceNetId: Wired

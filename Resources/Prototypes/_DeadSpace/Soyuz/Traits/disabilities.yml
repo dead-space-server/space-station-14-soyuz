@@ -1,7 +1,7 @@
 - type: trait
   id: Uncloning
-  name: Не клонируемый
-  description: Вас невозможно клонировать.
+  name: trait-uncloning-name
+  description: trait-uncloning-desc
   category: Disabilities
   components:
     - type: Uncloning

@@ -1,1 +1,1 @@
-health-analyzer-window-entity-unrevivable-text = [color=red]Обнаружено нестабильный генетический код! Пациент не может быть клонирован![/color]
+health-analyzer-window-entity-uncloning-text = [color=violet]Обнаружено нестабильный генетический код! Пациент не может быть клонирован![/color]

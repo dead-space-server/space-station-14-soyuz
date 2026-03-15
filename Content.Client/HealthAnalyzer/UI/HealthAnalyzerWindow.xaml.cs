@@ -110,7 +110,7 @@ namespace Content.Client.HealthAnalyzer.UI
 
             // Alerts
 
-            var showAlerts = msg.Unrevivable == true || msg.Bleeding == true || msg.HasVirus == true || msg.Unclonable == true; // Добавлено Unclonable
+            var showAlerts = msg.Unrevivable == true || msg.Bleeding == true || msg.HasVirus == true || msg.Unclonable == true;
 
             AlertsDivider.Visible = showAlerts;
             AlertsContainer.Visible = showAlerts;

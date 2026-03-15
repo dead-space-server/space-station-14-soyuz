@@ -37,7 +37,7 @@ entities:
     - type: MetaData
       name: USSP-EM Terminal
     - type: Transform
-      pos: 50,50
+      pos: 0,0
       parent: invalid
     - type: MapGrid
       chunks:

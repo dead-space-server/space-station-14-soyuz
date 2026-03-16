@@ -71,8 +71,6 @@ namespace Content.Client.Lobby
             _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
             
             UpdateLobbySoundtrackInfo(new LobbySoundtrackChangedEvent(null));
-
-            UpdateLobbyArtInfo();
         }
 
         private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
@@ -84,7 +82,6 @@ namespace Content.Client.Lobby
         private void OnBackgroundChanged(string obj)
         {
             LoadMainScreen();
-            UpdateLobbyArtInfo();
         }
 
         protected override void Shutdown()
@@ -111,6 +108,7 @@ namespace Content.Client.Lobby
 
         public void SwitchState(LobbyGui.LobbyGuiState state)
         {
+            // Yeah I hate this but LobbyState contains all the badness for now.
             Lobby?.SwitchState(state);
         }
 
@@ -184,7 +182,6 @@ namespace Content.Client.Lobby
         {
             UpdateLobbyBackground();
             UpdateLobbyUi();
-            UpdateLobbyArtInfo();
         }
 
         private void LobbyLateJoinStatusUpdated()
@@ -269,47 +266,18 @@ namespace Content.Client.Lobby
                 Lobby.MusicIcon.Visible = true;
             }
         }
-        private void UpdateLobbyArtInfo()
-        {
-            if (Lobby == null)
-                return;
-
-            var screenTypeString = _cfg.GetCVar(CCCCVars.Background);
-            if (!Enum.TryParse(screenTypeString, out BackgroundType backgroundType))
-            {
-                backgroundType = default;
-            }
-
-            if (backgroundType == BackgroundType.Parallax)
-            {
-                Lobby.ArtIcon.Visible = true;
-                Lobby.LobbyArtInfo.SetMarkup("[color=#88a8ff]Параллакс: Kettle Station[/color]");
-                return;
-            }
-
-            if (_gameTicker.LobbyBackground != null)
-            {
-                var backgroundName = _gameTicker.LobbyBackground.Replace("LobbyBackground", "").Replace("_", " ");
-                Lobby.LobbyArtInfo.SetMarkup($"[color=#88a8ff]Фон: {backgroundName}[/color]");
-                Lobby.ArtIcon.Visible = true;
-            }
-            else
-            {
-                Lobby.ArtIcon.Visible = false;
-                Lobby.LobbyArtInfo.SetMarkup(string.Empty);
-            }
-        }
 
         private void UpdateLobbyBackground()
         {
             if (_gameTicker.LobbyBackground != null)
             {
-                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground);
+                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground );
             }
             else
             {
                 Lobby!.Background.Texture = null;
             }
+
         }
 
         private void SetReady(bool newReady)
@@ -341,8 +309,6 @@ namespace Content.Client.Lobby
                     Lobby!.Background.Visible = false;
                     break;
             }
-            
-            UpdateLobbyArtInfo();
         }
     }
 }

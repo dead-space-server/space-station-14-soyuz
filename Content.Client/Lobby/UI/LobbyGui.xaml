@@ -51,36 +51,29 @@
             <PanelContainer Name="BottomContainer" StyleClasses="LobbyBackground" MinHeight="300" HorizontalExpand="True" VerticalExpand="True">
                 <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True" HorizontalAlignment="Stretch">
 
-<!-- Left Panel  -->
-<PanelContainer Name="LeftPanel" MinWidth="400" StyleClasses="LobbyBackground" HorizontalExpand="True" VerticalExpand="True">
-    <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="8 8 8 8" VerticalAlignment="Stretch">
+                    <!-- Left Panel  -->
+                    <PanelContainer Name="LeftPanel" MinWidth="400" StyleClasses="LobbyBackground" HorizontalExpand="True" VerticalExpand="True">
+                        <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="8 8 8 8" VerticalAlignment="Stretch">
 
-        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="8 8 8 8">
-            <info:ServerInfo Name="ServerInfo" Access="Public" MinSize="0 30" VerticalExpand="True" HorizontalExpand="True" HorizontalAlignment="Stretch"/>
-        </BoxContainer>
+                            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="8 8 8 8">
+                                <info:ServerInfo Name="ServerInfo" Access="Public" MinSize="0 30" VerticalExpand="True" HorizontalExpand="True" HorizontalAlignment="Stretch"/>
+                            </BoxContainer>
 
-        <Label Name="StationTime" Access="Public" FontColorOverride="{x:Static maths:Color.LightGray}" HorizontalAlignment="Left"/>
+                            <Label Name="StationTime" Access="Public" FontColorOverride="{x:Static maths:Color.LightGray}" HorizontalAlignment="Left"/>
 
-        <RichTextLabel Name="PlaytimeComment" Visible="False" Access="Public" HorizontalAlignment="Left" />
+                            <RichTextLabel Name="PlaytimeComment" Visible="False" Access="Public" HorizontalAlignment="Left" />
 
-        <controls:HLine Color="#404040" Thickness="1" Margin="0 5"/>
+                            <controls:HLine Color="#404040" Thickness="1" Margin="0 5"/>
 
-        <lobbyUi:ServerListBox Name="ServerListBox" Access="Public" MinSize="0 30" VerticalExpand="True" HorizontalExpand="True" Margin="3 3 3 3" HorizontalAlignment="Stretch"/>
+                            <lobbyUi:ServerListBox Name="ServerListBox" Access="Public" MinSize="0 30" VerticalExpand="True" HorizontalExpand="True" Margin="3 3 3 3" HorizontalAlignment="Stretch"/>
 
-        <!-- Отображение текущей музыки -->
-        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Left" Margin="3 5 3 3">
-            <Label Text="♪" FontColorOverride="#a888ff" Margin="0 0 5 0" Name="MusicIcon" Access="Public"/>
-            <RichTextLabel Name="LobbySong" Access="Public" MaxWidth="380" VerticalAlignment="Center" />
-        </BoxContainer>
+                        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Left" Margin="3 5 3 3">
+                            <Label Text="♪" FontColorOverride="#a888ff" Margin="0 0 5 0" Name="MusicIcon" Access="Public"/>
+                            <RichTextLabel Name="LobbySong" Access="Public" MaxWidth="380" VerticalAlignment="Center" />
+                        </BoxContainer>
 
-        <!-- ДОБАВЛЕНО: Информация об арте на заднем фоне -->
-        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Left" Margin="3 0 3 3">
-            <Label Text="🖼" FontColorOverride="#88a8ff" Margin="0 0 5 0" Name="ArtIcon" Access="Public"/>
-            <RichTextLabel Name="LobbyArtInfo" Access="Public" MaxWidth="380" VerticalAlignment="Center" />
-        </BoxContainer>
-
-    </BoxContainer>
-</PanelContainer>
+                        </BoxContainer>
+                    </PanelContainer>
 
                     <!-- Center Panel -->
                     <PanelContainer Name="CenterPanel" StyleClasses="LobbyBackground" MinWidth="400" HorizontalExpand="True" VerticalExpand="True">

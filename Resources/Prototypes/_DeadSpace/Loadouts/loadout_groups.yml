@@ -30,6 +30,7 @@
   loadouts:
   - ClothingOuterArmorBasicBlueShield
   - OKGBOuterClothing
+  - OKGBBlackOuterClothing
 
 - type: loadoutGroup
   id: OKGBGasMask

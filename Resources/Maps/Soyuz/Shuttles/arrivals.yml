@@ -32,7 +32,7 @@ entities:
     - type: MetaData
       name: USSP-Arrivals 1101
     - type: Transform
-      pos: 50,50
+      pos: 0,0
       parent: invalid
     - type: MapGrid
       chunks:

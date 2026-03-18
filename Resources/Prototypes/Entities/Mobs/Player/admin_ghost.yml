@@ -107,7 +107,7 @@
   - type: Inventory
     templateId: aghost
   - type: Loadout
-    prototypes: [ MobAghostGear ]
+    prototypes: [ MobAghostGearSoyuz ] # DS14-soyuz
   - type: BypassInteractionChecks
   - type: ExplosionResistance
     damageCoefficient: 0
@@ -117,7 +117,7 @@
     successChance: 1
     interactSuccessString: hugging-success-generic
     interactSuccessSound: /Audio/Effects/thudswoosh.ogg
-  - type: ShowHealthBars
+  - type: ShowHealthBars # DS14-soyuz
 
 - type: entity
   abstract: true

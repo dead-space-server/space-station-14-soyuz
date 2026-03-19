@@ -10,6 +10,7 @@ namespace Content.Server.Entry
             "Marker",
             "GuidebookControlsTest",
             "GuideHelp",
+            "MediaWikiBook",
             "Clickable",
             "Icon",
             "CableVisualizer",

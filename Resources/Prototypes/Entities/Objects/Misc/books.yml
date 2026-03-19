@@ -342,9 +342,12 @@
       color: "#87011c"
     - state: icon_law
       color: "#f7d61a"
-  # - type: GuideHelp
-  #   guides:
-  #   - SpaceLaw
+  - type: GuideHelp
+    guides: []
+    openOnActivation: false
+  - type: MediaWikiBook
+    title: Корпоративный Закон
+    text: /Texts/CorporateLaw.mw
 
 - type: entity
   parent: BookBase

@@ -1,12 +1,12 @@
-# - type: cargoProduct
-#   id: EngineAmeJar # DS14 disable due to the balance
-#   icon:
-#     sprite: Objects/Power/AME/ame_jar.rsi
-#     state: jar
-#   product: CrateEngineeringAMEJar
-#   cost: 2000
-#   category: cargoproduct-category-name-engineering
-#   group: engineering # DS14
+- type: cargoProduct
+  id: EngineAmeJar
+  icon:
+    sprite: Objects/Power/AME/ame_jar.rsi
+    state: jar
+  product: CrateEngineeringAMEJar
+  cost: 20000
+  category: cargoproduct-category-name-engineering
+  group: engineering # DS14
 
 - type: cargoProduct
   id: EngineSingularityGenerator

@@ -104,16 +104,18 @@ public sealed partial class MediaWikiBookWindow : FancyWindow, ILinkClickHandler
         return anchor.Length > 0;
     }
 
-    private bool TryResolveWikiUri(string link, out Uri uri)
+    private bool TryResolveWikiUri(string link, out string uri)
     {
-        uri = default!;
+        uri = string.Empty;
 
         if (string.IsNullOrWhiteSpace(link))
             return false;
 
-        if (Uri.TryCreate(link, UriKind.Absolute, out var absoluteUri))
+        link = link.Trim();
+
+        if (IsHttpUri(link))
         {
-            uri = absoluteUri;
+            uri = link;
             return true;
         }
 
@@ -121,7 +123,7 @@ public sealed partial class MediaWikiBookWindow : FancyWindow, ILinkClickHandler
         if (string.IsNullOrWhiteSpace(baseUri))
             baseUri = "https://wiki.deadspace14.net";
 
-        var target = link.Trim();
+        var target = link;
         string? fragment = null;
 
         var hashIndex = target.IndexOf('#');
@@ -139,11 +141,25 @@ public sealed partial class MediaWikiBookWindow : FancyWindow, ILinkClickHandler
         if (!string.IsNullOrWhiteSpace(fragment))
             full += $"#{Uri.EscapeDataString(fragment.Replace(' ', '_'))}";
 
-        if (!Uri.TryCreate(full, UriKind.Absolute, out var wikiUri))
+        if (!IsHttpUri(full))
             return false;
 
-        uri = wikiUri;
+        uri = full;
         return true;
+    }
+
+    private static bool IsHttpUri(string uri)
+    {
+        try
+        {
+            var parsed = new Uri(uri);
+            return parsed.IsAbsoluteUri
+                && (parsed.Scheme == Uri.UriSchemeHttp || parsed.Scheme == Uri.UriSchemeHttps);
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private static string NormalizePage(string? page)

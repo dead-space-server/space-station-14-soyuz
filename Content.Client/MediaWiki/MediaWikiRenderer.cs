@@ -31,6 +31,8 @@ public sealed partial class MediaWikiRenderer
     private static readonly Regex HtmlRowRegex = new(@"<tr(?<attrs>[^>]*)>(?<content>.*?)</tr>", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private static readonly Regex BrRegex = new(@"<br\s*/?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex HrRegex = new(@"<hr[^>]*>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex HtmlBoldRegex = new(@"<(?:b|strong)>(.*?)</(?:b|strong)>", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    private static readonly Regex HtmlItalicRegex = new(@"<(?:i|em)>(.*?)</(?:i|em)>", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
     public void Render(Control container, string source)
     {
@@ -86,7 +88,7 @@ public sealed partial class MediaWikiRenderer
             if (TryParseHeading(trimmed, out var headingLevel, out var headingText))
             {
                 var heading = CreateHeading(headingText, headingLevel);
-                AttachAnchor(heading, pendingAnchor);
+                AttachAnchor(heading, pendingAnchor ?? StripPlainText(headingText));
                 pendingAnchor = null;
                 container.AddChild(heading);
                 index++;
@@ -189,55 +191,38 @@ public sealed partial class MediaWikiRenderer
         if (lines.Count == 0)
             return;
 
-        if (lines[0].Contains("mw-collapsible", StringComparison.OrdinalIgnoreCase))
-        {
-            RenderCollapsibleWikiTable(container, lines);
-            return;
-        }
-
         var defaultBackground = ExtractBackgroundColor(lines[0]) ?? "#2a3342b2";
         var rows = ParseWikiRows(lines.Skip(1).Take(lines.Count - 2).ToList());
         if (rows.Count == 0)
             return;
 
+        if (lines[0].Contains("mw-collapsible", StringComparison.OrdinalIgnoreCase) &&
+            IsCollapsibleSection(rows))
+        {
+            RenderCollapsibleWikiSection(container, rows);
+            return;
+        }
+
         container.AddChild(CreateTable(rows, defaultBackground));
     }
 
-    private void RenderCollapsibleWikiTable(Control container, IReadOnlyList<string> lines)
+    private void RenderCollapsibleWikiSection(Control container, IReadOnlyList<WikiTableRow> rows)
     {
-        string? title = null;
-        var bodyLines = new List<string>();
-        var rowIndex = -1;
+        var titleCell = rows[0].Cells[0];
+        var bodyCell = rows[1].Cells[0];
 
-        foreach (var line in lines.Skip(1))
+        if (!string.IsNullOrWhiteSpace(titleCell.Content))
         {
-            var trimmed = line.Trim();
-            if (trimmed == "|}")
-                break;
-
-            if (trimmed.StartsWith("|-"))
-            {
-                rowIndex++;
-                continue;
-            }
-
-            if (rowIndex <= 0 && trimmed.StartsWith("!"))
-            {
-                title = ParseWikiCell(trimmed[1..], true).Content;
-                continue;
-            }
-
-            if (rowIndex >= 1)
-            {
-                bodyLines.Add(trimmed.StartsWith("|") ? trimmed[1..] : line);
-            }
+            var heading = CreateHeading(titleCell.Content, 2);
+            AttachAnchor(heading, titleCell.Anchor ?? StripPlainText(titleCell.Content));
+            container.AddChild(heading);
         }
 
-        if (!string.IsNullOrWhiteSpace(title))
-            container.AddChild(CreateHeading(title, 2));
+        var bodyLines = bodyCell.Content.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n').ToList();
+        if (!string.IsNullOrWhiteSpace(bodyCell.Anchor))
+            bodyLines.Insert(0, $"{{{{Anchor|{bodyCell.Anchor}}}}}");
 
-        if (bodyLines.Count > 0)
-            RenderLines(container, bodyLines);
+        RenderLines(container, bodyLines);
     }
 
     private void RenderHtmlTable(Control container, string tableBlock)
@@ -305,11 +290,14 @@ public sealed partial class MediaWikiRenderer
         var separatorIndex = FindFirstTopLevelPipe(spec);
         var attributeText = separatorIndex >= 0 ? spec[..separatorIndex] : string.Empty;
         var contentText = separatorIndex >= 0 ? spec[(separatorIndex + 1)..] : spec;
+        var anchor = ExtractAnchor(contentText);
+        contentText = AnchorRegex.Replace(contentText, string.Empty);
 
         return new WikiTableCell
         {
             Header = isHeader,
             Content = contentText.Trim(),
+            Anchor = anchor,
             BackgroundColor = ExtractBackgroundColor(attributeText),
             TextColor = ExtractTextColor(attributeText),
             AlignCenter = attributeText.Contains("text-align: center", StringComparison.OrdinalIgnoreCase) ||
@@ -357,6 +345,8 @@ public sealed partial class MediaWikiRenderer
                 var attrs = cellMatch.Groups["attrs"].Value;
                 var header = string.Equals(cellMatch.Groups["type"].Value, "h", StringComparison.OrdinalIgnoreCase);
                 var inner = cellMatch.Groups["content"].Value;
+                var anchor = ExtractAnchor(inner);
+                inner = AnchorRegex.Replace(inner, string.Empty);
                 var colspan = ParseSpan(attrs, ColSpanRegex);
                 var rowspan = ParseSpan(attrs, RowSpanRegex);
 
@@ -364,6 +354,7 @@ public sealed partial class MediaWikiRenderer
                 {
                     Header = header,
                     Content = inner.Trim(),
+                    Anchor = anchor,
                     BackgroundColor = ExtractBackgroundColor(attrs),
                     TextColor = ExtractTextColor(attrs),
                     AlignCenter = attrs.Contains("text-align:center", StringComparison.OrdinalIgnoreCase) ||
@@ -474,6 +465,7 @@ public sealed partial class MediaWikiRenderer
             content.AddChild(label);
         }
 
+        AttachAnchor(content, cell.Anchor);
         return content;
     }
 
@@ -532,7 +524,11 @@ public sealed partial class MediaWikiRenderer
         if (string.IsNullOrWhiteSpace(anchor))
             return;
 
-        control.Name = anchor.Trim();
+        anchor = StripPlainText(anchor).Trim().Replace('_', ' ');
+        if (anchor.Length == 0)
+            return;
+
+        control.Name = anchor;
     }
 
     private static bool TryParseHeading(string line, out int level, out string text)
@@ -660,16 +656,20 @@ public sealed partial class MediaWikiRenderer
         text = text.Replace("<div>", "", StringComparison.OrdinalIgnoreCase);
         text = text.Replace("</div>", "", StringComparison.OrdinalIgnoreCase);
 
-        text = WikiLinkWithLabelRegex.Replace(text, static match => StripPlainText(match.Groups[2].Value));
+        text = WikiLinkWithLabelRegex.Replace(text, static match =>
+            CreateTextLinkMarkup(match.Groups[1].Value, StripPlainText(match.Groups[2].Value)));
         text = WikiLinkRegex.Replace(text, static match =>
         {
             var target = match.Groups[1].Value;
-            var hashIndex = target.LastIndexOf('#');
-            if (hashIndex >= 0 && hashIndex < target.Length - 1)
-                target = target[(hashIndex + 1)..];
-            return StripPlainText(target);
+            var label = target;
+            var hashIndex = label.LastIndexOf('#');
+            if (hashIndex >= 0 && hashIndex < label.Length - 1)
+                label = label[(hashIndex + 1)..];
+            return CreateTextLinkMarkup(target, StripPlainText(label));
         });
 
+        text = HtmlBoldRegex.Replace(text, "[bold]$1[/bold]");
+        text = HtmlItalicRegex.Replace(text, "[italic]$1[/italic]");
         text = BoldItalicRegex.Replace(text, "[bold][italic]$1[/italic][/bold]");
         text = BoldRegex.Replace(text, "[bold]$1[/bold]");
         text = ItalicRegex.Replace(text, "[italic]$1[/italic]");
@@ -682,6 +682,17 @@ public sealed partial class MediaWikiRenderer
     private static string StripPlainText(string text)
     {
         return FormattedMessage.RemoveMarkupPermissive(ConvertBlockMarkup(text));
+    }
+
+    private static string CreateTextLinkMarkup(string target, string label)
+    {
+        target = StripPlainText(target).Trim();
+        label = StripPlainText(label).Trim();
+
+        if (target.Length == 0 || label.Length == 0)
+            return FormattedMessage.EscapeText(label);
+
+        return $"[textlink link=\"{target.Replace("\"", "'")}\"]{FormattedMessage.EscapeText(label)}[/textlink]";
     }
 
     private static List<string> SplitTopLevel(string text, string separator)
@@ -836,6 +847,23 @@ public sealed partial class MediaWikiRenderer
             : 1;
     }
 
+    private static string? ExtractAnchor(string text)
+    {
+        var match = AnchorRegex.Match(text);
+        return match.Success ? match.Groups[1].Value.Trim() : null;
+    }
+
+    private static bool IsCollapsibleSection(IReadOnlyList<WikiTableRow> rows)
+    {
+        if (rows.Count != 2 || rows[0].Cells.Count != 1 || rows[1].Cells.Count != 1)
+            return false;
+
+        var body = rows[1].Cells[0].Content;
+        return body.Contains("{{Anchor", StringComparison.OrdinalIgnoreCase) ||
+               body.Contains("====", StringComparison.Ordinal) ||
+               body.Contains("==", StringComparison.Ordinal);
+    }
+
     private static string? NormalizeColor(string? color)
     {
         if (string.IsNullOrWhiteSpace(color))
@@ -875,6 +903,7 @@ public sealed partial class MediaWikiRenderer
     {
         public bool Header { get; init; }
         public string Content { get; set; } = string.Empty;
+        public string? Anchor { get; init; }
         public string? BackgroundColor { get; init; }
         public string? TextColor { get; init; }
         public bool AlignCenter { get; init; }
@@ -886,6 +915,7 @@ public sealed partial class MediaWikiRenderer
             return new WikiTableCell
             {
                 Header = Header,
+                Anchor = Anchor,
                 BackgroundColor = BackgroundColor,
                 TextColor = TextColor,
                 AlignCenter = AlignCenter,
@@ -898,6 +928,7 @@ public sealed partial class MediaWikiRenderer
             {
                 Header = Header,
                 Content = Content,
+                Anchor = Anchor,
                 BackgroundColor = BackgroundColor,
                 TextColor = TextColor,
                 AlignCenter = AlignCenter,

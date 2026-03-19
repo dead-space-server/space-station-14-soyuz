@@ -29,7 +29,7 @@ public sealed class MediaWikiBookSystem : EntitySystem
         var source = file.ReadToEnd();
 
         _window ??= new MediaWikiBookWindow();
-        _window.SetDocument(ent.Comp.Title, source);
+        _window.SetDocument(ent.Comp.Title, ent.Comp.Page, source);
 
         if (_window.IsOpen)
             _window.MoveToFront();

@@ -347,6 +347,7 @@
     openOnActivation: false
   - type: MediaWikiBook
     title: Корпоративный Закон
+    page: Корпоративный_Закон
     text: /Texts/CorporateLaw.mw
 
 - type: entity

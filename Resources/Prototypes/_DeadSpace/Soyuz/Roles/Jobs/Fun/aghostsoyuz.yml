@@ -13,6 +13,10 @@
     - Multitool
     - AnomalyScanner
     - PortableUniversalIdConsole
+    - JawsOfLife
+    - PowerDrill
+    - WelderExperimental
+    - SprayPainterRecharging
 
 - type: startingGear
   id: MobAghostGearSoyuzAlt
@@ -30,3 +34,7 @@
     - Multitool
     - AnomalyScanner
     - PortableUniversalIdConsole
+    - JawsOfLife
+    - PowerDrill
+    - WelderExperimental
+    - SprayPainterRecharging

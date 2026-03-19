@@ -89,7 +89,7 @@
         components:
         - NukeDisk
     alertLevelOnActivate: delta
-    alertLevelOnDeactivate: green
+    alertLevelOnDeactivate: gamma
   - type: InteractionOutline
   - type: ActivatableUI
     key: enum.NukeUiKey.Key

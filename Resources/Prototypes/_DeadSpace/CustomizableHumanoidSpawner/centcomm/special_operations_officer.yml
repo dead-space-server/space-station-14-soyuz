@@ -13,6 +13,17 @@
     jobPrototype: CentralCommandSpecialOperationsOfficer
     allowedSpecies:
     - Human
+    - Shark #DS14-soyuz
+    - Demon #DS14-soyuz
+    - Vulpkanin #DS14-soyuz
+    - Tajaran #DS14-soyuz
+    - Arachnid #DS14-soyuz
+    - Dwarf #DS14-soyuz
+    - Felinid #DS14-soyuz
+    - Kobolt #DS14-soyuz
+    - Moth #DS14-soyuz
+    - Reptilian #DS14-soyuz
+    - SlimePerson #DS14-soyuz
 
 - type: roleLoadout
   id: JobCentralCommandSpecialOperationsOfficer

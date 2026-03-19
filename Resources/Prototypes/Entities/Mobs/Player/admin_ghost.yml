@@ -4,6 +4,14 @@
   name: admin observer
   categories: [ HideSpawnMenu ]
   components:
+#DS14-soyuz-start
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Mobs/Ghosts/ghost_human.rsi
+    color: "#fff8"
+    layers:
+    - state: animated
+      shader: unshaded
+#DS14-soyuz-end
   - type: ContentEye
     maxZoom: 8.916104, 8.916104
   - type: Tag
@@ -107,7 +115,7 @@
   - type: Inventory
     templateId: aghost
   - type: Loadout
-    prototypes: [ MobAghostGearSoyuz ] # DS14-soyuz
+    prototypes: [ MobAghostGearSoyuzAlt ] # DS14-soyuz
   - type: BypassInteractionChecks
   - type: ExplosionResistance
     damageCoefficient: 0

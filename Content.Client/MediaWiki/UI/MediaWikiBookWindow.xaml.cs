@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Content.Client.Guidebook.RichText;
 using Content.Client.UserInterface.ControlExtensions;
 using Content.Client.UserInterface.Controls;
@@ -8,12 +9,16 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
+using Robust.Shared.Maths;
 
 namespace Content.Client.MediaWiki.UI;
 
 [GenerateTypedNameReferences]
 public sealed partial class MediaWikiBookWindow : FancyWindow, ILinkClickHandler
 {
+    private static readonly Vector2 OpenSizeScale = new(0.94f, 0.88f);
+    private static readonly Vector2 ScreenMargin = new(64f, 64f);
+
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IUriOpener _uri = default!;
 
@@ -24,6 +29,21 @@ public sealed partial class MediaWikiBookWindow : FancyWindow, ILinkClickHandler
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+    }
+
+    protected override void Opened()
+    {
+        base.Opened();
+
+        if (Parent == null)
+            return;
+
+        var preferredSize = Parent.Size * OpenSizeScale;
+        var maxVisibleSize = Vector2.Max(Vector2.Zero, Parent.Size - ScreenMargin);
+
+        SetSize = Vector2.Min(Vector2.Max(preferredSize, MinSize), maxVisibleSize);
+        Measure(Vector2Helpers.Infinity);
+        RecenterWindow(new Vector2(0.5f, 0.5f));
     }
 
     public void SetDocument(string title, string page, string source)

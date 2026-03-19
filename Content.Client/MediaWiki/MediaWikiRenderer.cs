@@ -404,7 +404,7 @@ public sealed partial class MediaWikiRenderer
     private Control CreateCellControl(WikiTableCell cell, string defaultBackground, string? defaultTextColor, bool defaultAlignCenter)
     {
         var background = ParseColor(cell.BackgroundColor) ?? ParseColor(defaultBackground) ?? new Color(42, 51, 66, 178);
-        var alignCenter = cell.AlignCenter || cell.Header || defaultAlignCenter;
+        var alignCenter = cell.AlignCenter || defaultAlignCenter || cell.Header;
         var textColor = cell.TextColor ?? defaultTextColor;
         var border = new StyleBoxFlat
         {
@@ -415,8 +415,8 @@ public sealed partial class MediaWikiRenderer
 
         var label = new RichTextLabel
         {
-            HorizontalExpand = !alignCenter,
-            HorizontalAlignment = alignCenter ? Control.HAlignment.Center : Control.HAlignment.Left,
+            Align = alignCenter ? Label.AlignMode.Center : Label.AlignMode.Left,
+            HorizontalExpand = true,
             VerticalAlignment = Control.VAlignment.Center,
             Margin = new Thickness(6),
         };
@@ -436,22 +436,10 @@ public sealed partial class MediaWikiRenderer
             MinHeight = cell.Header ? 36 : 24,
             HorizontalExpand = true,
             VerticalExpand = true,
+            RectClipContent = true,
         };
 
-        if (alignCenter)
-        {
-            var center = new CenterContainer
-            {
-                HorizontalExpand = true,
-                VerticalExpand = true,
-            };
-            center.AddChild(label);
-            content.AddChild(center);
-        }
-        else
-        {
-            content.AddChild(label);
-        }
+        content.AddChild(label);
 
         AttachAnchor(content, cell.Anchor);
         return content;
@@ -1006,7 +994,23 @@ public sealed partial class MediaWikiRenderer
                 totalSlack += data.Slack;
             }
 
-            if (totalMaxWidth <= availableSize.X)
+            var availableWidth = Math.Max(0f, availableSize.X);
+            if (!float.IsFinite(availableWidth))
+            {
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    _columns[column].AssignedWidth = _columns[column].MaxWidth;
+                }
+            }
+            else if (totalMinWidth > availableWidth)
+            {
+                var scale = totalMinWidth <= 0f ? 0f : availableWidth / totalMinWidth;
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    _columns[column].AssignedWidth = _columns[column].MinWidth * scale;
+                }
+            }
+            else if (totalMaxWidth <= availableWidth)
             {
                 for (var column = 0; column < _columns.Length; column++)
                 {
@@ -1015,14 +1019,14 @@ public sealed partial class MediaWikiRenderer
             }
             else
             {
-                var assignableWidth = Math.Max(0f, availableSize.X - totalMinWidth);
+                var remainingWidth = Math.Max(0f, availableWidth - totalMinWidth);
                 var fallbackRatio = _columns.Length == 0 ? 0f : 1f / _columns.Length;
 
                 for (var column = 0; column < _columns.Length; column++)
                 {
                     ref var data = ref _columns[column];
                     var slackRatio = totalSlack <= 0f ? fallbackRatio : data.Slack / totalSlack;
-                    data.AssignedWidth = data.MinWidth + slackRatio * assignableWidth;
+                    data.AssignedWidth = data.MinWidth + slackRatio * remainingWidth;
                 }
             }
 
@@ -1060,17 +1064,33 @@ public sealed partial class MediaWikiRenderer
                 totalSlack += _columns[column].Slack;
             }
 
-            var assignableWidth = Math.Max(0f, finalSize.X - totalMinWidth);
+            var availableWidth = Math.Max(0f, finalSize.X);
             var fallbackRatio = _columns.Length == 0 ? 0f : 1f / _columns.Length;
             var xPos = 0f;
 
-            for (var column = 0; column < _columns.Length; column++)
+            if (totalMinWidth > availableWidth)
             {
-                ref var data = ref _columns[column];
-                var slackRatio = totalSlack <= 0f ? fallbackRatio : data.Slack / totalSlack;
-                data.ArrangedWidth = data.MinWidth + slackRatio * assignableWidth;
-                data.ArrangedX = xPos;
-                xPos += data.ArrangedWidth;
+                var scale = totalMinWidth <= 0f ? 0f : availableWidth / totalMinWidth;
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    ref var data = ref _columns[column];
+                    data.ArrangedWidth = data.MinWidth * scale;
+                    data.ArrangedX = xPos;
+                    xPos += data.ArrangedWidth;
+                }
+            }
+            else
+            {
+                var assignableWidth = Math.Max(0f, availableWidth - totalMinWidth);
+
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    ref var data = ref _columns[column];
+                    var slackRatio = totalSlack <= 0f ? fallbackRatio : data.Slack / totalSlack;
+                    data.ArrangedWidth = data.MinWidth + slackRatio * assignableWidth;
+                    data.ArrangedX = xPos;
+                    xPos += data.ArrangedWidth;
+                }
             }
 
             var yPos = 0f;

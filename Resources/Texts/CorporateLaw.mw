@@ -504,7 +504,7 @@ __NOTOC__
 
 ==Основные Права Разумных Существ на территории объектов корпорации NanoTrasen==
 {{Anchor|ОПРС}}
-{| role="presentation" mw-collapsible mw-collapsed" style="background-color:##ffc9c9;" border=0 class="wikitable mw-collapsible mw-collapsed" width=100% style="background-color:#2a3342b2; color: #FFF; border-radius:5px;"
+{| role="presentation" class="wikitable mw-collapsible mw-collapsed" width=100% border=0 style="background-color:#2a3342b2; color:#FFF; border-radius:5px;"
 |-
 !<span style="color: hsl(220, 25%, 80%); font-size: 1.2em; line-height: 1.125;">Основные Права Разумных Существ</span>
 |-
@@ -528,7 +528,7 @@ __NOTOC__
 |}
 
 ==Модификаторы сроков приговоров==
-{| role="presentation" class="wikitable" style='text-align: center; background-color:#2a3342b2; color: #FFF" border=1 cellspacing=0"
+{| role="presentation" class="wikitable" border=1 cellspacing=0 style="text-align: center; background-color:#2a3342b2; color:#FFF"
 ! style="width: 20%;border:1px solid black;" | Ситуация !! style="width: 30%;border:1px solid black;" | Описание !! style="width: 20%;border:1px solid black;" | Ситуация !! style="width: 30%;border:1px solid black;" | Описание
 |-
 |style="border:1px solid black;"| [[#Крайняя необходимость | Крайняя необходимость]] ||style="border:1px solid black;"| Снятие обвинений ||style="border:1px solid black;"| [[#Пособничество | Пособничество]] ||style="border:1px solid black;"| Наказание по всем статьям, в отношении которых оказывалась помощь
@@ -542,7 +542,7 @@ __NOTOC__
 |}
 
 <div style="margin: -2% 0% -2% 0%">
-{| role="presentation" mw-collapsible mw-collapsed" style="background-color:#2a3342b2; color: #FFF" border=0 class="wikitable mw-collapsible mw-collapsed" width=100%
+{| role="presentation" class="wikitable mw-collapsible mw-collapsed" width=100% border=0 style="background-color:#2a3342b2; color:#FFF"
 ! style='background:#57000C;border:1px solid black;' | Название
 ! style='background:#57000C;border:1px solid black;' | Описание
 ! style='background:#57000C;border:1px solid black;' | Влияние на меру наказания

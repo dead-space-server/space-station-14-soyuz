@@ -562,6 +562,7 @@ public sealed partial class MediaWikiRenderer
     private static string ConvertBlockMarkup(string text)
     {
         text = text.Replace("\r\n", "\n").Replace('\r', '\n');
+        text = NormalizeHtmlTagWhitespace(text);
         text = BrRegex.Replace(text, "\n");
         text = HrRegex.Replace(text, "\n--------------------\n");
 
@@ -647,7 +648,7 @@ public sealed partial class MediaWikiRenderer
         text = SpanRegex.Replace(text, match =>
         {
             var inner = ConvertInlineMarkup(match.Groups["content"].Value);
-            var color = ExtractColorFromText(match.Groups["attrs"].Value, TextColorRegex);
+            var color = ExtractTextColor(match.Groups["attrs"].Value);
             return color != null ? $"[color={color}]{inner}[/color]" : inner;
         });
 
@@ -677,6 +678,21 @@ public sealed partial class MediaWikiRenderer
         text = HtmlTagRegex.Replace(text, string.Empty);
 
         return text.Trim();
+    }
+
+    private static string NormalizeHtmlTagWhitespace(string text)
+    {
+        return HtmlTagRegex.Replace(text, static match =>
+        {
+            var tag = match.Value;
+            if (!tag.Contains('\r') && !tag.Contains('\n') && !tag.Contains('\t'))
+                return tag;
+
+            tag = string.Join(" ", tag.Split((char[]?) null, StringSplitOptions.RemoveEmptyEntries));
+            tag = tag.Replace(" >", ">", StringComparison.Ordinal);
+            tag = tag.Replace(" />", "/>", StringComparison.Ordinal);
+            return tag;
+        });
     }
 
     private static string StripPlainText(string text)

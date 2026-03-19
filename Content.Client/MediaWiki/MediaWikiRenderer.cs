@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Numerics;
 using Content.Client.Message;
 using Content.Client.UserInterface.Controls;
 using Robust.Client.Graphics;
@@ -14,7 +15,7 @@ public sealed partial class MediaWikiRenderer
 {
     private static readonly Regex HeadingRegex = new(@"^(=+)\s*(.*?)\s*\1$", RegexOptions.Compiled);
     private static readonly Regex AnchorRegex = new(@"\{\{Anchor\|([^}]+)\}\}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex WikiLinkWithLabelRegex = new(@"\[\[([^\]|]+)\|([^\]]+)\]\]", RegexOptions.Compiled | RegexOptions.Singleline);
+    private static readonly Regex WikiLinkWithLabelRegex = new(@"\[\[([^\]|]+)\|(.+?)\]\]", RegexOptions.Compiled | RegexOptions.Singleline);
     private static readonly Regex WikiLinkRegex = new(@"\[\[([^\]]+)\]\]", RegexOptions.Compiled);
     private static readonly Regex BoldItalicRegex = new(@"'''''(.*?)'''''", RegexOptions.Compiled | RegexOptions.Singleline);
     private static readonly Regex BoldRegex = new(@"'''(.*?)'''", RegexOptions.Compiled | RegexOptions.Singleline);
@@ -192,6 +193,8 @@ public sealed partial class MediaWikiRenderer
             return;
 
         var defaultBackground = ExtractBackgroundColor(lines[0]) ?? "#2a3342b2";
+        var defaultTextColor = ExtractTextColor(lines[0]);
+        var defaultAlignCenter = HasCenteredText(lines[0]);
         var rows = ParseWikiRows(lines.Skip(1).Take(lines.Count - 2).ToList());
         if (rows.Count == 0)
             return;
@@ -203,7 +206,7 @@ public sealed partial class MediaWikiRenderer
             return;
         }
 
-        container.AddChild(CreateTable(rows, defaultBackground));
+        container.AddChild(CreateTable(rows, defaultBackground, defaultTextColor, defaultAlignCenter));
     }
 
     private void RenderCollapsibleWikiSection(Control container, IReadOnlyList<WikiTableRow> rows)
@@ -228,11 +231,13 @@ public sealed partial class MediaWikiRenderer
     private void RenderHtmlTable(Control container, string tableBlock)
     {
         var defaultBackground = ExtractBackgroundColor(tableBlock) ?? "#2a3342b2";
+        var defaultTextColor = ExtractTextColor(GetOpeningTag(tableBlock));
+        var defaultAlignCenter = HasCenteredText(GetOpeningTag(tableBlock));
         var rows = ParseHtmlRows(tableBlock);
         if (rows.Count == 0)
             return;
 
-        container.AddChild(CreateTable(rows, defaultBackground));
+        container.AddChild(CreateTable(rows, defaultBackground, defaultTextColor, defaultAlignCenter));
     }
 
     private static List<WikiTableRow> ParseWikiRows(IReadOnlyList<string> lines)
@@ -299,8 +304,9 @@ public sealed partial class MediaWikiRenderer
             Content = contentText.Trim(),
             Anchor = anchor,
             BackgroundColor = ExtractBackgroundColor(attributeText),
-            TextColor = ExtractTextColor(attributeText),
+            TextColor = ExtractTextColor(attributeText) ?? ExtractTextColor(contentText),
             AlignCenter = attributeText.Contains("text-align: center", StringComparison.OrdinalIgnoreCase) ||
+                          attributeText.Contains("text-align:center", StringComparison.OrdinalIgnoreCase) ||
                           contentText.Contains("<center>", StringComparison.OrdinalIgnoreCase),
             Colspan = ParseSpan(attributeText, ColSpanRegex),
             Rowspan = ParseSpan(attributeText, RowSpanRegex),
@@ -310,38 +316,13 @@ public sealed partial class MediaWikiRenderer
     private static List<WikiTableRow> ParseHtmlRows(string tableBlock)
     {
         var rows = new List<WikiTableRow>();
-        var pendingRowSpans = new Dictionary<int, PendingHtmlSpan>();
 
         foreach (Match rowMatch in HtmlRowRegex.Matches(tableBlock))
         {
             var row = new WikiTableRow();
-            var column = 0;
-            PendingHtmlSpan? pending;
-
-            while (pendingRowSpans.TryGetValue(column, out pending))
-            {
-                row.Cells.Add(pending.Cell.CloneForSpan());
-                pending.RemainingRows--;
-                if (pending.RemainingRows <= 0)
-                    pendingRowSpans.Remove(column);
-                else
-                    pendingRowSpans[column] = pending;
-                column++;
-            }
 
             foreach (Match cellMatch in HtmlCellRegex.Matches(rowMatch.Groups["content"].Value))
             {
-                while (pendingRowSpans.TryGetValue(column, out pending))
-                {
-                    row.Cells.Add(pending.Cell.CloneForSpan());
-                    pending.RemainingRows--;
-                    if (pending.RemainingRows <= 0)
-                        pendingRowSpans.Remove(column);
-                    else
-                        pendingRowSpans[column] = pending;
-                    column++;
-                }
-
                 var attrs = cellMatch.Groups["attrs"].Value;
                 var header = string.Equals(cellMatch.Groups["type"].Value, "h", StringComparison.OrdinalIgnoreCase);
                 var inner = cellMatch.Groups["content"].Value;
@@ -356,25 +337,14 @@ public sealed partial class MediaWikiRenderer
                     Content = inner.Trim(),
                     Anchor = anchor,
                     BackgroundColor = ExtractBackgroundColor(attrs),
-                    TextColor = ExtractTextColor(attrs),
+                    TextColor = ExtractTextColor(attrs) ?? ExtractTextColor(inner),
                     AlignCenter = attrs.Contains("text-align:center", StringComparison.OrdinalIgnoreCase) ||
                                   attrs.Contains("text-align: center", StringComparison.OrdinalIgnoreCase),
                     Colspan = colspan,
                     Rowspan = rowspan,
                 };
 
-                for (var i = 0; i < colspan; i++)
-                {
-                    var cellToAdd = i == 0 ? cell : cell.CloneEmpty();
-                    row.Cells.Add(cellToAdd);
-
-                    if (rowspan > 1)
-                    {
-                        pendingRowSpans[column] = new PendingHtmlSpan(cellToAdd, rowspan - 1);
-                    }
-
-                    column++;
-                }
+                row.Cells.Add(cell);
             }
 
             rows.Add(row);
@@ -383,26 +353,40 @@ public sealed partial class MediaWikiRenderer
         return rows;
     }
 
-    private Control CreateTable(IReadOnlyList<WikiTableRow> rows, string defaultBackground)
+    private Control CreateTable(IReadOnlyList<WikiTableRow> rows, string defaultBackground, string? defaultTextColor, bool defaultAlignCenter)
     {
-        var columnCount = rows.Max(static row => row.Cells.Count);
-
-        var table = new TableContainer
+        var table = new SpannedTableContainer
         {
-            Columns = columnCount,
             HorizontalExpand = true,
         };
 
-        foreach (var row in rows)
-        {
-            foreach (var cell in row.Cells)
-            {
-                table.AddChild(CreateCellControl(cell, defaultBackground));
-            }
+        var occupied = new HashSet<(int Row, int Column)>();
 
-            for (var i = row.Cells.Count; i < columnCount; i++)
+        for (var rowIndex = 0; rowIndex < rows.Count; rowIndex++)
+        {
+            var columnIndex = 0;
+
+            foreach (var cell in rows[rowIndex].Cells)
             {
-                table.AddChild(CreateCellControl(new WikiTableCell(), defaultBackground));
+                while (occupied.Contains((rowIndex, columnIndex)))
+                {
+                    columnIndex++;
+                }
+
+                var rowSpan = Math.Max(1, cell.Rowspan);
+                var columnSpan = Math.Max(1, cell.Colspan);
+                var control = CreateCellControl(cell, defaultBackground, defaultTextColor, defaultAlignCenter);
+                table.AddCell(control, rowIndex, columnIndex, rowSpan, columnSpan);
+
+                for (var rowOffset = 0; rowOffset < rowSpan; rowOffset++)
+                {
+                    for (var columnOffset = 0; columnOffset < columnSpan; columnOffset++)
+                    {
+                        occupied.Add((rowIndex + rowOffset, columnIndex + columnOffset));
+                    }
+                }
+
+                columnIndex += columnSpan;
             }
         }
 
@@ -417,9 +401,11 @@ public sealed partial class MediaWikiRenderer
         };
     }
 
-    private Control CreateCellControl(WikiTableCell cell, string defaultBackground)
+    private Control CreateCellControl(WikiTableCell cell, string defaultBackground, string? defaultTextColor, bool defaultAlignCenter)
     {
         var background = ParseColor(cell.BackgroundColor) ?? ParseColor(defaultBackground) ?? new Color(42, 51, 66, 178);
+        var alignCenter = cell.AlignCenter || cell.Header || defaultAlignCenter;
+        var textColor = cell.TextColor ?? defaultTextColor;
         var border = new StyleBoxFlat
         {
             BackgroundColor = background,
@@ -429,7 +415,9 @@ public sealed partial class MediaWikiRenderer
 
         var label = new RichTextLabel
         {
-            HorizontalExpand = true,
+            HorizontalExpand = !alignCenter,
+            HorizontalAlignment = alignCenter ? Control.HAlignment.Center : Control.HAlignment.Left,
+            VerticalAlignment = Control.VAlignment.Center,
             Margin = new Thickness(6),
         };
 
@@ -437,8 +425,8 @@ public sealed partial class MediaWikiRenderer
         if (cell.Header && !string.IsNullOrWhiteSpace(text))
             text = $"[bold]{text}[/bold]";
 
-        if (cell.TextColor != null && !string.IsNullOrWhiteSpace(text))
-            text = $"[color={cell.TextColor}]{text}[/color]";
+        if (textColor != null && !string.IsNullOrWhiteSpace(text))
+            text = $"[color={textColor}]{text}[/color]";
 
         label.SetMarkupPermissive(string.IsNullOrWhiteSpace(text) ? " " : text);
 
@@ -450,7 +438,7 @@ public sealed partial class MediaWikiRenderer
             VerticalExpand = true,
         };
 
-        if (cell.AlignCenter || cell.Header)
+        if (alignCenter)
         {
             var center = new CenterContainer
             {
@@ -645,20 +633,16 @@ public sealed partial class MediaWikiRenderer
         text = text.Replace("&nbsp;", " ", StringComparison.OrdinalIgnoreCase);
         text = AnchorRegex.Replace(text, string.Empty);
 
-        text = SpanRegex.Replace(text, match =>
-        {
-            var inner = ConvertInlineMarkup(match.Groups["content"].Value);
-            var color = ExtractTextColor(match.Groups["attrs"].Value);
-            return color != null ? $"[color={color}]{inner}[/color]" : inner;
-        });
-
         text = text.Replace("<center>", "", StringComparison.OrdinalIgnoreCase);
         text = text.Replace("</center>", "", StringComparison.OrdinalIgnoreCase);
         text = text.Replace("<div>", "", StringComparison.OrdinalIgnoreCase);
         text = text.Replace("</div>", "", StringComparison.OrdinalIgnoreCase);
 
         text = WikiLinkWithLabelRegex.Replace(text, static match =>
-            CreateTextLinkMarkup(match.Groups[1].Value, StripPlainText(match.Groups[2].Value)));
+        {
+            var rawLabel = match.Groups[2].Value;
+            return CreateTextLinkMarkup(match.Groups[1].Value, StripPlainText(rawLabel), ExtractTextColor(rawLabel));
+        });
         text = WikiLinkRegex.Replace(text, static match =>
         {
             var target = match.Groups[1].Value;
@@ -667,6 +651,13 @@ public sealed partial class MediaWikiRenderer
             if (hashIndex >= 0 && hashIndex < label.Length - 1)
                 label = label[(hashIndex + 1)..];
             return CreateTextLinkMarkup(target, StripPlainText(label));
+        });
+
+        text = SpanRegex.Replace(text, match =>
+        {
+            var inner = ConvertInlineMarkup(match.Groups["content"].Value);
+            var color = ExtractTextColor(match.Groups["attrs"].Value);
+            return color != null ? $"[color={color}]{inner}[/color]" : inner;
         });
 
         text = HtmlBoldRegex.Replace(text, "[bold]$1[/bold]");
@@ -695,20 +686,37 @@ public sealed partial class MediaWikiRenderer
         });
     }
 
+    private static bool HasCenteredText(string text)
+    {
+        return text.Contains("text-align: center", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains("text-align:center", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string GetOpeningTag(string text)
+    {
+        var end = text.IndexOf('>');
+        return end >= 0 ? text[..(end + 1)] : text;
+    }
+
     private static string StripPlainText(string text)
     {
         return FormattedMessage.RemoveMarkupPermissive(ConvertBlockMarkup(text));
     }
 
-    private static string CreateTextLinkMarkup(string target, string label)
+    private static string CreateTextLinkMarkup(string target, string label, string? color = null)
     {
         target = StripPlainText(target).Trim();
         label = StripPlainText(label).Trim();
+        color = NormalizeColor(color);
 
         if (target.Length == 0 || label.Length == 0)
             return FormattedMessage.EscapeText(label);
 
-        return $"[textlink link=\"{target.Replace("\"", "'")}\"]{FormattedMessage.EscapeText(label)}[/textlink]";
+        var attrs = $" link=\"{target.Replace("\"", "'")}\"";
+        if (!string.IsNullOrWhiteSpace(color))
+            attrs += $" color=\"{color.Replace("\"", "'")}\"";
+
+        return $"[textlink{attrs}]{FormattedMessage.EscapeText(label)}[/textlink]";
     }
 
     private static List<string> SplitTopLevel(string text, string separator)
@@ -952,15 +960,209 @@ public sealed partial class MediaWikiRenderer
         }
     }
 
-    private sealed class PendingHtmlSpan
+    private sealed class SpannedTableContainer : Container
     {
-        public WikiTableCell Cell { get; }
-        public int RemainingRows { get; set; }
+        public float MinForcedColumnWidth { get; set; } = 50f;
 
-        public PendingHtmlSpan(WikiTableCell cell, int remainingRows)
+        private readonly List<SpannedCell> _cells = new();
+        private ColumnData[] _columns = [];
+        private RowData[] _rows = [];
+
+        public void AddCell(Control control, int row, int column, int rowSpan = 1, int columnSpan = 1)
         {
-            Cell = cell;
-            RemainingRows = remainingRows;
+            _cells.Add(new SpannedCell(control, row, column, Math.Max(1, rowSpan), Math.Max(1, columnSpan)));
+            AddChild(control);
+        }
+
+        protected override Vector2 MeasureOverride(Vector2 availableSize)
+        {
+            ResetCaches();
+            if (_cells.Count == 0)
+                return Vector2.Zero;
+
+            foreach (var cell in _cells)
+            {
+                cell.Control.Measure(new Vector2(float.PositiveInfinity, float.PositiveInfinity));
+                var share = cell.Control.DesiredSize.X / cell.ColumnSpan;
+
+                for (var column = cell.Column; column < cell.Column + cell.ColumnSpan; column++)
+                {
+                    _columns[column].MaxWidth = Math.Max(_columns[column].MaxWidth, share);
+                }
+            }
+
+            var totalMinWidth = 0f;
+            var totalMaxWidth = 0f;
+            var totalSlack = 0f;
+
+            for (var column = 0; column < _columns.Length; column++)
+            {
+                ref var data = ref _columns[column];
+                data.MinWidth = Math.Min(data.MaxWidth, MinForcedColumnWidth);
+                data.Slack = Math.Max(0f, data.MaxWidth - data.MinWidth);
+
+                totalMinWidth += data.MinWidth;
+                totalMaxWidth += data.MaxWidth;
+                totalSlack += data.Slack;
+            }
+
+            if (totalMaxWidth <= availableSize.X)
+            {
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    _columns[column].AssignedWidth = _columns[column].MaxWidth;
+                }
+            }
+            else
+            {
+                var assignableWidth = Math.Max(0f, availableSize.X - totalMinWidth);
+                var fallbackRatio = _columns.Length == 0 ? 0f : 1f / _columns.Length;
+
+                for (var column = 0; column < _columns.Length; column++)
+                {
+                    ref var data = ref _columns[column];
+                    var slackRatio = totalSlack <= 0f ? fallbackRatio : data.Slack / totalSlack;
+                    data.AssignedWidth = data.MinWidth + slackRatio * assignableWidth;
+                }
+            }
+
+            foreach (var cell in _cells)
+            {
+                var width = SumAssignedWidths(cell.Column, cell.ColumnSpan);
+                cell.Control.Measure(new Vector2(width, float.PositiveInfinity));
+                var heightShare = cell.Control.DesiredSize.Y / cell.RowSpan;
+
+                for (var row = cell.Row; row < cell.Row + cell.RowSpan; row++)
+                {
+                    _rows[row].MeasuredHeight = Math.Max(_rows[row].MeasuredHeight, heightShare);
+                }
+            }
+
+            var totalHeight = 0f;
+            for (var row = 0; row < _rows.Length; row++)
+            {
+                totalHeight += _rows[row].MeasuredHeight;
+            }
+
+            return new Vector2(Math.Min(availableSize.X, totalMaxWidth), totalHeight);
+        }
+
+        protected override Vector2 ArrangeOverride(Vector2 finalSize)
+        {
+            if (_cells.Count == 0)
+                return finalSize;
+
+            var totalMinWidth = 0f;
+            var totalSlack = 0f;
+            for (var column = 0; column < _columns.Length; column++)
+            {
+                totalMinWidth += _columns[column].MinWidth;
+                totalSlack += _columns[column].Slack;
+            }
+
+            var assignableWidth = Math.Max(0f, finalSize.X - totalMinWidth);
+            var fallbackRatio = _columns.Length == 0 ? 0f : 1f / _columns.Length;
+            var xPos = 0f;
+
+            for (var column = 0; column < _columns.Length; column++)
+            {
+                ref var data = ref _columns[column];
+                var slackRatio = totalSlack <= 0f ? fallbackRatio : data.Slack / totalSlack;
+                data.ArrangedWidth = data.MinWidth + slackRatio * assignableWidth;
+                data.ArrangedX = xPos;
+                xPos += data.ArrangedWidth;
+            }
+
+            var yPos = 0f;
+            for (var row = 0; row < _rows.Length; row++)
+            {
+                _rows[row].ArrangedY = yPos;
+                yPos += _rows[row].MeasuredHeight;
+            }
+
+            foreach (var cell in _cells)
+            {
+                var x = _columns[cell.Column].ArrangedX;
+                var y = _rows[cell.Row].ArrangedY;
+                var width = SumArrangedWidths(cell.Column, cell.ColumnSpan);
+                var height = SumArrangedHeights(cell.Row, cell.RowSpan);
+                cell.Control.Arrange(UIBox2.FromDimensions(x, y, width, height));
+            }
+
+            return finalSize with { Y = yPos };
+        }
+
+        private void ResetCaches()
+        {
+            var columnCount = 0;
+            var rowCount = 0;
+
+            foreach (var cell in _cells)
+            {
+                columnCount = Math.Max(columnCount, cell.Column + cell.ColumnSpan);
+                rowCount = Math.Max(rowCount, cell.Row + cell.RowSpan);
+            }
+
+            if (_columns.Length != columnCount)
+                _columns = new ColumnData[columnCount];
+            else
+                Array.Clear(_columns, 0, _columns.Length);
+
+            if (_rows.Length != rowCount)
+                _rows = new RowData[rowCount];
+            else
+                Array.Clear(_rows, 0, _rows.Length);
+        }
+
+        private float SumAssignedWidths(int startColumn, int columnSpan)
+        {
+            var total = 0f;
+            for (var column = startColumn; column < startColumn + columnSpan; column++)
+            {
+                total += _columns[column].AssignedWidth;
+            }
+
+            return total;
+        }
+
+        private float SumArrangedWidths(int startColumn, int columnSpan)
+        {
+            var total = 0f;
+            for (var column = startColumn; column < startColumn + columnSpan; column++)
+            {
+                total += _columns[column].ArrangedWidth;
+            }
+
+            return total;
+        }
+
+        private float SumArrangedHeights(int startRow, int rowSpan)
+        {
+            var total = 0f;
+            for (var row = startRow; row < startRow + rowSpan; row++)
+            {
+                total += _rows[row].MeasuredHeight;
+            }
+
+            return total;
+        }
+
+        private readonly record struct SpannedCell(Control Control, int Row, int Column, int RowSpan, int ColumnSpan);
+
+        private struct ColumnData
+        {
+            public float MaxWidth;
+            public float MinWidth;
+            public float Slack;
+            public float AssignedWidth;
+            public float ArrangedWidth;
+            public float ArrangedX;
+        }
+
+        private struct RowData
+        {
+            public float MeasuredHeight;
+            public float ArrangedY;
         }
     }
 }

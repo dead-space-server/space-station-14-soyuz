@@ -34,17 +34,44 @@ public sealed class TextLinkTag : IMarkupTagHandler
 
         var label = new Label();
         label.Text = text;
+        var baseColor = GetLinkColor(node);
+        var hoverColor = BlendTowardsWhite(baseColor, 0.2f);
 
         label.MouseFilter = Control.MouseFilterMode.Stop;
-        label.FontColorOverride = LinkColor;
+        label.FontColorOverride = baseColor;
         label.DefaultCursorShape = Control.CursorShape.Hand;
 
-        label.OnMouseEntered += _ => label.FontColorOverride = Color.LightSkyBlue;
-        label.OnMouseExited += _ => label.FontColorOverride = Color.CornflowerBlue;
+        label.OnMouseEntered += _ => label.FontColorOverride = hoverColor;
+        label.OnMouseExited += _ => label.FontColorOverride = baseColor;
         label.OnKeyBindDown += args => OnKeybindDown(args, link, label);
 
         control = label;
         return true;
+    }
+
+    private static Color GetLinkColor(MarkupNode node)
+    {
+        if (node.Attributes.TryGetValue("color", out var colorParameter) &&
+            colorParameter.TryGetString(out var rawColor))
+        {
+            if (Color.TryFromHex(rawColor) is { } hexColor)
+                return hexColor;
+
+            if (Color.TryFromName(rawColor, out var namedColor))
+                return namedColor;
+        }
+
+        return LinkColor;
+    }
+
+    private static Color BlendTowardsWhite(Color color, float amount)
+    {
+        amount = Math.Clamp(amount, 0f, 1f);
+        return new Color(
+            color.R + (1f - color.R) * amount,
+            color.G + (1f - color.G) * amount,
+            color.B + (1f - color.B) * amount,
+            color.A);
     }
 
     private void OnKeybindDown(GUIBoundKeyEventArgs args, string link, Control? control)

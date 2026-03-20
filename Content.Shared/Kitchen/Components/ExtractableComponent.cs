@@ -14,4 +14,8 @@ public sealed partial class ExtractableComponent : Component
 
     [DataField("grindableSolutionName")]
     public string? GrindableSolution;
+
+    // DS14: some server-specific produce is intentionally omitted from the chemistry guidebook.
+    [DataField("showInGuidebook")]
+    public bool ShowInGuidebook = true;
 };

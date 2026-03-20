@@ -17,6 +17,7 @@
     - PowerDrill
     - WelderExperimental
     - SprayPainterRecharging
+    - DoorRemoteAll 
 
 - type: startingGear
   id: MobAghostGearSoyuzAlt
@@ -38,3 +39,4 @@
     - PowerDrill
     - WelderExperimental
     - SprayPainterRecharging
+    - DoorRemoteAll 

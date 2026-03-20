@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.Languages.Prototypes;
 using Content.Shared.StatusIcon;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
@@ -22,4 +23,7 @@ public sealed partial class ZombieBlobComponent : Component
     public SoundSpecifier GreetSoundNotification = new SoundPathSpecifier("/Audio/Ambience/Antag/zombie_start.ogg");
 
     public ProtoId<FactionIconPrototype> StatusIcon { get; set; } = "BlobFaction";
+
+    public List<ProtoId<LanguagePrototype>> OldLanguages = new(); //DS14-Soyuz
+    public ProtoId<LanguagePrototype>? OldSelectedLanguage; //DS14-Soyuz
 }

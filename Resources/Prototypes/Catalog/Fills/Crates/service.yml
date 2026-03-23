@@ -398,3 +398,12 @@
     contents:
       - id: BoxPhotocopierToners
         amount: 2
+
+- type: entity
+  id: CrateServicePolaroidCartridges
+  parent: CrateGenericSteel
+  components:
+  - type: StorageFill
+    contents:
+      - id: BoxPolaroidCartridges
+        amount: 2

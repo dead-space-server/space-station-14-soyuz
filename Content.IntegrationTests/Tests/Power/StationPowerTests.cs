@@ -41,6 +41,7 @@ public sealed class StationPowerTests
         "Fland",
         "Gate",
         "Gemini",
+        "Ishimyra",
         "Loop",
         "Loop",
         "Marathon",

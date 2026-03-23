@@ -135,6 +135,7 @@ namespace Content.IntegrationTests.Tests
             "Fland",
             "Gate",
             "Gemini",
+            "Ishimyra",
             "Loop",
             "Loop",
             "Marathon",

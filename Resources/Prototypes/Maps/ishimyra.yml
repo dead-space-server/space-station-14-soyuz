@@ -4,14 +4,14 @@
   mapPath: /Maps/Soyuz/ishimyra.yml
   minPlayers: 40
   stations:
-    Boxstation:
+    Ishimura:
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Box {1}'
+          mapNameTemplate: '{0} Ishimura {1}'
           nameGenerator:
             !type:NanotrasenNameGenerator
-            prefixCreator: 'TG-DS'
+            prefixCreator: 'MU-TE'
         - type: StationEmergencyShuttle
           emergencyShuttlePath: /Maps/Shuttles/emergency_box.yml
         - type: StationJobs

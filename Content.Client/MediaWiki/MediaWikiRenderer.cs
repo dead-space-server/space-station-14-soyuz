@@ -415,7 +415,6 @@ public sealed partial class MediaWikiRenderer
 
         var label = new RichTextLabel
         {
-            Align = alignCenter ? Label.AlignMode.Center : Label.AlignMode.Left,
             HorizontalExpand = true,
             VerticalAlignment = Control.VAlignment.Center,
             Margin = new Thickness(6),
@@ -439,7 +438,20 @@ public sealed partial class MediaWikiRenderer
             RectClipContent = true,
         };
 
-        content.AddChild(label);
+        if (alignCenter)
+        {
+            var centered = new CenterContainer
+            {
+                HorizontalExpand = true,
+                VerticalExpand = true,
+            };
+            centered.AddChild(label);
+            content.AddChild(centered);
+        }
+        else
+        {
+            content.AddChild(label);
+        }
 
         AttachAnchor(content, cell.Anchor);
         return content;

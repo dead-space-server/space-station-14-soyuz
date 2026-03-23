@@ -12,6 +12,18 @@
   fx: EffectRCDConstruct2
 
 - type: rcd
+  id: WallMiningCE
+  category: WallsAndFlooring
+  sprite: /Textures/Interface/Radial/RCD/mining_wall.png
+  mode: ConstructObject
+  prototype: WallMining
+  cost: 3
+  delay: 2
+  collisionMask: FullTileMask
+  rotation: Fixed
+  fx: EffectRCDConstruct2
+
+- type: rcd
   id: GrilleCE
   category: WindowsAndGrilles
   sprite: /Textures/Interface/Radial/RCD/grille.png
@@ -59,6 +71,20 @@
   sprite: /Textures/Interface/Radial/RCD/window_reinforced.png
   mode: ConstructObject
   prototype: ReinforcedWindow
+  cost: 2
+  delay: 3
+  collisionMask: Impassable
+  rules:
+    - IsWindow
+  rotation: User
+  fx: EffectRCDConstruct3
+
+- type: rcd
+  id: MiningWindowCE
+  category: WindowsAndGrilles
+  sprite: /Textures/Interface/Radial/RCD/mining_window.png
+  mode: ConstructObject
+  prototype: MiningWindowSoyuz
   cost: 2
   delay: 3
   collisionMask: Impassable

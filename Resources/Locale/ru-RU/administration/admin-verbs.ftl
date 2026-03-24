@@ -31,7 +31,6 @@ admin-verbs-refill-internals-nitrogen = Заполнить баллон азот
 admin-verbs-refill-internals-plasma = Заполнить баллон плазмой
 admin-verbs-send-to-test-arena = Отправить на тестовую арену
 admin-verbs-grant-all-access = Выдать полный доступ
-admin-verbs-grant-all-skills = Выдать все навыки
 admin-verbs-revoke-all-access = Убрать весь доступ
 admin-verbs-adjust-stack = Изменить количество в стопке
 admin-verbs-fill-stack = Заполнить стопку

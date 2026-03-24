@@ -156,9 +156,6 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         _currentSkills = skills;
         _window.SkillsButton.Visible = skills.Count > 0;
 
-        if (_skillsWindow is { IsOpen: true, ShowsForeignSkills: false })
-            _skillsWindow.SetSkills(_currentSkills);
-
         // start backmen: currency
         {
             _window.Memory.RemoveAllChildren();

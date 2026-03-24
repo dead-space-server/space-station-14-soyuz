@@ -8,6 +8,7 @@ using Content.Shared.DeadSpace.Skills.Components;
 using Content.Shared.Objectives;
 using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
+using Robust.Shared.Player;
 
 namespace Content.Server.CharacterInfo;
 
@@ -32,8 +33,11 @@ public sealed class CharacterInfoSystem : EntitySystem
             || args.SenderSession.AttachedEntity != GetEntity(msg.NetEntity))
             return;
 
-        var entity = args.SenderSession.AttachedEntity.Value;
+        SendCharacterInfo(args.SenderSession.AttachedEntity.Value, args.SenderSession);
+    }
 
+    public void SendCharacterInfo(EntityUid entity, ICommonSession session)
+    {
         var objectives = new Dictionary<string, List<ObjectiveInfo>>();
         var jobTitle = Loc.GetString("character-info-no-profession");
         string? briefing = null;
@@ -74,7 +78,7 @@ public sealed class CharacterInfoSystem : EntitySystem
             }
         }
 
-        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, skills, briefing), args.SenderSession);
+        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, skills, briefing), session);
         // DS14-Skills-End
     }
 }

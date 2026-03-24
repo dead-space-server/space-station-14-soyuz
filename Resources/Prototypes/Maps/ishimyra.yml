@@ -1,8 +1,8 @@
 - type: gameMap
-  id: Ishimyra
-  mapName: 'Ishimyra'
+  id: Ishimura
+  mapName: 'Ishimura'
   mapPath: /Maps/Soyuz/ishimyra.yml
-  minPlayers: 40
+  minPlayers: 60
   stations:
     Ishimura:
       stationProto: StandardNanotrasenStation
@@ -13,7 +13,7 @@
             !type:NanotrasenNameGenerator
             prefixCreator: 'MU-TE'
         - type: StationEmergencyShuttle
-          emergencyShuttlePath: /Maps/Shuttles/emergency_box.yml
+          emergencyShuttlePath: /Maps/Shuttles/emergency_raven.yml
         - type: StationJobs
           availableJobs:
             # cmd
@@ -24,7 +24,7 @@
             Lawyer: [ 3, 3 ]
             # sec
             HeadOfSecurity: [ 1, 1 ]
-            Warden: [ 2, 2 ] # ultra-large map
+            Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 1, 1 ]
             SecurityPilot: [ 1, 1 ]
@@ -34,8 +34,8 @@
             # med
             ChiefMedicalOfficer: [ 1, 1 ]
             SeniorPhysician: [ 1, 1 ]
-            Chemist: [ 3, 3 ]
-            MedicalDoctor: [ 4, 4 ]
+            Chemist: [ 2, 2 ]
+            MedicalDoctor: [ 5, 5 ]
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
@@ -43,31 +43,31 @@
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
-            Scientist: [ 4, 4 ]
-            ResearchAssistant: [ 4, 4 ]
+            Scientist: [ 6, 6 ]
+            ResearchAssistant: [ 3, 3 ]
             # eng
             ChiefEngineer: [ 1, 1 ]
             SeniorEngineer: [ 1, 1 ]
             AtmosphericTechnician: [ 3, 3 ]
             StationEngineer: [ 5, 5 ]
-            TechnicalAssistant: [ 4, 4 ]
+            TechnicalAssistant: [ 3, 3 ]
             # sup
             Quartermaster: [ 1, 1 ]
+            # SeniorSalvageSpecialist: [ 1, 1 ] disabled DS14-soyuz
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]
             SeniorAdministrator: [ 1, 1 ]
-            Chef: [ 2, 2 ]
+            Chef: [ 1, 1 ]
             Botanist: [ 3, 3 ]
-            Bartender: [ 2, 2 ]
+            Bartender: [ 1, 1 ]
             ServiceWorker: [ 3, 3 ]
-            Boxer: [ 2, 2 ]
-            Janitor: [ 3, 3 ]
+            Janitor: [ 2, 3 ]
             Librarian: [ 1, 1 ]
             Chaplain: [ 1, 1 ]
-            Reporter: [ 2, 2 ]
-            Musician: [ 1, 1 ]
+            Reporter: [ 1, 1 ]
+            Musician: [ 2, 2 ]
             Passenger: [ -1, -1 ]
             Mime: [ 1, 1 ]
             Clown: [ 1, 1 ]
@@ -77,3 +77,4 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
+            Zookeeper: [ 1, 1 ]

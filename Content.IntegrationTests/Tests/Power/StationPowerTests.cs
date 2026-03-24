@@ -41,7 +41,6 @@ public sealed class StationPowerTests
         "Fland",
         "Gate",
         "Gemini",
-        "Ishimyra",
         "Loop",
         "Loop",
         "Marathon",
@@ -54,6 +53,7 @@ public sealed class StationPowerTests
         "Reach",
         "Saltern",
         "Train",
+        "Ishimura",
     ];
 
     [Test, TestCaseSource(nameof(GameMaps))]

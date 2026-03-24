@@ -135,7 +135,6 @@ namespace Content.IntegrationTests.Tests
             "Fland",
             "Gate",
             "Gemini",
-            "Ishimyra",
             "Loop",
             "Loop",
             "Marathon",
@@ -148,6 +147,7 @@ namespace Content.IntegrationTests.Tests
             "Reach",
             "Saltern",
             "Train",
+            "Ishimura",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

@@ -10,6 +10,7 @@ namespace Content.Packaging;
 
 public static class ServerPackaging
 {
+    private const string SecretsTargetFramework = "net9.0";
     private static readonly List<PlatformReg> Platforms = new()
     {
         new PlatformReg("win-x64", "Windows", true),
@@ -132,7 +133,7 @@ public static class ServerPackaging
             // DS14-secrets-start
             if (UseSecrets)
             {
-                logger.Info($"Secrets found. Building secret project for {platform}...");
+                logger.Info($"Secrets found. Building secret project for {platform} with {SecretsTargetFramework}...");
                 await ProcessHelpers.RunCheck(new ProcessStartInfo
                 {
                     FileName = "dotnet",
@@ -144,6 +145,7 @@ public static class ServerPackaging
                         "--nologo",
                         "/v:m",
                         $"/p:TargetOs={platform.TargetOs}",
+                        $"/p:TargetFramework={SecretsTargetFramework}",
                         "/t:Rebuild",
                         "/p:FullRelease=true",
                         "/m"

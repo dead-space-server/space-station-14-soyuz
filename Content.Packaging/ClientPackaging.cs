@@ -10,6 +10,7 @@ namespace Content.Packaging;
 
 public static class ClientPackaging
 {
+    private const string SecretsTargetFramework = "net9.0";
     private static readonly bool UseSecrets = File.Exists(Path.Combine("Secrets", "DS14Secrets.sln")); // DS14-secrets
     /// <summary>
     /// Be advised this can be called from server packaging during a HybridACZ build.
@@ -37,6 +38,7 @@ public static class ClientPackaging
             });
             if (UseSecrets)
             {
+                logger.Info($"Secrets found. Building secret client with {SecretsTargetFramework}...");
                 await ProcessHelpers.RunCheck(new ProcessStartInfo
                 {
                     FileName = "dotnet",
@@ -47,6 +49,7 @@ public static class ClientPackaging
                         "-c", "Release",
                         "--nologo",
                         "/v:m",
+                        $"/p:TargetFramework={SecretsTargetFramework}",
                         "/t:Rebuild",
                         "/p:FullRelease=true",
                         "/m"

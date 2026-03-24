@@ -33,6 +33,9 @@ jobs:
         echo "HOST *" > ~/.ssh/config
         echo "StrictHostKeyChecking no" >> ~/.ssh/config
         git clone git@github.com:dead-space-server/space-station-14-secrets.git Secrets
+        if grep -RIl --include='*.csproj' --include='*.props' --include='*.targets' 'net10\.0' Secrets > /tmp/ds14-secret-net10-files; then
+          xargs -r sed -i 's/net10\.0/net9.0/g' < /tmp/ds14-secret-net10-files
+        fi
         cp -R Secrets/Resources/Prototypes Resources/Prototypes/DeadSpaceSecrets
         cp -R Secrets/Resources/ServerPrototypes Resources/Prototypes/DeadSpaceSecretsServer
         cp -R Secrets/Resources/Locale Resources/Locale/ru-RU/deadspace-secrets

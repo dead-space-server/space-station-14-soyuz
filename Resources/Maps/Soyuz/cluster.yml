@@ -2,10 +2,10 @@ meta:
   format: 7
   category: Map
   engineVersion: 267.2.0
-  forkId: dssouz
-  forkVersion: 48e82dbef1277745e9d4e70c7a8caafd6979a8f0
-  time: 03/14/2026 12:38:13
-  entityCount: 22325
+  forkId: ""
+  forkVersion: ""
+  time: 03/24/2026 22:30:19
+  entityCount: 22312
 maps:
 - 1
 grids:
@@ -17612,7 +17612,7 @@ entities:
       pos: 40.5,17.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -373065.38
+      secondsUntilStateChange: -373892.22
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -17872,7 +17872,7 @@ entities:
       pos: -2.5,14.5
       parent: 20229
     - type: Door
-      secondsUntilStateChange: -163174.06
+      secondsUntilStateChange: -164000.89
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -18139,7 +18139,7 @@ entities:
       pos: -44.5,-10.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -198604.02
+      secondsUntilStateChange: -199430.84
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -18250,7 +18250,7 @@ entities:
       pos: -37.5,0.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -130053.5
+      secondsUntilStateChange: -130880.336
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -18845,7 +18845,7 @@ entities:
       pos: -32.5,-42.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -366734.44
+      secondsUntilStateChange: -367561.28
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -18983,7 +18983,7 @@ entities:
       pos: -14.5,8.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -4436.677
+      secondsUntilStateChange: -5263.5093
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -24589,6 +24589,30 @@ entities:
     components:
     - type: Transform
       pos: 12.611424,-0.37101722
+      parent: 2
+- proto: BoxMagazineLightRifle
+  entities:
+  - uid: 13193
+    components:
+    - type: Transform
+      pos: 24.817276,31.555069
+      parent: 2
+  - uid: 13194
+    components:
+    - type: Transform
+      pos: 24.817276,31.638401
+      parent: 2
+- proto: BoxMagazinePistolSubMachineGun
+  entities:
+  - uid: 13183
+    components:
+    - type: Transform
+      pos: 25.841402,31.536549
+      parent: 2
+  - uid: 13186
+    components:
+    - type: Transform
+      pos: 25.86918,31.638401
       parent: 2
 - proto: BoxMouthSwab
   entities:
@@ -59773,6 +59797,36 @@ entities:
     - type: Transform
       pos: 27.758251,27.309662
       parent: 2
+    - type: GroupExamine
+      group:
+      - hoverMessage: ""
+        contextText: verb-examine-group-other
+        icon: /Textures/Interface/examine-star.png
+        components:
+        - Armor
+        - ClothingSpeedModifier
+        entries:
+        - message: >-
+            Обеспечивает следующую защиту:
+
+            - [color=yellow]Ударный[/color] урон снижается на [color=lightblue]60%[/color].
+
+            - [color=yellow]Режущий[/color] урон снижается на [color=lightblue]60%[/color].
+
+            - [color=yellow]Колющий[/color] урон снижается на [color=lightblue]40%[/color].
+
+            - [color=yellow]Высокотемпературный[/color] урон снижается на [color=lightblue]30%[/color].
+
+            - [color=yellow]Кислотный[/color] урон снижается на [color=lightblue]10%[/color].
+
+            - [color=yellow]Оглушение[/color] урон снижается на [color=lightblue]35%[/color].
+
+            Обеспечивает следующий уровень защиты:
+
+            - [color=orange]Взрывной[/color] урон снижается на [color=lightblue]10%[/color].
+          priority: 0
+          component: Armor
+        title: null
 - proto: ClothingOuterCoatAtmosWorking
   entities:
   - uid: 7343
@@ -70694,7 +70748,7 @@ entities:
       pos: 8.5,28.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -41427.93
+      secondsUntilStateChange: -42254.76
       state: Closing
   - uid: 8886
     components:
@@ -71905,7 +71959,7 @@ entities:
       pos: -4.5,0.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -204828.72
+      secondsUntilStateChange: -205655.55
       state: Closing
   - uid: 9045
     components:
@@ -72377,7 +72431,7 @@ entities:
     - type: Firelock
       emergencyCloseCooldown: 40415.3595866
     - type: Door
-      secondsUntilStateChange: -436277.6
+      secondsUntilStateChange: -437104.44
       state: Opening
     - type: Physics
       canCollide: True
@@ -100297,6 +100351,9 @@ entities:
     - type: Transform
       pos: 23.5,28.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Armory
 - proto: Gyroscope
   entities:
   - uid: 21620
@@ -101936,6 +101993,9 @@ entities:
     - type: Transform
       pos: 26.5,29.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Armory
     - type: DeviceLinkSource
       linkedPorts:
         15922:
@@ -103303,47 +103363,18 @@ entities:
     - type: Transform
       pos: 3.5,-7.5
       parent: 21393
-- proto: MagazineLightRifle
+- proto: MagazineMagnumSVD
   entities:
-  - uid: 13181
-    components:
-    - type: Transform
-      pos: 27.517065,31.671741
-      parent: 2
-  - uid: 13182
-    components:
-    - type: Transform
-      pos: 27.329565,31.723825
-      parent: 2
-  - uid: 13183
-    components:
-    - type: Transform
-      pos: 27.339981,31.515491
-      parent: 2
   - uid: 13184
     components:
     - type: Transform
-      pos: 27.214981,31.577991
+      pos: 27.526587,31.544502
       parent: 2
   - uid: 13185
     components:
     - type: Transform
-      pos: 27.152481,31.61966
-      parent: 2
-  - uid: 13186
-    components:
-    - type: Transform
-      pos: 27.412899,31.452991
-      parent: 2
-  - uid: 13187
-    components:
-    - type: Transform
-      pos: 27.662899,31.473825
-      parent: 2
-  - uid: 13188
-    components:
-    - type: Transform
-      pos: 27.579565,31.536325
+      rot: -1.5707963267948966 rad
+      pos: 27.23955,31.525984
       parent: 2
 - proto: MagazinePistol
   entities:
@@ -103373,44 +103404,6 @@ entities:
     components:
     - type: Transform
       pos: 23.726025,13.380471
-      parent: 2
-- proto: MagazinePistolSubMachineGun
-  entities:
-  - uid: 13193
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.426517,31.698349
-      parent: 2
-  - uid: 13194
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.495962,31.628904
-      parent: 2
-  - uid: 13195
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.530684,31.587238
-      parent: 2
-  - uid: 13196
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.579294,31.55946
-      parent: 2
-  - uid: 13197
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.648739,31.503904
-      parent: 2
-  - uid: 13198
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 25.739017,31.455294
       parent: 2
 - proto: MailSpamLetter
   entities:
@@ -150577,34 +150570,19 @@ entities:
       rot: 3.141592653589793 rad
       pos: 2.216385,-2.0289612
       parent: 21393
-- proto: WeaponRifleAk
+- proto: WeaponRifleAKMCY
   entities:
-  - uid: 19892
+  - uid: 13181
     components:
     - type: Transform
-      pos: 26.714981,31.49466
+      rot: 1.5707963267948966 rad
+      pos: 24.474684,31.53655
       parent: 2
-  - uid: 19893
+  - uid: 13182
     components:
     - type: Transform
-      pos: 26.569149,31.630075
-      parent: 2
-  - uid: 19894
-    components:
-    - type: Transform
-      pos: 27.027481,31.33841
-      parent: 2
-  - uid: 19895
-    components:
-    - type: Transform
-      pos: 26.829565,31.36966
-      parent: 2
-- proto: WeaponRifleAsValSoyuz
-  entities:
-  - uid: 19896
-    components:
-    - type: Transform
-      pos: 24.749493,31.366026
+      rot: 1.5707963267948966 rad
+      pos: 24.413948,31.557337
       parent: 2
 - proto: WeaponShotgunEnforcer
   entities:
@@ -150612,13 +150590,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 28.455875,28.275232
-      parent: 2
-  - uid: 19898
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 28.32393,28.282175
+      pos: 28.390974,28.281496
       parent: 2
 - proto: WeaponShotgunKammerer
   entities:
@@ -150632,7 +150604,7 @@ entities:
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: 28.615599,28.150232
+      pos: 28.585419,28.188904
       parent: 2
 - proto: WeaponShotgunSawnEmpty
   entities:
@@ -150650,27 +150622,29 @@ entities:
       parent: 2
 - proto: WeaponSniperSVD
   entities:
-  - uid: 19903
+  - uid: 13195
     components:
     - type: Transform
-      pos: 24.72866,31.52575
+      pos: 26.996023,31.512884
+      parent: 2
+  - uid: 13196
+    components:
+    - type: Transform
+      pos: 26.969484,31.658482
       parent: 2
 - proto: WeaponSubMachineGunDrozd
   entities:
-  - uid: 19904
+  - uid: 13187
     components:
     - type: Transform
-      pos: 25.485815,31.640491
+      rot: 1.5707963267948966 rad
+      pos: 25.48955,31.508772
       parent: 2
-  - uid: 19905
+  - uid: 13188
     components:
     - type: Transform
-      pos: 25.673315,31.452991
-      parent: 2
-  - uid: 19906
-    components:
-    - type: Transform
-      pos: 25.600128,31.573349
+      rot: 1.5707963267948966 rad
+      pos: 25.35066,31.470428
       parent: 2
 - proto: WeaponTurretAllHostile
   entities:

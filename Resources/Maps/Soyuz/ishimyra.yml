@@ -18254,7 +18254,7 @@ entities:
     - type: Transform
       pos: -2.5,-3.5
       parent: 24987
-- proto: Airlock
+- proto: AirlockStandardGlass
   entities:
   - uid: 162
     components:
@@ -18342,28 +18342,28 @@ entities:
     - type: Transform
       pos: 10.5,-9.5
       parent: 2
-- proto: AirlockAssembly
+- proto: AirlockAssemblyGlass
   entities:
   - uid: 178
     components:
     - type: Transform
       pos: -5.5,44.5
       parent: 2
-- proto: AirlockAssemblyEngineering
+- proto: AirlockAssemblyEngineeringGlass
   entities:
   - uid: 179
     components:
     - type: Transform
       pos: -131.5,2.5
       parent: 2
-- proto: AirlockAssemblyMaintenance
+- proto: AirlockAssemblyMaintenanceGlass
   entities:
   - uid: 180
     components:
     - type: Transform
       pos: -2.5,28.5
       parent: 2
-- proto: AirlockAssemblyMedical
+- proto: AirlockAssemblyMedicalGlass
   entities:
   - uid: 181
     components:
@@ -18403,14 +18403,14 @@ entities:
     - type: Transform
       pos: -110.5,-14.5
       parent: 2
-- proto: AirlockAtmosphericsLocked
+- proto: AirlockAtmosphericsGlassLocked
   entities:
   - uid: 188
     components:
     - type: Transform
       pos: -95.5,-3.5
       parent: 2
-- proto: AirlockBarLocked
+- proto: AirlockBarGlassLocked
   entities:
   - uid: 189
     components:
@@ -18468,7 +18468,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 35.5,-28.5
       parent: 2
-- proto: AirlockBrigLocked
+- proto: AirlockBrigGlassLocked
   entities:
   - uid: 199
     components:
@@ -18548,7 +18548,7 @@ entities:
     - type: Transform
       pos: 57.5,5.5
       parent: 2
-- proto: AirlockCaptainLocked
+- proto: AirlockCaptainGlassLocked
   entities:
   - uid: 213
     components:
@@ -18560,7 +18560,7 @@ entities:
     - type: Transform
       pos: 62.5,0.5
       parent: 2
-- proto: AirlockCargoLocked
+- proto: AirlockCargoGlassLocked
   entities:
   - uid: 215
     components:
@@ -18587,14 +18587,14 @@ entities:
     - type: Transform
       pos: -68.5,-10.5
       parent: 2
-- proto: AirlockCentralCommandLocked
+- proto: AirlockCentralCommandGlassLocked
   entities:
   - uid: 24112
     components:
     - type: Transform
       pos: -2.5,-5.5
       parent: 24105
-- proto: AirlockChapelLocked
+- proto: AirlockChapelGlassLocked
   entities:
   - uid: 220
     components:
@@ -18606,14 +18606,14 @@ entities:
     - type: Transform
       pos: -51.5,-5.5
       parent: 2
-- proto: AirlockChemistryLocked
+- proto: AirlockChemistryGlassLocked
   entities:
   - uid: 222
     components:
     - type: Transform
       pos: 0.5,10.5
       parent: 2
-- proto: AirlockChiefEngineerLocked
+- proto: AirlockChiefEngineerGlassLocked
   entities:
   - uid: 223
     components:
@@ -18627,7 +18627,7 @@ entities:
     - type: Transform
       pos: 23.5,31.5
       parent: 2
-- proto: AirlockChiefMedicalOfficerLocked
+- proto: AirlockChiefMedicalOfficerGlassLocked
   entities:
   - uid: 225
     components:
@@ -18656,7 +18656,7 @@ entities:
     - type: Transform
       pos: 35.5,9.5
       parent: 2
-- proto: AirlockCommandLocked
+- proto: AirlockCommandGlassLocked
   entities:
   - uid: 230
     components:
@@ -18701,14 +18701,14 @@ entities:
     - type: Transform
       pos: 15.5,7.5
       parent: 2
-- proto: AirlockDetectiveLocked
+- proto: AirlockDetectiveGlassLocked
   entities:
   - uid: 237
     components:
     - type: Transform
       pos: 21.5,10.5
       parent: 2
-- proto: AirlockEngineering
+- proto: AirlockEngineeringGlass
   entities:
   - uid: 238
     components:
@@ -18771,7 +18771,7 @@ entities:
     - type: Transform
       pos: -115.5,-11.5
       parent: 2
-- proto: AirlockEngineeringLocked
+- proto: AirlockEngineeringGlassLocked
   entities:
   - uid: 248
     components:
@@ -18915,7 +18915,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.5,-10.5
       parent: 24105
-- proto: AirlockEVALocked
+- proto: AirlockEVAGlassLocked
   entities:
   - uid: 275
     components:
@@ -18927,7 +18927,7 @@ entities:
     - type: Transform
       pos: 31.5,4.5
       parent: 2
-- proto: AirlockExternalEngineeringLocked
+- proto: AirlockExternalGlassEngineeringLocked
   entities:
   - uid: 277
     components:
@@ -19131,7 +19131,7 @@ entities:
       lastSignals:
         DoorStatus: False
         DockStatus: True
-- proto: AirlockExternalLocked
+- proto: AirlockExternalGlassLocked
   entities:
   - uid: 308
     components:
@@ -19247,7 +19247,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-3.5
       parent: 24105
-- proto: AirlockExternalShuttleLocked
+- proto: AirlockExternalGlassShuttleLocked
   entities:
   - uid: 325
     components:
@@ -19773,7 +19773,7 @@ entities:
     - type: Transform
       pos: -34.5,20.5
       parent: 2
-- proto: AirlockHeadOfPersonnelLocked
+- proto: AirlockHeadOfPersonnelGlassLocked
   entities:
   - uid: 417
     components:
@@ -19811,7 +19811,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-10.5
       parent: 2
-- proto: AirlockJanitorLocked
+- proto: AirlockJanitorGlassLocked
   entities:
   - uid: 423
     components:
@@ -19889,7 +19889,7 @@ entities:
     - type: Transform
       pos: -74.5,-7.5
       parent: 2
-- proto: AirlockMaintLocked
+- proto: AirlockMaintGlassLocked
   entities:
   - uid: 434
     components:
@@ -20066,7 +20066,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -36.5,-4.5
       parent: 2
-- proto: AirlockMedical
+- proto: AirlockMedicalGlass
   entities:
   - uid: 464
     components:
@@ -20131,7 +20131,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-9.5
       parent: 24105
-- proto: AirlockMedicalLocked
+- proto: AirlockMedicalGlassLocked
   entities:
   - uid: 474
     components:
@@ -20185,7 +20185,7 @@ entities:
     - type: Transform
       pos: 12.5,22.5
       parent: 2
-- proto: AirlockMining
+- proto: AirlockMiningGlass
   entities:
   - uid: 484
     components:
@@ -20211,7 +20211,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -65.5,6.5
       parent: 2
-- proto: AirlockMiningLocked
+- proto: AirlockMiningGlassLocked
   entities:
   - uid: 487
     components:
@@ -20219,7 +20219,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -53.5,-13.5
       parent: 2
-- proto: AirlockQuartermasterLocked
+- proto: AirlockQuartermasterGlassLocked
   entities:
   - uid: 488
     components:
@@ -20237,7 +20237,7 @@ entities:
     - type: DeviceLinkSource
       lastSignals:
         DoorStatus: True
-- proto: AirlockResearchDirectorLocked
+- proto: AirlockResearchDirectorGlassLocked
   entities:
   - uid: 490
     components:
@@ -20284,7 +20284,7 @@ entities:
     - type: Transform
       pos: -1.5,-26.5
       parent: 2
-- proto: AirlockScienceLocked
+- proto: AirlockScienceGlassLocked
   entities:
   - uid: 497
     components:
@@ -20414,7 +20414,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 0.5,-5.5
       parent: 24987
-- proto: AirlockSecurityLocked
+- proto: AirlockSecurityGlassLocked
   entities:
   - uid: 515
     components:
@@ -20442,7 +20442,7 @@ entities:
     - type: Transform
       pos: -54.5,35.5
       parent: 2
-- proto: AirlockServiceLocked
+- proto: AirlockServiceGlassLocked
   entities:
   - uid: 520
     components:
@@ -20460,7 +20460,7 @@ entities:
     - type: Transform
       pos: -26.5,6.5
       parent: 2
-- proto: AirlockShuttle
+- proto: AirlockGlassShuttle
   entities:
   - uid: 522
     components:
@@ -20475,7 +20475,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -35.5,1.5
       parent: 2
-- proto: AirlockTheatreLocked
+- proto: AirlockTheatreGlassLocked
   entities:
   - uid: 525
     components:
@@ -20516,7 +20516,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 9.5,38.5
       parent: 2
-- proto: AirlockVirologyLocked
+- proto: AirlockVirologyGlassLocked
   entities:
   - uid: 532
     components:

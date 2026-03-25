@@ -1118,3 +1118,13 @@
   - type: Sprite
     sprite: _DeadSpace/Items/Toys/misc.rsi
     state: plushie_moth_blue
+
+- type: entity
+  parent: BasePlushieDeadSpaceMisc
+  id: PlushieTielAvis
+  name: Плюшевый Тиэль Авис
+  description: Ему точно-точно можно доверить управление отделом. Эти маленькие, миленькие ручки точно не будут варить Токсин Майндбрейкер в свободное время, да-да
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Items/Toys/USSP/Tiel.rsi
+    state: icon

@@ -4,8 +4,8 @@ meta:
   engineVersion: 267.2.0
   forkId: ""
   forkVersion: ""
-  time: 03/24/2026 23:20:04
-  entityCount: 14594
+  time: 03/26/2026 15:06:15
+  entityCount: 14593
 maps:
 - 1
 grids:
@@ -8139,7 +8139,7 @@ entities:
       pos: 54.5,-6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -57998.74
+      secondsUntilStateChange: -58134.27
       state: Opening
 - proto: AirlockChiefEngineerLocked
   entities:
@@ -8893,7 +8893,7 @@ entities:
       pos: 33.5,-8.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -6025.267
+      secondsUntilStateChange: -6160.8003
       state: Opening
 - proto: AirlockLawyerGlassLocked
   entities:
@@ -9340,7 +9340,7 @@ entities:
       pos: 61.5,24.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -94482.445
+      secondsUntilStateChange: -94617.98
       state: Opening
   - uid: 362
     components:
@@ -11873,11 +11873,6 @@ entities:
     components:
     - type: Transform
       pos: 41.616543,28.65945
-      parent: 2
-  - uid: 9621
-    components:
-    - type: Transform
-      pos: 38.712,26.492659
       parent: 2
 - proto: BoxMouthSwab
   entities:
@@ -44134,7 +44129,7 @@ entities:
       pos: 58.5,-6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -58269.598
+      secondsUntilStateChange: -58405.13
       state: Closing
   - uid: 6695
     components:
@@ -44608,7 +44603,7 @@ entities:
       pos: 22.5,9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -28843.338
+      secondsUntilStateChange: -28978.871
       state: Closing
   - uid: 6787
     components:
@@ -62350,7 +62345,7 @@ entities:
       pos: 102.5,-13.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -49587.234
+      secondsUntilStateChange: -49722.766
       state: Closing
   - uid: 9463
     components:
@@ -63746,6 +63741,18 @@ entities:
     components:
     - type: Transform
       pos: 19.434057,-38.4118
+      parent: 2
+- proto: MagazineLightRifle
+  entities:
+  - uid: 9621
+    components:
+    - type: Transform
+      pos: 38.636845,26.539534
+      parent: 2
+  - uid: 14307
+    components:
+    - type: Transform
+      pos: 38.717094,26.483978
       parent: 2
 - proto: MaintenanceFluffSpawner
   entities:
@@ -69475,13 +69482,6 @@ entities:
     components:
     - type: Transform
       pos: 9.5,-31.5
-      parent: 2
-- proto: PortableRecharger
-  entities:
-  - uid: 14307
-    components:
-    - type: Transform
-      pos: 38.525284,28.75566
       parent: 2
 - proto: PortableScrubber
   entities:
@@ -92829,7 +92829,7 @@ entities:
   - uid: 14306
     components:
     - type: Transform
-      pos: 38.517784,28.466614
+      pos: 38.52335,28.649948
       parent: 2
 - proto: WeaponRifleAk
   entities:
@@ -92852,12 +92852,6 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 38.311,26.641842
-      parent: 2
-  - uid: 14309
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 38.41594,26.59863
       parent: 2
 - proto: WeaponShotgunKammerer
   entities:

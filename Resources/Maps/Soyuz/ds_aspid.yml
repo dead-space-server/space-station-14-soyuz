@@ -4,8 +4,8 @@ meta:
   engineVersion: 267.2.0
   forkId: ""
   forkVersion: ""
-  time: 03/24/2026 23:45:18
-  entityCount: 24079
+  time: 03/26/2026 15:16:51
+  entityCount: 24075
 maps:
 - 1
 grids:
@@ -526,6 +526,9 @@ entities:
             id: Box
           decals:
             7773: -18,53
+            10439: -11,61
+            10440: -12,61
+            10441: -12,60
         - node:
             color: '#9C2020FF'
             id: BrickCornerOverlayNE
@@ -15922,7 +15925,7 @@ entities:
       pos: -6.5,-15.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -41387.098
+      secondsUntilStateChange: -41884.848
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -16353,7 +16356,7 @@ entities:
       pos: 12.5,-16.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -2717.7986
+      secondsUntilStateChange: -3215.5483
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -17222,7 +17225,7 @@ entities:
       pos: 11.5,-80.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -22937.504
+      secondsUntilStateChange: -23435.254
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -17268,7 +17271,7 @@ entities:
       pos: -12.5,59.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -4745.391
+      secondsUntilStateChange: -5243.1406
       state: Opening
     - type: DeviceLinkSource
       lastSignals:
@@ -17702,7 +17705,7 @@ entities:
       pos: 28.5,-14.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -115501.16
+      secondsUntilStateChange: -115998.91
       state: Opening
   - uid: 403
     components:
@@ -22197,6 +22200,16 @@ entities:
     - type: Transform
       pos: 26.499603,4.635309
       parent: 2
+  - uid: 9503
+    components:
+    - type: Transform
+      pos: -4.3478723,59.72744
+      parent: 2
+  - uid: 14460
+    components:
+    - type: Transform
+      pos: -4.366391,59.64102
+      parent: 2
 - proto: BoxLightbulb
   entities:
   - uid: 1106
@@ -22209,7 +22222,7 @@ entities:
   - uid: 14475
     components:
     - type: Transform
-      pos: -4.413015,64.67623
+      pos: -4.2689705,64.47399
       parent: 2
     - type: Storage
       storedItems:
@@ -22240,13 +22253,33 @@ entities:
         enum.StorageUiKey.Key:
         - invalid
     - type: ActiveUserInterface
-- proto: BoxMagazineLightRifle
-  entities:
-  - uid: 14464
+  - uid: 14603
     components:
     - type: Transform
-      pos: -4.2648664,60.432915
+      pos: -4.667119,64.511024
       parent: 2
+    - type: Storage
+      storedItems:
+        14605:
+          position: 0,0
+          _rotation: South
+        15503:
+          position: 1,0
+          _rotation: South
+        15546:
+          position: 2,0
+          _rotation: South
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 14605
+          - 15503
+          - 15546
+- proto: BoxMagazineLightRifle
+  entities:
   - uid: 17662
     components:
     - type: Transform
@@ -22263,15 +22296,10 @@ entities:
     - type: InsideEntityStorage
 - proto: BoxMagazinePistolSubMachineGun
   entities:
-  - uid: 15503
-    components:
-    - type: Transform
-      pos: -4.4500513,63.870674
-      parent: 2
   - uid: 17631
     components:
     - type: Transform
-      pos: -4.4500513,63.870674
+      pos: -4.3110266,63.700447
       parent: 2
 - proto: BoxMagazinePistolSubMachineGunPractice
   entities:
@@ -67510,6 +67538,11 @@ entities:
     - type: Transform
       pos: -11.5,27.5
       parent: 2
+  - uid: 14464
+    components:
+    - type: Transform
+      pos: -11.5,60.5
+      parent: 2
 - proto: ClosetChefFilled
   entities:
   - uid: 8879
@@ -69583,7 +69616,7 @@ entities:
   - uid: 9104
     components:
     - type: Transform
-      pos: -6.4952197,59.413483
+      pos: -6.673506,59.406586
       parent: 2
 - proto: ClothingHeadNurseHat
   entities:
@@ -69754,10 +69787,12 @@ entities:
     - type: Transform
       pos: 19.415567,41.43221
       parent: 2
-  - uid: 9134
+- proto: ClothingNeckUSSPPin
+  entities:
+  - uid: 9040
     components:
     - type: Transform
-      pos: -4.304539,54.705074
+      pos: -4.3218246,54.640625
       parent: 2
 - proto: ClothingOuterApronBotanist
   entities:
@@ -69804,19 +69839,12 @@ entities:
     - type: Transform
       pos: -6.2463484,59.637413
       parent: 2
-- proto: ClothingOuterArmorReflective
-  entities:
-  - uid: 14480
-    components:
-    - type: Transform
-      pos: -6.7370887,59.489258
-      parent: 2
 - proto: ClothingOuterArmorRiot
   entities:
   - uid: 9141
     components:
     - type: Transform
-      pos: -6.440182,59.633636
+      pos: -6.667333,59.567078
       parent: 2
 - proto: ClothingOuterArmorUSSPjuggernaut
   entities:
@@ -70567,6 +70595,13 @@ entities:
         6413:
         - - OrderSender
           - OrderReceiver
+- proto: ComputerCargoOrdersSecurity
+  entities:
+  - uid: 9134
+    components:
+    - type: Transform
+      pos: -11.5,50.5
+      parent: 2
 - proto: ComputerComms
   entities:
   - uid: 9241
@@ -70633,6 +70668,9 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,48.5
       parent: 2
+    - type: AccessReader
+      accessListsOriginal:
+      - - Security
 - proto: ComputerDiagnoserConsole
   entities:
   - uid: 9252
@@ -70937,11 +70975,6 @@ entities:
       parent: 2
 - proto: ComputerSurveillanceWirelessCameraMonitor
   entities:
-  - uid: 9293
-    components:
-    - type: Transform
-      pos: -11.5,50.5
-      parent: 2
   - uid: 9294
     components:
     - type: Transform
@@ -72088,7 +72121,7 @@ entities:
       pos: 24.5,48.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -33846.36
+      secondsUntilStateChange: -34344.11
       state: Closing
 - proto: d20Dice
   entities:
@@ -81344,7 +81377,7 @@ entities:
       pos: 28.5,37.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -115013.66
+      secondsUntilStateChange: -115511.41
       state: Closing
     - type: Firelock
       emergencyCloseCooldown: 42123.2578787
@@ -111433,28 +111466,26 @@ entities:
       parent: 14475
     - type: Physics
       canCollide: False
-- proto: MagazineMagnumSVD
+- proto: MagazineLightRifleVSS
   entities:
-  - uid: 9503
+  - uid: 14605
     components:
     - type: Transform
-      pos: -4.357459,59.59958
-      parent: 2
-  - uid: 14465
+      parent: 14603
+    - type: Physics
+      canCollide: False
+  - uid: 15503
     components:
     - type: Transform
-      pos: -4.663015,59.571808
-      parent: 2
+      parent: 14603
+    - type: Physics
+      canCollide: False
   - uid: 15546
     components:
     - type: Transform
-      pos: -4.3204217,59.525505
-      parent: 2
-  - uid: 17630
-    components:
-    - type: Transform
-      pos: -4.58894,59.469955
-      parent: 2
+      parent: 14603
+    - type: Physics
+      canCollide: False
 - proto: MaintenanceFluffSpawner
   entities:
   - uid: 14482
@@ -120430,13 +120461,6 @@ entities:
     components:
     - type: Transform
       pos: 15.5,-20.5
-      parent: 2
-- proto: PortableRecharger
-  entities:
-  - uid: 15561
-    components:
-    - type: Transform
-      pos: -6.4154205,64.740204
       parent: 2
 - proto: PortableScrubber
   entities:
@@ -138439,10 +138463,9 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,60.5
       parent: 2
-  - uid: 9040
+  - uid: 9293
     components:
     - type: Transform
-      rot: -1.5707963267948966 rad
       pos: -4.5,59.5
       parent: 2
   - uid: 14473
@@ -158640,35 +158663,32 @@ entities:
       parent: 2
 - proto: WeaponRifleAk
   entities:
-  - uid: 14460
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -4.4395204,60.320618
-      parent: 2
   - uid: 14461
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.6907926,60.39588
+      pos: -4.670278,60.33065
       parent: 2
   - uid: 17664
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -4.529456,60.40512
+      pos: -4.4295373,60.342995
       parent: 2
 - proto: WeaponRifleAsValSoyuz
   entities:
-  - uid: 6415
-    components:
-    - type: Transform
-      pos: -5.227829,64.53734
-      parent: 2
   - uid: 9102
     components:
     - type: Transform
-      pos: -5.2556067,64.750305
+      rot: 3.1415926535897927 rad
+      pos: -5.4661183,64.38543
+      parent: 2
+- proto: WeaponRifleVSS
+  entities:
+  - uid: 14465
+    components:
+    - type: Transform
+      pos: -5.427461,64.60509
       parent: 2
 - proto: WeaponShotgunDoubleBarreled
   entities:
@@ -158682,6 +158702,18 @@ entities:
     components:
     - type: Transform
       pos: 24.542015,4.6398654
+      parent: 2
+- proto: WeaponShotgunKammerer
+  entities:
+  - uid: 6415
+    components:
+    - type: Transform
+      pos: -5.205897,59.616325
+      parent: 2
+  - uid: 14480
+    components:
+    - type: Transform
+      pos: -5.1812057,59.47435
       parent: 2
 - proto: WeaponSniperMosin
   entities:
@@ -158711,43 +158743,19 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -21.773018,64.06505
       parent: 2
-- proto: WeaponSniperSVD
-  entities:
-  - uid: 17653
-    components:
-    - type: Transform
-      pos: -4.996348,59.64588
-      parent: 2
-  - uid: 17656
-    components:
-    - type: Transform
-      pos: -4.8944955,59.38662
-      parent: 2
 - proto: WeaponSubMachineGunDrozd
   entities:
   - uid: 9101
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
-      pos: -4.3852367,63.98179
-      parent: 2
-  - uid: 14603
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -4.3111625,63.805862
+      pos: -4.616669,63.66604
       parent: 2
   - uid: 14604
     components:
     - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -4.607459,63.907715
-      parent: 2
-  - uid: 14605
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -4.5333843,63.805862
+      rot: -1.5707963267948966 rad
+      pos: -4.5240765,63.6753
       parent: 2
 - proto: WeaponWaterBlaster
   entities:

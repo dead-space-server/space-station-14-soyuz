@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.Ports.Jukebox;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -13,7 +14,10 @@ public sealed partial class JukeboxComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? AudioStream;
-
+    // DS-14 start
+    [DataField, AutoNetworkedField]
+    public float Volume = JukeboxVolume.DefaultValue;
+    // DS-14 end
     /// <summary>
     /// RSI state for the jukebox being on.
     /// </summary>
@@ -60,6 +64,12 @@ public sealed class JukeboxSetTimeMessage(float songTime) : BoundUserInterfaceMe
     public float SongTime { get; } = songTime;
 }
 
+[Serializable, NetSerializable]
+public sealed class JukeboxSetVolumeMessage(float volume) : BoundUserInterfaceMessage
+{
+    // DS-14
+    public float Volume { get; } = volume;
+}
 [Serializable, NetSerializable]
 public enum JukeboxVisuals : byte
 {

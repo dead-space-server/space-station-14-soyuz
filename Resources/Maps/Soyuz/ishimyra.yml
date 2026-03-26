@@ -141200,8 +141200,6 @@ entities:
       pos: -11.5,10.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
     - type: DeltaPressure
       gridUid: 2
   - uid: 18601
@@ -141210,8 +141208,6 @@ entities:
       pos: -10.5,10.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
     - type: DeltaPressure
       gridUid: 2
   - uid: 18602

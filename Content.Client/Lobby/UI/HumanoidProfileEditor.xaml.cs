@@ -213,16 +213,19 @@ namespace Content.Client.Lobby.UI
             #region Height
 
             HeightSpinBox.IsValid = value =>
-                value >= HumanoidCharacterProfile.MinHeight &&
-                value <= HumanoidCharacterProfile.MaxHeight;
+            {
+                var range = GetCurrentHeightRange();
+                return value >= range.Min && value <= range.Max;
+            };
             HeightSpinBox.InitDefaultButtons();
             HeightSpinBox.LineEditControl.IsValid = value =>
                 value.Length <= 3 &&
                 (value.Length == 0 || value.All(char.IsDigit));
             HeightSpinBox.ValueChanged += args =>
             {
-                if (args.Value < HumanoidCharacterProfile.MinHeight ||
-                    args.Value > HumanoidCharacterProfile.MaxHeight)
+                var range = GetCurrentHeightRange();
+
+                if (args.Value < range.Min || args.Value > range.Max)
                     return;
 
                 SetCharacterHeight(args.Value);
@@ -1227,13 +1230,18 @@ namespace Content.Client.Lobby.UI
 
         private void SetCharacterHeight(int newHeight)
         {
-            Profile = Profile?.WithHeight(newHeight);
+            if (Profile == null)
+                return;
+
+            Profile = Profile.WithHeight(newHeight);
+            UpdateHeightEdit();
             ReloadPreview();
         }
 
         private void CommitHeightInput()
         {
-            var currentHeight = Profile?.Height ?? HumanoidCharacterProfile.DefaultHeight;
+            var range = GetCurrentHeightRange();
+            var currentHeight = Profile?.Height ?? range.Default;
 
             if (!int.TryParse(HeightSpinBox.LineEditControl.Text, out var inputHeight))
             {
@@ -1241,10 +1249,7 @@ namespace Content.Client.Lobby.UI
                 return;
             }
 
-            var clampedHeight = Math.Clamp(
-                inputHeight,
-                HumanoidCharacterProfile.MinHeight,
-                HumanoidCharacterProfile.MaxHeight);
+            var clampedHeight = Math.Clamp(inputHeight, range.Min, range.Max);
 
             HeightSpinBox.OverrideValue(clampedHeight);
 
@@ -1270,6 +1275,7 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateGenderControls();
+            UpdateHeightEdit();
             UpdateTTSVoicesControls(); // Corvax-TTS
             Markings.SetSex(newSex);
             ReloadPreview();
@@ -1299,6 +1305,7 @@ namespace Content.Client.Lobby.UI
             // In case there's species restrictions for loadouts
             RefreshLoadouts();
             UpdateSexControls(); // update sex for new species
+            UpdateHeightEdit();
             UpdateSpeciesGuidebookIcon();
             ReloadPreview();
         }
@@ -1353,7 +1360,21 @@ namespace Content.Client.Lobby.UI
 
         private void UpdateHeightEdit()
         {
-            HeightSpinBox.OverrideValue(Profile?.Height ?? HumanoidCharacterProfile.DefaultHeight);
+            var range = GetCurrentHeightRange();
+            var height = Profile?.Height ?? range.Default;
+            var clampedHeight = Math.Clamp(height, range.Min, range.Max);
+
+            if (Profile != null && Profile.Height != clampedHeight)
+                Profile = Profile.WithHeight(clampedHeight);
+
+            HeightSpinBox.OverrideValue(clampedHeight);
+        }
+
+        private (int Min, int Default, int Max) GetCurrentHeightRange()
+        {
+            var species = Profile?.Species ?? SharedHumanoidAppearanceSystem.DefaultSpecies;
+            var sex = Profile?.Sex ?? Sex.Male;
+            return HumanoidCharacterProfile.GetHeightRange(species, sex);
         }
 
         /// <summary>

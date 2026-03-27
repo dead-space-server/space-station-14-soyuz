@@ -279,7 +279,12 @@ namespace Content.Server.Database
                 profile.Species,
                 voice, // Corvax-TTS
                 profile.Age,
-                profile.Height <= 0 ? HumanoidCharacterProfile.DefaultHeight : profile.Height,
+                HumanoidCharacterProfile.ClampHeight(
+                    profile.Species,
+                    sex,
+                    profile.Height <= 0
+                        ? HumanoidCharacterProfile.GetDefaultHeight(profile.Species, sex)
+                        : profile.Height),
                 sex,
                 gender,
                 new HumanoidCharacterAppearance

@@ -1054,9 +1054,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("hair_name");
 
+                    // DS14-height-start
                     b.Property<int>("Height")
                         .HasColumnType("INTEGER")
                         .HasColumnName("height");
+                    // DS14-height-end
 
                     b.Property<byte[]>("Markings")
                         .HasColumnType("jsonb")

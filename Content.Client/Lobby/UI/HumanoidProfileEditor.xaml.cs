@@ -210,6 +210,7 @@ namespace Content.Client.Lobby.UI
 
             #endregion Age
 
+            // DS14-height-start
             #region Height
 
             HeightSpinBox.IsValid = value =>
@@ -234,6 +235,7 @@ namespace Content.Client.Lobby.UI
             HeightSpinBox.LineEditControl.OnFocusExit += _ => CommitHeightInput();
 
             #endregion Height
+            // DS14-height-end
 
             #region Gender
 
@@ -833,7 +835,7 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();
-            UpdateHeightEdit();
+            UpdateHeightEdit(); // DS14-height
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateTTSVoicesControls(); // Corvax-TTS
@@ -1228,6 +1230,7 @@ namespace Content.Client.Lobby.UI
             ReloadPreview();
         }
 
+        // DS14-height-start
         private void SetCharacterHeight(int newHeight)
         {
             if (Profile == null)
@@ -1275,7 +1278,7 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateGenderControls();
-            UpdateHeightEdit();
+            UpdateHeightEdit(); // DS14-height
             UpdateTTSVoicesControls(); // Corvax-TTS
             Markings.SetSex(newSex);
             ReloadPreview();
@@ -1305,7 +1308,7 @@ namespace Content.Client.Lobby.UI
             // In case there's species restrictions for loadouts
             RefreshLoadouts();
             UpdateSexControls(); // update sex for new species
-            UpdateHeightEdit();
+            UpdateHeightEdit(); // DS14-height
             UpdateSpeciesGuidebookIcon();
             ReloadPreview();
         }
@@ -1376,6 +1379,7 @@ namespace Content.Client.Lobby.UI
             var sex = Profile?.Sex ?? Sex.Male;
             return HumanoidCharacterProfile.GetHeightRange(species, sex);
         }
+        // DS14-height-end
 
         /// <summary>
         /// Updates selected job priorities to the profile's.

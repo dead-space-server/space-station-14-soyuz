@@ -1,6 +1,8 @@
+// DS14-height-start
 using System.Numerics;
+// DS14-height-end
 using Content.Client.DisplacementMap;
-using Content.Client.Sprite;
+using Content.Client.Sprite; // DS14-height
 using Content.Shared.CCVar;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
@@ -19,7 +21,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly DisplacementMapSystem _displacement = default!;
-    [Dependency] private readonly ScaleVisualsSystem _scaleVisuals = default!;
+    [Dependency] private readonly ScaleVisualsSystem _scaleVisuals = default!; // DS14-height
     [Dependency] private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
@@ -225,7 +227,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         humanoid.Species = profile.Species;
         humanoid.SkinColor = profile.Appearance.SkinColor;
         humanoid.EyeColor = profile.Appearance.EyeColor;
-        _scaleVisuals.SetSpriteScale(uid, Vector2.One * profile.HeightScale);
+        _scaleVisuals.SetSpriteScale(uid, Vector2.One * profile.HeightScale); // DS14-height
 
         UpdateSprite((uid, humanoid, Comp<SpriteComponent>(uid)));
     }

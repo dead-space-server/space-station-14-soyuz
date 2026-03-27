@@ -1,167 +1,168 @@
 - type: jukebox
   id: Internacional
-  name: Пролетарский гимн "Интернационал"
+  name: "Интернационал (гимн РСФСР)"
   path:
-    path: /Audio/Jukebox/AnthemRSSRInternacional.ogg
+    path: /Audio/Jukebox/lampovaya/internatsional-rsfsr-anthem.ogg
 
 - type: jukebox
   id: BlowWithTheFires
-  name: Между Августом и Декабрем - Blow with the Fires
+  name: "Everlasting Summer - Blow with the Fires"
   path:
-    path: /Audio/Jukebox/BlowWithTheFires.ogg
+    path: /Audio/Jukebox/grustnaya/everlasting-summer-blow-with-the-fires.ogg
 
 - type: jukebox
   id: EtotGorod
-  name: Браво - Этот город
+  name: "Браво - Этот город"
   path:
-    path: /Audio/Jukebox/BravoEtotGorod.ogg
+    path: /Audio/Jukebox/lampovaya/bravo-etot-gorod.ogg
 
 - type: jukebox
   id: DajjteTank
-  name: Маленький - Дайте Танк
+  name: "Дайте танк (!) - Маленький"
   path:
-    path: /Audio/Jukebox/DajjteTank.ogg
+    path: /Audio/Jukebox/lampovaya/dayte-tank-malenkiy.ogg
 
 - type: jukebox
   id: Komarovo
-  name: DVRST - Комарово
+  name: "DVRST - Komarovo (Phonk Remix)"
   path:
-    path: /Audio/Jukebox/DVRSTKomarovo.ogg
+    path: /Audio/Jukebox/lampovaya/dvrst-komarovo-phonk-remix.ogg
 
 - type: jukebox
   id: PoPlany
-  name: Егор Летов - Всё идёт по плану
+  name: "Гражданская оборона - Всё идёт по плану"
   path:
-    path: /Audio/Jukebox/EgorLetovPoPlanu.ogg
+    path: /Audio/Jukebox/bodraya/grazhdanskaya-oborona-vsyo-idyot-po-planu.ogg
 
 - type: jukebox
   id: WhoLookForward
-  name: Слава вперёдсмотрящему!
+  name: "Слава тем, кто смотрит вперёд"
   path:
-    path: /Audio/Jukebox/GloryToTheOnesWhoLookForward.ogg
+    path: /Audio/Jukebox/groznaya/glory-to-the-ones-who-look-forward.ogg
 
 - type: jukebox
   id: PrekrasnoeDaleko
-  name: Гостья из будущего - Прекрасное далеко
+  name: "Гостья из будущего - Прекрасное далёко"
   path:
-    path: /Audio/Jukebox/GostyaIzBudushhegoPrekrasnoeDaleko.ogg
+    path: /Audio/Jukebox/grustnaya/gostya-iz-budushchego-prekrasnoye-dalyoko.ogg
 
 - type: jukebox
   id: Chuzhoe
-  name: Гражданская оборона - Чужое
+  name: "Гражданская оборона - Чужое"
   path:
-    path: /Audio/Jukebox/GrazhdanskayaOboronaChuzhoe.ogg
+    path: /Audio/Jukebox/bodraya/grazhdanskaya-oborona-chuzhoye.ogg
 
 - type: jukebox
   id: Durachok
-  name: Гражданская оборона - Про дурачка
+  name: "Гражданская оборона - Про дурачка"
   path:
-    path: /Audio/Jukebox/GrazhdanskayaOboronaDurachok.ogg
+    path: /Audio/Jukebox/bodraya/grazhdanskaya-oborona-pro-durachka.ogg
 
 - type: jukebox
   id: HappyNation
-  name: Ace of Base - Happy nation
+  name: "Ace of Base - Happy Nation"
   path:
-    path: /Audio/Jukebox/HappyNation.ogg
+    path: /Audio/Jukebox/lampovaya/ace-of-base-happy-nation.ogg
 
 - type: jukebox
   id: DiscoElysiumHardcoreDance
-  name: Hard Dance
+  name: "Disco Elysium - Hardcore Dance"
   path:
-    path: /Audio/Jukebox/HardcoreDanceDiscoElysiumOST.ogg
+    path: /Audio/Jukebox/lampovaya/disco-elysium-hardcore-dance.ogg
 
 - type: jukebox
   id: MarchOfTheCommunistBrigades
-  name: Марш коммунистических бригад
+  name: "Метро-2 - Марш коммунистических бригад"
   path:
-    path: /Audio/Jukebox/Metro2MarchOfTheCommunistBrigadesOST.ogg
+    path: /Audio/Jukebox/bodraya/metro-2-marsh-kommunisticheskikh-brigad.ogg
 
 - type: jukebox
   id: YanvarskayaVyuga
-  name: Нина Бродская - Звенит январьская вьюга
+  name: "Нина Бродская - Звенит январская вьюга"
   path:
-    path: /Audio/Jukebox/NinaBrodskayaYanvarskayaVyuga.ogg
+    path: /Audio/Jukebox/lampovaya/nina-brodskaya-zvenit-yanvarskaya-vyuga.ogg
 
 - type: jukebox
   id: PapersPleaseTheme
-  name: Бумаги, пожалуйста!
+  name: "Papers, Please - Theme Song"
   path:
-    path: /Audio/Jukebox/PapersPleaseMainTheme.ogg
+    path: /Audio/Jukebox/groznaya/papers-please-theme.ogg
 
 - type: jukebox
   id: RabochayaMarseleza
-  name: Русская Марсельеза - Советское творчество
+  name: "Рабочая Марсельеза"
   path:
-    path: /Audio/Jukebox/RabochayaMarseleza.ogg
+    path: /Audio/Jukebox/groznaya/rabochaya-marseleza.ogg
 
 - type: jukebox
   id: RedArmyAnsambl
-  name: Красная армия - Советское творчество
+  name: "Красная армия - Красная армия всех сильней"
   path:
-    path: /Audio/Jukebox/RedArmyAnsambl.ogg
+    path: /Audio/Jukebox/groznaya/krasnaya-armiya-vsekh-silney.ogg
 
 - type: jukebox
   id: WhirlingInRags
-  name: Танцующая в лохматьях
+  name: "Sea Power - Whirling-In-Rags, 8 AM"
   path:
-    path: /Audio/Jukebox/SeaPowerWhirlingInRags8AM.ogg
+    path: /Audio/Jukebox/lampovaya/sea-power-whirling-in-rags-8-am.ogg
 
 - type: jukebox
   id: RedAlertSovietMarch
-  name: Красная угроза
+  name: "RADIO TAPOK - Soviet March"
   path:
-    path: /Audio/Jukebox/SovietMarchRedAlert3RussianCover.ogg
+    path: /Audio/Jukebox/groznaya/radio-tapok-soviet-march.ogg
 
 - type: jukebox
   id: TravaUDoma
-  name: Земляне - Трава у дома
+  name: "Земляне - Трава у дома"
   path:
-    path: /Audio/Jukebox/TravaUDoma.ogg
+    path: /Audio/Jukebox/lampovaya/zemlyane-trava-u-doma.ogg
 
 - type: jukebox
   id: IBelieveMyFriends
-  name: Я верю, мои друзья
+  name: "Владимир Трошин - Я верю, друзья"
   path:
-    path: /Audio/Jukebox/VladimirTroshinIBelieveMyFriends.ogg
+    path: /Audio/Jukebox/lampovaya/vladimir-troshin-ya-veryu-druzya.ogg
 
 - type: jukebox
   id: MachineOfCommunism
-  name: Коммунистическая машина
+  name: "You Are Empty - Машина коммунизма"
   path:
-    path: /Audio/Jukebox/YouAreEmptyMachineOfCommunism.ogg
+    path: /Audio/Jukebox/bodraya/you-are-empty-mashina-kommunizma.ogg
 
 - type: jukebox
   id: YoungBuildersMarch
-  name: Марш молодых строителей
+  name: "Марш молодых строителей"
   path:
-    path: /Audio/Jukebox/YoungBuildersMarch.ogg
+    path: /Audio/Jukebox/groznaya/marsh-molodykh-stroiteley.ogg
 
 - type: jukebox
   id: InvinciblePeoples
-  name: Когда народ един - он не победим
+  name: "Объединённый народ - El Pueblo Unido"
   path:
-    path: /Audio/Jukebox/InvinciblePeoples.ogg
+    path: /Audio/Jukebox/groznaya/obyedinyonnyy-narod-el-pueblo-unido.ogg
 
 - type: jukebox
   id: AnthemOfTheDemocratic
-  name: Гимн демократической молодежи мира
+  name: "Гимн демократической молодёжи мира"
   path:
-    path: /Audio/Jukebox/AnthemOfTheDemocratic.ogg
+    path: /Audio/Jukebox/lampovaya/gimn-demokraticheskoy-molodyozhi-mira.ogg
 
 - type: jukebox
   id: PerimeterAttack
-  name: Атака Периметра
+  name: "Атака Периметра - Главная тема"
   path:
-    path: /Audio/Jukebox/PerimeterAttack.ogg
+    path: /Audio/Jukebox/grustnaya/ataka-perimetra-glavnaya-tema.ogg
 
 - type: jukebox
   id: BattleoftheRoadside
-  name: Битва за Обочину
+  name: "Атака Периметра - Битва за Обочину"
   path:
-    path: /Audio/Jukebox/BattleoftheRoadside.ogg
+    path: /Audio/Jukebox/bodraya/ataka-perimetra-bitva-za-obochinu.ogg
 
 - type: jukebox
   id: BattleoftheSwamps
-  name: Битва за Болота
+  name: "Атака Периметра - Битва за Болота"
   path:
-    path: /Audio/Jukebox/BattleoftheSwamps.ogg
+    path: /Audio/Jukebox/bodraya/ataka-perimetra-bitva-za-bolota.ogg
+

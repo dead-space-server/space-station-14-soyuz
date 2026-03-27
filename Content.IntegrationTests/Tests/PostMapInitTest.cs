@@ -147,6 +147,7 @@ namespace Content.IntegrationTests.Tests
             "Reach",
             "Saltern",
             "Train",
+            "Ishimura",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

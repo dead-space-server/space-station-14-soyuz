@@ -10,8 +10,8 @@ name-format-dragon = { $part0 } { $part1 }
 # "<title> <name>"
 name-format-nukie-generic = { $part0 } { $part1 }
 name-format-nukie-agent = Агент { $part0 }
-name-format-nukie-commander = Командир { $part0 }
-name-format-nukie-operator = Оператор { $part0 }
+name-format-nukie-commander = Центурион { $part0 }
+name-format-nukie-operator = Легионер { $part0 }
 # "<title> <name>"
 name-format-ert = { $part0 } { $part1 }
 # "<appearance> <type>"

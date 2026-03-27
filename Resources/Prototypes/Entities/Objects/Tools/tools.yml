@@ -300,6 +300,7 @@
   - type: RCD
     availablePrototypes:
     - WallSolid
+    - WallMining # DS14-soyuz
     - FloorSteel
     - Plating
     - Catwalk
@@ -308,6 +309,7 @@
     - WindowDirectional
     - WindowReinforcedDirectional
     - ReinforcedWindow
+    - MiningWindow # DS14-soyuz
     - Airlock
     - AirlockGlass
     - Firelock

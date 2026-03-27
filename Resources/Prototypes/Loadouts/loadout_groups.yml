@@ -641,6 +641,7 @@
   minLimit: 1
   loadouts:
   - ClownMaskUssp
+  - ClownMask
 # DS14 End
 
 - type: loadoutGroup

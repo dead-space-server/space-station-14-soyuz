@@ -53,6 +53,7 @@ public sealed class StationPowerTests
         "Reach",
         "Saltern",
         "Train",
+        "Ishimura",
     ];
 
     [Test, TestCaseSource(nameof(GameMaps))]

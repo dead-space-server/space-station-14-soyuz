@@ -1,0 +1,42 @@
+# Админы пока наказаны, ходят в фурри агосте с ушками
+- type: startingGear
+  id: MobAghostGearSoyuz
+  equipment:
+    back: ClothingBackpackSatchelAdmin
+    id: AdminPDA
+    head: LWClothingHeadHatFoxyWAdmin
+  storage:
+    back:
+    - GasAnalyzer
+    - trayScanner
+    - AccessConfiguratorUniversal
+    - Multitool
+    - AnomalyScanner
+    - PortableUniversalIdConsole
+    - JawsOfLife
+    - PowerDrill
+    - WelderExperimental
+    - SprayPainterRecharging
+    - DoorRemoteAll 
+
+- type: startingGear
+  id: MobAghostGearSoyuzAlt
+  equipment:
+    back: ClothingBackpackSatchelAdmin
+    id: AdminPDA
+    head: ClothingHeadHatClownUssp
+    mask: ClothingMaskClownPencil
+    neck: ClothingNeckScarfClownUssp
+  storage:
+    back:
+    - GasAnalyzer
+    - trayScanner
+    - AccessConfiguratorUniversal
+    - Multitool
+    - AnomalyScanner
+    - PortableUniversalIdConsole
+    - JawsOfLife
+    - PowerDrill
+    - WelderExperimental
+    - SprayPainterRecharging
+    - DoorRemoteAll 

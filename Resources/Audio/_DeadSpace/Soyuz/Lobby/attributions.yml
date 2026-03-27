@@ -52,3 +52,8 @@
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=_vYZ0JjbmPA"
+
+- files: ["BestNight.ogg"]
+  license: "Custom"
+  copyright: "Savko2313"
+  source: "https://savko.bandcamp.com/track/best-night"

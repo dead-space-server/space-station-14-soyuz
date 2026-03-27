@@ -1,0 +1,11 @@
+- type: entity
+  parent: LWClothingHeadHatFoxyO
+  id: LWClothingHeadHatFoxyWAdmin # Я сделал админам неснимаемые ушки, какой я злодей
+  categories: [ DoNotMap ]
+  suffix: Белые, неснимаемые
+  components:
+  - type: Sprite
+    sprite: _LW/Clothing/Head/Hats/foxyears_white.rsi
+  - type: Clothing
+    sprite: _LW/Clothing/Head/Hats/foxyears_white.rsi
+  - type: Unremoveable

@@ -11,6 +11,7 @@
   - type: RCD
     availablePrototypes:
     - WallSolidCE
+    - WallMiningCE
     - FloorSteel
     - Plating
     - Catwalk
@@ -19,6 +20,7 @@
     - WindowDirectionalCE
     - WindowReinforcedDirectionalCE
     - ReinforcedWindowCE
+    - MiningWindowCE
     - AirlockCE
     - AirlockGlassCE
     - FirelockCE

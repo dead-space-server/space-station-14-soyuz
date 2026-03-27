@@ -30,6 +30,8 @@
       sprite: _Corvax/Clothing/Shoes/Specific/centcom_officer_black.rsi
     - type: Clothing
       sprite: _Corvax/Clothing/Shoes/Specific/centcom_officer_black.rsi
+    - type: NoSlip #DS14
+    - type: Magboots #DS14
 
 - type: entity
   parent: ClothingShoesBaseButcherable

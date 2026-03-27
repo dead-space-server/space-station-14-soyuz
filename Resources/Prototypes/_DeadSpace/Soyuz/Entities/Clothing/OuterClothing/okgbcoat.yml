@@ -16,3 +16,14 @@
           Piercing: 0.4
           Heat: 0.75
           Caustic: 0.75
+
+- type: entity
+  parent: ClothingOuterCoatOKGB
+  id: ClothingOuterBlackCoatOKGB
+  name: тёмная бронешинель оперативника КГБ
+  description: Шинель, усиленная специальными сплавами для дополнительной защиты. Выдается только самым элитным оперативникам КГБ.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Coats/blackokgb.rsi
+    - type: Clothing
+      sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Coats/blackokgb.rsi

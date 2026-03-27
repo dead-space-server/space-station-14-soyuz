@@ -58,6 +58,14 @@
     proto: MasterOKGB
 
 - type: loadout
+  id: OKGBBlackOuterClothing
+  equipment:
+    outerClothing: ClothingOuterBlackCoatOKGB
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MasterOKGB
+
+- type: loadout
   id: OKGBGasMask
   equipment:
     mask: ClothingMaskGasSwat

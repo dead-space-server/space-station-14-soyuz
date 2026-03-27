@@ -28,6 +28,9 @@ namespace Content.Shared.Preferences
     {
         private static readonly Regex RestrictedNameRegex = new(@"[^А-Яа-яёЁ0-9' -]"); // Corvax-Localization
         private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
+        public const int MinHeight = 140;
+        public const int DefaultHeight = 175;
+        public const int MaxHeight = 210;
 
         /// <summary>
         /// Job preferences for initial spawn.
@@ -85,6 +88,9 @@ namespace Content.Shared.Preferences
         public int Age { get; set; } = 20;
 
         [DataField]
+        public int Height { get; set; } = DefaultHeight;
+
+        [DataField]
         public Sex Sex { get; private set; } = Sex.Male;
 
         [DataField]
@@ -135,6 +141,7 @@ namespace Content.Shared.Preferences
             string species,
             string voice, // Corvax-TTS
             int age,
+            int height,
             Sex sex,
             Gender gender,
             HumanoidCharacterAppearance appearance,
@@ -150,6 +157,7 @@ namespace Content.Shared.Preferences
             Species = species;
             Voice = voice; // Corvax-TTS
             Age = age;
+            Height = height;
             Sex = sex;
             Gender = gender;
             Appearance = appearance;
@@ -182,6 +190,7 @@ namespace Content.Shared.Preferences
                 other.Species,
                 other.Voice, // Corvax-TTS
                 other.Age,
+                other.Height,
                 other.Sex,
                 other.Gender,
                 other.Appearance.Clone(),
@@ -295,6 +304,11 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithAge(int age)
         {
             return new(this) { Age = age };
+        }
+
+        public HumanoidCharacterProfile WithHeight(int height)
+        {
+            return new(this) { Height = height };
         }
 
         public HumanoidCharacterProfile WithSex(Sex sex)
@@ -480,11 +494,19 @@ namespace Content.Shared.Preferences
                 ("age", Age)
             );
 
+        public float HeightScale => HeightToScale(Height);
+
+        public static float HeightToScale(int height)
+        {
+            return height / (float) DefaultHeight;
+        }
+
         public bool MemberwiseEquals(ICharacterProfile maybeOther)
         {
             if (maybeOther is not HumanoidCharacterProfile other) return false;
             if (Name != other.Name) return false;
             if (Age != other.Age) return false;
+            if (Height != other.Height) return false;
             if (Sex != other.Sex) return false;
             if (Gender != other.Gender) return false;
             if (Species != other.Species) return false;
@@ -530,6 +552,7 @@ namespace Content.Shared.Preferences
                 sex = speciesPrototype.Sexes[0];
 
             var age = Math.Clamp(Age, speciesPrototype.MinAge, speciesPrototype.MaxAge);
+            var height = Math.Clamp(Height, MinHeight, MaxHeight);
 
             var gender = Gender switch
             {
@@ -633,6 +656,7 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             Age = age;
+            Height = height;
             Sex = sex;
             Gender = gender;
             Appearance = appearance;
@@ -774,6 +798,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(FlavorText);
             hashCode.Add(Species);
             hashCode.Add(Age);
+            hashCode.Add(Height);
             hashCode.Add((int)Sex);
             hashCode.Add((int)Gender);
             hashCode.Add(Appearance);

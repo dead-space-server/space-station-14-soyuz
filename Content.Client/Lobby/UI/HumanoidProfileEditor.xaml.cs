@@ -210,6 +210,28 @@ namespace Content.Client.Lobby.UI
 
             #endregion Age
 
+            #region Height
+
+            HeightSpinBox.IsValid = value =>
+                value >= HumanoidCharacterProfile.MinHeight &&
+                value <= HumanoidCharacterProfile.MaxHeight;
+            HeightSpinBox.InitDefaultButtons();
+            HeightSpinBox.LineEditControl.IsValid = value =>
+                value.Length <= 3 &&
+                (value.Length == 0 || value.All(char.IsDigit));
+            HeightSpinBox.ValueChanged += args =>
+            {
+                if (args.Value < HumanoidCharacterProfile.MinHeight ||
+                    args.Value > HumanoidCharacterProfile.MaxHeight)
+                    return;
+
+                SetCharacterHeight(args.Value);
+            };
+            HeightSpinBox.LineEditControl.OnTextEntered += _ => CommitHeightInput();
+            HeightSpinBox.LineEditControl.OnFocusExit += _ => CommitHeightInput();
+
+            #endregion Height
+
             #region Gender
 
             PronounsButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-male-text"), (int) Gender.Male);
@@ -808,6 +830,7 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();
+            UpdateHeightEdit();
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateTTSVoicesControls(); // Corvax-TTS
@@ -1202,6 +1225,33 @@ namespace Content.Client.Lobby.UI
             ReloadPreview();
         }
 
+        private void SetCharacterHeight(int newHeight)
+        {
+            Profile = Profile?.WithHeight(newHeight);
+            ReloadPreview();
+        }
+
+        private void CommitHeightInput()
+        {
+            var currentHeight = Profile?.Height ?? HumanoidCharacterProfile.DefaultHeight;
+
+            if (!int.TryParse(HeightSpinBox.LineEditControl.Text, out var inputHeight))
+            {
+                HeightSpinBox.OverrideValue(currentHeight);
+                return;
+            }
+
+            var clampedHeight = Math.Clamp(
+                inputHeight,
+                HumanoidCharacterProfile.MinHeight,
+                HumanoidCharacterProfile.MaxHeight);
+
+            HeightSpinBox.OverrideValue(clampedHeight);
+
+            if (currentHeight != clampedHeight)
+                SetCharacterHeight(clampedHeight);
+        }
+
         private void SetSex(Sex newSex)
         {
             Profile = Profile?.WithSex(newSex);
@@ -1299,6 +1349,11 @@ namespace Content.Client.Lobby.UI
         private void UpdateAgeEdit()
         {
             AgeEdit.Text = Profile?.Age.ToString() ?? "";
+        }
+
+        private void UpdateHeightEdit()
+        {
+            HeightSpinBox.OverrideValue(Profile?.Height ?? HumanoidCharacterProfile.DefaultHeight);
         }
 
         /// <summary>

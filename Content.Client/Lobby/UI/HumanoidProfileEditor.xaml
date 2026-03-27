@@ -78,6 +78,14 @@
                                     <Control HorizontalExpand="True"/>
                                     <LineEdit Name="AgeEdit" MinSize="40 0" HorizontalAlignment="Right" />
                                 </BoxContainer>
+                                <BoxContainer HorizontalExpand="True">
+                                    <Label Text="{Loc 'humanoid-profile-editor-height-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <SpinBox Name="HeightSpinBox" MinSize="86 0" Value="175" />
+                                        <Label Text="{Loc 'humanoid-profile-editor-height-unit'}" Margin="5 0 0 0" VerticalAlignment="Center" />
+                                    </BoxContainer>
+                                </BoxContainer>
                                 <!-- Sex -->
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-sex-label'}" />

@@ -36,6 +36,8 @@
     - type: Loadout
       prototypes: [ VisitorCaptain, VisitorCaptainAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: Captain
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -51,6 +53,8 @@
     - type: Loadout
       prototypes: [ VisitorCE, VisitorCEAlt ]
       roleLoadout: [ RoleSurvivalExtended ]
+    - type: Skill
+      group: HeadEngineer
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -66,6 +70,8 @@
     - type: Loadout
       prototypes: [ VisitorCMO, VisitorCMOAlt ]
       roleLoadout: [ RoleSurvivalMedical ]
+    - type: Skill
+      group: HeadMedicalAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -81,6 +87,8 @@
     - type: Loadout
       prototypes: [ VisitorHOP, VisitorHOPAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: BasicAndBotanyAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -96,6 +104,8 @@
     - type: Loadout
       prototypes: [ VisitorHOS, VisitorHOSAlt ]
       roleLoadout: [ RoleSurvivalSecurity ]
+    - type: Skill
+      group: BasicAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -111,6 +121,8 @@
     - type: Loadout
       prototypes: [ VisitorRD, VisitorRDAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: HeadScience
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -126,6 +138,8 @@
     - type: Loadout
       prototypes: [ VisitorQM, VisitorQMAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: BasicAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -142,6 +156,8 @@
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
     #DS14-end
+    - type: Skill
+      group: BasicAndShuttleControl
     - type: GhostRole
       name: ghost-role-information-security-name
       description: ghost-role-information-security-description
@@ -217,6 +233,8 @@
   id: VisitorCargonian
   parent: EventHumanoid
   components:
+    - type: Skill
+      group: BasicAndShuttleControl
     - type: GhostRole
       name: ghost-role-information-cargo-name
       description: ghost-role-information-cargo-description
@@ -257,6 +275,8 @@
     - type: Loadout
       prototypes: [ VisitorSalvageSpecialist, VisitorSalvageSpecialistAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: SalvageControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -294,6 +314,8 @@
     - type: Loadout
       prototypes: [ VisitorAtmosTech, VisitorAtmosTechAlt ]
       roleLoadout: [ RoleSurvivalExtended ]
+    - type: Skill
+      group: EngineerAtmos
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -308,6 +330,8 @@
     - type: Loadout
       prototypes: [ VisitorTechnicalAssistant, VisitorTechnicalAssistantAlt ]
       roleLoadout: [ RoleSurvivalExtended ]
+    - type: Skill
+      group: LowEngineerAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -322,6 +346,8 @@
     - type: Loadout
       prototypes: [ VisitorEngineer, VisitorEngineerAlt ]
       roleLoadout: [ RoleSurvivalExtended ]
+    - type: Skill
+      group: Engineer
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -333,6 +359,8 @@
   id: VisitorMedical
   parent: EventHumanoid
   components:
+    - type: Skill
+      group: MedicalAndShuttleControl
     - type: GhostRole
       name: ghost-role-information-medical-name
       description: ghost-role-information-medical-description
@@ -401,6 +429,8 @@
     - type: Loadout
       prototypes: [ VisitorVirologist, VisitorVirologistAlt ]
       roleLoadout: [ RoleSurvivalMedical ]
+    - type: Skill
+      group: HeadMedicalAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -441,6 +471,8 @@
     - type: Loadout
       prototypes: [ VisitorChemist, VisitorChemistAlt ]
       roleLoadout: [ RoleSurvivalMedical ]
+    - type: Skill
+      group: HeadMedicalAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -466,6 +498,8 @@
   id: VisitorScience
   parent: EventHumanoid
   components:
+    - type: Skill
+      group: HeadScience
     - type: GhostRole
       name: ghost-role-information-science-name
       description: ghost-role-information-science-description
@@ -492,6 +526,8 @@
     - type: Loadout
       prototypes: [ VisitorResearchAssistant, VisitorResearchAssistantAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: LowScienceAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup
@@ -517,6 +553,8 @@
   id: VisitorCivilian
   parent: EventHumanoid
   components:
+    - type: Skill
+      group: BasicAndShuttleControl
     - type: GhostRole
       name: ghost-role-information-civilian-name
       description: ghost-role-information-civilian-description
@@ -557,6 +595,8 @@
     - type: Loadout
       prototypes: [ VisitorBotanist, VisitorBotanistAlt ]
       roleLoadout: [ RoleSurvivalStandard ]
+    - type: Skill
+      group: BasicAndBotanyAndShuttleControl
     #DS14-start
     - type: GhostRoleNotifys
       groupPrototype: VisitorGroup

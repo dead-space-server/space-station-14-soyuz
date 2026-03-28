@@ -83,7 +83,6 @@
   - BasicTreatment
   - SimpleConstruction
   - AdvancedBotany
-  - ShuttleControl
 
 - type: skillGroup
   id: BasicAndBotany
@@ -94,6 +93,17 @@
   - BasicTreatment
   - SimpleConstruction
   - AdvancedBotany
+
+- type: skillGroup
+  id: BasicAndBotanyAndShuttleControl
+  name: Ботаника и шаттл
+  skills:
+  - BasicBotany
+  - Hacking
+  - BasicTreatment
+  - SimpleConstruction
+  - AdvancedBotany
+  - ShuttleControl
 
 - type: skillGroup
   id: HeadEngineer
@@ -110,7 +120,6 @@
   - Atmos
   - ComplexConstruction
   - DeviceConstruction
-  - Research
 
 - type: skillGroup
   id: HeadScience
@@ -147,6 +156,32 @@
   - Virology
 
 - type: skillGroup
+  id: HeadMedicalAndShuttleControl
+  name: Продвинутая медицина и шаттл
+  skills:
+  - BasicBotany
+  - Hacking
+  - BasicTreatment
+  - SimpleConstruction
+  - Pharmacology
+  - AdvancedTreatment
+  - Chemistry
+  - Virology
+  - ShuttleControl
+
+- type: skillGroup
+  id: MedicalAndShuttleControl
+  name: Медицина и шаттл
+  skills:
+  - BasicBotany
+  - Hacking
+  - BasicTreatment
+  - SimpleConstruction
+  - Pharmacology
+  - AdvancedTreatment
+  - ShuttleControl
+
+- type: skillGroup
   id: BasicAndShuttleControl
   name: Квартирмейстер или пилот
   skills:
@@ -169,6 +204,7 @@
   - Chemistry
   - Virology
   - ComplexDeconstruction
+  - ShuttleControl
 
 - type: skillGroup
   id: Medical
@@ -237,7 +273,24 @@
   - AdvancedTreatment
   - ComplexDeconstruction
   - AdvancedBotany
-  - Atmos
+  - ComplexConstruction
+  - DeviceConstruction
+  - Robotics
+  - Research
+
+- type: skillGroup
+  id: LowScienceAndShuttleControl
+  name: Младший ученый и шаттл
+  skills:
+  - BasicBotany
+  - Hacking
+  - BasicTreatment
+  - SimpleConstruction
+  - Pharmacology
+  - AdvancedTreatment
+  - ComplexDeconstruction
+  - AdvancedBotany
+  - ShuttleControl
   - ComplexConstruction
   - DeviceConstruction
   - Robotics
@@ -266,9 +319,22 @@
   - Hacking
   - BasicTreatment
   - SimpleConstruction
+  - SolarAndDAMConstruction
   - ComplexDeconstruction
   - ComplexConstruction
-  - DeviceConstruction
+
+- type: skillGroup
+  id: LowEngineerAndShuttleControl
+  name: Младший инженер и шаттл
+  skills:
+  - BasicBotany
+  - Hacking
+  - BasicTreatment
+  - SimpleConstruction
+  - SolarAndDAMConstruction
+  - ComplexDeconstruction
+  - ShuttleControl
+  - ComplexConstruction
 
 - type: skillGroup
   id: EngineerAtmos

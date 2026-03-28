@@ -27,7 +27,7 @@
         factions:
           - Taipan
       - type: Skill
-        group: BasicAndBotany
+        group: ALL
 
 - type: startingGear
   id: TaipanBotanistGear

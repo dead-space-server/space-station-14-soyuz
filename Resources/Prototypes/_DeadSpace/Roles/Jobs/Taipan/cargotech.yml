@@ -28,7 +28,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: BasicAndShuttleControl
+      group: ALL
 
 - type: startingGear
   id: TaipanCargotechGear

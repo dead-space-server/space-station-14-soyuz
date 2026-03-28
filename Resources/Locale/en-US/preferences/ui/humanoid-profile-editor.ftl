@@ -24,10 +24,6 @@ humanoid-profile-editor-save-button = Save
 humanoid-profile-editor-reset-button = Reset
 humanoid-profile-editor-spawn-priority-label = Spawn priority:
 humanoid-profile-editor-eyes-label = Eye color:
-# DS14-height-start
-humanoid-profile-editor-height-label = Height:
-humanoid-profile-editor-height-unit = cm
-# DS14-height-end
 humanoid-profile-editor-jobs-tab = Jobs
 humanoid-profile-editor-preference-unavailable-stay-in-lobby-button = Stay in lobby if preference unavailable.
 humanoid-profile-editor-preference-unavailable-spawn-as-overflow-button = Be {INDEFINITE($overflowJob)} {$overflowJob} if preference unavailable.

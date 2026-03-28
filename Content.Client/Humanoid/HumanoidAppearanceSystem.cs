@@ -1,6 +1,4 @@
-// DS14-height-start
-using System.Numerics;
-// DS14-height-end
+using System.Numerics; // DS14-height
 using Content.Client.DisplacementMap;
 using Content.Client.Sprite; // DS14-height
 using Content.Shared.CCVar;

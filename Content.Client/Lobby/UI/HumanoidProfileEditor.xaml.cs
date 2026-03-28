@@ -1259,6 +1259,7 @@ namespace Content.Client.Lobby.UI
             if (currentHeight != clampedHeight)
                 SetCharacterHeight(clampedHeight);
         }
+        // DS14-height-end
 
         private void SetSex(Sex newSex)
         {
@@ -1360,7 +1361,7 @@ namespace Content.Client.Lobby.UI
         {
             AgeEdit.Text = Profile?.Age.ToString() ?? "";
         }
-
+        // DS14-height-start
         private void UpdateHeightEdit()
         {
             var range = GetCurrentHeightRange();

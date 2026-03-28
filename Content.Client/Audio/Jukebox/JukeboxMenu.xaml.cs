@@ -203,3 +203,123 @@ public sealed partial class JukeboxMenu : FancyWindow
         if (!force && HasActiveLocalVolumeOverride)
         {
             if (_awaitingVolumeSync && Math.Abs(_volume - volume) <= VolumeSendTolerance)
+            {
+                _awaitingVolumeSync = false;
+            }
+            else
+            {
+                return;
+            }
+        }
+        // DS-14 end
+
+        if (!force && Math.Abs(_volume - volume) <= VolumeSendTolerance)
+            return;
+
+        _volume = volume;
+        _updatingVolume = true;
+        var sliderValue = 1f - volume;
+        VolumeSlider.ValueTarget = sliderValue;
+        VolumeSlider.SetValueWithoutEvent(sliderValue);
+        _updatingVolume = false;
+        UpdateVolumeLabel();
+        TryApplyLocalVolume(volume);
+    }
+
+    protected override void FrameUpdate(FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+
+        if (_lockTimer > 0f)
+        {
+            _lockTimer -= args.DeltaSeconds;
+        }
+
+        // DS-14 start
+        if (_pendingVolumeSend)
+        {
+            _volumeSendAccumulator += args.DeltaSeconds;
+            if (_volumeSendAccumulator >= VolumeSendInterval)
+            {
+                FlushPendingVolume();
+            }
+        }
+
+        if (_volumeInteractionTimer > 0f)
+            _volumeInteractionTimer = Math.Max(0f, _volumeInteractionTimer - args.DeltaSeconds);
+        // DS-14 end
+
+        PlaybackSlider.Disabled = _lockTimer > 0f;
+
+        if (_entManager.TryGetComponent(_audio, out AudioComponent? audio))
+        {
+            DurationLabel.Text = $@"{TimeSpan.FromSeconds(audio.PlaybackPosition):mm\:ss} / {_audioSystem.GetAudioLength(audio.FileName):mm\:ss}";
+        }
+        else
+        {
+            DurationLabel.Text = $@"00:00 / {TimeSpan.FromSeconds(PlaybackSlider.MaxValue):mm\:ss}";
+        }
+
+        if (PlaybackSlider.Grabbed)
+            return;
+
+        if (audio != null || _entManager.TryGetComponent(_audio, out audio))
+        {
+            PlaybackSlider.SetValueWithoutEvent(audio.PlaybackPosition);
+        }
+        else
+        {
+            PlaybackSlider.SetValueWithoutEvent(0f);
+        }
+
+        SetPlayPauseButton(_audioSystem.IsPlaying(_audio, audio));
+    }
+
+    // DS-14 start
+    public void SetSelectedSongText(string? text)
+    {
+        if (!string.IsNullOrEmpty(text))
+        {
+            SongName.Text = text;
+        }
+        else
+        {
+            SongName.Text = "---";
+        }
+    }
+
+    public bool TryGetLocalVolumeOverride(out float volume)
+    {
+        // DS-14 start
+        if (!HasActiveLocalVolumeOverride)
+        {
+            volume = default;
+            return false;
+        }
+
+        volume = _volume;
+        return true;
+        // DS-14 end
+    }
+
+    public void CommitVolumeState()
+    {
+        // DS-14 start
+        if (_pendingVolumeSend)
+            FlushPendingVolume();
+
+        if (HasActiveLocalVolumeOverride)
+        {
+            _jukeboxSystem.SetVolumeOverride(_jukebox, _volume);
+            return;
+        }
+
+        _jukeboxSystem.ClearVolumeOverride(_jukebox);
+        // DS-14 end
+    }
+
+    private void RefreshSongList()
+    {
+        _updatingSongList = true;
+        MusicList.Clear();
+

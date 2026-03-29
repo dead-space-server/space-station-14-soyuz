@@ -300,14 +300,22 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
     private static string SanitizeFileNamePart(string value)
     {
-        var invalidChars = Path.GetInvalidFileNameChars();
         var builder = new StringBuilder(value.Length);
+        var previousUnderscore = false;
 
         foreach (var ch in value)
         {
-            builder.Append(Array.IndexOf(invalidChars, ch) >= 0 || char.IsControl(ch) ? '_' : ch);
+            var allowed = char.IsLetterOrDigit(ch) || ch is '-' or '_';
+            var output = allowed ? ch : '_';
+
+            if (output == '_' && previousUnderscore)
+                continue;
+
+            builder.Append(output);
+            previousUnderscore = output == '_';
         }
 
-        return builder.ToString().Trim().Replace(' ', '_');
+        var sanitized = builder.ToString().Trim('_');
+        return string.IsNullOrEmpty(sanitized) ? "photo" : sanitized;
     }
 }

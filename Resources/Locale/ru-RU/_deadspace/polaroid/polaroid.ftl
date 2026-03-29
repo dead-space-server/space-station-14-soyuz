@@ -20,6 +20,6 @@ polaroid-photo-ui-missing-image = Данные изображения недос
 polaroid-photo-ui-signature-placeholder = Введите подпись
 polaroid-photo-ui-signature-save = Подписать
 polaroid-photo-ui-save-local = Сохранить на ПК
-polaroid-photo-ui-save-success = Снимок сохранён в UserData/Polaroid как {$file}.
+polaroid-photo-ui-save-success = Снимок сохранён как {$file}. На Windows ищите его в %AppData%/Space Station 14/data/Polaroid.
 polaroid-photo-ui-save-failed = Не удалось сохранить снимок локально.
 polaroid-photo-ui-signature-empty = Место для подписи

@@ -31,7 +31,7 @@
   components:
   - type: Tag
     tags:
-    - MagazineShotgunSaiga
+    - MagazineForSinabir
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:
@@ -67,7 +67,7 @@
   components:
   - type: Tag
     tags:
-    - MagazineShotgunSaiga
+    - DrumForSinabirBurn
   - type: BallisticAmmoProvider
     mayTransfer: true
     whitelist:

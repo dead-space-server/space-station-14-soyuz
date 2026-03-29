@@ -1,6 +1,8 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.UI;
+using Content.Server.CharacterInfo;
+using Content.Server.DeadSpace.Skill;
 using Content.Server.Disposal.Tube;
 using Content.Server.EUI;
 using Content.Server.Ghost.Roles;
@@ -13,6 +15,8 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Configurable;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace.Skills.Components;
+using Content.Shared.DeadSpace.Skills.Prototypes;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
@@ -48,6 +52,7 @@ namespace Content.Server.Administration.Systems
         [Dependency] private readonly IConsoleHost _console = default!;
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private readonly CharacterInfoSystem _characterInfo = default!;
         [Dependency] private readonly SharedMapSystem _map = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly AdminSystem _adminSystem = default!;
@@ -65,6 +70,7 @@ namespace Content.Server.Administration.Systems
         [Dependency] private readonly ExamineSystemShared _examine = default!;
         [Dependency] private readonly AdminFrozenSystem _freeze = default!;
         [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency] private readonly SkillSystem _skillSystem = default!;
         [Dependency] private readonly SiliconLawSystem _siliconLawSystem = default!;
         [Dependency] private readonly TransformSystem _transform = default!;
 
@@ -468,8 +474,32 @@ namespace Content.Server.Administration.Systems
                 args.Verbs.Add(verb);
             }
 
+            if (_groupController.CanAdminMenu(player) &&
+                TryComp<SkillComponent>(args.Target, out var skillComponent))
+            {
+                args.Verbs.Add(new Verb
+                {
+                    Text = Loc.GetString("admin-verbs-grant-all-skills"),
+                    Category = VerbCategory.Debug,
+                    Act = () =>
+                    {
+                        foreach (var prototype in _prototypeManager.EnumeratePrototypes<SkillPrototype>())
+                        {
+                            _skillSystem.AddSkillProgress(args.Target, prototype.ID, 1f, skillComponent);
+                        }
+
+                        Dirty(args.Target, skillComponent);
+
+                        if (TryComp<ActorComponent>(args.Target, out var targetActor))
+                            _characterInfo.SendCharacterInfo(args.Target, targetActor.PlayerSession);
+                    },
+                    Impact = LogImpact.High,
+                    ConfirmationPopup = true
+                });
+            }
+
             // Control mob verb
-            if (_toolshed.ActivePermissionController?.CheckInvokable(new CommandSpec(_toolshed.DefaultEnvironment.GetCommand("mind"), "control"), player, out _) ?? false &&
+            if ((_toolshed.ActivePermissionController?.CheckInvokable(new CommandSpec(_toolshed.DefaultEnvironment.GetCommand("mind"), "control"), player, out _) ?? false) &&
                 args.User != args.Target)
             {
                 Verb verb = new()

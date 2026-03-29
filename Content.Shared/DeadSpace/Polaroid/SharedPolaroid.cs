@@ -4,6 +4,11 @@ using Content.Shared.UserInterface;
 
 namespace Content.Shared.DeadSpace.Polaroid;
 
+public static class PolaroidSharedConstants
+{
+    public const int MaxPhotoSignatureLength = 26;
+}
+
 [Serializable, NetSerializable]
 public enum PolaroidCameraUiKey : byte
 {

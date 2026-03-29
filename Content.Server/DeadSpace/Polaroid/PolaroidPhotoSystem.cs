@@ -1,12 +1,18 @@
 using Content.Shared.DeadSpace.Polaroid;
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.DeadSpace.Polaroid;
 
 public sealed class PolaroidPhotoSystem : EntitySystem
 {
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+
+    private static readonly SoundSpecifier SignatureSound =
+        new SoundCollectionSpecifier("PaperScribbles", AudioParams.Default.WithVariation(0.1f));
 
     public override void Initialize()
     {
@@ -23,13 +29,24 @@ public sealed class PolaroidPhotoSystem : EntitySystem
 
     private void OnSignatureChanged(EntityUid uid, PolaroidPhotoComponent component, PolaroidPhotoSetSignatureMessage args)
     {
+        if (!string.IsNullOrWhiteSpace(component.Signature))
+        {
+            UpdateUi(uid, component);
+            return;
+        }
+
         var signature = args.Signature.Trim();
         if (signature.Length > PolaroidPhotoComponent.MaxSignatureLength)
             signature = signature[..PolaroidPhotoComponent.MaxSignatureLength];
 
-        component.Signature = string.IsNullOrWhiteSpace(signature)
-            ? null
-            : signature;
+        if (string.IsNullOrWhiteSpace(signature))
+        {
+            UpdateUi(uid, component);
+            return;
+        }
+
+        component.Signature = signature;
+        _audio.PlayPvs(SignatureSound, uid);
 
         UpdateUi(uid, component);
     }

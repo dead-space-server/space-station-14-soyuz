@@ -1,18 +1,24 @@
 using System.IO;
 using System.Numerics;
+using Content.Client.Resources;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
+using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.IoC;
 using Robust.Shared.Maths;
 
 namespace Content.Client.DeadSpace.Polaroid.UI;
 
 public sealed class PolaroidPhotoWindow : DefaultWindow
 {
+    [Dependency] private readonly IResourceCache _resourceCache = default!;
+
     private readonly Label _metaLabel;
     private readonly Label _statusLabel;
     private readonly Label _signatureLabel;
+    private readonly BoxContainer _signatureControls;
     private readonly LineEdit _signatureEdit;
     private readonly Button _signatureSaveButton;
     private readonly TextureRect _photoTexture;
@@ -21,8 +27,13 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
     public PolaroidPhotoWindow()
     {
+        IoCManager.InjectDependencies(this);
+
         Title = Loc.GetString("polaroid-photo-ui-title");
         MinSize = new Vector2(360f, 560f);
+
+        var polaroidColor = Color.FromHex("#efe3c9");
+        var polaroidBorderColor = Color.FromHex("#d7c7a8");
 
         var root = new BoxContainer
         {
@@ -39,8 +50,8 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             VerticalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#f2ede3"),
-                BorderColor = Color.FromHex("#d7d0c2"),
+                BackgroundColor = polaroidColor,
+                BorderColor = polaroidBorderColor,
                 BorderThickness = new Thickness(2),
                 ContentMarginLeftOverride = 18,
                 ContentMarginTopOverride = 18,
@@ -66,7 +77,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             VerticalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.White,
+                BackgroundColor = polaroidColor,
             }
         };
 
@@ -87,7 +98,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             HorizontalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = Color.FromHex("#f2ede3"),
+                BackgroundColor = polaroidColor,
             }
         };
 
@@ -100,27 +111,29 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         {
             Align = Label.AlignMode.Center,
             HorizontalAlignment = HAlignment.Center,
+            FontOverride = _resourceCache.GetFont("/Fonts/HandveticaNeue/Palaroid_shrifte.ttf", 18),
         };
 
         signatureCenter.AddChild(_signatureLabel);
 
-        var signatureControls = new BoxContainer
+        _signatureControls = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             SeparationOverride = 8,
         };
 
-        root.AddChild(signatureControls);
+        root.AddChild(_signatureControls);
 
         _signatureEdit = new LineEdit
         {
             HorizontalExpand = true,
             PlaceHolder = Loc.GetString("polaroid-photo-ui-signature-placeholder"),
+            SelectAllOnFocus = true,
+            IsValid = text => text.Length <= PolaroidSharedConstants.MaxPhotoSignatureLength,
         };
 
         _signatureEdit.OnTextEntered += e => SubmitSignature(e.Text);
-        _signatureEdit.OnFocusExit += e => SubmitSignature(e.Text);
-        signatureControls.AddChild(_signatureEdit);
+        _signatureControls.AddChild(_signatureEdit);
 
         _signatureSaveButton = new Button
         {
@@ -128,7 +141,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         };
 
         _signatureSaveButton.OnPressed += _ => SubmitSignature(_signatureEdit.Text);
-        signatureControls.AddChild(_signatureSaveButton);
+        _signatureControls.AddChild(_signatureSaveButton);
 
         _metaLabel = new Label();
         root.AddChild(_metaLabel);
@@ -155,10 +168,16 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             ("photographer", photographer),
             ("takenAt", takenAt));
 
-        if (!_signatureEdit.HasKeyboardFocus())
-            _signatureEdit.Text = state.Signature ?? string.Empty;
+        var signed = !string.IsNullOrWhiteSpace(state.Signature);
+        _signatureControls.Visible = !signed;
+        _signatureEdit.Editable = !signed;
 
-        if (string.IsNullOrWhiteSpace(state.Signature))
+        if (!signed && !_signatureEdit.HasKeyboardFocus())
+            _signatureEdit.Text = state.Signature ?? string.Empty;
+        else if (signed)
+            _signatureEdit.Text = string.Empty;
+
+        if (!signed)
         {
             _signatureLabel.Text = Loc.GetString("polaroid-photo-ui-signature-empty");
             _signatureLabel.ModulateSelfOverride = Color.FromHex("#a29b90");
@@ -191,6 +210,16 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
     private void SubmitSignature(string signature)
     {
-        SignatureChanged?.Invoke(signature);
+        if (!_signatureControls.Visible)
+            return;
+
+        var trimmed = signature.Trim();
+        if (string.IsNullOrWhiteSpace(trimmed))
+            return;
+
+        if (trimmed.Length > PolaroidSharedConstants.MaxPhotoSignatureLength)
+            trimmed = trimmed[..PolaroidSharedConstants.MaxPhotoSignatureLength];
+
+        SignatureChanged?.Invoke(trimmed);
     }
 }

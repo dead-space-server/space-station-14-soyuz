@@ -12,6 +12,8 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
     [ViewVariables]
     private JukeboxMenu? _menu;
+    // DS-14
+    private bool _volumeStateCommitted;
 
     public JukeboxBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -23,7 +25,12 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         base.Open();
 
         _menu = this.CreateWindow<JukeboxMenu>();
+        // DS-14 start
+        _menu.SetJukebox(Owner);
+        _menu.OnClose += CommitVolumeState;
+        // DS-14 end
 
+        // DS-14 start
         _menu.OnPlayPressed += args =>
         {
             if (args)
@@ -36,16 +43,43 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
             }
         };
 
-        _menu.OnStopPressed += () =>
+        _menu.OnPreviousPressed += () =>
         {
-            SendMessage(new JukeboxStopMessage());
+            SendMessage(new JukeboxPreviousMessage());
+        };
+
+        _menu.OnNextPressed += () =>
+        {
+            SendMessage(new JukeboxNextMessage());
+        };
+
+        _menu.OnShuffleToggled += enabled =>
+        {
+            SendMessage(new JukeboxShuffleMessage(enabled));
+        };
+
+        _menu.OnRepeatToggled += enabled =>
+        {
+            SendMessage(new JukeboxRepeatMessage(enabled));
         };
 
         _menu.OnSongSelected += SelectSong;
 
         _menu.SetTime += SetTime;
+        _menu.SetVolume += SetVolume;
+        // DS-14 end
         PopulateMusic();
         Reload();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        // DS-14 start
+        if (disposing)
+            CommitVolumeState();
+        // DS-14 end
+
+        base.Dispose(disposing);
     }
 
     /// <summary>
@@ -57,15 +91,20 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
             return;
 
         _menu.SetAudioStream(jukebox.AudioStream);
+        // DS-14 start
+        _menu.SetShuffleEnabled(jukebox.ShuffleEnabled);
+        _menu.SetRepeatEnabled(jukebox.RepeatEnabled);
+        _menu.SetVolumeSlider(jukebox.Volume);
+        // DS-14 end
 
         if (_protoManager.Resolve(jukebox.SelectedSongId, out var songProto))
         {
             var length = EntMan.System<AudioSystem>().GetAudioLength(songProto.Path.Path.ToString());
-            _menu.SetSelectedSong(songProto.Name, (float) length.TotalSeconds);
+            _menu.SetSelectedSong(jukebox.SelectedSongId, songProto.Name, (float) length.TotalSeconds);
         }
         else
         {
-            _menu.SetSelectedSong(string.Empty, 0f);
+            _menu.SetSelectedSong(null, string.Empty, 0f);
         }
     }
 
@@ -97,5 +136,3 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
         SendMessage(new JukeboxSetTimeMessage(sentTime));
     }
-}
-

@@ -19,4 +19,7 @@ polaroid-photo-ui-unknown-time = неизвестно
 polaroid-photo-ui-missing-image = Данные изображения недоступны.
 polaroid-photo-ui-signature-placeholder = Введите подпись
 polaroid-photo-ui-signature-save = Подписать
+polaroid-photo-ui-save-local = Сохранить на ПК
+polaroid-photo-ui-save-success = Снимок сохранён в UserData/Polaroid как {$file}.
+polaroid-photo-ui-save-failed = Не удалось сохранить снимок локально.
 polaroid-photo-ui-signature-empty = Место для подписи

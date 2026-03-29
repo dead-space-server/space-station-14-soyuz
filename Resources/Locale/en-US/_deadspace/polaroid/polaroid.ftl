@@ -19,4 +19,7 @@ polaroid-photo-ui-unknown-time = unknown time
 polaroid-photo-ui-missing-image = Image data is unavailable.
 polaroid-photo-ui-signature-placeholder = Enter a signature
 polaroid-photo-ui-signature-save = Sign
+polaroid-photo-ui-save-local = Save to PC
+polaroid-photo-ui-save-success = Saved to UserData/Polaroid as {$file}.
+polaroid-photo-ui-save-failed = Failed to save the photo locally.
 polaroid-photo-ui-signature-empty = Signature area

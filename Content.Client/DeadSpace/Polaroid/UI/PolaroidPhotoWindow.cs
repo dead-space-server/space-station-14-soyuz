@@ -1,27 +1,37 @@
 using System.IO;
 using System.Numerics;
+using System.Text;
 using Content.Client.Resources;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.ContentPack;
 using Robust.Shared.IoC;
 using Robust.Shared.Maths;
+using Robust.Shared.Utility;
 
 namespace Content.Client.DeadSpace.Polaroid.UI;
 
 public sealed class PolaroidPhotoWindow : DefaultWindow
 {
     [Dependency] private readonly IResourceCache _resourceCache = default!;
+    [Dependency] private readonly IResourceManager _resourceManager = default!;
+
+    private static readonly ResPath LocalPhotoDirectory = new("/Polaroid");
 
     private readonly Label _metaLabel;
     private readonly Label _statusLabel;
     private readonly Label _signatureLabel;
     private readonly BoxContainer _signatureControls;
+    private readonly Button _saveButton;
     private readonly LineEdit _signatureEdit;
     private readonly Button _signatureSaveButton;
     private readonly TextureRect _photoTexture;
+    private byte[] _currentPng = Array.Empty<byte>();
+    private string? _currentPhotographer;
+    private string? _currentTakenAt;
 
     public event Action<string>? SignatureChanged;
 
@@ -143,6 +153,14 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         _signatureSaveButton.OnPressed += _ => SubmitSignature(_signatureEdit.Text);
         _signatureControls.AddChild(_signatureSaveButton);
 
+        _saveButton = new Button
+        {
+            Text = Loc.GetString("polaroid-photo-ui-save-local"),
+        };
+
+        _saveButton.OnPressed += _ => SavePhotoLocally();
+        root.AddChild(_saveButton);
+
         _metaLabel = new Label();
         root.AddChild(_metaLabel);
 
@@ -156,6 +174,10 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
     public void SetState(PolaroidPhotoUiState state)
     {
+        _currentPng = state.Png;
+        _currentPhotographer = state.Photographer;
+        _currentTakenAt = state.TakenAt;
+
         var photographer = string.IsNullOrWhiteSpace(state.Photographer)
             ? Loc.GetString("polaroid-photo-ui-unknown-photographer")
             : state.Photographer;
@@ -187,6 +209,8 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             _signatureLabel.Text = state.Signature;
             _signatureLabel.ModulateSelfOverride = Color.FromHex("#2d2923");
         }
+
+        _saveButton.Disabled = state.Png.Length == 0;
 
         if (state.Png.Length == 0)
         {
@@ -221,5 +245,69 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             trimmed = trimmed[..PolaroidSharedConstants.MaxPhotoSignatureLength];
 
         SignatureChanged?.Invoke(trimmed);
+    }
+
+    private void SavePhotoLocally()
+    {
+        if (_currentPng.Length == 0)
+        {
+            _statusLabel.Text = Loc.GetString("polaroid-photo-ui-missing-image");
+            return;
+        }
+
+        if (!_resourceManager.UserData.IsDir(LocalPhotoDirectory))
+            _resourceManager.UserData.CreateDir(LocalPhotoDirectory);
+
+        var baseFileName = BuildFileName();
+
+        for (var i = 0; i < 5; i++)
+        {
+            var fileName = i == 0 ? baseFileName : $"{baseFileName}-{i}";
+            var path = LocalPhotoDirectory / $"{fileName}.png";
+
+            try
+            {
+                using var stream = _resourceManager.UserData.Open(path, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+                stream.Write(_currentPng);
+                _statusLabel.Text = Loc.GetString("polaroid-photo-ui-save-success", ("file", $"{fileName}.png"));
+                return;
+            }
+            catch (IOException)
+            {
+            }
+            catch
+            {
+                _statusLabel.Text = Loc.GetString("polaroid-photo-ui-save-failed");
+                return;
+            }
+        }
+
+        _statusLabel.Text = Loc.GetString("polaroid-photo-ui-save-failed");
+    }
+
+    private string BuildFileName()
+    {
+        var builder = new StringBuilder("polaroid");
+
+        if (!string.IsNullOrWhiteSpace(_currentPhotographer))
+            builder.Append('_').Append(SanitizeFileNamePart(_currentPhotographer));
+
+        if (!string.IsNullOrWhiteSpace(_currentTakenAt))
+            builder.Append('_').Append(SanitizeFileNamePart(_currentTakenAt));
+
+        return builder.ToString().TrimEnd('_');
+    }
+
+    private static string SanitizeFileNamePart(string value)
+    {
+        var invalidChars = Path.GetInvalidFileNameChars();
+        var builder = new StringBuilder(value.Length);
+
+        foreach (var ch in value)
+        {
+            builder.Append(Array.IndexOf(invalidChars, ch) >= 0 || char.IsControl(ch) ? '_' : ch);
+        }
+
+        return builder.ToString().Trim().Replace(' ', '_');
     }
 }

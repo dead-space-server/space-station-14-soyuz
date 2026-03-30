@@ -52,3 +52,5 @@ ent-FoodTartGapple = golden apple streusel tart
     .desc = A tasty dessert that won't make it through a metal detector.
 ent-FoodTartCoco = chocolate lava tart
     .desc = A tasty dessert made of chocolate, with a liquid core.
+ent-FoodTartPear = pear tart
+    .desc = Too many pears have been slaughtered for this delicious treat.

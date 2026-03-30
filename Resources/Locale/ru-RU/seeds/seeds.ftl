@@ -142,3 +142,5 @@ seeds-anomaly-berry-name = аномальные ягоды
 seeds-anomaly-berry-display-name = куст аномальных ягод
 seeds-bloonion-name = лук-летун
 seeds-bloonion-display-name = луковицы лука-летуна
+seeds-pear-name = груша
+seeds-pear-display-name = грушевое дерево

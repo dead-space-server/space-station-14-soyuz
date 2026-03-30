@@ -64,3 +64,5 @@ reagent-name-mopwata = швабода
 reagent-desc-mopwata = Грязная, застоявшаяся вода из-под швабры, швабровая вода.
 reagent-name-kvass = квас
 reagent-desc-kvass = Легендарный кваааасссс!!!!!
+reagent-name-pearonade = грушевый лимонад
+reagent-desc-pearonade = Лимонад, но из груш. Очевидно же.

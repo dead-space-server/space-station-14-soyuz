@@ -161,3 +161,5 @@ ent-FoodAnomalyBerry = anomaly berry
     .desc = A strange blue fruit. Something about it doesn't seem right.
 ent-FoodBloonion = bloonion bulb
     .desc = A strange floating bulb.. Nothing worth crying over.
+ent-FoodPear = pear
+    .desc = Apple's sweeter cousin.

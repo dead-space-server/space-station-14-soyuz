@@ -42,7 +42,3 @@ ent-TowelColorMime = бесшумное полотенце
     .desc = { ent-BaseTowel.desc }
 ent-TowelColorNT = полотенце марки Nanotrasen
     .desc = { ent-BaseTowel.desc }
-ent-TowelColorCentcom = полотенце Генерального Штаба
-    .desc = { ent-BaseTowel.desc }
-ent-TowelColorSyndicate = полотенце Рассвета
-    .desc = { ent-BaseTowel.desc }

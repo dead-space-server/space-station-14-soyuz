@@ -1,0 +1,14 @@
+ent-ClothingBackpackSatchelClown = сумка клоуна
+    .desc = Чтобы быстро убегать от милиции.
+ent-ClothingBackpackSatchelScience = сумка научного сотрудника
+    .desc = Пригодится для хранения материалов для исследований.
+ent-ClothingBackpackSatchelSecurity = сумка милиции
+    .desc = Прочная сумка для любых нужд.
+ent-ClothingBackpackSatchelBrigmedic = сумка дежурного врача
+    .desc = Стерильная сумка для медицинских нужд.
+ent-ClothingBackpackSatchelHydroponics = сумка агронома
+    .desc = Сумка, изготовленная только из натуральных волокон.
+ent-ClothingBackpackSatchelCargo = сумка грузчика
+    .desc = Прочная сумка для воровства добычи.
+ent-ClothingBackpackSatchelSalvage = сумка шахтёра
+    .desc = Прочная сумка для хранения добычи.

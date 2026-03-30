@@ -1,0 +1,16 @@
+ent-ClothingHeadHatCargosoft = кепка грузчика
+    .desc = Бейсболка, окрашенная в цвета отдела почты.
+ent-ClothingHeadHatCargosoftFlipped = кепка грузчика
+    .desc = { ent-ClothingHeadHeadHatBaseFlipped.desc }
+ent-ClothingHeadHatQMsoft = кепка заведующего хозяйством
+    .desc = Бейсболка, окрашенная в цвет завхоза.
+ent-ClothingHeadHatQMsoftFlipped = кепка заведующего хозяйством
+    .desc = { ent-ClothingHeadHeadHatBaseFlipped.desc }
+ent-ClothingHeadHatSecsoft = кепка милиции
+    .desc = Это прочная бейсболка безвкусного красного цвета.
+ent-ClothingHeadHatSecsoftFlipped = кепка милиции
+    .desc = { ent-ClothingHeadHeadHatBaseFlipped.desc }
+ent-ClothingHeadHatParamedicsoft = кепка фельдшера
+    .desc = Бейсболка фельдшера с логотипом медицинского отдела.
+ent-ClothingHeadHatParamedicsoftFlipped = кепка фельдшера
+    .desc = { ent-ClothingHeadHeadHatBaseFlipped.desc }

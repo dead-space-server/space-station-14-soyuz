@@ -1,0 +1,10 @@
+ent-ClothingHeadsetAltCentCom = полноразмерная гарнитура Генштаба
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltSecurity = полноразмерная гарнитура начальника милиции
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltScience = полноразмерная гарнитура главного научного сотрудника
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltCargo = полноразмерная гарнитура заведующего хозяйством
+    .desc = { ent-ClothingHeadsetAlt.desc }
+ent-ClothingHeadsetAltSyndicate = полноразмерная болотно-зелёная гарнитура
+    .desc = Модифицированный модульный интерком Рассвета, надеваемый на голову, и содержащий ключ шифрования. Имеет 5 ячеек для ключей шифрования.

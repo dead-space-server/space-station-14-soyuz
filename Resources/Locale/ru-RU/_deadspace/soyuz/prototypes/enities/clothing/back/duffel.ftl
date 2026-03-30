@@ -1,0 +1,12 @@
+ent-ClothingBackpackDuffelSecurity = вещмешок милиции
+    .desc = Большой вещмешок для хранения дополнительных припасов охраны.
+ent-ClothingBackpackDuffelBrigmedic = вещмешок дежурного врача
+    .desc = Большой вещмешок для хранения дополнительных медицинских припасов.
+ent-ClothingBackpackDuffelScience = вещмешок научного сотрудника
+    .desc = Большой вещмешок для хранения дополнительных научных предметов.
+ent-ClothingBackpackDuffelHydroponics = вещмешок агронома
+    .desc = Большой вещмешок для хранения дополнительных садовых инструментов.
+ent-ClothingBackpackDuffelCargo = вещмешок грузчика
+    .desc = Большой вещмешок для для воровства драгоценной добычи.
+ent-ClothingBackpackDuffelSalvage = вещмешок шахтера
+    .desc = Большой вещмешок для хранения дополнительных экзотических сокровищ.

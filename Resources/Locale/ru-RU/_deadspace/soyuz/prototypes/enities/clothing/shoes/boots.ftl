@@ -1,0 +1,10 @@
+ent-ClothingShoesBootsJack = подкованные сапоги
+    .desc = Обувь Советской Гражданской Милиции, для боевых операций или боевых действий. Борьба — всё, борьба — всегда.
+ent-ClothingShoesBootsSalvage = ботинки шахтера
+    .desc = Специализированные ботинки со стальными носками для работ по утилизации в опасных условиях.
+ent-ClothingShoesBootsWinterCargo = зимние ботинки почты
+    .desc = { ent-ClothingShoesBaseWinterBoots.desc }
+ent-ClothingShoesBootsWinterSec = зимние ботинки милиции
+    .desc = { ent-ClothingShoesBaseWinterBoots.desc }
+ent-ClothingShoesBootsWinterSyndicate = зимние ботинки
+    .desc = Окрашены в подозрительный болотно-зелёный цвет.

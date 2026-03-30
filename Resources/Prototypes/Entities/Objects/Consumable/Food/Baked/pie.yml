@@ -580,7 +580,7 @@
     flavors:
       - sweet
       - pear
-      - bread 
+      - bread
   - type: Sprite
     sprite: Objects/Consumable/Food/Baked/pie.rsi
     state: pear

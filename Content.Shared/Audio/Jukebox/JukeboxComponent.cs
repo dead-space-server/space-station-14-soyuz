@@ -17,6 +17,12 @@ public sealed partial class JukeboxComponent : Component
     // DS-14 start
     [DataField, AutoNetworkedField]
     public float Volume = JukeboxVolume.DefaultValue;
+
+    [DataField, AutoNetworkedField]
+    public bool ShuffleEnabled;
+
+    [DataField, AutoNetworkedField]
+    public bool RepeatEnabled;
     // DS-14 end
     /// <summary>
     /// RSI state for the jukebox being on.
@@ -70,6 +76,25 @@ public sealed class JukeboxSetVolumeMessage(float volume) : BoundUserInterfaceMe
     // DS-14
     public float Volume { get; } = volume;
 }
+// DS-14 start
+[Serializable, NetSerializable]
+public sealed class JukeboxNextMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class JukeboxPreviousMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class JukeboxShuffleMessage(bool enabled) : BoundUserInterfaceMessage
+{
+    public bool Enabled { get; } = enabled;
+}
+
+[Serializable, NetSerializable]
+public sealed class JukeboxRepeatMessage(bool enabled) : BoundUserInterfaceMessage
+{
+    public bool Enabled { get; } = enabled;
+}
+// DS-14 end
 [Serializable, NetSerializable]
 public enum JukeboxVisuals : byte
 {

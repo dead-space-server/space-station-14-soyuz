@@ -160,7 +160,7 @@ public sealed partial class TTSSystem : EntitySystem
         if (!_prototypeManager.TryIndex<TTSVoicePrototype>(voiceId, out var protoVoice))
             return;
 
-        var announceDelay = Math.Max(0, (int) (args.Delay * 1000));
+        var announceDelay = Math.Max(0, (int) (args.Delay * 1000)); // DS-14
         Timer.Spawn(announceDelay, () => HandleAnnounce(args.Message, args.LexiconMessage, args.LanguageId, protoVoice.Speaker, args.Filter));
     }
 

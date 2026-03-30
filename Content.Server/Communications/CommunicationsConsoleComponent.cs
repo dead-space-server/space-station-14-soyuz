@@ -72,7 +72,7 @@ namespace Content.Server.Communications
         /// Delay in seconds before TTS starts after the announcement chime.
         /// </summary>
         [DataField]
-        public float TtsDelay = 6f;
+        public float TtsDelay = 6f; // DS-14
 
         /// <summary>
         /// Hides the sender identity (If they even have one).

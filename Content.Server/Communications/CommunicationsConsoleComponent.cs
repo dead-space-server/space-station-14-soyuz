@@ -69,6 +69,12 @@ namespace Content.Server.Communications
         public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/announce.ogg"); // DS14-Announcements
 
         /// <summary>
+        /// Delay in seconds before TTS starts after the announcement chime.
+        /// </summary>
+        [DataField]
+        public float TtsDelay = 6f;
+
+        /// <summary>
         /// Hides the sender identity (If they even have one).
         /// In practise this removes the "Sent by ScugMcWawa (Slugcat Captain)" at the bottom of the announcement.
         /// </summary>

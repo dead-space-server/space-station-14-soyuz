@@ -1,0 +1,16 @@
+ent-WeaponSubMachineGunC20r = C-20r
+    .desc = Оружие, часто используемое печально известными оперативниками Легиона. Использует патроны калибра 9х19 мм.
+    .suffix = Пистолет-пулемёт
+ent-WeaponSubMachineGunC20rROW = C-20r
+    .desc = Оружие, часто используемое печально известными оперативниками Легиона. Использует патроны калибра 9х19 мм.
+ent-WeaponSubMachineGunDrozd = ОЦ-14 "Гроза"
+    .desc = Превосходный, полностью автоматический, пистолет-пулемёт. Использует патроны калибра 9х19 мм. Принят на вооружение в 2694-ом году.
+ent-WeaponSubMachineGunVectorFMJ = { ent-WeaponSubMachineGunVector }
+    .desc = { ent-WeaponSubMachineGunVectorFMJ.desc }
+    .suffix = Пистолет-пулемёт FMJ
+ent-WeaponSubMachineGunWt550FMJ =  { ent-WeaponSubMachineGunWt550 }
+    .desc = { ent-WeaponSubMachineGunWt550.desc }
+    .suffix = Пистолет-пулемёт FMJ
+ent-WeaponSubMachineGunC20rFMJ =  { ent-WeaponSubMachineGunC20r }
+    .desc = { ent-WeaponSubMachineGunC20r.desc }
+    .suffix = Пистолет-пулемёт FMJ

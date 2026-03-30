@@ -65,4 +65,4 @@ reagent-desc-mopwata = Грязная, застоявшаяся вода из-п
 reagent-name-kvass = квас
 reagent-desc-kvass = Легендарный кваааасссс!!!!!
 reagent-name-pearonade = дюшес
-reagent-desc-pearonade = Лимонад, но из груш. Очевидно же.
+reagent-desc-pearonade = Газировка со вкусом легендарного сорта груш. Никакого отношения к герцогиням

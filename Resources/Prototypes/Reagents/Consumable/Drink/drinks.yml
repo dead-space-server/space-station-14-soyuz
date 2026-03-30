@@ -644,7 +644,7 @@
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
   metabolisms:
-    Digestion:
+    Drink:
       effects:
       - !type:SatiateThirst
         factor: 2

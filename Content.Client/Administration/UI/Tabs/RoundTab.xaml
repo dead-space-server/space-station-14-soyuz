@@ -1,4 +1,4 @@
-<!-- DS14-Soyuz-start: automatic map vote control -->
+<!-- DS14-Soyuz-start: automatic map vote control. -->
 <Control
     xmlns="https://spacestation14.io"
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"

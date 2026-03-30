@@ -2,8 +2,8 @@
   id: Core
   mapName: 'Core'
   mapPath: /Maps/Soyuz/core.yml
-  minPlayers: 40
-  maxPlayers: 75
+  minPlayers: 45
+  maxPlayers: 70
   stations:
     Core:
       stationProto: StandardNanotrasenStation

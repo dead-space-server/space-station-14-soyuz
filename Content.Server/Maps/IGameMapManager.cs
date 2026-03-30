@@ -14,6 +14,11 @@ public interface IGameMapManager
     IEnumerable<GameMapPrototype> CurrentlyEligibleMaps();
 
     /// <summary>
+    /// Returns the eligible maps for automatic map voting after applying the in-memory uniqueness history.
+    /// </summary>
+    IReadOnlyList<GameMapPrototype> GetAutomaticVoteCandidates();
+
+    /// <summary>
     /// Returns all maps that can be voted for.
     /// </summary>
     /// <returns>enumerator of map prototypes</returns>
@@ -65,6 +70,11 @@ public interface IGameMapManager
     /// Selects the map by following rules set in the config
     /// </summary>
     public void SelectMapByConfigRules();
+
+    /// <summary>
+    /// Marks the given map as already played for the automatic map vote history.
+    /// </summary>
+    void MarkMapPlayed(string gameMap);
 
     /// <summary>
     /// Checks if the given map exists

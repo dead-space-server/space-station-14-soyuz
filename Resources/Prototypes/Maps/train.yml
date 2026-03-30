@@ -4,8 +4,8 @@
   mapPath: /Maps/Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
-  minPlayers: 30
-  maxPlayers: 40
+  minPlayers: 25
+  maxPlayers: 65
   stations:
     Train:
       stationProto: StandardNanotrasenStation

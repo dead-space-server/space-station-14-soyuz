@@ -68,7 +68,7 @@ namespace Content.Server.Voting.Managers
                     CreatePresetVote(initiator, args);
                     break;
                 case StandardVoteType.Map:
-                    CreateMapVote(initiator);
+                    timeoutVote = CreateMapVote(initiator);
                     break;
                 case StandardVoteType.Votekick:
                     timeoutVote = false; // Allows the timeout to be updated manually in the create method
@@ -80,6 +80,22 @@ namespace Content.Server.Voting.Managers
             _gameTicker.UpdateInfoText();
             if (timeoutVote)
                 TimeoutStandardVote(voteType);
+        }
+
+        public void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration)
+        {
+            if (candidates.Count <= 1)
+                return;
+
+            _adminLogger.Add(LogType.Vote, LogImpact.Medium,
+                $"Initiated an automatic map vote with the options: {string.Join(", ", candidates.Select(map => map.ID))}");
+
+            _gameTicker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
+            if (!CreateMapVote(null, candidates, maxDuration))
+                return;
+
+            _gameTicker.UpdateInfoText();
+            TimeoutStandardVote(StandardVoteType.Map);
         }
 
         private void CreateRestartVote(ICommonSession? initiator)
@@ -284,20 +300,35 @@ namespace Content.Server.Voting.Managers
             };
         }
 
-        private void CreateMapVote(ICommonSession? initiator)
+        private bool CreateMapVote(
+            ICommonSession? initiator,
+            IReadOnlyList<GameMapPrototype>? candidates = null,
+            TimeSpan? maxDuration = null)
         {
-            var maps = _gameMapManager.CurrentlyEligibleMaps().ToDictionary(map => map, map => map.MapName);
+            var maps = (candidates ?? _gameMapManager.CurrentlyEligibleMaps().ToList())
+                .ToDictionary(map => map, map => map.MapName);
 
-            var alone = _playerManager.PlayerCount == 1 && initiator != null;
+            if (maps.Count == 0)
+                return false;
+
+            var alone = _playerManager.PlayerCount == 1;
+            var duration = alone
+                ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerAlone))
+                : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap));
+
+            if (maxDuration is { } maxVoteDuration && duration > maxVoteDuration)
+                duration = maxVoteDuration;
+
+            if (duration <= TimeSpan.Zero)
+                return false;
+
             var options = new VoteOptions
             {
                 Title = Loc.GetString("ui-vote-map-title"),
-                Duration = alone
-                    ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerAlone))
-                    : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap))
+                Duration = duration
             };
 
-            if (alone)
+            if (alone && initiator != null)
                 options.InitiatorTimeout = TimeSpan.FromSeconds(10);
 
             foreach (var (k, v) in maps)
@@ -347,6 +378,8 @@ namespace Content.Server.Voting.Managers
                     }
                 }
             };
+
+            return true;
         }
 
         private async void CreateVotekickVote(ICommonSession? initiator, string[]? args)

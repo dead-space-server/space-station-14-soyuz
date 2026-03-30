@@ -2,8 +2,8 @@
   id: Packed
   mapName: 'Packed'
   mapPath: /Maps/Soyuz/packed.yml
-  minPlayers: 5
-  maxPlayers: 35
+  minPlayers: 0
+  maxPlayers: 40
   stations:
     Packed:
       stationProto: StandardNanotrasenStation

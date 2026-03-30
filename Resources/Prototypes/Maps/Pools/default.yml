@@ -1,36 +1,34 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  - Amber
-  - Aspid
-  - Bagel
-  - Barratry
-  - Box
+  - Reach
+  - CorvaxSilly
+  - Saltern
+  - Packed
   - Cluster
+  - CorvaxPaper
+  - Omega
+  - Elkridge
+  - Barratry
+  - CorvaxPearl
+  - Bagel
+  - Train
+  - Loop
+  - Plasma
+  - Gemini
+  - Marathon
+  - Amber
+  - Meta
   - Cog
-  - Convex
   - Core
+  - Gate
+  - Fland
+  - Convex
+  - Box
+  - Origin
+  - Oasis
   - CorvaxAstra
   - CorvaxAvrite
   - CorvaxDelta
-  - CorvaxPaper
-  - CorvaxSilly
   - CorvaxSpectrum
   - CorvaxGlacier
-  - CorvaxPearl
-  - Elkridge
-  - Fland
-  - Gate
-  - Gemini
-  - Loop
-  - Loop
-  - Marathon
-  - Meta
-  - Oasis
-  - Omega
-  - Origin
-  - Packed
-  - Plasma
-  - Reach
-  - Saltern
-#  - Train Я рот топтал трейна

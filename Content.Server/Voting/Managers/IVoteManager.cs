@@ -1,4 +1,6 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
+using Content.Server.Maps;
 using Content.Shared.Voting;
 using Robust.Shared.Player;
 
@@ -52,6 +54,11 @@ namespace Content.Server.Voting.Managers
         /// </param>
         /// <param name="voteType">The type of standard vote to make.</param>
         void CreateStandardVote(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null);
+
+        /// <summary>
+        /// Starts a server-initiated automatic map vote using the provided candidate list.
+        /// </summary>
+        void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration);
 
         /// <summary>
         /// Create a non-standard vote with special parameters.

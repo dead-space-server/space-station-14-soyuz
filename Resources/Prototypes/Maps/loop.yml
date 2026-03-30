@@ -2,8 +2,8 @@
   id: Loop
   mapName: 'Loop'
   mapPath: /Maps/Soyuz/loop.yml
-  minPlayers: 15
-  maxPlayers: 40
+  minPlayers: 25
+  maxPlayers: 65
   stations:
     Loop:
       stationProto: StandardNanotrasenStation

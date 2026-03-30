@@ -1,5 +1,8 @@
 ﻿using Robust.Shared.Configuration;
 
+using Content.Shared.Administration;
+using Content.Shared.CCVar.CVarAccess;
+
 namespace Content.Shared.CCVar;
 
 public sealed partial class CCVars
@@ -39,6 +42,13 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<bool> VoteMapEnabled =
         CVarDef.Create("vote.map_enabled", false, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Enables automatic pre-round map votes that use the online-based unique map rotation.
+    /// </summary>
+    [CVarControl(AdminFlags.Round)]
+    public static readonly CVarDef<bool> VoteAutoMapEnabled =
+        CVarDef.Create("vote.auto_map_enabled", true, CVar.SERVERONLY);
 
     /// <summary>
     ///     The required ratio of the server that must agree for a restart round vote to go through.

@@ -343,3 +343,150 @@ Entries:
   changes:
   - type: Add
     message: Отображение музыки лобби в левом нижнем углу экрана
+- id: 37
+  author: Genes1us
+  time: '2026-03-17T13:13:12Z'
+  pr: 152
+  changes:
+  - type: Add
+    message: Добавил стандартную маску клоуна в выбор в лобби
+  - type: Tweak
+    message: Иконки АПБТ, Шлем спецназа теперь красный
+- id: 38
+  author: Genes1us
+  time: '2026-03-18T14:31:40Z'
+  pr: 153
+  changes:
+  - type: Tweak
+    message: Временно вернул старый шаттл прибытия до фикса всех багов
+- id: 39
+  author: PERed5
+  time: '2026-03-18T19:55:25Z'
+  pr: 154
+  changes:
+  - type: Add
+    message: Музыка из фростпанка
+  - type: Tweak
+    message: Громкость музыки
+- id: 40
+  author: PERed5
+  time: '2026-03-19T16:35:09Z'
+  pr: 155
+  changes:
+  - type: Add
+    message: Вновь добавлен функционал звонка красному телефончику
+  - type: Add
+    message: Новый звук взрыва боеголовки
+  - type: Add
+    message: Возможность купить топливо ДАМ
+  - type: Tweak
+    message: Трекеры теперь может купить каждый отдел, оружие вновь может купить только милиция
+  - type: Tweak
+    message: Лодаут агоста
+  - type: Remove
+    message: Убран вайтлист рас на роль ГСО (Кроме воксов, ксеноморфов, КПБ/С)
+- id: 41
+  author: Genes1us
+  time: '2026-03-20T17:13:59Z'
+  pr: 158
+  changes:
+  - type: Fix
+    message: После снятия капли блоба возращаются изначальные языки.
+- id: 42
+  author: Genes1us
+  time: '2026-03-21T09:34:27Z'
+  pr: 160
+  changes:
+  - type: Fix
+    message: Удалил 4 пикселя у мантии начальника милиции, ибо выглядит довольно странно..
+- id: 43
+  author: PERed5
+  time: '2026-03-22T17:45:34Z'
+  pr: 162
+  changes:
+  - type: Tweak
+    message: Теперь возможно досрочно эвакуироваться
+- id: 44
+  author: PERed5
+  time: '2026-03-23T21:00:29Z'
+  pr: 163
+  changes:
+  - type: Fix
+    message: Мелкие баги локализации
+  - type: Tweak
+    message: Командир легиона теперь "Центурион", оператор легиона теперь "Легионер"
+- id: 45
+  author: Kofeecheks
+  time: '2026-03-23T22:07:42Z'
+  pr: 165
+  changes:
+  - type: Add
+    message: Пару предметов в РСУ
+- id: 46
+  author: PERed5
+  time: '2026-03-24T04:44:10Z'
+  pr: 164
+  changes:
+  - type: Add
+    message: Карта ишимуры в тестовом формате
+- id: 47
+  author: Kofeecheks
+  time: '2026-03-24T04:49:44Z'
+  pr: 166
+  changes:
+  - type: Tweak
+    message: Передача навыков между персонажами теперь требует подтверждения обеих сторон и проходит постепенно, прерываясь при движении, уроне или выходе из дистанции.
+  - type: Fix
+    message: В списке чужих навыков теперь можно выбрать доступный для обучения навык.
+- id: 48
+  author: PERed5
+  time: '2026-03-25T05:45:52Z'
+  pr: 169
+  changes:
+  - type: Add
+    message: 1 новая песня в лобби
+  - type: Fix
+    message: Ишимура
+- id: 49
+  author: kripssteri
+  time: '2026-03-26T16:00:19Z'
+  pr: 170
+  changes:
+  - type: Add
+    message: Добавлены 2 новых шаттла Почтового отделения с собственными цветами на IFF
+  - type: Fix
+    message: Исправлено отсутствия на риче соковыжималки, шлюзов эвака и плитки у НачКадров
+  - type: Tweak
+    message: Пересмотрен баланс оружейных ради теста. Одобрение от смотрящего получал.
+- id: 50
+  author: Kofeecheks
+  time: '2026-03-26T21:06:56Z'
+  pr: 172
+  changes:
+  - type: Tweak
+    message: Переделана карта USG "Ishimura" с обновлением части шлюзов, объектов и служебных помещений.
+  - type: Add
+    message: На USG "Ishimura" добавлено место старшего утилизатора.
+  - type: Tweak
+    message: Записки на USG "Ishimura" приведены к BBCode-оформлению.
+- id: 51
+  author: Kofeecheks
+  time: '2026-03-28T20:40:25Z'
+  pr: 180
+  changes:
+  - type: Fix
+    message: Система навыков
+- id: 52
+  author: Kofeecheks
+  time: '2026-03-29T10:57:54Z'
+  pr: 181
+  changes:
+  - type: Tweak
+    message: звуки в моно перевела
+- id: 53
+  author: Kofeecheks
+  time: '2026-03-30T15:35:21Z'
+  pr: 188
+  changes:
+  - type: Tweak
+    message: Автозамена слова `имба` на `нечестно` больше не применяется к персонажам младше 25 лет.

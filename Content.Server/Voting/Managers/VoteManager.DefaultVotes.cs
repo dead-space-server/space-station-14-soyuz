@@ -317,9 +317,7 @@ namespace Content.Server.Voting.Managers
                 return false;
 
             var alone = _playerManager.PlayerCount == 1;
-            var duration = alone
-                ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerAlone))
-                : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap));
+            var duration = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap));
 
             if (maxDuration is { } maxVoteDuration && duration > maxVoteDuration)
                 duration = maxVoteDuration;

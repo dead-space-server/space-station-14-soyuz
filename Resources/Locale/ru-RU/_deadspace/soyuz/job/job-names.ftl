@@ -101,7 +101,7 @@ JobBorg = Киборг
 JobBotanist = Агроном
 JobCaptain = Капитан
 JobCargoTechnician = Грузчик
-JobCentralCommandOfficial = Секретарь комитета ГШ
+JobCentralCommandOfficial = Представитель ГШ
 JobCentralCommandAdministrator = Администратор ГенШтаба
 JobCentralCommandOperator = Оператор ГенШтаба
 JobCentralCommandSpecialOperationsOfficer = Генерал Специальных Операций
@@ -171,7 +171,6 @@ JobSeniorCourier = Ведущий логист
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
-# DS14-Soyuz
 job-name-psychologist = Психиатр
 JobPsychologist = Психиатр
 JobPolitruk = Политический Руководитель

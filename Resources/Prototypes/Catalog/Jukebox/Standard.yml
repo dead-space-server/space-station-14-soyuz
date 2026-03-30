@@ -166,3 +166,184 @@
   path:
     path: /Audio/Jukebox/bodraya/ataka-perimetra-bitva-za-bolota.ogg
 
+- type: jukebox
+  id: AdaptatsiyaSlyozyObrechyonnoyBurzhuazii
+  name: "Адаптация - Слёзы обречённой буржуазии"
+  path:
+    path: /Audio/Jukebox/bodraya/adaptatsiya-slyozy-obrechyonnoy-burzhuazii.ogg
+
+- type: jukebox
+  id: AllaPugachevaArlekino
+  name: "Алла Пугачёва - Арлекино"
+  path:
+    path: /Audio/Jukebox/bodraya/alla-pugacheva-arlekino.ogg
+
+- type: jukebox
+  id: AllaPugachevaOstavaysyaMalchikSNami
+  name: "Алла Пугачёва - Оставайся, мальчик, с нами"
+  path:
+    path: /Audio/Jukebox/bodraya/alla-pugacheva-ostavaysya-malchik-s-nami.ogg
+
+- type: jukebox
+  id: ArkadiyKotsAyCarmela
+  name: "Аркадий Коц - Ay Carmela"
+  path:
+    path: /Audio/Jukebox/bodraya/arkadiy-kots-ay-carmela.ogg
+
+- type: jukebox
+  id: ArkadiyKotsKtoStrelyaetVRabochikh
+  name: "Аркадий Коц - Кто стреляет в рабочих?"
+  path:
+    path: /Audio/Jukebox/bodraya/arkadiy-kots-kto-strelyaet-v-rabochikh.ogg
+
+- type: jukebox
+  id: ArkadiyKotsMikhailLebedev
+  name: "Аркадий Коц - Михаил Лебедев"
+  path:
+    path: /Audio/Jukebox/bodraya/arkadiy-kots-mikhail-lebedev.ogg
+
+- type: jukebox
+  id: ArkadiyKotsZabastovka
+  name: "Аркадий Коц - Забастовка"
+  path:
+    path: /Audio/Jukebox/bodraya/arkadiy-kots-zabastovka.ogg
+
+- type: jukebox
+  id: ArkadiyKotsZemlekopy
+  name: "Аркадий Коц - Землекопы"
+  path:
+    path: /Audio/Jukebox/bodraya/arkadiy-kots-zemlekopy.ogg
+
+- type: jukebox
+  id: ChyornyyObeliskMarshRevolyutsii
+  name: "Чёрный Обелиск - Марш революции"
+  path:
+    path: /Audio/Jukebox/bodraya/chyornyy-obelisk-marsh-revolyutsii.ogg
+
+- type: jukebox
+  id: ChyornyyObeliskOborona
+  name: "Чёрный Обелиск - Оборона"
+  path:
+    path: /Audio/Jukebox/bodraya/chyornyy-obelisk-oborona.ogg
+
+- type: jukebox
+  id: ErnstBuschDerHeimlicheAufmarsch
+  name: "Эрнст Буш - Тревожный марш (Der heimliche Aufmarsch)"
+  path:
+    path: /Audio/Jukebox/bodraya/ernst-busch-der-heimliche-aufmarsch.ogg
+
+- type: jukebox
+  id: FrankKlepackiHellMarch2
+  name: "Frank Klepacki - Hell March 2"
+  path:
+    path: /Audio/Jukebox/bodraya/frank-klepacki-hell-march-2.ogg
+
+- type: jukebox
+  id: IfaWartburgFdjFreieDeutscheJugend
+  name: "IFA Wartburg - FDJ (Freie Deutsche Jugend)"
+  path:
+    path: /Audio/Jukebox/bodraya/ifa-wartburg-fdj-freie-deutsche-jugend.ogg
+
+- type: jukebox
+  id: IosifKobzonIVnovProdolzhaetsyaBoy
+  name: "Иосиф Кобзон - И вновь продолжается бой"
+  path:
+    path: /Audio/Jukebox/bodraya/iosif-kobzon-i-vnov-prodolzhaetsya-boy.ogg
+
+- type: jukebox
+  id: KhorImeniPyatnitskogoEkhYablochko
+  name: "Хор имени Пятницкого - Эх, яблочко"
+  path:
+    path: /Audio/Jukebox/bodraya/khor-imeni-pyatnitskogo-ekh-yablochko.ogg
+
+- type: jukebox
+  id: LyubeSoldat
+  name: "Любэ - Солдат"
+  path:
+    path: /Audio/Jukebox/bodraya/lyube-soldat.ogg
+
+- type: jukebox
+  id: ManuPilasBellaCiao
+  name: "Manu Pilas - Bella Ciao"
+  path:
+    path: /Audio/Jukebox/bodraya/manu-pilas-bella-ciao.ogg
+
+- type: jukebox
+  id: PesnyaOMalenkomTrubache
+  name: "Песня о маленьком трубаче"
+  path:
+    path: /Audio/Jukebox/bodraya/pesnya-o-malenkom-trubache.ogg
+
+- type: jukebox
+  id: SatisfaktsiyaRevolyutsiya
+  name: "Сатисфакция - Революция"
+  path:
+    path: /Audio/Jukebox/bodraya/satisfaktsiya-revolyutsiya.ogg
+
+- type: jukebox
+  id: UtroVTebeLeonidIlichBrezhnev
+  name: "Утро в тебе - Леонид Ильич Брежнев"
+  path:
+    path: /Audio/Jukebox/bodraya/utro-v-tebe-leonid-ilich-brezhnev.ogg
+
+- type: jukebox
+  id: UtroVTebeMyNeRaby
+  name: "Утро в тебе - Мы не рабы"
+  path:
+    path: /Audio/Jukebox/bodraya/utro-v-tebe-my-ne-raby.ogg
+
+- type: jukebox
+  id: GeorgiySviridovVremyaVperyodGulanRemastered
+  name: "Георгий Свиридов - Время, вперёд! (Gulan Remastered)"
+  path:
+    path: /Audio/Jukebox/groznaya/georgiy-sviridov-vremya-vperyod-gulan-remastered.ogg
+
+- type: jukebox
+  id: NikolayPrilepskiyLevyyMarsh
+  name: "Николай Прилепский - Левый марш"
+  path:
+    path: /Audio/Jukebox/groznaya/nikolay-prilepskiy-levyy-marsh.ogg
+
+- type: jukebox
+  id: AlyansNaZare
+  name: "Альянс - На заре"
+  path:
+    path: /Audio/Jukebox/grustnaya/alyans-na-zare.ogg
+
+- type: jukebox
+  id: Bi2PolkovnikuNiktoNePishet
+  name: "Би-2 - Полковнику никто не пишет"
+  path:
+    path: /Audio/Jukebox/grustnaya/bi-2-polkovniku-nikto-ne-pishet.ogg
+
+- type: jukebox
+  id: KrasnyeZvyozdyBarrikadnayaLyubov
+  name: "Красные звёзды - Баррикадная любовь"
+  path:
+    path: /Audio/Jukebox/grustnaya/krasnye-zvyozdy-barrikadnaya-lyubov.ogg
+
+- type: jukebox
+  id: LyubeRusskiye
+  name: "Любэ - Русские"
+  path:
+    path: /Audio/Jukebox/grustnaya/lyube-russkiye.ogg
+
+- type: jukebox
+  id: Priroda8080
+  name: "Природа - 8080"
+  path:
+    path: /Audio/Jukebox/grustnaya/priroda-8080.ogg
+
+- type: jukebox
+  id: ValentinStrykaloNasheLeto
+  name: "Валентин Стрыкало - Наше лето"
+  path:
+    path: /Audio/Jukebox/grustnaya/valentin-strykalo-nashe-leto.ogg
+
+- type: jukebox
+  id: VwpqGroza
+  name: "VWPQ - Гроза"
+  path:
+    path: /Audio/Jukebox/grustnaya/vwpq-groza.ogg
+
+# TODO: ???????? ????? ? ?????? ???????? ??????? ????????

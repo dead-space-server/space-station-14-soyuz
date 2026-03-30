@@ -23,10 +23,8 @@ public sealed class GameMapManager : IGameMapManager
 
     [ViewVariables(VVAccess.ReadOnly)]
     private readonly Queue<string> _previousMaps = new();
-    // DS14-Soyuz start: automatic map vote history
     [ViewVariables(VVAccess.ReadOnly)]
-    private readonly HashSet<string> _automaticPlayedMaps = new();
-    // DS14-Soyuz end
+    private readonly HashSet<string> _automaticPlayedMaps = new(); // DS-14-voite
     [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _configSelectedMap;
     [ViewVariables(VVAccess.ReadOnly)]

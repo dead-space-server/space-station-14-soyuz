@@ -2,10 +2,8 @@
   id: Reach
   mapName: 'Reach'
   mapPath: /Maps/Soyuz/reach.yml
-  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 0
-  maxPlayers: 15
-  # DS14-Soyuz-end
+  maxPlayers: 15 # DS-14-voite
   stations:
     Reach:
       stationProto: StandardNanotrasenStation

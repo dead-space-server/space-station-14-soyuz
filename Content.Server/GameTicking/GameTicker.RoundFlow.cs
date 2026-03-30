@@ -147,9 +147,7 @@ namespace Content.Server.GameTicking
                 if (i == 0)
                 {
                     DefaultMap = mapId;
-                    // DS14-Soyuz start: automatic map vote history
-                    _gameMapManager.MarkMapPlayed(maps[i].ID);
-                    // DS14-Soyuz end
+                    _gameMapManager.MarkMapPlayed(maps[i].ID); // DS-14-voite
                 }
             }
         }
@@ -703,10 +701,8 @@ namespace Content.Server.GameTicking
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else
                 {
-                    // DS14-Soyuz start: automatic map vote lobby start
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                    TryStartAutomaticMapVote();
-                    // DS14-Soyuz end
+                    TryStartAutomaticMapVote(); // DS-14-voite
                 }
 
                 SendStatusToAll();
@@ -761,9 +757,7 @@ namespace Content.Server.GameTicking
             _banManager.Restart();
 
             _gameMapManager.ClearSelectedMap();
-            // DS14-Soyuz start: automatic map vote lobby state
-            _automaticMapVoteHandled = false;
-            // DS14-Soyuz end
+            _automaticMapVoteHandled = false; // DS-14-voite
 
             // Clear up any game rules.
             ClearGameRules();

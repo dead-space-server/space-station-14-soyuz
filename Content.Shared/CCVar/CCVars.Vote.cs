@@ -1,7 +1,7 @@
 ﻿using Robust.Shared.Configuration;
 
-using Content.Shared.Administration;
-using Content.Shared.CCVar.CVarAccess;
+using Content.Shared.Administration; // DS-14-voite
+using Content.Shared.CCVar.CVarAccess; // DS-14-voite
 
 namespace Content.Shared.CCVar;
 

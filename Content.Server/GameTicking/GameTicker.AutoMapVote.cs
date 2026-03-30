@@ -1,3 +1,4 @@
+// DS14-Soyuz start: automatic map vote lifecycle
 using System;
 using Content.Shared.CCVar;
 
@@ -5,7 +6,6 @@ namespace Content.Server.GameTicking;
 
 public sealed partial class GameTicker
 {
-    // DS14-Soyuz start: automatic map vote lifecycle
     [ViewVariables]
     private bool _automaticMapVoteHandled;
 
@@ -50,5 +50,5 @@ public sealed partial class GameTicker
         UpdateInfoText();
         return true;
     }
-    // DS14-Soyuz end
 }
+// DS14-Soyuz end

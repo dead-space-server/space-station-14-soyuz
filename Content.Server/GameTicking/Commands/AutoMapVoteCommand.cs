@@ -1,3 +1,4 @@
+// DS14-Soyuz start: automatic map vote admin toggle
 using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
@@ -10,7 +11,6 @@ namespace Content.Server.GameTicking.Commands;
 [AdminCommand(AdminFlags.Round)]
 public sealed class AutoMapVoteCommand : LocalizedCommands
 {
-    // DS14-Soyuz start: automatic map vote admin toggle
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IEntityManager _entManager = default!;
 
@@ -44,5 +44,5 @@ public sealed class AutoMapVoteCommand : LocalizedCommands
             ? "automapvote-command-enabled"
             : "automapvote-command-disabled"));
     }
-    // DS14-Soyuz end
 }
+// DS14-Soyuz end

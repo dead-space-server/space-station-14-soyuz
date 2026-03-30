@@ -2,10 +2,8 @@
   id: CorvaxPaper
   mapName: 'Paper'
   mapPath: /Maps/Soyuz/corvax_paper.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 0
+  minPlayers: 0 # DS-14-voite
   maxPlayers: 40
-  # DS14-Soyuz-end
   stations:
     CorvaxPaper:
       stationProto: StandardNanotrasenStation

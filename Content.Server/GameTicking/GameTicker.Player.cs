@@ -74,10 +74,8 @@ namespace Content.Server.GameTicking
                     if (LobbyEnabled && _roundStartCountdownHasNotStartedYetDueToNoPlayers)
                     {
                         _roundStartCountdownHasNotStartedYetDueToNoPlayers = false;
-                        // DS14-Soyuz start: automatic map vote lobby start
                         _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                        TryStartAutomaticMapVote();
-                        // DS14-Soyuz end
+                        TryStartAutomaticMapVote(); // DS-14-voite
                     }
 
                     break;

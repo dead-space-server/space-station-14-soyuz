@@ -2,9 +2,7 @@
   id: CorvaxAvrite
   mapName: 'Avrite'
   mapPath: /Maps/Soyuz/corvax_avrit.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 70
-  # DS14-Soyuz-end
+  minPlayers: 70 # DS-14-voite
   stations:
     Avrit:
       stationProto: StandardNanotrasenStation

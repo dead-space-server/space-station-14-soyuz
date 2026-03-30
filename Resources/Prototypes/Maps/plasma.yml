@@ -2,10 +2,8 @@
   id: Plasma
   mapName: 'Plasma'
   mapPath: /Maps/Soyuz/plasma.yml
-  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 25
-  maxPlayers: 65
-  # DS14-Soyuz-end
+  maxPlayers: 65 # DS-14-voite
   stations:
     Plasma:
       stationProto: StandardNanotrasenStation

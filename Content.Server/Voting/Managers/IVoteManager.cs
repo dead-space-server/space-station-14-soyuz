@@ -55,10 +55,12 @@ namespace Content.Server.Voting.Managers
         /// <param name="voteType">The type of standard vote to make.</param>
         void CreateStandardVote(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null);
 
+        // DS14-Soyuz start: automatic map vote
         /// <summary>
         /// Starts a server-initiated automatic map vote using the provided candidate list.
         /// </summary>
         void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration);
+        // DS14-Soyuz end
 
         /// <summary>
         /// Create a non-standard vote with special parameters.

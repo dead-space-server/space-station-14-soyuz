@@ -2,8 +2,10 @@
   id: Bagel
   mapName: 'Bagel'
   mapPath: /Maps/Soyuz/bagel.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 25
   maxPlayers: 65
+  # DS14-Soyuz-end
   stations:
     Bagel:
       stationProto: StandardNanotrasenStation

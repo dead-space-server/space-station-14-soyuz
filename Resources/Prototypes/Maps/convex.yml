@@ -2,7 +2,9 @@
   id: Convex
   mapName: 'Convex'
   mapPath: /Maps/Soyuz/convex.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Convex:
       stationProto: StandardNanotrasenStation

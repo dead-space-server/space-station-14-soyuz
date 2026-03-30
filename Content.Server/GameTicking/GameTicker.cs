@@ -45,7 +45,9 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRobustRandom _robustRandom = default!;
+        // DS14-Soyuz start: automatic map vote lifecycle
         [Dependency] private readonly IVoteManager _voteManager = default!;
+        // DS14-Soyuz end
 #if EXCEPTION_TOLERANCE
         [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
 #endif

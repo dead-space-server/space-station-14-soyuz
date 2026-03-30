@@ -13,10 +13,12 @@ public interface IGameMapManager
     /// <returns>enumerator of map prototypes</returns>
     IEnumerable<GameMapPrototype> CurrentlyEligibleMaps();
 
+    // DS14-Soyuz start: automatic map vote candidates
     /// <summary>
     /// Returns the eligible maps for automatic map voting after applying the in-memory uniqueness history.
     /// </summary>
     IReadOnlyList<GameMapPrototype> GetAutomaticVoteCandidates();
+    // DS14-Soyuz end
 
     /// <summary>
     /// Returns all maps that can be voted for.
@@ -71,10 +73,12 @@ public interface IGameMapManager
     /// </summary>
     public void SelectMapByConfigRules();
 
+    // DS14-Soyuz start: automatic map vote history
     /// <summary>
     /// Marks the given map as already played for the automatic map vote history.
     /// </summary>
     void MarkMapPlayed(string gameMap);
+    // DS14-Soyuz end
 
     /// <summary>
     /// Checks if the given map exists

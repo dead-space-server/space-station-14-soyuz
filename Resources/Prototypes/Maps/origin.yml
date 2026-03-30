@@ -2,7 +2,9 @@
   id: Origin
   mapName: 'Origin'
   mapPath: /Maps/Soyuz/origin.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Origin:
       stationProto: StandardNanotrasenStation

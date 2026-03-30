@@ -2,7 +2,9 @@
   id: Gate
   mapName: 'Gate'
   mapPath: /Maps/Soyuz/gate.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Gate:
       stationProto: StandardNanotrasenStation

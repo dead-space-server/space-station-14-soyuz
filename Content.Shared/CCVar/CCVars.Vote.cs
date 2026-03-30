@@ -43,12 +43,14 @@ public sealed partial class CCVars
     public static readonly CVarDef<bool> VoteMapEnabled =
         CVarDef.Create("vote.map_enabled", false, CVar.SERVERONLY);
 
+    // DS14-Soyuz start: automatic map vote toggle
     /// <summary>
     ///     Enables automatic pre-round map votes that use the online-based unique map rotation.
     /// </summary>
     [CVarControl(AdminFlags.Round)]
     public static readonly CVarDef<bool> VoteAutoMapEnabled =
         CVarDef.Create("vote.auto_map_enabled", true, CVar.SERVERONLY);
+    // DS14-Soyuz end
 
     /// <summary>
     ///     The required ratio of the server that must agree for a restart round vote to go through.

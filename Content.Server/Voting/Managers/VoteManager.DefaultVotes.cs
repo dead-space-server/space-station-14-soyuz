@@ -67,9 +67,11 @@ namespace Content.Server.Voting.Managers
                 case StandardVoteType.Preset:
                     CreatePresetVote(initiator, args);
                     break;
+                // DS14-Soyuz start: automatic map vote uses capped candidate list
                 case StandardVoteType.Map:
                     timeoutVote = CreateMapVote(initiator);
                     break;
+                // DS14-Soyuz end
                 case StandardVoteType.Votekick:
                     timeoutVote = false; // Allows the timeout to be updated manually in the create method
                     CreateVotekickVote(initiator, args);
@@ -82,6 +84,7 @@ namespace Content.Server.Voting.Managers
                 TimeoutStandardVote(voteType);
         }
 
+        // DS14-Soyuz start: automatic map vote
         public void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration)
         {
             if (candidates.Count <= 1)
@@ -97,6 +100,7 @@ namespace Content.Server.Voting.Managers
             _gameTicker.UpdateInfoText();
             TimeoutStandardVote(StandardVoteType.Map);
         }
+        // DS14-Soyuz end
 
         private void CreateRestartVote(ICommonSession? initiator)
         {
@@ -300,6 +304,7 @@ namespace Content.Server.Voting.Managers
             };
         }
 
+        // DS14-Soyuz start: automatic map vote
         private bool CreateMapVote(
             ICommonSession? initiator,
             IReadOnlyList<GameMapPrototype>? candidates = null,
@@ -381,6 +386,7 @@ namespace Content.Server.Voting.Managers
 
             return true;
         }
+        // DS14-Soyuz end
 
         private async void CreateVotekickVote(ICommonSession? initiator, string[]? args)
         {

@@ -2,8 +2,10 @@
   id: Barratry
   mapName: 'Barratry'
   mapPath: /Maps/Soyuz/barratry.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 25
   maxPlayers: 55
+  # DS14-Soyuz-end
   stations:
     Barratry:
       stationProto: StandardNanotrasenStation

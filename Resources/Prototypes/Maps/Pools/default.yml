@@ -1,6 +1,7 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
+  # DS14-Soyuz-start: automatic map vote pool
   - Reach
   - CorvaxSilly
   - Saltern
@@ -32,3 +33,4 @@
   - CorvaxDelta
   - CorvaxSpectrum
   - CorvaxGlacier
+  # DS14-Soyuz-end

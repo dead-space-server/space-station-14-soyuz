@@ -2,8 +2,10 @@
   id: Cog
   mapName: 'Cog'
   mapPath: /Maps/Soyuz/cog.yml
+  # DS14-Soyuz-start: automatic map vote online range
   minPlayers: 40
   maxPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Cog:
       stationProto: StandardNanotrasenStation

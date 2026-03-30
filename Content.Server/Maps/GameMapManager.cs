@@ -23,8 +23,10 @@ public sealed class GameMapManager : IGameMapManager
 
     [ViewVariables(VVAccess.ReadOnly)]
     private readonly Queue<string> _previousMaps = new();
+    // DS14-Soyuz start: automatic map vote history
     [ViewVariables(VVAccess.ReadOnly)]
     private readonly HashSet<string> _automaticPlayedMaps = new();
+    // DS14-Soyuz end
     [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _configSelectedMap;
     [ViewVariables(VVAccess.ReadOnly)]
@@ -95,6 +97,7 @@ public sealed class GameMapManager : IGameMapManager
         }
     }
 
+    // DS14-Soyuz start: automatic map vote candidates
     public IEnumerable<GameMapPrototype> CurrentlyEligibleMaps()
     {
         var maps = GetEligibleMaps().ToArray();
@@ -117,6 +120,7 @@ public sealed class GameMapManager : IGameMapManager
         ResetEligibleHistory(eligible);
         return eligible;
     }
+    // DS14-Soyuz end
 
     public IEnumerable<GameMapPrototype> AllVotableMaps()
     {
@@ -207,6 +211,7 @@ public sealed class GameMapManager : IGameMapManager
         return TryLookupMap(gameMap, out _);
     }
 
+    // DS14-Soyuz start: automatic map vote history
     public void MarkMapPlayed(string gameMap)
     {
         if (!TryLookupMap(gameMap, out var map))
@@ -284,4 +289,5 @@ public sealed class GameMapManager : IGameMapManager
             _automaticPlayedMaps.Remove(map.ID);
         }
     }
+    // DS14-Soyuz end
 }

@@ -1,0 +1,9 @@
+ent-RadioImplanter = { ent-BaseImplantOnlyImplanterSyndi }
+    .suffix = радио Рассвет
+    .desc = { ent-BaseImplantOnlyImplanterSyndi.desc }
+ent-RadioImplanterCentcomm = { ent-BaseImplantOnlyImplanter }
+    .suffix = радио ГенШтаб, Генеральный Штаб
+    .desc = { ent-BaseImplantOnlyImplanter.desc }
+ent-DeathRattleImplanterCentcomm = { ent-BaseImplantOnlyImplanter }
+    .suffix = предсмертный хрип Генерального Штаба
+    .desc = { ent-BaseImplantOnlyImplanter.desc }

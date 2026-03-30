@@ -19,6 +19,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Checkout base branch tools
+        uses: actions/checkout@v4
+        with:
+          path: source
+          ref: ${{ github.event.pull_request.base.ref }}
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -31,118 +37,27 @@ jobs:
       - name: Extract PR description
         id: extract
         run: |
-          BODY=$(cat << 'EOF'
-          ${{ github.event.pull_request.body }}
-          EOF
-          )
-          echo "DESCRIPTION<<EOF" >> $GITHUB_ENV
-          echo "$BODY" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_ENV
-          echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          BODY=$(printf '%s' "${{ github.event.pull_request.body }}" | base64 -w0)
+          echo "DESCRIPTION_B64=$BODY" >> "$GITHUB_OUTPUT"
 
       - name: Parse PR description and update changelog
-        id: parse_step
         env:
           DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
           AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          python <<'EOF'
-          import yaml
-          import re
-          import os
-          from datetime import datetime, timezone
-          import base64
-
-          desc_b64 = os.environ.get("DESCRIPTION_B64", "")
-          desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
-          author = os.environ.get("AUTHOR", "")
-          pr = os.environ.get("PR_NUMBER", "")
-
-          desc_no_comments = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
-
-          if ':v:' in desc_no_comments:
-              CHANGELOG = "Resources/Changelog/ChangelogDS14Soyuz.yml"
-          else:
-              CHANGELOG = "Resources/Changelog/ChangelogDS14.yml"
-
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f"selected_file={CHANGELOG}\n")
-
-          if ":cl:" not in desc:
-              logger.info("No :cl: found — skipping")
-              sys.exit(0)
-
-          sections = {"Добавлено": "Add", "Удалено": "Remove", "Изменено": "Tweak", "Исправлено": "Fix"}
-          changes = []
-          found_sections = False
-
-          for title, type_key in sections.items():
-              pattern = rf"- {title}:\s*(.*?)(?=\n- [^:]|$)"
-              for block in re.findall(pattern, desc, flags=re.DOTALL):
-                  lines = [l.strip("- ").strip() for l in block.splitlines() if l.strip()]
-                  if not lines: continue
-                  message = " ".join(lines)
-                  message = re.sub(r"\s+", " ", message).strip()
-                  if message:
-                      changes.append({"type": type_key, "message": message})
-
-          if not changes:
-              if found_sections:
-                  logger.warning("Sections found but no valid changes extracted")
-              else:
-                  logger.warning("No valid changes found")
-              sys.exit(0)
-
-          try:
-              if os.path.exists(CHANGELOG) and os.path.getsize(CHANGELOG) > 0:
-                  with open(CHANGELOG, "r", encoding="utf-8") as f:
-                      data = yaml.safe_load(f) or {}
-                  logger.info(f"Loaded existing changelog")
-              else:
-                  data = {}
-                  logger.info("Creating new changelog file")
-          except yaml.YAMLError as e:
-              logger.error(f"Error parsing YAML: {e}")
-              if os.path.exists(CHANGELOG):
-                  os.rename(CHANGELOG, f"{CHANGELOG}.backup")
-              data = {}
-          except Exception as e:
-              logger.error(f"Unexpected error: {e}")
-              data = {}
-
-          entries = data.get("Entries", [])
-          last_id = max((e.get("id", 0) for e in entries), default=0)
-          entries.append({
-              "id": last_id + 1,
-              "author": author,
-              "time": datetime.now(timezone.utc).isoformat(),
-              "pr": int(pr),
-              "changes": changes
-          })
-          data["Entries"] = entries
-
-          with open(CHANGELOG, "w", encoding="utf-8") as f:
-              yaml.dump(data, f, allow_unicode=True, sort_keys=False, indent=2)
-
-          print(f"Changelog обновлён: {CHANGELOG}")
-          EOF
-        env:
-          DESCRIPTION: ${{ env.DESCRIPTION }}
-          AUTHOR: ${{ env.AUTHOR }}
-          PR_NUMBER: ${{ env.PR_NUMBER }}
+          python source/Tools/pr_changelog.py update-yaml \
+            --body-base64 "$DESCRIPTION_B64" \
+            --author "$AUTHOR" \
+            --pr "$PR_NUMBER" \
+            --time "$(date -u --iso-8601=seconds)" \
+            --changelog-file "Resources/Changelog/ChangelogDS14Soyuz.yml"
 
       - name: Commit and push to changelog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          SELECTED_FILE="${{ steps.parse_step.outputs.selected_file }}"
-
-          if [ -n "$SELECTED_FILE" ]; then
-            git add "$SELECTED_FILE"
-          fi
+          git add "Resources/Changelog/ChangelogDS14Soyuz.yml"
 
           if git diff --cached --quiet; then
             echo "No changes to commit"

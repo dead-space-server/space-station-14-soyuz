@@ -2026,7 +2026,7 @@
       Min: 1
       Max: 10
       PotencyDivisor: 10
-
+# DS14-start
 - type: seed
   id: pear
   name: seeds-pear-name
@@ -2052,3 +2052,4 @@
       Min: 1
       Max: 4
       PotencyDivisor: 25
+# DS14-end

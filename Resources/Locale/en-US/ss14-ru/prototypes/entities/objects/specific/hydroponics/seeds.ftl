@@ -143,5 +143,3 @@ ent-AnomalyBerrySeeds = packet of anomaly berry seeds
     .desc = { ent-SeedBase.desc }
 ent-BloonionSeeds = packet of bloonion seeds
     .desc = { ent-SeedBase.desc }
-ent-PearSeeds = packet of pear seeds
-    .desc = { ent-SeedBase.desc }

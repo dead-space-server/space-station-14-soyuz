@@ -30,5 +30,3 @@ reagent-name-juice-watermelon = арбузный сок
 reagent-desc-juice-watermelon = Вкусный сок арбуза.
 reagent-name-juice-cherry = вишнёвый сок
 reagent-desc-juice-cherry = Вкусный вишнёвый сок, сладкий и терпкий.
-reagent-name-juice-pear = грушевый сок
-reagent-desc-juice-pear = С лёгкой медовой ноткой.

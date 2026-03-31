@@ -162,4 +162,3 @@ food-sequence-taco-gen = тако с { $content }
 # SKEWER
 
 food-sequence-skewer-gen = шашлык с { $content }
-food-sequence-content-pear = груша

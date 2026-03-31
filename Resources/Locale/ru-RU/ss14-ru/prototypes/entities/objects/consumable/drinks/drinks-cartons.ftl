@@ -35,7 +35,3 @@ ent-DrinkJuiceLemonCarton = лимонный сок
     .desc = На первый глоток он кислит, а затем всё равно кислит.
 ent-DrinkJuicePineappleCarton = ананасовый сок
     .desc = На вкус как отпуск в тропиках далеко от космоса.
-ent-DrinkJuicePearCarton = грушевый сок
-    .desc = Определённо легально экспортирован из СССП!
-ent-DrinkJuicePearCartonXL = грушевый сок XL
-    .desc = Определённо легально экспортирован из СССП!

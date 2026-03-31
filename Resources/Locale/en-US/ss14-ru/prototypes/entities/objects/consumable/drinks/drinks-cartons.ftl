@@ -31,7 +31,3 @@ ent-DrinkJuiceOrangeCartonXL = orange juice XL
     .desc = Full of vitamins and deliciousness!
 ent-DrinkCreamCartonXL = milk cream XL
     .desc = It's cream. Made from milk. What else did you think you'd find in there?
-ent-DrinkJuicePearCarton = pear juice
-    .desc = Definitely legally exported from USSP!
-ent-DrinkJuicePearCartonXL = pear juice XL
-    .desc = Definitely legally exported from USSP!

@@ -353,5 +353,3 @@ flavor-complex-punishment = как наказание
 flavor-complex-artifact-glue = как дроблённые артефакты
 flavor-weh = как вех
 flavor-hew = как хев
-flavor-complex-pear = как груши
-flavor-complex-pearonade = как освежающая груша

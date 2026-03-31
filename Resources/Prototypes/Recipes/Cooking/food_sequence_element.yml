@@ -1573,9 +1573,7 @@
 #  name: food-sequence-cotton-burger-content-among-pequeno
 #  sprites:
 #  - sprite: Objects/Fun/pequeno.rsi
-
-# Pear
-
+# DS14-start
 - type: foodSequenceElement
   id: Pear
   name: food-sequence-content-pear
@@ -1584,3 +1582,4 @@
     state: produce
   tags:
   - Fruit
+# DS14-end

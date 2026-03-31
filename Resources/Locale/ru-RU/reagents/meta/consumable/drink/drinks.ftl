@@ -64,5 +64,3 @@ reagent-name-mopwata = швабода
 reagent-desc-mopwata = Грязная, застоявшаяся вода из-под швабры, швабровая вода.
 reagent-name-kvass = квас
 reagent-desc-kvass = Легендарный кваааасссс!!!!!
-reagent-name-pearonade = дюшес
-reagent-desc-pearonade = Газировка со вкусом легендарного сорта груш. Никакого отношения к герцогиням

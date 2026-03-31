@@ -2843,7 +2843,7 @@
         - MobMask
         layer:
         - MobLayer
-
+# DS14-start
 - type: entity
   name: pear
   parent: FoodProduceBase
@@ -2869,7 +2869,7 @@
   - type: Produce
     seedId: pear
   - type: Extractable
-    showInGuidebook: false # //DS-14
+    showInGuidebook: false # DS14: hidden until DS-specific pear localization is loaded.
     juiceSolution:
       reagents:
       - ReagentId: JuicePear
@@ -2881,3 +2881,4 @@
     entries:
       Burger: Pear
       Taco: Pear
+# DS14-end

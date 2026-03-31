@@ -2,8 +2,10 @@
   id: Amber
   mapName: 'Amber'
   mapPath: /Maps/Soyuz/amber.yml
-  minPlayers: 25
-  maxPlayers: 45
+  # DS14-Soyuz-start: automatic map vote online range
+  minPlayers: 30
+  maxPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Amber:
       stationProto: StandardNanotrasenStation

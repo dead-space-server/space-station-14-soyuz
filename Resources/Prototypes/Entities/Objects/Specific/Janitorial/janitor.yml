@@ -402,3 +402,14 @@
         Piercing: 3
     soundHit:
       path: "/Audio/Weapons/bladeslice.ogg"
+
+- type: entity
+  parent: WireBrush
+  id: WireBrushElectrical
+  name: electrical wire brush
+  description: A powered wire brush for custodial cyborgs. Scrapes rust three times faster than a standard wire brush.
+  categories: [ HideSpawnMenu ]
+  components:
+  # // DS-14 soyuz
+  - type: Tool
+    speedModifier: 3

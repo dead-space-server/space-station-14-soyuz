@@ -2,8 +2,9 @@
   id: Oasis
   mapName: 'Oasis'
   mapPath: /Maps/Soyuz/oasis.yml
-  minPlayers: 25
-  maxPlayers: 40
+  # DS14-Soyuz-start: automatic map vote online range
+  minPlayers: 70
+  # DS14-Soyuz-end
   stations:
     Oasis:
       stationProto: StandardNanotrasenStation

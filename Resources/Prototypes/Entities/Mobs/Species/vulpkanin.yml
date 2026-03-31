@@ -6,6 +6,8 @@
   name: Urist McBark
   components:
   # DS14-start
+  - type: SpeedSliding
+    slideDistance: 5
   - type: InteractionPopup
     successChance: 1
     interactSuccessString: hugging-success-generic-no-erp # Я запрещаю вульпам обниматься

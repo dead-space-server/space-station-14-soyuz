@@ -2,7 +2,7 @@
   id: Box
   mapName: 'Box'
   mapPath: /Maps/Soyuz/ds_box.yml
-  minPlayers: 40
+  minPlayers: 70 # DS-14-voite
   stations:
     Boxstation:
       stationProto: StandardNanotrasenStation

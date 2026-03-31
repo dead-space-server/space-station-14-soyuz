@@ -2,8 +2,10 @@
   id: Gemini
   mapName: 'Gemini'
   mapPath: /Maps/Soyuz/gemini.yml
-  minPlayers: 25
-  maxPlayers: 40
+  # DS14-Soyuz-start: automatic map vote online range
+  minPlayers: 30
+  maxPlayers: 50
+  # DS14-Soyuz-end
   stations:
     Gemini:
       stationProto: StandardNanotrasenStation

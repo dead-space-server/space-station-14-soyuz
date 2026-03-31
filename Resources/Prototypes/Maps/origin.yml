@@ -2,7 +2,7 @@
   id: Origin
   mapName: 'Origin'
   mapPath: /Maps/Soyuz/origin.yml
-  minPlayers: 40
+  minPlayers: 70 # DS-14-voite
   stations:
     Origin:
       stationProto: StandardNanotrasenStation

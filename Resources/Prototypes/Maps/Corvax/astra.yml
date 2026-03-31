@@ -2,7 +2,7 @@
   id: CorvaxAstra
   mapName: 'Astra'
   mapPath: /Maps/Soyuz/corvax_astra.yml
-  minPlayers: 60
+  minPlayers: 70 # DS-14-voite
   stations:
     Astra:
       stationProto: StandardNanotrasenStation

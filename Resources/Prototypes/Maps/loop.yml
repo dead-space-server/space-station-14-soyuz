@@ -2,8 +2,10 @@
   id: Loop
   mapName: 'Loop'
   mapPath: /Maps/Soyuz/loop.yml
-  minPlayers: 15
-  maxPlayers: 40
+  # DS14-Soyuz-start: automatic map vote online range
+  minPlayers: 25
+  maxPlayers: 65
+  # DS14-Soyuz-end
   stations:
     Loop:
       stationProto: StandardNanotrasenStation

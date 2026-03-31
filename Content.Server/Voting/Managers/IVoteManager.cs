@@ -1,4 +1,6 @@
+using System; // DS-14-voite
 using System.Diagnostics.CodeAnalysis;
+using Content.Server.Maps; // DS-14-voite
 using Content.Shared.Voting;
 using Robust.Shared.Player;
 
@@ -52,6 +54,13 @@ namespace Content.Server.Voting.Managers
         /// </param>
         /// <param name="voteType">The type of standard vote to make.</param>
         void CreateStandardVote(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null);
+
+        // DS14-Soyuz start: automatic map vote
+        /// <summary>
+        /// Starts a server-initiated automatic map vote using the provided candidate list.
+        /// </summary>
+        void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration);
+        // DS14-Soyuz end
 
         /// <summary>
         /// Create a non-standard vote with special parameters.

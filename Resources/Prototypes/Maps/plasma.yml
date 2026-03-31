@@ -3,7 +3,7 @@
   mapName: 'Plasma'
   mapPath: /Maps/Soyuz/plasma.yml
   minPlayers: 25
-  maxPlayers: 40
+  maxPlayers: 65 # DS-14-voite
   stations:
     Plasma:
       stationProto: StandardNanotrasenStation

@@ -14,4 +14,7 @@ public sealed partial class ExtractableComponent : Component
 
     [DataField("grindableSolutionName")]
     public string? GrindableSolution;
+
+    [DataField("showInGuidebook")] //DS-14
+    public bool ShowInGuidebook = true; //DS-14
 };

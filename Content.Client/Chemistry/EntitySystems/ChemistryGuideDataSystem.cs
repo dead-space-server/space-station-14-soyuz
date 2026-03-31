@@ -93,6 +93,9 @@ public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
             if (!entProto.TryGetComponent<ExtractableComponent>(out var extractableComponent, EntityManager.ComponentFactory))
                 continue;
 
+            if (!extractableComponent.ShowInGuidebook) //DS-14
+                continue; //DS-14
+
             //these bloat the hell out of blood/fat
             if (entProto.HasComponent<BodyPartComponent>())
                 continue;

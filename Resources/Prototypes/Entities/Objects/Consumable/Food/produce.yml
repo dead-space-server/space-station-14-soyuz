@@ -2869,6 +2869,7 @@
   - type: Produce
     seedId: pear
   - type: Extractable
+    showInGuidebook: false # //DS-14
     juiceSolution:
       reagents:
       - ReagentId: JuicePear

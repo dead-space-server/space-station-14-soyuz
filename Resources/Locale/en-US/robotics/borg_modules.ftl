@@ -8,6 +8,8 @@ borg-slot-small-containers-empty = Small containers
 borg-slot-chemical-containers-empty = Chemical containers
 borg-slot-documents-empty = Books and papers
 borg-slot-soap-empty = Soap
+# // DS-14 soyuz
+borg-slot-cleanade-empty = Cleanade
 borg-slot-instruments-empty = Instruments
 borg-slot-beakers-empty = Beakers
 borg-slot-inflatable-door-empty = Inflatable Door

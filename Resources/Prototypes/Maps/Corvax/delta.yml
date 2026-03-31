@@ -2,7 +2,7 @@
   id: CorvaxDelta
   mapName: 'Delta'
   mapPath: /Maps/Soyuz/corvax_delta.yml
-  minPlayers: 60
+  minPlayers: 70 # DS-14-voite
   stations:
     Delta:
       stationProto: StandardNanotrasenStation

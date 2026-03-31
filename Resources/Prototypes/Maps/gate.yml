@@ -2,7 +2,7 @@
   id: Gate
   mapName: 'Gate'
   mapPath: /Maps/Soyuz/gate.yml
-  minPlayers: 40
+  minPlayers: 70 # DS-14-voite
   stations:
     Gate:
       stationProto: StandardNanotrasenStation

@@ -346,4 +346,128 @@
   path:
     path: /Audio/Jukebox/grustnaya/vwpq-groza.ogg
 
-# TODO: ???????? ????? ? ?????? ???????? ??????? ????????
+- type: jukebox
+  id: AleksandrRozenbaumSkorayaPomoshch
+  name: "Александр Розенбаум - Скорая помощь"
+  path:
+    path: /Audio/Jukebox/lampovaya/aleksandr-rozenbaum-skoraya-pomoshch.ogg
+
+- type: jukebox
+  id: AleksandrRozenbaumTolstyyFraer
+  name: "Александр Розенбаум - Толстый фраер"
+  path:
+    path: /Audio/Jukebox/lampovaya/aleksandr-rozenbaum-tolstyy-fraer.ogg
+
+- type: jukebox
+  id: AnsamblRossiyskoyArmiiShirokaStranaMoyaRodnaya
+  name: "Ансамбль Российской армии - Широка страна моя родная"
+  path:
+    path: /Audio/Jukebox/lampovaya/ansambl-rossiyskoy-armii-shiroka-strana-moya-rodnaya.ogg
+
+- type: jukebox
+  id: ArielVKrayuMagnoliy
+  name: "Ариэль - В краю магнолий"
+  path:
+    path: /Audio/Jukebox/lampovaya/ariel-v-krayu-magnoliy.ogg
+
+- type: jukebox
+  id: CarlosPueblaHastaSiempreComandante
+  name: "Carlos Puebla - Hasta Siempre, Comandante"
+  path:
+    path: /Audio/Jukebox/lampovaya/carlos-puebla-hasta-siempre-comandante.ogg
+
+- type: jukebox
+  id: DdtChay
+  name: "ДДТ - Чай"
+  path:
+    path: /Audio/Jukebox/lampovaya/ddt-chay.ogg
+
+- type: jukebox
+  id: DdtVeter
+  name: "ДДТ - Ветер"
+  path:
+    path: /Audio/Jukebox/lampovaya/ddt-veter.ogg
+
+- type: jukebox
+  id: DmitriShostakovichWaltzNo2
+  name: "Дмитрий Шостакович - Вальс № 2"
+  path:
+    path: /Audio/Jukebox/lampovaya/dmitri-shostakovich-waltz-no-2.ogg
+
+- type: jukebox
+  id: EtDetiAtomnogoSolntsa
+  name: "ЕТ - Дети атомного солнца"
+  path:
+    path: /Audio/Jukebox/lampovaya/et-deti-atomnogo-solntsa.ogg
+
+- type: jukebox
+  id: GeoffplaysguitarZvezdnoyeLeto
+  name: "Geoffplaysguitar - Звёздное лето"
+  path:
+    path: /Audio/Jukebox/lampovaya/geoffplaysguitar-zvezdnoye-leto.ogg
+
+- type: jukebox
+  id: InkaSchritte
+  name: "Inka - Schritte"
+  path:
+    path: /Audio/Jukebox/lampovaya/inka-schritte.ogg
+
+- type: jukebox
+  id: KombinatsiyaKhodKonyom
+  name: "Комбинация - Ход конём"
+  path:
+    path: /Audio/Jukebox/lampovaya/kombinatsiya-khod-konyom.ogg
+
+- type: jukebox
+  id: LeonidUtyosovGadamNetPoshchady
+  name: "Леонид Утёсов - Гадам нет пощады"
+  path:
+    path: /Audio/Jukebox/lampovaya/leonid-utyosov-gadam-net-poshchady.ogg
+
+- type: jukebox
+  id: LeonidUtyosovPesnyaStarogoIzvozchika
+  name: "Леонид Утёсов - Песня старого извозчика"
+  path:
+    path: /Audio/Jukebox/lampovaya/leonid-utyosov-pesnya-starogo-izvozchika.ogg
+
+- type: jukebox
+  id: MildlifeTheMagnificentMoon
+  name: "Mildlife - The Magnificent Moon"
+  path:
+    path: /Audio/Jukebox/lampovaya/mildlife-the-magnificent-moon.ogg
+
+- type: jukebox
+  id: NaukogradVremya
+  name: "Наукоград - Время"
+  path:
+    path: /Audio/Jukebox/lampovaya/naukograd-vremya.ogg
+
+- type: jukebox
+  id: SiberiadaPokhod
+  name: "Сибириада - Поход"
+  path:
+    path: /Audio/Jukebox/lampovaya/siberiada-pokhod.ogg
+
+- type: jukebox
+  id: UdarySintezatorovPredchuvstvieKosmosa
+  name: "Удары синтезаторов - Предчувствие космоса"
+  path:
+    path: /Audio/Jukebox/lampovaya/udary-sintezatorov-predchuvstvie-kosmosa.ogg
+
+- type: jukebox
+  id: UdarySintezatorovPulsar
+  name: "Удары синтезаторов - Пульсар"
+  path:
+    path: /Audio/Jukebox/lampovaya/udary-sintezatorov-pulsar.ogg
+
+- type: jukebox
+  id: VladimirVysotskiyNaGranitseSTurtsiey
+  name: "Владимир Высоцкий - Песня о нейтральной полосе (На границе с Турцией)"
+  path:
+    path: /Audio/Jukebox/lampovaya/vladimir-vysotskiy-na-granitse-s-turtsiey.ogg
+
+- type: jukebox
+  id: VladimirVysotskiyPesnyaOSumasshedshemDome
+  name: "Владимир Высоцкий - Песня о сумасшедшем доме"
+  path:
+    path: /Audio/Jukebox/lampovaya/vladimir-vysotskiy-pesnya-o-sumasshedshem-dome.ogg

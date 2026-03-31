@@ -582,7 +582,7 @@
       - pear
       - bread
   - type: Sprite
-    sprite: Objects/Consumable/Food/Baked/pie.rsi
+    sprite: _DeadSpace/Objects/Consumable/Food/Baked/peartart.rsi
     state: pear
   - type: SolutionContainerManager
     solutions:

@@ -638,7 +638,7 @@
   flavor: pearonade
   color: "#E39A3A"
   metamorphicSprite:
-    sprite: Objects/Consumable/Drinks/pearonade.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearonade.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 6
   metamorphicFillBaseName: fill-

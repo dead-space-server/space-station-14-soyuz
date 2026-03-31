@@ -2863,7 +2863,7 @@
         - ReagentId: Vitamin
           Quantity: 4
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/pear.rsi
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/pear.rsi
   - type: Item
     heldPrefix: produce
   - type: Produce

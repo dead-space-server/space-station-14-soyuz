@@ -180,7 +180,7 @@
   flavor: pear
   color: "#f2d36b"
   metamorphicSprite:
-    sprite: Objects/Consumable/Drinks/pearjuice.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearjuice.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 6
   metamorphicFillBaseName: fill-

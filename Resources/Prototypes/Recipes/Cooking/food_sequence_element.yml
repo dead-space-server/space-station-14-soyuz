@@ -1578,7 +1578,7 @@
   id: Pear
   name: food-sequence-content-pear
   sprites:
-  - sprite: Objects/Specific/Hydroponics/pear.rsi
+  - sprite: _DeadSpace/Objects/Specific/Hydroponics/pear.rsi
     state: produce
   tags:
   - Fruit

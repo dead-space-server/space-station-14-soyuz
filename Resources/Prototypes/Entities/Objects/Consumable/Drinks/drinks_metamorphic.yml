@@ -2608,7 +2608,7 @@
         - ReagentId: Pearonade
           Quantity: 30
   - type: Icon
-    sprite: Objects/Consumable/Drinks/pearonade.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearonade.rsi
     state: icon
 
 - type: entity
@@ -2625,5 +2625,5 @@
         - ReagentId: JuicePear
           Quantity: 30
   - type: Icon
-    sprite: Objects/Consumable/Drinks/pearjuice.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearjuice.rsi
     state: icon

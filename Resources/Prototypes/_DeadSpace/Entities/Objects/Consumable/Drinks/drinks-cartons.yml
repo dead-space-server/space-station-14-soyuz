@@ -11,7 +11,7 @@
         - ReagentId: JuicePear
           Quantity: 50
   - type: Sprite
-    sprite: Objects/Consumable/Drinks/pearcarton.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearcarton.rsi
 
 - type: entity
   parent: DrinkCartonBaseXtraLargeFull
@@ -29,4 +29,4 @@
   - type: Label
     currentLabel: reagent-name-juice-pear
   - type: Sprite
-    sprite: Objects/Consumable/Drinks/pearcarton.rsi
+    sprite: _DeadSpace/Objects/Consumable/Drinks/pearcarton.rsi

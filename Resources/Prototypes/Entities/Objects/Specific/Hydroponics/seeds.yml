@@ -781,4 +781,4 @@
     - type: Seed
       seedId: pear
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/pear.rsi
+      sprite: _DeadSpace/Objects/Specific/Hydroponics/pear.rsi

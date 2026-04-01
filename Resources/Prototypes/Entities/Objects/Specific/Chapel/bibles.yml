@@ -25,8 +25,8 @@
       types:
         Heat: 10
     # DS14-start: corpse revival settings
-    reviveDeadChance: 0.01
-    reviveDeadDamageFraction: 0.99
+    reviveDeadChance: 0.05
+    reviveDeadDamageFraction: 0.1
     restoreBloodOnRevive: true
     reviveDeadOncePerBody: true
     # DS14-end

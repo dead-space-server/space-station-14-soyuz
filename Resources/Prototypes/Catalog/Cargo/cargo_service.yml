@@ -249,13 +249,3 @@
   cost: 1000
   category: cargoproduct-category-name-service
   group: service # DS14
-
-- type: cargoProduct
-  id: ServicePolaroidCartridges
-  icon:
-    sprite: _DeadSpace/Objects/Misc/tonercartridge.rsi
-    state: icon
-  product: CrateServicePolaroidCartridges
-  cost: 1200
-  category: cargoproduct-category-name-service
-  group: service # DS14

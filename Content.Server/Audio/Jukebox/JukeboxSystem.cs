@@ -318,3 +318,160 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         Dirty(uid, component);
     }
 
+    private void ShowSelectionVisual(EntityUid uid, JukeboxComponent component)
+    {
+        DirectSetVisualState(uid, JukeboxVisualState.Select);
+        component.Selecting = true;
+        component.SelectAccumulator = 0f;
+    }
+
+    private bool HasActiveStream(EntityUid? audioStream)
+    {
+        return TryComp(audioStream, out AudioComponent? audio) && audio.State != AudioState.Stopped;
+    }
+
+    private ProtoId<JukeboxPrototype>? ResolveNextSong(EntityUid uid, JukeboxComponent component, out bool fromHistory)
+    {
+        if (TryMoveHistoryIndex(uid, 1, out var historySong))
+        {
+            fromHistory = true;
+            return historySong;
+        }
+
+        fromHistory = false;
+        return component.ShuffleEnabled
+            ? PickShuffledSong(component.SelectedSongId)
+            : GetAdjacentSong(component.SelectedSongId, 1);
+    }
+
+    private ProtoId<JukeboxPrototype>? ResolvePreviousSong(EntityUid uid, JukeboxComponent component, out bool fromHistory)
+    {
+        if (TryMoveHistoryIndex(uid, -1, out var historySong))
+        {
+            fromHistory = true;
+            return historySong;
+        }
+
+        fromHistory = false;
+        return GetAdjacentSong(component.SelectedSongId, -1);
+    }
+
+    private ProtoId<JukeboxPrototype>? GetAdjacentSong(ProtoId<JukeboxPrototype>? currentSongId, int direction)
+    {
+        var orderedSongs = GetOrderedSongs();
+        if (orderedSongs.Count == 0)
+            return null;
+
+        if (currentSongId == null)
+            return direction < 0 ? orderedSongs[^1].ID : orderedSongs[0].ID;
+
+        var currentIndex = orderedSongs.FindIndex(proto => proto.ID == currentSongId.Value);
+        if (currentIndex == -1)
+            return direction < 0 ? orderedSongs[^1].ID : orderedSongs[0].ID;
+
+        var nextIndex = (currentIndex + direction + orderedSongs.Count) % orderedSongs.Count;
+        return orderedSongs[nextIndex].ID;
+    }
+
+    private ProtoId<JukeboxPrototype>? PickShuffledSong(ProtoId<JukeboxPrototype>? currentSongId)
+    {
+        var orderedSongs = GetOrderedSongs();
+        if (orderedSongs.Count == 0)
+            return null;
+
+        if (orderedSongs.Count == 1)
+            return orderedSongs[0].ID;
+
+        if (currentSongId != null)
+            orderedSongs.RemoveAll(proto => proto.ID == currentSongId.Value);
+
+        return orderedSongs.Count == 0 ? null : _random.Pick(orderedSongs).ID;
+    }
+
+    private List<JukeboxPrototype> GetOrderedSongs()
+    {
+        var orderedSongs = _protoManager.EnumeratePrototypes<JukeboxPrototype>().ToList();
+        orderedSongs.Sort(static (left, right) => string.Compare(left.Name, right.Name, StringComparison.OrdinalIgnoreCase));
+        return orderedSongs;
+    }
+
+    private bool TryGetSongLength(ProtoId<JukeboxPrototype>? songId, out float length)
+    {
+        length = 0f;
+        if (!TryResolveSong(songId, out var proto))
+            return false;
+
+        length = (float) Audio.GetAudioLength(Audio.ResolveSound(proto.Path)).TotalSeconds;
+        return true;
+    }
+
+    private bool TryResolveSong(ProtoId<JukeboxPrototype>? songId, out JukeboxPrototype proto)
+    {
+        if (songId != null && _protoManager.Resolve(songId.Value, out var resolvedProto))
+        {
+            proto = resolvedProto;
+            return true;
+        }
+
+        proto = default!;
+        return false;
+    }
+
+    private float GetPlaybackPosition(AudioComponent audio)
+    {
+        if (audio.State == AudioState.Paused)
+            return Math.Max(0f, (float) ((audio.PauseTime ?? _timing.CurTime) - audio.AudioStart).TotalSeconds);
+
+        if (audio.State == AudioState.Playing)
+            return Math.Max(0f, (float) (_timing.CurTime - audio.AudioStart).TotalSeconds);
+
+        return 0f;
+    }
+
+    private PlaybackHistoryState GetPlaybackState(EntityUid uid)
+    {
+        if (_playbackStates.TryGetValue(uid, out var state))
+            return state;
+
+        state = new PlaybackHistoryState();
+        _playbackStates[uid] = state;
+        return state;
+    }
+
+    private void PushHistory(EntityUid uid, ProtoId<JukeboxPrototype> songId)
+    {
+        var state = GetPlaybackState(uid);
+
+        if (state.HistoryIndex >= 0 &&
+            state.HistoryIndex < state.History.Count &&
+            state.History[state.HistoryIndex] == songId)
+        {
+            return;
+        }
+
+        if (state.HistoryIndex < state.History.Count - 1)
+        {
+            state.History.RemoveRange(state.HistoryIndex + 1, state.History.Count - state.HistoryIndex - 1);
+        }
+
+        state.History.Add(songId);
+        state.HistoryIndex = state.History.Count - 1;
+    }
+
+    private bool TryMoveHistoryIndex(EntityUid uid, int direction, out ProtoId<JukeboxPrototype> songId)
+    {
+        var state = GetPlaybackState(uid);
+        var nextIndex = state.HistoryIndex + direction;
+
+        if (nextIndex >= 0 && nextIndex < state.History.Count)
+        {
+            state.HistoryIndex = nextIndex;
+            songId = state.History[state.HistoryIndex];
+            return true;
+        }
+
+        songId = default;
+        return false;
+    }
+    // DS-14 end
+}

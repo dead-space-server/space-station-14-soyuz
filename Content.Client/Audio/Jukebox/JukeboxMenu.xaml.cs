@@ -323,3 +323,83 @@ public sealed partial class JukeboxMenu : FancyWindow
         _updatingSongList = true;
         MusicList.Clear();
 
+        var filter = SearchInput.Text.Trim();
+        foreach (var song in _allSongs)
+        {
+            if (!string.IsNullOrEmpty(filter) &&
+                !song.Name.Contains(filter, StringComparison.OrdinalIgnoreCase) &&
+                !song.ID.Contains(filter, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            var item = MusicList.AddItem(song.Name, metadata: song.ID);
+            item.Selected = _selectedSongId == song.ID;
+        }
+
+        _updatingSongList = false;
+    }
+
+    private void RefreshSelection()
+    {
+        _updatingSongList = true;
+        foreach (var item in MusicList)
+        {
+            item.Selected = item.Metadata is string songId && _selectedSongId == songId;
+        }
+
+        _updatingSongList = false;
+    }
+
+    private void OnVolumeSliderChanged()
+    {
+        if (_updatingVolume)
+            return;
+
+        // DS-14
+        _volumeInteractionTimer = VolumeInteractionHoldTime;
+        _volume = JukeboxVolume.Clamp(1f - VolumeSlider.Value);
+        // DS-14
+        _jukeboxSystem.SetVolumeOverride(_jukebox, _volume);
+        UpdateVolumeLabel();
+        TryApplyLocalVolume(_volume);
+
+        if (Math.Abs(_volume - _lastSentVolume) <= VolumeSendTolerance)
+            return;
+
+        _pendingVolumeSend = true;
+    }
+
+    private void FlushPendingVolume()
+    {
+        _volumeSendAccumulator = 0f;
+
+        if (Math.Abs(_volume - _lastSentVolume) <= VolumeSendTolerance)
+        {
+            _pendingVolumeSend = false;
+            return;
+        }
+
+        _lastSentVolume = _volume;
+        _pendingVolumeSend = false;
+        // DS-14
+        _awaitingVolumeSync = true;
+        SetVolume?.Invoke(_volume);
+    }
+
+    private void UpdateVolumeLabel()
+    {
+        VolumeValueLabel.Text = $"{(int) MathF.Round(_volume * 100f)}%";
+    }
+
+    private bool HasActiveLocalVolumeOverride =>
+        // DS-14
+        _volumeInteractionTimer > 0f || _pendingVolumeSend || _awaitingVolumeSync;
+
+    private void TryApplyLocalVolume(float volume)
+    {
+        // DS-14
+        _jukeboxSystem.ApplyClientVolume(_audio, volume);
+    }
+    // DS-14 end
+}

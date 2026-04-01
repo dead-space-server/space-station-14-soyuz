@@ -136,3 +136,33 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
         SendMessage(new JukeboxSetTimeMessage(sentTime));
     }
+
+    public void SetVolume(float volume)
+    {
+        // DS-14
+        SendMessage(new JukeboxSetVolumeMessage(volume));
+    }
+
+    public bool TryGetLocalVolumeOverride(out float volume)
+    {
+        // DS-14 start
+        if (_menu != null)
+            return _menu.TryGetLocalVolumeOverride(out volume);
+
+        volume = default;
+        return false;
+        // DS-14 end
+    }
+
+    private void CommitVolumeState()
+    {
+        // DS-14 start
+        if (_volumeStateCommitted || _menu == null)
+            return;
+
+        _volumeStateCommitted = true;
+        _menu.CommitVolumeState();
+        // DS-14 end
+    }
+}
+

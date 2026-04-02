@@ -11,11 +11,24 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.IoC;
 using Robust.Shared.Maths;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using Color = Robust.Shared.Maths.Color;
 
 namespace Content.Client.DeadSpace.Polaroid.UI;
 
 public sealed class PolaroidPhotoWindow : DefaultWindow
 {
+    private const float ExportMarginRatio = 18f / 252f;
+    private const float ExportSignatureHeightRatio = 56f / 252f;
+    private const float ExportGapRatio = 18f / 252f;
+    private const float ExportBorderRatio = 2f / 252f;
+    private static readonly Color PolaroidColor = Color.FromHex("#efe3c9");
+    private static readonly Color PolaroidBorderColor = Color.FromHex("#d7c7a8");
+    private static readonly Color SignaturePlaceholderColor = Color.FromHex("#a29b90");
+    private static readonly Color SignatureInkColor = Color.FromHex("#2d2923");
+
+    [Dependency] private readonly IClyde _clyde = default!;
     [Dependency] private readonly IResourceCache _resourceCache = default!;
     [Dependency] private readonly IFileDialogManager _fileDialogManager = default!;
 
@@ -27,8 +40,13 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
     private readonly LineEdit _signatureEdit;
     private readonly Button _signatureSaveButton;
     private readonly PolaroidPhotoViewer _photoViewer;
+    private readonly Font _signatureFont;
     private byte[] _currentPng = Array.Empty<byte>();
+    private Texture? _currentTexture;
+    private string _currentSignatureText = string.Empty;
+    private Color _currentSignatureColor = SignaturePlaceholderColor;
     private bool _savingPhoto;
+    private PendingPhotoExport? _pendingExport;
 
     public event Action<string>? SignatureChanged;
 
@@ -39,8 +57,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         Title = Loc.GetString("polaroid-photo-ui-title");
         MinSize = new Vector2(360f, 560f);
 
-        var polaroidColor = Color.FromHex("#efe3c9");
-        var polaroidBorderColor = Color.FromHex("#d7c7a8");
+        _signatureFont = _resourceCache.GetFont("/Fonts/HandveticaNeue/Palaroid_shrifte.ttf", 18);
 
         var root = new BoxContainer
         {
@@ -57,8 +74,8 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             VerticalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = polaroidColor,
-                BorderColor = polaroidBorderColor,
+                BackgroundColor = PolaroidColor,
+                BorderColor = PolaroidBorderColor,
                 BorderThickness = new Thickness(2),
                 ContentMarginLeftOverride = 18,
                 ContentMarginTopOverride = 18,
@@ -84,7 +101,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             VerticalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = polaroidColor,
+                BackgroundColor = PolaroidColor,
             }
         };
 
@@ -104,7 +121,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             HorizontalExpand = true,
             PanelOverride = new StyleBoxFlat
             {
-                BackgroundColor = polaroidColor,
+                BackgroundColor = PolaroidColor,
             }
         };
 
@@ -117,7 +134,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         {
             Align = Label.AlignMode.Center,
             HorizontalAlignment = HAlignment.Center,
-            FontOverride = _resourceCache.GetFont("/Fonts/HandveticaNeue/Palaroid_shrifte.ttf", 18),
+            FontOverride = _signatureFont,
         };
 
         signatureCenter.AddChild(_signatureLabel);
@@ -196,19 +213,22 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
         if (!signed)
         {
-            _signatureLabel.Text = Loc.GetString("polaroid-photo-ui-signature-empty");
-            _signatureLabel.ModulateSelfOverride = Color.FromHex("#a29b90");
+            _currentSignatureText = Loc.GetString("polaroid-photo-ui-signature-empty");
+            _currentSignatureColor = SignaturePlaceholderColor;
         }
         else
         {
-            _signatureLabel.Text = state.Signature;
-            _signatureLabel.ModulateSelfOverride = Color.FromHex("#2d2923");
+            _currentSignatureText = state.Signature!;
+            _currentSignatureColor = SignatureInkColor;
         }
 
+        _signatureLabel.Text = _currentSignatureText;
+        _signatureLabel.ModulateSelfOverride = _currentSignatureColor;
         _saveButton.Disabled = state.Png.Length == 0 || _savingPhoto;
 
         if (state.Png.Length == 0)
         {
+            _currentTexture = null;
             _photoViewer.SetTexture(null, resetView: true);
             _statusLabel.Text = Loc.GetString("polaroid-photo-ui-missing-image");
             return;
@@ -217,11 +237,13 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         try
         {
             using var stream = new MemoryStream(state.Png, writable: false);
-            _photoViewer.SetTexture(Texture.LoadFromPNGStream(stream, "polaroid-photo"), imageChanged);
+            _currentTexture = Texture.LoadFromPNGStream(stream, "polaroid-photo");
+            _photoViewer.SetTexture(_currentTexture, imageChanged);
             _statusLabel.Text = string.Empty;
         }
         catch
         {
+            _currentTexture = null;
             _photoViewer.SetTexture(null, resetView: true);
             _statusLabel.Text = Loc.GetString("polaroid-photo-ui-missing-image");
         }
@@ -244,9 +266,9 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
     private async Task SavePhotoWithDialogAsync()
     {
-        if (_currentPng.Length == 0 || _savingPhoto)
+        if (_currentTexture == null || _savingPhoto)
         {
-            if (_currentPng.Length == 0)
+            if (_currentTexture == null)
                 _statusLabel.Text = Loc.GetString("polaroid-photo-ui-missing-image");
 
             return;
@@ -264,8 +286,9 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
             if (file == null)
                 return;
 
+            var compositedPhoto = await ExportPhotoAsync();
             await using var stream = file.Value.fileStream;
-            await stream.WriteAsync(_currentPng);
+            await stream.WriteAsync(compositedPhoto);
             await stream.FlushAsync();
             _statusLabel.Text = Loc.GetString("polaroid-photo-ui-save-success");
         }
@@ -276,7 +299,147 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         finally
         {
             _savingPhoto = false;
-            _saveButton.Disabled = _currentPng.Length == 0;
+            _saveButton.Disabled = _currentTexture == null;
         }
     }
+
+    protected override void Draw(DrawingHandleScreen handle)
+    {
+        base.Draw(handle);
+
+        if (_pendingExport == null)
+            return;
+
+        var export = _pendingExport;
+        _pendingExport = null;
+
+        try
+        {
+            var oldTransform = handle.GetTransform();
+            var oldModulate = handle.Modulate;
+
+            handle.RenderInRenderTarget(export.RenderTarget, () =>
+            {
+                handle.SetTransform(Matrix3x2.Identity);
+                handle.Modulate = Color.White;
+                DrawExport(handle, export);
+            }, Color.Transparent);
+
+            handle.SetTransform(oldTransform);
+            handle.Modulate = oldModulate;
+            handle.UseShader(null);
+
+            export.RenderTarget.CopyPixelsToMemory<Rgba32>(image =>
+            {
+                try
+                {
+                    using var stream = new MemoryStream();
+                    image.SaveAsPng(stream);
+                    export.Completion.TrySetResult(stream.ToArray());
+                }
+                catch (Exception e)
+                {
+                    export.Completion.TrySetException(e);
+                }
+                finally
+                {
+                    export.RenderTarget.Dispose();
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            export.RenderTarget.Dispose();
+            export.Completion.TrySetException(e);
+        }
+    }
+
+    protected override void ExitedTree()
+    {
+        if (_pendingExport != null)
+        {
+            _pendingExport.RenderTarget.Dispose();
+            _pendingExport.Completion.TrySetCanceled();
+            _pendingExport = null;
+        }
+
+        base.ExitedTree();
+    }
+
+    private async Task<byte[]> ExportPhotoAsync()
+    {
+        if (_currentTexture == null)
+            throw new InvalidOperationException("There is no photo texture to export.");
+
+        if (_pendingExport != null)
+            throw new InvalidOperationException("A photo export is already in progress.");
+
+        var layout = CreateExportLayout(_currentTexture.Size);
+        var renderTarget = _clyde.CreateRenderTarget(
+            layout.Size,
+            new RenderTargetFormatParameters(RenderTargetColorFormat.Rgba8Srgb),
+            name: "polaroid-photo-export");
+
+        var tcs = new TaskCompletionSource<byte[]>();
+        _pendingExport = new PendingPhotoExport(
+            renderTarget,
+            _currentTexture,
+            _currentSignatureText,
+            _currentSignatureColor,
+            layout,
+            tcs);
+
+        return await tcs.Task;
+    }
+
+    private void DrawExport(DrawingHandleScreen handle, PendingPhotoExport export)
+    {
+        handle.DrawRect(export.Layout.BorderRect, PolaroidBorderColor);
+        handle.DrawRect(export.Layout.FillRect, PolaroidColor);
+        handle.DrawTextureRect(export.PhotoTexture, export.Layout.PhotoRect);
+
+        var textSize = handle.GetDimensions(_signatureFont, export.Signature.AsSpan(), 1f);
+        var textPosition = new Vector2(
+            export.Layout.SignatureRect.Left + MathF.Max(0f, (export.Layout.SignatureRect.Width - textSize.X) / 2f),
+            export.Layout.SignatureRect.Top + MathF.Max(0f, (export.Layout.SignatureRect.Height - textSize.Y) / 2f));
+
+        handle.DrawString(_signatureFont, textPosition, export.Signature, export.SignatureColor);
+    }
+
+    private static PolaroidExportLayout CreateExportLayout(Vector2i photoSize)
+    {
+        var referenceWidth = Math.Max(1, photoSize.X);
+        var border = Math.Max(2, (int) MathF.Round(referenceWidth * ExportBorderRatio));
+        var margin = Math.Max(border + 6, (int) MathF.Round(referenceWidth * ExportMarginRatio));
+        var signatureGap = Math.Max(8, (int) MathF.Round(referenceWidth * ExportGapRatio));
+        var signatureHeight = Math.Max(36, (int) MathF.Round(referenceWidth * ExportSignatureHeightRatio));
+
+        var totalWidth = photoSize.X + margin * 2;
+        var totalHeight = photoSize.Y + margin * 2 + signatureGap + signatureHeight;
+        var size = new Vector2(totalWidth, totalHeight);
+        var photoPosition = new Vector2(margin, margin);
+        var signaturePosition = new Vector2(margin, margin + photoSize.Y + signatureGap);
+
+        return new PolaroidExportLayout(
+            new Vector2i(totalWidth, totalHeight),
+            UIBox2.FromDimensions(Vector2.Zero, size),
+            UIBox2.FromDimensions(new Vector2(border, border), size - new Vector2(border * 2f, border * 2f)),
+            UIBox2.FromDimensions(photoPosition, new Vector2(photoSize.X, photoSize.Y)),
+            UIBox2.FromDimensions(signaturePosition, new Vector2(photoSize.X, signatureHeight)));
+    }
+
+    private sealed record PendingPhotoExport(
+        IRenderTexture RenderTarget,
+        Texture PhotoTexture,
+        string Signature,
+        Color SignatureColor,
+        PolaroidExportLayout Layout,
+        TaskCompletionSource<byte[]> Completion);
+
+    private readonly record struct PolaroidExportLayout(
+        Vector2i Size,
+        UIBox2 BorderRect,
+        UIBox2 FillRect,
+        UIBox2 PhotoRect,
+        UIBox2 SignatureRect);
 }

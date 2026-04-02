@@ -27,7 +27,7 @@ public sealed partial class PolaroidCameraComponent : Component
     public int MaxCaptureDimension = 512;
 
     [DataField]
-    public SoundSpecifier ShutterSound = new SoundPathSpecifier("/Audio/Machines/shutter.ogg");
+    public SoundSpecifier ShutterSound = new SoundPathSpecifier("/Audio/_Backmen/Machines/polaroid1.ogg");
 
     [DataField]
     public SoundSpecifier PrintSound = new SoundPathSpecifier("/Audio/Machines/printer.ogg");

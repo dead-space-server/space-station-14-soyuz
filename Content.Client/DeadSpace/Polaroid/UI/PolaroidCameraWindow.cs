@@ -17,9 +17,10 @@ namespace Content.Client.DeadSpace.Polaroid.UI;
 
 public sealed class PolaroidCameraWindow : DefaultWindow
 {
-    private const float MinPreviewZoom = 1f;
-    private const float MaxPreviewZoom = 4f;
+    private const float MinPreviewZoom = 0.25f;
+    private const float MaxPreviewZoom = 1f;
     private const float PreviewZoomStep = 0.15f;
+    private const float DefaultPreviewZoom = (MinPreviewZoom + MaxPreviewZoom) / 2f;
 
     [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IClientGameTiming _timing = default!;
@@ -29,7 +30,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private PolaroidCameraUiState? _nextState;
     private EntityUid? _currentCamera;
     private bool _disposed;
-    private float _previewZoom = MinPreviewZoom;
+    private float _previewZoom = DefaultPreviewZoom;
 
     private readonly ScalingViewport _cameraView;
     private readonly Label _chargesLabel;
@@ -180,7 +181,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             return;
 
         var oldZoom = _previewZoom;
-        _previewZoom = Math.Clamp(_previewZoom * MathF.Pow(1f + PreviewZoomStep, args.Delta.Y),
+        _previewZoom = Math.Clamp(_previewZoom * MathF.Pow(1f + PreviewZoomStep, -args.Delta.Y),
             MinPreviewZoom,
             MaxPreviewZoom);
 

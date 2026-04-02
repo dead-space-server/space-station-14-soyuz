@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
+using System; // DS-14
+using System.Collections.Generic; // DS-14
 using Content.Shared.Audio.Jukebox;
-using Content.Shared.DeadSpace.Ports.Jukebox;
-using Robust.Client.Audio;
+using Content.Shared.DeadSpace.Ports.Jukebox; // DS-14
+using Robust.Client.Audio; // DS-14
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
-using Robust.Shared.Audio.Components;
+using Robust.Shared.Audio.Components; // DS-14
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Audio.Jukebox;
@@ -27,11 +27,11 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     public override void Initialize()
     {
         base.Initialize();
-        UpdatesAfter.Add(typeof(AudioSystem));
+        UpdatesAfter.Add(typeof(AudioSystem)); // DS-14
         SubscribeLocalEvent<JukeboxComponent, AppearanceChangeEvent>(OnAppearanceChange);
         SubscribeLocalEvent<JukeboxComponent, AnimationCompletedEvent>(OnAnimationCompleted);
         SubscribeLocalEvent<JukeboxComponent, AfterAutoHandleStateEvent>(OnJukeboxAfterState);
-        SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown);
+        SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown); // DS-14
 
         _protoManager.PrototypesReloaded += OnProtoReload;
     }

@@ -115,7 +115,7 @@
   - type: StorageFill
     contents:
     - id: PolaroidCartridge
-      amount: 2
+      amount: 8
   - type: Sprite
     layers:
     - state: box

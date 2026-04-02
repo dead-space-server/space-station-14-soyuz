@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System; // DS-14
+using System.Collections.Generic; // DS-14
+using System.Linq; // DS-14
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Audio.Jukebox;
-using Content.Shared.DeadSpace.Ports.Jukebox;
+using Content.Shared.DeadSpace.Ports.Jukebox; // DS-14
 using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -12,8 +12,8 @@ using Robust.Shared.Audio.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
-using Robust.Shared.Timing;
+using Robust.Shared.Random; // DS-14
+using Robust.Shared.Timing; // DS-14
 using JukeboxComponent = Content.Shared.Audio.Jukebox.JukeboxComponent;
 
 namespace Content.Server.Audio.Jukebox;
@@ -23,7 +23,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 {
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
-    // DS-14 start
+    // DS-14 START
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
 
@@ -34,7 +34,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         public readonly List<ProtoId<JukeboxPrototype>> History = new();
         public int HistoryIndex = -1;
     }
-    // DS-14 end
+    // DS-14 END
 
     public override void Initialize()
     {
@@ -44,13 +44,13 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, JukeboxPauseMessage>(OnJukeboxPause);
         SubscribeLocalEvent<JukeboxComponent, JukeboxStopMessage>(OnJukeboxStop);
         SubscribeLocalEvent<JukeboxComponent, JukeboxSetTimeMessage>(OnJukeboxSetTime);
-        // DS-14 start
+        // DS-14 START
         SubscribeLocalEvent<JukeboxComponent, JukeboxSetVolumeMessage>(OnJukeboxSetVolume);
         SubscribeLocalEvent<JukeboxComponent, JukeboxNextMessage>(OnJukeboxNext);
         SubscribeLocalEvent<JukeboxComponent, JukeboxPreviousMessage>(OnJukeboxPrevious);
         SubscribeLocalEvent<JukeboxComponent, JukeboxShuffleMessage>(OnJukeboxShuffle);
         SubscribeLocalEvent<JukeboxComponent, JukeboxRepeatMessage>(OnJukeboxRepeat);
-        // DS-14 end
+        // DS-14 END
         SubscribeLocalEvent<JukeboxComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnComponentShutdown);
 
@@ -67,7 +67,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
     private void OnJukeboxPlay(EntityUid uid, JukeboxComponent component, ref JukeboxPlayingMessage args)
     {
-        // DS-14 start
+        // DS-14 START
         if (Exists(component.AudioStream))
         {
             Audio.SetState(component.AudioStream, AudioState.Playing);
@@ -87,7 +87,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             if (selectedSong == null || !StartSong(uid, component, selectedSong.Value, updateHistory: true))
                 return;
         }
-        // DS-14 end
+        // DS-14 END
     }
 
     private void OnJukeboxPause(Entity<JukeboxComponent> ent, ref JukeboxPauseMessage args)
@@ -104,7 +104,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
     }
 
-    // DS-14 start
+    // DS-14 START
     private void OnJukeboxSetVolume(EntityUid uid, JukeboxComponent component, JukeboxSetVolumeMessage args)
     {
         component.Volume = JukeboxVolume.Clamp(args.Volume);
@@ -142,7 +142,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         component.RepeatEnabled = args.Enabled;
         Dirty(uid, component);
     }
-    // DS-14 end
+    // DS-14 END
 
     private void OnPowerChanged(Entity<JukeboxComponent> entity, ref PowerChangedEvent args)
     {
@@ -167,7 +167,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
     private void OnJukeboxSelected(EntityUid uid, JukeboxComponent component, JukeboxSelectedMessage args)
     {
-        // DS-14 start
+        // DS-14 START
         if (HasActiveStream(component.AudioStream))
         {
             StartSong(uid, component, args.SongId, updateHistory: true);
@@ -176,7 +176,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
 
         SelectSong(uid, component, args.SongId);
-        // DS-14 end
+        // DS-14 END
     }
 
     public override void Update(float frameTime)
@@ -198,7 +198,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                 }
             }
 
-            // DS-14 start
+            // DS-14 START
             if (!TryGetSongLength(comp.SelectedSongId, out var length) ||
                 !TryComp(comp.AudioStream, out AudioComponent? audio) ||
                 audio.State != AudioState.Playing)
@@ -210,15 +210,14 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                 continue;
 
             HandleSongFinished(uid, comp);
-            // DS-14 end
+            // DS-14 END
         }
     }
 
     private void OnComponentShutdown(EntityUid uid, JukeboxComponent component, ComponentShutdown args)
     {
         component.AudioStream = Audio.Stop(component.AudioStream);
-        // DS-14
-        _playbackStates.Remove(uid);
+        _playbackStates.Remove(uid); // DS-14
     }
 
     private void DirectSetVisualState(EntityUid uid, JukeboxVisualState state)
@@ -241,7 +240,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         _appearanceSystem.SetData(uid, JukeboxVisuals.VisualState, finalState);
     }
 
-    // DS-14 start
+    // DS-14 START
     private void HandleSongFinished(EntityUid uid, JukeboxComponent component)
     {
         if (component.SelectedSongId == null)
@@ -473,5 +472,5 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         songId = default;
         return false;
     }
-    // DS-14 end
+    // DS-14 END
 }

@@ -1,3 +1,4 @@
+<!-- DS-14 START -->
 <ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
                 xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                 SetSize="520 500" Title="{Loc 'jukebox-menu-title'}">
@@ -11,7 +12,6 @@
                 <Label Name="SongName" Text="---" Margin="8 0 0 0" />
                 <Slider Name="PlaybackSlider" HorizontalExpand="True" />
             </BoxContainer>
-            <!-- DS-14 start -->
             <BoxContainer Orientation="Horizontal" HorizontalExpand="True"
             VerticalExpand="False" SizeFlagsStretchRatio="1">
                 <Control HorizontalExpand="True" />
@@ -97,24 +97,20 @@
                 </BoxContainer>
                 <Control HorizontalExpand="True" />
             </BoxContainer>
-            <!-- DS-14 end -->
-            <!-- DS-14 start -->
             <BoxContainer Orientation="Horizontal" HorizontalExpand="True"
             VerticalExpand="False" SizeFlagsStretchRatio="1">
                 <Label Name="DurationLabel" Text="00:00 / 00:00" HorizontalAlignment="Right" HorizontalExpand="True" Margin="0 4 2 0"/>
             </BoxContainer>
-            <!-- DS-14 end -->
         </BoxContainer>
-        <!-- DS-14 start -->
         <PanelContainer Margin="8 3 3 3" MinSize="116 0">
             <PanelContainer.PanelOverride>
                 <gfx:StyleBoxFlat BorderThickness="1" BorderColor="#373B4E" BackgroundColor="#202129"/>
             </PanelContainer.PanelOverride>
             <BoxContainer Orientation="Vertical" Margin="8 10 8 10" VerticalExpand="True">
-                <TextureRect HorizontalAlignment="Center"
+                <TextureRect Name="VolumeIcon"
+                             HorizontalAlignment="Center"
                              SetSize="24 24"
-                             Stretch="KeepAspectCentered"
-                             TexturePath="/Textures/Interface/Actions/actions_borg.rsi/musical-module.png" />
+                             Stretch="KeepAspectCentered" />
                 <Label Name="VolumeLabel"
                        Text="{Loc 'jukebox-menu-volume'}"
                        HorizontalAlignment="Center"
@@ -143,6 +139,6 @@
                 </PanelContainer>
             </BoxContainer>
         </PanelContainer>
-        <!-- DS-14 end -->
     </BoxContainer>
 </ui:FancyWindow>
+<!-- DS-14 END -->

@@ -1,10 +1,9 @@
-using System;
-
+using System; // DS-14
+// DS-14 START
 namespace Content.Shared.DeadSpace.Ports.Jukebox;
 
 public static class JukeboxVolume
 {
-    // DS-14 start
     public const float MinValue = 0f;
     public const float MaxValue = 1f;
     public const float DefaultValue = 0.85f;
@@ -26,5 +25,5 @@ public static class JukeboxVolume
 
         return MinDb + (MaxDb - MinDb) * value;
     }
-    // DS-14 end
 }
+// DS-14 END

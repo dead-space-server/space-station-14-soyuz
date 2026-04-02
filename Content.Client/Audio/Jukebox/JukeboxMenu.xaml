@@ -1,4 +1,5 @@
-<!-- DS-14 START -->
+<!-- DS-14 Start: Replaces the old single-column menu with search, transport controls,
+     and a dedicated client-side volume rail. -->
 <ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
                 xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
                 SetSize="520 500" Title="{Loc 'jukebox-menu-title'}">
@@ -141,4 +142,4 @@
         </PanelContainer>
     </BoxContainer>
 </ui:FancyWindow>
-<!-- DS-14 END -->
+<!-- DS-14 End -->

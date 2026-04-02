@@ -12,7 +12,7 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
     [ViewVariables]
     private JukeboxMenu? _menu;
-    private bool _volumeStateCommitted; // DS-14
+    private bool _volumeStateCommitted;
 
     public JukeboxBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -24,10 +24,11 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         base.Open();
 
         _menu = this.CreateWindow<JukeboxMenu>();
-        _menu.SetJukebox(Owner); // DS-14
-        _menu.OnClose += CommitVolumeState; // DS-14
+        _menu.SetJukebox(Owner);
+        _menu.OnClose += CommitVolumeState;
 
-        // DS-14 START
+        // DS-14 Start: The BUI stays a thin relay, but it now wires the richer transport
+        // controls and keeps volume updates on a dedicated callback path.
         _menu.OnPlayPressed += args =>
         {
             if (args)
@@ -64,12 +65,13 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
         _menu.SetTime += SetTime;
         _menu.SetVolume += SetVolume;
-        // DS-14 END
+        // DS-14 End
         PopulateMusic();
         Reload();
     }
 
-    // DS-14 START
+    // DS-14 Start: Volume changes are previewed locally while the menu is open, so the
+    // last state needs to be committed when the window is disposed as well as on close.
     protected override void Dispose(bool disposing)
     {
         if (disposing)
@@ -77,7 +79,7 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
         base.Dispose(disposing);
     }
-    // DS-14 END
+    // DS-14 End
 
     /// <summary>
     /// Reloads the attached menu if it exists.
@@ -87,20 +89,23 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         if (_menu == null || !EntMan.TryGetComponent(Owner, out JukeboxComponent? jukebox))
             return;
 
+        // DS-14 Start: Reload restores both replicated transport state and the selected song
+        // identity so reopening the UI does not lose local context.
         _menu.SetAudioStream(jukebox.AudioStream);
-        _menu.SetShuffleEnabled(jukebox.ShuffleEnabled); // DS-14
-        _menu.SetRepeatEnabled(jukebox.RepeatEnabled); // DS-14
-        _menu.SetVolumeSlider(jukebox.Volume); // DS-14
+        _menu.SetShuffleEnabled(jukebox.ShuffleEnabled);
+        _menu.SetRepeatEnabled(jukebox.RepeatEnabled);
+        _menu.SetVolumeSlider(jukebox.Volume);
 
         if (_protoManager.Resolve(jukebox.SelectedSongId, out var songProto))
         {
             var length = EntMan.System<AudioSystem>().GetAudioLength(songProto.Path.Path.ToString());
-            _menu.SetSelectedSong(jukebox.SelectedSongId, songProto.Name, (float) length.TotalSeconds); // DS-14
+            _menu.SetSelectedSong(jukebox.SelectedSongId, songProto.Name, (float) length.TotalSeconds);
         }
         else
         {
-            _menu.SetSelectedSong(null, string.Empty, 0f); // DS-14
+            _menu.SetSelectedSong(null, string.Empty, 0f);
         }
+        // DS-14 End
     }
 
     public void PopulateMusic()
@@ -132,7 +137,8 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         SendMessage(new JukeboxSetTimeMessage(sentTime));
     }
 
-    // DS-14 START
+    // DS-14 Start: Volume state is sent separately from playback time so the menu can
+    // throttle slider traffic without affecting the playback scrubber.
     public void SetVolume(float volume)
     {
         SendMessage(new JukeboxSetVolumeMessage(volume));
@@ -155,6 +161,6 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         _volumeStateCommitted = true;
         _menu.CommitVolumeState();
     }
-    // DS-14 END
+    // DS-14 End
 }
 

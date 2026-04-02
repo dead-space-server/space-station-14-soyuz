@@ -1,4 +1,5 @@
-# DS-14 START
+# DS-14 Start: Attribution entries are renamed to match the new mood-based jukebox
+# folder layout, so reviewers can diff metadata and asset moves together.
 - files: ["lampovaya/internatsional-rsfsr-anthem.ogg"]
   license: "Custom"
   copyright: "Custom"
@@ -138,4 +139,4 @@
   license: "Custom"
   copyright: "Custom"
   source: "https://web.ligaudio.ru/mp3/Р°С‚Р°РєР°%20РїРµСЂРёРјРµС‚СЂР°"
-# DS-14 END
+# DS-14 End

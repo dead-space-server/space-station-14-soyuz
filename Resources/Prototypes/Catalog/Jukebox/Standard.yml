@@ -1,4 +1,5 @@
-# DS-14 START
+# DS-14 Start: Existing entries are retargeted into the new mood-based folders, and the
+# catalog below appends the larger expanded song set used by the new menu.
 - type: jukebox
   id: Internacional
   name: "Интернационал (гимн РСФСР)"
@@ -472,4 +473,4 @@
   name: "Владимир Высоцкий - Песня о сумасшедшем доме"
   path:
     path: /Audio/Jukebox/lampovaya/vladimir-vysotskiy-pesnya-o-sumasshedshem-dome.ogg
-# DS-14 END
+# DS-14 End

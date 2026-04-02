@@ -1,5 +1,7 @@
-using System; // DS-14
-// DS-14 START
+using System;
+
+// DS-14 Start: Shared helpers keep client preview volume and server playback volume on
+// the same clamp and decibel conversion rules.
 namespace Content.Shared.DeadSpace.Ports.Jukebox;
 
 public static class JukeboxVolume
@@ -26,4 +28,4 @@ public static class JukeboxVolume
         return MinDb + (MaxDb - MinDb) * value;
     }
 }
-// DS-14 END
+// DS-14 End

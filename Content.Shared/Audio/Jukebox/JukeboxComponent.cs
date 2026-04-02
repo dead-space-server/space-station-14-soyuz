@@ -1,4 +1,4 @@
-using Content.Shared.DeadSpace.Ports.Jukebox; // DS-14
+using Content.Shared.DeadSpace.Ports.Jukebox;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -14,7 +14,8 @@ public sealed partial class JukeboxComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntityUid? AudioStream;
-    // DS-14 START
+    // DS-14 Start: Replicate the new transport toggles and base volume so reopened menus
+    // and observing clients see the same jukebox state.
     [DataField, AutoNetworkedField]
     public float Volume = JukeboxVolume.DefaultValue;
 
@@ -23,7 +24,7 @@ public sealed partial class JukeboxComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool RepeatEnabled;
-    // DS-14 END
+    // DS-14 End
     /// <summary>
     /// RSI state for the jukebox being on.
     /// </summary>
@@ -70,7 +71,8 @@ public sealed class JukeboxSetTimeMessage(float songTime) : BoundUserInterfaceMe
     public float SongTime { get; } = songTime;
 }
 
-// DS-14 START
+// DS-14 Start: Keep each transport action as its own message so the client UI stays easy
+// to review and future permission checks can stay granular.
 [Serializable, NetSerializable]
 public sealed class JukeboxSetVolumeMessage(float volume) : BoundUserInterfaceMessage
 {
@@ -94,7 +96,7 @@ public sealed class JukeboxRepeatMessage(bool enabled) : BoundUserInterfaceMessa
 {
     public bool Enabled { get; } = enabled;
 }
-// DS-14 END
+// DS-14 End
 [Serializable, NetSerializable]
 public enum JukeboxVisuals : byte
 {

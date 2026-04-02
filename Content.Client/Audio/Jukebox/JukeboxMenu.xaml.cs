@@ -187,12 +187,12 @@ public sealed partial class JukeboxMenu : FancyWindow
 
     public void SetShuffleEnabled(bool enabled)
     {
-        ShuffleButton.SetClickPressed(enabled);
+        ShuffleButton.Pressed = enabled;
     }
 
     public void SetRepeatEnabled(bool enabled)
     {
-        RepeatButton.SetClickPressed(enabled);
+        RepeatButton.Pressed = enabled;
     }
 
     public void SetVolumeSlider(float volume, bool force = false)

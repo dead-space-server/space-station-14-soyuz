@@ -12,7 +12,7 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
 
     [ViewVariables]
     private JukeboxMenu? _menu;
-    private bool _volumeStateCommitted;
+    private bool _volumeStateCommitted; // DS-14
 
     public JukeboxBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -24,8 +24,8 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         base.Open();
 
         _menu = this.CreateWindow<JukeboxMenu>();
-        _menu.SetJukebox(Owner);
-        _menu.OnClose += CommitVolumeState;
+        _menu.SetJukebox(Owner); // DS-14
+        _menu.OnClose += CommitVolumeState; // DS-14
 
         // DS-14 Start: The BUI stays a thin relay, but it now wires the richer transport
         // controls and keeps volume updates on a dedicated callback path.

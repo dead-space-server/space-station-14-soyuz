@@ -9,10 +9,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 TEST_MARKER_PATTERN = re.compile(r"\[(?:Test|TestCase|TestCaseSource)\b")
+UNIT_NAME_SPLIT_PATTERN = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
 
 DEFAULT_TESTS_ROOT = Path("Content.IntegrationTests") / "Tests"
 DEFAULT_NAMESPACE_PREFIX = "Content.IntegrationTests.Tests"
 DEFAULT_SHARD_COUNT = 10
+MAX_SHARD_NAME_LENGTH = 96
 
 
 @dataclass(frozen=True)
@@ -40,7 +42,7 @@ class Shard:
         sorted_units = sorted(self.units, key=lambda unit: unit.name)
         return {
             "id": self.id,
-            "name": f"{self.id} ({self.weight} markers)",
+            "name": build_shard_name(self.units, self.weight),
             "tests": self.weight,
             "unit_count": len(sorted_units),
             "units": ", ".join(unit.name for unit in sorted_units),
@@ -68,7 +70,7 @@ def main() -> int:
     if args.pretty:
         for shard in matrix["include"]:
             print(
-                f"{shard['id']}: {shard['tests']} markers, "
+                f"{shard['id']}: {shard['name']}, "
                 f"{shard['unit_count']} units -> {shard['units']}"
             )
     else:
@@ -115,6 +117,52 @@ def discover_units(tests_root: Path, namespace_prefix: str) -> list[TestUnit]:
 def count_test_markers(file_path: Path) -> int:
     text = file_path.read_text(encoding="utf-8")
     return len(TEST_MARKER_PATTERN.findall(text))
+
+
+def build_shard_name(units: list[TestUnit], weight: int) -> str:
+    display_units = [humanize_unit_name(unit.name) for unit in sort_units_for_display(units)]
+    suffix = f" ({weight} markers)"
+    summary = summarize_display_units(display_units, MAX_SHARD_NAME_LENGTH - len(suffix))
+    return f"{summary}{suffix}"
+
+
+def sort_units_for_display(units: list[TestUnit]) -> list[TestUnit]:
+    return sorted(units, key=lambda unit: (-unit.weight, unit.name))
+
+
+def humanize_unit_name(unit_name: str) -> str:
+    for suffix in ("Tests", "Test"):
+        if unit_name.endswith(suffix):
+            unit_name = unit_name[: -len(suffix)]
+            break
+
+    return UNIT_NAME_SPLIT_PATTERN.sub(" ", unit_name).strip()
+
+
+def summarize_display_units(display_units: list[str], max_length: int) -> str:
+    if not display_units:
+        return "Unknown"
+
+    selected: list[str] = []
+
+    for name in display_units:
+        candidate_units = selected + [name]
+        remaining = len(display_units) - len(candidate_units)
+        candidate = ", ".join(candidate_units)
+        if remaining > 0:
+            candidate = f"{candidate} +{remaining} more"
+
+        if selected and len(candidate) > max_length:
+            break
+
+        selected.append(name)
+
+    remaining = len(display_units) - len(selected)
+    summary = ", ".join(selected)
+    if remaining > 0:
+        summary = f"{summary} +{remaining} more"
+
+    return summary
 
 
 def balance_units(units: list[TestUnit], shard_count: int) -> list[Shard]:

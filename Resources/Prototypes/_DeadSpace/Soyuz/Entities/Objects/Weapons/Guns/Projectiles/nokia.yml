@@ -1,0 +1,17 @@
+- type: entity
+  id: BulletGrenadeNokia
+  name: взрывная нокия
+  parent: BaseBulletTrigger
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    layers:
+      - state: nokia3310
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 500
+    intensitySlope: 10
+    maxIntensity: 20
+    canCreateVacuum: false

@@ -1,7 +1,7 @@
-{
+﻿{
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from https://github.com/vgstation-coders/vgstation13/blob/e71d6c4fba5a51f99b81c295dcaec4fc2f58fb19/icons/mob/screen1.dmi, librarian by Peptide. cburn and cluwne made by brainfood1183 (github). brigmed made by PuroSlavKing (Github)",
+  "copyright": "Taken from https://github.com/vgstation-coders/vgstation13/blob/e71d6c4fba5a51f99b81c295dcaec4fc2f58fb19/icons/mob/screen1.dmi, librarian by Peptide. cburn and cluwne made by brainfood1183 (github). brigmed made by PuroSlavKing (Github), resprited by mute_soul (discord) for Space Station 14 server Мёртвый Космос Союз-1",
   "size": {
     "x": 32,
     "y": 32
@@ -18,7 +18,7 @@
     },
     {
       "name": "Politruk"
-    },    
+    },
     {
       "name": "passenger"
     },
@@ -175,7 +175,7 @@
     {
       "name": "warden"
     },
-	{
+    {
       "name": "cluwne"
     },
     {
@@ -196,7 +196,7 @@
     {
       "name": "blueshield"
     },
-	{
+    {
       "name": "blueshield-low"
     },
     {

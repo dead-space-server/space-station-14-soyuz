@@ -111,18 +111,19 @@ def main() -> int:
         config.retries,
     )
 
-    start_publish(config)
-
     upload_results: list[UploadResult] = []
+    finish_called = False
     try:
+        start_publish(config)
         upload_results = upload_files(config, files)
+        finish_called = True
         finish_publish(config)
-    except Exception:
+    except Exception as exc:
         LOGGER.exception(
             "publish_failed version=%s fork_id=%s finish_called=%s",
             config.version,
             config.fork_id,
-            "no",
+            "yes" if finish_called else "no",
         )
         write_step_summary(
             config=config,
@@ -132,7 +133,9 @@ def main() -> int:
             upload_results=upload_results,
             success=False,
         )
-        raise
+        if isinstance(exc, PublishError):
+            raise
+        raise PublishError(format_exception(exc)) from exc
 
     total_duration_seconds = time.perf_counter() - stage_started
     total_uploaded_bytes = sum(result.size_bytes for result in upload_results)
@@ -286,27 +289,14 @@ def start_publish(config: PublishConfig) -> None:
         config.endpoint(f"fork/{config.fork_id}/publish/start"),
     )
 
-    started = time.perf_counter()
-    response = requests.post(
-        config.endpoint(f"fork/{config.fork_id}/publish/start"),
-        json={
+    post_json_with_retry(
+        config,
+        endpoint_suffix=f"fork/{config.fork_id}/publish/start",
+        payload={
             "version": config.version,
             "engineVersion": config.engine_version,
         },
-        headers={
-            "Authorization": f"Bearer {config.publish_token}",
-            "Content-Type": "application/json",
-        },
-        timeout=config.request_timeout,
-    )
-    try:
-        response.raise_for_status()
-    finally:
-        response.close()
-
-    LOGGER.info(
-        "publish_start_complete duration_s=%.2f",
-        time.perf_counter() - started,
+        request_name="publish_start",
     )
 
 
@@ -317,25 +307,75 @@ def finish_publish(config: PublishConfig) -> None:
         config.endpoint(f"fork/{config.fork_id}/publish/finish"),
     )
 
-    started = time.perf_counter()
-    response = requests.post(
-        config.endpoint(f"fork/{config.fork_id}/publish/finish"),
-        json={"version": config.version},
-        headers={
-            "Authorization": f"Bearer {config.publish_token}",
-            "Content-Type": "application/json",
-        },
-        timeout=config.request_timeout,
+    post_json_with_retry(
+        config,
+        endpoint_suffix=f"fork/{config.fork_id}/publish/finish",
+        payload={"version": config.version},
+        request_name="publish_finish",
     )
-    try:
-        response.raise_for_status()
-    finally:
-        response.close()
 
-    LOGGER.info(
-        "publish_finish_complete duration_s=%.2f",
-        time.perf_counter() - started,
-    )
+
+def post_json_with_retry(
+    config: PublishConfig,
+    *,
+    endpoint_suffix: str,
+    payload: object,
+    request_name: str,
+) -> None:
+    endpoint = config.endpoint(endpoint_suffix)
+
+    for attempt in range(1, config.retries + 1):
+        attempt_started = time.perf_counter()
+        response: Response | None = None
+        try:
+            response = get_thread_session(config).post(
+                endpoint,
+                json=payload,
+                headers={"Content-Type": "application/json"},
+                timeout=config.request_timeout,
+            )
+
+            if response.status_code in RETRYABLE_STATUS_CODES:
+                raise RetryableHttpError(response)
+
+            response.raise_for_status()
+            LOGGER.info(
+                "%s_complete attempt=%d duration_s=%.2f",
+                request_name,
+                attempt,
+                time.perf_counter() - attempt_started,
+            )
+            return
+        except Exception as exc:
+            duration_seconds = time.perf_counter() - attempt_started
+            retryable = is_retryable_exception(exc)
+            LOGGER.warning(
+                "%s_failure attempt=%d duration_s=%.2f retryable=%s error=%s",
+                request_name,
+                attempt,
+                duration_seconds,
+                retryable,
+                format_exception(exc),
+            )
+
+            if attempt >= config.retries or not retryable:
+                raise
+
+            backoff_seconds = calculate_backoff_seconds(
+                attempt=attempt,
+                base_seconds=config.retry_backoff_seconds,
+                max_seconds=config.max_backoff_seconds,
+            )
+            LOGGER.info(
+                "%s_retry_scheduled next_attempt=%d sleep_s=%.2f",
+                request_name,
+                attempt + 1,
+                backoff_seconds,
+            )
+            time.sleep(backoff_seconds)
+        finally:
+            if response is not None:
+                response.close()
 
 
 def upload_files(config: PublishConfig, files: Sequence[Path]) -> list[UploadResult]:
@@ -456,6 +496,7 @@ def upload_file(
             )
 
             if attempt >= config.retries or not retryable or stop_event.is_set():
+                stop_event.set()
                 raise
 
             backoff_seconds = calculate_backoff_seconds(
@@ -491,7 +532,13 @@ def get_thread_session(config: PublishConfig) -> requests.Session:
 
 def get_engine_version() -> str:
     version_file = Path("RobustToolbox") / "MSBuild" / "Robust.Engine.Version.props"
-    tree = ET.parse(version_file)
+    try:
+        tree = ET.parse(version_file)
+    except (OSError, ET.ParseError) as exc:
+        raise PublishError(
+            f"Unable to read engine version from {version_file}: {format_exception(exc)}"
+        ) from exc
+
     version = tree.getroot().find(".//Version")
     if version is None or version.text is None:
         raise PublishError(f"Unable to read engine version from {version_file}")

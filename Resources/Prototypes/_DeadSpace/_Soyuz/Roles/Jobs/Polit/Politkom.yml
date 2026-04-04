@@ -43,6 +43,7 @@
     back:
     - Flash
     - RubberStampPolitkom
+    - PoliticalLoudspeaker
 
 - type: chameleonOutfit
   id: PolitkomChameleonOutfit

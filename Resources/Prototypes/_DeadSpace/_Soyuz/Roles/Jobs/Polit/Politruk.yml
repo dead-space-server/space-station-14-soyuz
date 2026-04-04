@@ -66,6 +66,7 @@
     - Flash
     - TelephonePolitruk
     - RubberStampPolitruk
+    - PoliticalLoudspeaker
 
 - type: chameleonOutfit
   id: PolitrukChameleonOutfit

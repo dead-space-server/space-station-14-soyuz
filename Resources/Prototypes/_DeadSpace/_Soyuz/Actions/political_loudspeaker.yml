@@ -5,7 +5,7 @@
   description: political-loudspeaker-action-heal-desc
   components:
   - type: Action
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
   - type: InstantAction
     event: !type:PoliticalLoudspeakerHealActionEvent
 
@@ -16,7 +16,7 @@
   description: political-loudspeaker-action-speed-desc
   components:
   - type: Action
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
   - type: InstantAction
     event: !type:PoliticalLoudspeakerSpeedActionEvent
 
@@ -27,6 +27,6 @@
   description: political-loudspeaker-action-fortify-desc
   components:
   - type: Action
-    icon: { sprite: Objects/Fun/bikehorn.rsi, state: icon }
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
   - type: InstantAction
     event: !type:PoliticalLoudspeakerFortifyActionEvent

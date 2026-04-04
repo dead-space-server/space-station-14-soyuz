@@ -1,0 +1,43 @@
+- type: entity
+  parent: BaseItem
+  id: USSPChatCartridge
+  name: картридж «Красная линия»
+  description: Компактный картридж защищённой локальной связи для настоящих товарищей.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: UIFragment
+    ui: !type:USSPChatUi
+  - type: Cartridge
+    programName: ussp-chat-program-name
+    icon:
+      sprite: Objects/Devices/cartridge.rsi
+      state: cart-sec
+  - type: USSPChatCartridge
+
+- type: entity
+  parent: BaseItem
+  id: USSPMonitorCartridge
+  name: "картридж «Красная линия: надзор»"
+  description: Наблюдательный картридж защищённой локальной связи. Позволяет читать все переписки, но не отправлять сообщения.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: UIFragment
+    ui: !type:USSPChatUi
+  - type: Cartridge
+    programName: ussp-monitor-program-name
+    icon:
+      sprite: Objects/Devices/cartridge.rsi
+      state: cart-sec
+  - type: USSPChatCartridge
+    canSendMessages: false # DS-14
+    canMonitorAllChats: true # DS-14

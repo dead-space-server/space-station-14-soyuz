@@ -5,10 +5,10 @@
   description: political-loudspeaker-item-desc
   components:
   - type: Sprite
-    sprite: Objects/Fun/bikehorn.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi
     state: icon
   - type: Item
-    sprite: Objects/Fun/bikehorn.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi
     size: Small
   - type: PoliticalLoudspeaker
     range: 5
@@ -17,7 +17,7 @@
     speedMultiplier: 1.15
     fortifyDuration: 10
     fortifyCoefficient: 0.8
-    healAmount: 10
+    healAmount: 20
     healDamageTypes:
     - Blunt
     - Slash

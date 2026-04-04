@@ -1,0 +1,10 @@
+- type: entity
+  id: ClothingBeltMilitaryWebbingDeathSquad
+  parent: ClothingBeltMilitaryWebbing
+  name: РПС специального отряда "Дым"
+  description: РПС члена отряда элитной эвакуации.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/deathwebbing.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/deathwebbing.rsi

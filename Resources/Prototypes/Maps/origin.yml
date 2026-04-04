@@ -1,7 +1,7 @@
 - type: gameMap
   id: Origin
   mapName: 'Origin'
-  mapPath: /Maps/Soyuz/origin.yml
+  mapPath: /Maps/_Soyuz/origin.yml
   minPlayers: 40
   stations:
     Origin:

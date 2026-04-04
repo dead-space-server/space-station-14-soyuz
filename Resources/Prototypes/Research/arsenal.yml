@@ -316,7 +316,7 @@
   id: SecurityMagazine
   name: research-technology-ammo-magazine
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/asval.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/asval.rsi
     state: icon
   discipline: Arsenal
   tier: 2
@@ -339,7 +339,7 @@
   id: SecurityPoliceBetaTechnology
   name: research-technology-police-beta-technology
   icon:
-    sprite: _DeadSpace/Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
     state: icon
   discipline: Arsenal
   tier: 2
@@ -399,7 +399,7 @@
   id: AdvancedBallisticsShotguns
   name: research-technology-advanced-shotguns
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Shotguns/saiga.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Shotguns/saiga.rsi
     state: icon
   discipline: Arsenal
   tier: 3
@@ -411,7 +411,7 @@
   id: AdvancedBallisticsAutomaticWeapons
   name: research-technology-advanced-automatic-weapons
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/asval.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/asval.rsi
     state: icon
   discipline: Arsenal
   tier: 3
@@ -425,7 +425,7 @@
   id: AdvancedShotgunMagazine
   name: research-technology-advanced-shotgun-ammo-magazine
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/mag.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/mag.rsi
     state: base
   discipline: Arsenal
   tier: 3
@@ -440,7 +440,7 @@
   id: AdvancedSecurityMagazine
   name: research-technology-advanced-ammo-magazine
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/ash_mag.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/ash_mag.rsi
     state: icon
   discipline: Arsenal
   tier: 3
@@ -453,7 +453,7 @@
   id: BallisticsLargeCaliberWeapons
   name: research-technology-ballistics-large-caliber-weapons
   icon:
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/ash.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/ash.rsi
     state: icon
   discipline: Arsenal
   tier: 3

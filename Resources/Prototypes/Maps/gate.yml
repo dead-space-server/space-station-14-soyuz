@@ -1,7 +1,7 @@
 - type: gameMap
   id: Gate
   mapName: 'Gate'
-  mapPath: /Maps/Soyuz/gate.yml
+  mapPath: /Maps/_Soyuz/gate.yml
   minPlayers: 40
   stations:
     Gate:

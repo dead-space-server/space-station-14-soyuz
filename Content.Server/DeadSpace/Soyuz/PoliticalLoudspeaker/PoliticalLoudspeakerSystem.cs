@@ -1,3 +1,5 @@
+// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+
 using System.Linq; using Content.Shared.Actions;
 using Content.Shared.Actions.Components; using Content.Shared.Actions.Events;
 using Content.Shared.Damage; using Content.Shared.Damage.Components;

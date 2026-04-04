@@ -520,22 +520,3 @@
     state: critical
   name: Debug6
   description: Debug
-
-#DS14-soyuz-start
-- type: alert
-  id: PoliticalLoudspeakerSpeed
-  category: Walking
-  icons:
-  - sprite: /Textures/Interface/Alerts/walking.rsi
-    state: walking
-  name: alerts-political-loudspeaker-speed-name
-  description: alerts-political-loudspeaker-speed-desc
-
-- type: alert
-  id: PoliticalLoudspeakerFortify
-  icons:
-  - sprite: /Textures/Objects/Magic/magicactions.rsi
-    state: shield
-  name: alerts-political-loudspeaker-fortify-name
-  description: alerts-political-loudspeaker-fortify-desc
-#DS14-soyuz-end

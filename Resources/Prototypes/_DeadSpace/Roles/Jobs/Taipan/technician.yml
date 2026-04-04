@@ -28,7 +28,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: Engineer
+      group: ALL
 
 - type: startingGear
   id: TaipanTechnicianGear

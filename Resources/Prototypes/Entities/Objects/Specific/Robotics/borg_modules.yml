@@ -754,7 +754,16 @@
     - item: MopItem
     - item: BorgBucket
     - item: BorgSprayBottle
+    # // DS-14 soyuz
+    - item: CleanerGrenade
+      hand:
+        emptyLabel: borg-slot-cleanade-empty
+        emptyRepresentative: CleanerGrenade
+        whitelist:
+          tags:
+          - CleanerGrenade
     - item: HoloprojectorBorg
+    - item: WireBrush
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: cleaning-module }
 
@@ -772,6 +781,14 @@
     hands:
     - item: AdvMopItem
     - item: BorgMegaSprayBottle
+    # // DS-14 soyuz
+    - item: CleanerGrenade
+      hand:
+        emptyLabel: borg-slot-cleanade-empty
+        emptyRepresentative: CleanerGrenade
+        whitelist:
+          tags:
+          - CleanerGrenade
     - item: HoloprojectorBorg
     - item: BorgDropper
     - item: BagOfSummoningGarbage # DS14
@@ -782,6 +799,7 @@
         whitelist:
           tags:
           - GlassBeaker
+    - item: WireBrushElectrical
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: adv-cleaning-module }
 

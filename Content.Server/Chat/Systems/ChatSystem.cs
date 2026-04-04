@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions; //DS-14
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -37,6 +38,7 @@ using Content.Shared.Corvax.TTS;
 using Content.Shared.Dataset;
 using Content.DeadSpace.Interfaces.Server;
 using Content.Shared.DeadSpace.Languages.Components;
+using Content.Shared.Humanoid; //DS-14
 using Content.Server.DeadSpace.Languages;
 using Robust.Server.Console;
 using Content.Shared.DeadSpace.Languages.Prototypes;
@@ -343,7 +345,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         EntityUid? author = null,
         string? voice = null,
         bool usePresetTTS = false,
-        string? languageId = null // DS14-Languages
+        string? languageId = null, // DS14-Languages
+        float announcementTtsDelay = 6f // DS-14
         )
     {
         languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
@@ -390,18 +393,18 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             if (author != null && TryComp<TTSComponent>(author.Value, out var tts) && tts.VoicePrototypeId != null) // For comms console announcements
             {
-                var ev = new AnnounceSpokeEvent(tts.VoicePrototypeId, originalMessage, lexiconMessage, languageId, filter, author.Value);
+                var ev = new AnnounceSpokeEvent(tts.VoicePrototypeId, originalMessage, lexiconMessage, languageId, filter, author.Value, announcementTtsDelay); // DS-14
                 RaiseLocalEvent(ev);
             }
             else if (usePresetTTS && sender == Loc.GetString("chat-manager-sender-announcement")) // For admin announcements from Centcomm with preset voices
             {
                 voice = _centcommTTS;
-                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null, announcementTtsDelay); // DS-14
                 RaiseLocalEvent(ev);
             }
             else if (voice != null) // For admin announcements
             {
-                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null, announcementTtsDelay); // DS-14
                 RaiseLocalEvent(ev);
             }
         }
@@ -455,7 +458,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         SoundSpecifier? announcementSound = null,
         Color? colorOverride = null,
         string? voice = null,
-        string? languageId = null) // DS14
+        string? languageId = null, // DS14
+        float announcementTtsDelay = 6f) // DS-14
     {
         languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
 
@@ -499,7 +503,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         // плохая реализация, лучше переписать AnnounceSpoke
         if (!string.IsNullOrEmpty(voice))
         {
-            var ev = new AnnounceSpokeEvent(voice, message, lexiconMessage, languageId, filterStation, null);
+            var ev = new AnnounceSpokeEvent(voice, message, lexiconMessage, languageId, filterStation, null, announcementTtsDelay); // DS-14
             RaiseLocalEvent(ev);
         }
 
@@ -947,7 +951,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     // ReSharper disable once InconsistentNaming
     private string SanitizeInGameICMessage(EntityUid source, string message, out string? emoteStr, bool capitalize = true, bool punctuate = false, bool capitalizeTheWordI = true)
     {
-        var newMessage = SanitizeMessageReplaceWords(message.Trim());
+        var newMessage = SanitizeMessageReplaceWords(source, message.Trim());  //DS-14
 
         GetRadioKeycodePrefix(source, newMessage, out newMessage, out var prefix);
 
@@ -1016,16 +1020,21 @@ public sealed partial class ChatSystem : SharedChatSystem
     }
 
     public static readonly ProtoId<ReplacementAccentPrototype> ChatSanitize_Accent = "chatsanitize";
+    private static readonly Regex YoungImbaRegex = new(@"(?<![\w-])имба(?![\w-])", RegexOptions.IgnoreCase); // DS-14
+    private const string YoungImbaBypassSuffix = "soyuzyoungimbabypass"; // DS-14
 
-    public string SanitizeMessageReplaceWords(string message)
+    public string SanitizeMessageReplaceWords(EntityUid source, string message)
     {
         if (string.IsNullOrEmpty(message)) return message;
 
-        var msg = message;
+        var protectYoungImba = TryComp<HumanoidAppearanceComponent>(source, out var humanoid) && humanoid.Age < 25; // DS-14: characters younger than 25 keep "имба" unchanged.
+        var msg = protectYoungImba
+            ? YoungImbaRegex.Replace(message, match => match.Value + YoungImbaBypassSuffix) // DS-14
+            : message;
 
-        msg = _wordreplacement.ApplyReplacements(msg, ChatSanitize_Accent);
+        msg = _wordreplacement.ApplyReplacements(msg, ChatSanitize_Accent); // DS-14
 
-        return msg;
+        return protectYoungImba ? msg.Replace(YoungImbaBypassSuffix, "") : msg; // DS-14
     }
 
     /// <summary>
@@ -1226,9 +1235,10 @@ public sealed class AnnounceSpokeEvent : EntityEventArgs
     public readonly string LexiconMessage; // DS14-Languages
     public readonly ProtoId<LanguagePrototype> LanguageId; // DS14-Languages
     public readonly EntityUid? Source;
+    public readonly float Delay; // DS-14
     public readonly Filter Filter = Filter.Empty();
 
-    public AnnounceSpokeEvent(string voice, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, Filter filter, EntityUid? source)
+    public AnnounceSpokeEvent(string voice, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, Filter filter, EntityUid? source, float delay)
     {
         Voice = voice;
         Message = message;
@@ -1236,6 +1246,7 @@ public sealed class AnnounceSpokeEvent : EntityEventArgs
         LanguageId = languageId; // DS14-Languages
         Filter = filter; // DS14-Languages
         Source = source;
+        Delay = delay; // DS-14
     }
 }
 

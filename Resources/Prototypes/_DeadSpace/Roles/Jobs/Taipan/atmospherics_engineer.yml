@@ -29,7 +29,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: EngineerAtmos
+      group: ALL
 
 - type: startingGear
   id: TaipanAtmosphericsEngineerGear

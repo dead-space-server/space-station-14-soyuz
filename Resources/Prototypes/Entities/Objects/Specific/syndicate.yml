@@ -102,9 +102,46 @@
   - type: Tag
     tags:
     - NukeOpsUplink
+# DS14-start
+    - Grenade
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    layers:
+    - state: nokia3310
+      scale: 0.7, 0.7
+      shader: unshaded
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    heldPrefix: nokia3310
+    size: Small
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/_DeadSpace/Soyuz/Item/Nokia/nokia_activate_sound.ogg
+  - type: SpentAmmoVisuals
+  - type: CartridgeAmmo
+    proto: BulletGrenadeNokia
+  - type: UseDelay
+    delay: 10
+  - type: UseDelayOnMeleeHit
+  - type: MeleeThrowOnHit
+    stunTime: 0.5
+    activateOnThrown: true
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 8
+        Structural: 5
+  - type: LandAtCursor
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 5
+        Structural: 5
+# DS14-end
 
 - type: entity
-  parent: BaseUplinkRadio
+  parent: BaseUplinkRadio40TC #DS14
   id: BaseUplinkRadio60TC
   suffix: 60 TC, LoneOps
   components:
@@ -114,6 +151,7 @@
   - type: Tag
     tags:
     - NukeOpsUplink
+    - Grenade # DS14
 
 - type: entity
   parent: BaseUplinkRadio

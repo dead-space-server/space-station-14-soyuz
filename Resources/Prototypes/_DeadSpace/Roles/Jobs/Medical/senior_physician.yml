@@ -33,7 +33,7 @@
     components:
     # DS14-Start
     - type: Skill
-      group: Medical
+      group: HeadMedical
     # DS14-End
 
 - type: startingGear

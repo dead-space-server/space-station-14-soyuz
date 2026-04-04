@@ -119,6 +119,8 @@
       - DrinkShakeWhite
       - DrinkTheMartinez
       - DrinkMoonshineGlass
+      - DrinkPearJuice # DS14
+      - DrinkPearonade # DS14
     chance: 0.8
     offset: 0.0
     #rare

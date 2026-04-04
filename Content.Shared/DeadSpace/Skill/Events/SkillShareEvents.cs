@@ -48,3 +48,47 @@ public sealed class SkillShareResponseMessage : EuiMessageBase
         Accepted = accepted;
     }
 }
+
+/// <summary>
+/// Message sent when the player clicks a skill in another character's list.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class SkillTeachRequestMessage : EuiMessageBase
+{
+    public string PrototypeId;
+
+    public SkillTeachRequestMessage(string prototypeId)
+    {
+        PrototypeId = prototypeId;
+    }
+}
+
+/// <summary>
+/// Generic yes/no confirm state used for skill teaching flow.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class SkillTransferConfirmEuiState : EuiStateBase
+{
+    public string Title;
+    public string Message;
+
+    public SkillTransferConfirmEuiState(string title, string message)
+    {
+        Title = title;
+        Message = message;
+    }
+}
+
+/// <summary>
+/// Response message for skill teaching confirmations.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class SkillTransferConfirmResponseMessage : EuiMessageBase
+{
+    public bool Accepted;
+
+    public SkillTransferConfirmResponseMessage(bool accepted)
+    {
+        Accepted = accepted;
+    }
+}

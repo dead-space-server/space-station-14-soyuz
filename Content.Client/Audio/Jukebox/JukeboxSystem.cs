@@ -1,6 +1,11 @@
+using System; // DS-14
+using System.Collections.Generic; // DS-14
 using Content.Shared.Audio.Jukebox;
+using Content.Shared.DeadSpace.Ports.Jukebox; // DS-14
+using Robust.Client.Audio; // DS-14
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
+using Robust.Shared.Audio.Components; // DS-14
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Audio.Jukebox;
@@ -13,13 +18,20 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
+    // DS-14 Start: Store a transient client-only override per jukebox so menu drags can
+    // update the local audio stream before replicated component state arrives.
+    private readonly Dictionary<EntityUid, float> _volumeOverrides = new();
+    private const float VolumeOverrideSyncTolerance = 0.01f;
+    // DS-14 End
 
     public override void Initialize()
     {
         base.Initialize();
+        UpdatesAfter.Add(typeof(AudioSystem)); // DS-14
         SubscribeLocalEvent<JukeboxComponent, AppearanceChangeEvent>(OnAppearanceChange);
         SubscribeLocalEvent<JukeboxComponent, AnimationCompletedEvent>(OnAnimationCompleted);
         SubscribeLocalEvent<JukeboxComponent, AfterAutoHandleStateEvent>(OnJukeboxAfterState);
+        SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown); // DS-14
 
         _protoManager.PrototypesReloaded += OnProtoReload;
     }
@@ -29,6 +41,21 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         base.Shutdown();
         _protoManager.PrototypesReloaded -= OnProtoReload;
     }
+
+    // DS-14 Start: Audio stream entities may be recreated independently of the UI, so the
+    // effective client volume is re-applied every frame to whichever stream is active.
+    public override void FrameUpdate(float frameTime)
+    {
+        base.FrameUpdate(frameTime);
+
+        var query = AllEntityQuery<JukeboxComponent>();
+
+        while (query.MoveNext(out var uid, out var component))
+        {
+            ApplyClientVolume(component.AudioStream, GetEffectiveVolume(uid, component));
+        }
+    }
+    // DS-14 End
 
     private void OnProtoReload(PrototypesReloadedEventArgs obj)
     {
@@ -46,13 +73,27 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         }
     }
 
+    // DS-14 Start: When replicated jukebox state updates, reconcile it with any local
+    // override and refresh the open menu without snapping mid-drag.
     private void OnJukeboxAfterState(Entity<JukeboxComponent> ent, ref AfterAutoHandleStateEvent args)
     {
+        var effectiveVolume = GetEffectiveVolume(ent.Owner, ent.Comp);
+
         if (!_uiSystem.TryGetOpenUi<JukeboxBoundUserInterface>(ent.Owner, JukeboxUiKey.Key, out var bui))
+        {
+            ApplyClientVolume(ent.Comp.AudioStream, effectiveVolume);
             return;
+        }
 
         bui.Reload();
+        ApplyClientVolume(ent.Comp.AudioStream, effectiveVolume);
     }
+
+    private void OnJukeboxShutdown(EntityUid uid, JukeboxComponent component, ComponentShutdown args)
+    {
+        _volumeOverrides.Remove(uid);
+    }
+    // DS-14 End
 
     private void OnAnimationCompleted(EntityUid uid, JukeboxComponent component, AnimationCompletedEvent args)
     {
@@ -143,4 +184,49 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         _sprite.LayerSetAutoAnimated(sprite.AsNullable(), layer, true);
         _sprite.LayerSetRsiState(sprite.AsNullable(), layer, state);
     }
+
+    // DS-14 Start: These helpers are the menu-facing API for previewing, storing, and
+    // eventually clearing local-only volume overrides.
+    public void SetVolumeOverride(EntityUid jukebox, float volume)
+    {
+        _volumeOverrides[jukebox] = JukeboxVolume.Clamp(volume);
+    }
+
+    public void ClearVolumeOverride(EntityUid jukebox)
+    {
+        _volumeOverrides.Remove(jukebox);
+    }
+
+    public bool TryGetVolumeOverride(EntityUid jukebox, out float volume)
+    {
+        return _volumeOverrides.TryGetValue(jukebox, out volume);
+    }
+
+    public void ApplyClientVolume(EntityUid? audioStream, float volume)
+    {
+        if (audioStream == null || !TryComp(audioStream, out AudioComponent? audio))
+            return;
+
+        var volumeDb = JukeboxVolume.ToDb(JukeboxVolume.Clamp(volume));
+
+        if (Math.Abs(audio.Volume - volumeDb) <= 0.001f)
+            return;
+
+        audio.Volume = volumeDb;
+    }
+
+    private float GetEffectiveVolume(EntityUid jukebox, JukeboxComponent component)
+    {
+        if (!_volumeOverrides.TryGetValue(jukebox, out var volume))
+            return component.Volume;
+
+        if (Math.Abs(volume - component.Volume) <= VolumeOverrideSyncTolerance)
+        {
+            _volumeOverrides.Remove(jukebox);
+            return component.Volume;
+        }
+
+        return volume;
+    }
+    // DS-14 End
 }

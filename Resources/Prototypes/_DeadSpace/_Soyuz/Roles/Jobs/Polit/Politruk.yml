@@ -1,0 +1,132 @@
+- type: job
+  id: Politruk
+  name: job-name-politruk
+  description: Ходите и надзирайте за станцией, напоминание станции о важности коммунизма, пока она погибает.
+  playTimeTracker: JobPolitruk
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 180000 # 50 hours
+    - !type:RoleTimeRequirement
+      role: JobCaptain
+      time: 36000 # 10 hours
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 90000 # 25 hours
+    - !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 36000 # 10 hours
+    - !type:OverallPlaytimeRequirement
+      time: 720000 # 200 hours
+    - !type:AgeRequirement
+      requiredAge: 24
+  weight: 20
+  startingGear: PolitrukGear
+  icon: "JobIconPolitruk"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  access:
+  - Command
+  - Brig
+  - Security
+  - Armory
+  - Maintenance
+  - Service
+  - External
+  - Research
+  - Medical
+  - Engineering
+  - Cargo
+  #start-backmen: currency
+  minBankBalance: 800
+  maxBankBalance: 1200
+  wageDepartment: Command
+  wage: 190
+  #end-backmen: currency
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      - type: CommandStaff
+      - type: Skill
+        group: BaseSkills
+
+- type: startingGear
+  id: PolitrukGear
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    id: PolitrukPDA
+    ears: ClothingHeadsetAltCommand
+    pocket1: WeaponPistolMTS
+  storage:
+    back:
+    - Flash
+    - TelephonePolitruk
+    - RubberStampPolitruk
+    - PoliticalLoudspeaker
+
+- type: chameleonOutfit
+  id: PolitrukChameleonOutfit
+  job: Politruk
+  hasMindShield: true
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    ears: ClothingHeadsetAltCommand
+    back: ClothingBackpackSecurity
+
+# Я это сюда впихну
+- type: entity
+  parent:
+  - BaseItem
+  id: TelephonePolitruk
+  name: устройство связи с ГШ
+  description: Устройство связи, которое выдаётся политическим руководителям для связи с Генеральным Штабом в экстренных случаях.
+  components:
+  - type: ActivatableUI
+    key: enum.ErtResponceConsoleUiKey.Key
+    requiresComplex: true
+    requireActiveHand: false
+    singleUser: true
+  - type: UserInterface
+    interfaces:
+      enum.ErtResponceConsoleUiKey.Key:
+        type: ErtResponceConsoleBoundUserInterface
+  - type: CrewManifestViewer
+    ownerKey: enum.ErtResponceConsoleUiKey.Key
+  - type: Item
+    size: Small
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+  - type: Sprite
+    sprite: _DeadSpace/Ert/telephone_iaa.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/Ert/telephone_iaa.rsi
+    quickEquip: false
+    slots:
+      - Belt
+  - type: Tag
+    tags:
+    - EmagImmune
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access:
+    - - Command
+      - Security
+      - Service
+      - Brig
+      - Maintenance
+  - type: ErtResponceConsole
+    teams:
+    - CentralCommandOfficial
+    - Amber
+  - type: Language
+    selectedLanguage: GeneralLanguage
+  - type: Speech
+    speechVerb: Robotic

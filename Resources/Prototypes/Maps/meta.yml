@@ -1,7 +1,7 @@
 - type: gameMap
   id: Meta
   mapName: 'Meta'
-  mapPath: /Maps/Soyuz/meta.yml
+  mapPath: /Maps/_Soyuz/meta.yml
   minPlayers: 35
   maxPlayers: 70
   stations:

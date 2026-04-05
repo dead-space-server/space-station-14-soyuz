@@ -1,139 +1,196 @@
-- files: ["AnthemRSSRInternacional.ogg"]
+# DS-14 Start: Attribution entries are renamed to match the new mood-based jukebox
+# folder layout, so reviewers can diff metadata and asset moves together.
+- files: ["lampovaya/internatsional-rsfsr-anthem.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=76L1pBUw3H8"
 
-- files: ["BlowWithTheFires.ogg"]
+- files: ["grustnaya/everlasting-summer-blow-with-the-fires.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=dzerK9KTOik"
 
-- files: ["BravoEtotGorod.ogg"]
+- files: ["lampovaya/bravo-etot-gorod.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=zXs2jD7Tfhs"
 
-- files: ["DajjteTank.ogg"]
+- files: ["lampovaya/dayte-tank-malenkiy.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=d1V4ru3gIsM&list=RDd1V4ru3gIsM"
 
-- files: ["DVRSTKomarovo.ogg"]
+- files: ["lampovaya/dvrst-komarovo-phonk-remix.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=7wFEQeR4kNM"
 
-- files: ["EgorLetovPoPlanu.ogg"]
+- files: ["bodraya/grazhdanskaya-oborona-vsyo-idyot-po-planu.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=y3Tpm1LyXfM&list=RDy3Tpm1LyXfM"
 
-- files: ["GloryToTheOnesWhoLookForward.ogg"]
+- files: ["groznaya/glory-to-the-ones-who-look-forward.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=KYrDV_nICiM"
 
-- files: ["GostyaIzBudushhegoPrekrasnoeDaleko.ogg"]
+- files: ["grustnaya/gostya-iz-budushchego-prekrasnoye-dalyoko.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=KYrDV_nICiM"
 
-- files: ["GrazhdanskayaOboronaChuzhoe.ogg"]
+- files: ["bodraya/grazhdanskaya-oborona-chuzhoye.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=RvTocHvxrro"
 
-- files: ["GrazhdanskayaOboronaDurachok.ogg"]
+- files: ["bodraya/grazhdanskaya-oborona-pro-durachka.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=xn-kNOhoeMM&list=RDxn-kNOhoeMM"
 
-- files: ["HappyNation.ogg"]
+- files: ["lampovaya/ace-of-base-happy-nation.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=HWjCStB6k4o&list=RDHWjCStB6k4o"
 
-- files: ["HardcoreDanceDiscoElysiumOST.ogg"]
+- files: ["lampovaya/disco-elysium-hardcore-dance.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=2-Yvi2bC2to"
 
-- files: ["Metro2MarchOfTheCommunistBrigadesOST.ogg"]
+- files: ["bodraya/metro-2-marsh-kommunisticheskikh-brigad.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=54cn9tcGB-A"
 
-- files: ["NinaBrodskayaYanvarskayaVyuga.ogg"]
+- files: ["lampovaya/nina-brodskaya-zvenit-yanvarskaya-vyuga.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=zJoMvHzMj8g&list=RDzJoMvHzMj8g"
 
-- files: ["PapersPleaseMainTheme.ogg"]
+- files: ["groznaya/papers-please-theme.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=OBQE_TNI7zw"
 
-- files: ["RabochayaMarseleza.ogg"]
+- files: ["groznaya/rabochaya-marseleza.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=c_jnyGJuqi0&list=RDc_jnyGJuqi0"
 
-- files: ["RedArmyAnsambl.ogg"]
+- files: ["groznaya/krasnaya-armiya-vsekh-silney.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=mE8H98XwWjM&list=RDmE8H98XwWjM"
 
-- files: ["SeaPowerWhirlingInRags8AM.ogg"]
+- files: ["lampovaya/sea-power-whirling-in-rags-8-am.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=LeILSPhyExw"
 
-- files: ["SovietMarchRedAlert3RussianCover.ogg"]
+- files: ["groznaya/radio-tapok-soviet-march.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=GKvlt6rpb4Y"
 
-- files: ["TravaUDoma.ogg"]
+- files: ["lampovaya/zemlyane-trava-u-doma.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=jpne8fCwFJ8"
 
-- files: ["VladimirTroshinIBelieveMyFriends.ogg"]
+- files: ["lampovaya/vladimir-troshin-ya-veryu-druzya.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=Dvk_n7F4O3U"
 
-- files: ["YouAreEmptyMachineOfCommunism.ogg"]
+- files: ["bodraya/you-are-empty-mashina-kommunizma.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=jPGyR_3zpjA"
 
-- files: ["AnthemOfTheDemocratic.ogg"]
+- files: ["lampovaya/gimn-demokraticheskoy-molodyozhi-mira.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=kb-5IvslycE&list=RDkb-5IvslycE"
 
-- files: ["YoungBuildersMarch.ogg"]
+- files: ["groznaya/marsh-molodykh-stroiteley.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=OsAdva1g1v0&list=RDOsAdva1g1v0"
 
-- files: ["InvinciblePeoples.ogg"]
+- files: ["groznaya/obyedinyonnyy-narod-el-pueblo-unido.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=UJmujWpXZ-g"
 
-- files: ["PerimeterAttack.ogg"]
+- files: ["grustnaya/ataka-perimetra-glavnaya-tema.ogg"]
   license: "Custom"
   copyright: "Custom"
   source: "https://www.youtube.com/watch?v=gWMOarLxsOM&list=RDgWMOarLxsOM"
 
-- files: ["BattleoftheRoadside.ogg"]
+- files: ["bodraya/ataka-perimetra-bitva-za-obochinu.ogg"]
   license: "Custom"
   copyright: "Custom"
-  source: "https://web.ligaudio.ru/mp3/атака%20периметра"
+  source: "https://web.ligaudio.ru/mp3/Р°С‚Р°РєР°%20РїРµСЂРёРјРµС‚СЂР°"
 
-- files: ["BattleoftheSwamps.ogg"]
+- files: ["bodraya/ataka-perimetra-bitva-za-bolota.ogg"]
   license: "Custom"
   copyright: "Custom"
-  source: "https://web.ligaudio.ru/mp3/атака%20периметра"
+  source: "https://web.ligaudio.ru/mp3/Р°С‚Р°РєР°%20РїРµСЂРёРјРµС‚СЂР°"
+- files: ["bodraya/adaptatsiya-slyozy-obrechyonnoy-burzhuazii.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=uihfdKptBfw"
+
+- files: ["bodraya/alla-pugacheva-arlekino.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=itzde0VrzFU"
+
+- files: ["bodraya/alla-pugacheva-ostavaysya-malchik-s-nami.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=LxoQbVhXmkw"
+
+- files: ["bodraya/arkadiy-kots-ay-carmela.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=bDcyxtGMa9U"
+
+- files: ["bodraya/arkadiy-kots-kto-strelyaet-v-rabochikh.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=2VhB2ICK21g"
+
+- files: ["bodraya/arkadiy-kots-mikhail-lebedev.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=rGD940x4CYs"
+
+- files: ["bodraya/arkadiy-kots-zabastovka.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=gQKn5mIer6E"
+
+- files: ["bodraya/arkadiy-kots-zemlekopy.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=xY4hPEtxstw"
+
+- files: ["bodraya/chyornyy-obelisk-marsh-revolyutsii.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=mU0EayBqYpA"
+
+- files: ["bodraya/chyornyy-obelisk-oborona.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=66e-JSzUF-c"
+
+- files: ["bodraya/ernst-busch-der-heimliche-aufmarsch.ogg"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=ythpfnSYsTg"
+# DS-14 End

@@ -1,7 +1,7 @@
 - type: gameMap
   id: Box
   mapName: 'Box'
-  mapPath: /Maps/Soyuz/ds_box.yml
+  mapPath: /Maps/_Soyuz/ds_box.yml
   minPlayers: 40
   stations:
     Boxstation:

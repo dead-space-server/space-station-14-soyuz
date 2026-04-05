@@ -14,6 +14,8 @@
     - category: Buckled
     - alertType: Pulling
     - alertType: Walking
+    - alertType: PoliticalLoudspeakerSpeed # DS14-soyuz
+    - alertType: PoliticalLoudspeakerFortify # DS14-soyuz
     - category: Piloting
     - alertType: Corporeal
     - alertType: Stun

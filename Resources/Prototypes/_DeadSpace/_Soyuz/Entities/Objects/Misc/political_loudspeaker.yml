@@ -1,0 +1,45 @@
+- type: entity
+  parent: BaseItem
+  id: PoliticalLoudspeaker
+  name: political-loudspeaker-item-name
+  description: political-loudspeaker-item-desc
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi
+    state: icon
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi
+    size: Small
+  - type: PoliticalLoudspeaker
+    range: 5
+    cooldown: 30
+    speedDuration: 10
+    speedMultiplier: 1.15
+    fortifyDuration: 10
+    fortifyCoefficient: 0.8
+    healAmount: 20
+    healDamageTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Cold
+    - Asphyxiation
+    healExcludedDamageTypes:
+    - Cellular
+    - Radiation
+    - Shock
+    - Caustic
+    healDuration: 3
+    healTickInterval: 0.5
+    fortifyExcludedDamageTypes:
+    - Cellular
+    - Radiation
+    - Shock
+    - Caustic
+    healAction: ActionPoliticalLoudspeakerHeal
+    speedAction: ActionPoliticalLoudspeakerSpeed
+    fortifyAction: ActionPoliticalLoudspeakerFortify
+    speedStatusEffect: StatusEffectPoliticalLoudspeakerSpeed
+    fortifyStatusEffect: StatusEffectPoliticalLoudspeakerFortify
+    flashEffectPrototype: GrenadeFlashEffect

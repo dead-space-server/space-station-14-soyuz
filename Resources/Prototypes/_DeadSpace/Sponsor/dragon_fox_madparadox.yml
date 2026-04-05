@@ -21,7 +21,6 @@
   parent: ClothingBackpackDragonFoxMadParadox
   id: ClothingBackpackDragonFoxMadParadoxFilled
   suffix: Заполненный, Mad Paradox
-  categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill
     contents:
@@ -173,8 +172,6 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
-  - type: HardsuitIdentification
-    nonlethal: true
   - type: HardsuitSpeedBuff
   - type: PowerCellDraw
     drawRate: 3.6 # 100 seconds on the default cell
@@ -625,7 +622,7 @@
 # RCD
 - type: entity
   id: RCDDragonFoxMadParadox
-  parent: RCDCE
+  parent: RCDRecharging
   name: РСУ «Ключ Искривления»
   description: Инновационное ручное строительное устройство, вдохновлённое физикой чёрных дыр и явлением искривления пространства‑времени. Инструмент использует принципы концентрации энергии в точке воздействия, аналогично тому, как чёрная дыра искривляет пространство вокруг себя.
   categories: [ HideSpawnMenu ]

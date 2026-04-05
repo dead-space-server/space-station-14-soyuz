@@ -67,9 +67,11 @@ namespace Content.Server.Voting.Managers
                 case StandardVoteType.Preset:
                     CreatePresetVote(initiator, args);
                     break;
+                // DS14-Soyuz start: automatic map vote uses capped candidate list
                 case StandardVoteType.Map:
-                    CreateMapVote(initiator);
+                    timeoutVote = CreateMapVote(initiator);
                     break;
+                // DS14-Soyuz end
                 case StandardVoteType.Votekick:
                     timeoutVote = false; // Allows the timeout to be updated manually in the create method
                     CreateVotekickVote(initiator, args);
@@ -81,6 +83,24 @@ namespace Content.Server.Voting.Managers
             if (timeoutVote)
                 TimeoutStandardVote(voteType);
         }
+
+        // DS14-Soyuz start: automatic map vote
+        public void CreateAutomaticMapVote(IReadOnlyList<GameMapPrototype> candidates, TimeSpan maxDuration)
+        {
+            if (candidates.Count <= 1)
+                return;
+
+            _adminLogger.Add(LogType.Vote, LogImpact.Medium,
+                $"Initiated an automatic map vote with the options: {string.Join(", ", candidates.Select(map => map.ID))}");
+
+            _gameTicker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
+            if (!CreateMapVote(null, candidates, maxDuration))
+                return;
+
+            _gameTicker.UpdateInfoText();
+            TimeoutStandardVote(StandardVoteType.Map);
+        }
+        // DS14-Soyuz end
 
         private void CreateRestartVote(ICommonSession? initiator)
         {
@@ -284,20 +304,34 @@ namespace Content.Server.Voting.Managers
             };
         }
 
-        private void CreateMapVote(ICommonSession? initiator)
+        // DS14-Soyuz start: automatic map vote
+        private bool CreateMapVote(
+            ICommonSession? initiator,
+            IReadOnlyList<GameMapPrototype>? candidates = null,
+            TimeSpan? maxDuration = null)
         {
-            var maps = _gameMapManager.CurrentlyEligibleMaps().ToDictionary(map => map, map => map.MapName);
+            var maps = (candidates ?? _gameMapManager.CurrentlyEligibleMaps().ToList())
+                .ToDictionary(map => map, map => map.MapName);
 
-            var alone = _playerManager.PlayerCount == 1 && initiator != null;
+            if (maps.Count == 0)
+                return false;
+
+            var alone = _playerManager.PlayerCount == 1;
+            var duration = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap));
+
+            if (maxDuration is { } maxVoteDuration && duration > maxVoteDuration)
+                duration = maxVoteDuration;
+
+            if (duration <= TimeSpan.Zero)
+                return false;
+
             var options = new VoteOptions
             {
                 Title = Loc.GetString("ui-vote-map-title"),
-                Duration = alone
-                    ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerAlone))
-                    : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerMap))
+                Duration = duration
             };
 
-            if (alone)
+            if (alone && initiator != null)
                 options.InitiatorTimeout = TimeSpan.FromSeconds(10);
 
             foreach (var (k, v) in maps)
@@ -347,7 +381,10 @@ namespace Content.Server.Voting.Managers
                     }
                 }
             };
+
+            return true;
         }
+        // DS14-Soyuz end
 
         private async void CreateVotekickVote(ICommonSession? initiator, string[]? args)
         {

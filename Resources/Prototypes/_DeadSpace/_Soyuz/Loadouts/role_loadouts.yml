@@ -1,0 +1,15 @@
+# NKVB
+- type: roleLoadout
+  id: JobPolitruk
+  groups:
+  - GroupTankHarness
+  - SecurityBackpack
+  - SurvivalSecurity
+  - Trinkets
+  - PolaroidKit
+  - GroupSpeciesBreathToolSecurity
+  - PolitrukJumpsuit
+  - PolitrukOuterclothing
+  - PolitrukHead
+  - PolitrukSocks
+  - PolitrukUnderwear

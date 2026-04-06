@@ -187,7 +187,7 @@ public sealed class AlertLevelSystem : EntitySystem
 
         // The full announcement to be spat out into chat.
         var announcementFull = Loc.GetString("alert-level-announcement", ("name", name), ("announcement", announcement));
-        // DS14-Soyuz
+        // DS14-Soyuz start
         _chatSystem.DispatchStationAnnouncement(
             station,
             announcementFull,

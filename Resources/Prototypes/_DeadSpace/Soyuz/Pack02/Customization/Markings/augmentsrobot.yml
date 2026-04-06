@@ -2,7 +2,7 @@
   id: AugmentsRoboticArmRight
   bodyPart: RArm
   markingCategory: Arms
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_roboarm
@@ -11,7 +11,7 @@
   id: AugmentsRoboticHandRigh
   bodyPart: RHand
   markingCategory: Arms
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_robohand
@@ -20,7 +20,7 @@
   id: AugmentsRoboticArmLeft
   bodyPart: LArm
   markingCategory: Arms
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_roboarm
@@ -29,7 +29,7 @@
   id: AugmentsRoboticHandLeft
   bodyPart: LHand
   markingCategory: Arms
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_robohand
@@ -38,7 +38,7 @@
   id: AugmentsRoboticTorso
   bodyPart: Chest
   markingCategory: Chest
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: robotorso_m
@@ -47,7 +47,7 @@
   id: AugmentsRoboticLegRight
   bodyPart: RLeg
   markingCategory: Legs
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_roboleg
@@ -56,7 +56,7 @@
   id: AugmentsRoboticFootRight
   bodyPart: RFoot
   markingCategory: Legs
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_robofoot
@@ -65,7 +65,7 @@
   id: AugmentsRoboticLegLeft
   bodyPart: LLeg
   markingCategory: Legs
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_roboleg
@@ -74,7 +74,7 @@
   id: AugmentsRoboticFootLeft
   bodyPart: LFoot
   markingCategory: Legs
-  speciesBlacklist: [Avali]
+  speciesRestriction: [IPC]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_robofoot

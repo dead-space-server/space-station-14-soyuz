@@ -1,11 +1,9 @@
 - type: gameMap
   id: Core
   mapName: 'Core'
-  mapPath: /Maps/Soyuz/core.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 45
-  maxPlayers: 70
-  # DS14-Soyuz-end
+  mapPath: /Maps/_Soyuz/core.yml
+  minPlayers: 40
+  maxPlayers: 75
   stations:
     Core:
       stationProto: StandardNanotrasenStation

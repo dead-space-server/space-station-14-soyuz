@@ -1,8 +1,8 @@
 - type: gameMap
   id: Convex
   mapName: 'Convex'
-  mapPath: /Maps/Soyuz/convex.yml
-  minPlayers: 70 # DS-14-voite
+  mapPath: /Maps/_Soyuz/convex.yml
+  minPlayers: 45
   stations:
     Convex:
       stationProto: StandardNanotrasenStation

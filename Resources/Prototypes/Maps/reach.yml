@@ -1,7 +1,7 @@
 - type: gameMap
   id: Reach
   mapName: 'Reach'
-  mapPath: /Maps/Soyuz/reach.yml
+  mapPath: /Maps/_Soyuz/reach.yml
   minPlayers: 0
   maxPlayers: 15 # DS-14-voite
   stations:

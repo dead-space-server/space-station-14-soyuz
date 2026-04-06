@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxGlacier
   mapName: 'Glacier Station'
-  mapPath: /Maps/Soyuz/corvax_glacier.yml
+  mapPath: /Maps/_Soyuz/corvax_glacier.yml
   minPlayers: 70
   stations:
     Glacier:

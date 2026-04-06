@@ -1,8 +1,8 @@
 - type: gameMap
   id: CorvaxAvrite
   mapName: 'Avrite'
-  mapPath: /Maps/Soyuz/corvax_avrit.yml
-  minPlayers: 70 # DS-14-voite
+  mapPath: /Maps/_Soyuz/corvax_avrit.yml
+  minPlayers: 50
   stations:
     Avrit:
       stationProto: StandardNanotrasenStation

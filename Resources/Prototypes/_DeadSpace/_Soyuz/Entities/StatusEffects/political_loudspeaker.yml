@@ -1,0 +1,17 @@
+- type: entity
+  parent: MobStatusEffectBase
+  id: StatusEffectPoliticalLoudspeakerSpeed
+  name: political-loudspeaker-status-speed-name
+  components:
+  - type: StatusEffect
+  - type: StatusEffectAlert
+    alert: PoliticalLoudspeakerSpeed
+
+- type: entity
+  parent: MobStatusEffectBase
+  id: StatusEffectPoliticalLoudspeakerFortify
+  name: political-loudspeaker-status-fortify-name
+  components:
+  - type: StatusEffect
+  - type: StatusEffectAlert
+    alert: PoliticalLoudspeakerFortify

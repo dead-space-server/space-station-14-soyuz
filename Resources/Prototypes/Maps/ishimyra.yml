@@ -1,7 +1,7 @@
 - type: gameMap
   id: Ishimura
   mapName: 'Ishimura'
-  mapPath: /Maps/Soyuz/ishimyra.yml # Я рот топтал этой ишимуры нихуя не грузит
+  mapPath: /Maps/_Soyuz/ishimyra.yml # Я рот топтал этой ишимуры нихуя не грузит
   minPlayers: 60
   stations:
     Ishimura:

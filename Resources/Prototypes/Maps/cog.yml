@@ -1,7 +1,7 @@
 - type: gameMap
   id: Cog
   mapName: 'Cog'
-  mapPath: /Maps/Soyuz/cog.yml
+  mapPath: /Maps/_Soyuz/cog.yml
   minPlayers: 40
   maxPlayers: 70 # DS-14-voite
   stations:

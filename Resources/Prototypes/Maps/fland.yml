@@ -1,8 +1,8 @@
 - type: gameMap
   id: Fland
   mapName: 'Fland'
-  mapPath: /Maps/Soyuz/fland.yml
-  minPlayers: 70 # DS-14-voite
+  mapPath: /Maps/_Soyuz/fland.yml
+  minPlayers: 45
   stations:
     Fland:
       stationProto: StandardNanotrasenStation

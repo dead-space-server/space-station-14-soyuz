@@ -1,11 +1,9 @@
 ﻿- type: gameMap
   id: Cluster
   mapName: 'Cluster'
-  mapPath: /Maps/Soyuz/cluster.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 0
-  maxPlayers: 40
-  # DS14-Soyuz-end
+  mapPath: /Maps/_Soyuz/cluster.yml
+  minPlayers: 5
+  maxPlayers: 35
   stations:
     Cluster:
       stationProto: StandardNanotrasenStation

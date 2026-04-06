@@ -1,11 +1,9 @@
 - type: gameMap
   id: Saltern
   mapName: 'Saltern'
-  mapPath: /Maps/Soyuz/saltern.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 0
-  maxPlayers: 40
-  # DS14-Soyuz-end
+  mapPath: /Maps/_Soyuz/saltern.yml
+  minPlayers: 7
+  maxPlayers: 35
   stations:
     Saltern:
       stationProto: StandardNanotrasenStation

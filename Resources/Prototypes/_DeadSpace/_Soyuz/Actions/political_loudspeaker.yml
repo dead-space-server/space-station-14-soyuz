@@ -1,0 +1,32 @@
+- type: entity
+  parent: BaseAction
+  id: ActionPoliticalLoudspeakerHeal
+  name: political-loudspeaker-action-heal-name
+  description: political-loudspeaker-action-heal-desc
+  components:
+  - type: Action
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
+  - type: InstantAction
+    event: !type:PoliticalLoudspeakerHealActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionPoliticalLoudspeakerSpeed
+  name: political-loudspeaker-action-speed-name
+  description: political-loudspeaker-action-speed-desc
+  components:
+  - type: Action
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
+  - type: InstantAction
+    event: !type:PoliticalLoudspeakerSpeedActionEvent
+
+- type: entity
+  parent: BaseAction
+  id: ActionPoliticalLoudspeakerFortify
+  name: political-loudspeaker-action-fortify-name
+  description: political-loudspeaker-action-fortify-desc
+  components:
+  - type: Action
+    icon: { sprite: _DeadSpace/_Soyuz/Objects/Devices/loudspeaker.rsi, state: icon } # Временно
+  - type: InstantAction
+    event: !type:PoliticalLoudspeakerFortifyActionEvent

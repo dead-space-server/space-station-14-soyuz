@@ -187,24 +187,22 @@ public sealed class AlertLevelSystem : EntitySystem
 
         // The full announcement to be spat out into chat.
         var announcementFull = Loc.GetString("alert-level-announcement", ("name", name), ("announcement", announcement));
-        // DS-14 start
-        if (announce)
-        {
-            _chatSystem.DispatchStationAnnouncement(
-                station,
-                announcementFull,
-                sender: stationName,
-                playDefaultSound: false,
-                colorOverride: detail.Color,
-                voice: playSound ? AlertLevelAnnouncementVoice : null,
-                announcementTtsDelay: 0f);
-        }
-        else if (playSound && detail.Sound != null)
+        // DS14-Soyuz start
+        _chatSystem.DispatchStationAnnouncement(
+            station,
+            announcementFull,
+            sender: stationName,
+            playDefaultSound: false,
+            colorOverride: detail.Color,
+            voice: detail.TTS ? AlertLevelAnnouncementVoice : null,
+            announcementTtsDelay: 0f
+            );
+        if (!detail.TTS && detail.Sound != null)
         {
             var filter = _stationSystem.GetInOwningStation(station);
             _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
         }
-        // DS-14 end
+        // DS14-Soyuz end
         RaiseLocalEvent(new AlertLevelChangedEvent(station, level));
     }
 }

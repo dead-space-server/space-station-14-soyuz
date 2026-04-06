@@ -1,8 +1,8 @@
 - type: gameMap
   id: Origin
   mapName: 'Origin'
-  mapPath: /Maps/Soyuz/origin.yml
-  minPlayers: 70 # DS-14-voite
+  mapPath: /Maps/_Soyuz/origin.yml
+  minPlayers: 45
   stations:
     Origin:
       stationProto: StandardNanotrasenStation

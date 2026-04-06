@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxSilly
   mapName: 'Silly Island'
-  mapPath: /Maps/Soyuz/ds_silly.yml
+  mapPath: /Maps/_Soyuz/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
   # DS14-Soyuz-start: automatic map vote online range

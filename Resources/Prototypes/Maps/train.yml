@@ -1,7 +1,7 @@
 - type: gameMap
   id: Train
   mapName: 'Train'
-  mapPath: /Maps/Soyuz/train.yml
+  mapPath: /Maps/_Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
   # DS14-Soyuz-start: automatic map vote online range

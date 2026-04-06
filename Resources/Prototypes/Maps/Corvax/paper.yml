@@ -1,8 +1,8 @@
 - type: gameMap
   id: CorvaxPaper
   mapName: 'Paper'
-  mapPath: /Maps/Soyuz/corvax_paper.yml
-  minPlayers: 0 # DS-14-voite
+  mapPath: /Maps/_Soyuz/corvax_paper.yml
+  minPlayers: 5
   maxPlayers: 40
   stations:
     CorvaxPaper:

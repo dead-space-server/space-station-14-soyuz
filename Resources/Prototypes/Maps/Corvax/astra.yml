@@ -1,8 +1,8 @@
 - type: gameMap
   id: CorvaxAstra
   mapName: 'Astra'
-  mapPath: /Maps/Soyuz/corvax_astra.yml
-  minPlayers: 70 # DS-14-voite
+  mapPath: /Maps/_Soyuz/corvax_astra.yml
+  minPlayers: 50
   stations:
     Astra:
       stationProto: StandardNanotrasenStation

@@ -1,11 +1,9 @@
 - type: gameMap
   id: Elkridge
   mapName: 'Elkridge Depot'
-  mapPath: /Maps/Soyuz/elkridge.yml
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 25
-  maxPlayers: 50
-  # DS14-Soyuz-end
+  mapPath: /Maps/_Soyuz/elkridge.yml
+  minPlayers: 35
+  maxPlayers: 55
   stations:
     Elkridge:
       stationProto: StandardNanotrasenStation

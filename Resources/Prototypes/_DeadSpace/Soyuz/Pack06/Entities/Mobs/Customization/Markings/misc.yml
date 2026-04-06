@@ -1009,7 +1009,7 @@
   id: VitiligoHeadL
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1024,7 +1024,7 @@
   id: VitiligoHeadR
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1039,7 +1039,7 @@
   id: VitiligoHeadJaw
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1054,7 +1054,7 @@
   id: VitiligoChestF
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1069,7 +1069,7 @@
   id: VitiligoChestSpots
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1084,7 +1084,7 @@
   id: VitiligoArmR
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1099,7 +1099,7 @@
   id: VitiligoArmL
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1114,7 +1114,7 @@
   id: VitiligoHandR
   bodyPart: RHand
   markingCategory: Arms
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1129,7 +1129,7 @@
   id: VitiligoHandL
   bodyPart: LHand
   markingCategory: Arms
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1144,7 +1144,7 @@
   id: VitiligoLegR
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:
@@ -1159,7 +1159,7 @@
   id: VitiligoLegL
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid] # DeadSpace Soyuz: add Oni, Goblin, Felinid
+  speciesRestriction: [ Human, Dwarf, Oni, Goblin, Felinid]
   forcedColoring: true
   coloring:
     default:

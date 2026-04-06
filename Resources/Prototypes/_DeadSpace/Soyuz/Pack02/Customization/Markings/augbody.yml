@@ -3,7 +3,6 @@
   bodyPart: RArm
   markingCategory: Arms
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: r_augarm
@@ -13,7 +12,6 @@
   bodyPart: RHand
   markingCategory: Arms
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: r_aughand
@@ -23,7 +21,6 @@
   bodyPart: LArm
   markingCategory: Arms
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: l_augarm
@@ -33,7 +30,6 @@
   bodyPart: LHand
   markingCategory: Arms
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: l_aughand
@@ -43,7 +39,6 @@
   bodyPart: Chest
   markingCategory: Chest
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: augtorso_m
@@ -53,7 +48,6 @@
   bodyPart: RLeg
   markingCategory: Legs
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: r_augleg
@@ -63,7 +57,6 @@
   bodyPart: RFoot
   markingCategory: Legs
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: r_augfoot
@@ -73,7 +66,6 @@
   bodyPart: LLeg
   markingCategory: Legs
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: l_augleg
@@ -83,7 +75,6 @@
   bodyPart: LFoot
   markingCategory: Legs
   speciesRestriction: [Human]
-  speciesBlacklist: [Avali]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/augbody.rsi
       state: l_augfoot

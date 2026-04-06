@@ -2,7 +2,7 @@
   id: HumanHairGatheredlow
   bodyPart: Hair
   markingCategory: Hair
-  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin] # DeadSpace Soyuz: add Oni, Goblin, Felinid, Vulpkanin
+  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
       state: gatheredlow
@@ -11,7 +11,7 @@
   id: HumanHairLowpigtails
   bodyPart: Hair
   markingCategory: Hair
-  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin] # DeadSpace Soyuz: add Oni, Goblin, Felinid, Vulpkanin
+  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
       state: lowpigtails
@@ -20,7 +20,7 @@
   id: HumanHairFrenchBraid
   bodyPart: Hair
   markingCategory: Hair
-  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin] # DeadSpace Soyuz: add Oni, Goblin, Felinid, Vulpkanin
+  speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
     - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
       state: frenchbraid

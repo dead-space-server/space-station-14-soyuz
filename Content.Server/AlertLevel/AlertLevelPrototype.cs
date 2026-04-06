@@ -71,5 +71,12 @@ public sealed partial class AlertLevelDetail
     /// How long it takes for the shuttle to arrive when called.
     /// </summary>
     [DataField("shuttleTime")] public TimeSpan ShuttleTime { get; private set; } = TimeSpan.FromMinutes(5);
+
+    // DS14-Soyuz start
+    // <summary>
+    // True - announce with TTS, False - announce with sound.
+    // </summary>
+    [DataField("tts")] public bool TTS = false;
+    // DS14-Soyuz end
 }
 

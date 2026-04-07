@@ -47,3 +47,31 @@
   loadouts:
   - CombatHypo
   - CombatHypoSting
+
+# Гипоспрей Фельдшера
+- type: entity
+  parent: BaseItem
+  id: HypoParamedic
+  name: Гипоспрей "Шмель"
+  description: Упрощённая модель гипоспрея для Фельдшера
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+    layers:
+      - state: hypo
+  - type: Item
+    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+  - type: SolutionContainerManager
+    solutions:
+      hypospray:
+        maxVol: 5
+  - type: RefillableSolution
+    solution: hypospray
+  - type: ExaminableSolution
+    solution: hypospray
+    exactVolume: true
+  - type: Hypospray
+    transferAmount: 2.5
+    onlyAffectsMobs: false
+  - type: UseDelay
+    delay: 1.2

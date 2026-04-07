@@ -130,6 +130,7 @@
     - id: ClothingUniformJumpskirtParamedic
     - id: ClothingEyesHudMedical
     - id: Defibrillator # DS14
+    - id: HypoParamedic # DS14|Soyuz
     - id: ClothingHandsGlovesLatex
     - id: ClothingHeadsetMedical
     - id: ClothingMaskSterile

@@ -103379,6 +103379,44 @@ entities:
     - type: Transform
       pos: 23.726025,13.380471
       parent: 2
+- proto: MagazinePistolSubMachineGun
+  entities:
+  - uid: 13193
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.426517,31.698349
+      parent: 2
+  - uid: 13194
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.495962,31.628904
+      parent: 2
+  - uid: 13195
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.530684,31.587238
+      parent: 2
+  - uid: 13196
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.579294,31.55946
+      parent: 2
+  - uid: 13197
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.648739,31.503904
+      parent: 2
+  - uid: 13198
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 25.739017,31.455294
+      parent: 2
 - proto: MailSpamLetter
   entities:
   - uid: 13199
@@ -150546,13 +150584,13 @@ entities:
       parent: 21393
 - proto: WeaponRifleAk
   entities:
-  - uid: 13181
+  - uid: 19892
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 25.620932,31.483635
       parent: 2
-  - uid: 13182
+  - uid: 19893
     components:
     - type: Transform
       pos: 25.63945,31.668821

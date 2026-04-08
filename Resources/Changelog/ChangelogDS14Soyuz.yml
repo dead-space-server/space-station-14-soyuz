@@ -561,3 +561,14 @@ Entries:
   changes:
   - type: Add
     message: Добавлен гипоспрей малой вместимости Шмель для фельдшера!
+- id: 57
+  author: PERed5
+  time: '2026-04-08T21:53:26+00:00'
+  pr: 224
+  changes:
+  - type: Add
+    message: Добавлен старший следователь
+  - type: Remove
+    message: Удален оперативный дежурный
+  - type: Tweak
+    message: Изменены требования к игровому времени за НМа

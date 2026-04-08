@@ -1,0 +1,11 @@
+- type: entity
+  id: MobGiantSpiderSpaceNoEgg
+  parent: MobGiantSpiderSpace
+  name: гигантский космический паук
+  description: Светиться ярче и с более крупным брюхом. Явно не к добру.
+  suffix: без яиц
+  components:
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatSpider
+      amount: 2

@@ -10,19 +10,6 @@
     - id: MobGiantSpiderSpace
 
 - type: entity
-  id: CrateNPCGiantSpiderSpaceNoEgg
-  parent: CrateSecure
-  name: ящик с космическими пауками
-  description: Ящик для содержания четырёх гигантских космических пауков без яйцекладки.
-  components:
-  - type: AccessReader
-    access: [["Security"], ["Captain"]]
-  - type: StorageFill
-    contents:
-    - id: MobGiantSpiderSpaceNoEgg
-      amount: 4
-
-- type: entity
   id: CrateNPCXeno
   parent: CrateSyndicateSecure
   name: ящик с ксеноморфом

@@ -1,15 +1,17 @@
 - type: entity
+  id: BaseChemistryVirusVial
   parent: BaseChemistryEmptyVial
-  id: TerratosomochromolinChemistryVial
+  categories: [ HideSpawnMenu ]
   name: пробирка
   description: Маленькая пробирка.
-  suffix: Терратосоматохромолин
+  suffix: ромерол, 15
   components:
   - type: Label
-    currentLabel: терратосоматохромолин
+    currentLabel: reagent-name-romerol
   - type: SolutionContainerManager
     solutions:
       beaker:
+        maxVol: 15
         reagents:
-        - ReagentId: Terratosomochromolin
-          Quantity: 10
+        - ReagentId: Romerol
+          Quantity: 15

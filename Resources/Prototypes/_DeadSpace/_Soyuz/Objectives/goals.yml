@@ -1,0 +1,45 @@
+
+- type: stationGoal
+  id: DelegationReception
+  text: "/Paperwork/StationGoal/DelegationReception.xml"
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: Theater
+  text: "/Paperwork/StationGoal/Theater.xml"
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: LongRangeExpeditions
+  text: "/Paperwork/StationGoal/LongRangeExpeditions.xml"
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: AmbuzolReserve
+  text: "/Paperwork/StationGoal/AmbuzolReserve.xml"
+  startingShipment: CrateVirologyPlan
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: SeedFund
+  text: "/Paperwork/StationGoal/SeedFund.xml"
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: Karachnoc
+  text: "/Paperwork/StationGoal/Karachnoc.xml"
+  startingShipment: CrateNPCGiantSpiderSpaceNoEgg
+  startingShipmentAmount: 2
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"

@@ -30,7 +30,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: Medical
+      group: ALL
 
 - type: startingGear
   id: TaipanMedicGear

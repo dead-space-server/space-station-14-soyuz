@@ -1,0 +1,16 @@
+- type: alert
+  id: PoliticalLoudspeakerSpeed
+  category: Buckled
+  icons:
+  - sprite: /Textures/Interface/Alerts/walking.rsi
+    state: walking
+  name: alerts-political-loudspeaker-speed-name
+  description: alerts-political-loudspeaker-speed-desc
+
+- type: alert
+  id: PoliticalLoudspeakerFortify
+  icons:
+  - sprite: /Textures/Objects/Magic/magicactions.rsi
+    state: shield
+  name: alerts-political-loudspeaker-fortify-name
+  description: alerts-political-loudspeaker-fortify-desc

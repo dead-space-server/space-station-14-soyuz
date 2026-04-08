@@ -22,6 +22,8 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+    - type: Skill
+      group: ALL
 
 - type: startingGear
   id: CentcomBlueShieldGear

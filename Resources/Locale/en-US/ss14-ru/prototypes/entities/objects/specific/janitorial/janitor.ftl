@@ -15,3 +15,6 @@ ent-RagItem = damp rag
     .desc = For cleaning up messes, you suppose.
 ent-WireBrush = wire brush
     .desc = A bristly steel wire brush, perfect for scraping away even the toughest patches of rust.
+# // DS-14 soyuz
+ent-WireBrushElectrical = electrical wire brush
+    .desc = A powered wire brush for custodial cyborgs. Scrapes rust three times faster than a standard wire brush.

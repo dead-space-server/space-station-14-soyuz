@@ -1,11 +1,13 @@
 - type: gameMap
   id: Train
   mapName: 'Train'
-  mapPath: /Maps/Soyuz/train.yml
+  mapPath: /Maps/_Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
-  minPlayers: 30
-  maxPlayers: 40
+  # DS14-Soyuz-start: automatic map vote online range
+  minPlayers: 25
+  maxPlayers: 65
+  # DS14-Soyuz-end
   stations:
     Train:
       stationProto: StandardNanotrasenStation

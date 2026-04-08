@@ -16,6 +16,7 @@ public sealed class SkillsListEui : BaseEui
     public SkillsListEui()
     {
         _window = new SkillsListWindow();
+        _window.SkillPressed += prototypeId => SendMessage(new SkillTeachRequestMessage(prototypeId));
     }
 
     public override void Opened()

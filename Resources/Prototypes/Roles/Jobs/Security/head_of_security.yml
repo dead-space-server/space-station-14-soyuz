@@ -9,7 +9,7 @@
       time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 40h
+      time: 50h
     - !type:OverallPlaytimeRequirement
       time: 100h
     - !type:AgeRequirement

@@ -1,6 +1,6 @@
 ent-ClothingNeckSecurityOfficerMedal = медаль милиционера
     .desc = Медаль для того, кто готов отдать свою жизнь ради защиты экипажа.
-ent-ClothingNeckSecurityWardenMedal = медаль оперативного дежурного
+ent-ClothingNeckSecurityWardenMedal = медаль старшего следователя
     .desc = Медаль для того, кто милует невинных, и карает виновных.
 ent-ClothingNeckSecurityHeadOfSecurityMedal = медаль начальника милиции
     .desc = Медаль для того, кто готов взять на себя ответственность за безопасность целой станции.

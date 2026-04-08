@@ -5,11 +5,16 @@
   playTimeTracker: JobWarden
   requirements:
     - !type:RoleTimeRequirement
+      role: JobDetective
+      time: 10h
+    - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 5h
+      time: 10h
+    - !type:OverallPlaytimeRequirement
+      time: 80h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 10h
+      time: 40h
   weight: 5
   startingGear: WardenGear
   icon: "JobIconWarden"

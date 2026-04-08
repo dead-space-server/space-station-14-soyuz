@@ -56,11 +56,11 @@
   description: Упрощённая модель гипоспрея для Фельдшера
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
     layers:
       - state: hypo
   - type: Item
-    sprite: _DeadSpace/Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
   - type: SolutionContainerManager
     solutions:
       hypospray:

@@ -2,7 +2,7 @@
   id: CorvaxGlacier
   mapName: 'Glacier Station'
   mapPath: /Maps/_Soyuz/corvax_glacier.yml
-  minPlayers: 70
+  minPlayers: 60
   stations:
     Glacier:
       stationProto: StandardNanotrasenStation

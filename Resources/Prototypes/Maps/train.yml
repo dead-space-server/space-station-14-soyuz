@@ -5,7 +5,7 @@
   maxRandomOffset: 0
   randomRotation: false
   # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 25
+  minPlayers: 15
   maxPlayers: 65
   # DS14-Soyuz-end
   stations:

@@ -1,8 +1,8 @@
-﻿- type: gameMap
+- type: gameMap
   id: Cluster
   mapName: 'Cluster'
   mapPath: /Maps/_Soyuz/cluster.yml
-  minPlayers: 5
+  minPlayers: 0
   maxPlayers: 35
   stations:
     Cluster:

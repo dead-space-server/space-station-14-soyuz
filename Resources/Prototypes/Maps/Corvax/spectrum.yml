@@ -2,7 +2,7 @@
   id: CorvaxSpectrum
   mapName: 'Spectrum'
   mapPath: /Maps/_Soyuz/corvax_spectrum.yml
-  minPlayers: 50
+  minPlayers: 40
   stations:
     Spectrum:
       stationProto: StandardNanotrasenStation

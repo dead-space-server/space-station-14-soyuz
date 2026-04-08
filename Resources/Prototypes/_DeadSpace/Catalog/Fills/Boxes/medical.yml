@@ -1,0 +1,11 @@
+- type: entity
+  id: BoxVirus
+  parent: BoxVial
+  categories: [ HideSpawnMenu ]
+  name: коробка вирусологических пробирок
+  description: Коробка с пробирками ромерола.
+  components:
+  - type: StorageFill
+    contents:
+      - id: BaseChemistryVirusVial
+        amount: 6

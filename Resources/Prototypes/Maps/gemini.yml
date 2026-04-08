@@ -2,7 +2,7 @@
   id: Gemini
   mapName: 'Gemini'
   mapPath: /Maps/_Soyuz/gemini.yml
-  minPlayers: 25
+  minPlayers: 15
   maxPlayers: 40
   stations:
     Gemini:

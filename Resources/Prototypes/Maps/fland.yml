@@ -2,7 +2,7 @@
   id: Fland
   mapName: 'Fland'
   mapPath: /Maps/_Soyuz/fland.yml
-  minPlayers: 45
+  minPlayers: 35
   stations:
     Fland:
       stationProto: StandardNanotrasenStation

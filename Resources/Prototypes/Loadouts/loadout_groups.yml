@@ -1445,6 +1445,7 @@
   loadouts:
   - WardenHead
   - WardenBeret
+  - WardenCap #DS14-Soyuz
 
 - type: loadoutGroup
   id: WardenJumpsuit
@@ -1460,6 +1461,7 @@
   loadouts:
   - WardenCoat
   - WardenArmoredWinterCoat
+  - WardenCoatAlt #DS14-Soyuz
 
 - type: loadoutGroup
   id: WardenSocks

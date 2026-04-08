@@ -554,3 +554,10 @@ Entries:
   changes:
   - type: Tweak
     message: Изменены спрайты начальника отдела кадров
+- id: 56
+  author: PERed5
+  time: '2026-04-08T19:48:21+00:00'
+  pr: 223
+  changes:
+  - type: Add
+    message: Добавлен гипоспрей малой вместимости Шмель для фельдшера!

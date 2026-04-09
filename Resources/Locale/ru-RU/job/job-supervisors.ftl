@@ -16,6 +16,6 @@ job-supervisors-hire = своим нанимателям
 job-supervisors-nobody = никому
 job-supervisors-everyone = вообще всем
 job-supervisors-crew = экипажу
-job-supervisors-security-borg = своим законам, милиционерам, страшему милиционеру, оперативному дежурному и начальнику милиции
+job-supervisors-security-borg = своим законам, милиционерам, страшему милиционеру, старшему следователю и начальнику милиции
 job-supervisors-centcom-administrator = администратору Генерального Штаба
 job-supervisors-no-one = никому

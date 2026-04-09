@@ -1,8 +1,8 @@
 - type: gameMap
   id: CorvaxPearl
   mapName: 'Pearl Island'
-  mapPath: /Maps/Soyuz/corvax_pearl.yml
-  minPlayers: 25
+  mapPath: /Maps/_Soyuz/corvax_pearl.yml
+  minPlayers: 15
   maxPlayers: 55
   stations:
     Pearl:

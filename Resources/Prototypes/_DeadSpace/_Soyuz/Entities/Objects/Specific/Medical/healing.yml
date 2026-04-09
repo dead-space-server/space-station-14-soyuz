@@ -1,0 +1,69 @@
+# Конфета
+- type: entity
+  name: Барбариска
+  suffix: Tricordrazine 10u
+  parent: Pill
+  id: BarbarisCandy
+  components:
+  - type: Pill
+    pillType: 2
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    state: pill3
+    scale: 0.7, 0.7
+  - type: Label
+    currentLabel: tricordrazine 10u
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Tricordrazine
+          Quantity: 20
+
+# Конфета в обертке
+- type: entity
+  parent: BaseItem
+  id: Barbaris
+  name: Конфета "Барбарис"
+  description: Знакомая с детства красная конфета. По программе профилактики простуды СССП содержит Трикордразин.
+  components:
+  - type: Item
+    size: Tiny
+    heldPrefix: barbaris
+  - type: Tag
+    tags:
+      - FoodSnack
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    state: barbaris
+    scale: 0.7, 0.7
+  - type: SpawnItemsOnUse
+    items:
+      - id: BarbarisTrash
+      - id: BarbarisCandy
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+# Обертка
+- type: entity
+  parent: FoodPacketTrash
+  id: BarbarisTrash
+  name: Обёртка от конфеты
+  description: Красно-зеленый фантик от конфеты.
+  components:
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 15
+        reagents:
+        - ReagentId: Fiber
+          Quantity: 10
+  - type: Tag
+    tags:
+    - Trash
+  - type: Sprite
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    state: barbaris-trash

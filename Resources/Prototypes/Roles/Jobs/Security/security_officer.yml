@@ -9,7 +9,7 @@
       time: 10h
   startingGear: SecurityOfficerGear
   icon: "JobIconSecurityOfficer"
-  supervisors: job-supervisors-hos
+  supervisors: job-supervisors-hos-and-senior-officer
   canBeAntag: false
   access:
   - Security

@@ -11,6 +11,8 @@ namespace Content.Server.AlertLevel;
 
 public sealed class AlertLevelSystem : EntitySystem
 {
+    private const string AlertLevelAnnouncementVoice = "Arthas"; // DS-14
+
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
@@ -185,27 +187,22 @@ public sealed class AlertLevelSystem : EntitySystem
 
         // The full announcement to be spat out into chat.
         var announcementFull = Loc.GetString("alert-level-announcement", ("name", name), ("announcement", announcement));
-
-        var playDefault = false;
-        if (playSound)
+        // DS14-Soyuz start
+        _chatSystem.DispatchStationAnnouncement(
+            station,
+            announcementFull,
+            sender: stationName,
+            playDefaultSound: false,
+            colorOverride: detail.Color,
+            voice: detail.TTS ? AlertLevelAnnouncementVoice : null,
+            announcementTtsDelay: 0f
+            );
+        if (!detail.TTS && detail.Sound != null)
         {
-            if (detail.Sound != null)
-            {
-                var filter = _stationSystem.GetInOwningStation(station);
-                _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
-            }
-            else
-            {
-                playDefault = true;
-            }
+            var filter = _stationSystem.GetInOwningStation(station);
+            _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
         }
-
-        if (announce)
-        {
-            _chatSystem.DispatchStationAnnouncement(station, announcementFull, playDefaultSound: playDefault,
-                colorOverride: detail.Color, sender: stationName);
-        }
-
+        // DS14-Soyuz end
         RaiseLocalEvent(new AlertLevelChangedEvent(station, level));
     }
 }

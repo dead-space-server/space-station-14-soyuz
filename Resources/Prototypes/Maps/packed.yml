@@ -1,8 +1,8 @@
 - type: gameMap
   id: Packed
   mapName: 'Packed'
-  mapPath: /Maps/Soyuz/packed.yml
-  minPlayers: 5
+  mapPath: /Maps/_Soyuz/packed.yml
+  minPlayers: 0
   maxPlayers: 35
   stations:
     Packed:

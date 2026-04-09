@@ -24,6 +24,8 @@ public sealed class GameMapManager : IGameMapManager
     [ViewVariables(VVAccess.ReadOnly)]
     private readonly Queue<string> _previousMaps = new();
     [ViewVariables(VVAccess.ReadOnly)]
+    private readonly HashSet<string> _automaticPlayedMaps = new(); // DS-14-voite
+    [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _configSelectedMap;
     [ViewVariables(VVAccess.ReadOnly)]
     private GameMapPrototype? _selectedMap; // Don't change this value during a round!
@@ -93,11 +95,30 @@ public sealed class GameMapManager : IGameMapManager
         }
     }
 
+    // DS14-Soyuz start: automatic map vote candidates
     public IEnumerable<GameMapPrototype> CurrentlyEligibleMaps()
     {
-        var maps = AllVotableMaps().Where(IsMapEligible).ToArray();
+        var maps = GetEligibleMaps().ToArray();
         return maps.Length == 0 ? AllMaps().Where(x => x.Fallback) : maps;
     }
+
+    public IReadOnlyList<GameMapPrototype> GetAutomaticVoteCandidates()
+    {
+        var eligible = GetEligibleMaps().ToList();
+        if (eligible.Count == 0)
+            return eligible;
+
+        var candidates = eligible
+            .Where(map => !_automaticPlayedMaps.Contains(map.ID))
+            .ToList();
+
+        if (candidates.Count != 0)
+            return candidates;
+
+        ResetEligibleHistory(eligible);
+        return eligible;
+    }
+    // DS14-Soyuz end
 
     public IEnumerable<GameMapPrototype> AllVotableMaps()
     {
@@ -188,12 +209,29 @@ public sealed class GameMapManager : IGameMapManager
         return TryLookupMap(gameMap, out _);
     }
 
+    // DS14-Soyuz start: automatic map vote history
+    public void MarkMapPlayed(string gameMap)
+    {
+        if (!TryLookupMap(gameMap, out var map))
+            return;
+
+        _automaticPlayedMaps.Add(map.ID);
+
+        if (_previousMaps.LastOrDefault() != map.ID)
+            EnqueueMap(map.ID);
+    }
+
     private bool IsMapEligible(GameMapPrototype map)
     {
         return map.MaxPlayers >= _playerManager.PlayerCount &&
                map.MinPlayers <= _playerManager.PlayerCount &&
                map.Conditions.All(x => x.Check(map)) &&
                _entityManager.System<GameTicker>().IsMapEligible(map);
+    }
+
+    private IEnumerable<GameMapPrototype> GetEligibleMaps()
+    {
+        return AllVotableMaps().Where(IsMapEligible);
     }
 
     private bool TryLookupMap(string gameMap, [NotNullWhen(true)] out GameMapPrototype? map)
@@ -241,4 +279,13 @@ public sealed class GameMapManager : IGameMapManager
             _previousMaps.Dequeue();
         }
     }
+
+    private void ResetEligibleHistory(IEnumerable<GameMapPrototype> eligibleMaps)
+    {
+        foreach (var map in eligibleMaps)
+        {
+            _automaticPlayedMaps.Remove(map.ID);
+        }
+    }
+    // DS14-Soyuz end
 }

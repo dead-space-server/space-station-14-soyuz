@@ -93,6 +93,10 @@ public sealed class ChemistryGuideDataSystem : SharedChemistryGuideDataSystem
             if (!entProto.TryGetComponent<ExtractableComponent>(out var extractableComponent, EntityManager.ComponentFactory))
                 continue;
 
+            // DS14: skip extracts that are intentionally hidden until their server-specific content is loaded.
+            if (!extractableComponent.ShowInGuidebook)
+                continue;
+
             //these bloat the hell out of blood/fat
             if (entProto.HasComponent<BodyPartComponent>())
                 continue;

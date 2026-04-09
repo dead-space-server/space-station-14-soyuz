@@ -772,3 +772,13 @@
     seedId: bloonion
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/bloonion.rsi
+
+- type: entity
+  parent: SeedBase
+  name: packet of pear seeds
+  id: PearSeeds
+  components:
+    - type: Seed
+      seedId: pear
+    - type: Sprite
+      sprite: _DeadSpace/Objects/Specific/Hydroponics/pear.rsi

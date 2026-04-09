@@ -626,4 +626,5 @@
     whitelist:
       tags:
       - Pill
+      - FoodSnack # _DS14
   - type: Dumpable

@@ -12,7 +12,7 @@
       time: 7200 # 2 hours
   startingGear: SecurityPilotGear
   icon: "JobIconSecurityPilot"
-  supervisors: job-supervisors-hos
+  supervisors: job-supervisors-hos-and-senior-officer
   canBeAntag: false
   access:
   - Security

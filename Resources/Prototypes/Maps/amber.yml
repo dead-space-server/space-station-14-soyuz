@@ -1,9 +1,9 @@
 - type: gameMap
   id: Amber
   mapName: 'Amber'
-  mapPath: /Maps/Soyuz/amber.yml
-  minPlayers: 25
-  maxPlayers: 45
+  mapPath: /Maps/_Soyuz/amber.yml
+  minPlayers: 20
+  maxPlayers: 70
   stations:
     Amber:
       stationProto: StandardNanotrasenStation

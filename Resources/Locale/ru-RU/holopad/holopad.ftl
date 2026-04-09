@@ -103,7 +103,7 @@ holopad-engineering-main = Инженерный - Основной
 # Security
 holopad-security-front = Милиция - Приёмная
 holopad-security-brig = Милиция - Участок
-holopad-security-warden = Милиция - Комната оперативного дежурного
+holopad-security-warden = Милиция - Комната старшего следователя
 holopad-security-interrogation = Милиция - Допрос
 holopad-security-breakroom = Милиция - Комната отдыха
 holopad-security-detective = Милиция - Каюта следователя

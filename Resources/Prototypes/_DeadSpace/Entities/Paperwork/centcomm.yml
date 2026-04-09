@@ -216,3 +216,12 @@
   name: paperwork-form-title-centcomm-34
   text: "/Paperwork/Centcomm/34.xml"
   paperPrototype: PaperPrintedUSSPCommand
+
+# DS14-Soyuz start
+- type: paperworkForm
+  id: Centcomm35
+  category: NTCentcomm
+  name: paperwork-form-title-centcomm-35
+  text: "/Paperwork/Centcomm/35.xml"
+  paperPrototype: PaperPrintedUSSPCommand
+# DS14-Soyuz end

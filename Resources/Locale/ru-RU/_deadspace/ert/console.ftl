@@ -27,7 +27,7 @@ station-event-response-team-arrival = Специальный отряд быст
 station-event-centcomm-official-arrival = Представитель Генерального Штаба прибыл на станцию.
 
 ert-call-fail-prototype-missing = Прототип отряда не найден.
-ert-call-fail-code-blacklist = Уровень тревоги ({$level}) запрещает вызов этого отряда.
+ert-call-fail-code-blacklist = Текущий уровень угрозы запрещает вызов этого отряда.
 ert-call-fail-not-enough-points = Недостаточно очков для вызова СОБР (нужно {$price}, доступно {$balance}).
 ert-call-fail-cooldown = Повторный вызов СОБР возможен через {$seconds} сек.
 ert-call-fail-already-waiting = Данный отряд уже вызван. Ожидайте их прибытия в ближайшее время

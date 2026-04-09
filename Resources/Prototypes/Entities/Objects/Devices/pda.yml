@@ -84,6 +84,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - BankCartridge
     cartridgeSlot:
       priority: -1
@@ -161,6 +162,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
+    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - BankCartridge # DS14
 
@@ -176,6 +178,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - BankCartridge # DS14
 
@@ -490,6 +493,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
+    - USSPChatCartridge # DS-14
     - AstroNavCartridge
 
 - type: entity
@@ -535,6 +539,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - AstroNavCartridge
 
 - type: entity
@@ -884,6 +889,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
+    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - LogProbeCartridge
 
@@ -954,6 +960,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - WantedListCartridge
       - LogProbeCartridge
@@ -980,6 +987,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - LogProbeCartridge
       - WantedListCartridge
       - MedTekCartridge
@@ -1130,6 +1138,7 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
+      - USSPChatCartridge # DS-14
       - BankCartridge
 
 - type: entity
@@ -1168,6 +1177,7 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
 
 - type: entity
@@ -1213,6 +1223,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - WantedListCartridge
       - LogProbeCartridge
@@ -1389,6 +1400,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
+    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - LogProbeCartridge
 
@@ -1417,6 +1429,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
+    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - MedTekCartridge
 

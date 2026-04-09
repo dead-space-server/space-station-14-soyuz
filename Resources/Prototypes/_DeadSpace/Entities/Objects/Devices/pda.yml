@@ -175,13 +175,14 @@
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
     preinstalled:
-    - CrewManifestCartridge
-    - NotekeeperCartridge
-    - NanoTaskCartridge
-    - NewsReaderCartridge
-    - WantedListCartridge
-    - AstroNavCartridge
-    - BankCartridge # DS14
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - USSPChatCartridge # DS-14
+      - WantedListCartridge
+      - AstroNavCartridge
+      - BankCartridge # DS14
 
 - type: entity
   parent: BasePDA
@@ -236,6 +237,7 @@
     preinstalled:
     - NotekeeperCartridge
     - NanoTaskCartridge
+    - USSPChatCartridge # DS-14
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -347,6 +349,7 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
 
 - type: entity
@@ -369,6 +372,7 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
+      - USSPChatCartridge # DS-14
       - MedTekCartridge
 
 - type: entity
@@ -455,4 +459,5 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
+      - USSPChatCartridge # DS-14
       - AstroNavCartridge

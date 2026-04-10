@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseItem
   id: USSPChatCartridge
-  name: картридж «Красная линия»
+  name: картридж «Редлайн»
   description: Компактный картридж защищённой локальной связи для настоящих товарищей.
   components:
   - type: Sprite
@@ -22,7 +22,7 @@
 - type: entity
   parent: BaseItem
   id: USSPMonitorCartridge
-  name: "картридж «Красная линия: надзор»"
+  name: "картридж «Редлайн: надзор»"
   description: Наблюдательный картридж защищённой локальной связи. Позволяет читать все переписки, но не отправлять сообщения.
   components:
   - type: Sprite

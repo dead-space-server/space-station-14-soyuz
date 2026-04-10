@@ -1,2 +1,2 @@
-ussp-chat-program-name = Red Line
-ussp-monitor-program-name = Red Line: Oversight
+ussp-chat-program-name = Redline
+ussp-monitor-program-name = Redline: Oversight

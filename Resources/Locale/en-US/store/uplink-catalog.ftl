@@ -496,6 +496,8 @@ uplink-backpack-syndicate-desc = A lightweight explosion-proof backpack for hold
 
 uplink-cameraBug-name = Camera bug
 uplink-cameraBug-desc = A portable device that allows you to view the station's cameras.
+uplink-ussp-monitor-cartridge-name = Redline: Oversight cartridge
+uplink-ussp-monitor-cartridge-desc = A surveillance cartridge for the secure local network. Lets you read every Redline conversation, but not send messages.
 
 uplink-combat-bakery-name = Combat Bakery Kit
 uplink-combat-bakery-desc = A kit of clandestine baked weapons. Contains a baguette sword, a pair of throwing croissants, and a syndicate microwave board for making more. Once the job is done, eat the evidence.

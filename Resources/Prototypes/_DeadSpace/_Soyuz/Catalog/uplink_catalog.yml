@@ -44,3 +44,14 @@
     Telecrystal: 3
   categories:
   - UplinkAmmo
+
+- type: listing
+  id: UplinkUSSPMonitorCartridge
+  name: uplink-ussp-monitor-cartridge-name
+  description: uplink-ussp-monitor-cartridge-desc
+  icon: { sprite: /Textures/Objects/Devices/cartridge.rsi, state: cart-sec }
+  productEntity: USSPMonitorCartridge
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkDisruption

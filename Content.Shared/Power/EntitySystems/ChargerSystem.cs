@@ -11,7 +11,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared.Power.EntitySystems;
 
-public sealed class ChargerSystem : EntitySystem
+public sealed class ChargerSystem : SharedChargerSystem
 {
     [Dependency] private readonly SharedBatterySystem _battery = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _receiver = default!;
@@ -32,7 +32,6 @@ public sealed class ChargerSystem : EntitySystem
         SubscribeLocalEvent<ChargerComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
         SubscribeLocalEvent<ChargerComponent, InsertIntoEntityStorageAttemptEvent>(OnEntityStorageInsertAttempt);
         SubscribeLocalEvent<ChargerComponent, ExaminedEvent>(OnChargerExamine);
-        SubscribeLocalEvent<ChargerComponent, EmpPulseEvent>(OnEmpPulse);
         SubscribeLocalEvent<ChargerComponent, EmpDisabledRemovedEvent>(OnEmpRemoved);
         SubscribeLocalEvent<InsideChargerComponent, RefreshChargeRateEvent>(OnRefreshChargeRate);
         SubscribeLocalEvent<InsideChargerComponent, BatteryStateChangedEvent>(OnStatusChanged);
@@ -144,10 +143,9 @@ public sealed class ChargerSystem : EntitySystem
         if (!cellSlot.FitsInCharger)
             args.Cancelled = true;
     }
-    private void OnEmpPulse(Entity<ChargerComponent> ent, ref EmpPulseEvent args)
+    protected override void OnEmpPulse(Entity<ChargerComponent> ent, ref EmpPulseEvent args)
     {
-        args.Affected = true;
-        args.Disabled = true;
+        base.OnEmpPulse(ent, ref args);
         RefreshAllBatteries(ent);
         UpdateStatus(ent);
     }

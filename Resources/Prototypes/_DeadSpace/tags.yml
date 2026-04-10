@@ -186,6 +186,9 @@
   id: MagazineTommyGun
 
 - type: Tag
+  id: MagazineCaselessRifle
+
+- type: Tag
   id: MagazineTommyGunCap
 
 - type: Tag

@@ -13,3 +13,28 @@
         reagents:
         - ReagentId: Terratosomochromolin
           Quantity: 10
+
+- type: entity
+  parent: BaseChemistryEmptyVial
+  id: BluespaceVial
+  name: bluespace vial
+  description: Works on experimental bluespace technology.
+  components:
+  - type: Spillable
+    solution: beaker
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Specific/Chemistry/vial_bluespace.rsi
+    layers:
+      - state: vial-1
+      - state: vial-1-1
+        map: ["enum.SolutionContainerLayers.Fill"]
+        visible: false
+  - type: SolutionContainerVisuals
+    maxFillLevels: 6
+    fillBaseName: vial-1-
+    inHandsMaxFillLevels: 4
+    inHandsFillBaseName: -fill-
+  - type: SolutionContainerManager
+    solutions:
+      beaker:
+        maxVol: 300

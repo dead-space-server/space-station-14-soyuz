@@ -103,7 +103,3 @@ ent-BoxFolderCentComClipboardThreePapers = { ent-BoxFolderCentComClipboardEmpty 
     .desc = { ent-BoxFolderCentComClipboardEmpty.desc }
 ent-BoxFolderQmClipboard = цифровой планшет заявок
     .desc = Громоздкий цифровой планшет, содержащий информацию о поставках и финансовых операциях. При таком количестве компрометирующих документов его следует беречь.
-ent-BoxFolderPlasticClipboardThreePapers = пластиковая папка
-    .desc = { ent-BoxFolderBaseEmpty.desc }
-ent-BoxFolderBaseThreePapers = { ent-BoxFolderBaseEmpty }
-    .desc = { ent-BoxFolderBaseEmpty.desc }

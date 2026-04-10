@@ -496,6 +496,12 @@
   id: DrinkCan # ConstructionGraph: FireBomb
 
 - type: Tag
+  id: DrinkCup # Metamorphic drink container tag used by DrinkGlass/DrinkJar.
+
+- type: Tag
+  id: DrinkGlass # Metamorphic drink container tag used by DrinkGlass/DrinkJar.
+
+- type: Tag
   id: Dropper # Storage whitelist: ClothingBeltMedical, ClothingBeltPlant, ChemBag
 
 - type: Tag
@@ -1006,10 +1012,6 @@
 
 - type: Tag
   id: NotGhostnadoWarpable # Prevents the entity from being selected via "Warp to most followed" ghost warp
-
-## N ##
-- type: Tag
-  id: NinjaBombingTargetBlocker # Ninjas will not target this warp point
 
 - type: Tag
   id: NozzleBackTank # Used by WeaponSprayNozzle to find a tagged entity for supplying ammo.

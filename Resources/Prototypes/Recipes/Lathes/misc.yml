@@ -239,13 +239,6 @@
   materials:
     Cloth: 300
 
-- type: latheRecipe
-  id: TowelColorWhite
-  result: TowelColorWhite
-  completetime: 2
-  materials:
-    Cloth: 300
-
 
  # DS14-start
 

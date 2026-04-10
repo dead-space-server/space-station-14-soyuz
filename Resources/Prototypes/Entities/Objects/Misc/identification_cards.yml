@@ -472,15 +472,15 @@
 
 - type: entity
   parent: IDCardStandard
-  id: SeniorSalvageIDCard # DS14
-  name: coroner ID card
+  id: SeniorSalvageIDCard
+  name: senior salvage ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idseniorcargo
   - type: PresetIdCard
-    job: SeniorSalvageSpecialist
+    job: SalvageSpecialist
 
 - type: entity
   parent: IDCardStandard

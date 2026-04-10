@@ -119,6 +119,8 @@ namespace Content.Server.Research.Systems
                 return true;
             }
 
+            serverUid = null;
+            serverComponent = null;
             return false;
         // DS14-end
         }

@@ -6,8 +6,6 @@
   components:
   - type: Sprite
     scale: 1.2,1.2
-  - type: Body
-    prototype: Bloodsucker
   - type: EggLayer
     eggSpawn:
     - id: EggSpider

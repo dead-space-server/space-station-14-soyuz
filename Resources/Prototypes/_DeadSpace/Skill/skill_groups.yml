@@ -95,17 +95,6 @@
   - AdvancedBotany
 
 - type: skillGroup
-  id: BasicAndBotanyAndShuttleControl
-  name: Ботаника и шаттл
-  skills:
-  - BasicBotany
-  - Hacking
-  - BasicTreatment
-  - SimpleConstruction
-  - AdvancedBotany
-  - ShuttleControl
-
-- type: skillGroup
   id: HeadEngineer
   name: Старший инженер
   skills:
@@ -120,6 +109,7 @@
   - Atmos
   - ComplexConstruction
   - DeviceConstruction
+  - Research
 
 - type: skillGroup
   id: HeadScience
@@ -154,32 +144,6 @@
   - AdvancedTreatment
   - Chemistry
   - Virology
-
-- type: skillGroup
-  id: HeadMedicalAndShuttleControl
-  name: Продвинутая медицина и шаттл
-  skills:
-  - BasicBotany
-  - Hacking
-  - BasicTreatment
-  - SimpleConstruction
-  - Pharmacology
-  - AdvancedTreatment
-  - Chemistry
-  - Virology
-  - ShuttleControl
-
-- type: skillGroup
-  id: MedicalAndShuttleControl
-  name: Медицина и шаттл
-  skills:
-  - BasicBotany
-  - Hacking
-  - BasicTreatment
-  - SimpleConstruction
-  - Pharmacology
-  - AdvancedTreatment
-  - ShuttleControl
 
 - type: skillGroup
   id: BasicAndShuttleControl

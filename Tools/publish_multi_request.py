@@ -232,20 +232,61 @@ def parse_args() -> PublishConfig:
     if args.retries < 1:
         raise PublishError("--retries must be at least 1.")
 
-    return PublishConfig(
-        fork_id=args.fork_id,
-        release_dir=Path(args.release_dir),
-        base_url=args.base_url,
-        version=args.version,
-        engine_version=get_engine_version(),
-        publish_token=args.publish_token,
-        max_workers=args.max_workers,
-        retries=args.retries,
-        retry_backoff_seconds=args.retry_backoff_seconds,
-        max_backoff_seconds=args.max_backoff_seconds,
-        connect_timeout_seconds=args.connect_timeout_seconds,
-        read_timeout_seconds=args.read_timeout_seconds,
-    )
+    engine_version = get_engine_version()
+    print(f"Version: {VERSION}")
+    print(f"Engine version: {engine_version}")
+    print(f"Fork: {fork_id}")
+    print(f"CDN: {ROBUST_CDN_URL}")
+
+    data = {
+        "version": VERSION,
+        "engineVersion": engine_version,
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    print(f"Starting publish...")
+    resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/start", json=data, headers=headers)
+    if not resp.ok:
+        print(f"Publish start FAILED: {resp.status_code} {resp.reason}")
+        print(f"Response: {resp.text}")
+        resp.raise_for_status()
+    print("Publish started OK, uploading files...")
+
+    files = list(get_files_to_publish())
+    print(f"Files to upload: {len(files)}")
+    for file in files:
+        size_mb = os.path.getsize(file) / (1024 * 1024)
+        print(f"  Uploading {os.path.basename(file)} ({size_mb:.1f} MB)")
+        with open(file, "rb") as f:
+            headers = {
+                "Content-Type": "application/octet-stream",
+                "Robust-Cdn-Publish-File": os.path.basename(file),
+                "Robust-Cdn-Publish-Version": VERSION
+            }
+            resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/file", data=f, headers=headers)
+
+        if not resp.ok:
+            print(f"  Upload FAILED: {resp.status_code} {resp.reason}")
+            print(f"  Response: {resp.text}")
+            resp.raise_for_status()
+
+    print("All files uploaded, finishing publish...")
+
+    data = {
+        "version": VERSION
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/finish", json=data, headers=headers)
+    if not resp.ok:
+        print(f"Publish finish FAILED: {resp.status_code} {resp.reason}")
+        print(f"Response: {resp.text}")
+        resp.raise_for_status()
+
+    print("SUCCESS!")
 
 
 def discover_files(release_dir: Path) -> list[Path]:
@@ -527,18 +568,10 @@ def get_thread_session(config: PublishConfig) -> requests.Session:
 
 
 def get_engine_version() -> str:
-    version_file = Path("RobustToolbox") / "MSBuild" / "Robust.Engine.Version.props"
-    try:
-        tree = ET.parse(version_file)
-    except (OSError, ET.ParseError) as exc:
-        raise PublishError(
-            f"Unable to read engine version from {version_file}: {format_exception(exc)}"
-        ) from exc
-
-    version = tree.getroot().find(".//Version")
-    if version is None or version.text is None:
-        raise PublishError(f"Unable to read engine version from {version_file}")
-    return version.text.strip()
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(os.path.join("RobustToolbox", "MSBuild", "Robust.Engine.Version.props"))
+    version = tree.getroot().find(".//Version").text.strip()
+    return version
 
 
 def write_step_summary(

@@ -32,6 +32,6 @@
   result: SheetPlastic1
   completetime: 0
   materials:
-    RawSalt: 300
-    RawIron: 300
-    Coal: 300
+    RawSalt: 150
+    RawIron: 150
+    Coal: 150

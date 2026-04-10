@@ -1,7 +1,7 @@
 - type: entity
   id: RandomHumanoidSpawnerCentralCommandOfficial
-  name: Представитель ЦК
-  suffix: ПЦК, Кастомизируемый персонаж
+  name: Представитель ГШ
+  suffix: ПГШ, Кастомизируемый персонаж
   components:
     - type: Sprite
       layers:
@@ -59,7 +59,7 @@
     outerClothing: ClothingOuterArmorCentcommCarapace
     shoes: ClothingShoesBootsLaceup
     mask: ClothingMaskGasCentcom
-    id: CentcomAdministratorPDA
+    id: CentcomOfficialPDA
   storage:
     back:
     - PhoneInstrument

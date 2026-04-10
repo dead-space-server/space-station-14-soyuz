@@ -12,7 +12,7 @@
     modifiers:
       coefficients:
         Blunt: 0.3 #true best armor in the game
-        Slash: 0.3 # Ну нихуя тут резистов
+        Slash: 0.3
         Piercing: 0.3
         Heat: 0.3
         Radiation: 0.3

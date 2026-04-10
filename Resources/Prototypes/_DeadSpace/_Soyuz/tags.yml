@@ -10,6 +10,9 @@
 - type: Tag
   id: PoliceBetaHead
 
+#- type: Tag
+#  id: PolaroidCartridge
+
 - type: Tag
   id: MagazineLightRifleVSS
 

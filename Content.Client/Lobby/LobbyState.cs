@@ -31,7 +31,6 @@ namespace Content.Client.Lobby
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
 
         private ClientGameTicker _gameTicker = default!;
-        private ContentAudioSystem _contentAudioSystem = default!;
 
         protected override Type? LinkedScreenType { get; } = typeof(LobbyGui);
         public LobbyGui? Lobby;
@@ -47,7 +46,6 @@ namespace Content.Client.Lobby
 
             var chatController = _userInterfaceManager.GetUIController<ChatUIController>();
             _gameTicker = _entityManager.System<ClientGameTicker>();
-            _contentAudioSystem = _entityManager.System<ContentAudioSystem>();
 
             chatController.SetMainChat(true);
 
@@ -68,16 +66,6 @@ namespace Content.Client.Lobby
             _gameTicker.LobbyLateJoinStatusUpdated += LobbyLateJoinStatusUpdated;
 
             _cfg.OnValueChanged(CCCCVars.Background, OnBackgroundChanged, true);
-
-            _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
-            
-            UpdateLobbySoundtrackInfo(new LobbySoundtrackChangedEvent(null));
-        }
-
-        private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
-        {
-            var controller = _userInterfaceManager.GetUIController<DonateShopUIController>();
-            controller.ToggleWindow();
         }
 
         private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
@@ -98,9 +86,6 @@ namespace Content.Client.Lobby
             _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
-
-            if (_contentAudioSystem != null)
-                _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
 
             _voteManager.ClearPopupContainer();
 
@@ -239,39 +224,6 @@ namespace Content.Client.Lobby
             }
             else
                 Lobby!.PlaytimeComment.Visible = false;
-        }
-        private void UpdateLobbySoundtrackInfo(LobbySoundtrackChangedEvent ev)
-        {
-            if (Lobby == null)
-                return;
-
-            if (ev.SoundtrackFilename == null)
-            {
-                Lobby.LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
-                Lobby.MusicIcon.Visible = false;
-            }
-            else if (
-                ev.SoundtrackFilename != null
-                && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
-                )
-            {
-                var lobbyStream = lobbySongResource.AudioStream;
-
-                var title = string.IsNullOrEmpty(lobbyStream.Title)
-                    ? Loc.GetString("lobby-state-song-unknown-title")
-                    : lobbyStream.Title;
-
-                var artist = string.IsNullOrEmpty(lobbyStream.Artist)
-                    ? Loc.GetString("lobby-state-song-unknown-artist")
-                    : lobbyStream.Artist;
-
-                var markup = Loc.GetString("lobby-state-song-text",
-                    ("songTitle", title),
-                    ("songArtist", artist));
-
-                Lobby.LobbySong.SetMarkup(markup);
-                Lobby.MusicIcon.Visible = true;
-            }
         }
 
         private void UpdateLobbyBackground()

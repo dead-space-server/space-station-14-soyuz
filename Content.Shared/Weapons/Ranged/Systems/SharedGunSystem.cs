@@ -84,8 +84,6 @@ public abstract partial class SharedGunSystem : EntitySystem
 
     private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
 
-    private static readonly ProtoId<TagPrototype> TrashTag = "Trash";
-
     private const float InteractNextFire = 0.3f;
     private const double SafetyNextFire = 0.5;
     private const float EjectOffset = 0.4f;

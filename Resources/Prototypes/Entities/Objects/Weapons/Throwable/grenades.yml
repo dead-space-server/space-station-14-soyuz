@@ -1,7 +1,7 @@
 - type: entity
   name: explosive grenade
   description: Grenade that creates a small but devastating explosion.
-  parent: [VolatileGrenadeBase, TimerGrenadeBase, BaseSyndicateContraband]
+  parent: [ VolatileGrenadeBase, TimerGrenadeBase, BaseSyndicateContraband ]
   id: ExGrenade
   components:
   - type: ExplodeOnTrigger
@@ -79,7 +79,7 @@
 - type: entity
   name: syndicate minibomb
   description: A syndicate-manufactured explosive used to stow destruction and cause chaos.
-  parent: [VolatileGrenadeBase, TimerGrenadeBase, BaseSyndicateContraband]
+  parent: [ VolatileGrenadeBase, TimerGrenadeBase, BaseSyndicateContraband ]
   id: SyndieMiniBomb
   components:
   - type: Sprite
@@ -367,7 +367,7 @@
 - type: entity
   name: EMP grenade
   description: A grenade designed to wreak havoc on electronic systems.
-  parent: [ImpactGrenadeBase, BaseSyndicateContraband]
+  parent: [ ImpactGrenadeBase, BaseSyndicateContraband ]
   id: EmpGrenade
   components:
   - type: Sprite

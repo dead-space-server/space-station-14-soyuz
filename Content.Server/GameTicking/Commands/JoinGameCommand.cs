@@ -13,7 +13,6 @@ namespace Content.Server.GameTicking.Commands
     [AnyCommand]
     sealed class JoinGameCommand : IConsoleCommand
     {
-        [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly IEntityManager _entManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IAdminManager _adminManager = default!;
@@ -21,8 +20,6 @@ namespace Content.Server.GameTicking.Commands
         [Dependency] private readonly ILogManager _logManager = default!;
 
         private readonly ISawmill _sawmill;
-
-        private readonly ISawmill _sawmill = default!;
 
         public string Command => "joingame";
         public string Description => "";

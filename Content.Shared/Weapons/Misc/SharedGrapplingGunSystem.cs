@@ -329,25 +329,6 @@ public abstract class SharedGrapplingGunSystem : VirtualController
         return false;
     }
 
-    /// <summary>
-    /// Checks whether the entity is hooked to something via grappling gun.
-    /// </summary>
-    /// <param name="entity">Entity to check.</param>
-    /// <returns>True if hooked, false otherwise.</returns>
-    public bool IsEntityHooked(Entity<JointRelayTargetComponent?> entity)
-    {
-        if (!Resolve(entity, ref entity.Comp, false))
-            return false;
-
-        foreach (var uid in entity.Comp.Relayed)
-        {
-            if (HasComp<GrapplingGunComponent>(uid))
-                return true;
-        }
-
-        return false;
-    }
-
     private void OnGrappleCollide(EntityUid uid, GrapplingProjectileComponent component, ref ProjectileEmbedEvent args)
     {
         if (!Timing.IsFirstTimePredicted || !args.Weapon.HasValue || !_entities.TryGetComponent<GrapplingGunComponent>(args.Weapon, out var grapple))

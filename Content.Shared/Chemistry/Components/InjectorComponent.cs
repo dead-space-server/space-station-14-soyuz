@@ -104,9 +104,3 @@ internal static class InjectorToggleModeExtensions
         return (s1 & s2) != 0;
     }
 }
-
-/// <summary>
-/// Raised on the injector when the doafter has finished.
-/// </summary>
-[Serializable, NetSerializable]
-public sealed partial class InjectorDoAfterEvent : SimpleDoAfterEvent;

@@ -35,8 +35,6 @@ namespace Content.Client.Construction.UI
         private readonly SpriteSystem _spriteSystem;
         private readonly ISawmill _sawmill;
 
-        private readonly ISawmill _sawmill = default!;
-        private readonly SpriteSystem _spriteSystem;
         private readonly IConstructionMenuView _constructionView;
         private readonly EntityWhitelistSystem _whitelistSystem;
 
@@ -92,8 +90,6 @@ namespace Content.Client.Construction.UI
         {
             // This is a lot easier than a factory
             IoCManager.InjectDependencies(this);
-            _sawmill = _logManager.GetSawmill("construction.menu");
-
             _constructionView = new ConstructionMenu();
             _whitelistSystem = _entManager.System<EntityWhitelistSystem>();
             _spriteSystem = _entManager.System<SpriteSystem>();

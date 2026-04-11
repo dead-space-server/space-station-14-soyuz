@@ -148,7 +148,10 @@ namespace Content.Server.GameTicking
                 DebugTools.Assert(!_map.IsInitialized(mapId));
 
                 if (i == 0)
+                {
                     DefaultMap = mapId;
+                    _gameMapManager.MarkMapPlayed(maps[i].ID);
+                }
             }
         }
 
@@ -702,7 +705,10 @@ namespace Content.Server.GameTicking
                 if (_playerManager.PlayerCount == 0)
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else
+                {
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
+                    TryStartAutomaticMapVote();
+                }
 
                 SendStatusToAll();
                 UpdateInfoText();
@@ -756,6 +762,7 @@ namespace Content.Server.GameTicking
             _banManager.Restart();
 
             _gameMapManager.ClearSelectedMap();
+            _automaticMapVoteHandled = false;
 
             // Clear up any game rules.
             ClearGameRules();

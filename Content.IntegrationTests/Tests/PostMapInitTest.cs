@@ -55,16 +55,24 @@ namespace Content.IntegrationTests.Tests
         private static readonly Dictionary<string, HashSet<EntProtoId>> DoNotMapWhitelistSpecific = new()
         {
             {"/Maps/bagel.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/barratry.yml", ["RubberStampCaptain"]},
+            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/cluster.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
             {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            {"/Maps/_Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
             {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end
         };
 
@@ -78,10 +86,13 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
+            "/Maps/_Soyuz/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
+            "/Maps/_Soyuz/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };
 

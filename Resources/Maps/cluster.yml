@@ -123004,21 +123004,6 @@ entities:
     - type: Transform
       pos: 28.021347,-5.236896
       parent: 2
-  - uid: 21487
-    components:
-    - type: Transform
-      pos: -4.7365723,8.619034
-      parent: 21091
-  - uid: 21488
-    components:
-    - type: Transform
-      pos: -4.398926,8.459274
-      parent: 21091
-  - uid: 22376
-    components:
-    - type: Transform
-      pos: -2.5963593,3.6141663
-      parent: 22337
 - proto: ShelfChemistry
   entities:
   - uid: 15832

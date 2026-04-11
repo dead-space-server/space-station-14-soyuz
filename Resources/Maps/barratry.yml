@@ -79098,8 +79098,6 @@ entities:
     - type: Transform
       pos: -35.5,12.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: InflatableWall
   entities:
   - uid: 10673
@@ -79197,8 +79195,6 @@ entities:
     - type: Transform
       pos: -35.5,11.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: InflatableWallStack1
   entities:
   - uid: 10692
@@ -83226,8 +83222,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 11.5,-13.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: PlasmaTank
   entities:
   - uid: 11280
@@ -90462,8 +90456,6 @@ entities:
     - type: Transform
       pos: 12.5,-13.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ReinforcedWindow
   entities:
   - uid: 12368
@@ -91994,8 +91986,6 @@ entities:
     - type: Transform
       pos: -7.5,62.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: RemoteSignaller
   entities:
   - uid: 12659
@@ -92381,8 +92371,6 @@ entities:
     - type: Transform
       pos: -79.5,21.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttersNormalOpen
   entities:
   - uid: 12719
@@ -92405,8 +92393,6 @@ entities:
     - type: Transform
       pos: -68.5,18.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttersRadiationOpen
   entities:
   - uid: 12723
@@ -92427,8 +92413,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -78.5,24.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttersWindowOpen
   entities:
   - uid: 12726
@@ -92466,8 +92450,6 @@ entities:
     - type: Transform
       pos: -3.5,59.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttleConsoleCircuitboard
   entities:
   - uid: 12733
@@ -98875,8 +98857,6 @@ entities:
     - type: Transform
       pos: 17.5,-11.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ToiletDirtyWater
   entities:
   - uid: 13661
@@ -113294,8 +113274,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -42.5,1.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorChapelLocked
   entities:
   - uid: 16239
@@ -113303,8 +113281,6 @@ entities:
     - type: Transform
       pos: 20.5,0.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorHydroponicsLocked
   entities:
   - uid: 16240
@@ -113325,8 +113301,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -45.5,44.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorKitchenHydroponicsLocked
   entities:
   - uid: 16243
@@ -113353,8 +113327,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -39.5,43.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecure
   entities:
   - uid: 16247
@@ -113419,8 +113391,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -72.5,54.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureArmoryLocked
   entities:
   - uid: 16258
@@ -113458,8 +113428,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -41.5,62.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureCargoLocked
   entities:
   - uid: 16264
@@ -113507,8 +113475,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -42.5,1.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureChemistryLocked
   entities:
   - uid: 16272
@@ -113528,8 +113494,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,25.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureCommandLocked
   entities:
   - uid: 16275
@@ -113572,8 +113536,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -14.5,-41.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureEngineeringLocked
   entities:
   - uid: 16282
@@ -113588,8 +113550,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -59.5,32.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureHeadOfPersonnelLocked
   entities:
   - uid: 16284
@@ -113598,8 +113558,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -19.5,36.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureKitchenLocked
   entities:
   - uid: 16285
@@ -113613,8 +113571,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -36.5,41.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureMedicalLocked
   entities:
   - uid: 16287
@@ -113646,8 +113602,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,13.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureScienceLocked
   entities:
   - uid: 16292
@@ -113660,8 +113614,6 @@ entities:
     - type: Transform
       pos: -7.5,3.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureSecurityLocked
   entities:
   - uid: 16294
@@ -113731,8 +113683,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,14.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorTheatreLocked
   entities:
   - uid: 16302
@@ -113741,8 +113691,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -30.5,29.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: Window
   entities:
   - uid: 16303
@@ -114103,8 +114051,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-43.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowDirectional
   entities:
   - uid: 16370
@@ -114147,8 +114093,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,15.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowFrostedDirectional
   entities:
   - uid: 16377
@@ -114175,8 +114119,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 10.5,31.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowReinforcedDirectional
   entities:
   - uid: 16381

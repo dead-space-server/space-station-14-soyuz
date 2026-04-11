@@ -107287,8 +107287,6 @@ entities:
     - type: Transform
       pos: 27.5,16.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: RemoteSignaller
   entities:
   - uid: 15554
@@ -108151,8 +108149,6 @@ entities:
     - type: Transform
       pos: 28.5,-1.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttersNormalOpen
   entities:
   - uid: 15679
@@ -108480,8 +108476,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 32.5,-35.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttersWindowOpen
   entities:
   - uid: 15735
@@ -108499,8 +108493,6 @@ entities:
     - type: Transform
       pos: -16.5,-58.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ShuttleConsoleCircuitboard
   entities:
   - uid: 15738
@@ -117069,8 +117061,6 @@ entities:
     - type: Transform
       pos: -28.5,4.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: ToiletDirtyWater
   entities:
   - uid: 17009
@@ -132723,8 +132713,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -33.5,-32.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorChapelLocked
   entities:
   - uid: 19983
@@ -132733,8 +132721,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 41.5,-11.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorHydroponicsLocked
   entities:
   - uid: 19984
@@ -132755,8 +132741,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -12.5,-32.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorKitchenLocked
   entities:
   - uid: 19987
@@ -132765,8 +132749,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-32.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecure
   entities:
   - uid: 19988
@@ -132821,8 +132803,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -13.5,-45.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
     - type: DeviceLinkSink
       invokeCounter: 1
     - type: DeviceLinkSource
@@ -132924,8 +132904,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -22.5,2.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureBrigLocked
   entities:
   - uid: 20010
@@ -132934,8 +132912,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -28.5,10.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureCargoLocked
   entities:
   - uid: 20011
@@ -132960,8 +132936,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 4.5,15.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureChemistryLocked
   entities:
   - uid: 20015
@@ -132987,8 +132961,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -25.5,-34.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureCommandLocked
   entities:
   - uid: 20019
@@ -133072,8 +133044,6 @@ entities:
     - type: Transform
       pos: 33.5,-36.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureEngineeringLocked
   entities:
   - uid: 20033
@@ -133088,8 +133058,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,-15.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureHeadOfPersonnelLocked
   entities:
   - uid: 20035
@@ -133097,8 +133065,6 @@ entities:
     - type: Transform
       pos: -13.5,-45.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
     - type: DeviceLinkSink
       invokeCounter: 1
     - type: DeviceLinkSource
@@ -133114,8 +133080,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 28.5,6.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureKitchenLocked
   entities:
   - uid: 20037
@@ -133136,8 +133100,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-35.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureMedicalLocked
   entities:
   - uid: 20040
@@ -133161,8 +133123,6 @@ entities:
     - type: Transform
       pos: -27.5,-28.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureSalvageLocked
   entities:
   - uid: 20044
@@ -133171,8 +133131,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 12.5,21.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureScienceLocked
   entities:
   - uid: 20045
@@ -133221,8 +133179,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 30.5,-42.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorSecureSecurityLocked
   entities:
   - uid: 20054
@@ -133242,8 +133198,6 @@ entities:
     - type: Transform
       pos: -22.5,0.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorServiceLocked
   entities:
   - uid: 20057
@@ -133258,8 +133212,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 18.5,-37.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindoorTheatreLocked
   entities:
   - uid: 20059
@@ -133274,8 +133226,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 13.5,-29.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: Window
   entities:
   - uid: 20061
@@ -133418,8 +133368,6 @@ entities:
     - type: Transform
       pos: 41.5,-8.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowDirectional
   entities:
   - uid: 20089
@@ -133462,8 +133410,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -40.5,-53.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowFrostedDirectional
   entities:
   - uid: 20096
@@ -133500,8 +133446,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 41.5,-9.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: WindowReinforcedDirectional
   entities:
   - uid: 20102
@@ -134070,8 +134014,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 71.5,-42.5
       parent: 2
-    - type: DeltaPressure
-      gridUid: 2
 - proto: Wirecutter
   entities:
   - uid: 20203

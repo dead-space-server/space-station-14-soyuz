@@ -32,14 +32,15 @@ public sealed class SpeedSlidingSystem : EntitySystem
         if (velocity.Length() < ent.Comp.MinSlideSpeed)
             return;
 
+<<<<<<< HEAD
         _stun.TryKnockdown(ent.Owner, TimeSpan.FromSeconds(1.2f), false, false, true);
 
-        var direction = velocity.Normalized();
-        var impulseMagnitude = ent.Comp.SlideSpeed * ent.Comp.SlideDistance * physics.Mass;
-        var impulse = direction * impulseMagnitude;
+        var speed = velocity.Length();
+        var direction = velocity / speed;
+        var slideImpulse = direction * (ent.Comp.SlideSpeed * ent.Comp.SlideDistance * physics.Mass);
 
-        _physics.SetLinearVelocity(ent.Owner, Vector2.Zero);
-        _physics.ApplyLinearImpulse(ent.Owner, impulse);
+        _physics.SetLinearVelocity(ent.Owner, Vector2.Zero, body: physics);
+        _physics.ApplyLinearImpulse(ent.Owner, slideImpulse, body: physics);
 
         _audio.PlayPredicted(ent.Comp.SlideSound, ent.Owner, ent.Owner);
     }

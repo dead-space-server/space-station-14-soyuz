@@ -638,3 +638,10 @@ Entries:
   changes:
   - type: Fix
     message: Починили юнит тесты
+- id: 57
+  author: PERed5
+  time: '2026-04-13T16:17:01.344155+00:00'
+  pr: 236
+  changes:
+  - type: Fix
+    message: Исправлены тесты после апстрима

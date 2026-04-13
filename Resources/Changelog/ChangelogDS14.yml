@@ -631,3 +631,10 @@ Entries:
   changes:
   - type: Fix
     message: Исправлено проблема с паблишем
+- id: 56
+  author: Kofeecheks
+  time: '2026-04-13T15:44:18.952107+00:00'
+  pr: 234
+  changes:
+  - type: Fix
+    message: Починили юнит тесты

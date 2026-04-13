@@ -357,9 +357,9 @@
       - !type:ModifyStatusEffect
         effectProto: StatusEffectSeeingRainbow
         type: Add
-        time: 15
+        time: 100 # DS14-value: 15 -> 100
       - !type:Drunk
-        boozePower: 15
+        boozePower: 100 # DS14-value: 15 -> 100
       - !type:PopupMessage
         type: Local
         messages: [ "frezon-lungs-cold" ]

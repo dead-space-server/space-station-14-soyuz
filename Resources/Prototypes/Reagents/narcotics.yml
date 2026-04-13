@@ -236,8 +236,10 @@
       effects:
       - !type:ModifyStatusEffect
         effectProto: StatusEffectSeeingRainbow
-        time: 16
+        time: 22 # DS14-value: 16 -> 22
         type: Add
+      - !type:Drunk # DS14
+        boozePower: 4
 
 - type: reagent
   id: Nicotine
@@ -305,7 +307,10 @@
       - !type:ModifyStatusEffect
         effectProto: StatusEffectSeeingRainbow
         type: Add
-        time: 5
+        time: 12 # DS14-value: 5 -> 12
+      - !type:Drunk # DS14
+        boozePower: 8
+      - !type:Jitter # DS14
 
 - type: reagent
   id: Bananadine
@@ -321,7 +326,9 @@
       - !type:ModifyStatusEffect
         effectProto: StatusEffectSeeingRainbow
         type: Add
-        time: 5
+        time: 10 # DS14-value: 5 -> 10
+      - !type:Drunk # DS14
+        boozePower: 6
 
 # Probably replace this one with sleeping chem when putting someone in a comatose state is easier
 - type: reagent

@@ -645,3 +645,10 @@ Entries:
   changes:
   - type: Fix
     message: Исправлены тесты после апстрима
+- id: 58
+  author: PERed5
+  time: '2026-04-13T19:54:22.202250+00:00'
+  pr: 237
+  changes:
+  - type: Remove
+    message: У космических пауков временно отключена возможность производить яйца

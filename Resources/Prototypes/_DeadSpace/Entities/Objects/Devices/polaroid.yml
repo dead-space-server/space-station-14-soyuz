@@ -120,7 +120,7 @@
   - type: StorageFill
     contents:
     - id: PolaroidCartridge
-      amount: 6
+      amount: 4 # DS14-value: 6 -> 4 (fix integration tests: storage capacity overflow)
   - type: Sprite
     layers:
     - state: box

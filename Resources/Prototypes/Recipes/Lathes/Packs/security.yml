@@ -82,6 +82,10 @@
   - PowerCageSmall
   - TelescopicShield
   - ClothingBackpackHarmpack
+  # DS14-start: allow police techfab to print Polaroid items after unlock
+  - PolaroidCamera
+  - PolaroidCartridge
+  # DS14-end
 
 # DS14-start
 - type: latheRecipePack

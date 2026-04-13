@@ -68,6 +68,10 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
+    # DS14-start: Polaroid for T1 service research
+    - PolaroidCamera
+    - PolaroidCartridge
+    # DS14-end
 
 - type: technology
   id: MeatManipulation

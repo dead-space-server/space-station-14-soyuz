@@ -401,3 +401,8 @@ ui-options-overlay-ghost-hide-distance = Диапазон скрытия нал�
 ui-options-save-button = Сохранить
 ui-options-function-open-language-menu = Открыть меню выбора языка
 ##DS14-end
+
+# DS14-start: Jukebox audio options
+ui-options-jukebox-volume = Jukebox volume:
+ui-options-jukebox-mute = Mute jukebox
+# DS14-end

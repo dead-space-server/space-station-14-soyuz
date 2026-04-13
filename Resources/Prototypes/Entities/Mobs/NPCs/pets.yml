@@ -1103,6 +1103,7 @@
     - AnomalyHost
   - type: Loadout
     prototypes: [ MobMonkeyGear ]
+  - type: OneHandedWielder # DS14
   - type: Grammar
     attributes:
       proper: true

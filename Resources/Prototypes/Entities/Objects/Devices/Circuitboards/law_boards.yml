@@ -164,3 +164,15 @@
   components:
   - type: SiliconLawProvider
     laws: MothershipCoreLawset
+
+# DS14-start: SOC law board
+- type: entity
+  id: SOCCircuitBoard
+  parent: BaseSiliconLawboard
+  name: law board (SOC)
+  suffix: Admeme
+  description: An electronics board containing the Special Operations Corps lawset.
+  components:
+  - type: SiliconLawProvider
+    laws: SpecialOperationsCorpsLawset
+# DS14-end

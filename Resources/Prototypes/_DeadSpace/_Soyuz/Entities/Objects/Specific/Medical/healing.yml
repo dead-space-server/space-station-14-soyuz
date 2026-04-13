@@ -81,8 +81,7 @@
     - BlueInsulatingTape
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
-    state: nanopaste
-    color: "#4A7BFF"
+    state: insulating_tape_blue # DS14-value: nanopaste -> insulating_tape_blue
   - type: Item
     heldPrefix: nanopaste
   - type: Healing

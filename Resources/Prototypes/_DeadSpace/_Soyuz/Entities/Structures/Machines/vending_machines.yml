@@ -1,0 +1,16 @@
+# DS14-start
+- type: entity
+  parent: VendingMachineWallMedicalCivilian
+  id: VendingMachineWallDisposableSyringes
+  name: NanoMed Inject
+  description: A wall-mounted dispenser loaded with individually packed disposable syringes.
+  components:
+  - type: VendingMachine
+    pack: NanoMedDisposableSyringeInventory
+    offState: off-civilian
+    brokenState: broken
+    normalState: normal-unshaded
+    denyState: deny-unshaded
+  - type: AccessReader
+    access: [["Medical"]]
+# DS14-end

@@ -1,0 +1,50 @@
+# DS14-start
+- type: entity
+  id: SyringeDisposable
+  parent: Syringe
+  name: disposable syringe
+  description: A single-use syringe that starts sterile inside an individual wrapper.
+  components:
+  - type: Sterility
+    exposureInterval: 60
+    exposurePerTick: 13.5
+    perUseIncrease: 13.5
+
+- type: entity
+  id: SyringeDisposablePacked
+  parent: BaseItem
+  name: packed disposable syringe
+  description: A sterile disposable syringe sealed in an individual wrapper.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/mouth_swab.rsi
+    state: icon
+  - type: Item
+    sprite: Objects/Specific/Medical/mouth_swab.rsi
+    size: Tiny
+  - type: DisposablePackage
+    spawnInjectorProto: SyringeDisposable
+    spawnTrashProto: SyringeDisposableTrash
+
+- type: entity
+  id: SyringeDisposableTrash
+  parent: PresentTrash
+  name: sterile wrapper
+  description: A discarded sterile wrapper from a disposable syringe.
+
+- type: entity
+  id: BoxDisposableSyringe
+  parent: BoxCardboard
+  name: disposable syringe box
+  description: A box filled with individually packed disposable syringes.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: SyringeDisposablePacked
+        amount: 6
+  - type: Sprite
+    layers:
+      - state: box
+      - state: syringe
+# DS14-end

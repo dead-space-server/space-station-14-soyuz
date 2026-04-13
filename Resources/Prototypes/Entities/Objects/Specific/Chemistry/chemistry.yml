@@ -469,6 +469,9 @@
   - type: TrashOnSolutionEmpty
     solution: injector
   - type: Appearance
+  # DS14-start: syringe sterility
+  - type: Sterility
+  # DS14-end
   - type: SolutionContainerVisuals
     maxFillLevels: 2
     fillBaseName: syringe

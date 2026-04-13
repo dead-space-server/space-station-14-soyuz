@@ -6,9 +6,9 @@
   components:
   - type: Sprite
     scale: 1.2,1.2
-  - type: EggLayer
-    eggSpawn:
-    - id: EggSpider
+#  - type: EggLayer
+#    eggSpawn:
+#    - id: EggSpider DS14-soyuz disabled
   - type: Tag
     tags:
     - GiantSpiderSpace

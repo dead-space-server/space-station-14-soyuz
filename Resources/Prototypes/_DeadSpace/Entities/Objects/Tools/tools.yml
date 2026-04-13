@@ -34,7 +34,7 @@
     - Deconstruct
     # DS14-end
   - type: AutoRecharge
-    rechargeDuration: 10
+    rechargeDuration: 15
 
 - type: entity
   name: кроваво-красный сварочный аппарат

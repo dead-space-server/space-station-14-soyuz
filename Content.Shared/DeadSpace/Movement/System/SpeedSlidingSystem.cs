@@ -32,7 +32,6 @@ public sealed class SpeedSlidingSystem : EntitySystem
         if (velocity.Length() < ent.Comp.MinSlideSpeed)
             return;
 
-<<<<<<< HEAD
         _stun.TryKnockdown(ent.Owner, TimeSpan.FromSeconds(1.2f), false, false, true);
 
         var speed = velocity.Length();

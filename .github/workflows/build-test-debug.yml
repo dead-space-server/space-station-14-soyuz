@@ -6,80 +6,12 @@ on:
     branches: [ master, staging, stable ]
   merge_group:
   pull_request:
-    types: [ opened, reopened, synchronize, edited, ready_for_review ]
+    types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable ]
 
 jobs:
-  pr-changelog-check:
-    name: PR changelog format check
-    if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
-    runs-on: ubuntu-latest
-    steps:
-    - name: Validate :cl: block in PR body
-      env:
-        EVENT_NAME: ${{ github.event_name }}
-        PR_BODY: ${{ github.event.pull_request.body }}
-      shell: bash
-      run: |
-        python3 - <<'PY'
-        import os
-        import re
-        import sys
-
-        event_name = os.environ.get("EVENT_NAME", "")
-        if event_name != "pull_request":
-            print("Not a pull_request event, skipping :cl: validation.")
-            sys.exit(0)
-
-        body = os.environ.get("PR_BODY") or ""
-        visible = re.sub(r'<!--.*?-->', '', body, flags=re.DOTALL)
-
-        cl_match = re.search(r'(?mi)^\s*:cl:\s*$', visible)
-        if not cl_match:
-            print("PR body must contain a visible ':cl:' line.")
-            print("Required format example:")
-            print(":cl:")
-            print("- Добавлено: Ваше изменение")
-            sys.exit(1)
-
-        block = visible[cl_match.end():]
-        block_lines = [line.strip() for line in block.splitlines() if line.strip()]
-
-        changelog_lines = []
-        for line in block_lines:
-            if not line.startswith("-"):
-                break
-            changelog_lines.append(line)
-
-        if not changelog_lines:
-            print("After ':cl:' there must be at least one changelog item.")
-            print("Allowed item formats:")
-            print("- Добавлено: ...")
-            print("- Исправлено: ...")
-            print("- Удалено: ...")
-            print("- Изменено: ...")
-            sys.exit(1)
-
-        allowed_item = re.compile(r'^\s*-\s*(Добавлено|Исправлено|Удалено|Изменено)\s*:\s*\S.+$')
-        invalid = [line for line in changelog_lines if not allowed_item.match(line)]
-        if invalid:
-            print("Invalid :cl: item format detected:")
-            for line in invalid:
-                print(f"  {line}")
-            print("Allowed item formats:")
-            print("- Добавлено: ...")
-            print("- Исправлено: ...")
-            print("- Удалено: ...")
-            print("- Изменено: ...")
-            sys.exit(1)
-
-        print(":cl: block format is valid.")
-        PY
-
   plan-integration-shards:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
-    needs:
-      - pr-changelog-check
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
@@ -99,8 +31,6 @@ jobs:
 
   content-tests:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
-    needs:
-      - pr-changelog-check
     runs-on: ubuntu-latest
     name: Content.Tests
 
@@ -123,7 +53,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 9.0.x
 
     - name: Install dependencies
       run: dotnet restore Content.Tests/Content.Tests.csproj
@@ -222,7 +152,6 @@ jobs:
     name: Build & Test Debug
     if: ${{ always() && needs.plan-integration-shards.result != 'skipped' }}
     needs:
-      - pr-changelog-check
       - plan-integration-shards
       - content-tests
       - integration-tests

@@ -44,6 +44,8 @@
   - type: Utensil
     types:
     - Fork
+  - type: Tool # DS14
+    qualities: [ Brushing ] # DS14
   - type: MeleeWeapon
     wideAnimationRotation: 180
     attackRate: 1.5
@@ -62,6 +64,8 @@
   - type: Utensil
     types:
     - Fork
+  - type: Tool # DS14
+    qualities: [ Brushing ] # DS14
 
 - type: entity
   parent: UtensilBase

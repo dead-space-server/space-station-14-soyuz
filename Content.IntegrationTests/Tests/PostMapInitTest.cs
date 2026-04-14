@@ -68,6 +68,7 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/ds_taipan.yml", ["RubberStampSyndicate"]},
             {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},

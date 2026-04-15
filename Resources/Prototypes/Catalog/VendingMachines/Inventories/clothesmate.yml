@@ -85,7 +85,8 @@
     ClothingHeadHatMimesoft: 4 # DS14-value
     ClothingUnderwearStockingsBlackGrid: 2 # DS14-Soyuz
     ClothingUnderwearStockingsWhiteGrid: 2 # DS14-Soyuz
-    ClothingUnderwearStockingsBlack: 2 # DS14-Soyuz
+    ClothingUnderwearStockingsBlack: 4 # DS14
+    ClothingUnderwearSocksThigh: 4 # DS14
     ClothingUnderwearStockingsBlackPaws: 2 # DS14-Soyuz
     ClothingHeadHatBluesoft: 2
     ClothingHeadHatYellowsoft: 2

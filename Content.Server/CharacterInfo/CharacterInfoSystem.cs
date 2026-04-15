@@ -72,7 +72,6 @@ public sealed class CharacterInfoSystem : EntitySystem
             foreach (var skill in skillComponent.Skills)
             {
                 var info = _skill.GetSkillInfo(entity, skill.Key);
-
                 if (info != null)
                     skills.Add(info.Value);
             }

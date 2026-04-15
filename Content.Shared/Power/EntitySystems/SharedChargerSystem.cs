@@ -12,7 +12,7 @@ public abstract class SharedChargerSystem : EntitySystem
         SubscribeLocalEvent<ChargerComponent, EmpPulseEvent>(OnEmpPulse);
     }
 
-    private void OnEmpPulse(EntityUid uid, ChargerComponent component, ref EmpPulseEvent args)
+    protected virtual void OnEmpPulse(Entity<ChargerComponent> ent, ref EmpPulseEvent args)
     {
         args.Affected = true;
         args.Disabled = true;

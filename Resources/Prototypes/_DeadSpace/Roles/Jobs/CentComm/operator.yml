@@ -24,7 +24,7 @@
       - CentralCommand
     # DS14-Start
     - type: Skill
-      group: HOP
+      group: ALL
     # DS14-End
 
 - type: startingGear

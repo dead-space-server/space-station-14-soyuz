@@ -1,8 +1,4 @@
 admin-player-actions-window-ert = Окно управления сил НКВБ
-ert-responce-window-title = Запрос поддержки
-ert-responce-available-teams = Доступные отряды
-responce-ert-team-button = Запросить отряд
-ert-responce-team-description = Описание отряда
 
 ert-responce-balance-label =
     Баланс: { $cost }
@@ -11,9 +7,6 @@ ert-responce-caused-messager =
     Генеральный штаб подтверждает вызов сил Комиссариата.
     { $team } выдвигается на станцию.
     Расчётное время прибытия: минимально возможное.
-
-ert-responce-call-cancel =
-    Генеральный Штаб получило ваш сигнал.
 
 ert-computer-window-title = Компьютер СОБР
 

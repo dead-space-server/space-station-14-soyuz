@@ -1,7 +1,16 @@
 - type: entity
+  id: MagazineCaselessRifle
+  name: "magazine (.25 caseless)"
+  parent: BaseMagazinePistolCaselessRifle
+  components:
+  - type: Tag
+    tags:
+      - MagazineCaselessRifle
+
+- type: entity
   id: MagazineCaselessRifleIncendiary
   name: "magazine (.25 caseless incendiary)"
-  parent: BaseMagazineCaselessRifle
+  parent: BaseMagazinePistolCaselessRifle
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleIncendiary
@@ -27,7 +36,7 @@
 - type: entity
   id: MagazineCaselessRifleUranium
   name: "magazine (.25 caseless uranium)"
-  parent: BaseMagazineCaselessRifle
+  parent: BaseMagazinePistolCaselessRifle
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleUranium

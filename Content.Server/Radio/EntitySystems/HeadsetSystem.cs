@@ -1,4 +1,4 @@
-using Content.Server.Chat.Systems;
+using Content.Shared.Chat;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
@@ -11,7 +11,6 @@ using Content.Shared.Corvax.TTS;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers; // DS-14
-using Content.Shared.Chat;
 
 namespace Content.Server.Radio.EntitySystems;
 

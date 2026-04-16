@@ -30,7 +30,7 @@
   specificHeat: 15
   heatCapacityRatio: 1.4
   molarMass: 2
-  color: FFFFFF
+  color: E0514F
   reagent: Hydrogen
   pricePerMole: 0
 

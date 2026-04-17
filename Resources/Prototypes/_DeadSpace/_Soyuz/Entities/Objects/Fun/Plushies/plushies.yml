@@ -1,0 +1,135 @@
+- type: entity
+  parent: BasePlushieDeadSpaceMisc
+  id: BasePlushieSoyuz
+  name: советская плюшка
+  description: Вы явно не должны это видеть.
+  categories: [ HideSpawnMenu ] 
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/plushielizard_jobs.rsi
+    state: icon
+  - type: UseDelay
+    delay: 1.0
+  - type: MeleeWeapon
+    attackRate: 1.5
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieHoS1
+  name: плюшевый начальник милиции
+  description: Выглядит влиятельно.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: hos1
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieCaptain1
+  name: плюшевый капитан
+  description: Выглядит очень влиятельно.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: captain1
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieCE1
+  name: плюшевый старший инженер
+  description: Выглядит строительно-влиятельно.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: chiefengineering1 # Слишком длинное название, над сократить
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieDiona
+  name: плюшевая диона
+  description: Выглядит древесно.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: diona
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieHoP1
+  name: плюшевый начальник отдела кадров
+  description: Выглядит уставшим.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: hop1
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieIPS1
+  name: плюшевый КПБ
+  description: Выглядит металлически.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: ips
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieJuggenraut1
+  name: плюшевый джаггернаут
+  description: Выглядит так, словно сейчас сломает вам лицо.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: juggernaut
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieOfficer1
+  name: плюшевый милиционер
+  description: Выглядит законопослушным и порядочным.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: officer1
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieOfficer2
+  name: плюшевый милиционер
+  description: Выглядит законопослушным и порядочным.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: officer2
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieOfficer3
+  name: плюшевый милиционер
+  description: Выглядит законопослушным и порядочным.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: officer3
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieOKGB1
+  name: плюшевый Оперативник КГБ
+  description: Выглядит героически и стильно.
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: okgb1

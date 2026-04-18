@@ -1,0 +1,7 @@
+# DS14-start
+- type: vendingMachineInventory
+  id: NanoMedDisposableSyringeInventory
+  startingInventory:
+    SyringeDisposablePacked: 12
+    BoxDisposableSyringe: 2
+# DS14-end

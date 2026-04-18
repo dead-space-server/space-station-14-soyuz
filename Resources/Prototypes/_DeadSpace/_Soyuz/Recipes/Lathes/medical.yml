@@ -1,0 +1,27 @@
+# DS14-start
+- type: latheRecipe
+  id: SyringeDisposablePackedSoyuz
+  result: SyringeDisposablePacked
+  completetime: 1
+  materials:
+    Plastic: 20
+    Glass: 20
+
+- type: latheRecipe
+  id: BoxDisposableSyringeSoyuz
+  result: BoxDisposableSyringe
+  completetime: 3
+  materials:
+    Plastic: 120
+    Glass: 120
+
+- type: latheRecipe
+  id: SyringeSterilizerMachineCircuitboardSoyuz
+  result: SyringeSterilizerMachineCircuitboard
+  completetime: 5
+  materials:
+    Steel: 300
+    Glass: 200
+    Plastic: 200
+    Gold: 100
+# DS14-end

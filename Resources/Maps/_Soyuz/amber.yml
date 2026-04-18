@@ -98552,7 +98552,7 @@ entities:
     - type: Transform
       pos: -67.5,-12.5
       parent: 2
-- proto: PlushieDiona
+- proto: PlushieDionaSoyuz
   entities:
   - uid: 13975
     components:

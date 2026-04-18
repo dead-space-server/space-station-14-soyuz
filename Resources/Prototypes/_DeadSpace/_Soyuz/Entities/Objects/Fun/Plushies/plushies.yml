@@ -45,7 +45,6 @@
   id: PlushieHoS1
   name: плюшевый начальник милиции
   description: Выглядит влиятельно.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -56,7 +55,6 @@
   id: PlushieCaptain1
   name: плюшевый капитан
   description: Выглядит очень влиятельно.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -67,7 +65,6 @@
   id: PlushieCE1
   name: плюшевый старший инженер
   description: Выглядит строительно-влиятельно.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -75,10 +72,9 @@
 
 - type: entity
   parent: BasePlushieSoyuz
-  id: PlushieDiona
+  id: PlushieDionaSoyuz
   name: плюшевая диона
   description: Выглядит древесно.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -89,7 +85,6 @@
   id: PlushieHoP1
   name: плюшевый начальник отдела кадров
   description: Выглядит уставшим.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -100,7 +95,6 @@
   id: PlushieIPS1
   name: плюшевый КПБ
   description: Выглядит металлически.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -111,7 +105,6 @@
   id: PlushieJuggenraut1
   name: плюшевый джаггернаут
   description: Выглядит так, словно сейчас сломает вам лицо.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -122,7 +115,6 @@
   id: PlushieOfficer1
   name: плюшевый милиционер
   description: Выглядит законопослушным и порядочным.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -133,7 +125,6 @@
   id: PlushieOfficer2
   name: плюшевый милиционер
   description: Выглядит законопослушным и порядочным.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -144,7 +135,6 @@
   id: PlushieOfficer3
   name: плюшевый милиционер
   description: Выглядит законопослушным и порядочным.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
@@ -155,7 +145,6 @@
   id: PlushieOKGB1
   name: плюшевый Оперативник КГБ
   description: Выглядит героически и стильно.
-  categories: [ DoNotMap ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi

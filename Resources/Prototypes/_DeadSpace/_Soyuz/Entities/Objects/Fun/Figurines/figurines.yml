@@ -32,6 +32,9 @@
     - FigurineHos2
     - FigurinePilot1
     - FigurineScientist1
+    - FigurineOKGB1
+    - FigurineAGSH1
+    - FigurineIDK1
 
 # Милиция
 ## Начальник Милиции
@@ -44,7 +47,7 @@
   - type: Sprite
     state: hos1
   - type: SpeakOnTrigger
-    pack: FigurinesHoS
+    pack: FigurinesHoSSoyuz
 
 - type: entity
   parent: BaseFigurineSoyuz
@@ -55,7 +58,7 @@
   - type: Sprite
     state: hos2
   - type: SpeakOnTrigger
-    pack: FigurinesHoS
+    pack: FigurinesHoSSoyuz
 
 ## Пилот Милиции
 
@@ -72,7 +75,7 @@
 
 ### Спавнер
 - type: entity
-  name: спавнер случайная фигурка начальника милиции
+  name: спавнер случайная фигурка милиции
   id: FigurinesSoyuzRandom
   parent: FigurinesSoyuzRandomBase
   components:
@@ -82,8 +85,6 @@
     - FigurineHos1
     - FigurineHos2
     - FigurinePilot1
-    - FigurineOKGB1
-    - FigurineAGSH1
 
 # НИО
 ## Учёный

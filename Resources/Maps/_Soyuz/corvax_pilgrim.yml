@@ -175965,7 +175965,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -133.75095,-32.502228
       parent: 2
-- proto: PlushieDiona
+- proto: PlushieDionaSoyuz
   entities:
   - uid: 19324
     components:

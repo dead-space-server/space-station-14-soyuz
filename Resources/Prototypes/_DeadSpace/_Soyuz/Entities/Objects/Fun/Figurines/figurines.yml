@@ -1,3 +1,5 @@
+# Базовый шаблон
+## Базовый шаблон фигурки
 - type: entity
   parent: BaseFigurine
   id: BaseFigurineSoyuz
@@ -10,6 +12,29 @@
   - type: SpeakOnTrigger
     pack: FigurinesBase
 
+## Базвоый шаблон спавнера
+- type: entity
+  name: спавнер случайная советская фигурка
+  id: FigurinesSoyuzRandomBase
+  parent: MarkerBase
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/figurines.rsi
+    state: hos1
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - FigurineHos1
+    - FigurineHos2
+    - FigurinePilot1
+    - FigurineScientist1
+
+# Милиция
+## Начальник Милиции
 - type: entity
   parent: BaseFigurineSoyuz
   id: FigurineHos1
@@ -32,38 +57,7 @@
   - type: SpeakOnTrigger
     pack: FigurinesHoS
 
-- type: entity
-  parent: BaseFigurineSoyuz
-  id: FigurineScientist1
-  name: фигурка научного сотрудника
-  description: Не волнуйтесь, мне можно доверить работу с взрывоопасным артефа-..
-  components:
-  - type: Sprite
-    state: scientist1
-  - type: SpeakOnTrigger
-    pack: FigurinesScientist
-
-- type: entity
-  parent: BaseFigurineSoyuz
-  id: FigurineOKGB1
-  name: фигурка оперативника КГБ
-  description: Я отвлёкся буквально на минуту, как она успела сгореть?
-  components:
-  - type: Sprite
-    state: okgb1
-  - type: SpeakOnTrigger
-    pack: FigurinesOKGB
-
-- type: entity
-  parent: BaseFigurineSoyuz
-  id: FigurineAGSH1
-  name: фигурка администратора ГШ
-  description: Вам не стоило раздавать всем автоматы, капитан.
-  components:
-  - type: Sprite
-    state: agsh1
-  - type: SpeakOnTrigger
-    pack: FigurinesAdministratorCentcomm
+## Пилот Милиции
 
 - type: entity
   parent: BaseFigurineSoyuz
@@ -76,6 +70,94 @@
   - type: SpeakOnTrigger
     pack: FigurinesPilot
 
+### Спавнер
+- type: entity
+  name: спавнер случайная фигурка начальника милиции
+  id: FigurinesSoyuzRandom
+  parent: FigurinesSoyuzRandomBase
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - FigurineHos1
+    - FigurineHos2
+    - FigurinePilot1
+    - FigurineOKGB1
+    - FigurineAGSH1
+
+# НИО
+## Учёный
+- type: entity
+  parent: BaseFigurineSoyuz
+  id: FigurineScientist1
+  name: фигурка научного сотрудника
+  description: Не волнуйтесь, мне можно доверить работу с взрывоопасным артефа-..
+  components:
+  - type: Sprite
+    state: scientist1
+  - type: SpeakOnTrigger
+    pack: FigurinesScientist
+
+### Спавнер
+- type: entity
+  name: спавнер случайная фигурка учёного
+  id: FigurinesHoSRandom
+  parent: FigurinesSoyuzRandomBase
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - FigurineScientist1
+
+# НКВБ
+## ОКГБ
+- type: entity
+  parent: BaseFigurineSoyuz
+  id: FigurineOKGB1
+  name: фигурка оперативника КГБ
+  description: Я отвлёкся буквально на минуту, как она успела сгореть?
+  components:
+  - type: Sprite
+    state: okgb1
+  - type: SpeakOnTrigger
+    pack: FigurinesOKGB
+
+### Спавнер
+- type: entity
+  name: спавнер случайная фигурка НКВБ
+  id: FigurinesNKVBRandom
+  parent: FigurinesSoyuzRandomBase
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - FigurineOKGB1
+
+# Генеральный Штаб
+## АГШ
+- type: entity
+  parent: BaseFigurineSoyuz
+  id: FigurineAGSH1
+  name: фигурка администратора ГШ
+  description: Вам не стоило раздавать всем автоматы, капитан.
+  components:
+  - type: Sprite
+    state: agsh1
+  - type: SpeakOnTrigger
+    pack: FigurinesAdministratorCentcomm
+
+### Спавнер
+- type: entity
+  name: спавнер случайная генерального штаба
+  id: FigurinesCentcommRandom
+  parent: FigurinesSoyuzRandomBase
+  components:
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - FigurineAGSH1
+
+# Я хз кто это
 - type: entity
   parent: BaseFigurineSoyuz
   id: FigurineIDK1

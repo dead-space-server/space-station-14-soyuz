@@ -6,12 +6,39 @@
   categories: [ HideSpawnMenu ] 
   components:
   - type: Sprite
-    sprite: Objects/Fun/plushielizard_jobs.rsi
-    state: icon
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: hos1
   - type: UseDelay
     delay: 1.0
   - type: MeleeWeapon
     attackRate: 1.5
+
+- type: entity
+  name: спавнер случайная советская плюшка
+  id: PlushieSoyuzRandom
+  parent: MarkerBase
+  placement:
+    mode: PlaceFree
+  components:
+  - type: Transform
+    anchored: false
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: hos1
+  - type: RandomSpawner
+    offset: 0
+    prototypes:
+    - PlushieHoS1
+    - PlushieCaptain1
+    - PlushieCE1
+    - PlushieDiona
+    - PlushieHoP1
+    - PlushieIPS1
+    - PlushieJuggenraut1
+    - PlushieOfficer1
+    - PlushieOfficer2
+    - PlushieOfficer3
+    - PlushieOKGB1
 
 - type: entity
   parent: BasePlushieSoyuz

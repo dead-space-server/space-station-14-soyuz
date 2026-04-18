@@ -17,7 +17,7 @@
   id: FigurinesScientist
   values:
     prefix: figurines-scientist-
-    count: 7
+    count: 8
 
 # ОКГБ
 - type: localizedDataset
@@ -38,4 +38,4 @@
   id: FigurinesPilot
   values:
     prefix: figurines-pilot-
-    count: 7
+    count: 16

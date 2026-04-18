@@ -19,7 +19,7 @@
   - type: Sprite
     state: hos1
   - type: SpeakOnTrigger
-    pack: FigurinesHoS
+    pack: FigurinesHoSSoyuz
 
 - type: entity
   parent: BaseFigurineSoyuz
@@ -30,7 +30,7 @@
   - type: Sprite
     state: hos2
   - type: SpeakOnTrigger
-    pack: FigurinesHoS
+    pack: FigurinesHoSSoyuz
 
 - type: entity
   parent: BaseFigurineSoyuz
@@ -41,7 +41,7 @@
   - type: Sprite
     state: scientist1
   - type: SpeakOnTrigger
-    pack: FigurinesScientist
+    pack: FigurinesScientistSoyuz
 
 - type: entity
   parent: BaseFigurineSoyuz

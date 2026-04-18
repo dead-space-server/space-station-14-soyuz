@@ -68,8 +68,8 @@
 - type: entity
   parent: BaseFigurineSoyuz
   id: FigurinePilot1
-  name: фигурка администратора ГШ
-  description: Вам не стоило раздавать всем автоматы, капитан.
+  name: фигурка пилота милиции
+  description: А вам нравится ваша работа?
   components:
   - type: Sprite
     state: pilot1

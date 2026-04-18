@@ -48,9 +48,6 @@
     - HighRiskItem
   - type: StealTarget
     stealGroup: Hypospray
-  # DS14-start: hypospray sterility
-  - type: Sterility
-  # DS14-end
   - type: SolutionContainerVisuals
     maxFillLevels: 6
     fillBaseName: hypo_fill
@@ -80,9 +77,6 @@
     maxFillLevels: 4
     fillBaseName: hypo_fill
     solutionName: hypospray
-  # DS14-start: hypospray sterility
-  - type: Sterility
-  # DS14-end
   - type: Tag # DS14
     tags:
     - SyndiHypo
@@ -115,9 +109,6 @@
     solutionName: hypospray
   - type: UseDelay
     delay: 0.5
-  # DS14-start: hypospray sterility
-  - type: Sterility
-  # DS14-end
 
 - type: entity
   parent: BaseHypospray
@@ -152,9 +143,6 @@
     allowedModes:
     - JetInjectorDynamicMode
     - JetInjectorInjectMode
-  # DS14-start: hypospray sterility
-  - type: Sterility
-  # DS14-end
 
 - type: entity
   parent: JetInjector

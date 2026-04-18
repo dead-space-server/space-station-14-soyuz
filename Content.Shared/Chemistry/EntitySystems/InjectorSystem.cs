@@ -5,7 +5,6 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Events;
 using Content.Shared.Chemistry.Prototypes;
 using Content.Shared.Database;
-using Content.Shared.DeadSpace.Soyuz.Sterility; // DS14
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Content.Shared.Forensics.Systems;
@@ -510,7 +509,6 @@ public sealed partial class InjectorSystem : EntitySystem
             removedSolution = _solutionContainer.SplitStackSolution(injector.Comp.Solution.Value, realTransferAmount, stack.Count);
         else
             removedSolution = _solutionContainer.SplitSolution(injector.Comp.Solution.Value, realTransferAmount);
-        var transferredSolution = removedSolution.Clone(); // DS14
 
         _reactiveSystem.DoEntityReaction(target, removedSolution, ReactionMethod.Injection);
 
@@ -539,7 +537,7 @@ public sealed partial class InjectorSystem : EntitySystem
         // Log what happened.
         _adminLogger.Add(LogType.ForceFeed, $"{ToPrettyString(user):user} injected {ToPrettyString(target):target} with a solution {SharedSolutionContainerSystem.ToPrettyString(removedSolution):removedSolution} using a {ToPrettyString(injector):using}");
 
-        AfterInject(injector, user, target, transferredSolution); // DS14
+        AfterInject(injector, user, target);
         return true;
     }
 
@@ -607,7 +605,7 @@ public sealed partial class InjectorSystem : EntitySystem
             target,
             user);
 
-        AfterDraw(injector, user, target, removedSolution.Clone()); // DS14
+        AfterDraw(injector, user, target);
         return true;
     }
 
@@ -628,13 +626,7 @@ public sealed partial class InjectorSystem : EntitySystem
         if (_solutionContainer.ResolveSolution(target.Owner, target.Comp.BloodSolutionName, ref target.Comp.BloodSolution))
         {
             var bloodTemp = _solutionContainer.SplitSolution(target.Comp.BloodSolution.Value, transferAmount);
-            var transferredSolution = bloodTemp.Clone(); // DS14
             _solutionContainer.TryAddSolution(injectorSolution, bloodTemp);
-            AfterDraw(injector, user, target, transferredSolution); // DS14
-        }
-        else // DS14
-        {
-            AfterDraw(injector, user, target, new Solution()); // DS14
         }
 
         LocId msg = target.Owner == user ? "injector-component-draw-success-message-self" : "injector-component-draw-success-message";
@@ -642,6 +634,7 @@ public sealed partial class InjectorSystem : EntitySystem
         var finalMessage = Loc.GetString(msg, ("amount", transferAmount), ("target", targetIdentity));
         _popup.PopupClient(finalMessage, target, user);
 
+        AfterDraw(injector, user, target);
     }
 
     /// <summary>
@@ -650,7 +643,7 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="injector">The injector used.</param>
     /// <param name="user">The entity using the injector.</param>
     /// <param name="target">The entity targeted by the user.</param>
-    private void AfterInject(Entity<InjectorComponent> injector, EntityUid user, EntityUid target, Solution transferredSolution) // DS14
+    private void AfterInject(Entity<InjectorComponent> injector, EntityUid user, EntityUid target)
     {
         // Leave some DNA from the injectee on it
         _forensics.TransferDna(injector, target);
@@ -659,24 +652,23 @@ public sealed partial class InjectorSystem : EntitySystem
         _useDelay.TryResetDelay(injector);
 
         // Automatically set syringe to draw after completely draining it.
-        if (_solutionContainer.ResolveSolution(injector.Owner, injector.Comp.SolutionName, ref injector.Comp.Solution, out var solution)
-            && solution.Volume == 0
-            && _prototypeManager.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode)
-            && !activeMode.Behavior.HasFlag(InjectorBehavior.Dynamic))
+        if (!_solutionContainer.ResolveSolution(injector.Owner, injector.Comp.SolutionName, ref injector.Comp.Solution, out var solution)
+            || solution.Volume != 0)
+            return;
+
+        if (!_prototypeManager.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode)
+            || activeMode.Behavior.HasFlag(InjectorBehavior.Dynamic))
+            return;
+
+        foreach (var mode in injector.Comp.AllowedModes)
         {
-            foreach (var mode in injector.Comp.AllowedModes)
-            {
-                if (!_prototypeManager.Resolve(mode, out var proto)
-                    || !proto.Behavior.HasFlag(InjectorBehavior.Draw))
-                    continue;
+            if (!_prototypeManager.Resolve(mode, out var proto)
+                || !proto.Behavior.HasFlag(InjectorBehavior.Draw))
+                continue;
 
-                ToggleMode(injector, user, proto);
-                break;
-            }
+            ToggleMode(injector, user, proto);
+            return;
         }
-
-        RaiseLocalEvent(injector.Owner,
-            new InjectorTransferCompletedEvent(user, target, InjectorTransferKind.Inject, transferredSolution.Volume, transferredSolution)); // DS14
     }
 
     /// <summary>
@@ -685,30 +677,29 @@ public sealed partial class InjectorSystem : EntitySystem
     /// <param name="injector">The injector used.</param>
     /// <param name="user">The entity using the injector.</param>
     /// <param name="target">The entity targeted by the user.</param>
-    private void AfterDraw(Entity<InjectorComponent> injector, EntityUid user, EntityUid target, Solution transferredSolution) // DS14 start
+    private void AfterDraw(Entity<InjectorComponent> injector, EntityUid user, EntityUid target)
     {
         // Leave some DNA from the drawee on it
         _forensics.TransferDna(injector, target);
 
         // Automatically set the syringe to inject after completely filling it.
-        if (_solutionContainer.ResolveSolution(injector.Owner, injector.Comp.SolutionName, ref injector.Comp.Solution, out var solution)
-            && solution.AvailableVolume == 0
-            && _prototypeManager.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode)
-            && !activeMode.Behavior.HasFlag(InjectorBehavior.Dynamic))
+        if (!_solutionContainer.ResolveSolution(injector.Owner, injector.Comp.SolutionName, ref injector.Comp.Solution, out var solution)
+            || solution.AvailableVolume != 0)
+            return;
+
+        if (!_prototypeManager.Resolve(injector.Comp.ActiveModeProtoId, out var activeMode)
+            || activeMode.Behavior.HasFlag(InjectorBehavior.Dynamic))
+            return;
+
+        foreach (var mode in injector.Comp.AllowedModes)
         {
-            foreach (var mode in injector.Comp.AllowedModes)
-            {
-                if (!_prototypeManager.Resolve(mode, out var proto)
-                    || !proto.Behavior.HasFlag(InjectorBehavior.Inject))
-                    continue;
+            if (!_prototypeManager.Resolve(mode, out var proto)
+                || !proto.Behavior.HasFlag(InjectorBehavior.Inject))
+                continue;
 
-                ToggleMode(injector, user, proto);
-                break;
-            }
+            ToggleMode(injector, user, proto);
+            return;
         }
-
-        RaiseLocalEvent(injector.Owner,
-            new InjectorTransferCompletedEvent(user, target, InjectorTransferKind.Draw, transferredSolution.Volume, transferredSolution)); // DS14 end
     }
     #endregion Injecting/Drawing
 

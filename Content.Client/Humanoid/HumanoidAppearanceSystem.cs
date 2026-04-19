@@ -1,6 +1,5 @@
 using System.Numerics; // DS14-height
 using Content.Client.DisplacementMap;
-using Content.Client.Sprite; // DS14-height
 using Content.Shared.CCVar;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
@@ -19,7 +18,6 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly DisplacementMapSystem _displacement = default!;
-    [Dependency] private readonly ScaleVisualsSystem _scaleVisuals = default!; // DS14-height
     [Dependency] private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
@@ -54,7 +52,17 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         var sprite = entity.Comp2;
 
         sprite[_sprite.LayerMapReserve((entity.Owner, sprite), HumanoidVisualLayers.Eyes)].Color = humanoidAppearance.EyeColor;
+        // DS14-height: apply character height from centimeters after sprite rebuild.
+        ApplyHeightScale(entity);
     }
+
+    // DS14-height-start
+    private void ApplyHeightScale(Entity<HumanoidAppearanceComponent, SpriteComponent> entity)
+    {
+        var scale = HumanoidCharacterProfile.HeightToScale(entity.Comp1.Species, entity.Comp1.Sex, entity.Comp1.Height);
+        _sprite.SetScale((entity.Owner, entity.Comp2), new Vector2(scale, scale));
+    }
+    // DS14-height-end
 
     private static bool IsHidden(HumanoidAppearanceComponent humanoid, HumanoidVisualLayers layer)
         => humanoid.HiddenLayers.ContainsKey(layer) || humanoid.PermanentlyHidden.Contains(layer);
@@ -222,10 +230,10 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         humanoid.Sex = profile.Sex;
         humanoid.Gender = profile.Gender;
         humanoid.Age = profile.Age;
+        humanoid.Height = profile.Height; // DS14-height
         humanoid.Species = profile.Species;
         humanoid.SkinColor = profile.Appearance.SkinColor;
         humanoid.EyeColor = profile.Appearance.EyeColor;
-        _scaleVisuals.SetSpriteScale(uid, Vector2.One * profile.HeightScale); // DS14-height
 
         UpdateSprite((uid, humanoid, Comp<SpriteComponent>(uid)));
     }

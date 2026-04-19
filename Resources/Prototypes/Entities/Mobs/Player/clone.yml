@@ -118,7 +118,7 @@
   - Speech
   - TemperatureProtection
   - TypingIndicator
-  - ScaleVisuals # for dwarf height
+  # - ScaleVisuals # for dwarf height DS14: height is cloned via HumanoidAppearanceComponent.Height.
   eventComponents:
   # these need special treatment in the event subscription
   - Inventory # arachnid pockets and diona feet

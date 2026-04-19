@@ -564,7 +564,10 @@ namespace Content.Shared.Preferences
 
         public static float HeightToScale(string? species, Sex sex, int height)
         {
-            return height / (float) GetDefaultHeight(species, sex);
+            // DS14-height: amplify centimeters so every 1 cm is visually noticeable.
+            const float scalePerCentimeter = 0.008f;
+            _ = (species, sex); // DS14-height: kept for API compatibility.
+            return 1f + (height - DefaultHeight) * scalePerCentimeter; // DS14-value: unified + amplified scale
         }
         // DS14-height-end
 

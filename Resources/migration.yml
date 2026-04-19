@@ -1253,3 +1253,7 @@ SignNanotrasen5: null
 
 # 2026-03-13 - DS14 - Soyuz
 NTFlag: BlankFlag
+
+# 2026-04-19
+HandheldAutopsyScannerUnpowered: HandheldAutopsyScanner
+HandheldAutopsyScannerEmpty: HandheldAutopsyScanner

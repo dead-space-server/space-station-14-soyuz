@@ -48,8 +48,8 @@ public sealed partial class USSPChatUiFragment : BoxContainer
         ChatTypeTabs.SetTabTitle(1, Loc.GetString("ussp-chat-ui-tab-groups"));
         WireButtons();
         ChatTypeTabs.OnTabChanged += _ => OnTabChanged();
-        EmojiButton.AddStyleClass(StyleBase.ButtonOpenBoth);
-        SendButton.AddStyleClass(StyleBase.ButtonOpenLeft);
+        EmojiButton.AddStyleClass(StyleClass.ButtonOpenBoth);
+        SendButton.AddStyleClass(StyleClass.ButtonOpenLeft);
         UpdateUiState();
     }
 

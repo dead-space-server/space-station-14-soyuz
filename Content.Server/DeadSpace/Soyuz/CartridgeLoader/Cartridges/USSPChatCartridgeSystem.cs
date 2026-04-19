@@ -355,16 +355,16 @@ public sealed class USSPChatCartridgeSystem : SharedUSSPChatCartridgeSystem
 
     private string GenerateUniqueGroupId()
     {
+        var buffer = new char[GroupIdLength];
         string id;
         do
         {
-            Span<char> buffer = stackalloc char[GroupIdLength];
             for (var i = 0; i < buffer.Length; i++)
             {
                 buffer[i] = GroupIdAlphabet[_random.Next(GroupIdAlphabet.Length)];
             }
 
-            id = buffer.ToString();
+            id = new string(buffer);
         } while (_groups.ContainsKey(id) || !IsValidGroupId(id));
 
         return id;

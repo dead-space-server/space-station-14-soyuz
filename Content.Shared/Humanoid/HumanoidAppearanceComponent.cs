@@ -2,6 +2,7 @@ using Content.Shared.DisplacementMap;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Inventory;
+using Content.Shared.Preferences;
 using Robust.Shared.Enums;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -32,6 +33,12 @@ public sealed partial class HumanoidAppearanceComponent : Component
 
     [DataField, AutoNetworkedField]
     public int Age = 18;
+
+    // DS14-height-start
+    [DataField, AutoNetworkedField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public int Height = HumanoidCharacterProfile.DefaultHeight;
+    // DS14-height-end
 
     /// <summary>
     ///     Any custom base layers this humanoid might have. See:

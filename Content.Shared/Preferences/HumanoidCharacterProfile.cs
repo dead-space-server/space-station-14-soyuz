@@ -564,7 +564,10 @@ namespace Content.Shared.Preferences
 
         public static float HeightToScale(string? species, Sex sex, int height)
         {
-            return height / (float) GetDefaultHeight(species, sex);
+            // DS14-height: amplify centimeters so every 1 cm is visually noticeable.
+            const float scalePerCentimeter = 0.008f;
+            var baseline = GetHeightRange(species, sex).Default;
+            return 1f + (height - baseline) * scalePerCentimeter;
         }
         // DS14-height-end
 

@@ -17,9 +17,8 @@
     damageRecovery:
       types:
         Asphyxiation: -1.0
-  - type: ScaleVisuals
-    scale: 1, 0.8
   - type: Body
+    # DS14: species-specific height scaling moved to humanoid profile centimeters.
     prototype: Dwarf
     requiredLegs: 2
   - type: Butcherable
@@ -79,8 +78,7 @@
   id: MobDwarfDummy
   categories: [ HideSpawnMenu ]
   components:
-  - type: ScaleVisuals
-    scale: 1, 0.8
+  # DS14: species-specific height scaling moved to humanoid profile centimeters.
   - type: Inventory
     femaleDisplacements:
       jumpsuit:

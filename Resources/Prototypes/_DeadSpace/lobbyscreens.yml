@@ -317,3 +317,7 @@
 - type: lobbyBackground
   id: ShkafNewYear
   background: /Textures/LobbyScreens/Soyuz/ShkafNewYear.png
+
+- type: lobbyBackground
+  id: Soyuz9051
+  background: /Textures/LobbyScreens/Soyuz/905-1.png

@@ -710,3 +710,13 @@ Entries:
     message: уколы у спонсорского предмета работают в новом, более стабильном режиме.
   - type: Fix
     message: Небольшой ремап силли от [kainse](https://github.com/dead-space-server/space-station-14-soyuz/issues?q=is%3Apr+author%3Akainse-miau)
+- id: 60
+  author: Kofeecheks
+  time: '2026-04-20T13:15:06.389692+00:00'
+  pr: 176
+  changes:
+  - type: Add
+    message: В редактор персонажа добавлена настройка роста.
+  - type: Tweak
+    message: Рост персонажа теперь сохраняется в профиль и базу данных и влияет на
+      визуальный масштаб спрайта.

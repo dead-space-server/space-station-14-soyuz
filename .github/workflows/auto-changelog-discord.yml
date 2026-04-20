@@ -9,9 +9,6 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
-    outputs:
-      should_send: ${{ steps.check-commented.outputs.should_send }}
-
     steps:
       - name: Extract PR details
         id: extract
@@ -19,112 +16,79 @@ jobs:
           BODY=$(printf '%s' "${{ github.event.pull_request.body }}" | base64 -w0)
           echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
-          echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
           echo "REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
 
-      - name: Check commented
-        id: check-commented  # Важно: задаём id для доступа к outputs
-        env:
-          DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
-        run: |
-          python <<'EOF'
-          import re, os
-          import base64
-
-          desc_b64 = os.environ.get("DESCRIPTION_B64", "")
-          desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
-
-          # Удаляем все HTML-комментарии (многострочные)
-          desc = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
-
-          if ":cl:" not in desc:
-              print("Skip (:cl:)")
-              print("::set-output name=should_send::false")
-              exit(0)
-          else:
-              print("::set-output name=should_send::true")
-
-          EOF
-
-      - name: Parse PR and build JSON with jq
-        if: steps.check-commented.outputs.should_send == 'true'
-        id: parse
+      - name: Parse PR and Format Text
+        id: parse_step
         env:
           DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
           PR_NUMBER: ${{ steps.extract.outputs.PR_NUMBER }}
-          AUTHOR: ${{ steps.extract.outputs.AUTHOR }}
           REPO: ${{ steps.extract.outputs.REPO }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          DESC=$(echo "$DESCRIPTION_B64" | base64 -d)
-          DESC_CLEAN=$(echo "$DESC" | sed 's/<!--.*-->//g')
+          python <<'EOF'
+          import re, os, base64
 
-          ADDED=$(echo "$DESC_CLEAN" | grep -oP '(?<=- Добавлено:).*' || echo "")
-          REMOVED=$(echo "$DESC_CLEAN" | grep -oP '(?<=- Удалено:).*' || echo "")
-          CHANGED=$(echo "$DESC_CLEAN" | grep -oP '(?<=- Изменено:).*' || echo "")
-          FIXED=$(echo "$DESC_CLEAN" | grep -oP '(?<=- Исправлено:).*' || echo "")
+          desc_b64 = os.environ.get("DESCRIPTION_B64", "")
+          desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
+          pr_num = os.environ.get("PR_NUMBER")
+          repo = os.environ.get("REPO")
+          author = os.environ.get("AUTHOR")
 
-          # Преобразуем \n в реальные переносы строк для каждого поля
-          ADDED=$(echo -e "$ADDED")
-          REMOVED=$(echo -e "$REMOVED")
-          CHANGED=$(echo -e "$CHANGED")
-          FIXED=$(echo -e "$FIXED")
+          desc_clean = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
 
-          # Если изменений нет — выходим без отправки
-          if [[ -z "$ADDED" && -z "$REMOVED" && -z "$CHANGED" && -z "$FIXED" ]]; then
-            echo "No changes found. Skipping Discord notification."
-            exit 0
-          fi
+          if ":cl:" not in desc_clean or ":v:" not in desc_clean:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
+              exit(0)
 
-          # Создаём JSON через jq с полями (fields) для каждого типа изменений
-          PAYLOAD=$(jq -n \
-            --arg title "Изменение (PR #$PR_NUMBER)" \
-            --arg url "https://github.com/$REPO/pull/$PR_NUMBER" \
-            --arg author "$AUTHOR" \
-            --arg footer "$(date -u +"%Y-%m-%d %H:%M:%S UTC")" \
-            --arg added "$ADDED" \
-            --arg removed "$REMOVED" \
-            --arg changed "$CHANGED" \
-            --arg fixed "$FIXED" \
-            '{
-              "username": "Капибарка МК-Изменения",
-              "embeds": [
-                {
-                  "color": 3300375,
-                  "title": $title,
-                  "url": $url,
-                  "fields": [
-                    { "name": "🆕 Добавлено:", "value": $added, "inline": false },
-                    { "name": "❌ Удалено:", "value": $removed, "inline": false },
-                    { "name": "⚒️ Изменено:", "value": $changed, "inline": false },
-                    { "name": "🐛 Исправлено:", "value": $fixed, "inline": false },
-                    { "name": "👤 Автор:", "value": $author, "inline": false }
-                  ],
-                  "footer": {
-                    "text": $footer
-                  }
-                }
-              ]
-            }')
+          sections = {
+              "Добавлено": "🆕",
+              "Удалено": "❌",
+              "Изменено": "⚒️",
+              "Исправлено": "🐛",
+          }
 
-          echo "$PAYLOAD" > /tmp/discord_payload.json
-          echo "PAYLOAD_FILE=/tmp/discord_payload.json" >> $GITHUB_OUTPUT
+          pr_link = f"[#{pr_num}](<https://github.com/{repo}/pull/{pr_num}>)"
+          content_lines = [f"**{author}** updated:"]
+
+          found_any = False
+          for title, emoji in sections.items():
+              pattern = rf"- {title}:\s*(.*?)(?=\n- [^:]|$)"
+              match = re.search(pattern, desc_clean, flags=re.DOTALL)
+              if match:
+                  block = match.group(1).strip()
+                  lines = [l.strip("- ").strip() for l in block.splitlines() if l.strip()]
+                  for line in lines:
+                      content_lines.append(f"{emoji} - {line} ({pr_link})")
+                      found_any = True
+
+          if not found_any:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
+              exit(0)
+
+          full_message = "\n".join(content_lines)
+
+          with open("discord_msg.txt", "w", encoding="utf-8") as f:
+              f.write(full_message)
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write("should_send=true\n")
+          EOF
 
       - name: Send to Discord
-        if: |
-          steps.parse.outcome == 'success' &&
-          steps.parse.outputs.PAYLOAD_FILE != '' &&
-          steps.check-commented.outputs.should_send == 'true'
+        if: steps.parse_step.outputs.should_send == 'true'
         env:
-          PAYLOAD_FILE: ${{ steps.parse.outputs.PAYLOAD_FILE }}
           WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         run: |
-          PAYLOAD=$(cat "$PAYLOAD_FILE")
+          MESSAGE_TEXT=$(cat discord_msg.txt)
 
-          curl -X POST \
+          jq -n --arg msg "$MESSAGE_TEXT" '{
+            "username": "Союз-1",
+            "content": $msg,
+            "allowed_mentions": { "parse": [] }
+          }' | curl -X POST \
             -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
+            -d @- \
             "$WEBHOOK_URL" \
             --fail \
-            --silent \
-            --show-error
+            --silent

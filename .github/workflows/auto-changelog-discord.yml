@@ -37,8 +37,9 @@ jobs:
 
           desc_clean = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
 
-          if ":cl:" not in desc_clean or ":v:" not in desc_clean:
-              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
+          if ":cl:" not in desc_clean:
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: 
+                  f.write("should_send=false\n")
               exit(0)
 
           sections = {
@@ -63,7 +64,8 @@ jobs:
                       found_any = True
 
           if not found_any:
-              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: 
+                  f.write("should_send=false\n")
               exit(0)
 
           full_message = "\n".join(content_lines)

@@ -104,7 +104,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtPencilPsychologist
-  name: костюм-карандаш психиатра
+  name: костюм-карандаш психолога
   description: Строгий белый костюм в стиле "карандаш" придает образу строгость.
   components:
   - type: Sprite

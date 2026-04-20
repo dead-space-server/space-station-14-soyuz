@@ -1,0 +1,8 @@
+# DS14-start: Soyuz blue insulating tape stack
+- type: stack
+  id: BlueInsulatingTape
+  name: blue-insulating-tape-stack
+  icon: { sprite: "_DeadSpace/Objects/Specific/Medical/medical.rsi", state: nanopaste }
+  spawn: BlueInsulatingTape
+  maxCount: 10
+# DS14-end

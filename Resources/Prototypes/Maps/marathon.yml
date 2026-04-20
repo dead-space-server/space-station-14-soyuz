@@ -2,7 +2,7 @@
   id: Marathon
   mapName: 'Marathon'
   mapPath: /Maps/_Soyuz/marathon.yml
-  minPlayers: 30
+  minPlayers: 20
   maxPlayers: 65
   stations:
     Marathon:

@@ -88,6 +88,7 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(CCVars.AdminSoundsEnabled, AdminSoundsCheckBox);
         Control.AddOptionCheckBox(CCVars.BwoinkSoundEnabled, BwoinkSoundCheckBox);
         Control.AddOptionCheckBox(CCCCVars.RadioTTSSoundsEnabled, RadioTTSSoundsCheckBox); // DS14-TTS
+        Control.AddOptionCheckBox(CCCCVars.JukeboxMusicMute, JukeboxMusicMuteCheckBox); // DS14-jukebox-mute
 
         Control.Initialize();
     }

@@ -65,6 +65,11 @@ public sealed class CCCCVars
     public static readonly CVarDef<float> JukeboxMusicVolume =
         CVarDef.Create("jukebox.volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+    // DS14-start: Allow fully muting jukeboxes from client options.
+    public static readonly CVarDef<bool> JukeboxMusicMute =
+        CVarDef.Create("jukebox.mute", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+    // DS14-end
+
     /*
     * Taipan
     */

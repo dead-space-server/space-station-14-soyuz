@@ -20,5 +20,5 @@ ent-DresserResearchDirectorFilled = { ent-Dresser }
     .suffix = Заполненный, Главный научный сотрудник
     .desc = { ent-Dresser.desc }
 ent-DresserWardenFilled = { ent-Dresser }
-    .suffix = Заполненный, Оперативный дежурный
+    .suffix = Заполненный, Старший следователь
     .desc = { ent-Dresser.desc }

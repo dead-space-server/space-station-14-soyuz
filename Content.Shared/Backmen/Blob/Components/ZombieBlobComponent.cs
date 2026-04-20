@@ -24,6 +24,7 @@ public sealed partial class ZombieBlobComponent : Component
 
     public ProtoId<FactionIconPrototype> StatusIcon { get; set; } = "BlobFaction";
 
-    public List<ProtoId<LanguagePrototype>> OldLanguages = new(); //DS14-Soyuz
-    public ProtoId<LanguagePrototype>? OldSelectedLanguage; //DS14-Soyuz
+
+    public List<ProtoId<LanguagePrototype>> OldLanguages = new();
+    public ProtoId<LanguagePrototype>? OldSelectedLanguage;
 }

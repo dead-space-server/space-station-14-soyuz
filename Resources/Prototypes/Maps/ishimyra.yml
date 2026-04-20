@@ -2,7 +2,7 @@
   id: Ishimura
   mapName: 'Ishimura'
   mapPath: /Maps/_Soyuz/ishimyra.yml # Я рот топтал этой ишимуры нихуя не грузит
-  minPlayers: 60
+  minPlayers: 50
   stations:
     Ishimura:
       stationProto: StandardNanotrasenStation

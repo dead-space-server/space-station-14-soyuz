@@ -45,7 +45,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IMapManager _mapManager = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRobustRandom _robustRandom = default!;
-        [Dependency] private readonly IVoteManager _voteManager = default!; // DS-14-voite
+        [Dependency] private readonly IVoteManager _voteManager = default!;
 #if EXCEPTION_TOLERANCE
         [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
 #endif

@@ -55,7 +55,7 @@ loadout-group-senior-officer-underwear = Старший милиционер, н
 loadout-group-senior-officer-medal = Старший милиционер, медаль
 loadout-group-security-officer-medal = Милиционер, медаль
 loadout-group-detective-medal = Следователь, медаль
-loadout-group-warden-medal = Оперативный дежурный, медаль
+loadout-group-warden-medal = Старший следователь, медаль
 loadout-group-head-of-security-medal = Начальник милиции, медаль
 loadout-group-security-pilot-medal = Пилот милиции, медаль
 # Medical

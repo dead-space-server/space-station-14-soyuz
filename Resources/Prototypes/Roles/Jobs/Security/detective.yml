@@ -9,7 +9,7 @@
     time: 5h
   startingGear: DetectiveGear
   icon: "JobIconDetective"
-  supervisors: job-supervisors-hos
+  supervisors: job-supervisors-hos-and-detective
   canBeAntag: false
   access:
   - Security
@@ -19,6 +19,8 @@
   - External
   - Cryogenics
   - Detective
+  - GenpopEnter
+  - GenpopLeave
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250

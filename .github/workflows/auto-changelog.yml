@@ -19,26 +19,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout base branch tools
-        uses: actions/checkout@v4
-        with:
-          path: source
-          ref: ${{ github.event.pull_request.base.ref }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          pip install pyyaml
-
-      - name: Extract PR description
+      - name: Extract PR description (base64 safe)
         id: extract
         run: |
           BODY=$(printf '%s' "${{ github.event.pull_request.body }}" | base64 -w0)
-          echo "DESCRIPTION_B64=$BODY" >> "$GITHUB_OUTPUT"
+          echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
 
       - name: Parse PR description and update changelog
         env:
@@ -46,36 +31,99 @@ jobs:
           AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          python source/Tools/pr_changelog.py update-yaml \
-            --body-base64 "$DESCRIPTION_B64" \
-            --author "$AUTHOR" \
-            --pr "$PR_NUMBER" \
-            --time "$(date -u --iso-8601=seconds)" \
-            --changelog-file "Resources/Changelog/ChangelogDS14Soyuz.yml"
+          python <<'EOF'
+          import yaml, re, os
+          from datetime import datetime, timezone
+
+          CHANGELOG = "Resources/Changelog/ChangelogDS14.yml"
+
+          import base64
+
+          desc_b64 = os.environ.get("DESCRIPTION_B64", "")
+          desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
+
+          author = os.environ.get("AUTHOR", "")
+          pr = os.environ.get("PR_NUMBER", "")
+
+          # Убираем HTML-комментарии
+          desc = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
+
+          if ":cl:" not in desc:
+              print("Нет :cl: — пропуск")
+              exit(0)
+
+          sections = {
+              "Добавлено": "Add",
+              "Удалено": "Remove",
+              "Изменено": "Tweak",
+              "Исправлено": "Fix",
+          }
+
+          changes = []
+
+          for title, type_key in sections.items():
+              pattern = rf"- {title}:\s*(.*?)(?=\n- [^:]|$)"
+              for block in re.findall(pattern, desc, flags=re.DOTALL):
+                  lines = [
+                      l.strip("- ").strip()
+                      for l in block.splitlines()
+                      if l.strip()
+                  ]
+                  if not lines:
+                      continue
+                  message = " ".join(lines)
+                  message = re.sub(r"\s+", " ", message).strip()
+                  if message:
+                      changes.append({
+                          "type": type_key,
+                          "message": message
+                      })
+
+          if not changes:
+              print("Изменения не найдены")
+              exit(0)
+
+          with open(CHANGELOG, "r", encoding="utf-8") as f:
+              data = yaml.safe_load(f) or {}
+
+          entries = data.get("Entries", [])
+
+          last_id = max((e.get("id", 0) for e in entries), default=0)
+
+          entries.append({
+              "id": last_id + 1,
+              "author": author,
+              "time": datetime.now(timezone.utc).isoformat(),
+              "pr": int(pr),
+              "changes": changes
+          })
+
+          data["Entries"] = entries
+
+          with open(CHANGELOG, "w", encoding="utf-8") as f:
+              yaml.dump(
+                  data,
+                  f,
+                  allow_unicode=True,
+                  sort_keys=False,
+                  indent=2
+              )
+
+          print("Changelog обновлён")
+          EOF
 
       - name: Commit and push to changelog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "Resources/Changelog/ChangelogDS14Soyuz.yml"
+
+          git add Resources/Changelog/ChangelogDS14.yml
 
           if git diff --cached --quiet; then
-            echo "No changes to commit"
+            echo "Нет изменений для коммита"
             exit 0
           fi
 
           git commit -m "Changelog: PR #${{ github.event.pull_request.number }}"
-
-          max_retries=3
-          retry_count=0
-          until git pull --rebase origin changelog; do
-            retry_count=$((retry_count + 1))
-            if [ $retry_count -ge $max_retries ]; then
-              echo "Failed to rebase after $max_retries attempts"
-              exit 1
-            fi
-            echo "Rebase failed, retrying in 5 seconds..."
-            sleep 5
-          done
-
+          git pull --rebase origin changelog
           git push origin changelog

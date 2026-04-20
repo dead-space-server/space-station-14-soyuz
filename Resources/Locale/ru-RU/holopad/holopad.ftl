@@ -103,7 +103,7 @@ holopad-engineering-main = Инженерный - Основной
 # Security
 holopad-security-front = Милиция - Приёмная
 holopad-security-brig = Милиция - Участок
-holopad-security-warden = Милиция - Комната оперативного дежурного
+holopad-security-warden = Милиция - Комната старшего следователя
 holopad-security-interrogation = Милиция - Допрос
 holopad-security-breakroom = Милиция - Комната отдыха
 holopad-security-detective = Милиция - Каюта следователя
@@ -141,7 +141,7 @@ holopad-ai-chute = ИИ - Транспортный блок
 holopad-station-bridge = Станция - Мостик
 holopad-station-cargo-bay = Станция - Грузовой отсек
 # CentComm
-holopad-centcomm-evac = Генеральный Штаб - Эвакуационный шаттл
+holopad-centcomm-evac = Центком - Эвакуационный шаттл
 
 # DS14 Admin notification
 holopad-chat-notify = Получен новый звонок с "{$holopad}" от {$user}

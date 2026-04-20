@@ -10,6 +10,7 @@ on:
     branches: [ master, staging, stable ]
 
 jobs:
+  # Soyuz: generate integration shard matrix for parallel execution.
   plan-integration-shards:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
@@ -29,6 +30,7 @@ jobs:
       shell: bash
       run: python3 Tools/integration_test_shards.py --shards 10 --pretty
 
+  # Soyuz: keep Content.Tests as a separate job.
   content-tests:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
@@ -77,6 +79,7 @@ jobs:
         path: TestResults/
         if-no-files-found: ignore
 
+  # Soyuz: run integration tests in shard matrix.
   integration-tests:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     needs:
@@ -148,6 +151,7 @@ jobs:
         path: TestResults/
         if-no-files-found: ignore
 
+  # Soyuz: aggregate gate for branch protection checks.
   ci-success:
     name: Build & Test Debug
     if: ${{ always() && needs.plan-integration-shards.result != 'skipped' }}

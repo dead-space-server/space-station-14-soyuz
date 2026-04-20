@@ -24,8 +24,13 @@
   - type: ExaminableSolution
     solution: hypospray
     exactVolume: true
-  - type: Hypospray
-    onlyAffectsMobs: false
+  - type: Injector
+    solutionName: hypospray
+    ignoreClosed: false
+    activeModeProtoId: HyposprayDynamicMode
+    allowedModes:
+    - HyposprayDynamicMode
+    - HyposprayInjectMode
   - type: UseDelay
     delay: 0.4
 
@@ -47,3 +52,35 @@
   loadouts:
   - CombatHypo
   - CombatHypoSting
+
+# Гипоспрей фельдшера (И как меня уговорили его добавить?)
+- type: entity
+  parent: BaseItem
+  id: HypoParamedic
+  name: Гипоспрей "Шмель"
+  description: Упрощённая модель гипоспрея для Фельдшера
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+    layers:
+      - state: hypo
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/hypoparamedic.rsi
+  - type: SolutionContainerManager
+    solutions:
+      hypospray:
+        maxVol: 5
+  - type: RefillableSolution
+    solution: hypospray
+  - type: ExaminableSolution
+    solution: hypospray
+    exactVolume: true
+  - type: Injector
+    solutionName: hypospray
+    ignoreClosed: false
+    activeModeProtoId: HyposprayDynamicMode
+    allowedModes:
+    - HyposprayDynamicMode
+    - HyposprayInjectMode
+  - type: UseDelay
+    delay: 1.25

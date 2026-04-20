@@ -2,7 +2,7 @@
   id: Bagel
   mapName: 'Bagel'
   mapPath: /Maps/_Soyuz/bagel.yml
-  minPlayers: 25
+  minPlayers: 15
   maxPlayers: 65 # DS-14-voite
   stations:
     Bagel:

@@ -18,15 +18,6 @@
 
 - type: entity
   parent: ClothingUnderwearSocksBase
-  id: ClothingUnderwearStockingsBlack
-  name: чёрные чулки
-  description: Плотные и гладкие, эти матовые чёрные чулки обволакивают ноги сдержанной роскошью. Идеальный выбор для тех, кто ценит простоту и стиль.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Underwear/Socks/stockingsblack.rsi
-
-- type: entity
-  parent: ClothingUnderwearSocksBase
   id: ClothingUnderwearStockingsBlackPaws
   name: чулки с кошачьими лапками
   description: Мягкие следы пушистых лапок украшают эти чулки, добавляя нотку игривости и обаяния.

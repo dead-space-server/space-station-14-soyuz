@@ -1,0 +1,16 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               x:Class="Content.Client.DeadSpace.Soyuz.CartridgeLoader.Cartridges.USSPChatAddContactPopup"
+               Title="{Loc 'ussp-chat-ui-add-contact-title'}"
+               MinWidth="500">
+    <BoxContainer Orientation="Vertical" Margin="4" HorizontalExpand="True">
+        <Label Text="{Loc 'ussp-chat-ui-contact-id'}" StyleClasses="LabelHeading"/>
+        <LineEdit Name="ContactIdInput" PlaceHolder="{Loc 'ussp-chat-ui-contact-id-placeholder'}" HorizontalExpand="True"/>
+        <Label Text="{Loc 'ussp-chat-ui-contact-name'}" StyleClasses="LabelHeading" Margin="0 8 0 0"/>
+        <LineEdit Name="ContactNameInput" PlaceHolder="{Loc 'ussp-chat-ui-contact-name-placeholder'}" HorizontalExpand="True"/>
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Right" HorizontalExpand="True" Margin="0 8 0 0">
+            <Button Name="CancelButton" Text="{Loc 'ussp-chat-ui-cancel'}"/>
+            <Button Name="AddButton" Text="{Loc 'ussp-chat-ui-add'}"/>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

@@ -30,3 +30,8 @@
 
 - type: Tag
   id: ExperimentalCloningPodMachineCircuitboard
+
+# DS14-start: Soyuz repair consumables
+- type: Tag
+  id: BlueInsulatingTape
+# DS14-end

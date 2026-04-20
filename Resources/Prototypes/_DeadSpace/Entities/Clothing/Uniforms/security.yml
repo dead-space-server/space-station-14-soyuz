@@ -100,8 +100,8 @@
 - type: entity
   parent: [ClothingUniformSkirtBase, BaseCommandContraband]
   id: ClothingUniformJumpskirtPencilWarden
-  name: женский костюм-карандаш оперативного дежурного
-  description: Костюм-карандаш оперативного дежурного Советской Гражданской Милиции. НКВБ настоятельно не рекомендует проводить эротические игры с заключёнными.
+  name: женский костюм-карандаш старшего следователя
+  description: Костюм-карандаш старшего следователя Советской Гражданской Милиции. НКВБ настоятельно не рекомендует проводить эротические игры с заключёнными.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Uniforms/Jumpskirt/pencil_warden.rsi

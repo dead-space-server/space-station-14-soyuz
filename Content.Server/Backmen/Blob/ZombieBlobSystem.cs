@@ -21,6 +21,7 @@ using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Physics;
 using Content.Shared.Tag;
+using Content.Shared.Temperature.Components;
 using Content.Shared.Trigger.Systems;
 using Content.Shared.Zombies;
 using Robust.Server.Player;
@@ -138,17 +139,17 @@ public sealed class ZombieBlobSystem : EntitySystem
         EnsureComp<PressureImmunityComponent>(uid);
         EnsureComp<RespiratorImmunityComponent>(uid);
 
-        if (TryComp<TemperatureComponent>(uid, out var temperatureComponent))
+        if (TryComp<TemperatureDamageComponent>(uid, out var temperatureDamageComponent))
         {
-            component.OldColdDamageThreshold = temperatureComponent.ColdDamageThreshold;
-            temperatureComponent.ColdDamageThreshold = 0;
+            component.OldColdDamageThreshold = temperatureDamageComponent.ColdDamageThreshold;
+            temperatureDamageComponent.ColdDamageThreshold = 0;
         }
 
         // DS14-start
         var lang = EnsureComp<LanguageComponent>(uid);
 
-        component.OldLanguages = new List<ProtoId<LanguagePrototype>>(lang.KnownLanguages); // DS14-Soyuz
-        component.OldSelectedLanguage = lang.SelectedLanguage; //DS14-Soyuz
+        component.OldLanguages = new List<ProtoId<LanguagePrototype>>(lang.KnownLanguages);
+        component.OldSelectedLanguage = lang.SelectedLanguage;
 
         lang.KnownLanguages.Clear();
 
@@ -196,9 +197,9 @@ public sealed class ZombieBlobSystem : EntitySystem
         RemComp<PressureImmunityComponent>(uid);
         RemComp<RespiratorImmunityComponent>(uid);
 
-        if (TryComp<TemperatureComponent>(uid, out var temperatureComponent) && component.OldColdDamageThreshold != null)
+        if (TryComp<TemperatureDamageComponent>(uid, out var temperatureDamageComponent) && component.OldColdDamageThreshold != null)
         {
-            temperatureComponent.ColdDamageThreshold = component.OldColdDamageThreshold.Value;
+            temperatureDamageComponent.ColdDamageThreshold = component.OldColdDamageThreshold.Value;
         }
 
         _tag.RemoveTag(uid, BlobTag);
@@ -226,7 +227,7 @@ public sealed class ZombieBlobSystem : EntitySystem
             }
             component.DisabledFixtureMasks.Clear();
         }
-        // DS14-Soyuz start
+        // DS14 start
         if (TryComp<LanguageComponent>(uid, out var lang))
         {
             lang.KnownLanguages.Clear();
@@ -239,7 +240,7 @@ public sealed class ZombieBlobSystem : EntitySystem
             if (component.OldSelectedLanguage != null)
                 lang.SelectedLanguage = component.OldSelectedLanguage.Value;
         }
-        // DS14-Soyuz end
+        // DS14 end
     }
 
     private void OnMobStateChanged(EntityUid uid, ZombieBlobComponent component, MobStateChangedEvent args)

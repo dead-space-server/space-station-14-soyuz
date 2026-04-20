@@ -96,7 +96,7 @@
 
 - type: skillGroup
   id: BasicAndBotanyAndShuttleControl
-  name: Ботаника и шаттл
+  name: Basic and botany and shuttle control
   skills:
   - BasicBotany
   - Hacking
@@ -120,6 +120,7 @@
   - Atmos
   - ComplexConstruction
   - DeviceConstruction
+  - Research
 
 - type: skillGroup
   id: HeadScience
@@ -157,7 +158,7 @@
 
 - type: skillGroup
   id: HeadMedicalAndShuttleControl
-  name: Продвинутая медицина и шаттл
+  name: Head medical and shuttle control
   skills:
   - BasicBotany
   - Hacking
@@ -171,7 +172,7 @@
 
 - type: skillGroup
   id: MedicalAndShuttleControl
-  name: Медицина и шаттл
+  name: Medical and shuttle control
   skills:
   - BasicBotany
   - Hacking

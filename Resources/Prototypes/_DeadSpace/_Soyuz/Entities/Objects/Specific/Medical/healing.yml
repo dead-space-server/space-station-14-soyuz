@@ -67,3 +67,58 @@
   - type: Sprite
     sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris-trash
+
+# DS14-start: Soyuz blue insulating tape for silicon repair
+- type: entity
+  name: синяя изолента
+  description: Изолента, пропитанная ремонтными наноботами. Позволяет быстро подлатать синтетиков и роботов в полевых условиях.
+  parent: BaseHealingItem
+  id: BlueInsulatingTape
+  suffix: Полный
+  components:
+  - type: Tag
+    tags:
+    - BlueInsulatingTape
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
+    state: insulating_tape_blue # DS14-value: nanopaste -> insulating_tape_blue
+  - type: Item
+    heldPrefix: nanopaste
+  - type: Healing
+    damageContainers:
+    - Silicon
+    damage:
+      types:
+        Heat: -10
+        Shock: -10
+        Blunt: -10
+        Slash: -10
+        Piercing: -10
+    healingBeginSound:
+      path: "/Audio/Items/Medical/ointment_begin.ogg"
+    healingEndSound:
+      path: "/Audio/Items/Medical/ointment_end.ogg"
+  - type: Stack
+    stackType: BlueInsulatingTape
+    count: 10
+  - type: StackPrice
+    price: 0
+
+- type: entity
+  id: BlueInsulatingTape1
+  parent: BlueInsulatingTape
+  suffix: Один
+  components:
+  - type: Stack
+    stackType: BlueInsulatingTape
+    count: 1
+
+- type: entity
+  id: BlueInsulatingTape5
+  parent: BlueInsulatingTape
+  suffix: 5
+  components:
+  - type: Stack
+    stackType: BlueInsulatingTape
+    count: 5
+# DS14-end

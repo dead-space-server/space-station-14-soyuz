@@ -12,15 +12,16 @@
       inverted: true # stop playing intern if you're good at security!
   startingGear: SecurityCadetGear
   icon: "JobIconSecurityCadet"
-  supervisors: job-supervisors-security
+  supervisors: job-supervisors-cadet
   canBeAntag: false
   access:
   - Security
   - Brig
   - Maintenance
-  - Service
   - External
   - Cryogenics
+  - GenpopEnter
+  - GenpopLeave
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250

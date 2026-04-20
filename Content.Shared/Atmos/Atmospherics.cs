@@ -159,7 +159,9 @@ namespace Content.Shared.Atmos
         public const float MinimumHeatCapacity = 0.0003f;
 
         /// <summary>
-        ///     For the purposes of making space "colder"
+        /// Allows Atmospherics to cool down rooms during spacing
+        /// by assigning a fake heat capacity to space,
+        /// making space "actually cold" for gameplay reasons.
         /// </summary>
         public const float SpaceHeatCapacity = 7000f;
 
@@ -171,13 +173,22 @@ namespace Content.Shared.Atmos
             [Gas.Ammonia] = Loc.GetString("gas-ammonia-abbreviation"),
             [Gas.CarbonDioxide] = Loc.GetString("gas-carbon-dioxide-abbreviation"),
             [Gas.Frezon] = Loc.GetString("gas-frezon-abbreviation"),
+            // DS14-start
+            [Gas.Fixirium] = Loc.GetString("gas-fixirium-abbreviation"),
+            [Gas.Hilium] = Loc.GetString("gas-hilium-abbreviation"),
+            [Gas.Hydrogen] = Loc.GetString("gas-hydrogen-abbreviation"),
+            [Gas.Iprit] = Loc.GetString("gas-iprit-abbreviation"),
             [Gas.Nitrogen] = Loc.GetString("gas-nitrogen-abbreviation"),
+            [Gas.Nitriatium] = Loc.GetString("gas-nitriatium-abbreviation"),
+            [Gas.Nitryl] = Loc.GetString("gas-nitryl-abbreviation"),
             [Gas.NitrousOxide] = Loc.GetString("gas-nitrous-oxide-abbreviation"),
             [Gas.Oxygen] = Loc.GetString("gas-oxygen-abbreviation"),
             [Gas.Plasma] = Loc.GetString("gas-plasma-abbreviation"),
+            [Gas.Brizidium] = Loc.GetString("gas-brizidium-abbreviation"),
             [Gas.Tritium] = Loc.GetString("gas-tritium-abbreviation"),
             [Gas.WaterVapor] = Loc.GetString("gas-water-vapor-abbreviation"),
             [Gas.InfectionDeadSpace] = Loc.GetString("gas-unknown-abbreviation"),
+            // DS14-end
         };
 
         #region Excited Groups
@@ -207,7 +218,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 10;
+        public const int TotalNumberOfGases = 17; // DS14-value: 10 -> 17
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -218,7 +229,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Amount of heat released per mole of burnt hydrogen or tritium (hydrogen isotope)
         /// </summary>
-        public const float FireHydrogenEnergyReleased = 284e3f; // hydrogen is 284 kJ/mol
+        public const float FireHydrogenEnergyReleased = 284e4f;
         public const float FireMinimumTemperatureToExist = T0C + 100f;
         public const float FireMinimumTemperatureToSpread = T0C + 150f;
         public const float FireSpreadRadiosityScale = 0.85f;
@@ -241,6 +252,7 @@ namespace Content.Shared.Atmos
 
         public const float TritiumBurnOxyFactor = 100f;
         public const float TritiumBurnTritFactor = 10f;
+        public const float TritiumBurnFuelRatio = 2f;
 
         public const float FrezonCoolLowerTemperature = 23.15f;
 
@@ -268,7 +280,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     1 mol of Tritium is required per X mol of oxygen.
         /// </summary>
-        public const float FrezonProductionTritRatio = 8.0f;
+        public const float FrezonProductionTritRatio = 50.0f;
 
         /// <summary>
         ///     1 / X of the tritium is converted into Frezon each tick
@@ -371,6 +383,15 @@ namespace Content.Shared.Atmos
         Ammonia = 6,
         NitrousOxide = 7,
         Frezon = 8,
-        InfectionDeadSpace = 9
+        InfectionDeadSpace = 9,
+        // DS14-start
+        Nitryl = 10,
+        Fixirium = 11,
+        Hydrogen = 12,
+        Nitriatium = 13,
+        Hilium = 14,
+        Brizidium = 15,
+        Iprit = 16,
+        // DS14-end
     }
 }

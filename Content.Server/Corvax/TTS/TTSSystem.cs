@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Content.Server.Chat.Systems;
+using Content.Shared.Chat;
 using Content.Shared.CCVar;
 using Content.Shared.Corvax.CCCVars;
 using Content.Shared.Corvax.TTS;
@@ -11,7 +12,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server.DeadSpace.Languages;
-using Robust.Server.Player;
 using Content.Shared.DeadSpace.Languages.Prototypes;
 
 namespace Content.Server.Corvax.TTS;
@@ -25,7 +25,6 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly IRobustRandom _rng = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
 
     private readonly List<string> _sampleText =
         new()
@@ -160,8 +159,7 @@ public sealed partial class TTSSystem : EntitySystem
         if (!_prototypeManager.TryIndex<TTSVoicePrototype>(voiceId, out var protoVoice))
             return;
 
-        var announceDelay = Math.Max(0, (int) (args.Delay * 1000)); // DS-14
-        Timer.Spawn(announceDelay, () => HandleAnnounce(args.Message, args.LexiconMessage, args.LanguageId, protoVoice.Speaker, args.Filter));
+        Timer.Spawn(6000, () => HandleAnnounce(args.Message, args.LexiconMessage, args.LanguageId, protoVoice.Speaker, args.Filter)); // Awful, but better than sending announce sound to client in resource file
     }
 
     private async void HandleSay(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string speaker)

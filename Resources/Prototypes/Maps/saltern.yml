@@ -2,7 +2,7 @@
   id: Saltern
   mapName: 'Saltern'
   mapPath: /Maps/_Soyuz/saltern.yml
-  minPlayers: 7
+  minPlayers: 0
   maxPlayers: 35
   stations:
     Saltern:

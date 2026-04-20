@@ -118,7 +118,7 @@ Entries:
   pr: 111
   changes:
   - type: Add
-    message: Перчатки "Аркалис" в шкаф оперативного дежурного
+    message: Перчатки "Аркалис" в шкаф старшего следователя
   - type: Fix
     message: Тесты в сборке
   - type: Remove

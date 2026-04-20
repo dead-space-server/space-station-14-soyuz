@@ -70,8 +70,8 @@
   - type: StaticPrice
     price: 60
   - type: PolaroidCartridge
-    maxAmount: 8
-    currentAmount: 4
+    maxAmount: 12
+    currentAmount: 12
 
 - type: entity
   parent: BaseItem
@@ -120,7 +120,7 @@
   - type: StorageFill
     contents:
     - id: PolaroidCartridge
-      amount: 4
+      amount: 4 # DS14-value: 6 -> 4 (fix integration tests: storage capacity overflow)
   - type: Sprite
     layers:
     - state: box

@@ -1,0 +1,12 @@
+# Голова
+- type: loadout
+  id: WardenCap
+  equipment:
+    head: ADTClothingHeadHatsInvestigatorCap
+
+# Верхняя одежда
+
+- type: loadout
+  id: WardenCoatAlt
+  equipment:
+    outerClothing: ADTClothingOuterCoatInvestigator

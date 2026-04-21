@@ -1,7 +1,7 @@
 - type: gameMap
   id: DSSnowball
   mapName: 'Snowball Station'
-  mapPath: /Maps/_Soyuz/Snowball_remapp.yml
+  mapPath: /Maps/_Soyuz/snowball.yml
   minPlayers: 15
   maxPlayers: 50
   stations:

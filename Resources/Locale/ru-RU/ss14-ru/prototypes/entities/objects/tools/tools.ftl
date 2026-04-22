@@ -16,14 +16,10 @@ ent-RCDEmpty = { ent-RCD }
     .suffix = Пустой
     .desc = { ent-RCD.desc }
 ent-RCDRecharging = экспериментальный РСУ
-# DS14-start: Soyuz changes
     .desc = Редспейс-улучшенное РСУ, пассивно регенерирующее заряды.
-# DS14-end
     .suffix = Автозарядка
-# DS14-start: Soyuz changes
 ent-RCDExperimental = экспериментальный РСУ
     .desc = Редспейс-улучшенное РСУ, пассивно регенерирующее заряды.
-# DS14-end
     .suffix = Адмемы
 ent-RCDAmmo = картридж РСУ
     .desc = Картридж для РСУ.

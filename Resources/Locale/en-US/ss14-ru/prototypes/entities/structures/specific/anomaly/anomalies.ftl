@@ -13,9 +13,7 @@ ent-AnomalyFlesh = { ent-BaseAnomaly }
     .suffix = Flesh
     .desc = { ent-BaseAnomaly.desc }
 ent-AnomalyBluespace = { ent-BaseAnomaly }
-# DS14-start: Soyuz changes
     .suffix = Redspace
-# DS14-end
     .desc = { ent-BaseAnomaly.desc }
 ent-AnomalyIce = { ent-BaseAnomaly }
     .suffix = Ice

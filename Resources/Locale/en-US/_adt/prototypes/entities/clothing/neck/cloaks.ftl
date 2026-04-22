@@ -1,7 +1,5 @@
 ent-ADTClothingNeckSupremeCommanderCloak = плащ высшего главнокомандующего
-# DS14-start: Soyuz changes
     .desc = Не дайте ему запачкаться, сделан из супер-технологичного редспейс шитья, такой носит только один человек, и это - вы.
-# DS14-end
 ent-ADTClothingNeckKnightCloak = плащ рыцаря
     .desc = Шёлковый и внушительный рыцарский плащ. За честь короны!
 ent-ADTClothingNeckHoPAltCloak = торжественный плащ главы персонала

@@ -111,9 +111,7 @@ ent-XenoArtifactMaterialSpawnSteel = { ent-BaseXenoArtifactEffect }
 ent-XenoArtifactMaterialSpawnPlastic = { ent-BaseXenoArtifactEffect }
     .desc = Создание пластика
 ent-XenoArtifactPortal = { ent-BaseXenoArtifactEffect }
-# DS14-start: Soyuz changes
     .desc = Создание кратковременного редспейс портала
-# DS14-end
 ent-XenoArtifactArtifactSpawn = { ent-BaseXenoArtifactEffect }
     .desc = Создание артефакта
 ent-XenoArtifactShuffle = { ent-BaseXenoArtifactEffect }

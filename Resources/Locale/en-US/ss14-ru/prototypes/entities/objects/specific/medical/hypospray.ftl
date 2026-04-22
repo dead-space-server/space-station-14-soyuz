@@ -5,9 +5,7 @@ ent-SyndiHypo = gorlex hypospray
 ent-BorgHypo = borghypo
     .desc = A sterile injector for rapid administration of drugs to patients. A cheaper and more specialised version for medical borgs.
 ent-AdminHypo = experimental hypospray
-# DS14-start: Soyuz changes
     .desc = The ultimate application of redspace technology and rapid chemical administration.
-# DS14-end
     .suffix = Admeme
 ent-ChemicalMedipen = chemical medipen
     .desc = A sterile injector for rapid administration of drugs to patients. This one can't be refilled.

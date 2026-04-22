@@ -19,9 +19,7 @@ ent-InterdyneFlippo = Interdyne Flippo
 ent-NanotrasenFlippo = Nanotrasen Flippo
     .desc = A navy blue luxury flippo, generally handed out to loyal heads of staff instead of a payraise. Fueled with liquid plasma
 ent-CentCommFlippo = Gilded CentComm Flippo
-# DS14-start: Soyuz changes
     .desc = An Ornate, jade embossed and gilded flippo frame containing a redspace powered jet. The latch is secured by a miniature access reader that only responds to CentComm officials. The nicest lighter known to man.
-# DS14-end
     .suffix = DO NOT MAP
 ent-SpiderclanFlippo = Spider-Clan lighter
     .desc = A high tech jet lighter, engineered to function even in deep space. Runs on a tiny microfusion cell.

@@ -11,6 +11,4 @@ ent-SoapletSyndie = обмылок
 ent-SoapHomemade = мыло
     .desc = Самодельный брусок мыла. Пахнет... уф....
 ent-SoapOmega = омега мыло
-# DS14-start: Soyuz changes
     .desc = Самое совершенное мыло, известное человечеству. Пахнет редспейсом.
-# DS14-end

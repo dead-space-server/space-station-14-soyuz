@@ -11,5 +11,4 @@ admin-player-actions-player-panel = Открыть панель игрока
 admin-player-actions-clone = Клонировать
 admin-player-actions-follow = Следовать
 admin-player-actions-confirm = Вы уверены?
-# DS14
 admin-player-actions-camera = Открыть камеру

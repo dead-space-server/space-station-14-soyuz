@@ -17,9 +17,7 @@ research-technology-ripley-aplu = Ripley APLU
 research-technology-advanced-atmospherics = Advanced Atmospherics
 research-technology-advanced-tools = Advanced Tools
 research-technology-super-powercells = Super Powercells
-# DS14-start: Soyuz changes
 research-technology-bluespace-storage = Redspace Storage
-# DS14-end
 research-technology-optimized-microgalvanism = Optimized Microgalvanism
 research-technology-space-scanning = Space Scanning
 research-technology-excavation = Mass Excavation
@@ -54,10 +52,8 @@ research-technology-advanced-parts = Advanced Parts
 research-technology-anomaly-harnessing = Anomaly Core Harnessing
 research-technology-abnormal-artifact-manipulation = Artifact Recycling
 research-technology-gravity-manipulation = Gravity Manipulation
-# DS14-start: Soyuz changes
 research-technology-quantum-leaping = Quantum Leaping
 research-technology-bluespace-time-manipulation = Redspace Time Manipulation
-# DS14-end
 research-technology-advanced-anomaly-research = Advanced Anomaly Research
 research-technology-rped = Rapid Part Exchange
 research-technology-super-parts = Super Parts
@@ -77,13 +73,9 @@ research-technology-robotic-cleanliness = Robotic Cleanliness
 research-technology-advanced-cleaning = Advanced Cleaning
 research-technology-meat-manipulation = Meat Manipulation
 research-technology-honk-mech = H.O.N.K. Mech
-# DS14-start: Soyuz changes
 research-technology-advanced-spray = Advanced Spray
 research-technology-launcher-syringe = Syringe Gun
 research-technology-bluespace-cargo-transport = Redspace Cargo Transport
-# DS14-start: Soyuz changes
-# DS14-end
 research-technology-clowning-utilities = Clowning Utilities
 research-technology-quantum-fiber-weaving = Quantum Fiber Weaving
 research-technology-bluespace-chemistry = Redspace Chemistry
-# DS14-end

@@ -44,7 +44,5 @@ ent-ClothingBackpackDuffelSyndicateMedical = { ent-ClothingBackpackDuffelSyndica
     .desc = { ent-ClothingBackpackDuffelSyndicate.desc }
 ent-ClothingBackpackDuffelSyndicateMedicalBundle = { ent-ClothingBackpackDuffelSyndicateMedical }
     .desc = { ent-ClothingBackpackDuffelSyndicateMedical.desc }
-ent-ClothingBackpackDuffelHolding = бездонный вещмешок
-# DS14-start: Soyuz changes
+ent-ClothingBackpackDuffelHolding = редспейс вещмешок
     .desc = Вещмешок, открывающийся в локальный карман редспейса.
-# DS14-end

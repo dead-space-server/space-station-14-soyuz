@@ -1,8 +1,6 @@
 ent-ParcelWrap = parcel wrap
     .desc = Paper used contain items for transport.
-# DS14-start: Soyuz changes
 ent-ParcelWrapAdmeme = redspace wrap
-# DS14-end
     .desc = Paper used contain items for transport. This one seems to be able to store an unusual amount of space within it.
     .suffix = Admeme
 ent-WrappedParcel = wrapped parcel

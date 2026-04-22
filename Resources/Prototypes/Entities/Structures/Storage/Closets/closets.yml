@@ -174,15 +174,19 @@
     stateDoorOpen: syndicate_open
     stateDoorClosed: syndicate_door
 
-# Bluespace closet
+# DS14-start: Soyuz changes
+# Redspace closet
+# DS14-end
 - type: entity
   id: ClosetBluespace
-  name: suspicious closet
   # DS14-start: Soyuz changes
+  name: redspace closet
   suffix: Redspace
   # DS14-end
   parent: ClosetMaintenance
-  description: It's a storage unit... right?
+  # DS14-start: Soyuz changes
+  description: It's a storage unit warped by redspace technology.
+  # DS14-end
   components:
     - type: ArrivalsBlacklist
     - type: BluespaceLocker
@@ -195,15 +199,19 @@
       autoLinkProperties:
         bluespaceEffectOnTeleportSource: true
 
-# Unstable bluespace closet
+# DS14-start: Soyuz changes
+# Unstable redspace closet
+# DS14-end
 - type: entity
   id: ClosetBluespaceUnstable
   # DS14-start: Soyuz changes
-  name: suspicious closet
+  name: redspace closet
   suffix: Redspace unstable
   # DS14-end
   parent: ClosetMaintenance
-  description: It's a storage unit... right?
+  # DS14-start: Soyuz changes
+  description: It's a storage unit destabilized by redspace technology.
+  # DS14-end
   components:
     - type: ArrivalsBlacklist
     - type: BluespaceLocker

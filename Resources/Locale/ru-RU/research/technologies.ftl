@@ -17,17 +17,13 @@ research-technology-hud = Технология визоров
 research-technology-advanced-atmospherics = Продвинутые атмос-технологии
 research-technology-advanced-tools = Продвинутые инструменты
 research-technology-super-powercells = Супербатареи
-# DS14-start: Soyuz changes
 research-technology-bluespace-storage = Редспейс-хранилище
-# DS14-end
 research-technology-optimized-microgalvanism = Оптимизированный микрогальванизм
 research-technology-space-scanning = Сканирование космоса
 research-technology-excavation = Массовые раскопки
 research-technology-biochemical-stasis = Биохимический стазис
-# DS14-start: Soyuz changes
 research-technology-mechanized-treatment = Механизированная подготовка
 research-technology-bluespace-chemistry = Редспейс-химия
-# DS14-end
 research-technology-salvage-weapons = Шахтёрское оружие
 research-technology-special-means = Специальные средства
 research-technology-draconic-munitions = Драконьи боеприпасы
@@ -51,11 +47,9 @@ research-technology-basic-anomalous-research = Основы исследован
 research-technology-basic-xenoarcheology = Основы ксеноархеологии
 research-technology-alternative-research = Альтернативные исследования
 research-technology-magnets-tech = Локализованный магнетизм
-# DS14-start: Soyuz changes
 research-technology-advanced-parts = Продвинутые компоненты
 research-technology-anomaly-harnessing = Применение ядер аномалий
 research-technology-bluespace-time-manipulation = Редспейс манипулирование временем
-# DS14-end
 research-technology-abnormal-artifact-manipulation = Переработка артефактов
 research-technology-gravity-manipulation = Манипулирование гравитацией
 research-technology-quantum-leaping = Квантовые скачки
@@ -77,12 +71,10 @@ research-technology-meat-manipulation = Манипулирование мясо�
 research-technology-launcher-syringe = Шприцемёт
 research-technology-honk-mech = Мех Х.О.Н.К.
 research-technology-advanced-spray = Продвинутые спреи
-# DS14-start: Soyuz changes
 research-technology-clowning-utilities = Клоунские принадлежности
 research-technology-language-implants = Простейшие языковые импланты
 research-technology-quantum-fiber-weaving = Плетение квантового волокна
 research-technology-bluespace-cargo-transport = Редспейс-транспортировка грузов
-# DS14-end
 research-technology-night-vision-technology = Технология ночного зрения
 research-technology-police-beta-technology = Экспериментальный скафандр "Бета-1"
 research-technology-security-turrets-technology = Автономные охранные системы

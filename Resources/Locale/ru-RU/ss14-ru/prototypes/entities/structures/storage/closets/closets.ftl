@@ -26,13 +26,9 @@ ent-ClosetMaintenance = технический шкаф
     .desc = Это хранилище.
 ent-LockerSyndicate = оружейный шкаф
     .desc = Это хранилище.
-ent-ClosetBluespace = подозрительный шкаф
-    .desc = Это хранилище... правда же?
-# DS14-start: Soyuz changes
+ent-ClosetBluespace = редспейс шкаф
+    .desc = Это хранилище, искажённое редспейс технологией.
     .suffix = Редспейс
-# DS14-end
-ent-ClosetBluespaceUnstable = подозрительный шкаф
-# DS14-start: Soyuz changes
-    .desc = Это хранилище... правда же?
+ent-ClosetBluespaceUnstable = редспейс шкаф
+    .desc = Это хранилище, дестабилизированное редспейс технологией.
     .suffix = Редспейс нестабильный
-# DS14-end

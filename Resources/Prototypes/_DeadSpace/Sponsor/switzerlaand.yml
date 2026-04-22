@@ -31,8 +31,8 @@
 - type: entity
   parent: ClothingBackpackDuffelHolding
   id: ClothingBackpackswitzerlaand
-  name: бездонный вещмешок
   # DS14-start: Soyuz changes
+  name: редспейс вещмешок
   description: Вещмешок, открывающийся в локальный карман редспейса.
   # DS14-end
   categories: [ HideSpawnMenu ]

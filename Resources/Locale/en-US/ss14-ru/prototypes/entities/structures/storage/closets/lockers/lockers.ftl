@@ -89,9 +89,7 @@ ent-LockerEvidence = evidence locker
     .desc = To store bags of bullet casings and detainee belongings.
 ent-LockerSyndicatePersonal = armory closet
     .desc = It's a personal storage unit for operative gear.
-# DS14-start: Soyuz changes
 ent-LockerBluespaceStation = redspace locker
-# DS14-end
     .desc = Advanced locker technology.
     .suffix = once to station
 ent-LockerClown = clown locker

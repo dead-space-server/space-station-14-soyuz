@@ -14,9 +14,7 @@ ent-PhotocopierNukeops = копировальный аппарат легион�
     .desc = Скорее всего он был украден со станции СССП.
     .suffix = Легионеры
 ent-PhotocopierTonerCartridge = тонер для копировального аппарата
-# DS14-start: Soyuz changes
     .desc = Пахнет редспейсом.
-# DS14-end
 ent-BoxPhotocopierToners = коробка тонеров для копировального аппарата
     .desc = Коробка с запасными тонерами на случай если клоун выпьет всю краску из картриджей.
 ent-PaperPrintedCargo = распечатанный документ

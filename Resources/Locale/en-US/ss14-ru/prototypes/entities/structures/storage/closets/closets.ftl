@@ -26,13 +26,9 @@ ent-ClosetMaintenance = maintenance closet
     .desc = It's a storage unit.
 ent-LockerSyndicate = armory closet
     .desc = It's a storage unit.
-ent-ClosetBluespace = suspicious closet
-    .desc = It's a storage unit... right?
-# DS14-start: Soyuz changes
+ent-ClosetBluespace = redspace closet
+    .desc = It's a storage unit warped by redspace technology.
     .suffix = Redspace
-# DS14-end
-ent-ClosetBluespaceUnstable = suspicious closet
-# DS14-start: Soyuz changes
-    .desc = It's a storage unit... right?
+ent-ClosetBluespaceUnstable = redspace closet
+    .desc = It's a storage unit destabilized by redspace technology.
     .suffix = Redspace unstable
-# DS14-end

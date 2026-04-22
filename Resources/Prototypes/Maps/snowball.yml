@@ -1,5 +1,5 @@
 - type: gameMap
-  id: DSSnowball
+  id: Snowball
   mapName: 'Snowball Station'
   mapPath: /Maps/_Soyuz/snowball.yml
   minPlayers: 15

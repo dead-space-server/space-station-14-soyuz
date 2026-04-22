@@ -1360,7 +1360,7 @@ entities:
   - uid: 9624
     components:
     - type: MetaData
-      name: нестабильная блюспейс аномалия
+      name: нестабильная редспейс аномалия
     - type: Transform
       pos: 53.504578,-26.20995
       parent: 9593

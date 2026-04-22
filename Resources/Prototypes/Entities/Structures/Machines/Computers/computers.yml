@@ -1787,7 +1787,7 @@
   parent: BaseComputer
   id: ComputerNukieDelivery
   name: syndicate delivery computer
-  description: "A computer that can bluespace in certain equipment for Nuclear Operations. \nThe circuitboard is integrated into the frame and can't be recovered if deconstructed."
+  description: "A computer that can bring in certain equipment via redspace for Nuclear Operations. \nThe circuitboard is integrated into the frame and can't be recovered if deconstructed."
   components:
   - type: Sprite
     layers:

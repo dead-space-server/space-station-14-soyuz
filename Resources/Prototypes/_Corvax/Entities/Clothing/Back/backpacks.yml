@@ -16,7 +16,7 @@
   parent: ClothingBackpack
   id: ClothingDeathSquadronBackpack
   name: death squadron backpack
-  description: A spacious backpack using bluespace technology.
+  description: A spacious backpack using redspace technology.
   components:
   - type: Sprite
     sprite: _Corvax/Back/Backpacks/deathsquad-backpack.rsi

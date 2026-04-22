@@ -343,9 +343,9 @@
         canReact: false
 
 - type: entity
-  name: bluespace beaker
+  name: redspace beaker
   parent: BaseBeakerMetallic
-  description: Powered by experimental bluespace technology.
+  description: Powered by experimental redspace technology.
   id: BluespaceBeaker
   components:
   - type: Spillable
@@ -566,8 +566,8 @@
 - type: entity
   id: SyringeBluespace
   parent: BaseSyringe
-  name: bluespace syringe
-  description: Injecting with advanced bluespace technology.
+  name: redspace syringe
+  description: Injecting with advanced redspace technology.
   components:
   - type: Sprite
     layers:

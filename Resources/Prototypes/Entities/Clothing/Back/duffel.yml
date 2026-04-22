@@ -241,7 +241,7 @@
   parent: ClothingBackpackDuffel
   id: ClothingBackpackDuffelHolding
   name: duffelbag of holding
-  description: A duffelbag that opens into a localized pocket of bluespace.
+  description: A duffelbag that opens into a localized pocket of redspace.
   components:
   - type: Sprite
     sprite: Clothing/Back/Duffels/holding.rsi

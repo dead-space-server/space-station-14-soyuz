@@ -115,7 +115,7 @@
   parent: BaseSubdermalImplant
   id: StorageImplant
   name: storage implant
-  description: This implant grants hidden storage within a person's body using bluespace technology.
+  description: This implant grants hidden storage within a person's body using redspace technology.
   categories: [ HideSpawnMenu ]
   components:
     - type: StorageImplant

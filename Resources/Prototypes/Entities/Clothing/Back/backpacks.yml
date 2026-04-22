@@ -310,7 +310,7 @@
   parent: ClothingBackpack
   id: ClothingBackpackHolding
   name: bag of holding
-  description: A backpack that opens into a localized pocket of bluespace.
+  description: A backpack that opens into a localized pocket of redspace.
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/holding.rsi

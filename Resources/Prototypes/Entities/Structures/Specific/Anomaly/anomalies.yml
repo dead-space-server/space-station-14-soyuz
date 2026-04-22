@@ -276,7 +276,7 @@
 - type: entity
   id: AnomalyBluespace
   parent: BaseAnomaly
-  suffix: Bluespace
+  suffix: Redspace
   components:
   - type: Sprite
     layers:

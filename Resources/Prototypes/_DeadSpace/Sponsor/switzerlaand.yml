@@ -32,7 +32,7 @@
   parent: ClothingBackpackDuffelHolding
   id: ClothingBackpackswitzerlaand
   name: бездонный вещмешок
-  description: Вещмешок, открывающийся в локальный карман блюспейса.
+  description: Вещмешок, открывающийся в локальный карман редспейса.
   categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill

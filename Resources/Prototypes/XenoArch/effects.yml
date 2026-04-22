@@ -1209,7 +1209,7 @@
 - type: entity
   id: XenoArtifactPortal
   parent: BaseXenoArtifactEffect
-  description: Create short-living bluespace portal
+  description: Create short-living redspace portal
   components:
   - type: XAEPortal
 

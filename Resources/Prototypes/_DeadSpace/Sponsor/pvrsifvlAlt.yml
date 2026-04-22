@@ -70,7 +70,7 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltpvrsifvlAlt
-  name: блюспейс хранилище ETL//07
+  name: редспейс хранилище ETL//07
   description: Нет, мне это не нужно. Нет, мне это не нужно. Разработано и спроектировано компанией Nakamura Engineering по индивидуальному заказу.
   categories: [ HideSpawnMenu ]
   components:

@@ -119,7 +119,7 @@
 - type: entity
   parent: BaseAnomalyCore
   id: AnomalyCoreBluespace
-  suffix: Bluespace
+  suffix: Redspace
   components:
   - type: Sprite
     sprite: Structures/Specific/Anomalies/Cores/bluespace_core.rsi
@@ -296,7 +296,7 @@
 - type: entity
   parent: BaseAnomalyInertCore
   id: AnomalyCoreBluespaceInert
-  suffix: Bluespace, Inert
+  suffix: Redspace, Inert
   components:
   - type: Sprite
     sprite: Structures/Specific/Anomalies/Cores/bluespace_core.rsi

@@ -549,7 +549,7 @@
 # Bluespace
 - type: entity
   id: LockerBluespaceStation
-  name: bluespace locker
+  name: redspace locker
   suffix: once to station
   parent: LockerSyndicatePersonal
   description: Advanced locker technology.

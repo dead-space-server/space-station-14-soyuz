@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseStructure
   id: BluespaceArtillery
-  name: блюспейс артиллерия
+  name: редспейс артиллерия
   description: Огромное и устрашающее оружие.
   suffix: Филлер для маппинга
   components:

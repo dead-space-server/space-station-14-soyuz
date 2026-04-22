@@ -371,7 +371,7 @@
   parent: RCD
   suffix: Admeme
   name: experimental RCD
-  description: A bluespace-enhanced rapid construction device that passively generates its own compressed matter.
+  description: A redspace-enhanced rapid construction device that passively generates its own compressed matter.
   components:
   - type: AutoRecharge
     rechargeDuration: 1
@@ -380,7 +380,7 @@
   name: compressed matter
   parent: BaseItem
   id: RCDAmmo
-  description: A cartridge of raw matter compacted by bluespace technology. Used in rapid construction devices.
+  description: A cartridge of raw matter compacted by redspace technology. Used in rapid construction devices.
   components:
   - type: RCDAmmo
   - type: Sprite

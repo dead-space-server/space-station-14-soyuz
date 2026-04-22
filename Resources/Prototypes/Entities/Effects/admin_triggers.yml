@@ -22,7 +22,7 @@
 
 - type: entity
   id: AdminInstantEffectBluespace
-  suffix: BluespaceFlash
+  suffix: RedspaceFlash
   parent: AdminInstantEffectBase
   components:
   - type: SpawnOnTrigger

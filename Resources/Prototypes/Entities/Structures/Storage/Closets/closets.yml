@@ -178,7 +178,7 @@
 - type: entity
   id: ClosetBluespace
   name: suspicious closet
-  suffix: Bluespace
+  suffix: Redspace
   parent: ClosetMaintenance
   description: It's a storage unit... right?
   components:
@@ -197,7 +197,7 @@
 - type: entity
   id: ClosetBluespaceUnstable
   name: suspicious closet
-  suffix: Bluespace unstable
+  suffix: Redspace unstable
   parent: ClosetMaintenance
   description: It's a storage unit... right?
   components:

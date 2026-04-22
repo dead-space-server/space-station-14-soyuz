@@ -204,7 +204,7 @@ uplink-syndimov-law-desc = A subversive Lawset to use when you want to turn the 
 
 # Implants
 uplink-storage-implanter-name = Storage Implanter
-uplink-storage-implanter-desc = Hide goodies inside of yourself with new bluespace technology!
+uplink-storage-implanter-desc = Hide goodies inside of yourself with new redspace technology!
 
 uplink-freedom-implanter-name = Freedom Implanter
 uplink-freedom-implanter-desc = Get away from those nasty sec officers with this three use implant!

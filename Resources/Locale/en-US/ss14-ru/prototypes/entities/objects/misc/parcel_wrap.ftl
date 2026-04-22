@@ -1,6 +1,6 @@
 ent-ParcelWrap = parcel wrap
     .desc = Paper used contain items for transport.
-ent-ParcelWrapAdmeme = bluespace wrap
+ent-ParcelWrapAdmeme = redspace wrap
     .desc = Paper used contain items for transport. This one seems to be able to store an unusual amount of space within it.
     .suffix = Admeme
 ent-WrappedParcel = wrapped parcel

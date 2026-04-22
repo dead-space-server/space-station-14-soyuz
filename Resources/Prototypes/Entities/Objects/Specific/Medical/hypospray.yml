@@ -177,7 +177,7 @@
   id: AdminHypo
   name: experimental hypospray
   suffix: Admeme
-  description: The ultimate application of bluespace technology and rapid chemical administration.
+  description: The ultimate application of redspace technology and rapid chemical administration.
   components:
     - type: SolutionContainerManager
       solutions:

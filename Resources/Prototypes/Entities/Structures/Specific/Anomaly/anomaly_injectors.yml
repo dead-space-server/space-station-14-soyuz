@@ -221,7 +221,7 @@
 - type: entity
   parent: BaseAnomalyInjector
   id: AnomalyTrapBluespace
-  suffix: Bluespace
+  suffix: Redspace
   components:
   - type: Sprite
     layers:

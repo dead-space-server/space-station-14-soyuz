@@ -9,7 +9,7 @@
   id: ClothingBackpackPrometheus3
   categories: [ HideSpawnMenu ]
   name: тактический подсумок «BlackOps»
-  description: Компактный снаружи, необъятный внутри. Оснащен блюспейс технологией. Не пытайтесь запихнуть туда свои проблемы!
+  description: Компактный снаружи, необъятный внутри. Оснащен редспейс технологией. Не пытайтесь запихнуть туда свои проблемы!
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/Prometheus3/backpack.rsi

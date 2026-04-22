@@ -307,6 +307,7 @@
     - CargoBoardsStatic
     - MedicalBoardsStatic
     - EngineeringBoardsStatic
+    - CraftStationCircuits # DS14
     dynamicPacks:
     - EngineeringBoards
     - CargoBoards
@@ -317,6 +318,9 @@
     - MechBoards
     - ShuttleBoards
     - VirologyBoards # DS14
+    - BlueprintRIGInfinite # DS14
+    - BlueprintRIGThreeUse # DS14
+    - BlueprintRIGOneUse # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards
@@ -456,6 +460,8 @@
     - ArmedTechFabCircuitboard # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - SecurityPoliceBeta # DS14-Soyuz
+    - WeaponMagmite # DS14
+    - SecurityRIGCraftDetails # DS14
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic

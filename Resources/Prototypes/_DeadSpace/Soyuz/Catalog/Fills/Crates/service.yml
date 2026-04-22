@@ -1,8 +1,3 @@
-- type: entity
-  id: CrateServicePolaroidCartridges
-  parent: CrateGenericSteel
-  components:
-  - type: StorageFill
-    contents:
-      - id: BoxPolaroidCartridges
-        amount: 2
+# Legacy placeholder.
+# Prototypes were moved to _DeadSpace/_Soyuz/Catalog/Fills/Crates/service.yml
+[]

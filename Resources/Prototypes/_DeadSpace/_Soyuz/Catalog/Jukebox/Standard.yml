@@ -1,0 +1,245 @@
+- type: jukebox
+  id: SmuglyankaMoldavanka
+  name: "Смуглянка"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/smuglyanka-moldavanka.ogg
+
+- type: jukebox
+  id: BezTrevozhnyyVayb
+  name: "bez - тревожный вайб"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/bez-trevozhnyy-vayb.ogg
+
+- type: jukebox
+  id: CatanaCatSr
+  name: "CATANA CAT - SR"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/catana-cat-sr.ogg
+
+- type: jukebox
+  id: GladkovAleksandrVladimirovichGimnTsererska
+  name: "Гладков Александр Владимирович - Гимн Церерска"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/gladkov-aleksandr-vladimirovich-gimn-tsererska.ogg
+
+- type: jukebox
+  id: GrazhdanskayaOboronaPoyRevolyutsiya
+  name: "Гражданская Оборона - Пой, революция"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-poy-revolyutsiya.ogg
+
+- type: jukebox
+  id: KomsomolskChyornyeOchki
+  name: "Комсомольск - Чёрные очки"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/komsomolsk-chyornye-ochki.ogg
+
+- type: jukebox
+  id: KrasnyeZvyozdyEpidemiyaSily
+  name: "Красные Звёзды - Эпидемия силы"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/krasnye-zvyozdy-epidemiya-sily.ogg
+
+- type: jukebox
+  id: KommunizmProChudoChudesa
+  name: "Коммунизм - Про чудо-чудеса"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kommunizm-pro-chudo-chudesa.ogg
+
+- type: jukebox
+  id: KinoKonchitsyaLeto
+  name: "КИНО - Кончится лето"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kino-konchitsya-leto.ogg
+
+- type: jukebox
+  id: KinoMyVseBolny
+  name: "КИНО - Мы все больны"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kino-my-vse-bolny.ogg
+
+- type: jukebox
+  id: KinoPeremen
+  name: "КИНО - Перемен"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kino-peremen.ogg
+
+- type: jukebox
+  id: KinoStuk
+  name: "КИНО - Стук"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kino-stuk.ogg
+
+- type: jukebox
+  id: KinoTrolleybus
+  name: "КИНО - Троллейбус"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/kino-trolleybus.ogg
+
+- type: jukebox
+  id: ChyornyyLukichVechnayaStrana
+  name: "Чёрный Лукич - Вечная страна"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/chyornyy-lukich-vechnaya-strana.ogg
+
+- type: jukebox
+  id: BezGorets
+  name: "bez - горец"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/bez-gorets.ogg
+
+- type: jukebox
+  id: MamaRussiaSovetskiyShagokhod
+  name: "MAMA RUSSIA - Советский шагоход"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/mama-russia-sovetskiy-shagokhod.ogg
+
+- type: jukebox
+  id: DajjteTankSmeshno
+  name: "Дайте танк - Смешно"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/dayte-tank-smeshno.ogg
+
+- type: jukebox
+  id: MarkBernesDarkNight
+  name: "Марк Бернес - Тёмная ночь"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/mark-bernes-tyomnaya-noch.ogg
+
+- type: jukebox
+  id: NirvanaSomethingInTheWay
+  name: "Nirvana - Something in the Way"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/nirvana-something-in-the-way.ogg
+
+- type: jukebox
+  id: ICouldDrinkTheSea
+  name: "Я мог бы выпить море"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/ya-mog-by-vypit-more.ogg
+
+- type: jukebox
+  id: AlekseyOmelchukTitryIzIgryStalkerCallOfPripyat
+  name: "Алексей Омельчук - Титры из игры S.T.A.L.K.E.R.: Call of Pripyat"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/aleksey-omelchuk-titry-iz-igry-stalker-call-of-pripyat.ogg
+
+- type: jukebox
+  id: BezIntro
+  name: "bez - intro"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/bez-intro.ogg
+
+- type: jukebox
+  id: BezDom
+  name: "bez - дом"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/bez-dom.ogg
+
+- type: jukebox
+  id: KinoKukushka
+  name: "КИНО - Кукушка"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/kino-kukushka.ogg
+
+- type: jukebox
+  id: KinoSpokoynayaNoch
+  name: "КИНО - Спокойная ночь"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/kino-spokoynaya-noch.ogg
+
+- type: jukebox
+  id: DajjteTankFriend
+  name: "Дайте танк - Друг"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-drug.ogg
+
+- type: jukebox
+  id: DajjteTankM
+  name: "Дайте танк - М"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-m.ogg
+
+- type: jukebox
+  id: ShuraDontBelieveYourTears
+  name: "Шура - Ты не верь слезам"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/shura-ty-ne-ver-slezam.ogg
+
+- type: jukebox
+  id: BiShambala
+  name: "Би-2 - Шамбала"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/bi-2-shambala.ogg
+
+- type: jukebox
+  id: LeonidFyodorovDusha
+  name: "Леонид Фёдоров - Душа"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-fyodorov-dusha.ogg
+
+- type: jukebox
+  id: TheBeatlesBackInTheUssr
+  name: "The Beatles - Back in the U.S.S.R."
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/the-beatles-back-in-the-ussr.ogg
+
+- type: jukebox
+  id: KrasnyeZvyozdyGolod
+  name: "Красные Звёзды - Голод"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/krasnye-zvyozdy-golod.ogg
+
+- type: jukebox
+  id: KinoAlyuminiyevyeOgurtsy
+  name: "КИНО - Алюминиевые огурцы"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-alyuminiyevye-ogurtsy.ogg
+
+- type: jukebox
+  id: KinoGruppaKrovi
+  name: "КИНО - Группа крови"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-gruppa-krovi.ogg
+
+- type: jukebox
+  id: KinoKogdaTvoyaDevushkaBolna
+  name: "КИНО - Когда твоя девушка больна"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-kogda-tvoya-devushka-bolna.ogg
+
+- type: jukebox
+  id: KinoPachkaSigaret
+  name: "КИНО - Пачка сигарет"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-pachka-sigaret.ogg
+
+- type: jukebox
+  id: KinoPosledniyGeroy
+  name: "КИНО - Последний герой"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-posledniy-geroy.ogg
+
+- type: jukebox
+  id: KinoVosmiklassnitsa
+  name: "КИНО - Восьмиклассница"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-vosmiklassnitsa.ogg
+
+- type: jukebox
+  id: KinoZakroyZaMnoyDver
+  name: "КИНО - Закрой за мной дверь"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-zakroy-za-mnoy-dver.ogg
+
+- type: jukebox
+  id: KinoZvezdaPoImeniSolntse
+  name: "КИНО - Звезда по имени Солнце"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kino-zvezda-po-imeni-solntse.ogg
+
+- type: jukebox
+  id: MotogonkiLikholesye
+  name: "Мотогонки - Лихолесье"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/motogonki-likholesye.ogg

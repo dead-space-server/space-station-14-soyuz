@@ -17,11 +17,14 @@ public sealed class PowerChargerVisualizerSystem : VisualizerSystem<PowerCharger
     {
         base.Initialize();
 
+        // DS14-start: show battery status in-hand for the electrical wire brush only
         Subs.ItemStatus<PowerCellSlotComponent>(OnCollectPowerCellStatus);
+        // DS14-end
     }
 
     private Control? OnCollectPowerCellStatus(Entity<PowerCellSlotComponent> ent)
     {
+        // DS14: keep the custom status control scoped to WireBrushElectrical
         if (MetaData(ent).EntityPrototype?.ID != "WireBrushElectrical")
             return null;
 

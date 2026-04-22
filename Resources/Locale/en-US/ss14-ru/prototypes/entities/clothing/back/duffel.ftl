@@ -45,4 +45,6 @@ ent-ClothingBackpackDuffelSyndicateMedical = { ent-ClothingBackpackDuffelSyndica
 ent-ClothingBackpackDuffelSyndicateMedicalBundle = { ent-ClothingBackpackDuffelSyndicateMedical }
     .desc = { ent-ClothingBackpackDuffelSyndicateMedical.desc }
 ent-ClothingBackpackDuffelHolding = duffelbag of holding
+# DS14-start: Soyuz changes
     .desc = A duffelbag that opens into a localized pocket of redspace.
+# DS14-end

@@ -87531,7 +87531,7 @@ entities:
       - stampTexture: null
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
-      content: >
+      content: > # DS14-start: Soyuz changes
         ═════════════════════════════════════
 
         [bold]Приказ Центрального Командования[/bold]
@@ -87546,6 +87546,7 @@ entities:
         ═════════════════════════════════════
 
         [italic]Место для печатей[/italic]
+      # DS14-end
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -87599,7 +87600,7 @@ entities:
       - stampTexture: null
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
-      content: >
+      content: > # DS14-start: Soyuz changes
         ═════════════════════════════════════
 
         [bold]Приказ Центрального Командования[/bold]
@@ -87614,6 +87615,7 @@ entities:
         ═════════════════════════════════════
 
         [italic]Место для печатей[/italic]
+      # DS14-end
     - type: SolutionContainerManager
       solutions: null
       containers:

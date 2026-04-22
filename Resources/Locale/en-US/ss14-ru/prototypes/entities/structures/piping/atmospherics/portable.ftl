@@ -1,7 +1,9 @@
 ent-PortableScrubber = portable scrubber
     .desc = It scrubs, portably!
 ent-SpaceHeater = space heater
+# DS14-start: Soyuz changes
     .desc = A redspace technology device that alters local temperature. Commonly referred to as a "Space Heater".
+# DS14-end
     .suffix = Unanchored
 ent-SpaceHeaterAnchored = { ent-SpaceHeater }
     .suffix = Anchored

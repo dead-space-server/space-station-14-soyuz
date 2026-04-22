@@ -1,4 +1,6 @@
+# DS14-start: Soyuz changes
 ent-BasePortal = redspace portal
+# DS14-end
     .desc = Transports you to a linked destination!
 ent-PortalRed = { ent-BasePortal }
     .desc = This one looks more like a redspace portal.

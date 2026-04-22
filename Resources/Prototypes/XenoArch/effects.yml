@@ -1209,7 +1209,9 @@
 - type: entity
   id: XenoArtifactPortal
   parent: BaseXenoArtifactEffect
+  # DS14-start: Soyuz changes
   description: Create short-living redspace portal
+  # DS14-end
   components:
   - type: XAEPortal
 

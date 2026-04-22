@@ -53,4 +53,6 @@ uplink-bundles-wizardoutfitbag-desc = Хороший набор содержащ
 
 # Pointless
 uplink-pointless-spellburger-name = магический бургер
+# DS14-start: Soyuz changes
 uplink-pointless-spellburger-desc = Вкуснейший бургер созданный магией и редспейсом.
+# DS14-end

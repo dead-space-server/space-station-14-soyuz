@@ -9,6 +9,7 @@ using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.PowerCell;
 
+// DS14-start: hand status control for WireBrushElectrical battery charge
 public sealed class WireBrushPowerCellStatusControl : PollingItemStatusControl<WireBrushPowerCellStatusControl.Data>
 {
     private readonly Entity<PowerCellSlotComponent> _parent;
@@ -61,3 +62,4 @@ public sealed class WireBrushPowerCellStatusControl : PollingItemStatusControl<W
 
     public readonly record struct Data(bool HasBattery, float ChargeLevel, int ChargePercent);
 }
+// DS14-end

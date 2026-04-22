@@ -310,7 +310,9 @@
   parent: ClothingBackpack
   id: ClothingBackpackHolding
   name: bag of holding
+  # DS14-start: Soyuz changes
   description: A backpack that opens into a localized pocket of redspace.
+  # DS14-end
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/holding.rsi

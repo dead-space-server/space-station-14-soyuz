@@ -276,7 +276,9 @@
 - type: entity
   id: AnomalyBluespace
   parent: BaseAnomaly
+  # DS14-start: Soyuz changes
   suffix: Redspace
+  # DS14-end
   components:
   - type: Sprite
     layers:

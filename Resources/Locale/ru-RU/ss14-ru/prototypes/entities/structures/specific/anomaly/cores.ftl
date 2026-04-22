@@ -19,7 +19,9 @@ ent-AnomalyCoreLiquid = { ent-BaseAnomalyCore }
     .suffix = Жидкость
     .desc = { ent-BaseAnomalyCore.desc }
 ent-AnomalyCoreBluespace = { ent-BaseAnomalyCore }
+# DS14-start: Soyuz changes
     .suffix = Редспейс
+# DS14-end
     .desc = { ent-BaseAnomalyCore.desc }
 ent-AnomalyCoreElectricity = { ent-BaseAnomalyCore }
     .suffix = Электричество
@@ -56,8 +58,10 @@ ent-AnomalyCoreRockInert = { ent-BaseAnomalyInertCore }
 ent-AnomalyCoreLiquidInert = { ent-BaseAnomalyInertCore }
     .suffix = Жидкость, Инертный
     .desc = { ent-BaseAnomalyInertCore.desc }
+# DS14-start: Soyuz changes
 ent-AnomalyCoreBluespaceInert = { ent-BaseAnomalyInertCore }
     .suffix = Редспейс, Инертный
+# DS14-end
     .desc = { ent-BaseAnomalyInertCore.desc }
 ent-AnomalyCoreElectricityInert = { ent-BaseAnomalyInertCore }
     .suffix = Электричество, Инертный

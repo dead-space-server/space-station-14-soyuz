@@ -13,8 +13,10 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackdrippenwagen
+  # DS14-start: Soyuz changes
   name: редспейс рюкзак Банши
   description: Рюкзак использующий технологию редспейса для увелечения своего максимального объёма. Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
+  # DS14-end
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

@@ -1,7 +1,9 @@
 - type: entity
   id: BasePortal
   abstract: true
+  # DS14-start: Soyuz changes
   name: redspace portal
+  # DS14-end
   description: Transports you to a linked destination!
   components:
   - type: Transform

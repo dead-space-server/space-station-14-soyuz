@@ -1,4 +1,6 @@
+# DS14-start: Soyuz changes
 ent-BasePortal = редспейс портал
+# DS14-end
     .desc = Выглядит как приключение на 5 минут!
 ent-PortalRed = { ent-BasePortal }
     .desc = Этот больше похож на редспейс портал.

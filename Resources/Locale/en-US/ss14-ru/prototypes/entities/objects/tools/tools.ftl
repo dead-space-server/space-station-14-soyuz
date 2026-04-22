@@ -19,10 +19,14 @@ ent-RCDRecharging = experimental RCD
     .desc = Cyborg-mounted Rapid Construction Device which creates compressed matter on the fly using an internal fabricator.
     .suffix = AutoRecharge
 ent-RCDExperimental = experimental RCD
+# DS14-start: Soyuz changes
     .desc = A redspace-enhanced rapid construction device that passively generates its own compressed matter.
+# DS14-end
     .suffix = Admeme
+# DS14-start: Soyuz changes
 ent-RCDAmmo = compressed matter
     .desc = A cartridge of raw matter compacted by redspace technology. Used in rapid construction devices.
+# DS14-end
 ent-Omnitool = omnitool
     .desc = A drone's best friend.
 ent-Shovel = shovel

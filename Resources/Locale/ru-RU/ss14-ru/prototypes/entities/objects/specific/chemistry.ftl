@@ -11,8 +11,10 @@ ent-LargeBeaker = большая мензурка
     .desc = Используется для хранения большого количества химикатов и растворов.
 ent-CryostasisBeaker = криостазисная мензурка
     .desc = Используется для хранения химикатов и растворов без протекания реакций.
+# DS14-start: Soyuz changes
 ent-BluespaceBeaker = редспейс мензурка
     .desc = Работает на экспериментальной редспейс технологии.
+# DS14-end
 ent-Dropper = пипетка
     .desc = Используется для перемещения небольших объёмов реагентов между ёмкостями.
 ent-BorgDropper = борг-пипетка
@@ -24,9 +26,11 @@ ent-Syringe = { ent-BaseSyringe }
 ent-MiniSyringe = мини-шприц
     .desc = Обычный шприц, переделанный так, чтобы поместиться в шприцемёт.
 ent-PrefilledSyringe = { ent-BaseSyringe }
+# DS14-start: Soyuz changes
     .desc = { ent-BaseSyringe.desc }
 ent-SyringeBluespace = редспейс-шприц
     .desc = Инъекции с использованием передовой редспейс-технологии.
+# DS14-end
 ent-SyringeCryostasis = криостазисный шприц
     .desc = Шприц, используемый для хранения химикатов и растворов без протекания реакции.
 ent-Pill = таблетка

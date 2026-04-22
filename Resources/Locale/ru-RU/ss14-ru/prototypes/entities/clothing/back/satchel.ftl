@@ -33,7 +33,9 @@ ent-ClothingBackpackSatchelCargo = сумка грузчика
 ent-ClothingBackpackSatchelSalvage = сумка шахтёра
     .desc = Прочная сумка для хранения добычи.
 ent-ClothingBackpackSatchelHolding = бездонная сумка
+# DS14-start: Soyuz changes
     .desc = Сумка, открывающаяся в локальный карман редспейса.
+# DS14-end
 ent-ClothingBackpackSatchelAdmin = сумка администрации
     .desc = Если вы как-то видите это, то нет, вы не видите.
     .suffix = Админ

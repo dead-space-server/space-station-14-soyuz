@@ -9,7 +9,9 @@ ent-BikeHornImplant = bike horn implant
 ent-TrackingImplant = tracking implant
     .desc = This implant has a tracking device attached to the suit sensor network.
 ent-StorageImplant = storage implant
+# DS14-start: Soyuz changes
     .desc = This implant grants hidden storage within a person's body using redspace technology.
+# DS14-end
 ent-FreedomImplant = freedom implant
     .desc = This implant lets the user break out of hand restraints up to three times before ceasing to function anymore.
 ent-RadioImplant = radio implant

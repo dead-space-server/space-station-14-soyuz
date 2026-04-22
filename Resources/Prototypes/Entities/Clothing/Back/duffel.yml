@@ -241,7 +241,9 @@
   parent: ClothingBackpackDuffel
   id: ClothingBackpackDuffelHolding
   name: duffelbag of holding
+  # DS14-start: Soyuz changes
   description: A duffelbag that opens into a localized pocket of redspace.
+  # DS14-end
   components:
   - type: Sprite
     sprite: Clothing/Back/Duffels/holding.rsi

@@ -192,7 +192,9 @@
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelHolding
   name: satchel of holding
+  # DS14-start: Soyuz changes
   description: A satchel that opens into a localized pocket of redspace.
+  # DS14-end
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/holding.rsi

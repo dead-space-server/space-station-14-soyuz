@@ -11,7 +11,9 @@
       - AnomalyCoreFlesh
       - AnomalyCoreRock
       - AnomalyCoreLiquid
+      # DS14-start: Soyuz changes
       - AnomalyCoreRedspace
+      # DS14-end
       - AnomalyCoreElectricity
       - AnomalyCoreFlora
       - AnomalyCoreShadow

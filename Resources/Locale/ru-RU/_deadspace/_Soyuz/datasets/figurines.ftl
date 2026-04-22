@@ -22,7 +22,9 @@ figurines-soyuz-hos-9 = Я сказал задержать клоуна по п�
 # Учёный
 figurines-soyuz-scientist-1 = Да что мне этот взрыв у артефакта? Я и сам взрывной.
 figurines-soyuz-scientist-2 = Скороходов нет.
+# DS14-start: Soyuz changes
 figurines-soyuz-scientist-3 = Редспейс сумок тоже нет.
+# DS14-end
 figurines-soyuz-scientist-4 = У нас куда-то пропали технологии с сервера.
 figurines-soyuz-scientist-5 = Техника безопасности? У меня книжка с ней в туалете лежит, иногда помогает.
 figurines-soyuz-scientist-6 = НМ, ну дайте техфаб, ну пожа-а-а-алуйста.

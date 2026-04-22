@@ -29,6 +29,7 @@
 #    - /Audio/_Corvax/Lobby/NewYear/deck-in-the-halls.ogg # Corvax-NewYearMusic
 #    - /Audio/_Corvax/Lobby/NewYear/jingle-bells.ogg # Corvax-NewYearMusic
 #    - /Audio/_Corvax/Lobby/NewYear/wish-you-a-merry-christmas.ogg # Corvax-NewYearMusic
+    # DS14-start: Soyuz changes
     - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-drug.ogg
     - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-m.ogg
     - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/dayte-tank-smeshno.ogg
@@ -41,3 +42,4 @@
     - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/shura-ty-ne-ver-slezam.ogg
     - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/ya-mog-by-vypit-more.ogg
     - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/bi-2-shambala.ogg
+    # DS14-end

@@ -19,7 +19,9 @@ ent-AnomalyCoreLiquid = { ent-BaseAnomalyCore }
     .suffix = Liquid
     .desc = { ent-BaseAnomalyCore.desc }
 ent-AnomalyCoreBluespace = { ent-BaseAnomalyCore }
+# DS14-start: Soyuz changes
     .suffix = Redspace
+# DS14-end
     .desc = { ent-BaseAnomalyCore.desc }
 ent-AnomalyCoreElectricity = { ent-BaseAnomalyCore }
     .suffix = Electricity
@@ -56,8 +58,10 @@ ent-AnomalyCoreRockInert = { ent-BaseAnomalyInertCore }
 ent-AnomalyCoreLiquidInert = { ent-BaseAnomalyInertCore }
     .suffix = Liquid, Inert
     .desc = { ent-BaseAnomalyInertCore.desc }
+# DS14-start: Soyuz changes
 ent-AnomalyCoreBluespaceInert = { ent-BaseAnomalyInertCore }
     .suffix = Redspace, Inert
+# DS14-end
     .desc = { ent-BaseAnomalyInertCore.desc }
 ent-AnomalyCoreElectricityInert = { ent-BaseAnomalyInertCore }
     .suffix = Electricity, Inert

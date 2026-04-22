@@ -1,5 +1,7 @@
 ent-FaxMachineBase = факс дальнего действия
+# DS14-start: Soyuz changes
     .desc = Редспейс-технологии на службе бюрократии.
+# DS14-end
 ent-FaxMachineCentcom = факс дальнего действия Генерального Штаба
     .suffix = ГенШтаб
     .desc = { ent-FaxMachineBase.desc }

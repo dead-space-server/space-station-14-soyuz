@@ -3,7 +3,9 @@ inner-anomaly-start-message-shock = Молнии дрожат на кончик�
 inner-anomaly-start-message-shadow = Из вас струится непроглядная тьма... Вы стали носителем теневой аномалии.
 inner-anomaly-start-message-frost = Ледяной мороз сковывает ваши кости. Вы стали носителем ледяной аномалии.
 inner-anomaly-start-message-flora = Листья и цветы прорастают сквозь вашу кожу! Вы стали носителем растительной аномалии.
+# DS14-start: Soyuz changes
 inner-anomaly-start-message-bluespace = Ваши мысли бешено скачут! Вы стали носителем редспейс аномалии.
+# DS14-end
 inner-anomaly-start-message-flesh = Ваше тело стремительно растёт. Вы стали носителем аномалии плоти.
 inner-anomaly-start-message-grav = Всё становится неестественно тяжёлым и лёгким одновременно... Вы стали носителем гравитационной аномалии.
 inner-anomaly-start-message-tech = Ваша голова гудит от объёма хаотичной информации! Вы стали носителем технологической аномалии.

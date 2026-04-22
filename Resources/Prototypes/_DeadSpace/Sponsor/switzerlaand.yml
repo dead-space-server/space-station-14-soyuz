@@ -32,7 +32,9 @@
   parent: ClothingBackpackDuffelHolding
   id: ClothingBackpackswitzerlaand
   name: бездонный вещмешок
+  # DS14-start: Soyuz changes
   description: Вещмешок, открывающийся в локальный карман редспейса.
+  # DS14-end
   categories: [ HideSpawnMenu ]
   components:
   - type: StorageFill

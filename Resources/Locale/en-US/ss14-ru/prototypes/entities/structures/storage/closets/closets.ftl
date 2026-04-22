@@ -28,7 +28,11 @@ ent-LockerSyndicate = armory closet
     .desc = It's a storage unit.
 ent-ClosetBluespace = suspicious closet
     .desc = It's a storage unit... right?
+# DS14-start: Soyuz changes
     .suffix = Redspace
+# DS14-end
 ent-ClosetBluespaceUnstable = suspicious closet
+# DS14-start: Soyuz changes
     .desc = It's a storage unit... right?
     .suffix = Redspace unstable
+# DS14-end

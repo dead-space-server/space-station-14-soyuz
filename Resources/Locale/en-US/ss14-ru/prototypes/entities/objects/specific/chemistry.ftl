@@ -11,8 +11,10 @@ ent-LargeBeaker = large beaker
     .desc = Used to contain a large amount of chemicals or solutions.
 ent-CryostasisBeaker = cryostasis beaker
     .desc = Used to contain chemicals or solutions without reactions.
+# DS14-start: Soyuz changes
 ent-BluespaceBeaker = redspace beaker
     .desc = Powered by experimental redspace technology.
+# DS14-end
 ent-Dropper = dropper
     .desc = Used to transfer small amounts of chemical solution between containers.
 ent-BorgDropper = hydraulic pipette
@@ -24,9 +26,11 @@ ent-Syringe = { ent-BaseSyringe }
 ent-MiniSyringe = mini syringe
     .desc = A regular syringe, reshaped to fit inside of a gun.
 ent-PrefilledSyringe = { ent-BaseSyringe }
+# DS14-start: Soyuz changes
     .desc = { ent-BaseSyringe.desc }
 ent-SyringeBluespace = redspace syringe
     .desc = Injecting with advanced redspace technology.
+# DS14-end
 ent-SyringeCryostasis = cryostasis syringe
     .desc = A syringe used to contain chemicals or solutions without reactions.
 ent-Pill = pill

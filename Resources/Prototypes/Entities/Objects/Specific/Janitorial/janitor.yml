@@ -373,6 +373,7 @@
       path: "/Audio/Weapons/bladeslice.ogg"
 
 - type: entity
+  # DS14-start: electrical wire brush uses its own sprite, toggle sounds, and a small power cell
   parent: [BaseItem, PowerCellSlotSmallItem]
   id: WireBrushElectrical
   name: electrical wire brush
@@ -440,3 +441,4 @@
         Piercing: 3
     soundHit:
       path: "/Audio/Weapons/bladeslice.ogg"
+  # DS14-end

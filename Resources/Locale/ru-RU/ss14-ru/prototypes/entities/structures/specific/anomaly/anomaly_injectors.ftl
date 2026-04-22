@@ -16,7 +16,9 @@ ent-AnomalyTrapFlora = { ent-BaseAnomalyInjector }
     .suffix = Флора
     .desc = { ent-BaseAnomalyInjector.desc }
 ent-AnomalyTrapBluespace = { ent-BaseAnomalyInjector }
+# DS14-start: Soyuz changes
     .suffix = Редспейс
+# DS14-end
     .desc = { ent-BaseAnomalyInjector.desc }
 ent-AnomalyTrapFlesh = { ent-BaseAnomalyInjector }
     .suffix = Плоть

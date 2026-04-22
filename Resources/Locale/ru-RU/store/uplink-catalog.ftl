@@ -138,7 +138,9 @@ uplink-antimov-law-name = Плата закона Антимов
 uplink-antimov-law-desc = Очень опасный набор законов, который можно использовать, если вы хотите заставить ИИ выйти из себя. Используйте его с осторожностью.
 # Implants
 uplink-storage-implanter-name = Имплантер Хранилище
+# DS14-start: Soyuz changes
 uplink-storage-implanter-desc = Прячьте предметы внутри себя благодаря новой редспейс-технологии!
+# DS14-end
 uplink-freedom-implanter-name = Имплантер Свобода
 uplink-freedom-implanter-desc = Сбегите от этих противных сотрудников милиции при помощи этого импланта, который можно использовать аж три раза!
 uplink-scram-implanter-name = Имплантер Телепортации

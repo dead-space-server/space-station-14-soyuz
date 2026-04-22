@@ -89,7 +89,9 @@ ent-LockerEvidence = шкаф для улик
     .desc = Для хранения пакетиков с гильзами и вещей задержанных.
 ent-LockerSyndicatePersonal = оружейный шкаф
     .desc = Это персональное хранилище для старшего следователя.
+# DS14-start: Soyuz changes
 ent-LockerBluespaceStation = редспейс шкаф
+# DS14-end
     .desc = Передовая технология шкафчикостроения.
     .suffix = Один на станцию
 ent-LockerClown = шкаф клоуна

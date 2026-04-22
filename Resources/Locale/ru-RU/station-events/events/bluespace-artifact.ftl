@@ -1,4 +1,6 @@
+# DS14-start: Soyuz changes
 bluespace-artifact-event-announcement = На станции обнаружена нестабильная редспейс аномалия. Пожалуйста, незамедлительно сообщайте научному отделу о { $sighting }.
+# DS14-end
 bluespace-artifact-sighting-1 = ярких вспышках света
 bluespace-artifact-sighting-2 = странных звуках, доносящихся из технических туннелей
 bluespace-artifact-sighting-3 = неестественных конструкциях

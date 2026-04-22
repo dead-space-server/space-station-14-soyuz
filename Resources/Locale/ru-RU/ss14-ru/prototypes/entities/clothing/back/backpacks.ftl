@@ -54,7 +54,9 @@ ent-ClothingBackpackDeathSquad = рюкзак бойца специальног�
 ent-ClothingBackpackSyndicate = рюкзак Рассвета
     .desc = { ent-ClothingBackpack.desc }
 ent-ClothingBackpackHolding = бездонный рюкзак
+# DS14-start: Soyuz changes
     .desc = Рюкзак, открывающийся в локальный карман редспейса.
+# DS14-end
 ent-ClothingBackpackCluwne = трясушкин фон трясхертон
     .desc = Это рюкзак, изготовленный компанией «Jonk! Co».
     .suffix = Неснимаемый

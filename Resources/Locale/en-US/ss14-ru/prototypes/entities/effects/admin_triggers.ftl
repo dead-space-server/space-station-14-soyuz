@@ -4,7 +4,9 @@ ent-AdminInstantEffectEMP = { ent-AdminInstantEffectBase }
     .suffix = EMP
     .desc = { ent-AdminInstantEffectBase.desc }
 ent-AdminInstantEffectBluespace = { ent-AdminInstantEffectBase }
+# DS14-start: Soyuz changes
     .suffix = RedspaceFlash
+# DS14-end
     .desc = { ent-AdminInstantEffectBase.desc }
 ent-AdminInstantEffectFlash = { ent-AdminInstantEffectBase }
     .suffix = Flash

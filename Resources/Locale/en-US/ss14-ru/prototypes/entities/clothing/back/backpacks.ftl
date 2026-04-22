@@ -53,7 +53,9 @@ ent-ClothingBackpackDeathSquad = death squad backpack
 ent-ClothingBackpackSyndicate = syndicate backpack
     .desc = { ent-ClothingBackpack.desc }
 ent-ClothingBackpackHolding = bag of holding
+# DS14-start: Soyuz changes
     .desc = A backpack that opens into a localized pocket of redspace.
+# DS14-end
 ent-ClothingBackpackCluwne = jiggles von jonkerton
     .desc = It's a backpack made by Jonk! Co.
     .suffix = Unremoveable

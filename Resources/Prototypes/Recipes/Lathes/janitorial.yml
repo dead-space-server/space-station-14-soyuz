@@ -121,3 +121,14 @@
   materials:
     Steel: 100
     Plastic: 100
+
+# DS14-start: electrical wire brush recipe for advanced janitorial research
+- type: latheRecipe
+  id: WireBrushElectrical
+  result: WireBrushElectrical
+  completetime: 3
+  materials:
+    Steel: 150
+    Plastic: 150
+    Glass: 50
+# DS14-end

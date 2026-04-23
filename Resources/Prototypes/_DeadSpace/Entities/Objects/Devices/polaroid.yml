@@ -8,6 +8,9 @@
     layer: 8
   - type: Eye
     drawFov: true
+    visMask:
+      - Normal
+      - Polaroid
     pvsScale: 0.8
 
 - type: entity
@@ -24,7 +27,7 @@
     size: Normal
   - type: Clothing
     sprite: Objects/Devices/travel_camera.rsi
-    quickEquip: true
+    quickEquip: false
     slots:
     - neck
   - type: ActivatableUI

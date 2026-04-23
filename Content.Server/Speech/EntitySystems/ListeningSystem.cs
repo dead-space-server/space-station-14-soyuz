@@ -53,7 +53,7 @@ public sealed class ListeningSystem : EntitySystem
             // TODO proper speech occlusion
             var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).LengthSquared();
             var listenRange = listener.Range * speechRangeMultiplier; // DS14-PoliticalLoudspeaker
-            if (distance > listenRange * listenRange)
+            if (distance > listenRange * listenRange) // DS14-PoliticalLoudspeaker
                 continue;
 
             RaiseLocalEvent(listenerUid, attemptEv);

@@ -184,7 +184,7 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (soundData is null) return;
 
-        foreach (var session in recipients)
+        foreach (var session in recipients) // DS14
         {
             if (!understanding.Contains(session))
             {

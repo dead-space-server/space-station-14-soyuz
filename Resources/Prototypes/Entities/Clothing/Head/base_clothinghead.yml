@@ -279,6 +279,6 @@
   - type: GroupExamine
   - type: HideLayerClothing
     slots:
-    - Hair
+    # DS-14 fix hair remove
     - HeadTop
     - HeadSide

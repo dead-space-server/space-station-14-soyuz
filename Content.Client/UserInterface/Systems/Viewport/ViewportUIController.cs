@@ -16,7 +16,6 @@ public sealed class ViewportUIController : UIController
     [Dependency] private readonly IPlayerManager _playerMan = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    public static readonly Vector2i ViewportSize = (EyeManager.PixelsPerMeter * 21, EyeManager.PixelsPerMeter * 15);
     public const int ViewportHeight = 15;
     private MainViewport? Viewport => UIManager.ActiveScreen?.GetWidget<MainViewport>();
 
@@ -33,6 +32,12 @@ public sealed class ViewportUIController : UIController
 
     private void OnScreenLoad()
     {
+        if (Viewport != null)
+        {
+            Viewport.OnResized -= UpdateViewportRatio;
+            Viewport.OnResized += UpdateViewportRatio;
+        }
+
         ReloadViewport();
     }
 
@@ -44,19 +49,11 @@ public sealed class ViewportUIController : UIController
         }
 
         var min = _configurationManager.GetCVar(CCVars.ViewportMinimumWidth);
-        var max = _configurationManager.GetCVar(CCVars.ViewportMaximumWidth);
-        var width = _configurationManager.GetCVar(CCVars.ViewportWidth);
-        var verticalfit = _configurationManager.GetCVar(CCVars.ViewportVerticalFit) && _configurationManager.GetCVar(CCVars.ViewportStretch);
-
-        if (verticalfit)
-        {
-            width = max;
-        }
-        else if (width < min || width > max)
-        {
-            width = CCVars.ViewportWidth.DefaultValue;
-        }
-
+        // DS14-start: compute viewport width from the real screen ratio so the game fills the screen horizontally.
+        var pixelHeight = Math.Max(1, Viewport.PixelSize.Y);
+        var pixelWidth = Math.Max(1, Viewport.PixelSize.X);
+        var width = Math.Max(min, (int) MathF.Ceiling(pixelWidth / (float) pixelHeight * ViewportHeight));
+        // DS14-end
         Viewport.Viewport.ViewportSize = (EyeManager.PixelsPerMeter * width, EyeManager.PixelsPerMeter * ViewportHeight);
         Viewport.UpdateCfg();
     }

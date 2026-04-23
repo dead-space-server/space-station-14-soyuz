@@ -54,9 +54,11 @@ public sealed class EntityHealthBarOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        // DS14-start: hide mob health bars from secondary preview eyes.
         if (!_entManager.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp) ||
-            args.Viewport.Eye != eyeComp.Eye) // DS14
+            args.Viewport.Eye != eyeComp.Eye)
             return;
+        // DS14-end
 
         var handle = args.WorldHandle;
         var rotation = args.Viewport.Eye?.Rotation ?? Angle.Zero;

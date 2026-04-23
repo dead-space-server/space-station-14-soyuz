@@ -1,4 +1,4 @@
-# DS-14 Start: Existing entries are retargeted into the new mood-based folders, and the
+# DS14-start: Soyuz overrides retarget the shared jukebox catalog into the local audio folders.
 # catalog below appends the larger expanded song set used by the new menu.
 - type: jukebox
   id: Internacional
@@ -631,5 +631,5 @@
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-vysotskiy-pesnya-o-sumasshedshem-dome.ogg
 
-# DS-14 End
+# DS14-end
 

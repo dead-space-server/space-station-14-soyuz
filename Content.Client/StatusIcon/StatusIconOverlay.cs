@@ -38,9 +38,11 @@ public sealed class StatusIconOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        // DS14-start: keep status icons out of auxiliary preview eyes.
         if (!_entity.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp) ||
-            args.Viewport.Eye != eyeComp.Eye) // DS14
+            args.Viewport.Eye != eyeComp.Eye)
             return;
+        // DS14-end
 
         var handle = args.WorldHandle;
 

@@ -1,7 +1,7 @@
-using Content.Shared.Eui;
-using Robust.Shared.Serialization;
 using Content.Shared.DeadSpace.Languages.Prototypes;
+using Content.Shared.Eui;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared.Administration
 {
@@ -30,7 +30,7 @@ namespace Content.Shared.Administration
             public bool EnableTTS = default!; // Corvax-TTS
             public bool CustomTTS = default!; // Corvax-TTS
             public string ColorHex = "b84444"; // DS14-value: b64444 -> b84444
-Е            public string SoundPath = "/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"; // DS14-announce-audio
+            public string SoundPath = "/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"; // DS14-announce-audio
             public float SoundVolume = 5f; // DS14-announce-volume
             public string Sender = ""; // DS14-announce-sender
         }

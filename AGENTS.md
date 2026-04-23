@@ -161,6 +161,8 @@ RaiseLocalEvent(uid, ref exampleEvent);
 - `Resources\Locale\ru-RU\_deadspace\_Soyuz\traits\traits.ftl`
 - `Resources\Maps\_Soyuz\train.yml`
 
+НИКОГДА не изменяйте RobustToolbox в рамках своих пул реквестов. Его модификация возможна лишь в случае создания PR в отдельный репозиторий движка.
+
 ---
 
 ## Изменения файлов из upstream

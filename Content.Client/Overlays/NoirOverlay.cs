@@ -26,10 +26,12 @@ public sealed partial class NoirOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        // DS14-start: render this fullscreen effect only for the player's main eye.
         if (!_entityManager.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp))
             return false;
 
-        return args.Viewport.Eye == eyeComp.Eye; // DS14
+        return args.Viewport.Eye == eyeComp.Eye;
+        // DS14-end
     }
 
     protected override void Draw(in OverlayDrawArgs args)

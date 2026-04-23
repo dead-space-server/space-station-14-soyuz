@@ -145,11 +145,13 @@ public sealed class GasTileDangerousTemperatureOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        // DS14-start: keep the local thermal overlay off auxiliary preview eyes.
         if (!_entManager.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp))
             return false;
 
-        if (args.Viewport.Eye != eyeComp.Eye) // DS14
+        if (args.Viewport.Eye != eyeComp.Eye)
             return false;
+        // DS14-end
 
         if (args.MapId == MapId.Nullspace)
             return false;

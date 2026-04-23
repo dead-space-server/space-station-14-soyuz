@@ -51,10 +51,17 @@
     children:
     - id: ClothingMaskBreath
     - id: ClothingOuterSuitEmergency
+    # DS14-start: 2.5% chance to replace small emergency oxygen tank with double emergency oxygen tank
     - !type:GroupSelector
       children:
-      - id: EmergencyOxygenTankFilled
       - id: OxygenTankFilled
+      - !type:GroupSelector
+        children:
+        - id: EmergencyOxygenTankFilled
+          weight: 39
+        - id: DoubleEmergencyOxygenTankFilled
+          weight: 1
+    # DS14-end
     - id: ToolboxEmergencyFilled
       prob: 0.5
     - id: MedkitOxygenFilled
@@ -96,11 +103,18 @@
       prob: 0.1
     - id: ToolboxEmergencyFilled
       prob: 0.05
+    # DS14-start: 2.5% chance to replace small emergency nitrogen tank with double emergency nitrogen tank
     - !type:GroupSelector
       children:
-      - id: EmergencyNitrogenTankFilled
-        weight: 4
       - id: NitrogenTankFilled
+      - !type:GroupSelector
+        weight: 4
+        children:
+        - id: EmergencyNitrogenTankFilled
+          weight: 39
+        - id: DoubleEmergencyNitrogenTankFilled
+          weight: 1
+    # DS14-end
     - !type:NestedSelector
       tableId: FillEmergencyInflatables
 
@@ -131,10 +145,17 @@
     - id: ClothingOuterSuitFire
     - id: ClothingHeadHelmetFire
     - id: ClothingMaskGas
+    # DS14-start: 2.5% chance to replace small emergency oxygen tank with double emergency oxygen tank
     - !type:GroupSelector
       children:
-      - id: EmergencyOxygenTankFilled
       - id: OxygenTankFilled
+      - !type:GroupSelector
+        children:
+        - id: EmergencyOxygenTankFilled
+          weight: 39
+        - id: DoubleEmergencyOxygenTankFilled
+          weight: 1
+    # DS14-end
     - id: CrowbarRed
     - !type:GroupSelector
       children:

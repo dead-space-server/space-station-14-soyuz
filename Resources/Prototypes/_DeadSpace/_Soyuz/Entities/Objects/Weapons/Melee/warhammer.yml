@@ -8,7 +8,7 @@
     tags:
       - Pickaxe
   - type: Sprite
-    sprite: _ADT/Objects/Weapons/Melee/warhammer.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer.rsi
     state: icon
   - type: AmmoCounter
   - type: UseDelayOnShoot
@@ -35,16 +35,30 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 20
+        Blunt: 15
   - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Blunt: 20
+        Structural: 30
   - type: GunRequiresWield
   - type: Item
     size: Ginormous
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
   - type: DisarmMalus
+  - type: Prying
+  - type: WarhammerCrit
+    chance: 0.25
+    throwDistance: 4
+    damageBonus:
+      types:
+        Blunt: 10
   - type: Tool
     qualities:
       - Prying

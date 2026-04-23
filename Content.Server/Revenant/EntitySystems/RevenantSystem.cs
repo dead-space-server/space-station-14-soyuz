@@ -78,7 +78,7 @@ public sealed partial class RevenantSystem : EntitySystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false);
+            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false); // DS14
 
             if (_ticker.RunLevel == GameRunLevel.PostRound)
             {
@@ -191,12 +191,12 @@ public sealed partial class RevenantSystem : EntitySystem
             {
                 _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Normal, false);
                 _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Polaroid, false);
+                _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Polaroid, false); // DS14
             }
             else
             {
                 _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Polaroid, false);
+                _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Polaroid, false); // DS14
                 _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Normal, false);
             }
             _visibility.RefreshVisibility(uid, vis);

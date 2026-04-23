@@ -5,12 +5,12 @@ using Content.Client.Eye;
 using Content.Client.Viewport;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
-using Robust.Client.Input;
+using Robust.Client.Input; // DS14
 using Robust.Client.Timing;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
-using Robust.Shared.Input;
+using Robust.Shared.Input; // DS14
 using Robust.Shared.Maths;
 using Robust.Shared.Timing;
 using SixLabors.ImageSharp;
@@ -23,10 +23,10 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private const float MaxPreviewZoom = 1f;
     private const float PreviewZoomStep = 0.15f;
     private const float DefaultPreviewZoom = (MinPreviewZoom + MaxPreviewZoom) / 2f;
-    private const float PreviewPanStrength = 0.35f;
+    private const float PreviewPanStrength = 0.35f; // DS14
 
     [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!;
+    [Dependency] private readonly IInputManager _inputManager = default!; // DS14
     [Dependency] private readonly IClientGameTiming _timing = default!;
 
     private readonly EyeLerpingSystem _eyeLerping = default!;
@@ -34,9 +34,9 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private PolaroidCameraUiState? _nextState;
     private EntityUid? _currentCamera;
     private bool _disposed;
-    private bool _previewPanActive;
+    private bool _previewPanActive; // DS14
     private float _previewZoom = DefaultPreviewZoom;
-    private Vector2 _previewPan = Vector2.Zero;
+    private Vector2 _previewPan = Vector2.Zero; // DS14
 
     private readonly ScalingViewport _cameraView;
     private readonly Label _chargesLabel;
@@ -52,7 +52,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         _eyeLerping = _entManager.System<EyeLerpingSystem>();
 
         Title = Loc.GetString("polaroid-camera-ui-title");
-        MinSize = new Vector2(520f, 420f);
+        MinSize = new Vector2(520f, 420f); // DS14-value: new Vector2(320f, 420f) -> new Vector2(520f, 420f)
 
         var root = new BoxContainer
         {
@@ -62,6 +62,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
 
         Contents.AddChild(root);
 
+        // DS14-start: split preview and controls help into a horizontal layout
         var contentRow = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
@@ -71,6 +72,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         };
 
         root.AddChild(contentRow);
+        // DS14-end
 
         var viewportFrame = new PanelContainer
         {
@@ -97,9 +99,10 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             ViewportSize = new Vector2i(160, 160),
             HorizontalExpand = true,
             VerticalExpand = true,
-            MouseFilter = MouseFilterMode.Stop,
+            MouseFilter = MouseFilterMode.Stop, // DS14
         };
 
+        // DS14-start: draggable preview framing
         _cameraView.OnKeyBindDown += args =>
         {
             if (args.Function != EngineKeyFunctions.UIClick)
@@ -123,9 +126,11 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         {
             _previewPanActive = false;
         };
+        // DS14-end
 
         viewportFrame.AddChild(_cameraView);
 
+        // DS14-start: preview controls help panel
         var helpPanel = new PanelContainer
         {
             MinSize = new Vector2(180f, 256f),
@@ -162,6 +167,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         };
         helpText.SetMessage(Loc.GetString("polaroid-camera-ui-help"));
         helpBox.AddChild(helpText);
+        // DS14-end
 
         _chargesLabel = new Label();
         root.AddChild(_chargesLabel);
@@ -212,7 +218,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_nextState == null || _timing.LastRealTick < _nextState.Tick)
             return;
 
-        if (_previewPanActive && _inputManager.MouseScreenPosition.IsValid)
+        if (_previewPanActive && _inputManager.MouseScreenPosition.IsValid) // DS14
             UpdatePreviewPan(_inputManager.MouseScreenPosition.Position - _cameraView.GlobalPixelPosition);
 
         var preview = _entManager.GetEntity(_nextState.PreviewCamera);
@@ -225,7 +231,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             }
 
             _cameraView.Eye = _defaultEye;
-            ApplyPreviewView();
+            ApplyPreviewView(); // DS14
             UpdateButtons();
             return;
         }
@@ -245,7 +251,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_entManager.TryGetComponent<EyeComponent>(_currentCamera, out var eye))
             _cameraView.Eye = eye.Eye ?? _defaultEye;
 
-        ApplyPreviewView();
+        ApplyPreviewView(); // DS14
 
         UpdateButtons();
     }
@@ -269,7 +275,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (MathHelper.CloseToPercent(_previewZoom, oldZoom))
             return;
 
-        ApplyPreviewView();
+        ApplyPreviewView(); // DS14
         args.Handle();
     }
 
@@ -299,6 +305,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         _printLastButton.Disabled = !hasLastCapture || !hasCharge;
     }
 
+    // DS14-start: zoom + pan preview view controls
     private void UpdatePreviewPan(Vector2 relativePosition)
     {
         if (_cameraView.Size.X <= 0f || _cameraView.Size.Y <= 0f)
@@ -308,6 +315,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         _previewPan = Vector2.Clamp(normalized * 2f - Vector2.One, -Vector2.One, Vector2.One);
         ApplyPreviewView();
     }
+    // DS14-end
 
     private void ApplyPreviewView()
     {

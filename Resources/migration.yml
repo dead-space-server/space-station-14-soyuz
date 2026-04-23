@@ -1139,14 +1139,14 @@ SpeedLoaderPistol: null
 SpeedLoaderPistolPractice: null
 
 ## 2025-11-09 - DS14
-SuitStorageSeniorSalvageSpecialistFilled: null
+SuitStorageSeniorSalvageSpecialistFilled: SuitStorageSalv
 #ClothingOuterHardsuitSeniorSalvage: null
 #ClothingHeadHelmetHardsuitSeniorSalvage: null
 #ClothingUnderwearSocksSeniorSalvage: null
 #SeniorSalvageIDCard: null
 #SeniorSalvagePDA: null
 #RubberStampSeniorSalvage: null
-#SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
+SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
 #WeaponSeniorKinetik: WeaponAdvancedKinetik
 
 # 2025-11-26 - DS14
@@ -1191,8 +1191,8 @@ ClothingUniformJumpsuitHoSBlack: null
 GlowstickBase: GlowstickGreen
 
 # 2025-12-06
-SpawnPointZookeeper: null
-SpawnPointBoxer: null
+# SpawnPointZookeeper remains in active map rotation.
+# SpawnPointBoxer remains in active map rotation.
 
 # 2025-12-07
 FigureSpawner: MechFigurineSpawner50
@@ -1211,29 +1211,11 @@ HandheldHealthAnalyzerEmpty: HandheldHealthAnalyzer
 BorgModuleAdvancedChemical: BorgModuleAdvancedTopical
 
 # 2026-01-19
-TowelColorPurple: null
-TowelColorRed: null
-TowelColorBlue: null
-TowelColorDarkBlue: null
-TowelColorLightBlue: null
-TowelColorTeal: null
-TowelColorBrown: null
-TowelColorLightBrown: null
-TowelColorGray: null
-TowelColorGreen: null
-TowelColorDarkGreen: null
-TowelColorGold: null
-TowelColorOrange: null
-TowelColorBlack: null
-TowelColorPink: null
-TowelColorYellow: null
-TowelColorMaroon: null
-TowelColorSilver: null
-TowelColorMime: null
+# Legacy towel colors are still referenced by active maps.
 
 # 2026-02-15 - DS14 - Soyuz
-SpawnPointSeniorCourier: null
-SpawnPointSeniorSalvageSpecialist: null
+SpawnPointSeniorCourier: SpawnPointCargoTechnician
+# SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
 SeniorCourier: null
 
 # 2026-02-18 - DS14 - Soyuz
@@ -1244,11 +1226,7 @@ ReinforcedWindow: MiningWindowSoyuz
 PoweredSmallLight: PoweredSmallLightSoyuz
 ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
 #GrilleDiagonal: ClockworkGrilleDiagonal
-SignNanotrasen1: null
-SignNanotrasen2: null
-SignNanotrasen3: null
-SignNanotrasen4: null
-SignNanotrasen5: null
+# SignNanotrasen1-5 remain in active map rotation.
 #GrilleBroken: ClockworkGrilleBroken
 
 # 2026-03-13 - DS14 - Soyuz

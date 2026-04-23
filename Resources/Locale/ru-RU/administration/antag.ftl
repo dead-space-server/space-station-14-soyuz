@@ -28,9 +28,11 @@ admin-verb-text-make-thief = Сделать вором
 admin-verb-text-make-blob = Сделать носителем Блоба
 admin-verb-text-make-event-role = Ивентовая роль
 admin-overlay-antag-classic = АНТАГ
+#DS14-start
 admin-verb-text-make-dragon = Сделать цель Драконом
 admin-verb-make-dragon = Сделать Драконом
 admin-verb-text-make-ninja = Сделть цель Ниндзей
 admin-verb-make-ninja = Сделать Ниндзей
 admin-verb-text-make-renegade = Сделать цель Ренегатом
 admin-verb-make-renegade = Сделать Ренегатом
+#DS14-end

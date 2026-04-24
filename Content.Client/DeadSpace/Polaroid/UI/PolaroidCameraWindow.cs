@@ -26,6 +26,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private const float PreviewPanStrength = 0.35f; // DS14
 
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IInputManager _inputManager = default!; // DS14
     [Dependency] private readonly IClientGameTiming _timing = default!;
     [Dependency] private readonly IUserInterfaceManager _uiManager = default!; // DS14
 

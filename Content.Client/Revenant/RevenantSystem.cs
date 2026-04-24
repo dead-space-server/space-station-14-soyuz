@@ -40,6 +40,7 @@ public sealed class RevenantSystem : EntitySystem
             else
                 _sprite.LayerSetRsiState((uid, args.Sprite), 0, component.State);
         }
+
     }
 
     private void OnGetCounterAmount(Entity<RevenantComponent> ent, ref GetGenericAlertCounterAmountEvent args)

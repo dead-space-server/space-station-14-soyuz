@@ -9,8 +9,10 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
+using Content.Shared.Revenant.Components; // DS14
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
+using Robust.Server.GameStates; // DS14
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
@@ -29,6 +31,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedViewSubscriberSystem _viewSubscriber = default!;
+    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!; // DS14
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private const string CartridgeSlotId = "cartridge";
@@ -112,6 +115,8 @@ public sealed class PolaroidCameraSystem : EntitySystem
         component.PreviewCamera = preview;
         component.CurrentViewer = args.User;
         _viewSubscriber.AddViewSubscriber(preview, actor.PlayerSession);
+        // DS14: force-send revenants so the preview camera can capture them.
+        SetRevenantPreviewVisibility(actor.PlayerSession, true);
 
         UpdateUi(uid, component);
     }
@@ -295,6 +300,8 @@ public sealed class PolaroidCameraSystem : EntitySystem
                 TryComp<ActorComponent>(viewer, out var actor))
             {
                 _viewSubscriber.RemoveViewSubscriber(preview, actor.PlayerSession);
+                // DS14: clear the preview-specific revenant visibility override.
+                SetRevenantPreviewVisibility(actor.PlayerSession, false);
             }
 
             Del(preview);
@@ -303,6 +310,20 @@ public sealed class PolaroidCameraSystem : EntitySystem
         component.PreviewCamera = null;
         component.CurrentViewer = null;
     }
+
+    // DS14-start: temporarily expose revenants to the polaroid preview session.
+    private void SetRevenantPreviewVisibility(ICommonSession session, bool enabled)
+    {
+        var query = EntityQueryEnumerator<RevenantComponent>();
+        while (query.MoveNext(out var uid, out _))
+        {
+            if (enabled)
+                _pvsOverride.AddForceSend(uid, session);
+            else
+                _pvsOverride.RemoveForceSend(uid, session);
+        }
+    }
+    // DS14-end
 
     private void UpdateUi(EntityUid uid, PolaroidCameraComponent? component = null)
     {

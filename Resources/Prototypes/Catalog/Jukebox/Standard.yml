@@ -1,635 +1,635 @@
-# DS-14 Start: Existing entries are retargeted into the new mood-based folders, and the
+# DS14-start: Soyuz overrides retarget the shared jukebox catalog into the local audio folders.
 # catalog below appends the larger expanded song set used by the new menu.
 - type: jukebox
   id: Internacional
   name: "Интернационал (гимн РСФСР)"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/internatsional-rsfsr-anthem.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: BlowWithTheFires
   name: "Everlasting Summer - Blow with the Fires"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/everlasting-summer-blow-with-the-fires.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: EtotGorod
-    # DS14-start: Soyuz changes
+
   name: "Браво - Этот город"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/bravo-etot-gorod.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: DajjteTank
   name: "Дайте танк (!) - Маленький"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-malenkiy.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: Komarovo
   name: "DVRST - Komarovo (Phonk Remix)"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dvrst-komarovo-phonk-remix.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: PoPlany
   name: "Гражданская оборона - Всё идёт по плану"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-vsyo-idyot-po-planu.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: WhoLookForward
   name: "Слава тем, кто смотрит вперёд"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/glory-to-the-ones-who-look-forward.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: PrekrasnoeDaleko
   name: "Гостья из будущего - Прекрасное далёко"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/gostya-iz-budushchego-prekrasnoye-dalyoko.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: Chuzhoe
-    # DS14-start: Soyuz changes
+
   name: "Гражданская оборона - Чужое"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-chuzhoye.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: Durachok
   name: "Гражданская оборона - Про дурачка"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-pro-durachka.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: HappyNation
   name: "Ace of Base - Happy Nation"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ace-of-base-happy-nation.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: DiscoElysiumHardcoreDance
   name: "Disco Elysium - Hardcore Dance"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/disco-elysium-hardcore-dance.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: MarchOfTheCommunistBrigades
   name: "Метро-2 - Марш коммунистических бригад"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/metro-2-marsh-kommunisticheskikh-brigad.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: YanvarskayaVyuga
   name: "Нина Бродская - Звенит январская вьюга"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/nina-brodskaya-zvenit-yanvarskaya-vyuga.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: PapersPleaseTheme
-    # DS14-start: Soyuz changes
+
   name: "Papers, Please - Theme Song"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/papers-please-theme.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: RabochayaMarseleza
   name: "Рабочая Марсельеза"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/rabochaya-marseleza.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: RedArmyAnsambl
   name: "Красная армия - Красная армия всех сильней"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/krasnaya-armiya-vsekh-silney.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: WhirlingInRags
   name: "Sea Power - Whirling-In-Rags, 8 AM"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/sea-power-whirling-in-rags-8-am.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: RedAlertSovietMarch
   name: "RADIO TAPOK - Soviet March"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/radio-tapok-soviet-march.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: TravaUDoma
   name: "Земляне - Трава у дома"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/zemlyane-trava-u-doma.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: IBelieveMyFriends
-    # DS14-start: Soyuz changes
+
   name: "Владимир Трошин - Я верю, друзья"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-troshin-ya-veryu-druzya.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: MachineOfCommunism
   name: "You Are Empty - Машина коммунизма"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/you-are-empty-mashina-kommunizma.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: YoungBuildersMarch
   name: "Марш молодых строителей"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/marsh-molodykh-stroiteley.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: InvinciblePeoples
   name: "Объединённый народ - El Pueblo Unido"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/obyedinyonnyy-narod-el-pueblo-unido.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: AnthemOfTheDemocratic
   name: "Гимн демократической молодёжи мира"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/gimn-demokraticheskoy-molodyozhi-mira.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: PerimeterAttack
   name: "Атака Периметра - Главная тема"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/ataka-perimetra-glavnaya-tema.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: BattleoftheRoadside
-    # DS14-start: Soyuz changes
+
   name: "Атака Периметра - Битва за Обочину"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ataka-perimetra-bitva-za-obochinu.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: BattleoftheSwamps
   name: "Атака Периметра - Битва за Болота"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ataka-perimetra-bitva-za-bolota.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: AdaptatsiyaSlyozyObrechyonnoyBurzhuazii
   name: "Адаптация - Слёзы обречённой буржуазии"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/adaptatsiya-slyozy-obrechyonnoy-burzhuazii.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: AllaPugachevaArlekino
   name: "Алла Пугачёва - Арлекино"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/alla-pugacheva-arlekino.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: AllaPugachevaOstavaysyaMalchikSNami
   name: "Алла Пугачёва - Оставайся, мальчик, с нами"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/alla-pugacheva-ostavaysya-malchik-s-nami.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ArkadiyKotsAyCarmela
   name: "Аркадий Коц - Ay Carmela"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-ay-carmela.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ArkadiyKotsKtoStrelyaetVRabochikh
-    # DS14-start: Soyuz changes
+
   name: "Аркадий Коц - Кто стреляет в рабочих?"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-kto-strelyaet-v-rabochikh.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: ArkadiyKotsMikhailLebedev
   name: "Аркадий Коц - Михаил Лебедев"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-mikhail-lebedev.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: ArkadiyKotsZabastovka
   name: "Аркадий Коц - Забастовка"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-zabastovka.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: ArkadiyKotsZemlekopy
   name: "Аркадий Коц - Землекопы"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-zemlekopy.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: ChyornyyObeliskMarshRevolyutsii
   name: "Чёрный Обелиск - Марш революции"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/chyornyy-obelisk-marsh-revolyutsii.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ChyornyyObeliskOborona
   name: "Чёрный Обелиск - Оборона"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/chyornyy-obelisk-oborona.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ErnstBuschDerHeimlicheAufmarsch
-    # DS14-start: Soyuz changes
+
   name: "Эрнст Буш - Тревожный марш (Der heimliche Aufmarsch)"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ernst-busch-der-heimliche-aufmarsch.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: FrankKlepackiHellMarch2
   name: "Frank Klepacki - Hell March 2"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/frank-klepacki-hell-march-2.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: IfaWartburgFdjFreieDeutscheJugend
   name: "IFA Wartburg - FDJ (Freie Deutsche Jugend)"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ifa-wartburg-fdj-freie-deutsche-jugend.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: IosifKobzonIVnovProdolzhaetsyaBoy
   name: "Иосиф Кобзон - И вновь продолжается бой"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/iosif-kobzon-i-vnov-prodolzhaetsya-boy.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: KhorImeniPyatnitskogoEkhYablochko
   name: "Хор имени Пятницкого - Эх, яблочко"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/khor-imeni-pyatnitskogo-ekh-yablochko.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: LyubeSoldat
   name: "Любэ - Солдат"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/lyube-soldat.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ManuPilasBellaCiao
-    # DS14-start: Soyuz changes
+
   name: "Manu Pilas - Bella Ciao"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/manu-pilas-bella-ciao.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: PesnyaOMalenkomTrubache
   name: "Песня о маленьком трубаче"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/pesnya-o-malenkom-trubache.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: SatisfaktsiyaRevolyutsiya
   name: "Сатисфакция - Революция"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/satisfaktsiya-revolyutsiya.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: UtroVTebeLeonidIlichBrezhnev
   name: "Утро в тебе - Леонид Ильич Брежнев"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/utro-v-tebe-leonid-ilich-brezhnev.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: UtroVTebeMyNeRaby
   name: "Утро в тебе - Мы не рабы"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/utro-v-tebe-my-ne-raby.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: GeorgiySviridovVremyaVperyodGulanRemastered
   name: "Георгий Свиридов - Время, вперёд! (Gulan Remastered)"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/georgiy-sviridov-vremya-vperyod-gulan-remastered.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: NikolayPrilepskiyLevyyMarsh
-    # DS14-start: Soyuz changes
+
   name: "Николай Прилепский - Левый марш"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/nikolay-prilepskiy-levyy-marsh.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: AlyansNaZare
   name: "Альянс - На заре"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/alyans-na-zare.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: Bi2PolkovnikuNiktoNePishet
   name: "Би-2 - Полковнику никто не пишет"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/bi-2-polkovniku-nikto-ne-pishet.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: KrasnyeZvyozdyBarrikadnayaLyubov
   name: "Красные звёзды - Баррикадная любовь"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/krasnye-zvyozdy-barrikadnaya-lyubov.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: LyubeRusskiye
   name: "Любэ - Русские"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/lyube-russkiye.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: Priroda8080
   name: "Природа - 8080"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/priroda-8080.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ValentinStrykaloNasheLeto
-    # DS14-start: Soyuz changes
+
   name: "Валентин Стрыкало - Наше лето"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/valentin-strykalo-nashe-leto.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: VwpqGroza
   name: "VWPQ - Гроза"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/vwpq-groza.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: AleksandrRozenbaumSkorayaPomoshch
   name: "Александр Розенбаум - Скорая помощь"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/aleksandr-rozenbaum-skoraya-pomoshch.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: AleksandrRozenbaumTolstyyFraer
   name: "Александр Розенбаум - Толстый фраер"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/aleksandr-rozenbaum-tolstyy-fraer.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: AnsamblRossiyskoyArmiiShirokaStranaMoyaRodnaya
   name: "Ансамбль Российской армии - Широка страна моя родная"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ansambl-rossiyskoy-armii-shiroka-strana-moya-rodnaya.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: ArielVKrayuMagnoliy
   name: "Ариэль - В краю магнолий"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ariel-v-krayu-magnoliy.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: CarlosPueblaHastaSiempreComandante
-    # DS14-start: Soyuz changes
+
   name: "Carlos Puebla - Hasta Siempre, Comandante"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/carlos-puebla-hasta-siempre-comandante.ogg
-    # DS14-end
+
 
 - type: jukebox
-    # DS14-start: Soyuz changes
+
   id: DdtChay
   name: "ДДТ - Чай"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ddt-chay.ogg
-    # DS14-end
 
-    # DS14-start: Soyuz changes
+
+
 - type: jukebox
   id: DdtVeter
   name: "ДДТ - Ветер"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ddt-veter.ogg
-    # DS14-end
-    # DS14-start: Soyuz changes
+
+
 
 - type: jukebox
   id: DmitriShostakovichWaltzNo2
   name: "Дмитрий Шостакович - Вальс № 2"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dmitri-shostakovich-waltz-no-2.ogg
-    # DS14-start: Soyuz changes
-    # DS14-end
+
+
 
 - type: jukebox
   id: EtDetiAtomnogoSolntsa
   name: "ЕТ - Дети атомного солнца"
   path:
-    # DS14-start: Soyuz changes
+
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/et-deti-atomnogo-solntsa.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: GeoffplaysguitarZvezdnoyeLeto
   name: "Geoffplaysguitar - Звёздное лето"
-    # DS14-start: Soyuz changes
+
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/geoffplaysguitar-zvezdnoye-leto.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: InkaSchritte
   name: "Inka - Schritte"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/inka-schritte.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: KombinatsiyaKhodKonyom
   name: "Комбинация - Ход конём"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kombinatsiya-khod-konyom.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: LeonidUtyosovGadamNetPoshchady
   name: "Леонид Утёсов - Гадам нет пощады"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-utyosov-gadam-net-poshchady.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: LeonidUtyosovPesnyaStarogoIzvozchika
   name: "Леонид Утёсов - Песня старого извозчика"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-utyosov-pesnya-starogo-izvozchika.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: MildlifeTheMagnificentMoon
   name: "Mildlife - The Magnificent Moon"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/mildlife-the-magnificent-moon.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: NaukogradVremya
   name: "Наукоград - Время"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/naukograd-vremya.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: SiberiadaPokhod
   name: "Сибириада - Поход"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/siberiada-pokhod.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: UdarySintezatorovPredchuvstvieKosmosa
   name: "Удары синтезаторов - Предчувствие космоса"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/udary-sintezatorov-predchuvstvie-kosmosa.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: UdarySintezatorovPulsar
   name: "Удары синтезаторов - Пульсар"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/udary-sintezatorov-pulsar.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: VladimirVysotskiyNaGranitseSTurtsiey
   name: "Владимир Высоцкий - Песня о нейтральной полосе (На границе с Турцией)"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-vysotskiy-na-granitse-s-turtsiey.ogg
-    # DS14-end
+
 
 - type: jukebox
   id: VladimirVysotskiyPesnyaOSumasshedshemDome
   name: "Владимир Высоцкий - Песня о сумасшедшем доме"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-vysotskiy-pesnya-o-sumasshedshem-dome.ogg
-    # DS14-end
-# DS-14 End
+
+# DS14-end
 

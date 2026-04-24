@@ -2,6 +2,7 @@ using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.Player; // DS14
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -14,6 +15,7 @@ public sealed class StatusIconOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
 
     [Dependency] private readonly IEntityManager _entity = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
@@ -36,6 +38,12 @@ public sealed class StatusIconOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        // DS14-start: keep status icons out of auxiliary preview eyes.
+        if (!_entity.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp) ||
+            args.Viewport.Eye != eyeComp.Eye)
+            return;
+        // DS14-end
+
         var handle = args.WorldHandle;
 
         var eyeRot = args.Viewport.Eye?.Rotation ?? default;

@@ -60,7 +60,16 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
     private void ApplyHeightScale(Entity<HumanoidAppearanceComponent, SpriteComponent> entity)
     {
         var scale = HumanoidCharacterProfile.HeightToScale(entity.Comp1.Species, entity.Comp1.Sex, entity.Comp1.Height);
-        _sprite.SetScale((entity.Owner, entity.Comp2), new Vector2(scale, scale));
+        // DS14-height: preserve the prototype's base sprite scale and apply height on top of it.
+        var baseScale = Vector2.One;
+        var prototype = MetaData(entity.Owner).EntityPrototype;
+        if (prototype != null &&
+            prototype.TryGetComponent<SpriteComponent>(out var prototypeSprite, EntityManager.ComponentFactory))
+        {
+            baseScale = prototypeSprite.Scale;
+        }
+
+        _sprite.SetScale((entity.Owner, entity.Comp2), baseScale * scale);
     }
     // DS14-height-end
 

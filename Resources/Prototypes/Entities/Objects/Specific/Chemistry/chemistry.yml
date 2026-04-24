@@ -711,3 +711,27 @@
       - Pill
       - FoodSnack # _DS14
   - type: Dumpable
+
+- type: entity
+# DS14-start: Soyuz changes
+  name: Redspace cryostasis beaker
+# DS14-end
+  parent: BaseBeakerMetallic
+# DS14-start: Soyuz changes
+  description: Used to contain more chemicals or solutions without reactions. Powered by experimental redspace technology.
+# DS14-end
+  id: RedspaceCryostasisBeaker
+  components:
+  - type: Spillable
+    solution: beaker
+  - type: Sprite
+    sprite: Objects\Specific\Chemistry\beaker_redspace_cryostasis.rsi
+    layers:
+      - state: beakernoreact
+  - type: SolutionContainerVisuals
+    maxFillLevels: 0
+  - type: SolutionContainerManager
+    solutions:
+      beaker:
+        maxVol: 500
+        canReact: false

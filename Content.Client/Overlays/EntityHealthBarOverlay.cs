@@ -10,7 +10,7 @@ using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
-using Robust.Client.Player;
+using Robust.Client.Player; // DS14
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using static Robust.Shared.Maths.Color;
@@ -24,7 +24,7 @@ namespace Content.Client.Overlays;
 public sealed class EntityHealthBarOverlay : Overlay
 {
     private readonly IEntityManager _entManager;
-    private readonly IPlayerManager _playerManager;
+    private readonly IPlayerManager _playerManager; // DS14
     private readonly IPrototypeManager _prototype;
 
     private readonly SharedTransformSystem _transform;
@@ -42,7 +42,7 @@ public sealed class EntityHealthBarOverlay : Overlay
     public EntityHealthBarOverlay(IEntityManager entManager, IPrototypeManager prototype)
     {
         _entManager = entManager;
-        _playerManager = IoCManager.Resolve<IPlayerManager>();
+        _playerManager = IoCManager.Resolve<IPlayerManager>(); // DS14
         _prototype = prototype;
         _transform = _entManager.System<SharedTransformSystem>();
         _mobStateSystem = _entManager.System<MobStateSystem>();

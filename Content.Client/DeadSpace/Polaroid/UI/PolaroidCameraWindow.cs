@@ -5,9 +5,8 @@ using Content.Client.Eye;
 using Content.Client.Viewport;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
-using Robust.Client.Input; // DS14
 using Robust.Client.Timing;
-using Robust.Client.UserInterface;
+using Robust.Client.UserInterface; // DS14
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Input; // DS14
@@ -26,7 +25,6 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private const float PreviewPanStrength = 0.35f; // DS14
 
     [Dependency] private readonly IEntityManager _entManager = default!;
-    [Dependency] private readonly IInputManager _inputManager = default!; // DS14
     [Dependency] private readonly IClientGameTiming _timing = default!;
     [Dependency] private readonly IUserInterfaceManager _uiManager = default!; // DS14
 
@@ -341,13 +339,13 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             return;
 
         _cameraView.Eye.Zoom = new Vector2(_previewZoom, _previewZoom);
-  // DS14-start:
+        // DS14-start: apply the preview pan offset after zooming the eye.
         var visibleArea = _cameraView.Size / EyeManager.PixelsPerMeter * _previewZoom;
         var maxOffset = visibleArea * PreviewPanStrength;
         _cameraView.Eye.Offset = new Vector2(
             _previewPan.X * maxOffset.X,
             -_previewPan.Y * maxOffset.Y);
-    // DS14-end
+        // DS14-end
     }
 
     protected override void Dispose(bool disposing)

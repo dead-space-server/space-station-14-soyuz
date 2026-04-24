@@ -16,6 +16,7 @@ public sealed class ViewportUIController : UIController
     [Dependency] private readonly IPlayerManager _playerMan = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+    // DS14: width is derived from the actual window ratio instead of a fixed width constant.
     public const int ViewportHeight = 15;
     private MainViewport? Viewport => UIManager.ActiveScreen?.GetWidget<MainViewport>();
 
@@ -32,11 +33,13 @@ public sealed class ViewportUIController : UIController
 
     private void OnScreenLoad()
     {
+        // DS14-start: keep the ratio updater attached after screen recreation.
         if (Viewport != null)
         {
             Viewport.OnResized -= UpdateViewportRatio;
             Viewport.OnResized += UpdateViewportRatio;
         }
+        // DS14-end
 
         ReloadViewport();
     }

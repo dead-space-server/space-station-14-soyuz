@@ -1,5 +1,5 @@
 using Robust.Client.Graphics;
-using Robust.Client.Player;
+using Robust.Client.Player; // DS14
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 
@@ -10,7 +10,7 @@ public sealed partial class BlackAndWhiteOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> Shader = "GreyscaleFullscreen";
 
     [Dependency] private readonly IEntityManager _entityManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;

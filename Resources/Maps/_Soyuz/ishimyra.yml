@@ -69513,13 +69513,7 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: ClothingNeckMantleSeniorOfficer
-  entities:
-  - uid: 18332
-    components:
-    - type: Transform
-      pos: 36.5243,-17.359173
-      parent: 2
+# DS14: removed DoNotMap item ClothingNeckMantleSeniorOfficer from map
 - proto: ClothingNeckScarfStripedAce
   entities:
   - uid: 9536
@@ -111839,9 +111833,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,-35.5
       parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
+    - type: DeviceNetwork # DS14: removed invalid configurators
       deviceLists:
       - 159
     - type: AtmosPipeColor
@@ -113263,9 +113255,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-36.5
       parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
+    - type: DeviceNetwork # DS14: removed invalid configurators
       deviceLists:
       - 159
     - type: AtmosPipeColor
@@ -113276,9 +113266,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,-36.5
       parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
+    - type: DeviceNetwork # DS14: removed invalid configurators
       deviceLists:
       - 159
     - type: AtmosPipeColor
@@ -140833,17 +140821,13 @@ entities:
     - type: Transform
       pos: -11.5,10.5
       parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
+    - type: DeviceNetwork # DS14: removed invalid configurators
   - uid: 19166
     components:
     - type: Transform
       pos: -10.5,10.5
       parent: 2
-    - type: DeviceNetwork
-      configurators:
-      - invalid
+    - type: DeviceNetwork # DS14: removed invalid configurators
   - uid: 19167
     components:
     - type: Transform

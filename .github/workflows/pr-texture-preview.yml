@@ -1,0 +1,135 @@
+name: PR Texture Preview
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    paths:
+      - 'Resources/Prototypes/**'
+      - 'Resources/Textures/**'
+      - 'Tools/pr_texture_preview.py'
+      - '.github/workflows/pr-texture-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Build Preview
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request_target' || github.event.pull_request.draft == false
+    steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch PR head commit
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git fetch --no-tags --depth=1 "${{ github.event.pull_request.head.repo.clone_url }}" "${{ github.event.pull_request.head.sha }}"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pillow
+
+      - name: Render preview image
+        id: render
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.sha || github.sha }}
+          HEAD_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mkdir -p .artifacts
+          python Tools/pr_texture_preview.py \
+            --base-sha "$BASE_SHA" \
+            --head-sha "$HEAD_SHA" \
+            --output .artifacts/pr-texture-preview.png \
+            --metadata .artifacts/pr-texture-preview.json
+          echo "base_sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-texture-preview
+          path: |
+            .artifacts/pr-texture-preview.png
+            .artifacts/pr-texture-preview.json
+
+      - name: Publish preview image to preview branch
+        if: github.event_name == 'pull_request_target'
+        id: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ steps.render.outputs.head_sha }}
+        run: |
+          set -euo pipefail
+          BRANCH="pr-preview-artifacts"
+          IMAGE_PATH="pr/${PR_NUMBER}/texture-before-after.png"
+          TMP_DIR="$(mktemp -d)"
+          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
+
+          git init "$TMP_DIR"
+          cd "$TMP_DIR"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "$REMOTE_URL"
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            git checkout -b "$BRANCH" "origin/$BRANCH"
+          else
+            git checkout --orphan "$BRANCH"
+            git commit --allow-empty -m "Initialize preview branch"
+            git push origin "$BRANCH"
+          fi
+
+          mkdir -p "$(dirname "$IMAGE_PATH")"
+          cp "$GITHUB_WORKSPACE/.artifacts/pr-texture-preview.png" "$IMAGE_PATH"
+          git add "$IMAGE_PATH"
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Update PR #${PR_NUMBER} texture preview"
+            git push origin "$BRANCH"
+          fi
+
+          RAW_URL="https://raw.githubusercontent.com/${REPOSITORY}/${BRANCH}/${IMAGE_PATH}?sha=${HEAD_SHA}"
+          echo "image_url=$RAW_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Find existing preview comment
+        if: github.event_name == 'pull_request_target'
+        id: find_comment
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- pr-texture-preview-comment -->'
+
+      - name: Create or update preview comment
+        if: github.event_name == 'pull_request_target'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            <!-- pr-texture-preview-comment -->
+            ### Texture Before / After Preview
+            Compared `${{ steps.render.outputs.base_sha }}` -> `${{ steps.render.outputs.head_sha }}`.
+
+            ![PR texture preview](${{ steps.publish.outputs.image_url }})
+
+            [Open full-size image](${{ steps.publish.outputs.image_url }})

@@ -23,10 +23,10 @@ public sealed partial class CCVars
         CVarDef.Create("viewport.minimum_width", 15, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> ViewportMaximumWidth =
-        CVarDef.Create("viewport.maximum_width", 23, CVar.REPLICATED | CVar.SERVER); // DS14-value
+        CVarDef.Create("viewport.maximum_width", 27, CVar.REPLICATED | CVar.SERVER); // DS14-value: 23 -> 27
 
     public static readonly CVarDef<int> ViewportWidth =
-        CVarDef.Create("viewport.width", 23, CVar.CLIENTONLY | CVar.ARCHIVE); // DS14-value
+        CVarDef.Create("viewport.width", 27, CVar.CLIENTONLY | CVar.ARCHIVE); // DS14-value: 23 -> 27
 
     public static readonly CVarDef<bool> ViewportVerticalFit =
         CVarDef.Create("viewport.vertical_fit", true, CVar.CLIENTONLY | CVar.ARCHIVE);

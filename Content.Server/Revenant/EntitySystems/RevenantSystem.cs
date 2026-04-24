@@ -78,14 +78,15 @@ public sealed partial class RevenantSystem : EntitySystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false); // DS14
+            // DS14-start: expose revenants to the polaroid visibility layer.
+            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false);
 
             if (_ticker.RunLevel == GameRunLevel.PostRound)
             {
                 _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
                 _visibility.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
             }
-
+            // DS14-end
             _visibility.RefreshVisibility(uid, visibility);
         }
 

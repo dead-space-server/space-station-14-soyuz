@@ -3,6 +3,7 @@ using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
 using Robust.Client.Graphics;
+using Robust.Client.Player; // DS14
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -18,6 +19,7 @@ public sealed class GasTileDangerousTemperatureOverlay : Overlay
     public override bool RequestScreenTexture { get; set; } = false;
 
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IClyde _clyde = default!;
 
@@ -143,6 +145,14 @@ public sealed class GasTileDangerousTemperatureOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        // DS14-start: keep the local thermal overlay off auxiliary preview eyes.
+        if (!_entManager.TryGetComponent(_playerManager.LocalSession?.AttachedEntity, out EyeComponent? eyeComp))
+            return false;
+
+        if (args.Viewport.Eye != eyeComp.Eye)
+            return false;
+        // DS14-end
+
         if (args.MapId == MapId.Nullspace)
             return false;
 

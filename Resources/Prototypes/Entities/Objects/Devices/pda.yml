@@ -988,6 +988,7 @@
       - NanoTaskCartridge
       - NewsReaderCartridge
       - USSPChatCartridge # DS-14
+      - USSPMonitorCartridge # DS14
       - LogProbeCartridge
       - WantedListCartridge
       - MedTekCartridge

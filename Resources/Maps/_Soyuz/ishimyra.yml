@@ -127037,8 +127037,7 @@ entities:
     - type: ThrownItem
       playLandSound: True
       landTime: 20226.627923
-      thrownTime: 20226.6131067
-      thrower: invalid
+      thrownTime: 20226.6131067 # DS14: removed invalid thrower reference
   - uid: 18434
     components:
     - type: Transform
@@ -129546,8 +129545,7 @@ entities:
     - type: ThrownItem
       playLandSound: True
       landTime: 18840.691636
-      thrownTime: 18840.6811592
-      thrower: invalid
+      thrownTime: 18840.6811592 # DS14: removed invalid thrower reference
 - proto: ParticleAcceleratorControlBox
   entities:
   - uid: 17398
@@ -129845,8 +129843,7 @@ entities:
     - type: ThrownItem
       playLandSound: True
       landTime: 20233.166888
-      thrownTime: 20233.1464334
-      thrower: invalid
+      thrownTime: 20233.1464334 # DS14: removed invalid thrower reference
   - uid: 17442
     components:
     - type: Transform

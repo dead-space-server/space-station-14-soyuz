@@ -16398,75 +16398,6 @@ entities:
     - type: Action
       originalIconColor: '#FFFFFFFF'
       container: 43
-- proto: ActionToggleLight
-  entities:
-  - uid: 46
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 45
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 45
-  - uid: 48
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 47
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 47
-  - uid: 50
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 49
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 49
-  - uid: 52
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 51
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 51
-  - uid: 54
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 53
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 53
-  - uid: 56
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 55
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 55
-  - uid: 58
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 57
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 57
-  - uid: 37207
-    components:
-    - type: Transform
-      parent: 37206
 - proto: ActionToggleMagboots
   entities:
   - uid: 60
@@ -68981,8 +68912,7 @@ entities:
     - type: Transform
       pos: -98.61421,-7.4722347
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 50
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -68992,8 +68922,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 50
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
 - proto: ClothingHeadHatHardhatRed
   entities:
@@ -69002,8 +68931,7 @@ entities:
     - type: Transform
       pos: -98.26005,-7.3264017
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 48
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -69013,8 +68941,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 48
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
 - proto: ClothingHeadHatHardhatYellow
   entities:
@@ -69023,8 +68950,7 @@ entities:
     - type: Transform
       pos: -98.2288,-7.493068
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 54
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -69034,8 +68960,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 54
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
 - proto: ClothingHeadHatHoodGoliathCloak
   entities:
@@ -85302,8 +85227,7 @@ entities:
     - type: Transform
       pos: -101.57462,-2.2589777
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 52
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -85313,8 +85237,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 52
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
   - uid: 11817
     components:
@@ -85359,8 +85282,7 @@ entities:
     - type: Transform
       pos: 25.473019,-6.3839617
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 46
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -85370,16 +85292,14 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 46
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
   - uid: 37206
     components:
     - type: Transform
       pos: 2.4978046,0.6471896
       parent: 37205
-    - type: HandheldLight
-      toggleActionEntity: 37207
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -85389,8 +85309,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 37207
+          ents: [] # DS14: rebuilt on MapInit
     - type: ActionsContainer
 - proto: FlippoLighter
   entities:
@@ -121503,8 +121422,7 @@ entities:
     - type: Transform
       pos: 20.523308,5.546914
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 56
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -121514,8 +121432,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 56
+          ents: [] # DS14: rebuilt on MapInit
     - type: Physics
       canCollide: True
     - type: ActionsContainer
@@ -121662,8 +121579,7 @@ entities:
     - type: Transform
       pos: 3.30132,-1.3670448
       parent: 2
-    - type: HandheldLight
-      toggleActionEntity: 58
+    - type: HandheldLight # DS14: removed serialized toggle action reference
     - type: ContainerContainer
       containers:
         cell_slot: !type:ContainerSlot
@@ -121673,8 +121589,7 @@ entities:
         actions: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 58
+          ents: [] # DS14: rebuilt on MapInit
     - type: Physics
       canCollide: True
     - type: ActionsContainer

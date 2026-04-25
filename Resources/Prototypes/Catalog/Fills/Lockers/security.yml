@@ -32,7 +32,6 @@
     - id: ClothingBeltSecurityFilled
     - id: Flash
     - id: ClothingEyesGlassesSecurity
-    - id: ClothingHandsGlovesArkalyse # DS14-soyuz
     # - id: ClothingShoesBootsJack # DS14-disabled
     # - id: ClothingOuterCoatWarden # DS14-disabled
     - id: ClothingOuterWinterWarden

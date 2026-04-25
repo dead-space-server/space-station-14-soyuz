@@ -39,7 +39,7 @@
 - type: dataset
   id: CustomizableSpawnerCentralCommandBlueShieldOfficerFirstName
   values:
-  - Сержант
+  - Сержант # DS14-Soyuz
 
 - type: roleLoadout
   id: JobCentralCommandBlueShieldOfficer
@@ -61,8 +61,8 @@
   id: CentralCommandBlueShieldOfficerLoadout
   equipment:
     back: ClothingBackpackBlueShield
-    outerClothing: ClothingOuterCoatOKGB
+    outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
   storage:
     back:
     - ClothingNeckCapeBlueShield
-    - KGBloadoutSecondary
+    - KGBloadoutSecondary # DS14-Soyuz

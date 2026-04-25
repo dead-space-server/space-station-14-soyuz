@@ -35,7 +35,8 @@
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesOKGB # DS14-Soyuz
+    socks: ClothingUnderwearSocksBlueShieldOfficer # DS14-Soyuz
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
     pocket2: PinpointerUniversal

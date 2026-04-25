@@ -1,4 +1,4 @@
-name: PR Redspace Preview
+name: PR Before/After
 
 on:
   pull_request_target:
@@ -10,8 +10,8 @@ on:
     paths:
       - 'Resources/Prototypes/**'
       - 'Resources/Textures/**'
-      - 'Tools/pr_redspace_preview.py'
-      - '.github/workflows/pr-redspace-preview.yml'
+      - 'Tools/pr_before_after.py'
+      - '.github/workflows/pr-before-after.yml'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +34,16 @@ jobs:
         run: |
           git fetch --no-tags --depth=1 "${{ github.event.pull_request.head.repo.clone_url }}" "${{ github.event.pull_request.head.sha }}"
 
+      - name: Resolve comparison base
+        id: compare_base
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.sha || github.sha }}
+          HEAD_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
+        run: |
+          COMPARE_BASE_SHA="$(git merge-base "$BASE_SHA" "$HEAD_SHA")"
+          echo "base_sha=$COMPARE_BASE_SHA" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -47,25 +57,25 @@ jobs:
       - name: Render preview image
         id: render
         env:
-          BASE_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.sha || github.sha }}
-          HEAD_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
+          BASE_SHA: ${{ steps.compare_base.outputs.base_sha }}
+          HEAD_SHA: ${{ steps.compare_base.outputs.head_sha }}
         run: |
           mkdir -p .artifacts
-          python Tools/pr_redspace_preview.py \
+          python Tools/pr_before_after.py \
             --base-sha "$BASE_SHA" \
             --head-sha "$HEAD_SHA" \
-            --output .artifacts/pr-redspace-preview.png \
-            --metadata .artifacts/pr-redspace-preview.json
+            --output .artifacts/pr-before-after.png \
+            --metadata .artifacts/pr-before-after.json
           echo "base_sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
           echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pr-redspace-preview
+          name: pr-before-after
           path: |
-            .artifacts/pr-redspace-preview.png
-            .artifacts/pr-redspace-preview.json
+            .artifacts/pr-before-after.png
+            .artifacts/pr-before-after.json
 
       - name: Publish preview image to preview branch
         if: github.event_name == 'pull_request_target'
@@ -78,7 +88,7 @@ jobs:
         run: |
           set -euo pipefail
           BRANCH="pr-preview-artifacts"
-          IMAGE_PATH="pr/${PR_NUMBER}/redspace-before-after.png"
+          IMAGE_PATH="pr/${PR_NUMBER}/before-after.png"
           TMP_DIR="$(mktemp -d)"
           REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
 
@@ -98,11 +108,11 @@ jobs:
           fi
 
           mkdir -p "$(dirname "$IMAGE_PATH")"
-          cp "$GITHUB_WORKSPACE/.artifacts/pr-redspace-preview.png" "$IMAGE_PATH"
+          cp "$GITHUB_WORKSPACE/.artifacts/pr-before-after.png" "$IMAGE_PATH"
           git add "$IMAGE_PATH"
 
           if ! git diff --cached --quiet; then
-            git commit -m "Update PR #${PR_NUMBER} redspace preview"
+            git commit -m "Update PR #${PR_NUMBER} before/after"
             git push origin "$BRANCH"
           fi
 
@@ -116,7 +126,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: '<!-- pr-redspace-preview-comment -->'
+          body-includes: '<!-- pr-before-after-comment -->'
 
       - name: Create or update preview comment
         if: github.event_name == 'pull_request_target'
@@ -126,10 +136,10 @@ jobs:
           comment-id: ${{ steps.find_comment.outputs.comment-id }}
           edit-mode: replace
           body: |
-            <!-- pr-redspace-preview-comment -->
-            ### Bluespace -> Redspace Preview
+            <!-- pr-before-after-comment -->
+            ### Before/After
             Compared `${{ steps.render.outputs.base_sha }}` -> `${{ steps.render.outputs.head_sha }}`.
 
-            ![PR redspace preview](${{ steps.publish.outputs.image_url }})
+            ![PR before/after](${{ steps.publish.outputs.image_url }})
 
             [Open full-size image](${{ steps.publish.outputs.image_url }})

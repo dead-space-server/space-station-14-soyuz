@@ -185,9 +185,16 @@ spray-painter-style-cratesecure-weapon = Weapon
 # Canisters
 spray-painter-style-canisters-air = Air
 spray-painter-style-canisters-ammonia = Ammonia
+spray-painter-style-canisters-brizidium = Brizidium # DS14
 spray-painter-style-canisters-carbon-dioxide = Carbon dioxide
 spray-painter-style-canisters-frezon = Frezon
+spray-painter-style-canisters-fixirium = Fixirium # DS14
+spray-painter-style-canisters-hilium = Hilium # DS14
+spray-painter-style-canisters-hydrogen = Hydrogen # DS14
+spray-painter-style-canisters-iprit = Iprit # DS14
 spray-painter-style-canisters-nitrogen = Nitrogen
+spray-painter-style-canisters-nitriatium = Nitriatium # DS14
+spray-painter-style-canisters-nitryl = Nitryl # DS14
 spray-painter-style-canisters-nitrous-oxide = Nitrous oxide
 spray-painter-style-canisters-oxygen = Oxygen
 spray-painter-style-canisters-plasma = Plasma

@@ -110,6 +110,83 @@ public sealed class ResponseConstructionGuide : EntityEventArgs
     }
 }
 
+// DS14-start: server-authored construction ghost preview for stacked ghosts and real atmos connections.
+[Serializable, NetSerializable]
+public sealed class ConstructionGhostPlan
+{
+    public readonly int GhostId;
+    public readonly NetCoordinates Location;
+    public readonly string PrototypeName;
+    public readonly Angle Angle;
+
+    public ConstructionGhostPlan(int ghostId, NetCoordinates location, string prototypeName, Angle angle)
+    {
+        GhostId = ghostId;
+        Location = location;
+        PrototypeName = prototypeName;
+        Angle = angle;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class ConstructionGhostPreviewData
+{
+    public readonly int GhostId;
+    public readonly bool HasPipeVisualState;
+    public readonly int PipeVisualState;
+    public readonly byte PipeLayers;
+
+    public ConstructionGhostPreviewData(int ghostId, bool hasPipeVisualState = false, int pipeVisualState = 0, byte pipeLayers = 0)
+    {
+        GhostId = ghostId;
+        HasPipeVisualState = hasPipeVisualState;
+        PipeVisualState = pipeVisualState;
+        PipeLayers = pipeLayers;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class RequestConstructionGhostsPreviewMessage : EntityEventArgs
+{
+    public readonly int Revision;
+    public readonly bool HasCandidateGhostId;
+    public readonly int CandidateGhostId;
+    public readonly List<ConstructionGhostPlan> Ghosts;
+
+    public RequestConstructionGhostsPreviewMessage(int revision, bool hasCandidateGhostId, int candidateGhostId, List<ConstructionGhostPlan> ghosts)
+    {
+        Revision = revision;
+        HasCandidateGhostId = hasCandidateGhostId;
+        CandidateGhostId = candidateGhostId;
+        Ghosts = ghosts;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class ResponseConstructionGhostsPreviewMessage : EntityEventArgs
+{
+    public readonly int Revision;
+    public readonly bool HasCandidateGhostId;
+    public readonly int CandidateGhostId;
+    public readonly bool CandidateAccepted;
+    public readonly List<ConstructionGhostPreviewData> Ghosts;
+
+    public ResponseConstructionGhostsPreviewMessage(
+        int revision,
+        bool hasCandidateGhostId,
+        int candidateGhostId,
+        bool candidateAccepted,
+        List<ConstructionGhostPreviewData> ghosts)
+    {
+        Revision = revision;
+        HasCandidateGhostId = hasCandidateGhostId;
+        CandidateGhostId = candidateGhostId;
+        CandidateAccepted = candidateAccepted;
+        Ghosts = ghosts;
+    }
+}
+// DS14-end
+
 [Serializable, NetSerializable]
 public sealed partial class ConstructionInteractDoAfterEvent : DoAfterEvent
 {

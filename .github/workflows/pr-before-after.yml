@@ -1,20 +1,17 @@
 name: PR Before/After
 
 on:
-  pull_request_target:
+  # DS14-start: run preview only after RSI validation has actually been started for a pull request.
+  workflow_run:
+    workflows:
+      - RSI Validator
     types:
-      - opened
-      - reopened
-      - synchronize
-      - ready_for_review
-    paths:
-      - 'Resources/Prototypes/**'
-      - 'Resources/Textures/**'
-      - 'Tools/pr_before_after.py'
-      - '.github/workflows/pr-before-after.yml'
+      - completed
+  # DS14-end
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: write
   pull-requests: write
 
@@ -22,39 +19,71 @@ jobs:
   preview:
     name: Build Preview
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request_target' || github.event.pull_request.draft == false
+    # DS14: only react to successful pull_request RSI validation runs.
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'pull_request')
     steps:
+      - name: Resolve PR context
+        if: github.event_name == 'workflow_run'
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const prRef = run.pull_requests?.[0];
+            if (!prRef) {
+              core.setFailed('No pull request is associated with this RSI Validator run.');
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+            const { data: pull } = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: prRef.number,
+            });
+
+            core.setOutput('number', String(pull.number));
+            core.setOutput('base_sha', pull.base.sha);
+            core.setOutput('head_sha', run.head_sha);
+            core.setOutput('head_clone_url', pull.head.repo.clone_url);
+            core.setOutput('is_latest', String(pull.head.sha === run.head_sha));
+
       - name: Checkout base repository
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
 
       - name: Fetch PR head commit
-        if: github.event_name == 'pull_request_target'
+        if: github.event_name == 'workflow_run' && steps.pr.outputs.is_latest == 'true'
         run: |
-          git fetch --no-tags "${{ github.event.pull_request.head.repo.clone_url }}" "${{ github.event.pull_request.head.sha }}"
+          git fetch --no-tags "${{ steps.pr.outputs.head_clone_url }}" "${{ steps.pr.outputs.head_sha }}"
 
       - name: Resolve comparison base
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         id: compare_base
         env:
-          BASE_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.sha || github.sha }}
-          HEAD_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
+          BASE_SHA: ${{ github.event_name == 'workflow_run' && steps.pr.outputs.base_sha || github.sha }}
+          HEAD_SHA: ${{ github.event_name == 'workflow_run' && steps.pr.outputs.head_sha || github.sha }}
         run: |
           COMPARE_BASE_SHA="$(git merge-base "$BASE_SHA" "$HEAD_SHA")"
           echo "base_sha=$COMPARE_BASE_SHA" >> "$GITHUB_OUTPUT"
           echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Setup Python
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Install dependencies
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         run: |
           python -m pip install --upgrade pip
           python -m pip install pillow
 
       - name: Render preview image
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         id: render
         env:
           BASE_SHA: ${{ steps.compare_base.outputs.base_sha }}
@@ -70,6 +99,7 @@ jobs:
           echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Upload workflow artifact
+        if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: pr-before-after
@@ -78,12 +108,12 @@ jobs:
             .artifacts/pr-before-after.json
 
       - name: Publish preview image to preview branch
-        if: github.event_name == 'pull_request_target'
+        if: github.event_name == 'workflow_run' && steps.pr.outputs.is_latest == 'true'
         id: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
           HEAD_SHA: ${{ steps.render.outputs.head_sha }}
         run: |
           set -euo pipefail
@@ -119,21 +149,24 @@ jobs:
           RAW_URL="https://raw.githubusercontent.com/${REPOSITORY}/${BRANCH}/${IMAGE_PATH}?sha=${HEAD_SHA}"
           echo "image_url=$RAW_URL" >> "$GITHUB_OUTPUT"
 
-      - name: Find existing preview comment
-        if: github.event_name == 'pull_request_target'
+      - name: Find first preview comment
+        if: github.event_name == 'workflow_run' && steps.pr.outputs.is_latest == 'true'
         id: find_comment
-        uses: peter-evans/find-comment@v3
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: '<!-- pr-before-after-comment -->'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          set -euo pipefail
+          COMMENT_ID="$(gh api --paginate --slurp "repos/${REPOSITORY}/issues/${PR_NUMBER}/comments?per_page=100" --jq 'add | map(select(.user.login == "github-actions[bot]" and ((.body | contains("<!-- pr-before-after-comment -->")) or (.body | contains("### Before/After"))))) | sort_by(.created_at) | .[0].id // empty')"
+          echo "comment_id=$COMMENT_ID" >> "$GITHUB_OUTPUT"
 
       - name: Create or update preview comment
-        if: github.event_name == 'pull_request_target'
+        if: github.event_name == 'workflow_run' && steps.pr.outputs.is_latest == 'true'
         uses: peter-evans/create-or-update-comment@v4
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ steps.pr.outputs.number }}
+          comment-id: ${{ steps.find_comment.outputs.comment_id }}
           edit-mode: replace
           body: |
             <!-- pr-before-after-comment -->

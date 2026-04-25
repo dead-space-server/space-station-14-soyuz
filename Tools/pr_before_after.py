@@ -31,6 +31,7 @@ class RenderEntry:
     before_asset: str
     after_asset: str
     entity_id: str
+    is_new: bool
 
 
 ENTRIES: tuple[PreviewEntry, ...] = (
@@ -239,6 +240,26 @@ def elide(text: str, limit: int = 30) -> str:
     return text[: limit - 1] + "..."
 
 
+def draw_status_pill(
+    draw: ImageDraw.ImageDraw,
+    *,
+    right_x: int,
+    top_y: int,
+    text: str,
+    font: ImageFont.ImageFont,
+    fill: tuple[int, int, int, int],
+    text_fill: tuple[int, int, int, int],
+) -> None:
+    padding_x = 14
+    padding_y = 6
+    bbox = draw.textbbox((0, 0), text, font=font)
+    width = (bbox[2] - bbox[0]) + padding_x * 2
+    height = (bbox[3] - bbox[1]) + padding_y * 2
+    left_x = right_x - width
+    draw.rounded_rectangle((left_x, top_y, right_x, top_y + height), radius=height // 2, fill=fill)
+    draw.text((left_x + padding_x, top_y + padding_y - 1), text, fill=text_fill, font=font)
+
+
 def wrap_text(
     draw: ImageDraw.ImageDraw,
     text: str,
@@ -301,6 +322,47 @@ def draw_centered_lines(
         height = bbox[3] - bbox[1]
         draw.text((center_x - width / 2, current_y), line, fill=fill, font=font)
         current_y += height + line_gap
+
+
+def draw_single_box(
+    image: Image.Image,
+    draw: ImageDraw.ImageDraw,
+    *,
+    x: int,
+    y: int,
+    thumb: int,
+    bg: tuple[int, int, int, int],
+    border: tuple[int, int, int, int],
+    text_fill: tuple[int, int, int, int],
+    tag_font: ImageFont.ImageFont,
+    small_font: ImageFont.ImageFont,
+    asset: bytes | None,
+    tag: str,
+    name: str,
+) -> None:
+    draw.rectangle((x, y, x + thumb, y + thumb), fill=bg, outline=border, width=1)
+    image.alpha_composite(fit_sprite(asset, thumb), (x, y))
+
+    center_x = x + thumb // 2
+    draw_centered_lines(
+        draw,
+        [tag],
+        center_x=center_x,
+        top_y=y + thumb + 8,
+        font=tag_font,
+        fill=text_fill,
+        line_gap=0,
+    )
+    tag_height = measure_lines_height(draw, [tag], font=tag_font, line_gap=0)
+    name_lines = wrap_text(draw, name, small_font, thumb + 40, max_lines=3)
+    draw_centered_lines(
+        draw,
+        name_lines,
+        center_x=center_x,
+        top_y=y + thumb + 12 + tag_height,
+        font=small_font,
+        fill=(92, 100, 112, 255),
+    )
 
 
 def measure_lines_height(
@@ -392,6 +454,8 @@ def build_render_entries(base_sha: str, head_sha: str, changed_paths: list[str])
         before_name = try_entity_name_for_rev(base_sha, entry)
         after_name = try_entity_name_for_rev(head_sha, entry)
         after_asset_path = entry.after_asset or entry.before_asset
+        # DS14: mark assets that do not exist in the base revision as new preview entries.
+        is_new = try_run_git_show(base_sha, entry.before_asset, binary=True) is None and try_run_git_show(head_sha, after_asset_path, binary=True) is not None
         render_entries.append(
             RenderEntry(
                 label=entry.label,
@@ -400,6 +464,7 @@ def build_render_entries(base_sha: str, head_sha: str, changed_paths: list[str])
                 before_asset=entry.before_asset,
                 after_asset=after_asset_path,
                 entity_id=entry.entity_id,
+                is_new=is_new,
             )
         )
         seen_assets.add(entry.before_asset)
@@ -428,6 +493,8 @@ def build_render_entries(base_sha: str, head_sha: str, changed_paths: list[str])
             before_name = f"{entity_name} / {label}"
             after_name = f"{entity_name} / {label}"
             entity_id = prototype_entry.entity_id
+        # DS14: new standalone sprite sheets should render as NEW/CURRENT instead of BEFORE/AFTER.
+        is_new = try_run_git_show(base_sha, changed_path, binary=True) is None and try_run_git_show(head_sha, changed_path, binary=True) is not None
 
         render_entries.append(
             RenderEntry(
@@ -437,6 +504,7 @@ def build_render_entries(base_sha: str, head_sha: str, changed_paths: list[str])
                 before_asset=changed_path,
                 after_asset=changed_path,
                 entity_id=entity_id,
+                is_new=is_new,
             )
         )
 
@@ -510,8 +578,8 @@ def build_preview(base_sha: str, head_sha: str, output_path: Path, metadata_path
         10,
     )
 
-    draw.text((20, 16), "PR Before/After Comparison", fill=text, font=title_font)
-    draw.text((22, 48), f"Compared {base_sha[:7]} -> {head_sha[:7]}", fill=muted, font=subtitle_font)
+    draw.text((20, 16), "PR Texture Before / After", fill=text, font=title_font)
+    draw.text((22, 48), f"Compared {base_sha[:7]} -> {head_sha[:7]} | {len(selected_entries)} texture(s)", fill=muted, font=subtitle_font)
 
     rendered: list[dict[str, str]] = []
     start_y = header_height + margin
@@ -533,9 +601,20 @@ def build_preview(base_sha: str, head_sha: str, output_path: Path, metadata_path
             row = index // cols
             x = margin + col * (cell_width + gap)
             y = start_y + row * (cell_height + gap)
+            display_label = Path(entry.after_asset).name if not entry.is_new else entry.label
 
             draw.rounded_rectangle((x, y, x + cell_width, y + cell_height), radius=8, fill=panel, outline=border, width=2)
-            title_lines = wrap_text(draw, entry.label, label_font, cell_width - 24, max_lines=2)
+            if not entry.is_new:
+                draw_status_pill(
+                    draw,
+                    right_x=x + cell_width - 14,
+                    top_y=y + 14,
+                    text="MODIFIED",
+                    font=tag_font,
+                    fill=(196, 127, 0, 255),
+                    text_fill=(255, 255, 255, 255),
+                )
+            title_lines = wrap_text(draw, display_label, label_font, cell_width - 24, max_lines=2)
             title_height = measure_lines_height(draw, title_lines, font=label_font)
             draw_centered_lines(
                 draw,
@@ -548,56 +627,76 @@ def build_preview(base_sha: str, head_sha: str, output_path: Path, metadata_path
 
             before_asset = try_run_git_show(base_sha, entry.before_asset, binary=True)
             after_asset = try_run_git_show(head_sha, entry.after_asset, binary=True)
-            pair_width = thumb * 2 + 68
-            pair_start_x = x + (cell_width - pair_width) // 2
-            left_x = pair_start_x
-            right_x = pair_start_x + thumb + 68
+            # DS14: only switch labels when the asset genuinely does not exist in the compared base build.
+            is_new = entry.is_new and before_asset is None and after_asset is not None
             top_y = y + 20 + title_height
-            draw.rectangle((left_x, top_y, left_x + thumb, top_y + thumb), fill=bg, outline=border, width=1)
-            draw.rectangle((right_x, top_y, right_x + thumb, top_y + thumb), fill=bg, outline=border, width=1)
+            if is_new:
+                single_x = x + (cell_width - thumb) // 2
+                draw_single_box(
+                    image,
+                    draw,
+                    x=single_x,
+                    y=top_y,
+                    thumb=thumb,
+                    bg=bg,
+                    border=border,
+                    text_fill=after_color,
+                    tag_font=tag_font,
+                    small_font=small_font,
+                    asset=after_asset,
+                    tag="NEW",
+                    name=entry.after_name,
+                )
+            else:
+                pair_width = thumb * 2 + 68
+                pair_start_x = x + (cell_width - pair_width) // 2
+                left_x = pair_start_x
+                right_x = pair_start_x + thumb + 68
+                draw.rectangle((left_x, top_y, left_x + thumb, top_y + thumb), fill=bg, outline=border, width=1)
+                draw.rectangle((right_x, top_y, right_x + thumb, top_y + thumb), fill=bg, outline=border, width=1)
 
-            image.alpha_composite(fit_sprite(before_asset, thumb), (left_x, top_y))
-            image.alpha_composite(fit_sprite(after_asset, thumb), (right_x, top_y))
+                image.alpha_composite(fit_sprite(before_asset, thumb), (left_x, top_y))
+                image.alpha_composite(fit_sprite(after_asset, thumb), (right_x, top_y))
 
-            left_center_x = left_x + thumb // 2
-            right_center_x = right_x + thumb // 2
-            draw_centered_lines(
-                draw,
-                ["BEFORE"],
-                center_x=left_center_x,
-                top_y=top_y + thumb + 8,
-                font=tag_font,
-                fill=before_color,
-                line_gap=0,
-            )
-            draw_centered_lines(
-                draw,
-                ["AFTER"],
-                center_x=right_center_x,
-                top_y=top_y + thumb + 8,
-                font=tag_font,
-                fill=after_color,
-                line_gap=0,
-            )
-            before_lines = wrap_text(draw, entry.before_name, small_font, thumb + 40, max_lines=3)
-            after_lines = wrap_text(draw, entry.after_name, small_font, thumb + 40, max_lines=3)
-            tag_height = measure_lines_height(draw, ["BEFORE"], font=tag_font, line_gap=0)
-            draw_centered_lines(
-                draw,
-                before_lines,
-                center_x=left_center_x,
-                top_y=top_y + thumb + 12 + tag_height,
-                font=small_font,
-                fill=muted,
-            )
-            draw_centered_lines(
-                draw,
-                after_lines,
-                center_x=right_center_x,
-                top_y=top_y + thumb + 12 + tag_height,
-                font=small_font,
-                fill=muted,
-            )
+                left_center_x = left_x + thumb // 2
+                right_center_x = right_x + thumb // 2
+                draw_centered_lines(
+                    draw,
+                    ["BEFORE"],
+                    center_x=left_center_x,
+                    top_y=top_y + thumb + 8,
+                    font=tag_font,
+                    fill=before_color,
+                    line_gap=0,
+                )
+                draw_centered_lines(
+                    draw,
+                    ["AFTER"],
+                    center_x=right_center_x,
+                    top_y=top_y + thumb + 8,
+                    font=tag_font,
+                    fill=after_color,
+                    line_gap=0,
+                )
+                before_lines = wrap_text(draw, entry.before_name, small_font, thumb + 40, max_lines=3)
+                after_lines = wrap_text(draw, entry.after_name, small_font, thumb + 40, max_lines=3)
+                tag_height = measure_lines_height(draw, ["BEFORE"], font=tag_font, line_gap=0)
+                draw_centered_lines(
+                    draw,
+                    before_lines,
+                    center_x=left_center_x,
+                    top_y=top_y + thumb + 12 + tag_height,
+                    font=small_font,
+                    fill=muted,
+                )
+                draw_centered_lines(
+                    draw,
+                    after_lines,
+                    center_x=right_center_x,
+                    top_y=top_y + thumb + 12 + tag_height,
+                    font=small_font,
+                    fill=muted,
+                )
 
             rendered.append(
                 {
@@ -607,6 +706,7 @@ def build_preview(base_sha: str, head_sha: str, output_path: Path, metadata_path
                     "after_name": entry.after_name,
                     "before_asset": entry.before_asset,
                     "after_asset": entry.after_asset,
+                    "is_new": entry.is_new,
                 }
             )
 

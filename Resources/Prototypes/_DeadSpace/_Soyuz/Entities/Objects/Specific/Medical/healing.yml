@@ -87,9 +87,9 @@
     - BlueInsulatingTape
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
-    state: insulating_tape_blue-10 # DS14
+    state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
     layers:
-    - state: insulating_tape_blue-10 # DS14
+    - state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
       map: ["base"] # DS14
   - type: Item
     sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi # DS14
@@ -119,7 +119,7 @@
     - insulating_tape_blue-10
     layerFunction: Threshold
   - type: StackLayerThreshold
-    thresholds: [4, 8] # DS14
+    thresholds: [2, 4] # DS14-value: [4, 8] -> [2, 4]
   - type: StackPrice
     price: 0
   - type: Appearance # DS14

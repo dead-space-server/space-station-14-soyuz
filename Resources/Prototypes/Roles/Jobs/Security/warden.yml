@@ -55,7 +55,7 @@
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
     ears: ClothingHeadsetSecurity
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesCombat # DS14-Soyuz
   storage:
     back:
     - Flash

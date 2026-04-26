@@ -1,0 +1,55 @@
+- type: entity
+  name: Urist McOni
+  parent: BaseMobHuman
+  id: MobOniBase
+  abstract: true
+  components:
+  - type: Speech
+    speechSounds: Baritone
+  - type: HumanoidAppearance
+    species: Oni
+    hideLayersOnEquip: # DS14-Soyuz
+    - Hair # DS14-Soyuz
+    - HeadTop # DS14-Soyuz
+    - HeadSide
+  - type: Sprite
+    scale: 1.2, 1.2
+  - type: Oni
+    modifiers:
+      coefficients:
+        Blunt: 1.2
+        Slash: 1.2
+        Piercing: 1.2
+        Asphyxiation: 1.2
+  - type: Body
+    prototype: Human
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - GeneralLanguage
+    - Oni
+  - type: Fixtures
+    fixtures: # DS14-Soyuz-note: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.42
+        density: 220
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Stamina
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+
+- type: entity
+  save: false
+  name: Urist McOni
+  parent: MobHumanDummy
+  id: MobOniDummy
+  categories: [ HideSpawnMenu ]
+  description: A dummy oni meant to be used in character setup.
+

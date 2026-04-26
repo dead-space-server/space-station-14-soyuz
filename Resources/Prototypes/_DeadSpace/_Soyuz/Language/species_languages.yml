@@ -1,0 +1,79 @@
+﻿- type: language
+  id: Oni
+  name: Oni
+  speechMode: Syllable
+  minSyllables: 1
+  maxSyllables: 2
+  syllables:
+    - grr
+    - rrh
+    - urh
+    - vhr
+    - har
+    - off
+    - rrah
+    - hrr
+    - ghr
+    - brr
+    - buh
+    - ohr
+
+- type: language
+  id: Harpy
+  name: Harpy
+  speechMode: Syllable
+  minSyllables: 1
+  maxSyllables: 2
+  syllables:
+    - kia
+    - kya
+    - aaa
+    - iii
+    - krii
+    - kri
+    - vii
+    - viii
+    - chii
+    - chiii
+    - ary
+    - iia
+
+- type: language
+  id: Ariral
+  name: Ariral
+  speechMode: Syllable
+  minSyllables: 1
+  maxSyllables: 2
+  syllables:
+    - shzo
+    - zoak
+    - sha
+    - sza
+    - rrh
+    - aak
+    - orh
+    - kzo
+    - zha
+    - lhz
+    - hra
+    - shrr
+
+- type: language
+  id: Goblin
+  name: Goblin
+  speechMode: Syllable
+  minSyllables: 1
+  maxSyllables: 2
+  syllables:
+    - heh
+    - hehe
+    - hrr
+    - khk
+    - khe
+    - hrh
+    - kek
+    - ghh
+    - gyg
+    - hyy
+    - gyy
+    - kyk

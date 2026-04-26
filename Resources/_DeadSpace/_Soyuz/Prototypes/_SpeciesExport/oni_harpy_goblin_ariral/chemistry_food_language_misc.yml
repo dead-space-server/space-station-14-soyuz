@@ -1,0 +1,296 @@
+﻿# From Resources\Prototypes\_NF\Reagents\biological.yml
+- type: reagent
+  parent: Blood
+  id: GoblinBlood
+  name: reagent-name-goblin-blood
+  group: Biological
+  desc: reagent-desc-goblin-blood
+  flavor: bitter
+  color: "#364500"
+  recognizable: true
+  physicalDesc: reagent-physical-desc-pungent
+  footstepSound:
+    collection: FootstepBlood
+    params:
+      volume: 6
+  metabolisms:
+    Drink:
+      effects:
+      # Effects for non-goblins
+      - !type:SatiateThirst
+        factor: -0.5
+        conditions:
+        - !type:OrganType
+          type: Goblin
+          shouldHave: false
+      - !type:ChemVomit
+        probability: 0.025
+        conditions:
+        - !type:OrganType
+          type: Goblin
+          shouldHave: false
+      - !type:GenericStatusEffect
+        key: Stutter
+        component: GoblinAccent
+        probability: 0.025
+        type: Add
+        time: 30
+        refresh: true
+        conditions:
+        - !type:OrganType
+          type: Goblin
+          shouldHave: false
+      # Effects for goblins
+      - !type:SatiateThirst
+        factor: 1
+        conditions:
+        - !type:OrganType
+          type: Goblin
+          shouldHave: true
+
+# From Resources\Prototypes\_ShibaStation\Reagents\biological.yml
+- type: reagent
+  id: AriralBlood
+  name: reagent-name-ariral-blood
+  group: Biological
+  desc: reagent-desc-ariral-blood
+  flavor: metallic
+  color: "#d82000"
+  metamorphicMaxFillLevels: 5
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: true
+  recognizable: true
+  physicalDesc: reagent-physical-desc-ferrous
+  slipData:
+    requiredSlipSpeed: 4.0
+  friction: 0.4
+  metabolisms:
+    Poison:
+      effects:
+      # Lua start
+      - !type:AdjustReagent
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: true
+        reagent: AriralBlood
+        amount: -2
+        # Lua end
+      - !type:ChemVomit
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 5
+        probability: 0.1
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 2
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 8
+        refresh: true
+      - !type:PopupMessage
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 2
+        type: Local
+        visualType: Medium
+        messages: ["generic-reagent-effect-nauseous", "generic-reagent-effect-dizzy"]
+        probability: 0.5
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 1
+        damage:
+          types:
+            Poison: 1.25
+  footstepSound:
+    collection: FootstepBlood
+    params:
+      volume: 6
+- type: reagent
+  id: AriralSweat
+  name: reagent-name-ariral-sweat
+  group: Biological
+  desc: reagent-desc-ariral-sweat
+  flavor: metallic
+  color: "#e0e0e0"
+  metamorphicMaxFillLevels: 5
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: true
+  recognizable: false
+  physicalDesc: reagent-physical-desc-volatile
+  slipData:
+    requiredSlipSpeed: 4.0
+  friction: 0.4
+  metabolisms:
+    Poison:
+      effects:
+      - !type:ChemVomit
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 5
+        probability: 0.1
+      - !type:GenericStatusEffect
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 2
+        key: SeeingRainbows
+        component: SeeingRainbows
+        type: Add
+        time: 6
+        refresh: true
+      - !type:PopupMessage
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 2
+        type: Local
+        visualType: Medium
+        messages: ["generic-reagent-effect-nauseous", "generic-reagent-effect-dizzy"]
+        probability: 0.5
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Ariral
+          shouldHave: false
+        - !type:ReagentThreshold
+          min: 1
+        damage:
+          types:
+            Poison: 0.75
+
+# From Resources\Prototypes\_NF\Chemistry\metabolizer_types.yml
+- type: metabolizerType
+  id: Goblin
+  name: metabolizer-type-goblin
+
+# From Resources\Prototypes\_ShibaStation\Chemistry\metabolizer_types.yml
+- type: metabolizerType
+  id: Ariral
+  name: metabolizer-type-ariral
+
+# From Resources\Prototypes\_NF\ai_factions.yml
+- type: npcFaction
+  id: Harpy
+- type: npcFaction
+  id: Goblin
+
+# From Resources\Prototypes\_NF\typing_indicator.yml
+- type: typingIndicator
+  id: goblin
+  spritePath: /Textures/_NF/Effects/speech.rsi
+  typingState: goblin0
+  idleState: goblin0
+  offset: 0, 0.2
+
+# From Resources\Prototypes\_Lua\Actions\types.yml
+- type: entity
+  id: ActionAriralLayEgg
+  name: Отложить яйцо
+  description: Это должно быть очень важно для вас
+  components:
+  - type: LimitedCharges
+    maxCharges: 1
+  - type: Action
+    icon: { sprite: Objects/Consumable/Food/egg.rsi, state: icon }
+  - type: InstantAction
+    event: !type:EggAriralLayInstantActionEvent
+- type: entity
+  parent: FoodEgg
+  id: FoodAriralEggLaid
+  name: cтранное яйцо
+  description: Вам вероятно не захочется пробовать это
+  components:
+  - type: Sprite
+    scale: 1.3, 1.4
+    sprite: Objects/Consumable/Food/egg.rsi
+  - type: BadFood
+  - type: Item
+    size: Small
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 12
+        reagents:
+        - ReagentId: Egg
+          Quantity: 6
+        - ReagentId: AriralBlood
+          Quantity: 6
+
+# From Resources\Prototypes\_NF\Entities\Objects\Consumable\Food\meat.yml
+- type: entity
+  parent: FoodMeatRotten
+  id: FoodMeatGoblin
+  name: raw goblin meat
+  description: Just look at that marbling! Wait, is that microplastic?
+  components:
+  - type: Sprite
+    state: rotten
+    color: lime
+
+# From Resources\Prototypes\_Backmen\Language\Standard\intergalactic.yml
+- type: language
+  id: Intergalactic
+  obfuscation:
+    !type:ReplacementObfuscation
+      replacement: [" "]
+  speech:
+    color: "#FFFFFF"
+    allowRadio: false
+
+# From Resources\Prototypes\_Lua\Language\Species\species.yml
+- type: language
+  id: Oni
+  obfuscation:
+    !type:ReplacementObfuscation
+      replacement: ["грр", "ррх", "урх", "вхр", "хар", "офф", "ррах", "хрр", "гхр", "брр", "бух", "охр"]
+  speech:
+    color: "#FF9AA2"
+    allowRadio: true
+- type: language
+  id: Harpy
+  obfuscation:
+    !type:ReplacementObfuscation
+      replacement: ["киа", "кья", "ааа", "иии", "крии", "кри", "вии", "виии", "чии", "чиии", "арь", "ииа"]
+  speech:
+    color: "#FFE599"
+    allowRadio: true
+- type: language
+  id: Ariral
+  obfuscation:
+    !type:ReplacementObfuscation
+      replacement: ["шзо", "зоак", "ша", "сза", "ррх", "аак", "орх", "кзо", "жа", "лхз", "хра", "шрр"]
+  speech:
+    color: "#B0E0FF"
+    allowRadio: true
+- type: language
+  id: Goblin
+  obfuscation:
+    !type:ReplacementObfuscation
+      replacement: ["хех", "хехе", "хрр", "кхк", "кхе", "хрх", "кек", "гхх", "гыг", "хиы", "гыы", "кых"]
+  speech:
+    color: "#C5FF9F"
+    allowRadio: true
+

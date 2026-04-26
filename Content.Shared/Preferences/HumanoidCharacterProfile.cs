@@ -55,6 +55,10 @@ namespace Content.Shared.Preferences
                 "Tajaran" => (145, 170, 200),
                 "Reptilian" => (190, 200, 210),
                 "Felinid" => (140, 150, 160),
+                "Goblin" => (140, 150, 155),
+                "Harpy" => (140, 157, 175),
+                "Ariral" => (165, 190, 220),
+                "Oni" => (190, 205, 220),
                 _ => (160, 175, 195),
             };
         }

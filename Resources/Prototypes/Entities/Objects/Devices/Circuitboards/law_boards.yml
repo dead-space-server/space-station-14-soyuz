@@ -170,7 +170,7 @@
   id: SOCCircuitBoard
   parent: BaseSiliconLawboard
   name: law board (SOC)
-  # suffix: Admeme | DS14-Soyuz disabled 
+  # suffix: Admeme # DS14-Soyuz disabled 
   description: An electronics board containing the Special Operations Corps lawset.
   components:
   - type: SiliconLawProvider

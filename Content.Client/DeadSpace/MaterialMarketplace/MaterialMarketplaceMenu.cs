@@ -246,7 +246,7 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
             Margin = new Thickness(12, 10, 0, 8),
             HorizontalExpand = true,
         };
-        label.StyleClasses.Add("LabelHeadingBigger");
+        label.StyleClasses.Add("LabelHeading");
         return label;
     }
 
@@ -259,7 +259,9 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
                 .FirstOrDefault(sp => sp.Spawn == material.StackEntity);
         }
 
-        var displayName = stackProto != null
+        var displayName = Loc.GetString(material.Name);
+
+        var countName = stackProto != null
             ? Loc.GetString(stackProto.Name)
             : Loc.GetString(material.Name);
 
@@ -270,11 +272,11 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
             amountLocalized = Loc.GetString(key, ("amount", logicalCount));
 
             if (string.IsNullOrWhiteSpace(amountLocalized) || amountLocalized == key)
-                amountLocalized = $"{logicalCount} {displayName}";
+                amountLocalized = $"{logicalCount} {countName}";
         }
         else
         {
-            amountLocalized = $"{logicalCount} {displayName}";
+            amountLocalized = $"{logicalCount} {countName}";
         }
 
         var amountText = $"В наличии: {amountLocalized}";

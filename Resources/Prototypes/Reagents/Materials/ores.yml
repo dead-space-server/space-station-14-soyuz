@@ -77,3 +77,12 @@
   icon: { sprite: Objects/Materials/ore.rsi, state: salt }
   color: "#f5e7d7"
   price: 0.075
+
+- type: material
+  id: RawBluespaceCrystal
+  stackEntity: BluespaceOre1
+  name: bluespace crystal
+  unit: materials-unit-piece
+  icon: { sprite: _DeadSpace/Objects/Materials/ore.rsi, state: bluespace_crystal_ore }
+  color: "#C9D8F2"
+  price: 0.5

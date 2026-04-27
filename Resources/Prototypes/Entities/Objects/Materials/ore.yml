@@ -96,6 +96,32 @@
 
 - type: entity
   parent: OreBase
+  id: BluespaceOre
+  name: bluespace ore
+  suffix: Full
+  components:
+  - type: Stack
+    stackType: BluespaceOre
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Materials/ore.rsi
+    state: bluespace_crystal_ore
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      RawBluespaceCrystal: 300
+  - type: Item
+    heldPrefix: bluespace
+
+- type: entity
+  parent: BluespaceOre
+  id: BluespaceOre1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+
+- type: entity
+  parent: OreBase
   id: SteelOre
   name: iron ore
   suffix: Full

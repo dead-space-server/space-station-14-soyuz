@@ -73,6 +73,12 @@
   maxOreYield: 2
 
 - type: ore
+  id: OreBluespace
+  oreEntity: BluespaceOre1
+  minOreYield: 1
+  maxOreYield: 2
+
+- type: ore
   id: OreQuartzCrab
   oreEntity: MobSpawnCrabQuartz
 

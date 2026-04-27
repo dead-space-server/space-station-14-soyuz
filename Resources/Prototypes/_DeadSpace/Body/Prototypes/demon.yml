@@ -13,7 +13,7 @@
     torso:
       part: TorsoDemon
       organs:
-        heart: OrganDemonHeart
+        heart: OrganDemonHeart #DS14-soyuz
         lungs: OrganHumanLungs
         stomach: OrganDemonStomach
         liver: OrganAnimalLiver

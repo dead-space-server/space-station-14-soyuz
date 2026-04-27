@@ -11,7 +11,7 @@
   cost: 7500
   recipeUnlocks:
   - MiningDrill
-  - MechEquipmentDrill # DS14
+  - MechEquipmentDrill # DS14-Soyuz
   - MineralScannerEmpty
   - OreProcessorIndustrialMachineCircuitboard
   - ClothingMaskWeldingGas
@@ -204,7 +204,7 @@
   recipeUnlocks:
     - OreBagOfHolding
     - MiningDrillDiamond
-    - MechEquipmentDiamondDrill # DS14
+    - MechEquipmentDiamondDrill # DS14-Soyuz
     - AdvancedMineralScannerEmpty
     - BorgModuleAdvancedMining
     - SalvageExpeditionsComputerCircuitboard # Corvax-Cringe

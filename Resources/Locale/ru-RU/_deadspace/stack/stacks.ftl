@@ -33,7 +33,6 @@ stack-floor-tile-fairy-astro-grass = астро-трава фей
 stack-floor-tile-diamond = алмазный пол
 stack-floor-tile-plasma = плазменный пол
 stack-floor-tile-uranium = урановый пол
-stack-bamboo-mat-tile = бамбуковый мат
 stack-titanium =
     { $amount ->
         [1] лист

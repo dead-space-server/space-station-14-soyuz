@@ -1,7 +1,7 @@
 - type: entity
   parent: AirlockGlassShuttle
   id: AirlockExternalGlassShuttleSecurity
-  suffix: Внешний, Милиция 13x14, Стеклянный, Стыковочный, Ворон-08
+  suffix: Милиция 13x14, Стеклянный, Стыковочный, Ворон-08
   components:
   - type: GridFill
     path: "/Maps/_Soyuz/Shuttles/voron.yml"

@@ -5,11 +5,3 @@
 - type: metabolizerType
   id: EggSpider
   name: metabolizer-type-egg-spider
-
-- type: metabolizerType
-  id: Xenomorph
-  name: metabolizer-type-xenomorph
-
-- type: metabolizerType
-  id: Demon
-  name: metabolizer-type-demon

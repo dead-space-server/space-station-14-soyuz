@@ -141,7 +141,7 @@
     state: mattress
   - type: Damageable
     damageModifierSet: Inflatable
-  - type: Construction # DS14
+  - type: Construction # DS14-soyuz
     graph: bed
     node: mattress
 

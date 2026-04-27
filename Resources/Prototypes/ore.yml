@@ -45,6 +45,12 @@
   oreEntity: TungstenOre1
   minOreYield: 1
   maxOreYield: 3
+
+- type: ore
+  id: OreBluespace
+  oreEntity: BluespaceOre1
+  minOreYield: 1
+  maxOreYield: 2
 # DS14-Soyuz-end
 
 # Low yields
@@ -69,12 +75,6 @@
 - type: ore
   id: OreDiamond
   oreEntity: DiamondOre1
-  minOreYield: 1
-  maxOreYield: 2
-
-- type: ore
-  id: OreBluespace
-  oreEntity: BluespaceOre1
   minOreYield: 1
   maxOreYield: 2
 

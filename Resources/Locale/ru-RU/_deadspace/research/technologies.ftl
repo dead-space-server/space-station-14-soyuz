@@ -42,4 +42,3 @@ research-technology-heavy-syndicate-hardsuits = Тяжёлые скафандр�
 research-technology-defibrillator-syndicate = Дефибриллятор Синдиката
 research-technology-photon-laser-weaponry = Фотонный арсенал
 research-technology-compact-defibrillator = Компактный дефибриллятор
-research-technology-clarke = К.Л.А.Р.К.

@@ -74088,7 +74088,7 @@ entities:
     - type: Transform
       pos: -44.5,-57.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 11235
     components:

@@ -82240,7 +82240,7 @@ entities:
       parent: 11428
     - type: Physics
       canCollide: False
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 11430
     components:

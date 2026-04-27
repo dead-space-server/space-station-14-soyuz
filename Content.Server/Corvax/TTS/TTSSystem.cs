@@ -13,6 +13,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server.DeadSpace.Languages;
 using Content.Shared.DeadSpace.Languages.Prototypes;
+using Content.Shared.PoliticalLoudspeaker; // DS14-PoliticalLoudspeaker
 
 namespace Content.Server.Corvax.TTS;
 
@@ -25,6 +26,7 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly IRobustRandom _rng = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
+    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-PoliticalLoudspeaker
 
     private readonly List<string> _sampleText =
         new()
@@ -165,6 +167,13 @@ public sealed partial class TTSSystem : EntitySystem
     private async void HandleSay(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string speaker)
     {
         var soundData = await GenerateTTS(message, speaker);
+        // DS14-PoliticalLoudspeaker-start: held loudspeakers extend local TTS delivery and playback
+        var (speechRangeMultiplier, ttsVolumeMultiplier) = _politicalLoudspeaker.GetSpeechModifiers(uid);
+        var xformQuery = GetEntityQuery<TransformComponent>();
+        var recipients = Filter.Empty()
+            .AddInRange(_xforms.GetMapCoordinates(uid, xformQuery.GetComponent(uid)), SharedChatSystem.VoiceRange * speechRangeMultiplier)
+            .Recipients;
+        // DS14-PoliticalLoudspeaker-end
 
         byte[]? soundLexiconData = null;
 
@@ -175,17 +184,17 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (soundData is null) return;
 
-        foreach (var session in Filter.Pvs(uid).Recipients)
+        foreach (var session in recipients) // DS14
         {
             if (!understanding.Contains(session))
             {
                 if (soundLexiconData is null)
-                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid), isSoundLexicon: true, languageId: languageId), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid), isSoundLexicon: true, languageId: languageId, volumeMultiplier: ttsVolumeMultiplier, distanceMultiplier: speechRangeMultiplier), session); // DS14-PoliticalLoudspeaker
                 else
-                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, GetNetEntity(uid)), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, GetNetEntity(uid), volumeMultiplier: ttsVolumeMultiplier, distanceMultiplier: speechRangeMultiplier), session); // DS14-PoliticalLoudspeaker
             }
             else
-                RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid), isSoundLexicon: false), session);
+                RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid), isSoundLexicon: false, volumeMultiplier: ttsVolumeMultiplier, distanceMultiplier: speechRangeMultiplier), session); // DS14-PoliticalLoudspeaker
         }
 
     }

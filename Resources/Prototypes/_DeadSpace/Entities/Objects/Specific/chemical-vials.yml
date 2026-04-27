@@ -17,8 +17,10 @@
 - type: entity
   parent: BaseChemistryEmptyVial
   id: BluespaceVial
-  name: bluespace vial
-  description: Works on experimental bluespace technology.
+  # DS14-start: Soyuz changes
+  name: redspace vial
+  description: Works on experimental redspace technology.
+  # DS14-end
   components:
   - type: Spillable
     solution: beaker

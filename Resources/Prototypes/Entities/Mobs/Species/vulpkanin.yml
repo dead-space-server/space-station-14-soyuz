@@ -6,7 +6,13 @@
   name: Urist McBark
   components:
   # DS14-start
+  - type: InteractionPopup
+    successChance: 1
+    interactSuccessString: hugging-success-generic-no-erp
+    interactSuccessSound: /Audio/Effects/thudswoosh.ogg
+    messagePerceivedByOthers: hugging-success-generic-others-no-erp
   - type: SpeedSliding
+    minSlideSpeed: 4.7
     slideDistance: 5
   - type: Language
     selectedLanguage: GeneralLanguage

@@ -1,11 +1,20 @@
+using System.Diagnostics.CodeAnalysis; // DS14
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Content.Server.Atmos.Components; // DS14
+using Content.Server.Atmos.EntitySystems; // DS14
 using Content.Server.Construction.Components;
+using Content.Server.NodeContainer.EntitySystems; // DS14
 using Content.Shared.ActionBlocker;
+using Content.Shared.Atmos; // DS14
+using Content.Shared.Atmos.Components; // DS14
 using Content.Shared.Construction;
+using Content.Shared.Construction.Components; // DS14
+using Content.Shared.Construction.EntitySystems; // DS14
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Construction.Steps;
+using Content.Shared.Coordinates.Helpers; // DS14
 using Content.Shared.Coordinates;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
@@ -17,6 +26,7 @@ using Content.Shared.Storage;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using Robust.Shared.Physics.Components; // DS14
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
@@ -31,6 +41,9 @@ namespace Content.Server.Construction
         [Dependency] private readonly EntityLookupSystem _lookupSystem = default!;
         [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
         [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+        [Dependency] private readonly AnchorableSystem _anchorable = default!; // DS14
+        [Dependency] private readonly NodeGroupSystem _nodeGroupSystem = default!; // DS14
+        [Dependency] private readonly PipeRestrictOverlapSystem _pipeRestrictOverlap = default!; // DS14
 
         // --- WARNING! LEGACY CODE AHEAD! ---
         // This entire file contains the legacy code for initial construction.
@@ -44,6 +57,7 @@ namespace Content.Server.Construction
         {
             SubscribeNetworkEvent<TryStartStructureConstructionMessage>(HandleStartStructureConstruction);
             SubscribeNetworkEvent<TryStartItemConstructionMessage>(HandleStartItemConstruction);
+            SubscribeNetworkEvent<RequestConstructionGhostsPreviewMessage>(HandleGhostPreviewRequest); // DS14
         }
 
         // LEGACY CODE. See warning at the top of the file!
@@ -542,5 +556,192 @@ namespace Content.Server.Construction
             _adminLogger.Add(LogType.Construction, LogImpact.Low, $"{ToPrettyString(user):player} has turned a {ev.PrototypeName} construction ghost into {ToPrettyString(structure)} at {Transform(structure).Coordinates}");
             Cleanup();
         }
+
+        // DS14-start: compute construction ghost stacking validity and real pipe preview visuals on the server.
+        private void HandleGhostPreviewRequest(RequestConstructionGhostsPreviewMessage ev, EntitySessionEventArgs args)
+        {
+            if (args.SenderSession.AttachedEntity is not { Valid: true } user)
+                return;
+
+            var candidateAccepted = true;
+            List<ConstructionGhostPreviewData> previews;
+
+            if (!TryBuildGhostPreview(user, ev.Ghosts, out previews) &&
+                ev.HasCandidateGhostId)
+            {
+                candidateAccepted = false;
+                var remainingGhosts = ev.Ghosts.Where(ghost => ghost.GhostId != ev.CandidateGhostId).ToList();
+                TryBuildGhostPreview(user, remainingGhosts, out previews);
+            }
+
+            previews ??= new();
+            RaiseNetworkEvent(new ResponseConstructionGhostsPreviewMessage(
+                    ev.Revision,
+                    ev.HasCandidateGhostId,
+                    ev.CandidateGhostId,
+                    candidateAccepted,
+                    previews),
+                args.SenderSession.Channel);
+        }
+
+        private bool TryBuildGhostPreview(
+            EntityUid user,
+            List<ConstructionGhostPlan> ghosts,
+            out List<ConstructionGhostPreviewData> previews)
+        {
+            previews = new();
+            if (ghosts.Count == 0)
+                return true;
+
+            var spawned = new List<(ConstructionGhostPlan Plan, EntityUid Uid)>(ghosts.Count);
+
+            try
+            {
+                foreach (var ghost in ghosts)
+                {
+                    if (!PrototypeManager.TryIndex(ghost.PrototypeName, out ConstructionPrototype? constructionPrototype) ||
+                        !TryGetConstructionTargetPrototype(constructionPrototype, user, out var targetPrototype))
+                    {
+                        return false;
+                    }
+
+                    var location = GetCoordinates(ghost.Location);
+                    var direction = ghost.Angle.GetCardinalDir();
+
+                    foreach (var condition in constructionPrototype.Conditions)
+                    {
+                        if (!condition.Condition(user, location, direction))
+                            return false;
+                    }
+
+                    var uid = Spawn(targetPrototype, location);
+                    var xform = Transform(uid);
+                    _transformSystem.SetLocalRotation(uid, ghost.Angle, xform);
+                    spawned.Add((ghost, uid));
+                }
+
+                foreach (var (_, uid) in spawned)
+                {
+                    if (!TryFinalizePreviewEntity(uid))
+                        return false;
+                }
+
+                _nodeGroupSystem.ForceUpdate();
+
+                foreach (var (ghost, uid) in spawned)
+                {
+                    if (TryComp<PipeAppearanceComponent>(uid, out _) &&
+                        _appearance.TryGetData(uid, PipeVisuals.VisualState, out int pipeVisualState))
+                    {
+                        var pipeLayers = TryComp<AtmosPipeLayersComponent>(uid, out var atmosPipeLayers)
+                            ? atmosPipeLayers.NumberOfPipeLayers
+                            : (byte) 1;
+
+                        previews.Add(new ConstructionGhostPreviewData(
+                            ghost.GhostId,
+                            hasPipeVisualState: true,
+                            pipeVisualState: pipeVisualState,
+                            pipeLayers: pipeLayers));
+                        continue;
+                    }
+
+                    previews.Add(new ConstructionGhostPreviewData(ghost.GhostId));
+                }
+
+                return true;
+            }
+            finally
+            {
+                foreach (var (_, uid) in spawned)
+                {
+                    if (Deleted(uid))
+                        continue;
+
+                    Del(uid);
+                }
+
+                _nodeGroupSystem.ForceUpdate();
+            }
+        }
+
+        private bool TryFinalizePreviewEntity(EntityUid uid)
+        {
+            var xform = Transform(uid);
+
+            if (xform.Anchored)
+            {
+                return !HasComp<PipeRestrictOverlapComponent>(uid) || !_pipeRestrictOverlap.CheckOverlap(uid);
+            }
+
+            if (!TryComp<AnchorableComponent>(uid, out var anchorable))
+                return true;
+
+            if (TryComp<PhysicsComponent>(uid, out var body) &&
+                !_anchorable.TileFree(xform.Coordinates, body))
+            {
+                return false;
+            }
+
+            if (_anchorable.AnyUnstackable(uid, xform.Coordinates))
+                return false;
+
+            var attempt = new AnchorAttemptEvent(default, default);
+            RaiseLocalEvent(uid, attempt);
+
+            if (attempt.Cancelled)
+                return false;
+
+            if (anchorable.Snap)
+            {
+                var snapped = xform.Coordinates.SnapToGrid(EntityManager);
+                _transformSystem.SetCoordinates(uid, xform, snapped);
+                xform = Transform(uid);
+            }
+
+            _transformSystem.AnchorEntity(uid, xform);
+            return !HasComp<PipeRestrictOverlapComponent>(uid) || !_pipeRestrictOverlap.CheckOverlap(uid);
+        }
+
+        private bool TryGetConstructionTargetPrototype(
+            ConstructionPrototype constructionPrototype,
+            EntityUid user,
+            [NotNullWhen(true)] out string? targetPrototype)
+        {
+            targetPrototype = null;
+
+            if (!PrototypeManager.TryIndex(constructionPrototype.Graph, out ConstructionGraphPrototype? graph))
+                return false;
+
+            if (constructionPrototype.TargetNode is not { } targetNodeId ||
+                !graph.Nodes.TryGetValue(targetNodeId, out var targetNode))
+            {
+                return false;
+            }
+
+            var stack = new Stack<ConstructionGraphNode>();
+            stack.Push(targetNode);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                if (node.Entity.GetId(null, user, new(EntityManager)) is { } entityId)
+                {
+                    targetPrototype = entityId;
+                    return true;
+                }
+
+                if (stack.Count != 0)
+                    continue;
+
+                foreach (var edge in node.Edges)
+                {
+                    if (graph.Nodes.TryGetValue(edge.Target, out var graphNode))
+                        stack.Push(graphNode);
+                }
+            }
+
+            return false;
+        }
+        // DS14-end
     }
 }

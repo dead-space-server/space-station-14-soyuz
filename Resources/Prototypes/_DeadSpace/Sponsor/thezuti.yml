@@ -26,8 +26,10 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackTheZuTi
-  name: акулья блюспейс сумка
-  description: Наплечная сумка с дизайном акульих зубов и технологией блюспейс сжатия пространства. Если прислушаться то внутри сумки слышно шум моря.
+  # DS14-start: Soyuz changes
+  name: акулья редспейс сумка
+  description: Наплечная сумка с дизайном акульих зубов и технологией редспейс сжатия пространства. Если прислушаться то внутри сумки слышно шум моря.
+  # DS14-end
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

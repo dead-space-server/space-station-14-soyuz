@@ -4,6 +4,15 @@ polaroid-camera-ui-title = Полароид
 polaroid-camera-ui-cartridge = Картридж: { $current }/{ $max }
 polaroid-camera-ui-capture = Снять
 polaroid-camera-ui-print-last = Печать ещё
+# DS14-start
+polaroid-camera-ui-help-title = Управление
+polaroid-camera-ui-help = ЛКМ по превью: начать наводку кадра.
+    Удерживайте ЛКМ и двигайте мышью: сместить камеру.
+    Отпустите ЛКМ: оставить кадр на текущем месте.
+    Колесо мыши: приблизить или отдалить.
+    Снять: сделать новый снимок.
+    Печать ещё: повторно распечатать последний снимок.
+# DS14-end
 
 polaroid-camera-popup-no-cartridge = В камере нет картриджа полароида.
 polaroid-camera-popup-cartridge-empty = Картридж полароида пуст.

@@ -1,0 +1,6 @@
+- type: latheRecipe
+  id: BlueInsulatingTapeSoyuz
+  result: BlueInsulatingTape
+  completetime: 1
+  materials:
+    Plastic: 100

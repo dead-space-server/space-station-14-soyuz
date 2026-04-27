@@ -4,6 +4,15 @@ polaroid-camera-ui-title = Polaroid Camera
 polaroid-camera-ui-cartridge = Cartridge: {$current}/{$max}
 polaroid-camera-ui-capture = Take
 polaroid-camera-ui-print-last = Print Another
+# DS14-start
+polaroid-camera-ui-help-title = Controls
+polaroid-camera-ui-help = Left click the preview to start aiming the frame.
+    Hold left click and move the mouse to shift the camera.
+    Release left click to keep the current framing.
+    Mouse wheel zooms in and out.
+    Take captures a new photo.
+    Print Another reprints the last photo.
+# DS14-end
 
 polaroid-camera-popup-no-cartridge = There is no polaroid cartridge loaded.
 polaroid-camera-popup-cartridge-empty = The polaroid cartridge is empty.

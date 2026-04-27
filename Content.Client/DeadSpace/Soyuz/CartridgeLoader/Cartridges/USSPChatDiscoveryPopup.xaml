@@ -1,0 +1,14 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               x:Class="Content.Client.DeadSpace.Soyuz.CartridgeLoader.Cartridges.USSPChatDiscoveryPopup"
+               Title="{Loc 'ussp-chat-ui-discovery-title'}"
+               MinWidth="400" MinHeight="300">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True" Margin="4">
+        <Label Name="HintLabel" Text="{Loc 'ussp-chat-ui-discovery-hint'}" StyleClasses="LabelSubText" Margin="0 0 0 4"/>
+        <ScrollContainer VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="EntriesContainer" Orientation="Vertical" HorizontalExpand="True"/>
+        </ScrollContainer>
+        <Label Name="EmptyLabel" Text="{Loc 'ussp-chat-ui-discovery-empty'}" StyleClasses="LabelSubText" Visible="False"/>
+        <Button Name="CancelButton" Text="{Loc 'ussp-chat-ui-cancel'}" HorizontalAlignment="Right" Margin="0 8 0 0"/>
+    </BoxContainer>
+</DefaultWindow>

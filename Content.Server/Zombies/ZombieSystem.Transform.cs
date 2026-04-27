@@ -49,6 +49,7 @@ using Content.Server.DeadSpace.Virus.Systems;
 using Content.Server.DeadSpace.Languages;
 using Content.Shared.NPC.Components; // DS14
 using System.Linq; // DS14
+using Content.Shared.Cuffs.Components; // DS14
 using Content.Shared.Temperature.Components;
 
 namespace Content.Server.Zombies;
@@ -336,6 +337,13 @@ public sealed partial class ZombieSystem
             _hands.RemoveHands(target);
             RemComp(target, handsComp);
         }
+
+        // DS14-start
+        if (TryComp<CuffableComponent>(target, out var cuffs))
+        {
+            RemComp(target, cuffs);
+        }
+        // DS14-end
 
         // Sloth: What the fuck?
         // How long until compregistry lmao.

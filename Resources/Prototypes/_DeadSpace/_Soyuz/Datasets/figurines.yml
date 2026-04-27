@@ -1,0 +1,41 @@
+# Базовый шаблон
+- type: localizedDataset
+  id: FigurinesBase
+  values:
+    prefix: figurines-base-
+    count: 7
+
+# Начальник милиции
+- type: localizedDataset
+  id: FigurinesHoSSoyuz
+  values:
+    prefix: figurines-soyuz-hos-
+    count: 9
+
+# Учёный
+- type: localizedDataset
+  id: FigurinesScientistSoyuz
+  values:
+    prefix: figurines-soyuz-scientist-
+    count: 8
+
+# ОКГБ
+- type: localizedDataset
+  id: FigurinesOKGB
+  values:
+    prefix: figurines-base-okgb-
+    count: 7
+
+# АГШ
+- type: localizedDataset
+  id: FigurinesAdministratorCentcomm
+  values:
+    prefix: figurines-administrator-centcomm-
+    count: 6
+
+# Пилот
+- type: localizedDataset
+  id: FigurinesPilot
+  values:
+    prefix: figurines-pilot-
+    count: 16

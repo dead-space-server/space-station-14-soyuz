@@ -61,9 +61,11 @@
 - type: entity
   parent: BluespaceBeaker
   id: BottomlessLube
-  name: bottomless lube beaker
   suffix: DEBUG
-  description: This anomalous beaker infinitely produces space lube and as such is to be closely guarded such that it doesn't fall in the wrong hands.
+  # DS14-start: Soyuz changes
+  name: redspace lube beaker
+  description: This anomalous redspace beaker infinitely produces space lube and should be closely guarded so it does not fall into the wrong hands.
+  # DS14-end
   components:
   - type: SolutionContainerManager
     solutions:

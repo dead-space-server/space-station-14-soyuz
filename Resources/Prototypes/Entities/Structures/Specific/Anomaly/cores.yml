@@ -119,14 +119,18 @@
 - type: entity
   parent: BaseAnomalyCore
   id: AnomalyCoreBluespace
-  suffix: Bluespace
+  # DS14-start: Soyuz changes
+  suffix: Redspace
+  # DS14-end
   components:
   - type: Sprite
     sprite: Structures/Specific/Anomalies/Cores/bluespace_core.rsi
   - type: PointLight
     radius: 1.5
     energy: 3.5
-    color: "#00ccff"
+    # DS14-start: Soyuz changes
+    color: "#ff3d5c"
+    # DS14-end
     castShadows: false
 
 - type: entity
@@ -295,15 +299,19 @@
 
 - type: entity
   parent: BaseAnomalyInertCore
+  # DS14-start: Soyuz changes
   id: AnomalyCoreBluespaceInert
-  suffix: Bluespace, Inert
+  suffix: Redspace, Inert
+  # DS14-end
   components:
   - type: Sprite
     sprite: Structures/Specific/Anomalies/Cores/bluespace_core.rsi
   - type: PointLight
     radius: 1.5
     energy: 3.5
-    color: "#00ccff"
+    # DS14-start: Soyuz changes
+    color: "#ff3d5c"
+    # DS14-end
     castShadows: false
 
 - type: entity

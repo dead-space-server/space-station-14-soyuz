@@ -29,13 +29,7 @@
         state: emergency_on
   - type: StealTarget
     stealGroup: DoorRemote
-  - type: ActivatableUI
-    inHandsOnly: true
-    key: enum.DoorRemoteUiKey.Key
-  - type: UserInterface
-    interfaces:
-      enum.DoorRemoteUiKey.Key:
-        type: DoorRemoteBoundUserInterface
+  # DS14: режим пульта снова переключается циклом по Z, отдельный BUI не используется.
 
 - type: entity
   parent: DoorRemoteDefault

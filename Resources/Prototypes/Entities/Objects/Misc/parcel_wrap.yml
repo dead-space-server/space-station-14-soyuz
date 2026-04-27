@@ -32,7 +32,9 @@
 - type: entity
   parent: ParcelWrap
   id: ParcelWrapAdmeme
-  name: bluespace wrap
+  # DS14-start: Soyuz changes
+  name: redspace wrap
+  # DS14-end
   suffix: Admeme
   description: Paper used contain items for transport. This one seems to be able to store an unusual amount of space within it.
   components:

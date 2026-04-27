@@ -22,7 +22,9 @@
 
 - type: entity
   id: AdminInstantEffectBluespace
-  suffix: BluespaceFlash
+  # DS14-start: Soyuz changes
+  suffix: RedspaceFlash
+  # DS14-end
   parent: AdminInstantEffectBase
   components:
   - type: SpawnOnTrigger

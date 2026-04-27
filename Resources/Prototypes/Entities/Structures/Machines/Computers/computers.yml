@@ -676,7 +676,9 @@
   - type: CommunicationsConsole
     title: comms-console-announcement-title-station
     sound:
-      path: /Audio/_DeadSpace/Soyuz/Announcements/announce.ogg # DS14-Announcements | DS14-Soyuz Sound
+      # DS14-start: Soyuz changes
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/announce.ogg # DS14-Announcements | DS14-Soyuz Sound
+      # DS14-end
       params:
         volume: -2 # DS14
     ttsDelay: 6 # DS14
@@ -794,8 +796,10 @@
     color: "#B64444"
     canShuttle: false
     global: true
+      # DS14-start: Soyuz changes
     sound:
-      path: /Audio/_DeadSpace/Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz Sound
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz Sound
+      # DS14-end
       params:
         volume: -2 # DS14
     ttsDelay: 9 # DS14
@@ -1785,9 +1789,11 @@
 
 - type: entity
   parent: BaseComputer
+  # DS14-start: Soyuz changes
   id: ComputerNukieDelivery
   name: syndicate delivery computer
-  description: "A computer that can bluespace in certain equipment for Nuclear Operations. \nThe circuitboard is integrated into the frame and can't be recovered if deconstructed."
+  description: "A computer that can bring in certain equipment via redspace for Nuclear Operations. \nThe circuitboard is integrated into the frame and can't be recovered if deconstructed."
+  # DS14-end
   components:
   - type: Sprite
     layers:

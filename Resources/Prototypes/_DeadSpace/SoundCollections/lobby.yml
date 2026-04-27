@@ -29,14 +29,17 @@
 #    - /Audio/_Corvax/Lobby/NewYear/deck-in-the-halls.ogg # Corvax-NewYearMusic
 #    - /Audio/_Corvax/Lobby/NewYear/jingle-bells.ogg # Corvax-NewYearMusic
 #    - /Audio/_Corvax/Lobby/NewYear/wish-you-a-merry-christmas.ogg # Corvax-NewYearMusic
-    - /Audio/_DeadSpace/_Soyuz/Lobby/DajjteTankFriend.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/DajjteTankM.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/DajjteTankSmeshno.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/DyingLightHorizon.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/HotlineMiamiMoon.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/MarkBernesDarkNight.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/NirvanaSomethingInTheWay.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/SmuglyankaMoldavanka.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/ShuraDontBelieveYourTears.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/ICouldDrinkTheSea.ogg
-    - /Audio/_DeadSpace/_Soyuz/Lobby/BiShambala.ogg
+    # DS14-start: Soyuz changes
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-drug.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-m.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/dayte-tank-smeshno.ogg
+    - /Audio/_DeadSpace/_Soyuz/Lobby/best-night.ogg
+    - /Audio/_DeadSpace/_Soyuz/Lobby/dying-light-horizon.ogg
+    - /Audio/_DeadSpace/_Soyuz/Lobby/hotline-miami-moon.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/mark-bernes-tyomnaya-noch.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/nirvana-something-in-the-way.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/smuglyanka-moldavanka.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/shura-ty-ne-ver-slezam.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/ya-mog-by-vypit-more.ogg
+    - /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/bi-2-shambala.ogg
+    # DS14-end

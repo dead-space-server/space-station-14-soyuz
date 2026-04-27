@@ -57,7 +57,9 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltpvrsifvl
-  name: блюспейс хранилище Warmind
+  # DS14-start: Soyuz changes
+  name: редспейс хранилище Warmind
+  # DS14-end
   description: Всегда хранит в себе что-то, что может спасти жизнь. Разработано по чертежам спонсорской организации Warmind.
   categories: [ HideSpawnMenu ]
   components:

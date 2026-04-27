@@ -127,4 +127,6 @@
   - type: CursorOffsetRequiresWield
   - type: EyeCursorOffset
     maxOffset: 5
+    # DS14-start: Soyuz changes
     pvsIncrease: 0.5
+    # DS14-end

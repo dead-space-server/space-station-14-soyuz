@@ -26,7 +26,9 @@
   parent: ClothingBackpack
   id: ClothingBackpackMaelstormAlt
   name: старая командирская сумка
-  description: Старая командирская сумка красноармейца времён революций, однако получившая модернизацию блюспейс технологиями. Выглядит потрёпанной.
+  # DS14-start: Soyuz changes
+  description: Старая командирская сумка красноармейца времён революций, однако получившая модернизацию редспейс технологиями. Выглядит потрёпанной.
+  # DS14-end
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

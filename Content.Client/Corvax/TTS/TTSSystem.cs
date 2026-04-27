@@ -111,9 +111,11 @@ public sealed class TTSSystem : EntitySystem
         AudioResource? audioResource = null;
         ResPath? filePath = null;
 
+        // DS14-PoliticalLoudspeaker-start: political loudspeaker boosts local TTS playback
         var audioParams = AudioParams.Default
-            .WithVolume(AdjustVolume(ev.IsWhisper, ev.IsRadio))
-            .WithMaxDistance(AdjustDistance(ev.IsWhisper));
+            .WithVolume(AdjustVolume(ev.IsWhisper, ev.IsRadio, ev.VolumeMultiplier))
+            .WithMaxDistance(AdjustDistance(ev.IsWhisper, ev.DistanceMultiplier));
+        // DS14-PoliticalLoudspeaker-end
 
         // Если есть обычные данные TTS — готовим ресурс
         if (hasData)
@@ -150,7 +152,7 @@ public sealed class TTSSystem : EntitySystem
             _contentRoot.RemoveFile(filePath.Value);
     }
 
-    private float AdjustVolume(bool isWhisper, bool isRadio)
+    private float AdjustVolume(bool isWhisper, bool isRadio, float volumeMultiplier) // DS14-PoliticalLoudspeaker
     {
         var volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volume);
 
@@ -163,11 +165,15 @@ public sealed class TTSSystem : EntitySystem
             volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volumeRadio);
         }
 
+        if (!isRadio && volumeMultiplier > 1f) // DS14-PoliticalLoudspeaker
+            volume += SharedAudioSystem.GainToVolume(volumeMultiplier);
+
         return volume;
     }
 
-    private float AdjustDistance(bool isWhisper)
+    private float AdjustDistance(bool isWhisper, float distanceMultiplier) // DS14-PoliticalLoudspeaker
     {
-        return isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
+        var baseDistance = isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
+        return baseDistance * MathF.Max(distanceMultiplier, 0f); // DS14-PoliticalLoudspeaker
     }
 }

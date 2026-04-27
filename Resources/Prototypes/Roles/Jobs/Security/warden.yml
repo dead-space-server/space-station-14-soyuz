@@ -55,12 +55,14 @@
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
     ears: ClothingHeadsetSecurity
+    gloves: ClothingHandsGlovesCombat # DS14-Soyuz
   storage:
     back:
     - Flash
     - HyperLinkBookCorporateLaw
     - HyperLinkBookSOPSecurity
     - ERTloadoutSecuritySecondary # DS14
+    - ForensicScanner #DS14-Soyuz
 
 - type: chameleonOutfit
   id: WardenChameleonOutfit

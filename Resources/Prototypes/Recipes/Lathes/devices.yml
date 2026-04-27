@@ -255,3 +255,26 @@
   completetime: 3
   materials:
     Steel: 100
+
+# DS14-start: Polaroid crafting
+- type: latheRecipe
+  id: PolaroidCamera
+  result: PolaroidCamera
+  categories:
+  - Service
+  completetime: 3
+  materials:
+    Plastic: 2500
+    Glass: 400
+    Gold: 100
+
+- type: latheRecipe
+  id: PolaroidCartridge
+  result: PolaroidCartridge
+  categories:
+  - Service
+  completetime: 2
+  materials:
+    Plastic: 500
+    Plasma: 100
+# DS14-end

@@ -344,6 +344,7 @@
     children:
     # - id: WeaponEnergyShotgun # DS14
     # - id: BookSpaceLaw # DS14
+    - id: SOCCircuitBoard # DS14-Soyuz
     - id: BoxEncryptionKeySecurity
     - id: CigarGoldCase
       prob: 0.50

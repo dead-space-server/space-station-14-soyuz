@@ -1,7 +1,9 @@
 - type: entity
   id: BasePortal
   abstract: true
-  name: bluespace portal
+  # DS14-start: Soyuz changes
+  name: redspace portal
+  # DS14-end
   description: Transports you to a linked destination!
   components:
   - type: Transform
@@ -47,7 +49,9 @@
     layers:
     - state: portal-blue
   - type: PointLight
-    color: SkyBlue
+    # DS14-start: Soyuz changes
+    color: "#d61f45"
+    # DS14-end
     radius: 3
     energy: 1
     netsync: false
@@ -76,11 +80,15 @@
   - type: Sprite
     noRot: true
     sprite: Structures/Machines/gateway.rsi
-    color: SkyBlue
+    # DS14-start: Soyuz changes
+    color: "#d61f45"
+    # DS14-end
     layers:
     - state: portal
   - type: PointLight
-    color: SkyBlue
+    # DS14-start: Soyuz changes
+    color: "#d61f45"
+    # DS14-end
     radius: 3
     energy: 1
     netsync: false

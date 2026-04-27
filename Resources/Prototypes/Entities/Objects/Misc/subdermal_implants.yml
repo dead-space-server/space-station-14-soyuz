@@ -115,7 +115,9 @@
   parent: BaseSubdermalImplant
   id: StorageImplant
   name: storage implant
-  description: This implant grants hidden storage within a person's body using bluespace technology.
+  # DS14-start: Soyuz changes
+  description: This implant grants hidden storage within a person's body using redspace technology.
+  # DS14-end
   categories: [ HideSpawnMenu ]
   components:
     - type: StorageImplant

@@ -474,7 +474,9 @@
   parent: [BaseBrandedLighter, BaseCentcommContraband]
   id: CentCommFlippo
   name: Gilded CentComm Flippo
-  description: "An Ornate, jade embossed and gilded flippo frame containing a bluespace powered jet. The latch is secured by a miniature access reader that only responds to CentComm officials. The nicest lighter known to man."
+  # DS14-start: Soyuz changes
+  description: "An Ornate, jade embossed and gilded flippo frame containing a redspace powered jet. The latch is secured by a miniature access reader that only responds to CentComm officials. The nicest lighter known to man."
+  # DS14-end
   suffix: DO NOT MAP
   components:
   - type: Sprite

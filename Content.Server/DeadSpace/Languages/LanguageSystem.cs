@@ -9,6 +9,7 @@ using Robust.Server.Player;
 using Content.Shared.Chat;
 using System.Linq;
 using Content.Shared.Polymorph;
+using Content.Shared.PoliticalLoudspeaker; // DS14-PoliticalLoudspeaker
 using Robust.Shared.GameStates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ public sealed class LanguageSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-PoliticalLoudspeaker
     public static readonly ProtoId<LanguagePrototype> DefaultLanguageId = "GeneralLanguage";
     private readonly Dictionary<ProtoId<LanguagePrototype>, List<Regex>> _regexCache = new();
     public override void Initialize()
@@ -230,6 +232,11 @@ public sealed class LanguageSystem : EntitySystem
             return false;
 
         float range = isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
+
+        // DS14-PoliticalLoudspeaker-start: lexicon TTS should match extended local speech radius
+        if (!isWhisper)
+            range *= _politicalLoudspeaker.GetSpeechModifiers(sourceUid).SpeechRangeMultiplier;
+        // DS14-PoliticalLoudspeaker-end
 
         var ents = _lookup.GetEntitiesInRange<ActorComponent>(_transform.GetMapCoordinates(sourceUid, Transform(sourceUid)), range).ToList();
 

@@ -51,6 +51,7 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
   - MegaSprayBottle
+  - WireBrushElectrical # DS14
   - BagOfSummoningGarbage # DS14
 
 - type: latheRecipePack
@@ -58,6 +59,10 @@
   recipes:
   - SynthesizerInstrument
   - PushHorn
+  # DS14-start: T1 service NIO unlocks
+  - PolaroidCamera
+  - PolaroidCartridge
+  # DS14-end
 
 - type: latheRecipePack
   id: ServiceBoards

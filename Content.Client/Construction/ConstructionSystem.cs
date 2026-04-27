@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared.Atmos; // DS14
 using Content.Client.Popups;
 using Content.Shared.Construction;
 using Content.Shared.Construction.Prototypes;
@@ -15,6 +16,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using DrawDepth = Content.Shared.DrawDepth.DrawDepth; // DS14
 
 namespace Content.Client.Construction
 {
@@ -34,6 +36,8 @@ namespace Content.Client.Construction
         private readonly Dictionary<string, ConstructionGuide> _guideCache = new();
 
         private readonly Dictionary<string, string> _recipesMetadataCache = [];
+        private int _ghostPreviewRevision; // DS14
+        private int _lastAppliedGhostPreviewRevision; // DS14
 
         public bool CraftingEnabled { get; private set; }
 
@@ -48,6 +52,7 @@ namespace Content.Client.Construction
             SubscribeLocalEvent<LocalPlayerAttachedEvent>(HandlePlayerAttached);
             SubscribeNetworkEvent<AckStructureConstructionMessage>(HandleAckStructure);
             SubscribeNetworkEvent<ResponseConstructionGuide>(OnConstructionGuideReceived);
+            SubscribeNetworkEvent<ResponseConstructionGhostsPreviewMessage>(HandleGhostPreviewResponse); // DS14
 
             CommandBinds.Builder
                 .Bind(ContentKeyFunctions.OpenCraftingMenu,
@@ -64,7 +69,7 @@ namespace Content.Client.Construction
 
         private void HandleGhostComponentShutdown(EntityUid uid, ConstructionGhostComponent component, ComponentShutdown args)
         {
-            ClearGhost(component.GhostId);
+            ClearGhost(component.GhostId, refreshPreview: false); // DS14
         }
 
         public bool TryGetRecipePrototype(string constructionProtoId, [NotNullWhen(true)] out string? targetProtoId)
@@ -195,7 +200,8 @@ namespace Content.Client.Construction
         private void HandleAckStructure(AckStructureConstructionMessage msg)
         {
             // We get sent a NetEntity but it actually corresponds to our local Entity.
-            ClearGhost(msg.GhostId);
+            ClearGhost(msg.GhostId, refreshPreview: false); // DS14
+            RequestGhostPreview(); // DS14
         }
 
         private void HandlePlayerAttached(LocalPlayerAttachedEvent msg)
@@ -273,9 +279,6 @@ namespace Content.Client.Construction
             if (!TryGetRecipePrototype(prototype.ID, out var targetProtoId) || !PrototypeManager.TryIndex(targetProtoId, out EntityPrototype? targetProto))
                 return false;
 
-            if (GhostPresent(loc))
-                return false;
-
             var predicate = GetPredicate(prototype.CanBuildInImpassable, _transformSystem.ToMapCoordinates(loc));
             if (!_examineSystem.InRangeUnOccluded(user, loc, 20f, predicate: predicate))
                 return false;
@@ -286,6 +289,7 @@ namespace Content.Client.Construction
             ghost = Spawn("constructionghost", loc);
             var comp = Comp<ConstructionGhostComponent>(ghost.Value);
             comp.Prototype = prototype;
+            comp.TargetPrototype = targetProtoId; // DS14
             comp.GhostId = ghost.GetHashCode();
             Comp<TransformComponent>(ghost.Value).LocalRotation = dir.ToAngle();
             _ghosts.Add(comp.GhostId, ghost.Value);
@@ -317,11 +321,17 @@ namespace Content.Client.Construction
             else
                 return false;
 
+            // DS14-start: construction ghosts for underfloor atmos devices must stay visible above walls/furniture.
+            _sprite.SetDrawDepth((ghost.Value, sprite), (int) DrawDepth.Ghosts);
+            // DS14-end
             _sprite.SetColor((ghost.Value, sprite), new Color(48, 255, 48, 128));
 
             if (prototype.CanBuildInImpassable)
                 EnsureComp<WallMountComponent>(ghost.Value).Arc = new(Math.Tau);
 
+            // DS14-start: let the server validate stacked ghosts and compute real atmos preview visuals.
+            RequestGhostPreview(comp.GhostId);
+            // DS14-end
             return true;
         }
 
@@ -349,19 +359,91 @@ namespace Content.Client.Construction
             return true;
         }
 
-        /// <summary>
-        /// Checks if any construction ghosts are present at the given position
-        /// </summary>
-        private bool GhostPresent(EntityCoordinates loc)
+        // DS14-start: ask the server to validate current construction ghosts and compute their real pipe preview state.
+        private void RequestGhostPreview(int? candidateGhostId = null)
         {
-            foreach (var ghost in _ghosts)
+            if (_ghosts.Count == 0)
+                return;
+
+            var ghosts = new List<ConstructionGhostPlan>(_ghosts.Count);
+            foreach (var ghostUid in _ghosts.Values)
             {
-                if (Comp<TransformComponent>(ghost.Value).Coordinates.Equals(loc))
-                    return true;
+                if (!TryComp<ConstructionGhostComponent>(ghostUid, out var ghostComp) ||
+                    ghostComp.Prototype == null)
+                {
+                    continue;
+                }
+
+                var ghostXform = Comp<TransformComponent>(ghostUid);
+                ghosts.Add(new ConstructionGhostPlan(
+                    ghostComp.GhostId,
+                    GetNetCoordinates(ghostXform.Coordinates),
+                    ghostComp.Prototype.ID,
+                    ghostXform.LocalRotation));
             }
 
-            return false;
+            if (ghosts.Count == 0)
+                return;
+
+            var revision = ++_ghostPreviewRevision;
+            RaiseNetworkEvent(new RequestConstructionGhostsPreviewMessage(
+                revision,
+                candidateGhostId.HasValue,
+                candidateGhostId ?? default,
+                ghosts));
         }
+
+        private void HandleGhostPreviewResponse(ResponseConstructionGhostsPreviewMessage msg)
+        {
+            if (msg.Revision < _lastAppliedGhostPreviewRevision)
+                return;
+
+            _lastAppliedGhostPreviewRevision = msg.Revision;
+
+            if (msg.HasCandidateGhostId && !msg.CandidateAccepted)
+            {
+                ClearGhost(msg.CandidateGhostId, refreshPreview: false);
+                _popupSystem.PopupCursor(Loc.GetString("construction-system-ghost-stack-invalid"));
+            }
+
+            var previews = msg.Ghosts.ToDictionary(ghost => ghost.GhostId);
+            foreach (var ghostUid in _ghosts.Values)
+            {
+                if (!TryComp<ConstructionGhostComponent>(ghostUid, out var ghostComp) ||
+                    !TryComp<SpriteComponent>(ghostUid, out var sprite))
+                {
+                    continue;
+                }
+
+                ApplyPipeGhostPreview((ghostUid, sprite), previews.GetValueOrDefault(ghostComp.GhostId));
+            }
+        }
+
+        private void ApplyPipeGhostPreview(Entity<SpriteComponent> ghost, ConstructionGhostPreviewData? preview)
+        {
+            var rotation = Transform(ghost).LocalRotation;
+
+            foreach (var layerKey in Enum.GetValues<PipeConnectionLayer>())
+            {
+                for (byte i = 0; i < Enum.GetValues<Content.Shared.Atmos.Components.AtmosPipeLayer>().Length; i++)
+                {
+                    var layerName = layerKey.ToString() + i.ToString();
+                    if (!_sprite.LayerMapTryGet(ghost.AsNullable(), layerName, out var key, false))
+                        continue;
+
+                    var visible = false;
+                    if (preview is { HasPipeVisualState: true } && i < preview.PipeLayers)
+                    {
+                        var directions = (PipeDirection)(15 & (preview.PipeVisualState >> (PipeDirectionHelpers.PipeDirections * i)));
+                        var connectedDirections = directions.RotatePipeDirection(-rotation);
+                        visible = connectedDirections.HasDirection((PipeDirection) layerKey);
+                    }
+
+                    ghost.Comp[key].Visible = visible;
+                }
+            }
+        }
+        // DS14-end
 
         public void TryStartConstruction(EntityUid ghostId, ConstructionGhostComponent? ghostComp = null)
         {
@@ -389,13 +471,16 @@ namespace Content.Client.Construction
         /// <summary>
         /// Removes a construction ghost entity with the given ID.
         /// </summary>
-        public void ClearGhost(int ghostId)
+        public void ClearGhost(int ghostId, bool refreshPreview = true)
         {
             if (!_ghosts.TryGetValue(ghostId, out var ghost))
                 return;
 
             QueueDel(ghost);
             _ghosts.Remove(ghostId);
+
+            if (refreshPreview)
+                RequestGhostPreview();
         }
 
         /// <summary>
@@ -410,6 +495,16 @@ namespace Content.Client.Construction
 
             _ghosts.Clear();
         }
+
+        // DS14-start: copied pipe preview layer keys used by construction ghosts, which do not have the real pipe component.
+        private enum PipeConnectionLayer : byte
+        {
+            NorthConnection = PipeDirection.North,
+            SouthConnection = PipeDirection.South,
+            EastConnection = PipeDirection.East,
+            WestConnection = PipeDirection.West,
+        }
+        // DS14-end
     }
 
     public sealed class CraftingAvailabilityChangedArgs : EventArgs

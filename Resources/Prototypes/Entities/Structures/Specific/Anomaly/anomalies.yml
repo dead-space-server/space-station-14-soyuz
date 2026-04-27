@@ -276,7 +276,9 @@
 - type: entity
   id: AnomalyBluespace
   parent: BaseAnomaly
-  suffix: Bluespace
+  # DS14-start: Soyuz changes
+  suffix: Redspace
+  # DS14-end
   components:
   - type: Sprite
     layers:
@@ -288,7 +290,9 @@
   - type: PointLight
     radius: 2.0
     energy: 7.5
-    color: "#00ccff"
+    # DS14-start: Soyuz changes
+    color: "#ff3d5c"
+    # DS14-end
     castShadows: false
   - type: BluespaceAnomaly
   - type: Portal

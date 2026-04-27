@@ -93,6 +93,55 @@
     threshold: 0.5
 
 - type: alarmThreshold
+  id: stationNitryl
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.01
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationFixirium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.01
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationHydrogen
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.04
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationNitriatium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.01
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationHilium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.01
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationBrizidium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.01
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationIprit
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.001
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
   id: ignore # just ignore nitrogen??? ??? ???
   ignore: true
 

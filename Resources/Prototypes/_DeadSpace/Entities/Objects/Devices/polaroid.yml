@@ -8,6 +8,11 @@
     layer: 8
   - type: Eye
     drawFov: true
+    # DS14-start
+    visMask:
+      - Normal
+      - Polaroid
+    # DS14-end
     pvsScale: 0.8
 
 - type: entity
@@ -24,7 +29,7 @@
     size: Normal
   - type: Clothing
     sprite: Objects/Devices/travel_camera.rsi
-    quickEquip: true
+    quickEquip: false # DS14-value: true -> false
     slots:
     - neck
   - type: ActivatableUI
@@ -70,8 +75,8 @@
   - type: StaticPrice
     price: 60
   - type: PolaroidCartridge
-    maxAmount: 8
-    currentAmount: 4
+    maxAmount: 12
+    currentAmount: 12
 
 - type: entity
   parent: BaseItem
@@ -120,7 +125,7 @@
   - type: StorageFill
     contents:
     - id: PolaroidCartridge
-      amount: 4
+      amount: 4 # DS14-value: 6 -> 4 (fix integration tests: storage capacity overflow)
   - type: Sprite
     layers:
     - state: box

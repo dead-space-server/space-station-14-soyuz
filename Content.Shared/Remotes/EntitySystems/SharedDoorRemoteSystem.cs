@@ -6,9 +6,11 @@ using Content.Shared.Doors.Systems;
 using Content.Shared.Electrocution;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Remotes.Components;
+using Content.Shared.UserInterface;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
@@ -31,6 +33,8 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<DoorRemoteComponent, DoorRemoteModeChangeMessage>(OnDoorRemoteModeChange);
+        // DS14: вернуть старое переключение режимов пульта на Z вместо радиального UI.
+        SubscribeLocalEvent<DoorRemoteComponent, UseInHandEvent>(OnUseInHand, before: [typeof(ActivatableUISystem)]);
         SubscribeLocalEvent<DoorRemoteComponent, BeforeRangedInteractEvent>(OnBeforeInteract);
     }
 
@@ -39,6 +43,40 @@ public abstract class SharedDoorRemoteSystem : EntitySystem
         ent.Comp.Mode = args.Mode;
         Dirty(ent);
     }
+
+    // DS14-start: циклическая смена режима пульта на Z.
+    private void OnUseInHand(Entity<DoorRemoteComponent> ent, ref UseInHandEvent args)
+    {
+        if (args.Handled || ent.Comp.Options.Count == 0)
+            return;
+
+        args.Handled = true;
+
+        var currentIndex = ent.Comp.Options.FindIndex(option => option.Mode == ent.Comp.Mode);
+        var nextIndex = (currentIndex + 1) % ent.Comp.Options.Count;
+
+        if (currentIndex < 0)
+            nextIndex = 0;
+
+        ent.Comp.Mode = ent.Comp.Options[nextIndex].Mode;
+        ent.Comp.IsStatusControlUpdateRequired = true; // DS14: обновляем статус сразу на клиентском предикте.
+        Dirty(ent);
+
+        _popup.PopupClient(Loc.GetString(GetSwitchStateLocId(ent.Comp.Mode)), ent, args.User);
+    }
+
+    private static string GetSwitchStateLocId(OperatingMode mode)
+    {
+        return mode switch
+        {
+            OperatingMode.OpenClose => "door-remote-switch-state-open-close",
+            OperatingMode.ToggleBolts => "door-remote-switch-state-toggle-bolts",
+            OperatingMode.ToggleEmergencyAccess => "door-remote-switch-state-toggle-emergency-access",
+            OperatingMode.ToggleOvercharge => "door-remote-toggle-eletrify-text",
+            _ => "door-remote-invalid-text"
+        };
+    }
+    // DS14-end
 
     private void OnBeforeInteract(Entity<DoorRemoteComponent> entity, ref BeforeRangedInteractEvent args)
     {

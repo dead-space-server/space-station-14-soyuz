@@ -371,7 +371,9 @@
   parent: RCD
   suffix: Admeme
   name: experimental RCD
-  description: A bluespace-enhanced rapid construction device that passively generates its own compressed matter.
+  # DS14-start: Soyuz changes
+  description: A redspace-enhanced rapid construction device that passively generates its own compressed matter.
+  # DS14-end
   components:
   - type: AutoRecharge
     rechargeDuration: 1
@@ -379,8 +381,10 @@
 - type: entity
   name: compressed matter
   parent: BaseItem
+  # DS14-start: Soyuz changes
   id: RCDAmmo
-  description: A cartridge of raw matter compacted by bluespace technology. Used in rapid construction devices.
+  description: A cartridge of raw matter compacted by redspace technology. Used in rapid construction devices.
+  # DS14-end
   components:
   - type: RCDAmmo
   - type: Sprite

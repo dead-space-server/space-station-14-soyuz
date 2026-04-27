@@ -30,7 +30,9 @@
   parent: ClothingHandsBase
   id: ADTClothingHandsSupremeCommanderGloves
   name: перчатки высшего главнокомандующего
-  description: Эти перчатки стоят как 10 подобных станций, украшены блюспейс шитьем, единственные в своем роде.
+  # DS14-start: Soyuz changes
+  description: Эти перчатки стоят как 10 подобных станций, украшены редспейс шитьем, единственные в своем роде.
+  # DS14-end
   components:
   - type: Sprite
     sprite: _ADT/Clothing/Hands/Gloves/supreme-commander-gloves.rsi

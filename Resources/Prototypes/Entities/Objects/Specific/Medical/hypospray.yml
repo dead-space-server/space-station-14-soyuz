@@ -177,7 +177,9 @@
   id: AdminHypo
   name: experimental hypospray
   suffix: Admeme
-  description: The ultimate application of bluespace technology and rapid chemical administration.
+  # DS14-start: Soyuz changes
+  description: The ultimate application of redspace technology and rapid chemical administration.
+  # DS14-end
   components:
     - type: SolutionContainerManager
       solutions:

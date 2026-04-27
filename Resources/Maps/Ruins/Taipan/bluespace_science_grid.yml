@@ -1360,7 +1360,9 @@ entities:
   - uid: 9624
     components:
     - type: MetaData
-      name: нестабильная блюспейс аномалия
+      # DS14-start: Soyuz changes
+      name: нестабильная редспейс аномалия
+      # DS14-end
     - type: Transform
       pos: 53.504578,-26.20995
       parent: 9593

@@ -1,11 +1,13 @@
 using System; // DS-14
 using System.Collections.Generic; // DS-14
 using Content.Shared.Audio.Jukebox;
+using Content.Shared.DeadSpace.CCCCVars; // DS14-jukebox-mute
 using Content.Shared.DeadSpace.Ports.Jukebox; // DS-14
 using Robust.Client.Audio; // DS-14
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Shared.Audio.Components; // DS-14
+using Robust.Shared.Configuration; // DS14-jukebox-mute
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Audio.Jukebox;
@@ -16,6 +18,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly AnimationPlayerSystem _animationPlayer = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // DS14-jukebox-mute
     [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
     // DS-14 Start: Store a transient client-only override per jukebox so menu drags can
@@ -217,6 +220,11 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
     private float GetEffectiveVolume(EntityUid jukebox, JukeboxComponent component)
     {
+        // DS14-start: hard mute from options should silence all jukebox streams.
+        if (_cfg.GetCVar(CCCCVars.JukeboxMusicMute))
+            return 0f;
+        // DS14-end
+
         if (!_volumeOverrides.TryGetValue(jukebox, out var volume))
             return component.Volume;
 

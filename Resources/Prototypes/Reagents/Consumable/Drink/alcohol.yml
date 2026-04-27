@@ -212,7 +212,7 @@
           type: [ Dwarf ]
           inverted: true
       - !type:Drunk
-        boozePower: 2
+        boozePower: 4 # DS14-value: 2 -> 4
 
 - type: reagent
   id: Gin

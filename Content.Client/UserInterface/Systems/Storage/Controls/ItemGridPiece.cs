@@ -6,6 +6,7 @@ using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.Utility;
 
 namespace Content.Client.UserInterface.Systems.Storage.Controls;
 
@@ -169,7 +170,8 @@ public sealed class ItemGridPiece : Control, IEntityControl
             (boundingGrid.Height + 1) * size.Y + iconOffset.Y);
         var iconRotation = Location.Rotation + Angle.FromDegrees(itemComponent.StoredRotation);
 
-        if (itemComponent.StoredSprite is { } storageSprite)
+        // DS14-start: ignore stale inherited storedSprite for resprited items
+        if (TryGetStorageSprite((Entity, itemComponent), out var storageSprite))
         {
             var scale = 2 * UIScale;
             var sprite = _entityManager.System<SpriteSystem>().Frame0(storageSprite);
@@ -198,6 +200,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
                 eyeRotation: iconRotation,
                 overrideDirection: Direction.South);
         }
+        // DS14-end
 
         if (maybeMarkedPos is {} markedPos)
         {
@@ -286,6 +289,28 @@ public sealed class ItemGridPiece : Control, IEntityControl
             default:
                 return null;
         }
+    }
+
+    private bool TryGetStorageSprite(Entity<ItemComponent> item, out SpriteSpecifier storageSprite)
+    {
+        if (item.Comp.StoredSprite is not { } storedSprite)
+        {
+            storageSprite = default!;
+            return false;
+        }
+
+        // If an entity was resprited but inherited storedSprite points to another RSI, render live sprite instead.
+        if (storedSprite is SpriteSpecifier.Rsi storedRsi &&
+            _entityManager.TryGetComponent(item, out SpriteComponent? sprite) &&
+            sprite.BaseRSI != null &&
+            storedRsi.RsiPath != sprite.BaseRSI.Path)
+        {
+            storageSprite = default!;
+            return false;
+        }
+
+        storageSprite = storedSprite;
+        return true;
     }
 
     public static Vector2 GetCenterOffset(Entity<ItemComponent?> entity, ItemStorageLocation location, IEntityManager entMan)

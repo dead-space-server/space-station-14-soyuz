@@ -53,4 +53,4 @@ uplink-bundles-wizardoutfitbag-desc = Хороший набор содержащ
 
 # Pointless
 uplink-pointless-spellburger-name = магический бургер
-uplink-pointless-spellburger-desc = Вкуснейший бургер созданный магией и блюспейсом.
+uplink-pointless-spellburger-desc = Вкуснейший бургер созданный магией и редспейсом.

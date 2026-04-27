@@ -167,9 +167,16 @@ spray-painter-style-cratesecure-weapon = Оружие
 # Canisters
 spray-painter-style-canisters-air = Воздух
 spray-painter-style-canisters-ammonia = Аммиак
+spray-painter-style-canisters-brizidium = Бризидиум # DS14
 spray-painter-style-canisters-carbon-dioxide = Углекислый газ
 spray-painter-style-canisters-frezon = Фрезон
+spray-painter-style-canisters-fixirium = Фиксириум # DS14
+spray-painter-style-canisters-hilium = Хилиум # DS14
+spray-painter-style-canisters-hydrogen = Водород # DS14
+spray-painter-style-canisters-iprit = Иприт # DS14
 spray-painter-style-canisters-nitrogen = Азот
+spray-painter-style-canisters-nitriatium = Нитриатиум # DS14
+spray-painter-style-canisters-nitryl = Диоксид азота # DS14
 spray-painter-style-canisters-nitrous-oxide = Оксид азота
 spray-painter-style-canisters-oxygen = Кислород
 spray-painter-style-canisters-plasma = Плазма

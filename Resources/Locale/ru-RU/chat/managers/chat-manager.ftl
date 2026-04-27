@@ -31,6 +31,7 @@ chat-manager-sender-announcement-wrap-message-lang = [font size=14][bold]Объ�
 chat-manager-entity-say-wrap-message-lang = [BubbleHeader][bold][Name]{ $entityName }[/Name][/bold][/BubbleHeader] { $verb } [font size=11][italic][BubbleHeader]({ $language }): [font={ $fontType } size={ $fontSize } ]"[BubbleContent]{ $message }[/BubbleContent]"[/font]
 chat-manager-entity-say-bold-wrap-message-lang = [BubbleHeader][bold][Name]{ $entityName }[/Name][/bold][/BubbleHeader] { $verb } [font size=11][italic][BubbleHeader]({ $language }): [font={ $fontType } size={ $fontSize }]"[BubbleContent][bold]{ $message }[/bold][/BubbleContent]"[/font]
 chat-manager-entity-whisper-wrap-message-lang = [font size=11][italic][BubbleHeader][Name]{ $entityName }[/Name][/BubbleHeader] шепчет [font size=11][italic][BubbleHeader]({ $language }): "[BubbleContent]{ $message }[/BubbleContent]"[/italic][/font]
+
 # DS14-end
 
 chat-manager-entity-whisper-unknown-wrap-message = [font size=11][italic][BubbleHeader]Кто-то[/BubbleHeader] шепчет, "[BubbleContent]{ $message }[/BubbleContent]"[/italic][/font]

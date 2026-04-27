@@ -16,7 +16,9 @@
   parent: ClothingBackpack
   id: ClothingDeathSquadronBackpack
   name: death squadron backpack
-  description: A spacious backpack using bluespace technology.
+  # DS14-start: Soyuz changes
+  description: A spacious backpack using redspace technology.
+  # DS14-end
   components:
   - type: Sprite
     sprite: _Corvax/Back/Backpacks/deathsquad-backpack.rsi

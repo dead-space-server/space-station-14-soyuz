@@ -1,5 +1,5 @@
 - type: entity
-  id: MaterialMarketplaceTerminal
+  id: MaterialMarketplace
   parent: [ BaseMachinePowered, ConstructibleMachine ]
   name: material marketplace terminal
   description: A terminal for buying and selling materials. Just add capitalism!

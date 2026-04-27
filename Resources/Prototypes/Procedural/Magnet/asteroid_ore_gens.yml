@@ -11,11 +11,20 @@
     OreUranium: 0.20
     OreArtifactFragment: 0.10
     OreBananium: 0.10
+    OreBluespace: 0.25
 
 - type: oreDunGen
   id: OreIron
   replacement: AsteroidRock
   entity: AsteroidRockTin
+  count: 5
+  minGroupSize: 5
+  maxGroupSize: 7
+
+- type: oreDunGen
+  id: OreBluespace
+  replacement: AsteroidRock
+  entity: WallRockBluespace
   count: 5
   minGroupSize: 5
   maxGroupSize: 7

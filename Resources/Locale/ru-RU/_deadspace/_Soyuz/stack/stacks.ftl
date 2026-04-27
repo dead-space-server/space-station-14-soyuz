@@ -13,3 +13,4 @@ stack-tungsten-ingot =
     } вольфрама
 stack-tungsten-ore = руда вольфрама
 blue-insulating-tape-stack = Синяя изолента
+stack-bamboo-mat-tile = бамбуковый мат

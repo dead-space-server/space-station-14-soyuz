@@ -1,5 +1,52 @@
+# Ставить новые теги строго в алфавитном порядке A-Z
+
 - type: Tag
-  id: PoliceBetaLegs
+  id: BlueInsulatingTape
+
+- type: Tag
+  id: ClarkeCentralControlModule
+
+- type: Tag
+  id: ClarkeEquipment
+
+- type: Tag
+  id: ClarkeLArm
+
+- type: Tag
+  id: ClarkeLLeg
+
+- type: Tag
+  id: ClarkePeripheralsControlModule
+
+- type: Tag
+  id: ClarkeRArm
+
+- type: Tag
+  id: ClarkeRLeg
+
+- type: Tag
+  id: ExperimentalCloningPodMachineCircuitboard
+
+- type: Tag
+  id: IgnoreBedHealing
+
+- type: Tag
+  id: MagazineAntiMaterielSV
+
+- type: Tag
+  id: MagazineLightRifleVSS
+
+- type: Tag
+  id: MagazineMagnumSVD
+
+- type: Tag
+  id: MagazinePistolMTS
+
+- type: Tag
+  id: MagazineRifleASH
+
+- type: Tag
+  id: MagazineShotgunSaiga
 
 - type: Tag
   id: PoliceBetaBody
@@ -11,27 +58,4 @@
   id: PoliceBetaHead
 
 - type: Tag
-  id: MagazineLightRifleVSS
-
-- type: Tag
-  id: MagazineRifleASH
-
-- type: Tag
-  id: MagazineShotgunSaiga
-
-- type: Tag
-  id: MagazineMagnumSVD
-
-- type: Tag
-  id: MagazineAntiMaterielSV
-
-- type: Tag
-  id: MagazinePistolMTS
-
-- type: Tag
-  id: ExperimentalCloningPodMachineCircuitboard
-
-# DS14-start: Soyuz repair consumables
-- type: Tag
-  id: BlueInsulatingTape
-# DS14-end
+  id: PoliceBetaLegs

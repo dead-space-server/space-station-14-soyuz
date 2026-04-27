@@ -5,6 +5,7 @@ namespace Content.Shared.Bed.Components;
 /// <summary>
 /// Tracking component added to entities buckled to stasis beds.
 /// </summary>
-[RegisterComponent, NetworkedComponent]
-[Access(typeof(BedSystem))]
-public sealed partial class StasisBedBuckledComponent : Component;
+[RegisterComponent]
+public sealed partial class StasisBedBuckledComponent : Component
+{
+}

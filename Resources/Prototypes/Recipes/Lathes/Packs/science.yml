@@ -112,6 +112,10 @@
   - HonkerTargetingElectronics
   - HamtrCentralElectronics
   - HamtrPeripheralsElectronics
+  # DS14-Soyuz-start
+  - ClarkeCentralElectronics
+  - ClarkePeripheralsElectronics
+  # DS14-Soyuz-end
 
 - type: latheRecipePack
   id: ShuttleBoards

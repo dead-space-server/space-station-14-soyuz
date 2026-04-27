@@ -81,7 +81,7 @@
   name: materials-bananium
   unit: materials-unit-bunch
   icon: { sprite: Objects/Materials/materials.rsi, state: bananium }
-  color: "#32a852"
+  color: "#fff269" # DS14-Soyuz
   price: 1.0 # $100 for 1 unit
 
 - type: material

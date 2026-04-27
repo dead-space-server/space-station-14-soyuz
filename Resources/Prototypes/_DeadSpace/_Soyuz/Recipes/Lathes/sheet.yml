@@ -27,3 +27,17 @@
   completetime: 4
   materials:
     IngotTungsten: 6000
+
+- type: latheRecipe
+  id: MaterialBluespaceCrystal
+  result: MaterialBluespaceCrystal1
+  completetime: 0
+  materials:
+    RawBluespaceCrystal: 100
+
+- type: latheRecipe
+  id: SheetUranium1
+  result: SheetUranium1
+  completetime: 0
+  materials:
+    RawUranium: 100

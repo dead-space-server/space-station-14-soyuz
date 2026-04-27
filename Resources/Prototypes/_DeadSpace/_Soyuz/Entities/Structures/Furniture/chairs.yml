@@ -1,0 +1,16 @@
+- type: entity
+  name: бамбуковый стул
+  description: Красивый бамбуковый стул.
+  id: StoolBamboo
+  parent: StoolBase
+  abstract: true
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Structures/Furniture/chairs.rsi
+    state: bamboo-stool
+    noRot: true
+#  - type: Construction
+#    graph: Seat
+#    node: stoolBar

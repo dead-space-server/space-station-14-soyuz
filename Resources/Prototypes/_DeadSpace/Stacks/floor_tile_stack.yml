@@ -109,3 +109,11 @@
   name: stack-floor-tile-uranium
   spawn: FloorTileItemUranium
   maxCount: 30
+
+# Carpept
+
+- type: stack
+  id: FloorBambooMat
+  name: stack-bamboo-mat-tile
+  spawn: FloorBambooMatItem
+  maxCount: 30

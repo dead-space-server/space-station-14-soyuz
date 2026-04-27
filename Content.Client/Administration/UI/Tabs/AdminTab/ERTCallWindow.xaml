@@ -37,9 +37,31 @@
             <ItemList Name="ResponceList" MinSize="320 150" Margin="0,0,12,0" />
             <PanelContainer StyleClasses="panel" MinSize="240 120" Margin="0">
                 <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="12">
-                    <Label Text="Цель вызова:" />
-                    <LineEdit Name="ReasonResponceEdit" />
-                    <Button Name="ResponceErtButton" Text="Отправить отряд" Margin="0,8,0,0" />
+                    <BoxContainer Orientation="Horizontal" SeparationOverride="12" VerticalExpand="True">
+                        <ItemList Name="ApprovedRequestsList" MinSize="420 420" HorizontalExpand="True" VerticalExpand="True" />
+                        <PanelContainer StyleClasses="panel" MinSize="340 420">
+                            <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="12" VerticalExpand="True">
+                                <Label Text="{Loc 'ert-admin-selected-requester'}" />
+                                <Label Name="ApprovedRequesterLabel" StyleClasses="LabelSubText" />
+
+                                <Label Text="{Loc 'ert-admin-arrival-label'}" Margin="0,8,0,0" />
+                                <LineEdit Name="ArrivalSeconds" />
+                                <Button Name="SetArrivalButton" Text="{Loc 'ert-admin-apply-button'}" />
+
+                                <Label Text="{Loc 'ert-admin-approved-reason-label'}" Margin="0,8,0,0" />
+                                <LineEdit Name="ReasonEdit" />
+                                <Button Name="SetReasonButton" Text="{Loc 'ert-admin-set-reason-button'}" />
+
+                                <Label Text="{Loc 'ert-admin-approved-team-label'}" Margin="0,8,0,0" />
+                                <ItemList Name="AutoSpawnTeamList" MinSize="0 120" VerticalExpand="True" />
+                                <Button Name="ChangeApprovedTeamButton" Text="{Loc 'ert-admin-set-team-button'}" />
+
+                                <Button Name="QueueAutoSpawnButton" Text="{Loc 'ert-admin-queue-auto-button'}" Margin="0,8,0,0" />
+                                <Button Name="MoveApprovedToManualButton" Text="{Loc 'ert-admin-move-to-manual-button'}" />
+                                <Button Name="CancelApprovedAutoSpawnButton" Text="{Loc 'ert-admin-cancel-auto-button'}" />
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
                 </BoxContainer>
             </PanelContainer>
         </BoxContainer>

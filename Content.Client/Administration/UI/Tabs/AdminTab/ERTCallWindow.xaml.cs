@@ -31,9 +31,10 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
             SetCooldownButton.OnPressed += _ => SetCooldown();
             SetPointsButton.OnPressed += _ => SetPoints();
             SetReasonButton.OnPressed += _ => SetReason();
-            ResponceErtButton.OnPressed += _ => CallErt();
-            ExpectedList.OnItemSelected += OnListSelected;
-            ResponceList.OnItemSelected += OnResponceListSelected;
+            ChangeApprovedTeamButton.OnPressed += _ => ChangeApprovedTeam();
+            QueueAutoSpawnButton.OnPressed += _ => QueueAutoSpawnRequest();
+            CancelApprovedAutoSpawnButton.OnPressed += _ => CancelApprovedRequest();
+            MoveApprovedToManualButton.OnPressed += _ => MoveApprovedToManual();
 
             if (_ertSystem != null)
                 _ertSystem.OnStateUpdated += PopulateFromSystem;
@@ -91,6 +92,159 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
             PointsEdit.Text = state.Points.ToString();
             CooldownSeconds.Text = state.CooldownSeconds.ToString();
+
+            UpdatePendingDetails();
+            UpdateApprovedDetails();
+            UpdateManualApprovedDetails();
+            UpdateButtonStates();
+        }
+
+        private void PopulateAutoSpawnTeamList()
+        {
+            var teams = _prototypeManager.EnumeratePrototypes<ErtTeamPrototype>()
+                .OrderBy(proto => proto.Name)
+                .ToArray();
+
+            AutoSpawnTeamList.Clear();
+
+            foreach (var proto in teams)
+            {
+                AutoSpawnTeamList.AddItem($"{proto.Name} ({proto.Price})", metadata: proto.ID);
+            }
+
+            ReselectByMetadata(AutoSpawnTeamList, _selectedAutoSpawnTeamProtoId);
+        }
+
+        private void PopulatePendingRequestsList(ErtAdminStateResponse state)
+        {
+            PendingRequestsList.Clear();
+
+            foreach (var entry in state.PendingRequests.OrderBy(e => e.RequestId))
+            {
+                PendingRequestsList.AddItem(
+                    $"#{entry.RequestId} {entry.Name} - {entry.SecondsRemaining}s ({entry.Price})",
+                    metadata: entry.RequestId);
+            }
+
+            ReselectByMetadata(PendingRequestsList, _selectedPendingRequestId);
+        }
+
+        private void PopulateApprovedRequestsList(ErtAdminStateResponse state)
+        {
+            ApprovedRequestsList.Clear();
+
+            foreach (var entry in state.ApprovedRequests.OrderBy(e => e.SecondsRemaining))
+            {
+                ApprovedRequestsList.AddItem(
+                    $"#{entry.RequestId} {entry.Name} - {entry.SecondsRemaining}s ({entry.Price})",
+                    metadata: entry.RequestId);
+            }
+
+            ReselectByMetadata(ApprovedRequestsList, _selectedApprovedRequestId);
+        }
+
+        private void PopulateManualApprovedRequestsList(ErtAdminStateResponse state)
+        {
+            ManualApprovedRequestsList.Clear();
+
+            foreach (var entry in state.ManualApprovedRequests.OrderBy(e => e.RequestId))
+            {
+                ManualApprovedRequestsList.AddItem(
+                    $"#{entry.RequestId} {entry.Name} ({entry.Price})",
+                    metadata: entry.RequestId);
+            }
+
+            ReselectByMetadata(ManualApprovedRequestsList, _selectedManualApprovedRequestId);
+        }
+
+        private void UpdatePendingDetails()
+        {
+            var state = _ertSystem.LastState;
+            var selected = state?.PendingRequests.FirstOrDefault(x => x.RequestId == _selectedPendingRequestId);
+
+            if (selected == null)
+                _selectedPendingRequestId = null;
+
+            PendingRequesterLabel.Text = selected?.RequestedByName ?? string.Empty;
+            PendingReasonLabel.SetMessage(selected?.CallReason ?? string.Empty);
+        }
+
+        private void UpdateApprovedDetails()
+        {
+            var state = _ertSystem.LastState;
+            var selected = state?.ApprovedRequests.FirstOrDefault(x => x.RequestId == _selectedApprovedRequestId);
+
+            if (selected == null)
+            {
+                _selectedApprovedRequestId = null;
+                ApprovedRequesterLabel.Text = string.Empty;
+                ArrivalSeconds.Text = string.Empty;
+                return;
+            }
+
+            ApprovedRequesterLabel.Text = selected.RequestedByName;
+            ArrivalSeconds.Text = selected.SecondsRemaining.ToString();
+            ReasonEdit.Text = selected.CallReason ?? string.Empty;
+        }
+
+        private void UpdateManualApprovedDetails()
+        {
+            var state = _ertSystem.LastState;
+            var selected = state?.ManualApprovedRequests.FirstOrDefault(x => x.RequestId == _selectedManualApprovedRequestId);
+
+            if (selected == null)
+                _selectedManualApprovedRequestId = null;
+
+            ManualApprovedRequesterLabel.Text = selected?.RequestedByName ?? string.Empty;
+            ManualApprovedReasonLabel.SetMessage(selected?.CallReason ?? string.Empty);
+        }
+
+        private void UpdateButtonStates()
+        {
+            var hasPendingSelection = _selectedPendingRequestId != null;
+            var hasApprovedSelection = _selectedApprovedRequestId != null;
+            var hasManualApprovedSelection = _selectedManualApprovedRequestId != null;
+            var hasAutoSpawnTeamSelection = !string.IsNullOrEmpty(_selectedAutoSpawnTeamProtoId);
+
+            RejectPendingButton.Disabled = !hasPendingSelection;
+            ApprovePendingManualButton.Disabled = !hasPendingSelection;
+            ApprovePendingAutoButton.Disabled = !hasPendingSelection;
+
+            SetArrivalButton.Disabled = !hasApprovedSelection;
+            SetReasonButton.Disabled = !hasApprovedSelection;
+            ChangeApprovedTeamButton.Disabled = !hasApprovedSelection || !hasAutoSpawnTeamSelection;
+            QueueAutoSpawnButton.Disabled = !hasAutoSpawnTeamSelection;
+            CancelApprovedAutoSpawnButton.Disabled = !hasApprovedSelection;
+            MoveApprovedToManualButton.Disabled = !hasApprovedSelection;
+
+            PromoteManualApprovedButton.Disabled = !hasManualApprovedSelection;
+        }
+
+        private void RejectPending()
+        {
+            if (_selectedPendingRequestId == null)
+                return;
+
+            _ertSystem.AdminRejectRequest(_selectedPendingRequestId.Value);
+            Refresh();
+        }
+
+        private void ApprovePendingManual()
+        {
+            if (_selectedPendingRequestId == null)
+                return;
+
+            _ertSystem.AdminApproveRequestManual(_selectedPendingRequestId.Value);
+            Refresh();
+        }
+
+        private void ApprovePendingAuto()
+        {
+            if (_selectedPendingRequestId == null)
+                return;
+
+            _ertSystem.AdminApproveRequestAuto(_selectedPendingRequestId.Value);
+            Refresh();
         }
 
         private void SetArrival()
@@ -106,8 +260,55 @@ namespace Content.Client.Administration.UI.Tabs.AdminTab
 
         private void Delete()
         {
-            if (_selectedProtoId == null) return;
-            _ertSystem?.AdminDeleteErt(_selectedProtoId);
+            if (_selectedApprovedRequestId == null)
+                return;
+
+            _ertSystem.AdminSetReason(_selectedApprovedRequestId.Value, ReasonEdit.Text);
+            Refresh();
+        }
+
+        private void ChangeApprovedTeam()
+        {
+            if (_selectedApprovedRequestId == null || string.IsNullOrEmpty(_selectedAutoSpawnTeamProtoId))
+                return;
+
+            _ertSystem.AdminSetApprovedTeam(_selectedApprovedRequestId.Value, _selectedAutoSpawnTeamProtoId);
+            Refresh();
+        }
+
+        private void QueueAutoSpawnRequest()
+        {
+            if (string.IsNullOrEmpty(_selectedAutoSpawnTeamProtoId))
+                return;
+
+            _ertSystem.QueueAutoApprovedRequest(_selectedAutoSpawnTeamProtoId, ReasonEdit.Text);
+            Refresh();
+        }
+
+        private void CancelApprovedRequest()
+        {
+            if (_selectedApprovedRequestId == null)
+                return;
+
+            _ertSystem.AdminDeleteErt(_selectedApprovedRequestId.Value);
+            Refresh();
+        }
+
+        private void MoveApprovedToManual()
+        {
+            if (_selectedApprovedRequestId == null)
+                return;
+
+            _ertSystem.AdminMoveApprovedRequestToManual(_selectedApprovedRequestId.Value);
+            Refresh();
+        }
+
+        private void PromoteManualApproved()
+        {
+            if (_selectedManualApprovedRequestId == null)
+                return;
+
+            _ertSystem.AdminPromoteManualApprovedRequest(_selectedManualApprovedRequestId.Value);
             Refresh();
         }
 

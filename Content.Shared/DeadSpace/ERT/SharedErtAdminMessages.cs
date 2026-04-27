@@ -12,6 +12,37 @@ namespace Content.Shared.DeadSpace.ERT
     [Serializable, NetSerializable]
     public sealed class ErtAdminEntry
     {
+        public int RequestId { get; }
+        public string ProtoId { get; }
+        public string Name { get; }
+        public int SecondsRemaining { get; }
+        public int Price { get; }
+        public string RequestedByName { get; }
+        public string? CallReason { get; }
+
+        public ErtPendingRequestEntry(
+            int requestId,
+            string protoId,
+            string name,
+            int secondsRemaining,
+            int price,
+            string requestedByName,
+            string? callReason = null)
+        {
+            RequestId = requestId;
+            ProtoId = protoId;
+            Name = name;
+            SecondsRemaining = secondsRemaining;
+            Price = price;
+            RequestedByName = requestedByName;
+            CallReason = callReason;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class ErtApprovedRequestEntry
+    {
+        public int RequestId { get; }
         public string ProtoId { get; }
         public string Name { get; }
         public int SecondsRemaining { get; }
@@ -112,6 +143,85 @@ namespace Content.Shared.DeadSpace.ERT
         {
             ProtoId = protoId;
             Reason = reason;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminRejectErtRequestMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminRejectErtRequestMessage(int requestId)
+        {
+            RequestId = requestId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminApproveErtRequestManualMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminApproveErtRequestManualMessage(int requestId)
+        {
+            RequestId = requestId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminApproveErtRequestAutoMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminApproveErtRequestAutoMessage(int requestId)
+        {
+            RequestId = requestId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminSetApprovedErtTeamMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+        public string ProtoId { get; }
+
+        public AdminSetApprovedErtTeamMessage(int requestId, string protoId)
+        {
+            RequestId = requestId;
+            ProtoId = protoId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminSendErtNowMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminSendErtNowMessage(int requestId)
+        {
+            RequestId = requestId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminPromoteManualApprovedErtMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminPromoteManualApprovedErtMessage(int requestId)
+        {
+            RequestId = requestId;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class AdminMoveApprovedErtToManualMessage : EntityEventArgs
+    {
+        public int RequestId { get; }
+
+        public AdminMoveApprovedErtToManualMessage(int requestId)
+        {
+            RequestId = requestId;
         }
     }
 

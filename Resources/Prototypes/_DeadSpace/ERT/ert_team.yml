@@ -1,10 +1,13 @@
 - type: ertTeam
   id: Cburn
   name: РХБЗЗ
+  approvalColor: "#3f6e70"
+  approvalAudio:
+    path: /Audio/Misc/delta_alt.ogg
   startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
+  description: 
     Специализированный отряд радиационной, химической, биологической и зомби защиты
     НКВБ. Предназначен для локализации утечек опасных веществ,
     биологических угроз, а также проведения дезинфекции и эвакуации персонала

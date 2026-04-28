@@ -30,6 +30,8 @@ materials-coal = coal
 materials-diamond = diamond
 materials-gunpowder = gunpowder
 materials-cotton = cotton
+# DS14
+materials-bluespace-crystal = bluespace crystal
 
 # Ores
 materials-raw-iron = raw iron

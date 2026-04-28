@@ -141,3 +141,14 @@
   icon: { sprite: Objects/Materials/materials.rsi, state: diamond }
   color: "#80ffff"
   price: 20 # big diamond gaslit us so hard diamonds actually became extremely rare
+
+# DS14-start
+- type: material
+  id: BluespaceCrystal
+  stackEntity: MaterialBluespaceCrystal1
+  name: materials-bluespace-crystal
+  unit: materials-unit-piece
+  icon: { sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: bluespace_crystal }
+  color: "#9fd7ff"
+  price: 25
+# DS14-end

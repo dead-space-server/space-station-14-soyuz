@@ -5,7 +5,6 @@
   description: A terminal for buying and selling materials. Just add capitalism!
   components:
   - type: MaterialMarketplace
-    currency: SpaceCash
     fillLevels: 6
 #    whitelistTags:
 #    - Sheet
@@ -20,14 +19,12 @@
     - Gunpowder
     - WebSilk
     - Cotton
-    - Pyrotton
     - Meaterial
-    - Credit
     - RawQuartz
     - Coal
     - RawSalt
   - type: MaterialStorage
-    capacity: 1000
+    storageLimit: 1000
     whitelist:
       tags:
         - Sheet

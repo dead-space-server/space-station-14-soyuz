@@ -36,8 +36,8 @@
 - type: entity
   parent: OreBase
   id: RedspaceOre
-  name: redspace ore
-  suffix: Full
+  name: редспейс руда
+  suffix: Полный
   components:
   - type: Stack
     stackType: RedspaceOre
@@ -54,7 +54,7 @@
 - type: entity
   parent: RedspaceOre
   id: RedspaceOre1
-  suffix: Single
+  suffix: Один
   components:
   - type: Stack
     count: 1

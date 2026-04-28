@@ -1,8 +1,8 @@
 - type: entity
   parent: MaterialBase
   id: MaterialRedspaceCrystal
-  name: redspace crystal
-  suffix: Full
+  name: редспейс кристалл
+  suffix: Полный
   components:
   - type: Stack
     stackType: RedspaceCrystal
@@ -28,7 +28,7 @@
 - type: entity
   parent: MaterialRedspaceCrystal
   id: MaterialRedspaceCrystal1
-  suffix: Single
+  suffix: Один
   components:
   - type: Stack
     count: 1

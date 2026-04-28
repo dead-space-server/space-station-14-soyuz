@@ -196,9 +196,10 @@
 # Asteroid Rock
 - type: entity
   id: AsteroidRockRedspace
+  name: астероидный камень
   parent: AsteroidRock
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -220,9 +221,10 @@
 # Iron Rock
 - type: entity
   id: IronRockRedspace
+  name: железный камень
   parent: IronRock
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -244,9 +246,10 @@
 # Wall Rock (Regular)
 - type: entity
   id: WallRockRedspace
+  name: камень
   parent: WallRock
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: EntityRemap
     mask:
@@ -275,9 +278,10 @@
 # Basalt Variant
 - type: entity
   id: WallRockBasaltRedspace
+  name: базальт
   parent: WallRockBasalt
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -299,9 +303,10 @@
 # Snow Variant
 - type: entity
   id: WallRockSnowRedspace
+  name: снежная порода
   parent: WallRockSnow
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -323,9 +328,10 @@
 # Sand Variant
 - type: entity
   id: WallRockSandRedspace
+  name: песчаник
   parent: WallRockSand
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -347,9 +353,10 @@
 # Chromite Variant
 - type: entity
   id: WallRockChromiteRedspace
+  name: хромит
   parent: WallRockChromite
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -371,9 +378,10 @@
 # Andesite Variant
 - type: entity
   id: WallRockAndesiteRedspace
+  name: андезит
   parent: WallRockAndesite
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -395,9 +403,10 @@
 # Meteor Rock Variant
 - type: entity
   id: MeteorRockRedspace
+  name: метеоритная порода
   parent: MeteorRock
-  description: An ore vein rich with redspace crystals.
-  suffix: Redspace
+  description: Богатая редспейс кристаллами рудная жила.
+  suffix: Редспейс
   components:
   - type: OreVein
     oreChance: 1.0
@@ -415,5 +424,6 @@
       state: rock_asteroid_west
     - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
 
 

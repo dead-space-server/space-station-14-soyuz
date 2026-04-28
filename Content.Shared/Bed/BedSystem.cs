@@ -1,18 +1,11 @@
 using Content.Shared.Actions;
 using Content.Shared.Bed.Components;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Body.Events;
-using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
-using Content.Shared.Damage;
 using Content.Shared.Emag.Systems;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
-using Content.Shared.Tag;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Bed;
 
@@ -24,18 +17,10 @@ public abstract class SharedBedSystem : EntitySystem
     [Dependency] private readonly SharedMetabolizerSystem _metabolizer = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly SleepingSystem _sleepingSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-
-    private EntityQuery<SleepingComponent> _sleepingQuery;
-    private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing";
 
     public override void Initialize()
     {
         base.Initialize();
-
-        _sleepingQuery = GetEntityQuery<SleepingComponent>();
 
         SubscribeLocalEvent<HealOnBuckleComponent, MapInitEvent>(OnHealMapInit);
         SubscribeLocalEvent<HealOnBuckleComponent, StrappedEvent>(OnStrapped);
@@ -135,39 +120,6 @@ public abstract class SharedBedSystem : EntitySystem
         foreach (var buckledEntity in ent.Comp.BuckledEntities)
         {
             _metabolizer.UpdateMetabolicMultiplier(buckledEntity);
-        }
-    }
-
-    public override void Update(float frameTime)
-    {
-        base.Update(frameTime);
-
-        var query = EntityQueryEnumerator<HealOnBuckleHealingComponent, HealOnBuckleComponent, StrapComponent>();
-        while (query.MoveNext(out var uid, out _, out var bedComponent, out var strapComponent))
-        {
-            if (Timing.CurTime < bedComponent.NextHealTime)
-                continue;
-
-            bedComponent.NextHealTime += TimeSpan.FromSeconds(bedComponent.HealTime);
-
-            if (strapComponent.BuckledEntities.Count == 0)
-                continue;
-
-            foreach (var healedEntity in strapComponent.BuckledEntities)
-            {
-                if (_mobStateSystem.IsDead(healedEntity))
-                    continue;
-                    
-                if (_tagSystem.HasTag(healedEntity, IgnoreBedHealingTag))
-                    continue;
-
-                var damage = bedComponent.Damage;
-
-                if (_sleepingQuery.HasComp(healedEntity))
-                    damage *= bedComponent.SleepMultiplier;
-
-                _damageableSystem.TryChangeDamage(healedEntity, damage, true, origin: uid);
-            }
         }
     }
 }

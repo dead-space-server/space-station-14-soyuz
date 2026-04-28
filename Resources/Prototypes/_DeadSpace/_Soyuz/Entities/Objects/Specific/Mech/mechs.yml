@@ -35,7 +35,6 @@
     baseWalkSpeed: 2.5
     baseSprintSpeed: 3.8
   - type: UnpoweredFlashlight
-  - type: ToggleableLightVisuals
   - type: PointLight
     enabled: false
     mask: /Textures/Effects/LightMasks/cone.png

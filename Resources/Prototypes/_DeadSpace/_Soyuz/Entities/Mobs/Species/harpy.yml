@@ -22,7 +22,7 @@
       "Piano": {1: 0}
       "Church Organ": {19: 0}
       "Harp": {46: 0}
-    onlySetBySelf: true
+    # DS14: removed obsolete field onlySetBySelf
   - type: UserInterface
     interfaces:
       enum.InstrumentUiKey.Key:
@@ -108,7 +108,7 @@
         Piercing: 5
   - type: Speech
     speechSounds: Alto
-    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr', 'Belch']
+    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr'] # DS14-value: removed invalid emote Belch
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:

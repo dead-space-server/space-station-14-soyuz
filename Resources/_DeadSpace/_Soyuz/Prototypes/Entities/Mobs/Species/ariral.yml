@@ -41,10 +41,8 @@
     understands:
     - Intergalactic
     - Ariral # Lua end
-  - type: Stamina
-    critThreshold: 75 # Less stamina, easier to down.
-  - type: Bloodstream # Ariral blood is unique and toxic, but arirals bleed very easily and don't passively heal as fast.
-    bloodReagent: AriralBlood
+  - type: Stamina # DS14: removed obsolete field critThreshold
+  - type: Bloodstream # DS14: removed obsolete field bloodReagent
     bloodRefreshAmount: 0.85
     bleedReductionAmount: 0.25
     damageBleedModifiers: BloodlossAriral

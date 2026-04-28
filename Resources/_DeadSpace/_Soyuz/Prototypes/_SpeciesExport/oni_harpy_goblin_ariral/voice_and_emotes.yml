@@ -797,7 +797,7 @@
       collection: Weh
     Hew:
       collection: Hew
-    Belch:
+    Burp: # DS14-value: Belch -> Burp
       collection: Belch
     Gasp:
       collection: GoblinGasp
@@ -840,7 +840,7 @@
       collection: Weh
     Hew:
       collection: Hew
-    Belch:
+    Burp: # DS14-value: Belch -> Burp
       collection: Belch
     Gasp:
       collection: GoblinGasp

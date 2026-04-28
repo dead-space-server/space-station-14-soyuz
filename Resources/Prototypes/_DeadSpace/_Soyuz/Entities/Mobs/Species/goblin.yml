@@ -38,7 +38,7 @@
     speechSounds: Alto
     allowedEmotes:
     - Hiss
-    - Belch
+    # DS14-value: removed invalid emote Belch
   - type: DamageOnHighSpeedImpact
     damage:
       types:
@@ -73,8 +73,7 @@
         color: "#5c7500"
       Burn:
         sprite: Mobs/Effects/burn_damage.rsi
-  - type: Bloodstream
-    bloodReagent: Blood
+  - type: Bloodstream # DS14: removed obsolete field bloodReagent
   - type: Butcherable
     spawned:
     - id: FoodMeat

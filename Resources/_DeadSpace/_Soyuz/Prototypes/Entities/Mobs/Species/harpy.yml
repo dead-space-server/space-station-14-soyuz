@@ -22,7 +22,7 @@
       "Piano": {1: 0}
       "Church Organ": {19: 0}
       "Harp": {46: 0}
-    onlySetBySelf: true
+    # DS14: removed obsolete field onlySetBySelf
   - type: UserInterface
     interfaces:
       enum.InstrumentUiKey.Key:
@@ -105,7 +105,7 @@
   - type: Speech
     speechSounds: Harpy
     speechVerb: Harpy
-    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr', 'Growl', 'Bark', 'Snarl', 'Whine', 'Howl', 'Awoo', 'HarpyRing', 'HarpyPew', 'HarpyBang', 'Beep', 'HarpyRev', 'HarpyCaw', 'Squish', 'Chitter', 'Squeak', 'Click', 'Belch', 'Squish'] # DS14-Soyuz: add Belch, Squish
+    allowedEmotes: ['Meow', 'Hiss', 'Mew', 'Purr', 'Growl', 'Bark', 'Snarl', 'Whine', 'Howl', 'Awoo', 'HarpyRing', 'HarpyPew', 'HarpyBang', 'Beep', 'HarpyRev', 'HarpyCaw', 'Squish', 'Chitter', 'Squeak', 'Click', 'Squish'] # DS14-value: removed invalid emote Belch
   - type: LanguageKnowledge # Lua start
     speaks:
     - Intergalactic

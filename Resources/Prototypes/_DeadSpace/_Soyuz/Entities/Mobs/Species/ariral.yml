@@ -33,8 +33,7 @@
     knownLanguages:
     - GeneralLanguage
     - Ariral
-  - type: Stamina
-    critThreshold: 75 # Less stamina, easier to down.
+  - type: Stamina # DS14: removed obsolete field critThreshold
   - type: MeleeWeapon
     soundHit:
       collection: Punch

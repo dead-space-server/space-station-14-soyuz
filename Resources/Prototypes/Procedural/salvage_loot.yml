@@ -220,10 +220,3 @@
   loots:
     - !type:BiomeMarkerLoot
       proto: OreArtifactFragment
-
-- type: salvageLoot
-  id: OreBluespace
-  guaranteed: true
-  loots:
-  - !type:BiomeMarkerLoot
-    proto: OreBluespace

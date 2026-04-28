@@ -63,4 +63,19 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
     {
         RaiseNetworkEvent(new AdminCallErtMessage(protoId, reason));
     }
+
+    public void AdminSendErtNow(int requestId)
+    {
+        RaiseNetworkEvent(new AdminSendErtNowMessage(requestId));
+    }
+
+    public void AdminPromoteManualApprovedRequest(int requestId)
+    {
+        RaiseNetworkEvent(new AdminPromoteManualApprovedErtMessage(requestId));
+    }
+
+    public void AdminMoveApprovedRequestToManual(int requestId)
+    {
+        RaiseNetworkEvent(new AdminMoveApprovedErtToManualMessage(requestId));
+    }
 }

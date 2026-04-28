@@ -87,6 +87,53 @@ station-event-response-team-arrival-cburn-sierra =
     Аварийно-спасательная бригада РХБЗЗ "Сьерра" прибыла в сектор станции.
     Экипажу приказывается сохранять спокойствие и доложить местонахождение действующей угрозы.
 
-station-event-response-team-arrival-uni-ops =
-    Альянс Противодействия Био-Терроризму прибыл в сектор станции.
-    Экипажу приказывается сохранять спокойствие и доложить местонахождение действующей угрозы.
+station-event-centcomm-official-arrival =
+    Внимание командованию станции! На связи Генеральный Штаб!
+    Представитель Генерального Штаба приближается к секторальной зоне станции. Ожидайте указаний по штатным каналам связи. Слава СССП!
+
+ert-call-fail-already-waiting = Уже вызван
+ert-call-fail-prototype-missing = Отряда не доступен.
+ert-call-fail-code-blacklist = Уровень тревоги ({$level}) запрещает вызов этого отряда.
+ert-call-fail-not-enough-points = Недостаточно ресурса для вызова (нужно {$price}, доступно {$balance}).
+ert-call-fail-cooldown = Повторный вызов возможен через {$seconds} сек.
+ert-response-call-submitted = Заявка на вызов СОБРа отправлена в Наркомат Всесоюзной Безопасности.
+ert-console-request-submitted-announcement = Внимание командованию Станции! Наркомат Всесоюзной Безопасности получил запрос актива на отправку сил Специального Отряда Быстрого Реагирования. Запрос будет обработан в ближайшее время. Слава СССП!
+ert-console-auth-required = Для доступа требуются две карты: капитан + капитан или капитан + НачМил.
+ert-console-auth-card-invalid = В консоль допускаются только карты капитана и НачМила.
+ert-console-requester-unknown = неизвестный оператор
+ert-console-requester-name-with-job = { $name } ({ $job })
+ert-console-request-rejected-announcement = Внимание командованию Станции! Наркомат Всесоюзной Безопасности отклонил запрос на вызов Специального Отряда Быстрого Реагирования. Справляйтесь своими силами. Спасибо за понимание.
+ert-response-team-changed-announcement = Внимание, станция! Народный Комиссариат Всесоюзной Безопасности пересмотрел прошлое решение по вызову Специального Отряда Быстрого Реагирование. Было принято решение об отправке отряда { $team }. Славься, Комиссариат!
+ert-console-auth-slot-a = карта авторизации А
+ert-console-auth-slot-b = карта авторизации Б
+ert-admin-requester-system = системный вызов
+
+ert-admin-settings-title = Настройки вызова СОБР
+ert-admin-cooldown-label = Cooldown (сек):
+ert-admin-points-label = Баланс очков вызова:
+ert-admin-actions-label = Действия
+ert-admin-refresh-button = Обновить
+ert-admin-apply-button = Применить
+ert-admin-pending-tab = Ожидающие
+ert-admin-approved-tab = Автоспавн
+ert-admin-manual-approved-tab = Ручное одобрение
+
+ert-admin-pending-title = Ожидающие решения заявки
+ert-admin-selected-requester = Заявитель:
+ert-admin-selected-reason = Цель вызова:
+ert-admin-reject-button = Отклонить
+ert-admin-approve-manual-button = Одобрить с ручным спавном
+ert-admin-approve-auto-button = Одобрить с автоспавном
+
+ert-admin-approved-title = Авто-одобренные заявки
+ert-admin-arrival-label = Время прибытия (сек):
+ert-admin-approved-reason-label = Цель вызова:
+ert-admin-approved-team-label = Отряд для автоспавна:
+ert-admin-set-reason-button = Изменить цель
+ert-admin-set-team-button = Сменить отряд
+ert-admin-send-now-button = Отправить отряд
+ert-admin-cancel-auto-button = Отменить автоспавн
+ert-admin-move-to-manual-button = Перенести в ручное одобрение
+
+ert-admin-promote-manual-button = Запустить автоспавн без уведомлений
+ert-admin-queue-auto-button = Добавить в автоспавн

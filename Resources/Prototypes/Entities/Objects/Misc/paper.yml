@@ -63,7 +63,7 @@
   - type: PhysicalComposition
 
 - type: entity
-  name: paper
+  # DS14: avoid manual LocId-like names for entity prototypes
   parent: BasePaper
   id: Paper
   description: 'A piece of white paper.'

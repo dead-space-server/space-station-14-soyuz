@@ -156,7 +156,7 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
                     {
                         var key = GetDisplayNameKey(m.proto);
                         return string.IsNullOrEmpty(_searchFilter) ||
-                               Loc.GetString(key).ToLowerInvariant().Contains(_searchFilter);
+                               ResolveLoc(key).ToLowerInvariant().Contains(_searchFilter);
                     })
                     .ToList();
 
@@ -187,7 +187,7 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
                 {
                     var key = GetDisplayNameKey(m.proto);
                     return string.IsNullOrEmpty(_searchFilter) ||
-                           Loc.GetString(key).ToLowerInvariant().Contains(_searchFilter);
+                           ResolveLoc(key).ToLowerInvariant().Contains(_searchFilter);
                 })
                 .ToList();
 
@@ -214,7 +214,7 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
             {
                 var key = GetDisplayNameKey(m.proto);
                 return string.IsNullOrEmpty(_searchFilter) ||
-                       Loc.GetString(key).ToLowerInvariant().Contains(_searchFilter);
+                       ResolveLoc(key).ToLowerInvariant().Contains(_searchFilter);
             })
             .ToList();
 
@@ -235,6 +235,14 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
             _prototype.TryIndex<EntityPrototype>(proto.StackEntity, out var stackEntity))
             return stackEntity.Name;
         return proto.Name;
+    }
+
+    private static string ResolveLoc(string? key, string? fallback = null)
+    {
+        if (!string.IsNullOrWhiteSpace(key) && Loc.TryGetString(key, out var localized))
+            return localized;
+
+        return string.IsNullOrWhiteSpace(fallback) ? key ?? string.Empty : fallback;
     }
 
     private Label CreateCategoryLabel(string text)
@@ -259,17 +267,19 @@ public sealed class MaterialMarketplaceMenu : FancyWindow
                 .FirstOrDefault(sp => sp.Spawn == material.StackEntity);
         }
 
-        var displayName = Loc.GetString(material.Name);
+        var displayName = ResolveLoc(material.Name, material.ID);
 
         var countName = stackProto != null
-            ? Loc.GetString(stackProto.Name)
-            : Loc.GetString(material.Name);
+            ? ResolveLoc(stackProto.Name, displayName)
+            : displayName;
 
         string amountLocalized;
         if (!string.IsNullOrEmpty(material.StackEntity) && stackProto != null)
         {
             var key = stackProto.ID.ToLowerInvariant();
-            amountLocalized = Loc.GetString(key, ("amount", logicalCount));
+            amountLocalized = Loc.TryGetString(key, out var localizedAmount, ("amount", logicalCount))
+                ? localizedAmount
+                : string.Empty;
 
             if (string.IsNullOrWhiteSpace(amountLocalized) || amountLocalized == key)
                 amountLocalized = $"{logicalCount} {countName}";

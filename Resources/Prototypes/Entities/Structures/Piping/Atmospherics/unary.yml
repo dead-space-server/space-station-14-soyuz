@@ -367,7 +367,7 @@
     sprite: Structures/Piping/Atmospherics/hellfirethermomachine.rsi
   - type: GasThermoMachine
     minTemperature: 23.15
-    heatCapacity: 40000
+    heatCapacity: 5000
     energyLeakPercentage: 0.15
   - type: Machine
     board: HellfireFreezerMachineCircuitBoard
@@ -382,7 +382,7 @@
     sprite: Structures/Piping/Atmospherics/hellfirethermomachine.rsi
   - type: GasThermoMachine
     maxTemperature: 1193.15
-    heatCapacity: 40000
+    heatCapacity: 5000
     energyLeakPercentage: 0.15
   - type: Machine
     board: HellfireHeaterMachineCircuitBoard

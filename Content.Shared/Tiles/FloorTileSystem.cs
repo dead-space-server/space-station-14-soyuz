@@ -69,6 +69,7 @@ public sealed class FloorTileSystem : EntitySystem
             return;
 
         var physicQuery = GetEntityQuery<PhysicsComponent>();
+        var fixturesQuery = GetEntityQuery<FixturesComponent>();
         var transformQuery = GetEntityQuery<TransformComponent>();
 
         var map = _transform.ToMapCoordinates(location);
@@ -113,14 +114,33 @@ public sealed class FloorTileSystem : EntitySystem
         {
             _turfCheck.Clear();
             _lookup.GetEntitiesInTile(tileRef.Value, _turfCheck);
+            var tileCenter = tileRef.Value.GridIndices + new Vector2(0.5f, 0.5f);
+
             foreach (var ent in _turfCheck)
             {
                 if (physicQuery.TryGetComponent(ent, out var phys) &&
                     phys.BodyType == BodyType.Static &&
+                    phys.CanCollide && // DS14: non-colliding overlays (e.g. holofans) should not block floor tile placement
                     phys.Hard &&
                     (phys.CollisionLayer & (int)CollisionGroup.Impassable) != 0)
                 {
-                    return;
+                    // DS14: only block if the impassable collision actually covers the tile center.
+                    // This allows normal tile interactions under directional windows according to their shape.
+                    if (!fixturesQuery.TryGetComponent(ent, out var fixtures) ||
+                        !transformQuery.TryGetComponent(ent, out var xform))
+                    {
+                        return;
+                    }
+
+                    foreach (var fixture in fixtures.Fixtures.Values)
+                    {
+                        if (!fixture.Hard || (fixture.CollisionLayer & (int) CollisionGroup.Impassable) == 0)
+                            continue;
+
+                        var fixtureXform = new Transform(xform.LocalPosition, xform.LocalRotation);
+                        if (fixture.Shape.ComputeAABB(fixtureXform, 0).Contains(tileCenter))
+                            return;
+                    }
                 }
             }
         }

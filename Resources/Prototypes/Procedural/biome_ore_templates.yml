@@ -161,20 +161,21 @@
   maxGroupSize: 10
   radius: 4
 
-# Bluespace
+# Redspace
 - type: biomeMarkerLayer
-  id: OreBluespace
+  id: OreRedspace
   entityMask:
-    AsteroidRock: AsteroidRockBluespace
-    WallRock: WallRockBluespace
-    WallRockBasalt: WallRockBasaltBluespace
-    WallRockChromite: WallRockChromiteBluespace
-    WallRockSand: WallRockSandBluespace
-    WallRockSnow: WallRockSnowBluespace
-    WallRockAndesite: WallRockAndesiteBluespace
-    MeteorRock: MeteorRockBluespace
+    AsteroidRock: AsteroidRockRedspace
+    WallRock: WallRockRedspace
+    WallRockBasalt: WallRockBasaltRedspace
+    WallRockChromite: WallRockChromiteRedspace
+    WallRockSand: WallRockSandRedspace
+    WallRockSnow: WallRockSnowRedspace
+    WallRockAndesite: WallRockAndesiteRedspace
+    MeteorRock: MeteorRockRedspace
   maxCount: 6
   minGroupSize: 1
   maxGroupSize: 2
   radius: 4
 # DS14-Soyuz-end
+

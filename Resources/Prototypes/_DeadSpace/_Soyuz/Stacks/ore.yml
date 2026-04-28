@@ -1,6 +1,6 @@
 - type: stack
-  id: BluespaceOre
-  name: stack-bluespace-crystal-ore
-  icon: { sprite: /Textures/_DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: bluespace_crystal_ore }
-  spawn: BluespaceOre1
+  id: RedspaceOre
+  name: stack-redspace-crystal-ore
+  icon: { sprite: /Textures/_DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: redspace_crystal_ore }
+  spawn: RedspaceOre1
   maxCount: 30

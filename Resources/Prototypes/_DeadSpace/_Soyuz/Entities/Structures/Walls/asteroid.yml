@@ -191,18 +191,18 @@
         - state: rock_tungsten
           map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
-# Bluespace Ore for all rock types
+# Redspace Ore for all rock types
 
 # Asteroid Rock
 - type: entity
-  id: AsteroidRockBluespace
+  id: AsteroidRockRedspace
   parent: AsteroidRock
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_asteroid
@@ -214,19 +214,19 @@
       state: rock_asteroid_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_asteroid_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Iron Rock
 - type: entity
-  id: IronRockBluespace
+  id: IronRockRedspace
   parent: IronRock
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: ironrock
@@ -238,26 +238,26 @@
       state: ironrock_north
     - map: [ "enum.EdgeLayer.West" ]
       state: ironrock_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Wall Rock (Regular)
 - type: entity
-  id: WallRockBluespace
+  id: WallRockRedspace
   parent: WallRock
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: EntityRemap
     mask:
-      AsteroidRock: AsteroidRockBluespace
-      WallRockBasalt: WallRockBasaltBluespace
-      WallRockChromite: WallRockChromiteBluespace
-      WallRockSand: WallRockSandBluespace
-      WallRockSnow: WallRockSnowBluespace
+      AsteroidRock: AsteroidRockRedspace
+      WallRockBasalt: WallRockBasaltRedspace
+      WallRockChromite: WallRockChromiteRedspace
+      WallRockSand: WallRockSandRedspace
+      WallRockSnow: WallRockSnowRedspace
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock
@@ -269,19 +269,19 @@
       state: rock_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Basalt Variant
 - type: entity
-  id: WallRockBasaltBluespace
+  id: WallRockBasaltRedspace
   parent: WallRockBasalt
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_wall
@@ -293,19 +293,19 @@
       state: rock_wall_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_wall_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Snow Variant
 - type: entity
-  id: WallRockSnowBluespace
+  id: WallRockSnowRedspace
   parent: WallRockSnow
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_snow
@@ -317,19 +317,19 @@
       state: rock_snow_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_snow_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Sand Variant
 - type: entity
-  id: WallRockSandBluespace
+  id: WallRockSandRedspace
   parent: WallRockSand
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_sand
@@ -341,19 +341,19 @@
       state: rock_sand_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_sand_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Chromite Variant
 - type: entity
-  id: WallRockChromiteBluespace
+  id: WallRockChromiteRedspace
   parent: WallRockChromite
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_chromite
@@ -365,19 +365,19 @@
       state: rock_chromite_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_chromite_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Andesite Variant
 - type: entity
-  id: WallRockAndesiteBluespace
+  id: WallRockAndesiteRedspace
   parent: WallRockAndesite
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_andesite
@@ -389,19 +389,19 @@
       state: rock_andesite_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_andesite_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
 # Meteor Rock Variant
 - type: entity
-  id: MeteorRockBluespace
+  id: MeteorRockRedspace
   parent: MeteorRock
-  description: An ore vein rich with bluespace crystals.
-  suffix: Bluespace
+  description: An ore vein rich with redspace crystals.
+  suffix: Redspace
   components:
   - type: OreVein
     oreChance: 1.0
-    currentOre: OreBluespace
+    currentOre: OreRedspace
   - type: Sprite
     layers:
     - state: rock_asteroid
@@ -413,5 +413,7 @@
       state: rock_asteroid_north
     - map: [ "enum.EdgeLayer.West" ]
       state: rock_asteroid_west
-    - state: rock_bluespace
+    - state: rock_redspace
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
+
+

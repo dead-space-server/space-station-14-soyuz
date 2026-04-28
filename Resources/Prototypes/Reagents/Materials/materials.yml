@@ -144,11 +144,12 @@
 
 # DS14-start
 - type: material
-  id: BluespaceCrystal
-  stackEntity: MaterialBluespaceCrystal1
-  name: materials-bluespace-crystal
+  id: RedspaceCrystal
+  stackEntity: MaterialRedspaceCrystal1
+  name: materials-redspace-crystal
   unit: materials-unit-piece
-  icon: { sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: bluespace_crystal }
+  icon: { sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: redspace_crystal }
   color: "#9fd7ff"
   price: 25
 # DS14-end
+

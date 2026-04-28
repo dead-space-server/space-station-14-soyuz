@@ -47,8 +47,8 @@
   maxOreYield: 3
 
 - type: ore
-  id: OreBluespace
-  oreEntity: BluespaceOre1
+  id: OreRedspace
+  oreEntity: RedspaceOre1
   minOreYield: 1
   maxOreYield: 2
 # DS14-Soyuz-end
@@ -135,3 +135,5 @@
     OreBananiumCrab: 1
     OreCoalCrab: 5
     OreGoldCrab: 2
+
+

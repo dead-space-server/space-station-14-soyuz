@@ -1,33 +1,33 @@
 - type: entity
   parent: MaterialBase
-  id: MaterialBluespaceCrystal
-  name: bluespace crystal
+  id: MaterialRedspaceCrystal
+  name: redspace crystal
   suffix: Full
   components:
   - type: Stack
-    stackType: BluespaceCrystal
+    stackType: RedspaceCrystal
     baseLayer: base
     layerStates:
-    - bluespace_crystal
-    - bluespace_crystal_2
-    - bluespace_crystal_3
+    - redspace_crystal
+    - redspace_crystal_2
+    - redspace_crystal_3
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi
-    state: bluespace_crystal
+    state: redspace_crystal
     layers:
-    - state: bluespace_crystal
+    - state: redspace_crystal
       map: ["base"]
   - type: Appearance
   - type: Item
-    heldPrefix: bluespace
+    heldPrefix: redspace
   - type: Material
   - type: PhysicalComposition
     materialComposition:
-      BluespaceCrystal: 100
+      RedspaceCrystal: 100
 
 - type: entity
-  parent: MaterialBluespaceCrystal
-  id: MaterialBluespaceCrystal1
+  parent: MaterialRedspaceCrystal
+  id: MaterialRedspaceCrystal1
   suffix: Single
   components:
   - type: Stack

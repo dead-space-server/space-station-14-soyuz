@@ -114,8 +114,8 @@ stack-silver-ore = silver ore
 stack-space-quartz = space quartz
 stack-uranium-ore = uranium ore
 stack-bananium-ore = bananium ore
-stack-bluespace-crystal = bluespace crystal
-stack-bluespace-crystal-ore = bluespace crystal ore
+stack-redspace-crystal = redspace crystal
+stack-redspace-crystal-ore = redspace crystal ore
 stack-coal = coal
 stack-salt = salt
 stack-inflatable-wall = inflatable wall
@@ -264,3 +264,4 @@ stack-plasma-marble-floor = plasmarble floor
 stack-uranium-marble-floor = uranium marble floor
 stack-astro-ironsand-floor = astro-ironsand floor
 stack-astro-ironsand-floor-borderless = borderless astro-ironsand floor
+

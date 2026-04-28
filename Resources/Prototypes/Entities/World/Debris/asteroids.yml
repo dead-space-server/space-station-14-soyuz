@@ -54,7 +54,7 @@
           - id: WallRockTungsten
             prob: 0.05
             orGroup: rock 
-          - id: WallRockBluespace
+          - id: WallRockRedspace
             prob: 0.05
             orGroup: rock
             # DS14-Soyuz-end
@@ -150,3 +150,4 @@
       blobDrawProb: 0.66
       radius: 23
       floorPlacements: 250
+

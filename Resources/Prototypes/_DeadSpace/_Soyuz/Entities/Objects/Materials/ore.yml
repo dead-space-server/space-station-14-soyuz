@@ -35,25 +35,25 @@
 
 - type: entity
   parent: OreBase
-  id: BluespaceOre
-  name: bluespace ore
+  id: RedspaceOre
+  name: redspace ore
   suffix: Full
   components:
   - type: Stack
-    stackType: BluespaceOre
+    stackType: RedspaceOre
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi
-    state: bluespace_crystal_ore
+    state: redspace_crystal_ore
   - type: Material
   - type: PhysicalComposition
     materialComposition:
-      RawBluespaceCrystal: 300
+      RawRedspaceCrystal: 300
   - type: Item
-    heldPrefix: bluespace
+    heldPrefix: redspace
 
 - type: entity
-  parent: BluespaceOre
-  id: BluespaceOre1
+  parent: RedspaceOre
+  id: RedspaceOre1
   suffix: Single
   components:
   - type: Stack

@@ -223,9 +223,9 @@
 
 # DS14-soyuz-start
 - type: salvageLoot
-  id: OreBluespace
+  id: OreRedspace
   guaranteed: true
   loots:
   - !type:BiomeMarkerLoot
-    proto: OreBluespace
+    proto: OreRedspace
 # DS14-soyuz-end

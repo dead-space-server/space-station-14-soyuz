@@ -2,6 +2,7 @@
 
 using Content.Server.DeadSpace.IPC.Components;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Systems;
 using Content.Shared.Emp;
 
 namespace Content.Server.DeadSpace.IPC;

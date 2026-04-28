@@ -34,7 +34,7 @@
         - RawMaterial
         - Ingot
   - type: Sprite
-    sprite: _DeadSpace/Structures/Machines/material_marketplace.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/material_marketplace.rsi
     layers:
     - state: icon
     - state: panel

@@ -43,9 +43,10 @@ public sealed class IPCSystem : EntitySystem
             if (MathHelper.CloseTo(comp.IdleDrainRate, 0f))
                 continue;
 
-            var drain = Math.Min(comp.IdleDrainRate * frameTime, battery.CurrentCharge);
+            var currentCharge = _battery.GetCharge((uid, battery));
+            var drain = Math.Min(comp.IdleDrainRate * frameTime, currentCharge);
             if (drain > 0f)
-                _battery.TryUseCharge(uid, drain, battery);
+                _battery.TryUseCharge((uid, battery), drain);
 
             var now = _timing.CurTime;
             if (comp.NextBatteryAlertUpdate > now)
@@ -110,9 +111,7 @@ public sealed class IPCSystem : EntitySystem
         if (!TryComp<BatteryComponent>(uid, out var battery))
             return;
 
-        var chargePercent = battery.MaxCharge > 0
-            ? battery.CurrentCharge / battery.MaxCharge
-            : 0f;
+        var chargePercent = _battery.GetChargeLevel((uid, battery));
 
         if (chargePercent < comp.BatteryLowThreshold)
             args.ModifySpeed(comp.MovementPenalty);
@@ -120,14 +119,13 @@ public sealed class IPCSystem : EntitySystem
 
     private void UpdateBatteryAlert(EntityUid uid, IPCComponent comp, BatteryComponent battery)
     {
-        var chargePercent = battery.MaxCharge > 0
-            ? battery.CurrentCharge / battery.MaxCharge
-            : 0f;
+        var currentCharge = _battery.GetCharge((uid, battery));
+        var chargePercent = _battery.GetChargeLevel((uid, battery));
 
         short newLevel;
         var maxLevels = IPCComponent.MaxBatteryAlertLevels;
 
-        if (battery.CurrentCharge <= 0)
+        if (currentCharge <= 0)
             newLevel = 0;
         else
             newLevel = (short)Math.Clamp(MathF.Ceiling(chargePercent * maxLevels), 1, maxLevels);

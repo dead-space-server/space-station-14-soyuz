@@ -38,8 +38,8 @@ public enum MaterialMarketplaceVisuals : byte
     FillLevel
 }
 
-[Prototype("materialMarketplaceCategory")]
-public sealed class MaterialMarketplaceCategoryPrototype : IPrototype
+[Prototype]
+public sealed partial class MaterialMarketplaceCategoryPrototype : IPrototype
 {
     [ViewVariables]
     [IdDataField]

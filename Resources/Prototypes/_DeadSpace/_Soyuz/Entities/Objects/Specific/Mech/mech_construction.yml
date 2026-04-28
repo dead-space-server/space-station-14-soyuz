@@ -7,7 +7,7 @@
   - type: Sprite
     drawdepth: Items
     noRot: false
-    sprite: _DeadSpace/Objects/Specific/Mech/clarke_construction.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/clarke_construction.rsi
 
 - type: entity
   id: BaseClarkePartItem
@@ -42,7 +42,7 @@
         whitelist:
           tags:
           - ClarkeRLeg
-    sprite: _DeadSpace/Objects/Specific/Mech/clarke_construction.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/clarke_construction.rsi
   - type: ContainerContainer
     containers:
       mech-assembly-container: !type:Container

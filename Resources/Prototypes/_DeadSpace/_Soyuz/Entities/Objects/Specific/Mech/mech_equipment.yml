@@ -5,7 +5,7 @@
   description: Устройство для сбора руды.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Objects/Specific/Mech/mecha_equipment.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/mecha_equipment.rsi
     state: mecha_orebox
   - type: Item
     size: Ginormous

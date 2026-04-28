@@ -1,18 +1,20 @@
-﻿- type: technology
-  id: Clarke
-  name: research-technology-clarke
-  icon:
-    sprite: Objects/Specific/Mech/mecha.rsi
-    state: clarke
-  discipline: Industrial
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - ClarkeHarness
-  - ClarkeLArm
-  - ClarkeRArm
-  - ClarkeLLeg
-  - ClarkeRLeg
-  - ClarkeCentralElectronics
-  - ClarkePeripheralsElectronics
-  - MechEquipmentOreCollector
+# // DS-14 start remove
+# - type: technology
+#   id: Clarke
+#   name: research-technology-clarke
+#   icon:
+#     sprite: Objects/Specific/Mech/mecha.rsi
+#     state: clarke
+#   discipline: Industrial
+#   tier: 1
+#   cost: 7500
+#   recipeUnlocks:
+#   - ClarkeHarness
+#   - ClarkeLArm
+#   - ClarkeRArm
+#   - ClarkeLLeg
+#   - ClarkeRLeg
+#   - ClarkeCentralElectronics
+#   - ClarkePeripheralsElectronics
+#   - MechEquipmentOreCollector
+# // DS-14 end remove

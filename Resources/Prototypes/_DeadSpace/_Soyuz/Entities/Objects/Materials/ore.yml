@@ -42,7 +42,7 @@
   - type: Stack
     stackType: BluespaceOre
   - type: Sprite
-    sprite: _DeadSpace/Objects/Materials/ore.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi
     state: bluespace_crystal_ore
   - type: Material
   - type: PhysicalComposition

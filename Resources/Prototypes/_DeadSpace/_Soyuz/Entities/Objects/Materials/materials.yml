@@ -12,7 +12,7 @@
     - bluespace_crystal_2
     - bluespace_crystal_3
   - type: Sprite
-    sprite: _DeadSpace/Objects/Materials/ore.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi
     state: bluespace_crystal
     layers:
     - state: bluespace_crystal

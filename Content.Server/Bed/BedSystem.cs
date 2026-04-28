@@ -3,6 +3,7 @@ using Content.Shared.Bed.Components;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Systems; // DS14
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;

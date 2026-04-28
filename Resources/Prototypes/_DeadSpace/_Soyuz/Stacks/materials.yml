@@ -43,7 +43,7 @@
 - type: stack
   id: BluespaceCrystal
   name: bluespace crystal
-  icon: { sprite: /Textures/_DeadSpace/Objects/Materials/ore.rsi, state: bluespace_crystal }
+  icon: { sprite: /Textures/_DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: bluespace_crystal }
   spawn: MaterialBluespaceCrystal1
   maxCount: 30
 

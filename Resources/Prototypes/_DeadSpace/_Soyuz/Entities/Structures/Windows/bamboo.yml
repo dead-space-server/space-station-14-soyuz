@@ -5,9 +5,9 @@
   components:
   - type: Sprite
     drawdepth: WallTops
-    sprite: _DeadSpace/Structures/Windows/bamboo_window.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Windows/bamboo_window.rsi
   - type: Icon
-    sprite: _DeadSpace/Structures/Windows/bamboo_window.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Windows/bamboo_window.rsi
   - type: IconSmooth
     base: bwindow
 #  - type: Construction

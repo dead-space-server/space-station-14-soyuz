@@ -142,8 +142,21 @@ public sealed class SmokeSystem : EntitySystem
 
         // wtf is the logic behind any of this.
         var smokePerSpread = entity.Comp.SpreadAmount / Math.Max(1, args.NeighborFreeTiles.Count);
+        var hasSolution = solution.Volume > FixedPoint2.Zero; // DS14
+        var solutionPerSpread = hasSolution ? solution.Volume / (args.NeighborFreeTiles.Count + 1) : FixedPoint2.Zero; // DS14
         foreach (var neighbor in args.NeighborFreeTiles)
         {
+            // DS14-start
+            var spreadSolution = hasSolution
+                ? _solutionContainerSystem.SplitSolution(entity.Comp.Solution!.Value, solutionPerSpread)
+                : new Solution();
+            if (hasSolution && spreadSolution.Volume == FixedPoint2.Zero)
+            {
+                RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
+                break;
+            }
+            // DS14-end
+
             var coords = _map.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices);
             var ent = Spawn(prototype.ID, coords);
             var spreadAmount = Math.Max(0, smokePerSpread);
@@ -151,12 +164,25 @@ public sealed class SmokeSystem : EntitySystem
 
             StartSmoke(ent, solution.Clone(), timer?.Lifetime ?? entity.Comp.Duration, spreadAmount);
 
-            if (entity.Comp.SpreadAmount == 0)
+            if (entity.Comp.SpreadAmount == 0 || (hasSolution && solution.Volume == FixedPoint2.Zero)) // DS14
             {
                 RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
                 break;
             }
         }
+
+        // DS14-start
+        if (hasSolution)
+        {
+            UpdateVisuals((entity.Owner, entity.Comp, null));
+
+            if (solution.Volume == FixedPoint2.Zero)
+            {
+                RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
+                return;
+            }
+        }
+        // DS14-end
 
         args.Updates--;
 

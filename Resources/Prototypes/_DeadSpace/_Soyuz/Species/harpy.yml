@@ -1,4 +1,4 @@
-﻿- type: species
+- type: species
   id: Harpy
   name: species-name-harpy
   roundStart: true
@@ -28,6 +28,7 @@
     RLeg: MobHarpyRLeg
     LFoot: MobHarpyLFoot
     RFoot: MobHarpyRFoot
+    RArmExtension: MobHumanoidAnyMarking # DS14-Soyuz: wing extension layer
 
 
 - type: markingPoints
@@ -41,21 +42,25 @@
       required: false
     Tail:
       points: 1
-      required: false
+      required: true
+      defaultMarkings: [ HarpyTailPhoenix ] # DS14-Soyuz
     HeadTop:
       points: 1
-      required: false
+      required: true
+      defaultMarkings: [ HarpyEarsDefault ] # DS14-Soyuz
     # DS14-Soyuz: apparently these don't exist on Delta
     # End DS14-Soyuz
     Chest:
       points: 1
-      required: false
+      required: true
+      defaultMarkings: [ HarpyChestDefault ] # DS14-Soyuz
     Legs:
       points: 2
       required: false
     Arms:
       points: 1
       required: false
+      defaultMarkings: [ HarpyWingDefaultHuescale ] # DS14-Soyuz
 
 - type: humanoidBaseSprite
   id: MobHarpyHead

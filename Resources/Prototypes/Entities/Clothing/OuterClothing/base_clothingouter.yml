@@ -154,6 +154,7 @@
   - type: HideLayerClothing
     slots:
     - Tail
+    - RArmExtension # DS14-Soyuz: hide harpy wing-extension layer under hardsuits
   # DS14-start
   - type: VirusResistance
     virusResistanceCoefficient: 0.3
@@ -190,6 +191,7 @@
   - type: HideLayerClothing
     slots:
     - Tail
+    - RArmExtension # DS14-Soyuz: hide harpy wing-extension layer under EVA suits
 
 - type: entity
   parent: ClothingOuterBase

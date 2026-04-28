@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   save: false
   name: Urist McHarpy
   parent: BaseMobHuman
@@ -73,12 +73,18 @@
         sprite: "Effects/creampie.rsi"
         state: "creampie_human"
         visible: false
+      - map: [ "enum.HumanoidVisualLayers.RArmExtension" ] # DS14-Soyuz: wing layer
       - map: [ "enum.HumanoidVisualLayers.Hair" ]
       - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
       - map: [ "mask" ]
       - map: [ "head" ]
   - type: HumanoidAppearance
     species: Harpy
+    hideLayersOnEquip: # DS14-Soyuz: hide harpy-specific visuals under suits/helmets
+    - Hair
+    - Snout
+    - Tail
+    - RArmExtension
   - type: Fixtures
     fixtures: # DS14-Soyuz-note: This needs a second fixture just for mob collisions.
       fix1:
@@ -143,6 +149,11 @@
   components:
   - type: HumanoidAppearance
     species: Harpy
+    hideLayersOnEquip: # DS14-Soyuz: keep setup dummy behavior identical to mob
+    - Hair
+    - Snout
+    - Tail
+    - RArmExtension
   - type: Inventory
     speciesId: human
     displacements:
@@ -190,6 +201,7 @@
         sprite: "Effects/creampie.rsi"
         state: "creampie_human"
         visible: false
+      - map: [ "enum.HumanoidVisualLayers.RArmExtension" ] # DS14-Soyuz: wing layer
       - map: [ "enum.HumanoidVisualLayers.Hair" ]
       - map: [ "mask" ]
       - map: [ "head" ]

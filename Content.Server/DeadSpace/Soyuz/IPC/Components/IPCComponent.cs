@@ -29,10 +29,10 @@ public sealed partial class IPCComponent : Component
     public float MovementPenalty = 0.2f;
 
     [DataField(readOnly: true)]
-    public ProtoId<AlertPrototype> BatteryAlert = "BorgBattery";
+    public ProtoId<AlertPrototype> BatteryAlert = "IpcBattery"; // DS14
 
     [DataField(readOnly: true)]
-    public ProtoId<AlertPrototype> NoBatteryAlert = "BorgBatteryNone";
+    public ProtoId<AlertPrototype> NoBatteryAlert = "IpcBatteryNone"; // DS14
 
     [DataField(readOnly: true)]
     public EntProtoId DrainBatteryAction = "ActionDrainBattery";
@@ -47,5 +47,39 @@ public sealed partial class IPCComponent : Component
     public short LastBatteryLevel;
 
     public TimeSpan NextBatteryAlertUpdate;
+
+    // DS14-start: merged from Soyuz IpcPower/IpcChargeTransfer.
+    [DataField]
+    public float PassiveDrainRate = 500f;
+
+    [DataField]
+    public float BackRechargerRate = 1000f;
+
+    /// <summary>
+    /// Runtime VV helper.
+    /// Set 0..100 to force battery charge percent every tick.
+    /// Set -1 to disable override.
+    /// </summary>
+    [DataField]
+    public float SetChargePercent = -1f;
+
+    [DataField]
+    public float TransferPercentPerUse = 0.05f;
+
+    [DataField]
+    public float TransferPerUse = 2000f;
+
+    [DataField]
+    public float DonorReserve = 1000f;
+
+    [DataField]
+    public TimeSpan ReciprocalLockTime = TimeSpan.FromSeconds(5);
+
+    [DataField]
+    public EntityUid? LockedDrainTarget;
+
+    [DataField]
+    public TimeSpan LockedDrainUntil;
+    // DS14-end
 
 }

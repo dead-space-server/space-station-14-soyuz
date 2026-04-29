@@ -63,6 +63,7 @@ public sealed class EntityHealthBarOverlay : Overlay
         var handle = args.WorldHandle;
         var rotation = args.Viewport.Eye?.Rotation ?? Angle.Zero;
         var xformQuery = _entManager.GetEntityQuery<TransformComponent>();
+        var localPlayer = _playerManager.LocalSession?.AttachedEntity; // DS14
 
         const float scale = 1f;
         var scaleMatrix = Matrix3Helpers.CreateScale(new Vector2(scale, scale));
@@ -78,6 +79,11 @@ public sealed class EntityHealthBarOverlay : Overlay
         {
             if (statusIcon != null && !_statusIconSystem.IsVisible((uid, _entManager.GetComponent<MetaDataComponent>(uid)), statusIcon))
                 continue;
+
+            // DS14-start: show this bar only for the local player's controlled entity.
+            if (uid != localPlayer)
+                continue;
+            // DS14-end
 
             // We want the stealth user to still be able to see his health bar himself
             if (!xformQuery.TryGetComponent(uid, out var xform) ||

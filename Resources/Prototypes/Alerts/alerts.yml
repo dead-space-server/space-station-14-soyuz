@@ -301,6 +301,17 @@
   parent: BorgBattery
   id: AiBattery
   clientHandled: false # the station AI does not have a predicted battery, so we need to send the alert from the server
+# DS14-start: IPC battery alert must be server-driven; Borg client handler does not process IPC entities.
+- type: alert
+  parent: BorgBattery
+  id: IpcBattery
+  clientHandled: false
+
+- type: alert
+  parent: BorgBatteryNone
+  id: IpcBatteryNone
+  clientHandled: false
+# DS14-end
 
 - type: alert
   id: Internals

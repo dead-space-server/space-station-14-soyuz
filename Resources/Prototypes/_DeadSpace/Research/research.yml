@@ -1,4 +1,4 @@
-# Tier 1
+﻿# Tier 1
 
 - type: technology
   id: TaipanBasicRobotics
@@ -12,7 +12,7 @@
   diskAvailable: false
   recipeUnlocks:
   - ProximitySensor
-  - Nanopaste
+  - BlueInsulatingTapeSoyuz # DS14-value: Nanopaste -> BlueInsulatingTapeSoyuz
 
 - type: technology
   id: TaipanBasicAnomalousResearch

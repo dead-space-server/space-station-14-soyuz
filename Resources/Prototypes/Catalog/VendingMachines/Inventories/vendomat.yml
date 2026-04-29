@@ -1,7 +1,7 @@
-- type: vendingMachineInventory
+﻿- type: vendingMachineInventory
   id: VendomatInventory
   startingInventory:
-    Nanopaste: 2 # DS14
+    BlueInsulatingTape1: 2 # DS14-value: Nanopaste -> BlueInsulatingTape1
     RemoteSignaller: 1
     Igniter: 2
     Wirecutter: 2

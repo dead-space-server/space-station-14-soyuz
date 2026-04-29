@@ -1,0 +1,47 @@
+# DS14-start: IPC to IPC battery charge transfer
+- type: entity
+  id: BaseMobIPC
+  components:
+  - type: Battery
+    maxCharge: 450000
+    startingCharge: 450000
+  - type: IpcPower
+    passiveDrainRate: 500
+    backRechargerRate: 1000
+  - type: IpcChargeTransfer
+    transferPerUse: 2000
+    donorReserve: 1000
+    reciprocalLockTime: 5
+  # DS14-start: IPC language panel parity with silicons
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - GeneralLanguage
+    - ArachnidLanguage
+    - SlimeLanguage
+    - DionaLanguage
+    - MothLanguage
+    - ReptilianLanguage
+    - VoxLanguage
+    - DemonLanguage
+    - CatLanguage
+    - MachineLanguage
+    - ReptilianLanguage
+    - PlafLanguage
+    - VulpkaninLanguage
+    - XenomorphLanguage
+    cantSpeakLanguages:
+    - ArachnidLanguage
+    - SlimeLanguage
+    - DionaLanguage
+    - MothLanguage
+    - ReptilianLanguage
+    - VoxLanguage
+    - DemonLanguage
+    - CatLanguage
+    - ReptilianLanguage
+    - PlafLanguage
+    - VulpkaninLanguage
+    - XenomorphLanguage
+  # DS14-end
+# DS14-end

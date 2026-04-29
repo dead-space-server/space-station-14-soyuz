@@ -351,22 +351,34 @@ namespace Content.Server.Power.EntitySystems
                     if (Paused(uid, metadata))
                         continue;
 
+                    // DS14-start: source-agnostic battery balancing
+                    // External power first covers idle load, battery only covers deficit.
+                    // Recharge comes only from actual surplus input power beyond idle load.
                     apcReceiver.Load = apcBattery.IdleLoad;
+                    var externalPower = Math.Max(0f, apcReceiver.NetworkLoad.ReceivingPower);
+                    var missingPower = Math.Max(0f, apcBattery.IdleLoad - externalPower);
+                    var surplusPower = Math.Max(0f, externalPower - apcBattery.IdleLoad);
 
-                    // Try to draw power from the battery if there isn't sufficient external power
-                    var requireBattery = !powered && !apcReceiver.PowerDisabled;
+                    if (!apcReceiver.PowerDisabled && missingPower > 0f)
+                        _battery.ChangeCharge((uid, battery), -missingPower * frameTime);
 
-                    if (requireBattery)
+                    if (!apcReceiver.PowerDisabled && !_battery.IsFull((uid, battery)))
                     {
-                        _battery.ChangeCharge((uid, battery), -apcBattery.IdleLoad * frameTime);
-                    }
-                    // Otherwise try to charge the battery
-                    else if (powered && !_battery.IsFull((uid, battery)))
-                    {
-                        apcReceiver.Load += apcBattery.BatteryRechargeRate * apcBattery.BatteryRechargeEfficiency;
-                        _battery.ChangeCharge((uid, battery), apcBattery.BatteryRechargeRate * frameTime);
+                        var targetRechargeRate = apcBattery.BatteryRechargeRate;
+                        var maxRechargeFromGrid = apcBattery.BatteryRechargeEfficiency > 0f
+                            ? surplusPower / apcBattery.BatteryRechargeEfficiency
+                            : targetRechargeRate;
+                        var actualRechargeRate = Math.Max(0f, Math.Min(targetRechargeRate, maxRechargeFromGrid));
+
+                        if (actualRechargeRate > 0f)
+                        {
+                            apcReceiver.Load += actualRechargeRate * apcBattery.BatteryRechargeEfficiency;
+                            _battery.ChangeCharge((uid, battery), actualRechargeRate * frameTime);
+                        }
                     }
 
+                    var requireBattery = !apcReceiver.PowerDisabled && missingPower > 0f;
+                    // DS14-end
                     // Enable / disable the battery if the state changed
                     var currentCharge = _battery.GetCharge((uid, battery));
                     var enableBattery = requireBattery && currentCharge > 0;

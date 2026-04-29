@@ -1,11 +1,11 @@
-- type: latheRecipe
+﻿- type: latheRecipe
   parent: BaseGoldBorgModuleRecipe
   id: BorgModuleMiningWeapon
   result: BorgModuleMiningWeapon
 
 - type: latheRecipe
-  id: Nanopaste
-  result: Nanopaste1
+  id: BlueInsulatingTapeSoyuzOld
+  result: BlueInsulatingTape1 # DS14-value: Nanopaste1 -> BlueInsulatingTape1
   completetime: 1
   materials:
     Steel: 25

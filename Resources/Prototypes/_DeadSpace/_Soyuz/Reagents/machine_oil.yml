@@ -1,0 +1,17 @@
+- type: reagent
+  id: MachineOil
+  name: reagent-name-machine-oil
+  parent: BasePyrotechnic
+  desc: reagent-desc-machine-oil
+  physicalDesc: reagent-physical-desc-oily
+  flavor: bitter
+  color: "#3f474f"
+  recognizable: true
+  metabolisms:
+    Poison:
+      metabolismRate: 1.0 # DS14: 1u metabolized per cycle target for predictable per-ounce damage
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 15 # DS14: 15 poison damage per 1u (ounce) ingested for non-IPC metabolizers

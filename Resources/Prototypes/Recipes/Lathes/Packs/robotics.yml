@@ -1,4 +1,4 @@
-## Static
+﻿## Static
 
 - type: latheRecipePack
   id: RoboticsStatic
@@ -46,7 +46,7 @@
   id: Robotics
   recipes:
   - ProximitySensor
-  - Nanopaste # DS14
+  - BlueInsulatingTapeSoyuz # DS14-value: Nanopaste -> BlueInsulatingTapeSoyuz
 
 - type: latheRecipePack
   id: BorgModules

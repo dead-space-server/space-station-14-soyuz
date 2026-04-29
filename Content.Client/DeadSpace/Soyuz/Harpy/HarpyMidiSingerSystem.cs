@@ -3,4 +3,4 @@ using Content.Shared._DV.Harpy;
 
 namespace Content.Client._DV.Harpy;
 
-public sealed class HarpySingerSystem : SharedHarpySingerSystem;
+public sealed class HarpyMidiSingerSystem : SharedHarpyMidiSingerSystem;

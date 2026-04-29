@@ -1,14 +1,14 @@
 // Must be shared, used by character setup UI
 namespace Content.Shared._NF.SizeAttribute;
 
-[RegisterComponent]
-public sealed partial class ShortWhitelistComponent : Component
+[RegisterComponent, ComponentProtoName("ShortWhitelist")] // DS14: keep old prototype/component id
+public sealed partial class ShortProfileWhitelistComponent : Component
 {
     [DataField]
-    public float Scale = 0f;
+    public float Scale;
 
     [DataField]
-    public float Density = 0f;
+    public float Density;
 
     [DataField]
     public bool PseudoItem = false;
@@ -23,5 +23,5 @@ public sealed partial class ShortWhitelistComponent : Component
     public Vector2i? StoredOffset;
 
     [DataField]
-    public float StoredRotation = 0;
+    public float StoredRotation;
 }

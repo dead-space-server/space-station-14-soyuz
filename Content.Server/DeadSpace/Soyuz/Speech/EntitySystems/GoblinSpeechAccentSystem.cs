@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace Content.Server._NF.Speech.EntitySystems;
 
 // The whole code is a copy of SouthernAccentSystem by UBlueberry (https://github.com/UBlueberry)
-public sealed class GoblinAccentSystem : EntitySystem
+public sealed class GoblinSpeechAccentSystem : EntitySystem
 {
     private static readonly Regex RegexIng = new(@"(in)g\b", RegexOptions.IgnoreCase);
     private static readonly Regex RegexAnd = new(@"\b(an)d\b", RegexOptions.IgnoreCase);
@@ -29,31 +29,31 @@ public sealed class GoblinAccentSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<GoblinAccentComponent, AccentGetEvent>(OnAccent);
+        SubscribeLocalEvent<GoblinSpeechAccentComponent, AccentGetEvent>(OnAccent);
     }
 
-    private void OnAccent(EntityUid uid, GoblinAccentComponent component, AccentGetEvent args)
+    private void OnAccent(EntityUid uid, GoblinSpeechAccentComponent component, AccentGetEvent args)
     {
-        var message = args.Message;
+        var text = _replacement.ApplyReplacements(args.Message, "goblin_accent");
+        args.Message = ApplyGoblinPatternReplacements(text);
+    }
 
-        message = _replacement.ApplyReplacements(message, "goblin_accent");
-
-        message = RegexIng.Replace(message, "$1'"); //ing->in', ING->IN'
-        message = RegexAnd.Replace(message, "$1'"); //and->an', AND->AN'
-        message = RegexEr.Replace(message, "$1ah");
-        message = RegexErUpper.Replace(message, "$1AH");
-        message = RegexTwoLetterEr.Replace(message, "$1ah");
-        message = RegexTwoLetterErUpper.Replace(message, "$1AH");
-        message = RegexErs.Replace(message, "$1as");
-        message = RegexErsUpper.Replace(message, "$1AS");
-        message = RegexTt.Replace(message, "$1'");
-        message = RegexH.Replace(message, "'");
-        message = RegexSelf.Replace(message, "sewf");
-        message = RegexSelfUpper.Replace(message, "SEWF");
-        message = RegexOf.Replace(message, "$1'"); //of->o', OF->O'
-        message = RegexThe.Replace(message, "da");
-        message = RegexTheUpper.Replace(message, "DA");
-
-        args.Message = message;
+    private static string ApplyGoblinPatternReplacements(string text)
+    {
+        text = RegexIng.Replace(text, "$1'"); //ing->in', ING->IN'
+        text = RegexAnd.Replace(text, "$1'"); //and->an', AND->AN'
+        text = RegexEr.Replace(text, "$1ah");
+        text = RegexErUpper.Replace(text, "$1AH");
+        text = RegexTwoLetterEr.Replace(text, "$1ah");
+        text = RegexTwoLetterErUpper.Replace(text, "$1AH");
+        text = RegexErs.Replace(text, "$1as");
+        text = RegexErsUpper.Replace(text, "$1AS");
+        text = RegexTt.Replace(text, "$1'");
+        text = RegexH.Replace(text, "'");
+        text = RegexSelf.Replace(text, "sewf");
+        text = RegexSelfUpper.Replace(text, "SEWF");
+        text = RegexOf.Replace(text, "$1'"); //of->o', OF->O'
+        text = RegexThe.Replace(text, "da");
+        return RegexTheUpper.Replace(text, "DA");
     }
 };

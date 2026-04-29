@@ -10,7 +10,7 @@ using Robust.Shared.Containers;
 
 namespace Content.Server.Abilities.Oni
 {
-    public sealed class OniSystem : EntitySystem
+    public sealed class OniCombatModifierSystem : EntitySystem
     {
         [Dependency] private readonly SharedGunSystem _gunSystem = default!;
 
@@ -21,9 +21,9 @@ namespace Content.Server.Abilities.Oni
             base.Initialize();
             SubscribeLocalEvent<OniComponent, EntInsertedIntoContainerMessage>(OnEntInserted);
             SubscribeLocalEvent<OniComponent, EntRemovedFromContainerMessage>(OnEntRemoved);
-            SubscribeLocalEvent<OniComponent, MeleeHitEvent>(OnOniMeleeHit);
+            SubscribeLocalEvent<OniComponent, MeleeHitEvent>(OnOniMelee);
             SubscribeLocalEvent<HeldByOniComponent, MeleeHitEvent>(OnHeldMeleeHit);
-            SubscribeLocalEvent<HeldByOniComponent, StaminaMeleeHitEvent>(OnStamHit);
+            SubscribeLocalEvent<HeldByOniComponent, StaminaMeleeHitEvent>(OnHeldStaminaMeleeHit);
             SubscribeLocalEvent<HeldByOniComponent, GunRefreshModifiersEvent>(OnGunRefreshModifiers);
         }
 
@@ -33,28 +33,29 @@ namespace Content.Server.Abilities.Oni
             heldComp.Holder = uid;
 
             // DS14-Soyuz: Oni-friendly "guns" (crusher)
-            if (TryComp<GunComponent>(args.Entity, out var gun) && !HasComp<NFOniFriendlyGunComponent>(args.Entity))
-            {
-                _gunSystem.RefreshModifiers(args.Entity); // DS14-Soyuz
-            }
+            var isGun = TryComp<GunComponent>(args.Entity, out _);
+            var isOniFriendly = HasComp<OniFriendlyGunComponent>(args.Entity);
+            if (!isGun || isOniFriendly)
+                return;
+
+            _gunSystem.RefreshModifiers(args.Entity); // DS14-Soyuz
         }
 
         private void OnEntRemoved(EntityUid uid, OniComponent component, EntRemovedFromContainerMessage args)
         {
             // DS14-Soyuz: Oni-friendly "guns" (crusher)
-            if (TryComp<GunComponent>(args.Entity, out var gun) &&
-                TryComp<HeldByOniComponent>(args.Entity, out _) &&
-                !HasComp<NFOniFriendlyGunComponent>(args.Entity))
-            {
+            var shouldRefresh = TryComp<GunComponent>(args.Entity, out _)
+                && TryComp<HeldByOniComponent>(args.Entity, out _)
+                && !HasComp<OniFriendlyGunComponent>(args.Entity);
+            if (shouldRefresh)
                 _gunSystem.RefreshModifiers(args.Entity); // DS14-Soyuz
-            }
 
             RemComp<HeldByOniComponent>(args.Entity);
         }
 
         private void OnGunRefreshModifiers(EntityUid uid, HeldByOniComponent component, ref GunRefreshModifiersEvent args)
         {
-            if (HasComp<NFOniFriendlyGunComponent>(uid))
+            if (HasComp<OniFriendlyGunComponent>(uid))
                 return;
 
             // DS14-Soyuz: apply oni inaccuracy through refresh event instead of writing GunComponent fields.
@@ -63,7 +64,7 @@ namespace Content.Server.Abilities.Oni
             args.MaxAngle += args.MaxAngle * GunInaccuracyFactor;
         }
 
-        private void OnOniMeleeHit(EntityUid uid, OniComponent component, MeleeHitEvent args)
+        private void OnOniMelee(EntityUid uid, OniComponent component, MeleeHitEvent args)
         {
             args.ModifiersList.Add(component.MeleeModifiers);
         }
@@ -76,7 +77,7 @@ namespace Content.Server.Abilities.Oni
             args.ModifiersList.Add(oni.MeleeModifiers);
         }
 
-        private void OnStamHit(EntityUid uid, HeldByOniComponent component, StaminaMeleeHitEvent args)
+        private void OnHeldStaminaMeleeHit(EntityUid uid, HeldByOniComponent component, StaminaMeleeHitEvent args)
         {
             if (!TryComp<OniComponent>(component.Holder, out var oni))
                 return;

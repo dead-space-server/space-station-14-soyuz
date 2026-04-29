@@ -21,7 +21,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._DV.Harpy;
 
-public sealed class HarpySingerSystem : SharedHarpySingerSystem
+public sealed class HarpyMidiSingerSystem : SharedHarpyMidiSingerSystem
 {
     [Dependency] private readonly InstrumentSystem _instrument = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
@@ -44,7 +44,7 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
 
         // This is intended to intercept the UI event and stop the MIDI UI from opening if the
         // singer is unable to sing. Thus it needs to run before the ActivatableUISystem.
-        SubscribeLocalEvent<HarpySingerComponent, OpenUiActionEvent>(OnInstrumentOpen, before: new[] { typeof(ActivatableUISystem) });
+        SubscribeLocalEvent<HarpyMidiSingerComponent, OpenUiActionEvent>(OnInstrumentOpen, before: new[] { typeof(ActivatableUISystem) });
     }
 
     private void OnEquip(GotEquippedEvent args)
@@ -88,8 +88,11 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
 
     private void OnStatusEffect(EntityUid uid, InstrumentComponent component, StatusEffectAddedEvent args)
     {
-        if (args.Key == "Muted")
-            CloseMidiUi(uid);
+        var muted = args.Key == "Muted";
+        if (!muted)
+            return;
+
+        CloseMidiUi(uid);
     }
 
     /// <summary>
@@ -101,17 +104,23 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
     /// </summary>
     private void OnDamageChanged(EntityUid uid, InstrumentComponent instrumentComponent, DamageChangedEvent args)
     {
-        if (!TryComp<DamageForceSayComponent>(uid, out var component) ||
-            args.DamageDelta == null ||
-            !args.DamageIncreased ||
-            args.DamageDelta.GetTotal() < component.DamageThreshold ||
-            component.ValidDamageGroups == null)
+        if (!TryComp<DamageForceSayComponent>(uid, out var component))
             return;
 
+        var delta = args.DamageDelta;
+        var hasValidIncrease = args.DamageIncreased
+            && delta != null
+            && delta.GetTotal() >= component.DamageThreshold
+            && component.ValidDamageGroups != null;
+        if (!hasValidIncrease)
+            return;
+
+        var validDamageGroups = component.ValidDamageGroups!;
+
         var totalApplicableDamage = FixedPoint2.Zero;
-        foreach (var (group, value) in args.DamageDelta.GetDamagePerGroup(_prototype))
+        foreach (var (group, value) in delta!.GetDamagePerGroup(_prototype))
         {
-            if (!component.ValidDamageGroups.Contains(group))
+            if (!validDamageGroups.Contains(group))
                 continue;
 
             totalApplicableDamage += value;
@@ -126,22 +135,22 @@ public sealed class HarpySingerSystem : SharedHarpySingerSystem
     /// </summary>
     private void CloseMidiUi(EntityUid uid)
     {
-        if (HasComp<ActiveInstrumentComponent>(uid) &&
-            TryComp<ActorComponent>(uid, out var actor))
-        {
-            _instrument.ToggleInstrumentUi(uid, uid);
-        }
+        var canToggle = HasComp<ActiveInstrumentComponent>(uid) && TryComp<ActorComponent>(uid, out _);
+        if (!canToggle)
+            return;
+
+        _instrument.ToggleInstrumentUi(uid, uid);
     }
 
     /// <summary>
     /// Prevent the player from opening the MIDI UI under some circumstances.
     /// </summary>
-    private void OnInstrumentOpen(EntityUid uid, HarpySingerComponent component, OpenUiActionEvent args)
+    private void OnInstrumentOpen(EntityUid uid, HarpyMidiSingerComponent component, OpenUiActionEvent args)
     {
         // CanSpeak covers all reasons you can't talk, including being incapacitated
         // (crit/dead), asleep, or for any reason mute inclding glimmer or a mime's vow.
         var canNotSpeak = !_blocker.CanSpeak(uid);
-        var zombified = TryComp<ZombieComponent>(uid, out var _);
+        var zombified = HasComp<ZombieComponent>(uid);
         var muzzled = _inventorySystem.TryGetSlotEntity(uid, "mask", out var maskUid) &&
             TryComp<AddAccentClothingComponent>(maskUid, out var accent) &&
             accent.ReplacementPrototype == "mumble";

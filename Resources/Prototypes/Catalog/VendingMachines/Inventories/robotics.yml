@@ -1,7 +1,7 @@
 ﻿- type: vendingMachineInventory
   id: RoboticsInventory
   startingInventory:
-    BlueInsulatingTape1: 4 # DS14-value: Nanopaste -> BlueInsulatingTape1
+    BlueInsulatingTape: 4 # DS14-value: Nanopaste -> BlueInsulatingTape
     CableApcStack: 4
     SciFlash: 4
     ProximitySensor: 3

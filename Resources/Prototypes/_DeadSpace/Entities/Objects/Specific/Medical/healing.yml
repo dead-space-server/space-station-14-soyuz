@@ -9,7 +9,7 @@
     tags:
     - BlueInsulatingTape # DS14-value: Nanopaste -> BlueInsulatingTape
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/medical.rsi # DS14
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
     state: insulating_tape_blue-3 # DS14-value: nanopaste -> insulating_tape_blue-3
   - type: Item
     heldPrefix: insulating_tape_blue # DS14-value: nanopaste -> insulating_tape_blue

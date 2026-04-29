@@ -1,10 +1,10 @@
 # Вклад в разработку Dead Space Soyuz
 
-Если вы собираетесь внести вклад в разработку Dead Space Soyuz, обратитесь к [руководству по Pull Request'ам от Wizard's Den](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html) — оно послужит хорошей отправной точкой по качеству кода и работе с ветками. Обратите внимание, что у нас нет разделения на `master/stable` ветки.
+Если вы собираетесь внести вклад в разработку Dead Space Soyuz, обратитесь к [руководству по Pull Request'ам](docs/pull-request-guidelines.md) — оно послужит хорошей отправной точкой по качеству кода и работе с ветками. Обратите внимание, что у нас нет разделения на `master/stable` ветки.
 
 > ⚠️ **Не используйте веб-редактор GitHub.** Pull Request'ы, созданные через веб-редактор, могут быть закрыты без рассмотрения.
 
-"Upstream" означает [репозиторий `space-wizards/space-station-14`](https://github.com/space-wizards/space-station-14), из которого был сделан форк.
+"Upstream" означает [репозиторий `space-wizards/space-station-14`](https://github.com/dead-space-server/dead-space-14), из которого был сделан форк.
 
 ---
 
@@ -25,20 +25,20 @@
 
 Если вы правите существующие upstream-файлы (C#, YAML, FTL и т.д.), оставляйте пометки у изменённых мест. Это снижает стоимость мерджей и апстримов. Если вы создаете что то новое всегда создавайте новый файл FTL за исключением правки предыдущего уже существующего текста.
 
-В репозитории используется префикс `DS14` (и уточнения вроде `DS14-Soyuz`). Используйте его же для новых пометок.
+В репозитории используется префикс `DS14-Soyuz` (и уточнения вроде ``). Используйте его же для новых пометок.
 
 **Рекомендуемые форматы:**
-- Точечное изменение: `# DS14` или `// DS14`
-- Изменение значения: `# DS14-value: СТАРОЕ -> НОВОЕ`
-- Блок изменений: `# DS14-start` / `# DS14-end` или `// DS14-start` / `// DS14-end`
+- Точечное изменение: `# DS14-Soyuz` или `// DS14-Soyuz`
+- Изменение значения: `# DS14-Soyuz-value: СТАРОЕ -> НОВОЕ`
+- Блок изменений: `# DS14-Soyuz-start` / `# DS14-Soyuz-end` или `// DS14-Soyuz-start` / `// DS14-Soyuz-end`
 
 **Для YAML:**
 - Для одиночных правок оставляйте короткие пометки в строке.
-- Для больших вставок используйте блочные маркеры `DS14-start/end`.
+- Для многострочных вставок используйте блочные маркеры `DS14-Soyuz-start/end`.
 
 **Для C#:**
-- Для небольших правок достаточно `// DS14`.
-- Для крупных портов/вставок оборачивайте блок в `DS14-start/end`.
+- Для небольших правок достаточно `// DS14-Soyuz`.
+- Для многострочных портов/вставок оборачивайте блок в `DS14-Soyuz-start/end`.
 - Если код портирован из upstream PR, укажите номер PR в описании PR или рядом с блоком.
 
 > ⚠️ В `.ftl` не ставьте комментарий в той же строке, что и ключ перевода. Комментарий должен быть строкой выше.
@@ -52,42 +52,42 @@
 - type: entity
   id: ExampleEntity
   categories:
-  - NewCategory # DS14
+  - NewCategory # DS14-Soyuz
 ```
 
 **Изменение значения:**
 ```yml
   - type: Gun
-    fireRate: 4 # DS14-value: 3 -> 4
+    fireRate: 4 # DS14-Soyuz-value: 3 -> 4
 ```
 
 **Блочная вставка в YAML:**
 ```yml
-# DS14-start
+# DS14-Soyuz-start
 - type: entity
   id: ExampleSoyuzEntity
   parent: BaseItem
-# DS14-end
+# DS14-Soyuz-end
 ```
 
 **Точечное изменение в C#:**
 ```cs
-using Content.Shared.Damage; // DS14
+using Content.Shared.Damage; // DS14-Soyuz
 ```
 
 **Блочная вставка в C#:**
 ```cs
-// DS14-start: синхронизация цвета штампа
+// DS14-Soyuz-start: синхронизация цвета штампа
 if (TryComp<StampComponent>(uid, out var stamp))
 {
     stamp.StampedColor = state.Color;
 }
-// DS14-end
+// DS14-Soyuz-end
 ```
 
 **Изменение локализации (`.ftl`):**
 ```fluent
-# DS14-value: "Job Whitelists" -> "Role Whitelists"
+# DS14-Soyuz-value: "Job Whitelists" -> "Role Whitelists"
 player-panel-job-whitelists = Role Whitelists
 ```
 
@@ -125,7 +125,7 @@ git restore --source upstream/master -- RobustToolbox
 ## Ченджлоги
 
 Для контента Союза используйте:
-- `Resources\Changelog\ChangelogDS14Soyuz.yml` — общий ченджлог Союза;
+- `Resources\Changelog\ChangelogDS14-SoyuzSoyuz.yml` — общий ченджлог Союза;
 - `Resources\Changelog\Maps.yml` — изменения карт.
 
 Следуйте существующему формату записей (`Add`, `Fix`, `Tweak`, `Remove`) и указывайте номер PR, если он есть.

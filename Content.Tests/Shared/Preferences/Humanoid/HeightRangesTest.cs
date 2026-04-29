@@ -25,10 +25,6 @@ public sealed class HeightRangesTest
     [TestCase("Tajaran", Sex.Male, 145, 170, 200)]
     [TestCase("Reptilian", Sex.Male, 190, 200, 210)]
     [TestCase("Felinid", Sex.Male, 140, 150, 160)]
-    [TestCase("Goblin", Sex.Male, 140, 150, 155)]
-    [TestCase("Harpy", Sex.Male, 140, 157, 175)]
-    [TestCase("Ariral", Sex.Male, 165, 190, 220)]
-    [TestCase("Oni", Sex.Male, 190, 205, 220)]
     public void TestSpeciesHeightRanges(string species, Sex sex, int min, int expectedDefault, int max)
     {
         var range = HumanoidCharacterProfile.GetHeightRange(species, sex);
@@ -65,10 +61,6 @@ public sealed class HeightRangesTest
     [TestCase("Moth", Sex.Male, 175)]
     [TestCase("Shark", Sex.Male, 205)]
     [TestCase("Vulpkanin", Sex.Female, 174)]
-    [TestCase("Goblin", Sex.Male, 150)]
-    [TestCase("Harpy", Sex.Male, 157)]
-    [TestCase("Ariral", Sex.Male, 190)]
-    [TestCase("Oni", Sex.Male, 205)]
     public void TestAverageHeightKeepsNeutralScale(string species, Sex sex, int height)
     {
         Assert.That(HumanoidCharacterProfile.HeightToScale(species, sex, height), Is.EqualTo(1f).Within(0.0001f));

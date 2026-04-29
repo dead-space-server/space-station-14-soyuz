@@ -21,7 +21,6 @@ namespace Content.Shared.Humanoid
         Eyes,
         RArm,
         LArm,
-        RArmExtension, // DS14-Soyuz: harpy wing overlay
         RHand,
         LHand,
         RLeg,

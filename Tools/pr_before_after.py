@@ -518,8 +518,39 @@ def changed_entries(base_sha: str, head_sha: str) -> tuple[list[RenderEntry], li
     return build_render_entries(base_sha, head_sha, changed_paths), changed_paths
 
 
-def build_preview(base_sha: str, head_sha: str, output_path: Path, metadata_path: Path | None) -> dict[str, Any]:
-    selected_entries, changed_paths = changed_entries(base_sha, head_sha)
+def changed_entries_from_paths(base_sha: str, head_sha: str, changed_paths: list[str]) -> tuple[list[RenderEntry], list[str]]:
+    if not changed_paths:
+        return [], []
+    return build_render_entries(base_sha, head_sha, changed_paths), changed_paths
+
+
+def load_changed_paths(path: Path) -> list[str]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, list):
+        raise ValueError("Changed paths file must contain a JSON array of file paths.")
+
+    normalized: list[str] = []
+    for entry in raw:
+        if not isinstance(entry, str):
+            continue
+        candidate = entry.replace("\\", "/").strip()
+        if not candidate:
+            continue
+        normalized.append(candidate)
+    return normalized
+
+
+def build_preview(
+    base_sha: str,
+    head_sha: str,
+    output_path: Path,
+    metadata_path: Path | None,
+    changed_paths_override: list[str] | None = None,
+) -> dict[str, Any]:
+    if changed_paths_override is None:
+        selected_entries, changed_paths = changed_entries(base_sha, head_sha)
+    else:
+        selected_entries, changed_paths = changed_entries_from_paths(base_sha, head_sha, changed_paths_override)
 
     thumb = 88
     cell_width = 330
@@ -734,13 +765,19 @@ def main() -> None:
     parser.add_argument("--head-sha", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--metadata")
+    parser.add_argument("--changed-paths-file")
     args = parser.parse_args()
+
+    changed_paths_override: list[str] | None = None
+    if args.changed_paths_file:
+        changed_paths_override = load_changed_paths(Path(args.changed_paths_file))
 
     metadata = build_preview(
         base_sha=args.base_sha,
         head_sha=args.head_sha,
         output_path=Path(args.output),
         metadata_path=Path(args.metadata) if args.metadata else None,
+        changed_paths_override=changed_paths_override,
     )
 
     print(json.dumps({"image": metadata["image"], "entry_count": len(metadata["entries"])}, ensure_ascii=False))

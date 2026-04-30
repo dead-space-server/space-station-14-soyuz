@@ -47,6 +47,14 @@ jobs:
             core.setOutput('head_sha', run.head_sha);
             core.setOutput('head_clone_url', pull.head.repo.clone_url);
             core.setOutput('is_latest', String(pull.head.sha === run.head_sha));
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner,
+              repo,
+              pull_number: pull.number,
+              per_page: 100,
+            });
+            const fileNames = files.map(file => file.filename);
+            core.setOutput('files_json', JSON.stringify(fileNames));
 
       - name: Checkout base repository
         if: github.event_name != 'workflow_run' || steps.pr.outputs.is_latest == 'true'
@@ -88,11 +96,19 @@ jobs:
         env:
           BASE_SHA: ${{ steps.compare_base.outputs.base_sha }}
           HEAD_SHA: ${{ steps.compare_base.outputs.head_sha }}
+          PR_FILES_JSON: ${{ github.event_name == 'workflow_run' && steps.pr.outputs.files_json || '' }}
         run: |
           mkdir -p .artifacts
+          if [ -n "$PR_FILES_JSON" ]; then
+            printf '%s' "$PR_FILES_JSON" > .artifacts/pr-files.json
+            PR_FILES_ARG="--changed-paths-file .artifacts/pr-files.json"
+          else
+            PR_FILES_ARG=""
+          fi
           python Tools/pr_before_after.py \
             --base-sha "$BASE_SHA" \
             --head-sha "$HEAD_SHA" \
+            $PR_FILES_ARG \
             --output .artifacts/pr-before-after.png \
             --metadata .artifacts/pr-before-after.json
           echo "base_sha=$BASE_SHA" >> "$GITHUB_OUTPUT"

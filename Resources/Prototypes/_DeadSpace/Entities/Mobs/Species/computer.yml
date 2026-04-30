@@ -16,6 +16,7 @@
         Blunt: 0.11 #per second, scales with pressure and other constants.
 # DS14-Soyuz-start
   - type: DamageOnEMP
+    damage: 0.0005 # 25 damage on EMP grenade
   - type: IPC
   - type: Battery
     maxCharge: 1080

@@ -13,7 +13,7 @@
   - type: MechCollector
     range: 1.6
     scanInterval: 1
-    collectEnergyDelta: -10
+    collectEnergyDelta: -0.5
     whitelist:
       tags:
       - Ore

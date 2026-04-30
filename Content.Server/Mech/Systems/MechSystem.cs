@@ -1,5 +1,5 @@
 using Content.Server.Atmos.EntitySystems;
-using Content.Server.Atmos.Components;
+using Content.Server.Atmos.Components; // DS14-Soyuz
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
 using Content.Shared.ActionBlocker;
@@ -447,6 +447,7 @@ public sealed partial class MechSystem : SharedMechSystem
     }
     #endregion
 
+// DS14-Soyuz-start
     private void OnMechPilotSetup(EntityUid uid, MechComponent component, ref MechPilotSetupEvent args)
     {
         if (component.IgnorePressure)
@@ -463,5 +464,5 @@ public sealed partial class MechSystem : SharedMechSystem
         }
     
     }
-
+// DS14-Soyuz-end
 }

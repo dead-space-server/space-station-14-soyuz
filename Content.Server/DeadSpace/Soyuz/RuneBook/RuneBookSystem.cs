@@ -12,14 +12,22 @@ public sealed class RuneBookSystem : EntitySystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<RuneBookComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<RuneBookComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<RuneBookComponent, RuneBookSetPageMessage>(OnSetPage);
         SubscribeLocalEvent<RuneBookComponent, RuneBookCheckMessage>(OnCheck);
         SubscribeLocalEvent<RuneBookComponent, RuneBookRipPageMessage>(OnRipPage);
     }
 
+    private void OnMapInit(EntityUid uid, RuneBookComponent component, MapInitEvent args)
+    {
+        EnsureCounts(component);
+        component.CurrentPage = Math.Clamp(component.CurrentPage, 0, Math.Max(component.PageCount - 1, 0));
+    }
+
     private void OnUiOpened(EntityUid uid, RuneBookComponent component, BoundUIOpenedEvent args)
     {
+        EnsureCounts(component);
         UpdateUi(uid, component);
     }
 
@@ -169,6 +177,7 @@ public sealed class RuneBookSystem : EntitySystem
 
     private void UpdateUi(EntityUid uid, RuneBookComponent component)
     {
+        EnsureCounts(component);
         component.CurrentPage = Math.Clamp(component.CurrentPage, 0, Math.Max(component.PageCount - 1, 0));
 
         _ui.SetUiState(uid,
@@ -183,5 +192,11 @@ public sealed class RuneBookSystem : EntitySystem
                 component.LastScore,
                 component.LastMissingSegments,
                 component.LastExtraSegments));
+    }
+
+    private static void EnsureCounts(RuneBookComponent component)
+    {
+        component.PageCount = RuneBookRuneLibrary.PageCount;
+        component.RuneCount = RuneBookRuneLibrary.RuneCount;
     }
 }

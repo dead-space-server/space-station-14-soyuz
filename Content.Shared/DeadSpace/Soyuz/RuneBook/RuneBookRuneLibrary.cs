@@ -1,4 +1,7 @@
 using System.Linq;
+using Robust.Shared.IoC;
+using Robust.Shared.Log;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.DeadSpace.Soyuz.RuneBook;
 
@@ -17,22 +20,60 @@ public sealed class RuneBookRuneDefinition
 public static class RuneBookRuneLibrary
 {
     public const int GridSize = 16;
-    public const int PageCount = 40;
-    public const int RuneCount = 84;
     public const int MaxSubmittedSegments = 96;
 
-    private static readonly RuneBookRuneDefinition[] Runes = BuildRunes();
+    private const string ConfigId = "DS14SoyuzRuneBookConfig";
+
+    private static readonly object InitLock = new();
+    private static bool _initialized;
+    private static RuneBookRuneDefinition[] _runes = Array.Empty<RuneBookRuneDefinition>();
+    private static int _runesPerPage = 2;
+    private static ISawmill? _sawmill;
+
+    public static int RuneCount
+    {
+        get
+        {
+            EnsureInitialized();
+            return _runes.Length;
+        }
+    }
+
+    public static int PageCount
+    {
+        get
+        {
+            EnsureInitialized();
+            var count = RuneCount;
+            if (count <= 0)
+                return 1;
+
+            var perPage = Math.Max(_runesPerPage, 1);
+            return Math.Max(1, (count + perPage - 1) / perPage);
+        }
+    }
 
     public static RuneBookRuneDefinition GetRune(int runeId)
     {
-        return Runes[Math.Clamp(runeId, 0, RuneCount - 1)];
+        EnsureInitialized();
+
+        if (_runes.Length == 0)
+            return new RuneBookRuneDefinition(0, Array.Empty<RuneBookSegment>());
+
+        return _runes[Math.Clamp(runeId, 0, _runes.Length - 1)];
     }
 
     public static int[] GetRunesForPage(int page)
     {
+        EnsureInitialized();
+
+        if (_runes.Length == 0)
+            return Array.Empty<int>();
+
+        var perPage = Math.Max(_runesPerPage, 1);
         page = Math.Clamp(page, 0, PageCount - 1);
-        var count = GetRuneCountForPage(page);
-        var start = GetFirstRuneForPage(page);
+        var start = page * perPage;
+        var count = Math.Clamp(_runes.Length - start, 0, perPage);
         var runes = new int[count];
 
         for (var i = 0; i < count; i++)
@@ -52,145 +93,100 @@ public static class RuneBookRuneLibrary
         return false;
     }
 
-    private static int GetRuneCountForPage(int page)
+    private static void EnsureInitialized()
     {
-        return page < 4 ? 3 : 2;
-    }
-
-    private static int GetFirstRuneForPage(int page)
-    {
-        return page < 4 ? page * 3 : 12 + (page - 4) * 2;
-    }
-
-    private static RuneBookRuneDefinition[] BuildRunes()
-    {
-        var runes = new RuneBookRuneDefinition[RuneCount];
-
-        for (var i = 0; i < RuneCount; i++)
-            runes[i] = BuildRune(i);
-
-        return runes;
-    }
-
-    private static RuneBookRuneDefinition BuildRune(int id)
-    {
-        var segments = new HashSet<RuneBookSegment>();
-        var motif = id % 7;
-        var variant = id / 7;
-
-        var top = new Vector2i(7, 1);
-        var upper = new Vector2i(7, 3);
-        var bottom = new Vector2i(7, 14);
-        var lower = new Vector2i(7, 12);
-        var left = new Vector2i(1, 7);
-        var innerLeft = new Vector2i(3, 7);
-        var right = new Vector2i(14, 7);
-        var innerRight = new Vector2i(12, 7);
-        var tl = new Vector2i(3, 3);
-        var tr = new Vector2i(12, 3);
-        var bl = new Vector2i(3, 12);
-        var br = new Vector2i(12, 12);
-        var center = new Vector2i(7, 7);
-        var offCenter = new Vector2i(8, 8);
-
-        switch (motif)
-        {
-            case 0:
-                AddPath(segments, top, right, bottom, left, top);
-                break;
-            case 1:
-                AddPath(segments, tl, tr, br, bl, tl);
-                break;
-            case 2:
-                AddPath(segments, top, br, bl, top);
-                break;
-            case 3:
-                AddPath(segments, bottom, tl, tr, bottom);
-                break;
-            case 4:
-                Add(segments, top, bottom);
-                Add(segments, left, right);
-                Add(segments, tl, br);
-                Add(segments, tr, bl);
-                break;
-            case 5:
-                AddPath(segments, tl, center, tr);
-                AddPath(segments, bl, center, br);
-                Add(segments, top, bottom);
-                break;
-            default:
-                AddPath(segments, bl, top, br);
-                AddPath(segments, left, center, right);
-                Add(segments, upper, lower);
-                break;
-        }
-
-        if ((variant & 1) != 0)
-        {
-            Add(segments, center, top);
-            Add(segments, center, bottom);
-        }
-
-        if ((variant & 2) != 0)
-        {
-            Add(segments, center, left);
-            Add(segments, center, right);
-        }
-
-        if ((variant & 4) != 0)
-        {
-            Add(segments, innerLeft, tr);
-            Add(segments, innerRight, bl);
-        }
-
-        if ((variant & 8) != 0)
-        {
-            Add(segments, tl, innerRight);
-            Add(segments, br, innerLeft);
-        }
-
-        if ((variant & 16) != 0)
-        {
-            AddPath(segments, upper, offCenter, lower);
-        }
-
-        var spokeA = GetSpoke((id * 3 + variant) % 8);
-        var spokeB = GetSpoke((id * 5 + variant + 2) % 8);
-        Add(segments, center, spokeA);
-
-        if (spokeA != spokeB)
-            Add(segments, spokeA, spokeB);
-
-        return new RuneBookRuneDefinition(id, segments.ToArray());
-    }
-
-    private static Vector2i GetSpoke(int index)
-    {
-        return index switch
-        {
-            0 => new Vector2i(7, 2),
-            1 => new Vector2i(12, 3),
-            2 => new Vector2i(13, 7),
-            3 => new Vector2i(12, 12),
-            4 => new Vector2i(7, 13),
-            5 => new Vector2i(3, 12),
-            6 => new Vector2i(2, 7),
-            _ => new Vector2i(3, 3)
-        };
-    }
-
-    private static void AddPath(HashSet<RuneBookSegment> segments, params Vector2i[] points)
-    {
-        for (var i = 0; i < points.Length - 1; i++)
-            Add(segments, points[i], points[i + 1]);
-    }
-
-    private static void Add(HashSet<RuneBookSegment> segments, Vector2i start, Vector2i end)
-    {
-        if (!IsValidNode(start) || !IsValidNode(end) || start == end)
+        if (_initialized)
             return;
 
-        segments.Add(new RuneBookSegment(start, end));
+        lock (InitLock)
+        {
+            if (_initialized)
+                return;
+
+            var deps = IoCManager.Instance;
+            if (deps == null)
+            {
+                _runes = Array.Empty<RuneBookRuneDefinition>();
+                _initialized = true;
+                return;
+            }
+
+            if (_sawmill == null &&
+                deps.TryResolveType(typeof(ILogManager), out var logObj) &&
+                logObj is ILogManager logMan)
+            {
+                _sawmill = logMan.GetSawmill("rune-book");
+            }
+
+            if (!deps.TryResolveType(typeof(IPrototypeManager), out var protoObj) ||
+                protoObj is not IPrototypeManager proto)
+            {
+                _sawmill?.Error("Failed to resolve IPrototypeManager; rune library will be empty.");
+                _runes = Array.Empty<RuneBookRuneDefinition>();
+                _initialized = true;
+                return;
+            }
+
+            RuneBookConfigPrototype? config = null;
+            if (proto.TryIndex<RuneBookConfigPrototype>(ConfigId, out var indexed))
+                config = indexed;
+
+            _runesPerPage = Math.Max(config?.RunesPerPage ?? 2, 1);
+
+            var runeProtos = proto.EnumeratePrototypes<RuneBookRunePrototype>()
+                .OrderBy(p => p.Index)
+                .ToArray();
+
+            var inferredCount = runeProtos.Length > 0 ? runeProtos.Max(p => p.Index) + 1 : 0;
+            var runeCount = config?.ExpectedRuneCount ?? inferredCount;
+
+            if (runeCount < 0)
+                runeCount = 0;
+
+            var runes = new RuneBookRuneDefinition[Math.Max(runeCount, 0)];
+            var seen = new bool[runes.Length];
+
+            foreach (var rune in runeProtos)
+            {
+                if (rune.Index < 0 || rune.Index >= runes.Length)
+                {
+                    _sawmill?.Warning($"Rune prototype '{rune.ID}' has out-of-range index {rune.Index} (0..{Math.Max(runes.Length - 1, 0)}).");
+                    continue;
+                }
+
+                var segments = new HashSet<RuneBookSegment>();
+                foreach (var segmentDef in rune.Segments)
+                {
+                    var seg = segmentDef.ToSegment().Normalized;
+                    if (!IsValidNode(seg.Start) || !IsValidNode(seg.End) || seg.IsPoint)
+                        continue;
+
+                    segments.Add(seg);
+                }
+
+                runes[rune.Index] = new RuneBookRuneDefinition(rune.Index, segments.ToArray());
+                seen[rune.Index] = true;
+            }
+
+            for (var i = 0; i < runes.Length; i++)
+            {
+                if (seen[i])
+                    continue;
+
+                _sawmill?.Error($"Missing rune definition for index {i}. Add a 'ds14SoyuzRuneBookRune' prototype with index={i}.");
+                runes[i] = new RuneBookRuneDefinition(i, Array.Empty<RuneBookSegment>());
+            }
+
+            if (config?.ExpectedRuneCount != null && runeProtos.Length != config.ExpectedRuneCount.Value)
+            {
+                _sawmill?.Warning(
+                    $"Rune pool size mismatch: expected {config.ExpectedRuneCount.Value} prototypes, found {runeProtos.Length}. " +
+                    "The book will still use expectedRuneCount for indexing.");
+            }
+
+            _runes = runes;
+            _initialized = true;
+        }
     }
 
     private static bool IsValidNode(Vector2i node)

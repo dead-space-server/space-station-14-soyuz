@@ -7,10 +7,10 @@ public sealed partial class RuneBookComponent : Component
     public int CurrentPage;
 
     [DataField]
-    public int PageCount = RuneBookRuneLibrary.PageCount;
+    public int PageCount;
 
     [DataField]
-    public int RuneCount = RuneBookRuneLibrary.RuneCount;
+    public int RuneCount;
 
     [DataField]
     public HashSet<int> RippedPages = new();

@@ -253,6 +253,10 @@
                                         Text="{Loc 'rune-book-ui-clear'}"
                                         ToolTip="{Loc 'rune-book-ui-clear-tooltip'}"
                                         MinSize="118 40" />
+                                <Button Name="ExportButton"
+                                        Text="{Loc 'rune-book-ui-export'}"
+                                        ToolTip="{Loc 'rune-book-ui-export-tooltip'}"
+                                        MinSize="148 40" />
                                 <Button Name="CheckButton"
                                         Text="{Loc 'rune-book-ui-check'}"
                                         ToolTip="{Loc 'rune-book-ui-check-tooltip'}"

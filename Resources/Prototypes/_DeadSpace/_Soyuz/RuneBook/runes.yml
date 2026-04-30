@@ -1,0 +1,242 @@
+# DS14-start: Rune Book rune pool (edit these)
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune01
+  index: 0
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune02
+  index: 1
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune03
+  index: 2
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune04
+  index: 3
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune05
+  index: 4
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune06
+  index: 5
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune07
+  index: 6
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune08
+  index: 7
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune09
+  index: 8
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune10
+  index: 9
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune11
+  index: 10
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune12
+  index: 11
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune13
+  index: 12
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune14
+  index: 13
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune15
+  index: 14
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune16
+  index: 15
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune17
+  index: 16
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune18
+  index: 17
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune19
+  index: 18
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune20
+  index: 19
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune21
+  index: 20
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune22
+  index: 21
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune23
+  index: 22
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune24
+  index: 23
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune25
+  index: 24
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune26
+  index: 25
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune27
+  index: 26
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune28
+  index: 27
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune29
+  index: 28
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune30
+  index: 29
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune31
+  index: 30
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune32
+  index: 31
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune33
+  index: 32
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune34
+  index: 33
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune35
+  index: 34
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune36
+  index: 35
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune37
+  index: 36
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune38
+  index: 37
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune39
+  index: 38
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune40
+  index: 39
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune41
+  index: 40
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune42
+  index: 41
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune43
+  index: 42
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune44
+  index: 43
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune45
+  index: 44
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune46
+  index: 45
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune47
+  index: 46
+  segments: []
+
+- type: ds14SoyuzRuneBookRune
+  id: DS14SoyuzRuneBookRune48
+  index: 47
+  segments: []
+# DS14-end
+

@@ -1,0 +1,5 @@
+- type: ds14SoyuzRuneBookConfig
+  id: DS14SoyuzRuneBookConfig
+  expectedRuneCount: 48
+  runesPerPage: 2
+

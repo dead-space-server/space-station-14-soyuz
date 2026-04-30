@@ -1,6 +1,7 @@
 name: "Changelog: Sync to master"
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: changelog-sync-master
@@ -29,49 +30,57 @@ jobs:
         run: |
           git fetch origin master changelog
 
-      - name: Sync changelog files from changelog branch
+      - name: Sync Soyuz changelog file from changelog branch
         run: |
-          files=(
-            "Resources/Changelog/ChangelogDS14Soyuz.yml"
-          )
+          FILE="Resources/Changelog/ChangelogDS14Soyuz.yml"
 
-          found_any=false
-          for file in "${files[@]}"; do
-            if git cat-file -e "origin/changelog:$file" 2>/dev/null; then
-              mkdir -p "$(dirname "$file")"
-              git show "origin/changelog:$file" > "$file"
-              found_any=true
-            fi
-          done
-
-          if [ "$found_any" = false ]; then
-            echo "No changelog files found on origin/changelog"
+          if ! git cat-file -e "origin/changelog:$FILE" 2>/dev/null; then
+            echo "No Soyuz changelog file found on origin/changelog ($FILE)"
             exit 0
           fi
 
-      - name: Commit and push to master
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "Resources/Changelog/ChangelogDS14Soyuz.yml"
+          mkdir -p "$(dirname "$FILE")"
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
+          # Keep a copy of what's currently on master so we can detect regressions.
+          if [ -f "$FILE" ]; then
+            cp "$FILE" "$FILE.master"
+          else
+            : > "$FILE.master"
           fi
 
-          git commit -m "Sync changelog from changelog branch"
+          git show "origin/changelog:$FILE" > "$FILE"
 
-          max_retries=3
-          retry_count=0
-          until git pull --rebase origin master; do
-            retry_count=$((retry_count + 1))
-            if [ $retry_count -ge $max_retries ]; then
-              echo "Failed to rebase after $max_retries attempts"
-              exit 1
-            fi
-            echo "Rebase failed, retrying in 5 seconds..."
-            sleep 5
-          done
+          master_count="$(grep -cE '^[[:space:]]*- id:' "$FILE.master" || true)"
+          source_count="$(grep -cE '^[[:space:]]*- id:' "$FILE" || true)"
 
-          git push origin HEAD:master
+          master_last_pr="$(grep -E '^[[:space:]]*pr:[[:space:]]*[0-9]+' "$FILE.master" | tail -n 1 | sed -E 's/.*pr:[[:space:]]*([0-9]+).*/\\1/' || true)"
+          source_last_pr="$(grep -E '^[[:space:]]*pr:[[:space:]]*[0-9]+' "$FILE" | tail -n 1 | sed -E 's/.*pr:[[:space:]]*([0-9]+).*/\\1/' || true)"
+
+          # Safety: don't allow the sync to reduce entries or last PR number.
+          if [ "$source_count" -lt "$master_count" ]; then
+            echo "Refusing to sync: origin/changelog has fewer entries ($source_count) than master ($master_count)."
+            exit 1
+          fi
+
+          if [ -n "$master_last_pr" ] && [ -n "$source_last_pr" ] && [ "$source_last_pr" -lt "$master_last_pr" ]; then
+            echo "Refusing to sync: origin/changelog last PR ($source_last_pr) is behind master ($master_last_pr)."
+            exit 1
+          fi
+
+          rm -f "$FILE.master"
+
+      - name: Create pull request to master (if needed)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          branch: automation/changelog-sync-${{ github.run_id }}
+          delete-branch: true
+          title: "Sync Soyuz changelog from changelog branch"
+          commit-message: "Sync Soyuz changelog from changelog branch"
+          body: |
+            Automated changelog sync.
+
+            This PR updates `Resources/Changelog/ChangelogDS14Soyuz.yml` from the `changelog` branch.
+          add-paths: |
+            Resources/Changelog/ChangelogDS14Soyuz.yml

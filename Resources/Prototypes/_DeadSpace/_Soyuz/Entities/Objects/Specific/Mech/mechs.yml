@@ -15,6 +15,7 @@
     footstepSoundCollection:
       collection: FootstepBorg
   - type: Mech
+    ignorePressure: true
     baseState: clarke
     openState: clarke-open
     brokenState: clarke-broken
@@ -39,8 +40,8 @@
     enabled: false
     mask: /Textures/Effects/LightMasks/cone.png
     autoRot: true
-    radius: 8
-    energy: 4
+    radius: 10
+    energy: 3
   - type: Construction
     graph: Clarke
     node: start

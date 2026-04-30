@@ -1,0 +1,289 @@
+<ui:FancyWindow xmlns="https://spacestation14.io"
+                xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
+                xmlns:rune="clr-namespace:Content.Client.DeadSpace.Soyuz.RuneBook"
+                xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                SetSize="1648 900"
+                MinSize="820 620"
+                Title="{Loc 'rune-book-ui-title'}"
+                Resizable="True">
+    <BoxContainer Orientation="Vertical" Margin="4 0 4 6" SeparationOverride="8">
+        <ScrollContainer Name="BookScroll"
+                         HorizontalExpand="True"
+                         VerticalExpand="True"
+                         HScrollEnabled="False">
+        <BoxContainer Name="MainLayout" Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+            <BoxContainer Name="SectionTabs"
+                          Orientation="Vertical"
+                          MinWidth="96"
+                          Margin="0 42 8 34"
+                          SeparationOverride="8">
+                <Button Name="AllRunesTab" MinSize="92 62" TextAlign="Center" Text="{Loc 'rune-book-ui-tab-all'}" ToolTip="{Loc 'rune-book-ui-tab-all-tooltip'}" />
+                <Button Name="VerifiedTab" MinSize="92 62" TextAlign="Center" Text="{Loc 'rune-book-ui-tab-verified'}" ToolTip="{Loc 'rune-book-ui-tab-verified-tooltip'}" />
+                <Button Name="NotesTab" MinSize="92 62" TextAlign="Center" Text="{Loc 'rune-book-ui-tab-notes'}" ToolTip="{Loc 'rune-book-ui-tab-notes-tooltip'}" />
+                <Button Name="LockedTab" MinSize="92 62" TextAlign="Center" Text="{Loc 'rune-book-ui-tab-locked'}" ToolTip="{Loc 'rune-book-ui-tab-locked-tooltip'}" Disabled="True" />
+            </BoxContainer>
+
+            <PanelContainer Name="BookOuter" HorizontalExpand="True" VerticalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#130c08" BorderColor="#6e4824" BorderThickness="3" />
+                </PanelContainer.PanelOverride>
+
+                <BoxContainer Name="BookPages"
+                              Orientation="Horizontal"
+                              Margin="13"
+                              SeparationOverride="0"
+                              HorizontalExpand="True"
+                              VerticalExpand="True">
+                    <PanelContainer Name="LeftPage" MinWidth="330" HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="0.88">
+                        <PanelContainer.PanelOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="#d5bf99" BorderColor="#7a5834" BorderThickness="3" />
+                        </PanelContainer.PanelOverride>
+
+                        <BoxContainer Orientation="Vertical"
+                                      Margin="12 10 12 10"
+                                      SeparationOverride="6"
+                                      HorizontalExpand="True"
+                                      VerticalExpand="True">
+                            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="20 0 20 0">
+                                <Control HorizontalExpand="True" />
+                                <Label Text="{Loc 'rune-book-ui-left-title'}"
+                                       FontColorOverride="#21150e"
+                                       HorizontalAlignment="Center"
+                                       StyleClasses="LabelHeadingBigger" />
+                                <Control HorizontalExpand="True" />
+                            </BoxContainer>
+
+                            <BoxContainer Orientation="Horizontal"
+                                          HorizontalAlignment="Center"
+                                          SeparationOverride="8"
+                                          Margin="24 0 24 2">
+                                <Button Name="PreviousHeaderButton"
+                                        Text="&lt;"
+                                        MinSize="42 36"
+                                        ToolTip="{Loc 'rune-book-ui-previous-page'}"
+                                        StyleClasses="ButtonSquare" />
+                                <PanelContainer MinWidth="170">
+                                    <PanelContainer.PanelOverride>
+                                        <gfx:StyleBoxFlat BackgroundColor="#c5aa7e" BorderColor="#765533" BorderThickness="1" />
+                                    </PanelContainer.PanelOverride>
+                                    <Label Name="PageLabel"
+                                           Text=""
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           StyleClasses="LabelHeading"
+                                           Margin="0 4" />
+                                </PanelContainer>
+                                <Button Name="NextHeaderButton"
+                                        Text="&gt;"
+                                        MinSize="42 36"
+                                        ToolTip="{Loc 'rune-book-ui-next-page'}"
+                                        StyleClasses="ButtonSquare" />
+                            </BoxContainer>
+
+                            <PanelContainer Name="SelectedRunePanel" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="2" HorizontalExpand="True">
+                                    <Label Name="SelectedRuneNameLabel"
+                                           Text="{Loc 'rune-book-ui-selected-rune-unknown'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           StyleClasses="LabelHeading" />
+                                    <Label Name="SelectedRuneDescriptionLabel"
+                                           Text="{Loc 'rune-book-ui-selected-rune-desc'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center" />
+                                    <Label Text="{Loc 'rune-book-ui-selected-rune-hint'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center" />
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <PanelContainer Name="ExamplesPanel" HorizontalExpand="True" SizeFlagsStretchRatio="2">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <BoxContainer Orientation="Vertical" Margin="8 6" SeparationOverride="5" HorizontalExpand="True">
+                                    <Label Name="RuneTitle"
+                                           Text="{Loc 'rune-book-ui-runes-on-page'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           StyleClasses="LabelHeading" />
+                                    <GridContainer Name="RuneGrid"
+                                                   Columns="3"
+                                                   HSeparationOverride="8"
+                                                   VSeparationOverride="8"
+                                                   HorizontalAlignment="Center" />
+                                    <rune:RunePreviewControl Name="RunePreview"
+                                                             MinSize="132 82"
+                                                             HorizontalAlignment="Center" />
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <PanelContainer Name="VerificationPanel" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="3" HorizontalExpand="True">
+                                    <Label Text="{Loc 'rune-book-ui-verification'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           StyleClasses="LabelHeading" />
+                                    <Label Text="{Loc 'rune-book-ui-verification-help'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center" />
+                                    <Label Text="{Loc 'rune-book-ui-result-label'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 4 0 0" />
+                                    <Label Name="ResultLabel"
+                                           Text="{Loc 'rune-book-ui-result-none'}"
+                                           FontColorOverride="#6b4a2e"
+                                           HorizontalAlignment="Center"
+                                           StyleClasses="LabelHeadingBigger" />
+                                    <Label Name="StatusLabel"
+                                           Text="{Loc 'rune-book-ui-result-none-details'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           ClipText="True" />
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <PanelContainer Name="DrawingSystemPanel" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4" HorizontalExpand="True">
+                                    <Label Text="{Loc 'rune-book-ui-drawing-system'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center"
+                                           StyleClasses="LabelHeading" />
+                                    <GridContainer Columns="2"
+                                                   HSeparationOverride="16"
+                                                   VSeparationOverride="4"
+                                                   HorizontalAlignment="Center">
+                                        <Label Text="{Loc 'rune-book-ui-system-grid'}" FontColorOverride="#21150e" />
+                                        <Label Text="{Loc 'rune-book-ui-system-line'}" FontColorOverride="#21150e" />
+                                        <Label Text="{Loc 'rune-book-ui-system-multistroke'}" FontColorOverride="#21150e" />
+                                        <Label Text="{Loc 'rune-book-ui-system-snap'}" FontColorOverride="#21150e" />
+                                    </GridContainer>
+                                    <Label Text="{Loc 'rune-book-ui-system-footer'}"
+                                           FontColorOverride="#21150e"
+                                           HorizontalAlignment="Center" />
+                                </BoxContainer>
+                            </PanelContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+
+                    <rune:RuneBookSpine Name="RuneBookSpine" MinWidth="24" HorizontalExpand="False" VerticalExpand="True" />
+
+                    <PanelContainer Name="RightPage" MinWidth="430" HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="1.18">
+                        <PanelContainer.PanelOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="#d5bf99" BorderColor="#7a5834" BorderThickness="3" />
+                        </PanelContainer.PanelOverride>
+
+                        <BoxContainer Orientation="Vertical"
+                                      Margin="12 10 12 10"
+                                      SeparationOverride="6"
+                                      HorizontalExpand="True"
+                                      VerticalExpand="True">
+                            <Label Name="FieldTitleLabel"
+                                   Text=""
+                                   FontColorOverride="#21150e"
+                                   HorizontalAlignment="Center"
+                                   StyleClasses="LabelHeading" />
+
+                            <BoxContainer Name="RightWorkArea"
+                                          Orientation="Horizontal"
+                                          HorizontalExpand="True"
+                                          VerticalExpand="True"
+                                          SeparationOverride="8">
+                                <rune:RuneDrawingControl Name="DrawingControl"
+                                                         MinSize="320 360"
+                                                         HorizontalExpand="True"
+                                                         VerticalExpand="True" />
+
+                                <PanelContainer Name="ToolsPanel" MinWidth="104" VerticalExpand="True">
+                                    <PanelContainer.PanelOverride>
+                                        <gfx:StyleBoxFlat BackgroundColor="#4a3a30" BorderColor="#84623c" BorderThickness="1" />
+                                    </PanelContainer.PanelOverride>
+                                    <BoxContainer Orientation="Vertical" SeparationOverride="0" HorizontalExpand="True">
+                                        <Label Text="{Loc 'rune-book-ui-tools'}"
+                                               FontColorOverride="#e5d1af"
+                                               HorizontalAlignment="Center"
+                                               Margin="0 8 0 5" />
+                                        <Button Name="ToolPointButton" Text="{Loc 'rune-book-ui-tool-point'}" MinHeight="40" />
+                                        <Button Name="ToolLineButton" Text="{Loc 'rune-book-ui-tool-line'}" MinHeight="40" ToggleMode="True" />
+                                        <Button Name="ToolDiagonalButton" Text="{Loc 'rune-book-ui-tool-diagonal'}" MinHeight="40" />
+                                        <Button Name="ToolArcButton" Text="{Loc 'rune-book-ui-tool-arc'}" MinHeight="40" />
+                                        <Button Name="ToolBrokenButton" Text="{Loc 'rune-book-ui-tool-broken'}" MinHeight="40" />
+                                        <Button Name="ToolCloseButton" Text="{Loc 'rune-book-ui-tool-close'}" MinHeight="40" />
+                                        <Button Name="ToolEraseButton" Text="{Loc 'rune-book-ui-tool-erase'}" MinHeight="40" />
+                                        <Button Name="ToolSelectionButton" Text="{Loc 'rune-book-ui-tool-selection'}" MinHeight="40" />
+                                    </BoxContainer>
+                                </PanelContainer>
+                            </BoxContainer>
+
+                            <PanelContainer Name="ParametersPanel" HorizontalExpand="True">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#3a2b24" BorderColor="#b88a3b" BorderThickness="1" />
+                                </PanelContainer.PanelOverride>
+                                <BoxContainer Orientation="Horizontal"
+                                              HorizontalAlignment="Center"
+                                              SeparationOverride="10"
+                                              Margin="8 5">
+                                    <Label Text="{Loc 'rune-book-ui-param-snap'}" FontColorOverride="#e6d6b5" />
+                                    <Label Text="{Loc 'rune-book-ui-param-nodes'}" FontColorOverride="#e6d6b5" />
+                                    <Label Text="{Loc 'rune-book-ui-param-guide'}" FontColorOverride="#e6d6b5" />
+                                    <Label Text="{Loc 'rune-book-ui-param-multistroke'}" FontColorOverride="#e6d6b5" />
+                                </BoxContainer>
+                            </PanelContainer>
+
+                            <BoxContainer Name="ActionButtons"
+                                          Orientation="Horizontal"
+                                          HorizontalExpand="True"
+                                          SeparationOverride="12">
+                                <Button Name="UndoButton"
+                                        Text="{Loc 'rune-book-ui-undo'}"
+                                        ToolTip="{Loc 'rune-book-ui-undo-tooltip'}"
+                                        MinSize="118 40" />
+                                <Button Name="ClearButton"
+                                        Text="{Loc 'rune-book-ui-clear'}"
+                                        ToolTip="{Loc 'rune-book-ui-clear-tooltip'}"
+                                        MinSize="118 40" />
+                                <Button Name="CheckButton"
+                                        Text="{Loc 'rune-book-ui-check'}"
+                                        ToolTip="{Loc 'rune-book-ui-check-tooltip'}"
+                                        HorizontalExpand="True"
+                                        MinHeight="40" />
+                            </BoxContainer>
+                        </BoxContainer>
+                    </PanelContainer>
+                </BoxContainer>
+            </PanelContainer>
+        </BoxContainer>
+        </ScrollContainer>
+
+        <BoxContainer Name="BottomControls"
+                      Orientation="Horizontal"
+                      HorizontalExpand="True"
+                      SeparationOverride="12"
+                      Margin="104 0 12 0">
+            <Button Name="PreviousBottomButton"
+                    Text="{Loc 'rune-book-ui-previous-page-long'}"
+                    ToolTip="{Loc 'rune-book-ui-previous-page'}"
+                    MinSize="180 42" />
+            <Control Name="BottomSpacer" HorizontalExpand="True" />
+            <Button Name="NextBottomButton"
+                    Text="{Loc 'rune-book-ui-next-page-long'}"
+                    ToolTip="{Loc 'rune-book-ui-next-page'}"
+                    MinSize="180 42" />
+            <Button Name="RipButton"
+                    Text="{Loc 'rune-book-ui-rip'}"
+                    ToolTip="{Loc 'rune-book-ui-rip-tooltip'}"
+                    MinSize="220 46" />
+        </BoxContainer>
+    </BoxContainer>
+</ui:FancyWindow>

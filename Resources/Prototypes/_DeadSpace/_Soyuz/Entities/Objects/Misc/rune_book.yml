@@ -1,0 +1,32 @@
+- type: entity
+  id: DS14SoyuzRuneBook
+  parent: BaseItem
+  name: ent-DS14SoyuzRuneBook
+  description: ent-DS14SoyuzRuneBook.desc
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/books.rsi
+    layers:
+    - state: paper
+    - state: cover_strong
+      color: "#241018"
+    - state: decor_wingette_circle
+      color: "#b88a3b"
+    - state: decor_vertical_middle
+      color: "#6fc7ff"
+    - state: icon_pentagramm
+      color: "#e8d5a7"
+      shader: unshaded
+    - state: detail_rivets
+      color: "#c99b45"
+    - state: detail_bookmark
+      color: "#8a1f25"
+  - type: RuneBook
+  - type: ActivatableUI
+    key: enum.RuneBookUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.RuneBookUiKey.Key:
+        type: RuneBookBoundUserInterface
+  - type: Item
+    size: Normal

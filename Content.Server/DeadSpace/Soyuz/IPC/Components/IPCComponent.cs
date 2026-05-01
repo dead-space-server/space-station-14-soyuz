@@ -55,6 +55,26 @@ public sealed partial class IPCComponent : Component
     [DataField]
     public float BackRechargerRate = 1000f;
 
+    // DS14-start: charging (draining) tuning.
+    /// <summary>
+    /// How efficiently drained power is converted into IPC battery charge.
+    /// </summary>
+    [DataField]
+    public float DrainEfficiency = 1f;
+
+    /// <summary>
+    /// Maximum rate (J/s) at which IPC can drain a power source while charging.
+    /// </summary>
+    [DataField]
+    public float DrainRate = 20000f; // DS14-value: 2000 -> 20000
+
+    /// <summary>
+    /// DoAfter duration in seconds for each drain tick.
+    /// </summary>
+    [DataField]
+    public float DrainTime = 1f;
+    // DS14-end
+
     /// <summary>
     /// Runtime VV helper.
     /// Set 0..100 to force battery charge percent every tick.

@@ -59,6 +59,21 @@ public abstract class SharedBatteryDrainerSystem : EntitySystem
         ent.Comp.BatteryUid = battery;
         Dirty(ent, ent.Comp);
     }
+
+    // DS14-start: configuration API (Access-restricted component fields).
+    /// <summary>
+    /// Configures drain tuning values on the drainer component.
+    /// </summary>
+    public void ConfigureDrainer(Entity<BatteryDrainerComponent?> ent, float efficiency, float maxDrainRate, float drainTime)
+    {
+        if (!Resolve(ent, ref ent.Comp))
+            return;
+
+        ent.Comp.DrainEfficiency = efficiency;
+        ent.Comp.MaxDrainRate = maxDrainRate;
+        ent.Comp.DrainTime = drainTime;
+    }
+    // DS14-end
 }
 
 /// <summary>

@@ -84,6 +84,11 @@
   path: "/Textures/_DeadSpace/_Soyuz/Shaders/ritual_darkness_circle.swsl"
 
 - type: shader
+  id: RitualVignette # DS14
+  kind: source
+  path: "/Textures/_DeadSpace/_Soyuz/Shaders/ritual_vignette.swsl"
+
+- type: shader
   id: BlurryVisionX
   kind: source
   path: "/Textures/Shaders/blurryx.swsl"

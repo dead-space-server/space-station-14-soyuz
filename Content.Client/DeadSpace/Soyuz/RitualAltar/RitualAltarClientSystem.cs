@@ -23,6 +23,7 @@ public sealed class RitualAltarClientSystem : EntitySystem
     private const float RingsScale = 1.875f; // 128px sprite scaled to roughly match the old 32px*7.5 ring.
 
     private RitualDarknessOverlay _darknessOverlay = default!;
+    private RitualVignetteOverlay _vignetteOverlay = default!;
 
     public override void Initialize()
     {
@@ -31,6 +32,9 @@ public sealed class RitualAltarClientSystem : EntitySystem
 
         _darknessOverlay = new RitualDarknessOverlay();
         _overlays.AddOverlay(_darknessOverlay);
+
+        _vignetteOverlay = new RitualVignetteOverlay();
+        _overlays.AddOverlay(_vignetteOverlay);
     }
 
     public override void FrameUpdate(float frameTime)
@@ -73,6 +77,7 @@ public sealed class RitualAltarClientSystem : EntitySystem
         _active.Add(ritual);
 
         _darknessOverlay.Start(altar, ritual.Radius, ritual.MaxDarkness, end - start);
+        _vignetteOverlay.Start(end - start, 0.60f);
     }
 
     private void SpawnRunes(ActiveRitual ritual)
@@ -84,7 +89,7 @@ public sealed class RitualAltarClientSystem : EntitySystem
         ConfigureRingSprite(ent, RingsScale);
 
         var speed = 0.55f * (_random.Prob(0.5f) ? 1f : -1f);
-        ritual.Rings.Add(new Ring(ent, speed));
+        ritual.Rings.Add(new Ring(ent, speed, _timing.CurTime));
     }
 
     private void ConfigureRingSprite(EntityUid uid, float scale)
@@ -103,6 +108,8 @@ public sealed class RitualAltarClientSystem : EntitySystem
             return;
 
         var xformQuery = GetEntityQuery<TransformComponent>();
+        var spriteQuery = GetEntityQuery<SpriteComponent>();
+        var now = _timing.CurTime;
 
         for (var i = 0; i < ritual.Rings.Count; i++)
         {
@@ -112,6 +119,13 @@ public sealed class RitualAltarClientSystem : EntitySystem
 
             xform.Coordinates = ritual.LastCoordinates;
             xform.LocalRotation += new Angle(ring.SpinSpeed * dt);
+
+            if (spriteQuery.TryGetComponent(ring.Uid, out var sprite))
+            {
+                var t = (float) (now - ring.StartedAt).TotalSeconds;
+                var pulse = 0.65f + 0.30f * MathF.Sin(t * 6.5f);
+                _sprite.SetColor((ring.Uid, sprite), Color.FromHex("#dfe7ff").WithAlpha(pulse));
+            }
         }
     }
 
@@ -147,5 +161,5 @@ public sealed class RitualAltarClientSystem : EntitySystem
         }
     }
 
-    private readonly record struct Ring(EntityUid Uid, float SpinSpeed);
+    private readonly record struct Ring(EntityUid Uid, float SpinSpeed, TimeSpan StartedAt);
 }

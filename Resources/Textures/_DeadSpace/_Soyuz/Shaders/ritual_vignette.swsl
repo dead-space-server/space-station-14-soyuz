@@ -1,0 +1,31 @@
+light_mode unshaded;
+
+uniform highp vec2 viewportSize;
+uniform highp float time;
+uniform highp float strength; // 0..1
+
+void fragment()
+{
+    highp vec2 uv = FRAGCOORD.xy / viewportSize;
+    highp vec2 centered = uv - vec2(0.5, 0.5);
+
+    // Slightly elliptical vignette.
+    centered.x *= 1.15;
+    highp float dist = length(centered);
+
+    highp float vig = smoothstep(0.25, 0.75, dist);
+    highp float pulse = 0.55 + 0.45 * sin(time * 2.6);
+
+    highp float alpha = clamp(vig * strength * pulse, 0.0, 1.0);
+
+    // #750202 (sRGB), converted to linear for correct blending.
+    highp vec3 colSrgb = vec3(0.8627451, 0.07843137, 0.23529412);
+    highp vec3 col = mix(
+        colSrgb / 12.92,
+        pow((colSrgb + 0.055) / 1.055, vec3(2.4)),
+        step(vec3(0.04045), colSrgb)
+    );
+
+    // Premultiply to avoid washed-out / pink tinting.
+    COLOR = vec4(col * alpha, alpha);
+}

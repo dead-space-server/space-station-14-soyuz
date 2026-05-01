@@ -1,12 +1,20 @@
 using System.Linq;
 using Content.Shared.DeadSpace.Soyuz.RuneBook;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Paper;
 using Robust.Server.GameObjects;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace.Soyuz.RuneBook;
 
 public sealed class RuneBookSystem : EntitySystem
 {
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly PaperSystem _paper = default!;
+    [Dependency] private readonly MetaDataSystem _meta = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
 
     public override void Initialize()
     {
@@ -91,7 +99,16 @@ public sealed class RuneBookSystem : EntitySystem
     private void OnRipPage(EntityUid uid, RuneBookComponent component, RuneBookRipPageMessage args)
     {
         var page = Math.Clamp(args.Page, 0, Math.Max(component.PageCount - 1, 0));
+
+        if (component.RippedPages.Contains(page))
+        {
+            component.LastResult = RuneBookCheckResult.PageRipped;
+            UpdateUi(uid, component);
+            return;
+        }
+
         component.RippedPages.Add(page);
+        SpawnRuneSheet(args.Actor, page, args.RuneId);
 
         if (component.CurrentPage == page)
             component.LastResult = RuneBookCheckResult.PageRipped;
@@ -99,6 +116,48 @@ public sealed class RuneBookSystem : EntitySystem
             ResetResult(component);
 
         UpdateUi(uid, component);
+    }
+
+    private void SpawnRuneSheet(EntityUid actor, int page, int selectedRune)
+    {
+        if (!TryComp(actor, out HandsComponent? hands))
+            return;
+
+        var runeId = selectedRune;
+        if (runeId < 0 || !RuneBookRuneLibrary.IsRuneOnPage(runeId, page))
+        {
+            var pageRunes = RuneBookRuneLibrary.GetRunesForPage(page);
+            runeId = pageRunes.Length > 0 ? pageRunes[0] : -1;
+        }
+
+        if (runeId < 0 || runeId >= RuneBookRuneLibrary.RuneCount)
+            return;
+
+        if (!RuneBookRuneLibrary.TryGetRunePrototypeId(runeId, out var runePrototypeId))
+            return;
+
+        var coords = Transform(actor).Coordinates;
+        var sheet = Spawn("DS14SoyuzRuneSheet", coords);
+
+        if (TryComp<RuneBookRuneSheetComponent>(sheet, out var runeSheet))
+        {
+            runeSheet.RunePrototype = runePrototypeId;
+            runeSheet.RuneIndex = runeId;
+            Dirty(sheet, runeSheet);
+        }
+
+        var runeName = $"Rune {runeId + 1}";
+        if (_proto.TryIndex<RuneBookRunePrototype>(runePrototypeId, out var runeProto))
+            runeName = runeProto.Name;
+
+        if (TryComp<PaperComponent>(sheet, out var paper))
+        {
+            _meta.SetEntityName(sheet, runeName);
+            _paper.SetContent((sheet, paper), string.Empty); // DS14-Soyuz: show rune visually in UI
+            Dirty(sheet, paper);
+        }
+
+        _hands.TryPickup(actor, sheet, checkActionBlocker: false, handsComp: hands);
     }
 
     private static HashSet<RuneBookSegment> ExpandSegments(RuneBookSegment[] segments)

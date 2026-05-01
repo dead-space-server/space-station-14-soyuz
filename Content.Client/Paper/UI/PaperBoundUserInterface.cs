@@ -22,6 +22,7 @@ public sealed class PaperBoundUserInterface : BoundUserInterface
         base.Open();
 
         _window = this.CreateWindow<PaperWindow>();
+        _window.SetEntity(Owner); // DS14-Soyuz: rune sheet preview support
         _window.OnSaved += InputOnTextEntered;
 
         if (EntMan.TryGetComponent<PaperComponent>(Owner, out var paper))

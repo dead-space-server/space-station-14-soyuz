@@ -128,9 +128,11 @@ public sealed class RuneBookCheckMessage : BoundUserInterfaceMessage
 public sealed class RuneBookRipPageMessage : BoundUserInterfaceMessage
 {
     public readonly int Page;
+    public readonly int RuneId;
 
-    public RuneBookRipPageMessage(int page)
+    public RuneBookRipPageMessage(int page, int runeId)
     {
         Page = page;
+        RuneId = runeId;
     }
 }

@@ -17,7 +17,7 @@ public sealed class RuneBookBoundUserInterface : BoundUserInterface
         _window = new RuneBookWindow();
         _window.OnPageSelected += page => SendMessage(new RuneBookSetPageMessage(page));
         _window.OnCheckRune += (runeId, segments) => SendMessage(new RuneBookCheckMessage(runeId, segments));
-        _window.OnRipPage += page => SendMessage(new RuneBookRipPageMessage(page));
+        _window.OnRipPage += (page, runeId) => SendMessage(new RuneBookRipPageMessage(page, runeId));
         _window.OnClose += Close;
         _window.OpenCentered();
     }

@@ -1,5 +1,7 @@
 <paper:PaperWindow xmlns="https://spacestation14.io"
     xmlns:paper="clr-namespace:Content.Client.Paper.UI"
+    xmlns:rune="clr-namespace:Content.Client.DeadSpace.Soyuz.RuneBook"
+    xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
     MouseFilter="Stop" Resizable="True" MinSize="150 150"
     SetSize="510 660"> <!-- Provide some reasonable sizes by default. Can be changed by the component -->
 
@@ -13,6 +15,29 @@
                     <BoxContainer Orientation="Vertical" VerticalAlignment="Stretch">
                         <TextureButton Name="HeaderImage" HorizontalAlignment="Center" VerticalAlignment="Top" MouseFilter="Ignore"/>
                         <Control Name="TextAlignmentPadding" VerticalAlignment="Top"/>
+                        <BoxContainer Name="RuneSheetPanel"
+                                      Orientation="Vertical"
+                                      VerticalAlignment="Top"
+                                      HorizontalAlignment="Center"
+                                      Margin="0 6 0 8"
+                                      Visible="False">
+                            <Label Name="RuneSheetTitle"
+                                   StyleClasses="LabelHeading"
+                                   FontColorOverride="#21150e"
+                                   HorizontalAlignment="Center"
+                                   Text=""/>
+                            <PanelContainer Margin="0 6 0 2">
+                                <PanelContainer.PanelOverride>
+                                    <gfx:StyleBoxFlat BackgroundColor="#bfa77e"
+                                                      BorderColor="#4b3322"
+                                                      BorderThickness="2" />
+                                </PanelContainer.PanelOverride>
+                                <rune:RunePreviewControl Name="RuneSheetPreview"
+                                                         MinSize="220 220"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Top"/>
+                            </PanelContainer>
+                        </BoxContainer>
                         <RichTextLabel Name="BlankPaperIndicator" StyleClasses="LabelWeak" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                         <RichTextLabel StyleClasses="PaperWrittenText" Name="WrittenTextLabel" VerticalAlignment="Top"/>
                         <BoxContainer Name="InputContainer" StyleIdentifier="PaperContainer" Orientation="Vertical" VerticalExpand="True" VerticalAlignment="Stretch">

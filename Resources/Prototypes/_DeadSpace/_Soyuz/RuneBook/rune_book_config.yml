@@ -1,5 +1,4 @@
 - type: ds14SoyuzRuneBookConfig
   id: DS14SoyuzRuneBookConfig
-  expectedRuneCount: 48
+  expectedRuneCount: 68 # DS14-value: 48 -> 68
   runesPerPage: 2
-

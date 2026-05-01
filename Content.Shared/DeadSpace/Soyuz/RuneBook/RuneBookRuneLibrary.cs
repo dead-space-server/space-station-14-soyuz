@@ -27,6 +27,7 @@ public static class RuneBookRuneLibrary
     private static readonly object InitLock = new();
     private static bool _initialized;
     private static RuneBookRuneDefinition[] _runes = Array.Empty<RuneBookRuneDefinition>();
+    private static string[] _runePrototypeIds = Array.Empty<string>();
     private static int _runesPerPage = 2;
     private static ISawmill? _sawmill;
 
@@ -61,6 +62,18 @@ public static class RuneBookRuneLibrary
             return new RuneBookRuneDefinition(0, Array.Empty<RuneBookSegment>());
 
         return _runes[Math.Clamp(runeId, 0, _runes.Length - 1)];
+    }
+
+    public static bool TryGetRunePrototypeId(int runeId, out string prototypeId)
+    {
+        EnsureInitialized();
+        prototypeId = string.Empty;
+
+        if (runeId < 0 || runeId >= _runePrototypeIds.Length)
+            return false;
+
+        prototypeId = _runePrototypeIds[runeId];
+        return !string.IsNullOrWhiteSpace(prototypeId);
     }
 
     public static int[] GetRunesForPage(int page)
@@ -144,6 +157,7 @@ public static class RuneBookRuneLibrary
                 runeCount = 0;
 
             var runes = new RuneBookRuneDefinition[Math.Max(runeCount, 0)];
+            var runeIds = new string[runes.Length];
             var seen = new bool[runes.Length];
 
             foreach (var rune in runeProtos)
@@ -165,6 +179,7 @@ public static class RuneBookRuneLibrary
                 }
 
                 runes[rune.Index] = new RuneBookRuneDefinition(rune.Index, segments.ToArray());
+                runeIds[rune.Index] = rune.ID;
                 seen[rune.Index] = true;
             }
 
@@ -185,6 +200,7 @@ public static class RuneBookRuneLibrary
             }
 
             _runes = runes;
+            _runePrototypeIds = runeIds;
             _initialized = true;
         }
     }

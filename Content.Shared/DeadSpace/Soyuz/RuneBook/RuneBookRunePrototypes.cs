@@ -20,6 +20,15 @@ public sealed partial class RuneBookRunePrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
 
+    [DataField("name", required: true)]
+    public string Name { get; private set; } = string.Empty;
+
+    [DataField("category")]
+    public int Category { get; private set; }
+
+    [DataField("tier")]
+    public int Tier { get; private set; }
+
     [DataField("index", required: true)]
     public int Index { get; private set; }
 
@@ -50,4 +59,3 @@ public readonly partial struct RuneBookNodeDef
 
     public Vector2i ToVector() => new(X, Y);
 }
-

@@ -1,0 +1,10 @@
+- type: entity
+  id: DS14SoyuzRuneSheet
+  parent: Paper
+  name: rune sheet # DS14
+  description: A sheet of paper with a rune. # DS14
+  components:
+  - type: RuneBookRuneSheet
+    runeIndex: -1
+  - type: Paper
+    editingDisabled: true

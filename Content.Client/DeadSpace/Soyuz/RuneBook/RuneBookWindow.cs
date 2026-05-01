@@ -35,7 +35,7 @@ public sealed partial class RuneBookWindow : FancyWindow
 
     public event Action<int>? OnPageSelected;
     public event Action<int, RuneBookSegment[]>? OnCheckRune;
-    public event Action<int>? OnRipPage;
+    public event Action<int, int>? OnRipPage;
 
     public RuneBookWindow()
     {
@@ -71,15 +71,51 @@ public sealed partial class RuneBookWindow : FancyWindow
         RipButton.OnPressed += _ =>
         {
             if (_state != null)
-                OnRipPage?.Invoke(_state.CurrentPage);
+                OnRipPage?.Invoke(_state.CurrentPage, _selectedRune);
         };
 
         AllRunesTab.OnPressed += _ => SelectSection(AllRunesTab);
         VerifiedTab.OnPressed += _ => SelectSection(VerifiedTab);
         NotesTab.OnPressed += _ => SelectSection(NotesTab);
 
-        ToolLineButton.Pressed = true;
-        ToolLineButton.OnPressed += _ => ToolLineButton.Pressed = true;
+        ToolPointButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Point);
+        ToolLineButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Line);
+        ToolDiagonalButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Diagonal);
+        ToolArcButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Arc);
+        ToolBrokenButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Broken);
+        ToolEraseButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Erase);
+        ToolSelectionButton.OnPressed += _ => SelectTool(RuneDrawingControl.RuneDrawingTool.Selection);
+        ToolCloseButton.OnPressed += _ =>
+        {
+            DrawingControl.CloseStroke();
+            UpdateActionButtons();
+        };
+
+        ParamSnapButton.OnPressed += _ =>
+        {
+            ApplyParameters();
+        };
+
+        ParamNodesButton.OnPressed += _ =>
+        {
+            ApplyParameters();
+        };
+
+        ParamGuideButton.OnPressed += _ =>
+        {
+            ApplyParameters();
+        };
+
+        ParamMultistrokeButton.OnPressed += _ =>
+        {
+            ApplyParameters();
+        };
+
+        ParamSnapButton.Pressed = true;
+        ParamGuideButton.Pressed = true;
+        ApplyParameters();
+
+        SelectTool(RuneDrawingControl.RuneDrawingTool.Line);
 
         CheckButton.ModulateSelfOverride = Color.FromHex("#2d5f93");
         RipButton.ModulateSelfOverride = RedMagic;
@@ -230,11 +266,39 @@ public sealed partial class RuneBookWindow : FancyWindow
         PreviousBottomButton.Disabled = _state.CurrentPage <= 0;
         NextHeaderButton.Disabled = _state.CurrentPage >= _state.PageCount - 1;
         NextBottomButton.Disabled = _state.CurrentPage >= _state.PageCount - 1;
-        UndoButton.Disabled = !DrawingControl.HasSegments || pageRipped;
-        ClearButton.Disabled = !DrawingControl.HasSegments || pageRipped;
+        UndoButton.Disabled = !DrawingControl.HasEdits || pageRipped;
+        ClearButton.Disabled = !DrawingControl.HasEdits || pageRipped;
         ExportButton.Disabled = !DrawingControl.HasSegments;
         CheckButton.Disabled = _selectedRune < 0 || !DrawingControl.HasSegments || pageRipped;
         RipButton.Disabled = pageRipped;
+    }
+
+    private void SelectTool(RuneDrawingControl.RuneDrawingTool tool)
+    {
+        ToolPointButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Point;
+        ToolLineButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Line;
+        ToolDiagonalButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Diagonal;
+        ToolArcButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Arc;
+        ToolBrokenButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Broken;
+        ToolEraseButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Erase;
+        ToolSelectionButton.Pressed = tool == RuneDrawingControl.RuneDrawingTool.Selection;
+
+        DrawingControl.SetTool(tool);
+    }
+
+    private void ApplyParameters()
+    {
+        DrawingControl.SnapToNodes = ParamSnapButton.Pressed;
+        DrawingControl.NodeLine = ParamNodesButton.Pressed;
+        DrawingControl.ShowGuide = ParamGuideButton.Pressed;
+        DrawingControl.MultiStroke = ParamMultistrokeButton.Pressed;
+
+        var active = ActiveTab;
+        var inactive = InactiveTab;
+        ParamSnapButton.ModulateSelfOverride = ParamSnapButton.Pressed ? active : inactive;
+        ParamNodesButton.ModulateSelfOverride = ParamNodesButton.Pressed ? active : inactive;
+        ParamGuideButton.ModulateSelfOverride = ParamGuideButton.Pressed ? active : inactive;
+        ParamMultistrokeButton.ModulateSelfOverride = ParamMultistrokeButton.Pressed ? active : inactive;
     }
 
     private void ExportCurrentDrawing()

@@ -214,14 +214,14 @@
                                                FontColorOverride="#e5d1af"
                                                HorizontalAlignment="Center"
                                                Margin="0 8 0 5" />
-                                        <Button Name="ToolPointButton" Text="{Loc 'rune-book-ui-tool-point'}" MinHeight="40" />
+                                        <Button Name="ToolPointButton" Text="{Loc 'rune-book-ui-tool-point'}" MinHeight="40" ToggleMode="True" />
                                         <Button Name="ToolLineButton" Text="{Loc 'rune-book-ui-tool-line'}" MinHeight="40" ToggleMode="True" />
-                                        <Button Name="ToolDiagonalButton" Text="{Loc 'rune-book-ui-tool-diagonal'}" MinHeight="40" />
-                                        <Button Name="ToolArcButton" Text="{Loc 'rune-book-ui-tool-arc'}" MinHeight="40" />
-                                        <Button Name="ToolBrokenButton" Text="{Loc 'rune-book-ui-tool-broken'}" MinHeight="40" />
+                                        <Button Name="ToolDiagonalButton" Text="{Loc 'rune-book-ui-tool-diagonal'}" MinHeight="40" ToggleMode="True" />
+                                        <Button Name="ToolArcButton" Text="{Loc 'rune-book-ui-tool-arc'}" MinHeight="40" ToggleMode="True" />
+                                        <Button Name="ToolBrokenButton" Text="{Loc 'rune-book-ui-tool-broken'}" MinHeight="40" ToggleMode="True" />
                                         <Button Name="ToolCloseButton" Text="{Loc 'rune-book-ui-tool-close'}" MinHeight="40" />
-                                        <Button Name="ToolEraseButton" Text="{Loc 'rune-book-ui-tool-erase'}" MinHeight="40" />
-                                        <Button Name="ToolSelectionButton" Text="{Loc 'rune-book-ui-tool-selection'}" MinHeight="40" />
+                                        <Button Name="ToolEraseButton" Text="{Loc 'rune-book-ui-tool-erase'}" MinHeight="40" ToggleMode="True" />
+                                        <Button Name="ToolSelectionButton" Text="{Loc 'rune-book-ui-tool-selection'}" MinHeight="40" ToggleMode="True" />
                                     </BoxContainer>
                                 </PanelContainer>
                             </BoxContainer>
@@ -234,10 +234,22 @@
                                               HorizontalAlignment="Center"
                                               SeparationOverride="10"
                                               Margin="8 5">
-                                    <Label Text="{Loc 'rune-book-ui-param-snap'}" FontColorOverride="#e6d6b5" />
-                                    <Label Text="{Loc 'rune-book-ui-param-nodes'}" FontColorOverride="#e6d6b5" />
-                                    <Label Text="{Loc 'rune-book-ui-param-guide'}" FontColorOverride="#e6d6b5" />
-                                    <Label Text="{Loc 'rune-book-ui-param-multistroke'}" FontColorOverride="#e6d6b5" />
+                                    <Button Name="ParamSnapButton"
+                                            Text="{Loc 'rune-book-ui-param-snap'}"
+                                            ToggleMode="True"
+                                            MinSize="150 34" />
+                                    <Button Name="ParamNodesButton"
+                                            Text="{Loc 'rune-book-ui-param-nodes'}"
+                                            ToggleMode="True"
+                                            MinSize="160 34" />
+                                    <Button Name="ParamGuideButton"
+                                            Text="{Loc 'rune-book-ui-param-guide'}"
+                                            ToggleMode="True"
+                                            MinSize="190 34" />
+                                    <Button Name="ParamMultistrokeButton"
+                                            Text="{Loc 'rune-book-ui-param-multistroke'}"
+                                            ToggleMode="True"
+                                            MinSize="170 34" />
                                 </BoxContainer>
                             </PanelContainer>
 

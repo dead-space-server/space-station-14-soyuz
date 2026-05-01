@@ -79,6 +79,11 @@
     removeTransparency: false
 
 - type: shader
+  id: RitualDarknessCircle # DS14
+  kind: source
+  path: "/Textures/_DeadSpace/_Soyuz/Shaders/ritual_darkness_circle.swsl"
+
+- type: shader
   id: BlurryVisionX
   kind: source
   path: "/Textures/Shaders/blurryx.swsl"

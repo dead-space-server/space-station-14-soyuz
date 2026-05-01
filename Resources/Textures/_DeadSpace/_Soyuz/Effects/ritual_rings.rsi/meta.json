@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Derived from cult rune sprites (see Resources/Textures/Structures/Magic/Cult/rune.rsi/meta.json), composed for Soyuz",
+  "size": {
+    "x": 128,
+    "y": 128
+  },
+  "states": [
+    {
+      "name": "rings"
+    }
+  ]
+}
+

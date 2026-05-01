@@ -8,6 +8,7 @@
   - type: Anchorable
   - type: Transform
   - type: Prayable
+  - type: RitualAltar # DS14
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Wood

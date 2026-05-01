@@ -1,0 +1,23 @@
+light_mode unshaded;
+
+// Screen-space circle centered at `position` (pixels) with radius `maxRange` (pixels).
+// Outputs black with alpha falloff to emulate "dimming" around a point.
+
+uniform highp vec2 position;
+uniform highp float maxRange;
+uniform highp float gradient;
+uniform highp float strength; // 0..1
+
+void fragment()
+{
+    highp float distance = length(FRAGCOORD.xy - position);
+
+    if (distance > maxRange)
+        discard;
+
+    highp float ratio = 1.0 - pow(distance / maxRange, gradient);
+    highp float alpha = clamp(ratio * strength, 0.0, 1.0);
+
+    COLOR = vec4(0.0, 0.0, 0.0, alpha);
+}
+

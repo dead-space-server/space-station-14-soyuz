@@ -1,0 +1,13 @@
+- type: entity
+  id: RitualRuneEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    noRot: false
+    drawdepth: FloorObjects
+    sprite: _DeadSpace/_Soyuz/Effects/ritual_rings.rsi
+    state: rings
+    shader: unshaded
+  - type: Tag
+    tags:
+    - HideContextMenu

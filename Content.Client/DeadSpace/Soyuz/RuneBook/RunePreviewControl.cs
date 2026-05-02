@@ -25,10 +25,22 @@ public sealed class RunePreviewControl : Control
 
         foreach (var segment in RuneBookRuneLibrary.GetRune(RuneId).Segments)
         {
-            var start = NodeToPreview(box, segment.Start);
-            var end = NodeToPreview(box, segment.End);
-            handle.DrawLine(start, end, Gold.WithAlpha(0.65f));
-            handle.DrawLine(start + new Vector2(1, 0), end + new Vector2(1, 0), Ink.WithAlpha(0.75f));
+            var start = SnapToPixels(NodeToPreview(box, segment.Start));
+            var end = SnapToPixels(NodeToPreview(box, segment.End));
+
+            // DS14-Soyuz: prevent any visible skew by snapping to integer pixels,
+            // and keep thickness symmetric.
+            var inkCore = Ink.WithAlpha(0.80f);
+            var inkEdge = Ink.WithAlpha(0.55f);
+            handle.DrawLine(start, end, inkCore);
+            handle.DrawLine(start + new Vector2(1, 0), end + new Vector2(1, 0), inkEdge);
+            handle.DrawLine(start + new Vector2(-1, 0), end + new Vector2(-1, 0), inkEdge);
+            handle.DrawLine(start + new Vector2(0, 1), end + new Vector2(0, 1), inkEdge);
+            handle.DrawLine(start + new Vector2(0, -1), end + new Vector2(0, -1), inkEdge);
+
+            var gold = Gold.WithAlpha(0.28f);
+            handle.DrawLine(start + new Vector2(1, 1), end + new Vector2(1, 1), gold);
+            handle.DrawLine(start + new Vector2(-1, -1), end + new Vector2(-1, -1), gold);
         }
     }
 
@@ -41,5 +53,10 @@ public sealed class RunePreviewControl : Control
         var left = box.Left + (box.Width - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
         var top = box.Top + (box.Height - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
         return new Vector2(left + node.X * scale, top + node.Y * scale);
+    }
+
+    private static Vector2 SnapToPixels(Vector2 v)
+    {
+        return new Vector2(MathF.Round(v.X), MathF.Round(v.Y));
     }
 }

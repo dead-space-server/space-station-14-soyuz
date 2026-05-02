@@ -111,14 +111,47 @@
                                            FontColorOverride="#21150e"
                                            HorizontalAlignment="Center"
                                            StyleClasses="LabelHeading" />
-                                    <GridContainer Name="RuneGrid"
-                                                   Columns="3"
-                                                   HSeparationOverride="8"
-                                                   VSeparationOverride="8"
-                                                   HorizontalAlignment="Center" />
-                                    <rune:RunePreviewControl Name="RunePreview"
-                                                             MinSize="132 82"
-                                                             HorizontalAlignment="Center" />
+                                    <BoxContainer Name="RunePageLayout"
+                                                  Orientation="Horizontal"
+                                                  HorizontalExpand="True"
+                                                  SeparationOverride="10">
+                                        <!-- Left: pick 1 of 2 runes on the page -->
+                                        <BoxContainer Name="RunePicker"
+                                                      Orientation="Vertical"
+                                                      SeparationOverride="8"
+                                                      MinWidth="106"
+                                                      HorizontalExpand="False"
+                                                      VerticalAlignment="Center" />
+
+                                        <!-- Center: bigger preview -->
+                                        <rune:RunePreviewControl Name="RunePreview"
+                                                                 MinSize="220 160"
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center" />
+
+                                        <!-- Right: rune info/description -->
+                                        <PanelContainer Name="RuneInfoPanel"
+                                                        HorizontalExpand="True"
+                                                        VerticalExpand="True">
+                                            <PanelContainer.PanelOverride>
+                                                <gfx:StyleBoxFlat BackgroundColor="#c5aa7e" BorderColor="#765533" BorderThickness="1" />
+                                            </PanelContainer.PanelOverride>
+                                            <BoxContainer Orientation="Vertical"
+                                                          Margin="8 6"
+                                                          SeparationOverride="4"
+                                                          HorizontalExpand="True"
+                                                          VerticalExpand="True">
+                                                <Label Name="RuneInfoHeader"
+                                                       Text="{Loc 'rune-book-ui-selected-rune-unknown'}"
+                                                       FontColorOverride="#21150e"
+                                                       HorizontalAlignment="Center"
+                                                       StyleClasses="LabelHeading" />
+                                                <RichTextLabel Name="RuneInfoText"
+                                                               HorizontalExpand="True"
+                                                               VerticalExpand="True" />
+                                            </BoxContainer>
+                                        </PanelContainer>
+                                    </BoxContainer>
                                 </BoxContainer>
                             </PanelContainer>
 
@@ -155,23 +188,27 @@
                                 <PanelContainer.PanelOverride>
                                     <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
                                 </PanelContainer.PanelOverride>
-                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4" HorizontalExpand="True">
+                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="6" HorizontalExpand="True" RectClipContent="True">
                                     <Label Text="{Loc 'rune-book-ui-drawing-system'}"
                                            FontColorOverride="#21150e"
                                            HorizontalAlignment="Center"
                                            StyleClasses="LabelHeading" />
                                     <GridContainer Columns="2"
-                                                   HSeparationOverride="16"
+                                                   HSeparationOverride="12"
                                                    VSeparationOverride="4"
-                                                   HorizontalAlignment="Center">
-                                        <Label Text="{Loc 'rune-book-ui-system-grid'}" FontColorOverride="#21150e" />
-                                        <Label Text="{Loc 'rune-book-ui-system-line'}" FontColorOverride="#21150e" />
-                                        <Label Text="{Loc 'rune-book-ui-system-multistroke'}" FontColorOverride="#21150e" />
-                                        <Label Text="{Loc 'rune-book-ui-system-snap'}" FontColorOverride="#21150e" />
+                                                   HorizontalExpand="True"
+                                                   RectClipContent="True">
+                                        <Label Text="{Loc 'rune-book-ui-system-line'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
+                                        <Label Text="{Loc 'rune-book-ui-system-line-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
+                                        <Label Text="{Loc 'rune-book-ui-system-guide'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
+                                        <Label Text="{Loc 'rune-book-ui-system-guide-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
+                                        <Label Text="{Loc 'rune-book-ui-system-multistroke'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
+                                        <Label Text="{Loc 'rune-book-ui-system-multistroke-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
                                     </GridContainer>
                                     <Label Text="{Loc 'rune-book-ui-system-footer'}"
                                            FontColorOverride="#21150e"
-                                           HorizontalAlignment="Center" />
+                                           HorizontalAlignment="Center"
+                                           ClipText="True" />
                                 </BoxContainer>
                             </PanelContainer>
                         </BoxContainer>
@@ -270,10 +307,6 @@
                                               HorizontalAlignment="Center"
                                               SeparationOverride="10"
                                               Margin="8 5">
-                                    <Button Name="ParamSnapButton"
-                                            Text="{Loc 'rune-book-ui-param-snap'}"
-                                            ToggleMode="True"
-                                            MinSize="150 34" />
                                     <Button Name="ParamNodesButton"
                                             Text="{Loc 'rune-book-ui-param-nodes'}"
                                             ToggleMode="True"

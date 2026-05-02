@@ -8,6 +8,8 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.IoC;
+using Robust.Shared.Prototypes; // DS14-Soyuz
+using Robust.Shared.Utility; // DS14-Soyuz
 
 namespace Content.Client.DeadSpace.Soyuz.RuneBook;
 
@@ -93,11 +95,6 @@ public sealed partial class RuneBookWindow : FancyWindow
             UpdateActionButtons();
         };
 
-        ParamSnapButton.OnPressed += _ =>
-        {
-            ApplyParameters();
-        };
-
         ParamNodesButton.OnPressed += _ =>
         {
             ApplyParameters();
@@ -113,7 +110,6 @@ public sealed partial class RuneBookWindow : FancyWindow
             ApplyParameters();
         };
 
-        ParamSnapButton.Pressed = true;
         ParamGuideButton.Pressed = true;
         ApplyParameters();
 
@@ -174,6 +170,7 @@ public sealed partial class RuneBookWindow : FancyWindow
         RunePreview.RuneId = _selectedRune;
 
         RebuildRuneCards(pageRunes);
+        UpdateRuneInfo(); // DS14-Soyuz
         UpdateResult(state);
         UpdateActionButtons();
     }
@@ -202,8 +199,7 @@ public sealed partial class RuneBookWindow : FancyWindow
 
     private void RebuildRuneCards(int[] pageRunes)
     {
-        RuneGrid.RemoveAllChildren();
-        RuneGrid.Columns = Math.Max(pageRunes.Length, 1);
+        RunePicker.RemoveAllChildren();
 
         var pageRipped = _state != null && IsPageRipped(_state.CurrentPage);
         foreach (var runeId in pageRunes)
@@ -216,7 +212,7 @@ public sealed partial class RuneBookWindow : FancyWindow
             };
 
             card.OnSelected += SelectRune;
-            RuneGrid.AddChild(card);
+            RunePicker.AddChild(card);
         }
     }
 
@@ -233,7 +229,54 @@ public sealed partial class RuneBookWindow : FancyWindow
         if (_state != null)
             RebuildRuneCards(RuneBookRuneLibrary.GetRunesForPage(_state.CurrentPage));
 
+        UpdateRuneInfo(); // DS14-Soyuz
         UpdateActionButtons();
+    }
+
+    private void UpdateRuneInfo() // DS14-Soyuz
+    {
+        if (_selectedRune < 0 || _selectedRune >= RuneBookRuneLibrary.RuneCount)
+        {
+            RuneInfoHeader.Text = Loc.GetString("rune-book-ui-selected-rune-unknown");
+            RuneInfoText.SetMessage(new FormattedMessage(), defaultColor: Color.Black);
+            return;
+        }
+
+        var header = Loc.GetString("rune-book-ui-selected-rune", ("rune", _selectedRune + 1));
+        RuneInfoHeader.Text = header;
+
+        var name = string.Empty;
+        var desc = string.Empty;
+        var category = 0;
+        var tier = 0;
+        var segments = RuneBookRuneLibrary.GetRune(_selectedRune).Segments.Length;
+
+        if (RuneBookRuneLibrary.TryGetRunePrototypeId(_selectedRune, out var protoId))
+        {
+            var proto = IoCManager.Resolve<IPrototypeManager>();
+            if (proto.TryIndex<RuneBookRunePrototype>(protoId, out var runeProto))
+            {
+                name = runeProto.Name;
+                desc = runeProto.Description;
+                category = runeProto.Category;
+                tier = runeProto.Tier;
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(name))
+            name = header;
+
+        var text =
+            $"[b]{FormattedMessage.EscapeText(name)}[/b]\n" +
+            (!string.IsNullOrWhiteSpace(desc) ? $"{FormattedMessage.EscapeText(desc)}\n\n" : string.Empty) +
+            $"Категория: {category}\n" +
+            $"Тир: {tier}\n" +
+            $"Сегментов: {segments}";
+
+        if (!FormattedMessage.TryFromMarkup(text, out var msg))
+            msg = new FormattedMessage();
+
+        RuneInfoText.SetMessage(msg, defaultColor: Color.Black);
     }
 
     private void SelectPageOffset(int offset)
@@ -313,14 +356,13 @@ public sealed partial class RuneBookWindow : FancyWindow
 
     private void ApplyParameters()
     {
-        DrawingControl.SnapToNodes = ParamSnapButton.Pressed;
+        DrawingControl.SnapToNodes = true; // DS14-Soyuz: always on, button removed
         DrawingControl.NodeLine = ParamNodesButton.Pressed;
         DrawingControl.ShowGuide = ParamGuideButton.Pressed;
         DrawingControl.MultiStroke = ParamMultistrokeButton.Pressed;
 
         var active = ActiveTab;
         var inactive = InactiveTab;
-        ParamSnapButton.ModulateSelfOverride = ParamSnapButton.Pressed ? active : inactive;
         ParamNodesButton.ModulateSelfOverride = ParamNodesButton.Pressed ? active : inactive;
         ParamGuideButton.ModulateSelfOverride = ParamGuideButton.Pressed ? active : inactive;
         ParamMultistrokeButton.ModulateSelfOverride = ParamMultistrokeButton.Pressed ? active : inactive;

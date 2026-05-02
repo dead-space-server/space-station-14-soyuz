@@ -3,6 +3,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune01
   name: "Снаряд"
+  desc: "запускает заклинание в форме снаряда"
   category: 1
   tier: 1
   index: 0
@@ -25,6 +26,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune02
   name: "На себя"
+  desc: "применяет заклинание на самого мага"
   category: 1
   tier: 2
   index: 1
@@ -73,6 +75,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune03
   name: "При касании"
+  desc: "срабатывает при контакте с сущностью"
   category: 1
   tier: 3
   index: 2
@@ -112,6 +115,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune04
   name: "Под ногами"
+  desc: "оставляет область 3x3 тайла"
   category: 1
   tier: 4
   index: 3
@@ -154,6 +158,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune05
   name: "Самонаводящийся снаряд"
+  desc: "летит в ближайшую сущность"
   category: 1
   tier: 5
   index: 4
@@ -206,6 +211,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune06
   name: "Усиление"
+  desc: "усиливает базовый эффект заклинания"
   category: 2
   tier: 1
   index: 5
@@ -242,6 +248,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune07
   name: "Случайность"
+  desc: "рандомизирует один из следующих эффектов"
   category: 2
   tier: 2
   index: 6
@@ -284,6 +291,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune08
   name: "Чувствительность"
+  desc: "позволяет настроить ВЛ заклинания чтобы"
   category: 2
   tier: 3
   index: 7
@@ -340,6 +348,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune09
   name: "Область действия"
+  desc: "увеличивает радиус поражения"
   category: 2
   tier: 4
   index: 8
@@ -396,6 +405,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune10
   name: "Ускорение"
+  desc: "ускоряет срабатывание или движение эффекта"
   category: 2
   tier: 5
   index: 9
@@ -452,6 +462,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune11
   name: "Ослабление"
+  desc: "уменьшает силу эффекта но часто"
   category: 2
   tier: 6
   index: 10
@@ -508,6 +519,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune12
   name: "Замедление"
+  desc: "снижает магическую защиту цели"
   category: 2
   tier: 7
   index: 11
@@ -568,6 +580,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune13
   name: "Сокращение длительности"
+  desc: "уменьшает время действия эффекта"
   category: 2
   tier: 8
   index: 12
@@ -628,6 +641,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune14
   name: "Пробивание"
+  desc: "дает проход сквозь стену в"
   category: 2
   tier: 9
   index: 13
@@ -684,6 +698,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune15
   name: "Разделение"
+  desc: "разделяет один снаряд на несколько"
   category: 2
   tier: 10
   index: 14
@@ -742,6 +757,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune16
   name: "Распространение (дуга)"
+  desc: "эффект цепной молнии поражает толпу"
   category: 2
   tier: 11
   index: 15
@@ -800,6 +816,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune17
   name: "Отскок"
+  desc: "рикошет"
   category: 2
   tier: 12
   index: 16
@@ -858,6 +875,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune18
   name: "Задержка"
+  desc: "эффект срабатывает через несколько секунд"
   category: 2
   tier: 13
   index: 17
@@ -930,6 +948,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune19
   name: "Рассеивание"
+  desc: "снимает магические эффекты и баффы"
   category: 2
   tier: 14
   index: 18
@@ -1002,6 +1021,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune20
   name: "Сброс"
+  desc: "сбрасывает параметры заклинания до начальных"
   category: 2
   tier: 15
   index: 19
@@ -1076,6 +1096,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune21
   name: "Дезориентация"
+  desc: "разворачивает цель или меняет вектор"
   category: 2
   tier: 16
   index: 20
@@ -1140,6 +1161,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune22
   name: "Туман"
+  desc: "создает облако которое некоторое время"
   category: 2
   tier: 17
   index: 21
@@ -1220,6 +1242,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune23
   name: "Орбита"
+  desc: "формы вращаются вокруг мага"
   category: 2
   tier: 18
   index: 22
@@ -1288,6 +1311,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune24
   name: "Продление времени"
+  desc: "создает зону или эффект замедления"
   category: 2
   tier: 19
   index: 23
@@ -1364,6 +1388,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune25
   name: "Разрез"
+  desc: "чистый физический урон"
   category: 3
   tier: 1
   index: 24
@@ -1388,6 +1413,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune26
   name: "Нанести урон"
+  desc: "мгновенный магический урон"
   category: 3
   tier: 2
   index: 25
@@ -1426,6 +1452,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune27
   name: "Поджог"
+  desc: "поджигает тайлы или существ"
   category: 3
   tier: 3
   index: 26
@@ -1466,6 +1493,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune28
   name: "Отбрасывание"
+  desc: "сильно толкает цель назад"
   category: 3
   tier: 4
   index: 27
@@ -1510,6 +1538,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune29
   name: "Раздавить"
+  desc: "уничтожает в области мелкую фауну"
   category: 3
   tier: 5
   index: 28
@@ -1562,6 +1591,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune30
   name: "Разряд"
+  desc: "как от теслы"
   category: 3
   tier: 6
   index: 29
@@ -1618,6 +1648,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune31
   name: "Отравление"
+  desc: "накладывает эффект яда в размере"
   category: 3
   tier: 7
   index: 30
@@ -1676,6 +1707,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune32
   name: "Взрыв"
+  desc: "как от гранаты возможно слабее"
   category: 3
   tier: 8
   index: 31
@@ -1752,6 +1784,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune33
   name: "Ядовитые споры"
+  desc: "накладывают яд в области можно"
   category: 3
   tier: 9
   index: 32
@@ -1808,6 +1841,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune34
   name: "Шип"
+  desc: "аналог мясной кудзы"
   category: 3
   tier: 10
   index: 33
@@ -1864,6 +1898,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune35
   name: "Разрушение"
+  desc: "бурит проход просто удаляя стены"
   category: 4
   tier: 1
   index: 34
@@ -1896,6 +1931,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune36
   name: "Создать магические стены"
+  desc: "аналог гранаты вспененного алюминия"
   category: 4
   tier: 2
   index: 35
@@ -1948,6 +1984,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune37
   name: "Создать магический свет"
+  desc: "источник света на мане требуется"
   category: 4
   tier: 3
   index: 36
@@ -1998,6 +2035,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune38
   name: "Создание"
+  desc: "позволяет создавать магические предметы во"
   category: 4
   tier: 4
   index: 37
@@ -2052,6 +2090,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune39
   name: "Испарение"
+  desc: "меняет газ вокруг носителя на"
   category: 4
   tier: 5
   index: 38
@@ -2116,6 +2155,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune40
   name: "Срубить"
+  desc: "рубит дерево"
   category: 4
   tier: 6
   index: 39
@@ -2174,6 +2214,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune41
   name: "Сбор"
+  desc: "мгновенно выращивает и рубит любую"
   category: 4
   tier: 7
   index: 40
@@ -2232,6 +2273,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune42
   name: "Взаимодействие"
+  desc: "нажимает кнопки и шлюзы на"
   category: 4
   tier: 8
   index: 41
@@ -2308,6 +2350,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune43
   name: "Разместить временную стену"
+  desc: "создает стену 1x3 перед собой"
   category: 4
   tier: 9
   index: 42
@@ -2394,6 +2437,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune44
   name: "Сдвиг ветра"
+  desc: "руна позволяющая пережить разгерму создавая"
   category: 4
   tier: 10
   index: 43
@@ -2470,6 +2514,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune45
   name: "Прыжок"
+  desc: "как у вульпы но без"
   category: 5
   tier: 1
   index: 44
@@ -2518,6 +2563,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune46
   name: "Притянуть"
+  desc: "притягивает сущность или предмет к"
   category: 5
   tier: 2
   index: 45
@@ -2586,6 +2632,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune47
   name: "Телепорт"
+  desc: "обмен позициями с сущностью"
   category: 5
   tier: 3
   index: 46
@@ -2672,6 +2719,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune48
   name: "Планирование"
+  desc: "можно делать подкаты без ударов"
   category: 5
   tier: 4
   index: 47
@@ -2736,6 +2784,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune49
   name: "Перемотка"
+  desc: "возвращает цель на место где"
   category: 5
   tier: 5
   index: 48
@@ -2800,6 +2849,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune50
   name: "Бросок"
+  desc: "кидает сущность от мага"
   category: 5
   tier: 6
   index: 49
@@ -2866,6 +2916,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune51
   name: "Удача"
+  desc: "при черчении рун видно часть"
   category: 6
   tier: 1
   index: 50
@@ -2910,6 +2961,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune52
   name: "Лечение"
+  desc: "восстанавливает здоровье"
   category: 6
   tier: 2
   index: 51
@@ -2974,6 +3026,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune53
   name: "Насыщение"
+  desc: "убирает голод"
   category: 6
   tier: 3
   index: 52
@@ -3034,6 +3087,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune54
   name: "Невидимость"
+  desc: "временно скрывает цель"
   category: 6
   tier: 4
   index: 53
@@ -3110,6 +3164,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune55
   name: "Мана-пузырь"
+  desc: "создает зону ускоренной регенерации маны"
   category: 6
   tier: 5
   index: 54
@@ -3190,6 +3245,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune56
   name: "Нематериальность"
+  desc: "позволяет проходить сквозь стены"
   category: 6
   tier: 6
   index: 55
@@ -3252,6 +3308,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune57
   name: "Связь жизни"
+  desc: "перераспределяет урон между связанными целями"
   category: 6
   tier: 7
   index: 56
@@ -3358,6 +3415,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune58
   name: "Доступ к пространственному хранилищу"
+  desc: "открывает хранилище размером 10x10"
   category: 6
   tier: 8
   index: 57
@@ -3430,6 +3488,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune59
   name: "Ловушка"
+  desc: "оставляет эффект на земле который"
   category: 7
   tier: 1
   index: 58
@@ -3480,6 +3539,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune60
   name: "Призвать фауну"
+  desc: "призывает временных помощников в бою"
   category: 7
   tier: 2
   index: 59
@@ -3536,6 +3596,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune61
   name: "Вололо"
+  desc: "меняет сторону врага на вашу"
   category: 7
   tier: 3
   index: 60
@@ -3600,6 +3661,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune62
   name: "Очарование"
+  desc: "делает враждебную цель под ИИ"
   category: 7
   tier: 4
   index: 61
@@ -3668,6 +3730,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune63
   name: "Фейерверк"
+  desc: "визуальный эффект"
   category: 7
   tier: 5
   index: 62
@@ -3724,6 +3787,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune64
   name: "Сигнальная вспышка"
+  desc: "фальшфлаер"
   category: 7
   tier: 6
   index: 63
@@ -3776,6 +3840,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune65
   name: "Фантомная хватка"
+  desc: "удерживает цель на месте призрачными"
   category: 7
   tier: 7
   index: 64
@@ -3856,6 +3921,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune66
   name: "Призвать приманку"
+  desc: "спавнит копию мага которая не"
   category: 7
   tier: 8
   index: 65
@@ -3938,6 +4004,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune67
   name: "Призвать нежить"
+  desc: "призывает трех скелетов с музыкальными"
   category: 7
   tier: 9
   index: 66
@@ -4000,6 +4067,7 @@
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune68
   name: "Призвать vex (дух)"
+  desc: "фамильяр для ритуалов"
   category: 7
   tier: 10
   index: 67

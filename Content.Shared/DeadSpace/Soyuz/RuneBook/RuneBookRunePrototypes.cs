@@ -23,6 +23,9 @@ public sealed partial class RuneBookRunePrototype : IPrototype
     [DataField("name", required: true)]
     public string Name { get; private set; } = string.Empty;
 
+    [DataField("desc")]
+    public string Description { get; private set; } = string.Empty; // DS14-Soyuz
+
     [DataField("category")]
     public int Category { get; private set; }
 

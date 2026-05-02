@@ -90,8 +90,17 @@ public sealed class RuneBookVerifiedRuneCard : Control
         {
             var start = NodeToCard(box, segment.Start);
             var end = NodeToCard(box, segment.End);
-            handle.DrawLine(start, end, Ink);
-            handle.DrawLine(start + new Vector2(1, 0), end + new Vector2(1, 0), Gold.WithAlpha(0.55f));
+            // DS14-Soyuz: improve legibility by adding thickness, not brightness.
+            var inkCore = Ink.WithAlpha(0.92f);
+            var inkEdge = Ink.WithAlpha(0.62f);
+            handle.DrawLine(start, end, inkCore);
+            handle.DrawLine(start + new Vector2(1, 0), end + new Vector2(1, 0), inkEdge);
+            handle.DrawLine(start + new Vector2(-1, 0), end + new Vector2(-1, 0), inkEdge);
+            handle.DrawLine(start + new Vector2(0, 1), end + new Vector2(0, 1), inkEdge);
+            handle.DrawLine(start + new Vector2(0, -1), end + new Vector2(0, -1), inkEdge);
+            var gold = Gold.WithAlpha(0.26f);
+            handle.DrawLine(start + new Vector2(1, 1), end + new Vector2(1, 1), gold);
+            handle.DrawLine(start + new Vector2(-1, -1), end + new Vector2(-1, -1), gold);
         }
     }
 

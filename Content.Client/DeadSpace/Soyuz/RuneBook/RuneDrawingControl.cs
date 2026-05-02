@@ -27,7 +27,8 @@ public sealed class RuneDrawingControl : Control
     private static readonly Color ParchmentDark = Color.FromHex("#4b3322");
     private static readonly Color GridLine = Color.FromHex("#6a5138").WithAlpha(0.32f);
     private static readonly Color GridNode = Color.FromHex("#ead8b9");
-    private static readonly Color GuideLine = Color.FromHex("#b98d42").WithAlpha(0.28f);
+    // DS14-Soyuz: guide (ghost) sample line. Darkened ~35% for better readability.
+    private static readonly Color GuideLine = Color.FromHex("#785b2a").WithAlpha(0.28f);
     private static readonly Color DrawLine = Color.FromHex("#64c5ff");
     private static readonly Color DrawCore = Color.FromHex("#effbff");
     private static readonly Color EraseLine = Color.FromHex("#b53a36").WithAlpha(0.65f);
@@ -379,7 +380,8 @@ public sealed class RuneDrawingControl : Control
         {
             var start = NodeToPixel(box, segment.Start);
             var end = NodeToPixel(box, segment.End);
-            DrawGlowLine(handle, start, end, GuideLine, 1);
+            // DS14-Soyuz: 2x thickness for the ghost sample.
+            DrawGlowLine(handle, start, end, GuideLine, 2);
         }
     }
 

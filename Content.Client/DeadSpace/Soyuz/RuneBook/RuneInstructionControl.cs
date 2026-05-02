@@ -19,6 +19,7 @@ public sealed class RuneInstructionControl : Control
     private static readonly Color GridNode = Color.FromHex("#ead8b9").WithAlpha(0.95f);
     private static readonly Color Ink = Color.FromHex("#0f0a07");
     private static readonly Color InkShadow = Color.FromHex("#b88a3b").WithAlpha(0.35f);
+    private static readonly Vector2 ShadowOffset = new(1f, 1f); // DS14-Soyuz
 
     private RuneBookSegment[] _segments = Array.Empty<RuneBookSegment>();
     private float _timer;
@@ -105,31 +106,33 @@ public sealed class RuneInstructionControl : Control
         // Draw already "learned" segments in ink.
         var count = Math.Clamp(_step, 0, _segments.Length);
         for (var i = 0; i < count; i++)
-            DrawSegment(handle, box, _segments[i], Ink, thick: true);
+            DrawSegment(handle, box, _segments[i], Ink);
 
         // Highlight current segment being shown.
         if (count < _segments.Length)
         {
             var seg = _segments[count];
-            DrawSegment(handle, box, seg, InkShadow, thick: true);
-            DrawSegment(handle, box, seg, Ink, thick: false);
+            DrawSegment(handle, box, seg, Ink, highlight: true);
         }
     }
 
     private static void DrawGrid(DrawingHandleScreen handle, UIBox2 box)
     {
-        var grid = Inset(box, 22);
-        var scale = MathF.Min(grid.Width, grid.Height) / (RuneBookRuneLibrary.GridSize - 1);
-        var left = grid.Left + (grid.Width - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
-        var top = grid.Top + (grid.Height - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
+        GetGridTransform(box, out var left, out var top, out var scale);
 
         // Lines.
         for (var i = 0; i < RuneBookRuneLibrary.GridSize; i++)
         {
             var x = left + i * scale;
             var y = top + i * scale;
-            handle.DrawLine(new Vector2(left, y), new Vector2(left + (RuneBookRuneLibrary.GridSize - 1) * scale, y), GridLine);
-            handle.DrawLine(new Vector2(x, top), new Vector2(x, top + (RuneBookRuneLibrary.GridSize - 1) * scale), GridLine);
+
+            var y0 = SnapToPixels(new Vector2(left, y));
+            var y1 = SnapToPixels(new Vector2(left + (RuneBookRuneLibrary.GridSize - 1) * scale, y));
+            handle.DrawLine(y0, y1, GridLine);
+
+            var x0 = SnapToPixels(new Vector2(x, top));
+            var x1 = SnapToPixels(new Vector2(x, top + (RuneBookRuneLibrary.GridSize - 1) * scale));
+            handle.DrawLine(x0, x1, GridLine);
         }
 
         // Nodes.
@@ -137,40 +140,46 @@ public sealed class RuneInstructionControl : Control
         {
             for (var x = 0; x < RuneBookRuneLibrary.GridSize; x++)
             {
-                var pos = new Vector2(left + x * scale, top + y * scale);
+                var pos = SnapToPixels(new Vector2(left + x * scale, top + y * scale));
                 handle.DrawCircle(pos, 1.35f, GridNode);
             }
         }
     }
 
-    private static void DrawSegment(DrawingHandleScreen handle, UIBox2 box, RuneBookSegment segment, Color color, bool thick)
+    private static void DrawSegment(DrawingHandleScreen handle, UIBox2 box, RuneBookSegment segment, Color color, bool highlight = false)
     {
-        var start = NodeToBox(box, segment.Start);
-        var end = NodeToBox(box, segment.End);
+        var start = SnapToPixels(NodeToBox(box, segment.Start));
+        var end = SnapToPixels(NodeToBox(box, segment.End));
 
+        // DS14-Soyuz: do not "fake thickness" by drawing the same line 3-4 times.
+        // It looks skewed on fractional scaling. Use a single crisp line + subtle shadow instead.
+        var shadow = highlight ? InkShadow.WithAlpha(0.50f) : InkShadow;
+        handle.DrawLine(start + ShadowOffset, end + ShadowOffset, shadow);
         handle.DrawLine(start, end, color);
-        handle.DrawLine(start + new Vector2(1, 0), end + new Vector2(1, 0), color);
-
-        if (!thick)
-            return;
-
-        handle.DrawLine(start + new Vector2(0, 1), end + new Vector2(0, 1), color);
-        handle.DrawLine(start + new Vector2(-1, 0), end + new Vector2(-1, 0), color);
     }
 
     private static Vector2 NodeToBox(UIBox2 box, Vector2i node)
     {
-        var padding = 42f;
-        var width = MathF.Max(box.Width - padding * 2f, 1f);
-        var height = MathF.Max(box.Height - padding * 2f, 1f);
-        var scale = MathF.Min(width, height) / (RuneBookRuneLibrary.GridSize - 1);
-        var left = box.Left + (box.Width - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
-        var top = box.Top + (box.Height - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
+        GetGridTransform(box, out var left, out var top, out var scale);
         return new Vector2(left + node.X * scale, top + node.Y * scale);
     }
 
     private static UIBox2 Inset(UIBox2 box, float amount)
     {
         return new UIBox2(box.Left + amount, box.Top + amount, box.Right - amount, box.Bottom - amount);
+    }
+
+    private static void GetGridTransform(UIBox2 box, out float left, out float top, out float scale)
+    {
+        // DS14-Soyuz: keep rune strokes perfectly aligned with the grid/nodes behind them.
+        var grid = Inset(box, 22);
+        scale = MathF.Min(grid.Width, grid.Height) / (RuneBookRuneLibrary.GridSize - 1);
+        left = grid.Left + (grid.Width - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
+        top = grid.Top + (grid.Height - scale * (RuneBookRuneLibrary.GridSize - 1)) / 2f;
+    }
+
+    private static Vector2 SnapToPixels(Vector2 v)
+    {
+        return new Vector2(MathF.Round(v.X), MathF.Round(v.Y));
     }
 }

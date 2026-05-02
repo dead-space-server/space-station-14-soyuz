@@ -40,8 +40,8 @@
                         </PanelContainer.PanelOverride>
 
                         <BoxContainer Name="AllRunesSection" Orientation="Vertical"
-                                      Margin="12 10 12 10"
-                                      SeparationOverride="6"
+                                      Margin="12 8 12 8" 
+                                      SeparationOverride="4"
                                       HorizontalExpand="True"
                                       VerticalExpand="True">
                             <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="20 0 20 0">
@@ -85,7 +85,7 @@
                                 <PanelContainer.PanelOverride>
                                     <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
                                 </PanelContainer.PanelOverride>
-                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="2" HorizontalExpand="True">
+                                <BoxContainer Orientation="Vertical" Margin="10 4" SeparationOverride="2" HorizontalExpand="True">
                                     <Label Name="SelectedRuneNameLabel"
                                            Text="{Loc 'rune-book-ui-selected-rune-unknown'}"
                                            FontColorOverride="#21150e"
@@ -105,7 +105,7 @@
                                 <PanelContainer.PanelOverride>
                                     <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
                                 </PanelContainer.PanelOverride>
-                                <BoxContainer Orientation="Vertical" Margin="8 6" SeparationOverride="5" HorizontalExpand="True">
+                                <BoxContainer Orientation="Vertical" Margin="8 4" SeparationOverride="4" HorizontalExpand="True">
                                     <Label Name="RuneTitle"
                                            Text="{Loc 'rune-book-ui-runes-on-page'}"
                                            FontColorOverride="#21150e"
@@ -188,27 +188,63 @@
                                 <PanelContainer.PanelOverride>
                                     <gfx:StyleBoxFlat BackgroundColor="#cdb48b" BorderColor="#775736" BorderThickness="1" />
                                 </PanelContainer.PanelOverride>
-                                <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="6" HorizontalExpand="True" RectClipContent="True">
+                                <BoxContainer Orientation="Vertical" Margin="10 4" SeparationOverride="1" HorizontalExpand="True">
                                     <Label Text="{Loc 'rune-book-ui-drawing-system'}"
                                            FontColorOverride="#21150e"
                                            HorizontalAlignment="Center"
                                            StyleClasses="LabelHeading" />
-                                    <GridContainer Columns="2"
-                                                   HSeparationOverride="12"
-                                                   VSeparationOverride="4"
+                                    <!-- DS14-Soyuz: GridContainer неверно меряет высоту в этой компоновке (футер наезжает на 3-ю строку),
+                                         поэтому используем явные строки через BoxContainer. -->
+                                    <BoxContainer Orientation="Vertical"
+                                                  HorizontalExpand="True"
+                                                  SeparationOverride="2">
+                                        <BoxContainer Orientation="Horizontal"
+                                                      HorizontalExpand="True"
+                                                      SeparationOverride="12">
+                                            <Label Text="{Loc 'rune-book-ui-system-line'}"
+                                                   FontColorOverride="#21150e"
+                                                   HorizontalAlignment="Center"
+                                                   MinWidth="180"
+                                                   Margin="0" />
+                                            <Label Text="{Loc 'rune-book-ui-system-line-desc'}"
+                                                   FontColorOverride="#21150e"
                                                    HorizontalExpand="True"
-                                                   RectClipContent="True">
-                                        <Label Text="{Loc 'rune-book-ui-system-line'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
-                                        <Label Text="{Loc 'rune-book-ui-system-line-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
-                                        <Label Text="{Loc 'rune-book-ui-system-guide'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
-                                        <Label Text="{Loc 'rune-book-ui-system-guide-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
-                                        <Label Text="{Loc 'rune-book-ui-system-multistroke'}" FontColorOverride="#21150e" HorizontalAlignment="Center" MinWidth="180" />
-                                        <Label Text="{Loc 'rune-book-ui-system-multistroke-desc'}" FontColorOverride="#21150e" HorizontalExpand="True" ClipText="True" />
-                                    </GridContainer>
+                                                   ClipText="True"
+                                                   Margin="0" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal"
+                                                      HorizontalExpand="True"
+                                                      SeparationOverride="12">
+                                            <Label Text="{Loc 'rune-book-ui-system-guide'}"
+                                                   FontColorOverride="#21150e"
+                                                   HorizontalAlignment="Center"
+                                                   MinWidth="180"
+                                                   Margin="0" />
+                                            <Label Text="{Loc 'rune-book-ui-system-guide-desc'}"
+                                                   FontColorOverride="#21150e"
+                                                   HorizontalExpand="True"
+                                                   ClipText="True"
+                                                   Margin="0" />
+                                        </BoxContainer>
+                                        <BoxContainer Orientation="Horizontal"
+                                                      HorizontalExpand="True"
+                                                      SeparationOverride="12">
+                                            <Label Text="{Loc 'rune-book-ui-system-multistroke'}"
+                                                   FontColorOverride="#21150e"
+                                                   HorizontalAlignment="Center"
+                                                   MinWidth="180"
+                                                   Margin="0" />
+                                            <Label Text="{Loc 'rune-book-ui-system-multistroke-desc'}"
+                                                   FontColorOverride="#21150e"
+                                                   HorizontalExpand="True"
+                                                   ClipText="True"
+                                                   Margin="0" />
+                                        </BoxContainer>
+                                    </BoxContainer>
                                     <Label Text="{Loc 'rune-book-ui-system-footer'}"
                                            FontColorOverride="#21150e"
-                                           HorizontalAlignment="Center"
-                                           ClipText="True" />
+                                           HorizontalExpand="True"
+                                           Margin="0 3 0 0" />
                                 </BoxContainer>
                             </PanelContainer>
                         </BoxContainer>

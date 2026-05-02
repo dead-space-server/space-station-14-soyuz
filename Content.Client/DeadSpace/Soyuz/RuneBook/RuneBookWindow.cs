@@ -32,6 +32,8 @@ public sealed partial class RuneBookWindow : FancyWindow
     private RuneBookBoundUserInterfaceState? _state;
     private int _selectedRune = -1;
     private LayoutMode? _layoutMode;
+    private readonly HashSet<int> _verifiedRunes = new(); // DS14-Soyuz
+    private RuneBookRuneDetailsWindow? _detailsWindow; // DS14-Soyuz
 
     public event Action<int>? OnPageSelected;
     public event Action<int, RuneBookSegment[]>? OnCheckRune;
@@ -142,6 +144,7 @@ public sealed partial class RuneBookWindow : FancyWindow
     {
         _state = state;
         var pageRunes = RuneBookRuneLibrary.GetRunesForPage(state.CurrentPage);
+        RebuildVerifiedRuneCards(state.VerifiedRunes); // DS14-Soyuz
 
         if (!pageRunes.Contains(_selectedRune))
         {
@@ -173,6 +176,28 @@ public sealed partial class RuneBookWindow : FancyWindow
         RebuildRuneCards(pageRunes);
         UpdateResult(state);
         UpdateActionButtons();
+    }
+
+    private void RebuildVerifiedRuneCards(int[] verifiedRunes) // DS14-Soyuz
+    {
+        VerifiedRuneGrid.RemoveAllChildren();
+
+        var newlyAdded = verifiedRunes.Where(id => !_verifiedRunes.Contains(id)).ToHashSet();
+        _verifiedRunes.Clear();
+        _verifiedRunes.UnionWith(verifiedRunes);
+
+        foreach (var id in verifiedRunes)
+        {
+            var card = new RuneBookVerifiedRuneCard(id, highlight: newlyAdded.Contains(id))
+            {
+                MinSize = new Vector2(250, 110)
+            };
+
+            card.OnPressed += ShowRuneDetails;
+            VerifiedRuneGrid.AddChild(card);
+        }
+
+        VerifiedEmptyLabel.Visible = verifiedRunes.Length == 0;
     }
 
     private void RebuildRuneCards(int[] pageRunes)
@@ -349,6 +374,34 @@ public sealed partial class RuneBookWindow : FancyWindow
         VerifiedTab.ModulateSelfOverride = active == VerifiedTab ? ActiveTab : InactiveTab;
         NotesTab.ModulateSelfOverride = active == NotesTab ? ActiveTab : InactiveTab;
         LockedTab.ModulateSelfOverride = InactiveTab;
+
+        // DS14-Soyuz: show/hide sections.
+        AllRunesSection.Visible = active == AllRunesTab;
+        VerifiedSection.Visible = active == VerifiedTab;
+        // Notes tab is a placeholder for now; keep the main view hidden to avoid confusion.
+        if (active == NotesTab)
+        {
+            AllRunesSection.Visible = false;
+            VerifiedSection.Visible = false;
+        }
+
+        var showWorkArea = active == AllRunesTab;
+        RightPage.Visible = showWorkArea;
+        BottomControls.Visible = showWorkArea;
+    }
+
+    private void ShowRuneDetails(int runeId) // DS14-Soyuz
+    {
+        _detailsWindow?.Close();
+        _detailsWindow?.Dispose();
+
+        _detailsWindow = new RuneBookRuneDetailsWindow(runeId);
+        _detailsWindow.OnClose += () =>
+        {
+            _detailsWindow?.Dispose();
+            _detailsWindow = null;
+        };
+        _detailsWindow.OpenCentered();
     }
 
     private void ApplyPreferredOpenSize()

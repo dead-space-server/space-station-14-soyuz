@@ -71,6 +71,7 @@ public sealed class RuneBookBoundUserInterfaceState : BoundUserInterfaceState
     public readonly int PageCount;
     public readonly int RuneCount;
     public readonly int[] RippedPages;
+    public readonly int[] VerifiedRunes; // DS14-Soyuz
     public readonly RuneBookCheckResult LastResult;
     public readonly int LastCheckedRune;
     public readonly int LastScore;
@@ -82,6 +83,7 @@ public sealed class RuneBookBoundUserInterfaceState : BoundUserInterfaceState
         int pageCount,
         int runeCount,
         int[] rippedPages,
+        int[] verifiedRunes,
         RuneBookCheckResult lastResult,
         int lastCheckedRune,
         int lastScore,
@@ -92,6 +94,7 @@ public sealed class RuneBookBoundUserInterfaceState : BoundUserInterfaceState
         PageCount = pageCount;
         RuneCount = runeCount;
         RippedPages = rippedPages;
+        VerifiedRunes = verifiedRunes;
         LastResult = lastResult;
         LastCheckedRune = lastCheckedRune;
         LastScore = lastScore;

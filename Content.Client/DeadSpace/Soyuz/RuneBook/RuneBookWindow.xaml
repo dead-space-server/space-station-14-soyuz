@@ -39,7 +39,7 @@
                             <gfx:StyleBoxFlat BackgroundColor="#d5bf99" BorderColor="#7a5834" BorderThickness="3" />
                         </PanelContainer.PanelOverride>
 
-                        <BoxContainer Orientation="Vertical"
+                        <BoxContainer Name="AllRunesSection" Orientation="Vertical"
                                       Margin="12 10 12 10"
                                       SeparationOverride="6"
                                       HorizontalExpand="True"
@@ -174,6 +174,42 @@
                                            HorizontalAlignment="Center" />
                                 </BoxContainer>
                             </PanelContainer>
+                        </BoxContainer>
+
+                        <!-- DS14-Soyuz: "Verified" tab content -->
+                        <BoxContainer Name="VerifiedSection"
+                                      Orientation="Vertical"
+                                      Margin="12 10 12 10"
+                                      SeparationOverride="6"
+                                      HorizontalExpand="True"
+                                      VerticalExpand="True"
+                                      Visible="False">
+                            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="20 0 20 0">
+                                <Control HorizontalExpand="True" />
+                                <Label Text="{Loc 'rune-book-ui-verified-title'}"
+                                       FontColorOverride="#21150e"
+                                       HorizontalAlignment="Center"
+                                       StyleClasses="LabelHeadingBigger" />
+                                <Control HorizontalExpand="True" />
+                            </BoxContainer>
+
+                            <Label Name="VerifiedEmptyLabel"
+                                   Text="{Loc 'rune-book-ui-verified-empty'}"
+                                   FontColorOverride="#21150e"
+                                   HorizontalAlignment="Center"
+                                   Margin="0 10 0 0" />
+
+                            <ScrollContainer Name="VerifiedScroll"
+                                             HorizontalExpand="True"
+                                             VerticalExpand="True"
+                                             HScrollEnabled="False">
+                                <GridContainer Name="VerifiedRuneGrid"
+                                               Columns="2"
+                                               HSeparationOverride="10"
+                                               VSeparationOverride="10"
+                                               HorizontalAlignment="Center"
+                                               Margin="6" />
+                            </ScrollContainer>
                         </BoxContainer>
                     </PanelContainer>
 

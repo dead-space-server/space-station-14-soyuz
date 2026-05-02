@@ -93,6 +93,14 @@ public sealed class RuneBookSystem : EntitySystem
             ? RuneBookCheckResult.Success
             : RuneBookCheckResult.Failure;
 
+        // DS14-Soyuz: remember successfully verified runes for the "Verified" tab.
+        if (component.LastResult == RuneBookCheckResult.Success &&
+            args.RuneId >= 0 &&
+            args.RuneId < component.RuneCount)
+        {
+            component.VerifiedRunes.Add(args.RuneId);
+        }
+
         UpdateUi(uid, component);
     }
 
@@ -246,6 +254,7 @@ public sealed class RuneBookSystem : EntitySystem
                 component.PageCount,
                 component.RuneCount,
                 component.RippedPages.OrderBy(page => page).ToArray(),
+                component.VerifiedRunes.OrderBy(r => r).ToArray(), // DS14-Soyuz
                 component.LastResult,
                 component.LastCheckedRune,
                 component.LastScore,

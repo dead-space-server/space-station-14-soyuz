@@ -78,41 +78,36 @@
   index: 2
   segments:
   - start: { x: 1, y: 7 }
-    end: { x: 3, y: 7 }
-  - start: { x: 1, y: 7 }
     end: { x: 7, y: 1 }
   - start: { x: 1, y: 7 }
     end: { x: 7, y: 13 }
-  - start: { x: 4, y: 3 }
-    end: { x: 4, y: 6 }
   - start: { x: 4, y: 6 }
-    end: { x: 4, y: 11 }
-  - start: { x: 4, y: 6 }
-    end: { x: 10, y: 6 }
-  - start: { x: 4, y: 11 }
-    end: { x: 10, y: 11 }
+    end: { x: 6, y: 4 }
+  - start: { x: 4, y: 7 }
+    end: { x: 7, y: 4 }
+  - start: { x: 4, y: 7 }
+    end: { x: 7, y: 10 }
+  - start: { x: 4, y: 9 }
+    end: { x: 6, y: 11 }
   - start: { x: 5, y: 7 }
     end: { x: 7, y: 5 }
   - start: { x: 5, y: 7 }
     end: { x: 7, y: 9 }
-  - start: { x: 6, y: 3 }
-    end: { x: 6, y: 6 }
   - start: { x: 7, y: 1 }
     end: { x: 13, y: 7 }
+  - start: { x: 7, y: 4 }
+    end: { x: 10, y: 7 }
   - start: { x: 7, y: 5 }
     end: { x: 9, y: 7 }
   - start: { x: 7, y: 9 }
     end: { x: 9, y: 7 }
+  - start: { x: 7, y: 10 }
+    end: { x: 10, y: 7 }
   - start: { x: 7, y: 13 }
     end: { x: 13, y: 7 }
-  - start: { x: 8, y: 3 }
-    end: { x: 8, y: 6 }
-  - start: { x: 10, y: 3 }
-    end: { x: 10, y: 6 }
-  - start: { x: 10, y: 6 }
-    end: { x: 10, y: 11 }
-  - start: { x: 12, y: 7 }
-    end: { x: 14, y: 7 }
+  - start: { x: 9, y: 4 }
+    end: { x: 11, y: 6 }
+
 
 - type: ds14SoyuzRuneBookRune
   id: DS14SoyuzMagicRune04

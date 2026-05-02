@@ -68,3 +68,13 @@ rune-book-ui-result-ripped = СТРАНИЦА ВЫРВАНА
 rune-book-ui-result-ripped-details = На этой странице больше нельзя сверять руны.
 rune-book-ui-result-invalid = ОШИБКА РУНЫ
 rune-book-ui-result-invalid-details = Эта руна не принадлежит текущей странице.
+
+# DS14-Soyuz: verified tab + details window
+rune-book-ui-verified-title = Сверенные руны
+rune-book-ui-verified-empty = Нет сверенных рун.
+rune-book-ui-verified-card-tooltip = Руна { $rune }: { $name } (открыть чертёж)
+rune-book-ui-verified-card-unknown = Неизвестная руна
+rune-book-ui-details-title = Руна { $rune }: { $name }
+rune-book-ui-details-header = Руна { $rune } — { $name }
+rune-book-ui-details-help = Как чертить эту руну:
+rune-book-ui-details-unknown = Неизвестная руна

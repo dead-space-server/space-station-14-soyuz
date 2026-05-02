@@ -109,6 +109,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: AutolatheMachineCircuitboard
   - type: MaterialStorage
@@ -185,6 +186,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: ProtolatheMachineCircuitboard
   - type: MaterialStorage
@@ -295,6 +297,7 @@
       map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: CircuitImprinterMachineCircuitboard
   - type: Lathe
@@ -355,6 +358,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: fab-o
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: ExosuitFabricatorMachineCircuitboard
   - type: Lathe
@@ -399,6 +403,7 @@
       color: "#ffaaaa"
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: BiofabricatorMachineCircuitboard
   - type: MaterialStorage
@@ -435,6 +440,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: SecurityTechFabCircuitboard
   - type: Lathe
@@ -490,6 +496,7 @@
           map: ["enum.MaterialStorageVisualLayers.Inserting"]
         - state: panel
           map: ["enum.WiresVisualLayers.MaintenancePanel"]
+          visible: false # DS14
     - type: Machine
       board: AmmoTechFabCircuitboard
     - type: Lathe
@@ -525,6 +532,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Lathe
     idleState: icon
     runningState: icon
@@ -612,6 +620,7 @@
       map: ["enum.MaterialStorageVisualLayers.Inserting"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: BiogeneratorMachineCircuitboard
   - type: MaterialStorage
@@ -658,6 +667,7 @@
           map: ["enum.MaterialStorageVisualLayers.Inserting"]
         - state: panel
           map: ["enum.WiresVisualLayers.MaintenancePanel"]
+          visible: false # DS14
     - type: Machine
       board: OreProcessorMachineCircuitboard
     - type: MaterialStorage
@@ -742,6 +752,7 @@
       map: ["enum.PowerDeviceVisualLayers.Powered"]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: Machine
     board: CutterMachineCircuitboard
   - type: Lathe

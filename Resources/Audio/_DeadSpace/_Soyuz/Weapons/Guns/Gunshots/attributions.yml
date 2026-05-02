@@ -1,0 +1,69 @@
+- files: ["LSR-39_disabler.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/LSR-39_disabler.ogg"
+
+- files: ["LSR-39_kill.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/LSR-39_kill.ogg"
+
+- files: ["pulse.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/pulse.ogg"
+
+- files: ["1laser3.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser3.ogg"
+
+- files: ["1laser4.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser4.ogg"
+
+- files: ["1laser5.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser5.ogg"
+
+- files: ["1laser6.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser6.ogg"
+
+- files: ["1laser7.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser7.ogg"
+
+- files: ["1laser8.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser8.ogg"
+
+- files: ["1laser9.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser9.ogg"
+
+- files: ["1laser10.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from ss220"
+  source: "https://github.com/ss220-space/Paradise/blob/master220/sound/weapons/gunshots/1laser10.ogg"
+
+- files: ["laser2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Unknown"
+  source: "https://youtu.be/dQw4w9WgXcQ?si=jdhEwL8OMzjNVbYQ"
+
+- files: ["turbolaser1.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "STAR WARS™ Empire at War. Empire at War: Remake 4.0 – [OFFICIAL]"
+  source: "https://steamcommunity.com/sharedfiles/filedetails/?id=1770851727"
+
+- files: ["turbolaser2.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "STAR WARS™ Empire at War. Empire at War: Remake 4.0 – [OFFICIAL]"
+  source: "https://steamcommunity.com/sharedfiles/filedetails/?id=1770851727"

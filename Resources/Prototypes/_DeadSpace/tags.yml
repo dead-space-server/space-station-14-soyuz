@@ -125,6 +125,9 @@
   id: FlamethrowerNozzle
 
 - type: Tag
+  id: Fulton
+
+- type: Tag
   id: FelinidFood
 
 - type: Tag

@@ -1,0 +1,17 @@
+- type: entity
+  id: DeathRattleImplanterNKO
+  name: имплантер
+  parent: BaseImplantOnlyImplanter
+  suffix: Предсмертный хрип, НКО
+  components:
+  - type: Implanter
+    implant: DeathRattleImplantNKO
+
+- type: entity
+  id: RadioImplanterDeathSquad
+  name: имплантер
+  suffix: Радио, НКО
+  parent: BaseImplantOnlyImplanter
+  components:
+  - type: Implanter
+    implant: RadioImplantNKO

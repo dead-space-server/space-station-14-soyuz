@@ -1,0 +1,58 @@
+- type: job
+  id: NavyCaptain
+  name: job-name-navy-captain
+  description: job-description-navy-captain
+  playTimeTracker: JobNavyCaptain
+  setPreference: false
+  startingGear: NavyCaptainGear
+  icon: "JobIconNavyCaptain"
+  supervisors: job-supervisors-navy-captain
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  - NavyAll
+  access:
+  - CentralCommand
+  - ErtTeamLeader
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantNKO, AntiAlcoholImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
+
+- type: startingGear
+  id: NavyCaptainGear
+  equipment:
+    back: ClothingSatchelNavyCaptain
+    jumpsuit: ClothingUniformJumpsuitNavyCaptain
+    mask: ClothingMaskGasSwat
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetNKOCaptainAlt
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitNavyCaptain
+    shoes: ClothingShoesBootsMagNavy
+# Доделать
+    head: ClothingHeadHelmetERTLeader
+    id: ERTLeaderPDA
+    belt: ClothingBeltERTSecurityFilled
+    neck: ClothingNeckMantleERTLeader
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
+  storage:
+    back:
+    - ERTloadoutAmberSecondary
+    - ERTloadoutAmberPrimary
+    - BoxMRE
+    - WeaponDisabler
+    - CrowbarRed
+    - FlashlightSeclite
+    - ADTtelescopicBaton
+    - PinpointerNuclear
+    - Flash
+    - Flare
+    - EmergencyMedipen
+    - Truncheon

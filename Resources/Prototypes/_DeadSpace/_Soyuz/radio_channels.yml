@@ -1,0 +1,7 @@
+- type: radioChannel
+  id: NKO
+  name: chat-radio-NKO
+  keycode: 'г'
+  frequency: 19847
+  color: "#e6a345"
+  longRange: true

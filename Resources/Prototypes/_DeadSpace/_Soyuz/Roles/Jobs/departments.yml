@@ -8,3 +8,16 @@
   - Politruk
   - BlueShieldOfficer
   weight: 130
+
+- type: department
+  id: Navy
+  name: department-navy
+  description: department-navy-description
+  color: "#ad4040"
+  roles:
+  - NavyCaptain
+  - NavyEngineer
+  - NavyMedical
+  - NavyOfficer
+  editorHidden: true
+  weight: 2000

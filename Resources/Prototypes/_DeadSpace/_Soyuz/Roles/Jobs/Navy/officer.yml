@@ -1,0 +1,55 @@
+- type: job
+  id: NavyOfficer
+  name: job-name-navy-officer
+  description: job-description-navy-officer
+  playTimeTracker: JobNavyOfficer
+  setPreference: false
+  startingGear: NavyOfficerGear
+  icon: "JobIconNavyOfficer"
+  supervisors: job-supervisors-navy
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NavyOfficer
+  - Navy
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantNKO, AntiAlcoholImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
+
+- type: startingGear
+  id: NavyOfficerGear
+  equipment:
+    back: ClothingSatchelNavy
+    jumpsuit: ClothingUniformJumpsuitNavy
+    mask: ClothingMaskGasSwat
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetNKO
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitNavyOfficer
+    shoes: ClothingShoesBootsMagNavy
+# Доделать
+    head: ClothingHeadHelmetERTSecurity
+    id: ERTSecurityIDCard
+    belt: ClothingBeltERTSecurityFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
+  storage:
+    back:
+    - TelescopicShield
+    - FlashlightSeclite
+    - WeaponDisabler
+    - CrowbarRed
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutAmberSecondary
+    - ERTloadoutAmberPrimary
+    - Flare
+    - Truncheon

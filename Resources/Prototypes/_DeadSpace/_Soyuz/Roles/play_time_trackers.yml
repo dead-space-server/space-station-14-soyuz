@@ -3,3 +3,15 @@
 
 - type: playTimeTracker
   id: JobPolitkom
+
+- type: playTimeTracker
+  id: JobNavyCaptain
+
+- type: playTimeTracker
+  id: JobNavyOfficer
+
+- type: playTimeTracker
+  id: JobNavyEngineer
+
+- type: playTimeTracker
+  id: JobNavyMedical

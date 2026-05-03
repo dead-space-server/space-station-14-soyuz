@@ -59,7 +59,32 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
         RaiseNetworkEvent(new AdminSetErtReasonMessage(protoId, reason));
     }
 
-    public void AdminCallErt(string protoId, string reason)
+    public void AdminDeleteErt(int requestId)
+    {
+        RaiseNetworkEvent(new AdminDeleteErtMessage(requestId));
+    }
+
+    public void AdminRejectRequest(int requestId, bool sendNotification = true)
+    {
+        RaiseNetworkEvent(new AdminRejectErtRequestMessage(requestId, sendNotification));
+    }
+
+    public void AdminApproveRequestManual(int requestId, bool sendNotification = true)
+    {
+        RaiseNetworkEvent(new AdminApproveErtRequestManualMessage(requestId, sendNotification));
+    }
+
+    public void AdminApproveRequestAuto(int requestId, bool sendNotification = true)
+    {
+        RaiseNetworkEvent(new AdminApproveErtRequestAutoMessage(requestId, sendNotification));
+    }
+
+    public void AdminSetApprovedTeam(int requestId, string protoId)
+    {
+        RaiseNetworkEvent(new AdminSetApprovedErtTeamMessage(requestId, protoId));
+    }
+
+    public void QueueAutoApprovedRequest(string protoId, string reason)
     {
         RaiseNetworkEvent(new AdminCallErtMessage(protoId, reason));
     }

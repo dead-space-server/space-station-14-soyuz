@@ -1,10 +1,13 @@
 using Content.Shared.Tag;
 using Content.Server.Popups;
+using Content.Server.Chat.Systems;
 using Content.Shared.Database;
 using Content.Shared.DeadSpace.Soyuz.RitualAltar;
 using Content.Shared.DeadSpace.Soyuz.RuneBook;
+using Content.Shared.Chat;
 using Content.Shared.Item;
 using Content.Shared.Popups;
+using Content.Shared.Speech;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Server.Audio;
@@ -23,16 +26,25 @@ public sealed class RitualAltarSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly TagSystem _tags = default!;
+    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     private readonly Dictionary<EntityUid, TimeSpan> _nextUse = new();
     private static readonly ProtoId<TagPrototype> BookTag = "Book";
     private static readonly SoundSpecifier RitualSound = new SoundPathSpecifier("/Audio/_DeadSpace/Necromorfs/TheCircle/the-circle-start.ogg");
+    private static readonly TimeSpan DialogueResponseTime = TimeSpan.FromSeconds(15);
+    private static readonly TimeSpan SpeechDelay = TimeSpan.FromSeconds(0.5);
+    private const string RuneBookRuneEffect = "RitualRuneBookRuneEffect";
+    private const string BrainRuneEffect = "RitualBrainRuneEffect";
+    private const float SacrificeRange = 0.45f;
+    private const float DialogueRange = 6f;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<RitualAltarComponent, GetVerbsEvent<ActivationVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<EntitySpokeEvent>(OnEntitySpoke);
     }
 
     public override void Update(float frameTime)
@@ -43,15 +55,23 @@ public sealed class RitualAltarSystem : EntitySystem
         var query = EntityQueryEnumerator<RitualAltarInProgressComponent, RitualAltarComponent>();
         while (query.MoveNext(out var uid, out var inProgress, out var altar))
         {
-            if (!inProgress.HeartSacrificed)
-                TrySacrificeHeart(uid, inProgress);
+            if (inProgress.Sacrifice == RitualAltarSacrifice.None)
+                TrySacrificeOrgan(uid, inProgress);
+
+            if (inProgress.Sacrifice == RitualAltarSacrifice.Brain)
+            {
+                if (now >= inProgress.ResponseDeadline)
+                    FailBrainRitual(uid, inProgress, "ritual-altar-apostle-timeout");
+
+                continue;
+            }
 
             if (now < inProgress.EndTime)
                 continue;
 
             RemCompDeferred<RitualAltarInProgressComponent>(uid);
 
-            if (!inProgress.HeartSacrificed)
+            if (inProgress.Sacrifice != RitualAltarSacrifice.Heart)
             {
                 _popup.PopupEntity(Loc.GetString("ritual-altar-failed"), uid, Filter.Pvs(uid), true, PopupType.Medium);
                 continue;
@@ -113,13 +133,13 @@ public sealed class RitualAltarSystem : EntitySystem
 
         var inProgress = EnsureComp<RitualAltarInProgressComponent>(uid);
         inProgress.EndTime = now + comp.EffectDuration;
-        inProgress.HeartSacrificed = false;
+        inProgress.Sacrifice = RitualAltarSacrifice.None;
+        inProgress.DialogueStage = RitualAltarDialogueStage.None;
+        inProgress.ResponseDeadline = TimeSpan.Zero;
+        inProgress.Questioner = null;
+        inProgress.Ritualist = session.AttachedEntity;
 
         _nextUse[uid] = now + TimeSpan.FromSeconds(2);
-
-        RaiseNetworkEvent(
-            new RitualEffectMessage(GetNetEntity(uid), comp.EffectRadius, comp.MaxDarkness, (float) comp.EffectDuration.TotalSeconds),
-            Filter.Pvs(uid));
 
         _audio.PlayPvs(RitualSound, uid, AudioParams.Default.WithVolume(-6f));
 
@@ -131,7 +151,7 @@ public sealed class RitualAltarSystem : EntitySystem
         var coords = Transform(altar).Coordinates;
 
         var ents = new HashSet<EntityUid>();
-        _lookup.GetEntitiesInRange(coords, 0.45f, ents);
+        _lookup.GetEntitiesInRange(coords, SacrificeRange, ents);
 
         foreach (var ent in ents)
         {
@@ -146,25 +166,187 @@ public sealed class RitualAltarSystem : EntitySystem
         return null;
     }
 
-    private void TrySacrificeHeart(EntityUid altar, RitualAltarInProgressComponent inProgress)
+    private void TrySacrificeOrgan(EntityUid altar, RitualAltarInProgressComponent inProgress)
     {
         var coords = Transform(altar).Coordinates;
 
         var ents = new HashSet<EntityUid>();
-        _lookup.GetEntitiesInRange(coords, 0.45f, ents);
+        _lookup.GetEntitiesInRange(coords, SacrificeRange, ents);
 
         foreach (var ent in ents)
         {
             if (ent == altar)
                 continue;
 
-            if (TryComp(ent, out ItemComponent? item) && item.HeldPrefix == "heart")
+            if (!TryComp(ent, out ItemComponent? item))
+                continue;
+
+            if (item.HeldPrefix == "heart")
             {
                 QueueDel(ent);
-                inProgress.HeartSacrificed = true;
+                inProgress.Sacrifice = RitualAltarSacrifice.Heart;
+                PlayRitualEffect(altar, 5f, 0.8f, GetRemainingDuration(inProgress.EndTime), RuneBookRuneEffect);
                 _popup.PopupEntity(Loc.GetString("ritual-altar-heart-sacrificed"), altar, Filter.Pvs(altar), true, PopupType.Medium);
-                break;
+                return;
+            }
+
+            if (item.HeldPrefix == "brain")
+            {
+                QueueDel(ent);
+                StartBrainRitual(altar, inProgress);
+                return;
             }
         }
+    }
+
+    private void StartBrainRitual(EntityUid altar, RitualAltarInProgressComponent inProgress)
+    {
+        inProgress.Sacrifice = RitualAltarSacrifice.Brain;
+        inProgress.DialogueStage = RitualAltarDialogueStage.AwaitingFirstAnswer;
+        inProgress.ResponseDeadline = _timing.CurTime + DialogueResponseTime + SpeechDelay;
+        inProgress.Questioner = Spawn("DS14SoyuzRitualUrist", Transform(altar).Coordinates);
+
+        PlayRitualEffect(altar, 5f, 0.8f, (float) DialogueResponseTime.TotalSeconds, BrainRuneEffect);
+        _popup.PopupEntity(Loc.GetString("ritual-altar-brain-sacrificed"), altar, Filter.Pvs(altar), true, PopupType.Medium);
+        SayDelayed(inProgress.Questioner.Value, "ritual-altar-apostle-question-one");
+    }
+
+    private void OnEntitySpoke(EntitySpokeEvent args)
+    {
+        var query = EntityQueryEnumerator<RitualAltarInProgressComponent>();
+        while (query.MoveNext(out var altar, out var inProgress))
+        {
+            if (inProgress.Sacrifice != RitualAltarSacrifice.Brain ||
+                inProgress.Ritualist != args.Source ||
+                inProgress.Questioner is not { } questioner ||
+                Deleted(questioner) ||
+                !IsInDialogueRange(args.Source, questioner))
+            {
+                continue;
+            }
+
+            if (IsYes(args.Message))
+            {
+                AcceptBrainRitualAnswer(altar, inProgress);
+                return;
+            }
+
+            if (IsNo(args.Message))
+            {
+                FailBrainRitual(altar, inProgress, "ritual-altar-apostle-unworthy");
+                return;
+            }
+        }
+    }
+
+    private void AcceptBrainRitualAnswer(EntityUid altar, RitualAltarInProgressComponent inProgress)
+    {
+        if (inProgress.Questioner is not { } questioner || Deleted(questioner))
+            return;
+
+        if (inProgress.DialogueStage == RitualAltarDialogueStage.AwaitingFirstAnswer)
+        {
+            inProgress.DialogueStage = RitualAltarDialogueStage.AwaitingSecondAnswer;
+            inProgress.ResponseDeadline = _timing.CurTime + DialogueResponseTime + SpeechDelay;
+            PlayRitualEffect(altar, 5f, 0.8f, (float) DialogueResponseTime.TotalSeconds, BrainRuneEffect);
+            SayDelayed(questioner, "ritual-altar-apostle-question-two");
+            return;
+        }
+
+        Spawn("DS14SoyuzApostleGrimoire", Transform(altar).Coordinates);
+        _popup.PopupEntity(Loc.GetString("ritual-altar-apostle-complete"), altar, Filter.Pvs(altar), true, PopupType.Medium);
+        FinishBrainRitual(altar, inProgress);
+    }
+
+    private void FailBrainRitual(EntityUid altar, RitualAltarInProgressComponent inProgress, string locId)
+    {
+        if (inProgress.Questioner is { } questioner && !Deleted(questioner))
+        {
+            SayDelayed(questioner, locId);
+            Timer.Spawn(SpeechDelay + TimeSpan.FromSeconds(0.1), () =>
+            {
+                if (!Deleted(questioner))
+                    QueueDel(questioner);
+            });
+        }
+
+        RemCompDeferred<RitualAltarInProgressComponent>(altar);
+    }
+
+    private void FinishBrainRitual(EntityUid altar, RitualAltarInProgressComponent inProgress)
+    {
+        if (inProgress.Questioner is { } questioner && !Deleted(questioner))
+            QueueDel(questioner);
+
+        RemCompDeferred<RitualAltarInProgressComponent>(altar);
+    }
+
+    private void Say(EntityUid speaker, string locId)
+    {
+        _chat.TrySendInGameICMessage(
+            speaker,
+            Loc.GetString(locId),
+            InGameICChatType.Speak,
+            ChatTransmitRange.Normal,
+            hideLog: true,
+            checkRadioPrefix: false,
+            ignoreActionBlocker: true);
+    }
+
+    private void SayDelayed(EntityUid speaker, string locId)
+    {
+        Timer.Spawn(SpeechDelay, () =>
+        {
+            if (Deleted(speaker))
+                return;
+
+            Say(speaker, locId);
+        });
+    }
+
+    private void PlayRitualEffect(EntityUid altar, float radius, float maxDarkness, float durationSeconds, string runeEffect)
+    {
+        RaiseNetworkEvent(
+            new RitualEffectMessage(GetNetEntity(altar), radius, maxDarkness, durationSeconds, runeEffect),
+            Filter.Pvs(altar));
+    }
+
+    private float GetRemainingDuration(TimeSpan endTime)
+    {
+        return MathF.Max(0.1f, (float) (endTime - _timing.CurTime).TotalSeconds);
+    }
+
+    private bool IsInDialogueRange(EntityUid source, EntityUid questioner)
+    {
+        var sourceXform = Transform(source);
+        var questionerXform = Transform(questioner);
+
+        if (sourceXform.MapID != questionerXform.MapID)
+            return false;
+
+        return (_transform.GetWorldPosition(sourceXform) - _transform.GetWorldPosition(questionerXform)).LengthSquared() <= DialogueRange * DialogueRange;
+    }
+
+    private static bool IsYes(string message)
+    {
+        return NormalizeAnswer(message) switch
+        {
+            "\u0434\u0430" or "\u0434" or "\u0430\u0433\u0430" or "\u0443\u0433\u0443" or "\u0441\u043e\u0433\u043b\u0430\u0441\u0435\u043d" or "\u0441\u043e\u0433\u043b\u0430\u0441\u043d\u0430" or "yes" or "y" or "yeah" or "yep" or "yea" or "sure" or "agree" or "agreed" => true,
+            _ => false,
+        };
+    }
+
+    private static bool IsNo(string message)
+    {
+        return NormalizeAnswer(message) switch
+        {
+            "\u043d\u0435\u0442" or "\u043d" or "\u043d\u0435" or "\u043d\u0435\u0430" or "no" or "n" or "nope" => true,
+            _ => false,
+        };
+    }
+
+    private static string NormalizeAnswer(string message)
+    {
+        return message.Trim().Trim('.', '!', '?', ',', ';', ':', '"', '\'').ToLowerInvariant();
     }
 }

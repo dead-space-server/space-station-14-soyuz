@@ -9,6 +9,31 @@ public sealed partial class RitualAltarInProgressComponent : Component
     public TimeSpan EndTime;
 
     [DataField]
-    public bool HeartSacrificed;
+    public RitualAltarSacrifice Sacrifice = RitualAltarSacrifice.None;
+
+    [DataField]
+    public RitualAltarDialogueStage DialogueStage = RitualAltarDialogueStage.None;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan ResponseDeadline;
+
+    [DataField]
+    public EntityUid? Questioner;
+
+    [DataField]
+    public EntityUid? Ritualist;
 }
 
+public enum RitualAltarSacrifice : byte
+{
+    None,
+    Heart,
+    Brain,
+}
+
+public enum RitualAltarDialogueStage : byte
+{
+    None,
+    AwaitingFirstAnswer,
+    AwaitingSecondAnswer,
+}

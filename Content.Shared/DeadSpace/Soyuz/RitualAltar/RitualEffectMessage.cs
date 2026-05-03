@@ -9,12 +9,14 @@ public sealed class RitualEffectMessage : EntityEventArgs
     public float Radius;
     public float MaxDarkness;
     public float DurationSeconds;
+    public string RunePrototype = "RitualRuneBookRuneEffect";
 
-    public RitualEffectMessage(NetEntity altar, float radius, float maxDarkness, float durationSeconds)
+    public RitualEffectMessage(NetEntity altar, float radius, float maxDarkness, float durationSeconds, string runePrototype = "RitualRuneBookRuneEffect")
     {
         Altar = altar;
         Radius = radius;
         MaxDarkness = maxDarkness;
         DurationSeconds = durationSeconds;
+        RunePrototype = runePrototype;
     }
 }

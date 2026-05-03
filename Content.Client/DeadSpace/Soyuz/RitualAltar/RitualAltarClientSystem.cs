@@ -19,7 +19,6 @@ public sealed class RitualAltarClientSystem : EntitySystem
 
     private readonly List<ActiveRitual> _active = new();
 
-    private const string RuneProto = "RitualRuneEffect";
     private const float RingsScale = 1.875f; // 128px sprite scaled to roughly match the old 32px*7.5 ring.
 
     private RitualDarknessOverlay _darknessOverlay = default!;
@@ -68,7 +67,15 @@ public sealed class RitualAltarClientSystem : EntitySystem
         var start = _timing.CurTime;
         var end = start + TimeSpan.FromSeconds(MathF.Max(0.1f, msg.DurationSeconds));
 
-        var ritual = new ActiveRitual(altar, start, end, MathF.Max(0.1f, msg.Radius), Math.Clamp(msg.MaxDarkness, 0f, 1f))
+        var ritual = new ActiveRitual(
+            altar,
+            start,
+            end,
+            MathF.Max(0.1f, msg.Radius),
+            Math.Clamp(msg.MaxDarkness, 0f, 1f),
+            msg.RunePrototype,
+            RingsScale,
+            Color.FromHex("#dfe7ff"))
         {
             LastCoordinates = altarXform.Coordinates
         };
@@ -84,20 +91,19 @@ public sealed class RitualAltarClientSystem : EntitySystem
     {
         ritual.Rings.Clear();
 
-        // One sprite that already contains three concentric circles, so it stays clean (no stacking mess).
-        var ent = Spawn(RuneProto, ritual.LastCoordinates);
-        ConfigureRingSprite(ent, RingsScale);
+        var ent = Spawn(ritual.RunePrototype, ritual.LastCoordinates);
+        ConfigureRingSprite(ent, ritual.Scale, ritual.Color);
 
         var speed = 0.55f * (_random.Prob(0.5f) ? 1f : -1f);
         ritual.Rings.Add(new Ring(ent, speed, _timing.CurTime));
     }
 
-    private void ConfigureRingSprite(EntityUid uid, float scale)
+    private void ConfigureRingSprite(EntityUid uid, float scale, Color color)
     {
         if (!TryComp(uid, out SpriteComponent? sprite))
             return;
 
-        _sprite.SetColor((uid, sprite), Color.FromHex("#dfe7ff").WithAlpha(0.90f));
+        _sprite.SetColor((uid, sprite), color.WithAlpha(0.90f));
         _sprite.SetScale((uid, sprite), new Vector2(scale, scale));
     }
 
@@ -124,7 +130,7 @@ public sealed class RitualAltarClientSystem : EntitySystem
             {
                 var t = (float) (now - ring.StartedAt).TotalSeconds;
                 var pulse = 0.65f + 0.30f * MathF.Sin(t * 6.5f);
-                _sprite.SetColor((ring.Uid, sprite), Color.FromHex("#dfe7ff").WithAlpha(pulse));
+                _sprite.SetColor((ring.Uid, sprite), ritual.Color.WithAlpha(pulse));
             }
         }
     }
@@ -147,17 +153,31 @@ public sealed class RitualAltarClientSystem : EntitySystem
         public readonly TimeSpan EndTime;
         public readonly float Radius;
         public readonly float MaxDarkness;
+        public readonly string RunePrototype;
+        public readonly float Scale;
+        public readonly Color Color;
 
         public EntityCoordinates LastCoordinates;
         public readonly List<Ring> Rings = new();
 
-        public ActiveRitual(EntityUid altar, TimeSpan startTime, TimeSpan endTime, float radius, float maxDarkness)
+        public ActiveRitual(
+            EntityUid altar,
+            TimeSpan startTime,
+            TimeSpan endTime,
+            float radius,
+            float maxDarkness,
+            string runePrototype,
+            float scale,
+            Color color)
         {
             Altar = altar;
             StartTime = startTime;
             EndTime = endTime;
             Radius = radius;
             MaxDarkness = maxDarkness;
+            RunePrototype = runePrototype;
+            Scale = scale;
+            Color = color;
         }
     }
 

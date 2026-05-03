@@ -1,5 +1,5 @@
 - type: entity
-  id: RitualRuneEffect
+  id: RitualRuneBookRuneEffect
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -7,7 +7,22 @@
     drawdepth: FloorObjects
     sprite: _DeadSpace/_Soyuz/Effects/ritual_rings.rsi
     layers:
-    - state: rings
+    - state: rings0.2
+      shader: unshaded
+  - type: Tag
+    tags:
+    - HideContextMenu
+
+- type: entity
+  id: RitualBrainRuneEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    noRot: false
+    drawdepth: FloorObjects
+    sprite: _DeadSpace/_Soyuz/Effects/ritual_rings.rsi
+    layers:
+    - state: rings0.1
       shader: unshaded
   - type: Tag
     tags:

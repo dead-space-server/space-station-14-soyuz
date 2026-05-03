@@ -31,4 +31,21 @@
   components:
     - type: Loadout
       prototypes: [ PolitkomGear ]
-      roleLoadout: [ RoleSurvivalStandard ]      
+      roleLoadout: [ RoleSurvivalStandard ]
+
+- type: entity
+  categories: [ HideSpawnMenu ]
+  id: DS14SoyuzRitualUrist
+  name: ent-DS14SoyuzRitualUrist
+  suffix: Ritual
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    sprite: _DeadSpace/_Soyuz/Effects/ritual_vulp.rsi
+    layers:
+    - state: Vulp-ritual
+      shader: unshaded
+  - type: Tag
+    tags:
+    - HideContextMenu

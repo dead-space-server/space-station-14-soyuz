@@ -30,3 +30,14 @@
         type: RuneBookBoundUserInterface
   - type: Item
     size: Normal
+
+- type: entity
+  id: DS14SoyuzApostleGrimoire
+  parent: WizardsGrimoireNoRefund
+  name: ent-DS14SoyuzApostleGrimoire
+  description: ent-DS14SoyuzApostleGrimoire.desc
+  suffix: Ritual
+  components:
+  - type: Store
+    ownerOnly: false
+    refundAllowed: false

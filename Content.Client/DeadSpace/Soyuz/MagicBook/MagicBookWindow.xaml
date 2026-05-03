@@ -1,0 +1,253 @@
+<ui:FancyWindow xmlns="https://spacestation14.io"
+                xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
+                xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                SetSize="1240 780"
+                MinSize="1080 680"
+                Title="Книга магии"
+                Resizable="True">
+    <PanelContainer Margin="8 0 8 8" HorizontalExpand="True" VerticalExpand="True">
+        <PanelContainer.PanelOverride>
+            <gfx:StyleBoxFlat BackgroundColor="#101116" BorderColor="#3E3142" BorderThickness="2" />
+        </PanelContainer.PanelOverride>
+
+        <BoxContainer Orientation="Vertical"
+                      Margin="12"
+                      SeparationOverride="10"
+                      HorizontalExpand="True"
+                      VerticalExpand="True">
+            <PanelContainer HorizontalExpand="True">
+                <PanelContainer.PanelOverride>
+                    <gfx:StyleBoxFlat BackgroundColor="#191821" BorderColor="#6A536A" BorderThickness="0 0 0 2" />
+                </PanelContainer.PanelOverride>
+                <BoxContainer Orientation="Horizontal" Margin="12 8" SeparationOverride="10" HorizontalExpand="True">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                        <Label Text="Книга магии"
+                               StyleClasses="LabelHeadingBigger"
+                               FontColorOverride="#E9D7B8" />
+                        <Label Name="StateLabel"
+                               Text=""
+                               FontColorOverride="#AFC8C1"
+                               Margin="0 2 0 0" />
+                    </BoxContainer>
+                    <PanelContainer MinWidth="184" VerticalAlignment="Center">
+                        <PanelContainer.PanelOverride>
+                            <gfx:StyleBoxFlat BackgroundColor="#25202C" BorderColor="#7B6A43" BorderThickness="1" />
+                        </PanelContainer.PanelOverride>
+                        <Label Name="HeaderCounterLabel"
+                               Text="0 / 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               StyleClasses="LabelHeading"
+                               FontColorOverride="#E9D7B8"
+                               Margin="8 6" />
+                    </PanelContainer>
+                </BoxContainer>
+            </PanelContainer>
+
+            <BoxContainer Orientation="Horizontal"
+                          SeparationOverride="12"
+                          HorizontalExpand="True"
+                          VerticalExpand="True">
+                <PanelContainer MinWidth="250" VerticalExpand="True">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#17181E" BorderColor="#463A47" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical"
+                                  Margin="10"
+                                  SeparationOverride="8"
+                                  HorizontalExpand="True"
+                                  VerticalExpand="True">
+                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                            <Label Text="Страницы"
+                                   StyleClasses="LabelHeading"
+                                   FontColorOverride="#E9D7B8"
+                                   HorizontalExpand="True" />
+                            <Label Name="PageStateHint"
+                                   Text=""
+                                   FontColorOverride="#91B7AE"
+                                   HorizontalAlignment="Right" />
+                        </BoxContainer>
+
+                        <Button Name="InsertPageButton"
+                                Text="Вставить страницу"
+                                MinHeight="38"
+                                HorizontalExpand="True" />
+
+                        <PanelContainer VerticalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#0E0F14" BorderColor="#2B2F3A" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <ScrollContainer HScrollEnabled="False"
+                                             VerticalExpand="True"
+                                             HorizontalExpand="True">
+                                <BoxContainer Name="PageList"
+                                              Orientation="Vertical"
+                                              SeparationOverride="6"
+                                              Margin="6"
+                                              HorizontalExpand="True">
+                                    <!-- Filled from MagicBookWindow.cs -->
+                                </BoxContainer>
+                            </ScrollContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <PanelContainer MinWidth="450" HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="1.08">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#18161D" BorderColor="#5B4A57" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical"
+                                  Margin="12"
+                                  SeparationOverride="10"
+                                  HorizontalExpand="True"
+                                  VerticalExpand="True">
+                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                            <Label Name="PageTitle"
+                                   Text="Нет вставленной страницы"
+                                   StyleClasses="LabelHeading"
+                                   FontColorOverride="#E9D7B8"
+                                   HorizontalExpand="True" />
+                            <Label Name="SelectedSlotLabel"
+                                   Text="Слот 1"
+                                   FontColorOverride="#91B7AE"
+                                   HorizontalAlignment="Right" />
+                        </BoxContainer>
+
+                        <PanelContainer>
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#0F1118" BorderColor="#313746" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Name="SlotList"
+                                          Orientation="Vertical"
+                                          Margin="8"
+                                          SeparationOverride="8"
+                                          HorizontalExpand="True">
+                                <Button Name="SlotOne" MinHeight="56" HorizontalExpand="True" ToggleMode="True" Text="1. FORM" />
+                                <Button Name="SlotTwo" MinHeight="56" HorizontalExpand="True" ToggleMode="True" Text="2. MODIFIER / EFFECT" />
+                                <Button Name="SlotThree" MinHeight="56" HorizontalExpand="True" ToggleMode="True" Text="3. MODIFIER / EFFECT" />
+                                <Button Name="SlotFour" MinHeight="56" HorizontalExpand="True" ToggleMode="True" Text="4. MODIFIER / EFFECT" />
+                                <Button Name="SlotFive" MinHeight="56" HorizontalExpand="True" ToggleMode="True" Text="5. MODIFIER / EFFECT" />
+                            </BoxContainer>
+                        </PanelContainer>
+
+                        <BoxContainer Orientation="Horizontal"
+                                      SeparationOverride="8"
+                                      HorizontalExpand="True">
+                            <LineEdit Name="SpellName"
+                                      PlaceHolder="Название заклинания"
+                                      HorizontalExpand="True" />
+                            <Button Name="SaveButton"
+                                    Text="SaveSpell"
+                                    MinWidth="128"
+                                    MinHeight="34" />
+                        </BoxContainer>
+
+                        <PanelContainer HorizontalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#111820" BorderColor="#35515A" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="8" HorizontalExpand="True">
+                                <BoxContainer Orientation="Horizontal">
+                                    <Label Text="spellPreview"
+                                           StyleClasses="LabelHeading"
+                                           FontColorOverride="#C4E3DC"
+                                           HorizontalExpand="True" />
+                                    <Label Name="PreviewStatus"
+                                           Text=""
+                                           FontColorOverride="#91B7AE"
+                                           HorizontalAlignment="Right" />
+                                </BoxContainer>
+
+                                <GridContainer Columns="2" HSeparationOverride="12" VSeparationOverride="6">
+                                    <Label Text="manaCost" FontColorOverride="#8EA09F" />
+                                    <Label Name="ManaCostValue" Text="0" FontColorOverride="#E9D7B8" />
+                                    <Label Text="stability" FontColorOverride="#8EA09F" />
+                                    <Label Name="StabilityValue" Text="0%" FontColorOverride="#9BCB8E" />
+                                    <Label Text="risk" FontColorOverride="#8EA09F" />
+                                    <Label Name="RiskValue" Text="0%" FontColorOverride="#D98B83" />
+                                    <Label Text="effects" FontColorOverride="#8EA09F" />
+                                    <Label Name="EffectsValue" Text="нет" FontColorOverride="#E9D7B8" ClipText="True" />
+                                </GridContainer>
+                            </BoxContainer>
+                        </PanelContainer>
+
+                        <PanelContainer Name="ValidationPanel" HorizontalExpand="True" VerticalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#211317" BorderColor="#70464B" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="10" SeparationOverride="6" HorizontalExpand="True" VerticalExpand="True">
+                                <Label Text="validationErrors"
+                                       StyleClasses="LabelHeading"
+                                       FontColorOverride="#F0B0AA" />
+                                <ScrollContainer HScrollEnabled="False" VerticalExpand="True">
+                                    <Label Name="ErrorsLabel"
+                                           Text=""
+                                           FontColorOverride="#F0B0AA"
+                                           HorizontalExpand="True" />
+                                </ScrollContainer>
+                            </BoxContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+
+                <PanelContainer MinWidth="430" HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="1.02">
+                    <PanelContainer.PanelOverride>
+                        <gfx:StyleBoxFlat BackgroundColor="#151820" BorderColor="#374759" BorderThickness="1" />
+                    </PanelContainer.PanelOverride>
+                    <BoxContainer Orientation="Vertical"
+                                  Margin="10"
+                                  SeparationOverride="8"
+                                  HorizontalExpand="True"
+                                  VerticalExpand="True">
+                        <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                            <Label Text="Руны"
+                                   StyleClasses="LabelHeading"
+                                   FontColorOverride="#E9D7B8"
+                                   HorizontalExpand="True" />
+                            <Label Name="RuneCountLabel"
+                                   Text="0"
+                                   FontColorOverride="#91B7AE"
+                                   HorizontalAlignment="Right" />
+                        </BoxContainer>
+
+                        <BoxContainer Orientation="Horizontal"
+                                      SeparationOverride="8"
+                                      HorizontalExpand="True">
+                            <LineEdit Name="SearchInput"
+                                      PlaceHolder="Поиск"
+                                      HorizontalExpand="True" />
+                            <OptionButton Name="CategoryFilter" MinWidth="150" />
+                        </BoxContainer>
+
+                        <PanelContainer>
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#101620" BorderColor="#2E3D49" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <Label Name="RuneSlotHint"
+                                   Text=""
+                                   FontColorOverride="#AFC8C1"
+                                   Margin="8 6" />
+                        </PanelContainer>
+
+                        <PanelContainer VerticalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#0B0D12" BorderColor="#273140" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <ScrollContainer HScrollEnabled="False"
+                                             VerticalExpand="True"
+                                             HorizontalExpand="True">
+                                <BoxContainer Name="RuneList"
+                                              Orientation="Vertical"
+                                              SeparationOverride="6"
+                                              Margin="6"
+                                              HorizontalExpand="True">
+                                    <!-- Filled from MagicBookWindow.cs -->
+                                </BoxContainer>
+                            </ScrollContainer>
+                        </PanelContainer>
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+</ui:FancyWindow>

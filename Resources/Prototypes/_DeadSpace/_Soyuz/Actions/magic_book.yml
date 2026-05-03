@@ -1,0 +1,21 @@
+- type: entity
+  id: DS14SoyuzMagicBookSpellAction
+  parent: BaseAction
+  name: ent-DS14SoyuzMagicBookSpellAction
+  description: ent-DS14SoyuzMagicBookSpellAction.desc
+  components:
+  - type: Action
+    itemIconStyle: BigAction
+    temporary: true
+    raiseOnAction: true
+    useDelay: 12
+    icon:
+      sprite: Objects/Magic/magicactions.rsi
+      state: spell_default
+  - type: TargetAction
+    range: 16
+    repeat: false
+    checkCanAccess: false
+  - type: WorldTargetAction
+    event: !type:MagicBookCastSpellEvent
+

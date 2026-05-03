@@ -37,6 +37,27 @@ public sealed partial class RuneBookRunePrototype : IPrototype
 
     [DataField("segments")]
     public List<RuneBookSegmentDef> Segments { get; private set; } = new();
+
+    [DataField("tags")]
+    public HashSet<string> Tags { get; private set; } = new();
+
+    [DataField("manaCost")]
+    public int ManaCost { get; private set; }
+
+    [DataField("stackable")]
+    public bool Stackable { get; private set; }
+
+    [DataField("maxStacks")]
+    public int MaxStacks { get; private set; } = 1;
+
+    [DataField("incompatibleWith")]
+    public HashSet<ProtoId<RuneBookRunePrototype>> IncompatibleWith { get; private set; } = new();
+
+    [DataField("allowedForms")]
+    public HashSet<ProtoId<RuneBookRunePrototype>> AllowedForms { get; private set; } = new();
+
+    [DataField("effectHandler")]
+    public string EffectHandler { get; private set; } = string.Empty;
 }
 
 [Serializable, DataDefinition]

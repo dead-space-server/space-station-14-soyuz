@@ -1,0 +1,49 @@
+- type: entity
+  id: DS14SoyuzMagicLight
+  name: ent-DS14SoyuzMagicLight
+  components:
+  - type: PointLight
+    enabled: true
+    radius: 5
+    energy: 2.2
+    color: "#8fd4ff"
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  id: DS14SoyuzMagicShard
+  parent: BaseItem
+  name: ent-DS14SoyuzMagicShard
+  description: ent-DS14SoyuzMagicShard.desc
+  components:
+  - type: Sprite
+    sprite: Objects/Magic/magicactions.rsi
+    state: spell_default
+  - type: Item
+    size: Tiny
+  - type: TimedDespawn
+    lifetime: 120
+
+- type: entity
+  id: DS14SoyuzMagicAirPulse
+  name: ent-DS14SoyuzMagicAirPulse
+  components:
+  - type: PointLight
+    enabled: true
+    radius: 3
+    energy: 1.4
+    color: "#b6fff3"
+  - type: TimedDespawn
+    lifetime: 8
+
+- type: entity
+  id: DS14SoyuzMagicTrap
+  name: ent-DS14SoyuzMagicTrap
+  components:
+  - type: PointLight
+    enabled: true
+    radius: 2
+    energy: 1.6
+    color: "#c973ff"
+  - type: TimedDespawn
+    lifetime: 20

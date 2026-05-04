@@ -2,7 +2,7 @@
   id: Plasma
   mapName: 'Plasma'
   mapPath: /Maps/_Soyuz/plasma.yml
-  minPlayers: 15
+  minPlayers: 25
   maxPlayers: 65 # DS-14-voite
   stations:
     Plasma:

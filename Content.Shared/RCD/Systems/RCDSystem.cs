@@ -17,7 +17,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components; // DS14
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Prototypes;
@@ -132,7 +131,6 @@ public sealed class RCDSystem : EntitySystem
         var user = args.User;
         var location = args.ClickLocation;
         var prototype = _protoManager.Index(component.ProtoId);
-        var target = NormalizeTarget(args.Target); // DS14
 
         // Initial validity checks
         if (!location.IsValid(EntityManager))
@@ -154,7 +152,7 @@ public sealed class RCDSystem : EntitySystem
         var tile = _mapSystem.GetTileRef(gridUid.Value, mapGrid, location);
         var position = _mapSystem.TileIndicesFor(gridUid.Value, mapGrid, location);
 
-        if (!IsRCDOperationStillValid(uid, component, gridUid.Value, mapGrid, tile, position, component.ConstructionDirection, target, args.User)) // DS14
+        if (!IsRCDOperationStillValid(uid, component, gridUid.Value, mapGrid, tile, position, component.ConstructionDirection, args.Target, args.User))
             return;
 
         if (!_net.IsServer)
@@ -173,9 +171,9 @@ public sealed class RCDSystem : EntitySystem
             case RcdMode.Deconstruct:
 
                 // Deconstructing an object
-                if (target != null) // DS14
+                if (args.Target != null)
                 {
-                    if (TryComp<RCDDeconstructableComponent>(target, out var destructible)) // DS14
+                    if (TryComp<RCDDeconstructableComponent>(args.Target, out var destructible))
                     {
                         cost = destructible.Cost;
                         delay = destructible.Delay;
@@ -224,7 +222,7 @@ public sealed class RCDSystem : EntitySystem
             component.ProtoId,
             cost,
             GetNetEntity(effect));
-        var doAfterArgs = new DoAfterArgs(EntityManager, user, delay, ev, uid, target: target, used: uid) // DS14
+        var doAfterArgs = new DoAfterArgs(EntityManager, user, delay, ev, uid, target: args.Target, used: uid)
         {
             BreakOnDamage = true,
             BreakOnHandChange = true,
@@ -239,35 +237,6 @@ public sealed class RCDSystem : EntitySystem
         if (!_doAfter.TryStartDoAfter(doAfterArgs))
             QueueDel(effect);
     }
-
-    // DS14-start
-    /// <summary>
-    /// RCD clicks should pass through non-colliding overlay targets and operate on the underlying tile instead.
-    /// This preserves interactions under entities like holofans that became clickable upstream.
-    /// </summary>
-    private EntityUid? NormalizeTarget(EntityUid? target)
-    {
-        if (target == null)
-            return null;
-
-        if (HasComp<RCDDeconstructableComponent>(target.Value))
-            return target;
-
-        if (TryComp<PhysicsComponent>(target.Value, out var physics) && physics.CanCollide)
-            return target;
-
-        if (TryComp<FixturesComponent>(target.Value, out var fixtures))
-        {
-            foreach (var fixture in fixtures.Fixtures.Values)
-            {
-                if (fixture.Hard && fixture.CollisionLayer > 0)
-                    return target;
-            }
-        }
-
-        return null;
-    }
-    // DS14-end
 
     private void OnDoAfterAttempt(EntityUid uid, RCDComponent component, DoAfterAttemptEvent<RCDDoAfterEvent> args)
     {
@@ -366,7 +335,6 @@ public sealed class RCDSystem : EntitySystem
 
     public bool IsRCDOperationStillValid(EntityUid uid, RCDComponent component, EntityUid gridUid, MapGridComponent mapGrid, TileRef tile, Vector2i position, Direction direction, EntityUid? target, EntityUid user, bool popMsgs = true)
     {
-        target = NormalizeTarget(target); // DS14
         var prototype = _protoManager.Index(component.ProtoId);
 
         // Check that the RCD has enough ammo to get the job done

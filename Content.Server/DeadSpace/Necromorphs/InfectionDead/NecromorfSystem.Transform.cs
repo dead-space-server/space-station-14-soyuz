@@ -319,11 +319,6 @@ public sealed partial class NecromorfSystem
             RemComp(target, handsComp);
         }
 
-        if (TryComp<CuffableComponent>(target, out var cuffs))
-        {
-            RemComp(target, cuffs);
-        }
-
         RemComp<PullerComponent>(target);
 
         var pryComp = EnsureComp<PryingComponent>(target);

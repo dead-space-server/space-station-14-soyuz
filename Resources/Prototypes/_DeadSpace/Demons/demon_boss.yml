@@ -105,8 +105,6 @@
   parent: BaseMobDemonBoss
   id: MobDemonHerald
   components:
-  - type: StaminaResistance
-    damageCoefficient: 0.2
   - type: Sprite
     layers:
     - map: [ "enum.DamageStateVisualLayers.Base" ]
@@ -141,8 +139,6 @@
       Male: Demon
       Female: Demon
       Unsexed: Demon
-  - type: TTS
-    voice: Volibear
   #DS14-start
   - type: GhostRoleNotifys 
     groupPrototype: DemonBoss

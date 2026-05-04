@@ -178542,7 +178542,7 @@ entities:
     - type: Transform
       pos: -57.515614,156.4843
       parent: 2
-- proto: PlushieDionaSoyuz
+- proto: PlushieDiona
   entities:
   - uid: 25417
     components:

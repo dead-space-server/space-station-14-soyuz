@@ -95,8 +95,7 @@
       - id: PeaSeeds
       - id: CherrySeeds
       - id: CocoaSeeds
-      - id: CottonSeeds
-      - id: PearSeeds # DS14
+
 - type: entity
   id: CrateHydroponicsTray
   parent: CrateHydroponics

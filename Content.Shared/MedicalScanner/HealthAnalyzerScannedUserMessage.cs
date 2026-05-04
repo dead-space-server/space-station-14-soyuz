@@ -1,3 +1,4 @@
+using Content.Shared.FixedPoint; // DS14
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.MedicalScanner;
@@ -35,9 +36,11 @@ public struct HealthAnalyzerUiState
     public float CureProgress; // 0..1
     // DS14-end
 
+    public List<HealthAnalyzerReagentEntry> Reagents = new(); // DS14
+
     public HealthAnalyzerUiState() {}
 
-    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable, bool? unclonable, bool? hasVirus = null, float cureProgress = 1)
+    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable, bool? unclonable, bool? hasVirus = null, float cureProgress = 1, List<HealthAnalyzerReagentEntry>? reagents = null)
     {
         TargetEntity = targetEntity;
         Temperature = temperature;
@@ -48,5 +51,23 @@ public struct HealthAnalyzerUiState
         Unclonable = unclonable; // DS14
         HasVirus = hasVirus;
         CureProgress = cureProgress;
+        Reagents = reagents ?? new List<HealthAnalyzerReagentEntry>(); // DS14
     }
 }
+
+// DS14-start
+[Serializable, NetSerializable]
+public struct HealthAnalyzerReagentEntry
+{
+    public string ReagentId;
+    public FixedPoint2 Quantity;
+    public bool Overdosed;
+
+    public HealthAnalyzerReagentEntry(string reagentId, FixedPoint2 quantity, bool overdosed)
+    {
+        ReagentId = reagentId;
+        Quantity = quantity;
+        Overdosed = overdosed;
+    }
+}
+// DS14-end

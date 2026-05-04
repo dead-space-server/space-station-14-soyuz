@@ -29,18 +29,14 @@ public struct HealthAnalyzerUiState
     public bool? ScanMode;
     public bool? Bleeding;
     public bool? Unrevivable;
-
     // DS14-start
     public bool? Unclonable; 
-    public bool? HasVirus;
-    public float CureProgress; // 0..1
-    // DS14-end
 
     public List<HealthAnalyzerReagentEntry> Reagents = new(); // DS14
 
     public HealthAnalyzerUiState() {}
 
-    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable, bool? unclonable, bool? hasVirus = null, float cureProgress = 1, List<HealthAnalyzerReagentEntry>? reagents = null)
+    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unclonable, bool? unrevivable, List<HealthAnalyzerReagentEntry>? reagents = null)
     {
         TargetEntity = targetEntity;
         Temperature = temperature;
@@ -48,9 +44,7 @@ public struct HealthAnalyzerUiState
         ScanMode = scanMode;
         Bleeding = bleeding;
         Unrevivable = unrevivable;
-        Unclonable = unclonable; // DS14
-        HasVirus = hasVirus;
-        CureProgress = cureProgress;
+        Unclonable = unclonable; // DS14-Soyuz
         Reagents = reagents ?? new List<HealthAnalyzerReagentEntry>(); // DS14
     }
 }

@@ -11,7 +11,6 @@ using Robust.Shared.Prototypes;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Cloning; // DS14-soyuz
-using Content.Shared.DeadSpace.Virus.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -282,8 +281,6 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bleeding,
             unrevivable,
             unclonable, // DS14-Soyuz
-            virus != null, // DS14
-            infectionLevel, // DS14
             reagents // DS14
         );
     }

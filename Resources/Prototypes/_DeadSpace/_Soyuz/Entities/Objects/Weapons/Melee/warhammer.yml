@@ -1,5 +1,5 @@
 - type: entity
-  name: вархмамер
+  name: Вархамер
   description: Легендарное оружие чемпионов древности. С вархамером в одной руке...
   parent: BaseWeaponCrusher
   id: ADTWeaponWarhammer
@@ -26,7 +26,9 @@
   - type: LeechOnMarker
     leech:
       groups:
-        Brute: -6
+        Brute: -15
+        Burn: -15
+        Airloss: -15
   - type: Gun
     soundGunshot: /Audio/Weapons/plasma_cutter.ogg
     fireRate: 1
@@ -44,16 +46,15 @@
     wideAnimationRotation: -135
     damage:
       types:
-        Blunt: 6
-        Slash: 4
+        Blunt: 15
+        Structural: 30
     soundHit:
       collection: MetalThud
   - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Blunt: 6
-        Slash: 2
+        Blunt: 15
         Structural: 30
   - type: GunRequiresWield
   - type: DisarmMalus

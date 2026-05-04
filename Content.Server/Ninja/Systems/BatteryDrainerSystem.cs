@@ -92,16 +92,8 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
         }
 
         var required = battery.MaxCharge - _battery.GetCharge((comp.BatteryUid.Value, battery));
-        // DS14: avoid invalid configuration (prevents divide-by-zero).
-        if (comp.DrainEfficiency <= 0f)
-            return false;
         // higher tier storages can charge more
-        // DS14-start: optionally cap drain rate (J/s) regardless of the target max supply.
-        var maxSupply = pnb.MaxSupply;
-        if (comp.MaxDrainRate > 0f)
-            maxSupply = Math.Min(maxSupply, comp.MaxDrainRate);
-        var maxDrained = maxSupply * comp.DrainTime;
-        // DS14-end
+        var maxDrained = pnb.MaxSupply * comp.DrainTime;
         var input = Math.Min(Math.Min(available, required / comp.DrainEfficiency), maxDrained);
         if (!_battery.TryUseCharge((target, targetBattery), input))
             return false;

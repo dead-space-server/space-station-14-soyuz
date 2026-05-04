@@ -1,36 +1,36 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  # DS14-Soyuz-start: automatic map vote pool
-  - Reach
-  - CorvaxSilly
-  - Saltern
-  - Packed
-  - Cluster
-  - CorvaxPaper
-  - Omega
-  - Elkridge
-  - Barratry
-  - CorvaxPearl
-  - Bagel
-  - Train
-  - Loop
-  - Plasma
-  - Gemini
-  - Marathon
   - Amber
-  - Meta
-  - Cog
-  - Core
-  - Gate
-  - Fland
-  - Convex
+  - Aspid
+  - Bagel
+  - Barratry
   - Box
-  - Origin
-  - Oasis
+  - Cluster
+  - Cog
+  - Convex
+  - Core
   - CorvaxAstra
   - CorvaxAvrite
   - CorvaxDelta
+  - CorvaxPaper
+  - CorvaxSilly
   - CorvaxSpectrum
   - CorvaxGlacier
-  # DS14-Soyuz-end
+  - CorvaxPearl
+  - Elkridge
+  - Fland
+  - Gate
+  - Gemini
+  - Loop
+  - Loop
+  - Marathon
+  - Meta
+  - Oasis
+  - Omega
+  - Origin
+  - Packed
+  - Plasma
+  - Reach
+  - Saltern
+#  - Train Я рот топтал трейна

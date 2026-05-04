@@ -75,7 +75,6 @@ namespace Content.Server.GameTicking
                     {
                         _roundStartCountdownHasNotStartedYetDueToNoPlayers = false;
                         _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                        TryStartAutomaticMapVote(); // DS-14-voite
                     }
 
                     break;

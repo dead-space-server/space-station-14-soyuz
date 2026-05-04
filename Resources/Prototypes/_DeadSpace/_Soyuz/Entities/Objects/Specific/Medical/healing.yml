@@ -87,14 +87,9 @@
     - BlueInsulatingTape
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
-    state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
-    layers:
-    - state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
-      map: ["base"] # DS14
+    state: insulating_tape_blue # DS14-value: nanopaste -> insulating_tape_blue
   - type: Item
-    sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi # DS14
-    heldPrefix: insulating_tape_blue # DS14
-  - type: WindowRepairTape
+    heldPrefix: nanopaste
   - type: Healing
     damageContainers:
     - Silicon
@@ -112,25 +107,14 @@
   - type: Stack
     stackType: BlueInsulatingTape
     count: 10
-    baseLayer: base # DS14
-    layerStates: # DS14
-    - insulating_tape_blue-3
-    - insulating_tape_blue-5
-    - insulating_tape_blue-10
-    layerFunction: Threshold
-  - type: StackLayerThreshold
-    thresholds: [2, 4] # DS14-value: [4, 8] -> [2, 4]
   - type: StackPrice
     price: 0
-  - type: Appearance # DS14
 
 - type: entity
   id: BlueInsulatingTape1
   parent: BlueInsulatingTape
   suffix: Один
   components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
   - type: Stack
     stackType: BlueInsulatingTape
     count: 1
@@ -140,20 +124,7 @@
   parent: BlueInsulatingTape
   suffix: 5
   components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
   - type: Stack
     stackType: BlueInsulatingTape
     count: 5
-
-- type: entity
-  id: BlueInsulatingTape3
-  parent: BlueInsulatingTape
-  suffix: 3
-  components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
-  - type: Stack
-    stackType: BlueInsulatingTape
-    count: 3
 # DS14-end

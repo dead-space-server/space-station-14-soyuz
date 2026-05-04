@@ -198,7 +198,6 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
-    - BlueInsulatingTapeStatic # DS14
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment

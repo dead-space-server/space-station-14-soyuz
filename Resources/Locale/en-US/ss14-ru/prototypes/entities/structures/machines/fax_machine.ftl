@@ -1,5 +1,5 @@
 ent-FaxMachineBase = long range fax machine
-    .desc = Redspace technology applied to bureaucracy.
+    .desc = Bluespace technologies on the application of bureaucracy.
 ent-FaxMachineCentcom = CentComm long range fax machine
     .suffix = CentCom
     .desc = { ent-FaxMachineBase.desc }

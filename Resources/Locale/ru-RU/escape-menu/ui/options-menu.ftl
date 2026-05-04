@@ -27,7 +27,6 @@ ui-options-tab-ping = Пинг меню
 ui-options-cooldown-ping = Задержка для пинга
 ui-options-ping-permission = Получать уведомление о появлении роли
 ui-options-sound-ping = выбор звука пинга
-
 #DS14-end
 
 ## Audio menu
@@ -399,10 +398,9 @@ ui-options-overlay-ghost-hide-distance = Диапазон скрытия нал�
 ##DS14-start
 ## Ping menu
 
-##DS14-end
-
 ui-options-save-button = Сохранить
 ui-options-function-open-language-menu = Открыть меню выбора языка
+##DS14-end
 
 # DS14-start: Jukebox audio options
 ui-options-jukebox-volume = Jukebox volume:

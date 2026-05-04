@@ -127,9 +127,7 @@
   parent: ClothingBackpack
   id: XenoborgMaterialBag
   name: silicon storage square
-  # DS14-start: Soyuz changes
-  description: A knockoff version of a redspace bag, can vacumn up select materials, unfit for use by humanoids due to harmful emissions.
-  # DS14-end
+  description: A knockoff version of a bluespace bag, can vacumn up select materials, unfit for use by humanoids due to harmful emissions.
   components:
   - type: Sprite
     sprite: Objects/Specific/Robotics/silicon_storage_cube.rsi

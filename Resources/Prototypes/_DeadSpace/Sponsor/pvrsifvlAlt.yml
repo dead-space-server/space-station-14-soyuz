@@ -70,9 +70,7 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltpvrsifvlAlt
-  # DS14-start: Soyuz changes
-  name: редспейс хранилище ETL//07
-  # DS14-end
+  name: блюспейс хранилище ETL//07
   description: Нет, мне это не нужно. Нет, мне это не нужно. Разработано и спроектировано компанией Nakamura Engineering по индивидуальному заказу.
   categories: [ HideSpawnMenu ]
   components:

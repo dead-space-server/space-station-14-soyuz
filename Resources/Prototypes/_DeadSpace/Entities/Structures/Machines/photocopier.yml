@@ -167,9 +167,7 @@
   parent: BaseItem
   id: PhotocopierTonerCartridge
   name: тонер для копировального аппарата
-  # DS14-start: Soyuz changes
-  description: Пахнет редспейсом.
-  # DS14-end
+  description: Пахнет блюспейсом.
   components:
   - type: Item
     sprite: _DeadSpace/Objects/Misc/tonercartridge.rsi

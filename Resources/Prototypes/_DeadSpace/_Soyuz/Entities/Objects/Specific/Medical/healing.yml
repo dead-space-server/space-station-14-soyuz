@@ -8,9 +8,7 @@
   - type: Pill
     pillType: 2
   - type: Sprite
-    # DS14-start: Soyuz changes
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: pill3
     scale: 0.7, 0.7
   - type: Label
@@ -36,10 +34,8 @@
   - type: Tag
     tags:
       - FoodSnack
-    # DS14-start: Soyuz changes
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris
     scale: 0.7, 0.7
   - type: SpawnItemsOnUse
@@ -67,11 +63,9 @@
           Quantity: 10
   - type: Tag
     tags:
-    # DS14-start: Soyuz changes
     - Trash
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris-trash
 
 # DS14-start: Soyuz blue insulating tape for silicon repair

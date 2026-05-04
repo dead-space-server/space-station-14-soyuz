@@ -1,2 +1,2 @@
-ent-ADTWeaponWarhammer = Вархамер
+ent-ADTWeaponWarhammer = вархмамер
     .desc = Легендарное оружие чемпионов древности. С вархамером в одной руке...

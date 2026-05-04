@@ -57,11 +57,6 @@ namespace Content.Server.RoundEnd
         public TimeSpan? ExpectedShuttleLength => ExpectedCountdownEnd - LastCountdownStart;
         public TimeSpan? ShuttleTimeLeft => ExpectedCountdownEnd - _gameTiming.CurTime;
 
-        /// <summary>
-        /// If the shuttle can't be recalled. if set to true, the station wont be able to recall
-        /// </summary>
-        public bool CantRecall = false;
-
         public TimeSpan AutoCallStartTime;
         private bool _autoCalledBefore = false;
 
@@ -90,8 +85,6 @@ namespace Content.Server.RoundEnd
                 _cooldownTokenSource.Cancel();
                 _cooldownTokenSource = null;
             }
-
-            CantRecall = false;
 
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
@@ -134,7 +127,7 @@ namespace Content.Server.RoundEnd
 
         public bool CanCallOrRecall()
         {
-            return _cooldownTokenSource == null && !CantRecall;
+            return _cooldownTokenSource == null;
         }
 
         public bool IsRoundEndRequested()
@@ -142,16 +135,7 @@ namespace Content.Server.RoundEnd
             return _countdownTokenSource != null;
         }
 
-        /// <summary>
-        /// Starts the process of ending the round by calling evac
-        /// </summary>
-        /// <param name="requester">who called evac</param>
-        /// <param name="machine">machine used to call evac</param>
-        /// <param name="checkCooldown"></param>
-        /// <param name="text">text in the announcement of shuttle calling</param>
-        /// <param name="name">name in the announcement of shuttle calling</param>
-        /// <param name="cantRecall">if the station shouldn't be able to recall the shuttle</param>
-        public void RequestRoundEnd(EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false)
+        public void RequestRoundEnd(EntityUid? requester = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement")
         {
             var duration = DefaultCountdownDuration;
 
@@ -166,20 +150,10 @@ namespace Content.Server.RoundEnd
                 }
             }
 
-            RequestRoundEnd(duration, requester, machine, checkCooldown, text, name, cantRecall);
+            RequestRoundEnd(duration, requester, checkCooldown, text, name);
         }
 
-        /// <summary>
-        /// Starts the process of ending the round by calling evac
-        /// </summary>
-        /// <param name="countdownTime">time for evac to arrive</param>
-        /// <param name="requester">who called evac</param>
-        /// <param name="machine">machine used to call evac</param>
-        /// <param name="checkCooldown"></param>
-        /// <param name="text">text in the announcement of shuttle calling</param>
-        /// <param name="name">name in the announcement of shuttle calling</param>
-        /// <param name="cantRecall">if the station shouldn't be able to recall the shuttle</param>
-        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false)
+        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement")
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
@@ -191,13 +165,15 @@ namespace Content.Server.RoundEnd
                 return;
 
             _countdownTokenSource = new();
-            CantRecall = cantRecall;
 
-            var what = machine != null ? $" with {ToPrettyString(machine.Value):entity} " : "";
             if (requester != null)
-                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):player}{what}");
+            {
+                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called by {ToPrettyString(requester.Value):user}");
+            }
             else
-                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called{what}");
+            {
+                _adminLogger.Add(LogType.ShuttleCalled, LogImpact.High, $"Shuttle called");
+            }
 
             // I originally had these set up here but somehow time gets passed as 0 to Loc so IDEK.
             int time;
@@ -250,25 +226,23 @@ namespace Content.Server.RoundEnd
             }
         }
 
-        public void CancelRoundEndCountdown(EntityUid? requester = null, EntityUid? machine = null, bool forceRecall = false)
+        public void CancelRoundEndCountdown(EntityUid? requester = null, bool checkCooldown = true)
         {
-            if (_gameTicker.RunLevel != GameRunLevel.InRound)
-                return;
+            if (_gameTicker.RunLevel != GameRunLevel.InRound) return;
+            if (checkCooldown && _cooldownTokenSource != null) return;
 
-            if (!forceRecall && (CantRecall || _cooldownTokenSource != null))
-                return;
-
-            if (_countdownTokenSource == null)
-                return;
-
+            if (_countdownTokenSource == null) return;
             _countdownTokenSource.Cancel();
             _countdownTokenSource = null;
 
-            var what = machine != null ? $" with {ToPrettyString(machine.Value):entity} " : "";
             if (requester != null)
-                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):player}{what}");
+            {
+                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled by {ToPrettyString(requester.Value):user}");
+            }
             else
-                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled{what}");
+            {
+                _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled");
+            }
 
             _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
                 Loc.GetString("round-end-system-shuttle-sender-announcement"), false, colorOverride: Color.Gold);
@@ -360,8 +334,8 @@ namespace Content.Server.RoundEnd
                     }
                     else
                     {
-                        RequestRoundEnd(time, checkCooldown: false, text: textCall,
-                            name: Loc.GetString(sender));
+                        RequestRoundEnd(time, null, false, textCall,
+                            Loc.GetString(sender));
                     }
                     break;
             }
@@ -398,7 +372,7 @@ namespace Content.Server.RoundEnd
                 if (!_shuttle.EmergencyShuttleArrived && ExpectedCountdownEnd is null)
                 {
                     _autoCalledBefore = true;  // Corvax-Announcements: Move before call RequestRoundEnd to play correct announcement sound type
-                    RequestRoundEnd(checkCooldown: false, text: "round-end-system-shuttle-auto-called-announcement");
+                    RequestRoundEnd(null, false, "round-end-system-shuttle-auto-called-announcement");
                 }
 
                 // Always reset auto-call in case of a recall.

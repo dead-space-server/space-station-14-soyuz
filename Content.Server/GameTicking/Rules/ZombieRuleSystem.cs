@@ -108,7 +108,6 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
                 ("name", meta.EntityName),
                 ("username", username)));
         }
-        args.AddLine("");
 
         // DS14-dashboard
         var winner = fraction > 0.9
@@ -143,7 +142,7 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             {
                 _chat.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
             }
-            _roundEnd.RequestRoundEnd(checkCooldown: false);
+            _roundEnd.RequestRoundEnd(null, false);
         }
 
         // we include dead for this count because we don't want to end the round

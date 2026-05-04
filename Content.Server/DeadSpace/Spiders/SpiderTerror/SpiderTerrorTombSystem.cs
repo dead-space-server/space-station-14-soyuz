@@ -17,9 +17,11 @@ public sealed class SpiderTerrorTombSystem : EntitySystem
 {
     [Dependency] private readonly SpiderTerrorConditionSystem _spiderTerrorConditions = default!;
     [Dependency] private readonly ITileDefinitionManager _tiledef = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly TileSystem _tile = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -56,7 +58,8 @@ public sealed class SpiderTerrorTombSystem : EntitySystem
 
     private void OnComponentStartUp(EntityUid uid, SpiderTerrorTombComponent component, ComponentStartup args)
     {
-        var xform = Transform(uid);
+        if (!TryComp<TransformComponent>(uid, out var xform))
+            return;
 
         component.OldMaxReagent = component.MaxReagent;
         component.Station = _station.GetStationInMap(xform.MapID);

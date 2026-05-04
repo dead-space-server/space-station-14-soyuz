@@ -49,6 +49,9 @@
         Cold: -0.4
         Blunt: -0.2
   - type: Temperature
+    heatDamage:
+      types:
+        Heat: 10
   - type: Flammable
     fireSpread: true
     damage:

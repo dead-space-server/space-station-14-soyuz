@@ -5,7 +5,6 @@
   name: ящик вирусологического резерва
   description: Содержит коробку с пробирками для плана формирования резерва.
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: BoxVirus
+  - type: StorageFill
+    contents:
+      - id: BoxVirus

@@ -472,18 +472,6 @@
 
 - type: entity
   parent: IDCardStandard
-  id: SeniorSalvageIDCard
-  name: senior salvage ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idseniorcargo
-  - type: PresetIdCard
-    job: SalvageSpecialist
-
-- type: entity
-  parent: IDCardStandard
   id: CentcomIDCard
   name: command officer ID card
   components:
@@ -1031,18 +1019,6 @@
     - state: idsurgeon
   - type: PresetIdCard
     job: MedicalSurgeon
-
-- type: entity
-  parent: IDCardStandard
-  id: XenoborgIDCard
-  name: xenoborg ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-  - type: Access
-    tags:
-    - Xenoborg
 
 - type: entity
   parent: IDCardStandard

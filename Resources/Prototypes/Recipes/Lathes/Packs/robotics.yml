@@ -15,7 +15,6 @@
   - BorgModuleCable
   - BorgModuleFireExtinguisher
   - BorgModuleInflatable
-  - BorgModuleArtistry
 
 - type: latheRecipePack
   id: BorgLimbsStatic
@@ -54,7 +53,7 @@
   - BorgModuleAdvancedCleaning
   - BorgModuleAdvancedTool
   - BorgModuleAdvancedClowning
-  - BorgModuleAdvancedTopical
+  - BorgModuleAdvancedChemical
   - BorgModuleAdvancedMining
   - BorgModuleAdvancedMining # DS14
   - BorgModuleMiningWeapon # DS14

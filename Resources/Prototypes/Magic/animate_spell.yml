@@ -24,8 +24,6 @@
       - TegGenerator
       - TegCirculator
       - XenoArtifact
-      tags: # DeadSpace
-      - AnimateSpellBlacklist
     event: !type:ChangeComponentsSpellEvent
       toAdd:
       - type: Animate

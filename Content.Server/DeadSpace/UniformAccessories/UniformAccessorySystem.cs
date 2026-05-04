@@ -25,7 +25,9 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         if (container == null || container.ContainedEntities.Count == 0)
             return;
 
-        var transform = Transform(holder);
+        if (!TryComp<TransformComponent>(holder, out var transform))
+            return;
+
         var coordinates = transform.Coordinates;
         var accessories = container.ContainedEntities.ToArray();
 
@@ -33,7 +35,8 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         {
             if (_container.Remove(accessory, container, reparent: false))
             {
-                Transform(accessory).Coordinates = coordinates;
+                if (TryComp<TransformComponent>(accessory, out var accessoryTransform))
+                    accessoryTransform.Coordinates = coordinates;
             }
         }
     }
@@ -50,7 +53,7 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         var accessories = new List<string>();
         foreach (var accessory in container.ContainedEntities)
         {
-            if (!TryComp(accessory, out MetaDataComponent? metaData))
+            if (!TryComp<MetaDataComponent>(accessory, out var metaData))
                 continue;
 
             var colorHex = "#FFFF55";

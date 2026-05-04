@@ -14,12 +14,8 @@ namespace Content.Shared.IdentityManagement.Components;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class IdentityComponent : Component
 {
-    /// <summary>
-    /// The slot which carries around the entity representing the carrier's
-    /// perceived identity. May be null if the component is not initialized.
-    /// </summary>
     [ViewVariables]
-    public ContainerSlot? IdentityEntitySlot;
+    public ContainerSlot IdentityEntitySlot = default!;
 }
 
 /// <summary>
@@ -36,7 +32,7 @@ public sealed class IdentityRepresentation
     public string? PresumedName;
     public string? PresumedJob;
 
-    public IdentityRepresentation(string trueName, Gender trueGender, string ageString, string? presumedName = null, string? presumedJob = null)
+    public IdentityRepresentation(string trueName, Gender trueGender, string ageString, string? presumedName=null, string? presumedJob=null)
     {
         TrueName = trueName;
         TrueGender = trueGender;
@@ -47,16 +43,10 @@ public sealed class IdentityRepresentation
         PresumedName = presumedName;
     }
 
-    /// <summary>
-    /// Get this identity as a string
-    /// </summary>
-    /// <param name="trueName">Should we show their "true" name or hide it?</param>
-    /// <param name="nameOverride">A "true name" override</param>
-    /// <returns></returns>
-    public string ToStringKnown(bool trueName, string? nameOverride)
+    public string ToStringKnown(bool trueName)
     {
         return trueName
-            ? nameOverride ?? TrueName
+            ? TrueName
             : PresumedName ?? ToStringUnknown();
     }
 

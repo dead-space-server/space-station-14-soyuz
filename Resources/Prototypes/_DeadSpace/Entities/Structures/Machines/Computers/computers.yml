@@ -18,6 +18,8 @@
       state: aiupload_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
+  - type: ApcPowerReceiver
+    powerLoad: 1000
   - type: Computer
     board: StationAiUploadCircuitboardTaipan
   - type: AccessReader
@@ -487,6 +489,8 @@
         type: ResearchClientBoundUserInterface
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    powerLoad: 1000
   - type: Computer
     board: ResearchComputerCircuitboardTaipan
   - type: AccessReader
@@ -530,6 +534,8 @@
         type: RoboticsConsoleBoundUserInterface
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
+  - type: ApcPowerReceiver
+    powerLoad: 1000
   - type: DeviceNetwork
     deviceNetId: Wireless
     receiveFrequencyId: RoboticsConsole

@@ -1,47 +1,32 @@
-{
+﻿{
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken and modified from /tg/station 13 at commit https://github.com/tgstation/tgstation/commit/d917f4c, edited by AJCM-git, CrudeWax, and DinnerCalzone (github) | inhands taken and modified from /vg/station13 at https://github.com/vgstation-coders/vgstation13/blob/2c2b9966ea0d03b10e6e9c59626f72bbe8475d9d/icons/mob/in-hand/left/items_lefthand.dmi | pirate made by brainfood1183 (github) | wizard by ScarkKy0 (github) | stripe_cluwne by brainfood1183 (github) | black-inhands by DinnerCalzone (github), ninja made by ThatGuyUSA (github)",
+  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/d917f4c2a088419d5c3aec7656b7ff8cebd1822e idcluwne made by brainfood1183 (github) for ss14, idbrigmedic made by PuroSlavKing (Github), pirate made by brainfood1183 (github), security resprite by mally0352 (Discord) and gribgear (discord) for Space Station 14 server Мёртвый Космос, idadmin made by Arimah (github), idvisitor by IProduceWidgets (Github), idintern-service by spanky-spanky (Github) | service icons darkened by frobnic8 (Discord and Github), resprited all by semkagamez (discord) for Space Station 14 server Мёртвый Космос, idbrigmedic iddetective idheadofsecurity idintern-cadet idsecurityofficer idsecuritypilot idseniorofficer and idwarden resprite by pyfya (discord) for Space Station 14 server Мёртвый Космос, wizard and idwizard by ScarKy0, resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос, resprited by mute_soul (discord) for Space Station 14 server Мёртвый Космос Союз-1",
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
     {
-      "name": "admin"
+      "name": "default"
     },
     {
       "name": "black"
     },
     {
-      "name": "black-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "black-inhand-right",
-      "directions": 4
-    },
-    {
-      "name": "blue-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "blue-inhand-right",
-      "directions": 4
-    },
-    {
       "name": "centcom"
     },
     {
-      "name": "default"
+      "name": "admin"
     },
     {
-      "name": "default-inhand-left",
-      "directions": 4
+      "name": "NKVBCard"
     },
     {
-      "name": "default-inhand-right",
-      "directions": 4
+      "name": "PolitKomissar"
+    },
+    {
+      "name": "PolitRuk"
     },
     {
       "name": "ert_chaplain"
@@ -65,26 +50,7 @@
       "name": "gold"
     },
     {
-      "name": "gold-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "gold-inhand-right",
-      "directions": 4
-    },
-    {
-      "name": "green-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "green-inhand-right",
-      "directions": 4
-    },
-    {
-      "name": "icon-captain"
-    },
-    {
-      "name": "idadmin"
+      "name": "idpassenger"
     },
     {
       "name": "idatmospherictechnician"
@@ -97,9 +63,6 @@
     },
     {
       "name": "idboxer"
-    },
-    {
-      "name": "idbrigmedic"
     },
     {
       "name": "idcaptain"
@@ -126,13 +89,7 @@
       "name": "idclown"
     },
     {
-      "name": "idcluwne"
-    },
-    {
       "name": "idcook"
-    },
-    {
-      "name": "idcoroner"
     },
     {
       "name": "idcurator"
@@ -150,25 +107,7 @@
       "name": "idheadofsecurity"
     },
     {
-      "name": "idiaa"
-    },
-    {
-      "name": "idintern-cadet"
-    },
-    {
-      "name": "idintern-med"
-    },
-    {
-      "name": "idintern-sci"
-    },
-    {
-      "name": "idintern-service"
-    },
-    {
-      "name": "idintern-tech"
-    },
-    {
-      "name": "idinvestigator"
+      "name": "idbrigmedic"
     },
     {
       "name": "idjanitor"
@@ -183,25 +122,19 @@
       "name": "idmime"
     },
     {
-      "name": "idmusician"
-    },
-    {
       "name": "idparamedic"
-    },
-    {
-      "name": "idpassenger"
-    },
-    {
-      "name": "idprisoner"
     },
     {
       "name": "idpsychologist"
     },
     {
-      "name": "idquartermaster"
+      "name": "idreporter"
     },
     {
-      "name": "idreporter"
+      "name": "idprisoner"
+    },
+    {
+      "name": "idquartermaster"
     },
     {
       "name": "idresearchdirector"
@@ -216,34 +149,10 @@
       "name": "idsecurityofficer"
     },
     {
-      "name": "idsecuritypilot"
-    },
-    {
-      "name": "idseniorcargo"
-    },
-    {
-      "name": "idseniorengineer"
-    },
-    {
-      "name": "idseniorofficer"
-    },
-    {
-      "name": "idseniorphysician"
-    },
-    {
-      "name": "idseniorresearcher"
-    },
-    {
-      "name": "idseniorservice"
-    },
-    {
       "name": "idshaftminer"
     },
     {
       "name": "idstationengineer"
-    },
-    {
-      "name": "idsurgeon"
     },
     {
       "name": "idunknown"
@@ -258,24 +167,31 @@
       "name": "idwarden"
     },
     {
-      "name": "idwizard"
+      "name": "idmusician"
     },
     {
       "name": "idzookeeper"
     },
     {
-      "name": "ninja"
+      "name": "idintern-sci"
+    },
+    {
+      "name": "idintern-cadet"
+    },
+    {
+      "name": "idintern-med"
+    },
+    {
+      "name": "idintern-service"
+    },
+    {
+      "name": "idintern-tech"
+    },
+    {
+      "name": "idadmin"
     },
     {
       "name": "orange"
-    },
-    {
-      "name": "orange-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "orange-inhand-right",
-      "directions": 4
     },
     {
       "name": "pirate"
@@ -305,6 +221,55 @@
       "name": "silver"
     },
     {
+      "name": "syndi"
+    },
+    {
+      "name": "syndi_operative"
+    },
+    {
+      "name": "syndi_corpsman"
+    },
+    {
+      "name": "syndi_commander"
+    },
+    {
+      "name": "idcluwne"
+    },
+    {
+      "name": "idseniorengineer"
+    },
+    {
+      "name": "idseniorresearcher"
+    },
+    {
+      "name": "idseniorphysician"
+    },
+    {
+      "name": "idseniorofficer"
+    },
+    {
+      "name": "wizard"
+    },
+    {
+      "name": "idwizard"
+    },
+    {
+      "name": "gold-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "gold-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "default-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "default-inhand-right",
+      "directions": 4
+    },
+    {
       "name": "silver-inhand-left",
       "directions": 4
     },
@@ -313,40 +278,52 @@
       "directions": 4
     },
     {
-      "name": "stripe_bottom"
+      "name": "orange-inhand-left",
+      "directions": 4
     },
     {
-      "name": "stripe_clown"
+      "name": "orange-inhand-right",
+      "directions": 4
     },
     {
-      "name": "stripe_top"
+      "name": "blue-inhand-left",
+      "directions": 4
     },
     {
-      "name": "syndi"
+      "name": "blue-inhand-right",
+      "directions": 4
     },
     {
-      "name": "syndi_commander"
+      "name": "green-inhand-left",
+      "directions": 4
     },
     {
-      "name": "syndi_corpsman"
+      "name": "green-inhand-right",
+      "directions": 4
     },
     {
-      "name": "syndi_operative"
+      "name": "idiaa"
     },
     {
-      "name": "wizard"
+      "name": "idsurgeon"
     },
     {
-      "name": "PolitRuk"
+      "name": "idinvestigator"
     },
     {
-      "name": "PolitKomissar"
+      "name": "idcoroner"
+    },
+    {
+      "name": "idsecuritypilot"
+    },
+    {
+      "name": "idseniorcargo"
+    },
+    {
+      "name": "idseniorservice"
     },
     {
       "name": "idokgb"
-    },
-    {
-      "name": "NKVBCard"
     }
   ]
 }

@@ -1,13 +1,25 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  # - DSTaipan # not mappool map
-  - Amber
-  - Aspid
-  - Bagel
-  - Barratry
-  - Box
+  # DS14-Soyuz-start: automatic map vote pool
+  - Reach
+  - CorvaxSilly
+  - Saltern
+  - Packed
   - Cluster
+  - CorvaxPaper
+  - Omega
+  - Elkridge
+  - Barratry
+  - CorvaxPearl
+  - Bagel
+  - Train
+  - Loop
+  - Plasma
+  - Gemini
+  - Marathon
+  - Amber
+  - Meta
   - Cog
   - Core
   - Gate
@@ -20,22 +32,5 @@
   - CorvaxAvrite
   - CorvaxDelta
   - CorvaxSpectrum
-  - Elkridge
-  - Fland
-  - Gate
-  - Gemini
-  - Loop
-  - Marathon
-  - Meta
-  - Oasis
-  - Omega
-  - Origin
-  - Packed
-  - Plasma
-  - Reach
-  # - Exo # DS14-Soyuz
-  - Saltern
-  - Snowball
-  # - Train # Shit map
-  - CorvaxPearl
-  - Ishimura # Выключено до одобрения Liv
+  - CorvaxGlacier
+  # DS14-Soyuz-end

@@ -6,22 +6,22 @@ namespace Content.Shared.Sirena.Animations;
 
 /// <summary>
 /// </summary>
-public sealed partial class EmoteFlipActionEvent : InstantActionEvent { };
+public partial class EmoteFlipActionEvent : InstantActionEvent { };
 
 /// <summary>
 /// </summary>
-public sealed partial class EmoteJumpActionEvent : InstantActionEvent { };
+public partial class EmoteJumpActionEvent : InstantActionEvent { };
 
 /// <summary>
 /// </summary>
-public sealed partial class EmoteTurnActionEvent : InstantActionEvent { };
+public partial class EmoteTurnActionEvent : InstantActionEvent { };
 
-public sealed partial class EmoteStopTailActionEvent : InstantActionEvent { };
-public sealed partial class EmoteStartTailActionEvent : InstantActionEvent { };
+public partial class EmoteStopTailActionEvent : InstantActionEvent { };
+public partial class EmoteStartTailActionEvent : InstantActionEvent { };
 
 [RegisterComponent]
 [NetworkedComponent]
-public sealed partial class EmoteAnimationComponent : Component
+public partial class EmoteAnimationComponent : Component
 {
     [ViewVariables(VVAccess.ReadWrite)]
     public string AnimationId = "none";
@@ -33,7 +33,7 @@ public sealed partial class EmoteAnimationComponent : Component
     public EntityUid? StartTailAction;
 
     [Serializable, NetSerializable]
-    public sealed class EmoteAnimationComponentState : ComponentState
+    public class EmoteAnimationComponentState : ComponentState
     {
         public string AnimationId { get; init; }
 

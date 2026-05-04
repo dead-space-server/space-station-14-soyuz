@@ -4,7 +4,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.EntityEffects.Effects;
 
-public sealed partial class InfectiodDeadMutation : EntityEffectBase<InfectiodDeadMutation>
+public sealed partial class InfectiodDeadMutation : EventEntityEffect<InfectiodDeadMutation>
 {
     [DataField]
     public float MutationStrength;
@@ -12,6 +12,6 @@ public sealed partial class InfectiodDeadMutation : EntityEffectBase<InfectiodDe
     [DataField]
     public bool IsStableMutation;
 
-    public override string? EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
         => Loc.GetString("reagent-effect-guidebook-mutate-infection-dead", ("chance", Probability));
 }

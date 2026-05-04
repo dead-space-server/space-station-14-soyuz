@@ -39,7 +39,7 @@ public sealed class EftposSystem : EntitySystem
 
     private void OnInteract(Entity<EftposComponent> ent, ref AfterActivatableUIOpenEvent args)
     {
-        UpdateComponentUserInterface(ent, args.User);
+        UpdateComponentUserInterface(ent, args.Actor);
     }
 
     private void UpdateComponentUserInterface(Entity<EftposComponent> uid, EntityUid? player = null)

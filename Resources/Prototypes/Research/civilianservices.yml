@@ -105,8 +105,6 @@
   - FauxTileAstroSnow
   - FauxTileAstroAsteroidSand
   - FauxTileDesertAstroSand
-  - FauxTileAstroIronsand
-  - FauxTileAstroIronsandBorderless
 
 - type: technology
   id: BiochemicalStasis
@@ -133,8 +131,7 @@
   tier: 2
   cost: 5000
   recipeUnlocks:
-  - BorgModuleAdvancedTopical
-  - AdvancedJetInjector
+  - BorgModuleAdvancedChemical
 
 - type: technology
   id: AdvancedCleaning
@@ -262,7 +259,6 @@
   recipeUnlocks:
   - BluespaceBeaker
   - SyringeBluespace
-  - BluespaceVial # DS14 
 
 - type: technology
   id: LauncherSyringe

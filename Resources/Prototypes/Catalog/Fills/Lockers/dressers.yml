@@ -109,7 +109,6 @@
       - id: ClothingUnderwearTopBraHeadofSecurity # DS14-Underwear
       - id: ClothingUnderwearBottomPantiesHeadofSecurity # DS14-Underwear
       - id: ClothingOuterWinterHoS
-      - id: ClothingHeadHatUshankaHOS # DS14
 
 - type: entity
   id: DresserQuarterMasterFilled

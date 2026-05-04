@@ -22,36 +22,10 @@
     rules:
     - id: Thief
       prob: 0.5
-    - id: SubWizard
-      prob: 0.05
-    - id: SubXenoborgs
-      prob: 0.05
 
 - type: entity
   parent: BaseGameRule
   id: SubGamemodesRuleNoWizard
-  components:
-  - type: SubGamemodes
-    rules:
-    - id: Thief
-      prob: 0.5
-    - id: SubXenoborgs
-      prob: 0.05
-
-- type: entity
-  parent: BaseGameRule
-  id: SubGamemodesRuleNoXenoborg
-  components:
-  - type: SubGamemodes
-    rules:
-    - id: Thief
-      prob: 0.5
-    - id: SubWizard
-      prob: 0.05
-
-- type: entity
-  parent: BaseGameRule
-  id: SubGamemodesRuleNoWizardNoXenoborg
   components:
   - type: SubGamemodes
     rules:
@@ -266,7 +240,6 @@
     - prefRoles: [ Traitor ]
       mindRoles:
       - MindRoleTraitorReinforcement
-      sponsorsPriority: true
       components:
       - type: Skill
         group: ALL
@@ -296,24 +269,9 @@
       - type: ChangelingTransform
       - type: ActionGrant
         actions:
-        - ActionChangelingStore
-      # TODO: Make it so the changeling gamerule changeling can inherit from the changeling store preset somehow
-      - type: Store
-        name: store-preset-name-changeling
-        categories:
-        - ChangelingAbilities
-        currencyWhitelist:
-        - ChangelingDNA
-        balance:
-          ChangelingDNA: 50
-      - type: UserInterface
-        interfaces:
-          enum.StoreUiKey.Key:
-            type: StoreBoundUserInterface
-            requireInputValidation: false
+        - ActionRetractableItemArmBlade # Temporary addition, will inevitably be a purchasable in the bio-store
       mindRoles:
       - MindRoleChangeling
-      sponsorsPriority: true
   - type: AntagObjectives
     objectives:
     - ChangelingSurviveObjective
@@ -346,7 +304,6 @@
         group: ALL
       mindRoles:
       - MindRoleHeadRevolutionary
-      sponsorsPriority: true
   - type: DynamicRuleCost
     cost: 200
 
@@ -414,7 +371,6 @@
         nameFormat: name-format-wizard
       mindRoles:
       - MindRoleWizard
-      sponsorsPriority: true
   - type: DynamicRuleCost
     cost: 150
 
@@ -451,49 +407,8 @@
         group: ALL
       mindRoles:
       - MindRoleInitialInfected
-      sponsorsPriority: true
   - type: DynamicRuleCost
     cost: 200
-
-- type: entity
-  abstract: true
-  parent: BaseGameRule
-  id: BaseXenoborgsRule
-  components:
-  - type: XenoborgsRule
-  - type: RuleGrids
-  - type: LoadMapRule
-    gridPath: /Maps/Shuttles/mothership.yml
-
-- type: entity
-  parent: BaseXenoborgsRule
-  id: Xenoborgs
-  components:
-  - type: GameRule
-    minPlayers: 30
-  - type: AntagMultipleRoleSpawner
-    antagRoleToPrototypes:
-      MothershipCore: [ MothershipCore ]
-      Xenoborg: [ XenoborgEngi, XenoborgHeavy, XenoborgScout, XenoborgStealth ]
-    pickAndTake: true
-  - type: AntagSelection
-    selectionTime: PrePlayerSpawn
-    definitions:
-    - prefRoles: [ MothershipCore ]
-      fallbackRoles: [ Xenoborg ]
-      spawnerPrototype: SpawnPointGhostRoleMothershipCore
-      mindRoles:
-      - MindRoleMothershipCore
-    - prefRoles: [ Xenoborg ]
-      fallbackRoles: [ MothershipCore ]
-      spawnerPrototype: SpawnPointGhostRoleXenoborg
-      mindRoles:
-      - MindRoleXenoborg
-      min: 4
-      max: 4
-  - type: DynamicRuleCost
-    cost: 200
-
 
 # This rule makes the chosen players unable to get other antag rules, as a way to prevent metagaming job rolls.
 # Put this before antags assigned to station jobs, but after non-job antags (NukeOps/Wiz).
@@ -588,13 +503,23 @@
   components:
   - type: BasicStationEventScheduler
     minimumTimeUntilFirstEvent: 2700 # 45 mins #shows up like half way through shift.
-    maximumSpanUntilFirstEvent: 900 # At longest takes an hour to show up.
     minMaxEventTiming:
       min: 1200 # 20 mins
       max: 7200 # 120 mins # you probably arent getting a second visitor shuttle in one round, but it is possible.
     scheduledGameRules: !type:NestedSelector
-      prob: 0.05 # Only 1 in 20 rounds...
       tableId: SpaceTrafficControlTable
+
+- type: entity
+  id: SpaceTrafficControlFriendlyEventScheduler
+  parent: BaseGameRule
+  components:
+  - type: BasicStationEventScheduler
+    minimumTimeUntilFirstEvent: 1200 # 20 mins
+    minMaxEventTiming:
+      min: 600 # 10 mins
+      max: 1800 # 30 mins
+    scheduledGameRules: !type:NestedSelector
+      tableId: UnknownShuttlesFriendlyTable
 
 # variation passes
 - type: entity
@@ -609,7 +534,6 @@
     - id: ReinforcedWallRustingVariationPass
     - id: SolidWallVineVariationPass # DS14
     - id: ReinforcedWallVineVariationPass # DS14
-    - id: CutWireVariationPass
     - id: BasicPuddleMessVariationPass
       prob: 0.99
       orGroup: puddleMess
@@ -622,6 +546,9 @@
     - id: SolarPanelEmptyVariationPass
     - id: BasicDecalDirtVariationPass
     - id: BasicDecalGraffitiVariationPass
+    - id: BasicDecalBrunsVariationPass
+      prob: 0.50
+      orGroup: monospaceDecals
     - id: BasicDecalDirtMonospaceVariationPass
       prob: 0.50
       orGroup: monospaceDecals

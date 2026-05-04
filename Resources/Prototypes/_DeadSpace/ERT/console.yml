@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ErtResponceConsole
-  name: консоль запроса поддержки NanoTrasen
-  description: Консоль запроса поддержки NanoTrasen которая отправляет сигнал отрядам быстрого реагирования для оказания поддержки станции в критических ситуациях.
+  name: консоль запроса поддержки ГенШтаба
+  description: Консоль запроса поддержки Генерального Штаба которая отправляет сигнал народному комиссариату всесоюзной безопасности для оказания поддержки станции в критических ситуациях.
   components:
   - type: Sprite
     layers:
@@ -16,12 +16,14 @@
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
+  - type: ApcPowerReceiver
+    powerLoad: 3100
   - type: Computer
     board: ErtResponceConsoleCircuitboard
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#1d8bad"
+    color: "#B64444"
   - type: ActivatableUI
     key: enum.ErtResponceConsoleUiKey.Key
   - type: UserInterface
@@ -39,7 +41,6 @@
     - Cburn
     - CburnSierra
     - Gamma
-    - Red
     - Amber
     - Engineers
     - BSAA
@@ -52,8 +53,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ErtComputerShuttle
-  name: консоль вызова обр NanoTrasen
-  description: Консоль для вызова отрядов быстрого реагирования на станции NanoTrasen.
+  name: консоль вызова СОБР СССП
+  description: Консоль для вызова отрядов быстрого реагирования на станциях Союза.
   components:
   - type: Sprite
     layers:
@@ -67,12 +68,14 @@
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
+  - type: ApcPowerReceiver
+    powerLoad: 3100
   - type: Computer
     board: ErtComputerShuttleCircuitboard
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#1d8bad"
+    color: "#B64444"
   - type: ActivatableUI
     key: enum.ErtComputerShuttleUiKey.Key
   - type: UserInterface
@@ -95,8 +98,8 @@
 - type: entity
   parent: ErtComputerShuttle
   id: ErtCounterpartyComputerShuttle
-  name: консоль обр контрагентов NanoTrasen
-  description: Консоль обр контрагентов NanoTrasen для экстренных команд реагирования.
+  name: консоль СОБР контрагентов СССП
+  description: Консоль СОБР контрагентов СССП для экстренных команд реагирования.
   components:
   - type: Computer
     board: ErtCounterpartyComputerShuttleCircuitboard
@@ -106,8 +109,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtCounterpartyComputerShuttleCircuitboard
-  name: машинная плата консоли обр контрагентов NanoTrasen
-  description: Компьютерная печатная плата для консоли обр контрагентов NanoTrasen.
+  name: машинная плата консоли СОБР контрагентов СССП
+  description: Компьютерная печатная плата для консоли СОБр контрагентов СССП.
   components:
     - type: Sprite
       state: cpu_command
@@ -117,8 +120,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtComputerShuttleCircuitboard
-  name: машинная плата консоли обр NanoTrasen
-  description: Компьютерная печатная плата для консоли обр NanoTrasen.
+  name: машинная плата консоли СОБР СССП
+  description: Компьютерная печатная плата для консоли СОБР СССП.
   components:
     - type: Sprite
       state: cpu_command
@@ -128,8 +131,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtResponceConsoleCircuitboard
-  name: машинная плата консоли запроса поддержки NanoTrasen
-  description: Компьютерная печатная плата для консоли запроса поддержки NanoTrasen.
+  name: машинная плата консоли запроса поддержки СССП
+  description: Компьютерная печатная плата для консоли запроса поддержки СССП.
   components:
     - type: Sprite
       state: cpu_command
@@ -137,11 +140,11 @@
       prototype: ErtResponceConsole
 
 - type: entity
-  parent: 
+  parent:
   - BaseItem
   id: TelephoneIaa
-  name: устройство связи с ЦК
-  description: Устройство связи, которое выдаётся агентам внутренних дел для связи с Центральным Командованием в экстренных случаях.
+  name: устройство связи с ГШ
+  description: Устройство связи, которое выдаётся агентам внутренних дел для связи с Генеральным Штабом в экстренных случаях.
   components:
   - type: ActivatableUI
     key: enum.ErtResponceConsoleUiKey.Key

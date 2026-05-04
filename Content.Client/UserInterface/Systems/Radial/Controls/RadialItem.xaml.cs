@@ -49,7 +49,7 @@ public sealed partial class RadialItem : Control
     /// <summary>
     /// TooltipDelay, works like Button.TooltipDelay
     /// </summary>
-    public new float? TooltipDelay
+    public float? TooltipDelay
     {
         set => Controller.TooltipDelay = value;
         get => Controller.TooltipDelay;

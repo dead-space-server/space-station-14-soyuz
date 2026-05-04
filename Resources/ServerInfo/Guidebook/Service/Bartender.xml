@@ -19,7 +19,6 @@
   <Box>
     <GuideEntityEmbed Entity="DrinkGlass" Caption="бокал"/>
     <GuideEntityEmbed Entity="DrinkGlassCoupeShaped"/>
-    <GuideEntityEmbed Entity="DrinkShotGlass"/>
     <GuideEntityEmbed Entity="DrinkShaker"/>
     <GuideEntityEmbed Entity="DrinkJigger"/>
   </Box>

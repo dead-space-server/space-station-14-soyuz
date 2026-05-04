@@ -9,7 +9,6 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Backmen.Blob.Components;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Item;
 using Content.Shared.Mobs.Components;

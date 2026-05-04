@@ -434,14 +434,8 @@
   - type: ExaminableSolution
     solution: hypospray
     exactVolume: true
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    ignoreMobs: true
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 0.5
   - type: StaticPrice

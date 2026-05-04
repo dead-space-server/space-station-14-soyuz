@@ -279,7 +279,7 @@ namespace Content.Server.Communications
 
             if (comp.Global)
             {
-                _chatSystem.DispatchGlobalAnnouncement(msg, title, announcementSound: comp.Sound, colorOverride: comp.Color, originalMessage: originalMessage, author: message.Actor, languageId: languageId); // DS14-TTS
+                _chatSystem.DispatchGlobalAnnouncement(msg, title, announcementSound: comp.Sound, colorOverride: comp.Color, originalMessage: originalMessage, author: message.Actor, languageId: languageId, announcementTtsDelay: comp.TtsDelay); // DS-14
 
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(message.Actor):player} has sent the following global announcement: {msg}");
                 return;
@@ -291,7 +291,8 @@ namespace Content.Server.Communications
                 colorOverride:
                 comp.Color,
                 voice: voice,
-                languageId: languageId);
+                languageId: languageId,
+                announcementTtsDelay: comp.TtsDelay); // DS-14
 
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"{ToPrettyString(message.Actor):player} has sent the following station announcement: {msg}");
 
@@ -333,7 +334,7 @@ namespace Content.Server.Communications
                 return;
             }
 
-            _roundEndSystem.RequestRoundEnd(mob, uid);
+            _roundEndSystem.RequestRoundEnd(uid);
             _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(mob):player} has called the shuttle.");
         }
 
@@ -342,15 +343,13 @@ namespace Content.Server.Communications
             if (!CanCallOrRecall(comp))
                 return;
 
-            var mob = message.Actor;
-
-            if (!CanUse(mob, uid))
+            if (!CanUse(message.Actor, uid))
             {
                 _popupSystem.PopupEntity(Loc.GetString("comms-console-permission-denied"), uid, message.Actor);
                 return;
             }
 
-            _roundEndSystem.CancelRoundEndCountdown(mob, uid);
+            _roundEndSystem.CancelRoundEndCountdown(uid);
             _adminLogger.Add(LogType.Action, LogImpact.High, $"{ToPrettyString(message.Actor):player} has recalled the shuttle.");
         }
     }

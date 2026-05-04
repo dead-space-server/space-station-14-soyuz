@@ -7,6 +7,7 @@ using Content.Shared.DeadSpace.Necromorphs.NecroobeliskStoper;
 using Content.Shared.DeadSpace.Necromorphs.Necroobelisk;
 using Content.Server.DeadSpace.Necromorphs.Necroobelisk;
 using Content.Server.DeadSpace.Necromorphs.Necroobelisk.Components;
+using Content.Server.DeadSpace.Necromorphs.Necroobelisk;
 
 namespace Content.Server.DeadSpace.Necromorphs.NecroobeliskStoper;
 

@@ -224,7 +224,7 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
 
             var objectiveLabel = new RichTextLabel
             {
-                StyleClasses = { StyleClass.TooltipTitle }
+                StyleClasses = { StyleNano.StyleClassTooltipActionTitle }
             };
             objectiveLabel.SetMessage(objectiveText);
 

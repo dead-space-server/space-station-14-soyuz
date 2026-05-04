@@ -9,7 +9,7 @@
   - type: Body
     prototype: Animal
   - type: Transform
-    anchored: false
+    anchored: true
   - type: SolutionContainerManager
   - type: InjectableSolution
     solution: chemicals
@@ -25,7 +25,7 @@
   - type: Pullable
   - type: Muted
   - type: Physics
-    bodyType: KinematicController
+    bodyType: Static
   - type: Sprite
     scale: 0.7, 0.7
     noRot: true

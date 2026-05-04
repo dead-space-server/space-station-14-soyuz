@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Numerics;
-using Content.Server.Explosion.Components;
 using Content.Shared.Administration;
 using Content.Shared.Explosion.Components;
 using Robust.Shared.Map;
@@ -41,7 +40,11 @@ public sealed partial class ExplosionSystem
         if (totalIntensity <= 0 || slope <= 0)
             return null;
 
-        var typeIndex = _explosionTypes[typeID];
+        if (!_explosionTypes.TryGetValue(typeID, out var typeIndex))
+        {
+            Log.Error("Attempted to spawn explosion using a prototype that was not defined during initialization. Explosion prototype hot-reload is not currently supported.");
+            return null;
+        }
 
         Vector2i initialTile;
         EntityUid? epicentreGrid = null;
@@ -100,7 +103,8 @@ public sealed partial class ExplosionSystem
             // set up the initial `gridData` instance
             encounteredGrids.Add(epicentreGrid.Value);
 
-            var airtightMap = CompOrNull<ExplosionAirtightGridComponent>(epicentreGrid)?.Tiles ?? new();
+            if (!_airtightMap.TryGetValue(epicentreGrid.Value, out var airtightMap))
+                airtightMap = new();
 
             var initialGridData = new ExplosionGridTileFlood(
                 (epicentreGrid.Value, Comp<MapGridComponent>(epicentreGrid.Value)),
@@ -111,8 +115,7 @@ public sealed partial class ExplosionSystem
                 _gridEdges[epicentreGrid.Value],
                 referenceGrid,
                 spaceMatrix,
-                spaceAngle,
-                this);
+                spaceAngle);
 
             gridData[epicentreGrid.Value] = initialGridData;
 
@@ -189,7 +192,8 @@ public sealed partial class ExplosionSystem
                 // is this a new grid, for which we must create a new explosion data set
                 if (!gridData.TryGetValue(grid, out var data))
                 {
-                    var airtightMap = CompOrNull<ExplosionAirtightGridComponent>(grid)?.Tiles ?? new();
+                    if (!_airtightMap.TryGetValue(grid, out var airtightMap))
+                        airtightMap = new();
 
                     data = new ExplosionGridTileFlood(
                         (grid, Comp<MapGridComponent>(grid)),
@@ -200,8 +204,7 @@ public sealed partial class ExplosionSystem
                         _gridEdges[grid],
                         referenceGrid,
                         spaceMatrix,
-                        spaceAngle,
-                        this);
+                        spaceAngle);
 
                     gridData[grid] = data;
                 }

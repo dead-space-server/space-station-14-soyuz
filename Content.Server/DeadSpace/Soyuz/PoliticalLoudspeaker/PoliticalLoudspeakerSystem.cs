@@ -66,7 +66,7 @@ public sealed class PoliticalLoudspeakerSystem : EntitySystem
             if (heal.NextTick > now) continue;
 
             if(!_damageableQuery.TryGetComponent(uid, out var damageable)) continue;
-            _damageable.TryChangeDamage(uid, new DamageSpecifier(heal.HealPerTick));
+            _damageable.TryChangeDamage(uid, new DamageSpecifier(heal.HealPerTick), damageable: damageable);
             heal.NextTick = now + heal.TickInterval;
         }
         foreach (var uid in _expiredHeal) { RemComp<PoliticalLoudspeakerHealOverTimeComponent>(uid); }

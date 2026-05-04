@@ -337,7 +337,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
                 _chatSystem.DispatchGlobalAnnouncement(
                     message: prototype.CancelMessage,
                     sender: Loc.GetString("chat-manager-sender-announcement"),
-                    colorOverride: Color.FromHex("#1d8bad"),
+                    colorOverride: Color.FromHex("#B64444"),
                     playSound: true,
                     usePresetTTS: true,
                     languageId: LanguageSystem.DefaultLanguageId
@@ -432,7 +432,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             _chatSystem.DispatchGlobalAnnouncement(
                 message: string.IsNullOrEmpty(prototype.Notification) ? Loc.GetString("ert-responce-caused-messager", ("team", prototype.Name)) : Loc.GetString(prototype.Notification),
                 sender: string.IsNullOrEmpty(prototype.Sender) ? Loc.GetString("chat-manager-sender-announcement") : Loc.GetString(prototype.Sender),
-                colorOverride: Color.FromHex("#1d8bad"),
+                colorOverride: Color.FromHex("#B64444"),
                 playSound: true,
                 usePresetTTS: true,
                 languageId: LanguageSystem.DefaultLanguageId
@@ -492,7 +492,7 @@ public sealed class ErtResponceSystem : SharedErtResponceSystem
             _chatSystem.DispatchGlobalAnnouncement(
                     message: Loc.GetString(prototype.StartAnnouncement),
                     sender: string.IsNullOrEmpty(prototype.Sender) ? Loc.GetString("chat-manager-sender-announcement") : Loc.GetString(prototype.Sender),
-                    colorOverride: Color.FromHex("#1d8bad"),
+                    colorOverride: Color.FromHex("#B64444"),
                     announcementSound: prototype.StartAudio,
                     playSound: true,
                     usePresetTTS: true,

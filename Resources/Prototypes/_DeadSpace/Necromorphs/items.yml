@@ -108,12 +108,9 @@
     maxFillLevels: 1
     changeColor: false
     emptySpriteName: Zeta-One-Empty
-  - type: Injector
+  - type: Hypospray
     solutionName: pen
-    currentTransferAmount: null
-    activeModeProtoId: HyposprayInjectMode
-    allowedModes:
-    - HyposprayInjectMode
+    transferAmount: 30
   - type: SolutionContainerManager
     solutions:
       pen:
@@ -139,12 +136,9 @@
     maxFillLevels: 1
     changeColor: false
     emptySpriteName: Zeta-Two-Empty
-  - type: Injector
+  - type: Hypospray
     solutionName: pen
-    currentTransferAmount: null
-    activeModeProtoId: HyposprayInjectMode
-    allowedModes:
-    - HyposprayInjectMode
+    transferAmount: 25
   - type: SolutionContainerManager
     solutions:
       pen:

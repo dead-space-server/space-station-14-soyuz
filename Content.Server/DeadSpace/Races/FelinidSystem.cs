@@ -37,7 +37,6 @@ public sealed class FelinidSystem : EntitySystem
     [Dependency] private readonly TagSystem _tagSystem = default!;
     [Dependency] private readonly SharedChargesSystem _charges = default!;
 
-    private static readonly ProtoId<TagPrototype> FelinidFoodTag = "FelinidFood";
     private static readonly EntProtoId EatMouseActionId = "EatMouseAction";
 
     public override void Initialize()
@@ -83,7 +82,7 @@ public sealed class FelinidSystem : EntitySystem
 
     private void OnEquipped(EntityUid uid, FelinidComponent component, DidEquipHandEvent args)
     {
-        if (!_tagSystem.HasTag(args.Equipped, FelinidFoodTag))
+        if (!_tagSystem.HasTag(args.Equipped, "FelinidFood"))
             return;
 
         component.PotentialTarget = args.Equipped;
@@ -163,9 +162,9 @@ public sealed class FelinidSystem : EntitySystem
         var hairballComp = Comp<HairballComponent>(hairball);
 
         if (TryComp<BloodstreamComponent>(uid, out var bloodStream) &&
-            _solutionContainer.ResolveSolution(uid, bloodStream.BloodSolutionName, ref bloodStream.BloodSolution))
+            _solutionContainer.ResolveSolution(uid, bloodStream.ChemicalSolutionName, ref bloodStream.ChemicalSolution))
         {
-            var vomitChemstreamAmount = _solutionContainer.SplitSolution(bloodStream.BloodSolution.Value, 20);
+            var vomitChemstreamAmount = _solutionContainer.SplitSolution(bloodStream.ChemicalSolution.Value, 20);
 
             if (_solutionContainer.TryGetSolution(hairball, hairballComp.SolutionName, out var hairballSolution))
             {

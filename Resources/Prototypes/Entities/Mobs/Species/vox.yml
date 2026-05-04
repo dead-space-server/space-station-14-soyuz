@@ -15,7 +15,6 @@
   - type: Speech
     speechVerb: Vox
     speechSounds: Vox
-    allowedEmotes: ['Click', 'Chitter']
   - type: TypingIndicator
     proto: vox
   - type: Vocal
@@ -50,8 +49,7 @@
           FoodMeatChickenFriedVox:
             min: 3
             max: 5
-      - !type:BurnBodyBehavior
-        popupMessage: bodyburn-vox-text-others
+      - !type:BurnBodyBehavior { }
       - !type:PlaySoundBehavior
         sound:
           collection: MeatLaserImpact
@@ -90,10 +88,7 @@
       Burn:
         sprite: Mobs/Effects/burn_damage.rsi
   - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: AmmoniaBlood
-        Quantity: 300
+    bloodReagent: AmmoniaBlood
   - type: MeleeWeapon
     soundHit:
       collection: AlienClaw

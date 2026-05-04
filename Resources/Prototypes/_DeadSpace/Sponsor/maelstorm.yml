@@ -11,7 +11,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
       - id: ClothingHeadsetMaelstorm
@@ -484,12 +484,10 @@
   description: Папка, заполненная документами.
   categories: [ HideSpawnMenu ]
   components:
-    - type: EntityTableContainerFill
-      containers:
-        storagebase: !type:AllSelector
-          children:
-          - id: PaperGearMaelstorm
-          - id: PaperLawMaelstorm
+    - type: StorageFill
+      contents:
+      - id: PaperGearMaelstorm
+      - id: PaperLawMaelstorm
 
 - type: entity
   parent: PaperPrintedUSSPCentcomm

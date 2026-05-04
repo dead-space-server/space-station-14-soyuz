@@ -102,16 +102,15 @@ public sealed class PolaroidCameraSystem : EntitySystem
     {
         CleanupPreview(uid, component);
 
-        if (!TryComp(args.User, out ActorComponent? actor))
+        if (!TryComp(args.Actor, out ActorComponent? actor))
         {
             UpdateUi(uid, component);
             return;
         }
 
-        var preview = SpawnAttachedTo(component.PreviewCameraPrototype, args.User.ToCoordinates());
-        component.PreviewCamera = preview;
-        component.CurrentViewer = args.User;
-        _viewSubscriber.AddViewSubscriber(preview, actor.PlayerSession);
+        component.PreviewCamera = SpawnAttachedTo(component.PreviewCameraPrototype, args.Actor.ToCoordinates());
+        component.CurrentViewer = args.Actor;
+        _viewSubscriber.AddViewSubscriber(component.PreviewCamera.Value, actor.PlayerSession);
 
         UpdateUi(uid, component);
     }

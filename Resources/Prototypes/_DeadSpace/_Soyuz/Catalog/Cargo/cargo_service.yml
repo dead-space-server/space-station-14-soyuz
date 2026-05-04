@@ -6,4 +6,4 @@
   product: CrateServicePolaroidCartridges
   cost: 1200
   category: cargoproduct-category-name-service
-  group: service
+  group: service # DS14

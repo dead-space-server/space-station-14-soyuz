@@ -38,6 +38,9 @@
         reagents:
         - ReagentId: SpaceGlue
           Quantity: 30
+  - type: Tag
+    tags:
+      - DrinkSpaceGlue
   - type: Glue
 
 - type: entity
@@ -89,6 +92,9 @@
     sprite: Objects/Consumable/Drinks/jar_what.rsi
   - type: FitsInDispenser
     solution: drink
+  - type: Tag
+    tags:
+    - DrinkGlass
 
 # Mopwata
 - type: weightedRandomFillSolution

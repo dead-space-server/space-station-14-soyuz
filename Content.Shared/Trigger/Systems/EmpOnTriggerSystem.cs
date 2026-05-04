@@ -3,13 +3,28 @@ using Content.Shared.Trigger.Components.Effects;
 
 namespace Content.Shared.Trigger.Systems;
 
-public sealed class EmpOnTriggerSystem : XOnTriggerSystem<EmpOnTriggerComponent>
+public sealed class EmpOnTriggerSystem : EntitySystem
 {
     [Dependency] private readonly SharedEmpSystem _emp = default!;
 
-    protected override void OnTrigger(Entity<EmpOnTriggerComponent> ent, EntityUid target, ref TriggerEvent args)
+    public override void Initialize()
     {
-        _emp.EmpPulse(Transform(target).Coordinates, ent.Comp.Range, ent.Comp.EnergyConsumption, ent.Comp.DisableDuration, args.User, predicted: args.Predicted);
+        base.Initialize();
+
+        SubscribeLocalEvent<EmpOnTriggerComponent, TriggerEvent>(OnTrigger);
+    }
+
+    private void OnTrigger(Entity<EmpOnTriggerComponent> ent, ref TriggerEvent args)
+    {
+        if (args.Key != null && !ent.Comp.KeysIn.Contains(args.Key))
+            return;
+
+        var target = ent.Comp.TargetUser ? args.User : ent.Owner;
+
+        if (target == null)
+            return;
+
+        _emp.EmpPulse(Transform(target.Value).Coordinates, ent.Comp.Range, ent.Comp.EnergyConsumption, ent.Comp.DisableDuration, args.User);
         args.Handled = true;
     }
 }

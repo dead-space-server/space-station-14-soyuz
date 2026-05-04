@@ -113,9 +113,6 @@ public sealed partial class ResearchSystem
         if (!Resolve(uid, ref component, false))
             return;
 
-        if (TerminatingOrDeleted(uid))
-            return;
-
         TryGetClientServer(uid, out _, out var serverComponent, component);
 
         // DS14-start

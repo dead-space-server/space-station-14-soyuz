@@ -1,3 +1,7 @@
+- type: metabolizerType
+  id: Xenomorph
+  name: metabolizer-type-xenomorph
+
 - type: entity
   id: BaseXenoOrganUnGibbable
   parent: BaseItem

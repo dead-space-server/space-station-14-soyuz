@@ -11,7 +11,6 @@
     OreUranium: 0.20
     OreArtifactFragment: 0.10
     OreBananium: 0.10
-    OreRedspace: 0.25 # DS14-soyuz
 
 - type: oreDunGen
   id: OreIron
@@ -20,16 +19,6 @@
   count: 5
   minGroupSize: 5
   maxGroupSize: 7
-
-# DS14-soyuz-start
-- type: oreDunGen
-  id: OreRedspace
-  replacement: AsteroidRock
-  entity: WallRockRedspace
-  count: 5
-  minGroupSize: 5
-  maxGroupSize: 7
-# DS14-soyuz-end
 
 - type: oreDunGen
   id: OreQuartz
@@ -102,6 +91,5 @@
   count: 5
   minGroupSize: 1
   maxGroupSize: 2
-
 
 

@@ -1,20 +1,18 @@
 # Materials which come from refining ores, excluding sheets
 
-# // DS-14 start remove
-# - type: stack
-#   parent: BaseMediumStack
-#   id: Diamond
-#   name: stack-diamond
-#   icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: diamond }
-#   spawn: MaterialDiamond1
-#
-# - type: stack
-#   parent: BaseSmallStack
-#   id: Bananium
-#   name: stack-bananium
-#   icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: bananium }
-#   spawn: MaterialBananium1
-# // DS-14 end remove
+- type: stack
+  parent: BaseMediumStack
+  id: Diamond
+  name: stack-diamond
+  icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: diamond }
+  spawn: MaterialDiamond1
+
+- type: stack
+  parent: BaseSmallStack
+  id: Bananium
+  name: stack-bananium
+  icon: { sprite: /Textures/Objects/Materials/materials.rsi, state: bananium }
+  spawn: MaterialBananium1
 
 # Ingots
 - type: stack

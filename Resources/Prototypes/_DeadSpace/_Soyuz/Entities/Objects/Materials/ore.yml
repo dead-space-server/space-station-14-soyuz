@@ -32,29 +32,3 @@
   components:
     - type: Stack
       count: 1
-
-- type: entity
-  parent: OreBase
-  id: RedspaceOre
-  name: редспейс руда
-  suffix: Полный
-  components:
-  - type: Stack
-    stackType: RedspaceOre
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi
-    state: redspace_crystal_ore
-  - type: Material
-  - type: PhysicalComposition
-    materialComposition:
-      RawRedspaceCrystal: 300
-  - type: Item
-    heldPrefix: redspace
-
-- type: entity
-  parent: RedspaceOre
-  id: RedspaceOre1
-  suffix: Один
-  components:
-  - type: Stack
-    count: 1

@@ -361,7 +361,7 @@
   id: DoubleBedsheetIan
   parent: DoubleBedsheetBase
   name: двухспальное одеяло Иана
-  description: Мягкое одеяло, сохраняющее тепло любимого станционного пса.
+  description: Мягкое одеяло, сохраняющее тепло любимого станционного кота.
   components:
   - type: Sprite
     state: double_sheetian

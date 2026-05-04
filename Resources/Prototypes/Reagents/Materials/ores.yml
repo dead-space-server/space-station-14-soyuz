@@ -77,13 +77,3 @@
   icon: { sprite: Objects/Materials/ore.rsi, state: salt }
   color: "#f5e7d7"
   price: 0.075
-
-- type: material
-  id: RawRedspaceCrystal
-  stackEntity: RedspaceOre1
-  name: materials-raw-redspace-crystal
-  unit: materials-unit-piece
-  icon: { sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: redspace_crystal_ore }
-  color: "#ff3a52"
-  price: 0.5
-

@@ -1,4 +1,3 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 using System.IO;
 using System.Numerics;
 using Content.Client.Eye;
@@ -6,7 +5,6 @@ using Content.Client.Viewport;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
 using Robust.Client.Timing;
-using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Maths;
@@ -17,11 +15,6 @@ namespace Content.Client.DeadSpace.Polaroid.UI;
 
 public sealed class PolaroidCameraWindow : DefaultWindow
 {
-    private const float MinPreviewZoom = 0.25f;
-    private const float MaxPreviewZoom = 1f;
-    private const float PreviewZoomStep = 0.15f;
-    private const float DefaultPreviewZoom = (MinPreviewZoom + MaxPreviewZoom) / 2f;
-
     [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IClientGameTiming _timing = default!;
 
@@ -30,7 +23,6 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private PolaroidCameraUiState? _nextState;
     private EntityUid? _currentCamera;
     private bool _disposed;
-    private float _previewZoom = DefaultPreviewZoom;
 
     private readonly ScalingViewport _cameraView;
     private readonly Label _chargesLabel;
@@ -144,7 +136,6 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             }
 
             _cameraView.Eye = _defaultEye;
-            ApplyPreviewZoom();
             UpdateButtons();
             return;
         }
@@ -164,32 +155,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_entManager.TryGetComponent<EyeComponent>(_currentCamera, out var eye))
             _cameraView.Eye = eye.Eye ?? _defaultEye;
 
-        ApplyPreviewZoom();
-
         UpdateButtons();
-    }
-
-    protected override void MouseWheel(GUIMouseWheelEventArgs args)
-    {
-        base.MouseWheel(args);
-
-        if (_cameraView.Eye == null || args.Delta.Y == 0f)
-            return;
-
-        var previewRect = UIBox2.FromDimensions(_cameraView.GlobalPosition, _cameraView.Size);
-        if (!previewRect.Contains(args.GlobalPosition))
-            return;
-
-        var oldZoom = _previewZoom;
-        _previewZoom = Math.Clamp(_previewZoom * MathF.Pow(1f + PreviewZoomStep, -args.Delta.Y),
-            MinPreviewZoom,
-            MaxPreviewZoom);
-
-        if (MathHelper.CloseToPercent(_previewZoom, oldZoom))
-            return;
-
-        ApplyPreviewZoom();
-        args.Handle();
     }
 
     private void CaptureScreenshot()
@@ -216,14 +182,6 @@ public sealed class PolaroidCameraWindow : DefaultWindow
 
         _captureButton.Disabled = !hasPreview || !hasCharge;
         _printLastButton.Disabled = !hasLastCapture || !hasCharge;
-    }
-
-    private void ApplyPreviewZoom()
-    {
-        if (_cameraView.Eye == null)
-            return;
-
-        _cameraView.Eye.Zoom = new Vector2(_previewZoom, _previewZoom);
     }
 
     protected override void Dispose(bool disposing)

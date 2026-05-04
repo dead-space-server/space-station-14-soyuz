@@ -7,7 +7,7 @@
   - type: Visibility
     layer: 8
   - type: Eye
-    drawFov: true
+    drawFov: false
     pvsScale: 0.8
 
 - type: entity
@@ -22,11 +22,6 @@
   - type: Item
     sprite: Objects/Devices/travel_camera.rsi
     size: Normal
-  - type: Clothing
-    sprite: Objects/Devices/travel_camera.rsi
-    quickEquip: true
-    slots:
-    - neck
   - type: ActivatableUI
     key: enum.PolaroidCameraUiKey.Key
     inHandsOnly: true
@@ -71,7 +66,7 @@
     price: 60
   - type: PolaroidCartridge
     maxAmount: 8
-    currentAmount: 4
+    currentAmount: 8
 
 - type: entity
   parent: BaseItem
@@ -120,7 +115,7 @@
   - type: StorageFill
     contents:
     - id: PolaroidCartridge
-      amount: 4
+      amount: 2
   - type: Sprite
     layers:
     - state: box

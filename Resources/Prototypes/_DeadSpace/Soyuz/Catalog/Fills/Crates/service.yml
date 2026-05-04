@@ -1,8 +1,0 @@
-- type: entity
-  id: CrateServicePolaroidCartridges
-  parent: CrateGenericSteel
-  components:
-  - type: StorageFill
-    contents:
-      - id: BoxPolaroidCartridges
-        amount: 2

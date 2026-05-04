@@ -345,8 +345,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         EntityUid? author = null,
         string? voice = null,
         bool usePresetTTS = false,
-        string? languageId = null, // DS14-Languages
-        float announcementTtsDelay = 6f // DS-14
+        string? languageId = null // DS14-Languages
         )
     {
         languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
@@ -393,18 +392,18 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             if (author != null && TryComp<TTSComponent>(author.Value, out var tts) && tts.VoicePrototypeId != null) // For comms console announcements
             {
-                var ev = new AnnounceSpokeEvent(tts.VoicePrototypeId, originalMessage, lexiconMessage, languageId, filter, author.Value, announcementTtsDelay); // DS-14
+                var ev = new AnnounceSpokeEvent(tts.VoicePrototypeId, originalMessage, lexiconMessage, languageId, filter, author.Value);
                 RaiseLocalEvent(ev);
             }
             else if (usePresetTTS && sender == Loc.GetString("chat-manager-sender-announcement")) // For admin announcements from Centcomm with preset voices
             {
                 voice = _centcommTTS;
-                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null, announcementTtsDelay); // DS-14
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
                 RaiseLocalEvent(ev);
             }
             else if (voice != null) // For admin announcements
             {
-                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null, announcementTtsDelay); // DS-14
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
                 RaiseLocalEvent(ev);
             }
         }
@@ -458,8 +457,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         SoundSpecifier? announcementSound = null,
         Color? colorOverride = null,
         string? voice = null,
-        string? languageId = null, // DS14
-        float announcementTtsDelay = 6f) // DS-14
+        string? languageId = null) // DS14
     {
         languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
 
@@ -503,7 +501,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         // плохая реализация, лучше переписать AnnounceSpoke
         if (!string.IsNullOrEmpty(voice))
         {
-            var ev = new AnnounceSpokeEvent(voice, message, lexiconMessage, languageId, filterStation, null, announcementTtsDelay); // DS-14
+            var ev = new AnnounceSpokeEvent(voice, message, lexiconMessage, languageId, filterStation, null);
             RaiseLocalEvent(ev);
         }
 
@@ -1235,10 +1233,9 @@ public sealed class AnnounceSpokeEvent : EntityEventArgs
     public readonly string LexiconMessage; // DS14-Languages
     public readonly ProtoId<LanguagePrototype> LanguageId; // DS14-Languages
     public readonly EntityUid? Source;
-    public readonly float Delay; // DS-14
     public readonly Filter Filter = Filter.Empty();
 
-    public AnnounceSpokeEvent(string voice, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, Filter filter, EntityUid? source, float delay)
+    public AnnounceSpokeEvent(string voice, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, Filter filter, EntityUid? source)
     {
         Voice = voice;
         Message = message;
@@ -1246,7 +1243,6 @@ public sealed class AnnounceSpokeEvent : EntityEventArgs
         LanguageId = languageId; // DS14-Languages
         Filter = filter; // DS14-Languages
         Source = source;
-        Delay = delay; // DS-14
     }
 }
 

@@ -50,28 +50,59 @@ namespace Content.Client.UserInterface.Controls
 
         public void UpdateCfg()
         {
+            var stretch = _cfg.GetCVar(CCVars.ViewportStretch);
             var renderScaleUp = _cfg.GetCVar(CCVars.ViewportScaleRender);
+            var fixedFactor = _cfg.GetCVar(CCVars.ViewportFixedScaleFactor);
+            var verticalFit = _cfg.GetCVar(CCVars.ViewportVerticalFit);
             var filterMode = _cfg.GetCVar(CCVars.ViewportScalingFilterMode);
-            // DS14-start: always use fullscreen viewport scaling for all clients in this build.
-            Viewport.FixedStretchSize = null;
-            Viewport.StretchMode = filterMode switch
+
+            if (stretch)
             {
-                "nearest" => ScalingViewportStretchMode.Nearest,
-                "bilinear" => ScalingViewportStretchMode.Bilinear,
-                _ => ScalingViewportStretchMode.Nearest
-            };
-            Viewport.IgnoreDimension = ScalingViewportIgnoreDimension.Horizontal;
+                var snapFactor = CalcSnappingFactor();
+                if (snapFactor == null)
+                {
+                    // Did not find a snap, enable stretching.
+                    Viewport.FixedStretchSize = null;
+                    Viewport.StretchMode = filterMode switch
+                    {
+                        "nearest" => ScalingViewportStretchMode.Nearest,
+                        "bilinear" => ScalingViewportStretchMode.Bilinear,
+                        _ => ScalingViewportStretchMode.Nearest
+                    };
+                    Viewport.IgnoreDimension = verticalFit ? ScalingViewportIgnoreDimension.Horizontal : ScalingViewportIgnoreDimension.None;
+
+                    if (renderScaleUp)
+                    {
+                        Viewport.RenderScaleMode = ScalingViewportRenderScaleMode.CeilInt;
+                    }
+                    else
+                    {
+                        Viewport.RenderScaleMode = ScalingViewportRenderScaleMode.Fixed;
+                        Viewport.FixedRenderScale = 1;
+                    }
+
+                    return;
+                }
+
+                // Found snap, set fixed factor and run non-stretching code.
+                fixedFactor = snapFactor.Value;
+            }
+
+            Viewport.FixedStretchSize = Viewport.ViewportSize * fixedFactor;
+            Viewport.StretchMode = ScalingViewportStretchMode.Nearest;
 
             if (renderScaleUp)
             {
-                Viewport.RenderScaleMode = ScalingViewportRenderScaleMode.CeilInt;
+                Viewport.RenderScaleMode = ScalingViewportRenderScaleMode.Fixed;
+                Viewport.FixedRenderScale = fixedFactor;
             }
             else
             {
+                // Snapping but forced to render scale at scale 1 so...
+                // At least we can NN.
                 Viewport.RenderScaleMode = ScalingViewportRenderScaleMode.Fixed;
                 Viewport.FixedRenderScale = 1;
             }
-            // DS14-end
         }
 
         private int? CalcSnappingFactor()

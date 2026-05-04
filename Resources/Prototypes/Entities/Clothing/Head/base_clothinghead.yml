@@ -279,6 +279,6 @@
   - type: GroupExamine
   - type: HideLayerClothing
     slots:
-    # DS14: keep Hair visible under winter hoods.
+    - Hair
     - HeadTop
     - HeadSide

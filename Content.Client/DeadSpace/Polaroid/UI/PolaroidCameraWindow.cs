@@ -5,8 +5,9 @@ using Content.Client.Eye;
 using Content.Client.Viewport;
 using Content.Shared.DeadSpace.Polaroid;
 using Robust.Client.Graphics;
+using Robust.Client.Input; // DS14
 using Robust.Client.Timing;
-using Robust.Client.UserInterface; // DS14
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Input; // DS14
@@ -25,8 +26,8 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private const float PreviewPanStrength = 0.35f; // DS14
 
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IInputManager _inputManager = default!; // DS14
     [Dependency] private readonly IClientGameTiming _timing = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!; // DS14
 
     private readonly EyeLerpingSystem _eyeLerping = default!;
     private readonly FixedEye _defaultEye = new();
@@ -36,7 +37,6 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private bool _previewPanActive; // DS14
     private float _previewZoom = DefaultPreviewZoom;
     private Vector2 _previewPan = Vector2.Zero; // DS14
-    private Vector2? _lastPreviewMousePosition; // DS14
 
     private readonly ScalingViewport _cameraView;
     private readonly Label _chargesLabel;
@@ -99,17 +99,17 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             ViewportSize = new Vector2i(160, 160),
             HorizontalExpand = true,
             VerticalExpand = true,
-            MouseFilter = MouseFilterMode.Stop, // DS14-start: draggable preview framing
+            MouseFilter = MouseFilterMode.Stop, // DS14
         };
 
-
+        // DS14-start: draggable preview framing
         _cameraView.OnKeyBindDown += args =>
         {
             if (args.Function != EngineKeyFunctions.UIClick)
                 return;
 
             _previewPanActive = true;
-            _lastPreviewMousePosition = args.RelativePosition;
+            UpdatePreviewPan(args.RelativePosition);
             args.Handle();
         };
 
@@ -119,14 +119,12 @@ public sealed class PolaroidCameraWindow : DefaultWindow
                 return;
 
             _previewPanActive = false;
-            _lastPreviewMousePosition = null;
             args.Handle();
         };
 
         _cameraView.OnMouseExited += _ =>
         {
             _previewPanActive = false;
-            _lastPreviewMousePosition = null;
         };
         // DS14-end
 
@@ -220,10 +218,8 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_nextState == null || _timing.LastRealTick < _nextState.Tick)
             return;
 
-        var mousePosition = _uiManager.MousePositionScaled.Position; // DS14
-        var previewRect = UIBox2.FromDimensions(_cameraView.GlobalPosition, _cameraView.Size); // DS14
-        if (_previewPanActive && previewRect.Contains(mousePosition))
-            UpdatePreviewPan(mousePosition - _cameraView.GlobalPosition); // DS14
+        if (_previewPanActive && _inputManager.MouseScreenPosition.IsValid) // DS14
+            UpdatePreviewPan(_inputManager.MouseScreenPosition.Position - _cameraView.GlobalPixelPosition);
 
         var preview = _entManager.GetEntity(_nextState.PreviewCamera);
         if (preview == null)
@@ -315,20 +311,8 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_cameraView.Size.X <= 0f || _cameraView.Size.Y <= 0f)
             return;
 
-        if (_lastPreviewMousePosition == null)
-        {
-            _lastPreviewMousePosition = relativePosition;
-            return;
-        }
-
-        var relativeDelta = relativePosition - _lastPreviewMousePosition.Value;
-        _lastPreviewMousePosition = relativePosition;
-
-        if (relativeDelta == Vector2.Zero)
-            return;
-
-        var normalizedDelta = relativeDelta / _cameraView.Size * 2f;
-        _previewPan = Vector2.Clamp(_previewPan + new Vector2(normalizedDelta.X, -normalizedDelta.Y), -Vector2.One, Vector2.One);
+        var normalized = relativePosition / _cameraView.Size;
+        _previewPan = Vector2.Clamp(normalized * 2f - Vector2.One, -Vector2.One, Vector2.One);
         ApplyPreviewView();
     }
     // DS14-end
@@ -339,13 +323,12 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             return;
 
         _cameraView.Eye.Zoom = new Vector2(_previewZoom, _previewZoom);
-        // DS14-start: apply the preview pan offset after zooming the eye.
+
         var visibleArea = _cameraView.Size / EyeManager.PixelsPerMeter * _previewZoom;
         var maxOffset = visibleArea * PreviewPanStrength;
         _cameraView.Eye.Offset = new Vector2(
             _previewPan.X * maxOffset.X,
             -_previewPan.Y * maxOffset.Y);
-        // DS14-end
     }
 
     protected override void Dispose(bool disposing)

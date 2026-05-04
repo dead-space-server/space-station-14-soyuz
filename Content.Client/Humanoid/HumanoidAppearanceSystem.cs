@@ -6,7 +6,6 @@ using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Inventory;
 using Content.Shared.Preferences;
-using Content.Shared.Sprite; // DS14-height
 using Robust.Client.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
@@ -69,14 +68,6 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         {
             baseScale = prototypeSprite.Scale;
         }
-
-        // DS14-height-start: if species uses ScaleVisuals (e.g. dwarf), keep that as the base before height multiplier.
-        if (prototype != null &&
-            prototype.TryGetComponent<ScaleVisualsComponent>(out var prototypeScaleVisuals, EntityManager.ComponentFactory))
-        {
-            baseScale = prototypeScaleVisuals.Scale;
-        }
-        // DS14-height-end
 
         _sprite.SetScale((entity.Owner, entity.Comp2), baseScale * scale);
     }

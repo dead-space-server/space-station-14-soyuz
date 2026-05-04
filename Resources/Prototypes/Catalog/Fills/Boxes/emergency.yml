@@ -102,7 +102,7 @@
         - id: CableApcStack5
         - id: CrowbarRed
         - id: Flare
-        - id: FoodBurgerRobot # DS14-value: DrinkWaterBottleFull -> FoodBurgerRobot
+        - id: DrinkWaterBottleFull
 
 - type: entity
   parent: BoxCardboard

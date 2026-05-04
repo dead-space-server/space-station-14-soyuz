@@ -86,13 +86,13 @@
     tags:
     - BlueInsulatingTape
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
+    sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
     state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
     layers:
     - state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
       map: ["base"] # DS14
   - type: Item
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
+    sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi # DS14
     heldPrefix: insulating_tape_blue # DS14
   - type: WindowRepairTape
   - type: Healing

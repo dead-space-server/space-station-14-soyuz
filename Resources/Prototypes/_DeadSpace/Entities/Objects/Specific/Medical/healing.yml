@@ -1,5 +1,5 @@
 ﻿- type: entity
-  name: синяя изолента
+  name: нанопаста
   description: Медицинский препарат, используемый для лечения повреждений у синтетических и кибернетических организмов. Она содержит наноботов, которые восстанавливают поврежденные ткани и улучшают функциональность систем организма.
   parent: BaseHealingItem
   id: Nanopaste
@@ -7,12 +7,12 @@
   components:
   - type: Tag
     tags:
-    - BlueInsulatingTape # DS14-value: Nanopaste -> BlueInsulatingTape
+    - Nanopaste
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
-    state: insulating_tape_blue-3 # DS14-value: nanopaste -> insulating_tape_blue-3
+    sprite: _DeadSpace/Objects/Specific/Medical/medical.rsi
+    state: nanopaste
   - type: Item
-    heldPrefix: insulating_tape_blue # DS14-value: nanopaste -> insulating_tape_blue
+    heldPrefix: nanopaste
   - type: Healing
     damageContainers:
     - Silicon

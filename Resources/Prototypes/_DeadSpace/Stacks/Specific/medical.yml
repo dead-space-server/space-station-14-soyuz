@@ -1,6 +1,6 @@
 ﻿- type: stack
   id: Nanopaste
   name: construction-graph-tag-nanopaste
-  icon: { sprite: "_DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi", state: insulating_tape_blue } # DS14-value: nanopaste -> insulating_tape_blue
-  spawn: BlueInsulatingTape # DS14-value: Nanopaste -> BlueInsulatingTape
+  icon: { sprite: "_DeadSpace/Objects/Specific/Medical/medical.rsi", state: nanopaste }
+  spawn: Nanopaste
   maxCount: 10

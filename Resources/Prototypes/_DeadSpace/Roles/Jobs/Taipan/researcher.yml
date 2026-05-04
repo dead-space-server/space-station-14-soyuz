@@ -30,7 +30,7 @@
           factions:
             - Taipan
         - type: Skill
-          group: ALL
+          group: Science
 
 - type: startingGear
   id: TaipanResearcherGear

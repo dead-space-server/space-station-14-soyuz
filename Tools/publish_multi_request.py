@@ -2,22 +2,8 @@
 
 from __future__ import annotations
 
-import argparse
-import concurrent.futures
-import logging
-import os
-import random
-import sys
-import threading
-import time
-import xml.etree.ElementTree as ET
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Sequence
-
-import requests
-from requests import Response
-from requests.adapters import HTTPAdapter
+PUBLISH_TOKEN = os.environ["PUBLISH_TOKEN"]
+VERSION = os.environ.get("PUBLISH_VERSION") or os.environ["GITHUB_SHA"]
 
 RELEASE_DIR = "release"
 
@@ -232,20 +218,90 @@ def parse_args() -> PublishConfig:
     if args.retries < 1:
         raise PublishError("--retries must be at least 1.")
 
-    return PublishConfig(
-        fork_id=args.fork_id,
-        release_dir=Path(args.release_dir),
-        base_url=args.base_url,
-        version=args.version,
-        engine_version=get_engine_version(),
-        publish_token=args.publish_token,
-        max_workers=args.max_workers,
-        retries=args.retries,
-        retry_backoff_seconds=args.retry_backoff_seconds,
-        max_backoff_seconds=args.max_backoff_seconds,
-        connect_timeout_seconds=args.connect_timeout_seconds,
-        read_timeout_seconds=args.read_timeout_seconds,
-    )
+    engine_version = get_engine_version()
+    print(f"Version: {VERSION}")
+    print(f"Engine version: {engine_version}")
+    print(f"Fork: {fork_id}")
+    print(f"CDN: {ROBUST_CDN_URL}")
+
+    def abort_publish():
+        try:
+            session.post(
+                f"{ROBUST_CDN_URL}fork/{fork_id}/publish/abort",
+                json={"version": VERSION},
+                headers={"Content-Type": "application/json", "Robust-Cdn-Publish-Id": publish_id},
+                timeout=30)
+        except Exception as e:
+            print(f"Abort publish failed: {e}")
+
+    data = {
+        "version": VERSION,
+        "engineVersion": engine_version,
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    print(f"Starting publish...")
+    resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/start", json=data, headers=headers)
+    if not resp.ok:
+        print(f"Publish start FAILED: {resp.status_code} {resp.reason}")
+        print(f"Response: {resp.text}")
+        resp.raise_for_status()
+    publish_id = resp.headers.get("Robust-Cdn-Publish-Id")
+    if not publish_id:
+        raise RuntimeError("CDN did not return Robust-Cdn-Publish-Id")
+    print("Publish started OK, uploading files...")
+
+    files = list(get_files_to_publish())
+    print(f"Files to upload: {len(files)}")
+    if not files:
+        abort_publish()
+        raise RuntimeError("No files found to publish")
+
+    for file in files:
+        try:
+            size_mb = os.path.getsize(file) / (1024 * 1024)
+            print(f"  Uploading {os.path.basename(file)} ({size_mb:.1f} MB)")
+            with open(file, "rb") as f:
+                headers = {
+                    "Content-Type": "application/octet-stream",
+                    "Robust-Cdn-Publish-File": os.path.basename(file),
+                    "Robust-Cdn-Publish-Version": VERSION,
+                    "Robust-Cdn-Publish-Id": publish_id
+                }
+                resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/file", data=f, headers=headers)
+        except Exception:
+            abort_publish()
+            raise
+
+        if not resp.ok:
+            print(f"  Upload FAILED: {resp.status_code} {resp.reason}")
+            print(f"  Response: {resp.text}")
+            abort_publish()
+            resp.raise_for_status()
+
+    print("All files uploaded, finishing publish...")
+
+    data = {
+        "version": VERSION
+    }
+    headers = {
+        "Content-Type": "application/json",
+        "Robust-Cdn-Publish-Id": publish_id
+    }
+    try:
+        resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/finish", json=data, headers=headers)
+    except Exception:
+        abort_publish()
+        raise
+    if not resp.ok:
+        print(f"Publish finish FAILED: {resp.status_code} {resp.reason}")
+        print(f"Response: {resp.text}")
+        abort_publish()
+        resp.raise_for_status()
+
+    print("SUCCESS!")
 
 
 def discover_files(release_dir: Path) -> list[Path]:

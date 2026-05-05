@@ -15,8 +15,6 @@ using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
-using DrawDepth = Content.Shared.DrawDepth.DrawDepth; // DS14
 
 namespace Content.Client.Construction
 {
@@ -456,7 +454,7 @@ namespace Content.Client.Construction
             }
 
             var transform = Comp<TransformComponent>(ghostId);
-            var msg = new TryStartStructureConstructionMessage(GetNetCoordinates(transform.Coordinates), ghostComp.Prototype.ID, transform.LocalRotation, ghostId.GetHashCode());
+            var msg = new TryStartStructureConstructionMessage(GetNetCoordinates(transform.Coordinates), ghostComp.Prototype.ID, transform.LocalRotation, ghostComp.GhostId); // DS14
             RaiseNetworkEvent(msg);
         }
 

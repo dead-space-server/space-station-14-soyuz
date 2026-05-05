@@ -17,7 +17,8 @@ public sealed class CorporealSystem : SharedCorporealSystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Astral, false); // DS14
+            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
+            _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false); // DS14
             _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid, visibility);
         }
@@ -29,7 +30,8 @@ public sealed class CorporealSystem : SharedCorporealSystem
 
         if (TryComp<VisibilityComponent>(uid, out var visibility) && _ticker.RunLevel != GameRunLevel.PostRound)
         {
-            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Astral, false); // DS14
+            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
+            _visibilitySystem.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false); // DS14
             _visibilitySystem.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
             _visibilitySystem.RefreshVisibility(uid, visibility);
         }

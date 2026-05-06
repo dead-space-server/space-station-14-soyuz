@@ -10,7 +10,6 @@ using Robust.Shared.Prototypes;
 // DS14-end
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
-using Content.Shared.Cloning; // DS14-soyuz
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -258,17 +257,8 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             reagents = GetInjectedReagents(bloodSolution, bloodstream); // DS14
         }
 
-        // DS14-start
-        float curProg = 0f;
-
-        if (TryComp<VirusComponent>(target, out var virus))
-            curProg = virus.Data.Threshold / virus.Data.MaxThreshold;
-
-        float infectionLevel = 1f - curProg;
-
-        if (HasComp<UncloningComponent>(target))
-            unclonable = true;
-        // DS14-end
+        if (HasComp<UncloningComponent>(target)) // DS14-Soyuz
+            unclonable = true; // DS14-Soyuz
 
         if (TryComp<UnrevivableComponent>(target, out var unrevivableComp) && unrevivableComp.Analyzable)
             unrevivable = true;

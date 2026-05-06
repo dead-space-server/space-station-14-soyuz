@@ -189,12 +189,12 @@
   - type: Battery
     maxCharge: 2400
     startingCharge: 2400
-  - type: BatteryAmmoProvider
+  - type: ProjectileBatteryAmmoProvider
     proto: EmitterBolt
     fireCost: 80
   - type: PowerCell
   - type: Appearance
-  - type: BatteryVisuals
+  - type: PowerCellVisuals
   - type: Riggable
 
 - type: Tag

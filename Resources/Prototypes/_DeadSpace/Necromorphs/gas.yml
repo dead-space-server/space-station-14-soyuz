@@ -12,8 +12,7 @@
       effects:
       - !type:CauseInfectionDead
         conditions:
-        - !type:ReagentCondition
-          reagent: InfectionDeadSpace
+        - !type:ReagentThreshold
           min: 0.5
       - !type:PopupMessage
         type: Local
@@ -22,7 +21,7 @@
         probability: 0.1
 
 - type: gas
-  id: InfectionDeadSpace
+  id: 9
   name: gases-infectionDeadSpace
   specificHeat: 20
   heatCapacityRatio: 1.4

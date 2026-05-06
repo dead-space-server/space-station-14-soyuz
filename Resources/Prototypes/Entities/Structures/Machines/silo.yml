@@ -2,9 +2,7 @@
   id: MachineMaterialSilo
   parent: [ BaseMachinePowered, ConstructibleMachine ]
   name: material silo
-  # DS14-start: Soyuz changes
-  description: An advanced machine, capable of using redspace technology to transmit materials to nearby machines.
-  # DS14-end
+  description: An advanced machine, capable of using bluespace technology to transmit materials to nearby machines.
   components:
   - type: Sprite
     sprite: Structures/Machines/silo.rsi

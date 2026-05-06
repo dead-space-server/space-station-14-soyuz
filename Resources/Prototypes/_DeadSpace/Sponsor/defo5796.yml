@@ -8,9 +8,7 @@
   parent: ClothingBackpackSatchel
   id: ClothingBackpackdefo5796
   name: сумка киберпсиха
-  # DS14-start: Soyuz changes
-  description: Рюкзак использующий технологию редспейса для увелечения своего максимального объёма. Окрашен в зелёный цвет. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
-  # DS14-end
+  description: Рюкзак использующий технологию блюспейса для увелечения своего максимального объёма. Окрашен в зелёный цвет. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -18,7 +16,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
       - id: ClothingBeltdefo5796Filled

@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Research.Components;
-using Robust.Shared.Utility;
 
 namespace Content.Server.Research.Systems;
 
@@ -99,8 +98,10 @@ public sealed partial class ResearchSystem
             if (ent.Comp.Server is not null)
                 return;
 
-            if (GetServers(ent).FirstOrNull() is { } server)
-                RegisterClient(ent, server, ent, server);
+            var allServers = GetServers(ent).ToList();
+
+            if (allServers.Count > 0)
+                RegisterClient(ent, allServers[0], ent, allServers[0]);
         }
         else
         {
@@ -111,9 +112,6 @@ public sealed partial class ResearchSystem
     private void UpdateClientInterface(EntityUid uid, ResearchClientComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
-            return;
-
-        if (TerminatingOrDeleted(uid))
             return;
 
         TryGetClientServer(uid, out _, out var serverComponent, component);

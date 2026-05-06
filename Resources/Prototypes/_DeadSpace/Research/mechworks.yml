@@ -110,7 +110,7 @@
   id: TaipanRipley
   name: research-technology-bloodred-ripley
   icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/mecha.rsi
+    sprite: _DeadSpace/Objects/Specific/Mech/mecha.rsi
     state: bloodredripley
   discipline: TaipanMechworks
   tier: 1

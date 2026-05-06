@@ -8,7 +8,7 @@
     <BoxContainer Orientation="Vertical"
                   VerticalExpand="True">
 
-        <PanelContainer StyleClasses="BackgroundPanelDark"
+        <PanelContainer StyleClasses="Inset"
                         Margin="5"
                         VerticalExpand="True">
 
@@ -42,7 +42,7 @@
 
                     <Label Text="{Loc 'ert-responce-team-description'}" />
 
-                    <PanelContainer StyleClasses="BackgroundPanelDark"
+                    <PanelContainer StyleClasses="Inset"
                                     VerticalExpand="True">
                         <RichTextLabel Name="TeamDescriptionLabel"
                                        VerticalExpand="True"

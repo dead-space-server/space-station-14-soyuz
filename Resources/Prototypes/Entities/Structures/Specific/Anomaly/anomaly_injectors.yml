@@ -221,9 +221,7 @@
 - type: entity
   parent: BaseAnomalyInjector
   id: AnomalyTrapBluespace
-  # DS14-start: Soyuz changes
-  suffix: Redspace
-  # DS14-end
+  suffix: Bluespace
   components:
   - type: Sprite
     layers:

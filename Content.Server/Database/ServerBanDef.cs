@@ -21,7 +21,7 @@ namespace Content.Server.Database
         public string Reason { get; }
         public NoteSeverity Severity { get; set; }
         public NetUserId? BanningAdmin { get; }
-        public UnbanDef? Unban { get; }
+        public ServerUnbanDef? Unban { get; }
         public ServerBanExemptFlags ExemptFlags { get; }
 
         public ServerBanDef(int? id,
@@ -35,7 +35,7 @@ namespace Content.Server.Database
             string reason,
             NoteSeverity severity,
             NetUserId? banningAdmin,
-            UnbanDef? unban,
+            ServerUnbanDef? unban,
             ServerBanExemptFlags exemptFlags = default)
         {
             if (userId == null && address == null && hwId ==  null)

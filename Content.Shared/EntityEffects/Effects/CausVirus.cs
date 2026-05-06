@@ -5,11 +5,11 @@ using Content.Shared.DeadSpace.Virus.Components;
 
 namespace Content.Shared.EntityEffects.Effects;
 
-public sealed partial class CauseVirus : EntityEffectBase<CauseVirus>
+public sealed partial class CauseVirus : EventEntityEffect<CauseVirus>
 {
     [DataField]
     public VirusData Data = new();
 
-    public override string? EntityEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
+    protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
         => Loc.GetString("reagent-effect-guidebook-cause-virus", ("chance", Probability));
 }

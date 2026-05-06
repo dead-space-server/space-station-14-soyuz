@@ -11,7 +11,7 @@
 
 - type: entity
   id: CrateNPCXeno
-  parent: CrateSyndicateSecureDS
+  parent: CrateSyndicateSecure
   name: ящик с ксеноморфом
   description: Ящик для содержания ксеноморфа.
   components:
@@ -22,7 +22,7 @@
 # Engineering
 - type: entity
   id: CrateRCDSyndicate
-  parent: CrateSyndicateSecureDS
+  parent: CrateSyndicateSecure
   name: ящик РСУ
   description: Ящик содержащий РСУ.
   components:
@@ -67,10 +67,9 @@
   name: ящик пополнения СиндиСоки
   description: Содержит набор пополнения торгомата СиндиСоки.
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: VendingMachineRestockChemVendSyndicate
+  - type: StorageFill
+    contents:
+      - id: VendingMachineRestockChemVendSyndicate
 
 - type: entity
   id: CrateVendingMachineRestockCigsTaipanFilled
@@ -78,10 +77,9 @@
   name: ящик пополнения СиндиСигс
   description: Содержит набор пополнения торгомата СиндиСигс.
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: VendingMachineRestockCigsTaipan
+  - type: StorageFill
+    contents:
+      - id: VendingMachineRestockCigsTaipan
         amount: 2
 
 - type: entity
@@ -90,10 +88,9 @@
   name: ящик пополнения Donk Co.
   description: Содержит набор пополнения торгомата СиндиСигс.
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: VendingMachineRestockDonkTaipan
+  - type: StorageFill
+    contents:
+      - id: VendingMachineRestockDonkTaipan
         amount: 2
 
 - type: entity
@@ -102,8 +99,7 @@
   name: ящик пополнения Brass & Bolt
   description: Содержит набор пополнения торгомата Brass & Bolt.
   components:
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage:
-        id: VendingMachineRestockBrassNBoltTaipan
+  - type: StorageFill
+    contents:
+      - id: VendingMachineRestockBrassNBoltTaipan
         amount: 2

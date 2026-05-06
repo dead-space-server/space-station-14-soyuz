@@ -7,10 +7,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackfffgfgggg
-  # DS14-start: Soyuz changes
-  name: редспейс рюкзак смерти
-  description: Рюкзак использующий технологию редспейса для увелечения своего максимального объёма. Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
-  # DS14-end
+  name: блюспейс рюкзак смерти
+  description: Рюкзак использующий технологию блюспейса для увелечения своего максимального объёма. Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -18,7 +16,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
       - id: ClothingHandsGlovesfffgfgggg

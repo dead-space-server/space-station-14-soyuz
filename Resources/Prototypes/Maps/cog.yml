@@ -2,8 +2,7 @@
   id: Cog
   mapName: 'Cog'
   mapPath: /Maps/_Soyuz/cog.yml
-  minPlayers: 30
-  maxPlayers: 70 # DS-14-voite
+  minPlayers: 40
   stations:
     Cog:
       stationProto: StandardNanotrasenStation

@@ -26,10 +26,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackTheZuTi
-  # DS14-start: Soyuz changes
-  name: акулья редспейс сумка
-  description: Наплечная сумка с дизайном акульих зубов и технологией редспейс сжатия пространства. Если прислушаться то внутри сумки слышно шум моря.
-  # DS14-end
+  name: акулья блюспейс сумка
+  description: Наплечная сумка с дизайном акульих зубов и технологией блюспейс сжатия пространства. Если прислушаться то внутри сумки слышно шум моря.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -320,13 +318,8 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 0.5
 

@@ -20,9 +20,9 @@
       - !type:SatiateThirst
         factor: 1.0
         conditions:
-          - !type:MetabolizerTypeCondition
-            type: [ Human ]
-            inverted: true
+          - !type:OrganType
+            type: Human
+            shouldHave: false
     Food:
       effects:
         - !type:AdjustReagent
@@ -32,8 +32,8 @@
       effects:
       - !type:HealthChange
         conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Bloodsucker ]
+        - !type:OrganType
+          type: Bloodsucker
         damage:
           groups:
             Brute: -3
@@ -41,8 +41,8 @@
 # DS14-start
       - !type:HealthChange
         conditions:
-          - !type:MetabolizerTypeCondition
-            type: [ Xenomorph ]
+          - !type:OrganType
+            type: Xenomorph
         damage:
           groups:
             Brute: -0.50
@@ -86,15 +86,6 @@
       effects:
       - !type:SatiateHunger
         factor: 1
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Slime]
-          inverted: true
-      - !type:ModifyBloodLevel
-        amount: 0.5 # drawing 15u removes 5% blood level from a slimeperson, this will add 5% when injecting 15u
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [Slime]
   footstepSound:
     collection: FootstepSlime # makes sense
     params:
@@ -148,17 +139,6 @@
   physicalDesc: reagent-physical-desc-pungent
 
 - type: reagent
-  parent: Blood
-  id: SulfurBlood
-  name: reagent-name-sulfur-blood
-  group: Biological
-  desc: reagent-desc-sulfur-blood
-  flavor: acid
-  color: "#b89e00"
-  recognizable: true
-  physicalDesc: reagent-physical-desc-acrid
-
-- type: reagent
   id: ZombieBlood
   name: reagent-name-zombie-blood
   group: Biological
@@ -178,7 +158,7 @@
         damage:
           types:
             Poison: 4
-      - !type:Vomit
+      - !type:ChemVomit
         probability: 0.25
 
 - type: reagent
@@ -207,7 +187,7 @@
         damage:
           types:
             Bloodloss: -3
-      - !type:ModifyBleed
+      - !type:ModifyBleedAmount
         amount: -1.5
   # Just in case you REALLY want to water your plants
   plantMetabolism:

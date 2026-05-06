@@ -7,7 +7,7 @@ using Robust.Shared.Audio;
 
 namespace Content.Shared.DeadSpace.ERT.Prototypes;
 
-[Prototype]
+[Prototype("ertTeam")]
 public sealed partial class ErtTeamPrototype : IPrototype
 {
     [IdDataField]

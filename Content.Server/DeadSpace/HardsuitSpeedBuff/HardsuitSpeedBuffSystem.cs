@@ -3,11 +3,11 @@
 using Content.Server.Actions;
 using Content.Shared.DeadSpace.HardsuitSpeedBuff;
 using Content.Shared.PowerCell;
-using Content.Shared.PowerCell.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Inventory;
 using Content.Shared.Actions;
+using Content.Server.PowerCell;
 
 namespace Content.Server.DeadSpace.HardsuitSpeedBuff;
 
@@ -53,13 +53,13 @@ public sealed class HardsuitSpeedBuffSystem : EntitySystem
 
         if (powerCell.Enabled)
         {
-            _cell.SetDrawEnabled((ent.Owner, powerCell), false);
+            powerCell.Enabled = false;
             ent.Comp.Activated = false;
             _movement.RefreshMovementSpeedModifiers(args.Performer);
         }
         else
         {
-            _cell.SetDrawEnabled((ent.Owner, powerCell), true);
+            powerCell.Enabled = true;
             ent.Comp.Activated = true;
             _movement.RefreshMovementSpeedModifiers(args.Performer);
         }

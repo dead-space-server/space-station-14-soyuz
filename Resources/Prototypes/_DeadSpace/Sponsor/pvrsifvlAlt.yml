@@ -46,7 +46,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
     - id: ClothingNeckCloakpvrsifvlAlt
@@ -70,9 +70,7 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltpvrsifvlAlt
-  # DS14-start: Soyuz changes
-  name: редспейс хранилище ETL//07
-  # DS14-end
+  name: блюспейс хранилище ETL//07
   description: Нет, мне это не нужно. Нет, мне это не нужно. Разработано и спроектировано компанией Nakamura Engineering по индивидуальному заказу.
   categories: [ HideSpawnMenu ]
   components:
@@ -357,13 +355,8 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 0.5
   - type: StaticPrice
@@ -669,6 +662,7 @@
   - type: ToggleCellDraw
   - type: PowerCellDraw
     drawRate: 2.4 # ~5 minutes on a medium power cell.
+    useRate: 0
   - type: Sprite
     sprite: _DeadSpace/Sponsor/pvrsifvlAlt/tools_mineralscanner.rsi
     layers:

@@ -453,10 +453,12 @@
     Gas:
       effects:
       - !type:HealthChange
+        scaleByQuantity: true
         ignoreResistances: true
         conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Slime ]
+        - !type:OrganType
+          type: Slime
+          shouldHave: true
         damage:
           types:
             Heat: 3
@@ -566,15 +568,15 @@
   color: "#B3B599"
 
 - type: reagent
-  id: OrangeLimeSoda
-  name: reagent-name-orange-lime-soda
+  id: KiraSpecial
+  name: reagent-name-kira-special
   parent: BaseDrink
-  desc: reagent-desc-orange-lime-soda
+  desc: reagent-desc-kira-special
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: sweet
   color: "#CCCC99"
   metamorphicSprite:
-    sprite: Objects/Consumable/Drinks/orangelime_soda.rsi
+    sprite: Objects/Consumable/Drinks/kiraspecial.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 3
   metamorphicFillBaseName: fill-
@@ -625,25 +627,3 @@
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
-# DS14-start
-- type: reagent
-  id: Pearonade
-  parent: BaseJuice
-  name: reagent-name-pearonade
-  group: Drinks
-  desc: reagent-desc-pearonade
-  physicalDesc: reagent-physical-desc-sweet
-  flavor: pearonade
-  color: "#E39A3A"
-  metamorphicSprite:
-    sprite: _DeadSpace/Objects/Consumable/Drinks/pearonade.rsi
-    state: icon_empty
-  metamorphicMaxFillLevels: 6
-  metamorphicFillBaseName: fill-
-  metamorphicChangeColor: false
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-# DS14-end

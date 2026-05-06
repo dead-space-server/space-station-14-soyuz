@@ -15,6 +15,7 @@ public sealed class EconomySystem : EntitySystem
 {
     [Dependency] private TransformSystem _transformSystem = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
     public override void Initialize()
     {

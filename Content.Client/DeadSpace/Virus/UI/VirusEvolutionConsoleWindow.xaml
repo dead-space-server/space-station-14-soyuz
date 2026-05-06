@@ -15,7 +15,7 @@
 
             <!-- CONTENTS -->
             <PanelContainer Name="EvolutionContents"
-                            StyleClasses="BackgroundPanelDark"
+                            StyleClasses="Inset"
                             VerticalExpand="True"
                             Margin="5">
 
@@ -91,7 +91,7 @@
 
             <!-- DATASERVER MISSING -->
             <PanelContainer Name="EvolutionServerMissing"
-                            StyleClasses="BackgroundPanelDark"
+                            StyleClasses="Inset"
                             VerticalExpand="True"
                             Margin="5">
                 <Label HorizontalAlignment="Center"
@@ -101,7 +101,7 @@
 
             <!-- !HASVIRUS -->
             <PanelContainer Name="VirusDataMissing"
-                            StyleClasses="BackgroundPanelDark"
+                            StyleClasses="Inset"
                             VerticalExpand="True"
                             Margin="5">
                 <Label HorizontalAlignment="Center"
@@ -111,7 +111,7 @@
 
             <!-- DATASERVER FAR -->
             <PanelContainer Name="EvolutionServerFar"
-                            StyleClasses="BackgroundPanelDark"
+                            StyleClasses="Inset"
                             VerticalExpand="True"
                             Margin="5">
                 <Label HorizontalAlignment="Center"
@@ -127,7 +127,7 @@
                     VerticalExpand="True">
 
             <PanelContainer Name="WhitelistContents"
-                            StyleClasses="BackgroundPanelDark"
+                            StyleClasses="Inset"
                             VerticalExpand="True"
                             Margin="5">
 

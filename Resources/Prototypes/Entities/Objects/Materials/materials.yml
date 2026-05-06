@@ -26,7 +26,7 @@
 - type: entity
   parent: MaterialBase
   id: MaterialCardboard
-  # DS14: avoid manual LocId-like names for entity prototypes
+  name: cardboard
   suffix: Full
   components:
   - type: Material
@@ -87,7 +87,7 @@
 - type: entity
   parent: MaterialBase
   id: MaterialCloth
-  # DS14: avoid LocId in entity prototype name; entity localization is automated
+  name: cloth
   suffix: Full
   components:
   - type: Healing
@@ -177,7 +177,7 @@
 - type: entity
   parent: MaterialBase
   id: MaterialDurathread
-  # DS14: avoid manual LocId-like names for entity prototypes
+  name: durathread
   suffix: Full
   components:
   - type: Stack
@@ -339,7 +339,7 @@
       - HEAD
   - type: PointLight
     radius: 1.2
-    energy: 2.7
+    energy: 1.5
     color: "#4faffb"
     slots:
 
@@ -525,7 +525,7 @@
 - type: entity
   parent: MaterialBase
   id: MaterialBananium
-  # DS14: avoid manual LocId-like names for entity prototypes
+  name: bananium
   suffix: Full
   components:
   - type: Material

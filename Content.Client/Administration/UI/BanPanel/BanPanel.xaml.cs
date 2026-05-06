@@ -294,19 +294,19 @@ public sealed partial class BanPanel : DefaultWindow
     }
 
     /// <summary>
-    /// Adds a toggle button specifically for one "role" in a "group"
+    /// Adds a check button specifically for one "role" in a "group"
     /// E.g. it would add the Chief Medical Officer "role" into the "Medical" group.
     /// </summary>
     private void AddRoleCheckbox(string group, string role, GridContainer roleGroupInnerContainer, Button roleGroupCheckbox)
     {
         var roleCheckboxContainer = new BoxContainer();
-        var roleToggleButton = new Button
+        var roleCheckButton = new Button
         {
             Name = role,
             Text = role,
             ToggleMode = true,
         };
-        roleToggleButton.OnToggled += args =>
+        roleCheckButton.OnToggled += args =>
         {
             // Checks the role group checkbox if all the children are pressed
             if (args.Pressed && _roleCheckboxes[group].All(e => e.Item1.Pressed))
@@ -343,12 +343,12 @@ public sealed partial class BanPanel : DefaultWindow
             roleCheckboxContainer.AddChild(jobIconTexture);
         }
 
-        roleCheckboxContainer.AddChild(roleToggleButton);
+        roleCheckboxContainer.AddChild(roleCheckButton);
 
         roleGroupInnerContainer.AddChild(roleCheckboxContainer);
 
         _roleCheckboxes.TryAdd(group, []);
-        _roleCheckboxes[group].Add((roleToggleButton, rolePrototype));
+        _roleCheckboxes[group].Add((roleCheckButton, rolePrototype));
     }
 
     public void UpdateBanFlag(bool newFlag)

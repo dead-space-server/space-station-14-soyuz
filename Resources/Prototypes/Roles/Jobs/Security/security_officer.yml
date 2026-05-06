@@ -15,10 +15,9 @@
   - Security
   - Brig
   - Maintenance
+  - Service
   - External
   - Cryogenics
-  - GenpopEnter
-  - GenpopLeave
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250

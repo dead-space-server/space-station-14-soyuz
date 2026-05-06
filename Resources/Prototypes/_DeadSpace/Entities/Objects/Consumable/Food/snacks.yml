@@ -36,7 +36,7 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Consumable/Food/snacks.rsi
     state: fabricbrick-open
-  - type: Edible
+  - type: Food
     requiresSpecialDigestion: true
   - type: SolutionContainerManager
     solutions:
@@ -53,7 +53,7 @@
   name: обёртка от ВРП
   description: Обёртка широкого назначения для различных военных продуктов питания.
   components:
-  - type: Edible
+  - type: Food
     requiresSpecialDigestion: true
   - type: SolutionContainerManager
     solutions:
@@ -82,7 +82,7 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Consumable/Food/nanonachos.rsi
     state: icon
-  - type: Edible
+  - type: Food
 
 - type: entity
   id: FoodSnackNuclearNachos

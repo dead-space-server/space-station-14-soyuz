@@ -3,10 +3,7 @@ using Content.Shared.Bed.Components;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Systems; // DS14
 using Content.Shared.Mobs.Systems;
-using Content.Shared.Tag;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Bed
 {
@@ -14,10 +11,8 @@ namespace Content.Server.Bed
     {
         [Dependency] private readonly DamageableSystem _damageableSystem = default!;
         [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!; // DS14
 
         private EntityQuery<SleepingComponent> _sleepingQuery;
-        private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing"; // DS14
 
         public override void Initialize()
         {
@@ -45,10 +40,7 @@ namespace Content.Server.Bed
                 {
                     if (_mobStateSystem.IsDead(healedEntity))
                         continue;
-                    // DS14-start
-                    if (_tagSystem.HasTag(healedEntity, IgnoreBedHealingTag))
-                        continue;
-                    // DS14-end
+
                     var damage = bedComponent.Damage;
 
                     if (_sleepingQuery.HasComp(healedEntity))

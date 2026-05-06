@@ -5,16 +5,9 @@
   styles:
     air: AirCanister
     ammonia: AmmoniaCanister
-    brizidium: BrizidiumCanister # DS14
     carbon-dioxide: CarbonDioxideCanister
     frezon: FrezonCanister
-    fixirium: FixiriumCanister # DS14
-    hilium: HiliumCanister # DS14
-    hydrogen: HydrogenCanister # DS14
-    iprit: IpritCanister # DS14
     nitrogen: NitrogenCanister
-    nitriatium: NitriatiumCanister # DS14
-    nitryl: NitrylCanister # DS14
     nitrous-oxide: NitrousOxideCanister
     oxygen: OxygenCanister
     plasma: PlasmaCanister

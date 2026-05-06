@@ -55,14 +55,13 @@
        path: /Audio/Items/ring.ogg
   - type: Item
     size: Small
-  # DS удаление
-  # - type: Prayable
-  #   sentMessage: prayer-popup-notify-centcom-sent
-  #   notificationPrefix: prayer-chat-notify-centcom
-  #   verb: prayer-verbs-call
-  #   verbImage: null
-  # - type: UseDelay # DS14
-  #   delay: 300
+  - type: Prayable
+    sentMessage: prayer-popup-notify-centcom-sent
+    notificationPrefix: prayer-chat-notify-centcom
+    verb: prayer-verbs-call
+    verbImage: null
+  - type: UseDelay # DS14
+    delay: 300
 
 - type: entity
   parent: PhoneInstrument
@@ -132,7 +131,7 @@
   components:
   - type: Instrument
     program: 1
-    bank: 100 # Defined in space-station-14.sf2
+    bank: 1
   - type: Sprite
     sprite: Objects/Fun/Instruments/bike_horn.rsi
   - type: Tag

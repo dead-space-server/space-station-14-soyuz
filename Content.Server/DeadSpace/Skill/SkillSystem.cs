@@ -51,12 +51,7 @@ public sealed class SkillSystem : EntitySystem
         }
     }
 
-    public SkillInfo? GetSkillInfo(
-        EntityUid uid,
-        string prototypeId,
-        SkillComponent? component = null,
-        bool highlightAsUnknown = false,
-        bool canLearnFromSource = false)
+    public SkillInfo? GetSkillInfo(EntityUid uid, string prototypeId, SkillComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
             return null;
@@ -74,14 +69,11 @@ public sealed class SkillSystem : EntitySystem
         }
 
         SkillInfo skill = new SkillInfo(
-            prototypeId,
             skillPrototype.Name,
             skillPrototype.Description,
             skillPrototype.Icon,
             progress,
-            skillPrototype.IconSize,
-            highlightAsUnknown,
-            canLearnFromSource
+            skillPrototype.IconSize
         );
 
         return skill;

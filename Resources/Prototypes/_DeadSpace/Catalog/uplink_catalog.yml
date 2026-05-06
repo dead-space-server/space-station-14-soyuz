@@ -43,7 +43,7 @@
   description: uplink-energy-crossbow-large-desc
   productEntity: WeaponEnergyCrossbowLarge
   cost:
-    Telecrystal: 18
+    Telecrystal: 20
   categories:
   - UplinkWeaponry
   conditions:
@@ -86,7 +86,7 @@
     Telecrystal: 6
   productEntity: ClothingBeltSheathSyndieFilled
   cost:
-    Telecrystal: 8
+    Telecrystal: 10
   categories:
   - UplinkWeaponry
 
@@ -427,7 +427,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi, state: base }
   productEntity: BoxLethalshotMagnum
   cost:
-    Telecrystal: 3
+    Telecrystal: 5
   categories:
   - UplinkAmmo
   conditions:
@@ -465,7 +465,7 @@
   discountDownTo:
     Telecrystal: 8
   cost:
-    Telecrystal: 10
+    Telecrystal: 11
   categories:
   - UplinkWeaponry
   conditions:
@@ -662,22 +662,6 @@
     Telecrystal: 6
   categories:
   - UplinkChemicals
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
-
-- type: listing
-  id: UplinkFireAxeFlaming
-  name: uplink-fire-axe
-  description: uplink-fire-axe-desc
-  icon: { sprite: /Textures/Objects/Weapons/Melee/fireaxeflaming.rsi, state: icon }
-  productEntity: FireAxeFlaming
-  cost:
-    Telecrystal: 7
-  categories:
-  - UplinkWeaponry
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:

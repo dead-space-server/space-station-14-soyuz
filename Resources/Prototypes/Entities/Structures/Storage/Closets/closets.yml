@@ -1,4 +1,4 @@
-# Tool closet
+﻿# Tool closet
 - type: entity
   id: ClosetTool
   name: tool closet
@@ -164,9 +164,9 @@
 # Syndicate
 - type: entity
   id: LockerSyndicate
-  name: blood-red closet
+  name: armory closet
   parent: ClosetSteelBase
-  description: It's a storage unit with a blood-red design.
+  description: It's a storage unit.
   components:
   - type: Appearance
   - type: EntityStorageVisuals
@@ -174,19 +174,13 @@
     stateDoorOpen: syndicate_open
     stateDoorClosed: syndicate_door
 
-# DS14-start: Soyuz changes
-# Redspace closet
-# DS14-end
+# Bluespace closet
 - type: entity
   id: ClosetBluespace
-  # DS14-start: Soyuz changes
-  name: redspace closet
-  suffix: Redspace
-  # DS14-end
+  name: suspicious closet
+  suffix: Bluespace
   parent: ClosetMaintenance
-  # DS14-start: Soyuz changes
-  description: It's a storage unit warped by redspace technology.
-  # DS14-end
+  description: It's a storage unit... right?
   components:
     - type: ArrivalsBlacklist
     - type: BluespaceLocker
@@ -199,19 +193,13 @@
       autoLinkProperties:
         bluespaceEffectOnTeleportSource: true
 
-# DS14-start: Soyuz changes
-# Unstable redspace closet
-# DS14-end
+# Unstable bluespace closet
 - type: entity
   id: ClosetBluespaceUnstable
-  # DS14-start: Soyuz changes
-  name: redspace closet
-  suffix: Redspace unstable
-  # DS14-end
+  name: suspicious closet
+  suffix: Bluespace unstable
   parent: ClosetMaintenance
-  # DS14-start: Soyuz changes
-  description: It's a storage unit destabilized by redspace technology.
-  # DS14-end
+  description: It's a storage unit... right?
   components:
     - type: ArrivalsBlacklist
     - type: BluespaceLocker

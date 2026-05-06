@@ -1,12 +1,12 @@
 - type: entity
-  id: BaseHumanOrgan
+  id: BaseHumanOrganUnGibbable
   parent: BaseItem
   abstract: true
   components:
   - type: Sprite
     sprite: Mobs/Species/Human/organs.rsi
   - type: Organ
-  - type: Edible
+  - type: Food
   - type: Extractable
     grindableSolutionName: organ
   - type: SolutionContainerManager
@@ -29,8 +29,15 @@
       - Trash # DS14
 
 - type: entity
+  id: BaseHumanOrgan
+  parent: BaseHumanOrganUnGibbable
+  abstract: true
+  components:
+  - type: Gibbable
+
+- type: entity
   id: OrganHumanBrain
-  parent: BaseHumanOrgan
+  parent: BaseHumanOrganUnGibbable
   name: brain
   description: "The source of incredible, unending intelligence. Honk."
   components:
@@ -219,6 +226,7 @@
     metabolizerTypes: [Human]
     groups:
     - id: Alcohol
+      rateModifier: 0.1 # removes alcohol very slowly along with the stomach removing it as a drink
 
 - type: entity
   id: OrganHumanKidneys

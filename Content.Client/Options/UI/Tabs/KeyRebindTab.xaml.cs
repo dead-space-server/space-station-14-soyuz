@@ -37,6 +37,12 @@ namespace Content.Client.Options.UI.Tabs
 
         private readonly List<Action> _deferCommands = new();
 
+        private void HandleToggleUSQWERTYCheckbox(BaseButton.ButtonToggledEventArgs args)
+        {
+            _cfg.SetCVar(CVars.DisplayUSQWERTYHotkeys, args.Pressed);
+            _cfg.SaveToFile();
+        }
+
         private void InitToggleWalk()
         {
             if (_cfg.GetCVar(CCVars.ToggleWalk))
@@ -125,7 +131,8 @@ namespace Content.Client.Options.UI.Tabs
                 KeybindsContainer.AddChild(new Label
                 {
                     Text = Loc.GetString(headerContents),
-                    StyleClasses = { StyleClass.LabelKeyText }
+                    FontColorOverride = StyleNano.NanoGold,
+                    StyleClasses = { StyleNano.StyleClassLabelKeyText }
                 });
             }
 
@@ -145,23 +152,8 @@ namespace Content.Client.Options.UI.Tabs
                 KeybindsContainer.AddChild(newCheckBox);
             }
 
-            void AddToggleCvarCheckBox(string checkBoxName, CVarDef<bool> cvar)
-            {
-                CheckBox newCheckBox = new CheckBox() { Text = Loc.GetString(checkBoxName) };
-                newCheckBox.Pressed = _cfg.GetCVar(cvar);
-                newCheckBox.OnToggled += (e) =>
-                {
-                    _cfg.SetCVar(cvar, e.Pressed);
-                    _cfg.SaveToFile();
-                };
-
-                KeybindsContainer.AddChild(newCheckBox);
-            }
-
             AddHeader("ui-options-header-general");
-            AddToggleCvarCheckBox("ui-options-hotkey-keymap", CVars.DisplayUSQWERTYHotkeys);
-            AddToggleCvarCheckBox("ui-options-hold-to-attack-melee", CCVars.ControlHoldToAttackMelee);
-            AddToggleCvarCheckBox("ui-options-hold-to-attack-ranged", CCVars.ControlHoldToAttackRanged);
+            AddCheckBox("ui-options-hotkey-keymap", _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys), HandleToggleUSQWERTYCheckbox);
 
             AddHeader("ui-options-header-movement");
             AddButton(EngineKeyFunctions.MoveUp);
@@ -279,8 +271,6 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(EngineKeyFunctions.ShowDebugMonitors);
             AddButton(EngineKeyFunctions.HideUI);
             AddButton(ContentKeyFunctions.InspectEntity);
-            AddButton(ContentKeyFunctions.InspectServerComponent);
-            AddButton(ContentKeyFunctions.InspectClientComponent);
 
             AddHeader("ui-options-header-text-cursor");
             AddButton(EngineKeyFunctions.TextCursorLeft);
@@ -540,9 +530,9 @@ namespace Content.Client.Options.UI.Tabs
                     HorizontalAlignment = HAlignment.Left
                 };
 
-                BindButton1 = new BindButton(parent, this, StyleClass.ButtonOpenRight);
-                BindButton2 = new BindButton(parent, this, StyleClass.ButtonOpenLeft);
-                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleClass.Negative } };
+                BindButton1 = new BindButton(parent, this, StyleBase.ButtonOpenRight);
+                BindButton2 = new BindButton(parent, this, StyleBase.ButtonOpenLeft);
+                ResetButton = new Button { Text = Loc.GetString("ui-options-bind-reset"), StyleClasses = { StyleBase.ButtonCaution } };
 
                 var hBox = new BoxContainer
                 {

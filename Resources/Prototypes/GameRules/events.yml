@@ -304,15 +304,12 @@
       pickPlayer: false
       startingGear: SpaceNinjaGear
       roleLoadout:
-      - RoleSurvivalSpaceNinja
+      - RoleSurvivalEVA
       briefing:
         text: ninja-role-greeting
         color: Green
         sound: /Audio/Misc/ninja_greeting.ogg
       components:
-      - type: RenegadeCANTSubordinate #DS14 
-      - type: RenegadeCANTLightningAbility #DS14 
-      - type: RenegadeCANTRenegadeForce #DS14 
       - type: SpaceNinja
       - type: NpcFactionMember
         factions:
@@ -620,7 +617,6 @@
     minimumPlayers: 30 # DS14
     weight: 1 # Zombies was happening basically every single survival round, so now it's super rare
     duration: 1
-    occursDuringRoundEnd: false
   - type: ZombieRule
   - type: AntagSelection
     definitions:

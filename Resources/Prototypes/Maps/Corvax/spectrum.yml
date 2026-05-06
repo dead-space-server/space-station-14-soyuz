@@ -2,7 +2,7 @@
   id: CorvaxSpectrum
   mapName: 'Spectrum'
   mapPath: /Maps/_Soyuz/corvax_spectrum.yml
-  minPlayers: 40
+  minPlayers: 50
   stations:
     Spectrum:
       stationProto: StandardNanotrasenStation
@@ -13,7 +13,7 @@
             !type:NanotrasenNameGenerator
             prefixCreator: 'NR'
         - type: StationEmergencyShuttle
-          emergencyShuttlePath: /Maps/Shuttles/emergency_corvaxspectrum.yml
+          emergencyShuttlePath: /Maps/Shuttles/emergency_courser.yml
         - type: StationJobs
           availableJobs:
             # cmd

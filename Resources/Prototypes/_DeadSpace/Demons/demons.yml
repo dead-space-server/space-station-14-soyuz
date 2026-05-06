@@ -6,8 +6,6 @@
   description: Монстр!
   abstract: true
   components:
-  - type: StaminaResistance
-    damageCoefficient: 0.2
   - type: Sprite
     drawdepth: Mobs
     sprite: _DeadSpace/Demons/demon_simple.rsi
@@ -95,6 +93,7 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
+        scaleByQuantity: true
         damage:
           types:
             Holy: 5

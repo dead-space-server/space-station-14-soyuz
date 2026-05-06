@@ -1,7 +1,6 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  # - DSTaipan # not mappool map
   - Amber
   - Aspid
   - Bagel
@@ -9,21 +8,21 @@
   - Box
   - Cluster
   - Cog
-  - Core
-  - Gate
-  - Fland
   - Convex
-  - Box
-  - Origin
-  - Oasis
+  - Core
   - CorvaxAstra
   - CorvaxAvrite
   - CorvaxDelta
+  - CorvaxPaper
+  - CorvaxSilly
   - CorvaxSpectrum
+  - CorvaxGlacier
+  - CorvaxPearl
   - Elkridge
   - Fland
   - Gate
   - Gemini
+  - Loop
   - Loop
   - Marathon
   - Meta
@@ -33,9 +32,5 @@
   - Packed
   - Plasma
   - Reach
-  # - Exo # DS14-Soyuz
   - Saltern
-  - Snowball
-  # - Train # Shit map
-  - CorvaxPearl
-  - Ishimura # Выключено до одобрения Liv
+#  - Train Я рот топтал трейна

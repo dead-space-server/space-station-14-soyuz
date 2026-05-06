@@ -6,7 +6,7 @@ using Content.Shared.Humanoid;
 
 namespace Content.Shared.DeadSpace.Necromorphs.InfectionDead.Prototypes;
 
-[Prototype]
+[Prototype("necromorf")]
 public sealed partial class NecromorfPrototype : IPrototype
 {
     [IdDataField]
@@ -32,7 +32,7 @@ public sealed partial class NecromorfPrototype : IPrototype
 
     [DataField]
     [AlwaysPushInheritance]
-    public ComponentRegistry Components { get; set; } = new();
+    public ComponentRegistry Components { get; } = new();
 
     [DataField]
     [ViewVariables(VVAccess.ReadWrite)]

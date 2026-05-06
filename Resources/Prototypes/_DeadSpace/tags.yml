@@ -8,9 +8,6 @@
   id: AmbrosiaDeus
 
 - type: Tag
-  id: AnimateSpellBlacklist
-
-- type: Tag
   id: BatteryWeaponFireModesSprites
 
 - type: Tag
@@ -195,9 +192,6 @@
   id: MagazineTommyGun
 
 - type: Tag
-  id: MagazineCaselessRifle
-
-- type: Tag
   id: MagazineTommyGunCap
 
 - type: Tag
@@ -241,9 +235,6 @@
 
 - type: Tag
   id: Plasteel
-
-- type: Tag
-  id: PolaroidCartridge
 
 - type: Tag
   id: Radiance
@@ -346,9 +337,6 @@
 
 - type: Tag
   id: TaipanRole
-
-- type: Tag
-  id: TapeRecorderCoin
 
 - type: Tag
   id: Titanium

@@ -1362,11 +1362,6 @@
   description: flavor-complex-dog-food
 
 - type: flavor
-  id: cannedtuna
-  flavorType: Complex
-  description: flavor-complex-canned-tuna
-
-- type: flavor
   id: fishops
   flavorType: Complex
   description: flavor-complex-fishops
@@ -1510,14 +1505,3 @@
   id: motivating
   flavorType: Base
   description: flavor-base-motivating
-# DS14-start
-- type: flavor
-  id: pear
-  flavorType: Complex
-  description: flavor-complex-pear
-
-- type: flavor
-  id: pearonade
-  flavorType: Complex
-  description: flavor-complex-pearonade
-# DS14-end

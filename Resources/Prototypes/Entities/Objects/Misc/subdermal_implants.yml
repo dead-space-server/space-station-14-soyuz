@@ -115,9 +115,7 @@
   parent: BaseSubdermalImplant
   id: StorageImplant
   name: storage implant
-  # DS14-start: Soyuz changes
-  description: This implant grants hidden storage within a person's body using redspace technology.
-  # DS14-end
+  description: This implant grants hidden storage within a person's body using bluespace technology.
   categories: [ HideSpawnMenu ]
   components:
     - type: StorageImplant
@@ -251,26 +249,6 @@
       enum.ChameleonControllerKey.Key:
         type: ChameleonControllerBoundUserInterface
 
-- type: entity
-  parent: BaseSubdermalImplant
-  id: VoiceMaskImplant
-  name: identity mask implant
-  description: This implant allows you to change your identity at will.
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SubdermalImplant
-    implantAction: ActionChangeVoiceMaskImplant
-  - type: VoiceMask
-    overrideIdentity: true
-    changeIDName: true
-  - type: UserInterface
-    interfaces:
-      enum.VoiceMaskUIKey.Key:
-        type: VoiceMaskBoundUserInterface
-  - type: Tag
-    tags:
-    - SubdermalImplant
-
 #Nuclear Operative/Special Exclusive implants
 
 - type: entity
@@ -345,6 +323,7 @@
       tags:
       - SubdermalImplant
       - HideContextMenu
+      - MacroBomb
 
 - type: entity
   parent: BaseSubdermalImplant
@@ -370,6 +349,7 @@
     tags:
     - SubdermalImplant
     - HideContextMenu
+    - DeathAcidifier
 
 - type: entity
   parent: BaseSubdermalImplant

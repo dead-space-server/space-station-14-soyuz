@@ -1,3 +1,7 @@
+- type: metabolizerType
+  id: Xenomorph
+  name: metabolizer-type-xenomorph
+
 - type: entity
   id: BaseXenoOrganUnGibbable
   parent: BaseItem
@@ -7,7 +11,7 @@
   - type: Sprite
     sprite: _DeadSpace/Sponsor/Mobs/Species/Xenomorph/organs.rsi
   - type: Organ
-  - type: Edible
+  - type: Food
   - type: Extractable
     grindableSolutionName: organ
   - type: SolutionContainerManager
@@ -30,6 +34,8 @@
   id: BaseXenoOrgan
   parent: BaseXenoOrganUnGibbable
   abstract: true
+  components:
+  - type: Gibbable
 
 - type: entity
   id: OrganXenoBrain

@@ -3,7 +3,7 @@
   mapName: 'Reach'
   mapPath: /Maps/_Soyuz/reach.yml
   minPlayers: 0
-  maxPlayers: 15 # DS-14-voite
+  maxPlayers: 10
   stations:
     Reach:
       stationProto: StandardNanotrasenStation

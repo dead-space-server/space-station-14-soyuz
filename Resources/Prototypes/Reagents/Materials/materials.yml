@@ -81,7 +81,7 @@
   name: materials-bananium
   unit: materials-unit-bunch
   icon: { sprite: Objects/Materials/materials.rsi, state: bananium }
-  color: "#fff269" # DS14-Soyuz
+  color: "#32a852"
   price: 1.0 # $100 for 1 unit
 
 - type: material
@@ -141,15 +141,3 @@
   icon: { sprite: Objects/Materials/materials.rsi, state: diamond }
   color: "#80ffff"
   price: 20 # big diamond gaslit us so hard diamonds actually became extremely rare
-
-# DS14-start
-- type: material
-  id: RedspaceCrystal
-  stackEntity: MaterialRedspaceCrystal1
-  name: materials-redspace-crystal
-  unit: materials-unit-piece
-  icon: { sprite: _DeadSpace/_Soyuz/Objects/Materials/ore.rsi, state: redspace_crystal }
-  color: "#ff3a52"
-  price: 25
-# DS14-end
-

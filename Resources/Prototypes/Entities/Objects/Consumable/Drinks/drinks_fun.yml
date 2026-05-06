@@ -38,6 +38,9 @@
         reagents:
         - ReagentId: SpaceGlue
           Quantity: 30
+  - type: Tag
+    tags:
+      - DrinkSpaceGlue
   - type: Glue
 
 - type: entity
@@ -61,11 +64,9 @@
 - type: entity
   parent: BluespaceBeaker
   id: BottomlessLube
+  name: bottomless lube beaker
   suffix: DEBUG
-  # DS14-start: Soyuz changes
-  name: redspace lube beaker
-  description: This anomalous redspace beaker infinitely produces space lube and should be closely guarded so it does not fall into the wrong hands.
-  # DS14-end
+  description: This anomalous beaker infinitely produces space lube and as such is to be closely guarded such that it doesn't fall in the wrong hands.
   components:
   - type: SolutionContainerManager
     solutions:
@@ -91,6 +92,9 @@
     sprite: Objects/Consumable/Drinks/jar_what.rsi
   - type: FitsInDispenser
     solution: drink
+  - type: Tag
+    tags:
+    - DrinkGlass
 
 # Mopwata
 - type: weightedRandomFillSolution

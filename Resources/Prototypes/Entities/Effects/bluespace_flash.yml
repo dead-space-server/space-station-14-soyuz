@@ -5,9 +5,7 @@
   - type: PointLight
     radius: 10.5
     energy: 15
-    # DS14-start: Soyuz changes
-    color: "#ff3d5c"
-    # DS14-end
+    color: "#18abf5"
   - type: TimedDespawn
     lifetime: 1
   - type: EmitSoundOnSpawn

@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Text.Json.Serialization;
-using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
@@ -47,18 +46,25 @@ namespace Content.Shared.Damage
         public Dictionary<string, FixedPoint2> DamageDict { get; set; } = new();
 
         // DS14-Start
-        /// <summary>
-        ///     Per-damage-type armor piercing levels.
-        /// </summary>
+        // Per-damage-type armor piercing levels. Can be set from prototypes via the
+        // `armorPiercingLevels` data-field or using the helper methods below.
         [DataField("armorPiercingLevels")]
-        private Dictionary<string, int>? _damageTypeArmorPiercingLevel;
+        private Dictionary<string, int>? _damageTypeArmorPiercingLevel = new();
 
+        /// <summary>
+        ///     Set per-type armor piercing level for a damage type.
+        /// </summary>
         public void SetArmorPiercingLevelForType(string damageType, int level)
         {
-            _damageTypeArmorPiercingLevel ??= new Dictionary<string, int>();
+            if (_damageTypeArmorPiercingLevel == null)
+                _damageTypeArmorPiercingLevel = new Dictionary<string, int>();
+
             _damageTypeArmorPiercingLevel[damageType] = level;
         }
 
+        /// <summary>
+        ///     Try get per-type armor piercing level, falling back to the global `ArmorPiercingLevel`.
+        /// </summary>
         public int GetArmorPiercingLevelForType(string damageType)
         {
             if (_damageTypeArmorPiercingLevel != null && _damageTypeArmorPiercingLevel.TryGetValue(damageType, out var v))
@@ -125,8 +131,9 @@ namespace Content.Shared.Damage
             DamageDict = new(damageSpec.DamageDict);
 
             // DS14-Start
-            if (damageSpec._damageTypeArmorPiercingLevel != null)
-                _damageTypeArmorPiercingLevel = new Dictionary<string, int>(damageSpec._damageTypeArmorPiercingLevel);
+            _damageTypeArmorPiercingLevel = damageSpec._damageTypeArmorPiercingLevel != null
+                ? new Dictionary<string, int>(damageSpec._damageTypeArmorPiercingLevel)
+                : new Dictionary<string, int>();
             // DS14-End
         }
 
@@ -189,6 +196,8 @@ namespace Content.Shared.Damage
                     newValue = Math.Max(0f, newValue - reduction); // flat reductions can't heal you
 
                 // DS14-Start
+                // Temporary debug log to inspect armor piercing and armor levels (use project's Logger)
+
                 int apLevelForType = damageSpec._damageTypeArmorPiercingLevel != null &&
                                     damageSpec._damageTypeArmorPiercingLevel.TryGetValue(key, out var typeAp)
                                     ? typeAp
@@ -211,8 +220,8 @@ namespace Content.Shared.Damage
                     newDamage.DamageDict[key] = FixedPoint2.New(newValue);
                     continue;
                 }
-                // DS14-End
 
+                var modifierId = (modifierSet as DamageModifierSetPrototype)?.ID ?? "(no-id)";
                 if (modifierSet.Coefficients.TryGetValue(key, out var coefficient))
                 {
                     newValue *= coefficient; // coefficients can heal you, e.g. cauterizing bleeding

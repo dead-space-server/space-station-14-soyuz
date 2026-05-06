@@ -1,7 +1,7 @@
-using Content.Shared.DeadSpace.Languages.Prototypes; // DS14
-using Content.Shared.Eui; // DS14
-using Robust.Shared.Prototypes; // DS14
-using Robust.Shared.Serialization; // DS14
+using Content.Shared.Eui;
+using Robust.Shared.Serialization;
+using Content.Shared.DeadSpace.Languages.Prototypes;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Administration
 {
@@ -29,10 +29,10 @@ namespace Content.Shared.Administration
             public string Voice = default!; // Corvax-TTS
             public bool EnableTTS = default!; // Corvax-TTS
             public bool CustomTTS = default!; // Corvax-TTS
-            public string ColorHex = "b84444"; // DS14-value: b64444 -> b84444
-            public string SoundPath = "/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"; // DS14-announce-audio
+            public string ColorHex = "B64444"; // DS14-announce-color
+            public string SoundPath = "/Audio/_DeadSpace/Soyuz/Announcements/centcomm.ogg"; // DS14-announce-audio | DS14-Soyuz Sound
             public float SoundVolume = 5f; // DS14-announce-volume
-            public string Sender = ""; // DS14-announce-sender
+            public string Sender = "Оператор ГШ"; // DS14-announce-sender
         }
     }
 }

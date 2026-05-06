@@ -34,7 +34,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
     - id: ClothingNeckCloakpvrsifvl
@@ -57,9 +57,7 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltpvrsifvl
-  # DS14-start: Soyuz changes
-  name: редспейс хранилище Warmind
-  # DS14-end
+  name: блюспейс хранилище Warmind
   description: Всегда хранит в себе что-то, что может спасти жизнь. Разработано по чертежам спонсорской организации Warmind.
   categories: [ HideSpawnMenu ]
   components:
@@ -302,13 +300,8 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 0.5
   - type: StaticPrice

@@ -226,7 +226,7 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
- 
+
 #Senior Salvage
 - type: entity
   parent: ClothingHeadHelmetHardsuitSalvage
@@ -265,10 +265,10 @@
       - state: equipped-head-light-vox
         shader: unshaded
       head-reptilian:
-      - state: equipped-head-light-reptilian
+      - state: equipped-head-reptilian
         shader: unshaded
-      head-vulpkanin:
-      - state: equipped-head-light-vulpkanin
+      head-dog:
+      - state: equipped-head-light-dog
         shader: unshaded
   - type: Clothing
     clothingVisuals:
@@ -284,9 +284,9 @@
       - state: equipped-head-reptilian
       - state: equipped-head-unshaded-reptilian
         shader: unshaded
-      head-vulpkanin:
-      - state: equipped-head-vulpkanin
-      - state: equipped-head-unshaded-vulpkanin
+      head-dog:
+      - state: equipped-head-dog
+      - state: equipped-head-unshaded-dog
         shader: unshaded
   - type: PointLight
     radius: 6
@@ -1020,7 +1020,7 @@
         Poison: 0.80 # DS14
 # DS14-start
   - type: ClothingGrantComponent
-    component: 
+    component:
       - type: ImmunNecroobelisk
 # DS14-end
   - type: Tag

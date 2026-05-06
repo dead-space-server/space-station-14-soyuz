@@ -15,10 +15,7 @@
         mask:
         - Impassable
   - type: ApcPowerReceiver
-    powerLoad: 5
-  - type: PowerState
-    idlePowerDraw: 5
-    workingPowerDraw: 300
+    powerLoad: 300
   - type: StationAiVision
     range: 1
     needsAnchoring: true
@@ -135,10 +132,8 @@
     ignoreTelephonesOnSameGrid: true
 
 - type: entity
-  # DS14-start: Soyuz changes
-  name: redspace holopad
-  description: "An experimental floor-mounted device for projecting holographic images via redspace."
-  # DS14-end
+  name: bluespace holopad
+  description: "An experimental floor-mounted device for projecting holographic images via bluespace."
   parent: Holopad
   id: HolopadBluespace
   suffix: Unrestricted range

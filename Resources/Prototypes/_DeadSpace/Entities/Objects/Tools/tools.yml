@@ -2,7 +2,7 @@
   id: RCDCE
   parent: [ RCD, BaseEngineeringContraband ]
   name: РСУ старшего инженера
-  description: Улучшенная версия базового РСУ. Самовосстанавливает заряды, сохраняя стандартные режимы строительства.
+  description: Улучшенная версия базового РСУ. Благодаря высокоуровневым компонентам тратит в 2 раза меньше зарядов на постройку структур.
   components:
   - type: Sprite
     sprite: _DeadSpace/Objects/Tools/cercd.rsi
@@ -10,31 +10,25 @@
     - state: icon
   - type: RCD
     availablePrototypes:
-    # DS14-start: keep CE RCD behavior identical to standard RCD to avoid directional placement bugs
-    - WallSolid
-    - WallMining
+    - WallSolidCE
     - FloorSteel
     - Plating
     - Catwalk
-    - Grille
-    - Window
-    - WindowDirectional
-    - WindowReinforcedDirectional
-    - ReinforcedWindow
-    - MiningWindow
-    - Airlock
-    - AirlockGlass
-    - Firelock
-    - TubeLight
-    - BulbLight
+    - GrilleCE
+    - WindowCE
+    - WindowDirectionalCE
+    - WindowReinforcedDirectionalCE
+    - ReinforcedWindowCE
+    - AirlockCE
+    - AirlockGlassCE
+    - FirelockCE
+    - TubeLightCE
+    - BulbLightCE
     - LVCable
     - MVCable
     - HVCable
     - CableTerminal
     - Deconstruct
-    # DS14-end
-  - type: AutoRecharge
-    rechargeDuration: 15
 
 - type: entity
   name: кроваво-красный сварочный аппарат

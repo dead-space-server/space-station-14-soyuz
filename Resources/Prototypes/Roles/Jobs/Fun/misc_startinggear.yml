@@ -162,10 +162,12 @@
     - Multitool
     - AnomalyScanner
     - PortableUniversalIdConsole
-    - PowerDrill # DS14
-    - JawsOfLife # DS14
-    - WelderExperimental # DS14
-    - SprayPainterRecharging # DS14
+# DS14-start
+    - JawsOfLife
+    - PowerDrill
+    - WelderExperimental
+    - SprayPainterRecharging
+# DS14-end
 
 #Gladiator with spear
 - type: startingGear

@@ -34,7 +34,7 @@
     sprite: Objects/Specific/Hydroponics/apple.rsi
     state: seed
   product: CrateHydroponicsSeeds
-  cost: 620 # DS14
+  cost: 600
   category: cargoproduct-category-name-hydroponics
   group: service # DS14
 
@@ -42,7 +42,7 @@
   id: BulkPlantBGone
   icon:
     sprite: Objects/Specific/Chemistry/jug.rsi
-    state: icon_empty
+    state: jug
   product: CratePlantBGone
   cost: 750
   category: cargoproduct-category-name-hydroponics

@@ -33,6 +33,7 @@ public abstract partial class SharedToolSystem : EntitySystem
     [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainerSystem = default!;
     [Dependency] private   readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private   readonly TileSystem _tiles = default!;
+    [Dependency] private   readonly TurfSystem _turfs = default!;
 
     public const string CutQuality = "Cutting";
     public const string PulseQuality = "Pulsing";

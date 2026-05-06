@@ -7,13 +7,11 @@
   - type: Storage
     grid:
     - 0,0,3,2
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: Beaker
-          amount: 2
-        - id: Dropper
-        - id: ClothingEyesGlassesChemical
-        - id: VestineChemistryVial
-          amount: 5
+  - type: StorageFill
+    contents:
+    - id: Beaker
+      amount: 2
+    - id: Dropper
+    - id: ClothingEyesGlassesChemical
+    - id: VestineChemistryVial
+      amount: 5

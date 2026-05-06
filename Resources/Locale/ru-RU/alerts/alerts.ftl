@@ -82,5 +82,3 @@ alerts-rooted-name = Укоренены
 alerts-rooted-desc = Вы прикреплены к земле. Вы не можете подскользнуться, но вы будете впитывать все жидкости под вами.
 alerts-stealthy-name = Карманничество
 alerts-stealthy-desc = Определяет режим скрытой кражи. Нажмите для переключения.
-alerts-prying-name = Открывашка
-alerts-prying-desc = Вы способны открыть любые двери!

@@ -14,7 +14,7 @@
       map: [ "light" ]
   - type: Clothing
     sprite: _DeadSpace/Clothing/Head/Helmets/securityflash.rsi
-  - type: ToggleableVisuals
+  - type: ToggleableLightVisuals
     spriteLayer: light
     inhandVisuals:
       left:

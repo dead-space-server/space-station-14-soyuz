@@ -7,8 +7,8 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/banana.rsi
     scale: 1.5, 1.5
-  - type: Edible
-    trash:
+  - type: Food
+    trash: 
     - TrashBananaPeelBig1
   - type: SolutionContainerManager
     solutions:
@@ -77,7 +77,7 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/banana.rsi
     scale: 2.5, 2.5
-  - type: Edible
+  - type: Food
     trash:
     - TrashBananaPeelBig2
 
@@ -101,7 +101,7 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/banana.rsi
     scale: 3.5, 3.5
-  - type: Edible
+  - type: Food
     trash:
     - TrashBananaPeelBig3
 

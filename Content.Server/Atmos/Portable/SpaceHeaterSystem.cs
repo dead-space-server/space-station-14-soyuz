@@ -54,13 +54,11 @@ public sealed class SpaceHeaterSystem : EntitySystem
 
     private void OnUIActivationAttempt(EntityUid uid, SpaceHeaterComponent spaceHeater, ActivatableUIOpenAttemptEvent args)
     {
-        if (Comp<TransformComponent>(uid).Anchored)
-            return;
-
-        if (!args.Silent)
+        if (!Comp<TransformComponent>(uid).Anchored)
+        {
             _popup.PopupEntity(Loc.GetString("comp-space-heater-unanchored", ("device", Loc.GetString("comp-space-heater-device-name"))), uid, args.User);
-
-        args.Cancel();
+            args.Cancel();
+        }
     }
 
     private void OnDeviceUpdated(EntityUid uid, SpaceHeaterComponent spaceHeater, ref AtmosDeviceUpdateEvent args)

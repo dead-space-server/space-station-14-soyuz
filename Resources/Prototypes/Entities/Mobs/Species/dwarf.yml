@@ -17,10 +17,8 @@
     damageRecovery:
       types:
         Asphyxiation: -1.0
-  # DS14-start: keep dwarf sprites shorter without changing body definitions.
   - type: ScaleVisuals
     scale: 1, 0.8
-  # DS14-end
   - type: Body
     prototype: Dwarf
     requiredLegs: 2
@@ -81,10 +79,8 @@
   id: MobDwarfDummy
   categories: [ HideSpawnMenu ]
   components:
-  # DS14-start: keep dwarf preview sprites consistent with the in-game scale.
   - type: ScaleVisuals
     scale: 1, 0.8
-  # DS14-end
   - type: Inventory
     femaleDisplacements:
       jumpsuit:

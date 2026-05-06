@@ -70,12 +70,10 @@
     speedModifierThresholds:
       25: 0.5
   - type: Stamina
-    baseCritThreshold: 200
+    critThreshold: 200
   - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: AcidicBlood # DS14
-        Quantity: 650
+    bloodReagent: AcidicBlood # DS14
+    bloodMaxVolume: 650
   - type: MeleeWeapon
     altDisarm: false
     angle: 0
@@ -112,10 +110,9 @@
   - type: TypingIndicator
     proto: alien
   - type: Temperature
-    currentTemperature: 310.15
-  - type: TemperatureDamage
     heatDamageThreshold: 360
     coldDamageThreshold: -150
+    currentTemperature: 310.15
   - type: Tag
     tags:
       - CannotSuicide
@@ -155,7 +152,7 @@
       Dead: XenomorphDead
 # DS14-end
   - type: Stamina
-    baseCritThreshold: 300
+    critThreshold: 300
   - type: SlowOnDamage
     speedModifierThresholds:
       50: 0.7
@@ -529,12 +526,10 @@
   - type: ComplexInteraction
   - type: MobState
   - type: Stamina
-    baseCritThreshold: 200
+    critThreshold: 200
   - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: AcidicBlood # DS14
-        Quantity: 300
+    bloodReagent: AcidicBlood # DS14
+    bloodMaxVolume: 300
   - type: MeleeWeapon
     altDisarm: false
     angle: 0
@@ -561,10 +556,9 @@
   - type: TypingIndicator
     proto: alien
   - type: Temperature
-    currentTemperature: 310.15
-  - type: TemperatureDamage
     heatDamageThreshold: 360
     coldDamageThreshold: -150
+    currentTemperature: 310.15
   - type: NoSlip
   - type: Perishable #Ummmm the acid kills a lot of the bacteria or something
     molsPerSecondPerUnitMass: 0.0005

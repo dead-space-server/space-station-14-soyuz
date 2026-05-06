@@ -34,7 +34,7 @@ public sealed class CrayonSystem : SharedCrayonSystem
             _crayon = crayon;
             _charges = charges;
             _capacity = entityManage.GetComponent<LimitedChargesComponent>(_crayon.Owner).MaxCharges;
-            _label = new RichTextLabel { StyleClasses = { StyleClass.ItemStatus } };
+            _label = new RichTextLabel { StyleClasses = { StyleNano.StyleClassItemStatus } };
             AddChild(_label);
         }
 

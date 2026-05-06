@@ -101,6 +101,9 @@
     stampState: "paper_stamp-clown"
   - type: Sprite
     state: stamp-clown
+  - type: Tag
+    tags:
+      - ClownRubberStamp
 
 - type: entity
   name: chief engineer's rubber stamp

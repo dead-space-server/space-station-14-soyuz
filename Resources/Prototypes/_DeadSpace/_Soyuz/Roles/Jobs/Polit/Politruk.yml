@@ -49,8 +49,6 @@
   - !type:AddComponentSpecial
     components:
       - type: CommandStaff
-      - type: Skill
-        group: BaseSkills
 
 - type: startingGear
   id: PolitrukGear

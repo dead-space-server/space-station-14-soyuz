@@ -6,7 +6,6 @@
   name: stack-gold-ore
   icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: gold }
   spawn: GoldOre1
-  maxCount: 30 # DS14-Soyuz
 
 - type: stack
   parent: BaseMediumStack
@@ -70,4 +69,3 @@
   name: stack-salt
   icon: { sprite: /Textures/Objects/Materials/ore.rsi, state: salt }
   spawn: Salt1
-  maxCount: 30 # DS14-Soyuz

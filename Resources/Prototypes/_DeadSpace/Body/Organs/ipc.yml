@@ -27,6 +27,8 @@
   id: BaseIPCOrgan
   parent: BaseIPCOrganUnGibbable
   abstract: true
+  components:
+  - type: Gibbable
 
 - type: entity
   id: OrganIPCBrain
@@ -130,18 +132,16 @@
   components:
   - type: Sprite
     state: stomach-c-u2
-  # DS14-start: IPC can ingest selected food/drinks (roboburger, machine oil) without full human metabolism
-  - type: SolutionContainerManager
-    solutions:
-      stomach:
-        maxVol: 50
-      food:
-        maxVol: 5
-        reagents:
-        - ReagentId: WeldingFuel
-          Quantity: 5
-  - type: Stomach
-  # DS14-end
+  # - type: SolutionContainerManager
+  #   solutions:
+  #     stomach:
+  #       maxVol: 50
+  #     food:
+  #       maxVol: 5
+  #       reagents:
+  #       - ReagentId: WeldingFuel
+  #         Quantity: 5
+  # - type: Stomach
   # The stomach metabolizes stuff like foods and drinks.
   # TODO: Have it work off of the ent's solution container, and move this
   # to intestines instead.

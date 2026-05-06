@@ -15,8 +15,6 @@
           cost: 2
         - proto: BluespaceBeaker
           cost: 2
-        - proto: BluespaceVial
-          cost: 2
         - proto: CyborgEndoskeleton
           cost: 3
           prob: 0.5
@@ -252,12 +250,3 @@
   loots:
     - !type:BiomeMarkerLoot
       proto: OreArtifactFragment
-
-# DS14-soyuz-start
-- type: salvageLoot
-  id: OreRedspace
-  guaranteed: true
-  loots:
-  - !type:BiomeMarkerLoot
-    proto: OreRedspace
-# DS14-soyuz-end

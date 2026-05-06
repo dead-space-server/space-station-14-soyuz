@@ -1,28 +1,20 @@
 using Content.Server.Bible.Components;
-using Content.Server.Body.Systems; // DS14
-using Content.Server.Mind; // DS14
 using Content.Server.Ghost.Roles.Events;
 using Content.Server.Popups;
-using Content.Shared.Atmos.Rotting; // DS14
-using Content.Shared.Body.Components; // DS14
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Bible;
-using Content.Shared.Damage.Components; // DS14
-using Content.Shared.Damage.Systems;
-using Content.Shared.FixedPoint; // DS14
+using Content.Shared.Damage;
 using Content.Shared.Ghost.Roles.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
-using Content.Shared.Mind.Components; // DS14
 using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components; // DS14
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Timing;
-using Content.Shared.Traits.Assorted; // DS14
 using Content.Shared.Verbs;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -35,12 +27,8 @@ namespace Content.Server.Bible
         [Dependency] private readonly ActionBlockerSystem _blocker = default!;
         [Dependency] private readonly DamageableSystem _damageableSystem = default!;
         [Dependency] private readonly InventorySystem _invSystem = default!;
-        [Dependency] private readonly BloodstreamSystem _bloodstream = default!; // DS14
-        [Dependency] private readonly MindSystem _mind = default!; // DS14
         [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-        [Dependency] private readonly MobThresholdSystem _mobThreshold = default!; // DS14
         [Dependency] private readonly PopupSystem _popupSystem = default!;
-        [Dependency] private readonly SharedRottingSystem _rotting = default!; // DS14
         [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly UseDelaySystem _delay = default!;
@@ -111,19 +99,10 @@ namespace Content.Server.Bible
             if (!TryComp(uid, out UseDelayComponent? useDelay) || _delay.IsDelayed((uid, useDelay)))
                 return;
 
-            // DS14-start: allow bible revival attempts on dead bodies
-            if (args.Target == null || args.Target == args.User)
-                return;
-
-            if (_mobStateSystem.IsDead(args.Target.Value))
+            if (args.Target == null || args.Target == args.User || !_mobStateSystem.IsAlive(args.Target.Value))
             {
-                TryReviveDeadTarget((uid, component), args.User, args.Target.Value, useDelay);
                 return;
             }
-
-            if (!_mobStateSystem.IsAlive(args.Target.Value))
-                return;
-            // DS14-end
 
             if (!HasComp<BibleUserComponent>(args.User))
             {
@@ -136,18 +115,15 @@ namespace Content.Server.Bible
                 return;
             }
 
-            var userEnt = Identity.Entity(args.User, EntityManager);
-            var targetEnt = Identity.Entity(args.Target.Value, EntityManager);
-
             // This only has a chance to fail if the target is not wearing anything on their head and is not a familiar.
-            if (!_invSystem.TryGetSlotEntity(args.Target.Value, "head", out _) && !HasComp<FamiliarComponent>(args.Target.Value))
+            if (!_invSystem.TryGetSlotEntity(args.Target.Value, "head", out var _) && !HasComp<FamiliarComponent>(args.Target.Value))
             {
                 if (_random.Prob(component.FailChance))
                 {
-                    var othersFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-others", ("user", userEnt), ("target", targetEnt), ("bible", uid));
+                    var othersFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
                     _popupSystem.PopupEntity(othersFailMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.SmallCaution);
 
-                    var selfFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-self", ("target", targetEnt), ("bible", uid));
+                    var selfFailMessage = Loc.GetString(component.LocPrefix + "-heal-fail-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
                     _popupSystem.PopupEntity(selfFailMessage, args.User, args.User, PopupType.MediumCaution);
 
                     _audio.PlayPvs(component.BibleHitSound, args.User);
@@ -157,133 +133,27 @@ namespace Content.Server.Bible
                 }
             }
 
-            string othersMessage;
-            string selfMessage;
+            var damage = _damageableSystem.TryChangeDamage(args.Target.Value, component.Damage, true, origin: uid);
 
-            if (_damageableSystem.TryChangeDamage(args.Target.Value, component.Damage, true, origin: uid))
+            if (damage == null || damage.Empty)
             {
-                othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-others", ("user", userEnt), ("target", targetEnt), ("bible", uid));
-                selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-self", ("target", targetEnt), ("bible", uid));
+                var othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
+                _popupSystem.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
 
+                var selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
+                _popupSystem.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
+            }
+            else
+            {
+                var othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-others", ("user", Identity.Entity(args.User, EntityManager)), ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
+                _popupSystem.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
+
+                var selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-self", ("target", Identity.Entity(args.Target.Value, EntityManager)), ("bible", uid));
+                _popupSystem.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
                 _audio.PlayPvs(component.HealSoundPath, args.User);
                 _delay.TryResetDelay((uid, useDelay));
             }
-            else
-            {
-                othersMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-others", ("user", userEnt), ("target", targetEnt), ("bible", uid));
-                selfMessage = Loc.GetString(component.LocPrefix + "-heal-success-none-self", ("target", targetEnt), ("bible", uid));
-            }
-
-            _popupSystem.PopupEntity(othersMessage, args.User, Filter.PvsExcept(args.User), true, PopupType.Medium);
-            _popupSystem.PopupEntity(selfMessage, args.User, args.User, PopupType.Large);
         }
-
-        // DS14-start: bible corpse revival
-        private void TryReviveDeadTarget(Entity<BibleComponent> bible, EntityUid user, EntityUid target, UseDelayComponent useDelay)
-        {
-            var (uid, component) = bible;
-
-            if (component.ReviveDeadChance <= 0f)
-                return;
-
-            if (!HasComp<BibleUserComponent>(user))
-            {
-                _popupSystem.PopupEntity(Loc.GetString("bible-sizzle"), user, user);
-                _audio.PlayPvs(component.SizzleSoundPath, user);
-                _damageableSystem.TryChangeDamage(user, component.DamageOnUntrainedUse, true, origin: uid);
-                _delay.TryResetDelay((uid, useDelay));
-                return;
-            }
-
-            _delay.TryResetDelay((uid, useDelay));
-
-            if (component.ReviveDeadOncePerBody && HasComp<BibleReviveAttemptedComponent>(target))
-            {
-                _popupSystem.PopupEntity(Loc.GetString("bible-revive-already-tried"), user, user, PopupType.MediumCaution);
-                return;
-            }
-
-            if (component.ReviveDeadOncePerBody)
-                EnsureComp<BibleReviveAttemptedComponent>(target);
-
-            if (_rotting.IsRotten(target))
-            {
-                _popupSystem.PopupEntity(Loc.GetString("defibrillator-rotten"), user, user, PopupType.MediumCaution);
-                _audio.PlayPvs(component.BibleHitSound, user);
-                return;
-            }
-
-            if (TryComp<UnrevivableComponent>(target, out var unrevivable))
-            {
-                _popupSystem.PopupEntity(Loc.GetString(unrevivable.ReasonMessage), user, user, PopupType.MediumCaution);
-                _audio.PlayPvs(component.BibleHitSound, user);
-                return;
-            }
-
-            var userEnt = Identity.Entity(user, EntityManager);
-            var targetEnt = Identity.Entity(target, EntityManager);
-
-            if (!_random.Prob(component.ReviveDeadChance))
-            {
-                var othersFailMessage = Loc.GetString("bible-revive-fail-others", ("user", userEnt), ("target", targetEnt), ("bible", uid));
-                var selfFailMessage = Loc.GetString("bible-revive-fail-self", ("target", targetEnt), ("bible", uid));
-
-                _popupSystem.PopupEntity(othersFailMessage, user, Filter.PvsExcept(user), true, PopupType.SmallCaution);
-                _popupSystem.PopupEntity(selfFailMessage, user, user, PopupType.MediumCaution);
-                _audio.PlayPvs(component.BibleHitSound, user);
-                return;
-            }
-
-            if (!TryComp<DamageableComponent>(target, out var damageable) ||
-                !TryComp<MobThresholdsComponent>(target, out var thresholds) ||
-                !_mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var deadThreshold, thresholds))
-            {
-                _popupSystem.PopupEntity(Loc.GetString("bible-revive-fail-self", ("target", targetEnt), ("bible", uid)), user, user, PopupType.MediumCaution);
-                _audio.PlayPvs(component.BibleHitSound, user);
-                return;
-            }
-
-            var lethalThreshold = deadThreshold.Value;
-            var desiredDamage = lethalThreshold * component.ReviveDeadDamageFraction;
-            if (desiredDamage >= lethalThreshold)
-                desiredDamage = lethalThreshold - FixedPoint2.Epsilon;
-
-            var healAmount = damageable.TotalDamage - desiredDamage;
-            if (healAmount > 0)
-                _damageableSystem.HealDistributed((target, damageable), -healAmount, origin: uid);
-
-            if (component.RestoreBloodOnRevive && TryComp<BloodstreamComponent>(target, out var bloodstream))
-                _bloodstream.TryRegulateBloodLevel((target, bloodstream), bloodstream.BloodReferenceSolution.Volume);
-
-            var revivedState = _mobStateSystem.HasState(target, MobState.Critical)
-                ? MobState.Critical
-                : MobState.Alive;
-            _mobStateSystem.ChangeMobState(target, revivedState, origin: uid);
-
-            ReturnSoulToBody(target);
-
-            var othersMessage = Loc.GetString("bible-revive-success-others", ("user", userEnt), ("target", targetEnt), ("bible", uid));
-            var selfMessage = Loc.GetString("bible-revive-success-self", ("target", targetEnt), ("bible", uid));
-
-            _popupSystem.PopupEntity(othersMessage, user, Filter.PvsExcept(user), true, PopupType.Medium);
-            _popupSystem.PopupEntity(selfMessage, user, user, PopupType.Large);
-            _audio.PlayPvs(component.HealSoundPath, user);
-        }
-
-        private void ReturnSoulToBody(EntityUid target)
-        {
-            if (!_mind.TryGetMind(target, out var mindId, out var mind))
-                return;
-
-            if (mind.CurrentEntity == target)
-                return;
-
-            if (mind.VisitingEntity != null)
-                _mind.UnVisit(mindId, mind);
-            else
-                _mind.TransferTo(mindId, target, ghostCheckOverride: true, mind: mind);
-        }
-        // DS14-end
 
         private void AddSummonVerb(EntityUid uid, SummonableComponent component, GetVerbsEvent<AlternativeVerb> args)
         {

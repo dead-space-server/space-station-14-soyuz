@@ -3,6 +3,7 @@ using Content.Shared.Ninja.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Ninja.Components;
 

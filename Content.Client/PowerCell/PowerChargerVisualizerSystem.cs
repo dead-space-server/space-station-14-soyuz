@@ -1,35 +1,10 @@
-using Content.Client.Items; // DS-14
-using Content.Shared.Power.Components;
-using Content.Shared.Power.EntitySystems; // DS-14
-using Content.Shared.PowerCell; // DS-14
-using Content.Shared.PowerCell.Components; // DS-14
+using Content.Shared.Power;
 using Robust.Client.GameObjects;
-using Robust.Client.UserInterface; // DS-14
 
 namespace Content.Client.PowerCell;
 
 public sealed class PowerChargerVisualizerSystem : VisualizerSystem<PowerChargerVisualsComponent>
 {
-    // DS14-start: show battery status in-hand for the electrical wire brush only
-    [Dependency] private readonly SharedBatterySystem _battery = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        Subs.ItemStatus<PowerCellSlotComponent>(OnCollectPowerCellStatus);
-    }
-
-    private Control? OnCollectPowerCellStatus(Entity<PowerCellSlotComponent> ent)
-    {
-        // DS14: keep the custom status control scoped to WireBrushElectrical
-        if (MetaData(ent).EntityPrototype?.ID != "WireBrushElectrical")
-            return null;
-
-        return new WireBrushPowerCellStatusControl(ent, _powerCell, _battery);
-    }
-    // DS14-end
     protected override void OnAppearanceChange(EntityUid uid, PowerChargerVisualsComponent comp, ref AppearanceChangeEvent args)
     {
         if (args.Sprite == null)

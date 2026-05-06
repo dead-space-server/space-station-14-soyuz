@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Examine;
 using Content.Shared.Construction.Components;
@@ -13,13 +12,11 @@ using Content.Shared.Popups;
 using Content.Shared.Tools.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
-using System.Numerics;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
 namespace Content.Shared.Construction.EntitySystems;
@@ -37,7 +34,6 @@ public sealed partial class AnchorableSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
 
     private EntityQuery<PhysicsComponent> _physicsQuery;
-    private EntityQuery<FixturesComponent> _fixturesQuery;
 
     public readonly ProtoId<TagPrototype> Unstackable = "Unstackable";
 
@@ -46,7 +42,6 @@ public sealed partial class AnchorableSystem : EntitySystem
         base.Initialize();
 
         _physicsQuery = GetEntityQuery<PhysicsComponent>();
-        _fixturesQuery = GetEntityQuery<FixturesComponent>();
 
         SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(OnInteractUsing,
             before: new[] { typeof(ItemSlotsSystem) }, after: new[] { typeof(SharedConstructionSystem) });
@@ -311,13 +306,10 @@ public sealed partial class AnchorableSystem : EntitySystem
     public bool TileFree(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
         var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, grid.Comp, gridIndices);
-        var tileCenter = gridIndices + new Vector2(0.5f, 0.5f);
 
         while (enumerator.MoveNext(out var ent))
         {
-            var other = ent.Value;
-
-            if (!_physicsQuery.TryGetComponent(other, out var body) ||
+            if (!_physicsQuery.TryGetComponent(ent, out var body) ||
                 !body.CanCollide ||
                 !body.Hard)
             {
@@ -327,25 +319,7 @@ public sealed partial class AnchorableSystem : EntitySystem
             if ((body.CollisionMask & collisionLayer) != 0x0 ||
                 (body.CollisionLayer & collisionMask) != 0x0)
             {
-                // DS14: for partial blockers (e.g. directional windows), only treat tile as occupied
-                // if the colliding fixture actually covers the tile center.
-                if (!_fixturesQuery.TryGetComponent(other, out var fixtures))
-                    return false;
-
-                var xform = Transform(other);
-                var fixtureXform = new Transform(xform.LocalPosition, xform.LocalRotation);
-                foreach (var fixture in fixtures.Fixtures.Values)
-                {
-                    if (!fixture.Hard ||
-                        (fixture.CollisionMask & collisionLayer) == 0x0 &&
-                        (fixture.CollisionLayer & collisionMask) == 0x0)
-                    {
-                        continue;
-                    }
-
-                    if (fixture.Shape.ComputeAABB(fixtureXform, 0).Contains(tileCenter))
-                        return false;
-                }
+                return false;
             }
         }
 

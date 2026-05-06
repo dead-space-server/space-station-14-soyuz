@@ -1,6 +1,6 @@
 - type: entity
   id: CrateArmorySupPack1
-  parent: [ CrateSyndicateSecureDS ]
+  parent: [ CrateSyndicateSecure ]
   suffix: SupPack 1
   components:
   - type: StorageFill
@@ -16,7 +16,7 @@
 
 - type: entity
   id: CrateArmorySupPack2
-  parent: [ CrateSyndicateSecureDS ]
+  parent: [ CrateSyndicateSecure ]
   suffix: SupPack 2
   components:
   - type: StorageFill

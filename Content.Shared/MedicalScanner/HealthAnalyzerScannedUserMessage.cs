@@ -3,24 +3,10 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.MedicalScanner;
 
 /// <summary>
-/// On interacting with an entity retrieves the entity UID for use with getting the current damage of the mob.
+///     On interacting with an entity retrieves the entity UID for use with getting the current damage of the mob.
 /// </summary>
 [Serializable, NetSerializable]
 public sealed class HealthAnalyzerScannedUserMessage : BoundUserInterfaceMessage
-{
-    public HealthAnalyzerUiState State;
-
-    public HealthAnalyzerScannedUserMessage(HealthAnalyzerUiState state)
-    {
-        State = state;
-    }
-}
-
-/// <summary>
-/// Contains the current state of a health analyzer control. Used for the health analyzer and cryo pod.
-/// </summary>
-[Serializable, NetSerializable]
-public struct HealthAnalyzerUiState
 {
     public readonly NetEntity? TargetEntity;
     public float Temperature;
@@ -35,9 +21,7 @@ public struct HealthAnalyzerUiState
     public float CureProgress; // 0..1
     // DS14-end
 
-    public HealthAnalyzerUiState() {}
-
-    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable, bool? unclonable, bool? hasVirus = null, float cureProgress = 1)
+    public HealthAnalyzerScannedUserMessage(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unrevivable, bool? unclonable, bool? hasVirus, float cureProgress = 1)
     {
         TargetEntity = targetEntity;
         Temperature = temperature;
@@ -50,3 +34,4 @@ public struct HealthAnalyzerUiState
         CureProgress = cureProgress;
     }
 }
+

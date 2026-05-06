@@ -45,12 +45,6 @@
   oreEntity: TungstenOre1
   minOreYield: 1
   maxOreYield: 3
-
-- type: ore
-  id: OreRedspace
-  oreEntity: RedspaceOre1
-  minOreYield: 1
-  maxOreYield: 2
 # DS14-Soyuz-end
 
 # Low yields
@@ -135,5 +129,3 @@
     OreBananiumCrab: 1
     OreCoalCrab: 5
     OreGoldCrab: 2
-
-

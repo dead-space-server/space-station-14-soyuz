@@ -18,13 +18,8 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 1.0
 
@@ -84,10 +79,10 @@
   content:
   - VantShield
   - WeaponTochmash
-  - MagazinePistolCaselessRifle
-  - MagazinePistolCaselessRifle
-  - MagazinePistolCaselessRifle
-  - MagazinePistolCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
+  - MagazineCaselessRifle
   - MagazineCaselessRifleBurn
   - MagazineCaselessRifleBurn
   - MagazineCaselessRifleBurn

@@ -1,5 +1,4 @@
 using System.Linq;
-using Content.Shared.Chat;
 using Content.Shared.Chat.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;

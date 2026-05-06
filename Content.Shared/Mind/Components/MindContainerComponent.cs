@@ -14,60 +14,48 @@ public sealed partial class MindContainerComponent : Component
     ///     The mind controlling this mob. Can be null.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public EntityUid? Mind;
+    public EntityUid? Mind { get; set; }
 
     /// <summary>
     ///     True if we have a mind, false otherwise.
     /// </summary>
-    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadOnly)]
-    public bool HasMind;
+    [MemberNotNullWhen(true, nameof(Mind))]
+    public bool HasMind => Mind != null;
+
+    /// <summary>
+    ///     Whether examining should show information about the mind or not.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("showExamineInfo"), AutoNetworkedField]
+    public bool ShowExamineInfo { get; set; }
 
     /// <summary>
     ///     Whether the mind will be put on a ghost after this component is shutdown.
     /// </summary>
-    [DataField]
-    public bool GhostOnShutdown = true;
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("ghostOnShutdown")]
+    public bool GhostOnShutdown { get; set; } = true;
 }
 
-/// <summary>
-/// Base event for all other mind related events.
-/// </summary>
 public abstract class MindEvent : EntityEventArgs
 {
-    /// <summary>
-    /// <see cref="MindComponent"/> entity currently being handled by the event.
-    /// </summary>
     public readonly Entity<MindComponent> Mind;
-
-    /// <summary>
-    /// <see cref="MindContainerComponent"/> entity currently being handled by the event.
-    /// </summary>
     public readonly Entity<MindContainerComponent> Container;
 
-    /// <summary>
-    /// The target entity in case the mind is being transferred. In <see cref="MindRemovedMessage" /> it means the entity that is being transferred to, and in <see cref="MindAddedMessage" /> it means the previous entity.
-    /// Null if the mind is being added for the first time or fully removed from entities.
-    /// </summary>
-    public readonly EntityUid? TransferEntity;
-
-    public MindEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
+    public MindEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
     {
         Mind = mind;
         Container = container;
-        TransferEntity = transferEntity;
     }
 }
 
 /// <summary>
 /// Event raised directed at a mind-container when a mind gets removed.
 /// </summary>
-/// <remarks>
-/// Called after the owned entity is already set to null. TransferEntity is the entity this mind will be added to afterward, if any.
-/// </remarks>
 public sealed class MindRemovedMessage : MindEvent
 {
-    public MindRemovedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
+    public MindRemovedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+        : base(mind, container)
     {
     }
 }
@@ -75,41 +63,10 @@ public sealed class MindRemovedMessage : MindEvent
 /// <summary>
 /// Event raised directed at a mind when it gets removed from a mind-container.
 /// </summary>
-/// <remarks>
-/// Called after the owned entity is already set to null. TransferEntity is the entity this mind will be added to afterward, if any.
-/// </remarks>
 public sealed class MindGotRemovedEvent : MindEvent
 {
-    public MindGotRemovedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
-    {
-    }
-}
-
-/// <summary>
-/// Event raised directed at a mind-container before a mind gets removed.
-/// </summary>
-/// <remarks>
-/// Called before the OwnedEntity is set to null. TransferEntity is the entity this mind will be added to afterward, if any.
-/// </remarks>
-public sealed class BeforeMindRemovedMessage : MindEvent
-{
-    public BeforeMindRemovedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
-    {
-    }
-}
-
-/// <summary>
-/// Event raised directed at a mind before it gets removed from a mind-container.
-/// </summary>
-/// <remarks>
-/// Called before the OwnedEntity is set to null. TransferEntity is the entity this mind will be added to afterward, if any.
-/// </remarks>
-public sealed class BeforeMindGotRemovedEvent : MindEvent
-{
-    public BeforeMindGotRemovedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
+    public MindGotRemovedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+        : base(mind, container)
     {
     }
 }
@@ -117,13 +74,10 @@ public sealed class BeforeMindGotRemovedEvent : MindEvent
 /// <summary>
 /// Event raised directed at a mind-container when a mind gets added.
 /// </summary>
-/// <remarks>
-/// Called after the owned entity is already set to the new entity. TransferEntity is the previous entity that this mind owned, if any.
-/// </remarks>
 public sealed class MindAddedMessage : MindEvent
 {
-    public MindAddedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
+    public MindAddedMessage(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+        : base(mind, container)
     {
     }
 }
@@ -131,13 +85,10 @@ public sealed class MindAddedMessage : MindEvent
 /// <summary>
 /// Event raised directed at a mind when it gets added to a mind-container.
 /// </summary>
-/// <remarks>
-/// Called after the owned entity is already set to the new entity. TransferEntity is the previous entity that this mind owned, if any.
-/// </remarks>
 public sealed class MindGotAddedEvent : MindEvent
 {
-    public MindGotAddedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container, EntityUid? transferEntity)
-        : base(mind, container, transferEntity)
+    public MindGotAddedEvent(Entity<MindComponent> mind, Entity<MindContainerComponent> container)
+        : base(mind, container)
     {
     }
 }

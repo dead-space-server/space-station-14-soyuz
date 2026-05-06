@@ -241,16 +241,6 @@ public abstract class SharedWieldableSystem : EntitySystem
         args.Cancelled = true;
     }
 
-    // DS14-start: support special entities (e.g. Pun Pun) that can wield with one mechanical hand.
-    private int GetAdditionalHandsRequired(EntityUid user, WieldableComponent component)
-    {
-        if (HasComp<OneHandedWielderComponent>(user))
-            return 0;
-
-        return component.FreeHandsRequired;
-    }
-    // DS14-end
-
     public bool CanWield(EntityUid uid, WieldableComponent component, EntityUid user, bool quiet = false)
     {
         // Do they have enough hands free?
@@ -269,14 +259,12 @@ public abstract class SharedWieldableSystem : EntitySystem
             return false;
         }
 
-        var additionalHandsRequired = GetAdditionalHandsRequired(user, component); // DS14
-
-        if (_hands.CountFreeableHands((user, hands), except: uid) < additionalHandsRequired)
+        if (_hands.CountFreeableHands((user, hands)) < component.FreeHandsRequired)
         {
             if (!quiet)
             {
                 var message = Loc.GetString("wieldable-component-not-enough-free-hands",
-                    ("number", additionalHandsRequired), ("item", uid)); // DS14
+                    ("number", component.FreeHandsRequired), ("item", uid));
                 _popup.PopupClient(message, user, user);
             }
             return false;
@@ -324,8 +312,7 @@ public abstract class SharedWieldableSystem : EntitySystem
 
         //This section handles spawning the virtual item(s) to occupy the required additional hand(s).
         var virtuals = new ValueList<EntityUid>();
-        var additionalHandsRequired = GetAdditionalHandsRequired(user, component); // DS14
-        for (var i = 0; i < additionalHandsRequired; i++)
+        for (var i = 0; i < component.FreeHandsRequired; i++)
         {
             // don't show a popup when dropping items because it will overlap with the popup for wielding
             if (_virtualItem.TrySpawnVirtualItemInHand(used, user, out var virtualItem, true, silent: true))

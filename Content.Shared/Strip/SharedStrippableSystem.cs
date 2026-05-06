@@ -128,10 +128,10 @@ public abstract class SharedStrippableSystem : EntitySystem
 
         // Is the target a handcuff?
         if (TryComp<VirtualItemComponent>(heldEntity, out var virtualItem) &&
-            _cuffableSystem.TryGetAllCuffs(target.Owner, out var cuffs) &&
-            cuffs.Contains(virtualItem.BlockingEntity))
+            TryComp<CuffableComponent>(target.Owner, out var cuffable) &&
+            _cuffableSystem.GetAllCuffs(cuffable).Contains(virtualItem.BlockingEntity))
         {
-            _cuffableSystem.TryUncuff(target.Owner, user, virtualItem.BlockingEntity);
+            _cuffableSystem.TryUncuff(target.Owner, user, virtualItem.BlockingEntity, cuffable);
             return;
         }
 

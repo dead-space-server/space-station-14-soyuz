@@ -14,12 +14,12 @@ namespace Content.Client.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem
 {
-    private void OnAmmoCounterCollect(Entity<AmmoCounterComponent> ent, ref ItemStatusCollectMessage args)
+    private void OnAmmoCounterCollect(EntityUid uid, AmmoCounterComponent component, ItemStatusCollectMessage args)
     {
-        RefreshControl(ent);
+        RefreshControl(uid, component);
 
-        if (ent.Comp.Control != null)
-            args.Controls.Add(ent.Comp.Control);
+        if (component.Control != null)
+            args.Controls.Add(component.Control);
     }
 
     /// <summary>
@@ -27,32 +27,35 @@ public sealed partial class GunSystem
     /// </summary>
     /// <param name="uid"></param>
     /// <param name="component"></param>
-    private void RefreshControl(Entity<AmmoCounterComponent> ent)
+    private void RefreshControl(EntityUid uid, AmmoCounterComponent? component = null)
     {
-        ent.Comp.Control?.Dispose();
-        ent.Comp.Control = null;
+        if (!Resolve(uid, ref component, false))
+            return;
+
+        component.Control?.Dispose();
+        component.Control = null;
 
         var ev = new AmmoCounterControlEvent();
-        RaiseLocalEvent(ent, ev, false);
+        RaiseLocalEvent(uid, ev, false);
 
         // Fallback to default if none specified
         ev.Control ??= new DefaultStatusControl();
 
-        ent.Comp.Control = ev.Control;
-        UpdateAmmoCount(ent);
+        component.Control = ev.Control;
+        UpdateAmmoCount(uid, component);
     }
 
-    private void UpdateAmmoCount(Entity<AmmoCounterComponent> ent)
+    private void UpdateAmmoCount(EntityUid uid, AmmoCounterComponent component)
     {
-        if (ent.Comp.Control == null)
+        if (component.Control == null)
             return;
 
         var ev = new UpdateAmmoCounterEvent()
         {
-            Control = ent.Comp.Control
+            Control = component.Control
         };
 
-        RaiseLocalEvent(ent, ev, false);
+        RaiseLocalEvent(uid, ev, false);
     }
 
     protected override void UpdateAmmoCount(EntityUid uid, bool prediction = true)
@@ -65,7 +68,7 @@ public sealed partial class GunSystem
             return;
         }
 
-        UpdateAmmoCount((uid, clientComp));
+        UpdateAmmoCount(uid, clientComp);
     }
 
     /// <summary>
@@ -107,12 +110,7 @@ public sealed partial class GunSystem
             _bulletRender.Count = count;
             _bulletRender.Capacity = capacity;
 
-            _bulletRender.Type = capacity switch
-            {
-                > 50 => BulletRender.BulletType.Tiny,
-                > 15 => BulletRender.BulletType.Normal,
-                _ => BulletRender.BulletType.Large
-            };
+            _bulletRender.Type = capacity > 50 ? BulletRender.BulletType.Tiny : BulletRender.BulletType.Normal;
         }
     }
 
@@ -139,7 +137,7 @@ public sealed partial class GunSystem
                     }),
                     (_ammoCount = new Label
                     {
-                        StyleClasses = { StyleClass.ItemStatus },
+                        StyleClasses = { StyleNano.StyleClassItemStatus },
                         HorizontalAlignment = HAlignment.Right,
                         VerticalAlignment = VAlignment.Bottom
                     }),
@@ -191,7 +189,7 @@ public sealed partial class GunSystem
                             (_noMagazineLabel = new Label
                             {
                                 Text = "No Magazine!",
-                                StyleClasses = {StyleClass.ItemStatus}
+                                StyleClasses = {StyleNano.StyleClassItemStatus}
                             })
                         }
                     },
@@ -204,7 +202,7 @@ public sealed partial class GunSystem
                         {
                             (_ammoCount = new Label
                             {
-                                StyleClasses = {StyleClass.ItemStatus},
+                                StyleClasses = {StyleNano.StyleClassItemStatus},
                                 HorizontalAlignment = HAlignment.Right,
                             }),
                             (_chamberedBullet = new TextureRect
@@ -238,12 +236,7 @@ public sealed partial class GunSystem
             _bulletRender.Count = count;
             _bulletRender.Capacity = capacity;
 
-            _bulletRender.Type = capacity switch
-            {
-                > 50 => BulletRender.BulletType.Tiny,
-                > 15 => BulletRender.BulletType.Normal,
-                _ => BulletRender.BulletType.Large
-            };
+            _bulletRender.Type = capacity > 50 ? BulletRender.BulletType.Tiny : BulletRender.BulletType.Normal;
 
             _ammoCount.Text = $"x{count:00}";
         }

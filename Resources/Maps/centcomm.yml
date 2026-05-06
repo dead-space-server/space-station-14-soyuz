@@ -17196,9 +17196,7 @@ entities:
   - uid: 262
     components:
     - type: MetaData
-      # DS14-start: Soyuz changes
-      name: редспейс артиллерия
-      # DS14-end
+      name: блюспейс артиллерия
     - type: Transform
       pos: -17.5,-86.5
       parent: 1
@@ -86980,20 +86978,16 @@ entities:
   entities:
   - uid: 11966
     components:
-      # DS14-start: Soyuz changes
     - type: MetaData
-      desc: Экспериментальное напольное устройство для проецирования голографических изображений через редспейс.
-      name: Редспейс голопад (Центральное Командование)
-      # DS14-end
+      desc: Экспериментальное напольное устройство для проецирования голографических изображений через блюспейс.
+      name: Блюспейс голопад (Центральное Командование)
     - type: Transform
       pos: -68.5,-72.5
       parent: 1
     - type: Label
-      # DS14-start: Soyuz changes
       currentLabel: Центральное Командование
     - type: NameModifier
-      baseName: Редспейс голопад
-      # DS14-end
+      baseName: Блюспейс голопад
 - proto: HolopadUnlimitedRange
   entities:
   - uid: 11967

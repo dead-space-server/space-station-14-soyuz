@@ -43,10 +43,8 @@
 - type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltSmolderingFilled
-  # DS14-start: Soyuz changes
-  name: редспейс хранилище
-  description: Изящная чешуйчатая перевязь с редспейс-отсеком, позволяющая носить инструменты в компактном пространстве.
-  # DS14-end
+  name: блюспейс хранилище
+  description: Изящная чешуйчатая перевязь с блюспейс-отсеком, позволяющая носить инструменты в компактном пространстве.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

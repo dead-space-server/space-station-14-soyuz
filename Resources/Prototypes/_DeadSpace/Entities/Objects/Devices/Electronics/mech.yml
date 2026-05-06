@@ -1,3 +1,5 @@
+# DeathRipley
+
 - type: entity
   id: TaipanRipleyCentralElectronics
   parent: BaseElectronics

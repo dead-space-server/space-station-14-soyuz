@@ -11,4 +11,4 @@ ent-SoapletSyndie = soaplet
 ent-SoapHomemade = soap
     .desc = A homemade bar of soap. Smells of... well....
 ent-SoapOmega = omega soap
-    .desc = The most advanced soap known to mankind. Smells of redspace.
+    .desc = The most advanced soap known to mankind. Smells of bluespace.

@@ -8,9 +8,7 @@
   - type: Pill
     pillType: 2
   - type: Sprite
-    # DS14-start: Soyuz changes
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: pill3
     scale: 0.7, 0.7
   - type: Label
@@ -36,10 +34,8 @@
   - type: Tag
     tags:
       - FoodSnack
-    # DS14-start: Soyuz changes
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris
     scale: 0.7, 0.7
   - type: SpawnItemsOnUse
@@ -67,93 +63,7 @@
           Quantity: 10
   - type: Tag
     tags:
-    # DS14-start: Soyuz changes
     - Trash
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
-    # DS14-end
+    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris-trash
-
-# DS14-start: Soyuz blue insulating tape for silicon repair
-- type: entity
-  name: синяя изолента
-  description: Изолента, пропитанная ремонтными наноботами. Позволяет быстро подлатать синтетиков и роботов в полевых условиях.
-  parent: BaseHealingItem
-  id: BlueInsulatingTape
-  suffix: Полный
-  components:
-  - type: Tag
-    tags:
-    - BlueInsulatingTape
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
-    state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
-    layers:
-    - state: insulating_tape_blue-3 # DS14-value: insulating_tape_blue-10 -> insulating_tape_blue-3
-      map: ["base"] # DS14
-  - type: Item
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/insulating_tape.rsi # DS14
-    heldPrefix: insulating_tape_blue # DS14
-  - type: WindowRepairTape
-  - type: Healing
-    damageContainers:
-    - Silicon
-    damage:
-      types:
-        Heat: -10
-        Shock: -10
-        Blunt: -10
-        Slash: -10
-        Piercing: -10
-    healingBeginSound:
-      path: "/Audio/Items/Medical/ointment_begin.ogg"
-    healingEndSound:
-      path: "/Audio/Items/Medical/ointment_end.ogg"
-  - type: Stack
-    stackType: BlueInsulatingTape
-    count: 10
-    baseLayer: base # DS14
-    layerStates: # DS14
-    - insulating_tape_blue-3
-    - insulating_tape_blue-5
-    - insulating_tape_blue-10
-    layerFunction: Threshold
-  - type: StackLayerThreshold
-    thresholds: [2, 4] # DS14-value: [4, 8] -> [2, 4]
-  - type: StackPrice
-    price: 0
-  - type: Appearance # DS14
-
-- type: entity
-  id: BlueInsulatingTape1
-  parent: BlueInsulatingTape
-  suffix: Один
-  components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
-  - type: Stack
-    stackType: BlueInsulatingTape
-    count: 1
-
-- type: entity
-  id: BlueInsulatingTape5
-  parent: BlueInsulatingTape
-  suffix: 5
-  components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
-  - type: Stack
-    stackType: BlueInsulatingTape
-    count: 5
-
-- type: entity
-  id: BlueInsulatingTape3
-  parent: BlueInsulatingTape
-  suffix: 3
-  components:
-  - type: Item
-    heldPrefix: insulating_tape_blue # DS14
-  - type: Stack
-    stackType: BlueInsulatingTape
-    count: 3
-# DS14-end

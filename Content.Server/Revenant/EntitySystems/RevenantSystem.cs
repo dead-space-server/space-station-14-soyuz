@@ -3,7 +3,7 @@ using Content.Server.Actions;
 using Content.Server.GameTicking;
 using Content.Server.Store.Systems;
 using Content.Shared.Alert;
-using Content.Shared.Damage.Systems;
+using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Eye;
@@ -27,6 +27,7 @@ namespace Content.Server.Revenant.EntitySystems;
 public sealed partial class RevenantSystem : EntitySystem
 {
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly ActionsSystem _action = default!;
     [Dependency] private readonly AlertsSystem _alerts = default!;
     [Dependency] private readonly DamageableSystem _damage = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
@@ -76,17 +77,10 @@ public sealed partial class RevenantSystem : EntitySystem
         _appearance.SetData(uid, RevenantVisuals.Harvesting, false);
         _appearance.SetData(uid, RevenantVisuals.Stunned, false);
 
-        if (TryComp<VisibilityComponent>(uid, out var visibility))
+        if (_ticker.RunLevel == GameRunLevel.PostRound && TryComp<VisibilityComponent>(uid, out var visibility))
         {
-            // DS14-start: expose revenants to the polaroid visibility layer.
-            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Polaroid, false);
-
-            if (_ticker.RunLevel == GameRunLevel.PostRound)
-            {
-                _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
-                _visibility.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
-            }
-            // DS14-end
+            _visibility.AddLayer((uid, visibility), (int) VisibilityFlags.Ghost, false);
+            _visibility.RemoveLayer((uid, visibility), (int) VisibilityFlags.Normal, false);
             _visibility.RefreshVisibility(uid, visibility);
         }
 
@@ -192,12 +186,10 @@ public sealed partial class RevenantSystem : EntitySystem
             {
                 _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Normal, false);
                 _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Polaroid, false); // DS14
             }
             else
             {
                 _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Ghost, false);
-                _visibility.AddLayer((uid, vis), (int) VisibilityFlags.Polaroid, false); // DS14
                 _visibility.RemoveLayer((uid, vis), (int) VisibilityFlags.Normal, false);
             }
             _visibility.RefreshVisibility(uid, vis);

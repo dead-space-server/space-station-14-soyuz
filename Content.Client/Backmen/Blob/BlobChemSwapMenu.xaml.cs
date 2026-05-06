@@ -19,7 +19,6 @@ public sealed partial class BlobChemSwapMenu : DefaultWindow
     private readonly SpriteSystem _sprite;
     public event Action<BlobChemType>? OnIdSelected;
 
-    private static readonly EntProtoId NormalBlobTileProto = "NormalBlobTile";
     private Dictionary<BlobChemType, Color> _possibleChems = new();
     private BlobChemType _selectedId;
 
@@ -45,7 +44,7 @@ public sealed partial class BlobChemSwapMenu : DefaultWindow
 
         foreach (var blobChem in _possibleChems)
         {
-            if (!_prototypeManager.TryIndex(NormalBlobTileProto, out EntityPrototype? proto))
+            if (!_prototypeManager.TryIndex("NormalBlobTile", out EntityPrototype? proto))
                 continue;
 
             var button = new Button
@@ -53,7 +52,7 @@ public sealed partial class BlobChemSwapMenu : DefaultWindow
                 MinSize = new Vector2(64, 64),
                 HorizontalExpand = true,
                 Group = group,
-                StyleClasses = {StyleClass.ButtonSquare},
+                StyleClasses = {StyleBase.ButtonSquare},
                 ToggleMode = true,
                 Pressed = _selectedId == blobChem.Key,
                 ToolTip = Loc.GetString($"blob-chem-{blobChem.Key.ToString().ToLower()}-info"),

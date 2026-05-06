@@ -44,7 +44,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: ALL
+      group: BasicAndShuttleControl
 
 - type: startingGear
   id: TaipanCommunicationsOfficerGear

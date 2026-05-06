@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "nanopaste taken from https://github.com/discordia-space/CEV-Eris/blob/HEAD/icons/obj/stack/items.dmi; insulating_tape_blue created by kofeechek for DeadSpace",
+  "copyright": "Taken from https://github.com/discordia-space/CEV-Eris/blob/HEAD/icons/obj/stack/items.dmi",
   "size": {
     "x": 32,
     "y": 32
@@ -9,26 +9,6 @@
   "states": [
     {
       "name": "nanopaste"
-    },
-    {
-      "name": "insulating_tape_blue"
-    },
-    {
-      "name": "insulating_tape_blue-3"
-    },
-    {
-      "name": "insulating_tape_blue-5"
-    },
-    {
-      "name": "insulating_tape_blue-10"
-    },
-    {
-      "name": "insulating_tape_blue-inhand-left",
-      "directions": 4
-    },
-    {
-      "name": "insulating_tape_blue-inhand-right",
-      "directions": 4
     }
   ]
 }

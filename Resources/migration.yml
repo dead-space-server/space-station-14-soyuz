@@ -55,7 +55,7 @@ MagazineBoxLightRifleHighVelocity: MagazineBoxLightRifle
 MagazineBoxMagnumHighVelocity: MagazineBoxMagnum
 MagazineBoxPistolHighVelocity: MagazineBoxPistol
 MagazineBoxRifleHighVelocity: MagazineBoxRifle
-MagazineCaselessRifleHighVelocity: MagazinePistolCaselessRifle
+MagazineCaselessRifleHighVelocity: MagazineCaselessRifle
 MagazineCaselessRifleShortHighVelocity: null
 MagazineLightRifleHighVelocity: MagazineLightRifle
 MagazineMagnumSubMachineGunHighVelocity: null
@@ -65,7 +65,7 @@ MagazinePistolHighVelocity: MagazinePistol
 MagazinePistolSubMachineGunHighVelocity: MagazinePistolSubMachineGun
 MagazineRifleHighVelocity: MagazineRifle
 SpeedLoaderMagnumHighVelocity: SpeedLoaderMagnum
-SpeedLoaderPistolHighVelocity: null
+SpeedLoaderPistolHighVelocity: SpeedLoaderPistol
 
 # 2023-08-07
 #If the name is anything to go off of, these are presumably just CEV-Eris versions of the snow rock (which we already have.)
@@ -314,9 +314,9 @@ MagazineMagnumRubber: MagazineMagnum
 MagazineMagnumSubMachineGunRubber: null
 MagazineLightRifleRubber: MagazineLightRifle
 MagazineRifleRubber: MagazineRifle
-MagazineCaselessRifleRubber: MagazinePistolCaselessRifle
+MagazineCaselessRifleRubber: MagazineCaselessRifle
 MagazineCaselessRifleShortRubber: null
-SpeedLoaderPistolRubber: null
+SpeedLoaderPistolRubber: SpeedLoaderPistol
 SpeedLoaderMagnumRubber: SpeedLoaderMagnum
 MagazineBoxPistolRubber: MagazineBoxPistol
 # RIP box of magnum rubbers 202X to 2024
@@ -1108,9 +1108,6 @@ SpawnMobCrabAtmos: null
 # 2025-08-29
 PrefilledSyringe: Syringe
 
-# 2025-09-12
-BaseChemistryEmptyVial: ChemistryEmptyVial
-
 # 2025-10-6
 BibleTanakh: null
 BibleSatanic: null
@@ -1119,35 +1116,19 @@ BibleSatanic: null
 ClothingBeltAssault: ClothingBeltMilitaryWebbing
 WarpPointBombing: null
 
-# 2025-10-13
-ToyGriffin: ToyFigurineGriffin
-ToyOwlman: ToyFigurineOwlman
-ToySkeleton: ToyFigurineSkeleton
-
-# 2025-10-28
-DrinkKiraSpecial: DrinkOrangeLimeSodaGlass
-
 # 2025-11-08
 ADTWeaponRifleXC67: WeaponRifleXC67
-DebugSMES: SMESBasicEmpty
-DebugSubstation: SubstationBasicEmpty
-DebugSubstationWall: BaseSubstationWall
-DebugAPC: BaseAPC
-MagazineCaselessRifle: MagazinePistolCaselessRifle
-MagazineCaselessRiflePractice: MagazinePistolCaselessRiflePractice
-SpeedLoaderPistol: null
-SpeedLoaderPistolPractice: null
 
 ## 2025-11-09 - DS14
-SuitStorageSeniorSalvageSpecialistFilled: SuitStorageSalv
-#ClothingOuterHardsuitSeniorSalvage: null
-#ClothingHeadHelmetHardsuitSeniorSalvage: null
-#ClothingUnderwearSocksSeniorSalvage: null
-#SeniorSalvageIDCard: null
-#SeniorSalvagePDA: null
-#RubberStampSeniorSalvage: null
-SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
-#WeaponSeniorKinetik: WeaponAdvancedKinetik
+SuitStorageSeniorSalvageSpecialistFilled: null
+ClothingOuterHardsuitSeniorSalvage: null
+ClothingHeadHelmetHardsuitSeniorSalvage: null
+ClothingUnderwearSocksSeniorSalvage: null
+SeniorSalvageIDCard: null
+SeniorSalvagePDA: null
+RubberStampSeniorSalvage: null
+#SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
+WeaponSeniorKinetik: WeaponAdvancedKinetik
 
 # 2025-11-26 - DS14
 BookDAM: null
@@ -1187,35 +1168,13 @@ ClothingUniformJumpsuitCapTurtleneck: null
 ClothingUniformJumpsuitHoPTurtleneck: null
 ClothingUniformJumpsuitHoSBlack: null
 
-# 2025-12-05
-GlowstickBase: GlowstickGreen
-
-# 2025-12-06
-# SpawnPointZookeeper remains in active map rotation.
-# SpawnPointBoxer remains in active map rotation.
-
-# 2025-12-07
-FigureSpawner: MechFigurineSpawner50
-ToySpawner: PlushieSpawner50
-SpacemenFigureSpawner: SpacemenFigurineSpawner90
-
 # 2025-12-14 - DS14
 BookNewDrink: null
 BookNewFood: null
 
-# 2026-01-07
-HandheldHealthAnalyzerUnpowered: HandheldHealthAnalyzer
-HandheldHealthAnalyzerEmpty: HandheldHealthAnalyzer
-
-#2026-01-09
-BorgModuleAdvancedChemical: BorgModuleAdvancedTopical
-
-# 2026-01-19
-# Legacy towel colors are still referenced by active maps.
-
 # 2026-02-15 - DS14 - Soyuz
-SpawnPointSeniorCourier: SpawnPointCargoTechnician
-# SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
+SpawnPointSeniorCourier: null
+SpawnPointSeniorSalvageSpecialist: null
 SeniorCourier: null
 
 # 2026-02-18 - DS14 - Soyuz
@@ -1226,11 +1185,12 @@ ReinforcedWindow: MiningWindowSoyuz
 PoweredSmallLight: PoweredSmallLightSoyuz
 ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
 #GrilleDiagonal: ClockworkGrilleDiagonal
-# SignNanotrasen1-5 remain in active map rotation.
+SignNanotrasen1: null
+SignNanotrasen2: null
+SignNanotrasen3: null
+SignNanotrasen4: null
+SignNanotrasen5: null
 #GrilleBroken: ClockworkGrilleBroken
 
 # 2026-03-13 - DS14 - Soyuz
 NTFlag: BlankFlag
-# 2025-09-20 - DS14
-ADTDoubleBedTop: null
-ADTDoubleBedBottom: null

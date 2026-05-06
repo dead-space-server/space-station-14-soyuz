@@ -21,7 +21,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,15,5
+    - 0,0,13,5
   - type: StorageFill
     contents:
       - id: ClothingNeckCloakYosif
@@ -281,7 +281,7 @@
     color: blue
     netsync: false
   - type: Appearance
-  - type: ToggleableVisuals
+  - type: ToggleableLightVisuals
     spriteLayer: blade
     inhandVisuals:
       left:
@@ -340,9 +340,7 @@
   id: JetpackVoidFilledYosif
   parent: JetpackVoidFilled
   name: арходемонический джетпак "Орион"
-  # DS14-start: Soyuz changes
-  description: Созданный в результате сочетания Редспейс технологий и демонической энергии - данный джетпак, выполненный в полуночной тематике позволяет пользователю эффективно маневрировать в условиях ваккума и/или нулевой гравитации.
-  # DS14-end
+  description: Созданный в результате сочетания Блюспейс технологий и демонической энергии - данный джетпак, выполненный в полуночной тематике позволяет пользователю эффективно маневрировать в условиях ваккума и/или нулевой гравитации.
   categories: [ HideSpawnMenu ]
   components:
   - type: Item

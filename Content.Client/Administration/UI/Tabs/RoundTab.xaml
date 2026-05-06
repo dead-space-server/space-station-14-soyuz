@@ -1,7 +1,5 @@
-<!-- DS14-Soyuz-start: automatic map vote control. -->
-<Control
+﻿<Control
     xmlns="https://spacestation14.io"
-    xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
     Margin="4"
     MinSize="50 50">
@@ -11,9 +9,5 @@
         <controls:ConfirmButton Name="EndRound" Text="{Loc administration-ui-round-tab-end-round}" />
         <controls:ConfirmButton Name="RestartRound" Text="{Loc administration-ui-round-tab-restart-round}" />
         <controls:ConfirmButton Name="RestartRoundNow" Text="{Loc administration-ui-round-tab-restart-round-now}" />
-        <cc:CommandButton Command="automapvote"
-                          Text="{Loc administration-ui-round-tab-auto-map-vote}"
-                          ToolTip="{Loc administration-ui-round-tab-auto-map-vote-tooltip}" />
     </GridContainer>
 </Control>
-<!-- DS14-Soyuz-end -->

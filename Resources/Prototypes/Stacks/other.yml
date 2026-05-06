@@ -7,11 +7,9 @@
   icon: { sprite: /Textures/Objects/Materials/parts.rsi, state: rods }
   spawn: PartRodMetal1
 
-# // DS-14 start remove
-# - type: stack
-#   parent: BaseVerySmallStack
-#   id: Gunpowder
-#   name: stack-gunpowder
-#   icon: { sprite: /Textures/Objects/Misc/reagent_fillings.rsi, state: powderpile }
-#   spawn: MaterialGunpowder
-# // DS-14 end remove
+- type: stack
+  parent: BaseVerySmallStack
+  id: Gunpowder
+  name: stack-gunpowder
+  icon: { sprite: /Textures/Objects/Misc/reagent_fillings.rsi, state: powderpile }
+  spawn: MaterialGunpowder

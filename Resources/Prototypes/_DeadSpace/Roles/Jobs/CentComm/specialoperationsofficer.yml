@@ -22,10 +22,8 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-    # DS14-Start
     - type: Skill
       group: ALL
-    # DS14-End
 
 - type: startingGear
   id: CentcomSpecialOperationsOfficerGear
@@ -75,12 +73,10 @@
   suffix: СОБСТВЕННОСТЬ ГСО
   categories: [ DoNotMap ]
   components:
-    - type: EntityTableContainerFill
-      containers:
-        storagebase: !type:AllSelector
-          children:
-          - id: Paper
-            amount: 8
+    - type: StorageFill
+      contents:
+      - id: Paper
+        amount: 8
     - type: Sprite
       sprite: Objects/Misc/folders.rsi
       layers:

@@ -3314,6 +3314,9 @@ entities:
     - type: Transform
       pos: -7.5,-5.5
       parent: 1
+    - type: DeviceNetwork
+      address: 7157-78D2
+      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}
@@ -3323,6 +3326,9 @@ entities:
     - type: Transform
       pos: 6.5,-5.5
       parent: 1
+    - type: DeviceNetwork
+      address: 2ABF-C974
+      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}
@@ -3332,6 +3338,9 @@ entities:
     - type: Transform
       pos: -6.5,-14.5
       parent: 1
+    - type: DeviceNetwork
+      address: 603C-F209
+      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}
@@ -3341,6 +3350,9 @@ entities:
     - type: Transform
       pos: 5.5,-14.5
       parent: 1
+    - type: DeviceNetwork
+      address: 65C7-CA9B
+      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}

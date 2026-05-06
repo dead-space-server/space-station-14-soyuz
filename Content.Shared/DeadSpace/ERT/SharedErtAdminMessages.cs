@@ -10,7 +10,7 @@ namespace Content.Shared.DeadSpace.ERT
     }
 
     [Serializable, NetSerializable]
-    public sealed class ErtAdminEntry
+    public sealed class ErtPendingRequestEntry
     {
         public int RequestId { get; }
         public string ProtoId { get; }
@@ -47,14 +47,51 @@ namespace Content.Shared.DeadSpace.ERT
         public string Name { get; }
         public int SecondsRemaining { get; }
         public int Price { get; }
+        public string RequestedByName { get; }
         public string? CallReason { get; }
 
-        public ErtAdminEntry(string protoId, string name, int secondsRemaining, int price, string? callReason = null)
+        public ErtApprovedRequestEntry(
+            int requestId,
+            string protoId,
+            string name,
+            int secondsRemaining,
+            int price,
+            string requestedByName,
+            string? callReason = null)
         {
+            RequestId = requestId;
             ProtoId = protoId;
             Name = name;
             SecondsRemaining = secondsRemaining;
             Price = price;
+            RequestedByName = requestedByName;
+            CallReason = callReason;
+        }
+    }
+
+    [Serializable, NetSerializable]
+    public sealed class ErtManualApprovedRequestEntry
+    {
+        public int RequestId { get; }
+        public string ProtoId { get; }
+        public string Name { get; }
+        public int Price { get; }
+        public string RequestedByName { get; }
+        public string? CallReason { get; }
+
+        public ErtManualApprovedRequestEntry(
+            int requestId,
+            string protoId,
+            string name,
+            int price,
+            string requestedByName,
+            string? callReason = null)
+        {
+            RequestId = requestId;
+            ProtoId = protoId;
+            Name = name;
+            Price = price;
+            RequestedByName = requestedByName;
             CallReason = callReason;
         }
     }
@@ -62,13 +99,22 @@ namespace Content.Shared.DeadSpace.ERT
     [Serializable, NetSerializable]
     public sealed class ErtAdminStateResponse : EntityEventArgs
     {
-        public ErtAdminEntry[] Entries { get; }
+        public ErtPendingRequestEntry[] PendingRequests { get; }
+        public ErtApprovedRequestEntry[] ApprovedRequests { get; }
+        public ErtManualApprovedRequestEntry[] ManualApprovedRequests { get; }
         public int Points { get; }
         public int CooldownSeconds { get; }
 
-        public ErtAdminStateResponse(ErtAdminEntry[] entries, int points, int cooldownSeconds)
+        public ErtAdminStateResponse(
+            ErtPendingRequestEntry[] pendingRequests,
+            ErtApprovedRequestEntry[] approvedRequests,
+            ErtManualApprovedRequestEntry[] manualApprovedRequests,
+            int points,
+            int cooldownSeconds)
         {
-            Entries = entries;
+            PendingRequests = pendingRequests;
+            ApprovedRequests = approvedRequests;
+            ManualApprovedRequests = manualApprovedRequests;
             Points = points;
             CooldownSeconds = cooldownSeconds;
         }
@@ -77,12 +123,12 @@ namespace Content.Shared.DeadSpace.ERT
     [Serializable, NetSerializable]
     public sealed class AdminModifyErtEntryMessage : EntityEventArgs
     {
-        public string ProtoId { get; }
+        public int RequestId { get; }
         public int Seconds { get; }
 
-        public AdminModifyErtEntryMessage(string protoId, int seconds)
+        public AdminModifyErtEntryMessage(int requestId, int seconds)
         {
-            ProtoId = protoId;
+            RequestId = requestId;
             Seconds = seconds;
         }
     }
@@ -90,11 +136,11 @@ namespace Content.Shared.DeadSpace.ERT
     [Serializable, NetSerializable]
     public sealed class AdminDeleteErtMessage : EntityEventArgs
     {
-        public string ProtoId { get; }
+        public int RequestId { get; }
 
-        public AdminDeleteErtMessage(string protoId)
+        public AdminDeleteErtMessage(int requestId)
         {
-            ProtoId = protoId;
+            RequestId = requestId;
         }
     }
 
@@ -123,12 +169,12 @@ namespace Content.Shared.DeadSpace.ERT
     [Serializable, NetSerializable]
     public sealed class AdminSetErtReasonMessage : EntityEventArgs
     {
-        public string ProtoId { get; }
+        public int RequestId { get; }
         public string Reason { get; }
 
-        public AdminSetErtReasonMessage(string protoId, string reason)
+        public AdminSetErtReasonMessage(int requestId, string reason)
         {
-            ProtoId = protoId;
+            RequestId = requestId;
             Reason = reason;
         }
     }

@@ -524,7 +524,7 @@ public sealed class HolopadSystem : SharedHolopadSystem
         _userInterfaceSystem.SetUiState(entity.Owner, uiKey, new HolopadBoundInterfaceState(holopads));
     }
 
-    private void GenerateHologram(Entity<HolopadComponent> entity)
+    public void GenerateHologram(Entity<HolopadComponent> entity) //DS14
     {
         if (entity.Comp.Hologram != null ||
             entity.Comp.HologramProtoId == null)
@@ -549,7 +549,7 @@ public sealed class HolopadSystem : SharedHolopadSystem
         }
     }
 
-    private void DeleteHologram(Entity<HolopadHologramComponent> hologram, Entity<HolopadComponent> attachedHolopad)
+    public void DeleteHologram(EntityUid hologram, Entity<HolopadComponent> attachedHolopad) //DS14
     {
         attachedHolopad.Comp.Hologram = null;
 

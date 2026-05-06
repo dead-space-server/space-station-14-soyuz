@@ -72,6 +72,9 @@
     sprite: Objects/Tanks/oxygen.rsi
   - type: Clothing
     sprite: Objects/Tanks/oxygen.rsi
+  - type: Tag #DS14
+    tags:
+    - GasTank
 
 - type: entity
   parent: GasTankRoundBase
@@ -85,6 +88,9 @@
     sprite: Objects/Tanks/red.rsi
   - type: Clothing
     sprite: Objects/Tanks/red.rsi
+  - type: Tag #DS14
+    tags:
+    - GasTank
 
 - type: entity
   parent: GasTankRoundBase
@@ -214,6 +220,9 @@
   components:
   - type: GasTank
     outputPressure: 101.3
+  - type: Tag #DS14
+    tags:
+    - GasTank
 
 - type: entity
   parent: GasTankRoundBase
@@ -229,6 +238,9 @@
     outputPressure: 30.4
   - type: Clothing
     sprite: Objects/Tanks/anesthetic.rsi
+  - type: Tag #DS14
+    tags:
+    - GasTank
 
 - type: entity
   # it's a square so no rolling dough

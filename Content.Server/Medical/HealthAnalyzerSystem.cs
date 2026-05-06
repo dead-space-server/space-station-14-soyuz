@@ -8,6 +8,7 @@ using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 // DS14-end
+using Content.Shared.Cloning; // DS14-soyuz
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;

@@ -194,8 +194,7 @@ public sealed class AlertLevelSystem : EntitySystem
             sender: stationName,
             playDefaultSound: false,
             colorOverride: detail.Color,
-            voice: detail.TTS ? AlertLevelAnnouncementVoice : null,
-            announcementTtsDelay: 0f
+            voice: detail.TTS ? AlertLevelAnnouncementVoice : null
             );
         if (!detail.TTS && detail.Sound != null)
         {

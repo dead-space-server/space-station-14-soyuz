@@ -62,9 +62,3 @@
   - type: Tool
     qualities:
       - Prying
-  - type: WarhammerCrit
-    chance: 0.25
-    throwDistance: 4
-    damageBonus:
-      types:
-        Blunt: 10

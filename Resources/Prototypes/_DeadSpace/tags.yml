@@ -112,8 +112,8 @@
 - type: Tag
   id: FoodChiliPepper
 
-- type: Tag
-  id: GasTank
+# - type: Tag
+#   id: GasTank
 
 - type: Tag
   id: GiantSpiderSpace

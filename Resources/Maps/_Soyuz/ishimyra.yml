@@ -82155,7 +82155,7 @@ entities:
       parent: 11058
     - type: Physics
       canCollide: False
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 11060
     components:

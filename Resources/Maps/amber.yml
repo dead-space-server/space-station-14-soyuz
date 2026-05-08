@@ -62926,7 +62926,7 @@ entities:
       parent: 2
     - type: ApcPowerReceiver
       powerLoad: 50
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 9079
     components:

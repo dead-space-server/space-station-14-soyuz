@@ -123850,7 +123850,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 145.5,61.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 28645
     components:

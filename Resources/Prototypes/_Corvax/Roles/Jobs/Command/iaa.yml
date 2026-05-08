@@ -49,9 +49,6 @@
     pocket2: RubberStampIAA
   inhand:
     - BriefcaseBrownFilled
-  storage:
-    back:
-    - TelephoneIaa
 
 - type: chameleonOutfit
   id: IAAChameleonOutfit

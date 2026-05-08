@@ -21,15 +21,6 @@
     borderColor: "#9b2d30"
   - type: Icon
     state: pda-politruk
-  - type: CartridgeLoader
-    preinstalled:
-      - CrewManifestCartridge
-      - NotekeeperCartridge
-      - NanoTaskCartridge
-      - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
-      - USSPMonitorCartridge # DS-14
-      - BankCartridge # DS-14
 
 - type: entity
   parent: BaseWidePDA

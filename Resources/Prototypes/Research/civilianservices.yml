@@ -68,10 +68,6 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
-    # DS14-start: Polaroid for T1 service research
-    - PolaroidCamera
-    - PolaroidCartridge
-    # DS14-end
 
 - type: technology
   id: MeatManipulation
@@ -109,8 +105,6 @@
   - FauxTileAstroSnow
   - FauxTileAstroAsteroidSand
   - FauxTileDesertAstroSand
-  - FauxTileAstroIronsand
-  - FauxTileAstroIronsandBorderless
 
 - type: technology
   id: BiochemicalStasis
@@ -137,8 +131,7 @@
   tier: 2
   cost: 5000
   recipeUnlocks:
-  - BorgModuleAdvancedTopical
-  - AdvancedJetInjector
+  - BorgModuleAdvancedChemical
 
 - type: technology
   id: AdvancedCleaning
@@ -152,7 +145,6 @@
   recipeUnlocks:
   - AdvMopItem
   - MegaSprayBottle
-  - WireBrushElectrical # DS14
   - BorgModuleAdvancedCleaning
   - BagOfSummoningGarbage # DS14
 
@@ -267,7 +259,6 @@
   recipeUnlocks:
   - BluespaceBeaker
   - SyringeBluespace
-  - BluespaceVial # DS14 
 
 - type: technology
   id: LauncherSyringe

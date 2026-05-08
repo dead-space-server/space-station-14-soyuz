@@ -44,5 +44,5 @@ ent-ClothingBackpackDuffelSyndicateMedical = { ent-ClothingBackpackDuffelSyndica
     .desc = { ent-ClothingBackpackDuffelSyndicate.desc }
 ent-ClothingBackpackDuffelSyndicateMedicalBundle = { ent-ClothingBackpackDuffelSyndicateMedical }
     .desc = { ent-ClothingBackpackDuffelSyndicateMedical.desc }
-ent-ClothingBackpackDuffelHolding = redspace duffel bag
-    .desc = A duffel bag that opens into a localized pocket of redspace.
+ent-ClothingBackpackDuffelHolding = duffelbag of holding
+    .desc = A duffelbag that opens into a localized pocket of bluespace.

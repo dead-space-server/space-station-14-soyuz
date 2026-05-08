@@ -1,7 +1,0 @@
-gas-nitryl-abbreviation = NO₂
-gas-fixirium-abbreviation = FX
-gas-hydrogen-abbreviation = H₂
-gas-nitriatium-abbreviation = NT
-gas-hilium-abbreviation = HL
-gas-brizidium-abbreviation = BZ
-gas-iprit-abbreviation = IP

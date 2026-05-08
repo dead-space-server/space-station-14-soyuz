@@ -1,635 +1,167 @@
-# DS14-start: Soyuz overrides retarget the shared jukebox catalog into the local audio folders.
-# catalog below appends the larger expanded song set used by the new menu.
 - type: jukebox
   id: Internacional
-  name: "Интернационал (гимн РСФСР)"
+  name: Пролетарский гимн "Интернационал"
   path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/internatsional-rsfsr-anthem.ogg
-
+    path: /Audio/Jukebox/AnthemRSSRInternacional.ogg
 
 - type: jukebox
   id: BlowWithTheFires
-  name: "Everlasting Summer - Blow with the Fires"
-
+  name: Между Августом и Декабрем - Blow with the Fires
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/everlasting-summer-blow-with-the-fires.ogg
-
+    path: /Audio/Jukebox/BlowWithTheFires.ogg
 
 - type: jukebox
   id: EtotGorod
-
-  name: "Браво - Этот город"
+  name: Браво - Этот город
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/bravo-etot-gorod.ogg
-
+    path: /Audio/Jukebox/BravoEtotGorod.ogg
 
 - type: jukebox
-
   id: DajjteTank
-  name: "Дайте танк (!) - Маленький"
+  name: Маленький - Дайте Танк
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dayte-tank-malenkiy.ogg
-
-
+    path: /Audio/Jukebox/DajjteTank.ogg
 
 - type: jukebox
   id: Komarovo
-  name: "DVRST - Komarovo (Phonk Remix)"
+  name: DVRST - Комарово
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dvrst-komarovo-phonk-remix.ogg
-
-
+    path: /Audio/Jukebox/DVRSTKomarovo.ogg
 
 - type: jukebox
   id: PoPlany
-  name: "Гражданская оборона - Всё идёт по плану"
+  name: Егор Летов - Всё идёт по плану
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-vsyo-idyot-po-planu.ogg
-
-
+    path: /Audio/Jukebox/EgorLetovPoPlanu.ogg
 
 - type: jukebox
   id: WhoLookForward
-  name: "Слава тем, кто смотрит вперёд"
+  name: Слава вперёдсмотрящему!
   path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/glory-to-the-ones-who-look-forward.ogg
-
+    path: /Audio/Jukebox/GloryToTheOnesWhoLookForward.ogg
 
 - type: jukebox
   id: PrekrasnoeDaleko
-  name: "Гостья из будущего - Прекрасное далёко"
-
+  name: Гостья из будущего - Прекрасное далеко
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/gostya-iz-budushchego-prekrasnoye-dalyoko.ogg
-
+    path: /Audio/Jukebox/GostyaIzBudushhegoPrekrasnoeDaleko.ogg
 
 - type: jukebox
   id: Chuzhoe
-
-  name: "Гражданская оборона - Чужое"
+  name: Гражданская оборона - Чужое
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-chuzhoye.ogg
-
+    path: /Audio/Jukebox/GrazhdanskayaOboronaChuzhoe.ogg
 
 - type: jukebox
-
   id: Durachok
-  name: "Гражданская оборона - Про дурачка"
+  name: Гражданская оборона - Про дурачка
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/grazhdanskaya-oborona-pro-durachka.ogg
-
-
+    path: /Audio/Jukebox/GrazhdanskayaOboronaDurachok.ogg
 
 - type: jukebox
   id: HappyNation
-  name: "Ace of Base - Happy Nation"
+  name: Ace of Base - Happy nation
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ace-of-base-happy-nation.ogg
-
-
+    path: /Audio/Jukebox/HappyNation.ogg
 
 - type: jukebox
   id: DiscoElysiumHardcoreDance
-  name: "Disco Elysium - Hardcore Dance"
+  name: Hard Dance
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/disco-elysium-hardcore-dance.ogg
-
-
+    path: /Audio/Jukebox/HardcoreDanceDiscoElysiumOST.ogg
 
 - type: jukebox
   id: MarchOfTheCommunistBrigades
-  name: "Метро-2 - Марш коммунистических бригад"
+  name: Марш коммунистических бригад
   path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/metro-2-marsh-kommunisticheskikh-brigad.ogg
-
+    path: /Audio/Jukebox/Metro2MarchOfTheCommunistBrigadesOST.ogg
 
 - type: jukebox
   id: YanvarskayaVyuga
-  name: "Нина Бродская - Звенит январская вьюга"
-
+  name: Нина Бродская - Звенит январьская вьюга
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/nina-brodskaya-zvenit-yanvarskaya-vyuga.ogg
-
+    path: /Audio/Jukebox/NinaBrodskayaYanvarskayaVyuga.ogg
 
 - type: jukebox
   id: PapersPleaseTheme
-
-  name: "Papers, Please - Theme Song"
+  name: Бумаги, пожалуйста!
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/papers-please-theme.ogg
-
+    path: /Audio/Jukebox/PapersPleaseMainTheme.ogg
 
 - type: jukebox
-
   id: RabochayaMarseleza
-  name: "Рабочая Марсельеза"
+  name: Русская Марсельеза - Советское творчество
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/rabochaya-marseleza.ogg
-
-
+    path: /Audio/Jukebox/RabochayaMarseleza.ogg
 
 - type: jukebox
   id: RedArmyAnsambl
-  name: "Красная армия - Красная армия всех сильней"
+  name: Красная армия - Советское творчество
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/krasnaya-armiya-vsekh-silney.ogg
-
-
+    path: /Audio/Jukebox/RedArmyAnsambl.ogg
 
 - type: jukebox
   id: WhirlingInRags
-  name: "Sea Power - Whirling-In-Rags, 8 AM"
+  name: Танцующая в лохматьях
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/sea-power-whirling-in-rags-8-am.ogg
-
-
+    path: /Audio/Jukebox/SeaPowerWhirlingInRags8AM.ogg
 
 - type: jukebox
   id: RedAlertSovietMarch
-  name: "RADIO TAPOK - Soviet March"
+  name: Красная угроза
   path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/radio-tapok-soviet-march.ogg
-
+    path: /Audio/Jukebox/SovietMarchRedAlert3RussianCover.ogg
 
 - type: jukebox
   id: TravaUDoma
-  name: "Земляне - Трава у дома"
-
+  name: Земляне - Трава у дома
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/zemlyane-trava-u-doma.ogg
-
+    path: /Audio/Jukebox/TravaUDoma.ogg
 
 - type: jukebox
   id: IBelieveMyFriends
-
-  name: "Владимир Трошин - Я верю, друзья"
+  name: Я верю, мои друзья
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-troshin-ya-veryu-druzya.ogg
-
+    path: /Audio/Jukebox/VladimirTroshinIBelieveMyFriends.ogg
 
 - type: jukebox
-
   id: MachineOfCommunism
-  name: "You Are Empty - Машина коммунизма"
+  name: Коммунистическая машина
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/you-are-empty-mashina-kommunizma.ogg
-
-
+    path: /Audio/Jukebox/YouAreEmptyMachineOfCommunism.ogg
 
 - type: jukebox
   id: YoungBuildersMarch
-  name: "Марш молодых строителей"
+  name: Марш молодых строителей
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/marsh-molodykh-stroiteley.ogg
-
-
+    path: /Audio/Jukebox/YoungBuildersMarch.ogg
 
 - type: jukebox
   id: InvinciblePeoples
-  name: "Объединённый народ - El Pueblo Unido"
+  name: Когда народ един - он не победим
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/obyedinyonnyy-narod-el-pueblo-unido.ogg
-
-
+    path: /Audio/Jukebox/InvinciblePeoples.ogg
 
 - type: jukebox
   id: AnthemOfTheDemocratic
-  name: "Гимн демократической молодёжи мира"
+  name: Гимн демократической молодежи мира
   path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/gimn-demokraticheskoy-molodyozhi-mira.ogg
-
+    path: /Audio/Jukebox/AnthemOfTheDemocratic.ogg
 
 - type: jukebox
   id: PerimeterAttack
-  name: "Атака Периметра - Главная тема"
-
+  name: Атака Периметра
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/ataka-perimetra-glavnaya-tema.ogg
-
+    path: /Audio/Jukebox/PerimeterAttack.ogg
 
 - type: jukebox
   id: BattleoftheRoadside
-
-  name: "Атака Периметра - Битва за Обочину"
+  name: Битва за Обочину
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ataka-perimetra-bitva-za-obochinu.ogg
-
+    path: /Audio/Jukebox/BattleoftheRoadside.ogg
 
 - type: jukebox
-
   id: BattleoftheSwamps
-  name: "Атака Периметра - Битва за Болота"
+  name: Битва за Болота
   path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ataka-perimetra-bitva-za-bolota.ogg
-
-
-
-- type: jukebox
-  id: AdaptatsiyaSlyozyObrechyonnoyBurzhuazii
-  name: "Адаптация - Слёзы обречённой буржуазии"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/adaptatsiya-slyozy-obrechyonnoy-burzhuazii.ogg
-
-
-
-- type: jukebox
-  id: AllaPugachevaArlekino
-  name: "Алла Пугачёва - Арлекино"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/alla-pugacheva-arlekino.ogg
-
-
-
-- type: jukebox
-  id: AllaPugachevaOstavaysyaMalchikSNami
-  name: "Алла Пугачёва - Оставайся, мальчик, с нами"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/alla-pugacheva-ostavaysya-malchik-s-nami.ogg
-
-
-- type: jukebox
-  id: ArkadiyKotsAyCarmela
-  name: "Аркадий Коц - Ay Carmela"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-ay-carmela.ogg
-
-
-- type: jukebox
-  id: ArkadiyKotsKtoStrelyaetVRabochikh
-
-  name: "Аркадий Коц - Кто стреляет в рабочих?"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-kto-strelyaet-v-rabochikh.ogg
-
-
-- type: jukebox
-
-  id: ArkadiyKotsMikhailLebedev
-  name: "Аркадий Коц - Михаил Лебедев"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-mikhail-lebedev.ogg
-
-
-
-- type: jukebox
-  id: ArkadiyKotsZabastovka
-  name: "Аркадий Коц - Забастовка"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-zabastovka.ogg
-
-
-
-- type: jukebox
-  id: ArkadiyKotsZemlekopy
-  name: "Аркадий Коц - Землекопы"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/arkadiy-kots-zemlekopy.ogg
-
-
-
-- type: jukebox
-  id: ChyornyyObeliskMarshRevolyutsii
-  name: "Чёрный Обелиск - Марш революции"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/chyornyy-obelisk-marsh-revolyutsii.ogg
-
-
-- type: jukebox
-  id: ChyornyyObeliskOborona
-  name: "Чёрный Обелиск - Оборона"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/chyornyy-obelisk-oborona.ogg
-
-
-- type: jukebox
-  id: ErnstBuschDerHeimlicheAufmarsch
-
-  name: "Эрнст Буш - Тревожный марш (Der heimliche Aufmarsch)"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ernst-busch-der-heimliche-aufmarsch.ogg
-
-
-- type: jukebox
-
-  id: FrankKlepackiHellMarch2
-  name: "Frank Klepacki - Hell March 2"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/frank-klepacki-hell-march-2.ogg
-
-
-
-- type: jukebox
-  id: IfaWartburgFdjFreieDeutscheJugend
-  name: "IFA Wartburg - FDJ (Freie Deutsche Jugend)"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/ifa-wartburg-fdj-freie-deutsche-jugend.ogg
-
-
-
-- type: jukebox
-  id: IosifKobzonIVnovProdolzhaetsyaBoy
-  name: "Иосиф Кобзон - И вновь продолжается бой"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/iosif-kobzon-i-vnov-prodolzhaetsya-boy.ogg
-
-
-
-- type: jukebox
-  id: KhorImeniPyatnitskogoEkhYablochko
-  name: "Хор имени Пятницкого - Эх, яблочко"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/khor-imeni-pyatnitskogo-ekh-yablochko.ogg
-
-
-- type: jukebox
-  id: LyubeSoldat
-  name: "Любэ - Солдат"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/lyube-soldat.ogg
-
-
-- type: jukebox
-  id: ManuPilasBellaCiao
-
-  name: "Manu Pilas - Bella Ciao"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/manu-pilas-bella-ciao.ogg
-
-
-- type: jukebox
-
-  id: PesnyaOMalenkomTrubache
-  name: "Песня о маленьком трубаче"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/pesnya-o-malenkom-trubache.ogg
-
-
-
-- type: jukebox
-  id: SatisfaktsiyaRevolyutsiya
-  name: "Сатисфакция - Революция"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/satisfaktsiya-revolyutsiya.ogg
-
-
-
-- type: jukebox
-  id: UtroVTebeLeonidIlichBrezhnev
-  name: "Утро в тебе - Леонид Ильич Брежнев"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/utro-v-tebe-leonid-ilich-brezhnev.ogg
-
-
-
-- type: jukebox
-  id: UtroVTebeMyNeRaby
-  name: "Утро в тебе - Мы не рабы"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/bodraya/utro-v-tebe-my-ne-raby.ogg
-
-
-- type: jukebox
-  id: GeorgiySviridovVremyaVperyodGulanRemastered
-  name: "Георгий Свиридов - Время, вперёд! (Gulan Remastered)"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/georgiy-sviridov-vremya-vperyod-gulan-remastered.ogg
-
-
-- type: jukebox
-  id: NikolayPrilepskiyLevyyMarsh
-
-  name: "Николай Прилепский - Левый марш"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/groznaya/nikolay-prilepskiy-levyy-marsh.ogg
-
-
-- type: jukebox
-
-  id: AlyansNaZare
-  name: "Альянс - На заре"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/alyans-na-zare.ogg
-
-
-
-- type: jukebox
-  id: Bi2PolkovnikuNiktoNePishet
-  name: "Би-2 - Полковнику никто не пишет"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/bi-2-polkovniku-nikto-ne-pishet.ogg
-
-
-
-- type: jukebox
-  id: KrasnyeZvyozdyBarrikadnayaLyubov
-  name: "Красные звёзды - Баррикадная любовь"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/krasnye-zvyozdy-barrikadnaya-lyubov.ogg
-
-
-
-- type: jukebox
-  id: LyubeRusskiye
-  name: "Любэ - Русские"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/lyube-russkiye.ogg
-
-
-- type: jukebox
-  id: Priroda8080
-  name: "Природа - 8080"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/priroda-8080.ogg
-
-
-- type: jukebox
-  id: ValentinStrykaloNasheLeto
-
-  name: "Валентин Стрыкало - Наше лето"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/valentin-strykalo-nashe-leto.ogg
-
-
-- type: jukebox
-
-  id: VwpqGroza
-  name: "VWPQ - Гроза"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/grustnaya/vwpq-groza.ogg
-
-
-
-- type: jukebox
-  id: AleksandrRozenbaumSkorayaPomoshch
-  name: "Александр Розенбаум - Скорая помощь"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/aleksandr-rozenbaum-skoraya-pomoshch.ogg
-
-
-
-- type: jukebox
-  id: AleksandrRozenbaumTolstyyFraer
-  name: "Александр Розенбаум - Толстый фраер"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/aleksandr-rozenbaum-tolstyy-fraer.ogg
-
-
-
-- type: jukebox
-  id: AnsamblRossiyskoyArmiiShirokaStranaMoyaRodnaya
-  name: "Ансамбль Российской армии - Широка страна моя родная"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ansambl-rossiyskoy-armii-shiroka-strana-moya-rodnaya.ogg
-
-
-- type: jukebox
-  id: ArielVKrayuMagnoliy
-  name: "Ариэль - В краю магнолий"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ariel-v-krayu-magnoliy.ogg
-
-
-- type: jukebox
-  id: CarlosPueblaHastaSiempreComandante
-
-  name: "Carlos Puebla - Hasta Siempre, Comandante"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/carlos-puebla-hasta-siempre-comandante.ogg
-
-
-- type: jukebox
-
-  id: DdtChay
-  name: "ДДТ - Чай"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ddt-chay.ogg
-
-
-
-- type: jukebox
-  id: DdtVeter
-  name: "ДДТ - Ветер"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/ddt-veter.ogg
-
-
-
-- type: jukebox
-  id: DmitriShostakovichWaltzNo2
-  name: "Дмитрий Шостакович - Вальс № 2"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/dmitri-shostakovich-waltz-no-2.ogg
-
-
-
-- type: jukebox
-  id: EtDetiAtomnogoSolntsa
-  name: "ЕТ - Дети атомного солнца"
-  path:
-
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/et-deti-atomnogo-solntsa.ogg
-
-
-- type: jukebox
-  id: GeoffplaysguitarZvezdnoyeLeto
-  name: "Geoffplaysguitar - Звёздное лето"
-
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/geoffplaysguitar-zvezdnoye-leto.ogg
-
-
-- type: jukebox
-  id: InkaSchritte
-  name: "Inka - Schritte"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/inka-schritte.ogg
-
-
-- type: jukebox
-  id: KombinatsiyaKhodKonyom
-  name: "Комбинация - Ход конём"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/kombinatsiya-khod-konyom.ogg
-
-
-- type: jukebox
-  id: LeonidUtyosovGadamNetPoshchady
-  name: "Леонид Утёсов - Гадам нет пощады"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-utyosov-gadam-net-poshchady.ogg
-
-
-- type: jukebox
-  id: LeonidUtyosovPesnyaStarogoIzvozchika
-  name: "Леонид Утёсов - Песня старого извозчика"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-utyosov-pesnya-starogo-izvozchika.ogg
-
-
-- type: jukebox
-  id: MildlifeTheMagnificentMoon
-  name: "Mildlife - The Magnificent Moon"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/mildlife-the-magnificent-moon.ogg
-
-
-- type: jukebox
-  id: NaukogradVremya
-  name: "Наукоград - Время"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/naukograd-vremya.ogg
-
-
-- type: jukebox
-  id: SiberiadaPokhod
-  name: "Сибириада - Поход"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/siberiada-pokhod.ogg
-
-
-- type: jukebox
-  id: UdarySintezatorovPredchuvstvieKosmosa
-  name: "Удары синтезаторов - Предчувствие космоса"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/udary-sintezatorov-predchuvstvie-kosmosa.ogg
-
-
-- type: jukebox
-  id: UdarySintezatorovPulsar
-  name: "Удары синтезаторов - Пульсар"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/udary-sintezatorov-pulsar.ogg
-
-
-- type: jukebox
-  id: VladimirVysotskiyNaGranitseSTurtsiey
-  name: "Владимир Высоцкий - Песня о нейтральной полосе (На границе с Турцией)"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-vysotskiy-na-granitse-s-turtsiey.ogg
-
-
-- type: jukebox
-  id: VladimirVysotskiyPesnyaOSumasshedshemDome
-  name: "Владимир Высоцкий - Песня о сумасшедшем доме"
-  path:
-    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/vladimir-vysotskiy-pesnya-o-sumasshedshem-dome.ogg
-
-# DS14-end
-
+    path: /Audio/Jukebox/BattleoftheSwamps.ogg

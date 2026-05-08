@@ -2,7 +2,7 @@
   id: CorvaxGlacier
   mapName: 'Glacier Station'
   mapPath: /Maps/_Soyuz/corvax_glacier.yml
-  minPlayers: 60
+  minPlayers: 70
   stations:
     Glacier:
       stationProto: StandardNanotrasenStation
@@ -40,6 +40,7 @@
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
             MedicalIntern: [ 4, 4 ]
+#            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
@@ -53,7 +54,7 @@
             TechnicalAssistant: [ 3, 3 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorSalvageSpecialist: [ 1, 1 ] # DS14-Soyuz
+            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 4, 4 ]
             # civ

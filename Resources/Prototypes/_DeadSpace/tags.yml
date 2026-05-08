@@ -2,10 +2,10 @@
   id: ADTFoodSausageFried
 
 - type: Tag
-  id: AmbrosiaDeus
+  id: AdvancedMineralScanner
 
 - type: Tag
-  id: AnimateSpellBlacklist
+  id: AmbrosiaDeus
 
 - type: Tag
   id: BatteryWeaponFireModesSprites
@@ -113,6 +113,9 @@
   id: FoodChiliPepper
 
 - type: Tag
+  id: GasTank
+
+- type: Tag
   id: GiantSpiderSpace
 
 - type: Tag
@@ -177,6 +180,9 @@
   id: MagazineCarbineSKS
 
 - type: Tag
+  id: Magmite
+
+- type: Tag
   id: MagazineEagle
 
 - type: Tag
@@ -184,9 +190,6 @@
 
 - type: Tag
   id: MagazineTommyGun
-
-- type: Tag
-  id: MagazineCaselessRifle
 
 - type: Tag
   id: MagazineTommyGunCap
@@ -232,9 +235,6 @@
 
 - type: Tag
   id: Plasteel
-
-- type: Tag
-  id: PolaroidCartridge
 
 - type: Tag
   id: Radiance
@@ -337,9 +337,6 @@
 
 - type: Tag
   id: TaipanRole
-
-- type: Tag
-  id: TapeRecorderCoin
 
 - type: Tag
   id: Titanium

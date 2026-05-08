@@ -280,15 +280,15 @@
     FoodCakePlain: 1
     FoodSakuraFlower: 3
 
-# - type: microwaveMealRecipe
-#   id: RecipeFoodNuclearNachosBowl
-#   name: nuclear nachos bowl recipe
-#   result: FoodNuclearNachosBowl
-#   time: 10
-#   group: Savory
-#   solids:
-#     FoodSnackNanonachos: 1
-#     SheetUranium1: 1
+- type: microwaveMealRecipe
+  id: RecipeFoodNuclearNachosBowl
+  name: nuclear nachos bowl recipe
+  result: FoodNuclearNachosBowl
+  time: 10
+  group: Savory
+  solids:
+    FoodSnackNanonachos: 1
+    SheetUranium1: 1
 
 - type: microwaveMealRecipe
   id: RecipeFoodNachosBowl
@@ -314,95 +314,3 @@
     FoodSnackNanonachos: 1
     FoodTomato: 1
     FoodCabbage: 1
-
-- type: microwaveMealRecipe
-  id: RecipeFoodBeshbarmak
-  name: beshbarmak recipe
-  result: FoodBeshbarmak
-  time: 10
-  group: Savory
-  solids:
-    FoodOnionSlice: 5
-    FoodMeat: 1
-    FoodDough: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadMan
-  name: gingerbread man recipe
-  result: FoodBakedGingerbreadMan
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadStar
-  name: gingerbread star recipe
-  result: FoodBakedGingerbreadStar
-  time: 5
-  group: Dessert
-  reagents:
-    Sugar: 1
-  solids:
-    FoodBakedCookieSugar: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadBear
-  name: gingerbread bear recipe
-  result: FoodBakedGingerbreadBear
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-    FoodSnackChocolateBar: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadTree
-  name: gingerbread tree recipe
-  result: FoodBakedGingerbreadTree
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-    FoodPeaPod: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadCane
-  name: gingerbread cane recipe
-  result: FoodBakedGingerbreadCane
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-    FoodCherry: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadStocking
-  name: gingerbread stocking recipe
-  result: FoodBakedGingerbreadStocking
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-    FoodSnackRaisins: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadPresent
-  name: gingerbread present recipe
-  result: FoodBakedGingerbreadPresent
-  time: 5
-  group: Dessert
-  solids:
-    FoodBakedCookieSugar: 1
-    PoppySeeds: 1
-
-- type: microwaveMealRecipe
-  id: RecipeGingerbreadSanta
-  name: gingerbread santa recipe
-  result: FoodBakedGingerbreadSanta
-  time: 5
-  group: Dessert
-  reagents:
-    Cream: 5
-  solids:
-    FoodBakedCookieSugar: 1

@@ -1,11 +1,12 @@
 using Content.Shared.Atmos.Rotting;
+using Content.Shared.Damage;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Overlays;
 using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Shared.Prototypes;
-using Content.Shared.Damage.Components;
+using System.Linq;
 
 namespace Content.Client.Overlays;
 
@@ -31,13 +32,9 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
     {
         base.UpdateInternal(component);
 
-        DamageContainers.Clear();
-        foreach (var comp in component.Components)
+        foreach (var damageContainerId in component.Components.SelectMany(x => x.DamageContainers))
         {
-            foreach (var damageContainerId in comp.DamageContainers)
-            {
-                DamageContainers.Add(damageContainerId);
-            }
+            DamageContainers.Add(damageContainerId);
         }
     }
 

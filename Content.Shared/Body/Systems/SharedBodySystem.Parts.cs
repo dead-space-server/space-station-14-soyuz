@@ -7,7 +7,6 @@ using Content.Shared.Body.Part;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Movement.Components;
-using Content.Shared.Standing;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -157,23 +156,17 @@ public partial class SharedBodySystem
         if (!Resolve(bodyEnt, ref bodyEnt.Comp, logMissing: false))
             return;
 
-        if (legEnt.Comp.PartType != BodyPartType.Leg)
-            return;
+        if (legEnt.Comp.PartType == BodyPartType.Leg)
+        {
+            bodyEnt.Comp.LegEntities.Remove(legEnt);
+            UpdateMovementSpeed(bodyEnt);
+            Dirty(bodyEnt, bodyEnt.Comp);
 
-        bodyEnt.Comp.LegEntities.Remove(legEnt);
-        UpdateMovementSpeed(bodyEnt);
-        Dirty(bodyEnt, bodyEnt.Comp);
-
-        if (bodyEnt.Comp.LegEntities.Count != 0)
-            return;
-
-        if (!TryComp<StandingStateComponent>(bodyEnt, out var standingState)
-            || !standingState.Standing
-            || !Standing.Down(bodyEnt, standingState: standingState))
-            return;
-
-        var ev = new DropHandItemsEvent();
-        RaiseLocalEvent(bodyEnt, ref ev);
+            if (!bodyEnt.Comp.LegEntities.Any())
+            {
+                Standing.Down(bodyEnt);
+            }
+        }
     }
 
     private void PartRemoveDamage(Entity<BodyComponent?> bodyEnt, Entity<BodyPartComponent> partEnt)
@@ -188,7 +181,7 @@ public partial class SharedBodySystem
         {
             // TODO BODY SYSTEM KILL : remove this when wounding and required parts are implemented properly
             var damage = new DamageSpecifier(Prototypes.Index(BloodlossDamageType), 300);
-            Damageable.ChangeDamage(bodyEnt.Owner, damage);
+            Damageable.TryChangeDamage(bodyEnt, damage);
         }
     }
 

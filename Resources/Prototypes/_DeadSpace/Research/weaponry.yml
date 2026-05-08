@@ -167,7 +167,7 @@
   diskAvailable: false
   recipeUnlocks:
   - ClothingHandsGlovesNorthStar
-  - ClothingHandsGlovesBoxingRiggedRed
+  - ClothingHandsGlovesBoxingRigged
 
 - type: technology
   id: TaipanBasicRifles

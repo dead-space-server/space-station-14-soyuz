@@ -1,8 +1,3 @@
-## base
-
-roles-antag-spider-terror-name = Паук ужаса
-roles-antag-spider-terror-objective = Ваша цель захватить станцию.
-
 ## quin
 
 roles-antag-spider-terror-quin-name = Королева Пауков
@@ -64,6 +59,7 @@ reagent-desc-karachnocid = Плотная жидкость тёмно-зелён
 reagent-physical-desc-harsh = harsh
 ent-CrateKarachnocidGrenade = ящик с карой арахнида
     .desc = Ящик с пенными гранатами против пауков ужаса, 100% гарантия.
+    .suffix = Защищённый
 ent-CrateKarachnocidGrenadeProduct = { ent-CrateKarachnocidGrenade }
     .desc = { ent-CrateKarachnocidGrenade.desc }
 reagent-name-spider-extract = экстракт паука

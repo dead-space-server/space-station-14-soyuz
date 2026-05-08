@@ -1,11 +1,8 @@
 - type: entity
   id: LockerSyndicatePersonalFilled
-  suffix: Nukie, Filled
+  suffix: Filled
   parent: LockerSyndicatePersonal
-  description: It's a personal storage unit for operative gear.
   components:
-  - type: AccessReader
-    access: [["NuclearOperative"]]
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:AllSelector
@@ -17,33 +14,6 @@
         - id: ClothingUniformJumpskirtOperative
         - id: ClothingHeadsetAltSyndicate
         - id: ClothingEyesHudSyndicate
-
-- type: entity
-  id: LockerSyndicateWallFilled
-  suffix: Nukie, Filled
-  parent: LockerWallSyndicate
-  description: It's a personal storage unit for operative gear.
-  components:
-  - type: AccessReader
-    access: [["NuclearOperative"]]
-  - type: EntityTableContainerFill
-    containers:
-      entity_storage: !type:AllSelector
-        children:
-        - id: ClothingBeltMilitaryWebbing
-        - id: ClothingHandsGlovesCombat
-        - id: JetpackBlackFilled
-        - id: ClothingUniformJumpsuitOperative
-        - id: ClothingUniformJumpskirtOperative
-        - id: ClothingHeadsetAltSyndicate
-        - id: ClothingEyesHudSyndicate
-
-- type: entityTable
-  id: FillEmergencyInflatables
-  table: !type:AllSelector
-    children:
-    - id: InflatableWallStack5
-    - id: InflatableDoorStack1
 
 - type: entityTable
   id: FillLockerEmergencyStandard
@@ -51,17 +21,10 @@
     children:
     - id: ClothingMaskBreath
     - id: ClothingOuterSuitEmergency
-    # DS14-start: 2.5% chance to replace small emergency oxygen tank with double emergency oxygen tank
     - !type:GroupSelector
       children:
+      - id: EmergencyOxygenTankFilled
       - id: OxygenTankFilled
-      - !type:GroupSelector
-        children:
-        - id: EmergencyOxygenTankFilled
-          weight: 39
-        - id: DoubleEmergencyOxygenTankFilled
-          weight: 1
-    # DS14-end
     - id: ToolboxEmergencyFilled
       prob: 0.5
     - id: MedkitOxygenFilled
@@ -70,8 +33,6 @@
       prob: 0.1
     - id: BoxMRE
       prob: 0.1
-    - !type:NestedSelector
-      tableId: FillEmergencyInflatables
 
 - type: entity
   id: ClosetEmergencyFilledRandom
@@ -103,20 +64,11 @@
       prob: 0.1
     - id: ToolboxEmergencyFilled
       prob: 0.05
-    # DS14-start: 2.5% chance to replace small emergency nitrogen tank with double emergency nitrogen tank
     - !type:GroupSelector
       children:
-      - id: NitrogenTankFilled
-      - !type:GroupSelector
+      - id: EmergencyNitrogenTankFilled
         weight: 4
-        children:
-        - id: EmergencyNitrogenTankFilled
-          weight: 39
-        - id: DoubleEmergencyNitrogenTankFilled
-          weight: 1
-    # DS14-end
-    - !type:NestedSelector
-      tableId: FillEmergencyInflatables
+      - id: NitrogenTankFilled
 
 - type: entity
   id: ClosetEmergencyN2FilledRandom
@@ -145,17 +97,10 @@
     - id: ClothingOuterSuitFire
     - id: ClothingHeadHelmetFire
     - id: ClothingMaskGas
-    # DS14-start: 2.5% chance to replace small emergency oxygen tank with double emergency oxygen tank
     - !type:GroupSelector
       children:
+      - id: EmergencyOxygenTankFilled
       - id: OxygenTankFilled
-      - !type:GroupSelector
-        children:
-        - id: EmergencyOxygenTankFilled
-          weight: 39
-        - id: DoubleEmergencyOxygenTankFilled
-          weight: 1
-    # DS14-end
     - id: CrowbarRed
     - !type:GroupSelector
       children:
@@ -227,10 +172,6 @@
       prob: 0.10
       rolls: !type:RangeNumberSelector
         range: 1, 2
-    - !type:NestedSelector
-      tableId: MaintenancePlushies
-      prob: 0.02
-
     # Weapons
     - !type:NestedSelector
       tableId: MaintWeaponTable
@@ -249,19 +190,6 @@
       prob: 0.0005
     - id: VIB
       prob: 0.0005
-
-- type: entityTable
-  id: MaintenancePlushies
-  table: !type:GroupSelector
-    children:
-    - id: PlushieLizardJobBoxer
-    - id: PlushieLizardJobClown
-    - id: PlushieLizardJobLibrarian
-    - id: PlushieLizardJobMime
-    - id: PlushieLizardJobMusician
-    - id: PlushieLizardJobPassenger
-    - id: PlushieLizardJobReporter
-    - id: PlushieLizardJobZookeeper
 
 - type: entity
   id: ClosetMaintenanceFilledRandom
@@ -282,83 +210,3 @@
     containers:
       entity_storage: !type:NestedSelector
         tableId: MaintenanceLockerLoot
-
-# Intended to very occasionally be useful for prisoners, so mostly functional items instead of fluff
-
-- type: entityTable
-  id: ToiletCisternCommonToolsTable
-  table: !type:GroupSelector
-    children:
-    - id: Screwdriver
-    - id: Wrench
-    - id: Wirecutter
-    - id: Welder
-    - id: ClothingMaskGas
-    - id: PowerCellSmall
-    - id: RadioHandheld
-    - id: Syringe
-    - id: CableApcStack
-    - id: Lighter
-
-- type: entityTable
-  id: ToiletCisternRareToolsTable
-  table: !type:GroupSelector
-    children:
-    - id: ClothingHandsGlovesColorYellow
-    - id: DrinkSpaceLube
-    - id: WelderIndustrial
-    - id: ClothingHeadHatWeldingMaskFlame
-    - id: PowerCellMedium
-    - id: DoubleEmergencyOxygenTankFilled
-    - id: DoubleEmergencyNitrogenTankFilled
-
-- type: entityTable
-  id: ToiletCisternUtilityTable
-  table: !type:GroupSelector
-    children:
-    - id: Brutepack
-    - id: Ointment
-    - id: Gauze
-    - id: ChemistryBottleUnstableMutagen
-
-- type: entityTable
-  id: ToiletCisternWeaponsTable
-  table: !type:GroupSelector
-    children:
-    - id: SurvivalKnife
-    - id: ScalpelShiv
-    - id: Shiv
-    - id: SawImprov
-    - id: HydroponicsToolHatchet
-    - id: ClothingHandsKnuckleDusters
-    - id: WeaponFlareGun
-
-- type: entityTable
-  id: ToiletCisternSyndicateTable
-  table: !type:GroupSelector
-    children:
-    - id: CyberPen
-    - id: CigPackSyndicate
-    - id: SoapSyndie
-    - id: SyndicatePersonalAI
-    - id: UplinkLighterBox
-
-- type: entityTable
-  id: ToiletCisternLoot
-  table: !type:GroupSelector
-    children:
-    - !type:NestedSelector
-      weight: 25
-      tableId: ToiletCisternCommonToolsTable
-    - !type:NestedSelector
-      weight: 8
-      tableId: ToiletCisternRareToolsTable
-    - !type:NestedSelector
-      weight: 5
-      tableId: ToiletCisternUtilityTable
-    - !type:NestedSelector
-      weight: 3
-      tableId: ToiletCisternWeaponsTable
-    - !type:NestedSelector
-      weight: 1
-      tableId: ToiletCisternSyndicateTable

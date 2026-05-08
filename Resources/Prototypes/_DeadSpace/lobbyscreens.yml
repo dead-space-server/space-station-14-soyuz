@@ -1,4 +1,4 @@
-﻿# Fobos и его друзья
+﻿# Fobos
 
 # - type: lobbyBackground
 #   id: Oblomok
@@ -272,78 +272,48 @@
 
 - type: lobbyBackground
   id: Anime1
-  # DS14-start: Soyuz changes
-  background: /Textures/LobbyScreens/_Soyuz/Anime1.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/Anime1.png
 
 - type: lobbyBackground
-  # DS14-start: Soyuz changes
   id: FirstSqaud
-  background: /Textures/LobbyScreens/_Soyuz/first_squad.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/first_squad.png
 
-  # DS14-start: Soyuz changes
 - type: lobbyBackground
   id: NewYearUSSPMoth1
-  background: /Textures/LobbyScreens/_Soyuz/ds_newyear1_moth.png
-  # DS14-end
-  # DS14-start: Soyuz changes
+  background: /Textures/LobbyScreens/Soyuz/ds_newyear1_moth.png
 
 - type: lobbyBackground
   id: NewYearUSSPMoth2
-  background: /Textures/LobbyScreens/_Soyuz/ds_newyear2_moth.png
-  # DS14-start: Soyuz changes
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/ds_newyear2_moth.png
 
 - type: lobbyBackground
   id: Union1
-  # DS14-start: Soyuz changes
-  background: /Textures/LobbyScreens/_Soyuz/union1.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/union1.png
 
 - type: lobbyBackground
-  # DS14-start: Soyuz changes
   id: Zavod
-  background: /Textures/LobbyScreens/_Soyuz/zavod.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/zavod.png
 
-  # DS14-start: Soyuz changes
 - type: lobbyBackground
   id: moli_utilizatori
-  background: /Textures/LobbyScreens/_Soyuz/moli_utilizatori.png
-  # DS14-end
-  # DS14-start: Soyuz changes
+  background: /Textures/LobbyScreens/Soyuz/moli_utilizatori.png
 
 - type: lobbyBackground
   id: communist_banquet
-  background: /Textures/LobbyScreens/_Soyuz/communist_banquet.png
-  # DS14-start: Soyuz changes
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/communist_banquet.png
 
 - type: lobbyBackground
   id: dawning
-  # DS14-start: Soyuz changes
-  background: /Textures/LobbyScreens/_Soyuz/dawning.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/dawning.png
 
 - type: lobbyBackground
-  # DS14-start: Soyuz changes
   id: SlavaMilicii
-  background: /Textures/LobbyScreens/_Soyuz/SlavaMilicii.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/SlavaMilicii.png
 
-  # DS14-start: Soyuz changes
 - type: lobbyBackground
   id: ShkafAtmosfera
-  background: /Textures/LobbyScreens/_Soyuz/ShkafAtmosfera.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/ShkafAtmosfera.png
 
 - type: lobbyBackground
   id: ShkafNewYear
-  background: /Textures/LobbyScreens/_Soyuz/ShkafNewYear.png
-  # DS14-end
-
-- type: lobbyBackground
-  id: Soyuz9051
-  background: /Textures/LobbyScreens/_Soyuz/905-1.png
-  # DS14-end
+  background: /Textures/LobbyScreens/Soyuz/ShkafNewYear.png

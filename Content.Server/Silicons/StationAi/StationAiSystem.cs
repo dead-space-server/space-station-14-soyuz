@@ -2,10 +2,9 @@ using Content.Server.Chat.Systems;
 using Content.Server.Construction;
 using Content.Server.Destructible;
 using Content.Server.Ghost;
-using Content.Server.Ghost.Roles;
-using Content.Server.Ghost.Roles.Components;
 using Content.Server.Mind;
 using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
 using Content.Server.Roles;
 using Content.Server.Spawners.Components;
 using Content.Server.Spawners.EntitySystems;
@@ -13,8 +12,7 @@ using Content.Server.Station.Systems;
 using Content.Shared.Alert;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
+using Content.Shared.Damage;
 using Content.Shared.Destructible;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DoAfter;
@@ -22,7 +20,6 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Power;
-using Content.Shared.Power.EntitySystems;
 using Content.Shared.Power.Components;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Roles;
@@ -49,10 +46,9 @@ public sealed class StationAiSystem : SharedStationAiSystem
     [Dependency] private readonly RoleSystem _roles = default!;
     [Dependency] private readonly ItemSlotsSystem _slots = default!;
     [Dependency] private readonly GhostSystem _ghost = default!;
-    [Dependency] private readonly ToggleableGhostRoleSystem _ghostrole = default!;
     [Dependency] private readonly AlertsSystem _alerts = default!;
     [Dependency] private readonly DestructibleSystem _destructible = default!;
-    [Dependency] private readonly SharedBatterySystem _battery = default!;
+    [Dependency] private readonly BatterySystem _battery = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedPopupSystem _popups = default!;
     [Dependency] private readonly StationSystem _station = default!;
@@ -71,7 +67,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
     private readonly ProtoId<JobPrototype> _stationAiJob = "StationAi";
     private readonly EntProtoId _stationAiBrain = "StationAiBrain";
 
-    private readonly ProtoId<AlertPrototype> _batteryAlert = "AiBattery";
+    private readonly ProtoId<AlertPrototype> _batteryAlert = "BorgBattery";
     private readonly ProtoId<AlertPrototype> _damageAlert = "BorgHealth";
 
     public override void Initialize()
@@ -100,30 +96,14 @@ public sealed class StationAiSystem : SharedStationAiSystem
         }
 
         var brain = container.ContainedEntities[0];
-        var hasMind = _mind.TryGetMind(brain, out var mindId, out var mind);
 
-        if (hasMind || HasComp<GhostRoleComponent>(brain))
+        if (_mind.TryGetMind(brain, out var mindId, out var mind))
         {
+            // Found an existing mind to transfer into the AI core
             var aiBrain = Spawn(_stationAiBrain, Transform(ent.Owner).Coordinates);
+            _roles.MindAddJobRole(mindId, mind, false, _stationAiJob);
+            _mind.TransferTo(mindId, aiBrain);
 
-            if (hasMind)
-            {
-                // Found an existing mind to transfer into the AI core
-                _roles.MindAddJobRole(mindId, mind, false, _stationAiJob);
-                _mind.TransferTo(mindId, aiBrain);
-            }
-            else
-            {
-                // If the brain had a ghost role attached, activate the station AI ghost role
-                _ghostrole.ActivateGhostRole(aiBrain);
-
-                // Set the new AI brain to the 'rebooting' state
-                if (TryComp<StationAiCustomizationComponent>(aiBrain, out var customization))
-                    SetStationAiState((aiBrain, customization), StationAiState.Rebooting);
-                
-            }
-
-            // Delete the new AI brain if it cannot be inserted into the core
             if (!TryComp<StationAiHolderComponent>(ent, out var targetHolder) ||
                 !_slots.TryInsert(ent, targetHolder.Slot, aiBrain, null))
             {
@@ -144,10 +124,13 @@ public sealed class StationAiSystem : SharedStationAiSystem
         // into an AI core that has a full battery and full integrity.
         if (TryComp<BatteryComponent>(ent, out var battery))
         {
-            _battery.SetCharge((ent, battery), battery.MaxCharge);
+            _battery.SetCharge(ent, battery.MaxCharge);
         }
 
-        _damageable.ClearAllDamage(ent.Owner);
+        if (TryComp<DamageableComponent>(ent, out var damageable))
+        {
+            _damageable.SetAllDamage(ent, damageable, 0);
+        }
     }
 
     protected override void OnAiInsert(Entity<StationAiCoreComponent> ent, ref EntInsertedIntoContainerMessage args)
@@ -239,7 +222,6 @@ public sealed class StationAiSystem : SharedStationAiSystem
         UpdateDamagedAccent(entity);
     }
 
-    // TODO: This should just read the current damage and charge when speaking instead of updating the component all the time even if we don't even use it.
     private void UpdateDamagedAccent(Entity<StationAiCoreComponent> ent)
     {
         if (!TryGetHeld((ent.Owner, ent.Comp), out var held))
@@ -249,7 +231,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
             return;
 
         if (TryComp<BatteryComponent>(ent, out var battery))
-            accent.OverrideChargeLevel = _battery.GetChargeLevel((ent.Owner, battery));
+            accent.OverrideChargeLevel = battery.CurrentCharge / battery.MaxCharge;
 
         if (TryComp<DamageableComponent>(ent, out var damageable))
             accent.OverrideTotalDamage = damageable.TotalDamage;
@@ -271,7 +253,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
         if (!_proto.TryIndex(_batteryAlert, out var proto))
             return;
 
-        var chargePercent = _battery.GetChargeLevel((ent.Owner, battery));
+        var chargePercent = battery.CurrentCharge / battery.MaxCharge;
         var chargeLevel = Math.Round(chargePercent * proto.MaxSeverity);
 
         _alerts.ShowAlert(held.Value, _batteryAlert, (short)Math.Clamp(chargeLevel, 0, proto.MaxSeverity));

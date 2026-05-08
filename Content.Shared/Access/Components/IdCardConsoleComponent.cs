@@ -57,8 +57,6 @@ public sealed partial class IdCardConsoleComponent : Component
         "Brigmedic",
         "Security",
         "Brig",
-        "GenpopEnter",
-        "GenpopLeave",
         "Chemistry",
         "Paramedic",
         "Coroner",

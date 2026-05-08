@@ -1,6 +1,5 @@
 using Robust.Shared.GameStates;
 using Content.Server.Actions;
-using Content.Shared.Chat;
 using Content.Shared.Sirena.Animations;
 using static Content.Shared.Sirena.Animations.EmoteAnimationComponent;
 using Content.Server.Chat.Systems;
@@ -8,12 +7,11 @@ using Content.Shared.Chat.Prototypes;
 
 namespace Content.Server.Sirena.Animations;
 
-public sealed class EmoteAnimationSystem : SharedEmoteAnimationSystem
+public class EmoteAnimationSystem : SharedEmoteAnimationSystem
 {
     [Dependency] private readonly ActionsSystem _action = default!;
     public override void Initialize()
     {
-        base.Initialize();
         SubscribeLocalEvent<EmoteAnimationComponent, ComponentGetState>(OnGetState);
 
         SubscribeLocalEvent<EmoteAnimationComponent, MapInitEvent>(OnMapInint);

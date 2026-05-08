@@ -13,20 +13,7 @@ public sealed class PlayTTSEvent : EntityEventArgs
     public bool IsRadio { get; }
     public bool IsLexiconSound { get; } // DS14-Language
     public string LanguageId { get; } // DS14-Language
-    // DS14-PoliticalLoudspeaker-start: sync TTS playback modifiers to clients
-    public float VolumeMultiplier { get; }
-    public float DistanceMultiplier { get; }
-    // DS14-PoliticalLoudspeaker-end
-
-    public PlayTTSEvent(
-        byte[] data,
-        NetEntity? sourceUid = null,
-        bool isWhisper = false,
-        bool isRadio = false,
-        bool isSoundLexicon = false,
-        string languageId = "",
-        float volumeMultiplier = 1f, // DS14-PoliticalLoudspeaker
-        float distanceMultiplier = 1f) // DS14-PoliticalLoudspeaker
+    public PlayTTSEvent(byte[] data, NetEntity? sourceUid = null, bool isWhisper = false, bool isRadio = false, bool isSoundLexicon = false, string languageId = "")
     {
         Data = data;
         SourceUid = sourceUid;
@@ -34,9 +21,5 @@ public sealed class PlayTTSEvent : EntityEventArgs
         IsRadio = isRadio;
         IsLexiconSound = isSoundLexicon; // DS14-Language
         LanguageId = languageId; // DS14-Language
-        // DS14-PoliticalLoudspeaker-start
-        VolumeMultiplier = volumeMultiplier;
-        DistanceMultiplier = distanceMultiplier;
-        // DS14-PoliticalLoudspeaker-end
     }
 }

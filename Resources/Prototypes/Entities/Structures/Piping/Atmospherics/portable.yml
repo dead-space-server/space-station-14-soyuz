@@ -103,9 +103,7 @@
   id: SpaceHeater
   parent: [BaseMachinePowered, ConstructibleMachine]
   name: space heater
-  # DS14-start: Soyuz changes
-  description: A redspace technology device that alters local temperature. Commonly referred to as a "Space Heater".
-  # DS14-end
+  description: A bluespace technology device that alters local temperature. Commonly referred to as a "Space Heater".
   suffix: Unanchored
   components:
   - type: StationAiWhitelist

@@ -9,7 +9,7 @@
       - torso
       organs:
         brain: OrganVoxBrain # DS14
-        eyes: OrganVoxEyes
+        eyes: OrganHumanEyes
     torso:
       part: TorsoVox
       connections:

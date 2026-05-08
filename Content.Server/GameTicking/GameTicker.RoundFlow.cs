@@ -8,7 +8,6 @@ using Content.Server.Roles;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
-using Content.Shared.Maps;
 using Content.Shared.Mind;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
@@ -25,8 +24,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using System.Text.RegularExpressions;
-
-#pragma warning disable RA0026
 
 namespace Content.Server.GameTicking
 {
@@ -148,10 +145,7 @@ namespace Content.Server.GameTicking
                 DebugTools.Assert(!_map.IsInitialized(mapId));
 
                 if (i == 0)
-                {
                     DefaultMap = mapId;
-                    _gameMapManager.MarkMapPlayed(maps[i].ID);
-                }
             }
         }
 
@@ -400,9 +394,7 @@ namespace Content.Server.GameTicking
                 }
                 else
                 {
-                    var speciesToBlacklist =
-                        new HashSet<string>(_cfg.GetCVar(CCVars.ICNewAccountSpeciesBlacklist).Split(","));
-                    profile = HumanoidCharacterProfile.Random(speciesToBlacklist);
+                    profile = HumanoidCharacterProfile.Random();
                 }
                 readyPlayerProfiles.Add(userId, profile);
             }
@@ -705,10 +697,7 @@ namespace Content.Server.GameTicking
                 if (_playerManager.PlayerCount == 0)
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else
-                {
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                    TryStartAutomaticMapVote();
-                }
 
                 SendStatusToAll();
                 UpdateInfoText();
@@ -762,7 +751,6 @@ namespace Content.Server.GameTicking
             _banManager.Restart();
 
             _gameMapManager.ClearSelectedMap();
-            _automaticMapVoteHandled = false;
 
             // Clear up any game rules.
             ClearGameRules();

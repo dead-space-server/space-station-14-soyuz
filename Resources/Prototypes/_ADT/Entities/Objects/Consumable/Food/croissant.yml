@@ -78,7 +78,7 @@
       - bun
       - meaty
       - spicy
-  - type: Edible
+  - type: Food
     transferAmount: 3
   - type: Sprite
     sprite: _ADT/Objects/Consumable/Food/croissant.rsi

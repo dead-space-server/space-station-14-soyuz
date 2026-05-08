@@ -70,18 +70,6 @@
     storedRotation: -90
 
 - type: entity
-  parent: AnomalyScanner
-  id: AnomalyScannerAdmin
-  name: admin anomaly scanner
-  description: A hand-held scanner built to collect information on various anomalous objects. This one seems to have a few extra features.
-  suffix: Admin
-  components:
-  - type: AnomalyScanner
-    ignoreSecret: true
-  - type: Sprite
-    sprite: Objects/Specific/Research/adminanomalyscanner.rsi
-
-- type: entity
   id: AnomalyLocatorUnpowered
   parent: BaseItem
   name: anomaly locator
@@ -126,7 +114,7 @@
   components:
   - type: PowerCellDraw
     drawRate: 1
-    useCharge: 0
+    useRate: 0
   - type: ToggleCellDraw
 
 - type: entity
@@ -161,7 +149,7 @@
   components:
   - type: PowerCellDraw
     drawRate: 1
-    useCharge: 0
+    useRate: 0
   - type: ToggleCellDraw
 
 - type: entity
@@ -200,7 +188,7 @@
       path: "/Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg"
   - type: CorePoweredThrower
   - type: MeleeThrowOnHit
-    unanchorOnHit: Unanchorable
+    unanchorOnHit: true
   - type: ItemSlots
     slots:
       core_slot:

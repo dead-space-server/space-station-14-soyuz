@@ -1,6 +1,5 @@
 using Content.Shared.Construction.Prototypes;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Prototypes;
 using Robust.Shared.ViewVariables;
 
 namespace Content.Client.Construction
@@ -10,6 +9,5 @@ namespace Content.Client.Construction
     {
         public int GhostId { get; set; }
         [ViewVariables] public ConstructionPrototype? Prototype { get; set; }
-        [ViewVariables] public EntProtoId? TargetPrototype { get; set; } // DS14
     }
 }

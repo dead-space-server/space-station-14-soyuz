@@ -5,7 +5,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.DeadSpace.Photocopier;
 
-[Prototype]
+[Prototype("paperworkForm")]
 public sealed partial class PaperworkFormPrototype : IPrototype
 {
     [ViewVariables]

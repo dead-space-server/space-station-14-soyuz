@@ -2,7 +2,7 @@
   id: Ishimura
   mapName: 'Ishimura'
   mapPath: /Maps/_Soyuz/ishimyra.yml # Я рот топтал этой ишимуры нихуя не грузит
-  minPlayers: 22
+  minPlayers: 60
   stations:
     Ishimura:
       stationProto: StandardNanotrasenStation
@@ -27,6 +27,7 @@
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 1, 1 ]
+            SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 6, 6 ]
             Brigmedic: [ 1, 1 ]
             SecurityCadet: [ 4, 4 ]

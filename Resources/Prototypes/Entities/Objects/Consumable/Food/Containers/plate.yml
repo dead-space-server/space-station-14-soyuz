@@ -57,7 +57,7 @@
     - Trash
   - type: PhysicalComposition
     materialComposition:
-      Glass: 50
+      Glass: 60
   - type: SpaceGarbage
 
 - type: entity
@@ -117,7 +117,7 @@
         acts: [ "Destruction" ]
   - type: PhysicalComposition
     materialComposition:
-      Glass: 25
+      Glass: 30
 
 - type: entity
   parent: FoodPlateTrash
@@ -196,7 +196,7 @@
     - Trash
   - type: PhysicalComposition
     materialComposition:
-      Steel: 50
+      Steel: 60
   - type: SpaceGarbage
 
 # Muffin Tin
@@ -220,5 +220,5 @@
     - Trash
   - type: PhysicalComposition
     materialComposition:
-      Steel: 25
+      Steel: 30
   - type: SpaceGarbage

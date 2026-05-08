@@ -3,8 +3,7 @@
   id: SmileExtractStealObjective
   components:
   - type: NotJobRequirement
-    jobs:
-    - Scientist
+    job: Scientist
   - type: StealCondition
     stealGroup: SmileExtract
   - type: Objective
@@ -15,8 +14,7 @@
   id: MukhtarStealObjective
   components:
   - type: NotJobRequirement
-    jobs:
-    - SecurityOfficer
+    job: SecurityOfficer
   - type: StealCondition
     stealGroup: AnimalMukhtar
   - type: Objective
@@ -27,8 +25,7 @@
   id: PollyStealObjective
   components:
   - type: NotJobRequirement
-    jobs:
-    - StationEngineer
+    job: StationEngineer
   - type: StealCondition
     stealGroup: AnimalPolly
   - type: Objective
@@ -39,8 +36,7 @@
   id: XenoMaidStealObjective
   components:
   - type: NotJobRequirement
-    jobs:
-    - Scientist
+    job: Scientist
   - type: StealCondition
     stealGroup: AnimalXenoMaid
   - type: Objective
@@ -51,8 +47,7 @@
   id: LargoStealObjective
   components:
   - type: NotJobRequirement
-    jobs:
-    - CargoTechnician
+    job: CargoTechnician
   - type: StealCondition
     stealGroup: AnimalLargo
   - type: Objective

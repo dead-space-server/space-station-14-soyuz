@@ -58,7 +58,7 @@
   - type: DnaSubstanceTrace
 
 - type: entity
-  parent: MopItem
+  parent: BaseItem
   name: advanced mop
   id: AdvMopItem
   description: Motorized mop that has a bigger reservoir and quickly replaces reagents inside with water. Automatic Clown Countermeasure not included.
@@ -70,12 +70,37 @@
       - map: ["enum.SolutionContainerLayers.Fill"]
         state: fill-2
         visible: false
+    - type: Appearance
     - type: SolutionContainerVisuals
       maxFillLevels: 2
+      fillBaseName: fill-
+      inHandsFillBaseName: -fill-
+      inHandsMaxFillLevels: 2
+    - type: MeleeWeapon
+      damage:
+        types:
+          Blunt: 10
+      soundHit:
+         collection: MetalThud
+    - type: Spillable
+      solution: absorbed
+      spillWhenThrown: false
+      preventMelee: false
+    - type: DrainableSolution
+      solution: absorbed
+    - type: Wieldable
+    - type: IncreaseDamageOnWield
+      damage:
+        types:
+          Blunt: 5
     - type: Item
+      size: Large
       sprite: Objects/Specific/Janitorial/advmop.rsi
     - type: Absorbent
       pickupAmount: 100
+      useAbsorberSolution: true
+    - type: UseDelay
+      delay: 1.0
     - type: SolutionRegeneration
       solution: absorbed
       generated:
@@ -87,10 +112,15 @@
       preserve:
       - Water
       quantity: 10
+    - type: SolutionContainerManager
+      solutions:
+        absorbed:
+          maxVol: 100
     - type: Tag
       tags:
         - Mop
         - MopAdv
+    - type: DnaSubstanceTrace
 
 - type: entity
   name: wet floor sign
@@ -281,7 +311,7 @@
   id: PlungerLoot
   weights:
     RandomSpawner100: 56
-    SpacemenFigurineSpawner90: 28
+    SpacemenFigureSpawner: 28
     SpawnMobCockroach: 5
     MaintenanceToolSpawner: 5
     SpawnMobMoproach: 2
@@ -332,6 +362,7 @@
     - type: Tag
       tags:
         - Mop
+    - type: CleansForensics
     - type: Fiber
       fiberColor: fibers-white
     - type: DnaSubstanceTrace
@@ -371,74 +402,3 @@
         Piercing: 3
     soundHit:
       path: "/Audio/Weapons/bladeslice.ogg"
-
-- type: entity
-  # DS14-start: electrical wire brush uses its own sprite, toggle sounds, and a small power cell
-  parent: [BaseItem, PowerCellSlotSmallItem]
-  id: WireBrushElectrical
-  name: electrical wire brush
-  description: A bristly steel wire brush with a moving head, allowing for a way easier time cleaning.
-  components:
-  - type: Sprite
-    sprite: Objects/Specific/Janitorial/wirebrush_electrical.rsi
-    layers:
-    - state: icon
-    - state: active
-      visible: false
-      map: [ "active" ]
-  - type: Item
-    storedSprite:
-      sprite: Objects/Specific/Janitorial/wirebrush_electrical.rsi
-      state: storage
-    size: Small
-  - type: Appearance
-  - type: GenericVisualizer
-    visuals:
-      enum.ToggleableVisuals.Enabled:
-        active:
-          True: { visible: true }
-          False: { visible: false }
-  - type: ItemToggle
-    predictable: false
-    soundActivate:
-      path: /Audio/Items/change_drill.ogg
-    soundDeactivate:
-      path: /Audio/Weapons/telescopicoff.ogg
-      params:
-        volume: -5
-  - type: ItemToggleActiveSound
-    activeSound:
-      path: /Audio/Ambience/Objects/circular_saw.ogg
-      params:
-        volume: -6
-        maxDistance: 2
-  - type: ToggleableVisuals
-    spriteLayer: active
-  - type: ComponentToggler
-    components:
-    - type: Tool
-      qualities:
-      - Brushing
-      speedModifier: 4
-      useSound: /Audio/Items/drill_use.ogg
-  - type: ToggleCellDraw
-  - type: PowerCellDraw
-    drawRate: 1 # ~6 minutes on a small power cell.
-    useCharge: 0
-  - type: Tag
-    tags:
-    - WireBrush
-  - type: PhysicalComposition
-    materialComposition:
-      Steel: 50
-      Plastic: 50
-  - type: StaticPrice
-    price: 22
-  - type: MeleeWeapon
-    wideAnimationRotation: 45
-    damage:
-      types:
-        Piercing: 3
-    soundHit:
-      path: "/Audio/Weapons/bladeslice.ogg"
-  # DS14-end

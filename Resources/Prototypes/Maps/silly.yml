@@ -4,10 +4,8 @@
   mapPath: /Maps/_Soyuz/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 0
-  maxPlayers: 40
-  # DS14-Soyuz-end
+  minPlayers: 5
+  maxPlayers: 20
   stations:
     Silly:
       stationProto: StandardNanotrasenStation

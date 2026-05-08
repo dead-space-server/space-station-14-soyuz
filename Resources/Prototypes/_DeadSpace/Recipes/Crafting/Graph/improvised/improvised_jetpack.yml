@@ -6,7 +6,7 @@
     edges:
     - to: jetpack
       steps:
-      - component: GasTank
+      - tag: GasTank
         name: construction-graph-tag-gas-tank
         icon:
           sprite: Objects/Tanks/oxygen.rsi
@@ -18,7 +18,7 @@
           sprite: Objects/Misc/fire_extinguisher.rsi
           state: fire_extinguisher_closed
         doAfter: 3
-      - component: GasTank
+      - tag: GasTank
         name: construction-graph-tag-gas-tank
         icon:
           sprite: Objects/Tanks/oxygen.rsi

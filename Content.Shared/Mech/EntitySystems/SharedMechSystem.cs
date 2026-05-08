@@ -24,6 +24,14 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared.Mech.EntitySystems;
 
+// DS14-Soyuz-start
+[ByRefEvent]
+public record struct MechPilotSetupEvent(EntityUid Pilot, EntityUid Mech);
+
+[ByRefEvent]
+public record struct MechPilotCleanupEvent(EntityUid Pilot, EntityUid Mech);
+// DS14-Soyuz-end
+
 /// <summary>
 /// Handles all of the interactions, UI handling, and items shennanigans for <see cref="MechComponent"/>
 /// </summary>
@@ -136,6 +144,11 @@ public abstract partial class SharedMechSystem : EntitySystem
         rider.Mech = mech;
         Dirty(pilot, rider);
 
+        // DS14-Soyuz-start
+        var setupEvent = new MechPilotSetupEvent(pilot, mech);
+        RaiseLocalEvent(mech, ref setupEvent);
+        // DS14-Soyuz-end
+
         if (_net.IsClient)
             return;
 
@@ -146,6 +159,11 @@ public abstract partial class SharedMechSystem : EntitySystem
 
     private void RemoveUser(EntityUid mech, EntityUid pilot)
     {
+        // DS14-Soyuz-start
+        var cleanupEvent = new MechPilotCleanupEvent(pilot, mech);
+        RaiseLocalEvent(mech, ref cleanupEvent);
+        // DS14-Soyuz-end
+
         if (!RemComp<MechPilotComponent>(pilot))
             return;
         RemComp<RelayInputMoverComponent>(pilot);
@@ -283,7 +301,6 @@ public abstract partial class SharedMechSystem : EntitySystem
 
     /// <summary>
     /// Attempts to change the amount of energy in the mech.
-    /// TODO: Power cells are predicted now, so no need to duplicate the charge level
     /// </summary>
     /// <param name="uid">The mech itself</param>
     /// <param name="delta">The change in energy</param>

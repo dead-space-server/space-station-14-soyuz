@@ -9,9 +9,6 @@
   - FloorTileItemDarkHerringbone
   - FloorTileItemDarkMini
   - FloorTileItemDarkMono
-  - FloorTileItemDarkSlatsContinuous
-  - FloorTileItemDarkVerticalSlatsBordered
-  - FloorTileItemDarkHorizontalSlatsBordered
   - FloorTileItemDarkPavement
   - FloorTileItemDarkPavementVertical
   - FloorTileItemDarkOffset
@@ -26,9 +23,6 @@
   - FloorTileItemSteelDiagonal
   - FloorTileItemSteelHerringbone
   - FloorTileItemSteelMini
-  - FloorTileItemSteelSlatsContinuous
-  - FloorTileItemSteelVerticalSlatsBordered
-  - FloorTileItemSteelHorizontalSlatsBordered
   - FloorTileItemSteelMono
   - FloorTileItemSteelPavement
   - FloorTileItemSteelPavementVertical
@@ -45,9 +39,6 @@
   - FloorTileItemWhiteHerringbone
   - FloorTileItemWhiteMini
   - FloorTileItemWhiteMono
-  - FloorTileItemWhiteSlatsContinuous
-  - FloorTileItemWhiteVerticalSlatsBordered
-  - FloorTileItemWhiteHorizontalSlatsBordered
   - FloorTileItemWhitePavement
   - FloorTileItemWhitePavementVertical
 
@@ -98,9 +89,6 @@
   - FloorTileItemOldConcrete
   - FloorTileItemOldConcreteMono
   - FloorTileItemOldConcreteSmooth
-  - FloorTileItemIronsandConcrete
-  - FloorTileItemIronsandConcreteMono
-  - FloorTileItemIronsandConcreteSmooth
 
 - type: latheRecipePack
   id: CircuitFloorsStatic
@@ -130,8 +118,6 @@
   - FauxTileAstroAsteroidSand
   - FauxTileDesertAstroSand
   - FauxTileFairyAstroGrass # DS14
-  - FauxTileAstroIronsand
-  - FauxTileAstroIronsandBorderless
 
 # DS14-start
 - type: latheRecipePack

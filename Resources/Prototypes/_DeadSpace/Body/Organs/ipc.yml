@@ -27,6 +27,8 @@
   id: BaseIPCOrgan
   parent: BaseIPCOrganUnGibbable
   abstract: true
+  components:
+  - type: Gibbable
 
 - type: entity
   id: OrganIPCBrain

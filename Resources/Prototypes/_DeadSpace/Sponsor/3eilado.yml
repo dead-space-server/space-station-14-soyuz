@@ -388,7 +388,7 @@
     color: red
     netsync: false
   - type: Appearance
-  - type: ToggleableVisuals
+  - type: ToggleableLightVisuals
     spriteLayer: blade
     inhandVisuals:
       left:
@@ -452,7 +452,7 @@
     color: red
     netsync: false
   - type: Appearance
-  - type: ToggleableVisuals
+  - type: ToggleableLightVisuals
     spriteLayer: blade
     inhandVisuals:
       left:
@@ -822,13 +822,8 @@
     solution: hypospray
   - type: ExaminableSolution
     solution: hypospray
-  - type: Injector
-    solutionName: hypospray
-    ignoreClosed: false
-    activeModeProtoId: HyposprayDynamicMode
-    allowedModes:
-    - HyposprayDynamicMode
-    - HyposprayInjectMode
+  - type: Hypospray
+    onlyAffectsMobs: false
   - type: UseDelay
     delay: 1.0
 

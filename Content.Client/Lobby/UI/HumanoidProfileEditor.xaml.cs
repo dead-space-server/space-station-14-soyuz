@@ -6,8 +6,8 @@ using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
 using Content.Client.Message;
 using Content.Client.Players.PlayTimeTracking;
-using Content.Client.Stylesheets;
 using Content.Client.Sprite;
+using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Systems.Guidebook;
 using Content.DeadSpace.Interfaces.Client;
 using Content.Shared.CCVar;
@@ -209,33 +209,6 @@ namespace Content.Client.Lobby.UI
             };
 
             #endregion Age
-
-            // DS14-height-start
-            #region Height
-
-            HeightSpinBox.IsValid = value =>
-            {
-                var range = GetCurrentHeightRange();
-                return value >= range.Min && value <= range.Max;
-            };
-            HeightSpinBox.InitDefaultButtons();
-            HeightSpinBox.LineEditControl.IsValid = value =>
-                value.Length <= 3 &&
-                (value.Length == 0 || value.All(char.IsDigit));
-            HeightSpinBox.ValueChanged += args =>
-            {
-                var range = GetCurrentHeightRange();
-
-                if (args.Value < range.Min || args.Value > range.Max)
-                    return;
-
-                SetCharacterHeight(args.Value);
-            };
-            HeightSpinBox.LineEditControl.OnTextEntered += _ => CommitHeightInput();
-            HeightSpinBox.LineEditControl.OnFocusExit += _ => CommitHeightInput();
-
-            #endregion Height
-            // DS14-height-end
 
             #region Gender
 
@@ -582,7 +555,7 @@ namespace Content.Client.Lobby.UI
                     {
                         Text = Loc.GetString(category.Name),
                         Margin = new Thickness(0, 10, 0, 0),
-                        StyleClasses = { StyleClass.LabelHeading },
+                        StyleClasses = { StyleBase.StyleClassLabelHeading },
                     });
                 }
 
@@ -835,7 +808,6 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateAgeEdit();
-            UpdateHeightEdit(); // DS14-height
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateTTSVoicesControls(); // Corvax-TTS
@@ -1230,37 +1202,6 @@ namespace Content.Client.Lobby.UI
             ReloadPreview();
         }
 
-        // DS14-height-start
-        private void SetCharacterHeight(int newHeight)
-        {
-            if (Profile == null)
-                return;
-
-            Profile = Profile.WithHeight(newHeight);
-            UpdateHeightEdit();
-            ReloadPreview();
-        }
-
-        private void CommitHeightInput()
-        {
-            var range = GetCurrentHeightRange();
-            var currentHeight = Profile?.Height ?? range.Default;
-
-            if (!int.TryParse(HeightSpinBox.LineEditControl.Text, out var inputHeight))
-            {
-                HeightSpinBox.OverrideValue(currentHeight);
-                return;
-            }
-
-            var clampedHeight = Math.Clamp(inputHeight, range.Min, range.Max);
-
-            HeightSpinBox.OverrideValue(clampedHeight);
-
-            if (currentHeight != clampedHeight)
-                SetCharacterHeight(clampedHeight);
-        }
-        // DS14-height-end
-
         private void SetSex(Sex newSex)
         {
             Profile = Profile?.WithSex(newSex);
@@ -1279,7 +1220,6 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateGenderControls();
-            UpdateHeightEdit(); // DS14-height
             UpdateTTSVoicesControls(); // Corvax-TTS
             Markings.SetSex(newSex);
             ReloadPreview();
@@ -1309,7 +1249,6 @@ namespace Content.Client.Lobby.UI
             // In case there's species restrictions for loadouts
             RefreshLoadouts();
             UpdateSexControls(); // update sex for new species
-            UpdateHeightEdit(); // DS14-height
             UpdateSpeciesGuidebookIcon();
             ReloadPreview();
         }
@@ -1361,26 +1300,6 @@ namespace Content.Client.Lobby.UI
         {
             AgeEdit.Text = Profile?.Age.ToString() ?? "";
         }
-        // DS14-height-start
-        private void UpdateHeightEdit()
-        {
-            var range = GetCurrentHeightRange();
-            var height = Profile?.Height ?? range.Default;
-            var clampedHeight = Math.Clamp(height, range.Min, range.Max);
-
-            if (Profile != null && Profile.Height != clampedHeight)
-                Profile = Profile.WithHeight(clampedHeight);
-
-            HeightSpinBox.OverrideValue(clampedHeight);
-        }
-
-        private (int Min, int Default, int Max) GetCurrentHeightRange()
-        {
-            var species = Profile?.Species ?? SharedHumanoidAppearanceSystem.DefaultSpecies;
-            var sex = Profile?.Sex ?? Sex.Male;
-            return HumanoidCharacterProfile.GetHeightRange(species, sex);
-        }
-        // DS14-height-end
 
         /// <summary>
         /// Updates selected job priorities to the profile's.
@@ -1481,7 +1400,7 @@ namespace Content.Client.Lobby.UI
                 return;
 
             const string style = "SpeciesInfoDefault";
-            SpeciesInfoButton.StyleIdentifier = style;
+            SpeciesInfoButton.StyleClasses.Add(style);
         }
 
         private void UpdateMarkings()

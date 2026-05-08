@@ -250,11 +250,11 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazinePistolCaselessRifle
+        startingItem: MagazineCaselessRifle
         priority: 2
         whitelist:
           tags:
-          - MagazinePistolCaselessRifle
+          - MagazineCaselessRifle
           - MagazineCaselessRifleBurn
       gun_chamber:
         name: Chamber
@@ -272,12 +272,8 @@
 - type: entity
   id: MagazineCaselessRifleBurn
   name: магазин (4.7х33 мм безгильзовые, Dragon's breath)
-  parent: BaseMagazinePistolCaselessRifle
+  parent: BaseMagazineCaselessRifle
   components:
-  - type: Tag
-    tags:
-    - MagazinePistolCaselessRifle
-    - MagazineCaselessRifleBurn
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessDragon
   - type: Sprite
@@ -289,10 +285,6 @@
       map: ["enum.GunVisualLayers.Mag"]
     - state: stripe
       color: "#cc4502"
-  - type: MagazineVisuals
-    magState: mag
-    steps: 2
-    zeroVisible: false
 
 # Арес
 

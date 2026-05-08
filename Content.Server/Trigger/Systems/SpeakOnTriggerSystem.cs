@@ -1,5 +1,4 @@
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat;
 using Content.Shared.Trigger;
 using Content.Shared.Trigger.Components.Effects;
 using Robust.Shared.Prototypes;

@@ -13,12 +13,9 @@
     maxFillLevels: 1
     changeColor: false
     emptySpriteName: microstimpen_empty
-  - type: Injector
+  - type: Hypospray
     solutionName: pen
-    currentTransferAmount: null
-    activeModeProtoId: HyposprayInjectMode
-    allowedModes:
-    - HyposprayInjectMode
+    transferAmount: 30
   - type: SolutionContainerManager
     solutions:
       pen:

@@ -1,145 +1,18 @@
-<!-- DS-14 Start: Replaces the old single-column menu with search, transport controls,
-     and a dedicated client-side volume rail. -->
 <ui:FancyWindow xmlns="https://spacestation14.io" xmlns:ui="clr-namespace:Content.Client.UserInterface.Controls"
-                xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
-                SetSize="520 500" Title="{Loc 'jukebox-menu-title'}">
-    <BoxContainer Margin="4 0" Orientation="Horizontal">
-        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SizeFlagsStretchRatio="9">
-            <LineEdit Name="SearchInput" Margin="3 3 3 0" PlaceHolder="{Loc 'jukebox-menu-search-placeholder'}" />
-            <ItemList Name="MusicList" SelectMode="Button" Margin="3 3 3 3"
-            HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="8"/>
-            <BoxContainer Orientation="Vertical">
-                <Label Name="SongSelected" Text="{Loc 'jukebox-menu-selectedsong'}" Margin="8 0 0 0" />
-                <Label Name="SongName" Text="---" Margin="8 0 0 0" />
-                <Slider Name="PlaybackSlider" HorizontalExpand="True" />
-            </BoxContainer>
-            <BoxContainer Orientation="Horizontal" HorizontalExpand="True"
-            VerticalExpand="False" SizeFlagsStretchRatio="1">
-                <Control HorizontalExpand="True" />
-                <BoxContainer Orientation="Horizontal" SeparationOverride="4" HorizontalAlignment="Center">
-                    <Button Name="ShuffleButton"
-                            ToggleMode="True"
-                            StyleClasses="ButtonSquare"
-                            MinSize="40 34"
-                            ToolTip="{Loc 'jukebox-menu-buttonshuffle'}">
-                        <BoxContainer MouseFilter="Ignore"
-                                      Orientation="Vertical"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      SeparationOverride="-2">
-                            <TextureRect HorizontalAlignment="Right"
-                                         SetSize="12 8"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/right_arrow.svg.192dpi.png" />
-                            <TextureRect HorizontalAlignment="Left"
-                                         SetSize="12 8"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/left_arrow.svg.192dpi.png" />
-                        </BoxContainer>
-                    </Button>
-                    <Button Name="PreviousButton"
-                            StyleClasses="ButtonSquare"
-                            MinSize="40 34"
-                            ToolTip="{Loc 'jukebox-menu-buttonprevious'}">
-                        <BoxContainer MouseFilter="Ignore"
-                                      Orientation="Horizontal"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      SeparationOverride="-3">
-                            <TextureRect SetSize="10 12"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/filled_left_arrow.svg.192dpi.png" />
-                            <TextureRect SetSize="10 12"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/filled_left_arrow.svg.192dpi.png" />
-                        </BoxContainer>
-                    </Button>
-                    <Button Name="PlayButton"
-                            StyleClasses="ButtonSquare"
-                            MinSize="44 34"
-                            ToolTip="{Loc 'jukebox-menu-buttonplay'}">
-                        <TextureRect Name="PlayIcon"
-                                     MouseFilter="Ignore"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     SetSize="18 18"
-                                     Stretch="KeepAspectCentered"
-                                     TexturePath="/Textures/Interface/AdminActions/play.png" />
-                    </Button>
-                    <Button Name="NextButton"
-                            StyleClasses="ButtonSquare"
-                            MinSize="40 34"
-                            ToolTip="{Loc 'jukebox-menu-buttonnext'}">
-                        <BoxContainer MouseFilter="Ignore"
-                                      Orientation="Horizontal"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      SeparationOverride="-3">
-                            <TextureRect SetSize="10 12"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/filled_right_arrow.svg.192dpi.png" />
-                            <TextureRect SetSize="10 12"
-                                         Stretch="KeepAspectCentered"
-                                         TexturePath="/Textures/Interface/Default/filled_right_arrow.svg.192dpi.png" />
-                        </BoxContainer>
-                    </Button>
-                    <Button Name="RepeatButton"
-                            ToggleMode="True"
-                            StyleClasses="ButtonSquare"
-                            MinSize="36 34"
-                            ToolTip="{Loc 'jukebox-menu-buttonrepeat'}">
-                        <TextureRect MouseFilter="Ignore"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     SetSize="18 18"
-                                     Stretch="KeepAspectCentered"
-                                     TexturePath="/Textures/Interface/Nano/circular_arrow.svg.96dpi.png" />
-                    </Button>
-                </BoxContainer>
-                <Control HorizontalExpand="True" />
-            </BoxContainer>
-            <BoxContainer Orientation="Horizontal" HorizontalExpand="True"
-            VerticalExpand="False" SizeFlagsStretchRatio="1">
-                <Label Name="DurationLabel" Text="00:00 / 00:00" HorizontalAlignment="Right" HorizontalExpand="True" Margin="0 4 2 0"/>
-            </BoxContainer>
+                SetSize="400 500" Title="{Loc 'jukebox-menu-title'}">
+    <BoxContainer Margin="4 0" Orientation="Vertical">
+        <ItemList Name="MusicList" SelectMode="Button" Margin="3 3 3 3"
+        HorizontalExpand="True" VerticalExpand="True" SizeFlagsStretchRatio="8"/>
+        <BoxContainer Orientation="Vertical">
+            <Label Name="SongSelected" Text="{Loc 'jukebox-menu-selectedsong'}" />
+            <Label Name="SongName" Text="---" />
+            <Slider Name="PlaybackSlider" HorizontalExpand="True" />
         </BoxContainer>
-        <PanelContainer Margin="8 3 3 3" MinSize="116 0">
-            <PanelContainer.PanelOverride>
-                <gfx:StyleBoxFlat BorderThickness="1" BorderColor="#373B4E" BackgroundColor="#202129"/>
-            </PanelContainer.PanelOverride>
-            <BoxContainer Orientation="Vertical" Margin="8 10 8 10" VerticalExpand="True">
-                <TextureRect Name="VolumeIcon"
-                             HorizontalAlignment="Center"
-                             SetSize="24 24"
-                             Stretch="KeepAspectCentered" />
-                <Label Name="VolumeLabel"
-                       Text="{Loc 'jukebox-menu-volume'}"
-                       HorizontalAlignment="Center"
-                       StyleClasses="LabelKeyText"
-                       Margin="0 6 0 10" />
-                <PanelContainer StyleClasses="LowDivider" Margin="0 0 0 8" />
-                <PanelContainer HorizontalAlignment="Center" VerticalExpand="True" MinSize="58 264">
-                    <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BorderThickness="1" BorderColor="#2A2D3C" BackgroundColor="#15171F" />
-                    </PanelContainer.PanelOverride>
-                    <BoxContainer Orientation="Vertical" Margin="0 8 0 8" HorizontalAlignment="Center" VerticalExpand="True">
-                        <Label Text="100" HorizontalAlignment="Center" StyleClasses="LabelSubText" />
-                        <VScrollBar Name="VolumeSlider" MinSize="26 208" HorizontalAlignment="Center" VerticalExpand="True" Margin="0 6 0 6" />
-                        <Label Text="0" HorizontalAlignment="Center" StyleClasses="LabelSubText" />
-                    </BoxContainer>
-                </PanelContainer>
-                <PanelContainer Margin="0 10 0 0">
-                    <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BorderThickness="1" BorderColor="#616A8C" BackgroundColor="#2A2E40" />
-                    </PanelContainer.PanelOverride>
-                    <Label Name="VolumeValueLabel"
-                           Text="100%"
-                           HorizontalAlignment="Center"
-                           StyleClasses="LabelHeading"
-                           Margin="0 4 0 4" />
-                </PanelContainer>
-            </BoxContainer>
-        </PanelContainer>
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True"
+        VerticalExpand="False" SizeFlagsStretchRatio="1">
+            <Button Name="PlayButton" Text="{Loc 'jukebox-menu-buttonplay'}" />
+            <Button Name="StopButton" Text="{Loc 'jukebox-menu-buttonstop'}" />
+            <Label Name="DurationLabel" Text="00:00 / 00:00" HorizontalAlignment="Right" HorizontalExpand="True"/>
+        </BoxContainer>
     </BoxContainer>
 </ui:FancyWindow>
-<!-- DS-14 End -->

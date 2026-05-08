@@ -15,6 +15,7 @@
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/necrowall.rsi
     state: stage1
+  - type: NecroWallVisuals
   - type: Transform
     anchored: true
   - type: SpeedModifierContacts

@@ -13,6 +13,7 @@
       Flammable: [Touch]
       Extinguish: [Touch]
       Acidic: [Touch, Ingestion]
+  - type: Internals
   - type: MovementSpeedModifier
     baseWalkSpeed : 4
     baseSprintSpeed : 4
@@ -33,7 +34,6 @@
   - type: Sanity # DS14
   - type: ExamineBlood # DS14
   - type: Language # DS14
-  - type: Blindable
 
 - type: entity
   abstract: true
@@ -100,14 +100,12 @@
     - Electrocution
     - TemporaryBlindness
     - Pacified
+    - StaminaModifier
     - Flashed
     - RadiationProtection
     - Adrenaline
   - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: Blood
-        Quantity: 150
+    bloodMaxVolume: 150
   - type: MobPrice
     price: 150
   - type: FloatingVisuals

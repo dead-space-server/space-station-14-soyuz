@@ -1,9 +1,7 @@
 - type: entity
   parent: BaseItem
   id: VIB
-  # DS14-start: Soyuz changes
-  name: редспейс О.В.Х.
-  # DS14-end
+  name: блюспейс О.В.Х.
   description: Утерянное прошлым Капитаном, очень важное устройство. При правильном применении позволяет получить от ЦентКома коды от ядерной боеголовки.
   components:
   - type: Sprite

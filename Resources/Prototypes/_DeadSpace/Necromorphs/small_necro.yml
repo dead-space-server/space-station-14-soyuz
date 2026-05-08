@@ -87,7 +87,7 @@
         Base: running
       Dead:
         Base: dead
-  - type: Edible
+  - type: Food
   - type: Extractable
     grindableSolutionName: food
   - type: SolutionContainerManager
@@ -121,6 +121,8 @@
       groups:
         Brute: 4
   - type: Bloodstream
+    bloodReagent: NecromorfBlood
+    bloodMaxVolume: 20
     bloodlossThreshold: 0
   - type: CanEscapeInventory
   - type: MobPrice

@@ -59,7 +59,7 @@ public sealed class NinjaConditionsSystem : EntitySystem
 
         while (allEnts.MoveNext(out var warpUid, out var warp))
         {
-            if (_whitelist.IsWhitelistFail(bombingBlacklist, warpUid)
+            if (_whitelist.IsBlacklistFail(bombingBlacklist, warpUid)
                 && !string.IsNullOrWhiteSpace(warp.Location))
             {
                 warps.Add(warpUid);

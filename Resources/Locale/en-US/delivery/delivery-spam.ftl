@@ -134,7 +134,7 @@ delivery-spam-7 =   Send reinforcements!
 
                     To whoever receives this letter. I am Sergeant Rigel. My occupation is the CSO. We need immediate assistance.
 
-                    Our station is currently under attack by Atomic Agents, this letter is being thrown into a destabilized redspace anomaly created by our [color=purple]Head of Research[/color].
+                    Our station is currently under attack by Atomic Agents, this letter is being thrown into a destabilized bluespace anomaly created by our [color=purple]Head of Research[/color].
 
                     I am currently bolted in the Bridge, if you receive this message, please send aid immediately. I don't know how much longer we can last.
 
@@ -235,7 +235,7 @@ delivery-spam-11 =  Help mom and dad!
                     if we do not get this money in 10 days then the govertment will come to take away childhood home and we will be homeless.
 
                     {"[bold]thank you and we love you,[/bold]"}
-                    {"[italic]parents[/italic]"}
+                    {"[italic]parents[/italics]"}
 
 delivery-spam-12 =  Join us on the maiden voyage!
     .desc =         Advertisement for a relaxing voyage.

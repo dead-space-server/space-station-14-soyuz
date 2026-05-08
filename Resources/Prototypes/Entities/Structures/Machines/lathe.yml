@@ -49,11 +49,6 @@
     price: 800
   - type: ResearchClient
   - type: TechnologyDatabase
-  - type: ApcPowerReceiver
-    powerLoad: 150
-  - type: PowerState
-    idlePowerDraw: 150
-    workingPowerDraw: 1000
 
 # a lathe that can be sped up with space lube / slowed down with glue
 - type: entity
@@ -112,7 +107,7 @@
   - type: Machine
     board: AutolatheMachineCircuitboard
   - type: MaterialStorage
-    whitelist: &StandardMaterialWhitelist
+    whitelist:
       tags:
         - Sheet
         - RawMaterial
@@ -188,7 +183,11 @@
   - type: Machine
     board: ProtolatheMachineCircuitboard
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
   - type: OreSiloClient
   - type: Lathe
     idleState: icon
@@ -198,7 +197,6 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
-    - BlueInsulatingTapeStatic # DS14
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment
@@ -307,6 +305,7 @@
     - CargoBoardsStatic
     - MedicalBoardsStatic
     - EngineeringBoardsStatic
+    - CraftStationCircuits # DS14
     dynamicPacks:
     - EngineeringBoards
     - CargoBoards
@@ -317,11 +316,18 @@
     - MechBoards
     - ShuttleBoards
     - VirologyBoards # DS14
+    - BlueprintRIGInfinite # DS14
+    - BlueprintRIGThreeUse # DS14
+    - BlueprintRIGOneUse # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityBoards
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
   - type: OreSiloClient
   - type: RequireProjectileTarget
 
@@ -367,7 +373,11 @@
     - MechParts
     - MechEquipment
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+      - Sheet
+      - RawMaterial
+      - Ingot
   - type: OreSiloClient
   - type: GuideHelp
     guides:
@@ -436,8 +446,6 @@
   - type: Lathe
     idleState: icon
     runningState: icon
-    unlitIdleState: unlit
-    unlitRunningState: unlit-building
     staticPacks:
     - SecurityEquipmentStatic
     - SecurityPracticeStatic
@@ -456,11 +464,17 @@
     - ArmedTechFabCircuitboard # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - SecurityPoliceBeta # DS14-Soyuz
+    - WeaponMagmite # DS14
+    - SecurityRIGCraftDetails # DS14
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
   - type: OreSiloClient
   - type: LatheAnnouncing
     channels: [Security]
@@ -489,15 +503,17 @@
     - type: Lathe
       idleState: icon
       runningState: icon
-      unlitIdleState: unlit
-      unlitRunningState: unlit-building
       staticPacks:
       - SecurityAmmoStatic
     - type: EmagLatheRecipes
       emagStaticPacks:
       - SyndicateAmmoStatic
     - type: MaterialStorage
-      whitelist: *StandardMaterialWhitelist
+      whitelist:
+        tags:
+          - Sheet
+          - RawMaterial
+          - Ingot
     - type: OreSiloClient
 
 - type: entity
@@ -522,8 +538,6 @@
   - type: Lathe
     idleState: icon
     runningState: icon
-    unlitIdleState: unlit
-    unlitRunningState: unlit-building
     staticPacks:
     - TopicalsStatic
     - ChemistryStatic
@@ -584,7 +598,11 @@
     - ClothingCentComm
     - ClothingSyndie
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+        - Sheet
+        - RawMaterial
+        - Ingot
   - type: OreSiloClient
 
 - type: entity
@@ -754,5 +772,12 @@
     dynamicPacks:
     - FauxTiles
   - type: MaterialStorage
-    whitelist: *StandardMaterialWhitelist
+    whitelist:
+      tags:
+        - Sheet
+        - Metal
+        - Wooden
+        - RawMaterial
+        - Ingot
+        - Plastic
   - type: OreSiloClient

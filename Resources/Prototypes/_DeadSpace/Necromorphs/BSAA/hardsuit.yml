@@ -26,8 +26,6 @@
         Caustic: 0.4
         Stun: 0.5
         Poison: 0.5
-  - type: StaminaResistance
-    damageCoefficient: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -38,11 +36,11 @@
     damageCoefficient: 0.4
   - type: ToggleableClothing
     clothingPrototype: BSAALeaderHelmet
-  - type: AutoInjectReagentClothingOnAllowedState 
-    durationRegenReagents: 60 
-    allowedStates: 
+  - type: AutoInjectReagentClothingOnAllowedState
+    durationRegenReagents: 60
+    allowedStates:
     - Critical
-    reagents: 
+    reagents:
       DexalinPlus: 5
       Saline: 10
       Epinephrine: 15
@@ -76,7 +74,7 @@
         Blunt: 0.9
         Slash: 0.9
         Piercing: 0.9
-        Heat: 0.9   
+        Heat: 0.9
 
 - type: entity
   parent: ClothingOuterHardsuitBase
@@ -105,8 +103,6 @@
         Caustic: 0.5
         Stun: 0.55
         Poison: 0.5
-  - type: StaminaResistance
-    damageCoefficient: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 0.85
@@ -117,11 +113,11 @@
     damageCoefficient: 0.5
   - type: ToggleableClothing
     clothingPrototype: BSAAFighterHelmet
-  - type: AutoInjectReagentClothingOnAllowedState 
+  - type: AutoInjectReagentClothingOnAllowedState
     durationRegenReagents: 60
-    allowedStates: 
+    allowedStates:
     - Critical
-    reagents: 
+    reagents:
       DexalinPlus: 5
       Saline: 10
       Epinephrine: 15
@@ -155,7 +151,7 @@
         Blunt: 0.9
         Slash: 0.9
         Piercing: 0.9
-        Heat: 0.9   
+        Heat: 0.9
 
 - type: entity
   parent: ClothingOuterHardsuitBase
@@ -184,8 +180,6 @@
         Caustic: 0.45
         Stun: 0.4
         Poison: 0.4
-  - type: StaminaResistance
-    damageCoefficient: 0.4
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -196,11 +190,11 @@
     damageCoefficient: 0.6
   - type: ToggleableClothing
     clothingPrototype: BSAAMedicHelmet
-  - type: AutoInjectReagentClothingOnAllowedState 
-    durationRegenReagents: 60 
-    allowedStates: 
+  - type: AutoInjectReagentClothingOnAllowedState
+    durationRegenReagents: 60
+    allowedStates:
     - Critical
-    reagents: 
+    reagents:
       DexalinPlus: 5
       Saline: 10
       Epinephrine: 15
@@ -209,7 +203,7 @@
       Omnizine: 20
   - type: VirusResistance
     virusResistanceCoefficient: 0.9
-    
+
 - type: entity
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: BSAAMedicHelmet
@@ -234,4 +228,4 @@
         Blunt: 0.9
         Slash: 0.9
         Piercing: 0.9
-        Heat: 0.9   
+        Heat: 0.9

@@ -218,11 +218,6 @@ public abstract partial class SharedStationAiSystem
 
         _uiSystem.TryToggleUi(ent.Owner, AICameraListUiKey.Key, actorComponent.PlayerSession);
     }
-
-    private void ShowDeviceNoAccessPopup(EntityUid toEntity)
-    {
-        _popup.PopupClient(Loc.GetString("ai-device-no-access"), toEntity, PopupType.MediumCaution);
-    }
 }
 
 /// <summary>

@@ -237,6 +237,7 @@
   - ClothingBackpackHolding
   - ClothingBackpackSatchelHolding
   - ClothingBackpackDuffelHolding
+  - StorageModuleItem #DS14
 
 - type: technology
   id: OptimizedMicrogalvanism

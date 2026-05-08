@@ -3,8 +3,6 @@
 using Content.Server.DeadSpace.Wear.Components;
 using Content.Server.Destructible;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Robust.Server.Audio;

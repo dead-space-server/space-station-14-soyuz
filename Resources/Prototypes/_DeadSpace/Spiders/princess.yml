@@ -32,6 +32,7 @@
       groups:
         Brute: 7
   - type: Stamina
+    critThreshold: 100
   - type: Fixtures
     fixtures:
       fix1:
@@ -44,6 +45,8 @@
         layer:
         - MobLayer
   - type: Bloodstream
+    bloodReagent: CopperBlood
+    bloodMaxVolume: 250
     bloodlossThreshold: 0.4
   - type: SpawnAgainst
     duration: 5

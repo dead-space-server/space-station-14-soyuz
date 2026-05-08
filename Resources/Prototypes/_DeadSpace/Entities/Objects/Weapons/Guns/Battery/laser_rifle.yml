@@ -26,7 +26,7 @@
     availableModes:
     - FullAuto
     - SemiAuto
-  - type: BatteryAmmoProvider
+  - type: ProjectileBatteryAmmoProvider
     proto: LaserRifleBullet
     fireCost: 40
   - type: Battery

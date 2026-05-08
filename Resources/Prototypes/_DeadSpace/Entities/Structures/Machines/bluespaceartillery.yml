@@ -1,9 +1,7 @@
 - type: entity
   parent: BaseStructure
   id: BluespaceArtillery
-  # DS14-start: Soyuz changes
-  name: редспейс артиллерия
-  # DS14-end
+  name: блюспейс артиллерия
   description: Огромное и устрашающее оружие.
   suffix: Филлер для маппинга
   components:

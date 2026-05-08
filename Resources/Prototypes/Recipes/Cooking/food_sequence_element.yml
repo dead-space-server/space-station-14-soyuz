@@ -533,7 +533,7 @@
   id: Cabbage
   name: food-sequence-content-cabbage
   sprites:
-  - sprite: Objects/Specific/Hydroponics/cabbage.rsi
+  - sprite: Objects/Specific/Hydroponics/carrot.rsi
     state: produce
   tags:
   - Vegetable
@@ -1573,13 +1573,3 @@
 #  name: food-sequence-cotton-burger-content-among-pequeno
 #  sprites:
 #  - sprite: Objects/Fun/pequeno.rsi
-# DS14-start
-- type: foodSequenceElement
-  id: Pear
-  name: food-sequence-content-pear
-  sprites:
-  - sprite: _DeadSpace/Objects/Specific/Hydroponics/pear.rsi
-    state: produce
-  tags:
-  - Fruit
-# DS14-end

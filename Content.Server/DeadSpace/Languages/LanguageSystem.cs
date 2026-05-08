@@ -1,5 +1,6 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
+using Robust.Shared.Random;
 using Content.Shared.DeadSpace.Languages.Prototypes;
 using Content.Shared.DeadSpace.Languages.Components;
 using Robust.Shared.Prototypes;
@@ -9,7 +10,6 @@ using Robust.Server.Player;
 using Content.Shared.Chat;
 using System.Linq;
 using Content.Shared.Polymorph;
-using Content.Shared.PoliticalLoudspeaker; // DS14-PoliticalLoudspeaker
 using Robust.Shared.GameStates;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,11 +18,11 @@ namespace Content.Server.DeadSpace.Languages;
 
 public sealed class LanguageSystem : EntitySystem
 {
+    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-PoliticalLoudspeaker
     public static readonly ProtoId<LanguagePrototype> DefaultLanguageId = "GeneralLanguage";
     private readonly Dictionary<ProtoId<LanguagePrototype>, List<Regex>> _regexCache = new();
     public override void Initialize()
@@ -232,11 +232,6 @@ public sealed class LanguageSystem : EntitySystem
             return false;
 
         float range = isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
-
-        // DS14-PoliticalLoudspeaker-start: lexicon TTS should match extended local speech radius
-        if (!isWhisper)
-            range *= _politicalLoudspeaker.GetSpeechModifiers(sourceUid).SpeechRangeMultiplier;
-        // DS14-PoliticalLoudspeaker-end
 
         var ents = _lookup.GetEntitiesInRange<ActorComponent>(_transform.GetMapCoordinates(sourceUid, Transform(sourceUid)), range).ToList();
 

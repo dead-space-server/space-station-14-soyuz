@@ -44,5 +44,5 @@ ent-ClothingBackpackDuffelSyndicateMedical = { ent-ClothingBackpackDuffelSyndica
     .desc = { ent-ClothingBackpackDuffelSyndicate.desc }
 ent-ClothingBackpackDuffelSyndicateMedicalBundle = { ent-ClothingBackpackDuffelSyndicateMedical }
     .desc = { ent-ClothingBackpackDuffelSyndicateMedical.desc }
-ent-ClothingBackpackDuffelHolding = редспейс вещмешок
-    .desc = Вещмешок, открывающийся в локальный карман редспейса.
+ent-ClothingBackpackDuffelHolding = бездонный вещмешок
+    .desc = Вещмешок, открывающийся в локальный карман блюспейса.

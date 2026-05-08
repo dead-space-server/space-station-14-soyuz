@@ -46,7 +46,7 @@ public sealed class LearnSkillWhenUsingSystem : EntitySystem
             }
 
             if (!knowsAtLeastOne)
-            {   
+            {
                 _popup.PopupEntity(Loc.GetString("skill-canlearn-language-missing"), args.User, args.User);
                 return;
             }

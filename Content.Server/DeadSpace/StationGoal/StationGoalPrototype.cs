@@ -6,24 +6,17 @@ using Content.Shared.Paper;
 
 namespace Content.Server.DeadSpace.StationGoal;
 
-[Prototype]
+[Prototype("stationGoal")]
 public sealed partial class StationGoalPrototype : IPrototype
 {
     [IdDataField]
-    public string ID { get; private set; } = default!;
+    public string ID { get; } = default!;
 
     [DataField(required: true)]
     public ResPath Text = default!;
 
     [DataField]
     public int? ModifyStationBalance;
-
-    [DataField]
-    public EntProtoId? StartingShipment;
-
-    [DataField]
-    public int StartingShipmentAmount = 1;
-
     [DataField]
     public List<StampDisplayInfo>? ExtraStamps;
 }

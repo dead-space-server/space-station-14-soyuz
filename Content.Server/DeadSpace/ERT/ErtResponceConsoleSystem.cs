@@ -9,7 +9,6 @@ using Content.Shared.DeadSpace.ERT;
 using Content.Server.Station.Systems;
 using Content.Shared.Cargo.Components;
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat;
 
 namespace Content.Server.DeadSpace.ERT;
 

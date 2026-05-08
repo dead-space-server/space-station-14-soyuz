@@ -21,6 +21,6 @@ public sealed partial class RenegadeEswordComponent : Component
     };
 }
 
-public sealed partial class RecallRenegadeEswordEvent : InstantActionEvent { }
+public partial class RecallRenegadeEswordEvent : InstantActionEvent { }
 
-public sealed partial class RenegadeEswordTeleport : InstantActionEvent { }
+public partial class RenegadeEswordTeleport : InstantActionEvent { }

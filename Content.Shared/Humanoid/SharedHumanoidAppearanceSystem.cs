@@ -123,10 +123,8 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         var identity = Identity.Entity(uid, EntityManager);
         var species = GetSpeciesRepresentation(component.Species).ToLower();
         var age = GetAgeRepresentation(component.Species, component.Age);
-        var height = GetHeightRepresentation(component.Height);
 
         args.PushText(Loc.GetString("humanoid-appearance-component-examine", ("user", identity), ("age", age), ("species", species)));
-        args.PushText(Loc.GetString("humanoid-appearance-component-height-examine", ("user", identity), ("height", height))); // DS14-height
     }
 
     /// <summary>
@@ -169,7 +167,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         targetHumanoid.Age = sourceHumanoid.Age;
         targetHumanoid.CustomBaseLayers = new(sourceHumanoid.CustomBaseLayers);
         targetHumanoid.MarkingSet = new(sourceHumanoid.MarkingSet);
-        targetHumanoid.Height = sourceHumanoid.Height; // DS14-height
         SetTTSVoice(target, sourceHumanoid.Voice, targetHumanoid); // Corvax-TTS
         targetHumanoid.SpeakerColor = sourceHumanoid.SpeakerColor; // Corvax-SpeakerColor
 
@@ -478,7 +475,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         }
 
         humanoid.Age = profile.Age;
-        humanoid.Height = profile.Height; // DS14-height
 
         Dirty(uid, humanoid);
     }
@@ -596,17 +592,4 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         return Loc.GetString("identity-age-old");
     }
-
-    // DS14-height-start
-    public string GetHeightRepresentation(int height)
-    {
-        if (height <= 160)
-            return Loc.GetString("humanoid-appearance-component-height-short");
-
-        if (height < 180)
-            return Loc.GetString("humanoid-appearance-component-height-medium");
-
-        return Loc.GetString("humanoid-appearance-component-height-tall");
-    }
-    // DS14-height-end
 }

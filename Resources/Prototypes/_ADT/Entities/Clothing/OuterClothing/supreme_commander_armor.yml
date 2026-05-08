@@ -2,9 +2,7 @@
   parent: ClothingOuterBaseLarge
   id: ADTClothingOuterClothingSupreneCommanderArmor
   name: панцирь высшего главнокомандующего # Це шо шаток? Проще Debug дать
-  # DS14-start: Soyuz changes
-  description: То что не пробьешь, не создать, но мы создали, полностью покрыт редспейс пластинами, одевая его вы чувствуете себя императором человечества.
-  # DS14-end
+  description: То что не пробьешь, не создать, но мы создали, полностью покрыт блюспейс пластинами, одевая его вы чувствуете себя императором человечества.
   components:
   - type: Sprite
     sprite: _ADT/Clothing/OuterClothing/Armor/supreme-commander-armor.rsi
@@ -14,7 +12,7 @@
     modifiers:
       coefficients:
         Blunt: 0.3 #true best armor in the game
-        Slash: 0.3
+        Slash: 0.3 # Ну нихуя тут резистов
         Piercing: 0.3
         Heat: 0.3
         Radiation: 0.3

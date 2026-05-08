@@ -1,4 +1,3 @@
-using System.Numerics; // DS14-height
 using Content.Client.DisplacementMap;
 using Content.Shared.CCVar;
 using Content.Shared.Humanoid;
@@ -17,6 +16,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
 {
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly MarkingManager _markingManager = default!;
+    [Dependency] private readonly IConfigurationManager _configurationManager = default!;
     [Dependency] private readonly DisplacementMapSystem _displacement = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
 
@@ -52,26 +52,7 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         var sprite = entity.Comp2;
 
         sprite[_sprite.LayerMapReserve((entity.Owner, sprite), HumanoidVisualLayers.Eyes)].Color = humanoidAppearance.EyeColor;
-        // DS14-height: apply character height from centimeters after sprite rebuild.
-        ApplyHeightScale(entity);
     }
-
-    // DS14-height-start
-    private void ApplyHeightScale(Entity<HumanoidAppearanceComponent, SpriteComponent> entity)
-    {
-        var scale = HumanoidCharacterProfile.HeightToScale(entity.Comp1.Species, entity.Comp1.Sex, entity.Comp1.Height);
-        // DS14-height: preserve the prototype's base sprite scale and apply height on top of it.
-        var baseScale = Vector2.One;
-        var prototype = MetaData(entity.Owner).EntityPrototype;
-        if (prototype != null &&
-            prototype.TryGetComponent<SpriteComponent>(out var prototypeSprite, EntityManager.ComponentFactory))
-        {
-            baseScale = prototypeSprite.Scale;
-        }
-
-        _sprite.SetScale((entity.Owner, entity.Comp2), baseScale * scale);
-    }
-    // DS14-height-end
 
     private static bool IsHidden(HumanoidAppearanceComponent humanoid, HumanoidVisualLayers layer)
         => humanoid.HiddenLayers.ContainsKey(layer) || humanoid.PermanentlyHidden.Contains(layer);
@@ -239,7 +220,6 @@ public sealed class HumanoidAppearanceSystem : SharedHumanoidAppearanceSystem
         humanoid.Sex = profile.Sex;
         humanoid.Gender = profile.Gender;
         humanoid.Age = profile.Age;
-        humanoid.Height = profile.Height; // DS14-height
         humanoid.Species = profile.Species;
         humanoid.SkinColor = profile.Appearance.SkinColor;
         humanoid.EyeColor = profile.Appearance.EyeColor;

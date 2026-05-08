@@ -11,10 +11,6 @@ public sealed partial class PoliticalLoudspeakerComponent : Component
 {
     [DataField] public float Range = 5f;
     [DataField] public TimeSpan Cooldown = TimeSpan.FromSeconds(30);   
-    // DS14-PoliticalLoudspeaker-start: held loudspeaker boosts speech and TTS output
-    [DataField] public float SpeechRangeMultiplier = 2f;
-    [DataField] public float TtsVolumeMultiplier = 2f;
-    // DS14-PoliticalLoudspeaker-end
 
     [DataField] public TimeSpan SpeedDuration = TimeSpan.FromSeconds(10);
     [DataField] public float SpeedMultiplier = 1.15f;

@@ -51,7 +51,6 @@ entities:
     - type: DeviceNetwork
       configurators: []
       deviceLists: []
-      address: 2F76-FD80
       transmitFrequencyId: ArrivalsShuttleTimer
     - type: Gravity
       gravityShakeSound: !type:SoundPathSpecifier
@@ -293,6 +292,7 @@ entities:
       parent: 292
     - type: BatterySelfRecharger
       autoRechargeRate: 50000
+      autoRecharge: True
     - type: Godmode
     missingComponents:
     - Construction

@@ -70,7 +70,7 @@
       - DrinkJackRoseGlass
       - DrinkJungleBirdGlass
       - DrinkKalimotxoGlass
-      - DrinkOrangeLimeSodaGlass
+      - DrinkKiraSpecial
       - DrinkLongIslandIcedTeaGlass
       - DrinkManhattanGlass
       - DrinkManlyDorfGlass
@@ -119,8 +119,6 @@
       - DrinkShakeWhite
       - DrinkTheMartinez
       - DrinkMoonshineGlass
-      - DrinkPearJuice # DS14
-      - DrinkPearonade # DS14
     chance: 0.8
     offset: 0.0
     #rare

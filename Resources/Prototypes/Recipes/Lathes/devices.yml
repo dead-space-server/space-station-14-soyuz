@@ -64,15 +64,6 @@
 
 - type: latheRecipe
   parent: BasePartRecipe
-  id: VoiceSensor
-  result: voicesensor
-  materials:
-    Steel: 100
-    Plastic: 200
-    Glass: 100
-
-- type: latheRecipe
-  parent: BasePartRecipe
   id: SignallerAdvanced
   result: RemoteSignallerAdvanced
   materials:
@@ -239,7 +230,7 @@
 - type: latheRecipe
   id: CableDetStack1
   result: CableDetStack1
-  categories:
+  categories: 
   - Weapons
   completetime: 2
   materials:
@@ -250,31 +241,8 @@
 - type: latheRecipe
   id: EmptyDetonator
   result: EmptyDetonator
-  categories:
+  categories: 
   - Weapons
   completetime: 3
   materials:
     Steel: 100
-
-# DS14-start: Polaroid crafting
-- type: latheRecipe
-  id: PolaroidCamera
-  result: PolaroidCamera
-  categories:
-  - Service
-  completetime: 3
-  materials:
-    Plastic: 2500
-    Glass: 400
-    Gold: 100
-
-- type: latheRecipe
-  id: PolaroidCartridge
-  result: PolaroidCartridge
-  categories:
-  - Service
-  completetime: 2
-  materials:
-    Plastic: 500
-    Plasma: 100
-# DS14-end

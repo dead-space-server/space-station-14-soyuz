@@ -1,6 +1,4 @@
 using Content.Server.Chat.Systems;
-using Content.Shared.Chat;
-using Content.Shared.PoliticalLoudspeaker; // DS14-PoliticalLoudspeaker
 using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
 
@@ -12,7 +10,6 @@ namespace Content.Server.Speech.EntitySystems;
 public sealed class ListeningSystem : EntitySystem
 {
     [Dependency] private readonly SharedTransformSystem _xforms = default!;
-    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-PoliticalLoudspeaker
 
     public override void Initialize()
     {
@@ -38,11 +35,6 @@ public sealed class ListeningSystem : EntitySystem
         var ev = new ListenEvent(message, source);
         var obfuscatedEv = obfuscatedMessage == null ? null : new ListenEvent(obfuscatedMessage, source);
         var query = EntityQueryEnumerator<ActiveListenerComponent, TransformComponent>();
-        // DS14-PoliticalLoudspeaker-start: held loudspeakers extend listener pickup for normal speech
-        var speechRangeMultiplier = obfuscatedMessage == null
-            ? _politicalLoudspeaker.GetSpeechModifiers(source).SpeechRangeMultiplier
-            : 1f;
-        // DS14-PoliticalLoudspeaker-end
 
         while(query.MoveNext(out var listenerUid, out var listener, out var xform))
         {
@@ -52,8 +44,7 @@ public sealed class ListeningSystem : EntitySystem
             // range checks
             // TODO proper speech occlusion
             var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).LengthSquared();
-            var listenRange = listener.Range * speechRangeMultiplier; // DS14-PoliticalLoudspeaker
-            if (distance > listenRange * listenRange) // DS14-PoliticalLoudspeaker
+            if (distance > listener.Range * listener.Range)
                 continue;
 
             RaiseLocalEvent(listenerUid, attemptEv);

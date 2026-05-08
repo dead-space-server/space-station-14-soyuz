@@ -106,6 +106,8 @@
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
+  - type: ApcPowerReceiver
+    powerLoad: 3100
   - type: Computer
     board: ComputerDiagnoserConsoleCircuitboard
   - type: PointLight
@@ -300,6 +302,8 @@
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
+  - type: ApcPowerReceiver
+    powerLoad: 3100
   - type: Computer
     board: ComputerVirusEvolutionConsoleCircuitboard
   - type: PointLight

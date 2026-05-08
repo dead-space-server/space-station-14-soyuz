@@ -84,7 +84,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
       - BankCartridge
     cartridgeSlot:
       priority: -1
@@ -162,7 +161,6 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
-    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - BankCartridge # DS14
 
@@ -178,7 +176,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - BankCartridge # DS14
 
@@ -308,6 +305,8 @@
     borderColor: "#817d6f" # DS14
   - type: Icon
     state: pda-cook
+  - type: ReplacementAccent # for random sentience event
+    accent: italian
 
 - type: entity
   parent: BasePDA
@@ -425,9 +424,6 @@
       whitelist:
         components:
         - Cartridge
-    preinstalled:
-    - CrewManifestCartridge
-    - NewsReaderCartridge
   - type: Appearance
     appearanceDataInit:
      enum.PdaVisuals.PdaType:
@@ -493,7 +489,6 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
-    - USSPChatCartridge # DS-14
     - AstroNavCartridge
 
 - type: entity
@@ -539,7 +534,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
       - AstroNavCartridge
 
 - type: entity
@@ -889,7 +883,6 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
-    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - LogProbeCartridge
 
@@ -960,7 +953,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - WantedListCartridge
       - LogProbeCartridge
@@ -987,8 +979,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
-      - USSPMonitorCartridge # DS14
       - LogProbeCartridge
       - WantedListCartridge
       - MedTekCartridge
@@ -1056,8 +1046,8 @@
   - type: Instrument
     allowPercussion: false
     handheld: true
+    bank: 1
     program: 2
-    bank: 100 # Defined in space-station-14.sf2
 
 - type: entity
   parent: MusicianPDA
@@ -1139,7 +1129,6 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
-      - USSPChatCartridge # DS-14
       - BankCartridge
 
 - type: entity
@@ -1178,7 +1167,6 @@
     preinstalled:
       - NotekeeperCartridge
       - NanoTaskCartridge
-      - USSPChatCartridge # DS-14
       - MedTekCartridge
 
 - type: entity
@@ -1224,7 +1212,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
-      - USSPChatCartridge # DS-14
       - MedTekCartridge
       - WantedListCartridge
       - LogProbeCartridge
@@ -1401,7 +1388,6 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
-    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - LogProbeCartridge
 
@@ -1430,7 +1416,6 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
-    - USSPChatCartridge # DS-14
     - WantedListCartridge
     - MedTekCartridge
 
@@ -1560,22 +1545,6 @@
     state: pda-seniorcourier
 
 - type: entity
-  parent: [ BaseHighlyIllegalContraband, BasePDA ]
-  id: NinjaPDA
-  name: ninja PDA
-  description: You stealthy bastard, you!
-  components:
-  - type: Pda
-    id: AgentIDCard
-  - type: Appearance
-    appearanceDataInit:
-      enum.PdaVisuals.PdaType:
-        !type:String
-        pda-ninja
-  - type: Icon
-    state: pda-ninja
-
-- type: entity
   parent: [ BaseMajorContraband, SyndiPDA ]
   id: PiratePDA
   name: pirate PDA
@@ -1621,14 +1590,6 @@
         type: HealthAnalyzerBoundUserInterface
       enum.ChameleonUiKey.Key:
         type: ChameleonBoundUserInterface
-
-- type: entity
-  parent: ChameleonPDA
-  id: ChameleonAgentPDA
-  suffix: Chameleon, Agent ID
-  components:
-  - type: Pda
-    id: AgentIDCard
 
 - type: entity
   parent: BaseWidePDA

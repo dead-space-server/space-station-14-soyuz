@@ -13,6 +13,7 @@
     tags:
     - SuitEVA
     - MonkeyWearable
+    - CorgiWearable
     - WhitelistChameleon
   # DS14-start
   - type: PhysicalComposition
@@ -149,7 +150,6 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
-    requireActivated: false
   - type: HeldSpeedModifier
   - type: TemperatureProtection
     heatingCoefficient: 0.1
@@ -194,6 +194,7 @@
       toggleable-clothing: !type:ContainerSlot {}
   - type: Tag
     tags:
+    - CorgiWearable
     - WhitelistChameleon
   # DS14-start
   - type: PhysicalComposition

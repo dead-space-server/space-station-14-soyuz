@@ -7,10 +7,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackVjladosBio
-  # DS14-start: Soyuz changes
-  name: редспейс органический рюкзак
-  description: Рюкзак использующий технологию редспейса для увелечения своего максимального объёма. Состоит из органических компонентов. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
-  # DS14-end
+  name: блюспейс органический рюкзак
+  description: Рюкзак использующий технологию блюспейса для увелечения своего максимального объёма. Состоит из органических компонентов. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
   # categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -18,7 +16,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,16,6
+    - 0,0,15,10
   - type: StorageFill
     contents:
       - id: ClothingBeltVjladosBioFilled
@@ -88,7 +86,7 @@
 
 # Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitAtmos
+  parent: ClothingOuterHardsuitSecurity
   id: ClothingOuterHardsuitVjladosBio
   name: модифицированный биологический скафандр
   description: Скафандр, разработанный специально для представителей расы ксеноидов. Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации. Характеристики идентичны скафандру атмос-техника.

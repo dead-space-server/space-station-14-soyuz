@@ -303,3 +303,15 @@
   values:
     prefix: plushies-amaliya-
     count: 3
+
+- type: localizedDataset
+  id: PlushieScarlettSpeech
+  values:
+    prefix: plushies-scarlett-
+    count: 6
+
+- type: localizedDataset
+  id: PlushieWalkflisSpeech
+  values:
+    prefix: plushies-walkflis-
+    count: 3

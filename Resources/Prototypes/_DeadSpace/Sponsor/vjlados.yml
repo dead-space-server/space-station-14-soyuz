@@ -12,10 +12,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackVjlados
-  # DS14-start: Soyuz changes
-  name: зелёный украшенный редспейс рюкзак
-  description: Рюкзак использующий технологию редспейса для увелечения своего максимального объёма. Окрашен в зелёный цвет. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
-  # DS14-end
+  name: зелёный украшенный блюспейс рюкзак
+  description: Рюкзак использующий технологию блюспейса для увелечения своего максимального объёма. Окрашен в зелёный цвет. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -148,7 +146,7 @@
 
 # Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitAtmos
+  parent: ClothingOuterHardsuitSecurity
   id: ClothingOuterHardsuitVjlados
   name: зелёный украшенный скафандр
   description: Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации. Характеристики идентичны скафандру атмос-техника.

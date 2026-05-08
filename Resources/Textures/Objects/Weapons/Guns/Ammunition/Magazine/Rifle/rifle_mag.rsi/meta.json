@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "All sprites by https://github.com/august-sun, stripes by SeamLesss (GitHub), tungsten made by sastr. (discord) for Space Station 14 server Мёртвый Космос, silver by pered6664 (discord) for Space Station 14 server Мёртвый Космос",
+    "copyright": "All sprites by https://github.com/august-sun, inhands by TiniestShark (GitHub), stripes by SeamLesss (GitHub), resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос",
     "size": {
         "x": 32,
         "y": 32
@@ -12,9 +12,6 @@
         },
         {
             "name": "stripe"
-        },
-        {
-            "name": "silver"
         },
         {
             "name": "mag-1"
@@ -35,8 +32,14 @@
             "name": "inhand-right-stripe",
             "directions": 4
         },
-        {
-            "name": "tungsten"
-        }
+    {
+      "name": "incendiary"
+    },
+    {
+      "name": "practice"
+    },
+    {
+      "name": "uranium"
+    }
     ]
 }

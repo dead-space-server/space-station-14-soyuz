@@ -102,6 +102,7 @@ public sealed class SkillShareSystem : EntitySystem
             return;
 
         var requesterName = MetaData(requester).EntityName;
+
         _euiManager.OpenEui(new SkillShareRequestEui(target, requester, this, requesterName), targetSession);
     }
 

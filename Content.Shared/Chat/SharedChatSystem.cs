@@ -38,9 +38,9 @@ public abstract partial class SharedChatSystem : EntitySystem
     public const int WhisperMuffledRange = 8; // how far whisper goes at all, in world units
 
     public static readonly SoundSpecifier DefaultAnnouncementSound
-        = new SoundPathSpecifier("/Audio/_DeadSpace/Soyuz/Announcements/announce.ogg"); // DS14-Announcements | DS14-Soyuz Sound
+        = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/announce.ogg"); // DS14-Announcements
     public static readonly SoundSpecifier CentComAnnouncementSound
-        = new SoundPathSpecifier("/Audio/_DeadSpace/Soyuz/Announcements/centcomm.ogg"); // DS14-Announcements | DS14-Soyuz Sound
+        = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/centcomm.ogg"); // DS14-Announcements
 
     public static readonly ProtoId<RadioChannelPrototype> CommonChannel = "Common";
 

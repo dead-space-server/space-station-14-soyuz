@@ -1,8 +1,5 @@
 ﻿using Robust.Shared.Configuration;
 
-using Content.Shared.Administration; // DS-14-voite
-using Content.Shared.CCVar.CVarAccess; // DS-14-voite
-
 namespace Content.Shared.CCVar;
 
 public sealed partial class CCVars
@@ -43,14 +40,55 @@ public sealed partial class CCVars
     public static readonly CVarDef<bool> VoteMapEnabled =
         CVarDef.Create("vote.map_enabled", false, CVar.SERVERONLY);
 
-    // DS14-Soyuz start: automatic map vote toggle
+    // DS14-start
     /// <summary>
-    ///     Enables automatic pre-round map votes that use the online-based unique map rotation.
+    ///     Whether post-round automatic map voting is enabled.
     /// </summary>
-    [CVarControl(AdminFlags.Round)]
     public static readonly CVarDef<bool> VoteAutoMapEnabled =
-        CVarDef.Create("vote.auto_map_enabled", true, CVar.SERVERONLY);
-    // DS14-Soyuz end
+        CVarDef.Create("vote.auto_map.enabled", false, CVar.ARCHIVE | CVar.SERVER | CVar.REPLICATED);
+
+    /// <summary>
+    ///     The maximum player count for the small auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<int> VoteAutoMapSmallMaxPlayers =
+        CVarDef.Create("vote.auto_map.small.max_players", 25, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     The maximum player count for the medium auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<int> VoteAutoMapMediumMaxPlayers =
+        CVarDef.Create("vote.auto_map.medium.max_players", 50, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     The maximum player count for the large auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<int> VoteAutoMapLargeMaxPlayers =
+        CVarDef.Create("vote.auto_map.large.max_players", 999, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Comma-separated map IDs for the small auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<string> VoteAutoMapSmallMaps =
+        CVarDef.Create("vote.auto_map.small.maps", string.Empty, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Comma-separated map IDs for the medium auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<string> VoteAutoMapMediumMaps =
+        CVarDef.Create("vote.auto_map.medium.maps", string.Empty, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Comma-separated map IDs for the large auto map vote category.
+    /// </summary>
+    public static readonly CVarDef<string> VoteAutoMapLargeMaps =
+        CVarDef.Create("vote.auto_map.large.maps", string.Empty, CVar.ARCHIVE | CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Comma-separated map IDs that are globally excluded from automatic map voting.
+    /// </summary>
+    public static readonly CVarDef<string> VoteAutoMapBlacklistMaps =
+        CVarDef.Create("vote.auto_map.blacklist.maps", string.Empty, CVar.ARCHIVE | CVar.SERVERONLY);
+    // DS14-end
 
     /// <summary>
     ///     The required ratio of the server that must agree for a restart round vote to go through.
@@ -74,7 +112,7 @@ public sealed partial class CCVars
     ///     Sets the duration of the map vote timer.
     /// </summary>
     public static readonly CVarDef<int>
-        VoteTimerMap = CVarDef.Create("vote.timermap", 35, CVar.SERVERONLY);
+        VoteTimerMap = CVarDef.Create("vote.timermap", 90, CVar.SERVERONLY);
 
     /// <summary>
     ///     Sets the duration of the restart vote timer.

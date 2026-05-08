@@ -91,7 +91,7 @@ public interface IGameMapManager
     /// <summary>
     /// Selects the map by following rules set in the config
     /// </summary>
-    public void SelectMapByConfigRules();
+    public void SelectMapByConfigRules(MapSelectionContext context = MapSelectionContext.Default); // DS14
 
     /// <summary>
     /// Checks if the given map exists

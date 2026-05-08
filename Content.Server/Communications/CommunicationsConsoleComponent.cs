@@ -66,7 +66,7 @@ namespace Content.Server.Communications
         /// Announce sound file path
         /// </summary>
         [DataField]
-        public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/_DeadSpace/Soyuz/Announcements/announce.ogg"); // DS14-Announcements | DS14-Soyuz Sound
+        public SoundSpecifier Sound = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/announce.ogg"); // DS14-Announcements
 
         /// <summary>
         /// Hides the sender identity (If they even have one).

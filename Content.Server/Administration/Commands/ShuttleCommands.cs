@@ -5,7 +5,7 @@ using Robust.Shared.Console;
 
 namespace Content.Server.Administration.Commands
 {
-    [AdminCommand(AdminFlags.Round)]
+    [AdminCommand(AdminFlags.Moderator)] // DS14-Soyuz flag: Round-Moderator
     public sealed class CallShuttleCommand : LocalizedEntityCommands
     {
         [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
@@ -26,7 +26,7 @@ namespace Content.Server.Administration.Commands
         }
     }
 
-    [AdminCommand(AdminFlags.Round)]
+    [AdminCommand(AdminFlags.Moderator)] // DS14-Soyuz flag: Round-Moderator
     public sealed class RecallShuttleCommand : LocalizedEntityCommands
     {
         [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;

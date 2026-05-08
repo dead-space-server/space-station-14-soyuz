@@ -8,6 +8,16 @@
   description: job-description-ertleader
   playTimeTracker: JobERTLeaderAmber
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
   startingGear: ERTLeaderGearAmber
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -66,6 +76,16 @@
   description: job-description-ertleader
   playTimeTracker: JobERTLeaderRed
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
   startingGear: ERTLeaderGearRed
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -125,6 +145,16 @@
   description: job-description-ertleader
   playTimeTracker: JobERTLeaderGamma
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
   startingGear: ERTLeaderGearGamma
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -184,6 +214,13 @@
   description: job-description-ertsecurity
   playTimeTracker: JobERTSecurityAmber
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
   startingGear: ERTSecurityGearAmber
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -238,6 +275,13 @@
   description: job-description-ertsecurity
   playTimeTracker: JobERTSecurityRed
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
   startingGear: ERTSecurityGearRed
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -293,6 +337,13 @@
   description: job-description-ertsecurity
   playTimeTracker: JobERTSecurityGamma
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
   startingGear: ERTSecurityGearGamma
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -351,6 +402,13 @@
   description: job-description-ertmedic
   playTimeTracker: JobERTMedicalAmber
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTMedicalGearAmber
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -409,6 +467,13 @@
   description: job-description-ertmedic
   playTimeTracker: JobERTMedicalRed
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTMedicalGearRed
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -469,6 +534,13 @@
   description: job-description-ertmedic
   playTimeTracker: JobERTMedicalGamma
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTMedicalGearGamma
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -534,6 +606,13 @@
   description: job-description-ertengineer
   playTimeTracker: JobERTEngineerAmber
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTEngineerGearAmber
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -587,6 +666,13 @@
   description: job-description-ertengineer
   playTimeTracker: JobERTEngineerRed
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTEngineerGearRed
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -642,6 +728,13 @@
   description: job-description-ertengineer
   playTimeTracker: JobERTEngineerGamma
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTEngineerGearGamma
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -705,6 +798,10 @@
   description: job-description-ertjanitor
   playTimeTracker: JobERTJanitorAmber
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTJanitorGearAmber
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -760,6 +857,10 @@
   description: job-description-ertjanitor
   playTimeTracker: JobERTJanitorRed
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTJanitorGearRed
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -817,6 +918,10 @@
   description: job-description-ertjanitor
   playTimeTracker: JobERTJanitorGamma
   setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
   startingGear: ERTJanitorGearGamma
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom

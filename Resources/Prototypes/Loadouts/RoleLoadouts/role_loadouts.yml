@@ -478,8 +478,7 @@
   - DetectiveShoes
   - SurvivalSecurity
   - Trinkets
-  - DetectiveJobTrinkets
-#  - PolaroidKit # DS14
+  - SecurityStar
   - GroupSpeciesBreathToolSecurity
   - DetectiveSocks # DS14-Underwear
   - DetectiveUnderwear # DS14-Underwear
@@ -539,7 +538,6 @@
   - Glasses
   - Survival
   - Trinkets
-  - ReporterJobTrinkets
   - GroupSpeciesBreathTool
   - ReporterUnderwear # DS14-Underwear
 #  - PolaroidKit # DS14

@@ -1,4 +1,4 @@
-- type: gameMap
+﻿- type: gameMap
   id: DSTaipan
   mapName: 'Сектор Тайпана'
   mapPath: /Maps/ds_taipan.yml

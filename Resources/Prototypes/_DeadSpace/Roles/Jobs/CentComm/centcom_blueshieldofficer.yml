@@ -4,6 +4,15 @@
   description: job-description-blue-shield-officer
   playTimeTracker: JobCentralCommandBlueShieldOfficer
   setPreference: false
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 252000 # 70 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
   startingGear: CentcomBlueShieldGear
   icon: "JobIconBlueShieldOfficer"
   supervisors: job-supervisors-centcom-administrator
@@ -22,8 +31,6 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-    - type: Skill
-      group: ALL
 
 - type: startingGear
   id: CentcomBlueShieldGear
@@ -35,7 +42,8 @@
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesOKGB # DS14-Soyuz
+    socks: ClothingUnderwearSocksBlueShieldOfficer # DS14-Soyuz
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
     pocket2: PinpointerUniversal

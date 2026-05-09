@@ -145,7 +145,7 @@
     - GeneralLanguage
   - type: Tag
     tags:
-    - IgnoreBedHealing #DS14-Soyuz
+    # - IgnoreBedHealing # DS14-Soyuz disabled
     - SiliconIPCEmotes
     - CanPilot
     - FootstepSound

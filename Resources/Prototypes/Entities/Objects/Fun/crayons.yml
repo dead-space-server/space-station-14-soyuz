@@ -136,16 +136,6 @@
     - Trash
 
 - type: entity
-  parent: CrayonRainbow
-  id: CrayonInfinite # should not be player available to prevent decal spam
-  name: infinite crayon
-  components:
-  - type: Crayon
-    deleteEmpty: false
-  - type: AutoRecharge
-    rechargeDuration: 5
-
-- type: entity
   parent: Crayon
   id: CrayonBlack
   name: black crayon

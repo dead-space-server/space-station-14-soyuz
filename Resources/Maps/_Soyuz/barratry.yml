@@ -95816,13 +95816,6 @@ entities:
     - type: Transform
       pos: -40.5,65.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 16733
-    components:
-    - type: Transform
-      pos: -45.5,-10.5
-      parent: 2
 - proto: SurveillanceCameraAssembly
   entities:
   - uid: 13148

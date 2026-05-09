@@ -49142,13 +49142,6 @@ entities:
     - type: Transform
       pos: -13.5,28.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 4466
-    components:
-    - type: Transform
-      pos: 23.5,16.5
-      parent: 2
 - proto: SurveillanceCameraGeneral
   entities:
   - uid: 5848

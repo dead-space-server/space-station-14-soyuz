@@ -252388,13 +252388,6 @@ entities:
     - type: Transform
       pos: 65.5,13.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 29824
-    components:
-    - type: Transform
-      pos: 26.5,26.5
-      parent: 2
 - proto: SurveillanceCameraAssembly
   entities:
   - uid: 35131

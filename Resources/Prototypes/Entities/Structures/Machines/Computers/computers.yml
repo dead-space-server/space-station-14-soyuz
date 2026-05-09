@@ -693,7 +693,6 @@
       path: /Audio/_DeadSpace/Soyuz/Announcements/announce.ogg # DS14-Announcements | DS14-Soyuz Sound
       params:
         volume: -2 # DS14
-    ttsDelay: 6 # DS14
   - type: DeviceNetwork
     deviceNetId: Wireless
     transmitFrequencyId: ShuttleTimer

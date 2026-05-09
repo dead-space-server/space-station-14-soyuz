@@ -1,11 +1,11 @@
 - type: ertTeam
   id: Cburn
   name: РХБЗЗ
-  notification: ert-response-caused-messager-cburn
+  notification: ert-responce-caused-messager-cburn
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
-  startAnnouncement: station-event-response-team-arrival-cburn
+  startAnnouncement: station-event-response-team-arrival-cburn-sierra
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description: 
@@ -52,7 +52,7 @@
     10 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 10 до 15 минут.
-  notification: ert-response-caused-messager-sierra
+  notification: ert-responce-caused-messager-sierra
   sender: ert-response-cso-sender
   rule: SpawnSierraShuttle
   cooldown:
@@ -112,7 +112,7 @@
 - type: ertTeam
   id: Amber
   name: СОБР Эмбер
-  notification: ert-response-caused-messager-amber
+  notification: ert-responce-caused-messager-amber
   approvalAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   startAnnouncement: station-event-response-team-arrival
@@ -152,7 +152,7 @@
 - type: ertTeam
   id: Red
   name: СОБР Красный
-  notification: ert-response-caused-messager-red
+  notification: ert-responce-caused-messager-red
   approvalColor: "#a66286"
   approvalAudio:
     path: /Audio/Misc/gamma.ogg
@@ -210,7 +210,7 @@
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда 20 минут.
   rule: SpawnGammaShuttle
-  notification: ert-response-caused-messager-gamma
+  notification: ert-responce-caused-messager-gamma
   sender: ert-response-cso-sender
   cooldown:
     min: 20m
@@ -236,7 +236,7 @@
 - type: ertTeam
   id: BSAA
   name: АПБТ
-  notification: ert-response-caused-messager-bsaa
+  notification: ert-responce-caused-messager-uni-ops
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg

@@ -119,7 +119,7 @@
       path: /Audio/_DeadSpace/Soyuz/Item/Nokia/nokia_activate_sound.ogg
   - type: SpentAmmoVisuals
   - type: CartridgeAmmo
-    proto: BulletGrenadeNokia
+    proto: BulletGrenadeNokia # DS14-Soyuz
   - type: UseDelay
     delay: 10
   - type: UseDelayOnMeleeHit

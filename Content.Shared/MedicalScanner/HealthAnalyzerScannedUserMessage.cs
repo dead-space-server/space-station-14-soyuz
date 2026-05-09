@@ -29,8 +29,7 @@ public struct HealthAnalyzerUiState
     public bool? ScanMode;
     public bool? Bleeding;
     public bool? Unrevivable;
-    // DS14-start
-    public bool? Unclonable; 
+    public bool? Unclonable; // DS14
 
     public List<HealthAnalyzerReagentEntry> Reagents = new(); // DS14
 

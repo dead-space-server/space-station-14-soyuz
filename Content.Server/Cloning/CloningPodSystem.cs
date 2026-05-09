@@ -136,6 +136,17 @@ public sealed class CloningPodSystem : EntitySystem
         if (!Resolve(uid, ref clonePod))
             return false;
 
+        // DS14-Soyuz start
+        if (HasComp<UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
+        {
+            if (clonePod.ConnectedConsole != null)
+                _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value,
+                    Loc.GetString("cloning-console-uncloning-error"),
+                    InGameICChatType.Speak, false);
+            return false;
+        }
+        // DS14-Soyuz end
+    
         if (HasComp<ActiveCloningPodComponent>(uid))
             return false;
 

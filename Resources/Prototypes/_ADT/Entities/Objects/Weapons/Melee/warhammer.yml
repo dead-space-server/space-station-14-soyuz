@@ -8,21 +8,12 @@
     tags:
       - Pickaxe
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer.rsi
+    sprite: _ADT/Objects/Weapons/Melee/warhammer.rsi
     state: icon
-  - type: Item
-    size: Ginormous
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer-inhands.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/warhammer.rsi
-    quickEquip: false
-    slots:
-    - Back
-    - suitStorage
   - type: AmmoCounter
   - type: UseDelayOnShoot
   - type: UseDelay
-    delay: 0.9
+    delay: 0.8
   - type: LeechOnMarker
     leech:
       groups:
@@ -31,40 +22,30 @@
         Airloss: -15
   - type: Gun
     soundGunshot: /Audio/Weapons/plasma_cutter.ogg
-    fireRate: 1
+    fireRate: 0.5
     useKey: false
   - type: RechargeBasicEntityAmmo
     rechargeCooldown: 0.5
     rechargeSound:
       path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
   - type: BasicEntityAmmoProvider
-    proto: BulletCharge
+    proto: ADTBulletChargestrong
     capacity: 1
     count: 1
   - type: MeleeWeapon
-    attackRate: 1
-    wideAnimationRotation: -135
     damage:
       types:
-        Blunt: 15
-        Structural: 30
-    soundHit:
-      collection: MetalThud
+        Blunt: 20
+    wideAnimationRotation: -135
   - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Blunt: 15
-        Structural: 30
+        Blunt: 20
   - type: GunRequiresWield
+  - type: Item
+    size: Ginormous
   - type: DisarmMalus
-  - type: Prying
   - type: Tool
     qualities:
       - Prying
-  - type: WarhammerCrit
-    chance: 0.25
-    throwDistance: 4
-    damageBonus:
-      types:
-        Blunt: 10

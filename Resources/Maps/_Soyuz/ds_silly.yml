@@ -33779,13 +33779,6 @@ entities:
     - type: Transform
       pos: 7.3743315,-18.442225
       parent: 2
-  - uid: 4567
-    components:
-    - type: Transform
-      parent: 4543
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
   - uid: 7987
     components:
     - type: Transform

@@ -496,6 +496,12 @@
   id: DrinkCan # ConstructionGraph: FireBomb
 
 - type: Tag
+  id: DrinkCup # Unused. Exists on DrinkBaseCup, DrinkWaterCup, DrinkGlass
+
+- type: Tag
+  id: DrinkGlass # Unused. Exists on DrinkGlass, DrinkShotGlass, DrinkJarWhat, DrinkShakeBase
+
+- type: Tag
   id: Dropper # Storage whitelist: ClothingBeltMedical, ClothingBeltPlant, ChemBag
 
 - type: Tag

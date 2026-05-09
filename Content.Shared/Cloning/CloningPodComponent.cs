@@ -16,14 +16,17 @@ public sealed partial class CloningPodComponent : Component
     [ViewVariables]
     public ContainerSlot BodyContainer = default!;
 
+    /// <summary>
+    /// How long the cloning has been going on for.
+    /// </summary>
+    [ViewVariables]
+    public float CloningProgress = 0;
+
     //DS14-start
     /// <summary>
     /// How much biomass does it require.
     /// </summary>
     [DataField] //DS14-end ViewVariables > DataField
-    public float CloningProgress = 0;
-
-    [ViewVariables]
     public int UsedBiomass = 70;
 
     [ViewVariables]

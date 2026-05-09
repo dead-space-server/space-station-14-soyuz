@@ -814,7 +814,6 @@
       path: /Audio/_DeadSpace/Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz Sound
       params:
         volume: -2 # DS14
-    ttsDelay: 9 # DS14
   - type: Computer
     board: CentcommCommsComputerCircuitboard
   - type: PointLight

@@ -132483,7 +132483,7 @@ entities:
     - type: Transform
       pos: 43.5,23.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 30529
     components:

@@ -8,9 +8,10 @@
     icon:
       sprite: _DeadSpace/Actions/arkalyse_actions.rsi
       state: punch
-    useDelay: 3
+    priority: -8
+    useDelay: 2
   - type: InstantAction
-    event: !type:DamageAtackArkalyseActionEvent {}
+    event: !type:ArkalyseDamageEvent {}
 
 - type: entity
   id: ActionMutedArkalyseAttack
@@ -22,9 +23,10 @@
     icon:
       sprite: _DeadSpace/Actions/arkalyse_actions.rsi
       state: mute
-    useDelay: 3 
+    priority: -6
+    useDelay: 1.5
   - type: InstantAction
-    event: !type:MutedAtackArkalyseActionEvent {}
+    event: !type:ArkalyseMuteEvent {}
 
 - type: entity
   id: ActionStunArkalyseAttack
@@ -36,6 +38,21 @@
     icon:
       sprite: _DeadSpace/Actions/arkalyse_actions.rsi
       state: kick
+    priority: -7
     useDelay: 3
   - type: InstantAction
-    event: !type:StunedAtackArkalyseActionEvent {}
+    event: !type:ArkalyseStunEvent {}
+
+- type: entity
+  id: ActionRelaxArkalyseAttack
+  name: Расслабить руку
+  description: Отмена всех эффектов на удар.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    icon:
+      sprite: _DeadSpace/Actions/arkalyse_actions.rsi
+      state: relax
+    priority: -5
+  - type: InstantAction
+    event: !type:ArkalyseRelaxEvent {}

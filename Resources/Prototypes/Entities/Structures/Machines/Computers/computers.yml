@@ -17,6 +17,7 @@
     - map: ["computerLayerKeys"]
       state: atmos_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: GenericVisualizer
     visuals:
@@ -36,8 +37,8 @@
           4: { state: alert-2 }
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: { visible: true } # DS14
+          False: { visible: false } # DS14
   - type: AtmosAlertsComputer
   - type: ActivatableUI
     singleUser: true
@@ -72,6 +73,7 @@
     - map: ["computerLayerKeys"]
       state: atmos_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: AtmosMonitoringConsole
     navMapTileColor: "#1a1a1a"
@@ -182,6 +184,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: ShuttleConsoleCircuitboard
@@ -203,6 +206,7 @@
     - map: ["computerLayerKeys"]
       state: syndie_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Tag
     tags:
@@ -235,6 +239,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: DroneConsole
     components:
@@ -269,6 +274,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ActivatableUI
     key: enum.IFFConsoleUiKey.Key
@@ -321,6 +327,7 @@
     - map: ["computerLayerKeys"]
       state: power_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: PointLight
     radius: 1.5
@@ -363,6 +370,7 @@
     - map: ["computerLayerKeys"]
       state: med_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: PointLight
     radius: 1.5
@@ -397,6 +405,7 @@
     - map: ["computerLayerKeys"]
       state: security_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: PointLight
     radius: 1.5
@@ -452,6 +461,7 @@
     - map: ["computerLayerKeys"]
       state: med_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: PointLight
     radius: 1.5
@@ -491,6 +501,7 @@
     - map: ["computerLayerKeys"]
       state: rd_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ResearchClient
   - type: ResearchConsole
@@ -542,6 +553,7 @@
     - map: ["computerLayerKeys"]
       state: tech_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ResearchClient
   - type: AnalysisConsole
@@ -626,6 +638,7 @@
     - map: ["computerLayerKeys"]
       state: id_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: IDComputerCircuitboard
@@ -670,6 +683,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: AccessReader
     access: [[ "Command" ]]
@@ -718,6 +732,7 @@
     - map: ["computerLayerKeys"]
       state: syndie_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: AccessReader
     access: [[ "NuclearOperative" ]]
@@ -752,6 +767,7 @@
     - map: ["computerLayerKeys"]
       state: wizard_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: AccessReader
     access: [[ "Wizard" ]]
@@ -786,6 +802,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: AccessReader
     access: [[ "CentralCommand" ]]
@@ -823,6 +840,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: SolarControlConsole
   - type: ActivatableUI
@@ -861,6 +879,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: RadarConsole
   - type: ActivatableUI
@@ -895,6 +914,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     removeLimitAccess: [ "Quartermaster" ]
@@ -955,6 +975,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Engineering
@@ -990,6 +1011,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Medical
@@ -1025,6 +1047,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Science
@@ -1062,6 +1085,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Security
@@ -1100,6 +1124,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Service
@@ -1135,6 +1160,7 @@
     - map: ["computerLayerKeys"]
       state: tech_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: CargoBountyConsole
   - type: ActivatableUI
@@ -1175,6 +1201,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: FundingAllocationConsole
   - type: ActivatableUI
@@ -1216,6 +1243,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: CloningConsoleComputerCircuitboard
@@ -1263,6 +1291,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: SalvageJobBoardConsole
   - type: ActivatableUI
@@ -1299,6 +1328,7 @@
         - map: ["computerLayerKeys"]
           state: tech_key
         - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+          visible: false # DS14
           state: generic_panel_open
     - type: Appearance
     - type: GenericVisualizer
@@ -1312,8 +1342,8 @@
             False: { visible: true }
         enum.WiresVisuals.MaintenancePanelState:
           enum.WiresVisualLayers.MaintenancePanel:
-            True: { visible: false }
-            False: { visible: true }
+            True: { visible: true } # DS14
+            False: { visible: false } # DS14
     - type: SalvageExpeditionConsole
     - type: ActivatableUI
       key: enum.SalvageConsoleUiKey.Expedition
@@ -1352,6 +1382,7 @@
     - map: ["computerLayerKeys"]
       state: tech_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: SurveillanceCameraMonitorCircuitboard
@@ -1391,6 +1422,7 @@
     - map: ["computerLayerKeys"]
       state: tech_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: SurveillanceWirelessCameraMonitorCircuitboard
@@ -1447,6 +1479,7 @@
     - map: ["computerLayerKeys"]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Anchorable
     flags:
@@ -1487,6 +1520,7 @@
     - map: ["computerLayerKeys"]
       state: service_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Computer
     board: ComputerMassMediaCircuitboard
@@ -1527,6 +1561,7 @@
         - map: ["computerLayerKeys"]
           state: atmos_key
         - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+          visible: false # DS14
           state: generic_panel_open
     - type: PointLight
       radius: 1.5
@@ -1571,6 +1606,7 @@
     - map: ["computerLayerKeys"]
       state: rd_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: RoboticsConsole
     allowBorgControl: false
@@ -1619,6 +1655,7 @@
     - map: ["computerLayerKeys"]
       state: rd_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ActivatableUI
     key: enum.RoboticsConsoleUiKey.Key
@@ -1663,6 +1700,7 @@
     - map: [ "computerLayerKeys" ]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ApcPowerReceiver
     powerLoad: 50
@@ -1716,6 +1754,7 @@
     - map: [ "computerLayerKeys" ]
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: ApcPowerReceiver
     powerLoad: 1000
@@ -1770,6 +1809,7 @@
     - map: [ "computerLayerKeys" ]
       state: rd_key
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   - type: Appearance
   - type: GenericVisualizer
@@ -1797,8 +1837,8 @@
           Dead: { state: ai-fixer-404 }
       enum.WiresVisuals.MaintenancePanelState:
         enum.WiresVisualLayers.MaintenancePanel:
-          True: { visible: false }
-          False: { visible: true }
+          True: { visible: true } # DS14
+          False: { visible: false } # DS14
   - type: ApcPowerReceiver
     powerLoad: 50
   - type: PowerState
@@ -1856,6 +1896,7 @@
     - map: ["computerLayerKeys"]
       state: syndie_generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      visible: false # DS14
       state: generic_panel_open
   # - type: Computer
   #   board: SyndicateCommsComputerCircuitboard

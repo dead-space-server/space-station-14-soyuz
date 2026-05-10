@@ -107807,13 +107807,6 @@ entities:
     - type: Transform
       pos: 49.42453,26.527494
       parent: 2
-- proto: WeaponShotgunAresSWC
-  entities:
-  - uid: 1072
-    components:
-    - type: Transform
-      pos: 50.382862,26.423254
-      parent: 2
 - proto: WeaponSubMachineGunDrozd
   entities:
   - uid: 15494

@@ -644,13 +644,6 @@ entities:
     - type: Transform
       pos: -0.5,1.5
       parent: 1
-- proto: ClothingMaskBreath
-  entities:
-  - uid: 205
-    components:
-    - type: Transform
-      pos: -4.2585673,8.426325
-      parent: 1
 - proto: computerBodyScanner
   entities:
   - uid: 206

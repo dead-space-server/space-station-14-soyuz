@@ -274753,18 +274753,6 @@ entities:
     - type: Transform
       pos: 41.53909,54.77733
       parent: 2
-- proto: WeaponShotgunAresSWC
-  entities:
-  - uid: 42880
-    components:
-    - type: Transform
-      pos: 43.5,54.5
-      parent: 2
-  - uid: 42881
-    components:
-    - type: Transform
-      pos: 43.505848,54.380856
-      parent: 2
 - proto: WeaponShotgunEnforcer
   entities:
   - uid: 35982

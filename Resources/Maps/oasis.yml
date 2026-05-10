@@ -168141,18 +168141,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 32.584816,-24.345026
       parent: 2
-- proto: WeaponShotgunAresSWC
-  entities:
-  - uid: 25210
-    components:
-    - type: Transform
-      pos: 33.478844,-26.521677
-      parent: 2
-  - uid: 25211
-    components:
-    - type: Transform
-      pos: 33.478844,-26.344471
-      parent: 2
 - proto: WeaponShotgunDoubleBarreledRubber
   entities:
   - uid: 24515

@@ -72670,7 +72670,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 39.5,-38.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 10920
     components:
@@ -145422,13 +145422,6 @@ entities:
     - type: AccessReader
       accessListsOriginal:
       - - Security
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 20477
-    components:
-    - type: Transform
-      pos: -56.5,-23.5
-      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 20478

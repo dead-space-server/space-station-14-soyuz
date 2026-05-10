@@ -69,7 +69,6 @@ entities:
     - type: DeviceNetwork
       configurators: []
       deviceLists: []
-      address: 8D64-1A2C
       transmitFrequencyId: ArrivalsShuttleTimer
     - type: GridPathfinding
     - type: Gravity

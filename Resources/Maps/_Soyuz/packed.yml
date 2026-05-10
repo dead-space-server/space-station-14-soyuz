@@ -69352,7 +69352,7 @@ entities:
     - type: Transform
       pos: 6.0254927,-3.2604024
       parent: 2
-- proto: PlushieDionaSoyuz
+- proto: PlushieDiona
   entities:
   - uid: 10412
     components:

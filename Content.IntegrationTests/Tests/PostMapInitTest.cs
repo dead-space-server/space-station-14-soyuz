@@ -70,7 +70,6 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
             {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
-            {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime", "RubberStampSyndicate"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end

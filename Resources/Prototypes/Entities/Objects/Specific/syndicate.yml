@@ -105,13 +105,13 @@
 # DS14-start
     - Grenade
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
     layers:
     - state: nokia3310
       scale: 0.7, 0.7
       shader: unshaded
   - type: Item
-    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
     heldPrefix: nokia3310
     size: Small
   - type: EmitSoundOnUse

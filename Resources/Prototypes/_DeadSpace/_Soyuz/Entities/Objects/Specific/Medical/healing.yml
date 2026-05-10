@@ -8,7 +8,7 @@
   - type: Pill
     pillType: 2
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: pill3
     scale: 0.7, 0.7
   - type: Label
@@ -35,7 +35,7 @@
     tags:
       - FoodSnack
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris
     scale: 0.7, 0.7
   - type: SpawnItemsOnUse
@@ -65,5 +65,5 @@
     tags:
     - Trash
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Consumable/Food/barbaris.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/barbaris.rsi
     state: barbaris-trash

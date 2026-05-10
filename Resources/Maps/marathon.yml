@@ -120690,7 +120690,7 @@ entities:
       parent: 2
     - type: ApcPowerReceiver
       powerLoad: 50
-- proto: ErtResponseConsole
+- proto: ErtResponceConsole
   entities:
   - uid: 14128
     components:
@@ -214470,6 +214470,13 @@ entities:
     components:
     - type: Transform
       pos: -27.5,68.5
+      parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 1702
+    components:
+    - type: Transform
+      pos: 31.5,-15.5
       parent: 2
 - proto: SurveillanceCameraCommand
   entities:

@@ -1624,9 +1624,6 @@ entities:
     - type: Transform
       pos: -4.5,3.5
       parent: 1
-    - type: DeviceNetwork
-      address: 4499-2E4E
-      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}
@@ -1636,9 +1633,6 @@ entities:
     - type: Transform
       pos: 3.5,3.5
       parent: 1
-    - type: DeviceNetwork
-      address: 2CFD-624E
-      receiveFrequency: 2451
     - type: Godmode
     - type: Fixtures
       fixtures: {}

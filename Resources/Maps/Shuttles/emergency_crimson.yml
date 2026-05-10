@@ -3756,7 +3756,7 @@ entities:
       parent: 1
     - type: DeltaPressure
       gridUid: 1
-- proto: PlasmaWindowDirectional
+- proto: WindowReinforcedDirectional
   entities:
   - uid: 488
     components:

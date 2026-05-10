@@ -217908,7 +217908,7 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: ErtResponseConsole
+- proto: ErtResponceConsole
   entities:
   - uid: 26619
     components:
@@ -371325,6 +371325,13 @@ entities:
     - type: AccessReader
       accessListsOriginal:
       - - Security
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 45594
+    components:
+    - type: Transform
+      pos: 74.5,7.5
+      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 45595

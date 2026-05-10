@@ -65,6 +65,14 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
+            // DS-14 Soyuz: Add our custom maps to whitelist
+            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
+            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end
         };
 

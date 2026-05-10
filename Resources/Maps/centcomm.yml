@@ -76287,24 +76287,6 @@ entities:
     - type: Transform
       pos: -7.3126593,-88.3389
       parent: 1
-- proto: EncryptionKeySOD
-  entities:
-  - uid: 10244
-    components:
-    - type: Transform
-      pos: -16.42546,-141.317
-      parent: 1
-  - uid: 10245
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 21.475973,-165.92511
-      parent: 1
-  - uid: 10246
-    components:
-    - type: Transform
-      pos: 21.366524,-165.70636
-      parent: 1
 - proto: EnergyDagger
   entities:
   - uid: 10247

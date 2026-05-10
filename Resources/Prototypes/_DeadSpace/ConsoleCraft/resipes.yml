@@ -277,8 +277,8 @@
   minorItems:
   - OuterSuitMiniJet
   - DelayModifierModule
-  - HandHeldMassScannerModule
-  - BluespaceHandHeldMassScannerModule
+  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
 
 - type: consoleCraft
   id: RIGNukeOpsElite
@@ -307,5 +307,5 @@
   minorItems:
   - OuterSuitMiniJet
   - DelayModifierModule
-  - HandHeldMassScannerModule
-  - BluespaceHandHeldMassScannerModule
+  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал

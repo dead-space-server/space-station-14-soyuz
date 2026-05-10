@@ -270,8 +270,8 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bloodAmount,
             null,
             bleeding,
-            unrevivable,
             unclonable, // DS14-Soyuz
+            unrevivable,
             reagents // DS14
         );
     }

@@ -132,6 +132,7 @@ namespace Content.IntegrationTests.Tests
             "Packed",
             // "Plasma", // map load failure
             "Reach",
+            "Ishimura",
             "Saltern",
             "Snowball",
             "Serpentcrest",

@@ -480,7 +480,7 @@ entities:
       parent: 1
 - proto: AirlockCommandLocked
   entities:
-  - uid: 206
+  - uid: 2124153
     components:
     - type: Transform
       pos: -0.5,2.5
@@ -653,7 +653,7 @@ entities:
       parent: 1
 - proto: ComputerCloningConsole
   entities:
-  - uid: 207
+  - uid: 21111
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -684,7 +684,7 @@ entities:
       fixtures: {}
 - proto: ComputerRadar
   entities:
-  - uid: 209
+  - uid: 2121212
     components:
     - type: Transform
       pos: -0.5,4.5

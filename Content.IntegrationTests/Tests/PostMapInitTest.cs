@@ -60,7 +60,7 @@ namespace Content.IntegrationTests.Tests
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars"]},
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars"]},
             {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
@@ -604,10 +604,10 @@ namespace Content.IntegrationTests.Tests
                 .ToArray();
 
             // DS14: skip broken non-game maps
-            var skipNonGameMaps = new HashSet<string>
-            {
-                "corvax_pilgrim", // BoxFolderCentCom storage overflow
-            };
+            // var skipNonGameMaps = new HashSet<string>
+            // {
+            //    "corvax_pilgrim", // BoxFolderCentCom storage overflow
+            // };
 
             var mapPaths = new List<ResPath>();
             foreach (var map in maps)

@@ -615,8 +615,8 @@ namespace Content.IntegrationTests.Tests
                 if (gameMaps.Contains(map))
                     continue;
 
-                if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
-                    continue;
+                // if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
+                //     continue;
 
                 var rootedPath = map.ToRootedPath();
                 if (SkipTestMaps && rootedPath.ToString().StartsWith(TestMapsPath, StringComparison.Ordinal))

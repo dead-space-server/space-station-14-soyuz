@@ -40813,13 +40813,6 @@ entities:
     - type: Transform
       pos: 7.6471786,-1.5472101
       parent: 2
-- proto: RubberStampSyndicate
-  entities:
-  - uid: 4648
-    components:
-    - type: Transform
-      pos: -30.23363,-7.2996683
-      parent: 2
 - proto: SalvageMagnet
   entities:
   - uid: 4649

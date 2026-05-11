@@ -1,10 +1,10 @@
 - type: Tag
   id: CartridgeLightestRifle
 
-- type: tag
+- type: Tag
   id: DrinkCup
   
-- type: tag
+- type: Tag
   id: DrinkGlass
 
 - type: Tag

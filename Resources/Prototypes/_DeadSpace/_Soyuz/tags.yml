@@ -1,6 +1,12 @@
 - type: Tag
   id: CartridgeLightestRifle
 
+- type: tag
+  id: DrinkCup
+  
+- type: tag
+  id: DrinkGlass
+
 - type: Tag
   id: PoliceBetaLegs
 

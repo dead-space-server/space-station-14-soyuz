@@ -95,6 +95,8 @@
       - id: PeaSeeds
       - id: CherrySeeds
       - id: CocoaSeeds
+      - id: CottonSeeds
+
 - type: entity
   parent: CrateHydroponics
   id: CrateHydroponicsTray

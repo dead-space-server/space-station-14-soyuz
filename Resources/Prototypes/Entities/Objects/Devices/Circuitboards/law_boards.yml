@@ -29,7 +29,7 @@
   description: An electronics board containing the Crewsimov lawset.
   components:
   - type: SiliconLawProvider
-    laws: Crewsimov
+    laws: CrewsimovAi # DS-14
 
 - type: entity
   id: CorporateCircuitBoard
@@ -165,14 +165,3 @@
   - type: SiliconLawProvider
     laws: MothershipCoreLawset
 
-# DS14-start: SOC law board
-- type: entity
-  id: SOCCircuitBoard
-  parent: BaseSiliconLawboard
-  name: law board (SOC)
-  # suffix: Admeme # DS14-Soyuz disabled 
-  description: An electronics board containing the Special Operations Corps lawset.
-  components:
-  - type: SiliconLawProvider
-    laws: SpecialOperationsCorpsLawset
-# DS14-end

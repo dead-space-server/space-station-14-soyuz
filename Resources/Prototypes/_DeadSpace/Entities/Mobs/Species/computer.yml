@@ -122,6 +122,7 @@
       endValue: 2.0
       isLooped: true
 # DS14-Soyuz-end
+  - type: UnpoweredFlashlight
   - type: PointLight
     enabled: false
     radius: 3.5
@@ -145,7 +146,6 @@
     - GeneralLanguage
   - type: Tag
     tags:
-    # - IgnoreBedHealing # DS14-Soyuz disabled
     - SiliconIPCEmotes
     - CanPilot
     - FootstepSound

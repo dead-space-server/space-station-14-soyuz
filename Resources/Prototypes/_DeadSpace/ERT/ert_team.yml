@@ -1,11 +1,11 @@
 - type: ertTeam
   id: Cburn
   name: РХБЗЗ
-  notification: ert-responce-caused-messager-cburn
+  notification: ert-response-caused-messager-cburn
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
-  startAnnouncement: station-event-response-team-arrival-cburn-sierra
+  startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description: 
@@ -210,7 +210,7 @@
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда 20 минут.
   rule: SpawnGammaShuttle
-  notification: ert-responce-caused-messager-gamma
+  notification: ert-response-caused-messager-gamma
   sender: ert-response-cso-sender
   cooldown:
     min: 20m
@@ -236,7 +236,7 @@
 - type: ertTeam
   id: BSAA
   name: АПБТ
-  notification: ert-responce-caused-messager-uni-ops
+  notification: ert-response-caused-messager-bsaa
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg

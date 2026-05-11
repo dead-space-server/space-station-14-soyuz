@@ -223,17 +223,6 @@
 #       - NukeOpsUplink
 
 - type: listing
-  id: UplinkMagazineShothgun
-  name: uplink-shotgun-magazine-name
-  description: uplink-shotgun-magazine-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/m12.rsi, state: base }
-  productEntity: MagazineShotgun
-  cost:
-    Telecrystal: 2
-  categories:
-  - UplinkAmmo
-
-- type: listing
   id: UplinkMagazineMachineGun
   name: uplink-machine-gun-magazine-name
   description: uplink-machine-gun-magazine-desc
@@ -259,7 +248,7 @@
   id: UplinkSyndieCloak
   name: uplink-syndiecloak-name
   description: uplink-syndiecloak-desc
-  productEntity: ADTClothingNeckSyndicateCloak
+  productEntity: ClothingNeckSyndicateCloak
   cost:
     Telecrystal: 5
   categories:
@@ -274,7 +263,7 @@
   id: UplinkNukeOpsCloak
   name: uplink-nukeopscloak-name
   description: uplink-nukeopscloak-desc
-  productEntity: ADTClothingNeckNukeOpsCloak
+  productEntity: ClothingNeckNukeOpsCloak
   cost:
     Telecrystal: 5
   categories:
@@ -724,3 +713,25 @@
     whitelist:
       tags:
       - NukeOpsUplink
+
+- type: listing
+  id: UplinkClothingBackpackSatchelTaipan
+  name: Сумка Синдиката
+  description: Самая красивая приду на перестрелочку.
+  icon: { sprite: /Textures/_DeadSpace/Clothing/Back/bag.rsi, state: icon }
+  productEntity: ClothingBackpackSatchelTaipan
+  cost:
+    Telecrystal: 3
+  categories:
+  - UplinkWearables
+
+- type: listing
+  id: UplinkClothingHeadHelmetSwatSyndicate
+  name: Шлем спецназа
+  description: Самый прочный шлем в мире. Клянусь.
+  icon: { sprite: /Textures/Clothing/Head/Helmets/swat_syndicate.rsi, state: icon }
+  productEntity: ClothingHeadHelmetSwatSyndicate
+  cost:
+    Telecrystal: 3
+  categories:
+  - UplinkWearables

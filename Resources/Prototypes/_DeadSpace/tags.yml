@@ -38,10 +38,16 @@
   id: BorgSecTorso
 
 - type: Tag
+  id: BluespaceHandHeldMassScanner
+
+- type: Tag
   id: DarkFlower
 
 - type: Tag
   id: DrinkBeerBottleFull
+
+- type: Tag
+  id: CantChangeScale
 
 - type: Tag
   id: CakeBrain
@@ -116,6 +122,8 @@
   id: EnergySword
 
 - type: Tag
+  id: EnergyKatana
+- type: Tag
   id: EnergySwordDouble
 
 - type: Tag
@@ -165,6 +173,9 @@
 
 - type: Tag
   id: HardsuitSyndie
+
+- type: Tag
+  id: HandHeldMassScanner
 
 - type: Tag
   id: HolopadAdminNotification
@@ -238,6 +249,9 @@
 
 - type: Tag
   id: MeatWheat
+
+- type: Tag
+  id: Medipen
 
 - type: Tag
   id: MukhtarWearable

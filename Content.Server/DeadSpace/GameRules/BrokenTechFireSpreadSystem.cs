@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using Content.Server.Atmos.Components;
 using Content.Shared.Atmos;
-using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
@@ -91,24 +90,6 @@ public sealed class BrokenTechFireSpreadSystem : EntitySystem
         }
 
         _spreadQueue.Clear();
-    }
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<BrokenTechFireSpreadComponent, ReactionEntityEvent>(OnReaction);
-    }
-
-    private void OnReaction(Entity<BrokenTechFireSpreadComponent> ent, ref ReactionEntityEvent args)
-    {
-        if (args.Method != ReactionMethod.Touch)
-            return;
-
-        if (!HasWaterReagent(args.Reagent.ID, ent.Comp))
-            return;
-
-        QueueDel(ent);
     }
 
     private void InitializeOrigin(BrokenTechFireSpreadComponent fire, EntityUid gridUid, Vector2i tile)
@@ -241,7 +222,7 @@ public sealed class BrokenTechFireSpreadSystem : EntitySystem
         EntityQuery<TransformComponent> xformQuery)
     {
         if (itemQuery.HasComponent(uid))
-            return false;
+            return true;
 
         return xformQuery.TryGetComponent(uid, out var xform) && xform.Anchored;
     }
@@ -251,17 +232,6 @@ public sealed class BrokenTechFireSpreadSystem : EntitySystem
         foreach (var reagent in fire.WaterReagents)
         {
             if (solution.GetTotalPrototypeQuantity(reagent) > FixedPoint2.Zero)
-                return true;
-        }
-
-        return false;
-    }
-
-    private bool HasWaterReagent(string reagentId, BrokenTechFireSpreadComponent fire)
-    {
-        foreach (var reagent in fire.WaterReagents)
-        {
-            if (reagent == reagentId)
                 return true;
         }
 

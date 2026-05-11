@@ -60,7 +60,7 @@ namespace Content.IntegrationTests.Tests
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars"]},
             {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
@@ -90,8 +90,6 @@ namespace Content.IntegrationTests.Tests
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan
             "/Maps/_Soyuz/ds_taipan.yml", // Taipan
-            "/Maps/Shuttles/AdminSpawn/**", // admin gaming
-            "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };
@@ -615,10 +613,10 @@ namespace Content.IntegrationTests.Tests
                 .ToArray();
 
             // DS14: skip broken non-game maps
-            var skipNonGameMaps = new HashSet<string>
-            {
-                "corvax_pilgrim", // BoxFolderCentCom storage overflow
-            };
+            // var skipNonGameMaps = new HashSet<string>
+            // {
+            //    "corvax_pilgrim", // BoxFolderCentCom storage overflow
+            // };
 
             var mapPaths = new List<ResPath>();
             foreach (var map in maps)
@@ -626,8 +624,8 @@ namespace Content.IntegrationTests.Tests
                 if (gameMaps.Contains(map))
                     continue;
 
-                if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
-                    continue;
+                // if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
+                //     continue;
 
                 var rootedPath = map.ToRootedPath();
                 if (SkipTestMaps && rootedPath.ToString().StartsWith(TestMapsPath, StringComparison.Ordinal))

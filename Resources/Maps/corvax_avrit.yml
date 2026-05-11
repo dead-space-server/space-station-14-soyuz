@@ -326908,16 +326908,6 @@ entities:
     - type: AccessReader
       accessListsOriginal:
       - - Security
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 45625
-    components:
-    - type: Transform
-      pos: 74.5,7.5
-      parent: 2
-    - type: AccessReader
-      accessListsOriginal:
-      - - Security
 - proto: SuitStorageWarden
   entities:
   - uid: 45626

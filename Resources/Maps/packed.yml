@@ -41822,7 +41822,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 45.5,24.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 5448
     components:
@@ -77441,13 +77441,6 @@ entities:
     components:
     - type: Transform
       pos: 41.5,27.5
-      parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 14310
-    components:
-    - type: Transform
-      pos: 7.5,18.5
       parent: 2
 - proto: SurveillanceCameraCommand
   entities:

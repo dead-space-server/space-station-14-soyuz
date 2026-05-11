@@ -401,4 +401,4 @@ ui-options-overlay-ghost-hide-distance = Диапазон скрытия нал�
 
 ui-options-save-button = Сохранить
 ui-options-function-open-language-menu = Открыть меню выбора языка
-##DS14-end 
+##DS14-end

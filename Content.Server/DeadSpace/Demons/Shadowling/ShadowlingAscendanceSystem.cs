@@ -77,10 +77,7 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
         while (query.MoveNext(out var sUid, out var slave))
         {
             if (slave.Master == uid)
-            {
                 slave.Master = newMob;
-                Dirty(sUid, slave);
-            }
         }
 
         if (TryComp<ShadowlingRecruitComponent>(uid, out var oldRecruit) &&
@@ -100,30 +97,17 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
         _sound.StopStationEventMusic(newMob, StationEventMusicType.Convergence);
         _sound.DispatchStationEventMusic(newMob, new SoundCollectionSpecifier("ShadowlingAscendance"), StationEventMusicType.Convergence);
 
-        var alreadyAnnounced = false;
+        Timer.Spawn(TimeSpan.FromSeconds(1.48), () =>
+        {
+            _chat.DispatchGlobalAnnouncement(message, sender,
+                colorOverride: Color.FromHex("#ff0000"),
+                announcementSound: new SoundCollectionSpecifier("ShadowlingAscendanceAnnouncement"));
+        });
+
         var ruleQuery = EntityQueryEnumerator<ShadowlingRuleComponent>();
-        while (ruleQuery.MoveNext(out var ruleComp))
+        while (ruleQuery.MoveNext(out var ruleUid, out var ruleComp))
         {
             ruleComp.IsAscended = true;
-            if (ruleComp.AscendanceAnnounced)
-            {
-                alreadyAnnounced = true;
-                break;
-            }
-        }
-
-        if (!alreadyAnnounced)
-        {
-            var allRules = EntityQuery<ShadowlingRuleComponent>();
-            foreach (var ruleComp in allRules)
-                ruleComp.AscendanceAnnounced = true;
-
-            Timer.Spawn(TimeSpan.FromSeconds(1.48), () =>
-            {
-                _chat.DispatchGlobalAnnouncement(message, sender,
-                    colorOverride: Color.FromHex("#ff0000"),
-                    announcementSound: new SoundCollectionSpecifier("ShadowlingAscendanceAnnouncement"));
-            });
         }
 
         QueueDel(uid);

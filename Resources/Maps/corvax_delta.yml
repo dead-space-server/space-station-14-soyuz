@@ -257003,21 +257003,6 @@ entities:
     - type: Transform
       pos: 65.5,13.5
       parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-          Oxygen: 1.7459903
-          Nitrogen: 6.568249
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 35172
-    components:
-    - type: Transform
-      pos: 26.5,26.5
-      parent: 2
 - proto: SurveillanceCameraAssembly
   entities:
   - uid: 35173

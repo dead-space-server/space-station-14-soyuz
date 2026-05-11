@@ -116,13 +116,11 @@
   id: EnergyCartridge
 
 - type: Tag
-  id: CartridgeLightestRifle
-
-- type: Tag
   id: EnergySword
 
 - type: Tag
   id: EnergyKatana
+
 - type: Tag
   id: EnergySwordDouble
 
@@ -206,22 +204,6 @@
 
 - type: Tag
   id: LightReplacer
-
-
-- type: Tag
-  id: MagazineBoxLightestRifle
-
-- type: Tag
-  id: MagazineBoxLightestRifleIncendiary
-
-- type: Tag
-  id: MagazineBoxLightestRiflePractice
-
-- type: Tag
-  id: MagazineBoxLightestRifleUranium
-
-- type: Tag
-  id: MagazineCaselessRifle
 
 - type: Tag
   id: MagazineCarbineSKS

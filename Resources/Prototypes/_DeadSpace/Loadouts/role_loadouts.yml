@@ -45,6 +45,19 @@
   - ClownUnderwear # DS14-Underwear
 
 # Cargo
+- type: roleLoadout
+  id: JobSeniorSalvageSpecialist
+  groups:
+  - GroupTankHarness
+  - SalvageSpecialistJumpsuit
+  - SalvageSpecialistBackpack
+  - SalvageSpecialistOuterClothing
+  - SalvageSpecialistShoes
+  - Glasses
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - SalvageSpecialistUnderwear # DS14-Underwear
 
 # Law
 - type: roleLoadout

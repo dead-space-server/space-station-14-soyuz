@@ -1,8 +1,8 @@
-- type: jukebox
-  id: Internacional
-  name: Пролетарский гимн "Интернационал"
-  path:
-    path: /Audio/Jukebox/AnthemRSSRInternacional.ogg
+#- type: jukebox
+#  id: Internacional
+#  name: Пролетарский гимн "Интернационал"
+#  path:
+#    path: /Audio/Jukebox/AnthemRSSRInternacional.ogg
 
 - type: jukebox
   id: BlowWithTheFires

@@ -1026,8 +1026,8 @@
     stock: 2
 
 - type: listing
-  id: ClothingJumpsuitMachineInventory50
-  productEntity: ADTClothingUniformTurleneckTactick
+  id: ClothingJumpsuitMachineInventory60
+  productEntity: ClothingUniformTurtleneckTactic
   cost:
     SpaceCash: 20
   categories:

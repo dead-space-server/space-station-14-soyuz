@@ -46,21 +46,6 @@
   components:
   - type: AutoRecharge
     rechargeDuration: 1
-# DS14-start
-  - type: LimitedCharges
-    maxCharges: 150000
-    lastCharges: 150000
-# DS14-end
-
-- type: entity
-  parent: SprayPainter
-  name: experimental spray painter
-  description: An experimental recharging spray painter that can infinitely replicate compressed paint.
-  id: SprayPainterBorg
-  suffix: Borg
-  components:
-  - type: AutoRecharge
-    rechargeDuration: 5
 
 - type: entity
   parent: SprayPainter

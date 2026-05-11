@@ -1,18 +1,19 @@
 - type: entity
-  abstract: true
+  id: BaseMagazineCaselessRifle
+  name: "magazine (.25 caseless)"
   parent: [ BaseItem, BaseSecurityContraband ]
-  id: BaseMagazinePistolCaselessRifle
-  name: "pistol magazine (.25 caseless)"
+  abstract: true
   components:
   - type: Tag
     tags:
-    - MagazinePistolCaselessRifle
+      - MagazineCaselessRifle
   - type: BallisticAmmoProvider
+    mayTransfer: true
     whitelist:
       tags:
-      - CartridgeCaselessRifle
+        - CartridgeCaselessRifle
     proto: CartridgeCaselessRifle
-    capacity: 10
+    capacity: 30
   - type: Item
     size: Small
   - type: ContainerContainer
@@ -64,9 +65,9 @@
   - type: Appearance
 
 - type: entity
-  parent: BaseMagazinePistolCaselessRifle
   id: MagazinePistolCaselessRifle
   name: "pistol magazine (.25 caseless)"
+  parent: BaseMagazinePistolCaselessRifle
   description: 10-round magazine for the Cobra pistol. Intended to hold general-purpose kinetic ammunition.
   components:
   - type: BallisticAmmoProvider
@@ -93,7 +94,6 @@
       - state: inhand-right-stripe
 
 - type: entity
-  parent: BaseMagazinePistolCaselessRifle
   id: MagazinePistolCaselessRiflePractice
   name: "pistol magazine (.25 caseless practice)"
   parent: BaseMagazinePistolCaselessRifle

@@ -37,10 +37,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: Skill
-      group: BaseSkills
 
 - type: startingGear
   id: IAAGear
@@ -53,9 +49,6 @@
     pocket2: RubberStampIAA
   inhand:
     - BriefcaseBrownFilled
-  storage:
-    back:
-    - TelephoneIaa
 
 - type: chameleonOutfit
   id: IAAChameleonOutfit

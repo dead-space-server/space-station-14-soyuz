@@ -62,6 +62,7 @@
     - id: HyposprayVelmet
     - id: PaperVelmet
     - id: MedkitAdvancedFilled
+    - id: OtherVelmet
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
 
@@ -75,7 +76,7 @@
   components:
   - type: Storage
     grid:
-    - 0,0,9,1
+    - 0,0,7,1
   - type: Sprite
     sprite: _DeadSpace/Sponsor/velmet/belt.rsi
   - type: Clothing
@@ -91,7 +92,7 @@
       - id: PowerDrillVelmet
       - id: WelderExperimentalVelmet
       - id: MultitoolVelmet
-      - id: SyndicateJawsOfLifeVelmet
+      - id: JawsOfLifeVelmet
       - id: HandHeldMassScannerVelmet
       - id: RCDVelmet
   - type: Tag
@@ -127,7 +128,7 @@
 
 #Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitAtmos
+  parent: ClothingOuterHardsuitSecurity
   id: ClothingOuterHardsuitVelmet
   name: тактический разведывательный скафандр DMQ//66
   description: Вторая модификация лимитированной серии разведывательно-боевой линейки EVA-IVA скафандров. Отличается ещё менее броской расцветкой в угоду эффективности вверенного лазутчика.
@@ -146,7 +147,7 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.4
+        Piercing: 0.6
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
@@ -357,7 +358,7 @@
   - type: SolutionContainerManager
     solutions:
       hypospray:
-        maxVol: 10
+        maxVol: 5
   - type: RefillableSolution
     solution: hypospray
   - type: ExaminableSolution
@@ -424,15 +425,78 @@
 
 - type: entity
   id: DoubleEmergencyOxygenVelmet
-  parent: DoubleEmergencyOxygenTankFilled
+  parent: BaseItem
   name: двойной аварийный кислородный баллон DMQ//66
   description: Высококлассный двухбаллонный резервуар аварийного жизнеобеспечения. Вмещает приличное для своих небольших размеров количество кислорода. Вмещает 2,5 Л газа.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/velmet/tank.rsi
+    state: icon
   - type: Clothing
     sprite: _DeadSpace/Sponsor/velmet/tank.rsi
+    quickEquip: false
+    slots:
+    - Pocket
+    - Belt
+    - suitStorage
+  - type: Item
+    size: Small
+    sprite: _DeadSpace/Sponsor/velmet/tank.rsi
+    storedSprite:
+      state: storage
+      sprite: _DeadSpace/Sponsor/velmet/tank.rsi
+  - type: UseDelay
+    delays:
+      gasTank:
+        length: 1.0
+  - type: ActivatableUI
+    key: enum.SharedGasTankUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SharedGasTankUiKey.Key:
+        type: GasTankBoundUserInterface
+  - type: GasTank
+    outputPressure: 21.3
+    air:
+      # 15 minutes
+      volume: 2.5
+      moles:
+        Oxygen: 1.025689525 # oxygen
+      temperature: 293.15
+  - type: MeleeWeapon
+    attackRate: 0.9
+    damage:
+      types:
+        Blunt: 7.5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+  - type: Tool
+    qualities:
+    - Rolling
+    speedModifier: 0.6 # fairly unwieldly but nice round surface
+  - type: Explosive
+    explosionType: MicroBomb
+    maxIntensity: 20
+
+- type: entity
+  name: имплант DMQ//66
+  description: Имплант DMQ//66.
+  parent: BaseItem
+  id: OtherVelmet
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/velmet/other.rsi
+    state: icon
+  - type: TriggerOnUse
+  - type: DeleteOnTrigger
+  - type: AddComponentsOnTrigger
+    removeExisting: true
+    targetUser: true
+    components:
+    - type: TTS
+      voice: Overwatch
 
 #instruments
 #drill
@@ -490,8 +554,8 @@
 
 #JawsOfLife
 - type: entity
-  parent: SyndicateJawsOfLife
-  id: SyndicateJawsOfLifeVelmet
+  parent: JawsOfLife
+  id: JawsOfLifeVelmet
   name: тактические челюсти DMQ//66
   description: Выполненные в bullpup-компоновке челюсти жизни обеспечивают более эргономичный хват при работе, из-за чего взломать шлюз они способны на порядок быстрее ваших.
   categories: [ HideSpawnMenu ]

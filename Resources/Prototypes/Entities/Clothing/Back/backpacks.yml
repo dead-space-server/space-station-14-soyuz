@@ -309,10 +309,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackHolding
-  # DS14-start: Soyuz changes
-  name: redspace backpack
-  description: A backpack that opens into a localized pocket of redspace.
-  # DS14-end
+  name: bag of holding
+  description: A backpack that opens into a localized pocket of bluespace.
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/holding.rsi

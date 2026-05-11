@@ -206,7 +206,6 @@
     - NewsReaderCartridge
     - AstroNavCartridge
     - MedTekCartridge
-    - USSPChatCartridge
   - type: PdaBorderColor
     borderColor: "#336899"
   - type: Tag

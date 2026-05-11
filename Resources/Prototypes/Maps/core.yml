@@ -2,7 +2,7 @@
   id: Core
   mapName: 'Core'
   mapPath: /Maps/_Soyuz/core.yml
-  minPlayers: 30
+  minPlayers: 40
   maxPlayers: 75
   stations:
     Core:
@@ -23,7 +23,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            Politruk: [ 1, 1 ]
+            # Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

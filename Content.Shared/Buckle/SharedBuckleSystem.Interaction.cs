@@ -104,11 +104,7 @@ public abstract partial class SharedBuckleSystem
         }
 
         // Unbuckle others
-        // DS14-start
-        if (buckle.BuckledTo != uid && !StrapHasSpace(uid, buckle, component) &&
-            component.BuckledEntities.TryFirstOrNull(out var buckled) &&
-            TryUnbuckle(buckled.Value, args.User))
-        // DS14-end
+        if (component.BuckledEntities.TryFirstOrNull(out var buckled) && TryUnbuckle(buckled.Value, args.User))
         {
             args.Handled = true;
             return;

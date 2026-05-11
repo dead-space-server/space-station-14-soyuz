@@ -12,7 +12,6 @@
   - MaterialBananium1
   - MaterialDiamond
   - IngotTungsten1 # DS14-Soyuz
-  - MaterialRedspaceCrystal # DS14-Soyuz
 
 - type: latheRecipePack
   id: RGlassSmelting
@@ -28,4 +27,5 @@
   - SheetUGlass1
   - SheetRUGlass1
   - SheetPlastic1 #DS14
-
+  - SheetMagmite1 #DS14
+  - SheetBluespaceCrystal1 #DS14

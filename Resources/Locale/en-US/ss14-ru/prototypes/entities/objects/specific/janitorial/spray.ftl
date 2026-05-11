@@ -12,9 +12,8 @@ ent-SprayBottleSpaceCleaner = space cleaner
 ent-BorgSprayBottle = internal spray jet
     .desc = A pressurized vessel for spraying reagents, installed directly into a custodial cyborg. Typically filled with space cleaner for dealing with those nasty spills.
     .suffix = Filled
-# // DS-14 soyuz
 ent-BorgMegaSprayBottle = adv. internal spray jet
-    .desc = An upgraded version of the integrated spray bottle, installed directly into a custodial cyborg. This one is capable of creating space cleaner from moisture in the air.
+    .desc = An upgraded version of the integrated spray bottle, installed directly into a custodial cyborg. Typically filled with space cleaner for dealing with those nasty spills.
     .suffix = Filled
 ent-Vapor = vapor
     .desc = { "" }

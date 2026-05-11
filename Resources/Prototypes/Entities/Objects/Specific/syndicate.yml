@@ -105,27 +105,21 @@
 # DS14-start
     - Grenade
   - type: Sprite
-    # DS14-start: Soyuz changes
     sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
-    # DS14-end
     layers:
     - state: nokia3310
       scale: 0.7, 0.7
       shader: unshaded
-    # DS14-start: Soyuz changes
   - type: Item
     sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
-    # DS14-end
     heldPrefix: nokia3310
     size: Small
-      # DS14-start: Soyuz changes
   - type: EmitSoundOnUse
     sound:
-      path: /Audio/_DeadSpace/_Soyuz/Item/Nokia/nokia_activate_sound.ogg
-      # DS14-end
+      path: /Audio/_DeadSpace/Soyuz/Item/Nokia/nokia_activate_sound.ogg
   - type: SpentAmmoVisuals
   - type: CartridgeAmmo
-    proto: BulletGrenadeNokia
+    proto: BulletGrenadeNokia # DS14-Soyuz
   - type: UseDelay
     delay: 10
   - type: UseDelayOnMeleeHit

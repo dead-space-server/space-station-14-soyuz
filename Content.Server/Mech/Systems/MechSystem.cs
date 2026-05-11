@@ -1,4 +1,5 @@
 using Content.Server.Atmos.EntitySystems;
+using Content.Server.Atmos.Components; // DS14-Soyuz
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
 using Content.Shared.ActionBlocker;
@@ -64,6 +65,8 @@ public sealed partial class MechSystem : SharedMechSystem
 
         SubscribeLocalEvent<MechComponent, UpdateCanMoveEvent>(OnMechCanMoveEvent);
 
+        SubscribeLocalEvent<MechComponent, MechPilotSetupEvent>(OnMechPilotSetup); // DS14-Soyuz
+        SubscribeLocalEvent<MechComponent, MechPilotCleanupEvent>(OnMechPilotCleanup); // DS14-Soyuz
 
         SubscribeLocalEvent<MechPilotComponent, ToolUserAttemptUseEvent>(OnToolUseAttempt);
         SubscribeLocalEvent<MechPilotComponent, InhaleLocationEvent>(OnInhale);
@@ -443,4 +446,23 @@ public sealed partial class MechSystem : SharedMechSystem
         args.Air = comp.Air;
     }
     #endregion
+
+// DS14-Soyuz-start
+    private void OnMechPilotSetup(EntityUid uid, MechComponent component, ref MechPilotSetupEvent args)
+    {
+        if (component.IgnorePressure)
+        {
+            EnsureComp<PressureImmunityComponent>(args.Pilot);
+        }
+    }
+
+    private void OnMechPilotCleanup(EntityUid uid, MechComponent component, ref MechPilotCleanupEvent args)
+    {
+        if (component.IgnorePressure)
+        {
+            RemComp<PressureImmunityComponent>(args.Pilot);
+        }
+    
+    }
+// DS14-Soyuz-end
 }

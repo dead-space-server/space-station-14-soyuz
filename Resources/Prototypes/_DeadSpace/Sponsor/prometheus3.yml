@@ -9,9 +9,7 @@
   id: ClothingBackpackPrometheus3
   categories: [ HideSpawnMenu ]
   name: тактический подсумок «BlackOps»
-  # DS14-start: Soyuz changes
-  description: Компактный снаружи, необъятный внутри. Оснащен редспейс технологией. Не пытайтесь запихнуть туда свои проблемы!
-  # DS14-end
+  description: Компактный снаружи, необъятный внутри. Оснащен блюспейс технологией. Не пытайтесь запихнуть туда свои проблемы!
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/Prometheus3/backpack.rsi
@@ -115,7 +113,7 @@
   - type: SolutionContainerManager
     solutions:
       hypospray:
-        maxVol: 10
+        maxVol: 5
   - type: Appearance
   - type: RefillableSolution
     solution: hypospray
@@ -153,7 +151,7 @@
   - type: Storage
     maxItemSize: Normal
     grid:
-    - 0,0,9,1
+    - 0,0,7,1
   - type: StorageFill
     contents:
     - id: SyndicatePowerDrill
@@ -446,7 +444,7 @@
 
 # HARDSUIT & HELMET
 - type: entity
-  parent: ClothingOuterHardsuitAtmos
+  parent: ClothingOuterHardsuitSecurity
   id: ClothingHardsuitPrometheus3
   name: боевой скафандр «BlackOps»
   description: Элегантный скафандр для самых грязных задач. Имеет идентификатор.
@@ -470,7 +468,7 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.4
+        Piercing: 0.6
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
@@ -543,7 +541,7 @@
 
 # JawsOfLife
 - type: entity
-  parent: SyndicateJawsOfLife
+  parent: JawsOfLife
   id: JawsOfLifePrometheus3
   name: кроваво-красные челюсти жизни
   description: Набор челюстей жизни, скомпонованных при помощи магии науки...

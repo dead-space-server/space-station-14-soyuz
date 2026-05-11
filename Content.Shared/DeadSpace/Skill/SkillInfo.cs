@@ -10,12 +10,4 @@ namespace Content.Shared.DeadSpace.Skills;
 /// IconSize - размер иконки навыка.
 /// </summary>
 [Serializable, NetSerializable]
-public record struct SkillInfo(
-    string PrototypeId,
-    string Name,
-    string Description,
-    SpriteSpecifier Icon,
-    float Progress,
-    int IconSize,
-    bool HighlightAsUnknown = false,
-    bool CanLearnFromSource = false);
+public record struct SkillInfo(string Name, string Description, SpriteSpecifier Icon, float Progress, int IconSize);

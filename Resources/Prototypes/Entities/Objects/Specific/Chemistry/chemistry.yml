@@ -343,13 +343,9 @@
         canReact: false
 
 - type: entity
-  # DS14-start: Soyuz changes
-  name: redspace beaker
-  # DS14-end
-  # DS14-start: Soyuz changes
+  name: bluespace beaker
   parent: BaseBeakerMetallic
-  description: Powered by experimental redspace technology.
-  # DS14-end
+  description: Powered by experimental bluespace technology.
   id: BluespaceBeaker
   components:
   - type: Spillable
@@ -568,12 +564,10 @@
     activeModeProtoId: SyringeInjectMode
 
 - type: entity
-  # DS14-start: Soyuz changes
   id: SyringeBluespace
   parent: BaseSyringe
-  name: redspace syringe
-  description: Injecting with advanced redspace technology.
-  # DS14-end
+  name: bluespace syringe
+  description: Injecting with advanced bluespace technology.
   components:
   - type: Sprite
     layers:

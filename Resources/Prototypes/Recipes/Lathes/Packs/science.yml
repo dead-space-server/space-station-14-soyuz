@@ -19,12 +19,19 @@
   - NodeScanner
   - AnomalyLocator
   - AnomalyLocatorWide
+  - HoloprojectorRND # DS14
   - HoloprojectorField
   - SignallerAdvanced
   - DeviceQuantumSpinInverter
   - DeviceDesynchronizer
   - ClothingBackpackHarmpack
-  - ObeliskStoper # DS14
+  # DS14-start
+  - ObeliskStoper
+  - HandTeleporterResearch
+  - ClothingHandsGlovesPowergloveActive
+  - PinpointerUniversal
+  - HolopadHandheld
+  # DS14-end
 
 - type: latheRecipePack
   id: ScienceClothing
@@ -90,6 +97,10 @@
   - APECircuitboard
   - ArtifactAnalyzerMachineCircuitboard
   - ArtifactCrusherMachineCircuitboard
+  #DeadSpace-start
+  - LawBoardConfiguratorComputerCircuitboard
+  - EmptyLawCircuitBoard
+  #DeadSpace-end
 
 - type: latheRecipePack
   id: CameraBoards
@@ -112,10 +123,6 @@
   - HonkerTargetingElectronics
   - HamtrCentralElectronics
   - HamtrPeripheralsElectronics
-  # DS14-Soyuz-start
-  - ClarkeCentralElectronics
-  - ClarkePeripheralsElectronics
-  # DS14-Soyuz-end
 
 - type: latheRecipePack
   id: ShuttleBoards

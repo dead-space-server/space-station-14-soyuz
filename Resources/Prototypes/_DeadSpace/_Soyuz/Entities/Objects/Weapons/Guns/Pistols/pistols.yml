@@ -88,6 +88,4 @@
         priority: 1
         whitelist:
           tags:
-            # DS14-start: Soyuz changes
             - CartridgePistol
-            # DS14-end

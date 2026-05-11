@@ -5,11 +5,9 @@
   icon: { sprite: /Textures/Objects/Materials/Sheets/other.rsi, state: paper }
   spawn: SheetPaper1
 
-# // DS-14 start remove
-# - type: stack
-#   parent: BaseSheetStack
-#   id: MeatSheets
-#   name: stack-meat-sheet
-#   icon: { sprite: /Textures/Objects/Materials/Sheets/meaterial.rsi, state: meat }
-#   spawn: MaterialSheetMeat1
-# // DS-14 end remove
+- type: stack
+  parent: BaseSheetStack
+  id: MeatSheets
+  name: stack-meat-sheet
+  icon: { sprite: /Textures/Objects/Materials/Sheets/meaterial.rsi, state: meat }
+  spawn: MaterialSheetMeat1

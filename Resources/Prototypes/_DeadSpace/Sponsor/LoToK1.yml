@@ -8,9 +8,7 @@
   parent: ClothingBackpack
   id: ClothingBackpackLoToK1
   name: ведьмина сумочка
-  # DS14-start: Soyuz changes
-  description: Сумка использующая технологию редспейса для увелечения своего максимального объёма. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
-  # DS14-end
+  description: Сумка использующая технологию блюспейса для увелечения своего максимального объёма. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -18,7 +16,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,16,6
+    - 0,0,15,7
   - type: StorageFill
     contents:
       - id: ClothingBeltLoToK1Filled
@@ -112,7 +110,7 @@
 
 # Hardsuit
 - type: entity
-  parent: ClothingOuterHardsuitAtmos
+  parent: ClothingOuterHardsuitSecurity
   id: ClothingOuterHardsuitLoToK1
   name: модифицированный ведьмин скафандр
   description: Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.

@@ -45,7 +45,8 @@ public sealed class GhostRoleTests
 
         await using var pair = await PoolManager.GetServerClient(new PoolSettings
         {
-            Dirty = false,
+            Fresh = true,
+            Dirty = true,
             DummyTicker = false,
             Connected = true
         });
@@ -60,6 +61,9 @@ public sealed class GhostRoleTests
         var mindSystem = entMan.System<SharedMindSystem>();
         var session = sPlayerMan.Sessions.Single();
         var originalPlayerMindId = session.ContentData()!.Mind!.Value;
+
+        // Check that there are no ghosts
+        Assert.That(entMan.Count<GhostComponent>(), Is.Zero);
 
         // Spawn player entity & attach
         EntityUid originalPlayerMob = default;
@@ -79,6 +83,8 @@ public sealed class GhostRoleTests
             Assert.That(originalPlayerMind.VisitingEntity, Is.Null);
             Assert.That(originalPlayerMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
 
+            // Check that there are still no ghosts
+            Assert.That(entMan.Count<GhostComponent>(), Is.Zero);
         });
 
         // Use the ghost command
@@ -108,6 +114,8 @@ public sealed class GhostRoleTests
             // Check that we're tracking the original owner for round end screen
             Assert.That(originalPlayerMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
 
+            // Check that there is only one ghost
+            Assert.That(entMan.Count<GhostComponent>(), Is.EqualTo(1));
         });
 
         // Spawn ghost takeover entity.
@@ -159,6 +167,8 @@ public sealed class GhostRoleTests
             // Make sure that the ghost was deleted
             Assert.That(entMan.Deleted(ghostOne));
 
+            // Check that there is are no lingereing ghosts
+            Assert.That(entMan.Count<GhostComponent>(), Is.Zero);
         });
 
         // Ghost again.
@@ -194,6 +204,8 @@ public sealed class GhostRoleTests
             Assert.That(originalPlayerMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
             Assert.That(ghostRoleMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
 
+            // Check that there is exactly one ghost
+            Assert.That(entMan.Count<GhostComponent>(), Is.EqualTo(1));
         });
 
         if (!adminGhost)
@@ -228,6 +240,8 @@ public sealed class GhostRoleTests
             Assert.That(originalPlayerMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
             Assert.That(ghostRoleMind.OriginalOwnerUserId, Is.EqualTo(session.UserId));
 
+            // Check that there is are no lingereing ghosts
+            Assert.That(entMan.Count<GhostComponent>(), Is.Zero);
         });
 
         await pair.CleanReturnAsync();

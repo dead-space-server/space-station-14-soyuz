@@ -22,8 +22,6 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-    - type: Skill
-      group: Captain
 
 - type: startingGear
   id: CentcomAdministratorGear

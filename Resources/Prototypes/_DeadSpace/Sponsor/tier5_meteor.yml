@@ -7,9 +7,7 @@
   parent: ClothingBackpackDuffelMilitary
   id: ClothingBackpackTier5Sponsor
   name: расширенный вещмешок
-  # DS14-start: Soyuz changes
-  description: Вещмешок использующий технологию микро редспейс карманов для увеличения общего объёма.
-  # DS14-end
+  description: Вещмешок использующий технологию микро блюспейс карманов для увеличения общего объёма.
   suffix: Набор вещей спонсора, Метеор
   components:
   - type: Storage

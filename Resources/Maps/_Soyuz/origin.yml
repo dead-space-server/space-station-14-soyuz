@@ -101849,7 +101849,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,19.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 34761
     components:
@@ -162803,7 +162803,7 @@ entities:
     - type: Transform
       pos: -36.715,27.626623
       parent: 2
-- proto: PlushieDionaSoyuz
+- proto: PlushieDiona
   entities:
   - uid: 24411
     components:
@@ -191044,13 +191044,6 @@ entities:
     components:
     - type: Transform
       pos: 54.5,8.5
-      parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 24098
-    components:
-    - type: Transform
-      pos: -38.5,30.5
       parent: 2
 - proto: SuitStorageWarden
   entities:

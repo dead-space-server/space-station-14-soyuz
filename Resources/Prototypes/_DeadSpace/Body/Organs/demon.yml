@@ -2,15 +2,3 @@
   id: OrganDemonStomach
   parent: OrganAnimalStomach
   categories: [ HideSpawnMenu ]
-# DS14-soyuz
-  components:
-  - type: SolutionContainerManager
-    solutions:
-      stomach:
-        maxVol: 50
-      food:
-        maxVol: 5
-        reagents:
-        - ReagentId: UncookedAnimalProteins
-          Quantity: 5
-# DS14-soyuz

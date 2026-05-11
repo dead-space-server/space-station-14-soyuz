@@ -2,7 +2,7 @@
   abstract: true
   parent: BaseItem
   id: SheetGlassBase
-  # DS14: avoid manual LocId-like names for entity prototypes
+  name: glass
   description: A sheet of glass, used often on the station in various applications.
   components:
   - type: Sprite

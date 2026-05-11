@@ -25,7 +25,11 @@ public sealed class TTSSystem : EntitySystem
     [Dependency] private readonly LanguageSystem _languageSystem = default!;
 
     private ISawmill _sawmill = default!;
-    private readonly MemoryContentRoot _contentRoot = new();
+    // Static so the root survives system shutdown/reinit (e.g. round restart).
+    // IResourceManager has no RemoveRoot, so disposing on shutdown left a dead
+    // root registered and crashed subsequent reads with ObjectDisposedException.
+    private static readonly MemoryContentRoot _contentRoot = new();
+    private static bool _rootRegistered;
     private static readonly ResPath Prefix = ResPath.Root / "TTS";
 
     /// <summary>
@@ -46,7 +50,11 @@ public sealed class TTSSystem : EntitySystem
     public override void Initialize()
     {
         _sawmill = Logger.GetSawmill("tts");
-        _res.AddRoot(Prefix, _contentRoot);
+        if (!_rootRegistered)
+        {
+            _res.AddRoot(Prefix, _contentRoot);
+            _rootRegistered = true;
+        }
         _cfg.OnValueChanged(CCCVars.TTSVolume, OnTtsVolumeChanged, true);
         _cfg.OnValueChanged(CCCCVars.TTSVolumeRadio, OnTtsRadioVolumeChanged, true);
         _cfg.OnValueChanged(CCCCVars.RadioTTSSoundsEnabled, OnTtsPlayRadioChanged, true);
@@ -59,7 +67,8 @@ public sealed class TTSSystem : EntitySystem
         _cfg.UnsubValueChanged(CCCVars.TTSVolume, OnTtsVolumeChanged);
         _cfg.UnsubValueChanged(CCCCVars.TTSVolumeRadio, OnTtsRadioVolumeChanged);
         _cfg.UnsubValueChanged(CCCCVars.RadioTTSSoundsEnabled, OnTtsPlayRadioChanged);
-        _contentRoot.Dispose();
+        // Don't dispose _contentRoot - IResourceManager has no RemoveRoot, so disposing
+        // it would leave a dead reference in the manager and crash subsequent file reads.
     }
 
     public void RequestPreviewTTS(string voiceId)
@@ -111,11 +120,9 @@ public sealed class TTSSystem : EntitySystem
         AudioResource? audioResource = null;
         ResPath? filePath = null;
 
-        // DS14-PoliticalLoudspeaker-start: political loudspeaker boosts local TTS playback
         var audioParams = AudioParams.Default
-            .WithVolume(AdjustVolume(ev.IsWhisper, ev.IsRadio, ev.VolumeMultiplier))
-            .WithMaxDistance(AdjustDistance(ev.IsWhisper, ev.DistanceMultiplier));
-        // DS14-PoliticalLoudspeaker-end
+            .WithVolume(AdjustVolume(ev.IsWhisper, ev.IsRadio))
+            .WithMaxDistance(AdjustDistance(ev.IsWhisper));
 
         // Если есть обычные данные TTS — готовим ресурс
         if (hasData)
@@ -152,7 +159,7 @@ public sealed class TTSSystem : EntitySystem
             _contentRoot.RemoveFile(filePath.Value);
     }
 
-    private float AdjustVolume(bool isWhisper, bool isRadio, float volumeMultiplier) // DS14-PoliticalLoudspeaker
+    private float AdjustVolume(bool isWhisper, bool isRadio)
     {
         var volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volume);
 
@@ -165,15 +172,11 @@ public sealed class TTSSystem : EntitySystem
             volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volumeRadio);
         }
 
-        if (!isRadio && volumeMultiplier > 1f) // DS14-PoliticalLoudspeaker
-            volume += SharedAudioSystem.GainToVolume(volumeMultiplier);
-
         return volume;
     }
 
-    private float AdjustDistance(bool isWhisper, float distanceMultiplier) // DS14-PoliticalLoudspeaker
+    private float AdjustDistance(bool isWhisper)
     {
-        var baseDistance = isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
-        return baseDistance * MathF.Max(distanceMultiplier, 0f); // DS14-PoliticalLoudspeaker
+        return isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
     }
 }

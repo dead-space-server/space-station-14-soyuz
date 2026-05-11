@@ -37,7 +37,6 @@ using Content.Shared.Corvax.TTS;
 using Content.Shared.Dataset;
 using Content.DeadSpace.Interfaces.Server;
 using Content.Shared.DeadSpace.Languages.Components;
-using Content.Shared.PoliticalLoudspeaker; // DS14-PoliticalLoudspeaker
 using Content.Server.DeadSpace.Languages;
 using Robust.Server.Console;
 using Content.Shared.DeadSpace.Languages.Prototypes;
@@ -65,7 +64,6 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-PoliticalLoudspeaker
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
@@ -774,13 +772,13 @@ public sealed partial class ChatSystem : SharedChatSystem
     private void SendDeadChat(EntityUid source, ICommonSession player, string message, bool hideChat)
     {
         var clients = GetDeadChatClients();
-        var playerName = Name(source);
+        var playerName = FormattedMessage.EscapeText(Name(source)); // DS14
         string wrappedMessage;
         if (_adminManager.IsAdmin(player))
         {
             wrappedMessage = Loc.GetString("chat-manager-send-admin-dead-chat-wrap-message",
                 ("adminChannelName", Loc.GetString("chat-manager-admin-channel-name")),
-                ("userName", player.Channel.UserName),
+                ("userName", FormattedMessage.EscapeText(player.Channel.UserName)), // DS14
                 ("message", FormattedMessage.EscapeText(message)));
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Admin dead chat from {source}: {message}");
         }
@@ -788,7 +786,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         {
             wrappedMessage = Loc.GetString("chat-manager-send-dead-chat-wrap-message",
                 ("deadChannelName", Loc.GetString("chat-manager-dead-channel-name")),
-                ("playerName", (playerName)),
+                ("playerName", playerName), // DS14
                 ("message", FormattedMessage.EscapeText(message)));
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Dead chat from {source}: {message}");
         }
@@ -852,17 +850,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     {
         var totalWrappedMessage = wrappedMessage;
         var totalMessage = message;
-        // DS14-PoliticalLoudspeaker-start: held loudspeakers extend local speech range
-        float voiceRange = VoiceRange;
 
-        if (channel == ChatChannel.Local)
-        {
-            var (speechRangeMultiplier, _) = _politicalLoudspeaker.GetSpeechModifiers(source);
-            voiceRange *= speechRangeMultiplier;
-        }
-        // DS14-PoliticalLoudspeaker-end
-
-        foreach (var (session, data) in GetRecipients(source, voiceRange))
+        foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
             // DS14-Languages-start
             EntityUid listener;

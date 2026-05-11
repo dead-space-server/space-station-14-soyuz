@@ -1081,7 +1081,7 @@
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
-        - ReagentId: MachineOil # DS14-value: SulfuricAcid -> MachineOil
+        - ReagentId: SulfuricAcid
           Quantity: 5
   - type: Tag
     tags:

@@ -2,7 +2,7 @@
   id: Oasis
   mapName: 'Oasis'
   mapPath: /Maps/_Soyuz/oasis.yml
-  minPlayers: 20
+  minPlayers: 30
   maxPlayers: 40
   stations:
     Oasis:

@@ -283,6 +283,7 @@
           map: [ "enum.PowerDeviceVisualLayers.Powered" ]
         - state: freezerPanelOpen
           map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+          visible: false # DS14
         - state: pipe
           map: [ "enum.PipeVisualLayers.Pipe" ]
           renderingStrategy: Default
@@ -328,6 +329,7 @@
           map: [ "enum.PowerDeviceVisualLayers.Powered" ]
         - state: heaterPanelOpen
           map: ["enum.WiresVisualLayers.MaintenancePanel"]
+          visible: false # DS14
         - state: pipe
           map: [ "enum.PipeVisualLayers.Pipe" ]
           renderingStrategy: Default
@@ -367,7 +369,7 @@
     sprite: Structures/Piping/Atmospherics/hellfirethermomachine.rsi
   - type: GasThermoMachine
     minTemperature: 23.15
-    heatCapacity: 5000
+    heatCapacity: 40000
     energyLeakPercentage: 0.15
   - type: Machine
     board: HellfireFreezerMachineCircuitBoard
@@ -382,7 +384,7 @@
     sprite: Structures/Piping/Atmospherics/hellfirethermomachine.rsi
   - type: GasThermoMachine
     maxTemperature: 1193.15
-    heatCapacity: 5000
+    heatCapacity: 40000
     energyLeakPercentage: 0.15
   - type: Machine
     board: HellfireHeaterMachineCircuitBoard
@@ -404,6 +406,7 @@
       map: [ "enum.PowerDeviceVisualLayers.Powered" ]
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
     - state: pipe
       map: [ "enum.PipeVisualLayers.Pipe" ]
       renderingStrategy: Default

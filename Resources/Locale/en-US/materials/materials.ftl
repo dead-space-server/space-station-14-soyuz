@@ -30,9 +30,6 @@ materials-coal = coal
 materials-diamond = diamond
 materials-gunpowder = gunpowder
 materials-cotton = cotton
-# DS14
-materials-redspace-crystal = redspace crystal
-materials-raw-redspace-crystal = raw redspace crystal
 
 # Ores
 materials-raw-iron = raw iron
@@ -44,4 +41,3 @@ materials-raw-uranium = raw uranium
 materials-raw-bananium = raw bananium
 materials-raw-salt = raw salt
 materials-raw-diamond = raw diamond
-

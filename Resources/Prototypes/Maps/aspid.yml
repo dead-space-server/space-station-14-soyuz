@@ -2,7 +2,7 @@
    id: Aspid
    mapName: 'Aspid'
    mapPath: /Maps/_Soyuz/ds_aspid.yml
-   minPlayers: 10
+   minPlayers: 20
    maxPlayers: 60
    stations:
      Aspid:

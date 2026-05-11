@@ -1,11 +1,9 @@
 - type: latheRecipe
   abstract: true
   id: BaseDoubleBedsheetRecipe
-  categories:
-  - Bedsheets
-  completetime: 3 #DS14-soyuz value 2>3
-  materials: #DS14-soyuz
-    Cloth: 300 #DS14-soyuz
+  completetime: 2
+  materials:
+    Cloth: 300
 
 - type: latheRecipe
   abstract: true

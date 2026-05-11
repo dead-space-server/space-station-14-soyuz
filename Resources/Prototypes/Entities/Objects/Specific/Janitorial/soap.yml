@@ -234,9 +234,7 @@
   parent: BaseSoap
   id: SoapOmega
   name: omega soap
-  # DS14-start: Soyuz changes
-  description: The most advanced soap known to mankind. Smells of redspace.
-  # DS14-end
+  description: The most advanced soap known to mankind. Smells of bluespace.
   components:
   - type: Sprite
     layers:

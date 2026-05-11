@@ -24,11 +24,15 @@
   canBeAntag: false
   access:
   - Security
+  - Brigmedic # DS14-Soyuz
   - Brig
+  - Armory # DS14-Soyuz
   - Maintenance
   - Service
   - External
   - Cryogenics
+  - GenpopEnter # DS14-Soyuz
+  - GenpopLeave # DS14-Soyuz
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250

@@ -231,12 +231,14 @@ namespace Content.Server.Chemistry.EntitySystems
             {
                 if (!_storageSystem.HasSpace((container, storage)))
                     break;
+
                 var item = Spawn(PillPrototypeId, Transform(container).Coordinates);
                 if (!_storageSystem.Insert(container, item, out _, user: user, storage))
                 {
                     QueueDel(item);
                     break;
                 }
+
                 _labelSystem.Label(item, message.Label);
 
                 _solutionContainerSystem.EnsureSolutionEntity(item,

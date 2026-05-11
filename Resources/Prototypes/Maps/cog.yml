@@ -2,8 +2,7 @@
   id: Cog
   mapName: 'Cog'
   mapPath: /Maps/_Soyuz/cog.yml
-  minPlayers: 30
-  maxPlayers: 70 # DS-14-voite
+  minPlayers: 40
   stations:
     Cog:
       stationProto: StandardNanotrasenStation
@@ -21,7 +20,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            Politruk: [ 1, 1 ]
+            # Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

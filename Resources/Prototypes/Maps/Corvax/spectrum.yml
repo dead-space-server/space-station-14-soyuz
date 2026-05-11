@@ -2,7 +2,7 @@
   id: CorvaxSpectrum
   mapName: 'Spectrum'
   mapPath: /Maps/_Soyuz/corvax_spectrum.yml
-  minPlayers: 40
+  minPlayers: 50
   stations:
     Spectrum:
       stationProto: StandardNanotrasenStation
@@ -54,7 +54,7 @@
             TechnicalAssistant: [ 3, 3 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz disabled
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ

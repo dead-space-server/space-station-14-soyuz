@@ -191,10 +191,8 @@
 - type: entity
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelHolding
-  # DS14-start: Soyuz changes
-  name: redspace satchel
-  description: A satchel that opens into a localized pocket of redspace.
-  # DS14-end
+  name: satchel of holding
+  description: A satchel that opens into a localized pocket of bluespace.
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/holding.rsi

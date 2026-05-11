@@ -3269,9 +3269,7 @@ entities:
   - uid: 223
     components:
     - type: MetaData
-      # DS14-start: Soyuz changes
-      desc: Redspace technology applied to bureaucracy. This one looks really old.
-      # DS14-end
+      desc: Bluespace technologies on the application of bureaucracy. This one looks really old.
       name: old long range fax machine
     - type: Transform
       pos: 4.5,-8.5

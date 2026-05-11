@@ -4,6 +4,3 @@ flavor-complex-sawdust = как опилки
 flavor-complex-caviar = по-новогоднему
 flavor-complex-sakura = как весенний лепесток
 flavor-complex-cherryblossom = как весенний сад
-flavor-complex-horses = как конина
-flavor-complex-pear = как груши
-flavor-complex-pearonade = как освежающая груша

@@ -183,7 +183,6 @@
   - type: Gun
     minAngle: 0
     maxAngle: 30 #miss him entirely because the barrel is smoothbore
-    fireRate: 0.2 #DS14
   - type: Item
     size: Small
     shape:
@@ -200,9 +199,9 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-        - CartridgeAntiMateriel # changed from Anti-material rifle rounds because it's a flintlock pistol not a Hristov # и чо с того #DS14
+        - CartridgeMagnum # changed from Anti-material rifle rounds because it's a flintlock pistol not a Hristov
     capacity: 1
-    proto: CartridgeAntiMateriel #DS14
+    proto: CartridgeMagnum
   - type: StaticPrice
     price: 0
 

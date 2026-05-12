@@ -51,7 +51,7 @@
   - type: StorageFill
     contents:
       - id: CannonBall
-        amount: 8
+        amount: 6
       - id: CannonBallGrapeshot
         amount: 2
       - id: CannonBallGlassshot

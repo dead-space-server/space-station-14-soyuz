@@ -1168,16 +1168,11 @@
         time: 36000 # 10 hours
       raffle:
         settings: default
-    - type: RandomMetadata #DS14
-      nameSegments:
-      - NamesPirateTitle
-      - NamesPirate
-      nameFormat: name-format-pirate
     - type: Loadout
       prototypes: [ PirateScoonerAltA, PirateScoonerAltB, PirateScoonerAltC, PirateScoonerAltD ]
       roleLoadout: [ RoleSurvivalEVA ]
     - type: GhostRoleNotifys #DS14
-      groupPrototype: ReinforcementRadioPirateping
+      groupPrototype: BigAntagsGroup
 
 - type: randomHumanoidSettings
   id: PirateCaptainScooner
@@ -1201,16 +1196,11 @@
         time: 36000 # 10 hours
       raffle:
         settings: default
-    - type: RandomMetadata #DS14
-      nameSegments:
-      - NamesPirateCapitanTitle
-      - NamesPirateCapitan
-      nameFormat: name-format-pirate
     - type: Loadout
       prototypes: [ PirateCaptainScooner ]
       roleLoadout: [ RoleSurvivalEVA ]
     - type: GhostRoleNotifys #DS14
-      groupPrototype: ReinforcementRadioPirateping
+      groupPrototype: BigAntagsGroup
 
 ### Other
 

@@ -69,7 +69,6 @@
     - id: NinjaSpawn
     - id: KingRatMigration
     - id: MonkeyKingSpawn
-    - id: PirateRaid
     - id: MediumVirusPandemic
     - id: DerelictSyndicateAssaultCyborgSpawn
     - !type:NestedSelector

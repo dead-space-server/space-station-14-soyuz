@@ -225,6 +225,18 @@
   recipeUnlocks:
   - WeaponEnergyTurretCommandMachineCircuitboard
   - WeaponEnergyTurretCommandControlPanelElectronics
+
+- type: technology
+  id: SecurityBorgModulesTierTwo
+  name: research-technology-security-borg-modules-two
+  icon:
+    sprite: _DeadSpace/SecurityBorg/borg_module_sec.rsi
+    state: security
+  discipline: Arsenal
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+  - BorgModuleSecurityJump
 # DS14-end
 
 - type: technology
@@ -395,70 +407,17 @@
   technologyPrerequisites:
   - BasicShuttleArmament
 
-# DS14-Soyuz-start
+# DS14-start
 - type: technology
-  id: AdvancedBallisticsShotguns
-  name: research-technology-advanced-shotguns
+  id: SecurityBorgModulesTierThree
+  name: research-technology-security-borg-modules-three
   icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Shotguns/saiga.rsi
-    state: icon
+    sprite: _DeadSpace/SecurityBorg/borg_module_sec.rsi
+    state: security
   discipline: Arsenal
   tier: 3
   cost: 15000
   recipeUnlocks:
-  - WeaponShotgunSaiga
-
-- type: technology
-  id: AdvancedBallisticsAutomaticWeapons
-  name: research-technology-advanced-automatic-weapons
-  icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/asval.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 3
-  cost: 20000
-  recipeUnlocks:
-  - WeaponRifleAKMCY
-  - WeaponRifleAsVal
-  - WeaponRifleVSS
-
-- type: technology
-  id: AdvancedShotgunMagazine
-  name: research-technology-advanced-shotgun-ammo-magazine
-  icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/mag.rsi
-    state: base
-  discipline: Arsenal
-  tier: 3
-  cost: 17500
-  recipeUnlocks:
-  - MagazineShotgunNew
-  - MagazineShotgunNewEmpty
-  - MagazineShotgunDrum
-  - MagazineShotgunDrumEmpty
-
-- type: technology
-  id: AdvancedSecurityMagazine
-  name: research-technology-advanced-ammo-magazine
-  icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Magnum/ash_mag.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 3
-  cost: 17500
-  recipeUnlocks:
-  - MagazineRifleASH
-  - MagazineRifleASHEmpty
-
-- type: technology
-  id: BallisticsLargeCaliberWeapons
-  name: research-technology-ballistics-large-caliber-weapons
-  icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/ash.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 3
-  cost: 50000
-  recipeUnlocks:
-  - WeaponRifleASH12
-# DS14-Soyuz-end
+  - BorgModuleSecurityFirearms
+  - BorgModuleSecurityEmergency
+# DS14-end

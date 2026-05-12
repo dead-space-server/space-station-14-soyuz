@@ -99193,7 +99193,7 @@ entities:
       parent: 2
 - proto: SalvageMagnet
   entities:
-  - uid: 13196
+  - uid: 14495
     components:
     - type: Transform
       rot: -1.5707963267948966 rad

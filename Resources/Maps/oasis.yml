@@ -144001,13 +144001,6 @@ entities:
     - type: Transform
       pos: -56.5,-23.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 20363
-    components:
-    - type: Transform
-      pos: -56.5,-23.5
-      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 20478

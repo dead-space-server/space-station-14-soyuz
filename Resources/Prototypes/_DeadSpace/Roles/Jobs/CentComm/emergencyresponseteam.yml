@@ -1,57 +1,41 @@
-- type: entity
-  parent: BoxCardboard
-  id: BoxSurvival
-  name: survival box
-  description: It's a box with basic internals inside.
-  suffix: Standard
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: emergencytank
+# DS14 ERT
 
-# DS14-Start
-- type: entity
-  parent: BoxBase
-  id: BoxCardboardERT
-  name: cardboard box
-  description: A cardboard box for storing things.
-  suffix: ERT
-  components:
-  - type: Item
-    size: Large
-    shape:
-    - 0,0,2,1
-  - type: Storage
-    maxItemSize: Small
-    grid:
-    - 0,0,3,3
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: emergencytank
-  - type: StorageFill
-    contents:
-      - id: ClothingMaskGasERT
-      - id: FoodSnackNutribrickOpen
-      - id: DrinkMREFlask
-      - id: EmergencyMedipen
-      - id: AirlossAutoInjector
-      - id: HandHeldMassScanner
-      - id: Flare
-      - id: Flare
-      - id: Flash
-      - id: DoubleEmergencyOxygenTankFilled
+# Leader
+## Amber
+- type: job
+  id: ERTLeaderAmber
+  name: job-name-ertleader-amber
+  description: job-description-ertleader
+  playTimeTracker: JobERTLeaderAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
+  startingGear: ERTLeaderGearAmber
+  icon: "JobIconERTLeader"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - ErtTeamLeader
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTLeaderGearAmber
@@ -82,27 +66,41 @@
     - CriminalRecordsMonitor
     - HandheldCrewMonitor
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxSurvivalNitrogen
-  suffix: Standard N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+## Red
+- type: job
+  id: ERTLeaderRed
+  name: job-name-ertleader-red
+  description: job-description-ertleader
+  playTimeTracker: JobERTLeaderRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
+  startingGear: ERTLeaderGearRed
+  icon: "JobIconERTLeader"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - ErtTeamLeader
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTLeaderGearRed
@@ -130,21 +128,41 @@
     - CrowbarRed
     - WeaponDisabler
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxSurvivalMoth
-  suffix: Standart for moths
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
+## Gamma
+- type: job
+  id: ERTLeaderGamma
+  name: job-name-ertleader-gamma
+  description: job-description-ertleader
+  playTimeTracker: JobERTLeaderGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 36000 # 10 hours
+  startingGear: ERTLeaderGearGamma
+  icon: "JobIconERTLeader"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - ErtTeamLeader
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTLeaderGearGamma
@@ -172,20 +190,38 @@
     - CrowbarRed
     - WeaponDisabler
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxSurvivalRobotNonBreather
-  suffix: Standard for robot non breathers
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingHeadHatWelding
-        - id: CableApcStack5
-        - id: CrowbarRed
-        - id: Flare
-        - id: DrinkWaterBottleFull
+# Security
+## Amber
+- type: job
+  id: ERTSecurityAmber
+  name: job-name-ertsecurity-amber
+  description: job-description-ertsecurity
+  playTimeTracker: JobERTSecurityAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+  startingGear: ERTSecurityGearAmber
+  icon: "JobIconERT"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTSecurityGearAmber
@@ -218,27 +254,37 @@
     - TelescopicShield
     - TelescopicShield
 
-- type: entity
-  parent: BoxSurvivalEngineering
-  id: BoxSurvivalEngineeringNitrogen
-  suffix: Extended N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: ExtendedEmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+## Red
+- type: job
+  id: ERTSecurityRed
+  name: job-name-ertsecurity-red
+  description: job-description-ertsecurity
+  playTimeTracker: JobERTSecurityRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+  startingGear: ERTSecurityGearRed
+  icon: "JobIconERT"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTSecurityGearRed
@@ -264,21 +310,37 @@
     - PinpointerNuclear
     - WeaponDisabler
 
-- type: entity
-  parent: BoxSurvivalEngineering
-  id: BoxSurvivalEngineeringMoth
-  suffix: Extended moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: ExtendedEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
+## Gamma
+- type: job
+  id: ERTSecurityGamma
+  name: job-name-ertsecurity-gamma
+  description: job-description-ertsecurity
+  playTimeTracker: JobERTSecurityGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 # 4 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+  startingGear: ERTSecurityGearGamma
+  icon: "JobIconERT"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTSecurityGearGamma
@@ -304,27 +366,38 @@
     - PinpointerNuclear
     - WeaponDisabler
 
-- type: entity
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalSecurityNitrogen
-  suffix: Security N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSecurity
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+# Medical
+## Amber
+- type: job
+  id: ERTMedicalAmber
+  name: job-name-ertmedic-amber
+  description: job-description-ertmedic
+  playTimeTracker: JobERTMedicalAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTMedicalGearAmber
+  icon: "JobIconERTMedical"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTMedicalGearAmber
@@ -359,21 +432,37 @@
     - ChemistryBottleOmnizine
     - ChemistryBottleEpinephrine
 
-- type: entity
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalSecurityMoth
-  suffix: Security moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
+## Red
+- type: job
+  id: ERTMedicalRed
+  name: job-name-ertmedic-red
+  description: job-description-ertmedic
+  playTimeTracker: JobERTMedicalRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTMedicalGearRed
+  icon: "JobIconERTMedical"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTMedicalGearRed
@@ -404,27 +493,37 @@
     - ChemistryBottleBruizine
     - ChemistryBottlePyrazine
 
-- type: entity
-  parent: BoxSurvivalMedical
-  id: BoxSurvivalMedicalNitrogen
-  suffix: Medical N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedical
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+## Gamma
+- type: job
+  id: ERTMedicalGamma
+  name: job-name-ertmedic-gamma
+  description: job-description-ertmedic
+  playTimeTracker: JobERTMedicalGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTMedicalGearGamma
+  icon: "JobIconERTMedical"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTMedicalGearGamma
@@ -452,21 +551,38 @@
     - JugDexPlusSaline
     - CrowbarRed
 
-- type: entity
-  parent: BoxSurvivalMedical
-  id: BoxSurvivalMedicalMoth
-  suffix: Medical moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedical
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
+# Engineer
+## Amber
+- type: job
+  id: ERTEngineerAmber
+  name: job-name-ertengineer-amber
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTEngineerGearAmber
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTEngineerGearAmber
@@ -501,23 +617,37 @@
     - RCDAmmo
     - RCDAmmo
 
-- type: entity
-  parent: BoxHug
-  id: BoxHugNitrogen
-  suffix: Emergency N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+## Red
+- type: job
+  id: ERTEngineerRed
+  name: job-name-ertengineer-red
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTEngineerGearRed
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTEngineerGearRed
@@ -544,21 +674,37 @@
     - RCDAmmo
     - RCDAmmo
 
-- type: entity
-  parent: BoxHug
-  id: BoxHugMoth
-  suffix: Emergency moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyFunnyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
+## Gamma
+- type: job
+  id: ERTEngineerGamma
+  name: job-name-ertengineer-gamma
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 36000 # 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTEngineerGearGamma
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTEngineerGearGamma
@@ -587,27 +733,35 @@
     - RCDAmmo
     - PinpointerNuclear
 
-- type: entity
-  parent: BoxSurvivalNitrogen
-  id: BoxMimeNitrogen
-  suffix: Mime, Emergency N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodBreadNutriBatard
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+# Janitor
+## Amber
+- type: job
+  id: ERTJanitorAmber
+  name: job-name-ertjanitor-amber
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTJanitorGearAmber
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTJanitorGearAmber
@@ -637,21 +791,34 @@
     - JawsOfLife
     - PinpointerNuclear
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxMimeMoth
-  suffix: Mime, Emergency moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodBreadCottonNutriBatard
-        - id: DrinkWaterBottleFull
+## Red
+- type: job
+  id: ERTJanitorRed
+  name: job-name-ertjanitor-red
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTJanitorGearRed
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTJanitorGearRed
@@ -679,26 +846,34 @@
     - CrowbarRed
     - PinpointerNuclear
 
-- type: entity
-  parent: BoxSurvivalSyndicate
-  id: BoxSurvivalSyndicateNitrogen
-  suffix: Syndicate N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSyndicate
-        - id: ExtendedEmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+## Gamma
+- type: job
+  id: ERTJanitorGamma
+  name: job-name-ertjanitor-gamma
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 36000 # 10 hours
+  startingGear: ERTJanitorGearGamma
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
 
 - type: startingGear
   id: ERTJanitorGearGamma

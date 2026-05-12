@@ -53,26 +53,34 @@
       - id: Flash
       - id: DoubleEmergencyOxygenTankFilled
 
-- type: entity
-  name: C4 box
-  parent: BoxCardboard
-  id: BoxC4ERT
-  description: A box full of C-4.
-  components:
-  - type: Storage
-    maxItemSize: Small
-    grid:
-    - 0,0,2,3
-  - type: StorageFill
-    contents:
-      - id: C4
-        amount: 5
-      - id: RemoteSignallerAdvanced
-  - type: Sprite
-    layers:
-      - state: box
-      - state: flashbang
-# DS14-End
+- type: startingGear
+  id: ERTLeaderGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTLeader
+    back: ClothingBackpackRIGERTLeader
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    neck: ClothingNeckMantleERTLeader
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponDisablerSMG
+    shoes: ClothingShoesBootsJackFilled
+    head: ClothingHeadHelmetERTLeader
+    id: ERTLeaderPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - PinpointerNuclear
+    - BoxCardboardERT
+    - JawsOfLife
+    - PortableCameraMonitor
+    - CriminalRecordsMonitor
+    - HandheldCrewMonitor
 
 - type: entity
   parent: BoxSurvival
@@ -96,21 +104,31 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxSurvivalBeer
-  suffix: Standart for dwarfs
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTLeaderGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTLeader
+    back: ClothingBackpackERTLeader
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    head: ClothingHeadHatERTLeaderBeret
+    neck: ClothingNeckMantleERTLeader
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTRedLeader
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTLeaderRedPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: DoorRemoteCustom
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - BoxCardboardERT
+    - PinpointerNuclear
+    - CrowbarRed
+    - WeaponDisabler
 
 - type: entity
   parent: BoxSurvival
@@ -128,20 +146,31 @@
         - id: FoodSnackFabricbrick
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxSurvivalNonBreather
-  suffix: Standard for non breathers
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: Brutepack5
-        - id: Ointment5
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
+- type: startingGear
+  id: ERTLeaderGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTLeader
+    back: ClothingBackpackERTLeader
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    head: ClothingHeadHatERTLeaderBeret
+    neck: ClothingNeckMantleERTLeader
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTLeader
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTLeaderGammaPDA
+    belt: ClothingBeltMilitaryWebbingERTGamma
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: DoorRemoteCustom
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERT
+    - PinpointerNuclear
+    - CrowbarRed
+    - WeaponDisabler
 
 - type: entity
   parent: BoxSurvival
@@ -158,27 +187,36 @@
         - id: Flare
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxCardboard
-  id: BoxSurvivalEngineering
-  name: extended-capacity survival box
-  description: It's a box with basic internals inside. This one is labelled to contain an extended-capacity tank.
-  suffix: Extended
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: ExtendedEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: extendedtank
+- type: startingGear
+  id: ERTSecurityGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    back: ClothingBackpackRIGERTSecurity
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponDisablerSMG
+    shoes: ClothingShoesBootsJackSecFilled
+    head: ClothingHeadHelmetERTSecurity
+    id: ERTSecurityPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - PinpointerNuclear
+    - BoxCardboardERT
+    - JawsOfLife
+    - PortableCameraMonitor
+    - CriminalRecordsMonitor
+    - HandheldCrewMonitor
+    - TelescopicShield
+    - TelescopicShield
 
 - type: entity
   parent: BoxSurvivalEngineering
@@ -202,21 +240,29 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvivalEngineering
-  id: BoxSurvivalEngineeringBeer
-  suffix: Extended beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: ExtendedEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTSecurityGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    back: ClothingBackpackERTSecurity
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTRedSecurity
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTSecurityRedPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: TelescopicShield
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - BoxCardboardERT
+    - CrowbarRed
+    - PinpointerNuclear
+    - WeaponDisabler
 
 - type: entity
   parent: BoxSurvivalEngineering
@@ -234,27 +280,29 @@
         - id: FoodSnackFabricbrick
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxCardboard
-  id: BoxSurvivalSecurity
-  name: survival box
-  description: It's a box with basic internals inside.
-  suffix: Security
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: emergencytank
+- type: startingGear
+  id: ERTSecurityGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    back: ClothingBackpackERTSecurity
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTSecurity
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTSecurityGammaPDA
+    belt: ClothingBeltMilitaryWebbingERTGamma
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: TelescopicShield
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERT
+    - CrowbarRed
+    - PinpointerNuclear
+    - WeaponDisabler
 
 - type: entity
   parent: BoxSurvivalSecurity
@@ -278,21 +326,38 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalSecurityBeer
-  suffix: Security beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTMedicalGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTMedic
+    back: ClothingBackpackRIGERTMedic
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: WeaponDisablerSMG
+    shoes: ClothingShoesColorWhite
+    head: ClothingHeadHelmetERTMedic
+    id: ERTMedicPDA
+    belt: ClothingBeltMedicalFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - PinpointerNuclear
+    - BoxCardboardERT
+    - JawsOfLife
+    - PortableCameraMonitor
+    - CriminalRecordsMonitor
+    - HandheldCrewMonitor
+    - DefibrillatorCompact
+    - ADTCombatHypo
+    - ChemistryBottleOmnizine
+    - ChemistryBottleEpinephrine
 
 - type: entity
   parent: BoxSurvivalSecurity
@@ -310,27 +375,34 @@
         - id: FoodSnackFabricbrick
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxCardboard
-  id: BoxSurvivalMedical
-  name: survival box
-  description: It's a box with basic internals inside.
-  suffix: Medical
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedical
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: emergencytank
+- type: startingGear
+  id: ERTMedicalGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTMedic
+    back: ClothingBackpackERTMedical
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTRedMedic
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTMedicRedPDA
+    belt: ClothingBeltMilitaryWebbingERTMed
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: ADTCombatHypo
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - BoxCardboardERT
+    - DefibrillatorCompact
+    - PinpointerNuclear
+    - JugDexPlusSaline
+    - CrowbarRed
+    - ChemistryBottleOmnizine
+    - ChemistryBottleOmnizine
+    - ChemistryBottleBruizine
+    - ChemistryBottlePyrazine
 
 - type: entity
   parent: BoxSurvivalMedical
@@ -354,21 +426,31 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvivalMedical
-  id: BoxSurvivalMedicalBeer
-  suffix: Medical beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedical
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTMedicalGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTMedic
+    back: ClothingBackpackERTMedical
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTMedical
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTMedicGammaPDA
+    belt: ClothingBeltMilitaryWebbingERTMed
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: ADTCombatHypo
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERT
+    - DefibrillatorCompact
+    - PinpointerNuclear
+    - JugTheCircleOmnizine
+    - JugDexPlusSaline
+    - CrowbarRed
 
 - type: entity
   parent: BoxSurvivalMedical
@@ -386,33 +468,38 @@
         - id: FoodSnackFabricbrick
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxCardboard
-  id: BoxHug
-  name: box of hugs
-  description: A special box for sensitive people.
-  suffix: Emergency
-  components:
-  - type: Sprite
-    layers:
-    - state: box_hug
-    - state: heart
-  - type: Item
-    heldPrefix: hug
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyFunnyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-  - type: Tag
-    tags:
-    - BoxCardboard
-    - BoxHug
+- type: startingGear
+  id: ERTEngineerGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackRIGERTEngineer
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
+    ears: ClothingHeadsetCentCom
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: JetpackMiniFilled
+    shoes: ClothingShoesBootsMag
+    head: ClothingHeadHelmetERTEngineer
+    id: ERTEngineerPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - PinpointerNuclear
+    - BoxCardboardERT
+    - PortableCameraMonitor
+    - CriminalRecordsMonitor
+    - HandheldCrewMonitor
+    - Omnitool
+    - WelderIndustrialAdvanced
+    - RCD
+    - RCDAmmo
+    - RCDAmmo
 
 - type: entity
   parent: BoxHug
@@ -432,21 +519,30 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxHug
-  id: BoxHugBeer
-  suffix: Emergency beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyFunnyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTEngineerGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackERTEngineer
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTRedEngineer
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTEngineerRedPDA
+    belt: ClothingBeltChiefEngineerFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - BoxCardboardERT
+    - BoxC4ERT
+    - RCDAmmo
+    - RCDAmmo
+    - RCDAmmo
 
 - type: entity
   parent: BoxHug
@@ -464,21 +560,32 @@
         - id: FoodSnackFabricbrick
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxSurvival
-  id: BoxMime
-  suffix: Mime, Emergency
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodBreadNutriBatard
-        - id: DrinkWaterBottleFull
+- type: startingGear
+  id: ERTEngineerGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackERTEngineer
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTEngineer
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTEngineerGammaPDA
+    belt: ClothingBeltChiefEngineerFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERT
+    - BoxC4ERT
+    - RCDRecharging
+    - RCDAmmo
+    - RCDAmmo
+    - RCDAmmo
+    - PinpointerNuclear
 
 - type: entity
   parent: BoxSurvivalNitrogen
@@ -502,21 +609,33 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvivalNitrogen
-  id: BoxMimeBeer
-  suffix: Mime, Emergency beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreath
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodBreadNutriBatard
-        - id: DrinkBeerCan
+- type: startingGear
+  id: ERTJanitorGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackRIGERTJanitor
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetCentCom
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    shoes: ClothingShoesGaloshes
+    head: ClothingHeadHelmetERTJanitor
+    id: ERTJanitorPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - BoxCardboardERT
+    - BoxLightMixed
+    - MopItem
+    - BoxCleanerGrenades
+    - JawsOfLife
+    - PinpointerNuclear
 
 - type: entity
   parent: BoxSurvival
@@ -534,26 +653,31 @@
         - id: FoodBreadCottonNutriBatard
         - id: DrinkWaterBottleFull
 
-- type: entity
-  parent: BoxCardboard
-  id: BoxSurvivalSyndicate
-  name: extended-capacity survival box
-  description: It's a box with basic internals inside. This one is labelled to contain an extended-capacity tank.
-  suffix: Syndicate
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSyndicate
-        - id: ExtendedEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: extendedtank
+- type: startingGear
+  id: ERTJanitorGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackERTJanitor
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTRedJanitor
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTJanitorRedPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - BoxCardboardERT
+    - BoxLightMixed
+    - AdvMopItem
+    - BoxCleanerGrenades
+    - CrowbarRed
+    - PinpointerNuclear
 
 - type: entity
   parent: BoxSurvivalSyndicate
@@ -576,127 +700,29 @@
   - type: Label
     currentLabel: reagent-name-nitrogen
 
-- type: entity
-  parent: BoxSurvivalSyndicate
-  id: BoxSurvivalSyndicateMoth
-  suffix: Syndicate moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskGasSyndicate
-        - id: ExtendedEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-
-- type: entity
-  name: survival box
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalBrigmedic
-  description: It's a box with basic internals inside.
-  suffix: Brigmedic
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedicalSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-
-- type: entity
-  name: survival box
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalBrigmedicNitrogen
-  description: It's a box with basic internals inside.
-  suffix: Brigmedic N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedicalSecurity
-        - id: EmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkWaterBottleFull
-    # Intentionally wrong picture on the box to mimic the NT one
-  - type: Label
-    currentLabel: reagent-name-nitrogen
-
-- type: entity
-  name: survival box
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalBrigmedicBeer
-  suffix: Brigmedic beer
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedicalSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackNutribrick
-        - id: DrinkBeerCan
-
-- type: entity
-  name: survival box
-  parent: BoxSurvivalSecurity
-  id: BoxSurvivalBrigmedicMoth
-  suffix: Brigmedic moth
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: ClothingMaskBreathMedicalSecurity
-        - id: EmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-        - id: FoodSnackFabricbrick
-        - id: DrinkWaterBottleFull
-
-- type: entity
-  parent: BoxCardboardSmall # Cannot fit 3x3 boxes into already-filled ERT backpacks.
-  id: BoxSurvivalMilitaryDouble
-  suffix: Military O2
-  description: It's a box with basic internals inside. This one is labelled to contain an double extended-capacity tank.
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: DoubleEmergencyOxygenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: extendedtank
-
-- type: entity
-  parent: BoxSurvivalMilitaryDouble
-  id: BoxSurvivalMilitaryDoubleNitrogen
-  suffix: Military N2
-  components:
-  - type: EntityTableContainerFill
-    containers:
-      storagebase: !type:AllSelector
-        children:
-        - id: DoubleEmergencyNitrogenTankFilled
-        - id: EmergencyMedipen
-        - id: Flare
-  - type: Sprite
-    layers:
-    - state: internals
-    - state: nitrogentank
-  - type: Label
-    currentLabel: reagent-name-nitrogen
+- type: startingGear
+  id: ERTJanitorGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackERTJanitor
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetCentCom
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTJanitor
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTJanitorGammaPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERT
+    - WeaponLauncherHydra
+    - BoxLightMixed
+    - AdvMopItem
+    - BoxGrenadeCleanade
+    - CrowbarRed
+    - PinpointerNuclear

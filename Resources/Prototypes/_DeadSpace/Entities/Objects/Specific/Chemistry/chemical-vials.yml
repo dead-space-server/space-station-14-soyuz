@@ -48,7 +48,8 @@
     currentLabel: reagent-name-omnizine
   - type: SolutionContainerManager
     solutions:
-      beaker:
+      drink:
+        maxVol: 300
         reagents:
         - ReagentId: Omnizine
-          Quantity: 200
+          Quantity: 300

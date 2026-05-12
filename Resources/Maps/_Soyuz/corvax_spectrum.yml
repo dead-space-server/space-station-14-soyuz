@@ -117698,7 +117698,7 @@ entities:
       parent: 16613
     - type: Physics
       canCollide: False
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 16615
     components:
@@ -225841,13 +225841,6 @@ entities:
     components:
     - type: Transform
       pos: 24.5,65.5
-      parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 29693
-    components:
-    - type: Transform
-      pos: -51.5,-48.5
       parent: 2
 - proto: SuitStorageWarden
   entities:

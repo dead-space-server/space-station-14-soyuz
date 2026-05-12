@@ -12,83 +12,148 @@ jobs:
     steps:
       - name: Extract PR details
         id: extract
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          BODY=$(printf '%s' "${{ github.event.pull_request.body }}" | base64 -w0)
+          BODY=$(printf '%s' "$PR_BODY" | base64 -w0)
           echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
           echo "REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
 
-      - name: Parse PR and Format Text
-        id: parse_step
+      - name: Parse PR and build JSON
+        id: parse
         env:
           DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
           PR_NUMBER: ${{ steps.extract.outputs.PR_NUMBER }}
+          AUTHOR: ${{ steps.extract.outputs.AUTHOR }}
           REPO: ${{ steps.extract.outputs.REPO }}
-          AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
           python <<'EOF'
-          import re, os, base64
+          import base64
+          import json
+          import os
+          import re
+          from datetime import datetime, timezone
+
+          def set_output(name, value):
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+                  f.write(f"{name}={value}\n")
 
           desc_b64 = os.environ.get("DESCRIPTION_B64", "")
           desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
-          pr_num = os.environ.get("PR_NUMBER")
-          repo = os.environ.get("REPO")
-          author = os.environ.get("AUTHOR")
+          desc = re.sub(r"<!--.*?-->", "", desc, flags=re.DOTALL)
 
-          desc_clean = re.sub(r'<!--.*?-->', '', desc, flags=re.DOTALL)
-
-          if ":cl:" not in desc_clean or ":v:" not in desc_clean:
-              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
+          if ":cl:" not in desc:
+              print("Skip (:cl: not found)")
+              set_output("should_send", "false")
               exit(0)
 
-          sections = {
-              "Добавлено": "🆕",
-              "Удалено": "❌",
-              "Изменено": "⚒️",
-              "Исправлено": "🐛",
+          sections = [
+              ("Добавлено", "🆕 Добавлено:"),
+              ("Удалено", "❌ Удалено:"),
+              ("Изменено", "⚒️ Изменено:"),
+              ("Исправлено", "🐛 Исправлено:"),
+          ]
+
+          def trim(value, limit=1024):
+              return value if len(value) <= limit else value[:limit - 3] + "..."
+
+          fields = []
+
+          for title, field_name in sections:
+              pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
+              messages = []
+
+              for block in re.findall(pattern, desc, flags=re.DOTALL):
+                  lines = [
+                      line.strip("- ").strip()
+                      for line in block.splitlines()
+                      if line.strip()
+                  ]
+                  message = re.sub(r"\s+", " ", " ".join(lines)).strip()
+                  if message:
+                      messages.append(message)
+
+              if messages:
+                  value = "\n".join(f"- {message}" for message in messages)
+                  fields.append({"name": field_name, "value": trim(value), "inline": False})
+
+          if not fields:
+              print("No changelog changes found. Skipping Discord notification.")
+              set_output("should_send", "false")
+              exit(0)
+
+          fields.append({
+              "name": "👤 Автор:",
+              "value": os.environ.get("AUTHOR", "unknown"),
+              "inline": False,
+          })
+
+          pr_number = os.environ.get("PR_NUMBER", "")
+          repo = os.environ.get("REPO", "")
+          payload = {
+              "username": "Изменения союз-1",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+              "embeds": [
+                  {
+                      "color": 3300375,
+                      "title": f"Изменение (PR #{pr_number})",
+                      "url": f"https://github.com/{repo}/pull/{pr_number}",
+                      "fields": fields,
+                      "footer": {
+                          "text": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+                      },
+                  }
+              ],
           }
 
-          pr_link = f"[#{pr_num}](<https://github.com/{repo}/pull/{pr_num}>)"
-          content_lines = [f"**{author}** updated:"]
+          payload_file = "/tmp/discord_payload.json"
+          with open(payload_file, "w", encoding="utf-8") as f:
+              json.dump(payload, f, ensure_ascii=False)
 
-          found_any = False
-          for title, emoji in sections.items():
-              pattern = rf"- {title}:\s*(.*?)(?=\n- [^:]|$)"
-              match = re.search(pattern, desc_clean, flags=re.DOTALL)
-              if match:
-                  block = match.group(1).strip()
-                  lines = [l.strip("- ").strip() for l in block.splitlines() if l.strip()]
-                  for line in lines:
-                      content_lines.append(f"{emoji} - {line} ({pr_link})")
-                      found_any = True
-
-          if not found_any:
-              with open(os.environ['GITHUB_OUTPUT'], 'a') as f: f.write("should_send=false\n")
-              exit(0)
-
-          full_message = "\n".join(content_lines)
-
-          with open("discord_msg.txt", "w", encoding="utf-8") as f:
-              f.write(full_message)
-
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write("should_send=true\n")
+          set_output("payload_file", payload_file)
+          set_output("should_send", "true")
           EOF
 
-      - name: Send to Discord
-        if: steps.parse_step.outputs.should_send == 'true'
+      - name: Send to Discord (Main)
+        if: steps.parse.outputs.should_send == 'true'
         env:
+          PAYLOAD_FILE: ${{ steps.parse.outputs.payload_file }}
           WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         run: |
-          MESSAGE_TEXT=$(cat discord_msg.txt)
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "CHANGELOG_DISCORD_WEBHOOK secret is not set"
+            exit 1
+          fi
 
-          jq -n --arg msg "$MESSAGE_TEXT" '{
-            "username": "Союз-1",
-            "content": $msg,
-            "allowed_mentions": { "parse": [] }
-          }' | curl -X POST \
+          PAYLOAD=$(cat "$PAYLOAD_FILE")
+
+          curl -X POST \
             -H "Content-Type: application/json" \
-            -d @- \
+            -d "$PAYLOAD" \
             "$WEBHOOK_URL" \
             --fail \
-            --silent
+            --silent \
+            --show-error
+
+      - name: Send to Discord (Deadspace)
+        if: steps.parse.outputs.should_send == 'true'
+        env:
+          PAYLOAD_FILE: ${{ steps.parse.outputs.payload_file }}
+          WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "CHANGELOG_DISCORD_WEBHOOK_DEADSPACE secret is not set"
+            exit 1
+          fi
+
+          PAYLOAD=$(cat "$PAYLOAD_FILE")
+
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            "$WEBHOOK_URL" \
+            --fail \
+            --silent \
+            --show-error

@@ -8,6 +8,9 @@
   id: AmbrosiaDeus
 
 - type: Tag
+  id: AnimateSpellBlacklist
+
+- type: Tag
   id: BatteryWeaponFireModesSprites
 
 - type: Tag
@@ -71,6 +74,33 @@
   id: DockCentcommERT
 
 - type: Tag
+  id: DockCentcommERTCburnShuttle
+
+- type: Tag
+  id: DockCentcommERTBSAAShuttle
+
+- type: Tag
+  id: DockCentcommERTSierraShuttle
+
+- type: Tag
+  id: DockCentcommERTJanitorsShuttle
+
+- type: Tag
+  id: DockCentcommERTGammaShuttle
+
+- type: Tag
+  id: DockCentcommERTRedShuttle
+
+- type: Tag
+  id: DockCentcommERTAmberShuttle
+
+- type: Tag
+  id: DockCentcommERTEngineersShuttle
+
+- type: Tag
+  id: DockCentcommERTOfficialShuttle
+
+- type: Tag
   id: DonkCo
 
 - type: Tag
@@ -96,6 +126,9 @@
 
 - type: Tag
   id: FlamethrowerNozzle
+
+- type: Tag
+  id: Fulton
 
 - type: Tag
   id: FelinidFood
@@ -175,6 +208,9 @@
 
 - type: Tag
   id: MagazineBoxLightestRifleUranium
+
+- type: Tag
+  id: MagazineCaselessRifle
 
 - type: Tag
   id: MagazineCarbineSKS
@@ -337,6 +373,9 @@
 
 - type: Tag
   id: TaipanRole
+
+- type: Tag
+  id: TapeRecorderCoin
 
 - type: Tag
   id: Titanium

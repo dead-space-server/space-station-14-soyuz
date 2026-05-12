@@ -86,16 +86,16 @@
   description: Устройство связи, которое выдаётся политическим руководителям для связи с Генеральным Штабом в экстренных случаях.
   components:
   - type: ActivatableUI
-    key: enum.ErtResponceConsoleUiKey.Key
+    key: enum.ErtResponseConsoleUiKey.Key
     requiresComplex: true
     requireActiveHand: false
     singleUser: true
   - type: UserInterface
     interfaces:
-      enum.ErtResponceConsoleUiKey.Key:
-        type: ErtResponceConsoleBoundUserInterface
+      enum.ErtResponseConsoleUiKey.Key:
+        type: ErtResponseConsoleBoundUserInterface
   - type: CrewManifestViewer
-    ownerKey: enum.ErtResponceConsoleUiKey.Key
+    ownerKey: enum.ErtResponseConsoleUiKey.Key
   - type: Item
     size: Small
   - type: EmitSoundOnLand
@@ -120,7 +120,7 @@
       - Service
       - Brig
       - Maintenance
-  - type: ErtResponceConsole
+  - type: ErtResponseConsole
     teams:
     - CentralCommandOfficial
     - Amber

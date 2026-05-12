@@ -42,6 +42,7 @@
       map: ["variant-multiple"]
     - state: telecom-open
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false # DS14
   - type: ItemMapper
     sprite: Structures/Machines/telecomms.rsi
     mapLayers:
@@ -102,7 +103,7 @@
     enabled: false
     castShadows: false
     radius: 1.5
-    energy: 1.6
+    energy: 3.0
     color: "#39b8ee"
   - type: LitOnPowered
   - type: GenericVisualizer

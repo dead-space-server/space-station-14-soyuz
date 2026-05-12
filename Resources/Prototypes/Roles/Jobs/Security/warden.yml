@@ -4,6 +4,7 @@
   description: job-description-warden
   playTimeTracker: JobWarden
   requirements:
+#DS14-soyuz-start time requirement
     - !type:RoleTimeRequirement
       role: JobDetective
       time: 10h
@@ -15,6 +16,7 @@
     - !type:DepartmentTimeRequirement
       department: Security
       time: 40h
+#DS14-soyuz-end
   weight: 5
   startingGear: WardenGear
   icon: "JobIconWarden"
@@ -26,10 +28,11 @@
   - Brig
   - Armory
   - Maintenance
-  - Service
   - External
   - Detective
   - Cryogenics
+  - GenpopEnter
+  - GenpopLeave
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250

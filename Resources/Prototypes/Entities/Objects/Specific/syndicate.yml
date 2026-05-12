@@ -105,13 +105,13 @@
 # DS14-start
     - Grenade
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
     layers:
     - state: nokia3310
       scale: 0.7, 0.7
       shader: unshaded
   - type: Item
-    sprite: _DeadSpace/Soyuz/Objects/Misc/nokia.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/nokia.rsi
     heldPrefix: nokia3310
     size: Small
   - type: EmitSoundOnUse
@@ -119,7 +119,7 @@
       path: /Audio/_DeadSpace/Soyuz/Item/Nokia/nokia_activate_sound.ogg
   - type: SpentAmmoVisuals
   - type: CartridgeAmmo
-    proto: BulletGrenadeNokia
+    proto: BulletGrenadeNokia # DS14-Soyuz
   - type: UseDelay
     delay: 10
   - type: UseDelayOnMeleeHit
@@ -161,3 +161,4 @@
   - type: Store
     balance:
       Telecrystal: 99999
+    expectedFaction: #nulls out the expected faction

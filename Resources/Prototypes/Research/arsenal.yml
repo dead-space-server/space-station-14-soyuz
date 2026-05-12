@@ -226,6 +226,7 @@
   - WeaponEnergyTurretCommandMachineCircuitboard
   - WeaponEnergyTurretCommandControlPanelElectronics
 # DS14-end
+
 - type: technology
   id: DualWieldingTechnology
   name: research-technology-dual-wielding-technology

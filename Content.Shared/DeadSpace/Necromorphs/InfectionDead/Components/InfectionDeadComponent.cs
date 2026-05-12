@@ -49,10 +49,10 @@ public sealed partial class InfectionDeadStrainData : ReagentData
     public VirusEffects Effects;
     public InfectionDeadStrainData()
     {
-        DamageMulty = 0.5f;
-        StaminaMulty = 0.5f;
-        HpMulty = 0.5f;
-        SpeedMulty = 0.5f;
+        DamageMulty = 1f;
+        StaminaMulty = 1f;
+        HpMulty = 1f;
+        SpeedMulty = 1f;
         Effects = new VirusEffects();
     }
     public override bool Equals(ReagentData? other)

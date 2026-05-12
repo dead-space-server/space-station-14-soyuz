@@ -8,7 +8,6 @@
       color: Green
       emergencyLightColor: LawnGreen
       shuttleTime: 600
-      tts: true # DS14-Soyuz
     blue:
       announcement: alert-level-blue-announcement
       sound: /Audio/_DeadSpace/AlertLevels/blue.ogg # DS14 alert sound
@@ -16,7 +15,6 @@
       forceEnableEmergencyLights: true
       emergencyLightColor: DodgerBlue
       shuttleTime: 600
-      tts: true # DS14-Soyuz
     violet:
       announcement: alert-level-violet-announcement
       sound: /Audio/_DeadSpace/AlertLevels/violet.ogg # DS14 alert sound
@@ -24,7 +22,6 @@
       emergencyLightColor: Violet
       forceEnableEmergencyLights: true
       shuttleTime: 600
-      tts: true # DS14-Soyuz
     yellow:
       announcement: alert-level-yellow-announcement
       sound: /Audio/_DeadSpace/AlertLevels/yellow.ogg # DS14 alert sound
@@ -32,7 +29,6 @@
       emergencyLightColor: Goldenrod
       forceEnableEmergencyLights: true
       shuttleTime: 600
-      tts: true # DS14-Soyuz
     red:
       announcement: alert-level-red-announcement
       sound: /Audio/_DeadSpace/AlertLevels/red.ogg # DS14 alert sound
@@ -40,7 +36,6 @@
       emergencyLightColor: Red
       forceEnableEmergencyLights: true
       shuttleTime: 600 #No reduction in time as we don't have swiping for red alert like in /tg/. Shuttle times are intended to create friction, so having a way to brainlessly bypass that would be dumb.
-      tts: true # DS14-Soyuz
     gamma:
       announcement: alert-level-gamma-announcement
       selectable: false
@@ -49,7 +44,6 @@
       color: PaleVioletRed
       emergencyLightColor: PaleVioletRed
       forceEnableEmergencyLights: true
-      tts: false # DS14-Soyuz
     sierra:
       announcement: alert-level-sierra-announcement
       selectable: false
@@ -58,7 +52,6 @@
       color: LightSeaGreen
       emergencyLightColor: LightSeaGreen
       forceEnableEmergencyLights: true
-      tts: false # DS14-Soyuz
     enigma:
       announcement: alert-level-enigma-announcement
       selectable: false
@@ -67,7 +60,6 @@
       color: '#EF7200'
       emergencyLightColor: '#EF7200'
       forceEnableEmergencyLights: true
-      tts: false # DS14-Soyuz
     delta:
       announcement: alert-level-delta-announcement
       selectable: false
@@ -77,7 +69,6 @@
       emergencyLightColor: Orange
       forceEnableEmergencyLights: true
       shuttleTime: 1200
-      tts: false # DS14-Soyuz
     epsilon:
       announcement: alert-level-epsilon-announcement
       selectable: false
@@ -87,4 +78,3 @@
       emergencyLightColor: DarkViolet
       forceEnableEmergencyLights: true
       shuttleTime: 1200
-      tts: false # DS14-Soyuz

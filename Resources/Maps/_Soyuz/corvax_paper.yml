@@ -48677,7 +48677,7 @@ entities:
       parent: 7181
     - type: Physics
       canCollide: False
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 7183
     components:
@@ -93531,16 +93531,6 @@ entities:
     - type: Transform
       pos: 60.5,22.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 12964
-    components:
-    - type: Transform
-      pos: 1.5,16.5
-      parent: 2
-    - type: AccessReader
-      accessListsOriginal:
-      - - SeniorSalvage
 - proto: SuitStorageWarden
   entities:
   - uid: 12965

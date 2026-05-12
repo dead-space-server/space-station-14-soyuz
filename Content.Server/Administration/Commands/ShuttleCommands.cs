@@ -5,7 +5,7 @@ using Robust.Shared.Console;
 
 namespace Content.Server.Administration.Commands
 {
-    [AdminCommand(AdminFlags.Moderator)] // DS14-Soyuz flag: Round-Moderator
+    [AdminCommand(AdminFlags.Moderator)]
     public sealed class CallShuttleCommand : LocalizedEntityCommands
     {
         [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
@@ -16,17 +16,17 @@ namespace Content.Server.Administration.Commands
         {
             // ReSharper disable once ConvertIfStatementToSwitchStatement
             if (args.Length == 1 && TimeSpan.TryParseExact(args[0], ContentLocalizationManager.TimeSpanMinutesFormats, LocalizationManager.DefaultCulture, out var timeSpan))
-                _roundEndSystem.RequestRoundEnd(timeSpan, shell.Player?.AttachedEntity, false);
+                _roundEndSystem.RequestRoundEnd(timeSpan, shell.Player?.AttachedEntity, checkCooldown: false);
 
             else if (args.Length == 1)
                 shell.WriteLine(Loc.GetString("shell-timespan-minutes-must-be-correct"));
 
             else
-                _roundEndSystem.RequestRoundEnd(shell.Player?.AttachedEntity, false);
+                _roundEndSystem.RequestRoundEnd(shell.Player?.AttachedEntity, checkCooldown: false);
         }
     }
 
-    [AdminCommand(AdminFlags.Moderator)] // DS14-Soyuz flag: Round-Moderator
+    [AdminCommand(AdminFlags.Moderator)]
     public sealed class RecallShuttleCommand : LocalizedEntityCommands
     {
         [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
@@ -35,7 +35,7 @@ namespace Content.Server.Administration.Commands
 
         public override void Execute(IConsoleShell shell, string argStr, string[] args)
         {
-            _roundEndSystem.CancelRoundEndCountdown(shell.Player?.AttachedEntity, false);
+            _roundEndSystem.CancelRoundEndCountdown(shell.Player?.AttachedEntity, forceRecall: true);
         }
     }
 }

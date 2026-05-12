@@ -9,7 +9,7 @@
       time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h
+      time: 50h #DS14-soyuz time requirement
     - !type:OverallPlaytimeRequirement
       time: 100h
     - !type:AgeRequirement
@@ -27,10 +27,11 @@
   - Brigmedic # DS14
   - Armory
   - Maintenance
-  - Service
   - External
   - Detective
   - Cryogenics
+  - GenpopEnter
+  - GenpopLeave
   #start-backmen: currency
   minBankBalance: 400
   maxBankBalance: 600

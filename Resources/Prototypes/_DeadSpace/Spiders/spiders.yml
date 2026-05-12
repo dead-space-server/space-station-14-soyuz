@@ -84,7 +84,6 @@
       Dead:
         Base: dead
   - type: Stamina
-    critThreshold: 100
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -112,8 +111,6 @@
   - type: TypingIndicator
     proto: spider
   - type: Temperature
-    heatDamageThreshold: 360
-    coldDamageThreshold: -150
     currentTemperature: 310.15
   - type: Tag
     tags:
@@ -125,8 +122,6 @@
     baseWalkSpeed: 4.5
     baseSprintSpeed: 4.5
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 30
     bloodlossThreshold: 0.4
   - type: PassiveDamage
     allowedStates:
@@ -135,10 +130,10 @@
     damageCap: 0
     damage:
       types:
-        Poison: -0.5
+        Poison: -1
       groups:
-        Brute: -0.5
-        Burn: -0.5
+        Brute: -1
+        Burn: -1
   - type: Access
     tags:
     - SpiderTerror
@@ -176,7 +171,7 @@
     knownLanguages:
     - ArachnidLanguage
   - type: NoSlip
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SpiderTerrorBase
 
 - type: entity
@@ -215,7 +210,7 @@
     bloodCosts: # Цены
       MobSpiderTerrorRoyalGuard: 100
       MobSpiderTerrorPrincess: 150
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SpiderTerrorKing
 
 - type: entity
@@ -239,7 +234,7 @@
     name: Героический паук ужаса королевской крови
     description: Паук Ужаса.
     rules: ghost-role-information-rules-team-antagonist
-  - type: GhostRoleNotifys
+  - type: GhostRoleNotifys 
     groupPrototype: SpiderTerrorGeroick
 
 - type: entity
@@ -375,8 +370,6 @@
     baseWalkSpeed: 3
     baseSprintSpeed: 3
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 180
     bloodlossThreshold: 0.4
   - type: HipoHand
     quantity: 5 # Сколько впрыскивать
@@ -468,8 +461,6 @@
     baseWalkSpeed: 3
     baseSprintSpeed: 3
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 230
     bloodlossThreshold: 0.3
   - type: SpawnAgainst
     spawnedEntities:
@@ -555,8 +546,6 @@
     baseWalkSpeed: 3.5
     baseSprintSpeed: 3.5
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 230
     bloodlossThreshold: 0.3
   - type: SpawnAgainst
     spawnedEntities:
@@ -651,8 +640,6 @@
     baseWalkSpeed: 3
     baseSprintSpeed: 3
   - type: Bloodstream
-    bloodReagent: Napalm
-    bloodMaxVolume: 100
     bloodlossThreshold: 0.8
   - type: ExplosionResistance
     damageCoefficient: 0.5
@@ -712,8 +699,6 @@
     baseWalkSpeed: 4.5
     baseSprintSpeed: 4.5
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 250
     bloodlossThreshold: 0.2
   - type: Bloodsucker
     maxCountReagent: 100 # Ёмкость
@@ -782,8 +767,6 @@
     baseWalkSpeed: 3.8
     baseSprintSpeed: 3.8
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 250
     bloodlossThreshold: 0.3
   - type: Bloodsucker
     maxCountReagent: 90 # Ёмкость
@@ -819,10 +802,10 @@
     damageCap: 0
     damage:
       types:
-        Poison: -1
+        Poison: -2
       groups:
-        Brute: -1
-        Burn: -1
+        Brute: -2
+        Burn: -2
 
 - type: entity
   name: король пауков
@@ -896,8 +879,6 @@
   - type: StunAttack
     paralyzeTime: 4
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 250
     bloodlossThreshold: 0.2
   - type: Damageable
     damageModifierSet: HeadSpiderTerror
@@ -958,8 +939,6 @@
     baseWalkSpeed: 3
     baseSprintSpeed: 3
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 250
     bloodlossThreshold: 0.4
   - type: Puller
     needsHands: false
@@ -1017,8 +996,6 @@
     baseWalkSpeed: 4
     baseSprintSpeed: 4
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 150
     bloodlossThreshold: 0
   - type: Bloodsucker
     canSuckTomb: true
@@ -1102,8 +1079,6 @@
     baseWalkSpeed: 4
     baseSprintSpeed: 4
   - type: Bloodstream
-    bloodReagent: CopperBlood
-    bloodMaxVolume: 300
     bloodlossThreshold: 0
   - type: Bloodsucker
     canSuckTomb: true

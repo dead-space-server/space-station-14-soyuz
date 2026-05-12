@@ -6,7 +6,7 @@
   components:
   - type: Magic # DS14
   - type: Action
-    useDelay: 300
+    useDelay: 180
     sound: !type:SoundPathSpecifier
       path: /Audio/Magic/staff_animation.ogg
     icon:

@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
-
     steps:
     - name: Checkout Master
       uses: actions/checkout@v4.2.2
@@ -53,7 +52,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install dependencies
       run: dotnet restore Content.Tests/Content.Tests.csproj
@@ -84,9 +83,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.plan-integration-shards.outputs.matrix) }}
-
     name: Integration Tests (${{ matrix.name }})
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
     - name: Checkout Master
@@ -107,7 +106,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install dependencies
       run: dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
@@ -156,17 +155,16 @@ jobs:
       - content-tests
       - integration-tests
     runs-on: ubuntu-latest
-
     steps:
-    - name: CI succeeded
-      shell: bash
-      run: |
-        if [[ "${{ needs.content-tests.result }}" != "success" ]]; then
-          echo "content-tests finished with ${{ needs.content-tests.result }}"
-          exit 1
-        fi
+      - name: CI succeeded
+        shell: bash
+        run: |
+          if [[ "${{ needs.content-tests.result }}" != "success" ]]; then
+            echo "content-tests finished with ${{ needs.content-tests.result }}"
+            exit 1
+          fi
 
-        if [[ "${{ needs.integration-tests.result }}" != "success" ]]; then
-          echo "integration-tests finished with ${{ needs.integration-tests.result }}"
-          exit 1
-        fi
+          if [[ "${{ needs.integration-tests.result }}" != "success" ]]; then
+            echo "integration-tests finished with ${{ needs.integration-tests.result }}"
+            exit 1
+          fi

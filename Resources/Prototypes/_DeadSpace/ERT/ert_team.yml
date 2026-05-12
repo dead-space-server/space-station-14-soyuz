@@ -1,26 +1,29 @@
 - type: ertTeam
   id: Cburn
   name: РХБЗЗ
-  startAnnouncement: station-event-response-team-arrival-cburn
+  notification: ert-responce-caused-messager-cburn
+  approvalColor: "#3f6e70"
+  approvalAudio:
+    path: /Audio/Misc/delta_alt.ogg
+  startAnnouncement: station-event-response-team-arrival-cburn-sierra
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
+  description: 
     Специализированный отряд радиационной, химической, биологической и зомби защиты
-    НКВБ. Предназначен для локализации утечек опасных веществ,
+    СССП. Предназначен для локализации утечек опасных веществ,
     биологических угроз, а также проведения дезинфекции и эвакуации персонала
     в условиях заражения.
     5 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда от 5 до 10 минут.
-  notification: ert-responce-caused-messager-cburn
-  sender: ert-responce-cso-sender
+    Время прибытия отряда от 10 до 15 минут.
+  sender: ert-response-cso-sender
   rule: SpawnCburnShuttle
   cooldown:
-    min: 10m
-    max: 10m
+    min: 15m
+    max: 15m
   spawnWindow:
-    min: 5m
-    max: 10m
+    min: 10m
+    max: 15m
   price: 4
   codeBlackList:
   - enigma
@@ -35,26 +38,29 @@
 - type: ertTeam
   id: CburnSierra
   name: РХБЗЗ Сьерра
+  approvalColor: "#3f6e70"
+  approvalAudio:
+    path: /Audio/Misc/delta_alt.ogg
   startAnnouncement: station-event-response-team-arrival-cburn-sierra
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Элитный специализированный отряд радиационной, химической, биологической и зомби защиты
-    НКВБ. Предназначен для локализации утечек особо опасных веществ,
+  description: 
+    Элитный специализированный отряд радиационной, химической и биологической зомби защиты
+    СССП. Предназначен для локализации утечек особо опасных веществ,
     биологических угроз, а также проведения дезинфекции и эвакуации персонала
     в условиях масштабного заражения.
     10 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда от 10 минут.
-  notification: ert-responce-caused-messager-cburn-sierra
-  sender: ert-responce-cso-sender
+    Время прибытия отряда от 10 до 15 минут.
+  notification: ert-responce-caused-messager-sierra
+  sender: ert-response-cso-sender
   rule: SpawnSierraShuttle
   cooldown:
-    min: 10m
-    max: 10m
+    min: 15m
+    max: 15m
   spawnWindow:
     min: 10m
-    max: 10m
+    max: 15m
   price: 6
   codeBlackList:
   - enigma
@@ -69,11 +75,14 @@
 - type: ertTeam
   id: Engineers
   name: СОБР Инженеры
+  notification: ert-response-caused-messager-engineers
+  approvalAudio:
+    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   startAnnouncement: station-event-response-team-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Отряд инженеров НКВБ, специализирующихся на ремонте и техническом обслуживании
+  description: 
+    Отряд инженеров СССП, специализирующихся на ремонте и техническом обслуживании
     космических станций и кораблей. Они обладают обширными знаниями в области
     инженерии, систем жизнеобеспечения и ремонта оборудования.
     4 инженера прибывают на инженерном шаттле, оснащённом всем необходимым оборудованием
@@ -102,19 +111,21 @@
 
 - type: ertTeam
   id: Amber
-  name: СОБР Оберег
-  startAnnouncement: station-event-response-team-arrival-amber
+  name: СОБР Эмбер
+  notification: ert-responce-caused-messager-amber
+  approvalAudio:
+    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+  startAnnouncement: station-event-response-team-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Специальный Отряд быстрого реагирования Оберег НКВБ, предназначенный для
+  description: 
+    Отряд быстрого реагирования Эмбер СССП, предназначенный для
     проведения разведывательных операций и оказания поддержки силам
-    Милиции в борьбе с незначительными угрозами, в случае
-    если текущий состав слишком мал.
-    5 членов отряда прибывают на шаттле Оберега, который оснащён всем
+    Службы Безопасности в борьбе с незначительными угрозами, в случае 
+    если текущий состав слишком мал. 
+    5 членов отряда прибывают на шаттле Эмбер, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 5 до 10 минут.
-  notification: ert-responce-caused-messager-amber
   rule: SpawnAmberShuttle
   cooldown:
     min: 10m
@@ -140,22 +151,25 @@
 
 - type: ertTeam
   id: Red
-  name: СОБР Вымпел
+  name: СОБР Красный
+  notification: ert-responce-caused-messager-red
+  approvalColor: "#a66286"
+  approvalAudio:
+    path: /Audio/Misc/gamma.ogg
   startAnnouncement: station-event-response-team-arrival-red
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description:
-    Отряд специального назначения НКВБ, предназначенный для
+    Отряд специального назначения СССП, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
     космических станциях и кораблях. Они обучены для выполнения различных
     задач, включая борьбу с пиратами, спасательные операции и обеспечение
     безопасности персонала.
-    7 членов отряда прибывают на шаттле типа Альфа, который оснащён всем
+    7 членов отряда прибывают на шаттле типа Гамма, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 10 до 15 минут.
-  notification: ert-responce-caused-messager-red
-  sender: ert-responce-cso-sender
-  rule: SpawnGammaShuttle # это буквально одинаковые шаттлы
+  sender: ert-response-cso-sender
+  rule: SpawnRedShuttle
   cooldown:
     min: 10m
     max: 10m
@@ -180,27 +194,30 @@
 
 - type: ertTeam
   id: Gamma
-  name: СОБР Альфа
+  name: СОБР Гамма
+  approvalColor: "#a66286"
+  approvalAudio:
+    path: /Audio/Misc/gamma.ogg
   startAnnouncement: station-event-response-team-arrival-gamma
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Отряд специального назначения НКВБ, предназначенный для
+  description: 
+    Отряд специального назначения СССП, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
     космических станциях и кораблях. Они обучены для выполнения различных
     задач. В основе их деятельности лежит защита станций от вторжения извне.
-    8 членов отряда и их лидер прибывают на шаттле Альфа, который оснащён всем
+    8 членов отряда и их лидер прибывают на шаттле Гамма, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
-    Время прибытия отряда 15 минут.
+    Время прибытия отряда 20 минут.
   rule: SpawnGammaShuttle
   notification: ert-responce-caused-messager-gamma
-  sender: ert-responce-cso-sender
+  sender: ert-response-cso-sender
   cooldown:
     min: 20m
     max: 20m
   spawnWindow:
-    min: 15m
-    max: 15m
+    min: 20m
+    max: 20m
   price: 8
   codeBlackList:
   - sierra
@@ -219,17 +236,19 @@
 - type: ertTeam
   id: BSAA
   name: АПБТ
-  startAnnouncement: station-event-response-team-arrival-uni-ops
+  notification: ert-responce-caused-messager-uni-ops
+  approvalColor: "#3f6e70"
+  approvalAudio:
+    path: /Audio/Misc/delta_alt.ogg
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Альянс Противодействия Биологической и Террористической угрозе СССП,
+  description: 
+    Альянс Противодействия Биологической и Террористической угрозе СССП, 
     предназначенный очистить станцию от биологической и террористической угрозы.
     Данный отряд отправляется при вторжении террористов Круг или в случае масштабного всплеска ред-спейс.
     Время прибытия отряда от 20 до 25 минут.
-  rule: SpawnSierraShuttle
-  notification: ert-responce-caused-messager-uni-ops
-  sender: ert-responce-cso-sender
+  rule: SpawnBSAAShuttle
+  sender: ert-response-cso-sender
   cooldown:
     min: 25m
     max: 25m
@@ -251,24 +270,24 @@
   startAnnouncement: station-event-centcomm-official-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
-  description:
-    Представитель Генерального Штаба СССП, прибывающий на станцию
+  description: 
+    Представитель Генерального Штаба, прибывающий на станцию
     для решения возникших проблем, которые не могут быть решены обычным способом.
     Представитель Генерального Штаба и 3 оперативника КГБ прибывают
     на шаттле, который оснащён всем необходимым оборудованием
     для выполнения их миссии.
-    Время прибытия 5 минут.
-  notification: ert-responce-caused-messager-official
+    Время прибытия от 5 до 7 минут.
+  notification: ert-response-caused-messager-official
   rule: SpawnCentCommOfficialShuttle
-  cancelMessage:
-    Представитель Генерального Штаба не смог прибыть на станцию
+  cancelMessage: 
+    Представитель Центрального Командования NanoTrasen не смог прибыть на станцию
     из-за непредвиденных обстоятельств. Мы приносим извинения за возможные неудобства.
   cooldown:
-    min: 5m
-    max: 5m
+    min: 7m
+    max: 7m
   spawnWindow:
     min: 5m
-    max: 5m
+    max: 7m
   price: 0
   codeBlackList:
   - sierra
@@ -277,7 +296,7 @@
   - delta
   - epsilon
   - gamma
-  special: RandomHumanoidSpawnerCentralCommandOfficial
+  special: CustomizableSpawnerCentralCommandOfficial
   spawns:
     - id: CustomizableSpawnerCentralCommandBlueShieldOfficer
       amount: 3

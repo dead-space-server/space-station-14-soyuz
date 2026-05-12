@@ -109,8 +109,6 @@
     - Science
   - type: ZombieImmune
   - type: ImmunitetInfectionDead
-  - type: DamageOnEMP #DS14-soyuz
-    damage: 0.0006 # DS14-soyuz: 30 damage on EMP grenade
   - type: Repairable #DS14-soyuz values
     doAfterDelay: 3
     fuelCost: 10
@@ -512,8 +510,6 @@
     - Mothership
     - Xenoborg
     - Binary
-  - type: Repairable
-    doAfterDelay: 13 # 25% more HP, so 30% more time to heal
   - type: BorgChassis
     maxModules: 0
     hasMindState: robot_e

@@ -1,9 +1,8 @@
 using System.Linq;
+using Content.Server.Audio; // DS14
 using Content.Server.Chat.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.CCVar;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
@@ -11,12 +10,10 @@ namespace Content.Server.AlertLevel;
 
 public sealed class AlertLevelSystem : EntitySystem
 {
-    private const string AlertLevelAnnouncementVoice = "Arthas"; // DS-14
-
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly ServerGlobalSoundSystem _sound = default!; // DS14
     [Dependency] private readonly StationSystem _stationSystem = default!;
 
     // Until stations are a prototype, this is how it's going to have to be.
@@ -187,21 +184,27 @@ public sealed class AlertLevelSystem : EntitySystem
 
         // The full announcement to be spat out into chat.
         var announcementFull = Loc.GetString("alert-level-announcement", ("name", name), ("announcement", announcement));
-        // DS14-Soyuz start
-        _chatSystem.DispatchStationAnnouncement(
-            station,
-            announcementFull,
-            sender: stationName,
-            playDefaultSound: false,
-            colorOverride: detail.Color,
-            voice: detail.TTS ? AlertLevelAnnouncementVoice : null
-            );
-        if (!detail.TTS && detail.Sound != null)
+
+        var playDefault = false;
+        if (playSound)
         {
-            var filter = _stationSystem.GetInOwningStation(station);
-            _audio.PlayGlobal(detail.Sound, filter, true, detail.Sound.Params);
+            if (detail.Sound != null)
+            {
+                var filter = _stationSystem.GetInOwningStation(station);
+                _sound.PlayAlertLevelGlobal(filter, detail.Sound, detail.Sound.Params); // DS14
+            }
+            else
+            {
+                playDefault = true;
+            }
         }
-        // DS14-Soyuz end
+
+        if (announce)
+        {
+            _chatSystem.DispatchStationAnnouncement(station, announcementFull, playDefaultSound: playDefault,
+                colorOverride: detail.Color, sender: stationName);
+        }
+
         RaiseLocalEvent(new AlertLevelChangedEvent(station, level));
     }
 }

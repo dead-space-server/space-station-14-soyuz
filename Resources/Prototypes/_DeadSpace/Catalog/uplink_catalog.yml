@@ -43,7 +43,7 @@
   description: uplink-energy-crossbow-large-desc
   productEntity: WeaponEnergyCrossbowLarge
   cost:
-    Telecrystal: 20
+    Telecrystal: 18
   categories:
   - UplinkWeaponry
   conditions:
@@ -86,7 +86,7 @@
     Telecrystal: 6
   productEntity: ClothingBeltSheathSyndieFilled
   cost:
-    Telecrystal: 10
+    Telecrystal: 8
   categories:
   - UplinkWeaponry
 
@@ -285,19 +285,60 @@
       tags:
       - NukeOpsUplink
 
-# - type: listing
-#   id: UplinkArkalyseBundle
-#   name: uplink-arkalyse-bundle-name
-#   description: uplink-arkalyse-bundle-desc
-#   icon: { sprite: _DeadSpace/Objects/Specific/Arkalyse/arkalyse_book.rsi, state: icon }
-#   productEntity: BoxArkalyse
-#   discountCategory: usualDiscounts
-#   discountDownTo:
-#     Telecrystal: 5
-#   cost:
-#     Telecrystal: 10
-#   categories:
-#   - UplinkWeaponry
+
+- type: listing
+  id: UplinkArkalyseBundle
+  name: uplink-arkalyse-bundle-name
+  description: uplink-arkalyse-bundle-desc
+  icon: { sprite: _DeadSpace/Objects/Specific/Arkalyse/arkalyse_book.rsi, state: icon }
+  productEntity: BoxArkalyse
+  discountCategory: usualDiscounts
+  discountDownTo:
+    Telecrystal: 4
+  cost:
+    Telecrystal: 8
+  categories:
+  - UplinkWeaponry
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkSmokingCarpInjector
+  name: uplink-smoking-carp-name
+  description: uplink-smoking-carp-desc
+  icon: { sprite: _DeadSpace/Objects/Misc/injector_smoking_carp.rsi, state: icon }
+  productEntity: SmokingCarpInjector
+  discountCategory: usualDiscounts
+  discountDownTo:
+    Telecrystal: 8
+  cost:
+    Telecrystal: 14
+  categories:
+  - UplinkWeaponry
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkArkalyseBundleNukeOps
+  name: uplink-arkalyse-bundle-name
+  description: uplink-arkalyse-bundle-desc
+  icon: { sprite: _DeadSpace/Objects/Specific/Arkalyse/arkalyse_book.rsi, state: icon }
+  productEntity: BoxArkalyse
+  cost:
+    Telecrystal: 15
+  categories:
+  - UplinkWeaponry
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkAdrenalineImplanter
@@ -427,7 +468,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi, state: base }
   productEntity: BoxLethalshotMagnum
   cost:
-    Telecrystal: 5
+    Telecrystal: 3
   categories:
   - UplinkAmmo
   conditions:
@@ -465,7 +506,7 @@
   discountDownTo:
     Telecrystal: 8
   cost:
-    Telecrystal: 11
+    Telecrystal: 10
   categories:
   - UplinkWeaponry
   conditions:
@@ -662,6 +703,22 @@
     Telecrystal: 6
   categories:
   - UplinkChemicals
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkFireAxeFlaming
+  name: uplink-fire-axe
+  description: uplink-fire-axe-desc
+  icon: { sprite: /Textures/Objects/Weapons/Melee/fireaxeflaming.rsi, state: icon }
+  productEntity: FireAxeFlaming
+  cost:
+    Telecrystal: 7
+  categories:
+  - UplinkWeaponry
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:

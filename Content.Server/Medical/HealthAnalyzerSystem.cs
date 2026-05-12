@@ -1,11 +1,16 @@
 using Content.Server.Medical.Components;
-using Content.Server.PowerCell;
-using Content.Server.Temperature.Components;
 using Content.Shared.Body.Components;
+// DS14-start
+using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.Reagent;
+using Content.Shared.EntityConditions.Conditions;
+using Content.Shared.EntityEffects.Effects.Damage;
+using Content.Shared.FixedPoint;
+using Robust.Shared.Prototypes;
+// DS14-end
+using Content.Shared.Cloning; // DS14-soyuz
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Cloning; // Добавлено для UncloningComponent
-using Content.Shared.Damage;
-using Content.Shared.DeadSpace.Virus.Components;
+using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -15,11 +20,14 @@ using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
+using Content.Shared.PowerCell;
+using Content.Shared.Temperature.Components;
 using Content.Shared.Traits.Assorted;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
+using Content.Server.Body.Systems;
 
 namespace Content.Server.Medical;
 
@@ -34,6 +42,8 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly TransformSystem _transformSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!; // DS14
 
     public override void Initialize()
     {
@@ -69,11 +79,12 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             var patientCoordinates = Transform(patient).Coordinates;
             if (component.MaxScanRange != null && !_transformSystem.InRange(patientCoordinates, transform.Coordinates, component.MaxScanRange.Value))
             {
-                //Range too far, disable updates
-                StopAnalyzingEntity((uid, component), patient);
+                //Range too far, disable updates until they are back in range
+                PauseAnalyzingEntity((uid, component), patient);
                 continue;
             }
 
+            component.IsAnalyzerActive = true;
             UpdateScannedUser(uid, patient, true);
         }
     }
@@ -83,7 +94,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// </summary>
     private void OnAfterInteract(Entity<HealthAnalyzerComponent> uid, ref AfterInteractEvent args)
     {
-        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_cell.HasDrawCharge(uid, user: args.User))
+        if (args.Target == null || !args.CanReach || !HasComp<MobStateComponent>(args.Target) || !_cell.HasDrawCharge(uid.Owner, user: args.User))
             return;
 
         _audio.PlayPvs(uid.Comp.ScanningBeginSound, uid);
@@ -103,7 +114,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
 
     private void OnDoAfter(Entity<HealthAnalyzerComponent> uid, ref HealthAnalyzerDoAfterEvent args)
     {
-        if (args.Handled || args.Cancelled || args.Target == null || !_cell.HasDrawCharge(uid, user: args.User))
+        if (args.Handled || args.Cancelled || args.Target == null || !_cell.HasDrawCharge(uid.Owner, user: args.User))
             return;
 
         if (!uid.Comp.Silent)
@@ -179,6 +190,21 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         UpdateScannedUser(healthAnalyzer, target, false);
     }
 
+
+    /// <summary>
+    /// If the scanner is active, sends one last update and sets it to inactive.
+    /// </summary>
+    /// <param name="healthAnalyzer">The health analyzer that's receiving the updates</param>
+    /// <param name="target">The entity to analyze</param>
+    private void PauseAnalyzingEntity(Entity<HealthAnalyzerComponent> healthAnalyzer, EntityUid target)
+    {
+        if (!healthAnalyzer.Comp.IsAnalyzerActive)
+            return;
+
+        UpdateScannedUser(healthAnalyzer, target, false);
+        healthAnalyzer.Comp.IsAnalyzerActive = false;
+    }
+
     /// <summary>
     /// Send an update for the target to the healthAnalyzer
     /// </summary>
@@ -187,55 +213,140 @@ public sealed class HealthAnalyzerSystem : EntitySystem
     /// <param name="scanMode">True makes the UI show ACTIVE, False makes the UI show INACTIVE</param>
     public void UpdateScannedUser(EntityUid healthAnalyzer, EntityUid target, bool scanMode)
     {
-        if (!_uiSystem.HasUi(healthAnalyzer, HealthAnalyzerUiKey.Key))
+        if (!_uiSystem.HasUi(healthAnalyzer, HealthAnalyzerUiKey.Key)
+            || !HasComp<DamageableComponent>(target))
             return;
 
-        if (!HasComp<DamageableComponent>(target))
-            return;
+        var uiState = GetHealthAnalyzerUiState(target);
+        uiState.ScanMode = scanMode;
 
+        _uiSystem.ServerSendUiMessage(
+            healthAnalyzer,
+            HealthAnalyzerUiKey.Key,
+            new HealthAnalyzerScannedUserMessage(uiState)
+        );
+    }
+
+    /// <summary>
+    /// Creates a HealthAnalyzerState based on the current state of an entity.
+    /// </summary>
+    /// <param name="target">The entity being scanned</param>
+    /// <returns></returns>
+    public HealthAnalyzerUiState GetHealthAnalyzerUiState(EntityUid? target)
+    {
+        if (!target.HasValue || !HasComp<DamageableComponent>(target))
+            return new HealthAnalyzerUiState();
+
+        var entity = target.Value;
         var bodyTemperature = float.NaN;
 
-        if (TryComp<TemperatureComponent>(target, out var temp))
+        if (TryComp<TemperatureComponent>(entity, out var temp))
             bodyTemperature = temp.CurrentTemperature;
 
         var bloodAmount = float.NaN;
         var bleeding = false;
         var unrevivable = false;
-        var unclonable = false; // Добавлено
+        var unclonable = false; // DS14-soyuz
+        var reagents = new List<HealthAnalyzerReagentEntry>(); // DS14
 
-        if (TryComp<BloodstreamComponent>(target, out var bloodstream) &&
-            _solutionContainerSystem.ResolveSolution(target, bloodstream.BloodSolutionName,
+        if (TryComp<BloodstreamComponent>(entity, out var bloodstream) &&
+            _solutionContainerSystem.ResolveSolution(entity, bloodstream.BloodSolutionName,
                 ref bloodstream.BloodSolution, out var bloodSolution))
         {
-            bloodAmount = bloodSolution.FillFraction;
+            bloodAmount = _bloodstreamSystem.GetBloodLevel(entity);
             bleeding = bloodstream.BleedAmount > 0;
+            reagents = GetInjectedReagents(bloodSolution, bloodstream); // DS14
         }
 
-        // DS14-start
-        float curProg = 0f;
-
-        if (TryComp<VirusComponent>(target, out var virus))
-            curProg = virus.Data.Threshold / virus.Data.MaxThreshold;
-
-        float infectionLevel = 1f - curProg;
-
-        if (HasComp<UncloningComponent>(target))
-            unclonable = true;
-        // DS14-end
+        if (HasComp<UncloningComponent>(target)) // DS14-Soyuz
+            unclonable = true; // DS14-Soyuz
 
         if (TryComp<UnrevivableComponent>(target, out var unrevivableComp) && unrevivableComp.Analyzable)
             unrevivable = true;
 
-        _uiSystem.ServerSendUiMessage(healthAnalyzer, HealthAnalyzerUiKey.Key, new HealthAnalyzerScannedUserMessage(
-            GetNetEntity(target),
+        return new HealthAnalyzerUiState(
+            GetNetEntity(entity),
             bodyTemperature,
             bloodAmount,
-            scanMode,
+            null,
             bleeding,
+            unclonable, // DS14-Soyuz
             unrevivable,
-            unclonable, // DS14
-            virus != null, // DS14
-            infectionLevel // DS14
-        ));
+            reagents // DS14
+        );
     }
+
+    // DS14-start
+    private List<HealthAnalyzerReagentEntry> GetInjectedReagents(Solution bloodSolution, BloodstreamComponent bloodstream)
+    {
+        var result = new List<HealthAnalyzerReagentEntry>();
+
+        foreach (var (reagentId, quantity) in bloodSolution)
+        {
+            if (quantity <= FixedPoint2.Zero || IsBloodReagent(reagentId.Prototype, bloodstream))
+                continue;
+
+            result.Add(new HealthAnalyzerReagentEntry(
+                reagentId.Prototype,
+                quantity,
+                IsOverdose(reagentId.Prototype, quantity)));
+        }
+
+        result.Sort((left, right) => right.Quantity.CompareTo(left.Quantity));
+        return result;
+    }
+
+    private bool IsBloodReagent(string reagentId, BloodstreamComponent bloodstream)
+    {
+        foreach (var (bloodReagentId, _) in bloodstream.BloodReferenceSolution)
+        {
+            if (bloodReagentId.Prototype == reagentId)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsOverdose(string reagentId, FixedPoint2 quantity)
+    {
+        if (!_prototype.TryIndex<ReagentPrototype>(reagentId, out var reagent) || reagent.Metabolisms == null)
+            return false;
+
+        FixedPoint2? overdoseThreshold = null;
+
+        foreach (var metabolism in reagent.Metabolisms.Values)
+        {
+            foreach (var effect in metabolism.Effects)
+            {
+                if (effect.Conditions == null)
+                    continue;
+
+                if (effect is not HealthChange healthChange || !HasPositiveDamage(healthChange.Damage))
+                    continue;
+
+                foreach (var condition in effect.Conditions)
+                {
+                    if (condition is not ReagentCondition reagentCondition || reagentCondition.Reagent != reagentId || reagentCondition.Min <= FixedPoint2.Zero)
+                        continue;
+
+                    if (overdoseThreshold == null || reagentCondition.Min < overdoseThreshold.Value)
+                        overdoseThreshold = reagentCondition.Min;
+                }
+            }
+        }
+
+        return overdoseThreshold != null && quantity >= overdoseThreshold.Value;
+    }
+
+    private bool HasPositiveDamage(Content.Shared.Damage.DamageSpecifier damage)
+    {
+        foreach (var (_, amount) in damage.DamageDict)
+        {
+            if (amount > FixedPoint2.Zero)
+                return true;
+        }
+
+        return false;
+    }
+    // DS14-end
 }

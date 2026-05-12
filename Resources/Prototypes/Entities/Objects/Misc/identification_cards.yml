@@ -470,6 +470,20 @@
   - type: PresetIdCard
     job: Brigmedic
 
+# DS14-Soyuz start
+# - type: entity
+#   parent: IDCardStandard
+#   id: SeniorSalvageIDCard # DS14
+#   name: coroner ID card
+#   components:
+#   - type: Sprite
+#     layers:
+#     - state: default
+#     - state: idseniorcargo
+#   - type: PresetIdCard
+#     job: SeniorSalvageSpecialist
+# DS14-Soyuz end
+
 - type: entity
   parent: IDCardStandard
   id: CentcomIDCard
@@ -1019,6 +1033,18 @@
     - state: idsurgeon
   - type: PresetIdCard
     job: MedicalSurgeon
+
+- type: entity
+  parent: IDCardStandard
+  id: XenoborgIDCard
+  name: xenoborg ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+  - type: Access
+    tags:
+    - Xenoborg
 
 - type: entity
   parent: IDCardStandard

@@ -11,7 +11,8 @@ using Content.Shared.Atmos;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Cloning;
-using Content.Shared.Damage;
+using Content.Shared.Chat;
+using Content.Shared.Damage.Components;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
@@ -28,6 +29,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Content.Shared.Chemistry.Reagent;
 
 namespace Content.Server.Cloning;
 
@@ -57,6 +59,7 @@ public sealed class CloningPodSystem : EntitySystem
     public readonly Dictionary<MindComponent, EntityUid> ClonesWaitingForMind = new();
     public readonly ProtoId<CloningSettingsPrototype> SettingsId = "CloningPod";
     public const float EasyModeCloningCost = 0.7f;
+    private static readonly ProtoId<ReagentPrototype> BloodId = "Blood";
 
     public override void Initialize()
     {
@@ -133,9 +136,7 @@ public sealed class CloningPodSystem : EntitySystem
         if (!Resolve(uid, ref clonePod))
             return false;
 
-        if (HasComp<ActiveCloningPodComponent>(uid))
-            return false;
-// DS14-start
+        // DS14-Start
         if (HasComp<UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
         {
             if (clonePod.ConnectedConsole != null)
@@ -144,7 +145,11 @@ public sealed class CloningPodSystem : EntitySystem
                     InGameICChatType.Speak, false);
             return false;
         }
-// DS14-end
+        // DS14-End
+    
+        if (HasComp<ActiveCloningPodComponent>(uid))
+            return false;
+
         var mind = mindEnt.Comp;
         if (ClonesWaitingForMind.TryGetValue(mind, out var clone))
         {
@@ -310,7 +315,7 @@ public sealed class CloningPodSystem : EntitySystem
         while (i < 1)
         {
             tileMix?.AdjustMoles(Gas.Ammonia, 6f);
-            bloodSolution.AddReagent("Blood", 50);
+            bloodSolution.AddReagent(BloodId, 50);
             if (_robustRandom.Prob(0.2f))
                 i++;
         }

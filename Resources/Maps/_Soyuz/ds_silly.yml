@@ -33779,13 +33779,6 @@ entities:
     - type: Transform
       pos: 7.3743315,-18.442225
       parent: 2
-  - uid: 4567
-    components:
-    - type: Transform
-      parent: 4543
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
   - uid: 7987
     components:
     - type: Transform
@@ -40820,13 +40813,6 @@ entities:
     - type: Transform
       pos: 7.6471786,-1.5472101
       parent: 2
-- proto: RubberStampSyndicate
-  entities:
-  - uid: 4648
-    components:
-    - type: Transform
-      pos: -30.23363,-7.2996683
-      parent: 2
 - proto: SalvageMagnet
   entities:
   - uid: 4649
@@ -42907,38 +42893,6 @@ entities:
     - type: Transform
       pos: -11.5,21.5
       parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 4543
-    components:
-    - type: Transform
-      pos: 18.5,16.5
-      parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-        - 1.7459903
-        - 6.568249
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 4567
 - proto: SurveillanceCameraAssembly
   entities:
   - uid: 7204

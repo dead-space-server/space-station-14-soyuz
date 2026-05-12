@@ -9,6 +9,7 @@ using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.StatusEffect;
+using Content.Shared.StatusEffectNew.Components;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Whitelist;
@@ -36,6 +37,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     [Dependency] private readonly SharedStorageSystem _storage = default!;
     [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
     [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly Shared.StatusEffectNew.StatusEffectsSystem _statusEffects = default!; //TODO: This system has to support both the old and new status effect systems, until the old is able to be fully removed.
 
     /// <summary>
     ///     Spawns a clone of the given humanoid mob at the specified location or in nullspace.
@@ -52,9 +54,9 @@ public sealed partial class CloningSystem : SharedCloningSystem
         if (!_prototype.Resolve(humanoid.Species, out var speciesPrototype))
             return false; // invalid species
 
-        var attemptEv = new CloningAttemptEvent(settings);
-        RaiseLocalEvent(original, ref attemptEv);
-        if (attemptEv.Cancelled && !settings.ForceCloning)
+        // var attemptEv = new CloningAttemptEvent(settings); // DS14-disabled 
+        // RaiseLocalEvent(original, ref attemptEv); // DS14-disabled
+        if (HasComp<UncloningComponent>(original) && !settings.ForceCloning) // DS14 condition
             return false; // cannot clone, for example due to the unrevivable trait
 
         clone = coords == null ? Spawn(speciesPrototype.Prototype) : Spawn(speciesPrototype.Prototype, coords.Value);
@@ -75,6 +77,10 @@ public sealed partial class CloningSystem : SharedCloningSystem
         if (settings.CopyImplants)
             CopyImplants(original, clone.Value, settings.CopyInternalStorage, settings.Whitelist, settings.Blacklist);
 
+        // Copy permanent status effects
+        if (settings.CopyStatusEffects)
+            CopyStatusEffects(original, clone.Value);
+
         var originalName = _nameMod.GetBaseName(original);
 
         // Set the clone's name. The raised events will also adjust their PDA and ID card names.
@@ -82,6 +88,14 @@ public sealed partial class CloningSystem : SharedCloningSystem
 
         _adminLogger.Add(LogType.Chat, LogImpact.Medium, $"The body of {original:player} was cloned as {clone.Value:player}");
         return true;
+    }
+
+    public override void CloneComponents(EntityUid original, EntityUid clone, ProtoId<CloningSettingsPrototype> settings)
+    {
+        if (!_prototype.Resolve(settings, out var proto))
+            return;
+
+        CloneComponents(original, clone, proto);
     }
 
     public override void CloneComponents(EntityUid original, EntityUid clone, CloningSettingsPrototype settings)
@@ -258,5 +272,34 @@ public sealed partial class CloningSystem : SharedCloningSystem
                 CopyStorage(originalImplant, targetImplant.Value, whitelist, blacklist); // only needed for storage implants
         }
 
+    }
+
+    /// <summary>
+    ///    Scans all permanent status effects applied to the original entity and transfers them to the clone.
+    /// </summary>
+    public void CopyStatusEffects(Entity<StatusEffectContainerComponent?> original, Entity<StatusEffectContainerComponent?> target)
+    {
+        if (!Resolve(original, ref original.Comp, false))
+            return;
+
+        if (original.Comp.ActiveStatusEffects is null)
+            return;
+
+        foreach (var effect in original.Comp.ActiveStatusEffects.ContainedEntities)
+        {
+            if (!TryComp<StatusEffectComponent>(effect, out var effectComp))
+                continue;
+
+            //We are not interested in temporary effects, only permanent ones.
+            if (effectComp.EndEffectTime is not null)
+                continue;
+
+            var effectProto = Prototype(effect);
+
+            if (effectProto is null)
+                continue;
+
+            _statusEffects.TrySetStatusEffectDuration(target, effectProto);
+        }
     }
 }

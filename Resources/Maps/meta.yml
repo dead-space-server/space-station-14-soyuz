@@ -72796,7 +72796,7 @@ entities:
     - type: Transform
       pos: 10.5,48.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 27533
     components:
@@ -147999,13 +147999,6 @@ entities:
           ents:
           - 11432
           - 11431
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 27797
-    components:
-    - type: Transform
-      pos: -41.5,28.5
-      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 22018

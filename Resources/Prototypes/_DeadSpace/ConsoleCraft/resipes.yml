@@ -249,3 +249,63 @@
   - EnhancedCoolingModule
   - OverchargeModule
   - MassSkope
+
+- type: consoleCraft
+  id: RIGNukeOps
+  name: '@!$$&$&$@'
+  item: ClothingBackpackRIGNukeOps
+  time: 10
+  randomRequestItems:
+  - items:
+      - HyperCoreForModifiedBackpack
+      - AdvancedCoreForModifiedBackpack
+    amount: 1
+    label: $#@!## ядро модифицированного рюкзака
+  requestItems:
+  - itemProto: PlastineOfOtherHardsuit
+    amount: 2
+    label: Пластина для различных скафандров
+  - itemProto: HardsuitFrameLeg
+    amount: 1
+    label: Каркас ног скафандра
+  - itemProto: HardsuitFrameTorso
+    amount: 1
+    label: Каркас торса скафандра
+  - itemProto: ClothingHeadHelmetRIGNukeOps
+    amount: 1
+    label: "!!$#@"
+  minorItems:
+  - OuterSuitMiniJet
+  - DelayModifierModule
+  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+
+- type: consoleCraft
+  id: RIGNukeOpsElite
+  name: '*#_(!!!)'
+  item: ClothingBackpackRIGNukeOpsElite
+  time: 10
+  randomRequestItems:
+  - items:
+      - HyperCoreForModifiedBackpack
+      - AdvancedCoreForModifiedBackpack
+    amount: 1
+    label: $#@!## ядро модифицированного рюкзака
+  requestItems:
+  - itemProto: PlastineOfOtherHardsuit
+    amount: 2
+    label: Пластина для различных скафандров
+  - itemProto: HardsuitFrameLeg
+    amount: 1
+    label: Каркас ног скафандра
+  - itemProto: HardsuitFrameTorso
+    amount: 1
+    label: Каркас торса скафандра
+  - itemProto: ClothingHeadHelmetRIGNukeOpsElite
+    amount: 1
+    label: "_)@@!@#"
+  minorItems:
+  - OuterSuitMiniJet
+  - DelayModifierModule
+  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал

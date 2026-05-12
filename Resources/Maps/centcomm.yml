@@ -18699,101 +18699,10 @@ entities:
       parent: 260
     - type: Physics
       canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 262
-    components:
-    - type: MetaData
-      # DS14-start: Soyuz changes
-      name: редспейс артиллерия
-      # DS14-end
-    - type: Transform
-      pos: -17.5,-86.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 263
-    components:
-    - type: Transform
-      pos: -50.5,-58.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 264
-    components:
-    - type: Transform
-      pos: -83.5,-77.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 265
-    components:
-    - type: Transform
-      pos: -83.5,-78.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 266
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -23.5,-113.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 267
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: -19.5,-113.5
-      parent: 1
-    - type: Physics
-      canCollide: False
-    - type: Door
-      state: Open
-    - type: Airtight
-      airBlocked: False
-    - type: Occluder
-      enabled: False
-  - uid: 268
-    components:
-    - type: Transform
-      pos: -52.5,-92.5
-      parent: 1
+    - type: InsideEntityStorage
+      storage: 260
+- proto: ADTVioletSofaLeftSide
+  entities:
   - uid: 269
     components:
     - type: Transform
@@ -21698,8 +21607,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -6.5,-97.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 514
     components:
     - type: Transform
@@ -21770,8 +21677,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 21.5,-86.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 522
     components:
     - type: MetaData
@@ -21788,15 +21693,11 @@ entities:
       rot: 3.141592653589793 rad
       pos: 23.5,-123.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 524
     components:
     - type: Transform
       pos: 6.5,-152.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 525
     components:
     - type: Transform
@@ -21810,16 +21711,12 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 5.5,0.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 527
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 7.5,0.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 528
     components:
     - type: Transform
@@ -21834,8 +21731,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 15.5,0.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 530
     components:
     - type: Transform
@@ -21848,15 +21743,11 @@ entities:
     - type: Transform
       pos: 20.5,-18.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 532
     components:
     - type: Transform
       pos: 20.5,-10.5
       parent: 1
-    - type: Fixtures
-      fixtures: {}
   - uid: 533
     components:
     - type: Transform
@@ -34321,23 +34212,10 @@ entities:
       parent: 1
   - uid: 2684
     components:
-      # DS14-start: Soyuz changes
-    - type: MetaData
-      desc: Экспериментальное напольное устройство для проецирования голографических изображений через редспейс.
-      name: Редспейс голопад (Центральное Командование)
-      # DS14-end
     - type: Transform
       pos: 2.5,-168.5
       parent: 1
-    - type: Label
-      # DS14-start: Soyuz changes
-      currentLabel: Центральное Командование
-    - type: NameModifier
-      baseName: Редспейс голопад
-      # DS14-end
-- proto: HolopadUnlimitedRange
-  entities:
-  - uid: 11967
+  - uid: 2685
     components:
     - type: Transform
       pos: 2.5,-167.5

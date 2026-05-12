@@ -129871,6 +129871,13 @@ entities:
         moles:
           Oxygen: 1.7459903
           Nitrogen: 6.568249
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 16739
+    components:
+    - type: Transform
+      pos: 28.5,-28.5
+      parent: 2
 - proto: SurveillanceCameraAssembly
   entities:
   - uid: 16740

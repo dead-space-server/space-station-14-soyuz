@@ -200672,6 +200672,13 @@ entities:
     - type: Transform
       pos: 43.5,4.5
       parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 29630
+    components:
+    - type: Transform
+      pos: -5.5,-93.5
+      parent: 2
 - proto: SuitStorageWarden
   entities:
   - uid: 29631
@@ -240146,6 +240153,18 @@ entities:
     components:
     - type: Transform
       pos: 48.538185,1.5110078
+      parent: 2
+- proto: WeaponShotgunAresSWC
+  entities:
+  - uid: 36482
+    components:
+    - type: Transform
+      pos: 48.515953,6.4540296
+      parent: 2
+  - uid: 37811
+    components:
+    - type: Transform
+      pos: 48.515953,6.6520834
       parent: 2
 - proto: WeaponShotgunDoubleBarreled
   entities:

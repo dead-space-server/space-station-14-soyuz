@@ -220,10 +220,8 @@
   - type: Storage
     grid:
     - 0,0,9,5
-  # DS14-start
-  - type: ExplosionResistance
+  - type: ExplosionResistance # DS14
     damageCoefficient: 0.1
-  # DS14-end
 
 - type: entity
   parent: ClothingBackpackERTLeader
@@ -242,10 +240,6 @@
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/ertmed.rsi
-  # DS14-start
-  - type: ExplosionResistance
-    damageCoefficient: 0
-  # DS14-end
 
 - type: entity
   parent: ClothingBackpackERTLeader
@@ -255,11 +249,7 @@
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/erteng.rsi
-  # DS14-start
-  - type: ExplosionResistance
-    damageCoefficient: 0
-  # DS14-end
-    
+
 - type: entity
   parent: ClothingBackpackERTLeader
   id: ClothingBackpackERTJanitor

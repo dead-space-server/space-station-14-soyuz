@@ -41,30 +41,33 @@
   id: ERTLeaderGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
-    back: ClothingBackpackRIGERTLeader
+    back: ClothingBackpackERTLeader
     mask: ClothingMaskGasERT
-    eyes: ClothingEyesHudERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    suitstorage: WeaponDisablerSMG
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesBootsJackSec
     head: ClothingHeadHelmetERTLeader
     id: ERTLeaderPDA
-    belt: ClothingBeltMilitaryWebbingERT
+    belt: ClothingBeltERTSecurityFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: FlashlightSeclite
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutAmberPrimary
     - ERTloadoutAmberSecondary
+    - ERTloadoutAmberPrimary
+    - BoxMRE
+    - WeaponDisabler
+    - CrowbarRed
+    - FlashlightSeclite
+    - ADTtelescopicBaton
     - PinpointerNuclear
-    - BoxCardboardERT
-    - JawsOfLife
-    - PortableCameraMonitor
-    - CriminalRecordsMonitor
-    - HandheldCrewMonitor
+    - Flash
+    - Flare
+    - EmergencyMedipen
+    - Truncheon
 
 ## Red
 - type: job
@@ -107,29 +110,33 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
     back: ClothingBackpackERTLeader
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    head: ClothingHeadHatERTLeaderBeret
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedLeader
-    suitstorage: JetpackSecurityFilled
+    outerClothing: ClothingOuterHardsuitERTLeader
     shoes: ADTClothingShoesBootsMagERT
     id: ERTLeaderRedPDA
-    belt: ClothingBeltMilitaryWebbingERT
+    belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: DoorRemoteCustom
+    pocket2: KukriKnife
   storage:
     back:
     - ERTloadoutRedPrimaryLeader
     - ERTloadoutRedSecondaryLeader
-    - ERTloadoutRedSupport #DS14-Soyuz
-    - UplinkERTRed #DS14-Soyuz
-    - BoxCardboardERT
+    - ERTloadoutRedSupport
+    - UplinkERTRed
     - BoxMRE
     - PinpointerNuclear
     - CrowbarRed
+    - DoorRemoteCustom
+    - Flare
+    - EmergencyMedipen
+    - ADTtelescopicBaton
+    - Flash
     - WeaponDisabler
+    - Truncheon
 
 ## Gamma
 - type: job
@@ -172,29 +179,31 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
     back: ClothingBackpackERTLeader
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    head: ClothingHeadHatERTLeaderBeret
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTLeader
-    suitstorage: JetpackVoidFilled
+    suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTLeaderGammaPDA
-    belt: ClothingBeltMilitaryWebbingERTGamma
+    belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
     pocket2: DoorRemoteCustom
   storage:
     back:
     - ERTloadoutGammaPrimaryLeader
     - ERTloadoutGammaSecondaryLeader
-    - ERTloadoutGammaSupport #DS14-Soyuz
-    - UplinkERTGamma #DS14-Soyuz
-    - BoxCardboardERT
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
     - PinpointerNuclear
     - CrowbarRed
+    - EmergencyMedipen
+    - BoxMRE
+    - Flare
     - WeaponDisabler
-    - ClothingEyesPNVAdv #DS14-Soyuz
+    - ClothingEyesPNVAdv
     - KukriKnife
 
 # Security
@@ -234,32 +243,30 @@
   id: ERTSecurityGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
-    back: ClothingBackpackRIGERTSecurity
+    back: ClothingBackpackERTSecurity
     mask: ClothingMaskGasERT
-    eyes: ClothingEyesHudERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    suitstorage: WeaponDisablerSMG
-    shoes: ClothingShoesBootsJackSecFilled
+    shoes: ClothingShoesBootsJackSec
     head: ClothingHeadHelmetERTSecurity
-    id: ERTSecurityPDA
-    belt: ClothingBeltMilitaryWebbingERT
+    id: ERTSecurityIDCard
+    belt: ClothingBeltERTSecurityFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: FlashlightSeclite
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutAmberPrimary
+    - TelescopicShield
+    - FlashlightSeclite
+    - WeaponDisabler
+    - CrowbarRed
+    - EmergencyMedipen
+    - BoxMRE
     - ERTloadoutAmberSecondary
-    - PinpointerNuclear
-    - BoxCardboardERT
-    - JawsOfLife
-    - PortableCameraMonitor
-    - CriminalRecordsMonitor
-    - HandheldCrewMonitor
-    - TelescopicShield
-    - TelescopicShield
+    - ERTloadoutAmberPrimary
+    - Flare
+    - Truncheon
 
 ## Red
 - type: job
@@ -298,26 +305,30 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     back: ClothingBackpackERTSecurity
-    eyes: ClothingEyesHudERT
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedSecurity
-    suitstorage: JetpackSecurityFilled
+    outerClothing: ClothingOuterHardsuitERTSecurity
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTSecurityRedPDA
-    belt: ClothingBeltMilitaryWebbingERT
+    id: ERTSecurityRedIDCard
+    belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: TelescopicShield
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
-    - BoxCardboardERT
-    - CrowbarRed
-    - PinpointerNuclear
-    - ERTloadoutRedSupport #DS14-Soyuz
-    - UplinkERTRed #DS14-Soyuz
+    - TelescopicShield
     - WeaponDisabler
+    - ERTloadoutRedPrimary
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutRedSecondary
+    - CrowbarRed
+    - Flare
+    - Truncheon
+    - PinpointerNuclear
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -356,27 +367,32 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     back: ClothingBackpackERTSecurity
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTSecurity
-    suitstorage: JetpackVoidFilled
+    suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTSecurityGammaPDA
-    belt: ClothingBeltMilitaryWebbingERTGamma
+    id: ERTSecurityGammaIDCard
+    belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: TelescopicShield
+    pocket2: KukriKnife
   storage:
     back:
+    - TelescopicShield
+    - WeaponDisabler
+    - CrowbarRed
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-    - BoxCardboardERT
-    - CrowbarRed
+    - EmergencyMedipen
+    - BoxMRE
+    - Flare
+    - Truncheon
     - PinpointerNuclear
-    - ClothingEyesPNVAdv #DS14-Soyuz
-    - ERTloadoutGammaSupport #DS14-Soyuz
-    - UplinkERTGamma #DS14-Soyuz
-    - WeaponDisabler
+    - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Medical
 ## Amber
@@ -415,34 +431,34 @@
   id: ERTMedicalGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTMedic
-    back: ClothingBackpackRIGERTMedic
+    back: ClothingBackpackERTMedical
     mask: ClothingMaskGasERT
-    eyes: ClothingEyesHudERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    suitstorage: WeaponDisablerSMG
     shoes: ClothingShoesColorWhite
     head: ClothingHeadHelmetERTMedic
-    id: ERTMedicPDA
+    id: ERTMedicIDCard
     belt: ClothingBeltMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: FlashlightSeclite
+    pocket2: KukriKnife
   storage:
     back:
+    - Defibrillator
+    - BoxMRE
     - ERTloadoutAmberPrimary
     - ERTloadoutAmberSecondary
-    - PinpointerNuclear
-    - BoxCardboardERT
-    - JawsOfLife
-    - PortableCameraMonitor
-    - CriminalRecordsMonitor
-    - HandheldCrewMonitor
-    - DefibrillatorCompact
-    - ADTCombatHypo
+    - Flare
+    - WeaponDisabler
+    - HandheldHealthAnalyzer
     - ChemistryBottleOmnizine
     - ChemistryBottleEpinephrine
+    - Cautery
+    - FlashlightLantern
+    - CrowbarRed
+    - ADTCombatHypo
+    - EmergencyMedipen
 
 ## Red
 - type: job
@@ -481,31 +497,35 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTMedic
     back: ClothingBackpackERTMedical
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedMedic
-    suitstorage: JetpackSecurityFilled
+    outerClothing: ClothingOuterHardsuitERTMedical
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTMedicRedPDA
-    belt: ClothingBeltMilitaryWebbingERTMed
+    id: ERTMedicRedIDCard
+    belt: ClothingBeltERTMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: ADTCombatHypo
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
-    - BoxCardboardERT
-    - DefibrillatorCompact
-    - PinpointerNuclear
-    - JugDexPlusSaline
+    - ChemistryBottleOmnizine
+    - ChemistryBottleOmnizine
+    - ChemistryBottleEpinephrine
+    - ChemistryBottleEpinephrine
+    - Cautery
     - CrowbarRed
-    - ChemistryBottleOmnizine
-    - ChemistryBottleOmnizine
-    - ChemistryBottleBruizine
-    - ChemistryBottlePyrazine
-    - ERTloadoutRedSupport #DS14-Soyuz
-    - UplinkERTRed #DS14-Soyuz
+    - Flare
+    - ADTCombatHypo
+    - ERTloadoutRedSecondary
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutRedPrimary
+    - DefibrillatorCompact
+    - WeaponDisabler
+    - HandheldHealthAnalyzer
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -544,29 +564,39 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTMedic
     back: ClothingBackpackERTMedical
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTMedical
-    suitstorage: JetpackVoidFilled
+    suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTMedicGammaPDA
-    belt: ClothingBeltMilitaryWebbingERTMed
+    id: ERTMedicGammaIDCard
+    belt: ClothingBeltERTMedicalFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: ADTCombatHypo
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
-    - BoxCardboardERT
-    - DefibrillatorCompact
-    - PinpointerNuclear
-    - JugTheCircleOmnizine
-    - JugDexPlusSaline
+    - ChemistryBottleOmnizine
+    - ChemistryBottleOmnizine
+    - ChemistryBottleOmnizine
+    - ChemistryBottleEpinephrine
+    - ChemistryBottleEpinephrine
+    - ChemistryBottleEpinephrine
+    - Cautery
     - CrowbarRed
-    - ClothingEyesPNVAdv #DS14-Soyuz
-    - ERTloadoutGammaSupport #DS14-Soyuz
-    - UplinkERTGamma #DS14-Soyuz
+    - ADTCombatHypo
+    - ERTloadoutGammaPrimary
+    - EmergencyMedipen
+    - BoxMRE
+    - DefibrillatorCompact
+    - ERTloadoutGammaSecondary
+    - WeaponDisabler
+    - HandheldHealthAnalyzer
+    - PinpointerNuclear
+    - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Engineer
 ## Amber
@@ -605,33 +635,28 @@
   id: ERTEngineerGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
-    back: ClothingBackpackRIGERTEngineer
+    back: ClothingBackpackERTEngineer
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
-    suitstorage: JetpackMiniFilled
-    shoes: ClothingShoesBootsMag
+    shoes: ClothingShoesBootsWork
     head: ClothingHeadHelmetERTEngineer
-    id: ERTEngineerPDA
-    belt: ClothingBeltMilitaryWebbingERT
+    id: ERTEngineerIDCard
+    belt: ClothingUtilityWebbingEngineering
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: FlashlightSeclite
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutAmberPrimary
+    - FlashlightLantern
+    - WeaponDisabler
+    - EmergencyMedipen
+    - BoxMRE
     - ERTloadoutAmberSecondary
-    - PinpointerNuclear
-    - BoxCardboardERT
-    - PortableCameraMonitor
-    - CriminalRecordsMonitor
-    - HandheldCrewMonitor
-    - Omnitool
-    - WelderIndustrialAdvanced
+    - ERTloadoutAmberPrimary
+    - Flare
     - RCD
-    - RCDAmmo
     - RCDAmmo
 
 ## Red
@@ -671,27 +696,30 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
-    eyes: ClothingEyesHudERT
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedEngineer
-    suitstorage: JetpackSecurityFilled
+    outerClothing: ClothingOuterHardsuitERTEngineer
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTEngineerRedPDA
+    id: ERTEngineerRedIDCard
     belt: ClothingBeltChiefEngineerFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: WeaponDisabler
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutRedPrimary
+    - RCD
+    - RCDAmmo
+    - RCDAmmo
     - ERTloadoutRedSecondary
-    - BoxCardboardERT
-    - BoxC4ERT
-    - RCDAmmo
-    - RCDAmmo
-    - RCDAmmo
-    - ERTloadoutRedSupport #DS14-Soyuz
-    - UplinkERTRed #DS14-Soyuz
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutRedPrimary
+    - RemoteSignaller
+    - Flare
+    - WeaponDisabler
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -730,30 +758,37 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTEngineer
-    suitstorage: JetpackVoidFilled
+    suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTEngineerGammaPDA
+    id: ERTEngineerGammaIDCard
     belt: ClothingBeltChiefEngineerFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: WeaponDisabler
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
-    - BoxCardboardERT
-    - BoxC4ERT
+    - WeaponDisabler
     - RCDRecharging
     - RCDAmmo
     - RCDAmmo
-    - RCDAmmo
+    - C4
+    - C4
+    - C4
+    - C4
+    - RemoteSignallerAdvanced
+    - ERTloadoutGammaPrimary
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutGammaSecondary
+    - Flare
     - PinpointerNuclear
-    - ClothingEyesPNVAdv #DS14-Soyuz
-    - ERTloadoutGammaSupport #DS14-Soyuz
-    - UplinkERTGamma #DS14-Soyuz
+    - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Janitor
 ## Amber
@@ -789,29 +824,31 @@
   id: ERTJanitorGearAmber
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTJanitor
-    back: ClothingBackpackRIGERTJanitor
+    back: ClothingBackpackERTJanitor
     mask: ClothingMaskGasERT
-    eyes: ClothingEyesHudERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
-    neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
     shoes: ClothingShoesGaloshes
     head: ClothingHeadHelmetERTJanitor
-    id: ERTJanitorPDA
-    belt: ClothingBeltJanitorFilledERT
+    id: ERTJanitorIDCard
+    belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: FlashlightSeclite
+    pocket2: KukriKnife
   storage:
     back:
     - ERTloadoutAmberPrimary
-    - ERTloadoutAmberSecondary
-    - BoxCardboardERT
-    - BoxLightMixed
+    - SoapNT
     - MopItem
-    - BoxCleanerGrenades
-    - JawsOfLife
-    - PinpointerNuclear
+    - LightReplacer
+    - Holoprojector
+    - CrowbarRed
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutAmberSecondary
+    - Flare
+    - WeaponDisabler
 
 ## Red
 - type: job
@@ -847,28 +884,32 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTJanitor
     back: ClothingBackpackERTJanitor
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedJanitor
-    suitstorage: JetpackSecurityFilled
+    outerClothing: ClothingOuterHardsuitERTJanitor
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTJanitorRedPDA
-    belt: ClothingBeltJanitorFilledERT
+    id: ERTJanitorRedIDCard
+    belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: WeaponDisabler
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
-    - BoxCardboardERT
-    - BoxLightMixed
+    - SoapNT
     - AdvMopItem
-    - BoxCleanerGrenades
+    - LightReplacer
+    - Holoprojector
     - CrowbarRed
-    - PinpointerNuclear
-    - ERTloadoutRedSupport #DS14-Soyuz
-    - UplinkERTRed #DS14-Soyuz
+    - ERTloadoutRedSecondary
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutRedPrimary
+    - TrashBagBlue
+    - Flare
+    - WeaponDisabler
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -904,27 +945,32 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTJanitor
     back: ClothingBackpackERTJanitor
-    eyes: ClothingEyesHudERTGamma
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
     ears: ClothingHeadsetCentCom
     gloves: ClothingHandsGlovesGamma
     outerClothing: ClothingOuterHardsuitERTJanitor
-    suitstorage: JetpackVoidFilled
+    suitstorage: JetpackMiniFilled
     shoes: ADTClothingShoesBootsMagERT
-    id: ERTJanitorGammaPDA
-    belt: ClothingBeltJanitorFilledERT
+    id: ERTJanitorGammaIDCard
+    belt: ClothingBeltJanitorFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: WeaponDisabler
+    pocket2: KukriKnife
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
-    - BoxCardboardERT
-    - WeaponLauncherHydra
-    - BoxLightMixed
+    - SoapOmega
     - AdvMopItem
-    - BoxGrenadeCleanade
+    - LightReplacer
+    - Holoprojector
+    - Zipties
+    - ERTloadoutGammaPrimary
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutGammaSecondary
     - CrowbarRed
+    - WeaponDisabler
+    - TrashBagBlue
     - PinpointerNuclear
-    - ClothingEyesPNVAdv #DS14-Soyuz
-    - ERTloadoutGammaSupport #DS14-Soyuz
-    - UplinkERTGamma #DS14-Soyuz
+    - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma

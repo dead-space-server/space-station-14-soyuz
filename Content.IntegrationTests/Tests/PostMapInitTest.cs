@@ -40,7 +40,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -84,7 +84,7 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             "/Maps/_Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start

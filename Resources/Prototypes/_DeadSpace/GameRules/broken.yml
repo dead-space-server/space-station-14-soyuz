@@ -9,11 +9,11 @@
         minuteMin: 27
         minuteMax: 36
         howMuchEntity: 2
-        chance: 35
+        chance: 1
         action: !type:ExplodeEntityAction
           spawnTable: !type:EntSelector
             id: FireNRFHELL
-            amount: 2
+            amount: 1
           spawnOffset: "0,0"
           explosionIntensity: 1
           explosionType: Default

@@ -11842,13 +11842,6 @@ entities:
     - type: Transform
       pos: -6.5343804,11.645444
       parent: 2
-- proto: HandheldAutopsyScannerUnpowered
-  entities:
-  - uid: 1687
-    components:
-    - type: Transform
-      pos: 12.386803,1.4483926
-      parent: 2
 - proto: HolofanProjector
   entities:
   - uid: 1688

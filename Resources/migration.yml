@@ -1231,7 +1231,7 @@ TowelColorMaroon: null
 TowelColorSilver: null
 TowelColorMime: null
 
-# 2026-04-19
+# 2026-04-19 - DS14
 HandheldAutopsyScannerUnpowered: HandheldAutopsyScanner
 HandheldAutopsyScannerEmpty: HandheldAutopsyScanner
 
@@ -1302,3 +1302,11 @@ ADTClothingNeckNukeOpsCloak: ClothingNeckNukeOpsCloak
 
 # 2026-05-12 DS14-Soyuz
 SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist
+
+# 2026-05-09 - DS14
+ADTObjectsSpecificBicaridineChemistryBottle: ChemistryBottleBicaridine
+ADTObjectsSpecificDexalinPlusChemistryBottle: ChemistryBottleDexalinPlus
+ADTObjectsSpecificLeporazineChemistryBottle: ChemistryBottleLeporazine
+ADTObjectsSpecificArithrazineChemistryBottle: ChemistryBottleArithrazine
+ADTObjectsSpecificDexalinChemistryBottle: ChemistryBottleDexalin
+ADTObjectsSpecificDermalineChemistryBottle: ChemistryBottleDermaline

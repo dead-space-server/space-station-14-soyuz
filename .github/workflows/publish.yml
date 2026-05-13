@@ -90,7 +90,7 @@ jobs:
     #   run: Tools/actions_changelog_rss.py
     #   env:
     #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
-
+# DS14-Soyuz webhook start
     - name: Send Discord Webhook Notification (Soyuz Discord)
       if: success()
       env:
@@ -114,3 +114,4 @@ jobs:
                "content": "<@&1504050876212445255> :logo_UNION1: Сервер успешно обновлён!\nРепозиторий: ${{ github.repository }}\nВетка: ${{ github.ref_name }}\nКоммиты: ${{ github.sha }}\nВсе последние изменения Союза ☭ в игре 🥳"
              }' \
              $DISCORD_WEBHOOK_URL
+# DS14-Soyuz webhook end

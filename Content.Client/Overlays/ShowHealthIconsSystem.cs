@@ -65,78 +65,79 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
         args.StatusIcons.AddRange(healthIcons);
     }
 
-    private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableComponent> entity)
+private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableComponent> entity)
+{
+    var damageableComponent = entity.Comp;
+
+    if (damageableComponent.DamageContainerID == null ||
+        !DamageContainers.Contains(damageableComponent.DamageContainerID))
     {
-        var damageableComponent = entity.Comp;
+        return Array.Empty<HealthIconPrototype>();
+    }
 
-        if (damageableComponent.DamageContainerID == null ||
-            !DamageContainers.Contains(damageableComponent.DamageContainerID))
+    var result = new List<HealthIconPrototype>();
+
+    if (damageableComponent?.DamageContainerID == "Biological")
+    {
+        if (TryComp<MobStateComponent>(entity, out var state))
         {
-            return Array.Empty<HealthIconPrototype>();
-        }
-
-        var result = new List<HealthIconPrototype>();
-
-        if (damageableComponent?.DamageContainerID == "Biological")
-        {
-            if (TryComp<MobStateComponent>(entity, out var state))
+            // Если мёртв - проверяем стадию разложения
+            if (state.CurrentState == MobState.Dead)
             {
-                // DS14-Soyuz-start
-                if (state.CurrentState == MobState.Dead)
+                int effectiveStage = 1;
+                
+                // Проверяем наличие компонента PerishableComponent
+                if (TryComp<PerishableComponent>(entity, out var perishableComp))
                 {
-                    int effectiveStage = 1;
-
-                    if (TryComp<PerishableComponent>(entity, out var perishableComp))
+                    int perishStage = _rotting.PerishStage((entity, perishableComp), 4);
+                    effectiveStage = perishStage == 0 ? 1 : perishStage;
+                }
+                else if (TryComp<RottingComponent>(entity, out var rottingComp))
+                {
+                    int rotStage = _rotting.RotStage(entity, rottingComp);
+                    effectiveStage = rotStage == 0 ? 1 : rotStage;
+                }
+                
+                if (effectiveStage > 4)
+                {
+                    if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var rottingIcon))
                     {
-                        int perishStage = _rotting.PerishStage((entity, perishableComp), 4);
+                        result.Add(rottingIcon);
+                    }
+                    return result;
+                }
+                
+                effectiveStage = Math.Clamp(effectiveStage, 1, 4);
+                int iconIndex = effectiveStage - 1;
+                
+                if (iconIndex < damageableComponent.RottingStageIcons.Count)
+                {
+                    string iconId = damageableComponent.RottingStageIcons[iconIndex];
                     
-                        effectiveStage = perishStage == 0 ? 1 : perishStage;
-                    }
-                    else if (TryComp<RottingComponent>(entity, out var rottingComp))
+                    if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
                     {
-                        int rotStage = _rotting.RotStage(entity, rottingComp);
-                        effectiveStage = rotStage == 0 ? 1 : rotStage;
+                        result.Add(icon);
                     }
-                
-                    effectiveStage = Math.Clamp(effectiveStage, 1, 4);
-                
-                    int iconIndex = effectiveStage - 1;
-                
-                    if (iconIndex < damageableComponent.RottingStageIcons.Count)
+                    else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
                     {
-                        string iconId = damageableComponent.RottingStageIcons[iconIndex];
-                    
-                        if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
-                        {
-                            result.Add(icon);
-                        }
-                        else
-                        {
-                            if (_prototypeMan.TryIndex<HealthIconPrototype>("HealthIconRotting", out var fallbackIcon))
-                            {
-                                result.Add(fallbackIcon);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (_prototypeMan.TryIndex<HealthIconPrototype>("HealthIconRotting", out var fallbackIcon))
-                        {
-                            result.Add(fallbackIcon);
-                        }
+                        result.Add(fallbackIcon);
                     }
                 }
-                else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value))
+                else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
                 {
-                    if (_prototypeMan.TryIndex<HealthIconPrototype>(value, out var icon))
-                    {
+                    result.Add(fallbackIcon);
+                }
+            }
+            else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value))
+            {
+                if (_prototypeMan.TryIndex<HealthIconPrototype>(value, out var icon))
+                {
                     result.Add(icon);
-                    }
                 }
-            // DS14-Soyuz-end
             }
         }
-
-        return result;
     }
+
+    return result;
+}
 }

@@ -109,7 +109,7 @@
   voteType: calm # DS14
   description: extended-description
   rules:
-  - BrokenTechEvent #DS14
+# - BrokenTechEvent #DS14 # DS14-Soyuz disabled
   - WageScheduler # backmen: currency
   - BasicStationEventScheduler
   - MeteorSwarmScheduler

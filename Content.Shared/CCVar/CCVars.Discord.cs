@@ -59,6 +59,25 @@ public sealed partial class CCVars
     public static readonly CVarDef<string> DiscordRoundEndRoleWebhook =
         CVarDef.Create("discord.round_end_role", string.Empty, CVar.SERVERONLY);
 
+// DS14-Soyuz start
+    /// <summary>
+    ///     URL of the Discord webhook which will relay all ahelp messages for secondary discord server.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordAHelpWebhookSecondary =
+        CVarDef.Create("discord.ahelp_webhook_secondary", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+    /// <summary>
+    ///     URL of the Discord webhook which will relay round restart messages for secondary discord server.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordRoundUpdateWebhookSecondary =
+        CVarDef.Create("discord.round_update_webhook_secondary", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+    /// <summary>
+    ///     Role id for the Discord webhook to ping when the round ends for secondary discord server.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordRoundEndRoleWebhookSecondary =
+        CVarDef.Create("discord.round_end_role_secondary", string.Empty, CVar.SERVERONLY);
+// DS14-Soyuz end
 
     /// <summary>
     ///     The token used to authenticate with Discord. For the Bot to function set: discord.token, discord.guild_id, and discord.prefix.

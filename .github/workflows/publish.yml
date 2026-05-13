@@ -111,6 +111,6 @@ jobs:
         curl -H "Content-Type: application/json" \
              -X POST \
              -d '{
-               "content": "<@&1504050876212445255> :logo_UNION1: Сервер успешно обновлён!\nРепозиторий: ${{ github.repository }}\nВетка: ${{ github.ref_name }}\nВсе последние изменения Союза ☭ в игре 🥳"
+               "content": "<@&1504050876212445255> :logo_UNION1: Сервер успешно обновлён!\nРепозиторий: ${{ github.repository }}\nВетка: ${{ github.ref_name }}\nКоммиты: ${{ github.sha }}\nВсе последние изменения Союза ☭ в игре 🥳"
              }' \
              $DISCORD_WEBHOOK_URL

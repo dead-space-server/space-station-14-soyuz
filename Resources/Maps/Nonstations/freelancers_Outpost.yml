@@ -1937,6 +1937,13 @@ entities:
       - - SyndicateAgent
     - type: Fixtures
       fixtures: {}
+- proto: BasePirateUplink
+  entities:
+  - uid: 233
+    components:
+    - type: Transform
+      pos: 18.589367,-1.5076638
+      parent: 2
 - proto: Bed
   entities:
   - uid: 40

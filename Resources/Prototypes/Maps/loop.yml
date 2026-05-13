@@ -57,7 +57,7 @@
             TechnicalAssistant: [ 5, 5 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ

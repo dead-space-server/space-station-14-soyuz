@@ -92,7 +92,6 @@ public sealed class CarrySystem : EntitySystem
 
         var time = _timing.CurTime;
         var query = EntityQueryEnumerator<CarriedComponent>();
-
         while (query.MoveNext(out var uid, out var carried))
         {
             if (carried.Carrier is not { } carrier ||

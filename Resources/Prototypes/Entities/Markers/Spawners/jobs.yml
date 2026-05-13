@@ -62,16 +62,16 @@
       - state: qm
 
 - type: entity
-  id: SpawnPointSeniorCourier
+  id: SpawnPointSeniorSalvageSpecialist
   parent: SpawnPointJobBase
-  name: senior сourier
-  # components: # DS14-Soyuz-Removed
-  # - type: SpawnPoint
-  #   job_id: SeniorCourier
-  # - type: Sprite
-  #   layers:
-  #     - state: green
-  #     - state: miner
+  name: senior salvage specialist
+  components:
+  - type: SpawnPoint
+    job_id: SeniorSalvageSpecialist
+  - type: Sprite
+    layers:
+      - state: green
+      - state: miner
 
 - type: entity
   id: SpawnPointCargoTechnician

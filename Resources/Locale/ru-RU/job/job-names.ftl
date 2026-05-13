@@ -78,6 +78,7 @@ job-name-security-pilot = Пилот милиции
 job-name-senior-courier = Ведущий логист
 job-name-senior-administrator = Управленец сервисного отдела
 job-name-station-ai = Станционный ИИ
+job-name-senior-salvagespec = Мастер шахтёр
 # unused jobs
 # these are required for the agent ID job icon tooltips
 # I am keeping them for roleplaying opportunities
@@ -167,7 +168,8 @@ JobBlueShieldOfficer = Оперативник КГБ
 JobMagistrat = Судья
 JobCoroner = Патологоанатом
 JobSecurityPilot = Пилот милиции
-JobSeniorCourier = Ведущий логист
+JobVirologist = Вирусолог
+JobSeniorSalvageSpecialist = Мастер шахтёр
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель

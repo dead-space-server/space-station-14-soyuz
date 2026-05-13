@@ -109,15 +109,11 @@
     - Science
   - type: ZombieImmune
   - type: ImmunitetInfectionDead
-  - type: Repairable #DS14-soyuz values
-    doAfterDelay: 3
-    fuelCost: 10
-    selfRepairPenalty: 5
-    damage:
-      types:
-        Blunt: -15
-        Piercing: -15
-        Slash: -15
+  - type: Repairable
+    damageValue: -10 # 10 seconds to repair from crit
+    doAfterDelay: 1
+    fuelCost: 0.5
+    allowSelfRepair: false
   - type: BorgChassis
   - type: LockingWhitelist
     blacklist:

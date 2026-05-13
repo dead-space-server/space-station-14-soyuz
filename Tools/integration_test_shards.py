@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from __future__ import annotations
 
 import argparse
@@ -9,6 +8,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 TEST_MARKER_PATTERN = re.compile(r"\[(?:Test|TestCase|TestCaseSource)\b")
+NAMESPACE_PATTERN = re.compile(r"(?m)^\s*namespace\s+([A-Za-z_][A-Za-z0-9_.]*)")
+INLINE_ATTRIBUTES_PATTERN = re.compile(r"^\s*(?:\[[^\]\n]+\]\s*)+")
+TYPE_DECLARATION_PATTERN = re.compile(
+    r"^\s*"
+    r"(?:(?:public|private|protected|internal|sealed|abstract|static|partial|readonly|ref|unsafe|new|file)\s+)*"
+    r"(?:class|struct|record(?:\s+(?:class|struct))?)\s+"
+    r"([A-Za-z_][A-Za-z0-9_]*)\b"
+)
 UNIT_NAME_SPLIT_PATTERN = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
 
 DEFAULT_TESTS_ROOT = Path("Content.IntegrationTests") / "Tests"
@@ -85,38 +92,101 @@ def discover_units(tests_root: Path, namespace_prefix: str) -> list[TestUnit]:
     units: list[TestUnit] = []
 
     for file_path in sorted(tests_root.glob("*.cs")):
-        weight = count_test_markers(file_path)
-        if weight == 0:
-            continue
-
-        stem = file_path.stem
-        units.append(
-            TestUnit(
-                name=stem,
-                weight=weight,
-                filter_expression=f"FullyQualifiedName~{namespace_prefix}.{stem}",
-            )
-        )
+        unit = build_file_unit(file_path, namespace_prefix)
+        if unit is not None:
+            units.append(unit)
 
     for directory in sorted(path for path in tests_root.iterdir() if path.is_dir()):
-        weight = sum(count_test_markers(file_path) for file_path in directory.rglob("*.cs"))
-        if weight == 0:
-            continue
-
-        units.append(
-            TestUnit(
-                name=directory.name,
-                weight=weight,
-                filter_expression=f"FullyQualifiedName~{namespace_prefix}.{directory.name}.",
-            )
-        )
+        unit = build_directory_unit(directory, namespace_prefix)
+        if unit is not None:
+            units.append(unit)
 
     return sorted(units, key=lambda unit: (-unit.weight, unit.name))
 
 
-def count_test_markers(file_path: Path) -> int:
+def build_file_unit(file_path: Path, namespace_prefix: str) -> TestUnit | None:
+    test_file = read_test_file(file_path, namespace_prefix)
+    if test_file.weight == 0:
+        return None
+
+    return TestUnit(
+        name=file_path.stem,
+        weight=test_file.weight,
+        filter_expression=build_filter_expression([test_file]),
+    )
+
+
+def build_directory_unit(directory: Path, namespace_prefix: str) -> TestUnit | None:
+    test_files = [
+        test_file
+        for test_file in (read_test_file(file_path, namespace_prefix) for file_path in sorted(directory.rglob("*.cs")))
+        if test_file.weight > 0
+    ]
+
+    if not test_files:
+        return None
+
+    return TestUnit(
+        name=directory.name,
+        weight=sum(test_file.weight for test_file in test_files),
+        filter_expression=build_filter_expression(test_files),
+    )
+
+
+@dataclass(frozen=True)
+class TestFile:
+    weight: int
+    filters: tuple[str, ...]
+
+
+def read_test_file(file_path: Path, namespace_prefix: str) -> TestFile:
     text = file_path.read_text(encoding="utf-8")
-    return len(TEST_MARKER_PATTERN.findall(text))
+    weight = len(TEST_MARKER_PATTERN.findall(text))
+    if weight == 0:
+        return TestFile(weight=0, filters=())
+
+    namespace = read_namespace(text, namespace_prefix)
+    type_names = read_type_names(text, file_path.stem)
+    if not type_names:
+        type_names = (file_path.stem,)
+
+    filters = tuple(f"FullyQualifiedName~{namespace}.{type_name}" for type_name in type_names)
+    return TestFile(weight=weight, filters=filters)
+
+
+def read_namespace(text: str, namespace_prefix: str) -> str:
+    match = NAMESPACE_PATTERN.search(text)
+    if match is not None:
+        return match.group(1).rstrip(".")
+
+    return namespace_prefix
+
+
+def read_type_names(text: str, fallback_type_name: str) -> tuple[str, ...]:
+    type_names: list[str] = []
+
+    for line in text.splitlines():
+        line = INLINE_ATTRIBUTES_PATTERN.sub("", line)
+        match = TYPE_DECLARATION_PATTERN.match(line)
+        if match is not None:
+            type_names.append(match.group(1))
+
+    return tuple(sorted(set(type_names))) or (fallback_type_name,)
+
+
+def build_filter_expression(test_files: list[TestFile]) -> str:
+    filters: list[str] = []
+    seen: set[str] = set()
+
+    for test_file in test_files:
+        for filter_expression in test_file.filters:
+            if filter_expression in seen:
+                continue
+
+            filters.append(filter_expression)
+            seen.add(filter_expression)
+
+    return "|".join(filters)
 
 
 def build_shard_name(units: list[TestUnit], weight: int) -> str:
@@ -144,7 +214,6 @@ def summarize_display_units(display_units: list[str], max_length: int) -> str:
         return "Unknown"
 
     selected: list[str] = []
-
     for name in display_units:
         candidate_units = selected + [name]
         remaining = len(display_units) - len(candidate_units)
@@ -171,7 +240,6 @@ def balance_units(units: list[TestUnit], shard_count: int) -> list[Shard]:
 
     shard_count = min(shard_count, len(units))
     shards = [Shard(index=index) for index in range(shard_count)]
-
     for unit in units:
         shard = min(shards, key=lambda candidate: (candidate.weight, len(candidate.units), candidate.index))
         shard.add(unit)

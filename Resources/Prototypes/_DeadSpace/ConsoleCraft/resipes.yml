@@ -26,6 +26,8 @@
   - DelayModifierModule
   - RadiationResistanceModuleResearch
   - ExplosionResistanceModuleResearch
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: SecurityModifiedBackpack
@@ -53,6 +55,8 @@
   - SpeedModifierModuleSecurity
   - DelayModifierModule
   - StorageModuleSecurity
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: SecurityAdvancedModifiedBackpack
@@ -81,6 +85,8 @@
   - DelayModifierModule
   - PiercingResistanceModuleSecurityAdvanced
   - ReflectModuleSecurityAdvanced
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: SalvageModifiedBackpack
@@ -108,6 +114,8 @@
   - SpeedModifierModuleSalvage
   - DelayModifierModule
   - MineralScannerModuleSalvage
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: SalvageAdvancedModifiedBackpack
@@ -135,6 +143,8 @@
   - SpeedModifierModuleSalvageAdvanced
   - DelayModifierModule
   - MineralScannerModuleSalvageAdvanced
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: EVAModifiedBackpack
@@ -160,6 +170,8 @@
   minorItems:
   - StorageModule
   - DelayModifierModule
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: EngineerModifiedBackpack
@@ -188,6 +200,8 @@
   - DelayModifierModule
   - FireResistanceModuleEngineer
   - HeatResistanceModuleEngineer
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: HardsuitMaxim
@@ -235,22 +249,6 @@
 # Если вы хотите чтобы был рамдомный предмет во время крафта у чертежа, ставьте не requestItems, а randomRequestItems, а после чего составляйте список.
 
 - type: consoleCraft
-  id: WeaponRifleAEKCraft
-  name: AEK
-  item: WeaponRifleAEK
-  time: 10
-  randomRequestItems:
-  - items:
-      - ScrapFirelock3
-      - MediumCoreForModifiedBackpack
-    amount: 1
-    label: "Металл (случайный)"
-  minorItems:
-  - EnhancedCoolingModule
-  - OverchargeModule
-  - MassSkope
-
-- type: consoleCraft
   id: RIGNukeOps
   name: '@!$$&$&$@'
   item: ClothingBackpackRIGNukeOps
@@ -277,8 +275,8 @@
   minorItems:
   - OuterSuitMiniJet
   - DelayModifierModule
-  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
-  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
 
 - type: consoleCraft
   id: RIGNukeOpsElite
@@ -307,5 +305,21 @@
   minorItems:
   - OuterSuitMiniJet
   - DelayModifierModule
-  # - HandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
-  # - BluespaceHandHeldMassScannerModule # DS14-Soyuz disabled with comment: В коментарии, пока не найду оригинал
+  - HandHeldMassScannerModule
+  - BluespaceHandHeldMassScannerModule
+
+- type: consoleCraft
+  id: WeaponRifleAEKCraft
+  name: AEK
+  item: WeaponRifleAEK
+  time: 10
+  randomRequestItems:
+  - items:
+      - ScrapFirelock3
+      - MediumCoreForModifiedBackpack
+    amount: 1
+    label: "Металл (случайный)"
+  minorItems:
+  - EnhancedCoolingModule
+  - OverchargeModule
+  - MassSkope

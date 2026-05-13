@@ -45,6 +45,19 @@
   - ClownUnderwear # DS14-Underwear
 
 # Cargo
+- type: roleLoadout
+  id: JobSeniorSalvageSpecialist
+  groups:
+  - GroupTankHarness
+  - SalvageSpecialistJumpsuit
+  - SalvageSpecialistBackpack
+  - SalvageSpecialistOuterClothing
+  - SalvageSpecialistShoes
+  - Glasses
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - SalvageSpecialistUnderwear # DS14-Underwear
 
 # Law
 - type: roleLoadout
@@ -113,6 +126,7 @@
   id: JobSeniorOfficer
   groups:
   - GroupTankHarness
+  - SecurityMask
   - SeniorOfficerJumpsuit
   - SeniorOfficerBackpack
   - SeniorOfficerOuterClothing
@@ -157,7 +171,7 @@
   - MedicalShoes
   - PhysicianSocks
   - SeniorPhysicianPDA
-  - Glasses
+  - MedicalEyewear
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
@@ -172,7 +186,7 @@
   - CoronerJumpsuit
   - MedicalGloves
   - CoronerBackpack
-  - Glasses
+  - MedicalEyewear
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
@@ -190,7 +204,7 @@
   - VirologistUnderwear
   - MedicalShoes
   - VirologistOuterclothing
-  - Glasses
+  - MedicalEyewear
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool

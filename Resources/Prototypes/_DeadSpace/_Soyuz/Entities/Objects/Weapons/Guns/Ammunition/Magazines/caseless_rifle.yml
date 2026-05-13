@@ -1,13 +1,4 @@
 - type: entity
-  id: MagazineCaselessRifle
-  name: "magazine (.25 caseless)"
-  parent: BaseMagazinePistolCaselessRifle
-  components:
-  - type: Tag
-    tags:
-      - MagazineCaselessRifle
-
-- type: entity
   id: MagazineCaselessRifleIncendiary
   name: "magazine (.25 caseless incendiary)"
   parent: BaseMagazinePistolCaselessRifle

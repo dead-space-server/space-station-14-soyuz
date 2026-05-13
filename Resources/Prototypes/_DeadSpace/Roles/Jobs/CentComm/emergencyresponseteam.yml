@@ -130,7 +130,7 @@
     - BoxMRE
     - PinpointerNuclear
     - CrowbarRed
-    - DoorRemoteAll
+    - DoorRemoteCustom
     - Flare
     - EmergencyMedipen
     - ADTtelescopicBaton
@@ -190,7 +190,7 @@
     id: ERTLeaderGammaPDA
     belt: ClothingBeltSecurityWebbingFilled
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: DoorRemoteAll
+    pocket2: DoorRemoteCustom
   storage:
     back:
     - ERTloadoutGammaPrimaryLeader
@@ -410,7 +410,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTMedicalGearAmber
-  icon: "JobIconERT"
+  icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -475,7 +475,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTMedicalGearRed
-  icon: "JobIconERT"
+  icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -542,7 +542,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTMedicalGearGamma
-  icon: "JobIconERT"
+  icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -614,7 +614,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTEngineerGearAmber
-  icon: "JobIconERT"
+  icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -674,7 +674,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTEngineerGearRed
-  icon: "JobIconERT"
+  icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -736,7 +736,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTEngineerGearGamma
-  icon: "JobIconERT"
+  icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -803,7 +803,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTJanitorGearAmber
-  icon: "JobIconERT"
+  icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -862,7 +862,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTJanitorGearRed
-  icon: "JobIconERT"
+  icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
@@ -923,7 +923,7 @@
       department: Security
       time: 36000 # 10 hours
   startingGear: ERTJanitorGearGamma
-  icon: "JobIconERT"
+  icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:

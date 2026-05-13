@@ -65,7 +65,7 @@
 - type: radioChannel
   id: SOCChannel
   name: chat-radio-soc
-  keycode: 'а' # DS14-Localization
+  keycode: 'у' # DS14-Localization
   frequency: 1984
   color: "#00FA9A"
   longRange: true

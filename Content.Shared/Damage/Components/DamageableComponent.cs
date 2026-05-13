@@ -87,6 +87,17 @@ public sealed partial class DamageableComponent : Component
     [DataField]
     public ProtoId<HealthIconPrototype> RottingIcon = "HealthIconRotting";
 
+// DS14-Soyuz-start
+    [DataField]
+    public List<ProtoId<HealthIconPrototype>> RottingStageIcons = new()
+    {
+        "HealthIconRottingStage1",
+        "HealthIconRottingStage2",
+        "HealthIconRottingStage3",
+        "HealthIconRottingStage4", 
+    };
+// DS14-Soyuz-end
+
     [DataField]
     public FixedPoint2? HealthBarThreshold;
 }

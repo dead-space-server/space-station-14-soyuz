@@ -90,3 +90,27 @@ jobs:
     #   run: Tools/actions_changelog_rss.py
     #   env:
     #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
+
+    - name: Send Discord Webhook Notification (Soyuz Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+               "content": "<@&1504050876212445255> :logo_UNION1: Сервер успешно обновлён!\nРепозиторий: ${{ github.repository }}\nВетка: ${{ github.ref_name }}\nВсе последние изменения в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL
+
+    - name: Send Discord Webhook Notification (DeadSpace Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+               "content": "<@&1504050876212445255> :logo_UNION1: Сервер успешно обновлён!\nРепозиторий: ${{ github.repository }}\nВетка: ${{ github.ref_name }}\nВсе последние изменения Союза ☭ в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL

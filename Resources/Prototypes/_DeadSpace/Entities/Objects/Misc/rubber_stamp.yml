@@ -22,6 +22,10 @@
     stampedName: stamp-component-stamped-name-brigmedic
     stampedColor: "#CC2369"
     stampState: "paper_stamp-hos"
+    stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
+    stampScale: 0.92
+    stampHeaderText: "Милиция"
+    stampBackgroundText: "NanoTrasen"
   - type: Sprite
     sprite: _DeadSpace/Objects/Misc/rubberstampbrigmedic.rsi
     state: stamp-brigmedic
@@ -127,6 +131,10 @@
     stampedName: stamp-component-stamped-name-senior-officer
     stampedColor: "#811116"
     stampState: "paper_stamp-hos"
+    stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
+    stampScale: 0.92
+    stampHeaderText: "Милиция"
+    stampBackgroundText: "NanoTrasen"
   - type: Sprite
     state: stamp-senior-officer
 

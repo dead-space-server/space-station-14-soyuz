@@ -15,7 +15,7 @@
 
 - type: entity
   parent: BaseSubdermalImplant
-  id: RadioImplantDeathSquad
+  id: RadioImplantNKO
   name: имплант "радио"
   description: Этот имплант даёт доступ к радиочастоте UNKNOWN без гарнитуры.
   categories: [ HideSpawnMenu ]

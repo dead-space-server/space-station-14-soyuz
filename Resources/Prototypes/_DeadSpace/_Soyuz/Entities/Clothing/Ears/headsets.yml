@@ -28,7 +28,7 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
-    state: equipped-EARS
+    equippedState: equipped-EARS
 
 - type: entity
   parent: ClothingHeadsetNKOCaptain
@@ -40,4 +40,4 @@
     state: icon_alt
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
-    state: alt-equipped-EARS
+    equippedState: alt-equipped-EARS

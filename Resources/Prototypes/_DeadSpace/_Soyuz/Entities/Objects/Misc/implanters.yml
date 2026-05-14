@@ -8,7 +8,7 @@
     implant: DeathRattleImplantNKO
 
 - type: entity
-  id: RadioImplanterDeathSquad
+  id: RadioImplanterNKO
   name: имплантер
   suffix: Радио, НКО
   parent: BaseImplantOnlyImplanter

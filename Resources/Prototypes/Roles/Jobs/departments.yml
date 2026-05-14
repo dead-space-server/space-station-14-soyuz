@@ -7,7 +7,7 @@
   - CargoTechnician
   - Quartermaster
   - SalvageSpecialist
-  # - SeniorCourier
+  - SeniorSalvageSpecialist
   accountNumber: 1315 #backmen: currency
 
 - type: department
@@ -46,7 +46,7 @@
   - CentralCommandOperator
   - CentralCommandOfficer
   - Magistrat
-  editorHidden: true
+  editorHidden: false
   weight: 120
 
 - type: department

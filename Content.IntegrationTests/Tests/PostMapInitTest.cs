@@ -40,7 +40,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -54,17 +54,17 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly Dictionary<string, HashSet<EntProtoId>> DoNotMapWhitelistSpecific = new()
         {
-            {"/Maps/bagel.yml", ["RubberStampMime"]},
+            // {"/Maps/bagel.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
             // DS14-start: Add our custom maps to whitelist
-            {"/Maps/barratry.yml", ["RubberStampCaptain"]},
-            {"/Maps/cluster.yml", ["RubberStampMime"]},
-            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars"]},
-            {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
-            {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
+            // {"/Maps/barratry.yml", ["RubberStampCaptain"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/cluster.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_box.yml", ["RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
             // DS-14 Soyuz: Add our custom maps to whitelist
             {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
@@ -84,7 +84,7 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             "/Maps/_Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start

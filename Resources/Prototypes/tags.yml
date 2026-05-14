@@ -496,12 +496,6 @@
   id: DrinkCan # ConstructionGraph: FireBomb
 
 - type: Tag
-  id: DrinkCup # Unused. Exists on DrinkBaseCup, DrinkWaterCup, DrinkGlass
-
-- type: Tag
-  id: DrinkGlass # Unused. Exists on DrinkGlass, DrinkShotGlass, DrinkJarWhat, DrinkShakeBase
-
-- type: Tag
   id: Dropper # Storage whitelist: ClothingBeltMedical, ClothingBeltPlant, ChemBag
 
 - type: Tag
@@ -690,8 +684,6 @@
 - type: Tag
   id: HamsterWearable # Used by inventoryTemplate:hamster to whitelist clothes wearable by brown rats
 
-## H ##
-
 - type: Tag
   id: HamtrCentralControlModule # ConstructionGraph: Hamtr
 
@@ -835,8 +827,6 @@
 
 ## K ##
 
-## K ##
-
 - type: Tag
   id: Kangaroo # Used by inventoryTemplate:kangaroo to whitelist clothes wearable by the man shaped animal.
 
@@ -858,8 +848,6 @@
 
 ## L ##
 
-## L ##
-
 - type: Tag
   id: LaserWeapon # Used for a cargo bounty. Added to all hitscan weapons that shoot lasers.
 
@@ -872,8 +860,6 @@
 - type: Tag
   id: LightBulb # Storage whitelist: BoxLightbulb. ConstructionGraph: HelmetJustice
 
-## M ##
-
 - type: Tag
   id: Lime # CargoBounty: BountyLime
 
@@ -883,6 +869,9 @@
 
 # Entities tagged with the following are some sort of gun magazine. Guns whitelist their storage using these tags.
 # Tagged entities always have BallisticAmmoProviderComponent.
+
+- type: Tag
+  id: MagazineCaselessRifle # DS-14
 
 - type: Tag
   id: MagazineDebug # WeaponPistolDebug
@@ -1033,8 +1022,6 @@
 - type: Tag
   id: OreBananium # CargoBounty: BountySalvageOreBananium
 
-## O ##
-
 - type: Tag
   id: OreGold # CargoBounty: BountySalvageOreGold
 
@@ -1057,8 +1044,6 @@
 
 - type: Tag
   id: Pancake # CargoBounty: BountyPancake
-
-## P ##
 
 - type: Tag
   id: Paper # A writeable piece of paper. Subset of Document tag. SpecialDigestible: OrganMothStomach, OrganReptilianStomach. Storage whitelist: MailCart
@@ -1199,8 +1184,6 @@
 - type: Tag
   id: Raw # MaterialStorage whitelist: Sheetifier
 
-## Q ##
-
 - type: Tag
   id: RawMaterial # MaterialStorage whitelist for many machines and lathes. Storage whitelist: MaterialBag
 
@@ -1257,8 +1240,6 @@
 
 - type: Tag # Used on DungeonRoom prototypes.
   id: SalvageExperiment # PrefabDunGen whitelist on Experiment DungeonConfig.
-
-## S ##
 
 - type: Tag
   id: SalvageScrap # CargoBounty: BountySalvageScrap
@@ -1431,8 +1412,6 @@
 - type: Tag
   id: TimerBrigElectronics # ConstructionGraph: Timer
 
-## T ##
-
 - type: Tag
   id: TimerScreenElectronics # ConstructionGraph: Timer
 
@@ -1507,8 +1486,6 @@
 
 - type: Tag
   id: VoiceTrigger # ConstructionGraph: Vim
-
-## W ##
 
 ## W ##
 
@@ -1591,8 +1568,6 @@
 
 - type: Tag
   id: XenoborgGhostrole # spawn whitelist : SpawnPointGhostRoleXenoborg
-
-## X ##
 
 - type: Tag
   id: XenoborgModuleEngi # Cyborg module category for evil engineer xenoborg

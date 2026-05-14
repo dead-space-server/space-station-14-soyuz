@@ -1,5 +1,5 @@
 ent-RandomHumanoidSpawnerDeathSquad = Специальный отряд "Дым"
-    .suffix = Призрачная роль, 210 часов общего времени
+    .suffix = Призрачная роль, 525 часов общего времени и 30 часов за СГМ
     .desc = { "" }
 ent-MobHumanDeathSquadUnit = { ent-MobHuman }
     .desc = { ent-MobHuman.desc }

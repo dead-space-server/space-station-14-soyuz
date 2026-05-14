@@ -1,0 +1,27 @@
+- type: healthIcon
+  parent: HealthIcon
+  id: HealthIconRottingStage1
+  icon: 
+    sprite: /Textures/_DeadSpace/_Soyuz/Icons/health.rsi
+    state: HealthIconRottingStage1
+
+- type: healthIcon
+  parent: HealthIcon
+  id: HealthIconRottingStage2
+  icon:
+    sprite: /Textures/_DeadSpace/_Soyuz/Icons/health.rsi
+    state: HealthIconRottingStage2
+
+- type: healthIcon
+  parent: HealthIcon
+  id: HealthIconRottingStage3
+  icon:
+    sprite: /Textures/_DeadSpace/_Soyuz/Icons/health.rsi
+    state: HealthIconRottingStage3
+
+- type: healthIcon
+  parent: HealthIcon
+  id: HealthIconRottingStage4
+  icon:
+    sprite: /Textures/_DeadSpace/_Soyuz/Icons/health.rsi
+    state: HealthIconRottingStage4

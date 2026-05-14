@@ -90,3 +90,32 @@ jobs:
     #   run: Tools/actions_changelog_rss.py
     #   env:
     #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
+# DS14-Soyuz webhook start
+    - name: Send Discord Webhook Notification (Soyuz Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+              "username": "Обновления Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+               "content": "<@&1504050876212445255>\n <:logo_UNION1:1504050698315235468>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL
+
+    - name: Send Discord Webhook Notification (DeadSpace Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+              "username": "Обновления Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+               "content": "(Тут должен быть пинг роли обновлений, но отдельную роль мне не дадут)\n <:logo_UNION1:1282351621375791218>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL
+# DS14-Soyuz webhook end

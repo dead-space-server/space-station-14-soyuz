@@ -20,13 +20,14 @@
       coefficients:
         Blunt: 0.45
         Slash: 0.4
-        Piercing: 0.35
-        Heat: 0.55
+        Piercing: 0.4
+        Heat: 0.40
         Cold: 0.3
         Radiation: 0.5
         Poison: 0.5
         Caustic: 0.4
-        Stun: 0.5
+  - type: StaminaResistance
+    damageCoefficient: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
@@ -101,13 +102,14 @@
       coefficients:
         Blunt: 0.3
         Slash: 0.3
-        Piercing: 0.3
-        Heat: 0.5
+        Piercing: 0.35  
+        Heat: 0.3
         Cold: 0.35
         Radiation: 0.25
         Poison: 0.25
         Caustic: 0.25
-        Stun: 0.15
+  - type: StaminaResistance
+    damageCoefficient: 0.15
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -183,12 +185,13 @@
         Blunt: 0.65
         Slash: 0.55
         Piercing: 0.65
-        Heat: 0.65
+        Heat: 0.45
         Cold: 0.6
         Radiation: 0.55
         Poison: 0.5
         Caustic: 0.5
-        Stun: 0.45
+  - type: StaminaResistance
+    damageCoefficient: 0.45
   - type: ClothingSpeedModifier
     walkModifier: 1.2
     sprintModifier: 1.2
@@ -271,7 +274,8 @@
         Radiation: 0.1
         Poison: 0.3
         Caustic: 0.3
-        Stun: 0.45
+  - type: StaminaResistance
+    damageCoefficient: 0.45
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -354,7 +358,8 @@
         Radiation: 0.5
         Poison: 0.5
         Caustic: 0.5
-        Stun: 0.5
+  - type: StaminaResistance
+    damageCoefficient: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 1.05
     sprintModifier: 1.05

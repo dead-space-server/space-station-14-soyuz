@@ -131,7 +131,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 MaxWidth = 300
             });
 
-        // DS14-Start
+        // DS14-Soyuz-Start
         if (state.Unclonable == true)
             AlertsContainer.AddChild(new RichTextLabel
             {
@@ -139,7 +139,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 Margin = new Thickness(0, 4),
                 MaxWidth = 300
             });
-        // DS14-End
+        // DS14-Soyuz-End
 
         // Damage Groups
 

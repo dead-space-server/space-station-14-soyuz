@@ -52,8 +52,8 @@
             StationEngineer: [ 2, 2 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
-            SalvageSpecialist: [ 2, 2 ]
+#            SeniorSalvageSpecialist: [ 1, 1 ]
+            SalvageSpecialist: [ 1, 1 ]
             CargoTechnician: [ 1, 1 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

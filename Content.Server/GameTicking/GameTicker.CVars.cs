@@ -25,6 +25,10 @@ namespace Content.Server.GameTicking
         private string? DiscordRoundEndRole { get; set; }
 
         private WebhookIdentifier? _webhookIdentifier;
+        private WebhookIdentifier? _webhookIdentifierSecondary; // DS14-Soyuz
+
+        [ViewVariables]
+        private string? DiscordRoundEndRoleSecondary { get; set; } // DS14-Soyuz
 
         [ViewVariables]
         private string? RoundEndSoundCollection { get; set; }
@@ -63,6 +67,13 @@ namespace Content.Server.GameTicking
                     _discord.GetWebhook(value, data => _webhookIdentifier = data.ToIdentifier());
                 }
             }, true);
+            Subs.CVar(_cfg, CCVars.DiscordRoundUpdateWebhookSecondary, value => // DS14-Soyuz - start
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    _discord.GetWebhook(value, data => _webhookIdentifierSecondary = data.ToIdentifier());
+                }
+            }, true); // DS14-Soyuz - end
             Subs.CVar(_cfg, CCVars.DiscordRoundEndRoleWebhook, value =>
             {
                 DiscordRoundEndRole = value;
@@ -72,6 +83,15 @@ namespace Content.Server.GameTicking
                     DiscordRoundEndRole = null;
                 }
             }, true);
+            Subs.CVar(_cfg, CCVars.DiscordRoundEndRoleWebhookSecondary, value => // DS14-Soyuz - start
+            {
+                DiscordRoundEndRoleSecondary = value;
+
+                if (value == string.Empty)
+                {
+                    DiscordRoundEndRoleSecondary = null;
+                }
+            }, true); // DS14-Soyuz - end
             Subs.CVar(_cfg, CCVars.RoundEndSoundCollection, value => RoundEndSoundCollection = value, true);
 #if EXCEPTION_TOLERANCE
             Subs.CVar(_cfg, CCVars.RoundStartFailShutdownCount, value => RoundStartFailShutdownCount = value, true);

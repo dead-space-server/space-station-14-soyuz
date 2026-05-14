@@ -93,7 +93,7 @@ jobs:
           pr_number = os.environ.get("PR_NUMBER", "")
           repo = os.environ.get("REPO", "")
           payload = {
-              "username": "Изменения союз-1",
+              "username": "Изменения Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
               "embeds": [
                   {

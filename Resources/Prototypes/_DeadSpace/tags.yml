@@ -38,10 +38,16 @@
   id: BorgSecTorso
 
 - type: Tag
+  id: BluespaceHandHeldMassScanner
+
+- type: Tag
   id: DarkFlower
 
 - type: Tag
   id: DrinkBeerBottleFull
+
+- type: Tag
+  id: CantChangeScale
 
 - type: Tag
   id: CakeBrain
@@ -110,10 +116,10 @@
   id: EnergyCartridge
 
 - type: Tag
-  id: CartridgeLightestRifle
+  id: EnergySword
 
 - type: Tag
-  id: EnergySword
+  id: EnergyKatana
 
 - type: Tag
   id: EnergySwordDouble
@@ -167,6 +173,9 @@
   id: HardsuitSyndie
 
 - type: Tag
+  id: HandHeldMassScanner
+
+- type: Tag
   id: HolopadAdminNotification
 
 - type: Tag
@@ -196,22 +205,6 @@
 - type: Tag
   id: LightReplacer
 
-
-- type: Tag
-  id: MagazineBoxLightestRifle
-
-- type: Tag
-  id: MagazineBoxLightestRifleIncendiary
-
-- type: Tag
-  id: MagazineBoxLightestRiflePractice
-
-- type: Tag
-  id: MagazineBoxLightestRifleUranium
-
-- type: Tag
-  id: MagazineCaselessRifle
-
 - type: Tag
   id: MagazineCarbineSKS
 
@@ -238,6 +231,9 @@
 
 - type: Tag
   id: MeatWheat
+
+- type: Tag
+  id: Medipen
 
 - type: Tag
   id: MukhtarWearable

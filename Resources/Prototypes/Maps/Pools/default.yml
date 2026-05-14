@@ -21,8 +21,7 @@
   - Elkridge
   - Fland
   - Gate
-  - Gemini
-  - Loop
+  # - Gemini # broken map, needs resave
   - Loop
   - Marathon
   - Meta
@@ -33,4 +32,5 @@
   - Plasma
   - Reach
   - Saltern
-#  - Train Я рот топтал трейна
+  - Snowball
+  # - Train # Holy Sheet map

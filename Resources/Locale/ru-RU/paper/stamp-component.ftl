@@ -14,6 +14,7 @@ stamp-component-stamped-name-rd = Главный научный сотрудни
 stamp-component-stamped-name-warden = Старший следователь
 stamp-component-stamped-name-trader = Торговец
 stamp-component-stamped-name-syndicate = Рассвет
+stamp-component-stamped-name-syndicate-emblem = Эмблема Рассвета
 stamp-component-stamped-name-ce = Старший инженер
 stamp-component-stamped-name-magistrat = Судья
 stamp-component-stamped-name-brigmedic = Дежурный врач

@@ -1,0 +1,183 @@
+# Стальная плитка
+## Белая
+- type: stack
+  id: FloorTileWhiteSteel1
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel1
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel2
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel2
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel3
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel3
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel4
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel4
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel5
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel5
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel6
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel6
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel7
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel7
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel8
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel8
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel9
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel9
+  maxCount: 30
+
+- type: stack
+  id: FloorTileWhiteSteel10
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel10
+  maxCount: 30
+
+## Обычная
+- type: stack
+  id: FloorTileSteel1
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel1
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel2
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel2
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel3
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel3
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel4
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel4
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel5
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel5
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel6
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel6
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel7
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel7
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel8
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel8
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel9
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel9
+  maxCount: 30
+
+- type: stack
+  id: FloorTileSteel10
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel10
+  maxCount: 30
+
+## Тёмная
+- type: stack
+  id: FloorTileBlackSteel1
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel1
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel2
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel2
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel3
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel3
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel4
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel4
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel5
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel5
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel6
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel6
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel7
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel7
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel8
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel8
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel9
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel9
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel10
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel10
+  maxCount: 30

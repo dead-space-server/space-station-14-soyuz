@@ -1,0 +1,63 @@
+{
+    "version": 1,
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Created by pered6664 (discord) for Space Station 14 Server Мёртвый Космос Союз-1",
+    "states": [
+        {
+            "name": "HealthIconRottingStage1",
+            "delays": [
+                [
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            ]
+        },
+        {
+            "name": "HealthIconRottingStage2",
+            "delays": [
+                [
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            ]
+        },
+        {
+            "name": "HealthIconRottingStage3",
+            "delays": [
+                [
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            ]
+        },
+        {
+            "name": "HealthIconRottingStage4",
+            "delays": [
+                [
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            ]
+        }
+    ]
+}

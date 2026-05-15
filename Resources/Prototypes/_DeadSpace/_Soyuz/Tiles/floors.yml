@@ -244,7 +244,7 @@
 ## Тёмные
 - type: tile
   id: FloorBlackSteel1
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel1.png
   baseTurf: Plating
   isSubfloor: false
@@ -256,7 +256,7 @@
 
 - type: tile
   id: FloorBlackSteel2
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel2.png
   baseTurf: Plating
   isSubfloor: false
@@ -268,7 +268,7 @@
 
 - type: tile
   id: FloorBlackSteel3
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel3.png
   baseTurf: Plating
   isSubfloor: false
@@ -280,7 +280,7 @@
 
 - type: tile
   id: FloorBlackSteel4
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel4.png
   baseTurf: Plating
   isSubfloor: false
@@ -292,7 +292,7 @@
 
 - type: tile
   id: FloorBlackSteel5
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel5.png
   baseTurf: Plating
   isSubfloor: false
@@ -304,7 +304,7 @@
 
 - type: tile
   id: FloorBlackSteel6
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel6.png
   baseTurf: Plating
   isSubfloor: false
@@ -316,7 +316,7 @@
 
 - type: tile
   id: FloorBlackSteel7
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel7.png
   baseTurf: Plating
   isSubfloor: false
@@ -328,7 +328,7 @@
 
 - type: tile
   id: FloorBlackSteel8
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel8.png
   baseTurf: Plating
   isSubfloor: false
@@ -340,7 +340,7 @@
 
 - type: tile
   id: FloorBlackSteel9
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel9.png
   baseTurf: Plating
   isSubfloor: false
@@ -352,7 +352,7 @@
 
 - type: tile
   id: FloorBlackSteel10
-  name: чёрная стальная плитка
+  name: тёмная стальная плитка
   sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel10.png
   baseTurf: Plating
   isSubfloor: false

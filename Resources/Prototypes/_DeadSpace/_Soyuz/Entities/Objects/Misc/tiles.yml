@@ -16,7 +16,7 @@
     - Plating
     - FloorWhiteSteel1
   - type: Stack
-    stackType: FloorTileItemWhiteSteel1
+    stackType: FloorWhiteSteel1
 
 - type: entity
   parent: FloorTileItemBase
@@ -34,7 +34,7 @@
     - Plating
     - FloorWhiteSteel2
   - type: Stack
-    stackType: FloorTileItemWhiteSteel2
+    stackType: FloorWhiteSteel2
 
 - type: entity
   parent: FloorTileItemBase
@@ -52,7 +52,7 @@
     - Plating
     - FloorWhiteSteel3
   - type: Stack
-    stackType: FloorTileItemWhiteSteel3
+    stackType: FloorWhiteSteel3
 
 - type: entity
   parent: FloorTileItemBase
@@ -70,7 +70,7 @@
     - Plating
     - FloorWhiteSteel4
   - type: Stack
-    stackType: FloorTileItemWhiteSteel4
+    stackType: FloorWhiteSteel4
 
 - type: entity
   parent: FloorTileItemBase
@@ -88,7 +88,7 @@
     - Plating
     - FloorWhiteSteel5
   - type: Stack
-    stackType: FloorTileItemWhiteSteel5
+    stackType: FloorWhiteSteel5
 
 - type: entity
   parent: FloorTileItemBase
@@ -106,7 +106,7 @@
     - Plating
     - FloorWhiteSteel6
   - type: Stack
-    stackType: FloorTileItemWhiteSteel6
+    stackType: FloorWhiteSteel6
 
 - type: entity
   parent: FloorTileItemBase
@@ -124,7 +124,7 @@
     - Plating
     - FloorWhiteSteel7
   - type: Stack
-    stackType: FloorTileItemWhiteSteel7
+    stackType: FloorWhiteSteel7
 
 - type: entity
   parent: FloorTileItemBase
@@ -142,7 +142,7 @@
     - Plating
     - FloorWhiteSteel8
   - type: Stack
-    stackType: FloorTileItemWhiteSteel8
+    stackType: FloorWhiteSteel8
 
 - type: entity
   parent: FloorTileItemBase
@@ -160,7 +160,7 @@
     - Plating
     - FloorWhiteSteel9
   - type: Stack
-    stackType: FloorTileItemWhiteSteel9
+    stackType: FloorWhiteSteel9
 
 - type: entity
   parent: FloorTileItemBase
@@ -178,7 +178,7 @@
     - Plating
     - FloorWhiteSteel10
   - type: Stack
-    stackType: FloorTileItemWhiteSteel10
+    stackType: FloorWhiteSteel10
 
 ## Обычная
 - type: entity
@@ -378,7 +378,7 @@
     - Plating
     - FloorBlackSteel1
   - type: Stack
-    stackType: FloorTileItemBlackSteel1
+    stackType: FloorTileBlackSteel1
 
 - type: entity
   parent: FloorTileItemBase
@@ -396,7 +396,7 @@
     - Plating
     - FloorBlackSteel2
   - type: Stack
-    stackType: FloorTileItemBlackSteel2
+    stackType: FloorTileBlackSteel2
 
 - type: entity
   parent: FloorTileItemBase
@@ -414,7 +414,7 @@
     - Plating
     - FloorBlackSteel3
   - type: Stack
-    stackType: FloorTileItemBlackSteel3
+    stackType: FloorTileBlackSteel3
 
 - type: entity
   parent: FloorTileItemBase
@@ -432,7 +432,7 @@
     - Plating
     - FloorBlackSteel4
   - type: Stack
-    stackType: FloorTileItemBlackSteel4
+    stackType: FloorTileBlackSteel4
 
 - type: entity
   parent: FloorTileItemBase
@@ -450,7 +450,7 @@
     - Plating
     - FloorBlackSteel5
   - type: Stack
-    stackType: FloorTileItemBlackSteel5
+    stackType: FloorTileBlackSteel5
 
 - type: entity
   parent: FloorTileItemBase
@@ -468,7 +468,7 @@
     - Plating
     - FloorBlackSteel6
   - type: Stack
-    stackType: FloorTileItemBlackSteel6
+    stackType: FloorTileBlackSteel6
 
 - type: entity
   parent: FloorTileItemBase
@@ -486,7 +486,7 @@
     - Plating
     - FloorBlackSteel7
   - type: Stack
-    stackType: FloorTileItemBlackSteel7
+    stackType: FloorTileBlackSteel7
 
 - type: entity
   parent: FloorTileItemBase
@@ -504,7 +504,7 @@
     - Plating
     - FloorBlackSteel8
   - type: Stack
-    stackType: FloorTileItemBlackSteel8
+    stackType: FloorTileBlackSteel8
 
 - type: entity
   parent: FloorTileItemBase
@@ -522,7 +522,7 @@
     - Plating
     - FloorBlackSteel9
   - type: Stack
-    stackType: FloorTileItemBlackSteel9
+    stackType: FloorTileBlackSteel9
 
 - type: entity
   parent: FloorTileItemBase
@@ -540,4 +540,4 @@
     - Plating
     - FloorBlackSteel10
   - type: Stack
-    stackType: FloorTileItemBlackSteel10
+    stackType: FloorTileBlackSteel10

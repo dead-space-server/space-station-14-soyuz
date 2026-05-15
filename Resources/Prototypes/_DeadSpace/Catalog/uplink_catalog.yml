@@ -735,3 +735,70 @@
     Telecrystal: 3
   categories:
   - UplinkWearables
+
+- type: listing
+  id: UplinkWeaponPistolGurza
+  name: Гюрза
+  description: Крайне скорострельный автоматический пистолет в калибре 9х19 мм. Не имеет ничего общего с аномалиями.
+  icon: { sprite: /Textures/_DeadSpace/Objects/Weapons/Guns/Pistols/gurza.rsi, state: icon }
+  productEntity: WeaponPistolGurza
+  cost:
+    Telecrystal: 7
+  categories:
+  - UplinkWeaponry
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMagazineGurza
+  name: Чёрный автопистолетный магазин (9х19 мм)
+  description: Увеличинный магазин на 38 патронов. Подходит для пистолета Гюрза.
+  icon: { sprite: /Textures/_DeadSpace/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/gurza_mag.rsi, state: base-icon }
+  productEntity: MagazineGurza
+  cost:
+    Telecrystal: 2
+  categories:
+  - UplinkAmmo
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkThermalVisorNuke
+  name: uplink-thermal-visor-name
+  description: uplink-thermal-visor-desc
+  icon: { sprite: /Textures/_DeadSpace/Clothing/Eyes/Hud/thermal.rsi, state: icon }
+  productEntity: ClothingEyesGlassesThermalVisor
+  cost:
+    Telecrystal: 10
+  categories:
+  - UplinkWearables
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkThermalVisor
+  name: uplink-thermal-visor-name
+  description: uplink-thermal-visor-desc
+  icon: { sprite: /Textures/_DeadSpace/Clothing/Eyes/Hud/thermal.rsi, state: icon }
+  productEntity: ClothingEyesGlassesThermalVisor
+  discountCategory: rareDiscounts
+  discountDownTo:
+    Telecrystal: 3
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkWearables
+  conditions:
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink

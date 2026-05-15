@@ -121,12 +121,19 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
+    - ERTloadoutRedPrimaryLeader
+    - ERTloadoutRedSecondaryLeader
+    - ERTloadoutRedSupport
+    - UplinkERTRed
     - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
+    - Flare
+    - EmergencyMedipen
+    - ADTtelescopicBaton
+    - Flash
     - WeaponDisabler
+    - Truncheon
 
 ## Gamma
 - type: job
@@ -183,12 +190,18 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
-    - BoxCardboardERT
+    - ERTloadoutGammaPrimaryLeader
+    - ERTloadoutGammaSecondaryLeader
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
     - PinpointerNuclear
     - CrowbarRed
+    - EmergencyMedipen
+    - BoxCardboardERT
+    - Flare
     - WeaponDisabler
+    - ClothingEyesPNVAdv
+    - KukriKnife
 
 # Security
 ## Amber
@@ -303,12 +316,17 @@
     pocket2: TelescopicShield
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
-    - BoxCardboardERT
-    - CrowbarRed
-    - PinpointerNuclear
     - WeaponDisabler
+    - ERTloadoutRedPrimary
+    - EmergencyMedipen
+    - BoxCardboardERT
+    - ERTloadoutRedSecondary
+    - CrowbarRed
+    - Flare
+    - Truncheon
+    - PinpointerNuclear
+    - ERTloadoutRedSupport
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -359,12 +377,18 @@
     pocket2: TelescopicShield
   storage:
     back:
+    - WeaponDisabler
+    - CrowbarRed
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+    - EmergencyMedipen
     - BoxCardboardERT
-    - CrowbarRed
+    - Flare
+    - Truncheon
     - PinpointerNuclear
-    - WeaponDisabler
+    - ClothingEyesPNVAdv
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
 
 # Medical
 ## Amber
@@ -483,6 +507,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+    - ERTloadoutRedSupport
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -492,6 +517,7 @@
     - ChemistryBottleOmnizine
     - ChemistryBottleBruizine
     - ChemistryBottlePyrazine
+    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -544,6 +570,8 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear

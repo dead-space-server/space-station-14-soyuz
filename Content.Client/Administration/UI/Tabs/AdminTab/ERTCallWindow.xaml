@@ -8,7 +8,7 @@
             <BoxContainer Orientation="Horizontal">
                 <PanelContainer SetWidth="8">
                     <PanelContainer.PanelOverride>
-                        <gfx:StyleBoxFlat BackgroundColor="#1d8bad" />
+                        <gfx:StyleBoxFlat BackgroundColor="#B64444" />
                     </PanelContainer.PanelOverride>
                 </PanelContainer>
                 <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="8 0 0 0">

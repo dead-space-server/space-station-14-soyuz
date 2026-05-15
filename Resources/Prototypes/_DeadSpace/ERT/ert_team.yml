@@ -41,7 +41,7 @@
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
-  startAnnouncement: station-event-response-team-arrival-cburn-sierra
+  startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
     path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 

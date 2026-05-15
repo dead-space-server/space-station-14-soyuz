@@ -151,7 +151,7 @@
   - type: Tag
     tags:
     - NukeOpsUplink
-    - Grenade # DS14
+    - LoneOpsUplink #DS-14
 
 - type: entity
   parent: BaseUplinkRadio

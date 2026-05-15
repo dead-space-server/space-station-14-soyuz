@@ -782,26 +782,6 @@
       - NukeOpsUplink
 
 - type: listing
-  id: UplinkSyndicateChemBundle
-  name: продвинутый набор химического синтеза
-  description: Источник огромного количества реагентов для варки вашего ширева. Рецепт крокодила в комплекте не идёт.
-  icon: { sprite: _DeadSpace/Structures/Machines/VendingMachines/chemvend.rsi, state: deny }
-  productEntity: ClothingBackpackSatchelChemistrySyndicateChemBundle
-  cost:
-    Telecrystal: 25
-  categories:
-  - UplinkChemicals
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - LoneOpsUplink
-  - !type:BuyerWhitelistCondition
-    blacklist:
-      components:
-      - SurplusBundle
-
-- type: listing
   id: UplinkThermalVisorNuke
   name: uplink-thermal-visor-name
   description: uplink-thermal-visor-desc

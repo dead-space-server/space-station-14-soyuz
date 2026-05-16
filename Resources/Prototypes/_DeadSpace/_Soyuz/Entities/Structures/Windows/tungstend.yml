@@ -38,6 +38,9 @@
           PartRodMetal:
             min: 1
             max: 2
+          SheetTungsten:
+            min: 1
+            max: 2
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: IconSmooth
@@ -53,7 +56,7 @@
     damageOverlay:
       sprite: Structures/Windows/cracks.rsi
   - type: StaticPrice
-    price: 150
+    price: 530
 
 - type: entity
   parent: TungstenWindow

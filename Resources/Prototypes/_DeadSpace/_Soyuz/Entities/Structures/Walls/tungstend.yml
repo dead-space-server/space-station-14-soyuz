@@ -32,7 +32,7 @@
       - !type:DoActsBehavior
         acts: ["Destruction"]
   - type: StaticPrice
-    price: 250
+    price: 890
   - type: RadiationBlocker
     resistance: 5
   - type: IconSmooth
@@ -137,7 +137,7 @@
   - type: RadiationBlocker
     resistance: 5
   - type: StaticPrice
-    price: 200
+    price: 590
 
 
 - type: entity

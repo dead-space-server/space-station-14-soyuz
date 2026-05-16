@@ -355,8 +355,8 @@
 - type: entity
   parent: ClothingUnderwearTopBase
   id: ClothingUnderwearTopBraIAA
-  name: бра агента следственного комитета
-  description: Cтандартное нижнее бельё агента следственного комитета
+  name: бра системного агента прокуратуры
+  description: Cтандартное нижнее бельё системного агента прокуратуры
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Law/iaa/women/bra.rsi

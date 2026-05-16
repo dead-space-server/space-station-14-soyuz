@@ -22402,7 +22402,7 @@ entities:
   - uid: 621
     components:
     - type: MetaData
-      name: офисы юристов
+      name: офисы прокуратуры
     - type: Transform
       pos: 30.5,-134.5
       parent: 1

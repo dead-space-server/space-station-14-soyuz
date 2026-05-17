@@ -163,18 +163,6 @@
     - CigaretteMachineInventoryContraband
   conditions:
     - !type:ListingLimitedStockCondition
-      stock: 5
-
-# Contraband
-- type: listing
-  id: CigaretteMachineContraband1
-  productEntity: CigarGold
-  cost:
-    SpaceCash: 30
-  categories:
-    - CigaretteMachineInventoryContraband
-  conditions:
-    - !type:ListingLimitedStockCondition
       stock: 2
 
 - type: listing

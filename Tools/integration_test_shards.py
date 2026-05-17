@@ -74,6 +74,7 @@ def main() -> int:
 
     shards = balance_units(units, args.shards)
     matrix = {"include": [shard.to_matrix_entry() for shard in shards if shard.units]}
+
     if args.pretty:
         for shard in matrix["include"]:
             print(
@@ -82,6 +83,11 @@ def main() -> int:
             )
     else:
         print(json.dumps(matrix, separators=(",", ":")))
+
+    return 0
+
+
+def discover_units(tests_root: Path, namespace_prefix: str) -> list[TestUnit]:
     if not tests_root.exists():
         raise SystemExit(f"Tests root does not exist: {tests_root}")
 

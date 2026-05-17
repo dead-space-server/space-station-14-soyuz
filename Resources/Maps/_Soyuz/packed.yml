@@ -6834,6 +6834,14 @@ entities:
     - type: Transform
       pos: 104.5,-15.5
       parent: 2
+- proto: ADTClothingHeadHatBMF
+  entities:
+  - uid: 19
+    components:
+    - type: Transform
+      parent: 18
+    - type: Physics
+      canCollide: False
 - proto: ADTClothingHeadHatsGreatDruidWreath
   entities:
   - uid: 35
@@ -6888,6 +6896,35 @@ entities:
       name: Хвостик енота
     - type: Transform
       pos: 73.50856,-12.513698
+      parent: 2
+- proto: ADTClothingRedjiShoes
+  entities:
+  - uid: 21
+    components:
+    - type: Transform
+      parent: 18
+    - type: Physics
+      canCollide: False
+  - uid: 22
+    components:
+    - type: Transform
+      parent: 18
+    - type: Physics
+      canCollide: False
+  - uid: 42
+    components:
+    - type: Transform
+      pos: 86.53041,12.386591
+      parent: 2
+  - uid: 43
+    components:
+    - type: Transform
+      pos: 89.45485,-12.814079
+      parent: 2
+  - uid: 44
+    components:
+    - type: Transform
+      pos: 86.40199,10.221775
       parent: 2
 - proto: ADTClothingUniformAbibasBlueSuit
   entities:
@@ -41654,6 +41691,85 @@ entities:
     - type: Transform
       pos: 64.522316,20.63157
       parent: 2
+- proto: Dresser
+  entities:
+  - uid: 18
+    components:
+    - type: Transform
+      pos: 34.5,43.5
+      parent: 2
+    - type: Storage
+      storedItems:
+        21:
+          position: 0,0
+          _rotation: South
+        27:
+          position: 2,0
+          _rotation: East
+        23:
+          position: 4,0
+          _rotation: South
+        19:
+          position: 6,0
+          _rotation: East
+        22:
+          position: 0,2
+          _rotation: South
+        28:
+          position: 2,2
+          _rotation: East
+        24:
+          position: 4,2
+          _rotation: South
+        20:
+          position: 6,2
+          _rotation: East
+        25:
+          position: 8,0
+          _rotation: East
+        26:
+          position: 8,2
+          _rotation: East
+        34:
+          position: 4,4
+          _rotation: South
+        32:
+          position: 6,4
+          _rotation: South
+        29:
+          position: 2,4
+          _rotation: East
+        33:
+          position: 0,4
+          _rotation: South
+        30:
+          position: 8,4
+          _rotation: East
+        31:
+          position: 8,5
+          _rotation: East
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 21
+          - 27
+          - 23
+          - 19
+          - 22
+          - 24
+          - 20
+          - 28
+          - 25
+          - 26
+          - 34
+          - 32
+          - 29
+          - 33
+          - 30
+          - 31
 - proto: DresserCaptainFilled
   entities:
   - uid: 6379
@@ -41710,6 +41826,57 @@ entities:
     - type: Transform
       pos: 63.5,11.5
       parent: 2
+- proto: DresserWardenFilled
+  entities:
+  - uid: 6387
+    components:
+    - type: Transform
+      pos: 41.5,24.5
+      parent: 2
+    - type: Storage
+      storedItems:
+        5649:
+          position: 0,0
+          _rotation: South
+        5678:
+          position: 2,0
+          _rotation: South
+        5776:
+          position: 0,2
+          _rotation: South
+        5777:
+          position: 8,0
+          _rotation: South
+        5866:
+          position: 9,0
+          _rotation: South
+        6384:
+          position: 8,2
+          _rotation: South
+        6400:
+          position: 9,2
+          _rotation: South
+        6404:
+          position: 0,4
+          _rotation: South
+        6587:
+          position: 2,4
+          _rotation: South
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 5649
+          - 5678
+          - 5866
+          - 5777
+          - 6400
+          - 6384
+          - 5776
+          - 6404
+          - 6587
 - proto: DrinkBeerBottleFull
   entities:
   - uid: 6388

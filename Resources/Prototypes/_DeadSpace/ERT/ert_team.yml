@@ -1,13 +1,13 @@
 - type: ertTeam
   id: Cburn
   name: РХБЗЗ
-  notification: ert-response-caused-messager-cburn
+  notification: ert-responce-caused-messager-cburn
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
   startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Специализированный отряд радиационной, химической, биологической и зомби защиты
     СССП. Предназначен для локализации утечек опасных веществ,
@@ -41,9 +41,9 @@
   approvalColor: "#3f6e70"
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
-  startAnnouncement: station-event-response-team-arrival-cburn-sierra
+  startAnnouncement: station-event-response-team-arrival-cburn
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Элитный специализированный отряд радиационной, химической и биологической зомби защиты
     СССП. Предназначен для локализации утечек особо опасных веществ,
@@ -77,10 +77,10 @@
   name: СОБР Инженеры
   notification: ert-response-caused-messager-engineers
   approvalAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   startAnnouncement: station-event-response-team-arrival
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Отряд инженеров СССП, специализирующихся на ремонте и техническом обслуживании
     космических станций и кораблей. Они обладают обширными знаниями в области
@@ -114,10 +114,10 @@
   name: СОБР Оберег
   notification: ert-response-caused-messager-amber
   approvalAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   startAnnouncement: station-event-response-team-arrival
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Отряд быстрого реагирования Оберег СССП, предназначенный для
     проведения разведывательных операций и оказания поддержки силам
@@ -158,7 +158,7 @@
     path: /Audio/Misc/gamma.ogg
   startAnnouncement: station-event-response-team-arrival-red
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description:
     Отряд специального назначения СССП, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
@@ -200,7 +200,7 @@
     path: /Audio/Misc/gamma.ogg
   startAnnouncement: station-event-response-team-arrival-gamma
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Отряд специального назначения СССП, предназначенный для
     быстрого реагирования на чрезвычайные ситуации и угрозы безопасности на
@@ -210,7 +210,7 @@
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда 20 минут.
   rule: SpawnGammaShuttle
-  notification: ert-response-caused-messager-gamma
+  notification: ert-responce-caused-messager-gamma
   sender: ert-response-cso-sender
   cooldown:
     min: 20m
@@ -241,7 +241,7 @@
   approvalAudio:
     path: /Audio/Misc/delta_alt.ogg
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Альянс Противодействия Биологической и Террористической угрозе СССП, 
     предназначенный очистить станцию от биологической и террористической угрозы.
@@ -269,7 +269,7 @@
   name: Представитель ГШ
   startAnnouncement: station-event-centcomm-official-arrival
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
     Представитель Генерального Штаба, прибывающий на станцию
     для решения возникших проблем, которые не могут быть решены обычным способом.

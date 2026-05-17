@@ -1,2 +1,2 @@
-ent-RubberStampIAA = печать агента следственного комитета
+ent-RubberStampIAA = печать системного агента прокуратуры
     .desc = { ent-RubberStampBase.desc }

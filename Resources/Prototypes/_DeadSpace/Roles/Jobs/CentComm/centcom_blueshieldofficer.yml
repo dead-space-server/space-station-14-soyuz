@@ -66,7 +66,7 @@
       - id: JawsOfLife
       - id: PowerDrill
       - id: WelderExperimental
-      - id: ADTCombatHypo
+      # - id: ADTCombatHypo # DS14-Soyuz disabled
       - id: ChemistryBottleEphedrine
       - id: ChemistryBottleOmnizine
       - id: ChemistryBottleOmnizine

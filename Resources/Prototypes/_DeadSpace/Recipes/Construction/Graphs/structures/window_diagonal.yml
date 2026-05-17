@@ -79,3 +79,22 @@
               doAfter: 4
             - tool: Anchoring
               doAfter: 1
+    # DS14-Soyuz start
+        - to: tungstendiagonalWindow
+          steps:
+          - material: SheetTungsten
+            amount: 2
+            doAfter: 1
+
+    - node: tungstendiagonalWindow
+      entity: TungstenWindowDiagonal
+      edges:
+        - to: shuttleWindowDiagonal
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetTungsten
+              amount: 2
+          steps:
+            - tool: Welding
+              doAfter: 5
+    # DS14-Soyuz end

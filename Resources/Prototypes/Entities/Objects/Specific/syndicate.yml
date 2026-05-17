@@ -116,7 +116,7 @@
     size: Small
   - type: EmitSoundOnUse
     sound:
-      path: /Audio/_DeadSpace/Soyuz/Item/Nokia/nokia_activate_sound.ogg
+      path: /Audio/_DeadSpace/_Soyuz/Item/Nokia/nokia_activate_sound.ogg
   - type: SpentAmmoVisuals
   - type: CartridgeAmmo
     proto: BulletGrenadeNokia # DS14-Soyuz

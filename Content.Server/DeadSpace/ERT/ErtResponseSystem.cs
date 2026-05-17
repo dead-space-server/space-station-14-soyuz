@@ -104,7 +104,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
 
     private static readonly SoundSpecifier RequestSound = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/ERT/call.ogg");
     private static readonly SoundSpecifier DecisionSound = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/ERT/decision.ogg");
-    private static readonly SoundSpecifier TeamChangedSound = new SoundPathSpecifier("/Audio/_DeadSpace/Announcements/centcomm.ogg");
+    private static readonly SoundSpecifier TeamChangedSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"); // DS14-Soyuz value
     private static readonly TimeSpan PendingRequestLifetime = TimeSpan.FromMinutes(2);
 
     /// <summary>
@@ -305,7 +305,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 Loc.GetString("ert-console-request-rejected-announcement"),
                 sender: Loc.GetString("ert-response-cso-sender"),
                 announcementSound: DecisionSound,
-                colorOverride: Color.FromHex("#1d8bad"),
+                colorOverride: Color.FromHex("#B64444"),
                 playSound: true,
                 usePresetTTS: true,
                 languageId: LanguageSystem.DefaultLanguageId);
@@ -604,7 +604,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 _chatSystem.DispatchGlobalAnnouncement(
                     message: prototype.CancelMessage,
                     sender: Loc.GetString("chat-manager-sender-announcement"),
-                    colorOverride: Color.FromHex("#1d8bad"),
+                    colorOverride: Color.FromHex("#B64444"),
                     playSound: true,
                     usePresetTTS: true,
                     languageId: LanguageSystem.DefaultLanguageId);
@@ -756,7 +756,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 sender: string.IsNullOrEmpty(prototype.Sender)
                     ? Loc.GetString("chat-manager-sender-announcement")
                     : Loc.GetString(prototype.Sender),
-                colorOverride: Color.FromHex("#1d8bad"),
+                colorOverride: Color.FromHex("#B64444"),
                 announcementSound: prototype.StartAudio,
                 playSound: true,
                 usePresetTTS: true,
@@ -934,7 +934,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
             sender: string.IsNullOrEmpty(prototype.Sender)
                 ? Loc.GetString("chat-manager-sender-announcement")
                 : Loc.GetString(prototype.Sender),
-            colorOverride: prototype.ApprovalColor ?? Color.FromHex("#1d8bad"),
+            colorOverride: prototype.ApprovalColor ?? Color.FromHex("#B64444"),
             announcementSound: prototype.ApprovalAudio ?? DecisionSound,
             playSound: true,
             usePresetTTS: true,
@@ -946,7 +946,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
         _chatSystem.DispatchGlobalAnnouncement(
             message: Loc.GetString("ert-response-team-changed-announcement", ("team", FormatTeamNameForAnnouncement(prototype))),
             sender: Loc.GetString("ert-response-cso-sender"),
-            colorOverride: Color.FromHex("#1d8bad"),
+            colorOverride: Color.FromHex("#B64444"),
             announcementSound: TeamChangedSound,
             playSound: true,
             usePresetTTS: true,
@@ -968,7 +968,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
         _chatSystem.DispatchGlobalAnnouncement(
             message: Loc.GetString("ert-console-request-submitted-announcement"),
             sender: Loc.GetString("ert-response-cso-sender"),
-            colorOverride: Color.FromHex("#1d8bad"),
+            colorOverride: Color.FromHex("#B64444"),
             announcementSound: RequestSound,
             playSound: true,
             usePresetTTS: true,

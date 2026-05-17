@@ -616,6 +616,17 @@
             - tool: Cutting
               doAfter: 4
 
+        - to: tungstenWall
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          conditions:
+            - !type:EntityAnchored { }
+          steps:
+            - material: SheetTungsten
+              amount: 5
+              doAfter: 1
+
     - node: diagonalshuttleWall
       entity: WallShuttleDiagonal
       edges:
@@ -649,6 +660,18 @@
               doAfter: 1
             - tool: Cutting
               doAfter: 1
+
+        - to: tungstendiagonalWall
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          conditions:
+            - !type:EntityAnchored { }
+          steps:
+            - material: SheetTungsten
+              amount: 3
+              doAfter: 1
+
 
     - node: wallrust
       entity: WallSolidRust
@@ -699,3 +722,29 @@
             - tool: Brushing
               doAfter: 12
 # DS14-end
+
+# DS14-Soyuz start
+    - node: tungstenWall
+      entity: WallTungsten
+      edges:
+        - to: shuttleWall
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetTungsten
+              amount: 5
+          steps:
+            - tool: Welding
+              doAfter: 10
+
+    - node: tungstendiagonalWall
+      entity: WallTungstenDiagonal
+      edges:
+        - to: diagonalshuttleWall
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetTungsten
+              amount: 3
+          steps:
+            - tool: Welding
+              doAfter: 10
+# DS14-Soyuz end

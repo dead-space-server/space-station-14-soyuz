@@ -103197,18 +103197,6 @@ entities:
           showEnts: False
           occludes: False
           ent: 16
-  - uid: 20
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 100.5,66.5
-      parent: 2
-    - type: ContainerContainer
-      containers:
-        head: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: 21
   - uid: 6652
     components:
     - type: Transform

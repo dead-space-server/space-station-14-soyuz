@@ -198165,16 +198165,6 @@ entities:
     - type: Transform
       pos: -34.5,68.5
       parent: 2
-<<<<<<< HEAD:Resources/Maps/_Soyuz/cog.yml
-=======
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 23259
-    components:
-    - type: Transform
-      pos: 60.5,-32.5
-      parent: 2
->>>>>>> 7c96a8bacd26424064ff3b7cc82080668b031949:Resources/Maps/cog.yml
 - proto: SuitStorageWarden
   entities:
   - uid: 26888

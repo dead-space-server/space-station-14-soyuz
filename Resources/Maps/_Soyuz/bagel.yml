@@ -74499,7 +74499,7 @@ entities:
       pos: -48.5,-17.5
       parent: 2
     - type: FaxMachine
-      name: Офис прокуратуры
+      name: Офис юристов
   - uid: 11452
     components:
     - type: Transform
@@ -147580,7 +147580,7 @@ entities:
       setupAvailableNetworks:
       - SurveillanceCameraSecurity
       nameSet: True
-      id: Офис прокуратуры
+      id: Офис юристов
   - uid: 21607
     components:
     - type: Transform

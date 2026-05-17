@@ -123850,11 +123850,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 145.5,61.5
       parent: 2
-<<<<<<< HEAD:Resources/Maps/_Soyuz/convex.yml
 - proto: ErtResponseConsole
-=======
-- proto: ErtResponceConsole
->>>>>>> 7c96a8bacd26424064ff3b7cc82080668b031949:Resources/Maps/convex.yml
   entities:
   - uid: 28645
     components:
@@ -216196,16 +216192,6 @@ entities:
     - type: Transform
       pos: 134.5,58.5
       parent: 2
-<<<<<<< HEAD:Resources/Maps/_Soyuz/convex.yml
-=======
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 29414
-    components:
-    - type: Transform
-      pos: 144.5,91.5
-      parent: 2
->>>>>>> 7c96a8bacd26424064ff3b7cc82080668b031949:Resources/Maps/convex.yml
 - proto: SuitStorageWarden
   entities:
   - uid: 31824

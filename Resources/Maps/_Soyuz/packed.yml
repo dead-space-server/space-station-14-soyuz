@@ -6897,35 +6897,6 @@ entities:
     - type: Transform
       pos: 73.50856,-12.513698
       parent: 2
-- proto: ADTClothingRedjiShoes
-  entities:
-  - uid: 21
-    components:
-    - type: Transform
-      parent: 18
-    - type: Physics
-      canCollide: False
-  - uid: 22
-    components:
-    - type: Transform
-      parent: 18
-    - type: Physics
-      canCollide: False
-  - uid: 42
-    components:
-    - type: Transform
-      pos: 86.53041,12.386591
-      parent: 2
-  - uid: 43
-    components:
-    - type: Transform
-      pos: 89.45485,-12.814079
-      parent: 2
-  - uid: 44
-    components:
-    - type: Transform
-      pos: 86.40199,10.221775
-      parent: 2
 - proto: ADTClothingUniformAbibasBlueSuit
   entities:
   - uid: 45

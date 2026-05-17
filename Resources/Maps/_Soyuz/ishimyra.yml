@@ -16448,15 +16448,6 @@ entities:
     components:
     - type: Transform
       parent: 31
-- proto: ADTClothingRedjiShoes
-  entities:
-  - uid: 34
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ADTClothingSandals
   entities:
   - uid: 45

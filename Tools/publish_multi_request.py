@@ -56,6 +56,42 @@ class ProgressFileReader:
         return chunk
 
 
+
+class ProgressFileReader:
+    def __init__(self, file, file_name: str, total_bytes: int):
+        self._file = file
+        self._file_name = file_name
+        self._total_bytes = total_bytes
+        self._bytes_read = 0
+        self._last_log_at = time.monotonic()
+
+    @property
+    def bytes_read(self) -> int:
+        return self._bytes_read
+
+    def __len__(self) -> int:
+        return self._total_bytes
+
+    def tell(self) -> int:
+        return self._file.tell()
+
+    def read(self, size=-1):
+        chunk = self._file.read(size)
+        if not chunk:
+            return chunk
+
+        self._bytes_read += len(chunk)
+        now = time.monotonic()
+        if now - self._last_log_at >= PROGRESS_INTERVAL_SECONDS:
+            self._last_log_at = now
+            sent_mb = self._bytes_read / 1024 / 1024
+            total_mb = self._total_bytes / 1024 / 1024
+            percent = self._bytes_read / self._total_bytes * 100 if self._total_bytes else 100
+            print(f"    Uploading {self._file_name}: {sent_mb:.1f}/{total_mb:.1f} MB ({percent:.1f}%)")
+
+        return chunk
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--fork-id", default=FORK_ID)

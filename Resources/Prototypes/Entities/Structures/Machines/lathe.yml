@@ -453,6 +453,7 @@
     - SecurityAmmoStatic
     - SecurityWeaponsStatic
     - SecurityBorgModulesStatic # DS14
+    - SecDetailTechFab # DS14
     dynamicPacks:
     - SalvageSecurityBoards
     - SalvageSecurityWeapons

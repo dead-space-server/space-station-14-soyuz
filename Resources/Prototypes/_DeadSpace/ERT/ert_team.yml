@@ -52,7 +52,7 @@
     10 бойцов РХБЗЗ и 1 лидер прибывают на шаттле РХБЗЗ, который оснащён
     всем необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 10 до 15 минут.
-  notification: ert-responce-caused-messager-sierra
+  notification: ert-response-caused-messager-sierra
   sender: ert-response-cso-sender
   rule: SpawnSierraShuttle
   cooldown:
@@ -111,19 +111,19 @@
 
 - type: ertTeam
   id: Amber
-  name: СОБР Эмбер
-  notification: ert-responce-caused-messager-amber
+  name: СОБР Оберег
+  notification: ert-response-caused-messager-amber
   approvalAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   startAnnouncement: station-event-response-team-arrival
   startAudio:
     path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
   description: 
-    Отряд быстрого реагирования Эмбер СССП, предназначенный для
+    Отряд быстрого реагирования Оберег СССП, предназначенный для
     проведения разведывательных операций и оказания поддержки силам
     Службы Безопасности в борьбе с незначительными угрозами, в случае 
     если текущий состав слишком мал. 
-    5 членов отряда прибывают на шаттле Эмбер, который оснащён всем
+    5 членов отряда прибывают на шаттле Оберег, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда от 5 до 10 минут.
   rule: SpawnAmberShuttle
@@ -152,7 +152,7 @@
 - type: ertTeam
   id: Red
   name: СОБР Красный
-  notification: ert-responce-caused-messager-red
+  notification: ert-response-caused-messager-red
   approvalColor: "#a66286"
   approvalAudio:
     path: /Audio/Misc/gamma.ogg

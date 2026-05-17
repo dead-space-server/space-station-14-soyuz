@@ -117762,6 +117762,16 @@ entities:
           ents:
           - 14007
   - uid: 16808
+<<<<<<< HEAD:Resources/Maps/_Soyuz/core.yml
+=======
+    components:
+    - type: Transform
+      pos: 3.5,30.5
+      parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 14303
+>>>>>>> 7c96a8bacd26424064ff3b7cc82080668b031949:Resources/Maps/core.yml
     components:
     - type: Transform
       pos: 3.5,30.5

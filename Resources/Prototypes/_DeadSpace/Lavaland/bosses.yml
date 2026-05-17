@@ -253,7 +253,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      2500: Dead
+      2750: Dead
   - type: Destructible
     thresholds:
     - trigger:
@@ -264,10 +264,11 @@
       - !type:GibBehavior { }
   - type: LavalandBoss
     bossName: Иерофант
-    maxHealth: 2500
+    maxHealth: 2750
     music: /Audio/_DeadSpace/Lavaland/Bosses/title1.ogg
     deathSound: /Audio/_DeadSpace/Lavaland/Hierophant/repulse.ogg
     deathRewards:
+    - LavalandNecropolisChestHardsuit
     - LavalandNecropolisChest
     - LavalandNecropolisChest
     - LavalandHierophantStaff
@@ -500,7 +501,7 @@
     deathSound: /Audio/_DeadSpace/Lavaland/AshDrake/demon_dies.ogg
     deathRewards:
     - LavalandNecropolisChest
-    - LavalandNecropolisChest
+    - LavalandNecropolisChestHardsuit
     - LavalandSpectralBlade
     - LavalandFireStaff
     - LavalandAshDrakeFireballSpellbookDrop
@@ -529,7 +530,7 @@
         Slash: 40
         Structural: 40
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1.7
+    baseWalkSpeed: 1.9
     baseSprintSpeed: 2.8
   - type: Fixtures
     fixtures:
@@ -834,10 +835,10 @@
     music: /Audio/_DeadSpace/Lavaland/Bosses/bubblegum_fight.ogg
     deathSound: /Audio/_DeadSpace/Lavaland/Bubblegum/enter_blood.ogg
     deathRewards:
-    - LavalandNecropolisChest
+    - LavalandNecropolisChestHardsuit
     - LavalandNecropolisChest
     - LavalandSpellBlade
-    - EnergyShield
+    - LavalandNecropolisChest
   - type: LavalandBubblegum
   - type: NpcFactionMember
     factions:
@@ -863,8 +864,8 @@
         Slash: 40
         Structural: 40
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1.8
-    baseSprintSpeed: 2.9
+    baseWalkSpeed: 2
+    baseSprintSpeed: 3
   - type: Fixtures
     fixtures:
       fix1:

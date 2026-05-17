@@ -82,10 +82,6 @@ def main() -> int:
             )
     else:
         print(json.dumps(matrix, separators=(",", ":")))
-    return 0
-
-
-def discover_units(tests_root: Path, namespace_prefix: str) -> list[TestUnit]:
     if not tests_root.exists():
         raise SystemExit(f"Tests root does not exist: {tests_root}")
 

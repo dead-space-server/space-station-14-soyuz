@@ -93,7 +93,7 @@
     sprite: _DeadSpace/Lavaland/Objects/Specific/Mining/diamond_pickaxe.rsi
     storedRotation: -45
   - type: MeleeWeapon
-    attackRate: 1
+    attackRate: 0.5
     wideAnimationRotation: -135
     soundHit:
       path: "/Audio/Weapons/smash.ogg"
@@ -141,7 +141,7 @@
       types:
         Structural: 35
   - type: UseDelay
-    delay: 2.5
+    delay: 1.5
   - type: LavalandSonicJackhammer
 
 - type: entity
@@ -164,7 +164,7 @@
   parent: BaseItem
   id: LavalandWormholeJaunter
   name: джаунтер
-  description: Устройство, способное спасти владельца от падения в пропасть. Должно быть в руке или надето на пояс; из сумки не срабатывает.
+  description: Устройство, способное спасти владельца от падения в пропасть. Должно быть в руке или в кармане, из сумки не срабатывает.
   components:
   - type: Sprite
     sprite: _DeadSpace/Lavaland/Objects/Specific/Mining/wormhole_jaunter.rsi
@@ -197,7 +197,8 @@
     - name: lavaland-mining-voucher-reward-survival
       entries:
       - id: LavalandShelterCapsule
-      - id: ClothingBeltSalvageWebbing
+      - id: LavalandShelterCapsule
+      - id: LavalandWormholeJaunter
     - name: lavaland-mining-voucher-reward-resonator
       entries:
       - id: LavalandResonator
@@ -442,6 +443,78 @@
     - ActionLavalandHierophantStaffBurst
     - ActionLavalandHierophantStaffBlink
     - ActionLavalandHierophantStaffChaser
+
+- type: entity
+  parent: ClothingShoesBase
+  id: ClothingShoesBootsJumpLavaland
+  name: улучшенные прыжковые ботинки
+  description: Прыжковые ботинки что были оснащены крыльями наблюдателей. Полетаем?
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Lavaland/Objects/Specific/Mining/adv_jump_boots.rsi
+    layers:
+    - state: icon
+  - type: Clothing
+    sprite: _DeadSpace/Lavaland/Objects/Specific/Mining/adv_jump_boots.rsi
+  - type: JumpAbility
+    jumpDistance: 3
+    jumpSound: /Audio/Effects/stealthoff.ogg
+  - type: ActionGrant
+    actions:
+    - ActionGravityJumpLavaland
+  - type: ItemActionGrant
+    actions:
+    - ActionGravityJumpLavaland
+    activeIfWorn: true
+  - type: StaticPrice
+    price: 220
+  - type: Tag
+    tags: []
+  - type: Construction
+    graph: ClothingShoesBootsJump
+    node: shoesBootsJumpLavaland
+
+- type: construction
+  id: ClothingShoesBootsJump
+  graph: ClothingShoesBootsJump
+  startNode: start
+  targetNode: shoesBootsJumpLavaland
+  category: construction-category-clothing
+  objectType: Item
+
+- type: constructionGraph
+  id: ClothingShoesBootsJump
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: shoesBootsJumpLavaland
+      steps:
+      - tag: ClothingShoesBootsJump
+        icon:
+          sprite: Clothing/Shoes/Boots/jumpboots.rsi
+          state: icon
+        name: construction-graph-jump-boots-lavaland
+        doAfter: 10
+      - material: LavalandWatcherSinew
+        amount: 5
+        doAfter: 5
+  - node: shoesBootsJumpLavaland
+    entity: ClothingShoesBootsJumpLavaland
+
+- type: entity
+  parent: BaseAction
+  id: ActionGravityJumpLavaland
+  name: Прыжок
+  description: Прыгните!
+  components:
+  - type: Action
+    useDelay: 1
+    icon:
+      sprite: Interface/Actions/jump.rsi
+      state: icon
+  - type: InstantAction
+    event: !type:GravityJumpEvent {}
 
 - type: entity
   parent: BaseAction

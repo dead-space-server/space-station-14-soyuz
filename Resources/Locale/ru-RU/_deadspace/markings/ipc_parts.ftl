@@ -61,10 +61,7 @@ marking-XMGRArm = Правая рука XMG
 marking-XMGLArm = Левая рука XMG
 marking-XMGRLeg = Правая нога XMG
 marking-XMGLLeg = Левая нога XMG
-# XM2
-marking-XM2Head = Голова XM2
 marking-XM2Chest = Торс XM2
-marking-XM2RArm = Правая рука XM2
 marking-XM2LArm = Левая рука XM2
 marking-XM2RLeg = Правая нога XM2
 marking-XM2LLeg = Левая нога XM2

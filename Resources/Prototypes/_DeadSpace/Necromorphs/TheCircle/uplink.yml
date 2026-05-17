@@ -95,7 +95,10 @@
   name: VSK-94 (Можно купить 3 раза)
   icon: { sprite: _DeadSpace/Necromorfs/TheCircle/Weapon/weapons/vsk/big.rsi, state: icon }
   description: Точный винторез, что заточен под дальний бой и разбитие позиций врагов, вместо тупого штурма.
+  productEntity: WeaponCaseHeavyFilledVSK
+  cost:
     Telecrystal: 15
+  categories:
    - UniPhoneUplinkWeaponry
   conditions:
   - !type:ListingLimitedStockCondition

@@ -25769,30 +25769,6 @@ entities:
     - type: Transform
       pos: -54.606594,-15.5989
       parent: 2
-- proto: BoxBeaker
-  entities:
-  - uid: 1309
-    components:
-    - type: Transform
-      pos: 9.0787525,20.674503
-      parent: 2
-  - uid: 1310
-    components:
-    - type: Transform
-      pos: -1.4276239,5.5878706
-      parent: 2
-  - uid: 1311
-    components:
-    - type: Transform
-      pos: -9.632783,-41.555138
-      parent: 2
-  - uid: 24139
-    components:
-    - type: Transform
-      parent: 24138
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: BoxBeanbag
   entities:
   - uid: 1312

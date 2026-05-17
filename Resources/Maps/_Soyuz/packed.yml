@@ -6890,14 +6890,6 @@ entities:
     - type: Transform
       pos: 18.740238,16.63126
       parent: 2
-- proto: ADTClothingUniformBMF
-  entities:
-  - uid: 23
-    components:
-    - type: Transform
-      parent: 18
-    - type: Physics
-      canCollide: False
 - proto: ADTClothingUniformMillitary
   entities:
   - uid: 24
@@ -36589,15 +36581,6 @@ entities:
     - type: Transform
       pos: 91.43456,-0.49069238
       parent: 2
-- proto: ClothingNeckMantleHOSShoulder
-  entities:
-  - uid: 5579
-    components:
-    - type: Transform
-      parent: 5578
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ClothingNeckScarfStripedRed
   entities:
   - uid: 5580

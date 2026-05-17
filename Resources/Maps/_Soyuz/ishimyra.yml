@@ -26272,15 +26272,6 @@ entities:
     - type: Transform
       pos: -10.460536,17.614714
       parent: 2
-- proto: BoxPillCanister
-  entities:
-  - uid: 24140
-    components:
-    - type: Transform
-      parent: 24138
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: BoxSecglasses
   entities:
   - uid: 1383
@@ -66724,15 +66715,6 @@ entities:
     - type: Transform
       pos: -0.37268782,23.967419
       parent: 2
-- proto: ChemistryBottlePsicodine
-  entities:
-  - uid: 35
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ChemistryBottleUltravasculine
   entities:
   - uid: 8761
@@ -70014,24 +69996,6 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: ClothingShoesColorBrown
-  entities:
-  - uid: 36
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: ClothingShoesColorWhite
-  entities:
-  - uid: 37
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ClothingShoesLeather
   entities:
   - uid: 9225
@@ -70077,24 +70041,6 @@ entities:
     - type: Transform
       pos: 19.430588,-18.421898
       parent: 2
-- proto: ClothingUnderwearSocksNylon
-  entities:
-  - uid: 38
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: ClothingUnderwearSocksNylonWhite
-  entities:
-  - uid: 39
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ClothingUnderwearSocksParamedic
   entities:
   - uid: 9144
@@ -70155,24 +70101,6 @@ entities:
       user: 9071
     - type: Physics
       canCollide: False
-- proto: ClothingUniformJumpskirtPencilPsychologist
-  entities:
-  - uid: 40
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: ClothingUniformJumpskirtPsychologist
-  entities:
-  - uid: 41
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ClothingUniformJumpsuitAerostatic
   entities:
   - uid: 9085
@@ -70228,15 +70156,6 @@ entities:
       parent: 9137
     - type: Physics
       canCollide: False
-- proto: ClothingUniformJumpsuitPsychologist
-  entities:
-  - uid: 42
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: ClothingUniformJumpsuitSecGrey
   entities:
   - uid: 25478
@@ -140191,13 +140110,6 @@ entities:
       parent: 2
     - type: Stack
       count: 5
-  - uid: 24141
-    components:
-    - type: Transform
-      parent: 24138
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: SheetPlasma10
   entities:
   - uid: 18509
@@ -148157,56 +148069,6 @@ entities:
     components:
     - type: Transform
       pos: -2.050127,-41.41771
-      parent: 2
-- proto: Syringe
-  entities:
-  - uid: 44
-    components:
-    - type: Transform
-      parent: 33
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 19322
-    components:
-    - type: Transform
-      pos: 10.444349,42.602955
-      parent: 2
-  - uid: 19323
-    components:
-    - type: Transform
-      pos: -0.29778138,18.641956
-      parent: 2
-  - uid: 19324
-    components:
-    - type: Transform
-      pos: -1.612627,-41.532295
-      parent: 2
-  - uid: 19325
-    components:
-    - type: Transform
-      pos: -9.476533,-41.378056
-      parent: 2
-  - uid: 19326
-    components:
-    - type: Transform
-      pos: 16.298855,23.657236
-      parent: 2
-  - uid: 19327
-    components:
-    - type: Transform
-      pos: 6.6256647,23.594254
-      parent: 2
-  - uid: 19328
-    components:
-    - type: Transform
-      pos: 1.3846433,37.59639
-      parent: 2
-  - uid: 24048
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 41.170856,21.648413
       parent: 2
 - proto: Table
   entities:

@@ -8,13 +8,13 @@ namespace Content.Server.DeadSpace.Lavaland.Components;
 public sealed partial class LavalandBubblegumComponent : Component
 {
     [DataField]
-    public TimeSpan RangedCooldown = TimeSpan.FromSeconds(3.4);
+    public TimeSpan RangedCooldown = TimeSpan.FromSeconds(3.1);
 
     [DataField]
-    public TimeSpan ForcePressureAfter = TimeSpan.FromSeconds(7);
+    public TimeSpan ForcePressureAfter = TimeSpan.FromSeconds(5.5);
 
     [DataField]
-    public TimeSpan TargetSwitchCooldown = TimeSpan.FromSeconds(5);
+    public TimeSpan TargetSwitchCooldown = TimeSpan.FromSeconds(3.5);
 
     [DataField]
     public TimeSpan TargetPressureMemory = TimeSpan.FromSeconds(30);
@@ -32,7 +32,7 @@ public sealed partial class LavalandBubblegumComponent : Component
     public TimeSpan BloodHandRecover = TimeSpan.FromSeconds(0.45);
 
     [DataField]
-    public TimeSpan BloodReactionCooldown = TimeSpan.FromSeconds(2.25);
+    public TimeSpan BloodReactionCooldown = TimeSpan.FromSeconds(1.85);
 
     [DataField]
     public TimeSpan BloodSprayStepDelay = TimeSpan.FromSeconds(0.055);
@@ -51,6 +51,18 @@ public sealed partial class LavalandBubblegumComponent : Component
 
     [DataField]
     public TimeSpan SummonCooldown = TimeSpan.FromSeconds(10);
+
+    [DataField]
+    public TimeSpan MovementCooldown = TimeSpan.FromSeconds(4.5);
+
+    [DataField]
+    public TimeSpan MovementCriticalCooldown = TimeSpan.FromSeconds(3.25);
+
+    [DataField]
+    public int MovementDistance = 5;
+
+    [DataField]
+    public int MovementCriticalDistance = 4;
 
     [DataField]
     public int BloodSprayBaseRange = 8;
@@ -257,6 +269,18 @@ public sealed partial class LavalandBubblegumComponent : Component
     public readonly List<EntityUid> Slaughterlings = new();
 
     [ViewVariables]
+    public readonly List<LavalandBubblegumActiveClone> ActiveClones = new();
+
+    [ViewVariables]
+    public readonly List<LavalandBubblegumCloneCharge> CloneCharges = new();
+
+    [ViewVariables]
+    public TimeSpan NextCloneSwap;
+
+    [ViewVariables]
+    public TimeSpan LastMovementAt;
+
+    [ViewVariables]
     public readonly List<LavalandBubblegumPendingBloodTile> PendingBloodTiles = new();
 
     [ViewVariables]
@@ -278,6 +302,7 @@ public sealed class LavalandBubblegumPendingBloodTile
     public EntityUid Grid;
     public Vector2i Tile;
     public TimeSpan SpawnAt;
+    public bool Fake;
 }
 
 public sealed class LavalandBubblegumPendingHandAttack

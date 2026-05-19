@@ -7,7 +7,7 @@
   components:
   - type: Sprite
     sprite: Objects/Fun/plushielizard_jobs.rsi
-    state: icon
+    state: mime
   - type: UseDelay
     delay: 1.0
   - type: MeleeWeapon

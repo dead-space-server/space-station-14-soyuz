@@ -1,4 +1,4 @@
-﻿﻿// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+﻿﻿﻿// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using Content.Server.DeadSpace.IPC.Components;
 using Content.Shared.Actions;
@@ -260,7 +260,10 @@ public sealed class IPCSystem : EntitySystem
 
         if (value && TryComp<BatteryComponent>(uid, out _))
         {
+            // DS14-start: IPC uses BatteryDrainer for charging, but with a capped drain rate and sane efficiency.
             EnsureComp<BatteryDrainerComponent>(uid);
+            _batteryDrainer.ConfigureDrainer(uid, comp.DrainEfficiency, comp.DrainRate, comp.DrainTime);
+            // DS14-end
             _batteryDrainer.SetBattery(uid, uid);
         }
         else

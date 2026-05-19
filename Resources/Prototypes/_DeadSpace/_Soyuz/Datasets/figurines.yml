@@ -9,14 +9,14 @@
 - type: localizedDataset
   id: FigurinesHoS1
   values:
-    prefix: figurines-hos-
+    prefix: figurines-hos1-
     count: 9
 
 # Учёный
 - type: localizedDataset
   id: FigurinesScientist1
   values:
-    prefix: figurines-scientist-
+    prefix: figurines-scientist1-
     count: 8
 
 # ОКГБ

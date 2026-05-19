@@ -78,7 +78,6 @@
       emergencyLightColor: DarkViolet
       forceEnableEmergencyLights: true
       shuttleTime: 1200
-      tts: false # DS14-Soyuz
 # DS14-soyuz-start
     reinheit:
       announcement: alert-level-reinheit-announcement

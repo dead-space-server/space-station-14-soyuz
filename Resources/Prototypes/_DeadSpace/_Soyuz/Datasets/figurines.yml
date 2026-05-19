@@ -7,14 +7,14 @@
 
 # Начальник милиции
 - type: localizedDataset
-  id: FigurinesHoS
+  id: FigurinesHoS1
   values:
     prefix: figurines-hos-
     count: 9
 
 # Учёный
 - type: localizedDataset
-  id: FigurinesScientist
+  id: FigurinesScientist1
   values:
     prefix: figurines-scientist-
     count: 8

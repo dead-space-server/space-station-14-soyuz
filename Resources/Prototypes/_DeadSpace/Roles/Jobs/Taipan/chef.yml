@@ -30,7 +30,7 @@
       factions:
       - Taipan
     - type: Skill
-      group: ALL
+      group: BaseSkills
 
 - type: startingGear
   id: TaipanChefGear

@@ -204,7 +204,7 @@ uplink-syndimov-law-desc = A subversive Lawset to use when you want to turn the 
 
 # Implants
 uplink-storage-implanter-name = Storage Implanter
-uplink-storage-implanter-desc = Hide goodies inside of yourself with new redspace technology!
+uplink-storage-implanter-desc = Hide goodies inside of yourself with new bluespace technology!
 
 uplink-freedom-implanter-name = Freedom Implanter
 uplink-freedom-implanter-desc = Get away from those nasty sec officers with this three use implant!
@@ -445,6 +445,8 @@ uplink-revolver-cap-gun-desc = Looks almost like the real thing! Ages 8 and up.
 
 uplink-syndicate-stamp-name = Syndicate Rubber Stamp
 uplink-syndicate-stamp-desc = A rubber stamp for stamping important documents.
+uplink-syndicate-emblem-stamp-name = Syndicate Emblem Rubber Stamp
+uplink-syndicate-emblem-stamp-desc = A rubber stamp for marking documents with the Syndicate emblem.
 
 uplink-cat-ears-name = Cat Ears
 uplink-cat-ears-desc = UwU
@@ -496,8 +498,6 @@ uplink-backpack-syndicate-desc = A lightweight explosion-proof backpack for hold
 
 uplink-cameraBug-name = Camera bug
 uplink-cameraBug-desc = A portable device that allows you to view the station's cameras.
-uplink-ussp-monitor-cartridge-name = Redline: Oversight cartridge
-uplink-ussp-monitor-cartridge-desc = A surveillance cartridge for the secure local network. Lets you read every Redline conversation, but not send messages.
 
 uplink-combat-bakery-name = Combat Bakery Kit
 uplink-combat-bakery-desc = A kit of clandestine baked weapons. Contains a baguette sword, a pair of throwing croissants, and a syndicate microwave board for making more. Once the job is done, eat the evidence.

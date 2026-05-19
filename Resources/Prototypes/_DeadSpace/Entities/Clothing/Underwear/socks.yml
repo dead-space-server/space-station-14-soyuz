@@ -84,15 +84,6 @@
   - type: Sprite
     sprite: _Sirena/Clothing/Underwear/Socks/socksthigh.rsi
 
-- type: entity
-  parent: ClothingUnderwearSocksBase
-  id: ClothingUnderwearStockingsBlack
-  name: black stockings
-  description: Standard Nanotrasen stockings for station employees. Dyed black.
-  components:
-  - type: Sprite
-    sprite: Clothing/Under/Socks/stockingsblack.rsi
-
 # DS14 socks
 ## Cargo
 - type: entity
@@ -124,8 +115,8 @@
 
 - type: entity
   parent: ClothingUnderwearSocksBase
-  id: ClothingUnderwearSocksSeniorCourier
-  name: носки ведущего логиста
+  id: ClothingUnderwearSocksSeniorSalvage
+  name: носки ведущего утилизатора
   description: Стандартные носки ведущего утилизатора.
   components:
   - type: Sprite
@@ -527,8 +518,8 @@
 - type: entity
   parent: ClothingUnderwearSocksBase
   id: ClothingUnderwearSockIAA
-  name: носки агента следственного комитета
-  description: Стандартные носки агента следственного комитета.
+  name: носки системного агента прокуратуры
+  description: Стандартные носки системного агента прокуратуры.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Underwear/Law/iaa/socks.rsi

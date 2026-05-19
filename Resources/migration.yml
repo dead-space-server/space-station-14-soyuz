@@ -1139,14 +1139,14 @@ SpeedLoaderPistol: null
 SpeedLoaderPistolPractice: null
 
 ## 2025-11-09 - DS14
-SuitStorageSeniorSalvageSpecialistFilled: SuitStorageSalv
+#SuitStorageSeniorSalvageSpecialistFilled: null
 #ClothingOuterHardsuitSeniorSalvage: null
 #ClothingHeadHelmetHardsuitSeniorSalvage: null
 #ClothingUnderwearSocksSeniorSalvage: null
 #SeniorSalvageIDCard: null
 #SeniorSalvagePDA: null
 #RubberStampSeniorSalvage: null
-SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
+#SpawnPointSeniorSalvageSpecialist: SpawnPointSeniorCourier
 #WeaponSeniorKinetik: WeaponAdvancedKinetik
 
 # 2025-11-26 - DS14
@@ -1191,8 +1191,8 @@ ClothingUniformJumpsuitHoSBlack: null
 GlowstickBase: GlowstickGreen
 
 # 2025-12-06
-# SpawnPointZookeeper remains in active map rotation.
-# SpawnPointBoxer remains in active map rotation.
+SpawnPointZookeeper: null
+SpawnPointBoxer: null
 
 # 2025-12-07
 FigureSpawner: MechFigurineSpawner50
@@ -1207,16 +1207,33 @@ BookNewFood: null
 HandheldHealthAnalyzerUnpowered: HandheldHealthAnalyzer
 HandheldHealthAnalyzerEmpty: HandheldHealthAnalyzer
 
-#2026-01-09
+# 2026-01-09
 BorgModuleAdvancedChemical: BorgModuleAdvancedTopical
 
 # 2026-01-19
-# Legacy towel colors are still referenced by active maps.
+TowelColorPurple: null
+TowelColorRed: null
+TowelColorBlue: null
+TowelColorDarkBlue: null
+TowelColorLightBlue: null
+TowelColorTeal: null
+TowelColorBrown: null
+TowelColorLightBrown: null
+TowelColorGray: null
+TowelColorGreen: null
+TowelColorDarkGreen: null
+TowelColorGold: null
+TowelColorOrange: null
+TowelColorBlack: null
+TowelColorPink: null
+TowelColorYellow: null
+TowelColorMaroon: null
+TowelColorSilver: null
+TowelColorMime: null
 
-# 2026-02-15 - DS14 - Soyuz
-SpawnPointSeniorCourier: SpawnPointCargoTechnician
-# SpawnPointSeniorSalvageSpecialist: SpawnPointSalvageSpecialist
-SeniorCourier: null
+# 2026-04-19
+HandheldAutopsyScannerUnpowered: HandheldAutopsyScanner
+HandheldAutopsyScannerEmpty: HandheldAutopsyScanner
 
 # 2026-02-18 - DS14 - Soyuz
 #Grille: ClockworkGrille
@@ -1226,11 +1243,62 @@ ReinforcedWindow: MiningWindowSoyuz
 PoweredSmallLight: PoweredSmallLightSoyuz
 ReinforcedWindowDiagonal: MiningWindowDiagonalSoyuz
 #GrilleDiagonal: ClockworkGrilleDiagonal
-# SignNanotrasen1-5 remain in active map rotation.
+SignNanotrasen1: null
+SignNanotrasen2: null
+SignNanotrasen3: null
+SignNanotrasen4: null
+SignNanotrasen5: null
 #GrilleBroken: ClockworkGrilleBroken
 
 # 2026-03-13 - DS14 - Soyuz
 NTFlag: BlankFlag
-# 2025-09-20 - DS14
+
+# 2025-09-20 - DS14-Soyuz
 ADTDoubleBedTop: null
 ADTDoubleBedBottom: null
+
+# 2026-04-17 - DS14
+ErtResponceConsole: ErtResponseConsole
+ErtResponceConsoleCircuitboard: ErtResponseConsoleCircuitboard
+
+# 2026-04-23 - DS14
+ADTClothingUniformTurleneckTactick: ClothingUniformTurtleneckTactic
+ADTClothingUniformTurleneckAmerc: ClothingUniformTurtleneckMerc
+ADTClothingUniformTurleneckBlack: ClothingUniformTurtleneckBlack
+ADTClothingUniformTurleneckBlackWomen: ClothingUniformTurtleneckBlackWomen
+ADTClothingUniformTurleneckBlue: ClothingUniformTurtleneckBlue
+ADTClothingUniformTurleneckBlueBlack: ClothingUniformTurtleneckBlueBlack
+ADTClothingUniformTurleneckBlueWomen: ClothingUniformTurtleneckBlueWomen
+ADTClothingUniformTurleneckGolub: ClothingUniformTurtleneckCyan
+ADTClothingUniformTurleneckGolubBlack: ClothingUniformTurtleneckCyanBlack
+ADTClothingUniformTurleneckGolubWomen: ClothingUniformTurtleneckCyanWomen
+ADTClothingUniformTurleneckGreen: ClothingUniformTurtleneckGreen
+ADTClothingUniformTurleneckGreenBlack: ClothingUniformTurtleneckGreenBlack
+ADTClothingUniformTurleneckGreenWomen: ClothingUniformTurtleneckGreenWomen
+ADTClothingUniformTurleneckOrange: ClothingUniformTurtleneckOrange
+ADTClothingUniformTurleneckOrangeBlack: ClothingUniformTurtleneckOrangeBlack
+ADTClothingUniformTurleneckOrangeWomen: ClothingUniformTurtleneckOrangeWomen
+ADTClothingUniformTurleneckPurpur: ClothingUniformTurtleneckPurple
+ADTClothingUniformTurleneckPurpurBlack: ClothingUniformTurtleneckPurpleBlack
+ADTClothingUniformTurleneckPurpurWomen: ClothingUniformTurtleneckPurpleWomen
+ADTClothingUniformTurleneckRed: ClothingUniformTurtleneckRed
+ADTClothingUniformTurleneckRedBlack: ClothingUniformTurtleneckRedBlack
+ADTClothingUniformTurleneckRedWomen: ClothingUniformTurtleneckRedWomen
+ADTClothingUniformTurleneckSalat: ClothingUniformTurtleneckLime
+ADTClothingUniformTurleneckSalatBlack: ClothingUniformTurtleneckLimeBlack
+ADTClothingUniformTurleneckSalatWomen: ClothingUniformTurtleneckLimeWomen
+ADTClothingUniformTurleneckWhite: ClothingUniformTurtleneckWhite
+ADTClothingUniformTurleneckWhiteBlack: ClothingUniformTurtleneckWhiteBlack
+ADTClothingUniformTurleneckWhiteWomen: ClothingUniformTurtleneckWhiteWomen
+ADTClothingUniformTurleneckBlackSleeveless: ClothingUniformTurtleneckBlackSleeveless
+ADTClothingUniformTurleneckBlackWomenSleeveless: ClothingUniformTurtleneckBlackWomenSleeveless
+ADTClothingUniformTurleneckWhiteSleeveless: ClothingUniformTurtleneckWhiteSleeveless
+ADTClothingUniformTurleneckWhiteBlackSleeveless: ClothingUniformTurtleneckWhiteBlackSleeveless
+ADTClothingUniformTurleneckWhiteWomenSleeveless: ClothingUniformTurtleneckWhiteWomenSleeveless
+
+# 2026-05-03
+ADTClothingNeckSyndicateCloak: ClothingNeckSyndicateCloak
+ADTClothingNeckNukeOpsCloak: ClothingNeckNukeOpsCloak
+
+# 2026-05-12 DS14-Soyuz
+SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist

@@ -26,13 +26,6 @@
       NitrousOxide: stationNO
       Frezon: danger
       InfectionDeadSpace: stationInfectionDeadSpace
-      Nitryl: stationNitryl
-      Fixirium: stationFixirium
-      Hydrogen: stationHydrogen
-      Nitriatium: stationNitriatium
-      Hilium: stationHilium
-      Brizidium: stationBrizidium
-      Iprit: stationIprit
   - type: Tag
     tags:
       - AirSensor

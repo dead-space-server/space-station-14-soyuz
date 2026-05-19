@@ -209,6 +209,7 @@
     - BorgModuleAdvancedMining
     - SalvageExpeditionsComputerCircuitboard # Corvax-Cringe
     - BorgModuleAdvancedMining # DS14
+    - BluespaceHandHeldMassScannerEmpty # DS14
 
 # DS14 Soyuz-start
 - type: technology
@@ -239,6 +240,7 @@
   - ClothingBackpackHolding
   - ClothingBackpackSatchelHolding
   - ClothingBackpackDuffelHolding
+  - StorageModuleItem #DS14
 
 - type: technology
   id: OptimizedMicrogalvanism

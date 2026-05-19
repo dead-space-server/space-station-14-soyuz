@@ -741,7 +741,7 @@
     currentLabel: tricordrazine 10u
   - type: StorageFill
     contents:
-    - id: Barbaris # _DS14-Soyuz PillTricordrazine<Barbaris
+    - id: Barbaris # DS14-Soyuz PillTricordrazine>Barbaris
       amount: 5
 
 - type: entity

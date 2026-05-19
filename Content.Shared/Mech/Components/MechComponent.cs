@@ -82,7 +82,13 @@ public sealed partial class MechComponent : Component
     /// </summary>
     [DataField("maxEquipmentAmount"), ViewVariables(VVAccess.ReadWrite)]
     public int MaxEquipmentAmount = 3;
-
+// DS14-Soyuz-start
+    /// <summary>
+    /// Add component Pressure PressureImmunity if true
+    /// </summary>
+    [DataField, AutoNetworkedField, ViewVariables(VVAccess.ReadWrite)]
+    public bool IgnorePressure = false;
+// DS14-Soyuz-end
     /// <summary>
     /// A whitelist for inserting equipment items.
     /// </summary>

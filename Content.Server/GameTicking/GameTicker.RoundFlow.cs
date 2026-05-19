@@ -82,7 +82,7 @@ namespace Content.Server.GameTicking
         public bool CanUpdateMap()
         {
             return RunLevel == GameRunLevel.PreRoundLobby &&
-                   _roundStartTime - RoundPreloadTime > _gameTiming.CurTime;
+                   TimeUntilMapChangeCloses() > TimeSpan.Zero; // DS14
         }
 
         /// <summary>
@@ -148,10 +148,7 @@ namespace Content.Server.GameTicking
                 DebugTools.Assert(!_map.IsInitialized(mapId));
 
                 if (i == 0)
-                {
                     DefaultMap = mapId;
-                    _gameMapManager.MarkMapPlayed(maps[i].ID);
-                }
             }
         }
 
@@ -705,10 +702,7 @@ namespace Content.Server.GameTicking
                 if (_playerManager.PlayerCount == 0)
                     _roundStartCountdownHasNotStartedYetDueToNoPlayers = true;
                 else
-                {
                     _roundStartTime = _gameTiming.CurTime + LobbyDuration;
-                    TryStartAutomaticMapVote();
-                }
 
                 SendStatusToAll();
                 UpdateInfoText();
@@ -762,7 +756,6 @@ namespace Content.Server.GameTicking
             _banManager.Restart();
 
             _gameMapManager.ClearSelectedMap();
-            _automaticMapVoteHandled = false;
 
             // Clear up any game rules.
             ClearGameRules();
@@ -817,7 +810,13 @@ namespace Content.Server.GameTicking
             // Preload maps so we can start faster
             else if (_roundStartTime - RoundPreloadTime < _gameTiming.CurTime)
             {
+                var hadMap = _map.MapExists(DefaultMap); // DS14
                 LoadMaps();
+
+                // DS14-start
+                if (!hadMap && _map.MapExists(DefaultMap))
+                    UpdateInfoText();
+                // DS14-end
             }
         }
 

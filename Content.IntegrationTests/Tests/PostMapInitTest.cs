@@ -40,7 +40,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -54,25 +54,23 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly Dictionary<string, HashSet<EntProtoId>> DoNotMapWhitelistSpecific = new()
         {
-            {"/Maps/bagel.yml", ["RubberStampMime"]},
-            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
+            // {"/Maps/bagel.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
             // DS14-start: Add our custom maps to whitelist
-            {"/Maps/barratry.yml", ["RubberStampCaptain"]},
+            // {"/Maps/barratry.yml", ["RubberStampCaptain"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/cluster.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_box.yml", ["RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
+            // {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
+            // DS-14 Soyuz: Add our custom maps to whitelist
+            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
-            {"/Maps/cluster.yml", ["RubberStampMime"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
-            {"/Maps/_Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
-            {"/Maps/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
-            {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/ds_taipan.yml", ["RubberStampSyndicate"]},
-            {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampSyndicate"]},
-            {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
             // DS14-end
         };
@@ -86,14 +84,13 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml",
             "/Maps/_Soyuz/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
-            "/Maps/_Soyuz/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan
+            "/Maps/_Soyuz/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
-            "/Maps/_Soyuz/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };
 
@@ -144,11 +141,11 @@ namespace Content.IntegrationTests.Tests
             "Packed",
             // "Plasma", // map load failure
             "Reach",
+            "Ishimura",
             "Saltern",
             "Snowball",
             "Serpentcrest",
             "Train",
-            "Ishimura",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =
@@ -616,10 +613,10 @@ namespace Content.IntegrationTests.Tests
                 .ToArray();
 
             // DS14: skip broken non-game maps
-            var skipNonGameMaps = new HashSet<string>
-            {
-                "corvax_pilgrim", // BoxFolderCentCom storage overflow
-            };
+            // var skipNonGameMaps = new HashSet<string>
+            // {
+            //    "corvax_pilgrim", // BoxFolderCentCom storage overflow
+            // };
 
             var mapPaths = new List<ResPath>();
             foreach (var map in maps)
@@ -627,8 +624,8 @@ namespace Content.IntegrationTests.Tests
                 if (gameMaps.Contains(map))
                     continue;
 
-                if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
-                    continue;
+                // if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
+                //     continue;
 
                 var rootedPath = map.ToRootedPath();
                 if (SkipTestMaps && rootedPath.ToString().StartsWith(TestMapsPath, StringComparison.Ordinal))

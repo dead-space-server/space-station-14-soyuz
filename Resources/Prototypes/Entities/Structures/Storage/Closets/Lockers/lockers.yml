@@ -549,9 +549,7 @@
 # Bluespace
 - type: entity
   id: LockerBluespaceStation
-  # DS14-start: Soyuz changes
-  name: redspace locker
-  # DS14-end
+  name: bluespace locker
   suffix: once to station
   parent: LockerSyndicatePersonal
   description: Advanced locker technology.

@@ -16,15 +16,13 @@ def main() -> int:
 def get_text_files() -> Iterable[str]:
     # https://stackoverflow.com/a/24350112/4678631
     process = subprocess.run(
-        ["git", "grep", "--cached", "-I", "-l", "-z", ""],
+        ["git", "grep", "--cached", "-Il", ""],
         check=True,
+        encoding="utf-8",
         stdout=subprocess.PIPE)
 
-    for x in process.stdout.split(b"\0"):
-        if not x:
-            continue
-
-        yield x.decode("utf-8")
+    for x in process.stdout.splitlines():
+        yield x.strip()
 
 def is_file_crlf(path: str) -> bool:
     # https://stackoverflow.com/a/29697732/4678631

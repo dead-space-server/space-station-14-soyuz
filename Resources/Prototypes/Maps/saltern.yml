@@ -2,7 +2,7 @@
   id: Saltern
   mapName: 'Saltern'
   mapPath: /Maps/_Soyuz/saltern.yml
-  minPlayers: 0
+  minPlayers: 7
   maxPlayers: 35
   stations:
     Saltern:
@@ -19,7 +19,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            Politruk: [ 1, 1 ]
+            # Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -27,7 +27,7 @@
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 1, 1 ]
+            Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 3, 3 ]
             Brigmedic: [ 1, 1 ]
@@ -54,7 +54,7 @@
             TechnicalAssistant: [ 4, 4 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 2, 2 ]
             # civ

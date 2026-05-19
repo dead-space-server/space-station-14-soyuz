@@ -2,7 +2,7 @@
   id: Fland
   mapName: 'Fland'
   mapPath: /Maps/_Soyuz/fland.yml
-  minPlayers: 35
+  minPlayers: 45
   stations:
     Fland:
       stationProto: StandardNanotrasenStation
@@ -30,7 +30,7 @@
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 1, 1 ]
+            Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 6, 6 ]
             Brigmedic: [ 1, 1 ]
@@ -57,7 +57,7 @@
             TechnicalAssistant: [ 4, 4 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ

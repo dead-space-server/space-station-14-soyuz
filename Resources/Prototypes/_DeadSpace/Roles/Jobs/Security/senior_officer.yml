@@ -24,11 +24,15 @@
   canBeAntag: false
   access:
   - Security
+  - Brigmedic # DS14-Soyuz
   - Brig
+  - Armory # DS14-Soyuz
   - Maintenance
   - Service
   - External
   - Cryogenics
+  - GenpopEnter # DS14-Soyuz
+  - GenpopLeave # DS14-Soyuz
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250
@@ -52,6 +56,7 @@
     head: ClothingHeadHatBeretSeniorOfficer
     ears: ClothingHeadsetSecurity
     pocket1: WeaponRevolverDeckard
+    gloves: ClothingHandsGlovesCombat #DS14-Soyuz
   storage:
     back:
     - Flash
@@ -69,4 +74,4 @@
     eyes: ClothingEyesGlassesSecurity
     head: ClothingHeadHatBeretSeniorOfficer
     mask: ClothingMaskGasSecurity
-    gloves: ClothingHandsGlovesColorBlack
+    gloves: ClothingHandsGlovesCombat #DS14-Soyuz

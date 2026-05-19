@@ -27,7 +27,6 @@ ui-options-tab-ping = Пинг меню
 ui-options-cooldown-ping = Задержка для пинга
 ui-options-ping-permission = Получать уведомление о появлении роли
 ui-options-sound-ping = выбор звука пинга
-
 #DS14-end
 
 ## Audio menu
@@ -38,6 +37,7 @@ ui-options-ambient-music-volume = Громкость музыки окружен
 ui-options-ambience-volume = Громкость окружения:
 ui-options-lobby-volume = Громкость лобби и окончания раунда:
 ui-options-interface-volume = Громкость интерфейса:
+ui-options-alert-level-volume = Громкость уведомлений кодов угрозы:
 ui-options-ambience-max-sounds = Кол-во одновременных звуков окружения:
 ui-options-lobby-music = Музыка в лобби
 ui-options-restart-sounds = Звуки перезапуска раунда
@@ -399,12 +399,6 @@ ui-options-overlay-ghost-hide-distance = Диапазон скрытия нал�
 ##DS14-start
 ## Ping menu
 
-##DS14-end
-
 ui-options-save-button = Сохранить
 ui-options-function-open-language-menu = Открыть меню выбора языка
-
-# DS14-start: Jukebox audio options
-ui-options-jukebox-volume = Jukebox volume:
-ui-options-jukebox-mute = Mute jukebox
-# DS14-end
+##DS14-end

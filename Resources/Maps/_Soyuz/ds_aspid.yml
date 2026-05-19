@@ -120169,7 +120169,7 @@ entities:
     - type: Transform
       pos: 14.475419,-21.968512
       parent: 21750
-- proto: PlushieDionaSoyuz
+- proto: PlushieDiona
   entities:
   - uid: 15521
     components:

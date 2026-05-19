@@ -54,9 +54,9 @@ public sealed partial class CloningSystem : SharedCloningSystem
         if (!_prototype.Resolve(humanoid.Species, out var speciesPrototype))
             return false; // invalid species
 
-        var attemptEv = new CloningAttemptEvent(settings);
-        RaiseLocalEvent(original, ref attemptEv);
-        if (attemptEv.Cancelled && !settings.ForceCloning)
+        // var attemptEv = new CloningAttemptEvent(settings); // DS14-disabled 
+        // RaiseLocalEvent(original, ref attemptEv); // DS14-disabled
+        if (HasComp<UncloningComponent>(original) && !settings.ForceCloning) // DS14 condition
             return false; // cannot clone, for example due to the unrevivable trait
 
         clone = coords == null ? Spawn(speciesPrototype.Prototype) : Spawn(speciesPrototype.Prototype, coords.Value);
@@ -289,6 +289,11 @@ public sealed partial class CloningSystem : SharedCloningSystem
         {
             if (!TryComp<StatusEffectComponent>(effect, out var effectComp))
                 continue;
+
+            // DS14-start
+            if (HasComp<RejuvenateRemovedStatusEffectComponent>(effect))
+                continue;
+            // DS14-end
 
             //We are not interested in temporary effects, only permanent ones.
             if (effectComp.EndEffectTime is not null)

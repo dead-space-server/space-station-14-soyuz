@@ -10,46 +10,149 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Extract PR details
         id: extract
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          BODY=$(printf '%s' "${{ github.event.pull_request.body }}" | base64 -w0)
+          BODY=$(printf '%s' "$PR_BODY" | base64 -w0)
           echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
-          echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
-          echo "REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
           echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
-          echo "MERGED_AT=${{ github.event.pull_request.merged_at }}" >> $GITHUB_OUTPUT
+          echo "REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
 
-      - name: Render Discord payload
-        id: render
-        run: |
-          python3 Tools/pr_changelog.py render-discord \
-            --body-base64 "${{ steps.extract.outputs.DESCRIPTION_B64 }}" \
-            --author "${{ steps.extract.outputs.AUTHOR }}" \
-            --pr "${{ steps.extract.outputs.PR_NUMBER }}" \
-            --repo "${{ steps.extract.outputs.REPO }}" \
-            --pr-title "${{ steps.extract.outputs.PR_TITLE }}" \
-            --time "${{ steps.extract.outputs.MERGED_AT }}" \
-            --output-file discord_payload.json
-
-          if [ -f discord_payload.json ]; then
-            echo "should_send=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_send=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Send to Discord
-        if: steps.render.outputs.should_send == 'true'
+      - name: Parse PR and build JSON
+        id: parse
         env:
+          DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
+          PR_NUMBER: ${{ steps.extract.outputs.PR_NUMBER }}
+          AUTHOR: ${{ steps.extract.outputs.AUTHOR }}
+          REPO: ${{ steps.extract.outputs.REPO }}
+        run: |
+          python <<'EOF'
+          import base64
+          import json
+          import os
+          import re
+          from datetime import datetime, timezone
+
+          def set_output(name, value):
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+                  f.write(f"{name}={value}\n")
+
+          desc_b64 = os.environ.get("DESCRIPTION_B64", "")
+          desc = base64.b64decode(desc_b64).decode("utf-8", errors="replace")
+          desc = re.sub(r"<!--.*?-->", "", desc, flags=re.DOTALL)
+
+          if ":cl:" not in desc:
+              print("Skip (:cl: not found)")
+              set_output("should_send", "false")
+              exit(0)
+
+          sections = [
+              ("Добавлено", "🆕 Добавлено:"),
+              ("Удалено", "❌ Удалено:"),
+              ("Изменено", "⚒️ Изменено:"),
+              ("Исправлено", "🐛 Исправлено:"),
+          ]
+
+          def trim(value, limit=1024):
+              return value if len(value) <= limit else value[:limit - 3] + "..."
+
+          fields = []
+
+          for title, field_name in sections:
+              pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
+              messages = []
+
+              for block in re.findall(pattern, desc, flags=re.DOTALL):
+                  lines = [
+                      line.strip("- ").strip()
+                      for line in block.splitlines()
+                      if line.strip()
+                  ]
+                  message = re.sub(r"\s+", " ", " ".join(lines)).strip()
+                  if message:
+                      messages.append(message)
+
+              if messages:
+                  value = "\n".join(f"- {message}" for message in messages)
+                  fields.append({"name": field_name, "value": trim(value), "inline": False})
+
+          if not fields:
+              print("No changelog changes found. Skipping Discord notification.")
+              set_output("should_send", "false")
+              exit(0)
+
+          fields.append({
+              "name": "👤 Автор:",
+              "value": os.environ.get("AUTHOR", "unknown"),
+              "inline": False,
+          })
+
+          pr_number = os.environ.get("PR_NUMBER", "")
+          repo = os.environ.get("REPO", "")
+          payload = {
+              "username": "Изменения Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+              "embeds": [
+                  {
+                      "color": 3300375,
+                      "title": f"Изменение (PR #{pr_number})",
+                      "url": f"https://github.com/{repo}/pull/{pr_number}",
+                      "fields": fields,
+                      "footer": {
+                          "text": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
+                      },
+                  }
+              ],
+          }
+
+          payload_file = "/tmp/discord_payload.json"
+          with open(payload_file, "w", encoding="utf-8") as f:
+              json.dump(payload, f, ensure_ascii=False)
+
+          set_output("payload_file", payload_file)
+          set_output("should_send", "true")
+          EOF
+
+      - name: Send to Discord (Main)
+        if: steps.parse.outputs.should_send == 'true'
+        env:
+          PAYLOAD_FILE: ${{ steps.parse.outputs.payload_file }}
           WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "CHANGELOG_DISCORD_WEBHOOK secret is not set"
+            exit 1
+          fi
+
+          PAYLOAD=$(cat "$PAYLOAD_FILE")
+
           curl -X POST \
             -H "Content-Type: application/json" \
-            -d @discord_payload.json \
+            -d "$PAYLOAD" \
+            "$WEBHOOK_URL" \
+            --fail \
+            --silent \
+            --show-error
+
+      - name: Send to Discord (Deadspace)
+        if: steps.parse.outputs.should_send == 'true'
+        env:
+          PAYLOAD_FILE: ${{ steps.parse.outputs.payload_file }}
+          WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "CHANGELOG_DISCORD_WEBHOOK_DEADSPACE secret is not set"
+            exit 1
+          fi
+
+          PAYLOAD=$(cat "$PAYLOAD_FILE")
+
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
             "$WEBHOOK_URL" \
             --fail \
             --silent \

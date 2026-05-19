@@ -32,7 +32,7 @@
     - id: ClothingBeltSecurityFilled
     - id: Flash
     - id: ClothingEyesGlassesSecurity
-    - id: ClothingHandsGlovesArkalyse # DS14-soyuz
+    # - id: ClothingHandsGlovesArkalyse # DS14-Soyuz disabled
     # - id: ClothingShoesBootsJack # DS14-disabled
     # - id: ClothingOuterCoatWarden # DS14-disabled
     - id: ClothingOuterWinterWarden
@@ -61,6 +61,7 @@
     - id: ClothingOuterHardsuitWarden
     - id: OxygenTankFilled
     - id: ClothingMaskBreath
+    - id: ClothingShoesBootsMagSecurity #DS14
 
 - type: entity
   id: LockerSecurityFilled
@@ -122,6 +123,7 @@
     - id: TrackingImplanter
     - id: RubberStampBrigmedic
     - id: ClothingOuterHardsuitBrigmedic
+    - id: ClothingShoesBootsMagSecurity #DS14
     - id: ClothingHandsGlovesLatex
     - id: ClothingOuterCoatAMG
     - id: ClothingUniformJumpsuitBrigmedic
@@ -370,6 +372,18 @@
     contents:
     - id: PistolDominator
       amount: 3
+
+- type: entity
+  parent: [GunSafeBaseSecure, BaseSecurityContraband]
+  id: GunSafeVerdict
+  name: verdicts safe
+  components:
+  - type: StorageFill
+    contents:
+    - id: WeaponRevolverVerdict
+      amount: 3
+    - id: SpeedLoaderMagnum
+      amount: 6
 
 - type: entity
   parent: [GunSafeBaseSecure, BaseSecurityContraband]

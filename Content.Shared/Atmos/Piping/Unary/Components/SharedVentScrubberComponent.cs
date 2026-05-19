@@ -24,13 +24,6 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
-            // DS14-start
-            Gas.Nitryl,
-            Gas.Nitriatium,
-            Gas.Hilium,
-            Gas.Brizidium,
-            Gas.Iprit,
-            // DS14-end
             Gas.InfectionDeadSpace // DS14
         };
 

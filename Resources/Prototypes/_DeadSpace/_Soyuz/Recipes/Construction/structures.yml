@@ -1,0 +1,55 @@
+- type: construction
+  id: TungstenWall
+  graph: Girder
+  startNode: start
+  targetNode: tungstenWall
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: DiagonalTungstenWall
+  graph: Girder
+  startNode: start
+  targetNode: tungstendiagonalWall
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+
+
+- type: construction
+  id: TungstenWindow
+  graph: Window
+  startNode: start
+  targetNode: tungstenWindow
+  category: construction-category-structures
+  canBuildInImpassable: true
+  conditions:
+    - !type:EmptyOrWindowValidInTile
+    - !type:NoWindowsInTile
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+
+- type: construction
+  id: DiagonalTungstenWindow
+  graph: DiagonalWindow
+  startNode: start
+  targetNode: tungstendiagonalWindow
+  category: construction-category-structures
+  canBuildInImpassable: true
+  conditions:
+    - !type:EmptyOrWindowValidInTile
+    - !type:NoWindowsInTile
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false

@@ -1118,12 +1118,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("hair_name");
 
-                    // DS14-height-start
-                    b.Property<int>("Height")
-                        .HasColumnType("integer")
-                        .HasColumnName("height");
-                    // DS14-height-end
-
                     b.Property<JsonDocument>("Markings")
                         .HasColumnType("jsonb")
                         .HasColumnName("markings");
@@ -1287,6 +1281,10 @@ namespace Content.Server.Database.Migrations.Postgres
                     b.Property<int>("ServerId")
                         .HasColumnType("integer")
                         .HasColumnName("server_id");
+
+                    b.Property<string>("GamePresetName")
+                        .HasColumnType("text")
+                        .HasColumnName("game_preset_name");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("timestamp with time zone")

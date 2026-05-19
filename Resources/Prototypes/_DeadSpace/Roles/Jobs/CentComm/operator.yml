@@ -36,8 +36,8 @@
     # eyes: ClothingEyesGlassesSunglasses
     gloves: ClothingHandsGlovesCentcomNaval
     id: CentcomOperatorPDA
-    ears: ClothingHeadsetCentCom
-    neck: ClothingNeckCloakCentcom
+    ears: ClothingHeadsetAltCentCom
+    neck: ClothingNeckTieDet
     belt: BoxFolderCentComClipboard
     pocket1: RubberStampCentcom
     pocket2: ClothingMaskGasCentcom

@@ -2,7 +2,7 @@
   id: CorvaxAstra
   mapName: 'Astra'
   mapPath: /Maps/_Soyuz/corvax_astra.yml
-  minPlayers: 40
+  minPlayers: 50
   stations:
     Astra:
       stationProto: StandardNanotrasenStation
@@ -26,7 +26,7 @@
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 1, 1 ]
+            Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 6, 6 ]
             Brigmedic: [ 1, 1 ]
@@ -54,7 +54,7 @@
             TechnicalAssistant: [ 3, 3 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ

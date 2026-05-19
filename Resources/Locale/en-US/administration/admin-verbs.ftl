@@ -33,7 +33,6 @@ admin-verbs-refill-internals-nitrogen = Refill Internals Nitrogen
 admin-verbs-refill-internals-plasma = Refill Internals Plasma
 admin-verbs-send-to-test-arena = Send to test arena
 admin-verbs-grant-all-access = Grant All Access
-admin-verbs-grant-all-skills = Grant All Skills
 admin-verbs-revoke-all-access = Revoke All Access
 admin-verbs-adjust-stack = Adjust Stack
 admin-verbs-fill-stack = Fill Stack
@@ -48,6 +47,7 @@ admin-verbs-pause-map = Pause Map
 admin-verbs-snap-joints = Snap Joints
 admin-verbs-make-minigun = Make Minigun
 admin-verbs-set-bullet-amount = Set Bullet Amount
+admin-verbs-spawn-admin-toy = Spawn as Toy
 
 # Toggles verbs
 admin-verbs-bolt = Bolt

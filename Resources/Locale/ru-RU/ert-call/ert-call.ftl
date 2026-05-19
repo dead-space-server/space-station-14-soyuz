@@ -6,7 +6,7 @@ ert-call-recall-announcement = Генеральный Штаб получил з
 ert-call-accept-announcement = Генеральный Штаб принял решение. Мы начали подготовку { $name } для отправки на станцию. Через { $time } минут отряд прибудет в ваш сектор.
 ert-call-accept-announcement-fake = Генеральный Штаб принял решение. Мы начали подготовку { $name } для отправки на станцию.
 ert-call-spawn-announcement = { $name } направляется к станции.
-ert-team-name-amber = СОБР "Оберег" подразделение "Эмбер"
+ert-team-name-amber = СОБР "Оберег" подразделение "Оберег"
 ert-call-announcement-amber = Генеральный Штаб получил запрос на отправку специального отряда быстрого реагирования "Оберег".
 ert-team-name-red = СОБР "Вымпел" подразделение кода "Красный"
 ert-call-announcement-red = Генеральный Штаб получил запрос на отправку специального отряда быстрого реагирования "Вымпел" кода "Красный".
@@ -16,11 +16,11 @@ ert-team-name-cburn = Аварийно спасательная бригада "
 ert-call-announcement-cburn = Генеральный Штаб получил запрос на отправку эвакуационно-спасательной бригады "Рысь".
 
 # ERT Console UI
-ert-responce-window-title = Консоль вызова ОБР
-ert-responce-available-teams = Доступные отряды:
-ert-responce-team-description = Описание отряда:
-ert-responce-call-cancel = Вызов отменён.
-responce-ert-team-button = Вызвать отряд
+ert-response-window-title = Консоль вызова ОБР
+ert-response-available-teams = Доступные отряды:
+ert-response-team-description = Описание отряда:
+ert-response-call-cancel = Вызов отменён.
+response-ert-team-button = Вызвать отряд
 
 # Call Reason
 ert-call-reason-label = Цель вызова:

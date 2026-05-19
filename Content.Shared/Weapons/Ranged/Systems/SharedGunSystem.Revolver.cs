@@ -48,7 +48,7 @@ public partial class SharedGunSystem
 
     private void OnRevolverGetAmmoCount(Entity<RevolverAmmoProviderComponent> ent, ref GetAmmoCountEvent args)
     {
-        args.Count += GetRevolverCount(ent.Comp);
+        args.Count += GetRevolverUnspentCount(ent.Comp);
         args.Capacity += ent.Comp.Capacity;
     }
 
@@ -151,7 +151,7 @@ public partial class SharedGunSystem
 
                 ent.Comp.AmmoSlots[index] = ammoEnt.Value;
                 Containers.Insert(ammoEnt.Value, ent.Comp.AmmoContainer);
-                SetChamber(ent, insertEnt, index);
+                SetChamber(ent, ammoEnt.Value, index); // DS14
 
                 if (ev.Ammo.Count == 0)
                     break;
@@ -337,7 +337,7 @@ public partial class SharedGunSystem
         if (!TryComp<AppearanceComponent>(ent, out var appearance))
             return;
 
-        var count = GetRevolverCount(ent.Comp);
+        var count = GetRevolverUnspentCount(ent.Comp);
         Appearance.SetData(ent, AmmoVisuals.HasAmmo, count != 0, appearance);
         Appearance.SetData(ent, AmmoVisuals.AmmoCount, count, appearance);
         Appearance.SetData(ent, AmmoVisuals.AmmoMax, ent.Comp.Capacity, appearance);

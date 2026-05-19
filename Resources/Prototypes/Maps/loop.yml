@@ -2,7 +2,7 @@
   id: Loop
   mapName: 'Loop'
   mapPath: /Maps/_Soyuz/loop.yml
-  minPlayers: 10
+  minPlayers: 20
   maxPlayers: 40
   stations:
     Loop:
@@ -21,7 +21,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            Politruk: [ 1, 1 ]
+            # Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -29,7 +29,7 @@
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 1, 1 ]
+            Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 4, 4 ]
             Brigmedic: [ 1, 1 ]
@@ -57,7 +57,7 @@
             TechnicalAssistant: [ 5, 5 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 3, 3 ]
             # civ

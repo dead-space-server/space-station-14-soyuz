@@ -170,6 +170,11 @@ ent-SyndiAgentPDA = КПК агента Рассвета
     .desc = Когда лечения простых агентов Рассвета недостаточно, займитесь лечением оперативников Легиона!
 ent-WizardPDA = КПК мага
     .desc = Вы слышите доносящийся из него слабый шепот.
+ent-ChameleonAgentPDA = { ent-ChameleonPDA }
+    .desc = { ent-ChameleonPDA.desc }
+    .suffix = Хамелеон, ID-карта агента
+ent-NinjaPDA = КПК ниндзя
+    .desc = { ent-BasePDA.desc }
 # DS14-Soyuz
 ent-PsychologistPDA = КПК психиатра
     .desc = Выглядит безупречно чистым.

@@ -2,6 +2,9 @@
   id: ADTFoodSausageFried
 
 - type: Tag
+  id: AdvancedMineralScanner
+
+- type: Tag
   id: AmbrosiaDeus
 
 - type: Tag
@@ -35,10 +38,16 @@
   id: BorgSecTorso
 
 - type: Tag
+  id: BluespaceHandHeldMassScanner
+
+- type: Tag
   id: DarkFlower
 
 - type: Tag
   id: DrinkBeerBottleFull
+
+- type: Tag
+  id: CantChangeScale
 
 - type: Tag
   id: CakeBrain
@@ -59,6 +68,9 @@
   id: CleanerGrenade
 
 - type: Tag
+  id: ClothingShoesBootsJump
+
+- type: Tag
   id: CloningPodMachineCircuitboard
 
 - type: Tag
@@ -71,6 +83,33 @@
   id: DockCentcommERT
 
 - type: Tag
+  id: DockCentcommERTCburnShuttle
+
+- type: Tag
+  id: DockCentcommERTBSAAShuttle
+
+- type: Tag
+  id: DockCentcommERTSierraShuttle
+
+- type: Tag
+  id: DockCentcommERTJanitorsShuttle
+
+- type: Tag
+  id: DockCentcommERTGammaShuttle
+
+- type: Tag
+  id: DockCentcommERTRedShuttle
+
+- type: Tag
+  id: DockCentcommERTAmberShuttle
+
+- type: Tag
+  id: DockCentcommERTEngineersShuttle
+
+- type: Tag
+  id: DockCentcommERTOfficialShuttle
+
+- type: Tag
   id: DonkCo
 
 - type: Tag
@@ -80,10 +119,10 @@
   id: EnergyCartridge
 
 - type: Tag
-  id: CartridgeLightestRifle
+  id: EnergySword
 
 - type: Tag
-  id: EnergySword
+  id: EnergyKatana
 
 - type: Tag
   id: EnergySwordDouble
@@ -92,10 +131,16 @@
   id: EncryptionTaipan
 
 - type: Tag
+  id: ExplorerSuitLavaland
+
+- type: Tag
   id: FlamethrowerBackTank
 
 - type: Tag
   id: FlamethrowerNozzle
+
+- type: Tag
+  id: Fulton
 
 - type: Tag
   id: FelinidFood
@@ -111,6 +156,9 @@
 
 - type: Tag
   id: FoodChiliPepper
+
+- type: Tag
+  id: GasTank
 
 - type: Tag
   id: GiantSpiderSpace
@@ -129,6 +177,9 @@
 
 - type: Tag
   id: HardsuitSyndie
+
+- type: Tag
+  id: HandHeldMassScanner
 
 - type: Tag
   id: HolopadAdminNotification
@@ -160,21 +211,14 @@
 - type: Tag
   id: LightReplacer
 
-
 - type: Tag
-  id: MagazineBoxLightestRifle
-
-- type: Tag
-  id: MagazineBoxLightestRifleIncendiary
-
-- type: Tag
-  id: MagazineBoxLightestRiflePractice
-
-- type: Tag
-  id: MagazineBoxLightestRifleUranium
+  id: LoneOpsUplink #DS-14
 
 - type: Tag
   id: MagazineCarbineSKS
+
+- type: Tag
+  id: Magmite
 
 - type: Tag
   id: MagazineEagle
@@ -183,10 +227,10 @@
   id: MagazineEagleAP
 
 - type: Tag
-  id: MagazineTommyGun
+  id: MagazineGurza
 
 - type: Tag
-  id: MagazineCaselessRifle
+  id: MagazineTommyGun
 
 - type: Tag
   id: MagazineTommyGunCap
@@ -199,6 +243,9 @@
 
 - type: Tag
   id: MeatWheat
+
+- type: Tag
+  id: Medipen
 
 - type: Tag
   id: MukhtarWearable
@@ -232,9 +279,6 @@
 
 - type: Tag
   id: Plasteel
-
-- type: Tag
-  id: PolaroidCartridge
 
 - type: Tag
   id: Radiance

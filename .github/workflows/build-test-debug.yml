@@ -10,13 +10,11 @@ on:
     branches: [ master, staging, stable ]
 
 jobs:
-  # Soyuz: generate integration shard matrix for parallel execution.
   plan-integration-shards:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
-
     steps:
     - name: Checkout Master
       uses: actions/checkout@v4.2.2
@@ -30,7 +28,6 @@ jobs:
       shell: bash
       run: python3 Tools/integration_test_shards.py --shards 10 --pretty
 
-  # Soyuz: keep Content.Tests as a separate job.
   content-tests:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     runs-on: ubuntu-latest
@@ -55,7 +52,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install dependencies
       run: dotnet restore Content.Tests/Content.Tests.csproj
@@ -79,7 +76,6 @@ jobs:
         path: TestResults/
         if-no-files-found: ignore
 
-  # Soyuz: run integration tests in shard matrix.
   integration-tests:
     if: github.actor != 'PJBot' && (github.event_name != 'pull_request' || github.event.pull_request.draft == false)
     needs:
@@ -87,9 +83,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.plan-integration-shards.outputs.matrix) }}
-
     name: Integration Tests (${{ matrix.name }})
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
     - name: Checkout Master
@@ -110,7 +106,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install dependencies
       run: dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
@@ -151,7 +147,6 @@ jobs:
         path: TestResults/
         if-no-files-found: ignore
 
-  # Soyuz: aggregate gate for branch protection checks.
   ci-success:
     name: Build & Test Debug
     if: ${{ always() && needs.plan-integration-shards.result != 'skipped' }}
@@ -160,17 +155,16 @@ jobs:
       - content-tests
       - integration-tests
     runs-on: ubuntu-latest
-
     steps:
-    - name: CI succeeded
-      shell: bash
-      run: |
-        if [[ "${{ needs.content-tests.result }}" != "success" ]]; then
-          echo "content-tests finished with ${{ needs.content-tests.result }}"
-          exit 1
-        fi
+      - name: CI succeeded
+        shell: bash
+        run: |
+          if [[ "${{ needs.content-tests.result }}" != "success" ]]; then
+            echo "content-tests finished with ${{ needs.content-tests.result }}"
+            exit 1
+          fi
 
-        if [[ "${{ needs.integration-tests.result }}" != "success" ]]; then
-          echo "integration-tests finished with ${{ needs.integration-tests.result }}"
-          exit 1
-        fi
+          if [[ "${{ needs.integration-tests.result }}" != "success" ]]; then
+            echo "integration-tests finished with ${{ needs.integration-tests.result }}"
+            exit 1
+          fi

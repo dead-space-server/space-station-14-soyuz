@@ -52,6 +52,9 @@ ghost-role-information-snoth-description = Маленькая молитка, к
 ghost-role-information-giant-spider-name = Гигантский паук
 ghost-role-information-giant-spider-description = Обитатели этой станции выглядят очень аппетитно, а ваша липкая паутина идеально подходит для их ловли!
 ghost-role-information-giant-spider-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими гигантскими пауками.
+ghost-role-information-space-snake-name = Космическая змея
+ghost-role-information-space-snake-description = Обитатели этой станции выглядят очень аппетитно, а ваши ядовитые клыки идеально подходят для их ловли!
+ghost-role-information-space-snake-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими космическими змеями.
 ghost-role-information-cognizine-description = Приобрело сознание с помощью магии когнизина.
 ghost-role-information-hamster-name = Хомяк
 ghost-role-information-hamster-description = Маленький ворчливый пушистик.
@@ -156,7 +159,7 @@ ghost-role-information-behonker-name = Бехонкер
 ghost-role-information-behonker-description = Вы — антагонист, несущий смерть и хонки всем, кто не следует за хонкоматерью.
 ghost-role-information-hellspawn-name = Адское отродье
 ghost-role-information-hellspawn-description = Несите смерть всем, кто не повинуется великой богине Нар'Си.
-ghost-role-information-Death-Squad-name = Боец отряда специального назнвачения "Дым"
+ghost-role-information-Death-Squad-name = Боец отряда специального назначения "Дым"
 ghost-role-information-Death-Squad-description = Боец напичканный всевозможными имплантами и обладающий самой лучшей экипировкой с одной целью - аннигиляция.
 ghost-role-information-Death-Squad-rules = Вы обязаны подчиняться ВСЕМ приказам Генерала Специальных Операций.
 ghost-role-information-SyndiCat-name = РассвеКот
@@ -276,3 +279,7 @@ ghost-role-information-ert-centcom-official-description =
     Роль требует хорошего знания СРП и Правил Внутреннего Распорядка.
     Если вы не уверены в своих знаниях, пожалуйста, не берите эту роль.
     Роль предполагает высокий уровень ответственности и может быть предметом административного контроля со стороны модерации/администрации.
+ghost-role-information-mothership-core-name = Материнское ядро Ксеноборгов
+ghost-role-information-mothership-core-desc = Используйте Ксеноборгов, да бы сделать ещё больше ксеноборгов!
+ghost-role-information-xenoborg-name = Ксеноборг
+ghost-role-information-xenoborg-desc = Помогите материнскому ядру Ксеноборгов сделать больше ксеноборгов.

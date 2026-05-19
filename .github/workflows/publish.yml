@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Install dependencies
+      run: sudo apt-get install -y python3-paramiko python3-lxml
+
     - uses: actions/checkout@v4.2.2
       with:
         submodules: 'recursive'
@@ -57,19 +60,6 @@ jobs:
       with:
         dotnet-version: 10.0.x
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Install Python dependencies
-      run: python -m pip install --disable-pip-version-check requests
-
-    - name: Get Engine Tag
-      run: |
-        cd RobustToolbox
-        git fetch --tags --depth=1
-
     - name: Install dependencies
       run: dotnet restore
 
@@ -83,7 +73,7 @@ jobs:
       run: dotnet run --project Content.Packaging client --no-wipe-release
 
     - name: Publish version
-      run: python -u Tools/publish_multi_request.py
+      run: python3 -u Tools/publish_multi_request.py
       env:
         PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         GITHUB_REPOSITORY: ${{ vars.GITHUB_REPOSITORY }}
@@ -100,3 +90,32 @@ jobs:
     #   run: Tools/actions_changelog_rss.py
     #   env:
     #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
+# DS14-Soyuz webhook start
+    - name: Send Discord Webhook Notification (Soyuz Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+              "username": "Обновления Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+               "content": "<@&1504050876212445255>\n <:logo_UNION1:1504050698315235468>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL
+
+    - name: Send Discord Webhook Notification (DeadSpace Discord)
+      if: success()
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -X POST \
+             -d '{
+              "username": "Обновления Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+               "content": "(Тут должен быть пинг роли обновлений, но отдельную роль мне не дадут)\n <:logo_UNION1:1282351621375791218>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+             }' \
+             $DISCORD_WEBHOOK_URL
+# DS14-Soyuz webhook end

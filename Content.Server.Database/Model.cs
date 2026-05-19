@@ -337,7 +337,6 @@ namespace Content.Server.Database
         [Column("char_name")] public string CharacterName { get; set; } = null!;
         public string FlavorText { get; set; } = null!;
         public int Age { get; set; }
-        [Column("height")] public int Height { get; set; } = 175; // DS14-height
         public string Sex { get; set; } = null!;
         public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
@@ -600,6 +599,8 @@ namespace Content.Server.Database
         public int Id { get; set; }
 
         public DateTime? StartDate { get; set; }
+
+        public string? GamePresetName { get; set; }
 
         public List<Player> Players { get; set; } = default!;
 

@@ -67,6 +67,10 @@
         Bloodloss:
           -1
     maxBleedAmount: 0
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 300
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -125,6 +129,7 @@
       endValue: 2.0
       isLooped: true
 # DS14-Soyuz-end
+  - type: UnpoweredFlashlight
   - type: PointLight
     enabled: false
     radius: 3.5

@@ -57,7 +57,6 @@ public sealed class StationPowerTests
         "Reach",
         "Saltern",
         "Train",
-        "Ishimura",
     ];
 
     [Explicit]

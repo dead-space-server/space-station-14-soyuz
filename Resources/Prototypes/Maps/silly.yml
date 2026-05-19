@@ -4,10 +4,8 @@
   mapPath: /Maps/_Soyuz/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
-  # DS14-Soyuz-start: automatic map vote online range
-  minPlayers: 0
-  maxPlayers: 40
-  # DS14-Soyuz-end
+  minPlayers: 5
+  maxPlayers: 20
   stations:
     Silly:
       stationProto: StandardNanotrasenStation
@@ -36,7 +34,7 @@
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
             SecurityPilot: [ 1, 1 ]
-            Detective: [ 1, 1 ]
+            Detective: [ 2, 2 ]
             SecurityOfficer: [ 3, 3 ]
             Brigmedic: [ 1, 1 ]
             SecurityCadet: [ 2, 2 ]
@@ -63,7 +61,7 @@
             TechnicalAssistant: [ 2, 2 ]
             # sup
             Quartermaster: [ 1, 1 ]
-            # SeniorCourier: [ 1, 1 ] # DS14-Soyuz
+            SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 3, 3 ]
             CargoTechnician: [ 2, 2 ]
             # civ

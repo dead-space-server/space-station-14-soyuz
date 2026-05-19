@@ -51,6 +51,9 @@ namespace Content.Server.Administration.Systems
         private string _webhookUrl = string.Empty;
         private WebhookData? _webhookData;
 
+        private string _webhookUrlSecondary = string.Empty; // DS14-Soyuz
+        private WebhookData? _webhookDataSecondary; // DS14-Soyuz
+
         private string _onCallUrl = string.Empty;
         private WebhookData? _onCallData;
 
@@ -90,6 +93,7 @@ namespace Content.Server.Administration.Systems
             Subs.CVar(_config, CCVars.DiscordOnCallWebhook, OnCallChanged, true);
 
             Subs.CVar(_config, CCVars.DiscordAHelpWebhook, OnWebhookChanged, true);
+            Subs.CVar(_config, CCVars.DiscordAHelpWebhookSecondary, OnWebhookChangedSecondary, true); // DS14-Soyuz
             Subs.CVar(_config, CCVars.DiscordAHelpFooterIcon, OnFooterIconChanged, true);
             Subs.CVar(_config, CCVars.DiscordAHelpAvatar, OnAvatarChanged, true);
             Subs.CVar(_config, CVars.GameHostName, OnServerNameChanged, true);
@@ -366,6 +370,38 @@ namespace Content.Server.Administration.Systems
 
             // Fire and forget
             _webhookData = await GetWebhookData(webhookId, webhookToken);
+        }
+
+        private async void OnWebhookChangedSecondary(string url)
+        {
+            _webhookUrlSecondary = url;
+
+            // Notify clients about secondary webhook status if needed
+            // RaiseNetworkEvent(new BwoinkDiscordRelayUpdated(!string.IsNullOrWhiteSpace(url))); // Может понадобиться отдельное событие
+
+            if (url == string.Empty)
+                return;
+
+            // Basic sanity check and capturing webhook ID and token
+            var match = DiscordRegex().Match(url);
+
+            if (!match.Success)
+            {
+                Log.Warning("Secondary webhook URL does not appear to be valid. Using anyways...");
+                return;
+            }
+
+            if (match.Groups.Count <= 2)
+            {
+                Log.Error("Could not get secondary webhook ID or token.");
+                return;
+            }
+
+            var webhookId = match.Groups[1].Value;
+            var webhookToken = match.Groups[2].Value;
+
+            // Fire and forget
+            _webhookDataSecondary = await GetWebhookData(webhookId, webhookToken);
         }
 
         private async Task<WebhookData?> GetWebhookData(string id, string token)

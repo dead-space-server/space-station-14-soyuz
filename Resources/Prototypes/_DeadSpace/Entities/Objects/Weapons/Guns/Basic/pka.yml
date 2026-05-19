@@ -49,13 +49,6 @@
     slots:
     - suitStorage
     - Belt
-  - type: UpgradeableGun
-    whitelist:
-      tags:
-      - PKAUpgrade
-  - type: ContainerContainer
-    containers:
-      upgrades: !type:Container
 
 - type: entity
   id: WeaponProtoKineticAcceleratorShotgun
@@ -111,13 +104,6 @@
     - suitStorage
     - Belt
   - type: GunRequiresWield
-  - type: UpgradeableGun
-    whitelist:
-      tags:
-      - PKAUpgrade
-  - type: ContainerContainer
-    containers:
-      upgrades: !type:Container
 
 - type: entity
   id: WeaponShotgunSawnKinetik
@@ -183,10 +169,10 @@
       upgrades: !type:Container
 
 - type: entity
-  id: WeaponAdvancedKinetik
-  parent: [ BaseItem, BaseCargoContraband ]
+  id: WeaponSeniorKinetik
+  parent: [ BaseItem, BaseCargoContraband ] 
   name: продвинутый протокинетический ускоритель
-  description: Специальная модификация протокинетического ускорителя, представляющая из себя ослабленный в угоду компактности гибрид протокинетических повторителя и дробовика с выбором режима работы между ними. Спроектирован для повышения эффективности работы утилизаторов объектов NanoTrasen.
+  description: Специальная модификация протокинетического ускорителя, представляющая из себя ослабленный в угоду компактности гибрид протокинетических повторителя и дробовика с выбором режима работы между ними. Спроектирован для повышения эффективности работы ведущих утилизаторов объектов NanoTrasen.
   components:
   - type: AmmoCounter
   - type: Appearance
@@ -250,3 +236,29 @@
   - type: Battery
     maxCharge: 100
     startingCharge: 100
+
+- type: entity
+  name: магмитовый протокинетический ускоритель
+  id: WeaponMagmiteAccelerator
+  parent: WeaponProtoKineticAcceleratorBase
+  description: Очень горячий. Имеет низкую скорость стрельбы, но высокую убойность.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/magmite.rsi
+    layers:
+    - state: icon
+    - state: animation-icon
+      visible: false
+      map: [ "empty-icon" ]
+  - type: Item
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/magmite.rsi
+    size: Normal
+  - type: Clothing
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/magmite.rsi
+  - type: Gun
+    fireRate: 0.3
+    projectileSpeed: 40
+  - type: Wieldable
+  - type: BasicEntityAmmoProvider
+    proto: BulletKineticMagmite
+  - type: HeldSpeedModifier

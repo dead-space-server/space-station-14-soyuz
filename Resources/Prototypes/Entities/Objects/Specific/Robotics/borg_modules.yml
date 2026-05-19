@@ -668,6 +668,13 @@
     - item: BorgFireExtinguisher
     - item: BorgHandheldGPSBasic
     - item: HandHeldMassScannerBorg
+    - item: Fulton #DS14
+      hand:
+        emptyRepresentative: Fulton
+        emptyLabel: borg-slot-fulton-empty
+        whitelist:
+          tags:
+          - Fulton
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: grappling-module }
 
@@ -831,16 +838,7 @@
     - item: WireBrush
     - item: BorgBucket
     - item: BorgSprayBottle
-    # // DS-14 soyuz
-    - item: CleanerGrenade
-      hand:
-        emptyLabel: borg-slot-cleanade-empty
-        emptyRepresentative: CleanerGrenade
-        whitelist:
-          tags:
-          - CleanerGrenade
     - item: HoloprojectorBorg
-    - item: WireBrush
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: cleaning-module }
 
@@ -859,14 +857,6 @@
     - item: AdvMopItem
     - item: WireBrushElectrical
     - item: BorgMegaSprayBottle
-    # // DS-14 soyuz
-    - item: CleanerGrenade
-      hand:
-        emptyLabel: borg-slot-cleanade-empty
-        emptyRepresentative: CleanerGrenade
-        whitelist:
-          tags:
-          - CleanerGrenade
     - item: HoloprojectorBorg
     - item: BorgDropper
     - item: BagOfSummoningGarbage # DS14

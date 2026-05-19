@@ -10,7 +10,7 @@
   rules:
     - WageScheduler # backmen: currency
     - MeteorSwarmScheduler
-    - RampingStationEventScheduler
+    - SurvivalRampingStationEventScheduler # DS14
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
@@ -109,12 +109,13 @@
   voteType: calm # DS14
   description: extended-description
   rules:
+# - BrokenTechEvent #DS14 # DS14-Soyuz disabled
   - WageScheduler # backmen: currency
   - BasicStationEventScheduler
   - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
-  - SubGamemodesRuleNoWizard # DS14
+  - SubGamemodesRuleNoWizardNoXenoborg # DS14
 
 - type: gamePreset
   id: Greenshift
@@ -175,7 +176,7 @@
   - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
-  - SubGamemodesRuleNoWizard # DS14
+  - SubGamemodesRuleNoWizardNoXenoborg # DS14
 
 - type: gamePreset
   id: SecretGreenshift #For Admin Use: Runs Greenshift but shows "Secret" in lobby.
@@ -215,7 +216,7 @@
   - WageScheduler # backmen: currency
   - DummyNonAntagChance
   - Traitor
-  - SubGamemodesRuleNoWizard
+  - SubGamemodesRuleNoWizardNoXenoborg # DS14
   - BasicStationEventScheduler
   - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
@@ -304,7 +305,7 @@
   - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
-  - SubGamemodesRuleNoWizard # DS14
+  - SubGamemodesRuleNoWizardNoXenoborg # DS14
 
 - type: gamePreset
   id: Zombieteors
@@ -322,4 +323,4 @@
   - KesslerSyndromeScheduler
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
-  - SubGamemodesRuleNoWizard # DS14
+  - SubGamemodesRuleNoWizardNoXenoborg # DS14

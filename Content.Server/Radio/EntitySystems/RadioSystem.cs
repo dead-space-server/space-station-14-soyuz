@@ -1,10 +1,14 @@
+using Content.Server.Administration.Managers;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
 using Content.Server.Power.Components;
 using Content.Shared.Chat;
 using Content.Shared.Database;
+using Content.Shared.Ghost;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
+using Content.Shared.Silicons.StationAi;
 using Content.Shared.Speech;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
@@ -36,6 +40,7 @@ public sealed class RadioSystem : EntitySystem
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
+    [Dependency] private readonly IAdminManager _admin = default!; // DS14
 
     // set used to prevent radio feedback loops.
     private readonly HashSet<string> _messages = new();
@@ -47,9 +52,9 @@ public sealed class RadioSystem : EntitySystem
     private readonly Dictionary<string, string[]> _departments = new Dictionary<string, string[]>
     {
         { "fcdf03", ["командование", "кэп", "капитан", "глава персонала"] },
-        { "d98b71", ["юридический отдел", "магистрат", "юрист", "агент внутренних дел"] },
+        { "d98b71", ["прокуратура", "магистрат", "юрист", "системный агент прокуратуры"] },
         { "1563bd", ["служба безопасности", "бриг", "варден", "смотритель", "инструктор", "детектив", "пилот сб", "бригмед", "кадет"] },
-        { "57b8f0", ["медицинский отдел", "главный врач", "ведущий врач", "химик", "врач", "парамед", "коронер", "психолог", "интерн", "реанимация", "вирус", "вирусолог", "вирусология", "карантин"] },
+        { "57b8f0", ["медицинский отдел", "главный врач", "ведущий врач", "химик", "врач", "парамед", "коронер", "психолог", "интерн"] },
         { "c68cfa", ["научный отдел", "рнд", "нио", "научный руководитель", "ведущий учёный", "учёный", "робоёб", "лаборант", "анома"] },
         { "f2ac26", ["инженерный отдел", "инженерный", "старший инженер", "ведущий инженер", "атмосферный техник", "атмос", "инженер", "инженер стажёр"] },
         { "a46106", ["отдел снабжения", "карго", "каргонцы", "ведущий утилизатор", "ведущий утиль", "утиль", "утилизатор", "грузчик"] },
@@ -88,9 +93,49 @@ public sealed class RadioSystem : EntitySystem
 
         // DS14-Languages-end
 
+        // DS14-start
         if (TryComp(uid, out ActorComponent? actor))
-            _netMan.ServerSendMessage(msg, actor.PlayerSession.Channel); // DS14-edit
+        {
+            if (ShouldSendCommandLinkSender(uid, actor.PlayerSession, args.MessageSource))
+                msg = WithCommandLinkSender(msg, args.MessageSource);
+
+            _netMan.ServerSendMessage(msg, actor.PlayerSession.Channel);
+        }
+        // DS14-end
     }
+
+    // DS14-start
+    private bool ShouldSendCommandLinkSender(EntityUid receiver, ICommonSession session, EntityUid source)
+    {
+        if (!HasComp<MobStateComponent>(source))
+            return false;
+
+        if (HasComp<StationAiHeldComponent>(receiver))
+            return true;
+
+        return _admin.IsAdmin(session) &&
+               TryComp<GhostComponent>(receiver, out var ghost) &&
+               ghost.CanGhostInteract;
+    }
+
+    private MsgChatMessage WithCommandLinkSender(MsgChatMessage message, EntityUid source)
+    {
+        var chat = message.Message;
+        return new MsgChatMessage
+        {
+            Message = new ChatMessage(
+                chat.Channel,
+                chat.Message,
+                chat.WrappedMessage,
+                GetNetEntity(source),
+                chat.SenderKey,
+                chat.HideChat,
+                chat.MessageColorOverride,
+                chat.AudioPath,
+                chat.AudioVolume),
+        };
+    }
+    // DS14-end
 
     /// <summary>
     /// Send radio message to all active radio listeners

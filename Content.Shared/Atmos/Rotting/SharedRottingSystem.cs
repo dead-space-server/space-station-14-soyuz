@@ -15,7 +15,7 @@ public abstract class SharedRottingSystem : EntitySystem
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
 
-    public const int MaxStages = 3;
+    public const int MaxStages = 4; // DS14-Soyuz value: 3>4
 
     public override void Initialize()
     {

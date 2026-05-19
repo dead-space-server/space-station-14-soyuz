@@ -1,9 +1,6 @@
 using System.Numerics;
-using Content.Server.Atmos.EntitySystems;
 using Content.Server.Cargo.Systems;
-using Content.Server.Temperature.Systems;
 using Content.Server.Weapons.Ranged.Components;
-using Content.Shared.Atmos.Components;
 using Content.Shared.Cargo;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;

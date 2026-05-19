@@ -1,0 +1,363 @@
+# Стальные, которые я не знаю как назвать
+## Белые
+- type: tile
+  id: FloorWhiteSteel1
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel1.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel1
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel2
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel2.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel2
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel3
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel3.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel3
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel4
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel4.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel4
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel5
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel5.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel5
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel6
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel6.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel6
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel7
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel7.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel7
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel8
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel8.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel8
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel9
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel9.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel9
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorWhiteSteel10
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel10.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel10
+  heatCapacity: 10000
+
+## Обычные
+- type: tile
+  id: FloorSteel1
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel1.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel1
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel2
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel2.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel2
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel3
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel3.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel3
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel4
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel4.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel4
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel5
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel5.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel5
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel6
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel6.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel6
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel7
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel7.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel7
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel8
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel8.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel8
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel9
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel9.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel9
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorSteel10
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel10.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel10
+  heatCapacity: 10000
+
+## Тёмные
+- type: tile
+  id: FloorBlackSteel1
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel1.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel1
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel2
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel2.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel2
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel3
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel3.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel3
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel4
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel4.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel4
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel5
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel5.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel5
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel6
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel6.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel6
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel7
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel7.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel7
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel8
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel8.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel8
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel9
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel9.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel9
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel10
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel10.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel10
+  heatCapacity: 10000

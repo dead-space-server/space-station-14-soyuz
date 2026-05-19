@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Created by pered6664 (discord) for Space Station 14 server Мёртвый Космос",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "wsteel1"
+    },
+    {
+      "name": "wsteel2"
+    },
+    {
+      "name": "wsteel3"
+    },
+    {
+      "name": "wsteel4"
+    },
+    {
+      "name": "wsteel5"
+    },
+    {
+      "name": "wsteel6"
+    },
+    {
+      "name": "wsteel7"
+    },
+    {
+      "name": "wsteel8"
+    },
+    {
+      "name": "wsteel9"
+    },
+    {
+      "name": "wsteel10"
+    },
+    {
+      "name": "steel1"
+    },
+    {
+      "name": "steel2"
+    },
+    {
+      "name": "steel3"
+    },
+    {
+      "name": "steel4"
+    },
+    {
+      "name": "steel5"
+    },
+    {
+      "name": "steel6"
+    },
+    {
+      "name": "steel7"
+    },
+    {
+      "name": "steel8"
+    },
+    {
+      "name": "steel9"
+    },
+    {
+      "name": "steel10"
+    },
+    {
+      "name": "bsteel1"
+    },
+    {
+      "name": "bsteel2"
+    },
+    {
+      "name": "bsteel3"
+    },
+    {
+      "name": "bsteel4"
+    },
+    {
+      "name": "bsteel5"
+    },
+    {
+      "name": "bsteel6"
+    },
+    {
+      "name": "bsteel7"
+    },
+    {
+      "name": "bsteel8"
+    },
+    {
+      "name": "bsteel9"
+    },
+    {
+      "name": "bsteel10"
+    }
+  ]
+}

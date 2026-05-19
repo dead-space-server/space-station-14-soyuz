@@ -35,6 +35,9 @@
   recipes:
   - BoxLethalshot
   - BoxShotgunSlug
+  - MagazineShotgun # DS14
+  - MagazineShotgunSlug # DS14
+  - MagazineShotgunEmpty # DS14
   - MagazineBoxLightRifle
   - MagazineBoxMagnum
   - MagazineBoxPistol
@@ -82,10 +85,6 @@
   - PowerCageSmall
   - TelescopicShield
   - ClothingBackpackHarmpack
-  # DS14-start: allow police techfab to print Polaroid items after unlock
-  - PolaroidCamera
-  - PolaroidCartridge
-  # DS14-end
 
 # DS14-start
 - type: latheRecipePack
@@ -146,6 +145,10 @@
   - SpeedLoaderMagnumIncendiary
   - SpeedLoaderMagnumUranium
   - MagazineBox357Incendiary # ADT
+  - MagazinePistolHighCapacity #DS14
+  - ADTMagazineShotgunXL # DS14
+  - BoxLethalshotMagnum # DS14
+  - ADTExtMagazineRifle # DS14
 #DS14-soyuz-start
   - MagazineBox357Silver
   - MagazineBoxLightestRifleSilver

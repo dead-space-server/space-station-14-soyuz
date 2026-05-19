@@ -107,7 +107,8 @@ namespace Content.Server.Research.Systems
 
         public bool TryGetServerById(EntityUid client, int id, [NotNullWhen(true)] out EntityUid? serverUid, [NotNullWhen(true)] out ResearchServerComponent? serverComponent)
         {
-            ClientLookup.Clear();
+            serverUid = null;
+            serverComponent = null;
 
             var query = GetServers(client).ToList();
             foreach (var (uid, server) in query)
@@ -119,8 +120,6 @@ namespace Content.Server.Research.Systems
                 return true;
             }
 
-            serverUid = null;
-            serverComponent = null;
             return false;
         // DS14-end
         }

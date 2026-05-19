@@ -1,5 +1,6 @@
 using Content.Shared.Atmos.Rotting;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Overlays;
 using Content.Shared.StatusIcon;
@@ -15,6 +16,7 @@ namespace Content.Client.Overlays;
 public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsComponent>
 {
     [Dependency] private readonly IPrototypeManager _prototypeMan = default!;
+    [Dependency] private readonly SharedRottingSystem _rotting = default!;
 
     [ViewVariables]
     public HashSet<string> DamageContainers = new();
@@ -63,31 +65,79 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
         args.StatusIcons.AddRange(healthIcons);
     }
 
-    private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableComponent> entity)
+private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableComponent> entity)
+{
+    var damageableComponent = entity.Comp;
+
+    if (damageableComponent.DamageContainerID == null ||
+        !DamageContainers.Contains(damageableComponent.DamageContainerID))
     {
-        var damageableComponent = entity.Comp;
+        return Array.Empty<HealthIconPrototype>();
+    }
 
-        if (damageableComponent.DamageContainerID == null ||
-            !DamageContainers.Contains(damageableComponent.DamageContainerID))
+    var result = new List<HealthIconPrototype>();
+
+    if (damageableComponent?.DamageContainerID == "Biological")
+    {
+        if (TryComp<MobStateComponent>(entity, out var state))
         {
-            return Array.Empty<HealthIconPrototype>();
-        }
-
-        var result = new List<HealthIconPrototype>();
-
-        // Here you could check health status, diseases, mind status, etc. and pick a good icon, or multiple depending on whatever.
-        if (damageableComponent?.DamageContainerID == "Biological")
-        {
-            if (TryComp<MobStateComponent>(entity, out var state))
+            // Если мёртв - проверяем стадию разложения
+            if (state.CurrentState == MobState.Dead)
             {
-                // Since there is no MobState for a rotting mob, we have to deal with this case first.
-                if (HasComp<RottingComponent>(entity) && _prototypeMan.Resolve(damageableComponent.RottingIcon, out var rottingIcon))
-                    result.Add(rottingIcon);
-                else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value) && _prototypeMan.Resolve(value, out var icon))
+                int effectiveStage = 1;
+                
+                // Проверяем наличие компонента PerishableComponent
+                if (TryComp<PerishableComponent>(entity, out var perishableComp))
+                {
+                    int perishStage = _rotting.PerishStage((entity, perishableComp), 4);
+                    effectiveStage = perishStage == 0 ? 1 : perishStage;
+                }
+                else if (TryComp<RottingComponent>(entity, out var rottingComp))
+                {
+                    int rotStage = _rotting.RotStage(entity, rottingComp);
+                    effectiveStage = rotStage == 0 ? 1 : rotStage;
+                }
+                
+                if (effectiveStage > 4)
+                {
+                    if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var rottingIcon))
+                    {
+                        result.Add(rottingIcon);
+                    }
+                    return result;
+                }
+                
+                effectiveStage = Math.Clamp(effectiveStage, 1, 4);
+                int iconIndex = effectiveStage - 1;
+                
+                if (iconIndex < damageableComponent.RottingStageIcons.Count)
+                {
+                    string iconId = damageableComponent.RottingStageIcons[iconIndex];
+                    
+                    if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
+                    {
+                        result.Add(icon);
+                    }
+                    else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
+                    {
+                        result.Add(fallbackIcon);
+                    }
+                }
+                else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
+                {
+                    result.Add(fallbackIcon);
+                }
+            }
+            else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value))
+            {
+                if (_prototypeMan.TryIndex<HealthIconPrototype>(value, out var icon))
+                {
                     result.Add(icon);
+                }
             }
         }
-
-        return result;
     }
+
+    return result;
+}
 }

@@ -1,16 +1,18 @@
+using Content.Server.Administration.Managers;
 using Content.Shared.Chat;
+using Content.Shared.Ghost;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
 using Content.Shared.Radio.EntitySystems;
-using Content.Shared.Silicons.StationAi; // DS-14
+using Content.Shared.Silicons.StationAi;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Content.Server.DeadSpace.Languages;
 using Content.Shared.Corvax.TTS;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
-using Robust.Shared.Containers; // DS-14
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -20,7 +22,7 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
     [Dependency] private readonly RadioSystem _radio = default!;
     [Dependency] private readonly AudioSystem _audio = default!; // DS14-TTS
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
-    [Dependency] private readonly SharedContainerSystem _container = default!; // DS-14
+    [Dependency] private readonly IAdminManager _admin = default!; // DS14
 
     public override void Initialize()
     {
@@ -117,7 +119,6 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 
         HandleRadioReceive(
             receiver: parent,
-            ttsReceiver: parent, // DS-14
             messageSource: args.MessageSource,
             chatMsg: args.ChatMsg,
             lexiconChatMsg: args.LexiconChatMsg,
@@ -129,11 +130,8 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 
     private void OnActiveRadioReceive(EntityUid uid, ActiveRadioComponent component, ref RadioReceiveEvent args)
     {
-        var ttsReceiver = ResolveRadioTtsReceiver(uid); // DS-14
-
         HandleRadioReceive(
             receiver: uid,
-            ttsReceiver: ttsReceiver, // DS-14
             messageSource: args.MessageSource,
             chatMsg: args.ChatMsg,
             lexiconChatMsg: args.LexiconChatMsg,
@@ -142,34 +140,18 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
             false,
             args: args);
     }
-// DS-14 start
-    private EntityUid ResolveRadioTtsReceiver(EntityUid receiver)
-    {
-        // Station AI radio TTS should come from the current eye/hologram, not the brain inside the core.
-        if (!HasComp<StationAiHeldComponent>(receiver) ||
-            !_container.TryGetContainingContainer(receiver, out var container) ||
-            container.ID != StationAiCoreComponent.Container ||
-            !TryComp<StationAiCoreComponent>(container.Owner, out var core) ||
-            core.RemoteEntity == null)
-        {
-            return receiver;
-        }
 
-        return core.RemoteEntity.Value;
-    }
-// DS-14 end
     private void HandleRadioReceive(
     EntityUid receiver,
-    EntityUid ttsReceiver, // DS-14
     EntityUid messageSource,
-    NetMessage chatMsg,
+    MsgChatMessage chatMsg, // DS14
     MsgChatMessage lexiconChatMsg,
     string? languageId,
     SoundSpecifier? receiveSound,
     bool sendMessage,
     RadioReceiveEvent args)
     {
-        if (args.Receivers.Contains(ttsReceiver)) // DS-14
+        if (args.Receivers.Contains(receiver))
             return;
 
         var msg = chatMsg;
@@ -182,14 +164,53 @@ public sealed class HeadsetSystem : SharedHeadsetSystem
 
         if (TryComp(receiver, out ActorComponent? actor))
         {
+            // DS14-start
             if (sendMessage)
-                _netMan.ServerSendMessage(msg, actor.PlayerSession.Channel);
+            {
+                if (ShouldSendCommandLinkSender(receiver, actor.PlayerSession, messageSource))
+                    msg = WithCommandLinkSender(msg, messageSource);
 
+                _netMan.ServerSendMessage(msg, actor.PlayerSession.Channel);
+            }
+            // DS14-end
             if (receiver != messageSource && TryComp(messageSource, out TTSComponent? _))
             {
-                args.Receivers.Add(ttsReceiver); // DS-14
+                args.Receivers.Add(receiver);
             }
         }
     }
+
+    // DS14-start
+    private bool ShouldSendCommandLinkSender(EntityUid receiver, ICommonSession session, EntityUid source)
+    {
+        if (!HasComp<MobStateComponent>(source))
+            return false;
+
+        if (HasComp<StationAiHeldComponent>(receiver))
+            return true;
+
+        return _admin.IsAdmin(session) &&
+               TryComp<GhostComponent>(receiver, out var ghost) &&
+               ghost.CanGhostInteract;
+    }
+
+    private MsgChatMessage WithCommandLinkSender(MsgChatMessage message, EntityUid source)
+    {
+        var chat = message.Message;
+        return new MsgChatMessage
+        {
+            Message = new ChatMessage(
+                chat.Channel,
+                chat.Message,
+                chat.WrappedMessage,
+                GetNetEntity(source),
+                chat.SenderKey,
+                chat.HideChat,
+                chat.MessageColorOverride,
+                chat.AudioPath,
+                chat.AudioVolume),
+        };
+    }
+    // DS14-end
     // DS14-TTS-End
 }

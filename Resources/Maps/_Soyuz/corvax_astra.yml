@@ -117659,7 +117659,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 50.5,2.5
       parent: 2
-- proto: ErtResponceConsole
+- proto: ErtResponseConsole
   entities:
   - uid: 18056
     components:
@@ -202330,13 +202330,6 @@ entities:
       name: хранилище скафандра инструктора СБ
     - type: Transform
       pos: 43.5,4.5
-      parent: 2
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 29630
-    components:
-    - type: Transform
-      pos: -5.5,-93.5
       parent: 2
 - proto: SuitStorageWarden
   entities:

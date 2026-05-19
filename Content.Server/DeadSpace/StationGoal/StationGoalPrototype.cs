@@ -17,13 +17,6 @@ public sealed partial class StationGoalPrototype : IPrototype
 
     [DataField]
     public int? ModifyStationBalance;
-
-    [DataField]
-    public EntProtoId? StartingShipment;
-
-    [DataField]
-    public int StartingShipmentAmount = 1;
-
     [DataField]
     public List<StampDisplayInfo>? ExtraStamps;
 }

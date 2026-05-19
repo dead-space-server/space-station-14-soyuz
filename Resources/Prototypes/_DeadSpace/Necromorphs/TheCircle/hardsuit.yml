@@ -20,13 +20,12 @@
       coefficients:
         Blunt: 0.45
         Slash: 0.4
-        Piercing: 0.35
-        Heat: 0.55
+        Piercing: 0.4
+        Heat: 0.40
         Cold: 0.3
         Radiation: 0.5
         Poison: 0.5
         Caustic: 0.4
-        Stun: 0.5
   - type: StaminaResistance
     damageCoefficient: 0.5
   - type: ClothingSpeedModifier
@@ -55,7 +54,7 @@
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitUnitologyCommander
   name: шлем ведущего бронескафандра «Прометей»
-  description: На нём, читается только одно слово-... АРАМ РООООООООСС-!!!
+  description: На нём читается только-... АРАМ РООООООООСС-!!!
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -85,7 +84,7 @@
   parent: [ ClothingOuterHardsuitBase, BaseSyndicateContraband ]
   id: ClothingOuterHardsuitUnitologyHeavy
   name: тяжелый бронескафандр «Артемида»
-  description: Тяжёлый бронескафандр Диакона отряда "Круг". Хорошо когда есть пушечное мясо в команде, а лучше два! После смерти вы превратитесь в некроморфа Дева.
+  description: Тяжёлый бронескафандр Диакона отряда "Круг". Хорошо, когда есть пушечное мясо в команде, а лучше - два! После смерти вы превратитесь в некроморфа Дева.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/TheCircle/HardSuit/heavy.rsi
@@ -103,13 +102,12 @@
       coefficients:
         Blunt: 0.3
         Slash: 0.3
-        Piercing: 0.3
-        Heat: 0.5
+        Piercing: 0.35  
+        Heat: 0.3
         Cold: 0.35
         Radiation: 0.25
         Poison: 0.25
         Caustic: 0.25
-        Stun: 0.15
   - type: StaminaResistance
     damageCoefficient: 0.15
   - type: ClothingSpeedModifier
@@ -168,7 +166,7 @@
   parent: [ ClothingOuterHardsuitBase, BaseSyndicateContraband ]
   id: ClothingOuterHardsuitUnitologyLight
   name: экзоскафандр «Гермес»
-  description: Скафандр Вестников отряда "Круг". Проводки что торчат с ног данной брони, похоже ускоряют своего владельца. После смерти вы превратитесь в некроморфа Сталкер.
+  description: Скафандр Вестников отряда "Круг". Проводки, что торчат с ног данной брони, похоже, ускоряют своего владельца. После смерти вы превратитесь в некроморфа Сталкер.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/TheCircle/HardSuit/light.rsi
@@ -187,12 +185,11 @@
         Blunt: 0.65
         Slash: 0.55
         Piercing: 0.65
-        Heat: 0.65
+        Heat: 0.45
         Cold: 0.6
         Radiation: 0.55
         Poison: 0.5
         Caustic: 0.5
-        Stun: 0.45
   - type: StaminaResistance
     damageCoefficient: 0.45
   - type: ClothingSpeedModifier
@@ -221,7 +218,7 @@
   parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitUnitologyLight
   name: шлем экзоскафандра «Гермес»
-  description: Тяжёлый дым что исходит с противогаза заставляет вас дрожать.
+  description: Тяжёлый дым, что исходит с противогаза, заставляет вас дрожать.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -251,7 +248,7 @@
   parent: [ ClothingOuterHardsuitBase, BaseSyndicateContraband ]
   id: ClothingOuterHardsuitUnitologyEngineer
   name: экзогенный бронескафандр «Аклепий»
-  description: Плотный скафандр для Зодчего отряда "Круг" позволяет тому работать в жаркой, и не только обстановке.  После смерти вы превратитесь в некроморфа Бумер.
+  description: Плотный скафандр для Зодчего отряда "Круг" позволяет тому работать в жаркой, и не только обстановке. После смерти вы превратитесь в некроморфа Бумер.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/TheCircle/HardSuit/engi.rsi
@@ -277,7 +274,6 @@
         Radiation: 0.1
         Poison: 0.3
         Caustic: 0.3
-        Stun: 0.45
   - type: StaminaResistance
     damageCoefficient: 0.45
   - type: ClothingSpeedModifier
@@ -338,7 +334,7 @@
   parent: [ ClothingOuterHardsuitBase, BaseSyndicateContraband ]
   id: ClothingOuterHardsuitUnitologyMedic
   name: мобильный бронескафандр «Асклепий»
-  description: Лёгкий скафандр, что специально вытесан под Серафимов "Круга". Скафандр имеет идеальный баланс в защите. После смерти вы превратитесь в некроморфа Беременный.
+  description: Лёгкий скафандр, что специально вытесан под Серафимов "Круга". Скафандр имеет идеальный баланс в защите и скорости. После смерти вы превратитесь в некроморфа Беременный.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/TheCircle/HardSuit/medic.rsi
@@ -362,7 +358,6 @@
         Radiation: 0.5
         Poison: 0.5
         Caustic: 0.5
-        Stun: 0.5
   - type: StaminaResistance
     damageCoefficient: 0.5
   - type: ClothingSpeedModifier

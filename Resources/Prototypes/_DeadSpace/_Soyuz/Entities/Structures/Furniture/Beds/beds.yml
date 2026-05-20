@@ -5,7 +5,7 @@
   description: Удобная деревянная кровать.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Structures/Furniture/Beds/bed.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Beds/bed.rsi
     state: bed-WOOD
   - type: Construction
     graph: bed
@@ -18,7 +18,7 @@
   description: Удобная золотая кровать.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Structures/Furniture/Beds/bed.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Beds/bed.rsi
     state: bed-GOLD
   - type: Construction
     graph: bed

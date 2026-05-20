@@ -8,4 +8,7 @@
     solutions:
       stomach:
         maxVol: 50
+      food:
+        maxVol: 0
+        name: food
 # DS14-soyuz

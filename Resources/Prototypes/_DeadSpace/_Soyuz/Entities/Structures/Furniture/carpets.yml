@@ -5,9 +5,9 @@
   description: Мат бамбуковый.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Structures/Furniture/Carpets/bamboo_mat.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Carpets/bamboo_mat.rsi
   - type: Icon
-    sprite: _DeadSpace/Structures/Furniture/Carpets/bamboo_mat.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Carpets/bamboo_mat.rsi
   - type: IconSmooth
     key: full
     base: mat_

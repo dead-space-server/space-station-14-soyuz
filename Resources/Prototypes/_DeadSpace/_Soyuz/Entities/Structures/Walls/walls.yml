@@ -5,9 +5,9 @@
   description: Стена из бамбукового леса.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Structures/Walls/bamboo.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Walls/bamboo.rsi
   - type: Icon
-    sprite: _DeadSpace/Structures/Walls/bamboo.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Walls/bamboo.rsi
 #  - type: Construction
 #    graph: Barricade
 #    node: woodWall

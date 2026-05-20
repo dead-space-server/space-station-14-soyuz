@@ -1,11 +1,10 @@
 - type: entity
   id: MaterialMarketplace
   parent: [ BaseMachinePowered, ConstructibleMachine ]
-  name: material marketplace terminal
-  description: A terminal for buying and selling materials. Just add capitalism!
+  name: Торгомат
+  description: Терминал для покупки и продажи материалов. Просто добавь социализм!
   components:
   - type: MaterialMarketplace
-    currency: SpaceCash
     fillLevels: 6
 #    whitelistTags:
 #    - Sheet
@@ -20,21 +19,19 @@
     - Gunpowder
     - WebSilk
     - Cotton
-    - Pyrotton
     - Meaterial
-    - Credit
     - RawQuartz
     - Coal
     - RawSalt
   - type: MaterialStorage
-    capacity: 1000
-    whitelist:
-      tags:
-        - Sheet
-        - RawMaterial
-        - Ingot
+    storageLimit: 1000
+#    whitelist:
+#      tags:
+#        - Sheet
+#        - RawMaterial
+#        - Ingot
   - type: Sprite
-    sprite: _DeadSpace/Structures/Machines/material_marketplace.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/material_marketplace.rsi
     layers:
     - state: icon
     - state: panel

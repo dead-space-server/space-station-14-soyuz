@@ -22,16 +22,6 @@
   minGroupSize: 5
   maxGroupSize: 7
 
-# DS14-soyuz-start
-- type: oreDunGen
-  id: OreBluespace
-  replacement: AsteroidRock
-  entity: WallRockBluespace
-  count: 5
-  minGroupSize: 5
-  maxGroupSize: 7
-# DS14-soyuz-end
-
 - type: oreDunGen
   id: OreQuartz
   replacement: AsteroidRock

@@ -252,12 +252,3 @@
   loots:
     - !type:BiomeMarkerLoot
       proto: OreArtifactFragment
-
-# DS14-soyuz-start
-- type: salvageLoot
-  id: OreBluespace
-  guaranteed: true
-  loots:
-  - !type:BiomeMarkerLoot
-    proto: OreBluespace
-# DS14-soyuz-end

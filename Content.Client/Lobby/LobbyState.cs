@@ -269,15 +269,14 @@ namespace Content.Client.Lobby
 
         private void UpdateLobbyBackground()
         {
-            if (_gameTicker.LobbyBackground != null)
+            if (_protoMan.TryIndex(_gameTicker.LobbyBackground, out var proto))
             {
-                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground );
+                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(proto.Background);
             }
             else
             {
                 Lobby!.Background.Texture = null;
             }
-
         }
 
         private void SetReady(bool newReady)

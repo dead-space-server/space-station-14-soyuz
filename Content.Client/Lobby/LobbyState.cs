@@ -15,6 +15,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lobby
 {
@@ -28,6 +29,7 @@ namespace Content.Client.Lobby
         [Dependency] private readonly IVoteManager _voteManager = default!;
         [Dependency] private readonly ClientsidePlaytimeTrackingManager _playtimeTracking = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly IPrototypeManager _protoMan = default!;
 
         private ClientGameTicker _gameTicker = default!;
         private ContentAudioSystem _contentAudioSystem = default!;

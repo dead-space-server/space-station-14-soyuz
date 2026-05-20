@@ -54,9 +54,6 @@
           - id: WallRockTungsten
             prob: 0.05
             orGroup: rock 
-          - id: WallRockBluespace
-            prob: 0.05
-            orGroup: rock
             # DS14-Soyuz-end
     - type: IFF
       flags: HideLabel

@@ -173,6 +173,7 @@ public sealed class LavalandBubblegumSystem : EntitySystem
         component.NextBloodReaction = now + TimeSpan.FromSeconds(1.5);
         component.LastPressureAt = now;
         component.LastAttackKind = string.Empty;
+        component.NextCriticalCloneSpawn = now + TimeSpan.FromSeconds(3);
     }
 
     private void OnMobStateChanged(Entity<LavalandBubblegumComponent> ent, ref MobStateChangedEvent args)

@@ -197,6 +197,14 @@ public sealed partial class LavalandBubblegumComponent : Component
     };
 
     [DataField]
+    public DamageSpecifier CloneChargeDamage = new()
+    {
+        DamageDict = new()
+        {
+            { "Slash", FixedPoint2.New(10) },
+        },
+    };
+    [DataField]
     public SoundSpecifier AttackSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Bubblegum/demon_attack1.ogg");
 
     [DataField]
@@ -285,6 +293,9 @@ public sealed partial class LavalandBubblegumComponent : Component
 
     [ViewVariables]
     public readonly List<LavalandBubblegumPendingHandAttack> PendingHandAttacks = new();
+
+    [ViewVariables]
+    public TimeSpan NextCriticalCloneSpawn;
 }
 
 [RegisterComponent]

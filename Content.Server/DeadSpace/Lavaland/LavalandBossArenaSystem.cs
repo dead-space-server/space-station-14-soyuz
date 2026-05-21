@@ -228,6 +228,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             ? Name(boss)
             : bossComponent.BossName;
         arena.MaxHealth = bossComponent.MaxHealth;
+        arena.ScaledMaxHealth = bossComponent.MaxHealth;
         arena.NextParticipantScan = _timing.CurTime;
         arena.NextHudUpdate = _timing.CurTime;
         arena.NextBossLeashCheck = _timing.CurTime + BossLeashCheckInterval;
@@ -630,6 +631,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
                 {
                     SendHudUpdate(session, arena.Comp);
                     SendMusicStart(session, arena.Comp);
+                    TryScaleBossHpForParticipants((arena.Owner, arena.Comp));
                 }
             }
         }
@@ -679,12 +681,12 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             return;
         }
 
-        var currentHealth = GetCurrentBossHealth(arena.Boss, arena.MaxHealth);
+        var currentHealth = GetCurrentBossHealth(arena.Boss, arena.ScaledMaxHealth);
         var ev = new LavalandBossHudUpdateEvent(
             arena.ArenaId,
             arena.BossName,
             currentHealth,
-            arena.MaxHealth,
+            arena.ScaledMaxHealth,
             arena.Participants.Count);
         RaiseNetworkEvent(ev, session.Channel);
     }
@@ -848,6 +850,8 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         _transform.SetCoordinates(arena.Comp.Boss, _map.GridTileToLocal(arena.Comp.Grid, grid, arena.Comp.BossSpawnTile));
         HealBossOnReset(arena.Comp);
         arena.Comp.FightStarted = false;
+        arena.Comp.ScaledMaxHealth = arena.Comp.MaxHealth;
+        arena.Comp.PeakParticipantCount = 0;
         arena.Comp.BossOutsideArenaSince = null;
         arena.Comp.NextBossLeashCheck = now + BossLeashCheckInterval;
         SetBossAiEnabled(arena.Comp.Boss, false);
@@ -869,6 +873,8 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         {
             return;
         }
+
+        TryScaleBossHpForParticipants((arena.Owner, arena.Comp));
 
         arena.Comp.FightStarted = true;
         arena.Comp.EmptySince = null;

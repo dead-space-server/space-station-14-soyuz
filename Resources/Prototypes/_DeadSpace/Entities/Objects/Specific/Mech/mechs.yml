@@ -8,7 +8,7 @@
   - type: Sprite
     drawdepth: Mobs
     noRot: true
-    sprite: _DeadSpace/Objects/Specific/Mech/mecha.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/mecha.rsi
     layers:
     - map: [ "enum.MechVisualLayers.Base" ]
       state: bloodredripley

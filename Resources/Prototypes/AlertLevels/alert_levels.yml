@@ -10,28 +10,28 @@
       shuttleTime: 600
     blue:
       announcement: alert-level-blue-announcement
-      sound: /Audio/_DeadSpace/AlertLevels/blue.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/blue_code_new_style.ogg # DS14-soyuz
       color: DodgerBlue
       forceEnableEmergencyLights: true
       emergencyLightColor: DodgerBlue
       shuttleTime: 600
     violet:
       announcement: alert-level-violet-announcement
-      sound: /Audio/_DeadSpace/AlertLevels/violet.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/purple_code_new_style.ogg # DS14-soyuz
       color: Violet
       emergencyLightColor: Violet
       forceEnableEmergencyLights: true
       shuttleTime: 600
     yellow:
       announcement: alert-level-yellow-announcement
-      sound: /Audio/_DeadSpace/AlertLevels/yellow.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/yellow_code_new_style.ogg # DS14-soyuz
       color: Yellow
       emergencyLightColor: Goldenrod
       forceEnableEmergencyLights: true
       shuttleTime: 600
     red:
       announcement: alert-level-red-announcement
-      sound: /Audio/_DeadSpace/AlertLevels/red.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/red_code_new_style.ogg # DS14-soyuz
       color: Red
       emergencyLightColor: Red
       forceEnableEmergencyLights: true
@@ -55,7 +55,7 @@
     enigma:
       announcement: alert-level-enigma-announcement
       selectable: false
-      sound: /Audio/_DeadSpace/AlertLevels/enigma.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/enigma_new_style_alert.ogg # DS14-soyuz
       disableSelection: true
       color: '#EF7200'
       emergencyLightColor: '#EF7200'
@@ -63,7 +63,7 @@
     delta:
       announcement: alert-level-delta-announcement
       selectable: false
-      sound: /Audio/_DeadSpace/AlertLevels/delta.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/delta_code_new_style.ogg # DS14-soyuz
       disableSelection: true
       color: DarkRed
       emergencyLightColor: Orange
@@ -72,9 +72,20 @@
     epsilon:
       announcement: alert-level-epsilon-announcement
       selectable: false
-      sound: /Audio/_DeadSpace/AlertLevels/epsilon.ogg # DS14 alert sound
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/epsilon_code_new_style.ogg # DS14-soyuz
       disableSelection: true
       color: DarkViolet
       emergencyLightColor: DarkViolet
       forceEnableEmergencyLights: true
       shuttleTime: 1200
+# DS14-soyuz-start
+    reinheit:
+      announcement: alert-level-reinheit-announcement
+      selectable: false
+      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/sigma_code_new_style.ogg 
+      disableSelection: true
+      color: '#781f19'
+      emergencyLightColor: '#a92c23'
+      forceEnableEmergencyLights: true
+      shuttleTime: 1200
+# DS14-soyuz-end

@@ -586,3 +586,34 @@ Entries:
     message: Ошибки карты snowball, а теперь там еще есть и коморка пилота
   - type: Fix
     message: Автоматический чейнджлог
+- id: 59
+  author: Genes1us
+  time: '2026-05-20T15:47:44.768249+00:00'
+  pr: 305
+  changes:
+  - type: Tweak
+    message: Ремапп шаттла почты, который был до апстрима.
+- id: 60
+  author: PERed5
+  time: '2026-05-20T16:17:22.264487+00:00'
+  pr: 306
+  changes:
+  - type: Tweak
+    message: Отображение музыки в лобби
+- id: 61
+  author: PERed5
+  time: '2026-05-20T21:06:00.678888+00:00'
+  pr: 260
+  changes:
+  - type: Add
+    message: Бамбуковые ковры, стены, окна, двери
+  - type: Add
+    message: Торгомат почты
+  - type: Add
+    message: Система зарядки и урона у КПБ/С
+  - type: Add
+    message: Шахтёрский мех
+  - type: Tweak
+    message: Система двойных кроватей. Теперь это не костыль
+  - type: Tweak
+    message: Минорно изменены внутренности аркан и ксеноморфов

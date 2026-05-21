@@ -1,0 +1,59 @@
+- type: entity
+  name: бамбуковая скамейка
+  suffix: Левая часть
+  id: BambooBenchLeftSide
+  parent: SeatBase
+  description: Простая, но красивая.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/bamboo_bench.rsi
+    state: bench_left
+#  - type: Construction
+#    graph: Seat
+#    node: bamboobenchleft
+
+- type: entity
+  name: бамбуковая скамейка
+  suffix: Середина
+  id: BambooBenchMiddle
+  parent: SeatBase
+  description: Простая, но красивая.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/bamboo_bench.rsi
+    state: bench_middle
+#  - type: Construction
+#    graph: Seat
+#    node: bamboobenchmiddle
+
+- type: entity
+  name: бамбуковая скамейка
+  suffix: Правая часть
+  id: BambooBenchRightSide
+  parent: SeatBase
+  description: Простая, но красивая.
+  components:
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+  - type: Anchorable
+  - type: Rotatable
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/bamboo_bench.rsi
+    state: bench_right
+#  - type: Construction
+#    graph: Seat
+#    node: bamboobenchright

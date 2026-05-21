@@ -1,0 +1,117 @@
+- type: entity
+  id: MaterialMarketplace
+  parent: [ BaseMachinePowered, ConstructibleMachine ]
+  name: Торгомат
+  description: Терминал для покупки и продажи материалов. Просто добавь социализм!
+  components:
+  - type: MaterialMarketplace
+    fillLevels: 6
+#    whitelistTags:
+#    - Sheet
+#    - RawMaterial
+#    - Ingot
+    blacklistTags:
+    - Ore
+#    whitelistMaterials:
+    blacklistMaterials:
+    - Biomass
+    - Bones
+    - Gunpowder
+    - WebSilk
+    - Cotton
+    - Meaterial
+    - RawQuartz
+    - Coal
+    - RawSalt
+  - type: MaterialStorage
+    storageLimit: 1000
+#    whitelist:
+#      tags:
+#        - Sheet
+#        - RawMaterial
+#        - Ingot
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/material_marketplace.rsi
+    layers:
+    - state: icon
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: marketplace_fill-1
+      map: ["MaterialMarketplaceVisualLayers.FillLevel"]
+      visible: false
+      shader: unshaded
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+          - MachineLayer
+  - type: ActivatableUI
+    key: enum.MaterialMarketplaceUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.MaterialMarketplaceUiKey.Key:
+        type: MaterialMarketplaceBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: WiresPanel
+  - type: WiresVisuals
+  - type: StaticPrice
+    price: 250
+  - type: Appearance
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Pullable
+
+- type: materialMarketplaceCategory
+  id: Construction
+  name: Строительное
+  order: 1
+  materials:
+    - Steel
+    - Plasteel
+    - Brass
+    - Plastic
+
+- type: materialMarketplaceCategory
+  id: Glass
+  name: Стекло
+  order: 2
+  materials:
+    - Glass
+    - ReinforcedGlass
+    - PlasmaGlass
+    - ReinforcedPlasmaGlass
+    - UraniumGlass
+    - ReinforcedUraniumGlass
+    - BrassGlass
+
+- type: materialMarketplaceCategory
+  id: Precious
+  name: Драгоценности
+  order: 3
+  materials:
+    - Diamond
+    - Gold
+    - Silver
+    - Plasma
+    - Uranium
+    - Bananium
+
+- type: materialMarketplaceCategory
+  id: Other
+  name: Другое
+  order: 99
+  materials:
+    - Cardboard
+    - Wood
+    - Paper
+    - Cloth
+    - Durathread

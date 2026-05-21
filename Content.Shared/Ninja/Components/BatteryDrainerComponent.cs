@@ -26,6 +26,15 @@ public sealed partial class BatteryDrainerComponent : Component
     [DataField]
     public float DrainEfficiency = 0.001f;
 
+    // DS14-start: allow capping drain rate (used by IPC charging so it doesn't instantly empty SMES/APCs).
+    /// <summary>
+    /// Optional cap for how much power (J/s) can be drained from the target.
+    /// Set to 0 to use the target's configured maximum supply limit only.
+    /// </summary>
+    [DataField]
+    public float MaxDrainRate = 0f;
+    // DS14-end
+
     /// <summary>
     /// Time that the do after takes to drain charge from a battery, in seconds
     /// </summary>

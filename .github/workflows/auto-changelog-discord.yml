@@ -61,7 +61,7 @@ jobs:
           author = os.environ.get("AUTHOR", "unknown")
           pr_html_url = os.environ.get("PR_HTML_URL", "")
 
-          content_lines = [f"👤 Автор: **{author}**"]
+          content_lines = [f"👤 Автор: **{author}**", ""]
 
           for title, emoji in sections.items():
               pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
@@ -74,9 +74,9 @@ jobs:
                   ]
                   message = re.sub(r"\s+", " ", " ".join(lines)).strip()
                   if message:
-                      content_lines.append(f"{emoji} - {message} ([PR #{pr_number}]({pr_html_url}))")
+                      content_lines.append(f"{emoji} {title} - {message} ([PR #{pr_number}]({pr_html_url}))")
 
-          if len(content_lines) == 1:
+          if len(content_lines) == 2:
               print("No changelog changes found. Skipping Discord notification.")
               set_output("should_send", "false")
               exit(0)

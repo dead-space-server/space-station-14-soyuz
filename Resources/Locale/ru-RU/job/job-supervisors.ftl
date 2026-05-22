@@ -1,5 +1,5 @@
 job-supervisors-centcom = генеральному штабу
-job-supervisors-iaa = агенту следственного комитета
+job-supervisors-iaa = системному агенту прокуратуры
 job-supervisors-captain = капитану
 job-supervisors-hop = начальнику отдела кадров
 job-supervisors-hos = начальнику милиции

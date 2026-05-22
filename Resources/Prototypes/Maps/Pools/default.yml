@@ -6,7 +6,7 @@
   - Bagel
   - Barratry
   - Box
-  - Cluster
+  # - Cluster # broken map, needs resave
   - Cog
   - Convex
   - Core
@@ -29,8 +29,9 @@
   - Omega
   - Origin
   - Packed
-  - Plasma
+  # - Plasma # broken map, needs resave
   - Reach
+  # - Exo # map prototype is commented out
   - Saltern
   - Snowball
   # - Train # Holy Sheet map

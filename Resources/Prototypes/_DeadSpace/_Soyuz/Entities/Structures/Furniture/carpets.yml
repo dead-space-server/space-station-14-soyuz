@@ -1,0 +1,32 @@
+- type: entity
+  id: BambooMat
+  parent: CarpetBase
+  name: бамбуковый мат
+  description: Мат бамбуковый.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Carpets/bamboo_mat.rsi
+  - type: Icon
+    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Carpets/bamboo_mat.rsi
+  - type: IconSmooth
+    key: full
+    base: mat_
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 100
+        behaviors: #excess damage (nuke?). avoid computational cost of spawning entities.
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+      - trigger:
+          !type:DamageTrigger
+          damage: 10
+        behaviors:
+          - !type:DoActsBehavior
+            acts: [ "Destruction" ]
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              FloorBambooMatItem:
+                min: 1
+                max: 1

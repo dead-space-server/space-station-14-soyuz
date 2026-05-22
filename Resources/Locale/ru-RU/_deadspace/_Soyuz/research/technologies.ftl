@@ -1,7 +1,6 @@
 research-technology-armed-tech-fab-technology = Оруженый ТехФаб СССП
 research-technology-processing-tungsten = Прокат вольфрама
 research-technology-ammo-tungsten-technology = Боеприпасы ППБС
-research-technology-pistols = Манипулирование карманным вооружением
 research-technology-shotguns-soyuz = Манипулирование помповым вооружением
 research-technology-automatic-weapons = Манипулирование автоматическим вооружением
 research-technology-ammo-magazine = Инженерия усовершенствованных магазинов
@@ -13,3 +12,4 @@ research-technology-ballistics-large-caliber-weapons = Манипулирова�
 research-technology-silver-ammo = Серебряные боеприпасы
 research-technology-plastitan-titan = Изготовления пластитана и титана
 research-technology-experimental-cloning = Экспериментальное клонирование
+research-technology-clarke = К.Л.А.Р.К.

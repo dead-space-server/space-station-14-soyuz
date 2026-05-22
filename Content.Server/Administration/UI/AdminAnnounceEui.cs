@@ -54,7 +54,7 @@ namespace Content.Server.Administration.UI
                     var hex = doAnnounce.ColorHex?.Trim();
 
                     if (string.IsNullOrWhiteSpace(hex))
-                        hex = "1d8bad";
+                        hex = "B64444";
 
                     if (!hex.StartsWith('#'))
                         hex = "#" + hex;
@@ -65,7 +65,7 @@ namespace Content.Server.Administration.UI
                     }
                     catch (FormatException)
                     {
-                        color = Color.FromHex("#1d8bad");
+                        color = Color.FromHex("#B64444");
                     }
 
                     SoundSpecifier? sound = null;

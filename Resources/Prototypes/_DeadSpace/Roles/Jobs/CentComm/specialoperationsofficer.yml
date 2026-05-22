@@ -105,9 +105,9 @@
 - type: entity
   parent: ClothingHeadset
   id: ClothingHeadsetSpecialOperationsOfficer
-  name: гарнитура Генерала СО
-  description: Уникальный образец гарнитуры c доступом во все каналы. Собственность Генерала Специальных Операций.
-  suffix: СОБСТВЕННОСТЬ ГСО
+  name: гарнитура Генерала СО # DS14-Soyuz
+  description: Уникальный образец гарнитуры c доступом во все каналы. Собственность Генерала Специальных Операций. # DS14-Soyuz
+  suffix: СОБСТВЕННОСТЬ ГСО # DS14-Soyuz
   components:
   - type: ContainerFill
     containers:

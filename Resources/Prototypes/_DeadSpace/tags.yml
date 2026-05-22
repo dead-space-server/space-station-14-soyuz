@@ -68,6 +68,9 @@
   id: CleanerGrenade
 
 - type: Tag
+  id: ClothingShoesBootsJump
+
+- type: Tag
   id: CloningPodMachineCircuitboard
 
 - type: Tag
@@ -126,6 +129,9 @@
 
 - type: Tag
   id: EncryptionTaipan
+
+- type: Tag
+  id: ExplorerSuitLavaland
 
 - type: Tag
   id: FlamethrowerBackTank
@@ -206,6 +212,9 @@
   id: LightReplacer
 
 - type: Tag
+  id: LoneOpsUplink #DS-14
+
+- type: Tag
   id: MagazineCarbineSKS
 
 - type: Tag
@@ -216,6 +225,9 @@
 
 - type: Tag
   id: MagazineEagleAP
+
+- type: Tag
+  id: MagazineGurza
 
 - type: Tag
   id: MagazineTommyGun

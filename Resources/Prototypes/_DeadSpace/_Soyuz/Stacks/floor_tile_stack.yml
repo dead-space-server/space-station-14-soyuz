@@ -1,3 +1,10 @@
+# Carpept
+
+- type: stack
+  id: FloorBambooMat
+  name: stack-bamboo-mat-tile
+  spawn: FloorBambooMatItem
+  maxCount: 30
 # Стальная плитка
 ## Белая
 - type: stack

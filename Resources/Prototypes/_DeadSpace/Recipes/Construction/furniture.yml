@@ -28,16 +28,87 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
 
-# Snowman
+# Doublebed
 - type: construction
-  id: Snowman
-  graph: Snowman
+  id: DoubleBedSteelConstruction
+  graph: bed
   startNode: start
-  targetNode: snowman
+  targetNode: doublebedsteel
   category: construction-category-furniture
   objectType: Structure
   placementMode: SnapgridCenter
-  canRotate: true
   canBuildInImpassable: false
   conditions:
-  - !type:TileNotBlocked
+    - !type:TileNotBlocked
+
+- type: construction
+  id: DoubleBedWoodConstruction
+  graph: bed
+  startNode: start
+  targetNode: doublebedwood
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: DoubleBedGoldConstruction
+  graph: bed
+  startNode: start
+  targetNode: doublebedgold
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: BedWoodConstruction
+  graph: bed
+  startNode: start
+  targetNode: bedwood
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: BedGoldConstruction
+  graph: bed
+  startNode: start
+  targetNode: bedgold
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: MattressConstruction
+  graph: bed
+  startNode: start
+  targetNode: mattress
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked
+
+- type: construction
+  id: DoubleMattressConstruction
+  graph: bed
+  startNode: start
+  targetNode: doublemattress
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked

@@ -1,5 +1,28 @@
+# Ставить новые теги строго в алфавитном порядке A-Z
+
 - type: Tag
   id: CartridgeLightestRifle
+
+- type: Tag
+  id: ClarkeCentralControlModule
+
+- type: Tag
+  id: ClarkeEquipment
+
+- type: Tag
+  id: ClarkeLArm
+
+- type: Tag
+  id: ClarkeLLeg
+
+- type: Tag
+  id: ClarkePeripheralsControlModule
+
+- type: Tag
+  id: ClarkeRArm
+
+- type: Tag
+  id: ClarkeRLeg
 
 - type: Tag
   id: DrinkCup
@@ -8,37 +31,13 @@
   id: DrinkGlass
 
 - type: Tag
-  id: PoliceBetaLegs
-
-- type: Tag
-  id: PoliceBetaBody
-
-- type: Tag
-  id: PoliceBetaComp
-
-- type: Tag
-  id: PoliceBetaHead
+  id: ExperimentalCloningPodMachineCircuitboard
 
 - type: Tag
   id: IgnoreBedHealing
 
 - type: Tag
-  id: MagazineLightRifleVSS
-
-- type: Tag
-  id: MagazineRifleASH
-
-- type: Tag
-  id: MagazineShotgunSaiga
-
-- type: Tag
-  id: MagazineMagnumSVD
-
-- type: Tag
   id: MagazineAntiMaterielSV
-
-- type: Tag
-  id: MagazinePistolMTS
 
 - type: Tag
   id: MagazineBoxLightestRifle
@@ -53,4 +52,28 @@
   id: MagazineBoxLightestRifleUranium
 
 - type: Tag
-  id: ExperimentalCloningPodMachineCircuitboard
+  id: MagazineLightRifleVSS
+
+- type: Tag
+  id: MagazineMagnumSVD
+
+- type: Tag
+  id: MagazinePistolMTS
+
+- type: Tag
+  id: MagazineRifleASH
+
+- type: Tag
+  id: MagazineShotgunSaiga
+
+- type: Tag
+  id: PoliceBetaBody
+
+- type: Tag
+  id: PoliceBetaComp
+
+- type: Tag
+  id: PoliceBetaHead
+
+- type: Tag
+  id: PoliceBetaLegs

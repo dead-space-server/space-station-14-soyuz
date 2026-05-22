@@ -9,4 +9,4 @@ steal-target-groups-weapon-revolver-deckard = Декард
 # Traitor single items
 steal-target-groups-weapon-X01-pistol = X-01 мультифазовый энергетический пистолет
 steal-target-groups-pinpointer = пинпоитер
-steal-target-groups-pistol-blue-shield = пистолет офицера "Синий щит"
+steal-target-groups-pistol-blue-shield = пистолет оперативника КГБ

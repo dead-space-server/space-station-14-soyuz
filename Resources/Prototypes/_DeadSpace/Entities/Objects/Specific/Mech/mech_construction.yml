@@ -1,5 +1,4 @@
 # TaipanRipley APLU
-
 - type: entity
   id: BaseTaipanRipleyPart
   parent: BaseMechPart

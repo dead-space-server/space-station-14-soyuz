@@ -453,6 +453,7 @@
     - SecurityAmmoStatic
     - SecurityWeaponsStatic
     - SecurityBorgModulesStatic # DS14
+    - SecDetailTechFab # DS14
     dynamicPacks:
     - SalvageSecurityBoards
     - SalvageSecurityWeapons
@@ -468,6 +469,8 @@
     - WeaponMagmite # DS14
     - SecurityRIGCraftDetails # DS14
     - GlovesArkalyse # DS14
+    - SecurityBorgModulesTierTwo # DS14
+    - SecurityBorgModulesTierThree # DS14
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
@@ -683,6 +686,22 @@
       - OreSmelting
       - RGlassSmelting
     - type: OreSiloClient # DS14-soyuz
+#DS14-start
+    - type: LavalandOreRedeemer
+      oreValues:
+        SteelOre: 1
+        Coal: 1
+        SaltOre: 1
+        PlasmaOre: 2
+        SpaceQuartz: 3
+        SilverOre: 4
+        GoldOre: 4
+        MagmiteOre: 8
+        UraniumOre: 8
+        BananiumOre: 8
+        BluespaceCrystalOre: 12
+        DiamondOre: 16
+#DS14-end
 
 - type: entity
   parent: OreProcessor

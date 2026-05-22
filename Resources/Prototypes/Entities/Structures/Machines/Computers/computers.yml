@@ -690,7 +690,7 @@
   - type: CommunicationsConsole
     title: comms-console-announcement-title-station
     sound:
-      path: /Audio/_DeadSpace/Soyuz/Announcements/announce.ogg # DS14-Announcements | DS14-Soyuz Sound
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/announce.ogg # DS14-Announcements | DS14-Soyuz Sound
       params:
         volume: -2 # DS14
   - type: DeviceNetwork
@@ -811,7 +811,7 @@
     canShuttle: false
     global: true
     sound:
-      path: /Audio/_DeadSpace/Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz Sound
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz Sound
       params:
         volume: -2 # DS14
   - type: Computer

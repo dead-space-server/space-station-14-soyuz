@@ -66,13 +66,13 @@
       - id: JawsOfLife
       - id: PowerDrill
       - id: WelderExperimental
-      - id: ADTCombatHypo
+      # - id: ADTCombatHypo # DS14-Soyuz disabled
       - id: ChemistryBottleEphedrine
       - id: ChemistryBottleOmnizine
       - id: ChemistryBottleOmnizine
-      - id: ADTObjectsSpecificBicaridineChemistryBottle
-      - id: ADTObjectsSpecificDexalinPlusChemistryBottle
-      - id: ADTObjectsSpecificDermalineChemistryBottle
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
 
 - type: startingGear
   id: CentcomBlueShieldGear

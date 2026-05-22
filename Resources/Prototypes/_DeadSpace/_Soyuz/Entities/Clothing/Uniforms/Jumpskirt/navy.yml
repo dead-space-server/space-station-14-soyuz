@@ -9,7 +9,6 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_captain.rsi
-    state: icon
 
 - type: entity
   parent: [ BaseCentcommContraband, ClothingUniformBase ]
@@ -22,7 +21,6 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_medical.rsi
-    state: icon
 
 - type: entity
   parent: [ BaseCentcommContraband, ClothingUniformBase ]
@@ -35,7 +33,6 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_engineer.rsi
-    state: icon
 
 - type: entity
   parent: [ BaseCentcommContraband, ClothingUniformBase ]
@@ -48,4 +45,3 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_officer.rsi
-    state: icon

@@ -24952,13 +24952,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 29.181376,42.804165
       parent: 2
-- proto: ADTClothingRedjiShoes
-  entities:
-  - uid: 64
-    components:
-    - type: Transform
-      pos: 32.649437,-2.1704245
-      parent: 2
 - proto: ADTClothingUniformNewServiceSuit
   entities:
   - uid: 66

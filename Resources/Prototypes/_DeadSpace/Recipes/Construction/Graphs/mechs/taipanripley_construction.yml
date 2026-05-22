@@ -7,7 +7,7 @@
     - to: taipanripley
       steps:
       - assemblyId: TaipanRipley
-        guideString: borg-construction-guide-string # Временное решение, заменить на mech после апстрима
+        guideString: mech-construction-guide-string
 
       - tool: Anchoring
         doAfter: 1

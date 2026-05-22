@@ -279,3 +279,7 @@ ghost-role-information-ert-centcom-official-description =
     Роль требует хорошего знания СРП и Правил Внутреннего Распорядка.
     Если вы не уверены в своих знаниях, пожалуйста, не берите эту роль.
     Роль предполагает высокий уровень ответственности и может быть предметом административного контроля со стороны модерации/администрации.
+ghost-role-information-mothership-core-name = Материнское ядро Ксеноборгов
+ghost-role-information-mothership-core-desc = Используйте Ксеноборгов, да бы сделать ещё больше ксеноборгов!
+ghost-role-information-xenoborg-name = Ксеноборг
+ghost-role-information-xenoborg-desc = Помогите материнскому ядру Ксеноборгов сделать больше ксеноборгов.

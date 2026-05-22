@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Мade by koseop (discord) for Space Station 14 server Мёртвый Космос Союз-1",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "agsh1"
+    },
+    {
+      "name": "hos1"
+    },
+    {
+      "name": "hos2"
+    },
+    {
+      "name": "idkwhois1"
+    },
+    {
+      "name": "okgb1"
+    },
+    {
+      "name": "pilot1"
+    },
+    {
+      "name": "scientist1"
+    }
+  ]
+}

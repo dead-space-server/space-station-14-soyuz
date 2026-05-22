@@ -4,6 +4,7 @@ using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Tools.Components;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Humanoid; // DS14
 
 namespace Content.Shared.Eye.Blinding.Systems
 {
@@ -40,6 +41,11 @@ namespace Content.Shared.Eye.Blinding.Systems
         {
             if (!component.Toggled)
                 return;
+
+            // DS14-start: IPCs are immune to welder blinding.
+            if (TryComp<HumanoidAppearanceComponent>(args.User, out var humanoid) && humanoid.Species == "IPC")
+                return;
+            // DS14-end
 
             if (!TryComp<BlindableComponent>(args.User, out var blindable) || blindable.IsBlind)
                 return;

@@ -28471,20 +28471,6 @@ entities:
     - type: Transform
       pos: -26.593285,-125.393234
       parent: 1
-- proto: BoxFolderCentCom
-  entities:
-  - uid: 1596
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 20.662409,-166.41393
-      parent: 1
-  - uid: 1597
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 20.453934,-166.40004
-      parent: 1
 - proto: BoxFolderCentComClipboardEmpty
   entities:
   - uid: 1598

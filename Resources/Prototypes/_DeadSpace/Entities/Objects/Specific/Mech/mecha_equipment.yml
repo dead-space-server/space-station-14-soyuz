@@ -5,10 +5,9 @@
   description: Гидравлическая клешня, созданная с применением редспейс-технологий. Имеет повышенную вместимость и стильную кроваво-красную расцветку.
   components:
   - type: Sprite
-    sprite: _DeadSpace/Objects/Specific/Mech/mecha_equipment.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Mech/mecha_equipment.rsi
     state: mecha_clamp
   - type: Item
-    sprite: _DeadSpace/Objects/Specific/Mech/mecha_equipment.rsi
     size: Ginormous
   - type: MechGrabber
     maxContents: 20

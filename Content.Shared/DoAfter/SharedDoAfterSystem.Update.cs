@@ -157,26 +157,18 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         if (args.EventTarget is {Valid: true} eventTarget && !xformQuery.HasComponent(eventTarget))
             return true;
 
-        if (!xformQuery.TryGetComponent(args.User, out var userXform))
-            return true;
-
-        TransformComponent? targetXform = null;
-        if (args.Target is { } target && !xformQuery.TryGetComponent(target, out targetXform))
-            return true;
-
-        if (args.Used is { } @using && !xformQuery.HasComp(@using))
-            return true;
-
         // TODO: Re-use existing xform query for these calculations.
         if (args.BreakOnMove && !(!args.BreakOnWeightlessMove && _gravity.IsWeightless(args.User)))
         {
-            // Whether the user has moved too much from their original position.
-            if (!_transform.InRange(userXform.Coordinates, doAfter.UserPosition, args.MovementThreshold))
+            var movementEntity = doAfter.MovementEntity;
+            var movementXform = Transform(movementEntity);
+
+            // Whether the effective movement entity has moved too much from its original position.
+            if (!_transform.InRange(movementXform.Coordinates, doAfter.UserPosition, args.MovementThreshold))
                 return true;
 
-            // Whether the distance between the user and target(if any) has changed too much.
-            if (targetXform != null &&
-                targetXform.Coordinates.TryDistance(EntityManager, userXform.Coordinates, out var distance))
+            // Whether the distance between the effective movement entity and the target(if any) has changed too much.
+            if (args.Target is { } target && Transform(target).Coordinates.TryDistance(EntityManager, movementXform.Coordinates, out var distance))
             {
                 if (Math.Abs(distance - doAfter.TargetDistance) > args.MovementThreshold)
                     return true;
@@ -228,7 +220,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
 
         if (args.RequireCanInteract && !_actionBlocker.CanInteract(args.User, args.Target))
             return true;
-
 
         return false;
     }

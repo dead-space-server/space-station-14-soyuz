@@ -90,6 +90,23 @@ public sealed partial class StrapComponent : Component
     /// </summary>
     [DataField]
     public bool BuckleOnInteractHand = true;
+
+    /// <summary>
+    /// DS14: Can be used to limit the amount of entities that can be strapped.
+    /// </summary>
+    [DataField]
+    public int MaxCapacity = 1;
+
+    /// <summary>
+    /// DS14: Offsets for multiple entities when MaxCapacity > 1
+    /// If empty, uses default BuckleOffset for all positions
+    /// </summary>
+    [DataField]
+    public Dictionary<int, Vector2> MultiBuckleOffsets = new();
+    /// Whether being buckled to this entity should change the buckled ent's drawdepth.
+    /// </summary>
+    [DataField]
+    public bool ModifyBuckleDrawDepth = true;
 }
 
 public enum StrapPosition

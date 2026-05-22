@@ -45,6 +45,10 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
     private readonly HashSet<Vector2i> _detonatingTiles = new();
     private readonly Dictionary<Vector2i, DamageSpecifier> _detonatingDamage = new();
     private readonly HashSet<Vector2i> _detonatingIgniteTiles = new();
+    private readonly HashSet<EntityUid> _fireTileEntities = new();
+    private readonly HashSet<EntityUid> _tileEntities = new();
+    private readonly HashSet<EntityUid> _damagedEntities = new();
+    private readonly HashSet<Vector2i> _cageFireTiles = new();
 
     public override void Initialize()
     {
@@ -222,6 +226,328 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         QueueFireWalls(boss, drake, arena, gridUid, grid, now);
         MarkPressure(drake, now, "fire-walls", target);
         drake.NextAttack = now + GetScaledCooldown(drake.RangedCooldown, rage);
+    }
+
+    private void StartCageAttack(
+        EntityUid boss,
+        LavalandAshDrakeComponent drake,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        EntityUid target,
+        TimeSpan now)
+    {
+        var targetTile = GetEntityTile(target, gridUid, grid);
+        if (targetTile == null)
+            return;
+
+        var cageCenter = GetCageCenter(arena, targetTile.Value, drake.CageHalfSize);
+
+        drake.CageCenter = cageCenter;
+        drake.CageActive = true;
+        drake.CagePhase = 0;
+        drake.CageEndAt = now + drake.CageDuration;
+        drake.NextCageTargetAt = now + TimeSpan.FromSeconds(0.5);
+        drake.NextCageFillAt = TimeSpan.Zero;
+        drake.NextCageDamageTick = now + drake.CageDamageInterval;
+        drake.CurrentCageTargetTile = null;
+        drake.CageTargetEntity = null;
+        drake.CageSafeTile = null;
+
+        SpawnCageBorder(drake, gridUid, grid, cageCenter);
+
+        var (minX, maxX, minY, maxY) = GetInnerBounds(arena);
+        var centerTile = new Vector2i((minX + maxX) / 2, (minY + maxY) / 2);
+        _transform.SetCoordinates(boss, _map.GridTileToLocal(gridUid, grid, centerTile));
+
+        _audio.PlayPvs(drake.FireSound, boss, AudioParams.Default.WithVolume(2f));
+
+        SetVisual(boss, LavalandAshDrakeVisualState.Shadow);
+        _movement.RefreshMovementSpeedModifiers(boss);
+
+        drake.BusyUntil = drake.CageEndAt + TimeSpan.FromSeconds(3);
+    }
+
+    private void ProcessCageAttack(
+        EntityUid boss,
+        LavalandAshDrakeComponent drake,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        if (now >= drake.CageEndAt)
+        {
+            EndCageAttack(boss, drake, arena, gridUid, grid, now);
+            return;
+        }
+
+        if (now >= drake.NextCageDamageTick)
+        {
+            ApplyCageDamage(boss, drake, gridUid, grid);
+            drake.NextCageDamageTick = now + drake.CageDamageInterval;
+        }
+
+        if (drake.CurrentCageTargetTile.HasValue &&
+            drake.NextCageFillAt != TimeSpan.Zero &&
+            now >= drake.NextCageFillAt)
+        {
+            FillCagePhase(boss, drake, gridUid, grid, now);
+            return;
+        }
+
+        if (!drake.CurrentCageTargetTile.HasValue && now >= drake.NextCageTargetAt)
+        {
+            SpawnCageTarget(drake, gridUid, grid);
+            if (drake.CurrentCageTargetTile.HasValue)
+                drake.NextCageFillAt = now + drake.CageTargetInterval;
+        }
+    }
+
+    private void FillCagePhase(
+        EntityUid boss,
+        LavalandAshDrakeComponent drake,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        var safeTile = drake.CurrentCageTargetTile!.Value;
+
+        if (drake.CageTargetEntity.HasValue && Exists(drake.CageTargetEntity.Value))
+            QueueDel(drake.CageTargetEntity.Value);
+        drake.CageTargetEntity = null;
+
+        FillCageInterior(drake, gridUid, grid, safeTile);
+
+        drake.CageSafeTile = safeTile;
+        drake.CurrentCageTargetTile = null;
+        drake.NextCageFillAt = TimeSpan.Zero;
+        drake.CagePhase++;
+
+        _audio.PlayPvs(
+            drake.ImpactSound,
+            _map.GridTileToLocal(gridUid, grid, safeTile),
+            AudioParams.Default.WithVolume(-3f));
+
+        if (drake.CagePhase >= drake.CagePhaseCount)
+        {
+            drake.CageEndAt = now + TimeSpan.FromSeconds(0.5);
+            drake.NextCageTargetAt = TimeSpan.MaxValue;
+            return;
+        }
+
+        drake.NextCageTargetAt = now + drake.CageTargetInterval;
+    }
+
+    private void EndCageAttack(
+        EntityUid boss,
+        LavalandAshDrakeComponent drake,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        foreach (var entity in drake.CageBorderEntities)
+        {
+            if (Exists(entity))
+                QueueDel(entity);
+        }
+        drake.CageBorderEntities.Clear();
+
+        foreach (var entity in drake.CageInteriorEntities)
+        {
+            if (Exists(entity))
+                QueueDel(entity);
+        }
+        drake.CageInteriorEntities.Clear();
+
+        if (drake.CageTargetEntity.HasValue && Exists(drake.CageTargetEntity.Value))
+            QueueDel(drake.CageTargetEntity.Value);
+        drake.CageTargetEntity = null;
+
+        drake.CageActive = false;
+        drake.CagePhase = 0;
+        drake.CurrentCageTargetTile = null;
+        drake.CageSafeTile = null;
+        drake.NextCageFillAt = TimeSpan.Zero;
+
+        if (!Exists(boss))
+            return;
+
+        SetVisual(boss, LavalandAshDrakeVisualState.Dragon);
+        _movement.RefreshMovementSpeedModifiers(boss);
+
+        var (minX, maxX, minY, maxY) = GetInnerBounds(arena);
+        var centerTile = new Vector2i((minX + maxX) / 2, (minY + maxY) / 2);
+        _transform.SetCoordinates(boss, _map.GridTileToLocal(gridUid, grid, centerTile));
+
+        _audio.PlayPvs(drake.ImpactSound, boss, AudioParams.Default.WithVolume(0f));
+
+        drake.BusyUntil = now + TimeSpan.FromSeconds(1.5);
+        drake.NextAttack = now + TimeSpan.FromSeconds(3.0);
+    }
+
+    private void SpawnCageBorder(
+        LavalandAshDrakeComponent drake,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i center)
+    {
+        var half = drake.CageHalfSize;
+
+        for (var x = -half; x <= half; x++)
+        {
+            for (var y = -half; y <= half; y++)
+            {
+                if (Math.Abs(x) != half && Math.Abs(y) != half)
+                    continue;
+
+                var tile = center + new Vector2i(x, y);
+                var uid = Spawn(drake.CageBorderFirePrototype, _map.GridTileToLocal(gridUid, grid, tile));
+                if (TryComp(uid, out TransformComponent? xform) && !xform.Anchored)
+                    _transform.AnchorEntity((uid, xform), (gridUid, grid), tile);
+                drake.CageBorderEntities.Add(uid);
+            }
+        }
+    }
+
+    private void SpawnCageTarget(
+        LavalandAshDrakeComponent drake,
+        EntityUid gridUid,
+        MapGridComponent grid)
+    {
+        var innerHalf = drake.CageHalfSize - 1;
+        var center = drake.CageCenter;
+
+        var candidates = new List<Vector2i>();
+        for (var x = -innerHalf; x <= innerHalf; x++)
+        {
+            for (var y = -innerHalf; y <= innerHalf; y++)
+            {
+                var tile = center + new Vector2i(x, y);
+
+                if (drake.CageSafeTile.HasValue && tile == drake.CageSafeTile.Value)
+                    continue;
+
+                candidates.Add(tile);
+            }
+        }
+
+        if (candidates.Count == 0)
+            return;
+
+        var targetTile = _random.Pick(candidates);
+        drake.CurrentCageTargetTile = targetTile;
+
+        var uid = Spawn(drake.CageTargetPrototype, _map.GridTileToLocal(gridUid, grid, targetTile));
+        if (TryComp(uid, out TransformComponent? xform) && !xform.Anchored)
+            _transform.AnchorEntity((uid, xform), (gridUid, grid), targetTile);
+        drake.CageTargetEntity = uid;
+    }
+
+    private void FillCageInterior(
+        LavalandAshDrakeComponent drake,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i safeTile)
+    {
+        foreach (var entity in drake.CageInteriorEntities)
+        {
+            if (Exists(entity))
+                QueueDel(entity);
+        }
+        drake.CageInteriorEntities.Clear();
+
+        var innerHalf = drake.CageHalfSize - 1;
+        var center = drake.CageCenter;
+
+        for (var x = -innerHalf; x <= innerHalf; x++)
+        {
+            for (var y = -innerHalf; y <= innerHalf; y++)
+            {
+                var tile = center + new Vector2i(x, y);
+
+                if (tile == safeTile)
+                    continue;
+
+                var uid = Spawn(drake.CageFirePrototype, _map.GridTileToLocal(gridUid, grid, tile));
+                if (TryComp(uid, out TransformComponent? xform) && !xform.Anchored)
+                    _transform.AnchorEntity((uid, xform), (gridUid, grid), tile);
+                drake.CageInteriorEntities.Add(uid);
+            }
+        }
+    }
+
+    private void ApplyCageDamage(
+        EntityUid boss,
+        LavalandAshDrakeComponent drake,
+        EntityUid gridUid,
+        MapGridComponent grid)
+    {
+        _cageFireTiles.Clear();
+        foreach (var entity in drake.CageInteriorEntities)
+        {
+            if (!Exists(entity) || !TryComp(entity, out TransformComponent? fxform))
+                continue;
+
+            _cageFireTiles.Add(_map.LocalToTile(gridUid, grid, fxform.Coordinates));
+        }
+
+        var half = drake.CageHalfSize;
+        var center = drake.CageCenter;
+        _damagedEntities.Clear();
+
+        foreach (var fireTile in _cageFireTiles)
+        {
+            _tileEntities.Clear();
+            _lookup.GetLocalEntitiesIntersecting(
+                gridUid,
+                fireTile,
+                _tileEntities,
+                flags: LookupFlags.Dynamic | LookupFlags.Sundries,
+                gridComp: grid);
+
+            foreach (var uid in _tileEntities)
+            {
+                if (uid == boss ||
+                    !_damagedEntities.Add(uid) ||
+                    !TryComp(uid, out DamageableComponent? damageable) ||
+                    !TryComp(uid, out MobStateComponent? mobState) ||
+                    mobState.CurrentState == MobState.Dead ||
+                    !TryComp(uid, out TransformComponent? xform) ||
+                    xform.GridUid != gridUid)
+                {
+                    continue;
+                }
+
+                var tile = _map.LocalToTile(gridUid, grid, xform.Coordinates);
+                var dx = Math.Abs(tile.X - center.X);
+                var dy = Math.Abs(tile.Y - center.Y);
+
+                if (tile != fireTile ||
+                    dx > half ||
+                    dy > half)
+                {
+                    continue;
+                }
+
+                _damageable.TryChangeDamage((uid, damageable), drake.CageInteriorFireDamage, origin: boss);
+                IgniteEntity(uid, drake, boss);
+                _audio.PlayPvs(drake.HitSound, uid, AudioParams.Default.WithVolume(-6f));
+            }
+        }
+
+        _tileEntities.Clear();
+        _damagedEntities.Clear();
+        _cageFireTiles.Clear();
+    }
+
+    private static Vector2i GetCageCenter(LavalandBossArenaComponent arena, Vector2i target, int halfSize)
+    {
+        var (minX, maxX, minY, maxY) = GetInnerBounds(arena);
+        return new Vector2i(
+            Math.Clamp(target.X, minX + halfSize, maxX - halfSize),
+            Math.Clamp(target.Y, minY + halfSize, maxY - halfSize));
     }
 
     private void QueueFireWalls(
@@ -652,29 +978,47 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         EntityUid gridUid,
         MapGridComponent grid)
     {
-        var query = EntityQueryEnumerator<DamageableComponent, MobStateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var damageable, out var mobState, out var xform))
+        _damagedEntities.Clear();
+
+        foreach (var tile in _detonatingTiles)
         {
-            if (uid == boss ||
-                mobState.CurrentState == MobState.Dead ||
-                xform.GridUid != gridUid)
-            {
+            if (!_detonatingDamage.TryGetValue(tile, out var damage))
                 continue;
-            }
 
-            var tile = _map.LocalToTile(gridUid, grid, xform.Coordinates);
-            if (!_detonatingTiles.Contains(tile) ||
-                !_detonatingDamage.TryGetValue(tile, out var damage))
+            _tileEntities.Clear();
+            _lookup.GetLocalEntitiesIntersecting(
+                gridUid,
+                tile,
+                _tileEntities,
+                flags: LookupFlags.Dynamic | LookupFlags.Sundries,
+                gridComp: grid);
+
+            foreach (var uid in _tileEntities)
             {
-                continue;
-            }
+                if (uid == boss ||
+                    !_damagedEntities.Add(uid) ||
+                    !TryComp(uid, out DamageableComponent? damageable) ||
+                    !TryComp(uid, out MobStateComponent? mobState) ||
+                    mobState.CurrentState == MobState.Dead ||
+                    !TryComp(uid, out TransformComponent? xform) ||
+                    xform.GridUid != gridUid ||
+                    _map.LocalToTile(gridUid, grid, xform.Coordinates) != tile)
+                {
+                    continue;
+                }
 
-            _damageable.TryChangeDamage((uid, damageable), damage, origin: boss);
-            if (_detonatingIgniteTiles.Contains(tile))
                 IgniteEntity(uid, drake, boss);
+                _damageable.TryChangeDamage((uid, damageable), damage, origin: boss);
 
-            _audio.PlayPvs(drake.HitSound, uid, AudioParams.Default.WithVolume(-6f));
+                if (_detonatingIgniteTiles.Contains(tile))
+                    IgniteEntity(uid, drake, boss);
+
+                _audio.PlayPvs(drake.HitSound, uid, AudioParams.Default.WithVolume(-6f));
+            }
         }
+
+        _tileEntities.Clear();
+        _damagedEntities.Clear();
     }
 
     private void DamageArea(
@@ -688,36 +1032,59 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         bool ignite,
         bool throwTargets)
     {
-        var query = EntityQueryEnumerator<DamageableComponent, MobStateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var damageable, out var mobState, out var xform))
+        _damagedEntities.Clear();
+
+        for (var x = center.X - radius; x <= center.X + radius; x++)
         {
-            if (uid == boss ||
-                mobState.CurrentState == MobState.Dead ||
-                xform.GridUid != gridUid)
+            for (var y = center.Y - radius; y <= center.Y + radius; y++)
             {
-                continue;
+                var tile = new Vector2i(x, y);
+                if (ChebyshevDistance(center, tile) > radius)
+                    continue;
+
+                _tileEntities.Clear();
+                _lookup.GetLocalEntitiesIntersecting(
+                    gridUid,
+                    tile,
+                    _tileEntities,
+                    flags: LookupFlags.Dynamic | LookupFlags.Sundries,
+                    gridComp: grid);
+
+                foreach (var uid in _tileEntities)
+                {
+                    if (uid == boss ||
+                        !_damagedEntities.Add(uid) ||
+                        !TryComp(uid, out DamageableComponent? damageable) ||
+                        !TryComp(uid, out MobStateComponent? mobState) ||
+                        mobState.CurrentState == MobState.Dead ||
+                        !TryComp(uid, out TransformComponent? xform) ||
+                        xform.GridUid != gridUid ||
+                        _map.LocalToTile(gridUid, grid, xform.Coordinates) != tile)
+                    {
+                        continue;
+                    }
+
+                    _damageable.TryChangeDamage((uid, damageable), damage, origin: boss);
+
+                    if (ignite)
+                        IgniteEntity(uid, drake, boss);
+
+                    if (throwTargets)
+                    {
+                        var direction = new Vector2(tile.X - center.X, tile.Y - center.Y);
+                        if (direction.LengthSquared() < 0.01f)
+                            direction = _random.NextVector2();
+
+                        _throwing.TryThrow(uid, direction.Normalized() * 2.5f, drake.SwoopThrowSpeed, boss, playSound: false, doSpin: false);
+                    }
+
+                    _audio.PlayPvs(drake.HitSound, uid, AudioParams.Default.WithVolume(-4f));
+                }
             }
-
-            var tile = _map.LocalToTile(gridUid, grid, xform.Coordinates);
-            if (ChebyshevDistance(center, tile) > radius)
-                continue;
-
-            _damageable.TryChangeDamage((uid, damageable), damage, origin: boss);
-
-            if (ignite)
-                IgniteEntity(uid, drake, boss);
-
-            if (throwTargets)
-            {
-                var direction = new Vector2(tile.X - center.X, tile.Y - center.Y);
-                if (direction.LengthSquared() < 0.01f)
-                    direction = _random.NextVector2();
-
-                _throwing.TryThrow(uid, direction.Normalized() * 2.5f, drake.SwoopThrowSpeed, boss, playSound: false, doSpin: false);
-            }
-
-            _audio.PlayPvs(drake.HitSound, uid, AudioParams.Default.WithVolume(-4f));
         }
+
+        _tileEntities.Clear();
+        _damagedEntities.Clear();
     }
 
     private void IgniteEntity(EntityUid uid, LavalandAshDrakeComponent drake, EntityUid source)

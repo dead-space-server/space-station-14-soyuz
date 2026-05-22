@@ -35,6 +35,7 @@ public sealed class LavalandBubblegumSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
@@ -42,6 +43,8 @@ public sealed class LavalandBubblegumSystem : EntitySystem
     private readonly List<EntityUid> _participants = new();
     private readonly List<EntityUid> _bloodTargets = new();
     private readonly List<Vector2i> _poolTiles = new();
+    private readonly List<Vector2i> _cloneTiles = new();
+    private readonly HashSet<EntityUid> _tileEntities = new();
 
     public override void Initialize()
     {
@@ -75,6 +78,8 @@ public sealed class LavalandBubblegumSystem : EntitySystem
             }
 
             PruneTracked(bubblegum);
+            ProcessActiveClones(bubblegum, now);
+            ProcessCloneCharges(uid, bubblegum, arena, arena.Grid, grid, now);
             ProcessPendingBloodTiles(bubblegum, arena, arena.Grid, grid, now);
             ProcessPendingHandAttacks(uid, bubblegum, arena, arena.Grid, grid, now);
 
@@ -85,6 +90,9 @@ public sealed class LavalandBubblegumSystem : EntitySystem
                 bubblegum.BusyUntil = TimeSpan.Zero;
                 continue;
             }
+
+            if (GetHealthFraction(uid) <= Math.Clamp(bubblegum.CloneCriticalHealthThreshold, 0f, 1f))
+                TrySpawnCriticalClones(uid, bubblegum, arena, arena.Grid, grid, now);
 
             if (ProcessCharge(uid, bubblegum, arena, arena.Grid, grid, now) ||
                 ProcessQueuedCharge(uid, bubblegum, arena, arena.Grid, grid, now))
@@ -377,11 +385,17 @@ public sealed class LavalandBubblegumSystem : EntitySystem
     {
         var bossTile = GetEntityTile(boss, gridUid, grid);
         var hit = false;
-        var query = EntityQueryEnumerator<DamageableComponent, MobStateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var damageable, out var mobState, out var xform))
+
+        _tileEntities.Clear();
+        _lookup.GetLocalEntitiesIntersecting(gridUid, tile, _tileEntities, flags: LookupFlags.Dynamic | LookupFlags.Sundries, gridComp: grid);
+
+        foreach (var uid in _tileEntities)
         {
             if (uid == boss ||
                 bubblegum.Slaughterlings.Contains(uid) ||
+                !TryComp(uid, out DamageableComponent? damageable) ||
+                !TryComp(uid, out MobStateComponent? mobState) ||
+                !TryComp(uid, out TransformComponent? xform) ||
                 mobState.CurrentState == MobState.Dead ||
                 xform.GridUid != gridUid ||
                 _map.LocalToTile(gridUid, grid, xform.Coordinates) != tile)
@@ -404,6 +418,8 @@ public sealed class LavalandBubblegumSystem : EntitySystem
             _transform.SetCoordinates(uid, _map.GridTileToLocal(gridUid, grid, destination));
             _audio.PlayPvs(bubblegum.ExitBloodSound, uid, AudioParams.Default.WithVolume(-3f));
         }
+
+        _tileEntities.Clear();
 
         if (hit)
             _audio.PlayPvs(bubblegum.AttackSound, _map.GridTileToLocal(gridUid, grid, tile), AudioParams.Default.WithVolume(-2f));
@@ -755,20 +771,31 @@ public sealed class LavalandBubblegumSystem : EntitySystem
     }
 
     private bool DamageChargeTile(
-        EntityUid boss,
+        EntityUid attacker,
         LavalandBubblegumComponent bubblegum,
         EntityUid gridUid,
         MapGridComponent grid,
         Vector2i tile,
-        Vector2i chargeDirection)
+        Vector2i chargeDirection,
+        DamageSpecifier? damageOverride = null,
+        EntityUid? additionalIgnored = null,
+        HashSet<EntityUid>? hitEntities = null)
     {
         var hit = false;
-        var query = EntityQueryEnumerator<DamageableComponent, MobStateComponent, TransformComponent>();
-        while (query.MoveNext(out var uid, out var damageable, out var mobState, out var xform))
+        hitEntities ??= bubblegum.ChargeHitEntities;
+
+        _tileEntities.Clear();
+        _lookup.GetLocalEntitiesIntersecting(gridUid, tile, _tileEntities, flags: LookupFlags.Dynamic | LookupFlags.Sundries, gridComp: grid);
+
+        foreach (var uid in _tileEntities)
         {
-            if (uid == boss ||
+            if (uid == attacker ||
+                uid == additionalIgnored ||
                 bubblegum.Slaughterlings.Contains(uid) ||
-                bubblegum.ChargeHitEntities.Contains(uid) ||
+                hitEntities.Contains(uid) ||
+                !TryComp(uid, out DamageableComponent? damageable) ||
+                !TryComp(uid, out MobStateComponent? mobState) ||
+                !TryComp(uid, out TransformComponent? xform) ||
                 mobState.CurrentState == MobState.Dead ||
                 xform.GridUid != gridUid ||
                 _map.LocalToTile(gridUid, grid, xform.Coordinates) != tile)
@@ -776,16 +803,18 @@ public sealed class LavalandBubblegumSystem : EntitySystem
                 continue;
             }
 
-            _damageable.TryChangeDamage((uid, damageable), bubblegum.ChargeDamage, origin: boss);
-            bubblegum.ChargeHitEntities.Add(uid);
+            _damageable.TryChangeDamage((uid, damageable), damageOverride ?? bubblegum.ChargeDamage, origin: attacker);
+            hitEntities.Add(uid);
             hit = true;
 
             var direction = new Vector2(chargeDirection.X, chargeDirection.Y);
             if (direction.LengthSquared() < 0.01f)
                 direction = _random.NextVector2();
 
-            _throwing.TryThrow(uid, direction.Normalized() * 2.5f, bubblegum.ChargeThrowSpeed, boss, playSound: false, doSpin: false);
+            _throwing.TryThrow(uid, direction.Normalized() * 2.5f, bubblegum.ChargeThrowSpeed, attacker, playSound: false, doSpin: false);
         }
+
+        _tileEntities.Clear();
 
         if (hit)
             _audio.PlayPvs(bubblegum.ImpactSound, _map.GridTileToLocal(gridUid, grid, tile), AudioParams.Default.WithVolume(0f));
@@ -816,6 +845,374 @@ public sealed class LavalandBubblegumSystem : EntitySystem
         {
             bubblegum.NextQueuedCharge = TimeSpan.Zero;
             bubblegum.BusyUntil = now + bubblegum.ChargeRecover;
+        }
+    }
+
+    private void ProcessActiveClones(LavalandBubblegumComponent bubblegum, TimeSpan now)
+    {
+        for (var i = bubblegum.ActiveClones.Count - 1; i >= 0; i--)
+        {
+            var clone = bubblegum.ActiveClones[i];
+            if (clone.DespawnAt > now && Exists(clone.Entity))
+                continue;
+
+            if (Exists(clone.Entity))
+                QueueDel(clone.Entity);
+
+            bubblegum.ActiveClones.RemoveAt(i);
+        }
+    }
+
+    private void ProcessCloneCharges(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        for (var i = bubblegum.CloneCharges.Count - 1; i >= 0; i--)
+        {
+            var charge = bubblegum.CloneCharges[i];
+            if (!Exists(charge.Entity))
+            {
+                bubblegum.CloneCharges.RemoveAt(i);
+                continue;
+            }
+
+            if (now < charge.NextStep)
+                continue;
+
+            var currentTile = GetEntityTile(charge.Entity, gridUid, grid);
+            if (currentTile == null ||
+                currentTile.Value == charge.TargetTile ||
+                charge.RemainingSteps <= 0)
+            {
+                FinishCloneCharge(bubblegum, charge.Entity, gridUid, grid, currentTile ?? charge.TargetTile);
+                bubblegum.CloneCharges.RemoveAt(i);
+                continue;
+            }
+
+            var nextTile = StepTowards(currentTile.Value, charge.TargetTile);
+            if (!IsInsideInnerArena(arena, nextTile))
+            {
+                FinishCloneCharge(bubblegum, charge.Entity, gridUid, grid, currentTile.Value);
+                bubblegum.CloneCharges.RemoveAt(i);
+                continue;
+            }
+
+            if (_random.Prob(0.65f))
+                SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, currentTile.Value);
+
+            SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, nextTile);
+            _transform.SetCoordinates(charge.Entity, _map.GridTileToLocal(gridUid, grid, nextTile));
+            if (charge.ChargeDamage != null)
+                DamageChargeTile(charge.Entity, bubblegum, gridUid, grid, nextTile, nextTile - currentTile.Value, charge.ChargeDamage, boss, charge.HitEntities);
+
+            charge.RemainingSteps--;
+            charge.NextStep = now + bubblegum.ChargeStepDelay;
+        }
+    }
+
+    private void QueueCloneHandAttacks(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i targetTile,
+        TimeSpan now,
+        bool grab)
+    {
+        if (!ShouldUseClones(boss, bubblegum))
+            return;
+
+        var count = Math.Min(2, GetCloneCount(boss, bubblegum));
+        PickCloneTiles(bubblegum, arena, targetTile, count, _cloneTiles);
+
+        var swapped = false;
+        foreach (var cloneTile in _cloneTiles)
+        {
+            var fakeTarget = ClampToInnerArena(arena, targetTile + new Vector2i(_random.Next(-3, 4), _random.Next(-3, 4)));
+            if (fakeTarget == targetTile)
+                fakeTarget = ClampToInnerArena(arena, targetTile + _random.Pick(Cardinals));
+
+            var clone = SpawnClone(bubblegum, gridUid, grid, cloneTile, now, GetBloodReactionWindow(bubblegum) + bubblegum.CloneLinger);
+            if (clone == null)
+                continue;
+
+            if (!swapped)
+                swapped = TrySwapWithClone(boss, bubblegum, arena, gridUid, grid, clone.Value, now);
+
+            SpawnFakeHandVisual(bubblegum, gridUid, grid, fakeTarget, grab, _random.Prob(0.5f));
+        }
+    }
+
+    private void QueueCloneBloodSprays(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i sourceTile,
+        Vector2i targetTile,
+        float rage,
+        TimeSpan now)
+    {
+        if (!ShouldUseClones(boss, bubblegum))
+            return;
+
+        var range = Math.Max(1, bubblegum.BloodSprayBaseRange + (int) MathF.Round(rage * bubblegum.BloodSprayRageRangeMultiplier));
+        var duration = TimeSpan.FromSeconds(bubblegum.BloodSprayStepDelay.TotalSeconds * range) + bubblegum.CloneLinger + TimeSpan.FromSeconds(0.35);
+        PickCloneTiles(bubblegum, arena, sourceTile, GetCloneCount(boss, bubblegum), _cloneTiles);
+
+        var swapped = false;
+        foreach (var cloneTile in _cloneTiles)
+        {
+            var fakeTarget = ClampToInnerArena(arena, targetTile + new Vector2i(_random.Next(-5, 6), _random.Next(-5, 6)));
+            var clone = SpawnClone(bubblegum, gridUid, grid, cloneTile, now, duration);
+            if (clone == null)
+                continue;
+
+            if (!swapped)
+                swapped = TrySwapWithClone(boss, bubblegum, arena, gridUid, grid, clone.Value, now);
+
+            var currentCloneTile = GetEntityTile(clone.Value, gridUid, grid) ?? cloneTile;
+            QueueFakeBloodSpray(bubblegum, arena, gridUid, grid, currentCloneTile, fakeTarget, range, now);
+        }
+    }
+
+    private void StartCloneCharges(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i sourceTile,
+        Vector2i targetTile,
+        int steps,
+        TimeSpan now)
+    {
+        if (!ShouldUseClones(boss, bubblegum))
+            return;
+
+        PickCloneTiles(bubblegum, arena, sourceTile, GetCloneCount(boss, bubblegum), _cloneTiles);
+        var chargeDuration = bubblegum.ChargeWindup +
+                             TimeSpan.FromSeconds(bubblegum.ChargeStepDelay.TotalSeconds * Math.Max(1, steps)) +
+                             bubblegum.CloneLinger + TimeSpan.FromSeconds(0.5);
+
+        var swapped = false;
+        foreach (var cloneTile in _cloneTiles)
+        {
+            var fakeTarget = ClampToInnerArena(arena, targetTile + new Vector2i(_random.Next(-7, 8), _random.Next(-7, 8)));
+            if (fakeTarget == cloneTile)
+                fakeTarget = ClampToInnerArena(arena, cloneTile + _random.Pick(Cardinals) * Math.Max(1, bubblegum.CloneMinOffset));
+
+            var clone = SpawnClone(bubblegum, gridUid, grid, cloneTile, now, chargeDuration);
+            if (clone == null)
+                continue;
+
+            if (!swapped)
+                swapped = TrySwapWithClone(boss, bubblegum, arena, gridUid, grid, clone.Value, now);
+
+            var currentCloneTile = GetEntityTile(clone.Value, gridUid, grid) ?? cloneTile;
+            SpawnAnchored(bubblegum.LandingPrototype, gridUid, grid, fakeTarget);
+
+            bubblegum.CloneCharges.Add(new LavalandBubblegumCloneCharge
+            {
+                Entity = clone.Value,
+                TargetTile = fakeTarget,
+                RemainingSteps = Math.Max(1, Math.Min(Math.Max(1, steps), Math.Max(1, ChebyshevDistance(currentCloneTile, fakeTarget)))),
+                NextStep = now + bubblegum.ChargeWindup,
+                ChargeDamage = bubblegum.CloneChargeDamage,
+            });
+        }
+    }
+
+    private void QueueFakeBloodSpray(
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i sourceTile,
+        Vector2i targetTile,
+        int range,
+        TimeSpan now)
+    {
+        var direction = StepTowards(sourceTile, targetTile) - sourceTile;
+        if (direction == Vector2i.Zero)
+            direction = _random.Pick(Cardinals);
+
+        SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, sourceTile);
+
+        for (var step = 1; step <= range; step++)
+        {
+            if (bubblegum.PendingBloodTiles.Count >= Math.Max(0, bubblegum.MaxPendingBloodTiles))
+                break;
+
+            var tile = sourceTile + direction * step;
+            if (!IsInsideInnerArena(arena, tile))
+                break;
+
+            if (HasPendingBloodTile(bubblegum, gridUid, tile))
+                continue;
+
+            bubblegum.PendingBloodTiles.Add(new LavalandBubblegumPendingBloodTile
+            {
+                Grid = gridUid,
+                Tile = tile,
+                SpawnAt = now + TimeSpan.FromSeconds(bubblegum.BloodSprayStepDelay.TotalSeconds * step),
+                Fake = true,
+            });
+        }
+    }
+
+    private void SpawnFakeHandVisual(
+        LavalandBubblegumComponent bubblegum,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i tile,
+        bool grab,
+        bool rightHand)
+    {
+        if (grab)
+        {
+            SpawnAnchored(rightHand ? bubblegum.RightPawPrototype : bubblegum.LeftPawPrototype, gridUid, grid, tile);
+            SpawnAnchored(rightHand ? bubblegum.RightThumbPrototype : bubblegum.LeftThumbPrototype, gridUid, grid, tile);
+            return;
+        }
+
+        SpawnAnchored(rightHand ? bubblegum.RightSmackPrototype : bubblegum.LeftSmackPrototype, gridUid, grid, tile);
+    }
+
+    private EntityUid? SpawnClone(
+        LavalandBubblegumComponent bubblegum,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i tile,
+        TimeSpan now,
+        TimeSpan duration)
+    {
+        if (string.IsNullOrWhiteSpace(bubblegum.ClonePrototype) ||
+            !_prototype.HasIndex<EntityPrototype>(bubblegum.ClonePrototype) ||
+            bubblegum.ActiveClones.Count >= Math.Max(0, bubblegum.MaxActiveClones))
+        {
+            return null;
+        }
+
+        var clone = Spawn(bubblegum.ClonePrototype, _map.GridTileToLocal(gridUid, grid, tile));
+        bubblegum.ActiveClones.Add(new LavalandBubblegumActiveClone
+        {
+            Entity = clone,
+            DespawnAt = now + duration,
+        });
+
+        return clone;
+    }
+
+    private bool TrySwapWithClone(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        EntityUid clone,
+        TimeSpan now)
+    {
+        if (bubblegum.Charging ||
+            now < bubblegum.NextCloneSwap ||
+            !ShouldUseClones(boss, bubblegum) ||
+            !_random.Prob(GetCloneSwapChance(boss, bubblegum)))
+        {
+            return false;
+        }
+
+        var bossTile = GetEntityTile(boss, gridUid, grid);
+        var cloneTile = GetEntityTile(clone, gridUid, grid);
+        if (bossTile == null ||
+            cloneTile == null ||
+            bossTile.Value == cloneTile.Value ||
+            !IsInsideInnerArena(arena, bossTile.Value) ||
+            !IsInsideInnerArena(arena, cloneTile.Value))
+        {
+            return false;
+        }
+
+        SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, bossTile.Value);
+        SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, cloneTile.Value);
+
+        _audio.PlayPvs(bubblegum.EnterBloodSound, _map.GridTileToLocal(gridUid, grid, bossTile.Value), AudioParams.Default.WithVolume(-3f));
+        _transform.SetCoordinates(boss, _map.GridTileToLocal(gridUid, grid, cloneTile.Value));
+        _transform.SetCoordinates(clone, _map.GridTileToLocal(gridUid, grid, bossTile.Value));
+        _audio.PlayPvs(bubblegum.ExitBloodSound, _map.GridTileToLocal(gridUid, grid, cloneTile.Value), AudioParams.Default.WithVolume(-3f));
+
+        bubblegum.NextCloneSwap = now + bubblegum.CloneSwapCooldown;
+        return true;
+    }
+
+    private void FinishCloneCharge(
+        LavalandBubblegumComponent bubblegum,
+        EntityUid clone,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        Vector2i tile)
+    {
+        SpawnAnchored(bubblegum.BloodSplatterPrototype, gridUid, grid, tile);
+        _audio.PlayPvs(bubblegum.ImpactSound, _map.GridTileToLocal(gridUid, grid, tile), AudioParams.Default.WithVolume(-5f));
+        DeleteClone(bubblegum, clone);
+    }
+
+    private void DeleteClone(LavalandBubblegumComponent bubblegum, EntityUid clone)
+    {
+        for (var i = bubblegum.ActiveClones.Count - 1; i >= 0; i--)
+        {
+            if (bubblegum.ActiveClones[i].Entity == clone)
+                bubblegum.ActiveClones.RemoveAt(i);
+        }
+
+        if (Exists(clone))
+            QueueDel(clone);
+    }
+
+    private void PickCloneTiles(
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        Vector2i origin,
+        int count,
+        List<Vector2i> output)
+    {
+        output.Clear();
+        count = Math.Max(0, count);
+        if (count == 0)
+            return;
+
+        var minOffset = Math.Max(1, bubblegum.CloneMinOffset);
+        var maxOffset = Math.Max(minOffset, bubblegum.CloneMaxOffset);
+
+        for (var attempt = 0; attempt < count * 20 && output.Count < count; attempt++)
+        {
+            var offset = new Vector2i(_random.Next(-maxOffset, maxOffset + 1), _random.Next(-maxOffset, maxOffset + 1));
+            if (offset == Vector2i.Zero ||
+                Math.Max(Math.Abs(offset.X), Math.Abs(offset.Y)) < minOffset)
+            {
+                continue;
+            }
+
+            var tile = ClampToInnerArena(arena, origin + offset);
+            if (tile == origin || output.Contains(tile))
+                continue;
+
+            output.Add(tile);
+        }
+
+        foreach (var direction in Cardinals)
+        {
+            if (output.Count >= count)
+                break;
+
+            var tile = ClampToInnerArena(arena, origin + direction * minOffset);
+            if (tile != origin && !output.Contains(tile))
+                output.Add(tile);
         }
     }
 
@@ -1233,5 +1630,72 @@ public sealed class LavalandBubblegumSystem : EntitySystem
         var halfWidth = arena.Width / 2;
         var halfHeight = arena.Height / 2;
         return (-halfWidth + 1, halfWidth - 1, -halfHeight + 1, halfHeight - 1);
+    }
+    
+    private void TrySpawnCriticalClones(
+        EntityUid boss,
+        LavalandBubblegumComponent bubblegum,
+        LavalandBossArenaComponent arena,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        if (now < bubblegum.NextCriticalCloneSpawn)
+            return;
+
+        var availableClones = Math.Max(0, bubblegum.MaxActiveClones - bubblegum.ActiveClones.Count);
+        if (availableClones <= 0)
+            return;
+
+        var cloneCount = Math.Min(Math.Max(0, bubblegum.CloneCriticalCount), availableClones);
+        if (cloneCount <= 0)
+            return;
+
+        bubblegum.NextCriticalCloneSpawn = now + bubblegum.CriticalCloneCooldown;
+    
+        var bossTile = GetEntityTile(boss, gridUid, grid);
+        if (bossTile == null)
+            return;
+    
+        PickCloneTiles(bubblegum, arena, bossTile.Value, cloneCount, _cloneTiles);
+    
+        var chargeDuration = bubblegum.ChargeWindup +
+                             TimeSpan.FromSeconds(bubblegum.ChargeStepDelay.TotalSeconds * bubblegum.TripleChargeSteps) +
+                             bubblegum.CloneLinger + TimeSpan.FromSeconds(0.5);
+    
+        var swapped = false;
+        foreach (var cloneTile in _cloneTiles)
+        {
+            var clone = SpawnClone(bubblegum, gridUid, grid, cloneTile, now, chargeDuration);
+            if (clone == null)
+                continue;
+    
+            if (!swapped)
+                swapped = TrySwapWithClone(boss, bubblegum, arena, gridUid, grid, clone.Value, now);
+    
+            var chargeTarget = _participants.Count > 0
+                ? _random.Pick(_participants)
+                : (EntityUid?) null;
+    
+            var targetTile = chargeTarget != null
+                ? GetEntityTile(chargeTarget.Value, gridUid, grid)
+                : null;
+    
+            var destination = targetTile != null
+                ? ClampToInnerArena(arena, targetTile.Value)
+                : ClampToInnerArena(arena, cloneTile + _random.Pick(Cardinals) * bubblegum.TripleChargeSteps);
+    
+            SpawnAnchored(bubblegum.LandingPrototype, gridUid, grid, destination);
+    
+            var currentCloneTile = GetEntityTile(clone.Value, gridUid, grid) ?? cloneTile;
+            bubblegum.CloneCharges.Add(new LavalandBubblegumCloneCharge
+            {
+                Entity = clone.Value,
+                TargetTile = destination,
+                RemainingSteps = Math.Max(1, Math.Min(bubblegum.TripleChargeSteps, ChebyshevDistance(currentCloneTile, destination))),
+                NextStep = now + bubblegum.ChargeWindup,
+                ChargeDamage = bubblegum.CloneChargeDamage,
+            });
+        }
     }
 }

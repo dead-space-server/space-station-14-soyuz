@@ -15,6 +15,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mining.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Parallax.Biomes;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
@@ -70,6 +71,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
 
     private List<Entity<MapGridComponent>> _nearbyGrids = new();
     private readonly List<EntityUid> _anchoredToDelete = new();
@@ -659,6 +661,8 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         arena.Comp.BossOutsideArenaSince = null;
         arena.Comp.NextBossLeashCheck = now + BossLeashCheckInterval;
         SetBossAiEnabled(arena.Comp.Boss, false);
+        if (TryComp<MobThresholdsComponent>(arena.Comp.Boss, out var thresholds))
+            _mobThreshold.SetMobStateThreshold(arena.Comp.Boss, FixedPoint2.New(arena.Comp.MaxHealth), MobState.Dead, thresholds);
 
         RaiseLocalEvent(arena.Comp.Boss, new LavalandBossResetEvent(arena.Owner, arena.Comp.BossSpawnTile));
 
@@ -1107,5 +1111,31 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             value++;
 
         return Math.Min(value, MaxArenaSize);
+    }
+    private void TryScaleBossHpForParticipants(Entity<LavalandBossArenaComponent> arena)
+    {
+        var count = arena.Comp.Participants.Count;
+        if (count == 0 || count <= arena.Comp.PeakParticipantCount)
+            return;
+
+        arena.Comp.PeakParticipantCount = count;
+
+        float newMax;
+        if (!arena.Comp.FightStarted)
+            newMax = arena.Comp.MaxHealth * (1f + 0.20f * (count - 1));
+        else
+            newMax = arena.Comp.ScaledMaxHealth * 1.30f;
+
+        if (newMax <= arena.Comp.ScaledMaxHealth)
+            return;
+
+        var healDelta = newMax - arena.Comp.ScaledMaxHealth;
+        arena.Comp.ScaledMaxHealth = newMax;
+
+        if (TryComp<DamageableComponent>(arena.Comp.Boss, out var damageable))
+            _damageable.HealDistributed((arena.Comp.Boss, damageable), FixedPoint2.New(healDelta), origin: arena.Comp.Boss);
+
+        if (TryComp<MobThresholdsComponent>(arena.Comp.Boss, out var thresholds))
+            _mobThreshold.SetMobStateThreshold(arena.Comp.Boss, FixedPoint2.New(newMax), MobState.Dead, thresholds);
     }
 }

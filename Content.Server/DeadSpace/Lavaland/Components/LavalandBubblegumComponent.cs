@@ -119,6 +119,45 @@ public sealed partial class LavalandBubblegumComponent : Component
     public string SlaughterlingPrototype = "MobLavalandBubblegumSlaughterling";
 
     [DataField]
+    public string ClonePrototype = "LavalandBubblegumClone";
+
+    [DataField]
+    public float CloneHealthThreshold = 0.5f;
+
+    [DataField]
+    public float CloneCriticalHealthThreshold = 0.25f;
+
+    [DataField]
+    public int CloneCount = 2;
+
+    [DataField]
+    public int CloneCriticalCount = 3;
+
+    [DataField]
+    public int MaxActiveClones = 8;
+
+    [DataField]
+    public TimeSpan CriticalCloneCooldown = TimeSpan.FromSeconds(2.5);
+
+    [DataField]
+    public int CloneMinOffset = 2;
+
+    [DataField]
+    public int CloneMaxOffset = 5;
+
+    [DataField]
+    public TimeSpan CloneLinger = TimeSpan.FromSeconds(0.25);
+
+    [DataField]
+    public float CloneSwapChance = 0.25f;
+
+    [DataField]
+    public float CloneSwapCriticalChance = 0.4f;
+
+    [DataField]
+    public TimeSpan CloneSwapCooldown = TimeSpan.FromSeconds(1.25);
+
+    [DataField]
     public DamageSpecifier SmackDamage = new()
     {
         DamageDict = new()
@@ -248,4 +287,20 @@ public sealed class LavalandBubblegumPendingHandAttack
     public TimeSpan AttackAt;
     public bool Grab;
     public bool RightHand;
+}
+
+public sealed class LavalandBubblegumActiveClone
+{
+    public EntityUid Entity;
+    public TimeSpan DespawnAt;
+}
+
+public sealed class LavalandBubblegumCloneCharge
+{
+    public EntityUid Entity;
+    public Vector2i TargetTile;
+    public int RemainingSteps;
+    public TimeSpan NextStep;
+    public DamageSpecifier? ChargeDamage;
+    public readonly HashSet<EntityUid> HitEntities = new();
 }

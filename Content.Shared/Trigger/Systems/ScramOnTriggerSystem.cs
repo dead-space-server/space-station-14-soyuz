@@ -47,11 +47,10 @@ public sealed class ScramOnTriggerSystem : XOnTriggerSystem<ScramOnTriggerCompon
         }
     }
     /// <summary>
-    /// Method to find a random empty tile within a certain radius. Will not select off-grid tiles. Returns
-    /// null if no tile is found within a certain number of tries.
+    /// Finds a non-empty tile inside the area in front of the entity. Will not select off-grid tiles.
     /// </summary>
-    /// <remarks> Trends towards the outer radius. Compensates for small grids. </remarks>
-    private EntityCoordinates? SelectRandomTileInRange(EntityUid uid, Vector2 radius, int tries = 40, PhysicsComponent? physicsComponent = null)
+    /// <remarks> Trends towards the outer distance. Compensates for small grids. </remarks>
+    private EntityCoordinates? SelectRandomTileInFacingArea(EntityUid uid, Vector2 radius, int tries = 80, PhysicsComponent? physicsComponent = null)
     {
         var userCoords = Transform(uid).Coordinates;
         EntityCoordinates? targetCoords = null;
@@ -71,15 +70,16 @@ public sealed class ScramOnTriggerSystem : XOnTriggerSystem<ScramOnTriggerCompon
             // Beneficial for smaller maps, especially when the radius is large.
             var distance = (radius.Y - radius.X) * MathF.Sqrt(_random.NextFloat()) * (1 - (float)i / tries) + radius.X;
 
-            // We then offset the user coords from a random angle * distance
-            var tempTargetCoords = userCoords.Offset(_random.NextAngle().ToVec() * distance);
+            // The user is the rear edge of the target area: depth is measured forward from their view direction.
+            var lateralOffset = _random.NextFloat(-distance / 2f, distance / 2f);
+            var candidateCoords = userCoords.Offset(forward * distance + side * lateralOffset);
 
-            if (!_turfSystem.TryGetTileRef(tempTargetCoords, out var tileRef)
-                || _turfSystem.IsSpace(tileRef.Value)
+            if (!_turfSystem.TryGetTileRef(candidateCoords, out var tileRef)
+                || tileRef.Value.Tile.IsEmpty
                 || _turfSystem.IsTileBlocked(tileRef.Value, (CollisionGroup)physicsComponent.CollisionMask))
                 continue;
 
-            targetCoords = tempTargetCoords;
+            targetCoords = _turfSystem.GetTileCenter(tileRef.Value);
             break;
         }
 

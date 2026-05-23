@@ -52,7 +52,7 @@
   parent: BaseWeaponBatterySmall
   id: WeaponNavyEnergyGun
   name: лазерный пистолет "Никто"
-  description: Бесшумный, невидимый, анонимный. После выстрела остаётся только крик: "Никто меня не убивает!". Лучший лазерный пистолет ВКФ СССП. # На русский тут нормально не переведешь то, что я изначально хотел написать "Nobody is killing me!"
+  description: "Бесшумный и невидимый. После выстрела остаётся только крик: Никто меня не убивает! Лучший лазерный пистолет ВКФ СССП." 
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Energy/x01.rsi

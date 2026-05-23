@@ -6,6 +6,7 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace.Lavaland;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Systems;
@@ -32,6 +33,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly FlammableSystem _flammable = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IPlayerManager _players = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
@@ -55,6 +57,8 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<LavalandAshDrakeComponent, BeforeDamageChangedEvent>(OnBeforeDamage);
+        SubscribeLocalEvent<LavalandAshDrakeComponent, AttackAttemptEvent>(OnAttackAttempt);
+        SubscribeLocalEvent<LavalandAshDrakeComponent, GettingAttackedAttemptEvent>(OnGettingAttackedAttempt);
         SubscribeLocalEvent<LavalandAshDrakeComponent, LavalandBossFightStartedEvent>(OnBossFightStarted);
         SubscribeLocalEvent<LavalandAshDrakeComponent, LavalandBossResetEvent>(OnBossReset);
         SubscribeLocalEvent<LavalandAshDrakeComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeed);
@@ -65,6 +69,8 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
+        ProcessResidualFires(now);
+
         var query = EntityQueryEnumerator<LavalandAshDrakeComponent, LavalandBossComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var drake, out var boss, out var xform))
         {
@@ -90,6 +96,12 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
                 continue;
             }
 
+            if (drake.CageActive)
+            {
+                ProcessCageAttack(uid, drake, arena, arena.Grid, grid, now);
+                continue;
+            }
+
             if (ProcessSwoop(uid, drake, arena, arena.Grid, grid, now) ||
                 ProcessQueuedSwoop(uid, drake, arena, arena.Grid, grid, now))
             {
@@ -110,10 +122,89 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         }
     }
 
+    private void ProcessResidualFires(TimeSpan now)
+    {
+        var query = EntityQueryEnumerator<LavalandAshDrakeFireComponent, TransformComponent>();
+        while (query.MoveNext(out var fireUid, out var fire, out var xform))
+        {
+            if (fire.SpawnedAt == TimeSpan.Zero)
+                fire.SpawnedAt = now;
+
+            if (xform.GridUid is not { Valid: true } gridUid ||
+                !TryComp<MapGridComponent>(gridUid, out var grid))
+            {
+                continue;
+            }
+
+            var fireTile = _map.LocalToTile(gridUid, grid, xform.Coordinates);
+            _fireTileEntities.Clear();
+            _lookup.GetLocalEntitiesIntersecting(
+                gridUid,
+                fireTile,
+                _fireTileEntities,
+                0f,
+                LookupFlags.Dynamic | LookupFlags.Sundries,
+                grid);
+
+            foreach (var uid in _fireTileEntities)
+            {
+                if (uid == fireUid ||
+                    HasComp<LavalandBossComponent>(uid) ||
+                    !TryComp(uid, out DamageableComponent? damageable) ||
+                    !TryComp(uid, out MobStateComponent? mobState) ||
+                    mobState.CurrentState == MobState.Dead ||
+                    !TryComp(uid, out TransformComponent? targetXform) ||
+                    targetXform.GridUid != gridUid)
+                {
+                    continue;
+                }
+
+                var targetTile = _map.LocalToTile(gridUid, grid, targetXform.Coordinates);
+                if (targetTile != fireTile)
+                    continue;
+
+                var firstDamageAt = fire.SpawnedAt + fire.InitialDelay;
+                if (!fire.NextDamageByEntity.TryGetValue(uid, out var nextDamage))
+                    nextDamage = now < firstDamageAt ? firstDamageAt : now;
+
+                if (nextDamage > now)
+                {
+                    fire.NextDamageByEntity[uid] = nextDamage;
+                    continue;
+                }
+
+                _damageable.TryChangeDamage((uid, damageable), fire.Damage, origin: fireUid);
+                IgniteEntity(uid, fire.FireStacks, fireUid);
+                fire.NextDamageByEntity[uid] = now + fire.DamageInterval;
+            }
+
+            _fireTileEntities.Clear();
+        }
+    }
+
     private void OnBeforeDamage(Entity<LavalandAshDrakeComponent> ent, ref BeforeDamageChangedEvent args)
     {
-        if (ent.Comp.SwoopInvulnerable)
+        if (IsSwoopUntargetable(ent.Comp) || ent.Comp.CageActive)
             args.Cancelled = true;
+    }
+
+    private void OnAttackAttempt(EntityUid uid, LavalandAshDrakeComponent component, AttackAttemptEvent args)
+    {
+        if (IsSwoopUntargetable(component))
+            args.Cancel();
+    }
+
+    private void OnGettingAttackedAttempt(EntityUid uid, LavalandAshDrakeComponent component, ref GettingAttackedAttemptEvent args)
+    {
+        if (IsSwoopUntargetable(component))
+            args.Cancelled = true;
+    }
+
+    private static bool IsSwoopUntargetable(LavalandAshDrakeComponent component)
+    {
+        return component.Swooping ||
+               component.SwoopInvulnerable ||
+               component.SwoopImpactAt != TimeSpan.Zero;
     }
 
     private void OnBossReset(EntityUid uid, LavalandAshDrakeComponent component, LavalandBossResetEvent args)
@@ -137,7 +228,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
 
     private void OnRefreshMovementSpeed(EntityUid uid, LavalandAshDrakeComponent component, RefreshMovementSpeedModifiersEvent args)
     {
-        if (component.Swooping)
+        if (component.Swooping || component.CageActive)
             args.ModifySpeed(0f, 0f);
     }
 
@@ -164,6 +255,18 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         var targetNearEdge = IsNearInnerArenaEdge(arena, targetTile.Value, 5);
         var targetFar = distance >= Math.Max(10, arena.Width / 4);
         var forcePressure = NeedsPressure(drake, now);
+
+        if (belowHalf &&
+            !forcePressure &&
+            !targetFar &&
+            !targetNearEdge &&
+            _random.Prob(drake.CageAttackChance))
+        {
+            StartCageAttack(boss, drake, arena, gridUid, grid, target, now);
+            MarkPressure(drake, now, "cage", target);
+            drake.NextAttack = now + GetScaledCooldown(drake.RangedCooldown, rage);
+            return;
+        }
 
         if (forcePressure)
         {
@@ -743,7 +846,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
             return;
 
         drake.Swooping = true;
-        drake.SwoopInvulnerable = false;
+        drake.SwoopInvulnerable = true;
         drake.SwoopTarget = target;
         drake.SwoopRemainingSteps = Math.Max(1, steps);
         drake.SwoopDropsFireRain = dropsFireRain;
@@ -1089,13 +1192,18 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
 
     private void IgniteEntity(EntityUid uid, LavalandAshDrakeComponent drake, EntityUid source)
     {
-        if (drake.FireStacks <= 0f ||
+        IgniteEntity(uid, drake.FireStacks, source);
+    }
+
+    private void IgniteEntity(EntityUid uid, float fireStacks, EntityUid source)
+    {
+        if (fireStacks <= 0f ||
             !TryComp(uid, out FlammableComponent? flammable))
         {
             return;
         }
 
-        _flammable.AdjustFireStacks(uid, drake.FireStacks, flammable, true);
+        _flammable.AdjustFireStacks(uid, fireStacks, flammable, true);
         _flammable.Ignite(uid, source, flammable);
     }
 
@@ -1292,6 +1400,30 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         drake.CurrentPrimaryTarget = null;
         drake.LastTargetSwitchAt = TimeSpan.Zero;
         drake.LastPressureByTarget.Clear();
+
+        foreach (var entity in drake.CageBorderEntities)
+        {
+            if (Exists(entity))
+                QueueDel(entity);
+        }
+        drake.CageBorderEntities.Clear();
+
+        foreach (var entity in drake.CageInteriorEntities)
+        {
+            if (Exists(entity))
+                QueueDel(entity);
+        }
+        drake.CageInteriorEntities.Clear();
+
+        if (drake.CageTargetEntity.HasValue && Exists(drake.CageTargetEntity.Value))
+            QueueDel(drake.CageTargetEntity.Value);
+        drake.CageTargetEntity = null;
+
+        drake.CageActive = false;
+        drake.CagePhase = 0;
+        drake.CurrentCageTargetTile = null;
+        drake.CageSafeTile = null;
+        drake.NextCageFillAt = TimeSpan.Zero;
 
         if (!Exists(uid))
             return;

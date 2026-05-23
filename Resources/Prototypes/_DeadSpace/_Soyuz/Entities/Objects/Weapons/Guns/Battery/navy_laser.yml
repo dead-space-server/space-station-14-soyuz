@@ -69,7 +69,7 @@
     soundGunshot:
       path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/1laser9.ogg
       params:
-          volume: -2
+        volume: -2
   - type: Item
     size: SmallNormal
   - type: BatteryAmmoProvider

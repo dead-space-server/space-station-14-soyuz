@@ -29,10 +29,10 @@
   description: Элитная одежда для НКО СССП.
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_engineer.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/ce.rsi
     state: icon
   - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/nanotrasen_navy_engineer.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/ce.rsi
 
 - type: entity
   parent: [ BaseCentcommContraband, ClothingUniformBase ]

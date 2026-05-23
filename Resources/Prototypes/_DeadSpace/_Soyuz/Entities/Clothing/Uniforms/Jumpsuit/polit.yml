@@ -18,7 +18,7 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
   - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/jumpskirt/politrukskirt.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
@@ -27,6 +27,6 @@
   description: Красивый бордовый комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
   - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi

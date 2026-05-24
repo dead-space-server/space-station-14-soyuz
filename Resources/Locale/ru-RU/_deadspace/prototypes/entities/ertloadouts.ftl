@@ -42,7 +42,7 @@ ert-loadout-category-ak305-description =
     Использует патроны 7.62х39 мм винтовочные.
 ert-loadout-category-amd76-name = АМД-76
 ert-loadout-category-amd76-description =
-    Скорострельный автомат калибра 7.62x39, произведённый одной компанией ОПЗ.
+    Скорострельный автомат калибра 7.62x39, произведённый одной фабрик СССП.
 ert-loadout-category-hkg3a1-name = Hk-G3A1
 ert-loadout-category-hkg3a1-description =
     Старый добрый автомат, производившийся ещё во времена 60-х годов 20-го века Земли. 
@@ -59,7 +59,7 @@ ert-loadout-category-mp7-description =
     Использует патроны калибра 9х19 мм.
 ert-loadout-category-scarl-name = Scar-L
 ert-loadout-category-scarl-description =
-    Стандартизированная штурмовая винтовка армии ОПЗ.
+    Стандартизированная штурмовая винтовка вооруженных сил СССП.
     Использует патроны 6.5х39 мм TSF.
 ert-loadout-category-lasercarbine-name = Лазерная винтовка
 ert-loadout-category-lasercarbine-description =
@@ -102,7 +102,7 @@ ert-loadout-category-mk79tactical-description =
     Использует патроны калибра 9х19.
 ert-loadout-category-verdict-name = Вердикт
 ert-loadout-category-verdict-description =
-    Надёжный револьвер любого сотрудника СБ.
+    Надёжный револьвер любого сотрудника милиции.
     Имеет барабан на 6 патрон и нескользящую ручку.
     Использует патроны .45 магнум, так как это то, что предполагали основатели.
 ert-loadout-category-n1984-name = N1984
@@ -132,12 +132,12 @@ ert-loadout-category-advancedlaserert-description =
     Благодарю этому данное оружие может самозаряжаться, и хранить намного больше заряда.
 ert-loadout-category-energymagnum-name = Энергетический магнум
 ert-loadout-category-energymagnum-description =
-    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников СБ. 
+    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников милиции. 
     Имеет три режима стрельбы, позволяющие нелетально обезвреживать, стрелять через окна или наносить высокий урон.
 ert-loadout-category-laserimpulsesmg-name = импульсный ПП
 ert-loadout-category-laserimpulsesmg-description =
     Облегчённая версия импульсного карабина. 
-    Имеет наивысшую скорострельность из всех представителей импульсного вооружения NT. 
+    Имеет наивысшую скорострельность из всех представителей импульсного вооружения СССП. 
     Также, имеет большой запас батареи, но точность желает оставлять лучшего.
 ert-loadout-category-pulseCarbinemk2-name = Импульсный карабин MK2
 ert-loadout-category-pulseCarbinemk2-description =

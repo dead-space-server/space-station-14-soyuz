@@ -58,7 +58,7 @@
   parent: BaseWeaponBatterySmall
   id: WeaponNavyEnergyGun
   name: лазерный пистолет "Никто"
-  description: "Бесшумный и невидимый. После выстрела остаётся только крик: Никто меня не убивает! Лучший лазерный пистолет ВКФ СССП." 
+  description: "Бесшумный и невидимый. После выстрела остаётся только крик: Никто меня не убивает! Лучший лазерный пистолет ВКФ СССП." # Тут блин не получилось нормально перевести с английского на русский, должно быть типа "Nobody is killing me!"
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Energy/x01.rsi
@@ -77,7 +77,7 @@
       params:
         volume: -2
   - type: Item
-    size: SmallNormal
+    size: Small
   - type: BatteryAmmoProvider
     proto: BulletEnergyBlue
     fireCost: 100
@@ -85,7 +85,7 @@
     fireModes:
     - proto: BulletEnergyBlue
       fireCost: 100
-    - proto: BulletDisabler
+    - proto: BulletDisablerNavy
       fireCost: 75
   - type: Battery
     maxCharge: 1200

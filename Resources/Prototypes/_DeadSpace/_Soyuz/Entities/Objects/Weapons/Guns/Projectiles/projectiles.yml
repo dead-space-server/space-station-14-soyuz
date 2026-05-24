@@ -46,7 +46,7 @@
 
 - type: entity
   parent: BaseBullet
-  id: BulletDisabler
+  id: BulletDisablerNavy
   name : оглушающий заряд
   description: Ну не нихуя себе.
   categories: [ HideSpawnMenu ]
@@ -91,7 +91,7 @@
     forceSound: true
 
 - type: entity
-  parent: BulletDisabler
+  parent: BulletDisablerNavy
   id: BulletDisablerAlt
   name : оглушающий заряд
   description: Прям вообще не нихуя себе.

@@ -39,14 +39,20 @@
     maxCharge: 1600
     startingCharge: 1600
   - type: BatteryAmmoProvider
-    proto: BulletEnergyBLUE
+    proto: BulletEnergyBlue
     fireCost: 100
+  - type: BatteryWeaponFireModes
+    fireModes:
+    - proto: BulletEnergyBlue
+      fireCost: 100
+    - proto: BulletDisablerAlt
+      fireCost: 75
   - type: Wieldable
   - type: UseDelay
     delay: 0.6
   - type: BatterySelfRecharger
     autoRechargePauseTime: 1
-    autoRechargeRate: 250
+    autoRechargeRate: 325
 
 - type: entity
   parent: BaseWeaponBatterySmall
@@ -91,5 +97,5 @@
   - type: Appearance
   - type: BatterySelfRecharger
     autoRechargePauseTime: 1
-    autoRechargeRate: 200
+    autoRechargeRate: 250
 

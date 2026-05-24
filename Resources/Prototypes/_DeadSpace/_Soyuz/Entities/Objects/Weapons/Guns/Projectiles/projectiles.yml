@@ -1,8 +1,8 @@
 - type: entity
-  name: лазерный выстрел
-  description: Нихуя себе.
+  parent: BaseBullet
   id: BulletEnergyBlue
-  parent: BaseBullet
+  name: синий лазерный выстрел
+  description: Нихуя себе.
   categories: [ HideSpawnMenu ]
   components:
   - type: Reflective
@@ -16,7 +16,7 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/projectiles.rsi
     layers:
-    - state: bluelaser-alt
+    - state: bluelaser
       shader: unshaded
   - type: Projectile
     impactEffect: BulletImpactEffectBlueDisabler
@@ -33,42 +33,22 @@
     muzzleFlash: MuzzleFlashEffectTempCold
 
 - type: entity
-  name: laser bullet
-  id: BulletEnergyBLUE
-  parent: BaseBullet
+  parent: BulletEnergyBlue
+  id: BulletEnergyRed
+  name: красный лазерный выстрел
   categories: [ HideSpawnMenu ]
   components:
-  - type: Reflective
-    reflective:
-    - Energy
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/projectiles.rsi
     layers:
-    - state: bluelaser-alt
+    - state: redlaser
       shader: unshaded
-  - type: Projectile
-    impactEffect: BulletImpactEffectBlueDisabler
-    damage:
-      types:
-        Heat: 25
-    soundHit:
-      collection: MeatLaserImpact
-  - type: PointLight
-    radius: 2
-    color: blue
-    energy: 0.5
-  - type: Ammo
-    muzzleFlash: MuzzleFlashEffectTempCold
 
 - type: entity
-  name : disabler bolt
+  parent: BaseBullet
   id: BulletDisabler
-  parent: BaseBullet
+  name : оглушающий заряд
+  description: Ну не нихуя себе.
   categories: [ HideSpawnMenu ]
   components:
   - type: Reflective
@@ -109,3 +89,13 @@
     soundHit:
       collection: WeakHit
     forceSound: true
+
+- type: entity
+  parent: BulletDisabler
+  id: BulletDisablerAlt
+  name : оглушающий заряд
+  description: Прям вообще не нихуя себе.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StaminaDamageOnCollide
+    damage: 25

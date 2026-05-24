@@ -22,7 +22,7 @@
     impactEffect: BulletImpactEffectBlueDisabler
     damage:
       types:
-        Heat: 25
+        Heat: 30
     soundHit:
       collection: MeatLaserImpact
   - type: PointLight
@@ -63,7 +63,7 @@
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/energybolts.rsi
     scale: 0.7,0.7
     layers:
-    - state: mediumstun # imp
+    - state: mediumstun
       shader: unshaded
   - type: Physics
   - type: Fixtures

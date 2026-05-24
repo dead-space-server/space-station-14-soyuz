@@ -21,10 +21,10 @@
     minAngle: -23
     maxAngle: -44
   - type: Gun
+    fireRate: 5.5
     projectileSpeed: 30
     minAngle: 24
     maxAngle: 45
-    fireRate: 5.5
     selectedMode: FullAuto
     availableModes:
     - SemiAuto
@@ -52,7 +52,7 @@
     delay: 0.6
   - type: BatterySelfRecharger
     autoRechargePauseTime: 1
-    autoRechargeRate: 500
+    autoRechargeRate: 450
 
 - type: entity
   parent: BaseWeaponBatterySmall
@@ -71,8 +71,8 @@
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Energy/x01.rsi
   - type: Gun
-    projectileSpeed: 40
     fireRate: 3
+    projectileSpeed: 40
     soundGunshot:
       path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/1laser9.ogg
       params:

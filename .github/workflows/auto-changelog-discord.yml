@@ -20,6 +20,7 @@ jobs:
           echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
           echo "AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
           echo "REPO=${{ github.repository }}" >> $GITHUB_OUTPUT
+          echo "PR_HTML_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_OUTPUT
 
       - name: Parse PR and build JSON
         id: parse
@@ -28,13 +29,13 @@ jobs:
           PR_NUMBER: ${{ steps.extract.outputs.PR_NUMBER }}
           AUTHOR: ${{ steps.extract.outputs.AUTHOR }}
           REPO: ${{ steps.extract.outputs.REPO }}
+          PR_HTML_URL: ${{ steps.extract.outputs.PR_HTML_URL }}
         run: |
           python <<'EOF'
           import base64
           import json
           import os
           import re
-          from datetime import datetime, timezone
 
           def set_output(name, value):
               with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
@@ -49,22 +50,22 @@ jobs:
               set_output("should_send", "false")
               exit(0)
 
-          sections = [
-              ("Добавлено", "🆕 Добавлено:"),
-              ("Удалено", "❌ Удалено:"),
-              ("Изменено", "⚒️ Изменено:"),
-              ("Исправлено", "🐛 Исправлено:"),
-          ]
+          sections = {
+              "Добавлено": "🆕",
+              "Удалено": "❌",
+              "Изменено": "⚒️",
+              "Исправлено": "🐛",
+          }
 
-          def trim(value, limit=1024):
-              return value if len(value) <= limit else value[:limit - 3] + "..."
+          pr_number = os.environ.get("PR_NUMBER", "")
+          author = os.environ.get("AUTHOR", "unknown")
+          pr_html_url = os.environ.get("PR_HTML_URL", "")
 
-          fields = []
+          content_lines = [f"👤 Автор: **{author}**", ""]
 
-          for title, field_name in sections:
+          for title, emoji in sections.items():
               pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
-              messages = []
-
+              
               for block in re.findall(pattern, desc, flags=re.DOTALL):
                   lines = [
                       line.strip("- ").strip()
@@ -73,39 +74,22 @@ jobs:
                   ]
                   message = re.sub(r"\s+", " ", " ".join(lines)).strip()
                   if message:
-                      messages.append(message)
+                      content_lines.append(f"{emoji} {title} - {message} ([PR #{pr_number}]({pr_html_url}))")
 
-              if messages:
-                  value = "\n".join(f"- {message}" for message in messages)
-                  fields.append({"name": field_name, "value": trim(value), "inline": False})
-
-          if not fields:
+          if len(content_lines) == 2:
               print("No changelog changes found. Skipping Discord notification.")
               set_output("should_send", "false")
               exit(0)
 
-          fields.append({
-              "name": "👤 Автор:",
-              "value": os.environ.get("AUTHOR", "unknown"),
-              "inline": False,
-          })
+          message_content = "\n".join(content_lines)
 
-          pr_number = os.environ.get("PR_NUMBER", "")
-          repo = os.environ.get("REPO", "")
+          if len(message_content) > 2000:
+              message_content = message_content[:1997] + "..."
+
           payload = {
+              "content": message_content,
               "username": "Изменения Союз-1 ☭",
-              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-              "embeds": [
-                  {
-                      "color": 3300375,
-                      "title": f"Изменение (PR #{pr_number})",
-                      "url": f"https://github.com/{repo}/pull/{pr_number}",
-                      "fields": fields,
-                      "footer": {
-                          "text": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
-                      },
-                  }
-              ],
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true"
           }
 
           payload_file = "/tmp/discord_payload.json"

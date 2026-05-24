@@ -15,6 +15,7 @@ using Content.Shared.Maps;
 using Content.Shared.Mining.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Parallax.Biomes;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
@@ -70,12 +71,14 @@ public sealed class LavalandBossArenaSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TileSystem _tile = default!;
+    [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
 
     private List<Entity<MapGridComponent>> _nearbyGrids = new();
     private readonly List<EntityUid> _anchoredToDelete = new();
     private readonly List<NetUserId> _leavingParticipants = new();
     private readonly List<(Vector2i Index, Tile Tile)> _reservedTiles = new();
     private readonly List<(Vector2i Index, Tile Tile)> _terrainTiles = new();
+    private readonly HashSet<Vector2i> _decorationTiles = new();
     private int _nextArenaId = 1;
 
     public override void Initialize()
@@ -190,6 +193,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
 
         FillArenaFloor(grid.Owner, grid.Comp, floorTile, arenaPrototype.FloorVisualPrototype, width, height);
         SpawnArenaWalls(grid.Owner, grid.Comp, arenaPrototype.WallPrototype, width, height);
+        SpawnArenaDecorations(grid.Owner, grid.Comp, arenaPrototype.Decorations, width, height, random);
 
         if (arenaPrototype.LightPrototype is { } lightPrototype)
             SpawnArenaLights(grid.Owner, grid.Comp, lightPrototype, width, height);
@@ -224,6 +228,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             ? Name(boss)
             : bossComponent.BossName;
         arena.MaxHealth = bossComponent.MaxHealth;
+        arena.ScaledMaxHealth = bossComponent.MaxHealth;
         arena.NextParticipantScan = _timing.CurTime;
         arena.NextHudUpdate = _timing.CurTime;
         arena.NextBossLeashCheck = _timing.CurTime + BossLeashCheckInterval;
@@ -377,6 +382,194 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         SpawnAnchored(lightPrototype.Id, gridUid, grid, new Vector2i(offsetX, offsetY));
     }
 
+    private void SpawnArenaDecorations(
+        EntityUid gridUid,
+        MapGridComponent grid,
+        IReadOnlyList<LavalandBossArenaDecorationEntry> decorations,
+        int width,
+        int height,
+        Random random)
+    {
+        if (decorations.Count == 0)
+            return;
+
+        _decorationTiles.Clear();
+
+        foreach (var decoration in decorations)
+        {
+            if (decoration.Count <= 0)
+                continue;
+
+            if (!_prototype.HasIndex<EntityPrototype>(decoration.Prototype.Id))
+            {
+                Log.Error($"Lavaland boss arena decoration cannot spawn: missing entity prototype {decoration.Prototype}.");
+                continue;
+            }
+
+            var spawned = 0;
+            var clusterSize = Math.Max(1, decoration.ClusterSize);
+            var attempts = Math.Max(1, decoration.SpawnAttempts) + decoration.Count * clusterSize;
+
+            for (var attempt = 0; attempt < attempts && spawned < decoration.Count; attempt++)
+            {
+                if (!TryPickDecorationTile(gridUid, grid, decoration, width, height, random, out var tile))
+                    continue;
+
+                spawned += SpawnDecorationCluster(gridUid, grid, decoration, width, height, random, tile, decoration.Count - spawned);
+            }
+
+            if (spawned < decoration.Count)
+                Log.Warning($"Lavaland boss arena decoration {decoration.Prototype} only spawned {spawned}/{decoration.Count} entities.");
+        }
+
+        _decorationTiles.Clear();
+    }
+
+    private int SpawnDecorationCluster(
+        EntityUid gridUid,
+        MapGridComponent grid,
+        LavalandBossArenaDecorationEntry decoration,
+        int width,
+        int height,
+        Random random,
+        Vector2i seed,
+        int remaining)
+    {
+        var spawned = 0;
+        var current = seed;
+        var clusterSize = Math.Min(Math.Max(1, decoration.ClusterSize), remaining);
+        var clusterRadius = Math.Max(1, decoration.ClusterRadius);
+        var clusterAttempts = Math.Max(clusterSize * 8, 8);
+
+        for (var attempt = 0; attempt < clusterAttempts && spawned < clusterSize; attempt++)
+        {
+            var tile = spawned == 0
+                ? seed
+                : current + new Vector2i(
+                    random.Next(-clusterRadius, clusterRadius + 1),
+                    random.Next(-clusterRadius, clusterRadius + 1));
+
+            if (!IsValidDecorationTile(gridUid, grid, decoration, width, height, tile))
+                continue;
+
+            SpawnAnchored(decoration.Prototype.Id, gridUid, grid, tile);
+            _decorationTiles.Add(tile);
+            current = tile;
+            spawned++;
+        }
+
+        return spawned;
+    }
+
+    private bool TryPickDecorationTile(
+        EntityUid gridUid,
+        MapGridComponent grid,
+        LavalandBossArenaDecorationEntry decoration,
+        int width,
+        int height,
+        Random random,
+        out Vector2i tile)
+    {
+        tile = default;
+
+        var halfWidth = width / 2;
+        var halfHeight = height / 2;
+        var padding = Math.Max(0, decoration.EdgePadding);
+        var minX = -halfWidth + 1 + padding;
+        var maxX = halfWidth - 1 - padding;
+        var minY = -halfHeight + 1 + padding;
+        var maxY = halfHeight - 1 - padding;
+
+        if (minX > maxX || minY > maxY)
+            return false;
+
+        var attempts = Math.Max(1, decoration.SpawnAttempts);
+        for (var attempt = 0; attempt < attempts; attempt++)
+        {
+            var candidate = new Vector2i(
+                random.Next(minX, maxX + 1),
+                random.Next(minY, maxY + 1));
+
+            if (!IsValidDecorationTile(gridUid, grid, decoration, width, height, candidate))
+                continue;
+
+            tile = candidate;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsValidDecorationTile(
+        EntityUid gridUid,
+        MapGridComponent grid,
+        LavalandBossArenaDecorationEntry decoration,
+        int width,
+        int height,
+        Vector2i tile)
+    {
+        if (_decorationTiles.Contains(tile))
+            return false;
+
+        var halfWidth = width / 2;
+        var halfHeight = height / 2;
+        var padding = Math.Max(0, decoration.EdgePadding);
+        if (tile.X < -halfWidth + 1 + padding ||
+            tile.X > halfWidth - 1 - padding ||
+            tile.Y < -halfHeight + 1 + padding ||
+            tile.Y > halfHeight - 1 - padding)
+        {
+            return false;
+        }
+
+        if (decoration.AvoidEntrances && IsNearEntranceApproach(tile, width, height))
+            return false;
+
+        var distanceSquared = new Vector2(tile.X, tile.Y).LengthSquared();
+        if (decoration.MinDistance > 0f && distanceSquared < decoration.MinDistance * decoration.MinDistance)
+            return false;
+
+        if (decoration.MaxDistance > 0f && distanceSquared > decoration.MaxDistance * decoration.MaxDistance)
+            return false;
+
+        if (decoration.MinSeparation > 0)
+        {
+            foreach (var reserved in _decorationTiles)
+            {
+                if (Math.Abs(reserved.X - tile.X) <= decoration.MinSeparation &&
+                    Math.Abs(reserved.Y - tile.Y) <= decoration.MinSeparation)
+                {
+                    return false;
+                }
+            }
+        }
+
+        var anchored = _map.GetAnchoredEntitiesEnumerator(gridUid, grid, tile);
+        while (anchored.MoveNext(out var uid))
+        {
+            if (uid != null && !TerminatingOrDeleted(uid.Value))
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool IsNearEntranceApproach(Vector2i tile, int width, int height)
+    {
+        var halfWidth = width / 2;
+        var halfHeight = height / 2;
+        var entranceApproachDepth = EntranceDepth + 2;
+
+        if (Math.Abs(tile.X) <= EntranceHalfWidth &&
+            halfHeight - Math.Abs(tile.Y) <= entranceApproachDepth)
+        {
+            return true;
+        }
+
+        return Math.Abs(tile.Y) <= EntranceHalfWidth &&
+               halfWidth - Math.Abs(tile.X) <= entranceApproachDepth;
+    }
+
     private void ScanParticipants(Entity<LavalandBossArenaComponent> arena, TimeSpan now)
     {
         var current = new Dictionary<NetUserId, ICommonSession>();
@@ -438,6 +631,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
                 {
                     SendHudUpdate(session, arena.Comp);
                     SendMusicStart(session, arena.Comp);
+                    TryScaleBossHpForParticipants((arena.Owner, arena.Comp));
                 }
             }
         }
@@ -487,12 +681,12 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             return;
         }
 
-        var currentHealth = GetCurrentBossHealth(arena.Boss, arena.MaxHealth);
+        var currentHealth = GetCurrentBossHealth(arena.Boss, arena.ScaledMaxHealth);
         var ev = new LavalandBossHudUpdateEvent(
             arena.ArenaId,
             arena.BossName,
             currentHealth,
-            arena.MaxHealth,
+            arena.ScaledMaxHealth,
             arena.Participants.Count);
         RaiseNetworkEvent(ev, session.Channel);
     }
@@ -656,9 +850,13 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         _transform.SetCoordinates(arena.Comp.Boss, _map.GridTileToLocal(arena.Comp.Grid, grid, arena.Comp.BossSpawnTile));
         HealBossOnReset(arena.Comp);
         arena.Comp.FightStarted = false;
+        arena.Comp.ScaledMaxHealth = arena.Comp.MaxHealth;
+        arena.Comp.PeakParticipantCount = 0;
         arena.Comp.BossOutsideArenaSince = null;
         arena.Comp.NextBossLeashCheck = now + BossLeashCheckInterval;
         SetBossAiEnabled(arena.Comp.Boss, false);
+        if (TryComp<MobThresholdsComponent>(arena.Comp.Boss, out var thresholds))
+            _mobThreshold.SetMobStateThreshold(arena.Comp.Boss, FixedPoint2.New(arena.Comp.MaxHealth), MobState.Dead, thresholds);
 
         RaiseLocalEvent(arena.Comp.Boss, new LavalandBossResetEvent(arena.Owner, arena.Comp.BossSpawnTile));
 
@@ -675,6 +873,8 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         {
             return;
         }
+
+        TryScaleBossHpForParticipants((arena.Owner, arena.Comp));
 
         arena.Comp.FightStarted = true;
         arena.Comp.EmptySince = null;
@@ -1107,5 +1307,31 @@ public sealed class LavalandBossArenaSystem : EntitySystem
             value++;
 
         return Math.Min(value, MaxArenaSize);
+    }
+    private void TryScaleBossHpForParticipants(Entity<LavalandBossArenaComponent> arena)
+    {
+        var count = arena.Comp.Participants.Count;
+        if (count == 0 || count <= arena.Comp.PeakParticipantCount)
+            return;
+
+        arena.Comp.PeakParticipantCount = count;
+
+        float newMax;
+        if (!arena.Comp.FightStarted)
+            newMax = arena.Comp.MaxHealth * (1f + 0.20f * (count - 1));
+        else
+            newMax = arena.Comp.ScaledMaxHealth * 1.30f;
+
+        if (newMax <= arena.Comp.ScaledMaxHealth)
+            return;
+
+        var healDelta = newMax - arena.Comp.ScaledMaxHealth;
+        arena.Comp.ScaledMaxHealth = newMax;
+
+        if (TryComp<DamageableComponent>(arena.Comp.Boss, out var damageable))
+            _damageable.HealDistributed((arena.Comp.Boss, damageable), FixedPoint2.New(healDelta), origin: arena.Comp.Boss);
+
+        if (TryComp<MobThresholdsComponent>(arena.Comp.Boss, out var thresholds))
+            _mobThreshold.SetMobStateThreshold(arena.Comp.Boss, FixedPoint2.New(newMax), MobState.Dead, thresholds);
     }
 }

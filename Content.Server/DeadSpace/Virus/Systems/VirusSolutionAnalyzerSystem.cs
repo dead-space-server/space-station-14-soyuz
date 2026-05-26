@@ -68,7 +68,9 @@ public sealed class VirusSolutionAnalyzerSystem : EntitySystem
             if (comp.Status == VirusSolutionAnalyzerStatus.Off)
                 SetStatus((uid, comp), VirusSolutionAnalyzerStatus.On);
 
-            if (EntityManager.EntityExists(comp.CurrentSoundEntity))
+            if (Exists(comp.CurrentSoundEntity))
+            {
+                UpdateConnectedConsoleThrottled((uid, comp));
                 continue;
 
             switch (comp.Status)

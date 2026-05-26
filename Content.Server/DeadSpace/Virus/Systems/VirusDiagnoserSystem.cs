@@ -66,7 +66,11 @@ public sealed class VirusDiagnoserSystem : EntitySystem
             if (comp.Status == VirusDiagnoserStatus.Off)
                 SetStatus((uid, comp), VirusDiagnoserStatus.On);
 
-            if (EntityManager.EntityExists(comp.CurrentSoundEntity) && comp.Status != VirusDiagnoserStatus.Printing)
+            if (Exists(comp.CurrentSoundEntity) &&
+                comp.Status != VirusDiagnoserStatus.Printing &&
+                comp.Status != VirusDiagnoserStatus.BloodScanning)
+            {
+                UpdateConnectedConsoleThrottled((uid, comp));
                 continue;
 
             switch (comp.Status)

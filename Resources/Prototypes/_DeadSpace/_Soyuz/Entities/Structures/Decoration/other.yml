@@ -1,0 +1,42 @@
+- type: entity
+  parent: NormalBlobTile
+  id: NormalBlobTileGreenFAKEFORMAPPING
+  name: плитка Блоба
+  description: Рядовая часть Блоба требуемая для строительства более совершенных плиток.
+  suffix: Для маппинга, зелёный, ушибы
+  components:
+  - type: BlobTile
+    tileType: Normal
+    color: "#637B19FF"
+
+- type: entity
+  parent: NormalBlobTileGreenFAKEFORMAPPING
+  id: NormalBlobTileYellowFAKEFORMAPPING
+  suffix: Для маппинга, жёлтый, ожоги
+  components:
+  - type: BlobTile
+    color: "#937000FF"
+
+- type: entity
+  parent: NormalBlobTileGreenFAKEFORMAPPING
+  id: NormalBlobTileFioletFAKEFORMAPPING
+  suffix: Для маппинга, фиолетовый, яды
+  components:
+  - type: BlobTile
+    color: "#441E59FF"
+
+- type: entity
+  parent: NormalBlobTileGreenFAKEFORMAPPING
+  id: NormalBlobTileRedFAKEFORMAPPING
+  suffix: Для маппинга, красный, взрывной
+  components:
+  - type: BlobTile
+    color: "#6E1900FF"
+
+- type: entity
+  parent: NormalBlobTileGreenFAKEFORMAPPING
+  id: NormalBlobTileBlueFAKEFORMAPPING
+  suffix: Для маппинга, синий, эми
+  components:
+  - type: BlobTile
+    color: "#0D7777FF"

@@ -368517,7 +368517,7 @@ entities:
     - type: AccessReader
       accessListsOriginal:
       - - ResearchDirector
-- proto: StationAnchor
+- proto: StationAnchorIndestructible # DS14 Edit: force static station grid
   entities:
   - uid: 45320
     components:

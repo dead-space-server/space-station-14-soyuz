@@ -199,4 +199,22 @@
     minSeparation: 90
     footprintRadius: 10
     spawnAttempts: 160
+
+#  - path: /Maps/_Soyuz/Dungeon/Lavalend/Lust.yml
+#    count: 1
+#    name: Похоть
+#    minDistance: 150
+#    maxDistance: 300
+#    minSeparation: 90
+#    footprintRadius: 10
+#    spawnAttempts: 160 # ПОХОТИ НЕ БУДЕТ
+
+  - path: /Maps/_Soyuz/Dungeon/Lavalend/Anger.yml
+    count: 1
+    name: Гнев
+    minDistance: 150
+    maxDistance: 300
+    minSeparation: 90
+    footprintRadius: 10
+    spawnAttempts: 160
 # DS14-Soyuz-end

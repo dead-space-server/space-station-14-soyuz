@@ -1,0 +1,41 @@
+name: Test Worklow # Тестовый ворклоф для разных штук
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.2.2
+      
+    - name: Get random announce
+      id: announce
+      run: |
+        if [ -f "jokes.txt" ]; then
+          grep -v '^#' jokes.txt | grep -v '^[[:space:]]*$' > /tmp/clean_announces.txt
+          total_lines=$(wc -l < /tmp/clean_announces.txt)
+          if [ $total_lines -gt 0 ]; then
+            random_line=$(( (RANDOM % total_lines) + 1 ))
+            announce=$(sed -n "${random_line}p" /tmp/clean_announces.txt)
+            echo "announce=$announce" >> $GITHUB_OUTPUT
+          else
+            echo "announce=Нет доступных объявлений :(" >> $GITHUB_OUTPUT
+          fi
+        else
+          echo "announce=Объявление не найдено :(" >> $GITHUB_OUTPUT
+        fi
+      
+    - name: Send test webhook
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK_URL }}
+        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+      run: |
+        curl -H "Content-Type: application/json" \
+              -X POST \
+              -d '{
+              "username": "Тест Союз-1 ☭",
+              "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+              "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>ТЕСТОВОЕ объявление!\nТест GitHub Actions 🧪"
+              }' \
+              $DISCORD_WEBHOOK_URL

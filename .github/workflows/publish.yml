@@ -91,17 +91,35 @@ jobs:
     #   env:
     #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
 # DS14-Soyuz webhook start
+    - name: Get random announce
+      id: announce
+      run: |
+        if [ -f "jokes.txt" ]; then
+          grep -v '^#' jokes.txt | grep -v '^[[:space:]]*$' > /tmp/clean_announces.txt
+          total_lines=$(wc -l < /tmp/clean_announces.txt)
+          if [ $total_lines -gt 0 ]; then
+            random_line=$(( (RANDOM % total_lines) + 1 ))
+            announce=$(sed -n "${random_line}p" /tmp/clean_announces.txt)
+            echo "announce=$announce" >> $GITHUB_OUTPUT
+          else
+            echo "announce=Нет доступных объявлений :(" >> $GITHUB_OUTPUT
+          fi
+        else
+          echo "announce=Объявление не найдено :(" >> $GITHUB_OUTPUT
+        fi
+
     - name: Send Discord Webhook Notification (Soyuz Discord)
       if: success()
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
       run: |
         curl -H "Content-Type: application/json" \
              -X POST \
              -d '{
               "username": "Обновления Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-               "content": "<:logo_UNION1:1504050698315235468>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+               "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳"
              }' \
              $DISCORD_WEBHOOK_URL
 
@@ -109,13 +127,14 @@ jobs:
       if: success()
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+#        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
       run: |
         curl -H "Content-Type: application/json" \
              -X POST \
              -d '{
               "username": "Обновления Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-               "content": "Пинга роли тут уже не должно быть, игроки даже на сервере союза от него отказались, злодеи :(\n <:logo_UNION1:1282351621375791218>Сервер успешно обновлён!\nВсе последние изменения Союза ☭ в игре 🥳"
+               "content": "Тут скоро будет чото интересное\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳"
              }' \
              $DISCORD_WEBHOOK_URL
 # DS14-Soyuz webhook end

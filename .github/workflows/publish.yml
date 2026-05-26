@@ -94,8 +94,8 @@ jobs:
     - name: Get random announce
       id: announce
       run: |
-        if [ -f "jokes.txt" ]; then
-          grep -v '^#' jokes.txt | grep -v '^[[:space:]]*$' > /tmp/clean_announces.txt
+        if [ -f "announce.txt" ]; then
+          grep -v '^#' announce.txt | grep -v '^[[:space:]]*$' > /tmp/clean_announces.txt
           total_lines=$(wc -l < /tmp/clean_announces.txt)
           if [ $total_lines -gt 0 ]; then
             random_line=$(( (RANDOM % total_lines) + 1 ))

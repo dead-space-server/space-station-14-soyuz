@@ -1,7 +1,7 @@
 - type: gameMap
   id: Ishimura
   mapName: 'USG Ishimura'
-  mapPath: /Maps/ishimura.yml
+  mapPath: /Maps/_Soyuz/ishimura.yml
   minPlayers: 25
   maxPlayers: 55
   stations:

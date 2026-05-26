@@ -4,8 +4,8 @@ meta:
   engineVersion: 272.0.0
   forkId: dssouz
   forkVersion: 4df89dc2b26e842198332269e64d30006a87cc9c
-  time: 05/26/2026 11:29:02
-  entityCount: 120
+  time: 05/26/2026 14:18:05
+  entityCount: 132
 maps: []
 grids:
 - 1
@@ -22,12 +22,13 @@ entities:
 - proto: ""
   entities:
   - uid: 1
+    mapInit: true
     components:
     - type: MetaData
       desc: В этой комнате, усеянной разбитыми зеркалами, нет ничего напыщенного, даже и близко. Прямо напротив входа, на окровавленном металлическом полу, валятся клинок, все ещё наполненный негодованием своего бывшего владельца.
       name: Зависть
     - type: Transform
-      pos: -0.515625,-0.4375
+      pos: 111.752686,80.741
       parent: invalid
     - type: MapGrid
       chunks:
@@ -58,6 +59,7 @@ entities:
     - type: TileHistory
       chunkHistory: {}
     - type: SpreaderGrid
+      updateAccumulator: 0.7005296
     - type: Shuttle
       dampingModifier: 0.25
     - type: ImplicitRoof
@@ -131,6 +133,56 @@ entities:
     - type: GridAtmosphere
       version: 2
       data:
+        tiles:
+          0,0:
+            0: 238
+          0,1:
+            0: 224
+            1: 3840
+          1,0:
+            0: 32769
+          1,1:
+            0: 254
+            1: 3840
+          0,-1:
+            0: 57599
+          1,-1:
+            0: 569
+          -2,1:
+            0: 68
+            1: 3106
+          -1,0:
+            0: 1262
+          -2,-1:
+            0: 76
+            1: 8738
+          -1,-1:
+            0: 57599
+          2,0:
+            1: 4369
+          2,1:
+            1: 17
+          0,-2:
+            1: 61440
+          1,-2:
+            1: 61440
+          2,-1:
+            1: 4369
+          -2,0:
+            1: 8738
+          -1,1:
+            1: 3840
+          -2,-2:
+            1: 49152
+          -1,-2:
+            1: 61440
+        uniqueMixes:
+        - volume: 2500
+          temperature: 293.15
+          moles: {}
+        - volume: 2500
+          immutable: True
+          moles: {}
         chunkSize: 4
     - type: GasTileOverlay
     - type: ExplosionAirtightGrid
@@ -138,9 +190,115 @@ entities:
     - type: IFF
       color: '#B64444FF'
       flags: HideLabel
+  - uid: 18
+    mapInit: true
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 17
+    - type: Solution
+      solution:
+        maxVol: 18
+        name: food
+        reagents:
+        - data: []
+          ReagentId: UncookedAnimalProteins
+          Quantity: 9
+        - data: []
+          ReagentId: Fat
+          Quantity: 9
+    - type: ContainedSolution
+      containerName: food
+      container: 17
+  - uid: 20
+    mapInit: true
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 19
+    - type: Solution
+      solution:
+        maxVol: 18
+        name: food
+        reagents:
+        - data: []
+          ReagentId: UncookedAnimalProteins
+          Quantity: 9
+        - data: []
+          ReagentId: Fat
+          Quantity: 9
+    - type: ContainedSolution
+      containerName: food
+      container: 19
+  - uid: 26
+    mapInit: true
+    components:
+    - type: MetaData
+      name: solution - battery
+    - type: Transform
+      parent: 25
+    - type: Solution
+      solution:
+        maxVol: 5
+        name: battery
+        reagents: []
+    - type: ContainedSolution
+      containerName: battery
+      container: 25
+  - uid: 132
+    mapInit: true
+    components:
+    - type: MetaData
+      name: solution - food
+    - type: Transform
+      parent: 131
+    - type: Solution
+      solution:
+        maxVol: 1
+        name: food
+        reagents:
+        - data: []
+          ReagentId: Fiber
+          Quantity: 1
+    - type: ContainedSolution
+      containerName: food
+      container: 131
+- proto: ActionToggleLight
+  entities:
+  - uid: 23
+    mapInit: true
+    components:
+    - type: Transform
+      parent: 22
+    - type: Action
+      originalIconColor: '#FFFFFFFF'
+      container: 22
+  - uid: 24
+    mapInit: true
+    components:
+    - type: Transform
+      parent: 22
+    - type: Action
+      originalIconColor: '#FFFFFFFF'
+      container: 22
+      attachedEntity: 22
+- proto: ActionToggleSuitPiece
+  entities:
+  - uid: 12
+    mapInit: true
+    components:
+    - type: Transform
+      parent: 10
+    - type: Action
+      originalIconColor: '#FFFFFFFF'
+      container: 10
+      entIcon: 11
 - proto: BasaltOne
   entities:
   - uid: 2
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,-3.5
@@ -148,27 +306,126 @@ entities:
 - proto: BasaltTwo
   entities:
   - uid: 3
+    mapInit: true
     components:
     - type: Transform
       pos: -1.5,-3.5
       parent: 1
+- proto: BookRandomStory
+  entities:
+  - uid: 5
+    mapInit: true
+    components:
+    - type: MetaData
+      name: мятый манускрипт
+    - type: Transform
+      parent: 4
+    - type: RandomSprite
+      selected:
+        cover:
+        - cover_strong
+        - '#9D9D97FF'
+        decor:
+        - decor_bottom
+        - '#169C9CFF'
+        icon:
+        - icon_letter_N
+        - null
+        overlay:
+        - overlay_blood
+        - null
+    - type: Paper
+      content: >-
+        Это исторический роман, где главными героями являются умирающий ревенант и страшно красивый инженер. Вследствие отключения электричества, они впечатляюще вынуждены работать вместе, чтобы спастись от ленивец, находясь между шаром Теслы и гравитационной сингулярностью.
+
+
+        Момент кульминации довольно интересный.
+    - type: MeleeWeapon
+      nextAttack: -183813.5829108
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+  - uid: 6
+    mapInit: true
+    components:
+    - type: MetaData
+      name: сомнительный дневник
+    - type: Transform
+      parent: 4
+    - type: RandomSprite
+      selected:
+        cover:
+        - cover_strong
+        - '#835432FF'
+        decor:
+        - decor_spine
+        - '#FED83DFF'
+        icon:
+        - icon_stars2
+        - '#3C44AAFF'
+        overlay:
+        - detail_rivets
+        - '#3C44AAFF'
+    - type: Paper
+      content: >-
+        Это хоррор, где главными героями являются противный ниан и молодой инженер. Вследствие эгоистичных мотивов персонажей, они чудесно объединяют усилия, чтобы победить общего врага, которым является крысиный король, в суровой пустыне.
+
+
+        Эпилог немного скучен.
+    - type: MeleeWeapon
+      nextAttack: -183813.5829108
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
 - proto: BookshelfFilled
   entities:
   - uid: 4
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,1.5
       parent: 1
+    - type: Storage
+      storedItems:
+        5:
+          position: 0,0
+          _rotation: South
+        6:
+          position: 1,0
+          _rotation: South
+    - type: ContainerContainer
+      containers:
+        storagebase: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 5
+          - 6
+    - type: UseDelay
+      delays:
+        default:
+          length: 1
+        quickInsert:
+          length: 0.5
+        storage: {}
 - proto: CandleRedInfinite
   entities:
-  - uid: 5
+  - uid: 7
+    mapInit: true
     components:
     - type: Transform
-      pos: 3.476008,1.5849161
+      pos: 3.4760075,1.5849152
       parent: 1
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
 - proto: ChairWood
   entities:
-  - uid: 6
+  - uid: 8
+    mapInit: true
     components:
     - type: Transform
       anchored: True
@@ -179,38 +436,74 @@ entities:
       bodyType: Static
 - proto: ClothingHeadHelmetHardsuitLing
   entities:
-  - uid: 7
+  - uid: 9
+    mapInit: true
     components:
     - type: Transform
       pos: -1.4999535,2.4861903
       parent: 1
-- proto: ClothingOuterHardsuitLing
-  entities:
-  - uid: 8
+  - uid: 11
+    mapInit: true
     components:
     - type: Transform
-      pos: -1.4999535,2.4653568
+      parent: 10
+    - type: AttachedClothing
+      attachedUid: 10
+- proto: ClothingOuterHardsuitLing
+  entities:
+  - uid: 10
+    mapInit: true
+    components:
+    - type: Transform
+      pos: -1.4999542,2.4653568
       parent: 1
+    - type: ToggleableClothing
+      clothingUid: 11
+      actionEntity: 12
+    - type: ContainerContainer
+      containers:
+        toggleable-clothing: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: 11
+        actions: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 12
+        uniform_accessories: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+    - type: ActionsContainer
 - proto: Cobweb1
   entities:
-  - uid: 9
+  - uid: 13
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -1.5,2.5
       parent: 1
-  - uid: 10
+  - uid: 14
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,1.5
       parent: 1
-  - uid: 11
+  - uid: 15
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 3.5,1.5
       parent: 1
-  - uid: 12
+  - uid: 16
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -218,33 +511,119 @@ entities:
       parent: 1
 - proto: FoodMeat
   entities:
-  - uid: 13
+  - uid: 17
+    mapInit: true
     components:
     - type: Transform
-      pos: 3.616633,1.3817911
+      pos: 3.6166325,1.3817902
       parent: 1
-  - uid: 14
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: InternalTemperature
+      temperature: 290
+    - type: Perishable
+      stage: 5
+      rotNextUpdate: 4.7218428
+      rotAccumulator: 300
+    - type: Temperature
+      currentTemperature: 290.03387
+    - type: TemperatureDamage
+      lastUpdate: -0.566724
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 18
+    - type: Rotting
+      totalRotTime: 255
+      nextRotUpdate: 4.7335307
+  - uid: 19
+    mapInit: true
     components:
     - type: Transform
-      pos: -0.53961706,-0.5713339
+      pos: -0.53961754,-0.57133484
       parent: 1
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: InternalTemperature
+      temperature: 290
+    - type: Perishable
+      stage: 5
+      rotNextUpdate: 4.7218428
+      rotAccumulator: 300
+    - type: Temperature
+      currentTemperature: 290.03387
+    - type: TemperatureDamage
+      lastUpdate: -0.566724
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 20
+    - type: Rotting
+      totalRotTime: 255
+      nextRotUpdate: 4.7335307
 - proto: KitchenSpike
   entities:
-  - uid: 15
+  - uid: 21
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,-0.5
       parent: 1
+    - type: KitchenSpike
+      nextDamage: -183813.5829108
 - proto: Lantern
   entities:
-  - uid: 16
+  - uid: 22
+    mapInit: true
     components:
     - type: Transform
-      pos: -0.4801371,1.521663
+      pos: -0.48013687,1.5216637
       parent: 1
+    - type: HandheldLight
+      selfToggleActionEntity: 24
+      toggleActionEntity: 23
+    - type: UseDelay
+      delays:
+        default:
+          endTime: 0
+          startTime: 0
+          length: 1
+    - type: ContainerContainer
+      containers:
+        cell_slot: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: 25
+        actions: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 23
+          - 24
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+    - type: ActionsContainer
+    - type: Actions
+      actions:
+      - 24
 - proto: LockerBooze
   entities:
-  - uid: 17
+  - uid: 27
+    mapInit: true
     components:
     - type: MetaData
       name: деревянный шкафчик
@@ -257,14 +636,20 @@ entities:
       access: []
 - proto: MaterialGoliathHide1
   entities:
-  - uid: 18
+  - uid: 28
+    mapInit: true
     components:
     - type: Transform
-      pos: -2.527012,-0.58771205
+      pos: -2.5270119,-0.58771133
       parent: 1
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
 - proto: Mirror
   entities:
-  - uid: 19
+  - uid: 29
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -272,7 +657,8 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-  - uid: 20
+  - uid: 30
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -280,7 +666,8 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-  - uid: 21
+  - uid: 31
+    mapInit: true
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -288,7 +675,8 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-  - uid: 22
+  - uid: 32
+    mapInit: true
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -296,7 +684,8 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-  - uid: 23
+  - uid: 33
+    mapInit: true
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -304,7 +693,8 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-  - uid: 24
+  - uid: 34
+    mapInit: true
     components:
     - type: Transform
       rot: -1.5707963267948966 rad
@@ -312,500 +702,692 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-- proto: RailingWood
+- proto: Paper
+  entities:
+  - uid: 131
+    mapInit: true
+    components:
+    - type: Transform
+      pos: -0.86170197,1.563591
+      parent: 1
+    - type: Paper
+      content: Обида губит глупца, а ревность убивает простодушного.
+      signatures:
+      - Invidia
+    - type: SignaturePaper
+      numberSignatures: 1
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - food
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape: !type:PolygonShape
+            radius: 0.01
+            vertices:
+            - -0.25,-0.25
+            - 0.25,-0.25
+            - 0.25,0.25
+            - -0.25,0.25
+          mask:
+          - Impassable
+          - HighImpassable
+          layer: []
+          density: 20
+          hard: True
+          restitution: 0.3
+          friction: 0.2
+        flammable:
+          shape: !type:PhysShapeCircle
+            radius: 0.35
+            position: 0,0
+          mask:
+          - MidImpassable
+          - HighImpassable
+          - LowImpassable
+          - BulletImpassable
+          - InteractImpassable
+          - Opaque
+          layer: []
+          density: 0
+          hard: False
+          restitution: 0
+          friction: 0.4
+    - type: ContainerContainer
+      containers:
+        solution@food: !type:ContainerSlot
+          ent: 132
+    - type: Forensics
+      residues: []
+      dnas: []
+      fibers: []
+      fingerprints: []
+- proto: PowerCellMedium
   entities:
   - uid: 25
+    mapInit: true
+    components:
+    - type: Transform
+      parent: 22
+    - type: Battery
+      lastCharge: 720
+      lastUpdate: -555.2781572
+    - type: SolutionContainerManager
+      solutions: null
+      containers:
+      - battery
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
+    - type: ContainerContainer
+      containers:
+        solution@battery: !type:ContainerSlot
+          ent: 26
+- proto: RailingWood
+  entities:
+  - uid: 35
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,-2.5
       parent: 1
-  - uid: 26
+  - uid: 36
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,-2.5
       parent: 1
-  - uid: 27
+  - uid: 37
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,-2.5
       parent: 1
-  - uid: 28
+  - uid: 38
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,-2.5
       parent: 1
-  - uid: 29
+  - uid: 39
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,-2.5
       parent: 1
-  - uid: 30
+  - uid: 40
+    mapInit: true
     components:
     - type: Transform
       pos: 2.5,-2.5
       parent: 1
-  - uid: 31
+  - uid: 41
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,-2.5
       parent: 1
-  - uid: 32
+  - uid: 42
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,-2.5
       parent: 1
-  - uid: 33
+  - uid: 43
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,-2.5
       parent: 1
 - proto: RandomCargoCorpseSpawner
   entities:
-  - uid: 34
+  - uid: 44
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,-1.5
       parent: 1
 - proto: RitualDagger
   entities:
-  - uid: 35
+  - uid: 45
+    mapInit: true
     components:
     - type: MetaData
       name: клинок Зависти
     - type: Transform
-      pos: 4.551374,0.5423118
+      pos: 4.5513744,0.5423126
       parent: 1
+    - type: MeleeWeapon
+      nextAttack: -183813.5829108
+    - type: EmitSoundOnCollide
+      nextSound: -183813.5829108
+    - type: Physics
+      canCollide: False
 - proto: TableWood
   entities:
-  - uid: 36
+  - uid: 46
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,1.5
       parent: 1
-  - uid: 37
+  - uid: 47
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,1.5
       parent: 1
+    - type: Forensics
+      residues: []
+      dnas: []
+      fibers: []
+      fingerprints: []
 - proto: WallBasaltCobblebrick
   entities:
-  - uid: 38
+  - uid: 48
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,0.5
       parent: 1
-  - uid: 39
+  - uid: 49
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,1.5
       parent: 1
-  - uid: 40
+  - uid: 50
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,2.5
       parent: 1
-  - uid: 41
+  - uid: 51
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,3.5
       parent: 1
-  - uid: 42
+  - uid: 52
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,3.5
       parent: 1
-  - uid: 43
+  - uid: 53
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,4.5
       parent: 1
-  - uid: 44
+  - uid: 54
+    mapInit: true
     components:
     - type: Transform
       pos: -1.5,4.5
       parent: 1
-  - uid: 45
+  - uid: 55
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,4.5
       parent: 1
-  - uid: 46
+  - uid: 56
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,3.5
       parent: 1
-  - uid: 47
+  - uid: 57
+    mapInit: true
     components:
     - type: Transform
       pos: 2.5,3.5
       parent: 1
-  - uid: 48
+  - uid: 58
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,3.5
       parent: 1
-  - uid: 49
+  - uid: 59
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,3.5
       parent: 1
-  - uid: 50
+  - uid: 60
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,2.5
       parent: 1
 - proto: WallRockBasalt
   entities:
-  - uid: 51
+  - uid: 61
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,3.5
       parent: 1
-  - uid: 52
+  - uid: 62
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,3.5
       parent: 1
-  - uid: 53
+  - uid: 63
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,4.5
       parent: 1
-  - uid: 54
+  - uid: 64
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,5.5
       parent: 1
-  - uid: 55
+  - uid: 65
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,3.5
       parent: 1
-  - uid: 56
+  - uid: 66
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,2.5
       parent: 1
-  - uid: 57
+  - uid: 67
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,2.5
       parent: 1
-  - uid: 58
+  - uid: 68
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,4.5
       parent: 1
-  - uid: 59
+  - uid: 69
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,4.5
       parent: 1
-  - uid: 60
+  - uid: 70
+    mapInit: true
     components:
     - type: Transform
       pos: 2.5,4.5
       parent: 1
-  - uid: 61
+  - uid: 71
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,4.5
       parent: 1
-  - uid: 62
+  - uid: 72
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,5.5
       parent: 1
-  - uid: 63
+  - uid: 73
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,5.5
       parent: 1
-  - uid: 64
+  - uid: 74
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,5.5
       parent: 1
-  - uid: 65
+  - uid: 75
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,5.5
       parent: 1
-  - uid: 66
+  - uid: 76
+    mapInit: true
     components:
     - type: Transform
       pos: -1.5,5.5
       parent: 1
-  - uid: 67
+  - uid: 77
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,4.5
       parent: 1
-  - uid: 68
+  - uid: 78
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,4.5
       parent: 1
-  - uid: 69
+  - uid: 79
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,3.5
       parent: 1
-  - uid: 70
+  - uid: 80
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,2.5
       parent: 1
-  - uid: 71
+  - uid: 81
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,1.5
       parent: 1
-  - uid: 72
+  - uid: 82
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,0.5
       parent: 1
-  - uid: 73
+  - uid: 83
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,-2.5
       parent: 1
-  - uid: 74
+  - uid: 84
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,-1.5
       parent: 1
-  - uid: 75
+  - uid: 85
+    mapInit: true
     components:
     - type: Transform
       pos: -4.5,-0.5
       parent: 1
-  - uid: 76
+  - uid: 86
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,-0.5
       parent: 1
-  - uid: 77
+  - uid: 87
+    mapInit: true
     components:
     - type: Transform
       pos: -5.5,-1.5
       parent: 1
-  - uid: 78
+  - uid: 88
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,-3.5
       parent: 1
-  - uid: 79
+  - uid: 89
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,-3.5
       parent: 1
-  - uid: 80
+  - uid: 90
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,-2.5
       parent: 1
-  - uid: 81
+  - uid: 91
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,-2.5
       parent: 1
-  - uid: 82
+  - uid: 92
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,-1.5
       parent: 1
-  - uid: 83
+  - uid: 93
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,-0.5
       parent: 1
-  - uid: 84
+  - uid: 94
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,0.5
       parent: 1
-  - uid: 85
+  - uid: 95
+    mapInit: true
     components:
     - type: Transform
       pos: 7.5,1.5
       parent: 1
-  - uid: 86
+  - uid: 96
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,-1.5
       parent: 1
-  - uid: 87
+  - uid: 97
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,-0.5
       parent: 1
-  - uid: 88
+  - uid: 98
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,0.5
       parent: 1
-  - uid: 89
+  - uid: 99
+    mapInit: true
     components:
     - type: Transform
       pos: 6.5,1.5
       parent: 1
 - proto: WallWood
   entities:
-  - uid: 90
+  - uid: 100
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,-1.5
       parent: 1
-  - uid: 91
+  - uid: 101
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,-1.5
       parent: 1
-  - uid: 92
+  - uid: 102
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,-0.5
       parent: 1
-  - uid: 93
+  - uid: 103
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,0.5
       parent: 1
-  - uid: 94
+  - uid: 104
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,1.5
       parent: 1
-  - uid: 95
+  - uid: 105
+    mapInit: true
     components:
     - type: Transform
       pos: -3.5,2.5
       parent: 1
-  - uid: 96
+  - uid: 106
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,2.5
       parent: 1
-  - uid: 97
+  - uid: 107
+    mapInit: true
     components:
     - type: Transform
       pos: -2.5,3.5
       parent: 1
-  - uid: 98
+  - uid: 108
+    mapInit: true
     components:
     - type: Transform
       pos: -1.5,3.5
       parent: 1
-  - uid: 99
+  - uid: 109
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,3.5
       parent: 1
-  - uid: 100
+  - uid: 110
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,2.5
       parent: 1
-  - uid: 101
+  - uid: 111
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,2.5
       parent: 1
-  - uid: 102
+  - uid: 112
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,2.5
       parent: 1
-  - uid: 103
+  - uid: 113
+    mapInit: true
     components:
     - type: Transform
       pos: 2.5,2.5
       parent: 1
-  - uid: 104
+  - uid: 114
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,2.5
       parent: 1
-  - uid: 105
+  - uid: 115
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,2.5
       parent: 1
-  - uid: 106
+  - uid: 116
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,1.5
       parent: 1
-  - uid: 107
+  - uid: 117
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,1.5
       parent: 1
-  - uid: 108
+  - uid: 118
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,0.5
       parent: 1
-  - uid: 109
+  - uid: 119
+    mapInit: true
     components:
     - type: Transform
       pos: 5.5,-0.5
       parent: 1
-  - uid: 110
+  - uid: 120
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,-0.5
       parent: 1
-  - uid: 111
+  - uid: 121
+    mapInit: true
     components:
     - type: Transform
       pos: 4.5,-1.5
       parent: 1
-  - uid: 112
+  - uid: 122
+    mapInit: true
     components:
     - type: Transform
       pos: 3.5,-1.5
       parent: 1
-  - uid: 113
+  - uid: 123
+    mapInit: true
     components:
     - type: Transform
       pos: 2.5,-1.5
       parent: 1
-  - uid: 114
+  - uid: 124
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,-1.5
       parent: 1
-  - uid: 115
+  - uid: 125
+    mapInit: true
     components:
     - type: Transform
       pos: -0.5,-1.5
       parent: 1
-  - uid: 116
+  - uid: 126
+    mapInit: true
     components:
     - type: Transform
       pos: 1.5,-1.5
       parent: 1
-  - uid: 117
+  - uid: 127
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,-0.5
       parent: 1
-  - uid: 118
+  - uid: 128
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,1.5
       parent: 1
 - proto: WoodDoor
   entities:
-  - uid: 119
+  - uid: 129
+    mapInit: true
     components:
     - type: Transform
       pos: -1.5,-1.5
       parent: 1
-  - uid: 120
+  - uid: 130
+    mapInit: true
     components:
     - type: Transform
       pos: 0.5,0.5

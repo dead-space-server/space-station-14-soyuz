@@ -77,18 +77,6 @@ entities:
     - type: GasTileOverlay
     - type: ExplosionAirtightGrid
     - type: RadiationGridResistance
-- proto: ActionInvisibility
-  entities:
-  - uid: 172
-    mapInit: true
-    paused: true
-    components:
-    - type: Transform
-      parent: 171
-    - type: Action
-      originalIconColor: '#FFFFFFFF'
-      container: 171
-      attachedEntity: 171
 - proto: CandleBlackSmallInfinite
   entities:
   - uid: 56
@@ -219,9 +207,6 @@ entities:
     - type: PointLight
       energy: 2
       radius: 6
-    - type: Invisibility
-      actionInvisibilityEntity: 172
-    - type: ActionsContainer
     - type: ContainerContainer
       containers:
         actions: !type:Container

@@ -1,0 +1,21 @@
+- type: entity
+  parent: GoldDoor
+  id: UraniumDoor
+  name: урановая дверь
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Doors/MineralDoors/uranium_door.rsi
+#  - type: Construction
+#    graph: DoorGraph
+#    node: uraniumDoor #мне впадлу делать граф, так что пока без урановых дверей
+
+- type: entity
+  parent: GoldDoor
+  id: DiamondDoor
+  name: бриллиантовая дверь
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Doors/MineralDoors/diamond_door.rsi
+#  - type: Construction
+#    graph: DoorGraph
+#    node: uraniumDoor #мне впадлу делать граф, так что пока без урановых дверей

@@ -127,14 +127,14 @@ jobs:
       if: success()
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
-#        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
       run: |
         curl -H "Content-Type: application/json" \
              -X POST \
              -d '{
               "username": "Обновления Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-               "content": "Тут скоро будет чото интересное\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳"
+               "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)"
              }' \
              $DISCORD_WEBHOOK_URL
 # DS14-Soyuz webhook end

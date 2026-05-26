@@ -231,9 +231,23 @@ public sealed partial class ShuttleSystem
         // Spawn on a dummy map and try to dock if possible, otherwise dump it.
         _mapSystem.CreateMap(out var mapId);
         var valid = false;
-
-        if (_loader.TryLoadGrid(mapId, component.Path, out var grid))
+// DS14-Soyuz-start
+        ResPath selectedPath;
+    
+        if (component.Paths.Count > 0)
         {
+            selectedPath = _random.Pick(component.Paths);
+            Log.Info($"GridFill: Selected random path from {component.Paths.Count} options: {selectedPath}");
+        }
+        else
+        {
+            selectedPath = component.Path;
+            Log.Info($"GridFill: Using single path: {selectedPath}");
+        }
+
+        if (_loader.TryLoadGrid(mapId, selectedPath, out var grid))
+        {
+// DS14-Soyuz-end
             var escape = GetSingleDock(grid.Value);
 
             if (escape != null)

@@ -38,7 +38,7 @@ public sealed class ScramOnTriggerSystem : XOnTriggerSystem<ScramOnTriggerCompon
         if (_net.IsClient)
             return;
 
-        var targetCoords = SelectRandomTileInRange(target, ent.Comp.TeleportRadius);
+        var targetCoords = SelectRandomTileInFacingArea(target, ent.Comp.TeleportRadius); // DS14
 
         if (targetCoords != null)
         {
@@ -46,6 +46,7 @@ public sealed class ScramOnTriggerSystem : XOnTriggerSystem<ScramOnTriggerCompon
             args.Handled = true;
         }
     }
+    // DS14-start
     /// <summary>
     /// Finds a non-empty tile inside the area in front of the entity. Will not select off-grid tiles.
     /// </summary>
@@ -95,4 +96,5 @@ public sealed class ScramOnTriggerSystem : XOnTriggerSystem<ScramOnTriggerCompon
             return null;
         }
     }
+    // DS14-end
 }

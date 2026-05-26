@@ -91,7 +91,8 @@
     - Critical
     - Dead
   - type: RattleOnTrigger
-    radioChannel: Taipan
+    radioChannels: 
+    - Taipan
   - type: SuitSensor
     randomMode: false
     controlsLocked: true

@@ -98,7 +98,7 @@
     - type: StationLimitedNetwork
     - type: WirelessNetworkConnection
       range: 500
-  #DS-14 start
+  # DS14-Soyuz
     - type: TriggerOnMobstateChange
       mobState:
       - Alive
@@ -106,8 +106,10 @@
       - Dead
     - type: RattleOnTrigger
       targetUser: true
-      radioChannel: Medical
-  #DS-14 end
+      radioChannels:
+        - Medical
+        - Security
+  # DS14-Soyuz
 
 #Traitor implants
 
@@ -442,4 +444,5 @@
     - Dead
   #DS-14 end
   - type: RattleOnTrigger
-    radioChannel: CentCom
+    radioChannels: 
+    - CentCom

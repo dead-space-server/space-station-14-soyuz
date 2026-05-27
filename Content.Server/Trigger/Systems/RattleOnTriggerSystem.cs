@@ -43,7 +43,13 @@ public sealed class RattleOnTriggerSystem : EntitySystem
         var posText = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(target.Value));
 
         var message = Loc.GetString(messageId, ("user", target.Value), ("position", posText));
-        // Sends a message to the radio channel specified by the implant
-        _radio.SendRadioMessage(ent.Owner, message, _prototypeManager.Index(ent.Comp.RadioChannel), ent.Owner);
+// DS14-Soyuz-start        
+        // Sends a message to ALL radio channels specified by the implant
+        foreach (var channelId in ent.Comp.RadioChannels)
+        {
+            var channel = _prototypeManager.Index(channelId);
+            _radio.SendRadioMessage(ent.Owner, message, channel, ent.Owner);
+        }
+// DS14-Soyuz-end
     }
 }

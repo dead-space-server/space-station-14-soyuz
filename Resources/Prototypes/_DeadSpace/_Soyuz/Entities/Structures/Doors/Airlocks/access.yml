@@ -1,7 +1,24 @@
+# Случайный шаттл
+- type: entity
+  parent: AirlockGlassShuttle
+  id: AirlockExternalGlassShuttleSecurityRandom
+  name: стыковочный шлюз шаттла милиции
+  suffix: Случайный, 13x14, Милиция, Стеклянный, Стыковочный
+  components:
+  - type: GridFill
+    paths:
+    - /Maps/Shuttles/escape_pod_small.yml # Временно, крипс потом поменяет
+    - /Maps/_Soyuz/Shuttles/voron.yml
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsExternal ]
+
+# Конкретные стыки для конкретных шаттлов
 - type: entity
   parent: AirlockGlassShuttle
   id: AirlockExternalGlassShuttleSecurity
-  suffix: Милиция 13x14, Стеклянный, Стыковочный, Ворон-08
+  name: стыковочный шлюз шаттла милиции
+  suffix: Ворон-08, 13x14, Милиция, Стеклянный, Стыковочный
   components:
   - type: GridFill
     path: "/Maps/_Soyuz/Shuttles/voron.yml"

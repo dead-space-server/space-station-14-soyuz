@@ -128255,10 +128255,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,51.5
       parent: 2
-    - type: AccessReader
-      accessListsOriginal:
-      - - ResearchDirector
-- proto: StationAnchorOff
+- proto: StationAnchorIndestructible # DS14 Edit: force static station grid
   entities:
   - uid: 16627
     components:

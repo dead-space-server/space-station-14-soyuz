@@ -74,9 +74,9 @@
     sprite: Objects/Specific/Medical/implanter.rsi
     state: implanter0
   product: CrateTrackingImplants
-  cost: 3000
+  cost: 5000 # DS14-Soyuz value: 3000 > 5000
   category: cargoproduct-category-name-armory
-  group: security # DS14
+  group: general # DS14-Soyuz
 
 - type: cargoProduct
   id: ArmoryLaser

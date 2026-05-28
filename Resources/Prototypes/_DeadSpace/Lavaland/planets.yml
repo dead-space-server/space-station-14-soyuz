@@ -211,6 +211,7 @@
     spawnAttempts: 160
 # DS14-Soyuz-end
     count: 2
+  - path: /Maps/Lavaland/ds_mini_ratvar.yml
     name: Заброшеный мостик
     minDistance: 120
     maxDistance: 220

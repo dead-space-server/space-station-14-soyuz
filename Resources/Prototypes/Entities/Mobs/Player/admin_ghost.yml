@@ -122,7 +122,6 @@
     successChance: 1
     interactSuccessString: hugging-success-generic
     interactSuccessSound: /Audio/Effects/thudswoosh.ogg
-  - type: ShowHealthBars # DS14-soyuz
 
 - type: entity
   abstract: true

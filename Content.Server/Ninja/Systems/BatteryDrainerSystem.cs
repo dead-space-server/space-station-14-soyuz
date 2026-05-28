@@ -92,7 +92,7 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
         }
 
         var required = battery.MaxCharge - _battery.GetCharge((comp.BatteryUid.Value, battery));
-        // DS14: avoid invalid configuration (prevents divide-by-zero).
+        // DS14-Soyuz: avoid invalid configuration (prevents divide-by-zero).
         if (comp.DrainEfficiency <= 0f)
             return false;
         // higher tier storages can charge more

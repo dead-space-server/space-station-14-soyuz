@@ -8,7 +8,6 @@ using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 // DS14-end
-using Content.Shared.Cloning; // DS14-soyuz
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
@@ -28,6 +27,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
 using Content.Server.Body.Systems;
+using Content.Shared.Cloning; // DS14-soyuz
 
 namespace Content.Server.Medical;
 
@@ -246,8 +246,8 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         var bloodAmount = float.NaN;
         var bleeding = false;
         var unrevivable = false;
-        var unclonable = false; // DS14-soyuz
         var reagents = new List<HealthAnalyzerReagentEntry>(); // DS14
+        var unclonable = false; // DS14-soyuz
 
         if (TryComp<BloodstreamComponent>(entity, out var bloodstream) &&
             _solutionContainerSystem.ResolveSolution(entity, bloodstream.BloodSolutionName,
@@ -270,9 +270,9 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bloodAmount,
             null,
             bleeding,
-            unclonable, // DS14-Soyuz
             unrevivable,
-            reagents // DS14
+            reagents, // DS14
+            unclonable // DS14-Soyuz
         );
     }
 

@@ -1,14 +1,42 @@
 - type: entity
-  parent: ClothingMaskPullableBase
-  id: ClothingMaskRedNeckGaiter
-  name: красный шейный гетр
-  description: Стильный гетр, который поможет скрыть вашу личность.
+  abstract: true
+  parent: BaseFoldable
+  id: ClothingMaskFoldableBase
+  components:
+  - type: Appearance
+  - type: Foldable
+    canFoldInsideContainer: true
+    unfoldVerbText: raise-verb
+    foldVerbText: lower-verb
+  - type: FoldableClothing
+    foldedEquippedPrefix: open
+    foldedHeldPrefix: open
+  - type: Sprite
+    layers:
+    - state: icon
+      map: [ "unfoldedLayer" ]
+    - state: icon-open
+      map: ["foldedLayer"]
+      visible: false
+
+- type: entity
+  parent: ClothingMaskBreath
+  id: ClothingMaskBreathTaipan
+  name: чёрная боевая дыхательная маска
+  description: Высокопрочная дыхательная маска с возможностью подключения к дыхательному баллону.
+  suffix: Дыхательная маска Синдиката
   components:
   - type: Sprite
-    sprite: _DeadSpace/Clothing/Mask/redneckgaiter.rsi
+    sprite: _DeadSpace/Clothing/Mask/black_breath.rsi
   - type: Clothing
-    sprite: _DeadSpace/Clothing/Mask/redneckgaiter.rsi
-  - type: IdentityBlocker
+    sprite: _DeadSpace/Clothing/Mask/black_breath.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
   - type: Tag
     tags:
     - WhitelistChameleon

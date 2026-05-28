@@ -15,6 +15,7 @@ public sealed class RoundGameModeHistorySystem : EntitySystem
 {
     [Dependency] private readonly IAdminManager _admin = default!;
     [Dependency] private readonly IServerDbManager _db = default!;
+    [Dependency] private readonly ServerDbEntryManager _serverDbEntry = default!;
     [Dependency] private readonly GameTicker _ticker = default!;
     [Dependency] private readonly SecretRuleSystem _secret = default!;
 
@@ -32,9 +33,11 @@ public sealed class RoundGameModeHistorySystem : EntitySystem
         {
             var presetName = GetPresetNameForHistory();
 
-            await _db.SetRoundGamePresetAsync(
+            await _db.SetRoundGameModeHistoryAsync(
                 ev.RoundId,
-                presetName);
+                presetName,
+                ev.PlayerCountAtStart,
+                ev.MapName);
         }
         catch (Exception e)
         {
@@ -51,7 +54,8 @@ public sealed class RoundGameModeHistorySystem : EntitySystem
         {
             var fromUtc = DateTime.Now.Date.AddDays(-2).ToUniversalTime();
             var today = DateTime.Now.Date;
-            var rounds = await _db.GetRoundGameModeHistoryAsync(fromUtc);
+            var server = await _serverDbEntry.ServerEntity;
+            var rounds = await _db.GetRoundGameModeHistoryAsync(server.Id, fromUtc);
             var entries = rounds
                 .Select(round =>
                 {
@@ -61,7 +65,9 @@ public sealed class RoundGameModeHistorySystem : EntitySystem
                         RoundId = round.RoundId,
                         DayOffset = (today - localStart.Date).Days,
                         StartedAt = localStart.ToString("dd.MM.yyyy HH:mm"),
-                        GameMode = round.GamePresetName
+                        GameMode = round.GamePresetName,
+                        PlayerCount = round.PlayerCount ?? -1,
+                        MapName = round.MapName ?? string.Empty
                     };
                 })
                 .Where(entry => entry.DayOffset is >= 0 and <= 2)

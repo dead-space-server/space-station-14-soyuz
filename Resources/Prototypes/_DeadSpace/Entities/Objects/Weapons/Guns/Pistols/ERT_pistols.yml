@@ -20,6 +20,7 @@
     availableModes:
     - SemiAuto
     - Burst
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
   - type: StealTarget
@@ -29,6 +30,20 @@
       gun_magazine:
         name: Magazine
         startingItem: MagazinePistolHighCapacity
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistol
+            - MagazinePistolHighCapacity
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgePistol
 
 - type: entity
   name: Beretta M92
@@ -48,10 +63,11 @@
   - type: Item
     storedOffset: 0,-2
   - type: Gun
-    fireRate: 6.5 # DS14
+    fireRate: 5.8
     availableModes:
     - SemiAuto
     - Burst
+    - FullAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
   - type: StealTarget

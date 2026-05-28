@@ -83,7 +83,7 @@
   - SeniorEngineerBelt
   - StationEngineerOuterClothing
   - StationEngineerShoes
-  - SeniorEngineerID
+  # - SeniorEngineerID
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
@@ -101,7 +101,7 @@
   - SeniorResearcherOuterClothing
   - ScientistGloves
   - ScientistShoes
-  - SeniorResearcherPDA
+  # - SeniorResearcherPDA
   - Glasses
   - Survival
   - Trinkets
@@ -131,7 +131,7 @@
   - SeniorOfficerBackpack
   - SeniorOfficerOuterClothing
   - SecurityShoes
-  - SeniorOfficerPDA
+  # - SeniorOfficerPDA
   - SecurityBelt
   - SurvivalSecurity
   - Trinkets
@@ -170,7 +170,7 @@
   - SeniorPhysicianOuterClothing
   - MedicalShoes
   - PhysicianSocks
-  - SeniorPhysicianPDA
+  # - SeniorPhysicianPDA
   - MedicalEyewear
   - Survival
   - Trinkets

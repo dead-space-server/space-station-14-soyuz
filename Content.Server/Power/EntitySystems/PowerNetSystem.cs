@@ -365,17 +365,13 @@ namespace Content.Server.Power.EntitySystems
 
                     if (!apcReceiver.PowerDisabled && !_battery.IsFull((uid, battery)))
                     {
-                        var targetRechargeRate = apcBattery.BatteryRechargeRate;
-                        var maxRechargeFromGrid = apcBattery.BatteryRechargeEfficiency > 0f
-                            ? surplusPower / apcBattery.BatteryRechargeEfficiency
-                            : targetRechargeRate;
-                        var actualRechargeRate = Math.Max(0f, Math.Min(targetRechargeRate, maxRechargeFromGrid));
-
-                        if (actualRechargeRate > 0f)
-                        {
-                            apcReceiver.Load += actualRechargeRate * apcBattery.BatteryRechargeEfficiency;
-                            _battery.ChangeCharge((uid, battery), actualRechargeRate * frameTime);
-                        }
+                        _battery.ChangeCharge((uid, battery), -apcBattery.IdleLoad * frameTime);
+                    }
+                    // Otherwise try to charge the battery
+                    else if (powered && !_battery.IsFull((uid, battery)))
+                    {
+                        apcReceiver.Load += apcBattery.BatteryRechargeRate * apcBattery.BatteryRechargeEfficiency;
+                        _battery.ChangeCharge((uid, battery), apcBattery.BatteryRechargeRate * frameTime);
                     }
 
                     var requireBattery = !apcReceiver.PowerDisabled && missingPower > 0f;

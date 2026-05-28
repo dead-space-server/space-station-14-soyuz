@@ -35,7 +35,7 @@
     head: ClothingHeadCapCentcomBlack
     eyes: ClothingEyesGlassesAdvancedOKGB
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterVestWebElite
+    outerClothing: ClothingOuterVestWebElite #DS14-Soyuz
     neck: ClothingNeckCloakCentcomBlack
     belt: WeaponRevolverMateba
     id: CentcomSpecialOperationsOfficerPDA
@@ -105,9 +105,9 @@
 - type: entity
   parent: ClothingHeadset
   id: ClothingHeadsetSpecialOperationsOfficer
-  name: гарнитура Генерала СО # DS14-Soyuz
-  description: Уникальный образец гарнитуры c доступом во все каналы. Собственность Генерала Специальных Операций. # DS14-Soyuz
-  suffix: СОБСТВЕННОСТЬ ГСО # DS14-Soyuz
+  name: гарнитура Генерала СО
+  description: Уникальный образец гарнитуры c доступом во все каналы. Собственность Генерала Специальных Операций.
+  suffix: СОБСТВЕННОСТЬ ГСО
   components:
   - type: ContainerFill
     containers:

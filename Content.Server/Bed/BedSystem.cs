@@ -45,10 +45,10 @@ namespace Content.Server.Bed
                 {
                     if (_mobStateSystem.IsDead(healedEntity))
                         continue;
-                    // DS14-start
+                    // DS14-Soyuz-start
                     if (_tagSystem.HasTag(healedEntity, IgnoreBedHealingTag))
                         continue;
-                    // DS14-end
+                    // DS14-Soyuz-end
                     var damage = bedComponent.Damage;
 
                     if (_sleepingQuery.HasComp(healedEntity))

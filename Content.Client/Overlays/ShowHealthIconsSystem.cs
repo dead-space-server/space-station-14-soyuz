@@ -81,7 +81,7 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
     {
         if (TryComp<MobStateComponent>(entity, out var state))
         {
-            // Если мёртв - проверяем стадию разложения
+//DS14-Soyuz-start
             if (state.CurrentState == MobState.Dead)
             {
                 int effectiveStage = 1;
@@ -132,6 +132,7 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
             {
                 if (_prototypeMan.TryIndex<HealthIconPrototype>(value, out var icon))
                 {
+//DS14-Soyuz-end
                     result.Add(icon);
                 }
             }

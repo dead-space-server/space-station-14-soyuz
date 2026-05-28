@@ -215,10 +215,10 @@
     - Instruments
     - Equipment
     - NightVisionTech # DS14
-    - ProcessingTungsten # DS14-Soyuz
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
     - ExperimentalCloning # DS14-Soyuz
+    - ProcessingTungsten # DS14-Soyuz
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo
@@ -463,14 +463,14 @@
     - SecurityAmmo
     - SecurityWeapons
     - SecurityDisablers
-    - ArmedTechFabCircuitboard # DS14-Soyuz
-    - ProcessingTungsten # DS14-Soyuz
-    - SecurityPoliceBeta # DS14-Soyuz
     - WeaponMagmite # DS14
     - SecurityRIGCraftDetails # DS14
     - GlovesArkalyse # DS14
     - SecurityBorgModulesTierTwo # DS14
     - SecurityBorgModulesTierThree # DS14
+    - ArmedTechFabCircuitboard # DS14-Soyuz
+    - ProcessingTungsten # DS14-Soyuz
+    - SecurityPoliceBeta # DS14-Soyuz
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
@@ -685,7 +685,6 @@
       staticPacks:
       - OreSmelting
       - RGlassSmelting
-    - type: OreSiloClient # DS14-soyuz
 #DS14-start
     - type: LavalandOreRedeemer
       oreValues:

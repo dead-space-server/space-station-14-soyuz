@@ -1,7 +1,11 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
+<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Sponsor/rtwo45/assault.rsi/meta.json
   "copyright": "Taken from tgstation",
+========
+  "copyright": "ADT Team, resprite by kieru01 (discord) for Space Station 14 server Мёртвый Космос",
+>>>>>>>> fobos/master:Resources/Textures/_DeadSpace/Sponsor/CriticalForce/misc/tti-hypo.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32

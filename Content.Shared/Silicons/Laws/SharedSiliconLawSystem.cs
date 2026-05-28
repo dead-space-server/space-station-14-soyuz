@@ -70,28 +70,10 @@ public abstract partial class SharedSiliconLawSystem : EntitySystem
 
     protected virtual void EnsureSubvertedSiliconRole(EntityUid mindId)
     {
-        if (TryComp<MindComponent>(mindId, out var mind))
-        {
-            var owner = mind.OwnedEntity;
-            if (TryComp<ShowCrewIconsComponent>(owner, out var crewIconComp))
-            {
-                crewIconComp.UncertainCrewBorder = true;
-                Dirty(owner.Value, crewIconComp);
-            }
-        }
     }
 
     protected virtual void RemoveSubvertedSiliconRole(EntityUid mindId)
     {
-        if (TryComp<MindComponent>(mindId, out var mind))
-        {
-            var owner = mind.OwnedEntity;
-            if (TryComp<ShowCrewIconsComponent>(owner, out var crewIconComp))
-            {
-                crewIconComp.UncertainCrewBorder = false;
-                Dirty(owner.Value, crewIconComp);
-            }
-        }
     }
 }
 

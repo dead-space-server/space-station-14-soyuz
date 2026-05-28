@@ -43,8 +43,8 @@ public struct HealthAnalyzerUiState
         ScanMode = scanMode;
         Bleeding = bleeding;
         Unrevivable = unrevivable;
-        Unclonable = unclonable; // DS14-Soyuz
         Reagents = reagents ?? new List<HealthAnalyzerReagentEntry>(); // DS14
+        Unclonable = unclonable; // DS14-Soyuz
     }
 }
 

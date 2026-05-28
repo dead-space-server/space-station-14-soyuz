@@ -137,6 +137,7 @@
     - EnforcerSet
     - WT550Set
     - LecterSet
+    - MP5Set
     - LaserCannonSet
     - XrayCannonSet
     - LaserRifleSet
@@ -163,7 +164,7 @@
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - N1984Set
-    - AdvancedLaserSet
+    - AdvancedLaserERTSet
     - BerettaM92Set
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
@@ -189,6 +190,7 @@
     - LecterSet
     - PulseCarbineSet
     - Ak305Set
+    - HammerheadSetERT
     - MP7Set
     - LaserImpulseSMGERTSet
     - PulseCarbineMK2ERTSet
@@ -356,6 +358,22 @@
   - BoxShotgunIncendiary
 
 - type: thiefBackpackSet
+  id: HammerheadSetERT
+  name: ert-loadout-category-hammerhead-name
+  description: ert-loadout-category-hammerhead-description-weak
+  sprite:
+    sprite: _DeadSpace/Objects/Weapons/Guns/Shotguns/hammerhead.rsi
+    state: icon
+  content:
+  - WeaponShotgunHammerheadERT
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun
+  - MagazineShotgun
+
+- type: thiefBackpackSet
   id: HammerheadSet
   name: ert-loadout-category-hammerhead-name
   description: ert-loadout-category-hammerhead-description
@@ -445,9 +463,10 @@
     state: icon
   content:
   - WeaponRifleAk305
-  - MagazineLightRifle
-  - MagazineLightRifle
-  - MagazineLightRifle
+  - MagazineLightRifleExtended
+  - MagazineLightRifleExtended
+  - MagazineLightRifleExtended
+  - MagazineBoxLightRifle
   - MagazineBoxLightRifle
 
 - type: thiefBackpackSet

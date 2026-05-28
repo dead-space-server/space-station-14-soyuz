@@ -57,6 +57,8 @@
     ears: ClothingHeadsetSecurity
     pocket1: WeaponRevolverDeckard
     gloves: ClothingHandsGlovesCombat #DS14-Soyuz
+    pocket2: WeaponDisabler
+    id: SeniorOfficerPDA
   storage:
     back:
     - Flash

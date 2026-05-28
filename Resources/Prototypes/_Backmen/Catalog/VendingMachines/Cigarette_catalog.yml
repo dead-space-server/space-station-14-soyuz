@@ -1,4 +1,4 @@
-﻿- type: listing
+﻿﻿- type: listing
   id: CigaretteMachineInventory1
   productEntity: CigPackGreen
   cost:
@@ -141,26 +141,13 @@
     - !type:ListingLimitedStockCondition
       stock: 10
 
-# Contraband
 - type: listing
   id: CigaretteMachineInventory14
   productEntity: Ashtray
   cost:
-    SpaceCash: 30
+    SpaceCash: 15
   categories:
-    - CigaretteMachineInventoryContraband
-  conditions:
-    - !type:ListingLimitedStockCondition
-      stock: 5
-
-# Contraband
-- type: listing
-  id: CigaretteMachineContraband1
-  productEntity: CigarGold
-  cost:
-    SpaceCash: 30
-  categories:
-    - CigaretteMachineInventoryContraband
+    - CigaretteMachineInventory
   conditions:
     - !type:ListingLimitedStockCondition
       stock: 5

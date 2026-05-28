@@ -95,7 +95,8 @@
     - Critical
     - Dead
   - type: RattleOnTrigger
-    radioChannel: Taipan
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels 
+    - Taipan 
   - type: SuitSensor
     randomMode: false
     controlsLocked: true

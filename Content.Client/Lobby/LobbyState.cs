@@ -16,7 +16,6 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lobby
 {
@@ -84,12 +83,6 @@ namespace Content.Client.Lobby
             controller.ToggleWindow();
         }
 
-        private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
-        {
-            var controller = _userInterfaceManager.GetUIController<DonateShopUIController>();
-            controller.ToggleWindow();
-        }
-
         private void OnBackgroundChanged(string obj)
         {
             LoadMainScreen();
@@ -102,9 +95,6 @@ namespace Content.Client.Lobby
             _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
-            // DS14-start
-            _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
-            // DS14-end
 
             if (_contentAudioSystem != null)
                 _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;

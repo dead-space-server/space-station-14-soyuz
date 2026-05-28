@@ -33,8 +33,6 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
     [Dependency] private readonly UserInterfaceSystem _userInterface = default!;
     [Dependency] private readonly EmagSystem _emag = default!;
 
-    private static readonly ProtoId<SiliconLawsetPrototype> DefaultCrewLawset = "Crewsimov";
-
     /// <inheritdoc/>
     public override void Initialize()
     {
@@ -305,11 +303,6 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         while (query.MoveNext(out var update))
         {
-            if (TryComp<ShowCrewIconsComponent>(update, out var crewIconComp))
-            {
-                crewIconComp.UncertainCrewBorder = DefaultCrewLawset != provider.Laws;
-                Dirty(update, crewIconComp);
-            }
             SetLaws(lawset.Laws, update, provider.LawUploadSound);
         }
     }

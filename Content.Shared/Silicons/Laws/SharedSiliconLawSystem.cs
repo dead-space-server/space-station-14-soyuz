@@ -1,6 +1,5 @@
 using Content.Shared.Emag.Systems;
 using Content.Shared.Mind;
-using Content.Shared.Overlays;
 using Content.Shared.Popups;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Stunnable;

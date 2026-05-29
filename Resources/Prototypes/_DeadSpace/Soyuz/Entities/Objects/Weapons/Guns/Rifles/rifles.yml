@@ -93,7 +93,7 @@
     shotsPerBurst: 2
     burstCooldown: 0.25
     soundGunshot:
-      path: /Audio/_DeadSpace/Souyz/Weapons/Guns/Gunshots/abakan.ogg
+      path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/abakan.ogg
   - type: ItemSlots
     slots:
       gun_magazine:

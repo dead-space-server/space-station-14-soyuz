@@ -6,14 +6,14 @@
   suffix: Автомат
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
     layers:
       - state: base
         map: ["enum.GunVisualLayers.Base"]
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
     quickEquip: false
     slots:
     - Back
@@ -72,16 +72,16 @@
   suffix: Автомат
   components:
   - type: Sprite
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Clothing
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
   - type: Item
-    sprite: _DeadSpace/Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi
     size: Large
   - type: Gun
     fireRate: 6.5

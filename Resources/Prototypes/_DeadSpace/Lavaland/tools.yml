@@ -521,7 +521,7 @@
   description: Прыгните!
   components:
   - type: Action
-    useDelay: 1
+    useDelay: 1.5 # DS14-Soyuz
     icon:
       sprite: Interface/Actions/jump.rsi
       state: icon

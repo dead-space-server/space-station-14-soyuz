@@ -30,7 +30,6 @@
     sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/redji_suit.rsi
   - type: Clothing
     sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/redji_suit.rsi
-  
 # Taipan
 
 - type: entity

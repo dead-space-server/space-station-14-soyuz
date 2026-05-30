@@ -20,7 +20,8 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: RattleOnTrigger
-    radioChannel: DeathSquad
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels
+    - DeathSquad
 
 # SOD implants
 
@@ -44,4 +45,5 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: RattleOnTrigger
-    radioChannel: SOCChannel
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels
+    - SOCChannel 

@@ -105,6 +105,10 @@
   - type: ShowContrabandDetails
   - type: ShowJobIcons # DS14
   - type: ShowMindShieldIcons # DS14
+  - type: ShowHealthBars # DS14
+    damageContainers:
+    - Biological
+    - Silicon
   - type: Inventory
     templateId: aghost
   - type: Loadout
@@ -118,7 +122,6 @@
     successChance: 1
     interactSuccessString: hugging-success-generic
     interactSuccessSound: /Audio/Effects/thudswoosh.ogg
-  - type: ShowHealthBars # DS14-soyuz
 
 - type: entity
   abstract: true

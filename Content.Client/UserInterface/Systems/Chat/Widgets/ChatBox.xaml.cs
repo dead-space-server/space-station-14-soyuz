@@ -128,6 +128,20 @@ public partial class ChatBox : UIWidget
         var formatted = new FormattedMessage(3);
         formatted.PushColor(color);
         // DS14-start
+        if (commandLinkPrefix != null)
+        {
+            if (!formatted.TryAddMarkup(commandLinkPrefix, out var prefixError))
+            {
+                _sawmill.Warning($"Invalid trusted chat command-link markup, dropping prefix: {prefixError}\n{commandLinkPrefix}");
+            }
+            else
+            {
+                formatted.AddText(" ");
+            }
+
+            message = EscapeCommandLinkMarkup(message);
+        }
+
         if (!formatted.TryAddMarkup(message, out var error))
         {
             _sawmill.Warning($"Invalid chat markup, falling back to permissive parsing: {error}\n{message}");

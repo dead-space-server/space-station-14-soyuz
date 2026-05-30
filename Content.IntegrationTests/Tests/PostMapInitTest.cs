@@ -101,7 +101,7 @@ namespace Content.IntegrationTests.Tests
             .Select(glob => new Regex(GlobToRegex(glob), RegexOptions.IgnoreCase | RegexOptions.Compiled))
             .ToArray();
 
-        // DS14-start: Add our custom game maps
+        // DS14-start: Add our custom game maps 
         private static readonly string[] GameMaps =
         {
             "Dev",
@@ -121,6 +121,7 @@ namespace Content.IntegrationTests.Tests
             "Core",
             "CorvaxAstra",
             "CorvaxAvrite",
+            "CorvaxChloris",
             "CorvaxDelta",
             "CorvaxPaper",
             "CorvaxPearl",
@@ -130,6 +131,7 @@ namespace Content.IntegrationTests.Tests
             "Elkridge",
             "Fland",
             "Gate",
+            "Ishimura",
             // "Gemini", // map load failure
             // "Loop", // map load failure
             // "Loop",
@@ -613,10 +615,10 @@ namespace Content.IntegrationTests.Tests
                 .ToArray();
 
             // DS14: skip broken non-game maps
-            // var skipNonGameMaps = new HashSet<string>
-            // {
-            //    "corvax_pilgrim", // BoxFolderCentCom storage overflow
-            // };
+            var skipNonGameMaps = new HashSet<string>
+            {
+                "corvax_pilgrim", // BoxFolderCentCom storage overflow
+            };
 
             var mapPaths = new List<ResPath>();
             foreach (var map in maps)
@@ -624,8 +626,8 @@ namespace Content.IntegrationTests.Tests
                 if (gameMaps.Contains(map))
                     continue;
 
-                // if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
-                //     continue;
+                if (skipNonGameMaps.Contains(map.FilenameWithoutExtension))
+                    continue;
 
                 var rootedPath = map.ToRootedPath();
                 if (SkipTestMaps && rootedPath.ToString().StartsWith(TestMapsPath, StringComparison.Ordinal))

@@ -437,8 +437,6 @@
       weight: 0.15
     - id: EnergySword
       weight: 0.2
-    - id: EnergySwordDouble
-      weight: 0.01
     - id: EnergyKatana
       weight: 0.1
     - !type:AllSelector

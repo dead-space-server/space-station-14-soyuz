@@ -43898,11 +43898,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 2499.4470368
-      thrownTime: 2499.3975006
-      thrower: invalid
 - proto: ClothingOuterSuitEmergency
   entities:
   - uid: 5722
@@ -97361,11 +97356,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 2501.2108601
-      thrownTime: 2501.1641655
-      thrower: invalid
 - proto: ToyFigurineGreytider
   entities:
   - uid: 13694
@@ -97411,11 +97401,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 2510.2716686
-      thrownTime: 2510.1974898
-      thrower: invalid
   - uid: 13695
     components:
     - type: Transform
@@ -97459,11 +97444,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 2505.5270475
-      thrownTime: 2505.4308279
-      thrower: invalid
 - proto: ToyFigurineHeadOfSecurity
   entities:
   - uid: 13696
@@ -97509,11 +97489,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 2515.752263
-      thrownTime: 2515.6974843
-      thrower: invalid
 - proto: ToyFigurineNukie
   entities:
   - uid: 13697

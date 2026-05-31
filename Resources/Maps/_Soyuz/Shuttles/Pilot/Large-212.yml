@@ -1204,11 +1204,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 9784.9849302
-      thrownTime: 9784.9235484
-      thrower: invalid
 - proto: BoxZiptie
   entities:
   - uid: 524
@@ -1293,11 +1288,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 10320.7459025
-      thrownTime: 10320.6896793
-      thrower: invalid
 - proto: ButtonFrameCautionSecurity
   entities:
   - uid: 586
@@ -4187,11 +4177,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 7017.5674113
-      thrownTime: 7017.5263158
-      thrower: invalid
 - proto: PhotocopierBase
   entities:
   - uid: 600
@@ -5318,11 +5303,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 10264.6655653
-      thrownTime: 10264.656402
-      thrower: invalid
 - proto: ToyFigurineDetective
   entities:
   - uid: 682
@@ -6372,9 +6352,4 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 9868.8717379
-      thrownTime: 9868.8234645
-      thrower: invalid
 ...

@@ -3,12 +3,15 @@
   parent: AirlockGlassShuttle
   id: AirlockExternalGlassShuttleSecurityRandom
   name: стыковочный шлюз шаттла милиции
+  description: Необходим для соединения двух космических кораблей вместе.
   suffix: Случайный, 13x14, Милиция, Стеклянный, Стыковочный
   components:
   - type: GridFill
     paths:
-    - /Maps/Shuttles/escape_pod_small.yml # Временно, крипс потом поменяет
-    - /Maps/_Soyuz/Shuttles/voron.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/Large-212.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/Large-098.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/Medium-014.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/Small-013.yml
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsExternal ]
@@ -18,6 +21,7 @@
   parent: AirlockGlassShuttle
   id: AirlockExternalGlassShuttleSecurity
   name: стыковочный шлюз шаттла милиции
+  description: Необходим для соединения двух космических кораблей вместе.
   suffix: Ворон-08, 13x14, Милиция, Стеклянный, Стыковочный
   components:
   - type: GridFill

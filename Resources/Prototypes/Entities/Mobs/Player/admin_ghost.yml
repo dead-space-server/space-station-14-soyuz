@@ -110,7 +110,7 @@
     - Biological
     - Silicon
   - type: Inventory
-    templateId: aghost
+    templateId: soyuzaghost # DS14-Soyuz
   - type: Loadout
     prototypes: [ MobAghostGearSoyuzAlt ] # DS14-soyuz
   - type: BypassInteractionChecks

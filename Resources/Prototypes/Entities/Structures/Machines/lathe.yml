@@ -219,6 +219,7 @@
     - MedicalDynamic # DS14
     - ExperimentalCloning # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
+    - Vehicle # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo

@@ -8,10 +8,10 @@
   components:
   - type: GridFill
     paths:
-    - /Maps/_Soyuz/Shuttles/Pilot/Large-212.yml
-    - /Maps/_Soyuz/Shuttles/Pilot/Large-098.yml
-    - /Maps/_Soyuz/Shuttles/Pilot/Medium-014.yml
-    - /Maps/_Soyuz/Shuttles/Pilot/Small-013.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/TU-212.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/SU-98.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/MIG-014.yml
+    - /Maps/_Soyuz/Shuttles/Pilot/MIG-013.yml
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsExternal ]

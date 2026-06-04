@@ -14,7 +14,7 @@
   category: Completed
   order: 1
   tags:
-    - "Удобства"
+    - "QoL"
 
 # В процессе
 - type: roadmapEntry
@@ -30,7 +30,7 @@
 # В планах
 - type: roadmapEntry
   id: RoadmapPlanned1
-  title: "Самогонный аппарат"
+  title: "Самогонный аппарат" # САВКО СДЕЛАЙ САМОГОНКУ ПЖ
   description: "Самогонный аппарат, позволяющий делать различных самогон из всех видов фруктов. Дань уважения разработчикам, что пытались его сделать"
   category: Planned
   order: 1

@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared.DeadSpace.Soyuz.Roadmap;
 
-[Prototype("roadmapEntry")]
+[Prototype]
 [DataDefinition]
 public sealed partial class RoadmapEntryPrototype : IPrototype
 {

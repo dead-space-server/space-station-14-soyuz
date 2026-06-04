@@ -44,7 +44,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 using Content.Client.DeadSpace.Soyuz.Roadmap; // DS14-Soyuz
-using Robust.Shared.IoC;
+using Robust.Shared.IoC; // DS14-Soyuz
 
 namespace Content.Client.Entry
 {

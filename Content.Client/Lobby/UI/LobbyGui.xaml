@@ -41,6 +41,9 @@
                             <Button Name="Telegram" Text="Telegram" MinSize="125 10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             <Button Name="Site" Text="Сайт" MinSize="125 10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                             <Button Name="AHelpButton" Access="Public" Text="{Loc 'ui-lobby-ahelp-button'}" MinSize="125 10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <!-- DS14-Soyuz-Start -->
+                            <Button Name="RoadmapButton" Text="Планы" MinSize="125 10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            <!-- DS14-Soyuz-End -->                           
                         </BoxContainer>
                     </BoxContainer>
                 </PanelContainer>
@@ -66,12 +69,12 @@
                             <controls:HLine Color="#404040" Thickness="1" Margin="0 5"/>
 
                             <lobbyUi:ServerListBox Name="ServerListBox" Access="Public" MinSize="0 30" VerticalExpand="True" HorizontalExpand="True" Margin="3 3 3 3" HorizontalAlignment="Stretch"/>
-                            <!-- DS14-Soyuz-end -->
+                            <!-- DS14-Soyuz-Start -->
                         <BoxContainer Orientation="Horizontal" HorizontalAlignment="Left" Margin="3 5 3 3">
                             <Label Text="♪" FontColorOverride="#a888ff" Margin="0 0 5 0" Name="MusicIcon" Access="Public"/>
                             <RichTextLabel Name="LobbySong" Access="Public" MaxWidth="380" VerticalAlignment="Center" />
                         </BoxContainer>
-                            <!-- DS14-Soyuz-end -->
+                            <!-- DS14-Soyuz-End -->
 
                         </BoxContainer>
                     </PanelContainer>

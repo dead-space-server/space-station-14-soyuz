@@ -182,7 +182,8 @@
       - NanoTaskCartridge
       - NewsReaderCartridge
       - MedTekCartridge
-      - BankCartridge # DS14
+      - BankCartridge
+      - MessengerCartridge
 
 - type: entity
   parent: BasePDA
@@ -210,7 +211,8 @@
       - NanoTaskCartridge
       - NewsReaderCartridge
       - MedTekCartridge
-      - BankCartridge # DS14
+      - BankCartridge
+      - MessengerCartridge
 
 - type: entity
   parent: BasePDA
@@ -239,7 +241,8 @@
       - NanoTaskCartridge
       - NewsReaderCartridge
       - AstroNavCartridge
-      - BankCartridge # DS14
+      - BankCartridge
+      - MessengerCartridge
 
 - type: entity
   parent: BasePDA
@@ -267,7 +270,8 @@
     - NewsReaderCartridge
     - WantedListCartridge
     - AstroNavCartridge
-    - BankCartridge # DS14
+    - BankCartridge
+    - MessengerCartridge
 
 - type: entity
   parent: BasePDA

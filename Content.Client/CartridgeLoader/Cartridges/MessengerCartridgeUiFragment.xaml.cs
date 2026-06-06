@@ -12,7 +12,7 @@ using Robust.Shared.IoC;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
+using Robust.Shared.Utility; //DS14
 
 namespace Content.Client.CartridgeLoader.Cartridges;
 
@@ -88,7 +88,7 @@ public sealed partial class MessengerCartridgeUiFragment : BoxContainer
             UserListContainer.AddChild(button);
         }
 
-        if (messages != null && _currentChatPartnerId != 0) //DS14
+        if (messages != null && !UserListContainer.Visible) //DS14
         {
             UpdateMessages(messages);
         }
@@ -103,15 +103,15 @@ public sealed partial class MessengerCartridgeUiFragment : BoxContainer
             ChatPartnerLabel.Text = user.Name;
         }
 
-        UserListScrollContainer.Visible = false; //DS14
-        MessageBoxContainer.Visible = true; //DS14
+        UserListContainer.Visible = false;
+        MessageInputContainer.Visible = true;
         OnRequestMessages?.Invoke(userId);
     }
 
     private void OnBackPressed(BaseButton.ButtonEventArgs args)
     {
-        MessageBoxContainer.Visible = false; //DS14
-        UserListScrollContainer.Visible = true; //DS14
+        MessageInputContainer.Visible = false;
+        UserListContainer.Visible = true;
         _currentChatPartnerId = 0;
         OnRequestMessages?.Invoke(0);
     }

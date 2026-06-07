@@ -135,6 +135,11 @@ jobs:
               "username": "Обновления Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
                "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)"
+              "embeds": [{
+                "image": {
+                  "url": "https://media.discordapp.net/attachments/1303329439869833286/1390321152030806026/b6735b3e67e81887.gif"
+                }
+              }]               
              }' \
              $DISCORD_WEBHOOK_URL
 # DS14-Soyuz webhook end

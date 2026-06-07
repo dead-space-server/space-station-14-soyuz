@@ -1,0 +1,7 @@
+- type: entity
+  id: EyeSocketImplanter
+  name: Eye Socket implanter
+  parent: BaseImplantOnlyImplanter
+  components:
+  - type: Implanter
+    implant: EyeSocketImplant

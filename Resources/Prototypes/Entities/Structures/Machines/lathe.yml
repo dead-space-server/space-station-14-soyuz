@@ -269,9 +269,12 @@
     - Instruments
     - Equipment
     - NightVisionTech
-    - ProcessingTungsten
     - LanguageImplanters
     - MedicalDynamic
+    - ProcessingTungsten
+    - ExperimentalCloning
+    - ProcessingTungsten
+    - Vehicle # DS14
   - type: EmagLatheRecipes
     emagDynamicPacks:
     - SecurityAmmo

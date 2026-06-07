@@ -122,10 +122,10 @@
     - id: ClothingOuterHardsuitVoidParamed
     - id: ClothingBeltMedicalEMTFilled
     - id: Defibrillator # DS14
-    - id: HypoParamedic # DS14-Soyuz
     - id: JetInjector
     - id: HandheldHealthAnalyzer
     - id: BoxBodyBag
+    - id: HypoParamedic # DS14-Soyuz
     - !type:GroupSelector
       children:
       - id: RollerBedSpawnFolded

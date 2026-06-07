@@ -43,6 +43,8 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
+using Content.Client.DeadSpace.Soyuz.Roadmap; // DS14-Soyuz
+using Robust.Shared.IoC; // DS14-Soyuz
 
 namespace Content.Client.Entry
 {
@@ -190,6 +192,11 @@ namespace Content.Client.Entry
             _documentParsingManager.Initialize();
             _titleWindowManager.Initialize();
             _feedbackManager.Initialize();
+            // DS14-Soyuz-start
+            var roadmapController = new RoadmapUIController();
+            IoCManager.InjectDependencies(roadmapController);
+            roadmapController.Initialize();
+            // DS14-Soyuz-end
 
             _baseClient.RunLevelChanged += (_, args) =>
             {

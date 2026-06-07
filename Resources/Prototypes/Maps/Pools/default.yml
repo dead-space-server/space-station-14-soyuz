@@ -12,7 +12,9 @@
   - Core
   - CorvaxAstra
   - CorvaxAvrite
+  - CorvaxChloris
   - CorvaxDelta
+  - CorvaxGlacier
   - CorvaxPaper
   - CorvaxSilly
   - CorvaxSpectrum
@@ -23,6 +25,7 @@
   - Gate
   # - Gemini # broken map, needs resave
   - Loop
+  - Ishimura
   - Marathon
   - Meta
   - Oasis

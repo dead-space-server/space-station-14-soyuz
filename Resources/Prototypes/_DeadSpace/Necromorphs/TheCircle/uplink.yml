@@ -287,10 +287,10 @@
 
 - type: listing
   id: UniPhoneUplinkChemVendSyndicate
-  name: Набор пополнения РассветСоки
+  name: Набор пополнения СиндиСоки
   icon: { sprite: _DeadSpace/Objects/Specific/Service/vending_machine_restock.rsi, state: base }
   productEntity: VendingMachineRestockChemVendSyndicate
-  description: Простое пополнение для РассветСока. Пополнение можно купить 2 раза.
+  description: Простое пополнение для СиндиСока. Пополнение можно купить 2 раза.
   cost:
     Telecrystal: 16
   categories:

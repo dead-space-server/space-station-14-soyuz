@@ -159,7 +159,7 @@ figurines-hop-6 = Иди поставь печать на этот бланк.
 figurines-hop-7 = Кто-нибудь видел Иана?
 
 figurines-bartender-1 = Где моя обезьянка?
-figurines-bartender-2 = Милиция не пьёт.
+figurines-bartender-2 = СБ не пьёт.
 figurines-bartender-3 = Я вот тут намешал кое-чего...
 figurines-bartender-4 = Рецепт? Плазма и рвота. А что?
 figurines-bartender-5 = Офицер, эти токсины нужны мне для напитков!

@@ -7,6 +7,10 @@
   components:
   - type: SubdermalImplant
     implantAction: ActionActivateAdrenalImplant
+  - type: InjectReagentsImplant
+    popup: adrenal-implant-activated
+    reagents:
+      Stimulants: 30
 
 - type: entity
   id: AdrenalImplanter
@@ -91,8 +95,8 @@
     - Critical
     - Dead
   - type: RattleOnTrigger
-    radioChannels: 
-    - Taipan
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels 
+    - Taipan 
   - type: SuitSensor
     randomMode: false
     controlsLocked: true
@@ -114,3 +118,24 @@
   components:
   - type: Implanter
     implant: DeathRattleImplantTaipan
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: RezervImplant
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    implantAction: ActionActivateRezervImplant
+  - type: InjectReagentsImplant
+    popup: rezerv-implant-activated
+    reagents:
+      Desoxyephedrine: 15
+      Dylovene: 15
+
+- type: entity
+  id: RezervImplanter
+  suffix: Резерв
+  parent: BaseImplantOnlyImplanter
+  components:
+  - type: Implanter
+    implant: RezervImplant

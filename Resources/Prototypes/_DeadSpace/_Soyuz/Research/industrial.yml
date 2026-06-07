@@ -18,6 +18,19 @@
   - ClarkePeripheralsElectronics
   - MechEquipmentOreCollector
 
+# Tier 2
+- type: technology
+  id: ProcessingTungsten
+  name: research-technology-processing-tungsten
+  icon:
+    sprite: Objects/Materials/Sheets/metal.rsi
+    state: tungsten
+  discipline: Industrial
+  tier: 2
+  cost: 7500
+  recipeUnlocks:
+    - SheetTungsten
+
 # Tier 3
 
 - type: technology

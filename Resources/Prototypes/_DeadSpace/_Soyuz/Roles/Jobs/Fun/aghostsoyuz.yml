@@ -27,6 +27,7 @@
     head: ClothingHeadHatClownUssp
     mask: ClothingMaskClownPencil
     neck: ClothingNeckScarfClownUssp
+    gloves: ClothingHandsGlovesPowergloveActive
   storage:
     back:
     - GasAnalyzer
@@ -40,3 +41,4 @@
     - WelderExperimental
     - SprayPainterRecharging
     - DoorRemoteAll 
+    - MeleeDebug100

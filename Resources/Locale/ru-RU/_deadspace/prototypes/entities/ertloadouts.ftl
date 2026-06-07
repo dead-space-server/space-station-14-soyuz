@@ -35,14 +35,14 @@ ert-loadout-category-vector-description =
 ert-loadout-category-lecter-name = Лектер
 ert-loadout-category-lecter-description =
     Первоклассная армейская штурмовая винтовка.
-    Использует патроны калибра 6.5х39 мм TSF.
+    Использует патроны калибра 5.56х45 мм.
 ert-loadout-category-ak305-name = АК-305
 ert-loadout-category-ak305-description =
     Надёжный модифицированный АК, используемый силовыми структурами. 
     Использует патроны 7.62х39 мм винтовочные.
 ert-loadout-category-amd76-name = АМД-76
 ert-loadout-category-amd76-description =
-    Скорострельный автомат калибра 7.62x39, произведённый одной фабрик СССП.
+    Скорострельный автомат калибра 7.62x39, произведённый одной компанией ОПЗ.
 ert-loadout-category-hkg3a1-name = Hk-G3A1
 ert-loadout-category-hkg3a1-description =
     Старый добрый автомат, производившийся ещё во времена 60-х годов 20-го века Земли. 
@@ -59,8 +59,8 @@ ert-loadout-category-mp7-description =
     Использует патроны калибра 9х19 мм.
 ert-loadout-category-scarl-name = Scar-L
 ert-loadout-category-scarl-description =
-    Стандартизированная штурмовая винтовка вооруженных сил СССП.
-    Использует патроны 6.5х39 мм TSF.
+    Стандартизированная штурмовая винтовка армии ОПЗ.
+    Использует патроны 5.56х45 мм.
 ert-loadout-category-lasercarbine-name = Лазерная винтовка
 ert-loadout-category-lasercarbine-description =
     Предпочитается милицией
@@ -102,7 +102,7 @@ ert-loadout-category-mk79tactical-description =
     Использует патроны калибра 9х19.
 ert-loadout-category-verdict-name = Вердикт
 ert-loadout-category-verdict-description =
-    Надёжный револьвер любого сотрудника милиции.
+    Надёжный револьвер любого сотрудника СБ.
     Имеет барабан на 6 патрон и нескользящую ручку.
     Использует патроны .45 магнум, так как это то, что предполагали основатели.
 ert-loadout-category-n1984-name = N1984
@@ -132,12 +132,12 @@ ert-loadout-category-advancedlaserert-description =
     Благодарю этому данное оружие может самозаряжаться, и хранить намного больше заряда.
 ert-loadout-category-energymagnum-name = Энергетический магнум
 ert-loadout-category-energymagnum-description =
-    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников милиции. 
+    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников СБ. 
     Имеет три режима стрельбы, позволяющие нелетально обезвреживать, стрелять через окна или наносить высокий урон.
 ert-loadout-category-laserimpulsesmg-name = импульсный ПП
 ert-loadout-category-laserimpulsesmg-description =
     Облегчённая версия импульсного карабина. 
-    Имеет наивысшую скорострельность из всех представителей импульсного вооружения СССП. 
+    Имеет наивысшую скорострельность из всех представителей импульсного вооружения NT. 
     Также, имеет большой запас батареи, но точность желает оставлять лучшего.
 ert-loadout-category-pulseCarbinemk2-name = Импульсный карабин MK2
 ert-loadout-category-pulseCarbinemk2-description =
@@ -154,6 +154,9 @@ ert-loadout-category-hammerhead-name = Отбойник
 ert-loadout-category-hammerhead-description =
     Автоматический дробовик с магазинным питанием для ближнего боя. Имеет высокую скорострельность, что делает его убойным в противостоянии с любой целью в ближнем бою.
     Использует патроны калибра 12х70. В комплекте идут расширенные магазины с зажигательными патронами.
+ert-loadout-category-hammerhead-description-weak =
+    Автоматический дробовик с магазинным питанием для ближнего боя. Имеет высокую скорострельность, что делает его убойным в противостоянии с любой целью в ближнем бою.
+    Использует патроны калибра 12х70.
 ert-loadout-category-pulseshotgun-name = Импульсный дробовик
 ert-loadout-category-pulseshotgun-description =
     Высокотехнологичное энергетическое оружие ближнего боя.
@@ -182,15 +185,3 @@ ert-loadout-category-combatmedicine-name = Набор автоинъекторо
 ert-loadout-category-combatmedicine-description =
     Состоит из четырёх боевых, двух пунктураза, двух пиразина и двух автоинъекторов от яда.
     Помогут вам залатать свои раны прямо в бою.
-ert-loadout-category-kedr-name = ПП-91-01 "Кедр-Б"
-ert-loadout-category-kedr-description =
-    Пистолет-пулемёт с интегрированным глушителем, разработанный в начале 2690-х годов по заказу НКВБ СССП для специальных структур.
-    Использует патроны калибра 9х19 мм.
-ert-loadout-category-ak-name = АКМС
-ert-loadout-category-ak-description =
-    Культовое оружие всех войн.
-    Использует магазины калибра 7.62х39 винтовочный.
-ert-loadout-category-aksy-name = АКМС-У
-ert-loadout-category-aksy-description =
-    Укороченный вариант автомата АКМС. В простонародии Ксюха
-    Использует магазины калибра 7.62х39 винтовочный.

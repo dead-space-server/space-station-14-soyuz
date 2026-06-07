@@ -1,0 +1,56 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               SetSize="1280 720"
+               MinSize="960 540"
+               Title="Планы развития Союза">
+    <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="10">
+        <!-- Заголовок -->
+        <Label Text="Дорожная карта сервера"
+               StyleClasses="LabelHeading"
+               HorizontalAlignment="Center"
+               Margin="0 0 0 10"
+               FontColorOverride="#a32a2e"/>
+        
+        <!-- Три колонки -->
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+            <!-- Колонка 1: Выполнено -->
+            <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="5">
+                <Label Text="✔ Выполнено"
+                       StyleClasses="LabelHeading"
+                       FontColorOverride="#4fbd53"
+                       Margin="0 0 0 10"/>
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="CompletedContainer" 
+                                  Orientation="Vertical"
+                                  VerticalExpand="True"/>
+                </ScrollContainer>
+            </BoxContainer>
+            
+            <!-- Колонка 2: В процессе -->
+            <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="5">
+                <Label Text="~ В процессе"
+                       StyleClasses="LabelHeading"
+                       FontColorOverride="#ffc822"
+                       Margin="0 0 0 10"/>
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="InProgressContainer" 
+                                  Orientation="Vertical"
+                                  VerticalExpand="True"/>
+                </ScrollContainer>
+            </BoxContainer>
+            
+            <!-- Колонка 3: В планах -->
+            <BoxContainer Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True" Margin="5">
+                <Label Text="📋 В планах"
+                       StyleClasses="LabelHeading"
+                       FontColorOverride="#929292"
+                       Margin="0 0 0 10"/>
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="PlannedContainer" 
+                                  Orientation="Vertical"
+                                  VerticalExpand="True"/>
+                </ScrollContainer>
+            </BoxContainer>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

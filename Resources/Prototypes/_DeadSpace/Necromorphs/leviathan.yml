@@ -219,7 +219,6 @@
   description: Больно бьёт!
   parent:
   - WeaponTentacleNecro
-  - BaseMob
   id: MobLeviathanNecro
   suffix: Некроморф
   components:
@@ -299,21 +298,6 @@
   #   name: Левиафан
   #   description: Некроморф
   # - type: GhostTakeoverAvailable
-  - type: Reactive
-    groups:
-      Flammable: [ Touch ]
-      Extinguish: [ Touch ]
-      Acidic: [Touch, Ingestion]
-  - type: Bloodstream
-    bloodlossThreshold: 0.2
-    bloodlossDamage:
-      types:
-        Bloodloss:
-          2
-    bloodlossHealDamage:
-      types:
-        Bloodloss:
-          -1
   - type: PassiveDamage
     allowedStates:
     - Alive

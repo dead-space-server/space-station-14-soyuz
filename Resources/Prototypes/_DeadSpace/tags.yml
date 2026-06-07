@@ -53,6 +53,12 @@
   id: CakeBrain
 
 - type: Tag
+  id: CartridgeAntiMaterielAP
+
+- type: Tag
+  id: CartridgeSniperRifle
+
+- type: Tag
   id: CatEmotes
 
 - type: Tag
@@ -200,6 +206,9 @@
   id: Koibean
 
 - type: Tag
+  id: KeyUniversal
+
+- type: Tag
   id: LauncherChinaLake
 
 - type: Tag
@@ -212,13 +221,16 @@
   id: LightReplacer
 
 - type: Tag
-  id: LoneOpsUplink #DS-14
+  id: LoneOpsUplink
 
 - type: Tag
   id: MagazineCarbineSKS
 
 - type: Tag
   id: Magmite
+
+- type: Tag
+  id: MagazineR17
 
 - type: Tag
   id: MagazineEagle
@@ -228,6 +240,15 @@
 
 - type: Tag
   id: MagazineGurza
+
+- type: Tag
+  id: MagazineAMD
+
+- type: Tag
+  id: MagazineHristov
+
+- type: Tag
+  id: MagazineRifleBox
 
 - type: Tag
   id: MagazineTommyGun

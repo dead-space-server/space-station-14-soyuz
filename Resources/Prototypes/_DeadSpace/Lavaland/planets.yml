@@ -146,14 +146,6 @@
     minSeparation: 120
     footprintRadius: 10
     spawnAttempts: 160
-  - path: /Maps/Lavaland/ds_mini_ratvar.yml
-    count: 1
-    name: Заброшеный мостик
-    minDistance: 120
-    maxDistance: 320
-    minSeparation: 90
-    footprintRadius: 5
-    spawnAttempts: 160
 # DS14-Soyuz-Start
   - path: /Maps/_Soyuz/Dungeon/Lavalend/Gluttony.yml
     count: 1
@@ -188,7 +180,7 @@
     minDistance: 150
     maxDistance: 300
     minSeparation: 90
-    footprintRadius: 10
+    footprintRadius: 15
     spawnAttempts: 160
 
   - path: /Maps/_Soyuz/Dungeon/Lavalend/Greed.yml
@@ -197,7 +189,7 @@
     minDistance: 150
     maxDistance: 300
     minSeparation: 90
-    footprintRadius: 10
+    footprintRadius: 5
     spawnAttempts: 160
 
 #  - path: /Maps/_Soyuz/Dungeon/Lavalend/Lust.yml
@@ -218,3 +210,43 @@
     footprintRadius: 10
     spawnAttempts: 160
 # DS14-Soyuz-end
+  - path: /Maps/Lavaland/ds_mini_ratvar.yml
+    count: 2
+    name: Заброшеный мостик
+    minDistance: 120
+    maxDistance: 220
+    minSeparation: 90
+    footprintRadius: 5
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/clown_minibase.yml
+    count: 1
+    name: Местечко клоунов
+    minDistance: 160
+    maxDistance: 300
+    minSeparation: 120
+    footprintRadius: 10
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/latun_church.yml
+    count: 1
+    name: Латунная церковь
+    minDistance: 120
+    maxDistance: 320
+    minSeparation: 90
+    footprintRadius: 10
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/lava_bridge.yml
+    count: 1
+    name: Стальные столбы
+    minDistance: 160
+    maxDistance: 300
+    minSeparation: 120
+    footprintRadius: 12
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/labyrint_rofl.yml
+    count: 1
+    name: Рофлянный лабиринт
+    minDistance: 120
+    maxDistance: 220
+    minSeparation: 90
+    footprintRadius: 14
+    spawnAttempts: 160

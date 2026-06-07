@@ -36,6 +36,6 @@ jobs:
               -d '{
               "username": "Тест Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-              "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>ТЕСТОВОЕ объявление!\nТест GitHub Actions 🧪"
+              "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>ТЕСТОВОЕ объявление!\nТест GitHub Actions 🧪\n\nhttps://media.discordapp.net/attachments/1303329439869833286/1390321152030806026/b6735b3e67e81887.gif?ex=6a26c179&is=6a256ff9&hm=f07f5d3985ed87620a2a6436068ea1f3d4c5e9fb50f55bdb09e6aa992e6d15ed&"
               }' \
               $DISCORD_WEBHOOK_URL

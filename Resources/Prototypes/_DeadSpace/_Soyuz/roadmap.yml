@@ -61,3 +61,11 @@
   order: 1
   tags:
     - "Нереализуемо"
+
+- type: roadmapEntry
+  id: Roadmap7
+  title: "Скафандр завхоза"
+  description: "Добавить завхозу скафандр и разрешить чистить планетоид"
+  category: Planned
+  tags:
+    - "QoL"

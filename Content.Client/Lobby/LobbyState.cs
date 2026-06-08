@@ -1,5 +1,6 @@
 using Content.Client._Donate.UI;
 using Content.Client.Audio;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.GameTicking.Managers;
 using Content.Client.LateJoin;
 using Content.Client.Lobby.UI;
@@ -156,6 +157,7 @@ namespace Content.Client.Lobby
             else if (_gameTicker.StartTime < _gameTiming.CurTime)
             {
                 Lobby!.StartTime.Text = Loc.GetString("lobby-state-soon");
+                Lobby!.StripeBack.Visible = true; // DS14
                 return;
             }
             else
@@ -176,7 +178,7 @@ namespace Content.Client.Lobby
                 }
             }
 
-            Lobby!.StartTime.Text = Loc.GetString("lobby-state-round-start-countdown-text", ("timeLeft", text));
+            Lobby!.StartTime.Text = text; // DS14
             Lobby!.StripeBack.Visible = true;
         }
 
@@ -188,6 +190,7 @@ namespace Content.Client.Lobby
 
         private void LobbyLateJoinStatusUpdated()
         {
+            ApplyReadyButtonStyle(); // DS14
             Lobby!.ReadyButton.Disabled = _gameTicker.DisallowedLateJoin;
         }
 
@@ -195,6 +198,8 @@ namespace Content.Client.Lobby
         {
             if (_gameTicker.IsGameStarted)
             {
+                ApplyReadyButtonStyle(); // DS14
+
                 Lobby!.ReadyButton.Text = Loc.GetString("lobby-state-ready-button-join-state");
                 Lobby!.ReadyButton.ToggleMode = false;
                 Lobby!.ReadyButton.Pressed = false;
@@ -202,6 +207,8 @@ namespace Content.Client.Lobby
             }
             else
             {
+                ApplyReadyButtonStyle(); // DS14
+
                 Lobby!.StartTime.Text = string.Empty;
                 Lobby!.ReadyButton.Pressed = _gameTicker.AreWeReady;
                 Lobby!.ReadyButton.Text = Loc.GetString(Lobby!.ReadyButton.Pressed ? "lobby-state-player-status-ready": "lobby-state-player-status-not-ready");
@@ -268,6 +275,28 @@ namespace Content.Client.Lobby
                 Lobby.MusicIcon.Visible = true;
             }
         }
+
+        // DS14-start
+        private void ApplyReadyButtonStyle()
+        {
+            if (Lobby == null)
+                return;
+
+            if (_gameTicker.IsGameStarted)
+            {
+                Lobby.ReadyButton.StyleClasses.Clear();
+                Lobby.ReadyButton.AddStyleClass(ContainerButton.StyleClassButton);
+                Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButton);
+                Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButtonPositive);
+                return;
+            }
+
+            Lobby.ReadyButton.StyleClasses.Clear();
+            Lobby.ReadyButton.AddStyleClass(ContainerButton.StyleClassButton);
+            Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButton);
+            Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ReadyButton);
+        }
+        // DS14-end
 
         private void UpdateLobbyBackground()
         {

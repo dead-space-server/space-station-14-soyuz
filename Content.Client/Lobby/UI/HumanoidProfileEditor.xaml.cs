@@ -54,7 +54,7 @@ namespace Content.Client.Lobby.UI
         private readonly MarkingManager _markingManager;
         private readonly JobRequirementsManager _requirements;
         private readonly LobbyUIController _controller;
-        private IClientSponsorsManager? _sponsorsManager; // DS14-sponsors
+        private IClientSponsorsManager? _sponsorsManager; // DS14
 
         private readonly SpriteSystem _sprite;
 
@@ -107,6 +107,7 @@ namespace Content.Client.Lobby.UI
         private ColorSelectorSliders _rgbSkinColorSelector;
 
         private bool _isDirty;
+        private bool _readOnly; // DS14
 
         private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
@@ -283,7 +284,7 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnMarkingSelect += newStyle =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairStyleName(newStyle.id));
@@ -292,7 +293,7 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnColorChanged += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairColor(newColor.marking.MarkingColors[0]));
@@ -302,7 +303,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnMarkingSelect += newStyle =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairStyleName(newStyle.id));
@@ -311,7 +312,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnColorChanged += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairColor(newColor.marking.MarkingColors[0]));
@@ -321,7 +322,7 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnSlotRemove += _ =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairStyleName(HairStyles.DefaultHairStyle)
@@ -333,7 +334,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnSlotRemove += _ =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairStyleName(HairStyles.DefaultFacialHairStyle)
@@ -345,7 +346,7 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnSlotAdd += delegate()
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
 
                 var hair = _markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.Hair, Profile.Species).Keys
@@ -365,7 +366,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnSlotAdd += delegate()
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
 
                 var hair = _markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.FacialHair, Profile.Species).Keys
@@ -406,7 +407,7 @@ namespace Content.Client.Lobby.UI
 
             EyeColorPicker.OnEyeColorPicked += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithEyeColor(newColor));
@@ -433,6 +434,9 @@ namespace Content.Client.Lobby.UI
             PreferenceUnavailableButton.OnItemSelected += args =>
             {
                 PreferenceUnavailableButton.SelectId(args.Id);
+                if (_readOnly) // DS14
+                    return;
+
                 Profile = Profile?.WithPreferenceUnavailable((PreferenceUnavailableMode) args.Id);
                 SetDirty();
             };
@@ -574,6 +578,8 @@ namespace Content.Client.Lobby.UI
                     Text = Loc.GetString("humanoid-profile-editor-no-traits"),
                     StyleClasses = { "DS14MenuProfileLabel" }, // DS14
                 });
+                if (_readOnly) // DS14
+                    SetInteractiveControlsDisabled(TraitsList, true);
                 return;
             }
 
@@ -628,6 +634,9 @@ namespace Content.Client.Lobby.UI
 
                     selector.PreferenceChanged += preference =>
                     {
+                        if (_readOnly) // DS14
+                            return;
+
                         if (preference)
                         {
                             Profile = Profile?.WithTraitPreference(trait.ID, _prototypeManager);
@@ -667,6 +676,9 @@ namespace Content.Client.Lobby.UI
                     TraitsList.AddChild(selector);
                 }
             }
+
+            if (_readOnly) // DS14
+                SetInteractiveControlsDisabled(TraitsList, true);
         }
 
         /// <summary>
@@ -674,7 +686,7 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public void RefreshSpecies()
         {
-            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14-sponsors
+            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14
 
             SpeciesButton.Clear();
             _species.Clear();
@@ -693,8 +705,7 @@ namespace Content.Client.Lobby.UI
                     SpeciesButton.SelectId(i);
                 }
 
-                // DS14-sponsors: Disable species that are sponsor-only unless the sponsor has access
-                if (_sponsorsManager != null && _species[i].SponsorOnly)
+                if (_sponsorsManager != null && _species[i].SponsorOnly) // DS14
                 {
                     SpeciesButton.SetItemDisabled(SpeciesButton.GetIdx(i), true);
 
@@ -706,7 +717,7 @@ namespace Content.Client.Lobby.UI
             }
 
             // If our species isn't available then reset it to default.
-            if (Profile != null)
+            if (Profile != null && !_readOnly) // DS14
             {
                 if (!speciesIds.Contains(Profile.Species))
                 {
@@ -754,7 +765,7 @@ namespace Content.Client.Lobby.UI
                 selector.Setup(items, title, 250, description, guides: antag.Guides); // DS14
                 selector.Select(Profile?.AntagPreferences.Contains(antag.ID) == true ? 0 : 1);
 
-                // DS14-syndicate-sponsor-start
+                // DS14-start
                 if (_sponsorsManager?.TryGetInfo(out var sponsor) == true && sponsor.HavePriorityAntag)
                 {
                     selector.UnlockRequirements();
@@ -765,17 +776,23 @@ namespace Content.Client.Lobby.UI
                         out var reason))
                 {
                     selector.LockRequirements(reason);
-                    Profile = Profile?.WithAntagPreference(antag.ID, false);
-                    SetDirty();
+                    if (!_readOnly) // DS14
+                    {
+                        Profile = Profile?.WithAntagPreference(antag.ID, false);
+                        SetDirty();
+                    }
                 }
                 else
                 {
                     selector.UnlockRequirements();
                 }
-                // DS14-syndicate-sponsor-end
+                // DS14-end
 
                 selector.OnSelected += preference =>
                 {
+                    if (_readOnly) // DS14
+                        return;
+
                     Profile = Profile?.WithAntagPreference(antag.ID, preference == 0);
                     SetDirty();
                 };
@@ -793,6 +810,9 @@ namespace Content.Client.Lobby.UI
 
                 AntagList.AddChild(antagContainer);
             }
+
+            if (_readOnly) // DS14
+                SetInteractiveControlsDisabled(AntagList, true);
         }
 
         private void SetDirty()
@@ -851,8 +871,9 @@ namespace Content.Client.Lobby.UI
         /// <summary>
         /// Sets the editor to the specified profile with the specified slot.
         /// </summary>
-        public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
+        public void SetProfile(HumanoidCharacterProfile? profile, int? slot, bool readOnly = false) // DS14
         {
+            _readOnly = readOnly; // DS14
             Profile = profile?.Clone();
             CharacterSlot = slot;
             IsDirty = false;
@@ -885,7 +906,115 @@ namespace Content.Client.Lobby.UI
             {
                 PreferenceUnavailableButton.SelectId((int) Profile.PreferenceUnavailable);
             }
+
+            ApplyReadOnlyState(); // DS14
         }
+
+        // DS14-start
+        public bool IsReadOnly => _readOnly;
+
+        private void ApplyReadOnlyState()
+        {
+            if (!_readOnly)
+            {
+                NameEdit.Editable = true;
+                NameRandomize.Disabled = false;
+                RandomizeEverythingButton.Disabled = false;
+                ImportButton.Disabled = false;
+                ExportButton.Disabled = false;
+                ExportImageButton.Disabled = false;
+                OpenImagesButton.Disabled = false;
+                SpeciesButton.Disabled = false;
+                AgeEdit.Editable = true;
+                SexButton.Disabled = false;
+                PronounsButton.Disabled = false;
+                ShowClothes.Disabled = false;
+                SpawnPriorityButton.Disabled = false;
+                VoiceButton.Disabled = false;
+                VoicePlayButton.Disabled = false;
+                PreferenceUnavailableButton.Disabled = false;
+                SpeciesInfoButton.Disabled = false;
+                SpriteRotateLeft.Disabled = false;
+                SpriteRotateRight.Disabled = false;
+                Skin.Disabled = false;
+                SetInteractiveControlsDisabled(RgbSkinColorContainer, false);
+                SetInteractiveControlsDisabled(HairStylePicker, false);
+                SetInteractiveControlsDisabled(FacialHairPicker, false);
+                SetInteractiveControlsDisabled(EyeColorPicker, false);
+                SetInteractiveControlsDisabled(Markings, false);
+                if (_flavorText != null)
+                    SetInteractiveControlsDisabled(_flavorText, false);
+                if (_flavorTextEdit != null)
+                    _flavorTextEdit.Editable = true;
+                UpdateSaveButton();
+                return;
+            }
+
+            NameEdit.Editable = false;
+            NameRandomize.Disabled = true;
+            RandomizeEverythingButton.Disabled = true;
+            ExportButton.Disabled = false;
+            SaveButton.Disabled = true;
+            ResetButton.Disabled = true;
+            ImportButton.Disabled = true;
+            ExportImageButton.Disabled = true;
+            OpenImagesButton.Disabled = true;
+            SpeciesButton.Disabled = true;
+            AgeEdit.Editable = false;
+            SexButton.Disabled = true;
+            PronounsButton.Disabled = true;
+            ShowClothes.Disabled = true;
+            SpawnPriorityButton.Disabled = true;
+            VoiceButton.Disabled = true;
+            VoicePlayButton.Disabled = true;
+            PreferenceUnavailableButton.Disabled = true;
+            SpeciesInfoButton.Disabled = true;
+            SpriteRotateLeft.Disabled = true;
+            SpriteRotateRight.Disabled = true;
+            Skin.Disabled = true;
+            SetInteractiveControlsDisabled(RgbSkinColorContainer, true);
+            SetInteractiveControlsDisabled(HairStylePicker, true);
+            SetInteractiveControlsDisabled(FacialHairPicker, true);
+            SetInteractiveControlsDisabled(EyeColorPicker, true);
+            SetInteractiveControlsDisabled(Markings, true);
+            SetInteractiveControlsDisabled(JobList, true);
+            SetInteractiveControlsDisabled(AntagList, true);
+            SetInteractiveControlsDisabled(TraitsList, true);
+            if (_flavorTextEdit != null)
+                _flavorTextEdit.Editable = false;
+            if (_flavorText != null)
+                SetInteractiveControlsDisabled(_flavorText, true);
+            _loadoutWindow?.Dispose();
+            _loadoutWindow = null;
+        }
+
+        private void SetInteractiveControlsDisabled(Control control, bool disabled)
+        {
+            foreach (var child in control.Children)
+            {
+                if (child == ExportButton)
+                    continue;
+
+                switch (child)
+                {
+                    case BaseButton button:
+                        button.Disabled = disabled;
+                        break;
+                    case LineEdit lineEdit:
+                        lineEdit.Editable = !disabled;
+                        break;
+                    case TextEdit textEdit:
+                        textEdit.Editable = !disabled;
+                        break;
+                    case Slider slider:
+                        slider.Disabled = disabled;
+                        break;
+                }
+
+                SetInteractiveControlsDisabled(child, disabled);
+            }
+        }
+        // DS14-end
 
         /// <summary>
         /// A slim reload that only updates the entity itself and not any of the job entities, etc.
@@ -1044,6 +1173,9 @@ namespace Content.Client.Lobby.UI
 
                     selector.OnSelected += selectedPrio =>
                     {
+                        if (_readOnly) // DS14
+                            return;
+
                         var selectedJobPrio = (JobPriority) selectedPrio;
                         Profile = Profile?.WithJobPriority(job.ID, selectedJobPrio);
 
@@ -1093,6 +1225,9 @@ namespace Content.Client.Lobby.UI
                     {
                         loadoutWindowBtn.OnPressed += args =>
                         {
+                            if (_readOnly) // DS14
+                                return;
+
                             RoleLoadout? loadout = null;
 
                             // Clone so we don't modify the underlying loadout.
@@ -1117,10 +1252,15 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateJobPriorities();
+            if (_readOnly) // DS14
+                SetInteractiveControlsDisabled(JobList, true);
         }
 
         private void OpenLoadout(JobPrototype? jobProto, RoleLoadout roleLoadout, RoleLoadoutPrototype roleLoadoutProto)
         {
+            if (_readOnly) // DS14
+                return;
+
             _loadoutWindow?.Dispose();
             _loadoutWindow = null;
             var collection = IoCManager.Instance;
@@ -1180,7 +1320,7 @@ namespace Content.Client.Lobby.UI
 
         private void OnFlavorTextChange(string content)
         {
-            if (Profile is null)
+            if (Profile is null || _readOnly) // DS14
                 return;
 
             Profile = Profile.WithFlavorText(content);
@@ -1189,7 +1329,7 @@ namespace Content.Client.Lobby.UI
 
         private void OnMarkingChange(MarkingSet markings)
         {
-            if (Profile is null)
+            if (Profile is null || _readOnly) // DS14
                 return;
 
             Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithMarkings(markings.GetForwardEnumerator().ToList()));
@@ -1198,7 +1338,7 @@ namespace Content.Client.Lobby.UI
 
         private void OnSkinColorOnValueChanged()
         {
-            if (Profile is null) return;
+            if (Profile is null || _readOnly) return; // DS14
 
             var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
             var strategy = _prototypeManager.Index(skin).Strategy;
@@ -1265,12 +1405,18 @@ namespace Content.Client.Lobby.UI
 
         private void SetAge(int newAge)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithAge(newAge);
             ReloadPreview();
         }
 
         private void SetSex(Sex newSex)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSex(newSex);
             // for convenience, default to most common gender when new sex is selected
             switch (newSex)
@@ -1294,6 +1440,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetGender(Gender newGender)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithGender(newGender);
             ReloadPreview();
         }
@@ -1301,6 +1450,9 @@ namespace Content.Client.Lobby.UI
         // Corvax-TTS-Start
         private void SetVoice(string newVoice)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithVoice(newVoice);
             IsDirty = true;
         }
@@ -1308,6 +1460,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetSpecies(string newSpecies)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSpecies(newSpecies);
             OnSkinColorOnValueChanged(); // Species may have special color prefs, make sure to update it.
             Markings.SetSpecies(newSpecies); // Repopulate the markings tab as well.
@@ -1322,6 +1477,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetName(string newName)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithName(newName);
             SetDirty();
 
@@ -1333,6 +1491,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetSpawnPriority(SpawnPriorityPreference newSpawnPriority)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSpawnPriorityPreference(newSpawnPriority);
             SetDirty();
         }
@@ -1621,6 +1782,9 @@ namespace Content.Client.Lobby.UI
 
         private void RandomizeEverything()
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = HumanoidCharacterProfile.Random();
             SetProfile(Profile, CharacterSlot);
             SetDirty();
@@ -1628,7 +1792,7 @@ namespace Content.Client.Lobby.UI
 
         private void RandomizeName()
         {
-            if (Profile == null) return;
+            if (Profile == null || _readOnly) return; // DS14
             var name = HumanoidCharacterProfile.GetName(Profile.Species, Profile.Gender);
             SetName(name);
             UpdateNameEdit();
@@ -1636,7 +1800,7 @@ namespace Content.Client.Lobby.UI
 
         private async void ExportImage()
         {
-            if (_imaging)
+            if (_imaging || _readOnly) // DS14
                 return;
 
             var dir = SpriteView.OverrideDirection ?? Direction.South;
@@ -1649,7 +1813,7 @@ namespace Content.Client.Lobby.UI
 
         private async void ImportProfile()
         {
-            if (_exporting || CharacterSlot == null || Profile == null)
+            if (_exporting || _readOnly || CharacterSlot == null || Profile == null) // DS14
                 return;
 
             StartExport();
@@ -1721,7 +1885,7 @@ namespace Content.Client.Lobby.UI
         private void EndExport()
         {
             _exporting = false;
-            ImportButton.Disabled = false;
+            ImportButton.Disabled = _readOnly; // DS14
             ExportButton.Disabled = false;
         }
     }

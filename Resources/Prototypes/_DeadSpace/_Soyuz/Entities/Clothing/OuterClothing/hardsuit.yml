@@ -4,6 +4,7 @@
   id: ClothingOuterHardsuitSoyuzQuartermaster
   name: скафандр заведующего хозяйством
   description: Скафандр, разработанный специально для заведующих хозяйством предприятий. Оснащен умной системой поддержки жизненных показателей во время критического состояния.
+  suffix: Work in Progress
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Hardsuits/salvage.rsi

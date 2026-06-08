@@ -119,7 +119,7 @@
           addComponents:
           - type: Gravity
             enabled: true
-          inherent: true
+            inherent: true
           protos:
           - VGRoid
         #DS14-Soyuz-enabled-end

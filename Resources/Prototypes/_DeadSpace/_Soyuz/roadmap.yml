@@ -16,6 +16,14 @@
   tags:
     - "QoL"
 
+- type: roadmapEntry
+  id: Roadmap5
+  title: "Возвращение планетоида"
+  description: "Вернуть планетоид на станции"
+  category: Completed
+  tags:
+    - "Карты"
+
 # В процессе
 - type: roadmapEntry
   id: Roadmap2
@@ -43,14 +51,6 @@
   tags:
     - "Админское"
     - "Маппинг"
-
-- type: roadmapEntry
-  id: Roadmap5
-  title: "Возвращение планетоида"
-  description: "Вернуть планетоид на станции"
-  category: InProgress
-  tags:
-    - "Карты"
 
 # В планах
 - type: roadmapEntry

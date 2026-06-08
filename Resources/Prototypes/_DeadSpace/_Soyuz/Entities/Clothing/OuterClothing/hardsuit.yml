@@ -43,7 +43,7 @@
     - Critical
     reagents:
       Bicaridine: 1
-      Dexaline: 1
+      Dexalin: 1
       Saline: 1
 
 - type: entity

@@ -29,4 +29,11 @@ public sealed partial class AutoInjectReagentOnAllowedStateComponent : Component
 
     [DataField("reagents", required: true)]
     public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> Reagents { get; set; } = new Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>();
+//DS14-Soyuz-Start
+    [ViewVariables(VVAccess.ReadWrite)]
+    public float TimeUntilNextInject = 0f;
+    
+    [ViewVariables(VVAccess.ReadOnly)]
+    public TimeSpan NextInjectTime;
+//DS14-Soyuz-end
 }

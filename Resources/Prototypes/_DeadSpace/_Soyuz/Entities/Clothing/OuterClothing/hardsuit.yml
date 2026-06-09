@@ -38,10 +38,11 @@
     - WhitelistChameleon
   - type: AutoInjectReagentClothingOnAllowedState
     durationRegenReagents: 90
+    timeUntilNextInject: 1
     allowedStates:
     - Critical
     reagents:
-      Bicaridine: 1
+#      Bicaridine: 1
       Dexalin: 1
       Saline: 1
 

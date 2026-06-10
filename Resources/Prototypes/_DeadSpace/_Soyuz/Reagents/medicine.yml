@@ -1,0 +1,25 @@
+#- type: reagent # Потом сделаю
+#  id: Stabilyzer
+#  name: Стабилизатор
+#  group: Medicine
+#  desc: reagent-desc-dexalin
+#  physicalDesc: reagent-physical-desc-opaque
+#  flavor: medicine
+#  color: "#0041a8"
+#  metabolisms:
+#    Medicine:
+#      effects:
+#      - !type:HealthChange
+#        damage:
+#          types:
+#            Asphyxiation: -1
+#            Bloodloss: -0.5
+#      - !type:HealthChange
+#        conditions:
+#          - !type:ReagentCondition
+#            reagent: Dexalin
+#            min: 10
+#        damage:
+#          types:
+#            Asphyxiation: 3
+#            Cold: 1

@@ -8,12 +8,6 @@ using Robust.Client.Console;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
-// DS14-start
-using Content.Shared.Administration;
-using Content.Shared.DeadSpace.Administration.Events;
-using Content.Client.Administration.Managers;
-using Content.Client.DeadSpace.Administration.UI;
-// DS14-end
 
 namespace Content.Client.Administration.UI.Tabs
 {

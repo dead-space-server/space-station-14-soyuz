@@ -83,6 +83,8 @@ public sealed class CrayonColorMessage : BoundUserInterfaceMessage
 }
 
 //DS-14 Start
+[Serializable, NetSerializable]
+public sealed class CrayonRotationMessage : BoundUserInterfaceMessage
 {
     public readonly Angle Rotation;
     public CrayonRotationMessage(Angle rotation)
@@ -94,6 +96,7 @@ public sealed class CrayonColorMessage : BoundUserInterfaceMessage
 
 /// <summary>
 /// Server to CLIENT. Notifies the BUI that a decal with given ID has been drawn.
+/// Allows the client UI to advance forward in the client-only ephemeral queue,
 /// preventing the crayon from becoming a magic text storage device.
 /// </summary>
 [Serializable, NetSerializable]

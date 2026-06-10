@@ -38,7 +38,7 @@
     - WhitelistChameleon
   - type: AutoInjectReagentClothingOnAllowedState
     durationRegenReagents: 90
-    timeUntilNextInject: 1
+    timeUntilNextInject: 3
     allowedStates:
     - Critical
     reagents:

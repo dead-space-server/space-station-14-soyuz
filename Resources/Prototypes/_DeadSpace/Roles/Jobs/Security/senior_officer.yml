@@ -34,10 +34,10 @@
   - GenpopEnter # DS14-Soyuz
   - GenpopLeave # DS14-Soyuz
   #start-backmen: currency
-  minBankBalance: 150
-  maxBankBalance: 250
+  minBankBalance: 300 # DS14-value
+  maxBankBalance: 400 # DS14-value
   wageDepartment: Security
-  wage: 70
+  wage: 250 # DS14-value
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial
@@ -53,7 +53,6 @@
   id: SeniorOfficerGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    head: ClothingHeadHatBeretSeniorOfficer
     ears: ClothingHeadsetSecurity
     pocket1: WeaponRevolverDeckard
     gloves: ClothingHandsGlovesCombat #DS14-Soyuz

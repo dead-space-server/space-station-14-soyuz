@@ -79,23 +79,6 @@ public abstract partial class SharedMoverController
         Dirty(relayEntity, targetComp);
         _blocker.UpdateCanMove(uid);
         UpdateMoverStatus((relayEntity, null, targetComp));
-        RaiseEffectiveMoverChanged(uid, oldEffectiveMover, relayEntity);
-    }
-
-    /// <summary>
-    ///     Returns the entity whose movement should be treated as the effective movement source for <paramref name="mover"/>.
-    ///     If the entity is relaying movement to another entity, returns that relay target, otherwise returns the entity itself.
-    /// </summary>
-    public EntityUid GetEffectiveMover(Entity<RelayInputMoverComponent?> mover)
-    {
-        if (RelayQuery.Resolve(mover.Owner, ref mover.Comp, false)
-            && mover.Comp.RelayEntity.IsValid()
-            && Exists(mover.Comp.RelayEntity))
-        {
-            return mover.Comp.RelayEntity;
-        }
-
-        return mover.Owner;
     }
 
     private void OnRelayShutdown(Entity<RelayInputMoverComponent> entity, ref ComponentShutdown args)
@@ -149,4 +132,6 @@ public abstract partial class SharedMoverController
         var ev = new EffectiveMoverChangedEvent(oldMover, newMover);
         RaiseLocalEvent(uid, ref ev);
     }
+
+    protected virtual void UpdateMoverStatus(Entity<InputMoverComponent?, MovementRelayTargetComponent?> ent) { }
 }

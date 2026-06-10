@@ -5,7 +5,8 @@ namespace Content.Shared.Bed.Components;
 /// <summary>
 /// A <see cref="StrapComponent"/> that modifies a strapped entity's metabolic rate by the given multiplier
 /// </summary>
-[RegisterComponent] //DS14-Soyuz
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[Access(typeof(BedSystem))]
 public sealed partial class StasisBedComponent : Component
 {
     /// <summary>

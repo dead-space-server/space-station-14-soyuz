@@ -49,7 +49,7 @@
   minBankBalance: 800
   maxBankBalance: 1200
   wageDepartment: Specific
-  wage: 190
+  wage: 950 # DS14-value
   #end-backmen: currency
   traitsBlacklist:
     - Blindness
@@ -141,9 +141,9 @@
   - type: StorageFill
     contents:
       - id: Zipties
-        amount: 3
+        amount: 4
       - id: ADTtelescopicBaton # ADT
-      - id: KGBloadoutPrimary
+      - id: ERTloadoutBlueShieldPrimary
       - id: HandheldCrewMonitor
   - type: ExplosionResistance
     damageCoefficient: 0.6

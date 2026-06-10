@@ -15,7 +15,10 @@
       "directions": 4
     },
     {
-      "name": "equipped-MASK-hamster",
+      "name": "equipped-MASK-hamster"
+    },
+    {
+      "name": "up-equipped-MASK-reptilian",
       "directions": 4
     },
     {

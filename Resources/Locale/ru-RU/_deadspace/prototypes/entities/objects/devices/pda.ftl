@@ -1,8 +1,5 @@
 # КСО
 
-ent-CentcomFieldOfficerPDA = { ent-CentcomPDA }
-    .desc = Смотри мне в глаза, а не на пояс.
-
 ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
     .desc = { ent-ERTLeaderPDA.desc }
     .suffix = Гамма
@@ -50,10 +47,6 @@ ent-CentcomSpecialOperationsOfficerPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
 ent-CentcomFieldOfficerPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
-ent-ERTLeaderRedPDA = { ent-ERTLeaderPDA }
-    .desc = { ent-ERTLeaderPDA.desc }
-ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
-    .desc = { ent-ERTLeaderPDA.desc }
 
 ent-CoronerPDA = КПК патологоанатома
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!

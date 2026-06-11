@@ -88,6 +88,7 @@
   name: медицинский ящик с сильным вирусом
   description: Защищённый медицинский ящик с пробиркой сильного случайного вирусного штамма. Открывается только доступом вирусолога.
   suffix: Защищённый
+  components:
   - type: AccessReader
   - type: EntityTableContainerFill
     containers:

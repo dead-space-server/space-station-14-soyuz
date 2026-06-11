@@ -1065,30 +1065,6 @@
   - MagazineBoxMagnum
 
 - type: thiefBackpackSet
-  id: VerdictDisablerSet
-  name: ert-loadout-category-verdict-name
-  description: ert-loadout-category-verdict-description
-  sprite:
-    sprite: _DeadSpace/Objects/Weapons/Guns/Pistols/verdict.rsi
-    state: icon
-  content:
-  - WeaponRevolverVerdict
-  - WeaponDisabler
-
-- type: thiefBackpackSet
-  id: VerdictSet
-  name: ert-loadout-category-verdict-name
-  description: ert-loadout-category-verdict-description
-  sprite:
-    sprite: _DeadSpace/Objects/Weapons/Guns/Pistols/verdict.rsi
-    state: icon
-  content:
-  - WeaponRevolverVerdict
-  - SpeedLoaderMagnum
-  - SpeedLoaderMagnum
-  - MagazineBoxMagnum
-
-- type: thiefBackpackSet
   id: MatebaSet
   name: ert-loadout-category-mateba-name
   description: ert-loadout-category-mateba-description

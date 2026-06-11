@@ -148,6 +148,7 @@
     Steel: 25
     Silver: 200
 
+- type: latheRecipe
   parent: BaseTargetRecipe
   id: Bola
   result: Bola

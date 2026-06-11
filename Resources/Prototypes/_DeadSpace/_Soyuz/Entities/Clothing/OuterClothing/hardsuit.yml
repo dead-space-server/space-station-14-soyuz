@@ -1,0 +1,120 @@
+# Скафандр Завхоза
+- type: entity
+  parent: [ClothingOuterHardsuitBase, BaseCargoContraband]
+  id: ClothingOuterHardsuitSoyuzQuartermaster
+  name: скафандр заведующего хозяйством
+  description: Скафандр, разработанный специально для заведующих хозяйством предприятий. Оснащен умной системой поддержки жизненных показателей во время критического состояния.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/quartermaster.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/quartermaster.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.5
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.7
+        Heat: 0.8
+        Radiation: 0.5
+        Caustic: 0.75
+  - type: StaminaResistance
+    damageCoefficient: 0.7
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitSoyuzQuartermaster
+  - type: Tag
+    tags:
+    - CorgiWearable
+    - Hardsuit
+    - WhitelistChameleon
+  - type: AutoInjectReagentClothingOnAllowedState
+    durationRegenReagents: 90
+    timeUntilNextInject: 3
+    allowedStates:
+    - Critical
+    reagents:
+#      Bicaridine: 1
+      Dexalin: 1
+      Saline: 1
+
+- type: entity
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  id: ClothingHeadHelmetHardsuitSoyuzQuartermaster
+  categories: [ HideSpawnMenu ]
+  name: шлем скафандра заведующего хозяйством
+  description: Один советский мальчик заработал капитальчик и пустил деньжата в оборот...
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/quartermaster.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/quartermaster.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.525
+    lowPressureMultiplier: 1000
+  - type: PointLight
+    radius: 8
+    energy: 3
+  - type: Tag
+    tags:
+    - CorgiWearable
+    - WhitelistChameleon
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9275144
+        Slash: 0.9130474
+        Piercing: 0.9130474
+        Heat: 0.9330474
+        Radiation: 0.9517234
+
+# Скафандр Бета-01
+- type: entity
+  parent: ClothingOuterHardsuitBase
+  id: ClothingOuterHardsuitPoliceBeta1
+  name: cкафандр милиции "Бета-1"
+  description: В этом скафандре вы видите известный образ ядерного оперативника.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+  - type: Item
+    size: Huge
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.60
+        Slash: 0.60
+        Piercing: 0.45
+        Heat: 0.60
+        Radiation: 0.5
+        Caustic: 0.65
+  - type: StaminaResistance
+    damageCoefficient: 0.9
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+  - type: HeldSpeedModifier
+  - type: Construction
+    graph: HardsuitPoliceBeta
+    node: hardsuitPoliceBeta
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitPoliceBeta
+  - type: Tag
+    tags:
+    - Hardsuit
+    - WhitelistChameleon

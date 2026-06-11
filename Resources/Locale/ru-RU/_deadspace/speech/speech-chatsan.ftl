@@ -1,7 +1,9 @@
 deadspace-chatsan-word-1 = го
 deadspace-chatsan-replacement-1 = давай
+
 deadspace-chatsan-word-2 = геник
 deadspace-chatsan-replacement-2 = генератор
+
 deadspace-chatsan-word-3 = кк
 deadspace-chatsan-replacement-3 = красный код
 deadspace-chatsan-word-4 = ск

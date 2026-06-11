@@ -1,19 +1,10 @@
 {
-<<<<<<<< HEAD:Resources/Textures/_DeadSpace/Necromorfs/TheCircle/Structures/airlocks/uni_viro.rsi/meta.json
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Made by murouxlul, recolored by andrew_fenriz (discord) for Space Station 14 server Мёртвый космос",
-    "size": {
-        "x": 32,
-        "y": 32
-========
   "version": 1,
   "license": "CC-BY-SA-3.0",
   "copyright": "Made by murouxlul(705433554602950793)",
   "size": {
     "x": 32,
     "y": 32
->>>>>>>> 722e09739a2b2e9d3aedcd31e56a2985a16cd86a:Resources/Textures/_DeadSpace/TEMP_FOR_EVENT/uuuhhhh_magic/ANGOR/centcomm.rsi/meta.json
   },
   "states": [
     {

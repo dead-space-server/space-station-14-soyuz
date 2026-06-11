@@ -26,16 +26,6 @@
             "name": "mag-4"
         },
         {
-            "name": "inhand-left-mag",
-            "directions": 4
-        },
-        {
-            "name": "mag-3"
-        },
-        {
-            "name": "mag-4"
-        },
-        {
         "name": "incendiary"
         },
         {
@@ -43,6 +33,22 @@
         },
         {
         "name": "uranium"
+        },
+        {
+            "name": "inhand-left-mag",
+            "directions": 4
+        },
+        {
+            "name": "inhand-left-stripe",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-mag",
+            "directions": 4
+        },
+        {
+            "name": "inhand-right-stripe",
+            "directions": 4
         }
     ]
 }

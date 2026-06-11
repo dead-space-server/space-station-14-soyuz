@@ -49,7 +49,10 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly ObjectivesSystem _objectivesSystem = default!; // DS14
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
+        private static readonly Counter RoundNumberMetric = Metrics.CreateCounter(
+            "ss14_round_number",
             "Round number.");
+
         private static readonly Gauge RoundLengthMetric = Metrics.CreateGauge(
             "ss14_round_length",
             "Round length in seconds.");
@@ -753,9 +756,12 @@ namespace Content.Server.GameTicking
 
             var identityEntity = manifestIdentity?.SourceEntity;
             if (IsRoundEndDisplayBody(identityEntity))
+                return identityEntity;
+
             if (IsRoundEndDisplayBody(ownedEntity))
                 return ownedEntity;
 
+            if (IsRoundEndDisplayBody(originalEntity))
                 return originalEntity;
 
             if (identityEntity != null && !TerminatingOrDeleted(identityEntity.Value))

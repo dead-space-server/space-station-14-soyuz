@@ -19,7 +19,6 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lobby
 {
@@ -78,16 +77,6 @@ namespace Content.Client.Lobby
             _gameTicker.LobbyLateJoinStatusUpdated += LobbyLateJoinStatusUpdated;
 
             _cfg.OnValueChanged(CCCCVars.Background, OnBackgroundChanged, true);
-
-            _contentAudioSystem.LobbySoundtrackChanged += UpdateLobbySoundtrackInfo;
-            
-            UpdateLobbySoundtrackInfo(new LobbySoundtrackChangedEvent(null));
-        }
-
-        private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
-        {
-            var controller = _userInterfaceManager.GetUIController<DonateShopUIController>();
-            controller.ToggleWindow();
         }
 
         private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
@@ -111,9 +100,6 @@ namespace Content.Client.Lobby
             // DS14-start
             _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
             // DS14-end
-
-            if (_contentAudioSystem != null)
-                _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
 
             _voteManager.ClearPopupContainer();
 
@@ -258,39 +244,6 @@ namespace Content.Client.Lobby
             }
             else
                 Lobby!.PlaytimeComment.Visible = false;
-        }
-        private void UpdateLobbySoundtrackInfo(LobbySoundtrackChangedEvent ev)
-        {
-            if (Lobby == null)
-                return;
-
-            if (ev.SoundtrackFilename == null)
-            {
-                Lobby.LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
-                Lobby.MusicIcon.Visible = false;
-            }
-            else if (
-                ev.SoundtrackFilename != null
-                && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
-                )
-            {
-                var lobbyStream = lobbySongResource.AudioStream;
-
-                var title = string.IsNullOrEmpty(lobbyStream.Title)
-                    ? Loc.GetString("lobby-state-song-unknown-title")
-                    : lobbyStream.Title;
-
-                var artist = string.IsNullOrEmpty(lobbyStream.Artist)
-                    ? Loc.GetString("lobby-state-song-unknown-artist")
-                    : lobbyStream.Artist;
-
-                var markup = Loc.GetString("lobby-state-song-text",
-                    ("songTitle", title),
-                    ("songArtist", artist));
-
-                Lobby.LobbySong.SetMarkup(markup);
-                Lobby.MusicIcon.Visible = true;
-            }
         }
 
         // DS14-start

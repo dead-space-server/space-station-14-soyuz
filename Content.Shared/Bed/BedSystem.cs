@@ -1,8 +1,8 @@
 using Content.Shared.Actions;
-using Content.Shared.Body.Events; // DS14
-using Content.Shared.Body.Systems; // DS14
 using Content.Shared.Bed.Components;
 using Content.Shared.Bed.Sleep;
+using Content.Shared.Body.Events;
+using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Emag.Systems;
@@ -10,6 +10,7 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Power;
 using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.Bed;
 
@@ -46,6 +47,7 @@ public sealed class BedSystem : EntitySystem
 
     private void OnHealMapInit(Entity<HealOnBuckleComponent> ent, ref MapInitEvent args)
     {
+        _actConts.EnsureAction(ent.Owner, ref ent.Comp.SleepAction, SleepingSystem.SleepActionId);
         Dirty(ent);
     }
 
@@ -53,7 +55,7 @@ public sealed class BedSystem : EntitySystem
     {
         EnsureComp<HealOnBuckleHealingComponent>(bed);
         bed.Comp.NextHealTime = _timing.CurTime + TimeSpan.FromSeconds(bed.Comp.HealTime);
-        _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId, bed);
+        _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId);
         Dirty(bed);
 
         // Single action entity, cannot strap multiple entities to the same bed.
@@ -62,13 +64,10 @@ public sealed class BedSystem : EntitySystem
 
     private void OnUnstrapped(Entity<HealOnBuckleComponent> bed, ref UnstrappedEvent args)
     {
-        if (!Terminating(args.Buckle.Owner))
+        // If the entity being unbuckled is terminating, we shouldn't try to act upon it, as some components may be gone
+        if (!Terminating(args.Buckle.Owner) && bed.Comp.SleepAction != null)
         {
-            if (bed.Comp.SleepAction.TryGetValue(args.Buckle.Owner, out var actionEntity))
-            {
-                _actionsSystem.RemoveAction(args.Buckle.Owner, actionEntity);
-                bed.Comp.SleepAction.Remove(args.Buckle.Owner);
-            }
+            _actionsSystem.RemoveAction(args.Buckle.Owner, bed.Comp.SleepAction.Value);
             _sleepingSystem.TryWaking(args.Buckle.Owner);
         }
 

@@ -1095,7 +1095,10 @@ namespace Content.Client.RoundEnd
                 SpriteSystem.ForceUpdate(snapshotUid);
                 return true;
             }
+
+            private void HideTypingIndicator(EntityUid snapshot, SpriteComponent snapshotSprite)
             {
+                if (SpriteSystem == null ||
                     !SpriteSystem.LayerMapTryGet((snapshot, snapshotSprite), TypingIndicatorLayers.Base, out var layer, false))
                 {
                     return;

@@ -282,7 +282,7 @@
     необходимым оборудованием для выполнения их миссии.
     Время прибытия отряда 20 минут.
   rule: SpawnGammaShuttle
-  notification: ert-responce-caused-messager-gamma
+  notification: ert-response-caused-messager-gamma
   sender: ert-response-cso-sender
   cooldown:
     min: 20m

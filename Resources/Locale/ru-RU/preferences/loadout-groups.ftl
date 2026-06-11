@@ -171,6 +171,7 @@ loadout-group-head-of-security-shoes = Начальник милиции, обу
 loadout-group-medical-glasses = Медицинский отдел, очки
 loadout-group-head-of-security-socks = Начальник милиции, ноги
 loadout-group-head-of-security-underwear = Начальник милиции, нижнее бельё
+loadout-group-head-of-security-belt = Начальник милиции, пояс
 loadout-group-warden-head = Старший следователь, голова
 loadout-group-warden-jumpsuit = Старший следователь, комбинезон
 loadout-group-warden-outerclothing = Старший следователь, верхняя одежда

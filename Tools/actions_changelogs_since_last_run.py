@@ -25,10 +25,12 @@ GITHUB_API_URL = os.environ.get("GITHUB_API_URL", "https://api.github.com")
 # https://discord.com/developers/docs/resources/webhook
 DISCORD_SPLIT_LIMIT = 2000
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
-DISCORD_USERNAME = "Капибарка МК-Изменения"
-DISCORD_EMBED_COLOR = 3300375
+DISCORD_WEBHOOK_URL_DEADSPACE = os.environ.get("CHANGELOG_DISCORD_WEBHOOK_DEADSPACE")
+DISCORD_USERNAME = "Обновления Союз-1 ☭"
+DISCORD_AVATAR_URL = "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true"
+DISCORD_EMBED_COLOR = 0xcc191c
 
-CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14.yml"
+CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14Soyuz.yml"
 MOSCOW_TZ = timezone(timedelta(hours=3))
 
 TYPE_ORDER = ("Add", "Remove", "Tweak", "Fix")
@@ -47,7 +49,7 @@ SECTION_TITLE_TO_TYPE = {
 UNKNOWN_TYPE_LABEL = "❓ Прочее:"
 
 EMBED_TITLE = "Все изменения от {date}"
-MESSAGE_FOOTER = "Данные изменения были опубликованы на все основные сервера проекта!"
+MESSAGE_FOOTER = "Данные изменения были опубликованы на сервер Союз-1"
 
 ChangelogEntry = dict[str, Any]
 GroupedChanges = dict[str, dict[str, list[str]]]
@@ -400,6 +402,7 @@ def get_discord_embed(description: str, last_publish_date: str, include_footer: 
 def get_discord_body(description: str, last_publish_date: str, include_footer: bool):
     return {
         "username": DISCORD_USERNAME,
+        "avatar_url": DISCORD_AVATAR_URL,
         "embeds": [
             get_discord_embed(description, last_publish_date, include_footer),
         ],
@@ -408,33 +411,38 @@ def get_discord_body(description: str, last_publish_date: str, include_footer: b
     }
 
 
-def send_discord_webhook(description: str, last_publish_date: str, include_footer: bool):
+def send_discord_webhook(webhook_url: str, description: str, last_publish_date: str, include_footer: bool):
     body = get_discord_body(description, last_publish_date, include_footer)
     retry_attempt = 0
 
     try:
-        response = requests.post(DISCORD_WEBHOOK_URL, json=body, timeout=10)
+        response = requests.post(webhook_url, json=body, timeout=10)
         while response.status_code == 429:
             retry_attempt += 1
             if retry_attempt > 20:
-                print("Too many retries on a single request despite following retry_after header... giving up")
-                exit(1)
+                print(f"Too many retries on a single request despite following retry_after header... giving up for {webhook_url}")
+                return
 
             retry_after = response.json().get("retry_after", 5)
             print(f"Rate limited, retrying after {retry_after} seconds")
             time.sleep(retry_after)
-            response = requests.post(DISCORD_WEBHOOK_URL, json=body, timeout=10)
+            response = requests.post(webhook_url, json=body, timeout=10)
 
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        print(f"Failed to send message: {e}")
-        exit(1)
+        print(f"Failed to send message to {webhook_url}: {e}")
 
 
 def send_messages(messages: list[str], last_publish_date: str):
-    for index, message in enumerate(messages, start=1):
-        print(f"Sending changelog embed {index}/{len(messages)} to discord")
-        send_discord_webhook(message, last_publish_date, index == len(messages))
+    webhooks = [DISCORD_WEBHOOK_URL]
+    if DISCORD_WEBHOOK_URL_DEADSPACE:
+        webhooks.append(DISCORD_WEBHOOK_URL_DEADSPACE)
+    
+    for webhook_url in webhooks:
+        print(f"Sending changelog to {webhook_url}")
+        for index, message in enumerate(messages, start=1):
+            print(f"Sending changelog embed {index}/{len(messages)} to discord")
+            send_discord_webhook(webhook_url, message, last_publish_date, index == len(messages))
 
 
 if __name__ == "__main__":

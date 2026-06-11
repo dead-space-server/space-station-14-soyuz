@@ -11,13 +11,10 @@ criminal-records-console-show-all = Все
 
 criminal-records-console-status = Статус
 criminal-records-status-none = Нет
-criminal-records-status-suspected = Подозревается
 criminal-records-status-wanted = Разыскивается
-criminal-records-status-hostile = Ликвидация
 criminal-records-status-detained = Под арестом
+criminal-records-status-suspected = Подозревается
 criminal-records-status-discharged = Освобождён
-criminal-records-status-eliminated = Устранён
-
 criminal-records-console-wanted-reason = [color=gray]Причина розыска[/color]
 criminal-records-console-suspected-reason = [color=gray]Причина подозрения[/color]
 criminal-records-console-reason = Причина
@@ -42,10 +39,6 @@ criminal-records-console-detained = { $name } ({ $job }) арестовали, �
 criminal-records-console-released = { $name } ({ $job }) отпустили, ответственный: { $officer }.
 criminal-records-console-paroled = { $name } ({ $job }) освободили по УДО, ответственный: { $officer }.
 criminal-records-console-not-parole = { $name } ({ $job }) лишили права на УДО, ответственный: { $officer }.
-criminal-records-console-hostile = {$name} ({$job}) был назначен на ликвидацию, причина: {$reason}, ответственный {$officer}
-criminal-records-console-not-hostile = {$name} ({$job}) более не назначен на ликвидацию, ответственный: {$officer}.
-criminal-records-console-eliminated = {$name} ({$job}) отмечен как устранённый, ответственный: {$officer}.
-criminal-records-console-not-eliminated = {$name} ({$job}) более не отмечен как устранённый, ответственный: {$officer}.
 criminal-records-console-unknown-officer = <неизвестный>
 
 ## Filters

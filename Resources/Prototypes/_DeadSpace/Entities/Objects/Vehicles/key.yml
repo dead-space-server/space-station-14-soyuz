@@ -1,7 +1,7 @@
 - type: entity
   parent: BaseItem
   id: VehicleKeyUniversal
-  name: универсальный ключ от транспорта
+  name: универсальный ключ транспортов
   description: Берегите его, пожалуйста.
   components:
   - type: Sprite

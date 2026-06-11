@@ -22,8 +22,6 @@ namespace Content.Server.DeadSpace.Lavaland;
 
 public sealed class LavalandFaunaPopulationSystem : EntitySystem
 {
-    private const float FtlLandingAreaPadding = 16f;
-
     private const CollisionGroup SpawnBlockerMask =
         CollisionGroup.Impassable |
         CollisionGroup.HighImpassable |
@@ -467,22 +465,15 @@ public sealed class LavalandFaunaPopulationSystem : EntitySystem
             return true;
         }
 
-        var ftlRadius = GetFtlBeaconExclusionRadius(planet.FaunaFtlBeaconExclusionRadius, planet);
-        if (ftlRadius > 0f &&
-            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <= ftlRadius * ftlRadius)
+        if (planet.FtlEnabled &&
+            planet.FaunaFtlBeaconExclusionRadius > 0f &&
+            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <=
+            planet.FaunaFtlBeaconExclusionRadius * planet.FaunaFtlBeaconExclusionRadius)
         {
             return true;
         }
 
         return false;
-    }
-
-    private static float GetFtlBeaconExclusionRadius(float configuredRadius, LavalandPlanetPrototype planet)
-    {
-        if (!planet.FtlEnabled)
-            return 0f;
-
-        return Math.Max(configuredRadius, Math.Max(0f, planet.FtlFallbackMaxOffset) + FtlLandingAreaPadding);
     }
 
     private static Vector2i GetSector(Vector2 center, int sectorSize)

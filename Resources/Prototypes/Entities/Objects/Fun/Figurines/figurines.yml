@@ -8,7 +8,6 @@
   description: A small miniature.
   components:
   - type: AdminToySpawnable # DS14
-  - type: TabletopPlaceable # DS14
   - type: Sprite
     sprite: Objects/Fun/figurines.rsi
   - type: PhysicalComposition

@@ -166,7 +166,6 @@
   - type: InputMover
   - type: Physics
     bodyType: KinematicController
-  - type: GravityAffected
   - type: Vehicle
   - type: StrapVehicle
   - type: Strap

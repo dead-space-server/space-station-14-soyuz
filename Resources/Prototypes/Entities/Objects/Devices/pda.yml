@@ -1139,7 +1139,6 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - BankCartridge
-      - MedTekCartridge #DS-14
 
 - type: entity
   parent: [ SyndiPDA, BaseSyndicateContraband ]
@@ -1569,7 +1568,7 @@
   description: You stealthy bastard, you!
   components:
   - type: Pda
-    id: NinjaIDCard # DS14
+    id: AgentIDCard
   - type: Appearance
     appearanceDataInit:
       enum.PdaVisuals.PdaType:

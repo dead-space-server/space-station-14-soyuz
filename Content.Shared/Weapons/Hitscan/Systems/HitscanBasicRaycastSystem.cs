@@ -109,13 +109,7 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
         }
         else
         {
-            //DS14-start
-            var mapCoords = _transform.ToMapCoordinates(fromCoordinates);
-            var mapEnt = Transform(fromCoordinates.EntityId).MapUid;
-            if (mapEnt == null)
-                return;
-            fromCoordinates = new EntityCoordinates(mapEnt.Value, mapCoords.Position);
-            //DS14-end
+            shotAngle -= _transform.GetWorldRotation(fromXform);
         }
 
         if (distance >= 1f)

@@ -61,10 +61,10 @@
   - Paramedic
   - Brigmedic
   #start-backmen: currency
-  minBankBalance: 700 # DS14-value
-  maxBankBalance: 900 # DS14-value
+  minBankBalance: 400
+  maxBankBalance: 600
   wageDepartment: Command
-  wage: 420 # DS14-value
+  wage: 140
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

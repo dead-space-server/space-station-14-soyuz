@@ -1,39 +1,44 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
-using Content.Shared.Actions;
 using Content.Shared.DeadSpace.ThermalVision;
+using Content.Shared.Inventory;
+using Content.Shared.Inventory.Events;
 
 namespace Content.Server.DeadSpace.ThermalVision;
 
 public sealed class ThermalVisionSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    public const SlotFlags ValidSlots = SlotFlags.EYES;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ThermalVisionComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<ThermalVisionComponent, ComponentRemove>(OnRemove);
-        SubscribeLocalEvent<ThermalVisionComponent, ToggleThermalVisionActionEvent>(OnToggle);
+        SubscribeLocalEvent<ThermalVisionComponent, GotEquippedEvent>(OnGotEquipped);
+        SubscribeLocalEvent<ThermalVisionComponent, GotUnequippedEvent>(OnGotUnequipped);
     }
 
-    private void OnStartup(EntityUid uid, ThermalVisionComponent component, ComponentStartup args)
+    private void OnGotEquipped(EntityUid entity, ThermalVisionComponent comp, ref GotEquippedEvent args)
     {
-        _actions.AddAction(uid, ref component.ActionToggleThermalVisionEntity, component.ActionToggleThermalVision);
-    }
-
-    private void OnRemove(EntityUid uid, ThermalVisionComponent component, ComponentRemove args)
-    {
-        _actions.RemoveAction(uid, component.ActionToggleThermalVisionEntity);
-    }
-
-    private void OnToggle(EntityUid uid, ThermalVisionComponent component, ToggleThermalVisionActionEvent args)
-    {
-        if (args.Handled)
+        if ((args.SlotFlags & ValidSlots) == 0)
             return;
 
-        args.Handled = true;
-        component.IsActive = !component.IsActive;
-        Dirty(uid, component);
+        if (HasComp<ThermalVisionActiveComponent>(args.Equipee))
+            return;
+
+        var activeComp = new ThermalVisionActiveComponent
+        {
+            ActivateSound = comp.ActivateSound,
+            ActivateSoundOff = comp.ActivateSoundOff,
+            Animation = comp.Animation
+        };
+        comp.HasThermalVision = true;
+
+        AddComp(args.Equipee, activeComp);
+    }
+
+    private void OnGotUnequipped(EntityUid entity, ThermalVisionComponent comp, ref GotUnequippedEvent args)
+    {
+        if (comp.HasThermalVision && HasComp<ThermalVisionActiveComponent>(args.Equipee))
+            RemComp<ThermalVisionActiveComponent>(args.Equipee);
     }
 }

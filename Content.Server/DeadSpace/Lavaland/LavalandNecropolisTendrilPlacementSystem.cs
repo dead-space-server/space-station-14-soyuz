@@ -18,8 +18,6 @@ namespace Content.Server.DeadSpace.Lavaland;
 
 public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
 {
-    private const float FtlLandingAreaPadding = 16f;
-
     private const CollisionGroup SpawnBlockerMask =
         CollisionGroup.Impassable |
         CollisionGroup.HighImpassable |
@@ -383,22 +381,15 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
             return true;
         }
 
-        var ftlRadius = GetFtlBeaconExclusionRadius(planet.TendrilFtlBeaconExclusionRadius, planet);
-        if (ftlRadius > 0f &&
-            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <= ftlRadius * ftlRadius)
+        if (planet.FtlEnabled &&
+            planet.TendrilFtlBeaconExclusionRadius > 0f &&
+            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <=
+            planet.TendrilFtlBeaconExclusionRadius * planet.TendrilFtlBeaconExclusionRadius)
         {
             return true;
         }
 
         return false;
-    }
-
-    private static float GetFtlBeaconExclusionRadius(float configuredRadius, LavalandPlanetPrototype planet)
-    {
-        if (!planet.FtlEnabled)
-            return 0f;
-
-        return Math.Max(configuredRadius, Math.Max(0f, planet.FtlFallbackMaxOffset) + FtlLandingAreaPadding);
     }
 
     private static int GetSpawnLimit(LavalandPlanetPrototype planet)

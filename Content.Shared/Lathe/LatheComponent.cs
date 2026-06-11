@@ -51,11 +51,6 @@ namespace Content.Shared.Lathe
         [DataField, AutoNetworkedField]
         public int DefaultProductionAmount = 1;
 
-        // DS14-Start: prevent zero-time lathe recipes from finishing unbounded batches in one tick.
-        [DataField]
-        public int MaxInstantProductionsPerTick = 50;
-        // DS14-End
-
         #region Visualizer info
         [DataField]
         public string? IdleState;

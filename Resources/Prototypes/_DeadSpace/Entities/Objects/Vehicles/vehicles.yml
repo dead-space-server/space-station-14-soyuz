@@ -9,9 +9,9 @@
     baseAcceleration: 1.7
     baseFriction: 0.8
     friction: 2
-    frictionNoInput: 6.2
+    frictionNoInput: 8
     baseWalkSpeed: 5
-    baseSprintSpeed: 6.2
+    baseSprintSpeed: 8
   - type: UnpoweredFlashlight
   - type: GenericKeyedVehicle
     containerId: key_slot
@@ -155,8 +155,6 @@
     movementSound:
       collection: FootstepBorg
     movementSoundDistance: 1.5
-    breakOnCollideWith:
-      - FloorLavaEntity
   - type: PointLight
     enabled: false
     radius: 10.5

@@ -32,8 +32,6 @@ namespace Content.Client.Crayon.UI
         public event Action<Color>? OnColorSelected;
         public event Action<string>? OnSelected;
 
-        public event Action<Angle>? OnRotationChanged; //DS-14
-
         public CrayonWindow()
         {
             RobustXamlLoader.Load(this);
@@ -42,8 +40,6 @@ namespace Content.Client.Crayon.UI
 
             Search.OnTextChanged += SearchChanged;
             ColorSelector.OnColorChanged += SelectColor;
-
-            RotationInput.ValueChanged += args => OnRotationChanged?.Invoke(Angle.FromDegrees(args.Value)); //DS-14
         }
 
         private void SelectColor(Color color)

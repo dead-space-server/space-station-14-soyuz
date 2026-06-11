@@ -162,10 +162,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: CelestinMedipen
-      - id: CelestinMedipen
-      - id: CelestinMedipen
-      - id: CelestinMedipen
+      - id: DesoxyephedrineMedipen
+      - id: DesoxyephedrineMedipen
+      - id: DesoxyephedrineMedipen
+      - id: DesoxyephedrineMedipen
 
 ## Боевая медицина ОБР
 - type: entity

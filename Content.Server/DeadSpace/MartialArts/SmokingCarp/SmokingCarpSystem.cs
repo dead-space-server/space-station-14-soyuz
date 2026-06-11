@@ -98,13 +98,11 @@ public sealed class SmokingCarpSystem : EntitySystem
                 DamageHit(hitEntity, ent.Comp.Params.DamageTypeForPowerPunch, ent.Comp.Params.HitDamageForPowerPunch, ent.Comp.Params.IgnoreResist, out _);
                 SpawnAttachedTo(ent.Comp.Params.EffectPowerPunch, Transform(hitEntity).Coordinates);
                 _audio.PlayPvs(ent.Comp.Params.HitSoundForPowerPunch, ent, AudioParams.Default.WithVolume(3.0f));
+                var pack = ent.Comp.Params.PackMessageOnHit!;
 
-                if (ent.Comp.Params.PackMessageOnHit is { Count: > 0 } pack)
-                {
-                    var saying = pack[_random.Next(pack.Count)];
-                    var ev = new SmokingCarpSaying(saying);
-                    RaiseLocalEvent(ent, ev);
-                }
+                var saying = pack[_random.Next(pack.Count)];
+                var ev = new SmokingCarpSaying(saying);
+                RaiseLocalEvent(ent, ev);
 
                 OnPowerPunch(ent, hitEntity, ent.Comp.Params.MaxPushDistance, ent.Comp.Params.PushStrength);
                 break;

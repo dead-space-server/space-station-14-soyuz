@@ -35,7 +35,7 @@ public struct HealthAnalyzerUiState
 
     public HealthAnalyzerUiState() {}
 
-    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unclonable, bool? unrevivable, List<HealthAnalyzerReagentEntry>? reagents = null) // DS14-Soyuz (unclonable)
+    public HealthAnalyzerUiState(NetEntity? targetEntity, float temperature, float bloodLevel, bool? scanMode, bool? bleeding, bool? unclonable, bool? unrevivable, List<HealthAnalyzerReagentEntry>? reagents = null)
     {
         TargetEntity = targetEntity;
         Temperature = temperature;

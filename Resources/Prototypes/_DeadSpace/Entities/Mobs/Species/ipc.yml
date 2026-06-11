@@ -30,9 +30,33 @@
         color: "#525252"
   - type: Language
     selectedLanguage: GeneralLanguage
+    # DS14-start: IPC language parity with borg silicons (speak + understand)
     knownLanguages:
-    - MachineLanguage
     - GeneralLanguage
+    - ArachnidLanguage
+    - SlimeLanguage
+    - DionaLanguage
+    - MothLanguage
+    - ReptilianLanguage
+    - VoxLanguage
+    - DemonLanguage
+    - CatLanguage
+    - MachineLanguage
+    - PlafLanguage
+    - VulpkaninLanguage
+    - XenomorphLanguage
+  - type: Battery
+    maxCharge: 450000
+    startingCharge: 450000
+  - type: IPC # DS14
+    idleDrainRate: 3.5 # DS14-keep: legacy passive drain
+    passiveDrainRate: 500
+    backRechargerRate: 1000
+    transferPercentPerUse: 0.05 # DS14: 5% max charge per click
+    transferPerUse: 2000
+    donorReserve: 1000
+    reciprocalLockTime: 5
+  # DS14-end
 
 - type: entity
   parent: BaseSpeciesDummy

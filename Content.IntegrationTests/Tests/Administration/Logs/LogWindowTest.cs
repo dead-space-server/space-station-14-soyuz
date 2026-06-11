@@ -37,7 +37,11 @@ public sealed class LogWindowTest : InteractionTest
         var refresh = logWindow.Logs.RefreshButton;
         var cont = logWindow.Logs.LogsContainer;
 
-        var searchResult = await SearchLogs(guid);
+        // Search for the log we added earlier.
+        await Client.WaitPost(() => search.Text = guid.ToString());
+        await ClickControl(refresh);
+        await RunTicks(5);
+        var searchResult = cont.Children.Where(x => x.Visible && x is AdminLogLabel).Cast<AdminLogLabel>().ToArray();
         Assert.That(searchResult.Length, Is.EqualTo(1));
         Assert.That(searchResult[0].Log.Message, Contains.Substring($" test log 1: {guid}"));
 
@@ -45,30 +49,12 @@ public sealed class LogWindowTest : InteractionTest
         guid = Guid.NewGuid();
         await Server.WaitPost(() => log.Add(LogType.Unknown, $"{SPlayer} test log 2: {guid}"));
 
-        searchResult = await SearchLogs(guid);
+        // Update the search and refresh
+        await Client.WaitPost(() => search.Text = guid.ToString());
+        await ClickControl(refresh);
+        await RunTicks(5);
+        searchResult = cont.Children.Where(x => x.Visible && x is AdminLogLabel).Cast<AdminLogLabel>().ToArray();
         Assert.That(searchResult.Length, Is.EqualTo(1));
         Assert.That(searchResult[0].Log.Message, Contains.Substring($" test log 2: {guid}"));
-
-        async Task<AdminLogLabel[]> SearchLogs(Guid searchGuid)
-        {
-            await Client.WaitPost(() => search.Text = searchGuid.ToString());
-            await ClickControl(refresh);
-
-            AdminLogLabel[] searchResult = [];
-            for (var i = 0; i < 60; i++)
-            {
-                searchResult = cont.Children
-                    .Where(x => x.Visible && x is AdminLogLabel)
-                    .Cast<AdminLogLabel>()
-                    .ToArray();
-
-                if (searchResult.Length == 1)
-                    return searchResult;
-
-                await RunTicks(1);
-            }
-
-            return searchResult;
-        }
     }
 }

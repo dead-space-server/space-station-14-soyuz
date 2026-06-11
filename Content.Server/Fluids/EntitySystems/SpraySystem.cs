@@ -17,8 +17,6 @@ using Robust.Shared.Prototypes;
 using System.Numerics;
 using Content.Shared.Fluids.EntitySystems;
 using Content.Shared.Fluids.Components;
-using Content.Shared.Vehicle.Components; //DS14
-using Content.Server.DeadSpace.Items; //DS14
 using Robust.Server.Containers;
 using Robust.Shared.Map;
 
@@ -186,21 +184,8 @@ public sealed class SpraySystem : SharedSpraySystem
             if (_container.TryGetOuterContainer(entity, sprayerXform, out var container))
                 thingGettingPushed = container.Owner;
 
-            //DS14-start
-            if (user is { } userUid &&
-                TryComp<VehicleOperatorComponent>(userUid, out var vehicleOperator) &&
-                vehicleOperator.Vehicle is { } vehicle &&
-                TryComp<PhysicsComponent>(vehicle, out var vehicleBody))
+            if (TryComp<PhysicsComponent>(thingGettingPushed, out var body))
             {
-                var totalImpulse = -impulseDirection * entity.Comp.PushbackAmount * 0.5f;
-                var push = EnsureComp<VehiclePushbackComponent>(vehicle);
-                var remaining = push.ImpulsePerTick * push.TicksLeft;
-                push.ImpulsePerTick = (remaining + totalImpulse) / (push.TicksLeft + 5);
-                push.TicksLeft += 5;
-            }
-            else if (TryComp<PhysicsComponent>(thingGettingPushed, out var body))
-            {
-                //DS14-end
                 if (_gravity.IsWeightless(thingGettingPushed))
                 {
                     // push back the player

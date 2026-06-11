@@ -30,13 +30,15 @@ namespace Content.Server.Preferences.Managers
         [Dependency] private readonly ILogManager _log = default!;
         [Dependency] private readonly UserDbDataManager _userDb = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        private IServerSponsorsManager? _sponsorsManager; // DS14
+        private IServerSponsorsManager? _sponsorsManager; // DS14-sponsors
 
         // Cache player prefs on the server so we don't need as much async hell related to them.
         private readonly Dictionary<NetUserId, PlayerPrefData> _cachedPlayerPrefs =
             new();
 
         private ISawmill _sawmill = default!;
+
+        // private int MaxCharacterSlots => _cfg.GetCVar(CCVars.GameMaxCharacterSlots); // DS14-sponsors
 
         public void Init()
         {
@@ -47,7 +49,7 @@ namespace Content.Server.Preferences.Managers
             _netManager.RegisterNetMessage<MsgUpdateConstructionFavorites>(HandleUpdateConstructionFavoritesMessage);
             _sawmill = _log.GetSawmill("prefs");
 
-            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14
+            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14-sponsors
         }
 
         private async void HandleSelectCharacterMessage(MsgSelectCharacter message)
@@ -61,7 +63,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            if (index < 0 || index >= GetMaxUserCharacterSlots(userId)) // DS14
+            if (index < 0 || index >= GetMaxUserCharacterSlots(userId)) // DS14-sponsors
             {
                 return;
             }
@@ -74,7 +76,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites, curPrefs.InaccessibleCharacters); // DS14
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, index, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
             {
@@ -101,22 +103,23 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            if (slot < 0 || slot >= GetMaxUserCharacterSlots(userId)) // DS14
+            if (slot < 0 || slot >= GetMaxUserCharacterSlots(userId)) // DS14-sponsors
                 return;
 
             var curPrefs = prefsData.Prefs!;
             var session = _playerManager.GetSessionById(userId);
-            // DS14-start
+
+            // DS14-sponsors-start: ensure removing sponsor markings if client somehow bypassed client filtering
             var allowedMarkings = _sponsorsManager?.TryGetInfo(session.Channel.UserId, out var sponsor) == true ? sponsor.AllowedMarkings.ToArray() : [];
             profile.EnsureValid(session, _dependencies, allowedMarkings);
-            // DS14-end
+            // DS14-sponsors-end
 
             var profiles = new Dictionary<int, ICharacterProfile>(curPrefs.Characters)
             {
                 [slot] = profile
             };
 
-            prefsData.Prefs = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites, curPrefs.InaccessibleCharacters); // DS14
+            prefsData.Prefs = new PlayerPreferences(profiles, slot, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
             if (ShouldStorePrefs(session.Channel.AuthType))
                 await _db.SaveCharacterSlotAsync(userId, profile, slot);
@@ -131,7 +134,7 @@ namespace Content.Server.Preferences.Managers
             }
 
             var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, favorites, curPrefs.InaccessibleCharacters); // DS14
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, favorites);
 
             var session = _playerManager.GetSessionById(userId);
             if (ShouldStorePrefs(session.Channel.AuthType))
@@ -149,7 +152,7 @@ namespace Content.Server.Preferences.Managers
                 return;
             }
 
-            if (slot < 0 || (slot >= GetMaxUserCharacterSlots(userId) && !prefsData.Prefs!.InaccessibleCharacters.ContainsKey(slot))) // DS14
+            if (slot < 0 || slot >= GetMaxUserCharacterSlots(userId)) // DS14-sponsors
             {
                 return;
             }
@@ -173,13 +176,9 @@ namespace Content.Server.Preferences.Managers
             }
 
             var arr = new Dictionary<int, ICharacterProfile>(curPrefs.Characters);
-            // DS14-start
-            var inaccessible = new Dictionary<int, ICharacterProfile>(curPrefs.InaccessibleCharacters);
-            if (!arr.Remove(slot) && !inaccessible.Remove(slot))
-                return;
+            arr.Remove(slot);
 
-            prefsData.Prefs = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites, inaccessible);
-            // DS14-end
+            prefsData.Prefs = new PlayerPreferences(arr, nextSlot ?? curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, curPrefs.ConstructionFavorites);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
             {
@@ -220,7 +219,7 @@ namespace Content.Server.Preferences.Managers
             }
 
             var curPrefs = prefsData.Prefs!;
-            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, validatedList, curPrefs.InaccessibleCharacters); // DS14
+            prefsData.Prefs = new PlayerPreferences(curPrefs.Characters, curPrefs.SelectedCharacterIndex, curPrefs.AdminOOCColor, validatedList);
 
             if (ShouldStorePrefs(message.MsgChannel.AuthType))
             {
@@ -256,14 +255,13 @@ namespace Content.Server.Preferences.Managers
                 {
                     var prefs = await GetOrCreatePreferencesAsync(session.UserId, cancel);
                     var collection = IoCManager.Instance!;
-                    // DS14-start
-                    var allowedMarkings = _sponsorsManager?.TryGetInfo(session.UserId, out var sponsor) == true ? sponsor.AllowedMarkings.ToArray() : [];
-                    foreach (var (_, profile) in EnumerateAllCharacters(prefs))
+                    // DS14-sponsors-start: remove sponsor markings from expired sponsors
+                    foreach (var (_, profile) in prefs.Characters)
                     {
+                        var allowedMarkings = _sponsorsManager?.TryGetInfo(session.UserId, out var sponsor) == true ? sponsor.AllowedMarkings.ToArray() : [];
                         profile.EnsureValid(session, collection, allowedMarkings);
                     }
-                    prefs = await NormalizeCharacterSlotsAsync(session, prefs);
-                    // DS14-end
+                    // DS14-sponsors-end
                     prefsData.Prefs = prefs;
                 }
             }
@@ -284,7 +282,7 @@ namespace Content.Server.Preferences.Managers
             msg.Preferences = prefsData.Prefs;
             msg.Settings = new GameSettings
             {
-                MaxCharacterSlots = GetMaxUserCharacterSlots(session.UserId) // DS14
+                MaxCharacterSlots = GetMaxUserCharacterSlots(session.UserId) // DS14-sponsors
             };
             _netManager.ServerSendMessage(msg, session.Channel);
         }
@@ -299,14 +297,14 @@ namespace Content.Server.Preferences.Managers
             return _cachedPlayerPrefs.ContainsKey(session.UserId);
         }
 
-        // DS14-start
+        // DS14-sponsors-start: calculate total available users slots with sponsors
         private int GetMaxUserCharacterSlots(NetUserId userId)
         {
             var maxSlots = _cfg.GetCVar(CCVars.GameMaxCharacterSlots);
             var extraSlots = _sponsorsManager?.TryGetInfo(userId, out var sponsor) == true ? sponsor.ExtraSlots : 0;
-            return Math.Max(1, maxSlots + extraSlots);
+            return maxSlots + extraSlots;
         }
-        // DS14-end
+        // DS14-sponsors-end
 
         /// <summary>
         /// Tries to get the preferences from the cache
@@ -372,85 +370,13 @@ namespace Content.Server.Preferences.Managers
             // Clean up preferences in case of changes to the game,
             // such as removed jobs still being selected.
 
-            // DS14-start
-            var allowedMarkings = _sponsorsManager?.TryGetInfo(session.UserId, out var sponsor) == true ? sponsor.AllowedMarkings.ToArray() : [];
-            var sanitized = EnumerateAllCharacters(prefs).Select(p =>
-                new KeyValuePair<int, ICharacterProfile>(p.Key, p.Value.Validated(session, collection, allowedMarkings)));
-            var sanitizedPrefs = new PlayerPreferences(sanitized, prefs.SelectedCharacterIndex, prefs.AdminOOCColor, prefs.ConstructionFavorites);
-            var normalizedPrefs = NormalizeCharacterSlots(session.UserId, sanitizedPrefs, out _, out _);
-            // DS14-end
-            return normalizedPrefs;
+            var allowedMarkings = _sponsorsManager?.TryGetInfo(session.UserId, out var sponsor) == true ? sponsor.AllowedMarkings.ToArray() : []; // DS14-sponsors
+
+            return new PlayerPreferences(prefs.Characters.Select(p =>
+            {
+                return new KeyValuePair<int, ICharacterProfile>(p.Key, p.Value.Validated(session, collection, allowedMarkings)); // DS14-sponsors
+            }), prefs.SelectedCharacterIndex, prefs.AdminOOCColor, prefs.ConstructionFavorites);
         }
-
-        // DS14-start
-        private async Task<PlayerPreferences> NormalizeCharacterSlotsAsync(ICommonSession session, PlayerPreferences prefs)
-        {
-            var normalized = NormalizeCharacterSlots(session.UserId, prefs, out var selectedChanged, out var createdDefaultProfile);
-
-            if (createdDefaultProfile && ShouldStorePrefs(session.Channel.AuthType))
-                await _db.SaveCharacterSlotAsync(session.UserId, normalized.Characters[0], 0);
-
-            if (selectedChanged && ShouldStorePrefs(session.Channel.AuthType))
-                await _db.SaveSelectedCharacterIndexAsync(session.UserId, normalized.SelectedCharacterIndex);
-
-            return normalized;
-        }
-
-        private PlayerPreferences NormalizeCharacterSlots(NetUserId userId, PlayerPreferences prefs, out bool selectedChanged, out bool createdDefaultProfile)
-        {
-            selectedChanged = false;
-            createdDefaultProfile = false;
-
-            var maxSlots = GetMaxUserCharacterSlots(userId);
-            var accessible = new Dictionary<int, ICharacterProfile>();
-            var inaccessible = new Dictionary<int, ICharacterProfile>();
-
-            foreach (var (slot, profile) in EnumerateAllCharacters(prefs).OrderBy(p => p.Key))
-            {
-                if (slot < 0)
-                    continue;
-
-                if (slot < maxSlots)
-                    accessible[slot] = profile;
-                else
-                    inaccessible[slot] = profile;
-            }
-
-            if (accessible.Count == 0)
-            {
-                accessible[0] = HumanoidCharacterProfile.Random();
-                createdDefaultProfile = true;
-            }
-
-            var selectedSlot = prefs.SelectedCharacterIndex;
-            if (!accessible.ContainsKey(selectedSlot))
-            {
-                selectedSlot = accessible.Keys.Min();
-                selectedChanged = selectedSlot != prefs.SelectedCharacterIndex;
-            }
-
-            return new PlayerPreferences(
-                accessible.OrderBy(p => p.Key),
-                selectedSlot,
-                prefs.AdminOOCColor,
-                prefs.ConstructionFavorites,
-                inaccessible.OrderBy(p => p.Key));
-        }
-
-        private static IEnumerable<KeyValuePair<int, ICharacterProfile>> EnumerateAllCharacters(PlayerPreferences prefs)
-        {
-            foreach (var character in prefs.Characters)
-            {
-                yield return character;
-            }
-
-            foreach (var character in prefs.InaccessibleCharacters)
-            {
-                if (!prefs.Characters.ContainsKey(character.Key))
-                    yield return character;
-            }
-        }
-        // DS14-end
 
         public IEnumerable<KeyValuePair<NetUserId, ICharacterProfile>> GetSelectedProfilesForPlayers(
             List<NetUserId> usernames)

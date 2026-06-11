@@ -10,8 +10,8 @@
     mayTransfer: true
     whitelist:
       tags:
-        - CartridgeHeavyPistol
-    capacity: 7
+        - CartridgeMagnum
+    capacity: 10
   - type: Item
     size: Small
   - type: ContainerContainer
@@ -34,10 +34,10 @@
 - type: entity
   parent: BaseMagazineEagle
   id: MagazineEagle
-  name: пистолетный магазин пустынного орла (.50 AE)
+  name: пистолетный магазин пустынного орла (.45 магнум)
   components:
   - type: BallisticAmmoProvider
-    proto: CartridgeHeavyPistol
+    proto: CartridgeMagnum
   - type: Sprite
     scale: 1.1, 1.1 # DS-14
     layers:
@@ -49,10 +49,10 @@
 - type: entity
   parent: BaseMagazineEagle
   id: MagazineEagleAP
-  name: пистолетный магазин пустынного орла (.50 AE бронебойные)
+  name: пистолетный магазин пустынного орла (.45 магнум бронебойные)
   components:
   - type: BallisticAmmoProvider
-    proto: CartridgeHeavyPistolAP
+    proto: CartridgeMagnumAP
   - type: Sprite
     scale: 1.1, 1.1 # DS-14
     layers:
@@ -105,11 +105,11 @@
             - MagazineEagleAP
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeHeavyPistol
+        startingItem: CartridgeMagnum
         priority: 1
         whitelist:
           tags:
-            - CartridgeHeavyPistol
+            - CartridgeMagnum
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

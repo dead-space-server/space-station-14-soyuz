@@ -33,10 +33,10 @@
   - Virology # DS14
   - Cryogenics
   #start-backmen: currency
-  minBankBalance: 500 # DS14-value
-  maxBankBalance: 700 # DS14-value
+  minBankBalance: 400
+  maxBankBalance: 600
   wageDepartment: Command
-  wage: 400 # DS14-value
+  wage: 125
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

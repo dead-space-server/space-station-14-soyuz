@@ -16,10 +16,10 @@
   extendedAccess:
   - Chemistry
   #start-backmen: currency
-  minBankBalance: 200 # DS14-value
-  maxBankBalance: 300 # DS14-value
+  minBankBalance: 150
+  maxBankBalance: 250
   wageDepartment: Medical
-  wage: 120 # DS14-value
+  wage: 55
   #end-backmen: currency
   special:
   - !type:AddComponentSpecial

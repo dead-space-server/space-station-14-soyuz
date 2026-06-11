@@ -20,7 +20,6 @@
         - MachineMask
         layer:
         - MachineLayer
-  - type: GravityAffected #DS14
   - type: Sprite
     sprite: Structures/Power/Generation/Tesla/coil.rsi
     snapCardinals: true
@@ -170,7 +169,6 @@
     lightningResistance: 10
     lightningExplode: false
     damageFromLightning: 0
-  - type: GravityAffected #DS14
   - type: Anchorable
   - type: Rotatable
   - type: Pullable

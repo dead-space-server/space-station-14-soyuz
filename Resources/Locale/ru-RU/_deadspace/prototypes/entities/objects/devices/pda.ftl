@@ -1,42 +1,5 @@
-# КСО
-
-ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
-    .desc = { ent-ERTLeaderPDA.desc }
-    .suffix = Гамма
-ent-ERTLeaderRedPDA = { ent-ERTLeaderPDA }
-    .desc = { ent-ERTLeaderPDA.desc }
-    .suffix = Красный
-
-ent-ERTSecurityGammaPDA = КПК офицера безопасности ОБР
-    .desc = { ent-ERTSecurityPDA.desc }
-    .suffix = Гамма
-ent-ERTSecurityRedPDA = КПК офицера безопасности ОБР
-    .desc = { ent-ERTSecurityPDA.desc }
-    .suffix = Красный
-
-ent-ERTMedicGammaPDA = КПК медика ОБР
-    .desc = { ent-ERTMedicPDA.desc }
-    .suffix = Гамма
-ent-ERTMedicRedPDA = КПК медика ОБР
-    .desc = { ent-ERTMedicPDA.desc }
-    .suffix = Красный
-
-ent-ERTEngineerGammaPDA = КПК инженера ОБР
-    .desc = { ent-ERTEngineerPDA.desc }
-    .suffix = Гамма
-ent-ERTEngineerRedPDA = КПК инженера ОБР
-    .desc = { ent-ERTEngineerPDA.desc }
-    .suffix = Красный
-
-ent-ERTJanitorGammaPDA = КПК уборщика ОБР
-    .desc = { ent-ERTJanitorPDA.desc }
-    .suffix = Гамма
-ent-ERTJanitorRedPDA = КПК уборщика ОБР
-    .desc = { ent-ERTJanitorPDA.desc }
-    .suffix = Красный
-
-# ЦК
-
+ent-SurgeonPDA = КПК хирурга
+    .desc = Красные пятна остались после одной из операций.
 ent-CentcomOfficialPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
 ent-CentcomAdministratorPDA = { ent-CentcomPDA }
@@ -47,6 +10,10 @@ ent-CentcomSpecialOperationsOfficerPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
 ent-CentcomFieldOfficerPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
+ent-ERTLeaderRedPDA = { ent-ERTLeaderPDA }
+    .desc = { ent-ERTLeaderPDA.desc }
+ent-ERTLeaderGammaPDA = { ent-ERTLeaderPDA }
+    .desc = { ent-ERTLeaderPDA.desc }
 
 ent-CoronerPDA = КПК патологоанатома
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!

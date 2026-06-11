@@ -258,10 +258,9 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
             var receiverComp = Comp<MessengerCartridgeComponent>(receiverCartridgeUid.Value);
             if (receiverComp.ActiveChatPartnerId != userData.Value.Id)
             {
-                if (server.Value.Component.Users.TryGetValue(sendMessage.ReceiverId, out var receiverUser))
+                if (server.Value.Component.Users.TryGetValue(userData.Value.Id, out var senderUser))
                 {
-                    receiverUser.UnreadCounts[userData.Value.Id] =
-                        receiverUser.UnreadCounts.GetValueOrDefault(userData.Value.Id, 0) + 1;
+                    senderUser.UnreadCounts[sendMessage.ReceiverId] = senderUser.UnreadCounts.GetValueOrDefault(sendMessage.ReceiverId, 0) + 1;
                     Dirty(server.Value.Uid, server.Value.Component);
                 }
             }

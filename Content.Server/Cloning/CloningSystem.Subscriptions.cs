@@ -8,14 +8,12 @@ using Content.Shared.Labels.EntitySystems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Paper;
-using Content.Shared.Sprite;
 using Content.Shared.Stacks;
 using Content.Shared.Speech.Components;
 using Content.Shared.Storage;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Robust.Shared.Prototypes;
-using System.Numerics;
 
 namespace Content.Server.Cloning;
 
@@ -34,7 +32,6 @@ public sealed partial class CloningSystem
     [Dependency] private readonly PaperSystem _paper = default!;
     [Dependency] private readonly VocalSystem _vocal = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly SharedScaleVisualsSystem _scaleVisuals = default!;
 
     public override void Initialize()
     {
@@ -57,7 +54,6 @@ public sealed partial class CloningSystem
         SubscribeLocalEvent<StorageComponent, CloningEvent>(OnCloneStorage);
         SubscribeLocalEvent<InventoryComponent, CloningEvent>(OnCloneInventory);
         SubscribeLocalEvent<MovementSpeedModifierComponent, CloningEvent>(OnCloneInventory);
-        SubscribeLocalEvent<ScaleVisualsComponent, CloningEvent>(OnCloneScaleVisuals);
     }
 
     private void OnCloneItemStack(Entity<StackComponent> ent, ref CloningItemEvent args)
@@ -130,23 +126,5 @@ public sealed partial class CloningSystem
             return;
 
         _movementSpeedModifier.CopyComponent(ent.AsNullable(), args.CloneUid);
-    }
-
-    private void OnCloneScaleVisuals(Entity<ScaleVisualsComponent> ent, ref CloningEvent args)
-    {
-        var registrationName = Factory.GetRegistration(ent.Comp.GetType()).Name;
-        if (!args.Settings.Components.Contains(registrationName) &&
-            !args.Settings.EventComponents.Contains(registrationName))
-        {
-            return;
-        }
-
-        // DS14-start: Copy the already applied scale, not only the component data.
-        var scale = _scaleVisuals.GetSpriteScale(ent.Owner);
-        if (scale == Vector2.One && ent.Comp.Scale != Vector2.One)
-            scale = ent.Comp.Scale;
-
-        _scaleVisuals.SetSpriteScale(args.CloneUid, scale);
-        // DS14-end
     }
 }

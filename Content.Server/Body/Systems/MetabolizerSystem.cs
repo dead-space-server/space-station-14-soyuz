@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+using System.Linq;
 using Content.Server.Body.Components;
-using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
 using Content.Shared.Body.Organ;
 using Content.Shared.Body.Prototypes;
@@ -17,6 +16,7 @@ using Content.Shared.EntityEffects.Effects.Body;
 using Content.Shared.EntityEffects.Effects.Solution;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Systems;
+using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -35,29 +35,17 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
     private EntityQuery<OrganComponent> _organQuery;
-    private EntityQuery<BloodstreamComponent> _bloodstreamQuery; // DS14
     private EntityQuery<SolutionContainerManagerComponent> _solutionQuery;
     private static readonly ProtoId<MetabolismGroupPrototype> Gas = "Gas";
-
-    // DS14-start
-    private readonly PriorityQueue<ScheduledMetabolizer, TimeSpan> _scheduledMetabolizers = new();
-    private readonly List<EntityUid> _rescheduleMetabolizers = [];
-    private readonly List<ReagentQuantity> _reagentScratch = [];
-    // DS14-end
 
     public override void Initialize()
     {
         base.Initialize();
 
         _organQuery = GetEntityQuery<OrganComponent>();
-        _bloodstreamQuery = GetEntityQuery<BloodstreamComponent>(); // DS14
         _solutionQuery = GetEntityQuery<SolutionContainerManagerComponent>();
 
         SubscribeLocalEvent<MetabolizerComponent, ComponentInit>(OnMetabolizerInit);
-        // DS14-start
-        SubscribeLocalEvent<MetabolizerComponent, ComponentShutdown>(OnMetabolizerShutdown);
-        SubscribeLocalEvent<MetabolizerComponent, EntityUnpausedEvent>(OnMetabolizerUnpaused);
-        // DS14-end
         SubscribeLocalEvent<MetabolizerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<MetabolizerComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
     }
@@ -65,7 +53,6 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
     private void OnMapInit(Entity<MetabolizerComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.AdjustedUpdateInterval;
-        ScheduleMetabolizer(ent); // DS14
     }
 
     private void OnMetabolizerInit(Entity<MetabolizerComponent> entity, ref ComponentInit args)
@@ -83,67 +70,30 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
     private void OnApplyMetabolicMultiplier(Entity<MetabolizerComponent> ent, ref ApplyMetabolicMultiplierEvent args)
     {
         ent.Comp.UpdateIntervalMultiplier = args.Multiplier;
-        ScheduleMetabolizer(ent); // DS14
     }
-
-    // DS14-start
-    private void OnMetabolizerShutdown(Entity<MetabolizerComponent> ent, ref ComponentShutdown args)
-    {
-        ent.Comp.ScheduleToken++;
-    }
-
-    private void OnMetabolizerUnpaused(Entity<MetabolizerComponent> ent, ref EntityUnpausedEvent args)
-    {
-        ent.Comp.NextUpdate += args.PausedTime;
-        ScheduleMetabolizer(ent);
-    }
-    // DS14-end
 
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
 
-        // DS14-start
-        var curTime = _gameTiming.CurTime;
-        _rescheduleMetabolizers.Clear();
+        var metabolizers = new ValueList<(EntityUid Uid, MetabolizerComponent Component)>(Count<MetabolizerComponent>());
+        var query = EntityQueryEnumerator<MetabolizerComponent>();
 
-        while (_scheduledMetabolizers.TryPeek(out var scheduled, out var nextUpdate) && nextUpdate <= curTime)
+        while (query.MoveNext(out var uid, out var comp))
         {
-            _scheduledMetabolizers.Dequeue();
+            metabolizers.Add((uid, comp));
+        }
 
-            if (!TryComp<MetabolizerComponent>(scheduled.Uid, out var metab)
-                || metab.ScheduleToken != scheduled.Token
-                || Paused(scheduled.Uid))
+        foreach (var (uid, metab) in metabolizers)
+        {
+            // Only update as frequently as it should
+            if (_gameTiming.CurTime < metab.NextUpdate)
                 continue;
-
-            if (curTime < metab.NextUpdate)
-            {
-                _rescheduleMetabolizers.Add(scheduled.Uid);
-                continue;
-            }
 
             metab.NextUpdate += metab.AdjustedUpdateInterval;
-            TryMetabolize((scheduled.Uid, metab));
-
-            if (TryComp<MetabolizerComponent>(scheduled.Uid, out metab) && !Paused(scheduled.Uid))
-                _rescheduleMetabolizers.Add(scheduled.Uid);
+            TryMetabolize((uid, metab));
         }
-
-        foreach (var uid in _rescheduleMetabolizers)
-        {
-            if (TryComp<MetabolizerComponent>(uid, out var metab) && !Paused(uid))
-                ScheduleMetabolizer((uid, metab));
-        }
-        // DS14-end
     }
-
-    // DS14-start
-    private void ScheduleMetabolizer(Entity<MetabolizerComponent> ent)
-    {
-        ent.Comp.ScheduleToken++;
-        _scheduledMetabolizers.Enqueue(new ScheduledMetabolizer(ent.Owner, ent.Comp.ScheduleToken), ent.Comp.NextUpdate);
-    }
-    // DS14-end
 
     private void TryMetabolize(Entity<MetabolizerComponent, OrganComponent?, SolutionContainerManagerComponent?> ent)
     {
@@ -183,41 +133,27 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
             return;
         }
 
-        // DS14-start
-        if (ent.Comp1.MetabolismGroups is null && !ent.Comp1.RemoveEmpty)
-            return;
+        // Copy the solution do not edit the original solution list
+        var list = solution.Contents.ToList();
 
-        // Copy the solution do not edit the original solution list.
-        _reagentScratch.Clear();
-        _reagentScratch.AddRange(solution.Contents);
-
-        List<ReagentId>? excludedReagents = null;
-        if (_bloodstreamQuery.HasComp(solutionEntityUid.Value))
-        {
-            // Collect blood reagents for filtering only on bloodstream solution entities.
-            var ev = new MetabolismExclusionEvent();
-            RaiseLocalEvent(solutionEntityUid.Value, ref ev);
-            excludedReagents = ev.Reagents;
-        }
+        // Collecting blood reagent for filtering
+        var ev = new MetabolismExclusionEvent();
+        RaiseLocalEvent(solutionEntityUid.Value, ref ev);
 
         // randomize the reagent list so we don't have any weird quirks
         // like alphabetical order or insertion order mattering for processing
-        _random.Shuffle(_reagentScratch);
+        _random.Shuffle(list);
 
         bool isDead = _mobStateSystem.IsDead(solutionEntityUid.Value);
-        var actualEntity = ent.Comp2?.Body ?? solutionEntityUid.Value;
-        var metabolismGroups = ent.Comp1.MetabolismGroups;
-        var solutionChanged = false;
-        // DS14-end
 
         int reagents = 0;
-        foreach (var (reagent, quantity) in _reagentScratch) // DS14
+        foreach (var (reagent, quantity) in list)
         {
             if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var proto))
                 continue;
 
             // Skip blood reagents
-            if (excludedReagents?.Contains(reagent) == true) // DS14
+            if (ev.Reagents.Contains(reagent))
                 continue;
 
             var mostToRemove = FixedPoint2.Zero;
@@ -225,10 +161,7 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
             {
                 if (ent.Comp1.RemoveEmpty)
                 {
-                    // DS14-start
-                    var removed = solution.RemoveReagent(reagent, FixedPoint2.New(1));
-                    solutionChanged |= removed > FixedPoint2.Zero;
-                    // DS14-end
+                    solution.RemoveReagent(reagent, FixedPoint2.New(1));
                 }
 
                 continue;
@@ -236,14 +169,15 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
 
             // we're done here entirely if this is true
             if (reagents >= ent.Comp1.MaxReagentsProcessable)
-                break; // DS14
+                return;
+
 
             // loop over all our groups and see which ones apply
-            if (metabolismGroups is null) // DS14
+            if (ent.Comp1.MetabolismGroups is null)
                 continue;
 
             // TODO: Kill MetabolismGroups!
-            foreach (var group in metabolismGroups) // DS14
+            foreach (var group in ent.Comp1.MetabolismGroups)
             {
                 if (!proto.Metabolisms.TryGetValue(group.Id, out var entry))
                     continue;
@@ -265,6 +199,8 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
                 // still remove reagents
                 if (isDead && !proto.WorksOnTheDead)
                     continue;
+
+                var actualEntity = ent.Comp2?.Body ?? solutionEntityUid.Value;
 
                 // do all effects, if conditions apply
                 foreach (var effect in entry.Effects)
@@ -304,29 +240,15 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
             // remove a certain amount of reagent
             if (mostToRemove > FixedPoint2.Zero)
             {
-                // DS14-start
-                var removed = solution.RemoveReagent(reagent, mostToRemove);
+                solution.RemoveReagent(reagent, mostToRemove);
 
-                if (removed > FixedPoint2.Zero)
-                {
-                    solutionChanged = true;
-
-                    // We have processed a reagant, so count it towards the cap
-                    reagents += 1;
-                }
-                // DS14-end
+                // We have processed a reagant, so count it towards the cap
+                reagents += 1;
             }
         }
 
-        // DS14-start
-        _reagentScratch.Clear();
-
-        if (solutionChanged)
-            _solutionContainerSystem.UpdateChemicals(soln.Value);
-        // DS14-end
+        _solutionContainerSystem.UpdateChemicals(soln.Value);
     }
-
-    private readonly record struct ScheduledMetabolizer(EntityUid Uid, uint Token); // DS14
 
     /// <summary>
     /// Public API to check if a certain metabolism effect can be applied to an entity.
@@ -365,3 +287,4 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
         return true;
     }
 }
+

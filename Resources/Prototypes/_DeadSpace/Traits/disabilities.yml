@@ -14,5 +14,4 @@
   traitGear: VehicleWheelchair
   category: Disabilities
   components:
-  - type: WheelchairUser
   - type: Worm

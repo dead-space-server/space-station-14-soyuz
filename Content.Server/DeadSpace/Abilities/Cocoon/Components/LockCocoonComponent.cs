@@ -35,7 +35,6 @@ public sealed partial class LockCocoonComponent : Component
     {
         MobState.Alive,
         MobState.Critical,
-        MobState.Dead,
-        MobState.PreCritical
+        MobState.Dead
     };
 }

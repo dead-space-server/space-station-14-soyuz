@@ -401,7 +401,6 @@
   description: Имплант TraumaTec.
   parent: BaseItem
   id: OtherMysticalRay
-  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/MysticalRay/other.rsi

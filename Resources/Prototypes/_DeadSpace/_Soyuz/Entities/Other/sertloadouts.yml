@@ -124,7 +124,7 @@
   content:
   - PyraAutoInjector
   - PunctAutoInjector
-  - DesoxyephedrineMedipen
+  - CelestinMedipen
 
 - type: thiefBackpackSet
   id: PenGSet
@@ -140,7 +140,7 @@
   - PunctAutoInjector
   - AntiPoisonMedipen
   - AirlossAutoInjector
-  - DesoxyephedrineMedipen
+  - CelestinMedipen
 
 - type: thiefBackpackSet
   id: StSet

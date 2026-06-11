@@ -1,0 +1,11 @@
+- type: stationGoal
+  id: Ambusol
+  text: "/Paperwork/StationGoal/Ambusol.xml"
+  startingEquipment: CrateCommandStationGoalAmbusol
+  extraStamps:
+    - stampedName: Наркомат ВБ
+      stampedColor: "#505050"
+      stampState: "paper_stamp-greytide"
+    - stampedName: stamp-component-stamped-name-centcom
+      stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+      stampedColor: "#006600"

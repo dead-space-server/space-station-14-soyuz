@@ -17,6 +17,7 @@
     - id: BoxPhotocopierToners # DS14
     - id: PlushieLizardJobQuartermaster
       prob: 0.02
+    - id: ClothingOuterHardsuitSoyuzQuartermaster # DS14-Soyuz
 
 - type: entity
   id: LockerQuarterMasterFilled

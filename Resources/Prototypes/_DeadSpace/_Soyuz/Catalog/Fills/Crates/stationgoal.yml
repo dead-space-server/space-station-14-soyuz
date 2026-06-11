@@ -1,0 +1,18 @@
+- type: entity
+  id: CrateCommandStationGoal
+  parent: CrateSecgear
+  name: ящик для плана
+  description: Содержит предметы для плановых работ. Для открытия требуется доступ командования.
+  suffix: Для плана, пустой
+  components:
+  - type: AccessReader
+    access: [["Command"]]
+
+- type: entity
+  id: CrateCommandStationGoalAmbusol
+  parent: CrateCommandStationGoal
+  suffix: Для плана Ambusol
+  components:
+  - type: StorageFill
+    contents:
+      - id: RomerolChemistryVial

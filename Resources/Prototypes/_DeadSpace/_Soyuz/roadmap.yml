@@ -9,17 +9,24 @@
 
 # Выполнено
 - type: roadmapEntry
-  id: RoadmapCompleted1
+  id: Roadmap1
   title: "Создать дорожную карту"
   description: "Создание менюшки дорожной карты в лобби игры"
   category: Completed
-  order: 1
   tags:
     - "QoL"
 
+- type: roadmapEntry
+  id: Roadmap5
+  title: "Возвращение планетоида"
+  description: "Вернуть планетоид на станции"
+  category: Completed
+  tags:
+    - "Карты"
+
 # В процессе
 - type: roadmapEntry
-  id: RoadmapInProgress1
+  id: Roadmap2
   title: "Играбельное СГШ"
   description: "Полностью играбельная станция генерального штаба на которой можно будет спокойно играть. Замена гост-бара в виде ролей сервисного отдела СГШ."
   category: InProgress
@@ -29,39 +36,36 @@
     - "Гост-бар"
 
 - type: roadmapEntry
-  id: RoadmapInProgress2
+  id: Roadmap3
   title: "Оптимизация дорожной карты"
   description: "Заменить в прототипе дорожной карты с прямого указания названия в прототипе на указание названия в локализацию"
   category: InProgress
-  order: 2
   tags:
     - "Админское"
 
 - type: roadmapEntry
-  id: RoadmapInProgress3
+  id: Roadmap4
   title: "Новые предметы маппинга"
   description: "Добавить цветочную кудзу в спавн меню для маппинга, кудза не будет разростаться"
   category: InProgress
-  order: 3
   tags:
     - "Админское"
     - "Маппинг"
 
-- type: roadmapEntry
-  id: RoadmapInProgress4
-  title: "Возвращение планетоида"
-  description: "Вернуть планетоид на станции"
-  category: InProgress
-  order: 4
-  tags:
-    - "Карты"
-
 # В планах
 - type: roadmapEntry
-  id: RoadmapPlanned1
+  id: Roadmap6
   title: "Самогонный аппарат" # САВКО СДЕЛАЙ САМОГОНКУ ПЖ
   description: "Самогонный аппарат, позволяющий делать различных самогон из всех видов фруктов. Дань уважения разработчикам, что пытались его сделать"
   category: Planned
   order: 1
   tags:
     - "Нереализуемо"
+
+- type: roadmapEntry
+  id: Roadmap7
+  title: "Скафандр завхоза"
+  description: "Добавить завхозу скафандр и разрешить чистить планетоид"
+  category: Planned
+  tags:
+    - "QoL"

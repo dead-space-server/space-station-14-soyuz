@@ -10,3 +10,5 @@ ent-CartridgeRifleIncendiary = патрон (5.56х45 мм зажигатель�
     .desc = { ent-BaseCartridgeRifle.desc }
 ent-CartridgeRifleUranium = патрон (5.56х45 мм урановый)
     .desc = { ent-BaseCartridgeRifle.desc }
+ent-CartridgeRifleFMJ = патрон (6.5х39 мм TSF FMJ)
+    .desc = { ent-BaseCartridgeRifle.desc }

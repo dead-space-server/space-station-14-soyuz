@@ -20,10 +20,10 @@
   - GenpopEnter
   - GenpopLeave
   #start-backmen: currency
-  minBankBalance: 150 # DS14-value
-  maxBankBalance: 350 # DS14-value
+  minBankBalance: 150
+  maxBankBalance: 250
   wageDepartment: Security
-  wage: 200 # DS14-value
+  wage: 60
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

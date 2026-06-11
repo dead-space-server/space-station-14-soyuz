@@ -27,10 +27,10 @@
         group: Medical
       # DS14-End
   #start-backmen: currency
-  minBankBalance: 200 # DS14-value
-  maxBankBalance: 300 # DS14-value
+  minBankBalance: 150
+  maxBankBalance: 250
   wageDepartment: Medical
-  wage: 125 # DS14-value
+  wage: 50
   #end-backmen: currency
 
 - type: startingGear

@@ -136,18 +136,6 @@
   equipment:
     belt: ClothingBeltSecurityWebbingFilled
 
-# DS14-start
-- type: loadout
-  id: HeadOfSecurityBelt
-  equipment:
-    belt: ClothingBeltHeadOfSecurityFilled
-
-- type: loadout
-  id: HeadOfSecurityWebbing
-  equipment:
-    belt: ClothingBeltHeadOfSecurityWebbingFilled
-# DS14-end
-
 # Outerclothing
 - type: loadout
   id: ArmorVest

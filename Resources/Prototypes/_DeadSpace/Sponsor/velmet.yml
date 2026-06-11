@@ -353,7 +353,6 @@
       - NewsReaderCartridge
       - MedTekCartridge
       - AstroNavCartridge
-      - MessengerCartridge
   - type: PdaBorderColor
     borderColor: "#70c3ff" # DS14
 
@@ -661,7 +660,7 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 10
+        Blunt: 14
 
 #WelderExperimental
 - type: entity

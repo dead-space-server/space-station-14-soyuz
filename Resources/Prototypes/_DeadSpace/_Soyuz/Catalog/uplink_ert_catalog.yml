@@ -1,8 +1,8 @@
 - type: listing
   id: UplinkERTDesoxyephedrineMedipen
-  name: инъектор целестина
+  name: инъектор дезоксиэфедрина
   description: инъектор быстрого стимулятора.
-  productEntity: CelestinMedipen
+  productEntity: DesoxyephedrineMedipen
   cost:
     RedSpaceCoupons: 4
   categories:

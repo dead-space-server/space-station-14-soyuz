@@ -20,9 +20,6 @@
   - type: RoarAccent
   - type: Hunger
   - type: Thirst
-  - type: Inventory
-    templateId: plafs
-    speciesId: plaf
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Scale

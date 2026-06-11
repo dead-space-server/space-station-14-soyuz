@@ -10,22 +10,14 @@ namespace Content.Server.Body.Components
     /// <summary>
     ///     Handles metabolizing various reagents with given effects.
     /// </summary>
-    [RegisterComponent, Access(typeof(MetabolizerSystem))] // DS14
+    [RegisterComponent, AutoGenerateComponentPause, Access(typeof(MetabolizerSystem))]
     public sealed partial class MetabolizerComponent : Component
     {
         /// <summary>
         ///     The next time that reagents will be metabolized.
         /// </summary>
-        [DataField] // DS14
+        [DataField, AutoPausedField]
         public TimeSpan NextUpdate;
-
-        // DS14-start
-        /// <summary>
-        ///     Runtime queue token used to invalidate stale scheduled updates.
-        /// </summary>
-        [ViewVariables]
-        public uint ScheduleToken;
-        // DS14-end
 
         /// <summary>
         ///     How often to metabolize reagents.

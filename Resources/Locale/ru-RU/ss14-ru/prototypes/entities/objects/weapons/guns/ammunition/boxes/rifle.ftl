@@ -15,3 +15,7 @@ ent-MagazineBoxRifleIncendiary = коробка патронов (5.56х45 мм 
     .desc = { ent-BaseMagazineBoxRifle.desc }
 ent-MagazineBoxRifleUranium = коробка патронов (5.56х45 мм урановые)
     .desc = { ent-BaseMagazineBoxRifle.desc }
+ent-MagazineBoxRifleBigFMJ = ящик патронов (6.5х39 мм TSF FMJ)
+    .desc = { ent-BaseMagazineBoxRifle.desc }
+ent-MagazineBoxRifleFMJ = коробка патронов (6.5х39 мм TSF FMJ)
+    .desc = { ent-BaseMagazineBoxRifle.desc }

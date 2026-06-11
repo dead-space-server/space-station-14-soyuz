@@ -7,11 +7,6 @@ namespace Content.Shared.Movement.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class JetpackComponent : Component
 {
-    // DS14-start
-    [DataField, AutoNetworkedField]
-    public bool RequiresGas = true;
-    // DS14-end
-
     [DataField, AutoNetworkedField]
     public EntityUid? JetpackUser;
 

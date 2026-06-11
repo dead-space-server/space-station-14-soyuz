@@ -139,14 +139,13 @@ public sealed partial class StoreMenu : DefaultWindow
         var spriteSys = _entityManager.EntitySysManager.GetEntitySystem<SpriteSystem>();
 
         Texture? texture = null;
-        EntProtoId? productEntity = null;
         if (listing.Icon != null)
             texture = spriteSys.Frame0(listing.Icon);
 
         if (listing.ProductEntity != null)
         {
             if (texture == null)
-                productEntity = listing.ProductEntity;
+                texture = spriteSys.GetPrototypeIcon(listing.ProductEntity).Default;
         }
         else if (listing.ProductAction != null)
         {
@@ -158,7 +157,7 @@ public sealed partial class StoreMenu : DefaultWindow
         var listingInStock = GetListingPriceString(listing);
         var discount = GetDiscountString(listing);
 
-        var newListing = new StoreListingControl(listing, listingInStock, discount, hasBalance, texture, productEntity);
+        var newListing = new StoreListingControl(listing, listingInStock, discount, hasBalance, texture);
         newListing.StoreItemBuyButton.OnButtonDown += args
             => OnListingButtonPressed?.Invoke(args, listing);
 

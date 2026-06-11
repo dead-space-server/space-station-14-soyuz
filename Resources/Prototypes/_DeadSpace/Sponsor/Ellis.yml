@@ -214,7 +214,6 @@
     - NewsReaderCartridge
     - MedTekCartridge
     - AstroNavCartridge
-    - MessengerCartridge
 
 - type: entity
   parent: JawsOfLife

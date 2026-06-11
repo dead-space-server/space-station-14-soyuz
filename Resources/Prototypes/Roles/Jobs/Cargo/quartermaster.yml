@@ -34,10 +34,10 @@
   - Cryogenics
   - External
   #start-backmen: currency
-  minBankBalance: 600 # DS14-value
-  maxBankBalance: 700 # DS14-value
+  minBankBalance: 150
+  maxBankBalance: 250
   wageDepartment: Cargo
-  wage: 400 # DS14-value
+  wage: 110
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

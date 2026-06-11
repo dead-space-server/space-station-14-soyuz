@@ -959,7 +959,7 @@
     - !type:StoreWhitelistCondition
       whitelist:
         tags:
-          - LoneOpsUplink
+          - NukeOpsUplink
   # DS14-end
 
 - type: listing

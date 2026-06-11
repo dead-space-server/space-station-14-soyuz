@@ -22,9 +22,9 @@ public sealed class RenegadeRule : StationEventSystem<Renegade.Components.Renega
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
+    [Dependency] private readonly RoleSystem _role = default!;
 
     public override void Initialize()
     {
@@ -33,24 +33,27 @@ public sealed class RenegadeRule : StationEventSystem<Renegade.Components.Renega
         SubscribeLocalEvent<CommunicationConsoleCallShuttleAttemptEvent>(OnShuttleCallAttempt);
     }
 
-    protected override void AppendRoundEndDiscordText(EntityUid uid,
-        Renegade.Components.RenegadeRuleComponent component,
-        GameRuleComponent gameRule,
-        ref RoundEndDiscordTextAppendEvent args)
+    protected override void Added(EntityUid uid, Renegade.Components.RenegadeRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
     {
-        base.AppendRoundEndDiscordText(uid, component, gameRule, ref args);
+        base.Added(uid, component, gameRule, args);
+    }
+
+    protected override void AppendRoundEndText(EntityUid uid, Renegade.Components.RenegadeRuleComponent component, GameRuleComponent gameRule,
+        ref RoundEndTextAppendEvent args)
+    {
+        base.AppendRoundEndText(uid, component, gameRule, ref args);
 
         var sessionData = _antag.GetAntagIdentifiers(uid);
+
         foreach (var (mind, data, name) in sessionData)
         {
-            var count = 0;
-            if (_role.MindHasRole<RenegadeSubmissionConditionComponent>(mind, out var role))
-                count = role.Value.Comp2.SubordinateCommand.Count;
+            _role.MindHasRole<RenegadeSubmissionConditionComponent>(mind, out var role);
+            var count = CompOrNull<RenegadeSubmissionConditionComponent>(role)?.SubordinateCommand.Count ?? 0;
 
             args.AddLine(Loc.GetString("renegade-sub-name-user",
-                ("name", name),
-                ("username", data.UserName),
-                ("count", count)));
+            ("name", name),
+            ("username", data.UserName),
+            ("count", count)));
         }
     }
 

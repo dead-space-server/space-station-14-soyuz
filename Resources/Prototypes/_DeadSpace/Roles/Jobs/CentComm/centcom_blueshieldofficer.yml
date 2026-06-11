@@ -42,16 +42,17 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
-      - id: ERTloadoutBlueShieldPrimary
       - id: ADTtelescopicBaton
       - id: TelescopicShield
+      - id: MagazinePistolSubMachineGun
+        amount: 3
       - id: MedkitCombatFilled
         amount: 2 
       - id: HandheldCrewMonitor
       - id: Zipties
-        amount: 2
-      - id: CelestinMedipen
-        amount: 2
+        amount: 3
+      - id: DesoxyephedrineMedipen
+        amount: 3
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
@@ -89,6 +90,7 @@
     pocket1: PistolBlueShield
     pocket2: WeaponDisabler
     belt: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+    suitstorage: WeaponSubMachineGunDrozd
   storage:
     outerClothing:
     - ClothingEyesGlassesMeson

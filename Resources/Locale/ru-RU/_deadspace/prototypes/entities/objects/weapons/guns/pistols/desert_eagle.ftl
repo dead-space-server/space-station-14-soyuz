@@ -1,8 +1,8 @@
 ent-BaseMagazineEagle = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }
-ent-MagazineEagle = пистолетный магазин пустынного орла (.50 AE)
+ent-MagazineEagle = пистолетный магазин пустынного орла (.45 магнум)
     .desc = { ent-BaseMagazineEagle.desc }
-ent-MagazineEagleAP = пистолетный магазин пустынного орла (.50 AE бронебойные)
+ent-MagazineEagleAP = пистолетный магазин пустынного орла (.45 магнум бронебойные)
     .desc = { ent-BaseMagazineEagle.desc }
 ent-DesertEagleBase = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }

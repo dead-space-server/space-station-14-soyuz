@@ -3,7 +3,6 @@
   parent: ClothingBackpack
   id: ClothingBackpackDrGnar
   name: демонический грифон
-  categories: [ HideSpawnMenu ]
   description: Эта чудовищная птица постоянно находится неподалеку от своего владельца, готовая всегда предоставить обширный арсенал.
   components:
   - type: Sprite
@@ -227,7 +226,6 @@
       - NewsReaderCartridge
       - MedTekCartridge
       - AstroNavCartridge
-      - MessengerCartridge
   - type: PdaBorderColor
     borderColor: "#6d1f1f"
 

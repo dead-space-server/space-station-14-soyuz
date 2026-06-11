@@ -10,7 +10,6 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.NPC.Systems;
-using Content.Shared.DeadSpace.Necromorphs.InfectionDead.Components; //DS14
 using Content.Shared.Zombies;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map.Components;
@@ -78,11 +77,6 @@ public sealed partial class DragonSystem : EntitySystem
                 }
             }
 
-            // DS14-Start | Дракон не помирает от времени если заражен
-            if (HasComp<ZombieComponent>(uid) || HasComp<NecromorfComponent>(uid))
-                continue;
-            //DS14-End
-
             // At max rifts
             if (comp.Rifts.Count >= RiftsAllowed)
                 continue;
@@ -129,14 +123,6 @@ public sealed partial class DragonSystem : EntitySystem
             _popup.PopupEntity(Loc.GetString("carp-rift-weakened"), uid, uid);
             return;
         }
-        
-        //DS14-Start
-        if (HasComp<ZombieComponent>(uid) || HasComp<NecromorfComponent>(uid))
-        {
-            _popup.PopupEntity(Loc.GetString("carp-rift-infected"), uid, uid);
-            return;
-        }
-        //DS14-End
 
         if (component.Rifts.Count >= RiftsAllowed)
         {

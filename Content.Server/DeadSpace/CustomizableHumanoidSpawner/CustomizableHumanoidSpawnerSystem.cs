@@ -5,7 +5,6 @@ using Content.Server.Ghost.Roles.Components;
 using Content.Server.Ghost.Roles;
 using Content.Server.Mind;
 using Content.Server.Preferences.Managers;
-using Content.Server.Roles.Jobs;
 using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace.CustomizableHumanoidSpawner;
 using Content.Shared.Mind.Components;
@@ -37,7 +36,6 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
     [Dependency] private readonly NpcFactionSystem _factionSystem = default!;
     [Dependency] private readonly ISerializationManager _serialization = default!;
     [Dependency] private readonly TraitSystem _trait = default!;
-    [Dependency] private readonly JobSystem _jobs = default!;
 
     public override void Initialize()
     {
@@ -164,7 +162,6 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
             _factionSystem.AddFactions(newEntity, comp.Factions);
 
         _mind.TransferTo(mindId, newEntity, true, mind: mindComp);
-        _jobs.MindAddJob(mindId, comp.JobPrototype);
 
         QueueDel(uid);
     }

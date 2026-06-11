@@ -5,8 +5,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics; //DS14
-using Robust.Shared.Network; //DS14
-using Robust.Shared.Physics.Events; //DS14
 using Content.Shared.Access.Components;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Damage;
@@ -43,7 +41,6 @@ public sealed partial class VehicleSystem : EntitySystem
     //DS14-start
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _net = default!; //DS14
     //DS14-end
 
     private EntityQuery<VehicleComponent> _vehicleQuery;
@@ -79,7 +76,6 @@ public sealed partial class VehicleSystem : EntitySystem
         //DS14-start
         SubscribeLocalEvent<VehicleOperatorComponent, UpdateCanMoveEvent>(OnOperatorUpdateCanMove);
         SubscribeLocalEvent<VehicleComponent, VehicleOperatorSetEvent>(OnVehicleOperatorSet);
-        SubscribeLocalEvent<VehicleComponent, StartCollideEvent>(OnStartCollide);
         //DS14-end
     }
 
@@ -570,30 +566,6 @@ public sealed partial class VehicleSystem : EntitySystem
 
         if (!CanVehicleRun((vehicleUid, vehicle)))
             args.Cancel();
-    }
-    private void OnStartCollide(Entity<VehicleComponent> ent, ref StartCollideEvent args)
-    {
-        if (!_net.IsServer)
-            return;
-
-        if (TerminatingOrDeleted(ent))
-            return;
-
-        if (ent.Comp.BreakOnCollideWith.Count == 0)
-            return;
-
-        var otherProto = MetaData(args.OtherEntity).EntityPrototype?.ID;
-        if (string.IsNullOrEmpty(otherProto))
-            return;
-
-        foreach (var breakProto in ent.Comp.BreakOnCollideWith)
-        {
-            if (breakProto.Id == otherProto)
-            {
-                QueueDel(ent.Owner);
-                return;
-            }
-        }
     }
     //DS14-end
 }

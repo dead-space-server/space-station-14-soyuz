@@ -171,14 +171,6 @@ namespace Content.Shared.Storage
         /// </summary>
         [DataField]
         public bool ShowVerb = true;
-
-        // DS14-start
-        /// <summary>
-        /// Dictionary: for each player - what item in this storage is his priority.
-        /// </summary>
-        [ViewVariables(VVAccess.ReadWrite)]
-        public Dictionary<EntityUid, EntityUid> PriorityItems = new();
-        // DS14-end
     }
 
     [Serializable, NetSerializable]
@@ -319,20 +311,4 @@ namespace Content.Shared.Storage
         Horizontal,
         Vertical
     }
-
-    // DS14-start
-    [Serializable, NetSerializable]
-    public sealed class StorageToggleItemPriorityEvent : EntityEventArgs
-    {
-        public readonly NetEntity Item;
-
-        public readonly NetEntity Storage;
-
-        public StorageToggleItemPriorityEvent(NetEntity item, NetEntity storage)
-        {
-            Item = item;
-            Storage = storage;
-        }
-    }
-    // DS14-end
 }

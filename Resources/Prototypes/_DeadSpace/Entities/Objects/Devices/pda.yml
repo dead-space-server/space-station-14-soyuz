@@ -57,17 +57,8 @@
   id: CentcomFieldOfficerPDA
   suffix: ПО
   components:
-  - type: Appearance
-    appearanceDataInit:
-     enum.PdaVisuals.PdaType:
-       !type:String
-       pda-black-centcom
-  - type: PdaBorderColor
-    borderColor: "#34343d"
-  - type: Icon
-    state: pda-black-centcom
   - type: Pda
-    id: CentcomFieldOfficerIDCard
+    id: CentcomFieldOfficerIDCar
 
 # ERT PDA
 # Leader
@@ -91,6 +82,7 @@
 - type: entity
   parent: ERTSecurityPDA
   id: ERTSecurityRedPDA
+  suffix: ОБР RED
   components:
   - type: Pda
     id: ERTSecurityRedIDCard
@@ -98,6 +90,7 @@
 - type: entity
   parent: ERTSecurityPDA
   id: ERTSecurityGammaPDA
+  suffix: ОБР Gamma
   components:
   - type: Pda
     id: ERTSecurityGammaIDCard
@@ -106,6 +99,7 @@
 - type: entity
   parent: ERTMedicPDA
   id: ERTMedicRedPDA
+  suffix: Медик RED
   components:
   - type: Pda
     id: ERTMedicRedIDCard
@@ -113,6 +107,7 @@
 - type: entity
   parent: ERTMedicPDA
   id: ERTMedicGammaPDA
+  suffix: Медик Gamma
   components:
   - type: Pda
     id: ERTMedicGammaIDCard
@@ -121,6 +116,7 @@
 - type: entity
   parent: ERTEngineerPDA
   id: ERTEngineerRedPDA
+  suffix: Инженер RED
   components:
   - type: Pda
     id: ERTEngineerRedIDCard
@@ -128,6 +124,7 @@
 - type: entity
   parent: ERTEngineerPDA
   id: ERTEngineerGammaPDA
+  suffix: Инженер Gamma
   components:
   - type: Pda
     id: ERTEngineerGammaIDCard
@@ -136,6 +133,7 @@
 - type: entity
   parent: ERTJanitorPDA
   id: ERTJanitorRedPDA
+  suffix: Уборщик RED
   components:
   - type: Pda
     id: ERTJanitorRedIDCard
@@ -143,6 +141,7 @@
 - type: entity
   parent: ERTJanitorPDA
   id: ERTJanitorGammaPDA
+  suffix: Уборщик Gamma
   components:
   - type: Pda
     id: ERTJanitorGammaIDCard
@@ -155,8 +154,6 @@
   components:
   - type: Pda
     id: CBURNLeaderIDcard
-
-
 
 - type: entity
   parent: BasePDA

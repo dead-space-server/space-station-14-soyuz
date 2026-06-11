@@ -6,7 +6,9 @@
   components:
   - type: Action
     useDelay: 180
-    icon: _DeadSpace/Demons/ability_icons/herald_enrage.png
+    icon:
+      sprite: _DeadSpace/Demons/demon_boss.rsi
+      state: herald
   - type: InstantAction
     event: !type:HeraldEnrageActionEvent
 
@@ -18,7 +20,9 @@
   components:
   - type: Action
     useDelay: 1
-    icon: _DeadSpace/Demons/ability_icons/herald_portal.png
+    icon:
+      sprite: _DeadSpace/Demons/demon_boss.rsi
+      state: herald
   - type: InstantAction
     event: !type:HeraldSpawnActionEvent
 
@@ -30,7 +34,9 @@
   components:
   - type: Action
     useDelay: 30
-    icon: _DeadSpace/Demons/ability_icons/herald_stun.png
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_damtype_brute
   - type: InstantAction
     event: !type:StunAttackActionEvent
 

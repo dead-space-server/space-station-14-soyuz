@@ -413,7 +413,6 @@ public sealed partial class MindTests
             Dirty = true
         });
         var server = pair.Server;
-        var mapData = await pair.CreateTestMap(); // DS14
 
         var entMan = server.ResolveDependency<IServerEntityManager>();
         var playerMan = server.ResolveDependency<IPlayerManager>();
@@ -446,7 +445,7 @@ public sealed partial class MindTests
 
             Assert.That(mind.OwnedEntity, Is.Not.Null);
 
-            ghostRole = entMan.SpawnEntity("GhostRoleTestEntity", mapData.GridCoords); // DS14
+            ghostRole = entMan.SpawnEntity("GhostRoleTestEntity", MapCoordinates.Nullspace);
         });
 
         await pair.RunTicksSync(20);

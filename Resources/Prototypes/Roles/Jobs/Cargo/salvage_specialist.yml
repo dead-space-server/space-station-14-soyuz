@@ -18,10 +18,10 @@
   - Maintenance
   - External
   #start-backmen: currency
-  minBankBalance: 250 # DS14-value
-  maxBankBalance: 350 # DS14-value
+  minBankBalance: 150
+  maxBankBalance: 250
   wageDepartment: Cargo
-  wage: 120 # DS14-value
+  wage: 60
   #end-backmen: currency
   special:
   - !type:AddComponentSpecial

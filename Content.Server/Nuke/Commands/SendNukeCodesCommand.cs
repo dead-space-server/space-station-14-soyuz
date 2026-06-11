@@ -1,7 +1,5 @@
 ﻿using Content.Server.Administration;
-using Content.Server.DeadSpace.Nuke;
 using Content.Shared.Administration;
-using Content.Shared.DeadSpace.Nuke;
 using Content.Shared.Station.Components;
 using Robust.Shared.Console;
 
@@ -10,7 +8,7 @@ namespace Content.Server.Nuke.Commands;
 [AdminCommand(AdminFlags.Fun)]
 public sealed class SendNukeCodesCommand : LocalizedEntityCommands
 {
-    [Dependency] private readonly NukeCodeSendQueueSystem _nukeCodeQueue = default!; // DS14
+    [Dependency] private readonly NukeCodePaperSystem _nukeCodeSystem = default!;
 
     public override string Command => "nukecodes";
 
@@ -28,20 +26,7 @@ public sealed class SendNukeCodesCommand : LocalizedEntityCommands
             return;
         }
 
-        // DS14-Start: route manual nuke-code sends through the approval queue.
-        var requester = shell.Player?.Name ?? Loc.GetString("nuke-codes-requester-server-console");
-        if (!_nukeCodeQueue.TryQueueAdminRequest(
-                uid.Value,
-                NukeCodeSendReasonIds.Manual,
-                requester,
-                out var result))
-        {
-            shell.WriteError(result ?? Loc.GetString("nuke-codes-admin-queue-failed"));
-            return;
-        }
-
-        shell.WriteLine(result ?? Loc.GetString("nuke-codes-admin-queued"));
-        // DS14-End
+        _nukeCodeSystem.SendNukeCodes(uid.Value);
     }
 
     public override CompletionResult GetCompletion(IConsoleShell shell, string[] args)

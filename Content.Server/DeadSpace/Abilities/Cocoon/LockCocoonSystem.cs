@@ -118,8 +118,7 @@ public sealed class LockCocoonSystem : EntitySystem
             { MobState.Invalid, "недействительное" },
             { MobState.Alive, "живое" },
             { MobState.Critical, "критическое" },
-            { MobState.Dead, "мёртвое" },
-            { MobState.PreCritical, "шокированное"} // DS14
+            { MobState.Dead, "мёртвое" }
         };
 
         foreach (var allowedState in component.AllowedStates)

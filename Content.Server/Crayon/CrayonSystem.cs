@@ -37,7 +37,6 @@ public sealed class CrayonSystem : SharedCrayonSystem
         SubscribeLocalEvent<CrayonComponent, UseInHandEvent>(OnCrayonUse);
         SubscribeLocalEvent<CrayonComponent, AfterInteractEvent>(OnCrayonAfterInteract, after: [typeof(IngestionSystem)]);
         SubscribeLocalEvent<CrayonComponent, DroppedEvent>(OnCrayonDropped);
-        SubscribeLocalEvent<CrayonComponent, CrayonRotationMessage>(OnCrayonRotation); //DS-14
     }
 
     private void OnMapInit(Entity<CrayonComponent> ent, ref MapInitEvent args)
@@ -47,14 +46,6 @@ public sealed class CrayonSystem : SharedCrayonSystem
         ent.Comp.SelectedState = decal?.ID ?? string.Empty;
         Dirty(ent);
     }
-
-    //DS-14 Start
-    private void OnCrayonRotation(EntityUid uid, CrayonComponent component, CrayonRotationMessage args)
-    {
-        component.Rotation = args.Rotation;
-        Dirty(uid, component);
-    }
-    //DS-14 End
 
     // Runs after IngestionSystem so it doesn't bulldoze force-feeding
     private void OnCrayonAfterInteract(EntityUid uid, CrayonComponent component, AfterInteractEvent args)
@@ -80,7 +71,7 @@ public sealed class CrayonSystem : SharedCrayonSystem
             return;
         }
 
-        if (!_decals.TryAddDecal(component.SelectedState, args.ClickLocation.Offset(new Vector2(-0.5f, -0.5f)), out _, component.Color, component.Rotation, cleanable: true)) //DS-14
+        if (!_decals.TryAddDecal(component.SelectedState, args.ClickLocation.Offset(new Vector2(-0.5f, -0.5f)), out _, component.Color, cleanable: true))
             return;
 
         if (component.UseSound != null)

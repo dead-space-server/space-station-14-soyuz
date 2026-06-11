@@ -13,19 +13,9 @@
   path: /Maps/Shuttles/ERT/cburn.yml
   dockTag: DockCentcommERTCburnShuttle
 
-- type: ertShuttle  
-  id: SpiderShuttle
-  path: /Maps/Shuttles/ERT/spider.yml
-  dockTag: DockCentcommERTCburnShuttle
-
-- type: ertShuttle  
-  id: NecroShuttle
-  path: /Maps/Shuttles/ERT/necro.yml
-  dockTag: DockCentcommERTCburnShuttle
-
 - type: ertShuttle
   id: BSAAShuttle
-  path: /Maps/Shuttles/ERT/BSAA.yml
+  path: /Maps/Shuttles/ERT/sierra.yml
   dockTag: DockCentcommERTBSAAShuttle
 
 - type: ertShuttle

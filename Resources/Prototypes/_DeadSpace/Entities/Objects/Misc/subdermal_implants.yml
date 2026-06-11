@@ -9,7 +9,7 @@
   components:
   - type: SubdermalImplant
   - type: RadioImplant
-    radioChannels: # DS14-Soyuz: radioChannel > radioChannels
+    radioChannels:
     - DeathSquad
 
 - type: entity
@@ -20,7 +20,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: RattleOnTrigger
-    radioChannels: # DS14-Soyuz: radioChannel > radioChannels
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels
     - DeathSquad
 
 # SOD implants
@@ -34,7 +34,7 @@
   components:
   - type: SubdermalImplant
   - type: RadioImplant
-    radioChannels: # DS14-Soyuz: radioChannel > radioChannels
+    radioChannels:
     - SOCChannel
 
 - type: entity
@@ -45,5 +45,5 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: RattleOnTrigger
-    radioChannels: # DS14-Soyuz: radioChannel > radioChannels
-    - SOCChannel
+    radioChannels: #DS14-Soyuz: radioChannel > radioChannels
+    - SOCChannel 

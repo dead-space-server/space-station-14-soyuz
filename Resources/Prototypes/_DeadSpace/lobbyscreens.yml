@@ -271,11 +271,6 @@
 - type: lobbyBackground
   id: LivTheFallOfBSAA
   background: /Textures/LobbyScreens/Fobos/liv-bsaa-fall.webp
-
-- type: lobbyBackground
-  id: MarmSec
-  background: /Textures/LobbyScreens/Fobos/marm.webp
-
 # Soyuz
 
 - type: lobbyBackground

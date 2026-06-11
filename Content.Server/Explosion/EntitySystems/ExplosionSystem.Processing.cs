@@ -248,6 +248,12 @@ public sealed partial class ExplosionSystem
             _atmosphere.HotspotExpose(grid.Owner, tile, temperature.Value, currentIntensity, cause, true);
         }
 
+        // heat the atmosphere
+        if (temperature != null)
+        {
+            _atmosphere.HotspotExpose(grid.Owner, tile, temperature.Value, currentIntensity, cause, true);
+        }
+
         // Walls and reinforced walls will break into girders. These girders will also be considered turf-blocking for
         // the purposes of destroying floors. Again, ideally the process of damaging an entity should somehow return
         // information about the entities that were spawned as a result, but without that information we just have to

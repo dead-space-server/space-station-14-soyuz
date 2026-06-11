@@ -3,13 +3,11 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared.Radio.Components;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState] //DS14
+[RegisterComponent, NetworkedComponent]
 public sealed partial class MessengerServerComponent : Component
 {
-    [AutoNetworkedField] //DS14
     public Dictionary<int, MessengerUser> Users = new();
 
-    [AutoNetworkedField] //DS14
     public List<MessengerMessage> Messages = new();
 }
 

@@ -96,12 +96,12 @@
     sprite: Objects/Misc/stock_parts.rsi
     state: bluespace_electrolite
 
-# Модули милиции рига
+# Модули СБ рига
 
 - type: entity
   parent: BaseItem
   id: ReflectModuleSecurityAdvanced
-  name: модуль милиции - отражение пуль (Продвинутый РИГ)
+  name: модуль СБ - отражение пуль (Продвинутый РИГ)
   description: Ultra instinct?
   components:
   - type: Sprite
@@ -111,7 +111,7 @@
 - type: entity
   parent: BaseItem
   id: StorageModuleSecurity
-  name: модуль милиции - малый подсумок (Обычный РИГ)
+  name: модуль СБ - малая подсумка (Обычный РИГ)
   description: СЕЙЧАС КАК ЗАПИХНУ СЮДА ДИСК ЯДЕРКИ И БУДУ СИДЕТЬ УГАРАТЬ С НЮКЕРОВ. 
   components:
   - type: Sprite
@@ -121,7 +121,7 @@
 - type: entity
   parent: BaseItem
   id: SpeedModifierModuleSecurity
-  name: модуль милиции - облегчение скафандра (Обычный РИГ)
+  name: модуль СБ - облегчение скафандра (Обычный РИГ)
   description: Может стоит просто скинуть лишний жир а не внушать себе что какой-то модуль облегчит тяжесть скафандра?
   components:
   - type: Sprite
@@ -131,7 +131,7 @@
 - type: entity
   parent: BaseItem
   id: SpeedModifierModuleSecurityAdvanced
-  name: модуль милиции - облегчение скафандра (Продвинутый РИГ)
+  name: модуль СБ - облегчение скафандра (Продвинутый РИГ)
   description: Может стоит просто скинуть лишний жир а не внушать себе что какой-то модуль облегчит тяжесть скафандра?
   components:
   - type: Sprite
@@ -141,7 +141,7 @@
 - type: entity
   parent: BaseItem
   id: PiercingResistanceModuleSecurityAdvanced
-  name: модуль милиции - продвинутая защита от пуль (Продвинутый РИГ)
+  name: модуль СБ - продвинутая защита от пуль (Продвинутый РИГ)
   description: Если ты будешь ловить ББшки зубами, то такой модуль тебе уж точно не нужен.
   components:
   - type: Sprite
@@ -287,7 +287,7 @@
 - type: entity
   parent: BaseItem
   id: PlastineOfSecurAdvancedityRIG
-  name: пластина для продвинутого модифицированного рюкзака милиции
+  name: пластина для продвинутого модифицированного рюкзака СБ
   description: Пластина что забита гильзами от МК.
   components:
   - type: Sprite
@@ -317,7 +317,7 @@
 - type: entity
   parent: BaseItem
   id: PlastineOfSecurityRIG
-  name: пластина для модифицированного рюкзака милиции
+  name: пластина для модифицированного рюкзака СБ
   description: Пластина что забита остатками кадета.
   components:
   - type: Sprite

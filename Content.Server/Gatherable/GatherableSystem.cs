@@ -5,7 +5,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Tag;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Whitelist;
-using Content.Shared.Wieldable.Components; // DS14
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
@@ -36,11 +35,6 @@ public sealed partial class GatherableSystem : EntitySystem
     {
         if (_whitelistSystem.IsWhitelistFailOrNull(gatherable.Comp.ToolWhitelist, args.Used))
             return;
-
-        // DS14-Start
-        if (TryComp<WieldableComponent>(args.Used, out var wieldable) && !wieldable.Wielded)
-            return;
-        // DS14-End
 
         var ev = new GatherableGatherAttemptEvent(args.Used, args.User, args.ClickLocation);
         RaiseLocalEvent(gatherable.Owner, ev);

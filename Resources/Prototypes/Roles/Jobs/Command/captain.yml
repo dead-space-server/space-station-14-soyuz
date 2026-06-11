@@ -32,10 +32,10 @@
   accessGroups:
   - AllAccess
   #start-backmen: currency
-  minBankBalance: 1300 # DS14-value
-  maxBankBalance: 1500 # DS14-value
+  minBankBalance: 400
+  maxBankBalance: 600
   wageDepartment: Command
-  wage: 1000 # DS14-value
+  wage: 200
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

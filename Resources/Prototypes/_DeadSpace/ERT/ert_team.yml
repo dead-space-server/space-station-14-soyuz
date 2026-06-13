@@ -44,9 +44,9 @@
     path: /Audio/Misc/delta_alt.ogg
   startAnnouncement: station-event-response-team-arrival-scst
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
-    Специализированный Отряд Против Пауков Ужаса СССП. 
+    Специализированный Отряд Против Пауков Ужаса. 
     Предназначен для ликвидации и локализации угрозы Пауков Ужаса,
     а также эвакуации персонала в условиях заражения.
     6 бойцов ОППУ и 1 лидер прибывают на шаттле ОППУ, который оснащён
@@ -80,9 +80,9 @@
     path: /Audio/Misc/delta_alt.ogg
   startAnnouncement: station-event-response-team-arrival-scnt
   startAudio:
-    path: /Audio/_DeadSpace/Announcements/centcomm.ogg # DS14-Announcements
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Announcements | DS14-Soyuz value
   description: 
-    Специализированный Отряд Против Некро Угрозы NanoTrasen. 
+    Специализированный Отряд Против Некро Угрозы. 
     Предназначен для ликвидации и локализации очагов Некро Угрозы,
     а также эвакуации персонала в условиях заражения.
     6 бойцов ОПНУ и 1 лидер прибывают на шаттле ОПНУ, который оснащён
@@ -352,7 +352,7 @@
   notification: ert-response-caused-messager-official
   rule: SpawnCentCommOfficialShuttle
   cancelMessage: 
-    Представитель Центрального Командования NanoTrasen не смог прибыть на станцию
+    Представитель Генерального Штаба не смог прибыть на станцию
     из-за непредвиденных обстоятельств. Мы приносим извинения за возможные неудобства.
   cooldown:
     min: 7m

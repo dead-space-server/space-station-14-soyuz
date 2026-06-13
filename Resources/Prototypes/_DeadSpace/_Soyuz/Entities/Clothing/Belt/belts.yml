@@ -8,3 +8,27 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Belt/deathwebbing.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Belt/deathwebbing.rsi
+
+- type: entity
+  parent: ClothingBeltSheath
+  id: ClothingBeltWhiteSheath
+  name: белые сабельные ножны
+  description: Настоящие королевские ножны.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/white_sheath.rsi
+    state: sheath
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/white_sheath.rsi
+
+- type: entity
+  parent: ClothingBeltSheath
+  id: ClothingBeltSheriffSheath
+  name: сабельные ножны шерифа
+  description: Лассо уже не в моде, предпочту саблю.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/sheriff_sheath.rsi
+    state: sheath
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/sheriff_sheath.rsi

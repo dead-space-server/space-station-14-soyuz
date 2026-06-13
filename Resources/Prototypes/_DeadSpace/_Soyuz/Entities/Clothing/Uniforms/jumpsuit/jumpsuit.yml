@@ -11,25 +11,14 @@
 
 - type: entity
   parent: [ClothingUniformBase, BaseCommandContraband]
-  id: ClothingUniformJumpsuitPolitRukSkirt
-  name: юбка-комбинезон политического отдела
-  description: Красивая бордовая юбка-комбинезон.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
-
-- type: entity
-  parent: [ClothingUniformBase, BaseCommandContraband]
   id: ClothingUniformJumpsuitPolitRuk
   name: комбинезон политического отдела
   description: Красивый бордовый комбинезон.
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukjumpsuit.rsi
   - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukjumpsuit.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukjumpsuit.rsi
 
 - type: entity
   parent: ClothingUniformBase

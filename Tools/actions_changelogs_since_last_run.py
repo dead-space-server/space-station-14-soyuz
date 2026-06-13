@@ -9,6 +9,7 @@ messages.
 """
 
 import os
+import re
 import time
 from pathlib import Path
 from typing import Any, Iterable, Optional
@@ -28,17 +29,22 @@ DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 DISCORD_WEBHOOK_URL_DEADSPACE = os.environ.get("CHANGELOG_DISCORD_WEBHOOK_DEADSPACE")
 DISCORD_USERNAME = "Обновления Союз-1 ☭"
 DISCORD_AVATAR_URL = "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true"
-DISCORD_EMBED_COLOR = 0xcc191c
 
 CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14Soyuz.yml"
 MOSCOW_TZ = timezone(timedelta(hours=3))
 
 TYPE_ORDER = ("Add", "Remove", "Tweak", "Fix")
-TYPE_LABELS = {
-    "Add": "🆕 Добавлено:",
-    "Remove": "❌ Удалено:",
-    "Tweak": "⚒️ Изменено:",
-    "Fix": "🐛 Исправлено:",
+TYPE_EMOJIS = {
+    "Add": "🆕",
+    "Remove": "❌",
+    "Tweak": "⚒️",
+    "Fix": "🐛",
+}
+TYPE_LABELS_RU = {
+    "Add": "Добавлено",
+    "Remove": "Удалено",
+    "Tweak": "Изменено",
+    "Fix": "Исправлено",
 }
 SECTION_TITLE_TO_TYPE = {
     "Добавлено": "Add",
@@ -46,13 +52,10 @@ SECTION_TITLE_TO_TYPE = {
     "Изменено": "Tweak",
     "Исправлено": "Fix",
 }
-UNKNOWN_TYPE_LABEL = "❓ Прочее:"
-
-EMBED_TITLE = "Все изменения от {date}"
-MESSAGE_FOOTER = "Данные изменения были опубликованы на сервер Союз-1"
+UNKNOWN_TYPE_LABEL = "❓ Прочее"
 
 ChangelogEntry = dict[str, Any]
-GroupedChanges = dict[str, dict[str, list[str]]]
+GroupedChanges = dict[str, dict[str, list[tuple[str, str]]]]  # author -> type -> list of (message, pr_url)
 
 
 def main():
@@ -80,7 +83,7 @@ def main():
         print("No changelog changes found since the last publish")
         return
 
-    messages = changelog_entries_to_messages(diff, last_publish_date)
+    messages = changelog_entries_to_messages(diff)
     send_messages(messages, last_publish_date)
 
 
@@ -90,12 +93,9 @@ def get_most_recent_workflow(
     workflow_run = get_current_run(sess, github_repository, github_run)
     past_runs = get_past_runs(sess, workflow_run)
     for run in past_runs["workflow_runs"]:
-        # First past successful run that is not our current run.
         if run["id"] == workflow_run["id"]:
             continue
-
         return run
-
     return None
 
 
@@ -110,9 +110,6 @@ def get_current_run(
 
 
 def get_past_runs(sess: requests.Session, current_run: Any) -> Any:
-    """
-    Get all successful workflow runs before our current one.
-    """
     params = {"status": "success", "created": f"<={current_run['created_at']}"}
     resp = sess.get(f"{current_run['workflow_url']}/runs", params=params)
     resp.raise_for_status()
@@ -152,17 +149,8 @@ def format_publish_date(created_at: str) -> str:
 def get_last_changelog_by_sha(
     sess: requests.Session, sha: str, github_repository: str
 ) -> str:
-    """
-    Use GitHub API to get the previous changelog YAML.
-
-    Actions builds are fetched with a shallow clone, so local git history is not
-    reliable here.
-    """
-    params = {
-        "ref": sha,
-    }
+    params = {"ref": sha}
     headers = {"Accept": "application/vnd.github.raw"}
-
     resp = sess.get(
         f"{GITHUB_API_URL}/repos/{github_repository}/contents/{CHANGELOG_FILE}",
         headers=headers,
@@ -175,75 +163,94 @@ def get_last_changelog_by_sha(
 def diff_changelog(
     old: dict[str, Any], cur: dict[str, Any]
 ) -> Iterable[ChangelogEntry]:
-    """
-    Find all new entries not present in the previous publish.
-    """
     old_entry_ids = {entry.get("id") for entry in old.get("Entries", [])}
     for entry in cur.get("Entries", []):
         if entry.get("id") not in old_entry_ids:
             yield entry
 
 
-def changelog_entries_to_messages(
-    entries: Iterable[ChangelogEntry], last_publish_date: str
-) -> list[str]:
+def extract_pr_url_from_entry(entry: ChangelogEntry) -> Optional[str]:
+    """Extract PR URL from changelog entry if available."""
+    # Try to get from metadata
+    metadata = entry.get("metadata", {})
+    if "pr_url" in metadata:
+        return metadata["pr_url"]
+    
+    # Try to extract from changelog text
+    changes = entry.get("changes", [])
+    for change in changes:
+        message = change.get("message", "")
+        # Look for PR pattern like (#343) or (PR #343)
+        pr_match = re.search(r'\((?:\w+\s+)?#?(\d+)\)', message)
+        if pr_match:
+            pr_num = pr_match.group(1)
+            repo = os.environ.get("GITHUB_REPOSITORY", "PERed5/soyuz")
+            return f"https://github.com/{repo}/pull/{pr_num}"
+    
+    return None
+
+
+def changelog_entries_to_messages(entries: Iterable[ChangelogEntry]) -> list[str]:
+    """Convert changelog entries to Discord messages in PR-style format."""
     grouped_changes = group_changes_by_author(entries)
     messages: list[str] = []
-    current_body = ""
-
-    for author, sections in grouped_changes.items():
-        author_block = render_author_block(author, sections)
-        if not author_block:
+    current_message = ""
+    
+    for author, changes in grouped_changes.items():
+        # Build message for this author
+        author_message = render_author_message(author, changes)
+        
+        if not author_message:
             continue
-
-        if len(author_block) > DISCORD_SPLIT_LIMIT:
-            if current_body:
-                messages.append(current_body)
-                current_body = ""
-
-            for split_block in split_author_block(author, sections, last_publish_date):
-                messages.append(split_block)
-
+        
+        # Check if we need to split
+        if len(author_message) > DISCORD_SPLIT_LIMIT:
+            if current_message:
+                messages.append(current_message)
+                current_message = ""
+            
+            # Split long author message
+            for split_part in split_long_author_message(author, changes):
+                messages.append(split_part)
             continue
-
-        candidate_body = join_message_bodies(current_body, author_block)
-        if current_body and len(candidate_body) > DISCORD_SPLIT_LIMIT:
-            messages.append(current_body)
-            current_body = author_block
+        
+        # Try to combine with previous message
+        if current_message and len(f"{current_message}\n\n{author_message}") <= DISCORD_SPLIT_LIMIT:
+            current_message = f"{current_message}\n\n{author_message}"
         else:
-            current_body = candidate_body
-
-    if current_body:
-        messages.append(current_body)
-
-    for message in messages:
-        if len(message) > DISCORD_SPLIT_LIMIT:
-            raise RuntimeError("Generated Discord changelog embed description exceeds the split limit")
-
+            if current_message:
+                messages.append(current_message)
+            current_message = author_message
+    
+    if current_message:
+        messages.append(current_message)
+    
     return messages
 
 
 def group_changes_by_author(entries: Iterable[ChangelogEntry]) -> GroupedChanges:
+    """Group changes by author and type, preserving PR URLs."""
     grouped: GroupedChanges = {}
-
+    
     for entry in entries:
         author = str(entry.get("author") or "unknown")
+        pr_url = extract_pr_url_from_entry(entry)
+        
         if author not in grouped:
             grouped[author] = {type_key: [] for type_key in TYPE_ORDER}
-
+        
         for change in entry.get("changes", []):
             type_key = str(change.get("type") or "")
             message = normalize_change_message(change.get("message", ""))
             sanitized = sanitize_change(type_key, message)
             if sanitized is None:
                 continue
-
+            
             type_key, message = sanitized
-            if message in grouped[author].setdefault(type_key, []):
-                continue
-
-            grouped[author].setdefault(type_key, []).append(message)
-
+            # Store as tuple (message, pr_url)
+            if (message, pr_url) not in grouped[author].setdefault(type_key, []):
+                grouped[author].setdefault(type_key, []).append((message, pr_url))
+    
     return grouped
 
 
@@ -254,195 +261,115 @@ def normalize_change_message(message: Any) -> str:
 def sanitize_change(type_key: str, message: str) -> Optional[tuple[str, str]]:
     if not message:
         return None
-
+    
     for section_title, section_type in SECTION_TITLE_TO_TYPE.items():
         prefix = f"{section_title}:"
         if message == prefix or message == section_title:
             return None
-
-        if not message.startswith(prefix):
-            continue
-
-        message = message[len(prefix):].strip()
-        if not message:
-            return None
-
-        return section_type, message
-
+        
+        if message.startswith(prefix):
+            message = message[len(prefix):].strip()
+            if not message:
+                return None
+            return section_type, message
+    
     return type_key, message
 
 
-def render_author_block(author: str, sections: dict[str, list[str]]) -> str:
-    lines = [f"**{author}**"]
-    wrote_section = False
-
-    for type_key in iter_section_keys(sections):
-        messages = sections[type_key]
-        if not messages:
+def render_author_message(author: str, changes: dict[str, list[tuple[str, str]]]) -> str:
+    """Render a single author's changes in PR-style format."""
+    lines = [f"👤 Автор: **{author}**", ""]
+    
+    for type_key in TYPE_ORDER:
+        items = changes.get(type_key, [])
+        if not items:
             continue
-
-        if wrote_section:
-            lines.append("")
-
-        lines.append(section_label(type_key))
-        lines.extend(f"- {message}" for message in messages)
-        wrote_section = True
-
-    if not wrote_section:
+        
+        emoji = TYPE_EMOJIS.get(type_key, "❓")
+        label_ru = TYPE_LABELS_RU.get(type_key, "Прочее")
+        
+        for message, pr_url in items:
+            if pr_url:
+                lines.append(f"{emoji} {label_ru} - {message} ([PR ссылка]({pr_url}))")
+            else:
+                lines.append(f"{emoji} {label_ru} - {message}")
+    
+    if len(lines) == 2:  # Only header
         return ""
-
+    
     return "\n".join(lines)
 
 
-def iter_section_keys(sections: dict[str, list[str]]) -> Iterable[str]:
+def split_long_author_message(author: str, changes: dict[str, list[tuple[str, str]]]) -> list[str]:
+    """Split a long author message into multiple Discord messages."""
+    messages = []
+    current_lines = [f"👤 Автор: **{author}**", ""]
+    
     for type_key in TYPE_ORDER:
-        yield type_key
-
-    for type_key in sections:
-        if type_key not in TYPE_ORDER:
-            yield type_key
-
-
-def section_label(type_key: str) -> str:
-    return TYPE_LABELS.get(type_key, UNKNOWN_TYPE_LABEL)
-
-
-def split_author_block(
-    author: str, sections: dict[str, list[str]], last_publish_date: str
-) -> list[str]:
-    split_blocks: list[str] = []
-    current_lines: list[str] = []
-
-    def flush_current():
-        nonlocal current_lines
-
-        if current_lines:
-            split_blocks.append("\n".join(current_lines))
-
-        current_lines = []
-
-    def start_section(type_key: str):
-        nonlocal current_lines
-
-        current_lines = [f"**{author}**", section_label(type_key)]
-
-    for type_key in iter_section_keys(sections):
-        flush_current()
-
-        for message in sections[type_key]:
-            for segment in split_change_message(author, type_key, message, last_publish_date):
-                line = f"- {segment}"
-
-                if not current_lines:
-                    start_section(type_key)
-
-                candidate_lines = [*current_lines, line]
-                if len("\n".join(candidate_lines)) <= DISCORD_SPLIT_LIMIT:
-                    current_lines.append(line)
-                    continue
-
-                flush_current()
-                start_section(type_key)
-                candidate_lines = [*current_lines, line]
-                if len("\n".join(candidate_lines)) > DISCORD_SPLIT_LIMIT:
-                    raise RuntimeError("Unable to split a changelog entry below Discord's limit")
-
+        items = changes.get(type_key, [])
+        if not items:
+            continue
+        
+        emoji = TYPE_EMOJIS.get(type_key, "❓")
+        label_ru = TYPE_LABELS_RU.get(type_key, "Прочее")
+        
+        for message, pr_url in items:
+            line = f"{emoji} {label_ru} - {message}"
+            if pr_url:
+                line += f" ([PR ссылка]({pr_url}))"
+            
+            # Check if adding this line exceeds limit
+            candidate = "\n".join([*current_lines, line])
+            if len(candidate) > DISCORD_SPLIT_LIMIT:
+                if len(current_lines) > 2:  # Have content
+                    messages.append("\n".join(current_lines))
+                current_lines = [f"👤 Автор: **{author}**", "", line]
+            else:
                 current_lines.append(line)
-
-    flush_current()
-    return split_blocks
-
-
-def split_change_message(
-    author: str, type_key: str, message: str, last_publish_date: str
-) -> Iterable[str]:
-    probe_body = "\n".join([f"**{author}**", section_label(type_key), "- x"])
-    segment_limit = DISCORD_SPLIT_LIMIT - len(probe_body) + 1
-    if segment_limit <= 0:
-        raise RuntimeError("Discord changelog message overhead exceeds the split limit")
-
-    text = message.strip()
-    while len(text) > segment_limit:
-        split_at = text.rfind(" ", 0, segment_limit + 1)
-        if split_at <= 0:
-            split_at = segment_limit
-
-        yield text[:split_at].rstrip()
-        text = text[split_at:].lstrip()
-
-    if text:
-        yield text
+    
+    if len(current_lines) > 2:
+        messages.append("\n".join(current_lines))
+    
+    return messages
 
 
-def join_message_bodies(left: str, right: str) -> str:
-    if not left:
-        return right
-
-    if not right:
-        return left
-
-    return f"{left}\n\n{right}"
-
-
-def get_discord_embed(description: str, last_publish_date: str, include_footer: bool):
-    embed = {
-        "color": DISCORD_EMBED_COLOR,
-        "title": EMBED_TITLE.format(date=last_publish_date),
-        "description": description,
-    }
-
-    if include_footer:
-        embed["footer"] = {
-            "text": MESSAGE_FOOTER,
-        }
-
-    return embed
-
-
-def get_discord_body(description: str, last_publish_date: str, include_footer: bool):
-    return {
+def send_discord_webhook(webhook_url: str, content: str):
+    """Send a message to Discord webhook."""
+    body = {
         "username": DISCORD_USERNAME,
         "avatar_url": DISCORD_AVATAR_URL,
-        "embeds": [
-            get_discord_embed(description, last_publish_date, include_footer),
-        ],
-        # Do not allow any mentions.
+        "content": content,
         "allowed_mentions": {"parse": []},
     }
-
-
-def send_discord_webhook(webhook_url: str, description: str, last_publish_date: str, include_footer: bool):
-    body = get_discord_body(description, last_publish_date, include_footer)
+    
     retry_attempt = 0
-
     try:
         response = requests.post(webhook_url, json=body, timeout=10)
         while response.status_code == 429:
             retry_attempt += 1
             if retry_attempt > 20:
-                print(f"Too many retries on a single request despite following retry_after header... giving up for {webhook_url}")
+                print(f"Too many retries... giving up for {webhook_url}")
                 return
-
             retry_after = response.json().get("retry_after", 5)
             print(f"Rate limited, retrying after {retry_after} seconds")
             time.sleep(retry_after)
             response = requests.post(webhook_url, json=body, timeout=10)
-
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(f"Failed to send message to {webhook_url}: {e}")
 
 
 def send_messages(messages: list[str], last_publish_date: str):
+    """Send all messages to Discord webhooks."""
     webhooks = [DISCORD_WEBHOOK_URL]
     if DISCORD_WEBHOOK_URL_DEADSPACE:
         webhooks.append(DISCORD_WEBHOOK_URL_DEADSPACE)
     
     for webhook_url in webhooks:
         print(f"Sending changelog to {webhook_url}")
-        for index, message in enumerate(messages, start=1):
-            print(f"Sending changelog embed {index}/{len(messages)} to discord")
-            send_discord_webhook(webhook_url, message, last_publish_date, index == len(messages))
+        for idx, message in enumerate(messages, 1):
+            print(f"Sending message {idx}/{len(messages)} to discord")
+            send_discord_webhook(webhook_url, message)
 
 
 if __name__ == "__main__":

@@ -863,6 +863,8 @@
       nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SCSTAgentGear ]
+    - type: GhostRoleNotifys # DS14
+      groupPrototype: CBURNGroup
 
 ## SCNT Agent
 - type: entity
@@ -979,6 +981,7 @@
     - type: NukeOperative
 
 - type: entity
+  id: RandomHumanoidSpawnerCluwne
   name: Cluwne
   suffix: spawns a cluwne
   components:

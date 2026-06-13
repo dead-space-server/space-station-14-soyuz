@@ -148,13 +148,15 @@
   materials:
     Steel: 25
     Silver: 200
+# DS14-Soyuz end
+
+- type: latheRecipe
   parent: BaseTargetRecipe
   id: Bola
   result: Bola
   materials:
     Steel: 600
     Plastic: 300
-# DS14-Soyuz end
 
 - type: latheRecipe
   parent: BaseTargetRecipe

@@ -168,6 +168,7 @@ loadout-group-head-of-security-jumpsuit = Начальник милиции, к�
 loadout-group-head-of-security-neck = Начальник милиции, шея
 loadout-group-head-of-security-outerclothing = Начальник милиции, верхняя одежда
 loadout-group-head-of-security-shoes = Начальник милиции, обувь
+loadout-group-head-of-security-belt = Начальник милиции, пояс
 loadout-group-medical-glasses = Медицинский отдел, очки
 loadout-group-head-of-security-socks = Начальник милиции, ноги
 loadout-group-head-of-security-underwear = Начальник милиции, нижнее бельё

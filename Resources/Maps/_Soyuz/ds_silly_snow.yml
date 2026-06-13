@@ -24847,11 +24847,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 15.523987,8.501556
       parent: 7584
-<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_silly_snow.yml
 - proto: ErtComputerShuttle
-=======
-- proto: ErtResponseConsole
->>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_silly_snow.yml
   entities:
   - uid: 8
     components:

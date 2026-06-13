@@ -62917,11 +62917,7 @@ entities:
     - type: Transform
       pos: 16.005564,13.58702
       parent: 2
-<<<<<<< HEAD:Resources/Maps/_Soyuz/amber.yml
 - proto: ErtComputerShuttle
-=======
-- proto: ErtResponseConsole
->>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/amber.yml
   entities:
   - uid: 7604
     components:
@@ -113543,16 +113539,6 @@ entities:
     - type: Transform
       pos: -20.5,6.5
       parent: 2
-<<<<<<< HEAD:Resources/Maps/_Soyuz/amber.yml
-=======
-- proto: SuitStorageSeniorSalvageSpecialistFilled
-  entities:
-  - uid: 1813
-    components:
-    - type: Transform
-      pos: 14.5,25.5
-      parent: 2
->>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/amber.yml
 - proto: SuitStorageWarden
   entities:
   - uid: 16469

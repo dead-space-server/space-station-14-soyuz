@@ -101662,7 +101662,11 @@ entities:
     - type: Transform
       pos: -132.41412,91.54821
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/gate.yml
 - proto: ErtComputerShuttle
+=======
+- proto: ErtResponseConsole
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/gate.yml
   entities:
   - uid: 30013
     components:
@@ -101670,7 +101674,11 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 88.5,63.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/gate.yml
 - proto: ErtResponseConsole
+=======
+- proto: ErtResponceConsole
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/gate.yml
   entities:
   - uid: 12883
     components:
@@ -203621,6 +203629,16 @@ entities:
     - type: Transform
       pos: 57.5,56.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/gate.yml
+=======
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 12545
+    components:
+    - type: Transform
+      pos: -35.5,-15.5
+      parent: 2
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/gate.yml
 - proto: SurveillanceCameraCommand
   entities:
   - uid: 29208

@@ -33,6 +33,10 @@
     },
     {
       "name": "uranium"
-    }
+    },
+        {
+            "name": "inhand-left-mag",
+            "directions": 4
+        }
     ]
 }

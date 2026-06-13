@@ -80920,7 +80920,11 @@ entities:
     - type: Transform
       pos: -143.17523,-19.971285
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/plasma.yml
 - proto: ErtComputerShuttle
+=======
+- proto: ErtResponseConsole
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/plasma.yml
   entities:
   - uid: 10528
     components:
@@ -156206,6 +156210,16 @@ entities:
     - type: Transform
       pos: -80.5,-21.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/plasma.yml
+=======
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 10527
+    components:
+    - type: Transform
+      pos: -92.5,35.5
+      parent: 2
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/plasma.yml
 - proto: SuitStorageWarden
   entities:
   - uid: 22770

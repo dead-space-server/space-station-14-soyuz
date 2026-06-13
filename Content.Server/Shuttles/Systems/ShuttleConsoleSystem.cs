@@ -16,13 +16,7 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Power;
 using Content.Shared.Shuttles.UI.MapObjects;
 using Content.Shared.Timing;
-//DS14-start
-using Content.Shared.DeadSpace.Shuttles.Components;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Mind;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Physics.Components;
-//DS14-end
 using Robust.Server.GameObjects;
 using Robust.Shared.Collections;
 using Robust.Shared.GameStates;
@@ -47,7 +41,10 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private readonly TagSystem _tags = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedContentEyeSystem _eyeSystem = default!;
-    [Dependency] private readonly DeviceLinkSystem _link = default!; // DS14
+    // DS14-start
+    [Dependency] private readonly DeviceLinkSystem _link = default!;
+    [Dependency] private readonly RadarBlipSystem _radarBlips = default!;
+    // DS14-end
 
     private EntityQuery<MetaDataComponent> _metaQuery;
     private EntityQuery<TransformComponent> _xformQuery;
@@ -277,7 +274,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         if (shuttleGridUid != null && entity != null)
         {
             navState = GetNavState(entity.Value, dockState.Docks);
-            navState.Blips = CollectShuttleSpaceBlips(consoleUid, navState.MaxRange); //DS14
+            if (TryComp<RadarConsoleComponent>(consoleUid, out var radar))
+                navState.Blips = _radarBlips.CollectSpaceBlips(consoleUid, radar, navState.MaxRange); // DS14
             mapState = GetMapState(shuttleGridUid.Value);
         }
         else

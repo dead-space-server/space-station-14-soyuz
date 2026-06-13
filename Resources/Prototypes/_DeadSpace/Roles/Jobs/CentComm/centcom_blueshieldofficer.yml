@@ -50,9 +50,9 @@
         amount: 2 
       - id: HandheldCrewMonitor
       - id: Zipties
-        amount: 3
-      - id: DesoxyephedrineMedipen
-        amount: 3
+        amount: 2
+      - id: CelestinMedipen
+        amount: 2
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
@@ -90,7 +90,6 @@
     pocket1: PistolBlueShield
     pocket2: WeaponDisabler
     belt: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
-    suitstorage: WeaponSubMachineGunDrozd
   storage:
     outerClothing:
     - ClothingEyesGlassesMeson

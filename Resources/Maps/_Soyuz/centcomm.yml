@@ -28118,7 +28118,11 @@ entities:
     - type: Transform
       pos: 15.5,-102.5
       parent: 1
+<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
 - proto: BookshelfFilled
+=======
+- proto: Bookshelf
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/centcomm.yml
   entities:
   - uid: 1512
     components:
@@ -28165,6 +28169,11 @@ entities:
           - 1514
           - 1516
           - 1520
+<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
+=======
+- proto: BookshelfFilled
+  entities:
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/centcomm.yml
   - uid: 1534
     components:
     - type: Transform
@@ -28471,6 +28480,23 @@ entities:
     - type: Transform
       pos: -26.593285,-125.393234
       parent: 1
+<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
+=======
+- proto: BoxFolderCentCom
+  entities:
+  - uid: 1596
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 20.662409,-166.41393
+      parent: 1
+  - uid: 1597
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 20.453934,-166.40004
+      parent: 1
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/centcomm.yml
 - proto: BoxFolderCentComClipboardEmpty
   entities:
   - uid: 1598

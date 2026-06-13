@@ -101841,7 +101841,11 @@ entities:
       parent: 16149
     - type: Physics
       canCollide: False
+<<<<<<< HEAD:Resources/Maps/_Soyuz/origin.yml
 - proto: ErtComputerShuttle
+=======
+- proto: ErtResponseConsole
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/origin.yml
   entities:
   - uid: 14049
     components:
@@ -101849,7 +101853,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,19.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/origin.yml
 - proto: ErtResponseConsole
+=======
+- proto: ErtResponceConsole
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/origin.yml
   entities:
   - uid: 34761
     components:
@@ -191044,6 +191052,16 @@ entities:
     components:
     - type: Transform
       pos: 54.5,8.5
+<<<<<<< HEAD:Resources/Maps/_Soyuz/origin.yml
+=======
+      parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 24098
+    components:
+    - type: Transform
+      pos: -38.5,30.5
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/origin.yml
       parent: 2
 - proto: SuitStorageWarden
   entities:

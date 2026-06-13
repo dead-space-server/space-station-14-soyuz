@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Client.Info;
 using Content.Client.Info.PlaytimeStats;
 using Content.Shared.CCVar;
@@ -23,6 +24,7 @@ namespace Content.Client.Lobby.UI
         [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         private readonly Button _createNewCharacterButton;
+        private readonly HumanoidProfileEditor _profileEditor; // DS14
 
         public event Action<int>? SelectCharacter;
         public event Action<int>? DeleteCharacter;
@@ -31,6 +33,7 @@ namespace Content.Client.Lobby.UI
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
+            _profileEditor = profileEditor; // DS14
 
             _createNewCharacterButton = new Button
             {
@@ -65,6 +68,11 @@ namespace Content.Client.Lobby.UI
         {
             _createNewCharacterButton.Orphan();
             Characters.RemoveAllChildren();
+            // DS14-start
+            InaccessibleCharacters.RemoveAllChildren();
+            InaccessibleCharactersHeader.Visible = false;
+            InaccessibleCharacters.Visible = false;
+            // DS14-end
 
             var numberOfFullSlots = 0;
             var characterButtonsGroup = new ButtonGroup();
@@ -80,7 +88,7 @@ namespace Content.Client.Lobby.UI
 
             var selectedSlot = _preferencesManager.Preferences?.SelectedCharacterIndex;
 
-            foreach (var (slot, character) in _preferencesManager.Preferences!.Characters)
+            foreach (var (slot, character) in _preferencesManager.Preferences!.Characters.OrderBy(p => p.Key)) // DS14
             {
                 numberOfFullSlots++;
                 var characterPickerButton = new CharacterPickerButton(_entManager,
@@ -101,6 +109,35 @@ namespace Content.Client.Lobby.UI
                     DeleteCharacter?.Invoke(slot);
                 };
             }
+            // DS14-start
+            foreach (var (slot, character) in _preferencesManager.Preferences.InaccessibleCharacters.OrderBy(p => p.Key))
+            {
+                InaccessibleCharactersHeader.Visible = true;
+                InaccessibleCharacters.Visible = true;
+
+                var characterPickerButton = new CharacterPickerButton(_entManager,
+                    _protomanager,
+                    null,
+                    character,
+                    false,
+                    true);
+
+                InaccessibleCharacters.AddChild(characterPickerButton);
+
+                characterPickerButton.OnPressed += args =>
+                {
+                    if (character is HumanoidCharacterProfile humanoid)
+                        _profileEditor.SetProfile(humanoid, slot, true);
+
+                    args.Event.Handle();
+                };
+
+                characterPickerButton.OnDeletePressed += () =>
+                {
+                    DeleteCharacter?.Invoke(slot);
+                };
+            }
+            // DS14-end
 
             _createNewCharacterButton.Disabled = numberOfFullSlots >= _preferencesManager.Settings.MaxCharacterSlots;
             Characters.AddChild(_createNewCharacterButton);

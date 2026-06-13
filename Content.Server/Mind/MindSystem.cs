@@ -226,12 +226,6 @@ public sealed class MindSystem : SharedMindSystem
         var oldEntity = mind.OwnedEntity;
         if (TryComp(oldEntity, out MindContainerComponent? oldContainer))
         {
-            // DS14 Remove PVS override for old entity so player no longer always sees it
-            if (mind.UserId != null && _players.TryGetSessionById(mind.UserId.Value, out var oldSession))
-            {
-                _pvsOverride.RemoveSessionOverride(oldEntity.Value, oldSession);
-            }
-
             Entity<MindComponent> mindEnt = (mindId, mind);
             Entity<MindContainerComponent> containerEnt = (oldEntity.Value, oldContainer);
 

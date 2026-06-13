@@ -183,10 +183,7 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
         _explosion.QueueExplosion(uid, action.ExplosionType, action.ExplosionIntensity, 1f, 2f, maxTileBreak: 0);
         QueueDel(uid);
     }
-    private void HandleBlock(EntityUid uid, BlockWorkingEntityAction action)
-    {
         if (Deleted(uid))
-            return;
 
         SpawnFromTable(uid, action.SpawnTable);
 

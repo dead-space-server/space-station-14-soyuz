@@ -14396,10 +14396,58 @@ entities:
     - type: Transform
       pos: -6.305,62.425056
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
   - uid: 17997
     components:
     - type: Transform
       pos: -6.4068522,62.563942
+=======
+- proto: ChemistryBottleBicaridine
+  entities:
+  - uid: 68
+    components:
+    - type: Transform
+      parent: 67
+    - type: Physics
+      canCollide: False
+  - uid: 81
+    components:
+    - type: Transform
+      parent: 80
+    - type: Physics
+      canCollide: False
+- proto: ChemistryBottleDermaline
+  entities:
+  - uid: 69
+    components:
+    - type: Transform
+      parent: 67
+    - type: Physics
+      canCollide: False
+- proto: ChemistryBottleDexalin
+  entities:
+  - uid: 82
+    components:
+    - type: Transform
+      parent: 80
+    - type: Physics
+      canCollide: False
+- proto: ChemistryBottleDexalinPlus
+  entities:
+  - uid: 83
+    components:
+    - type: Transform
+      parent: 80
+    - type: Physics
+      canCollide: False
+- proto: ADTRedChair
+  entities:
+  - uid: 91
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -15.5,23.5
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
       parent: 2
 - proto: ADTVodkaAntivirusGlass
   entities:
@@ -111478,7 +111526,16 @@ entities:
     - type: Transform
       pos: 3.5,32.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
 - proto: LockerMime
+=======
+  - uid: 15236
+    components:
+    - type: Transform
+      pos: 3.5,28.5
+      parent: 2
+- proto: LockerMimeFilled
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
   entities:
   - uid: 14414
     components:
@@ -117919,6 +117976,483 @@ entities:
       fixtures: {}
 - proto: Paper
   entities:
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
+=======
+  - uid: 1113
+    components:
+    - type: MetaData
+      desc: Пахнет злобой...
+    - type: Transform
+      parent: 1109
+    - type: Paper
+      content: >-
+        Боже... Я ненавижу всех этих ксеносов, я хочу назад на землю...
+
+
+        Почему блять я вообще пошёл работать на чёртово NanoTrasen?!
+
+
+        Я боже мой упаси, человек... Я точно сука возьму этот ебучий нож, и воткну в ближайшего Фелинида!
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 1166
+    components:
+    - type: Transform
+      parent: 1157
+    - type: Paper
+      content: Любопытно, что происходит с человеком после смерти?
+    - type: Physics
+      canCollide: False
+    - type: InsideEntityStorage
+  - uid: 15533
+    components:
+    - type: Transform
+      pos: -19.34811,-31.384142
+      parent: 2
+    - type: Paper
+      content: Датчики-рак
+  - uid: 15534
+    components:
+    - type: Transform
+      pos: 19.291546,-49.469
+      parent: 2
+    - type: Paper
+      content: первое правило клуба...
+  - uid: 15535
+    components:
+    - type: Transform
+      pos: 37.493134,-17.484388
+      parent: 2
+    - type: Paper
+      stampState: paper_stamp-greytide
+      stampedBy:
+      - stampedColor: '#323232FF'
+        stampedName: 21376-21736
+      content: >-
+        [bold]                 НИКТО НЕ ДОЛЖЕН ЗНАТЬ
+
+        ██████████████████████████▓▓████████
+
+        ████████████████████████████████████
+
+        ████████████████████████████████████
+
+        █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████
+
+        ▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓█████████
+
+        ▒▒▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▓▒▒▓▓▓▒▒▓▓▓▓██████
+
+        █████████▓▓▒▒▒▒▓▓██████████▓▓▒▓█████
+
+        █████████▓▓▒▒▒▒▓▓███████████▒▒▒▓▓███
+
+        ████████▓▓▒▒▒▒▒▒▓▓███████▓▓▒▒▒▓▓▓▓██
+
+        ▒▒▒▒▒▒▒▓▓▓▒▒▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▓▓▓██████
+
+        ▓▒▒▒▒▒▒▓▓█▓▓▓▓▓▓▓▓▓▒▒▒▒▒▒▓▓█████████
+
+        █▓▓▓▒▒▒▓██████████▓▓▒▓▓▓▓███████████
+
+        ██▓▓▓▓▓▓▓████████▓▓▓▓▓██████████████
+
+        ████████████████████████████████▓▓██
+
+        ████████████████████████████████▓▒▓▓
+
+        ██████████████████████████████▓▓▓▒▒▒
+
+        ████████████████████████████▓▓▓▓▒▒▒▒
+
+        ███████████████████████████▓▓▓▓▓▒▒▒▒
+
+        █████████████████████████▓▓▓▓▓▓▓▓▓▓▓
+  - uid: 15536
+    components:
+    - type: Transform
+      pos: -24.353907,51.522476
+      parent: 2
+    - type: Paper
+      stampState: paper_stamp-deny
+      stampedBy:
+      - stampedColor: '#A23E3EFF'
+        stampedName: Хуйня, переделать
+      - stampedColor: '#006600FF'
+        stampedName: Центральное Командование
+      - stampedColor: '#A23E3EFF'
+        stampedName: ОТКАЗАНО
+      content: помогите мне..
+  - uid: 15537
+    components:
+    - type: Transform
+      pos: -3.544734,-73.322235
+      parent: 2
+  - uid: 15538
+    components:
+    - type: Transform
+      pos: -3.4713502,-73.43231
+      parent: 2
+  - uid: 15539
+    components:
+    - type: Transform
+      pos: -3.3735056,-73.50569
+      parent: 2
+  - uid: 15540
+    components:
+    - type: Transform
+      pos: -1.3831908,-77.30288
+      parent: 2
+  - uid: 15541
+    components:
+    - type: Transform
+      pos: -1.4198825,-77.437416
+      parent: 2
+  - uid: 15542
+    components:
+    - type: Transform
+      pos: -21.746382,74.66392
+      parent: 2
+  - uid: 15543
+    components:
+    - type: Transform
+      pos: -21.672997,74.56607
+      parent: 2
+  - uid: 15544
+    components:
+    - type: Transform
+      pos: -5.0366616,23.185946
+      parent: 2
+    - type: Paper
+      content: Ну чёртов.. Карлотон! Опять пропал.. В баре сидит он сто пудов.. Сказал просто за конденсатором сбегать.. Теперь придется забыть об сборке, а ведь именно мне потом наваляют и пригрозят.. "Вы даже на такое простое задание не способы?" Скажут нам.. А ведь НЕ Я БЫЛ В ЭТОМ ВИНОВАТ!
+  - uid: 15545
+    components:
+    - type: Transform
+      pos: -32.293133,-24.433725
+      parent: 2
+    - type: Paper
+      content: 'если ты это видешь то знай что я тот клоун с документа '
+  - uid: 15546
+    components:
+    - type: Transform
+      pos: -38.541378,-17.230505
+      parent: 2
+    - type: Paper
+      content: Карпа бог храни!
+  - uid: 15547
+    components:
+    - type: Transform
+      pos: -22.445847,-48.32321
+      parent: 2
+    - type: Paper
+      stampState: paper_stamp-syndicate
+      stampedBy:
+      - stampedColor: '#850000FF'
+        stampedName: stamp-component-stamped-name-syndicate
+      content: 'Мы поймали этого слащавого педика, остальное я оставлю на тебя.. Его я брошу в ванной истекать кровью, пусть отходит от нашего небольшого допроса. Дальше думаю сам разберешься что делать с ним. '
+  - uid: 24319
+    components:
+    - type: Transform
+      pos: 2.5512614,-0.23849982
+      parent: 22804
+  - uid: 24320
+    components:
+    - type: Transform
+      pos: 2.5825114,-0.4155832
+      parent: 22804
+- proto: PaperBin10
+  entities:
+  - uid: 15548
+    components:
+    - type: Transform
+      pos: 27.5,2.5
+      parent: 2
+  - uid: 15549
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 5.5,66.5
+      parent: 2
+- proto: PaperBin5
+  entities:
+  - uid: 15550
+    components:
+    - type: Transform
+      pos: 3.5,60.5
+      parent: 2
+  - uid: 15551
+    components:
+    - type: Transform
+      pos: -0.5,80.5
+      parent: 2
+  - uid: 15552
+    components:
+    - type: Transform
+      pos: -35.5,9.5
+      parent: 2
+  - uid: 24321
+    components:
+    - type: Transform
+      pos: 2.5,-0.5
+      parent: 22804
+- proto: PaperCaptainsThoughts
+  entities:
+  - uid: 15553
+    components:
+    - type: Transform
+      pos: -8.720284,73.50827
+      parent: 2
+  - uid: 15554
+    components:
+    - type: Transform
+      pos: -8.769207,73.63058
+      parent: 2
+  - uid: 15555
+    components:
+    - type: Transform
+      pos: -8.524595,73.42266
+      parent: 2
+- proto: PaperOffice
+  entities:
+  - uid: 15556
+    components:
+    - type: Transform
+      pos: 4.649557,70.874886
+      parent: 2
+  - uid: 15557
+    components:
+    - type: Transform
+      pos: -25.565134,3.6301482
+      parent: 2
+  - uid: 15558
+    components:
+    - type: Transform
+      pos: -25.309555,3.6869118
+      parent: 2
+  - uid: 15559
+    components:
+    - type: Transform
+      pos: -25.36635,3.4598548
+      parent: 2
+  - uid: 15560
+    components:
+    - type: Transform
+      pos: 6.4941316,73.59842
+      parent: 2
+  - uid: 15561
+    components:
+    - type: Transform
+      pos: 4.4211106,72.406364
+      parent: 2
+  - uid: 15562
+    components:
+    - type: Transform
+      pos: -19.304815,52.96929
+      parent: 2
+  - uid: 15563
+    components:
+    - type: Transform
+      pos: -19.333212,52.51518
+      parent: 2
+  - uid: 15564
+    components:
+    - type: Transform
+      pos: -28.742027,44.07567
+      parent: 2
+  - uid: 15565
+    components:
+    - type: Transform
+      pos: -28.869816,43.97633
+      parent: 2
+  - uid: 15566
+    components:
+    - type: Transform
+      pos: -29.0544,44.104053
+      parent: 2
+  - uid: 15567
+    components:
+    - type: Transform
+      pos: 20.335289,40.984818
+      parent: 2
+  - uid: 15568
+    components:
+    - type: Transform
+      pos: 20.56247,40.857098
+      parent: 2
+  - uid: 15569
+    components:
+    - type: Transform
+      pos: 20.732855,40.89967
+      parent: 2
+  - uid: 15570
+    components:
+    - type: Transform
+      pos: 15.377507,32.661785
+      parent: 2
+  - uid: 15571
+    components:
+    - type: Transform
+      pos: 15.56209,32.61921
+      parent: 2
+  - uid: 15572
+    components:
+    - type: Transform
+      pos: 13.647936,-12.608375
+      parent: 2
+  - uid: 15573
+    components:
+    - type: Transform
+      pos: 13.41877,-12.212542
+      parent: 2
+  - uid: 15574
+    components:
+    - type: Transform
+      pos: 25.298811,4.502818
+      parent: 2
+  - uid: 15575
+    components:
+    - type: Transform
+      pos: 25.423811,4.7111516
+      parent: 2
+  - uid: 15576
+    components:
+    - type: Transform
+      pos: -35.3369,12.601174
+      parent: 2
+  - uid: 15577
+    components:
+    - type: Transform
+      pos: -35.4619,12.476174
+      parent: 2
+  - uid: 15578
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -19.778204,-37.45873
+      parent: 2
+  - uid: 15579
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -19.735607,-36.394398
+      parent: 2
+  - uid: 15580
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -19.281246,-36.53631
+      parent: 2
+  - uid: 15581
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -19.267048,-37.1891
+      parent: 2
+  - uid: 15582
+    components:
+    - type: Transform
+      pos: 8.824822,56.67536
+      parent: 2
+  - uid: 15583
+    components:
+    - type: Transform
+      pos: 9.637322,56.534737
+      parent: 2
+  - uid: 15584
+    components:
+    - type: Transform
+      pos: 6.1703863,-24.011568
+      parent: 2
+  - uid: 15585
+    components:
+    - type: Transform
+      pos: 6.7758007,-23.864801
+      parent: 2
+  - uid: 15586
+    components:
+    - type: Transform
+      pos: 13.321546,56.659737
+      parent: 2
+  - uid: 15587
+    components:
+    - type: Transform
+      pos: 4.852682,70.656136
+      parent: 2
+  - uid: 15588
+    components:
+    - type: Transform
+      pos: 13.368421,56.565987
+      parent: 2
+  - uid: 15589
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 6.403125,70.736015
+      parent: 2
+  - uid: 15590
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 6.3175106,71.054016
+      parent: 2
+  - uid: 15591
+    components:
+    - type: Transform
+      pos: -27.724276,7.654844
+      parent: 2
+  - uid: 15592
+    components:
+    - type: Transform
+      pos: -27.630526,7.529844
+      parent: 2
+  - uid: 24322
+    components:
+    - type: Transform
+      pos: 6.3995075,-6.169418
+      parent: 22804
+  - uid: 24323
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 7.076591,-6.7110844
+      parent: 22804
+  - uid: 24324
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 14.591272,-4.63081
+      parent: 22804
+  - uid: 24325
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 15.013147,-2.1620598
+      parent: 22804
+  - uid: 24326
+    components:
+    - type: Transform
+      pos: 11.185022,-4.22456
+      parent: 22804
+  - uid: 24327
+    components:
+    - type: Transform
+      pos: -5.7403708,-4.459486
+      parent: 22804
+  - uid: 24328
+    components:
+    - type: Transform
+      pos: -5.399278,-4.862529
+      parent: 22804
+  - uid: 24329
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -5.1309958,-3.443861
+      parent: 22804
+- proto: PaperPrintedCentcomm
+  entities:
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
   - uid: 3
     components:
     - type: Transform
@@ -118341,11 +118875,19 @@ entities:
       parent: 2
     - type: Paper
       content: >-
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
         Десятичные коды
+=======
+        Поздравляем, командование NanoTrasen решило обновить минимальный охранный шаттл службы безопасности станции NT-Raven-GE до версии 08.
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
 
         Код	Значение
 
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
         10-0	Конец связи
+=======
+        Обновление добавило атмос-конструкции (очень надеемся, что сотрудник безопасности умеет работать с насосом).
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
 
         10-1	Непонятна радиопередача
 
@@ -133464,6 +134006,7 @@ entities:
     - type: Transform
       pos: 7.5,-3.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
 - proto: SpawnMobBandito
   entities:
   - uid: 17437
@@ -133471,6 +134014,8 @@ entities:
     - type: Transform
       pos: -36.5,2.5
       parent: 2
+=======
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
 - proto: SpawnMobCarp
   entities:
   - uid: 23663
@@ -133512,6 +134057,7 @@ entities:
     - type: Transform
       pos: -7.5,-22.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
 - proto: SpawnMobCatFloppa
   entities:
   - uid: 17440
@@ -133526,6 +134072,8 @@ entities:
     - type: Transform
       pos: 15.5,33.5
       parent: 2
+=======
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
 - proto: SpawnMobCorgi
   entities:
   - uid: 17442
@@ -134531,7 +135079,11 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-74.5
       parent: 2
+<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_aspid.yml
 - proto: StationAnchorIndestructible
+=======
+- proto: StationAnchorIndestructible # DS14 Edit: force static station grid
+>>>>>>> da2856b0957209d2e6da5ce89d8e56f88d657a9b:Resources/Maps/ds_aspid.yml
   entities:
   - uid: 17593
     components:

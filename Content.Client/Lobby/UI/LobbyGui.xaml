@@ -219,6 +219,9 @@
                             <!-- DS14-Soyuz-End -->
                             <PanelContainer StyleClasses="DS14MenuAccentDim" />
 
+                            <RichTextLabel Name="LobbySong"
+                                           Access="Public"
+                                           HorizontalAlignment="Left" />
                         </BoxContainer>
                     </PanelContainer>
 

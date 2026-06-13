@@ -73,6 +73,7 @@ nano-task-printed-low-priority = [bold]Priority[/bold]: Low
 # Wanted list cartridge
 wanted-list-program-name = Wanted list
 wanted-list-label-no-records = It's all right, cowboy
+wanted-list-records-title = Records
 wanted-list-search-placeholder = Search by name and status
 
 wanted-list-age-label = [color=darkgray]Age:[/color] [color=white]{$age}[/color]

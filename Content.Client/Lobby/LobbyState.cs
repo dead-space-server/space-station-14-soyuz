@@ -15,6 +15,7 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Prototypes;
 
@@ -82,6 +83,12 @@ namespace Content.Client.Lobby
             controller.ToggleWindow();
         }
 
+        private void OnDonatePressed(BaseButton.ButtonEventArgs obj)
+        {
+            var controller = _userInterfaceManager.GetUIController<DonateShopUIController>();
+            controller.ToggleWindow();
+        }
+
         private void OnBackgroundChanged(string obj)
         {
             LoadMainScreen();
@@ -94,6 +101,9 @@ namespace Content.Client.Lobby
             _gameTicker.InfoBlobUpdated -= UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated -= LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated -= LobbyLateJoinStatusUpdated;
+            // DS14-start
+            _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
+            // DS14-end
 
             if (_contentAudioSystem != null)
                 _contentAudioSystem.LobbySoundtrackChanged -= UpdateLobbySoundtrackInfo;
@@ -298,6 +308,28 @@ namespace Content.Client.Lobby
         }
         // DS14-end
 
+        // DS14-start
+        private void ApplyReadyButtonStyle()
+        {
+            if (Lobby == null)
+                return;
+
+            if (_gameTicker.IsGameStarted)
+            {
+                Lobby.ReadyButton.StyleClasses.Clear();
+                Lobby.ReadyButton.AddStyleClass(ContainerButton.StyleClassButton);
+                Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButton);
+                Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButtonPositive);
+                return;
+            }
+
+            Lobby.ReadyButton.StyleClasses.Clear();
+            Lobby.ReadyButton.AddStyleClass(ContainerButton.StyleClassButton);
+            Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ActionButton);
+            Lobby.ReadyButton.AddStyleClass(DeadSpaceMenuSheetlet.ReadyButton);
+        }
+        // DS14-end
+
         private void UpdateLobbyBackground()
         {
             if (_protoMan.TryIndex(_gameTicker.LobbyBackground, out var proto))
@@ -340,5 +372,36 @@ namespace Content.Client.Lobby
                     break;
             }
         }
+
+        // DS14-start
+        private void UpdateLobbySoundtrackInfo(LobbySoundtrackChangedEvent ev)
+        {
+            if (ev.SoundtrackFilename == null)
+            {
+                Lobby!.LobbySong.SetMarkup(Loc.GetString("lobby-state-song-no-song-text"));
+            }
+            else if (
+                ev.SoundtrackFilename != null
+                && _resourceCache.TryGetResource<AudioResource>(ev.SoundtrackFilename, out var lobbySongResource)
+                )
+            {
+                var lobbyStream = lobbySongResource.AudioStream;
+
+                var title = string.IsNullOrEmpty(lobbyStream.Title)
+                    ? Loc.GetString("lobby-state-song-unknown-title")
+                    : lobbyStream.Title;
+
+                var artist = string.IsNullOrEmpty(lobbyStream.Artist)
+                    ? Loc.GetString("lobby-state-song-unknown-artist")
+                    : lobbyStream.Artist;
+
+                var markup = Loc.GetString("lobby-state-song-text",
+                    ("songTitle", title),
+                    ("songArtist", artist));
+
+                Lobby!.LobbySong.SetMarkup(markup);
+            }
+        }
+        // DS14-end
     }
 }

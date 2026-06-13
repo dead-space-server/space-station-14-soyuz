@@ -398,6 +398,8 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
         if (!planet.FtlEnabled)
             return 0f;
 
+        return Math.Max(configuredRadius, Math.Max(0f, planet.FtlFallbackMaxOffset) + FtlLandingAreaPadding);
+    }
 
     private static int GetSpawnLimit(LavalandPlanetPrototype planet)
     {
@@ -405,6 +407,7 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
             return 0;
 
         var boundaryPadding = planet.BoundaryEnabled
+            ? Math.Max(0, planet.BoundaryLavaWidth) + Math.Max(1, planet.BoundaryWallWidth)
             : 0;
 
         var padding = MathF.Ceiling(Math.Max(0f, planet.TendrilMapEdgePadding)) + boundaryPadding;

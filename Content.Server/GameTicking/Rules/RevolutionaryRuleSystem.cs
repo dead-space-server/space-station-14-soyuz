@@ -212,11 +212,6 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
 
         args.AddLine(Loc.GetString("rev-objectives-progress", ("progress", totalProgress.ToString("P0"))));
 
-        var totalProgress = progress ?? 0f;
-
-        args.AddLine(Loc.GetString("rev-objectives-progress", ("progress", totalProgress.ToString("P0"))));
-
-        // Выводим подробности по каждому главреву
         var sessionData = _antag.GetAntagIdentifiers(uid);
         args.AddLine(Loc.GetString("rev-headrev-count", ("initialCount", sessionData.Count)));
         foreach (var (mind, data, name) in sessionData)

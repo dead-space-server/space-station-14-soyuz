@@ -308,21 +308,24 @@ namespace Content.Shared.Movement.Systems
         {
             // Relayed movement just uses the same keybinds given we're moving the relayed entity
             // the same as us.
-            if (!MoverQuery.Resolve(entity, ref entity.Comp))
-                return;
 
             // TODO: Should move this into HandleMobMovement itself.
-            if (entity.Comp.CanMove && RelayQuery.TryComp(entity, out var relayMover))
+            if (TryComp<RelayInputMoverComponent>(entity, out var relayMover))
             {
-                DebugTools.Assert(relayMover.RelayEntity != entity.Owner);
+                DebugTools.Assert(relayMover.RelayEntity != entity);
                 DebugTools.AssertNotNull(relayMover.RelayEntity);
 
                 if (MoverQuery.TryGetComponent(entity, out var mover))
                     SetMoveInput((entity, mover), MoveButtons.None);
 
-                HandleDirChange(relayMover.RelayEntity, dir, subTick, state);
+                if (!_mobState.IsIncapacitated(entity))
+                    HandleDirChange(relayMover.RelayEntity, dir, subTick, state);
+
                 return;
             }
+
+            if (!MoverQuery.TryGetComponent(entity, out var moverComp))
+                return;
 
             // For stuff like "Moving out of locker" or the likes
             // We'll relay a movement input to the parent.
@@ -335,7 +338,7 @@ namespace Content.Shared.Movement.Systems
                 RaiseLocalEvent(xform.ParentUid, ref relayMoveEvent);
             }
 
-            SetVelocityDirection((entity, entity.Comp), dir, subTick, state);
+            SetVelocityDirection((entity, moverComp), dir, subTick, state);
         }
 
         private void OnInputInit(Entity<InputMoverComponent> entity, ref ComponentInit args)

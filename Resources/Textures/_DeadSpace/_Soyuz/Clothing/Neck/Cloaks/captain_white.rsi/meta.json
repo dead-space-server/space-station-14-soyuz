@@ -11,11 +11,7 @@
       "name": "icon"
     },
     {
-      "name": "equipped-HELMET-hamster",
-      "directions": 4
-    },
-    {
-      "name": "equipped-HELMET",
+      "name": "equipped-NECK",
       "directions": 4
     }
   ]

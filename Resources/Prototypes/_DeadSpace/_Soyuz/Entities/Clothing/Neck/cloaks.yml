@@ -33,3 +33,12 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/royal_captain.rsi
+
+- type: entity
+  parent: ClothingNeckCloakCap
+  id: ClothingNeckWhiteMantleCaptain
+  name: белый плащ капитана
+  description: Очень красивый.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/captain_white.rsi

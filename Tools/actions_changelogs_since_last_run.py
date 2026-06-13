@@ -27,7 +27,7 @@ GITHUB_API_URL = os.environ.get("GITHUB_API_URL", "https://api.github.com")
 DISCORD_SPLIT_LIMIT = 2000
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 DISCORD_WEBHOOK_URL_DEADSPACE = os.environ.get("CHANGELOG_DISCORD_WEBHOOK_DEADSPACE")
-DISCORD_USERNAME = "Обновления Союз-1 ☭"
+DISCORD_USERNAME = "Последние изменения Союз-1 ☭"
 DISCORD_AVATAR_URL = "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true"
 
 CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14Soyuz.yml"
@@ -277,7 +277,7 @@ def sanitize_change(type_key: str, message: str) -> Optional[tuple[str, str]]:
 
 
 def render_author_message(author: str, changes: dict[str, list[tuple[str, str]]]) -> str:
-    """Render a single author's changes in PR-style format."""
+    """Render a single author's changes in PR-style format with clickable links."""
     lines = [f"👤 Автор: **{author}**", ""]
     
     for type_key in TYPE_ORDER:
@@ -289,8 +289,13 @@ def render_author_message(author: str, changes: dict[str, list[tuple[str, str]]]
         label_ru = TYPE_LABELS_RU.get(type_key, "Прочее")
         
         for message, pr_url in items:
-            if pr_url:
-                lines.append(f"{emoji} {label_ru} - {message} ([PR ссылка]({pr_url}))")
+            pr_number = None
+            if pr_url and "pull/" in pr_url:
+                pr_number = pr_url.rstrip("/").split("/")[-1]
+            
+            if pr_number:
+                # Clickable link in Discord Markdown format
+                lines.append(f"{emoji} {label_ru} - {message} ([PR #{pr_number}]({pr_url}))")
             else:
                 lines.append(f"{emoji} {label_ru} - {message}")
     
@@ -314,9 +319,14 @@ def split_long_author_message(author: str, changes: dict[str, list[tuple[str, st
         label_ru = TYPE_LABELS_RU.get(type_key, "Прочее")
         
         for message, pr_url in items:
-            line = f"{emoji} {label_ru} - {message}"
-            if pr_url:
-                line += f" ([PR ссылка]({pr_url}))"
+            pr_number = None
+            if pr_url and "pull/" in pr_url:
+                pr_number = pr_url.rstrip("/").split("/")[-1]
+            
+            if pr_number:
+                line = f"{emoji} {label_ru} - {message} ([PR #{pr_number}]({pr_url}))"
+            else:
+                line = f"{emoji} {label_ru} - {message}"
             
             # Check if adding this line exceeds limit
             candidate = "\n".join([*current_lines, line])

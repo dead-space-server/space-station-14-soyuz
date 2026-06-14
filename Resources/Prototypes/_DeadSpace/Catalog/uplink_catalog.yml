@@ -728,11 +728,11 @@
       - NukeOpsUplink
 
 - type: listing
-  id: UplinkClothingBackpackTailbag
+  id: UplinkClothingBackpackTailbagSyndicate
   name: Подсумок на хвост плафеимов
   description: Всё для своих.
-  icon: { sprite: /Textures/_DeadSpace/Clothing/Back/Backpacks/tailbag.rsi, state: icon }
-  productEntity: ClothingBackpackTailbag
+  icon: { sprite: /Textures/_DeadSpace/Clothing/Back/Tailbag/syndicate.rsi, state: icon }
+  productEntity: ClothingBackpackTailbagSyndicate
   cost:
     Telecrystal: 1
   categories:

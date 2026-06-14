@@ -72,6 +72,22 @@ jobs:
     - name: Package client
       run: dotnet run --project Content.Packaging client --no-wipe-release
 
+    # DS14-Soyuz-start
+    - name: Get engine version
+      id: engine_version
+      run: |
+        ENGINE_VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' RobustToolbox/RobustToolbox.csproj || echo "unknown")
+        echo "version=$ENGINE_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Get build size
+      id: build_size
+      run: |
+        TOTAL_SIZE=$(du -sb release 2>/dev/null | cut -f1 || echo "0")
+        SIZE_HR=$(du -sh release 2>/dev/null | cut -f1 || echo "unknown")
+        echo "size=$SIZE_HR" >> $GITHUB_OUTPUT
+        echo "size_bytes=$TOTAL_SIZE" >> $GITHUB_OUTPUT
+    # DS14-Soyuz-end
+
     - name: Publish version
       run: python3 -u Tools/publish_multi_request.py
       env:
@@ -120,13 +136,15 @@ jobs:
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+        ENGINE_VER: ${{ steps.engine_version.outputs.version }}
+        BUILD_SIZE: ${{ steps.build_size.outputs.size }}
       run: |
         curl -H "Content-Type: application/json" \
              -X POST \
              -d '{
               "username": "Обновления Союз-1 ☭",
               "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-              "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳",
+              "content": "'"$RANDOM_ANNOUNCE"'\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\n\n**📦 Информация о сборке:**\n• Версия движка: `'"$ENGINE_VER"`'\n• Размер сборки: `'"$BUILD_SIZE"`'",
               "embeds": [{
                 "image": {
                   "url": "https://media.discordapp.net/attachments/1303329439869833286/1390321152030806026/b6735b3e67e81887.gif"

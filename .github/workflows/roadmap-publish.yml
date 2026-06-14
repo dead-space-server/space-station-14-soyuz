@@ -1,0 +1,263 @@
+name: Roadmap publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: '📌 Категория задач'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - completed
+          - inprogress
+          - planned
+      embed_style:
+        description: '🎨 Стиль отображения'
+        required: false
+        default: 'single'
+        type: choice
+        options:
+          - single
+          - multiple
+      color_scheme:
+        description: '🎨 Цветовая схема'
+        required: false
+        default: 'default'
+        type: choice
+        options:
+          - default
+          - dark
+          - light
+
+jobs:
+  send-roadmap-manual:
+    runs-on: ubuntu-latest
+    name: Send roadmap
+    
+    steps:
+    - uses: actions/checkout@v4.2.2
+      with:
+        submodules: 'recursive'
+    
+    - name: Create embed
+      id: roadmap
+      run: |
+        python3 << 'EOF'
+        import yaml
+        import json
+        import os
+        from datetime import datetime
+        
+        try:
+            with open('Resources/Prototypes/roadmap.yml', 'r', encoding='utf-8') as f:
+                entries = yaml.safe_load(f)
+        except FileNotFoundError:
+            print("❌ Файл roadmap.yml не найден!")
+            exit(1)
+        
+        category = os.environ.get('INPUT_CATEGORY', 'all')
+        embed_style = os.environ.get('INPUT_EMBED_STYLE', 'single')
+        
+        colors = {
+            'completed': 0x00ff00,
+            'inprogress': 0xffa500,
+            'planned': 0x0099ff,
+            'default': 0x5865f2
+        }
+        
+        filtered_entries = []
+        for entry in entries:
+            entry_category = entry.get('category', '').lower()
+            if category == 'all' or entry_category == category:
+                filtered_entries.append(entry)
+        
+        completed = [e for e in filtered_entries if e.get('category') == 'Completed']
+        inprogress = [e for e in filtered_entries if e.get('category') == 'InProgress']
+        planned = [e for e in filtered_entries if e.get('category') == 'Planned']
+        
+        completed.sort(key=lambda x: x.get('order', 999))
+        inprogress.sort(key=lambda x: x.get('order', 999))
+        planned.sort(key=lambda x: x.get('order', 999))
+        
+        def format_task(entry, include_description=True, max_desc_len=100):
+            title = entry.get('title', 'Без названия')
+            description = entry.get('description', '')
+            tags = entry.get('tags', [])
+            
+            task = f"**{title}**"
+            if include_description and description:
+                desc = description[:max_desc_len]
+                if len(description) > max_desc_len:
+                    desc += "..."
+                task += f"\n*{desc}*"
+            if tags:
+                tags_str = ', '.join(tags)
+                if len(tags_str) > 50:
+                    tags_str = tags_str[:47] + "..."
+                task += f"\n`{tags_str}`"
+            
+            return task
+        
+        def create_category_embed(cat_name, cat_title, cat_icon, cat_color, tasks, total_count):
+            if not tasks:
+                return None
+            
+            task_texts = [format_task(task) for task in tasks]
+            value = "\n\n".join(task_texts)
+            
+            if len(value) > 1024:
+                value = value[:1020] + "..."
+            
+            return {
+                "title": f"{cat_icon} {cat_title}",
+                "color": cat_color,
+                "fields": [
+                    {
+                        "name": f"📋 Задач: {len(tasks)}",
+                        "value": value,
+                        "inline": False
+                    }
+                ],
+                "footer": {
+                    "text": f"Всего в категории: {len(tasks)} из {total_count}"
+                },
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        total_count = len(completed) + len(inprogress) + len(planned)
+        
+        if embed_style == 'single' and category == 'all':
+            fields = []
+            
+            fields.append({
+                "name": "📊 Статистика",
+                "value": f"Всего задач: {total_count}\n✅ Выполнено: {len(completed)}\n🚧 В процессе: {len(inprogress)}\n📋 В планах: {len(planned)}",
+                "inline": False
+            })
+            
+            if completed:
+                completed_text = "\n\n".join([format_task(task, max_desc_len=80) for task in completed[:5]])
+                if len(completed) > 5:
+                    completed_text += f"\n\n*...и еще {len(completed)-5} задач*"
+                fields.append({
+                    "name": f"✅ Выполнено ({len(completed)})",
+                    "value": completed_text[:1024],
+                    "inline": False
+                })
+            
+            if inprogress:
+                inprogress_text = "\n\n".join([format_task(task, max_desc_len=80) for task in inprogress[:5]])
+                if len(inprogress) > 5:
+                    inprogress_text += f"\n\n*...и еще {len(inprogress)-5} задач*"
+                fields.append({
+                    "name": f"🚧 В процессе ({len(inprogress)})",
+                    "value": inprogress_text[:1024],
+                    "inline": False
+                })
+            
+            if planned:
+                planned_text = "\n\n".join([format_task(task, max_desc_len=80) for task in planned[:5]])
+                if len(planned) > 5:
+                    planned_text += f"\n\n*...и еще {len(planned)-5} задач*"
+                fields.append({
+                    "name": f"📋 В планах ({len(planned)})",
+                    "value": planned_text[:1024],
+                    "inline": False
+                })
+            
+            embed = {
+                "title": "🗺️ Дорожная карта Союз-1",
+                "description": "Актуальный план развития проекта",
+                "color": colors['default'],
+                "fields": fields,
+                "footer": {
+                    "text": "Актуальная версия доступна в игре"
+                },
+                "timestamp": datetime.now().isoformat()
+            }
+            embeds = [embed]
+        
+        else:
+            embeds = []
+            
+            if completed and (category == 'all' or category == 'completed'):
+                embed = create_category_embed('completed', 'Выполненные задачи', '✅', colors['completed'], completed, total_count)
+                if embed:
+                    embeds.append(embed)
+            
+            if inprogress and (category == 'all' or category == 'inprogress'):
+                embed = create_category_embed('inprogress', 'Задачи в процессе', '🚧', colors['inprogress'], inprogress, total_count)
+                if embed:
+                    embeds.append(embed)
+            
+            if planned and (category == 'all' or category == 'planned'):
+                embed = create_category_embed('planned', 'Запланированные задачи', '📋', colors['planned'], planned, total_count)
+                if embed:
+                    embeds.append(embed)
+        
+        with open('embeds.json', 'w', encoding='utf-8') as f:
+            json.dump(embeds, f, ensure_ascii=False, indent=2)
+        
+        print(f"✅ Создано {len(embeds)} embed(ов)")
+        
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+            f.write(f"embeds_count={len(embeds)}\n")
+        
+        EOF
+      env:
+        INPUT_CATEGORY: ${{ github.event.inputs.category }}
+        INPUT_EMBED_STYLE: ${{ github.event.inputs.embed_style }}
+    
+    - name: Send to Discord
+      env:
+        DISCORD_WEBHOOK_URL_ROADMAP: ${{ secrets.ROADMAP_DISCORD_WEBHOOK }}
+      run: |
+        python3 << 'EOF'
+        import json
+        import os
+        import subprocess
+        import sys
+        
+        webhook = os.environ.get('DISCORD_WEBHOOK_URL_ROADMAP')
+        if not webhook:
+            print("❌ Ошибка: ROADMAP_DISCORD_WEBHOOK не найден в secrets!")
+            sys.exit(1)
+        
+        with open('embeds.json', 'r', encoding='utf-8') as f:
+            embeds = json.load(f)
+        
+        if not embeds:
+            print("⚠️ Нет данных для отправки")
+            sys.exit(0)
+        
+        for i, embed in enumerate(embeds, 1):
+            payload = {
+                "username": "🗺️ Дорожная карта Союз-1",
+                "avatar_url": "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
+                "embeds": [embed]
+            }
+            
+            result = subprocess.run([
+                'curl', '-H', 'Content-Type: application/json',
+                '-X', 'POST', '-d', json.dumps(payload, ensure_ascii=False),
+                webhook
+            ], capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                print(f"✅ Embed {i}/{len(embeds)} отправлен")
+            else:
+                print(f"❌ Ошибка при отправке embed {i}: {result.stderr}")
+        
+        print("🎉 Готово!")
+        EOF
+    
+    - name: Result
+      if: always()
+      run: |
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "✅ Workflow завершен!"
+        echo "📌 Категория: ${{ github.event.inputs.category }}"
+        echo "🎨 Стиль: ${{ github.event.inputs.embed_style }}"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

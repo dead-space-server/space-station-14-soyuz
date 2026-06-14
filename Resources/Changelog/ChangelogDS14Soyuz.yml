@@ -805,3 +805,43 @@ Entries:
     message: Апстрим до основной сборки
   - type: Fix
     message: Апстрим до основной сборки
+- id: 79
+  author: Genes1us
+  time: '2026-06-12T18:50:03.428238+00:00'
+  pr: 339
+  changes:
+  - type: Tweak
+    message: Исправил ремап шаттла прибытия
+- id: 80
+  author: PERed5
+  time: '2026-06-13T12:58:24.405028+00:00'
+  pr: 340
+  changes:
+  - type: Add
+    message: Берет начальника отдела кадров
+  - type: Add
+    message: Комбинезон, юбка-комбинезон, платье-карандаш Начальника Отдела Кадров
+  - type: Add
+    message: Много новой одежды капитану
+  - type: Add
+    message: КапитаноШкаф, который заменит тумбочку капитана
+  - type: Tweak
+    message: Спрайты шлюзов юридического отдела
+  - type: Tweak
+    message: Спрайты шлюзов шахтеров
+  - type: Tweak
+    message: Спрайты одежды Начальника Отдела Кадров
+- id: 81
+  author: PERed5
+  time: '2026-06-13T18:56:12.509724+00:00'
+  pr: 343
+  changes:
+  - type: Add
+    message: 9 игрушек плюшевых лис
+- id: 82
+  author: Genes1us
+  time: '2026-06-13T19:20:04.783798+00:00'
+  pr: 341
+  changes:
+  - type: Add
+    message: Апстрим до основной сборки

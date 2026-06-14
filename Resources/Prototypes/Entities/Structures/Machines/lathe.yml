@@ -468,10 +468,11 @@
     - SecurityWeapons
     - SecurityDisablers
     - WeaponMagmite # DS14
-    - SecurityRIGCraftDetails # DS14
     - GlovesArkalyse # DS14
+    - GlassesThermal # DS14
     - SecurityBorgModulesTierTwo # DS14
     - SecurityBorgModulesTierThree # DS14
+    - StunBola # DS14
     - ArmedTechFabCircuitboard # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - SecurityPoliceBeta # DS14-Soyuz
@@ -691,6 +692,10 @@
       - RGlassSmelting
 #DS14-start
     - type: LavalandOreRedeemer
+      miningAccess:
+      - TaipanCargo
+      - Salvage
+      - SeniorSalvage
       oreValues:
         SteelOre: 1
         Coal: 1

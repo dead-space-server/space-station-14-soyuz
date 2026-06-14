@@ -2,7 +2,7 @@
   parent: ChemicalMedipen
   id: NECROMedipen
   name: медипен ОПНУ
-  description: Разработка NanoTrasen. Содержит вещества для лечения повреждений наносимых некроморфами.
+  description: Разработка СССП. Содержит вещества для лечения повреждений наносимых некроморфами.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/medipen.rsi
@@ -162,10 +162,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
 
 ## Боевая медицина ОБР
 - type: entity

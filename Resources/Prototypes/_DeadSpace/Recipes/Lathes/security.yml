@@ -9,6 +9,14 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
+  id: Truncheonsec
+  result: Truncheonsec
+  materials:
+    Plasteel: 1000
+    Plasma: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
   id: WeaponLaserRifle
   result: WeaponLaserRifle
   materials:
@@ -44,6 +52,7 @@
     Steel: 1000
     Plasma: 150
 
+# DS14-Soyuz start
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
   id: MagazineBox357Silver
@@ -139,3 +148,21 @@
   materials:
     Steel: 25
     Silver: 200
+# DS14-Soyuz end
+
+- type: latheRecipe
+  parent: BaseTargetRecipe
+  id: Bola
+  result: Bola
+  materials:
+    Steel: 600
+    Plastic: 300
+
+- type: latheRecipe
+  parent: BaseTargetRecipe
+  id: EnergyBola
+  result: EnergyBola
+  materials:
+    Steel: 800
+    Plastic: 500
+    Plasma: 50

@@ -217,8 +217,6 @@
                                 <RichTextLabel Name="LobbySong" Access="Public" MaxWidth="380" VerticalAlignment="Center" />
                             </BoxContainer>
                             <!-- DS14-Soyuz-End -->
-                            <PanelContainer StyleClasses="DS14MenuAccentDim" />
-
                         </BoxContainer>
                     </PanelContainer>
 

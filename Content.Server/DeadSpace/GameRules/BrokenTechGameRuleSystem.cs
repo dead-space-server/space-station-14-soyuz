@@ -116,6 +116,7 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
     private List<EntityUid> FilterEntities(List<EntityUid> entities, BrokenTechEntry entry)
     {
         var result = new List<EntityUid>();
+
         foreach (var ent in entities)
         {
             if (TerminatingOrDeleted(ent))
@@ -179,10 +180,12 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
     {
         if (TerminatingOrDeleted(uid))
             return;
+
         SpawnFromTable(uid, action.SpawnTable);
         _explosion.QueueExplosion(uid, action.ExplosionType, action.ExplosionIntensity, 1f, 2f, maxTileBreak: 0);
         QueueDel(uid);
     }
+
     private void HandleBlock(EntityUid uid, BlockWorkingEntityAction action)
     {
         if (Deleted(uid))

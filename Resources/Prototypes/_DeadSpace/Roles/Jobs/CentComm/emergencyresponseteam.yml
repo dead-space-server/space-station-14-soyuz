@@ -374,13 +374,13 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+    - ERTloadoutGammaSupport
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
     - BSAACombatKitFilled
     - InjectorCaseERTFilled
     - WeaponDisabler
-    - ERTloadoutGammaSupport
     - UplinkERTGamma
 
 # Medical

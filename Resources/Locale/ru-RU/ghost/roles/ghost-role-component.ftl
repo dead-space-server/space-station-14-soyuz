@@ -153,7 +153,7 @@ ghost-role-information-cburn-agent-name = РХБЗЗ Оперативник
 ghost-role-information-cburn-agent-description = Высококвалифицированный оперативник, способный справиться с любыми угрозами.
 ghost-role-information-scst-agent-name = Оперативник ОППУ
 ghost-role-information-scnt-agent-name = Оперативник ОПНУ
-ghost-role-information-centcom-official-description = Инспектируйте станцию, пишите служебные характеристики на руководителей, орудуйте факсом.ghost-role-information-centcom-official-description = Выполняйте обязанности, связанные с Центком, такие как инспекция станции, составление служебных характеристик на руководителей и работа с факсом.
+ghost-role-information-centcom-official-description = Инспектируйте станцию, пишите служебные характеристики на руководителей, орудуйте факсом.ghost-role-information-centcom-official-description = Выполняйте обязанности, связанные с ГенШтабом, такие как инспекция станции, составление служебных характеристик на руководителей и работа с факсом.
 ghost-role-information-nukeop-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с другими Ядерными оперативниками. Помощь агентов на станции не гарантируется.
 ghost-role-information-loneop-name = Одинокий оперативник
 ghost-role-information-loneop-description = Вы — одинокий оперативник Легиона. Уничтожьте станцию
@@ -164,7 +164,7 @@ ghost-role-information-hellspawn-name = Адское отродье
 ghost-role-information-hellspawn-description = Несите смерть всем, кто не повинуется великой богине Нар'Си.
 ghost-role-information-Death-Squad-name = Боец отряда специального назначения "Дым"
 ghost-role-information-Death-Squad-description = Боец напичканный всевозможными имплантами и обладающий самой лучшей экипировкой с одной целью - аннигиляция.
-ghost-role-information-Death-Squad-rules = Вы обязаны подчиняться ВСЕМ приказам офицера специальных операций.
+ghost-role-information-Death-Squad-rules = Вы обязаны подчиняться ВСЕМ приказам генерала специальных операций.
 ghost-role-information-SyndiCat-name = СиндиКот
 ghost-role-information-SyndiCat-description = Вы — верный дрессированный питомец ядерных оперативников с микробомбой. Служите своему хозяину до самой смерти!
 ghost-role-information-SyndiCat-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-team-antagonist-name }[/bold][/color], в команде с агентом, который вас призвал.
@@ -271,14 +271,14 @@ ghost-role-information-wizard-name = Маг
 ghost-role-information-wizard-desc = ТЫ МАГ! Покажи станции, из чего сделана твоя магия.
 ghost-role-information-emotional-support-scurret-name = Слизенёк эмоциональной поддержки
 ghost-role-information-emotional-support-scurret-description = Поддерживайте экипаж, будьте очаровательными, часто говорите "ва".
-ghost-role-information-blueshieldofficer-name = Офицер "Синий Щит"
-ghost-role-information-blueshieldofficer-description = Вы - Офицер корпуса Синего Щита. Ваша задача защищать членов Центрального Командования и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
-ghost-role-information-centcomofficer-name = Офицер Центрального Командования
-ghost-role-information-centcomofficer-description = Вы - Офицер Центрального Командования. Вы должны защищать довереное вам место на котором вы появились и выполнять приказы вышестоящих сотрудников Центрального Командования.
-ghost-role-information-centcom-personal-rules = Вы обязаны подчиняться приказам членов Центрального Командования.
-ghost-role-information-centcom-official-name = Представитель Центрального Командования
+ghost-role-information-blueshieldofficer-name = Оперативник КГБ
+ghost-role-information-blueshieldofficer-description = Вы - Оперативник Комитета Государственной Безопасности. Ваша задача защищать членов Генерального Штаба и выполнять их приказы. Защищайте их ценой своей жизни! Также вы обладаете всеми навыками.
+ghost-role-information-centcomofficer-name = Офицер Генерального Штаба
+ghost-role-information-centcomofficer-description = Вы - Офицер Генерального Штаба. Вы должны защищать довереное вам место на котором вы появились и выполнять приказы вышестоящих сотрудников Генерального Штаба.
+ghost-role-information-centcom-personal-rules = Вы обязаны подчиняться приказам членов Генерального Штаба.
+ghost-role-information-centcom-official-name = Представитель Генерального Штаба
 ghost-role-information-ert-centcom-official-description =
-    Вы — Представитель Центрального Командования, направленный для инспекции станции по чрезвычайной ситуации.
+    Вы — Представитель Генерального Штаба, направленный для инспекции станции по чрезвычайной ситуации.
     Роль требует хорошего знания СРП и Корпоративного Закона.
     Если вы не уверены в своих знаниях, пожалуйста, не берите эту роль.
     Роль предполагает высокий уровень ответственности и может быть предметом административного контроля со стороны модерации/администрации.

@@ -51,9 +51,4 @@
 - type: loadout
   id: CentralCommandBlueShieldOfficerLoadout
   equipment:
-    outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
     back: ClothingBackpackBlueShieldCentComFilled
-  storage:
-    back:
-    - ClothingNeckCapeBlueShield
-    - KGBloadoutSecondary # DS14-Soyuz

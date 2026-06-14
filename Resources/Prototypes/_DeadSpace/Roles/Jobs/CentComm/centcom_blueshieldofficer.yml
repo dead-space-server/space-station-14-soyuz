@@ -35,9 +35,9 @@
 - type: entity
   parent: ClothingBackpackBlueShield
   id: ClothingBackpackBlueShieldCentComFilled
-  name: модифицированный рюкзак офицера "Синий Щит"
-  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
-  suffix: Заполненный, ЦентКом
+  name: модифицированный рюкзак оперативника КГБ # DS14-Soyuz
+  description: Рюкзак оперативника КГБ с функцией РИГ. # DS14-Soyuz
+  suffix: Заполненный, ГенШтаб # DS14-Soyuz
   components:
   - type: StorageFill
     contents:
@@ -53,13 +53,16 @@
         amount: 2
       - id: CelestinMedipen
         amount: 2
+      - id: ClothingNeckCapeBlueShield # DS14-Soyuz
+      - id: KGBloadoutSecondary # DS14-Soyuz
+      - id: KGBloadoutPrimary # DS14-Soyuz
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
   parent: ClothingBeltMilitaryWebbingBlueShieldFilled
-  name: РПС офицера "Синий Щит"
-  description: РПС, которую носят офицеры "Синий Щит"
-  suffix: Заполненный, ЦентКом
+  name: РПС оперативника КГБ # DS14-Soyuz
+  description: РПС, которую носят оперативники КГБ # DS14-Soyuz
+  suffix: Заполненный, ГенШтаб # DS14-Soyuz
   components:
   - type: StorageFill
     contents:
@@ -84,7 +87,7 @@
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmorBasicBlueShield
+    outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
     shoes: ClothingShoesBootsJackFilled
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield

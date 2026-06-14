@@ -45,9 +45,8 @@
       - id: FlashlightSeclite
       - id: RubberStampBlueShield
       - id: CigarGoldCase
-      - id: NanotrasenFlippo
+      - id: FlippoEngravedLighter # DS14-Soyuz
       - id: WeaponDisabler
-      - id: ClothingEyesHudERT
+      - id: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
       - id: ClothingMaskGasSwat
-      - id: ClothingHeadHelmetBlueShield
-
+      - id: ClothingHeadHelmetSwat # DS14-Soyuz Temp replaced

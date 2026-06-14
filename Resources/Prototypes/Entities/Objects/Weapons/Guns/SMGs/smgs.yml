@@ -107,16 +107,18 @@
     - SemiAuto
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/c-20r.ogg
-  - type: MeleeWeapon
+#DS-14 start
+  - type: MeleeWeapon 
     damage:
       types:
-        Blunt: 20 #DS-14 start
+        Blunt: 15
     angle: 90
     animation: WeaponArcThrust
     soundHit:
       collection: WeakHit
   - type: AltFireMelee
-    attackType: Heavy #DS-14 end
+    attackType: Heavy
+#DS-14 end
   - type: ChamberMagazineAmmoProvider
     autoEject: true
   - type: MagazineVisuals

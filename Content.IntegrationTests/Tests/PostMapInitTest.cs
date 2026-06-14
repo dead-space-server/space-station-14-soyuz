@@ -60,7 +60,7 @@ namespace Content.IntegrationTests.Tests
             // DS14-start: Add our custom maps to whitelist
             // {"/Maps/barratry.yml", ["RubberStampCaptain"]}, // DS-14 Soyuz: Disabled
             // {"/Maps/cluster.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, // DS-14 Soyuz: Disabled
+            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
             // {"/Maps/ds_box.yml", ["RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
             // {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
             // {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled

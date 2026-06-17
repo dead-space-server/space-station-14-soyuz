@@ -33,9 +33,13 @@ on:
           - neon
           - pastel
           - metal
+  
+  push:
+    paths:
+      - 'Resources/Prototypes/_DeadSpace/_Soyuz/roadmap.yml'
 
 jobs:
-  send-roadmap-manual:
+  send-roadmap:
     runs-on: ubuntu-latest
     name: Send roadmap
     
@@ -43,6 +47,19 @@ jobs:
     - uses: actions/checkout@v4.2.2
       with:
         submodules: 'recursive'
+    
+    - name: Set parameters
+      id: params
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "category=${{ github.event.inputs.category }}" >> $GITHUB_OUTPUT
+          echo "embed_style=${{ github.event.inputs.embed_style }}" >> $GITHUB_OUTPUT
+          echo "color_scheme=${{ github.event.inputs.color_scheme }}" >> $GITHUB_OUTPUT
+        else
+          echo "category=all" >> $GITHUB_OUTPUT
+          echo "embed_style=multiple" >> $GITHUB_OUTPUT
+          echo "color_scheme=default" >> $GITHUB_OUTPUT
+        fi
     
     - name: Create embed
       id: roadmap
@@ -60,9 +77,9 @@ jobs:
             print("❌ Файл roadmap.yml не найден!")
             exit(1)
         
-        category = os.environ.get('INPUT_CATEGORY', 'all')
-        embed_style = os.environ.get('INPUT_EMBED_STYLE', 'single')
-        color_scheme = os.environ.get('INPUT_COLOR_SCHEME', 'default')
+        category = os.environ.get('CATEGORY', 'all')
+        embed_style = os.environ.get('EMBED_STYLE', 'multiple')
+        color_scheme = os.environ.get('COLOR_SCHEME', 'default')
         
         if color_scheme == 'default':
             colors = {
@@ -242,9 +259,9 @@ jobs:
         
         EOF
       env:
-        INPUT_CATEGORY: ${{ github.event.inputs.category }}
-        INPUT_EMBED_STYLE: ${{ github.event.inputs.embed_style }}
-        INPUT_COLOR_SCHEME: ${{ github.event.inputs.color_scheme }}
+        CATEGORY: ${{ steps.params.outputs.category }}
+        EMBED_STYLE: ${{ steps.params.outputs.embed_style }}
+        COLOR_SCHEME: ${{ steps.params.outputs.color_scheme }}
     
     - name: Send to Discord
       env:
@@ -294,7 +311,11 @@ jobs:
       run: |
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo "✅ Workflow завершен!"
-        echo "📌 Категория: ${{ github.event.inputs.category }}"
-        echo "🎨 Стиль: ${{ github.event.inputs.embed_style }}"
-        echo "🎨 Цветовая схема: ${{ github.event.inputs.color_scheme }}"
+        echo "📌 Категория: ${{ steps.params.outputs.category }}"
+        echo "🎨 Стиль: ${{ steps.params.outputs.embed_style }}"
+        echo "🎨 Цветовая схема: ${{ steps.params.outputs.color_scheme }}"
+        echo "📌 Тип запуска: ${{ github.event_name }}"
+        if [ "${{ github.event_name }}" == "push" ]; then
+          echo "📝 Изменен файл: ${{ github.event.head_commit.modified }}"
+        fi
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

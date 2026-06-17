@@ -1,0 +1,49 @@
+- type: entity
+  id: KudzuFlowerNoSpread
+  name: floral carpet
+  suffix: "Не растёт, маппинг"
+  description: A colorful carpet of flowers sprawling in every direction. You're not sure whether to take it down or leave it up.
+  parent: Kudzu
+  components:
+    - type: Sprite
+      drawdepth: HighFloorObjects
+      sprite: Objects/Misc/kudzuflower.rsi
+      state: kudzu_11
+    - type: Kudzu
+      spriteVariants: 5
+      spreadChance: 0
+    - type: SpeedModifierContacts
+      walkSpeedModifier: 0.8
+      sprintSpeedModifier: 0.8
+      ignoreWhitelist:
+        components:
+        - IgnoreKudzu
+    - type: Tag
+      tags:
+      - Ruminant
+
+- type: entity
+  id: KudzuNoSpread
+  parent: Kudzu
+  suffix: "Не растёт, маппинг"
+  components:
+    - type: Kudzu
+      spreadChance: 0
+
+- type: entity
+  name: NecroKudzu
+  id: NecroKudzuNoSpread
+  suffix: "Не растёт, маппинг"
+  parent: NecroKudzu
+  components:
+    - type: Kudzu
+      spreadChance: 0
+
+- type: entity
+  name: tendons
+  id: FleshKudzuNoSpread
+  suffix: "Не растёт, маппинг"
+  parent: FleshKudzu
+  components:
+    - type: Kudzu
+      spreadChance: 0

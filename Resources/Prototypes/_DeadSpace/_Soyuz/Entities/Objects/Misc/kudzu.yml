@@ -1,8 +1,8 @@
 - type: entity
   id: KudzuFlowerNoSpread
-  name: floral carpet
+  name: "цветочный ковёр"
   suffix: "Не растёт, маппинг"
-  description: A colorful carpet of flowers sprawling in every direction. You're not sure whether to take it down or leave it up.
+  description: "Пёстрый ковёр из цветов, расстилающийся во все стороны. Вы не уверены, убирать его или лучше оставить."
   parent: Kudzu
   components:
     - type: Sprite
@@ -24,6 +24,8 @@
 
 - type: entity
   id: KudzuNoSpread
+  name: "кудзу"
+  description: "Быстрорастущее, опасное растение. ЗАЧЕМ ВЫ ОСТАНОВИЛИСЬ ПОСМОТРЕТЬ НА НЕГО?!"
   parent: Kudzu
   suffix: "Не растёт, маппинг"
   components:
@@ -31,7 +33,8 @@
       spreadChance: 0
 
 - type: entity
-  name: NecroKudzu
+  name: "некроморфные волокна"
+  description: "Кажется они распространяются. Не опасны и уязвимы, но замедляют передвижение."
   id: NecroKudzuNoSpread
   suffix: "Не растёт, маппинг"
   parent: NecroKudzu
@@ -40,8 +43,9 @@
       spreadChance: 0
 
 - type: entity
-  name: tendons
+  name: "сухожилия"
   id: FleshKudzuNoSpread
+  description: "Быстрорастущее скопление мясистых сухожилий. ЗАЧЕМ ВЫ ОСТАНОВИЛИСЬ ПОСМОТРЕТЬ НА НИХ?!"
   suffix: "Не растёт, маппинг"
   parent: FleshKudzu
   components:

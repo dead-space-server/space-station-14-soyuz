@@ -6,3 +6,5 @@ traitor-corporations-dataset-5 = "Animal Rights Consortium"
 traitor-corporations-dataset-6 = "Donk Corporation"
 traitor-corporations-dataset-7 = "Waffle Corporation"
 traitor-corporations-dataset-8 = "Interdyne Pharmaceutics"
+traitor-corporations-dataset-9 = STT.MC
+traitor-corporations-dataset-10 = Gladius Corporation

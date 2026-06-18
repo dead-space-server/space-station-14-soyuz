@@ -76,7 +76,7 @@ jobs:
     - name: Get engine version
       id: engine_version
       run: |
-        ENGINE_VERSION=$(grep -oP '(?<=<Version>).*?(?=</Version>)' RobustToolbox/RobustToolbox.csproj || echo "unknown")
+        ENGINE_VERSION=$(cd RobustToolbox && git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "unknown")
         echo "version=$ENGINE_VERSION" >> $GITHUB_OUTPUT
 
     - name: Get build size

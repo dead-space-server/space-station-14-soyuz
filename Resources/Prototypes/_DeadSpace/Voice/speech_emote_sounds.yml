@@ -51,6 +51,8 @@
       collection: FelinidGrowls
     Purr:
       collection: FelinidPurrs
+    Warcry:
+      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleFelinid
@@ -105,6 +107,8 @@
       collection: FelinidGrowls
     Purr:
       collection: FelinidPurrs
+    Warcry:
+      collection: FemaleWarcry
 
 - type: emoteSounds
   id: IPC
@@ -217,6 +221,8 @@
       collection: TajaranMaleHisses
     Meow:
       collection: TajaranMaleMeows
+    Warcry:
+      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleTajaran
@@ -265,6 +271,8 @@
       collection: TajaranFemaleHisses
     Meow:
       collection: TajaranFemaleMeows
+    Warcry:
+      collection: FemaleWarcry
 
 - type: emoteSounds
   id: MaleMed

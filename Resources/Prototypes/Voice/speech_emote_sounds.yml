@@ -42,6 +42,8 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    Warcry:
+      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleHuman
@@ -86,6 +88,8 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Warcry:
+      collection: FemaleWarcry
 
 - type: emoteSounds
   id: MaleReptilian
@@ -112,6 +116,8 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
+    Warcry:
+      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleReptilian
@@ -134,6 +140,8 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Warcry:
+      collection: FemaleWarcry
 
 - type: emoteSounds
   id: MaleSlime
@@ -180,6 +188,8 @@
       collection: MaleSlimeDeathGasp # ADT
     Bubbling:
       path: /Audio/Voice/Slime/slime_bubbles.ogg
+    Warcry:
+      collection: MaleWarcry
     Pop:
       path: /Audio/Voice/Slime/slime_pop.ogg
   params:
@@ -230,6 +240,8 @@
       collection: FemaleDeathGasp
     Bubbling:
       path: /Audio/Voice/Slime/slime_bubbles.ogg
+    Warcry:
+      collection: FemaleWarcry
     Pop:
       path: /Audio/Voice/Slime/slime_pop.ogg
   params:
@@ -260,6 +272,8 @@
       collection: Hew
     Gasp:
       path: /Audio/Effects/Gasp/vox_gasp.ogg
+    Warcry:
+      collection: MaleWarcry
     DefaultDeathgasp:
       path: /Audio/Effects/Gasp/vox_DeathGasp.ogg
   params:
@@ -285,6 +299,8 @@
       collection: Hew
     Gasp:
       collection: MaleGasp
+    Warcry:
+      collection: MaleWarcry
     DefaultDeathgasp:
       collection: DeathGasp
   params:
@@ -313,6 +329,8 @@
       collection: BikeHorn
     Gasp:
       collection: MaleGasp
+    Warcry:
+      collection: MaleWarcry
     DefaultDeathgasp:
       collection: DeathGasp
 
@@ -355,6 +373,8 @@
       collection: Hew
     Gasp:
       collection: MaleGasp
+    Warcry:
+      collection: MaleWarcry
     DefaultDeathgasp:
       collection: MaleDeathGasp
   params:
@@ -400,6 +420,8 @@
       collection: Hew
     Gasp:
       collection: FemaleGasp
+    Warcry:
+      collection: FemaleWarcry
     DefaultDeathgasp:
       collection: FemaleDeathGasp
   params:
@@ -431,6 +453,8 @@
       collection: BikeHorn
     Gasp:
       collection: MaleGasp
+    Warcry:
+      collection: MaleWarcry
     DefaultDeathgasp:
       collection: MothDeathGasp
 
@@ -538,6 +562,8 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
+    Warcry:
+      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleVulpkanin
@@ -578,6 +604,8 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
+    Warcry:
+      collection: FemaleWarcry
 
 # body emotes
 - type: emoteSounds

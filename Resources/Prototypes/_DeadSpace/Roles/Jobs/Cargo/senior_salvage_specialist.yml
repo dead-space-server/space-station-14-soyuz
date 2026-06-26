@@ -43,6 +43,7 @@
     back:
     - LavalandMiningVoucher
     - RubberStampSeniorSalvage
+    - LavalandMiningShopFlatpack
 
 - type: chameleonOutfit
   id: SeniorSalvageSpecialistChameleonOutfit

@@ -1,0 +1,37 @@
+- type: emote
+  id: Warcry
+  name: chat-emote-name-warcry
+  category: Vocal
+  icon: Interface/Emotes/scream.png
+  whitelist:
+    components:
+    - Vocal
+    tags:
+    - ERTEmotes
+  blacklist:
+    tags:
+    - SiliconEmotes
+    - SiliconIPCEmotes
+  chatMessages: ["chat-emote-msg-warcry"]
+  chatTriggers:
+    - warcry
+
+- type: Tag
+  id: ERTEmotes
+
+- type: soundCollection
+  id: MaleWarcry
+  files:
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_male_1.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_male_2.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_male_3.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_male_4.ogg
+  
+- type: soundCollection
+  id: FemaleWarcry
+  files:
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_female_1.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_female_2.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_female_3.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_female_4.ogg
+    - /Audio/_DeadSpace/_Soyuz/Voice/Human/warcry_female_5.ogg

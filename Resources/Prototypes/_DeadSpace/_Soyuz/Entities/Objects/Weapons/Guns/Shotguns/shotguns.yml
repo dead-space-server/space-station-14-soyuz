@@ -62,7 +62,6 @@
   - type: StaticPrice
     price: 500
 
-    
 - type: entity
   name: Сайга-12М
   parent: [BaseItem, BaseGunWieldable, BaseSecurityContraband]

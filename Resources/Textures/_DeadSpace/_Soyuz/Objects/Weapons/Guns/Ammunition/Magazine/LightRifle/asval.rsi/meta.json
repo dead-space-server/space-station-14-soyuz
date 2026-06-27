@@ -27,6 +27,9 @@
         },
         {
             "name": "icon"
+        },
+        {
+            "name": "incendiary"
         }
     ]
 }

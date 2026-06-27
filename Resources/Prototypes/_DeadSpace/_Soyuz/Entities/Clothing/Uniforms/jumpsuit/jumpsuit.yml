@@ -63,3 +63,14 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformUSSPJumpsuit
+  name: футболка с гербом СССП
+  description: Самая стильная футболка во всём государстве.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi

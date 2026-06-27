@@ -55,10 +55,6 @@
   name: АКМС-У
   parent: [BaseItem, BaseSecurityContraband]
   id: WeaponRifleAKMCY
-  description: Укороченный вариант автомата АКМС. В простонародии Ксюха
-  name: АКМС-У
-  parent: [BaseItem, BaseSecurityContraband]
-  id: WeaponRifleAKMCY
   description: Укороченный вариант автомата АКМС. В простонародье - Ксюха.
   suffix: Автомат
   components:

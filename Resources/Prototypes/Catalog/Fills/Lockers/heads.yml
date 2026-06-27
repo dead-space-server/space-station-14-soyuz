@@ -241,6 +241,7 @@
     - id: DoorRemoteMedical
     - id: BoxEncryptionKeyMedical
     - id: BoxCMOCircuitboards
+    - id: ClothingEyesHudCMO # DS14-Soyuz
     - id: PlushieLizardJobChiefmedicalofficer
       prob: 0.02
 

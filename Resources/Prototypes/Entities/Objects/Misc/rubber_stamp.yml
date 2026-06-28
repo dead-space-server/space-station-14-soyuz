@@ -65,8 +65,8 @@
     stampedColor: "#006600"
     stampState: "paper_stamp-centcom"
     # DS14-start
-    stampTexture: "/Textures/Interface/Stamps/centralcommand_print.png"
-    stampScale: 0.92
+    stampPatternTexture: "/Textures/Interface/Stamps/centralcommand_print.png"
+    stampTextMaxScale: 0.92
     stampCanRotate: false
     # DS14-end
   - type: Sprite

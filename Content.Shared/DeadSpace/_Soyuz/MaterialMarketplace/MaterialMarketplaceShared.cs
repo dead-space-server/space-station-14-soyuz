@@ -1,7 +1,7 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeadSpace.MaterialMarketplace;
+namespace Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 
 [NetSerializable, Serializable]
 public sealed class MaterialMarketplaceState(

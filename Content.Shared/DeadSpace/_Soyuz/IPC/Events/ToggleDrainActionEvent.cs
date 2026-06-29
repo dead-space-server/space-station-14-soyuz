@@ -2,7 +2,7 @@
 
 using Content.Shared.Actions;
 
-namespace Content.Shared.DeadSpace.IPC.Events;
+namespace Content.Shared.DeadSpace._Soyuz.IPC.Events;
 
 public sealed partial class ToggleDrainActionEvent : InstantActionEvent
 {

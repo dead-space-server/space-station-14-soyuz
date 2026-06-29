@@ -2,7 +2,7 @@ using Content.Shared.Materials;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Shared.DeadSpace.MaterialMarketplace
+namespace Content.Shared.DeadSpace._Soyuz.MaterialMarketplace
 {
     [RegisterComponent, NetworkedComponent]
     public sealed partial class MaterialMarketplaceComponent : Component

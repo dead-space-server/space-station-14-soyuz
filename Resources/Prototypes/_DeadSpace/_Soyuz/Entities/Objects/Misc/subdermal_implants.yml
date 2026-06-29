@@ -1,0 +1,12 @@
+- type: entity
+  parent: BaseSubdermalImplant
+  id: NoSwearingImplant
+  name: имплант "культурности"
+  description: Этот имплант сделает вас более культурным.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: ReplacementAccent
+      accent: NoSwearingAccent

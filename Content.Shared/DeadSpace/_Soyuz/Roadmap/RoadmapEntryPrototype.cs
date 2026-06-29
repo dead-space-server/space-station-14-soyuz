@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.DeadSpace.Soyuz.Roadmap;
+namespace Content.Shared.DeadSpace._Soyuz.Roadmap;
 
 [Prototype]
 [DataDefinition]

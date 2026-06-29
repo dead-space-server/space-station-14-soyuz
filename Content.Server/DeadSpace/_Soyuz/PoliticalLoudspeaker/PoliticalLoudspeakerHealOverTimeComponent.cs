@@ -2,7 +2,7 @@
 
 using Content.Shared.Damage;
 
-namespace Content.Server.DeadSpace._SoyuzPoliticalLoudspeaker;
+namespace Content.Server.DeadSpace._Soyuz.PoliticalLoudspeaker;
 
 [RegisterComponent]
 public sealed partial class PoliticalLoudspeakerHealOverTimeComponent : Component

@@ -1,17 +1,29 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
-using System.Linq; using Content.Shared.Actions;
-using Content.Shared.Actions.Components; using Content.Shared.Actions.Events;
-using Content.Shared.Damage; using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Prototypes; using Content.Shared.Damage.Systems;
-using Content.Shared.Examine; using Content.Shared.FixedPoint;
-using Content.Shared.Hands.Components; using Content.Shared.Hands.EntitySystems;
-using Content.Shared.Movement.Components; using Content.Shared.Movement.Systems; using Content.Shared.NPC.Components;
-using Content.Shared.NPC.Systems; using Content.Shared.PoliticalLoudspeaker;
-using Content.Shared.StatusEffectNew; using Robust.Shared.GameObjects;
-using Robust.Shared.Map; using Robust.Shared.Prototypes; using Robust.Shared.Timing;
+using System.Linq; 
+using Content.Shared.Actions;
+using Content.Shared.Actions.Components; 
+using Content.Shared.Actions.Events;
+using Content.Shared.Damage; 
+using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Prototypes; 
+using Content.Shared.Damage.Systems;
+using Content.Shared.Examine; 
+using Content.Shared.FixedPoint;
+using Content.Shared.Hands.Components; 
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Movement.Components; 
+using Content.Shared.Movement.Systems; 
+using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Systems; 
+using Content.Shared.PoliticalLoudspeaker;
+using Content.Shared.StatusEffectNew; 
+using Robust.Shared.GameObjects;
+using Robust.Shared.Map; 
+using Robust.Shared.Prototypes; 
+using Robust.Shared.Timing;
 
-namespace Content.Server.PoliticalLoudspeaker;
+namespace Content.Server.DeadSpace._Soyuz.PoliticalLoudspeaker;
 
 public sealed class PoliticalLoudspeakerSystem : EntitySystem
 {

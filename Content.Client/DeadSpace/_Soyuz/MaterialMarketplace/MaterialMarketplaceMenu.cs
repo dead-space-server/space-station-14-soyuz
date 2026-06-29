@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.UserInterface.Controls;
-using Content.Shared.DeadSpace.MaterialMarketplace;
+using Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 using Content.Shared.Materials;
 using Content.Shared.Stacks;
 using Robust.Client.GameObjects;
@@ -10,7 +10,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 
-namespace Content.Client.DeadSpace.MaterialMarketplace;
+namespace Content.Client.DeadSpace._Soyuz.MaterialMarketplace;
 
 public sealed class MaterialMarketplaceMenu : FancyWindow
 {

@@ -9,7 +9,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server.Mech.Equipment.EntitySystems;
+namespace Content.Server.DeadSpace._Soyuz.Mech.Equipment.EntitySystems;
 
 public sealed class MechCollectorSystem : EntitySystem
 {

@@ -3,7 +3,7 @@
 using Content.Shared.Alert;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.DeadSpace.IPC.Components;
+namespace Content.Server.DeadSpace._Soyuz.IPC.Components;
 
 [RegisterComponent]
 public sealed partial class IPCComponent : Component

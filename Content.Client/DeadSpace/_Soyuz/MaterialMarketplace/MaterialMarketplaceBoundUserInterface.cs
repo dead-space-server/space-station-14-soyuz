@@ -1,6 +1,6 @@
-using Content.Shared.DeadSpace.MaterialMarketplace;
+using Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 
-namespace Content.Client.DeadSpace.MaterialMarketplace;
+namespace Content.Client.DeadSpace._Soyuz.MaterialMarketplace;
 
 public sealed class MaterialMarketplaceBoundUserInterface : BoundUserInterface
 {

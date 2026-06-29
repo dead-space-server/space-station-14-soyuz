@@ -3,12 +3,12 @@ using System.Numerics;
 using Content.Server.Cargo.Systems;
 using Content.Server.Materials;
 using Content.Server.Station.Systems;
-using Content.Shared.DeadSpace.MaterialMarketplace;
+using Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 using Content.Shared.Materials;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.DeadSpace.MaterialMarketplace
+namespace Content.Server.DeadSpace._Soyuz.MaterialMarketplace
 {
     /// <summary>
     /// Серверная система маркетплейса материалов.

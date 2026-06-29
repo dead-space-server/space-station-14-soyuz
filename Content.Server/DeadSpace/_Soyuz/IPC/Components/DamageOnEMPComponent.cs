@@ -3,7 +3,7 @@
 using Content.Shared.Damage.Prototypes;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.DeadSpace.IPC.Components;
+namespace Content.Server.DeadSpace._Soyuz.IPC.Components;
 
 [RegisterComponent]
 public sealed partial class DamageOnEMPComponent : Component

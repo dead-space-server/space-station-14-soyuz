@@ -1,7 +1,7 @@
 ﻿using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 
-namespace Content.Server.Mech.Equipment.Components;
+namespace Content.Server.DeadSpace._Soyuz.Mech.Equipment.Components;
 
 [RegisterComponent]
 public sealed partial class MechCollectorComponent : Component

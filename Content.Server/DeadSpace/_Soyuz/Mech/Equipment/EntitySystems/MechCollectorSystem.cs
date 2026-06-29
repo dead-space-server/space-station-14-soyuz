@@ -1,4 +1,4 @@
-﻿using Content.Server._Soyuz.Mech.Equipment.Components;
+﻿using Content.Shared.DeadSpace._Soyuz.Mech.Equipment.Components;
 using Content.Server.Mech.Equipment.Components;
 using Content.Server.Mech.Systems;
 using Content.Shared.Mech.Components;

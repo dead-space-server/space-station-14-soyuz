@@ -1,4 +1,5 @@
-﻿using Content.Server.Mech.Equipment.Components;
+﻿using Content.Server._Soyuz.Mech.Equipment.Components;
+using Content.Server.Mech.Equipment.Components;
 using Content.Server.Mech.Systems;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;

@@ -16,7 +16,7 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems; 
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems; 
-using Content.Shared.PoliticalLoudspeaker;
+using Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;
 using Content.Shared.StatusEffectNew; 
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map; 
@@ -27,11 +27,16 @@ namespace Content.Server.DeadSpace._Soyuz.PoliticalLoudspeaker;
 
 public sealed class PoliticalLoudspeakerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedHandsSystem _hands = default!; [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;   [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!; [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!; [Dependency] private readonly MovementModStatusSystem _moveMod = default!;
-    [Dependency] private readonly NpcFactionSystem _factionSystem = default!; [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!; 
+    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;   
+    [Dependency] private readonly ExamineSystemShared _examine = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!; 
+    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!; 
+    [Dependency] private readonly MovementModStatusSystem _moveMod = default!;
+    [Dependency] private readonly NpcFactionSystem _factionSystem = default!; 
+    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
 
     private EntityQuery<NpcFactionMemberComponent> _factionQuery; private EntityQuery<DamageableComponent> _damageableQuery;
 

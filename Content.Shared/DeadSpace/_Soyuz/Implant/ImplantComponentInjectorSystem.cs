@@ -27,7 +27,7 @@ public sealed class ComponentInjectorImplantSystem : EntitySystem
         {
             var componentType = _componentFactory.GetComponent(entry.Key).GetType();
 
-            if (EntityManager.HasComponent(targetEntity, componentType))
+            if (HasComp(targetEntity, componentType))
                 continue;
 
             EntityManager.AddComponent(targetEntity, entry.Value);

@@ -52,6 +52,7 @@
       BananiumOre: 8
       BluespaceCrystalOre: 12
       DiamondOre: 16
+      TungstenOre: 8 #DS14-Soyuz
   - type: LavalandFultonable
   #DS14-end
   # orebox-specific

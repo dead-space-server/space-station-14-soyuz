@@ -706,6 +706,7 @@
         BananiumOre: 8
         BluespaceCrystalOre: 12
         DiamondOre: 16
+        TungstenOre: 8 #DS14-Soyuz
 #DS14-end
 
 - type: entity

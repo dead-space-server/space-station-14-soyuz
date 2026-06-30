@@ -67,6 +67,7 @@
     - HyperLinkBookCorporateLaw
     - HyperLinkBookSOPSecurity
     - RubberStampSeniorOfficer # DS14
+    - PatrolTablet # DS14-Soyuz
 
 - type: chameleonOutfit
   id: SeniorOfficerChameleonOutfit

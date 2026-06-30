@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Content.Shared.DeadSpace.Necromorphs.Necroobelisk;
 
-public abstract class SharedNecroobeliskSystem : EntitySystem
+public abstract class SharedSuperNecroobeliskSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
@@ -15,26 +15,26 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedSanitySystem _sharedSanity = default!;
 
-    private bool _isSanityCheckExecuted;
+
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<NecroobeliskComponent, EntityUnpausedEvent>(OnNecroobeliskUnpause);
-        SubscribeLocalEvent<NecroobeliskComponent, ComponentShutdown>(OnNecroobeliskStop);
+        SubscribeLocalEvent<SuperMatterialNecroObeliskComponent, EntityUnpausedEvent>(OnNecroobeliskUnpause);
+        SubscribeLocalEvent<SuperMatterialNecroObeliskComponent, ComponentShutdown>(OnNecroobeliskStop);
     }
 
-    private void OnNecroobeliskUnpause(EntityUid uid, NecroobeliskComponent component, ref EntityUnpausedEvent args)
+    private void OnNecroobeliskUnpause(EntityUid uid, SuperMatterialNecroObeliskComponent component, ref EntityUnpausedEvent args)
     {
         component.NextPulseTime += args.PausedTime;
         component.NextCheckTimeSanity += args.PausedTime;
         Dirty(uid, component);
     }
-    private void OnNecroobeliskStop(EntityUid uid, NecroobeliskComponent component, ref ComponentShutdown args)
+    private void OnNecroobeliskStop(EntityUid uid, SuperMatterialNecroObeliskComponent component, ref ComponentShutdown args)
     {
         ClearTrackedOverlays(uid, component.MobsInRange);
     }
 
-    private void SanityCheckOrConvergence(EntityUid uid, NecroobeliskComponent component)
+    private void SanityCheckOrConvergence(EntityUid uid, SuperMatterialNecroObeliskComponent component)
     {
         if (!component.IsActive)
         {
@@ -52,6 +52,7 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
                 component.MobsInRange.Remove(entity);
             }
         }
+        if (entities.Count > 8 && component.Percents > 20) component.Percents -= 10;
         foreach (var (entity, comp) in entities)
         {
             if (component.IsStageConvergence)
@@ -66,7 +67,7 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
             if (!TryComp<SanityComponent>(entity, out var sanityComponent))
                 continue;
 
-            _sharedSanity.TryAddSanityLvl(entity, -component.SanityDamage, sanityComponent);
+            _sharedSanity.TryAddSanityLvl(entity, -component.SanityDamage / entities.Count, sanityComponent);
 
             if (sanityComponent.SanityLevel <= 0)
             {
@@ -89,7 +90,7 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
         component.NextCheckTimeSanity = _gameTiming.CurTime + component.CheckDurationSanity;
     }
 
-    private void NecroobeliskPulse(EntityUid uid, NecroobeliskComponent? component = null)
+    private void NecroobeliskPulse(EntityUid uid, SuperMatterialNecroObeliskComponent? component = null)
     {
         if (!Resolve(uid, ref component))
             return;
@@ -108,26 +109,19 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        var necroobeliskQuery = EntityQueryEnumerator<NecroobeliskComponent>();
+        var necroobeliskQuery = EntityQueryEnumerator<SuperMatterialNecroObeliskComponent>();
         while (necroobeliskQuery.MoveNext(out var ent, out var necroobelisk))
         {
-            if (_isSanityCheckExecuted)
-            {
-                necroobelisk.NextCheckTimeSanity = _gameTiming.CurTime + necroobelisk.CheckDurationSanity;
-            }
             if (_gameTiming.CurTime > necroobelisk.NextPulseTime)
             {
                 NecroobeliskPulse(ent, necroobelisk);
                 necroobelisk.NextPulseTime = _gameTiming.CurTime + necroobelisk.TimeUtilPulse;
             }
-            if (!_isSanityCheckExecuted && _gameTiming.CurTime > necroobelisk.NextCheckTimeSanity)
-            {
+
+            if (_gameTiming.CurTime > necroobelisk.NextCheckTimeSanity)
                 SanityCheckOrConvergence(ent, necroobelisk);
-                _isSanityCheckExecuted = true;
-            }
 
         }
-        _isSanityCheckExecuted = false;
     }
 
     private void ClearTrackedOverlays(EntityUid source, HashSet<Entity<MobStateComponent>> trackedMobs)
@@ -184,7 +178,7 @@ public abstract class SharedNecroobeliskSystem : EntitySystem
         return false;
     }
 
-    public virtual void UpdateState(EntityUid uid, NecroobeliskComponent component)
+    public virtual void UpdateState(EntityUid uid, SuperMatterialNecroObeliskComponent component)
     {
         if (component.IsActive)
         {

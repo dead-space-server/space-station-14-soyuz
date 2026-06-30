@@ -41,6 +41,18 @@ public sealed class NecroobeliskStoperSystem : EntitySystem
                 DistanceThreshold = 2f
             });
         }
+        if (TryComp<SuperMatterialNecroObeliskComponent>(args.Target, out var superMatterialNecroObeliskComponent))
+        {
+            if (!superMatterialNecroObeliskComponent.IsStoper)
+                return;
+
+            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ScanDoAfterDuration, new NecroobeliskStoperDoAfterEvent(), uid, target: target, used: uid)
+            {
+                BreakOnDamage = true,
+                BreakOnMove = true,
+                DistanceThreshold = 2f
+            });
+        }
         if (HasComp<NecroobeliskSplinterComponent>(args.Target))
         {
             _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ScanDoAfterDuration, new NecroobeliskStoperDoAfterEvent(), uid, target: target, used: uid)
@@ -66,6 +78,11 @@ public sealed class NecroobeliskStoperSystem : EntitySystem
             QueueDel(uid);
             args.Handled = true;
             return;
+        }
+        if (TryComp<SuperMatterialNecroObeliskComponent>(target, out var comp))
+        {
+            if (!comp.SequenceStarted && comp.Percents != 99) comp.SequenceStarted = true;
+            else if (comp.Percents >= 5) comp.Percents -= 5;
         }
 
         if (TryComp<NecroobeliskSplinterComponent>(target, out var splinter))

@@ -1,20 +1,17 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
-
-using Robust.Shared.GameStates;
-using Robust.Shared.Serialization;
-using Robust.Shared.Prototypes;
 using Content.Shared.Mobs.Components;
+using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared.DeadSpace.Necromorphs.Necroobelisk;
 
 [RegisterComponent, NetworkedComponent, EntityCategory("Spawner")]
-public sealed partial class NecroobeliskComponent : Component
+public sealed partial class SuperMatterialNecroObeliskComponent : Component
 {
     #region Sanity
 
-    [DataField("rangeSanity")]
+    [DataField]
     [ViewVariables(VVAccess.ReadOnly)]
-    public float RangeSanity = 15f;
+    public float RangeSanity = 8f;
 
     [ViewVariables(VVAccess.ReadOnly)]
     public TimeSpan CheckDurationSanity = TimeSpan.FromSeconds(2);
@@ -37,9 +34,7 @@ public sealed partial class NecroobeliskComponent : Component
     [DataField]
     public float SanityDamage = 3;
 
-    [DataField("mobsForStageConvergence")]
-
-    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField]
     public int MobsForStageConvergence = 15;
 
     [ViewVariables(VVAccess.ReadOnly)]
@@ -49,10 +44,10 @@ public sealed partial class NecroobeliskComponent : Component
 
     #region Visualizer
 
-    [DataField("state")]
+    [DataField]
     public string State = "active";
 
-    [DataField("unactiveState")]
+    [DataField]
     public string UnactiveState = "unactive";
 
     #endregion
@@ -82,11 +77,9 @@ public sealed partial class NecroobeliskComponent : Component
     #region Bool
 
     [DataField("warn")]
-    [ViewVariables(VVAccess.ReadWrite)]
     public bool IsGivesWarnings = true;
 
     [DataField("stoper")]
-    [ViewVariables(VVAccess.ReadWrite)]
     public bool IsStoper = true;
 
     [ViewVariables(VVAccess.ReadWrite)]
@@ -105,34 +98,28 @@ public sealed partial class NecroobeliskComponent : Component
     public bool SpawnCudzu = true;
 
     #endregion
+    #region Super
+    [ViewVariables]
+    public bool SequenceStarted = false;
+    [ViewVariables(VVAccess.ReadWrite)]
+    public int Percents = 0;
+    [ViewVariables]
+    public TimeSpan NextCheckPercents = TimeSpan.Zero;
+    [DataField]
+    public TimeSpan CheckTime = TimeSpan.FromSeconds(20);
+    public SuperMatterialNecroObeliskState StateEnum = SuperMatterialNecroObeliskState.Stop;
+    public TimeSpan NextCheckNecroSpawn = TimeSpan.Zero;
+    [DataField]
+    public string NecroPrototype = "MobSmallNecro";
+    #endregion
 }
-
-[Serializable, NetSerializable]
-public sealed class NecroobeliskComponentState : ComponentState
+public enum SuperMatterialNecroObeliskState : byte
 {
-    public TimeSpan NextPulseTime;
+    Stop,
+    Zero,
+    TwentyFive,
+    Fifty,
+    Seventy,
+    NinetyNine,
+    Hundred
 }
-
-[ByRefEvent]
-public readonly record struct NecroobeliskPulseEvent();
-
-[ByRefEvent]
-public readonly record struct NecroobeliskStartConvergenceEvent();
-
-[ByRefEvent]
-public readonly record struct NecroMoonAppearanceEvent();
-
-[ByRefEvent]
-public readonly record struct NecroobeliskAbsorbEvent(EntityUid Target);
-
-//[ByRefEvent]
-//public readonly record struct NecroobeliskSpawnArmyEvent();
-
-[Serializable, NetSerializable]
-public sealed class SanityComponentState : ComponentState
-{
-    public TimeSpan NextCheckTime;
-}
-
-[ByRefEvent]
-public readonly record struct SanityLostEvent(EntityUid VictinUID);

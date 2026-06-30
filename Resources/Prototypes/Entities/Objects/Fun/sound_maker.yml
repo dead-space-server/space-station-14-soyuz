@@ -206,6 +206,7 @@
     useDelay: 3
   - type: InstantAction
     event: !type:TriggerActionEvent
+  - type: TriggerOnAction
 #DS14-end
 
 - type: entity
@@ -225,9 +226,13 @@
     quickEquip: false
     slots: neck
   #DS14-start
-  - type: TriggerOnAction
-    action: WhistleAction
-    parent: true
+  - type: ActionGrant
+    actions: 
+    - WhistleAction
+  - type: ItemActionGrant
+    actions: 
+    - WhistleAction
+    activeIfWorn: true
   - type: UseDelayOnTrigger
   - type: EmitSoundOnTrigger
     sound:

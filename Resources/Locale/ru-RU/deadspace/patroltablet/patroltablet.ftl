@@ -2,7 +2,7 @@ patrol-tablet-title = Планшет Отрядов
 patrol-tablet-shift-time = Продолжительность смены: [color=white]{ $time }[/color]
 patrol-tablet-personnel = ВЫДЕЛЕННЫЕ
 patrol-tablet-zones = ОТРЯДЫ
-patrol-tablet-footer = NT-SQUADTablet v1.12.2
+patrol-tablet-footer = USSP-SQUADTablet v1.12.2
 patrol-tablet-assign-all = Добавить
 patrol-tablet-assign-all-tooltip = Назначить всех выделенных в этот отряд
 patrol-tablet-added-personnel = {$name} выделен
@@ -19,4 +19,4 @@ patrol-tablet-icon-label = Иконка
 patrol-tablet-create-button = Создать
 patrol-tablet-cancel-button = Отмена
 ent-PatrolTablet = Планшет Отрядов
-    .desc = Прочный планшет в кожаном чехле. Через него ГСБ сможет назначать отряды.
+    .desc = Прочный планшет в кожаном чехле. Через него НМ и СМ смогут назначать отряды.

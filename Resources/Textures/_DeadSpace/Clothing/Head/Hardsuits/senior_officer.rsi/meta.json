@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Made by pyfya (discord) for Space Station 14 server Мёртвый Космос",
+    "copyright": "Made bu yri_nouri (discord",
     "size": {
         "x": 32,
         "y": 32
@@ -11,14 +11,48 @@
             "name": "icon"
         },
         {
+            "name": "icon-unshaded"
+        },
+        {
             "name": "icon-flash"
         },
         {
-            "name": "off-equipped-HELMET",
+            "name": "light-overlay"
+        },
+        {
+            "name": "equipped-head",
             "directions": 4
         },
         {
-            "name": "on-equipped-HELMET",
+            "name": "equipped-head-light",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-unshaded",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-vulpkanin",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-light-vulpkanin",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-unshaded-vulpkanin",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-light-reptilian",
+            "directions": 4
+        },
+        {
+            "name": "equipped-head-unshaded-reptilian",
             "directions": 4
         }
     ]

@@ -7,6 +7,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/senior_officer.rsi
+    #DS14-Soyuz-start
     layers:
     - state: icon
     - state: icon-unshaded
@@ -47,3 +48,4 @@
     color: '#fce883'
     radius: 6
     energy: 3
+#DS14-Soyuz-end

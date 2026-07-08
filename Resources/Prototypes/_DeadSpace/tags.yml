@@ -188,6 +188,12 @@
   id: GrenadeCleanade
 
 - type: Tag
+  id: RockGuitarInstrument
+
+- type: Tag
+  id: RPG70
+
+- type: Tag
   id: HardHat
 
 - type: Tag

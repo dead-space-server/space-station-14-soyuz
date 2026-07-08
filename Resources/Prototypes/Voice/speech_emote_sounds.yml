@@ -42,7 +42,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
 
 - type: emoteSounds
@@ -88,7 +88,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: FemaleWarcry
 
 - type: emoteSounds
@@ -116,7 +116,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: DeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
 
 - type: emoteSounds
@@ -140,7 +140,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: FemaleWarcry
 
 - type: emoteSounds
@@ -188,7 +188,7 @@
       collection: MaleSlimeDeathGasp # ADT
     Bubbling:
       path: /Audio/Voice/Slime/slime_bubbles.ogg
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     Pop:
       path: /Audio/Voice/Slime/slime_pop.ogg
@@ -240,7 +240,7 @@
       collection: FemaleDeathGasp
     Bubbling:
       path: /Audio/Voice/Slime/slime_bubbles.ogg
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: FemaleWarcry
     Pop:
       path: /Audio/Voice/Slime/slime_pop.ogg
@@ -272,7 +272,7 @@
       collection: Hew
     Gasp:
       path: /Audio/Effects/Gasp/vox_gasp.ogg
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     DefaultDeathgasp:
       path: /Audio/Effects/Gasp/vox_DeathGasp.ogg
@@ -299,7 +299,7 @@
       collection: Hew
     Gasp:
       collection: MaleGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     DefaultDeathgasp:
       collection: DeathGasp
@@ -329,7 +329,7 @@
       collection: BikeHorn
     Gasp:
       collection: MaleGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     DefaultDeathgasp:
       collection: DeathGasp
@@ -373,7 +373,7 @@
       collection: Hew
     Gasp:
       collection: MaleGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     DefaultDeathgasp:
       collection: MaleDeathGasp
@@ -420,7 +420,7 @@
       collection: Hew
     Gasp:
       collection: FemaleGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: FemaleWarcry
     DefaultDeathgasp:
       collection: FemaleDeathGasp
@@ -453,7 +453,7 @@
       collection: BikeHorn
     Gasp:
       collection: MaleGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
     DefaultDeathgasp:
       collection: MothDeathGasp
@@ -562,7 +562,7 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: MaleWarcry
 
 - type: emoteSounds
@@ -604,7 +604,7 @@
       collection: FemaleGasp
     DefaultDeathgasp:
       collection: FemaleDeathGasp
-    Warcry:
+    Warcry: # DS14-Soyuz
       collection: FemaleWarcry
 
 # body emotes

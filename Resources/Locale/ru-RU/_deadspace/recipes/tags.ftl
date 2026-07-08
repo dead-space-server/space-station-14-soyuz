@@ -8,6 +8,7 @@ construction-graph-police-beta-body = корпус скафандра "Бета-
 construction-graph-police-beta-comp = композит для "Бета-1"
 construction-graph-police-beta-head = шлем скафандра "Бета-1"
 construction-graph-police-beta-legs = нижняя часть скафандра "Бета-1"
+construction-graph-tag-rock-guitar = рок-гитара
 
 construction-graph-tag-beer-bottle = бутылка пива
 construction-graph-tag-fried-sausage = жареная сосиска

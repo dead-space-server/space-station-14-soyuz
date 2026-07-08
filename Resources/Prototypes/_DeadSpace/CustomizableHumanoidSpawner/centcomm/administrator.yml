@@ -46,7 +46,7 @@
 - type: loadout
   id: CentralCommandAdministratorLoadout
   equipment:
-    back: ClothingBackpackSatchelOfficial
+    back: ClothingBackpackSatchelAdministratorFilled
     eyes: ClothingEyesGlassesHiddenSecurity
   storage:
     back:

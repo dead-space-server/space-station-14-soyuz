@@ -49,4 +49,4 @@
       - id: WeaponDisabler
       - id: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
       - id: ClothingMaskGasSwat
-      - id: ClothingHeadHelmetSwat # DS14-Soyuz Temp replaced
+      - id: ClothingHeadHelmetSwat # DS14-Soyuz Temp replaced from - id: ClothingHeadHelmetBlueShield 

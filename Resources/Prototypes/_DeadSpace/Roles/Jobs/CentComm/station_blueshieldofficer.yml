@@ -70,13 +70,14 @@
   equipment:
     head: ClothingHeadHatBeretBlueShield
     # back: ClothingBackpackBlueShield
-    eyes: ClothingEyesGlassesSecurity
+    mask: ClothingMaskGasBlueShield
+    eyes: ClothingEyesHudBlueShield
     ears: ClothingHeadsetAltCommand
     shoes: ClothingShoesOKGB
     socks: ClothingUnderwearSocksBlueShieldOfficer
     # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesBlueShield
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
 
@@ -101,7 +102,7 @@
     scanDelay: 1
   - type: ErtTrackerPda
     allowedDepartments:
-    - Command
+    - SpecialOperationsCorps
     allowedJobs:
     - BlueShieldOfficer
     - CentralCommandBlueShieldOfficer

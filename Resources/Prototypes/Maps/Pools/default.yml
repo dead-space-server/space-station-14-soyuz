@@ -11,11 +11,11 @@
   - Convex
   - Core
   - CorvaxAstra
-  - CorvaxAvrite
+  # - CorvaxAvrite # temporarily disabled
   - CorvaxChloris
   - CorvaxDelta
   - CorvaxGlacier
-  - CorvaxPaper
+  # - CorvaxPaper # Removed by Liv
   - CorvaxSilly
   - CorvaxSpectrum
   - CorvaxGlacier
@@ -23,9 +23,9 @@
   - Elkridge
   - Fland
   - Gate
-  # - Gemini # broken map, needs resave
-  - Loop
   - Ishimura
+  # - Gemini # broken map, needs resave
+  # - Loop # broken map, needs resave
   - Marathon
   - Meta
   - Oasis

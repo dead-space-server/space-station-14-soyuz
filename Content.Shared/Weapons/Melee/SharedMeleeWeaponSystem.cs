@@ -374,6 +374,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (!CombatMode.IsInCombatMode(user))
             return false;
 
+        // DS14-start
+        if (attack is HeavyAttackEvent && IsMeleeSuppressedAfterStand(user))
+            return false;
+        // DS14-end
+
         EntityUid? target = null;
         switch (attack)
         {
@@ -481,6 +486,22 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         DirtyField(weaponUid, weapon, nameof(MeleeWeaponComponent.Attacking));
         return true;
     }
+
+    // DS14-start
+    protected bool IsMeleeSuppressedAfterStand(EntityUid user)
+    {
+        if (TryComp<SuppressMeleeAfterStandComponent>(user, out var suppressMelee))
+        {
+            if (suppressMelee.SuppressedUntil > Timing.CurTime)
+                return true;
+
+            RemCompDeferred<SuppressMeleeAfterStandComponent>(user);
+        }
+
+        return false;
+    }
+
+    // DS14-end
 
     protected abstract bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session);
 

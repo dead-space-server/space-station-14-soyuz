@@ -1,6 +1,6 @@
 - type: entity
-  name: Авава ЦентКомович
-  description: Это существо, широко известно как Вава. Именно оно является официальным сотрудником ЦК и питомцем АЦК. Самое лояльное и милое существо на весь сектор!
+  name: Авава ГенШтабович
+  description: Это существо, широко известно как Вава. Именно оно является официальным сотрудником ГШ и питомцем АГШ. Самое лояльное и милое существо на весь сектор!
   id: MobAvavaCentComm
   parent: MobBaseScurret
   components:
@@ -17,13 +17,14 @@
   # Strips the name identifier from them, so they're just "Confident Waters" rather than "Confident Waters (123)"
   - type: NameIdentifier
     group: null
+  - type: IdBind
   - type: Loadout
     prototypes:
       - CentComAvavaGear
 
 - type: entity
-  name: спавнер Авава ЦентКомович
-  suffix: Не маппить, только для ЦК!
+  name: спавнер Авава ГенШтабович
+  suffix: Не маппить, только для ГШ!
   id: SpawnMobAvavaCentComm
   parent: MarkerBase
   components:

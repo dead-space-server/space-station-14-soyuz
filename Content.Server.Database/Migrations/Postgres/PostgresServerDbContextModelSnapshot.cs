@@ -20,7 +20,7 @@ namespace Content.Server.Database.Migrations.Postgres
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "10.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -534,14 +534,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("boolean")
                         .HasColumnName("enabled");
 
-                    b.Property<int>("LargeMaxPlayers")
-                        .HasColumnType("integer")
-                        .HasColumnName("large_max_players");
-
                     b.Property<string>("LargeMaps")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("large_maps");
+
+                    b.Property<int>("LargeMaxPlayers")
+                        .HasColumnType("integer")
+                        .HasColumnName("large_max_players");
 
                     b.Property<string>("LargePlayedMaps")
                         .IsRequired()
@@ -553,14 +553,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("large_pool_queue_maps");
 
-                    b.Property<int>("MediumMaxPlayers")
-                        .HasColumnType("integer")
-                        .HasColumnName("medium_max_players");
-
                     b.Property<string>("MediumMaps")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("medium_maps");
+
+                    b.Property<int>("MediumMaxPlayers")
+                        .HasColumnType("integer")
+                        .HasColumnName("medium_max_players");
 
                     b.Property<string>("MediumPlayedMaps")
                         .IsRequired()
@@ -572,14 +572,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("medium_pool_queue_maps");
 
-                    b.Property<int>("SmallMaxPlayers")
-                        .HasColumnType("integer")
-                        .HasColumnName("small_max_players");
-
                     b.Property<string>("SmallMaps")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("small_maps");
+
+                    b.Property<int>("SmallMaxPlayers")
+                        .HasColumnType("integer")
+                        .HasColumnName("small_max_players");
 
                     b.Property<string>("SmallPlayedMaps")
                         .IsRequired()
@@ -670,53 +670,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         {
                             t.HasCheckConstraint("NoExemptOnRoleBan", "type = 0 OR exempt_flags = 0");
                         });
-                });
-
-            modelBuilder.Entity("Content.Server.Database.GamePresetConfigEntity", b =>
-                {
-                    b.Property<string>("ServerId")
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)")
-                        .HasColumnName("server_id");
-
-                    b.Property<string>("ActivePresetIdsJson")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("active_preset_ids_json");
-
-                    b.Property<string>("CustomPresetsJson")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("custom_presets_json");
-
-                    b.Property<int>("CurrentPresetIndex")
-                        .HasColumnType("integer")
-                        .HasColumnName("current_preset_index");
-
-                    b.Property<bool>("DisableOocDuringVote")
-                        .HasColumnType("boolean")
-                        .HasColumnName("disable_ooc_during_vote");
-
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("boolean")
-                        .HasColumnName("enabled");
-
-                    b.Property<int>("MaxRdmDay")
-                        .HasColumnType("integer")
-                        .HasColumnName("max_rdm_day");
-
-                    b.Property<int>("MaxRdmRow")
-                        .HasColumnType("integer")
-                        .HasColumnName("max_rdm_row");
-
-                    b.Property<int>("VoteDurationSeconds")
-                        .HasColumnType("integer")
-                        .HasColumnName("vote_duration_seconds");
-
-                    b.HasKey("ServerId")
-                        .HasName("PK_game_preset_config");
-
-                    b.ToTable("game_preset_config", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.BanAddress", b =>
@@ -1011,6 +964,53 @@ namespace Content.Server.Database.Migrations.Postgres
                         });
                 });
 
+            modelBuilder.Entity("Content.Server.Database.GamePresetConfigEntity", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("ActivePresetIdsJson")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("active_preset_ids_json");
+
+                    b.Property<int>("CurrentPresetIndex")
+                        .HasColumnType("integer")
+                        .HasColumnName("current_preset_index");
+
+                    b.Property<string>("CustomPresetsJson")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("custom_presets_json");
+
+                    b.Property<bool>("DisableOocDuringVote")
+                        .HasColumnType("boolean")
+                        .HasColumnName("disable_ooc_during_vote");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enabled");
+
+                    b.Property<int>("MaxRdmDay")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_rdm_day");
+
+                    b.Property<int>("MaxRdmRow")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_rdm_row");
+
+                    b.Property<int>("VoteDurationSeconds")
+                        .HasColumnType("integer")
+                        .HasColumnName("vote_duration_seconds");
+
+                    b.HasKey("ServerId")
+                        .HasName("PK_game_preset_config");
+
+                    b.ToTable("game_preset_config", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.IPIntelCache", b =>
                 {
                     b.Property<int>("Id")
@@ -1243,6 +1243,15 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("hair_color");
 
+                    b.Property<string>("HairGradientColor")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("hair_gradient_color");
+
+                    b.Property<bool>("HairGradientEnabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("hair_gradient_enabled");
+
                     b.Property<string>("HairName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1407,6 +1416,14 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnName("round_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GamePresetName")
+                        .HasColumnType("text")
+                        .HasColumnName("game_preset_name");
+
+                    b.Property<string>("MapName")
+                        .HasColumnType("text")
+                        .HasColumnName("map_name");
 
                     b.Property<int>("ServerId")
                         .HasColumnType("integer")

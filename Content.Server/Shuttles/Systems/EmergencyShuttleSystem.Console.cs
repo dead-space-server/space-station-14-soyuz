@@ -1,4 +1,5 @@
 using System.Threading;
+using Content.Server.DeadSpace.Traitor;
 using Content.Server.DeadSpace.Traitor.Objectives;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Screens.Components;
@@ -10,6 +11,7 @@ using Content.Shared.Database;
 using Content.Shared.DeadSpace.Shuttles.Events;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
+using Content.Shared.GameTicking.Components;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
@@ -19,12 +21,12 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.Systems;
 using Content.Shared.UserInterface;
+using Robust.Shared.Audio;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Timer = Robust.Shared.Timing.Timer;
-using Content.Shared.Emag.Systems; // DS14: Emag support
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -78,12 +80,35 @@ public sealed partial class EmergencyShuttleSystem
     // DS14-start
     private const string TraitorUltraRaiderOutpostRule = "SyndicateRaid";
     private static readonly TimeSpan TraitorUltraHijackDelay = TimeSpan.FromMinutes(1);
+    private const float TraitorUltraEmergencyDockTime = 5 * 60;
+    private const float TraitorUltraEmergencyOffTargetDockTime = 7 * 60;
     private TimeSpan? _traitorUltraHijackCompletionTime;
     private EntityUid? _traitorUltraHijackerMind;
     private string _traitorUltraHijackerName = string.Empty;
     private EntityUid? _traitorUltraHijackShuttle;
     private bool _traitorUltraHijackCompleted;
     private bool _traitorUltraHijackArriving;
+    // DS14-end
+
+    // DS14-start
+    private bool IsTraitorUltraRuleAdded()
+    {
+        var query = EntityQueryEnumerator<TraitorUltraRuleComponent, GameRuleComponent>();
+        while (query.MoveNext(out var uid, out _, out var gameRule))
+        {
+            if (_ticker.IsGameRuleAdded(uid, gameRule))
+                return true;
+        }
+
+        return false;
+    }
+
+    private float GetTraitorUltraEmergencyDockTime(ShuttleDockResultType resultType)
+    {
+        return resultType is ShuttleDockResultType.OtherDock or ShuttleDockResultType.NoDock
+            ? TraitorUltraEmergencyOffTargetDockTime
+            : TraitorUltraEmergencyDockTime;
+    }
     // DS14-end
 
     private static readonly ProtoId<AccessLevelPrototype> EmergencyRepealAllAccess = "EmergencyShuttleRepealAll";
@@ -118,15 +143,6 @@ public sealed partial class EmergencyShuttleSystem
         SubscribeLocalEvent<EmergencyShuttleConsoleComponent, EmergencyShuttleHijackStartMessage>(OnEmergencyHijackStart);
         SubscribeLocalEvent<EmergencyShuttleConsoleComponent, EmergencyShuttleHijackCancelMessage>(OnEmergencyHijackCancel);
         // DS14-end
-
-        SubscribeLocalEvent<EmergencyShuttleConsoleComponent, GotEmaggedEvent>(OnEmagged);
-    }
-
-    // DS14: Emag support for early launch
-    private void OnEmagged(EntityUid uid, EmergencyShuttleConsoleComponent component, ref GotEmaggedEvent args)
-    {
-        _logger.Add(LogType.EmergencyShuttle, LogImpact.Extreme, $"{ToPrettyString(args.UserUid):player} emagged shuttle console for early launch");
-        EarlyLaunch();
     }
 
     private void SetAuthorizeTime(float obj)
@@ -415,7 +431,7 @@ public sealed partial class EmergencyShuttleSystem
         if (_traitorUltraHijackCompletionTime == null || _traitorUltraHijackCompleted)
             return;
 
-        if (!CanCancelTraitorUltraHijack(args.Actor))
+        if (!CanCancelTraitorUltraHijack(uid, args.Actor))
         {
             Popup.PopupEntity(Loc.GetString("emergency-shuttle-console-hijack-denied"), uid, args.Actor, PopupType.MediumCaution);
             SendHijackAvailability(uid, args.Actor);
@@ -453,11 +469,16 @@ public sealed partial class EmergencyShuttleSystem
 
     private void DispatchTraitorUltraHijackAnnouncement(string messageId, Color color)
     {
+        var message = Loc.GetString(messageId);
+
         _chatSystem.DispatchGlobalAnnouncement(
-            Loc.GetString(messageId),
+            message,
             Loc.GetString("emergency-shuttle-console-hijack-announcer"),
-            playSound: false,
-            colorOverride: color);
+            playSound: true,
+            announcementSound: new SoundPathSpecifier("/Audio/Effects/alert.ogg"),
+            colorOverride: color,
+            originalMessage: message,
+            voice: "Rita");
     }
 
     private void StartTraitorUltraHijackJump()
@@ -654,7 +675,7 @@ public sealed partial class EmergencyShuttleSystem
             EmergencyConsoleUiKey.Key,
             new EmergencyShuttleHijackAvailabilityMessage(
                 CanStartTraitorUltraHijack(actor),
-                CanCancelTraitorUltraHijack(actor)),
+                CanCancelTraitorUltraHijack(uid, actor)),
             actor);
     }
 
@@ -665,11 +686,15 @@ public sealed partial class EmergencyShuttleSystem
                TryGetTraitorUltraHijackMind(actor, out _);
     }
 
-    private bool CanCancelTraitorUltraHijack(EntityUid actor)
+    private bool CanCancelTraitorUltraHijack(EntityUid console, EntityUid actor)
     {
-        return !_traitorUltraHijackCompleted &&
-               _traitorUltraHijackCompletionTime != null &&
-               TryGetTraitorUltraHijackMind(actor, out var mindId) &&
+        if (_traitorUltraHijackCompleted || _traitorUltraHijackCompletionTime == null)
+            return false;
+
+        if (_reader.IsAllowed(actor, console))
+            return true;
+
+        return TryGetTraitorUltraHijackMind(actor, out var mindId) &&
                _traitorUltraHijackerMind == mindId;
     }
 

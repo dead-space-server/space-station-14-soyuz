@@ -61,6 +61,51 @@
                   max: 2
     - type: StaticPrice
       price: 100
+    #DS14-Start
+    - type: EmitSoundOnPickup
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/shield/plastic_shield_pickup.ogg
+    - type: EmitSoundOnDrop
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/shield/plastic_shield_drop.ogg
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/shield/plastic_shield_drop.ogg
+    #DS14-End
+
+#DS14-Start
+- type: entity
+  parent: BaseAction
+  id: ShieldDashAction
+  name: таран щитом
+  description: Рывок вперед с поднятым щитом, чтобы сбить врага с ног.
+  components:
+  - type: Action
+    useDelay: 15
+    icon:
+      sprite: Interface/Actions/jump.rsi
+      state: icon
+  - type: InstantAction
+    event: !type:ShieldDashEvent
+#DS14-End
+
+- type: entity
+  name: base repairable shield
+  parent: BaseShield
+  id: BaseRepairableShield
+  description: A repairable shield!
+  abstract: true
+  components:
+  - type: Repairable # Negative values represent healing
+    damage:
+      types:
+        Blunt: -20
+        Slash: -20
+        Piercing: -20
+        Heat: -20
+    fuelCost: 10 # 1/2 of a Welder for a full repair
+    doAfterDelay: 5
+    allowSelfRepair: false
 
 - type: entity
   name: base repairable shield
@@ -107,6 +152,17 @@
         flatReductions:
           Blunt: 1
           Slash: 1
+    #DS14-Start
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 10
+      damageToShield: 
+        types:
+            Blunt: 110
+      staminaDamage: 60
+      staminaDamageToUser: 30   
+    #DS14-End
 
 - type: entity
   name: laser shield
@@ -161,6 +217,17 @@
           Piercing: 0.5
         flatReductions:
           Piercing: 1
+    #DS14-Start
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 10
+      damageToShield: 
+        types:
+            Blunt: 110
+      staminaDamage: 60
+      staminaDamageToUser: 30   
+    #DS14-End
 
 #Craftable shields
 
@@ -225,6 +292,17 @@
                   max: 5
     - type: StaticPrice
       price: 150
+    #DS14-Start
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 5
+      damageToShield: 
+        types:
+            Blunt: 30
+      staminaDamage: 60
+      staminaDamageToUser: 30   
+    #DS14-End
 
 - type: entity
   name: cardboard shield
@@ -334,6 +412,17 @@
                 SheetSteel:
                   min: 1
                   max: 2
+    #DS14-Start
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 5
+      damageToShield: 
+        types:
+            Blunt: 20
+      staminaDamage: 60
+      staminaDamageToUser: 30   
+    #DS14-End
 
 - type: entity
   name: web shield
@@ -447,6 +536,16 @@
                 SheetBrass:
                   min: 1
                   max: 2
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 15
+          Piercing: 5
+      damageToShield: 
+        types:
+            Blunt: 25
+      staminaDamage: 60
+      staminaDamageToUser: 30
 # DS14-end
 
 - type: entity
@@ -498,6 +597,17 @@
                 SheetGlass:
                   min: 5
                   max: 5
+    #DS14-Start
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 20
+      damageToShield: 
+        types:
+            Blunt: 10
+      staminaDamage: 60
+      staminaDamageToUser: 30   
+    #DS14-End
 
 - type: entity
   name: energy shield
@@ -604,6 +714,17 @@
                   max: 1
     - type: StaticPrice
       price: 350
+    #DS14-Start
+    - type: EmitSoundOnPickup
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+    - type: EmitSoundOnDrop
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+    #DS14-End
 
 - type: entity
   name: broken energy shield
@@ -618,6 +739,17 @@
       sprite: Objects/Weapons/Melee/e_shield.rsi
       size: Small
       heldPrefix: eshield
+    #DS14-Start
+    - type: EmitSoundOnPickup
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+    - type: EmitSoundOnDrop
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+    #DS14-End
 
 - type: entity
   name: telescopic shield
@@ -689,3 +821,12 @@
                   max: 2
     - type: StaticPrice
       price: 150
+    - type: ShieldDash
+      damage: 
+        types:
+          Blunt: 20
+      damageToShield: 
+        types:
+            Blunt: 60
+      staminaDamage: 60
+      staminaDamageToUser: 30     

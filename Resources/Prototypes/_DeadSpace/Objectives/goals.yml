@@ -3,7 +3,7 @@
   text: "/Paperwork/StationGoal/SolarPanels.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -11,7 +11,7 @@
   text: "/Paperwork/StationGoal/Artifacts.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -19,7 +19,7 @@
   text: "/Paperwork/StationGoal/Bank.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -27,7 +27,7 @@
   text: "/Paperwork/StationGoal/Zoo.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -35,7 +35,7 @@
   text: "/Paperwork/StationGoal/BiggerDorms.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -43,7 +43,7 @@
   text: "/Paperwork/StationGoal/Fight.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -51,7 +51,7 @@
   text: "/Paperwork/StationGoal/ObservationPoint.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -59,7 +59,7 @@
   text: "/Paperwork/StationGoal/BornToKill.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -68,7 +68,7 @@
   modifyStationBalance: -7500
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -76,7 +76,7 @@
   text: "/Paperwork/StationGoal/Borgs.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -84,7 +84,7 @@
   text: "/Paperwork/StationGoal/Bar.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -92,7 +92,7 @@
   text: "/Paperwork/StationGoal/MiningOutpost.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -109,7 +109,7 @@
     stampTextMaxScale: 0.85
     stampCanRotate: false
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -126,7 +126,7 @@
       stampTextMaxScale: 0.85
       stampCanRotate: false
     - stampedName: stamp-component-stamped-name-centcom
-      stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+      stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
       stampedColor: "#006600"
 
 - type: stationGoal
@@ -134,7 +134,7 @@
   text: "/Paperwork/StationGoal/Anomalies.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -142,7 +142,7 @@
   text: "/Paperwork/StationGoal/HydroponicsInVacuum.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -150,7 +150,7 @@
   text: "/Paperwork/StationGoal/ShuttleMedical.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -158,7 +158,7 @@
   text: "/Paperwork/StationGoal/ShuttleMiner.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -166,7 +166,7 @@
   text: "/Paperwork/StationGoal/ShuttleRND.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -174,7 +174,7 @@
   text: "/Paperwork/StationGoal/ShuttleDock.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -182,7 +182,7 @@
   text: "/Paperwork/StationGoal/Museum.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -190,5 +190,5 @@
   text: "/Paperwork/StationGoal/Satellite.xml"
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
-    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
     stampedColor: "#006600"

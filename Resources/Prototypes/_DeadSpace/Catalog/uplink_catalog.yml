@@ -27,7 +27,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Melee/e_sword_double.rsi, state: icon }
   productEntity: EnergySwordDouble
   cost:
-    Telecrystal: 16
+    Telecrystal: 20
   categories:
   - UplinkUltra
   conditions:
@@ -324,6 +324,9 @@
   categories:
   - UplinkWeaponry
   conditions:
+  - !type:BuyerAntagCondition
+    blacklist:
+    - TraitorUltra
   - !type:StoreWhitelistCondition
     blacklist:
       tags:
@@ -1013,7 +1016,7 @@
   icon: { sprite: /Textures/Clothing/OuterClothing/Hardsuits/cybersun.rsi, state: icon }
   productEntity: ClothingOuterHardsuitJuggernaut
   cost:
-    Telecrystal: 20
+    Telecrystal: 50
   categories:
   - UplinkUltra
   conditions:
@@ -1089,7 +1092,7 @@
 - type: listing
   id: UplinkNukeХС
   name: Пресет "хС-67"
-  description: Используемый опытным оперативником набор вещей, основа которого - хС-67. Придумал ебанутый слайм.
+  description: Используемый опытным оперативником набор вещей, основа которого - хС-67.
   productEntity: CrateBundleNukeхС67
   icon: { sprite: /Textures/_DeadSpace/Objects/Weapons/Guns/Rifels/xc67.rsi, state: icon }
   cost:
@@ -1120,8 +1123,8 @@
 
 - type: listing
   id: UplinkNukeBulldogFreak
-  name: Пресет "СБЭУ ФРИК"
-  description: Используемый фриковатым оперативником набор вещей, основа которого - дробовик блять и рапира.
+  name: Пресет "Бульдог"
+  description: Используемый опытным оперативником набор вещей, основа которого Дробовик и Рапира.
   productEntity: CrateBundleNukeBulldog
   icon: { sprite: /Textures/Clothing/Mask/clown_security.rsi, state: icon }
   cost:
@@ -1133,3 +1136,22 @@
     whitelist:
       tags:
       - NukeOpsUplink
+
+- type: listing
+  id: UplinkRPG70
+  name: РПГ70
+  description: Невероятно мощный одноразовый гранатомёт для уничтожения структур. Почти не наносит вреда людям.
+  productEntity: WeaponLauncherRPG70
+  icon: { sprite: /Textures/_DeadSpace/Objects/Weapons/Guns/Launchers/rpg70.rsi, state: icon }
+  cost:
+    Telecrystal: 6
+  categories:
+  - UplinkExplosives
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+  - !type:ListingLimitedStockCondition
+    stock: 1
+

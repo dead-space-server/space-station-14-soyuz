@@ -356,6 +356,10 @@ namespace Content.Server.Database
         public string FacialHairColor { get; set; } = null!;
         public string EyeColor { get; set; } = null!;
         public string SkinColor { get; set; } = null!;
+        // DS14-start
+        public bool HairGradientEnabled { get; set; }
+        public string HairGradientColor { get; set; } = null!;
+        // DS14-end
         public int SpawnPriority { get; set; } = 0;
         public List<Job> Jobs { get; } = new();
         public List<Antag> Antags { get; } = new();
@@ -780,7 +784,9 @@ namespace Content.Server.Database
         /// Results from rejected connections with external API checking tools
         IPChecks = 5,
         /// Results from rejected connections who are authenticated but have no modern hwid associated with them.
-        NoHwid = 6
+        NoHwid = 6,
+        /// Results from failed automatic user ID migration checks.
+        UserIdMigration = 7
     }
 
     public class ServerBanHit

@@ -50,6 +50,7 @@ using Content.Shared.NPC.Components; // DS14
 using System.Linq; // DS14
 using Content.Shared.Cuffs.Components; // DS14
 using Content.Shared.Temperature.Components;
+using Content.Shared.Damage.Components; // DS14
 
 namespace Content.Server.Zombies;
 
@@ -156,6 +157,26 @@ public sealed partial class ZombieSystem
         RemComp<LegsParalyzedComponent>(target);
         RemComp<ComplexInteractionComponent>(target);
         RemComp<SentienceTargetComponent>(target);
+        EnsureComp<IgnoreSlowOnDamageComponent>(target); // DS14
+
+        // DS14-start
+        if (HasComp<VirusComponent>(target))
+            _virus.CureVirus(target);
+
+        if (TryComp<LanguageComponent>(target, out var language))
+        {
+            language.KnownLanguages.Clear();
+            _language.AddKnowLanguage(target, ZombieLanguage);
+            language.SelectedLanguage = ZombieLanguage;
+        }
+        else
+        {
+            AddComp(target, new LanguageComponent
+            {
+                KnownLanguages = { ZombieLanguage },
+                SelectedLanguage = ZombieLanguage
+            });
+        }
 
         // DS14-start
         if (HasComp<VirusComponent>(target))
@@ -281,6 +302,14 @@ public sealed partial class ZombieSystem
         _damageable.ClearAllDamage(target);
         _mobState.ChangeMobState(target, MobState.Alive);
         
+        // DS14-start
+        if (TryComp<NpcFactionMemberComponent>(target, out var factionComp))
+        {
+            zombiecomp.BeforeZombifiedFactions =
+                factionComp.Factions.ToHashSet();
+        }
+        // DS14-end
+
         // DS14-start
         if (TryComp<NpcFactionMemberComponent>(target, out var factionComp))
         {

@@ -34,11 +34,17 @@ public sealed class WormSystem : EntitySystem
         // DS14-end
     }
 
+    private void OnStartup(Entity<WormComponent> ent, ref ComponentStartup args) // DS14
+    {
+        EnsureComp<KnockedDownComponent>(ent, out var knocked);
+        _alerts.ShowAlert(ent.Owner, SharedStunSystem.KnockdownAlert);
+        _stun.SetAutoStand((ent, knocked));
         // DS14-start
         _standing.Down(ent.Owner, playSound: false, dropHeldItems: false, force: true);
         RefreshMovement(ent.Owner);
         // DS14-end
     }
+
     private void OnRejuvenate(Entity<WormComponent> ent, ref RejuvenateEvent args)
     {
         RemComp<WormComponent>(ent);

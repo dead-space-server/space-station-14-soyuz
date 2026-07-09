@@ -24,11 +24,6 @@ public sealed class PainNumbnessSystem : EntitySystem
     private static readonly ProtoId<AlertCategoryPrototype> HealthAlertCategory = "Health";
     // DS14-end
 
-    // DS14-start
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    private static readonly ProtoId<AlertCategoryPrototype> HealthAlertCategory = "Health";
-    // DS14-end
-
     public override void Initialize()
     {
         SubscribeLocalEvent<PainNumbnessStatusEffectComponent, StatusEffectAppliedEvent>(OnEffectApplied);

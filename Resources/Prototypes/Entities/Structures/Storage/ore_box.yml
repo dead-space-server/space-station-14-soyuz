@@ -54,6 +54,7 @@
       DiamondOre: 16
       TungstenOre: 8 #DS14-Soyuz
   - type: LavalandFultonable
+  - type: OreBox
   #DS14-end
   # orebox-specific
   - type: Sprite

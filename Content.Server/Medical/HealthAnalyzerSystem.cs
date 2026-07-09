@@ -3,6 +3,7 @@ using Content.Shared.Body.Components;
 // DS14-start
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DeadSpace.Cloning;
 using Content.Shared.EntityConditions.Conditions;
 using Content.Shared.EntityEffects.Effects.Damage;
 using Content.Shared.FixedPoint;
@@ -246,7 +247,11 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         var bloodAmount = float.NaN;
         var bleeding = false;
         var unrevivable = false;
+<<<<<<< HEAD
         var unclonable = false; // DS14-soyuz
+=======
+        var unclonable = false; // DS14
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
         var reagents = new List<HealthAnalyzerReagentEntry>(); // DS14
 
         if (TryComp<BloodstreamComponent>(entity, out var bloodstream) &&
@@ -264,6 +269,11 @@ public sealed class HealthAnalyzerSystem : EntitySystem
         if (TryComp<UnrevivableComponent>(target, out var unrevivableComp) && unrevivableComp.Analyzable)
             unrevivable = true;
 
+        // DS14-start
+        if (HasComp<UncloningComponent>(entity))
+            unclonable = true;
+        // DS14-end
+
         return new HealthAnalyzerUiState(
             GetNetEntity(entity),
             bodyTemperature,
@@ -272,6 +282,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             bleeding,
             unclonable, // DS14-Soyuz
             unrevivable,
+            unclonable, // DS14
             reagents // DS14
         );
     }

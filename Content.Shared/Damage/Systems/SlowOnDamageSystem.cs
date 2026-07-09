@@ -133,9 +133,3 @@ public record struct ModifySlowOnDamageSpeedEvent(float Speed) : IInventoryRelay
 {
     public SlotFlags TargetSlots => SlotFlags.WITHOUT_POCKET;
 }
-
-[ByRefEvent]
-public record struct ModifySlowOnDamageSpeedEvent(float Speed) : IInventoryRelayEvent
-{
-    public SlotFlags TargetSlots => SlotFlags.WITHOUT_POCKET;
-}

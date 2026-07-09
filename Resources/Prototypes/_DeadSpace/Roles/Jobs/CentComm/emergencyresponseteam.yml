@@ -122,10 +122,16 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
+<<<<<<< HEAD
     - ERTloadoutRedPrimaryLeader
     - ERTloadoutRedSecondaryLeader
     - ERTloadoutRedSupport
     - UplinkERTRed
+=======
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - ERTloadoutMelee
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
@@ -188,10 +194,17 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
+<<<<<<< HEAD
     - ERTloadoutGammaPrimaryLeader
     - ERTloadoutGammaSecondaryLeader
     - ERTloadoutGammaSupport
     - UplinkERTGamma
+=======
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - ERTloadoutMelee
+    - BoxCardboardERT
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - PinpointerNuclear
     - CrowbarRed
     - BSAACombatKitFilled
@@ -315,6 +328,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+    - ERTloadoutMelee
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
@@ -374,7 +388,11 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+<<<<<<< HEAD
     - ERTloadoutGammaSupport
+=======
+    - ERTloadoutMelee
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
@@ -501,7 +519,11 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+<<<<<<< HEAD
     - ERTloadoutRedSupport
+=======
+    - ERTloadoutMelee
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -566,8 +588,12 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+<<<<<<< HEAD
     - ERTloadoutGammaSupport
     - UplinkERTGamma
+=======
+    - ERTloadoutMelee
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -695,6 +721,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+    - ERTloadoutMelee
     - BoxCardboardERT
     - BoxC4ERT
     - RCDAmmo
@@ -754,6 +781,7 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+    - ERTloadoutMelee
     - BoxCardboardERT
     - BoxC4ERT
     - RCDRecharging
@@ -872,6 +900,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+    - ERTloadoutMelee
     - BoxCardboardERT
     - BoxLightMixed
     - AdvMopItem
@@ -929,6 +958,7 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
+    - ERTloadoutMelee
     - BoxCardboardERT
     - BoxLightMixed
     - BoxGrenadeCleanade

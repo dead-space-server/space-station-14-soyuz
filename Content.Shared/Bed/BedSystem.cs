@@ -32,9 +32,6 @@ public sealed class BedSystem : EntitySystem
     private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing";
 //#endif
     private EntityQuery<SleepingComponent> _sleepingQuery;
-
-    private EntityQuery<SleepingComponent> _sleepingQuery;
-
     public override void Initialize()
     {
         base.Initialize();

@@ -64,12 +64,20 @@ public sealed partial class CloningPodComponent : Component
 
     [ViewVariables]
     public EntityUid? ConnectedConsole;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     // DS14-start
     /// <summary>
     /// If true, cloning can be performed despite uncloning
     /// </summary>
     [DataField]
+<<<<<<< HEAD
     public bool CanCloneUnclonable = true;
+=======
+    public bool CanCloneUnclonable = false;
+>>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     // DS14-end
 }
 

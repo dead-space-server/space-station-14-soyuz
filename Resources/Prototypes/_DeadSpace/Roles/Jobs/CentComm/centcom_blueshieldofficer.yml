@@ -82,7 +82,7 @@
     jumpsuit: ClothingUniformJumpsuitBlueShield
     # back: ClothingBackpackBlueShieldCentComFilled
     mask: ClothingMaskGasBlueShield
-    eyes: ClothingEyesHudBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
     ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesBlueShield
     outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz

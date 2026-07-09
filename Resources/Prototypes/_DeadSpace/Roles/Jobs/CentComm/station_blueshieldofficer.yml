@@ -71,7 +71,7 @@
     head: ClothingHeadHatBeretBlueShield
     # back: ClothingBackpackBlueShield
     mask: ClothingMaskGasBlueShield
-    eyes: ClothingEyesHudBlueShield
+    eyes: ClothingEyesGlassesSecurity # DS14-Soyuz
     ears: ClothingHeadsetAltCommand
     shoes: ClothingShoesOKGB
     socks: ClothingUnderwearSocksBlueShieldOfficer

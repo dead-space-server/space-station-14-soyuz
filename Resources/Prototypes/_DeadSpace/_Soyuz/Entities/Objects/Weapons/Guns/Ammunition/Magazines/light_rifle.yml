@@ -224,6 +224,20 @@
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
 
+- type: entity
+  id: MagazineLightRifleAsValTungsten
+  name: магазин для АС "Вал" (7.62х39 мм винтовочные ППБС)
+  parent: MagazineLightRifleAsVal
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
 # Base
 - type: entity
   id: BaseMagazineLightRifleVSS
@@ -267,3 +281,83 @@
   - type: EmitSoundOnLand
     sound:
       path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_drop.ogg
+
+# Magazines
+- type: entity
+  id: MagazineLightRifleVSS
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные)
+  parent: BaseMagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifle
+  - type: Sprite
+    layers:
+    - state: red
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineLightRifleVSSEmpty
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные любые)
+  suffix: Пустой
+  parent: MagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: null
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineLightRifleVSSPractice
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные учебные)
+  parent: BaseMagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRiflePractice
+  - type: Sprite
+    layers:
+    - state: practice
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineLightRifleVSSUranium
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные урановые)
+  parent: BaseMagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleUranium
+  - type: Sprite
+    layers:
+    - state: uranium
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  id: MagazineLightRifleVSSIncendiary
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные зажигательные)
+  parent: MagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleIncendiary
+
+- type: entity
+  id: MagazineLightRifleVSSTungsten
+  name: магазин для ВСС "Винторез" (7.62х39 мм винтовочные ППБС)
+  parent: MagazineLightRifleVSS
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleTungsten
+  - type: Sprite
+    layers:
+    - state: tungsten
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

@@ -8,6 +8,28 @@
   - type: CloningPod
     cloningTime: 60
     canCloneUnclonable: True
+  - type: Machine
+    board: ExperimentalCloningPodMachineCircuitboard
   - type: DeviceList
   - type: DeviceNetwork
     deviceNetId: Wired
+  
+- type: entity
+  id: ExperimentalCloningPodMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: экспериментальная капсула клонирования (машинная плата)
+  description: Печатная плата экспериментальной капсулы клонирования.
+  components:
+    - type: Sprite
+      state: medical
+    - type: MachineBoard
+      prototype: ExperimentalCloningPod
+      stackRequirements:
+        Manipulator: 5
+        Glass: 2
+        Cable: 2
+        Gold: 2
+        Plasteel: 2
+    - type: Tag
+      tags:
+      - ExperimentalCloningPodMachineCircuitboard

@@ -54,17 +54,6 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_command.rsi
 
 - type: entity
-  parent: ClothingUniformJumpsuitCaptain
-  id: ClothingUniformJumpsuitCaptainWhite
-  name: белый комбинезон капитана
-  description: Как же он шикарно выглядит.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
-
-- type: entity
   parent: ClothingUniformBase
   id: ClothingUniformUSSPJumpsuit
   name: футболка с гербом СССП

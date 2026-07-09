@@ -39,15 +39,15 @@
     sprite: _DeadSpace/Structures/Decoration/banner.rsi
     state: snk
 
-- type: entity
-  id: BannerUSSP
-  parent: BannerBase
-  name: знамя СССП
-  description: Благодаря знамени СССП в галактике прекратилось рабство.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/Structures/Decoration/banner.rsi
-    state: ussp
+#- type: entity # DS14-Soyuz disabled
+#  id: BannerUSSP
+#  parent: BannerBase
+#  name: знамя СССП
+#  description: Благодаря знамени СССП в галактике прекратилось рабство.
+#  components:
+#  - type: Sprite
+#    sprite: _DeadSpace/Structures/Decoration/banner.rsi
+#    state: ussp
 
 - type: entity
   id: BannerEmpire

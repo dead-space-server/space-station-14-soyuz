@@ -11,6 +11,9 @@
     possibleSets:
     - DrozdSetOKGB
     - SaigaSet
+    - BerettaM92BlueShieldSet
+    - ScarLBlueShieldSet
+    - MP5SDBlueShieldSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface

@@ -107,13 +107,9 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
         // Alerts
 
-<<<<<<< HEAD
-        var showAlerts = state.Unrevivable == true || state.Bleeding == true || state.Unclonable == true; //DS14-Soyuz Unclonable
-=======
         // DS14-start
         var showAlerts = state.Unrevivable == true || state.Bleeding == true || state.Unclonable == true;
         // DS14-end
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -137,11 +133,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 MaxWidth = 300
             });
 
-<<<<<<< HEAD
-        // DS14-Soyuz-Start
-=======
         // DS14-start
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
         if (state.Unclonable == true)
             AlertsContainer.AddChild(new RichTextLabel
             {
@@ -149,11 +141,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 Margin = new Thickness(0, 4),
                 MaxWidth = 300
             });
-<<<<<<< HEAD
-        // DS14-Soyuz-End
-=======
         // DS14-end
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
 
         // Damage Groups
 

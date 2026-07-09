@@ -122,16 +122,10 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-<<<<<<< HEAD
     - ERTloadoutRedPrimaryLeader
     - ERTloadoutRedSecondaryLeader
     - ERTloadoutRedSupport
     - UplinkERTRed
-=======
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
-    - ERTloadoutMelee
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
@@ -194,17 +188,11 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-<<<<<<< HEAD
     - ERTloadoutGammaPrimaryLeader
     - ERTloadoutGammaSecondaryLeader
     - ERTloadoutGammaSupport
-    - UplinkERTGamma
-=======
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
     - ERTloadoutMelee
-    - BoxCardboardERT
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
+    - UplinkERTGamma
     - PinpointerNuclear
     - CrowbarRed
     - BSAACombatKitFilled
@@ -388,11 +376,8 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-<<<<<<< HEAD
     - ERTloadoutGammaSupport
-=======
     - ERTloadoutMelee
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
@@ -519,11 +504,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
-<<<<<<< HEAD
     - ERTloadoutRedSupport
-=======
-    - ERTloadoutMelee
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -588,12 +569,9 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-<<<<<<< HEAD
     - ERTloadoutGammaSupport
     - UplinkERTGamma
-=======
     - ERTloadoutMelee
->>>>>>> 6b079ed8feec22bc840f94214e9dd5d95a711cd1
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear

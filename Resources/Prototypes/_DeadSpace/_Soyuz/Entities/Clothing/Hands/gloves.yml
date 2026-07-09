@@ -22,14 +22,3 @@
   - type: Fiber
     fiberMaterial: fibers-insulative
     fiberColor: fibers-black
-
-- type: entity
-  parent: ClothingHandsGlovesCaptain
-  id: ClothingHandsGlovesCaptainSheriff
-  name: перчатки шерифа
-  description: Хауди, ковбой.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Hands/Gloves/Captain/sheriff_gloves.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Hands/Gloves/Captain/sheriff_gloves.rsi

@@ -60,18 +60,6 @@ public sealed class NecroobeliskStoperSystem : EntitySystem
 
             return;
         }
-        if (TryComp<SuperMatterialNecroObeliskComponent>(args.Target, out var superMatterialNecroObeliskComponent))
-        {
-            if (!superMatterialNecroObeliskComponent.IsStoper)
-                return;
-
-            _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ScanDoAfterDuration, new NecroobeliskStoperDoAfterEvent(), uid, target: target, used: uid)
-            {
-                BreakOnDamage = true,
-                BreakOnMove = true,
-                DistanceThreshold = 2f
-            });
-        }
         if (HasComp<NecroobeliskSplinterComponent>(args.Target))
         {
             if (_doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, component.ScanDoAfterDuration, new NecroobeliskStoperDoAfterEvent(), uid, target: target, used: uid)

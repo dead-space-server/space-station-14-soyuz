@@ -178,25 +178,6 @@ public sealed partial class ZombieSystem
             });
         }
 
-        // DS14-start
-        if (HasComp<VirusComponent>(target))
-            _virus.CureVirus(target);
-
-        if (TryComp<LanguageComponent>(target, out var language))
-        {
-            language.KnownLanguages.Clear();
-            _language.AddKnowLanguage(target, ZombieLanguage);
-            language.SelectedLanguage = ZombieLanguage;
-        }
-        else
-        {
-            AddComp(target, new LanguageComponent
-            {
-                KnownLanguages = { ZombieLanguage },
-                SelectedLanguage = ZombieLanguage
-            });
-        }
-
         //funny voice
         // var accentType = "zombie";
         // if (TryComp<ZombieAccentOverrideComponent>(target, out var accent))
@@ -301,14 +282,6 @@ public sealed partial class ZombieSystem
         //Heals the zombie from all the damage it took while human
         _damageable.ClearAllDamage(target);
         _mobState.ChangeMobState(target, MobState.Alive);
-        
-        // DS14-start
-        if (TryComp<NpcFactionMemberComponent>(target, out var factionComp))
-        {
-            zombiecomp.BeforeZombifiedFactions =
-                factionComp.Factions.ToHashSet();
-        }
-        // DS14-end
 
         // DS14-start
         if (TryComp<NpcFactionMemberComponent>(target, out var factionComp))

@@ -137,22 +137,11 @@ public sealed class CloningPodSystem : EntitySystem
         if (!Resolve(uid, ref clonePod))
             return false;
 
-        // DS14-Start
-        if (HasComp<UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
-        {
-            if (clonePod.ConnectedConsole != null)
-                _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value,
-                    Loc.GetString("cloning-console-uncloning-error"),
-                    InGameICChatType.Speak, false);
-            return false;
-        }
-        // DS14-End
-    
         if (HasComp<ActiveCloningPodComponent>(uid))
             return false;
 
         // DS14-start
-        if (HasComp<UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
+        if (HasComp<Shared.DeadSpace.Cloning.UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
         {
             if (clonePod.ConnectedConsole != null)
                 _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value,

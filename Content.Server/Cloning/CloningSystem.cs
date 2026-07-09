@@ -54,10 +54,8 @@ public sealed partial class CloningSystem : SharedCloningSystem
         if (!_prototype.Resolve(humanoid.Species, out var speciesPrototype))
             return false; // invalid species
 
-        // var attemptEv = new CloningAttemptEvent(settings); // DS14-disabled 
-        // RaiseLocalEvent(original, ref attemptEv); // DS14-disabled
-        if (HasComp<UncloningComponent>(original) && !settings.ForceCloning) // DS14 condition
-            return false; // cannot clone, for example due to the unrevivable trait
+        var attemptEv = new CloningAttemptEvent(settings);
+        RaiseLocalEvent(original, ref attemptEv);
 
         clone = coords == null ? Spawn(speciesPrototype.Prototype) : Spawn(speciesPrototype.Prototype, coords.Value);
         _humanoidSystem.CloneAppearance(original, clone.Value);

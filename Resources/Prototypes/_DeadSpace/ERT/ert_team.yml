@@ -379,7 +379,8 @@
   name: Протокол «Всевидящее Око»
   startAnnouncement: station-event-fo
   approvalAudio:
-    path: /Audio/_DeadSpace/Announcements/attention.ogg 
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
+  approvalColor: "#ABABABFF" # DS14-Soyuz
   startAudio:
     path: /Audio/_DeadSpace/Announcements/ERT/FieldOfficer.ogg # DS14-Announcements
   description: 
@@ -415,7 +416,7 @@
   name: Протокол «Буря»
   startAnnouncement: station-event-fo-storm
   approvalAudio:
-    path: /Audio/_DeadSpace/Announcements/attention.ogg 
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
   approvalColor: "#ABABABFF"
   startAudio:
     path: /Audio/_DeadSpace/Announcements/ERT/Storm.ogg # DS14-Announcements
@@ -459,7 +460,8 @@
   name: Протокол «Смерть Вестника»
   startAnnouncement: station-event-fo-death-messenger
   approvalAudio:
-    path: /Audio/_DeadSpace/Announcements/attention.ogg 
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
+  approvalColor: "#ABABABFF" # DS14-Soyuz
   startAudio:
     path: /Audio/_DeadSpace/Announcements/ERT/DeathMessenger.ogg # DS14-Announcements
   description: 

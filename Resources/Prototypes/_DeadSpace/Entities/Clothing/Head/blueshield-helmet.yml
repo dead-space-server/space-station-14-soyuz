@@ -2,8 +2,8 @@
   parent: ClothingHeadHelmetHardsuitSecurityRed
   id: ClothingHeadHelmetHardsuitBlueShield
   categories: [ HideSpawnMenu, DoNotMap ]
-  name: шлем скафандра оперативника КГБ
-  description: Удобный шлем оперативника комитета государственной безопасности. Выглядит устрашающе.
+  name: шлем скафандра офицера "Синий Щит"
+  description: Предназначен для защитника командования.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/blueshield.rsi

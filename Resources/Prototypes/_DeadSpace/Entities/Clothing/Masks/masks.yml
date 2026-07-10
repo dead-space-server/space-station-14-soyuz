@@ -43,7 +43,7 @@
 - type: entity
   parent: ClothingMaskGasSwat
   id: ClothingMaskGasBlueShield
-  name: чёрный боевой противогаз оперативника КГБ
+  name: чёрный боевой противогаз офицера "Синий Щит"
   description: Высокопрочная дыхательная маска с возможностью подключения к дыхательному баллону.
   components:
   - type: Sprite

@@ -7,6 +7,7 @@
       role: JobBlueShieldOfficer
       time: 54000 #15 hrs
 
+# DS14-Soyuz start
 # For coat
 - type: loadoutEffectGroup
   id: MasterOKGB
@@ -17,12 +18,6 @@
       role: JobBlueShieldOfficer
       time: 180000 #50 hrs
 
-# Backpack
-- type: loadout
-  id: BlueShieldOfficerBackpack
-  equipment:
-    back: ClothingBackpackBlueShield
-
 - type: loadoutEffectGroup
   id: MaskOKGB
   effects:
@@ -31,6 +26,13 @@
       !type:RoleTimeRequirement
       role: JobBlueShieldOfficer
       time: 36000 #10 hrs
+# DS14-soyuz end
+
+# Backpack
+- type: loadout
+  id: BlueShieldOfficerBackpack
+  equipment:
+    back: ClothingBackpackBlueShield
 
 # Jumpsuit
 - type: loadout
@@ -49,6 +51,7 @@
   equipment:
     outerClothing: ClothingOuterArmorBasicBlueShield
 
+# DS14-Soyuz start
 - type: loadout
   id: OKGBOuterClothing
   equipment:
@@ -72,6 +75,12 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: MaskOKGB
+
+- type: loadout
+  id: OKGBGasMaskWithoutTime
+  equipment:
+    mask: ClothingMaskGasBlueShield
+# DS14-Soyuz end
 
 # Cloak
 - type: loadout

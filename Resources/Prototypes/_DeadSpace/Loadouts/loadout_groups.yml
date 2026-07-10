@@ -38,6 +38,7 @@
   name: loadout-group-blue-shield-officer-masks
   loadouts:
   - OKGBGasMask
+  - OKGBGasMaskWithoutTime
 
 - type: loadoutGroup
   id: BlueShieldOfficerNeck

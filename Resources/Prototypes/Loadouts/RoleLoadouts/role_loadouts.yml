@@ -483,6 +483,7 @@
   - SurvivalSecurity
   - Trinkets
   - DetectiveJobTrinkets
+  - PolaroidKit # DS14
   - GroupSpeciesBreathToolSecurity
   - DetectiveSocks # DS14-Underwear
   - DetectiveUnderwear # DS14-Underwear
@@ -545,7 +546,7 @@
   - ReporterJobTrinkets
   - GroupSpeciesBreathTool
   - ReporterUnderwear # DS14-Underwear
-#  - PolaroidKit # DS14
+  - PolaroidKit # DS14
 
 - type: roleLoadout
   id: JobPsychologist

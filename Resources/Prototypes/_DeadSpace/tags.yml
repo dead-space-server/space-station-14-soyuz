@@ -323,6 +323,9 @@
   id: Plasteel
 
 - type: Tag
+  id: PolaroidCartridge
+
+- type: Tag
   id: Radiance
 
 - type: Tag

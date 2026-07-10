@@ -1,6 +1,6 @@
 polaroid-camera-slot-name = картридж полароида
 
-polaroid-camera-ui-title = Полароид
+polaroid-camera-ui-title = Полароид "Тишина"
 polaroid-camera-ui-cartridge = Картридж: { $current }/{ $max }
 polaroid-camera-ui-capture = Снять
 polaroid-camera-ui-print-last = Печать ещё

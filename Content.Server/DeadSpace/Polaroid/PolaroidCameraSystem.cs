@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Kofeecheks
 // SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using System.IO;
+using Content.Server.GameTicking;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates;
 using Content.Shared.DeadSpace.Polaroid;
@@ -34,8 +35,11 @@ public sealed class PolaroidCameraSystem : EntitySystem
     [Dependency] private readonly SharedViewSubscriberSystem _viewSubscriber = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!; // DS14
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly GameTicker _gameTicker = default!;
 
     private const string CartridgeSlotId = "cartridge";
+    private const int StationYear = 2710;
+    private static readonly TimeSpan StationDateOffset = TimeSpan.FromHours(3);
 
     public override void Initialize()
     {
@@ -164,9 +168,16 @@ public sealed class PolaroidCameraSystem : EntitySystem
 
         component.LastCapture = args.Png;
         component.LastCapturePhotographer = Identity.Name(args.Actor, EntityManager);
-        component.LastCaptureTakenAt = DateTime.UtcNow;
+        component.LastCaptureShiftTime = _gameTicker.RoundDuration();
+        component.LastCaptureShiftDate = GetStationDate();
 
-        SpawnPhoto(component, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
+        SpawnPhoto(
+            component,
+            args.Actor,
+            component.LastCapture,
+            component.LastCapturePhotographer,
+            component.LastCaptureShiftTime,
+            component.LastCaptureShiftDate);
         _audio.PlayPvs(component.ShutterSound, uid);
         _audio.PlayPvs(component.PrintSound, uid);
 
@@ -191,7 +202,13 @@ public sealed class PolaroidCameraSystem : EntitySystem
         }
 
         cartridge.CurrentAmount--;
-        SpawnPhoto(component, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
+        SpawnPhoto(
+            component,
+            args.Actor,
+            component.LastCapture,
+            component.LastCapturePhotographer,
+            component.LastCaptureShiftTime,
+            component.LastCaptureShiftDate);
         _audio.PlayPvs(component.PrintSound, uid);
 
         UpdateUi(uid, component);
@@ -264,16 +281,24 @@ public sealed class PolaroidCameraSystem : EntitySystem
         EntityUid user,
         byte[] png,
         string? photographer,
-        DateTime? takenAt)
+        TimeSpan? shiftTime,
+        DateTime? shiftDate)
     {
         var photo = Spawn(component.PhotoPrototype, Transform(user).Coordinates);
         var photoComp = EnsureComp<PolaroidPhotoComponent>(photo);
 
         photoComp.PngData = (byte[]) png.Clone();
         photoComp.Photographer = photographer;
-        photoComp.TakenAt = takenAt ?? DateTime.UtcNow;
+        photoComp.ShiftTime = shiftTime ?? _gameTicker.RoundDuration();
+        photoComp.ShiftDate = shiftDate ?? GetStationDate();
 
         _hands.PickupOrDrop(user, photo, checkActionBlocker: false);
+    }
+
+    private static DateTime GetStationDate()
+    {
+        var stationNow = DateTime.UtcNow.Add(StationDateOffset);
+        return new DateTime(StationYear, stationNow.Month, stationNow.Day);
     }
 
     private void CleanupPreview(PolaroidCameraComponent component)

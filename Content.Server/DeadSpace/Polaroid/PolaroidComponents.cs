@@ -46,7 +46,10 @@ public sealed partial class PolaroidCameraComponent : Component
     public string? LastCapturePhotographer;
 
     [ViewVariables]
-    public DateTime? LastCaptureTakenAt;
+    public TimeSpan? LastCaptureShiftTime;
+
+    [ViewVariables]
+    public DateTime? LastCaptureShiftDate;
 }
 
 [RegisterComponent]
@@ -69,7 +72,10 @@ public sealed partial class PolaroidPhotoComponent : Component
     public string? Photographer;
 
     [ViewVariables]
-    public DateTime? TakenAt;
+    public TimeSpan? ShiftTime;
+
+    [ViewVariables]
+    public DateTime? ShiftDate;
 
     [ViewVariables]
     public string? Signature;

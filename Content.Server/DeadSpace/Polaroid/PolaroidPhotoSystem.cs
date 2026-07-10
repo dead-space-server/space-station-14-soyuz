@@ -10,8 +10,6 @@ namespace Content.Server.DeadSpace.Polaroid;
 
 public sealed class PolaroidPhotoSystem : EntitySystem
 {
-    private static readonly TimeSpan MoscowOffset = TimeSpan.FromHours(3);
-
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
@@ -59,12 +57,8 @@ public sealed class PolaroidPhotoSystem : EntitySystem
     {
         string? takenAt = null;
 
-        if (component.TakenAt is { } time)
-        {
-            takenAt = new DateTimeOffset(DateTime.SpecifyKind(time, DateTimeKind.Utc))
-                .ToOffset(MoscowOffset)
-                .ToString("yyyy-MM-dd HH:mm:ss 'MSK'");
-        }
+        if (component.ShiftTime is { } time && component.ShiftDate is { } date)
+            takenAt = $"{time:hh\\:mm\\:ss}, {date:dd.MM.yyyy}";
 
         var state = new PolaroidPhotoUiState(
             component.PngData,

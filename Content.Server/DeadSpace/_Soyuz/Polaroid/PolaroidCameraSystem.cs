@@ -4,7 +4,7 @@ using System.IO;
 using Content.Server.GameTicking;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates;
-using Content.Shared.DeadSpace.Polaroid;
+using Content.Shared.DeadSpace._Soyuz.Polaroid;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -22,7 +22,7 @@ using Robust.Shared.Timing;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace Content.Server.DeadSpace.Polaroid;
+namespace Content.Server.DeadSpace._Soyuz.Polaroid;
 
 public sealed class PolaroidCameraSystem : EntitySystem
 {

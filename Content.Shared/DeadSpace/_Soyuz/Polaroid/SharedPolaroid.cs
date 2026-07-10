@@ -4,7 +4,7 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Content.Shared.UserInterface;
 
-namespace Content.Shared.DeadSpace.Polaroid;
+namespace Content.Shared.DeadSpace._Soyuz.Polaroid;
 
 public static class PolaroidSharedConstants
 {

@@ -1,12 +1,12 @@
 // SPDX-FileCopyrightText: 2026 Kofeecheks
 // SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
-using Content.Shared.DeadSpace.Polaroid;
+using Content.Shared.DeadSpace._Soyuz.Polaroid;
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Server.DeadSpace.Polaroid;
+namespace Content.Server.DeadSpace._Soyuz.Polaroid;
 
 public sealed class PolaroidPhotoSystem : EntitySystem
 {

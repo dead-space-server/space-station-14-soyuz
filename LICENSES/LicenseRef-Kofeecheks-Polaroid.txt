@@ -4,9 +4,9 @@ Copyright (c) 2026 Kofeecheks. All rights reserved.
 
 This notice applies exclusively to the source code contained in these paths:
 
-- Content.Client/DeadSpace/Polaroid/**
-- Content.Server/DeadSpace/Polaroid/**
-- Content.Shared/DeadSpace/Polaroid/**
+- Content.Client/DeadSpace/_Soyuz/Polaroid/**
+- Content.Server/DeadSpace/_Soyuz/Polaroid/**
+- Content.Shared/DeadSpace/_Soyuz/Polaroid/**
 
 The covered code is a separately licensed element and is not licensed under the
 repository-level LICENSE.TXT. No permission is granted to use, copy, modify,

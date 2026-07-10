@@ -4,7 +4,7 @@ using System.IO;
 using System.Numerics;
 using Content.Client.Eye;
 using Content.Client.Viewport;
-using Content.Shared.DeadSpace.Polaroid;
+using Content.Shared.DeadSpace._Soyuz.Polaroid;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.Timing;
@@ -16,7 +16,7 @@ using Robust.Shared.Maths;
 using Robust.Shared.Timing;
 using SixLabors.ImageSharp;
 
-namespace Content.Client.DeadSpace.Polaroid.UI;
+namespace Content.Client.DeadSpace._Soyuz.Polaroid.UI;
 
 public sealed class PolaroidCameraWindow : DefaultWindow
 {

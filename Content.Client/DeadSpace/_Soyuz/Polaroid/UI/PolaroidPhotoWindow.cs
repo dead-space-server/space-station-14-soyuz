@@ -4,7 +4,7 @@ using System.IO;
 using System.Numerics;
 using System.Threading.Tasks;
 using Content.Client.Resources;
-using Content.Shared.DeadSpace.Polaroid;
+using Content.Shared.DeadSpace._Soyuz.Polaroid;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
@@ -18,7 +18,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using Color = Robust.Shared.Maths.Color;
 
-namespace Content.Client.DeadSpace.Polaroid.UI;
+namespace Content.Client.DeadSpace._Soyuz.Polaroid.UI;
 
 public sealed class PolaroidPhotoWindow : DefaultWindow
 {

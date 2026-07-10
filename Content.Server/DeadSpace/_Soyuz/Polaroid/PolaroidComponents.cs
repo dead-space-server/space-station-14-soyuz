@@ -4,7 +4,7 @@ using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.DeadSpace.Polaroid;
+namespace Content.Server.DeadSpace._Soyuz.Polaroid;
 
 [RegisterComponent]
 public sealed partial class PolaroidCameraComponent : Component

@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using System.IO;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates;
@@ -85,7 +86,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
 
     private void OnComponentShutdown(EntityUid uid, PolaroidCameraComponent component, ComponentShutdown args)
     {
-        CleanupPreview(uid, component);
+        CleanupPreview(component);
     }
 
     private void OnMapInit(EntityUid uid, PolaroidCameraComponent component, MapInitEvent args)
@@ -103,7 +104,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
 
     private void OnUiOpened(EntityUid uid, PolaroidCameraComponent component, AfterActivatableUIOpenEvent args)
     {
-        CleanupPreview(uid, component);
+        CleanupPreview(component);
 
         if (!TryComp(args.User, out ActorComponent? actor))
         {
@@ -123,18 +124,17 @@ public sealed class PolaroidCameraSystem : EntitySystem
 
     private void OnUiClosed(EntityUid uid, PolaroidCameraComponent component, BoundUIClosedEvent args)
     {
-        CleanupPreview(uid, component);
-        UpdateUi(uid, component);
+        CleanupPreview(component);
     }
 
     private void OnUnequippedHand(EntityUid uid, PolaroidCameraComponent component, GotUnequippedHandEvent args)
     {
-        CleanupPreview(uid, component);
+        CleanupPreview(component);
     }
 
     private void OnDropped(EntityUid uid, PolaroidCameraComponent component, DroppedEvent args)
     {
-        CleanupPreview(uid, component);
+        CleanupPreview(component);
     }
 
     private void OnCaptureMessage(EntityUid uid, PolaroidCameraComponent component, PolaroidCaptureMessage args)
@@ -148,7 +148,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
             return;
         }
 
-        if (!TryGetLoadedCartridge(uid, component, out var cartridgeUid, out var cartridge) || cartridge.CurrentAmount <= 0)
+        if (!TryGetLoadedCartridge(component, out var cartridgeUid, out var cartridge) || cartridge.CurrentAmount <= 0)
         {
             PopupChargeFailure(uid, args.Actor, cartridgeUid);
             return;
@@ -163,11 +163,10 @@ public sealed class PolaroidCameraSystem : EntitySystem
         cartridge.CurrentAmount--;
 
         component.LastCapture = args.Png;
-        component.HasLastCapture = true;
         component.LastCapturePhotographer = Identity.Name(args.Actor, EntityManager);
         component.LastCaptureTakenAt = DateTime.UtcNow;
 
-        SpawnPhoto(uid, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
+        SpawnPhoto(component, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
         _audio.PlayPvs(component.ShutterSound, uid);
         _audio.PlayPvs(component.PrintSound, uid);
 
@@ -179,20 +178,20 @@ public sealed class PolaroidCameraSystem : EntitySystem
         if (!CanUseCamera(uid, component, args.Actor))
             return;
 
-        if (!component.HasLastCapture || component.LastCapture.Length == 0)
+        if (component.LastCapture.Length == 0)
         {
             _popup.PopupEntity(Loc.GetString("polaroid-camera-popup-no-last-capture"), uid, args.Actor);
             return;
         }
 
-        if (!TryGetLoadedCartridge(uid, component, out var cartridgeUid, out var cartridge) || cartridge.CurrentAmount <= 0)
+        if (!TryGetLoadedCartridge(component, out var cartridgeUid, out var cartridge) || cartridge.CurrentAmount <= 0)
         {
             PopupChargeFailure(uid, args.Actor, cartridgeUid);
             return;
         }
 
         cartridge.CurrentAmount--;
-        SpawnPhoto(uid, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
+        SpawnPhoto(component, args.Actor, component.LastCapture, component.LastCapturePhotographer, component.LastCaptureTakenAt);
         _audio.PlayPvs(component.PrintSound, uid);
 
         UpdateUi(uid, component);
@@ -216,7 +215,6 @@ public sealed class PolaroidCameraSystem : EntitySystem
     }
 
     private bool TryGetLoadedCartridge(
-        EntityUid uid,
         PolaroidCameraComponent component,
         out EntityUid? cartridgeUid,
         out PolaroidCartridgeComponent cartridge)
@@ -251,16 +249,9 @@ public sealed class PolaroidCameraSystem : EntitySystem
             using var stream = new MemoryStream(png, writable: false);
             using var image = Image.Load<Rgba32>(stream);
 
-            if (image.Width <= 0 || image.Height <= 0)
-                return false;
-
-            if (image.Width != image.Height)
-                return false;
-
-            if (image.Width > component.MaxCaptureDimension || image.Height > component.MaxCaptureDimension)
-                return false;
-
-            return true;
+            return image.Width > 0 &&
+                   image.Width == image.Height &&
+                   image.Width <= component.MaxCaptureDimension;
         }
         catch
         {
@@ -269,16 +260,12 @@ public sealed class PolaroidCameraSystem : EntitySystem
     }
 
     private void SpawnPhoto(
-        EntityUid camera,
+        PolaroidCameraComponent component,
         EntityUid user,
         byte[] png,
         string? photographer,
-        DateTime? takenAt,
-        PolaroidCameraComponent? component = null)
+        DateTime? takenAt)
     {
-        if (!Resolve(camera, ref component))
-            return;
-
         var photo = Spawn(component.PhotoPrototype, Transform(user).Coordinates);
         var photoComp = EnsureComp<PolaroidPhotoComponent>(photo);
 
@@ -289,11 +276,8 @@ public sealed class PolaroidCameraSystem : EntitySystem
         _hands.PickupOrDrop(user, photo, checkActionBlocker: false);
     }
 
-    private void CleanupPreview(EntityUid uid, PolaroidCameraComponent? component = null)
+    private void CleanupPreview(PolaroidCameraComponent component)
     {
-        if (!Resolve(uid, ref component))
-            return;
-
         if (component.PreviewCamera is { } preview)
         {
             if (component.CurrentViewer is { } viewer &&
@@ -333,7 +317,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
         var charges = 0;
         var maxCharges = 0;
 
-        if (TryGetLoadedCartridge(uid, component, out _, out var cartridge))
+        if (TryGetLoadedCartridge(component, out _, out var cartridge))
         {
             charges = cartridge.CurrentAmount;
             maxCharges = cartridge.MaxAmount;
@@ -344,7 +328,7 @@ public sealed class PolaroidCameraSystem : EntitySystem
             _timing.CurTick,
             charges,
             maxCharges,
-            component.HasLastCapture,
+            component.LastCapture.Length > 0,
             component.ViewportPixelSize);
 
         _ui.SetUiState(uid, PolaroidCameraUiKey.Key, state);

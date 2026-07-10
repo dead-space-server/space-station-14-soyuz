@@ -1,9 +1,11 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using System.IO;
 using System.Numerics;
 using Content.Client.Eye;
 using Content.Client.Viewport;
 using Content.Shared.DeadSpace.Polaroid;
+using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.Timing;
 using Robust.Client.UserInterface; // DS14
@@ -26,7 +28,7 @@ public sealed class PolaroidCameraWindow : DefaultWindow
 
     [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IClientGameTiming _timing = default!;
-    [Dependency] private readonly IUserInterfaceManager _uiManager = default!; // DS14
+    [Dependency] private readonly IUserInterfaceManager _uiManager = default!;
 
     private readonly EyeLerpingSystem _eyeLerping = default!;
     private readonly FixedEye _defaultEye = new();
@@ -35,8 +37,8 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     private bool _disposed;
     private bool _previewPanActive; // DS14
     private float _previewZoom = DefaultPreviewZoom;
-    private Vector2 _previewPan = Vector2.Zero; // DS14
-    private Vector2? _lastPreviewMousePosition; // DS14
+    private Vector2 _previewOffset;
+    private Vector2? _lastPreviewMousePosition;
 
     private readonly ScalingViewport _cameraView;
     private readonly Label _chargesLabel;
@@ -109,7 +111,9 @@ public sealed class PolaroidCameraWindow : DefaultWindow
                 return;
 
             _previewPanActive = true;
-            _lastPreviewMousePosition = args.RelativePosition;
+            // The following samples come from globally scaled UI coordinates.
+            // Start without a previous sample so coordinate spaces never get mixed.
+            _lastPreviewMousePosition = null;
             args.Handle();
         };
 
@@ -220,10 +224,16 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         if (_nextState == null || _timing.LastRealTick < _nextState.Tick)
             return;
 
-        var mousePosition = _uiManager.MousePositionScaled.Position; // DS14
-        var previewRect = UIBox2.FromDimensions(_cameraView.GlobalPosition, _cameraView.Size); // DS14
+        var mousePosition = _uiManager.MousePositionScaled.Position;
+        var previewRect = UIBox2.FromDimensions(_cameraView.GlobalPosition, _cameraView.Size);
         if (_previewPanActive && previewRect.Contains(mousePosition))
-            UpdatePreviewPan(mousePosition - _cameraView.GlobalPosition); // DS14
+        {
+            var relativePosition = mousePosition - _cameraView.GlobalPosition;
+            if (_lastPreviewMousePosition is { } previousPosition)
+                UpdatePreviewPan(relativePosition - previousPosition);
+
+            _lastPreviewMousePosition = relativePosition;
+        }
 
         var preview = _entManager.GetEntity(_nextState.PreviewCamera);
         if (preview == null)
@@ -310,25 +320,15 @@ public sealed class PolaroidCameraWindow : DefaultWindow
     }
 
     // DS14-start: zoom + pan preview view controls
-    private void UpdatePreviewPan(Vector2 relativePosition)
+    private void UpdatePreviewPan(Vector2 relativeDelta)
     {
-        if (_cameraView.Size.X <= 0f || _cameraView.Size.Y <= 0f)
-            return;
-
-        if (_lastPreviewMousePosition == null)
-        {
-            _lastPreviewMousePosition = relativePosition;
-            return;
-        }
-
-        var relativeDelta = relativePosition - _lastPreviewMousePosition.Value;
-        _lastPreviewMousePosition = relativePosition;
-
         if (relativeDelta == Vector2.Zero)
             return;
 
-        var normalizedDelta = relativeDelta / _cameraView.Size * 2f;
-        _previewPan = Vector2.Clamp(_previewPan + new Vector2(normalizedDelta.X, -normalizedDelta.Y), -Vector2.One, Vector2.One);
+        var worldDelta = relativeDelta * (_previewZoom / EyeManager.PixelsPerMeter);
+        // Drag the scene with the cursor: moving the image right means looking left,
+        // while screen Y is inverted relative to world Y.
+        _previewOffset += new Vector2(-worldDelta.X, worldDelta.Y);
         ApplyPreviewView();
     }
     // DS14-end
@@ -339,13 +339,10 @@ public sealed class PolaroidCameraWindow : DefaultWindow
             return;
 
         _cameraView.Eye.Zoom = new Vector2(_previewZoom, _previewZoom);
-        // DS14-start: apply the preview pan offset after zooming the eye.
         var visibleArea = _cameraView.Size / EyeManager.PixelsPerMeter * _previewZoom;
         var maxOffset = visibleArea * PreviewPanStrength;
-        _cameraView.Eye.Offset = new Vector2(
-            _previewPan.X * maxOffset.X,
-            -_previewPan.Y * maxOffset.Y);
-        // DS14-end
+        _previewOffset = Vector2.Clamp(_previewOffset, -maxOffset, maxOffset);
+        _cameraView.Eye.Offset = _previewOffset;
     }
 
     protected override void Dispose(bool disposing)
@@ -362,5 +359,26 @@ public sealed class PolaroidCameraWindow : DefaultWindow
         }
 
         base.Dispose(disposing);
+    }
+}
+
+[UsedImplicitly]
+public sealed class PolaroidCameraBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+{
+    [ViewVariables]
+    private PolaroidCameraWindow? _window;
+
+    protected override void Open()
+    {
+        base.Open();
+        _window = this.CreateWindow<PolaroidCameraWindow>();
+        _window.CaptureReady += png => SendMessage(new PolaroidCaptureMessage(png));
+        _window.PrintLastPressed += () => SendMessage(new PolaroidPrintLastMessage());
+    }
+
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        if (state is PolaroidCameraUiState cameraState)
+            _window?.SetState(cameraState);
     }
 }

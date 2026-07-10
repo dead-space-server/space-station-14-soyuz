@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using Content.Shared.DeadSpace.Polaroid;
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
@@ -39,8 +40,8 @@ public sealed class PolaroidPhotoSystem : EntitySystem
         }
 
         var signature = args.Signature.Trim();
-        if (signature.Length > PolaroidPhotoComponent.MaxSignatureLength)
-            signature = signature[..PolaroidPhotoComponent.MaxSignatureLength];
+        if (signature.Length > PolaroidSharedConstants.MaxPhotoSignatureLength)
+            signature = signature[..PolaroidSharedConstants.MaxPhotoSignatureLength];
 
         if (string.IsNullOrWhiteSpace(signature))
         {

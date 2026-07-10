@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Content.Shared.UserInterface;
@@ -17,41 +18,26 @@ public enum PolaroidCameraUiKey : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class PolaroidCameraUiState : BoundUserInterfaceState
+public sealed class PolaroidCameraUiState(
+    NetEntity? previewCamera,
+    GameTick tick,
+    int currentCharges,
+    int maxCharges,
+    bool hasLastCapture,
+    int viewportPixelSize) : BoundUserInterfaceState
 {
-    public readonly NetEntity? PreviewCamera;
-    public readonly GameTick Tick;
-    public readonly int CurrentCharges;
-    public readonly int MaxCharges;
-    public readonly bool HasLastCapture;
-    public readonly int ViewportPixelSize;
-
-    public PolaroidCameraUiState(
-        NetEntity? previewCamera,
-        GameTick tick,
-        int currentCharges,
-        int maxCharges,
-        bool hasLastCapture,
-        int viewportPixelSize)
-    {
-        PreviewCamera = previewCamera;
-        Tick = tick;
-        CurrentCharges = currentCharges;
-        MaxCharges = maxCharges;
-        HasLastCapture = hasLastCapture;
-        ViewportPixelSize = viewportPixelSize;
-    }
+    public readonly NetEntity? PreviewCamera = previewCamera;
+    public readonly GameTick Tick = tick;
+    public readonly int CurrentCharges = currentCharges;
+    public readonly int MaxCharges = maxCharges;
+    public readonly bool HasLastCapture = hasLastCapture;
+    public readonly int ViewportPixelSize = viewportPixelSize;
 }
 
 [Serializable, NetSerializable]
-public sealed class PolaroidCaptureMessage : BoundUserInterfaceMessage
+public sealed class PolaroidCaptureMessage(byte[] png) : BoundUserInterfaceMessage
 {
-    public readonly byte[] Png;
-
-    public PolaroidCaptureMessage(byte[] png)
-    {
-        Png = png;
-    }
+    public readonly byte[] Png = png;
 }
 
 [Serializable, NetSerializable]
@@ -66,29 +52,20 @@ public enum PolaroidPhotoUiKey : byte
 }
 
 [Serializable, NetSerializable]
-public sealed class PolaroidPhotoUiState : BoundUserInterfaceState
+public sealed class PolaroidPhotoUiState(
+    byte[] png,
+    string? photographer,
+    string? takenAt,
+    string? signature) : BoundUserInterfaceState
 {
-    public readonly byte[] Png;
-    public readonly string? Photographer;
-    public readonly string? TakenAt;
-    public readonly string? Signature;
-
-    public PolaroidPhotoUiState(byte[] png, string? photographer, string? takenAt, string? signature)
-    {
-        Png = png;
-        Photographer = photographer;
-        TakenAt = takenAt;
-        Signature = signature;
-    }
+    public readonly byte[] Png = png;
+    public readonly string? Photographer = photographer;
+    public readonly string? TakenAt = takenAt;
+    public readonly string? Signature = signature;
 }
 
 [Serializable, NetSerializable]
-public sealed class PolaroidPhotoSetSignatureMessage : BoundUserInterfaceMessage
+public sealed class PolaroidPhotoSetSignatureMessage(string signature) : BoundUserInterfaceMessage
 {
-    public readonly string Signature;
-
-    public PolaroidPhotoSetSignatureMessage(string signature)
-    {
-        Signature = signature;
-    }
+    public readonly string Signature = signature;
 }

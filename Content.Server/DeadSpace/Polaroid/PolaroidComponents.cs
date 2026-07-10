@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
@@ -42,11 +43,34 @@ public sealed partial class PolaroidCameraComponent : Component
     public byte[] LastCapture = Array.Empty<byte>();
 
     [ViewVariables]
-    public bool HasLastCapture;
-
-    [ViewVariables]
     public string? LastCapturePhotographer;
 
     [ViewVariables]
     public DateTime? LastCaptureTakenAt;
+}
+
+[RegisterComponent]
+public sealed partial class PolaroidCartridgeComponent : Component
+{
+    [DataField]
+    public int MaxAmount = 8;
+
+    [DataField]
+    public int CurrentAmount = 8;
+}
+
+[RegisterComponent]
+public sealed partial class PolaroidPhotoComponent : Component
+{
+    [ViewVariables]
+    public byte[] PngData = Array.Empty<byte>();
+
+    [ViewVariables]
+    public string? Photographer;
+
+    [ViewVariables]
+    public DateTime? TakenAt;
+
+    [ViewVariables]
+    public string? Signature;
 }

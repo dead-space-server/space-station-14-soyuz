@@ -1,15 +1,18 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
 using System.IO;
 using System.Numerics;
 using System.Threading.Tasks;
 using Content.Client.Resources;
 using Content.Shared.DeadSpace.Polaroid;
+using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.IoC;
+using Robust.Shared.Input;
 using Robust.Shared.Maths;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
@@ -38,8 +41,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
     private readonly BoxContainer _signatureControls;
     private readonly Button _saveButton;
     private readonly LineEdit _signatureEdit;
-    private readonly Button _signatureSaveButton;
-    private readonly PolaroidPhotoViewer _photoViewer;
+    private readonly PhotoViewer _photoViewer;
     private readonly Font _signatureFont;
     private byte[] _currentPng = Array.Empty<byte>();
     private Texture? _currentTexture;
@@ -107,7 +109,7 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
 
         photoLayout.AddChild(imageFrame);
 
-        _photoViewer = new PolaroidPhotoViewer
+        _photoViewer = new PhotoViewer
         {
             HorizontalExpand = true,
             VerticalExpand = true,
@@ -158,13 +160,13 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         _signatureEdit.OnTextEntered += e => SubmitSignature(e.Text);
         _signatureControls.AddChild(_signatureEdit);
 
-        _signatureSaveButton = new Button
+        var signatureSaveButton = new Button
         {
             Text = Loc.GetString("polaroid-photo-ui-signature-save"),
         };
 
-        _signatureSaveButton.OnPressed += _ => SubmitSignature(_signatureEdit.Text);
-        _signatureControls.AddChild(_signatureSaveButton);
+        signatureSaveButton.OnPressed += _ => SubmitSignature(_signatureEdit.Text);
+        _signatureControls.AddChild(signatureSaveButton);
 
         _saveButton = new Button
         {
@@ -442,4 +444,174 @@ public sealed class PolaroidPhotoWindow : DefaultWindow
         UIBox2 FillRect,
         UIBox2 PhotoRect,
         UIBox2 SignatureRect);
+
+    private sealed class PhotoViewer : Control
+    {
+        private const float MinZoom = 1f;
+        private const float MaxZoom = 8f;
+        private const float ZoomStep = 0.15f;
+
+        private Texture? _texture;
+        private float _zoom = MinZoom;
+        private Vector2 _panOffset;
+        private bool _dragging;
+
+        public PhotoViewer()
+        {
+            RectClipContent = true;
+            MouseFilter = MouseFilterMode.Stop;
+        }
+
+        public void SetTexture(Texture? texture, bool resetView)
+        {
+            _texture = texture;
+            if (resetView)
+            {
+                _zoom = MinZoom;
+                _panOffset = Vector2.Zero;
+            }
+
+            ClampPan();
+        }
+
+        protected override void Draw(DrawingHandleScreen handle)
+        {
+            base.Draw(handle);
+            if (_texture != null)
+                handle.DrawTextureRect(_texture, GetDrawRect());
+        }
+
+        protected override void MouseWheel(GUIMouseWheelEventArgs args)
+        {
+            base.MouseWheel(args);
+            if (_texture == null || args.Delta.Y == 0f)
+                return;
+
+            var oldRect = GetDrawRect();
+            if (oldRect.Width <= 0f || oldRect.Height <= 0f)
+                return;
+
+            var anchor = oldRect.Contains(args.RelativePosition) ? args.RelativePosition : oldRect.Center;
+            var imagePosition = (anchor - oldRect.TopLeft) / oldRect.Size;
+            var oldZoom = _zoom;
+            _zoom = Math.Clamp(_zoom * MathF.Pow(1f + ZoomStep, args.Delta.Y), MinZoom, MaxZoom);
+
+            if (MathHelper.CloseToPercent(_zoom, oldZoom))
+                return;
+
+            var size = GetDisplaySize();
+            _panOffset = anchor - imagePosition * size - (PixelSize - size) / 2f;
+            ClampPan();
+            args.Handle();
+        }
+
+        protected override void KeyBindDown(GUIBoundKeyEventArgs args)
+        {
+            base.KeyBindDown(args);
+            if (args.Function != EngineKeyFunctions.UIClick || !CanPan())
+                return;
+
+            _dragging = true;
+            UpdateCursor();
+            args.Handle();
+        }
+
+        protected override void KeyBindUp(GUIBoundKeyEventArgs args)
+        {
+            base.KeyBindUp(args);
+            if (args.Function != EngineKeyFunctions.UIClick)
+                return;
+
+            _dragging = false;
+            UpdateCursor();
+        }
+
+        protected override void MouseMove(GUIMouseMoveEventArgs args)
+        {
+            base.MouseMove(args);
+            if (!_dragging)
+                return;
+
+            _panOffset += args.Relative;
+            ClampPan();
+            args.Handle();
+        }
+
+        protected override void MouseEntered()
+        {
+            base.MouseEntered();
+            UpdateCursor();
+        }
+
+        protected override void MouseExited()
+        {
+            base.MouseExited();
+            if (!_dragging)
+                DefaultCursorShape = CursorShape.Arrow;
+        }
+
+        protected override void Resized()
+        {
+            base.Resized();
+            ClampPan();
+        }
+
+        private UIBox2 GetDrawRect()
+        {
+            var size = GetDisplaySize();
+            return UIBox2.FromDimensions((PixelSize - size) / 2f + _panOffset, size);
+        }
+
+        private Vector2 GetDisplaySize()
+        {
+            if (_texture == null || PixelSize.X <= 0f || PixelSize.Y <= 0f)
+                return Vector2.Zero;
+
+            var textureSize = (Vector2) _texture.Size;
+            if (textureSize.X <= 0f || textureSize.Y <= 0f)
+                return Vector2.Zero;
+
+            return textureSize * Math.Min(PixelSize.X / textureSize.X, PixelSize.Y / textureSize.Y) * _zoom;
+        }
+
+        private bool CanPan()
+        {
+            var size = GetDisplaySize();
+            return size.X > PixelSize.X || size.Y > PixelSize.Y;
+        }
+
+        private void ClampPan()
+        {
+            var overflow = GetDisplaySize() - PixelSize;
+            _panOffset = new Vector2(
+                overflow.X > 0f ? Math.Clamp(_panOffset.X, -overflow.X / 2f, overflow.X / 2f) : 0f,
+                overflow.Y > 0f ? Math.Clamp(_panOffset.Y, -overflow.Y / 2f, overflow.Y / 2f) : 0f);
+            UpdateCursor();
+        }
+
+        private void UpdateCursor()
+        {
+            DefaultCursorShape = CanPan() ? CursorShape.Move : CursorShape.Arrow;
+        }
+    }
+}
+
+[UsedImplicitly]
+public sealed class PolaroidPhotoBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+{
+    [ViewVariables]
+    private PolaroidPhotoWindow? _window;
+
+    protected override void Open()
+    {
+        base.Open();
+        _window = this.CreateWindow<PolaroidPhotoWindow>();
+        _window.SignatureChanged += signature => SendMessage(new PolaroidPhotoSetSignatureMessage(signature));
+    }
+
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        if (state is PolaroidPhotoUiState photoState)
+            _window?.SetState(photoState);
+    }
 }

@@ -46,17 +46,17 @@
                     <LineEdit Name="ColorHex"
                               Access="Public"
                               PlaceHolder="{Loc admin-announce-color-placeholder}"
-                              Text="1d8bad"
+                              Text="B64444"
                               HorizontalExpand="True"
-                              StyleClasses="DS14MenuInput" />
+                              StyleClasses="DS14MenuInput" /> <!-- DS14-Soyuz value in "Text" -->
                 </BoxContainer>
                 <LineEdit Name="SoundPath"
                           Access="Public"
                           PlaceHolder="{Loc admin-announce-sound-placeholder}"
-                          Text="/Audio/_DeadSpace/Announcements/centcomm.ogg"
+                          Text="/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg" 
                           HorizontalExpand="True"
                           SizeFlagsStretchRatio="7"
-                          StyleClasses="DS14MenuInput" />
+                          StyleClasses="DS14MenuInput" /> <!-- DS14-Soyuz value in "Text" -->
                 <LineEdit Name="SoundVolume"
                           Access="Public"
                           PlaceHolder="{Loc admin-announce-volume-placeholder}"

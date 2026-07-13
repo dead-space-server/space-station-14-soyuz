@@ -29,5 +29,8 @@ ent-DrinkJuicePearCartonXL = pear juice XL
     .desc = A large carton of fragrant pear juice.
 ent-FoodTartPear = pear tart
     .desc = A fragrant tart filled with sweet pears.
+ent-FoodTartPearRaw = raw pear tart
+    .desc = Pie dough filled with pears, ready to be baked.
 
-recipe-name-pear-tart = pear tart recipe
+construction-graph-tag-pear = a pear
+construction-graph-tag-pie-tin = a pie tin

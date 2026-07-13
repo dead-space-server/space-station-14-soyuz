@@ -1,13 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Kofeecheks
 # SPDX-License-Identifier: LicenseRef-Kofeecheks
 
-# Construction tags
-- type: Tag
-  id: Pear
-
-- type: Tag
-  id: PieTin
-
 # Flavors and reagents
 - type: flavor
   id: pear
@@ -139,7 +132,6 @@
   - type: Tag
     tags:
     - Fruit
-    - Pear
   - type: FoodSequenceElement
     entries:
       Burger: Pear
@@ -250,61 +242,14 @@
     tags:
     - Fruit
     - Pie
-  - type: Construction
-    graph: PearTart
-    node: cooked
 
-- type: entity
-  parent: FoodDoughPie
-  id: FoodTartPearRaw
-  name: raw pear tart
-  description: Pie dough filled with pears, ready to be baked.
-  components:
-  - type: Construction
-    graph: PearTart
-    node: raw
-
-- type: constructionGraph
-  id: PearTart
-  start: start
-  graph:
-  - node: start
-    entity: FoodDoughPie
-    edges:
-    - to: raw
-      steps:
-      - tag: Pear
-        name: construction-graph-tag-pear
-        icon:
-          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
-          state: produce
-        doAfter: 1
-      - tag: Pear
-        name: construction-graph-tag-pear
-        icon:
-          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
-          state: produce
-        doAfter: 1
-      - tag: Pear
-        name: construction-graph-tag-pear
-        icon:
-          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
-          state: produce
-        doAfter: 1
-      - tag: PieTin
-        name: construction-graph-tag-pie-tin
-        icon:
-          sprite: Objects/Consumable/Food/plates.rsi
-          state: tin
-        doAfter: 1
-  - node: raw
-    entity: FoodTartPearRaw
-    edges:
-    - to: cooked
-      completed:
-      - !type:PlaySound
-        sound: /Audio/Effects/sizzle.ogg
-      steps:
-      - minTemperature: 375
-  - node: cooked
-    entity: FoodTartPear
+- type: microwaveMealRecipe
+  id: RecipePearTart
+  name: recipe-name-pear-tart
+  result: FoodTartPear
+  time: 15
+  group: Pie
+  solids:
+    FoodDoughPie: 1
+    FoodPear: 3
+    FoodPlateTin: 1

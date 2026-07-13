@@ -3,6 +3,7 @@ using System;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Content.Server.Database.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteServerDbContext))]
-    partial class SqliteServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260702170423_UserIdLoginMigrations")]
+    partial class UserIdLoginMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
@@ -924,10 +927,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("active_preset_ids_json");
 
-                    b.Property<bool>("CheckPlayerLimit")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("check_player_limit");
-
                     b.Property<int>("CurrentPresetIndex")
                         .HasColumnType("INTEGER")
                         .HasColumnName("current_preset_index");
@@ -945,22 +944,17 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("enabled");
 
+                    b.Property<int>("MaxRdmDay")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("max_rdm_day");
+
                     b.Property<int>("MaxRdmRow")
                         .HasColumnType("INTEGER")
                         .HasColumnName("max_rdm_row");
 
-                    b.Property<bool>("PreventRepeatMode")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("prevent_repeat_mode");
-
                     b.Property<int>("VoteDurationSeconds")
                         .HasColumnType("INTEGER")
                         .HasColumnName("vote_duration_seconds");
-
-                    b.Property<string>("WhitelistModesJson")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("whitelist_modes_json");
 
                     b.HasKey("ServerId")
                         .HasName("PK_game_preset_config");
@@ -1188,15 +1182,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("hair_color");
 
-                    b.Property<string>("HairGradientColor")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("hair_gradient_color");
-
-                    b.Property<bool>("HairGradientEnabled")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("hair_gradient_enabled");
-
                     b.Property<string>("HairName")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1365,14 +1350,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<int>("ServerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("server_id");
-
-                    b.Property<string>("GamePresetName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("game_preset_name");
-
-                    b.Property<string>("MapName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("map_name");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("TEXT")

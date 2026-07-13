@@ -143,7 +143,7 @@
   - type: XATReactive
     reagents:
     - Frezon
-    - Fresium
+    - Fresium # DS14-Soyuz
 
 - type: xenoArchTrigger
   id: TriggerRadiation

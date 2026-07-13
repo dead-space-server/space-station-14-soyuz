@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2026 Kofeecheks
-// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 using Content.Shared.DeadSpace._Soyuz.Polaroid;
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;

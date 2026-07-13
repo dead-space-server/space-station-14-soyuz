@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2026 Kofeecheks
-// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;

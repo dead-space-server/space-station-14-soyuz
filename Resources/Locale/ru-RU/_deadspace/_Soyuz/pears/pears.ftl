@@ -29,5 +29,8 @@ ent-DrinkJuicePearCartonXL = грушевый сок XL
     .desc = Большой пакет ароматного грушевого сока.
 ent-FoodTartPear = грушевый тарт
     .desc = Ароматный тарт со сладкой грушевой начинкой.
+ent-FoodTartPearRaw = сырой грушевый тарт
+    .desc = Тесто с грушевой начинкой, готовое к выпеканию.
 
-recipe-name-pear-tart = рецепт грушевого тарта
+construction-graph-tag-pear = грушу
+construction-graph-tag-pie-tin = форму для пирога

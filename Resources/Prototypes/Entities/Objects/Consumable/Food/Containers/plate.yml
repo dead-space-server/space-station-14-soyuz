@@ -336,6 +336,7 @@
   - type: Tag
     tags:
     - Trash
+    - PieTin # Kofeecheks Pears: LicenseRef-Kofeecheks
   - type: PhysicalComposition
     materialComposition:
       Steel: 50

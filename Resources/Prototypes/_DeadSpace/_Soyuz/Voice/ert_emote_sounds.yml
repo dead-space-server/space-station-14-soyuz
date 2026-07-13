@@ -4,20 +4,13 @@
   category: Vocal
   icon: Interface/Emotes/scream.png
   whitelist:
+    requireAll: true
     components:
     - Vocal
-    tags:
-    - ERTEmotes
-  blacklist:
-    tags:
-    - SiliconEmotes
-    - SiliconIPCEmotes
+    - HumanoidAppearance
   chatMessages: ["chat-emote-msg-warcry"]
   chatTriggers:
     - warcry
-
-- type: Tag
-  id: ERTEmotes
 
 - type: soundCollection
   id: MaleWarcry

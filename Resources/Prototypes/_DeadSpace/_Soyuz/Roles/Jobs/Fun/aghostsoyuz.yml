@@ -27,7 +27,7 @@
     head: ClothingHeadHatClownUssp
     mask: ClothingMaskClownPencil
     neck: ClothingNeckScarfClownUssp
-    gloves: ClothingHandsGlovesPowergloveActiveAdmine
+    gloves: ClothingHandsGlovesPowergloveActiveAdmin
   storage:
     back:
     - GasAnalyzer

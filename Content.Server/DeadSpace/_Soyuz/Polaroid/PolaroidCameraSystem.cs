@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2026 Kofeecheks
-// SPDX-License-Identifier: LicenseRef-Kofeecheks-Polaroid
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 using System.IO;
 using Content.Server.GameTicking;
 using Content.Shared.Containers.ItemSlots;

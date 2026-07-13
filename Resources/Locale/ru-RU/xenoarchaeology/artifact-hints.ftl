@@ -37,7 +37,9 @@ artifact-trigger-hint-death = Эссенция жизни
 artifact-trigger-hint-radiation = Радиация
 artifact-trigger-hint-pressure = Экстремальное давление
 artifact-trigger-hint-regular-gases = Стандартные атмосферные газы
-artifact-trigger-hint-plasma = Газообразная плазма
+# DS14-Soyuz-start
+artifact-trigger-hint-plasma = Нетвёрдая плазма
+# DS14-Soyuz-end
 artifact-trigger-hint-land = Активное замедление
 artifact-trigger-hint-examine = Внимательное изучение
 artifact-trigger-hint-medical = Терапевтические химикаты
@@ -47,7 +49,9 @@ xenoarch-trigger-tip-cold = Газ низкой температуры
 xenoarch-trigger-tip-no-oxygen = Безвоздушное пространство
 xenoarch-trigger-tip-water = Вода
 xenoarch-trigger-tip-co2 = Углекислый газ
-xenoarch-trigger-tip-plasma = Газообразная плазма
+# DS14-Soyuz-start
+xenoarch-trigger-tip-plasma = Нетвёрдая плазма
+# DS14-Soyuz-end
 xenoarch-trigger-tip-tritium = Тритий
 xenoarch-trigger-tip-ammonia = Аммиак
 xenoarch-trigger-tip-n2o = Оксид азота

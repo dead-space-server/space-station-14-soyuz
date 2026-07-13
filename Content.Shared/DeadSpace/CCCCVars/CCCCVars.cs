@@ -7,7 +7,7 @@ namespace Content.Shared.DeadSpace.CCCCVars;
 /// </summary>
 [CVarDefs]
 // ReSharper disable once InconsistentNaming
-public sealed class CCCCVars
+public sealed partial class CCCCVars
 {
     /*
 	* GCF

@@ -1,0 +1,44 @@
+Kofeecheks Authored Works — All Rights Reserved
+
+Copyright (c) 2026 Kofeecheks. All rights reserved.
+
+This notice applies to every Kofeecheks-authored file or separately identified
+portion of a file bearing this license identifier:
+
+    SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+The covered work currently includes, without limitation:
+
+- Content.Client/DeadSpace/_Soyuz/Polaroid/**
+- Content.Server/DeadSpace/_Soyuz/Polaroid/**
+- Content.Shared/DeadSpace/_Soyuz/Polaroid/**
+- Content.Client/DeadSpace/_Soyuz/Jukebox/**
+- Content.Server/DeadSpace/_Soyuz/Jukebox/**
+- Content.Shared/DeadSpace/_Soyuz/Jukebox/**
+- Resources/Prototypes/_DeadSpace/_Soyuz/Pears/**
+- Resources/Locale/*/_deadspace/_Soyuz/pears/**
+- Kofeecheks-authored jukebox catalogs and locale files bearing the identifier
+- Jukebox-specific integration additions explicitly marked with the identifier
+- Pear-specific integration additions explicitly marked with the identifier
+
+The covered work is a separately licensed element and is not licensed under the
+repository-level LICENSE.TXT.
+
+No permission is granted to use, copy, modify, merge, publish, distribute,
+sublicense, sell, host, or create derivative works from the covered work without
+prior written permission from the copyright holder.
+
+The covered work and its future revisions in this repository are explicitly
+designated as "Not a Contribution" to the Dead Space 14 / "Мёртвый Космос"
+project, the dead-space-server organization, and their licensors. Submission
+under different terms requires a separate written agreement signed by the
+copyright holder.
+
+This notice does not claim copyright in pre-existing upstream code, audio
+recordings, fonts, sprites, artwork, engine code, or other third-party
+materials. Those materials retain their respective copyright and license
+terms. In particular, media files remain governed by their embedded metadata,
+attribution records, and applicable third-party rights.
+
+This notice does not attempt to revoke or alter rights that may already have
+been validly granted in earlier revisions under a separate agreement.

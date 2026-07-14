@@ -3,16 +3,24 @@ using Content.Shared.Nutrition.EntitySystems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
 
-namespace Content.Shared.Nutrition.Components
+namespace Content.Shared.Nutrition.Components;
+
+/// <summary>
+/// Allows this entity to be hit by banana cream pies.
+/// See <see cref="CreamPieComponent"/>.
+/// </summary>
+[Access(typeof(SharedCreamPieSystem))]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
+public sealed partial class CreamPiedComponent : Component
 {
-    [Access(typeof(SharedCreamPieSystem))]
-    [RegisterComponent]
-    public sealed partial class CreamPiedComponent : Component
-    {
-        [ViewVariables]
-        public bool CreamPied { get; set; } = false;
-    }
+    /// <summary>
+    /// Was this entity hit by a banana cream pie?
+    /// This is reset if they get splashed with water.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool CreamPied;
 
     /// <summary>
     /// The sprite to draw on someone's face if they were hit by a pie.

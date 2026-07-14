@@ -1327,16 +1327,3 @@ DresserCaptainFilled: VendingMachineCaptainDrobe
 
 # 2026-07-11 - DS14-Soyuz
 PosterLegitNanotrasenLogo: PosterUSSP
-# 2026-01-14
-HeadHuman: OrganHumanHead
-HeadSkeleton: OrganSkeletonPersonHead
-LeftArmHuman: OrganHumanArmLeft
-LeftArmSkeleton: OrganSkeletonPersonArmLeft
-LeftHandSkeleton: OrganSkeletonPersonHandLeft
-LeftLegHuman: OrganHumanLegLeft
-LeftLegSkeleton: OrganSkeletonPersonLegLeft
-RightArmHuman: OrganHumanArmRight
-RightHandSkeleton: OrganSkeletonPersonHandRight
-RightLegHuman: OrganHumanLegRight
-TorsoSkeleton: OrganSkeletonPersonTorso
-RightArmSkeleton: OrganSkeletonPersonArmRight

@@ -5,5 +5,5 @@
   prototype: MobDwarf
   sprites: MobHumanSprites
   markingLimits: MobHumanMarkingLimits
-  dollPrototype: AppearanceDwarf
+  dollPrototype: MobDwarfDummy
   skinColoration: HumanToned

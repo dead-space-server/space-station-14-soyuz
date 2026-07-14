@@ -2,7 +2,7 @@
   # Унатхи
 
   <Box>
-    <GuideEntityEmbed Entity="AppearanceReptilian" Caption=""/>
+    <GuideEntityEmbed Entity="MobReptilian" Caption=""/>
   </Box>
 
   Унатхи могут есть ТОЛЬКО фрукты и мясо. Они могут так же питаться сырым мясом и пить кровь без страха отравиться.

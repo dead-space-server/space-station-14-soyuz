@@ -57,6 +57,7 @@
     - id: ErtResponseConsoleCircuitboard # DS14
     - id: ClothingEyesHudCaptain # DS14: CaptainResprite
     - id: HeadSkeleton # A skull to accompany your skeleton crew
+    - id: OrganSkeletonPersonHead
       conditions:
       - !type:PlayerCountCondition
         max: 15

@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server.DeadSpace.Administration;
 using Content.Server.Popups;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
@@ -59,13 +60,12 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
                 return;
             }
 
-            // DS14-start
-            // Most implanters remain instant on self, while special implanters can opt into the regular do-after.
-            if (args.User == target && component.InstantSelfImplant)
+            //Implant self instantly, otherwise try to inject the target.
+            if (args.User == target)
             {
-                PropagateAntagPurchase(uid, component);
-            // DS14-end
+                PropagateAntagPurchase(uid, component); // DS14
                 Implant(target, target, uid, component);
+            }
             else
                 TryImplant(component, args.User, target, uid);
         }
@@ -146,10 +146,27 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
         if (args.Cancelled || args.Handled || args.Target == null || args.Used == null)
             return;
 
+        PropagateAntagPurchase(args.Used.Value, component); // DS14
+
         Implant(args.User, args.Target.Value, args.Used.Value, component);
 
         args.Handled = true;
     }
+
+    // DS14-start
+    private void PropagateAntagPurchase(EntityUid implanter, ImplanterComponent component)
+    {
+        var contained = component.ImplanterSlot.ContainerSlot?.ContainedEntities;
+        if (contained == null || contained.Count == 0 ||
+            !TryComp<AntagPurchasedEntityComponent>(implanter, out var purchase))
+        {
+            return;
+        }
+
+        var implantEntity = contained[0];
+        EnsureComp<AntagPurchasedEntityComponent>(implantEntity).MindId = purchase.MindId;
+    }
+    // DS14-end
 
     private void OnDraw(EntityUid uid, ImplanterComponent component, DrawEvent args)
     {

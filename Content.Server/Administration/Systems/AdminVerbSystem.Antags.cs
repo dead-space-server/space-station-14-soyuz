@@ -110,6 +110,7 @@ public sealed partial class AdminVerbSystem
             Icon = new SpriteSpecifier.Rsi(new("/Textures/_Backmen/Interface/Actions/blob.rsi"), "blobFactory"),
             Act = () =>
             {
+                _antag.TrackGrantedComponent<Shared.Backmen.Blob.Components.BlobCarrierComponent>(args.Target);
                 EnsureComp<Shared.Backmen.Blob.Components.BlobCarrierComponent>(args.Target).HasMind = HasComp<ActorComponent>(args.Target);
             },
             Impact = LogImpact.High,
@@ -184,7 +185,11 @@ public sealed partial class AdminVerbSystem
             {
                 if (targetPlayer.AttachedEntity is not { } target) return;
                 _antag.ForceMakeAntag<ShadowlingRuleComponent>(targetPlayer, "ShadowlingRule");
-                EnsureComp<ShadowlingRevealComponent>(target);
+                if (!HasComp<ShadowlingRevealComponent>(target))
+                {
+                    EnsureComp<ShadowlingRevealComponent>(target);
+                    _antag.TrackGrantedComponent<ShadowlingRevealComponent>(target);
+                }
             },
             Impact = LogImpact.High,
             Message = string.Join(": ", shadowlingName, "Сделать скрытым тенеморфом"),

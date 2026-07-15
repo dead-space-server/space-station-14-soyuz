@@ -28,8 +28,7 @@
 #DS14-Soyuz-end
   ranks:
     NKVBRankMajorGeneral:
-    - !type:RoleTimeRequirement
-      role: Overal
+    - !type:OverallPlaytimeRequirement
       time: 3600000 # 1000 часов
     NKVBRankColonel: []
 #DS14-Soyuz-end

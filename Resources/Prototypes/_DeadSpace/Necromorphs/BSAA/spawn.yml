@@ -186,15 +186,17 @@
       job: BSAALeaderJob
     - type: RandomMetadata
       nameSegments:
-#      - NamesFirstERTLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAALeaderGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 - type: randomHumanoidSettings
   id: BSAAFighter
@@ -210,15 +212,17 @@
       job: BSAAFighterJob
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAAFighterGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 - type: randomHumanoidSettings
   id: BSAAMedic
@@ -235,11 +239,13 @@
     - type: IgnoreKudzu
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: Loadout
       prototypes: [ BSAAMedicGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant

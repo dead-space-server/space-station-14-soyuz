@@ -175,9 +175,8 @@
       state: ertleadereva
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: ERTLeaderAmber
 
@@ -197,9 +196,8 @@
       prototypes: [ ERTLeaderGearAmber ]
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
 
 ### Red
 - type: entity
@@ -229,9 +227,8 @@
       prototypes: [ ERTLeaderGearRed ]
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
 
 ### Gamma
 - type: entity
@@ -261,9 +258,8 @@
       prototypes: [ ERTLeaderGearGamma ]
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: AutoImplant
       implants:
       - MindShieldImplant
@@ -286,7 +282,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: ERTSecurityAmber
 
@@ -306,7 +301,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ ERTSecurityGearAmber ]
 
@@ -379,7 +373,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: ERTMedicalAmber
 
@@ -399,7 +392,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ ERTMedicalGearAmber ]
 
@@ -472,7 +464,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: ERTJanitorAmber
 
@@ -492,7 +483,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ ERTJanitorGearAmber ]
 
@@ -565,7 +555,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: ERTEngineerAmber
 
@@ -585,7 +574,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ ERTEngineerGearAmber ]
 
@@ -673,9 +661,8 @@
       job: CBURNLeader
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ CBURNLeaderGear ]
     - type: GhostRoleNotifys # DS14
@@ -708,9 +695,8 @@
       job: SCSTLeader
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SCSTLeaderGear ]
     - type: GhostRoleNotifys # DS14
@@ -743,9 +729,8 @@
       job: SCNTLeader
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SCNTLeaderGear ]
     - type: GhostRoleNotifys # DS14
@@ -778,9 +763,8 @@
       job: SierraLeader
     - type: RandomMetadata
       nameSegments:
-##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SierraLeaderGear ]
     - type: GhostRoleNotifys # DS14
@@ -801,7 +785,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: CBURNAgent
 
@@ -821,7 +804,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ CBURNAgentGear ]
     - type: GhostRoleNotifys # DS14
@@ -840,7 +822,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: SCSTAgent
 
@@ -860,7 +841,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SCSTAgentGear ]
     - type: GhostRoleNotifys # DS14
@@ -879,7 +859,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: SCNTAgent
 
@@ -899,7 +878,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SCNTAgentGear ]
     - type: GhostRoleNotifys # DS14
@@ -918,7 +896,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
       settings: SierraAgent
 
@@ -938,7 +915,6 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
     - type: Loadout
       prototypes: [ SierraAgentGear ]
     - type: GhostRoleNotifys # DS14

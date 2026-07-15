@@ -48,6 +48,18 @@
     - type: Skill
       group: BasicAndShuttleControl
     # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobSeniorOfficer
+      time: 360000 # 100 часов
+    SGMRankSeniorWarrantOfficer:
+    - !type:RoleTimeRequirement
+      role: JobSeniorOfficer
+      time: 180000 # 50 часов
+    SGMRankWarrantOfficer: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SeniorOfficerGear

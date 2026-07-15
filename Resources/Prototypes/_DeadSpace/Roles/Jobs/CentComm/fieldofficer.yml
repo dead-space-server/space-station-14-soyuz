@@ -26,6 +26,14 @@
       - CentralCommand
     - type: Skill
       group: ALL
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankLieutenantColonel:
+    - !type:RoleTimeRequirement
+      role: Admin
+      time: 1800000 # 500 hours Страдайте суки
+    NKVBRankMajor: []
+#DS14-Soyuz-end
 
 - type: chameleonOutfit
   id: CentcomFieldOfficerChameleonOutfit

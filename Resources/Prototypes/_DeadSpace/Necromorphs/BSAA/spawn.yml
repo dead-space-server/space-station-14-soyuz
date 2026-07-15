@@ -186,7 +186,7 @@
       job: BSAALeaderJob
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+#      - NamesFirstERTLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: ImmunNecroobelisk

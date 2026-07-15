@@ -34,16 +34,22 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+#DS14-Soyuz-end
   ranks:
-    RMCRankStaffSergeant:
+    SGMRankSeniorSergeant:
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 252000 # 70 hours
-    RMCRankSergeant:
+      time: 360000 # 100 часов
+    SGMRankSergeant:
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 36000 # 10 hours
-    RMCRankCorporal: []
+      time: 180000 # 50 часов
+    SGMRankJuniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 90000 # 25 часов
+    SGMRankPrivate: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityOfficerGear

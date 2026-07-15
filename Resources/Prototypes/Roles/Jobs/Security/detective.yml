@@ -37,15 +37,20 @@
         group: BaseSkills
       # DS14-End
   ranks:
-    RMCRankStaffSergeant:
+    SGMRankChiefSergeant:
     - !type:RoleTimeRequirement
       role: JobDetective
-      time: 252000 # 70 hours
-    RMCRankSergeant:
+      time: 360000 # 100 часов
+    SGMRankSeniorSergeant:
     - !type:RoleTimeRequirement
       role: JobDetective
-      time: 36000 # 10 hours
-    RMCRankCorporal: []
+      time: 180000 # 50 часов
+    SGMRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobDetective
+      time: 90000 # 25 часов
+    SGMRankJuniorSergeant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: DetectiveGear

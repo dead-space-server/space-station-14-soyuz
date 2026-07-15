@@ -37,16 +37,10 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+#DS14-Soyuz-end
   ranks:
-    RMCRankStaffSergeant:
-    - !type:RoleTimeRequirement
-      role: JobSecurityCadet
-      time: 252000 # 70 hours
-    RMCRankSergeant:
-    - !type:RoleTimeRequirement
-      role: JobSecurityCadet
-      time: 36000 # 10 hours
-    RMCRankCorporal: []
+    SGMRankPidoras: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityCadetGear

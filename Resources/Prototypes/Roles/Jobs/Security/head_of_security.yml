@@ -50,16 +50,22 @@
       - type: Skill
         group: BasicAndShuttleControl
       # DS14-End
+#DS14-Soyuz-end
   ranks:
-    RMCRankStaffSergeant:
+    NKVBRankMajorGeneral:
     - !type:RoleTimeRequirement
       role: JobHeadOfSecurity
-      time: 252000 # 70 hours
-    RMCRankSergeant:
+      time: 3600000 # 1000 часов Вот прикол будет
+    SGMRankCaptain:
     - !type:RoleTimeRequirement
       role: JobHeadOfSecurity
-      time: 36000 # 10 hours
-    RMCRankCorporal: []
+      time: 360000 # 100 часов
+    SGMRankSeniorLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 180000 # 50 часов
+    SGMRankLieutenant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: HoSGear

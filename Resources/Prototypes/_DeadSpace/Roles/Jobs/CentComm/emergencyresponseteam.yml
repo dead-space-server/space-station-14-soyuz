@@ -36,6 +36,18 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankCaptain:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderAmber
+      time: 54000 # 15 hours
+    NKVBRankLieutenant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTLeaderGearAmber
@@ -102,6 +114,18 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankCaptain:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderRed
+      time: 54000 # 15 hours
+    NKVBRankLieutenant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTLeaderGearRed
@@ -168,6 +192,18 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankCaptain:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobERTLeaderGamma
+      time: 54000 # 15 hours
+    NKVBRankLieutenant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTLeaderGearGamma
@@ -232,6 +268,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityAmber
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTSecurityGearAmber
@@ -296,6 +348,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityRed
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTSecurityGearRed
@@ -356,6 +424,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTSecurityGamma
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTSecurityGearGamma
@@ -418,6 +502,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalAmber
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTMedicalGearAmber
@@ -484,6 +584,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalRed
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTMedicalGearRed
@@ -549,6 +665,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTMedicalGamma
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTMedicalGearGamma
@@ -613,6 +745,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerAmber
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTEngineerGearAmber
@@ -679,6 +827,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerRed
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTEngineerGearRed
@@ -739,6 +903,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerGamma
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTEngineerGearGamma
@@ -799,6 +979,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorAmber
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTJanitorGearAmber
@@ -858,6 +1054,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorRed
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTJanitorGearRed
@@ -916,6 +1128,22 @@
       - type: Skill
         group: ALL
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorGamma
+      time: 27000 # 7.5 hours
+    NKVBRankPilot: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: ERTJanitorGearGamma

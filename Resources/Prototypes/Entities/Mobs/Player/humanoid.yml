@@ -175,7 +175,7 @@
       state: ertleadereva
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -197,7 +197,7 @@
       prototypes: [ ERTLeaderGearAmber ]
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
 
@@ -229,7 +229,7 @@
       prototypes: [ ERTLeaderGearRed ]
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
 
@@ -261,7 +261,7 @@
       prototypes: [ ERTLeaderGearGamma ]
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: AutoImplant
@@ -284,7 +284,7 @@
       state: ertsecurity
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -304,7 +304,7 @@
       job: ERTSecurityAmber
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -377,7 +377,7 @@
       state: ertmedical
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -397,7 +397,7 @@
       job: ERTMedicalAmber
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -470,7 +470,7 @@
       state: ertjanitor
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -490,7 +490,7 @@
       job: ERTJanitorAmber
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -563,7 +563,7 @@
       state: ertengineer
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -583,7 +583,7 @@
       job: ERTEngineerAmber
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -673,7 +673,7 @@
       job: CBURNLeader
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -708,7 +708,7 @@
       job: SCSTLeader
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -743,7 +743,7 @@
       job: SCNTLeader
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -778,7 +778,7 @@
       job: SierraLeader
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+##      - NamesFirstERT #DS14-Soyuz: DisabledLeader #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -799,7 +799,7 @@
       state: cburn
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -819,7 +819,7 @@
       job: CBURNAgent
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -838,7 +838,7 @@
       state: cburn
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -858,7 +858,7 @@
       job: SCSTAgent
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -877,7 +877,7 @@
       state: cburn
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -897,7 +897,7 @@
       job: SCNTAgent
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout
@@ -916,7 +916,7 @@
       state: cburn
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: RandomHumanoidSpawner
@@ -936,7 +936,7 @@
       job: SierraAgent
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert
     - type: Loadout

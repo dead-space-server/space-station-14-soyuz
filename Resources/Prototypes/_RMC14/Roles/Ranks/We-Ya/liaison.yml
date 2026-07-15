@@ -1,19 +1,19 @@
 ﻿- type: rank
   id: RMCRankWeYaExecutiveSpecialist
-  name: Executive Specialist
-  prefix: Exec. Spc.
+  name: Специалист-Исполнительный Офицер
+  prefix: Спец. Испол. Оф.
 
 - type: rank
   id: RMCRankWeYaSeniorExecutive
-  name: Senior Executive
-  prefix: Sr. Exec.
+  name: Старший Исполнительный Офицер
+  prefix: Стар. Испол. Оф.
 
 - type: rank
   id: RMCRankWeYaExecutive
-  name: Executive
-  prefix: Exec.
+  name: Исполнительный Офицер
+  prefix: Испол. Оф.
 
 - type: rank
   id: RMCRankWeYaJuniorExecutive
-  name: Junior Executive
-  prefix: Jr. Exec.
+  name: Младший Исполнительный Офицер
+  prefix: Млад. Испол. Оф.

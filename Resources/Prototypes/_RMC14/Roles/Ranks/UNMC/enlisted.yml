@@ -54,12 +54,12 @@
 
 - type: rank
   id: RMCRankPrivateFirstClass
-  name: Пилот Первого Класса
-  prefix: ППК.
+  name: Рядовой Первого Класса
+  prefix: РПК.
   paygrade: E2
 
 - type: rank
   id: RMCRankPrivate
-  name: Пилот
-  prefix: Пил.
+  name: Рядовой
+  prefix: Ряд.
   paygrade: E1

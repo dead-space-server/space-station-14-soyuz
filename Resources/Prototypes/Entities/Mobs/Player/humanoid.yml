@@ -177,7 +177,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: ERTLeaderAmber
 
@@ -199,7 +199,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ### Red
 - type: entity
@@ -231,7 +233,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ### Gamma
 - type: entity
@@ -263,7 +267,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: AutoImplant
       implants:
       - MindShieldImplant
@@ -271,6 +275,8 @@
       - RadioImplantSOC
       - DeathRattleImplantSOD
       - RezervImplant
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ## Security
 ### Amber
@@ -286,7 +292,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: ERTSecurityAmber
 
@@ -306,9 +312,11 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ ERTSecurityGearAmber ]
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Red
 - type: entity
@@ -337,7 +345,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Gamma
 - type: entity
@@ -373,7 +383,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## Medical
 ### Amber
@@ -389,7 +401,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: ERTMedicalAmber
 
@@ -409,9 +421,11 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ ERTMedicalGearAmber ]
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Red
 - type: entity
@@ -440,7 +454,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Gamma
 - type: entity
@@ -476,7 +492,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## Janitor
 ### Amber
@@ -492,7 +510,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: ERTJanitorAmber
 
@@ -512,9 +530,11 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ ERTJanitorGearAmber ]
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Red
 - type: entity
@@ -543,7 +563,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Gamma
 - type: entity
@@ -579,7 +601,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## Engineer
 ### Amber
@@ -595,7 +619,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: ERTEngineerAmber
 
@@ -615,9 +639,11 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ ERTEngineerGearAmber ]
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Red
 - type: entity
@@ -646,7 +672,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### Gamma
 - type: entity
@@ -682,7 +710,9 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ### CBURN and DBCT
 ### Leader
@@ -715,11 +745,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ CBURNLeaderGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ### SCST
 
@@ -750,11 +782,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SCSTLeaderGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ### SCNT
 
@@ -785,11 +819,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SCNTLeaderGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 ### Sierra
 
@@ -820,11 +856,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SierraLeaderGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 
 ### Agent
@@ -841,7 +879,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: CBURNAgent
 
@@ -861,11 +899,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ CBURNAgentGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
       
 ## SCST Agent
 - type: entity
@@ -880,7 +920,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: SCSTAgent
 
@@ -900,11 +940,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SCSTAgentGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## SCNT Agent
 - type: entity
@@ -919,7 +961,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: SCNTAgent
 
@@ -939,11 +981,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SCNTAgentGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## Sierra Agent
 - type: entity
@@ -958,7 +1002,7 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: RandomHumanoidSpawner
       settings: SierraAgent
 
@@ -978,11 +1022,13 @@
       nameSegments:
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: random-metadata-name-format-default #DS14-Soyuz
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: Loadout
       prototypes: [ SierraAgentGear ]
     - type: GhostRoleNotifys # DS14
       groupPrototype: CBURNGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 ## Syndicate
 

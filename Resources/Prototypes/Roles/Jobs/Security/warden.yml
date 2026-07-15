@@ -47,15 +47,14 @@
       # DS14-Start
       - type: Skill
         group: BasicAndShuttleControl
-      # DS14-End
-    ranks:
+  ranks:
     RMCRankStaffSergeant:
     - !type:RoleTimeRequirement
-      role: CMJobMilitaryPolice
+      role: JobWarden
       time: 252000 # 70 hours
     RMCRankSergeant:
     - !type:RoleTimeRequirement
-      role: CMJobMilitaryPolice
+      role: JobWarden
       time: 36000 # 10 hours
     RMCRankCorporal: []
 

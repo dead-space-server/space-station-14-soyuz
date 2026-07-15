@@ -21,6 +21,7 @@ using Robust.Shared.Serialization.Markdown;
 using Robust.Shared.Utility;
 using YamlDotNet.RepresentationModel;
 using Content.Shared.Corvax.TTS;
+using Content.Shared._RMC14.Marines.Roles.Ranks; // DS14-Soyuz
 
 namespace Content.Shared.Humanoid;
 
@@ -123,6 +124,18 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         var identity = Identity.Entity(uid, EntityManager);
         var species = GetSpeciesRepresentation(component.Species).ToLower();
         var age = GetAgeRepresentation(component.Species, component.Age);
+
+        // DS14-Soyuz-start
+        if (TryComp<RankComponent>(uid, out var rankComp) && rankComp.Rank != null)
+        {
+            if (_proto.TryIndex<RankPrototype>(rankComp.Rank, out var rankProto))
+            {
+                args.PushMarkup(Loc.GetString("rmc-rank-component-examine", ("user", identity), ("rank", rankProto.Name)));
+                args.PushText(Loc.GetString("humanoid-appearance-component-examine", ("user", identity), ("age", age), ("species", species)));
+                return;
+            }
+        }
+        // DS14-Soyuz-end
 
         args.PushText(Loc.GetString("humanoid-appearance-component-examine", ("user", identity), ("age", age), ("species", species)));
     }

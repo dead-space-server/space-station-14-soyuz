@@ -36,14 +36,14 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
-    ranks:
+  ranks:
     RMCRankStaffSergeant:
     - !type:RoleTimeRequirement
-      role: CMJobMilitaryPolice
+      role: JobDetective
       time: 252000 # 70 hours
     RMCRankSergeant:
     - !type:RoleTimeRequirement
-      role: CMJobMilitaryPolice
+      role: JobDetective
       time: 36000 # 10 hours
     RMCRankCorporal: []
 

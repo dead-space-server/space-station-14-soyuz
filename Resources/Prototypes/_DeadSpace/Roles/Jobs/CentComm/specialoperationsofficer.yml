@@ -29,8 +29,8 @@
   ranks:
     NKVBRankMajorGeneral:
     - !type:RoleTimeRequirement
-      role: Admin
-      time: 1800000 # 500 hours Страдайте суки
+      role: Overal
+      time: 3600000 # 1000 часов
     NKVBRankColonel: []
 #DS14-Soyuz-end
 

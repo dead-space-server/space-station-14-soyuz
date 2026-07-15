@@ -6,13 +6,13 @@
 
 - type: rank
   id: SGMRankSeniorLieutenant
-  name: Старший Лейтенант Милиции
+  name: Старший Лейтенант
   prefix: Стар. Лей.
   paygrade: М9
 
 - type: rank
   id: SGMRankLieutenant
-  name: Лейтенант Милиции
+  name: Лейтенант
   prefix: Лей.
   paygrade: М8
 

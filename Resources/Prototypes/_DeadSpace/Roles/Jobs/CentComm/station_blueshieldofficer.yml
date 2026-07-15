@@ -64,6 +64,22 @@
     components:
     - type: Skill
       group: BlueShield
+#DS14-Soyuz-end
+  ranks:
+    SGMRankLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 360000 # 100 часов
+    SGMRankChiefSergeant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 180000 # 50 часов
+    SGMRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 90000 # 25 часов
+    SGMRankSergeant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: BlueShieldOfficerGear

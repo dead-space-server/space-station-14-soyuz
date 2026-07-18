@@ -1189,14 +1189,5 @@ namespace Content.Server.Database
 
         public DateTime ProcessedAt { get; set; }
     }
-
-    public sealed class UserIdLoginMigration
-    {
-        public Guid OldUserId { get; set; }
-
-        public Guid NewUserId { get; set; }
-
-        public DateTime ProcessedAt { get; set; }
-    }
     // DS14-End
 }

@@ -1,0 +1,54 @@
+name: "Roadmap: Update roadmap status"
+
+on:
+  pull_request_target:
+    types: [closed]
+
+jobs:
+  Update-roadmap-status:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+          token: ${{ secrets.SOYUZ_BOT_TOKEN }}
+
+      - name: Extract PR description
+        id: extract
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          BODY=$(printf '%s' "$PR_BODY" | base64 -w0)
+          echo "DESCRIPTION_B64=$BODY" >> $GITHUB_OUTPUT
+        
+      - name: Parse PR and update roadmap
+        env:
+          DESCRIPTION_B64: ${{ steps.extract.outputs.DESCRIPTION_B64 }}
+        run: python3 -u Tools/update_roadmap_status.py
+
+      - name: Commit and push
+        env:
+          SOYUZ_BOT_TOKEN: ${{ secrets.SOYUZ_BOT_TOKEN }}
+        run: |
+          git config user.name "Soyuz-bot"
+          git config user.email "soyuzsoyuzovich@gmail.com"
+
+          git add R/roadmap.yml
+
+          if git diff --cached --quiet; then
+            echo "Нет изменений для коммита"
+            exit 0
+          fi
+
+          git commit -m "Roadmap: Update roadmap status from PR #${{ github.event.pull_request.number }}"
+          git pull --rebase origin master
+          git push https://x-access-token:${SOYUZ_BOT_TOKEN}@github.com/${{ github.repository }} master

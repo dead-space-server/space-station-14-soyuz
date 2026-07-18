@@ -1140,6 +1140,7 @@ namespace Content.Server.Database
         public string LargePoolQueueMaps { get; set; } = string.Empty;
     }
 
+    // DS14-start
     [Table("game_preset_config")]
     public sealed class GamePresetConfigEntity
     {
@@ -1150,8 +1151,6 @@ namespace Content.Server.Database
 
         public int MaxRdmRow { get; set; }
 
-        public int MaxRdmDay { get; set; }
-
         public int VoteDurationSeconds { get; set; }
 
         public int CurrentPresetIndex { get; set; }
@@ -1161,6 +1160,22 @@ namespace Content.Server.Database
         public string CustomPresetsJson { get; set; } = string.Empty;
 
         public bool DisableOocDuringVote { get; set; }
+
+        public bool PreventRepeatMode { get; set; }
+
+        public bool CheckPlayerLimit { get; set; }
+
+        public string WhitelistModesJson { get; set; } = string.Empty;
+    }
+    // DS14-end
+
+    public sealed class UserIdLoginMigration
+    {
+        public Guid OldUserId { get; set; }
+
+        public Guid NewUserId { get; set; }
+
+        public DateTime ProcessedAt { get; set; }
     }
     // DS14-End
 }

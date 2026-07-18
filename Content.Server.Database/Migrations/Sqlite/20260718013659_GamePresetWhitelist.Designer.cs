@@ -3,6 +3,7 @@ using System;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Content.Server.Database.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteServerDbContext))]
-    partial class SqliteServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260718013659_GamePresetWhitelist")]
+    partial class GamePresetWhitelist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
@@ -1366,14 +1369,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("server_id");
 
-                    b.Property<string>("GamePresetName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("game_preset_name");
-
-                    b.Property<string>("MapName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("map_name");
-
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("TEXT")
                         .HasColumnName("start_date");
@@ -1540,6 +1535,32 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasName("PK_uploaded_resource_log");
 
                     b.ToTable("uploaded_resource_log", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.UserIdLoginMigration", b =>
+                {
+                    b.Property<Guid>("OldUserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("old_user_id");
+
+                    b.Property<Guid>("NewUserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("new_user_id");
+
+                    b.Property<DateTime>("ProcessedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("processed_at");
+
+                    b.HasKey("OldUserId", "NewUserId")
+                        .HasName("PK_user_id_login_migrations");
+
+                    b.HasIndex("NewUserId")
+                        .IsUnique();
+
+                    b.HasIndex("OldUserId")
+                        .IsUnique();
+
+                    b.ToTable("user_id_login_migrations", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.Whitelist", b =>

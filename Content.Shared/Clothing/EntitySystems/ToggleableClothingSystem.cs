@@ -339,16 +339,6 @@ public sealed class ToggleableClothingSystem : EntitySystem
         //DS14-end
         if (component.Container.ContainedEntity == null)
         {
-            if (currentHeadItem != component.ClothingUid &&
-                (HasComp<ToggleableClothingStorageBlockerComponent>(currentHeadItem) || HasComp<BlobPodComponent>(currentHeadItem)))
-            {
-                _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-remove-first", ("entity", currentHeadItem)), user, user);
-                return;
-            }
-        }
-        //DS14-end
-        if (component.Container.ContainedEntity == null)
-        {
             _inventorySystem.TryUnequip(user, parent, component.Slot, force: true);
             // DS14: The stored item has no equipped effects while the attached clothing occupies its slot.
             RestoreStoredClothing(parent, component);

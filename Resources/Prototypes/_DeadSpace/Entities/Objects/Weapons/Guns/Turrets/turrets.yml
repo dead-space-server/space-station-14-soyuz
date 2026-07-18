@@ -38,6 +38,7 @@
     access: [["StationAi"], ["TaipanResearchDirector"]]
   - type: StationAiTurret
   - type: TurretTargetSettings
+    turretFactions: [Taipan]
     exemptAccessLevels:
     - Borg
     - BasicSilicon
@@ -59,6 +60,7 @@
   - type: AccessReader
     access: [["StationAi"], ["TaipanProtection"]]
   - type: TurretTargetSettings
+    turretFactions: [Taipan]
     exemptAccessLevels:
     - TaipanProtection
     - Borg
@@ -81,6 +83,7 @@
   - type: AccessReader
     access: [["StationAi"], ["TaipanCommand"]]
   - type: TurretTargetSettings
+    turretFactions: [Taipan]
     exemptAccessLevels:
     - TaipanCommand
     - Borg

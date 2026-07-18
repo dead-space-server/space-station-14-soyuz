@@ -42,7 +42,7 @@ jobs:
           git config user.name "Soyuz-bot"
           git config user.email "soyuzsoyuzovich@gmail.com"
 
-          git add R/roadmap.yml
+          git add Resources/Prototypes/_DeadSpace/_Soyuz/roadmap.yml
 
           if git diff --cached --quiet; then
             echo "Нет изменений для коммита"

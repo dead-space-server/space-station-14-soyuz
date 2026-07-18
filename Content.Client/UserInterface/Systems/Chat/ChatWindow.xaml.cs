@@ -154,5 +154,57 @@ public sealed partial class ChatWindow : FancyWindow
         Chatbox.ChatInput.ChannelSelector.Popup.Close();
         Chatbox.ChatInput.FilterButton.Popup.Close();
     }
+    public void PopOutChatRef(ref ChatBox box)
+    {
+        if (_poppedOutWindow != null)
+        {
+            Chatbox.SetInputs(ref box);
+            return;
+        }
+
+        var monitor = _clyde.EnumerateMonitors().First();
+        var width = Math.Max((int) Size.X, 650);
+        var height = Math.Max((int) Size.Y, 420);
+
+        _poppedOutWindow = _clyde.CreateWindow(new WindowCreateParameters
+        {
+            Maximized = false,
+            Title = Title ?? Loc.GetString("chat-window-admin-title"),
+            Monitor = monitor,
+            Width = width,
+            Height = height,
+            Styles = OSWindowStyles.NoTitleOptions,
+        });
+
+        _poppedOutWindow.RequestClosed += OnPoppedOutWindowRequestClosed;
+
+        var poppedOutRoot = UserInterfaceManager.CreateWindowRoot(_poppedOutWindow);
+        poppedOutRoot.BackgroundColor = Color.FromHex("#25252A");
+
+        var poppedOutBackground = new PanelContainer
+        {
+            StyleClasses = { "BackgroundDark" },
+            HorizontalAlignment = HAlignment.Stretch,
+            VerticalAlignment = VAlignment.Stretch,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        };
+
+        poppedOutRoot.AddChild(poppedOutBackground);
+        Chatbox.Orphan();
+        Chatbox.SetInputs(ref box);
+        poppedOutBackground.AddChild(Chatbox);
+        poppedOutRoot.CreateRootControls();
+        MoveChatPopupsTo(poppedOutRoot);
+
+        _popOutButton.Disabled = true;
+        _popOutButton.Visible = false;
+        Close();
+    }
+
+    public void DetachMainChat()
+    {
+        Chatbox.ClearInputs();
+    }
     // DS14-end
 }

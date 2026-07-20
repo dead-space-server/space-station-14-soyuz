@@ -1146,3 +1146,14 @@ Entries:
     message: Звания для СОБРа, РХБЗЗ, ГСО, ПОСО и милиции
   - type: Remove
     message: Песня нирваны из лобби
+- id: 114
+  author: PERed5
+  time: '2026-07-20T16:29:07.250942+00:00'
+  pr: 396
+  changes:
+  - type: Add
+    message: Ранг капитану
+  - type: Tweak
+    message: Баланс ТК яо для лоупопа
+  - type: Fix
+    message: Плакат империи

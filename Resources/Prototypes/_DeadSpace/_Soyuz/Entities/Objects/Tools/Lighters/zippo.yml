@@ -1,0 +1,29 @@
+- type: entity
+  parent: [BaseBrandedLighter]
+  id: USSPFlippo
+  name: флиппо СССП
+  description: Красный флиппо с выгравированной золотой буквой U. Заправлена жидкой плазмой.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/nanotrasen.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/nanotrasen.rsi
+  - type: Welder
+    fuelConsumption: 0.005
+    fuelLitCost: 1
+    fuelReagent: Plasma
+    tankSafe: true
+  - type: PointLight
+    enabled: false
+    netsync: false
+    radius: 2
+    color: orange
+  - type: RefillableSolution
+    solution: Welder
+  - type: SolutionContainerManager
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: Plasma
+          Quantity: 10
+        maxVol: 10

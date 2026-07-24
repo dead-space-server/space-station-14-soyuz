@@ -5,9 +5,9 @@
   description: Красный флиппо с выгравированной золотой буквой U. Заправлена жидкой плазмой.
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/nanotrasen.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/ussp.rsi
   - type: Item
-    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/nanotrasen.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/ussp.rsi
   - type: Welder
     fuelConsumption: 0.005
     fuelLitCost: 1
@@ -18,6 +18,36 @@
     netsync: false
     radius: 2
     color: orange
+  - type: RefillableSolution
+    solution: Welder
+  - type: SolutionContainerManager
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: Plasma
+          Quantity: 10
+        maxVol: 10
+
+- type: entity
+  parent: [BaseBrandedLighter]
+  id: GeneralStaffFlippo
+  name: флиппо ГенШтаба
+  description: Зелёный флиппо с выгравированной белой звездой. Заправлена жидкой плазмой.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/gs.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/Lighters/gs.rsi
+  - type: Welder
+    fuelConsumption: 0.005
+    fuelLitCost: 1
+    fuelReagent: Plasma
+    tankSafe: true
+  - type: PointLight
+    enabled: false
+    netsync: false
+    radius: 2
+    color: green
   - type: RefillableSolution
     solution: Welder
   - type: SolutionContainerManager

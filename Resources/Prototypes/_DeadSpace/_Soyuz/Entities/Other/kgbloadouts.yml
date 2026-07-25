@@ -11,10 +11,10 @@
     possibleSets:
     - DrozdSetOKGB
     - SaigaSet
-    - BerettaM92BlueShieldSet
     - ScarLBlueShieldSet
     - MP5SDBlueShieldSet
     - AresSWCBlueShieldSet
+    - CQCBlueShieldSet
     - TruncheonsecBlueShieldSet
     - PistolBlueShieldUpgradeKitSet
   - type: ActivatableUI

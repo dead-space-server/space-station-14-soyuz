@@ -71,7 +71,7 @@
 - type: loadout
   id: OKGBGasMask
   equipment:
-    mask: ClothingMaskGasSwat
+    mask: ClothingMaskGasBlueShield
   effects:
   - !type:GroupLoadoutEffect
     proto: MaskOKGB
@@ -79,7 +79,7 @@
 - type: loadout
   id: OKGBGasMaskWithoutTime
   equipment:
-    mask: ClothingMaskGasBlueShield
+    mask: ClothingMaskGasSecurity
 # DS14-Soyuz end
 
 # Cloak

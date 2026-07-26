@@ -6,7 +6,7 @@ using Robust.Shared.Console;
 
 namespace Content.Server._RMC14.Chat.Commands;
 
-[AdminCommand(AdminFlags.Admin)]
+[AdminCommand(AdminFlags.Server)]
 public sealed class SetDchatCommand : IConsoleCommand
 {
     public string Command => "setdchat";

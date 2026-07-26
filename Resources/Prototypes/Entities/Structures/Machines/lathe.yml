@@ -269,15 +269,11 @@
     - Instruments
     - Equipment
     - NightVisionTech
-    - ProcessingTungsten
     - LanguageImplanters
     - MedicalDynamic
-  - type: EmagLatheRecipes
-    emagDynamicPacks:
-    - SecurityAmmo
-    - SecurityExplosives
-    - SecurityEquipment
-    - SecurityWeapons
+    - ExperimentalCloning
+    - ProcessingTungsten
+    - Vehicle
   #DS14-soyuz end
 
 - type: entity

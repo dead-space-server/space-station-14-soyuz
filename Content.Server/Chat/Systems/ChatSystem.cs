@@ -73,6 +73,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     private readonly bool _adminLoocEnabled = true;
     private string _centcommTTS = "Widowmaker";
     private static readonly ProtoId<DatasetPrototype> CentcommAnnouncementVoiceDataset = "CentcommAnnouncementVoice";
+    private bool _isInitialized; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -81,11 +82,17 @@ public sealed partial class ChatSystem : SharedChatSystem
         Subs.CVar(_configurationManager, CCVars.LoocEnabled, OnLoocEnabledChanged, true);
         Subs.CVar(_configurationManager, CCVars.DeadLoocEnabled, OnDeadLoocEnabledChanged, true);
         Subs.CVar(_configurationManager, CCVars.CritLoocEnabled, OnCritLoocEnabledChanged, true);
-        Subs.CVar(_configurationManager, RMCCVars.RMCDeadChatEnabled, OnDeadChatEnabledChanged, true); // RMC14
+        Subs.CVar(_configurationManager, RMCCVars.RMCDeadChatEnabled, OnDeadChatEnabledChanged, false); // RMC14
 
         SubscribeLocalEvent<GameRunLevelChangedEvent>(OnGameChange);
 
         IoCManager.Instance!.TryResolveType(out _chatFilter); // DS14-chat-filter
+// DS14-Soyuz-start
+
+        _isInitialized = true;
+
+        OnDeadChatEnabledChanged(_configurationManager.GetCVar(RMCCVars.RMCDeadChatEnabled));
+// DS14-Soyuz-end
     }
 
     private void OnLoocEnabledChanged(bool val)
@@ -116,8 +123,12 @@ public sealed partial class ChatSystem : SharedChatSystem
             Loc.GetString(val ? "chat-manager-crit-looc-chat-enabled-message" : "chat-manager-crit-looc-chat-disabled-message"));
     }
 
-        private void OnDeadChatEnabledChanged(bool val)
+// DS14-Soyuz-start
+    private void OnDeadChatEnabledChanged(bool val)
     {
+        if (!_isInitialized)
+            return;
+// DS14-Soyuz-end
         if (_DeadchatEnabled == val)
             return;
 

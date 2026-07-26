@@ -245,6 +245,35 @@
         - RawMaterial
         - Ingot
         - Ore
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ChemistryStatic
+    - SurgeryStatic
+    dynamicPacks:
+    - AdvancedTools
+    - ScienceEquipment
+    - ScienceExplosives
+    - ScienceClothing
+    - SheetPlastitanSoyuz
+    - PowerCells
+    - ScienceWeapons
+    - Mining
+    - AtmosTools
+    - EngineeringWeapons
+    - Chemistry
+    - Janitor
+    - Instruments
+    - Equipment
+    - NightVisionTech
+    - LanguageImplanters
+    - MedicalDynamic
+    - ExperimentalCloning
+    - ProcessingTungsten
+    - Vehicle
   #DS14-soyuz end
 
 - type: entity

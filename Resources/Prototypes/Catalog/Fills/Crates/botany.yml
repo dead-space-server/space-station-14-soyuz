@@ -24,6 +24,8 @@
         amount: 2
       - id: CactusSeeds # DS14
         amount: 1
+      - id: MangoSeeds # DS14
+        amount: 1
 
 - type: entity
   parent: CrateHydroSecure
@@ -69,7 +71,7 @@
   parent: CrateHydroponics
   id: CrateHydroponicsSeeds
   name: seeds crate
-  description: Big things have small beginnings. Contains twenty-four different seeds.
+  description: Big things have small beginnings. Contains twenty-six different seeds. # Kofeecheks Pears: LicenseRef-Kofeecheks
   components:
   - type: StorageFill
     contents:
@@ -95,6 +97,7 @@
       - id: GrapeSeeds
       - id: WatermelonSeeds
       - id: PeaSeeds
+      - id: PearSeeds # Kofeecheks Pears: LicenseRef-Kofeecheks
       - id: CherrySeeds
       - id: CocoaSeeds
       - id: CottonSeeds

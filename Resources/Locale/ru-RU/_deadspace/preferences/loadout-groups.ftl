@@ -1,5 +1,6 @@
 # Miscellaneous
 loadout-group-default-white-underwear = Стандартное нижнее бельё
+
 # Command
 loadout-group-blue-shield-officer-jumpsuit = Оперативник КГБ, комбинезон
 loadout-group-blue-shield-officer-outerclothing = Оперативник КГБ, верхняя одежда
@@ -8,6 +9,10 @@ loadout-group-blue-shield-officer-backpack = Оперативник КГБ, рю
 loadout-group-blue-shield-officer-neck = Оперативник КГБ, шея
 loadout-group-blue-shield-officer-underwear = Оперативник КГБ, нижнее бельё
 loadout-group-blue-shield-officer-hypo = Оперативник КГБ, гипоспрей
+loadout-group-captain-gloves = Капитан, перчатки
+loadout-group-captain-tailbag = Капитан, хвост
+loadout-group-captain-shoes = Капитан, обувь
+loadout-group-captain-socks = Капитан, носки
 # NKVB
 loadout-group-politruk-outerclothing = Политический Руководитель, верхняя одежда
 loadout-group-politruk-head = Политический Руководитель, голова
@@ -16,6 +21,7 @@ loadout-group-politruk-socks = Политический Руководитель
 loadout-group-politruk-underwear = Политический Руководитель, нижнее бельё
 # Civilian
 loadout-group-senior-administrator-jumpsuit = Менеджер, комбинезон
+
 # Cargo
 loadout-group-senior-courier-head = Ведущий логист, голова
 loadout-group-senior-courier-jumpsuit = Ведущий логист, комбинезон
@@ -25,8 +31,8 @@ loadout-group-senior-courier-belt = Ведущий логист, пояс
 # Law
 loadout-group-magistrat-jumpsuit = Судья, комбинезон
 loadout-group-magistrat-underwear = Судья, нижнее бельё
-loadout-group-iaa-jumpsuit = АСК, комбинезон
-loadout-group-iaa-underwear = АСК, нижнее бельё
+loadout-group-iaa-jumpsuit = САП, комбинезон
+loadout-group-iaa-underwear = САП, нижнее бельё
 # Engineering
 loadout-group-senior-engineer-head = Бригадир, голова
 loadout-group-senior-engineer-jumpsuit = Бригадир, комбинезон

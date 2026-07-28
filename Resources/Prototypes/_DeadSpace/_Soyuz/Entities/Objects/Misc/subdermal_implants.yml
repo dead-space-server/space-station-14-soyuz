@@ -1,11 +1,21 @@
 - type: entity
   parent: BaseSubdermalImplant
-  id: EyeSocketImplant
-  name: EyeSocket implant
-  description: Этот имплант улучшает глаза в много раз, клянусь.
+  id: NoSwearingImplant
+  name: имплант "культурности"
+  description: Этот имплант сделает вас более культурным.
   categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
-    implantAction: ActionToggleNightVisionFelenid
-  - type: TriggerOnActivateImplant
-  - type: NightVisionOnTrigger
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: ReplacementAccent
+      accent: NoSwearingAccent
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: EyeSocketImplant
+  name: имплант "глазница"
+  description: Этот имплант улучшает ваши глаза, даруя защиту от вспышек и возможность видеть в темноте.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant

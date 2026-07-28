@@ -36,13 +36,27 @@
     - type: Skill
       group: BasicAndShuttleControl
     # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityPilot
+      time: 360000 # 100 часов
+    SGMRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityPilot
+      time: 180000 # 50 часов
+    SGMRankJuniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityPilot
+      time: 90000 # 25 часов
+    SGMRankPrivate: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityPilotGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
-    head: ClothingHeadHatBeretSecurity
-    outerClothing: ClothingOuterWinterSec
     id: SecurityPilotPDA
     ears: ClothingHeadsetSecurity
   storage:

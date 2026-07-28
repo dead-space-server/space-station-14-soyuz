@@ -17,8 +17,9 @@
     pocket2: DoubleEmergencyOxygenTankFilled
   storage:
     back:
-    - BSAACombatKitFilled
+    - MedkitCombatFilled
     - InjectorCaseStimFilled
+    - InjectorCaseERTFilled
     - BSAAloadout
     - DoorRemoteCustom
     - PinpointerNecroobelisk
@@ -46,8 +47,9 @@
     pocket1: DoubleEmergencyOxygenTankFilled
   storage:
     back:
-    - BSAACombatKitFilled
+    - MedkitCombatFilled
     - InjectorCaseStimFilled
+    - InjectorCaseERTFilled
     - BSAAloadout
     - KukriKnife
     - PinpointerNecroobelisk
@@ -70,13 +72,13 @@
     outerClothing: BSAAMedicHardSuit
     shoes: ClothingShoesBootsMagBSAA
     id: BSAAMedicPDA
-    belt: ClothingBeltBSAA
+    belt: ClothingBeltBSAAMedicFilled
     pocket1: BSAAHypo
     pocket2: DoubleEmergencyOxygenTankFilled
   storage:
     back:
-    - BSAACombatKitFilled
-    - InjectorCaseFilled
+    - MedkitCombatFilled
+    - InjectorCaseERTFilled
     - InjectorCaseStimFilled
     - BSAAloadout
     - KukriKnife
@@ -87,6 +89,8 @@
     - WeaponPulsePistol
     - EmergencyMedipen
     - BoxMRE
+    - JugTheCircleOmnizine
+    - JugDexPlusSaline
 
 # Спавн
 - type: entity
@@ -182,15 +186,17 @@
       job: BSAALeaderJob
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERTLeader
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAALeaderGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankLieutenant
 
 - type: randomHumanoidSettings
   id: BSAAFighter
@@ -206,15 +212,17 @@
       job: BSAAFighterJob
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: IgnoreKudzu
     - type: Loadout
       prototypes: [ BSAAFighterGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant
 
 - type: randomHumanoidSettings
   id: BSAAMedic
@@ -231,11 +239,13 @@
     - type: IgnoreKudzu
     - type: RandomMetadata
       nameSegments:
-      - NamesFirstERT
+#      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
-      nameFormat: name-format-ert
+      nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
     - type: ImmunNecroobelisk
     - type: Loadout
       prototypes: [ BSAAMedicGear ]
     - type: GhostRoleNotifys 
       groupPrototype: BSAAGroup
+    - type: Rank
+      rank: NKVBRankSeniorSergeant

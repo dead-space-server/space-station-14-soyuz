@@ -8,14 +8,3 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
-
-- type: entity
-  parent: ClothingUniformJumpskirtCaptain
-  id: ClothingUniformJumpskirtCaptainWhite
-  name: белая юбка-комбинезон капитана
-  description: Боже, какая же она красивая. Только для лучших женщин этой станции.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/captain_white.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/captain_white.rsi

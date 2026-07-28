@@ -193,7 +193,7 @@
   description: 
     Отряд быстрого реагирования Оберег СССП, предназначенный для
     проведения разведывательных операций и оказания поддержки силам
-    Службы Безопасности в борьбе с незначительными угрозами, в случае 
+    Советской Гражданской Милициии в борьбе с незначительными угрозами, в случае 
     если текущий состав слишком мал. 
     5 членов отряда прибывают на шаттле Оберег, который оснащён всем
     необходимым оборудованием для выполнения их миссии.
@@ -372,3 +372,122 @@
   spawns:
     - id: CustomizableSpawnerCentralCommandBlueShieldOfficer
       amount: 3
+
+
+- type: ertTeam
+  id: FieldOfficer
+  name: Протокол «Всевидящее Око»
+  startAnnouncement: station-event-fo
+  approvalAudio:
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
+  approvalColor: "#ABABABFF" # DS14-Soyuz
+  startAudio:
+    path: /Audio/_DeadSpace/Announcements/ERT/FieldOfficer.ogg # DS14-Announcements
+  description: 
+    Протокол «Всевидящее Око» - самый универсальный протокол.
+    Революция среди отдела СГМ, дипломатические переговоры 
+    и иные ситуации попадают под данный протокол.
+    В данный протокол вылетает Полевой Офицер вместе со
+    своей охраной в виде СОБР "Гамма" кода.
+  notification: ert-response-caused-messager-fo
+  rule: SpawnCentcomFieldOfficerShuttle
+  cancelMessage: 
+    Протокол «Всевидящее Око» отменён в связи с отсутствием нужных ресурсов. Слава NanoTrasen!
+  cooldown:
+    min: 7m
+    max: 7m
+  spawnWindow:
+    min: 5m
+    max: 7m
+  codeBlackList:
+  - enigma
+  - epsilon
+  price: 0
+  spawns:
+    - id: RandomHumanoidSpawnerERTEngineerGamma
+      amount: 1
+    - id: RandomHumanoidSpawnerERTSecurityGamma
+      amount: 5
+    - id: RandomHumanoidSpawnerERTMedicalGamma
+      amount: 2
+
+- type: ertTeam
+  id: FieldOfficerStorm
+  name: Протокол «Буря»
+  startAnnouncement: station-event-fo-storm
+  approvalAudio:
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
+  approvalColor: "#ABABABFF"
+  startAudio:
+    path: /Audio/_DeadSpace/Announcements/ERT/Storm.ogg # DS14-Announcements
+  description: 
+    Протокол «Буря» - последняя надежда станции в случае ред-спейс всплесков.
+    Помимо полных отрядов РХБЗЗ "Сьерры", а также СОБР Гамма кода.
+    Вместе с ними вылетает Полевой Офицер НКВБ для координации отрядов. 
+    Время прибытия от 5 до 7 минут.
+  notification: ert-response-caused-messager-fo-storm
+  rule: SpawnFOStormShuttle
+  cancelMessage: 
+    Протокол «Буря» отменён в связи с отсутствием нужных ресурсов. Слава NanoTrasen!
+  cooldown:
+    min: 7m
+    max: 7m
+  spawnWindow:
+    min: 5m
+    max: 7m
+  codeBlackList:
+  - enigma
+  - epsilon
+  price: 0
+  spawns:
+    - id: RandomHumanoidSpawnerERTLeaderGamma
+      amount: 1
+    - id: RandomHumanoidSpawnerERTEngineerGamma
+      amount: 1
+    - id: RandomHumanoidSpawnerERTSecurityGamma
+      amount: 6
+    - id: RandomHumanoidSpawnerERTMedicalGamma
+      amount: 2
+    - id: RandomHumanoidSpawnerERTJanitorGamma
+      amount: 1
+    - id: RandomHumanoidSpawnerSierraLeader
+      amount: 1
+    - id: RandomHumanoidSpawnerSierraAgent
+      amount: 10
+
+- type: ertTeam
+  id: FieldOfficerDeathMessenger
+  name: Протокол «Смерть Вестника»
+  startAnnouncement: station-event-fo-death-messenger
+  approvalAudio:
+    path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg # DS14-Soyuz value
+  approvalColor: "#ABABABFF" # DS14-Soyuz
+  startAudio:
+    path: /Audio/_DeadSpace/Announcements/ERT/DeathMessenger.ogg # DS14-Announcements
+  description: 
+    Протокол «Смерть Вестника» - протокол, который активируется после 
+    смерти члена Генерального Штаба на объекте СССП.
+    За телом немедленно вылетает СОБР кода "Гамма", вместе с 
+    Полевым Офицером место Командира СОБР. После прибытия СОБР
+    арестовывает всех виновных и эвакуирует тело.
+  notification: ert-response-caused-messager-fo-death-messenger
+  rule: SpawnFODeathMessengerShuttle
+  cancelMessage: 
+    Протокол «Смерть Вестника» отменён в связи с отсутствием нужных ресурсов. Слава NanoTrasen!
+  cooldown:
+    min: 7m
+    max: 7m
+  spawnWindow:
+    min: 5m
+    max: 7m
+  codeBlackList:
+  - enigma
+  - epsilon
+  price: 0
+  spawns:
+    - id: RandomHumanoidSpawnerERTEngineerGamma
+      amount: 1
+    - id: RandomHumanoidSpawnerERTSecurityGamma
+      amount: 5
+    - id: RandomHumanoidSpawnerERTMedicalGamma
+      amount: 2

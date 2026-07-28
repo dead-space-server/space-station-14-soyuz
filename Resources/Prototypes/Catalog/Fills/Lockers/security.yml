@@ -175,15 +175,20 @@
     - id: FlippoEngravedLighter
     - id: FlashlightSeclite
     - id: ForensicScanner
+      amount: 2 # DS14-Soyuz
     - id: LogProbeCartridge
     - id: BoxForensicPad
       amount: 2
     - id: DrinkDetFlask
+      amount: 2 # DS14-Soyuz
     - id: ClothingHandsGlovesForensic
+      amount: 2 # DS14-Soyuz
     - id: RubberStampDetective
+      amount: 2 # DS14-Soyuz
     - id: HoloprojectorSecurity
     - id: BoxEvidenceMarkers
     - id: HandLabeler
+      amount: 2 # DS14-Soyuz
     - id: ADTtelescopicBaton # ADT
     - id: BoxFolderRed # DS14
     - id: BoxFolderYellow # DS14

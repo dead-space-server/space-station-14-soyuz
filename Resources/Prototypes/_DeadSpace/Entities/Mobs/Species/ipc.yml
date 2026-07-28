@@ -33,6 +33,31 @@
     knownLanguages:
     - MachineLanguage
     - GeneralLanguage
+  # DS14-Soyuz start
+    - ArachnidLanguage
+    - SlimeLanguage
+    - DionaLanguage
+    - MothLanguage
+    - ReptilianLanguage
+    - VoxLanguage
+    - DemonLanguage
+    - CatLanguage
+    - MachineLanguage
+    - PlafLanguage
+    - VulpkaninLanguage
+    - XenomorphLanguage
+  - type: Battery
+    maxCharge: 450000
+    startingCharge: 450000
+  - type: IPC # DS14
+    idleDrainRate: 3.5 # DS14-keep: legacy passive drain
+    passiveDrainRate: 500
+    backRechargerRate: 1000
+    transferPercentPerUse: 0.05 # DS14: 5% max charge per click
+    transferPerUse: 2000
+    donorReserve: 1000
+    reciprocalLockTime: 5
+  # DS14-Soyuz end
 
 - type: entity
   parent: BaseSpeciesDummy

@@ -6,6 +6,7 @@ using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Content.Shared.Traits;
+using Content.Shared._RMC14.Marines.Roles.Ranks; // DS14-Soyuz
 
 namespace Content.Shared.Roles
 {
@@ -181,6 +182,9 @@ namespace Content.Shared.Roles
         // DS14-start
         [DataField("isTaipan")]
         public bool IsTaipan { get; private set; } = false;
+
+        [DataField]
+        public Dictionary<ProtoId<RankPrototype>, HashSet<JobRequirement>?>? Ranks { get; private set; }
         // DS14-end
     }
 

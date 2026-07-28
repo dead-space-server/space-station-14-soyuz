@@ -22,6 +22,17 @@
   - type: Currency
     price:
       Telecrystal: 1
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/pill_bottle_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/pill_bottle_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/pill_bottle_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: Telecrystal
@@ -71,6 +82,17 @@
   - type: Store
     balance:
       Telecrystal: 0
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: BaseUplinkRadio
@@ -94,11 +116,11 @@
 - type: entity
   parent: BaseUplinkRadio
   id: BaseUplinkRadio40TC
-  suffix: 40 TC, NukeOps
+  suffix: 35 TC, NukeOps #DS14-Soyuz 40>35
   components:
   - type: Store
     balance:
-      Telecrystal: 40
+      Telecrystal: 35 #DS14-Soyuz value 40>35
   - type: Tag
     tags:
     - NukeOpsUplink
@@ -143,11 +165,11 @@
 - type: entity
   parent: BaseUplinkRadio40TC #DS14
   id: BaseUplinkRadio60TC
-  suffix: 60 TC, LoneOps
+  suffix: 40 TC, LoneOps #DS14-Soyuz 60>40
   components:
   - type: Store
     balance:
-      Telecrystal: 60
+      Telecrystal: 40 #DS14-Soyuz value 60>40
   - type: Tag
     tags:
     - NukeOpsUplink
@@ -162,3 +184,8 @@
     balance:
       Telecrystal: 99999
     expectedFaction: #nulls out the expected faction
+  # DS14-start
+  - type: Tag
+    tags:
+    - DebugUplink
+  # DS14-end

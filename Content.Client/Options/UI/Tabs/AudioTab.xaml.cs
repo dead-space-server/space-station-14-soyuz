@@ -62,6 +62,11 @@ public sealed partial class AudioTab : Control
             scale: 1f);
 
         Control.AddOptionPercentSlider(
+            CCCCVars.ItemSoundsVolume,
+            SliderVolumeItemSounds,
+            scale: 1f);
+
+        Control.AddOptionPercentSlider(
             CCCCVars.BossMusicVolume,
             SliderVolumeBossMusic,
             scale: 1f);
@@ -101,6 +106,8 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(CCVars.AdminSoundsEnabled, AdminSoundsCheckBox);
         Control.AddOptionCheckBox(CCVars.BwoinkSoundEnabled, BwoinkSoundCheckBox);
         Control.AddOptionCheckBox(CCCCVars.RadioTTSSoundsEnabled, RadioTTSSoundsCheckBox); // DS14-TTS
+        // Kofeecheks Jukebox integration: LicenseRef-Kofeecheks
+        Control.AddOptionCheckBox(CCCCVars.JukeboxMusicMute, JukeboxMusicMuteCheckBox);
 
         Control.Initialize();
     }

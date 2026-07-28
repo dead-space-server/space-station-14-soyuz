@@ -615,6 +615,9 @@
     size: Normal
   - type: Sprite
     state: dough-pie
+  - type: Construction # Kofeecheks Pears: LicenseRef-Kofeecheks
+    graph: PearTart
+    node: start
 
 - type: entity
   parent: FoodBakingBase

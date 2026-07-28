@@ -392,3 +392,183 @@ deadspace-chatsan-word-186 = лкм
 deadspace-chatsan-replacement-186 = левая рука
 deadspace-chatsan-word-187 = пкм
 deadspace-chatsan-replacement-187 = правая рука
+deadspace-chatsan-word-188 = капинта
+deadspace-chatsan-replacement-188 = капитан
+deadspace-chatsan-word-189 = кепы
+deadspace-chatsan-replacement-189 = капитаны
+deadspace-chatsan-word-190 = кэпы
+deadspace-chatsan-replacement-190 = капитаны
+
+deadspace-chatsan-word-191 = гпе
+deadspace-chatsan-replacement-191 = главе персонала
+
+deadspace-chatsan-word-192 = гсбе
+deadspace-chatsan-replacement-192 = главе службы безопасности
+deadspace-chatsan-word-193 = гсбу
+deadspace-chatsan-replacement-193 = главу службы безопасности
+
+deadspace-chatsan-word-194 = гву
+deadspace-chatsan-replacement-194 = главврачу
+
+deadspace-chatsan-word-195 = нр
+deadspace-chatsan-replacement-195 = научный руководитель
+deadspace-chatsan-word-196 = нра
+deadspace-chatsan-replacement-196 = научного руководителя
+deadspace-chatsan-word-197 = нру
+deadspace-chatsan-replacement-197 = научному руководителю
+deadspace-chatsan-word-198 = нром
+deadspace-chatsan-replacement-198 = научным руководителем
+deadspace-chatsan-word-199 = нры
+deadspace-chatsan-replacement-199 = научные руководители
+
+deadspace-chatsan-word-200 = км
+deadspace-chatsan-replacement-200 = квартирмейстер
+deadspace-chatsan-word-201 = кма
+deadspace-chatsan-replacement-201 = квартирмейстера
+deadspace-chatsan-word-202 = кму
+deadspace-chatsan-replacement-202 = квартирмейстеру
+deadspace-chatsan-word-203 = кмом
+deadspace-chatsan-replacement-203 = квартирмейстером
+deadspace-chatsan-word-204 = кмы
+deadspace-chatsan-replacement-204 = квартирмейстеры
+
+deadspace-chatsan-word-205 = вард
+deadspace-chatsan-replacement-205 = смотритель
+deadspace-chatsan-word-206 = варду
+deadspace-chatsan-replacement-206 = смотрителю
+deadspace-chatsan-word-207 = варда
+deadspace-chatsan-replacement-207 = смотрителя
+deadspace-chatsan-word-208 = вардену
+deadspace-chatsan-replacement-208 = смотрителю
+deadspace-chatsan-word-209 = варден
+deadspace-chatsan-replacement-209 = смотритель
+deadspace-chatsan-word-210 = вардена
+deadspace-chatsan-replacement-210 = смотрителя
+deadspace-chatsan-word-211 = варды
+deadspace-chatsan-replacement-211 = смотрители
+deadspace-chatsan-word-212 = вардены
+deadspace-chatsan-replacement-212 = смотрители
+
+deadspace-chatsan-word-213 = исб
+deadspace-chatsan-replacement-213 = инструктор
+deadspace-chatsan-word-214 = исбу
+deadspace-chatsan-replacement-214 = инструктору
+deadspace-chatsan-word-215 = исба
+deadspace-chatsan-replacement-215 = инструктора
+deadspace-chatsan-word-216 = исбе
+deadspace-chatsan-replacement-216 = инструкторе
+deadspace-chatsan-word-217 = исбом
+deadspace-chatsan-replacement-217 = инструктором
+deadspace-chatsan-word-218 = исбы
+deadspace-chatsan-replacement-218 = инструкторы
+
+deadspace-chatsan-word-219 = дэк
+deadspace-chatsan-replacement-219 = детектив
+deadspace-chatsan-word-220 = дэку
+deadspace-chatsan-replacement-220 = детективу
+deadspace-chatsan-word-221 = дэка
+deadspace-chatsan-replacement-221 = детектива
+deadspace-chatsan-word-222 = дек
+deadspace-chatsan-replacement-222 = детектив
+deadspace-chatsan-word-223 = деку
+deadspace-chatsan-replacement-223 = детективу
+deadspace-chatsan-word-224 = дека
+deadspace-chatsan-replacement-224 = детектива
+deadspace-chatsan-word-225 = деки
+deadspace-chatsan-replacement-225 = детективы
+deadspace-chatsan-word-226 = дэки
+deadspace-chatsan-replacement-226 = детективы
+
+deadspace-chatsan-word-227 = бм
+deadspace-chatsan-replacement-227 = бригмед
+deadspace-chatsan-word-228 = бма
+deadspace-chatsan-replacement-228 = бригмеда
+deadspace-chatsan-word-229 = бму
+deadspace-chatsan-replacement-229 = бригмеду
+deadspace-chatsan-word-230 = бмом
+deadspace-chatsan-replacement-230 = бригмедом
+deadspace-chatsan-word-231 = бме
+deadspace-chatsan-replacement-231 = бригмеде
+deadspace-chatsan-word-232 = бмы
+deadspace-chatsan-replacement-232 = бригмеды
+
+deadspace-chatsan-word-233 = осб
+deadspace-chatsan-replacement-233 = офицер
+deadspace-chatsan-word-234 = осбу
+deadspace-chatsan-replacement-234 = офицеру
+deadspace-chatsan-word-235 = осба
+deadspace-chatsan-replacement-235 = офицера
+deadspace-chatsan-word-236 = осбе
+deadspace-chatsan-replacement-236 = офицере
+deadspace-chatsan-word-237 = осбом
+deadspace-chatsan-replacement-237 = офицером
+deadspace-chatsan-word-238 = осбы
+deadspace-chatsan-replacement-238 = офицеры
+
+deadspace-chatsan-word-239 = парамед
+deadspace-chatsan-replacement-239 = парамедик
+deadspace-chatsan-word-240 = парамеду
+deadspace-chatsan-replacement-240 = парамедику
+deadspace-chatsan-word-241 = парамеда
+deadspace-chatsan-replacement-241 = парамедика
+deadspace-chatsan-word-242 = парамеде
+deadspace-chatsan-replacement-242 = парамедике
+deadspace-chatsan-word-243 = парамедом
+deadspace-chatsan-replacement-243 = парамедиком
+deadspace-chatsan-word-244 = парамеды
+deadspace-chatsan-replacement-244 = парамедики
+
+# OOC
+deadspace-chatsan-word-245 = афк
+deadspace-chatsan-replacement-245 = крс
+deadspace-chatsan-word-246 = ссд
+deadspace-chatsan-replacement-246 = крс
+
+deadspace-chatsan-word-247 = админ
+deadspace-chatsan-replacement-247 = бог
+deadspace-chatsan-word-248 = админы
+deadspace-chatsan-replacement-248 = боги
+deadspace-chatsan-word-249 = админов
+deadspace-chatsan-replacement-249 = богов
+
+deadspace-chatsan-word-250 = забанят
+deadspace-chatsan-replacement-250 = покарают
+deadspace-chatsan-word-251 = забанить
+deadspace-chatsan-replacement-251 = покарать
+
+deadspace-chatsan-word-252 = бан
+deadspace-chatsan-replacement-252 = наказание
+
+deadspace-chatsan-word-253 = пермач
+deadspace-chatsan-replacement-253 = наказание
+deadspace-chatsan-word-254 = перм
+deadspace-chatsan-replacement-254 = наказание
+deadspace-chatsan-word-255 = запермили
+deadspace-chatsan-replacement-255 = наказание
+deadspace-chatsan-word-256 = запермят
+deadspace-chatsan-replacement-256 = накажут
+
+deadspace-chatsan-word-257 = нонрп
+deadspace-chatsan-replacement-257 = плохо
+deadspace-chatsan-word-258 = нрп
+deadspace-chatsan-replacement-258 = плохо
+deadspace-chatsan-word-259 = ерп
+deadspace-chatsan-replacement-259 = ужас
+
+deadspace-chatsan-word-260 = рдм
+deadspace-chatsan-replacement-260 = плохо
+deadspace-chatsan-word-261 = дм
+deadspace-chatsan-replacement-261 = плохо
+
+deadspace-chatsan-word-262 = гриф
+deadspace-chatsan-replacement-262 = плохо
+
+deadspace-chatsan-word-263 = фрикил
+deadspace-chatsan-replacement-263 = плохо
+deadspace-chatsan-word-264 = фрикилл
+deadspace-chatsan-replacement-264 = плохо
+
+deadspace-chatsan-word-265 = лкм
+deadspace-chatsan-replacement-265 = левой рукой
+deadspace-chatsan-word-266 = пкм
+deadspace-chatsan-replacement-266 = правой рукой

@@ -32,34 +32,12 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/hop_turtle.rsi
 
 - type: entity
-  parent: ClothingUniformJumpsuitCaptain
-  id: ClothingUniformJumpsuitCaptainSheriff
-  name: комбинезон шерифа
-  description: Ииииха, ковбой!
+  parent: ClothingUniformBase
+  id: ClothingUniformUSSPJumpsuit
+  name: футболка с гербом СССП
+  description: Самая стильная футболка во всём государстве.
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_sheriff.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi
   - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_sheriff.rsi
-
-- type: entity
-  parent: ClothingUniformJumpsuitCaptain
-  id: ClothingUniformJumpsuitCaptainCommand
-  name: командный костюм капитана
-  description: "У меня встреча на 1:45 смены с Представителем, подготовьте конференц-зал к моему приходу."
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_command.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_command.rsi
-
-- type: entity
-  parent: ClothingUniformJumpsuitCaptain
-  id: ClothingUniformJumpsuitCaptainWhite
-  name: белый комбинезон капитана
-  description: Как же он шикарно выглядит.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/captain_white.rsi
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi

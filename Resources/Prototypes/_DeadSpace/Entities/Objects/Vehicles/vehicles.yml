@@ -4,6 +4,7 @@
   name: ховербайк
   description: Врум врум моя машинка! На нём можно летать в космосе!
   components:
+  - type: HoverIgnoresContactSlowdown
   - type: MovementSpeedModifier
     weightlessModifier: 0
     baseAcceleration: 1.7
@@ -18,6 +19,9 @@
     keyWhitelist:
       tags:
       - KeyUniversal
+  - type: Vehicle
+    keyEjectRequiresOperator: true
+    protectOperatorUnstrap: true
   - type: Strap
     position: Stand
     buckleOffset: "0.01,0.15"
@@ -152,6 +156,8 @@
   - type: Appearance
   - type: GravityAffected
   - type: Vehicle
+    keyEjectRequiresOperator: true
+    protectOperatorUnstrap: true
     movementSound:
       collection: FootstepBorg
     movementSoundDistance: 1.5

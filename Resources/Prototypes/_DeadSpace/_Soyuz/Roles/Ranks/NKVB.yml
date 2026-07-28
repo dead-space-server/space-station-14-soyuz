@@ -1,0 +1,65 @@
+- type: rank
+  id: NKVBRankMajorGeneral
+  name: Генерал-Майор
+  prefix: Генерал-майор
+  paygrade: НК11
+
+- type: rank
+  id: NKVBRankColonel
+  name: Полковник
+  prefix: Полковник
+  paygrade: НК10
+
+- type: rank
+  id: NKVBRankLieutenantColonel
+  name: Подполковник
+  prefix: Подполковник
+  paygrade: НК9
+
+- type: rank
+  id: NKVBRankMajor
+  name: Майор
+  prefix: Майор
+  paygrade: НК8
+
+- type: rank
+  id: NKVBRankCaptain
+  name: Капитан
+  prefix: Капитан
+  paygrade: НК7
+
+- type: rank
+  id: NKVBRankSeniorLieutenant
+  name: Старший Лейтенант
+  prefix: Старший Лейтенант
+  paygrade: НК6
+
+- type: rank
+  id: NKVBRankLieutenant
+  name: Лейтенант
+  prefix: Лейтенант
+  paygrade: НК5
+
+- type: rank
+  id: NKVBRankSeniorOfficer
+  name: Старшина
+  prefix: Старшина
+  paygrade: НК4
+
+- type: rank
+  id: NKVBRankSeniorSergeant
+  name: Старший Сержант
+  prefix: Старший Сержант
+  paygrade: НК3
+
+- type: rank
+  id: NKVBRankSergeant
+  name: Сержант
+  prefix: Сержант
+  paygrade: НК2
+
+- type: rank
+  id: NKVBRankPilot
+  name: Рядовой
+  prefix: Рядовой
+  paygrade: НК1

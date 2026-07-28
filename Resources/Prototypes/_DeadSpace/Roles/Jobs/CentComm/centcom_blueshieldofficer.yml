@@ -35,17 +35,15 @@
 - type: entity
   parent: ClothingBackpackBlueShield
   id: ClothingBackpackBlueShieldCentComFilled
-  name: модифицированный рюкзак офицера "Синий Щит"
-  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
-  suffix: Заполненный, ЦентКом
+  name: модифицированный рюкзак оперативника КГБ # DS14-Soyuz
+  description: Рюкзак оперативника КГБ с функцией РИГ. # DS14-Soyuz
+  suffix: Заполненный, ГенШтаб # DS14-Soyuz
   components:
   - type: StorageFill
     contents:
       - id: BoxMRE
       - id: ADTtelescopicBaton
       - id: TelescopicShield
-      - id: MagazinePistolSubMachineGun
-        amount: 3
       - id: MedkitCombatFilled
         amount: 2 
       - id: HandheldCrewMonitor
@@ -53,13 +51,16 @@
         amount: 2
       - id: CelestinMedipen
         amount: 2
+      - id: ClothingNeckCapeBlueShield # DS14-Soyuz
+      - id: KGBloadoutSecondary # DS14-Soyuz
+      - id: KGBloadoutPrimary # DS14-Soyuz
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
   parent: ClothingBeltMilitaryWebbingBlueShieldFilled
-  name: РПС офицера "Синий Щит"
-  description: РПС, которую носят офицеры "Синий Щит"
-  suffix: Заполненный, ЦентКом
+  name: РПС оперативника КГБ # DS14-Soyuz
+  description: РПС, которую носят оперативники КГБ # DS14-Soyuz
+  suffix: Заполненный, ГенШтаб # DS14-Soyuz
   components:
   - type: StorageFill
     contents:
@@ -80,12 +81,12 @@
     head: ClothingHeadHatBeretBlueShield
     jumpsuit: ClothingUniformJumpsuitBlueShield
     # back: ClothingBackpackBlueShieldCentComFilled
-    mask: ClothingMaskGasSecurity
-    eyes: ClothingEyesGlassesSecurity
+    mask: ClothingMaskGasBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
     ears: ClothingHeadsetAltCentCom
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmorBasicBlueShield
-    shoes: ClothingShoesBootsJackFilled
+    gloves: ClothingHandsGlovesBlueShield
+    outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
+    shoes: ClothingShoesBootsBlueShield
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
     pocket2: WeaponDisabler

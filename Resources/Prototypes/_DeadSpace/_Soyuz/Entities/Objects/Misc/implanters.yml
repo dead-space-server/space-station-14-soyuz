@@ -1,4 +1,13 @@
 - type: entity
+  parent: BaseImplantOnlyImplanter
+  id: NoSwearingImplanter
+  name: имплантер
+  suffix: Культурность
+  components:
+  - type: Implanter
+    implant: NoSwearingImplant
+
+- type: entity
   id: EyeSocketImplanter
   name: Eye Socket implanter
   parent: BaseImplantOnlyImplanter

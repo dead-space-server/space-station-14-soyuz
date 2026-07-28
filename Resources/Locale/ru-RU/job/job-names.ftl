@@ -26,6 +26,7 @@ job-name-centcomoff = Представитель ГШ
 job-name-centcom-administrator = Администратор ГенШтаба
 job-name-centcom-operator = Оператор Генерального Штаба
 job-name-soo = Генерал Специальных Операций
+job-name-field-officer = Полевой Офицер СО
 job-name-centcom-officer = Офицер Генерального Штаба
 job-name-reporter = Репортёр
 job-name-musician = Музыкант

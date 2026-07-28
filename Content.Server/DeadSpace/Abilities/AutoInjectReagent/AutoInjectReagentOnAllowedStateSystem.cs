@@ -53,7 +53,7 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
             if (!comp.IsReady && curTime > comp.TimeUntilRegen) //DS14-Soyuz
             {
                 comp.IsReady = true;
-//DS14-Soyuz-start
+                //DS14-Soyuz-start
                 Dirty(uid, comp);
             }
             if (comp.TimeUntilNextInject > 0 && comp.IsReady)
@@ -63,7 +63,7 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
                     if (IsInAllowedState(uid, comp))
                     {
                         PerformInject(uid, comp);
-                        
+
                         comp.NextInjectTime = curTime + TimeSpan.FromSeconds(comp.TimeUntilNextInject);
                         Dirty(uid, comp);
                     }
@@ -73,7 +73,7 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
                         Dirty(uid, comp);
                     }
                 }
-//DS14-Soyuz-end
+                //DS14-Soyuz-end
             }
         }
     }
@@ -84,7 +84,7 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
         {
             if (allowedState == args.NewMobState)
             {
-// DS14-Soyuz-start
+                // DS14-Soyuz-start
                 if (component.TimeUntilNextInject == 0 && component.IsReady)
                 {
                     PerformInject(uid, component);
@@ -113,7 +113,7 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
             if (mobState.CurrentState == allowedState)
                 return true;
         }
-        
+
         return false;
     }
 
@@ -122,6 +122,6 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
         Inject(component.Reagents, uid);
         _popup.PopupEntity(Loc.GetString("hypospray-component-feel-prick-message"), uid, uid);
         _audio.PlayPvs(component.InjectSound, uid);
-// DS14-Soyuz-end
+    // DS14-Soyuz-end
     }
 }

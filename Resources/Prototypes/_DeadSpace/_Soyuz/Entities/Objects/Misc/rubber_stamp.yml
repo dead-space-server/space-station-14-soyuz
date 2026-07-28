@@ -1,29 +1,36 @@
 - type: entity
+  parent: RubberStampBase
   id: RubberStampPolitruk
-  parent: [RubberStampBase, BaseCommandContraband]
   name: печать политического руководителя
-  description: Печать из резины для проставления печатей на важных документах.
   categories: [ DoNotMap ]
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-politruk
     stampedColor: "#962929"
     stampState: "paper_stamp-cap"
+    stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png"
+    stampScale: 0.92
+    stampHeaderText: "Полит. отдел"
+    stampBackgroundText: "Наркомат Всесоюзной Безопасности"
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Misc/stamp.rsi
     state: stamp-pr
 
 - type: entity
+  parent: RubberStampBase
   id: RubberStampPolitkom
-  parent: [RubberStampBase, BaseCommandContraband]
   name: печать политического комиссара
-  description: Печать из резины для проставления печатей на важных документах.
   categories: [ DoNotMap ]
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-politkom
     stampedColor: "#a03434"
     stampState: "paper_stamp-cap"
+    stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png"
+    stampScale: 0.92
+    stampCanRotate: false
+    stampHeaderText: "Полит. отдел"
+    stampBackgroundText: "Наркомат Всесоюзной Безопасности"
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Misc/stamp.rsi
     state: stamp-pk

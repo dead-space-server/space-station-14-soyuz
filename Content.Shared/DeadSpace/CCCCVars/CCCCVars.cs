@@ -7,7 +7,7 @@ namespace Content.Shared.DeadSpace.CCCCVars;
 /// </summary>
 [CVarDefs]
 // ReSharper disable once InconsistentNaming
-public sealed class CCCCVars
+public sealed partial class CCCCVars
 {
     /*
 	* GCF
@@ -71,6 +71,13 @@ public sealed class CCCCVars
 
     public static readonly CVarDef<float> AlertLevelVolume =
         CVarDef.Create("audio.alert_level_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+     * Item sounds
+     */
+
+    public static readonly CVarDef<float> ItemSoundsVolume =
+        CVarDef.Create("audio.item_sounds_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /*
      * Boss music
@@ -150,4 +157,14 @@ public sealed class CCCCVars
 
     public static readonly CVarDef<string> SysNotifySoundPath =
         CVarDef.Create("sysnotifys.soundpath", "/Audio/Effects/balloon-pop.ogg", CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+    * Storage
+    */
+
+    /// <summary>
+    ///     Allows opening multiple inventory/storage windows simultaneously.
+    /// </summary>
+    public static readonly CVarDef<bool> MultipleInventoryWindows =
+        CVarDef.Create("storage.multiple_inventory_windows", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 }

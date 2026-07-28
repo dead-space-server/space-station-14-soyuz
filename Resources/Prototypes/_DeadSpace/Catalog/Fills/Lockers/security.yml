@@ -45,9 +45,8 @@
       - id: FlashlightSeclite
       - id: RubberStampBlueShield
       - id: CigarGoldCase
-      - id: NanotrasenFlippo
+      - id: USSPFlippo # DS14-Soyuz
       - id: WeaponDisabler
-      - id: ClothingEyesHudERT
+      - id: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
       - id: ClothingMaskGasSwat
       - id: ClothingHeadHelmetBlueShield
-

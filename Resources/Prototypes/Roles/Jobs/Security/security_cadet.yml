@@ -37,6 +37,10 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankPidoras: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityCadetGear

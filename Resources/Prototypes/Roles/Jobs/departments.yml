@@ -46,7 +46,7 @@
   - CentralCommandOperator
   - CentralCommandOfficer
   - Magistrat
-  editorHidden: false
+  editorHidden: true # DS14-Soyuz
   weight: 120
 
 - type: department

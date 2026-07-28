@@ -47,7 +47,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Пиздец"
-    stampBackgroundText: "NanoTraxen"
+    stampBackgroundText: "USP"
   - type: Sprite
     state: stamp-deny
 
@@ -78,7 +78,7 @@
     stampedName: stamp-component-stamped-name-blueshield
     stampedColor: "#491a1e"
     stampState: "paper_stamp-blueshield"
-    stampPatternTexture: "/Textures/Interface/Stamps/nt_print_pattern.png"
+    stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png" # DS14-Soyuz print
     stampScale: 0.84
     stampTextMaxScale: 0.54
     stampCanRotate: false
@@ -228,7 +228,7 @@
     stampState: "paper_stamp-greytide"
     stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png"
     stampScale: 0.92
-    stampMainText: "Офицер Специальных Операций"
+    stampMainText: "Генерал Специальных Операций"
     stampTextMaxScale: 0.38
     stampCanRotate: false
   - type: Sprite

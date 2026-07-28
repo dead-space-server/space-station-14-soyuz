@@ -22,6 +22,15 @@
     - HighRiskItem
   - type: FlashImmunity
   - type: SolutionScanner
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
 
 - type: entity
   parent: [ClothingEyesBase, ShowMedicalIcons]
@@ -64,6 +73,15 @@
   - type: Construction
     graph: HudMedCom
     node: medcomHud
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
 
 - type: entity
   parent: ClothingEyesHudAdvanced
@@ -90,6 +108,7 @@
     sprite: _DeadSpace/Clothing/Eyes/tactical_glasses.rsi
   - type: PNV
     color: "#AFC4D111"
+    desaturation: 0.8
     activateSound: 
       path: /Audio/_DeadSpace/NightVision/pnv.ogg
 
@@ -115,3 +134,14 @@
       path: /Audio/_DeadSpace/NightVision/pnv.ogg
     activateSoundOff:
       path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
+
+- type: entity
+  parent: ClothingEyesHudAdvanced
+  id: ClothingEyesHudCaptain
+  name: золотые очки капитана
+  description: Превосходные золотые очки, производимые для капитанов. Их ношение добавляет +15 к стилю.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Eyes/Hud/captain_hud.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Eyes/Hud/captain_hud.rsi

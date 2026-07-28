@@ -8,6 +8,15 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Hud/Glasses/advanced.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Hud/Glasses/advanced.rsi
+  - type: ThermalVisorExperimental
+    activateSound:
+      path: /Audio/_DeadSpace/NightVision/pnv.ogg
+    activateSoundOff:
+      path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
+    pulseDuration: 4
+  - type: Battery
+    maxCharge: 800
+    startingCharge: 800
   - type: ShowHealthBars
     damageContainers:
     - Biological

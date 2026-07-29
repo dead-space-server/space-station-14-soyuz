@@ -25,7 +25,7 @@
 
 - type: technology
   id: Implanters
-  name: Нанотехнологии
+  name: research-technology-implants
   icon:
     sprite: Objects/Specific/Medical/syndi_implanter.rsi
     state: implanter1

@@ -10,3 +10,23 @@
     targetComponents:
     - type: ReplacementAccent
       accent: NoSwearingAccent
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: EyeSocketImplant
+  name: имплант "глазница"
+  description: Этот имплант улучшает ваши глаза, даруя защиту от вспышек и возможность видеть в темноте.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: NightVision
+      animation: false
+      duration: 30
+      color: "#6E000011"
+      transitionSpeed: 100
+      actionToggleNightVision: ActionToggleNightVisionFelenid
+    - type: FlashImmunity
+    - type: EyeProtection
+      protectionTime: 5

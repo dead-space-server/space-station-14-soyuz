@@ -19,3 +19,14 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: NightVision
+      animation: false
+      duration: 30
+      color: "#6E000011"
+      transitionSpeed: 100
+      actionToggleNightVision: ActionToggleNightVisionFelenid
+    - type: FlashImmunity
+    - type: EyeProtection
+      protectionTime: 5

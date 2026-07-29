@@ -2,6 +2,7 @@
   parent: BaseImplantOnlyImplanter
   id: NoSwearingImplanter
   name: имплантер
+  description: Одноразовый шприц, специально предназначенный для введения подкожных имплантов.
   suffix: Культурность
   components:
   - type: Implanter
@@ -9,7 +10,9 @@
 
 - type: entity
   id: EyeSocketImplanter
-  name: Eye Socket implanter
+  name: имплантер глазницы
+  description: Одноразовый шприц, специально предназначенный для введения подкожных имплантов.
+  suffix: Глазница
   parent: BaseImplantOnlyImplanter
   components:
   - type: Implanter

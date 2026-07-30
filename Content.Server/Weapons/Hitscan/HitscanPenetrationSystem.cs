@@ -69,7 +69,11 @@ public sealed class HitscanPenetrationSystem : EntitySystem
 
     private bool TryPenetrate(Entity<HitscanPenetrationComponent> ent, HitscanDamageDealtEvent args, FixedPoint2 damageRequired)
     {
+        if (ent.Comp.PenetrationThreshold == 0 || ent.Comp.PenetratedTargets >= ent.Comp.MaxPenetratedTargets) // DS14
+            return false;
+
         if (ent.Comp.PenetrationDamageTypeRequirement != null)
+        {
             foreach (var requiredDamageType in ent.Comp.PenetrationDamageTypeRequirement)
             {
                 if (args.DamageDealt.DamageDict.Keys.Contains(requiredDamageType))

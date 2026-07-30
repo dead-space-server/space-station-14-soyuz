@@ -42,7 +42,11 @@ public sealed partial class SandevistanImplantComponent : Component
     public DamageSpecifier OverloadDamage = new()
     {
         DamageDict = new Dictionary<string, FixedPoint2>
+        {
+            { "Slash", 5 },
+            { "Piercing", 5 },
         },
+    };
 
     public TimeSpan NextReadyTime = TimeSpan.Zero;
 

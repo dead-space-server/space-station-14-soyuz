@@ -125,7 +125,10 @@ namespace Content.Client.Lobby
         public void UpdateConstructionFavorites(List<ProtoId<ConstructionPrototype>> favorites)
         {
             Preferences = new PlayerPreferences(Preferences.Characters, Preferences.SelectedCharacterIndex, Preferences.AdminOOCColor, favorites, Preferences.InaccessibleCharacters, Preferences.FavoriteAntags); // DS14
+            var msg = new MsgUpdateConstructionFavorites
+            {
                 Favorites = favorites
+            };
             _netManager.ClientSendMessage(msg);
         }
 

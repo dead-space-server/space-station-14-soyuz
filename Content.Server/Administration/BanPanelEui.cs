@@ -65,6 +65,8 @@ public sealed class BanPanelEui : BaseEui
     }
 
     // DS14-start
+    private async void CreateWatchlist(BanPanelEuiStateMsg.CreateWatchlistRequest request)
+    {
         if (!_notes.CanCreate(Player))
         {
             _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to create a watchlist with no edit notes flag");
@@ -95,6 +97,7 @@ public sealed class BanPanelEui : BaseEui
 
     private async void BanPlayer(Ban ban)
     {
+        if (!_admins.HasAdminFlag(Player, AdminFlags.Ban))
         {
             _sawmill.Warning($"{Player.Name} ({Player.UserId}) tried to create a ban with no ban flag");
 

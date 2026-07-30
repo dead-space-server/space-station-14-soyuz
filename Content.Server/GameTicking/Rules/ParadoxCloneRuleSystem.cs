@@ -169,6 +169,33 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
     }
 
     private bool TryGetValidCloneTarget(EntityUid body, out Entity<MindComponent> mind)
+    {
+        foreach (var candidate in GetValidCloneTargets())
+        {
+            if (candidate.Comp.OwnedEntity != body)
+                continue;
+
+            mind = candidate;
+            return true;
+        }
+
+        mind = default;
+        return false;
+    }
+
+    private bool TryPickRandomCloneTarget(HashSet<EntityUid> attemptedMinds, out Entity<MindComponent> mind)
+    {
+        var candidates = GetValidCloneTargets();
+        candidates.RemoveWhere(candidate => attemptedMinds.Contains(candidate.Owner));
+
+        if (candidates.Count == 0)
+        {
+            mind = default;
+            return false;
+        }
+
+        mind = _random.Pick(candidates);
+        return true;
     }
 
     internal bool IsValidCloneTarget(Entity<MindComponent> mind)

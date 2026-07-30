@@ -25,7 +25,9 @@
                                  Margin="0 0 0 8" />
                 <!-- Kofeecheks Jukebox integration: LicenseRef-Kofeecheks -->
                 <ui:OptionSlider Name="SliderVolumeJukeboxMusic" Title="{Loc 'ui-options-jukebox-volume'}"
-                                 Margin="0 0 0 8" />
+                                Margin="0 0 0 8" />
+                <ui:OptionSlider Name="SliderVolumeJukeboxAuto" Title="Громкость музыкальных автоматов"
+                                Margin="0 0 0 8" />
                 <CheckBox Name="JukeboxMusicMuteCheckBox" Text="{Loc 'ui-options-jukebox-mute'}" />
                 <CheckBox Name="LobbyMusicCheckBox" Text="{Loc 'ui-options-lobby-music'}" />
                 <CheckBox Name="RestartSoundsCheckBox" Text="{Loc 'ui-options-restart-sounds'}" />

@@ -34,6 +34,8 @@ public sealed partial class CarryStrengthComponent : Component
 }
 
 /// <summary>
+/// Makes picking up targets in the configured mob states instantaneous.
+/// </summary>
 [RegisterComponent]
 public sealed partial class InstantCriticalCarryComponent : Component
 {
@@ -47,6 +49,7 @@ public sealed partial class InstantCriticalCarryComponent : Component
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
 public sealed partial class CarryingComponent : Component
+{
     [DataField, AutoNetworkedField]
     public EntityUid? Carried;
 

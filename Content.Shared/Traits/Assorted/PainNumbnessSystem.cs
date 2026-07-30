@@ -141,17 +141,4 @@ public sealed class PainNumbnessSystem : EntitySystem
         if (_alerts.TryGet(args.Args.CurrentAlert, out var alert) && alert.Category == HealthAlertCategory) // DS14
             args.Args.CancelUpdate = true;
     }
-	// DS14-End
-	
-    private void OnChangeForceSay(Entity<PainNumbnessStatusEffectComponent> ent, ref StatusEffectRelayedEvent<BeforeForceSayEvent> args)
-    {
-        if (ent.Comp.ForceSayNumbDataset != null)
-            args.Args.Prefix = ent.Comp.ForceSayNumbDataset.Value;
-    }
-
-    private void OnAlertSeverityCheck(Entity<PainNumbnessStatusEffectComponent> ent, ref StatusEffectRelayedEvent<BeforeAlertSeverityCheckEvent> args)
-    {
-        if (_alerts.TryGet(args.Args.CurrentAlert, out var alert) && alert.Category == HealthAlertCategory) // DS14
-            args.Args.CancelUpdate = true;
-    }
 }

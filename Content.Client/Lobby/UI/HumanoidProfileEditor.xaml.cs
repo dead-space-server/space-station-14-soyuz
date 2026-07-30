@@ -1223,9 +1223,6 @@ namespace Content.Client.Lobby.UI
                     subcategory.Subcategories,
                     subcategory.OutlineColor ?? inheritedColor);
             }
-
-            if (_readOnly) // DS14
-                SetInteractiveControlsDisabled(AntagList, true);
         }
         // DS14-end
 

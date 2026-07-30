@@ -64689,7 +64689,11 @@ entities:
       parent: 9430
     - type: Physics
       canCollide: False
+<<<<<<< HEAD:Resources/Maps/_Soyuz/core.yml
 - proto: ErtComputerShuttle
+=======
+- proto: ErtResponseConsole
+>>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/core.yml
   entities:
   - uid: 8231
     components:
@@ -117762,6 +117766,16 @@ entities:
           ents:
           - 14007
   - uid: 16808
+<<<<<<< HEAD:Resources/Maps/_Soyuz/core.yml
+=======
+    components:
+    - type: Transform
+      pos: 3.5,30.5
+      parent: 2
+- proto: SuitStorageSeniorSalvageSpecialistFilled
+  entities:
+  - uid: 14303
+>>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/core.yml
     components:
     - type: Transform
       pos: 3.5,30.5

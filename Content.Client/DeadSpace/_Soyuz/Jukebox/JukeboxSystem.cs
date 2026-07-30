@@ -39,6 +39,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown); // DS-14
 
         _protoManager.PrototypesReloaded += OnProtoReload;
+        Subs.CVar(_cfg, CCCCVars.JukeboxAutoVolume, SetJukeboxAutoVolume, true); // DS14
     }
 
     public override void Shutdown()

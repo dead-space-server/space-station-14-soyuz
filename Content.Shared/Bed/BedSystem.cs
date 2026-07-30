@@ -27,10 +27,12 @@ public sealed class BedSystem : EntitySystem
     [Dependency] private readonly SharedMetabolizerSystem _metabolizer = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly SleepingSystem _sleepingSystem = default!;
+// DS14-Soyuz start
 //#if SERVER
     [Dependency] private readonly TagSystem _tagSystem = default!;
     private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing";
 //#endif
+// DS14-Soyuz end
     private EntityQuery<SleepingComponent> _sleepingQuery;
     public override void Initialize()
     {

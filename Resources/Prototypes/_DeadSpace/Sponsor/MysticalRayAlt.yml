@@ -582,7 +582,7 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 14
+        Blunt: 10
 
 #WelderExperimental
 - type: entity

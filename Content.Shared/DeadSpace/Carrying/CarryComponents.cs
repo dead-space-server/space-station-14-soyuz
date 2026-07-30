@@ -1,6 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using Content.Shared.DoAfter;
+using Content.Shared.Mobs;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
@@ -32,9 +33,20 @@ public sealed partial class CarryStrengthComponent : Component
     public CarryStrength Strength = CarryStrength.Any;
 }
 
+/// <summary>
+[RegisterComponent]
+public sealed partial class InstantCriticalCarryComponent : Component
+{
+    [DataField]
+    public HashSet<MobState> States =
+    [
+        MobState.PreCritical,
+        MobState.Critical,
+    ];
+}
+
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(raiseAfterAutoHandleState: true)]
 public sealed partial class CarryingComponent : Component
-{
     [DataField, AutoNetworkedField]
     public EntityUid? Carried;
 

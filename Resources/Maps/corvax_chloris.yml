@@ -20176,9 +20176,15 @@ entities:
           id: docking121988
           localAnchorB: 2.5,-7
           localAnchorA: 167,94.5
+<<<<<<< HEAD
           referenceAngle: 4.712389
           damping: 1058.6322
           stiffness: 9502.261
+=======
+          referenceAngle: -1.5707964
+          damping: 0
+          stiffness: 0
+>>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6
   - uid: 4
     components:
     - type: MetaData
@@ -21747,7 +21753,11 @@ entities:
     - type: MetaData
       name: NT-Blueline-GE 11
     - type: Transform
+<<<<<<< HEAD
       rot: 4.71238898038469 rad
+=======
+      rot: -1.5707963267948966 rad
+>>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6
       pos: 85.545235,-9.612368
       parent: 1
     - type: MapGrid
@@ -22096,9 +22106,15 @@ entities:
           id: docking121988
           localAnchorB: 2.5,-7
           localAnchorA: 167,94.5
+<<<<<<< HEAD
           referenceAngle: 4.712389
           damping: 1058.6322
           stiffness: 9502.261
+=======
+          referenceAngle: -1.5707964
+          damping: 0
+          stiffness: 0
+>>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 198

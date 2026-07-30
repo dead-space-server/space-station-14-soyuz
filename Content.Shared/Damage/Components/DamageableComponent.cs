@@ -93,7 +93,7 @@ public sealed partial class DamageableComponent : Component
         "HealthIconRottingStage1",
         "HealthIconRottingStage2",
         "HealthIconRottingStage3",
-        "HealthIconRottingStage4", 
+        "HealthIconRottingStage4",
     };
     // DS14-Soyuz-end
     [DataField]

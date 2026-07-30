@@ -141,7 +141,7 @@ public sealed class CloningPodSystem : EntitySystem
             return false;
 
         // DS14-start
-        if (HasComp<Shared.DeadSpace.Cloning.UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
+        if (HasComp<UncloningComponent>(bodyToClone) && !clonePod.CanCloneUnclonable)
         {
             if (clonePod.ConnectedConsole != null)
                 _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value,

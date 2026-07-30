@@ -201,7 +201,7 @@
 #    maxDistance: 300
 #    minSeparation: 90
 #    footprintRadius: 10
-#    spawnAttempts: 160 # ПОХОТИ НЕ БУДЕТ
+#    spawnAttempts: 160 # ПОХОТИ НЕ БУДЕТ # ПОЧЕМУ??
 
   - path: /Maps/_Soyuz/Dungeon/Lavalend/Anger.yml
     count: 1

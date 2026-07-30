@@ -10,6 +10,7 @@
     - id: NitrogenTankFilled # DS14
     - id: CigPackGreen
       prob: 0.50
+    - id: ClothingOuterHardsuitQM # DS14
     - id: ClothingHeadsetAltCargo
     - id: DoorRemoteCargo
     - id: AstroNavCartridge
@@ -54,7 +55,7 @@
     - id: WeaponDisabler
 #    - id: ClothingEyesGlassesCommand #DS14
     - id: ADTtelescopicBaton # ADT
-    - id: ErtResponseConsoleCircuitboard # DS14
+    - id: ErtResponseConsoleCircuitboard # DS14-Soyuz
     - id: ClothingEyesHudCaptain # DS14: CaptainResprite
     - id: HeadSkeleton # A skull to accompany your skeleton crew
       conditions:
@@ -183,6 +184,7 @@
     - id: RubberStampCE
 #    - id: MetalFoamGrenade #DS14
     - id: ADTtelescopicBaton # ADT
+    - id: WeaponPlasmaCutter #DS14
     - id: TabletPowerMonitoring #DS14
     - id: EnergySellerMachineCircuitboard #DS14
     - id: PlushieLizardJobChiefengineer
@@ -246,6 +248,7 @@
     - id: MedTekCartridge
     - id: NitrogenTankFilled # DS14
     - id: ADTtelescopicBaton # ADT
+    - id: DrinkShakerCMO # DS14
     # Standard command gear
     - id: RubberStampCMO
     - id: ClothingHeadsetAltMedical

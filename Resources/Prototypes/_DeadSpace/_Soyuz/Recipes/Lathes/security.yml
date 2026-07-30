@@ -381,8 +381,9 @@
   result: SoyuzFlashAutoRecharge
   completetime: 3
   materials:
-    Steel: 500
-    Plastic: 100
+    Steel: 1000
+    Plastic: 500
+    Glass: 500
 
 - type: latheRecipe
   parent: BaseWeaponRecipe
@@ -390,8 +391,8 @@
   result: SoyuzStunbaton
   completetime: 3
   materials:
-    Steel: 500
-    Plastic: 100
+    Steel: 1500
+    Plastic: 1000
 
 - type: latheRecipe
   parent: BaseWeaponRecipe
@@ -399,5 +400,6 @@
   result: SoyuzWeaponDisabler
   completetime: 3
   materials:
-    Steel: 500
-    Plastic: 100
+    Steel: 1500
+    Plastic: 500
+    Glass: 500

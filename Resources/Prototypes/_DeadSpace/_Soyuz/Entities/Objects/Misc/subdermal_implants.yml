@@ -10,3 +10,15 @@
     targetComponents:
     - type: ReplacementAccent
       accent: NoSwearingAccent
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: HolyImplant
+  name: просветление
+  description: Позволяет просвятить существо в веру священника, что в свою очередь позволит просвященному существу использовать библию.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: BibleUser

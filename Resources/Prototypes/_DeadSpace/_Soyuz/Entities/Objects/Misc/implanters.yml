@@ -6,3 +6,16 @@
   components:
   - type: Implanter
     implant: NoSwearingImplant
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: HolyImplanter
+  name: имплантер
+  description: Да святитя имя Твоё, да прибудет воля Твоя.
+  suffix: Просвятление
+  components:
+  - type: Sprite
+    sprite: Resources/Textures/_DeadSpace/_Soyuz/Objects/Specific/Medical/holy_implanter.rsi
+    state: icon
+  - type: Implanter
+    implant: NoSwearingImplant

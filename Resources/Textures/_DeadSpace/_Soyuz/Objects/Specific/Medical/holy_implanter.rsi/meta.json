@@ -11,8 +11,26 @@
             "name": "icon",
             "delays": [
               [
-                0.4,
-                0.4
+                0.3,
+                0.3
+              ]
+            ]
+        },
+        {
+            "name": "implanter0",
+            "delays": [
+              [
+                0.3,
+                0.3
+              ]
+            ]
+        },
+        {
+            "name": "implanter1",
+            "delays": [
+              [
+                0.3,
+                0.3
               ]
             ]
         }

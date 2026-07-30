@@ -23,6 +23,20 @@
   - SpeedLoaderMagnumSilver
   - MagazinePistolSubMachineGunSilver
 
+- type: technology
+  id: Implanters
+  name: research-technology-implants
+  icon:
+    sprite: Objects/Specific/Medical/syndi_implanter.rsi
+    state: implanter1
+  discipline: Arsenal
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - EyeSocketImplanter
+  - TrackingImplanter
+  - MindShieldImplanter
+
 # Tier 3
 
 - type: technology

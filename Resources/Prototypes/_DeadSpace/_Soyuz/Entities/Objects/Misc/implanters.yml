@@ -26,6 +26,6 @@
   suffix: Просвятление
   components:
   - type: Sprite
-    sprite: Resources/Textures/_DeadSpace/_Soyuz/Objects/Specific/Medical/holy_implanter.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/holy_implanter.rsi
   - type: Implanter
     implant: NoSwearingImplant

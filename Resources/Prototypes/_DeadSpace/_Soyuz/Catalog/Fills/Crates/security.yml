@@ -7,6 +7,6 @@
   components:
   - type: StorageFill
     contents:
-      - id: SoyuzFlashAutoRecharge
-      - id: SoyuzStunbaton
-      - id: SoyuzWeaponDisabler
+      - id: SoyuzBlueprintFlash
+      - id: SoyuzBlueprintStunbaton
+      - id: SoyuzBlueprintDisabler

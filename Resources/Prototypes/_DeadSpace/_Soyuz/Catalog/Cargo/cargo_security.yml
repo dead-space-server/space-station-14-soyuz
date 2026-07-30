@@ -3,7 +3,7 @@
   icon:
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/flash.rsi
     state: flash
-  product: SoyuzFlashAutoRecharge
+  product: SoyuzBlueprintFlash
   cost: 10000
   category: cargoproduct-category-name-security
   group: security
@@ -13,7 +13,7 @@
   icon:
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/stunbaton.rsi
     state: stunbaton_off
-  product: SoyuzStunbaton
+  product: SoyuzBlueprintStunbaton
   cost: 10000
   category: cargoproduct-category-name-security
   group: security
@@ -23,7 +23,7 @@
   icon:
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/taser.rsi
     state: taser
-  product: SoyuzWeaponDisabler
+  product: SoyuzBlueprintDisabler
   cost: 10000
   category: cargoproduct-category-name-security
   group: security

@@ -1,5 +1,12 @@
 # Ставить новые теги строго в алфавитном порядке A-Z
 
+# A
+
+# B
+- type: Tag
+  id: BlueprintSecurityAutolathe
+
+# C
 - type: Tag
   id: CartridgeLightestRifle
 
@@ -24,18 +31,34 @@
 - type: Tag
   id: ClarkeRLeg
 
+# D
 - type: Tag
   id: DrinkCup
   
 - type: Tag
   id: DrinkGlass
 
+# E
 - type: Tag
   id: ExperimentalCloningPodMachineCircuitboard
 
+# F
+
+# G
+
+# H
+
+# I
 - type: Tag
   id: IgnoreBedHealing
 
+# J
+
+# K
+
+# L
+
+# M
 - type: Tag
   id: MagazineAntiMaterielSV
 
@@ -66,6 +89,11 @@
 - type: Tag
   id: MagazineShotgunSaiga
 
+# N
+
+# O
+
+# P
 - type: Tag
   id: PoliceBetaBody
 
@@ -77,3 +105,23 @@
 
 - type: Tag
   id: PoliceBetaLegs
+
+# Q
+
+# R
+
+# S
+
+# T
+
+# U
+
+# V
+
+# W
+
+# X
+
+# Y
+
+# Z

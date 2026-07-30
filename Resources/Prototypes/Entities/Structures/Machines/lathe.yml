@@ -430,9 +430,11 @@
     - SecurityBorgModulesTierTwo # DS14
     - SecurityBorgModulesTierThree # DS14
     - StunBola # DS14
-    - ArmedTechFabCircuitboard # DS14-Soyuz
-    - ProcessingTungsten # DS14-Soyuz
-    - SecurityPoliceBeta # DS14-Soyuz
+# DS14-Soyuz-start
+    - ArmedTechFabCircuitboard
+    - ProcessingTungsten
+    - SecurityPoliceBeta
+# DS14-Soyuz-end
   - type: EmagLatheRecipes
     emagStaticPacks:
     - SyndicateAmmoStatic
@@ -441,6 +443,20 @@
   - type: OreSiloClient
   - type: LatheAnnouncing
     channels: [Security]
+# DS14-Soyuz-start
+  - type: BlueprintReceiver
+    whitelist:
+      tags:
+      - BlueprintSecurityAutolathe
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      blueprint: !type:Container
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - blueprint
+# DS14-Soyuz-end
 
 - type: entity
   id: AmmoTechFab

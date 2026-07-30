@@ -1,0 +1,12 @@
+- type: entity
+  parent: CrateSecgear
+  id: CrateSecurityBlueprintsTier2
+  name: защищённый ящик с чертежами
+  description: Защищенный контейнер с чертежами милиции.
+  suffix: Вспышка, станнер, станбатон второго поколения
+  components:
+  - type: StorageFill
+    contents:
+      - id: SoyuzFlashAutoRecharge
+      - id: SoyuzStunbaton
+      - id: SoyuzWeaponDisabler

@@ -374,3 +374,30 @@
     Steel: 75
     Plastic: 125
     IngotTungsten: 125
+
+- type: latheRecipe
+  parent: BaseWeaponRecipe
+  id: SoyuzFlashAutoRecharge
+  result: SoyuzFlashAutoRecharge
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 100
+
+- type: latheRecipe
+  parent: BaseWeaponRecipe
+  id: SoyuzStunbaton
+  result: SoyuzStunbaton
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 100
+
+- type: latheRecipe
+  parent: BaseWeaponRecipe
+  id: SoyuzWeaponDisabler
+  result: SoyuzWeaponDisabler
+  completetime: 3
+  materials:
+    Steel: 500
+    Plastic: 100

@@ -1,0 +1,39 @@
+- type: cargoProduct
+  id: SoyuzFlashAutoRechargeCargo
+  icon:
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/flash.rsi
+    state: flash
+  product: SoyuzFlashAutoRecharge
+  cost: 10000
+  category: cargoproduct-category-name-security
+  group: security
+
+- type: cargoProduct
+  id: SoyuzStunbatonCargo
+  icon:
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/stunbaton.rsi
+    state: stunbaton_off
+  product: SoyuzStunbaton
+  cost: 10000
+  category: cargoproduct-category-name-security
+  group: security
+
+- type: cargoProduct
+  id: SoyuzWeaponDisablerCargo
+  icon:
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/taser.rsi
+    state: taser
+  product: SoyuzWeaponDisabler
+  cost: 10000
+  category: cargoproduct-category-name-security
+  group: security
+
+- type: cargoProduct
+  id: CrateSecurityBlueprintsTier2Cargo
+  icon:
+    sprite: Objects/Tools/blueprint.rsi
+    state: icon
+  product: CrateSecurityBlueprintsTier2
+  cost: 29500
+  category: cargoproduct-category-name-security
+  group: security

@@ -116,11 +116,11 @@
 - type: entity
   parent: BaseUplinkRadio
   id: BaseUplinkRadio40TC
-  suffix: 40 TC, NukeOps
+  suffix: 35 TC, NukeOps #DS14-Soyuz 40>35
   components:
   - type: Store
     balance:
-      Telecrystal: 40
+      Telecrystal: 35 #DS14-Soyuz value 40>35
   - type: Tag
     tags:
     - NukeOpsUplink
@@ -165,11 +165,11 @@
 - type: entity
   parent: BaseUplinkRadio40TC #DS14
   id: BaseUplinkRadio60TC
-  suffix: 60 TC, LoneOps
+  suffix: 40 TC, LoneOps #DS14-Soyuz 60>40
   components:
   - type: Store
     balance:
-      Telecrystal: 60
+      Telecrystal: 40 #DS14-Soyuz value 60>40
   - type: Tag
     tags:
     - NukeOpsUplink

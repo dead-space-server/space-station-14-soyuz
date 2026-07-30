@@ -1,1 +1,5 @@
-# Не пока чота лэнь придумаю пзоже
+- type: rank
+  id: CMDRankCaptain
+  name: Капитан
+  prefix: Капитан
+  paygrade: КОМ10

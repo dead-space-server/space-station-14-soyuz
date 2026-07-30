@@ -65,6 +65,10 @@
       - type: Skill
         group: Captain
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    CMDRankCaptain: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: CaptainGear

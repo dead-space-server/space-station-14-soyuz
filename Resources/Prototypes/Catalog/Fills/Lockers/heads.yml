@@ -393,7 +393,7 @@
   id: FillHeadOfSecurityHardsuit
   table: !type:AllSelector
     children:
-    - id: ClothingMaskGasSwat
+    # - id: ClothingMaskGasSwat # DS14-Soyuz disabled
     - id: ClothingOuterHardsuitSecurityRed
     - id: JetpackSecurityFilled
     - id: OxygenTankFilled

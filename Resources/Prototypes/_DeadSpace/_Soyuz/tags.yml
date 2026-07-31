@@ -4,6 +4,9 @@
 
 # B
 - type: Tag
+  id: BlueprintSecurityAutolathe
+
+- type: Tag
   id: BlueInsulatingTape
 
 # C

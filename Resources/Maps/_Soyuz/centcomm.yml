@@ -27971,11 +27971,7 @@ entities:
   - uid: 1509
     components:
     - type: MetaData
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
       name: как пережить смену на ЦК Nanotrasen
-=======
-      name: как пережить смену на ЦК NanoTrasen
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
     - type: Transform
       pos: 14.33498,-77.386894
       parent: 1
@@ -28122,11 +28118,7 @@ entities:
     - type: Transform
       pos: 15.5,-102.5
       parent: 1
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
 - proto: BookshelfFilled
-=======
-- proto: Bookshelf
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
   entities:
   - uid: 1512
     components:
@@ -28173,11 +28165,6 @@ entities:
           - 1514
           - 1516
           - 1520
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
-=======
-- proto: BookshelfFilled
-  entities:
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
   - uid: 1534
     components:
     - type: Transform
@@ -28484,23 +28471,6 @@ entities:
     - type: Transform
       pos: -26.593285,-125.393234
       parent: 1
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
-=======
-- proto: BoxFolderCentCom
-  entities:
-  - uid: 1596
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 20.662409,-166.41393
-      parent: 1
-  - uid: 1597
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 20.453934,-166.40004
-      parent: 1
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
 - proto: BoxFolderCentComClipboardEmpty
   entities:
   - uid: 1598
@@ -146890,7 +146860,6 @@ entities:
       parent: 1
     - type: Fixtures
       fixtures: {}
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
 - proto: SignSecurity
   entities:
   - uid: 19293
@@ -146898,12 +146867,6 @@ entities:
     - type: MetaData
       desc: Знак, изображающий эмблему службы безопасности Центрального Командования.
       name: знак "служба безопасности Центрального Командования"
-=======
-- proto: SignSecurityCentComm
-  entities:
-  - uid: 19293
-    components:
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
     - type: Transform
       pos: 3.5,-39.5
       parent: 1
@@ -146911,12 +146874,9 @@ entities:
       fixtures: {}
   - uid: 19294
     components:
-<<<<<<< HEAD:Resources/Maps/_Soyuz/centcomm.yml
     - type: MetaData
       desc: Знак, изображающий эмблему службы безопасности Центрального командования.
       name: знак "служба безопасности Центральное Командование"
-=======
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/centcomm.yml
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -10.5,-146.5

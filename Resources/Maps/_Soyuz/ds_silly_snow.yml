@@ -24847,11 +24847,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 15.523987,8.501556
       parent: 7584
-<<<<<<< HEAD:Resources/Maps/_Soyuz/ds_silly_snow.yml
 - proto: ErtComputerShuttle
-=======
-- proto: ErtResponseConsole
->>>>>>> 4d4b3517cf2b97284a46e5d9afb0155ff19a1fc6:Resources/Maps/ds_silly_snow.yml
   entities:
   - uid: 8
     components:
@@ -34593,7 +34589,7 @@ entities:
   - uid: 4071
     components:
     - type: MetaData
-      desc: Стандартное хранилище NanoTrasen.
+      desc: Стандартное хранилище Nanotrasen.
       name: оружейный сейф Дрозда
     - type: Transform
       pos: -18.5,28.5
@@ -37312,7 +37308,7 @@ entities:
       - stampTexture: null
         stampedColor: '#006600FF'
         stampedName: stamp-component-stamped-name-centcom
-      content: Приветствуем дорогой Офицер корпуса "Синего Щита". В связи с необычными условиями вашей работы на данной станции, было принято решение оснастить вас дополнительным снаряжением в виде пустотного джетпака. Удачной работы! Слава NanoTrasen!
+      content: Приветствуем дорогой Офицер корпуса "Синего Щита". В связи с необычными условиями вашей работы на данной станции, было принято решение оснастить вас дополнительным снаряжением в виде пустотного джетпака. Удачной работы! Слава Nanotrasen!
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage

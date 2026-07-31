@@ -51,6 +51,7 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
   - MegaSprayBottle
+  - WireBrushElectrical # Kofeecheks Electrical Wire Brush: LicenseRef-Kofeecheks
   - BagOfSummoningGarbage # DS14
 
 - type: latheRecipePack

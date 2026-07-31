@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 
 using Robust.Shared.GameStates;
 namespace Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;

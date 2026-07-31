@@ -42,6 +42,7 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
+      - id: ERTloadoutBlueShieldPrimary
       - id: ADTtelescopicBaton
       - id: TelescopicShield
       - id: MedkitCombatFilled

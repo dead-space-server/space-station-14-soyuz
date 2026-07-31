@@ -1,0 +1,9 @@
+ent-BlueInsulatingTape = blue insulating tape
+    .desc = Insulating tape soaked with repair nanobots. Useful for patching windows, synthetics, and robots in the field.
+ent-BlueInsulatingTape1 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+ent-BlueInsulatingTape3 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+ent-BlueInsulatingTape5 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+blue-insulating-tape-stack = blue insulating tape

@@ -24018,7 +24018,7 @@ entities:
       parent: 2
     - type: WarpPoint
       location: бриг
-- proto: DefaultStationBeaconReporter
+- proto: DefaultStationBeaconChapel
   entities:
   - uid: 2498
     components:
@@ -24026,7 +24026,7 @@ entities:
       pos: -22.5,-7.5
       parent: 2
     - type: WarpPoint
-      location: репортёр
+      location: церковь
 - proto: DefaultStationBeaconCryosleep
   entities:
   - uid: 2499

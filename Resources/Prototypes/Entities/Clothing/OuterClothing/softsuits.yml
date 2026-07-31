@@ -130,6 +130,10 @@
     walkModifier: 0.85
     sprintModifier: 0.85
   - type: HeldSpeedModifier
+  - type: PhysicalComposition
+    materialComposition: #DS14
+      Steel: 25
+      Glass: 25 #DS14
 
 #Paramedic Voidsuit
 - type: entity

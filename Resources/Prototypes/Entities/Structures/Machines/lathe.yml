@@ -431,6 +431,7 @@
     - ArmedTechFabCircuitboard
     - ProcessingTungsten
     - SecurityPoliceBeta
+    - ImplantsPack
 # DS14-Soyuz-end
   - type: EmagLatheRecipes
     emagStaticPacks:

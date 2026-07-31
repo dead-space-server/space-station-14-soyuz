@@ -42,7 +42,7 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
-      - id: ERTloadoutBlueShieldPrimary
+      # - id: ERTloadoutBlueShieldPrimary # DS14-Soyuz disabled
       - id: ADTtelescopicBaton
       - id: TelescopicShield
       - id: MedkitCombatFilled

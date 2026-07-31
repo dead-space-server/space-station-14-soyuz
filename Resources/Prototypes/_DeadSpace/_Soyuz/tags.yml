@@ -34,9 +34,6 @@
 # D
 - type: Tag
   id: DrinkCup
-  
-- type: Tag
-  id: DrinkGlass
 
 # E
 - type: Tag

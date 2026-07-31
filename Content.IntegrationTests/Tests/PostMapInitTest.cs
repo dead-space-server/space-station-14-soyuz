@@ -57,7 +57,7 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist // Replaced to DS14-Soyuz directory
+            // DS14-start: Add our custom maps to whitelist // Some maps replaced to /_Soyuz/ directory for DS14-Soyuz 
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
             {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
@@ -131,7 +131,7 @@ namespace Content.IntegrationTests.Tests
             "Omega",
             "Origin",
             "Packed",
-            // "Plasma", // map load failure
+            "Plasma",
             "Reach",
             "Ishimura",
             "Saltern",

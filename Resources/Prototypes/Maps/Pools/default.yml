@@ -4,7 +4,7 @@
   - Amber
   - Aspid
   - Bagel
-  - Barratry
+  # - Barratry # DS14-Soyuz disabled
   - Box
   # - Cluster # broken map, needs resave
   - Cog
@@ -20,7 +20,7 @@
   - CorvaxSpectrum
   - CorvaxGlacier
   - CorvaxPearl
-  - Elkridge
+  # - Elkridge # DS14-Soyuz disabled
   - Fland
   - Gate
   - Ishimura

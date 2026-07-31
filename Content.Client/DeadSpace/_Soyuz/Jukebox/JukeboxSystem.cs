@@ -27,8 +27,6 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     // update the local audio stream before replicated component state arrives.
     private readonly Dictionary<EntityUid, float> _volumeOverrides = new();
     private const float VolumeOverrideSyncTolerance = 0.01f;
-    private float _jukeboxAutoVolume; // DS14
-    private const float MinimalVolume = -14f; // DS14
     // DS-14 End
 
     public override void Initialize()
@@ -41,12 +39,6 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown); // DS-14
 
         _protoManager.PrototypesReloaded += OnProtoReload;
-        Subs.CVar(_cfg, CCCCVars.JukeboxAutoVolume, SetJukeboxAutoVolume, true); // DS14
-    }
-
-    private void SetJukeboxAutoVolume(float volume) // DS14
-    {
-        _jukeboxAutoVolume = volume;
     }
 
     public override void Shutdown()
@@ -65,18 +57,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
         while (query.MoveNext(out var uid, out var component))
         {
-            float finalVolume;
-
-            if (_jukeboxAutoVolume > 0f)
-            {
-                finalVolume = MinimalVolume + _jukeboxAutoVolume;
-            }
-            else
-            {
-                finalVolume = GetEffectiveVolume(uid, component);
-            }
-
-            ApplyClientVolume(component.AudioStream, finalVolume);
+            ApplyClientVolume(component.AudioStream, GetEffectiveVolume(uid, component));
         }
     }
     // DS-14 End

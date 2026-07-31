@@ -7,6 +7,11 @@
   - type: UseDelay
     delay: 10.0
   - type: Bible
+    # Kofeecheks QoL: LicenseRef-Kofeecheks
+    reviveDeadChance: 0.05
+    reviveDeadDamageFraction: 0.1
+    restoreBloodOnRevive: true
+    reviveDeadOncePerBody: true
     damage:
       types:
         Blunt: -5

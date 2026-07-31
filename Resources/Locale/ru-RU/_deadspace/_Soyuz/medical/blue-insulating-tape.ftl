@@ -1,0 +1,9 @@
+ent-BlueInsulatingTape = синяя изолента
+    .desc = Изолента, пропитанная ремонтными наноботами. Позволяет подлатать окна, синтетиков и роботов в полевых условиях.
+ent-BlueInsulatingTape1 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+ent-BlueInsulatingTape3 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+ent-BlueInsulatingTape5 = { ent-BlueInsulatingTape }
+    .desc = { ent-BlueInsulatingTape.desc }
+blue-insulating-tape-stack = синяя изолента

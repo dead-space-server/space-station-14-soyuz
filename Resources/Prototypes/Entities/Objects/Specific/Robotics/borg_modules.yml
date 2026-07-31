@@ -849,6 +849,13 @@
     - item: WireBrush
     - item: BorgBucket
     - item: BorgSprayBottle
+    - item: CleanerGrenade # Kofeecheks QoL: LicenseRef-Kofeecheks
+      hand:
+        emptyLabel: borg-slot-cleanade-empty
+        emptyRepresentative: CleanerGrenade
+        whitelist:
+          tags:
+          - CleanerGrenade
     - item: HoloprojectorBorg
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: cleaning-module }
@@ -868,6 +875,13 @@
     - item: AdvMopItem
     - item: WireBrushElectrical
     - item: BorgMegaSprayBottle
+    - item: CleanerGrenade # Kofeecheks QoL: LicenseRef-Kofeecheks
+      hand:
+        emptyLabel: borg-slot-cleanade-empty
+        emptyRepresentative: CleanerGrenade
+        whitelist:
+          tags:
+          - CleanerGrenade
     - item: HoloprojectorBorg
     - item: BorgDropper
     - item: BagOfSummoningGarbage # DS14

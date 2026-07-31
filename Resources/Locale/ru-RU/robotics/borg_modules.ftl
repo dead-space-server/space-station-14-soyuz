@@ -8,6 +8,8 @@ borg-slot-small-containers-empty = Маленькие ёмкости
 borg-slot-chemical-containers-empty = Химические ёмкости
 borg-slot-documents-empty = Книги и бумаги
 borg-slot-soap-empty = Мыло
+# Kofeecheks QoL: LicenseRef-Kofeecheks
+borg-slot-cleanade-empty = Чистящая граната
 borg-slot-instruments-empty = Музыкальные инструменты
 borg-slot-beakers-empty = Мензурки
 borg-slot-inflatable-door-empty = Надувная дверь

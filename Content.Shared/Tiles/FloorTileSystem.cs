@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace._Soyuz.Construction;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
@@ -14,7 +15,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -28,7 +28,6 @@ public sealed class FloorTileSystem : EntitySystem
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedStackSystem _stackSystem = default!;
@@ -37,13 +36,9 @@ public sealed class FloorTileSystem : EntitySystem
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly TileCenterCollisionSystem _tileCenterCollision = default!; // DS14-Soyuz
 
     private static readonly Vector2 CheckRange = new(1f, 1f);
-
-    /// <summary>
-    ///     A recycled hashset used to check for walls when trying to place tiles on turfs.
-    /// </summary>
-    private readonly HashSet<EntityUid> _turfCheck = [];
 
     public override void Initialize()
     {
@@ -68,7 +63,6 @@ public sealed class FloorTileSystem : EntitySystem
         if (locationMap.MapId == MapId.Nullspace)
             return;
 
-        var physicQuery = GetEntityQuery<PhysicsComponent>();
         var transformQuery = GetEntityQuery<TransformComponent>();
 
         var map = _transform.ToMapCoordinates(location);
@@ -111,17 +105,14 @@ public sealed class FloorTileSystem : EntitySystem
         // otherwise check it isn't blocked by a wall
         if (!canAccessCenter && _turf.TryGetTileRef(location, out var tileRef))
         {
-            _turfCheck.Clear();
-            _lookup.GetEntitiesInTile(tileRef.Value, _turfCheck);
-            foreach (var ent in _turfCheck)
+            // DS-14 Soyuz
+            if (TryComp<MapGridComponent>(tileRef.Value.GridUid, out var tileGrid) &&
+                _tileCenterCollision.IsBlocked(
+                    (tileRef.Value.GridUid, tileGrid),
+                    tileRef.Value.GridIndices,
+                    collisionMask: (int) CollisionGroup.Impassable))
             {
-                if (physicQuery.TryGetComponent(ent, out var phys) &&
-                    phys.BodyType == BodyType.Static &&
-                    phys.Hard &&
-                    (phys.CollisionLayer & (int)CollisionGroup.Impassable) != 0)
-                {
-                    return;
-                }
+                return;
             }
         }
         TryComp<MapGridComponent>(location.EntityId, out var mapGrid);

@@ -1,7 +1,9 @@
+using Content.Client.DeadSpace._Soyuz.Overlays;
 using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.Player; // DS14-Soyuz
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -14,6 +16,7 @@ public sealed class StatusIconOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
 
     [Dependency] private readonly IEntityManager _entity = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14-Soyuz
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
@@ -36,6 +39,10 @@ public sealed class StatusIconOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        // DS-14 Soyuz
+        if (!SoyuzOverlayViewport.IsPrimary(args, _entity, _playerManager))
+            return;
+
         var handle = args.WorldHandle;
 
         var eyeRot = args.Viewport.Eye?.Rotation ?? default;

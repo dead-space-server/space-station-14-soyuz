@@ -10,7 +10,7 @@
     - id: NitrogenTankFilled # DS14
     - id: CigPackGreen
       prob: 0.50
-    - id: ClothingOuterHardsuitQM # DS14
+    # - id: ClothingOuterHardsuitQM # DS14 # DS14-Soyuz disabled
     - id: ClothingHeadsetAltCargo
     - id: DoorRemoteCargo
     - id: AstroNavCartridge

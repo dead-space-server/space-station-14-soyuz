@@ -97,7 +97,7 @@ namespace Content.Shared.Maps
         [DataField("heatCapacity")] public float HeatCapacity = Atmospherics.MinimumHeatCapacity;
 
         [DataField("itemDrop", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
-        public string ItemDropPrototypeName { get; private set; } = "FloorTileItemSteel";
+        public string? ItemDropPrototypeName { get; private set; } //CrystallEdge nullable
 
         // TODO rename data-field in yaml
         /// <summary>
@@ -132,11 +132,17 @@ namespace Content.Shared.Maps
         /// <summary>
         ///     Hide this tile in the tile placement editor.
         /// </summary>
-        [DataField] public bool EditorHidden { get; private set; } = false;
+        [DataField] public bool EditorHidden { get; private set; } = true; //CrystallEdge: defaults to true for vanilla tile filtering; CE's own tiles opt back in with editorHidden: false
 
         public void AssignTileId(ushort id)
         {
             TileId = id;
         }
+
+        /// <summary>
+        /// CrystallEdge: used for lightning calculation through zlevels
+        /// </summary>
+        [DataField]
+        public bool Transparent = false;
     }
 }

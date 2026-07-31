@@ -147,6 +147,9 @@
     successChance: 1
     interactSuccessString: hugging-success-generic
     interactSuccessSound: /Audio/Effects/thudswoosh.ogg
+  # CrystallEdge/DS14-Soyuz
+  - type: CEShowVampireIcons
+  - type: CETradingReputation
 
 - type: entity
   abstract: true

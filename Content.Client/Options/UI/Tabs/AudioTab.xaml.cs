@@ -106,10 +106,10 @@ public sealed partial class AudioTab : Control
             SliderVolumeJukeboxMusic,
             scale: ContentAudioSystem.JukeboxMusicMultiplier);
 
-        Control.AddOptionPercentSlider(
-            CCCCVars.JukeboxAutoVolume,
-            SliderVolumeJukeboxAuto,
-            scale: ContentAudioSystem.JukeboxAutoMultiplier);
+        // Control.AddOptionPercentSlider( // DS14-Soyuz disabled
+        //    CCCCVars.JukeboxAutoVolume,
+        //    SliderVolumeJukeboxAuto,
+        //    scale: ContentAudioSystem.JukeboxAutoMultiplier);
         // DS14-End
 
         Control.AddOptionCheckBox(CCVars.LobbyMusicEnabled, LobbyMusicCheckBox);

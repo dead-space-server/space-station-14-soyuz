@@ -50,6 +50,9 @@
   id: DrinkBeerBottleFull
 
 - type: Tag
+  id: DrinkGlass
+
+- type: Tag
   id: CantChangeScale
 
 - type: Tag
@@ -92,6 +95,9 @@
   id: DeathNettle
 
 - type: Tag
+  id: DebugUplink
+
+- type: Tag
   id: DockCentcommERT
 
 - type: Tag
@@ -126,6 +132,9 @@
 
 - type: Tag
   id: Demon
+
+- type: Tag
+  id: Durf
 
 - type: Tag
   id: EnergyCartridge
@@ -185,6 +194,12 @@
   id: GrenadeCleanade
 
 - type: Tag
+  id: RockGuitarInstrument
+
+- type: Tag
+  id: RPG70
+
+- type: Tag
   id: HardHat
 
 - type: Tag
@@ -233,6 +248,9 @@
   id: LoneOpsUplink
 
 - type: Tag
+  id: NukeOpsCommanderUplink
+
+- type: Tag
   id: MagazineCarbineSKS
 
 - type: Tag
@@ -267,6 +285,9 @@
 
 - type: Tag
   id: MantisBlades
+
+- type: Tag
+  id: Monowire
 
 - type: Tag
   id: MeatAnomalyCooked
@@ -312,6 +333,9 @@
 
 - type: Tag
   id: Plasteel
+
+- type: Tag
+  id: PolaroidCartridge
 
 - type: Tag
   id: Radiance

@@ -1,0 +1,310 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+# Construction tags
+- type: Tag
+  id: Pear
+
+- type: Tag
+  id: PieTin
+
+# Flavors and reagents
+- type: flavor
+  id: pear
+  flavorType: Complex
+  description: flavor-complex-pear
+
+- type: flavor
+  id: pearonade
+  flavorType: Complex
+  description: flavor-complex-pearonade
+
+- type: reagent
+  id: JuicePear
+  parent: BaseJuice
+  name: reagent-name-juice-pear
+  desc: reagent-desc-juice-pear
+  physicalDesc: reagent-physical-desc-sweet
+  flavor: pear
+  color: "#f2d36b"
+  recognizable: true
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Pears/pearjuice.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 6
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+
+- type: reagent
+  id: Pearonade
+  parent: BaseJuice
+  name: reagent-name-pearonade
+  group: Drinks
+  desc: reagent-desc-pearonade
+  physicalDesc: reagent-physical-desc-sweet
+  flavor: pearonade
+  color: "#e39a3a"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Pears/pearonade.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 6
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+
+- type: reaction
+  id: Pearonade
+  requiredMixerCategories:
+  - Stir
+  reactants:
+    JuicePear:
+      amount: 1
+    Sugar:
+      amount: 1
+    Water:
+      amount: 1
+  products:
+    Pearonade: 3
+
+# Hydroponics
+- type: seed
+  id: pear
+  name: seeds-pear-name
+  noun: seeds-noun-seeds
+  displayName: seeds-pear-display-name
+  plantRsi: _DeadSpace/_Soyuz/Pears/pear.rsi
+  packetPrototype: PearSeeds
+  productPrototypes:
+  - FoodPear
+  harvestRepeat: Repeat
+  lifespan: 55
+  maturation: 6
+  production: 6
+  yield: 3
+  potency: 10
+  idealLight: 6
+  chemicals:
+    Nutriment:
+      Min: 1
+      Max: 10
+      PotencyDivisor: 10
+    Vitamin:
+      Min: 1
+      Max: 4
+      PotencyDivisor: 25
+
+- type: entity
+  parent: SeedBase
+  id: PearSeeds
+  name: packet of pear seeds
+  components:
+  - type: Seed
+    seedId: pear
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodPear
+  name: pear
+  description: A sweet, fragrant cousin of the apple.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - pear
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 4
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    seedId: pear
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: JuicePear
+        Quantity: 10
+  - type: Tag
+    tags:
+    - Fruit
+    - Pear
+  - type: FoodSequenceElement
+    entries:
+      Burger: Pear
+      Taco: Pear
+
+- type: foodSequenceElement
+  id: Pear
+  name: food-sequence-content-pear
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+    state: produce
+  tags:
+  - Fruit
+
+# Drinks
+- type: entity
+  parent: DrinkGlass
+  id: DrinkPearJuice
+  suffix: pear juice
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: JuicePear
+          Quantity: 30
+  - type: Icon
+    sprite: _DeadSpace/_Soyuz/Pears/pearjuice.rsi
+    state: icon
+
+- type: entity
+  parent: DrinkGlass
+  id: DrinkPearonade
+  suffix: pearonade
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Pearonade
+          Quantity: 30
+  - type: Icon
+    sprite: _DeadSpace/_Soyuz/Pears/pearonade.rsi
+    state: icon
+
+- type: entity
+  parent: DrinkCartonSmallBaseFull
+  id: DrinkJuicePearCarton
+  name: pear juice
+  description: A carton of fragrant pear juice.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: JuicePear
+          Quantity: 50
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/pearcarton.rsi
+
+- type: entity
+  parent: DrinkCartonBaseXtraLargeFull
+  id: DrinkJuicePearCartonXL
+  name: pear juice XL
+  description: A large carton of fragrant pear juice.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 150
+        reagents:
+        - ReagentId: JuicePear
+          Quantity: 150
+  - type: Label
+    currentLabel: reagent-name-juice-pear
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/pearcarton.rsi
+
+# Food and cooking
+- type: entity
+  parent: FoodPieBase
+  id: FoodTartPear
+  name: pear tart
+  description: A fragrant tart filled with sweet pears.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - sweet
+    - pear
+    - bread
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/peartart.rsi
+    state: pear
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 30
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 15
+        - ReagentId: Vitamin
+          Quantity: 5
+        - ReagentId: Sugar
+          Quantity: 5
+  - type: Tag
+    tags:
+    - Fruit
+    - Pie
+  - type: Construction
+    graph: PearTart
+    node: cooked
+
+- type: entity
+  parent: FoodDoughPie
+  id: FoodTartPearRaw
+  name: raw pear tart
+  description: Pie dough filled with pears, ready to be baked.
+  components:
+  - type: Construction
+    graph: PearTart
+    node: raw
+
+- type: constructionGraph
+  id: PearTart
+  start: start
+  graph:
+  - node: start
+    entity: FoodDoughPie
+    edges:
+    - to: raw
+      steps:
+      - tag: Pear
+        name: construction-graph-tag-pear
+        icon:
+          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+          state: produce
+        doAfter: 1
+      - tag: Pear
+        name: construction-graph-tag-pear
+        icon:
+          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+          state: produce
+        doAfter: 1
+      - tag: Pear
+        name: construction-graph-tag-pear
+        icon:
+          sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+          state: produce
+        doAfter: 1
+      - tag: PieTin
+        name: construction-graph-tag-pie-tin
+        icon:
+          sprite: Objects/Consumable/Food/plates.rsi
+          state: tin
+        doAfter: 1
+  - node: raw
+    entity: FoodTartPearRaw
+    edges:
+    - to: cooked
+      completed:
+      - !type:PlaySound
+        sound: /Audio/Effects/sizzle.ogg
+      steps:
+      - minTemperature: 375
+  - node: cooked
+    entity: FoodTartPear

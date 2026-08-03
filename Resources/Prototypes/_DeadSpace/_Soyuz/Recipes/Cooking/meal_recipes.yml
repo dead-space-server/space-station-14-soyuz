@@ -1,0 +1,33 @@
+- type: microwaveMealRecipe
+  id: RecipeNutsWithCondensedMilk
+  name: oreshki recipe
+  result: FoodNutsWithCondensedMilk
+  time: 10
+  group: Other
+  reagents:
+    BoiledCondensedMilk: 5
+  solids:
+    FoodDoughSlice: 2
+    FoodBowlBig: 1
+
+- type: microwaveMealRecipe
+  id: RecipeNaraku
+  name: naraku recipe
+  result: FoodSoupNaraku
+  time: 10
+  group: Soup
+  reagents:
+    Water: 10
+    EggCooked: 6
+  solids:
+    FoodFlyAmanita: 1
+    FoodBowlBig: 1
+
+- type: microwaveMealRecipe
+  id: RecipeBraidedCheese
+  name: braided cheese recipe
+  result: FoodBraidedCheese
+  time: 5
+  group: Savory
+  solids:
+    FoodCheeseSlice: 1

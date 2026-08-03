@@ -305,7 +305,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 Loc.GetString("ert-console-request-rejected-announcement"),
                 sender: Loc.GetString("ert-response-cso-sender"),
                 announcementSound: DecisionSound,
-                colorOverride: Color.FromHex("#B64444"),
+                colorOverride: Color.FromHex("#B64444"), // DS14-Soyuz value
                 playSound: true,
                 usePresetTTS: true,
                 languageId: LanguageSystem.DefaultLanguageId);
@@ -604,7 +604,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 _chatSystem.DispatchGlobalAnnouncement(
                     message: prototype.CancelMessage,
                     sender: Loc.GetString("chat-manager-sender-announcement"),
-                    colorOverride: Color.FromHex("#B64444"),
+                    colorOverride: Color.FromHex("#B64444"), // DS14-Soyuz value
                     playSound: true,
                     usePresetTTS: true,
                     languageId: LanguageSystem.DefaultLanguageId);
@@ -756,7 +756,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
                 sender: string.IsNullOrEmpty(prototype.Sender)
                     ? Loc.GetString("chat-manager-sender-announcement")
                     : Loc.GetString(prototype.Sender),
-                colorOverride: Color.FromHex("#B64444"),
+                colorOverride: Color.FromHex("#B64444"), // DS14-Soyuz value
                 announcementSound: prototype.StartAudio,
                 playSound: true,
                 usePresetTTS: true,
@@ -934,7 +934,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
             sender: string.IsNullOrEmpty(prototype.Sender)
                 ? Loc.GetString("chat-manager-sender-announcement")
                 : Loc.GetString(prototype.Sender),
-            colorOverride: prototype.ApprovalColor ?? Color.FromHex("#B64444"),
+            colorOverride: prototype.ApprovalColor ?? Color.FromHex("#B64444"), // DS14-Soyuz value
             announcementSound: prototype.ApprovalAudio ?? DecisionSound,
             playSound: true,
             usePresetTTS: true,
@@ -946,7 +946,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
         _chatSystem.DispatchGlobalAnnouncement(
             message: Loc.GetString("ert-response-team-changed-announcement", ("team", FormatTeamNameForAnnouncement(prototype))),
             sender: Loc.GetString("ert-response-cso-sender"),
-            colorOverride: Color.FromHex("#B64444"),
+            colorOverride: Color.FromHex("#B64444"), // DS14-Soyuz value
             announcementSound: TeamChangedSound,
             playSound: true,
             usePresetTTS: true,
@@ -968,7 +968,7 @@ public sealed class ErtResponseSystem : SharedErtResponseSystem
         _chatSystem.DispatchGlobalAnnouncement(
             message: Loc.GetString("ert-console-request-submitted-announcement"),
             sender: Loc.GetString("ert-response-cso-sender"),
-            colorOverride: Color.FromHex("#B64444"),
+            colorOverride: Color.FromHex("#B64444"), // DS14-Soyuz value
             announcementSound: RequestSound,
             playSound: true,
             usePresetTTS: true,

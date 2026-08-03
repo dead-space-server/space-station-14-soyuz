@@ -42,10 +42,9 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
+      # - id: ERTloadoutBlueShieldPrimary # DS14-Soyuz disabled
       - id: ADTtelescopicBaton
       - id: TelescopicShield
-      - id: MagazinePistolSubMachineGun
-        amount: 3
       - id: MedkitCombatFilled
         amount: 2 
       - id: HandheldCrewMonitor
@@ -83,12 +82,12 @@
     head: ClothingHeadHatBeretBlueShield
     jumpsuit: ClothingUniformJumpsuitBlueShield
     # back: ClothingBackpackBlueShieldCentComFilled
-    mask: ClothingMaskGasSecurity
-    eyes: ClothingEyesGlassesSecurity
+    mask: ClothingMaskGasBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
     ears: ClothingHeadsetAltCentCom
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesBlueShield
     outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
-    shoes: ClothingShoesBootsJackFilled
+    shoes: ClothingShoesBootsBlueShield
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
     pocket2: WeaponDisabler

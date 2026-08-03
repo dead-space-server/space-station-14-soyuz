@@ -208,7 +208,6 @@
                                                    MinSize="0 30"
                                                    VerticalExpand="True"
                                                    HorizontalExpand="True"
-                                                   Margin="3 3 3 3"
                                                    HorizontalAlignment="Stretch"/>
 
                             <!-- DS14-Soyuz-Start -->

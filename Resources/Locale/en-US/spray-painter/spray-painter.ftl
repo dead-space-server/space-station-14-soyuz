@@ -185,9 +185,20 @@ spray-painter-style-cratesecure-weapon = Weapon
 # Canisters
 spray-painter-style-canisters-air = Air
 spray-painter-style-canisters-ammonia = Ammonia
+# Kofeecheks canister painter styles: LicenseRef-Kofeecheks
+spray-painter-style-canisters-brizidium = Brizidium
 spray-painter-style-canisters-carbon-dioxide = Carbon dioxide
 spray-painter-style-canisters-frezon = Frezon
+spray-painter-style-canisters-fixirium = Fixirium
+spray-painter-style-canisters-hilium = Hilium
+spray-painter-style-canisters-hydrogen = Hydrogen
+spray-painter-style-canisters-iprit = Iprit
+spray-painter-style-canisters-liquid-carbon-dioxide = Liquid carbon dioxide
+spray-painter-style-canisters-liquid-nitrogen = Liquid nitrogen
+spray-painter-style-canisters-liquid-oxygen = Liquid oxygen
 spray-painter-style-canisters-nitrogen = Nitrogen
+spray-painter-style-canisters-nitriatium = Nitriatium
+spray-painter-style-canisters-nitryl = Nitrogen dioxide
 spray-painter-style-canisters-nitrous-oxide = Nitrous oxide
 spray-painter-style-canisters-oxygen = Oxygen
 spray-painter-style-canisters-plasma = Plasma

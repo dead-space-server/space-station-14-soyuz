@@ -92,9 +92,6 @@ public sealed class BatteryDrainerSystem : SharedBatteryDrainerSystem
         }
 
         var required = battery.MaxCharge - _battery.GetCharge((comp.BatteryUid.Value, battery));
-        // DS14-Soyuz: avoid invalid configuration (prevents divide-by-zero).
-        if (comp.DrainEfficiency <= 0f)
-            return false;
         // higher tier storages can charge more
         // DS14-start: optionally cap drain rate (J/s) regardless of the target max supply.
         var maxSupply = pnb.MaxSupply;

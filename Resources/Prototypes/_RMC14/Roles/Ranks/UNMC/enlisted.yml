@@ -1,0 +1,65 @@
+- type: rank
+  id: RMCRankSergeantMajor
+  name: Сержант-майор
+  prefix: СержМай.
+  paygrade: E9E
+
+- type: rank
+  id: RMCRankMasterGunnerySergeant
+  name: Старший оружейный сержант
+  prefix: СтаршОружСерж.
+  paygrade: E9
+
+- type: rank
+  id: RMCRankFirstSergeant
+  name: Первый Сержант
+  prefix: 1Серж.
+  paygrade: E8E
+
+- type: rank
+  id: RMCRankMasterSergeant
+  name: Мастер Сержант
+  prefix: МСерж.
+  paygrade: E8
+
+- type: rank
+  id: RMCRankGunnerySergeant
+  name: Оружейный Сержант
+  prefix: ОружСерж.
+  paygrade: E7
+
+- type: rank
+  id: RMCRankStaffSergeant
+  name: Старший Сержант
+  prefix: СтаршСерж.
+  paygrade: E6
+
+- type: rank
+  id: RMCRankSergeant
+  name: Сержант
+  prefix: Серж.
+  paygrade: E5
+
+- type: rank
+  id: RMCRankCorporal
+  name: Капрал
+  prefix: Кап.
+  paygrade: E4
+
+- type: rank
+  id: RMCRankLanceCorporal
+  name: Младший Капрал
+  prefix: МлаКап.
+  paygrade: E3
+
+- type: rank
+  id: RMCRankPrivateFirstClass
+  name: Рядовой Первого Класса
+  prefix: РПК.
+  paygrade: E2
+
+- type: rank
+  id: RMCRankPrivate
+  name: Рядовой
+  prefix: Ряд.
+  paygrade: E1

@@ -329,6 +329,7 @@
     preinstalled:
     - NotekeeperCartridge
     - NanoTaskCartridge
+    - TaipanMessengerCartridge
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -441,6 +442,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - MedTekCartridge
+      - TaipanMessengerCartridge
 
 - type: entity
   parent: BaseTaipanPDA
@@ -463,6 +465,7 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - MedTekCartridge
+      - TaipanMessengerCartridge
 
 - type: entity
   parent: BaseTaipanPDA
@@ -549,3 +552,4 @@
       - NotekeeperCartridge
       - NanoTaskCartridge
       - AstroNavCartridge
+      - TaipanMessengerCartridge

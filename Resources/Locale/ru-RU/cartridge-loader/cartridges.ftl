@@ -22,6 +22,7 @@ log-probe-printout-header = Последние логи:
 log-probe-printout-entry = #{ $number } / { $time } / { $accessor }
 astro-nav-program-name = АстроНав
 med-tek-program-name = МедТек
+snake-cartridge-program-name = Змейка
 
 # NanoTask cartridge
 
@@ -94,6 +95,7 @@ wanted-list-history-table-reason-col = Преступление
 wanted-list-history-table-initiator-col = Инициатор
 
 messenger-cartridge-program-name = NanoChat
+messenger-cartridge-taipan-program-name = SyndiChat
 messenger-status-connecting = Подключение...
 messenger-status-connection-lost = Ошибка!
 messenger-search-placeholder = Поиск по имени или должности
@@ -104,3 +106,8 @@ messenger-select-user = Выберите пользователя
 messenger-back = Назад
 messenger-notification-message = {$sender} отправил сообщение!
 messenger-typing-popup = Печатает...
+messenger-blocked = ЗАБЛОКИРОВАН
+messenger-block = Блок
+messenger-unblock = Разблок
+messenger-disable-chat = Отключить чат
+messenger-enable-chat = Включить чат

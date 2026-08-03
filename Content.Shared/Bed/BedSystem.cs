@@ -4,7 +4,6 @@ using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Events;
 using Content.Shared.Body.Systems;
 using Content.Shared.Buckle.Components;
-using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Mobs.Systems;
@@ -28,12 +27,13 @@ public sealed class BedSystem : EntitySystem
     [Dependency] private readonly SharedMetabolizerSystem _metabolizer = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly SleepingSystem _sleepingSystem = default!;
+// DS14-Soyuz start
 //#if SERVER
     [Dependency] private readonly TagSystem _tagSystem = default!;
     private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing";
 //#endif
+// DS14-Soyuz end
     private EntityQuery<SleepingComponent> _sleepingQuery;
-
     public override void Initialize()
     {
         base.Initialize();
@@ -61,7 +61,7 @@ public sealed class BedSystem : EntitySystem
     {
         EnsureComp<HealOnBuckleHealingComponent>(bed);
         bed.Comp.NextHealTime = _timing.CurTime + TimeSpan.FromSeconds(bed.Comp.HealTime);
-        _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId);
+        _actionsSystem.AddAction(args.Buckle, ref bed.Comp.SleepAction, SleepingSystem.SleepActionId, bed);
         Dirty(bed);
 
         // Single action entity, cannot strap multiple entities to the same bed.

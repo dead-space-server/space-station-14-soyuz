@@ -244,10 +244,10 @@ public abstract class SharedSprayPainterSystem : EntitySystem
         if (!TryComp<SprayPainterComponent>(args.Used, out var painter))
             return;
 
-        if (ent.Comp.Group is not { } group
-            || !painter.StylesByGroup.TryGetValue(group, out var selectedStyle)
-            || !Proto.Resolve(group, out PaintableGroupPrototype? targetGroup))
+        // DS14-start
+        if (!TryGetPaintableGroup(ent.Comp, painter, out var group, out var selectedStyle, out var targetGroup))
             return;
+        // DS14-end
 
         // DS14-start
         if (!painter.StylesByGroup.ContainsKey(group))
@@ -293,6 +293,46 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             LogImpact.Low,
             $"{ToPrettyString(args.User):user} is painting {ToPrettyString(ent):target} to '{selectedStyle}' at {Transform(ent).Coordinates:targetlocation}");
     }
+
+    // DS14-start
+    /// <summary>
+    /// Selects the target's primary paint group, falling back to compatible groups supported by the painter.
+    /// </summary>
+    public bool TryGetPaintableGroup(
+        PaintableComponent paintable,
+        SprayPainterComponent painter,
+        out ProtoId<PaintableGroupPrototype> group,
+        out string selectedStyle,
+        out PaintableGroupPrototype targetGroup)
+    {
+        if (paintable.Group is { } primaryGroup
+            && painter.StylesByGroup.TryGetValue(primaryGroup, out var primaryStyle)
+            && Proto.TryIndex(primaryGroup, out var primaryPrototype))
+        {
+            group = primaryGroup;
+            selectedStyle = primaryStyle;
+            targetGroup = primaryPrototype;
+            return true;
+        }
+
+        foreach (var compatibleGroup in paintable.CompatibleGroups)
+        {
+            if (!painter.StylesByGroup.TryGetValue(compatibleGroup, out var compatibleStyle)
+                || !Proto.TryIndex(compatibleGroup, out var compatiblePrototype))
+                continue;
+
+            group = compatibleGroup;
+            selectedStyle = compatibleStyle;
+            targetGroup = compatiblePrototype;
+            return true;
+        }
+
+        group = default;
+        selectedStyle = string.Empty;
+        targetGroup = default!;
+        return false;
+    }
+    // DS14-end
 
     /// <summary>
     /// Prints out if an object has been painted recently.

@@ -25,15 +25,15 @@
         {
             "name": "mag-4"
         },
-        {
-            "name": "incendiary"
-        },
-        {
-            "name": "practice"
-        },
-        {
-            "name": "uranium"
-        },
+    {
+      "name": "incendiary"
+    },
+    {
+      "name": "practice"
+    },
+    {
+      "name": "uranium"
+    },
         {
             "name": "inhand-left-mag",
             "directions": 4

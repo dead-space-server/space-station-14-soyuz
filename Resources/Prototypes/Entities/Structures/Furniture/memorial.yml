@@ -44,6 +44,7 @@
       drawdepth: Mobs
       noRot: true
       offset: "0.0,0.8"
+    - type: Prayable #DS14-Soyuz
 
 - type: entity
   parent: Memorial

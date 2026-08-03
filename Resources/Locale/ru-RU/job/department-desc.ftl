@@ -11,4 +11,3 @@ department-Specific-description = Должности, которые есть н
 department-Law-description = Занимайтесь аудитом станции.
 department-Taipan-description = Наблюдайте, соблюдайте секретность и исследуйте, а после создавайте опасные штуки.
 department-SpecialOperationsCorps-description = Обеспечьте правильное исполнение приказов командования КСО и защитите активы корпорации.
-department-NKVB-description = Мрачный Нарком по контролю и слежке за всеми и каждым. И помните , в отличии от вас , НКВБ всегда в выигрыше.

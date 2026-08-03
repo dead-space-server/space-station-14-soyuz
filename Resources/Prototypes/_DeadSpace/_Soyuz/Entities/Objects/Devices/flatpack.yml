@@ -1,0 +1,9 @@
+- type: entity
+  parent: BaseFlatpack
+  id: LavalandMiningShopFlatpack
+  name: "упакованный продвинутый шахтёрмаг"
+  description: "Универсально-сборная упаковка, используемая для сборки продвинутого шахтёрмага."
+  components:
+  - type: Flatpack
+    entity: LavalandMiningShop
+

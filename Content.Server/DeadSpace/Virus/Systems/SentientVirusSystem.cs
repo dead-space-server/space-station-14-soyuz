@@ -152,7 +152,7 @@ public sealed class SentientVirusSystem : EntitySystem
         if (component.Data == null)
             return;
 
-        component.Data.MutationPoints += component.Data.RegenMutationPoints + _virusSystem.GetQuantityInfected(component.Data.StrainId) * ModifyPointsRegenPerInfected;
+        component.Data.MutationPoints += component.Data.RegenMutationPoints + _virusSystem.GetInfectedCount(component.Data.StrainId) * ModifyPointsRegenPerInfected;
     }
 
     private void OnButtonPressed(EntityUid uid, SentientVirusComponent component, EvolutionConsoleUiButtonPressedMessage args)
@@ -166,9 +166,23 @@ public sealed class SentientVirusSystem : EntitySystem
                         || component.Data == null)
                         return;
 
+                    if (!VirusSystem.CanAddSymptom(
+                            component.Data.ActiveSymptom,
+                            args.Symptom,
+                            proto,
+                            isTaipan: false))
+                        return;
+
                     var price = _virusSystem.GetSymptomPrice(component.Data, proto);
                     if (component.Data.MutationPoints < price)
                         return;
+
+                    if (proto.RequiredSymptom != null)
+                    {
+                        component.Data.ActiveSymptom.Remove(proto.RequiredSymptom.Value);
+                        var oldInstance = _virusSystem.CreateSymptomInstance(proto.RequiredSymptom.Value);
+                        oldInstance.ApplyDataEffect(component.Data, false);
+                    }
 
                     component.Data.MutationPoints -= price;
                     component.Data.ActiveSymptom.Add(args.Symptom);
@@ -379,7 +393,7 @@ public sealed class SentientVirusSystem : EntitySystem
 
         var data = console.Comp.Data;
         var infectivity = 0f;
-        var infectedCount = data != null ? _virusSystem.GetQuantityInfected(data.StrainId) : 0;
+        var infectedCount = data != null ? _virusSystem.GetInfectedCount(data.StrainId) : 0;
         var pointsPerSecond = data != null ? data.RegenMutationPoints + infectedCount * ModifyPointsRegenPerInfected : 0;
 
         if (data != null)
@@ -405,7 +419,8 @@ public sealed class SentientVirusSystem : EntitySystem
             infectivity,
             infectedCount,
             pointsPerSecond,
-            isSentientVirus: true
+            isSentientVirus: true,
+            isTaipan: false
         );
     }
 }

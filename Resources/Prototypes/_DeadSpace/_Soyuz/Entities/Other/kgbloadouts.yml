@@ -11,6 +11,12 @@
     possibleSets:
     - DrozdSetOKGB
     - SaigaSet
+    - ScarLBlueShieldSet
+    - MP5SDBlueShieldSet
+    - AresSWCBlueShieldSet
+    - CQCBlueShieldSet
+    - TruncheonsecBlueShieldSet
+    - PistolBlueShieldUpgradeKitSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface

@@ -1,4 +1,5 @@
 using Content.Shared.Database;
+using Content.Shared.DeadSpace._Soyuz.Construction;
 using Content.Shared.Fluids.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
@@ -14,6 +15,7 @@ namespace Content.Shared.Tools.Systems;
 public abstract partial class SharedToolSystem
 {
     [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly TileCenterCollisionSystem _tileCenterCollision = default!; // DS14-Soyuz
 
     public void InitializeTile()
     {
@@ -47,7 +49,11 @@ public abstract partial class SharedToolSystem
 
         var tileRef = _maps.GetTileRef(gridUid, grid, args.GridTile);
         var coords = _maps.ToCoordinates(tileRef, grid);
-        if (comp.RequiresUnobstructed && _turfs.IsTileBlocked(gridUid, tileRef.GridIndices, CollisionGroup.MobMask))
+        // DS-14 Soyuz
+        if (comp.RequiresUnobstructed && _tileCenterCollision.IsBlocked(
+                (gridUid, grid),
+                tileRef.GridIndices,
+                collisionMask: (int) CollisionGroup.Impassable))
             return;
 
         if (!TryDeconstructWithToolQualities(tileRef, tool.Qualities))
@@ -80,7 +86,11 @@ public abstract partial class SharedToolSystem
         if (string.IsNullOrWhiteSpace(tileDef.BaseTurf))
             return false;
 
-        if (comp.RequiresUnobstructed && _turfs.IsTileBlocked(gridUid, tileRef.GridIndices, CollisionGroup.MobMask))
+        // DS-14 Soyuz
+        if (comp.RequiresUnobstructed && _tileCenterCollision.IsBlocked(
+                (gridUid, mapGrid),
+                tileRef.GridIndices,
+                collisionMask: (int) CollisionGroup.Impassable))
             return false;
 
         var coordinates = _maps.GridTileToLocal(gridUid, mapGrid, tileRef.GridIndices);
@@ -102,4 +112,5 @@ public abstract partial class SharedToolSystem
         }
         return false;
     }
+
 }

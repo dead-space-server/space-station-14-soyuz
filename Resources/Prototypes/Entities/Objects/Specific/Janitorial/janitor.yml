@@ -56,6 +56,17 @@
     guides:
     - Janitorial
   - type: DnaSubstanceTrace
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/wood_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/wood_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/wood_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: MopItem
@@ -241,7 +252,19 @@
   - type: PhysicalComposition
     materialComposition:
       Wood: 100
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  #DS14-End
 
+# DS-14 Soyuz: WireBrushElectrical is defined in _DeadSpace/_Soyuz.
 - type: entity
   name: golden plunger
   id: GoldenPlunger
@@ -335,6 +358,17 @@
     - type: Fiber
       fiberColor: fibers-white
     - type: DnaSubstanceTrace
+    #DS14-Start
+    - type: EmitSoundOnPickup
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/glove_pickup.ogg
+    - type: EmitSoundOnDrop
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+    #DS14-End
 
 - type: entity
   parent: BaseItem
@@ -371,12 +405,14 @@
         Piercing: 3
     soundHit:
       path: "/Audio/Weapons/bladeslice.ogg"
-
-- type: entity
-  parent: WireBrush
-  id: WireBrushElectrical
-  name: electrical wire brush
-  description: A bristly steel wire brush with a moving head, allowing for a way easier time cleaning.
-  components:
-  - type: Tool
-    speedModifier: 1.5
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  #DS14-End

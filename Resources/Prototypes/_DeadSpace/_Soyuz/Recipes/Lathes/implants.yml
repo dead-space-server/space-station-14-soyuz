@@ -1,0 +1,14 @@
+- type: latheRecipe
+  parent: BaseImplantRecipe
+  id: EyeSocketImplanter
+  result: EyeSocketImplanter
+
+- type: latheRecipe
+  parent: BaseImplantRecipe
+  id: TrackingImplanter
+  result: TrackingImplanter
+
+- type: latheRecipe
+  parent: BaseImplantRecipe
+  id: MindShieldImplanter
+  result: MindShieldImplanter

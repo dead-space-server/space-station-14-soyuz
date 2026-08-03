@@ -5,6 +5,7 @@ admin-announce-announcer-default = Генеральный Штаб
 admin-announce-announcer-ai = Искусственный интеллект
 admin-announce-button = Сделать объявление
 admin-announce-type-station = Станция
+admin-announce-target-all = Все
 admin-announce-type-server = Сервер
 cmd-announceui-desc = Открывает интерфейс меню объявлений.
 cmd-announceui-help = Использование: announceui

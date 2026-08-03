@@ -87,3 +87,21 @@
     sprite: _DeadSpace/Clothing/Ears/Headsets/hs_taipan.rsi
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltSecurityOfficer
+  name: полноразмерная гарнитура милиции
+  description: Полноразмерная гарнитура милиции.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeySecurity
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/security.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/security.rsi
+  - type: Headset
+    color: "#dd3535"

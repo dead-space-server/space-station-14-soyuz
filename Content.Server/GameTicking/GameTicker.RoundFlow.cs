@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Server.Announcements;
 using Content.Server.Antag.Components;
 using Content.Server.DeadSpace.RoundEnd;
+using Content.Shared.DeadSpace.Arena;
 using Content.Server.Discord;
 using Content.Server.GameTicking.Events;
 using Content.Server.Maps;
@@ -66,6 +67,8 @@ namespace Content.Server.GameTicking
         private const string TraitorUltraAntagPrototype = "TraitorUltra";
         // DS14-end
         private const int DiscordMessageMaxLength = 2000; // DS14
+        private const string DiscordCodeBlockFence = "```"; // DS14
+        private const int DiscordCodeBlockSplitOverhead = 8; // DS14: "\n```" + "```\n"
 
 #if EXCEPTION_TOLERANCE
         [ViewVariables]
@@ -559,6 +562,9 @@ namespace Content.Server.GameTicking
             var pvsOverride = _cfg.GetCVar(CCVars.RoundEndPVSOverrides);
             while (allMinds.MoveNext(out var mindId, out var mind))
             {
+                if (HasComp<ArenaMindComponent>(mindId)) // DS14
+                    continue;
+
                 // TODO don't list redundant observer roles?
                 // I.e., if a player was an observer ghost, then a hamster ghost role, maybe just list hamster and not
                 // the observer role?
@@ -768,21 +774,35 @@ namespace Content.Server.GameTicking
             if (TryGetEntity(mind.OriginalOwnedEntity, out var foundOriginalEntity))
                 originalEntity = foundOriginalEntity.Value;
 
+            var identityEntity = manifestIdentity?.SourceEntity;
+            if (manifestIdentity != null)
+            {
+                if (mind.OwnedEntity == identityEntity &&
+                    IsLiveRoundEndDisplayBody(identityEntity))
+                {
+                    return identityEntity;
+                }
+
+                if (_roundEndManifestStats.GetDisplaySnapshot(mindId) is { } identitySnapshot)
+                    return identitySnapshot;
+
+                if (IsRoundEndDisplayBody(identityEntity))
+                    return identityEntity;
+
+                if (identityEntity != null && !TerminatingOrDeleted(identityEntity.Value))
+                    return identityEntity;
+
+                return null;
+            }
+
             if (_roundEndManifestStats.GetDisplaySnapshot(mindId) is { } snapshot)
                 return snapshot;
-
-            var identityEntity = manifestIdentity?.SourceEntity;
-            if (IsRoundEndDisplayBody(identityEntity))
-                return identityEntity;
 
             if (IsRoundEndDisplayBody(ownedEntity))
                 return ownedEntity;
 
             if (IsRoundEndDisplayBody(originalEntity))
                 return originalEntity;
-
-            if (identityEntity != null && !TerminatingOrDeleted(identityEntity.Value))
-                return identityEntity;
 
             if (ownedEntity != null && !TerminatingOrDeleted(ownedEntity.Value))
                 return ownedEntity;
@@ -791,6 +811,15 @@ namespace Content.Server.GameTicking
                 return originalEntity;
 
             return null;
+        }
+
+        private bool IsLiveRoundEndDisplayBody(EntityUid? uid)
+        {
+            if (uid is not { } body || !IsRoundEndDisplayBody(body))
+                return false;
+
+            return !TryComp<MobStateComponent>(body, out var mobState) ||
+                   mobState.CurrentState != MobState.Dead;
         }
 
         private bool IsRoundEndDisplayBody(EntityUid? uid)
@@ -878,7 +907,7 @@ namespace Content.Server.GameTicking
             return Regex.Replace(text, @"\[[^\]]*\]", "");
         }
 
-        private static List<string> SplitDiscordWebhookContent(string content)
+        internal static List<string> SplitDiscordWebhookContent(string content)
         {
             var messages = new List<string>();
             if (content.Length <= DiscordMessageMaxLength)
@@ -887,23 +916,34 @@ namespace Content.Server.GameTicking
                 return messages;
             }
 
+            var containsCodeBlock = HasDiscordCodeBlockFence(content);
+            var maxLength = containsCodeBlock
+                ? DiscordMessageMaxLength - DiscordCodeBlockSplitOverhead
+                : DiscordMessageMaxLength;
+
             var builder = new StringBuilder();
             foreach (var line in content.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
             {
-                AppendDiscordWebhookLine(messages, builder, line);
+                AppendDiscordWebhookLine(messages, builder, line, maxLength);
             }
 
             AddDiscordWebhookMessage(messages, builder);
-            return messages;
+            return containsCodeBlock
+                ? BalanceDiscordCodeBlocks(messages)
+                : messages;
         }
 
-        private static void AppendDiscordWebhookLine(List<string> messages, StringBuilder builder, string line)
+        private static void AppendDiscordWebhookLine(
+            List<string> messages,
+            StringBuilder builder,
+            string line,
+            int maxLength)
         {
             var remaining = line;
             while (true)
             {
                 var separatorLength = builder.Length > 0 ? 1 : 0;
-                var available = DiscordMessageMaxLength - builder.Length - separatorLength;
+                var available = maxLength - builder.Length - separatorLength;
 
                 if (remaining.Length <= available)
                 {
@@ -954,6 +994,52 @@ namespace Content.Server.GameTicking
 
             if (message.Length > 0)
                 messages.Add(message);
+        }
+
+        private static List<string> BalanceDiscordCodeBlocks(List<string> messages)
+        {
+            var balanced = new List<string>(messages.Count);
+            var inCodeBlock = false;
+
+            foreach (var rawMessage in messages)
+            {
+                var message = inCodeBlock
+                    ? DiscordCodeBlockFence + "\n" + rawMessage
+                    : rawMessage;
+
+                inCodeBlock = IsInDiscordCodeBlockAfter(rawMessage, inCodeBlock);
+
+                if (inCodeBlock)
+                    message += "\n" + DiscordCodeBlockFence;
+
+                balanced.Add(message);
+            }
+
+            return balanced;
+        }
+
+        private static bool HasDiscordCodeBlockFence(string text)
+        {
+            foreach (var line in text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
+            {
+                if (line.TrimStart().StartsWith(DiscordCodeBlockFence, StringComparison.Ordinal))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsInDiscordCodeBlockAfter(string text, bool startsInCodeBlock)
+        {
+            var inCodeBlock = startsInCodeBlock;
+
+            foreach (var line in text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
+            {
+                if (line.TrimStart().StartsWith(DiscordCodeBlockFence, StringComparison.Ordinal))
+                    inCodeBlock = !inCodeBlock;
+            }
+
+            return inCodeBlock;
         }
         // DS14-end
 

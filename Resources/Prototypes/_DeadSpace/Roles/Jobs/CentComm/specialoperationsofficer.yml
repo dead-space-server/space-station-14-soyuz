@@ -15,7 +15,7 @@
   - SOD
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, MacroBombImplant ]
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
   - !type:AddComponentSpecial
     components:
     - type: AntagImmune
@@ -25,6 +25,13 @@
       - CentralCommand
     - type: Skill
       group: ALL
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankMajorGeneral:
+    - !type:OverallPlaytimeRequirement
+      time: 3600000 # 1000 часов
+    NKVBRankColonel: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: CentcomSpecialOperationsOfficerGear

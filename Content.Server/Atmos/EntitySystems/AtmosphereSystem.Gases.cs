@@ -14,6 +14,11 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
 
         private GasReactionPrototype[] _gasReactions = [];
+        // DS14-start: most active tiles are normal O2/N2 air; skip reaction scans when no reaction-only gases exist.
+        private int[] _reactionFastPathGasIds = [];
+        private readonly float[] _reactionFastPathMinimumMoles = new float[Atmospherics.TotalNumberOfGases];
+        private bool _useReactionFastPath;
+        // DS14-end
 
         /// <summary>
         ///     List of gas reactions ordered by priority.
@@ -26,7 +31,67 @@ namespace Content.Server.Atmos.EntitySystems
 
             _gasReactions = _protoMan.EnumeratePrototypes<GasReactionPrototype>().ToArray();
             Array.Sort(_gasReactions, (a, b) => b.Priority.CompareTo(a.Priority));
+            CacheReactionFastPath(); // DS14
         }
+
+        // DS14-start
+        private void CacheReactionFastPath()
+        {
+            Array.Clear(_reactionFastPathMinimumMoles);
+            var fastPathGasIds = new List<int>(Atmospherics.TotalNumberOfGases);
+            var canUseFastPath = true;
+
+            foreach (var reaction in _gasReactions)
+            {
+                var hasReactionOnlyRequirement = false;
+                for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
+                {
+                    var minimum = reaction.MinimumRequirements[i];
+                    if (minimum <= 0)
+                        continue;
+
+                    if (i is (int) Gas.Oxygen or (int) Gas.Nitrogen)
+                        continue;
+
+                    hasReactionOnlyRequirement = true;
+                    if (_reactionFastPathMinimumMoles[i] == 0 || minimum < _reactionFastPathMinimumMoles[i])
+                    {
+                        _reactionFastPathMinimumMoles[i] = minimum;
+                    }
+                }
+
+                if (hasReactionOnlyRequirement)
+                    continue;
+
+                canUseFastPath = false;
+                break;
+            }
+
+            if (canUseFastPath)
+            {
+                for (var i = 0; i < _reactionFastPathMinimumMoles.Length; i++)
+                {
+                    if (_reactionFastPathMinimumMoles[i] > 0)
+                        fastPathGasIds.Add(i);
+                }
+            }
+
+            _useReactionFastPath = canUseFastPath;
+            _reactionFastPathGasIds = fastPathGasIds.ToArray();
+        }
+
+        private bool HasPossibleReactionOnlyGas(GasMixture mixture)
+        {
+            var moles = mixture.Moles;
+            foreach (var gas in _reactionFastPathGasIds)
+            {
+                if (moles[gas] >= _reactionFastPathMinimumMoles[gas])
+                    return true;
+            }
+
+            return false;
+        }
+        // DS14-end
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override float GetHeatCapacityCalculation(float[] moles, bool space)
@@ -98,6 +163,7 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             NumericsHelpers.Add(receiver.Moles, giver.Moles);
+            receiver.EnsureIpritDecayDeadline(giver.IpritDecayDeadline); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
         }
 
         /// <summary>
@@ -143,6 +209,7 @@ namespace Content.Server.Atmos.EntitySystems
                 // transfer moles
                 NumericsHelpers.Multiply(source.Moles, fraction, buffer);
                 NumericsHelpers.Add(receiver.Moles, buffer);
+                receiver.EnsureIpritDecayDeadline(source.IpritDecayDeadline); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
             }
         }
 
@@ -210,6 +277,7 @@ namespace Content.Server.Atmos.EntitySystems
         public void ScrubInto(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases)
         {
             var buffer = new GasMixture(mixture.Volume){Temperature = mixture.Temperature};
+            var ipritDecayDeadline = mixture.IpritDecayDeadline; // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
 
             foreach (var gas in filterGases)
             {
@@ -217,6 +285,7 @@ namespace Content.Server.Atmos.EntitySystems
                 mixture.SetMoles(gas, 0f);
             }
 
+            buffer.EnsureIpritDecayDeadline(ipritDecayDeadline); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
             Merge(destination, buffer);
         }
 
@@ -498,6 +567,9 @@ namespace Content.Server.Atmos.EntitySystems
         public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
         {
             var reaction = ReactionResult.NoReaction;
+            if (_useReactionFastPath && !HasPossibleReactionOnlyGas(mixture)) // DS14
+                return reaction;
+
             var temperature = mixture.Temperature;
             var energy = GetThermalEnergy(mixture);
 
@@ -549,6 +621,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             NumericsHelpers.Add(mixture.Moles, molsToAdd);
             NumericsHelpers.Max(mixture.Moles, 0f);
+            mixture.ResetIpritDecayDeadlineIfEmpty(); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
         }
 
         public enum GasCompareResult

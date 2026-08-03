@@ -13,3 +13,4 @@ research-technology-silver-ammo = Серебряные боеприпасы
 research-technology-plastitan-titan = Изготовления пластитана и титана
 research-technology-experimental-cloning = Экспериментальное клонирование
 research-technology-clarke = К.Л.А.Р.К.
+research-technology-implants = Импланты

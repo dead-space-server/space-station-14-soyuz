@@ -5,16 +5,34 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Administration
 {
+    // DS14-announce-start
     public enum AdminAnnounceType
     {
-        Station,
+        All,
+        Map,
         Server,
     }
 
     [Serializable, NetSerializable]
     public sealed class AdminAnnounceEuiState : EuiStateBase
     {
+        public readonly List<AdminAnnounceTargetEntry> Targets;
+
+        public AdminAnnounceEuiState(List<AdminAnnounceTargetEntry> targets)
+        {
+            Targets = targets;
+        }
     }
+
+    [Serializable, NetSerializable]
+    public readonly record struct AdminAnnounceTargetEntry(string Name, NetEntity Grid);
+
+    public readonly record struct AdminAnnounceTargetSelection(AdminAnnounceType Type, NetEntity? Grid)
+    {
+        public static readonly AdminAnnounceTargetSelection All = new(AdminAnnounceType.All, null);
+        public static readonly AdminAnnounceTargetSelection Server = new(AdminAnnounceType.Server, null);
+    }
+    // DS14-announce-end
 
     public static class AdminAnnounceEuiMsg
     {
@@ -29,10 +47,13 @@ namespace Content.Shared.Administration
             public string Voice = default!; // Corvax-TTS
             public bool EnableTTS = default!; // Corvax-TTS
             public bool CustomTTS = default!; // Corvax-TTS
+            // DS14-announce-start
+            public NetEntity? TargetGrid;
             public string ColorHex = "B64444"; // DS14-announce-color // DS14-Soyuz value
             public string SoundPath = "/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"; // DS14-announce-audio // DS14-Soyuz value
-            public float SoundVolume = 5f; // DS14-announce-volume
-            public string Sender = ""; // DS14-announce-sender
+            public float SoundVolume = 5f;
+            public string Sender = "";
+            // DS14-announce-end
         }
     }
 }

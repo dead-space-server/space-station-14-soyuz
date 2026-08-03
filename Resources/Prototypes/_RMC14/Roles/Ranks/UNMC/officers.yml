@@ -1,0 +1,71 @@
+- type: rank
+  id: RMCRankMarineCommandant
+  name: Командир корпуса Морской Пехоты
+  prefix: ККМП.
+  paygrade: O10S
+
+- type: rank
+  id: RMCRankAssistantCommandant
+  name: Ассистент Командира корпуса Морской Пехота
+  prefix: АККМП.
+  paygrade: O10C
+
+- type: rank
+  id: RMCRankGeneral
+  name: Генерал
+  prefix: Ген.
+  paygrade: O10
+
+- type: rank
+  id: RMCRankLieutenantGeneral
+  name: Генерал-Лейтенант
+  prefix: ГенЛейт.
+  paygrade: O9
+
+- type: rank
+  id: RMCRankMajorGeneral
+  name: Генерал-Майор
+  prefix: ГенМай.
+  paygrade: O8
+
+- type: rank
+  id: RMCRankBrigadierGeneral
+  name: Бригадир-Генерал
+  prefix: БГен.
+  paygrade: O7
+
+- type: rank
+  id: RMCRankColonel
+  name: Полковник
+  prefix: Полк.
+  paygrade: O6
+
+- type: rank
+  id: RMCRankLieutenantColonel
+  name: Подполковник
+  prefix: ПодПолк.
+  paygrade: O5
+
+- type: rank
+  id: RMCRankMajor
+  name: Майор
+  prefix: Май.
+  paygrade: O4
+
+- type: rank
+  id: RMCRankCaptain
+  name: Капитан
+  prefix: Кап.
+  paygrade: O3
+
+- type: rank
+  id: RMCRankFirstLT
+  name: Первый Лейтенант
+  prefix: 1Лейт.
+  paygrade: O2
+
+- type: rank
+  id: RMCRankSecondLT
+  name: Второй Лейтенант
+  prefix: 2Лейт.
+  paygrade: O1

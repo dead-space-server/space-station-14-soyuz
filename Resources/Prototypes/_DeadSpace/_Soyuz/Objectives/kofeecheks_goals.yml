@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+- type: stationGoal
+  id: DelegationReception
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/DelegationReception.xml
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: Theater
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/Theater.xml
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: LongRangeExpeditions
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/LongRangeExpeditions.xml
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: AmbuzolReserve
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/AmbuzolReserve.xml
+  startingEquipment: CrateVirologyPlan
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: SeedFund
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/SeedFund.xml
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"
+
+- type: stationGoal
+  id: Karachnoc
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/Karachnoc.xml
+  startingEquipment: CrateNPCGiantSpiderSpaceNoEgg
+  startingEquipmentAmount: 2
+  extraStamps:
+  - stampedName: stamp-component-stamped-name-centcom
+    stampedColor: "#006600"

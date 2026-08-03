@@ -24,6 +24,12 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
+            // Kofeecheks gases: LicenseRef-Kofeecheks
+            Gas.Nitryl,
+            Gas.Nitriatium,
+            Gas.Hilium,
+            Gas.Brizidium,
+            Gas.Iprit,
             Gas.InfectionDeadSpace // DS14
         };
 

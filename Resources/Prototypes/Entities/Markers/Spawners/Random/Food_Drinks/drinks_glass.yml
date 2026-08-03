@@ -119,6 +119,8 @@
       - DrinkShakeWhite
       - DrinkTheMartinez
       - DrinkMoonshineGlass
+      - DrinkPearJuice # Kofeecheks Pears: LicenseRef-Kofeecheks
+      - DrinkPearonade # Kofeecheks Pears: LicenseRef-Kofeecheks
     chance: 0.8
     offset: 0.0
     #rare

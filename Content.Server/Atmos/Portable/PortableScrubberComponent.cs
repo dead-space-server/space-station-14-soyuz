@@ -30,6 +30,12 @@ namespace Content.Server.Atmos.Portable
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
+            // Kofeecheks gases: LicenseRef-Kofeecheks
+            Gas.Nitryl,
+            Gas.Nitriatium,
+            Gas.Hilium,
+            Gas.Brizidium,
+            Gas.Iprit,
             Gas.InfectionDeadSpace
         };
 

@@ -26,6 +26,14 @@
       NitrousOxide: stationNO
       Frezon: danger
       InfectionDeadSpace: stationInfectionDeadSpace
+      # Kofeecheks gases: LicenseRef-Kofeecheks
+      Nitryl: stationNitryl
+      Fixirium: stationFixirium
+      Hydrogen: stationHydrogen
+      Nitriatium: stationNitriatium
+      Hilium: stationHilium
+      Brizidium: stationBrizidium
+      Iprit: stationIprit
   - type: Tag
     tags:
       - AirSensor

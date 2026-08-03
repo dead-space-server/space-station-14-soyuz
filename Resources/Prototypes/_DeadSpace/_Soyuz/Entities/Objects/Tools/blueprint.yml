@@ -1,0 +1,42 @@
+# Базовые чертежи
+- type: entity
+  parent: BaseBlueprint
+  id: SoyuzBaseSecurityBlueprint
+  name: blueprint
+  description: Чертёж для какой-то технологии советской гражданской милиции. Может быть использован на оружейном техфабе.
+  abstract: true
+  components:
+  - type: Tag
+    tags:
+    - BlueprintSecurityAutolathe
+
+# Чертежи милиции
+- type: entity
+  parent: SoyuzBaseSecurityBlueprint
+  id: SoyuzBlueprintDisabler
+  name: чертёж станнера второго поколения
+  description: Чертёж для станнера второго поколения. Может быть использован в охранном ТехФабе.
+  components:
+  - type: Blueprint
+    providedRecipes:
+    - SoyuzWeaponDisabler
+
+- type: entity
+  parent: SoyuzBaseSecurityBlueprint
+  id: SoyuzBlueprintStunbaton
+  name: чертёж шоковой дубинки второго поколения
+  description: Чертёж для шоковой дубинки второго поколения. Может быть использован в охранном ТехФабе.
+  components:
+  - type: Blueprint
+    providedRecipes:
+    - SoyuzStunbaton
+
+- type: entity
+  parent: SoyuzBaseSecurityBlueprint
+  id: SoyuzBlueprintFlash
+  name: чертёж вспышки второго поколения
+  description: Чертёж для вспышки второго поколения. Может быть использован в охранном ТехФабе.
+  components:
+  - type: Blueprint
+    providedRecipes:
+    - SoyuzFlashAutoRecharge

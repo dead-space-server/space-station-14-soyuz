@@ -20,11 +20,11 @@ public sealed partial class StationGoalPrototype : IPrototype
 
     [DataField]
     public List<StampDisplayInfo>? ExtraStamps;
-//DS14-Soyuz-start
+    //DS14-Soyuz-start
     [DataField]
     public EntProtoId? StartingEquipment;
 
     [DataField]
     public int StartingEquipmentAmount = 1;
-//DS14-Soyuz-end
+    //DS14-Soyuz-end
 }

@@ -3,6 +3,7 @@
   id: ClothingEyesGlassesThermalVisor
   name: оптический тепловизор
   description: Тепловизор, который оснащён инфракрасными сенсорами для обнаружения живых существ по тепловым сигнатурам сквозь твёрдые преграды.
+  suffix: Термалы
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Eyes/Hud/thermal.rsi
@@ -29,12 +30,22 @@
   - type: ShowMindShieldIcons
   - type: ShowCriminalRecordIcons
   - type: ShowSyndicateIcons
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
 
 - type: entity
   parent: ClothingEyesBase
   id: ClothingEyesGlassesThermalVisorExperimental
   name: экспериментальный оптический тепловизор
   description: Прототип тепловизора с ограниченным временем работы.
+  suffix: Термалы
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Eyes/Hud/thermal_experimental.rsi
@@ -65,3 +76,12 @@
   - type: ShowJobIcons
   - type: ShowMindShieldIcons
   - type: ShowCriminalRecordIcons
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg

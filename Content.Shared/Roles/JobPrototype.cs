@@ -182,10 +182,12 @@ namespace Content.Shared.Roles
         // DS14-start
         [DataField("isTaipan")]
         public bool IsTaipan { get; private set; } = false;
+        // DS14-end
 
+        // DS14-Soyuz start
         [DataField]
         public Dictionary<ProtoId<RankPrototype>, HashSet<JobRequirement>?>? Ranks { get; private set; }
-        // DS14-end
+        // DS14-Soyuz end
     }
 
     /// <summary>

@@ -211,7 +211,7 @@
     jumpsuit: ClothingUniformJumpsuitERTLeader
     back: ClothingBackpackERTLeader
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetERTLeader #DS14-Soyuz
     head: ClothingHeadHatERTLeaderBeret
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
@@ -871,6 +871,7 @@
     - RCDAmmo
     - MedkitCombatFilled
     - InjectorCaseERTFilled
+    - UplinkERTRed #DS14-Soyuz
 
 ## Gamma
 - type: job
@@ -949,6 +950,7 @@
     - BSAACombatKitFilled
     - InjectorCaseERTFilled
     - PinpointerNuclear
+    - UplinkERTGamma #DS14-Soyuz
 
 # Janitor
 ## Amber

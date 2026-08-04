@@ -48,7 +48,7 @@
     shoes: ClothingShoesBootsJackSecFilled # Corvax-Resprite-MRP
     outerClothing: ClothingOuterVestArmorSec
     id: SecurityCadetPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetAltSecurityOfficer # ds14
     belt: ClothingBeltSecurityFilled
   storage:
     back:

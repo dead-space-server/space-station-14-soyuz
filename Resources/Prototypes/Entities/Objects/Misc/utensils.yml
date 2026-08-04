@@ -66,6 +66,8 @@
   - type: Utensil
     types:
     - Fork
+  - type: Tool # Kofeecheks QoL: LicenseRef-Kofeecheks
+    qualities: [ Brushing ]
   - type: MeleeWeapon
     wideAnimationRotation: 180
     attackRate: 1.5
@@ -84,6 +86,8 @@
   - type: Utensil
     types:
     - Fork
+  - type: Tool # Kofeecheks QoL: LicenseRef-Kofeecheks
+    qualities: [ Brushing ]
 
 - type: entity
   parent: UtensilBase

@@ -122,7 +122,7 @@
     Steel: 100
     Plastic: 100
 
-# DS14-start: electrical wire brush recipe for advanced janitorial research
+# Kofeecheks Electrical Wire Brush: LicenseRef-Kofeecheks
 - type: latheRecipe
   id: WireBrushElectrical
   result: WireBrushElectrical
@@ -131,4 +131,3 @@
     Steel: 150
     Plastic: 150
     Glass: 50
-# DS14-end

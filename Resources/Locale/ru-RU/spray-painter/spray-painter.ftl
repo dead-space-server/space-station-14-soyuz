@@ -167,9 +167,20 @@ spray-painter-style-cratesecure-weapon = Оружие
 # Canisters
 spray-painter-style-canisters-air = Воздух
 spray-painter-style-canisters-ammonia = Аммиак
+# Kofeecheks canister painter styles: LicenseRef-Kofeecheks
+spray-painter-style-canisters-brizidium = Бризидиум
 spray-painter-style-canisters-carbon-dioxide = Углекислый газ
 spray-painter-style-canisters-frezon = Фрезон
+spray-painter-style-canisters-fixirium = Фиксириум
+spray-painter-style-canisters-hilium = Хилиум
+spray-painter-style-canisters-hydrogen = Водород
+spray-painter-style-canisters-iprit = Иприт
+spray-painter-style-canisters-liquid-carbon-dioxide = Жидкий углекислый газ
+spray-painter-style-canisters-liquid-nitrogen = Жидкий азот
+spray-painter-style-canisters-liquid-oxygen = Жидкий кислород
 spray-painter-style-canisters-nitrogen = Азот
+spray-painter-style-canisters-nitriatium = Нитриатиум
+spray-painter-style-canisters-nitryl = Диоксид азота
 spray-painter-style-canisters-nitrous-oxide = Оксид азота
 spray-painter-style-canisters-oxygen = Кислород
 spray-painter-style-canisters-plasma = Плазма

@@ -1,0 +1,54 @@
+- type: entity
+  parent: ClothingHeadsetAltCentCom
+  id: ClothingHeadsetERTLeader
+  name: "полноразмерная гарнитура командира отряда 'Альфа'"
+  description: "Специально модифицированный модульный интерком, надеваемый на голову. Предназначен для использования командиром отряда 'Альфа'. Принимает ключи шифрования."
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCentCom
+      - EncryptionKeyStationMaster
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/centcom.rsi
+  - type: Clothing
+    sprite: Clothing/Ears/Headsets/centcom.rsi
+  - type: Headset
+    color: "#2681a5"
+  - type: PoliticalLoudspeaker
+    range: 4
+    cooldown: 60
+    speedDuration: 20
+    speedMultiplier: 1.3
+    fortifyDuration: 30
+    fortifyCoefficient: 0.65
+    healAmount: 65
+    healDamageTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Cold
+    - Asphyxiation
+    healExcludedDamageTypes:
+    - Cellular
+    - Radiation
+    - Shock
+    - Caustic
+    healDuration: 3
+    healTickInterval: 0.5
+    fortifyExcludedDamageTypes:
+    - Cellular
+    - Radiation
+    - Shock
+    - Caustic
+    healAction: ActionPoliticalLoudspeakerHeal
+    speedAction: ActionPoliticalLoudspeakerSpeed
+    fortifyAction: ActionPoliticalLoudspeakerFortify
+    speedStatusEffect: StatusEffectPoliticalLoudspeakerSpeed
+    fortifyStatusEffect: StatusEffectPoliticalLoudspeakerFortify
+    flashEffectPrototype: GrenadeFlashEffect
+  - type: FlashbangProtection
+    reduction: 4
+  - type: HardsuitIdentification
+    nonlethal: true

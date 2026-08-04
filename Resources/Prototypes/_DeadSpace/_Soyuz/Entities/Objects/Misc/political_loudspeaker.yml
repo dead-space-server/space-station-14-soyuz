@@ -12,12 +12,12 @@
     size: Small
   - type: PoliticalLoudspeaker
     range: 5
-    cooldown: 30
-    speedDuration: 10
-    speedMultiplier: 1.15
-    fortifyDuration: 10
-    fortifyCoefficient: 0.8
-    healAmount: 20
+    cooldown: 120
+    speedDuration: 45
+    speedMultiplier: 1.2
+    fortifyDuration: 45
+    fortifyCoefficient: 0.75
+    healAmount: 50
     healDamageTypes:
     - Blunt
     - Slash

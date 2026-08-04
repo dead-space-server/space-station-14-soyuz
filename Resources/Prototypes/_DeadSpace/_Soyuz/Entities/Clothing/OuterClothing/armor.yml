@@ -1,5 +1,5 @@
 - type: entity
-  parent:  
+  parent: ClothingOuterArmorBase
   id: SoyuzClothingOuterArmorBase
   name: базовая броня великого союза
   description: Слава умывальнику.

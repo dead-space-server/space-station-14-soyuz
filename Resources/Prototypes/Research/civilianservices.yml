@@ -147,6 +147,7 @@
   recipeUnlocks:
   - AdvMopItem
   - MegaSprayBottle
+  - WireBrushElectrical # Kofeecheks Electrical Wire Brush: LicenseRef-Kofeecheks
   - BorgModuleAdvancedCleaning
   - BagOfSummoningGarbage # DS14
 

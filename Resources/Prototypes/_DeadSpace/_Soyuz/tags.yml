@@ -1,10 +1,13 @@
 # Ставить новые теги строго в алфавитном порядке A-Z
 
-# A
+# Kofeecheks QoL: LicenseRef-Kofeecheks
 
 # B
 - type: Tag
   id: BlueprintSecurityAutolathe
+
+- type: Tag
+  id: BlueInsulatingTape
 
 # C
 - type: Tag
@@ -34,9 +37,6 @@
 # D
 - type: Tag
   id: DrinkCup
-  
-- type: Tag
-  id: DrinkGlass
 
 # E
 - type: Tag

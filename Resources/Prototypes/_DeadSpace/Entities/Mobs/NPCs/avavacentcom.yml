@@ -23,8 +23,8 @@
       - CentComAvavaGear
 
 - type: entity
-  name: спавнер Авава ГенШтабович
-  suffix: Не маппить, только для ГШ!
+  name: спавнер Авава ЦентКомович
+  suffix: Не маппить, только для ЦК!
   id: SpawnMobAvavaCentComm
   parent: MarkerBase
   components:

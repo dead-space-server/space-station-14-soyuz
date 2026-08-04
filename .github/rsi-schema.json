@@ -72,6 +72,7 @@
        },
        "license": {
            "$id": "#/properties/license",
+           "$comment": "DS-14 Soyuz: allow the repository's Kofeecheks custom license reference.",
            "default": "",
            "description": "The license for the associated icon states. Restricted to SS14-compatible asset licenses.",
            "enum": [
@@ -84,6 +85,7 @@
                "CC-BY-NC-SA-3.0",
                "CC-BY-NC-SA-4.0",
                "CC0-1.0",
+               "LicenseRef-Kofeecheks",
                "Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT"
            ],
            "examples": [

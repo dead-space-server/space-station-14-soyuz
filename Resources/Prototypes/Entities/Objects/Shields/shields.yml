@@ -672,6 +672,11 @@
       damageContainer: Shield
     - type: ExaminableDamage
       messages: EnergyShieldMessages
+    # DS-14 Soyuz
+    - type: Construction
+      graph: EnergyShield
+      node: energyShield
+      deconstructionTarget: null
     - type: Destructible
       thresholds:
 #        - trigger:
@@ -721,6 +726,11 @@
       sprite: Objects/Weapons/Melee/e_shield.rsi
       size: Small
       heldPrefix: eshield
+    # DS-14 Soyuz
+    - type: Construction
+      graph: EnergyShield
+      node: brokenEnergyShield
+      deconstructionTarget: null
     #DS14-Start
     - type: EmitSoundOnPickup
       sound:

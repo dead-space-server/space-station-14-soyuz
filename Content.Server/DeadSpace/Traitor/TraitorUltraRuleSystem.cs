@@ -9,6 +9,7 @@ using Content.Server.Chat.Systems;
 using Content.Server.EUI;
 using Content.Server.GameTicking.Rules;
 using Content.Server.GameTicking.Rules.Components;
+using Content.Server.Implants;
 using Content.Server.Mind;
 using Content.Server.Objectives;
 using Content.Server.Objectives.Components;
@@ -85,6 +86,7 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly SharedObjectivesSystem _sharedObjectives = default!;
     [Dependency] private readonly SharedRoleSystem _roles = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly StoreSystem _store = default!;
@@ -101,10 +103,12 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         base.Initialize();
 
         SubscribeLocalEvent<TraitorUltraRuleComponent, AfterAntagEntitySelectedEvent>(OnAfterAntagSelected, after: [typeof(TraitorRuleSystem)]);
+        SubscribeLocalEvent<MindComponent, BeforeMindGotRemovedEvent>(OnBeforeMindRemoved);
+        SubscribeLocalEvent<MobStateChangedEvent>(OnCandidateMobStateChanged, before: [typeof(SubdermalImplantSystem)]);
         SubscribeLocalEvent<TraitorUltraOpenContractActionEvent>(OnOpenContractAction);
         SubscribeLocalEvent<TraitorUltraOpenExtraObjectiveOfferActionEvent>(OnOpenExtraObjectiveOfferAction);
         SubscribeLocalEvent<TraitorUltraBountyTargetComponent, DamageChangedEvent>(OnBountyDamageChanged, before: [typeof(MobThresholdSystem)]);
-        SubscribeLocalEvent<TraitorUltraBountyTargetComponent, MobStateChangedEvent>(OnBountyMobStateChanged);
+        SubscribeLocalEvent<TraitorUltraBountyTargetComponent, MobStateChangedEvent>(OnBountyMobStateChanged, before: [typeof(SubdermalImplantSystem)]);
         SubscribeLocalEvent<TraitorUltraBountyTargetComponent, GibbedBeforeDeletionEvent>(OnBountyGibbedBeforeDeletion);
         SubscribeLocalEvent<TraitorUltraBountyTargetComponent, EntityTerminatingEvent>(OnBountyTerminating);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
@@ -115,6 +119,56 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         _delayedActions.Clear();
         CloseAllUpgradeOfferEuis();
         CloseAllExtraObjectiveOfferEuis();
+    }
+
+    private void OnBeforeMindRemoved(EntityUid mindId, MindComponent mind, BeforeMindGotRemovedEvent args)
+    {
+        SnapshotAndInterruptCandidate(mindId, mind, args.Container.Owner);
+    }
+
+    private void OnCandidateMobStateChanged(MobStateChangedEvent args)
+    {
+        if (args.NewMobState != MobState.Dead ||
+            !_mind.TryGetMind(args.Target, out var mindId, out var mind))
+        {
+            return;
+        }
+
+        SnapshotAndInterruptCandidate(mindId, mind, args.Target);
+    }
+
+    private void SnapshotAndInterruptCandidate(EntityUid mindId, MindComponent mind, EntityUid body)
+    {
+        var query = EntityQueryEnumerator<TraitorUltraRuleComponent>();
+        while (query.MoveNext(out _, out var component))
+        {
+            if (!component.Minds.TryGetValue(mindId, out var state) ||
+                state.EligibleBody != body ||
+                !IsPendingUpgradeStage(state.Stage))
+            {
+                continue;
+            }
+
+            InitialObjectivesCompleted(mindId, mind, component);
+            InterruptUpgradeOffer(mindId, state);
+        }
+    }
+
+    private static bool IsPendingUpgradeStage(TraitorUltraStage stage)
+    {
+        return stage is TraitorUltraStage.Initial or
+            TraitorUltraStage.CompletionPopupSent or
+            TraitorUltraStage.OfferOpen;
+    }
+
+    private void InterruptUpgradeOffer(EntityUid mindId, TraitorUltraMindState state)
+    {
+        CloseUpgradeOfferEui(mindId);
+        RemoveUpgradeOfferAction(state);
+        state.NextEventTime = TimeSpan.Zero;
+
+        if (state.Stage is TraitorUltraStage.CompletionPopupSent or TraitorUltraStage.OfferOpen)
+            state.Stage = TraitorUltraStage.Initial;
     }
 
     private void OnAfterAntagSelected(Entity<TraitorUltraRuleComponent> ent, ref AfterAntagEntitySelectedEvent args)
@@ -159,6 +213,18 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
 
         var state = EnsureTraitorUltraState(rule.Owner, rule.Comp1, mindId);
 
+        if (mind.OwnedEntity is not { } body ||
+            TerminatingOrDeleted(body) ||
+            !TryComp<MobStateComponent>(body, out var mobState) ||
+            mobState.CurrentState == MobState.Dead)
+        {
+            Log.Error($"Failed to make admin TraitorUltra for {target.Name}: owned entity is dead or missing.");
+            return false;
+        }
+
+        // A direct admin promotion is the sole exception: it deliberately binds the contract to the current live body.
+        state.EligibleBody = body;
+
         if (!alreadyTraitor &&
             !PrepareAdminDirectUltraTraitor(rule, target, mindId, mind, state))
         {
@@ -166,8 +232,7 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         }
 
         TrackAdminTraitorUltraMind(rule, target, mindId, mind);
-        UpgradeTraitor(rule.Owner, rule.Comp1, mindId, mind, state, announceBounty);
-        return true;
+        return UpgradeTraitor(rule.Owner, rule.Comp1, mindId, mind, state, announceBounty, false);
     }
 
     private bool PrepareAdminDirectUltraTraitor(
@@ -203,19 +268,11 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
 
         state.OriginalCorporation ??= GetOriginalCorporation(rule.Owner, mindId);
 
-        if (!EnsureDeathAcidifierImplant((mindId, mind), rule.Comp1))
-            Log.Error($"Failed to assign the TraitorUltra death-acidifier implant to {ToPrettyString(mindId)}.");
-
-        if (state.UltraUplinkInitialized)
+        var startingBalance = GetAdjustedStartingBalance(rule.Owner, mindId);
+        if (EnsureUpgradeResources((mindId, mind), rule.Comp1, state, startingBalance))
             return true;
 
-        if (EnsureInitialUltraUplink(rule.Owner, rule.Comp1, (mindId, mind), state))
-        {
-            state.UltraUplinkInitialized = true;
-            return true;
-        }
-
-        Log.Error($"Failed to assign the TraitorUltra uplink implant to {ToPrettyString(mindId)}.");
+        Log.Error($"Failed to atomically assign the TraitorUltra implants to {ToPrettyString(mindId)}.");
         return false;
     }
 
@@ -266,12 +323,14 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         {
             state = new TraitorUltraMindState
             {
+                EligibleBody = target,
                 OriginalCorporation = GetOriginalCorporation(ent.Owner, mindId),
             };
             ent.Comp.Minds[mindId] = state;
         }
         else
         {
+            state.EligibleBody ??= target;
             state.OriginalCorporation ??= GetOriginalCorporation(ent.Owner, mindId);
         }
 
@@ -316,7 +375,39 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         if (TryFindImplant(body, component.DeathAcidifierImplant, out _))
             return true;
 
-        return _subdermalImplant.AddImplant(body, component.DeathAcidifierImplant) != null;
+        var implant = _subdermalImplant.AddImplant(body, component.DeathAcidifierImplant);
+        if (implant == null)
+            return false;
+
+        _antag.EnsureRollbackTracking(body);
+        _antag.TrackGrantedEntity(body, implant.Value);
+        return true;
+    }
+
+    private bool EnsureUpgradeResources(
+        Entity<MindComponent> mind,
+        TraitorUltraRuleComponent component,
+        TraitorUltraMindState state,
+        FixedPoint2? uplinkBalance = null)
+    {
+        if (mind.Comp.OwnedEntity is not { } body || TerminatingOrDeleted(body))
+            return false;
+
+        var hadAcidifier = TryFindImplant(body, component.DeathAcidifierImplant, out _);
+        if (!EnsureDeathAcidifierImplant(mind, component))
+            return false;
+
+        if (EnsureUltraUplink(mind, component, state, uplinkBalance) != null)
+        {
+            state.UltraUplinkInitialized = true;
+            return true;
+        }
+
+        // Roll back the only resource that may have been created before the uplink failed.
+        if (!hadAcidifier && TryFindImplant(body, component.DeathAcidifierImplant, out var acidifier))
+            QueueDel(acidifier);
+
+        return false;
     }
 
     private bool TryFindImplant(EntityUid body, EntProtoId implantPrototype, out EntityUid implant)
@@ -393,6 +484,8 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         if (created == null)
             return null;
 
+        _antag.EnsureRollbackTracking(body);
+        _antag.TrackGrantedEntity(body, created.Value);
         state.UltraUplinkEntity = created.Value;
         EnsureUltraStoreCategories(created.Value, component);
         return created.Value;
@@ -415,15 +508,16 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             return true;
         }
 
+        if (!TryComp<ImplantedComponent>(body, out var implanted))
+            return false;
+
         if (state.UltraUplinkEntity is { } tracked &&
+            implanted.ImplantContainer.ContainedEntities.Contains(tracked) &&
             IsReusableUplinkStore(tracked, component))
         {
             uplink = tracked;
             return true;
         }
-
-        if (!TryComp<ImplantedComponent>(body, out var implanted))
-            return false;
 
         foreach (var implant in implanted.ImplantContainer.ContainedEntities)
         {
@@ -568,6 +662,13 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             if (!TryComp<MindComponent>(mindId, out var mind))
                 continue;
 
+            if (IsPendingUpgradeStage(state.Stage) &&
+                !TryGetEligibleAliveBody(mind, state, out _))
+            {
+                InterruptUpgradeOffer(mindId, state);
+                continue;
+            }
+
             switch (state.Stage)
             {
                 case TraitorUltraStage.Initial:
@@ -617,6 +718,37 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         }
     }
 
+    protected override void AppendAdminStatus(EntityUid uid,
+        TraitorUltraRuleComponent component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+        var ultras = 0;
+        var living = 0;
+
+        foreach (var (mindId, _) in component.Minds)
+        {
+            if (!_roles.MindHasRole<TraitorUltraRoleComponent>(mindId))
+                continue;
+
+            ultras++;
+
+            if (TryComp<MindComponent>(mindId, out var mind) &&
+                mind.OwnedEntity is { } body &&
+                _mobState.IsAlive(body))
+            {
+                living++;
+            }
+        }
+
+        args.AddSection(
+            Loc.GetString("game-rule-admin-status-traitor-ultra-title"),
+            Loc.GetString("game-rule-admin-status-traitor-ultra-summary",
+                ("candidates", component.Minds.Count),
+                ("ultras", ultras),
+                ("living", living)));
+    }
+
     private void OnOpenContractAction(TraitorUltraOpenContractActionEvent args)
     {
         if (args.Handled ||
@@ -636,6 +768,13 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             }
 
             args.Handled = true;
+
+            if (!TryGetEligibleAliveBody(mind, state, out var body) ||
+                args.Performer != body)
+            {
+                InterruptUpgradeOffer(mindId, state);
+                return;
+            }
 
             if (Timing.CurTime >= state.NextEventTime)
             {
@@ -678,10 +817,29 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         MindComponent mind,
         TraitorUltraMindState state)
     {
-        if (mind.OwnedEntity is not { } body || !Exists(body))
+        if (!TryGetEligibleAliveBody(mind, state, out var body))
             return false;
 
         return _actions.AddAction(body, ref state.UpgradeOfferActionEntity, component.UpgradeOfferAction, mindId);
+    }
+
+    private bool TryGetEligibleAliveBody(
+        MindComponent mind,
+        TraitorUltraMindState state,
+        out EntityUid body)
+    {
+        body = default;
+        if (state.EligibleBody is not { } eligible ||
+            mind.OwnedEntity != eligible ||
+            TerminatingOrDeleted(eligible) ||
+            !TryComp<MobStateComponent>(eligible, out var mobState) ||
+            mobState.CurrentState == MobState.Dead)
+        {
+            return false;
+        }
+
+        body = eligible;
+        return true;
     }
 
     private void RemoveUpgradeOfferAction(TraitorUltraMindState state)
@@ -751,6 +909,12 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             return;
         }
 
+        if (!TryGetEligibleAliveBody(mind, state, out _))
+        {
+            InterruptUpgradeOffer(mindId, state);
+            return;
+        }
+
         if (Timing.CurTime >= state.NextEventTime)
         {
             DeclineUpgradeOffer(mindId, mind, state, "traitor-ultra-offer-expired-popup");
@@ -765,7 +929,11 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
 
         CloseUpgradeOfferEui(mindId);
         RemoveUpgradeOfferAction(state);
-        UpgradeTraitor(rule, component, mindId, mind, state);
+        if (!UpgradeTraitor(rule, component, mindId, mind, state))
+        {
+            state.Stage = TraitorUltraStage.Initial;
+            state.NextEventTime = TimeSpan.Zero;
+        }
     }
 
     public TraitorUltraOfferEuiState GetOfferState(EntityUid rule, EntityUid mindId)
@@ -1196,7 +1364,7 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
 
     private bool InitialObjectivesCompleted(EntityUid mindId, MindComponent mind, TraitorUltraRuleComponent component)
     {
-        var hasRequiredObjective = false;
+        var requiredObjectives = new List<EntityUid>();
 
         foreach (var objective in mind.Objectives.ToArray())
         {
@@ -1212,12 +1380,18 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             if (ObjectiveOptionalForUpgradeCompletion(objective, component))
                 continue;
 
-            hasRequiredObjective = true;
+            requiredObjectives.Add(objective);
             if (!_objectives.IsCompleted(objective, (mindId, mind)))
                 return false;
         }
 
-        return hasRequiredObjective;
+        if (requiredObjectives.Count == 0)
+            return false;
+
+        foreach (var objective in requiredObjectives)
+            _sharedObjectives.LockCompletion(objective);
+
+        return true;
     }
 
     private bool ObjectiveIgnoredForUpgradeCompletion(EntityUid objective, TraitorUltraRuleComponent component)
@@ -1250,14 +1424,25 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
         return false;
     }
 
-    private void UpgradeTraitor(
+    private bool UpgradeTraitor(
         EntityUid rule,
         TraitorUltraRuleComponent component,
         EntityUid mindId,
         MindComponent mind,
         TraitorUltraMindState state,
-        bool announceBounty = true)
+        bool announceBounty = true,
+        bool requireCompletedObjectives = true)
     {
+        if (!TryGetEligibleAliveBody(mind, state, out _))
+            return false;
+
+        var objectivesCompleted = InitialObjectivesCompleted(mindId, mind, component);
+        if (requireCompletedObjectives && !objectivesCompleted)
+            return false;
+
+        if (!EnsureUpgradeResources((mindId, mind), component, state))
+            return false;
+
         state.OriginalCorporation ??= GetOriginalCorporation(rule, mindId);
         state.NewCorporation = PickNewCorporation(component, state.OriginalCorporation, state.NewCorporation);
         state.AgentName = GetMindCharacterName(mind);
@@ -1269,8 +1454,6 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
             : TimeSpan.Zero;
 
         UpgradeTraitorRole(mindId, mind, component);
-        if (!EnsureDeathAcidifierImplant((mindId, mind), component))
-            Log.Error($"Failed to assign the TraitorUltra death-acidifier implant to {ToPrettyString(mindId)}.");
 
         RemoveTraitorMindFromAllRules(mindId);
 
@@ -1289,6 +1472,8 @@ public sealed class TraitorUltraRuleSystem : GameRuleSystem<TraitorUltraRuleComp
 
         if (announceBounty)
             QueueDelayedAction(component.BountyPreparationTime, rule, mindId, TraitorUltraDelayedActionType.AnnounceBounty);
+
+        return true;
     }
 
     private void RemoveTraitorMindFromAllRules(EntityUid mindId)

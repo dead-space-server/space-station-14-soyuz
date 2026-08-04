@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "size": {
+      "x": 32,
+      "y": 32
+    },
+    "copyright": "Imported for DeadSpace Soyuz",
+    "license": "CC-BY-SA-3.0",
+    "states": [
+      {
+        "name": "gatheredlow",
+        "directions": 4
+      },
+      {
+        "name": "lowpigtails",
+        "directions": 4
+      },
+      {
+        "name": "frenchbraid",
+        "directions": 4
+      }
+    ]
+  }

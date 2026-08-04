@@ -200,6 +200,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment
@@ -214,6 +215,7 @@
     - Janitor
     - Instruments
     - Equipment
+    - HoldingBags # DS14
     - NightVisionTech # DS14
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
@@ -253,6 +255,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools
     - ScienceEquipment
@@ -430,6 +433,7 @@
     - ArmedTechFabCircuitboard
     - ProcessingTungsten
     - SecurityPoliceBeta
+    - ImplantsPack
 # DS14-Soyuz-end
   - type: EmagLatheRecipes
     emagStaticPacks:

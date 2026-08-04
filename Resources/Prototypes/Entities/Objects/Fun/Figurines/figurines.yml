@@ -49,8 +49,6 @@
 
 #HUMANOID FIGURINES
 
-#HUMANOID FIGURINES
-
 - type: entity
   parent: BaseFigurine
   id: ToyFigurineHeadOfPersonnel

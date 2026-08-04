@@ -174,8 +174,3 @@ JobSeniorSalvageSpecialist = Мастер шахтёр
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
-# DS14-Soyuz
-job-name-psychologist = Психиатр
-JobPsychologist = Психиатр
-JobPolitruk = Политический Руководитель
-JobPolitkom = Политический Комиссар

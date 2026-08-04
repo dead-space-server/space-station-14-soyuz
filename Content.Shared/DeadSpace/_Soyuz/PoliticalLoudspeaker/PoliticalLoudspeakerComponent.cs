@@ -1,4 +1,5 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint; 
@@ -11,7 +12,9 @@ namespace Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;
 public sealed partial class PoliticalLoudspeakerComponent : Component
 {
     [DataField] public float Range = 5f;
-    [DataField] public TimeSpan Cooldown = TimeSpan.FromSeconds(30);   
+    [DataField] public TimeSpan Cooldown = TimeSpan.FromSeconds(30);
+    [DataField] public float SpeechRangeMultiplier = 2f;
+    [DataField] public float TtsVolumeMultiplier = 2f;
 
     [DataField] public TimeSpan SpeedDuration = TimeSpan.FromSeconds(10);
     [DataField] public float SpeedMultiplier = 1.15f;

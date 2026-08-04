@@ -200,6 +200,15 @@
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    #DS14-Soyuz-start
+    - type: AutoImplant
+      implants:
+      - MindShieldImplant
+      - TrackingImplant
+      - RadioImplantSOC
+      - DeathRattleImplantSOD
+      - UnitologyWeaponRetentionImplant
+    #DS14-Soyuz-end
     - type: Rank
       rank: NKVBRankLieutenant
 
@@ -234,6 +243,15 @@
 #      - NamesFirstERT #DS14-Soyuz: Disabled
       - NamesLastERT
       nameFormat: name-format-ert-single #DS14-Soyuz: Changed to single format
+    #DS14-Soyuz-start
+    - type: AutoImplant
+      implants:
+      - MindShieldImplant
+      - TrackingImplant
+      - RadioImplantSOC
+      - DeathRattleImplantSOD
+      - UnitologyWeaponRetentionImplant
+    #DS14-Soyuz-end
     - type: Rank
       rank: NKVBRankLieutenant
 
@@ -275,6 +293,7 @@
       - RadioImplantSOC
       - DeathRattleImplantSOD
       - RezervImplant
+      - UnitologyWeaponRetentionImplant #DS14-Soyuz
     - type: Rank
       rank: NKVBRankLieutenant
 

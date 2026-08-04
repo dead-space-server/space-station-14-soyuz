@@ -12,11 +12,22 @@
     - type: CustomizableHumanoidSpawner
       jobPrototype: CentralCommandOfficial
       allowedSpecies:
+  #DS14-Soyuz-start
       - Human
       - Shark
       - Demon
       - Vulpkanin
       - Tajaran
+      - Arachnid
+      - Dwarf
+      - Felinid
+      - Kobolt
+      - Moth
+      - Reptilian
+      - SlimePerson
+      - Xenomorph
+      - Vox
+  #DS14-Soyuz-end
       randomNameFirstDataset: CustomizableSpawnerCentralCommandOfficialFirstName
       randomNameSecondLocalized: NamesLastERT
     - type: GhostRole

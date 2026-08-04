@@ -8,7 +8,7 @@
     CigPackMixed: 2
     CigarCase: 1
     SmokingPipeFilledTobacco: 1
-    # Vape: 1
+    Vape: 1 #DS14-Soyuz
     Matchbox: 4 # DS14-value
     PackPaperRollingFilters: 4 # DS14-value
     CheapLighter: 4

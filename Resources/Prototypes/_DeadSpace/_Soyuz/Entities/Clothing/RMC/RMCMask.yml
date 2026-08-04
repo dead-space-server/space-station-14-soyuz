@@ -1,5 +1,5 @@
 - type: entity
-  parent: [CMBaseMask, CMUBaseGasMaskFilterSlot]
+  parent: ClothingMaskGasSecurity
   id: SoyuzMaskGasRMC
   name: противогаз Л7
   description: Стандартный противогаз, используемый королевскими морпехами.

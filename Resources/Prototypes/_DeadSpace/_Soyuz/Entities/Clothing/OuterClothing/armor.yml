@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ClothingOuterBaseMedium, AllowSuitStorageClothing, BaseSecurityContraband]
+  parent:  
   id: SoyuzClothingOuterArmorBase
   name: базовая броня великого союза
   description: Слава умывальнику.

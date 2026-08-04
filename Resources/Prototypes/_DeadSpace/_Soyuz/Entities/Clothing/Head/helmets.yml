@@ -1,6 +1,6 @@
 - type: entity
-  parent: ClothingHeadBase
-  id: SoyuzHelmetBase
+  parent: ClothingHeadHelmetBase
+  id: SoyuzClothingHeadHelmetBase
   abstract: true
   name: шлем
   description: Слава умывальнику.
@@ -30,4 +30,20 @@
   - type: Tag
     tags:
     - RMCHelmet
+    - WhitelistChameleon
   - type: IdentityBlocker
+
+- type: entity
+  parent: SoyuzClothingHeadHelmetBase
+  id: SoyuzClothingHeadHelmetArmoredBase
+  abstract: true
+  name: шлем
+  description: Слава умывальнику.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9

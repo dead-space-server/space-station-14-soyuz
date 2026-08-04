@@ -1,0 +1,28 @@
+- type: entity
+  parent: [CMBaseMask, CMUBaseGasMaskFilterSlot]
+  id: SoyuzMaskGasRMC
+  name: противогаз Л7
+  description: Стандартный противогаз, используемый королевскими морпехами.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/mask/gasmask.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/mask/gasmask.rsi
+  - type: HideLayerClothing
+    slots:
+    - HeadTop
+    - HeadSide
+    - Snout
+  - type: Item
+    size: Small
+  - type: Tag
+    tags:
+    - GasMask
+
+- type: entity
+  parent: SoyuzMaskGasRMC
+  id: SoyuzMaskPrescriptionGasRMC
+  name: противогаз Л7 с диоптриями
+  components:
+  - type: VisionCorrection
+    visionBonus: -4

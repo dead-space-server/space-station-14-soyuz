@@ -1342,3 +1342,27 @@ ComputerCargoOrdersService: null
 WeaponTurretLaserNanoTrasen: WeaponEnergyTurretAI
 WeaponTurretLaserHostile: WeaponEnergyTurretTaipanAI
 WeaponTurretLaserTaipan: WeaponEnergyTurretTaipanAI
+
+# 2026-08-03 - DS14-Soyuz
+SignNTlogo1: null
+SignNTlogo2: null
+SignNTlogo3: null
+SignNTlogo4: null
+SignNTlogo5: null
+SignNlogo1: null
+SignNlogo2: null
+SignNlogo3: null
+SignNlogo4: null
+SignNlogo5: null
+SignNlogo6: null
+TowelColorNT: null
+NTHandyFlag: null
+OffsetCaneNT: null
+FullFlagNanoTrasen: null
+CabinetFlagNanoTrasen: null
+NanotrasenFlippo: null
+ClothingUniformJumpsuitNanotrasen: null
+BibleNanoTrasen: null
+ClothingNeckNanoTrasenPin: null
+PosterLegitNTTGC: null
+Holograph: null

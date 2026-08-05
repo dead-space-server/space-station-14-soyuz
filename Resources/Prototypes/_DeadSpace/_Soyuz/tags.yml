@@ -45,6 +45,8 @@
 # F
 
 # G
+- type: Tag
+  id: GasMask
 
 # H
 
@@ -109,6 +111,9 @@
 # Q
 
 # R
+
+- type: Tag
+  id: RMCHelmet
 
 # S
 

@@ -1326,3 +1326,26 @@ Entries:
     message: Скорострельность СР-3м 8>12
   - type: Fix
     message: СР-3м теперь можно перезарядить
+- id: 126
+  author: PERed5
+  time: '2026-08-05T11:07:55.983142+00:00'
+  pr: 409
+  changes:
+  - type: Add
+    message: Система аксессуаров на шлем
+  - type: Add
+    message: Система аксессуаров на броню
+  - type: Add
+    message: Система подсумков на одежду
+  - type: Add
+    message: Много новой смешной брони и одежды
+  - type: Remove
+    message: Очень много символики НТ с карт
+  - type: Tweak
+    message: Длительность смен до трёх часов
+  - type: Tweak
+    message: Ребаланс планов под трёх часовые смены
+  - type: Tweak
+    message: Кол-во выделяемого ТК для ЯО
+  - type: Tweak
+    message: Ребаланс всех планов под трёх часовые смены

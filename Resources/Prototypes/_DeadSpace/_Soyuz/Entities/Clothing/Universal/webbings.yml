@@ -74,7 +74,6 @@
     - type: Storage
       quickInsert: true
       areaInsert: true
-      quickInsertCooldown: 0
       maxItemSize: Normal
       grid:
       - 0,0,13,5

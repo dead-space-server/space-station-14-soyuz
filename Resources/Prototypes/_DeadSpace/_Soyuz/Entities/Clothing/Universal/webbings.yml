@@ -57,8 +57,6 @@
           maxItemSize: Normal
           grid:
             - 0,0,7,1   # up to 4 small or 8 tiny items
-        - type: RMCStorageEjectHand
-          state: Open
         - type: ExplosionResistance
           damageCoefficient: 0
           worn: false

@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Made bu yri_nouri (discord)",
+    "copyright": "Made bu pyfya - yri_nouri (discord)",
     "size": {
         "x": 32,
         "y": 32
@@ -18,15 +18,7 @@
             "directions": 4
         },
         {
-            "name": "on-equipped-HELMET",
-            "directions": 4
-        },
-        {
             "name": "off-equipped-HELMET-vox",
-            "directions": 4
-        },
-        {
-            "name": "on-equipped-HELMET-vox",
             "directions": 4
         },
         {
@@ -34,11 +26,15 @@
             "directions": 4
         },
         {
-            "name": "on-equipped-HELMET-reptilian",
+            "name": "on-equipped-HELMET",
             "directions": 4
         },
         {
-            "name": "on-equipped-HELMET-vulpkanin",
+            "name": "on-equipped-HELMET-vox",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-HELMET-reptilian",
             "directions": 4
         },
         {
@@ -46,11 +42,7 @@
             "directions": 4
         },
         {
-            "name": "off-equipped-HELMET-dog",
-            "directions": 4
-        },
-        {
-            "name": "on-equipped-HELMET-dog",
+            "name": "on-equipped-HELMET-vulpkanin",
             "directions": 4
         }
     ]

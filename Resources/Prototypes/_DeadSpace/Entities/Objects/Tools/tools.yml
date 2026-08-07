@@ -9,8 +9,10 @@
     layers:
     - state: icon
   - type: RCD
+    # DS-14 Soyuz
     availablePrototypes:
     - WallSolidCE
+    - WallMiningCE # DS-14 Soyuz
     - FloorSteel
     - Plating
     - Catwalk
@@ -19,6 +21,7 @@
     - WindowDirectionalCE
     - WindowReinforcedDirectionalCE
     - ReinforcedWindowCE
+    - MiningWindowCE # DS-14 Soyuz
     - AirlockCE
     - AirlockGlassCE
     - FirelockCE
@@ -29,6 +32,9 @@
     - HVCable
     - CableTerminal
     - Deconstruct
+  # DS-14 Soyuz
+  - type: AutoRecharge
+    rechargeDuration: 20
 
 - type: entity
   name: кроваво-красный сварочный аппарат

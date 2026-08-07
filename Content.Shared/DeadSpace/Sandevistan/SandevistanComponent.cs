@@ -1,6 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using Content.Shared.Damage;
+using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
@@ -10,13 +11,20 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 namespace Content.Shared.DeadSpace.Sandevistan;
 
 [RegisterComponent]
+public sealed partial class SandevistanImplanterComponent : Component
+{
+    public DoAfterId? ActiveDoAfter;
+    public TimeSpan NextScreamTime;
+}
+
+[RegisterComponent]
 public sealed partial class SandevistanImplantComponent : Component
 {
     [DataField]
-    public float Duration = 17f;
+    public float Duration = 25f;
 
     [DataField]
-    public float SoftcapTime = 12f;
+    public float SoftcapTime = 18f;
 
     [DataField]
     public float CooldownMultiplier = 1.5f;
@@ -25,7 +33,7 @@ public sealed partial class SandevistanImplantComponent : Component
     public float MovementSpeedModifier = 1.7f;
 
     [DataField]
-    public float AttackRateModifier = 1.35f;
+    public float AttackRateModifier = 1.75f;
 
     [DataField]
     public float OverloadInterval = 1f;
@@ -104,6 +112,11 @@ public sealed partial class SandevistanImplantComponent : Component
         "sandevistan-softcap-shout-23",
         "sandevistan-softcap-shout-24",
         "sandevistan-softcap-shout-25",
+        "sandevistan-softcap-shout-26",
+        "sandevistan-softcap-shout-27",
+        "sandevistan-softcap-shout-28",
+        "sandevistan-softcap-shout-29",
+        "sandevistan-softcap-shout-30",
     };
 
     [DataField]
@@ -131,16 +144,7 @@ public sealed partial class SandevistanImplantComponent : Component
     };
 
     [DataField]
-    public float RecoveryDuration = 10f;
-
-    [DataField]
-    public float RecoveryMovementSpeedModifier = 0.65f;
-
-    [DataField]
     public float RecoveryTickInterval = 3f;
-
-    [DataField]
-    public float RecoveryManualStaminaDamageFraction = 0.3f;
 
     [DataField]
     public DamageSpecifier RecoveryDamage = new()
@@ -202,9 +206,6 @@ public sealed partial class SandevistanImplantComponent : Component
     public float DeactivationVisualDuration = 1.5f;
 
     [DataField]
-    public float DeactivationMovementDuration = 1.25f;
-
-    [DataField]
     public Color AfterimageColor = Color.FromHex("#00ffd0dd");
 
     [DataField]
@@ -235,6 +236,13 @@ public sealed partial class SandevistanImplantComponent : Component
 
     [DataField]
     public LocId? Popup = "sandevistan-implant-activated";
+}
+
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class SandevistanMeleeAttackRateComponent : Component
+{
+    [DataField, AutoNetworkedField]
+    public float Modifier = 1f;
 }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
@@ -322,7 +330,7 @@ public sealed partial class ActiveSandevistanComponent : Component
     public float MovementSpeedModifier = 1.7f;
 
     [DataField, AutoNetworkedField]
-    public float AttackRateModifier = 1.35f;
+    public float AttackRateModifier = 1.75f;
 
     [DataField]
     public float OverloadInterval = 1f;
@@ -385,9 +393,6 @@ public sealed partial class ActiveSandevistanComponent : Component
     [DataField, AutoNetworkedField]
     public float DeactivationVisualDuration = 1.5f;
 
-    [DataField]
-    public float DeactivationMovementDuration = 1.25f;
-
     [DataField, AutoNetworkedField]
     public Color AfterimageColor = Color.FromHex("#00ffd0dd");
 
@@ -395,16 +400,7 @@ public sealed partial class ActiveSandevistanComponent : Component
     public string AfterimageFallbackEffect = "MantisDodgeEffect";
 
     [DataField]
-    public float RecoveryDuration = 10f;
-
-    [DataField]
-    public float RecoveryMovementSpeedModifier = 0.65f;
-
-    [DataField]
     public float RecoveryTickInterval = 3f;
-
-    [DataField]
-    public float RecoveryManualStaminaDamageFraction = 0.3f;
 
     [DataField]
     public DamageSpecifier RecoveryDamage = new()
@@ -444,19 +440,10 @@ public sealed partial class SandevistanRecoveryComponent : Component
     public TimeSpan NextPopupTime;
 
     [DataField, AutoNetworkedField]
-    public float MovementSpeedModifier = 0.65f;
-
-    [DataField, AutoNetworkedField]
-    public float Duration = 10f;
+    public float Duration;
 
     [DataField]
     public float TickInterval = 3f;
-
-    [DataField]
-    public float ManualStaminaDamageRemaining;
-
-    [DataField]
-    public int ManualStaminaDamageTicksRemaining;
 
     [DataField]
     public DamageSpecifier Damage = new()
@@ -499,6 +486,9 @@ public sealed partial class SandevistanVisualFadeoutComponent : Component
     public float StartIntensity = 1f;
 
     [DataField, AutoNetworkedField]
+    public bool AllowRampIn;
+
+    [DataField, AutoNetworkedField]
     public float SoftcapProgress;
 
     [DataField, AutoNetworkedField]
@@ -515,20 +505,4 @@ public sealed partial class SandevistanVisualFadeoutComponent : Component
 
     [DataField, AutoNetworkedField]
     public string AfterimageFallbackEffect = "MantisDodgeEffect";
-}
-
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
-public sealed partial class SandevistanSpeedFadeoutComponent : Component
-{
-    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField, AutoPausedField]
-    public TimeSpan EndTime;
-
-    [DataField, AutoNetworkedField]
-    public float Duration = 1.25f;
-
-    [DataField, AutoNetworkedField]
-    public float StartModifier = 1f;
-
-    [DataField, AutoNetworkedField]
-    public float EndModifier = 1f;
 }

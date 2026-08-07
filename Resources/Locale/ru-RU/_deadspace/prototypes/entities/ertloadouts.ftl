@@ -170,7 +170,7 @@ ert-loadout-category-advancedlaser-description =
     Батарея этого оружия подзаряжается сама со временем.
 ert-loadout-category-advancedlaserert-name = Продвинутый лазерный пистолет ОБР
 ert-loadout-category-advancedlaserert-description =
-    Эксперементальная разработка КСО на основе микро-ядерного синтеза. 
+    Эксперементальная разработка НКВБ на основе микро-ядерного синтеза. 
     Благодарю этому данное оружие может самозаряжаться, и хранить намного больше заряда.
 ert-loadout-category-energymagnum-name = Энергетический магнум
 ert-loadout-category-energymagnum-description =

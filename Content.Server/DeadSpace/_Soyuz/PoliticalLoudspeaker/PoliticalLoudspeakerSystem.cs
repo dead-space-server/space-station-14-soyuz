@@ -1,9 +1,12 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 
-using System.Linq; 
+using System.Linq;
+using Content.Server.Chat.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Actions.Components; 
 using Content.Shared.Actions.Events;
+using Content.Shared.Chat;
 using Content.Shared.Damage; 
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes; 
@@ -21,12 +24,20 @@ using Content.Shared.StatusEffectNew;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map; 
 using Robust.Shared.Prototypes; 
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server.DeadSpace._Soyuz.PoliticalLoudspeaker;
 
 public sealed class PoliticalLoudspeakerSystem : EntitySystem
 {
+    private const int SpeechVariantCount = 20;
+    private const string HealSpeechKeyPrefix = "political-loudspeaker-slogan-heal";
+    private const string SpeedSpeechKeyPrefix = "political-loudspeaker-slogan-speed";
+    private const string FortifySpeechKeyPrefix = "political-loudspeaker-slogan-fortify";
+
+    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!; 
     [Dependency] private readonly SharedActionsSystem _actions = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;   
@@ -106,6 +117,7 @@ public sealed class PoliticalLoudspeakerSystem : EntitySystem
     private void OnHealAction(Entity<PoliticalLoudspeakerComponent> ent, ref PoliticalLoudspeakerHealActionEvent args)
     {
         if (!CanUse(ent, args.Performer)) return;  args.Handled = true;  SpawnFlash(ent, args.Performer);
+        SpeakSlogan(args.Performer, HealSpeechKeyPrefix);
 
         var interval = ent.Comp.HealTickInterval; if (interval <= TimeSpan.Zero) interval = TimeSpan.FromSeconds(1);
         var duration = ent.Comp.HealDuration; if (duration <= TimeSpan.Zero) duration = interval;
@@ -132,6 +144,7 @@ public sealed class PoliticalLoudspeakerSystem : EntitySystem
     private void OnSpeedAction(Entity<PoliticalLoudspeakerComponent> ent, ref PoliticalLoudspeakerSpeedActionEvent args)
     {
         if (!CanUse(ent, args.Performer)) return;  args.Handled = true; SpawnFlash(ent, args.Performer);
+        SpeakSlogan(args.Performer, SpeedSpeechKeyPrefix);
 
         GetValidTargets(ent.Comp, args.Performer, _validTargets);
         foreach (var target in _validTargets)
@@ -146,6 +159,7 @@ public sealed class PoliticalLoudspeakerSystem : EntitySystem
     private void OnFortifyAction(Entity<PoliticalLoudspeakerComponent> ent, ref PoliticalLoudspeakerFortifyActionEvent args)
     {
         if (!CanUse(ent, args.Performer)) return; args.Handled = true; SpawnFlash(ent, args.Performer);
+        SpeakSlogan(args.Performer, FortifySpeechKeyPrefix);
 
         GetValidTargets(ent.Comp, args.Performer, _validTargets); var endTime = _timing.CurTime + ent.Comp.FortifyDuration;
         foreach (var target in _validTargets)
@@ -177,6 +191,18 @@ public sealed class PoliticalLoudspeakerSystem : EntitySystem
     {
         if (!TryComp<HandsComponent>(performer, out var hands)) return false;
         return _hands.IsHolding((performer, hands), ent.Owner);
+    }
+
+    private void SpeakSlogan(EntityUid performer, string keyPrefix)
+    {
+        var slogan = Loc.GetString($"{keyPrefix}-{_random.Next(1, SpeechVariantCount + 1)}");
+        _chat.TrySendInGameICMessage(
+            performer,
+            slogan,
+            InGameICChatType.Speak,
+            ChatTransmitRange.Normal,
+            checkRadioPrefix: false,
+            ignoreActionBlocker: true);
     }
 
     private void SpawnFlash(Entity<PoliticalLoudspeakerComponent> ent, EntityUid performer)

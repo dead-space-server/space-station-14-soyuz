@@ -1,6 +1,29 @@
 # Traitor Ultra uplink catalog. Listings are copied from the regular traitor uplink with separate ids/categories so prices can diverge.
 
 - type: listing
+  id: UplinkTraitorUltraMalorian
+  name: uplink-malorian-name
+  description: uplink-malorian-desc
+  productEntity: WeaponPistolMalorian
+  cost:
+    Telecrystal: 12
+  categories:
+  - TraitorUltraUplinkWeaponry
+  conditions:
+  - !type:BuyerAntagCondition
+    whitelist:
+    - TraitorUltra
+  - !type:StoreWhitelistCondition
+    blacklist:
+      tags:
+      - NukeOpsUplink
+      - LoneOpsUplink
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
+
+- type: listing
   id: UplinkTraitorUltraPistolViper
   name: uplink-pistol-viper-name
   description: uplink-pistol-viper-desc
@@ -1550,68 +1573,6 @@
       - NukeOpsUplink
 
 - type: listing
-  id: UplinkTraitorUltraReinforcementRadioSyndicate
-  name: uplink-reinforcement-radio-name
-  description: uplink-reinforcement-radio-traitor-desc
-  productEntity: ReinforcementRadioSyndicate
-  icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-urist }
-  discountCategory: usualDiscounts
-  discountDownTo:
-    Telecrystal: 7
-  cost:
-    Telecrystal: 12 # DS14-value
-  categories:
-  - TraitorUltraUplinkAllies
-  conditions:
-    - !type:StoreWhitelistCondition
-      blacklist:
-        tags:
-          - NukeOpsUplink
-
-- type: listing
-  id: UplinkTraitorUltraReinforcementRadioSyndicateNukeops # Version for Nukeops that spawns another nuclear operative without the uplink.
-  name: uplink-reinforcement-radio-nukeops-name
-  description: uplink-reinforcement-radio-nukeops-desc
-  productEntity: ReinforcementRadioSyndicateNukeops
-  icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-nukeop }
-  cost:
-    Telecrystal: 10 # DS14-value
-  categories:
-  - TraitorUltraUplinkAllies
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - NukeOpsUplink
-
-- type: listing
-  id: UplinkTraitorUltraReinforcementRadioSyndicateCyborgAssault
-  name:  uplink-reinforcement-radio-cyborg-assault-name
-  description: uplink-reinforcement-radio-cyborg-assault-desc
-  productEntity: ReinforcementRadioSyndicateCyborgAssault
-  icon: { sprite: Objects/Devices/communication.rsi, state: old-radio-borg-assault }
-  # DS14-start
-  discountCategory: usualDiscounts
-  discountDownTo:
-    Telecrystal: 30
-  # DS14-end
-  cost:
-    Telecrystal: 35 # DS14-value
-  categories:
-    - TraitorUltraUplinkAllies
-  conditions:
-    - !type:StoreWhitelistCondition
-      whitelist:
-        tags:
-          - NukeOpsUplink
-  # DS14-start
-    - !type:BuyerWhitelistCondition
-      blacklist:
-        components:
-        - SurplusBundle
-  # DS14-end
-
-- type: listing
   id: UplinkTraitorUltraReinforcementRadioSyndicateAncestor
   name: uplink-reinforcement-radio-ancestor-name
   description: uplink-reinforcement-radio-ancestor-desc
@@ -2992,6 +2953,26 @@
   description: uplink-mantisblades-desc
   icon: { sprite: _DeadSpace/Objects/Weapons/Melee/mantis_blades.rsi, state: icon }
   productEntity: MantisBladesImplanter
+  cost:
+    Telecrystal: 20
+  categories:
+  - TraitorUltraUplinkWeaponry
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - NukeOpsUplink
+    - !type:BuyerWhitelistCondition
+      blacklist:
+        components:
+          - SurplusBundle
+
+- type: listing
+  id: UplinkTraitorUltraMonowireBundle
+  name: uplink-monowire-name
+  description: uplink-monowire-desc
+  icon: { sprite: _DeadSpace/Objects/Weapons/Melee/monowire.rsi, state: icon }
+  productEntity: MonowireImplanter
   cost:
     Telecrystal: 20
   categories:

@@ -4,7 +4,7 @@
   - Amber
   - Aspid
   - Bagel
-  - Barratry
+  # - Barratry # DS14-Soyuz disabled
   - Box
   # - Cluster # broken map, needs resave
   - Cog
@@ -20,12 +20,13 @@
   - CorvaxSpectrum
   - CorvaxGlacier
   - CorvaxPearl
-  - Elkridge
+  # - Elkridge # DS14-Soyuz disabled
   - Fland
   - Gate
   - Ishimura
-  # - Gemini # broken map, needs resave
+  - Gemini #DS14
   # - Loop # broken map, needs resave
+  # - Loop
   - Marathon
   - Meta
   - Oasis
@@ -36,5 +37,5 @@
   - Reach
   # - Exo # map prototype is commented out
   - Saltern
-  - Snowball
+  - Snowball # DS14-Soyuz
   - Train

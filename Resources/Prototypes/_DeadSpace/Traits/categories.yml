@@ -1,4 +1,4 @@
 - type: traitCategory
   id: Scale
-  name: trait-category-scale
+  name: Рост # DS14-Soyuz localization
   maxTraitPoints: 1

@@ -245,3 +245,51 @@
   name: "Мотогонки - Лихолесье"
   path:
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/motogonki-likholesye.ogg
+
+- type: jukebox
+  id: DichaetAprel
+  name: "Порезы на собаке - Дичает апрель"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/cut-on-the-dog/dichaet-aprel.ogg
+
+- type: jukebox
+  id: Lift
+  name: "Порезы на собаке - Лифт"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/cut-on-the-dog/lift.ogg
+
+- type: jukebox
+  id: Prospal
+  name: "Порезы на собаке - Проспал"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/cut-on-the-dog/prospal.ogg
+
+- type: jukebox
+  id: SkripyatTelegi
+  name: "Порезы на собаке - Скрипят Телеги"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/cut-on-the-dog/skripyat-telegi.ogg
+
+- type: jukebox
+  id: GlavnoeHotet
+  name: "4 позиции бруно - Главное Хотеть"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/4-postions-bruno/glavnoe-hotet.ogg
+
+- type: jukebox
+  id: NaDvoix
+  name: "4 позиции бруно - На двоих"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/4-postions-bruno/na-dvoix.ogg
+
+- type: jukebox
+  id: Soldats
+  name: "4 позиции бруно - Солдаты"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/4-postions-bruno/soldats.ogg
+
+- type: jukebox
+  id: Vesna
+  name: "4 позиции бруно - Весна"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/4-postions-bruno/vesna.ogg

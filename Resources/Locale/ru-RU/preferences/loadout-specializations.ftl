@@ -2,15 +2,15 @@ loadout-group-chef-specialization = Шеф-повар, специализаци�
 loadout-group-lawyer-specialization = Юрист, специализация
 loadout-group-doctor-specialization = Врач, специализация
 loadout-group-service-specialization = Сервисный работник, специализация
-loadout-group-scientist-specialization = Учёный, специализация
+loadout-group-scientist-specialization = Научный Сотрудник, специализация
 loadout-group-engineer-specialization = Инженер, специализация
 loadout-group-cargo-specialization = Грузчик, специализация
-loadout-group-salvage-specialization = Утилизатор, специализация
-loadout-group-botanist-specialization = Ботаник, специализация
-loadout-group-passenger-specialization = Ассистент, специализация
+loadout-group-salvage-specialization = Шахтёр, специализация
+loadout-group-botanist-specialization = Агроном, специализация
+loadout-group-passenger-specialization = Разнорабочий, специализация
 loadout-group-atmospheric-specialization = Атмосферный техник, специализация
-loadout-group-detective-specialization = Детектив, специализация
-loadout-group-psychologist-specialization = Психолог, специализация
+loadout-group-detective-specialization = Следователь, специализация
+loadout-group-psychologist-specialization = Психиатор, специализация
 loadout-group-clown-specialization = Клоун, специализация
 
 
@@ -53,11 +53,11 @@ job-title-cargo-logistician = Логист
 job-title-cargo-postman = Почтальон
 
 # Утилизатор
-job-title-salvage-miner = Шахтёр
+job-title-salvage-miner = Утилизатор
 job-title-salvage-explorer = Исследователь
 
 # Ботаник
-job-title-botanist-agronomist = Агроном
+job-title-botanist-agronomist = Ботаник
 job-title-botanist-Selectioner = Селекционер
 
 # Ассистент
@@ -73,7 +73,7 @@ job-title-detective-operative = Оперуполномоченный
 
 # Психолог
 job-title-psychologist-psychotherapist = Психотерапевт
-job-title-psychologist-psychiatrist = Психиатр
+job-title-psychologist-psychiatrist = Психолог
 
 # Клоун
 job-title-clown-comedian = Комик

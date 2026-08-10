@@ -1,12 +1,12 @@
 - type: traitCategory
   id: Disabilities
-  name: trait-category-disabilities
+  name: Ограничения # DS14-Soyuz (Я реально не понимаю почему он не хочет брать локализацию)
 
 - type: traitCategory
   id: SpeechTraits
-  name: trait-category-speech
+  name: Черты речи # DS14-Soyuz
   maxTraitPoints: 2
 
 - type: traitCategory
   id: Quirks
-  name: trait-category-quirks
+  name: Причуды # DS14-Soyuz

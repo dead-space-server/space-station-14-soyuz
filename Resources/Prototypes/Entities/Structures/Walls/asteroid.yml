@@ -455,7 +455,7 @@
 
 - type: entity
   id: IronRock
-  parent: AsteroidRock
+  parent: [ AsteroidRock, WallRock ] # DS14-Soyuz
   name: ironrock
   suffix: Low Ore Yield
   description: A rocky asteroid.

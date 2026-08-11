@@ -17,8 +17,8 @@
     - Demon
     - Vulpkanin
     - Tajaran
-    randomNameFirstDataset: CustomizableSpawnerCentralCommandBlueShieldOfficerFirstName
-    randomNameSecondLocalized: NamesLastERT
+    # randomNameFirstDataset: CustomizableSpawnerCentralCommandBlueShieldOfficerFirstName # DS14-Soyuz disabled
+    # randomNameSecondLocalized: NamesLastERT # DS14-Soyuz disabled
   - type: GhostRole
     name: ghost-role-information-blueshieldofficer-name
     description: ghost-role-information-blueshieldofficer-description
@@ -31,7 +31,7 @@
 - type: dataset
   id: CustomizableSpawnerCentralCommandBlueShieldOfficerFirstName
   values:
-  - Сержант # DS14-Soyuz
+  - Оперативник # DS14-Soyuz
 
 - type: roleLoadout
   id: JobCentralCommandBlueShieldOfficer

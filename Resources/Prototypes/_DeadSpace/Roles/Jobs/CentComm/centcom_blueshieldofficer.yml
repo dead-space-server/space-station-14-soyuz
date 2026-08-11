@@ -31,13 +31,17 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+  # DS14-Soyuz-start
+  ranks:
+    NKVBRankSeniorLieutenant: []
+  # DS14-Soyuz-end
 
 - type: entity
   parent: ClothingBackpackBlueShield
   id: ClothingBackpackBlueShieldCentComFilled
-  name: модифицированный рюкзак оперативника КГБ # DS14-Soyuz
-  description: Рюкзак оперативника КГБ с функцией РИГ. # DS14-Soyuz
-  suffix: Заполненный, ГенШтаб # DS14-Soyuz
+  name: модифицированный рюкзак офицера "Синий Щит"
+  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
+  suffix: Заполненный, ЦентКом
   components:
   - type: StorageFill
     contents:
@@ -59,9 +63,9 @@
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
   parent: ClothingBeltMilitaryWebbingBlueShieldFilled
-  name: РПС оперативника КГБ # DS14-Soyuz
-  description: РПС, которую носят оперативники КГБ # DS14-Soyuz
-  suffix: Заполненный, ГенШтаб # DS14-Soyuz
+  name: РПС офицера "Синий Щит"
+  description: РПС, которую носят офицеры "Синий Щит"
+  suffix: Заполненный, ЦентКом
   components:
   - type: StorageFill
     contents:

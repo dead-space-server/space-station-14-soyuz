@@ -241,3 +241,45 @@
   source: "https://www.youtube.com/watch?v=ythpfnSYsTg"
 # DS-14 End
   # DS14-end
+
+- files: ["cut-on-the-dog/dichaet-aprel"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=3AJxIeuvMzI"
+
+- files: ["cut-on-the-dog/lift"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=ApaXSVmArF4"
+
+- files: ["cut-on-the-dog/prospal"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=5CpbSjhDkrI"
+
+- files: ["cut-on-the-dog/skripyat-telegi"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=mNaqhx616Do"
+
+- files: ["4-postions-bruno/glavnoe-hotet"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=RUzQ85dGWAM"
+
+- files: ["4-postions-bruno/na-dvoix"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=R4B2cLDfYa8"
+
+- files: ["4-postions-bruno/soldats"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=TDPp4eeF5-A"
+
+- files: ["4-postions-bruno/vesna"]
+  license: "Custom"
+  copyright: "Custom"
+  source: "https://www.youtube.com/watch?v=oO3kcJQ46rw"
+
+# DS14-Soyuz end

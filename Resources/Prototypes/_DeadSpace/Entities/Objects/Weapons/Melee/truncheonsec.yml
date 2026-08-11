@@ -1,5 +1,5 @@
 - type: entity
-  name: боевое мачете СГМ
+  name: боевое мачете СБ
   parent: Stunbaton
   id: Truncheonsec
   description: Электрошоковое мачете для обездвиживания или убийства людей. Имеет нелетальный и летальный режимы. Является улучшением шоковой дубинки для действительно трудных ситуаций.
@@ -69,7 +69,7 @@
   - type: SwitchableWeapon
     damageOpen:
       types:
-        Blunt: 0
+        Blunt: 3 # DS14-Soyuz
     damageFolded:
       types:
           Slash: 10
@@ -78,6 +78,7 @@
     staminaDamageOpen: 40
   - type: StaminaDamageOnHit
     damage: 0
+    sound: /Audio/Weapons/egloves.ogg # DS14-Soyuz
   - type: ItemToggle
     predictable: false
     soundActivate:
@@ -96,7 +97,11 @@
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
   - type: Item
-    size: Normal
+    # DS14-Soyuz start
+    size: Small
+    shape:
+    - 0,0,0,1 
+    # # DS14-Soyuz end
     sprite: _DeadSpace/Objects/Weapons/Melee/truncheon_sec.rsi
   - type: DisarmMalus
     malus: 0

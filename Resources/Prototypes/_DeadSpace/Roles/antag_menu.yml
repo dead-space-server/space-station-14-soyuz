@@ -21,7 +21,7 @@
     antags:
     - Traitor
     - TraitorSleeper
-  - displayName: Ядерные оперативники
+  - displayName: Оперативники Легиона # DS14-Soyuz
     icon:
       sprite: Interface/Misc/job_icons.rsi
       state: SyndicateOperative

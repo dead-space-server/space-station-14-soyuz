@@ -1327,15 +1327,15 @@ DresserCaptainFilled: VendingMachineCaptainDrobe
 
 # 2026-07-11 - DS14-Soyuz
 PosterLegitNanotrasenLogo: PosterUSSP
-# 2026-07-08 - DS14
-CargoRequestEngineeringComputerCircuitboard: null
-CargoRequestMedicalComputerCircuitboard: null
-CargoRequestScienceComputerCircuitboard: null
-CargoRequestServiceComputerCircuitboard: null
-ComputerCargoOrdersEngineering: null
-ComputerCargoOrdersMedical: null
-ComputerCargoOrdersScience: null
-ComputerCargoOrdersService: null
+# 2026-07-08 - DS14 # DS14-Soyuz disabled
+# CargoRequestEngineeringComputerCircuitboard: null
+# CargoRequestMedicalComputerCircuitboard: null
+# CargoRequestScienceComputerCircuitboard: null
+# CargoRequestServiceComputerCircuitboard: null
+# ComputerCargoOrdersEngineering: null
+# ComputerCargoOrdersMedical: null
+# ComputerCargoOrdersScience: null
+# ComputerCargoOrdersService: null
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14

@@ -11,6 +11,7 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Roles.Jobs;
 using Robust.Shared.Random;
+using Content.Shared._RMC14.Marines.Roles.Ranks;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -27,6 +28,7 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly SharedRoleSystem _roles = default!;
     // DS14-end
+    [Dependency] private readonly SharedRankSystem _rankSystem = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -75,7 +77,17 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
             ForceEndSelf(ent.Owner);
             return;
         }
-        // DS14-end
+
+        // DS14-Soyuz start
+        if (ent.Comp.OriginalBody is { } originalBody)
+        {
+            var rankProto = _rankSystem.GetRank(originalBody);
+            if (rankProto != null)
+            {
+                _rankSystem.SetRank(cloneUid, rankProto);
+            }
+        }
+        // DS14-Soyuz end
 
         var targetComp = EnsureComp<TargetOverrideComponent>(cloneUid);
         targetComp.Target = ent.Comp.OriginalMind; // set the kill target

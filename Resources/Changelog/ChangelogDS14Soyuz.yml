@@ -1405,3 +1405,12 @@ Entries:
   changes:
   - type: Tweak
     message: Залит опять мелкий ремап аванпостов Легионов под тематику Союза
+- id: 131
+  author: Genes1us
+  time: '2026-08-14T10:17:07.988594+00:00'
+  pr: 418
+  changes:
+  - type: Tweak
+    message: Декали и стандарты оружейки на пёрле. By ViviWewe
+  - type: Fix
+    message: Двойное звание у Полевого Офицера.

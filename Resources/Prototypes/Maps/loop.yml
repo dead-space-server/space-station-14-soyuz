@@ -1,6 +1,6 @@
 - type: gameMap
   id: Loop
-  mapName: 'Залуп' #DS14-Soyuz local
+  mapName: 'Луп' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/loop.yml
   minPlayers: 20
   maxPlayers: 40

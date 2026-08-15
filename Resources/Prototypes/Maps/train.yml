@@ -11,7 +11,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Поезд "Сентипод" {0}-{1}' #DS14-Soyuz local
+          mapNameTemplate: 'Поезд "Сентипеда" {0}-{1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'ED'

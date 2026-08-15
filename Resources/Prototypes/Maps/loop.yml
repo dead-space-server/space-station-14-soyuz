@@ -1,6 +1,6 @@
 - type: gameMap
   id: Loop
-  mapName: 'Луп' #DS14-Soyuz local
+  mapName: 'Петля' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/loop.yml
   minPlayers: 20
   maxPlayers: 40
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Луп {1}' #DS14-Soyuz local
+          mapNameTemplate: '{0} Петля {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

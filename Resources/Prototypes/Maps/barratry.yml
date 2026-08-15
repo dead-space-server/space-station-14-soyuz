@@ -1,6 +1,6 @@
 - type: gameMap
   id: Barratry
-  mapName: 'Барратри' #DS14-Soyuz local
+  mapName: 'Барратрия' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/barratry.yml
   minPlayers: 25
   maxPlayers: 55
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Барратри {1}' #DS14-Soyuz local
+          mapNameTemplate: '{0} Барратрия {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

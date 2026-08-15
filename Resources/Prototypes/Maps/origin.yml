@@ -1,6 +1,6 @@
 - type: gameMap
   id: Origin
-  mapName: 'Ориджин' #DS14-Soyuz local
+  mapName: 'Исток' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/origin.yml
   minPlayers: 45
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Ориджин {1}' #DS14-Soyuz local
+          mapNameTemplate: '{0} Исток {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

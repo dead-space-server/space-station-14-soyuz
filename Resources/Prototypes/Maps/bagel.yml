@@ -1,6 +1,6 @@
 - type: gameMap
   id: Bagel
-  mapName: 'Bagel'
+  mapName: 'Багель' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/bagel.yml
   minPlayers: 25
   maxPlayers: 55
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Bagel {1}'
+          mapNameTemplate: '{0} Багель {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

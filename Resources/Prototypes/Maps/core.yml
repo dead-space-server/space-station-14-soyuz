@@ -1,6 +1,6 @@
 - type: gameMap
   id: Core
-  mapName: 'Core'
+  mapName: 'Ядро' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/core.yml
   minPlayers: 40
   maxPlayers: 75
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Core {1}'
+          mapNameTemplate: '{0} Ядро {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

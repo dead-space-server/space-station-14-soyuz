@@ -1,6 +1,6 @@
 - type: gameMap
   id: Train
-  mapName: 'Train'
+  mapName: 'Поезд' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
@@ -11,7 +11,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Train "Sentipode" {0}-{1}'
+          mapNameTemplate: 'Поезд "Сентипод" {0}-{1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'ED'

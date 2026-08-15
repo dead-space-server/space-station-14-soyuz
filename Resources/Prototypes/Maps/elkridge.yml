@@ -1,15 +1,15 @@
 - type: gameMap
   id: Elkridge
-  mapName: 'Elkridge Depot'
+  mapName: 'Депо Элкридж' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/elkridge.yml
-  minPlayers: 35
+  minPlayers: 25
   maxPlayers: 55
   stations:
     Elkridge:
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Elkridge Depot {1}'
+          mapNameTemplate: '{0} Депо Элкридж {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'DS'

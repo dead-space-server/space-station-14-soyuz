@@ -1,6 +1,6 @@
 - type: gameMap
   id: Cog
-  mapName: 'Cog'
+  mapName: 'Ког' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/cog.yml
   minPlayers: 40
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Cog {1}'
+          mapNameTemplate: '{0} Ког {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'R4' # R4407/Goon. GS isn't as cool sounding.

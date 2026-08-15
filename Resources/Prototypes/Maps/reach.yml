@@ -1,6 +1,6 @@
 - type: gameMap
   id: Reach
-  mapName: 'Reach'
+  mapName: 'Рич' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/reach.yml
   minPlayers: 0
   maxPlayers: 10
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Reach Transport {1}'
+          mapNameTemplate: '{0} Транспортёр "Рич" {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'VG'

@@ -1,6 +1,6 @@
 - type: gameMap
   id: CorvaxSilly
-  mapName: 'Silly Island'
+  mapName: 'Остров "Силли"' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/ds_silly.yml
   maxRandomOffset: 0
   randomRotation: false
@@ -11,7 +11,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Silly Island {1}'
+          mapNameTemplate: '{0} Остров "Силли" {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'ABK'

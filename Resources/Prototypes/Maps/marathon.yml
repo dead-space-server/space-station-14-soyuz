@@ -1,6 +1,6 @@
 - type: gameMap
   id: Marathon
-  mapName: 'Marathon'
+  mapName: 'Марафон' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/marathon.yml
   minPlayers: 30
   maxPlayers: 65
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Marathon {1}'
+          mapNameTemplate: '{0} Марафон {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

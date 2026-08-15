@@ -1,6 +1,6 @@
 - type: gameMap
   id: Plasma
-  mapName: 'Plasma'
+  mapName: 'Плазма' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/plasma.yml
   minPlayers: 25
   maxPlayers: 40
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Plasma {1}'
+          mapNameTemplate: '{0} Плазма {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

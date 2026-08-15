@@ -1,6 +1,6 @@
 - type: gameMap
   id: Packed
-  mapName: 'Packed'
+  mapName: 'Пакед' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/packed.yml
   minPlayers: 5
   maxPlayers: 35
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Packed {1}'
+          mapNameTemplate: '{0} Пакед {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'VG'

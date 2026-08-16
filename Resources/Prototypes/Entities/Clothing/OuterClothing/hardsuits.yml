@@ -159,6 +159,7 @@
         Slash: 0.6
         Piercing: 0.65 #DS14-value
         Heat: 0.7
+        Cold: 0.7
         Radiation: 0.3
         Caustic: 0.7
   - type: StaminaResistance #DS14
@@ -206,6 +207,7 @@
         Slash: 0.7
         Piercing: 0.5
         Heat: 0.7 #Goliath hide gets grilled instead of you
+        Cold: 0.7
         Radiation: 0.3
         Caustic: 0.8
   - type: ClothingSpeedModifier
@@ -255,6 +257,7 @@
         Slash: 0.6
         Piercing: 0.6 # DS14-value
         Heat: 0.4 # DS14-value
+        Cold: 0.6
         Radiation: 0.1
   - type: StaminaResistance
     damageCoefficient: 0.5
@@ -289,6 +292,7 @@
         Slash: 0.6
         Piercing: 0.6
         Heat: 0.8
+        Cold: 0.8
         Caustic: 0.7
   - type: StaminaResistance # DS14
     damageCoefficient: 0.6
@@ -330,6 +334,7 @@
     modifiers:
       coefficients:
         Heat: 0.7 # DS14-value
+        Cold: 0.7
         Blunt: 0.7
         Slash: 0.7 # DS14-value
         Piercing: 0.6 # DS14-value
@@ -374,6 +379,7 @@
         Slash: 0.5
         Piercing: 0.6
         Heat: 0.6 # DS14-value
+        Cold: 0.6
         Caustic: 0.7
   - type: StaminaResistance # DS14
     damageCoefficient: 0.5
@@ -415,6 +421,7 @@
         Slash: 0.55 #DS14
         Piercing: 0.55 #DS14
         Heat: 0.5
+        Cold: 0.7
         Radiation: 0.5
         Caustic: 0.6
   - type: StaminaResistance # DS14
@@ -464,6 +471,7 @@
         Slash: 0.8
         Piercing: 0.8
         Heat: 0.4
+        Cold: 0.3
         Shock: 0.8 # DS14-value
         Radiation: 0.0
         Caustic: 0.5 # DS14-value
@@ -507,6 +515,7 @@
     modifiers:
       coefficients:
         Caustic: 0.1
+        Cold: 0.1
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.4
   - type: ClothingSpeedModifier
@@ -551,6 +560,7 @@
         Slash: 0.8
         Piercing: 0.9
         Heat: 0.3
+        Cold: 0.1
         Radiation: 0.1
         Caustic: 0.2
   - type: StaminaResistance # DS14
@@ -610,6 +620,7 @@
         Slash: 0.5
         Piercing: 0.4
         Heat: 0.5 # DS14-value
+        Cold: 0.5
         Radiation: 0.5
         Caustic: 0.6
   - type: StaminaResistance # DS14
@@ -656,6 +667,7 @@
         Heat: 0.9
         Radiation: 0.5
         Caustic: 0.8
+        Cold: 0.7
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -1068,6 +1080,7 @@
         Heat: 0.45
         Radiation: 0.25
         Caustic: 0.5
+        Cold: 0.3
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -1162,6 +1175,7 @@
         Shock: 0.7
         Radiation: 0.6
         Caustic: 0.4
+        Cold: 0.5
   - type: StaminaResistance #DS14
     damageCoefficient: 0.65
   - type: ClothingSpeedModifier
@@ -1200,6 +1214,7 @@
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
+        Cold: 0.4
   - type: StaminaResistance
     damageCoefficient: 0.5
   - type: ClothingSpeedModifier

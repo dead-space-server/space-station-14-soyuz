@@ -361,3 +361,118 @@
     collection: FootstepTile
   itemDrop: FloorTileItemBlackSteel10
   heatCapacity: 10000
+
+# Malign space tile
+
+- type: soundCollection
+  id: FootstepCosmic
+  files:
+  - /Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/footsteps/step1.ogg
+  - /Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/footsteps/step2.ogg
+  - /Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/footsteps/step3.ogg
+  - /Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/footsteps/step4.ogg
+  - /Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/footsteps/step5.ogg
+
+- type: tile
+  id: TileCultStrange1
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_glyph.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrange2
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_smooth.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrange3
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_half.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrange4
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_split.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrange5
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_notched.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrangeCorruption
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/tile_malign.png
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000
+
+- type: tile
+  id: TileCultStrange6
+  name: "Зловещий пол"
+  sprite: /Textures/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/Tileset/cosmicfloor/floor_void.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepCosmic
+  barestepSounds:
+    collection: FootstepCosmic
+  itemDrop: FloorTileItemDarkMarble
+  heatCapacity: 10000

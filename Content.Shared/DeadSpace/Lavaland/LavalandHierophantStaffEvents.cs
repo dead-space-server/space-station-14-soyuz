@@ -17,13 +17,13 @@ public abstract partial class LavalandHierophantStaffActionEvent : WorldTargetAc
     public string BlastPrototype = "LavalandHierophantBlast";
 
     [DataField]
-    public SoundSpecifier TelegraphSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/bin_close.ogg");
+    public SoundSpecifier TelegraphSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/effigy_pulse.ogg");
 
     [DataField]
-    public SoundSpecifier BlastSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/blind.ogg");
+    public SoundSpecifier BlastSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/door_close.ogg");
 
     [DataField]
-    public SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/sear.ogg");
+    public SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/effigy_supercritical.ogg");
 
     [DataField]
     public TimeSpan TelegraphDelay = TimeSpan.FromSeconds(0.55);
@@ -51,7 +51,7 @@ public sealed partial class LavalandHierophantStaffBurstActionEvent : LavalandHi
     public int Radius = 3;
 
     [DataField]
-    public TimeSpan StepDelay = TimeSpan.FromSeconds(0.08);
+    public TimeSpan StepDelay = TimeSpan.FromSeconds(0.25);
 }
 
 public sealed partial class LavalandHierophantStaffBlinkActionEvent : LavalandHierophantStaffActionEvent
@@ -60,10 +60,10 @@ public sealed partial class LavalandHierophantStaffBlinkActionEvent : LavalandHi
     public string TeleportTelegraphPrototype = "LavalandHierophantTelegraphTeleport";
 
     [DataField]
-    public SoundSpecifier BlinkSourceSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/airlockopen.ogg");
+    public SoundSpecifier BlinkSourceSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/tile_detonate.ogg");
 
     [DataField]
-    public SoundSpecifier BlinkDestinationSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/wand_teleport.ogg");
+    public SoundSpecifier BlinkDestinationSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/glyph_trigger.ogg");
 
     [DataField]
     public TimeSpan BlinkDelay = TimeSpan.FromSeconds(0.2);
@@ -91,13 +91,13 @@ public sealed partial class LavalandHierophantStaffChaserActionEvent : EntityTar
     public string BlastPrototype = "LavalandHierophantBlast";
 
     [DataField]
-    public SoundSpecifier TelegraphSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/bin_close.ogg");
+    public SoundSpecifier TelegraphSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/effigy_pulse.ogg");
 
     [DataField]
-    public SoundSpecifier BlastSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/blind.ogg");
+    public SoundSpecifier BlastSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/door_close.ogg");
 
     [DataField]
-    public SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/_DeadSpace/Lavaland/Hierophant/sear.ogg");
+    public SoundSpecifier HitSound = new SoundPathSpecifier("/Audio/_DeadSpace/_Soyuz/TEMP_FOR_EVENT/FRgaming/CosmicCult/effigy_supercritical.ogg");
 
     [DataField]
     public TimeSpan TelegraphDelay = TimeSpan.FromSeconds(0.45);
@@ -113,7 +113,7 @@ public sealed partial class LavalandHierophantStaffChaserActionEvent : EntityTar
     };
 
     [DataField]
-    public int MaxSteps = 7;
+    public int MaxSteps = 20;
 
     [DataField]
     public TimeSpan StepDelay = TimeSpan.FromSeconds(0.16);

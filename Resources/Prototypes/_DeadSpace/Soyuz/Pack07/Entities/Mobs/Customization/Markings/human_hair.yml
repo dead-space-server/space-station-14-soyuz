@@ -3,7 +3,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: goonstation-hair-chub
 
 - type: marking
@@ -11,7 +11,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: goonstation-hair-streak
 
 - type: marking
@@ -19,7 +19,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-bighawk
 
 - type: marking
@@ -27,7 +27,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-d
 
 - type: marking
@@ -35,7 +35,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-halfshaved-emo
 
 - type: marking
@@ -43,7 +43,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-halfshaved-trim
 
 - type: marking
@@ -51,7 +51,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-jensen
 
 - type: marking
@@ -59,7 +59,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-leftside
 
 - type: marking
@@ -67,7 +67,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-leftside-trim
 
 - type: marking
@@ -75,7 +75,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-mohawk-naomi
 
 - type: marking
@@ -83,7 +83,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-mohawk-shaved
 
 - type: marking
@@ -91,7 +91,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-rightside
 
 - type: marking
@@ -99,7 +99,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-rightside-trim
 
 - type: marking
@@ -107,7 +107,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-shavedbun
 
 - type: marking
@@ -115,7 +115,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-shavedpart
 
 - type: marking
@@ -123,7 +123,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-sideswept
 
 - type: marking
@@ -131,7 +131,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-slick
 
 - type: marking
@@ -139,7 +139,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-sweepshaved
 
 - type: marking
@@ -147,7 +147,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-thinningfront
 
 - type: marking
@@ -155,7 +155,7 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-thinningrear
 
 - type: marking
@@ -163,5 +163,5 @@
   bodyPart: Hair
   markingCategory: Hair
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack07/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Mobs/Customization/human_hair.rsi
       state: nebula-hair-undercut-trim

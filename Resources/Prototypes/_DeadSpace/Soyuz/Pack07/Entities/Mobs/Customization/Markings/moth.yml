@@ -10,5 +10,5 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack07/Clothing/Uniforms/Jumpsuit/military.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack07/Clothing/Uniforms/Jumpsuit/military.rsi
     state: mask_null # using an existing empty sprite

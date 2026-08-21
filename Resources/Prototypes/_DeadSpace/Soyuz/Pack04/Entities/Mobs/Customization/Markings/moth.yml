@@ -11,7 +11,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: aspen
 
 - type: marking
@@ -26,7 +26,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: brown
 
 - type: marking
@@ -41,7 +41,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: deathshead
 
 - type: marking
@@ -56,7 +56,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: feathery
 
 - type: marking
@@ -71,7 +71,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: firewatch
 
 - type: marking
@@ -86,7 +86,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: gothic
 
 - type: marking
@@ -101,7 +101,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: jungle
 
 - type: marking
@@ -116,7 +116,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: lovers
 
 - type: marking
@@ -131,7 +131,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: mint
 
 - type: marking
@@ -146,7 +146,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: moffra
 
 - type: marking
@@ -161,7 +161,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: moonfly
 
 - type: marking
@@ -176,7 +176,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: oakworm
 
 - type: marking
@@ -191,7 +191,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: plain
 
 - type: marking
@@ -206,7 +206,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: plasmafire
 
 - type: marking
@@ -221,7 +221,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: poison
 
 - type: marking
@@ -236,7 +236,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: reddish
 
 - type: marking
@@ -251,7 +251,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: regal
 
 - type: marking
@@ -266,7 +266,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: rosy
 
 - type: marking
@@ -281,7 +281,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: royal
 
 - type: marking
@@ -296,7 +296,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: snow
 
 - type: marking
@@ -311,7 +311,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: whitefly
 
 - type: marking
@@ -326,7 +326,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_antennas.rsi
     state: witchking
 
 # Wings
@@ -342,7 +342,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: aspen
 
 - type: marking
@@ -357,7 +357,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: atlas
 
 - type: marking
@@ -372,7 +372,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: brown
 
 - type: marking
@@ -387,7 +387,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: deathshead
 
 - type: marking
@@ -402,7 +402,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: feathery
 
 - type: marking
@@ -417,7 +417,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: firewatch
 
 - type: marking
@@ -432,7 +432,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: gothic
 
 - type: marking
@@ -447,7 +447,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: jungle
 
 - type: marking
@@ -462,7 +462,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: lovers
 
 - type: marking
@@ -477,7 +477,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: luna
 
 - type: marking
@@ -492,7 +492,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: mint
 
 - type: marking
@@ -507,7 +507,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: moffra
 
 - type: marking
@@ -522,7 +522,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: monarch
 
 - type: marking
@@ -537,7 +537,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: moonfly
 
 - type: marking
@@ -552,7 +552,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: oakworm
 
 - type: marking
@@ -567,7 +567,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: plain
 
 - type: marking
@@ -582,7 +582,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: plasmafire
 
 - type: marking
@@ -597,7 +597,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: poison
 
 - type: marking
@@ -612,7 +612,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: ragged
 
 - type: marking
@@ -627,7 +627,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: reddish
 
 - type: marking
@@ -642,7 +642,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: rosy
 
 - type: marking
@@ -657,7 +657,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: royal
 
 - type: marking
@@ -672,7 +672,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: snow
 
 - type: marking
@@ -687,7 +687,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: whitefly
 
 - type: marking
@@ -702,7 +702,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_wings.rsi
     state: witchking
 
 # Body Markings
@@ -719,7 +719,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-head
 
 - type: marking
@@ -734,7 +734,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-chest
 
 - type: marking
@@ -749,7 +749,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-leftarm
 
 - type: marking
@@ -764,7 +764,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-rightarm
 
 - type: marking
@@ -779,7 +779,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-leftleg
 
 - type: marking
@@ -794,7 +794,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: deathshead-rightleg
 
 
@@ -811,7 +811,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-head
 
 - type: marking
@@ -826,7 +826,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-chest
 
 - type: marking
@@ -841,7 +841,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-leftarm
 
 - type: marking
@@ -856,7 +856,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-rightarm
 
 - type: marking
@@ -871,7 +871,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-leftleg
 
 - type: marking
@@ -886,7 +886,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: firewatch-rightleg
 
 # Gothic
@@ -902,7 +902,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-head
 
 - type: marking
@@ -917,7 +917,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-chest
 
 - type: marking
@@ -932,7 +932,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-leftarm
 
 - type: marking
@@ -947,7 +947,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-rightarm
 
 - type: marking
@@ -962,7 +962,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-leftleg
 
 - type: marking
@@ -977,7 +977,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: gothic-rightleg
 
 # Jungle
@@ -993,7 +993,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-head
 
 - type: marking
@@ -1008,7 +1008,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-chest
 
 - type: marking
@@ -1023,7 +1023,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-leftarm
 
 - type: marking
@@ -1038,7 +1038,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-rightarm
 
 - type: marking
@@ -1053,7 +1053,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-leftleg
 
 - type: marking
@@ -1068,7 +1068,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: jungle-rightleg
 
 # Lovers
@@ -1084,7 +1084,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-head
 
 - type: marking
@@ -1099,7 +1099,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-chest
 
 - type: marking
@@ -1114,7 +1114,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-leftarm
 
 - type: marking
@@ -1129,7 +1129,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-rightarm
 
 - type: marking
@@ -1144,7 +1144,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-leftleg
 
 - type: marking
@@ -1159,7 +1159,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: lovers-rightleg
 
 # Moonfly
@@ -1175,7 +1175,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-head
 
 - type: marking
@@ -1190,7 +1190,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-chest
 
 - type: marking
@@ -1205,7 +1205,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-leftarm
 
 - type: marking
@@ -1220,7 +1220,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-rightarm
 
 - type: marking
@@ -1235,7 +1235,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-leftleg
 
 - type: marking
@@ -1250,7 +1250,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: moonfly-rightleg
 
 # Oakworm
@@ -1266,7 +1266,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-head
 
 - type: marking
@@ -1281,7 +1281,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-chest
 
 - type: marking
@@ -1296,7 +1296,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-leftarm
 
 - type: marking
@@ -1311,7 +1311,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-rightarm
 
 - type: marking
@@ -1326,7 +1326,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-leftleg
 
 - type: marking
@@ -1341,7 +1341,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: oakworm-rightleg
 
 # Poison
@@ -1357,7 +1357,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-head
 
 - type: marking
@@ -1372,7 +1372,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-chest
 
 - type: marking
@@ -1387,7 +1387,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-leftarm
 
 - type: marking
@@ -1402,7 +1402,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-rightarm
 
 - type: marking
@@ -1417,7 +1417,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-leftleg
 
 - type: marking
@@ -1432,7 +1432,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: poison-rightleg
 
 # Ragged
@@ -1448,7 +1448,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-head
 
 - type: marking
@@ -1463,7 +1463,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-chest
 
 - type: marking
@@ -1478,7 +1478,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-leftarm
 
 - type: marking
@@ -1493,7 +1493,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-rightarm
 
 - type: marking
@@ -1508,7 +1508,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-leftleg
 
 - type: marking
@@ -1523,7 +1523,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: ragged-rightleg
 
 # Reddish
@@ -1539,7 +1539,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-head
 
 - type: marking
@@ -1554,7 +1554,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-chest
 
 - type: marking
@@ -1569,7 +1569,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-leftarm
 
 - type: marking
@@ -1584,7 +1584,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-rightarm
 
 - type: marking
@@ -1599,7 +1599,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-leftleg
 
 - type: marking
@@ -1614,7 +1614,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: reddish-rightleg
 
 # Royal
@@ -1630,7 +1630,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-head
 
 - type: marking
@@ -1645,7 +1645,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-chest
 
 - type: marking
@@ -1660,7 +1660,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-leftarm
 
 - type: marking
@@ -1675,7 +1675,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-rightarm
 
 - type: marking
@@ -1690,7 +1690,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-leftleg
 
 - type: marking
@@ -1705,7 +1705,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: royal-rightleg
 
 # Whitefly
@@ -1721,7 +1721,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-head
 
 - type: marking
@@ -1736,7 +1736,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-chest
 
 - type: marking
@@ -1751,7 +1751,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-leftarm
 
 - type: marking
@@ -1766,7 +1766,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-rightarm
 
 - type: marking
@@ -1781,7 +1781,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-leftleg
 
 - type: marking
@@ -1796,7 +1796,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: whitefly-rightleg
 
 # Witchking
@@ -1812,7 +1812,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-head
 
 - type: marking
@@ -1827,7 +1827,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-chest
 
 - type: marking
@@ -1842,7 +1842,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-leftarm
 
 - type: marking
@@ -1857,7 +1857,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-rightarm
 
 - type: marking
@@ -1872,7 +1872,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-leftleg
 
 - type: marking
@@ -1887,5 +1887,5 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack04/Mobs/Customization/Moth/moth_markings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack04/Mobs/Customization/Moth/moth_markings.rsi
     state: witchking-rightleg

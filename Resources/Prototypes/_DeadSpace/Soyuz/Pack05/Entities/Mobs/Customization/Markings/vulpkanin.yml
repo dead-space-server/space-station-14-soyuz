@@ -7,9 +7,9 @@
   markingCategory: Snout
   speciesRestriction: [Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
       state: muzzle_alt
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
       state: nose
 
 - type: marking
@@ -18,7 +18,7 @@
   markingCategory: Snout
   speciesRestriction: [Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
       state: vulpine-lines
 
 # Head Markings (Head)
@@ -28,7 +28,7 @@
   markingCategory: Head
   speciesRestriction: [Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/head_markings.rsi
       state: slash
 
 # Tail Markings
@@ -38,9 +38,9 @@
   markingCategory: Tail
   speciesRestriction: [Vulpkanin, Felinid]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: vulp-fade
 
 - type: marking
@@ -49,7 +49,7 @@
   markingCategory: Tail
   speciesRestriction: [Vulpkanin, Felinid]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Vulpkanin/tail_markings.rsi
       state: husky
 
 # Hairs

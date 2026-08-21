@@ -1433,3 +1433,18 @@ Entries:
       и кобольдах/унатхах
   - type: Fix
     message: Спрайты ходьбы киборга милиции
+- id: 134
+  author: Genes1us
+  time: '2026-08-21T22:24:36.515932+00:00'
+  pr: 430
+  changes:
+  - type: Add
+    message: Шлюзы НКВБ
+  - type: Add
+    message: Доступ НКВБ
+  - type: Remove
+    message: Ограничения для кастомизаций
+  - type: Fix
+    message: Критические баги
+  - type: Fix
+    message: Некоторые постеры

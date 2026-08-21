@@ -4,7 +4,7 @@
   markingCategory: Hair
   speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/human_hair.rsi
       state: gatheredlow
 
 - type: marking
@@ -13,7 +13,7 @@
   markingCategory: Hair
   speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/human_hair.rsi
       state: lowpigtails
 
 - type: marking
@@ -22,5 +22,5 @@
   markingCategory: Hair
   speciesRestriction: [Human, Dwarf, SlimePerson, Oni, Goblin, Felinid, Vulpkanin]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/human_hair.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/human_hair.rsi
       state: frenchbraid

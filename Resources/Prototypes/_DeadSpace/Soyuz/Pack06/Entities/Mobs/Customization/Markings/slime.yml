@@ -6,7 +6,7 @@
   forcedColoring: true
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: nose
 
 - type: marking
@@ -16,7 +16,7 @@
   speciesRestriction: [SlimePerson]
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: mouth
 
 - type: marking
@@ -26,7 +26,7 @@
   speciesRestriction: [SlimePerson]
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: brain
 
 - type: marking # TODO: If we ever figure out how to make markings use shaders, make this unshaded! For now, this at least gives the right impression.
@@ -40,7 +40,7 @@
         !type:EyeColoring
           negative: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: eyeglow
   shader: unshaded
 
@@ -51,7 +51,7 @@
   speciesRestriction: [SlimePerson]
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: lungs
 
 - type: marking
@@ -61,7 +61,7 @@
   speciesRestriction: [SlimePerson]
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: core
 
 - type: marking
@@ -76,7 +76,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonehead
 
 - type: marking
@@ -91,7 +91,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonechest
 
 - type: marking
@@ -106,7 +106,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonearmleft
 
 - type: marking
@@ -121,7 +121,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonearmright
 
 - type: marking
@@ -136,7 +136,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonefootleft
 
 - type: marking
@@ -151,7 +151,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonefootright
 
 - type: marking
@@ -166,7 +166,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonehandleft
 
 - type: marking
@@ -181,7 +181,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonehandright
 
 - type: marking
@@ -196,7 +196,7 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonelegleft
 
 - type: marking
@@ -211,5 +211,5 @@
         !type:SimpleColoring
           color: "#F8F8F8"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/slime_parts.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/slime_parts.rsi
     state: bonelegright

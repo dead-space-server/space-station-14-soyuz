@@ -10,7 +10,7 @@
         !type:SimpleColoring
           color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Moth/moth_wings.rsi
     state: selene
 
 - type: marking
@@ -19,9 +19,9 @@
   markingCategory: Tail
   speciesRestriction: [Moth]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Moth/moth_wings.rsi
     state: selene_primary
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Moth/moth_wings.rsi
     state: selene_secondary
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Moth/moth_wings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Moth/moth_wings.rsi
     state: selene_tertiary

@@ -1,0 +1,8 @@
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsNKVB
+  name: микросхема шлюза
+  suffix: НКВБ, Закрыт
+  components:
+  - type: AccessReader
+    access: [["NKVB"]]

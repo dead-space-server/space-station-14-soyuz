@@ -14,6 +14,7 @@
   - CentralCommand
   - SOD
   - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, RezervImplant ]

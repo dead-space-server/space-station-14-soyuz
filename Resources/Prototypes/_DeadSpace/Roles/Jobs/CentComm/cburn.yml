@@ -27,6 +27,7 @@
   access:
   - CentralCommand
   - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -76,6 +77,7 @@
   access:
   - CentralCommand
   - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -125,6 +127,7 @@
   access:
   - CentralCommand
   - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -173,6 +176,7 @@
   access:
   - CentralCommand
   - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -219,6 +223,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -262,6 +267,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -305,6 +311,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
@@ -348,6 +355,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]

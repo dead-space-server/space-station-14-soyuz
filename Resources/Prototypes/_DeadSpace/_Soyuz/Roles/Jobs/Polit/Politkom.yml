@@ -12,6 +12,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB
   #start-backmen: currency
   minBankBalance: 800
   maxBankBalance: 1200

@@ -108,6 +108,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
 
 - type: job
   id: BSAALeaderJob
@@ -132,6 +133,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
 
 - type: job
   id: BSAAMedicJob
@@ -153,6 +155,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
 
 - type: job
   id: BSAASpecialistJob
@@ -176,6 +179,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
 
 - type: job
   id: BSAAFlamerJob
@@ -199,6 +203,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
 
 - type: playTimeTracker
   id: JobBSAA

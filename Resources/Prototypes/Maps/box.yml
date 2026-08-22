@@ -26,7 +26,7 @@
             Lawyer: [ 3, 3 ]
             # sec
             HeadOfSecurity: [ 1, 1 ]
-            Warden: [ 2, 2 ] # ultra-large map
+            Warden: [ 1, 1 ] # DS14-Soyuz
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]

@@ -21,6 +21,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]

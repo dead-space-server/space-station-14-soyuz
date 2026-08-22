@@ -27,6 +27,8 @@
              Chaplain: [ 1, 1 ]
              Librarian: [ 1, 1 ]
              ServiceWorker: [ 3, 3 ]
+             #NKVB
+             Politruk: [ 1, 1 ]
              #engineering
              ChiefEngineer: [ 1, 1 ]
              AtmosphericTechnician: [ 2, 2 ]

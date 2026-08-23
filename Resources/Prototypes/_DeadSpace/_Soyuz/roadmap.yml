@@ -120,10 +120,3 @@
   tags:
     - "Медикаменты"
 
-- type: roadmapEntry
-  id: Roadmap14
-  title: "Тест записи"
-  description: "Тест записи"
-  category: InProgress
-  tags:
-    - "Дискорд"

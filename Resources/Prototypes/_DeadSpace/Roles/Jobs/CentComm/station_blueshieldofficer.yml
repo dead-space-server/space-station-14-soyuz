@@ -49,37 +49,51 @@
   minBankBalance: 800
   maxBankBalance: 1200
   wageDepartment: Specific
-  wage: 190
+  wage: 950 # DS14-value
   #end-backmen: currency
-  # DS14-blueshield-disabilities-disallow-start
   traitsBlacklist:
     - Blindness
     - PoorVision
     - Muted
     - Narcolepsy
-  # DS14-blueshield-disabilities-disallow-end
+    - WheelchairUser
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
     components:
-    # DS14-Start
     - type: Skill
       group: BlueShield
-    # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 360000 # 100 часов
+    SGMRankChiefSergeant:
+    - !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 180000 # 50 часов
+    SGMRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobBlueShieldOfficer
+      time: 90000 # 25 часов
+    SGMRankSergeant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: BlueShieldOfficerGear
   equipment:
     head: ClothingHeadHatBeretBlueShield
     # back: ClothingBackpackBlueShield
-    eyes: ClothingEyesGlassesSecurity
+    # mask: ClothingMaskGasBlueShield # DS14-Soyuz disabled
+    eyes: ClothingEyesGlassesSecurity # DS14-Soyuz
     ears: ClothingHeadsetAltCommand
     shoes: ClothingShoesOKGB
     socks: ClothingUnderwearSocksBlueShieldOfficer
     # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled
-    gloves: ClothingHandsGlovesCombat
+    gloves: ClothingHandsGlovesBlueShield
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
 
@@ -102,6 +116,13 @@
     state: pda-okgb
   - type: HealthAnalyzer
     scanDelay: 1
+  - type: ErtTrackerPda
+    allowedDepartments:
+    - SpecialOperationsCorps
+    allowedJobs:
+    - BlueShieldOfficer
+    - CentralCommandBlueShieldOfficer
+    - CentralCommandSpecialOperationsOfficer
 
 - type: entity
   parent: IDCardStandard
@@ -146,7 +167,7 @@
       - id: Zipties
         amount: 3
       - id: ADTtelescopicBaton # ADT
-      - id: KGBloadoutPrimary
+      - id: KGBloadoutPrimary # DS14-Soyuz
       - id: HandheldCrewMonitor
   - type: ExplosionResistance
     damageCoefficient: 0.6

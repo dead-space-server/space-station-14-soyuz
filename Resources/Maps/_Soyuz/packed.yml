@@ -1,10 +1,10 @@
 meta:
   format: 7
   category: Map
-  engineVersion: 272.0.1
+  engineVersion: 276.0.0
   forkId: ""
   forkVersion: ""
-  time: 05/17/2026 15:39:29
+  time: 05/30/2026 19:24:40
   entityCount: 14550
 maps:
 - 1
@@ -5526,6 +5526,11 @@ entities:
             1078: 23,-12
             1079: 30,-11
         - node:
+            color: '#FFFFFFFF'
+            id: WarnBox
+          decals:
+            3054: 47,52
+        - node:
             angle: 1.5707963267948966 rad
             color: '#FFFFFFFF'
             id: WarnCorner
@@ -8071,7 +8076,7 @@ entities:
       pos: 54.5,-6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -58209.77
+      secondsUntilStateChange: -58596.45
       state: Opening
 - proto: AirlockChiefEngineerLocked
   entities:
@@ -8505,7 +8510,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 87.5,4.5
       parent: 2
-- proto: AirlockExternalGlassShuttleSecurity
+- proto: AirlockExternalGlassShuttleSecurityRandom
   entities:
   - uid: 203
     components:
@@ -8825,7 +8830,7 @@ entities:
       pos: 33.5,-8.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -6236.3003
+      secondsUntilStateChange: -6622.9805
       state: Opening
 - proto: AirlockLawyerGlassLocked
   entities:
@@ -9272,7 +9277,7 @@ entities:
       pos: 61.5,24.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -94693.48
+      secondsUntilStateChange: -95080.16
       state: Opening
   - uid: 337
     components:
@@ -43722,7 +43727,7 @@ entities:
       pos: 58.5,-6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -58480.63
+      secondsUntilStateChange: -58867.31
       state: Closing
   - uid: 6657
     components:
@@ -44196,7 +44201,7 @@ entities:
       pos: 22.5,9.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -29054.371
+      secondsUntilStateChange: -29441.05
       state: Closing
   - uid: 6749
     components:
@@ -61938,7 +61943,7 @@ entities:
       pos: 102.5,-13.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -49798.266
+      secondsUntilStateChange: -50184.945
       state: Closing
   - uid: 9420
     components:
@@ -76460,7 +76465,7 @@ entities:
     - type: Transform
       pos: 54.5,37.5
       parent: 2
-- proto: StationAnchorIndestructible # DS14 Edit: force static station grid
+- proto: StationAnchorIndestructible
   entities:
   - uid: 11684
     components:

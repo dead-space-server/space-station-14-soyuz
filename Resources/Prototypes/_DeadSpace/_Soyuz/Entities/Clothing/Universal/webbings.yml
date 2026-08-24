@@ -1,0 +1,93 @@
+- type: entity
+  parent: BaseItem
+  abstract: true
+  id: SoyuzWebbingBase
+  name: подсумок
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/webbings/droppouch.rsi
+  - type: Item
+    size: Large
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,5,1 # 3 slots
+  - type: Webbing
+    components:
+    - type: Storage
+      maxItemSize: Small
+      grid:
+      - 0,0,5,1 # 3 slots
+    - type: ExplosionResistance
+      damageCoefficient: 0
+      worn: false
+    - type: StoreAfterFailedInteract
+  - type: ExplosionResistance
+    damageCoefficient: 0
+    worn: false
+  - type: StoreAfterFailedInteract
+
+- type: entity
+  parent: SoyuzWebbingBase
+  id: SoyuzWebbingDropPouch
+  name: универсальный подсумок
+  description: A convenient pouch to carry loose items around.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Clothing/RMC/webbings/droppouch.rsi
+      state: webbing
+    - type: Storage
+      maxItemSize: Normal
+      grid:
+        - 0,0,7,1   # up to 4 small or 8 tiny items
+    - type: Webbing
+      playerSprite:
+        sprite: _DeadSpace/_Soyuz/Clothing/RMC/webbings/droppouch.rsi
+        state: equipped
+      components:
+        - type: Storage
+          maxItemSize: Normal
+          grid:
+            - 0,0,7,1   # up to 4 small or 8 tiny items
+        - type: ExplosionResistance
+          damageCoefficient: 0
+          worn: false
+        - type: StoreAfterFailedInteract
+
+- type: entity
+  parent: SoyuzWebbingBase
+  id: SoyuzWebbingAdminPouch
+  name: административный подсумок
+  description: A pouch to carry your administrative equipment around.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Clothing/RMC/webbings/adminpouch.rsi
+      state: webbing
+    - type: Storage
+      quickInsert: true
+      areaInsert: true
+      maxItemSize: Normal
+      grid:
+      - 0,0,13,5
+    - type: Dumpable
+    - type: Webbing
+      playerSprite:
+        sprite: _DeadSpace/_Soyuz/Clothing/RMC/webbings/adminpouch.rsi
+        state: equipped
+      components:
+        - type: Storage
+          maxItemSize: Normal
+          grid:
+            - 0,0,2,1
+        - type: ExplosionResistance
+          damageCoefficient: 0
+          worn: false
+        - type: StoreAfterFailedInteract

@@ -80,7 +80,6 @@
   cost: 7500
   recipeUnlocks:
   - FatExtractorMachineCircuitboard
-  - BiofabricatorMachineCircuitboard
   - BiomassReclaimerMachineCircuitboard
 
 # Tier 2
@@ -148,6 +147,7 @@
   recipeUnlocks:
   - AdvMopItem
   - MegaSprayBottle
+  - WireBrushElectrical # Kofeecheks Electrical Wire Brush: LicenseRef-Kofeecheks
   - BorgModuleAdvancedCleaning
   - BagOfSummoningGarbage # DS14
 

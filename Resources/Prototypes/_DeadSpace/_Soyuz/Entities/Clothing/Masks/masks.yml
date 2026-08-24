@@ -42,3 +42,58 @@
   - type: HideLayerClothing
     slots:
     - Snout
+
+- type: entity
+  parent: ClothingMaskNeckGaiter
+  id: ClothingMaskNeckGaiterBlue
+  name: синий шейный гетр
+  description: О он другого цвета.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/blue.rsi
+
+- type: entity
+  parent: ClothingMaskNeckGaiter
+  id: ClothingMaskNeckGaiterOrange
+  name: оранжевый шейный гетр
+  description: О он другого цвета.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/orange.rsi
+
+- type: entity
+  parent: ClothingMaskNeckGaiter
+  id: ClothingMaskNeckGaiterPink
+  name: розовый шейный гетр
+  description: Пикми гетр.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/pink.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/pink.rsi
+
+- type: entity
+  parent: ClothingMaskNeckGaiter
+  id: ClothingMaskNeckGaiterWhite
+  name: белый шейный гетр
+  description: О он другого цвета.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/white.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/white.rsi
+
+- type: entity
+  parent: ClothingMaskNeckGaiter
+  id: ClothingMaskNeckGaiterYellow
+  name: желтый шейный гетр
+  description: О он другого цвета.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/yellow.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/yellow.rsi

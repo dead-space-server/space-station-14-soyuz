@@ -1,0 +1,52 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: SoyuzClothingUniformBase
+  name: крутая одежда
+  description: Слава умывальнику.
+  abstract: true
+  components:
+  - type: WebbingClothing
+
+- type: entity
+  parent: [SoyuzClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitPolitRukFormal
+  name: костюм политического отдела
+  description: Красивый бордовый костюм.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukformal.rsi
+
+- type: entity
+  parent: [SoyuzClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitPolitRuk
+  name: комбинезон политического отдела
+  description: Красивый бордовый комбинезон.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukjumpsuit.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/politrukjumpsuit.rsi
+
+- type: entity
+  parent: [SoyuzClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformJumpsuitHoPTurtle
+  name: водолазка начальника отдела кадров
+  description: Я завидую владельцу этой водолазки.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/hop_turtle.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/hop_turtle.rsi
+
+- type: entity
+  parent: [SoyuzClothingUniformBase, BaseCommandContraband]
+  id: ClothingUniformUSSPJumpsuit
+  name: футболка с гербом СССП
+  description: Самая стильная футболка во всём государстве.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi

@@ -274,10 +274,10 @@
           conditions:
             - !type:EntityAnchored { }
           steps:
-            - tool: Screwing
-              doAfter: 4
-            - tool: Welding
+            - tool: Welding # DS14-Soyuz replaced
               doAfter: 2
+            - tool: Screwing # DS14-Soyuz replaced
+              doAfter: 4
             - material: Plasteel
               amount: 2
               doAfter: 1

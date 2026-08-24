@@ -540,9 +540,9 @@ BlueprintFlare: null
 BaseAdvancedPen: Pen
 
 # 2024-10-08 - DS14
-WeaponTurretNanoSAI: WeaponTurretLaserNanoTrasen
-WeaponTurretLaserOnestar: WeaponTurretLaserHostile
-WeaponTurretLaserNanoTrasenAI: WeaponTurretLaserNanoTrasen
+WeaponTurretNanoSAI: WeaponEnergyTurretAI
+WeaponTurretLaserOnestar: WeaponEnergyTurretTaipanAI
+WeaponTurretLaserNanoTrasenAI: WeaponEnergyTurretAI
 ClothingDeathSquadBackpackFilled: ClothingDeathSquadronBackpack
 ClothingBackpackPsychologistFilled: ClothingBackpackMedical
 ClothingBackpackDuffelPsychologistFilled: ClothingBackpackDuffelMedical
@@ -1318,3 +1318,50 @@ ADTObjectsSpecificDermalineChemistryBottle: ChemistryBottleDermaline
 
 # 2026-05-22 - DS14
 ClothingMaskRedNeckGaiter: ClothingMaskNeckGaiterRed
+
+# 2026-05-29 - DS14
+DesoxyephedrineMedipen: CelestinMedipen
+
+# 2026-07-01 - DS14
+DresserCaptainFilled: VendingMachineCaptainDrobe
+
+
+# 2026-07-08 - DS14 # DS14-Soyuz disabled
+# CargoRequestEngineeringComputerCircuitboard: null
+# CargoRequestMedicalComputerCircuitboard: null
+# CargoRequestScienceComputerCircuitboard: null
+# CargoRequestServiceComputerCircuitboard: null
+# ComputerCargoOrdersEngineering: null
+# ComputerCargoOrdersMedical: null
+# ComputerCargoOrdersScience: null
+# ComputerCargoOrdersService: null
+# p.s зути не дай бог скажешь отменять
+
+# 2026-07-14 - DS14
+WeaponTurretLaserNanoTrasen: WeaponEnergyTurretAI
+WeaponTurretLaserHostile: WeaponEnergyTurretTaipanAI
+WeaponTurretLaserTaipan: WeaponEnergyTurretTaipanAI
+
+# 2026-08-03 - DS14-Soyuz
+SignNTlogo1: null
+SignNTlogo2: null
+SignNTlogo3: null
+SignNTlogo4: null
+SignNTlogo5: null
+SignNlogo1: null
+SignNlogo2: null
+SignNlogo3: null
+SignNlogo4: null
+SignNlogo5: null
+SignNlogo6: null
+TowelColorNT: null
+NTHandyFlag: null
+OffsetCaneNT: null
+FullFlagNanoTrasen: null
+CabinetFlagNanoTrasen: null
+NanotrasenFlippo: null
+ClothingUniformJumpsuitNanotrasen: null
+BibleNanoTrasen: null
+ClothingNeckNanoTrasenPin: null
+PosterLegitNTTGC: null
+Holograph: null

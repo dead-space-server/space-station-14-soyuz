@@ -78,6 +78,19 @@
       children:
       - id: PlushieThrongler
       - id: PlushieGhostRevenant # You got the god roll, and failed
+      # DS14-Soyuz-start
+    - !type:GroupSelector # Foxs plushies
+      children:
+      - id: PlushieRedFox
+      - id: PlushieBlackFox
+      - id: PlushieBlueFox
+      - id: PlushieCoffeFox
+      - id: PlushieCrimsonFox
+      - id: PlushieMarbleFox
+      - id: PlushieOrangeFox
+      - id: PlushiePinkFox
+      - id: PlushiePurpleFox
+      # DS14-Soyuz-end
 
 # Weh!
 - type: entityTable

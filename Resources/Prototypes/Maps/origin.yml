@@ -1,6 +1,6 @@
 - type: gameMap
   id: Origin
-  mapName: 'Origin'
+  mapName: 'Исток' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/origin.yml
   minPlayers: 45
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Origin {1}'
+          mapNameTemplate: '{0} Исток {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
@@ -20,7 +20,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-#            Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]
@@ -57,7 +57,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 5, 5 ] #DS14
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

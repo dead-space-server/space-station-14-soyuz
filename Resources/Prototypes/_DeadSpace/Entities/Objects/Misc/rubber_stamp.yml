@@ -11,7 +11,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Юр. Отдел"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     sprite: _ADT/KD/Magistrat.rsi
     state: stamp-magistrat
@@ -29,7 +29,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Милиция"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     sprite: _DeadSpace/Objects/Misc/rubberstampbrigmedic.rsi
     state: stamp-brigmedic
@@ -47,7 +47,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Пиздец"
-    stampBackgroundText: "NanoTraxen"
+    stampBackgroundText: "USP"
   - type: Sprite
     state: stamp-deny
 
@@ -64,7 +64,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Мед. Отдел"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-chaplain
 
@@ -78,7 +78,7 @@
     stampedName: stamp-component-stamped-name-blueshield
     stampedColor: "#491a1e"
     stampState: "paper_stamp-blueshield"
-    stampPatternTexture: "/Textures/Interface/Stamps/nt_print_pattern.png"
+    stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png" # DS14-Soyuz print
     stampScale: 0.84
     stampTextMaxScale: 0.54
     stampCanRotate: false
@@ -98,7 +98,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Сервис"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-administrator
 
@@ -144,7 +144,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Инж. Отдел"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-engineer
 
@@ -161,7 +161,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Милиция"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-officer
 
@@ -178,7 +178,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Науч. Отдел"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-researcher
 
@@ -195,7 +195,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Мед. Отдел"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-physician
 
@@ -212,7 +212,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Утилизация"
-    stampBackgroundText: "NanoTrasen"
+    stampBackgroundText: "Генеральный Штаб"
   - type: Sprite
     state: stamp-senior-courier
 
@@ -228,7 +228,7 @@
     stampState: "paper_stamp-greytide"
     stampPatternTexture: "/Textures/Interface/Stamps/deparmforce_print_pattern.png"
     stampScale: 0.92
-    stampMainText: "Офицер Специальных Операций"
+    stampMainText: "Генерал Специальных Операций"
     stampTextMaxScale: 0.38
     stampCanRotate: false
   - type: Sprite

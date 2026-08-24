@@ -21,6 +21,7 @@ public sealed partial class AutoInjectReagentClothingOnAllowedStateSystem : Enti
         airc.Reagents = component.Reagents;
         airc.DurationRegenReagents = component.DurationRegenReagents;
         airc.InjectSound = component.InjectSound;
+        airc.TimeUntilNextInject = component.TimeUntilNextInject; // DS14-Soyuz
     }
 
     private void OnUnequipped(EntityUid uid, AutoInjectReagentClothingOnAllowedStateComponent component, GotUnequippedEvent args)

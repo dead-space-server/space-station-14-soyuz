@@ -24,4 +24,11 @@ public sealed partial class AutoInjectReagentClothingOnAllowedStateComponent : C
     [DataField("reagents", required: true)]
     public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> Reagents { get; set; } = new Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>();
 
+//DS14-Soyuz-start
+/// <summary>
+/// Определяет раз в какое время вкалывает реагент. Если значение = 0 - только при переходе в крит. состояние, если значение = N - раз в N кол-во секунд. 
+/// </summary>
+    [DataField("timeUntilNextInject")]
+    public float TimeUntilNextInject = 0f;
+//DS14-Soyuz-end
 }

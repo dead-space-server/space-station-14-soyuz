@@ -5,6 +5,7 @@ using Content.Server.Ghost.Roles.Components;
 using Content.Server.Ghost.Roles;
 using Content.Server.Mind;
 using Content.Server.Preferences.Managers;
+using Content.Server.Roles.Jobs;
 using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace.CustomizableHumanoidSpawner;
 using Content.Shared.Mind.Components;
@@ -18,6 +19,9 @@ using Content.Shared.Speech;
 using Content.Shared.Tag;
 using Robust.Shared.Serialization.Manager;
 using Content.Server.Traits;
+using Content.Shared._RMC14.Marines.Roles.Ranks; // DS14-Soyuz
+using Content.Shared.Roles; // DS14-Soyuz
+using System.Linq; // DS14-Soyuz
 
 namespace Content.Server.DeadSpace.CustomizableHumanoidSpawner;
 
@@ -36,6 +40,8 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
     [Dependency] private readonly NpcFactionSystem _factionSystem = default!;
     [Dependency] private readonly ISerializationManager _serialization = default!;
     [Dependency] private readonly TraitSystem _trait = default!;
+    [Dependency] private readonly JobSystem _jobs = default!;
+    [Dependency] private readonly SharedRankSystem _rankSystem = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -147,6 +153,14 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
         var newEntity = _spawning.SpawnPlayerMob(coords.Value, comp.JobPrototype, profile, null);
         _trait.ApplyTraits(newEntity, comp.JobPrototype, profile);
 
+        // DS14-Soyuz start
+        if (_prototypeManager.TryIndex(comp.JobPrototype, out var jobProto) && jobProto.Ranks != null && jobProto.Ranks.Count > 0)
+        {
+            var rankId = jobProto.Ranks.Keys.First();
+            _rankSystem.SetRank(newEntity, rankId);
+        }
+        // DS14-Soyuz end
+
         if (comp.Tags != null)
             _tagSystem.AddTags(newEntity, comp.Tags);
 
@@ -162,6 +176,7 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
             _factionSystem.AddFactions(newEntity, comp.Factions);
 
         _mind.TransferTo(mindId, newEntity, true, mind: mindComp);
+        _jobs.MindAddJob(mindId, comp.JobPrototype);
 
         QueueDel(uid);
     }

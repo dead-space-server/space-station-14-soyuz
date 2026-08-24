@@ -12,7 +12,9 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Server.DeadSpace.Languages;
+using Content.Server.DeadSpace._Soyuz.TTS;
 using Content.Shared.DeadSpace.Languages.Prototypes;
+using Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;
 
 namespace Content.Server.Corvax.TTS;
 
@@ -22,9 +24,9 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly TTSManager _ttsManager = default!;
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly IRobustRandom _rng = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
+    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-Soyuz
 
     private readonly List<string> _sampleText =
         new()
@@ -170,28 +172,40 @@ public sealed partial class TTSSystem : EntitySystem
 
     private async void HandleSay(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string speaker)
     {
+        // Kofeecheks political loudspeaker TTS integration: LicenseRef-Kofeecheks
+        var (speechRangeMultiplier, ttsVolumeMultiplier) = _politicalLoudspeaker.GetSpeechModifiers(uid);
+        var recipients = GetExpandedVoiceRecipients(uid, SharedChatSystem.VoiceRange * speechRangeMultiplier);
         var soundData = await GenerateTTS(message, speaker);
 
         byte[]? soundLexiconData = null;
+        var understanding = new HashSet<ICommonSession>(_language.GetUnderstanding(languageId));
 
-        if (_language.NeedGenerateTTS(uid, languageId, false))
+        if (NeedsLexiconTTS(languageId, recipients, understanding))
             soundLexiconData = await GenerateTTS(lexiconMessage, speaker);
-
-        var understanding = _language.GetUnderstanding(languageId);
 
         if (soundData is null) return;
 
-        foreach (var session in Filter.Pvs(uid).Recipients)
+        // DS-14 Soyuz
+        foreach (var session in recipients)
         {
             if (!understanding.Contains(session))
             {
                 if (soundLexiconData is null)
-                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid), isSoundLexicon: true, languageId: languageId), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid),
+                        isSoundLexicon: true,
+                        languageId: languageId,
+                        volumeMultiplier: ttsVolumeMultiplier,
+                        distanceMultiplier: speechRangeMultiplier), session); // DS14-Soyuz
                 else
-                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, GetNetEntity(uid)), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, GetNetEntity(uid),
+                        volumeMultiplier: ttsVolumeMultiplier,
+                        distanceMultiplier: speechRangeMultiplier), session); // DS14-Soyuz
             }
             else
-                RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid), isSoundLexicon: false), session);
+                RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid),
+                    isSoundLexicon: false,
+                    volumeMultiplier: ttsVolumeMultiplier,
+                    distanceMultiplier: speechRangeMultiplier), session); // DS14-Soyuz
         }
 
     }
@@ -272,11 +286,13 @@ public sealed partial class TTSSystem : EntitySystem
 
     private async void HandleWhisper(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string obfMessage, string speaker)
     {
+        var recipients = GetExpandedVoiceRecipients(uid, SharedChatSystem.WhisperMuffledRange);
         var fullSoundData = await GenerateTTS(message, speaker, true);
 
         byte[]? lexiconSoundData = null;
+        var understanding = new HashSet<ICommonSession>(_language.GetUnderstanding(languageId));
 
-        if (_language.NeedGenerateTTS(uid, languageId, true))
+        if (NeedsLexiconTTS(languageId, recipients, understanding))
             lexiconSoundData = await GenerateTTS(lexiconMessage, speaker);
 
         // var obfSoundData = await GenerateTTS(obfMessage, speaker, true);
@@ -287,20 +303,8 @@ public sealed partial class TTSSystem : EntitySystem
 
         var fullTtsEvent = new PlayTTSEvent(fullSoundData, GetNetEntity(uid), isWhisper: true);
 
-        var understanding = _language.GetUnderstanding(languageId);
-
-        // TODO: Check obstacles
-        var xformQuery = GetEntityQuery<TransformComponent>();
-        var sourcePos = _xforms.GetWorldPosition(xformQuery.GetComponent(uid), xformQuery);
-        var receptions = Filter.Pvs(uid).Recipients;
-        foreach (var session in receptions)
+        foreach (var session in recipients)
         {
-            if (!session.AttachedEntity.HasValue) continue;
-            var xform = xformQuery.GetComponent(session.AttachedEntity.Value);
-            var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
-            if (distance > ChatSystem.VoiceRange * ChatSystem.VoiceRange)
-                continue;
-
             if (!understanding.Contains(session))
             {
                 if (lexiconSoundData is null)
@@ -314,18 +318,51 @@ public sealed partial class TTSSystem : EntitySystem
         }
     }
 
+    private IReadOnlyCollection<ICommonSession> GetExpandedVoiceRecipients(EntityUid source, float voiceRange)
+    {
+        var recipients = new Dictionary<ICommonSession, ChatSystem.ICChatRecipientData>();
+
+        foreach (var session in Filter.Pvs(source).Recipients)
+        {
+            recipients.TryAdd(session, new ChatSystem.ICChatRecipientData(0f, false));
+        }
+
+        RaiseLocalEvent(new ExpandICChatRecipientsEvent(source, voiceRange, recipients));
+
+        return recipients.Keys;
+    }
+
+    private bool NeedsLexiconTTS(
+        ProtoId<LanguagePrototype> languageId,
+        IEnumerable<ICommonSession> recipients,
+        HashSet<ICommonSession> understanding)
+    {
+        if (string.IsNullOrEmpty(languageId))
+            return false;
+
+        if (!_prototypeManager.TryIndex(languageId, out var languageProto) || !languageProto.GenerateTTSForLexicon)
+            return false;
+
+        foreach (var session in recipients)
+        {
+            if (!understanding.Contains(session))
+                return true;
+        }
+
+        return false;
+    }
+
     // ReSharper disable once InconsistentNaming
     private async Task<byte[]?> GenerateTTS(string text, string speaker, bool isWhisper = false)
     {
-        var textSanitized = Sanitize(text);
+        // Kofeecheks expanded TTS intonation integration: LicenseRef-Kofeecheks
+        var intonation = TtsIntonationFormatter.Analyze(text);
+        var textSanitized = Sanitize(intonation.Text);
         if (textSanitized == "") return null;
         if (char.IsLetter(textSanitized[^1]))
             textSanitized += ".";
 
-        var ssmlTraits = SoundTraits.RateFast;
-        if (isWhisper)
-            ssmlTraits = SoundTraits.PitchVerylow;
-        var textSsml = ToSsmlText(textSanitized, ssmlTraits);
+        var textSsml = ToSsmlText(textSanitized, intonation.Style, isWhisper); // DS14-Soyuz
 
         return await _ttsManager.ConvertTextToSpeech(speaker, textSsml);
     }

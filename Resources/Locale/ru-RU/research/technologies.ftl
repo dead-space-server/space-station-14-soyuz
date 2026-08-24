@@ -78,3 +78,4 @@ research-technology-bluespace-cargo-transport = Блюспейс-транспо�
 research-technology-night-vision-technology = Технология ночного зрения
 research-technology-police-beta-technology = Экспериментальный скафандр "Бета-1"
 research-technology-security-turrets-technology = Автономные охранные системы
+research-technology-app-hub-software = Программное обеспечение

@@ -62,9 +62,22 @@ public sealed partial class AudioTab : Control
             scale: 1f);
 
         Control.AddOptionPercentSlider(
+            CCCCVars.ItemSoundsVolume,
+            SliderVolumeItemSounds,
+            scale: 1f);
+
+        Control.AddOptionPercentSlider(
             CCCCVars.BossMusicVolume,
             SliderVolumeBossMusic,
             scale: 1f);
+        Control.AddOptionPercentSlider(
+           CCCCVars.AnnonceVolume,
+           SliderVolumeAllertSounds,
+           scale: 1f);
+        Control.AddOptionPercentSlider(
+           CCCCVars.AdminVolume,
+           SliderVolumeAdminSounds,
+           scale: 1f);
         // DS14-end
 
         Control.AddOptionSlider(
@@ -92,6 +105,11 @@ public sealed partial class AudioTab : Control
             CCCCVars.JukeboxMusicVolume,
             SliderVolumeJukeboxMusic,
             scale: ContentAudioSystem.JukeboxMusicMultiplier);
+
+        // Control.AddOptionPercentSlider( // DS14-Soyuz disabled
+        //    CCCCVars.JukeboxAutoVolume,
+        //    SliderVolumeJukeboxAuto,
+        //    scale: ContentAudioSystem.JukeboxAutoMultiplier);
         // DS14-End
 
         Control.AddOptionCheckBox(CCVars.LobbyMusicEnabled, LobbyMusicCheckBox);
@@ -101,6 +119,8 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(CCVars.AdminSoundsEnabled, AdminSoundsCheckBox);
         Control.AddOptionCheckBox(CCVars.BwoinkSoundEnabled, BwoinkSoundCheckBox);
         Control.AddOptionCheckBox(CCCCVars.RadioTTSSoundsEnabled, RadioTTSSoundsCheckBox); // DS14-TTS
+        // Kofeecheks Jukebox integration: LicenseRef-Kofeecheks
+        Control.AddOptionCheckBox(CCCCVars.JukeboxMusicMute, JukeboxMusicMuteCheckBox);
 
         Control.Initialize();
     }

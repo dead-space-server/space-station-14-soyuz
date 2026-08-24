@@ -15,3 +15,34 @@
   components:
   - type: Implanter
     implant: RadioImplantNKO
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: NoSwearingImplanter
+  name: имплантер
+  description: Одноразовый шприц, специально предназначенный для введения подкожных имплантов.
+  suffix: Культурность
+  components:
+  - type: Implanter
+    implant: NoSwearingImplant
+
+- type: entity
+  id: EyeSocketImplanter
+  name: имплантер глазницы
+  description: Одноразовый шприц, специально предназначенный для введения подкожных имплантов.
+  suffix: Глазница
+  parent: BaseImplantOnlyImplanter
+  components:
+  - type: Implanter
+    implant: EyeSocketImplant
+
+- type: entity
+  id: HolyImplanter
+  parent: BaseImplantOnlyImplanter
+  name: имплантер
+  description: Да святитя имя Твоё, да прибудет воля Твоя.
+  suffix: Просвятление
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/holy_implanter.rsi
+  - type: Implanter

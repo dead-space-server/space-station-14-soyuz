@@ -1,35 +1,40 @@
 - type: entity
   parent: BaseFlag
-  id: USSPlosyng
-  name: central USSP
-  description: "Serve for a bright future!"
+  id: OPZFlag
+  name: флаг ОПЗ
+  description: Олицетворяет собой государство, чья гегемония перекроила карту галактики благодаря военной и политической силе.
   components:
   - type: Sprite
-    state: USSPlosyngCentral
+    sprite: _DeadSpace/Structures/Wallmounts/flags.rsi
+    state: opz
 
 - type: entity
   parent: BaseFlag
-  id: USSPlosyngOne
-  name: work is our everything
-  description: "Work, study, and serve!"
+  id: SNKFlag
+  name: флаг СНК
+  description: Пестрый символ свободного мира, который, однако, стал удобной кормушкой для мегакорпораций и сброда.
   components:
   - type: Sprite
-    state: USSPlosyngOne
+    sprite: _DeadSpace/Structures/Wallmounts/flags.rsi
+    state: snk
 
 - type: entity
   parent: BaseFlag
-  id: USSPtallflag
-  name: glory to USSP!
-  description: "Glory to USSP!"
+  id: USSPFlag
+  name: флаг СССП
+  description: Лаконичное напоминание о том, что даже в 3-е тысячелетие нельзя забывать про рабочий класс.
   components:
   - type: Sprite
-    state: USSPtallflag
+    sprite: _DeadSpace/Structures/Wallmounts/flags.rsi
+    state: ussp
 
 - type: entity
   parent: BaseFlag
-  id: USSPVimpelflag
-  name: Vimpel logo
-  description: Vimpel was a special unit of the KGB (Committee for State Security) of the Soviet Union.
+  id: EmpireFlag
+  name: флаг Империи
+  description: Пропитан духом многовековой войны, и даже его внешний вид дышит сражением.
   components:
   - type: Sprite
-    state: USSPVimpelflag
+    sprite: _DeadSpace/Structures/Wallmounts/flags.rsi
+    state: empire
+

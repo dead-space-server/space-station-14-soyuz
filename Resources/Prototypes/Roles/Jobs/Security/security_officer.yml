@@ -20,10 +20,10 @@
   - GenpopEnter
   - GenpopLeave
   #start-backmen: currency
-  minBankBalance: 150
-  maxBankBalance: 250
+  minBankBalance: 150 # DS14-value
+  maxBankBalance: 350 # DS14-value
   wageDepartment: Security
-  wage: 60
+  wage: 200 # DS14-value
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial
@@ -34,13 +34,29 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 360000 # 100 часов
+    SGMRankSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 180000 # 50 часов
+    SGMRankJuniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobSecurityOfficer
+      time: 90000 # 25 часов
+    SGMRankPrivate: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityOfficerGear
   equipment:
     id: SecurityPDA # DS14
     eyes: ClothingEyesGlassesSecurity
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetAltSecurityOfficer # DS14
   storage:
     back:
     - Flash

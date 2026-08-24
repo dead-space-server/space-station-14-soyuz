@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.Humanoid.Markings;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -37,6 +38,13 @@ namespace Content.Shared.Humanoid.Markings
         [DataField("coloring")]
         public MarkingColors Coloring { get; private set; } = new();
 
+        // DS-14 Soyuz
+        /// <summary>
+        /// Optional shader applied to every sprite layer of the marking.
+        /// </summary>
+        [DataField]
+        public string? Shader { get; private set; }
+
         /// <summary>
         /// Do we need to apply any displacement maps to this marking? Set to false if your marking is incompatible
         /// with a standard human doll, and is used for some special races with unusual shapes
@@ -44,8 +52,13 @@ namespace Content.Shared.Humanoid.Markings
         [DataField]
         public bool CanBeDisplaced { get; private set; } = true;
 
-        [DataField("sprites", required: true)]
-        public List<SpriteSpecifier> Sprites { get; private set; } = default!;
+        // DS14-start
+        [DataField("sprites", required: true, customTypeSerializer: typeof(MarkingSpriteLayerListSerializer))]
+        public List<MarkingSpriteLayer> SpriteLayers { get; private set; } = new();
+
+        private IReadOnlyList<SpriteSpecifier>? _sprites;
+        public IReadOnlyList<SpriteSpecifier> Sprites => _sprites ??= SpriteLayers.ConvertAll(layer => layer.Sprite);
+        // DS14-end
 
         public Marking AsMarking()
         {

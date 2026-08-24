@@ -54,3 +54,93 @@
       map: ["enum.FlatpackVisualLayers.Overlay"]
   - type: Flatpack
     entity: ChemMaster
+
+- type: entity
+  parent: BaseFlatpack
+  id: VehicleHoverbikeFlatpack
+  name: упаковка ховербайка
+  description: Hot wheels!
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+  - type: Flatpack
+    entity: VehicleHoverbike
+
+- type: entity
+  parent: BaseFlatpack
+  id: VehicleQuadBikeFlatpack
+  name: упаковка квадроцикла
+  description: Hot wheels!
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+  - type: Flatpack
+    entity: VehicleQuadBike
+
+- type: entity
+  parent: BaseFlatpack
+  id: TaipanVehicleHoverbikeFlatpack
+  name: упаковка ховербайка
+  description: Горячие колёсики!
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#8B0000"
+    - state: icon-default
+  - type: Flatpack
+    entity: TaipanVehicleHoverbike
+
+- type: entity
+  parent: BaseFlatpack
+  id: TaipanVehicleQuadBikeFlatpack
+  name: упаковка квадроцикла
+  description: Горячие колёсики!
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#8B0000"
+    - state: icon-default
+  - type: Flatpack
+    entity: TaipanVehicleQuadBike
+
+- type: entity
+  parent: BaseFlatpack
+  id: VehicleJanicartFlatpack
+  name: упаковка уборочной машины
+  description: Hot wheels!
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#9b59b6"
+    - state: icon-default
+  - type: Flatpack
+    entity: VehicleJanicart
+
+- type: entity
+  parent: BaseFlatpack
+  id: SMObeliskFlatpack
+  name: упакованный обелиск - Супер Материя
+  description: Fuck.
+  components:
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+  - type: Flatpack
+    entity: SMObelisk

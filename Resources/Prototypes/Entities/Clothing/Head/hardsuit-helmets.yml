@@ -334,8 +334,10 @@
     sprite: Clothing/Head/Hardsuits/security.rsi
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/security.rsi
-  - type: PointLight
-    color: '#3fb594' # DS14
+  - type: PointLight #DS-14
+    color: '#fce883' #DS14-soyuz
+    radius: 6 
+    energy: 3
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000
@@ -360,10 +362,48 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/brigmedic.rsi
+    #DS14-Soyuz-start
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+      map: [ "light" ]
+  - type: HandheldLight
+    addPrefix: false
+  - type: ToggleableVisuals
+    spriteLayer: light
+    clothingVisuals:
+      head:
+      - state: equipped-head-light
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-light-vulpkanin
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-light-reptilian
+        shader: unshaded
   - type: Clothing
-    sprite: Clothing/Head/Hardsuits/brigmedic.rsi
-  - type: PointLight
-    color: "#00FFFF"
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-vulpkanin
+      - state: equipped-head-unshaded-vulpkanin
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-reptilian
+      - state: equipped-head-unshaded-reptilian
+        shader: unshaded
+        #DS14-Soyuz-end
+  - type: PointLight #DS-14
+    color: '#9a151e' #DS14-soyuz
+    radius: 6
+    energy: 3
   - type: Armor
     modifiers:
       coefficients:
@@ -386,10 +426,55 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/security-warden.rsi
+    #DS14-Soyuz-start
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+      map: [ "light" ]
+  - type: HandheldLight
+    addPrefix: false
+  - type: ToggleableVisuals
+    spriteLayer: light
+    clothingVisuals:
+      head:
+      - state: equipped-head-light
+        shader: unshaded
+      head-vox:
+      - state: equipped-head-light-vox
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-light-vulpkanin
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-light-reptilian
+        shader: unshaded
   - type: Clothing
-    sprite: Clothing/Head/Hardsuits/security-warden.rsi
-  - type: PointLight
-    color: "#3fb594" # DS14
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+      head-vox:
+      - state: equipped-head-vox
+      - state: equipped-head-unshaded-vox
+        shader: unshaded
+      head-vulpkanin:
+      - state: equipped-head-vulpkanin
+      - state: equipped-head-unshaded-vulpkanin
+        shader: unshaded
+      head-reptilian:
+      - state: equipped-head-reptilian
+      - state: equipped-head-unshaded-reptilian
+        shader: unshaded
+        #DS14-Soyuz-end
+  - type: PointLight #DS-14
+    color: "#fce883" #DS14-soyuz
+    radius: 6
+    energy: 3
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000
@@ -544,8 +629,10 @@
     sprite: Clothing/Head/Hardsuits/security-red.rsi
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/security-red.rsi
-  - type: PointLight
-    color: '#3fb594' # DS14
+  - type: PointLight #DS-14
+    color: '#fce883' #DS14-soyuz
+    radius: 6
+    energy: 3
   - type: PressureProtection
     highPressureMultiplier: 0.45
     lowPressureMultiplier: 1000
@@ -584,6 +671,8 @@
   name: blood-red hardsuit helmet
   description: A heavily armored helmet designed for work in special operations. Property of Gorlex Marauders.
   components:
+  - type: FlashbangProtection # ds14
+    reduction: 2
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/syndicate.rsi
   - type: Clothing
@@ -614,6 +703,8 @@
   name: blood-red medic hardsuit helmet
   description: An advanced red hardsuit helmet specifically designed for field medic operations.
   components:
+  - type: FlashbangProtection # ds14
+    reduction: 2
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/syndiemedic.rsi
   - type: Clothing
@@ -640,6 +731,8 @@
   name: syndicate elite helmet
   description: An elite version of the blood-red hardsuit's helmet, with improved radiation resistance and fireproofing. Property of Gorlex Marauders.
   components:
+  - type: FlashbangProtection # ds14
+    reduction: 2
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/syndieelite.rsi
   - type: Clothing
@@ -675,6 +768,8 @@
   name: syndicate commander helmet
   description: A bulked up version of the blood-red hardsuit's helmet, purpose-built for the commander of a syndicate operative squad. Has significantly improved armor for those deadly front-lines firefights.
   components:
+  - type: FlashbangProtection # ds14
+    reduction: 2
   - type: Sprite
     sprite: Clothing/Head/Hardsuits/syndiecommander.rsi
   - type: Clothing
@@ -709,6 +804,8 @@
     sprite: Clothing/Head/Hardsuits/cybersun.rsi
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/cybersun.rsi
+  - type: FlashbangProtection # ds14
+    reduction: 2
   - type: PointLight # Corvax-Resprite
     radius: 7 #DS-14 start
     energy: 4 #DS-14 end

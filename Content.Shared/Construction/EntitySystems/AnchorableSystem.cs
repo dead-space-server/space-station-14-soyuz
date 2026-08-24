@@ -5,6 +5,7 @@ using Content.Shared.Construction.Components;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace._Soyuz.Construction;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using Content.Shared.Movement.Pulling.Components;
@@ -33,16 +34,13 @@ public sealed partial class AnchorableSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly TagSystem _tagSystem = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-
-    private EntityQuery<PhysicsComponent> _physicsQuery;
+    [Dependency] private readonly TileCenterCollisionSystem _tileCenterCollision = default!; // DS14-Soyuz
 
     public readonly ProtoId<TagPrototype> Unstackable = "Unstackable";
 
     public override void Initialize()
     {
         base.Initialize();
-
-        _physicsQuery = GetEntityQuery<PhysicsComponent>();
 
         SubscribeLocalEvent<AnchorableComponent, InteractUsingEvent>(OnInteractUsing,
             before: new[] { typeof(ItemSlotsSystem) }, after: new[] { typeof(SharedConstructionSystem) });
@@ -306,25 +304,8 @@ public sealed partial class AnchorableSystem : EntitySystem
     /// <param name="grid"></param>
     public bool TileFree(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
-        var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, grid.Comp, gridIndices);
-
-        while (enumerator.MoveNext(out var ent))
-        {
-            if (!_physicsQuery.TryGetComponent(ent, out var body) ||
-                !body.CanCollide ||
-                !body.Hard)
-            {
-                continue;
-            }
-
-            if ((body.CollisionMask & collisionLayer) != 0x0 ||
-                (body.CollisionLayer & collisionMask) != 0x0)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        // DS-14 Soyuz
+        return !_tileCenterCollision.IsBlocked(grid, gridIndices, collisionLayer, collisionMask);
     }
 
     [Obsolete("Use the Entity<MapGridComponent> version")]

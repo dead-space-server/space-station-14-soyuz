@@ -1,6 +1,6 @@
 - type: gameMap
   id: Oasis
-  mapName: 'Oasis'
+  mapName: 'Оазис' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/oasis.yml
   minPlayers: 30
   maxPlayers: 40
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Oasis {1}'
+          mapNameTemplate: '{0} Оазис {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'B'
@@ -21,7 +21,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-#            Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]

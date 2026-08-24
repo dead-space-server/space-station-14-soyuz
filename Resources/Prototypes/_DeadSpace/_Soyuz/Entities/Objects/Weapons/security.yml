@@ -1,0 +1,86 @@
+- type: entity
+  parent: Flash
+  id: SoyuzFlashAutoRecharge
+  name: вспышка второго поколения
+  description: Новейшая разработка научно-исследовательских отделений для службы безопасности. Автоматически восстанавливает 1 заряд раз в 30 секунд благодарю небольшому микрореактору внутри.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/flash.rsi
+    layers:
+    - state: flash
+      map: [ "enum.FlashVisualLayers.BaseLayer" ]
+    - state: flashing
+      map: [ "enum.FlashVisualLayers.LightLayer" ]
+      visible: false
+      shader: unshaded
+  - type: LimitedCharges
+    maxCharges: 3
+  - type: UseDelay
+    delay: 3
+  - type: StaticPrice
+    price: 80
+  - type: AutoRecharge
+    rechargeDuration: 30
+
+
+- type: entity
+  parent: Stunbaton
+  id: SoyuzStunbaton
+  name: шоковая дубинка второго поколения
+  description: Шоковая дубинка второго поколения. Отличается более быстрыми ударами и более большим зарядом.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/stunbaton.rsi
+    layers:
+    - state: stunbaton_off
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Stunbaton
+    energyPerUse: 35
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 4
+    bluntStaminaDamageFactor: 2.0
+    angle: 60
+    animation: WeaponArcThrust
+    attackRate: 1.3
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/stunbaton.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: StaticPrice
+    price: 120
+
+- type: entity
+  parent: WeaponDisabler
+  id: SoyuzWeaponDisabler
+  name: станнер второго поколения
+  description: Станнер второго поколения для советской гражданской милиции. Наносит больше оглушающего урона, имеет меньше зарядов и заряжается быстрее.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/taser.rsi
+    layers:
+      - state: taser
+        map: ["enum.GunVisualLayers.Base"]
+      - state: mag-unshaded-0
+        map: ["enum.GunVisualLayers.MagUnshaded"]
+        shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/taser.rsi
+    quickEquip: false
+    slots:
+      - suitStorage
+      - Belt
+  - type: BatteryAmmoProvider
+    proto: SoyuzBulletDisablerTrace
+    fireCost: 40
+  - type: Gun
+    fireRate: 2.5
+    projectileSpeed: 35
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
+  - type: Battery
+    maxCharge: 400
+    startingCharge: 400

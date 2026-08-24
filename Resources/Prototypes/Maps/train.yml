@@ -1,6 +1,6 @@
 - type: gameMap
   id: Train
-  mapName: 'Train'
+  mapName: 'Поезд' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/train.yml
   maxRandomOffset: 0
   randomRotation: false
@@ -11,7 +11,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Train "Sentipode" {0}-{1}'
+          mapNameTemplate: 'Поезд "Сентипеда" {0}-{1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'ED'
@@ -23,7 +23,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            # Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -59,7 +59,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 4, 4 ] #DS14
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

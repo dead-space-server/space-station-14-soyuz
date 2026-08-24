@@ -1,0 +1,19 @@
+﻿- type: rank
+  id: RMCRankWeYaExecutiveSpecialist
+  name: Специалист-Исполнительный Офицер
+  prefix: Спец. Испол. Оф.
+
+- type: rank
+  id: RMCRankWeYaSeniorExecutive
+  name: Старший Исполнительный Офицер
+  prefix: Стар. Испол. Оф.
+
+- type: rank
+  id: RMCRankWeYaExecutive
+  name: Исполнительный Офицер
+  prefix: Испол. Оф.
+
+- type: rank
+  id: RMCRankWeYaJuniorExecutive
+  name: Младший Исполнительный Офицер
+  prefix: Млад. Испол. Оф.

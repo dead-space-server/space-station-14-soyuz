@@ -1,9 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using Content.Server.Antag;
-using Content.Server.Database;
 using Content.Server.GameTicking.Rules;
-using Content.Server.Roles;
 using Content.Shared.DeadSpace.Demons.Shadowling;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs.Systems;
@@ -12,6 +10,7 @@ using Content.Server.Mind;
 using Content.Shared.Mobs.Components;
 using Content.Server.GameTicking;
 using Content.Shared.Mind.Components;
+using Content.Shared.Mind;
 
 namespace Content.Server.DeadSpace.Demons.Shadowling;
 
@@ -20,8 +19,6 @@ public sealed class ShadowlingRuleSystem : GameRuleSystem<ShadowlingRuleComponen
     [Dependency] private readonly MindSystem _mind = default!;
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly RoleSystem _role = default!;
-    [Dependency] private readonly IServerDbManager _db = default!;
 
     public readonly EntProtoId ObjectiveId = "ShadowlingRecruitObjective";
 
@@ -54,45 +51,103 @@ public sealed class ShadowlingRuleSystem : GameRuleSystem<ShadowlingRuleComponen
         if (sessionData.Count == 0)
             return;
 
-        args.AddLine(Loc.GetString("shadowling-round-end-count", ("initialCount", sessionData.Count)));
+        bool anyAlive = false;
+        bool anyAscended = false;
 
-        foreach (var (mind, data, name) in sessionData)
+        var query = EntityQueryEnumerator<MindContainerComponent, MobStateComponent>();
+        while (query.MoveNext(out var entity, out var mindContainer, out var mobState))
         {
-            var count = 0;
-            if (_role.MindHasRole<ShadowlingRoleComponent>(mind, out var role))
-                count = role.Value.Comp2.TotalRecruited;
+            if (!_mind.TryGetMind(entity, out var mindId, out _, mindContainer))
+                continue;
 
-            args.AddLine(Loc.GetString("shadowling-round-end-name-user",
-                ("name", name),
-                ("username", data.UserName),
-                ("count", count)));
+            bool isAntag = false;
+            foreach (var (antagMind, _, _) in sessionData)
+            {
+                if (antagMind == mindId)
+                {
+                    isAntag = true;
+                    break;
+                }
+            }
+            if (!isAntag)
+                continue;
+
+            if (!_mobState.IsAlive(entity, mobState))
+                continue;
+
+            anyAlive = true;
+            if (HasComp<ShadowlingAnnihilationComponent>(entity))
+                anyAscended = true;
         }
 
-        args.AddLine("");
-
-        if (component.IsAscended)
+        if (anyAscended)
             args.AddLine(Loc.GetString("shadowling-win"));
-        else if (component.AllDead)
+        else if (sessionData.Count > 0 && !anyAlive)
             args.AddLine(Loc.GetString("shadowling-lose"));
-        else
+        else if (sessionData.Count > 0)
             args.AddLine(Loc.GetString("shadowling-stalemate"));
+    }
 
-        _ = System.Threading.Tasks.Task.Run(async () =>
+    protected override void AppendAdminStatus(EntityUid uid,
+        ShadowlingRuleComponent component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+        var antags = _antag.GetAntagIdentifiers(uid);
+        var living = 0;
+        var ascended = 0;
+        var lines = new List<string>();
+
+        foreach (var (mindId, _, initialName) in antags)
         {
-            try
+            if (!TryComp<MindComponent>(mindId, out var mind) ||
+                mind.OwnedEntity is not { } body ||
+                !Exists(body))
             {
-                BiStatWinner winner;
-                if (component.IsAscended)
-                    winner = BiStatWinner.Antagonist;
-                else if (component.AllDead)
-                    winner = BiStatWinner.Crew;
-                else
-                    winner = BiStatWinner.Crew;
-
-                await _db.AddBiStatAsync("Тенеморф", winner, DateTime.UtcNow);
+                continue;
             }
-            catch { }
-        });
+
+            if (_mobState.IsAlive(body))
+                living++;
+
+            if (HasComp<ShadowlingAnnihilationComponent>(body))
+                ascended++;
+
+            var slaves = 0;
+            var slaveQuery = EntityQueryEnumerator<ShadowlingSlaveComponent, MobStateComponent>();
+            while (slaveQuery.MoveNext(out var slave, out var slaveComponent, out var mobState))
+            {
+                if (slaveComponent.Master == body && _mobState.IsAlive(slave, mobState))
+                    slaves++;
+            }
+
+            var progress = component.TargetSlaves <= 0
+                ? 1f
+                : Math.Clamp(slaves / (float) component.TargetSlaves, 0f, 1f);
+            lines.Add(Loc.GetString("game-rule-admin-status-shadowling-master",
+                ("name", ToPrettyString(body).Name ?? initialName),
+                ("slaves", slaves),
+                ("target", component.TargetSlaves),
+                ("progress", progress.ToString("P0"))));
+        }
+
+        var state = component switch
+        {
+            { IsAscended: true } => "ascended",
+            { AllDead: true } => "defeated",
+            { HadShadowlings: true } => "active",
+            _ => "waiting",
+        };
+
+        lines.Insert(0, Loc.GetString("game-rule-admin-status-shadowling-summary",
+            ("state", Loc.GetString($"game-rule-admin-status-shadowling-state-{state}")),
+            ("living", living),
+            ("ascended", ascended)));
+
+        if (lines.Count == 1)
+            lines.Add(Loc.GetString("game-rule-admin-status-shadowling-no-masters"));
+
+        args.AddSection(Loc.GetString("game-rule-admin-status-shadowling-title"), lines);
     }
 
     protected override void ActiveTick(EntityUid uid, ShadowlingRuleComponent component, GameRuleComponent gameRule, float frameTime)
@@ -103,51 +158,43 @@ public sealed class ShadowlingRuleSystem : GameRuleSystem<ShadowlingRuleComponen
             return;
 
         var sessionData = _antag.GetAntagIdentifiers(uid);
-        var sessionUserIds = new HashSet<string>();
-
-        foreach (var (mind, data, name) in sessionData)
-        {
-            sessionUserIds.Add(data.UserId.ToString());
-        }
-
-        if (sessionUserIds.Count == 0)
+        if (sessionData.Count == 0)
             return;
 
-        var deadCount = 0;
+        component.HadShadowlings = true;
 
-        var entities = EntityQueryEnumerator<ShadowlingRecruitComponent, MindContainerComponent, MobStateComponent>();
-        while (entities.MoveNext(out var entity, out var recruit, out var mindContainer, out var mob))
+        bool anyAlive = false;
+        bool anyAscended = false;
+
+        var query = EntityQueryEnumerator<MindContainerComponent, MobStateComponent>();
+        while (query.MoveNext(out var entity, out var mindContainer, out var mobState))
         {
-            if (!_mind.TryGetMind(entity, out _, out var mind, mindContainer))
+            if (!_mind.TryGetMind(entity, out var mindId, out _, mindContainer))
                 continue;
 
-            var userId = mind.UserId?.ToString() ?? mind.OriginalOwnerUserId?.ToString();
-            if (userId == null || !sessionUserIds.Contains(userId))
+            bool isAntag = false;
+            foreach (var (antagMind, _, _) in sessionData)
+            {
+                if (antagMind == mindId)
+                {
+                    isAntag = true;
+                    break;
+                }
+            }
+            if (!isAntag)
                 continue;
 
-            component.HadShadowlings = true;
+            if (!_mobState.IsAlive(entity, mobState))
+                continue;
 
-            if (!_mobState.IsAlive(entity, mob) && !HasComp<ShadowlingComponent>(entity) && !HasComp<ShadowlingAnnihilationComponent>(entity))
-                deadCount++;
+            anyAlive = true;
+            if (HasComp<ShadowlingAnnihilationComponent>(entity))
+                anyAscended = true;
         }
 
-        var hiddenEntities = EntityQueryEnumerator<ShadowlingRevealComponent, MindContainerComponent, MobStateComponent>();
-        while (hiddenEntities.MoveNext(out var entity, out var reveal, out var mindContainer, out var mob))
-        {
-            if (!_mind.TryGetMind(entity, out _, out var mind, mindContainer))
-                continue;
-
-            var userId = mind.UserId?.ToString() ?? mind.OriginalOwnerUserId?.ToString();
-            if (userId == null || !sessionUserIds.Contains(userId))
-                continue;
-
-            component.HadShadowlings = true;
-
-            if (!_mobState.IsAlive(entity, mob))
-                deadCount++;
-        }
-
-        if (component.HadShadowlings && deadCount >= sessionUserIds.Count)
+        if (anyAscended)
+            component.IsAscended = true;
+        else if (!anyAlive)
             component.AllDead = true;
     }
 }

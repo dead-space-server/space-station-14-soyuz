@@ -1,0 +1,5 @@
+- type: rank
+  id: CMDRankCaptain
+  name: Капитан
+  prefix: Капитан
+  paygrade: КОМ10

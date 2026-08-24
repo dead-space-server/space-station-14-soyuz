@@ -23,7 +23,9 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
+using Content.Shared.RepulseAttract.Events;
 using Content.Shared.Standing;
+using Content.Shared.IdentityManagement;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Content.Shared.Verbs;
@@ -83,6 +85,7 @@ public sealed class CarrySystem : EntitySystem
         SubscribeLocalEvent<CarriedComponent, EntGotInsertedIntoContainerMessage>(OnCarriedInsertedIntoContainer);
         SubscribeLocalEvent<CarriedComponent, BuckledEvent>(OnCarriedBuckled);
         SubscribeLocalEvent<CarriedComponent, EntParentChangedMessage>(OnCarriedParentChanged);
+        SubscribeLocalEvent<CarriedComponent, BeforeRepulseAttractThrownEvent>(OnCarriedRepulseAttractThrown);
         SubscribeLocalEvent<CarriedComponent, MoveInputEvent>(OnCarriedMoveInput);
         SubscribeLocalEvent<CarriedComponent, AttackAttemptEvent>(OnCarriedAttackAttempt);
         SubscribeLocalEvent<CarriedComponent, StandAttemptEvent>(OnCarriedStandAttempt);
@@ -163,7 +166,7 @@ public sealed class CarrySystem : EntitySystem
         if (!CanCarryWithPullingFixup(carrier, target, popup))
             return false;
 
-        var delay = GetPickupDelay(target);
+        var delay = GetPickupDelay(carrier, target);
         var doAfter = new DoAfterArgs(EntityManager, carrier, delay, new CarryDoAfterEvent(), target, target: target)
         {
             BlockDuplicate = true,
@@ -171,8 +174,12 @@ public sealed class CarrySystem : EntitySystem
             BreakOnMove = true,
             DistanceThreshold = 1.5f,
         };
-
-        return _doAfter.TryStartDoAfter(doAfter);
+        var started = _doAfter.TryStartDoAfter(doAfter);
+        if (started)
+        {
+            _popup.PopupEntity(Loc.GetString("carry-popup-being-picked-up", ("user", Identity.Entity(carrier, EntityManager))), target, target);
+        }
+        return started;
     }
 
     public bool CanCarry(EntityUid carrier, EntityUid target)
@@ -283,8 +290,15 @@ public sealed class CarrySystem : EntitySystem
         return true;
     }
 
-    private TimeSpan GetPickupDelay(EntityUid target)
+    private TimeSpan GetPickupDelay(EntityUid carrier, EntityUid target)
     {
+        if (TryComp<InstantCriticalCarryComponent>(carrier, out var instant) &&
+            TryComp<MobStateComponent>(target, out var mob) &&
+            instant.States.Contains(mob.CurrentState))
+        {
+            return TimeSpan.Zero;
+        }
+
         if (HasComp<MobStateComponent>(target) && !HasComp<HumanoidAppearanceComponent>(target))
             return AnimalPickupTime;
 
@@ -507,6 +521,19 @@ public sealed class CarrySystem : EntitySystem
             return;
 
         if (!TryComp<CarryingComponent>(carrier, out var carrying) || carrying.Carried != ent.Owner)
+        {
+            CleanupInvalidCarriedState(ent.Owner, ent.Comp);
+            return;
+        }
+
+        StopCarry(carrier, carrying, placeTarget: false, keepTargetDown: true);
+    }
+
+    private void OnCarriedRepulseAttractThrown(Entity<CarriedComponent> ent, ref BeforeRepulseAttractThrownEvent args)
+    {
+        if (ent.Comp.Carrier is not { } carrier ||
+            !TryComp<CarryingComponent>(carrier, out var carrying) ||
+            carrying.Carried != ent.Owner)
         {
             CleanupInvalidCarriedState(ent.Owner, ent.Comp);
             return;

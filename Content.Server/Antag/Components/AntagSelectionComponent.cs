@@ -7,6 +7,7 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Antag.Components;
 
@@ -42,6 +43,17 @@ public sealed partial class AntagSelectionComponent : Component
     /// </summary>
     [DataField]
     public AntagSelectionTime SelectionTime = AntagSelectionTime.PostPlayerSpawn;
+
+    // DS14-start
+    /// <summary>
+    /// Delays assigning preselected antagonists without delaying the game rule itself.
+    /// </summary>
+    [DataField]
+    public MinMax? AssignmentDelay;
+
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan? AssignAt;
+    // DS14-end
 
     /// <summary>
     /// Cached sessions of antag definitions and selected players. Players in this dict are not guaranteed to have been assigned the role yet.
@@ -207,6 +219,45 @@ public partial struct AntagSelectionDefinition()
     /// </summary>
     [DataField]
     public bool SponsorsPriority = false;
+
+    // DS14-start
+    /// <summary>
+    /// Optional sponsor quota for the selected count. When null, <see cref="SponsorsPriority"/> keeps the legacy full-priority behavior.
+    /// </summary>
+    [DataField("sponsorsPriorityRatio")]
+    public float? SponsorsPriorityRatio;
+
+    /// <summary>
+    /// Extra unconditional slots added after the normal min/max and player-ratio calculation.
+    /// They intentionally do not consume the ratio budget of other definitions.
+    /// </summary>
+    [DataField]
+    public int AdditionalSlots;
+
+    /// <summary>
+    /// Minimum number of slots selected without sponsor priority.
+    /// </summary>
+    [DataField]
+    public int MinimumNonSponsorSlots;
+
+    /// <summary>
+    /// Maximum number of slots selected without sponsor priority.
+    /// </summary>
+    [DataField]
+    public int MaximumNonSponsorSlots;
+
+    /// <summary>
+    /// One non-sponsor slot is reserved per this many total antagonists in the rule.
+    /// </summary>
+    [DataField]
+    public int NonSponsorSlotTotalAntagRatio;
+
+    /// <summary>
+    /// Job WhiteList for Antag.
+    /// </summary>
+    [DataField]
+    public List<ProtoId<JobPrototype>>? JobWhitelist;
+    // DS14-end
 }
 
 /// <summary>

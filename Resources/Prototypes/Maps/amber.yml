@@ -1,6 +1,6 @@
 - type: gameMap
   id: Amber
-  mapName: 'Amber'
+  mapName: 'Янтарь' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/amber.yml
   minPlayers: 30
   maxPlayers: 70
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Amber {1}'
+          mapNameTemplate: '{0} Янтарь {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14-SB'
@@ -21,7 +21,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            # Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

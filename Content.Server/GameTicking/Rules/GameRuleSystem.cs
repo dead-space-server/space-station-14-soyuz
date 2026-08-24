@@ -34,6 +34,8 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         SubscribeLocalEvent<T, GameRuleStartedEvent>(OnGameRuleStarted);
         SubscribeLocalEvent<T, GameRuleEndedEvent>(OnGameRuleEnded);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
+        SubscribeLocalEvent<RoundEndDiscordTextAppendEvent>(OnRoundEndDiscordTextAppend); // DS14
+        SubscribeLocalEvent<T, CollectGameRuleAdminStatusEvent>(OnCollectAdminStatus); // DS14
     }
 
     private void OnStartAttempt(RoundStartAttemptEvent args)
@@ -116,6 +118,30 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         }
     }
 
+    // DS14-start
+    private void OnRoundEndDiscordTextAppend(RoundEndDiscordTextAppendEvent ev)
+    {
+        var query = AllEntityQuery<T>();
+        while (query.MoveNext(out var uid, out var comp))
+        {
+            if (!TryComp<GameRuleComponent>(uid, out var ruleData))
+                continue;
+
+            AppendRoundEndDiscordText(uid, comp, ruleData, ref ev);
+        }
+    }
+    // DS14-end
+
+    // DS14-start
+    private void OnCollectAdminStatus(EntityUid uid, T component, CollectGameRuleAdminStatusEvent args)
+    {
+        if (!TryComp<GameRuleComponent>(uid, out var ruleData))
+            return;
+
+        AppendAdminStatus(uid, component, ruleData, args);
+    }
+    // DS14-end
+
     /// <summary>
     /// Called when the gamerule is added
     /// </summary>
@@ -147,6 +173,27 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     {
 
     }
+
+    // DS14-start
+    /// <summary>
+    /// Called at the end of a round when Discord-only log text needs to be added for a game rule.
+    /// </summary>
+    protected virtual void AppendRoundEndDiscordText(EntityUid uid, T component, GameRuleComponent gameRule, ref RoundEndDiscordTextAppendEvent args)
+    {
+
+    }
+
+    /// <summary>
+    /// Adds a read-only section to the centralized periodic admin status report.
+    /// </summary>
+    protected virtual void AppendAdminStatus(EntityUid uid,
+        T component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+
+    }
+    // DS14-end
 
     /// <summary>
     /// Called on an active gamerule entity in the Update function

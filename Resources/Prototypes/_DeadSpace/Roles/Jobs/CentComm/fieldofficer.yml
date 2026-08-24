@@ -13,9 +13,11 @@
   access:
   - CentralCommand
   - SOD
+  - ErtTeamLeader
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, MacroBombImplant ]
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, RezervImplant ]
   - !type:AddComponentSpecial
     components:
     - type: AntagImmune
@@ -25,6 +27,13 @@
       - CentralCommand
     - type: Skill
       group: ALL
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankLieutenantColonel:
+    - !type:OverallPlaytimeRequirement
+      time: 3600000 # 1000 часов
+    NKVBRankMajor: []
+#DS14-Soyuz-end
 
 - type: chameleonOutfit
   id: CentcomFieldOfficerChameleonOutfit
@@ -44,7 +53,7 @@
     # back: ClothingBackpackCentcomBlack
     shoes: ClothingShoesCentcomBlack
     head: ClothingHeadCapCentcomBlack
-    eyes: ClothingEyesHudERTGamma
+    eyes: ClothingEyesHudDeathsquad
     mask: ClothingMaskBSAA
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestWeb
@@ -52,7 +61,7 @@
     belt: ClothingBeltSheathMilitaryWebbingCentcomBlackFilled
     id: CentcomFieldOfficerPDA
     ears: ClothingHeadsetFieldOfficer
-    pocket1: WeaponRevolverMateba
+    pocket1: WeaponRevolverRSH12M
     pocket2: DoorRemoteAll
   #   underwearb: ClothingUnderwearBottomBoxersWhite # DS14-Underwear
   # underweart: ClothingUnderwearTopBraWhite # DS14-Underwear

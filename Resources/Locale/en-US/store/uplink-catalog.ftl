@@ -210,13 +210,13 @@ uplink-freedom-implanter-name = Freedom Implanter
 uplink-freedom-implanter-desc = Get away from those nasty sec officers with this three use implant!
 
 uplink-scram-implanter-name = Scram Implanter
-uplink-scram-implanter-desc = A 2-use implant which teleports you within a large radius. Attempts to teleport you onto an unobstructed tile. May sometimes fail to do so. Life insurance not included.
+uplink-scram-implanter-desc = A 3-use implant which teleports you within a large radius. Attempts to teleport you onto an unobstructed tile. May sometimes fail to do so. Life insurance not included.
 
 uplink-dna-scrambler-implanter-name = DNA Scrambler Implanter
 uplink-dna-scrambler-implanter-desc = A single use implant that can be activated to modify your DNA and give you a completely new look.
 
 uplink-emp-implanter-name = EMP Implanter
-uplink-emp-implanter-desc = Detonates a small EMP pulse on activation that drains nearby electronics of their power, can be used three times before the internal battery runs out.
+uplink-emp-implanter-desc = Detonates a small EMP pulse on activation that drains nearby electronics of their power.
 
 uplink-macro-bomb-implanter-name = Macro Bomb Implanter
 uplink-macro-bomb-implanter-desc = Inject this and on death you'll create a large explosion. Huge team casualty cost, use at own risk. Replaces internal micro bomb.
@@ -522,3 +522,6 @@ uplink-briefcase-gun-desc = An indistinct briefcase with a highly compact C-20K 
 
 uplink-energycrossbow-name = Mini Energy Crossbow
 uplink-energycrossbow-desc = The go-to sidearm of any operative who prefers their victims not to be moving. Fires regenerating toxic arrows that floors victims in an instant.
+
+uplink-hardsuit-syndie-commander-name = Syndicate Commander Hardsuit
+uplink-hardsuit-syndie-commander-desc = A bulked up version of the blood-red hardsuit, purpose-built for the commander of a syndicate operative squad. Has significantly improved armor for those deadly front-lines firefights.

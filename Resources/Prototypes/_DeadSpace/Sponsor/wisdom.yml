@@ -10,7 +10,6 @@
   id: ClothingBackpackWisdom
   name: рюкзак Мед-Техника
   description: Этот рюкзак предназначен для хранения медицинских принадлежностей и инструментов, необходимых для быстрого реагирования в экстренных ситуациях.
-  suffix: Не спавнить
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -107,10 +106,10 @@
       coefficients:
         Blunt: 0.65
         Slash: 0.65
-        Piercing: 0.55
+        Piercing: 0.6
         Heat: 0.65
-        Radiation: 0.55
-        Caustic: 0.55
+        Radiation: 0.5
+        Caustic: 0.5
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -228,6 +227,7 @@
     - NewsReaderCartridge
     - AstroNavCartridge
     - MedTekCartridge
+    - MessengerCartridge
   - type: PdaBorderColor
     borderColor: "#222227"
   - type: Tag

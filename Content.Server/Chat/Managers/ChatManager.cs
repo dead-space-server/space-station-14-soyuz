@@ -5,6 +5,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
 using Content.Server.Discord.DiscordLink;
+using Content.Server.GameTicking;
 using Content.Server.Players.RateLimiting;
 using Content.Server.Preferences.Managers;
 using Content.Shared.Administration;
@@ -47,6 +48,7 @@ internal sealed partial class ChatManager : IChatManager
     [Dependency] private readonly PlayerRateLimitManager _rateLimitManager = default!;
     [Dependency] private readonly ISharedPlayerManager _player = default!;
     [Dependency] private readonly DiscordChatLink _discordLink = default!;
+    [Dependency] private readonly DiscordChatWebhook _discordChatWebhook = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
 
     private ISawmill _sawmill = default!;
@@ -368,12 +370,24 @@ internal sealed partial class ChatManager : IChatManager
         }
 
         _discordLink.SendMessage(message, player.Name, ChatChannel.AdminChat);
+        _discordChatWebhook.SendAdminChatMessage(message, player.Name);
         _adminLogger.Add(LogType.Chat, $"Admin chat from {player:Player}: {message}");
     }
 
     #endregion
 
     #region Utility
+
+    // DS14-start
+    private bool CanReceiveChatChannel(ChatChannel channel, INetChannel client)
+    {
+        if ((channel & (ChatChannel.IC | ChatChannel.LOOC)) == 0)
+            return true;
+
+        return _player.TryGetSessionByChannel(client, out var session) &&
+               _entityManager.System<GameTicker>().UserHasJoinedGame(session);
+    }
+    // DS14-end
 
     public void ChatMessageToOne(ChatChannel channel, string message, string wrappedMessage, EntityUid source, bool hideChat, INetChannel client, Color? colorOverride = null, bool recordReplay = false, string? audioPath = null, float audioVolume = 0, NetUserId? author = null)
     {
@@ -382,7 +396,8 @@ internal sealed partial class ChatManager : IChatManager
         user?.AddEntity(netSource);
 
         var msg = new ChatMessage(channel, message, wrappedMessage, netSource, user?.Key, hideChat, colorOverride, audioPath, audioVolume);
-        _netManager.ServerSendMessage(new MsgChatMessage() { Message = msg }, client);
+        if (CanReceiveChatChannel(channel, client)) // DS14
+            _netManager.ServerSendMessage(new MsgChatMessage() { Message = msg }, client);
 
         if (!recordReplay)
             return;
@@ -404,7 +419,8 @@ internal sealed partial class ChatManager : IChatManager
         user?.AddEntity(netSource);
 
         var msg = new ChatMessage(channel, message, wrappedMessage, netSource, user?.Key, hideChat, colorOverride, audioPath, audioVolume);
-        _netManager.ServerSendToMany(new MsgChatMessage() { Message = msg }, clients);
+        var eligibleClients = clients.Where(client => CanReceiveChatChannel(channel, client)).ToList(); // DS14
+        _netManager.ServerSendToMany(new MsgChatMessage() { Message = msg }, eligibleClients);
 
         if (!recordReplay)
             return;
@@ -438,7 +454,20 @@ internal sealed partial class ChatManager : IChatManager
         user?.AddEntity(netSource);
 
         var msg = new ChatMessage(channel, message, wrappedMessage, netSource, user?.Key, hideChat, colorOverride, audioPath, audioVolume);
-        _netManager.ServerSendToAll(new MsgChatMessage() { Message = msg });
+        // DS14-start
+        if ((channel & (ChatChannel.IC | ChatChannel.LOOC)) != 0)
+        {
+            var clients = _player.Sessions
+                .Where(session => _entityManager.System<GameTicker>().UserHasJoinedGame(session))
+                .Select(session => session.Channel)
+                .ToList();
+            _netManager.ServerSendToMany(new MsgChatMessage() { Message = msg }, clients);
+        }
+        else
+        {
+            _netManager.ServerSendToAll(new MsgChatMessage() { Message = msg });
+        }
+        // DS14-end
 
         if (!recordReplay)
             return;

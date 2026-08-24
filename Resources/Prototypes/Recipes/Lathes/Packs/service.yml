@@ -51,6 +51,7 @@
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
   - MegaSprayBottle
+  - WireBrushElectrical # Kofeecheks Electrical Wire Brush: LicenseRef-Kofeecheks
   - BagOfSummoningGarbage # DS14
 
 - type: latheRecipePack
@@ -62,7 +63,6 @@
 - type: latheRecipePack
   id: ServiceBoards
   recipes:
-  - BiofabricatorMachineCircuitboard
   - FatExtractorMachineCircuitboard
   - HydroponicsTrayMachineCircuitboard # roundstart gear being unlocked roundstart when
   - SeedExtractorMachineCircuitboard # ^
@@ -70,3 +70,4 @@
   - ReagentGrinderIndustrialMachineCircuitboard
   - JukeboxCircuitBoard
   - DawInstrumentMachineCircuitboard
+  - AppHubConsoleCircuitboard # DS14

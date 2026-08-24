@@ -203,7 +203,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     {
         DebugTools.Assert(EditedProfile != null);
 
-        if (EditedProfile == null || EditedSlot == null)
+        if (EditedProfile == null || EditedSlot == null || _profileEditor?.IsReadOnly == true) // DS14
             return;
 
         var selected = _preferencesManager.Preferences?.SelectedCharacterIndex;
@@ -369,6 +369,16 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
             }
         }
     }
+
+    // DS14-start
+    /// <summary>
+    /// Equips antagonist starting gear on a profile preview dummy.
+    /// </summary>
+    public void GiveDummyAntagStartingGear(EntityUid uid, ProtoId<StartingGearPrototype> startingGear)
+    {
+        _spawn.EquipStartingGear(uid, startingGear);
+    }
+    // DS14-end
 
     /// <summary>
     /// Applies the specified job's clothes to the dummy.

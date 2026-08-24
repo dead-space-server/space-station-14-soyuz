@@ -1,4 +1,5 @@
 using Content.Server.Antag;
+using Content.Server.Administration.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Popups;
@@ -12,6 +13,7 @@ using Content.Shared.Mind;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Administration;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Zombies;
@@ -25,6 +27,7 @@ namespace Content.Server.GameTicking.Rules;
 public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
 {
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
+    [Dependency] private readonly IAdminManager _admin = default!; // DS14
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ISharedPlayerManager _player = default!;
@@ -79,14 +82,6 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             args.AddLine(Loc.GetString("zombie-round-end-amount-all"));
 
         var antags = _antag.GetAntagIdentifiers(uid);
-        args.AddLine(Loc.GetString("zombie-round-end-initial-count", ("initialCount", antags.Count)));
-        foreach (var (_, data, entName) in antags)
-        {
-            args.AddLine(Loc.GetString("zombie-round-end-user-was-initial",
-                ("name", entName),
-                ("username", data.UserName)));
-        }
-
         var healthy = GetHealthyHumans();
         // Gets a bunch of the living players and displays them if they're under a threshold.
         // InitialInfected is used for the threshold because it scales with the player count well.
@@ -128,6 +123,26 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         });
     }
 
+    // DS14-start
+    protected override void AppendRoundEndDiscordText(EntityUid uid,
+        ZombieRuleComponent component,
+        GameRuleComponent gameRule,
+        ref RoundEndDiscordTextAppendEvent args)
+    {
+        var antags = _antag.GetAntagIdentifiers(uid);
+        args.AddLine(Loc.GetString("zombie-round-end-initial-count", ("initialCount", antags.Count)));
+
+        foreach (var (_, data, entName) in antags)
+        {
+            args.AddLine(Loc.GetString("zombie-round-end-user-was-initial",
+                ("name", entName),
+                ("username", data.UserName)));
+        }
+
+        args.AddLine("");
+    }
+    // DS14-end
+
     /// <summary>
     ///     The big kahoona function for checking if the round is gonna end
     /// </summary>
@@ -137,14 +152,28 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         if (healthy.Count == 1) // Only one human left. spooky
             _popup.PopupEntity(Loc.GetString("zombie-alone"), healthy[0], healthy[0]);
 
-        if (GetInfectedFraction(false) > zombieRuleComponent.ZombieShuttleCallPercentage && !_roundEnd.IsRoundEndRequested())
+        var infectedFraction = GetInfectedFraction(false); // DS14
+
+        // DS14-start
+        if (!zombieRuleComponent.ZombieShuttleAutoCallHandled &&
+            infectedFraction > zombieRuleComponent.ZombieShuttleCallPercentage)
         {
-            foreach (var station in _station.GetStations())
+            zombieRuleComponent.ZombieShuttleAutoCallHandled = true;
+
+            if (HasActiveRoundAdmin())
             {
-                _chat.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
+                zombieRuleComponent.ZombieShuttleAutoCallDisabled = true;
             }
-            _roundEnd.RequestRoundEnd(checkCooldown: false);
+            else if (!_roundEnd.IsRoundEndRequested())
+            {
+                foreach (var station in _station.GetStations())
+                {
+                    _chat.DispatchStationAnnouncement(station, Loc.GetString("zombie-shuttle-call"), colorOverride: Color.Crimson);
+                }
+                _roundEnd.RequestRoundEnd(checkCooldown: false);
+            }
         }
+        // DS14-end
 
         // we include dead for this count because we don't want to end the round
         // when everyone gets on the shuttle.
@@ -152,11 +181,28 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
             _roundEnd.EndRound();
     }
 
+    // DS14-start
+    private bool HasActiveRoundAdmin()
+    {
+        foreach (var admin in _admin.ActiveAdmins)
+        {
+            if (_admin.HasAdminFlag(admin, AdminFlags.Round))
+                return true;
+        }
+
+        return false;
+    }
+    // DS14-end
+
     protected override void Started(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         base.Started(uid, component, gameRule, args);
 
         component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
+        // DS14-start
+        component.ZombieShuttleAutoCallHandled = false;
+        component.ZombieShuttleAutoCallDisabled = false;
+        // DS14-end
     }
 
     protected override void ActiveTick(EntityUid uid, ZombieRuleComponent component, GameRuleComponent gameRule, float frameTime)
@@ -167,6 +213,38 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
         CheckRoundEnd(component);
         component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
     }
+
+    // DS14-start
+    protected override void AppendAdminStatus(EntityUid uid,
+        ZombieRuleComponent component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+        var healthy = GetHealthyHumans(false).Count;
+        var zombies = GetZombieCount(includeOffStation: false);
+        var total = healthy + zombies;
+        var infected = total == 0 ? 0f : zombies / (float) total;
+        var shuttleStatus = component.ZombieShuttleAutoCallDisabled
+            ? "game-rule-admin-status-zombie-shuttle-disabled"
+            : component.ZombieShuttleAutoCallHandled
+                ? "game-rule-admin-status-zombie-shuttle-handled"
+                : "game-rule-admin-status-zombie-shuttle-pending";
+
+        args.AddSection(
+            Loc.GetString("game-rule-admin-status-zombie-title"),
+            new[]
+            {
+                Loc.GetString(
+                    "game-rule-admin-status-zombie-counts",
+                    ("zombies", zombies),
+                    ("healthy", healthy),
+                    ("infected", infected.ToString("P0"))),
+                Loc.GetString(
+                    "game-rule-admin-status-zombie-shuttle",
+                    ("status", Loc.GetString(shuttleStatus))),
+            });
+    }
+    // DS14-end
 
     private void OnZombifySelf(EntityUid uid, IncurableZombieComponent component, ZombifySelfActionEvent args)
     {
@@ -184,17 +262,41 @@ public sealed class ZombieRuleSystem : GameRuleSystem<ZombieRuleComponent>
     private float GetInfectedFraction(bool includeOffStation = true, bool includeDead = false)
     {
         var players = GetHealthyHumans(includeOffStation);
+        // DS14-start
+        var zombieCount = GetZombieCount(includeDead, includeOffStation);
+        var total = players.Count + zombieCount;
+
+        return total == 0 ? 0f : zombieCount / (float) total;
+    }
+
+    private int GetZombieCount(bool includeDead = false, bool includeOffStation = true)
+    {
         var zombieCount = 0;
-        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, ZombieComponent, MobStateComponent>();
-        while (query.MoveNext(out _, out _, out _, out var mob))
+        var stationGrids = new HashSet<EntityUid>();
+        if (!includeOffStation)
+        {
+            foreach (var station in _station.GetStationsSet())
+            {
+                if (_station.GetLargestGrid(station) is { } grid)
+                    stationGrids.Add(grid);
+            }
+        }
+
+        var query = EntityQueryEnumerator<HumanoidAppearanceComponent, ZombieComponent, MobStateComponent, TransformComponent>();
+        while (query.MoveNext(out _, out _, out _, out var mob, out var xform))
         {
             if (!includeDead && mob.CurrentState == MobState.Dead)
                 continue;
+
+            if (!includeOffStation && !stationGrids.Contains(xform.GridUid ?? EntityUid.Invalid))
+                continue;
+
             zombieCount++;
         }
 
-        return zombieCount / (float) (players.Count + zombieCount);
+        return zombieCount;
     }
+    // DS14-end
 
     /// <summary>
     /// Gets the list of humans who are alive, not zombies, and are on a station.

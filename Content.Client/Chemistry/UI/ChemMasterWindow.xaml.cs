@@ -51,6 +51,8 @@ namespace Content.Client.Chemistry.UI
             // DS14-start
             SearchBar.OnTextChanged += OnPanelInfoSearchChanged;
             ClearSearchButton.OnPressed += OnClearSearchPressed;
+
+            BufferDiscardButton.OnToggled += args => BufferDiscardButton.ModulateSelfOverride = args.Pressed ? Color.FromHex("#C62828") : null;
             // DS14-end
 
             _sprite = _entityManager.System<SpriteSystem>();
@@ -150,18 +152,20 @@ namespace Content.Client.Chemistry.UI
         // DS14-start
         private void OnPanelInfoSearchChanged(LineEditEventArgs args)
         {
-            if (string.IsNullOrEmpty(args.Text))
-            {
-                ClearSearchButton.Disabled = true;
+            ClearSearchButton.Disabled = string.IsNullOrEmpty(args.Text);
+            ApplySearchFilter(args.Text);
+        }
 
+        private void ApplySearchFilter(string? text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
                 foreach (var reagent in BufferInfo.Children)
                 {
                     reagent.Visible = true;
                 }
                 return;
             }
-
-            ClearSearchButton.Disabled = false;
 
             foreach (var reagent in BufferInfo.Children.OfType<PanelContainer>())
             {
@@ -171,18 +175,15 @@ namespace Content.Client.Chemistry.UI
                 {
                     continue;
                 }
-                reagent.Visible = label.Text.Contains(args.Text, StringComparison.CurrentCultureIgnoreCase);
+                reagent.Visible = label.Text.Contains(text, StringComparison.CurrentCultureIgnoreCase);
             }
         }
 
         private void OnClearSearchPressed(ButtonEventArgs args)
         {
-            foreach (var reagent in BufferInfo.Children.OfType<PanelContainer>())
-            {
-                reagent.Visible = true;
-            }
-
             SearchBar.Clear();
+            ClearSearchButton.Disabled = true;
+            ApplySearchFilter(null);
         }
         // DS14-end
 
@@ -292,6 +293,7 @@ namespace Content.Client.Chemistry.UI
         {
             BufferTransferButton.Pressed = state.Mode == ChemMasterMode.Transfer;
             BufferDiscardButton.Pressed = state.Mode == ChemMasterMode.Discard;
+            BufferDiscardButton.ModulateSelfOverride = BufferDiscardButton.Pressed ? Color.FromHex("#C62828") : null;
 
             BuildContainerUI(InputContainerInfo, state.InputContainerInfo, true);
             BuildContainerUI(OutputContainerInfo, state.OutputContainerInfo, false);
@@ -373,6 +375,8 @@ namespace Content.Client.Chemistry.UI
             {
                 BufferInfo.Children.Add(BuildReagentRow(reagent.color, rowCount++, reagent.name, reagent.reagentId, reagent.quantity, true, true));
             }
+
+            ApplySearchFilter(SearchBar.Text); // DS14
         }
 
         private void BuildContainerUI(Control control, ContainerInfo? info, bool addReagentButtons)

@@ -35,26 +35,6 @@
 
 - type: entity
   parent: BasePlushieSoyuz
-  id: PlushieCE1
-  name: плюшевый старший инженер
-  description: Выглядит строительно-влиятельно.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
-    state: chiefengineering1 # Слишком длинное название, над сократить
-
-- type: entity
-  parent: BasePlushieSoyuz
-  id: PlushieDiona1
-  name: плюшевая диона
-  description: Выглядит древесно.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
-    state: diona
-
-- type: entity
-  parent: BasePlushieSoyuz
   id: PlushieHoP1
   name: плюшевый начальник отдела кадров
   description: Выглядит уставшим.

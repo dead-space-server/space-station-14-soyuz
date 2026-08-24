@@ -1,0 +1,60 @@
+# Надо ребаланс защиты сделать
+- type: entity
+  parent: SoyuzClothingOuterArmorBase
+  id: SoyuzArmorRMC
+  name: бронежилет "Кестрел"
+  description: Настраиваемая персональная бронесистема, используемая королевской морской пехотой.
+  suffix: Королевские морпехи
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/armor.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/armor.rsi
+
+- type: entity
+  parent: SoyuzClothingOuterArmorBase
+  id: SoyuzArmorLightRMC
+  name: лёгкий бронежилет "Кестрел"
+  description: Настраиваемая персональная бронесистема, используемая королевской морской пехотой.
+  suffix: Королевские морпехи
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/armor.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/armor.rsi
+
+- type: entity
+  parent: SoyuzClothingOuterArmorBase
+  id: SoyuzArmorPaddedRMC
+  name: бронежилет-разгрузка "Кестрел"
+  description: Настраиваемая персональная бронесистема, используемая королевской морской пехотой.
+  suffix: Королевские морпехи
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/padded.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/padded.rsi
+
+- type: entity
+  parent: SoyuzClothingOuterArmorBase
+  id: SoyuzArmorSmartGunDesertCombatHarnessRMC
+  name: бронированная РПС для смартгана "Кестрел"
+  description: РПС для смартгана системы Кестрел, специально изготовленная для операторов смартгана. # А смартгана то нету ☺
+  suffix: Королевские морпехи
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/padded.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/padded.rsi
+
+- type: entity
+  parent: SoyuzClothingOuterArmorBase
+  id: SoyuzArmorPointmanRMC
+  name: броня дозорного "Кестрел"
+  description: Стандартная броня, используемая многими военными организациями США. Обеспечивает умеренную защиту от пуль и ударов в ближнем бою. Также имеет направленный фонарь на плече для ночного боя.
+  suffix: Королевские морпехи
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/pointman.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/armor/pointman.rsi

@@ -21,6 +21,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
@@ -31,6 +32,10 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+  # DS14-Soyuz-start
+  ranks:
+    NKVBRankSeniorLieutenant: []
+  # DS14-Soyuz-end
 
 - type: entity
   parent: ClothingBackpackBlueShield
@@ -42,17 +47,19 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
+      # - id: ERTloadoutBlueShieldPrimary # DS14-Soyuz disabled
       - id: ADTtelescopicBaton
       - id: TelescopicShield
-      - id: MagazinePistolSubMachineGun
-        amount: 3
       - id: MedkitCombatFilled
         amount: 2 
       - id: HandheldCrewMonitor
       - id: Zipties
-        amount: 3
-      - id: DesoxyephedrineMedipen
-        amount: 3
+        amount: 2
+      - id: CelestinMedipen
+        amount: 2
+      - id: ClothingNeckCapeBlueShield # DS14-Soyuz
+      - id: KGBloadoutSecondary # DS14-Soyuz
+      - id: KGBloadoutPrimary # DS14-Soyuz
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
@@ -80,17 +87,16 @@
     head: ClothingHeadHatBeretBlueShield
     jumpsuit: ClothingUniformJumpsuitBlueShield
     # back: ClothingBackpackBlueShieldCentComFilled
-    mask: ClothingMaskGasSecurity
-    eyes: ClothingEyesGlassesSecurity
+    mask: ClothingMaskGasBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
     ears: ClothingHeadsetAltCentCom
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmorBasicBlueShield
-    shoes: ClothingShoesBootsJackFilled
+    gloves: ClothingHandsGlovesBlueShield
+    outerClothing: ClothingOuterBlackCoatOKGB # DS14-Soyuz
+    shoes: ClothingShoesBootsBlueShield
     id: BlueShieldOfficerPDA
     pocket1: PistolBlueShield
     pocket2: WeaponDisabler
     belt: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
-    suitstorage: WeaponSubMachineGunDrozd
   storage:
     outerClothing:
     - ClothingEyesGlassesMeson

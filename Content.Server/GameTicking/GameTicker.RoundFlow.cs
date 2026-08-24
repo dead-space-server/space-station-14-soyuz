@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Server.Announcements;
 using Content.Server.Antag.Components;
 using Content.Server.DeadSpace.RoundEnd;
+using Content.Shared.DeadSpace.Arena;
 using Content.Server.Discord;
 using Content.Server.GameTicking.Events;
 using Content.Server.Maps;
@@ -11,11 +12,16 @@ using Content.Shared.Body.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
+using Content.Shared.Ghost; // DS14
 using Content.Shared.Maps;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Systems;
+using Content.Server.Objectives; // DS14
+using Content.Shared.Mobs; // DS14
+using Content.Shared.Mobs.Components; // DS14
 using Content.Shared.Players;
 using Content.Shared.Preferences;
+using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using JetBrains.Annotations;
 using Prometheus;
@@ -28,6 +34,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
+using System.Text;
 using System.Text.RegularExpressions;
 
 #pragma warning disable RA0026
@@ -40,6 +47,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly RoleSystem _role = default!;
         [Dependency] private readonly RoundEndManifestStatsSystem _roundEndManifestStats = default!; // DS14
         [Dependency] private readonly SharedObjectivesSystem _objectives = default!; // DS14
+        [Dependency] private readonly ObjectivesSystem _objectivesSystem = default!; // DS14
         [Dependency] private readonly ITaskManager _taskManager = default!;
 
         private static readonly Counter RoundNumberMetric = Metrics.CreateCounter(
@@ -51,6 +59,16 @@ namespace Content.Server.GameTicking
             "Round length in seconds.");
 
         private const string SentientVirusAntagPrototype = "SentientVirus"; // DS14
+        private const string RevolutionaryAntagPrototype = "Rev"; // DS14
+        private const string HeadRevolutionaryAntagPrototype = "HeadRev"; // DS14
+        // DS14-start
+        private const string TraitorAntagPrototype = "Traitor";
+        private const string TraitorSleeperAntagPrototype = "TraitorSleeper";
+        private const string TraitorUltraAntagPrototype = "TraitorUltra";
+        // DS14-end
+        private const int DiscordMessageMaxLength = 2000; // DS14
+        private const string DiscordCodeBlockFence = "```"; // DS14
+        private const int DiscordCodeBlockSplitOverhead = 8; // DS14: "\n```" + "```\n"
 
 #if EXCEPTION_TOLERANCE
         [ViewVariables]
@@ -536,12 +554,17 @@ namespace Content.Server.GameTicking
 
             //Generate a list of basic player info to display in the end round summary.
             var listOfPlayerInfo = new List<RoundEndMessageEvent.RoundEndPlayerInfo>();
-            var manifestAntagMinds = GetRoundEndManifestAntagMinds(); // DS14
+            // DS14-start
+            var manifestAntagMinds = GetRoundEndManifestAntagMinds();
+            // DS14-end
             // Grab the great big book of all the Minds, we'll need them for this.
             var allMinds = EntityQueryEnumerator<MindComponent>();
             var pvsOverride = _cfg.GetCVar(CCVars.RoundEndPVSOverrides);
             while (allMinds.MoveNext(out var mindId, out var mind))
             {
+                if (HasComp<ArenaMindComponent>(mindId)) // DS14
+                    continue;
+
                 // TODO don't list redundant observer roles?
                 // I.e., if a player was an observer ghost, then a hamster ghost role, maybe just list hamster and not
                 // the observer role?
@@ -563,15 +586,13 @@ namespace Content.Server.GameTicking
 
                 var antag = _roles.MindIsAntagonist(mindId);
 
-                var playerIcName = "Unknown";
-
-                if (mind.CharacterName != null)
-                    playerIcName = mind.CharacterName;
-                else if (mind.CurrentEntity != null && TryName(mind.CurrentEntity.Value, out var icName))
-                    playerIcName = icName;
-
                 // DS14-start
-                var displayEntity = GetRoundEndDisplayEntity(mindId, mind);
+                if (antag)
+                    _roundEndManifestStats.EnsureManifestEntry(mindId, mind);
+
+                var manifestIdentity = _roundEndManifestStats.GetManifestIdentity(mindId);
+                var playerIcName = GetRoundEndPlayerIcName(mind, manifestIdentity);
+                var displayEntity = GetRoundEndDisplayEntity(mindId, mind, manifestIdentity);
 
                 if (displayEntity != null && pvsOverride)
                     _pvsOverride.AddGlobalOverride(displayEntity.Value);
@@ -585,10 +606,10 @@ namespace Content.Server.GameTicking
                 var manifestObjectives = antag
                     ? GetRoundEndObjectives(mindId, mind)
                     : Array.Empty<RoundEndMessageEvent.RoundEndObjectiveInfo>();
+                var inCustody = antag && _objectivesSystem.IsInCustody(mindId, mind); // DS14
+                var isDead = antag && IsMindDead(mindId, mind); // DS14
                 var showInAntagManifest = antag &&
-                    (manifestAntagMinds.Contains(mindId) ||
-                     manifestObjectives.Length > 0 ||
-                     antagRoles.Any(role => role.Prototype == SentientVirusAntagPrototype));
+                    ShouldShowInRoundEndAntagManifest(mindId, manifestAntagMinds, manifestObjectives, antagRoles);
                 // DS14-end
 
                 var playerEndRoundInfo = new RoundEndMessageEvent.RoundEndPlayerInfo()
@@ -613,6 +634,8 @@ namespace Content.Server.GameTicking
                     ManifestKills = antag ? manifestStats.Kills : 0,
                     ManifestAssists = antag ? manifestStats.Assists : 0,
                     ManifestObjectives = manifestObjectives,
+                    InCustody = inCustody, // DS14
+                    IsDead = isDead, // DS14
                     ShowInAntagManifest = showInAntagManifest,
                     // DS14-end
                     Observer = observer,
@@ -644,6 +667,23 @@ namespace Content.Server.GameTicking
         }
 
         // DS14-start
+        private string GetRoundEndPlayerIcName(MindComponent mind, RoundEndManifestIdentity? manifestIdentity)
+        {
+            if (manifestIdentity is { } identity &&
+                !string.IsNullOrWhiteSpace(identity.CharacterName))
+            {
+                return identity.CharacterName;
+            }
+
+            if (mind.CharacterName != null)
+                return mind.CharacterName;
+
+            if (mind.CurrentEntity != null && TryName(mind.CurrentEntity.Value, out var icName))
+                return icName;
+
+            return "Unknown";
+        }
+
         private HashSet<EntityUid> GetRoundEndManifestAntagMinds()
         {
             var minds = new HashSet<EntityUid>();
@@ -658,6 +698,36 @@ namespace Content.Server.GameTicking
 
             return minds;
         }
+
+        private static bool ShouldShowInRoundEndAntagManifest(
+            EntityUid mindId,
+            HashSet<EntityUid> manifestAntagMinds,
+            RoundEndMessageEvent.RoundEndObjectiveInfo[] manifestObjectives,
+            RoleInfo[] antagRoles)
+        {
+            var isHeadRevolutionary = antagRoles.Any(role => role.Prototype == HeadRevolutionaryAntagPrototype);
+            var isOnlyRegularRevolutionary = !isHeadRevolutionary &&
+                                             antagRoles.Any(role => role.Prototype == RevolutionaryAntagPrototype) &&
+                                             antagRoles.All(role => role.Prototype == RevolutionaryAntagPrototype);
+
+            if (isOnlyRegularRevolutionary)
+                return false;
+
+            return manifestAntagMinds.Contains(mindId) ||
+                   manifestObjectives.Length > 0 ||
+                   IsTraitorManifestRole(antagRoles) || // DS14
+                   antagRoles.Any(role => role.Prototype == SentientVirusAntagPrototype);
+        }
+
+        // DS14-start
+        private static bool IsTraitorManifestRole(RoleInfo[] antagRoles)
+        {
+            return antagRoles.Any(role =>
+                role.Prototype == TraitorAntagPrototype ||
+                role.Prototype == TraitorSleeperAntagPrototype ||
+                role.Prototype == TraitorUltraAntagPrototype);
+        }
+        // DS14-end
 
         private RoundEndMessageEvent.RoundEndObjectiveInfo[] GetRoundEndObjectives(EntityUid mindId, MindComponent mind)
         {
@@ -681,21 +751,58 @@ namespace Content.Server.GameTicking
             return objectives.ToArray();
         }
 
-        private EntityUid? GetRoundEndDisplayEntity(EntityUid mindId, MindComponent mind)
+        // DS14-start
+        private bool IsMindDead(EntityUid mindId, MindComponent mind)
+        {
+            if (mind.OwnedEntity is not {} owned)
+                return mind.TimeOfDeath.HasValue;
+
+            if (TryComp<MobStateComponent>(owned, out var mobState))
+                return mobState.CurrentState == MobState.Dead;
+
+            return mind.TimeOfDeath.HasValue && HasComp<GhostComponent>(owned);
+        }
+        // DS14-end
+
+        private EntityUid? GetRoundEndDisplayEntity(
+            EntityUid mindId,
+            MindComponent mind,
+            RoundEndManifestIdentity? manifestIdentity)
         {
             var ownedEntity = mind.OwnedEntity;
             EntityUid? originalEntity = null;
             if (TryGetEntity(mind.OriginalOwnedEntity, out var foundOriginalEntity))
                 originalEntity = foundOriginalEntity.Value;
 
+            var identityEntity = manifestIdentity?.SourceEntity;
+            if (manifestIdentity != null)
+            {
+                if (mind.OwnedEntity == identityEntity &&
+                    IsLiveRoundEndDisplayBody(identityEntity))
+                {
+                    return identityEntity;
+                }
+
+                if (_roundEndManifestStats.GetDisplaySnapshot(mindId) is { } identitySnapshot)
+                    return identitySnapshot;
+
+                if (IsRoundEndDisplayBody(identityEntity))
+                    return identityEntity;
+
+                if (identityEntity != null && !TerminatingOrDeleted(identityEntity.Value))
+                    return identityEntity;
+
+                return null;
+            }
+
+            if (_roundEndManifestStats.GetDisplaySnapshot(mindId) is { } snapshot)
+                return snapshot;
+
             if (IsRoundEndDisplayBody(ownedEntity))
                 return ownedEntity;
 
             if (IsRoundEndDisplayBody(originalEntity))
                 return originalEntity;
-
-            if (_roundEndManifestStats.GetDisplaySnapshot(mindId) is { } snapshot)
-                return snapshot;
 
             if (ownedEntity != null && !TerminatingOrDeleted(ownedEntity.Value))
                 return ownedEntity;
@@ -704,6 +811,15 @@ namespace Content.Server.GameTicking
                 return originalEntity;
 
             return null;
+        }
+
+        private bool IsLiveRoundEndDisplayBody(EntityUid? uid)
+        {
+            if (uid is not { } body || !IsRoundEndDisplayBody(body))
+                return false;
+
+            return !TryComp<MobStateComponent>(body, out var mobState) ||
+                   mobState.CurrentState != MobState.Dead;
         }
 
         private bool IsRoundEndDisplayBody(EntityUid? uid)
@@ -724,11 +840,24 @@ namespace Content.Server.GameTicking
                 var duration = RoundDuration();
                 var gamemodeTitle = CurrentPreset != null ? Loc.GetString(CurrentPreset.ModeTitle) : string.Empty;
 
-                var textEv = new RoundEndTextAppendEvent();
-                RaiseLocalEvent(textEv);
+                // DS14-start
+                var discordTextEv = new RoundEndDiscordTextAppendEvent();
+                RaiseLocalEvent(discordTextEv);
 
-                var manifest = Regex.Replace(textEv.Text, @"\[/\.*?\]", "");
-                manifest = Regex.Replace(manifest, @"\[.*?\]", "");
+                var manifestBuilder = new StringBuilder();
+                if (!string.IsNullOrWhiteSpace(_replayRoundText))
+                    manifestBuilder.AppendLine(_replayRoundText.Trim());
+
+                if (!string.IsNullOrWhiteSpace(discordTextEv.Text))
+                {
+                    if (manifestBuilder.Length > 0)
+                        manifestBuilder.AppendLine();
+
+                    manifestBuilder.AppendLine(discordTextEv.Text.Trim());
+                }
+
+                var manifest = StripRoundEndDiscordMarkup(manifestBuilder.ToString().Trim());
+                // DS14-end
 
                 var content = Loc.GetString("discord-round-notifications-end",
                     ("id", RoundId),
@@ -738,7 +867,7 @@ namespace Content.Server.GameTicking
                     ("gamemode", gamemodeTitle),
                     ("manifest", manifest));
 
-                if (textEv.Text == String.Empty)
+                if (string.IsNullOrWhiteSpace(manifest)) // DS14
                 {
                     content = Loc.GetString("discord-round-notifications-end-no-manifest",
                         ("id", RoundId),
@@ -748,9 +877,14 @@ namespace Content.Server.GameTicking
                         ("gamemode", gamemodeTitle));
                 }
 
-                var payload = new WebhookPayload { Content = content };
-
-                await _discord.CreateMessage(_webhookIdentifier.Value, payload);
+                // DS14-start
+                WebhookPayload payload;
+                foreach (var message in SplitDiscordWebhookContent(content))
+                {
+                    payload = new WebhookPayload { Content = message };
+                    await _discord.CreateMessage(_webhookIdentifier.Value, payload);
+                }
+                // DS14-end
 
                 if (DiscordRoundEndRole == null)
                     return;
@@ -766,6 +900,148 @@ namespace Content.Server.GameTicking
                 Log.Error($"Error while sending discord round end message:\n{e}");
             }
         }
+
+        // DS14-start
+        private static string StripRoundEndDiscordMarkup(string text)
+        {
+            return Regex.Replace(text, @"\[[^\]]*\]", "");
+        }
+
+        internal static List<string> SplitDiscordWebhookContent(string content)
+        {
+            var messages = new List<string>();
+            if (content.Length <= DiscordMessageMaxLength)
+            {
+                messages.Add(content);
+                return messages;
+            }
+
+            var containsCodeBlock = HasDiscordCodeBlockFence(content);
+            var maxLength = containsCodeBlock
+                ? DiscordMessageMaxLength - DiscordCodeBlockSplitOverhead
+                : DiscordMessageMaxLength;
+
+            var builder = new StringBuilder();
+            foreach (var line in content.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
+            {
+                AppendDiscordWebhookLine(messages, builder, line, maxLength);
+            }
+
+            AddDiscordWebhookMessage(messages, builder);
+            return containsCodeBlock
+                ? BalanceDiscordCodeBlocks(messages)
+                : messages;
+        }
+
+        private static void AppendDiscordWebhookLine(
+            List<string> messages,
+            StringBuilder builder,
+            string line,
+            int maxLength)
+        {
+            var remaining = line;
+            while (true)
+            {
+                var separatorLength = builder.Length > 0 ? 1 : 0;
+                var available = maxLength - builder.Length - separatorLength;
+
+                if (remaining.Length <= available)
+                {
+                    if (builder.Length > 0)
+                        builder.Append('\n');
+
+                    builder.Append(remaining);
+                    return;
+                }
+
+                if (available <= 0)
+                {
+                    AddDiscordWebhookMessage(messages, builder);
+                    continue;
+                }
+
+                var splitAt = GetDiscordWebhookSplitIndex(remaining, available);
+                if (builder.Length > 0)
+                    builder.Append('\n');
+
+                builder.Append(remaining, 0, splitAt);
+                AddDiscordWebhookMessage(messages, builder);
+                remaining = remaining.Substring(splitAt).TrimStart();
+
+                if (remaining.Length == 0)
+                    return;
+            }
+        }
+
+        private static int GetDiscordWebhookSplitIndex(string text, int maxLength)
+        {
+            if (text.Length <= maxLength)
+                return text.Length;
+
+            for (var i = maxLength; i > 0; i--)
+            {
+                if (char.IsWhiteSpace(text[i - 1]))
+                    return i;
+            }
+
+            return maxLength;
+        }
+
+        private static void AddDiscordWebhookMessage(List<string> messages, StringBuilder builder)
+        {
+            var message = builder.ToString().TrimEnd();
+            builder.Clear();
+
+            if (message.Length > 0)
+                messages.Add(message);
+        }
+
+        private static List<string> BalanceDiscordCodeBlocks(List<string> messages)
+        {
+            var balanced = new List<string>(messages.Count);
+            var inCodeBlock = false;
+
+            foreach (var rawMessage in messages)
+            {
+                var message = inCodeBlock
+                    ? DiscordCodeBlockFence + "\n" + rawMessage
+                    : rawMessage;
+
+                inCodeBlock = IsInDiscordCodeBlockAfter(rawMessage, inCodeBlock);
+
+                if (inCodeBlock)
+                    message += "\n" + DiscordCodeBlockFence;
+
+                balanced.Add(message);
+            }
+
+            return balanced;
+        }
+
+        private static bool HasDiscordCodeBlockFence(string text)
+        {
+            foreach (var line in text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
+            {
+                if (line.TrimStart().StartsWith(DiscordCodeBlockFence, StringComparison.Ordinal))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsInDiscordCodeBlockAfter(string text, bool startsInCodeBlock)
+        {
+            var inCodeBlock = startsInCodeBlock;
+
+            foreach (var line in text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
+            {
+                if (line.TrimStart().StartsWith(DiscordCodeBlockFence, StringComparison.Ordinal))
+                    inCodeBlock = !inCodeBlock;
+            }
+
+            return inCodeBlock;
+        }
+        // DS14-end
 
         public void RestartRound()
         {
@@ -1138,4 +1414,26 @@ namespace Content.Server.GameTicking
             _doNewLine = true;
         }
     }
+
+    // DS14-start
+    /// <summary>
+    ///     Event raised to add text only to the Discord round-end log.
+    ///     Keep player-facing round-end UI text on <see cref="RoundEndTextAppendEvent"/>.
+    /// </summary>
+    public sealed class RoundEndDiscordTextAppendEvent
+    {
+        private bool _doNewLine;
+
+        public string Text { get; private set; } = string.Empty;
+
+        public void AddLine(string text)
+        {
+            if (_doNewLine)
+                Text += "\n";
+
+            Text += text;
+            _doNewLine = true;
+        }
+    }
+    // DS14-end
 }

@@ -175,6 +175,13 @@
     selectedLanguage: CarpDragonLanguage
     knownLanguages:
     - CarpDragonLanguage
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - CarpDragonChannel
+  - type: ActiveRadio
+    channels:
+    - CarpDragonChannel
   - type: NightVision
     color: "#22334411"
     animation: true
@@ -183,6 +190,8 @@
     jumpSound:
       collection: MantisRush
   - type: AntiRottingContainer
+  - type: NecromorfAfterInfection
+    necroPrototype: NecroBrute
   - type: GhostRoleNotifys 
     groupPrototype: Dragonping
   # DS14-end

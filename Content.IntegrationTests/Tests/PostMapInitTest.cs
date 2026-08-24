@@ -27,6 +27,7 @@ using Robust.Shared.Utility;
 namespace Content.IntegrationTests.Tests
 {
     [TestFixture]
+    [NonParallelizable]
     public sealed class PostMapInitTest
     {
         private const bool SkipTestMaps = true;
@@ -54,24 +55,16 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly Dictionary<string, HashSet<EntProtoId>> DoNotMapWhitelistSpecific = new()
         {
-            // {"/Maps/bagel.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist
-            // {"/Maps/barratry.yml", ["RubberStampCaptain"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/cluster.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_box.yml", ["RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
-            // DS-14 Soyuz: Add our custom maps to whitelist
-            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
+            // DS14-start: Add our custom maps to whitelist // Some maps replaced to /_Soyuz/ directory for DS14-Soyuz 
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            // {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]}
             // DS14-end
         };
 
@@ -84,12 +77,10 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/_Soyuz/centcomm.yml",
-            "/Maps/_Soyuz/centcomm.yml",
+            "/Maps/_Soyuz/centcomm.yml", // DS14-Soyuz path
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/ds_taipan.yml", // Taipan
-            "/Maps/_Soyuz/ds_taipan.yml", // Taipan
+            "/Maps/_Soyuz/ds_taipan.yml", // Taipan // DS14-Soyuz path
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };
@@ -141,7 +132,7 @@ namespace Content.IntegrationTests.Tests
             "Omega",
             "Origin",
             "Packed",
-            // "Plasma", // map load failure
+            "Plasma",
             "Reach",
             "Ishimura",
             "Saltern",
@@ -156,7 +147,6 @@ namespace Content.IntegrationTests.Tests
             "Cluster", // invalid EntityUid reference in Storage
             "Loop", // invalid EntityUid reference in Storage
             "Gemini", // map load failure
-            "Plasma", // map load failure
         };
         /// <summary>
         /// Jobs whose dedicated spawn points were removed (migrated to null) but are still listed

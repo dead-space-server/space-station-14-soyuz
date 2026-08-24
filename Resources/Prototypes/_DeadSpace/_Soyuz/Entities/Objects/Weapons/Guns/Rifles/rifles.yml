@@ -55,7 +55,8 @@
   name: АКМС-У
   parent: [BaseItem, BaseSecurityContraband]
   id: WeaponRifleAKMCY
-  description: Укороченный вариант автомата АКМС. В простонародии Ксюха
+  description: Укороченный вариант автомата АКМС. В простонародье - Ксюха.
+  suffix: Автомат
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/aky.rsi
@@ -243,6 +244,7 @@
   parent: [BaseWeaponRifle, BaseSecurityContraband]
   id: WeaponRifleAbakan
   description: Автомат имеет подвижный ствол, двухкамерный ДТК замкнутого типа и смещенный вправо относительно оси канала ствола магазин.
+  suffix: Автомат
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/abakan.rsi

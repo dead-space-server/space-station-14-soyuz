@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Shared.Atmos;
-using Content.Shared.Chemistry.Reagent; // DS14
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
@@ -107,7 +107,9 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
         // Alerts
 
+        // DS14-start
         var showAlerts = state.Unrevivable == true || state.Bleeding == true || state.Unclonable == true;
+        // DS14-end
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -131,7 +133,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 MaxWidth = 300
             });
 
-        // DS14-Soyuz-Start
+        // DS14-start
         if (state.Unclonable == true)
             AlertsContainer.AddChild(new RichTextLabel
             {
@@ -139,7 +141,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 Margin = new Thickness(0, 4),
                 MaxWidth = 300
             });
-        // DS14-Soyuz-End
+        // DS14-end
 
         // Damage Groups
 
@@ -159,6 +161,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         return mobState switch
         {
             MobState.Alive => Loc.GetString("health-analyzer-window-entity-alive-text"),
+            MobState.PreCritical => Loc.GetString("health-analyzer-window-entity-pre-critical-text"), //DS14
             MobState.Critical => Loc.GetString("health-analyzer-window-entity-critical-text"),
             MobState.Dead => Loc.GetString("health-analyzer-window-entity-dead-text"),
             _ => Loc.GetString("health-analyzer-window-entity-unknown-text"),

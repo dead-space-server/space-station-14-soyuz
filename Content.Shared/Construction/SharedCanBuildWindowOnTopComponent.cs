@@ -1,6 +1,7 @@
 ﻿namespace Content.Shared.Construction
 {
-    [RegisterComponent]
+    // Kofeecheks RCD window-on-grille compatibility: LicenseRef-Kofeecheks
+    [RegisterComponent, ComponentProtoName("CanBuildWindowOnTop")]
     public sealed partial class SharedCanBuildWindowOnTopComponent : Component
     {
     }

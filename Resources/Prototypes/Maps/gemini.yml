@@ -1,6 +1,6 @@
 - type: gameMap
   id: Gemini
-  mapName: 'Gemini'
+  mapName: 'Близнецы' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/gemini.yml
   minPlayers: 25
   maxPlayers: 40
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Gemini {1}'
+          mapNameTemplate: '{0} Близнецы {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

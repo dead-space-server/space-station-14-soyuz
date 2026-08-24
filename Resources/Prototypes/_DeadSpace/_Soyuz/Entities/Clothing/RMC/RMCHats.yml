@@ -1,0 +1,54 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: SoyuzHeadTurbanRMC
+  name: royal marine turban
+  description: A standard military turban found in the Three World Empire Royal Marines Commando. Considered a rare item, these kind of turbans are prized by collectors.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/turban.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/turban.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: SoyuzHeadBeretRMC
+  name: royal marine beret
+  description: A green beret belonging to the Three World Empire Royal Marines Commando.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: SoyuzHeadBeretRMCLead
+  name: royal marine sergeant beret
+  description: A green beret belonging to the Three World Empire Royal Marines Commando.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret_tl.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret_tl.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: SoyuzHeadBeretRMCOfficer
+  name: royal marine officer beret
+  description: A green beret belonging to the Three World Empire Royal Marines Commando.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret_tl.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/beret_tl.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: SoyuzHeadCapOfficerRMC
+  name: royal marine officer peaked cap
+  description: Gray peaked cap belonging to the Three World Empire Royal Marines Commando officer. Shown to show your men who's the boss.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/co_peaked.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hats/co_peaked.rsi

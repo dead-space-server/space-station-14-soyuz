@@ -44,6 +44,15 @@
   equipment:
     head: ClothingHeadHatSecurityTrooper
 
+# DS14-start
+
+- type: loadout
+  id: SecurityHatCap
+  equipment:
+    head: ClothingHeadHatCapSecurity
+
+# DS14 -end
+
 # Masks
 - type: loadout
   id: SecurityBandana
@@ -80,7 +89,7 @@
   id: TrooperUniform
   equipment:
     jumpsuit: ClothingUniformSecurityTrooper
-
+ 
 # DS14-start
 - type: loadout
   id: SecurityJumpsuitBlack
@@ -91,8 +100,19 @@
   id: SecurityJumpskirtPencil
   equipment:
     jumpsuit: ClothingUniformJumpskirtPencilSec
+
+- type: loadout
+  id: SecurityJumpsuitSecBlue
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSecBlue
 # DS14 -end
 
+# Neck   # DS14
+- type: loadout
+  id: SecurityNeckTieDet
+  equipment: 
+    neck: ClothingNeckTieDet # DS14
+ 
 # - type: loadout
 #   id: SeniorOfficerJumpsuit
 #   effects:
@@ -135,6 +155,18 @@
   id: SecurityWebbing
   equipment:
     belt: ClothingBeltSecurityWebbingFilled
+
+# DS14-start
+- type: loadout
+  id: HeadOfSecurityBelt
+  equipment:
+    belt: ClothingBeltHeadOfSecurityFilled
+
+- type: loadout
+  id: HeadOfSecurityWebbing
+  equipment:
+    belt: ClothingBeltHeadOfSecurityWebbingFilled
+# DS14-end
 
 # Outerclothing
 - type: loadout

@@ -9,6 +9,14 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
+  id: Truncheonsec
+  result: Truncheonsec
+  materials:
+    Plasteel: 1000
+    Plasma: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
   id: WeaponLaserRifle
   result: WeaponLaserRifle
   materials:
@@ -45,97 +53,18 @@
     Plasma: 150
 
 - type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineBox357Silver
-  result: MagazineBox357Silver
+  parent: BaseTargetRecipe
+  id: Bola
+  result: Bola
   materials:
-    Steel: 100
-    Silver: 140
+    Steel: 600
+    Plastic: 300
 
 - type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineBoxLightestRifleSilver
-  result: MagazineBoxLightestRifleSilver
+  parent: BaseTargetRecipe
+  id: EnergyBola
+  result: EnergyBola
   materials:
-    Steel: 100
-    Silver: 350
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineBoxRifleSilver
-  result: MagazineBoxRifleSilver
-  materials:
-    Steel: 100
-    Silver: 500
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineBoxLightRifleSilver
-  result: MagazineBoxLightRifleSilver
-  materials:
-    Steel: 100
-    Silver: 500
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineBoxPistolSilver
-  result: MagazineBoxPistolSilver
-  materials:
-    Steel: 100
-    Silver: 350
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: BoxLethalshotSilver
-  result: BoxLethalshotSilver
-  materials:
-    Steel: 100
-    Silver: 150
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazinePistolSilver
-  result: MagazinePistolSilver
-  materials:
-    Steel: 25
-    Silver: 100
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineLightRifleSilver
-  result: MagazineLightRifleSilver
-  materials:
-    Steel: 30
-    Silver: 300
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineRifleSilver
-  result: MagazineRifleSilver
-  materials:
-    Steel: 30
-    Silver: 300
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazineShotgunSilver
-  result: MagazineShotgunSilver
-  materials:
-    Steel: 100
-    Silver: 150
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: SpeedLoaderMagnumSilver
-  result: SpeedLoaderMagnumSilver
-  materials:
-    Steel: 50
-    Silver: 100
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
-  id: MagazinePistolSubMachineGunSilver
-  result: MagazinePistolSubMachineGunSilver
-  materials:
-    Steel: 25
-    Silver: 200
+    Steel: 800
+    Plastic: 500
+    Plasma: 50

@@ -34,6 +34,7 @@ ui-options-ambience-volume = Ambience volume:
 ui-options-lobby-volume = Lobby & Round-end volume:
 ui-options-interface-volume = Interface volume:
 ui-options-alert-level-volume = Alert level notification volume:
+ui-options-item-sounds-volume = Item sounds volume:
 ui-options-boss-music-volume = Boss music volume:
 ui-options-ambience-max-sounds = Ambience simultaneous sounds:
 ui-options-lobby-music = Lobby & Round-end Music
@@ -172,6 +173,9 @@ ui-options-function-swap-hands-reverse = Swap hands (other direction)
 ui-options-function-move-stored-item = Move stored item
 ui-options-function-rotate-stored-item = Rotate stored item
 ui-options-function-save-item-location = Save item location
+#DS14-start
+ui-options-function-toggle-item-priority = Toggle item priority
+#DS14-end
 ui-options-static-storage-ui = Lock storage window to hotbar
 
 ui-options-function-smart-equip-backpack = Smart-equip to backpack
@@ -419,3 +423,5 @@ ui-options-admin-enable-overlay-starting-job = Show starting job
 ui-options-admin-overlay-merge-distance = Stack merge distance
 ui-options-admin-overlay-ghost-fade-distance = Ghost overlay fade range from mouse
 ui-options-admin-overlay-ghost-hide-distance = Ghost overlay hide range from mouse
+
+ui-options-function-use-world-target-action = Use targeted ability

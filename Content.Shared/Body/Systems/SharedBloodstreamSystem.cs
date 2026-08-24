@@ -23,7 +23,6 @@ using Content.Shared.StatusEffectNew;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Body.Systems;
@@ -205,7 +204,10 @@ public abstract class SharedBloodstreamSystem : EntitySystem
 
         // Use both the receiver and the damage causing entity for the seed so that we have different results for multiple attacks in the same tick
         var prob = Math.Clamp(totalFloat / 25, 0, 1);
-        if (totalFloat > 0 && SharedRandomExtensions.PredictedProb(_timing, prob, GetNetEntity(ent), GetNetEntity(args.Origin)))
+        // DS14-start
+        var damageOrigin = TryGetNetEntity(args.Origin, out var netOrigin) ? netOrigin : null;
+        if (totalFloat > 0 && SharedRandomExtensions.PredictedProb(_timing, prob, GetNetEntity(ent), damageOrigin))
+        // DS14-end
         {
             TryBleedOut(ent.AsNullable(), total / 5);
             _audio.PlayPredicted(ent.Comp.InstantBloodSound, ent, args.Origin);
@@ -402,6 +404,7 @@ public abstract class SharedBloodstreamSystem : EntitySystem
     {
         if (!Resolve(ent, ref ent.Comp, logMissing: false)
             || !SolutionContainer.ResolveSolution(ent.Owner, ent.Comp.BloodSolutionName, ref ent.Comp.BloodSolution, out var bloodSolution)
+            || !ent.Comp.AllowBloodLevelModification // DS14
             || amount == 0)
             return false;
 

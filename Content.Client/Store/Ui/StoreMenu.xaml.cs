@@ -139,13 +139,14 @@ public sealed partial class StoreMenu : DefaultWindow
         var spriteSys = _entityManager.EntitySysManager.GetEntitySystem<SpriteSystem>();
 
         Texture? texture = null;
+        EntProtoId? productEntity = null;
         if (listing.Icon != null)
             texture = spriteSys.Frame0(listing.Icon);
 
         if (listing.ProductEntity != null)
         {
             if (texture == null)
-                texture = spriteSys.GetPrototypeIcon(listing.ProductEntity).Default;
+                productEntity = listing.ProductEntity;
         }
         else if (listing.ProductAction != null)
         {
@@ -157,7 +158,7 @@ public sealed partial class StoreMenu : DefaultWindow
         var listingInStock = GetListingPriceString(listing);
         var discount = GetDiscountString(listing);
 
-        var newListing = new StoreListingControl(listing, listingInStock, discount, hasBalance, texture);
+        var newListing = new StoreListingControl(listing, listingInStock, discount, hasBalance, texture, productEntity);
         newListing.StoreItemBuyButton.OnButtonDown += args
             => OnListingButtonPressed?.Invoke(args, listing);
 
@@ -240,13 +241,16 @@ public sealed partial class StoreMenu : DefaultWindow
         StoreListingsContainer.Children.Clear();
     }
 
-    public void PopulateStoreCategoryButtons(HashSet<ListingDataWithCostModifiers> listings)
+    public void PopulateStoreCategoryButtons(HashSet<ListingDataWithCostModifiers> listings, HashSet<ProtoId<StoreCategoryPrototype>> allowedCategories) // DS14
     {
         var allCategories = new List<StoreCategoryPrototype>();
         foreach (var listing in listings)
         {
             foreach (var cat in listing.Categories)
             {
+                if (!allowedCategories.Contains(cat)) // DS14
+                    continue;
+
                 var proto = _prototypeManager.Index(cat);
                 if (!allCategories.Contains(proto))
                     allCategories.Add(proto);

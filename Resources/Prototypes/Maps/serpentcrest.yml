@@ -1,6 +1,6 @@
 - type: gameMap
   id: Serpentcrest
-  mapName: 'Serpentcrest'
+  mapName: 'Змеиный Гребень' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/serpentcrest.yml
   minPlayers: 50
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Serpentcrest {1}'
+          mapNameTemplate: '{0} Змеиный Гребень {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'B'

@@ -22,7 +22,13 @@ public sealed partial class StoreListingControl : Control
     private readonly bool _hasBalance;
     private readonly string _price;
     private readonly string _discount;
-    public StoreListingControl(ListingDataWithCostModifiers data, string price, string discount, bool hasBalance, Texture? texture = null)
+    public StoreListingControl(
+        ListingDataWithCostModifiers data,
+        string price,
+        string discount,
+        bool hasBalance,
+        Texture? texture = null,
+        EntProtoId? productEntity = null)
     {
         IoCManager.InjectDependencies(this);
         RobustXamlLoader.Load(this);
@@ -34,13 +40,39 @@ public sealed partial class StoreListingControl : Control
         _price = price;
         _discount = discount;
 
-        StoreItemName.Text = ListingLocalisationHelpers.GetLocalisedNameOrEntityName(_data, _prototype);
+        StoreItemName.Text = GetName(); // DS14
         StoreItemDescription.SetMessage(ListingLocalisationHelpers.GetLocalisedDescriptionOrEntityDescription(_data, _prototype));
 
         UpdateBuyButtonText();
         StoreItemBuyButton.Disabled = !CanBuy();
 
-        StoreItemTexture.Texture = texture;
+        SetPreview(texture, productEntity);
+    }
+
+    private void SetPreview(Texture? texture, EntProtoId? productEntity)
+    {
+        if (texture != null)
+        {
+            StoreItemTexture.Texture = texture;
+            StoreItemTexture.Visible = true;
+            StoreItemPrototype.Visible = false;
+            StoreItemPrototype.SetPrototype(null);
+            return;
+        }
+
+        if (productEntity != null)
+        {
+            StoreItemTexture.Visible = false;
+            StoreItemTexture.Texture = null;
+            StoreItemPrototype.Visible = true;
+            StoreItemPrototype.SetPrototype(productEntity);
+            return;
+        }
+
+        StoreItemTexture.Visible = false;
+        StoreItemTexture.Texture = null;
+        StoreItemPrototype.Visible = false;
+        StoreItemPrototype.SetPrototype(null);
     }
 
     private bool CanBuy()
@@ -72,7 +104,17 @@ public sealed partial class StoreListingControl : Control
 
     private void UpdateName()
     {
+        StoreItemName.Text = GetName(); // DS14
+    }
+
+    private string GetName() // DS14
+    {
         var name = ListingLocalisationHelpers.GetLocalisedNameOrEntityName(_data, _prototype);
+
+        // DS14-start
+        if (_data.RemainingStock is { } remaining)
+            name += Loc.GetString("store-ui-remaining-stock", ("remaining", remaining));
+        // DS14-end
 
         var stationTime = _timing.CurTime.Subtract(_ticker.RoundStartTimeSpan);
         if (_data.RestockTime > stationTime)
@@ -80,7 +122,7 @@ public sealed partial class StoreListingControl : Control
             name += Loc.GetString("store-ui-button-out-of-stock");
         }
 
-        StoreItemName.Text = name;
+        return name; // DS14
     }
 
     protected override void FrameUpdate(FrameEventArgs args)

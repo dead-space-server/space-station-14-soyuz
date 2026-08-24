@@ -1,0 +1,53 @@
+- type: entity
+  id: KudzuFlowerNoSpread
+  name: "цветочный ковёр"
+  suffix: "Не растёт, маппинг"
+  description: "Пёстрый ковёр из цветов, расстилающийся во все стороны. Вы не уверены, убирать его или лучше оставить."
+  parent: Kudzu
+  components:
+    - type: Sprite
+      drawdepth: HighFloorObjects
+      sprite: Objects/Misc/kudzuflower.rsi
+      state: kudzu_11
+    - type: Kudzu
+      spriteVariants: 5
+      spreadChance: 0
+    - type: SpeedModifierContacts
+      walkSpeedModifier: 0.8
+      sprintSpeedModifier: 0.8
+      ignoreWhitelist:
+        components:
+        - IgnoreKudzu
+    - type: Tag
+      tags:
+      - Ruminant
+
+- type: entity
+  id: KudzuNoSpread
+  name: "кудзу"
+  description: "Быстрорастущее, опасное растение. ЗАЧЕМ ВЫ ОСТАНОВИЛИСЬ ПОСМОТРЕТЬ НА НЕГО?!"
+  parent: Kudzu
+  suffix: "Не растёт, маппинг"
+  components:
+    - type: Kudzu
+      spreadChance: 0
+
+- type: entity
+  name: "некроморфные волокна"
+  description: "Кажется они распространяются. Не опасны и уязвимы, но замедляют передвижение."
+  id: NecroKudzuNoSpread
+  suffix: "Не растёт, маппинг"
+  parent: NecroKudzu
+  components:
+    - type: Kudzu
+      spreadChance: 0
+
+- type: entity
+  name: "сухожилия"
+  id: FleshKudzuNoSpread
+  description: "Быстрорастущее скопление мясистых сухожилий. ЗАЧЕМ ВЫ ОСТАНОВИЛИСЬ ПОСМОТРЕТЬ НА НИХ?!"
+  suffix: "Не растёт, маппинг"
+  parent: FleshKudzu
+  components:
+    - type: Kudzu
+      spreadChance: 0

@@ -12,12 +12,10 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
 using System.Diagnostics.CodeAnalysis;
-// DS14-start
 using Content.Shared.Actions;
 using Content.Shared.Actions.Components;
 using Content.Shared.Magic.Components;
 using System.Linq;
-// DS14-end
 
 namespace Content.Server.Mind;
 
@@ -226,12 +224,6 @@ public sealed class MindSystem : SharedMindSystem
         var oldEntity = mind.OwnedEntity;
         if (TryComp(oldEntity, out MindContainerComponent? oldContainer))
         {
-            // DS14 Remove PVS override for old entity so player no longer always sees it
-            if (mind.UserId != null && _players.TryGetSessionById(mind.UserId.Value, out var oldSession))
-            {
-                _pvsOverride.RemoveSessionOverride(oldEntity.Value, oldSession);
-            }
-
             Entity<MindComponent> mindEnt = (mindId, mind);
             Entity<MindContainerComponent> containerEnt = (oldEntity.Value, oldContainer);
 
@@ -388,6 +380,7 @@ public sealed class MindSystem : SharedMindSystem
         }
 
         RemoveMindMagicActions(mindId); // DS14
+
         MakeSentient(target);
         TransferTo(mindId, target, ghostCheckOverride: true, mind: mind);
     }

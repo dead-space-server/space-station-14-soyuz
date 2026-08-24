@@ -12,6 +12,18 @@ ert-loadout-category-enforcer-name = Силовик
 ert-loadout-category-enforcer-description =
     Дробовик марки Frozen Star нового поколения.
     Использует патроны калибра 12х70. В комплект включён бандольер.
+ert-loadout-category-ares-swc-incendiary-name = SWC-432-5 "Арес"
+ert-loadout-category-ares-swc-incendiary-description =
+    Автоматический дробовик. Совершенно новый аналог нашумевшей "Сайге". 
+    Обладает барабанным магазином и общей мобильностью. 
+    Создано по предварительному договору NanoTrasen с SWC.
+    Имеет зажигательные патроны.
+ert-loadout-category-ares-swcbs-name = SWC-432-5 "Арес"
+ert-loadout-category-ares-swcbs-description =
+    Автоматический дробовик. Совершенно новый аналог нашумевшей "Сайге". 
+    Обладает барабанным магазином и общей мобильностью. 
+    Использует патроны калибра 12х70 дробь.
+    Набор содержит 3 барабана и SWC-432-5 "Арес".
 ert-loadout-category-energyshotgun-name = Энергетический дробовик
 ert-loadout-category-energyshotgun-description =
     Новейший прототип, с возможностью смены режима на летальный
@@ -42,7 +54,7 @@ ert-loadout-category-ak305-description =
     Использует патроны 7.62х39 мм винтовочные.
 ert-loadout-category-amd76-name = АМД-76
 ert-loadout-category-amd76-description =
-    Скорострельный автомат калибра 7.62x39, произведённый одной компанией ОПЗ.
+    Скорострельный автомат калибра 7.62x39, произведённый одной из фабрик СССП.
 ert-loadout-category-hkg3a1-name = Hk-G3A1
 ert-loadout-category-hkg3a1-description =
     Старый добрый автомат, производившийся ещё во времена 60-х годов 20-го века Земли. 
@@ -52,6 +64,11 @@ ert-loadout-category-mp5-name = MP-5
 ert-loadout-category-mp5-description =
     Лёгкий пистолет-пулемет, точный и компактный, самая лучшая замена простому Дрозду. 
     Использует патроны калибра 9х19 мм.
+ert-loadout-category-mp5sd-name = MP-5SD
+ert-loadout-category-mp5sd-description =
+    Модифицированный MP5 с интегрированным глушителем.
+    Использует патроны калибра 9х19 мм.
+    Набор содержит 3 магазина и MP-5SD.
 ert-loadout-category-mp7-name = MP-7
 ert-loadout-category-mp7-description =
     Точный пистолет пулемёт, используется бравыми сотрудниками спецназа.
@@ -59,8 +76,13 @@ ert-loadout-category-mp7-description =
     Использует патроны калибра 9х19 мм.
 ert-loadout-category-scarl-name = Scar-L
 ert-loadout-category-scarl-description =
-    Стандартизированная штурмовая винтовка армии ОПЗ.
+    Стандартизированная штурмовая винтовка Красной Армии.
     Использует патроны 5.56х45 мм.
+ert-loadout-category-scarlbs-name = Scar-L
+ert-loadout-category-scarlbs-description =
+    Стандартизированная штурмовая винтовка Красной Армии.
+    Использует патроны 5.56х45 мм.
+    Набор содержит 3 магазина и Scar-L.
 ert-loadout-category-lasercarbine-name = Лазерная винтовка
 ert-loadout-category-lasercarbine-description =
     Предпочитается милицией
@@ -84,27 +106,47 @@ ert-loadout-category-pulsecarbine-name = Импульсный карабин
 ert-loadout-category-pulsecarbine-description =
     Высокотехнологичный энергетический карабин военного класса.
     Для восполнения боезапаса потребуется зарядник энергооружия.
-ert-loadout-category-mk58-name = Пистолет ТТ
+ert-loadout-category-truncheonsecbs-name = Набор "Синоби"
+ert-loadout-category-truncheonsecbs-description =
+    Электрошоковое мачете для обездвиживания или убийства людей. 
+    Имеет нелетальный и летальный режимы. 
+    Является улучшением шоковой дубинки для действительно трудных ситуаций.
+    Набор содержит боевое мачете милиции, личный щит НКВБ и имплант "резерв".
+    Имплант "резерв" помогает эффективно бежать на помощь главам!
+ert-loadout-category-pistolbsupgradekit-name = Набор "Новое завтра"
+ert-loadout-category-pistolbsupgradekit-description =
+    Комплект с системой микрозарядки. Является улучшением для пистолета ОКГБ.
+    Просто вставьте его в свой пистолет и вы станите не победимы!
+    Набор содержит только модуль для лазерного пистолета ОКГБ.
+ert-loadout-category-mk58-name = Пистолет ТТ и Станнер
 ert-loadout-category-mk58-description =
-    Дешёвый и распространённый пистолет,
-    производимый дочерней компанией Nanotrasen.
+    Дешёвый и распространённый пистолет.
     Использует патроны калибра 9х19 мм.
+    Содержит два дополнительных магазина.
 ert-loadout-category-berettam92-name = Beretta M92
 ert-loadout-category-berettam92-description =
     Точный и давно зарекомендовавший себя пистолет.
     Вы чувствуете себя крутым полицейским старой Терры. 
     Использует патроны калибра 9х19.
+ert-loadout-category-cqcbs-name = Набор "Патриот CQC"
+ert-loadout-category-cqcbs-description =
+    CQC — это стиль борьбы, который ориентирован на рукопашный бой.
+    Данное искусство требует высокий уровень концентрации.
+    Во время концетрации трудно одновременно стрелять и сражаться врукопашную.
+    Набор содержит личный щит Штаба НКВБ, М92 и книгу искусства CQC.
+    К пистолету идут 3 расширенных магазина, что использует патроны калибра 9х19. 
 ert-loadout-category-mk79tactical-name = МК-79 "tactical"
 ert-loadout-category-mk79tactical-description =
     Точность, скорострельность, надёжность! 
     Главный слоган этого пистолета, он спасёт вас от всего.
     От тьмы с помощью фонарика, до клоуна с мимом. 
     Использует патроны калибра 9х19.
-ert-loadout-category-verdict-name = Вердикт
+ert-loadout-category-verdict-name = Вердикт и Станнер
 ert-loadout-category-verdict-description =
-    Надёжный револьвер любого сотрудника СБ.
+    Надёжный револьвер любого сотрудника милиции.
     Имеет барабан на 6 патрон и нескользящую ручку.
     Использует патроны .45 магнум, так как это то, что предполагали основатели.
+    Содержит два дополнительных спидлоадера.
 ert-loadout-category-n1984-name = N1984
 ert-loadout-category-n1984-description =
     Запасное оружие любого уважающего себя офицера.
@@ -128,11 +170,11 @@ ert-loadout-category-advancedlaser-description =
     Батарея этого оружия подзаряжается сама со временем.
 ert-loadout-category-advancedlaserert-name = Продвинутый лазерный пистолет ОБР
 ert-loadout-category-advancedlaserert-description =
-    Эксперементальная разработка КСО на основе микро-ядерного синтеза. 
+    Эксперементальная разработка НКВБ на основе микро-ядерного синтеза. 
     Благодарю этому данное оружие может самозаряжаться, и хранить намного больше заряда.
 ert-loadout-category-energymagnum-name = Энергетический магнум
 ert-loadout-category-energymagnum-description =
-    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников СБ. 
+    Мощный самозаряжающийся энергетический пистолет, разработанный для элитных сотрудников милиции. 
     Имеет три режима стрельбы, позволяющие нелетально обезвреживать, стрелять через окна или наносить высокий урон.
 ert-loadout-category-laserimpulsesmg-name = импульсный ПП
 ert-loadout-category-laserimpulsesmg-description =
@@ -177,11 +219,48 @@ ert-loadout-category-explosion-name = Дополнительная взрывч�
 ert-loadout-category-explosion-description =
     Набор из четырёх мощных взрывных устройств X4.
     Используйте с крайней осторожностью.
+ert-loadout-category-exgrenade-name = Дополнительные разрывные гранаты
+ert-loadout-category-exgrenade-description =
+    Набор из четырёх разрывных гранат, что создают разрушительный взрыв.
+    Используйте с крайней осторожностью.
+ert-loadout-category-grenadeincendiary-name = Дополнительные зажигательные гранаты
+ert-loadout-category-grenadeincendiary-description =
+    Набор из четырёх зажигательные гранаты, что смогу поджарить ваших врагов.
+    Используйте с крайней осторожностью.
+ert-loadout-category-karachnocid-name = Набор "Кара арахнида"
+ert-loadout-category-karachnocid-description =
+    Набор из четырёх гранат "Кара арахнида". 
+    Крайне эффективны против Пауков Ужаса.
+    Используйте с крайней осторожностью.
 ert-loadout-category-stimulator-name = Набор стимуляторов
 ert-loadout-category-stimulator-description =
-    Шесть автоинъекторов дезоксиэфедрина.
+    Шесть автоинъекторов целестина.
     Помогают обрести максимальную мобильность в пылу сражения.
+ert-loadout-category-scstmed-name = Набор медипенов ОППУ
+ert-loadout-category-scstmed-description =
+    Набор содержит четыре медипенов ОППУ. 
+    Содержит вещества для лечения колющих повреждений и ядов.
+ert-loadout-category-scntmed-name = Набор медипенов ОПНУ
+ert-loadout-category-scntmed-description =
+    Набор содержит четыре медипенов ОПНУ.
+    Содержит вещества для лечения колющих повреждений и ядов.
+ert-loadout-category-zetatwo-name = Набор медипенов ZetaTwo
+ert-loadout-category-zetatwo-description =
+    Набор содержит два медипена ZetaTwo.
+    Содержит в себе лекарство от некроинфеции,
+    а также сильно действующий наркотик импердразин.
+    Восстанавливающий рассудок после пребывание возле обелиска.
+ert-loadout-category-zetaone-name = Набор медипенов ZetaOne
+ert-loadout-category-zetaone-description =
+    Набор содержит четыре медипена ZetaOne.
+    Содержит в себе лекарство от некроинфеции.
 ert-loadout-category-combatmedicine-name = Набор автоинъекторов
 ert-loadout-category-combatmedicine-description =
     Состоит из четырёх боевых, двух пунктураза, двух пиразина и двух автоинъекторов от яда.
     Помогут вам залатать свои раны прямо в бою.
+ert-loadout-category-truncheon-name = Дубинка
+ert-loadout-category-truncheon-description =
+    Содержит жёсткую дубинку со стальным сердечником, предназначенная причинять боль.
+ert-loadout-category-truncheonsec-name = Боевое мачете
+ert-loadout-category-truncheonsec-description =
+    Содержит электрошоковое мачете для обездвиживания или убийства людей. Имеет нелетальный и летальный режимы. Является улучшением шоковой дубинки для действительно трудных ситуаций

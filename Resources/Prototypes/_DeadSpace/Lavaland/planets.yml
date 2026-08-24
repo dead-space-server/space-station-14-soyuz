@@ -17,6 +17,7 @@
   terminalTile: FloorBasalt
   terminalGridPath: /Maps/_DeadSpace/Lavaland/LavaLandBase.yml
   terminalGridName: Lavaland Mining Outpost
+  jaunterDestinationOffset: -10,-0.15
   minStructureDistance: 140
   maxStructureDistance: 310
   minStructureSeparation: 95
@@ -64,6 +65,7 @@
   - LavalandOreArtifactFragment
   - LavalandOreDiamond
   - LavalandOreBluespaceCrystal
+  - LavalandOreGibtonite
   - LavalandChasms
   - LavalandChasmsMedium
   - LavalandChasmsLarge
@@ -199,7 +201,7 @@
 #    maxDistance: 300
 #    minSeparation: 90
 #    footprintRadius: 10
-#    spawnAttempts: 160 # ПОХОТИ НЕ БУДЕТ
+#    spawnAttempts: 160 # ПОХОТИ НЕ БУДЕТ # ПОЧЕМУ??
 
   - path: /Maps/_Soyuz/Dungeon/Lavalend/Anger.yml
     count: 1

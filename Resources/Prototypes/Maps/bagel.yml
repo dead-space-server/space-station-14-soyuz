@@ -1,6 +1,7 @@
+
 - type: gameMap
   id: Bagel
-  mapName: 'Bagel'
+  mapName: 'Багель' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/bagel.yml
   minPlayers: 25
   maxPlayers: 55
@@ -9,7 +10,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Bagel {1}'
+          mapNameTemplate: '{0} Багель {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
@@ -21,7 +22,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            # Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -57,7 +58,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 4, 4 ] #DS14
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

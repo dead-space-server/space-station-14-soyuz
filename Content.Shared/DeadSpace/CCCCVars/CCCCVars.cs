@@ -7,7 +7,7 @@ namespace Content.Shared.DeadSpace.CCCCVars;
 /// </summary>
 [CVarDefs]
 // ReSharper disable once InconsistentNaming
-public sealed class CCCCVars
+public sealed partial class CCCCVars
 {
     /*
 	* GCF
@@ -65,12 +65,34 @@ public sealed class CCCCVars
     public static readonly CVarDef<float> JukeboxMusicVolume =
         CVarDef.Create("jukebox.volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+    public static readonly CVarDef<float> JukeboxAutoVolume =
+        CVarDef.Create("jukebox.auto_volume", 0.5f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
     /*
      * Alert Level
      */
 
     public static readonly CVarDef<float> AlertLevelVolume =
         CVarDef.Create("audio.alert_level_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+     * Annocment
+     */
+    public static readonly CVarDef<float> AnnonceVolume =
+        CVarDef.Create("audio.annonce_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+     * Annocment
+     */
+    public static readonly CVarDef<float> AdminVolume =
+        CVarDef.Create("audio.admin_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+     * Item sounds
+     */
+
+    public static readonly CVarDef<float> ItemSoundsVolume =
+        CVarDef.Create("audio.item_sounds_volume", 1f, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /*
      * Boss music
@@ -101,6 +123,12 @@ public sealed class CCCCVars
     /// </summary>
     public static readonly CVarDef<bool> LavalandAutoGenerate =
         CVarDef.Create("lavaland.auto_generate", true, CVar.SERVERONLY);
+
+    /// <summary>
+    /// Moves long-stuck dynamic physics bodies out of static hard overlaps.
+    /// </summary>
+    public static readonly CVarDef<bool> PhysicsSanityEnabled =
+        CVarDef.Create("physics.sanity_enabled", true, CVar.SERVERONLY);
 
     /*
     * Lobby ui
@@ -144,4 +172,22 @@ public sealed class CCCCVars
 
     public static readonly CVarDef<string> SysNotifySoundPath =
         CVarDef.Create("sysnotifys.soundpath", "/Audio/Effects/balloon-pop.ogg", CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /*
+    * Storage
+    */
+
+    /// <summary>
+    ///     Allows opening multiple inventory/storage windows simultaneously.
+    /// </summary>
+    public static readonly CVarDef<bool> MultipleInventoryWindows =
+        CVarDef.Create("storage.multiple_inventory_windows", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+    public static readonly CVarDef<int> MaxBroadcastLength =
+        CVarDef.Create("chat.max_broadcast_length", 10, CVar.SERVER | CVar.REPLICATED);
+
+    /*
+    * Попауты
+    */
+    public static readonly CVarDef<bool> PopOutChat =
+    CVarDef.Create("Chat.PopOut", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 }

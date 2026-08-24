@@ -1,6 +1,6 @@
 - type: gameMap
   id: Box
-  mapName: 'Box'
+  mapName: 'Бокс' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/ds_box.yml
   minPlayers: 40
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Box {1}'
+          mapNameTemplate: '{0} Бокс {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'TG-DS'
@@ -20,13 +20,13 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-#            Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]
             # sec
             HeadOfSecurity: [ 1, 1 ]
-            Warden: [ 2, 2 ] # ultra-large map
+            Warden: [ 1, 1 ] # DS14-Soyuz
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 2, 2 ]
             SecurityPilot: [ 1, 1 ]
@@ -57,7 +57,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 5, 5 ] #DS14
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

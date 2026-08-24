@@ -85,7 +85,7 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
             if (state.CurrentState == MobState.Dead)
             {
                 int effectiveStage = 1;
-                
+
                 // Проверяем наличие компонента PerishableComponent
                 if (TryComp<PerishableComponent>(entity, out var perishableComp))
                 {
@@ -97,7 +97,7 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
                     int rotStage = _rotting.RotStage(entity, rottingComp);
                     effectiveStage = rotStage == 0 ? 1 : rotStage;
                 }
-                
+
                 if (effectiveStage > 4)
                 {
                     if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var rottingIcon))
@@ -106,14 +106,14 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
                     }
                     return result;
                 }
-                
+
                 effectiveStage = Math.Clamp(effectiveStage, 1, 4);
                 int iconIndex = effectiveStage - 1;
-                
+
                 if (iconIndex < damageableComponent.RottingStageIcons.Count)
                 {
                     string iconId = damageableComponent.RottingStageIcons[iconIndex];
-                    
+
                     if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
                     {
                         result.Add(icon);

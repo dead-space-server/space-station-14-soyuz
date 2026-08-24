@@ -6,6 +6,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Chat;
 using Content.Shared.Cloning;
 using Content.Shared.Damage.Systems;
+using Content.Shared.DeadSpace.Arena;
 using Content.Shared.FixedPoint;
 using Content.Shared.GameTicking;
 using Content.Shared.Gibbing;
@@ -17,6 +18,8 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Projectiles;
 using Content.Shared.Roles;
+using Robust.Server.GameStates;
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -27,6 +30,8 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
     private static readonly ProtoId<CloningSettingsPrototype> DisplayCloneSettings = "RoundEndManifestDisplayClone";
 
     [Dependency] private readonly CloningSystem _cloning = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly PvsOverrideSystem _pvsOverride = default!;
     [Dependency] private readonly SharedRoleSystem _roles = default!;
 
     private const int MinQuoteLength = 8;
@@ -36,7 +41,10 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
     private readonly Dictionary<EntityUid, string> _lastQuoteByMind = new();
     private readonly Dictionary<EntityUid, ManifestKdaStats> _statsByMind = new();
     private readonly Dictionary<EntityUid, Dictionary<EntityUid, FixedPoint2>> _damageByTarget = new();
+    private readonly Dictionary<EntityUid, RoundEndManifestIdentity> _identityByMind = new();
     private readonly Dictionary<EntityUid, EntityUid> _displaySnapshotByMind = new();
+    private readonly Dictionary<EntityUid, EntityUid> _pendingDisplaySnapshotByMind = new();
+    private readonly HashSet<EntityUid> _frozenDisplaySnapshots = new();
 
     public override void Initialize()
     {
@@ -44,10 +52,29 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
 
         SubscribeLocalEvent<RoundStartingEvent>(OnRoundStarting);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
+        SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawnComplete);
         SubscribeLocalEvent<EntitySpokeEvent>(OnEntitySpoke);
+        SubscribeLocalEvent<RoleAddedEvent>(OnRoleAdded);
+        SubscribeLocalEvent<MindContainerComponent, BeforeMindRemovedMessage>(OnBeforeMindRemoved);
+        SubscribeLocalEvent<MindComponent, MindGotAddedEvent>(OnMindAdded);
         SubscribeLocalEvent<MindContainerComponent, BeingGibbedEvent>(OnMindBeingGibbed);
+        SubscribeLocalEvent<MindContainerComponent, EntityRenamedEvent>(OnMindContainerRenamed);
         SubscribeLocalEvent<MobStateComponent, DamageChangedEvent>(OnDamageChanged, before: [typeof(MobThresholdSystem)]);
         SubscribeLocalEvent<MobStateChangedEvent>(OnMobStateChanged);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        if (_pendingDisplaySnapshotByMind.Count == 0)
+            return;
+
+        var pendingSnapshots = _pendingDisplaySnapshotByMind.ToArray();
+        _pendingDisplaySnapshotByMind.Clear();
+
+        foreach (var (mindId, source) in pendingSnapshots)
+            FreezeDisplaySnapshot(mindId, source);
     }
 
     public RoundEndManifestStats GetManifestStats(EntityUid mindId)
@@ -66,6 +93,21 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
 
         _displaySnapshotByMind.Remove(mindId);
         return null;
+    }
+
+    public RoundEndManifestIdentity? GetManifestIdentity(EntityUid mindId)
+    {
+        return _identityByMind.TryGetValue(mindId, out var identity)
+            ? identity
+            : null;
+    }
+
+    public void EnsureManifestEntry(EntityUid mindId, MindComponent mind)
+    {
+        if (!IsTrackedPlayerMind(mindId, mind))
+            return;
+
+        EnsureManifestIdentity(mindId, mind);
     }
 
     private void OnRoundStarting(RoundStartingEvent ev)
@@ -89,13 +131,16 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
         _lastQuoteByMind.Clear();
         _statsByMind.Clear();
         _damageByTarget.Clear();
+        _identityByMind.Clear();
         _displaySnapshotByMind.Clear();
+        _pendingDisplaySnapshotByMind.Clear();
+        _frozenDisplaySnapshots.Clear();
     }
 
     private void OnEntitySpoke(EntitySpokeEvent args)
     {
         if (!TryGetPlayerMind(args.Source, out var mindId, out var mind) ||
-            !IsCharacterSpeechSource(args.Source, mind))
+            !IsCharacterSpeechSource(args.Source, mindId, mind))
         {
             return;
         }
@@ -107,21 +152,195 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
         _lastQuoteByMind[mindId] = quote;
     }
 
-    private void OnMindBeingGibbed(EntityUid uid, MindContainerComponent component, BeingGibbedEvent args)
+    private void OnRoleAdded(RoleAddedEvent args)
     {
-        if (!HasComp<BodyComponent>(uid) ||
-            !TryGetPlayerMind(uid, out var mindId, out _))
+        if (!IsAntagPlayerMind(args.MindId, args.Mind))
+            return;
+
+        EnsureManifestEntry(args.MindId, args.Mind);
+    }
+
+    private void OnPlayerSpawnComplete(PlayerSpawnCompleteEvent args)
+    {
+        if (!TryGetPlayerMind(args.Mob, out var mindId, out var mind))
+            return;
+
+        EnsureManifestIdentity(mindId, mind);
+    }
+
+    private void OnBeforeMindRemoved(
+        EntityUid uid,
+        MindContainerComponent component,
+        BeforeMindRemovedMessage args)
+    {
+        var mindId = args.Mind.Owner;
+        if (!IsTrackedPlayerMind(mindId, args.Mind.Comp) ||
+            !IsManifestSourceEntity(mindId, uid))
         {
             return;
         }
 
-        if (_displaySnapshotByMind.TryGetValue(mindId, out var oldSnapshot) && !TerminatingOrDeleted(oldSnapshot))
-            Del(oldSnapshot);
+        _pendingDisplaySnapshotByMind.Remove(mindId);
+        FreezeDisplaySnapshot(mindId, uid);
+    }
 
-        if (!_cloning.TryCloning(uid, null, DisplayCloneSettings, out var snapshot) || snapshot == null)
+    private void OnMindAdded(EntityUid mindId, MindComponent component, MindGotAddedEvent args)
+    {
+        _pendingDisplaySnapshotByMind.Remove(mindId);
+
+        var source = args.Container.Owner;
+        if (!IsManifestSourceEntity(mindId, source) ||
+            TryComp<MobStateComponent>(source, out var mobState) && mobState.CurrentState == MobState.Dead)
+        {
+            return;
+        }
+
+        _frozenDisplaySnapshots.Remove(mindId);
+    }
+
+    private void OnMindBeingGibbed(EntityUid uid, MindContainerComponent component, BeingGibbedEvent args)
+    {
+        if (!HasComp<BodyComponent>(uid) ||
+            !TryGetPlayerMind(uid, out var mindId, out _) ||
+            !IsManifestSourceEntity(mindId, uid))
+        {
+            return;
+        }
+
+        _pendingDisplaySnapshotByMind.Remove(mindId);
+        FreezeDisplaySnapshot(mindId, uid);
+    }
+
+    private void OnMindContainerRenamed(EntityUid uid, MindContainerComponent component, ref EntityRenamedEvent args)
+    {
+        if (string.IsNullOrWhiteSpace(args.NewName) ||
+            !TryGetPlayerMind(uid, out var mindId, out _) ||
+            !_identityByMind.TryGetValue(mindId, out var identity) ||
+            identity.SourceEntity != uid)
+        {
+            return;
+        }
+
+        _identityByMind[mindId] = identity with { CharacterName = args.NewName };
+
+        if (GetDisplaySnapshot(mindId) is { } snapshot)
+            _metaData.SetEntityName(snapshot, args.NewName);
+    }
+
+    private void EnsureManifestIdentity(EntityUid mindId, MindComponent mind)
+    {
+        if (_identityByMind.TryGetValue(mindId, out var identity))
+        {
+            if (identity.SourceEntity == null &&
+                GetIdentitySourceEntity(mind) is { } lateSource)
+            {
+                _identityByMind[mindId] = identity with { SourceEntity = lateSource };
+            }
+
+            return;
+        }
+
+        var source = GetIdentitySourceEntity(mind);
+        var characterName = GetIdentityCharacterName(mind, source);
+        if (string.IsNullOrWhiteSpace(characterName))
             return;
 
+        _identityByMind[mindId] = new RoundEndManifestIdentity(characterName, source);
+    }
+
+    private EntityUid? GetIdentitySourceEntity(MindComponent mind)
+    {
+        if (mind.CurrentEntity is { } currentEntity && !TerminatingOrDeleted(currentEntity))
+            return currentEntity;
+
+        if (TryGetEntity(mind.OriginalOwnedEntity, out var originalEntity) &&
+            !TerminatingOrDeleted(originalEntity.Value))
+        {
+            return originalEntity.Value;
+        }
+
+        return null;
+    }
+
+    private string? GetIdentityCharacterName(MindComponent mind, EntityUid? source)
+    {
+        if (!string.IsNullOrWhiteSpace(mind.CharacterName))
+            return mind.CharacterName;
+
+        if (source != null)
+        {
+            var sourceName = Name(source.Value);
+            if (!string.IsNullOrWhiteSpace(sourceName))
+                return sourceName;
+        }
+
+        return null;
+    }
+
+    private bool TryCreateDisplaySnapshot(EntityUid mindId, EntityUid source, bool replaceExisting)
+    {
+        if (_displaySnapshotByMind.TryGetValue(mindId, out var oldSnapshot))
+        {
+            if (!TerminatingOrDeleted(oldSnapshot))
+            {
+                if (!replaceExisting)
+                    return true;
+
+                Del(oldSnapshot);
+            }
+
+            _displaySnapshotByMind.Remove(mindId);
+        }
+
+        if (!_cloning.TryCloning(source, null, DisplayCloneSettings, out var snapshot) || snapshot == null)
+            return false;
+
         _displaySnapshotByMind[mindId] = snapshot.Value;
+        AddDisplaySnapshotPvsOverride(snapshot.Value);
+        return true;
+    }
+
+    private void FreezeDisplaySnapshot(EntityUid mindId, EntityUid source)
+    {
+        if (_frozenDisplaySnapshots.Contains(mindId))
+            return;
+
+        // Mind, entity, and map teardown can detach minds after a bulk-delete command has captured its entity list.
+        if (TerminatingOrDeleted(mindId) ||
+            TerminatingOrDeleted(source) ||
+            !TryComp(source, out TransformComponent? transform) ||
+            transform.MapUid is not { } mapUid ||
+            TerminatingOrDeleted(mapUid))
+        {
+            return;
+        }
+
+        if (TryCreateDisplaySnapshot(mindId, source, replaceExisting: true))
+            _frozenDisplaySnapshots.Add(mindId);
+    }
+
+    private void AddDisplaySnapshotPvsOverride(EntityUid uid)
+    {
+        AddDisplaySnapshotPvsOverride(uid, new HashSet<EntityUid>());
+    }
+
+    private void AddDisplaySnapshotPvsOverride(EntityUid uid, HashSet<EntityUid> visited)
+    {
+        if (!visited.Add(uid) || TerminatingOrDeleted(uid))
+            return;
+
+        _pvsOverride.AddGlobalOverride(uid);
+
+        if (!TryComp<ContainerManagerComponent>(uid, out var containers))
+            return;
+
+        foreach (var container in containers.Containers.Values)
+        {
+            foreach (var contained in container.ContainedEntities)
+            {
+                AddDisplaySnapshotPvsOverride(contained, visited);
+            }
+        }
     }
 
     private void OnDamageChanged(EntityUid uid, MobStateComponent component, DamageChangedEvent args)
@@ -170,10 +389,26 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
 
     private void OnMobStateChanged(MobStateChangedEvent args)
     {
+        var uid = args.Target;
+        if (args.NewMobState == MobState.Alive &&
+            TryGetPlayerMind(uid, out var revivedMindId, out _) &&
+            IsManifestSourceEntity(revivedMindId, uid))
+        {
+            _pendingDisplaySnapshotByMind.Remove(revivedMindId);
+            _frozenDisplaySnapshots.Remove(revivedMindId);
+        }
+
         if (args.NewMobState != MobState.Dead || args.OldMobState >= args.NewMobState)
             return;
 
-        var uid = args.Target;
+        if (TryGetPlayerMind(uid, out var snapshotMindId, out _) &&
+            IsManifestSourceEntity(snapshotMindId, uid))
+        {
+            // Bulk deletion captures its entity list before deleting it. Defer death snapshots until that
+            // synchronous teardown finishes so any clone cannot escape the captured list.
+            _pendingDisplaySnapshotByMind[snapshotMindId] = uid;
+        }
+
         if (!TryGetPlayerMind(uid, out var targetMindId, out _))
         {
             _damageByTarget.Remove(uid);
@@ -328,9 +563,30 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
         return count;
     }
 
-    private bool IsCharacterSpeechSource(EntityUid source, MindComponent mind)
+    private bool IsCharacterSpeechSource(EntityUid source, EntityUid mindId, MindComponent mind)
     {
-        return mind.OwnedEntity == source && !HasComp<GhostComponent>(source);
+        if (mind.OwnedEntity != source || HasComp<GhostComponent>(source))
+            return false;
+
+        return !_identityByMind.TryGetValue(mindId, out var identity) ||
+               IsSameManifestCharacter(source, mind, identity);
+    }
+
+    private bool IsSameManifestCharacter(EntityUid source, MindComponent mind, RoundEndManifestIdentity identity)
+    {
+        if (identity.SourceEntity == source)
+            return true;
+
+        if (!string.IsNullOrWhiteSpace(mind.CharacterName))
+            return string.Equals(mind.CharacterName, identity.CharacterName, StringComparison.Ordinal);
+
+        return string.Equals(Name(source), identity.CharacterName, StringComparison.Ordinal);
+    }
+
+    private bool IsManifestSourceEntity(EntityUid mindId, EntityUid source)
+    {
+        return _identityByMind.TryGetValue(mindId, out var identity) &&
+               identity.SourceEntity == source;
     }
 
     private bool TryGetDamageSourceMind(EntityUid? source, out EntityUid mindId, out MindComponent mind)
@@ -405,7 +661,7 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
 
     private bool TryGetPlayerMind(EntityUid uid, out EntityUid mindId, out MindComponent mind)
     {
-        if (!TryGetMind(uid, out mindId, out mind) || !IsPlayerMind(mind))
+        if (!TryGetMind(uid, out mindId, out mind) || !IsTrackedPlayerMind(mindId, mind))
             return false;
 
         return true;
@@ -413,7 +669,12 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
 
     private bool IsAntagPlayerMind(EntityUid mindId, MindComponent mind)
     {
-        return IsPlayerMind(mind) && _roles.MindIsAntagonist(mindId);
+        return IsTrackedPlayerMind(mindId, mind) && _roles.MindIsAntagonist(mindId);
+    }
+
+    private bool IsTrackedPlayerMind(EntityUid mindId, MindComponent mind)
+    {
+        return IsPlayerMind(mind) && !HasComp<ArenaMindComponent>(mindId);
     }
 
     private static bool IsPlayerMind(MindComponent mind)
@@ -422,6 +683,7 @@ public sealed class RoundEndManifestStatsSystem : EntitySystem
     }
 }
 
+public readonly record struct RoundEndManifestIdentity(string CharacterName, EntityUid? SourceEntity);
 public readonly record struct RoundEndManifestStats(string Quote, int Kills, int Assists);
 
 internal struct ManifestKdaStats

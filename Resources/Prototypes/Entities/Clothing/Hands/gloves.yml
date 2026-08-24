@@ -156,6 +156,16 @@
     materialComposition:
       Durathread: 10
       Plasteel: 10
+  - type: MeleeWeapon
+    hidden: true
+    attackRate: 1.5
+    damage:
+      types:
+       Blunt: 7
+    soundHit:
+      collection: Punch
+    animation: WeaponArcFist
+    mustBeEquippedToUse: true
 # DS14-end
 
 - type: entity
@@ -270,7 +280,7 @@
   description: These black nano-enhanced gloves insulate from electricity and provide fire resistance.
   components:
   - type: Sprite
-    sprite: Clothing/Hands/Gloves/spaceninja.rsi
+    sprite: _DeadSpace/Clothing/Hands/Gloves/spaceninja.rsi # DS14 Resprite
     layers:
     - state: icon
       map: [ "enum.ToggleableVisuals.Layer" ]
@@ -410,7 +420,7 @@
     damageProtection:
       flatReductions:
         Heat: 0 # no protection
-  # DS14-start 
+  # DS14-start
   - type: PhysicalComposition
     materialComposition:
       Cloth: 200
@@ -476,6 +486,10 @@
       collection: Punch
     animation: WeaponArcFist
     mustBeEquippedToUse: true
+  # DS14-start
+  - type: SandevistanMeleeAttackRate
+    modifier: 1.35
+  # DS14-end
   - type: Insulated #DS14
   - type: Fiber
     fiberMaterial: fibers-leather
@@ -511,7 +525,7 @@
   - type: GuideHelp
     guides:
     - Forensics
-  # DS14-start 
+  # DS14-start
   - type: PhysicalComposition
     materialComposition:
       Cloth: 10

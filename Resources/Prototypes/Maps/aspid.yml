@@ -1,6 +1,6 @@
  - type: gameMap
    id: Aspid
-   mapName: 'Aspid'
+   mapName: 'Аспид' #DS14-Soyuz local
    mapPath: /Maps/_Soyuz/ds_aspid.yml
    minPlayers: 20
    maxPlayers: 60
@@ -9,7 +9,7 @@
        stationProto: StandardNanotrasenStation
        components:
          - type: StationNameSetup
-           mapNameTemplate: '{0} Aspid {1}'
+           mapNameTemplate: '{0} Аспид {1}' #DS14-Soyuz local
            nameGenerator:
              !type:NanotrasenNameGenerator
              prefixCreator: '14-DS'
@@ -27,6 +27,8 @@
              Chaplain: [ 1, 1 ]
              Librarian: [ 1, 1 ]
              ServiceWorker: [ 3, 3 ]
+             #NKVB
+             Politruk: [ 1, 1 ]
              #engineering
              ChiefEngineer: [ 1, 1 ]
              AtmosphericTechnician: [ 2, 2 ]

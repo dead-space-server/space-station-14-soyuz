@@ -9,8 +9,10 @@
     layers:
     - state: icon
   - type: RCD
+    # DS-14 Soyuz
     availablePrototypes:
     - WallSolidCE
+    - WallMiningCE # DS-14 Soyuz
     - FloorSteel
     - Plating
     - Catwalk
@@ -19,6 +21,7 @@
     - WindowDirectionalCE
     - WindowReinforcedDirectionalCE
     - ReinforcedWindowCE
+    - MiningWindowCE # DS-14 Soyuz
     - AirlockCE
     - AirlockGlassCE
     - FirelockCE
@@ -29,6 +32,9 @@
     - HVCable
     - CableTerminal
     - Deconstruct
+  # DS-14 Soyuz
+  - type: AutoRecharge
+    rechargeDuration: 20
 
 - type: entity
   name: кроваво-красный сварочный аппарат
@@ -190,3 +196,39 @@
       sprite:
         sprite: _DeadSpace/Objects/Tools/omnitool.rsi
         state: omnitool-slicing
+
+- type: entity
+  parent: SyndicateJawsOfLife
+  id: JawsOfLifeSpecialOperationsOfficer
+  name: тактические челюсти жизни Полевого офицера
+  description: Набор челюстей жизни, скомпонованных при помощи магии науки.
+  suffix: Офицер СО
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Tools/tools_jawsoflife.rsi
+    state: syn_jaws_pry
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: syn_inhand-left
+      right:
+      - state: syn_inhand-right
+    size: Normal
+  - type: MultipleTool
+    entries:
+      - behavior: Prying
+        sprite:
+          sprite: _DeadSpace/Objects/Tools/tools_jawsoflife.rsi
+          state: syn_jaws_pry
+        useSound: /Audio/Items/jaws_pry.ogg
+        changeSound: /Audio/Items/change_jaws.ogg
+      - behavior: Cutting
+        sprite:
+          sprite: _DeadSpace/Objects/Tools/tools_jawsoflife.rsi
+          state: syn_jaws_cutter
+        useSound: /Audio/Items/jaws_cut.ogg
+        changeSound: /Audio/Items/change_jaws.ogg
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 14

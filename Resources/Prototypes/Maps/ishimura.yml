@@ -1,6 +1,6 @@
 - type: gameMap
   id: Ishimura
-  mapName: 'USG Ishimura'
+  mapName: 'USG Ишимура' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/ishimura.yml
   minPlayers: 25
   maxPlayers: 55
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Ishimura {1}'
+          mapNameTemplate: '{0} Ишимура {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'USG'
@@ -20,6 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
+            # NKVB
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

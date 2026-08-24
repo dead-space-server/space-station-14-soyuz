@@ -28,6 +28,7 @@ using Content.Shared.Timing;
 using Content.Shared.Storage.Events;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
+using Content.Shared.DeadSpace.Storage; // DS14
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
@@ -44,6 +45,7 @@ using Robust.Shared.Utility;
 using Content.Shared.Rounding;
 using Robust.Shared.Collections;
 using Robust.Shared.Map.Enumerators;
+using Content.Shared._RMC14.Storage; // DS14-Soyuz
 
 namespace Content.Shared.Storage.EntitySystems;
 
@@ -165,8 +167,9 @@ public abstract class SharedStorageSystem : EntitySystem
         SubscribeAllEvent<StorageSetItemLocationEvent>(OnSetItemLocation);
         SubscribeAllEvent<StorageInsertItemIntoLocationEvent>(OnInsertItemIntoLocation);
         SubscribeAllEvent<StorageSaveItemLocationEvent>(OnSaveItemLocation);
-
+        SubscribeAllEvent<StorageToggleItemPriorityEvent>(OnToggleItemPriority); // DS14
         SubscribeLocalEvent<ItemSizeChangedEvent>(OnItemSizeChanged);
+
 
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.OpenBackpack, InputCmdHandler.FromDelegate(HandleOpenBackpack, handle: false))
@@ -225,12 +228,22 @@ public abstract class SharedStorageSystem : EntitySystem
             storedItems[GetNetEntity(ent)] = location;
         }
 
+        // DS14-start
+        var priorityItems = new Dictionary<NetEntity, NetEntity>();
+
+        foreach (var (player, item) in component.PriorityItems)
+        {
+            priorityItems[GetNetEntity(player)] = GetNetEntity(item);
+        }
+        // DS14-end
+
         args.State = new StorageComponentState()
         {
             Grid = new List<Box2i>(component.Grid),
             MaxItemSize = component.MaxItemSize,
             StoredItems = storedItems,
             SavedLocations = component.SavedLocations,
+            PriorityItems = priorityItems, // DS14
             Whitelist = component.Whitelist,
             Blacklist = component.Blacklist,
             QuickInsert = component.QuickInsert,
@@ -430,7 +443,14 @@ public abstract class SharedStorageSystem : EntitySystem
             // If you need something more sophisticated for multi-UI you'll need to code some smarter
             // interactions.
             if (_openStorageLimit == 1)
-                UI.CloseUserUis<StorageComponent.StorageUiKey>(actor);
+            // DS14-Start
+            {
+                var checkEvent = new CheckMultipleInventoryWindowsEvent(actor);
+                RaiseLocalEvent(ref checkEvent);
+                if (!checkEvent.Enabled)
+                    UI.CloseUserUis<StorageComponent.StorageUiKey>(actor);
+            }
+            // DS14-end
 
             OpenStorageUIInternal(uid, actor, storageComp, silent: silent);
         }
@@ -857,6 +877,29 @@ public abstract class SharedStorageSystem : EntitySystem
 
         SaveItemLocation(storage!, item.Owner);
     }
+    // DS14-start
+    private void OnToggleItemPriority(StorageToggleItemPriorityEvent msg, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity is not { } player)
+            return;
+
+        var storage = GetEntity(msg.Storage);
+        var item = GetEntity(msg.Item);
+
+        if (!TryComp<StorageComponent>(storage, out var storageComp))
+            return;
+
+        // Checking that the UI is open
+        if (!UI.IsUiOpen(storage, StorageComponent.StorageUiKey.Key, player))
+            return;
+
+        // Verifying that the item is actually in storage
+        if (!storageComp.StoredItems.ContainsKey(item))
+            return;
+
+        ToggleItemPriority(player, storage, storageComp, item);
+    }
+    // DS14-end
 
     private void OnBoundUIOpen(Entity<StorageComponent> ent, ref BoundUIOpenedEvent args)
     {
@@ -873,6 +916,14 @@ public abstract class SharedStorageSystem : EntitySystem
 
         var uid = args.Target;
         var actor = args.Actor;
+
+        // DS14-start
+        var checkEvent = new CheckMultipleInventoryWindowsEvent(actor);
+        RaiseLocalEvent(ref checkEvent);
+        if (checkEvent.Enabled)
+            return;
+        // DS14-end
+
         var count = 0;
 
         if (_userQuery.TryComp(actor, out var userComp))
@@ -1072,7 +1123,12 @@ public abstract class SharedStorageSystem : EntitySystem
             reason = null;
             return true;
         }
+// DS14-Soyuz-start
+        bool ignoresSize = IgnoreItemSize((uid, storageComp), insertEnt);
 
+        if (!ignoresSize) 
+        {
+// DS14-Soyuz-end
         var maxSize = GetMaxItemSize((uid, storageComp));
         if (ItemSystem.GetSizePrototype(item.Size) > maxSize)
         {
@@ -1086,6 +1142,7 @@ public abstract class SharedStorageSystem : EntitySystem
             reason = "comp-storage-too-big";
             return false;
         }
+} // DS14-Soyuz
 
         if (!ignoreLocation && !storageComp.StoredItems.ContainsKey(insertEnt))
         {
@@ -1529,6 +1586,55 @@ public abstract class SharedStorageSystem : EntitySystem
         UpdateUI((ent.Owner, ent.Comp));
     }
 
+    // DS14-start
+    /// <summary>
+    /// Toggles the priority item for a player in a storage container.
+    /// If the item is already priority, removes it. Otherwise, sets it as priority.
+    /// </summary>
+    public void ToggleItemPriority(EntityUid player, EntityUid storage, StorageComponent storageComp, EntityUid item)
+    {
+        // If they try to set priority (not remove), and the container is not equipped, we prohibit it
+        if (!storageComp.PriorityItems.ContainsKey(player) || storageComp.PriorityItems[player] != item)
+        {
+            if (!IsEquippedInAllowedSlot(player, storage))
+            {
+                return;
+            }
+        }
+
+        if (storageComp.PriorityItems.TryGetValue(player, out var current) && current == item)
+            storageComp.PriorityItems.Remove(player);
+        else
+            storageComp.PriorityItems[player] = item;
+
+        Dirty(storage, storageComp);
+        UpdateUI(storage);
+    }
+
+    public bool TryGetPriorityItem(EntityUid player, EntityUid storage, out EntityUid priorityItem)
+    {
+        priorityItem = EntityUid.Invalid;
+
+        if (!TryComp<StorageComponent>(storage, out var storageComp))
+            return false;
+
+        if (!storageComp.PriorityItems.TryGetValue(player, out priorityItem))
+            return false;
+
+        // Checking that the item is still in storage
+        if (!storageComp.StoredItems.ContainsKey(priorityItem))
+            return false;
+
+        return true;
+    }
+
+    private bool IsEquippedInAllowedSlot(EntityUid player, EntityUid storage)
+    {
+        return _inventory.TryGetSlotEntity(player, "back", out var back) && back == storage ||
+               _inventory.TryGetSlotEntity(player, "belt", out var belt) && belt == storage;
+    }
+    // DS14-end
+
     /// <summary>
     /// Checks if an item fits into a specific spot on a storage grid.
     /// </summary>
@@ -1836,6 +1942,13 @@ public abstract class SharedStorageSystem : EntitySystem
         // is one below the item size of the storage entity.
         return _nextSmallest[item.Size];
     }
+    //DS14-Soyuz-start
+    public bool IgnoreItemSize(Entity<StorageComponent> storage, EntityUid item)
+    {
+        return TryComp(storage, out IgnoreContentsSizeComponent? ignore) &&
+               _whitelistSystem.IsValid(ignore.Items, item);
+    }
+    // DS14-soyuz-end
 
     /// <summary>
     /// Checks if a storage's UI is open by anyone when locked, and closes it.
@@ -2004,6 +2117,7 @@ public abstract class SharedStorageSystem : EntitySystem
     {
         public Dictionary<NetEntity, ItemStorageLocation> StoredItems = new();
         public Dictionary<string, List<ItemStorageLocation>> SavedLocations = new();
+        public Dictionary<NetEntity, NetEntity> PriorityItems = new(); // DS14
         public List<Box2i> Grid = new();
         public ProtoId<ItemSizePrototype>? MaxItemSize;
         public EntityWhitelist? Whitelist;

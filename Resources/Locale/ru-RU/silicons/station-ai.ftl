@@ -62,30 +62,30 @@ station-ai-camera-search-type-items = Предметы
 station-ai-camera-search-result-character = сотрудник
 station-ai-camera-search-result-item = предмет
 station-ai-camera-search-result = [{ $type }] { $name }
-station-ai-centcomm-fax-window-title = Факсимиальная линия связи ИИ-ЦК
-station-ai-centcomm-fax-channel = ИИ-ЦК / Центральное Командование
-station-ai-centcomm-fax-route = Защищённая факсимильная линия Центрального Командования
+station-ai-centcomm-fax-window-title = Факсимиальная линия связи ИИ-ГШ
+station-ai-centcomm-fax-channel = ИИ-ГШ / Генеральный Штаб
+station-ai-centcomm-fax-route = Защищённая факсимильная линия Генерального Штаба
 station-ai-centcomm-fax-buffer-label = Буфер обращения
-station-ai-centcomm-fax-footer-route = [sai@nanotrasen] $ uplink --route ai-cc-fax
-station-ai-centcomm-fax-footer-code = ИИ-ЦК
-station-ai-centcomm-fax-content-placeholder = Введите обращение для Центрального Командования...
+station-ai-centcomm-fax-footer-route = [sai@ussp] $ uplink --route ai-cc-fax
+station-ai-centcomm-fax-footer-code = ИИ-ГШ
+station-ai-centcomm-fax-content-placeholder = Введите обращение для Генерального Штаба...
 station-ai-centcomm-fax-content-limit = Буфер: { $count }/{ $max }
 station-ai-centcomm-fax-send = Отправить факс
 station-ai-centcomm-fax-status-initializing = Ожидание ввода
-station-ai-centcomm-fax-status-ready = Линия ИИ-ЦК готова к передаче.
+station-ai-centcomm-fax-status-ready = Линия ИИ-ГШ готова к передаче.
 station-ai-centcomm-fax-status-empty = Буфер обращения пуст.
-station-ai-centcomm-fax-status-cooldown = Линия ИИ-ЦК восстанавливает синхронизацию: { $seconds } с.
-station-ai-centcomm-fax-status-unavailable = Передача ИИ-ЦК не подтверждена факсимильным узлом Центрального Командования.
-station-ai-centcomm-fax-status-sent = Обращение принято факсимильным узлом Центрального Командования.
+station-ai-centcomm-fax-status-cooldown = Линия ИИ-ГШ восстанавливает синхронизацию: { $seconds } с.
+station-ai-centcomm-fax-status-unavailable = Передача ИИ-ГШ не подтверждена факсимильным узлом Генерального Штаба.
+station-ai-centcomm-fax-status-sent = Обращение принято факсимильным узлом Генерального Штаба.
 station-ai-centcomm-fax-notice-deactivation = [color=#d6a54b]Использование этого канала без весомого основания приведёт к немедленной деактивации ядра ИИ.[/color]
-station-ai-centcomm-fax-notice-no-response = [color=#7fa7b8]Центральное Командование не гарантирует ответ на полученные сообщения.[/color]
+station-ai-centcomm-fax-notice-no-response = [color=#7fa7b8]Генеральный Штаб не гарантирует ответ на полученные сообщения.[/color]
 station-ai-centcomm-fax-station-unknown = неизвестная станция
 station-ai-centcomm-fax-source-name = Станционный ИИ { $name }
-station-ai-centcomm-fax-stamp = Канал ИИ-ЦК
-station-ai-centcomm-fax-document-name = ИИ-ЦК — обращение станционного ИИ
+station-ai-centcomm-fax-stamp = Канал ИИ-ГШ
+station-ai-centcomm-fax-document-name = ИИ-ГШ — обращение станционного ИИ
 station-ai-centcomm-fax-document =
     -- [head=3]{ $station }[/head] --
-    -- [head=3]ИИ-ЦК[/head] --
+    -- [head=3]ИИ-ГШ[/head] --
     ═════════════════════════════════════
     :: [bold]Машинное обращение станционного ИИ[/bold]
     ═════════════════════════════════════
@@ -93,9 +93,9 @@ station-ai-centcomm-fax-document =
     Составитель документа: { $sender }
     Должность составителя: Станционный искусственный интеллект
     ─────────────────────────────────────
-    Код линии связи: ИИ-ЦК
-    Маршрут: защищённая факсимильная линия Центрального Командования
-    Статус доставки: принято факсимильным узлом Центрального Командования
+    Код линии связи: ИИ-ГШ
+    Маршрут: защищённая факсимильная линия Генерального Штаба
+    Статус доставки: принято факсимильным узлом Генерального Штаба
     ─────────────────────────────────────
     Текст обращения:
     { $content }
@@ -112,8 +112,10 @@ station-ai-icon-clown = Клоуничаем
 station-ai-icon-dorf = Приключение ждёт
 station-ai-icon-heartline = Линия жизни
 station-ai-icon-smiley = Улыбка
+station-ai-icon-knight = Замок
 station-ai-hologram-female = Женский образ
 station-ai-hologram-male = Мужской образ
 station-ai-hologram-face = Бестелесная голова
 station-ai-hologram-cat = Форма кота
 station-ai-hologram-dog = Форма корги
+station-ai-hologram-knight = Рыцарь

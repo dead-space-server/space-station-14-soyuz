@@ -1,0 +1,122 @@
+# Краткая инструкция по работе с дорожной картой
+# Title отвечает за название задачи, description за её полное описание, тэги за тэги :3
+# Order задает приоритет в списке. Если order будет 1, задача будет в самом верху списка.
+# Все новые задачи делайте с order на 1 больше, чем в предыдущей. Если в предыдущей InProgress задачке order 4, то в вашей будет order 5
+# Теги ставьте максимально близкие по значению к задачке, строгих лимитов нет
+# Категории делятся на Completed, InProgress, Planned = Выполнено, в процессе, запланированно
+
+
+# Выполнено
+- type: roadmapEntry
+  id: Roadmap1
+  title: "Создать дорожную карту"
+  description: "Создание менюшки дорожной карты в лобби игры"
+  category: Completed
+  tags:
+    - "QoL"
+
+- type: roadmapEntry
+  id: Roadmap5
+  title: "Возвращение планетоида"
+  description: "Вернуть планетоид на станции"
+  category: Completed
+  tags:
+    - "Карты"
+
+- type: roadmapEntry
+  id: Roadmap7
+  title: "Скафандр завхоза"
+  description: "Добавить завхозу скафандр и разрешить чистить планетоид"
+  category: Completed
+  tags:
+    - "QoL"
+
+# В процессе
+- type: roadmapEntry
+  id: Roadmap2
+  title: "Играбельное СГШ"
+  description: "Полностью играбельная станция генерального штаба на которой можно будет спокойно играть. Замена гост-бара в виде ролей сервисного отдела СГШ."
+  category: InProgress
+  order: 1
+  tags:
+    - "Маппинг"
+    - "Гост-бар"
+
+- type: roadmapEntry
+  id: Roadmap3
+  title: "Оптимизация дорожной карты"
+  description: "Заменить в прототипе дорожной карты с прямого указания названия в прототипе на указание названия в локализацию"
+  category: InProgress
+  tags:
+    - "Админское"
+
+- type: roadmapEntry
+  id: Roadmap4
+  title: "Новые предметы маппинга"
+  description: "Добавить цветочную кудзу в спавн меню для маппинга, кудза не будет разростаться"
+  category: Completed
+  tags:
+    - "Админское"
+    - "Маппинг"
+
+# В планах
+- type: roadmapEntry
+  id: Roadmap6
+  title: "Самогонный аппарат" # САВКО СДЕЛАЙ САМОГОНКУ ПЖ
+  description: "Самогонный аппарат, позволяющий делать различных самогон из всех видов фруктов. Дань уважения разработчикам, что пытались его сделать"
+  category: Planned
+  order: 1
+  tags:
+    - "Нереализуемо"
+
+- type: roadmapEntry
+  id: Roadmap8
+  title: "Звания СГМ и НКВБ"
+  description: "Добавить звания для милиции и НКВБ за наигранное на них время, перенести механ званий с RMC14"
+  category: Completed
+  tags:
+    - "C#"
+    - "QoL"
+
+- type: roadmapEntry
+  id: Roadmap9
+  title: "Исправить ошибки дорожной карты"
+  description: "Исправить ошибки отображения дорожной карты в игре, а так же стиль её интерфейса в игре"
+  category: Planned
+  tags:
+    - "QoL"
+    - "интерфейс"
+
+- type: roadmapEntry
+  id: Roadmap10
+  title: "Новые виды наркотиков"
+  description: "Добавить новые виды наркотиков. Названия взять из рл, но слегка изменить"
+  category: Planned
+  tags:
+    - "._."
+
+- type: roadmapEntry
+  id: Roadmap11
+  title: "Добавить штурмовую кувалду"
+  description: "Добавить штурмовую кувалду для милиции с большим количеством структурного урона"
+  category: Completed
+  tags:
+    - "СГМ"
+
+- type: roadmapEntry
+  id: Roadmap12
+  title: "Вайтлист"
+  description: "Добавить вайтлист роли, доступные при наличие роли в дискорд сервере союза"
+  category: Planned
+  tags:
+    - "Вайтлист"
+    - "QoL"
+
+- type: roadmapEntry
+  id: Roadmap13
+  title: "добавить фентанил"
+  description: "названием все сказано"
+  category: Planned
+  tags:
+    - "Медикаменты"
+

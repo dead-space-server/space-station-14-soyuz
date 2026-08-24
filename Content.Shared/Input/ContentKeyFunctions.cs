@@ -43,6 +43,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction MoveStoredItem = "MoveStoredItem";
         public static readonly BoundKeyFunction RotateStoredItem = "RotateStoredItem";
         public static readonly BoundKeyFunction SaveItemLocation = "SaveItemLocation";
+        public static readonly BoundKeyFunction ToggleItemPriority = "ToggleItemPriority"; // DS14
         public static readonly BoundKeyFunction ThrowItemInHand = "ThrowItemInHand";
         public static readonly BoundKeyFunction TryPullObject = "TryPullObject";
         public static readonly BoundKeyFunction MovePulledObject = "MovePulledObject";
@@ -65,6 +66,7 @@ namespace Content.Shared.Input
         public static readonly BoundKeyFunction ZoomIn = "ZoomIn";
         public static readonly BoundKeyFunction ResetZoom = "ResetZoom";
         public static readonly BoundKeyFunction OpenLanguageMenu = "OpenLanguageMenu"; // DS14
+        public static readonly BoundKeyFunction UseWorldTargetAction = "UseWorldTargetAction"; // DS14
 
         public static readonly BoundKeyFunction ArcadeUp = "ArcadeUp";
         public static readonly BoundKeyFunction ArcadeDown = "ArcadeDown";

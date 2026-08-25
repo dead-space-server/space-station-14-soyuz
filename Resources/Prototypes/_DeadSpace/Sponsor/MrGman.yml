@@ -588,6 +588,11 @@
   - type: Sprite
     sprite: _DeadSpace/Sponsor/MrGman/emergency_double.rsi
     state: icon
+  - type: Item
+    sprite: _DeadSpace/Sponsor/MrGman/emergency_double.rsi
+    storedSprite:
+      state: icon
+      sprite: _DeadSpace/Sponsor/MrGman/emergency_double.rsi
   - type: GasTank
     outputPressure: 21.3
     air:

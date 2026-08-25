@@ -11,7 +11,8 @@
     - Critical
     - Dead
   - type: RattleOnTrigger
-    radioChannel: NKO
+    radioChannels: 
+    - NKO
 
 - type: entity
   parent: BaseSubdermalImplant

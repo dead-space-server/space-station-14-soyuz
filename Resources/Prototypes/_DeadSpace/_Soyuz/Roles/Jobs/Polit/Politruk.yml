@@ -37,7 +37,6 @@
   - Medical
   - Engineering
   - Cargo
-  - NKVB
   #start-backmen: currency
   minBankBalance: 800
   maxBankBalance: 1200

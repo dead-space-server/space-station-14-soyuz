@@ -244,6 +244,7 @@
 #   - id: ClothingHeadHatBeretCmo
 #   - id: ClothingMaskSterile
     - id: HandheldCrewMonitor
+    - id: ClothingBeltCMOFilled # DS14-soyuz
     - id: Hypospray
     - id: MedTekCartridge
     - id: NitrogenTankFilled # DS14

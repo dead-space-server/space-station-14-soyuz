@@ -13,3 +13,68 @@
         reagents:
           - ReagentId: Romerol
             Quantity: 30
+
+- type: entity
+  parent: ChemistryEmptyVial
+  id: DexalinPlusVial
+  suffix: Дексалин плюс
+  components:
+  - type: SolutionContainerManager 
+    currentLabel: reagent-name-dexalinPlus
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+          - ReagentId: DexalinPlus
+            Quantity: 30
+  - type: Tag
+    tags: *TagVial
+
+
+- type: entity
+  parent: ChemistryEmptyVial
+  id: BicaridineVial
+  suffix: Бикаридин
+  components:
+  - type: SolutionContainerManager 
+    currentLabel: reagent-name-bicaridine
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+          - ReagentId: Bicaridine
+            Quantity: 30
+  - type: Tag
+    tags: *TagVial       
+
+- type: entity
+  parent: ChemistryEmptyVial
+  id: DermalineVial
+  suffix: Дермалин
+  components:
+  - type: SolutionContainerManager 
+    currentLabel: reagent-name-dermaline
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+          - ReagentId: Dermaline
+            Quantity: 30
+  - type: Tag
+    tags: *TagVial
+
+- type: entity
+  parent: ChemistryEmptyVial
+  id: OmnizineVial
+  suffix: Омнизин
+  components:
+  - type: SolutionContainerManager 
+    currentLabel: reagent-name-omnizine
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+          - ReagentId: Omnizine
+            Quantity: 30
+  - type: Tag
+    tags: *TagVial

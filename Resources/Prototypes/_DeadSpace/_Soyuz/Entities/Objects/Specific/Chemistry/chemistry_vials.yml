@@ -27,8 +27,6 @@
         reagents:
           - ReagentId: DexalinPlus
             Quantity: 30
-  - type: Tag
-    tags: *TagVial
 
 
 - type: entity
@@ -60,8 +58,6 @@
         reagents:
           - ReagentId: Dermaline
             Quantity: 30
-  - type: Tag
-    tags: *TagVial
 
 - type: entity
   parent: ChemistryEmptyVial
@@ -76,5 +72,3 @@
         reagents:
           - ReagentId: Omnizine
             Quantity: 30
-  - type: Tag
-    tags: *TagVial

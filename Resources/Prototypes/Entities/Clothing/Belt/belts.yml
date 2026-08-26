@@ -34,6 +34,22 @@
   - type: Appearance
 
 - type: entity
+  parent: ClothingBeltStorageBase 
+  id: ClothingBeltCMO
+  name: РПС Главного Врача
+  description: Содержит все нужное для лечения!
+  components:
+  - type: Sprite
+    sprite: Clothing/Belt/CMO.rsi 
+  - type: Clothing
+    sprite: Clothing/Belt/CMO.rsi
+    slots: [belt] 
+  - type: Storage
+    maxItemSize: Huge
+    grid:
+    - 0,0,5,5
+
+- type: entity
   parent: ClothingBeltStorageBase
   id: ClothingBeltQuiver
   name: quiver

@@ -27,6 +27,25 @@
       - id: Multitool
 
 - type: entity
+  parent: ClothingBeltCMO
+  id: ClothingBeltCMOFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: MedicatedSuture
+          amount: 2
+        - id: RegenerativeMesh
+        - id: Bloodpack
+        - id: OmnizineVial
+        - id: DermalineVial
+        - id: DexalinPlusVial
+        - id: BicaridineVial
+        - id: DefibrillatorCompact
+
+- type: entity
   id: ClothingBeltChiefEngineerFilled
   parent: ClothingBeltChiefEngineer
   suffix: Filled

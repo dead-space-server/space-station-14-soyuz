@@ -40,9 +40,9 @@
   description: Содержит все нужное для лечения!
   components:
   - type: Sprite
-    sprite: Clothing/Belt/CMO.rsi 
+    sprite: _DeadSpace\_Soyuz\Clothing\Belt\CMO.rsi
   - type: Clothing
-    sprite: Clothing/Belt/CMO.rsi
+    sprite: _DeadSpace\_Soyuz\Clothing\Belt\CMO.rsi
     slots: [belt] 
   - type: Storage
     maxItemSize: Huge

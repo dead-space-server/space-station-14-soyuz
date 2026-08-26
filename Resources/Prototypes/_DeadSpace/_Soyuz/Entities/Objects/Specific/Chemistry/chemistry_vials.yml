@@ -41,9 +41,7 @@
         maxVol: 30
         reagents:
           - ReagentId: Bicaridine
-            Quantity: 30
-  - type: Tag
-    tags: *TagVial       
+            Quantity: 30    
 
 - type: entity
   parent: ChemistryEmptyVial

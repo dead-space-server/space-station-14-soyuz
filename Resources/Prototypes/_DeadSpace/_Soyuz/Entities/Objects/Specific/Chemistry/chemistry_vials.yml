@@ -19,8 +19,9 @@
   id: DexalinPlusVial
   suffix: Дексалин плюс
   components:
+  - type: Label
+    currentLabel: DexalinPlus
   - type: SolutionContainerManager 
-    currentLabel: reagent-name-dexalinplus
     solutions:
       drink:
         maxVol: 30
@@ -34,6 +35,8 @@
   id: BicaridineVial
   suffix: Бикаридин
   components:
+  - type: Label
+    currentLabel: Bicaridine
   - type: SolutionContainerManager 
     currentLabel: reagent-name-bicaridine
     solutions:
@@ -48,6 +51,8 @@
   id: DermalineVial
   suffix: Дермалин
   components:
+  - type: Label
+    currentLabel: Dermaline
   - type: SolutionContainerManager 
     currentLabel: reagent-name-dermaline
     solutions:
@@ -62,6 +67,8 @@
   id: OmnizineVial
   suffix: Омнизин
   components:
+  - type: Label
+    currentLabel: Omnizine
   - type: SolutionContainerManager 
     currentLabel: reagent-name-omnizine
     solutions:

@@ -38,7 +38,6 @@
   - type: Label
     currentLabel: Bicaridine
   - type: SolutionContainerManager 
-    currentLabel: reagent-name-bicaridine
     solutions:
       drink:
         maxVol: 30
@@ -54,7 +53,6 @@
   - type: Label
     currentLabel: Dermaline
   - type: SolutionContainerManager 
-    currentLabel: reagent-name-dermaline
     solutions:
       drink:
         maxVol: 30
@@ -70,7 +68,6 @@
   - type: Label
     currentLabel: Omnizine
   - type: SolutionContainerManager 
-    currentLabel: reagent-name-omnizine
     solutions:
       drink:
         maxVol: 30

@@ -20,7 +20,7 @@
   suffix: Дексалин плюс
   components:
   - type: SolutionContainerManager 
-    currentLabel: reagent-name-dexalinPlus
+    currentLabel: reagent-name-dexalinplus
     solutions:
       drink:
         maxVol: 30

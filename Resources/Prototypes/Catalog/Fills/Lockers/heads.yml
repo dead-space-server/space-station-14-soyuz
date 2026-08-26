@@ -243,7 +243,6 @@
 #   - id: ClothingHandsGlovesNitrile
 #   - id: ClothingHeadHatBeretCmo
 #   - id: ClothingMaskSterile
-    - id: ClothingBeltCMOFilled
     - id: HandheldCrewMonitor
     - id: Hypospray
     - id: MedTekCartridge

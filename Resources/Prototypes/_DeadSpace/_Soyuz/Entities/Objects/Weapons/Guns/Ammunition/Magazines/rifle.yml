@@ -72,9 +72,13 @@
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleNavy
+    capacity: 45
   - type: Sprite
     layers:
     - state: navy
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+      - SoyuzMagazineRifleNavy

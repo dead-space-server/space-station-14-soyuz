@@ -31,4 +31,7 @@
     damage:
       types:
         Piercing: 15
+        Structural: 15
     ignoreResistances: true
+  - type: HitscanStaminaDamage
+    staminaDamage: 15

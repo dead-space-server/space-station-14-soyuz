@@ -24,3 +24,6 @@
   components:
   - type: CartridgeAmmo
     proto: BulletCaselessRifleNavy
+  - type: Tag
+    tags:
+      - CartridgeCaselessRifleNavy

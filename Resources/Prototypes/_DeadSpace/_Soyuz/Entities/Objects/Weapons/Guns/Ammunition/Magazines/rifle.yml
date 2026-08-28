@@ -73,6 +73,10 @@
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleNavy
     capacity: 45
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgeCaselessRifleNavy
   - type: Sprite
     layers:
     - state: navy

@@ -1,3 +1,3 @@
 department-NKVB = НарКом Всесоюзной Безопасности
-department-navy = ВКФ СССП
 department-NKVB-description = Мрачный Нарком по контролю и слежке за всеми и каждым. И помните , в отличии от вас , НКВБ всегда в выигрыше.
+department-navy = ВКФ СССП

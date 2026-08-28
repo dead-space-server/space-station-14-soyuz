@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "All sprites by https://github.com/august-sun, inhands by TiniestShark (GitHub), stripes by SeamLesss (GitHub), resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос",
+    "copyright": "Inhands by TiniestShark (GitHub), stripes by SeamLesss (GitHub), tungsten and resprite by sastr. (discord) for Space Station 14 server Мёртвый Космос, silver and Navy by pered6664 (discord) for Space Station 14 server Мёртвый Космос Союз-1",
     "size": {
         "x": 32,
         "y": 32
@@ -33,13 +33,13 @@
             "directions": 4
         },
         {
-            "name": "incendiary"
+            "name": "tungsten"
         },
         {
-            "name": "practice"
+            "name": "silver"
         },
         {
-            "name": "uranium"
+            "name": "navy"
         }
     ]
 }

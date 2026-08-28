@@ -320,36 +320,35 @@
     sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/m54cmk1.rsi
     size: Large
   - type: Gun
-    fireRate: 6.5
+    fireRate: 6
     burstFireRate: 18
     selectedMode: FullAuto
     availableModes:
     - FullAuto
     - Burst
-    shotsPerBurst: 2
-    burstCooldown: 0.25
+    shotsPerBurst: 3
+    burstCooldown: 0.15
     soundGunshot:
       path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/abakan.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: ADTExtMagazineRifle
+        startingItem: SoyuzMagazineRifleNavy
         insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
         priority: 2
         whitelist:
           tags:
-            - MagazineRifle
-            - ADTExtMagazineRifle
+            - SoyuzMagazineRifleNavy
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
-        startingItem: CartridgeRifle
+        startingItem: CartridgeCaselessRifleNavy
         priority: 1
         whitelist:
           tags:
-            - CartridgeRifle
+            - CartridgeCaselessRifleNavy
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot

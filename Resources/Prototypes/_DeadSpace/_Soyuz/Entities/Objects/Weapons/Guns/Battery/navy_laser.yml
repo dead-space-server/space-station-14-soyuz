@@ -21,7 +21,7 @@
     minAngle: -23
     maxAngle: -44
   - type: Gun
-    fireRate: 5.5
+    fireRate: 5
     projectileSpeed: 30
     minAngle: 24
     maxAngle: 45
@@ -81,13 +81,13 @@
     size: Small
   - type: BatteryAmmoProvider
     proto: BulletEnergyBlue
-    fireCost: 100
+    fireCost: 80
   - type: BatteryWeaponFireModes
     fireModes:
     - proto: BulletEnergyBlue
-      fireCost: 100
+      fireCost: 80
     - proto: BulletDisablerNavy
-      fireCost: 75
+      fireCost: 55
   - type: Battery
     maxCharge: 1200
     startingCharge: 1200

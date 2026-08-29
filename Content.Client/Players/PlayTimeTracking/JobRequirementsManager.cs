@@ -14,6 +14,8 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.DeadSpace.Interfaces.Client;
+using Content.Shared.Administration.Managers;
+using Content.Shared.Administration;
 
 namespace Content.Client.Players.PlayTimeTracking;
 
@@ -244,12 +246,24 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
 
     public bool CheckWhitelist(JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
     {
+        var adminManager = IoCManager.Resolve<ISharedAdminManager>(); // DS14-Soyuz
         reason = default;
         if (!_cfg.GetCVar(CCVars.GameRoleWhitelist))
             return true;
 
         if (job.Whitelisted && !_jobWhitelists.Contains(job.ID))
         {
+            // DS14-Soyuz start
+            var player = _playerManager.LocalSession;
+            if (player != null)
+            {
+                var playerUid = player.AttachedEntity;
+                if (playerUid != null && adminManager.HasAdminFlag(playerUid.Value, AdminFlags.Admin))
+                {
+                    return true;
+                }
+            }
+            // DS14-Soyuz end
             reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
             return false;
         }

@@ -633,6 +633,18 @@
         - state: green
         - state: coroner
 
+- type: entity
+  id: SpawnPointOperatorGS
+  parent: SpawnPointJobBase
+  name: OperatorGS spawn
+  components:
+    - type: SpawnPoint
+      job_id: OperatorGS
+    - type: Sprite
+      layers:
+        - state: green
+        - state: blueshield
+
 # SPECIAL
 
 ## ERT

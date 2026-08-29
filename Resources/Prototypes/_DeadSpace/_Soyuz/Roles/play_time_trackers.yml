@@ -3,3 +3,6 @@
 
 - type: playTimeTracker
   id: JobPolitkom
+
+- type: playTimeTracker
+  id: JobOperatorGS

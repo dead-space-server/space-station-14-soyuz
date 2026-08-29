@@ -117,3 +117,5 @@ ent-SpawnPointPsychologist = точка спавна психиатра
     .desc = { ent-SpawnPointJobBase.desc }
 ent-SpawnPointZookeeper = точка спавна ветеринара
     .desc = { ent-SpawnPointJobBase.desc }
+ent-SpawnPointOperatorGS = точка спавна оператора ГШ
+    .desc = { ent-SpawnPointJobBase.desc }

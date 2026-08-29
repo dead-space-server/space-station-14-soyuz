@@ -1,2 +1,4 @@
 department-NKVB = НарКом Всесоюзной Безопасности
 department-NKVB-description = Мрачный Нарком по контролю и слежке за всеми и каждым. И помните , в отличии от вас , НКВБ всегда в выигрыше.
+department-SoyuzGeneralStaff = Генеральный Штаб
+

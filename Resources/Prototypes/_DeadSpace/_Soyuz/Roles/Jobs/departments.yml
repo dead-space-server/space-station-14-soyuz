@@ -8,3 +8,12 @@
   - Politruk
   - BlueShieldOfficer
   weight: 130
+
+- type: department
+  id: SoyuzGeneralStaff
+  name: department-SoyuzGeneralStaff
+  description: department-SoyuzGeneralStaff-description
+  color: "#ad4040"
+  roles:
+  - OperatorGS
+  weight: 300

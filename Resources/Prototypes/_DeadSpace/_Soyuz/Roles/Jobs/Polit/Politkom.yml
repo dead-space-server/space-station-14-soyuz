@@ -1,7 +1,7 @@
 - type: job
   id: Politkom
   name: job-name-Politkom
-  description: Расстреляете любого несогласного в вашей политической позиции. Получите инфаркт от того, что кто-то сжёг манифест компартии.
+  description: job-description-Politkom
   playTimeTracker: JobPolitkom
   setPreference: false
   startingGear: PolitkomGear

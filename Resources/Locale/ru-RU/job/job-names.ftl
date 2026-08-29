@@ -90,8 +90,6 @@ job-name-roboticist = робототехник
 job-name-syndicate = Рассвет
 job-name-unknown = неизвестно
 job-name-zombie = зомби
-job-name-politruk = Политический Руководитель
-job-name-Politkom = Политический Комиссар
 # Job titles
 job-title-visitor = Посетитель
 job-title-cluwne = Клувень

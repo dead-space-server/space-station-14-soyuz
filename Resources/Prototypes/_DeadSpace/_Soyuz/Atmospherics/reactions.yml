@@ -18,7 +18,7 @@
   priority: 4
   minimumRequirements:
     Plasma: 10
-    Nitryl: 10
+    NitrousOxide: 10
   effects:
   - !type:BrizidiumProductionReaction {}
 

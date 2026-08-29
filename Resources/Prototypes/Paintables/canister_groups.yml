@@ -3,22 +3,11 @@
   id: Canisters
   defaultStyle: storage
   styles:
-    # DS-14 Soyuz
     air: AirCanister
     ammonia: AmmoniaCanister
-    brizidium: BrizidiumCanister
     carbon-dioxide: CarbonDioxideCanister
     frezon: FrezonCanister
-    fixirium: FixiriumCanister
-    hilium: HiliumCanister
-    hydrogen: HydrogenCanister
-    iprit: IpritCanister
-    liquid-carbon-dioxide: LiquidCarbonDioxideCanister
-    liquid-nitrogen: LiquidNitrogenCanister
-    liquid-oxygen: LiquidOxygenCanister
     nitrogen: NitrogenCanister
-    nitriatium: NitriatiumCanister
-    nitryl: NitrylCanister
     nitrous-oxide: NitrousOxideCanister
     oxygen: OxygenCanister
     plasma: PlasmaCanister
@@ -26,6 +15,12 @@
     tritium: TritiumCanister
     water-vapor: WaterVaporCanister
     # DS14-start
+    fixirium: FixiriumCanister
+    hydrogen: HydrogenCanister
+    nitriatium: NitriatiumCanister
+    hilium: HiliumCanister
+    brizidium: BrizidiumCanister
+    iprit: IpritCanister
     oxyhydrogen: OxyhydrogenCanister
     fuel: FuelCanister
     necrogas: InfectionDeadCanister

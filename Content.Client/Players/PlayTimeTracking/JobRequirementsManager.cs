@@ -14,8 +14,8 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.DeadSpace.Interfaces.Client;
-using Content.Shared.Administration.Managers;
-using Content.Shared.Administration;
+using Content.Shared.Administration.Managers; // DS14-Soyuz
+using Content.Shared.Administration; // DS14-Soyuz
 
 namespace Content.Client.Players.PlayTimeTracking;
 

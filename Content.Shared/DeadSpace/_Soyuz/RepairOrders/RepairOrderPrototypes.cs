@@ -76,6 +76,13 @@ public sealed partial class RepairScoreProfilePrototype : IPrototype
     public List<RepairScoreRule> Rules = new();
 
     /// <summary>
+    /// Ordered entity identity rules. Matching prototypes are compared as the configured canonical prototype.
+    /// This is used for map-only variants such as filled/empty power machines.
+    /// </summary>
+    [DataField]
+    public List<RepairEntityIdentityRule> IdentityRules = new();
+
+    /// <summary>
     /// Ordered entity rotation rules. The first matching rule is used.
     /// Entities which match no rule ignore rotation.
     /// </summary>
@@ -137,6 +144,16 @@ public sealed partial class RepairScoreRule
 
     [DataField(required: true)]
     public int Points;
+}
+
+[DataDefinition]
+public sealed partial class RepairEntityIdentityRule
+{
+    [DataField(required: true)]
+    public RepairEntitySelector Selector = new();
+
+    [DataField(required: true)]
+    public EntProtoId Canonical;
 }
 
 [DataDefinition]

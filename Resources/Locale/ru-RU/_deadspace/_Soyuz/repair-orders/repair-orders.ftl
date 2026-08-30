@@ -24,10 +24,8 @@ repair-structural-analyzer-popup-off = Анализатор выключен.
 repair-structural-analyzer-construction-tray-scanner = Т-лучевой сканер
 repair-structural-analyzer-remove-entity = Убрать: { $entity }
 
-repair-order-damaged-engineering-module-name = Повреждённый инженерный модуль
-repair-order-damaged-engineering-module-description = Восстановите компактный инженерный обломок по эталонной конструкции и верните каждый требуемый узел на правильное место.
-repair-order-stripped-floor-platform-name = Ободранная строительная платформа
-repair-order-stripped-floor-platform-description = Восстановите стальное покрытие на всей платформе размером пять на пять клеток.
+repair-order-damaged-engineering-sattelite-name = Спутник временно недоступен в вашем регионе
+repair-order-damaged-engineering-sattelite-description = Орбитальный спутник связи попал под небольшой метеоритный поток. Судя по двум бутылкам водки и оставленным рядом стопкам, дежурные инженеры относились к своей работе без особого энтузиазма. Противометеоритная защита не установлена, спутник выглядит так, будто его сдавали в эксплуатацию со словами «и так сойдёт».
 
 repair-orders-window-title = Инженерные ремонтные заказы
 repair-orders-next-offer = Следующее предложение:

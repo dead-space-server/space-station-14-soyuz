@@ -99,6 +99,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         blueprint.OrderPrototype = args.OrderPrototype;
         blueprint.TasksByCell.Clear();
         blueprint.TargetEntitySignatures.Clear();
+        blueprint.EntityIdentityRules.Clear();
         blueprint.TotalTasks = 0;
         blueprint.CompletedTasks = 0;
         blueprint.MaxPoints = 0;
@@ -164,6 +165,8 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
             var target = loadedTarget.Value;
             var scoreLookup = BuildScoreLookup(order);
+            blueprint.Comp.EntityIdentityRules.Clear();
+            blueprint.Comp.EntityIdentityRules.AddRange(scoreLookup.EntityIdentityRules);
             BuildTileTasks(blueprint, target, scoreLookup);
             BuildAnchoredEntityTasks(blueprint, target, (blueprint.Owner, repairGrid), scoreLookup);
             return true;
@@ -172,6 +175,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         {
             blueprint.Comp.TasksByCell.Clear();
             blueprint.Comp.TargetEntitySignatures.Clear();
+            blueprint.Comp.EntityIdentityRules.Clear();
             blueprint.Comp.TotalTasks = 0;
             blueprint.Comp.CompletedTasks = 0;
             blueprint.Comp.MaxPoints = 0;
@@ -226,9 +230,9 @@ public sealed class RepairOrderValidationSystem : EntitySystem
                 signature.RotationMode));
         }
 
-        foreach (var (signature, targetCount) in targetEntities)
+        foreach (var (signature, targetEntity) in targetEntities)
         {
-            for (var requiredCount = 1; requiredCount <= targetCount; requiredCount++)
+            for (var requiredCount = 1; requiredCount <= targetEntity.Count; requiredCount++)
             {
                 AddTask(blueprint.Comp, new RepairTask
                 {
@@ -237,6 +241,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
                     ExpectedEntityPrototype = signature.Prototype,
                     ExpectedLocalPosition = signature.LocalPosition,
                     ExpectedLocalRotation = signature.LocalRotation,
+                    DisplayLocalRotation = targetEntity.DisplayLocalRotation,
                     RotationMode = signature.RotationMode,
                     RequiredMatchingCount = requiredCount,
                     Points = ResolveEntityPoints(scoreLookup, signature.Prototype),
@@ -249,14 +254,17 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
     private void BuildExtraAnchoredEntityTasks(
         Entity<RepairBlueprintComponent> blueprint,
-        Dictionary<AnchoredEntitySignature, int> targetEntities,
-        Dictionary<AnchoredEntitySignature, int> damagedEntities,
+        Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> targetEntities,
+        Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> damagedEntities,
         RepairScoreLookup scoreLookup)
     {
-        foreach (var (signature, damagedCount) in damagedEntities)
+        foreach (var (signature, damagedEntity) in damagedEntities)
         {
-            targetEntities.TryGetValue(signature, out var targetCount);
-            for (var presentCount = targetCount + 1; presentCount <= damagedCount; presentCount++)
+            var targetCount = targetEntities.TryGetValue(signature, out var targetEntity)
+                ? targetEntity.Count
+                : 0;
+
+            for (var presentCount = targetCount + 1; presentCount <= damagedEntity.Count; presentCount++)
             {
                 AddTask(blueprint.Comp, new RepairTask
                 {
@@ -265,6 +273,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
                     ExpectedEntityPrototype = signature.Prototype,
                     ExpectedLocalPosition = signature.LocalPosition,
                     ExpectedLocalRotation = signature.LocalRotation,
+                    DisplayLocalRotation = damagedEntity.DisplayLocalRotation,
                     RotationMode = signature.RotationMode,
                     RequiredMatchingCount = presentCount,
                     Points = ResolveEntityPoints(scoreLookup, signature.Prototype),
@@ -273,11 +282,11 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         }
     }
 
-    private Dictionary<AnchoredEntitySignature, int> SnapshotAnchoredEntities(
+    private Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> SnapshotAnchoredEntities(
         Entity<MapGridComponent> grid,
         RepairScoreLookup scoreLookup)
     {
-        var result = new Dictionary<AnchoredEntitySignature, int>();
+        var result = new Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot>();
         var children = Transform(grid.Owner).ChildEnumerator;
 
         while (children.MoveNext(out var child))
@@ -291,14 +300,26 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             }
 
             var rotationMode = ResolveRotationMode(scoreLookup, prototypeId);
+            var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, prototypeId);
+            var displayRotation = xform.LocalRotation.Reduced().FlipPositive();
             var signature = new AnchoredEntitySignature(
-                prototypeId,
+                canonicalPrototype,
                 xform.LocalPosition,
                 CanonicalizeRotation(xform.LocalRotation, rotationMode),
                 rotationMode,
                 LocalPositionToCell(grid.Comp, xform.LocalPosition));
-            result.TryGetValue(signature, out var count);
-            result[signature] = count + 1;
+
+            if (result.TryGetValue(signature, out var entry))
+            {
+                entry.Count++;
+                continue;
+            }
+
+            result.Add(signature, new AnchoredEntitySnapshot
+            {
+                Count = 1,
+                DisplayLocalRotation = displayRotation,
+            });
         }
 
         return result;
@@ -417,16 +438,19 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             }
 
             var prototype = MetaData(entity).EntityPrototype?.ID;
+            var canonicalPrototype = prototype is null
+                ? null
+                : CanonicalizeEntityPrototype(blueprint.Comp.EntityIdentityRules, prototype);
             var rotation = CanonicalizeRotation(xform.LocalRotation, task.RotationMode);
-            if (prototype == task.ExpectedEntityPrototype &&
+            if (canonicalPrototype == task.ExpectedEntityPrototype &&
                 rotation == task.ExpectedLocalRotation)
             {
                 exactMatches++;
             }
-            else if (prototype == null ||
+            else if (canonicalPrototype == null ||
                      !IsAcceptedTargetEntity(
                          blueprint.Comp,
-                         prototype,
+                         canonicalPrototype,
                          xform.LocalPosition,
                          xform.LocalRotation))
             {
@@ -515,7 +539,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
                 tasks.Add(new RepairAnalyzerTaskData(
                     task.Type,
                     localPosition,
-                    task.ExpectedLocalRotation,
+                    task.DisplayLocalRotation,
                     expectedPrototype,
                     task.State));
             }
@@ -616,6 +640,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         active.BlueprintReady = false;
         blueprint.Comp.TasksByCell.Clear();
         blueprint.Comp.TargetEntitySignatures.Clear();
+        blueprint.Comp.EntityIdentityRules.Clear();
         blueprint.Comp.CompletedTasks = 0;
         blueprint.Comp.TotalTasks = 0;
         blueprint.Comp.CurrentPoints = 0;
@@ -665,6 +690,21 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
         lookup.DefaultTilePoints = Math.Max(0, profile.DefaultTilePoints);
         lookup.DefaultEntityPoints = Math.Max(0, profile.DefaultEntityPoints);
+
+        foreach (var rule in profile.IdentityRules)
+        {
+            if (!_prototype.HasIndex<EntityPrototype>(rule.Canonical))
+            {
+                _sawmill.Warning(
+                    $"Repair score profile {profile.ID} contains an identity rule with missing canonical entity prototype {rule.Canonical}; the rule is ignored.");
+                continue;
+            }
+
+            if (!ValidateSelector(profile.ID, rule.Selector, "identity"))
+                continue;
+
+            lookup.EntityIdentityRules.Add(rule);
+        }
 
         foreach (var value in profile.Values)
         {
@@ -720,13 +760,6 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
         foreach (var rule in profile.RotationRules)
         {
-            if (rule.Mode == RepairRotationMode.None)
-            {
-                _sawmill.Warning(
-                    $"Repair score profile {profile.ID} contains a rotation rule with mode None; the rule is redundant and is ignored.");
-                continue;
-            }
-
             if (!ValidateSelector(profile.ID, rule.Selector, "rotation"))
                 continue;
 
@@ -767,6 +800,25 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         }
 
         return lookup.DefaultEntityPoints;
+    }
+
+    private string CanonicalizeEntityPrototype(
+        IReadOnlyList<RepairEntityIdentityRule> identityRules,
+        string entityPrototype)
+    {
+        if (identityRules.Count == 0 ||
+            !_prototype.TryIndex<EntityPrototype>(entityPrototype, out var prototype))
+        {
+            return entityPrototype;
+        }
+
+        foreach (var rule in identityRules)
+        {
+            if (MatchesSelector(prototype, rule.Selector))
+                return rule.Canonical.Id;
+        }
+
+        return entityPrototype;
     }
 
     private RepairRotationMode ResolveRotationMode(RepairScoreLookup lookup, string entityPrototype)
@@ -893,6 +945,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         public readonly Dictionary<string, int> TilePoints = new();
         public readonly Dictionary<string, int> EntityPoints = new();
         public readonly List<RepairScoreRule> EntityRules = new();
+        public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
         public readonly List<RepairRotationRule> RotationRules = new();
         public readonly HashSet<string> MissingValues = new();
     }
@@ -903,4 +956,10 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         Angle LocalRotation,
         RepairRotationMode RotationMode,
         Vector2i Cell);
+
+    private sealed class AnchoredEntitySnapshot
+    {
+        public int Count;
+        public Angle DisplayLocalRotation;
+    }
 }

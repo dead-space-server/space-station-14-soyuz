@@ -5,8 +5,10 @@ using Content.Shared.Maps;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
+using Robust.Shared.Graphics.RSI;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -160,7 +162,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         if (task.Type == RepairTaskType.Tile &&
             _tileDefinitions.TryGetDefinition(task.ExpectedPrototype, out var tile))
         {
-            return tile.Name;
+            return Loc.GetString(tile.Name);
         }
 
         return task.ExpectedPrototype;
@@ -247,17 +249,40 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
         var direction = task.LocalRotation.GetCardinalDir();
         Box2? combinedBounds = null;
+        var hasRotatedLayer = false;
+        var hasUnrotatedLayer = false;
         foreach (var layer in visual.Textures)
         {
-            var texture = layer.TextureFor(direction);
+            var rotateLayer = !visual.NoRotation &&
+                              !visual.SnapCardinals &&
+                              layer.RotatesWithEntity;
+            var texture = layer.TextureFor(rotateLayer ? Direction.South : direction);
             var size = texture.Size / (float) EyeManager.PixelsPerMeter * visual.Scale;
             var bounds = Box2.CenteredAround(task.LocalPosition, size);
-            handle.DrawTextureRect(texture, bounds, ghostColor);
+            if (rotateLayer)
+            {
+                handle.DrawTextureRect(
+                    texture,
+                    new Box2Rotated(bounds, task.LocalRotation, task.LocalPosition),
+                    ghostColor);
+                hasRotatedLayer = true;
+            }
+            else
+            {
+                handle.DrawTextureRect(texture, bounds, ghostColor);
+                hasUnrotatedLayer = true;
+            }
+
             combinedBounds = combinedBounds?.Union(bounds) ?? bounds;
         }
 
         if (combinedBounds is { } outline)
-            handle.DrawRect(outline, borderColor, false);
+        {
+            if (hasRotatedLayer && !hasUnrotatedLayer)
+                handle.DrawRect(new Box2Rotated(outline, task.LocalRotation, task.LocalPosition), borderColor, false);
+            else
+                handle.DrawRect(outline, borderColor, false);
+        }
     }
 
     private bool TryGetEntityVisual(string prototypeId, out PrototypeVisual visual)
@@ -267,16 +292,27 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
         if (!_prototype.TryIndex<EntityPrototype>(prototypeId, out var prototype))
         {
-            visual = new PrototypeVisual(new List<IDirectionalTextureProvider>(), Vector2.One);
+            visual = new PrototypeVisual(new List<PrototypeVisualLayer>(), Vector2.One, false, false);
             _entityVisuals[prototypeId] = visual;
             return false;
         }
 
         var scale = Vector2.One;
+        var snapCardinals = false;
+        var noRotation = false;
         if (prototype.TryGetComponent<SpriteComponent>("Sprite", out var spriteComponent))
+        {
             scale = spriteComponent.Scale;
+            snapCardinals = spriteComponent.SnapCardinals;
+            noRotation = spriteComponent.NoRotation;
+        }
 
-        visual = new PrototypeVisual(_sprite.GetPrototypeTextures(prototype).ToList(), scale);
+        var layers = _sprite
+            .GetPrototypeTextures(prototype)
+            .Select(texture => new PrototypeVisualLayer(texture))
+            .ToList();
+
+        visual = new PrototypeVisual(layers, scale, snapCardinals, noRotation);
         _entityVisuals[prototypeId] = visual;
         return visual.Textures.Count > 0;
     }
@@ -303,6 +339,20 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
     }
 
     private readonly record struct PrototypeVisual(
-        List<IDirectionalTextureProvider> Textures,
-        Vector2 Scale);
+        List<PrototypeVisualLayer> Textures,
+        Vector2 Scale,
+        bool SnapCardinals,
+        bool NoRotation);
+
+    private readonly record struct PrototypeVisualLayer(IDirectionalTextureProvider TextureProvider)
+    {
+        public bool RotatesWithEntity =>
+            TextureProvider is Texture ||
+            TextureProvider is RSI.State { RsiDirections: RsiDirectionType.Dir1 };
+
+        public Texture TextureFor(Direction direction)
+        {
+            return TextureProvider.TextureFor(direction);
+        }
+    }
 }

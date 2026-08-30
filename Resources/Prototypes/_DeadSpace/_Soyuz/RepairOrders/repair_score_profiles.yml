@@ -185,6 +185,38 @@
       allComponents: [Computer]
     points: 15
 
+  # Identity rules are applied before target/current entity comparison.
+  # They intentionally ignore mapping-only state variants such as filled vs empty batteries
+  # or light fixtures with a lamp preinserted on spawn.
+  identityRules:
+  - selector:
+      entities: [SMESBasic, SMESBasicEmpty]
+    canonical: SMESBasic
+  - selector:
+      entities: [SMESAdvanced, SMESAdvancedEmpty]
+    canonical: SMESAdvanced
+  - selector:
+      entities: [SubstationBasic, SubstationBasicEmpty]
+    canonical: SubstationBasic
+  - selector:
+      entities: [APCBasic, APCConstructed]
+    canonical: APCBasic
+  - selector:
+      parents: [PoweredlightEmpty]
+    canonical: Poweredlight
+  - selector:
+      parents: [PoweredSmallLightEmpty]
+    canonical: PoweredSmallLight
+  - selector:
+      parents: [PoweredLightPostSmallEmpty]
+    canonical: PoweredLightPostSmall
+  - selector:
+      entities: [MiningWindow, MiningWindowSoyuz]
+    canonical: MiningWindow
+  - selector:
+      entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
+    canonical: MiningWindowDiagonal
+
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
   rotationRules:
   # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
@@ -194,13 +226,36 @@
   - selector:
       parents: [GasPipeBase]
     mode: Exact
-  # Docking ports, diagonal walls, chairs, sofas, benches and other SeatBase descendants are directional.
+
+  # Directional atmos fixtures.
+  - selector:
+      parents: [AtmosDeviceFanDirectional]
+    mode: Exact
+
+  # Wallmount APUs are directional.
+  - selector:
+      parents: [GeneratorWallmountAPU, GeneratorWallmountAPULV]
+    mode: Exact
+
+  # Light fixtures and bulbs.
+  - selector:
+      allComponents: [PoweredLight]
+    mode: Exact
+  - selector:
+      parents:
+      - BaseLightbulb
+      - EmergencyLight
+    mode: Exact
+
+  # Shuttle airlocks and docking ports are directional.
+  - selector:
+      parents: [AirlockShuttle]
+    mode: Exact
   - selector:
       allComponents: [Docking]
     mode: Exact
-  - selector:
-      allTags: [Wall, Diagonal]
-    mode: Exact
+
+  # Chairs, sofas, benches and other SeatBase descendants are directional.
   - selector:
       parents: [SeatBase]
     mode: Exact

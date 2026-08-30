@@ -28,6 +28,13 @@ public sealed partial class RepairBlueprintComponent : Component
     [ViewVariables]
     public readonly HashSet<RepairTargetEntitySignature> TargetEntitySignatures = new();
 
+    /// <summary>
+    /// Runtime copy of validated identity rules from the score profile. Used to compare filled/empty
+    /// mapping variants as the same repair target without changing the actual entity prototypes.
+    /// </summary>
+    [ViewVariables]
+    public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
+
     [ViewVariables]
     public int TotalTasks;
 
@@ -76,6 +83,13 @@ public sealed class RepairTask
 
     [ViewVariables]
     public Angle ExpectedLocalRotation;
+
+    /// <summary>
+    /// Original mapped rotation used only for analyzer ghost rendering. Validation uses ExpectedLocalRotation
+    /// after applying RotationMode, so objects with RotationMode.None still ignore rotation for scoring.
+    /// </summary>
+    [ViewVariables]
+    public Angle DisplayLocalRotation;
 
     /// <summary>
     /// Determines whether rotation is ignored, exact, or compared only by horizontal/vertical axis.

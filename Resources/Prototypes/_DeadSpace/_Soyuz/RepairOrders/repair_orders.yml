@@ -6,23 +6,12 @@
 
 - type: repairOrder
   id: RepairOrderDamagedEngineeringModule
-  name: repair-order-damaged-engineering-module-name
-  description: repair-order-damaged-engineering-module-description
-  difficulty: 3
+  name: repair-order-damaged-engineering-sattelite-name
+  description: repair-order-damaged-engineering-sattelite-description
+  difficulty: 2
   weight: 1
-  targetGridPath: /Maps/_Soyuz/RepairOrders/mini_wreck_target.yml
-  damagedGridPath: /Maps/_Soyuz/RepairOrders/mini_wreck_damaged.yml
-  scoreProfile: RepairOrderEngineeringScore
-  rewardPool: RepairOrderEngineeringRewardPool
-
-- type: repairOrder
-  id: RepairOrderStrippedFloorPlatform
-  name: repair-order-stripped-floor-platform-name
-  description: repair-order-stripped-floor-platform-description
-  difficulty: 5
-  weight: 1
-  targetGridPath: /Maps/_Soyuz/RepairOrders/floor_training_target.yml
-  damagedGridPath: /Maps/_Soyuz/RepairOrders/floor_training_damaged.yml
+  targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_targeted.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damaged.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
 

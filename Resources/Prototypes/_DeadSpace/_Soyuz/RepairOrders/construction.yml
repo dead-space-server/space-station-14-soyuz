@@ -12,17 +12,31 @@
   graph:
   - node: start
     edges:
+    - to: assembly
+      steps:
+      - material: Steel
+        amount: 3
+        doAfter: 1
+
+  - node: assembly
+    entity: RepairStructuralAnalyzerAssembly
+    edges:
+    - to: start
+      steps:
+      - tool: Screwing
+        doAfter: 1
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 3
+      - !type:DeleteEntity {}
     - to: analyzer
       steps:
       - component: TrayScanner
-        store: scanner
         name: repair-structural-analyzer-construction-tray-scanner
         icon:
           sprite: Objects/Tools/t-ray.rsi
           state: tray-off
-        doAfter: 1
-      - material: Steel
-        amount: 3
         doAfter: 1
       - material: Glass
         amount: 1

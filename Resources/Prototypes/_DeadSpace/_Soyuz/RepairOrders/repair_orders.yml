@@ -28,30 +28,52 @@
 
 - type: entity
   parent: BaseItem
+  id: RepairStructuralAnalyzerAssembly
+  name: unfinished repair structural analyzer
+  description: A partially assembled structural analyzer.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/t-ray.rsi
+    state: tray-off
+  - type: Item
+    size: Small
+    sprite: Objects/Tools/t-ray.rsi
+  - type: Construction
+    graph: RepairStructuralAnalyzer
+    node: assembly
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+
+- type: entity
+  parent: BaseItem
   id: RepairStructuralAnalyzer
   name: repair structural analyzer
   description: A portable engineering device that highlights unfinished structural repair tasks.
   components:
   - type: Sprite
-    sprite: Objects/Tools/t-ray.rsi
+    sprite: Objects/Tools/repair_structural_analyzer.rsi
     layers:
-    - state: tray-off
+    - state: structural-analyzer-off
       map: ["enum.ToggleableVisuals.Layer"]
   - type: Item
     size: Small
-    sprite: Objects/Tools/t-ray.rsi
+    sprite: Objects/Tools/repair_structural_analyzer.rsi
   - type: RepairStructuralAnalyzer
     range: 7
   - type: ItemToggle
     popupActivate: repair-structural-analyzer-popup-on
     popupDeactivate: repair-structural-analyzer-popup-off
+  - type: Construction
+    graph: RepairStructuralAnalyzer
+    node: analyzer
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ToggleableVisuals.Enabled:
         enum.ToggleableVisuals.Layer:
-          True: { state: tray-on }
-          False: { state: tray-off }
+          True: { state: structural-analyzer-on }
+          False: { state: structural-analyzer-off }
   - type: PhysicalComposition
     materialComposition:
       Steel: 300

@@ -1,0 +1,35 @@
+- type: construction
+  id: RepairStructuralAnalyzer
+  graph: RepairStructuralAnalyzer
+  startNode: start
+  targetNode: analyzer
+  category: construction-category-tools
+  objectType: Item
+
+- type: constructionGraph
+  id: RepairStructuralAnalyzer
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: analyzer
+      steps:
+      - component: TrayScanner
+        store: scanner
+        name: repair-structural-analyzer-construction-tray-scanner
+        icon:
+          sprite: Objects/Tools/t-ray.rsi
+          state: tray-off
+        doAfter: 1
+      - material: Steel
+        amount: 3
+        doAfter: 1
+      - material: Glass
+        amount: 1
+        doAfter: 1
+      - material: Cable
+        amount: 2
+        doAfter: 1
+
+  - node: analyzer
+    entity: RepairStructuralAnalyzer

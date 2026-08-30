@@ -1,0 +1,206 @@
+- type: repairScoreProfile
+  id: RepairOrderEngineeringScore
+  # Every non-empty tile is a separate floor/covering task.
+  defaultTilePoints: 2
+  # Anchored entities not covered below are light/simple constructions.
+  # This fallback also prevents newly added Soyuz prototypes from silently becoming worth zero points.
+  defaultEntityPoints: 8
+
+  # Optional exact overrides go here and take priority over every family rule below.
+  # Add as many entries as needed, using exactly one of `entity` or `tile` per entry:
+  # values:
+  # - entity: SomeEntityPrototypeId
+  #   points: 12
+  # - tile: SomeTileDefinitionId
+  #   points: 3
+
+  # Rules are ordered: the first matching rule wins. Specific infrastructure must stay above
+  # broad component/tag/family rules.
+  rules:
+  # Power generators.
+  - selector:
+      parents: [GeneratorRTG]
+    points: 40
+  - selector:
+      parents: [PortableGeneratorSuperPacman]
+    points: 35
+  - selector:
+      parents: [PortableGeneratorPacman]
+    points: 25
+  - selector:
+      parents: [GeneratorWallmountAPU]
+    points: 20
+  - selector:
+      parents: [PortableGeneratorJrPacman]
+    points: 5
+
+  # Power distribution.
+  - selector:
+      parents: [BaseSMES]
+    points: 20
+  - selector:
+      parents: [BaseSubstation, BaseSubstationWall]
+    points: 15
+  - selector:
+      parents: [BaseAPC]
+    points: 12
+
+  # Shuttle equipment. Docking airlocks are intentionally checked before ordinary airlocks.
+  - selector:
+      allComponents: [Docking]
+    points: 12
+  - selector:
+      parents: [Gyroscope]
+    points: 15
+  # The standard one-tile thruster is the small/manoeuvring variant. Soyuz medium/large
+  # rocket thrusters inherit BaseThruster directly and fall through to the 20-point rule.
+  - selector:
+      parents: [Thruster]
+    points: 15
+  - selector:
+      parents: [BaseThruster]
+    points: 20
+  - selector:
+      allComponents: [ShuttleConsole]
+    points: 15
+
+  # Walls, windows and doors.
+  - selector:
+      parents: [WallShuttle, WallShuttleDiagonal]
+    points: 8
+  - selector:
+      parents:
+      - WallPlastitanium
+      - WallPlastitaniumDiagonal
+    points: 15
+  - selector:
+      parents:
+      - WallTungsten
+      - WallTungstenDiagonal
+      - WallTitanaluminum
+      - WallTitanaluminumDiagonal
+    points: 10
+  - selector:
+      parents:
+      - WallReinforced
+      - WallReinforcedDiagonal
+      - WallReinforcedChitin
+      - WallRiveted
+    points: 6
+  - selector:
+      allTags: [Wall]
+    points: 5
+  - selector:
+      parents: [ShuttleWindow]
+    points: 8
+  - selector:
+      parents:
+      - PlastitaniumWindowBase
+    points: 15
+  - selector:
+      parents:
+      - TungstenWindow
+    points: 10
+  - selector:
+      parents:
+      - ReinforcedWindow
+      - WindowReinforcedDirectional
+      - ReinforcedPlasmaWindow
+      - PlasmaReinforcedWindowDirectional
+      - ReinforcedUraniumWindow
+      - UraniumReinforcedWindowDirectional
+    points: 6
+  - selector:
+      allTags: [Window]
+    points: 5
+  - selector:
+      parents: [Grille]
+    points: 3
+  - selector:
+      allComponents: [Airlock]
+    points: 8
+
+  # Atmospherics. A grille and a window remain two independent tasks and their points add naturally.
+  - selector:
+      parents: [GasVentPump, GasPassiveVent]
+    points: 6
+  - selector:
+      parents: [GasVentScrubber]
+    points: 6
+  - selector:
+      parents: [GasPressurePump, GasVolumePump]
+    points: 7
+  - selector:
+      parents: [GasValve, GasPassiveGate, GasPressureRegulator, PressureControlledValve]
+    points: 7
+  - selector:
+      parents: [GasFilter, GasMixer]
+    points: 8
+  - selector:
+      parents: [GasPipeBase]
+    points: 3
+
+  # Cable networks.
+  - selector:
+      parents: [CableApcExtension]
+    points: 2
+  - selector:
+      parents: [CableMV]
+    points: 3
+  - selector:
+      parents: [CableHV]
+    points: 4
+
+  # Furniture and stationary simple structures.
+  - selector:
+      parents: [TableBase]
+    points: 3
+  - selector:
+      parents: [SeatBase]
+    points: 2
+  - selector:
+      parents: [BaseRailing, BaseRailingWood, Rack, BaseFenceWood, BaseFenceMetal]
+    points: 3
+  - selector:
+      parents: [ClosetBase, BaseWallCloset, SuitStorageBase, CrateGeneric]
+    points: 5
+  - selector:
+      parents: [Bed]
+    points: 4
+  - selector:
+      parents: [ShelfBase, Bookshelf]
+    points: 4
+  - selector:
+      parents: [Stairs]
+    points: 5
+  - selector:
+      allComponents: [PoweredLight]
+    points: 4
+
+  # A complete machine frame or computer with a board is a complex assembly.
+  - selector:
+      allComponents: [Machine]
+    points: 15
+  - selector:
+      allComponents: [Computer]
+    points: 15
+
+  # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
+  rotationRules:
+  # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
+  - selector:
+      parents: [GasPipeStraight]
+    mode: Axis
+  - selector:
+      parents: [GasPipeBase]
+    mode: Exact
+  # Docking ports, diagonal walls, chairs, sofas, benches and other SeatBase descendants are directional.
+  - selector:
+      allComponents: [Docking]
+    mode: Exact
+  - selector:
+      allTags: [Wall, Diagonal]
+    mode: Exact
+  - selector:
+      parents: [SeatBase]
+    mode: Exact

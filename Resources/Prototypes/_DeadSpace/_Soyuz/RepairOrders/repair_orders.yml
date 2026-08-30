@@ -1,0 +1,108 @@
+- type: entity
+  parent: CrateEngineeringSecure
+  id: RepairOrderRewardCrate
+  name: repair order reward crate
+  description: A secure engineering crate containing payment for a completed repair order.
+
+- type: repairOrder
+  id: RepairOrderDamagedEngineeringModule
+  name: repair-order-damaged-engineering-module-name
+  description: repair-order-damaged-engineering-module-description
+  difficulty: 3
+  weight: 1
+  targetGridPath: /Maps/_Soyuz/RepairOrders/mini_wreck_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/mini_wreck_damaged.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+
+- type: repairOrder
+  id: RepairOrderStrippedFloorPlatform
+  name: repair-order-stripped-floor-platform-name
+  description: repair-order-stripped-floor-platform-description
+  difficulty: 5
+  weight: 1
+  targetGridPath: /Maps/_Soyuz/RepairOrders/floor_training_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/floor_training_damaged.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+
+- type: entity
+  parent: BaseItem
+  id: RepairStructuralAnalyzer
+  name: repair structural analyzer
+  description: A portable engineering device that highlights unfinished structural repair tasks.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/t-ray.rsi
+    layers:
+    - state: tray-off
+      map: ["enum.ToggleableVisuals.Layer"]
+  - type: Item
+    size: Small
+    sprite: Objects/Tools/t-ray.rsi
+  - type: RepairStructuralAnalyzer
+    range: 7
+  - type: ItemToggle
+    popupActivate: repair-structural-analyzer-popup-on
+    popupDeactivate: repair-structural-analyzer-popup-off
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: { state: tray-on }
+          False: { state: tray-off }
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+      Glass: 100
+
+- type: entity
+  parent: BaseComputer
+  id: RepairOrdersConsole
+  name: repair orders console
+  description: Used to review and accept station engineering repair orders.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request-eng
+    - map: ["computerLayerKeys"]
+      state: tech_key
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+      state: generic_panel_open
+  - type: RepairOrderConsole
+  - type: ActivatableUI
+    key: enum.RepairOrderUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.RepairOrderUiKey.Key:
+        type: RepairOrderBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: AccessReader
+    access: [["Engineering"]]
+  - type: Computer
+    board: RepairOrdersComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 4.0
+    color: "#EFB341"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: RepairOrdersComputerCircuitboard
+  name: repair orders console computer board
+  description: A computer printed circuit board for a repair orders console.
+  components:
+  - type: Sprite
+    state: cpu_engineering
+  - type: ComputerBoard
+    prototype: RepairOrdersConsole

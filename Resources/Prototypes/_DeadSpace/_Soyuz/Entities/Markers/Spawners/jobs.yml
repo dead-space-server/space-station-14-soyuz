@@ -32,4 +32,16 @@
     - type: Sprite
       layers:
         - state: green
-        - state: Politruk
+        - state: centcom
+
+- type: entity
+  id: SpawnPointOfficerGS
+  parent: SpawnPointJobBase
+  name: OfficerGS spawn
+  components:
+    - type: SpawnPoint
+      job_id: OfficerGS
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom

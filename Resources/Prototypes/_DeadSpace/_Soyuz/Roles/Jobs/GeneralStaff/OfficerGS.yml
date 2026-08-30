@@ -1,0 +1,52 @@
+- type: job
+  id: OfficerGS
+  name: job-name-OfficerGS
+  description: job-description-OfficerGS
+  playTimeTracker: JobOfficerGS
+  whitelisted: True
+  weight: 10
+  startingGear: OfficerGSGear
+  icon: "JobIconNanotrasen"
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: ZombieImmune
+    - type: NpcFactionMember
+      factions:
+      - CentralCommand
+    - type: Skill
+      group: ALL
+  supervisors: job-supervisors-centcom-administrator
+
+- type: startingGear
+  id: OfficerGSGear
+  equipment:
+    mask: ClothingMaskGasSecurity
+    outerClothing: ClothingOuterCoatCentcomOfficer
+    head: ClothingHeadHatBeretCentcomNaval
+    id: CentcomPDA
+    gloves: ClothingHandsGlovesCombat
+    ears: ClothingHeadsetAltCentCom
+    belt: ClothingBeltSecurityFilled
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficer
+    neck: SecurityWhistle
+    back: ClothingBackpackMilitarySatchel
+    shoes: ClothingShoesBootsJackFilled
+    eyes: ClothingEyesGlassesHiddenSecurity
+    suitstorage: WeaponRifleAKMCY
+    pocket1: TelescopicShield
+    pocket2: WeaponPistolX01
+  storage:
+     back:
+     - BoxZiptie
+     - MagazineLightRifle
+     - MagazineLightRifle
+     - MagazineLightRifle

@@ -4,3 +4,5 @@ ent-SpawnPointPolitruk = точка спавна Политического Ру
     .desc = { ent-SpawnPointJobBase.desc }
 ent-SpawnPointPolitkom = точка спавна Политического Комиссара
     .desc = { ent-SpawnPointJobBase.desc }
+ent-SpawnPointOfficerGS = Точка спавна Офицера ГШ
+    .desc = { ent-SpawnPointJobBase.desc }

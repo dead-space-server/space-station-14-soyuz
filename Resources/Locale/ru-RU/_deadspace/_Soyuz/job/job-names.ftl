@@ -1,5 +1,6 @@
 job-name-psychologist = Психиатр
 JobPsychologist = Психиатр
-JobPolitruk = Политический Руководитель
-JobPolitkom = Политический Комиссар
-JobOperatorGS = Оператор ГШ
+job-name-Politruk = Политический Руководитель
+job-name-Politkom = Политический Комиссар
+job-name-OperatorGS = Оператор ГШ
+job-name-OfficerGS = Офицер ГШ

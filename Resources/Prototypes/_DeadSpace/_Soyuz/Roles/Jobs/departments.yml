@@ -16,4 +16,5 @@
   color: "#ad4040"
   roles:
   - OperatorGS
+  - OfficerGS
   weight: 300

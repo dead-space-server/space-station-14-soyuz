@@ -1,6 +1,6 @@
 - type: job
   id: Politruk
-  name: job-name-politruk
+  name: job-name-Politruk
   description: job-description-Politruk
   playTimeTracker: JobPolitruk
   requirements:

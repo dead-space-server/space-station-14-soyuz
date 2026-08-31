@@ -236,12 +236,28 @@
 
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
   rotationRules:
+  # Every shuttle thruster and constructed computer is directional, including fork-specific variants.
+  - selector:
+      allComponents: [Thruster]
+    mode: Exact
+  - selector:
+      allComponents: [Computer]
+    mode: Exact
+
   # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
   - selector:
       parents: [GasPipeStraight]
     mode: Axis
   - selector:
+      parents: [GasPassiveVent, GasVentScrubber, GasVentPump]
+    mode: Exact
+  - selector:
       parents: [GasPipeBase]
+    mode: Exact
+
+  # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
+  - selector:
+      allComponents: [AtmosDevice]
     mode: Exact
 
   # Directional atmos fixtures.

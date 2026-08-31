@@ -275,8 +275,8 @@
 
 - type: repairReward
   id: RepairOrderMassScannerReward
-  entity: HandheldGPS
-  cost: 80
+  entity: BluespaceHandHeldMassScanner
+  cost: 125
   weight: 2
   maxCount: 1
   minimumDifficulty: 2
@@ -291,7 +291,7 @@
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
-  entity: RCDExperimental
+  entity: RCDRecharging
   cost: 700
   weight: 0.08
   maxCount: 1

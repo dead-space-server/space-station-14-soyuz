@@ -283,6 +283,9 @@ public sealed class RepairOrderSystem : EntitySystem
             .Where(order => order.Weight > 0f)
             .ToList();
 
+        if (candidates.Count > 1 && station.Comp.LastGeneratedPrototype is { } lastGenerated)
+            candidates.RemoveAll(order => order.ID == lastGenerated.Id);
+
         var totalWeight = candidates.Sum(order => order.Weight);
         if (candidates.Count == 0 || totalWeight <= 0f)
         {
@@ -307,6 +310,7 @@ public sealed class RepairOrderSystem : EntitySystem
             runtimeId,
             selected.ID,
             _timing.CurTime + station.Comp.OfferLifetime);
+        station.Comp.LastGeneratedPrototype = selected.ID;
     }
 
     public void RefreshStationUis(EntityUid stationUid)

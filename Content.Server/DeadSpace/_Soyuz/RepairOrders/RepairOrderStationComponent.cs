@@ -38,6 +38,9 @@ public sealed partial class RepairOrderStationComponent : Component
 
     [ViewVariables]
     public int NextRuntimeId = 1;
+
+    [ViewVariables]
+    public ProtoId<RepairOrderPrototype>? LastGeneratedPrototype;
 }
 
 [DataDefinition]

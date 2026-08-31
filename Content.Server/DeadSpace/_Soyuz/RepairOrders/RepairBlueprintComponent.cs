@@ -6,10 +6,10 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
 /// <summary>
-/// Fixed repair requirements generated from the complete target reference for one specific grid.
+/// Immutable expected target state plus derived validation results for one specific repair grid.
 /// </summary>
 [RegisterComponent]
-[Access(typeof(RepairOrderValidationSystem))]
+[Access(typeof(RepairOrderValidationSystem), typeof(RepairStructuralAnalyzerSystem))]
 public sealed partial class RepairBlueprintComponent : Component
 {
     [ViewVariables]
@@ -22,11 +22,17 @@ public sealed partial class RepairBlueprintComponent : Component
     public readonly Dictionary<Vector2i, List<RepairTask>> TasksByCell = new();
 
     /// <summary>
-    /// Every anchored signature accepted by the target, including entities which were already present in the damaged grid.
-    /// This lets validation distinguish a legitimate co-located target entity from a wrong replacement.
+    /// Source of truth copied from the target grid. An absent cell means an empty tile with no anchored entities.
     /// </summary>
     [ViewVariables]
-    public readonly HashSet<RepairTargetEntitySignature> TargetEntitySignatures = new();
+    public readonly Dictionary<Vector2i, RepairExpectedCellState> ExpectedCells = new();
+
+    /// <summary>
+    /// Initial actual-only state retained solely for the existing score baseline. Current validation is always
+    /// derived from ExpectedCells versus the live grid and does not treat this snapshot as accepted target state.
+    /// </summary>
+    [ViewVariables]
+    public readonly Dictionary<Vector2i, RepairUnexpectedCellBaseline> UnexpectedBaselineCells = new();
 
     /// <summary>
     /// Runtime copy of validated identity rules from the score profile. Used to compare filled/empty
@@ -34,6 +40,13 @@ public sealed partial class RepairBlueprintComponent : Component
     /// </summary>
     [ViewVariables]
     public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
+
+    /// <summary>
+    /// Runtime tile id canonicalization map generated from the score profile.
+    /// This lets validation compare equivalent tile definitions without changing analyzer visuals.
+    /// </summary>
+    [ViewVariables]
+    public readonly Dictionary<int, int> TileIdentityIds = new();
 
     [ViewVariables]
     public int TotalTasks;
@@ -56,10 +69,97 @@ public sealed partial class RepairBlueprintComponent : Component
     /// </summary>
     [ViewVariables]
     public bool BaselineInitialized;
+
+    [ViewVariables]
+    public bool FullyMatchesTarget;
+}
+
+public sealed class RepairExpectedCellState
+{
+    [ViewVariables]
+    public RepairExpectedTileState? Tile;
+
+    [ViewVariables]
+    public readonly List<RepairExpectedEntityState> Entities = new();
+}
+
+public sealed class RepairExpectedTileState
+{
+    [ViewVariables]
+    public int TileId;
+
+    [ViewVariables]
+    public string TilePrototype = string.Empty;
+
+    [ViewVariables]
+    public int CanonicalTileId;
+
+    [ViewVariables]
+    public string CanonicalTilePrototype = string.Empty;
+
+    [ViewVariables]
+    public int Points;
+
+    [ViewVariables]
+    public bool InitiallyCorrect;
+}
+
+public sealed class RepairExpectedEntityState
+{
+    [ViewVariables]
+    public bool Anchored = true;
+
+    [ViewVariables]
+    public RepairAnchoredEntitySignature Signature;
+
+    [ViewVariables]
+    public Angle DisplayLocalRotation;
+
+    [ViewVariables]
+    public int Count;
+
+    [ViewVariables]
+    public int InitiallyCorrectCount;
+
+    [ViewVariables]
+    public int Points;
+}
+
+public sealed class RepairUnexpectedCellBaseline
+{
+    [ViewVariables]
+    public RepairUnexpectedTileBaseline? Tile;
+
+    [ViewVariables]
+    public readonly List<RepairUnexpectedEntityBaseline> Entities = new();
+}
+
+public sealed class RepairUnexpectedTileBaseline
+{
+    [ViewVariables]
+    public string TilePrototype = string.Empty;
+
+    [ViewVariables]
+    public int Points;
+}
+
+public sealed class RepairUnexpectedEntityBaseline
+{
+    [ViewVariables]
+    public RepairAnchoredEntitySignature Signature;
+
+    [ViewVariables]
+    public Angle DisplayLocalRotation;
+
+    [ViewVariables]
+    public int Count;
+
+    [ViewVariables]
+    public int Points;
 }
 
 /// <summary>
-/// One immutable target requirement and its mutable validation state.
+/// Derived presentation and scoring state for one current expected/actual comparison result.
 /// </summary>
 public sealed class RepairTask
 {
@@ -74,6 +174,12 @@ public sealed class RepairTask
 
     [ViewVariables]
     public string? ExpectedTilePrototype;
+
+    [ViewVariables]
+    public int ExpectedCanonicalTileId;
+
+    [ViewVariables]
+    public string? ExpectedCanonicalTilePrototype;
 
     [ViewVariables]
     public string? ExpectedEntityPrototype;
@@ -118,7 +224,7 @@ public sealed class RepairTask
     public RepairTaskState State;
 }
 
-public readonly record struct RepairTargetEntitySignature(
+public readonly record struct RepairAnchoredEntitySignature(
     string Prototype,
     Vector2 LocalPosition,
     Angle LocalRotation,

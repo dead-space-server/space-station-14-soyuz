@@ -3,6 +3,7 @@ using System.Linq;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Maps;
 using Content.Shared.Tag;
+using Robust.Server.Physics;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -25,6 +26,9 @@ public sealed class RepairOrderValidationSystem : EntitySystem
     [Dependency] private readonly ITileDefinitionManager _tileDefinitions = default!;
 
     private readonly Dictionary<EntityUid, HashSet<Vector2i>> _dirtyCells = new();
+    private readonly Dictionary<EntityUid, RepairScoreLookup> _scoreLookups = new();
+    private readonly Dictionary<EntityUid, MapId> _temporaryTargetMaps = new();
+    private readonly HashSet<EntityUid> _blueprintsShuttingDown = new();
     private ISawmill _sawmill = default!;
 
     public override void Initialize()
@@ -33,8 +37,8 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
         _sawmill = _logManager.GetSawmill("repair_orders");
 
-        SubscribeLocalEvent<RepairOrderStationComponent, RepairOrderActivatedEvent>(OnOrderActivated);
         SubscribeLocalEvent<RepairBlueprintComponent, ComponentShutdown>(OnBlueprintShutdown);
+        SubscribeLocalEvent<RepairBlueprintComponent, GridSplitEvent>(OnGridSplit);
         SubscribeLocalEvent<TransformComponent, EntityTerminatingEvent>(OnTransformTerminating);
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
         SubscribeLocalEvent<AnchorStateChangedEvent>(OnAnchorStateChanged);
@@ -45,6 +49,9 @@ public sealed class RepairOrderValidationSystem : EntitySystem
     {
         _transform.OnGlobalMoveEvent -= OnMove;
         _dirtyCells.Clear();
+        _scoreLookups.Clear();
+        _temporaryTargetMaps.Clear();
+        _blueprintsShuttingDown.Clear();
         base.Shutdown();
     }
 
@@ -73,56 +80,121 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             if (progressChanged)
             {
                 SyncProgress((gridUid, blueprint));
-                SyncAnalyzerData((gridUid, blueprint));
             }
         }
     }
 
-    private void OnOrderActivated(
-        Entity<RepairOrderStationComponent> station,
-        ref RepairOrderActivatedEvent args)
+    /// <summary>
+    /// Builds and validates all runtime state required by an order before it is published as active.
+    /// On failure, no validation components or deferred dirty-cell state are retained on the damaged grid.
+    /// </summary>
+    public bool TryPrepareSession(
+        EntityUid stationUid,
+        int runtimeId,
+        ProtoId<RepairOrderPrototype> orderPrototype,
+        EntityUid gridUid,
+        out ActiveRepairOrder preparedSession)
     {
-        if (station.Comp.Active is not { } active ||
-            active.GridUid != args.GridUid ||
-            active.Prototype != args.OrderPrototype ||
-            !TryComp<MapGridComponent>(args.GridUid, out _))
+        preparedSession = new ActiveRepairOrder(runtimeId, orderPrototype, gridUid);
+        var runtimeAttached = false;
+        var prepared = false;
+
+        try
         {
-            _sawmill.Error($"Cannot build repair blueprint for station {station.Owner}: activation state or grid {args.GridUid} is invalid.");
-            return;
+            if (!TryComp<RepairOrderStationComponent>(stationUid, out var station) || station.Active != null)
+            {
+                _sawmill.Error(
+                    $"Cannot prepare repair session for station {stationUid}: station state is missing or already active.");
+                return false;
+            }
+
+            if (!TryComp<MapGridComponent>(gridUid, out _))
+            {
+                _sawmill.Error(
+                    $"Cannot prepare repair session for station {stationUid}: damaged grid {gridUid} is invalid.");
+                return false;
+            }
+
+            if (!TryGetOrderPrototype(orderPrototype, out var order))
+                return false;
+
+            var blueprint = EnsureComp<RepairBlueprintComponent>(gridUid);
+            runtimeAttached = true;
+            ResetBlueprintRuntime(blueprint, stationUid, orderPrototype);
+
+            if (!TryBuildBlueprint((gridUid, blueprint), order))
+                return false;
+
+            blueprint.Ready = true;
+            if (!RevalidateAll(gridUid))
+            {
+                _sawmill.Error(
+                    $"Cannot prepare repair session for order {orderPrototype} on grid {gridUid}: initial validation failed.");
+                return false;
+            }
+
+            preparedSession.CompletedTasks = blueprint.CompletedTasks;
+            preparedSession.TotalTasks = blueprint.TotalTasks;
+            preparedSession.BlueprintReady = blueprint.Ready;
+            preparedSession.CurrentPoints = blueprint.CurrentPoints;
+            preparedSession.MaxPoints = blueprint.MaxPoints;
+            prepared = true;
+
+            _sawmill.Info(
+                $"Prepared repair blueprint for order {orderPrototype} on grid {gridUid}: " +
+                $"{blueprint.TotalTasks} target requirements, {blueprint.CompletedTasks} initially correct.");
+            return true;
         }
+        catch (Exception exception)
+        {
+            _sawmill.Error(
+                $"Cannot prepare repair session for order {orderPrototype} on grid {gridUid}: {exception}");
+            return false;
+        }
+        finally
+        {
+            if (!prepared && runtimeAttached)
+                DiscardPreparedSession(gridUid);
+        }
+    }
 
-        if (!TryGetOrderPrototype(args.OrderPrototype, out var order))
-            return;
-
-        var blueprint = EnsureComp<RepairBlueprintComponent>(args.GridUid);
-        blueprint.Station = station.Owner;
-        blueprint.OrderPrototype = args.OrderPrototype;
+    private static void ResetBlueprintRuntime(
+        RepairBlueprintComponent blueprint,
+        EntityUid stationUid,
+        ProtoId<RepairOrderPrototype> orderPrototype)
+    {
+        blueprint.Station = stationUid;
+        blueprint.OrderPrototype = orderPrototype;
         blueprint.TasksByCell.Clear();
-        blueprint.TargetEntitySignatures.Clear();
+        blueprint.ExpectedCells.Clear();
+        blueprint.UnexpectedBaselineCells.Clear();
         blueprint.EntityIdentityRules.Clear();
+        blueprint.TileIdentityIds.Clear();
         blueprint.TotalTasks = 0;
         blueprint.CompletedTasks = 0;
         blueprint.MaxPoints = 0;
         blueprint.CurrentPoints = 0;
         blueprint.Ready = false;
         blueprint.BaselineInitialized = false;
-        RemComp<RepairAnalyzerDataComponent>(args.GridUid);
+        blueprint.FullyMatchesTarget = false;
+    }
 
-        if (!TryBuildBlueprint((args.GridUid, blueprint), order))
-        {
-            active.BlueprintReady = false;
-            active.CompletedTasks = 0;
-            active.TotalTasks = 0;
-            active.CurrentPoints = 0;
-            active.MaxPoints = 0;
+    /// <summary>
+    /// Removes validation state owned by an activation attempt which was not committed.
+    /// </summary>
+    public void DiscardPreparedSession(EntityUid gridUid)
+    {
+        _dirtyCells.Remove(gridUid);
+        _scoreLookups.Remove(gridUid);
+        DeleteTemporaryTargetMap(gridUid);
+        if (!Exists(gridUid))
             return;
-        }
 
-        blueprint.Ready = true;
-        RevalidateAll(args.GridUid);
-        _sawmill.Info(
-            $"Built repair blueprint for order {args.OrderPrototype} on grid {args.GridUid}: " +
-            $"{blueprint.TotalTasks} target requirements, {blueprint.CompletedTasks} initially correct.");
+        if (MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating &&
+            !_blueprintsShuttingDown.Contains(gridUid))
+        {
+            RemComp<RepairBlueprintComponent>(gridUid);
+        }
     }
 
     private bool TryGetOrderPrototype(
@@ -154,6 +226,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
             var temporaryMap = _map.CreateMap(out var mapId);
             temporaryMapId = mapId;
+            _temporaryTargetMaps[blueprint.Owner] = mapId;
             _map.SetPaused(temporaryMap, true);
 
             // TryLoadGrid also rejects files which do not contain exactly one grid.
@@ -165,121 +238,110 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
             var target = loadedTarget.Value;
             var scoreLookup = BuildScoreLookup(order);
+            _scoreLookups[blueprint.Owner] = scoreLookup;
             blueprint.Comp.EntityIdentityRules.Clear();
             blueprint.Comp.EntityIdentityRules.AddRange(scoreLookup.EntityIdentityRules);
-            BuildTileTasks(blueprint, target, scoreLookup);
-            BuildAnchoredEntityTasks(blueprint, target, (blueprint.Owner, repairGrid), scoreLookup);
+            blueprint.Comp.TileIdentityIds.Clear();
+            foreach (var (tileId, canonicalTileId) in scoreLookup.TileIdentityIds)
+            {
+                blueprint.Comp.TileIdentityIds[tileId] = canonicalTileId;
+            }
+
+            BuildExpectedTarget(blueprint, target, scoreLookup);
             return true;
         }
         catch (Exception exception)
         {
             blueprint.Comp.TasksByCell.Clear();
-            blueprint.Comp.TargetEntitySignatures.Clear();
+            blueprint.Comp.ExpectedCells.Clear();
+            blueprint.Comp.UnexpectedBaselineCells.Clear();
             blueprint.Comp.EntityIdentityRules.Clear();
+            blueprint.Comp.TileIdentityIds.Clear();
             blueprint.Comp.TotalTasks = 0;
             blueprint.Comp.CompletedTasks = 0;
             blueprint.Comp.MaxPoints = 0;
             blueprint.Comp.CurrentPoints = 0;
             blueprint.Comp.BaselineInitialized = false;
+            blueprint.Comp.FullyMatchesTarget = false;
+            _scoreLookups.Remove(blueprint.Owner);
             _sawmill.Error($"Cannot build repair blueprint for {order.ID}: {exception}");
             return false;
         }
         finally
         {
             // This deletes the target grid and all of its children; none of them enter the playable map.
-            if (temporaryMapId is { } mapId)
-                _map.DeleteMap(mapId);
+            DeleteTemporaryTargetMap(blueprint.Owner, temporaryMapId);
         }
     }
 
-    private void BuildTileTasks(
+    private void DeleteTemporaryTargetMap(EntityUid repairGrid, MapId? fallbackMap = null)
+    {
+        var tracked = _temporaryTargetMaps.TryGetValue(repairGrid, out var trackedMap);
+        var targetMap = tracked ? trackedMap : fallbackMap;
+        if (targetMap is not { } mapId)
+            return;
+
+        if (_map.MapExists(mapId))
+            _map.DeleteMap(mapId);
+
+        if (tracked)
+            _temporaryTargetMaps.Remove(repairGrid);
+    }
+
+    private void BuildExpectedTarget(
         Entity<RepairBlueprintComponent> blueprint,
         Entity<MapGridComponent> target,
         RepairScoreLookup scoreLookup)
     {
+        blueprint.Comp.ExpectedCells.Clear();
+        blueprint.Comp.UnexpectedBaselineCells.Clear();
+        blueprint.Comp.TasksByCell.Clear();
+
         foreach (var targetTile in _map.GetAllTiles(target.Owner, target.Comp))
         {
             var expectedTileId = targetTile.Tile.TypeId;
             var expectedTilePrototype = ((ContentTileDefinition) _tileDefinitions[expectedTileId]).ID;
-
-            AddTask(blueprint.Comp, new RepairTask
+            var expectedCanonicalTileId = CanonicalizeTileId(scoreLookup.TileIdentityIds, expectedTileId);
+            var expectedCanonicalTilePrototype = ((ContentTileDefinition) _tileDefinitions[expectedCanonicalTileId]).ID;
+            var expectedCell = GetOrCreateExpectedCell(blueprint.Comp, targetTile.GridIndices);
+            expectedCell.Tile = new RepairExpectedTileState
             {
-                Type = RepairTaskType.Tile,
-                Cell = targetTile.GridIndices,
-                ExpectedTileId = expectedTileId,
-                ExpectedTilePrototype = expectedTilePrototype,
-                Points = ResolveTilePoints(scoreLookup, expectedTilePrototype),
+                TileId = expectedTileId,
+                TilePrototype = expectedTilePrototype,
+                CanonicalTileId = expectedCanonicalTileId,
+                CanonicalTilePrototype = expectedCanonicalTilePrototype,
+                Points = ResolveTilePoints(scoreLookup, expectedCanonicalTilePrototype),
+            };
+        }
+
+        foreach (var (signature, targetEntity) in SnapshotAnchoredEntities(target, scoreLookup))
+        {
+            var expectedCell = GetOrCreateExpectedCell(blueprint.Comp, signature.Cell);
+            expectedCell.Entities.Add(new RepairExpectedEntityState
+            {
+                Signature = new RepairAnchoredEntitySignature(
+                    signature.Prototype,
+                    signature.LocalPosition,
+                    signature.LocalRotation,
+                    signature.RotationMode),
+                DisplayLocalRotation = targetEntity.DisplayLocalRotation,
+                Count = targetEntity.Count,
+                Points = ResolveEntityPoints(scoreLookup, signature.Prototype),
             });
         }
     }
 
-    private void BuildAnchoredEntityTasks(
-        Entity<RepairBlueprintComponent> blueprint,
-        Entity<MapGridComponent> target,
-        Entity<MapGridComponent> damaged,
-        RepairScoreLookup scoreLookup)
+    private static RepairExpectedCellState GetOrCreateExpectedCell(
+        RepairBlueprintComponent blueprint,
+        Vector2i cell)
     {
-        var targetEntities = SnapshotAnchoredEntities(target, scoreLookup);
-
-        foreach (var signature in targetEntities.Keys)
+        if (!blueprint.ExpectedCells.TryGetValue(cell, out var expected))
         {
-            blueprint.Comp.TargetEntitySignatures.Add(new RepairTargetEntitySignature(
-                signature.Prototype,
-                signature.LocalPosition,
-                signature.LocalRotation,
-                signature.RotationMode));
+            expected = new RepairExpectedCellState();
+            blueprint.ExpectedCells.Add(cell, expected);
         }
 
-        foreach (var (signature, targetEntity) in targetEntities)
-        {
-            for (var requiredCount = 1; requiredCount <= targetEntity.Count; requiredCount++)
-            {
-                AddTask(blueprint.Comp, new RepairTask
-                {
-                    Type = RepairTaskType.AnchoredEntity,
-                    Cell = signature.Cell,
-                    ExpectedEntityPrototype = signature.Prototype,
-                    ExpectedLocalPosition = signature.LocalPosition,
-                    ExpectedLocalRotation = signature.LocalRotation,
-                    DisplayLocalRotation = targetEntity.DisplayLocalRotation,
-                    RotationMode = signature.RotationMode,
-                    RequiredMatchingCount = requiredCount,
-                    Points = ResolveEntityPoints(scoreLookup, signature.Prototype),
-                });
-            }
-        }
-
-        BuildExtraAnchoredEntityTasks(blueprint, targetEntities, SnapshotAnchoredEntities(damaged, scoreLookup), scoreLookup);
-    }
-
-    private void BuildExtraAnchoredEntityTasks(
-        Entity<RepairBlueprintComponent> blueprint,
-        Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> targetEntities,
-        Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> damagedEntities,
-        RepairScoreLookup scoreLookup)
-    {
-        foreach (var (signature, damagedEntity) in damagedEntities)
-        {
-            var targetCount = targetEntities.TryGetValue(signature, out var targetEntity)
-                ? targetEntity.Count
-                : 0;
-
-            for (var presentCount = targetCount + 1; presentCount <= damagedEntity.Count; presentCount++)
-            {
-                AddTask(blueprint.Comp, new RepairTask
-                {
-                    Type = RepairTaskType.RemoveAnchoredEntity,
-                    Cell = signature.Cell,
-                    ExpectedEntityPrototype = signature.Prototype,
-                    ExpectedLocalPosition = signature.LocalPosition,
-                    ExpectedLocalRotation = signature.LocalRotation,
-                    DisplayLocalRotation = damagedEntity.DisplayLocalRotation,
-                    RotationMode = signature.RotationMode,
-                    RequiredMatchingCount = presentCount,
-                    Points = ResolveEntityPoints(scoreLookup, signature.Prototype),
-                });
-            }
-        }
+        return expected;
     }
 
     private Dictionary<AnchoredEntitySignature, AnchoredEntitySnapshot> SnapshotAnchoredEntities(
@@ -325,27 +387,490 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         return result;
     }
 
-    private static void AddTask(RepairBlueprintComponent blueprint, RepairTask task)
-    {
-        if (!blueprint.TasksByCell.TryGetValue(task.Cell, out var tasks))
-        {
-            tasks = new List<RepairTask>();
-            blueprint.TasksByCell.Add(task.Cell, tasks);
-        }
-
-        tasks.Add(task);
-        blueprint.TotalTasks++;
-    }
-
     /// <summary>
-    /// Fully revalidates a fixed blueprint. Intended for recovery and future final submission checks.
+    /// Authoritatively compares the complete current grid against the immutable target snapshot.
     /// </summary>
     public bool RevalidateAll(EntityUid repairGrid)
     {
-        if (!TryComp<RepairBlueprintComponent>(repairGrid, out var blueprint) || !blueprint.Ready)
+        if (!TryComp<RepairBlueprintComponent>(repairGrid, out var blueprint) ||
+            !blueprint.Ready ||
+            !_scoreLookups.TryGetValue(repairGrid, out var scoreLookup) ||
+            !TryComp<MapGridComponent>(repairGrid, out var grid))
+        {
             return false;
+        }
+
+        var actual = SnapshotActualGrid((repairGrid, grid), scoreLookup);
+        var cells = new HashSet<Vector2i>(blueprint.ExpectedCells.Keys);
+        cells.UnionWith(blueprint.UnexpectedBaselineCells.Keys);
+        cells.UnionWith(blueprint.TasksByCell.Keys);
+        cells.UnionWith(actual.Cells.Keys);
 
         var initializeBaseline = !blueprint.BaselineInitialized;
+        if (initializeBaseline)
+        {
+            blueprint.UnexpectedBaselineCells.Clear();
+            foreach (var cell in cells)
+            {
+                blueprint.ExpectedCells.TryGetValue(cell, out var expectedCell);
+                actual.Cells.TryGetValue(cell, out var actualCell);
+                CaptureBaselineCell(
+                    blueprint,
+                    cell,
+                    expectedCell,
+                    actualCell ?? ActualCellState.Empty,
+                    scoreLookup);
+            }
+
+            blueprint.BaselineInitialized = true;
+        }
+
+        blueprint.TasksByCell.Clear();
+        foreach (var cell in cells)
+        {
+            blueprint.ExpectedCells.TryGetValue(cell, out var expectedCell);
+            blueprint.UnexpectedBaselineCells.TryGetValue(cell, out var baselineCell);
+            actual.Cells.TryGetValue(cell, out var actualCell);
+            RebuildCellTasks(
+                blueprint,
+                cell,
+                expectedCell,
+                baselineCell,
+                actualCell ?? ActualCellState.Empty,
+                scoreLookup);
+        }
+
+        RecalculateProgress(blueprint, initializeBaseline);
+        SyncProgress((repairGrid, blueprint));
+        return true;
+    }
+
+    /// <summary>
+    /// Performs the authoritative expected/actual comparison required before completion.
+    /// A false return means validation could not be performed; a true return exposes whether the grid fully matches.
+    /// </summary>
+    public bool TryRevalidateForCompletion(EntityUid repairGrid, out bool fullyMatchesTarget)
+    {
+        fullyMatchesTarget = false;
+        if (!RevalidateAll(repairGrid) ||
+            !TryComp<RepairBlueprintComponent>(repairGrid, out var blueprint) ||
+            !blueprint.Ready)
+        {
+            return false;
+        }
+
+        fullyMatchesTarget = blueprint.FullyMatchesTarget;
+        return true;
+    }
+
+    private bool RevalidateCell(Entity<RepairBlueprintComponent> blueprint, Vector2i cell)
+    {
+        if (!_scoreLookups.TryGetValue(blueprint.Owner, out var scoreLookup) ||
+            !TryComp<MapGridComponent>(blueprint.Owner, out var grid))
+        {
+            return false;
+        }
+
+        blueprint.Comp.ExpectedCells.TryGetValue(cell, out var expectedCell);
+        blueprint.Comp.UnexpectedBaselineCells.TryGetValue(cell, out var baselineCell);
+        var actualCell = SnapshotActualCell((blueprint.Owner, grid), cell, scoreLookup);
+        RebuildCellTasks(blueprint.Comp, cell, expectedCell, baselineCell, actualCell, scoreLookup);
+        RecalculateProgress(blueprint.Comp, initializeMaxPoints: false);
+        return true;
+    }
+
+    private void CaptureBaselineCell(
+        RepairBlueprintComponent blueprint,
+        Vector2i cell,
+        RepairExpectedCellState? expected,
+        ActualCellState actual,
+        RepairScoreLookup scoreLookup)
+    {
+        if (expected?.Tile is { } expectedTile)
+        {
+            expectedTile.InitiallyCorrect = actual.CanonicalTileId == expectedTile.CanonicalTileId;
+        }
+        else if (!actual.TileIsEmpty)
+        {
+            var baseline = GetOrCreateUnexpectedBaselineCell(blueprint, cell);
+            baseline.Tile = new RepairUnexpectedTileBaseline
+            {
+                TilePrototype = actual.TilePrototype ?? string.Empty,
+                Points = ResolveTilePoints(scoreLookup, actual.CanonicalTilePrototype ?? string.Empty),
+            };
+        }
+
+        var comparison = CompareEntities(expected, actual);
+        if (expected != null)
+        {
+            foreach (var expectedEntity in expected.Entities)
+            {
+                expectedEntity.InitiallyCorrectCount = comparison.MatchedCounts.GetValueOrDefault(expectedEntity);
+            }
+        }
+
+        if (comparison.Unexpected.Count == 0)
+            return;
+
+        var unexpectedBaseline = GetOrCreateUnexpectedBaselineCell(blueprint, cell);
+        foreach (var unexpected in comparison.Unexpected.Values)
+        {
+            unexpectedBaseline.Entities.Add(new RepairUnexpectedEntityBaseline
+            {
+                Signature = unexpected.Signature,
+                DisplayLocalRotation = unexpected.DisplayLocalRotation,
+                Count = unexpected.Count,
+                Points = ResolveEntityPoints(scoreLookup, unexpected.Signature.Prototype),
+            });
+        }
+    }
+
+    private static RepairUnexpectedCellBaseline GetOrCreateUnexpectedBaselineCell(
+        RepairBlueprintComponent blueprint,
+        Vector2i cell)
+    {
+        if (!blueprint.UnexpectedBaselineCells.TryGetValue(cell, out var baseline))
+        {
+            baseline = new RepairUnexpectedCellBaseline();
+            blueprint.UnexpectedBaselineCells.Add(cell, baseline);
+        }
+
+        return baseline;
+    }
+
+    private void RebuildCellTasks(
+        RepairBlueprintComponent blueprint,
+        Vector2i cell,
+        RepairExpectedCellState? expected,
+        RepairUnexpectedCellBaseline? baseline,
+        ActualCellState actual,
+        RepairScoreLookup scoreLookup)
+    {
+        var tasks = new List<RepairTask>();
+
+        if (expected?.Tile is { } expectedTile)
+        {
+            tasks.Add(new RepairTask
+            {
+                Type = RepairTaskType.Tile,
+                Cell = cell,
+                ExpectedTileId = expectedTile.TileId,
+                ExpectedTilePrototype = expectedTile.TilePrototype,
+                ExpectedCanonicalTileId = expectedTile.CanonicalTileId,
+                ExpectedCanonicalTilePrototype = expectedTile.CanonicalTilePrototype,
+                Points = expectedTile.Points,
+                InitiallyCorrect = expectedTile.InitiallyCorrect,
+                State = actual.CanonicalTileId == expectedTile.CanonicalTileId
+                    ? RepairTaskState.Correct
+                    : actual.TileIsEmpty
+                        ? RepairTaskState.Missing
+                        : RepairTaskState.Wrong,
+            });
+        }
+        else if (baseline?.Tile is { } baselineTile)
+        {
+            tasks.Add(CreateUnexpectedTileTask(
+                cell,
+                actual.TilePrototype ?? baselineTile.TilePrototype,
+                baselineTile.Points,
+                initiallyCorrect: false,
+                actual.TileIsEmpty ? RepairTaskState.Correct : RepairTaskState.Wrong));
+        }
+        else if (!actual.TileIsEmpty)
+        {
+            tasks.Add(CreateUnexpectedTileTask(
+                cell,
+                actual.TilePrototype ?? string.Empty,
+                ResolveTilePoints(scoreLookup, actual.CanonicalTilePrototype ?? string.Empty),
+                initiallyCorrect: true,
+                RepairTaskState.Wrong));
+        }
+
+        var comparison = CompareEntities(expected, actual);
+        if (expected != null)
+        {
+            foreach (var expectedEntity in expected.Entities)
+            {
+                var matchedCount = comparison.MatchedCounts.GetValueOrDefault(expectedEntity);
+                var hasUnexpectedAtPosition = comparison.UnexpectedPositions.Contains(
+                    expectedEntity.Signature.LocalPosition);
+
+                for (var requiredCount = 1; requiredCount <= expectedEntity.Count; requiredCount++)
+                {
+                    tasks.Add(new RepairTask
+                    {
+                        Type = RepairTaskType.AnchoredEntity,
+                        Cell = cell,
+                        ExpectedEntityPrototype = expectedEntity.Signature.Prototype,
+                        ExpectedLocalPosition = expectedEntity.Signature.LocalPosition,
+                        ExpectedLocalRotation = expectedEntity.Signature.LocalRotation,
+                        DisplayLocalRotation = expectedEntity.DisplayLocalRotation,
+                        RotationMode = expectedEntity.Signature.RotationMode,
+                        RequiredMatchingCount = requiredCount,
+                        Points = expectedEntity.Points,
+                        InitiallyCorrect = requiredCount <= expectedEntity.InitiallyCorrectCount,
+                        State = requiredCount <= matchedCount
+                            ? RepairTaskState.Correct
+                            : hasUnexpectedAtPosition
+                                ? RepairTaskState.Wrong
+                                : RepairTaskState.Missing,
+                    });
+                }
+            }
+        }
+
+        var baselineBySignature = baseline?.Entities.ToDictionary(entry => entry.Signature)
+                                  ?? new Dictionary<RepairAnchoredEntitySignature, RepairUnexpectedEntityBaseline>();
+        foreach (var baselineEntity in baselineBySignature.Values)
+        {
+            var currentCount = comparison.Unexpected.TryGetValue(baselineEntity.Signature, out var current)
+                ? current.Count
+                : 0;
+
+            for (var requiredCount = 1; requiredCount <= baselineEntity.Count; requiredCount++)
+            {
+                tasks.Add(CreateUnexpectedEntityTask(
+                    cell,
+                    baselineEntity.Signature,
+                    baselineEntity.DisplayLocalRotation,
+                    baselineEntity.Points,
+                    requiredCount,
+                    initiallyCorrect: false,
+                    currentCount >= requiredCount ? RepairTaskState.Wrong : RepairTaskState.Correct));
+            }
+        }
+
+        foreach (var unexpected in comparison.Unexpected.Values)
+        {
+            var baselineCount = baselineBySignature.TryGetValue(unexpected.Signature, out var baselineEntity)
+                ? baselineEntity.Count
+                : 0;
+            var points = baselineEntity?.Points ?? ResolveEntityPoints(scoreLookup, unexpected.Signature.Prototype);
+
+            for (var requiredCount = baselineCount + 1; requiredCount <= unexpected.Count; requiredCount++)
+            {
+                tasks.Add(CreateUnexpectedEntityTask(
+                    cell,
+                    unexpected.Signature,
+                    unexpected.DisplayLocalRotation,
+                    points,
+                    requiredCount,
+                    initiallyCorrect: true,
+                    RepairTaskState.Wrong));
+            }
+        }
+
+        if (tasks.Count == 0)
+            blueprint.TasksByCell.Remove(cell);
+        else
+            blueprint.TasksByCell[cell] = tasks;
+    }
+
+    private static RepairTask CreateUnexpectedTileTask(
+        Vector2i cell,
+        string displayPrototype,
+        int points,
+        bool initiallyCorrect,
+        RepairTaskState state)
+    {
+        return new RepairTask
+        {
+            Type = RepairTaskType.Tile,
+            Cell = cell,
+            ExpectedTileId = Tile.Empty.TypeId,
+            ExpectedTilePrototype = displayPrototype,
+            ExpectedCanonicalTileId = Tile.Empty.TypeId,
+            Points = points,
+            InitiallyCorrect = initiallyCorrect,
+            State = state,
+        };
+    }
+
+    private static RepairTask CreateUnexpectedEntityTask(
+        Vector2i cell,
+        RepairAnchoredEntitySignature signature,
+        Angle displayRotation,
+        int points,
+        int requiredCount,
+        bool initiallyCorrect,
+        RepairTaskState state)
+    {
+        return new RepairTask
+        {
+            Type = RepairTaskType.RemoveAnchoredEntity,
+            Cell = cell,
+            ExpectedEntityPrototype = signature.Prototype,
+            ExpectedLocalPosition = signature.LocalPosition,
+            ExpectedLocalRotation = signature.LocalRotation,
+            DisplayLocalRotation = displayRotation,
+            RotationMode = signature.RotationMode,
+            RequiredMatchingCount = requiredCount,
+            Points = points,
+            InitiallyCorrect = initiallyCorrect,
+            State = state,
+        };
+    }
+
+    private CellEntityComparison CompareEntities(
+        RepairExpectedCellState? expected,
+        ActualCellState actual)
+    {
+        var result = new CellEntityComparison();
+        var matchedActual = new bool[actual.Entities.Count];
+        if (expected != null)
+        {
+            foreach (var expectedEntity in expected.Entities
+                         .OrderByDescending(entity => RotationSpecificity(entity.Signature.RotationMode)))
+            {
+                var matchedCount = 0;
+                for (var i = 0; i < actual.Entities.Count && matchedCount < expectedEntity.Count; i++)
+                {
+                    if (matchedActual[i] || !MatchesExpected(actual.Entities[i], expectedEntity))
+                        continue;
+
+                    matchedActual[i] = true;
+                    matchedCount++;
+                }
+
+                result.MatchedCounts[expectedEntity] = matchedCount;
+            }
+        }
+
+        for (var i = 0; i < actual.Entities.Count; i++)
+        {
+            if (matchedActual[i])
+                continue;
+
+            var entity = actual.Entities[i];
+            result.UnexpectedPositions.Add(entity.Signature.LocalPosition);
+            if (result.Unexpected.TryGetValue(entity.Signature, out var group))
+            {
+                group.Count++;
+                continue;
+            }
+
+            result.Unexpected.Add(entity.Signature, new ActualEntityGroup
+            {
+                Signature = entity.Signature,
+                DisplayLocalRotation = entity.DisplayLocalRotation,
+                Count = 1,
+            });
+        }
+
+        return result;
+    }
+
+    private static bool MatchesExpected(ActualAnchoredEntity actual, RepairExpectedEntityState expected)
+    {
+        return actual.Anchored == expected.Anchored &&
+               actual.Signature.Prototype == expected.Signature.Prototype &&
+               actual.Signature.LocalPosition == expected.Signature.LocalPosition &&
+               CanonicalizeRotation(actual.RawLocalRotation, expected.Signature.RotationMode) ==
+               expected.Signature.LocalRotation;
+    }
+
+    private static int RotationSpecificity(RepairRotationMode mode)
+    {
+        return mode switch
+        {
+            RepairRotationMode.Exact => 2,
+            RepairRotationMode.Axis => 1,
+            _ => 0,
+        };
+    }
+
+    private ActualGridSnapshot SnapshotActualGrid(
+        Entity<MapGridComponent> grid,
+        RepairScoreLookup scoreLookup)
+    {
+        var result = new ActualGridSnapshot();
+        foreach (var tile in _map.GetAllTiles(grid.Owner, grid.Comp))
+        {
+            var cell = result.GetOrCreateCell(tile.GridIndices);
+            SetActualTile(cell, tile.Tile.TypeId, scoreLookup);
+        }
+
+        var children = Transform(grid.Owner).ChildEnumerator;
+        while (children.MoveNext(out var child))
+        {
+            if (!TryCreateActualAnchoredEntity(grid, child, scoreLookup, out var entity, out var cell))
+                continue;
+
+            result.GetOrCreateCell(cell).Entities.Add(entity);
+        }
+
+        return result;
+    }
+
+    private ActualCellState SnapshotActualCell(
+        Entity<MapGridComponent> grid,
+        Vector2i cell,
+        RepairScoreLookup scoreLookup)
+    {
+        var result = new ActualCellState();
+        var tile = _map.GetTileRef(grid.Owner, grid.Comp, cell).Tile;
+        if (!tile.IsEmpty)
+            SetActualTile(result, tile.TypeId, scoreLookup);
+
+        foreach (var child in _map.GetAnchoredEntities(grid.Owner, grid.Comp, cell))
+        {
+            if (!TryCreateActualAnchoredEntity(grid, child, scoreLookup, out var entity, out var entityCell) ||
+                entityCell != cell)
+            {
+                continue;
+            }
+
+            result.Entities.Add(entity);
+        }
+
+        return result;
+    }
+
+    private bool TryCreateActualAnchoredEntity(
+        Entity<MapGridComponent> grid,
+        EntityUid child,
+        RepairScoreLookup scoreLookup,
+        out ActualAnchoredEntity entity,
+        out Vector2i cell)
+    {
+        entity = default!;
+        cell = default;
+        if (!TryComp(child, out TransformComponent? xform) ||
+            !xform.Anchored ||
+            xform.ParentUid != grid.Owner ||
+            MetaData(child).EntityPrototype?.ID is not { } prototypeId)
+        {
+            return false;
+        }
+
+        var rotationMode = ResolveRotationMode(scoreLookup, prototypeId);
+        var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, prototypeId);
+        cell = LocalPositionToCell(grid.Comp, xform.LocalPosition);
+        entity = new ActualAnchoredEntity
+        {
+            Anchored = xform.Anchored,
+            Signature = new RepairAnchoredEntitySignature(
+                canonicalPrototype,
+                xform.LocalPosition,
+                CanonicalizeRotation(xform.LocalRotation, rotationMode),
+                rotationMode),
+            RawLocalRotation = xform.LocalRotation,
+            DisplayLocalRotation = xform.LocalRotation.Reduced().FlipPositive(),
+        };
+        return true;
+    }
+
+    private void SetActualTile(ActualCellState cell, int tileId, RepairScoreLookup scoreLookup)
+    {
+        cell.TileId = tileId;
+        cell.TilePrototype = ((ContentTileDefinition) _tileDefinitions[tileId]).ID;
+        cell.CanonicalTileId = CanonicalizeTileId(scoreLookup.TileIdentityIds, tileId);
+        cell.CanonicalTilePrototype = ((ContentTileDefinition) _tileDefinitions[cell.CanonicalTileId]).ID;
+    }
+
+    private static void RecalculateProgress(RepairBlueprintComponent blueprint, bool initializeMaxPoints)
+    {
+        var total = 0;
         var completed = 0;
         var currentPoints = 0;
         var maxPoints = 0;
@@ -353,10 +878,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         {
             foreach (var task in tasks)
             {
-                task.State = EvaluateTask((repairGrid, blueprint), task);
-                if (initializeBaseline)
-                    task.InitiallyCorrect = task.State == RepairTaskState.Correct;
-
+                total++;
                 if (task.State == RepairTaskState.Correct)
                     completed++;
 
@@ -366,42 +888,12 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             }
         }
 
+        blueprint.TotalTasks = total;
         blueprint.CompletedTasks = completed;
         blueprint.CurrentPoints = currentPoints;
-        if (initializeBaseline)
-        {
+        blueprint.FullyMatchesTarget = completed == total;
+        if (initializeMaxPoints)
             blueprint.MaxPoints = maxPoints;
-            blueprint.BaselineInitialized = true;
-        }
-        SyncProgress((repairGrid, blueprint));
-        SyncAnalyzerData((repairGrid, blueprint));
-        return true;
-    }
-
-    private bool RevalidateCell(Entity<RepairBlueprintComponent> blueprint, Vector2i cell)
-    {
-        if (!blueprint.Comp.TasksByCell.TryGetValue(cell, out var tasks))
-            return false;
-
-        var changed = false;
-        foreach (var task in tasks)
-        {
-            var oldState = task.State;
-            var newState = EvaluateTask(blueprint, task);
-            if (newState == oldState)
-                continue;
-
-            blueprint.Comp.CurrentPoints -= GetPointContribution(task, oldState);
-            task.State = newState;
-            if (oldState == RepairTaskState.Correct)
-                blueprint.Comp.CompletedTasks--;
-            if (newState == RepairTaskState.Correct)
-                blueprint.Comp.CompletedTasks++;
-            blueprint.Comp.CurrentPoints += GetPointContribution(task, newState);
-            changed = true;
-        }
-
-        return changed;
     }
 
     private static int GetPointContribution(RepairTask task, RepairTaskState state)
@@ -410,87 +902,6 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             return state == RepairTaskState.Correct ? 0 : -task.Points;
 
         return state == RepairTaskState.Correct ? task.Points : 0;
-    }
-
-    private RepairTaskState EvaluateTask(Entity<RepairBlueprintComponent> blueprint, RepairTask task)
-    {
-        if (!TryComp<MapGridComponent>(blueprint.Owner, out var grid))
-            return RepairTaskState.Missing;
-
-        if (task.Type == RepairTaskType.Tile)
-        {
-            var actualTile = _map.GetTileRef(blueprint.Owner, grid, task.Cell).Tile;
-            if (actualTile.TypeId == task.ExpectedTileId)
-                return RepairTaskState.Correct;
-            return actualTile.IsEmpty ? RepairTaskState.Missing : RepairTaskState.Wrong;
-        }
-
-        var exactMatches = 0;
-        var hasWrongEntityAtPosition = false;
-        foreach (var entity in _map.GetAnchoredEntities(blueprint.Owner, grid, task.Cell))
-        {
-            if (!TryComp(entity, out TransformComponent? xform) ||
-                !xform.Anchored ||
-                xform.ParentUid != blueprint.Owner ||
-                xform.LocalPosition != task.ExpectedLocalPosition)
-            {
-                continue;
-            }
-
-            var prototype = MetaData(entity).EntityPrototype?.ID;
-            var canonicalPrototype = prototype is null
-                ? null
-                : CanonicalizeEntityPrototype(blueprint.Comp.EntityIdentityRules, prototype);
-            var rotation = CanonicalizeRotation(xform.LocalRotation, task.RotationMode);
-            if (canonicalPrototype == task.ExpectedEntityPrototype &&
-                rotation == task.ExpectedLocalRotation)
-            {
-                exactMatches++;
-            }
-            else if (canonicalPrototype == null ||
-                     !IsAcceptedTargetEntity(
-                         blueprint.Comp,
-                         canonicalPrototype,
-                         xform.LocalPosition,
-                         xform.LocalRotation))
-            {
-                hasWrongEntityAtPosition = true;
-            }
-        }
-
-        if (task.Type == RepairTaskType.RemoveAnchoredEntity)
-        {
-            return exactMatches >= task.RequiredMatchingCount
-                ? RepairTaskState.Wrong
-                : RepairTaskState.Correct;
-        }
-
-        // Extra anchored entities do not invalidate an exact match for this particular task.
-        if (exactMatches >= task.RequiredMatchingCount)
-            return RepairTaskState.Correct;
-
-        return hasWrongEntityAtPosition
-            ? RepairTaskState.Wrong
-            : RepairTaskState.Missing;
-    }
-
-    private static bool IsAcceptedTargetEntity(
-        RepairBlueprintComponent blueprint,
-        string prototype,
-        Vector2 localPosition,
-        Angle localRotation)
-    {
-        foreach (var signature in blueprint.TargetEntitySignatures)
-        {
-            if (signature.Prototype == prototype &&
-                signature.LocalPosition == localPosition &&
-                signature.LocalRotation == CanonicalizeRotation(localRotation, signature.RotationMode))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void SyncProgress(Entity<RepairBlueprintComponent> blueprint)
@@ -508,46 +919,6 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         active.CurrentPoints = blueprint.Comp.CurrentPoints;
         active.MaxPoints = blueprint.Comp.MaxPoints;
         _repairOrders.RefreshStationUis(blueprint.Comp.Station);
-    }
-
-    private void SyncAnalyzerData(Entity<RepairBlueprintComponent> blueprint)
-    {
-        if (!blueprint.Comp.Ready ||
-            !TryComp<MapGridComponent>(blueprint.Owner, out var grid))
-        {
-            RemComp<RepairAnalyzerDataComponent>(blueprint.Owner);
-            return;
-        }
-
-        var tasks = new List<RepairAnalyzerTaskData>();
-        foreach (var cellTasks in blueprint.Comp.TasksByCell.Values)
-        {
-            foreach (var task in cellTasks)
-            {
-                if (task.State == RepairTaskState.Correct)
-                    continue;
-
-                var localPosition = task.Type == RepairTaskType.Tile
-                    ? new Vector2(
-                        (task.Cell.X + 0.5f) * grid.TileSize,
-                        (task.Cell.Y + 0.5f) * grid.TileSize)
-                    : task.ExpectedLocalPosition;
-                var expectedPrototype = task.Type == RepairTaskType.Tile
-                    ? task.ExpectedTilePrototype ?? string.Empty
-                    : task.ExpectedEntityPrototype ?? string.Empty;
-
-                tasks.Add(new RepairAnalyzerTaskData(
-                    task.Type,
-                    localPosition,
-                    task.DisplayLocalRotation,
-                    expectedPrototype,
-                    task.State));
-            }
-        }
-
-        var analyzerData = EnsureComp<RepairAnalyzerDataComponent>(blueprint.Owner);
-        analyzerData.Tasks = tasks;
-        Dirty(blueprint.Owner, analyzerData);
     }
 
     private void OnTileChanged(ref TileChangedEvent args)
@@ -602,8 +973,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
     private void MarkDirty(EntityUid gridUid, Vector2i cell)
     {
         if (!TryComp<RepairBlueprintComponent>(gridUid, out var blueprint) ||
-            !blueprint.Ready ||
-            !blueprint.TasksByCell.ContainsKey(cell))
+            !blueprint.Ready)
         {
             return;
         }
@@ -622,35 +992,35 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         ref ComponentShutdown args)
     {
         _dirtyCells.Remove(blueprint.Owner);
-        if (MetaData(blueprint.Owner).EntityLifeStage < EntityLifeStage.Terminating)
-            RemCompDeferred<RepairAnalyzerDataComponent>(blueprint.Owner);
+        _scoreLookups.Remove(blueprint.Owner);
 
-        if (!TryComp<RepairOrderStationComponent>(blueprint.Comp.Station, out var station) ||
-            station.Active is not { } active ||
-            active.GridUid != blueprint.Owner)
+        var reason = MetaData(blueprint.Owner).EntityLifeStage >= EntityLifeStage.Terminating
+            ? RepairOrderAbortReason.RepairGridDeleted
+            : RepairOrderAbortReason.ValidationRuntimeLost;
+
+        _blueprintsShuttingDown.Add(blueprint.Owner);
+        try
         {
-            return;
+            _repairOrders.AbortActiveOrder(
+                blueprint.Comp.Station,
+                blueprint.Owner,
+                reason);
         }
+        finally
+        {
+            _blueprintsShuttingDown.Remove(blueprint.Owner);
+        }
+    }
 
-        active.GridUid = EntityUid.Invalid;
-        active.CompletedTasks = 0;
-        active.TotalTasks = 0;
-        active.CurrentPoints = 0;
-        active.MaxPoints = 0;
-        active.BlueprintReady = false;
-        blueprint.Comp.TasksByCell.Clear();
-        blueprint.Comp.TargetEntitySignatures.Clear();
-        blueprint.Comp.EntityIdentityRules.Clear();
-        blueprint.Comp.CompletedTasks = 0;
-        blueprint.Comp.TotalTasks = 0;
-        blueprint.Comp.CurrentPoints = 0;
-        blueprint.Comp.MaxPoints = 0;
-        blueprint.Comp.Ready = false;
-        blueprint.Comp.BaselineInitialized = false;
-
-        _sawmill.Warning(
-            $"Repair grid {blueprint.Owner} for active order {active.RuntimeId} on station {blueprint.Comp.Station} was deleted; blueprint runtime state was cleared.");
-        _repairOrders.RefreshStationUis(blueprint.Comp.Station);
+    private void OnGridSplit(
+        Entity<RepairBlueprintComponent> blueprint,
+        ref GridSplitEvent args)
+    {
+        _repairOrders.AbortActiveOrder(
+            blueprint.Comp.Station,
+            blueprint.Owner,
+            RepairOrderAbortReason.RepairGridSplit,
+            args.NewGrids);
     }
 
     private static Vector2i LocalPositionToCell(MapGridComponent grid, Vector2 position)
@@ -690,6 +1060,51 @@ public sealed class RepairOrderValidationSystem : EntitySystem
 
         lookup.DefaultTilePoints = Math.Max(0, profile.DefaultTilePoints);
         lookup.DefaultEntityPoints = Math.Max(0, profile.DefaultEntityPoints);
+
+        foreach (var rule in profile.TileIdentityRules)
+        {
+            if (rule.Tiles.Count == 0)
+            {
+                _sawmill.Warning(
+                    $"Repair score profile {profile.ID} contains an empty tile identity rule; the rule is ignored.");
+                continue;
+            }
+
+            if (!_tileDefinitions.TryGetDefinition(rule.Canonical, out var canonicalDefinition))
+            {
+                _sawmill.Warning(
+                    $"Repair score profile {profile.ID} contains a tile identity rule with missing canonical tile {rule.Canonical}; the rule is ignored.");
+                continue;
+            }
+
+            var validRule = true;
+            var tileDefinitions = new List<ITileDefinition>();
+            foreach (var tile in rule.Tiles)
+            {
+                if (_tileDefinitions.TryGetDefinition(tile, out var tileDefinition))
+                {
+                    tileDefinitions.Add(tileDefinition);
+                    continue;
+                }
+
+                _sawmill.Warning(
+                    $"Repair score profile {profile.ID} contains a tile identity rule with missing tile {tile}; the rule is ignored.");
+                validRule = false;
+                break;
+            }
+
+            if (!validRule)
+                continue;
+
+            foreach (var tileDefinition in tileDefinitions)
+            {
+                if (!lookup.TileIdentityIds.TryAdd(tileDefinition.TileId, canonicalDefinition.TileId))
+                {
+                    _sawmill.Warning(
+                        $"Repair score profile {profile.ID} contains duplicate tile identity for {tileDefinition.ID}; the first value is used.");
+                }
+            }
+        }
 
         foreach (var rule in profile.IdentityRules)
         {
@@ -775,6 +1190,13 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             return points;
 
         return lookup.DefaultTilePoints;
+    }
+
+    private static int CanonicalizeTileId(IReadOnlyDictionary<int, int> tileIdentityIds, int tileId)
+    {
+        return tileIdentityIds.TryGetValue(tileId, out var canonicalTileId)
+            ? canonicalTileId
+            : tileId;
     }
 
     private int ResolveEntityPoints(RepairScoreLookup lookup, string entityPrototype)
@@ -942,6 +1364,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         public readonly string Profile = profile;
         public int DefaultTilePoints;
         public int DefaultEntityPoints;
+        public readonly Dictionary<int, int> TileIdentityIds = new();
         public readonly Dictionary<string, int> TilePoints = new();
         public readonly Dictionary<string, int> EntityPoints = new();
         public readonly List<RepairScoreRule> EntityRules = new();
@@ -961,5 +1384,56 @@ public sealed class RepairOrderValidationSystem : EntitySystem
     {
         public int Count;
         public Angle DisplayLocalRotation;
+    }
+
+    private sealed class ActualGridSnapshot
+    {
+        public readonly Dictionary<Vector2i, ActualCellState> Cells = new();
+
+        public ActualCellState GetOrCreateCell(Vector2i cell)
+        {
+            if (!Cells.TryGetValue(cell, out var state))
+            {
+                state = new ActualCellState();
+                Cells.Add(cell, state);
+            }
+
+            return state;
+        }
+    }
+
+    private sealed class ActualCellState
+    {
+        public static readonly ActualCellState Empty = new();
+
+        public int TileId = Tile.Empty.TypeId;
+        public string? TilePrototype;
+        public int CanonicalTileId = Tile.Empty.TypeId;
+        public string? CanonicalTilePrototype;
+        public readonly List<ActualAnchoredEntity> Entities = new();
+
+        public bool TileIsEmpty => TileId == Tile.Empty.TypeId;
+    }
+
+    private sealed class ActualAnchoredEntity
+    {
+        public bool Anchored;
+        public RepairAnchoredEntitySignature Signature;
+        public Angle RawLocalRotation;
+        public Angle DisplayLocalRotation;
+    }
+
+    private sealed class ActualEntityGroup
+    {
+        public RepairAnchoredEntitySignature Signature;
+        public Angle DisplayLocalRotation;
+        public int Count;
+    }
+
+    private sealed class CellEntityComparison
+    {
+        public readonly Dictionary<RepairExpectedEntityState, int> MatchedCounts = new();
+        public readonly Dictionary<RepairAnchoredEntitySignature, ActualEntityGroup> Unexpected = new();
+        public readonly HashSet<Vector2> UnexpectedPositions = new();
     }
 }

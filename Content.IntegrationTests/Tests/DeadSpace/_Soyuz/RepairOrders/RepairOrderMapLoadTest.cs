@@ -1,6 +1,10 @@
+using System.Linq;
+using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
@@ -8,13 +12,10 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 [TestFixture]
 public sealed class RepairOrderMapLoadTest
 {
-    private static readonly ResPath[] RepairOrderGridPaths =
-    [
-        new("/Maps/_Soyuz/RepairOrders/mini_wreck_damaged.yml"),
-        new("/Maps/_Soyuz/RepairOrders/mini_wreck_target.yml"),
-        new("/Maps/_Soyuz/RepairOrders/floor_training_damaged.yml"),
-        new("/Maps/_Soyuz/RepairOrders/floor_training_target.yml"),
-    ];
+    private readonly record struct RepairOrderGridUsage(
+        string PrototypeId,
+        string Kind,
+        ResPath Path);
 
     [Test]
     public async Task RepairOrderGridsLoad()
@@ -24,22 +25,63 @@ public sealed class RepairOrderMapLoadTest
         var entManager = server.ResolveDependency<IEntityManager>();
         var mapLoader = entManager.System<MapLoaderSystem>();
         var mapSystem = entManager.System<SharedMapSystem>();
+        var prototypeManager = server.ResolveDependency<IPrototypeManager>();
 
         await server.WaitPost(() =>
         {
-            foreach (var path in RepairOrderGridPaths)
+            var repairOrders = prototypeManager.EnumeratePrototypes<RepairOrderPrototype>()
+                .OrderBy(order => order.ID)
+                .ToArray();
+
+            Assert.That(repairOrders, Is.Not.Empty, "No RepairOrderPrototype instances were loaded.");
+
+            var paths = repairOrders
+                .SelectMany(order => new[]
+                {
+                    new RepairOrderGridUsage(order.ID, "Target", order.TargetGridPath),
+                    new RepairOrderGridUsage(order.ID, "Damaged", order.DamagedGridPath),
+                })
+                .GroupBy(usage => usage.Path)
+                .OrderBy(group => group.Key.ToString(), StringComparer.Ordinal);
+
+            foreach (var pathGroup in paths)
             {
+                var path = pathGroup.Key;
+                var usages = string.Join(", ", pathGroup.Select(usage => $"{usage.PrototypeId} ({usage.Kind})"));
+                var diagnostic = $"Repair Order grid '{path}' used by: {usages}.";
+                var failingLogCount = pair.ServerLogHandler.FailingLogs.Count;
+
                 mapSystem.CreateMap(out var mapId);
                 try
                 {
-                    Assert.That(mapLoader.TryLoadGrid(mapId, path, out var grid), Is.True, $"Failed to load {path}.");
-                    Assert.That(grid!.Value.Comp.LocalAABB.Size.X, Is.GreaterThan(0f));
-                    Assert.That(grid.Value.Comp.LocalAABB.Size.Y, Is.GreaterThan(0f));
+                    Entity<MapGridComponent>? grid;
+                    bool loaded;
+
+                    try
+                    {
+                        loaded = mapLoader.TryLoadGrid(mapId, path, out grid);
+                    }
+                    catch (Exception exception)
+                    {
+                        throw new Exception($"Failed to load {diagnostic}", exception);
+                    }
+
+                    Assert.That(loaded, Is.True, $"Failed to load {diagnostic}");
+                    Assert.That(grid!.Value.Comp.LocalAABB.Size.X, Is.GreaterThan(0f),
+                        $"Loaded grid has no width. {diagnostic}");
+                    Assert.That(grid.Value.Comp.LocalAABB.Size.Y, Is.GreaterThan(0f),
+                        $"Loaded grid has no height. {diagnostic}");
                 }
                 finally
                 {
                     mapSystem.DeleteMap(mapId);
                 }
+
+                var mapErrorLogs = pair.ServerLogHandler.FailingLogs
+                    .Skip(failingLogCount)
+                    .ToArray();
+                Assert.That(mapErrorLogs, Is.Empty,
+                    $"Error logs were emitted while loading {diagnostic}\n{string.Join('\n', mapErrorLogs)}");
             }
         });
 

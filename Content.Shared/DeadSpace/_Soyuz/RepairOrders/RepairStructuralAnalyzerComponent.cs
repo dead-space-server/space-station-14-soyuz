@@ -15,17 +15,6 @@ public sealed partial class RepairStructuralAnalyzerComponent : Component
     public float Range = 7f;
 }
 
-/// <summary>
-/// Server-authored visualization data attached only to a grid with a ready, active RepairBlueprint.
-/// Correct tasks are deliberately omitted.
-/// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
-public sealed partial class RepairAnalyzerDataComponent : Component
-{
-    [AutoNetworkedField]
-    public List<RepairAnalyzerTaskData> Tasks = new();
-}
-
 [DataDefinition, Serializable, NetSerializable]
 public sealed partial class RepairAnalyzerTaskData
 {

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Client.ContextMenu.UI;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Content.Shared.Item.ItemToggle.Components;
@@ -16,7 +17,8 @@ using Robust.Shared.Prototypes;
 namespace Content.Client.DeadSpace._Soyuz.RepairOrders;
 
 /// <summary>
-/// Enables the world overlay when the local player carries an active structural analyzer.
+/// Receives a private server-authorized snapshot and enables its visualization when the local player
+/// carries an active structural analyzer.
 /// Inventory handling intentionally mirrors the T-ray scanner behavior.
 /// </summary>
 public sealed class RepairStructuralAnalyzerSystem : EntitySystem
@@ -31,6 +33,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly IUserInterfaceManager _ui = default!;
 
+    private readonly Dictionary<EntityUid, RepairAnalyzerTaskData[]> _authorizedSnapshots = new();
     private RepairStructuralAnalyzerOverlay _overlay = default!;
 
     public override void Initialize()
@@ -42,8 +45,12 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             _transform,
             _prototype,
             _sprite,
-            _tileDefinitions);
+            _tileDefinitions,
+            _authorizedSnapshots);
         _overlayManager.AddOverlay(_overlay);
+
+        SubscribeNetworkEvent<RepairAnalyzerSnapshotEvent>(OnAnalyzerSnapshot);
+        SubscribeNetworkEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
 
         CommandBinds.Builder
             .BindBefore(
@@ -57,7 +64,24 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     {
         CommandBinds.Unregister<RepairStructuralAnalyzerSystem>();
         _overlayManager.RemoveOverlay(_overlay);
+        _authorizedSnapshots.Clear();
         base.Shutdown();
+    }
+
+    private void OnAnalyzerSnapshot(RepairAnalyzerSnapshotEvent message)
+    {
+        _authorizedSnapshots.Clear();
+        foreach (var snapshot in message.Grids)
+        {
+            var gridUid = GetEntity(snapshot.Grid);
+            if (gridUid.IsValid())
+                _authorizedSnapshots[gridUid] = snapshot.Tasks;
+        }
+    }
+
+    private void OnRoundRestartCleanup(RoundRestartCleanupEvent message)
+    {
+        _authorizedSnapshots.Clear();
     }
 
     public override void Update(float frameTime)

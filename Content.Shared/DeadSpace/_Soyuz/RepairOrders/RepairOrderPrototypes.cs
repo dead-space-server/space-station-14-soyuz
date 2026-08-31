@@ -70,6 +70,12 @@ public sealed partial class RepairScoreProfilePrototype : IPrototype
     public List<RepairScoreValue> Values = new();
 
     /// <summary>
+    /// Ordered tile identity rules. Matching tile definitions are compared as the configured canonical tile.
+    /// </summary>
+    [DataField]
+    public List<RepairTileIdentityRule> TileIdentityRules = new();
+
+    /// <summary>
     /// Ordered entity scoring rules. The first matching rule is used.
     /// </summary>
     [DataField]
@@ -154,6 +160,16 @@ public sealed partial class RepairEntityIdentityRule
 
     [DataField(required: true)]
     public EntProtoId Canonical;
+}
+
+[DataDefinition]
+public sealed partial class RepairTileIdentityRule
+{
+    [DataField(required: true)]
+    public List<ProtoId<ContentTileDefinition>> Tiles = new();
+
+    [DataField(required: true)]
+    public ProtoId<ContentTileDefinition> Canonical;
 }
 
 [DataDefinition]

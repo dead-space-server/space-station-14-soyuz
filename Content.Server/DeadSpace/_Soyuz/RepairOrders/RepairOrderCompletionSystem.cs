@@ -72,12 +72,12 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
         state.Completing = true;
         _repairOrders.RefreshStationUis(stationUid.Value);
 
-        var deliveryContainer = EntityUid.Invalid;
+        RepairOrderDelivery? delivery = null;
         var committed = false;
         try
         {
             // A final full pass makes submission independent of deferred realtime cell updates.
-            if (!_validation.RevalidateAll(active.GridUid))
+            if (!_validation.TryRevalidateForCompletion(active.GridUid, out var fullyMatchesTarget))
             {
                 Fail(
                     console.Owner,
@@ -87,7 +87,18 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            var rewards = _rewards.GenerateRewards(order, active.CurrentPoints);
+            if (!fullyMatchesTarget)
+            {
+                Fail(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-incomplete",
+                    $"grid {active.GridUid} does not fully match its target blueprint");
+                return;
+            }
+
+            active.PendingRewards ??= _rewards.GenerateRewards(order, active.CurrentPoints);
+            var rewards = active.PendingRewards;
             var completed = new CompletedRepairOrder(
                 active.RuntimeId,
                 active.Prototype,
@@ -96,10 +107,16 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 active.CurrentPoints,
                 active.MaxPoints,
                 delivered: false,
-                deliveryContainer: null,
+                deliveryContainers: null,
                 rewards: rewards);
 
-            if (!_delivery.TryDeliver(console.Owner, order, rewards, out deliveryContainer))
+            if (!_delivery.TryDeliver(
+                    stationUid.Value,
+                    active.RuntimeId,
+                    console.Owner,
+                    order,
+                    rewards,
+                    out var preparedDelivery))
             {
                 Fail(
                     console.Owner,
@@ -109,21 +126,43 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
+            delivery = preparedDelivery;
             completed.Delivered = true;
-            completed.DeliveryContainer = deliveryContainer;
+            completed.DeliveryContainers.AddRange(delivery.Containers);
 
-            var repairGrid = active.GridUid;
-            state.Completed = completed;
-            state.Active = null;
+            if (!_repairOrders.TryCommitCompletion(stationUid.Value, active, completed, out var repairGrid))
+            {
+                _delivery.Rollback(delivery);
+                delivery = null;
+
+                Fail(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-complete-unavailable",
+                    $"active order {active.RuntimeId} changed before completion commit");
+                return;
+            }
+
             committed = true;
+            _delivery.Commit(delivery);
 
             // The completed snapshot contains every persistent result; the grid and blueprint are no longer runtime state.
-            QueueDel(repairGrid);
+            try
+            {
+                _validation.DiscardPreparedSession(repairGrid);
+            }
+            finally
+            {
+                if (Exists(repairGrid))
+                    QueueDel(repairGrid);
+            }
 
             _sawmill.Info(
                 $"Completed repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +
                 $"{completed.CompletedTasks}/{completed.TotalTasks} tasks, {completed.FinalPoints}/{completed.MaxPoints} points, " +
-                $"{completed.Rewards.Sum(reward => reward.Count)} physical rewards delivered in container {deliveryContainer}; " +
+                $"{completed.Rewards.Sum(reward => reward.Count)} physical rewards delivered in " +
+                $"{completed.DeliveryContainers.Count} protected container(s) " +
+                $"[{string.Join(", ", completed.DeliveryContainers)}]; " +
                 $"queued grid {repairGrid} for deletion.");
             _popup.PopupEntity(
                 Loc.GetString("repair-orders-complete-success"),
@@ -141,8 +180,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            if (deliveryContainer.IsValid() && Exists(deliveryContainer))
-                QueueDel(deliveryContainer);
+            _delivery.Rollback(delivery);
 
             _sawmill.Error(
                 $"Failed to complete repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {exception}");

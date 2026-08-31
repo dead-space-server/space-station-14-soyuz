@@ -15,7 +15,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.DeadSpace._Soyuz.RepairOrders;
 
 /// <summary>
-/// Draws non-physical prototype and tile ghosts from server-authored RepairAnalyzerData.
+/// Draws non-physical prototype and tile ghosts from the local player's server-authorized snapshot.
 /// </summary>
 public sealed class RepairStructuralAnalyzerOverlay : Overlay
 {
@@ -29,6 +29,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
     private readonly SpriteSystem _sprite;
     private readonly ITileDefinitionManager _tileDefinitions;
     private readonly SharedTransformSystem _transform;
+    private readonly IReadOnlyDictionary<EntityUid, RepairAnalyzerTaskData[]> _authorizedSnapshots;
 
     private readonly Dictionary<string, PrototypeVisual> _entityVisuals = new();
     private readonly Dictionary<string, Texture?> _tileVisuals = new();
@@ -43,13 +44,15 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         SharedTransformSystem transform,
         IPrototypeManager prototype,
         SpriteSystem sprite,
-        ITileDefinitionManager tileDefinitions)
+        ITileDefinitionManager tileDefinitions,
+        IReadOnlyDictionary<EntityUid, RepairAnalyzerTaskData[]> authorizedSnapshots)
     {
         _entityManager = entityManager;
         _transform = transform;
         _prototype = prototype;
         _sprite = sprite;
         _tileDefinitions = tileDefinitions;
+        _authorizedSnapshots = authorizedSnapshots;
         ZIndex = 100;
     }
 
@@ -61,7 +64,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
                 viewerPosition,
                 rangeSquared,
                 out _,
-                out var data,
+                out var tasks,
                 out var grid,
                 out var worldMatrix))
         {
@@ -71,7 +74,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         var handle = args.WorldHandle;
         handle.SetTransform(worldMatrix);
 
-        foreach (var task in data.Tasks)
+        foreach (var task in tasks)
         {
             if (task.State == RepairTaskState.Correct)
                 continue;
@@ -98,7 +101,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
                 viewerPosition,
                 rangeSquared,
                 out _,
-                out var data,
+                out var selectedTasks,
                 out var grid,
                 out var worldMatrix))
         {
@@ -107,7 +110,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
         RepairAnalyzerTaskData? nearest = null;
         var nearestDistanceSquared = float.MaxValue;
-        foreach (var task in data.Tasks)
+        foreach (var task in selectedTasks)
         {
             if (task.State == RepairTaskState.Correct)
                 continue;
@@ -129,7 +132,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
             return false;
 
         // Every unfinished requirement at the same precise local position is shown independently.
-        foreach (var task in data.Tasks)
+        foreach (var task in selectedTasks)
         {
             if (task.State != RepairTaskState.Correct &&
                 Vector2.DistanceSquared(task.LocalPosition, nearest.LocalPosition) < 0.0001f)
@@ -189,25 +192,29 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         Vector2 viewerPosition,
         float rangeSquared,
         out EntityUid selectedGrid,
-        out RepairAnalyzerDataComponent selectedData,
+        out IReadOnlyList<RepairAnalyzerTaskData> selectedTasks,
         out MapGridComponent selectedGridComponent,
         out Matrix3x2 selectedWorldMatrix)
     {
         selectedGrid = EntityUid.Invalid;
-        selectedData = default!;
+        selectedTasks = Array.Empty<RepairAnalyzerTaskData>();
         selectedGridComponent = default!;
         selectedWorldMatrix = default;
         var nearestDistanceSquared = float.MaxValue;
 
         // If several repair grids are nearby, select the one whose unfinished task is closest to the viewer.
-        var query = _entityManager.EntityQueryEnumerator<RepairAnalyzerDataComponent, MapGridComponent, TransformComponent>();
-        while (query.MoveNext(out var gridUid, out var data, out var grid, out var gridTransform))
+        foreach (var (gridUid, tasks) in _authorizedSnapshots)
         {
-            if (gridTransform.MapID != mapId || data.Tasks.Count == 0)
+            if (!_entityManager.TryGetComponent(gridUid, out MapGridComponent? grid) ||
+                !_entityManager.TryGetComponent(gridUid, out TransformComponent? gridTransform) ||
+                gridTransform.MapID != mapId ||
+                tasks.Length == 0)
+            {
                 continue;
+            }
 
             var worldMatrix = _transform.GetWorldMatrix(gridUid);
-            foreach (var task in data.Tasks)
+            foreach (var task in tasks)
             {
                 if (task.State == RepairTaskState.Correct)
                     continue;
@@ -219,7 +226,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
                 nearestDistanceSquared = distanceSquared;
                 selectedGrid = gridUid;
-                selectedData = data;
+                selectedTasks = tasks;
                 selectedGridComponent = grid;
                 selectedWorldMatrix = worldMatrix;
             }

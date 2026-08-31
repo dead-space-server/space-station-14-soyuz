@@ -9,20 +9,9 @@
   name: repair-order-damaged-engineering-sattelite-name
   description: repair-order-damaged-engineering-sattelite-description
   difficulty: 2
-  weight: 30
+  weight: 35
   targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damage.yml
-  scoreProfile: RepairOrderEngineeringScore
-  rewardPool: RepairOrderEngineeringRewardPool
-##TradeOutpost
-- type: repairOrder
-  id: RepairOrderDamagedTradeOutpost
-  name: repair-order-damaged-trade-outpost-name
-  description: repair-order-damaged-trade-outpost-description
-  difficulty: 4
-  weight: 10
-  targetGridPath: /Maps/_Soyuz/RepairOrders/trade_post_target.yml
-  damagedGridPath: /Maps/_Soyuz/RepairOrders/trade_post_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
 ##Amber
@@ -53,7 +42,7 @@
   name: repair-order-damaged-cargo-shuttle-name
   description: repair-order-damaged-cargo-shuttle-description
   difficulty: 1
-  weight: 30
+  weight: 35
   targetGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_damage.yml
   scoreProfile: RepairOrderEngineeringScore

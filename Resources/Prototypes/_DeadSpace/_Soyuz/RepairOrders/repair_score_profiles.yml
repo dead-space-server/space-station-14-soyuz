@@ -6,6 +6,11 @@
   # This fallback also prevents newly added Soyuz prototypes from silently becoming worth zero points.
   defaultEntityPoints: 8
 
+  # Tile identity rules are ordered: the first mapping for a tile wins.
+  tileIdentityRules:
+  - tiles: [FloorShuttleGrey, FloorSteel]
+    canonical: FloorSteel
+
   # Optional exact overrides go here and take priority over every family rule below.
   # Add as many entries as needed, using exactly one of `entity` or `tile` per entry:
   # values:

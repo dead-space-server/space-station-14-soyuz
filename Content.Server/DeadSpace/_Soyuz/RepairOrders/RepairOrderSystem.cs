@@ -25,6 +25,7 @@ public sealed class RepairOrderSystem : EntitySystem
     [Dependency] private readonly AccessReaderSystem _access = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly RepairOrderSpawnSystem _spawn = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
@@ -62,6 +63,15 @@ public sealed class RepairOrderSystem : EntitySystem
         {
             if (!state.PoolInitialized)
                 InitializeStation((stationUid, state));
+
+            if (state.Active is { } active &&
+                (!active.GridUid.IsValid() || !Exists(active.GridUid)))
+            {
+                AbortActiveOrder(
+                    stationUid,
+                    active.GridUid,
+                    RepairOrderAbortReason.RepairGridDeleted);
+            }
 
             var changed = false;
             foreach (var (runtimeId, offer) in state.Available.ToArray())
@@ -154,6 +164,8 @@ public sealed class RepairOrderSystem : EntitySystem
         state.Accepting = true;
         UpdateStationUis((stationUid.Value, state));
 
+        EntityUid? spawnedGrid = null;
+        var committed = false;
         try
         {
             if (!_spawn.TrySpawnDamagedGrid(console.Owner, orderPrototype, out var gridUid, out var failure))
@@ -166,8 +178,36 @@ public sealed class RepairOrderSystem : EntitySystem
                 return;
             }
 
-            state.Available.Remove(offer.RuntimeId);
-            state.Active = new ActiveRepairOrder(offer.RuntimeId, offer.Prototype, gridUid);
+            spawnedGrid = gridUid;
+            if (!_validation.TryPrepareSession(
+                    stationUid.Value,
+                    offer.RuntimeId,
+                    offer.Prototype,
+                    gridUid,
+                    out var preparedActive))
+            {
+                FailRequest(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-prepare",
+                    $"activation of offer {offer.RuntimeId} ({offer.Prototype}) failed while preparing its validation session");
+                return;
+            }
+
+            // Commit point: no station order state changes before the complete session is ready.
+            if (!state.Available.Remove(offer.RuntimeId))
+            {
+                FailRequest(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-unavailable",
+                    $"offer {offer.RuntimeId} disappeared before activation commit");
+                return;
+            }
+
+            state.Active = preparedActive;
+            committed = true;
+            spawnedGrid = null;
 
             var activated = new RepairOrderActivatedEvent(stationUid.Value, offer.Prototype, gridUid);
             RaiseLocalEvent(stationUid.Value, ref activated);
@@ -181,8 +221,26 @@ public sealed class RepairOrderSystem : EntitySystem
         }
         finally
         {
-            state.Accepting = false;
-            UpdateStationUis((stationUid.Value, state));
+            try
+            {
+                if (!committed && spawnedGrid is { } rollbackGrid)
+                {
+                    try
+                    {
+                        _validation.DiscardPreparedSession(rollbackGrid);
+                    }
+                    finally
+                    {
+                        if (Exists(rollbackGrid))
+                            Del(rollbackGrid);
+                    }
+                }
+            }
+            finally
+            {
+                state.Accepting = false;
+                UpdateStationUis((stationUid.Value, state));
+            }
         }
     }
 
@@ -255,6 +313,82 @@ public sealed class RepairOrderSystem : EntitySystem
     {
         if (TryComp<RepairOrderStationComponent>(stationUid, out var station))
             UpdateStationUis((stationUid, station));
+    }
+
+    /// <summary>
+    /// Commits the normal Active -> Completed transition. Active order lifecycle mutations are owned here.
+    /// </summary>
+    public bool TryCommitCompletion(
+        EntityUid stationUid,
+        ActiveRepairOrder expectedActive,
+        CompletedRepairOrder completed,
+        out EntityUid repairGrid)
+    {
+        repairGrid = EntityUid.Invalid;
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
+            !ReferenceEquals(state.Active, expectedActive) ||
+            completed.RuntimeId != expectedActive.RuntimeId ||
+            completed.Prototype != expectedActive.Prototype)
+        {
+            return false;
+        }
+
+        repairGrid = expectedActive.GridUid;
+        state.Completed = completed;
+        state.Active = null;
+        return true;
+    }
+
+    /// <summary>
+    /// Ends an active order without completion or rewards and disposes every grid owned by the failed session.
+    /// The expected grid protects a newer active order from delayed lifecycle events belonging to an old grid.
+    /// </summary>
+    public bool AbortActiveOrder(
+        EntityUid stationUid,
+        EntityUid expectedGrid,
+        RepairOrderAbortReason reason,
+        IReadOnlyCollection<EntityUid>? additionalGrids = null)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
+            state.Active is not { } active ||
+            active.GridUid != expectedGrid)
+        {
+            return false;
+        }
+
+        var ownedGrids = new HashSet<EntityUid> { active.GridUid };
+        if (additionalGrids != null)
+            ownedGrids.UnionWith(additionalGrids);
+
+        // Claim the transition before cleanup so component shutdown and repeated abort calls are harmless.
+        state.Active = null;
+        state.Completing = false;
+
+        _sawmill.Warning(
+            $"Aborted repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {reason}. " +
+            $"No completion or rewards were produced; disposing {ownedGrids.Count} repair grid(s).");
+
+        try
+        {
+            _validation.DiscardPreparedSession(active.GridUid);
+        }
+        finally
+        {
+            try
+            {
+                foreach (var gridUid in ownedGrids)
+                {
+                    if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
+                        QueueDel(gridUid);
+                }
+            }
+            finally
+            {
+                UpdateStationUis((stationUid, state));
+            }
+        }
+
+        return true;
     }
 
     private void UpdateStationUis(Entity<RepairOrderStationComponent> station)
@@ -340,8 +474,18 @@ public sealed class RepairOrderSystem : EntitySystem
     }
 }
 
+/// <summary>
+/// Post-commit notification that a fully prepared repair order is now active.
+/// </summary>
 [ByRefEvent]
 public readonly record struct RepairOrderActivatedEvent(
     EntityUid Station,
     ProtoId<RepairOrderPrototype> OrderPrototype,
     EntityUid GridUid);
+
+public enum RepairOrderAbortReason : byte
+{
+    RepairGridDeleted,
+    RepairGridSplit,
+    ValidationRuntimeLost,
+}

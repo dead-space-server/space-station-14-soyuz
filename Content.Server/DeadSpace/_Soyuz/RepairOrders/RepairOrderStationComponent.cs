@@ -87,6 +87,13 @@ public sealed partial class ActiveRepairOrder
     [ViewVariables]
     public int MaxPoints;
 
+    /// <summary>
+    /// Reward selection is frozen on the first valid completion attempt so a failed physical delivery can retry
+    /// the same earned result instead of rolling a different reward set.
+    /// </summary>
+    [ViewVariables]
+    public List<RepairOrderRewardResult>? PendingRewards;
+
     public ActiveRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, EntityUid gridUid)
     {
         RuntimeId = runtimeId;
@@ -120,7 +127,7 @@ public sealed partial class CompletedRepairOrder
     public bool Delivered;
 
     [ViewVariables]
-    public EntityUid? DeliveryContainer;
+    public readonly List<EntityUid> DeliveryContainers = new();
 
     [ViewVariables]
     public readonly List<RepairOrderRewardResult> Rewards = new();
@@ -133,7 +140,7 @@ public sealed partial class CompletedRepairOrder
         int finalPoints,
         int maxPoints,
         bool delivered,
-        EntityUid? deliveryContainer,
+        IEnumerable<EntityUid>? deliveryContainers,
         IEnumerable<RepairOrderRewardResult> rewards)
     {
         RuntimeId = runtimeId;
@@ -143,7 +150,8 @@ public sealed partial class CompletedRepairOrder
         FinalPoints = finalPoints;
         MaxPoints = maxPoints;
         Delivered = delivered;
-        DeliveryContainer = deliveryContainer;
+        if (deliveryContainers != null)
+            DeliveryContainers.AddRange(deliveryContainers);
         Rewards.AddRange(rewards);
     }
 }

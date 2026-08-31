@@ -216,6 +216,18 @@
   - selector:
       entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
     canonical: MiningWindowDiagonal
+  - selector:
+      parents: [AirlockGlassShuttle]
+    canonical: AirlockGlassShuttle
+  - selector:
+      parents: [AirlockShuttle]
+    canonical: AirlockShuttle
+  - selector:
+      parents: [AirlockGlass, AirlockExternalGlass]
+    canonical: AirlockGlass
+  - selector:
+      parents: [Airlock, AirlockExternal]
+    canonical: Airlock
 
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
   rotationRules:

@@ -23,7 +23,7 @@ entities:
     paused: false
     components:
     - type: MetaData
-      name: grid
+      name: Орбитальный спутник связи
     - type: Transform
       pos: -341.03198,888.09814
       parent: invalid

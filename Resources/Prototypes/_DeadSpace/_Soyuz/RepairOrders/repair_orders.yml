@@ -9,9 +9,53 @@
   name: repair-order-damaged-engineering-sattelite-name
   description: repair-order-damaged-engineering-sattelite-description
   difficulty: 2
-  weight: 1
-  targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_targeted.yml
-  damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damaged.yml
+  weight: 30
+  targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+##TradeOutpost
+- type: repairOrder
+  id: RepairOrderDamagedTradeOutpost
+  name: repair-order-damaged-trade-outpost-name
+  description: repair-order-damaged-trade-outpost-description
+  difficulty: 4
+  weight: 10
+  targetGridPath: /Maps/_Soyuz/RepairOrders/trade_post_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/trade_post_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+##Amber
+- type: repairOrder
+  id: RepairOrderDamagedSOBRAmber
+  name: repair-order-damaged-amber-name
+  description: repair-order-damaged-amber-description
+  difficulty: 3
+  weight: 5
+  targetGridPath: /Maps/_Soyuz/RepairOrders/amber_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/amber_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+##Briggle
+- type: repairOrder
+  id: RepairOrderDamagedBriggle
+  name: repair-order-damaged-briggle-name
+  description: repair-order-damaged-briggle-description
+  difficulty: 2
+  weight: 25
+  targetGridPath: /Maps/_Soyuz/RepairOrders/briggle_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/briggle_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+##Cargo_Shuttle
+- type: repairOrder
+  id: RepairOrderDamagedCargoShuttle
+  name: repair-order-damaged-cargo-shuttle-name
+  description: repair-order-damaged-cargo-shuttle-description
+  difficulty: 1
+  weight: 30
+  targetGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
 

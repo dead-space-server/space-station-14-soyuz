@@ -32,3 +32,19 @@
     state: sheath
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Belt/sheriff_sheath.rsi
+
+- type: entity
+  parent: ClothingBeltMedical
+  id: ClothingBeltCMO
+  name: РПС Главного Врача
+  description: Содержит все нужное для лечения!
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/CMO.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/CMO.rsi
+    slots: [belt] 
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,8,1

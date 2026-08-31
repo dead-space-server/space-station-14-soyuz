@@ -15,3 +15,9 @@
 
 - type: playTimeTracker
   id: JobNavyMedical
+
+- type: playTimeTracker
+  id: JobOperatorGS
+
+- type: playTimeTracker
+  id: JobOfficerGS

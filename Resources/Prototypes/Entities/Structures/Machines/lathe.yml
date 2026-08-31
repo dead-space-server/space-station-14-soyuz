@@ -774,6 +774,7 @@
     - FloorConcreteTilesStatic
     - CircuitFloorsStatic
     - FloorMarbleTilesStatic
+    - SpecialFloorTilesStatic # DS14
     dynamicPacks:
     - FauxTiles
   - type: MaterialStorage

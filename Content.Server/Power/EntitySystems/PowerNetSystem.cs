@@ -270,7 +270,13 @@ namespace Content.Server.Power.EntitySystems
                 CountBatteries = _powerState.Batteries.Count,
                 CountLoads = _powerState.Loads.Count,
                 CountNetworks = _powerState.Networks.Count,
-                CountSupplies = _powerState.Supplies.Count
+                CountSupplies = _powerState.Supplies.Count,
+                // DS14-start
+                CapacityBatteries = _powerState.Batteries.Capacity,
+                CapacityLoads = _powerState.Loads.Capacity,
+                CapacityNetworks = _powerState.Networks.Capacity,
+                CapacitySupplies = _powerState.Supplies.Capacity
+                // DS14-end
             };
         }
 
@@ -504,6 +510,8 @@ namespace Content.Server.Power.EntitySystems
             lastRecv = newRecv;
             var msg = new PowerConsumerReceivedChanged(newRecv, consumer.DrawRate);
             RaiseLocalEvent(uid, ref msg);
+
+            _appearance.SetData(uid, PowerConsumerVisuals.Consuming, newRecv > 0);
         }
 
         private void UpdateNetworkBattery()
@@ -737,6 +745,12 @@ namespace Content.Server.Power.EntitySystems
         public int CountLoads;
         public int CountSupplies;
         public int CountBatteries;
+        // DS14-start
+        public int CapacityNetworks;
+        public int CapacityLoads;
+        public int CapacitySupplies;
+        public int CapacityBatteries;
+        // DS14-end
     }
 
     public struct NetworkPowerStatistics

@@ -24,13 +24,16 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
-            // Kofeecheks gases: LicenseRef-Kofeecheks
+            // DS14-start
+            Gas.InfectionDeadSpace,
             Gas.Nitryl,
+            Gas.NitricOxide,
             Gas.Nitriatium,
             Gas.Hilium,
             Gas.Brizidium,
             Gas.Iprit,
-            Gas.InfectionDeadSpace // DS14
+            Gas.Hydrogen,
+            // DS14-end
         };
 
         // Presets for 'dumb' air alarm modes

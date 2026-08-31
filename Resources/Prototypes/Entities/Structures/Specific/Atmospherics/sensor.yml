@@ -25,15 +25,18 @@
       Ammonia: stationAmmonia
       NitrousOxide: stationNO
       Frezon: danger
+      # DS14-start
       InfectionDeadSpace: stationInfectionDeadSpace
-      # Kofeecheks gases: LicenseRef-Kofeecheks
+      # Kofeecheks gases: LicenseRef-Kofeecheks 
       Nitryl: stationNitryl
-      Fixirium: stationFixirium
+      NitricOxide: stationNitricOxide
+      Iprit: stationIprit
+      Brizidium: stationBrizidium
       Hydrogen: stationHydrogen
+      Fixirium: stationFixirium
       Nitriatium: stationNitriatium
       Hilium: stationHilium
-      Brizidium: stationBrizidium
-      Iprit: stationIprit
+      # DS14-end
   - type: Tag
     tags:
       - AirSensor

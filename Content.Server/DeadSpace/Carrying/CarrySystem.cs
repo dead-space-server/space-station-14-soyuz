@@ -2,6 +2,7 @@
 
 using System.Numerics;
 using Content.Server.Popups;
+using Content.Shared.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
@@ -143,6 +144,7 @@ public sealed class CarrySystem : EntitySystem
 
         var user = args.User;
         var target = ent.Owner;
+
         args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("carry-verb-pick-up"),
@@ -177,7 +179,7 @@ public sealed class CarrySystem : EntitySystem
         var started = _doAfter.TryStartDoAfter(doAfter);
         if (started)
         {
-            _popup.PopupEntity(Loc.GetString("carry-popup-being-picked-up", ("user", Identity.Entity(carrier, EntityManager))), target, target);
+            _popup.PopupEntity(Loc.GetString("carry-popup-being-picked-up", ("user", Identity.Entity(carrier, EntityManager))), target, target, PopupType.MediumCaution);
         }
         return started;
     }
@@ -608,6 +610,7 @@ public sealed class CarrySystem : EntitySystem
         bool inheritCarrierVelocity = false)
     {
         placeTarget &= !TerminatingOrDeleted(carrier);
+
         CleanupCarry(
             carrier,
             carrying,

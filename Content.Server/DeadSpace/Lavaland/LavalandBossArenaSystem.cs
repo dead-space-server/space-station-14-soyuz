@@ -1,4 +1,6 @@
 using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Server.DeadSpace.Lavaland.Components;
 using Content.Server.NPC.HTN;
 using Content.Server.Parallax;
@@ -21,17 +23,20 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Parallax.Biomes;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.DeadSpace.Lavaland;
 
 public sealed class LavalandBossArenaSystem : EntitySystem
 {
+    private const int ArenaEntityBatchSize = 128;
     private const int DefaultArenaSize = 35;
     private const int MinArenaSize = 15;
     private const int MaxArenaSize = 65;
@@ -65,6 +70,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!; // DS14
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefinition = default!;
     [Dependency] private readonly MetaDataSystem _metadata = default!;
@@ -134,12 +140,13 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         }
     }
 
-    public void SpawnConfiguredArenas(
+    public async Task SpawnConfiguredArenas(
         EntityUid mapUid,
         MapGridComponent terrainGrid,
         BiomeComponent biome,
         LavalandPlanetPrototype planet,
-        Random random)
+        Random random,
+        CancellationToken cancellation)
     {
         foreach (var (arenaId, count) in planet.BossArenas)
         {
@@ -151,18 +158,21 @@ public sealed class LavalandBossArenaSystem : EntitySystem
 
             for (var i = 0; i < Math.Max(0, count); i++)
             {
-                TrySpawnBossArena(mapUid, terrainGrid, biome, planet, arenaPrototype, random);
+                cancellation.ThrowIfCancellationRequested();
+                await TrySpawnBossArena(mapUid, terrainGrid, biome, planet, arenaPrototype, random, cancellation);
+                await Timer.Delay(1, cancellation);
             }
         }
     }
 
-    public bool TrySpawnBossArena(
+    public async Task<bool> TrySpawnBossArena(
         EntityUid mapUid,
         MapGridComponent terrainGrid,
         BiomeComponent biome,
         LavalandPlanetPrototype planet,
         LavalandBossArenaPrototype arenaPrototype,
-        Random random)
+        Random random,
+        CancellationToken cancellation)
     {
         if (!_prototype.HasIndex<EntityPrototype>(arenaPrototype.BossPrototype.Id))
         {
@@ -188,13 +198,21 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         }
 
         PrepareArenaTerrain(mapUid, terrainGrid, biome, floorTile, center, width, height);
+        await Timer.Delay(1, cancellation);
 
         var mapId = Transform(mapUid).MapID;
         var grid = _mapManager.CreateGridEntity(mapId);
         _metadata.SetEntityName(grid.Owner, arenaPrototype.ArenaName);
         _transform.SetMapCoordinates(grid.Owner, new MapCoordinates(new Vector2(center.X, center.Y), mapId));
 
-        FillArenaFloor(grid.Owner, grid.Comp, floorTile, arenaPrototype.FloorVisualPrototype, width, height);
+        await FillArenaFloor(
+            grid.Owner,
+            grid.Comp,
+            floorTile,
+            arenaPrototype.FloorVisualPrototype,
+            width,
+            height,
+            cancellation);
         SpawnArenaWalls(grid.Owner, grid.Comp, arenaPrototype.WallPrototype, width, height);
         SpawnArenaDecorations(grid.Owner, grid.Comp, arenaPrototype.Decorations, width, height, random);
 
@@ -321,13 +339,14 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         ClearClearableTerrainEntities(mapUid, terrainGrid, bounds);
     }
 
-    private void FillArenaFloor(
+    private async Task FillArenaFloor(
         EntityUid gridUid,
         MapGridComponent grid,
         ITileDefinition floorTile,
         EntProtoId? floorVisualPrototype,
         int width,
-        int height)
+        int height,
+        CancellationToken cancellation)
     {
         var halfWidth = width / 2;
         var halfHeight = height / 2;
@@ -344,9 +363,14 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         if (floorVisualPrototype == null)
             return;
 
-        foreach (var (index, _) in tiles)
+        for (var i = 0; i < tiles.Count; i++)
         {
+            cancellation.ThrowIfCancellationRequested();
+            var (index, _) = tiles[i];
             SpawnAnchored(floorVisualPrototype.Value.Id, gridUid, grid, index);
+
+            if ((i + 1) % ArenaEntityBatchSize == 0 && i + 1 < tiles.Count)
+                await Timer.Delay(1, cancellation);
         }
     }
 
@@ -583,10 +607,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
         foreach (var session in _players.Sessions)
         {
             if (session.AttachedEntity is not { Valid: true } attached ||
-                !Exists(attached) ||
-                HasComp<GhostComponent>(attached) ||
-                IsDead(attached) ||
-                !IsEntityInsideInnerArena(attached, arena.Comp))
+                !IsCombatParticipant(attached, arena.Comp)) // DS14
             {
                 continue;
             }
@@ -992,6 +1013,7 @@ public sealed class LavalandBossArenaSystem : EntitySystem
     {
         return Exists(uid) &&
                !HasComp<GhostComponent>(uid) &&
+               !_container.IsEntityOrParentInContainer(uid) && // DS14
                !IsDead(uid) &&
                IsEntityInsideInnerArena(uid, arena);
     }

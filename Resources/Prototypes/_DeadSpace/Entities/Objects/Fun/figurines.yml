@@ -38,8 +38,8 @@
 - type: entity
   parent: BaseFigurineDS14
   id: ToyFigurineERTCAP
-  name: фигурка Командира СОБР
-  description: Минифигурка командира СОБР.
+  name: фигурка командира ОБР
+  description: Минифигурка командира ОБР.
   components:
   - type: Sprite
     state: ertcap

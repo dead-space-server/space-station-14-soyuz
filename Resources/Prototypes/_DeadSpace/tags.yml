@@ -8,6 +8,9 @@
   id: AmbrosiaDeus
 
 - type: Tag
+  id: AmeJar
+
+- type: Tag
   id: AnimateSpellBlacklist
 
 - type: Tag
@@ -149,6 +152,15 @@
   id: EnergySwordDouble
 
 - type: Tag
+  id: ParryEnergySword
+
+- type: Tag
+  id: ParryAll
+
+- type: Tag
+  id: ParryStandardWeapon
+
+- type: Tag
   id: EncryptionTaipan
 
 - type: Tag
@@ -182,7 +194,19 @@
   id: FoodChiliPepper
 
 - type: Tag
+  id: FoodDoughSmallFlat
+
+- type: Tag
+  id: FoodDoughSmallSlice
+
+- type: Tag
+  id: FoodMeatSmallBall
+
+- type: Tag
   id: GasTank
+
+- type: Tag
+  id: GasTankBorg
 
 - type: Tag
   id: GiantSpiderSpace
@@ -265,6 +289,19 @@
 - type: Tag
   id: MagazineEagleAP
 
+
+- type: Tag
+  id: MagazineGurza
+
+- type: Tag
+  id: MagazineAMD
+
+- type: Tag
+  id: MagazineHristov
+
+- type: Tag
+  id: MagazineRifleBox
+
 - type: Tag
   id: MagazineGurza
 
@@ -335,9 +372,6 @@
   id: Plasteel
 
 - type: Tag
-  id: PolaroidCartridge
-
-- type: Tag
   id: Radiance
 
 - type: Tag
@@ -345,6 +379,9 @@
 
 - type: Tag
   id: RevolverPython
+
+- type: Tag
+  id: SharkEmotes
 
 - type: Tag
   id: ShotgunBulldog

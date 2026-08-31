@@ -1,8 +1,11 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client.DeadSpace.RoundEnd;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Message;
 using Content.Client.UserInterface.Controls;
-using Content.Shared.Chat.TypingIndicator;
+using Content.Shared.DeadSpace.Arena; 
+using Content.Shared.DeadSpace.RoundEnd;
 using Content.Shared.GameTicking;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -10,7 +13,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 
@@ -19,13 +21,23 @@ namespace Content.Client.RoundEnd
     public sealed class RoundEndSummaryWindow : DefaultWindow
     {
         private readonly IEntityManager _entityManager;
+        // DS14-start
+        private readonly RoundEndDollPreviewSystem _dollPreviews;
         private readonly List<RoundEndManifestDollView> _manifestDollViews = new();
+        private int _dollPreviewOwner;
+        private readonly TabContainer _roundEndTabs;
+        private Control? _arenaManifestTab;
+        // DS14-End
         public int RoundId;
 
         public RoundEndSummaryWindow(string gm, string roundEnd, TimeSpan roundTimeSpan, int roundId,
             RoundEndMessageEvent.RoundEndPlayerInfo[] info, IEntityManager entityManager)
         {
             _entityManager = entityManager;
+            // DS14-start
+            _dollPreviews = entityManager.System<RoundEndDollPreviewSystem>();
+            OnClose += ClearManifestDollSnapshots;
+            // DS14-end
 
             // DS14-start
             var initialWindowSize = GetInitialWindowSize(info);
@@ -42,13 +54,14 @@ namespace Content.Client.RoundEnd
             // Also good for serious info.
 
             RoundId = roundId;
-            var roundEndTabs = new TabContainer();
-            roundEndTabs.AddChild(MakeRoundEndSummaryTab(gm, roundEnd, roundTimeSpan, roundId, info));
-            roundEndTabs.AddChild(MakePlayerManifestTab(info));
+            _roundEndTabs = new TabContainer();
+            _roundEndTabs.AddChild(MakeRoundEndSummaryTab(gm, roundEnd, roundTimeSpan, roundId, info));
+            _roundEndTabs.AddChild(MakePlayerManifestTab(info));
 
-            ContentsContainer.AddChild(roundEndTabs);
+            ContentsContainer.AddChild(_roundEndTabs);
 
             OpenCenteredRight();
+            ResumeManifestDollSnapshots(); // DS14
             MoveToFront();
         }
 
@@ -64,7 +77,7 @@ namespace Content.Client.RoundEnd
             // DS14-start
             var background = new PanelContainer
             {
-                StyleClasses = { "BackgroundPanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceFlat },
                 HorizontalExpand = true,
                 VerticalExpand = true,
             };
@@ -73,15 +86,19 @@ namespace Content.Client.RoundEnd
             var roundEndSummaryContainerScrollbox = new ScrollContainer
             {
                 VerticalExpand = true,
-                HorizontalExpand = true, // DS14
-                HScrollEnabled = false, // DS14
+                // DS14-start
+                HorizontalExpand = true,
+                HScrollEnabled = false,
+                // DS14-end
                 Margin = new Thickness(10)
             };
             var roundEndSummaryContainer = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
-                SeparationOverride = 10, // DS14
-                HorizontalExpand = true, // DS14
+                // DS14-start
+                SeparationOverride = 10,
+                HorizontalExpand = true,
+                // DS14-end
             };
 
             // DS14-start
@@ -95,8 +112,10 @@ namespace Content.Client.RoundEnd
             // DS14-end
 
             roundEndSummaryContainerScrollbox.AddChild(roundEndSummaryContainer);
-            background.AddChild(roundEndSummaryContainerScrollbox); // DS14
-            roundEndSummaryTab.AddChild(background); // DS14
+            // DS14-start
+            background.AddChild(roundEndSummaryContainerScrollbox);
+            roundEndSummaryTab.AddChild(background);
+            // DS14-end
 
             return roundEndSummaryTab;
         }
@@ -112,7 +131,7 @@ namespace Content.Client.RoundEnd
             // DS14-start
             var background = new PanelContainer
             {
-                StyleClasses = { "BackgroundPanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceFlat },
                 HorizontalExpand = true,
                 VerticalExpand = true,
             };
@@ -121,15 +140,19 @@ namespace Content.Client.RoundEnd
             var playerInfoContainerScrollbox = new ScrollContainer
             {
                 VerticalExpand = true,
-                HorizontalExpand = true, // DS14
-                HScrollEnabled = false, // DS14
+                // DS14-start
+                HorizontalExpand = true,
+                HScrollEnabled = false,
+                // DS14-end
                 Margin = new Thickness(10)
             };
             var playerInfoContainer = new BoxContainer
             {
                 Orientation = LayoutOrientation.Vertical,
-                SeparationOverride = 8, // DS14
-                HorizontalExpand = true, // DS14
+                // DS14-start
+                SeparationOverride = 8,
+                HorizontalExpand = true,
+                // DS14-end
             };
 
             // DS14-start
@@ -149,19 +172,14 @@ namespace Content.Client.RoundEnd
             playerInfoContainerScrollbox.AddChild(playerInfoContainer);
             background.AddChild(playerInfoContainerScrollbox);
             playerManifestTab.AddChild(background);
-            // DS14-end
-
             return playerManifestTab;
         }
 
         // DS14-start
-        private static readonly Color ManifestBodyBackground = Color.FromHex("#0d1117");
-        private static readonly Color ManifestPanelBorder = Color.FromHex("#30363d");
-        private static readonly Color ObjectiveSuccessColor = Color.FromHex("#3fb950");
+        private static readonly Color ObjectiveSuccessColor = DeadSpaceStylePalette.PositiveBorderHover;
         private static readonly Color ObjectivePartialSuccessColor = Color.FromHex("#d29922");
         private static readonly Color ObjectivePartialFailureColor = Color.FromHex("#f0883e");
-        private static readonly Color ObjectiveFailureColor = Color.FromHex("#f85149");
-        private static readonly Color ManifestCardSeparatorColor = Color.FromHex("#30363d");
+        private static readonly Color ObjectiveFailureColor = DeadSpaceStylePalette.NegativeBorderHover;
         private static readonly Vector2 DefaultWindowSize = new(920, 720);
         private const float RoundEndSummaryWindowHorizontalPadding = 160f;
         private const float AntagManifestCardHorizontalPadding = 20f;
@@ -171,9 +189,6 @@ namespace Content.Client.RoundEnd
         private const float PlayerManifestCardSeparation = 10f;
         private const float ApproximateSubTextGlyphWidth = 8f;
         private const int DetailRowSeparation = 16;
-        private const string ManifestFallbackPrototype = "MobObserver";
-
-        private bool? _fallbackDollDrawable;
 
         private Vector2 GetInitialWindowSize(RoundEndMessageEvent.RoundEndPlayerInfo[] playersInfo)
         {
@@ -197,7 +212,7 @@ namespace Content.Client.RoundEnd
                     Loc.GetString("round-end-summary-window-antag-manifest-kills", ("kills", playerInfo.ManifestKills)),
                     Loc.GetString("round-end-summary-window-antag-manifest-assists", ("assists", playerInfo.ManifestAssists))));
 
-                var dollWidth = HasDrawableManifestDoll(playerInfo.PlayerNetEntity)
+                var dollWidth = playerInfo.DollData != null
                     ? AntagManifestDollWidth + AntagManifestCardSeparation
                     : 0f;
 
@@ -222,7 +237,7 @@ namespace Content.Client.RoundEnd
                         ("playerOOCName", playerInfo.PlayerOOCName)),
                     GetPlayerManifestRoleText(playerInfo));
 
-                var dollWidth = HasDrawableManifestDoll(playerInfo.PlayerNetEntity)
+                var dollWidth = playerInfo.DollData != null
                     ? PlayerManifestDollWidth + PlayerManifestCardSeparation
                     : 0f;
 
@@ -261,7 +276,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -303,7 +318,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -338,7 +353,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -371,7 +386,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -418,7 +433,7 @@ namespace Content.Client.RoundEnd
 
         private Control? MakePlayerManifestDoll(RoundEndMessageEvent.RoundEndPlayerInfo playerInfo)
         {
-            return MakeManifestDoll(playerInfo.PlayerNetEntity, new Vector2(60, 60), new Vector2(58, 58), new Vector2(1.45f, 1.45f));
+            return MakeManifestDoll(playerInfo.DollData, new Vector2(60, 60), new Vector2(58, 58), new Vector2(1.45f, 1.45f));
         }
 
         private Control MakeAntagManifestSection(RoundEndMessageEvent.RoundEndPlayerInfo[] playersInfo)
@@ -467,10 +482,7 @@ namespace Content.Client.RoundEnd
                 MinHeight = 1,
                 HorizontalExpand = true,
                 Margin = new Thickness(8, 0),
-                PanelOverride = new StyleBoxFlat
-                {
-                    BackgroundColor = ManifestCardSeparatorColor,
-                },
+                StyleClasses = { DeadSpaceStyleClass.AccentDim },
             };
         }
 
@@ -478,7 +490,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -517,7 +529,7 @@ namespace Content.Client.RoundEnd
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -541,21 +553,18 @@ namespace Content.Client.RoundEnd
                 VerticalExpand = true,
             };
 
-            // DS14-start
             var nameRow = new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
                 HorizontalExpand = true,
             };
             nameRow.AddChild(new Label
-            // DS14-end
             {
                 Text = playerInfo.PlayerICName ?? Loc.GetString("generic-unknown-title"),
                 StyleClasses = { "LabelBig" },
                 ClipText = true,
                 HorizontalExpand = true,
             });
-            // DS14-start
             if (playerInfo.IsDead)
             {
                 var badgeLabel = new RichTextLabel
@@ -577,7 +586,6 @@ namespace Content.Client.RoundEnd
                 nameRow.AddChild(badgeLabel);
             }
             content.AddChild(nameRow);
-            // DS14-end
 
             content.AddChild(MakeDetailRow(
                 Loc.GetString("round-end-summary-window-antag-manifest-ooc",
@@ -745,22 +753,260 @@ namespace Content.Client.RoundEnd
 
         private Control? MakeAntagDoll(RoundEndMessageEvent.RoundEndPlayerInfo playerInfo)
         {
-            return MakeManifestDoll(playerInfo.PlayerNetEntity, new Vector2(160, 160), new Vector2(160, 160), new Vector2(3f, 3f));
+            return MakeManifestDoll(playerInfo.DollData, new Vector2(160, 160), new Vector2(160, 160), new Vector2(3f, 3f));
         }
 
-        public void ClearManifestDollSnapshots()
+        private void ClearManifestDollSnapshots()
         {
+            if (_dollPreviewOwner != 0)
+                _dollPreviews.Cancel(_dollPreviewOwner);
+
+            _dollPreviewOwner = 0;
+
             foreach (var view in _manifestDollViews)
-            {
                 view.ClearSnapshot();
+        }
+
+        public void ResumeManifestDollSnapshots()
+        {
+            if (_dollPreviewOwner != 0)
+                return;
+
+            _dollPreviewOwner = _dollPreviews.CreateOwner();
+            foreach (var view in _manifestDollViews)
+                view.RequestSnapshot(_dollPreviewOwner);
+        }
+
+        // DS14-start
+        public void SetArenaManifest(ArenaManifestEvent ev)
+        {
+            if (_arenaManifestTab != null)
+            {
+                _roundEndTabs.RemoveChild(_arenaManifestTab);
+                _arenaManifestTab.Dispose();
+                _arenaManifestTab = null;
             }
 
-            _manifestDollViews.Clear();
+            _arenaManifestTab = MakeArenaManifestTab(ev);
+            if (_arenaManifestTab != null)
+                _roundEndTabs.AddChild(_arenaManifestTab);
         }
 
-        private Control? MakeManifestDoll(NetEntity? playerNetEntity, Vector2 panelSize, Vector2 viewSize, Vector2 scale)
+        private static readonly Color ArenaFirstPlaceColor = Color.FromHex("#ffd700");
+        private static readonly Color ArenaSecondPlaceColor = Color.FromHex("#c0c0c0");
+        private static readonly Color ArenaThirdPlaceColor = Color.FromHex("#cd7f32");
+
+        private Control? MakeArenaManifestTab(ArenaManifestEvent ev)
         {
-            if (!HasDrawableManifestDoll(playerNetEntity))
+            if (ev.Players.Count == 0)
+                return null;
+
+            var tab = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Vertical,
+                Name = Loc.GetString("arena-manifest-tab-title"),
+            };
+
+            var background = new PanelContainer
+            {
+                StyleClasses = { DeadSpaceStyleClass.SurfaceFlat },
+                HorizontalExpand = true,
+                VerticalExpand = true,
+            };
+
+            var scrollbox = new ScrollContainer
+            {
+                VerticalExpand = true,
+                HorizontalExpand = true,
+                HScrollEnabled = false,
+                Margin = new Thickness(10),
+            };
+
+            var container = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Vertical,
+                SeparationOverride = 8,
+                HorizontalExpand = true,
+            };
+
+            var topThree = ev.Players.Take(3).ToArray();
+            if (topThree.Length > 0)
+            {
+                var podium = new BoxContainer
+                {
+                    Orientation = LayoutOrientation.Horizontal,
+                    SeparationOverride = 16,
+                    HorizontalAlignment = HAlignment.Center,
+                    Margin = new Thickness(0, 0, 0, 12),
+                };
+
+                for (var i = 0; i < topThree.Length; i++)
+                    podium.AddChild(MakeArenaPodiumCard(i + 1, topThree[i]));
+
+                container.AddChild(podium);
+            }
+
+            container.AddChild(MakeArenaManifestHeader(ev.Players.Count));
+
+            for (var i = 0; i < ev.Players.Count; i++)
+                container.AddChild(MakeArenaManifestRow(i + 1, ev.Players[i]));
+
+            scrollbox.AddChild(container);
+            background.AddChild(scrollbox);
+            tab.AddChild(background);
+            return tab;
+        }
+
+        private static Control MakeArenaPodiumCard(int place, ArenaPlayerRecord player)
+        {
+            var panel = new PanelContainer
+            {
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
+                MinWidth = 200,
+                HorizontalExpand = true,
+            };
+
+            var box = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Vertical,
+                SeparationOverride = 4,
+                Margin = new Thickness(12),
+                HorizontalAlignment = HAlignment.Center,
+                HorizontalExpand = true,
+            };
+
+            var placeColor = place switch
+            {
+                1 => ArenaFirstPlaceColor,
+                2 => ArenaSecondPlaceColor,
+                _ => ArenaThirdPlaceColor,
+            };
+
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-place", ("place", place)),
+                StyleClasses = { "LabelBig" },
+                FontColorOverride = placeColor,
+                HorizontalAlignment = HAlignment.Center,
+            });
+            box.AddChild(new Label
+            {
+                Text = string.IsNullOrEmpty(player.PlayerName)
+                    ? Loc.GetString("arena-manifest-unknown-player")
+                    : player.PlayerName,
+                StyleClasses = { "LabelHeading" },
+                HorizontalAlignment = HAlignment.Center,
+                HorizontalExpand = true,
+            });
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-kd",
+                    ("kills", player.Kills),
+                    ("deaths", player.Deaths),
+                    ("kd", player.KD.ToString("0.##"))),
+                StyleClasses = { "LabelSubText" },
+                HorizontalAlignment = HAlignment.Center,
+            });
+
+            panel.AddChild(box);
+            return panel;
+        }
+
+        private static Control MakeArenaManifestHeader(int playerCount)
+        {
+            var panel = new PanelContainer
+            {
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
+                HorizontalExpand = true,
+            };
+
+            var box = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Vertical,
+                Margin = new Thickness(10),
+                SeparationOverride = 4,
+                HorizontalExpand = true,
+            };
+
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-tab-title"),
+                StyleClasses = { "LabelBig" },
+                HorizontalExpand = true,
+            });
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-subtitle", ("count", playerCount)),
+                StyleClasses = { "LabelSubText" },
+                HorizontalExpand = true,
+            });
+
+            panel.AddChild(box);
+            return panel;
+        }
+
+        private static Control MakeArenaManifestRow(int place, ArenaPlayerRecord player)
+        {
+            var panel = new PanelContainer
+            {
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
+                HorizontalExpand = true,
+            };
+
+            var box = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                Margin = new Thickness(10),
+                SeparationOverride = 10,
+                HorizontalExpand = true,
+            };
+
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-row-place", ("place", place)),
+                MinWidth = 60,
+                StyleClasses = { "LabelSubText" },
+            });
+            box.AddChild(new Label
+            {
+                Text = string.IsNullOrEmpty(player.PlayerName)
+                    ? Loc.GetString("arena-manifest-unknown-player")
+                    : player.PlayerName,
+                StyleClasses = { "LabelHeading" },
+                HorizontalExpand = true,
+                ClipText = true,
+            });
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-row-kills", ("kills", player.Kills)),
+                MinWidth = 70,
+                HorizontalAlignment = HAlignment.Right,
+            });
+            box.AddChild(new Label
+            {
+                Text = Loc.GetString("arena-manifest-row-deaths", ("deaths", player.Deaths)),
+                MinWidth = 70,
+                HorizontalAlignment = HAlignment.Right,
+            });
+            box.AddChild(new Label
+            {
+                Text = player.KD.ToString("0.##"),
+                MinWidth = 70,
+                HorizontalAlignment = HAlignment.Right,
+            });
+
+            panel.AddChild(box);
+            return panel;
+        }
+        // DS14-end
+
+        private Control? MakeManifestDoll(
+            RoundEndDollData? dollData,
+            Vector2 panelSize,
+            Vector2 viewSize,
+            Vector2 scale)
+        {
+            if (dollData == null)
                 return null;
 
             var panel = new PanelContainer
@@ -768,13 +1014,13 @@ namespace Content.Client.RoundEnd
                 SetSize = panelSize,
                 PanelOverride = new StyleBoxFlat
                 {
-                    BackgroundColor = ManifestBodyBackground,
-                    BorderColor = ManifestPanelBorder,
+                    BackgroundColor = DeadSpaceStylePalette.SurfaceInset,
+                    BorderColor = DeadSpaceStylePalette.BorderInset,
                     BorderThickness = new Thickness(1),
                 },
             };
 
-            var view = new RoundEndManifestDollView(playerNetEntity, _entityManager)
+            var view = new RoundEndManifestDollView(dollData, _dollPreviews, _entityManager)
             {
                 OverrideDirection = Direction.South,
                 SetSize = viewSize,
@@ -789,80 +1035,11 @@ namespace Content.Client.RoundEnd
             return panel;
         }
 
-        private bool HasDrawableManifestDoll(NetEntity? playerNetEntity)
-        {
-            var spriteSystem = _entityManager.System<SpriteSystem>();
-
-            if (playerNetEntity != null &&
-                _entityManager.TryGetEntity(playerNetEntity, out var source) &&
-                source != null &&
-                !_entityManager.Deleted(source.Value) &&
-                _entityManager.TryGetComponent(source.Value, out SpriteComponent? sourceSprite))
-            {
-                spriteSystem.ForceUpdate(source.Value);
-                if (HasDrawableSprite(sourceSprite, GetTypingIndicatorLayer(spriteSystem, source.Value, sourceSprite)))
-                    return true;
-            }
-
-            return HasDrawableFallbackDoll(spriteSystem);
-        }
-
-        private bool HasDrawableFallbackDoll(SpriteSystem spriteSystem)
-        {
-            if (_fallbackDollDrawable != null)
-                return _fallbackDollDrawable.Value;
-
-            EntityUid? fallback = null;
-            try
-            {
-                fallback = _entityManager.Spawn(ManifestFallbackPrototype);
-                spriteSystem.ForceUpdate(fallback.Value);
-
-                _fallbackDollDrawable = _entityManager.TryGetComponent(fallback.Value, out SpriteComponent? fallbackSprite) &&
-                                        HasDrawableSprite(fallbackSprite);
-            }
-            finally
-            {
-                if (fallback != null)
-                    _entityManager.DeleteEntity(fallback.Value);
-            }
-
-            return _fallbackDollDrawable.Value;
-        }
-
-        private static bool HasDrawableSprite(SpriteComponent sprite, int? ignoredLayer = null)
-        {
-            if (!sprite.Visible)
-                return false;
-
-            var index = 0;
-            foreach (var layer in sprite.AllLayers)
-            {
-                if (ignoredLayer == index++)
-                    continue;
-
-                if (layer.Visible &&
-                    (layer.Texture != null || layer.RsiState.IsValid && layer.ActualRsi != null))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static int? GetTypingIndicatorLayer(SpriteSystem spriteSystem, EntityUid uid, SpriteComponent sprite)
-        {
-            return spriteSystem.LayerMapTryGet((uid, sprite), TypingIndicatorLayers.Base, out var layer, false)
-                ? layer
-                : null;
-        }
-
         private static Control MakeEmptyManifestPanel()
         {
             var panel = new PanelContainer
             {
-                StyleClasses = { "PanelDark" },
+                StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
                 HorizontalExpand = true,
             };
 
@@ -977,145 +1154,48 @@ namespace Content.Client.RoundEnd
 
         private sealed class RoundEndManifestDollView : SpriteView
         {
-            private const string SnapshotPrototype = "clientsideclone";
-            private const float SourceSnapshotRefreshDuration = 2f;
-
-            private readonly NetEntity? _sourceNetEntity;
-            private EntityUid? _snapshotEntity;
-            private bool _sourceRefreshComplete;
-            private float _sourceSnapshotRefreshTime;
+            private readonly RoundEndDollData _data;
+            private readonly RoundEndDollPreviewSystem _previews;
+            private int _owner;
+            private bool _requestActive;
 
             public event Action? SnapshotFailed;
 
-            public RoundEndManifestDollView(NetEntity? sourceNetEntity, IEntityManager entityManager) : base(entityManager)
+            public RoundEndManifestDollView(
+                RoundEndDollData data,
+                RoundEndDollPreviewSystem previews,
+                IEntityManager entityManager) : base(entityManager)
             {
-                _sourceNetEntity = sourceNetEntity;
+                _data = data;
+                _previews = previews;
             }
 
-            protected override void EnteredTree()
+            public void RequestSnapshot(int owner)
             {
-                base.EnteredTree();
-
-                if (_snapshotEntity != null)
-                    return;
-
-                RefreshSnapshot();
+                _owner = owner;
+                _requestActive = true;
+                SetEntity(null);
+                _previews.Request(owner, _data, snapshot => OnSnapshotReady(owner, snapshot));
             }
 
-            protected override void FrameUpdate(FrameEventArgs args)
+            private void OnSnapshotReady(int owner, EntityUid? snapshot)
             {
-                base.FrameUpdate(args);
-
-                if (_sourceRefreshComplete || _sourceNetEntity == null)
+                if (!_requestActive || owner != _owner)
                     return;
 
-                if (!TrySnapshotSource())
-                    return;
-
-                _sourceSnapshotRefreshTime += args.DeltaSeconds;
-                if (_sourceSnapshotRefreshTime >= SourceSnapshotRefreshDuration)
-                    _sourceRefreshComplete = true;
-            }
-
-            private void RefreshSnapshot()
-            {
-                if (TrySnapshotSource())
-                    return;
-
-                if (!SnapshotFallback())
+                if (snapshot == null)
+                {
                     SnapshotFailed?.Invoke();
-            }
-
-            private bool TrySnapshotSource()
-            {
-                if (_sourceNetEntity == null ||
-                    !EntMan.TryGetEntity(_sourceNetEntity, out var source) ||
-                    source == null ||
-                    EntMan.Deleted(source.Value) ||
-                    !EntMan.TryGetComponent(source.Value, out SpriteComponent? sourceSprite))
-                {
-                    return false;
-                }
-
-                SpriteSystem ??= EntMan.System<SpriteSystem>();
-                SpriteSystem.ForceUpdate(source.Value);
-                if (!HasDrawableSprite(sourceSprite, GetTypingIndicatorLayer(SpriteSystem, source.Value, sourceSprite)))
-                    return false;
-
-                return SnapshotSprite(source.Value, sourceSprite);
-            }
-
-            private bool SnapshotFallback()
-            {
-                SpriteSystem ??= EntMan.System<SpriteSystem>();
-
-                var fallback = EntMan.Spawn(ManifestFallbackPrototype);
-
-                try
-                {
-                    SpriteSystem.ForceUpdate(fallback);
-                    return EntMan.TryGetComponent(fallback, out SpriteComponent? fallbackSprite) &&
-                           SnapshotSprite(fallback, fallbackSprite);
-                }
-                finally
-                {
-                    EntMan.DeleteEntity(fallback);
-                }
-            }
-
-            private bool SnapshotSprite(EntityUid source, SpriteComponent sourceSprite)
-            {
-                SpriteSystem ??= EntMan.System<SpriteSystem>();
-                SpriteSystem.ForceUpdate(source);
-
-                var snapshot = _snapshotEntity;
-                var createdSnapshot = false;
-                if (snapshot == null || EntMan.Deleted(snapshot.Value))
-                {
-                    snapshot = EntMan.Spawn(SnapshotPrototype);
-                    _snapshotEntity = snapshot;
-                    SetEntity(snapshot);
-                    createdSnapshot = true;
-                }
-
-                var snapshotUid = snapshot.Value;
-                var snapshotSprite = EntMan.GetComponent<SpriteComponent>(snapshotUid);
-                SpriteSystem.CopySprite((source, sourceSprite), (snapshotUid, snapshotSprite));
-                HideTypingIndicator(snapshotUid, snapshotSprite);
-                SpriteSystem.SetRotation((snapshotUid, snapshotSprite), Angle.Zero);
-
-                if (!HasDrawableSprite(snapshotSprite))
-                {
-                    if (createdSnapshot)
-                        ClearSnapshot();
-
-                    return false;
-                }
-
-                SpriteSystem.ForceUpdate(snapshotUid);
-                return true;
-            }
-
-            private void HideTypingIndicator(EntityUid snapshot, SpriteComponent snapshotSprite)
-            {
-                if (SpriteSystem == null ||
-                    !SpriteSystem.LayerMapTryGet((snapshot, snapshotSprite), TypingIndicatorLayers.Base, out var layer, false))
-                {
                     return;
                 }
 
-                SpriteSystem.LayerSetVisible((snapshot, snapshotSprite), layer, false);
+                SetEntity(snapshot);
             }
 
             public void ClearSnapshot()
             {
+                _requestActive = false;
                 SetEntity(null);
-
-                if (_snapshotEntity == null)
-                    return;
-
-                EntMan.TryQueueDeleteEntity(_snapshotEntity.Value);
-                _snapshotEntity = null;
             }
         }
         // DS14-end

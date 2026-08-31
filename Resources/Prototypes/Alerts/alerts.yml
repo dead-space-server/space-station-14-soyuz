@@ -141,14 +141,6 @@
   clientHandled: true
 
 - type: alert
-  id: Stun
-  icons:
-  - sprite: /Textures/Objects/Weapons/Melee/stunbaton.rsi #Should probably draw a proper icon
-    state: stunbaton_off
-  name: alerts-stunned-name
-  description: alerts-stunned-desc
-
-- type: alert
   id: Knockdown
   clickEvent: !type:KnockedDownAlertEvent
   icons:
@@ -302,18 +294,6 @@
   id: AiBattery
   clientHandled: false # the station AI does not have a predicted battery, so we need to send the alert from the server
 
-# DS14-Soyuz-start: IPC battery alert must be server-driven; Borg client handler does not process IPC entities.
-- type: alert
-  parent: BorgBattery
-  id: IpcBattery
-  clientHandled: false
-
-- type: alert
-  parent: BorgBatteryNone
-  id: IpcBatteryNone
-  clientHandled: false
-# DS14-Soyuz-end
-
 - type: alert
   id: Internals
   category: Internals
@@ -400,19 +380,6 @@
   description: alerts-parched-desc
 
 - type: alert
-  id: Muted
-  icons: [ /Textures/Interface/Alerts/Abilities/silenced.png ]
-  name: alerts-muted-name
-  description: alerts-muted-desc
-
-- type: alert
-  id: VowOfSilence
-  icons: [ /Textures/Interface/Alerts/Abilities/silenced.png ]
-  name: alerts-vow-silence-name
-  clickEvent: !type:BreakVowAlertEvent
-  description: alerts-vow-silence-desc
-
-- type: alert
   id: VowBroken
   icons: [ /Textures/Interface/Actions/scream.png ]
   name: alerts-vow-broken-name
@@ -484,13 +451,16 @@
   minSeverity: 0
   maxSeverity: 1
 
+# Making alerts for innate abilities like this should generally be avoided by turning them into actions or giving better UX.
+# This was done this way because several entities currently can pry innately and have no indicator for this whatsoever.
+# The ideal solution would be to clean up actions to handle this sort of thing easier while avoiding bloating the action UI.
 - type: alert
-  id: Adrenaline
+  id: Prying
   icons:
-  - sprite: Mobs/Species/Human/organs.rsi
-    state: heart-on
-  name: alerts-adrenaline-name
-  description: alerts-adrenaline-desc
+  - sprite: /Textures/Objects/Tools/crowbar.rsi
+    state: icon
+  name: alerts-prying-name
+  description: alerts-prying-desc
 
 # Making alerts for innate abilities like this should generally be avoided by turning them into actions or giving better UX.
 # This was done this way because several entities currently can pry innately and have no indicator for this whatsoever.

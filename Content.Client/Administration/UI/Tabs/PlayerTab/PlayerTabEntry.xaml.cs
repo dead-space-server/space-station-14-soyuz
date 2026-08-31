@@ -101,14 +101,4 @@ public sealed partial class PlayerTabEntry : PanelContainer
         OverallPlaytimeLabel.Text = player.PlaytimeString;
     }
 
-    // DS14-start
-    private static void AddProfileLabelStyle(params Label[] labels)
-    {
-        foreach (var label in labels)
-        {
-            if (!label.StyleClasses.Contains(DeadSpaceMenuSheetlet.ProfileLabel))
-                label.AddStyleClass(DeadSpaceMenuSheetlet.ProfileLabel);
-        }
-    }
-    // DS14-end
 }

@@ -125,6 +125,7 @@
   id: JobLibrarian
   groups:
   - GroupTankHarness
+  - LibrarianSpecialization # DS14
   - LibrarianJumpsuit
   - CommonBackpack
   - Glasses
@@ -487,7 +488,7 @@
   - GroupTankHarness
   - DetectiveSpecialization # DS14
   - DetectiveHead
-  - DetectiveNeck
+#  - DetectiveNeck # DS14-disabled
   - DetectiveJumpsuit
   - DetectiveBackpack
   - DetectiveOuterClothing

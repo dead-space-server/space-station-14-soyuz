@@ -12,6 +12,7 @@ using Robust.Shared.Utility;
 namespace Content.Client.RCD;
 
 [UsedImplicitly]
+// DS14 - pre-v288 engine
 public sealed class RCDMenuBoundUserInterface : BoundUserInterface
 {
     private const string TopLevelActionCategory = "Main";
@@ -121,20 +122,12 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
         if (_playerManager.LocalSession?.AttachedEntity == null)
             return;
 
-        var msg = Loc.GetString("rcd-component-change-mode", ("mode", Loc.GetString(proto.SetName)));
+        var rcdName = GetPrototypeName(proto); // DS14
+
+        var msg = Loc.GetString("rcd-component-change-mode", ("mode", rcdName));
 
         if (proto.Mode is RcdMode.ConstructTile or RcdMode.ConstructObject)
-        {
-            var name = Loc.GetString(proto.SetName);
-
-            if (proto.Prototype != null &&
-                _prototypeManager.TryIndex(proto.Prototype, out var entProto)) // don't use Resolve because this can be a tile
-            {
-                name = entProto.Name;
-            }
-
-            msg = Loc.GetString("rcd-component-change-build-mode", ("name", name));
-        }
+            msg = Loc.GetString("rcd-component-change-build-mode", ("name", rcdName));
 
         // Popup message
         var popup = EntMan.System<PopupSystem>();
@@ -143,23 +136,24 @@ public sealed class RCDMenuBoundUserInterface : BoundUserInterface
 
     private string GetTooltip(RCDPrototype proto)
     {
-        string tooltip;
-
-        if (proto.Mode is RcdMode.ConstructTile or RcdMode.ConstructObject
-            && proto.Prototype != null
-            && _prototypeManager.TryIndex(proto.Prototype, out var entProto)) // don't use Resolve because this can be a tile
-        {
-            tooltip = Loc.GetString(entProto.Name);
-        }
-        else
-        {
-            tooltip = Loc.GetString(proto.SetName);
-        }
-
+        var tooltip = GetPrototypeName(proto); // DS14
         tooltip = OopsConcat(char.ToUpper(tooltip[0]).ToString(), tooltip.Remove(0, 1));
 
         return tooltip;
     }
+
+    // DS14-start: RCDSystem is not registered client-side on the current engine baseline.
+    private string GetPrototypeName(RCDPrototype prototype)
+    {
+        if (prototype.SetName != null)
+            return Loc.GetString(prototype.SetName);
+
+        if (prototype.Prototype != null)
+            return _prototypeManager.Index(prototype.Prototype).Name;
+
+        return Loc.GetString("generic-unknown-title");
+    }
+    // DS14-end
 
     private static string OopsConcat(string a, string b)
     {

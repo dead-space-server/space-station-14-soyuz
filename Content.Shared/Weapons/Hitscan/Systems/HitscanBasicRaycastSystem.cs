@@ -2,6 +2,7 @@ using System.Numerics;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace.Player;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Ranged.Systems;
@@ -82,6 +83,7 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
         {
             ShotDirection = args.ShotDirection,
             Gun = args.Gun,
+            Hitscan = ent.Owner,
             Shooter = args.Shooter,
             Target = target,
             HitEntity = result?.HitEntity,
@@ -103,6 +105,12 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
 
         var hitEvent = new HitscanRaycastFiredEvent { Data = data };
         RaiseLocalEvent(ent, ref hitEvent);
+
+        if (data.HitEntity != null)
+        {
+            var strikeEvent = new HitscanRaycastStrikeEvent { Data = data };
+            RaiseLocalEvent(data.HitEntity.Value, ref strikeEvent);
+        }
 
         if (isRoot)
             FireEffects(ent.Owner, args.OutputTrace);
@@ -159,7 +167,12 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
             if (!coords.IsValid(EntityManager))
                 continue;
 
-            filter.Merge(Filter.Pvs(coords, entityMan: EntityManager));
+            // DS14-start
+            // Filter.Pvs ignores session view subscriptions used by remote eyes.
+            var mapCoords = _transform.ToMapCoordinates(coords);
+            filter.Merge(Filter.Empty().AddPlayersByPvs(mapCoords, entManager: EntityManager)
+                .AddPlayersByViewSubscriptions(mapCoords, entityManager: EntityManager));
+            // DS14-end
         }
 
         if (filter.Count == 0)

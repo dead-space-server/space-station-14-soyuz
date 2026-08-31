@@ -18,8 +18,6 @@
     prototype: SharkBody
     requiredLegs: 2
   - type: RoarAccent
-  - type: Hunger
-  - type: Thirst
   - type: Inventory
     templateId: plafs
     speciesId: plaf
@@ -47,11 +45,21 @@
     knownLanguages:
     - PlafLanguage
     - GeneralLanguage
-  # - type: FootPrints
-    # leftBarePrint: "footprint-left-bare-lizard"
-    # rightBarePrint: "footprint-right-bare-lizard"
   - type: SpeedSliding
     slideDistance: 12
+  - type: Vocal
+    wilhelm: "/Audio/Voice/Human/wilhelm_scream.ogg"
+    sounds:
+      Male: MalePlaf
+      Female: FemalePlaf
+      Unsexed: MalePlaf
+  - type: Tag
+    tags:
+    - SharkEmotes
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
 
 - type: entity
   parent: BaseSpeciesDummy

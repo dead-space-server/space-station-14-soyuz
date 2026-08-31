@@ -30,13 +30,16 @@ namespace Content.Server.Atmos.Portable
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
-            // Kofeecheks gases: LicenseRef-Kofeecheks
+            // DS14-start // Kofeecheks gases: LicenseRef-Kofeecheks
+            Gas.InfectionDeadSpace,
             Gas.Nitryl,
+            Gas.NitricOxide,
             Gas.Nitriatium,
             Gas.Hilium,
             Gas.Brizidium,
             Gas.Iprit,
-            Gas.InfectionDeadSpace
+            Gas.Hydrogen,
+            // DS14-end
         };
 
         [ViewVariables(VVAccess.ReadWrite)]

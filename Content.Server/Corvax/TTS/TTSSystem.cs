@@ -27,6 +27,7 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _rng = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
     [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-Soyuz
+    [Dependency] private readonly SharedTransformSystem _transform = default!; // DS14
 
     private readonly List<string> _sampleText =
         new()
@@ -286,7 +287,10 @@ public sealed partial class TTSSystem : EntitySystem
 
     private async void HandleWhisper(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string obfMessage, string speaker)
     {
-        var recipients = GetExpandedVoiceRecipients(uid, SharedChatSystem.WhisperMuffledRange);
+        // DS14-start
+        var recipientData = GetExpandedVoiceRecipients(uid, SharedChatSystem.WhisperMuffledRange);
+        var recipients = recipientData.Keys;
+        // DS14-end
         var fullSoundData = await GenerateTTS(message, speaker, true);
 
         byte[]? lexiconSoundData = null;
@@ -316,6 +320,31 @@ public sealed partial class TTSSystem : EntitySystem
                 RaiseNetworkEvent(fullTtsEvent, session);
 
         }
+
+        RaiseLocalEvent(new ExpandICChatRecipientsEvent(source, voiceRange, recipients));
+
+        return recipients;
+    }
+    // DS14-end
+
+    private bool NeedsLexiconTTS(
+        ProtoId<LanguagePrototype> languageId,
+        IEnumerable<ICommonSession> recipients,
+        HashSet<ICommonSession> understanding)
+    {
+        if (string.IsNullOrEmpty(languageId))
+            return false;
+
+        if (!_prototypeManager.TryIndex(languageId, out var languageProto) || !languageProto.GenerateTTSForLexicon)
+            return false;
+
+        foreach (var session in recipients)
+        {
+            if (!understanding.Contains(session))
+                return true;
+        }
+
+        return false;
     }
 
     private IReadOnlyCollection<ICommonSession> GetExpandedVoiceRecipients(EntityUid source, float voiceRange)

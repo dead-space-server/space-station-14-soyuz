@@ -10,7 +10,7 @@
     - id: NitrogenTankFilled # DS14
     - id: CigPackGreen
       prob: 0.50
-    # - id: ClothingOuterHardsuitQM # DS14 # DS14-Soyuz disabled
+    - id: ClothingOuterHardsuitSoyuzQuartermaster # DS14-Soyuz replaced
     - id: ClothingHeadsetAltCargo
     - id: DoorRemoteCargo
     - id: AstroNavCartridge
@@ -19,7 +19,6 @@
     - id: BoxPhotocopierToners # DS14
     - id: PlushieLizardJobQuartermaster
       prob: 0.02
-    - id: ClothingOuterHardsuitSoyuzQuartermaster # DS14-Soyuz
 
 - type: entity
   id: LockerQuarterMasterFilled
@@ -247,9 +246,9 @@
     - id: ClothingBeltCMOFilled # DS14-soyuz
     - id: Hypospray
     - id: MedTekCartridge
+    - id: BeakerCMO # DS14
     - id: NitrogenTankFilled # DS14
     - id: ADTtelescopicBaton # ADT
-    - id: DrinkShakerCMO # DS14
     # Standard command gear
     - id: RubberStampCMO
     - id: ClothingHeadsetAltMedical
@@ -313,6 +312,7 @@
     - id: ClothingHandsGlovesColorYellow # DS14
     - id: TabletRD # DS14
     - id: LawConfigurator # DS14
+    - id: ClothingEyesGlassesCommandDr # DS14
     - id: PlushieLizardJobResearchdirector
       prob: 0.02
 
@@ -383,7 +383,7 @@
     - id: ERTloadoutSecuritySecondary # DS14
     - id: ClothingNeckBodyCamera # DS14
     - id: PortableCameraMonitor # DS14
-    - id: WeaponRifleAEK # DS14-Soyuz
+    - id: WeaponRifleAEK # DS14-Soyuz replaced
     - id: BoxMagazineLightRifle # DS14
     - id: PatrolTablet # DS14
     - id: PlushieLizardJobHeadofsecurity

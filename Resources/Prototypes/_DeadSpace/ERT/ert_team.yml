@@ -69,7 +69,7 @@
     - id: RandomHumanoidSpawnerSCSTLeader
       amount: 1
     - id: RandomHumanoidSpawnerSCSTAgent
-      amount: 6
+      amount: 8
 
 - type: ertTeam
   id: SCNT
@@ -105,7 +105,7 @@
     - id: RandomHumanoidSpawnerSCNTLeader
       amount: 1
     - id: RandomHumanoidSpawnerSCNTAgent
-      amount: 6
+      amount: 8
 
 - type: ertTeam
   id: CburnSierra
@@ -331,10 +331,14 @@
   spawns:
     - id: RandomHumanoidSpawnerBSAALeader
       amount: 1
+    - id: RandomHumanoidSpawnerBSAASpecialist
+      amount: 1
+    - id: RandomHumanoidSpawnerBSAAFlamer
+      amount: 1
     - id: RandomHumanoidSpawnerBSAAMedic
       amount: 3
     - id: RandomHumanoidSpawnerBSAAFighter
-      amount: 8
+      amount: 6
 
 - type: ertTeam
   id: CentralCommandOfficial

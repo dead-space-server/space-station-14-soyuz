@@ -140,4 +140,4 @@ jobs:
             "$WEBHOOK_URL" \
             --fail \
             --silent \
-            --show-error
+            --show-error        

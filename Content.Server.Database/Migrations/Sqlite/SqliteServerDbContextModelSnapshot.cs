@@ -620,6 +620,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("reason");
 
+                    b.Property<bool>("SendToPrison")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("send_to_prison");
+
                     b.Property<int>("Severity")
                         .HasColumnType("INTEGER")
                         .HasColumnName("severity");
@@ -1370,14 +1374,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<int>("ServerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("server_id");
-
-                    b.Property<string>("GamePresetName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("game_preset_name");
-
-                    b.Property<string>("MapName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("map_name");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("TEXT")

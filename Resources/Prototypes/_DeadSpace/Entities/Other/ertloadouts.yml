@@ -243,6 +243,10 @@
   components:
   - type: Sprite
     state: ml
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,1,1
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - TruncheonsecSet
@@ -1008,6 +1012,10 @@
     state: ssd
   content:
   - WeaponPistolBlueShieldUpgradeKit
+  - WeaponSubMachineGunDrozd
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
 
 ## Secondary
 ### Огнестрельное
@@ -1037,7 +1045,7 @@
   - MagazinePistolHighCapacity
   - MagazinePistolHighCapacity
   - MagazinePistolHighCapacity
-  - BulletShieldBlueShield
+  - BulletShieldBlueShield # DS14-Soyuz
 
 - type: thiefBackpackSet
   id: BerettaM92Set

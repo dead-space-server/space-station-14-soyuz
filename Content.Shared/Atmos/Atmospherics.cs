@@ -181,6 +181,7 @@ namespace Content.Shared.Atmos
             [Gas.Nitrogen] = Loc.GetString("gas-nitrogen-abbreviation"),
             [Gas.Nitriatium] = Loc.GetString("gas-nitriatium-abbreviation"),
             [Gas.Nitryl] = Loc.GetString("gas-nitryl-abbreviation"),
+            [Gas.NitricOxide] = Loc.GetString("gas-nitric-oxide-abbreviation"), // DS14
             [Gas.NitrousOxide] = Loc.GetString("gas-nitrous-oxide-abbreviation"),
             [Gas.Oxygen] = Loc.GetString("gas-oxygen-abbreviation"),
             [Gas.Plasma] = Loc.GetString("gas-plasma-abbreviation"),
@@ -217,7 +218,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 17; // Kofeecheks gases: LicenseRef-Kofeecheks
+        public const int TotalNumberOfGases = 18; // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: NitricOxide
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -390,6 +391,7 @@ namespace Content.Shared.Atmos
         Nitriatium = 13,
         Hilium = 14,
         Brizidium = 15,
-        Iprit = 16
+        Iprit = 16,
+        NitricOxide = 17 // DS14
     }
 }

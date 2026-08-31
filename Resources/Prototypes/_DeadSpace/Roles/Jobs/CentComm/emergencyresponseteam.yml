@@ -11,13 +11,15 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTLeaderGearAmber
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -57,7 +59,7 @@
     back: ClothingBackpackRIGERTLeader
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
@@ -90,13 +92,15 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTLeaderGearRed
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -135,11 +139,11 @@
     jumpsuit: ClothingUniformJumpsuitERTLeader
     back: ClothingBackpackERTLeader
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     head: ClothingHeadHatERTLeaderBeret
     neck: ClothingNeckMantleERTLeader
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedLeader
+    outerClothing: ClothingOuterHardsuitERTLeader
     suitstorage: JetpackSecurityFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTLeaderRedPDA
@@ -169,13 +173,15 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTLeaderGearGamma
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -232,12 +238,12 @@
     - ERTloadoutGammaSupport
     - ERTloadoutMelee
     - UplinkERTGamma
+    - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
     - BSAACombatKitFilled
     - InjectorCaseERTFilled
     - WeaponDisabler
-    - BoxCardboardERT
 
 # Security
 ## Amber
@@ -250,10 +256,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTSecurityGearAmber
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -296,7 +304,7 @@
     back: ClothingBackpackRIGERTSecurity
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
@@ -331,10 +339,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTSecurityGearRed
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -408,10 +418,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTSecurityGearGamma
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -453,7 +465,7 @@
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     back: ClothingBackpackERTSecurity
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTSecurity
     suitstorage: JetpackVoidFilled
@@ -468,7 +480,7 @@
     - ERTloadoutGammaSecondary
     - ERTloadoutGammaSupport
     - ERTloadoutMelee
-    - BoxCardboardERT
+    - BoxCardboardERTGamma
     - CrowbarRed
     - PinpointerNuclear
     - BSAACombatKitFilled
@@ -487,10 +499,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTMedicalGearAmber
   icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
@@ -533,7 +547,7 @@
     back: ClothingBackpackRIGERTMedic
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
@@ -570,10 +584,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTMedicalGearRed
   icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
@@ -629,6 +645,7 @@
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
     - ERTloadoutRedSupport
+    - ERTloadoutMelee
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -640,7 +657,6 @@
     - ChemistryBottleOmnizine
     - ChemistryBottleBruizine
     - ChemistryBottlePyrazine
-    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -652,10 +668,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTMedicalGearGamma
   icon: "JobIconERTMedical"
   supervisors: job-supervisors-centcom
@@ -697,7 +715,7 @@
     jumpsuit: ClothingUniformJumpsuitERTMedic
     back: ClothingBackpackERTMedical
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTMedical
     suitstorage: JetpackVoidFilled
@@ -713,7 +731,7 @@
     - ERTloadoutGammaSupport
     - UplinkERTGamma
     - ERTloadoutMelee
-    - BoxCardboardERT
+    - BoxCardboardERTGamma
     - DefibrillatorCompact
     - PinpointerNuclear
     - JugTheCircleOmnizine
@@ -733,10 +751,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTEngineerGearAmber
   icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
@@ -779,7 +799,7 @@
     back: ClothingBackpackRIGERTEngineer
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudAdvanced
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
@@ -816,10 +836,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTEngineerGearRed
   icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
@@ -861,9 +883,9 @@
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedEngineer
+    outerClothing: ClothingOuterHardsuitERTEngineer
     suitstorage: JetpackSecurityFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTEngineerRedPDA
@@ -894,10 +916,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTEngineerGearGamma
   icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
@@ -939,7 +963,7 @@
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTEngineer
     suitstorage: JetpackVoidFilled
@@ -953,7 +977,7 @@
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
     - ERTloadoutMelee
-    - BoxCardboardERT
+    - BoxCardboardERTGamma
     - BoxC4ERT
     - RCDRecharging
     - RCDAmmo
@@ -975,7 +999,9 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTJanitorGearAmber
   icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
@@ -1018,7 +1044,7 @@
     back: ClothingBackpackRIGERTJanitor
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     neck: ClothingNeckBodyCamera
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorBulletproof
@@ -1051,7 +1077,9 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTJanitorGearRed
   icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
@@ -1093,9 +1121,9 @@
     jumpsuit: ClothingUniformJumpsuitERTJanitor
     back: ClothingBackpackERTJanitor
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedJanitor
+    outerClothing: ClothingOuterHardsuitERTJanitor
     suitstorage: JetpackSecurityFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTJanitorRedPDA
@@ -1126,7 +1154,9 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: ERTJanitorGearGamma
   icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
@@ -1168,7 +1198,7 @@
     jumpsuit: ClothingUniformJumpsuitERTJanitor
     back: ClothingBackpackERTJanitor
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTJanitor
     suitstorage: JetpackVoidFilled
@@ -1182,7 +1212,7 @@
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
     - ERTloadoutMelee
-    - BoxCardboardERT
+    - BoxCardboardERTGamma
     - BoxLightMixed
     - BoxGrenadeCleanade
     - AdvMopItem

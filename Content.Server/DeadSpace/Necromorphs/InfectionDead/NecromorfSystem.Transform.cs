@@ -8,6 +8,7 @@ using Content.Server.DeadSpace.MonkeyKing.Components;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Humanoid;
 using Content.Server.Inventory;
+using Content.Shared.DeadSpace.Necromorphs.InfectionDead;
 using Content.Server.Mind;
 using Content.Server.NPC;
 using Content.Shared.DeadSpace.Necromorphs.InfectionDead.Components;
@@ -108,6 +109,9 @@ public sealed partial class NecromorfSystem
 
         AddComp(target, necromorfComp);
 
+        var necroficationStarted = new NecroficationStartedEvent();
+        RaiseLocalEvent(target, ref necroficationStarted);
+
         NecromorfLayerComponent necromorfLayercomp = new NecromorfLayerComponent(necromorf.Sprite, necromorf.State, necromorf.IsAnimal);
 
         if (necromorf.IsAnimal)
@@ -133,8 +137,7 @@ public sealed partial class NecromorfSystem
 
         RemComp<RespiratorComponent>(target);
         RemComp<BarotraumaComponent>(target);
-        RemComp<HungerComponent>(target);
-        RemComp<ThirstComponent>(target);
+        RemComp<SatiationComponent>(target); // DS14: necromorphs do not use hunger or thirst.
         RemComp<SanityComponent>(target);
         RemComp<ReproductiveComponent>(target);
         RemComp<ReproductivePartnerComponent>(target);

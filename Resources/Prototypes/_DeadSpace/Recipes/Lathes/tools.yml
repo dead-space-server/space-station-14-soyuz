@@ -5,10 +5,11 @@
     Steel: 1000
     Plastic: 250
     BluespaceCrystal: 750
+
 - type: latheRecipe
   parent: BaseToolRecipe
   id: HoloprojectorRND
-  result: HoloprojectorRNDEmpty
+  result: HoloprojectorRND
   completetime: 3
   materials:
     Steel: 500

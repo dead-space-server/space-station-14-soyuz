@@ -42,9 +42,6 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
     [Dependency] private readonly TraitSystem _trait = default!;
     [Dependency] private readonly JobSystem _jobs = default!;
     [Dependency] private readonly SharedRankSystem _rankSystem = default!; // DS14-Soyuz
-
-    public override void Initialize()
-    {
         base.Initialize();
         SubscribeLocalEvent<CustomizableHumanoidSpawnerComponent, MindAddedMessage>(OnMindAdded);
         SubscribeLocalEvent<CustomizableHumanoidSpawnerComponent, BoundUIOpenedEvent>(OnUiOpened);
@@ -152,7 +149,6 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
 
         var newEntity = _spawning.SpawnPlayerMob(coords.Value, comp.JobPrototype, profile, null);
         _trait.ApplyTraits(newEntity, comp.JobPrototype, profile);
-
         // DS14-Soyuz start
         if (_prototypeManager.TryIndex(comp.JobPrototype, out var jobProto) && jobProto.Ranks != null && jobProto.Ranks.Count > 0)
         {

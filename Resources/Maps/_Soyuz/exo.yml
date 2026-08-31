@@ -88,6 +88,8 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
+    - type: MapLight
+      ambientLightColor: '#261764'
     - type: Parallax
       parallax: ExoStation
   - uid: 2
@@ -104068,7 +104070,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 80.5,-47.5
       parent: 2
-- proto: StationAnchor
+- proto: StationAnchorIndestructible # DS14 Edit: force static station grid
   entities:
   - uid: 4683
     components:

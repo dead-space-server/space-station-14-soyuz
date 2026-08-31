@@ -5,6 +5,7 @@ using Content.Shared.Eui;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.DeadSpace.Traitor;
+
 public sealed partial class TraitorUltraOpenContractActionEvent : InstantActionEvent;
 
 public sealed partial class TraitorUltraOpenExtraObjectiveOfferActionEvent : InstantActionEvent;

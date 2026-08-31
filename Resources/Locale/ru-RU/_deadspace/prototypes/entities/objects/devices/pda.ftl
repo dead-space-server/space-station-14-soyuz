@@ -49,14 +49,18 @@ ent-CentcomOperatorPDA = { ent-CentcomPDA }
 ent-CentcomSpecialOperationsOfficerPDA = { ent-CentcomPDA }
     .desc = { ent-CentcomPDA.desc }
 
+# Прочее
+
+ent-SurgeonPDA = КПК хирурга
+    .desc = Красные пятна остались после одной из операций.
 ent-CoronerPDA = КПК патологоанатома
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!
-ent-SecurityPilotPDA = КПК пилота милиции
-    .desc = Синий, чтобы пятна крови сбитого шаттлом разнорабочего были заметны на нём.
-ent-SeniorServicePDA = КПК управленца сервисного отдела
-    .desc = Идеален для составления в нём меню бара и кухни.
-ent-SeniorSalvagePDA = КПК мастера шахтёра
+ent-SeniorSalvagePDA = КПК мастера-шахтёра
     .desc = Покрыт засохшей кровью карпов.
+ent-SecurityPilotPDA = КПК пилота милиции
+    .desc = Синий, чтобы пятна крови сбитого шаттлом ассистента были заметны на нём.
+ent-SeniorServicePDA = КПК управленца сервисого отдела
+    .desc = Идеален для составления в нём меню бара и кухни.
 ent-BaseTaipanPDA = КПК
     .desc = Personal Data Assistant.
     .suffix = Тайпан

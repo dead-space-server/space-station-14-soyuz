@@ -19,6 +19,8 @@ namespace Content.Client.Humanoid;
 [GenerateTypedNameReferences]
 public sealed partial class MarkingPicker : Control
 {
+    private const float MarkingIconScale = 1.25f; // DS14
+
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -47,8 +49,6 @@ public sealed partial class MarkingPicker : Control
     public Color CurrentEyeColor = Color.Black;
     public Marking? HairMarking;
     public Marking? FacialHairMarking;
-    private bool _useDs14MenuStyle; // DS14
-
     private readonly HashSet<MarkingCategories> _ignoreCategories = new();
 
     public string IgnoreCategories
@@ -270,7 +270,7 @@ public sealed partial class MarkingPicker : Control
                 continue;
             }
 
-            var item = CMarkingsUnused.AddItem($"{GetMarkingName(marking)}", _sprite.Frame0(marking.Sprites[0]));
+            var item = CMarkingsUnused.AddItem($"{GetMarkingName(marking)}", _sprite.Frame0(marking.Sprites[0]), iconScale: MarkingIconScale); // DS14
             item.Metadata = marking;
             // DS14-sponsors-start
             if (_sponsorsManager != null && marking.SponsorOnly)
@@ -317,6 +317,7 @@ public sealed partial class MarkingPicker : Control
                 Icon = _sprite.Frame0(newMarking.Sprites[0]),
                 Selectable = true,
                 Metadata = newMarking,
+                IconScale = MarkingIconScale, // DS14
                 IconModulate = marking.MarkingColors[0]
             };
 
@@ -473,11 +474,6 @@ public sealed partial class MarkingPicker : Control
 
             colorContainer.AddChild(new Label { Text = $"{stateNames[i]} color:" });
             colorContainer.AddChild(colorSelector);
-            // DS14-start
-            if (_useDs14MenuStyle)
-                ApplyDs14MenuStyle(colorContainer);
-            // DS14-end
-
             var listing = _currentMarkings.Markings[_selectedMarkingCategory];
 
             var color = listing[listing.Count - 1 - item.ItemIndex].MarkingColors[i];
@@ -576,6 +572,7 @@ public sealed partial class MarkingPicker : Control
         {
             Text = Loc.GetString("marking-used", ("marking-name", $"{GetMarkingName(marking)}"), ("marking-category", Loc.GetString($"markings-category-{marking.MarkingCategory}"))),
             Icon = _sprite.Frame0(marking.Sprites[0]),
+            IconScale = MarkingIconScale, // DS14
             Selectable = true,
             Metadata = marking,
         };
@@ -599,7 +596,7 @@ public sealed partial class MarkingPicker : Control
 
         if (marking.MarkingCategory == _selectedMarkingCategory)
         {
-            var item = CMarkingsUnused.AddItem($"{GetMarkingName(marking)}", _sprite.Frame0(marking.Sprites[0]));
+            var item = CMarkingsUnused.AddItem($"{GetMarkingName(marking)}", _sprite.Frame0(marking.Sprites[0]), iconScale: MarkingIconScale); // DS14
             item.Metadata = marking;
         }
         _selectedMarking = null;

@@ -11,6 +11,7 @@ loadout-group-passenger-specialization = Разнорабочий, специа�
 loadout-group-atmospheric-specialization = Атмосферный техник, специализация
 loadout-group-detective-specialization = Следователь, специализация
 loadout-group-psychologist-specialization = Психиатор, специализация
+loadout-group-librarian-specialization = Библиотекарь, специализация
 loadout-group-clown-specialization = Клоун, специализация
 
 
@@ -45,7 +46,7 @@ job-title-scientist-roboticist = Робототехник
 job-title-engineer-electrician = Электрик
 job-title-engineer-repairman = Ремонтник
 job-title-engineer-mechanic = Механик
-job-title-engineer-nuclear = Ядерщик
+job-title-engineer-nuclear = Инженер-ядерщик
 job-title-engineer-welder = Сварщик
 
 # Грузчик
@@ -74,6 +75,9 @@ job-title-detective-operative = Оперуполномоченный
 # Психолог
 job-title-psychologist-psychotherapist = Психотерапевт
 job-title-psychologist-psychiatrist = Психолог
+
+# Библиотекарь
+job-title-librarian-gamemaster = Гейм-мастер
 
 # Клоун
 job-title-clown-comedian = Комик

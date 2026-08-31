@@ -249,11 +249,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
             return;
         // DS14-end
 
-        // DS14-start
-        if (!painter.StylesByGroup.ContainsKey(group))
-            return;
-        // DS14-end
-
         // Valid paint target.
         args.Handled = true;
 

@@ -18,9 +18,11 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
     private readonly Dictionary<int, (TimeSpan ExpiresAt, Label Timer, Button Accept)> _offerControls = new();
     private RepairOrderBoundUserInterfaceState? _state;
+    private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
 
     public event Action<int>? OnAccept;
     public event Action<int>? OnComplete;
+    public event Action<int>? OnPrintReport;
 
     public RepairOrderWindow()
     {
@@ -37,6 +39,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         ActiveContainer.RemoveAllChildren();
         CompletedContainer.RemoveAllChildren();
         _offerControls.Clear();
+        _activeControls = null;
 
         if (state.Available.Count == 0)
         {
@@ -144,12 +147,22 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 FontColorOverride = Color.LightGreen,
             });
 
+            if (entry.ExpiresAt is { } activeExpiresAt)
+            {
+                var remainingLabel = new Label
+                {
+                    FontColorOverride = Color.LightGray,
+                };
+                content.AddChild(remainingLabel);
+
+                // The button is assigned below after all other active-order fields are built.
+                _activeControls = (activeExpiresAt, remainingLabel, null!);
+            }
+
             var fraction = entry.BlueprintReady
-                ? entry.TotalTasks == 0
-                    ? 1f
-                    : Math.Clamp((float) entry.CompletedTasks / entry.TotalTasks, 0f, 1f)
+                ? RepairOrderProgress.CalculateFraction(entry.CompletedTasks, entry.TotalTasks)
                 : 0f;
-            var percent = (int) MathF.Round(fraction * 100f);
+            var percent = RepairOrderProgress.CalculatePercent(entry.CompletedTasks, entry.TotalTasks);
 
             content.AddChild(new Label
             {
@@ -187,14 +200,33 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 FontColorOverride = Color.LightGray,
             });
 
+            var actions = new BoxContainer
+            {
+                Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                SeparationOverride = 8,
+            };
+            content.AddChild(actions);
+
+            var print = new Button
+            {
+                Text = Loc.GetString("repair-orders-print-report"),
+                HorizontalExpand = true,
+            };
+            print.OnPressed += _ => OnPrintReport?.Invoke(entry.RuntimeId);
+            actions.AddChild(print);
+
             var complete = new Button
             {
                 Text = Loc.GetString("repair-orders-submit"),
                 HorizontalAlignment = HAlignment.Right,
+                HorizontalExpand = true,
                 Disabled = !entry.BlueprintReady || _state?.Completing == true,
             };
             complete.OnPressed += _ => OnComplete?.Invoke(entry.RuntimeId);
-            content.AddChild(complete);
+            actions.AddChild(complete);
+            if (_activeControls is { } activeControls)
+                _activeControls = (activeControls.ExpiresAt, activeControls.Timer, complete);
             return panel;
         }
 
@@ -250,16 +282,22 @@ public sealed partial class RepairOrderWindow : FancyWindow
         });
         content.AddChild(new Label
         {
-            Text = Loc.GetString("repair-orders-status-completed"),
-            FontColorOverride = Color.LightGreen,
+            Text = Loc.GetString(entry.Result == RepairOrderResult.Expired
+                ? "repair-orders-status-expired"
+                : "repair-orders-status-completed"),
+            FontColorOverride = entry.Result == RepairOrderResult.Expired ? Color.Orange : Color.LightGreen,
         });
-        content.AddChild(new Label
+
+        if (entry.Rewards.Count > 0)
         {
-            Text = Loc.GetString(entry.Delivered
-                ? "repair-orders-rewards-delivered"
-                : "repair-orders-rewards-not-delivered"),
-            FontColorOverride = entry.Delivered ? Color.LightGreen : Color.Orange,
-        });
+            content.AddChild(new Label
+            {
+                Text = Loc.GetString(entry.Delivered
+                    ? "repair-orders-rewards-delivered"
+                    : "repair-orders-rewards-not-delivered"),
+                FontColorOverride = entry.Delivered ? Color.LightGreen : Color.Orange,
+            });
+        }
         content.AddChild(new Label
         {
             Text = Loc.GetString(
@@ -289,26 +327,35 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 Text = Loc.GetString("repair-orders-no-rewards"),
                 FontColorOverride = Color.Gray,
             });
-            return panel;
         }
-
-        foreach (var rewardEntry in entry.Rewards)
+        else
         {
-            var rewardName = rewardEntry.RewardPrototypeId;
-            if (_prototype.TryIndex<RepairRewardPrototype>(rewardEntry.RewardPrototypeId, out var reward) &&
-                _prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
+            foreach (var rewardEntry in entry.Rewards)
             {
-                rewardName = entity.Name;
-            }
+                var rewardName = rewardEntry.RewardPrototypeId;
+                if (_prototype.TryIndex<RepairRewardPrototype>(rewardEntry.RewardPrototypeId, out var reward) &&
+                    _prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
+                {
+                    rewardName = entity.Name;
+                }
 
-            content.AddChild(new Label
-            {
-                Text = Loc.GetString(
-                    "repair-orders-reward-line",
-                    ("reward", rewardName),
-                    ("count", rewardEntry.Count)),
-            });
+                content.AddChild(new Label
+                {
+                    Text = Loc.GetString(
+                        "repair-orders-reward-line",
+                        ("reward", rewardName),
+                        ("count", rewardEntry.Count)),
+                });
+            }
         }
+
+        var print = new Button
+        {
+            Text = Loc.GetString("repair-orders-print-report"),
+            HorizontalAlignment = HAlignment.Right,
+        };
+        print.OnPressed += _ => OnPrintReport?.Invoke(entry.RuntimeId);
+        content.AddChild(print);
 
         return panel;
     }
@@ -330,6 +377,17 @@ public sealed partial class RepairOrderWindow : FancyWindow
                                        _state.Accepting ||
                                        _state.Completing ||
                                        remaining <= TimeSpan.Zero;
+        }
+
+        if (_activeControls is { } activeControls)
+        {
+            var remaining = activeControls.ExpiresAt - _timing.CurTime;
+            activeControls.Timer.Text = Loc.GetString(
+                "repair-orders-time-remaining",
+                ("time", FormatRemaining(remaining)));
+            activeControls.Complete.Disabled = _state.Completing ||
+                                               !_state.Active!.BlueprintReady ||
+                                               remaining <= TimeSpan.Zero;
         }
     }
 

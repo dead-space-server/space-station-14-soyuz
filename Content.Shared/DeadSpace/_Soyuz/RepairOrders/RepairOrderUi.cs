@@ -11,9 +11,31 @@ public enum RepairOrderStatus : byte
 }
 
 [Serializable, NetSerializable]
+public enum RepairOrderResult : byte
+{
+    Completed,
+    Expired,
+}
+
+[Serializable, NetSerializable]
 public enum RepairOrderUiKey : byte
 {
     Key,
+}
+
+public static class RepairOrderProgress
+{
+    public static float CalculateFraction(int completedTasks, int totalTasks)
+    {
+        return totalTasks <= 0
+            ? 1f
+            : Math.Clamp((float) completedTasks / totalTasks, 0f, 1f);
+    }
+
+    public static int CalculatePercent(int completedTasks, int totalTasks)
+    {
+        return (int) MathF.Round(CalculateFraction(completedTasks, totalTasks) * 100f);
+    }
 }
 
 [Serializable, NetSerializable]
@@ -61,6 +83,9 @@ public sealed class RepairOrderCompletedBuiEntry
     public readonly int TotalTasks;
     public readonly int FinalPoints;
     public readonly int MaxPoints;
+    public readonly int RepairPercent;
+    public readonly int RewardBudget;
+    public readonly RepairOrderResult Result;
     public readonly bool Delivered;
     public readonly List<RepairOrderRewardBuiEntry> Rewards;
 
@@ -71,6 +96,9 @@ public sealed class RepairOrderCompletedBuiEntry
         int totalTasks,
         int finalPoints,
         int maxPoints,
+        int repairPercent,
+        int rewardBudget,
+        RepairOrderResult result,
         bool delivered,
         List<RepairOrderRewardBuiEntry> rewards)
     {
@@ -80,6 +108,9 @@ public sealed class RepairOrderCompletedBuiEntry
         TotalTasks = totalTasks;
         FinalPoints = finalPoints;
         MaxPoints = maxPoints;
+        RepairPercent = repairPercent;
+        RewardBudget = rewardBudget;
+        Result = result;
         Delivered = delivered;
         Rewards = rewards;
     }
@@ -151,6 +182,20 @@ public sealed class RepairOrderCompleteMessage : BoundUserInterfaceMessage
     public readonly int RuntimeId;
 
     public RepairOrderCompleteMessage(int runtimeId)
+    {
+        RuntimeId = runtimeId;
+    }
+}
+
+/// <summary>
+/// Requests a physical server-authored report for a station order by its runtime ID.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class RepairOrderPrintReportMessage : BoundUserInterfaceMessage
+{
+    public readonly int RuntimeId;
+
+    public RepairOrderPrintReportMessage(int runtimeId)
     {
         RuntimeId = runtimeId;
     }

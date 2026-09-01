@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Storage.EntitySystems;
+using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.GameTicking;
 using Content.Shared.Maps;
@@ -25,6 +26,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
 
     private readonly Dictionary<RepairOrderDeliveryKey, RepairOrderDelivery> _deliveries = new();
@@ -46,6 +48,83 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         EntityUid station,
         int runtimeId,
         EntityUid console,
+        RepairOrderPrototype order,
+        IReadOnlyList<RepairOrderRewardResult> rewards,
+        out RepairOrderDelivery delivery)
+    {
+        if (!TryComp(console, out TransformComponent? consoleTransform) ||
+            consoleTransform.MapID == MapId.Nullspace ||
+            consoleTransform.GridUid == null)
+        {
+            delivery = default!;
+            _sawmill.Warning(
+                $"Cannot deliver rewards for repair order {order.ID}: console {ToPrettyString(console)} " +
+                "is not on a usable grid.");
+            return false;
+        }
+
+        var anchor = new RepairOrderDeliveryAnchor(
+            consoleTransform.Coordinates,
+            console,
+            $"console {ToPrettyString(console)}",
+            IncludeOrigin: false);
+        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+    }
+
+    /// <summary>
+    /// Uses a safe tile on the station's largest grid when no submitting console exists, while retaining the same
+    /// protected-container insertion, rollback, reservation and idempotency path as manual delivery.
+    /// </summary>
+    public bool TryDeliverAtStation(
+        EntityUid station,
+        int runtimeId,
+        RepairOrderPrototype order,
+        IReadOnlyList<RepairOrderRewardResult> rewards,
+        out RepairOrderDelivery delivery)
+    {
+        delivery = default!;
+        var stationGrid = _station.GetLargestGrid(station);
+        if (stationGrid == null ||
+            !TryComp<MapGridComponent>(stationGrid.Value, out var grid) ||
+            !TryFindStationDeliveryOrigin((stationGrid.Value, grid), out var origin))
+        {
+            _sawmill.Warning(
+                $"Cannot deliver rewards for repair order {order.ID}: station {station} has no safe delivery tile.");
+            return false;
+        }
+
+        var anchor = new RepairOrderDeliveryAnchor(
+            origin,
+            null,
+            $"station grid {stationGrid.Value}",
+            IncludeOrigin: true);
+        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+    }
+
+    /// <summary>
+    /// Delivers around a previously remembered grid-local console position through the same protected placement,
+    /// reservation, oversized-reward, rollback, and idempotency path as every other repair-order delivery.
+    /// </summary>
+    public bool TryDeliverAtCoordinates(
+        EntityUid station,
+        int runtimeId,
+        EntityCoordinates coordinates,
+        RepairOrderPrototype order,
+        IReadOnlyList<RepairOrderRewardResult> rewards,
+        out RepairOrderDelivery delivery)
+    {
+        var anchor = new RepairOrderDeliveryAnchor(
+            coordinates,
+            null,
+            $"last known repair-orders console position {coordinates}",
+            IncludeOrigin: true);
+        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+    }
+
+    private bool TryDeliver(
+        EntityUid station,
+        int runtimeId,
+        RepairOrderDeliveryAnchor anchor,
         RepairOrderPrototype order,
         IReadOnlyList<RepairOrderRewardResult> rewards,
         out RepairOrderDelivery delivery)
@@ -78,7 +157,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         var attempt = new RepairOrderDelivery(key);
         try
         {
-            if (!TryCreateDeliveryContainer(console, order, pool, attempt, out var currentContainer, out var currentStorage))
+            if (!TryCreateDeliveryContainer(anchor, order, pool, attempt, out var currentContainer, out var currentStorage))
                 throw new InvalidOperationException("The first protected reward container could not be created.");
 
             foreach (var result in rewards)
@@ -91,10 +170,10 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    if (IsAtCapacity(currentStorage))
+                    if (IsAtCapacity(currentStorage) && currentStorage.Contents.ContainedEntities.Count > 0)
                     {
                         if (!TryCreateDeliveryContainer(
-                                console,
+                                anchor,
                                 order,
                                 pool,
                                 attempt,
@@ -105,11 +184,6 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                                 $"A full reward container could not be followed by another protected container for {reward.Entity}.");
                         }
 
-                        if (IsAtCapacity(currentStorage))
-                        {
-                            throw new InvalidOperationException(
-                                $"A fresh delivery container {pool.DeliveryContainer} has no usable capacity for {reward.Entity}.");
-                        }
                     }
 
                     var item = Spawn(reward.Entity, Transform(currentContainer).Coordinates);
@@ -123,13 +197,44 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 
                     if (!_entityStorage.CanInsert(item, currentContainer, currentStorage))
                     {
-                        _sawmill.Error(
-                            $"Cannot deliver reward {reward.Entity} for repair order {order.ID}: protected container " +
-                            $"{pool.DeliveryContainer} rejects the entity while not full " +
-                            $"({currentStorage.Contents.ContainedEntities.Count}/{currentStorage.Capacity}). " +
-                            "No unsecured world-drop fallback will be used.");
-                        throw new InvalidOperationException(
-                            $"Reward entity {reward.Entity} is incompatible with delivery container {pool.DeliveryContainer}.");
+                        // A non-empty container may reject an otherwise compatible reward because its remaining
+                        // capacity is insufficient. A single fresh container distinguishes that from an entity
+                        // which fundamentally cannot be stored in the configured delivery container.
+                        if (currentStorage.Contents.ContainedEntities.Count > 0)
+                        {
+                            if (!TryCreateDeliveryContainer(
+                                    anchor,
+                                    order,
+                                    pool,
+                                    attempt,
+                                    out currentContainer,
+                                    out currentStorage))
+                            {
+                                throw new InvalidOperationException(
+                                    $"A reward container which rejected {reward.Entity} could not be followed by another protected container.");
+                            }
+
+                            _transform.SetCoordinates(item, Transform(currentContainer).Coordinates);
+                            if (currentStorage.Open)
+                            {
+                                throw new InvalidOperationException(
+                                    $"Delivery container {pool.DeliveryContainer} spawned open and cannot securely contain reward {reward.Entity}.");
+                            }
+                        }
+
+                        if (!_entityStorage.CanInsert(item, currentContainer, currentStorage))
+                        {
+                            if (!TryPlaceOversizedReward(item, anchor, attempt))
+                            {
+                                throw new InvalidOperationException(
+                                    $"Oversized reward entity {reward.Entity} could not be placed at {anchor.Description}.");
+                            }
+
+                            _sawmill.Info(
+                                $"Reward {reward.Entity} cannot fit into an empty delivery container " +
+                                $"{pool.DeliveryContainer} and was delivered as an oversized reward.");
+                            continue;
+                        }
                     }
 
                     if (!_entityStorage.Insert(item, currentContainer, currentStorage))
@@ -147,7 +252,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         catch (Exception exception)
         {
             _sawmill.Error(
-                $"Failed to create reward delivery for repair order {order.ID} at console {ToPrettyString(console)}: {exception}");
+                $"Failed to create reward delivery for repair order {order.ID} at {anchor.Description}: {exception}");
 
             Rollback(attempt);
             return false;
@@ -192,7 +297,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     }
 
     private bool TryCreateDeliveryContainer(
-        EntityUid console,
+        RepairOrderDeliveryAnchor anchor,
         RepairOrderPrototype order,
         RepairRewardPoolPrototype pool,
         RepairOrderDelivery attempt,
@@ -202,14 +307,14 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         deliveryContainer = EntityUid.Invalid;
         storage = default!;
         if (!TryFindDeliveryCoordinates(
-                console,
+                anchor,
                 attempt,
                 out var coordinates,
                 out var usedDropFallback,
                 out var reusedFirstPosition))
         {
             _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: console {ToPrettyString(console)} is not on a usable grid.");
+                $"Cannot deliver rewards for repair order {order.ID}: {anchor.Description} has no usable placement.");
             return false;
         }
 
@@ -219,13 +324,13 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         if (usedDropFallback)
         {
             // This fallback moves the protected crate, never an individual reward entity.
-            _transform.DropNextTo(deliveryContainer, console);
+            _transform.DropNextTo(deliveryContainer, anchor.DropFallbackEntity!.Value);
             _sawmill.Warning(
                 $"No unobstructed neighboring tile was found for protected reward container {deliveryContainer}; " +
-                $"used DropNextTo placement at console {ToPrettyString(console)}.");
+                $"used DropNextTo placement at {anchor.Description}.");
         }
 
-        if (!TryRememberContainerPlacement(deliveryContainer, attempt))
+        if (!TryRememberDeliveryPlacement(deliveryContainer, attempt, rememberAsFirstContainer: true))
         {
             _sawmill.Error(
                 $"Cannot remember the actual placement of protected reward container {deliveryContainer} " +
@@ -252,13 +357,35 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         return true;
     }
 
+    private bool TryPlaceOversizedReward(
+        EntityUid reward,
+        RepairOrderDeliveryAnchor anchor,
+        RepairOrderDelivery attempt)
+    {
+        if (!TryFindDeliveryCoordinates(
+                anchor,
+                attempt,
+                out var coordinates,
+                out var usedDropFallback,
+                out _))
+        {
+            return false;
+        }
+
+        _transform.SetCoordinates(reward, coordinates);
+        if (usedDropFallback)
+            _transform.DropNextTo(reward, anchor.DropFallbackEntity!.Value);
+
+        return TryRememberDeliveryPlacement(reward, attempt, rememberAsFirstContainer: false);
+    }
+
     private static bool IsAtCapacity(EntityStorageComponent storage)
     {
         return storage.Contents.ContainedEntities.Count >= storage.Capacity;
     }
 
     private bool TryFindDeliveryCoordinates(
-        EntityUid console,
+        RepairOrderDeliveryAnchor anchor,
         RepairOrderDelivery attempt,
         out EntityCoordinates coordinates,
         out bool usedDropFallback,
@@ -268,16 +395,17 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         usedDropFallback = false;
         reusedFirstPosition = false;
 
-        if (!TryComp(console, out TransformComponent? consoleTransform) ||
-            consoleTransform.MapID == MapId.Nullspace ||
-            consoleTransform.GridUid is not { } gridUid ||
-            !TryComp<MapGridComponent>(gridUid, out var grid))
+        if (anchor.Coordinates == EntityCoordinates.Invalid)
+            return false;
+
+        var gridUid = anchor.Coordinates.EntityId;
+        if (!TryComp<MapGridComponent>(gridUid, out var grid))
         {
             return false;
         }
 
-        var origin = _map.TileIndicesFor(gridUid, grid, consoleTransform.Coordinates);
-        foreach (var offset in EnumerateNearbyOffsets())
+        var origin = _map.TileIndicesFor(gridUid, grid, anchor.Coordinates);
+        foreach (var offset in EnumerateNearbyOffsets(anchor.IncludeOrigin))
         {
             var indices = origin + offset;
             if (attempt.ReservedGridCells.Contains(new RepairOrderDeliveryCell(gridUid, indices)) ||
@@ -315,36 +443,83 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             return coordinates != EntityCoordinates.Invalid;
         }
 
-        // Preserve the original first-crate fallback. Its actual post-DropNextTo coordinates are captured below.
-        coordinates = _transform.GetMoverCoordinates(console, consoleTransform);
+        if (anchor.DropFallbackEntity is not { } fallbackEntity ||
+            !TryComp(fallbackEntity, out TransformComponent? fallbackTransform))
+        {
+            return false;
+        }
+
+        // Preserve the original console fallback. Its actual post-DropNextTo coordinates are captured below.
+        coordinates = _transform.GetMoverCoordinates(fallbackEntity, fallbackTransform);
         usedDropFallback = true;
         return coordinates != EntityCoordinates.Invalid;
     }
 
-    private bool TryRememberContainerPlacement(EntityUid container, RepairOrderDelivery attempt)
+    private bool TryFindStationDeliveryOrigin(
+        Entity<MapGridComponent> stationGrid,
+        out EntityCoordinates coordinates)
     {
-        if (!TryComp(container, out TransformComponent? containerTransform) ||
-            containerTransform.Coordinates == EntityCoordinates.Invalid)
+        foreach (var tile in _map.GetAllTiles(stationGrid.Owner, stationGrid.Comp))
+        {
+            if (tile.Tile.IsEmpty || _turf.IsTileBlocked(tile, CollisionGroup.MobMask))
+                continue;
+
+            var candidate = _map.GridTileToLocal(stationGrid.Owner, stationGrid.Comp, tile.GridIndices);
+            var mapCoordinates = _transform.ToMapCoordinates(candidate);
+            var bounds = Box2.CenteredAround(
+                mapCoordinates.Position,
+                new Vector2(stationGrid.Comp.TileSize * 0.8f));
+
+            _intersectingGrids.Clear();
+            _mapManager.FindGridsIntersecting(
+                mapCoordinates.MapId,
+                bounds,
+                ref _intersectingGrids,
+                approx: false,
+                includeMap: false);
+
+            if (_intersectingGrids.Any(other => other.Owner != stationGrid.Owner))
+                continue;
+
+            coordinates = candidate;
+            return true;
+        }
+
+        coordinates = EntityCoordinates.Invalid;
+        return false;
+    }
+
+    private bool TryRememberDeliveryPlacement(
+        EntityUid entity,
+        RepairOrderDelivery attempt,
+        bool rememberAsFirstContainer)
+    {
+        if (!TryComp(entity, out TransformComponent? transform) ||
+            transform.Coordinates == EntityCoordinates.Invalid)
         {
             return false;
         }
 
         // This is deliberately read after DropNextTo, so a fallback first crate records where it really ended up.
-        attempt.FirstContainerCoordinates ??= containerTransform.Coordinates;
+        if (rememberAsFirstContainer)
+            attempt.FirstContainerCoordinates ??= transform.Coordinates;
 
-        if (containerTransform.GridUid is not { } gridUid ||
+        if (transform.GridUid is not { } gridUid ||
             !TryComp<MapGridComponent>(gridUid, out var grid))
         {
             return true;
         }
 
-        var indices = _map.TileIndicesFor(gridUid, grid, containerTransform.Coordinates);
+        var indices = _map.TileIndicesFor(gridUid, grid, transform.Coordinates);
         attempt.ReservedGridCells.Add(new RepairOrderDeliveryCell(gridUid, indices));
         return true;
     }
 
-    private static IEnumerable<Vector2i> EnumerateNearbyOffsets()
+    private static IEnumerable<Vector2i> EnumerateNearbyOffsets(bool includeOrigin)
     {
+        if (includeOrigin)
+            yield return Vector2i.Zero;
+
         // Increasing square rings keep the chosen clear tile as close to the submitting console as possible.
         for (var radius = 1; radius <= SearchRadius; radius++)
         {
@@ -386,3 +561,9 @@ public sealed class RepairOrderDelivery
 internal readonly record struct RepairOrderDeliveryKey(EntityUid Station, int RuntimeId);
 
 internal readonly record struct RepairOrderDeliveryCell(EntityUid Grid, Vector2i Indices);
+
+internal readonly record struct RepairOrderDeliveryAnchor(
+    EntityCoordinates Coordinates,
+    EntityUid? DropFallbackEntity,
+    string Description,
+    bool IncludeOrigin);

@@ -240,6 +240,9 @@ public sealed partial class ShuttleSystem
     /// </summary>
     public bool CanFTL(EntityUid shuttleUid, [NotNullWhen(false)] out string? reason)
     {
+        if (!_shuttleControl.CanControl(shuttleUid, ShuttleControlType.Ftl, out reason))
+            return false;
+
         // Currently in FTL already
         if (HasComp<FTLComponent>(shuttleUid))
         {

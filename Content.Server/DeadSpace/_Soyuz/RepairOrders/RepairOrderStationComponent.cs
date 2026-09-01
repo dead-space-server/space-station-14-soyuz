@@ -1,4 +1,5 @@
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
@@ -26,6 +27,19 @@ public sealed partial class RepairOrderStationComponent : Component
 
     [ViewVariables]
     public CompletedRepairOrder? Completed;
+
+    /// <summary>
+    /// Terminal repair grids which are waiting for their remaining players to leave before deletion.
+    /// </summary>
+    [ViewVariables]
+    public readonly HashSet<EntityUid> PendingCleanupGrids = new();
+
+    /// <summary>
+    /// Last known usable repair-orders console position, stored relative to its station grid so it remains useful
+    /// after the console entity itself is deleted.
+    /// </summary>
+    [ViewVariables]
+    public EntityCoordinates? LastRepairConsoleCoordinates;
 
     [ViewVariables]
     public bool Accepting;
@@ -75,6 +89,19 @@ public sealed partial class ActiveRepairOrder
     [ViewVariables]
     public EntityUid GridUid;
 
+    /// <summary>
+    /// Console through which this order was activated. Its UID is only a preferred live anchor; the station also
+    /// retains grid-local coordinates for use after the console is deleted.
+    /// </summary>
+    [ViewVariables]
+    public EntityUid? ActivationConsole;
+
+    [ViewVariables]
+    public TimeSpan StartedAt;
+
+    [ViewVariables]
+    public TimeSpan ExpiresAt;
+
     [ViewVariables]
     public int CompletedTasks;
 
@@ -89,6 +116,22 @@ public sealed partial class ActiveRepairOrder
 
     [ViewVariables]
     public int MaxPoints;
+
+    /// <summary>
+    /// True once deadline revalidation has frozen the terminal Expired snapshot.
+    /// Delivery retries must never recalculate progress or rewards after this point.
+    /// </summary>
+    [ViewVariables]
+    public bool ExpirationFrozen;
+
+    [ViewVariables]
+    public int ExpiredRewardBudget;
+
+    [ViewVariables]
+    public TimeSpan NextExpirationAttempt;
+
+    [ViewVariables]
+    public readonly HashSet<EntityUid> ExpirationAdditionalGrids = new();
 
     /// <summary>
     /// Reward selection is frozen on the first valid completion attempt so a failed physical delivery can retry
@@ -127,6 +170,15 @@ public sealed partial class CompletedRepairOrder
     public int MaxPoints;
 
     [ViewVariables]
+    public int RepairPercent;
+
+    [ViewVariables]
+    public int RewardBudget;
+
+    [ViewVariables]
+    public RepairOrderResult Result;
+
+    [ViewVariables]
     public bool Delivered;
 
     [ViewVariables]
@@ -142,6 +194,8 @@ public sealed partial class CompletedRepairOrder
         int totalTasks,
         int finalPoints,
         int maxPoints,
+        int rewardBudget,
+        RepairOrderResult result,
         bool delivered,
         IEnumerable<EntityUid>? deliveryContainers,
         IEnumerable<RepairOrderRewardResult> rewards)
@@ -152,6 +206,9 @@ public sealed partial class CompletedRepairOrder
         TotalTasks = totalTasks;
         FinalPoints = finalPoints;
         MaxPoints = maxPoints;
+        RepairPercent = RepairOrderProgress.CalculatePercent(completedTasks, totalTasks);
+        RewardBudget = rewardBudget;
+        Result = result;
         Delivered = delivered;
         if (deliveryContainers != null)
             DeliveryContainers.AddRange(deliveryContainers);

@@ -30,6 +30,7 @@ namespace Content.Server.Shuttles.Systems
         [Dependency] private readonly ShuttleConsoleSystem _console = default!;
         [Dependency] private readonly SharedJointSystem _jointSystem = default!;
         [Dependency] private readonly SharedPopupSystem _popup = default!;
+        [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
         [Dependency] private readonly SharedTransformSystem _transform = default!;
 
         private const string DockingJoint = "docking";
@@ -380,6 +381,17 @@ namespace Content.Server.Shuttles.Systems
 
         private void OnRequestUndock(EntityUid uid, ShuttleConsoleComponent component, UndockRequestMessage args)
         {
+            var console = _console.GetDroneConsole(uid);
+            var shuttleUid = console == null ? null : Transform(console.Value).GridUid;
+            if (shuttleUid == null)
+            {
+                _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
+                return;
+            }
+
+            if (!_shuttleControl.CanControl(shuttleUid.Value, ShuttleControlType.Docking, args.Actor))
+                return;
+
             if (!TryGetEntity(args.DockEntity, out var dockEnt) ||
                 !TryComp(dockEnt, out DockingComponent? dockComp))
             {
@@ -389,9 +401,23 @@ namespace Content.Server.Shuttles.Systems
 
             var dock = (dockEnt.Value, dockComp);
 
-            if (!CanUndock(dock))
+            if (!CanUndock(dock) ||
+                dockComp.DockedWith is not { } otherDock ||
+                !TryComp(dockEnt.Value, out TransformComponent? dockXform) ||
+                dockXform.GridUid is not { } dockGridUid ||
+                !TryComp(otherDock, out TransformComponent? otherDockXform) ||
+                otherDockXform.GridUid is not { } otherDockGridUid)
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
+                return;
+            }
+
+            if (!_shuttleControl.CanControl(dockGridUid, ShuttleControlType.Docking, args.Actor))
+                return;
+
+            if (otherDockGridUid != dockGridUid &&
+                !_shuttleControl.CanControl(otherDockGridUid, ShuttleControlType.Docking, args.Actor))
+            {
                 return;
             }
 
@@ -427,9 +453,21 @@ namespace Content.Server.Shuttles.Systems
 
             // Cheating?
             if (!TryComp(ourDock, out TransformComponent? xformA) ||
-                xformA.GridUid != shuttleUid)
+                xformA.GridUid != shuttleUid ||
+                xformA.GridUid is not { } ourGridUid ||
+                !TryComp(targetDock, out TransformComponent? xformB) ||
+                xformB.GridUid is not { } targetGridUid)
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
+                return;
+            }
+
+            if (!_shuttleControl.CanControl(ourGridUid, ShuttleControlType.Docking, args.Actor))
+                return;
+
+            if (targetGridUid != ourGridUid &&
+                !_shuttleControl.CanControl(targetGridUid, ShuttleControlType.Docking, args.Actor))
+            {
                 return;
             }
 

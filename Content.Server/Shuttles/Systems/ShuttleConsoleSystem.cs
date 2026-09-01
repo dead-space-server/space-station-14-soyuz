@@ -37,6 +37,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
+    [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly TagSystem _tags = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
@@ -183,6 +184,12 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             !this.IsPowered(uid, EntityManager) ||
             !Transform(uid).Anchored ||
             !_blocker.CanInteract(user, uid))
+        {
+            return false;
+        }
+
+        if (Transform(uid).GridUid is not { } gridUid ||
+            !_shuttleControl.CanControl(gridUid, ShuttleControlType.Pilot, user))
         {
             return false;
         }

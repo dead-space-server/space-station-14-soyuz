@@ -4,8 +4,8 @@
 - type: repairReward
   id: RepairOrderSteelReward
   entity: SheetSteel
-  cost: 10
-  weight: 10
+  cost: 5
+  weight: 9
   maxCount: 10
   minimumDifficulty: 1
 
@@ -13,14 +13,14 @@
   id: RepairOrderGlassReward
   entity: SheetGlass
   cost: 10
-  weight: 9
-  maxCount: 5
+  weight: 8
+  maxCount: 2
   minimumDifficulty: 1
 
 - type: repairReward
   id: RepairOrderRodsReward
   entity: PartRodMetal
-  cost: 7
+  cost: 3
   weight: 7
   maxCount: 3
   minimumDifficulty: 1
@@ -30,7 +30,7 @@
   entity: SheetPlastic
   cost: 15
   weight: 6
-  maxCount: 3
+  maxCount: 1
   minimumDifficulty: 1
 
 - type: repairReward
@@ -38,7 +38,7 @@
   entity: CableApcStack
   cost: 3
   weight: 8
-  maxCount: 4
+  maxCount: 2
   minimumDifficulty: 1
 
 - type: repairReward
@@ -46,7 +46,7 @@
   entity: CableMVStack
   cost: 4
   weight: 6
-  maxCount: 3
+  maxCount: 2
   minimumDifficulty: 1
 
 - type: repairReward
@@ -54,7 +54,7 @@
   entity: CableHVStack
   cost: 5
   weight: 4
-  maxCount: 3
+  maxCount: 2
   minimumDifficulty: 2
 
 - type: repairReward
@@ -94,7 +94,7 @@
   entity: SheetPlasteel
   cost: 12
   weight: 5
-  maxCount: 15
+  maxCount: 10
   minimumDifficulty: 2
 
 - type: repairReward
@@ -102,7 +102,7 @@
   entity: SheetPlasma
   cost: 13
   weight: 4
-  maxCount: 3
+  maxCount: 2
   minimumDifficulty: 2
 
 - type: repairReward
@@ -110,7 +110,7 @@
   entity: SheetPGlass
   cost: 15
   weight: 3
-  maxCount: 2
+  maxCount: 1
   minimumDifficulty: 2
 
 - type: repairReward
@@ -118,7 +118,7 @@
   entity: IngotSilver
   cost: 30
   weight: 3
-  maxCount: 2
+  maxCount: 1
   minimumDifficulty: 2
 
 - type: repairReward
@@ -126,13 +126,13 @@
   entity: IngotGold
   cost: 30
   weight: 2.5
-  maxCount: 2
+  maxCount: 1
   minimumDifficulty: 2
 
 - type: repairReward
   id: RepairOrderUraniumReward
   entity: SheetUranium
-  cost: 50
+  cost: 37
   weight: 2
   maxCount: 2
   minimumDifficulty: 3
@@ -142,7 +142,7 @@
   entity: SheetUGlass
   cost: 15
   weight: 1.5
-  maxCount: 2
+  maxCount: 1
   minimumDifficulty: 3
 
 - type: repairReward
@@ -150,7 +150,7 @@
   entity: SheetRGlass
   cost: 15
   weight: 1.2
-  maxCount: 2
+  maxCount: 1
   minimumDifficulty: 3
 
 - type: repairReward
@@ -158,7 +158,7 @@
   entity: SheetTungsten
   cost: 75
   weight: 2
-  maxCount: 4
+  maxCount: 5
   minimumDifficulty: 3
 
 - type: repairReward

@@ -908,7 +908,8 @@ public sealed class RepairOrderValidationSystem : EntitySystem
     {
         if (!TryComp<RepairOrderStationComponent>(blueprint.Comp.Station, out var station) ||
             station.Active is not { } active ||
-            active.GridUid != blueprint.Owner)
+            active.GridUid != blueprint.Owner ||
+            active.ExpirationFrozen)
         {
             return;
         }
@@ -1016,11 +1017,17 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         Entity<RepairBlueprintComponent> blueprint,
         ref GridSplitEvent args)
     {
-        _repairOrders.AbortActiveOrder(
-            blueprint.Comp.Station,
-            blueprint.Owner,
-            RepairOrderAbortReason.RepairGridSplit,
-            args.NewGrids);
+        if (!_repairOrders.AbortActiveOrder(
+                blueprint.Comp.Station,
+                blueprint.Owner,
+                RepairOrderAbortReason.RepairGridSplit,
+                args.NewGrids))
+        {
+            _repairOrders.TrackPendingCleanupSplit(
+                blueprint.Comp.Station,
+                blueprint.Owner,
+                args.NewGrids);
+        }
     }
 
     private static Vector2i LocalPositionToCell(MapGridComponent grid, Vector2 position)

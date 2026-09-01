@@ -8,45 +8,57 @@
   id: RepairOrderDamagedEngineeringModule
   name: repair-order-damaged-engineering-sattelite-name
   description: repair-order-damaged-engineering-sattelite-description
+  objectType: repair-order-object-type-satellite
+  objectName: repair-order-object-name-orbital-communications-satellite
   difficulty: 2
   weight: 35
   targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 20m
 ##Amber
 - type: repairOrder
   id: RepairOrderDamagedSOBRAmber
   name: repair-order-damaged-amber-name
   description: repair-order-damaged-amber-description
+  objectType: repair-order-object-type-medium-shuttle
+  objectName: repair-order-object-name-amber
   difficulty: 3
   weight: 5
   targetGridPath: /Maps/_Soyuz/RepairOrders/amber_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/amber_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 20m
 ##Briggle
 - type: repairOrder
   id: RepairOrderDamagedBriggle
   name: repair-order-damaged-briggle-name
   description: repair-order-damaged-briggle-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-briggle
   difficulty: 2
   weight: 25
   targetGridPath: /Maps/_Soyuz/RepairOrders/briggle_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/briggle_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 15m
 ##Cargo_Shuttle
 - type: repairOrder
   id: RepairOrderDamagedCargoShuttle
   name: repair-order-damaged-cargo-shuttle-name
   description: repair-order-damaged-cargo-shuttle-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-dinero-mk2
   difficulty: 1
   weight: 35
   targetGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_target.yml
   damagedGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_damage.yml
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 15m
 
 - type: entity
   parent: BaseItem

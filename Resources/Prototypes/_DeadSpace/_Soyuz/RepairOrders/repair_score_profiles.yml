@@ -260,6 +260,14 @@
       allComponents: [AtmosDevice]
     mode: Exact
 
+  - selector:
+      parents: [DisposalPipe]
+    mode: Axis
+
+  - selector:
+      parents: [DisposalPipeBase]
+    mode: Exact
+
   # Directional atmos fixtures.
   - selector:
       parents: [AtmosDeviceFanDirectional]

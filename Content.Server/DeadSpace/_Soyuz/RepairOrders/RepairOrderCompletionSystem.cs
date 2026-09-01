@@ -5,6 +5,7 @@ using Content.Shared.Access.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
@@ -14,10 +15,12 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairOrderCompletionSystem : EntitySystem
 {
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
+    [Dependency] private readonly RepairOrderExpirationSystem _expiration = default!;
     [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
     [Dependency] private readonly RepairOrderRewardSystem _rewards = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
@@ -69,6 +72,24 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             return;
         }
 
+        // A client request arriving after the authoritative deadline must enter Expired, even if the station
+        // timeout update has not run yet this tick.
+        if (_timing.CurTime >= active.ExpiresAt)
+        {
+            _expiration.TryExpireActiveOrder(stationUid.Value, state, console.Owner, args.Actor);
+            return;
+        }
+
+        if (_repairOrders.TryFindPlayerOnRepairGrid(active.GridUid, out var player))
+        {
+            Fail(
+                console.Owner,
+                args.Actor,
+                "repair-orders-error-occupied",
+                $"player {ToPrettyString(player)} is still aboard repair grid {active.GridUid}");
+            return;
+        }
+
         state.Completing = true;
         _repairOrders.RefreshStationUis(stationUid.Value);
 
@@ -97,7 +118,8 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            active.PendingRewards ??= _rewards.GenerateRewards(order, active.CurrentPoints);
+            var rewardBudget = RepairOrderRewardBudget.ForSuccessfulCompletion(active.CurrentPoints);
+            active.PendingRewards ??= _rewards.GenerateRewards(order, rewardBudget);
             var rewards = active.PendingRewards;
             var completed = new CompletedRepairOrder(
                 active.RuntimeId,
@@ -106,9 +128,13 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 active.TotalTasks,
                 active.CurrentPoints,
                 active.MaxPoints,
+                rewardBudget,
+                RepairOrderResult.Completed,
                 delivered: false,
                 deliveryContainers: null,
                 rewards: rewards);
+
+            _repairOrders.RememberRepairConsole(stationUid.Value, console.Owner);
 
             if (!_delivery.TryDeliver(
                     stationUid.Value,
@@ -146,16 +172,8 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             committed = true;
             _delivery.Commit(delivery);
 
-            // The completed snapshot contains every persistent result; the grid and blueprint are no longer runtime state.
-            try
-            {
-                _validation.DiscardPreparedSession(repairGrid);
-            }
-            finally
-            {
-                if (Exists(repairGrid))
-                    QueueDel(repairGrid);
-            }
+            // The completed snapshot contains every persistent result; runtime cleanup remains player-safe.
+            _repairOrders.CleanupTerminalGrid(stationUid.Value, repairGrid);
 
             _sawmill.Info(
                 $"Completed repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +

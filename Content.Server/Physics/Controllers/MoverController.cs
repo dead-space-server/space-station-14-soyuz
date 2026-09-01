@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using Content.Server.NPC.HTN;
 using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Shared.Backmen.Blob.Components;
 using Content.Shared.Conveyor;
@@ -27,6 +28,7 @@ public sealed class MoverController : SharedMoverController
 
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
 
     private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
 
@@ -552,6 +554,13 @@ public sealed class MoverController : SharedMoverController
                 !_shuttleQuery.TryGetComponent(gridId, out var shuttleComponent) ||
                 !shuttleComponent.Enabled)
                 continue;
+
+            if (!_shuttleControl.CanControl(gridId.Value, ShuttleControlType.Movement))
+            {
+                _thruster.DisableLinearThrusters(shuttleComponent);
+                _thruster.SetAngularThrust(shuttleComponent, false);
+                continue;
+            }
 
             if (!newPilots.TryGetValue(gridId.Value, out var pilots))
             {

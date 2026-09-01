@@ -1,6 +1,8 @@
+using System.IO;
 using Content.Shared.Maps;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
@@ -9,7 +11,7 @@ namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 /// Describes a repair job and the damaged/reference grids associated with it.
 /// </summary>
 [Prototype]
-public sealed partial class RepairOrderPrototype : IPrototype
+public sealed partial class RepairOrderPrototype : IPrototype, ISerializationHooks
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
@@ -19,6 +21,18 @@ public sealed partial class RepairOrderPrototype : IPrototype
 
     [DataField(required: true)]
     public LocId Description = string.Empty;
+
+    /// <summary>
+    /// Formal type of the repaired object, used in official reports independently of the order's flavor name.
+    /// </summary>
+    [DataField(required: true)]
+    public LocId ObjectType = string.Empty;
+
+    /// <summary>
+    /// Formal name of the repaired object. <see cref="Name"/> remains the name of the repair order itself.
+    /// </summary>
+    [DataField(required: true)]
+    public LocId ObjectName = string.Empty;
 
     [DataField]
     public int Difficulty = 1;
@@ -40,6 +54,18 @@ public sealed partial class RepairOrderPrototype : IPrototype
 
     [DataField(required: true)]
     public ProtoId<RepairRewardPoolPrototype> RewardPool;
+
+    /// <summary>
+    /// Authoritative time available after the order has been fully activated.
+    /// </summary>
+    [DataField(required: true)]
+    public TimeSpan RepairTime;
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        if (RepairTime <= TimeSpan.Zero)
+            throw new InvalidDataException($"Repair order {ID} must have a positive repairTime.");
+    }
 }
 
 /// <summary>

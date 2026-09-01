@@ -147,9 +147,9 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: LightTube
+        - id: LightTubeCrystalSoyuz #DS14-Soyuz
           amount: 6
-        - id: LightBulb
+        - id: LightBulbSoyuz #DS14-Soyuz
           amount: 6
 
 - type: entity

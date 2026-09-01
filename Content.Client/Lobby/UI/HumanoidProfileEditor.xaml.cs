@@ -272,7 +272,6 @@ namespace Content.Client.Lobby.UI
 
             RgbSkinColorContainer.AddChild(_rgbSkinColorSelector = new ColorSelectorSliders());
             _rgbSkinColorSelector.SelectorType = ColorSelectorSliders.ColorSelectorType.Hsv; // defaults color selector to HSV
-            ApplyDs14MenuStyle(_rgbSkinColorSelector); // DS14
             _rgbSkinColorSelector.OnColorChanged += _ =>
             {
                 OnSkinColorOnValueChanged();
@@ -281,11 +280,6 @@ namespace Content.Client.Lobby.UI
             #endregion
 
             #region Hair
-
-            // DS14-start
-            HairStylePicker.UseDs14MenuStyle();
-            FacialHairPicker.UseDs14MenuStyle();
-            // DS14-end
 
             HairStylePicker.OnMarkingSelect += newStyle =>
             {
@@ -477,8 +471,6 @@ namespace Content.Client.Lobby.UI
 
             #region Eyes
 
-            ApplyDs14MenuStyle(EyeColorPicker); // DS14
-
             EyeColorPicker.OnEyeColorPicked += newColor =>
             {
                 if (Profile is null || _readOnly) // DS14
@@ -530,7 +522,6 @@ namespace Content.Client.Lobby.UI
 
             TabContainer.SetTabTitle(4, Loc.GetString("humanoid-profile-editor-markings-tab"));
 
-            Markings.UseDs14MenuStyle(); // DS14
             Markings.OnMarkingAdded += OnMarkingChange;
             Markings.OnMarkingRemoved += OnMarkingChange;
             Markings.OnMarkingColorChange += OnMarkingChange;
@@ -567,42 +558,6 @@ namespace Content.Client.Lobby.UI
             UpdateSpeciesGuidebookIcon();
             IsDirty = false;
         }
-
-        // DS14-start
-        private static void ApplyDs14MenuStyle(Control control)
-        {
-            switch (control)
-            {
-                case Button button:
-                    button.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                    button.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                    button.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                    button.AddStyleClass("DS14MenuProfileControl");
-                    break;
-                case OptionButton option:
-                    option.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                    option.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                    option.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                    option.AddStyleClass("DS14MenuProfileControl");
-                    if (!option.OptionStyleClasses.Contains("DS14MenuProfileControl"))
-                        option.OptionStyleClasses.Add("DS14MenuProfileControl");
-                    break;
-                case HeadedOptionButton option:
-                    option.AddStyleClass("DS14MenuProfileControl");
-                    if (!option.OptionStyleClasses.Contains("DS14MenuProfileControl"))
-                        option.OptionStyleClasses.Add("DS14MenuProfileControl");
-                    break;
-                case Label label:
-                    label.AddStyleClass("DS14MenuProfileLabel");
-                    break;
-            }
-
-            foreach (var child in control.Children)
-            {
-                ApplyDs14MenuStyle(child);
-            }
-        }
-        // DS14-end
 
         /// <summary>
         /// Refreshes the flavor text editor status.
@@ -1611,7 +1566,6 @@ namespace Content.Client.Lobby.UI
                         HorizontalAlignment = HAlignment.Right,
                         VerticalAlignment = VAlignment.Center,
                         Margin = new Thickness(3f, 3f, 0f, 0f),
-                        StyleClasses = { "DS14MenuProfileControl" }, // DS14
                     };
 
                     var collection = IoCManager.Instance!;

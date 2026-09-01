@@ -17,14 +17,18 @@
       Frezon: danger
       # DS14-start
       InfectionDeadSpace: stationInfectionDeadSpace
-      Nitryl: stationNitryl
-      NitricOxide: stationNitricOxide
       Iprit: stationIprit
       Brizidium: stationBrizidium
       Hydrogen: stationHydrogen
       Fixirium: stationFixirium
       Nitriatium: stationNitriatium
       Hilium: stationHilium
+      HyperNoblium: stationHyperNoblium
+      ProtoNitrate: stationProtoNitrate
+      Helium: stationHelium
+      Halon: stationHalon
+      Zauker: stationZauker
+      Antinoblium: stationAntinoblium
       # DS14-end
 
 - type: entity
@@ -63,13 +67,17 @@
     - Frezon
     # DS14-start
     - InfectionDeadSpace
-    - Nitryl
-    - NitricOxide
     - Nitriatium
     - Hilium
     - Brizidium
     - Iprit
     - Hydrogen
+    - HyperNoblium
+    - ProtoNitrate
+    - Helium
+    - Halon
+    - Zauker
+    - Antinoblium
     # DS14-end
 
 # use this to prevent overriding filters with hardcoded defaults

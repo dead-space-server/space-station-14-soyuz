@@ -1,6 +1,5 @@
 using System.Linq;
 using Content.DeadSpace.Interfaces.Client;
-using Content.Client.Stylesheets;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
@@ -152,43 +151,6 @@ public sealed partial class MarkingPicker : Control
 
         CMarkingSearch.OnTextChanged += args => Populate(args.Text);
     }
-
-    // DS14-start
-    public void UseDs14MenuStyle()
-    {
-        _useDs14MenuStyle = true;
-        ApplyDs14MenuStyle(this);
-    }
-
-    private static void ApplyDs14MenuStyle(Control control)
-    {
-        switch (control)
-        {
-            case Button button:
-                button.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                button.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                button.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                button.AddStyleClass("DS14MenuProfileControl");
-                break;
-            case OptionButton option:
-                option.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                option.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                option.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                option.AddStyleClass("DS14MenuProfileControl");
-                if (!option.OptionStyleClasses.Contains("DS14MenuProfileControl"))
-                    option.OptionStyleClasses.Add("DS14MenuProfileControl");
-                break;
-            case Label label:
-                label.AddStyleClass("DS14MenuProfileLabel");
-                break;
-        }
-
-        foreach (var child in control.Children)
-        {
-            ApplyDs14MenuStyle(child);
-        }
-    }
-    // DS14-end
 
     private void SetupCategoryButtons()
     {

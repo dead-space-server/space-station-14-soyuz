@@ -34,15 +34,6 @@ public sealed partial class NetProbeUiFragment : BoxContainer
 
     private void AddProbedDevice(ProbedNetworkDevice device)
     {
-        // DS14-start
-        var panel = new PanelContainer
-        {
-            HorizontalExpand = true,
-            Margin = new Thickness(4),
-            StyleClasses = { "DS14MenuListRow" },
-        };
-        // DS14-end
-
         var row = new BoxContainer();
         row.HorizontalExpand = true;
         row.Orientation = LayoutOrientation.Horizontal;
@@ -52,30 +43,26 @@ public sealed partial class NetProbeUiFragment : BoxContainer
         nameLabel.Text = device.Name;
         nameLabel.HorizontalExpand = true;
         nameLabel.ClipText = true;
-        nameLabel.AddStyleClass("DS14MenuProfileLabel"); // DS14
         row.AddChild(nameLabel);
 
+        var addressLabel = new Label();
+        addressLabel.Text = device.Address;
         addressLabel.HorizontalExpand = true;
-        addressLabel.AddStyleClass("DS14MenuProfileLabel"); // DS14
+        addressLabel.ClipText = true;
         row.AddChild(addressLabel);
 
         var frequencyLabel = new Label();
         frequencyLabel.Text = device.Frequency;
         frequencyLabel.HorizontalExpand = true;
         frequencyLabel.ClipText = true;
-        frequencyLabel.AddStyleClass("DS14MenuProfileLabel"); // DS14
         row.AddChild(frequencyLabel);
 
         var networkLabel = new Label();
         networkLabel.Text = device.NetId;
         networkLabel.HorizontalExpand = true;
         networkLabel.ClipText = true;
-        networkLabel.AddStyleClass("DS14MenuProfileLabel"); // DS14
         row.AddChild(networkLabel);
 
-        // DS14-start
-        panel.AddChild(row);
-        ProbedDeviceContainer.AddChild(panel);
-        // DS14-end
+        ProbedDeviceContainer.AddChild(row);
     }
 }

@@ -23,13 +23,6 @@ namespace Content.Client.Communications.UI
 
         [ViewVariables]
         private CommunicationsConsoleMenu? _menu;
-        // DS14-start
-        [ViewVariables]
-        private EmagCommunicationsInterface? _emagMenu;
-        private EmagCommunicationsUiMode _emagMode = EmagCommunicationsUiMode.Unavailable;
-        private EmagCommunicationsConsoleAccessStateMessage? _pendingAccessState;
-        private bool _showingEmagMenu;
-        // DS14-end
 
         // DS14-start
         [ViewVariables]

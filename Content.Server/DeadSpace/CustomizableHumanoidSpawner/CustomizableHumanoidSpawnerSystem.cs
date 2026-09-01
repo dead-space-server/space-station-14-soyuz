@@ -42,6 +42,9 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
     [Dependency] private readonly TraitSystem _trait = default!;
     [Dependency] private readonly JobSystem _jobs = default!;
     [Dependency] private readonly SharedRankSystem _rankSystem = default!; // DS14-Soyuz
+
+    public override void Initialize()
+    {
         base.Initialize();
         SubscribeLocalEvent<CustomizableHumanoidSpawnerComponent, MindAddedMessage>(OnMindAdded);
         SubscribeLocalEvent<CustomizableHumanoidSpawnerComponent, BoundUIOpenedEvent>(OnUiOpened);

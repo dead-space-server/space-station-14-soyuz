@@ -184,22 +184,6 @@
   upperWarnAround: !type:AlarmThresholdSetting
     threshold: 0.5
 
-# Toxic nitrogen dioxide.
-- type: alarmThreshold
-  id: stationNitryl
-  upperBound: !type:AlarmThresholdSetting
-    threshold: 0.01
-  upperWarnAround: !type:AlarmThresholdSetting
-    threshold: 0.5
-
-# Toxic nitric oxide.
-- type: alarmThreshold
-  id: stationNitricOxide
-  upperBound: !type:AlarmThresholdSetting
-    threshold: 0.01
-  upperWarnAround: !type:AlarmThresholdSetting
-    threshold: 0.5
-
 # War gas dangerous!
 - type: alarmThreshold
   id: stationIprit
@@ -235,6 +219,48 @@
 # only warn at high concentration, never danger, oxygen replace.
 - type: alarmThreshold
   id: stationFixirium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 1.5
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationHyperNoblium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.5
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.1
+
+- type: alarmThreshold
+  id: stationProtoNitrate
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 1.5
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationHelium
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 1.5
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationHalon
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 1.5
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationZauker
+  upperBound: !type:AlarmThresholdSetting
+    threshold: 0.001
+  upperWarnAround: !type:AlarmThresholdSetting
+    threshold: 0.5
+
+- type: alarmThreshold
+  id: stationAntinoblium
   upperBound: !type:AlarmThresholdSetting
     threshold: 1.5
   upperWarnAround: !type:AlarmThresholdSetting

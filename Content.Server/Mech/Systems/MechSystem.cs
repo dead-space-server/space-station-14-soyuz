@@ -1,8 +1,7 @@
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
-using Content.Server.Atmos.Components; // DS14-Soyuz
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
-using Content.Shared.ActionBlocker;
 using Content.Shared.Atmos;
 using Content.Shared.Damage.Systems; // DS14 - Current engine keeps DamageChangedEvent in this namespace.
 using Content.Shared.DoAfter;
@@ -26,7 +25,6 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.Mech.Systems;
 
@@ -60,8 +58,6 @@ public sealed partial class MechSystem : SharedMechSystem
         SubscribeLocalEvent<MechComponent, MechEntryEvent>(OnMechEntry);
         SubscribeLocalEvent<MechComponent, MechExitEvent>(OnMechExit);
         SubscribeLocalEvent<MechComponent, DamageChangedEvent>(OnDamageChanged);
-        SubscribeLocalEvent<MechComponent, MechPilotSetupEvent>(OnMechPilotSetup); // DS14-Soyuz
-        SubscribeLocalEvent<MechComponent, MechPilotCleanupEvent>(OnMechPilotCleanup); // DS14-Soyuz
         SubscribeLocalEvent<MechComponent, MechGrabberEjectMessage>(RelayGrabberUiMessage);
         SubscribeLocalEvent<MechComponent, MechSoundboardPlayMessage>(RelaySoundboardUiMessage);
         SubscribeLocalEvent<VehicleOperatorComponent, InhaleLocationEvent>(OnInhale);
@@ -438,23 +434,4 @@ public sealed partial class MechSystem : SharedMechSystem
         args.Air = comp.Air;
     }
     #endregion
-
-// DS14-Soyuz-start
-    private void OnMechPilotSetup(EntityUid uid, MechComponent component, ref MechPilotSetupEvent args)
-    {
-        if (component.IgnorePressure)
-        {
-            EnsureComp<PressureImmunityComponent>(args.Pilot);
-        }
-    }
-
-    private void OnMechPilotCleanup(EntityUid uid, MechComponent component, ref MechPilotCleanupEvent args)
-    {
-        if (component.IgnorePressure)
-        {
-            RemComp<PressureImmunityComponent>(args.Pilot);
-        }
-    
-    }
-// DS14-Soyuz-end
 }

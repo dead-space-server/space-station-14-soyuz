@@ -125,15 +125,12 @@ public sealed class TTSSystem : EntitySystem
         AudioResource? audioResource = null;
         ResPath? filePath = null;
 
-        // Kofeecheks political loudspeaker TTS integration: LicenseRef-Kofeecheks
-        var volume = AdjustVolume(ev.IsWhisper, ev.IsRadio, ev.VolumeMultiplier);
-        var maxDistance = AdjustDistance(ev.IsWhisper, ev.DistanceMultiplier);
-
+        var maxDistance = AdjustDistance(ev.IsWhisper);
         var audioParams = AudioParams.Default
-            .WithVolume(volume)
+            .WithVolume(AdjustVolume(ev.IsWhisper, ev.IsRadio))
             .WithMaxDistance(maxDistance);
 
-        // DS14-start: attenuate camera audio by speaker-to-device distance
+        // DS14-start: attenuate camera audio by speaker-to-device distance, not speaker-to-AI-eye distance.
         if (ev.DistanceOverride is { } distance)
         {
             var gain = CalculateDistanceGain(distance, maxDistance);
@@ -182,8 +179,7 @@ public sealed class TTSSystem : EntitySystem
             _contentRoot.RemoveFile(filePath.Value);
     }
 
-    // DS-14 Soyuz
-    private float AdjustVolume(bool isWhisper, bool isRadio, float volumeMultiplier)
+    private float AdjustVolume(bool isWhisper, bool isRadio)
     {
         var volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volume);
 
@@ -196,17 +192,12 @@ public sealed class TTSSystem : EntitySystem
             volume = MinimalVolume + SharedAudioSystem.GainToVolume(_volumeRadio);
         }
 
-        if (!isRadio && volumeMultiplier > 1f) // DS14-Soyuz
-            volume += SharedAudioSystem.GainToVolume(volumeMultiplier);
-
         return volume;
     }
 
-    // DS-14 Soyuz
-    private float AdjustDistance(bool isWhisper, float distanceMultiplier)
+    private float AdjustDistance(bool isWhisper)
     {
-        var baseDistance = isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
-        return baseDistance * MathF.Max(distanceMultiplier, 0f);
+        return isWhisper ? SharedChatSystem.WhisperMuffledRange : SharedChatSystem.VoiceRange;
     }
 
     // DS14-start

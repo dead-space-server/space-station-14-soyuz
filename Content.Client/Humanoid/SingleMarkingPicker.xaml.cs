@@ -173,73 +173,6 @@ public sealed partial class SingleMarkingPicker : BoxContainer
         // DS14-end
     }
 
-    // DS14-start
-    public void UseDs14MenuStyle()
-    {
-        _useDs14MenuStyle = true;
-        ApplyDs14MenuStyle(this);
-    }
-
-    private void ApplyDs14MenuStyle(Control control) // DS14
-    {
-        switch (control)
-        {
-            case Button button:
-                button.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                button.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                button.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                button.AddStyleClass("DS14MenuProfileControl");
-                break;
-            case OptionButton option:
-                option.RemoveStyleClass(StyleClass.ButtonOpenLeft);
-                option.RemoveStyleClass(StyleClass.ButtonOpenRight);
-                option.RemoveStyleClass(StyleClass.ButtonOpenBoth);
-                option.AddStyleClass("DS14MenuProfileControl");
-                if (!option.OptionStyleClasses.Contains("DS14MenuProfileControl"))
-                    option.OptionStyleClasses.Add("DS14MenuProfileControl");
-                break;
-            case Label label:
-                label.AddStyleClass("DS14MenuProfileLabel");
-                break;
-            // DS14-Start
-            case CheckBox checkBox:
-                checkBox.AddStyleClass("DS14MenuProfileLabel");
-                break;
-            // DS14-End
-        }
-
-        foreach (var child in control.Children)
-        {
-            ApplyDs14MenuStyle(child);
-        }
-    }
-
-    public void ApplyDs14MenuStyleToColorSelector(ColorSelectorSliders selector)
-    {
-        foreach (var child in selector.Children)
-        {
-            switch (child)
-            {
-                case Slider slider:
-                    slider.AddStyleClass("DS14MenuProfileControl");
-                    break;
-                case LineEdit lineEdit:
-                    lineEdit.AddStyleClass("DS14MenuProfileControl");
-                    break;
-            }
-
-            if (child is BoxContainer box)
-            {
-                foreach (var inner in box.Children)
-                {
-                    if (inner is Label label)
-                        label.AddStyleClass("DS14MenuProfileLabel");
-                }
-            }
-        }
-    }
-    // DS14-end
-
     public void UpdateData(List<Marking> markings, string species, int totalPoints)
     {
         _markings = markings;
@@ -346,24 +279,6 @@ public sealed partial class SingleMarkingPicker : BoxContainer
             };
 
             ColorSelectorContainer.AddChild(selector);
-            // DS14-start
-            if (_useDs14MenuStyle)
-                ApplyDs14MenuStyle(selector);
-            // DS14-end
-        }
-
-        // DS14-start
-        UpdateGradientVisibility();
-        // DS14-end
-    }
-
-    // DS14-start
-    public void SetGradientData(bool enabled, Color color)
-    {
-        if (_hairGradient != null)
-        {
-            _hairGradient.SetData(enabled, color);
-            GradientContainer.Visible = _category == MarkingCategories.Hair;
         }
 
         // DS14-start

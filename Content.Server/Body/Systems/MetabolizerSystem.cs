@@ -410,9 +410,6 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
             metabolizer.MetabolizerTypes ??= [];
             metabolizer.MetabolizerTypes.Add(metabolizerType);
         }
-
-        return true;
     }
     // DS14-End
 }
-

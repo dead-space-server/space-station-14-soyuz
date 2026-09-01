@@ -10,12 +10,15 @@ using Content.Client.Cargo.UI;
 using Content.Client.Chemistry.UI;
 using Content.Client.Communications.UI;
 using Content.Client.Communications.UI.Widgets;
+using Content.Client.DeadSpace.Photocopier.UI;
 using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.DeadSpace.UserInterface.Controls;
 using Content.Client.Fax.UI;
+using Content.Client.LateJoin;
 using Content.Client.Lobby.UI;
 using Content.Client.Lobby.UI.Roles;
 using Content.Client.Options.UI;
+using Content.Client.Options.UI.Tabs;
 using Content.Client.PDA;
 using Content.Client.Power.APC.UI;
 using Content.Client.SmartFridge;
@@ -25,17 +28,21 @@ using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Systems.Chat.Widgets;
 using Content.Client.VendingMachines.UI;
 using Content.Shared.Administration;
+using Content.Shared.DeadSpace.Photocopier;
 using Content.Shared.Fax;
 using Content.Shared.Preferences;
 using Content.Shared.SmartFridge;
+using Content.Shared.StatusIcon;
 using Robust.Client;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Client.Utility;
 using Robust.Shared.Console;
 using Robust.Shared.ContentPack;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
@@ -64,7 +71,7 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
 
     public string Command => "ds14_ui_render";
     public string Description => "Render a deterministic DS14 UI fixture to user data and quit.";
-    public string Help => "ds14_ui_render <palette|dropdowns|list-container|vending|smart-fridge|store|lathe|reagent-dispenser|cargo|atmos-power|pda|admin|server-list|role-priorities|options-footer|ert-admin|fax|communications|chat> [output-name]";
+    public string Help => "ds14_ui_render <palette|dropdowns|list-container|vending|smart-fridge|store|lathe|reagent-dispenser|cargo|atmos-power|pda|pda-overflow|photocopier|admin|server-list|late-join|role-priorities|options-general|options-footer|ert-admin|ert-admin-pending|ert-admin-manual|ert-admin-codes|fax|communications|chat> [output-name]";
 
     public void Execute(IConsoleShell shell, string argStr, string[] args)
     {
@@ -108,11 +115,18 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
             "cargo" => new CargoShuttleMenu(),
             "atmos-power" => CreateApcFixture(),
             "pda" => CreatePdaFixture(),
+            "pda-overflow" => CreatePdaOverflowFixture(),
+            "photocopier" => CreatePhotocopierFixture(),
             "admin" => CreateAdminFixture(),
             "server-list" => CreateServerListFixture(),
+            "late-join" => CreateLateJoinFixture(),
             "role-priorities" => CreateRolePriorityFixture(),
+            "options-general" => CreateOptionsGeneralFixture(),
             "options-footer" => CreateOptionsFooterFixture(),
-            "ert-admin" => CreateErtAdminFixture(),
+            "ert-admin" => CreateErtAdminFixture(mainTab: 0, requestTab: 1),
+            "ert-admin-pending" => CreateErtAdminFixture(mainTab: 0, requestTab: 0),
+            "ert-admin-manual" => CreateErtAdminFixture(mainTab: 0, requestTab: 2),
+            "ert-admin-codes" => CreateErtAdminFixture(mainTab: 1, requestTab: 0),
             "fax" => CreateFaxFixture(),
             "communications" => CreateCommunicationsFixture(),
             "chat" => CreateChatFixture(),
@@ -227,8 +241,8 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         {
             SetSize = new Vector2(576, 450),
             MinSize = new Vector2(576, 450),
-            BorderColor = "#25394a",
-            AccentHColor = "#1d8bad",
+            BorderColor = DeadSpaceStylePalette.SurfaceStatus.ToHex(),
+            AccentHColor = DeadSpaceStylePalette.AccentDim.ToHex(),
         };
         var root = Vertical(6);
         var navigation = Horizontal(0);
@@ -255,7 +269,7 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         body.VerticalExpand = true;
         var home = Vertical(2);
         home.AddStyleClass("PdaHomeSummary");
-        home.AddChild(BareRow("Владелец: Айзек Кларк"));
+        home.AddChild(BareRow("Владелец: Айзек Кларк", ContainerButton.StylePseudoClassHover));
         home.AddChild(BareRow("ID: инженер"));
         home.AddChild(BareRow("Станция: Ишимура"));
         home.AddChild(BareRow("Тревога: зелёный уровень"));
@@ -286,6 +300,119 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         body.AddChild(programs);
         root.AddChild(body);
         window.ContentsContainer.AddChild(root);
+        return window;
+    }
+
+    private static BaseWindow CreatePdaOverflowFixture()
+    {
+        var window = new PdaWindow
+        {
+            SetSize = new Vector2(576, 450),
+            MinSize = new Vector2(576, 450),
+            BorderColor = "#6F6958",
+        };
+        var root = Vertical(0);
+
+        var navigation = Horizontal(0);
+        navigation.MinHeight = 32;
+        navigation.AddChild(new PdaNavigationButton { LabelText = "Домой", IsCurrent = true, MinWidth = 36 });
+        navigation.AddChild(new PdaNavigationButton { LabelText = "Программы", MinWidth = 112 });
+        navigation.AddChild(new PdaNavigationButton { LabelText = "Настройки", MinWidth = 112 });
+        navigation.AddChild(new Control { HorizontalExpand = true });
+        root.AddChild(navigation);
+
+        var home = Vertical(2);
+        home.VerticalExpand = false;
+        home.Margin = new Thickness(8);
+        home.AddStyleClass("PdaHomeSummary");
+        home.AddChild(PdaSummaryRow("Владелец: Грин Хейтблад"));
+        home.AddChild(PdaSummaryRow("ID: Грин Хейтблад, Инженер-стажёр"));
+        home.AddChild(PdaSummaryRow("Станция: NTB Fland NX-132"));
+        home.AddChild(PdaSummaryRow("Уровень угрозы: Красный"));
+        home.AddChild(PdaSummaryRow("Смена: 01:02:57 · 28.08.2710"));
+        home.AddChild(PdaSummaryRow(
+            "Инструкции: Весь экипаж, за исключением должностных лиц и тех персонала, не может посещать технические тоннели и обязан находиться в пределах коридоров станции на протяжении Красного кода. Экипаж обязан подчиняться правомерным приказам сотрудников службы безопасности. Посетители и гости станции обязаны находиться в баре, библиотеке или жилых отсеках. Весь персонал обязан носить свои ID-карты в своих КПК и хранить при себе в специально отведённом месте на поясе."));
+
+        root.AddChild(new ScrollContainer
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            HScrollEnabled = false,
+            VScrollEnabled = true,
+            Children = { home },
+        });
+
+        var footer = new BoxContainer
+        {
+            SetHeight = 28,
+            HorizontalExpand = true,
+            Children =
+            {
+                new StripeBack
+                {
+                    HasBottomEdge = false,
+                    HasMargins = false,
+                    HorizontalExpand = true,
+                    Children =
+                    {
+                        new Label
+                        {
+                            Text = "Robust#OS ™",
+                            Margin = new Thickness(6, 0),
+                            VerticalAlignment = Control.VAlignment.Center,
+                            StyleClasses = { "PdaContentFooterText" },
+                        },
+                        new Label
+                        {
+                            Text = "КОНС-3B9A-89D4",
+                            Margin = new Thickness(6, 0),
+                            VerticalAlignment = Control.VAlignment.Center,
+                            HorizontalAlignment = Control.HAlignment.Right,
+                            StyleClasses = { "PdaContentFooterText" },
+                        },
+                    },
+                },
+            },
+        };
+        root.AddChild(footer);
+        window.ContentsContainer.AddChild(root);
+        return window;
+    }
+
+    private static ContainerButton PdaSummaryRow(string text)
+    {
+        var label = new RichTextLabel
+        {
+            HorizontalExpand = true,
+            Margin = new Thickness(6, 3),
+        };
+        label.SetMessage(text);
+        return new ContainerButton
+        {
+            HorizontalExpand = true,
+            Children = { label },
+        };
+    }
+
+    private static BaseWindow CreatePhotocopierFixture()
+    {
+        var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
+        var window = new PhotocopierWindow(prototypeManager);
+        var forms = window.PaperworkFormPrototypes.ToList();
+        if (forms.Count == 0)
+            return window;
+
+        var selected = forms[0];
+        var categories = new HashSet<PhotocopierFormCategory>(forms.Select(form => form.Category));
+        window.UpdateState(new PhotocopierUiState(
+            canPrint: true,
+            isPaperInserted: false,
+            chosenForm: selected.ID,
+            mode: PhotocopierMode.Print,
+            allowedFormCategories: categories,
+            wasEmagged: false,
+            tonerLeft: 80,
+            maxTonerAmount: 100));
         return window;
     }
 
@@ -409,10 +536,123 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         row.FindControl<Button>("ApplyButton").Disabled = disabled;
     }
 
-    private static BaseWindow CreateErtAdminFixture()
+    private static BaseWindow CreateErtAdminFixture(int mainTab, int requestTab)
     {
         var window = new ERTCallWindow(renderFixture: true);
-        window.FindControl<TabContainer>("RequestsTabContainer").CurrentTab = 1;
+        window.FindControl<TabContainer>("MainTabContainer").CurrentTab = mainTab;
+        window.FindControl<TabContainer>("RequestsTabContainer").CurrentTab = requestTab;
+        return window;
+    }
+
+    private static BaseWindow CreateLateJoinFixture()
+    {
+        var prototypes = IoCManager.Resolve<IPrototypeManager>();
+        var window = FixtureWindow("Позднее присоединение", new Vector2(500, 620));
+        var root = Vertical(8);
+
+        var station = new OptionButton { HorizontalExpand = true };
+        station.AddItem("NTVG Packed PR-499");
+        root.AddChild(station);
+        root.AddChild(new Button { Text = "Манифест экипажа", HorizontalExpand = true });
+
+        var list = Vertical(0);
+        AddLateJoinDepartment(list, prototypes, "Центральное Командование",
+            new[]
+            {
+                ("Офицер «Синий Щит»", "JobIconBlueShieldOfficer"),
+            });
+        AddLateJoinDepartment(list, prototypes, "Командование",
+            new[]
+            {
+                ("Капитан", "JobIconCaptain"),
+                ("Глава персонала", "JobIconHeadOfPersonnel"),
+                ("Старший инженер", "JobIconSeniorEngineer"),
+                ("Главный врач", "JobIconChiefMedicalOfficer"),
+                ("Глава службы безопасности", "JobIconHeadOfSecurity"),
+                ("Квартирмейстер", "JobIconQuarterMaster"),
+                ("Научный руководитель", "JobIconResearchDirector"),
+                ("Агент внутренних дел", "JobIconIAA"),
+            });
+
+        root.AddChild(new PanelContainer
+        {
+            StyleClasses = { DeadSpaceStyleClass.Inset },
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            Children =
+            {
+                new ScrollContainer
+                {
+                    HorizontalExpand = true,
+                    VerticalExpand = true,
+                    HScrollEnabled = false,
+                    Children = { list },
+                },
+            },
+        });
+        window.Contents.AddChild(root);
+        return window;
+    }
+
+    private static void AddLateJoinDepartment(
+        BoxContainer list,
+        IPrototypeManager prototypes,
+        string title,
+        IReadOnlyList<(string Name, string Icon)> entries)
+    {
+        var department = Vertical(0);
+        department.VerticalExpand = false;
+        department.Margin = new Thickness(0, 0, 0, 12);
+        department.AddChild(new PanelContainer
+        {
+            StyleClasses = { DeadSpaceStyleClass.ListHeader },
+            Margin = new Thickness(0, 0, 0, 4),
+            Children =
+            {
+                new Label
+                {
+                    Text = title,
+                    Align = Label.AlignMode.Center,
+                    HorizontalExpand = true,
+                    StyleClasses = { DeadSpaceStyleClass.ListHeader },
+                },
+            },
+        });
+
+        for (var index = 0; index < entries.Count; index++)
+        {
+            var entry = entries[index];
+            var label = new Label
+            {
+                Text = $"{entry.Name} (1 доступна)",
+                Margin = new Thickness(5, 0, 0, 0),
+                VerticalAlignment = Control.VAlignment.Center,
+            };
+            var button = new JobButton(label, $"FixtureJob{index}", entry.Name, 1)
+            {
+                HorizontalExpand = true,
+            };
+            button.AddStyleClass(LateJoinGui.GetJobRowStyleClass(index));
+
+            var row = Horizontal(6);
+            var iconPrototype = prototypes.Index<JobIconPrototype>(entry.Icon);
+            row.AddChild(LateJoinGui.CreateJobIcon(iconPrototype.Icon.Frame0()));
+            row.AddChild(label);
+            button.AddChild(row);
+            department.AddChild(button);
+        }
+
+        list.AddChild(department);
+    }
+
+    private static BaseWindow CreateOptionsGeneralFixture()
+    {
+        var window = FixtureWindow("Настройки — общие", new Vector2(720, 620));
+        window.Contents.AddChild(new MiscTab
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        });
         return window;
     }
 
@@ -442,7 +682,7 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
 
     private BaseWindow CreateCommunicationsFixture()
     {
-        var window = FixtureWindow("Консоль связи — экран", new Vector2(500, 650));
+        var window = FixtureWindow("Консоль связи — экран", new Vector2(500, 460));
         var messaging = new MessagingControls(renderFixture: true)
         {
             CurrentTab = 1,
@@ -474,31 +714,55 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         spriteParent.AddChild(preview);
         preview.SetPositionInParent(spritePosition);
 
-        var surface = new PanelContainer
-        {
-            StyleClasses = { DeadSpaceStyleClass.SurfaceDark },
-            Margin = new Thickness(12),
-            HorizontalExpand = true,
-            VerticalExpand = true,
-        };
-        surface.AddChild(messaging);
-        window.Contents.AddChild(surface);
+        messaging.Margin = new Thickness(8);
+        window.Contents.AddChild(messaging);
         return window;
     }
 
     private static BaseWindow CreateChatFixture()
     {
-        var window = FixtureWindow("Чат — нейтральная поверхность", new Vector2(650, 520));
-        var chat = new ChatBox
+        var window = FixtureWindow("Чат — прозрачность transcript 22%", new Vector2(650, 520));
+        var stage = new LayoutContainer
         {
             HorizontalExpand = true,
             VerticalExpand = true,
+        };
+        var backdrop = new PanelContainer
+        {
+            PanelOverride = new StyleBoxFlat
+            {
+                BackgroundColor = Robust.Shared.Maths.Color.FromHex("#394A5C"),
+            },
+            Children =
+            {
+                new Label
+                {
+                    Text = "ФОН ПОД ТЕКСТОМ ДОЛЖЕН БЫТЬ ВИДЕН",
+                    HorizontalAlignment = Control.HAlignment.Center,
+                    VerticalAlignment = Control.VAlignment.Center,
+                },
+            },
+        };
+        LayoutContainer.SetAnchorPreset(backdrop, LayoutContainer.LayoutPreset.Wide);
+        stage.AddChild(backdrop);
+
+        var chat = new ResizableChatBox
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            Margin = new Thickness(10),
+        };
+        chat.ChatWindowPanel.PanelOverride = new StyleBoxFlat
+        {
+            BackgroundColor = DeadSpaceStylePalette.SurfaceDark.WithAlpha(0.22f),
         };
         chat.AddLine("АДМИН: Проверка важного системного сообщения", Robust.Shared.Maths.Color.FromHex("#FF4A4A"));
         chat.AddLine("Добро пожаловать на Космическую Станцию 14!", Robust.Shared.Maths.Color.FromHex("#FFB347"));
         chat.AddLine("[bold]Капитан Айзек Кларк:[/bold] Работа продолжается в штатном режиме.", Robust.Shared.Maths.Color.FromHex("#D7DEE8"));
         chat.AddLine("Рядом: обычная локальная реплика для оценки фона и контраста.", Robust.Shared.Maths.Color.FromHex("#AFC8D8"));
-        window.Contents.AddChild(chat);
+        LayoutContainer.SetAnchorPreset(chat, LayoutContainer.LayoutPreset.Wide);
+        stage.AddChild(chat);
+        window.Contents.AddChild(stage);
         return window;
     }
 
@@ -558,9 +822,9 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
         };
     }
 
-    private static ContainerButton BareRow(string text)
+    private static ContainerButton BareRow(string text, string? pseudo = null)
     {
-        return new ContainerButton
+        var button = new FixtureContainerButton
         {
             HorizontalExpand = true,
             Children =
@@ -573,6 +837,9 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
                 },
             },
         };
+        if (pseudo != null)
+            button.ForcePseudo(pseudo);
+        return button;
     }
 
     private void OnPostDrawUiRoot(PostDrawUIRootEventArgs args)
@@ -641,6 +908,14 @@ public sealed class DeadSpaceUiRenderCommand : IConsoleCommand
             char.IsAsciiLetterOrDigit(character) || character is '-' or '_' or '.' ? character : '-').ToArray());
         return string.IsNullOrWhiteSpace(safe) ? "fixture" : safe;
     }
+
+    private sealed class FixtureContainerButton : ContainerButton
+    {
+        public void ForcePseudo(string pseudo)
+        {
+            SetOnlyStylePseudoClass(pseudo);
+        }
+    }
 }
 
 internal sealed class DeadSpaceUiFixtureWindow : DefaultWindow
@@ -683,6 +958,7 @@ internal sealed class DeadSpaceUiFixtureWindow : DefaultWindow
 
         root.AddChild(Section("Semantic states"));
         var semantic = HorizontalRow();
+        semantic.AddChild(Button("Accent", DeadSpaceStyleClass.ControlAccent));
         semantic.AddChild(Button("Positive", DeadSpaceStyleClass.ControlPositive));
         semantic.AddChild(Button("Warning", DeadSpaceStyleClass.ControlWarning));
         semantic.AddChild(Button("Negative", DeadSpaceStyleClass.ControlDanger));

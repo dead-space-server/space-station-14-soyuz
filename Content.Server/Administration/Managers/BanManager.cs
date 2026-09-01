@@ -342,8 +342,12 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             return TimeSpan.Zero;
 
         return (await _db.GetPlayTimes(firstPlayer.Value))
+            .Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall)
+            ?.TimeSpent ?? TimeSpan.Zero;
+    }
 
     private IEnumerable<BanRoleDef> ToBanRoleDef<T>(IEnumerable<ProtoId<T>> protoIds) where T : class, IPrototype
+    {
         return protoIds.Select(protoId =>
         {
             // TODO: I have no idea if this check is necessary. The previous code was a complete mess,

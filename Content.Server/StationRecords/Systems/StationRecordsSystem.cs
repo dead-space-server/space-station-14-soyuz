@@ -151,16 +151,6 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
             SetIdKey(idUid, new StationRecordKey(id, station));
             return;
         }
-        // DS14-start
-        var jobTitle = jobPrototype.LocalizedName;
-        var jobIcon = jobPrototype.Icon;
-        if (idUid != null && _idCard.TryGetIdCard(idUid.Value, out var idCard))
-        {
-            if (idCard.Comp.LocalizedJobTitle is { } cardTitle && !string.IsNullOrWhiteSpace(cardTitle))
-                jobTitle = cardTitle;
-            jobIcon = idCard.Comp.JobIcon;
-        }
-        // DS14-end
 
         // DS14-start - upstream station-record code is server-side in this engine version.
         var jobWeights = TryComp<StationDataComponent>(station, out var stationData)

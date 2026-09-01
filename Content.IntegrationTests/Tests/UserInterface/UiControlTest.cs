@@ -236,6 +236,23 @@ public sealed class UiControlTest
                     unreadGeometryRow.AddChild(button);
                 root.AddChild(unreadGeometryRow);
 
+                var lateJoinGeometryButtons = new[]
+                {
+                    FixtureButton.ForPseudo(
+                        ContainerButton.StylePseudoClassNormal,
+                        LateJoinGui.GetJobRowStyleClass(0)),
+                    FixtureButton.ForPseudo(
+                        ContainerButton.StylePseudoClassNormal,
+                        LateJoinGui.GetJobRowStyleClass(1)),
+                };
+                var lateJoinGeometryRow = new BoxContainer
+                {
+                    Orientation = BoxContainer.LayoutOrientation.Horizontal,
+                };
+                foreach (var button in lateJoinGeometryButtons)
+                    lateJoinGeometryRow.AddChild(button);
+                root.AddChild(lateJoinGeometryRow);
+
                 root.ForceRunStyleUpdate();
                 // This is a synthetic control catalogue rather than a viewport fixture; keep its test rows
                 // unconstrained vertically so later controls are not measured against exhausted space.
@@ -251,7 +268,8 @@ public sealed class UiControlTest
                 AssertDarkInteractiveSurface(pdaProgram, "PDA program row");
                 Assert.That(pdaSettings.StyleBoxOverride, Is.Null, "PDA settings row must rely on its type sheetlet");
                 Assert.That(pdaProgram.StyleBoxOverride, Is.Null, "PDA program row must rely on its type sheetlet");
-                AssertSameInteractiveSurface(uncheckedBox, checkedBox, "checked CheckBox row");
+                AssertTransparentInteractiveSurface(uncheckedBox, "unchecked CheckBox row");
+                AssertTransparentInteractiveSurface(checkedBox, "checked CheckBox row");
                 Assert.That(optionRow.DesiredSize.Y - optionRow.Button.DesiredSize.Y, Is.GreaterThanOrEqualTo(4));
                 Assert.That(sliderRow.DesiredSize.Y - sliderRow.Slider.DesiredSize.Y, Is.GreaterThanOrEqualTo(4));
                 foreach (var button in pseudoButtons)
@@ -262,6 +280,8 @@ public sealed class UiControlTest
                 AssertSameDesiredHeight(actionGeometryButtons, "lobby action button states");
                 AssertSameDesiredHeight(topActionGeometryButtons, "top action button states");
                 AssertSameDesiredHeight(unreadGeometryButtons, "unread list button states");
+                AssertSameDesiredHeight(lateJoinGeometryButtons, "late-join alternating rows");
+                AssertSameContentMargins(lateJoinGeometryButtons, "late-join alternating rows");
             }
             finally
             {
@@ -329,27 +349,17 @@ public sealed class UiControlTest
         Assert.That(pureWhite, Is.False, $"{description} resolved to a pure-white surface");
     }
 
-    private static void AssertSameInteractiveSurface(
-        ContainerButton expected,
-        ContainerButton actual,
-        string description)
+    private static void AssertTransparentInteractiveSurface(ContainerButton button, string description)
     {
-        expected.ForceRunStyleUpdate();
-        actual.ForceRunStyleUpdate();
+        button.ForceRunStyleUpdate();
         Assert.That(
-            expected.TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var expectedBox),
+            button.TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var styleBox),
             Is.True,
-            $"{description}: unchecked control has no stylesheet surface");
+            $"{description} has no stylesheet surface");
         Assert.That(
-            actual.TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var actualBox),
-            Is.True,
-            $"{description}: checked control has no stylesheet surface");
-        Assert.That(expectedBox, Is.TypeOf<StyleBoxFlat>());
-        Assert.That(actualBox, Is.TypeOf<StyleBoxFlat>());
-        Assert.That(
-            ((StyleBoxFlat) actualBox).BackgroundColor,
-            Is.EqualTo(((StyleBoxFlat) expectedBox).BackgroundColor),
-            $"{description} must not tint the full row when its value is true");
+            styleBox,
+            Is.TypeOf<StyleBoxEmpty>(),
+            $"{description} must not draw a full-row selection background");
     }
 
     private static void AssertSameDesiredHeight(IReadOnlyList<Control> controls, string description)
@@ -368,6 +378,31 @@ public sealed class UiControlTest
                 $"{description} must not resize when its pseudo-state or semantic color changes " +
                 $"(classes: {string.Join(',', control.StyleClasses)}; " +
                 $"pseudo: {string.Join(',', control.StylePseudoClass)}; margins: {margins})");
+        }
+    }
+
+    private static void AssertSameContentMargins(IReadOnlyList<Control> controls, string description)
+    {
+        controls[0].TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var expectedBox);
+        Assert.That(expectedBox, Is.Not.Null, $"{description}: reference row has no stylesheet surface");
+
+        foreach (var control in controls)
+        {
+            control.TryGetStyleProperty<StyleBox>(ContainerButton.StylePropertyStyleBox, out var actualBox);
+            Assert.That(actualBox, Is.Not.Null, $"{description}: row has no stylesheet surface");
+            foreach (var margin in new[]
+                     {
+                         StyleBox.Margin.Top,
+                         StyleBox.Margin.Bottom,
+                         StyleBox.Margin.Left,
+                         StyleBox.Margin.Right,
+                     })
+            {
+                Assert.That(
+                    actualBox!.GetContentMargin(margin),
+                    Is.EqualTo(expectedBox!.GetContentMargin(margin)).Within(0.001f),
+                    $"{description}: {margin} content margin differs");
+            }
         }
     }
 

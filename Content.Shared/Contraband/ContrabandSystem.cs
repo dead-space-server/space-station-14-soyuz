@@ -219,12 +219,3 @@ public enum ContrabandItemType
     Item,
     Reagent
 }
-
-/// <summary>
-/// The item type that the contraband text should follow in the description text.
-/// </summary>
-public enum ContrabandItemType
-{
-    Item,
-    Reagent
-}

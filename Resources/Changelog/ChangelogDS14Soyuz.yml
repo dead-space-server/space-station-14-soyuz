@@ -1524,3 +1524,10 @@ Entries:
   changes:
   - type: Tweak
     message: Обычные лампочки на Союзовские в коробке смешанных лампочек
+- id: 143
+  author: ExoDoomer
+  time: '2026-09-02T17:09:45.726830+00:00'
+  pr: 445
+  changes:
+  - type: Tweak
+    message: Респрайт РПС Главного Врача (sprite by kainse)

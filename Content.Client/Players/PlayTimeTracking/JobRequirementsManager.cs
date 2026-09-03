@@ -27,6 +27,7 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
     [Dependency] private readonly IEntityManager _entManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly ISharedAdminManager _adminManager = default!; // DS14-Soyuz
     private IClientSponsorsManager? _sponsorsManager; // DS14-sponsors
 
     private readonly Dictionary<string, TimeSpan> _roles = new();
@@ -246,29 +247,24 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
 
     public bool CheckWhitelist(JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
     {
-        var adminManager = IoCManager.Resolve<ISharedAdminManager>(); // DS14-Soyuz
         reason = default;
         if (!_cfg.GetCVar(CCVars.GameRoleWhitelist))
             return true;
 
-        if (job.Whitelisted && !_jobWhitelists.Contains(job.ID))
-        {
-            // DS14-Soyuz start
-            var player = _playerManager.LocalSession;
-            if (player != null)
-            {
-                var playerUid = player.AttachedEntity;
-                if (playerUid != null && adminManager.HasAdminFlag(playerUid.Value, AdminFlags.Admin))
-                {
-                    return true;
-                }
-            }
-            // DS14-Soyuz end
-            reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
-            return false;
-        }
+        // DS14-Soyuz start
+        var player = _playerManager.LocalSession;
+        if (player == null) // NullReferenceException protection
+            return true;
 
-        return true;
+        if (!job.Whitelisted) // If can join on job without whitelist
+            return true;
+
+        if (_adminManager.HasAdminFlag(player, AdminFlags.Admin) || _jobWhitelists.Contains(job.ID)) // Has admin flag OR Has on whitelist
+            return true;
+
+        reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
+        return false;
+        // DS14-Soyuz end
     }
 
     public bool CheckWhitelist(AntagPrototype antag, [NotNullWhen(false)] out FormattedMessage? reason)

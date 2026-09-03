@@ -78,6 +78,7 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/_Soyuz/centcomm.yml", // DS14-Soyuz path
+            "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/_Soyuz/ds_taipan.yml", // Taipan // DS14-Soyuz path

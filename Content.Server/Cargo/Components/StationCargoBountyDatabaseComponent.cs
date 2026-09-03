@@ -16,6 +16,11 @@ public sealed partial class StationCargoBountyDatabaseComponent : Component
     public bool IsTaipan = false;
     // DS14-end
 
+    // DS14-Soyuz-start
+    [DataField]
+    public bool IsGeneralStaff = false;
+    // DS14-Soyuz-end
+
     /// <summary>
     /// Maximum amount of bounties a station can have.
     /// </summary>

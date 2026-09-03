@@ -1,0 +1,29 @@
+- type: entity
+  id: BaseGeneralStaff
+  categories: [ HideSpawnMenu ]
+  components:
+#  - type: GeneralStaff
+  - type: NpcFactionMember
+    factions:
+    - GeneralStaff
+
+- type: entity
+  id: StandardGeneralStaff
+  parent:
+    - BaseStation
+    - BaseGeneralStaff
+  #  - BaseGeneralStaffCargo
+  #  - BaseGeneralStaffAlertLevels
+  #  - BaseStationNews
+  #  - BaseStationJobsSpawning
+  #  - BaseStationShuttles
+    - BaseStationCentcomm
+    - BaseStationAlertLevels
+    - BaseStationMagnet
+  #  - BaseStationExpeditions
+  #  - BaseStationLavaland
+  #  - BaseStationSalvageJobs
+    - BaseStationNanotrasen
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform

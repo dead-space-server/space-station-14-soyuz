@@ -1,0 +1,21 @@
+- type: gameMap
+  id: GeneralStaff
+  mapName: 'Генеральный Штаб'
+  mapPath: /Maps/_Soyuz/generalstaff.yml
+  minPlayers: 30
+  maxPlayers: 70
+  stations:
+    GeneralStaff:
+      stationProto: StandardGeneralStaff
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: '{0} «Цитадель»'
+          nameGenerator:
+            !type:GeneralStaffGenerator
+#            prefixCreator: 'SDT' Плакай мой Soyuz Development Team :(
+        - type: StationJobs
+          availableJobs:
+            # Командование штаба
+            OperatorGS: [ 1, 1 ]
+            # Я не ебу кто это
+            OfficerGS: [ 1, 1 ]

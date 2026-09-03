@@ -1531,3 +1531,12 @@ Entries:
   changes:
   - type: Tweak
     message: Респрайт РПС Главного Врача (sprite by kainse)
+- id: 144
+  author: PERed5
+  time: '2026-09-03T17:45:25.299439+00:00'
+  pr: 447
+  changes:
+  - type: Add
+    message: Невероятнейше весёлая музыка
+  - type: Add
+    message: Краткое описание разработки союза для будущих разработчиков

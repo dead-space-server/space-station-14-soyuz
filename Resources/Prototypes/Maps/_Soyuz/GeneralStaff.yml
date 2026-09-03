@@ -2,8 +2,6 @@
   id: GeneralStaff
   mapName: 'Генеральный Штаб'
   mapPath: /Maps/_Soyuz/generalstaff.yml
-  minPlayers: 30
-  maxPlayers: 70
   stations:
     GeneralStaff:
       stationProto: StandardGeneralStaff

@@ -140,6 +140,7 @@ namespace Content.IntegrationTests.Tests
             "Snowball",
             "Serpentcrest",
             "Train",
+            "GeneralStaff",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

@@ -124503,14 +124503,6 @@ entities:
           occludes: True
           ents:
           - 10
-    - type: ThermalVisionExperimental
-      visorUid: 11
-      activateSoundOff: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
-      activateSound: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv.ogg
-      pulseDuration: 4
-      actionToggleThermalVisionExperimentalEntity: 10
     - type: ActionsContainer
     - type: Actions
       actions:
@@ -124856,14 +124848,6 @@ entities:
           occludes: True
           ents:
           - 74
-    - type: ThermalVisionExperimental
-      visorUid: 75
-      activateSoundOff: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
-      activateSound: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv.ogg
-      pulseDuration: 4
-      actionToggleThermalVisionExperimentalEntity: 74
     - type: ActionsContainer
     - type: Actions
       actions:
@@ -124913,14 +124897,6 @@ entities:
           occludes: True
           ents:
           - 80
-    - type: ThermalVisionExperimental
-      visorUid: 81
-      activateSoundOff: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
-      activateSound: !type:SoundPathSpecifier
-        path: /Audio/_DeadSpace/NightVision/pnv.ogg
-      pulseDuration: 4
-      actionToggleThermalVisionExperimentalEntity: 80
     - type: ActionsContainer
     - type: Actions
       actions:

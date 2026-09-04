@@ -2,7 +2,6 @@
   id: BaseGeneralStaff
   categories: [ HideSpawnMenu ]
   components:
-#  - type: GeneralStaff
   - type: NpcFactionMember
     factions:
     - GeneralStaff
@@ -15,7 +14,7 @@
   #  - BaseGeneralStaffCargo
   #  - BaseGeneralStaffAlertLevels
   #  - BaseStationNews
-  #  - BaseStationJobsSpawning
+    - BaseStationJobsSpawning
   #  - BaseStationShuttles
     - BaseStationCentcomm
     - BaseStationAlertLevels

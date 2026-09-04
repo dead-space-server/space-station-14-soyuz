@@ -853,8 +853,15 @@
     flavors:
     - meaty
     - sadness
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: DeadSpaceHamsterHunger # DS14: not so hungry.
+      Thirst:
+        prototype: SimpleMobBaseThirst
 # DS14-start
   - type: Language
+    knownLanguages:
     - GeneralLanguage
     cantSpeakLanguages:
     - GeneralLanguage

@@ -334,25 +334,6 @@
       - NukeOpsUplink
 
 - type: listing
-  id: UplinkBulldog
-  name: uplink-bulldog-name
-  description: uplink-bulldog-desc
-  icon: { sprite: /Textures/Objects/Weapons/Guns/Shotguns/bulldog.rsi, state: icon }
-  productEntity: BriefcaseWeaponBulldogFilled
-  discountCategory: veryRareDiscounts
-  discountDownTo:
-    Telecrystal: 10
-  cost:
-    Telecrystal: 14
-  categories:
-  - UplinkWeaponry
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - NukeOpsUplink
-
-- type: listing
   id: UplinkBulldogBundle
   name: uplink-buldog-bundle-name
   description: uplink-buldog-bundle-desc

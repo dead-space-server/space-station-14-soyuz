@@ -417,11 +417,11 @@
       path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
   #DS14-End
 
-- type: entity
-  parent: WireBrush
-  id: WireBrushElectrical
-  name: electrical wire brush
-  description: A bristly steel wire brush with a moving head, allowing for a way easier time cleaning.
-  components:
-  - type: Tool
-    speedModifier: 1.5
+# - type: entity # DS14-Soyuz disabled
+#   parent: WireBrush
+#   id: WireBrushElectrical
+#   name: electrical wire brush
+#   description: A bristly steel wire brush with a moving head, allowing for a way easier time cleaning.
+#   components:
+#   - type: Tool
+#     speedModifier: 1.5

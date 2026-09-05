@@ -42,3 +42,18 @@
   components:
     - type: ScaleVisuals
       scale: 0.9,0.9
+
+#DS-14-Soyuz start
+- type: trait
+  id: ScaleStandart
+  name: trait-scale-standart-name
+  description: trait-scale-standart-desc
+  category: Scale
+  cost: 1
+  blacklist:
+    components:
+      - BorgChassis
+  components:
+    - type: ScaleVisuals
+      scale: 1.0,1.0
+#DS-14-Soyuz end

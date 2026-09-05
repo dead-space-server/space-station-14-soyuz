@@ -134,7 +134,12 @@ public sealed class AtmosMonitorSystem : EntitySystem
         switch (cmd)
         {
             case AtmosDeviceNetworkSystem.RegisterDevice:
-                component.RegisteredDevices.Add(args.SenderAddress);
+                // DS14-Soyuz start
+                if (!component.RegisteredDevices.Contains(args.SenderAddress))
+                {
+                    component.RegisteredDevices.Add(args.SenderAddress);
+                }
+                // DS14-Soyuz end
                 break;
             case AtmosDeviceNetworkSystem.DeregisterDevice:
                 component.RegisteredDevices.Remove(args.SenderAddress);
@@ -486,7 +491,10 @@ public sealed class AtmosMonitorSystem : EntitySystem
         SetThreshold(uid, AtmosMonitorThresholdType.Pressure, allThresholdData.PressureThreshold);
         foreach (var gas in Enum.GetValues<Gas>())
         {
-            SetThreshold(uid, AtmosMonitorThresholdType.Gas, allThresholdData.GasThresholds[gas], gas);
+            // DS14-Soyuz start
+            SetThreshold(uid, AtmosMonitorThresholdType.Temperature, allThresholdData.TemperatureThreshold);
+            SetThreshold(uid, AtmosMonitorThresholdType.Pressure, allThresholdData.PressureThreshold);
+            // DS14-Soyuz end
         }
     }
 }

@@ -50,11 +50,6 @@
   metamorphicMaxFillLevels: 6
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
-  metabolisms:
-    Drink:
-      effects:
-      - !type:Thirst
-        factor: 2
 
 - type: reaction
   id: Pearonade

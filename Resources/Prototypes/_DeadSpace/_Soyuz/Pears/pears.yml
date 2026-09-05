@@ -53,7 +53,7 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Thirst
         factor: 2
 
 - type: reaction
@@ -135,7 +135,7 @@
   - type: Item
     heldPrefix: produce
   - type: Produce
-    plantId: pear
+    plantId: PearPlant
   - type: Extractable
     juiceSolution:
       reagents:

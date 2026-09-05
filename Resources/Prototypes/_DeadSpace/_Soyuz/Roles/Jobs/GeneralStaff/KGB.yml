@@ -2,7 +2,7 @@
   id: GeneralStaffKGB
   name: job-name-blue-shield-officer
   description: job-description-blue-shield-officer
-  playTimeTracker: JobCentralCommandBlueShieldOfficer
+  playTimeTracker: JobGeneralStaffKGB
   setPreference: false
   requirements:
     - !type:OverallPlaytimeRequirement
@@ -13,7 +13,7 @@
     - !type:DepartmentTimeRequirement
       department: Medical
       time: 36000 # 10 hours
-  startingGear: CentcomBlueShieldGear
+  startingGear: GeneralStaffKGBGear
   icon: "JobIconBlueShieldOfficer"
   supervisors: job-supervisors-centcom-administrator
   canBeAntag: false
@@ -78,7 +78,7 @@
       - id: ChemistryBottleDermaline
 
 - type: startingGear
-  id: CentcomBlueShieldGear
+  id: GeneralStaffKGBGear
   equipment:
     head: ClothingHeadHatBeretBlueShield
     jumpsuit: ClothingUniformJumpsuitBlueShield
@@ -100,8 +100,8 @@
 
 
 - type: chameleonOutfit
-  id: CentralCommandBlueShieldOfficerChameleonOutfit
-  job: CentralCommandBlueShieldOfficer
+  id: GeneralStaffKGBChameleonOutfit
+  job: GeneralStaffKGB
   equipment:
     head: ClothingHeadHatBeretBlueShield
     mask: ClothingMaskGasSecurity

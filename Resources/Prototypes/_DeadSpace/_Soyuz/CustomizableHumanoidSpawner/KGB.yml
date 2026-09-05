@@ -10,7 +10,7 @@
     - sprite: Markers/jobs.rsi
       state: blueshield-low
   - type: CustomizableHumanoidSpawner
-    jobPrototype: CentralCommandBlueShieldOfficer
+    jobPrototype: GeneralStaffKGB
     allowedSpecies:
     - Human
     - Shark
@@ -27,22 +27,22 @@
       settings: short
 
 - type: roleLoadout
-  id: JobCentralCommandBlueShieldOfficer
+  id: JobGeneralStaffKGB
   groups:
   # - GroupTankHarness # outerClothing slot occupied by startingGear
-  - CentralCommandBlueShieldOfficerLoadout
+  - GeneralStaffKGBLoadout
   - GroupSpeciesBreathTool
   - BlueShieldOfficerUnderwear
 
 - type: loadoutGroup
-  id: CentralCommandBlueShieldOfficerLoadout
+  id: GeneralStaffKGBLoadout
   name: spawner-loadout-blueshield
   hidden: true
   loadouts:
-  - CentralCommandBlueShieldOfficerLoadout
+  - GeneralStaffKGBLoadout
 
 - type: loadout
-  id: CentralCommandBlueShieldOfficerLoadout
+  id: GeneralStaffKGBLoadout
   equipment:
     back: ClothingBackpackKGBGeneralStaffFilled
     socks: ClothingUnderwearSocksBlueShieldOfficer

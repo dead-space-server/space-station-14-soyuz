@@ -46,7 +46,7 @@
   - CentralCommandAdministrator
   - CentralCommandOperator
   - CentralCommandOfficer
-  - BlueShieldOfficer
+  # - BlueShieldOfficer # DS14-Soyuz
   - Magistrat
   editorHidden: false
   weight: 120

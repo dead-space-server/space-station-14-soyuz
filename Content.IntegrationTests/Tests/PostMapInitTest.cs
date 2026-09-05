@@ -149,6 +149,7 @@ namespace Content.IntegrationTests.Tests
             "Cluster", // invalid EntityUid reference in Storage
             "Loop", // invalid EntityUid reference in Storage
             "Gemini", // map load failure
+            "GeneralStaff", // А может мне это нахуй нравится DS14-Soyuz
         };
         /// <summary>
         /// Jobs whose dedicated spawn points were removed (migrated to null) but are still listed

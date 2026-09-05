@@ -1220,7 +1220,6 @@ TowelColorMaroon: null
 TowelColorSilver: null
 TowelColorMime: null
 
-<<<<<<< HEAD
 # 2026-04-19
 HandheldAutopsyScannerUnpowered: HandheldAutopsyScanner
 HandheldAutopsyScannerEmpty: HandheldAutopsyScanner
@@ -1247,12 +1246,6 @@ NTFlag: BlankFlag
 ADTDoubleBedTop: null
 ADTDoubleBedBottom: null
 
-=======
-# 2026-04-19 - DS14
-HandheldAutopsyScannerUnpowered: HandheldAutopsyScanner
-HandheldAutopsyScannerEmpty: HandheldAutopsyScanner
-
->>>>>>> 3a34d466c15850912794115c8018a2bb5bb868e7
 # 2026-04-17 - DS14
 ErtResponceConsole: ErtResponseConsole
 ErtResponceConsoleCircuitboard: ErtResponseConsoleCircuitboard
@@ -1296,11 +1289,8 @@ ADTClothingUniformTurleneckWhiteWomenSleeveless: ClothingUniformTurtleneckWhiteW
 ADTClothingNeckSyndicateCloak: ClothingNeckSyndicateCloak
 ADTClothingNeckNukeOpsCloak: ClothingNeckNukeOpsCloak
 
-<<<<<<< HEAD
 # 2026-05-12 DS14-Soyuz
 SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist
-=======
->>>>>>> 3a34d466c15850912794115c8018a2bb5bb868e7
 # 2026-05-08
 ADTClothingUniformRedgiSuit: ClothingUniformRedjiSuit
 ADTClothingUniformRedgiJumpskirt: ClothingUniformRedjiJumpskirt
@@ -1324,7 +1314,6 @@ DesoxyephedrineMedipen: CelestinMedipen
 # 2026-07-01 - DS14
 DresserCaptainFilled: VendingMachineCaptainDrobe
 
-<<<<<<< HEAD
 
 # 2026-07-08 - DS14 # DS14-Soyuz disabled
 # CargoRequestEngineeringComputerCircuitboard: null
@@ -1335,17 +1324,6 @@ DresserCaptainFilled: VendingMachineCaptainDrobe
 # ComputerCargoOrdersMedical: null
 # ComputerCargoOrdersScience: null
 # ComputerCargoOrdersService: null
-=======
-# 2026-07-08 - DS14
-CargoRequestEngineeringComputerCircuitboard: null
-CargoRequestMedicalComputerCircuitboard: null
-CargoRequestScienceComputerCircuitboard: null
-CargoRequestServiceComputerCircuitboard: null
-ComputerCargoOrdersEngineering: null
-ComputerCargoOrdersMedical: null
-ComputerCargoOrdersScience: null
-ComputerCargoOrdersService: null
->>>>>>> 3a34d466c15850912794115c8018a2bb5bb868e7
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14

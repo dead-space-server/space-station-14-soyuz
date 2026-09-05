@@ -36,13 +36,6 @@
   name: Су-шеф
   description: Правая рука Шефа на кухне.
 
-- type: entity
-  parent: BaseLoadoutChefSpecialization
-  id: LoadoutChefChief
-  categories: [ HideSpawnMenu ]
-  name: Шеф-повар
-  description: Глава кухни. Высшая кулинарная специализация повара.
-
 - type: loadout
   id: ChefTitleConfectioner
   dummyEntity: LoadoutChefConfectioner
@@ -89,19 +82,7 @@
     requirement:
       !type:RoleTimeRequirement
       role: JobChef
-      time: 54000 # 15 часов
-
-- type: loadout
-  id: ChefTitleChief
-  dummyEntity: LoadoutChefChief
-  effects:
-  - !type:JobTitleLoadoutEffect
-    title: job-title-chef-chief
-  - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
-      role: JobChef
-      time: 108000 # 30 часов как у золотого ножа
+      time: 36000 # 10 часов
 
 - type: loadoutGroup
   id: ChefSpecialization
@@ -113,7 +94,6 @@
   - ChefTitleBaker
   - ChefTitleButcher
   - ChefTitleSousChef
-  - ChefTitleChief
 
 # Юрист
 - type: entity
@@ -503,13 +483,6 @@
   name: Сварщик
   description: Специализация инженера на сварочных работах.
 
-- type: entity
-  parent: BaseLoadoutEngineerSpecialization
-  id: LoadoutEngineerArchitect
-  categories: [ HideSpawnMenu ]
-  name: Архитектор
-  description: Специализация инженера на проектировании и строительстве новых объектов.
-
 - type: loadout
   id: EngineerTitleElectrician
   dummyEntity: LoadoutEngineerElectrician
@@ -570,18 +543,6 @@
       role: JobStationEngineer
       time: 18000
 
-- type: loadout
-  id: EngineerTitleArchitect
-  dummyEntity: LoadoutEngineerArchitect
-  effects:
-  - !type:JobTitleLoadoutEffect
-    title: job-title-engineer-architect
-  - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
-      role: JobStationEngineer
-      time: 72000
-
 - type: loadoutGroup
   id: EngineerSpecialization
   name: loadout-group-engineer-specialization
@@ -593,7 +554,6 @@
   - EngineerTitleMechanic
   - EngineerTitleNuclear
   - EngineerTitleWelder
-  - EngineerTitleArchitect
 
 # Грузчик
 - type: entity
@@ -840,13 +800,6 @@
   name: Специалист СЖО
   description: Специализация атмосферного техника на системах жизнеобеспечения.
 
-- type: entity
-  parent: BaseLoadoutAtmosphericSpecialization
-  id: LoadoutAtmosphericSynthesis
-  categories: [ HideSpawnMenu ]
-  name: Специалист по синтезу
-  description: Специализация атмосферного техника на синтезе газов.
-
 - type: loadout
   id: AtmosphericTitleLifeSupport
   dummyEntity: LoadoutAtmosphericLifeSupport
@@ -859,18 +812,6 @@
       role: JobAtmosphericTechnician
       time: 36000
 
-- type: loadout
-  id: AtmosphericTitleSynthesis
-  dummyEntity: LoadoutAtmosphericSynthesis
-  effects:
-  - !type:JobTitleLoadoutEffect
-    title: job-title-atmospheric-synthesis
-  - !type:JobRequirementLoadoutEffect
-    requirement:
-      !type:RoleTimeRequirement
-      role: JobAtmosphericTechnician
-      time: 180000 # 50 часов
-
 - type: loadoutGroup
   id: AtmosphericSpecialization
   name: loadout-group-atmospheric-specialization
@@ -878,44 +819,63 @@
   maxLimit: 1
   loadouts:
   - AtmosphericTitleLifeSupport
-  - AtmosphericTitleSynthesis
 
-# Библиотекарь
+# Детектив
 - type: entity
   abstract: true
-  id: BaseLoadoutLibrarianSpecialization
+  id: BaseLoadoutDetectiveSpecialization
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: Interface/Misc/job_icons.rsi
-    state: Librarian
+    state: Detective
 
 - type: entity
-  parent: BaseLoadoutLibrarianSpecialization
-  id: LoadoutLibrarianGameMaster
+  parent: BaseLoadoutDetectiveSpecialization
+  id: LoadoutDetectiveCriminalist
   categories: [ HideSpawnMenu ]
-  name: Гейм-мастер
-  description: Специализация библиотекаря на проведении настольных ролевых игр.
+  name: Криминалист
+  description: Специализация детектива на криминалистике и экспертизах.
+
+- type: entity
+  parent: BaseLoadoutDetectiveSpecialization
+  id: LoadoutDetectiveOperative
+  categories: [ HideSpawnMenu ]
+  name: Оперуполномоченный
+  description: Специализация детектива на оперативно-розыскной работе.
 
 - type: loadout
-  id: LibrarianTitleGameMaster
-  dummyEntity: LoadoutLibrarianGameMaster
+  id: DetectiveTitleCriminalist
+  dummyEntity: LoadoutDetectiveCriminalist
   effects:
   - !type:JobTitleLoadoutEffect
-    title: job-title-librarian-gamemaster
+    title: job-title-detective-criminalist
   - !type:JobRequirementLoadoutEffect
     requirement:
       !type:RoleTimeRequirement
-      role: JobLibrarian
+      role: JobDetective
       time: 18000
 
+- type: loadout
+  id: DetectiveTitleOperative
+  dummyEntity: LoadoutDetectiveOperative
+  effects:
+  - !type:JobTitleLoadoutEffect
+    title: job-title-detective-operative
+  - !type:JobRequirementLoadoutEffect
+    requirement:
+      !type:RoleTimeRequirement
+      role: JobDetective
+      time: 36000
+
 - type: loadoutGroup
-  id: LibrarianSpecialization
-  name: loadout-group-librarian-specialization
+  id: DetectiveSpecialization
+  name: loadout-group-detective-specialization
   minLimit: 0
   maxLimit: 1
   loadouts:
-  - LibrarianTitleGameMaster
+  - DetectiveTitleCriminalist
+  - DetectiveTitleOperative
 
 # Психолог
 - type: entity

@@ -91,8 +91,6 @@
     growthStages: 6
   - type: PlantHarvest
     harvestRepeat: Repeat
-  - type: PlantGrowth
-    idealLight: 6
   - type: PlantChemicals
     chemicals:
       Nutriment:
@@ -110,7 +108,7 @@
   name: пакет семян груши
   components:
   - type: Seed
-    seedId: PearPlant
+    plantId: PearPlant
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
 
@@ -137,7 +135,7 @@
   - type: Item
     heldPrefix: produce
   - type: Produce
-    seedId: pear
+    plantId: pear
   - type: Extractable
     juiceSolution:
       reagents:

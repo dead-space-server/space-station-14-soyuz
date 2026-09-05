@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxChloris
   mapName: 'Chloris'
-  mapPath: /Maps/corvax_chloris.yml
+  mapPath: /Maps/_Soyuz/corvax_chloris.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 60

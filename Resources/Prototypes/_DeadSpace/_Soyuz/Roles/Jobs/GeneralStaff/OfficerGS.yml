@@ -4,7 +4,6 @@
   description: job-description-OfficerGS
   playTimeTracker: JobOfficerGS
   whitelisted: True
-  weight: 10
   startingGear: OfficerGSGear
   icon: "JobIconNanotrasen"
   canBeAntag: false

@@ -108,6 +108,9 @@
 - type: Tag
   id: PoliceBetaLegs
 
+- type: Tag
+  id: PolaroidCartridge
+
 # Q
 
 # R

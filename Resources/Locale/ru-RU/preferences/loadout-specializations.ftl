@@ -20,6 +20,7 @@ job-title-chef-confectioner = Кондитер
 job-title-chef-baker = Пекарь
 job-title-chef-butcher = Мясник
 job-title-chef-sous-chef = Су-шеф
+job-title-chef-chief = Шеф-Повар
 
 # Юрист
 job-title-lawyer-advocate = Адвокат

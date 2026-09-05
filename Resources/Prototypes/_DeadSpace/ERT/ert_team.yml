@@ -374,7 +374,7 @@
   - gamma
   special: CustomizableSpawnerCentralCommandOfficial
   spawns:
-    - id: CustomizableSpawnerCentralCommandBlueShieldOfficer
+    - id: CustomizableSpawnerGeneralStaffKGB # DS14-Soyuz
       amount: 3
 
 

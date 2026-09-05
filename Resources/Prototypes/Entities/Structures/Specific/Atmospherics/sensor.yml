@@ -29,7 +29,6 @@
       InfectionDeadSpace: stationInfectionDeadSpace
       # Kofeecheks gases: LicenseRef-Kofeecheks 
       Nitryl: stationNitryl
-      NitricOxide: stationNitricOxide
       Iprit: stationIprit
       Brizidium: stationBrizidium
       Hydrogen: stationHydrogen

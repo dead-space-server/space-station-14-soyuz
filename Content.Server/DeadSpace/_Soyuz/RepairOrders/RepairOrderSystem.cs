@@ -1,0 +1,670 @@
+using System.Linq;
+using Content.Server.Popups;
+using Content.Server.Station.Systems;
+using Content.Shared.Access.Systems;
+using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.Ghost;
+using Content.Shared.Popups;
+using Content.Shared.Prototypes;
+using Content.Shared.UserInterface;
+using Robust.Server.GameObjects;
+using Robust.Server.Player;
+using Robust.Shared.Enums;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
+
+namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
+
+/// <summary>
+/// Generates station-scoped offers and coordinates their authoritative activation.
+/// </summary>
+public sealed class RepairOrderSystem : EntitySystem
+{
+    [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly RepairOrderSpawnSystem _spawn = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly UserInterfaceSystem _ui = default!;
+
+    private ISawmill _sawmill = default!;
+    private TimeSpan _nextConsoleDiscovery;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        _sawmill = _logManager.GetSawmill("repair_orders");
+
+        SubscribeLocalEvent<RepairOrderConsoleComponent, ComponentStartup>(OnConsoleStartup);
+        SubscribeLocalEvent<RepairOrderConsoleComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
+        Subs.BuiEvents<RepairOrderConsoleComponent>(RepairOrderUiKey.Key, subs =>
+        {
+            subs.Event<BoundUIOpenedEvent>(OnUiOpened);
+            subs.Event<RepairOrderAcceptMessage>(OnAccept);
+        });
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var now = _timing.CurTime;
+        if (now >= _nextConsoleDiscovery)
+        {
+            DiscoverConsoles();
+            _nextConsoleDiscovery = now + TimeSpan.FromSeconds(1);
+        }
+
+        var query = EntityQueryEnumerator<RepairOrderStationComponent>();
+        while (query.MoveNext(out var stationUid, out var state))
+        {
+            if (!state.PoolInitialized)
+                InitializeStation((stationUid, state));
+
+            ProcessPendingGridCleanup((stationUid, state));
+
+            if (state.Active is { } active &&
+                !active.ExpirationFrozen &&
+                (!active.GridUid.IsValid() || !Exists(active.GridUid)))
+            {
+                AbortActiveOrder(
+                    stationUid,
+                    active.GridUid,
+                    RepairOrderAbortReason.RepairGridDeleted);
+            }
+
+            var changed = false;
+            foreach (var (runtimeId, offer) in state.Available.ToArray())
+            {
+                if (offer.ExpiresAt > now)
+                    continue;
+
+                state.Available.Remove(runtimeId);
+                changed = true;
+            }
+
+            if (now >= state.NextOffer)
+            {
+                GenerateOffer((stationUid, state));
+                // Do not catch up missed intervals in a batch.
+                state.NextOffer = now + state.OfferInterval;
+                changed = true;
+            }
+
+            if (changed)
+                UpdateStationUis((stationUid, state));
+        }
+    }
+
+    private void OnConsoleStartup(Entity<RepairOrderConsoleComponent> console, ref ComponentStartup args)
+    {
+        EnsureStationState(console.Owner);
+    }
+
+    private void OnOpenAttempt(Entity<RepairOrderConsoleComponent> console, ref ActivatableUIOpenAttemptEvent args)
+    {
+        if (_access.IsAllowed(args.User, console.Owner))
+            return;
+
+        _popup.PopupEntity(
+            Loc.GetString("repair-orders-error-access"),
+            console.Owner,
+            args.User,
+            PopupType.Medium);
+        args.Cancel();
+    }
+
+    private void OnUiOpened(Entity<RepairOrderConsoleComponent> console, ref BoundUIOpenedEvent args)
+    {
+        if (EnsureStationState(console.Owner) is not { } stationState)
+            return;
+
+        UpdateConsoleUi(console.Owner, stationState);
+    }
+
+    private void OnAccept(Entity<RepairOrderConsoleComponent> console, ref RepairOrderAcceptMessage args)
+    {
+        var stationUid = _station.GetOwningStation(console.Owner);
+        if (stationUid == null || !TryComp<RepairOrderStationComponent>(stationUid.Value, out var state))
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-no-station", "console has no owning station");
+            return;
+        }
+
+        if (!_access.IsAllowed(args.Actor, console.Owner))
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-access", "actor lacks engineering access");
+            return;
+        }
+
+        if (!state.Available.TryGetValue(args.RuntimeId, out var offer) || offer.ExpiresAt <= _timing.CurTime)
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-unavailable", $"offer {args.RuntimeId} is missing or expired");
+            return;
+        }
+
+        if (state.Active != null)
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-active", "station already has an active order");
+            return;
+        }
+
+        if (state.Accepting || state.Completing)
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-busy", "another activation is in progress");
+            return;
+        }
+
+        if (!_prototype.TryIndex<RepairOrderPrototype>(offer.Prototype, out var orderPrototype))
+        {
+            FailRequest(console.Owner, args.Actor, "repair-orders-error-unavailable", $"prototype {offer.Prototype} is missing");
+            return;
+        }
+
+        state.Accepting = true;
+        UpdateStationUis((stationUid.Value, state));
+
+        EntityUid? spawnedGrid = null;
+        var committed = false;
+        try
+        {
+            if (!_spawn.TrySpawnDamagedGrid(console.Owner, orderPrototype, out var gridUid, out var failure))
+            {
+                FailRequest(
+                    console.Owner,
+                    args.Actor,
+                    GetSpawnFailureLoc(failure),
+                    $"activation of offer {offer.RuntimeId} ({offer.Prototype}) failed: {failure}");
+                return;
+            }
+
+            spawnedGrid = gridUid;
+            if (!_validation.TryPrepareSession(
+                    stationUid.Value,
+                    offer.RuntimeId,
+                    offer.Prototype,
+                    gridUid,
+                    out var preparedActive))
+            {
+                FailRequest(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-prepare",
+                    $"activation of offer {offer.RuntimeId} ({offer.Prototype}) failed while preparing its validation session");
+                return;
+            }
+
+            // Commit point: no station order state changes before the complete session is ready.
+            if (!state.Available.Remove(offer.RuntimeId))
+            {
+                FailRequest(
+                    console.Owner,
+                    args.Actor,
+                    "repair-orders-error-unavailable",
+                    $"offer {offer.RuntimeId} disappeared before activation commit");
+                return;
+            }
+
+            var startedAt = _timing.CurTime;
+            preparedActive.StartedAt = startedAt;
+            preparedActive.ExpiresAt = startedAt + orderPrototype.RepairTime;
+            preparedActive.ActivationConsole = console.Owner;
+            state.Active = preparedActive;
+            committed = true;
+            spawnedGrid = null;
+
+            RememberRepairConsole(stationUid.Value, console.Owner);
+
+            var activated = new RepairOrderActivatedEvent(stationUid.Value, offer.Prototype, gridUid);
+            RaiseLocalEvent(stationUid.Value, ref activated);
+
+            _sawmill.Info($"Activated repair order {offer.RuntimeId} ({offer.Prototype}) for station {stationUid}; grid {gridUid}.");
+            _popup.PopupEntity(
+                Loc.GetString("repair-orders-success"),
+                console.Owner,
+                args.Actor,
+                PopupType.Medium);
+        }
+        finally
+        {
+            try
+            {
+                if (!committed && spawnedGrid is { } rollbackGrid)
+                {
+                    try
+                    {
+                        _validation.DiscardPreparedSession(rollbackGrid);
+                    }
+                    finally
+                    {
+                        if (Exists(rollbackGrid))
+                            Del(rollbackGrid);
+                    }
+                }
+            }
+            finally
+            {
+                state.Accepting = false;
+                UpdateStationUis((stationUid.Value, state));
+            }
+        }
+    }
+
+    private void DiscoverConsoles()
+    {
+        var query = EntityQueryEnumerator<RepairOrderConsoleComponent>();
+        while (query.MoveNext(out var consoleUid, out _))
+        {
+            EnsureStationState(consoleUid);
+        }
+    }
+
+    private Entity<RepairOrderStationComponent>? EnsureStationState(EntityUid console)
+    {
+        var stationUid = _station.GetOwningStation(console);
+        if (stationUid == null)
+            return null;
+
+        var state = EnsureComp<RepairOrderStationComponent>(stationUid.Value);
+        if (!state.PoolInitialized)
+            InitializeStation((stationUid.Value, state));
+
+        RememberRepairConsole((stationUid.Value, state), console);
+
+        return (stationUid.Value, state);
+    }
+
+    /// <summary>
+    /// Remembers a usable repair-orders console as grid-local station coordinates. Returns false for deleted,
+    /// nullspace, off-grid, or foreign-station consoles without replacing the previous known position.
+    /// </summary>
+    public bool RememberRepairConsole(EntityUid stationUid, EntityUid consoleUid)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state))
+            return false;
+
+        return RememberRepairConsole((stationUid, state), consoleUid);
+    }
+
+    private bool RememberRepairConsole(Entity<RepairOrderStationComponent> station, EntityUid consoleUid)
+    {
+        if (!consoleUid.IsValid() ||
+            !Exists(consoleUid) ||
+            MetaData(consoleUid).EntityLifeStage >= EntityLifeStage.Terminating ||
+            !TryComp<RepairOrderConsoleComponent>(consoleUid, out _) ||
+            !TryComp(consoleUid, out TransformComponent? transform) ||
+            transform.MapID == MapId.Nullspace ||
+            transform.GridUid is not { } gridUid ||
+            !Exists(gridUid) ||
+            MetaData(gridUid).EntityLifeStage >= EntityLifeStage.Terminating ||
+            _station.GetOwningStation(consoleUid, transform) != station.Owner)
+        {
+            return false;
+        }
+
+        var coordinates = _transform.GetMoverCoordinates(consoleUid, transform);
+        if (coordinates == EntityCoordinates.Invalid || coordinates.EntityId != gridUid)
+            return false;
+
+        station.Comp.LastRepairConsoleCoordinates = coordinates;
+        return true;
+    }
+
+    private void InitializeStation(Entity<RepairOrderStationComponent> station)
+    {
+        if (station.Comp.PoolInitialized)
+            return;
+
+        station.Comp.PoolInitialized = true;
+        GenerateOffer(station);
+        station.Comp.NextOffer = _timing.CurTime + station.Comp.OfferInterval;
+        UpdateStationUis(station);
+    }
+
+    private void GenerateOffer(Entity<RepairOrderStationComponent> station)
+    {
+        var candidates = _prototype.EnumeratePrototypes<RepairOrderPrototype>()
+            .Where(order => order.Weight > 0f)
+            .ToList();
+
+        if (candidates.Count > 1 && station.Comp.LastGeneratedPrototype is { } lastGenerated)
+            candidates.RemoveAll(order => order.ID == lastGenerated.Id);
+
+        var totalWeight = candidates.Sum(order => order.Weight);
+        if (candidates.Count == 0 || totalWeight <= 0f)
+        {
+            _sawmill.Warning($"No positively weighted repair order prototypes are available for station {station.Owner}.");
+            return;
+        }
+
+        var roll = _random.NextFloat(0f, totalWeight);
+        var selected = candidates[^1];
+        foreach (var candidate in candidates)
+        {
+            roll -= candidate.Weight;
+            if (roll > 0f)
+                continue;
+
+            selected = candidate;
+            break;
+        }
+
+        var runtimeId = station.Comp.NextRuntimeId++;
+        station.Comp.Available[runtimeId] = new AvailableRepairOrder(
+            runtimeId,
+            selected.ID,
+            _timing.CurTime + station.Comp.OfferLifetime);
+        station.Comp.LastGeneratedPrototype = selected.ID;
+    }
+
+    public void RefreshStationUis(EntityUid stationUid)
+    {
+        if (TryComp<RepairOrderStationComponent>(stationUid, out var station))
+            UpdateStationUis((stationUid, station));
+    }
+
+    /// <summary>
+    /// Commits an Active -> terminal result transition. Active order lifecycle mutations are owned here.
+    /// </summary>
+    public bool TryCommitTerminalResult(
+        EntityUid stationUid,
+        ActiveRepairOrder expectedActive,
+        CompletedRepairOrder completed,
+        out EntityUid repairGrid)
+    {
+        repairGrid = EntityUid.Invalid;
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
+            !ReferenceEquals(state.Active, expectedActive) ||
+            completed.RuntimeId != expectedActive.RuntimeId ||
+            completed.Prototype != expectedActive.Prototype)
+        {
+            return false;
+        }
+
+        repairGrid = expectedActive.GridUid;
+        state.Completed = completed;
+        state.Active = null;
+        return true;
+    }
+
+    public bool TryCommitCompletion(
+        EntityUid stationUid,
+        ActiveRepairOrder expectedActive,
+        CompletedRepairOrder completed,
+        out EntityUid repairGrid)
+    {
+        return TryCommitTerminalResult(stationUid, expectedActive, completed, out repairGrid);
+    }
+
+    /// <summary>
+    /// Ends an active order without completion or rewards and disposes every grid owned by the failed session.
+    /// The expected grid protects a newer active order from delayed lifecycle events belonging to an old grid.
+    /// </summary>
+    public bool AbortActiveOrder(
+        EntityUid stationUid,
+        EntityUid expectedGrid,
+        RepairOrderAbortReason reason,
+        IReadOnlyCollection<EntityUid>? additionalGrids = null)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
+            state.Active is not { } active ||
+            active.GridUid != expectedGrid)
+        {
+            return false;
+        }
+
+        // Once deadline progress is frozen, Expired owns the terminal transition. Grid loss or splitting can no
+        // longer turn that already-claimed result into Abort, but every resulting grid is still owned for cleanup.
+        if (active.ExpirationFrozen)
+        {
+            if (additionalGrids != null)
+                active.ExpirationAdditionalGrids.UnionWith(additionalGrids);
+
+            return false;
+        }
+
+        var ownedGrids = new HashSet<EntityUid> { active.GridUid };
+        if (additionalGrids != null)
+            ownedGrids.UnionWith(additionalGrids);
+
+        // Claim the transition before cleanup so component shutdown and repeated abort calls are harmless.
+        state.Active = null;
+        state.Completing = false;
+
+        _sawmill.Warning(
+            $"Aborted repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {reason}. " +
+            $"No completion or rewards were produced; disposing {ownedGrids.Count} repair grid(s).");
+
+        try
+        {
+            _validation.DiscardPreparedSession(active.GridUid);
+        }
+        finally
+        {
+            try
+            {
+                foreach (var gridUid in ownedGrids)
+                {
+                    if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
+                        QueueDel(gridUid);
+                }
+            }
+            finally
+            {
+                UpdateStationUis((stationUid, state));
+            }
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Removes validation immediately when safe, or defers grid deletion until all non-ghost players have left.
+    /// </summary>
+    public void CleanupTerminalGrid(EntityUid stationUid, EntityUid gridUid)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state))
+            return;
+
+        if (!Exists(gridUid))
+        {
+            state.PendingCleanupGrids.Remove(gridUid);
+            return;
+        }
+
+        // Pending cleanup is authoritative ownership: keep the grid locked until deletion has actually completed.
+        state.PendingCleanupGrids.Add(gridUid);
+
+        if (TryFindPlayerOnRepairGrid(gridUid, out _))
+            return;
+
+        _validation.DiscardPreparedSession(gridUid);
+        if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
+            QueueDel(gridUid);
+    }
+
+    /// <summary>
+    /// Transfers every terminal grid to station-owned pending cleanup before cleanup of any individual grid begins.
+    /// This preserves ownership of the remaining grids if validation cleanup for one grid throws.
+    /// </summary>
+    public void CleanupTerminalGrids(EntityUid stationUid, IReadOnlyCollection<EntityUid> gridUids)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state))
+            return;
+
+        state.PendingCleanupGrids.UnionWith(gridUids);
+
+        foreach (var gridUid in gridUids)
+            CleanupTerminalGrid(stationUid, gridUid);
+    }
+
+    /// <summary>
+    /// Preserves ownership of grids produced by a split after Expired has committed but before player-safe cleanup.
+    /// </summary>
+    public void TrackPendingCleanupSplit(
+        EntityUid stationUid,
+        EntityUid originalGrid,
+        IReadOnlyCollection<EntityUid> newGrids)
+    {
+        if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
+            !state.PendingCleanupGrids.Contains(originalGrid))
+        {
+            return;
+        }
+
+        state.PendingCleanupGrids.UnionWith(newGrids);
+    }
+
+    public bool TryFindPlayerOnRepairGrid(EntityUid repairGrid, out EntityUid player)
+    {
+        player = EntityUid.Invalid;
+
+        foreach (var session in _playerManager.Sessions)
+        {
+            if (session.Status != SessionStatus.InGame ||
+                session.AttachedEntity is not { Valid: true } attached ||
+                !Exists(attached) ||
+                HasComp<GhostComponent>(attached) ||
+                !TryComp(attached, out TransformComponent? transform) ||
+                transform.GridUid != repairGrid)
+            {
+                continue;
+            }
+
+            player = attached;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void ProcessPendingGridCleanup(Entity<RepairOrderStationComponent> station)
+    {
+        foreach (var gridUid in station.Comp.PendingCleanupGrids.ToArray())
+        {
+            if (!Exists(gridUid))
+            {
+                station.Comp.PendingCleanupGrids.Remove(gridUid);
+                continue;
+            }
+
+            if (TryFindPlayerOnRepairGrid(gridUid, out _))
+                continue;
+
+            _validation.DiscardPreparedSession(gridUid);
+            if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
+                QueueDel(gridUid);
+        }
+    }
+
+    private void UpdateStationUis(Entity<RepairOrderStationComponent> station)
+    {
+        var query = EntityQueryEnumerator<RepairOrderConsoleComponent, TransformComponent>();
+        while (query.MoveNext(out var consoleUid, out _, out var xform))
+        {
+            if (_station.GetOwningStation(consoleUid, xform) != station.Owner)
+                continue;
+
+            UpdateConsoleUi(consoleUid, station);
+        }
+    }
+
+    private void UpdateConsoleUi(EntityUid console, Entity<RepairOrderStationComponent> station)
+    {
+        var available = station.Comp.Available.Values
+            .OrderBy(offer => offer.ExpiresAt)
+            .Select(offer => new RepairOrderBuiEntry(
+                offer.RuntimeId,
+                offer.Prototype.Id,
+                RepairOrderStatus.Available,
+                offer.ExpiresAt))
+            .ToList();
+
+        RepairOrderBuiEntry? active = null;
+        if (station.Comp.Active is { } activeOrder)
+        {
+            active = new RepairOrderBuiEntry(
+                activeOrder.RuntimeId,
+                activeOrder.Prototype.Id,
+                RepairOrderStatus.Active,
+                activeOrder.ExpiresAt,
+                completedTasks: activeOrder.CompletedTasks,
+                totalTasks: activeOrder.TotalTasks,
+                blueprintReady: activeOrder.BlueprintReady,
+                currentPoints: activeOrder.CurrentPoints,
+                maxPoints: activeOrder.MaxPoints);
+        }
+
+        RepairOrderCompletedBuiEntry? completed = null;
+        if (station.Comp.Completed is { } completedOrder)
+        {
+            completed = new RepairOrderCompletedBuiEntry(
+                completedOrder.RuntimeId,
+                completedOrder.Prototype.Id,
+                completedOrder.CompletedTasks,
+                completedOrder.TotalTasks,
+                completedOrder.FinalPoints,
+                completedOrder.MaxPoints,
+                completedOrder.RepairPercent,
+                completedOrder.RewardBudget,
+                completedOrder.Result,
+                completedOrder.Delivered,
+                completedOrder.Rewards
+                    .Select(reward => new RepairOrderRewardBuiEntry(reward.Reward.Id, reward.Count))
+                    .ToList());
+        }
+
+        _ui.SetUiState(console, RepairOrderUiKey.Key, new RepairOrderBoundUserInterfaceState(
+            available,
+            active,
+            completed,
+            station.Comp.NextOffer,
+            station.Comp.OfferInterval,
+            station.Comp.Accepting,
+            station.Comp.Completing));
+    }
+
+    private void FailRequest(EntityUid console, EntityUid actor, string locKey, string logReason)
+    {
+        _sawmill.Warning($"Repair order request at {ToPrettyString(console)} rejected: {logReason}.");
+        _popup.PopupEntity(Loc.GetString(locKey), console, actor, PopupType.Medium);
+    }
+
+    private static string GetSpawnFailureLoc(RepairOrderSpawnFailure failure)
+    {
+        return failure switch
+        {
+            RepairOrderSpawnFailure.NoStation => "repair-orders-error-no-station",
+            RepairOrderSpawnFailure.NoStationGrid => "repair-orders-error-no-grid",
+            RepairOrderSpawnFailure.LoadFailed => "repair-orders-error-load",
+            RepairOrderSpawnFailure.InvalidGrid => "repair-orders-error-invalid-grid",
+            RepairOrderSpawnFailure.NoSpace => "repair-orders-error-no-space",
+            _ => "repair-orders-error-transfer",
+        };
+    }
+}
+
+/// <summary>
+/// Post-commit notification that a fully prepared repair order is now active.
+/// </summary>
+[ByRefEvent]
+public readonly record struct RepairOrderActivatedEvent(
+    EntityUid Station,
+    ProtoId<RepairOrderPrototype> OrderPrototype,
+    EntityUid GridUid);
+
+public enum RepairOrderAbortReason : byte
+{
+    RepairGridDeleted,
+    RepairGridSplit,
+    ValidationRuntimeLost,
+}

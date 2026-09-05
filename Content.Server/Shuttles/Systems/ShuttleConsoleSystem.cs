@@ -37,6 +37,9 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
+    // DS14-Soyuz start
+    [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
+    // DS14-Soyuz end
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly TagSystem _tags = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
@@ -186,6 +189,14 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             return false;
         }
+
+        // DS14-Soyuz start
+        if (Transform(uid).GridUid is not { } gridUid ||
+            !_shuttleControl.CanControl(gridUid, ShuttleControlType.Pilot, user))
+        {
+            return false;
+        }
+        // DS14-Soyuz end
 
         var pilotComponent = EnsureComp<PilotComponent>(user);
         var console = pilotComponent.Console;

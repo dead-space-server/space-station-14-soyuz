@@ -1,0 +1,302 @@
+- type: repairScoreProfile
+  id: RepairOrderEngineeringScore
+  # Every non-empty tile is a separate floor/covering task.
+  defaultTilePoints: 2
+  # Anchored entities not covered below are light/simple constructions.
+  # This fallback also prevents newly added Soyuz prototypes from silently becoming worth zero points.
+  defaultEntityPoints: 8
+
+  # Tile identity rules are ordered: the first mapping for a tile wins.
+  tileIdentityRules:
+  - tiles: [FloorShuttleGrey, FloorSteel]
+    canonical: FloorSteel
+
+  # Optional exact overrides go here and take priority over every family rule below.
+  # Add as many entries as needed, using exactly one of `entity` or `tile` per entry:
+  # values:
+  # - entity: SomeEntityPrototypeId
+  #   points: 12
+  # - tile: SomeTileDefinitionId
+  #   points: 3
+
+  # Rules are ordered: the first matching rule wins. Specific infrastructure must stay above
+  # broad component/tag/family rules.
+  rules:
+  # Power generators.
+  - selector:
+      parents: [GeneratorRTG]
+    points: 40
+  - selector:
+      parents: [PortableGeneratorSuperPacman]
+    points: 35
+  - selector:
+      parents: [PortableGeneratorPacman]
+    points: 25
+  - selector:
+      parents: [GeneratorWallmountAPU]
+    points: 20
+  - selector:
+      parents: [PortableGeneratorJrPacman]
+    points: 5
+
+  # Power distribution.
+  - selector:
+      parents: [BaseSMES]
+    points: 20
+  - selector:
+      parents: [BaseSubstation, BaseSubstationWall]
+    points: 15
+  - selector:
+      parents: [BaseAPC]
+    points: 12
+
+  # Shuttle equipment. Docking airlocks are intentionally checked before ordinary airlocks.
+  - selector:
+      allComponents: [Docking]
+    points: 12
+  - selector:
+      parents: [Gyroscope]
+    points: 15
+  # The standard one-tile thruster is the small/manoeuvring variant. Soyuz medium/large
+  # rocket thrusters inherit BaseThruster directly and fall through to the 20-point rule.
+  - selector:
+      parents: [Thruster]
+    points: 15
+  - selector:
+      parents: [BaseThruster]
+    points: 20
+  - selector:
+      allComponents: [ShuttleConsole]
+    points: 15
+
+  # Walls, windows and doors.
+  - selector:
+      parents: [WallShuttle, WallShuttleDiagonal]
+    points: 8
+  - selector:
+      parents:
+      - WallPlastitanium
+      - WallPlastitaniumDiagonal
+    points: 15
+  - selector:
+      parents:
+      - WallTungsten
+      - WallTungstenDiagonal
+      - WallTitanaluminum
+      - WallTitanaluminumDiagonal
+    points: 10
+  - selector:
+      parents:
+      - WallReinforced
+      - WallReinforcedDiagonal
+      - WallReinforcedChitin
+      - WallRiveted
+    points: 6
+  - selector:
+      allTags: [Wall]
+    points: 5
+  - selector:
+      parents: [ShuttleWindow]
+    points: 8
+  - selector:
+      parents:
+      - PlastitaniumWindowBase
+    points: 15
+  - selector:
+      parents:
+      - TungstenWindow
+    points: 10
+  - selector:
+      parents:
+      - ReinforcedWindow
+      - WindowReinforcedDirectional
+      - ReinforcedPlasmaWindow
+      - PlasmaReinforcedWindowDirectional
+      - ReinforcedUraniumWindow
+      - UraniumReinforcedWindowDirectional
+    points: 6
+  - selector:
+      allTags: [Window]
+    points: 5
+  - selector:
+      parents: [Grille]
+    points: 3
+  - selector:
+      allComponents: [Airlock]
+    points: 8
+
+  # Atmospherics. A grille and a window remain two independent tasks and their points add naturally.
+  - selector:
+      parents: [GasVentPump, GasPassiveVent]
+    points: 6
+  - selector:
+      parents: [GasVentScrubber]
+    points: 6
+  - selector:
+      parents: [GasPressurePump, GasVolumePump]
+    points: 7
+  - selector:
+      parents: [GasValve, GasPassiveGate, GasPressureRegulator, PressureControlledValve]
+    points: 7
+  - selector:
+      parents: [GasFilter, GasMixer]
+    points: 8
+  - selector:
+      parents: [GasPipeBase]
+    points: 3
+
+  # Cable networks.
+  - selector:
+      parents: [CableApcExtension]
+    points: 2
+  - selector:
+      parents: [CableMV]
+    points: 3
+  - selector:
+      parents: [CableHV]
+    points: 4
+
+  # Furniture and stationary simple structures.
+  - selector:
+      parents: [TableBase]
+    points: 3
+  - selector:
+      parents: [SeatBase]
+    points: 2
+  - selector:
+      parents: [BaseRailing, BaseRailingWood, Rack, BaseFenceWood, BaseFenceMetal]
+    points: 3
+  - selector:
+      parents: [ClosetBase, BaseWallCloset, SuitStorageBase, CrateGeneric]
+    points: 5
+  - selector:
+      parents: [Bed]
+    points: 4
+  - selector:
+      parents: [ShelfBase, Bookshelf]
+    points: 4
+  - selector:
+      parents: [Stairs]
+    points: 5
+  - selector:
+      allComponents: [PoweredLight]
+    points: 4
+
+  # A complete machine frame or computer with a board is a complex assembly.
+  - selector:
+      allComponents: [Machine]
+    points: 15
+  - selector:
+      allComponents: [Computer]
+    points: 15
+
+  # Identity rules are applied before target/current entity comparison.
+  # They intentionally ignore mapping-only state variants such as filled vs empty batteries
+  # or light fixtures with a lamp preinserted on spawn.
+  identityRules:
+  - selector:
+      entities: [SMESBasic, SMESBasicEmpty]
+    canonical: SMESBasic
+  - selector:
+      entities: [SMESAdvanced, SMESAdvancedEmpty]
+    canonical: SMESAdvanced
+  - selector:
+      entities: [SubstationBasic, SubstationBasicEmpty]
+    canonical: SubstationBasic
+  - selector:
+      entities: [APCBasic, APCConstructed]
+    canonical: APCBasic
+  - selector:
+      parents: [PoweredlightEmpty]
+    canonical: Poweredlight
+  - selector:
+      parents: [PoweredSmallLightEmpty]
+    canonical: PoweredSmallLight
+  - selector:
+      parents: [PoweredLightPostSmallEmpty]
+    canonical: PoweredLightPostSmall
+  - selector:
+      entities: [MiningWindow, MiningWindowSoyuz]
+    canonical: MiningWindow
+  - selector:
+      entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
+    canonical: MiningWindowDiagonal
+  - selector:
+      parents: [AirlockGlassShuttle]
+    canonical: AirlockGlassShuttle
+  - selector:
+      parents: [AirlockShuttle]
+    canonical: AirlockShuttle
+  - selector:
+      parents: [AirlockGlass, AirlockExternalGlass]
+    canonical: AirlockGlass
+  - selector:
+      parents: [Airlock, AirlockExternal]
+    canonical: Airlock
+
+  # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
+  rotationRules:
+  # Every shuttle thruster and constructed computer is directional, including fork-specific variants.
+  - selector:
+      allComponents: [Thruster]
+    mode: Exact
+  - selector:
+      allComponents: [Computer]
+    mode: Exact
+
+  # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
+  - selector:
+      parents: [GasPipeStraight]
+    mode: Axis
+  - selector:
+      parents: [GasPassiveVent, GasVentScrubber, GasVentPump]
+    mode: Exact
+  - selector:
+      parents: [GasPipeBase]
+    mode: Exact
+
+  # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
+  - selector:
+      allComponents: [AtmosDevice]
+    mode: Exact
+
+  - selector:
+      parents: [DisposalPipe]
+    mode: Axis
+
+  - selector:
+      parents: [DisposalPipeBase]
+    mode: Exact
+
+  # Directional atmos fixtures.
+  - selector:
+      parents: [AtmosDeviceFanDirectional]
+    mode: Exact
+
+  # Wallmount APUs are directional.
+  - selector:
+      parents: [GeneratorWallmountAPU, GeneratorWallmountAPULV]
+    mode: Exact
+
+  # Light fixtures and bulbs.
+  - selector:
+      allComponents: [PoweredLight]
+    mode: Exact
+  - selector:
+      parents:
+      - BaseLightbulb
+      - EmergencyLight
+    mode: Exact
+
+  # Shuttle airlocks and docking ports are directional.
+  - selector:
+      parents: [AirlockShuttle]
+    mode: Exact
+  - selector:
+      allComponents: [Docking]
+    mode: Exact
+
+  # Chairs, sofas, benches and other SeatBase descendants are directional.
+  - selector:
+      parents: [SeatBase]
+    mode: Exact

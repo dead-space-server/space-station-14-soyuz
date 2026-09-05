@@ -50,8 +50,6 @@ entities:
     - type: GridTree
     - type: Broadphase
     - type: OccluderTree
-    - type: MapLight
-      ambientLightColor: '#42147d'
     - type: Parallax
       parallax: Wizard
   - uid: 2

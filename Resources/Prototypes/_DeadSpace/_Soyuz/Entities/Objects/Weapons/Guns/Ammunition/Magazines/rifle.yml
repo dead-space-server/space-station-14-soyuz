@@ -1,7 +1,34 @@
+# Базовый магазин
 - type: entity
+  abstract: true
+  parent: BaseMagazineRifle
+  id: SoyuzBaseMagazineRifle
+  name: пифпаф
+  components:
+  - type: Sprite
+    scale: 1.1, 1.1
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/Rifle/rifle_mag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+# Хочу поменять звук
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_drop.ogg
+
+# Магазины
+- type: entity
+  parent: SoyuzBaseMagazineRifle
   id: MagazineRifleSilver
   name: магазин (6.5х39 мм TSF серебряные)
-  parent: MagazineRifle
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleSilver
@@ -24,9 +51,9 @@
         color: "#f0f0f0"
 
 - type: entity
+  parent: SoyuzBaseMagazineRifle
   id: MagazineRifleTungsten
   name: магазин (6.5х39 мм TSF ППБС)
-  parent: BaseMagazineRifle
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleTungsten
@@ -36,3 +63,26 @@
       map: ["enum.GunVisualLayers.Base"]
     - state: mag-1
       map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  parent: SoyuzBaseMagazineRifle
+  id: SoyuzMagazineRifleNavy
+  name: магазин (█.██x██ Navy)
+  description: Что же за патроны такие, если даже калибр засекречен?
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeCaselessRifleNavy
+    capacity: 45
+    mayTransfer: true
+    whitelist:
+      tags:
+        - CartridgeCaselessRifleNavy
+  - type: Sprite
+    layers:
+    - state: navy
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Tag
+    tags:
+      - SoyuzMagazineRifleNavy

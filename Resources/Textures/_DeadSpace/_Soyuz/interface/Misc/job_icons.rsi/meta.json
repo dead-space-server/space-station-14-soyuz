@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "militia.png made by 6agro6 discord, Nanotrasen Navy icons taken from No_mad (GitHub) and sprited by Agronomist-NN (GitHub), resprited by pered6664 (discord) for Space Station 14 Server Dead Space Soyuz-1",
+    "size": {
+        "x": 8,
+        "y": 8
+    },
+    "states": [
+        {
+            "name": "militia"
+        },
+        {
+            "name": "Sailor"
+        },
+        {
+            "name": "NavyEngineer"
+        },
+        {
+            "name": "NavyMedical"
+        },
+        {
+            "name": "NavyOfficer"
+        },
+        {
+            "name": "WarrantOfficer"
+        },
+        {
+            "name": "WarrantOfficerEngineer"
+        },
+        {
+            "name": "WarrantOfficerMedical"
+        },
+        {
+            "name": "NavyCaptain"
+        }
+    ]
+}

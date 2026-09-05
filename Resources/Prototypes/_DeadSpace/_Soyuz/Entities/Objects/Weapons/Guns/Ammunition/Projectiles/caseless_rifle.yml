@@ -1,7 +1,7 @@
 - type: entity
+  parent: BaseBulletIncendiary
   id: BulletCaselessRifleIncendiary
   name: bullet (.25 caseless incendiary)
-  parent: BaseBulletIncendiary
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -11,9 +11,9 @@
         Heat: 16
 
 - type: entity
+  parent: BaseBulletUranium
   id: BulletCaselessRifleUranium
   name: bullet (.25 caseless uranium)
-  parent: BaseBulletUranium
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -21,3 +21,17 @@
       types:
         Blunt: 10
         Radiation: 9
+
+- type: entity
+  parent: BulletTrace
+  id: BulletCaselessRifleNavy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 15
+        Structural: 15
+    ignoreResistances: true
+  - type: HitscanStaminaDamage
+    staminaDamage: 15

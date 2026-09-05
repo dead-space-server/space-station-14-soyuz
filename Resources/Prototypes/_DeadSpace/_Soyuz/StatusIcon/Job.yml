@@ -13,3 +13,35 @@
     sprite: /Textures/Interface/Misc/job_icons.rsi
     state: Politkom
   jobName: job-name-Politkom
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNavyCaptain
+  icon:
+    sprite: _DeadSpace/_Soyuz/interface/Misc/job_icons.rsi
+    state: NavyCaptain
+  jobName: job-name-navy-captain
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNavyEngineer
+  icon:
+    sprite: _DeadSpace/_Soyuz/interface/Misc/job_icons.rsi
+    state: NavyEngineer
+  jobName: job-name-navy-engineer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNavyMedical
+  icon:
+    sprite: _DeadSpace/_Soyuz/interface/Misc/job_icons.rsi
+    state: NavyMedical
+  jobName: job-name-navy-medical
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNavyOfficer
+  icon:
+    sprite: _DeadSpace/_Soyuz/interface/Misc/job_icons.rsi
+    state: NavyOfficer
+  jobName: job-name-navy-officer

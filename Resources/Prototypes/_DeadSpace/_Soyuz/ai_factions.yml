@@ -1,0 +1,15 @@
+- type: npcFaction
+  id: GeneralStaff
+  hostile:
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary
+  - Dragon
+  - AllHostile
+  - Wizard
+  - Xenoborg
+  - Necromorfs
+  - SpiderTerror
+  - Blob

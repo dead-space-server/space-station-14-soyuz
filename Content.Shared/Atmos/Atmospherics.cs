@@ -397,7 +397,6 @@ namespace Content.Shared.Atmos
         Hilium = 13,
         Brizidium = 14,
         Iprit = 15,
-        Nitryl = 10,
         // DS14-start
         HyperNoblium = 16,
         ProtoNitrate = 17,

@@ -86,13 +86,13 @@
   description: A portable engineering device that highlights unfinished structural repair tasks.
   components:
   - type: Sprite
-    sprite: Objects/Tools/repair_structural_analyzer.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/repair_structural_analyzer.rsi
     layers:
     - state: structural-analyzer-off
       map: ["enum.ToggleableVisuals.Layer"]
   - type: Item
     size: Small
-    sprite: Objects/Tools/repair_structural_analyzer.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/repair_structural_analyzer.rsi
   - type: RepairStructuralAnalyzer
     range: 7
   - type: ItemToggle

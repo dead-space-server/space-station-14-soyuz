@@ -30,7 +30,11 @@ namespace Content.Server.Shuttles.Systems
         [Dependency] private readonly ShuttleConsoleSystem _console = default!;
         [Dependency] private readonly SharedJointSystem _jointSystem = default!;
         [Dependency] private readonly SharedPopupSystem _popup = default!;
+
+        // DS14-Soyuz start
         [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
+        // DS14-Soyuz end
+
         [Dependency] private readonly SharedTransformSystem _transform = default!;
 
         private const string DockingJoint = "docking";
@@ -381,6 +385,8 @@ namespace Content.Server.Shuttles.Systems
 
         private void OnRequestUndock(EntityUid uid, ShuttleConsoleComponent component, UndockRequestMessage args)
         {
+
+            //DS14-Soyuz start
             var console = _console.GetDroneConsole(uid);
             var shuttleUid = console == null ? null : Transform(console.Value).GridUid;
             if (shuttleUid == null)
@@ -391,6 +397,7 @@ namespace Content.Server.Shuttles.Systems
 
             if (!_shuttleControl.CanControl(shuttleUid.Value, ShuttleControlType.Docking, args.Actor))
                 return;
+            //DS14-Soyuz end
 
             if (!TryGetEntity(args.DockEntity, out var dockEnt) ||
                 !TryComp(dockEnt, out DockingComponent? dockComp))
@@ -401,17 +408,21 @@ namespace Content.Server.Shuttles.Systems
 
             var dock = (dockEnt.Value, dockComp);
 
+            //DS14-Soyuz start
             if (!CanUndock(dock) ||
                 dockComp.DockedWith is not { } otherDock ||
                 !TryComp(dockEnt.Value, out TransformComponent? dockXform) ||
                 dockXform.GridUid is not { } dockGridUid ||
                 !TryComp(otherDock, out TransformComponent? otherDockXform) ||
                 otherDockXform.GridUid is not { } otherDockGridUid)
+            //DS14-Soyuz end
+
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
                 return;
             }
 
+            //DS14-Soyuz start
             if (!_shuttleControl.CanControl(dockGridUid, ShuttleControlType.Docking, args.Actor))
                 return;
 
@@ -420,6 +431,7 @@ namespace Content.Server.Shuttles.Systems
             {
                 return;
             }
+            //DS14-Soyuz end
 
             Undock(dock);
         }
@@ -453,15 +465,20 @@ namespace Content.Server.Shuttles.Systems
 
             // Cheating?
             if (!TryComp(ourDock, out TransformComponent? xformA) ||
+
+                // DS14-Soyuz start
                 xformA.GridUid != shuttleUid ||
                 xformA.GridUid is not { } ourGridUid ||
                 !TryComp(targetDock, out TransformComponent? xformB) ||
                 xformB.GridUid is not { } targetGridUid)
+                // DS14-Soyuz end
+
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-dock-fail"));
                 return;
             }
 
+            // DS14-Soyuz start
             if (!_shuttleControl.CanControl(ourGridUid, ShuttleControlType.Docking, args.Actor))
                 return;
 
@@ -470,6 +487,7 @@ namespace Content.Server.Shuttles.Systems
             {
                 return;
             }
+            // DS14-Soyuz end
 
             // TODO: Move the CanDock stuff to the port state and also validate that stuff
             // Also need to check preventpilot + enabled / dockedwith

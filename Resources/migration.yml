@@ -40,11 +40,7 @@ BoxMagazinePistolHighCapacityHighVelocity: BoxMagazinePistolHighCapacity
 BoxMagazinePistolHighVelocity: BoxMagazinePistol
 BoxMagazinePistolSubMachineGunHighVelocity: BoxMagazinePistolSubMachineGun
 BoxMagazineRifleHighVelocity: BoxMagazineRifle
-BulletCaselessRifleHighVelocity: BulletCaselessRifle
-BulletLightRifleHighVelocity: BulletLightRifle
-BulletMagnumHighVelocity: BulletMagnum
 BulletPistolHighVelocity: BulletPistol
-BulletRifleHighVelocity: BulletRifle
 CartridgeCaselessRifleHighVelocity: CartridgeCaselessRifle
 CartridgeLightRifleHighVelocity: CartridgeLightRifle
 CartridgeMagnumHighVelocity: CartridgeMagnum
@@ -178,12 +174,12 @@ SpyCrewMonitorEmpty: null
 SyndiCrewMonitor: null
 SyndiCrewMonitorEmpty: null
 
-SpawnVehicleWheelchair: null
+#SpawnVehicleWheelchair: null
 SpawnVehicleWheelchairFolded: null
-VehicleWheelchair: null
+#VehicleWheelchair: null
 VehicleWheelchairFolded: null
 VehicleSecwayStealObjective: null
-VehicleKeyJanicart: null
+#VehicleKeyJanicart: null
 VehicleKeySecway: null
 VehicleKeyATV: null
 VehicleKeySkeleton: null
@@ -203,8 +199,8 @@ MobTaxiBot: null
 SpawnVehicleMotobike: null
 SpawnVehicleATV: null
 SpawnVehicleSecway: null
-SpawnVehicleJanicart: null
-VehicleJanicart: null
+SpawnVehicleJanicart: VehicleJanicart # DS14
+#VehicleJanicart: null
 VehicleJanicartDestroyed: null
 
 # 2024-02-01
@@ -298,10 +294,6 @@ BodyBag_Folded: BodyBagFolded
 # 2024-04-26
 BaseBulletRubber: null
 BulletPistolRubber: BulletPistol
-BulletMagnumRubber: BulletMagnum
-BulletLightRifleRubber: BulletLightRifle
-BulletRifleRubber: BulletRifle
-BulletCaselessRifleRubber: BulletCaselessRifle
 CartridgePistolRubber: CartridgePistol
 CartridgeMagnumRubber: CartridgeMagnum
 CartridgeLightRifleRubber: CartridgeLightRifle
@@ -434,7 +426,6 @@ DisasterVictimSpawner: CommandVisitorSpawner
 LostCargoTechnicianSpawner: VisitorCargoTechnicianSpawner
 ClownTroupeSpawner: VisitorClownSpawner
 TravelingChefSpawner: VisitorChefSpawner
-SyndieDisasterVictimSpawner: SyndieVisitorSpawner
 
 # 2024-06-09 - DS14
 ClothingBackpackSatchelClownFilled: ClothingBackpackSatchelClown
@@ -796,9 +787,7 @@ LeadChemistryBottle: ChemistryBottleLead
 ToxinChemistryBottle: ChemistryBottleToxin
 
 # 2025-04-02 - DS14
-DrinkMoscowMuleGlass: DrinkMoscowMule
 DrinkEspressoMartiniGlass: DrinkEspressoMartini
-DrinkDaiquiriGlass: DrinkDaiquiri
 
 # 2025-04-04 - DS14
 CBURNSierraPDA: null
@@ -1365,3 +1354,9 @@ BibleNanoTrasen: null
 ClothingNeckNanoTrasenPin: null
 PosterLegitNTTGC: null
 Holograph: null
+# 2026-08-10 - DS14
+WaterCooler: WaterCoolerTransfer
+
+# 2026-08-18
+LightReplacer: LightReplacerFilled
+LightReplacerEmpty: LightReplacer # DS14: preserve empty replacers placed on fork maps

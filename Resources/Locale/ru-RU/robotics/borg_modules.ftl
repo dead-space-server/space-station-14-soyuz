@@ -15,3 +15,4 @@ borg-slot-beakers-empty = Мензурки
 borg-slot-inflatable-door-empty = Надувная дверь
 borg-slot-inflatable-wall-empty = Надувная стена
 borg-slot-fulton-empty = Фултоны
+borg-slot-xenoborg-crystal-empty = Кристаллы ксеноборгов

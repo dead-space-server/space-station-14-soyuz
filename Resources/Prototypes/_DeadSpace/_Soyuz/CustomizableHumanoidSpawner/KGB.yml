@@ -1,0 +1,48 @@
+- type: entity
+  parent: CustomizableSpawnerBase
+  id: CustomizableSpawnerGeneralStaffKGB
+  name: Оперативник КГБ ГШ
+  suffix: ОКГБ, Призрачная роль, Кастомизируемый персонаж
+  components:
+  - type: Sprite
+    layers:
+    - state: timed
+    - sprite: Markers/jobs.rsi
+      state: blueshield-low
+  - type: CustomizableHumanoidSpawner
+    jobPrototype: GeneralStaffKGB
+    allowedSpecies:
+    - Human
+    - Shark
+    - Demon
+    - Vulpkanin
+    - Tajaran
+  - type: GhostRole
+    name: ghost-role-information-blueshieldofficer-name
+    description: ghost-role-information-blueshieldofficer-description
+    rules: ghost-role-information-centcom-personal-rules
+    category: ghost-role-information-centcomm-category
+    job: GeneralStaffKGB
+    raffle:
+      settings: short
+
+- type: roleLoadout
+  id: JobGeneralStaffKGB
+  groups:
+  # - GroupTankHarness # outerClothing slot occupied by startingGear
+  - GeneralStaffKGBLoadout
+  - GroupSpeciesBreathTool
+  - BlueShieldOfficerUnderwear
+
+- type: loadoutGroup
+  id: GeneralStaffKGBLoadout
+  name: spawner-loadout-blueshield
+  hidden: true
+  loadouts:
+  - GeneralStaffKGBLoadout
+
+- type: loadout
+  id: GeneralStaffKGBLoadout
+  equipment:
+    back: ClothingBackpackKGBGeneralStaffFilled
+    socks: ClothingUnderwearSocksBlueShieldOfficer

@@ -87,6 +87,7 @@
         Blunt: 3
         Piercing: 1
         Heat: 5
+        Structural: 40
   - type: NpcFactionMember
     factions:
     - SimpleHostile
@@ -120,6 +121,9 @@
     rules: ghost-role-information-shadow-rules
     raffle:
       settings: default
+    requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 720000 # 200 hours
   - type: Tag
     tags:
       - CannotSuicide
@@ -208,6 +212,7 @@
   - type: ZombieImmune
   - type: ImmunitetInfectionDead
   - type: PassiveDamage
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     damageCap: 0

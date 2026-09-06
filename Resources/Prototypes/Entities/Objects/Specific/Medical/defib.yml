@@ -129,7 +129,7 @@
         map: ["enum.PowerDeviceVisualLayers.Powered"]
         shader: unshaded
   - type: MeleeWeapon
-    attackRate: 1.7 # DS14-value
+    attackRate: 1 # DS14-value
     damage:
       types:
         Blunt: 8

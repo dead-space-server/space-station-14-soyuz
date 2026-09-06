@@ -6,6 +6,8 @@ chat-emote-name-hiss = Шипеть
 chat-emote-name-meow = Мяукнуть
 chat-emote-name-mew = Мявкнуть
 chat-emote-name-purr = Мурлыкать
+# Плафеим
+chat-emote-name-teeth-clack = Клацать зубами
 # Анимации
 chat-emote-name-workout = Качаться
 chat-emote-name-flip = Сделать сальто
@@ -25,4 +27,5 @@ chat-emote-msg-flip = делает сальто
 chat-emote-msg-jump = прыгает
 chat-emote-msg-turn = кружится
 chat-emote-msg-start-tail = виляет хвостом
-chat-emote-msg-stop-tail = перестаёт вилять хвостом
+chat-emote-msg-stop-tail = хвост замирает
+chat-emote-msg-teeth-clack = клацает зубами

@@ -121,7 +121,7 @@
     - SpecialOperationsCorps
     allowedJobs:
     - BlueShieldOfficer
-    - CentralCommandBlueShieldOfficer
+    - GeneralStaffKGB # DS14-Soyuz
     - CentralCommandSpecialOperationsOfficer
 
 - type: entity

@@ -1,0 +1,39 @@
+- type: startingGear
+  id: PrisonerGear
+  equipment:
+    shoes: ClothingShoesColorBlack
+    back: ClothingBackpackPrisoner
+  storage:
+    back:
+    - BoxSurvival
+    - EmergencyNitrogenTankFilled
+    - FlashlightLantern
+    - FoodSnackNutribrick
+    - FoodSnackMREBrownie
+    - DrinkWaterBottleFull
+    - Brutepack
+    - Ointment
+    - Gauze
+
+- type: startingGear
+  id: PrisonerSlagGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorOrange
+    neck: ClothingNeckScarfStripedBrown
+    eyes: ClothingEyesGlassesMeson
+  inhand:
+  - Pickaxe
+  - OreBag
+  storage:
+    back:
+    - HandheldGPSBasic
+
+- type: startingGear
+  id: PrisonerFrontierGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorMaroon
+    neck: ClothingNeckScarfStripedBlack
+    outerClothing: ClothingOuterCoatBomber
+  storage:
+    back:
+    - SurvivalKnife

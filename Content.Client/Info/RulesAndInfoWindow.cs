@@ -19,16 +19,6 @@ namespace Content.Client.Info
             Title = Loc.GetString("ui-info-title");
 
             // DS14-start
-            var rootShell = new Control
-            {
-                HorizontalExpand = true,
-                VerticalExpand = true,
-            };
-            rootShell.AddChild(new PanelContainer
-            {
-                StyleClasses = { DeadSpaceMenuSheetlet.Shell },
-            });
-
             var content = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -41,7 +31,6 @@ namespace Content.Client.Info
             {
                 HorizontalExpand = true,
                 VerticalExpand = true,
-                StyleClasses = { DeadSpaceMenuSheetlet.Tabs },
             };
             // DS14-end
 
@@ -66,8 +55,7 @@ namespace Content.Client.Info
 
             // DS14-start
             content.AddChild(rootContainer);
-            rootShell.AddChild(content);
-            ContentsContainer.AddChild(rootShell);
+            ContentsContainer.AddChild(content);
             // DS14-end
 
             SetSize = new Vector2(650, 650);

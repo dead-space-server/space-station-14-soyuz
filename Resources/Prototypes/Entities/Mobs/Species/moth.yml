@@ -9,8 +9,6 @@
     species: Moth
     hideLayersOnEquip:
     - HeadTop
-  - type: Hunger
-  - type: Thirst
   - type: Icon
     sprite: Mobs/Species/Moth/parts.rsi
     state: full
@@ -89,8 +87,6 @@
       - map: [ "enum.HumanoidVisualLayers.LLeg" ]
       - map: [ "underwearb" ] # Sirena-Underwear
       - map: [ "underweart" ] # Sirena-Underwear
-      # - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-      # - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
       # - map: [ "jumpsuit" ]
       - map: [ "enum.HumanoidVisualLayers.LHand" ]
       - map: [ "enum.HumanoidVisualLayers.RHand" ]
@@ -204,7 +200,6 @@
     - GeneralLanguage
     - MothLanguage
   # DS14-Languages-end
-  # - type: FootPrints # Backmen-footsteps
 
 
 - type: entity

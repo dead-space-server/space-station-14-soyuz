@@ -13,8 +13,8 @@
     jobPrototype: CentralCommandFieldOfficer
     allowedSpecies:
     - Human
-    # randomNameFirstDataset: CustomizableSpawnerCentralCommandFieldOfficerFirstName # DS14-Soyuz
-    # randomNameSecondLocalized: CustomizableSpawnerCentralCommandFieldOfficerSecondName # DS14-Soyuz
+    # randomNameFirstDataset: CustomizableSpawnerCentralCommandFieldOfficerFirstName # DS14-Soyuz disabled
+    # randomNameSecondLocalized: CustomizableSpawnerCentralCommandFieldOfficerSecondName # DS14-Soyuz disabled
 
 - type: dataset
   id: CustomizableSpawnerCentralCommandFieldOfficerFirstName

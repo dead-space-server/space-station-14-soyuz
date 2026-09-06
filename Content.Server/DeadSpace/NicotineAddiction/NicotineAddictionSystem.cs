@@ -18,12 +18,14 @@ public sealed class NicotineAddictionSystem : EntitySystem
     {
         base.Update(frameTime);
 
+        // Cigarettes add less nicotine than one metabolism tick removes, so it must be detected every frame.
+        var now = _timing.CurTime;
         var query = EntityQueryEnumerator<NicotineAddictionComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
             if (HasNicotine(uid, comp))
             {
-                comp.LastNicotineInBloodTime = _timing.CurTime;
+                comp.LastNicotineInBloodTime = now;
                 if (comp.DeprivationPopupShown || comp.DeprivationShakeActive)
                 {
                     comp.DeprivationPopupShown = false;
@@ -36,11 +38,11 @@ public sealed class NicotineAddictionSystem : EntitySystem
 
             if (comp.LastNicotineInBloodTime == TimeSpan.Zero)
             {
-                comp.LastNicotineInBloodTime = _timing.CurTime;
+                comp.LastNicotineInBloodTime = now;
                 continue;
             }
 
-            var dt = _timing.CurTime - comp.LastNicotineInBloodTime;
+            var dt = now - comp.LastNicotineInBloodTime;
 
             if (dt >= comp.DeprivationPopupDelay && !comp.DeprivationPopupShown)
             {
@@ -50,12 +52,12 @@ public sealed class NicotineAddictionSystem : EntitySystem
                     uid,
                     PopupType.SmallCaution);
                 comp.DeprivationPopupShown = true;
-                comp.DeprivationPopupShownAt = _timing.CurTime;
+                comp.DeprivationPopupShownAt = now;
             }
 
             if (comp.DeprivationPopupShown
                 && !comp.DeprivationShakeActive
-                && _timing.CurTime >= comp.DeprivationPopupShownAt + comp.PopupToShakeDelay)
+                && now >= comp.DeprivationPopupShownAt + comp.PopupToShakeDelay)
             {
                 comp.DeprivationShakeActive = true;
                 Dirty(uid, comp);

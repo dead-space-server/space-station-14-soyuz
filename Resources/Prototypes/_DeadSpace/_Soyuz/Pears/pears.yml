@@ -50,11 +50,6 @@
   metamorphicMaxFillLevels: 6
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
 
 - type: reaction
   id: Pearonade
@@ -71,39 +66,44 @@
     Pearonade: 3
 
 # Hydroponics
-- type: seed
-  id: pear
-  name: seeds-pear-name
-  noun: seeds-noun-seeds
-  displayName: seeds-pear-display-name
-  plantRsi: _DeadSpace/_Soyuz/Pears/pear.rsi
-  packetPrototype: PearSeeds
-  productPrototypes:
-  - FoodPear
-  harvestRepeat: Repeat
-  lifespan: 55
-  maturation: 6
-  production: 6
-  yield: 3
-  potency: 10
-  idealLight: 6
-  chemicals:
-    Nutriment:
-      Min: 1
-      Max: 10
-      PotencyDivisor: 10
-    Vitamin:
-      Min: 1
-      Max: 4
-      PotencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: PearPlant
+  name: груша
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
+  - type: PlantData
+    name: seeds-pear-name
+    packetPrototype: PearSeeds
+    productPrototypes: [ FoodPear ]
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+    growthStages: 6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
 
 - type: entity
   parent: SeedBase
   id: PearSeeds
-  name: packet of pear seeds
+  name: пакет семян груши
   components:
   - type: Seed
-    seedId: pear
+    plantId: PearPlant
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Pears/pear.rsi
 
@@ -130,7 +130,7 @@
   - type: Item
     heldPrefix: produce
   - type: Produce
-    seedId: pear
+    plantId: PearPlant
   - type: Extractable
     juiceSolution:
       reagents:

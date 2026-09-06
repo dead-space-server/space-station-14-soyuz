@@ -169,6 +169,16 @@ public abstract partial class SharedMoverController : VirtualController
                 dirtied = true;
             }
 
+            // DS14-start
+            var relayCanMove = mover.CanMove ||
+                PhysicsQuery.TryComp(uid, out var relaySourcePhysics) && relaySourcePhysics.BodyType == BodyType.Static;
+            if (relayTargetMover.CanMove != relayCanMove)
+            {
+                relayTargetMover.CanMove = relayCanMove;
+                dirtied = true;
+            }
+            // DS14-end
+
             if (dirtied)
             {
                 Dirty(relay.RelayEntity, relayTargetMover);

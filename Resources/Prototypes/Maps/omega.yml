@@ -41,8 +41,7 @@
             MedicalDoctor: [ 3, 3 ]
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
-            MedicalIntern: [ 3, 3 ]
-#            Virologist: [ 1, 1 ]
+            MedicalIntern: [ 2, 2 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]

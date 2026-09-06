@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.Administration.Managers;
 using Content.Server.Antag.Components;
 using Content.Server.Chat.Managers;
+using Content.Server.DeadSpace.Prison;
 using Content.Server.DeadSpace.Traitor;
 using Content.Server.DeadSpace.Administration;
 using Content.Server.GameTicking;
@@ -32,6 +33,7 @@ using Content.Shared.Humanoid;
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 using Content.Shared.Mind;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -48,7 +50,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.DeadSpace.Interfaces.Server; // DS14-sponsors
+using Content.DeadSpace.Interfaces.Server;
 
 namespace Content.Server.Antag;
 
@@ -63,6 +65,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     [Dependency] private readonly MindSystem _mind = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly PlayTimeTrackingSystem _playTime = default!;
+    [Dependency] private readonly PrisonSystem _prison = default!;
     [Dependency] private readonly IServerPreferencesManager _pref = default!;
     [Dependency] private readonly RoleSystem _role = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
@@ -74,6 +77,7 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     [Dependency] private readonly SharedActionsSystem _actions = default!;
     [Dependency] private readonly SharedSubdermalImplantSystem _subdermalImplant = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
     // DS14-end
     private IServerSponsorsManager? _sponsorsManager; // DS14-sponsors
 
@@ -418,8 +422,12 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     {
         _adminLogger.Add(LogType.AntagSelection, $"Start trying to make {session} become the antagonist: {ToPrettyString(ent)}");
 
-        if (checkPref && !HasPrimaryAntagPreference(session, def))
+        // DS14-start
+        if (checkPref &&
+            !HasPrimaryAntagPreference(session, def) &&
+            !HasFallbackAntagPreference(session, def))
             return false;
+        // DS14-end
 
         if (!IsSessionValid(ent, session, def) || !IsEntityValid(session?.AttachedEntity, def))
             return false;
@@ -445,6 +453,13 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
     /// </summary>
     public void MakeAntag(Entity<AntagSelectionComponent> ent, ICommonSession? session, AntagSelectionDefinition def, bool ignoreSpawner = false)
     {
+        if (session != null && _prison.IsUserPrisoner(session.UserId))
+        {
+            Log.Info($"Rejected prison-bound {session.Name} as antagonist: {ToPrettyString(ent)}");
+            _adminLogger.Add(LogType.AntagSelection, $"Rejected prison-bound {session.Name} as antagonist: {ToPrettyString(ent)}");
+            return;
+        }
+
         // DS14-start
         if (session != null && TryRedirectSleeperAgentToTraitorUltra(ent, session))
             return;
@@ -1010,6 +1025,9 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
         if (session.Status is SessionStatus.Disconnected or SessionStatus.Zombie)
             return false;
 
+        if (_prison.IsUserPrisoner(session.UserId))
+            return false;
+
         if (ent.Comp.AssignedSessions.Contains(session))
             return false;
 
@@ -1060,6 +1078,11 @@ public sealed partial class AntagSelectionSystem : GameRuleSystem<AntagSelection
 
         if (_arrivals.IsOnArrivals((entity.Value, null)))
             return false;
+
+        // DS14-start
+        if (def.RequireNotDead && _mobState.IsDead(entity.Value))
+            return false;
+        // DS14-end
 
         if (!def.AllowNonHumans && !HasComp<HumanoidAppearanceComponent>(entity))
             return false;

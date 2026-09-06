@@ -104,4 +104,4 @@
   - type: Clothing
     sprite: Clothing/Ears/Headsets/security.rsi
   - type: Headset
-    color: "#dd3535"
+    color: "#dd3535" # DS14-Soyuz 

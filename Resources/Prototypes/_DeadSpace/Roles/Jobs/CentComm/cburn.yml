@@ -11,13 +11,15 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: CBURNLeaderGear
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -54,20 +56,22 @@
 ### SCST
 - type: job
   id: SCSTLeader
-  name: job-name-cburn-leader
+  name: job-name-scst-leader
   description: job-description-cburnleader
   playTimeTracker: JobSCSTLeader
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: SCSTLeaderGear
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -104,20 +108,22 @@
 ### SCNT
 - type: job
   id: SCNTLeader
-  name: job-name-cburn-leader
+  name: job-name-scnt-leader
   description: job-description-cburnleader
   playTimeTracker: JobSCNTLeader
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: SCNTLeaderGear
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -153,20 +159,22 @@
 ### Sierra
 - type: job
   id: SierraLeader
-  name: job-name-cburn-leader
+  name: job-name-sierra-leader
   description: job-description-cburnleader
   playTimeTracker: JobSierraLeader
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 72000 # 20 hours
+      time: 288000 # 80 hours
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: SierraLeaderGear
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
@@ -211,10 +219,12 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50400 # 14 hours
+      time: 201600 # 56 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: CBURNAgentGear
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -248,17 +258,19 @@
 ### SCST
 - type: job
   id: SCSTAgent
-  name: job-name-cburn-agent
+  name: job-name-scst-agent
   description: job-description-cburnagent
   playTimeTracker: JobSCSTAgent
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50400 # 14 hours
+      time: 201600 # 56 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: CBURNAgentGear
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -292,17 +304,19 @@
 ### SCNT
 - type: job
   id: SCNTAgent
-  name: job-name-cburn-agent
+  name: job-name-scnt-agent
   description: job-description-cburnagent
   playTimeTracker: JobSCNTAgent
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50400 # 14 hours
+      time: 201600 # 56 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: SCNTAgentGear
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom
@@ -336,17 +350,19 @@
 ### Sierra
 - type: job
   id: SierraAgent
-  name: job-name-cburn-agent
+  name: job-name-sierra-agent
   description: job-description-cburnagent
   playTimeTracker: JobSierraAgent
   setPreference: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 14400 # 4 hours
+      time: 57600 # 16 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50400 # 14 hours
+      time: 201600 # 56 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
   startingGear: SierraAgentGear
   icon: "JobIconERT"
   supervisors: job-supervisors-centcom

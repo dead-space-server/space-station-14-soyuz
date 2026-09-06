@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: LicenseRef-Kofeecheks
 
 using Content.Server.Bible.Components;
-using Content.Server.Body.Systems;
+using Content.Shared.Body.Systems;
 using Content.Server.Mind;
 using Content.Server.Popups;
 using Content.Shared.Atmos.Rotting;

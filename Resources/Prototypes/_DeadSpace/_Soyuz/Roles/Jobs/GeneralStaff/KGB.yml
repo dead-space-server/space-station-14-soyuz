@@ -1,0 +1,112 @@
+- type: job
+  id: GeneralStaffKGB
+  name: job-name-blue-shield-officer
+  description: job-description-blue-shield-officer
+  playTimeTracker: JobGeneralStaffKGB
+  setPreference: false
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 252000 # 70 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 72000 # 20 hours
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 36000 # 10 hours
+  startingGear: GeneralStaffKGBGear
+  icon: "JobIconBlueShieldOfficer"
+  supervisors: job-supervisors-centcom-administrator
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: ZombieImmune
+    - type: NpcFactionMember
+      factions:
+      - CentralCommand
+  ranks:
+    NKVBRankSeniorLieutenant: []
+
+- type: entity
+  parent: ClothingBackpackBlueShield
+  id: ClothingBackpackKGBGeneralStaffFilled
+  name: модифицированный рюкзак оперативника КГБ
+  description: Рюкзак оперативника КГБ с функцией РИГ.
+  suffix: Заполненный, ГенШтаб
+  components:
+  - type: StorageFill
+    contents:
+      - id: BoxMRE
+      - id: ADTtelescopicBaton
+      - id: TelescopicShield
+      - id: MedkitCombatFilled
+        amount: 2
+      - id: HandheldCrewMonitor
+      - id: Zipties
+        amount: 2
+      - id: CelestinMedipen
+        amount: 2
+      - id: ClothingNeckCapeBlueShield
+      - id: KGBloadoutSecondary
+      - id: KGBloadoutPrimary
+
+- type: entity
+  id: ClothingBeltMilitaryWebbingKGBGeneralStaffFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  name: РПС оперативника КГБ
+  description: РПС, которую носят оперативники КГБ
+  suffix: Заполненный, ГенШтаб
+  components:
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
+
+- type: startingGear
+  id: GeneralStaffKGBGear
+  equipment:
+    head: ClothingHeadHatBeretBlueShield
+    jumpsuit: ClothingUniformJumpsuitBlueShield
+    mask: ClothingMaskGasBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetAltCentCom
+    gloves: ClothingHandsGlovesBlueShield
+    outerClothing: ClothingOuterBlackCoatOKGB
+    shoes: ClothingShoesBootsBlueShield
+    id: BlueShieldOfficerPDA
+    pocket1: PistolBlueShield
+    pocket2: WeaponDisabler
+    belt: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+  storage:
+    outerClothing:
+    - ClothingEyesGlassesMeson
+    - DoubleEmergencyOxygenTankFilled
+    - PinpointerUniversal
+
+
+- type: chameleonOutfit
+  id: GeneralStaffKGBChameleonOutfit
+  job: GeneralStaffKGB
+  equipment:
+    head: ClothingHeadHatBeretBlueShield
+    mask: ClothingMaskGasSecurity
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBasicBlueShield
+    shoes: ClothingShoesBootsJack
+    belt: ClothingBeltMilitaryWebbingMed

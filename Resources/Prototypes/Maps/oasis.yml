@@ -42,8 +42,8 @@
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
-            MedicalIntern: [ 4, 4 ]
-#            Virologist: [ 1, 1 ]
+            MedicalIntern: [ 3, 3 ]
+            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
@@ -58,7 +58,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 5, 5 ] #DS14
             CargoTechnician: [ 4, 4 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

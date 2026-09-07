@@ -11,9 +11,9 @@
     sprite: Objects/Specific/Janitorial/light_replacer.rsi
   - type: LightReplacer
     contents:
-    - id: LightTube
+    - id: LightTubeCrystalSoyuz #DS14-Soyuz
       amount: 8
-    - id: LightBulb
+    - id: LightBulbSoyuz #DS14-Soyuz
       amount: 5
   - type: StaticPrice
     price: 100

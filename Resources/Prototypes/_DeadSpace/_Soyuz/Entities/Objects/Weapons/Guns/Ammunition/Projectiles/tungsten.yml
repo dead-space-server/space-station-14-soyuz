@@ -1,7 +1,7 @@
 - type: entity
   id: BulletLightRifleTungsten
   name: пуля (7.62х39 мм ППБС)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -13,7 +13,7 @@
 - type: entity
   id: BulletMagnumTungsten
   name: bullet (.45 магнум ППБС)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -25,7 +25,7 @@
 - type: entity
   id: BulletPistolTungsten
   name: bullet (9х19 мм ППБС)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -37,7 +37,7 @@
 - type: entity
   id: BulletRifleTungsten
   name: bullet (6.5х39 мм TSF ППБС)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile

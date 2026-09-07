@@ -1,5 +1,6 @@
 using System.Linq;
-using Content.DeadSpace.Interfaces.Server; // DS14-sponsors
+using Content.DeadSpace.Interfaces.Server;
+using Content.DeadSpace.Interfaces.Shared;
 using Content.Server.Administration;
 using Content.Server.Administration.Managers;
 using Content.Server.Afk;
@@ -244,17 +245,6 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
     /// <returns>Returns true if all requirements were met or there were no requirements.</returns>
     public bool IsAllowed(ICommonSession player, ProtoId<JobPrototype> job)
     {
-        // DS14-sponsors-start
-        if (_sponsorsManager?.TryGetInfo(player.UserId, out var sponsorInfo) == true && sponsorInfo != null)
-        {
-            if (sponsorInfo.AllowJob)
-                return true;
-
-            if (_prototypes.TryIndex<JobPrototype>(job, out var jobb) && sponsorInfo.AllowedMarkings.Contains(jobb.ID))
-                return true;
-        }
-        // DS14-sponsors-end
-
         if (!_cfg.GetCVar(CCVars.GameRoleTimers))
             return true;
 
@@ -264,7 +254,8 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
             playTimes = new Dictionary<string, TimeSpan>();
         }
 
-        var requirements = _roles.GetRoleRequirements(job);
+        var requirements = GetEffectiveJobRequirements(player.UserId, job); // DS14
+
         return JobRequirements.TryRequirementsMet(
             requirements,
             playTimes,
@@ -322,8 +313,11 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
 
         foreach (var job in _prototypes.EnumeratePrototypes<JobPrototype>())
         {
-            if (JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(player.UserId).SelectedCharacter))
+            // DS14-start - disallow unmet requirements and keep sponsor/species handling identical to round start.
+            var requirements = GetEffectiveJobRequirements(player.UserId, job);
+            if (!JobRequirements.TryRequirementsMet(requirements, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(player.UserId).SelectedCharacter))
                 roles.Add(job.ID);
+            // DS14-end
         }
 
         return roles;
@@ -333,18 +327,6 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
     {
         if (!_cfg.GetCVar(CCVars.GameRoleTimers))
             return;
-
-        // DS14-sponsors-start
-        if (_sponsorsManager != null)
-        {
-            var info = _sponsorsManager.TryGetInfo(userId, out var sponsorInfo);
-            if (info && sponsorInfo != null)
-            {
-                if (sponsorInfo.AllowJob)
-                    return;
-            }
-        }
-        // DS14-sponsors-end
 
         var player = _playerManager.GetSessionById(userId);
         if (!_tracking.TryGetTrackerTimes(player, out var playTimes))
@@ -356,27 +338,48 @@ public sealed class PlayTimeTrackingSystem : EntitySystem
 
         for (var i = 0; i < jobs.Count; i++)
         {
-            if (_prototypes.Resolve(jobs[i], out var job)
-                && JobRequirements.TryRequirementsMet(job, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(userId).SelectedCharacter))
+            // DS14-start
+            if (!_prototypes.Resolve(jobs[i], out var job))
             {
+                jobs.RemoveSwap(i);
+                i--;
                 continue;
             }
 
-            // DS14-sponsors-start
-            if (_sponsorsManager != null)
+            var requirements = GetEffectiveJobRequirements(userId, job);
+
+            if (JobRequirements.TryRequirementsMet(requirements, playTimes, out _, EntityManager, _prototypes, (HumanoidCharacterProfile?) _preferencesManager.GetPreferences(userId).SelectedCharacter))
             {
-                if (_prototypes.TryIndex(jobs[i], out var jobb) && _sponsorsManager.TryGetInfo(userId, out var sponsorInfo))
-                {
-                    if (sponsorInfo.AllowedMarkings.Contains(jobb.ID))
-                        continue;
-                }
+                continue;
             }
-            // DS14-sponsors-end
+            // DS14-end
 
             jobs.RemoveSwap(i);
             i--;
         }
     }
+
+    // DS14-start
+    private HashSet<JobRequirement>? GetEffectiveJobRequirements(NetUserId userId, ProtoId<JobPrototype> jobId)
+    {
+        return _prototypes.TryIndex(jobId, out var job)
+            ? GetEffectiveJobRequirements(userId, job)
+            : null;
+    }
+
+    private HashSet<JobRequirement>? GetEffectiveJobRequirements(NetUserId userId, JobPrototype job)
+    {
+        var requirements = _roles.GetRoleRequirements(job);
+        if (_sponsorsManager?.TryGetInfo(userId, out var sponsorInfo) == true
+            && (sponsorInfo.AllowJob || sponsorInfo.AllowedMarkings.Contains(job.ID)))
+        {
+            // Sponsor access bypasses progression gates, but never species restrictions.
+            requirements = requirements?.Where(requirement => requirement is SpeciesRequirement).ToHashSet();
+        }
+
+        return requirements;
+    }
+    // DS14-end
 
     public void PlayerRolesChanged(ICommonSession player)
     {

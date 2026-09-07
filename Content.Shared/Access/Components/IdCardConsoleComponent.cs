@@ -43,6 +43,7 @@ public sealed partial class IdCardConsoleComponent : Component
     public List<ProtoId<AccessLevelPrototype>> AccessLevels = new() // DS14 access levels sort
     {
         "Captain",
+        "NKVB", // DS14-Soyuz
         "HeadOfPersonnel",
         "HeadOfSecurity",
         "ChiefEngineer",

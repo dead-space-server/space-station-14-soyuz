@@ -52,7 +52,7 @@
             StationEngineer: [ 2, 2 ]
             # sup
             Quartermaster: [ 1, 1 ]
-#            SeniorSalvageSpecialist: [ 1, 1 ]
+            # SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 1, 1 ]
             CargoTechnician: [ 1, 1 ]
             # civ
@@ -63,6 +63,7 @@
             Bartender: [ 1, 1 ]
             Janitor: [ 1, 1 ]
             Musician: [ 1, 1 ]
+            # Clown: [ 1, 1 ]
             Passenger: [ -1, -1 ]
             ServiceWorker: [ 2, 2 ]
             # sil

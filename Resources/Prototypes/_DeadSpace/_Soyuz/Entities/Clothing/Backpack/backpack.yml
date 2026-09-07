@@ -1,0 +1,13 @@
+# Перенесено с папки _DeadSpace т.к файл с офицером красным мечом был удалён
+
+- type: entity
+  parent: ClothingBackpackSatchelHoS
+  id: ClothingBackpackSatchelBig
+  name: чёрная сумка с подсумками
+  description: Стильная чёрная кожаная сумка.
+  components:
+  - type: Storage
+    grid:
+    - 0,0,2,4
+    - 4,0,7,4
+    - 9,0,11,4

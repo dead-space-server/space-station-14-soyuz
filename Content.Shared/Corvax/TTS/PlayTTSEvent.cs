@@ -13,19 +13,8 @@ public sealed class PlayTTSEvent : EntityEventArgs
     public bool IsRadio { get; }
     public bool IsLexiconSound { get; } // DS14-Language
     public string LanguageId { get; } // DS14-Language
-    // Kofeecheks political loudspeaker TTS integration: LicenseRef-Kofeecheks
-    public float VolumeMultiplier { get; }
-    public float DistanceMultiplier { get; }
-
-    public PlayTTSEvent(
-        byte[] data,
-        NetEntity? sourceUid = null,
-        bool isWhisper = false,
-        bool isRadio = false,
-        bool isSoundLexicon = false,
-        string languageId = "",
-        float volumeMultiplier = 1f,
-        float distanceMultiplier = 1f)
+    public float? DistanceOverride { get; } // DS14: remote microphones provide their own listening distance.
+    public PlayTTSEvent(byte[] data, NetEntity? sourceUid = null, bool isWhisper = false, bool isRadio = false, bool isSoundLexicon = false, string languageId = "", float? distanceOverride = null) // DS14: per-recipient microphone attenuation.
     {
         Data = data;
         SourceUid = sourceUid;
@@ -33,7 +22,6 @@ public sealed class PlayTTSEvent : EntityEventArgs
         IsRadio = isRadio;
         IsLexiconSound = isSoundLexicon; // DS14-Language
         LanguageId = languageId; // DS14-Language
-        VolumeMultiplier = volumeMultiplier;
-        DistanceMultiplier = distanceMultiplier; // DS14-Soyuz
+        DistanceOverride = distanceOverride; // DS14
     }
 }

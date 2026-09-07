@@ -10476,8 +10476,8 @@ entities:
         - volume: 2500
           temperature: 235
           moles:
-            Oxygen: 27.225372
-            Nitrogen: 102.419266
+            Oxygen: 20.078888
+            Nitrogen: 75.53487
         - volume: 2500
           immutable: True
           moles: {}
@@ -10515,6 +10515,8 @@ entities:
           stiffness: 7112.935
     - type: SpreaderGrid
     - type: GridPathfinding
+    - type: GasTileOverlay
+    - type: RadiationGridResistance
     - type: NavMap
     - type: ImplicitRoof
     - type: TileHistory
@@ -14575,6 +14577,8 @@ entities:
     - type: Fixtures
       fixtures: {}
   - uid: 31
+    mapInit: true
+    paused: true
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -14657,6 +14661,8 @@ entities:
     - type: Fixtures
       fixtures: {}
   - uid: 35
+    mapInit: true
+    paused: true
     components:
     - type: Transform
       pos: -33.5,50.5
@@ -14738,6 +14744,8 @@ entities:
     - type: Fixtures
       fixtures: {}
   - uid: 39
+    mapInit: true
+    paused: true
     components:
     - type: Transform
       pos: -14.5,39.5
@@ -14792,6 +14800,8 @@ entities:
     - type: Fixtures
       fixtures: {}
   - uid: 41
+    mapInit: true
+    paused: true
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
@@ -16269,6 +16279,8 @@ entities:
   entities:
   - uid: 153
     components:
+    - type: MetaData
+      name: Captain's Bedroom
     - type: Transform
       pos: -7.5,71.5
       parent: 2
@@ -16284,13 +16296,19 @@ entities:
     - type: Transform
       pos: -40.5,-3.5
       parent: 2
+- proto: AirlockCargoGlassLocked
+  entities:
   - uid: 156
     components:
+    - type: MetaData
+      name: Cargo Bay
     - type: Transform
       pos: -41.5,-3.5
       parent: 2
   - uid: 157
     components:
+    - type: MetaData
+      name: Cargo Bay
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -37.5,10.5
@@ -16311,6 +16329,8 @@ entities:
   entities:
   - uid: 158
     components:
+    - type: MetaData
+      name: Cargo Office
     - type: Transform
       pos: -39.5,12.5
       parent: 2
@@ -16327,6 +16347,8 @@ entities:
     - type: Transform
       pos: 32.5,53.5
       parent: 2
+- proto: AirlockChapelGlassLocked
+  entities:
   - uid: 161
     components:
     - type: Transform
@@ -16355,6 +16377,8 @@ entities:
     - type: Transform
       pos: -4.5,69.5
       parent: 2
+- proto: AirlockChiefEngineerGlassLocked
+  entities:
   - uid: 165
     components:
     - type: Transform
@@ -16369,6 +16393,8 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 15.5,30.5
       parent: 2
+- proto: AirlockChiefMedicalOfficerGlassLocked
+  entities:
   - uid: 167
     components:
     - type: Transform
@@ -16379,11 +16405,15 @@ entities:
   entities:
   - uid: 168
     components:
+    - type: MetaData
+      name: Heads of Staff Meeting Room
     - type: Transform
       pos: -1.5,75.5
       parent: 2
   - uid: 169
     components:
+    - type: MetaData
+      name: Heads of Staff Meeting Room
     - type: Transform
       pos: 0.5,75.5
       parent: 2
@@ -16394,6 +16424,8 @@ entities:
       parent: 2
   - uid: 171
     components:
+    - type: MetaData
+      name: Bridge
     - type: Transform
       pos: -1.5,69.5
       parent: 2
@@ -16409,6 +16441,8 @@ entities:
       rot: 3.141592653589793 rad
       pos: 2.5,67.5
       parent: 2
+- proto: AirlockCommandLocked
+  entities:
   - uid: 174
     components:
     - type: Transform
@@ -16434,13 +16468,19 @@ entities:
     - type: Transform
       pos: -0.5,-72.5
       parent: 2
+- proto: AirlockEngineeringGlassLocked
+  entities:
   - uid: 179
     components:
+    - type: MetaData
+      name: Engineering
     - type: Transform
       pos: 0.5,69.5
       parent: 2
   - uid: 180
     components:
+    - type: MetaData
+      name: Engineering Equipment
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -0.5,-78.5
@@ -16494,13 +16534,19 @@ entities:
     - type: Transform
       pos: 9.5,-10.5
       parent: 2
+- proto: AirlockEngineeringLocked
+  entities:
   - uid: 188
     components:
+    - type: MetaData
+      name: Gravity Generator
     - type: Transform
       pos: 10.5,-10.5
       parent: 2
   - uid: 189
     components:
+    - type: MetaData
+      name: Southern Solars
     - type: Transform
       pos: 11.5,-10.5
       parent: 2
@@ -16522,6 +16568,8 @@ entities:
       parent: 2
   - uid: 193
     components:
+    - type: MetaData
+      name: Northern Solars
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 17.5,52.5
@@ -16583,6 +16631,8 @@ entities:
     - type: Transform
       pos: 8.5,-33.5
       parent: 2
+- proto: AirlockExternalGlass
+  entities:
   - uid: 204
     components:
     - type: Transform
@@ -16608,6 +16658,8 @@ entities:
     - type: Transform
       pos: -13.5,-42.5
       parent: 2
+- proto: AirlockExternalGlassAtmosphericsLocked
+  entities:
   - uid: 208
     components:
     - type: Transform
@@ -16618,6 +16670,8 @@ entities:
     - type: Transform
       pos: -13.5,-38.5
       parent: 2
+- proto: AirlockExternalGlassCargoLocked
+  entities:
   - uid: 210
     components:
     - type: Transform
@@ -16642,6 +16696,11 @@ entities:
     - type: Transform
       pos: 46.5,16.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        218:
+        - - DoorStatus
+          - DoorBolt
   - uid: 214
     components:
     - type: Transform
@@ -16652,16 +16711,31 @@ entities:
     - type: Transform
       pos: 50.5,-14.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        216:
+        - - DoorStatus
+          - DoorBolt
   - uid: 216
     components:
     - type: Transform
       pos: 35.5,1.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        215:
+        - - DoorStatus
+          - DoorBolt
   - uid: 217
     components:
     - type: Transform
       pos: 48.5,16.5
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        219:
+        - - DoorStatus
+          - DoorBolt
   - uid: 218
     components:
     - type: Transform
@@ -16677,6 +16751,8 @@ entities:
     - type: Transform
       pos: 50.5,36.5
       parent: 2
+- proto: AirlockExternalGlassLocked
+  entities:
   - uid: 221
     components:
     - type: Transform
@@ -16687,6 +16763,8 @@ entities:
     - type: Transform
       pos: 50.5,13.5
       parent: 2
+- proto: AirlockExternalGlassShuttleArrivals
+  entities:
   - uid: 223
     components:
     - type: Transform
@@ -16697,6 +16775,8 @@ entities:
     - type: Transform
       pos: -51.5,-8.5
       parent: 2
+- proto: AirlockExternalGlassShuttleEmergencyLocked
+  entities:
   - uid: 225
     components:
     - type: Transform
@@ -16717,6 +16797,8 @@ entities:
     - type: Transform
       pos: -51.5,15.5
       parent: 2
+- proto: AirlockExternalGlassShuttleLocked
+  entities:
   - uid: 229
     components:
     - type: Transform
@@ -16737,6 +16819,35 @@ entities:
     - type: Transform
       pos: 26.5,-27.5
       parent: 2
+    - type: Door
+      secondsUntilStateChange: -25283.986
+      changeAirtight: False
+      state: Opening
+    - type: Docking
+      dockJointId: docking1462800
+      dockedWith: 13315
+    - type: DeviceLinkSource
+      lastSignals:
+        DoorStatus: True
+        DockStatus: True
+  - uid: 13315
+    components:
+    - type: Transform
+      pos: 0.5,-7.5
+      parent: 13312
+    - type: Door
+      secondsUntilStateChange: -25283.152
+      changeAirtight: False
+      state: Opening
+    - type: Docking
+      dockJointId: docking1462800
+      dockedWith: 232
+    - type: DeviceLinkSource
+      lastSignals:
+        DoorStatus: True
+        DockStatus: True
+- proto: AirlockFreezerKitchenHydroLocked
+  entities:
   - uid: 233
     components:
     - type: Transform
@@ -16747,13 +16858,19 @@ entities:
     - type: Transform
       pos: 3.5,-64.5
       parent: 2
+- proto: AirlockGlass
+  entities:
   - uid: 235
     components:
+    - type: MetaData
+      name: Tool Storage
     - type: Transform
       pos: -4.5,-64.5
       parent: 2
   - uid: 236
     components:
+    - type: MetaData
+      name: Tool Storage
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 42.5,-17.5
@@ -17104,8 +17221,12 @@ entities:
     - type: Transform
       pos: -29.5,30.5
       parent: 2
+- proto: AirlockHeadOfPersonnelLocked
+  entities:
   - uid: 276
     components:
+    - type: MetaData
+      name: 'Head Of Personnel '
     - type: Transform
       pos: 2.5,12.5
       parent: 2
@@ -17119,6 +17240,8 @@ entities:
     - type: Transform
       pos: -2.5,12.5
       parent: 2
+- proto: AirlockHydroGlassLocked
+  entities:
   - uid: 279
     components:
     - type: Transform
@@ -17144,6 +17267,8 @@ entities:
     - type: Transform
       pos: -33.5,15.5
       parent: 2
+- proto: AirlockLawyerGlassLocked
+  entities:
   - uid: 284
     components:
     - type: Transform
@@ -17164,6 +17289,8 @@ entities:
     - type: Transform
       pos: -17.5,-10.5
       parent: 2
+- proto: AirlockMaint
+  entities:
   - uid: 288
     components:
     - type: Transform
@@ -17179,11 +17306,15 @@ entities:
     - type: Transform
       pos: -33.5,37.5
       parent: 2
+- proto: AirlockMaintCargoLocked
+  entities:
   - uid: 291
     components:
     - type: Transform
       pos: -33.5,36.5
       parent: 2
+- proto: AirlockMaintCommandLocked
+  entities:
   - uid: 292
     components:
     - type: Transform
@@ -17194,6 +17325,8 @@ entities:
     - type: Transform
       pos: 25.5,-6.5
       parent: 2
+- proto: AirlockMaintEngiLocked
+  entities:
   - uid: 294
     components:
     - type: Transform
@@ -17204,6 +17337,8 @@ entities:
     - type: Transform
       pos: 33.5,-8.5
       parent: 2
+- proto: AirlockMaintHOPLocked
+  entities:
   - uid: 296
     components:
     - type: Transform
@@ -17350,6 +17485,8 @@ entities:
     - type: Transform
       pos: -26.5,-3.5
       parent: 2
+- proto: AirlockMaintMedLocked
+  entities:
   - uid: 325
     components:
     - type: Transform
@@ -17362,21 +17499,29 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 20.5,-34.5
       parent: 2
+- proto: AirlockMaintRnDLocked
+  entities:
   - uid: 327
     components:
     - type: Transform
       pos: 1.5,-6.5
       parent: 2
+- proto: AirlockMaintSalvageLocked
+  entities:
   - uid: 328
     components:
     - type: Transform
       pos: -2.5,-6.5
       parent: 2
+- proto: AirlockMaintSecLocked
+  entities:
   - uid: 329
     components:
     - type: Transform
       pos: 2.5,-6.5
       parent: 2
+- proto: AirlockMaintServiceLocked
+  entities:
   - uid: 330
     components:
     - type: Transform
@@ -17408,6 +17553,8 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -46.5,27.5
       parent: 2
+- proto: AirlockMedicalGlassLocked
+  entities:
   - uid: 333
     components:
     - type: Transform
@@ -17491,6 +17638,8 @@ entities:
     - type: Transform
       pos: 4.5,5.5
       parent: 2
+- proto: AirlockMedicalMorgueLocked
+  entities:
   - uid: 341
     components:
     - type: Transform
@@ -17509,6 +17658,8 @@ entities:
   entities:
   - uid: 343
     components:
+    - type: MetaData
+      name: Quartermaster's Room
     - type: Transform
       pos: 5.5,-4.5
       parent: 2
@@ -17540,6 +17691,8 @@ entities:
     - type: Transform
       pos: -26.5,1.5
       parent: 2
+- proto: AirlockScienceGlassLocked
+  entities:
   - uid: 348
     components:
     - type: Transform
@@ -17657,6 +17810,8 @@ entities:
       parent: 2
   - uid: 363
     components:
+    - type: MetaData
+      name: Perma
     - type: Transform
       pos: 31.5,50.5
       parent: 2
@@ -18625,7 +18780,7 @@ entities:
       rot: 3.141592653589793 rad
       pos: 32.5,2.5
       parent: 2
-  - uid: 512
+  - uid: 371
     components:
     - type: Transform
       rot: 3.141592653589793 rad
@@ -18641,7 +18796,7 @@ entities:
     - type: Transform
       pos: -4.5,18.5
       parent: 2
-  - uid: 515
+  - uid: 373
     components:
     - type: Transform
       pos: 3.5,18.5
@@ -20160,7 +20315,7 @@ entities:
   - uid: 741
     components:
     - type: Transform
-      pos: -1.5,-24.5
+      pos: -30.5,-7.5
       parent: 2
   - uid: 742
     components:
@@ -21165,8 +21320,6 @@ entities:
     - type: Transform
       pos: -38.63891,43.594166
       parent: 2
-    - type: Physics
-      canCollide: False
 - proto: Beaker
   entities:
   - uid: 903
@@ -21678,6 +21831,17 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -25.5,70.5
       parent: 2
+    - type: SignalTimer
+      label: cell1
+    - type: DeviceLinkSource
+      linkedPorts:
+        361:
+        - - Start
+          - Close
+        - - Timer
+          - AutoClose
+        - - Timer
+          - Open
     - type: Fixtures
       fixtures: {}
 - proto: BlastDoor
@@ -21695,7 +21859,7 @@ entities:
   - uid: 973
     components:
     - type: Transform
-      pos: -19.5,-15.5
+      pos: -22.5,-30.5
       parent: 2
   - uid: 974
     components:
@@ -23793,7 +23957,7 @@ entities:
   - uid: 1311
     components:
     - type: Transform
-      pos: -48.5,-7.5
+      pos: 41.5,-0.5
       parent: 2
   - uid: 1312
     components:
@@ -23943,7 +24107,7 @@ entities:
   - uid: 1341
     components:
     - type: Transform
-      pos: -24.5,-26.5
+      pos: 24.5,-11.5
       parent: 2
   - uid: 1342
     components:
@@ -29218,7 +29382,7 @@ entities:
   - uid: 2396
     components:
     - type: Transform
-      pos: -23.5,28.5
+      pos: -6.5,22.5
       parent: 2
   - uid: 2397
     components:
@@ -60643,7 +60807,7 @@ entities:
       parent: 2
 - proto: ChemistryBottleEpinephrine
   entities:
-  - uid: 7811
+  - uid: 6008
     components:
     - type: Transform
       pos: -20.461948,-22.373878
@@ -60659,7 +60823,7 @@ entities:
       canCollide: False
 - proto: ChemistryBottleRobustHarvest
   entities:
-  - uid: 7813
+  - uid: 6009
     components:
     - type: Transform
       pos: 5.4284496,7.030745
@@ -60702,7 +60866,74 @@ entities:
     - type: Transform
       pos: 2.5,21.5
       parent: 2
-  - uid: 7819
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6015
+    components:
+    - type: Transform
+      pos: 39.5,6.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6016
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 10.5,9.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6017
+    components:
+    - type: Transform
+      pos: -4.5,14.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6018
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 9.5,30.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6019
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -22.5,-3.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6020
+    components:
+    - type: Transform
+      pos: 23.5,13.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6021
+    components:
+    - type: Transform
+      pos: -23.5,11.5
+      parent: 2
+    - type: PointLight
+      enabled: True
+    - type: ActiveEmergencyLight
+  - uid: 6022
+    components:
+    - type: Transform
+      pos: 23.5,5.5
+      parent: 2
+  - uid: 6023
     components:
     - type: Transform
       pos: 8.5,24.5
@@ -62297,7 +62528,14 @@ entities:
   - uid: 8011
     components:
     - type: Transform
-      pos: 24.5,16.5
+      pos: 16.5,8.5
+      parent: 2
+    - type: Fixtures
+      fixtures: {}
+  - uid: 8986
+    components:
+    - type: Transform
+      pos: 23.5,14.5
       parent: 2
   - uid: 8012
     components:
@@ -69528,8 +69766,23 @@ entities:
         immutable: False
         temperature: 293.1462
         moles:
-          Oxygen: 1.606311
-          Nitrogen: 6.042789
+          Oxygen: 1.8976663
+          Nitrogen: 7.13884
+- proto: LockerChemistryFilled
+  entities:
+  - uid: 8845
+    components:
+    - type: Transform
+      pos: 19.5,-2.5
+      parent: 2
+    - type: EntityStorage
+      air:
+        volume: 200
+        immutable: False
+        temperature: 293.14673
+        moles:
+          Oxygen: 1.8968438
+          Nitrogen: 7.1357465
     - type: ContainerContainer
       containers:
         entity_storage: !type:Container
@@ -121398,8 +121651,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 27.411753,58.600853
       parent: 2
-    - type: Physics
-      canCollide: False
 - proto: PartRodMetal
   entities:
   - uid: 15457
@@ -122130,7 +122381,7 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: PlantBag
+- proto: PillCanisterTricordrazine
   entities:
   - uid: 15522
     components:
@@ -123034,7 +123285,7 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
-- proto: PosterContrabandNuclearDeviceInformational
+- proto: PosterContrabandRedRum
   entities:
   - uid: 15626
     components:
@@ -131488,6 +131739,18 @@ entities:
     - type: Transform
       pos: -9.504903,-40.35737
       parent: 2
+    - type: DeviceLinkSource
+      linkedPorts:
+        13188:
+        - - Pressed
+          - DoorBolt
+        - - Pressed
+          - AutoClose
+        13189:
+        - - Pressed
+          - DoorBolt
+        - - Pressed
+          - AutoClose
     - type: Physics
       canCollide: False
 - proto: ResearchAndDevelopmentServer
@@ -131718,6 +131981,8 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.373119,-33.63652
       parent: 2
+    - type: Blocking
+      blockingToggleActionEntity: 15
     - type: Physics
       canCollide: False
 - proto: Screen
@@ -134170,7 +134435,7 @@ entities:
   - uid: 17069
     components:
     - type: Transform
-      pos: -29.5,17.5
+      pos: -13.5,18.5
       parent: 2
     - type: Fixtures
       fixtures: {}
@@ -138354,7 +138619,7 @@ entities:
   - uid: 17673
     components:
     - type: MetaData
-      name: Cargo Substation
+      name: bar substation
     - type: Transform
       pos: -25.5,-15.5
       parent: 2
@@ -139146,6 +139411,64 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 19.5,-29.5
       parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Проходная
+  - uid: 10911
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 47.5,-9.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Телекоммуникация
+  - uid: 10912
+    components:
+    - type: Transform
+      pos: 38.5,11.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Атмосферика
+  - uid: 10913
+    components:
+    - type: Transform
+      pos: 51.5,15.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Камера сгорания
+  - uid: 10914
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: 50.5,9.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: ДАМ
+  - uid: 10915
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 60.5,4.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraEngineering
+      nameSet: True
+      id: Камера УЧ
 - proto: SurveillanceCameraGeneral
   entities:
   - uid: 17769
@@ -139559,6 +139882,65 @@ entities:
     - type: Transform
       pos: -5.5,-5.5
       parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Коридор, палаты медотдела, юг бара
+  - uid: 10927
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 2.5,10.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Коридор, бриг, мостик
+  - uid: 10928
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -35.5,-5.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Коридор, крио, отбытие, прибытие
+  - uid: 10929
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: -22.5,10.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Зал инструментов
+  - uid: 10930
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -21.5,-6.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Дормы, центр
+  - uid: 10931
+    components:
+    - type: Transform
+      pos: 8.5,3.5
+      parent: 2
+    - type: SurveillanceCamera
+      setupAvailableNetworks:
+      - SurveillanceCameraGeneral
+      nameSet: True
+      id: Коридор, медотдел, склад EVA
 - proto: SurveillanceCameraMedical
   entities:
   - uid: 17809
@@ -140201,7 +140583,7 @@ entities:
     components:
     - type: Transform
       rot: 1.5707963267948966 rad
-      pos: -37.5,3.5
+      pos: -41.5,5.5
       parent: 2
     - type: SurveillanceCamera
       setupAvailableNetworks:

@@ -6037,13 +6037,6 @@ entities:
       parent: 6401
     - type: Physics
       canCollide: False
-- proto: ADTClothingUniformMillitary
-  entities:
-  - uid: 11
-    components:
-    - type: Transform
-      pos: -13.498806,14.775388
-      parent: 2
 - proto: ADTDeckChair
   entities:
   - uid: 12

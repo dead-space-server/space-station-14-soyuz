@@ -699,8 +699,8 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.35 # DS14-value
-        Heat: 0.45 # DS14-value
+        Piercing: 0.4 # DS14-value
+        Heat: 0.5 # DS14-value
         Radiation: 0.5
         Caustic: 0.5
   - type: StaminaResistance # DS14
@@ -787,8 +787,8 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.6
-        Slash: 0.6
+        Blunt: 0.4 # DS14-value
+        Slash: 0.4 # DS14-value
         Piercing: 0.5 # DS14-value
         Heat: 0.15 # DS14-value
         Radiation: 0.05 # DS14-value
@@ -836,7 +836,7 @@
       coefficients:
         Blunt: 0.4
         Slash: 0.4
-        Piercing: 0.3
+        Piercing: 0.4 # DS14-value
         Heat: 0.5
         Radiation: 0.25
         Caustic: 0.4
@@ -1118,7 +1118,7 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.4
+        Piercing: 0.5 # DS14-value
         Heat: 0.1
         Cold: 0.1
         Radiation: 0.1
@@ -1156,9 +1156,9 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.4
+        Piercing: 0.5 # DS14-value
         Poison: 0.6 # DS14-value: what is poison?
-        Heat: 0.5
+        Heat: 0.55 # DS14-value
         Shock: 0.7
         Radiation: 0.6
         Caustic: 0.4
@@ -1196,7 +1196,7 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.4
+        Piercing: 0.5 # DS14-value
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
@@ -1268,7 +1268,7 @@
         Blunt: 0.3 #best armor in the game # DS-14
         Slash: 0.3 # DS-14
         Poison: 0.1 # DS14-value: what is poison?
-        Piercing: 0.3 # DS-14
+        Piercing: 0.15 # DS-14
         Heat: 0.1
         Cold: 0.1
         Shock: 0.1
@@ -1293,6 +1293,8 @@
     reflectProb: 0.10
   - type: StaminaResistance
     damageCoefficient: 0.05
+  - type: VirusResistance
+    virusResistanceCoefficient: 0
 # DS14-end
   - type: HardsuitIdentification # DS14
     canEmag: false

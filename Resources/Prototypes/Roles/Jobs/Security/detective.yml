@@ -36,6 +36,7 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+  # DS14-Soyuz start
   ranks:
     SGMRankChiefSergeant:
     - !type:RoleTimeRequirement
@@ -50,15 +51,15 @@
       role: JobDetective
       time: 90000 # 25 часов
     SGMRankJuniorSergeant: []
-#DS14-Soyuz-end
+ # DS14-Soyuz-end
 
 - type: startingGear
   id: DetectiveGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
-    ears: ClothingHeadsetAltSecurityOfficer # ds14
-    belt: ClothingBeltHolsterFilled
+    ears: ClothingHeadsetAltSecurityOfficer # DS14
+    neck: ClothingBeltHolsterFilled # DS14
   storage:
     back:
     - Flash

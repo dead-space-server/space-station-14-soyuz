@@ -77,6 +77,7 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
             ForceEndSelf(ent.Owner);
             return;
         }
+        // DS14-end
 
         // DS14-Soyuz start
         if (ent.Comp.OriginalBody is { } originalBody)

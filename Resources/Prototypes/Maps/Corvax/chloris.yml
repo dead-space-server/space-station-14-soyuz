@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxChloris
   mapName: 'Chloris'
-  mapPath: /Maps/corvax_chloris.yml
+  mapPath: /Maps/_Soyuz/corvax_chloris.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 60
@@ -57,7 +57,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 5, 5 ] #DS14
             CargoTechnician: [ 3, 5 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

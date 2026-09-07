@@ -6849,13 +6849,6 @@ entities:
     - type: Transform
       pos: 19.700224,40.91616
       parent: 2
-- proto: ADTClothingHeadMSH
-  entities:
-  - uid: 18
-    components:
-    - type: Transform
-      pos: 12.48537,-33.9698
-      parent: 2
 - proto: ADTClothingNeckNecklaceWithPlasma
   entities:
   - uid: 19

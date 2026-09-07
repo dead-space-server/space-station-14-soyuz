@@ -1,6 +1,6 @@
 research-technology-supermagboots = Улучшенный локализованный магнетизм
 research-technology-law-board-configuration = Конфигурация плат законов
-research-technology-handteleporter = Разрыв пространства 
+research-technology-handteleporter = Разрыв пространства
 research-technology-glovespowergloveactive = Пробитие пространства
 research-technology-pinpointeruniversal = Наводка на объект
 research-technology-holopadhandheld = Связь с космосом
@@ -24,6 +24,9 @@ research-technology-quadbike = Гонка в техах
 research-technology-hoverbike = Ходьба по вакуму
 research-technology-vehicle-janicart = Погоня за крысами
 research-technology-bola = Ограничители передвижения
+research-technology-smg-drum-ammo = Огонь на подавление
+research-technology-rifle-drum-ammo = Свинцовый шторм
+research-technology-ext-ammo-types = Автонаклейка меток на магазины
 
 research-discipline-mechworks = Механика
 research-discipline-weaponry = Вооружение

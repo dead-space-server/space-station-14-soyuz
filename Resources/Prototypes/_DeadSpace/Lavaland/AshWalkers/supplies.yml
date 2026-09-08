@@ -1,0 +1,37 @@
+- type: entity
+  parent: DrinkFlaskOld
+  id: DrinkFlaskOldWater
+  suffix: Water
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        reagents:
+        - ReagentId: Water
+          Quantity: 30
+
+- type: entity
+  parent: AloeCream
+  id: AloeCream5
+  suffix: 5
+  components:
+  - type: Stack
+    count: 5
+
+- type: entity
+  parent: BookBase
+  id: BookAshWalkerRecipes
+  name: hunter's craft book
+  description: A smoke-stained book bound in hide. An old craft master's notes on hunting, crafting, healing and mushroom gardens.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: cover_old
+      color: "#70503A"
+    - state: decor_spine
+      color: "#CBBF82"
+    - state: icon_skull
+      color: "#E4D4A8"
+  - type: Paper
+    content: ash-walker-recipe-book-content

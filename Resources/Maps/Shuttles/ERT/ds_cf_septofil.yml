@@ -28,7 +28,7 @@ entities:
     - type: MetaData
       name: CF - Septofil AV-29
     - type: Transform
-      pos: 49.515625,-0.5
+      pos: 0,0
     - type: MapGrid
       chunks:
         0,0:
@@ -933,7 +933,7 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: ChemistryBottleOmnizine
+- proto: ChemistryBottleBicaridine
   entities:
   - uid: 8
     components:
@@ -947,7 +947,7 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: ChemistryBottleOpporozidone
+- proto: ChemistryBottleDermaline
   entities:
   - uid: 10
     components:
@@ -955,7 +955,7 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: CloningPod
+- proto: StasisBed
   entities:
   - uid: 70
     components:
@@ -969,7 +969,7 @@ entities:
     - type: Transform
       pos: -0.42488098,-2.2972043
       parent: 1
-- proto: ComputerCloningConsole
+- proto: ComputerCrewMonitoring
   entities:
   - uid: 77
     components:
@@ -977,12 +977,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,1.5
       parent: 1
-    - type: DeviceLinkSource
-      range: 10
-      linkedPorts:
-        97:
-        - - MedicalScannerSender
-          - MedicalScannerReceiver
 - proto: ComputerRadar
   entities:
   - uid: 79
@@ -1326,7 +1320,7 @@ entities:
     - type: Transform
       pos: 2.5,-0.5
       parent: 1
-- proto: MaterialBiomass
+- proto: Gauze1
   entities:
   - uid: 11
     components:
@@ -1340,7 +1334,7 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: MedicalScanner
+- proto: ClosetEmergencyFilledRandom
   entities:
   - uid: 97
     components:

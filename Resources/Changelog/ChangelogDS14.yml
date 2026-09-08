@@ -7494,3 +7494,12 @@ Entries:
   changes:
   - type: Fix
     message: Баги пеплоходцев.
+- id: 715
+  author: IvanKuvalda
+  time: '2026-09-08T13:56:37.073460+00:00'
+  pr: 2314
+  changes:
+  - type: Add
+    message: Была добавлена бета версия TramStation. PHOBOS ONLY.
+  - type: Add
+    message: Слиты апи ключи ттс мк.

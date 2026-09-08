@@ -29,3 +29,17 @@
   - type: ContainerFill
     containers:
       board: [ DoorElectronicsExternal ]
+
+# Стык шаттла ПГШ
+- type: entity
+  parent: AirlockShuttleSyndicate
+  id: AirlockExternalGlassShuttleGeneralStaff
+  name: стыковочный шлюз
+  description: Необходим для соединения двух космических кораблей вместе.
+  suffix: Шаттл ГШ, Стеклянный, Стыковочный
+  components:
+  - type: GridFill
+    path: "/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml"
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsExternal ]

@@ -7487,3 +7487,10 @@ Entries:
   changes:
   - type: Add
     message: Пеплоходцы.
+- id: 714
+  author: rhailrake
+  time: '2026-09-08T05:50:43.390039+00:00'
+  pr: 2309
+  changes:
+  - type: Fix
+    message: Баги пеплоходцев.

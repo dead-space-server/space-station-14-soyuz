@@ -132,6 +132,8 @@ entities:
     - type: Transform
       pos: 0.7389171,-1.6768324
       parent: 1
+    - type: Station
+      stationName: Planetarum Station General Staf
     - type: MapGrid
       chunks:
         0,0:

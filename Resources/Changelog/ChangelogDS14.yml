@@ -7480,3 +7480,10 @@ Entries:
   changes:
   - type: Fix
     message: Вернул вору сумку неопределенности
+- id: 713
+  author: rhailrake
+  time: '2026-09-08T03:09:33.666188+00:00'
+  pr: 2308
+  changes:
+  - type: Add
+    message: Пеплоходцы.

@@ -30,8 +30,10 @@ public record struct RadioReceiveAttemptEvent(RadioChannelPrototype Channel, Ent
 /// Use this event to cancel sending message to every receiver
 /// </summary>
 [ByRefEvent]
-public record struct RadioSendAttemptEvent(RadioChannelPrototype Channel, EntityUid RadioSource)
+// DS14-Soyuz: MessageSource lets station telecommunications apply per-character channel restrictions.
+public record struct RadioSendAttemptEvent(EntityUid MessageSource, RadioChannelPrototype Channel, EntityUid RadioSource)
 {
+    public readonly EntityUid MessageSource = MessageSource;
     public readonly RadioChannelPrototype Channel = Channel;
     public readonly EntityUid RadioSource = RadioSource;
     public bool Cancelled = false;

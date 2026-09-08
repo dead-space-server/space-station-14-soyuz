@@ -11,10 +11,10 @@
           mapNameTemplate: '{0} «Цитадель»'
           nameGenerator:
             !type:GeneralStaffGenerator
-#            prefixCreator: 'SDT' Плакай мой Soyuz Development Team :(
-        #- type: StationJobs
-          #availableJobs:
+            prefixCreator: 'SDT' # Плакай мой Soyuz Development Team :(
+        - type: StationJobs
+          availableJobs:
             # Командование штаба
             #OperatorGS: [ 1, 1 ] # Временно отключено
             # Я не ебу кто это
-            #OfficerGS: [ 1, 1 ] # Временно отключено
+            OfficerGS: [ 1, 1 ] # Временно отключено # Временно включено чтоб тесты не валило

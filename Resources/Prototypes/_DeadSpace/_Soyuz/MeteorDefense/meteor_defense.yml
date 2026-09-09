@@ -92,7 +92,7 @@
   id: EngineeringMeteorDefenseTargetingModule
   icon:
     sprite: _DeadSpace/_Soyuz/Objects/Misc/MeteorDefense/targeting_module.rsi
-    state: micro_mani
+    state: meteor_defense_targeting_module
   product: MeteorDefenseTargetingModule
   cost: 333333
   category: cargoproduct-category-name-engineering

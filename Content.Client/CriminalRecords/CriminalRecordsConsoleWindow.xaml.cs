@@ -2,6 +2,7 @@ using Content.Client.UserInterface.Controls;
 using Content.Shared.Access.Systems;
 using Content.Shared.Administration;
 using Content.Shared.CriminalRecords;
+using Content.Shared.CriminalRecords.Components;
 using Content.Shared.Dataset;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Security;
@@ -198,6 +199,7 @@ public sealed partial class CriminalRecordsConsoleWindow : FancyWindow
         StatusOptionButton.Disabled = !editing;
 
         // DS14: print button follows server-computed CanPrint (needs access + eligible status)
+        PrintButton.Visible = _entManager.GetComponent<CriminalRecordsConsoleComponent>(Console).HasPrinter;
         PrintButton.Disabled = !_access || !state.CanPrint;
 
         if (state is { CriminalRecord: not null, StationRecord: not null })

@@ -8,13 +8,14 @@ using Robust.Shared.Audio; // DS14
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom; // DS14
 using Content.Shared.Security;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared.CriminalRecords.Components;
 
 /// <summary>
 /// A component for Criminal Record Console storing an active station record key and a currently applied filter
 /// </summary>
-[RegisterComponent, AutoGenerateComponentPause] // DS14: AutoGenerateComponentPause added for NextPrintTime
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState, AutoGenerateComponentPause]
 [Access(typeof(SharedCriminalRecordsConsoleSystem))]
 public sealed partial class CriminalRecordsConsoleComponent : Component
 {
@@ -52,10 +53,13 @@ public sealed partial class CriminalRecordsConsoleComponent : Component
     /// <summary>
     /// Max length of arrest and crime history strings.
     /// </summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public uint MaxStringLength = 256;
 
     // DS14-start
+    [DataField, AutoNetworkedField]
+    public bool HasPrinter = true;
+
     [DataField]
     public ProtoId<PaperworkFormPrototype> ArrestWarrantForm = "CriminalArrestWarrant";
 

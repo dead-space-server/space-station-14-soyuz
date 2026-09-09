@@ -253,6 +253,9 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
     // DS14-start
     private void OnPrintDocument(Entity<CriminalRecordsConsoleComponent> ent, ref CriminalRecordPrintDocument msg)
     {
+        if (!ent.Comp.HasPrinter)
+            return;
+
         if (!CheckSelected(ent, msg.Actor, out var mob, out var key))
             return;
 
@@ -356,7 +359,8 @@ public sealed class CriminalRecordsConsoleSystem : SharedCriminalRecordsConsoleS
         state.FilterStatus = console.FilterStatus;
 
         // DS14: printable while a Wanted/Eliminated (-> warrant) or Detained (-> verdict) record is selected
-        state.CanPrint = state.CriminalRecord is { Status: SecurityStatus.Wanted or SecurityStatus.Eliminated or SecurityStatus.Detained };
+        state.CanPrint = console.HasPrinter &&
+            state.CriminalRecord is { Status: SecurityStatus.Wanted or SecurityStatus.Eliminated or SecurityStatus.Detained };
 
         _ui.SetUiState(uid, CriminalRecordsConsoleKey.Key, state);
     }

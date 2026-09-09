@@ -21,6 +21,7 @@
       storagebase: !type:AllSelector
         children:
         - id: CargoRequestEngineeringComputerCircuitboard # DS14-Soyuz
+        - id: MeteorDefenseBeaconCircuitboard # DS14-Soyuz
         - id: AlertsComputerCircuitboard
         - id: AtmosMonitoringComputerCircuitboard
         - id: PowerComputerCircuitboard

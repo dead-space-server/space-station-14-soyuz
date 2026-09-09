@@ -1592,3 +1592,14 @@ Entries:
   changes:
   - type: Tweak
     message: 'Цвета дисков исследований: 1000 - зеленый, 5000 - синий, 10000 - красный'
+- id: 150
+  author: Genes1us
+  time: '2026-09-09T14:53:33.320216+00:00'
+  pr: 456
+  changes:
+  - type: Tweak
+    message: Цвет маяка милиции опять красный
+  - type: Fix
+    message: Карты, из-за которых не проходил MapInit тест (В том числе и карта ГШ)
+  - type: Fix
+    message: Спрайты шапок документов

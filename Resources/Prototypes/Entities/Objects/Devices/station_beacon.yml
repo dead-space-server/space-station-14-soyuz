@@ -192,7 +192,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-security
-    color: "#285a91"
+    color: "#dd3535" # DS14-Soyuz
 
 - type: entity
   parent: DefaultStationBeaconSecurity

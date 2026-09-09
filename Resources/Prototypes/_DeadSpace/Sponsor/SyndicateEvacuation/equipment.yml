@@ -58,7 +58,7 @@
     contents:
     - id: WeaponPistolMk58
     - id: MagazinePistol
-    - id: DefibrillatorCompact
+    - id: MagazinePistolSubMachineGun
     - id: HandheldHealthAnalyzer
     - id: EmergencyMedipen
 

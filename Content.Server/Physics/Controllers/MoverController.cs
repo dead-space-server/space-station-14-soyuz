@@ -17,9 +17,9 @@ using Robust.Shared.Player;
 using DependencyAttribute = Robust.Shared.IoC.DependencyAttribute;
 using DroneConsoleComponent = Content.Server.Shuttles.DroneConsoleComponent;
 
-// DS14-Soyuz start
+// DS14-Soyuz-start
 using Content.Server.Shuttles.Events;
-// DS14-Soyuz end
+// DS14-Soyuz-end
 
 namespace Content.Server.Physics.Controllers;
 
@@ -32,9 +32,9 @@ public sealed class MoverController : SharedMoverController
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
-    // DS14-Soyuz start
+    // DS14-Soyuz-start
     [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
-    // DS14-Soyuz end
+    // DS14-Soyuz-end
 
     private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
 
@@ -561,14 +561,14 @@ public sealed class MoverController : SharedMoverController
                 !shuttleComponent.Enabled)
                 continue;
 
-            // DS14-Soyuz start
+            // DS14-Soyuz-start
             if (!_shuttleControl.CanControl(gridId.Value, ShuttleControlType.Movement))
             {
                 _thruster.DisableLinearThrusters(shuttleComponent);
                 _thruster.SetAngularThrust(shuttleComponent, false);
                 continue;
             }
-            // DS14-Soyuz end
+            // DS14-Soyuz-end
 
             if (!newPilots.TryGetValue(gridId.Value, out var pilots))
             {

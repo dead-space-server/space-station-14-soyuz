@@ -20,6 +20,7 @@ public sealed class RepairOrderShuttleControlSystem : EntitySystem
         while (query.MoveNext(out _, out var station))
         {
             if (station.Active?.GridUid != args.GridUid &&
+                station.Active?.ExpirationAdditionalGrids.Contains(args.GridUid) != true &&
                 !station.PendingCleanupGrids.Contains(args.GridUid))
                 continue;
 

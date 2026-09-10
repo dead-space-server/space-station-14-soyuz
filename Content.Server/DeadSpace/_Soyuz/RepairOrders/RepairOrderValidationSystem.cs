@@ -71,16 +71,19 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             if (!TryComp<RepairBlueprintComponent>(gridUid, out var blueprint) || !blueprint.Ready)
                 continue;
 
-            var progressChanged = false;
+            var progressInputsChanged = false;
             foreach (var cell in cells)
             {
-                progressChanged |= RevalidateCell((gridUid, blueprint), cell);
+                progressInputsChanged |= RevalidateCell((gridUid, blueprint), cell);
             }
 
-            if (progressChanged)
-            {
+            if (!progressInputsChanged)
+                continue;
+
+            var previousProgress = (blueprint.CompletedTasks, blueprint.TotalTasks, blueprint.CurrentPoints);
+            RecalculateProgress(blueprint, initializeMaxPoints: false);
+            if (previousProgress != (blueprint.CompletedTasks, blueprint.TotalTasks, blueprint.CurrentPoints))
                 SyncProgress((gridUid, blueprint));
-            }
         }
     }
 
@@ -474,9 +477,7 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         blueprint.Comp.ExpectedCells.TryGetValue(cell, out var expectedCell);
         blueprint.Comp.UnexpectedBaselineCells.TryGetValue(cell, out var baselineCell);
         var actualCell = SnapshotActualCell((blueprint.Owner, grid), cell, scoreLookup);
-        RebuildCellTasks(blueprint.Comp, cell, expectedCell, baselineCell, actualCell, scoreLookup);
-        RecalculateProgress(blueprint.Comp, initializeMaxPoints: false);
-        return true;
+        return RebuildCellTasks(blueprint.Comp, cell, expectedCell, baselineCell, actualCell, scoreLookup);
     }
 
     private void CaptureBaselineCell(
@@ -538,7 +539,8 @@ public sealed class RepairOrderValidationSystem : EntitySystem
         return baseline;
     }
 
-    private void RebuildCellTasks(
+    /// <returns>Whether task inputs to the aggregate progress calculation changed.</returns>
+    private bool RebuildCellTasks(
         RepairBlueprintComponent blueprint,
         Vector2i cell,
         RepairExpectedCellState? expected,
@@ -660,10 +662,24 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             }
         }
 
+        // Compare only progress inputs against the existing list; presentation is still rebuilt below.
+        // No blueprint copies or full-grid calculations are needed for an unchanged dirty cell.
+        blueprint.TasksByCell.TryGetValue(cell, out var previousTasks);
+        var progressInputsChanged = (previousTasks?.Count ?? 0) != tasks.Count;
+        for (var i = 0; !progressInputsChanged && i < tasks.Count; i++)
+        {
+            var previous = previousTasks![i];
+            progressInputsChanged = previous.State != tasks[i].State ||
+                previous.Points != tasks[i].Points ||
+                previous.InitiallyCorrect != tasks[i].InitiallyCorrect;
+        }
+
         if (tasks.Count == 0)
             blueprint.TasksByCell.Remove(cell);
         else
             blueprint.TasksByCell[cell] = tasks;
+
+        return progressInputsChanged;
     }
 
     private static RepairTask CreateUnexpectedTileTask(
@@ -910,6 +926,15 @@ public sealed class RepairOrderValidationSystem : EntitySystem
             station.Active is not { } active ||
             active.GridUid != blueprint.Owner ||
             active.ExpirationFrozen)
+        {
+            return;
+        }
+
+        if (active.CompletedTasks == blueprint.Comp.CompletedTasks &&
+            active.TotalTasks == blueprint.Comp.TotalTasks &&
+            active.BlueprintReady == blueprint.Comp.Ready &&
+            active.CurrentPoints == blueprint.Comp.CurrentPoints &&
+            active.MaxPoints == blueprint.Comp.MaxPoints)
         {
             return;
         }

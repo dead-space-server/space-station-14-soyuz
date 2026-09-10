@@ -73,13 +73,13 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
         }
 
         state.Completing = true;
-        _repairOrders.RefreshStationUis(stationUid);
 
         RepairOrderDelivery? delivery = null;
         EntityUid? liveDeliveryConsole = null;
         var committed = false;
         try
         {
+            _repairOrders.RefreshStationUis(stationUid);
             if (!_prototype.TryIndex<RepairOrderPrototype>(active.Prototype, out var order))
             {
                 _sawmill.Error(
@@ -227,18 +227,18 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
             cleanupGrids.UnionWith(additionalGrids);
             _repairOrders.CleanupTerminalGrids(stationUid, cleanupGrids);
 
-            _sawmill.Info(
+            _repairOrders.RunPostCommitEffect("expiration log", () => _sawmill.Info(
                 $"Expired repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +
                 $"GridUid={repairGrid}, CompletedTasks={completed.CompletedTasks}, TotalTasks={completed.TotalTasks}, " +
                 $"CurrentPoints={completed.FinalPoints}, MaxPoints={completed.MaxPoints}, " +
                 $"RepairPercent={completed.RepairPercent}, RewardBudget={completed.RewardBudget}, " +
                 $"RewardCount={rewardCount}, DeliveryContainerCount={completed.DeliveryContainers.Count}, " +
-                $"Result={completed.Result}.");
+                $"Result={completed.Result}."));
 
-            ShowExpirationPopup(
+            _repairOrders.RunPostCommitEffect("expiration popup", () => ShowExpirationPopup(
                 rewardCount > 0 && delivery != null,
                 actor,
-                liveDeliveryConsole ?? _station.GetLargestGrid(stationUid));
+                liveDeliveryConsole ?? _station.GetLargestGrid(stationUid)));
             return true;
         }
         catch (Exception exception)
@@ -252,9 +252,9 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
             }
             else
             {
-                _sawmill.Error(
+                _repairOrders.RunPostCommitEffect("expiration error log", () => _sawmill.Error(
                     $"Expired repair order {active.RuntimeId} ({active.Prototype}) was committed for station " +
-                    $"{stationUid}, but post-commit processing failed: {exception}");
+                    $"{stationUid}, but post-commit processing failed: {exception}"));
             }
 
             return committed;
@@ -265,7 +265,10 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
                 active.NextExpirationAttempt = _timing.CurTime + RetryDelay;
 
             state.Completing = false;
-            _repairOrders.RefreshStationUis(stationUid);
+            if (committed)
+                _repairOrders.RunPostCommitEffect("expiration UI refresh", () => _repairOrders.RefreshStationUis(stationUid));
+            else
+                _repairOrders.RefreshStationUis(stationUid);
         }
     }
 

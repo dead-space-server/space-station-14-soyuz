@@ -91,12 +91,13 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
         }
 
         state.Completing = true;
-        _repairOrders.RefreshStationUis(stationUid.Value);
 
         RepairOrderDelivery? delivery = null;
         var committed = false;
+        var actor = args.Actor;
         try
         {
+            _repairOrders.RefreshStationUis(stationUid.Value);
             // A final full pass makes submission independent of deferred realtime cell updates.
             if (!_validation.TryRevalidateForCompletion(active.GridUid, out var fullyMatchesTarget))
             {
@@ -175,26 +176,26 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             // The completed snapshot contains every persistent result; runtime cleanup remains player-safe.
             _repairOrders.CleanupTerminalGrid(stationUid.Value, repairGrid);
 
-            _sawmill.Info(
+            _repairOrders.RunPostCommitEffect("completion log", () => _sawmill.Info(
                 $"Completed repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +
                 $"{completed.CompletedTasks}/{completed.TotalTasks} tasks, {completed.FinalPoints}/{completed.MaxPoints} points, " +
                 $"{completed.Rewards.Sum(reward => reward.Count)} physical rewards delivered in " +
                 $"{completed.DeliveryContainers.Count} protected container(s) " +
                 $"[{string.Join(", ", completed.DeliveryContainers)}]; " +
-                $"queued grid {repairGrid} for deletion.");
-            _popup.PopupEntity(
+                $"queued grid {repairGrid} for deletion."));
+            _repairOrders.RunPostCommitEffect("completion popup", () => _popup.PopupEntity(
                 Loc.GetString("repair-orders-complete-success"),
                 console.Owner,
-                args.Actor,
-                PopupType.Medium);
+                actor,
+                PopupType.Medium));
         }
         catch (Exception exception)
         {
             if (committed)
             {
-                _sawmill.Error(
+                _repairOrders.RunPostCommitEffect("completion error log", () => _sawmill.Error(
                     $"Repair order {active.RuntimeId} ({active.Prototype}) was committed for station {stationUid}, " +
-                    $"but post-commit notification failed: {exception}");
+                    $"but post-commit processing failed: {exception}"));
                 return;
             }
 
@@ -211,7 +212,10 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
         finally
         {
             state.Completing = false;
-            _repairOrders.RefreshStationUis(stationUid.Value);
+            if (committed)
+                _repairOrders.RunPostCommitEffect("completion UI refresh", () => _repairOrders.RefreshStationUis(stationUid.Value));
+            else
+                _repairOrders.RefreshStationUis(stationUid.Value);
         }
     }
 

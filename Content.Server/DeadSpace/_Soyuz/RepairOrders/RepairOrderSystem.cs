@@ -45,6 +45,7 @@ public sealed class RepairOrderSystem : EntitySystem
         _sawmill = _logManager.GetSawmill("repair_orders");
 
         SubscribeLocalEvent<RepairOrderConsoleComponent, ComponentStartup>(OnConsoleStartup);
+        SubscribeLocalEvent<RepairOrderStationComponent, ComponentShutdown>(OnStationShutdown);
         SubscribeLocalEvent<RepairOrderConsoleComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
         Subs.BuiEvents<RepairOrderConsoleComponent>(RepairOrderUiKey.Key, subs =>
         {
@@ -171,12 +172,13 @@ public sealed class RepairOrderSystem : EntitySystem
         }
 
         state.Accepting = true;
-        UpdateStationUis((stationUid.Value, state));
 
         EntityUid? spawnedGrid = null;
         var committed = false;
         try
         {
+            UpdateStationUis((stationUid.Value, state));
+
             if (!_spawn.TrySpawnDamagedGrid(console.Owner, orderPrototype, out var gridUid, out var failure))
             {
                 FailRequest(
@@ -203,7 +205,16 @@ public sealed class RepairOrderSystem : EntitySystem
                 return;
             }
 
-            // Commit point: no station order state changes before the complete session is ready.
+            var startedAt = _timing.CurTime;
+            preparedActive.StartedAt = startedAt;
+            preparedActive.ExpiresAt = startedAt + orderPrototype.RepairTime;
+            preparedActive.ActivationConsole = console.Owner;
+            var consoleCoordinates = TryGetRepairConsoleCoordinates(stationUid.Value, console.Owner, out var coordinates)
+                ? coordinates
+                : state.LastRepairConsoleCoordinates;
+
+            // Authoritative commit: publish the complete session and its reward fallback coordinates together.
+            // No callbacks or other potentially throwing preparation belong past this boundary.
             if (!state.Available.Remove(offer.RuntimeId))
             {
                 FailRequest(
@@ -214,25 +225,10 @@ public sealed class RepairOrderSystem : EntitySystem
                 return;
             }
 
-            var startedAt = _timing.CurTime;
-            preparedActive.StartedAt = startedAt;
-            preparedActive.ExpiresAt = startedAt + orderPrototype.RepairTime;
-            preparedActive.ActivationConsole = console.Owner;
+            state.LastRepairConsoleCoordinates = consoleCoordinates;
             state.Active = preparedActive;
             committed = true;
             spawnedGrid = null;
-
-            RememberRepairConsole(stationUid.Value, console.Owner);
-
-            var activated = new RepairOrderActivatedEvent(stationUid.Value, offer.Prototype, gridUid);
-            RaiseLocalEvent(stationUid.Value, ref activated);
-
-            _sawmill.Info($"Activated repair order {offer.RuntimeId} ({offer.Prototype}) for station {stationUid}; grid {gridUid}.");
-            _popup.PopupEntity(
-                Loc.GetString("repair-orders-success"),
-                console.Owner,
-                args.Actor,
-                PopupType.Medium);
         }
         finally
         {
@@ -254,7 +250,42 @@ public sealed class RepairOrderSystem : EntitySystem
             finally
             {
                 state.Accepting = false;
-                UpdateStationUis((stationUid.Value, state));
+                if (!committed)
+                    UpdateStationUis((stationUid.Value, state));
+            }
+        }
+
+        // Post-commit notifications cannot fail or roll back the activation. Attempt each independently,
+        // so a failing extension subscriber does not prevent the success popup or the final UI refresh.
+        var actor = args.Actor;
+        var activeGrid = state.Active!.GridUid;
+        RunPostCommitEffect("activation event", () =>
+        {
+            var activated = new RepairOrderActivatedEvent(stationUid.Value, offer.Prototype, activeGrid);
+            RaiseLocalEvent(stationUid.Value, ref activated);
+        });
+        RunPostCommitEffect("activation log", () =>
+            _sawmill.Info($"Activated repair order {offer.RuntimeId} ({offer.Prototype}) for station {stationUid}; grid {activeGrid}."));
+        RunPostCommitEffect("success popup", () => _popup.PopupEntity(
+            Loc.GetString("repair-orders-success"), console.Owner, actor, PopupType.Medium));
+        RunPostCommitEffect("station UI refresh", () => UpdateStationUis((stationUid.Value, state)));
+    }
+
+    internal void RunPostCommitEffect(string effect, Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception exception)
+        {
+            try
+            {
+                _sawmill.Error($"Repair order post-commit {effect} failed: {exception}");
+            }
+            catch (Exception)
+            {
+                // Even a failing log sink must not turn a committed operation into a failed request.
             }
         }
     }
@@ -265,6 +296,38 @@ public sealed class RepairOrderSystem : EntitySystem
         while (query.MoveNext(out var consoleUid, out _))
         {
             EnsureStationState(consoleUid);
+        }
+    }
+
+    private void OnStationShutdown(Entity<RepairOrderStationComponent> station, ref ComponentShutdown args)
+    {
+        // Repair grids are not children of their station. Losing the owner must also dispose its runtime,
+        // including frozen expiration fragments and terminal grids which were waiting for players to leave.
+        var grids = new HashSet<EntityUid>(station.Comp.PendingCleanupGrids);
+        if (station.Comp.Active is { } active)
+        {
+            grids.Add(active.GridUid);
+            grids.UnionWith(active.ExpirationAdditionalGrids);
+        }
+
+        station.Comp.Active = null;
+        station.Comp.PendingCleanupGrids.Clear();
+        station.Comp.Accepting = false;
+        station.Comp.Completing = false;
+        foreach (var grid in grids)
+        {
+            RunPostCommitEffect("station removal grid cleanup", () =>
+            {
+                try
+                {
+                    _validation.DiscardPreparedSession(grid);
+                }
+                finally
+                {
+                    if (Exists(grid) && MetaData(grid).EntityLifeStage < EntityLifeStage.Terminating)
+                        QueueDel(grid);
+                }
+            });
         }
     }
 
@@ -297,6 +360,19 @@ public sealed class RepairOrderSystem : EntitySystem
 
     private bool RememberRepairConsole(Entity<RepairOrderStationComponent> station, EntityUid consoleUid)
     {
+        if (!TryGetRepairConsoleCoordinates(station.Owner, consoleUid, out var coordinates))
+            return false;
+
+        station.Comp.LastRepairConsoleCoordinates = coordinates;
+        return true;
+    }
+
+    private bool TryGetRepairConsoleCoordinates(
+        EntityUid stationUid,
+        EntityUid consoleUid,
+        out EntityCoordinates coordinates)
+    {
+        coordinates = EntityCoordinates.Invalid;
         if (!consoleUid.IsValid() ||
             !Exists(consoleUid) ||
             MetaData(consoleUid).EntityLifeStage >= EntityLifeStage.Terminating ||
@@ -306,16 +382,15 @@ public sealed class RepairOrderSystem : EntitySystem
             transform.GridUid is not { } gridUid ||
             !Exists(gridUid) ||
             MetaData(gridUid).EntityLifeStage >= EntityLifeStage.Terminating ||
-            _station.GetOwningStation(consoleUid, transform) != station.Owner)
+            _station.GetOwningStation(consoleUid, transform) != stationUid)
         {
             return false;
         }
 
-        var coordinates = _transform.GetMoverCoordinates(consoleUid, transform);
+        coordinates = _transform.GetMoverCoordinates(consoleUid, transform);
         if (coordinates == EntityCoordinates.Invalid || coordinates.EntityId != gridUid)
             return false;
 
-        station.Comp.LastRepairConsoleCoordinates = coordinates;
         return true;
     }
 
@@ -440,9 +515,9 @@ public sealed class RepairOrderSystem : EntitySystem
         state.Active = null;
         state.Completing = false;
 
-        _sawmill.Warning(
+        RunPostCommitEffect("abort log", () => _sawmill.Warning(
             $"Aborted repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {reason}. " +
-            $"No completion or rewards were produced; disposing {ownedGrids.Count} repair grid(s).");
+            $"No completion or rewards were produced; disposing {ownedGrids.Count} repair grid(s)."));
 
         try
         {
@@ -460,7 +535,7 @@ public sealed class RepairOrderSystem : EntitySystem
             }
             finally
             {
-                UpdateStationUis((stationUid, state));
+                RunPostCommitEffect("abort UI refresh", () => UpdateStationUis((stationUid, state)));
             }
         }
 

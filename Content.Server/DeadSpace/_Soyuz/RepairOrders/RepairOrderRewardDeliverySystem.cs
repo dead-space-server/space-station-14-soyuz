@@ -251,10 +251,15 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         }
         catch (Exception exception)
         {
-            _sawmill.Error(
-                $"Failed to create reward delivery for repair order {order.ID} at {anchor.Description}: {exception}");
-
-            Rollback(attempt);
+            try
+            {
+                _sawmill.Error(
+                    $"Failed to create reward delivery for repair order {order.ID} at {anchor.Description}: {exception}");
+            }
+            finally
+            {
+                Rollback(attempt);
+            }
             return false;
         }
     }

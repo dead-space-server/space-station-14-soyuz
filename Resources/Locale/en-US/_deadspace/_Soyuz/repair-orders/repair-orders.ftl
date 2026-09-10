@@ -29,6 +29,15 @@ repair-order-damaged-engineering-module-description = Restore the compact engine
 repair-order-stripped-floor-platform-name = Stripped construction platform
 repair-order-stripped-floor-platform-description = Restore steel flooring across the entire stripped five-by-five platform.
 
+repair-order-damaged-engineering-sattelite-name = Satellite unavailable in your region
+repair-order-damaged-engineering-sattelite-description = An orbital communications satellite was caught in a small meteor shower. Judging by the two vodka bottles and nearby shot glasses, the engineers on duty were not particularly enthusiastic about their work. No meteor defenses were installed, and the satellite looks as though it was commissioned with the words "good enough."
+repair-order-damaged-cargo-shuttle-name = Express delivery, straight through
+repair-order-damaged-cargo-shuttle-description = A cargo shuttle was found with a massive hole left by a metal rod that passed almost entirely through its hull. The cargo never reached its destination. The shuttle did, however, receive a completely unscheduled delivery.
+repair-order-damaged-briggle-name = Meteor detention protocol
+repair-order-damaged-briggle-description = A police patrol shuttle was caught in a dense meteor shower. Judging by the hull damage, the crew kept trying to press on instead of leaving the danger zone. Attempts to detain the meteors for disturbing the peace were unsuccessful. The meteors resisted arrest.
+repair-order-damaged-amber-name = Prohibition
+repair-order-damaged-amber-description = A special unit's shuttle was found drifting without its crew. No signs of a serious battle were found, but a booze dispenser had been installed aboard. The commission's preliminary conclusion: the shuttle was not lost in combat. It was simply drunk away.
+
 repair-orders-window-title = Engineering repair orders
 repair-orders-next-offer = Next offer:
 repair-orders-activation-in-progress = Locating safe space and transferring the damaged shuttle...

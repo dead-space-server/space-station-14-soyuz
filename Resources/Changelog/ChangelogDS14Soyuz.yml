@@ -1617,3 +1617,14 @@ Entries:
     message: Теги союза
   - type: Fix
     message: Агост. Теперь в карманы агоста можно класть предметы
+- id: 152
+  author: dododonch
+  time: '2026-09-10T16:22:22.655602+00:00'
+  pr: 7
+  changes:
+  - type: Add
+    message: 'Удалено:'
+  - type: Remove
+    message: 'Изменено:'
+  - type: Tweak
+    message: 'Исправлено:'

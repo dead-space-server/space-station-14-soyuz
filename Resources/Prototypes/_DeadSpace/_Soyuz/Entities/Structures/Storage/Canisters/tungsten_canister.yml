@@ -1,0 +1,50 @@
+- type: entity
+  parent: StorageCanister
+  id: TungstenGasCanister
+  name: tungsten gas canister
+  description: A reinforced gas canister with six times the capacity of a standard storage canister.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Storage/tungsten_canister.rsi
+    layers:
+    - state: tungsten
+  - type: GasCanister
+    gasMixture:
+      volume: 9000
+      temperature: 293.15
+  - type: Construction
+    graph: TungstenGasCanister
+    node: canister
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DumpCanisterBehavior
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DumpCanisterBehavior
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          TungstenGasCanisterBroken:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+
+- type: entity
+  parent: StorageCanisterBroken
+  id: TungstenGasCanisterBroken
+  name: broken tungsten gas canister
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Storage/tungsten_canister.rsi
+    state: tungsten-1

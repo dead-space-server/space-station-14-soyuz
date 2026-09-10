@@ -1,0 +1,12 @@
+- type: construction
+  id: TungstenGasCanister
+  graph: TungstenGasCanister
+  startNode: start
+  targetNode: canister
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked

@@ -1754,20 +1754,6 @@ entities:
             threshold: 0.05
             enabled: True
           ignore: False
-        Nitryl:
-          lowerWarnAround:
-            threshold: 0
-            enabled: False
-          upperWarnAround:
-            threshold: 0.5
-            enabled: True
-          lowerBound:
-            threshold: 0
-            enabled: False
-          upperBound:
-            threshold: 0.01
-            enabled: True
-          ignore: False
         Fixirium:
           lowerWarnAround:
             threshold: 0
@@ -2033,20 +2019,6 @@ entities:
             enabled: False
           upperBound:
             threshold: 0.05
-            enabled: True
-          ignore: False
-        Nitryl:
-          lowerWarnAround:
-            threshold: 0
-            enabled: False
-          upperWarnAround:
-            threshold: 0.5
-            enabled: True
-          lowerBound:
-            threshold: 0
-            enabled: False
-          upperBound:
-            threshold: 0.01
             enabled: True
           ignore: False
         Fixirium:
@@ -2318,20 +2290,6 @@ entities:
             threshold: 0.05
             enabled: True
           ignore: False
-        Nitryl:
-          lowerWarnAround:
-            threshold: 0
-            enabled: False
-          upperWarnAround:
-            threshold: 0.5
-            enabled: True
-          lowerBound:
-            threshold: 0
-            enabled: False
-          upperBound:
-            threshold: 0.01
-            enabled: True
-          ignore: False
         Fixirium:
           lowerWarnAround:
             threshold: 0
@@ -2597,20 +2555,6 @@ entities:
             enabled: False
           upperBound:
             threshold: 0.05
-            enabled: True
-          ignore: False
-        Nitryl:
-          lowerWarnAround:
-            threshold: 0
-            enabled: False
-          upperWarnAround:
-            threshold: 0.5
-            enabled: True
-          lowerBound:
-            threshold: 0
-            enabled: False
-          upperBound:
-            threshold: 0.01
             enabled: True
           ignore: False
         Fixirium:

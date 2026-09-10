@@ -93,7 +93,7 @@
       - WallRiveted
     points: 6
   - selector:
-      allTags: [Wall]
+      allComponents: [Wall]
     points: 5
   - selector:
       parents: [ShuttleWindow]

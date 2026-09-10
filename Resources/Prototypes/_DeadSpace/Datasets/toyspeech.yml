@@ -520,3 +520,9 @@
   values:
     prefix: plushies-sastr-bon-
     count: 10
+
+- type: localizedDataset
+  id: PlushieDragonFoxMadParadoxSpeech
+  values:
+    prefix: plushies-drmp-
+    count: 8

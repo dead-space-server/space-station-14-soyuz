@@ -7594,3 +7594,10 @@ Entries:
   changes:
   - type: Add
     message: Пеплоходцев можно выбрать через лобби и latejoin.
+- id: 726
+  author: ZekA1L
+  time: '2026-09-10T16:50:51.906115+00:00'
+  pr: 2324
+  changes:
+  - type: Add
+    message: Система умного оружия, TKI-20 «Сингэн».

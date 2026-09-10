@@ -87,6 +87,10 @@ public sealed partial class FundingAllocationMenu : FancyWindow
             if (kvp.Key == "Taipan")
                 continue;
             // DS14-end
+            // DS14-Soyuz-start
+            if (kvp.Key == "GeneralStaff")
+                continue;
+            // DS14-Soyuz-end
             if (_allowPrimaryAccountAllocation || kvp.Key != bank.PrimaryAccount)
             {
                 yield return kvp;

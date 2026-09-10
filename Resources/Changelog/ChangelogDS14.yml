@@ -7608,3 +7608,10 @@ Entries:
   changes:
   - type: Add
     message: Возможность удалять сообщения в NanoChat
+- id: 728
+  author: GUSBOBERUS
+  time: '2026-09-10T20:12:48.498352+00:00'
+  pr: 2323
+  changes:
+  - type: Add
+    message: Баночка с таблетками бикаридина в аптечку от механических

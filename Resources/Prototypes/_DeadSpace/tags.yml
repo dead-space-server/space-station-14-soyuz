@@ -278,6 +278,9 @@
   id: MagazineCarbineSKS
 
 - type: Tag
+  id: MagazineSmartWeaponShingen
+
+- type: Tag
   id: Magmite
 
 - type: Tag

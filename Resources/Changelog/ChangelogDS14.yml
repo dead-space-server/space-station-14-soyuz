@@ -7601,3 +7601,10 @@ Entries:
   changes:
   - type: Add
     message: Система умного оружия, TKI-20 «Сингэн».
+- id: 727
+  author: Manstari
+  time: '2026-09-10T20:07:01.414660+00:00'
+  pr: 2325
+  changes:
+  - type: Add
+    message: Возможность удалять сообщения в NanoChat

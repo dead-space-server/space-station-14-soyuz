@@ -35,4 +35,5 @@ public sealed class InsulatedSystem : EntitySystem
             iconTexture
         );
     }
+
 }

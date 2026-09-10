@@ -417,7 +417,7 @@
     soundGunshot: /Audio/Weapons/Guns/Gunshots/syringe_gun.ogg
   - type: RechargeBasicEntityAmmo
     showExamineText: false
-    rechargeCooldown: 0
+    rechargeCooldown: 30 #DS14 value
     rechargeSound: null
   - type: BasicEntityAmmoProvider
     proto: BasiliskRay
@@ -452,5 +452,5 @@
     - id: DiamondOre1
       amount: 1
       maxAmount: 3
-    - id: PKAUpgradeFireRateUp #DS14
+    - id: PKAUpgradeExplosiveLavaland #DS14
       prob: 0.01

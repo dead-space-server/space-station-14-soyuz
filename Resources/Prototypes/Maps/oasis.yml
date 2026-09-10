@@ -1,6 +1,6 @@
 - type: gameMap
   id: Oasis
-  mapName: 'Oasis'
+  mapName: 'Оазис' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/oasis.yml
   minPlayers: 30
   maxPlayers: 40
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Oasis {1}'
+          mapNameTemplate: '{0} Оазис {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'B'
@@ -21,7 +21,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-#            Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 3, 3 ]
@@ -42,8 +42,8 @@
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
-            MedicalIntern: [ 4, 4 ]
-#            Virologist: [ 1, 1 ]
+            MedicalIntern: [ 3, 3 ]
+            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
@@ -58,7 +58,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 5, 5 ] #DS14
             CargoTechnician: [ 4, 4 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

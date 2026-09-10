@@ -207,7 +207,7 @@
 
 # Magboots
 - type: entity
-  parent: [ClothingShoesBootsMagBase, ClothingShoesBootsSpeed]
+  parent: ClothingShoesBootsMagBase
   id: ClothingShoesBootsMagDragonFoxMadParadox
   name: магнитные ботинки KUMA
   description: Инновационные ботинки, которые повышают скорость и комфорт передвижения.
@@ -642,14 +642,8 @@
   - type: Sprite
     sprite: _DeadSpace/Sponsor/DragonFox/MadParadox/tools_holofanprojector.rsi
     state: icon
-  - type: HolosignProjector
+  - type: LimitedHolosignProjector
     signProto: HoloFanDragonFoxMadParadox
-    chargeUse: 120
-  - type: ItemSlots
-    slots:
-      cell_slot:
-        name: power-cell-slot-component-slot-name-default
-        startingItem: PowerCellMedium 
 
 - type: entity
   id: HoloFanDragonFoxMadParadox

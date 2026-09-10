@@ -22,18 +22,19 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 8
+    fireRate: 12
     soundGunshot:
       path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/veresk.ogg
   - type: ItemSlots
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazinePistolCaselessRifle
+        startingItem: MagazineCaselessRifle
         priority: 2
         whitelist:
           tags:
           - MagazinePistolCaselessRifle
+          - MagazineCaselessRifle
       gun_chamber:
         name: Chamber
         startingItem: CartridgeCaselessRifle

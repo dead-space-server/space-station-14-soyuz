@@ -7,7 +7,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: moth_body_claw
 
 - type: marking
@@ -17,7 +17,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: moth_burn_l
 
 - type: marking
@@ -27,7 +27,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: moth_burn_r
 
 - type: marking
@@ -37,7 +37,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: moth_face_claw
 
 - type: marking
@@ -47,7 +47,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: moth_slash_l
 
 - type: marking
@@ -62,7 +62,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: arm_l_chimera_moth
 
 - type: marking
@@ -77,7 +77,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: arm_l_prosthetic_moth
 
 - type: marking
@@ -87,7 +87,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: arm_l_twisting_moth
 
 - type: marking
@@ -102,7 +102,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: arm_r_prosthetic_moth
 
 - type: marking
@@ -112,7 +112,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: arm_r_twisting_moth
 
 - type: marking
@@ -122,7 +122,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: wings_backstabbed
 
 - type: marking
@@ -138,7 +138,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_chimera_f_moth
 
 - type: marking
@@ -154,7 +154,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_chimera_m_moth
 
 - type: marking
@@ -165,7 +165,7 @@
   sexRestriction: [Female]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_l_twisting_f_moth
 
 - type: marking
@@ -176,7 +176,7 @@
   sexRestriction: [Male]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_l_twisting_m_moth
 
 - type: marking
@@ -187,7 +187,7 @@
   sexRestriction: [Female]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_r_twisting_f_moth
 
 - type: marking
@@ -198,7 +198,7 @@
   sexRestriction: [Male]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_r_twisting_m_moth
 
 - type: marking
@@ -208,7 +208,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: chest_star_moth
 
 - type: marking
@@ -223,7 +223,7 @@
         !type:EyeColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: eyes_heterochromia_moth
 
 - type: marking
@@ -238,7 +238,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: foot_l_chimera_moth
 
 - type: marking
@@ -253,7 +253,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: foot_l_prosthetic_moth
 
 - type: marking
@@ -268,7 +268,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: foot_r_prosthetic_moth
 
 - type: marking
@@ -283,7 +283,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: hand_l_chimera_moth
 
 - type: marking
@@ -298,7 +298,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: hand_l_prosthetic_moth
 
 - type: marking
@@ -308,7 +308,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: hand_l_twisting_moth
 
 - type: marking
@@ -323,7 +323,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: hand_r_prosthetic_moth
 
 - type: marking
@@ -333,7 +333,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: hand_r_twisting_moth
 
 - type: marking
@@ -343,7 +343,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: head_badmolt_moth
 
 - type: marking
@@ -358,7 +358,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: head_chimera_moth
 
 - type: marking
@@ -368,7 +368,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: head_eyebags_moth
 
 - type: marking
@@ -378,7 +378,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: head_twisting_moth
 
 - type: marking
@@ -393,7 +393,7 @@
         !type:SkinColoring
           negative: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: leg_l_chimera_moth
 
 - type: marking
@@ -408,7 +408,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: leg_l_prosthetic_moth
 
 - type: marking
@@ -418,7 +418,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: leg_l_twisting_moth
 
 - type: marking
@@ -433,7 +433,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: leg_r_prosthetic_moth
 
 - type: marking
@@ -443,7 +443,7 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: leg_r_twisting_moth
 
 - type: marking
@@ -453,5 +453,5 @@
   speciesRestriction: [Moth]
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/moth.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/moth.rsi
     state: torso_incision_moth

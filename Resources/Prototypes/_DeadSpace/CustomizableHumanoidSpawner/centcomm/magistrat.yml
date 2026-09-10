@@ -13,6 +13,7 @@
     jobPrototype: Magistrat
     allowedSpecies:
     - Human
+    # DS14-Soyuz start
     - Shark
     - Demon
     - Vulpkanin
@@ -26,3 +27,4 @@
     - SlimePerson
     - Xenomorph
     - Vox
+    # DS14-Soyuz end

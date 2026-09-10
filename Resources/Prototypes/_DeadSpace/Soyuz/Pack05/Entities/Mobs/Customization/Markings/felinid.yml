@@ -4,9 +4,9 @@
   markingCategory: Tail
   speciesRestriction: [Felinid]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
     state: Felinid_fluffy_tail_full
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
     state: felinid_fluffy_tail_rings
 
 - type: marking
@@ -15,7 +15,7 @@
   markingCategory: Tail
   speciesRestriction: [Felinid]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/felinid_tails.rsi
     state: Felinid_fluffy_tail_full
 
 - type: marking
@@ -24,7 +24,7 @@
   markingCategory: Tail
   speciesRestriction: [Felinid]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/alternative_tail.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/alternative_tail.rsi
       state: m_waggingtail_cat_FRONT
 
 - type: marking
@@ -33,9 +33,9 @@
   markingCategory: Tail
   speciesRestriction: [Felinid]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
       state: m_tail_tiger_primary
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
       state: m_tail_tiger_secondary
-    - sprite: _DeadSpace/Soyuz/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack05/Mobs/Customization/Felinid/tiger_tail.rsi
       state: m_tail_tiger_tertiary

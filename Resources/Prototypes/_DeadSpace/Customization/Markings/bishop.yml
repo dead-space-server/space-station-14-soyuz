@@ -2,7 +2,6 @@
   id: AugmentsBishopArmRight
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: r_arm
@@ -11,7 +10,6 @@
   id: AugmentsBishopHandRight
   bodyPart: RHand
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: r_hand
@@ -20,7 +18,6 @@
   id: AugmentsBishopArmLeft
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: l_arm
@@ -29,7 +26,6 @@
   id: AugmentsBishopHandLeft
   bodyPart: LHand
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: l_hand
@@ -38,7 +34,6 @@
   id: AugmentsBishopTorso
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: torso
@@ -47,7 +42,6 @@
   id: AugmentsBishopLegRight
   bodyPart: RLeg
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: r_leg
@@ -56,7 +50,6 @@
   id: AugmentsBishopFootRight
   bodyPart: RFoot
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: r_foot
@@ -65,7 +58,6 @@
   id: AugmentsBishopLegLeft
   bodyPart: LLeg
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: l_leg
@@ -74,7 +66,6 @@
   id: AugmentsBishopFootLeft
   bodyPart: LFoot
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
     - sprite: _DeadSpace/Mobs/Customization/augments/bishop.rsi
       state: l_foot

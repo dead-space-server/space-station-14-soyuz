@@ -1,6 +1,6 @@
 - type: gameMap
   id: Reach
-  mapName: 'Reach'
+  mapName: 'Прорыв' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/reach.yml
   minPlayers: 0
   maxPlayers: 10
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Reach Transport {1}'
+          mapNameTemplate: '{0} Транспортёр "Прорыв" {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'VG'
@@ -52,7 +52,7 @@
             StationEngineer: [ 2, 2 ]
             # sup
             Quartermaster: [ 1, 1 ]
-#            SeniorSalvageSpecialist: [ 1, 1 ]
+            # SeniorSalvageSpecialist: [ 1, 1 ]
             SalvageSpecialist: [ 1, 1 ]
             CargoTechnician: [ 1, 1 ]
             # civ
@@ -63,6 +63,7 @@
             Bartender: [ 1, 1 ]
             Janitor: [ 1, 1 ]
             Musician: [ 1, 1 ]
+            # Clown: [ 1, 1 ]
             Passenger: [ -1, -1 ]
             ServiceWorker: [ 2, 2 ]
             # sil

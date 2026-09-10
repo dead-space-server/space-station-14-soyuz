@@ -9,7 +9,7 @@
     Silver: 3456
     Plastic: 7890
     Plasma: 2345
-    Uranium: 1789
+    Bananium: 10000
 
 - type: latheRecipe
   id: CloningConsoleComputerCircuitboardSoyuz
@@ -22,7 +22,7 @@
     Silver: 5791
     Plastic: 6803
     Plasma: 8136
-    Uranium: 1579
+    Bananium: 10000
 
 - type: latheRecipe
   id: ExperimentalCloningPodMachineCircuitboard
@@ -35,4 +35,4 @@
     Silver: 8153
     Plastic: 6370
     Plasma: 8084
-    Uranium: 2615
+    Bananium: 10000

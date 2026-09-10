@@ -9,7 +9,7 @@
 #  speciesRestriction: [Species, Species]
 #  youre on your own for figuring out the coloring system, my friend
 #  sprites:
-#  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/filelocation.rsi
+#  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/filelocation.rsi
 #    state: filename
 #  shaded: unshaded //use for markings that ignore shader
 
@@ -21,7 +21,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fizz
 
 - type: marking
@@ -32,7 +32,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: bubble
 
 - type: marking
@@ -43,9 +43,9 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fishbowl1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fishbowl2
 
 - type: marking
@@ -56,11 +56,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fadingstars1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fadingstars2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: fadingstars3
   shader: unshaded
 
@@ -70,7 +70,7 @@
   markingCategory: Chest
   speciesRestriction: [ Diona ]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dionalivingnymph
 
 - type: marking
@@ -81,7 +81,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dionamosschest
 
 - type: marking
@@ -92,7 +92,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dionamoonbloom
   shader: unshaded
 
@@ -104,7 +104,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dionabigfirefly
   shader: unshaded
 
@@ -116,7 +116,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dionafirefly
   shader: unshaded
 
@@ -128,7 +128,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dionapollendust
 
 - type: marking
@@ -139,7 +139,7 @@
   forcedColoring: true
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dwarfbearcheeks
   shader: unshaded
 
@@ -151,7 +151,7 @@
   forcedColoring: true
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfheadglow
   shader: unshaded
 
@@ -167,7 +167,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationhead
   shader: unshaded
 
@@ -183,7 +183,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationchest
   shader: unshaded
 
@@ -199,7 +199,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationlarm
   shader: unshaded
 
@@ -215,7 +215,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationlhand
   shader: unshaded
 
@@ -231,7 +231,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationrarm
   shader: unshaded
 
@@ -247,7 +247,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationrhand
   shader: unshaded
 
@@ -263,7 +263,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationlleg
   shader: unshaded
 
@@ -279,7 +279,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationlfoot
   shader: unshaded
 
@@ -295,7 +295,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationrleg
   shader: unshaded
 
@@ -311,7 +311,7 @@
         color: "#FFFFFF"
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfconstellationrfoot
   shader: unshaded
 
@@ -321,7 +321,7 @@
   markingCategory: Chest
   speciesRestriction: [ Dwarf ]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dwarfchesthair
 
 - type: marking
@@ -330,7 +330,7 @@
   markingCategory: Arms
   speciesRestriction: [ Dwarf ]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dwarfarmhair
 
 - type: marking
@@ -339,7 +339,7 @@
   markingCategory: Legs
   speciesRestriction: [ Dwarf ]
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dwarfleghair
 
 - type: marking
@@ -353,7 +353,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: dwarftattooshootingstar
   shader: unshaded
 
@@ -368,7 +368,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfmarkbear
   shader: unshaded
 
@@ -383,7 +383,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfmarkkangaroolhand
   shader: unshaded
 
@@ -398,7 +398,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfmarkkangaroo
   shader: unshaded
 
@@ -413,7 +413,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfmarkcobra
   shader: unshaded
 
@@ -428,7 +428,7 @@
         !type:SimpleColoring
         color: "#FFFFFF"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: dwarfmarkspider
   shader: unshaded
 
@@ -440,7 +440,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: spidermirror
   shader: unshaded
 
@@ -452,7 +452,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: spidergloweyes
   shader: unshaded
 
@@ -464,13 +464,13 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: spidereyesmulti1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: spidereyesmulti2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: spidereyesmulti3
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: spidereyesmulti4
 
 - type: marking
@@ -481,11 +481,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothtruebutterfly1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothtruebutterfly2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothtruebutterfly3
 
 - type: marking
@@ -496,11 +496,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: rhinobeetle1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: rhinobeetle2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: rhinobeetle3
 
 - type: marking
@@ -511,11 +511,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: glasswing1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: glasswing2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: glasswing3
 
 - type: marking
@@ -526,11 +526,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: bee1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: bee2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: bee3
 
 - type: marking
@@ -541,7 +541,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: mothglowantenna
   shader: unshaded
 
@@ -553,7 +553,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/animatedmarkings.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/animatedmarkings.rsi
     state: mothfirefly1
   shader: unshaded
 
@@ -565,7 +565,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothfirefly2
 
 - type: marking
@@ -576,11 +576,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: beetle1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: beetle2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: beetle3
 
 - type: marking
@@ -591,7 +591,7 @@
   forcedColoring: true
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothbeetlehorn1
 
 - type: marking
@@ -602,7 +602,7 @@
   forcedColoring: true
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothbeetlehorn2
 
 - type: marking
@@ -615,7 +615,7 @@
       type:
         !type:EyeColoring
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: mothbiggereyes
 
 - type: marking
@@ -626,9 +626,9 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: snoth1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: snoth2
 
 - type: marking
@@ -639,13 +639,13 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxcocktail1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxcocktail2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxcocktail3
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxcocktail4
 
 - type: marking
@@ -656,7 +656,7 @@
   forcedColoring: true
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailballed
 
 - type: marking
@@ -667,7 +667,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailstripes
 
 - type: marking
@@ -683,7 +683,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxarmprostheticl
 
 - type: marking
@@ -699,7 +699,7 @@
         !type:SimpleColoring
           color: "#E4E4E4"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxarmprostheticr
 
 - type: marking
@@ -710,7 +710,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxbeakcolor
 
 - type: marking
@@ -721,9 +721,9 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxbeaksplit1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxbeaksplit2
 
 - type: marking
@@ -734,7 +734,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxbeaktipped
 
 - type: marking
@@ -745,7 +745,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxchestplumage
 
 - type: marking
@@ -756,7 +756,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxfootspines
 
 - type: marking
@@ -767,7 +767,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxfootgradientl1
 
 - type: marking
@@ -778,7 +778,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxfootgradientr1
 
 - type: marking
@@ -789,7 +789,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxfootgradientl2
 
 - type: marking
@@ -800,7 +800,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxfootgradientr2
 
 - type: marking
@@ -811,11 +811,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientr1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientr2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientr3
 
 - type: marking
@@ -826,11 +826,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientl1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientl2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxhandgradientl3
 
 - type: marking
@@ -841,11 +841,11 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxheadgradient1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxheadgradient2
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxheadgradient3
 
 - type: marking
@@ -856,9 +856,9 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailbell1
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailbell2
 
 - type: marking
@@ -869,7 +869,7 @@
   forcedColoring: true
   followSkinColor: true
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailcolorable
 
 - type: marking
@@ -880,7 +880,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtaillantern
   shader: unshaded
 
@@ -892,7 +892,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailsinglestripe
 
 - type: marking
@@ -903,7 +903,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailsmallplume
 
 - type: marking
@@ -914,7 +914,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxtailspines
 
 - type: marking
@@ -925,7 +925,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxarmsstripesl
 
 - type: marking
@@ -936,7 +936,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxarmsstripesr
 
 - type: marking
@@ -947,7 +947,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxlegsstripesl
 
 - type: marking
@@ -958,7 +958,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxlegsstripesr
 
 - type: marking
@@ -969,7 +969,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxchains
 
 - type: marking
@@ -980,7 +980,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxsunandmoon
 
 - type: marking
@@ -991,7 +991,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxcheeks
 
 - type: marking
@@ -1002,7 +1002,7 @@
   forcedColoring: false
   followSkinColor: false
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: voxbelly
 
 - type: marking
@@ -1017,7 +1017,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligoheadl
 
 - type: marking
@@ -1032,7 +1032,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligoheadr
 
 - type: marking
@@ -1047,7 +1047,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligoheadjaw
 
 - type: marking
@@ -1062,7 +1062,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligochestf
 
 - type: marking
@@ -1077,7 +1077,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligochestspots
 
 - type: marking
@@ -1092,7 +1092,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligoarmr
 
 - type: marking
@@ -1107,7 +1107,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligoarml
 
 - type: marking
@@ -1122,7 +1122,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligohandr
 
 - type: marking
@@ -1137,7 +1137,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligohandl
 
 - type: marking
@@ -1152,7 +1152,7 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligolegr
 
 - type: marking
@@ -1167,5 +1167,5 @@
         !type:SimpleColoring
         color: "#FFE5D6"
   sprites:
-  - sprite: _DeadSpace/Soyuz/Pack06/Mobs/Customization/markingsbundle1.rsi
+  - sprite: _DeadSpace/_Soyuz/Packs/Pack06/Mobs/Customization/markingsbundle1.rsi
     state: vitiligolegl

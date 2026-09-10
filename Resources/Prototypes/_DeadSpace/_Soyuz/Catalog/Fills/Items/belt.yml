@@ -1,0 +1,18 @@
+- type: entity
+  parent: ClothingBeltCMO
+  id: ClothingBeltCMOFilled
+  suffix: Filled
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: MedicatedSuture
+          amount: 2
+        - id: RegenerativeMesh
+          amount: 2
+        - id: Bloodpack
+        - id: ChemistryBottleOmnizineCMO
+        - id: ChemistryBottleDermalineCMO
+        - id: ChemistryBottleBicaridineCMO
+        - id: ChemistryBottleDexalinPlusCMO

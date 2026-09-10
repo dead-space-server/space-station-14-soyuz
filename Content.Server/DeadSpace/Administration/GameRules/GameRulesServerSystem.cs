@@ -1,8 +1,11 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using System.Linq;
+using Content.Server.Administration.Managers;
 using Content.Server.GameTicking;
+using Content.Shared.Administration;
 using Content.Shared.DeadSpace.Administration.GameRules;
+using Content.Shared.GameTicking;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace.Administration.GameRules;
@@ -10,6 +13,7 @@ namespace Content.Server.DeadSpace.Administration.GameRules;
 public sealed class GameRulesServerSystem : EntitySystem
 {
     [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency] private readonly IAdminManager _adminManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     private readonly Dictionary<(TimeSpan, string), EntityUid> _ruleEntities = new();
@@ -18,22 +22,36 @@ public sealed class GameRulesServerSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => ClearRoundData());
         SubscribeNetworkEvent<RequestGameRulesListMessage>(OnRequestGameRulesList);
         SubscribeNetworkEvent<AddGameRuleRequestMessage>(OnAddGameRuleRequest);
     }
 
     private void OnAddGameRuleRequest(AddGameRuleRequestMessage msg, EntitySessionEventArgs args)
     {
+        if (!_adminManager.HasAdminFlag(args.SenderSession, AdminFlags.Admin) ||
+            !_adminManager.HasAdminFlag(args.SenderSession, AdminFlags.Fun))
+        {
+            Log.Warning($"Rejected unauthorized game rule request '{msg.RuleId}' from " +
+                        $"{args.SenderSession.Name} ({args.SenderSession.UserId}).");
+            return;
+        }
+
         if (!_prototypeManager.HasIndex<EntityPrototype>(msg.RuleId))
             return;
 
         var entity = _ticker.AddGameRule(msg.RuleId);
-        if (!string.IsNullOrEmpty(msg.AdminName))
-            _addedByAdmin[entity] = msg.AdminName;
+        if (!entity.IsValid())
+            return;
+
+        _addedByAdmin[entity] = args.SenderSession.Name;
     }
 
     private void OnRequestGameRulesList(RequestGameRulesListMessage msg, EntitySessionEventArgs args)
     {
+        if (!_adminManager.HasAdminFlag(args.SenderSession, AdminFlags.Admin))
+            return;
+
         var allRules = _ticker.AllPreviousGameRules;
         var entries = new List<RuleEntry>();
 
@@ -72,5 +90,11 @@ public sealed class GameRulesServerSystem : EntitySystem
             return;
 
         _addedByAdmin[uid.Value] = adminName;
+    }
+
+    private void ClearRoundData()
+    {
+        _ruleEntities.Clear();
+        _addedByAdmin.Clear();
     }
 }

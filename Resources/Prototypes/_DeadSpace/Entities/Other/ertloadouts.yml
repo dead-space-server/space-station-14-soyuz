@@ -243,6 +243,10 @@
   components:
   - type: Sprite
     state: ml
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,1,1
   - type: ThiefUndeterminedBackpack
     possibleSets:
     - TruncheonsecSet
@@ -528,6 +532,30 @@
     - CQCBlueShieldSet
     - TruncheonsecBlueShieldSet
     - PistolBlueShieldUpgradeKitSet
+  - type: ActivatableUI
+    key: enum.ThiefBackpackUIKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.ThiefBackpackUIKey.Key:
+        type: ThiefBackpackBoundUserInterface
+
+## Green Beret
+- type: entity
+  id: ERTloadoutGreenBeretPrimary
+  name: кейс неопределённости
+  description: Прочный военный кейс для оружия. Принадлежит офицеру "Зелёный Берет".
+  suffix: ОЗБ, Основное
+  parent: BaseERTloadoutPrimary
+  components:
+  - type: Sprite
+    state: blueshield
+  - type: ThiefUndeterminedBackpack
+    possibleSets:
+    - ScarLBlueShieldSet
+    - MP5SDBlueShieldSet
+    - AresSWCBlueShieldSet
+    - CQCBlueShieldSet
+    - TruncheonsecBlueShieldSet
   - type: ActivatableUI
     key: enum.ThiefBackpackUIKey.Key
   - type: UserInterface
@@ -1008,6 +1036,10 @@
     state: ssd
   content:
   - WeaponPistolBlueShieldUpgradeKit
+  - WeaponSubMachineGunDrozd
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
+  - MagazinePistolSubMachineGun
 
 ## Secondary
 ### Огнестрельное
@@ -1037,7 +1069,7 @@
   - MagazinePistolHighCapacity
   - MagazinePistolHighCapacity
   - MagazinePistolHighCapacity
-  - BulletShieldBlueShield
+  - BulletShieldBlueShield # DS14-Soyuz
 
 - type: thiefBackpackSet
   id: BerettaM92Set

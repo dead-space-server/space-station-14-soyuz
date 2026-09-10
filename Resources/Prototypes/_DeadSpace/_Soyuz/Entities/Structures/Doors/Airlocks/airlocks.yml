@@ -1,0 +1,47 @@
+- type: entity
+  parent: AirlockCentralCommand 
+  id: AirlockNKVB
+  name: шлюз
+  description: Он открывается, он закрывается и он может вас раздавить.
+  suffix: НКВБ
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Doors/Airlocks/NKVB.rsi
+
+- type: entity
+  parent: AirlockCentralCommandGlass 
+  id: AirlockNKVBGlass
+  name: стеклянный шлюз
+  description: Он открывается, он закрывается и он может вас раздавить.
+  suffix: НКВБ
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Doors/Airlocks/NKVB_glass.rsi
+
+
+- type: entity
+  parent: AirlockNKVB 
+  id: AirlockNKVBLocked
+  suffix: НКВБ, Закрыт
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsNKVB ]
+
+- type: entity
+  parent: AirlockNKVBGlass
+  id: AirlockNKVBGlassLocked
+  suffix: НКВБ, Закрыт
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsNKVB ]
+
+- type: entity
+  parent: AirlockNKVB
+  id: AirlockNKVBArmoryLocked
+  suffix: НКВБ, Оружейная, Закрыт
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsArmory ]

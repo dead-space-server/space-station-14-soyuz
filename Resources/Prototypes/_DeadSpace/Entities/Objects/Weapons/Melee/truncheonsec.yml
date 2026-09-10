@@ -1,9 +1,17 @@
 - type: entity
-  name: боевое мачете СГМ
+  name: боевое мачете СБ
   parent: Stunbaton
   id: Truncheonsec
   description: Электрошоковое мачете для обездвиживания или убийства людей. Имеет нелетальный и летальный режимы. Является улучшением шоковой дубинки для действительно трудных ситуаций.
   components:
+  - type: Parry
+    parryableWeapons:
+      tags:
+      - ParryStandardWeapon
+      - ParryEnergySword
+  - type: Tag
+    tags:
+    - ParryStandardWeapon
   - type: Sprite
     sprite: _DeadSpace/Objects/Weapons/Melee/truncheon_sec.rsi
     layers:
@@ -55,6 +63,14 @@
   id: TruncheonBlueShield
   description: Электрошоковое мачете для обездвиживания или убийства людей. Имеет нелетальный и летальный режимы. Является улучшением шоковой дубинки для действительно трудных ситуаций.
   components:
+  - type: Parry
+    parryableWeapons:
+      tags:
+      - ParryStandardWeapon
+      - ParryEnergySword
+  - type: Tag
+    tags:
+    - ParryStandardWeapon
   - type: Sprite
     sprite: _DeadSpace/Objects/Weapons/Melee/truncheon_sec.rsi
     layers:
@@ -69,17 +85,29 @@
   - type: SwitchableWeapon
     damageOpen:
       types:
-        Blunt: 0
+        Blunt: 3 # DS14-Soyuz
     damageFolded:
       types:
           Slash: 10
           Heat: 15
     staminaDamageFolded: 0
     staminaDamageOpen: 40
+  - type: ItemToggleMeleeWeapon
+    activatedDamage:
+      types:
+        Blunt: 0
+    deactivatedDamage:
+      types:
+        Slash: 10
+        Heat: 15
+    activatedSoundOnHit:
+      path: /Audio/Weapons/bladeslice.ogg
+    deactivatedSoundOnHit:
+      path: /Audio/Weapons/bladeslice.ogg
   - type: StaminaDamageOnHit
     damage: 0
+    sound: /Audio/Weapons/egloves.ogg # DS14-Soyuz
   - type: ItemToggle
-    predictable: false
     soundActivate:
       collection: sparks
       params:
@@ -91,12 +119,17 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 3
+        Slash: 10
+        Heat: 15
     wideAnimationRotation: -135
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
   - type: Item
-    size: Normal
+    # DS14-Soyuz start
+    size: Small
+    shape:
+    - 0,0,0,1 
+    # # DS14-Soyuz end
     sprite: _DeadSpace/Objects/Weapons/Melee/truncheon_sec.rsi
   - type: DisarmMalus
     malus: 0
@@ -104,6 +137,7 @@
   - type: Sharp
   - type: Reflect
     reflectProb: .15
+    reflectProbNotToggled: .10
     spread: 90
   - type: GenericVisualizer
     visuals:
@@ -120,3 +154,4 @@
   - type: EmitSoundOnLand
     sound:
       path: /Audio/_DeadSpace/Items/Handing/batton/stun_baton_drop.ogg
+  - type: ShieldBashTool

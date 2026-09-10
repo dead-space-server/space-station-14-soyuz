@@ -1,6 +1,6 @@
 ﻿- type: gameMap
   id: Cluster
-  mapName: 'Cluster'
+  mapName: 'Кластер' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/cluster.yml
   minPlayers: 5
   maxPlayers: 35
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Cluster {1}'
+          mapNameTemplate: '{0} Кластер {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

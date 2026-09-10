@@ -46,6 +46,7 @@ using Robust.Server.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Server.DeadSpace.Prison;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -66,6 +67,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly PrisonSystem _prison = default!;
     [Dependency] private readonly RoleSystem _role = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
@@ -319,6 +321,9 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        if (GameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
 
         // Defeat ends the rule immediately, so queued cleanup must continue independently of ActiveTick.
         if (_pendingCleanupRule is { } rule &&
@@ -1420,9 +1425,16 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         if (!hasMind && !alwaysConvertible)
             return false;
 
+        if (_prison.IsEntityPrisoner(targetUid) ||
+            hasMind && mind != null && _prison.IsMindPrisoner(mindId, mind))
+        {
+            return false;
+        }
+
         if (HasComp<RevolutionaryComponent>(targetUid) ||
             HasComp<HeadRevolutionaryComponent>(targetUid) ||
             HasComp<MindShieldComponent>(targetUid) ||
+            HasComp<RevolutionaryImmuneComponent>(targetUid) ||
             (!HasComp<HumanoidAppearanceComponent>(targetUid) && !alwaysConvertible) ||
             !_mobState.IsAlive(targetUid) ||
             HasComp<ZombieComponent>(targetUid))

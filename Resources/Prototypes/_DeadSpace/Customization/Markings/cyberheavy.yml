@@ -2,7 +2,6 @@
   id: AugmentsCyberheavyArmRight
   bodyPart: RArm
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: r_arm
@@ -11,7 +10,6 @@
   id: AugmentsCyberheavyHandRight
   bodyPart: RHand
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: r_hand
@@ -20,7 +18,6 @@
   id: AugmentsCyberheavyArmLeft
   bodyPart: LArm
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: l_arm
@@ -29,7 +26,6 @@
   id: AugmentsCyberheavyHandLeft
   bodyPart: LHand
   markingCategory: Arms
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: l_hand
@@ -38,7 +34,6 @@
   id: AugmentsCyberheavyTorso
   bodyPart: Chest
   markingCategory: Chest
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: torso
@@ -47,7 +42,6 @@
   id: AugmentsCyberheavyFootRight
   bodyPart: RFoot
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: r_foot
@@ -56,7 +50,6 @@
   id: AugmentsCyberheavyFootLeft
   bodyPart: LFoot
   markingCategory: Legs
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: l_foot
@@ -65,7 +58,6 @@
   id: AugmentsCyberheavyHead
   bodyPart: Head
   markingCategory: Head
-  speciesRestriction: [IPC] # DS-14 Soyuz
   sprites:
   - sprite: _DeadSpace/Mobs/Customization/augments/cyberbody.rsi
     state: head

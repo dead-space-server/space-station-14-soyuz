@@ -1,0 +1,5 @@
+ent-ReflectModuleSecurityAdvanced = модуль СГМ - отражение пуль (Продвинутый РИГ)
+ent-StorageModuleSecurity = модуль СГМ - малый подсумок (Обычный РИГ)
+ent-SpeedModifierModuleSecurity = модуль СГМ - облегчение скафандра (Обычный РИГ)
+ent-SpeedModifierModuleSecurityAdvanced = модуль СГМ - облегчение скафандра (Продвинутый РИГ)
+ent-PiercingResistanceModuleSecurityAdvanced = модуль СГМ - продвинутая защита от пуль (Продвинутый РИГ)

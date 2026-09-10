@@ -4,7 +4,7 @@
   markingCategory: Arms
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_roboarm
 
 - type: marking
@@ -13,7 +13,7 @@
   markingCategory: Arms
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_robohand
 
 - type: marking
@@ -22,7 +22,7 @@
   markingCategory: Arms
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_roboarm
 
 - type: marking
@@ -31,7 +31,7 @@
   markingCategory: Arms
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_robohand
 
 - type: marking
@@ -40,7 +40,7 @@
   markingCategory: Chest
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: robotorso_m
 
 - type: marking
@@ -49,7 +49,7 @@
   markingCategory: Legs
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_roboleg
 
 - type: marking
@@ -58,7 +58,7 @@
   markingCategory: Legs
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: r_robofoot
 
 - type: marking
@@ -67,7 +67,7 @@
   markingCategory: Legs
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_roboleg
 
 - type: marking
@@ -76,5 +76,5 @@
   markingCategory: Legs
   speciesRestriction: [IPC]
   sprites:
-    - sprite: _DeadSpace/Soyuz/Pack01/Mobs/Customization/augments/robotbody1.rsi
+    - sprite: _DeadSpace/_Soyuz/Packs/Pack01/Mobs/Customization/augments/robotbody1.rsi
       state: l_robofoot

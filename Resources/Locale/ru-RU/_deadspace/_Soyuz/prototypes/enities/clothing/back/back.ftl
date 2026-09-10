@@ -5,5 +5,5 @@ ent-ClothingBackpackCaptainBlack = чёрный рюкзак капитана
 
 ent-ClothingBackpackSatchelCaptainWhite = белая сумка капитана
     .desc = Это особая белая сумка, изготовленная исключительно для офицеров СССП. В ней же не будет оружия в зелёный код?...
-ent-ClothingBackpackSatchelCaptainBlack = белая сумка капитана
+ent-ClothingBackpackSatchelCaptainBlack = чёрная сумка капитана
     .desc = Это особая чёрная сумка, изготовленная исключительно для офицеров СССП. В ней же не будет оружия в зелёный код?...

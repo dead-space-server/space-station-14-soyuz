@@ -1,0 +1,63 @@
+- type: entity
+  id: ChemistryBottleDexalinPlusCMO
+  name: бутылка
+  suffix: Дексалин плюс 
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    currentLabel: Дексалин плюс
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: DexalinPlus
+          Quantity: 30
+
+- type: entity
+  id: ChemistryBottleBicaridineCMO
+  name: бутылка
+  suffix: Бикаридин
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    currentLabel: Бикаридин
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Bicaridine
+          Quantity: 30
+
+- type: entity
+  id: ChemistryBottleDermalineCMO
+  name: бутылка
+  suffix: Дермалин
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    currentLabel: Дермалин
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Dermaline
+          Quantity: 30
+
+- type: entity
+  id: ChemistryBottleOmnizineCMO
+  name: бутылка
+  suffix: Омнизин
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    currentLabel: Омнизин
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Omnizine
+          Quantity: 30

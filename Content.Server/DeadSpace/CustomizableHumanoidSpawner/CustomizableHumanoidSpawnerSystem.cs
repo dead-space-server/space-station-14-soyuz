@@ -152,7 +152,6 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
 
         var newEntity = _spawning.SpawnPlayerMob(coords.Value, comp.JobPrototype, profile, null);
         _trait.ApplyTraits(newEntity, comp.JobPrototype, profile);
-
         // DS14-Soyuz start
         if (_prototypeManager.TryIndex(comp.JobPrototype, out var jobProto) && jobProto.Ranks != null && jobProto.Ranks.Count > 0)
         {

@@ -5,7 +5,7 @@
   description: A disk for the R&D server containing 1000 points.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Research/researchdisk.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk1.rsi #DS14-soyuz
     state: icon
   - type: ResearchDisk
   - type: GuideHelp
@@ -29,6 +29,9 @@
   name: research point disk (5000)
   description: A disk for the R&D server containing 5000 points.
   components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk5.rsi #DS14-soyuz
+    state: icon
   - type: ResearchDisk
     points: 5000
 
@@ -38,6 +41,9 @@
   name: research point disk (10000)
   description: A disk for the R&D server containing 10000 points.
   components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk10.rsi #DS14-soyuz
+    state: icon
   - type: ResearchDisk
     points: 10000
 

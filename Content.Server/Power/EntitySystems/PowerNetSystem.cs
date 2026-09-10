@@ -39,6 +39,7 @@ namespace Content.Server.Power.EntitySystems
         private readonly HashSet<EntityUid> _processedApcReceivers = new();
         private readonly List<EntityUid> _changedBatteryStorage = new();
         private readonly HashSet<EntityUid> _changedBatteryStorageSet = new();
+        private readonly HashSet<PowerState.Load> _possiblyDisconnectedLoads = new();
         // DS14-end
 
         private EntityQuery<ApcPowerReceiverBatteryComponent> _apcBatteryQuery;
@@ -270,7 +271,13 @@ namespace Content.Server.Power.EntitySystems
                 CountBatteries = _powerState.Batteries.Count,
                 CountLoads = _powerState.Loads.Count,
                 CountNetworks = _powerState.Networks.Count,
-                CountSupplies = _powerState.Supplies.Count
+                CountSupplies = _powerState.Supplies.Count,
+                // DS14-start
+                CapacityBatteries = _powerState.Batteries.Capacity,
+                CapacityLoads = _powerState.Loads.Capacity,
+                CapacityNetworks = _powerState.Networks.Capacity,
+                CapacitySupplies = _powerState.Supplies.Capacity
+                // DS14-end
             };
         }
 
@@ -342,6 +349,7 @@ namespace Content.Server.Power.EntitySystems
             _solver.Tick(frameTime, _powerState, _parMan);
 
             // DS14-start
+            FinalizeDisconnectedLoads();
             CollectChangedBatteryStorage();
             RaiseLocalEvent(new NetworkBatteryPostSync(_changedBatteryStorage));
             // DS14-end
@@ -504,6 +512,8 @@ namespace Content.Server.Power.EntitySystems
             lastRecv = newRecv;
             var msg = new PowerConsumerReceivedChanged(newRecv, consumer.DrawRate);
             RaiseLocalEvent(uid, ref msg);
+
+            _appearance.SetData(uid, PowerConsumerVisuals.Consuming, newRecv > 0);
         }
 
         private void UpdateNetworkBattery()
@@ -567,6 +577,28 @@ namespace Content.Server.Power.EntitySystems
         {
             _forceApcReceiverUpdate.Add(uid); // DS14
         }
+
+        // DS14-start
+        /// <summary>
+        /// Defers clearing a load until all node-group reconnects and the power solve for this tick are complete.
+        /// A topology rebuild may detach and reattach a still-powered load in the same tick.
+        /// </summary>
+        public void QueuePossiblyDisconnectedLoad(PowerState.Load load)
+        {
+            _possiblyDisconnectedLoads.Add(load);
+        }
+
+        private void FinalizeDisconnectedLoads()
+        {
+            foreach (var load in _possiblyDisconnectedLoads)
+            {
+                if (load.LinkedNetwork == default)
+                    load.SetReceivingPower(0f);
+            }
+
+            _possiblyDisconnectedLoads.Clear();
+        }
+        // DS14-end
 
         private void AllocLoad(PowerState.Load load)
         {
@@ -737,6 +769,12 @@ namespace Content.Server.Power.EntitySystems
         public int CountLoads;
         public int CountSupplies;
         public int CountBatteries;
+        // DS14-start
+        public int CapacityNetworks;
+        public int CapacityLoads;
+        public int CapacitySupplies;
+        public int CapacityBatteries;
+        // DS14-end
     }
 
     public struct NetworkPowerStatistics

@@ -17,7 +17,6 @@
       department: Security
       time: 40h
 #DS14-soyuz-end
-  weight: 5
   startingGear: WardenGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-hos
@@ -65,7 +64,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetAltSecurityOfficer # DS14
     gloves: ClothingHandsGlovesCombat # DS14-Soyuz
   storage:
     back:

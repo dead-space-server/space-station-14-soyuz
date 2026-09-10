@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
+using Content.Server.DeadSpace.Prison;
 using Content.Server.EUI;
 using Content.Server.GameTicking.Events;
 using Content.Server.Ghost.Roles.Components;
@@ -56,6 +57,7 @@ public sealed class GhostRoleSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly PopupSystem _popupSystem = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly PrisonSystem _prison = default!;
 
     private uint _nextRoleIdentifier;
     private bool _needsUpdateGhostRoleCount = true;
@@ -463,6 +465,12 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <param name="identifier">ID of the ghost role.</param>
     public void Request(ICommonSession player, uint identifier)
     {
+        if (_prison.IsUserPrisoner(player.UserId))
+        {
+            _popupSystem.PopupCursor(Loc.GetString("prison-ghost-role-blocked"), player);
+            return;
+        }
+
         if (!_ghostRoles.TryGetValue(identifier, out var roleEnt))
             return;
 
@@ -571,7 +579,16 @@ public sealed class GhostRoleSystem : EntitySystem
     /// <returns>True if takeover was successful, otherwise false.</returns>
     public bool Takeover(ICommonSession player, uint identifier)
     {
-        if (!_ghostRoles.TryGetValue(identifier, out var role))
+        // DS14-start: enforce prison restrictions for raffles and direct server-side callers too.
+        if (_prison.IsUserPrisoner(player.UserId))
+        {
+            LeaveAllRaffles(player);
+            _popupSystem.PopupCursor(Loc.GetString("prison-ghost-role-blocked"), player);
+            return false;
+        }
+        // DS14-end
+
+        if (!_ghostRoles.TryGetValue(identifier, out var role) || !IsRoleOnValidMap(role.Owner))
             return false;
 
         var ev = new TakeGhostRoleEvent(player);
@@ -855,7 +872,9 @@ public sealed class GhostRoleSystem : EntitySystem
         if (!TryComp(uid, out TransformComponent? xform))
             return false;
 
-        return xform.MapUid != null && xform.MapID != MapId.Nullspace;
+        return xform.MapUid != null &&
+               xform.MapID != MapId.Nullspace &&
+               !_prison.IsPrisonMap(xform.MapID);
     }
     // DS14-end
 

@@ -4,8 +4,6 @@
   id: BaseMobSlimePerson
   abstract: true
   components:
-  - type: Hunger
-  - type: Thirst
   - type: Icon
     sprite: Mobs/Species/Slime/parts.rsi
     state: full
@@ -58,6 +56,7 @@
     damageContainer: Biological
     damageModifierSet: Slime
   - type: PassiveDamage # Around 8 damage a minute healed
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     damageCap: 65
@@ -158,9 +157,6 @@
       enum.MagicMirrorUiKey.Key:
         toggleAction: HairstyleAction
   # DS14-end
-  # - type: FootPrints # Backmen-footsteps
-    # leftBarePrint: "footprint-left-bare-slime"
-    # rightBarePrint: "footprint-right-bare-slime"
 
 
 - type: entity

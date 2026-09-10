@@ -1,0 +1,18 @@
+- type: entity
+  id: BaseGeneralStaffCargo
+  abstract: true
+  components:
+  - type: StationBankAccount
+    primaryAccount: GeneralStaff
+  - type: StationCargoOrderDatabase
+    orders:
+      GeneralStaff: [ ]
+  - type: StationCargoBountyDatabase
+    IsGeneralStaff: true
+
+#- type: entity
+#  id: BaseGeneralStaffAlertLevels
+#  abstract: true
+#  components:
+#    - type: AlertLevel
+#      alertLevelPrototype: generalStaffAlerts

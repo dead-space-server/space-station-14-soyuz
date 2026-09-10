@@ -80,7 +80,7 @@
       - Heat
       - Shock
     locPrefix: silicon
-  - type: StatusEffects
+  - type: StatusEffects # DS14 - PressureImmunity is provided by the new status effect system.
     allowed:
     - Stun
     - KnockedDown
@@ -89,36 +89,12 @@
     - SeeingRainbows
     - Electrocution
     - SlurredSpeech
-    - PressureImmunity
     - Muted
     - TemporaryBlindness
     - Pacified
   - type: LightningTarget
     priority: 2
     lightningExplode: false
-# DS14-Soyuz-start
-  - type: HandheldLight
-    toggleOnInteract: false
-    wattage: 0.2
-    blinkingBehaviourId: blinking
-    radiatingBehaviourId: radiating
-  - type: LightBehaviour
-    behaviours:
-    - !type:FadeBehaviour
-      id: radiating
-      maxDuration: 2.0
-      startValue: 3.0
-      endValue: 2.0
-      isLooped: true
-      reverseWhenFinished: true
-    - !type:PulseBehaviour
-      id: blinking
-      interpolate: Nearest
-      maxDuration: 1.0
-      startValue: 0.1
-      endValue: 2.0
-      isLooped: true
-# DS14-Soyuz-end
   - type: UnpoweredFlashlight
   - type: PointLight
     enabled: false
@@ -153,4 +129,26 @@
     damage:
       types:
         Heat: 1.2
-  # - type: FootPrints
+# DS14-Soyuz-start
+  - type: HandheldLight
+    toggleOnInteract: false
+    wattage: 0.2
+    blinkingBehaviourId: blinking
+    radiatingBehaviourId: radiating
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      id: radiating
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      startValue: 0.1
+      endValue: 2.0
+      isLooped: true
+# DS14-Soyuz-end

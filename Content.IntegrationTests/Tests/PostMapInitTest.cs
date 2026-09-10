@@ -57,15 +57,16 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist // Some maps replaced to /_Soyuz/ directory for DS14-Soyuz 
+            // DS14-start: Add our custom maps to whitelist // Replaced to /_Soyuz/ directory for DS14-Soyuz 
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            {"/Maps/_Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
             // {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
-            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]}
-            // DS14-end
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml", ["BoxFolderCentCom"]}
+            // DS14-end // DS14-Soyuz end
         };
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/_Soyuz/centcomm.yml", // DS14-Soyuz path
+            "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/_Soyuz/ds_taipan.yml", // Taipan // DS14-Soyuz path
@@ -101,6 +103,7 @@ namespace Content.IntegrationTests.Tests
             "MeteorArena",
             "dm01-entryway",
             "DSTaipan",
+            "DsTram2",
             "Amber",
             // "Aspid", // remap in progress
             "Bagel",
@@ -139,6 +142,7 @@ namespace Content.IntegrationTests.Tests
             "Snowball",
             "Serpentcrest",
             "Train",
+            "GeneralStaff",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

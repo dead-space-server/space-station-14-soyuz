@@ -10,9 +10,9 @@
         - id: MedicatedSuture
           amount: 2
         - id: RegenerativeMesh
+          amount: 2
         - id: Bloodpack
-        - id: OmnizineVial
-        - id: DermalineVial
-        - id: DexalinPlusVial
-        - id: BicaridineVial
-        - id: DefibrillatorCompact
+        - id: ChemistryBottleOmnizineCMO
+        - id: ChemistryBottleDermalineCMO
+        - id: ChemistryBottleBicaridineCMO
+        - id: ChemistryBottleDexalinPlusCMO

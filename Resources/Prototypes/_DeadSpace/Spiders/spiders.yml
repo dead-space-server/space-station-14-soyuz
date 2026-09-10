@@ -23,14 +23,10 @@
   - type: Body
     prototype: Bloodsucker
     requiredLegs: 0
-  - type: Hunger
-    thresholds: # only animals and rats are derived from this prototype so let's override it here and in rats' proto
-      Overfed: 100
-      Okay: 50
-      Peckish: 25
-      Starving: 10
-      Dead: 0
-    baseDecayRate: 0 # it is okay for animals to eat and drink less than humans, but more frequently
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: SpiderTerrorHunger
   - type: SpiderTerror
   - type: Butcherable
     spawned:
@@ -126,6 +122,7 @@
   - type: Bloodstream
     bloodlossThreshold: 0.4
   - type: PassiveDamage
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     - Critical
@@ -503,6 +500,20 @@
       - MobSpiderTerrorDrone
   - type: NeededBloodForEvolution # Пример
     defaultCost: 100 # Стандартная цена на не заданный результат
+  - type: Devourer
+    devourAction: ActionDevourSpiderTerror
+    foodPreferenceWhitelist:
+      components:
+      - Construction
+    stomachStorageWhitelist:
+      components:
+      - MobState
+    chemical: Omnizine
+    healRate: 1.0 # Чуть-чуть
+    whitelist:
+      components:
+      - Door
+      - Wall
 
 - type: entity
   name: паук дрон
@@ -596,6 +607,17 @@
     cycleable: false
     capacity: 1000
   - type: GhostTakeoverAvailable
+  - type: Devourer
+    devourAction: ActionDevourSpiderTerror
+    foodPreferenceWhitelist:
+      components:
+      - Construction
+    chemical: Omnizine
+    healRate: 1.0 # Чуть-чуть
+    whitelist:
+      components:
+      - Door
+      - Wall
 
 - type: entity
   name: паук уничтожитель
@@ -728,7 +750,7 @@
   description: Выглядит очень опасно.
   components:
   - type: Sprite
-    scale: 1.4, 1.4
+    scale: 1, 1
     drawdepth: Mobs
     layers:
     - map: ["enum.DamageStateVisualLayers.Base", "movement"]
@@ -797,6 +819,7 @@
   - type: NeededBloodForAutoInject
     cost: 20 # Цена крови за действие
   - type: PassiveDamage
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     - Critical
@@ -812,7 +835,7 @@
   name: король пауков
   parent: BaseMobSpiderTerror
   id: MobSpiderTerrorKing
-  description: Это не может быть паук! Это монстр!
+  description: Выглядит величественно.
   components:
   - type: SpawnAgainst
     duration: 10
@@ -835,7 +858,7 @@
       WallWebSpiderTerror: 5
       AirlockWebTerror: 5
   - type: Sprite
-    scale: 2, 2
+    scale: 1.5, 1.5
     drawdepth: Mobs
     layers:
     - map: ["enum.DamageStateVisualLayers.Base", "movement"]
@@ -902,7 +925,7 @@
   description: Выглядит величественно.
   components:
   - type: Sprite
-    scale: 1.4, 1.4
+    scale: 1.1, 1.1
     drawdepth: Mobs
     layers:
     - map: ["enum.DamageStateVisualLayers.Base", "movement"]

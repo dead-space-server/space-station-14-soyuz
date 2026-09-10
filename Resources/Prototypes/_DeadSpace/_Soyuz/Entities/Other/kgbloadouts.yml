@@ -9,7 +9,6 @@
     state: kgb
   - type: ThiefUndeterminedBackpack
     possibleSets:
-    - DrozdSetOKGB
     - SaigaSet
     - ScarLBlueShieldSet
     - MP5SDBlueShieldSet

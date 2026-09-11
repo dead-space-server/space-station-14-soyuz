@@ -1,0 +1,21 @@
+- type: entity
+  parent: FoodBowlBase
+  id: FoodNutsWithCondensedMilk
+  name: орешки со сгущёнкой
+  description: Стоит попробовать лишь раз и больше от этой жизни вам ничего не потребуется.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Food/oreshki.rsi
+    layers:
+      - state: oreshki
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 1
+        - ReagentId: BoiledCondensedMilk
+          Quantity: 10

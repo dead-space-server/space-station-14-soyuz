@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions; // DS14-Soyuz
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -16,12 +17,12 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Ghost;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Humanoid; // DS14-Soyuz
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Players;
 using Content.Shared.Players.RateLimiting;
 using Content.Shared.Radio;
 using Content.Shared.Station.Components;
-using Content.Shared.Whitelist;
 using Robust.Server.Player;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
@@ -37,10 +38,10 @@ using Content.Shared.Corvax.TTS;
 using Content.Shared.Dataset;
 using Content.DeadSpace.Interfaces.Server;
 using Content.Shared.DeadSpace.Languages.Components;
+using Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;
+using Content.Shared.DeadSpace.Heartbeat;
 using Content.Server.DeadSpace.Languages;
-using Robust.Server.Console;
-using Content.Shared.DeadSpace.Languages.Prototypes;
-using Lidgren.Network;
+using Content.Server.Audio;
 
 namespace Content.Server.Chat.Systems;
 
@@ -63,11 +64,16 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    //[Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-Soyuz
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
+    [Dependency] private readonly ServerGlobalSoundSystem _sound = default!; // DS14
     private IServerChatFilter? _chatFilter; // DS14-chat-filter
+
+    // DS14: last words must remain visible to their speaker despite critical hearing suppression.
+    private readonly HashSet<EntityUid> _criticalHearingSelfBypass = new();
 
     private bool _loocEnabled = true;
     private bool _deadLoocEnabled;
@@ -254,6 +260,33 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
     }
 
+    // DS14-start
+    /// <summary>
+    /// Sends the critical last-words whisper while only bypassing hearing suppression for the speaker themself.
+    /// Other critical listeners still hear the normal suppressed message.
+    /// </summary>
+    public void SendCriticalLastWords(EntityUid source, string message)
+    {
+        var added = _criticalHearingSelfBypass.Add(source);
+
+        try
+        {
+            TrySendInGameICMessage(
+                source,
+                message,
+                InGameICChatType.Whisper,
+                ChatTransmitRange.Normal,
+                checkRadioPrefix: false,
+                ignoreActionBlocker: true);
+        }
+        finally
+        {
+            if (added)
+                _criticalHearingSelfBypass.Remove(source);
+        }
+    }
+    // DS14-end
+
     /// <inheritdoc />
     public override void TrySendInGameOOCMessage(
         EntityUid source,
@@ -369,7 +402,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 if (sender == Loc.GetString("chat-manager-sender-announcement")) announcementSound = CentComAnnouncementSound; // Corvax-Announcements: Support custom alert sound from admin panel
             }
 
-            _audio.PlayGlobal(announcementSound ?? DefaultAnnouncementSound, Filter.Broadcast(), true, announcementSound?.Params ?? AudioParams.Default.WithVolume(-2f));
+            _sound.PlayAnnonceGlobal(Filter.Broadcast(), announcementSound ?? DefaultAnnouncementSound, announcementSound?.Params ?? AudioParams.Default.WithVolume(-2f), true); //DS14
 
             if (author != null && TryComp<TTSComponent>(author.Value, out var tts) && tts.VoicePrototypeId != null) // For comms console announcements
             {
@@ -391,6 +424,73 @@ public sealed partial class ChatSystem : SharedChatSystem
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Global station announcement from {sender}: {message}");
     }
 
+    // DS14-announce-start
+    public void DispatchAdminFilteredAnnouncement(
+        Filter filter,
+        string message,
+        string? sender = null,
+        bool playSound = true,
+        SoundSpecifier? announcementSound = null,
+        Color? colorOverride = null,
+        string originalMessage = "",
+        string? voice = null,
+        bool usePresetTTS = false,
+        string? languageId = null)
+    {
+        languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
+
+        sender ??= Loc.GetString("chat-manager-sender-announcement");
+
+        var lexiconMessage = _language.TransformWord(message, languageId);
+        var langName = _language.GetLangName(languageId);
+        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message-lang",
+            ("sender", sender),
+            ("language", langName),
+            ("message", FormattedMessage.EscapeText(message)));
+
+        if (_chatFilter != null && _chatFilter.NotAllowedMessage(wrappedMessage))
+            return;
+
+        var understanding = _language.GetUnderstanding(languageId);
+        var lexiconWrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message",
+            ("sender", sender),
+            ("message", FormattedMessage.EscapeText(lexiconMessage)));
+
+        foreach (var session in filter.Recipients)
+        {
+            if (!understanding.Contains(session))
+                _chatManager.ChatMessageToOne(ChatChannel.Radio, lexiconMessage, lexiconWrappedMessage, default, false, session.Channel, colorOverride, true);
+            else
+                _chatManager.ChatMessageToOne(ChatChannel.Radio, message, wrappedMessage, default, false, session.Channel, colorOverride, true);
+        }
+
+        if (playSound)
+        {
+            if (announcementSound == null)
+            {
+                if (sender == Loc.GetString("chat-manager-sender-announcement"))
+                    announcementSound = CentComAnnouncementSound;
+            }
+
+            _sound.PlayAnnonceGlobal(filter, announcementSound ?? DefaultAnnouncementSound, announcementSound?.Params ?? AudioParams.Default.WithVolume(-2f), true);//DS14
+
+            if (usePresetTTS && sender == Loc.GetString("chat-manager-sender-announcement"))
+            {
+                voice = _centcommTTS;
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
+                RaiseLocalEvent(ev);
+            }
+            else if (voice != null)
+            {
+                var ev = new AnnounceSpokeEvent(voice, originalMessage, lexiconMessage, languageId, filter, null);
+                RaiseLocalEvent(ev);
+            }
+        }
+
+        _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Filtered station announcement from {sender}: {message}");
+    }
+    // DS14-announce-end
+
     /// <inheritdoc />
     public override void DispatchFilteredAnnouncement(
         Filter filter,
@@ -407,7 +507,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         _chatManager.ChatMessageToManyFiltered(filter, ChatChannel.Radio, message, wrappedMessage, source ?? default, false, true, colorOverride);
         if (playSound)
         {
-            _audio.PlayGlobal(announcementSound ?? DefaultAnnouncementSound, filter, true, AudioParams.Default.WithVolume(-2f));
+            _sound.PlayAnnonceGlobal(filter, announcementSound ?? DefaultAnnouncementSound, AudioParams.Default.WithVolume(-2f), true);//DS14
         }
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement from {sender}: {message}");
     }
@@ -421,7 +521,11 @@ public sealed partial class ChatSystem : SharedChatSystem
         SoundSpecifier? announcementSound = null,
         Color? colorOverride = null,
         string? voice = null,
-        string? languageId = null) // DS14
+        // DS14-start
+        string? languageId = null,
+        Filter? recipientFilter = null,
+        bool usePresetTTS = false)
+        // DS14-end
     {
         languageId = string.IsNullOrEmpty(languageId) ? LanguageSystem.DefaultLanguageId : languageId;
 
@@ -444,7 +548,7 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (!TryComp<StationDataComponent>(station, out var stationDataComp)) return;
 
-        var filterStation = _stationSystem.GetInStation(stationDataComp);
+        var filterStation = recipientFilter ?? _stationSystem.GetInStation(stationDataComp); // DS14
         var filterUnderstanding = Filter.Empty();
         var filterNotUnderstanding = Filter.Empty();
 
@@ -463,15 +567,22 @@ public sealed partial class ChatSystem : SharedChatSystem
         _chatManager.ChatMessageToManyFiltered(filterNotUnderstanding, ChatChannel.Radio, lexiconMessage, lexiconWrappedMessage, source, false, true, colorOverride);
 
         // плохая реализация, лучше переписать AnnounceSpoke
-        if (!string.IsNullOrEmpty(voice))
+        // DS14-start
+        if (usePresetTTS)
+        {
+            var ev = new AnnounceSpokeEvent(_centcommTTS, message, lexiconMessage, languageId, filterStation, null);
+            RaiseLocalEvent(ev);
+        }
+        else if (!string.IsNullOrEmpty(voice))
         {
             var ev = new AnnounceSpokeEvent(voice, message, lexiconMessage, languageId, filterStation, null);
             RaiseLocalEvent(ev);
         }
+        // DS14-end
 
         if (playDefaultSound)
         {
-            _audio.PlayGlobal(announcementSound ?? DefaultAnnouncementSound, filterStation, true, AudioParams.Default.WithVolume(-2f));
+            _sound.PlayAnnonceGlobal(filterStation, announcementSound ?? DefaultAnnouncementSound, AudioParams.Default.WithVolume(-2f), true); //DS14
         }
 
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement on {station} from {sender}: {message}");
@@ -666,29 +777,55 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (MessageRangeCheck(session, data, range) != MessageRangeCheckResult.Full)
                 continue; // Won't get logged to chat, and ghosts are too far away to see the pop-up, so we just won't send it to them.
 
+            string recipientMessage;
+            string recipientWrappedMessage;
+
             // DS14-Languages-start
             if (language != null && !_language.KnowsLanguage(listener, language.SelectedLanguage))
             {
                 if (data.Range <= WhisperClearRange || data.Observer)
-                    _chatManager.ChatMessageToOne(ChatChannel.Whisper, lexiconMessage, newWrappedMessage, source, false, session.Channel);
+                    (recipientMessage, recipientWrappedMessage) = (lexiconMessage, newWrappedMessage);
                 else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
-                    _chatManager.ChatMessageToOne(ChatChannel.Whisper, newObfuscatedMessage, newWrappedobfuscatedMessage, source, false, session.Channel);
+                    (recipientMessage, recipientWrappedMessage) = (newObfuscatedMessage, newWrappedobfuscatedMessage);
                 else
-                    _chatManager.ChatMessageToOne(ChatChannel.Whisper, newObfuscatedMessage, newWrappedUnknownMessage, source, false, session.Channel);
-
-                continue;
+                    (recipientMessage, recipientWrappedMessage) = (newObfuscatedMessage, newWrappedUnknownMessage);
             }
             // DS14-Languages-end
-
-            if (data.Range <= WhisperClearRange || data.Observer)
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, wrappedMessage, source, false, session.Channel);
-
+            else if (data.Range <= WhisperClearRange || data.Observer)
+            {
+                (recipientMessage, recipientWrappedMessage) = (message, wrappedMessage);
+            }
             //If listener is too far, they only hear fragments of the message
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedobfuscatedMessage, source, false, session.Channel);
+            {
+                (recipientMessage, recipientWrappedMessage) = (obfuscatedMessage, wrappedobfuscatedMessage);
+            }
             //If listener is too far and has no line of sight, they can't identify the whisperer's identity
             else
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedUnknownMessage, source, false, session.Channel);
+            {
+                (recipientMessage, recipientWrappedMessage) = (obfuscatedMessage, wrappedUnknownMessage);
+            }
+
+            if (IsCriticalHearingBlocked(listener, source, ChatChannel.Whisper)) // DS14: last words may bypass suppression for their speaker.
+            {
+                var hearingMessage = GetCriticalHearingMessage(listener, source);
+                _chatManager.ChatMessageToOne(
+                    ChatChannel.Whisper,
+                    hearingMessage,
+                    hearingMessage,
+                    default,
+                    false,
+                    session.Channel);
+                continue;
+            }
+
+            _chatManager.ChatMessageToOne(
+                ChatChannel.Whisper,
+                recipientMessage,
+                recipientWrappedMessage,
+                source,
+                false,
+                session.Channel);
         }
 
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
@@ -856,8 +993,13 @@ public sealed partial class ChatSystem : SharedChatSystem
     {
         var totalWrappedMessage = wrappedMessage;
         var totalMessage = message;
+        var voiceRange = (float) VoiceRange; // DS14-Soyuz
 
-        foreach (var (session, data) in GetRecipients(source, VoiceRange))
+        // Kofeecheks political loudspeaker range integration: LicenseRef-Kofeecheks
+        if (channel == ChatChannel.Local)
+            voiceRange *= _politicalLoudspeaker.GetSpeechModifiers(source).SpeechRangeMultiplier;
+
+        foreach (var (session, data) in GetRecipients(source, voiceRange))
         {
             // DS14-Languages-start
             EntityUid listener;
@@ -884,10 +1026,42 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
+            if (IsCriticalHearingBlocked(listener, source, channel)) // DS14: pass the speaker into the targeted bypass check.
+            {
+                var hearingMessage = GetCriticalHearingMessage(listener, source);
+                _chatManager.ChatMessageToOne(
+                    channel,
+                    hearingMessage,
+                    hearingMessage,
+                    default,
+                    entHideChat,
+                    session.Channel,
+                    author: author);
+                continue;
+            }
+
             _chatManager.ChatMessageToOne(channel, totalMessage, totalWrappedMessage, source, entHideChat, session.Channel, author: author);
         }
 
         _replay.RecordServerMessage(new ChatMessage(channel, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
+    }
+
+    private bool IsCriticalHearingBlocked(EntityUid listener, EntityUid source, ChatChannel channel)
+    {
+        if (listener == source && _criticalHearingSelfBypass.Contains(source)) // DS14: preserve feedback for last words.
+            return false;
+
+        return channel is ChatChannel.Local or ChatChannel.Whisper &&
+               HasComp<CritHeartbeatComponent>(listener) &&
+               (_mobStateSystem.IsPreCritical(listener) ||
+                _mobStateSystem.IsCritical(listener));
+    }
+
+    private string GetCriticalHearingMessage(EntityUid listener, EntityUid source)
+    {
+        return Loc.GetString(listener == source
+            ? "dead-space-critical-hearing-self"
+            : "dead-space-critical-hearing-others");
     }
 
     /// <summary>
@@ -919,7 +1093,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     // ReSharper disable once InconsistentNaming
     private string SanitizeInGameICMessage(EntityUid source, string message, out string? emoteStr, bool capitalize = true, bool punctuate = false, bool capitalizeTheWordI = true)
     {
-        var newMessage = SanitizeMessageReplaceWords(message.Trim());
+        // DS-14 Soyuz
+        var newMessage = SanitizeMessageReplaceWords(source, message.Trim());
 
         GetRadioKeycodePrefix(source, newMessage, out newMessage, out var prefix);
 
@@ -988,16 +1163,24 @@ public sealed partial class ChatSystem : SharedChatSystem
     }
 
     public static readonly ProtoId<ReplacementAccentPrototype> ChatSanitize_Accent = "chatsanitize";
+    // Kofeecheks age-aware word replacement: LicenseRef-Kofeecheks
+    private static readonly Regex YoungImbaRegex = new(
+        @"(?<![\w-])имба(?![\w-])",
+        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+    private const string YoungImbaBypassSuffix = "soyuzyoungimbabypass";
 
-    public string SanitizeMessageReplaceWords(string message)
+    public string SanitizeMessageReplaceWords(EntityUid source, string message) // DS14-Soyuz
     {
         if (string.IsNullOrEmpty(message)) return message;
 
-        var msg = message;
+        var protectYoungImba = TryComp<HumanoidAppearanceComponent>(source, out var humanoid) && humanoid.Age < 25;
+        var msg = protectYoungImba
+            ? YoungImbaRegex.Replace(message, match => match.Value + YoungImbaBypassSuffix)
+            : message; // DS14-Soyuz
 
         msg = _wordreplacement.ApplyReplacements(msg, ChatSanitize_Accent);
 
-        return msg;
+        return protectYoungImba ? msg.Replace(YoungImbaBypassSuffix, string.Empty) : msg; // DS14-Soyuz
     }
 
     /// <summary>
@@ -1042,7 +1225,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         return recipients;
     }
 
-    public readonly record struct ICChatRecipientData(float Range, bool Observer, bool? HideChatOverride = null)
+    public readonly record struct ICChatRecipientData(float Range, bool Observer, bool? HideChatOverride = null, float? AudioRangeOverride = null, EntityUid? AudioSourceOverride = null) // DS14: remote hearing paths can override positional audio range and source.
     {
     }
 

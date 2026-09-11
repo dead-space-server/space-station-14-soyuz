@@ -15,7 +15,7 @@
     - Human
     - Shark
     - Demon
-    - Vulpkanin
+    # DS14-Soyuz start
     - Tajaran
     - Arachnid
     - Dwarf
@@ -26,6 +26,8 @@
     - SlimePerson
     - Xenomorph
     - Vox
+    - Vulpkanin
+    # DS14-Soyuz end
   - type: GhostRole
     name: ghost-role-information-centcomofficer-name
     description: ghost-role-information-centcomofficer-description

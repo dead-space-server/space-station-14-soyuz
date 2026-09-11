@@ -30,6 +30,15 @@
     steps: 7
     zeroVisible: false
   - type: Appearance
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/magazine/magazine_drop.ogg
 
 - type: entity
   parent: BaseMagazineEagle
@@ -121,11 +130,20 @@
   - type: Appearance
   - type: StaticPrice
     price: 500
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
 
 - type: entity
   parent: DesertEagleBase
   id: WeaponPistolDesertEagle
-  name: пустынный орёл
+  name: Пустынный Орёл
   description: Вот он, воплощение силы и свободы — Пустынный орёл! Одно только упоминание этого оружия вызывает волну **бесшабашности** и адреналина
   components:
   - type: Sprite
@@ -143,3 +161,63 @@
   - type: Tag
     tags:
     - PistolDesertEagle
+
+- type: entity
+  parent: DesertEagleBase
+  id: WeaponPistolGoldDesertEagle
+  name: золотой Пустынный Орёл
+  description:  Позолочённый корпус из 18-каратного золота ложится очень хорошо, сочетая в себе элегантность и удобства. Убей своих врагов со стилем!
+  suffix: Пистолет
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Guns/Pistols/golddeserteagle.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Objects/Weapons/Guns/Pistols/golddeserteagle.rsi
+  - type: Gun
+    fireRate: 2
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/_DeadSpace/Weapons/Guns/Gunshots/deserteagle.ogg
+      params:
+        volume: 2
+  - type: Tag
+    tags:
+    - PistolDesertEagle
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineEagleGold
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazineEagle
+            - MagazineEagleAP
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeHeavyPistol
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeHeavyPistol
+  - type: StaticPrice
+    price: 198400
+
+- type: entity
+  parent: BaseMagazineEagle
+  id: MagazineEagleGold
+  name: позолоченый пистолетный магазин пустынного орла (.50 AE)
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeHeavyPistol
+  - type: Sprite
+    scale: 1.1, 1.1 # DS-14
+    sprite: _DeadSpace/Objects/Weapons/Guns/Ammunition/Magazine/Pistol/magazinedeserteaglegold.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]

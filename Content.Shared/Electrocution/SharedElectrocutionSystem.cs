@@ -1,11 +1,13 @@
 using Content.Shared.Inventory;
 using Content.Shared.StatusEffect;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Electrocution
 {
     public abstract class SharedElectrocutionSystem : EntitySystem
     {
         [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+        [Dependency] private readonly IGameTiming _timing = default!; // DS14 - pre-v288 IoC
 
         public override void Initialize()
         {
@@ -14,6 +16,8 @@ namespace Content.Shared.Electrocution
             SubscribeLocalEvent<InsulatedComponent, ElectrocutionAttemptEvent>(OnInsulatedElectrocutionAttempt);
             // as long as legally distinct electric-mice are never added, this should be fine (otherwise a mouse-hat will transfer it's power to the wearer).
             SubscribeLocalEvent<InsulatedComponent, InventoryRelayedEvent<ElectrocutionAttemptEvent>>((e, c, ev) => OnInsulatedElectrocutionAttempt(e, c, ev.Args));
+
+            SubscribeLocalEvent<ElectrifiedComponent, MapInitEvent>(OnInit);
         }
 
         public void SetInsulatedSiemensCoefficient(EntityUid uid, float siemensCoefficient, InsulatedComponent? insulated = null)
@@ -54,27 +58,34 @@ namespace Content.Shared.Electrocution
 
         /// <param name="uid">Entity being electrocuted.</param>
         /// <param name="sourceUid">Source entity of the electrocution.</param>
-        /// <param name="shockDamage">How much shock damage the entity takes.</param>
+        /// <param name="shockDamage">How much shock damage the entity takes, or null to apply no damage.</param> // DS14
         /// <param name="time">How long the entity will be stunned.</param>
-        /// <param name="refresh">Should <paramref>time</paramref> be refreshed (instead of accumilated) if the entity is already electrocuted?</param>
+        /// <param name="refresh">Should <paramref>time</paramref> be refreshed (instead of accumulated) if the entity is already electrocuted?</param>
         /// <param name="siemensCoefficient">How insulated the entity is from the shock. 0 means completely insulated, and 1 means no insulation.</param>
         /// <param name="statusEffects">Status effects to apply to the entity.</param>
         /// <param name="ignoreInsulation">Should the electrocution bypass the Insulated component?</param>
+        /// <param name="isLightning">Whether lightning-specific insulation rules should apply.</param> // DS14
         /// <returns>Whether the entity <see cref="uid"/> was stunned by the shock.</returns>
         public virtual bool TryDoElectrocution(
-            EntityUid uid, EntityUid? sourceUid, int shockDamage, TimeSpan time, bool refresh, float siemensCoefficient = 1f,
-            StatusEffectsComponent? statusEffects = null, bool ignoreInsulation = false)
+            EntityUid uid, EntityUid? sourceUid, int? shockDamage, TimeSpan time, bool refresh, float siemensCoefficient = 1f, // DS14
+            StatusEffectsComponent? statusEffects = null, bool ignoreInsulation = false, bool isLightning = false) // DS14
         {
             // only done serverside
             return false;
         }
 
-        private void OnInsulatedElectrocutionAttempt(EntityUid uid, InsulatedComponent insulated, ElectrocutionAttemptEvent args)
+        protected virtual void OnInsulatedElectrocutionAttempt(EntityUid uid, InsulatedComponent insulated, ElectrocutionAttemptEvent args) //DS14
         {
             if (args.IgnoreInsulation) // DS14
                 return;
 
             args.SiemensCoefficient *= insulated.Coefficient;
+        }
+
+        private void OnInit(Entity<ElectrifiedComponent> entity, ref MapInitEvent args)
+        {
+            entity.Comp.NextShock = _timing.CurTime;
+            Dirty(entity);
         }
     }
 }

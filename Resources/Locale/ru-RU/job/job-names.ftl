@@ -26,6 +26,7 @@ job-name-centcomoff = Представитель ГШ
 job-name-centcom-administrator = Администратор ГенШтаба
 job-name-centcom-operator = Оператор Генерального Штаба
 job-name-soo = Генерал Специальных Операций
+job-name-field-officer = Полевой Офицер СО
 job-name-centcom-officer = Офицер Генерального Штаба
 job-name-reporter = Репортёр
 job-name-musician = Музыкант
@@ -89,8 +90,6 @@ job-name-roboticist = робототехник
 job-name-syndicate = Рассвет
 job-name-unknown = неизвестно
 job-name-zombie = зомби
-job-name-politruk = Политический Руководитель
-job-name-Politkom = Политический Комиссар
 # Job titles
 job-title-visitor = Посетитель
 job-title-cluwne = Клувень
@@ -173,9 +172,3 @@ JobSeniorSalvageSpecialist = Мастер шахтёр
 JobSeniorAdministrator = Управленец сервисного отдела
 JobStationAi = Станционный ИИ
 JobVisitor = Посетитель
-# DS14-Soyuz
-job-name-psychologist = Психиатр
-JobPsychologist = Психиатр
-JobPolitruk = Политический Руководитель
-JobPolitkom = Политический Комиссар
-JobPrisoner = Заключённый

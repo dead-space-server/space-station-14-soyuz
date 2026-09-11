@@ -14,6 +14,8 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.DeadSpace.Interfaces.Client;
+using Content.Shared.Administration.Managers; // DS14-Soyuz
+using Content.Shared.Administration; // DS14-Soyuz
 
 namespace Content.Client.Players.PlayTimeTracking;
 
@@ -162,8 +164,8 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
         // DS14-blueshield-disabilities-disallow-start
 
         // DS14-sponsors-start
-        if (_sponsorsManager?.TryGetInfo(out var sponsorInfo) == true && (sponsorInfo.AllowJob || sponsorInfo.AllowedMarkings.Contains(job.ID)))
-            return true;
+        var bypassNonSpeciesRequirements = _sponsorsManager?.TryGetInfo(out var sponsorInfo) == true
+            && (sponsorInfo.AllowJob || sponsorInfo.AllowedMarkings.Contains(job.ID));
 
         if (_sponsorsManager != null && job.SponsorOnly)
         {
@@ -174,7 +176,7 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
 
         // Check other role requirements
         var reqs = _entManager.System<SharedRoleSystem>().GetRoleRequirements(job);
-        return CheckRoleRequirements(reqs, profile, out reason);
+        return CheckRoleRequirements(reqs, profile, out reason, bypassNonSpeciesRequirements);
     }
 
     /// <summary>
@@ -202,21 +204,26 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
     }
 
     // This must be private so code paths can't accidentally skip requirement overrides. Call this through IsAllowed()
-    private bool CheckRoleRequirements(HashSet<JobRequirement>? requirements, HumanoidCharacterProfile? profile, [NotNullWhen(false)] out FormattedMessage? reason)
+    private bool CheckRoleRequirements(
+        HashSet<JobRequirement>? requirements,
+        HumanoidCharacterProfile? profile,
+        [NotNullWhen(false)] out FormattedMessage? reason,
+        bool bypassNonSpeciesRequirements = false)
     {
         reason = null;
 
         if (requirements == null || !_cfg.GetCVar(CCVars.GameRoleTimers))
             return true;
 
-        // DS14-meteor-sponsor-start
-        if (_sponsorsManager?.TryGetInfo(out var sponsorInfo) == true && sponsorInfo.AllowJob == true)
-            return true;
-        // DS14-meteor-sponsor-end
-
         var reasons = new List<string>();
         foreach (var requirement in requirements)
         {
+            // DS14-start
+            // Sponsor access bypasses progression gates, but never species restrictions.
+            if (bypassNonSpeciesRequirements && requirement is not SpeciesRequirement)
+                continue;
+            // DS14-end
+
             if (requirement.Check(_entManager, _prototypes, profile, _roles, out var jobReason))
                 continue;
 
@@ -244,12 +251,24 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
 
     public bool CheckWhitelist(JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
     {
+        var adminManager = IoCManager.Resolve<ISharedAdminManager>(); // DS14-Soyuz
         reason = default;
         if (!_cfg.GetCVar(CCVars.GameRoleWhitelist))
             return true;
 
         if (job.Whitelisted && !_jobWhitelists.Contains(job.ID))
         {
+            // DS14-Soyuz start
+            var player = _playerManager.LocalSession;
+            if (player != null)
+            {
+                var playerUid = player.AttachedEntity;
+                if (playerUid != null && adminManager.HasAdminFlag(playerUid.Value, AdminFlags.Admin))
+                {
+                    return true;
+                }
+            }
+            // DS14-Soyuz end
             reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
             return false;
         }

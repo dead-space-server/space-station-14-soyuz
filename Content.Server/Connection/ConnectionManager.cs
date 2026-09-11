@@ -6,6 +6,7 @@ using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
 using Content.Server.Connection.IPIntel;
 using Content.Server.Database;
+using Content.Server.DeadSpace.Prison;
 using Content.Server.GameTicking;
 using Content.Server.Preferences.Managers;
 using Content.Shared.CCVar;
@@ -67,6 +68,7 @@ namespace Content.Server.Connection
         [Dependency] private readonly IHttpClientHolder _http = default!;
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly IEntityManager _entityManager = default!;
+        [Dependency] private readonly UserIdAutoMigrationManager _userIdMigration = default!;
         private IServerSponsorsManager? _sponsorsManager; // DS14-sponsors
 
         private GameTicker? _ticker;
@@ -139,7 +141,12 @@ namespace Content.Server.Connection
 
         private async Task NetMgrOnConnecting(NetConnectingArgs e)
         {
-            var deny = await ShouldDeny(e);
+            (ConnectionDenyReason, string, List<BanDef>? bansHit)? deny;
+            var migrationDeny = await _userIdMigration.TryMigrateOnConnecting(e);
+            if (migrationDeny != null)
+                deny = (ConnectionDenyReason.UserIdMigration, migrationDeny, null);
+            else
+                deny = await ShouldDeny(e);
 
             var addr = e.IP.Address;
             var userId = e.UserId;
@@ -153,15 +160,25 @@ namespace Content.Server.Connection
             {
                 var (reason, msg, banHits) = deny.Value;
 
-                var id = await _db.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, reason, serverId);
-                if (banHits is { Count: > 0 })
-                    await _db.AddServerBanHitsAsync(id, banHits);
-
                 var properties = new Dictionary<string, object>();
                 if (reason == ConnectionDenyReason.Full)
                     properties["delay"] = _cfg.GetCVar(CCVars.GameServerFullReconnectDelay);
 
+                // DS14-start: keep the user-facing deny reason even if audit logging fails.
                 e.Deny(new NetDenyReason(msg, properties));
+
+                try
+                {
+                    var id = await _db.AddConnectionLogAsync(userId, e.UserName, addr, hwid, trust, reason, serverId);
+                    if (banHits is { Count: > 0 })
+                        await _db.AddServerBanHitsAsync(id, banHits);
+                }
+                catch (Exception ex)
+                {
+                    _sawmill.Error("Failed to log denied connection for {UserName} ({UserId}) from {Address}: {Exception}",
+                        e.UserName, userId, addr, ex);
+                }
+                // DS14-end
             }
             else
             {
@@ -238,6 +255,10 @@ namespace Content.Server.Connection
             var bans = await _db.GetBansAsync(addr, userId, hwId, modernHwid, includeUnbanned: false);
             if (bans.Count > 0)
             {
+                var prison = _entityManager.System<PrisonSystem>();
+                if (prison.RegisterPrisonerConnection(userId, bans))
+                    return null;
+
                 var firstBan = bans[0];
                 var message = firstBan.FormatBanMessage(_cfg, _loc);
                 return (ConnectionDenyReason.Ban, message, bans);

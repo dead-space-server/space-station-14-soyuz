@@ -77,7 +77,7 @@
     tags: [] # ignore "WhitelistChameleon" tag
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, ShowMedicalIcons ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, ShowMedicalIcons]
   id: ClothingHeadHelmetHardsuitPERed
   categories: [ HideSpawnMenu ]
   name: шлем боевого скафандра
@@ -492,7 +492,7 @@
   
 # EYES
 - type: entity
-  parent: ClothingEyesHudMultiversal
+  parent: ClothingEyesHudAdvanced
   id: ClothingEyesHudPERed
   name: боевые очки
   description: Защитные очки с голубым визором.
@@ -695,7 +695,7 @@
 
 #drill
 - type: entity
-  parent: BaseItem
+  parent: PowerDrill
   id: PowerDrillPERed
   name: электродрель
   description: Протокол проникновения сквозь препятствия, исключающий повреждение декора.

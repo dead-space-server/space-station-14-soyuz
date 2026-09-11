@@ -1,7 +1,7 @@
 - type: entity
   id: SpawnPointPolitkom
   parent: SpawnPointJobBase
-  name: политический комиссар
+  name: Politkom spawn
   components:
   - type: SpawnPoint
     job_id: Politkom
@@ -13,7 +13,7 @@
 - type: entity
   id: SpawnPointPolitruk
   parent: SpawnPointJobBase
-  name: политический руководитель
+  name: Politruk spawn
   components:
   - type: SpawnPoint
     job_id: Politruk
@@ -21,6 +21,30 @@
     layers:
       - state: green
       - state: Politruk
+
+- type: entity
+  id: SpawnPointOperatorGS
+  parent: SpawnPointJobBase
+  name: OperatorGS spawn
+  components:
+    - type: SpawnPoint
+      job_id: OperatorGS
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointOfficerGS
+  parent: SpawnPointJobBase
+  name: OfficerGS spawn
+  components:
+    - type: SpawnPoint
+      job_id: OfficerGS
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
 
 - type: entity
   id: SpawnPointPrisoner
@@ -32,4 +56,4 @@
   - type: Sprite
     layers:
       - state: green
-      - state: Politruk
+      - state: Politruk # Change after

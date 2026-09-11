@@ -78,6 +78,10 @@ public abstract partial class SharedGunSystem
     {
         args.Count = ent.Comp.Shots;
         args.Capacity = ent.Comp.Capacity;
+        // DS14-start
+        if (ent.Comp.Shots > 0)
+            args.NextAmmoPrototype = ent.Comp.Prototype;
+        // DS14-end
     }
 
     /// <summary>
@@ -122,6 +126,7 @@ public abstract partial class SharedGunSystem
 
         // Update the visuals.
         Appearance.SetData(ent.Owner, AmmoVisuals.HasAmmo, newShots != 0, appearance);
+        Appearance.SetData(ent.Owner, AmmoVisuals.IsFull, newShots == newCapacity, appearance);
         Appearance.SetData(ent.Owner, AmmoVisuals.AmmoCount, newShots, appearance);
         if (newCapacity > 0) // Don't make the capacity 0 when removing a power cell as this will make it be visualized as full instead of empty.
             Appearance.SetData(ent.Owner, AmmoVisuals.AmmoMax, newCapacity, appearance);

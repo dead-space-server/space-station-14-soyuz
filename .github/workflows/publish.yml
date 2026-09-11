@@ -6,8 +6,16 @@ concurrency:
 
 on:
   workflow_dispatch:
-  # schedule:
-   # - cron: '0 10 * * *'
+    inputs:
+      type:
+        description: 'Тип паблиша'
+        required: false
+        default: 'base'
+        type: choice
+        options:
+          - base
+          - upstream
+          - 'critical error'
 
 jobs:
   build:
@@ -67,18 +75,12 @@ jobs:
       run: dotnet build Content.Packaging --configuration Release --no-restore /m
 
     - name: Package server
-      run: dotnet run --project Content.Packaging server --platform linux-x64 # only linux, no: --platform win-x64 --platform osx-x64 --platform linux-arm64
+      run: dotnet run --project Content.Packaging server --platform linux-x64
 
     - name: Package client
       run: dotnet run --project Content.Packaging client --no-wipe-release
 
     # DS14-Soyuz-start
-    - name: Get engine version
-      id: engine_version
-      run: |
-        ENGINE_VERSION=$(cd RobustToolbox && git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "unknown")
-        echo "version=$ENGINE_VERSION" >> $GITHUB_OUTPUT
-
     - name: Get build size
       id: build_size
       run: |
@@ -94,12 +96,14 @@ jobs:
         PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         GITHUB_REPOSITORY: ${{ vars.GITHUB_REPOSITORY }}
 
+    # DS14-Soyuz-start
     - name: Publish changelog (Soyuz Discord)
       continue-on-error: true
       run: python3 -u Tools/actions_changelogs_since_last_run.py
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
+    # DS14-Soyuz-end
 
     - name: Publish changelog (DeadSpace Discord)
       continue-on-error: true
@@ -108,12 +112,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
 
-    # - name: Publish changelog (RSS)
-    #   continue-on-error: true
-    #   run: Tools/actions_changelog_rss.py
-    #   env:
-    #     CHANGELOG_RSS_KEY: ${{ secrets.CHANGELOG_RSS_KEY }}
-# DS14-Soyuz webhook start
+    # DS14-Soyuz webhook start
     - name: Get random announce
       id: announce
       run: |
@@ -131,45 +130,73 @@ jobs:
           echo "announce=Объявление не найдено :(" >> $GITHUB_OUTPUT
         fi
 
+    - name: Set publish type messages
+      id: publish_messages
+      env:
+        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+        BUILD_SIZE: ${{ steps.build_size.outputs.size }}
+      run: |
+        TYPE="${{ github.event.inputs.type }}"
+        case "$TYPE" in
+        "base")
+            SOYUZ_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1504050698315235468>Сервер успешно обновлён!<:logo_UNION1:1504050698315235468>\n🥳Все последние изменения Союза ☭ в игре 🥳\n\n**📦 Информация о сборке:**\n• Размер сборки: \`$BUILD_SIZE\`"
+            DEADSPACE_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\n\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)"
+            ;;
+        "upstream")
+            SOYUZ_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1504050698315235468>Апстрим уже на сервере!<:logo_UNION1:1504050698315235468>\nНа сервере произошёл апстрим, все нововведения из основной сборки так же появились в сборке союза\n||<@&1504050876212445255>, <@&1486777697672888340> ||\n\n**📦 Информация о сборке:**\n• Размер сборки: \`$BUILD_SIZE\`"
+            DEADSPACE_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1282351621375791218>Апстрим уже на сервере!<:logo_UNION1:1282351621375791218>\nНа сервере произошёл апстрим, все нововведения из основной сборки так же появились в сборке союза\n<@&1053952892786184232> \n\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)"
+            ;;
+        "critical error")
+            SOYUZ_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1504050698315235468>Критическая ошибка сервера была исправлена!<:logo_UNION1:1504050698315235468>\nСервер обновлён, критическая ошибка была исправлена. Можно продолжать игру\n\n**📦 Информация о сборке:**\n• Размер сборки: \`$BUILD_SIZE\`"
+            DEADSPACE_MSG="$RANDOM_ANNOUNCE\n\n<:logo_UNION1:1282351621375791218>Критическая ошибка сервера была исправлена!<:logo_UNION1:1282351621375791218>\nСервер обновлён, критическая ошибка была исправлена. Можно продолжать игру\n\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)"
+            ;;
+        *)
+            SOYUZ_MSG="📦 Обновление"
+            DEADSPACE_MSG="📦 Обновление"
+            ;;
+        esac
+        echo "soyuz_message=$SOYUZ_MSG" >> $GITHUB_OUTPUT
+        echo "deadspace_message=$DEADSPACE_MSG" >> $GITHUB_OUTPUT
+
     - name: Send Discord Webhook Notification (Soyuz Discord)
       if: success()
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
-        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
-        ENGINE_VER: ${{ steps.engine_version.outputs.version }}
-        BUILD_SIZE: ${{ steps.build_size.outputs.size }}
+        PUBLISH_TYPE: ${{ steps.publish_messages.outputs.soyuz_message }}
       run: |
+        CONTENT=$(printf "%b" "$PUBLISH_TYPE")
+        
         jq -n \
-          --arg announce "$RANDOM_ANNOUNCE" \
-          --arg engine "$ENGINE_VER" \
-          --arg size "$BUILD_SIZE" \
-          '{
+        --arg content "$CONTENT" \
+        '{
             username: "Обновления Союз-1 ☭",
             avatar_url: "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-            content: "\($announce)\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\n\n**📦 Информация о сборке:**\n• Версия движка: `\($engine)`\n• Размер сборки: `\($size)`",
+            content: $content,
             embeds: [{
-              image: {
+            image: {
                 url: "https://media.discordapp.net/attachments/1303329439869833286/1390321152030806026/b6735b3e67e81887.gif"
-              }
+            }
             }]
-          }' | curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK_URL
+        }' | curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK_URL
 
     - name: Send Discord Webhook Notification (DeadSpace Discord)
       if: success()
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK_DEADSPACE }}
-        RANDOM_ANNOUNCE: ${{ steps.announce.outputs.announce }}
+        PUBLISH_TYPE: ${{ steps.publish_messages.outputs.deadspace_message }}
       run: |
+        CONTENT=$(printf "%b" "$PUBLISH_TYPE")
+        
         jq -n \
-          --arg announce "$RANDOM_ANNOUNCE" \
-          '{
+        --arg content "$CONTENT" \
+        '{
             username: "Обновления Союз-1 ☭",
             avatar_url: "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true",
-            content: "\($announce)\n\n<:logo_UNION1:1282351621375791218>Сервер успешно обновлён!<:logo_UNION1:1282351621375791218>\n🥳Все последние изменения Союза ☭ в игре 🥳\nА больше новых новостей разработки можно получать в дискорд сервере союза, ссылка в закрепах [чата союза](https://discord.com/channels/1030160796401016883/1487331042468565165)",
+            content: $content,
             embeds: [{
-              image: {
+            image: {
                 url: "https://media.discordapp.net/attachments/1303329439869833286/1390321152030806026/b6735b3e67e81887.gif"
-              }
+            }
             }]
-          }' | curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK_URL
+        }' | curl -H "Content-Type: application/json" -X POST -d @- $DISCORD_WEBHOOK_URL
 # DS14-Soyuz webhook end

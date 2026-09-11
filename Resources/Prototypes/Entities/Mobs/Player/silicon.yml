@@ -94,32 +94,21 @@
     selectedLanguage: GeneralLanguage
     knownLanguages:
     - GeneralLanguage
-    - ArachnidLanguage
+    - DwarfLanguage
+    - DogLanguage
     - SlimeLanguage
+    - ArachnidLanguage
     - DionaLanguage
     - MothLanguage
     - ReptilianLanguage
-    - VoxLanguage
     - DemonLanguage
     - CatLanguage
     - MachineLanguage
-    - ReptilianLanguage
     - PlafLanguage
     - VulpkaninLanguage
     - XenomorphLanguage
-    cantSpeakLanguages:
-    - ArachnidLanguage
-    - SlimeLanguage
-    - DionaLanguage
-    - MothLanguage
-    - ReptilianLanguage
+    - MonkeyLanguage
     - VoxLanguage
-    - DemonLanguage
-    - CatLanguage
-    - ReptilianLanguage
-    - PlafLanguage
-    - VulpkaninLanguage
-    - XenomorphLanguage
   # DS14-Languages-end
 
 - type: entity
@@ -143,7 +132,27 @@
       enum.SiliconLawsUiKey.Key:
         type: SiliconLawBoundUserInterface
   - type: ShowJobIcons
-  - type: ShowCrewIcons
+  # DS14-Languages-start
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - GeneralLanguage
+    - DwarfLanguage
+    - DogLanguage
+    - SlimeLanguage
+    - ArachnidLanguage
+    - DionaLanguage
+    - MothLanguage
+    - ReptilianLanguage
+    - DemonLanguage
+    - CatLanguage
+    - MachineLanguage
+    - PlafLanguage
+    - VulpkaninLanguage
+    - XenomorphLanguage
+    - MonkeyLanguage
+    - VoxLanguage
+  # DS14-Languages-end
 
 # Ai
 - type: entity

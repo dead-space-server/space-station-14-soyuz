@@ -1,3 +1,4 @@
+using Content.Server.DeadSpace.Shuttles.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Shuttles.Components;
@@ -242,7 +243,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
                     GetNetEntity(otherDockXform.GridUid) :
                     null,
                 Color = comp.RadarColor,
-                HighlightedColor = comp.HighlightedRadarColor
+                HighlightedColor = comp.HighlightedRadarColor,
+                Category = comp.DockLegendCategory
             };
 
             gridDocks.Add(state);
@@ -445,7 +447,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         List<ShuttleBeaconObject>? beacons = null;
         List<ShuttleExclusionObject>? exclusions = null;
         GetBeacons(ref beacons);
-        RemoveCurrentLavalandBeacons(shuttle.Owner, beacons);
+        RemoveCurrentPlanetBeacons(shuttle.Owner, beacons);
         GetExclusions(ref exclusions);
 
         return new ShuttleMapInterfaceState(

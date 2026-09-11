@@ -56,6 +56,7 @@
     - state: icon
     - state: icon-flash
       visible: false
+      shader: unshaded
       map: [ "light" ]
   - type: Clothing
     equippedPrefix: off
@@ -64,6 +65,13 @@
     size: Normal
   - type: ToggleableVisuals
     spriteLayer: light
+    inhandVisuals:
+      left:
+      - state: inhand-left-light
+        shader: unshaded
+      right:
+      - state: inhand-right-light
+        shader: unshaded
   - type: ItemTogglePointLight
   - type: PointLight
     enabled: false
@@ -120,6 +128,7 @@
   - type: PressureProtection
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
+  - type: ToggleableClothingStorageBlocker # DS14
   - type: TemperatureProtection
     heatingCoefficient: 0.2
     coolingCoefficient: 0.2
@@ -167,6 +176,7 @@
   - type: PressureProtection
     highPressureMultiplier: 0.3
     lowPressureMultiplier: 1000
+  - type: ToggleableClothingStorageBlocker # DS14
   - type: TemperatureProtection
     heatingCoefficient: 0.1
     coolingCoefficient: 0.1
@@ -184,6 +194,7 @@
     tags:
     - WhitelistChameleon
   - type: IdentityBlocker
+  # DS14-start
   - type: HideLayerClothing
     slots:
     - Hair
@@ -191,9 +202,13 @@
     - HeadTop
     - HeadSide
     - FacialHair
+    clothingSlots:
+    - mask
   # DS14-start
   - type: VirusResistance
     virusResistanceCoefficient: 0.1
+  - type: FlashbangProtection
+    reduction: 1
   # DS14-end
 
 - type: entity
@@ -210,9 +225,11 @@
   - type: Sprite
     layers:
     - state: icon
+    # DS14-start: retain the pre-upstream combined helmet-light states.
     - state: icon-flash
       visible: false
       map: [ "light" ]
+    # DS14-end
   - type: Clothing
     equippedPrefix: off
   - type: ToggleableVisuals
@@ -222,7 +239,7 @@
     enabled: false
     radius: 4 # DS14
     energy: 2
-    mask: /Textures/Effects/LightMasks/cone.png
+    mask: "/Textures/Effects/LightMasks/cone.png" # DS14
     autoRot: true
     netsync: false
   - type: Appearance

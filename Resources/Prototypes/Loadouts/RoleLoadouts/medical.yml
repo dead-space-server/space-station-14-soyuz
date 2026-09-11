@@ -23,6 +23,7 @@
   id: JobMedicalDoctor
   groups:
   - GroupTankHarness
+  - DoctorSpecialization # DS14
   - MedicalDoctorHead
   - MedicalMask
   - MedicalDoctorJumpsuit
@@ -56,6 +57,7 @@
   id: JobChemist
   groups:
   - GroupTankHarness
+  - ChemistHead # DS14
   - MedicalMask
   - ChemistJumpsuit
   - MedicalGloves

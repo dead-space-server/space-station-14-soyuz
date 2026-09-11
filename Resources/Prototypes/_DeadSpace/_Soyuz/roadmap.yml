@@ -73,7 +73,7 @@
   id: Roadmap8
   title: "Звания СГМ и НКВБ"
   description: "Добавить звания для милиции и НКВБ за наигранное на них время, перенести механ званий с RMC14"
-  category: Planned
+  category: Completed
   tags:
     - "C#"
     - "QoL"
@@ -99,7 +99,7 @@
   id: Roadmap11
   title: "Добавить штурмовую кувалду"
   description: "Добавить штурмовую кувалду для милиции с большим количеством структурного урона"
-  category: InProgress
+  category: Completed
   tags:
     - "СГМ"
 
@@ -111,3 +111,12 @@
   tags:
     - "Вайтлист"
     - "QoL"
+
+- type: roadmapEntry
+  id: Roadmap13
+  title: "добавить фентанил"
+  description: "названием все сказано"
+  category: Planned
+  tags:
+    - "Медикаменты"
+

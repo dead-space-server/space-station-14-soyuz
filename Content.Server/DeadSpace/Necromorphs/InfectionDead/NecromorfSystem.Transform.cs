@@ -8,9 +8,11 @@ using Content.Server.DeadSpace.MonkeyKing.Components;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Humanoid;
 using Content.Server.Inventory;
+using Content.Shared.DeadSpace.Necromorphs.InfectionDead;
 using Content.Server.Mind;
 using Content.Server.NPC;
 using Content.Shared.DeadSpace.Necromorphs.InfectionDead.Components;
+using Content.Shared.DeadSpace.Necromorphs.PlasmaCutter;
 using Content.Shared.NPC.Prototypes;
 using Content.Server.NPC.HTN;
 using Content.Server.NPC.Systems;
@@ -91,6 +93,9 @@ public sealed partial class NecromorfSystem
 
     public void Necrofication(EntityUid target, string prototypeId, InfectionDeadStrainData strainData, MobStateComponent? mobState = null)
     {
+        if (HasComp<NecromorphMissingHeadComponent>(target))
+            return;
+
         if (HasComp<NecromorfComponent>(target))
             return;
 
@@ -103,6 +108,9 @@ public sealed partial class NecromorfSystem
         var necromorfComp = new NecromorfComponent(strainData);
 
         AddComp(target, necromorfComp);
+
+        var necroficationStarted = new NecroficationStartedEvent();
+        RaiseLocalEvent(target, ref necroficationStarted);
 
         NecromorfLayerComponent necromorfLayercomp = new NecromorfLayerComponent(necromorf.Sprite, necromorf.State, necromorf.IsAnimal);
 
@@ -129,8 +137,7 @@ public sealed partial class NecromorfSystem
 
         RemComp<RespiratorComponent>(target);
         RemComp<BarotraumaComponent>(target);
-        RemComp<HungerComponent>(target);
-        RemComp<ThirstComponent>(target);
+        RemComp<SatiationComponent>(target); // DS14: necromorphs do not use hunger or thirst.
         RemComp<SanityComponent>(target);
         RemComp<ReproductiveComponent>(target);
         RemComp<ReproductivePartnerComponent>(target);
@@ -168,6 +175,9 @@ public sealed partial class NecromorfSystem
 
         if (_mobThreshold.TryGetThresholdForState(target, MobState.Dead, out var deadThreshold))
             _mobThreshold.SetMobStateThreshold(target, deadThreshold.Value * necromorf.ThresholdMultiply, MobState.Dead);
+
+        if (_mobThreshold.TryGetThresholdForState(target, MobState.PreCritical, out var preCritThreshold))
+            _mobThreshold.SetMobStateThreshold(target, preCritThreshold.Value * necromorf.ThresholdMultiply, MobState.PreCritical);
 
         if (_mobThreshold.TryGetThresholdForState(target, MobState.Critical, out var critThreshold))
             _mobThreshold.SetMobStateThreshold(target, critThreshold.Value * necromorf.ThresholdMultiply, MobState.Critical);
@@ -335,15 +345,8 @@ public sealed partial class NecromorfSystem
             _npc.WakeNPC(target, htn);
         }
 
-        if (!HasComp<GhostRoleMobSpawnerComponent>(target) && !hasMind) //this specific component gives build test trouble so pop off, ig
-        {
-            //yet more hardcoding. Visit zombie.ftl for more information.
-            var ghostRole = EnsureComp<GhostRoleComponent>(target);
-            EnsureComp<GhostTakeoverAvailableComponent>(target);
-            ghostRole.RoleName = Loc.GetString("Некроморф");
-            ghostRole.RoleDescription = Loc.GetString("Похож на мутировавший труп");
-            ghostRole.RoleRules = Loc.GetString("Вы антагонист. Ваша цель — найти живых и попытаться устранить их.");
-        }
+        if (!hasMind)
+            EnsureNecromorphGhostRole(target);
 
         if (TryComp<HandsComponent>(target, out var handsComp))
         {
@@ -377,6 +380,24 @@ public sealed partial class NecromorfSystem
             EntityManager.AddComponents(target, necromorf.Components);
 
         ApplyVirusStrain(target, necromorfComp);
+    }
+
+    private void EnsureNecromorphGhostRole(EntityUid target)
+    {
+        if (HasComp<GhostRoleMobSpawnerComponent>(target))
+            return;
+
+        RemComp<GhostRoleComponent>(target);
+        var ghostRole = AddComp<GhostRoleComponent>(target);
+        EnsureComp<GhostTakeoverAvailableComponent>(target);
+
+        ghostRole.RoleName = "ghost-role-information-necromorph-name";
+        ghostRole.RoleDescription = "ghost-role-information-necromorph-description";
+        ghostRole.RoleRules = "ghost-role-information-necromorph-rules";
+        ghostRole.RoleCategory = "ghost-role-information-necromorph-category";
+        ghostRole.RaffleConfig = null;
+        ghostRole.JobProto = null;
+        ghostRole.MindRoles = ["MindRoleGhostRoleTeamAntagonist"];
     }
 
     private void RemoveOldProductionComponents(EntityUid target)

@@ -7,7 +7,6 @@
   - type: Tag
     tags:
     - Hoe
-    - BotanyHoe
   - type: Sprite
     sprite: Objects/Tools/Hydroponics/hoe.rsi
     state: icon
@@ -25,6 +24,18 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
+  - type: BotanyHoe
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/tools/screwdriver_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/Items/screwdriver_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/screwdriver_drop.ogg
+  #DS14-End
 
 - type: entity
   name: plant clippers
@@ -32,9 +43,6 @@
   id: HydroponicsToolClippers
   description: A tool used to take samples from plants.
   components:
-  - type: Tag
-    tags:
-    - PlantSampleTaker
   - type: Sprite
     sprite: Objects/Tools/Hydroponics/clippers.rsi
     state: icon
@@ -49,6 +57,21 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
+  - type: Tool
+    qualities:
+    - Shearing
+  - type: BotanySampleTaker
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/tools/wirecutter_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/Items/wirecutter_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/wirecutter_drop.ogg
+  #DS14-End
 
 - type: entity
   name: scythe
@@ -77,6 +100,17 @@
     materialComposition:
       Steel: 100
       Plastic: 100
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  #DS14-End
 
 - type: entity
   name: hatchet
@@ -106,6 +140,17 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  #DS14-End
 
 - type: entity
   name: spade
@@ -137,6 +182,17 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 100
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  #DS14-Ends
 
 - type: entity
   name: plant bag
@@ -164,3 +220,14 @@
         - Produce
         - Seed
   - type: Dumpable
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+  #DS14-End

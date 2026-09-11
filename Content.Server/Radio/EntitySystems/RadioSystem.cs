@@ -1,6 +1,7 @@
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
+using Content.Server.GameTicking;
 using Content.Server.Power.Components;
 using Content.Shared.Chat;
 using Content.Shared.Database;
@@ -42,24 +43,25 @@ public sealed class RadioSystem : EntitySystem
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
     [Dependency] private readonly IAdminManager _admin = default!; // DS14
+    [Dependency] private readonly GameTicker _gameTicker = default!; // DS14
 
     // set used to prevent radio feedback loops.
     private readonly HashSet<string> _messages = new();
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
-    // DS14-start
+    // DS14-start // DS14-Soyuz localization
     // Fix this
     private readonly Dictionary<string, string[]> _departments = new Dictionary<string, string[]>
     {
-        { "fcdf03", ["командование", "кэп", "капитан", "глава персонала"] },
-        { "d98b71", ["прокуратура", "магистрат", "юрист", "системный агент прокуратуры"] },
-        { "1563bd", ["служба безопасности", "бриг", "варден", "смотритель", "инструктор", "детектив", "пилот сб", "бригмед", "кадет"] },
-        { "57b8f0", ["медицинский отдел", "главный врач", "ведущий врач", "химик", "врач", "парамед", "коронер", "психолог", "интерн"] },
-        { "c68cfa", ["научный отдел", "рнд", "нио", "научный руководитель", "ведущий учёный", "учёный", "робоёб", "лаборант", "анома"] },
-        { "f2ac26", ["инженерный отдел", "инженерный", "старший инженер", "ведущий инженер", "атмосферный техник", "атмос", "инженер", "инженер стажёр"] },
-        { "a46106", ["отдел снабжения", "карго", "каргонцы", "ведущий утилизатор", "ведущий утиль", "утиль", "утилизатор", "грузчик"] },
-        { "6ca729", ["сервисный отдел", "сервис", "менеджер", "шеф", "повар", "ботаник", "бармен", "боксер", "уборщик", "библиотекарь", "священик", "святой отец", "зоотехник", "репортёр", "музыкант"] },
+        { "fcdf03", ["командование", "кэп", "капитан", "начальик отдела кадров"] },
+        { "d98b71", ["прокуратура", "судья", "юрист", "системный агент прокуратуры"] },
+        { "dd3535", ["милиция", "участок", "старший следователь", "старший милиционер", "следователь", "пилот милиции", "дежурный врач", "курсант"] }, // DS14-Soyuz color
+        { "57b8f0", ["медицинский отдел", "главный врач", "ведущий врач", "химик", "врач", "фельдшер", "патологоанатом", "психолог", "интерн"] },
+        { "c68cfa", ["научный отдел", "рнд", "нио", "главный научный сотрудник", "ведущий научный сотрудник", "научный сотрудник", "робоёб", "младишй научный сотрудник", "анома"] },
+        { "f2ac26", ["инженерный отдел", "инженерный", "старший инженер", "бригадир", "атмосферный техник", "атмос", "инженер", "слесарь"] },
+        { "a46106", ["отдел снабжения", "почта", "почтальоны", "мастер шахтёр", "мастер шахтёр", "шахтёр", "шахтёр", "грузчик"] },
+        { "6ca729", ["сервисный отдел", "сервис", "управленец сервисного отдела", "шеф", "повар", "ботаник", "бармен", "боксер", "уборщик", "библиотекарь", "священик", "святой отец", "зоотехник", "репортёр", "музыкант"] },
         { "2ed2fd", ["искусственный интеллект", "юнит", "борг"] },
         { "fb77f3", ["клуня", "клоун"] },
         { "d0d0d0", ["мим"] }
@@ -97,6 +99,9 @@ public sealed class RadioSystem : EntitySystem
         // DS14-start
         if (TryComp(uid, out ActorComponent? actor))
         {
+            if (!_gameTicker.UserHasJoinedGame(actor.PlayerSession))
+                return;
+
             if (ShouldSendCommandLinkSender(uid, actor.PlayerSession, args.MessageSource))
                 msg = WithCommandLinkSender(msg, args.MessageSource);
 

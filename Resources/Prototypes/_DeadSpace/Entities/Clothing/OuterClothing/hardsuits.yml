@@ -1,4 +1,17 @@
 - type: entity
+  parent: ClothingOuterHardsuitSyndieCommander
+  id: ClothingOuterHardsuitAgentForestGhost
+  name: скафандр «Лесной призрак»
+  description: Тяжелый скафандр для операций, где лучше оставить после себя только слухи и следы в пепле.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/agent_forest_ghost.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/agent_forest_ghost.rsi
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitAgentForestGhost
+
+- type: entity
   parent: ClothingOuterHardsuitClown
   id: ClothingOuterHardsuitMedEVA
   name: скафандр медицинского отдела
@@ -42,11 +55,13 @@
     clothingPrototype: ClothingHeadHelmetERTAmberLeader
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitSecurityRed
+  parent: [ClothingHeadHelmetHardsuitSecurityRed]
   id: ClothingHeadHelmetERTAmberLeader
   name: шлем скафандра лидера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Amber/ERT_rig/Head/ert_leader.rsi
   - type: Clothing
@@ -70,11 +85,13 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitSecurityRed
+  parent: [ClothingHeadHelmetHardsuitSecurityRed]
   id: ClothingHeadHelmetERTRedLeader
   name: шлем скафандра лидера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Red/ERThelmets/ertleader.rsi
   - type: Clothing
@@ -97,11 +114,13 @@
     clothingPrototype: ClothingHeadHelmetERTAmberSecurity
 
 - type: entity
-  parent: ClothingHeadHelmetRIGSecurityAdvanced
+  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
   id: ClothingHeadHelmetERTAmberSecurity
   name: шлем скафандра офицера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Amber/ERT_rig/Head/ert_security.rsi
   - type: Clothing
@@ -126,11 +145,13 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitSecurityRed
+  parent: [ClothingHeadHelmetHardsuitSecurityRed]
   id: ClothingHeadHelmetERTRedSecurity
   name: шлем скафандра офицера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Red/ERThelmets/ertsecurity.rsi
   - type: Clothing
@@ -152,11 +173,13 @@
     clothingPrototype: ClothingHeadHelmetERTAmberMedic
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitMedChemEVA
+  parent: [ClothingHeadHelmetHardsuitMedChemEVA]
   id: ClothingHeadHelmetERTAmberMedic
   name: шлем скафандра медика Эмбер
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Amber/ERT_rig/Head/ert_medic.rsi
   - type: Clothing
@@ -181,11 +204,13 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitMedChemEVA
+  parent: [ClothingHeadHelmetHardsuitMedChemEVA]
   id: ClothingHeadHelmetERTRedMedic
   name: шлем скафандра медика ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Red/ERThelmets/ertmedical.rsi
   - type: Clothing
@@ -220,11 +245,13 @@
         Radiation: 0.2
 
 - type: entity
-  parent: ClothingHeadHelmetRIGEngineer
+  parent: [ClothingHeadHelmetRIGEngineer]
   id: ClothingHeadHelmetERTAmberEngineer
   name: шлем скафандра инженера Эмбер
   description: Надеюсь оно спасёт от кирпича.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Amber/ERT_rig/Head/ert_engineer.rsi
   - type: Clothing
@@ -271,11 +298,13 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: ClothingHeadHelmetRIGEngineer
+  parent: [ClothingHeadHelmetRIGEngineer]
   id: ClothingHeadHelmetERTRedEngineer
   name: шлем скафандра инженера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Red/ERThelmets/ertengineer.rsi
   - type: Clothing
@@ -304,11 +333,13 @@
     clothingPrototype: ClothingHeadHelmetERTAmberJanitor
 
 - type: entity
-  parent: ClothingHeadHelmetRIGSecurityAdvanced
+  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
   id: ClothingHeadHelmetERTAmberJanitor
   name: шлем скафандра офицера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Amber/ERT_rig/Head/ert_janitor.rsi
   - type: Clothing
@@ -333,11 +364,13 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: ClothingHeadHelmetRIGSecurityAdvanced
+  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
   id: ClothingHeadHelmetERTRedJanitor
   name: шлем скафандра уборщика ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
   components:
+  - type: FlashbangProtection
+    reduction: 2
   - type: Sprite
     sprite: _DeadSpace/Clothing/ERT/ERT_Red/ERThelmets/ertjanitor.rsi
   - type: Clothing

@@ -1,0 +1,55 @@
+# Надо ребаланс места в рюкзаках сделать
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: SoyuzSmallBackpackRMC
+  name: royal marine small backpack
+  description: The standard-issue pack of TWE forces. Designed to lug gear into the battlefield.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/small.rsi
+
+- type: entity
+  parent: ClothingBackpack
+  id: SoyuzFrameBackpackRMC
+  name: royal marine backpack frame
+  description: The standard-issue pack of RMC forces. Designed to lug gear into the battlefield.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/frame_2.rsi
+
+- type: entity
+  parent: ClothingBackpack
+  id: SoyuzBackpackRMC
+  name: royal marine medium backpack
+  description: The standard-issue pack of TWE forces. Designed to lug gear into the battlefield.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/medium.rsi
+
+- type: entity
+  parent: ClothingBackpack
+  id: SoyuzCorpsmanBackpackRMC
+  name: royal marine medical backpack
+  description: The standard-issue pack of TWE forces. Designed to lug gear into the battlefield. This one has a red cross on it.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/medic.rsi
+
+- type: entity
+  parent: ClothingBackpack
+  id: SoyuzLargeBackpackRMC
+  name: royal marine large backpack
+  description: A large pack. Designed to engineering equipment and explosives into the battlefield.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/large.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: SoyuzWelderBackpackRMC
+  name: royal marine welderpack
+  description: A specialized backpack worn by RMC technicians. It carries a fueltank for quick welder refueling and use.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/back/sapper.rsi
+

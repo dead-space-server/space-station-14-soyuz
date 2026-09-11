@@ -95,6 +95,9 @@ public sealed class CorpseCollectorAbilitiesSystem : SharedCorpseCollectorSystem
         if (!_mindSystem.TryGetMind(uid, out var mindId, out var mind))
             return;
 
+        // The discarded body must not reopen its takeover role during the mind transfer.
+        RemComp<GhostTakeoverAvailableComponent>(uid);
+
         var ent = Spawn(component.LeviathanId,
             _transform.GetMapCoordinates(uid, xform),
             rotation: _transform.GetWorldRotation(xform));
@@ -166,6 +169,9 @@ public sealed class CorpseCollectorAbilitiesSystem : SharedCorpseCollectorSystem
 
     private void CheckAbsorption(EntityUid uid, CorpseCollectorComponent component, EntityUid target)
     {
+        if (target == uid)
+            return;
+
         if (!HasComp<NecromorfComponent>(target))
         {
             _popup.PopupEntity(Loc.GetString("Вы не можете поглотить не некроморфное существо."), uid, uid);
@@ -199,6 +205,9 @@ public sealed class CorpseCollectorAbilitiesSystem : SharedCorpseCollectorSystem
             _popup.PopupEntity(Loc.GetString("Существо не найдено"), uid, uid);
             return;
         }
+
+        if (args.Args.Target.Value == uid || !HasComp<NecromorfComponent>(args.Args.Target.Value))
+            return;
 
         _audio.PlayPvs("/Audio/Effects/Fluids/splat.ogg", args.Args.Target.Value, AudioParams.Default.WithVariation(1f).WithVolume(4f));
         Unequipment(args.Args.Target.Value);

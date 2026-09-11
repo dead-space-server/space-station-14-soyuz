@@ -7,8 +7,10 @@
     - id: BoxQMCircuitboards
     - id: BoxQMStamps
     - id: SalvageShuttleConsoleCircuitboard #DS14
+    - id: NitrogenTankFilled # DS14
     - id: CigPackGreen
       prob: 0.50
+    - id: ClothingOuterHardsuitSoyuzQuartermaster # DS14-Soyuz replaced
     - id: ClothingHeadsetAltCargo
     - id: DoorRemoteCargo
     - id: AstroNavCartridge
@@ -17,7 +19,6 @@
     - id: BoxPhotocopierToners # DS14
     - id: PlushieLizardJobQuartermaster
       prob: 0.02
-    - id: ClothingOuterHardsuitSoyuzQuartermaster # DS14-Soyuz
 
 - type: entity
   id: LockerQuarterMasterFilled
@@ -41,6 +42,7 @@
     - id: ClothingHeadsetAltCommand
     - id: ClothingOuterArmorCaptainCarapace
     - id: BoxCaptainCircuitboards
+    - id: NitrogenTankFilled # DS14
     - id: DoorRemoteCustom
     - id: MedalCase
     - id: NukeDisk
@@ -52,8 +54,8 @@
     - id: WeaponDisabler
 #    - id: ClothingEyesGlassesCommand #DS14
     - id: ADTtelescopicBaton # ADT
-    - id: ClothingEyesHudAdvanced # DS14
-    - id: ErtResponseConsoleCircuitboard # DS14
+    - id: ErtResponseConsoleCircuitboard # DS14-Soyuz
+    - id: ClothingEyesHudCaptain # DS14: CaptainResprite
     - id: HeadSkeleton # A skull to accompany your skeleton crew
       conditions:
       - !type:PlayerCountCondition
@@ -128,6 +130,7 @@
 #    - id: BoxHeadset # DS14
     - id: BoxHoPCircuitboards
     - id: BoxHoPStamps
+    - id: NitrogenTankFilled # DS14
 #    - id: BoxID # DS14
     - id: BoxPDA
     - id: CigarGoldCase
@@ -164,6 +167,7 @@
   table: !type:AllSelector
     children:
     - id: AccessConfigurator
+    - id: NitrogenTankFilled # DS14
     - id: BoxEncryptionKeyEngineering
 #    - id: CigarCase #DS14
 #      prob: 0.15 #DS14
@@ -179,9 +183,16 @@
     - id: RubberStampCE
 #    - id: MetalFoamGrenade #DS14
     - id: ADTtelescopicBaton # ADT
+    - id: WeaponPlasmaCutter #DS14
     - id: TabletPowerMonitoring #DS14
+    - id: EnergySellerMachineCircuitboard #DS14
     - id: PlushieLizardJobChiefengineer
       prob: 0.02
+#DS14-start
+    - id: ObeliskStoper
+    - id: ObeliskStoper
+    - id: SMObeliskFlatpack
+#DS14-end
 
 # Hardsuit table, used for suit storage as well
 - type: entityTable
@@ -232,8 +243,11 @@
 #   - id: ClothingHeadHatBeretCmo
 #   - id: ClothingMaskSterile
     - id: HandheldCrewMonitor
+    - id: ClothingBeltCMOFilled # DS14-soyuz
     - id: Hypospray
     - id: MedTekCartridge
+    - id: BeakerCMO # DS14
+    - id: NitrogenTankFilled # DS14
     - id: ADTtelescopicBaton # ADT
     # Standard command gear
     - id: RubberStampCMO
@@ -241,6 +255,7 @@
     - id: DoorRemoteMedical
     - id: BoxEncryptionKeyMedical
     - id: BoxCMOCircuitboards
+    - id: ClothingEyesHudCMO # DS14-Soyuz
     - id: PlushieLizardJobChiefmedicalofficer
       prob: 0.02
 
@@ -291,11 +306,13 @@
     - id: ClothingHeadsetAltScience
     - id: DoorRemoteResearch
     - id: HandTeleporter
+    - id: NitrogenTankFilled # DS14
     - id: RubberStampRd
     - id: ADTtelescopicBaton # ADT
     - id: ClothingHandsGlovesColorYellow # DS14
     - id: TabletRD # DS14
     - id: LawConfigurator # DS14
+    - id: ClothingEyesGlassesCommandDr # DS14
     - id: PlushieLizardJobResearchdirector
       prob: 0.02
 
@@ -354,6 +371,7 @@
 #    - id: ClothingShoesBootsJack
 #    - id: FlashlightSeclite
     - id: DoorRemoteSecurity
+    - id: NitrogenTankFilled # DS14
 #    - id: HoloprojectorSecurity
     - id: RubberStampHos
     - id: BoxHoSCircuitboards
@@ -365,8 +383,9 @@
     - id: ERTloadoutSecuritySecondary # DS14
     - id: ClothingNeckBodyCamera # DS14
     - id: PortableCameraMonitor # DS14
-    - id: WeaponRifleAEK # DS14-Soyuz
+    - id: WeaponRifleAEK # DS14-Soyuz replaced
     - id: BoxMagazineLightRifle # DS14
+    - id: PatrolTablet # DS14
     - id: PlushieLizardJobHeadofsecurity
       prob: 0.02
 
@@ -375,7 +394,7 @@
   id: FillHeadOfSecurityHardsuit
   table: !type:AllSelector
     children:
-    - id: ClothingMaskGasSwat
+    # - id: ClothingMaskGasSwat # DS14-Soyuz disabled
     - id: ClothingOuterHardsuitSecurityRed
     - id: JetpackSecurityFilled
     - id: OxygenTankFilled

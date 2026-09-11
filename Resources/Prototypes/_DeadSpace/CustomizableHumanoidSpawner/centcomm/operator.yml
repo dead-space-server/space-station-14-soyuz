@@ -15,17 +15,17 @@
     - Human
     - Shark
     - Demon
-    - Vulpkanin
-    - Tajaran
+    - Reptilian
     - Arachnid
+    - SlimePerson
+    - Tajaran
     - Dwarf
     - Felinid
     - Kobolt
     - Moth
-    - Reptilian
-    - SlimePerson
     - Xenomorph
     - Vox
+    - Vulpkanin
 
 - type: roleLoadout
   id: JobCentralCommandOperator

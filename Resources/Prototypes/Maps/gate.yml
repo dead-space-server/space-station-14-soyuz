@@ -1,6 +1,6 @@
 - type: gameMap
   id: Gate
-  mapName: 'Gate'
+  mapName: 'Врата' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/gate.yml
   minPlayers: 45
   stations:
@@ -8,7 +8,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Gate {1}'
+          mapNameTemplate: '{0} Врата {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'ED'

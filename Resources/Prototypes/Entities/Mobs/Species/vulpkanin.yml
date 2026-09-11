@@ -27,8 +27,6 @@
     - DoorBumpOpener
     - AnomalyHost
   # DS14-end
-  - type: Hunger
-  - type: Thirst
   - type: MessyDrinker
     spillChance: 0.33
   - type: Icon
@@ -94,8 +92,6 @@
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
     - map: [ "underwearb" ] # Sirena-Underwear
     - map: [ "underweart" ] # Sirena-Underwear
-    # - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    # - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
     # - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
@@ -142,12 +138,12 @@
     - Hair # DS14
     - FacialHair
     - Tail # DS14
-    markingsDisplacement:
-      Hair:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Vulpkanin/displacement.rsi
-            state: hair
+#    markingsDisplacement:
+#      Hair:
+#        sizeMaps:
+#          32:
+#            sprite: Mobs/Species/Vulpkanin/displacement.rsi
+#            state: hair
   - type: Inventory
     speciesId: vulpkanin
 #    displacements:
@@ -209,12 +205,12 @@
     - HeadTop
     - HeadSide
     - Tail # DS14
-    markingsDisplacement:
-      Hair:
-        sizeMaps:
-          32:
-            sprite: Mobs/Species/Vulpkanin/displacement.rsi
-            state: hair
+#    markingsDisplacement:
+#      Hair:
+#        sizeMaps:
+#          32:
+#            sprite: Mobs/Species/Vulpkanin/displacement.rsi
+#            state: hair
 #  - type: Inventory
 #    speciesId: vulpkanin
 #    displacements:

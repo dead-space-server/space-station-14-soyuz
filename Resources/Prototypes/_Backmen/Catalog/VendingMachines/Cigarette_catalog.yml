@@ -152,6 +152,19 @@
     - !type:ListingLimitedStockCondition
       stock: 5
 
+#DS14-Soyuz-start
+- type: listing
+  id: CigaretteMachineInventory15
+  productEntity: Vape
+  cost:
+    SpaceCash: 115
+  categories:
+    - CigaretteMachineInventory
+  conditions:
+    - !type:ListingLimitedStockCondition
+      stock: 2
+#DS14-Soyuz-end
+
 # Contraband
 - type: listing
   id: CigaretteMachineContraband1

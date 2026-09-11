@@ -2,10 +2,32 @@
 
 ## Delay shuttle round end
 
-cmd-delayroundend-desc = Останавливает таймер окончания раунда, когда эвакуационный шаттл покидает гиперпространство.
-cmd-delayroundend-help = Использование: delayroundend
-emergency-shuttle-command-round-yes = Раунд продлён.
-emergency-shuttle-command-round-no = Невозможно продлить окончание раунда.
+cmd-delayroundend-desc = Приостанавливает или изменяет таймер до завершения раунда, а после манифеста — до перезапуска.
+cmd-delayroundend-help =
+    Использование: delayroundend [секунды]
+    Положительное значение добавляет время, отрицательное — убавляет. Без аргумента приостанавливает или возобновляет таймер.
+cmd-delayroundend-invalid-seconds = { $value } не является допустимым количеством секунд.
+cmd-delayroundend-paused =
+    { $restart ->
+        [true] Перезапуск раунда приостановлен.
+       *[false] Конец раунда приостановлен.
+    }
+cmd-delayroundend-resumed =
+    { $restart ->
+        [true] Перезапуск раунда возобновлён.
+       *[false] Конец раунда возобновлён.
+    }
+cmd-delayroundend-extended =
+    { $restart ->
+        [true] Перезапуск раунда отложен на { $seconds } секунд.
+       *[false] Конец раунда продлён на { $seconds } секунд.
+    }
+cmd-delayroundend-shortened =
+    { $restart ->
+        [true] Перезапуск раунда приближен на { $seconds } секунд.
+       *[false] Конец раунда сокращён на { $seconds } секунд.
+    }
+cmd-delayroundend-no-timer = Нет активного таймера завершения или перезапуска раунда.
 
 ## Dock emergency shuttle
 
@@ -58,7 +80,7 @@ emergency-shuttle-ui-remaining = Осталось: { $remaining }
 emergency-shuttle-console-hijack-denied = Активный контракт на угон не найден.
 emergency-shuttle-console-hijack-already-started = Последовательность угона уже активна.
 emergency-shuttle-console-hijack-already-complete = Шаттл уже перехвачен.
-emergency-shuttle-console-hijack-announcer = Автоматические Системы Станции
+emergency-shuttle-console-hijack-announcer = Автономная Система «Марта»
 emergency-shuttle-console-hijack-started = Внимание всему Офицерскому Составу Объекта! Зафиксирован неавторизованный доступ к системам эвакуационного шаттла! Фиксируется попытка изменения блюспейс-пути, точное местоположение - неизвестно. Службе Безопасности приказывается немедленно отключить протоколы перенаправления на мостике шаттла эвакуации, используя соответствующую консоль управления.
 emergency-shuttle-console-hijack-cancelled = Внимание, протоколы перенаправления отменены, эвакуация продолжается в штатном режиме!
 emergency-shuttle-console-hijack-completed = Внимание, блюспейс-путь шаттла эвакуации изменён, инициирован блюспейс прыжок, всему экипажу рекомендуется покинуть шаттл эвакуации!

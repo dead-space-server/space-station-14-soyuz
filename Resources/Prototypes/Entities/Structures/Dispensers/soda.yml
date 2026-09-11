@@ -47,6 +47,7 @@
         - id: DrinkIceJug
         - id: DrinkJuiceLimeCartonXL
         - id: DrinkJuiceOrangeCartonXL
+        - id: DrinkJuicePearCartonXL # Kofeecheks Pears: LicenseRef-Kofeecheks
         - id: DrinkLemonLimeJug
         - id: DrinkRootBeerJug
         - id: DrinkSodaWaterBottleFull

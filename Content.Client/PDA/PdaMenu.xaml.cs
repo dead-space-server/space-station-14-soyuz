@@ -1,3 +1,4 @@
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.GameTicking.Managers;
 using Content.Shared.PDA;
 using Robust.Shared.Utility;
@@ -197,6 +198,19 @@ namespace Content.Client.PDA
             ActivateMusicButton.Visible = state.CanPlayMusic;
             ShowUplinkButton.Visible = state.HasUplink;
             LockUplinkButton.Visible = state.HasUplink;
+
+            // DS14-Start
+            var silentMode = state.SilentMode;
+            ToggleSilentModeButton.Text = Loc.GetString(silentMode
+                ? "comp-pda-ui-silent-mode-button-on"
+                : "comp-pda-ui-silent-mode-button-off");
+            ToggleSilentModeButton.Description = Loc.GetString(silentMode
+                ? "comp-pda-ui-silent-mode-button-description-on"
+                : "comp-pda-ui-silent-mode-button-description-off");
+            ToggleSilentModeButton.RemoveStyleClass(DeadSpaceStyleClass.ControlPositive);
+            if (silentMode)
+                ToggleSilentModeButton.AddStyleClass(DeadSpaceStyleClass.ControlPositive);
+            // DS14-End
         }
 
         public void UpdateAvailablePrograms(List<(EntityUid, CartridgeComponent)> programs)

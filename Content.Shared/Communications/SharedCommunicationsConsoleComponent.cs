@@ -3,9 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Communications
 {
     [Virtual]
-    public partial class SharedCommunicationsConsoleComponent : Component
-    {
-    }
+    public partial class SharedCommunicationsConsoleComponent : Component;
 
     [Serializable, NetSerializable]
     public sealed class CommunicationsConsoleInterfaceState : BoundUserInterfaceState
@@ -17,9 +15,16 @@ namespace Content.Shared.Communications
         public readonly bool CountdownStarted;
         public List<string>? AlertLevels;
         public string CurrentAlert;
+        public Color CurrentAlertColor; // DS14 - alert level prototypes are server-only on this branch.
         public float CurrentAlertDelay;
 
-        public CommunicationsConsoleInterfaceState(bool canAnnounce, bool canCall, List<string>? alertLevels, string currentAlert, float currentAlertDelay, TimeSpan? expectedCountdownEnd = null)
+        public CommunicationsConsoleInterfaceState(bool canAnnounce,
+            bool canCall,
+            List<string>? alertLevels,
+            string currentAlert,
+            Color currentAlertColor, // DS14
+            float currentAlertDelay,
+            TimeSpan? expectedCountdownEnd = null)
         {
             CanAnnounce = canAnnounce;
             CanCall = canCall;
@@ -27,6 +32,7 @@ namespace Content.Shared.Communications
             CountdownStarted = expectedCountdownEnd != null;
             AlertLevels = alertLevels;
             CurrentAlert = currentAlert;
+            CurrentAlertColor = currentAlertColor; // DS14
             CurrentAlertDelay = currentAlertDelay;
         }
     }

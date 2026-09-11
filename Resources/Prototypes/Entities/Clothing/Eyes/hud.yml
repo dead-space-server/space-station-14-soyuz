@@ -6,6 +6,21 @@
   components:
   - type: StealTarget
     stealGroup: ClothingEyesHuds
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glasses/goggles_drop.ogg
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+      Glass: 25
+  #DS14-End
 
 - type: entity
   id: ShowSecurityIcons
@@ -16,6 +31,10 @@
   - type: ShowMindShieldIcons
   - type: ShowCriminalRecordIcons
   - type: ShowContrabandDetails
+  - type: ShowPatrolIcons
+  # DS14-start
+  - type: ShowPersonnelRecordIcons
+  # DS14-end
 
 - type: entity
   id: ShowMedicalIcons
@@ -89,6 +108,9 @@
   - type: Clothing
     sprite: Clothing/Eyes/Hud/command.rsi
   - type: ShowJobIcons
+  # DS14-start
+  - type: ShowPersonnelRecordIcons
+  # DS14-end
   - type: Tag
     tags:
     - HudCommand # DS14
@@ -105,7 +127,9 @@
     sprite: Clothing/Eyes/Hud/beergoggles.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/beergoggles.rsi
-  - type: ShowThirstIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Thirst
   - type: SolutionScanner
   - type: Tag
     tags:
@@ -122,7 +146,9 @@
     sprite: Clothing/Eyes/Hud/friedonion.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/friedonion.rsi
-  - type: ShowHungerIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Hunger
   - type: Edible
   - type: SolutionContainerManager
     solutions:
@@ -135,6 +161,8 @@
     flavors:
       - onion
       - greasey
+  - type: StaticPrice #DS14
+    price: 8
 
 - type: entity
   parent: ClothingEyesHudBase
@@ -146,8 +174,10 @@
     sprite: Clothing/Eyes/Hud/onionbeer.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/onionbeer.rsi
-  - type: ShowHungerIcons
-  - type: ShowThirstIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Hunger
+    - Thirst
 
 - type: entity
   parent: [ClothingEyesHudBase, ShowMedicalIcons]
@@ -159,7 +189,9 @@
     sprite: Clothing/Eyes/Hud/medonion.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/medonion.rsi
-  - type: ShowHungerIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Hunger
 
 - type: entity
   parent: [ClothingEyesHudBase, ShowMedicalIcons]
@@ -171,8 +203,10 @@
     sprite: Clothing/Eyes/Hud/medonionbeer.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Hud/medonionbeer.rsi
-  - type: ShowHungerIcons
-  - type: ShowThirstIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Hunger
+    - Thirst
 
 - type: entity
   parent: [ClothingEyesHudBase, ShowSecurityIcons, ShowMedicalIcons, BaseSecurityCommandContraband]
@@ -220,8 +254,10 @@
     - Biological
     - Inorganic
     - Silicon
-  - type: ShowHungerIcons
-  - type: ShowThirstIcons
+  - type: ShowSatiationIcons
+    shownTypes:
+    - Hunger
+    - Thirst
   - type: ShowSyndicateIcons
 
 - type: entity

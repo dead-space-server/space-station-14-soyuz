@@ -58,6 +58,17 @@
       gun_chamber: !type:ContainerSlot
   - type: StaticPrice
     price: 500
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_drop.ogg
+  #DS14-End
 
 - type: entity
   name: Atreides
@@ -138,6 +149,7 @@
   parent: BaseItem
   description: A burst-fire C-20r submachine gun for use by cyborgs. Creates .35 caliber ammo on the fly from an internal ammo fabricator, which slowly self-charges.
   components:
+  - type: Akimbo # DS14
   - type: Gun
     minAngle: 2
     maxAngle: 16
@@ -173,6 +185,17 @@
     autoRefillRate: 4s
     affectedByEmp: true
   - type: AmmoCounter
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/smg/smg_drop.ogg
+  #DS14-End
 
 - type: entity
   name: Drozd
@@ -285,6 +308,7 @@
   id: WeaponSubMachineGunWt550
   description: A truly unique firearm, the WT550 was designed by Nanotrasen's Small Arms Division as a compact submachine gun fully controllable with one hand. It contains an exotic internal recoil buffer and feeds from special top-mounted .35 magazines.
   components:
+  - type: Akimbo # DS14
   - type: Sprite
     sprite: Objects/Weapons/Guns/SMGs/wt550.rsi
     layers:

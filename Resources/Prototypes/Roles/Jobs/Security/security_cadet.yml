@@ -37,6 +37,10 @@
       - type: Skill
         group: BaseSkills
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    SGMRankPidoras: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SecurityCadetGear
@@ -44,7 +48,7 @@
     shoes: ClothingShoesBootsJackSecFilled # Corvax-Resprite-MRP
     outerClothing: ClothingOuterVestArmorSec
     id: SecurityCadetPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetAltSecurityOfficer # ds14
     belt: ClothingBeltSecurityFilled
   storage:
     back:

@@ -33,6 +33,7 @@
   - ServiceWorker
   - ClownSponsor
   - SeniorAdministrator
+  - Dismissed # DS14
   accountNumber: 1316 #backmen: currency
 
 - type: department
@@ -45,6 +46,7 @@
   - CentralCommandAdministrator
   - CentralCommandOperator
   - CentralCommandOfficer
+  # - BlueShieldOfficer # DS14-Soyuz
   - Magistrat
   editorHidden: false
   weight: 120
@@ -62,6 +64,7 @@
   - HeadOfSecurity
   - ResearchDirector
   - Quartermaster
+  - IAA # DS14
   primary: false
   weight: 100
   accountNumber: 1317 #backmen: currency

@@ -44,6 +44,8 @@
       collection: Weh
     Hew:
       collection: Hew
+    Warcry:
+      collection: FemaleWarcry
     Meow:
       path: /Audio/_DeadSpace/Sponsor/Sound/meow_xeno.ogg
     Hiss:

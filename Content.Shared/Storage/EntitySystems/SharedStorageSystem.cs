@@ -28,6 +28,7 @@ using Content.Shared.Timing;
 using Content.Shared.Storage.Events;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
+using Content.Shared.DeadSpace.Storage; // DS14
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
@@ -44,6 +45,7 @@ using Robust.Shared.Utility;
 using Content.Shared.Rounding;
 using Robust.Shared.Collections;
 using Robust.Shared.Map.Enumerators;
+using Content.Shared._RMC14.Storage; // DS14-Soyuz
 
 namespace Content.Shared.Storage.EntitySystems;
 
@@ -441,7 +443,14 @@ public abstract class SharedStorageSystem : EntitySystem
             // If you need something more sophisticated for multi-UI you'll need to code some smarter
             // interactions.
             if (_openStorageLimit == 1)
-                UI.CloseUserUis<StorageComponent.StorageUiKey>(actor);
+            // DS14-Start
+            {
+                var checkEvent = new CheckMultipleInventoryWindowsEvent(actor);
+                RaiseLocalEvent(ref checkEvent);
+                if (!checkEvent.Enabled)
+                    UI.CloseUserUis<StorageComponent.StorageUiKey>(actor);
+            }
+            // DS14-end
 
             OpenStorageUIInternal(uid, actor, storageComp, silent: silent);
         }
@@ -907,6 +916,14 @@ public abstract class SharedStorageSystem : EntitySystem
 
         var uid = args.Target;
         var actor = args.Actor;
+
+        // DS14-start
+        var checkEvent = new CheckMultipleInventoryWindowsEvent(actor);
+        RaiseLocalEvent(ref checkEvent);
+        if (checkEvent.Enabled)
+            return;
+        // DS14-end
+
         var count = 0;
 
         if (_userQuery.TryComp(actor, out var userComp))
@@ -1106,7 +1123,12 @@ public abstract class SharedStorageSystem : EntitySystem
             reason = null;
             return true;
         }
+// DS14-Soyuz-start
+        bool ignoresSize = IgnoreItemSize((uid, storageComp), insertEnt);
 
+        if (!ignoresSize) 
+        {
+// DS14-Soyuz-end
         var maxSize = GetMaxItemSize((uid, storageComp));
         if (ItemSystem.GetSizePrototype(item.Size) > maxSize)
         {
@@ -1120,6 +1142,7 @@ public abstract class SharedStorageSystem : EntitySystem
             reason = "comp-storage-too-big";
             return false;
         }
+} // DS14-Soyuz
 
         if (!ignoreLocation && !storageComp.StoredItems.ContainsKey(insertEnt))
         {
@@ -1919,6 +1942,13 @@ public abstract class SharedStorageSystem : EntitySystem
         // is one below the item size of the storage entity.
         return _nextSmallest[item.Size];
     }
+    //DS14-Soyuz-start
+    public bool IgnoreItemSize(Entity<StorageComponent> storage, EntityUid item)
+    {
+        return TryComp(storage, out IgnoreContentsSizeComponent? ignore) &&
+               _whitelistSystem.IsValid(ignore.Items, item);
+    }
+    // DS14-soyuz-end
 
     /// <summary>
     /// Checks if a storage's UI is open by anyone when locked, and closes it.

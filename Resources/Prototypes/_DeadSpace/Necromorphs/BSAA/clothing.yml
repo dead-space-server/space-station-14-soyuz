@@ -38,6 +38,24 @@
   - type: Clothing
     sprite: _DeadSpace/Necromorfs/BSAA/clothing/belt.rsi
 
+- type: entity
+  parent: ClothingBeltBSAA
+  id: ClothingBeltBSAAMedicFilled
+  suffix: Заполненный, Медик
+  components:
+  - type: StorageFill
+    contents:
+      - id: BSAACombatKitFilled
+        amount: 2
+      - id: ChemistryBottlePuncturase
+        amount: 2
+      - id: ChemistryBottleDermaline
+        amount: 2
+      - id: ChemistryBottleEpinephrine
+      - id: ChemistryBottleSaline
+      - id: ChemistryBottleBicaridine
+        amount: 2
+
 # Очки
 - type: entity
   parent: ClothingEyesHudAdvanced
@@ -93,6 +111,18 @@
     sprite: _DeadSpace/Necromorfs/BSAA/clothing/mask.rsi
   - type: Clothing
     sprite: _DeadSpace/Necromorfs/BSAA/clothing/mask.rsi
+  - type: SpecialDeathSound
+    sound:
+      path: /Audio/_DeadSpace/Voice/Death/sec_death.ogg
+  - type: ActionGrant
+    actions:
+    - ActionGasMaskDispatch
+  - type: ItemActionGrant
+    actions:
+    - ActionGasMaskDispatch
+    activeIfWorn: true
+  - type: GasMaskDispatch
+    channel: SOCChannel
   - type: HideLayerClothing
     slots:
     - Hair

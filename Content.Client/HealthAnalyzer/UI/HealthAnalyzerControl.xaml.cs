@@ -31,6 +31,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
     private readonly SpriteSystem _spriteSystem;
     private readonly IPrototypeManager _prototypes;
     private readonly IResourceCache _cache;
+    public Action? OnPrintButtonPressed; //DS14
 
     public HealthAnalyzerControl()
     {
@@ -41,6 +42,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
         _spriteSystem = _entityManager.System<SpriteSystem>();
         _prototypes = dependencies.Resolve<IPrototypeManager>();
         _cache = dependencies.Resolve<IResourceCache>();
+        PrintButton.OnPressed += _ => OnPrintButtonPressed?.Invoke(); //DS14
     }
 
     public void Populate(HealthAnalyzerUiState state)
@@ -107,7 +109,9 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
 
         // Alerts
 
-        var showAlerts = state.Unrevivable == true || state.Bleeding == true || state.Unclonable == true; //DS14-Soyuz Unclonable
+        // DS14-start
+        var showAlerts = state.Unrevivable == true || state.Bleeding == true || state.Unclonable == true;
+        // DS14-end
 
         AlertsDivider.Visible = showAlerts;
         AlertsContainer.Visible = showAlerts;
@@ -131,7 +135,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 MaxWidth = 300
             });
 
-        // DS14-Soyuz-Start
+        // DS14-start
         if (state.Unclonable == true)
             AlertsContainer.AddChild(new RichTextLabel
             {
@@ -139,7 +143,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
                 Margin = new Thickness(0, 4),
                 MaxWidth = 300
             });
-        // DS14-Soyuz-End
+        // DS14-end
 
         // Damage Groups
 

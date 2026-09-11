@@ -5,4 +5,13 @@
   id: JobPolitkom
 
 - type: playTimeTracker
+  id: JobOperatorGS
+
+- type: playTimeTracker
+  id: JobOfficerGS
+
+- type: playTimeTracker
+  id: JobGeneralStaffKGB
+
+- type: playTimeTracker
   id: JobPrisoner

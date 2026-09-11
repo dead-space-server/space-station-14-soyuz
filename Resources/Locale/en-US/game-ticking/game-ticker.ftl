@@ -4,7 +4,11 @@ game-ticker-start-round-cannot-start-game-mode-fallback = Failed to start {$fail
 game-ticker-start-round-cannot-start-game-mode-restart = Failed to start {$failedGameMode} mode! Restarting round...
 game-ticker-start-round-invalid-map = Selected map {$map} is inelligible for gamemode {$mode}. Gamemode may not function as intended...
 game-ticker-unknown-role = Unknown
-game-ticker-delay-start = Round start has been delayed for {$seconds} seconds.
+game-ticker-delay-start =
+    { $shortened ->
+        [true] Round start moved forward by {$seconds} seconds.
+       *[false] Round start delayed by {$seconds} seconds.
+    }
 game-ticker-pause-start = Round start has been paused.
 game-ticker-pause-start-resumed = Round start countdown is now resumed.
 game-ticker-player-join-game-message = Welcome to Space Station 14! If this is your first time playing, be sure to read the game rules, and don't be afraid to ask for help in LOOC (local OOC) or OOC (usually available only between rounds).
@@ -34,6 +38,7 @@ latejoin-arrival-announcement-special = {$job} {$character} on deck!
 latejoin-arrival-sender = Station
 latejoin-arrivals-direction = A shuttle transferring you to your station will arrive shortly.
 latejoin-arrivals-direction-time = A shuttle transferring you to your station will arrive in {$time}.
+latejoin-arrivals-boarded = You are on the arrivals shuttle. Wait for docking, then exit onto the station.
 latejoin-arrivals-dumped-from-shuttle = A mysterious force prevents you from leaving with the arrivals shuttle.
 latejoin-arrivals-teleport-to-spawn = A mysterious force teleports you off the arrivals shuttle. Have a safe shift!
 

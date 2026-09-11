@@ -42,7 +42,7 @@ public sealed partial class CloningSystem : SharedCloningSystem
     /// <summary>
     ///     Spawns a clone of the given humanoid mob at the specified location or in nullspace.
     /// </summary>
-    public bool TryCloning(EntityUid original, MapCoordinates? coords, ProtoId<CloningSettingsPrototype> settingsId, [NotNullWhen(true)] out EntityUid? clone)
+    public override bool TryCloning(EntityUid original, MapCoordinates? coords, ProtoId<CloningSettingsPrototype> settingsId, [NotNullWhen(true)] out EntityUid? clone)
     {
         clone = null;
         if (!_prototype.Resolve(settingsId, out var settings))
@@ -54,10 +54,8 @@ public sealed partial class CloningSystem : SharedCloningSystem
         if (!_prototype.Resolve(humanoid.Species, out var speciesPrototype))
             return false; // invalid species
 
-        // var attemptEv = new CloningAttemptEvent(settings); // DS14-disabled 
-        // RaiseLocalEvent(original, ref attemptEv); // DS14-disabled
-        if (HasComp<UncloningComponent>(original) && !settings.ForceCloning) // DS14 condition
-            return false; // cannot clone, for example due to the unrevivable trait
+        var attemptEv = new CloningAttemptEvent(settings);
+        RaiseLocalEvent(original, ref attemptEv);
 
         clone = coords == null ? Spawn(speciesPrototype.Prototype) : Spawn(speciesPrototype.Prototype, coords.Value);
         _humanoidSystem.CloneAppearance(original, clone.Value);
@@ -195,7 +193,10 @@ public sealed partial class CloningSystem : SharedCloningSystem
         {
             // remove all items that spawned with the entity inside its storage
             // this ignores other containers, but this should be good enough for our purposes
-            _container.CleanContainer(spawnedStorage.Container);
+            foreach (var ent in _container.EmptyContainer(spawnedStorage.Container, force: true, reparent: false))
+            {
+                Del(ent);
+            }
 
             // recursively replace them
             // surely no one will ever create two items that contain each other causing an infinite loop, right?
@@ -277,16 +278,24 @@ public sealed partial class CloningSystem : SharedCloningSystem
     /// <summary>
     ///    Scans all permanent status effects applied to the original entity and transfers them to the clone.
     /// </summary>
-    public void CopyStatusEffects(Entity<StatusEffectContainerComponent?> original, Entity<StatusEffectContainerComponent?> target)
+    public override void CopyStatusEffects(
+        EntityUid original,
+        EntityUid target,
+        EntityWhitelist? whitelist = null,
+        EntityWhitelist? blacklist = null)
     {
-        if (!Resolve(original, ref original.Comp, false))
+        StatusEffectContainerComponent? originalComp = null;
+        if (!Resolve(original, ref originalComp, false))
             return;
 
-        if (original.Comp.ActiveStatusEffects is null)
+        if (originalComp.ActiveStatusEffects is null)
             return;
 
-        foreach (var effect in original.Comp.ActiveStatusEffects.ContainedEntities)
+        foreach (var effect in originalComp.ActiveStatusEffects.ContainedEntities)
         {
+            if (!_whitelist.CheckBoth(effect, blacklist, whitelist))
+                continue;
+
             if (!TryComp<StatusEffectComponent>(effect, out var effectComp))
                 continue;
 

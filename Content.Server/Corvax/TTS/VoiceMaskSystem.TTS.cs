@@ -1,4 +1,5 @@
 using Content.Shared.Corvax.TTS;
+using Content.Shared.Implants;
 using Content.Shared.Inventory;
 using Content.Shared.VoiceMask;
 
@@ -9,6 +10,8 @@ public partial class VoiceMaskSystem
     private void InitializeTTS()
     {
         SubscribeLocalEvent<VoiceMaskComponent, InventoryRelayedEvent<TransformSpeakerVoiceEvent>>(OnSpeakerVoiceTransform);
+        SubscribeLocalEvent<VoiceMaskComponent, ImplantRelayEvent<TransformSpeakerVoiceEvent>>(OnSpeakerVoiceTransformImplant); // DS14
+        SubscribeLocalEvent<VoiceMaskComponent, TransformSpeakerVoiceEvent>(OnSpeakerVoiceTransformInnate); // DS14
         SubscribeLocalEvent<VoiceMaskComponent, VoiceMaskChangeVoiceMessage>(OnChangeVoice);
     }
 
@@ -21,6 +24,24 @@ public partial class VoiceMaskSystem
 
         args.Args.VoiceId = entity.Comp.VoiceId;
     }
+
+    // DS14-start
+    private void OnSpeakerVoiceTransformImplant(Entity<VoiceMaskComponent> entity, ref ImplantRelayEvent<TransformSpeakerVoiceEvent> args)
+    {
+        if (!entity.Comp.Active)
+            return;
+
+        args.Event.VoiceId = entity.Comp.VoiceId;
+    }
+
+    private void OnSpeakerVoiceTransformInnate(Entity<VoiceMaskComponent> entity, ref TransformSpeakerVoiceEvent args)
+    {
+        if (!entity.Comp.Active)
+            return;
+
+        args.VoiceId = entity.Comp.VoiceId;
+    }
+    // DS14-end
 
     private void OnChangeVoice(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeVoiceMessage msg)
     {

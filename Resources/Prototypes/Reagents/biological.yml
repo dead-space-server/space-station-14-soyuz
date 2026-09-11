@@ -13,11 +13,13 @@
   metamorphicChangeColor: false
   recognizable: true
   standsout: true
+  decorativePuddle: true # DS14
   physicalDesc: reagent-physical-desc-ferrous
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 1.0
         conditions:
           - !type:MetabolizerTypeCondition
@@ -84,7 +86,8 @@
     Food:
       # Delicious!
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: 1
         conditions:
         - !type:MetabolizerTypeCondition
@@ -116,9 +119,11 @@
     Food:
       # Sweet!
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: 1
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 1
   footstepSound:
     collection: FootstepSlime
@@ -166,11 +171,13 @@
   physicalDesc: reagent-physical-desc-necrotic
   flavor: bitter
   color: "#2b0700"
+  decorativePuddle: true # DS14
   metabolisms:
     Drink:
       # Disgusting!
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: -0.5
     Poison:
       effects:
@@ -193,7 +200,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 1.5
     # Dragon doesn't require airloss healing, so omnizine is still best for humans.
       - !type:ModifyBloodLevel
@@ -245,7 +253,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 0.5
       - !type:AdjustReagent
         reagent: Nutriment
@@ -266,7 +275,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: 1.5
     Poison:
       effects:
@@ -274,3 +284,16 @@
         damage:
           types:
             Cellular: 2
+
+- type: reagent
+  id: LivingTissue
+  name: reagent-name-living-tissue
+  group: Biological
+  desc: reagent-desc-living-tissue
+  flavor: metallic
+  color: "#800000"
+  physicalDesc: reagent-physical-desc-ferrous
+  footstepSound:
+    collection: FootstepBlood
+    params:
+      volume: 6

@@ -17,6 +17,13 @@
       - !type:ModifyStatusEffect
         effectProto: StatusEffectWoozy
         time: 20.0
+      # DS14-start
+      - !type:PopupMessage
+        type: Local
+        visualType: Small
+        messages: ["cryptobiolin-effect-dizzy"]
+        probability: 0.05
+      # DS14-end
 
 - type: reagent
   id: Dylovene
@@ -395,9 +402,8 @@
       - !type:ModifyKnockdown
         time: 0.75
         type: Remove
-      - !type:GenericStatusEffect
-        key: Adrenaline # Guess what epinephrine is...
-        component: IgnoreSlowOnDamage
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectAdrenaline # Guess what epinephrine is...
         time: 5 # lingers less than hivemind reagent to give it a niche
 
 - type: reagent
@@ -495,7 +501,8 @@
             Heat: -0.33
             Shock: -0.33
             Cold: -0.33
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: -10
         conditions:
         - !type:ReagentCondition
@@ -577,9 +584,9 @@
           - !type:ReagentCondition
             reagent: Barozine
             min: 30
-      - !type:GenericStatusEffect
-        key: PressureImmunity
-        component: PressureImmunity
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectPressureImmunity
+        type: Add
       - !type:GenericStatusEffect
         key: Stutter
         component: StutteringAccent
@@ -719,7 +726,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 6
 # DS14-start
           conditions:
@@ -865,7 +873,8 @@
     Medicine:
       effects:
       # what the hell, this isn't satiating at all!!
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: -1
 
   # Should heal quite literally everything, use in very small amounts
@@ -1161,7 +1170,8 @@
         damage:
           types:
             Blunt: -2.25 # 9 per u
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: -1
       - !type:HealthChange
         conditions:
@@ -1184,7 +1194,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 3
       - !type:HealthChange
         conditions:
@@ -1428,6 +1439,13 @@
         visualType: Medium
         messages: [ "mannitol-effect-enlightened" ]
         probability: 0.2
+      # DS14-start
+      - !type:PopupMessage
+        type: Local
+        visualType: Small
+        messages: ["mannitol-effect-strain-relief"]
+        probability: 0.05
+      # DS14-end
 
 - type: reagent
   id: Psicodine
@@ -1472,6 +1490,13 @@
         - "psicodine-effect-anxieties-wash-away"
         - "psicodine-effect-at-peace"
         probability: 0.2
+      # DS14-start
+      - !type:PopupMessage
+        type: Local
+        visualType: Small
+        messages: ["psicodine-effect-weight-off"]
+        probability: 0.05
+      # DS14-end
 
 - type: reagent
   id: PotassiumIodide
@@ -1511,7 +1536,6 @@
       effects:
       - !type:Emote
         emote: Yawn
-        showInChat: true
         probability: 0.1
       - !type:ModifyStatusEffect
         effectProto: StatusEffectDrowsiness

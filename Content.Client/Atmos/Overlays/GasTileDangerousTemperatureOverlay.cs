@@ -1,8 +1,10 @@
 using Content.Client.Atmos.EntitySystems;
+using Content.Client.DeadSpace._Soyuz.Overlays;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
 using Robust.Client.Graphics;
+using Robust.Client.Player; // DS14-Soyuz
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -18,6 +20,7 @@ public sealed class GasTileDangerousTemperatureOverlay : Overlay
     public override bool RequestScreenTexture { get; set; } = false;
 
     [Dependency] private readonly IEntityManager _entManager = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14-Soyuz
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IClyde _clyde = default!;
 
@@ -143,6 +146,10 @@ public sealed class GasTileDangerousTemperatureOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
+        // DS-14 Soyuz
+        if (!SoyuzOverlayViewport.IsPrimary(args, _entManager, _playerManager))
+            return false;
+
         if (args.MapId == MapId.Nullspace)
             return false;
 

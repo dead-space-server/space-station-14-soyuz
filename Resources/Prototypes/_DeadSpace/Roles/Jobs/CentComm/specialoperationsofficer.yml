@@ -13,9 +13,10 @@
   access:
   - CentralCommand
   - SOD
+  - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm, MacroBombImplant ]
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
   - !type:AddComponentSpecial
     components:
     - type: AntagImmune
@@ -25,6 +26,13 @@
       - CentralCommand
     - type: Skill
       group: ALL
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankMajorGeneral:
+    - !type:OverallPlaytimeRequirement
+      time: 3600000 # 1000 часов
+    NKVBRankColonel: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: CentcomSpecialOperationsOfficerGear
@@ -36,6 +44,7 @@
     eyes: ClothingEyesGlassesAdvancedOKGB
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestWebElite #DS14-Soyuz
+    mask: WhiteNoiseMaskUnknown
     neck: ClothingNeckCloakCentcomBlack
     belt: WeaponRevolverMateba
     id: CentcomSpecialOperationsOfficerPDA
@@ -62,13 +71,12 @@
         - id: RubberStampMemeDeny
         - id: RubberStampCentcomSpecialOperationOfficer
         - id: BoxFolderBlueFilled
-#DS14-soyuz-start
-        - id: WeaponPulseShotgun #DS14-soyuz
-        - id: WeaponRevolverMatebaAP #DS14-soyuz
+        # DS14-soyuz-start
+        - id: WeaponRevolverMatebaAP
         - id: SpeedLoaderMagnumAP
           amount: 3
         - id: DoorRemoteAll 
-#DS14-soyuz-end
+        # DS14-soyuz-end
 
 - type: entity
   parent: BoxFolderBase

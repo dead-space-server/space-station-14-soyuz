@@ -8,6 +8,7 @@ using Content.Shared.Radio.Components;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.GameTicking;
+using Robust.Server.GameObjects; // DS14
 using Robust.Shared.Localization;
 
 namespace Content.Server.CartridgeLoader.Cartridges;
@@ -17,13 +18,43 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
     [Dependency] private CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
     [Dependency] private GameTicker _gameTicker = default!;
     [Dependency] private PopupSystem _popupSystem = default!;
+    [Dependency] private UserInterfaceSystem _userInterfaceSystem = default!; // DS14
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<MessengerCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
         SubscribeLocalEvent<MessengerCartridgeComponent, CartridgeMessageEvent>(OnUiMessage);
+        SubscribeLocalEvent<MessengerCartridgeComponent, CartridgeDeactivatedEvent>(OnDeactivated); // DS14
     }
+
+    // DS14-start
+    /// <summary>
+    ///     When the NanoChat app is closed (PDA closed, another app opened, cartridge ejected),
+    ///     the active chat is forgotten so new messages start raising unread badges again.
+    /// </summary>
+    private void OnDeactivated(Entity<MessengerCartridgeComponent> ent, ref CartridgeDeactivatedEvent args)
+    {
+        ent.Comp.ActiveChatPartnerId = null;
+    }
+
+    /// <summary>
+    ///     Checks whether the recipient is actually looking at an open chat with the sender right now
+    ///     (messenger app is active on screen with that chat open).
+    /// </summary>
+    private bool IsViewingChat(EntityUid cartridgeUid, MessengerCartridgeComponent component, int partnerId)
+    {
+        if (component.ActiveChatPartnerId != partnerId)
+            return false;
+
+        var loaderUid = GetLoaderUid(cartridgeUid);
+        if (loaderUid == null || !TryComp<CartridgeLoaderComponent>(loaderUid.Value, out var loader))
+            return false;
+
+        return _userInterfaceSystem.IsUiOpen(loaderUid.Value, loader.UiKey)
+            && loader.ActiveProgram == cartridgeUid;
+    }
+    // DS14-end
 
     /// <summary>
     /// Syncing client and server
@@ -206,8 +237,19 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
             if (!server.Value.Component.Users.ContainsKey(sendMessage.ReceiverId))
                 return;
 
+            if (IsBlocked(userData.Value.Id, sendMessage.ReceiverId))
+                return;
+
             if (string.IsNullOrWhiteSpace(sendMessage.Content))
                 return;
+
+            var receiverCartridgeUid = GetCartridgeByUserId(sendMessage.ReceiverId);
+            if (receiverCartridgeUid != null &&
+                TryComp<MessengerCartridgeComponent>(receiverCartridgeUid.Value, out var receiverCartridge) &&
+                receiverCartridge.IncomingMessagesDisabled)
+            {
+                return;
+            }
 
             var content = sendMessage.Content.Trim();
             if (content.Length > MaxMessageLength)
@@ -243,7 +285,6 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
 
             UpdateUiState(uid, loaderUid.Value);
 
-            var receiverCartridgeUid = GetCartridgeByUserId(sendMessage.ReceiverId);
             if (receiverCartridgeUid == null)
                 return;
             //DS14-start
@@ -256,7 +297,8 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
                 return;
 
             var receiverComp = Comp<MessengerCartridgeComponent>(receiverCartridgeUid.Value);
-            if (receiverComp.ActiveChatPartnerId != userData.Value.Id)
+            // DS14-start: only skip the unread badge if the recipient is actually viewing this chat right now
+            if (!IsViewingChat(receiverCartridgeUid.Value, receiverComp, userData.Value.Id))
             {
                 if (server.Value.Component.Users.TryGetValue(sendMessage.ReceiverId, out var receiverUser))
                 {
@@ -292,6 +334,35 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
         {
             _popupSystem.PopupEntity(Loc.GetString("messenger-typing-popup"), uid, PopupType.Small);
         }
+
+        // DS14-Start
+        if (args is MessengerBlockUserEvent blockEvent)
+        {
+            if (blockEvent.Block)
+                component.BlockedUsers.Add(blockEvent.TargetUserId);
+            else
+                component.BlockedUsers.Remove(blockEvent.TargetUserId);
+
+            UpdateUiState(uid, loaderUid.Value);
+
+            // Also update the target user's UI if they're chatting with us
+            var targetCartridgeUid = GetCartridgeByUserId(blockEvent.TargetUserId);
+            if (targetCartridgeUid != null)
+            {
+                var targetLoaderUid = GetLoaderUid(targetCartridgeUid.Value);
+                if (targetLoaderUid != null)
+                {
+                    UpdateUiState(targetCartridgeUid.Value, targetLoaderUid.Value);
+                }
+            }
+        }
+
+        if (args is MessengerSetIncomingDisabledEvent incomingEvent)
+        {
+            component.IncomingMessagesDisabled = incomingEvent.Disabled;
+            UpdateUiState(uid, loaderUid.Value);
+        }
+        // DS14-End
     }
 
     private void SendNotificationToUser(EntityUid cartridgeUid, string senderName, string messagePreview)
@@ -355,6 +426,23 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
         UpdateUiState(uid, args.Loader);
     }
 
+    // DS14-Start
+    private bool IsBlocked(int senderId, int receiverId)
+    {
+        var senderCartridge = GetCartridgeByUserId(senderId);
+        if (senderCartridge != null && TryComp<MessengerCartridgeComponent>(senderCartridge, out var senderComp)
+            && senderComp.BlockedUsers.Contains(receiverId))
+            return true;
+
+        var receiverCartridge = GetCartridgeByUserId(receiverId);
+        if (receiverCartridge != null && TryComp<MessengerCartridgeComponent>(receiverCartridge, out var receiverComp)
+            && receiverComp.BlockedUsers.Contains(senderId))
+            return true;
+
+        return false;
+    }
+    // DS14-End
+
     private void UpdateUiState(EntityUid cartridgeUid, EntityUid loaderUid)
     {
         // checking for an IDcard
@@ -368,7 +456,22 @@ public sealed partial class MessengerCartridgeSystem : EntitySystem
         SyncUsers();
         var (users, status) = GetUserList(cartridgeUid);
         var messages = GetMessages(cartridgeUid);
-        var state = new MessengerCartridgeUiState(status, users, messages);
+
+        // DS14-Start
+        var userData = GetUserData(cartridgeUid);
+        var isBlocked = false;
+        var isBlocking = false;
+        TryComp<MessengerCartridgeComponent>(cartridgeUid, out var cartridgeComp); // DS14
+        var incomingMessagesDisabled = cartridgeComp?.IncomingMessagesDisabled ?? false;
+        if (userData.HasValue && cartridgeComp != null
+            && cartridgeComp.ActiveChatPartnerId != null)
+        {
+            isBlocked = IsBlocked(cartridgeComp.ActiveChatPartnerId.Value, userData.Value.Id);
+            isBlocking = IsBlocked(userData.Value.Id, cartridgeComp.ActiveChatPartnerId.Value);
+        }
+        // DS14-End
+
+        var state = new MessengerCartridgeUiState(status, users, messages, isBlocked, isBlocking, incomingMessagesDisabled); //DS14
         _cartridgeLoaderSystem.UpdateCartridgeUiState(loaderUid, state);
     }
 }

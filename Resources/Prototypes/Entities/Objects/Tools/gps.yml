@@ -4,6 +4,7 @@
   id: HandheldGPSBasic
   description: Helping lost spacemen find their way through the planets since 2016.
   components:
+  - type: LavalandGpsTracker # DS14
   - type: Sprite
     sprite: Objects/Devices/gps.rsi
     layers:
@@ -19,9 +20,29 @@
   - type: Tag
     tags:
     - GPS
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  #DS14-End
 
 - type: entity #why does this exist? Well, "global positioning system" is too long to fit in the cyborg's hand slot.
   name: integrated GPS
   parent: HandheldGPSBasic
   id: BorgHandheldGPSBasic
   description: A miniaturized Global Positioning System for use in cyborg units.
+
+# DS14-start
+- type: entity
+  parent: HandheldGPSBasic
+  id: HandheldGPSXenoborg
+  components:
+  - type: LavalandGpsTracker
+    enabled: false
+# DS14-end

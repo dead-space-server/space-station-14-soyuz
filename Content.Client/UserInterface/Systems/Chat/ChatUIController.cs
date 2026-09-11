@@ -6,9 +6,11 @@ using Content.Client.Chat;
 using Content.Client.Chat.Managers;
 using Content.Client.Chat.TypingIndicator;
 using Content.Client.Chat.UI;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
 using Content.Client.Ghost;
+using Content.Client.Lobby;
 using Content.Client.Mind;
 using Content.Client.Roles;
 using Content.Client.Stylesheets;
@@ -40,6 +42,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Content.Shared.DeadSpace.CCCCVars;
 
 
 namespace Content.Client.UserInterface.Systems.Chat;
@@ -137,6 +140,7 @@ public sealed partial class ChatUIController : UIController
 
     private readonly HashSet<ChatBox> _chats = new();
     public IReadOnlySet<ChatBox> Chats => _chats;
+    private ChatWindow? _mainChatPopOut; // DS14
 
     /// <summary>
     ///     The max amount of characters an entity can send in one message
@@ -278,7 +282,7 @@ public sealed partial class ChatUIController : UIController
                  && style is StyleBoxFlat propStyleBoxFlat)
             color = propStyleBoxFlat.BackgroundColor;
         else
-            color = Color.FromHex("#25252ADD");
+            color = DeadSpaceStylePalette.SurfaceDark.WithAlpha(221f / 255f); // DS14
 
         panel.PanelOverride = new StyleBoxFlat
         {
@@ -288,6 +292,11 @@ public sealed partial class ChatUIController : UIController
 
     public void SetMainChat(bool setting)
     {
+        // DS14-start
+        if (!setting)
+            _mainChatPopOut?.DetachMainChat();
+        // DS14-end
+
         if (UIManager.ActiveScreen == null)
         {
             return;
@@ -318,7 +327,42 @@ public sealed partial class ChatUIController : UIController
         }
 
         chatBox.Main = setting;
+        // DS14-start
+        if (_config.GetCVar(CCCCVars.PopOutChat) && setting)
+        {
+            var popOut = _mainChatPopOut;
+            if (popOut == null)
+            {
+                popOut = new ChatWindow();
+                _mainChatPopOut = popOut;
+                popOut.PoppedOutClosed += OnMainChatPopOutClosed;
+            }
+
+            popOut.PopOutChatRef(ref chatBox);
+        }
+        // DS14-end
     }
+
+    // DS14-start
+    private void OnMainChatPopOutClosed()
+    {
+        if (_mainChatPopOut is not { } popOut)
+            return;
+
+        popOut.PoppedOutClosed -= OnMainChatPopOutClosed;
+        _mainChatPopOut = null;
+    }
+
+    private void CloseMainChatPopOut()
+    {
+        if (_mainChatPopOut is not { } popOut)
+            return;
+
+        popOut.PoppedOutClosed -= OnMainChatPopOutClosed;
+        _mainChatPopOut = null;
+        popOut.ClosePoppedOutWindow();
+    }
+    // DS14-end
 
     private void SetChatSizing(string sizing, InGameScreen screen, bool setting)
     {
@@ -408,6 +452,11 @@ public sealed partial class ChatUIController : UIController
 
     private void StateChanged(StateChangedEventArgs args)
     {
+        // DS14-start
+        if (args.NewState is not GameplayStateBase and not LobbyState)
+            CloseMainChatPopOut();
+        // DS14-end
+
         if (args.NewState is GameplayState)
         {
             PreferredChannel = ChatSelectChannel.Local;
@@ -880,7 +929,7 @@ public sealed partial class ChatUIController : UIController
                 break;
 
             case ChatChannel.Dead:
-                if (_ghost is not {IsGhost: true})
+                if (_ghost is not { IsGhost: true})
                     break;
 
                 AddSpeechBubble(msg, SpeechBubble.SpeechType.Say);

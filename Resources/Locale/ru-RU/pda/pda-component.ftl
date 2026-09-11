@@ -17,7 +17,7 @@ comp-pda-ui-footer = Карманный Персональный Компьют�
 comp-pda-ui-station = Станция: [color=white]{ $station }[/color]
 comp-pda-ui-station-alert-level = Уровень угрозы: [color={ $color }]{ $level }[/color]
 comp-pda-ui-station-alert-level-instructions = Инструкции: [color=white]{ $instructions }[/color]
-comp-pda-ui-station-time = Продолжительность смены и дата: [color=white]{ $time }, { $date }[/color]
+comp-pda-ui-station-time = Смена: [color=white]{ $time } · { $date }[/color]
 comp-pda-ui-eject-id-button = Извлечь ID
 comp-pda-ui-eject-pen-button = Извлечь ручку
 comp-pda-ui-ringtone-button-description = Измените рингтон вашего КПК
@@ -27,5 +27,10 @@ pda-bound-user-interface-music-button-description = Слушайте музык�
 pda-bound-user-interface-music-button = Музыкальный инструмент
 comp-pda-ui-unknown = Неизвестно
 comp-pda-ui-unassigned = Не назначено
+comp-pda-ui-silent-mode-button-off = Безвучный режим: ВЫКЛ
+comp-pda-ui-silent-mode-button-description-off = Звуки уведомлений будут воспроизводиться
+comp-pda-ui-silent-mode-button-on = Безвучный режим: ВКЛ
+comp-pda-ui-silent-mode-button-description-on = Звуки уведомлений не будут воспроизводиться
+
 pda-notification-message = [font size=12][bold]КПК[/bold] { $header }: [/font]
     "{ $message }"

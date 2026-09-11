@@ -13,9 +13,10 @@ public sealed partial class AdminMenuWindow : DefaultWindow
 
     public AdminMenuWindow()
     {
-        MinSize = new Vector2(740, 250); // DS14-resize
+        MinSize = new Vector2(720, 360); // DS14
         Title = Loc.GetString("admin-menu-title");
         RobustXamlLoader.Load(this);
+
         MasterTabContainer.SetTabTitle((int) TabIndex.Admin, Loc.GetString("admin-menu-admin-tab"));
         MasterTabContainer.SetTabTitle((int) TabIndex.Adminbus, Loc.GetString("admin-menu-adminbus-tab"));
         MasterTabContainer.SetTabTitle((int) TabIndex.Atmos, Loc.GetString("admin-menu-atmos-tab"));

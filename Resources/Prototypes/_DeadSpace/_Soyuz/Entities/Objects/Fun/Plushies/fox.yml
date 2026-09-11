@@ -46,8 +46,8 @@
 - type: entity
   parent: PlushieRedFox
   id: PlushieCoffeFox
-  name: синяя плюшевая лисичка
-  description: Плюшевая игрушка синей лисы. Энергичная!
+  name: кофейная плюшевая лисичка
+  description: Плюшевая игрушка кофейной лисы. Энергичная!
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/toy_foxs.rsi

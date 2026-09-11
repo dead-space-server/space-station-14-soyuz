@@ -13,5 +13,16 @@ namespace Content.Shared.Electrocution
         /// </summary>
         [DataField, AutoNetworkedField]
         public float Coefficient { get; set; } = 0f;
+
+        // DS14-start
+        [DataField, AutoNetworkedField]
+        public bool ShowInExamine = true;
+
+        [DataField, AutoNetworkedField]
+        public float LightningProtectionChance = 0f;
+
+        [DataField, AutoNetworkedField]
+        public TimeSpan StunReduction = TimeSpan.FromSeconds(1);
+        // DS14-end
     }
 }

@@ -3,6 +3,7 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Alert;
 using Content.Shared.CCVar;
 using Content.Shared.CombatMode;
+using Content.Shared.Cuffs;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Events;
 using Content.Shared.Database;
@@ -64,6 +65,8 @@ public abstract partial class SharedStaminaSystem : EntitySystem
         SubscribeLocalEvent<StaminaComponent, AfterAutoHandleStateEvent>(OnStamHandleState);
         SubscribeLocalEvent<StaminaComponent, DisarmedEvent>(OnDisarmed);
         SubscribeLocalEvent<StaminaComponent, RejuvenateEvent>(OnRejuvenate);
+        // DS14 - current engine baseline requires explicit event subscriptions.
+        SubscribeLocalEvent<StaminaComponent, CheckIncapacitatedCuffEvent>(OnIncapCuffCheck);
 
         SubscribeLocalEvent<StaminaDamageOnEmbedComponent, EmbedEvent>(OnProjectileEmbed);
 
@@ -129,6 +132,12 @@ public abstract partial class SharedStaminaSystem : EntitySystem
         _status.TryRemoveStatusEffect(entity, StaminaLow);
         UpdateStaminaVisuals(entity);
         Dirty(entity);
+    }
+
+    private void OnIncapCuffCheck(Entity<StaminaComponent> ent, ref CheckIncapacitatedCuffEvent args)
+    {
+        if (ent.Comp.Critical)
+            args.Incapacitated = true;
     }
 
     private void OnDisarmed(EntityUid uid, StaminaComponent component, ref DisarmedEvent args)

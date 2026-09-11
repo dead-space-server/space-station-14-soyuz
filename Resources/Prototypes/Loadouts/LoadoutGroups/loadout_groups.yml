@@ -11,6 +11,130 @@
   - HatDeer # DS14
   - PlushieLizard
   - PlushieSpaceLizard
+  # DS14-plushie-start
+  - Akiplushie1
+  - Akiplushie2
+  - Akiplushie3
+  - Akiplushie4
+  - Akiplushie5
+  - Akiplushie6
+  - Akiplushie7
+  - Akiplushie8
+  - Akiplushie9
+  - Akiplushie10
+  - Akiplushie11
+  - Akiplushie12
+  - Akiplushie13
+  - Akiplushie14
+  - Akiplushie15
+  - Akiplushie16
+  - Akiplushie17
+  - Akiplushie18
+  - Akiplushie19
+  - Akiplushie20
+  - Akiplushie21
+  - DiscordToy
+  - PlushieJokerge
+  - PlushieFloran
+  - PlushieJuggernaut
+  - PlushieIps
+  - PlushieBoich
+  - PlushieCyberFox
+  - PlushieAhahaahahaha
+  - PlushieKriss
+  - PlushieOstwind
+  - PlushieJeleshka
+  - PlushieDobryash
+  - PlushieHqdishka
+  - PlushieWillie
+  - PlushieAinnete
+  - PlushieAlex
+  - PlushieElizabeth
+  - PlushieEllis
+  - PlushieKermuth
+  - PlushieLucius
+  - PlushieEvelina
+  - PlushieLieutenant
+  - PlushieDrGnarAlt
+  # IV rang start
+  - PlushieSmetanaJonita
+  - PlushieScarlettPvrsifvlAlt2
+  - PlushieColleen
+  - PlushieHermione
+  - PlushieRIP
+  - PlushieFloria
+  - PlushieAino
+  - PlushieMagicColonel
+  - PlushieFyrmorEklmn
+  - PlushieUraniDmitrySpeisov
+  - PlushieZekalAhmet
+  - PlushieSargonValeniyaSato
+  - PlushieKoteViyt
+  - PlushieCyberBobeksRiikka
+  - PlushieAmaliz
+  - PlushieNikolVitali
+  - PlushieCovralBroneslav
+  - Plushie0black_cat0
+  - PlushieDosDydosYukari
+  - PlushieYosugaMarsel
+  - PlushiePERedGora
+  - PlushieKarasuNaomi
+  - PlushieSmetanaJohnFrost
+  - PlushieRavanesusDeath
+  - PlushieRavanesusOperativ
+  - PlushieDajidanNikita
+  - PlushieGuitarwhispersNick
+  - PlushieMuenraiSiiri
+  - PlushieKieruAngel
+  - PlushieImarabErmina
+  - PlushieZutiKuz
+  - PlushieZutiIgna
+  - PlushieSastrBon
+  # IV rang end
+  - PlushieSilAily
+  - PlushieSilAizek
+  - PlushieSilAzrail
+  - PlushieSilEmilia
+  - PlushieSilEva
+  - PlushieSilKrivazora
+  - PlushieSilAzrailHardsuit
+  - PlushieSilSharp
+  - PlushieSilRenaTakala
+  - PlushieSilEso
+  - PlushieSilKel
+  - PlushieSilWeaver
+  - PlushieSilEyrinLiht
+  - PlushieSilKelicKato1
+  - PlushieSilKelicKato2
+  - PlushieSilYuliWinter
+  - PlushieSilEkaterinaAkkerman
+  - PlushieSilYohanaWinter
+  - PlushieSilGermanKvaSki
+  - PlushieSilTimAkkerman
+  - PlushieSilKiana
+  - PlushieSilSai
+  - PlushieSilZhdan
+  - PlushieSilElena
+  - PlushieSilMei
+  - PlushieSilRygoslav
+  - PlushieSilFlem
+  - PlushieSilMarry
+  - PlushieSilAleksey
+  - PlushieSilArevin
+  - PlushieSilMila
+  - PlushieSilRiza
+  - PlushieSilMuren
+  - PlushieDragonFoxMedTech
+  - PlushieDragonFoxMadParadox
+  - PlushieSilRalseya
+  - PlushieSilAmaliya
+  - PlushieSilSAstro
+  - PlushieSilDestin
+  - PlushieSilEgor
+  - PlushieSilKim
+  - PlushieSilEmma
+  - PlushieMoth3eilado
+  - PlushieMoth3eiladoBlue
   - ThreeCandles
   - Lighter
   - FlippoLighter
@@ -124,26 +248,64 @@
   name: loadout-group-captain-head
   minLimit: 0
   loadouts:
-  - CaptainHead
+  #- CaptainHead # DS14-CaptainResprite: removed this shit
+  - CaptainBeret # DS14-CaptainResprite
   - CaptainCap
+  # DS14-start: CaptainResprite
+  ## White
+  - CaptainBeretWhite
+  - CaptainCapWhite
+  ## Black
+  - CaptainBeretBlack
+  - CaptainCapBlack
+  # DS14-end
 
 - type: loadoutGroup
   id: CaptainJumpsuit
   name: loadout-group-captain-jumpsuit
   loadouts:
+  # DS14-start: CaptainResprite
+  ## Blue
   - CaptainJumpsuit
   - CaptainJumpskirt
+  - CaptainJumpsuitTurtleneck
+  - CaptainJumpskirtTurtleneck
   - CaptainFormalSuit
-  - CaptainFormalSkirt
+  #- CaptainFormalSkirt # DS14-CaptainResprite: removed this shit, bacause not a new sprite
+  - CaptainJumpskirtPencil
+  ## White
+  - CaptainJumpsuitWhite
+  - CaptainJumpskirtWhite
+  - CaptainJumpsuitTurtleneckWhite
+  - CaptainJumpskirtTurtleneckWhite
+  - CaptainFormalSuitWhite
+  - CaptainJumpskirtPencilWhite
+  ## Black
+  - CaptainJumpsuitBlack
+  - CaptainJumpskirtBlack
+  - CaptainJumpsuitTurtleneckBlack
+  - CaptainJumpskirtTurtleneckBlack
+  - CaptainFormalSuitBlack
+  - CaptainJumpskirtPencilBlack
+  # DS14-end
 
 - type: loadoutGroup
   id: CaptainNeck
   name: loadout-group-captain-neck
   minLimit: 0
   loadouts:
+  # DS14-start: CaptainResprite
+  ## Blue
   - CaptainCloak
   - CaptainCloakFormal
+  - CaptainShoulderMantle # DS14
+  - CaptainShoulderMantleFormal # DS14
   - CaptainMantle
+  ## White
+  - CaptainShoulderMantleWhite
+  ## Black
+  - CaptainShoulderMantleBlack
+  # DS14-end
 
 - type: loadoutGroup
   id: CaptainBackpack
@@ -152,13 +314,32 @@
   - CaptainBackpack
   - CaptainSatchel
   - CaptainDuffel
+  # DS14-start: CaptainResprite
+  ## White
+  - CaptainBackpackWhite
+  - CaptainSatchelWhite
+  - CaptainDuffelWhite
+  ## Black
+  - CaptainBackpackBlack
+  - CaptainSatchelBlack
+  - CaptainDuffelBlack
+  # DS14-end
 
 - type: loadoutGroup
   id: CaptainOuterClothing
   name: loadout-group-captain-outerclothing
   loadouts:
+  # DS14-start: CaptainResprite
   - CaptainOuterClothing
   - CaptainWintercoat
+  - CaptainCoat
+  ## White
+  - CaptainOuterClothingWhite
+  - CaptainWintercoatWhite
+  ## Black
+  - CaptainOuterClothingBlack
+  - CaptainWintercoatBlack
+  # DS14-end
 
 - type: loadoutGroup
   id: CaptainUnderwear
@@ -183,6 +364,7 @@
   loadouts:
   - HoPJumpsuit
   - HoPJumpskirt
+  - HoPJumpsuitWhite # DS14
 
 - type: loadoutGroup
   id: HoPNeck
@@ -815,6 +997,7 @@
   - Accordion
   - Harmonica
   - Clarinet
+  - SuperSynt # ds14
   - Flute
   - Recorder
   - PanFlute
@@ -1409,6 +1592,7 @@
   - CombatBoots
   - JackBoots
   - ShoesBootsLaceup
+  - SecurityWinterBoots # DS14
 
 - type: loadoutGroup
   id: HeadofSecuritySocks
@@ -1476,6 +1660,7 @@
   - SecurityBeret
   - SecurityHat
   - TrooperHat
+  - SecurityHatCap # DS14
 
 - type: loadoutGroup
   id: SecurityMask
@@ -1493,6 +1678,7 @@
   - SecurityJumpskirt
   - SecurityJumpsuitGrey
   - SecurityJumpskirtGrey
+  - SecurityJumpsuitSecBlue # DS14
   - SecurityJumpsuitBlack # DS14
   - SecurityJumpskirtPencil # DS14
   # - SeniorOfficerJumpsuit
@@ -1539,7 +1725,7 @@
   - JackSecBoots
   - CombatBoots
   - JackBoots
-  - SecurityWinterBoots
+  - SecurityWinterBoots # DS14
 
 # DS14-disabled
 #- type: loadoutGroup
@@ -1575,13 +1761,13 @@
   - DetectiveGreyFlatCap # DS14
   - DetectiveBrownFlatCap # DS14
 
-- type: loadoutGroup
-  id: DetectiveNeck
-  name: loadout-group-detective-neck
-  minLimit: 0
-  loadouts:
-  - DetectiveTie
-  - DetectiveTieRed # DS14
+#- type: loadoutGroup
+#  id: DetectiveNeck
+#  name: loadout-group-detective-neck
+#  minLimit: 0
+#  loadouts:
+#  - DetectiveTie
+#  - DetectiveTieRed # DS14
 
 - type: loadoutGroup
   id: DetectiveJumpsuit
@@ -1947,6 +2133,7 @@
   minLimit: 0
   loadouts:
   - LizardPlushieJanitor
+  - GoldPlungerJanitor # DS-14
 
 - type: loadoutGroup
   id: BotanistJobTrinkets
@@ -2125,4 +2312,3 @@
   minLimit: 0
   loadouts:
   - LizardPlushiePsychologist
-

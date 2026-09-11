@@ -15,7 +15,11 @@
   - type: VentriloquistPuppet
   - type: Item
     size: Normal
-  - type: Muted
+  # DS14-start: puppet prototypes live in this split file on the current branch.
+  - type: PermanentStatusEffects
+    statusEffects:
+    - StatusEffectVentriloquistPuppetMuted
+  # DS14-end
   - type: TypingIndicator
     proto: robot
   - type: TTS # Corvax-TTS
@@ -32,6 +36,17 @@
     damage:
       types:
         Blunt: 2
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: MrChips

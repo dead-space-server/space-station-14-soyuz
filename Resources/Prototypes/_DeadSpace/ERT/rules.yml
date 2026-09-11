@@ -49,10 +49,24 @@
 
 - type: entity
   parent: BaseGameRule
-  id: SpawnJanitorsShuttle
+  id: SpawnCentcomFieldOfficerShuttle
   components:
   - type: ErtSpawnRule
-    shuttle: JanitorsShuttle
+    shuttle: CentcomFieldOfficerShuttle
+
+- type: entity
+  parent: BaseGameRule
+  id: SpawnFOStormShuttle
+  components:
+  - type: ErtSpawnRule
+    shuttle: FOStormShuttle
+
+- type: entity
+  parent: BaseGameRule
+  id: SpawnFODeathMessengerShuttle
+  components:
+  - type: ErtSpawnRule
+    shuttle: FODeathMessengerShuttle
 
 - type: entity
   parent: BaseGameRule

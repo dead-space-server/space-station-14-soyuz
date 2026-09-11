@@ -23,6 +23,7 @@ using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.Players.JobWhitelist;
 using Content.Server.Players.PlayTimeTracking;
 using Content.Server.Players.RateLimiting;
+using Content.Server.Players.Whitelist;
 using Content.Server.Preferences.Managers;
 using Content.Server.ServerInfo;
 using Content.Server.ServerUpdates;
@@ -69,6 +70,7 @@ internal static class ServerContentIoC
         deps.Register<IAdminLogManager, AdminLogManager>();
         deps.Register<PlayTimeTrackingManager>();
         deps.Register<UserDbDataManager>();
+        deps.Register<UserIdAutoMigrationManager>();
         deps.Register<JoinQueueManager>(); // Corvax-Queue
         deps.Register<TTSManager>(); // Corvax-TTS
         deps.Register<DiscordAuthManager>(); // Corvax-DiscordAuth
@@ -89,11 +91,12 @@ internal static class ServerContentIoC
         deps.Register<CVarControlManager>();
         deps.Register<DiscordLink>();
         deps.Register<DiscordChatLink>();
+        deps.Register<DiscordChatWebhook>();
         deps.Register<ServerFeedbackManager>();
         deps.Register<ISharedFeedbackManager, ServerFeedbackManager>();
-
         // Jukebox-port-edit
         deps.Register<ServerJukeboxSongsSyncManager>();
         // Jukebox-port-edit
+        deps.Register<WhitelistManager>();
     }
 }

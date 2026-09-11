@@ -85,6 +85,14 @@ public sealed partial class AntagSelectionComponent : Component
 [DataDefinition]
 public partial struct AntagSelectionDefinition()
 {
+    // DS14-start
+    /// <summary>
+    /// Whether preselecting this definition should prevent jobs that cannot be antagonists.
+    /// </summary>
+    [DataField]
+    public bool AffectsJobSelection = true;
+    // DS14-end
+
     /// <summary>
     /// A list of antagonist roles that are used for selecting which players will be antagonists.
     /// </summary>
@@ -226,6 +234,43 @@ public partial struct AntagSelectionDefinition()
     /// </summary>
     [DataField("sponsorsPriorityRatio")]
     public float? SponsorsPriorityRatio;
+
+    /// <summary>
+    /// Extra unconditional slots added after the normal min/max and player-ratio calculation.
+    /// They intentionally do not consume the ratio budget of other definitions.
+    /// </summary>
+    [DataField]
+    public int AdditionalSlots;
+
+    /// <summary>
+    /// Minimum number of slots selected without sponsor priority.
+    /// </summary>
+    [DataField]
+    public int MinimumNonSponsorSlots;
+
+    /// <summary>
+    /// Maximum number of slots selected without sponsor priority.
+    /// </summary>
+    [DataField]
+    public int MaximumNonSponsorSlots;
+
+    /// <summary>
+    /// One non-sponsor slot is reserved per this many total antagonists in the rule.
+    /// </summary>
+    [DataField]
+    public int NonSponsorSlotTotalAntagRatio;
+
+    /// <summary>
+    /// Job WhiteList for Antag.
+    /// </summary>
+    [DataField]
+    public List<ProtoId<JobPrototype>>? JobWhitelist;
+
+    /// <summary>
+    /// Whether dead bodies should be excluded from selection and assignment.
+    /// </summary>
+    [DataField]
+    public bool RequireNotDead;
     // DS14-end
 }
 

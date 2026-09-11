@@ -33,6 +33,11 @@
     keysIn:
     - timer
     range: 7
+  #DS14-Start
+  - type: Flashbang
+    keysIn:
+    - timer
+  #DS14-End
   - type: EmitSoundOnTrigger
     keysIn:
     - timer
@@ -93,9 +98,9 @@
     - timer
   - type: Explosive
     explosionType: Minibomb
-    totalIntensity: 200
-    intensitySlope: 30 #Will destroy the tile under it reliably, space 1-2 more to rods. Only does any significant damage in a 5-tile cross.
-    maxIntensity: 60
+    totalIntensity: 150
+    intensitySlope: 75 #Will destroy the tile under it reliably, space 1-2 more to rods. Only does any significant damage in a 5-tile cross.
+    maxIntensity: 100
   - type: Appearance
   - type: TimerTriggerVisuals
     primingSound:
@@ -363,6 +368,17 @@
           # Unprimed: <Use state determined by enum.ConstructionVisuals.Layer>
   - type: StaticPrice
     price: 75
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/grenade/grenade_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/grenade/grenade_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/grenade/grenade_drop.ogg
+  #DS14-End
 
 - type: entity
   name: EMP grenade

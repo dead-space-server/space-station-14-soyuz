@@ -9,6 +9,7 @@
   description: survival-description
   rules:
     - WageScheduler # backmen: currency
+    - Changeling # DS14
     - MeteorSwarmScheduler
     - SurvivalRampingStationEventScheduler # DS14
 #    - SpaceTrafficControlEventScheduler # DS14
@@ -51,6 +52,7 @@
   - SpiderTerror
   - Wizard
   - Xenoborgs
+  - Changeling
   - KesslerSyndromeScheduler
   - RampingStationEventScheduler
   - SpaceTrafficControlEventScheduler
@@ -73,6 +75,7 @@
     - Zombie
     - Wizard
     - Xenoborgs
+    - Changeling
     - BasicStationEventScheduler
     - KesslerSyndromeScheduler
     - MeteorSwarmMildScheduler
@@ -109,7 +112,7 @@
   voteType: calm # DS14
   description: extended-description
   rules:
-#  - BrokenTechEvent #DS14 #DS14-Soyuz-disabled
+  # - BrokenTechEvent #DS14 # DS14-Soyuz disabled
   - WageScheduler # backmen: currency
   - BasicStationEventScheduler
   - MeteorSwarmScheduler
@@ -155,7 +158,6 @@
     - secret
   name: secret-title
   showInAdminVote: true # DS14
-  voteType: calm # DS14
   showInVote: true
   description: secret-description
   rules:
@@ -249,9 +251,9 @@
   - WageScheduler # backmen: currency
   - Nukeops
   # - SubGamemodesRule # DS14
-  - BasicStationEventScheduler
-  - MeteorSwarmScheduler
-  - SpaceTrafficControlEventScheduler
+  # - BasicStationEventScheduler # DS14
+  # - MeteorSwarmScheduler # DS14
+  # - SpaceTrafficControlEventScheduler # DS14
   - BasicRoundstartVariation
 
 - type: gamePreset
@@ -260,9 +262,6 @@
     - revolutionary
   name: rev-title
   description: rev-description
-  showInVote: true
-  showInAdminVote: true # DS14
-  voteType: rdm # DS14
   rules:
   - WageScheduler # backmen: currency
   - DummyNonAntagChance
@@ -314,7 +313,7 @@
   name: zombieteors-title
   description: zombieteors-description
   showInVote: false
-  showInAdminVote: true # DS14
+  showInAdminVote: false # DS14
   voteType: admin # DS14
   rules:
   - WageScheduler # backmen: currency

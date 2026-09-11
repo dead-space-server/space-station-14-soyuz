@@ -1,0 +1,36 @@
+﻿- type: rank
+  id: RMCRankCivilian
+  name: Гражданский
+  prefix: Граж.
+  malePrefix: Мистер
+  femalePrefix: Мисс
+
+- type: rank
+  id: RMCRankCivilianNurse
+  name: Медсестра
+  prefix: Медсес.
+
+- type: rank
+  id: RMCRankCivilianDoctor
+  name: Доктор
+  prefix: Док.
+
+- type: rank
+  id: RMCRankCivilianProfessor
+  name: Профессор
+  prefix: Проф.
+
+- type: rank
+  id: RMCRankCivilianRepresentative
+  name: Представитель
+  prefix: Пред.
+
+- type: rank
+  id: RMCRankCivilianOfficer
+  name: Оффицер
+  prefix: Офф.
+
+- type: rank
+  id: RMCRankCivilianSeniorOfficer
+  name: Старший Оффицер
+  prefix: Ст. Офф.

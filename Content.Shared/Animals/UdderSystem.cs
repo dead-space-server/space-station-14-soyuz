@@ -5,20 +5,22 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Nutrition.Prototypes;
 using Content.Shared.Popups;
 using Content.Shared.Udder;
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Animals;
 /// <summary>
 ///     Gives the ability to produce milkable reagents;
-///     produces endlessly if the owner does not have a HungerComponent.
+///     produces endlessly if the owner does not have a SatiationComponent.
 /// </summary>
 public sealed class UdderSystem : EntitySystem
 {
-    [Dependency] private readonly HungerSystem _hunger = default!;
+    [Dependency] private readonly SatiationSystem _satiation = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
@@ -71,13 +73,15 @@ public sealed class UdderSystem : EntitySystem
                 continue;
 
             // Actually there is food digestion so no problem with instant reagent generation "OnFeed"
-            if (TryComp(uid, out HungerComponent? hunger))
+            if (TryComp<SatiationComponent>(uid, out var satiation))
             {
                 // Is there enough nutrition to produce reagent?
-                if (_hunger.GetHungerThreshold(hunger) < HungerThreshold.Okay)
+                if (_satiation.IsValueInRange((uid, satiation), SatiationSystem.Hunger, above: udder.MinHungerThreshold, hypotheticalValueDelta: -udder.HungerUsage))
+                {
                     continue;
+                }
 
-                _hunger.ModifyHunger(uid, -udder.HungerUsage, hunger);
+                _satiation.ModifyValue((uid, satiation), SatiationSystem.Hunger, -udder.HungerUsage);
             }
 
             //TODO: toxins from bloodstream !?
@@ -89,7 +93,12 @@ public sealed class UdderSystem : EntitySystem
     {
         if (!Resolve(udder, ref udder.Comp))
             return;
-
+        // ds-14-start
+        if (!_mobState.IsAlive(udder.Owner)) {
+            _popupSystem.PopupEntity(Loc.GetString("udder-system-dead"), userUid, PopupType.Small);
+            return;
+        }
+        // ds-14-end
         var doargs = new DoAfterArgs(EntityManager, userUid, 5, new MilkingDoAfterEvent(), udder, udder, used: containerUid)
         {
             BreakOnMove = true,
@@ -107,7 +116,6 @@ public sealed class UdderSystem : EntitySystem
 
         if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName, ref entity.Comp.Solution, out var solution))
             return;
-
         if (!_solutionContainerSystem.TryGetRefillableSolution(args.Args.Used.Value, out var targetSoln, out var targetSolution))
             return;
 
@@ -135,7 +143,6 @@ public sealed class UdderSystem : EntitySystem
              !args.CanInteract ||
              !HasComp<RefillableSolutionComponent>(args.Using.Value))
             return;
-
         var uid = entity.Owner;
         var user = args.User;
         var used = args.Using.Value;
@@ -143,6 +150,16 @@ public sealed class UdderSystem : EntitySystem
         {
             Act = () =>
             {
+                // ds-14-start
+                if (!_mobState.IsAlive(uid)) {
+                    _popupSystem.PopupEntity(Loc.GetString("udder-system-dead"), user, PopupType.Small);
+                    return;
+                }
+                if (TryComp<OpenableComponent>(used, out var openable) && !openable.Opened) {
+                    _popupSystem.PopupClient(Loc.GetString("udder-system-container-closed"), uid, user);
+                    return;
+                }
+                // ds-14-end
                 AttemptMilk(uid, user, used);
             },
             Text = Loc.GetString("udder-system-verb-milk"),

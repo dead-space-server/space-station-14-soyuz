@@ -4,24 +4,33 @@
  */
 
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics; //DS14
-using Robust.Shared.Network; //DS14
-using Robust.Shared.Physics.Events; //DS14
+using System.Numerics;
+using Robust.Shared.Network;
+using Robust.Shared.Physics.Events;
 using Content.Shared.Access.Components;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Buckle.Components;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Interaction.Components;
+using Content.Shared.Inventory.VirtualItem;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Vehicle.Components;
+using Content.Shared.Stunnable;
 using Content.Shared.Whitelist;
+using Content.Shared.Weapons.Melee.Events;
 using JetBrains.Annotations;
-using Robust.Shared.Audio.Systems; //DS14
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Content.Shared.Popups;
 
@@ -37,23 +46,27 @@ public sealed partial class VehicleSystem : EntitySystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private DamageableSystem _damageable = default!;
     [Dependency] private EntityWhitelistSystem _entityWhitelist = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedInteractionSystem _interaction = default!;
     [Dependency] private SharedMoverController _mover = default!;
+    [Dependency] private SharedVirtualItemSystem _virtualItem = default!;
     [Dependency] private IGameTiming _timing = default!;
-    //DS14-start
+    // DS14-start
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
-    [Dependency] private readonly INetManager _net = default!; //DS14
-    //DS14-end
+    [Dependency] private readonly INetManager _net = default!;
+    // DS14-end
 
     private EntityQuery<VehicleComponent> _vehicleQuery;
     private EntityQuery<VehicleOperatorComponent> _operatorQuery;
     private EntityQuery<AppearanceComponent> _appearanceQuery;
     private EntityQuery<InputMoverComponent> _inputMoverQuery;
     private EntityQuery<HandsComponent> _handsQuery;
+    private EntityQuery<VehicleHandBlockerComponent> _handBlockerQuery;
     private EntityQuery<InteractionRelayComponent> _interactionRelayQuery;
     private EntityQuery<MovementRelayTargetComponent> _relayTargetQuery;
     private EntityQuery<RelayInputMoverComponent> _relayQuery;
+    private readonly HashSet<(EntityUid Vehicle, EntityUid Operator)> _operatorMeleeVehicleHits = new(); // DS14
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -63,6 +76,7 @@ public sealed partial class VehicleSystem : EntitySystem
         _appearanceQuery = GetEntityQuery<AppearanceComponent>();
         _inputMoverQuery = GetEntityQuery<InputMoverComponent>();
         _handsQuery = GetEntityQuery<HandsComponent>();
+        _handBlockerQuery = GetEntityQuery<VehicleHandBlockerComponent>();
         _interactionRelayQuery = GetEntityQuery<InteractionRelayComponent>();
         _relayTargetQuery = GetEntityQuery<MovementRelayTargetComponent>();
         _relayQuery = GetEntityQuery<RelayInputMoverComponent>();
@@ -75,12 +89,20 @@ public sealed partial class VehicleSystem : EntitySystem
         SubscribeLocalEvent<VehicleComponent, ComponentShutdown>(OnVehicleShutdown);
         SubscribeLocalEvent<VehicleComponent, GetAdditionalAccessEvent>(OnVehicleGetAdditionalAccess);
 
+        SubscribeLocalEvent<VehicleComponent, UnstrapAttemptEvent>(OnVehicleUnstrapAttempt); // DS14
+
         SubscribeLocalEvent<VehicleOperatorComponent, ComponentShutdown>(OnOperatorShutdown);
-        //DS14-start
+        // DS14-start - Current engine uses explicit event subscriptions.
+        SubscribeLocalEvent<VehicleOperatorComponent, CanAttackFromContainerEvent>(OnOperatorCanAttackFromContainer);
+        SubscribeLocalEvent<VehicleOperatorComponent, AttackAttemptEvent>(OnOperatorAttackAttempt);
+        // DS14-end
+        // DS14-start
+        SubscribeLocalEvent<VehicleOperatorComponent, MobStateChangedEvent>(OnOperatorMobStateChanged);
         SubscribeLocalEvent<VehicleOperatorComponent, UpdateCanMoveEvent>(OnOperatorUpdateCanMove);
         SubscribeLocalEvent<VehicleComponent, VehicleOperatorSetEvent>(OnVehicleOperatorSet);
+        SubscribeLocalEvent<VehicleComponent, AttackedEvent>(OnVehicleAttacked);
         SubscribeLocalEvent<VehicleComponent, StartCollideEvent>(OnStartCollide);
-        //DS14-end
+        // DS14-end
     }
 
     /// <remarks>
@@ -88,6 +110,17 @@ public sealed partial class VehicleSystem : EntitySystem
     /// </remarks>
     private void OnBeforeDamageChanged(Entity<VehicleComponent> ent, ref BeforeDamageChangedEvent args)
     {
+        // DS14-start
+        if (args.Damage.AnyPositive() &&
+            args.Origin is { } origin &&
+            ent.Comp.Operator == origin &&
+            _operatorMeleeVehicleHits.Remove((ent.Owner, origin)))
+        {
+            args.Cancelled = true;
+            return;
+        }
+        // DS14-end
+
         if (!ent.Comp.TransferDamage || !args.Damage.AnyPositive() || ent.Comp.Operator is not { } operatorUid)
             return;
 
@@ -104,16 +137,37 @@ public sealed partial class VehicleSystem : EntitySystem
 
     private void OnVehicleUpdateCanMove(Entity<VehicleComponent> ent, ref UpdateCanMoveEvent args)
     {
-        //DS14-start
+        // DS14-start
         if (ent.Comp.RequiresOperator && ent.Comp.Operator is null)
         {
             args.Cancel();
             return;
         }
-        //DS14-end
+        // DS14-end
 
         if (!CanVehicleRun(ent))
             args.Cancel();
+    }
+
+    private void OnOperatorCanAttackFromContainer(Entity<VehicleOperatorComponent> ent, ref CanAttackFromContainerEvent args)
+    {
+        if (ent.Comp.Vehicle is not { } vehicleUid ||
+            !_vehicleQuery.TryComp(vehicleUid, out var vehicle) ||
+            !vehicle.CanAttack)
+            return;
+
+        args.CanAttack = true;
+    }
+
+    private void OnOperatorAttackAttempt(Entity<VehicleOperatorComponent> ent, ref AttackAttemptEvent args)
+    {
+        if (ent.Comp.Vehicle is not { } vehicleUid ||
+            !_vehicleQuery.TryComp(vehicleUid, out var vehicle) ||
+            !vehicle.CanAttack ||
+            args.Target != vehicleUid)
+            return;
+
+        args.Cancel();
     }
 
     private void OnVehicleShutdown(Entity<VehicleComponent> ent, ref ComponentShutdown args)
@@ -131,6 +185,50 @@ public sealed partial class VehicleSystem : EntitySystem
             args.Entities.Add(operatorUid);
     }
 
+    // DS14-start
+    private void OnVehicleUnstrapAttempt(Entity<VehicleComponent> ent, ref UnstrapAttemptEvent args)
+    {
+        if (args.Cancelled)
+            return;
+
+        if (TryBlockProtectedOperatorUnstrap(ent, args.Buckle.Owner, args.User, args.Popup))
+            args.Cancelled = true;
+    }
+
+    private bool TryBlockProtectedOperatorUnstrap(Entity<VehicleComponent> ent, EntityUid buckleOwner, EntityUid? user, bool popup)
+    {
+        if (!ent.Comp.ProtectOperatorUnstrap || user is not { } userUid)
+            return false;
+
+        if (ent.Comp.Operator is not { } operatorUid ||
+            buckleOwner != operatorUid ||
+            userUid == operatorUid)
+            return false;
+
+        if (CanForceUnstrapOperator(operatorUid))
+            return false;
+
+        if (popup && _net.IsServer)
+            _popup.PopupPredicted(Loc.GetString("vehicle-operator-unstrap-protected"), ent.Owner, userUid, PopupType.SmallCaution);
+
+        return true;
+    }
+
+    private bool CanForceUnstrapOperator(EntityUid operatorUid)
+    {
+        if (_net.IsServer && !HasComp<ActorComponent>(operatorUid))
+            return true;
+
+        if (TryComp<MobStateComponent>(operatorUid, out var mobState) &&
+            mobState.CurrentState is MobState.PreCritical or MobState.Critical or MobState.Dead)
+        {
+            return true;
+        }
+
+        return HasComp<StunnedComponent>(operatorUid) || HasComp<KnockedDownComponent>(operatorUid);
+    }
+    // DS14-end
+
     private void OnOperatorShutdown(Entity<VehicleOperatorComponent> ent, ref ComponentShutdown args)
     {
         if (_timing.ApplyingState)
@@ -142,6 +240,9 @@ public sealed partial class VehicleSystem : EntitySystem
             ClearOperator((vehicleUid, vehicle), removeOperatorComponent: false, raiseSetEvent: true);
             return;
         }
+
+        if (ent.Comp.Vehicle is { } missingVehicle)
+            UnblockHands(missingVehicle, ent.Owner);
 
         CleanupOperatorRelays(ent.Owner, ent.Comp.Vehicle);
     }
@@ -182,6 +283,7 @@ public sealed partial class VehicleSystem : EntitySystem
                 }
                 else
                 {
+                    UnblockHands(existingVehicle, newOperator);
                     CleanupOperatorRelays(newOperator, existingVehicle);
                     existingOperator.Vehicle = null;
                     Dirty(newOperator, existingOperator);
@@ -189,6 +291,9 @@ public sealed partial class VehicleSystem : EntitySystem
             }
 
             if (!CanUseOperatorRelays(newOperator, entity.Owner))
+                return false;
+
+            if (oldOperator != newOperator && !TryBlockHands(entity, newOperator))
                 return false;
         }
 
@@ -249,6 +354,7 @@ public sealed partial class VehicleSystem : EntitySystem
             }
         }
 
+        UnblockHands(entity.Owner, oldOperator);
         CleanupOperatorRelays(oldOperator, entity.Owner);
 
         entity.Comp.Operator = null;
@@ -374,6 +480,9 @@ public sealed partial class VehicleSystem : EntitySystem
 
         if (!_vehicleQuery.TryComp(operatorEntity.Comp.Vehicle, out var vehicle))
         {
+            if (operatorEntity.Comp.Vehicle is { } vehicleUid)
+                UnblockHands(vehicleUid, operatorEntity.Owner);
+
             CleanupOperatorRelays(operatorEntity.Owner, operatorEntity.Comp.Vehicle);
             RemCompDeferred<VehicleOperatorComponent>(operatorEntity.Owner);
             return true;
@@ -441,7 +550,42 @@ public sealed partial class VehicleSystem : EntitySystem
         if (entity.Comp.RequiresHands && (!_handsQuery.HasComp(uid) || !_actionBlocker.CanInteract(uid, entity)))
             return false;
 
+        // DS14-start
+        if (entity.Comp.RequiresHands &&
+            _handBlockerQuery.TryComp(entity, out var handBlocker) &&
+            (!_handsQuery.TryComp(uid, out var hands) ||
+             _hands.GetHandCount((uid, hands)) < handBlocker.BlockedHands))
+            return false;
+        // DS14-end
+
         return _actionBlocker.CanConsciouslyPerformAction(uid);
+    }
+
+    /// <summary>
+    /// Attempts to occupy the configured number of the operator's hands.
+    /// </summary>
+    private bool TryBlockHands(Entity<VehicleComponent> vehicle, EntityUid operatorUid)
+    {
+        if (!vehicle.Comp.RequiresHands || !_handBlockerQuery.TryComp(vehicle, out var handBlocker)) // DS14
+            return true;
+
+        if (_virtualItem.TrySpawnUnremoveableVirtualItemInHand(
+                vehicle.Owner,
+                operatorUid,
+                handBlocker.BlockedHands,
+                dropOthers: true))
+            return true;
+
+        UnblockHands(vehicle.Owner, operatorUid);
+        return false;
+    }
+
+    /// <summary>
+    /// Removes hand blockers owned by the specified vehicle.
+    /// </summary>
+    private void UnblockHands(EntityUid vehicleUid, EntityUid operatorUid)
+    {
+        _virtualItem.DeleteInHandsMatching(operatorUid, vehicleUid);
     }
 
     /// <summary>
@@ -453,7 +597,7 @@ public sealed partial class VehicleSystem : EntitySystem
         if (TerminatingOrDeleted(entity))
             return;
 
-        if (!Resolve(entity, ref entity.Comp))
+        if (!Resolve(entity, ref entity.Comp, false))
             return;
 
         _actionBlocker.UpdateCanMove(entity);
@@ -472,10 +616,12 @@ public sealed partial class VehicleSystem : EntitySystem
 
         _appearance.SetData(entity, VehicleVisuals.HasOperator, entity.Comp.Operator is not null, appearance);
     }
-    //DS14-start
+    // DS14-start
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        _operatorMeleeVehicleHits.Clear();
 
         var query = EntityQueryEnumerator<VehicleComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var vehicle, out var xform))
@@ -527,6 +673,12 @@ public sealed partial class VehicleSystem : EntitySystem
         ent.Comp.MovementSoundAccumulatedDistance = 0f;
     }
 
+    private void OnVehicleAttacked(Entity<VehicleComponent> ent, ref AttackedEvent args)
+    {
+        if (ent.Comp.Operator == args.User)
+            _operatorMeleeVehicleHits.Add((ent.Owner, args.User));
+    }
+
     private bool CanVehicleRun(Entity<VehicleComponent> ent)
     {
         var ev = new VehicleCanRunEvent(ent);
@@ -571,6 +723,13 @@ public sealed partial class VehicleSystem : EntitySystem
         if (!CanVehicleRun((vehicleUid, vehicle)))
             args.Cancel();
     }
+
+    private void OnOperatorMobStateChanged(Entity<VehicleOperatorComponent> ent, ref MobStateChangedEvent args)
+    {
+        if (args.NewMobState == MobState.Dead)
+            TryRemoveOperator(ent.AsNullable());
+    }
+
     private void OnStartCollide(Entity<VehicleComponent> ent, ref StartCollideEvent args)
     {
         if (!_net.IsServer)
@@ -595,5 +754,5 @@ public sealed partial class VehicleSystem : EntitySystem
             }
         }
     }
-    //DS14-end
+    // DS14-end
 }

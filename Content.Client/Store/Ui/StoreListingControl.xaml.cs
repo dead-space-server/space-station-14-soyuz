@@ -17,11 +17,15 @@ public sealed partial class StoreListingControl : Control
     [Dependency] private readonly IGameTiming _timing = default!;
     private readonly ClientGameTicker _ticker;
 
-    private readonly ListingDataWithCostModifiers _data;
+    // DS14-start
+    private ListingDataWithCostModifiers _data = default!;
+    private bool _hasBalance;
+    private string _price = string.Empty;
+    private string _discount = string.Empty;
 
-    private readonly bool _hasBalance;
-    private readonly string _price;
-    private readonly string _discount;
+    public ListingDataWithCostModifiers Listing => _data;
+    // DS14-end
+
     public StoreListingControl(
         ListingDataWithCostModifiers data,
         string price,
@@ -35,19 +39,28 @@ public sealed partial class StoreListingControl : Control
 
         _ticker = _entity.System<ClientGameTicker>();
 
+        SetPreview(texture, productEntity);
+        Update(data, price, discount, hasBalance); // DS14
+    }
+
+    // DS14-start
+    public void Update(
+        ListingDataWithCostModifiers data,
+        string price,
+        string discount,
+        bool hasBalance)
+    {
         _data = data;
         _hasBalance = hasBalance;
         _price = price;
         _discount = discount;
 
-        StoreItemName.Text = ListingLocalisationHelpers.GetLocalisedNameOrEntityName(_data, _prototype);
+        StoreItemName.Text = GetName();
         StoreItemDescription.SetMessage(ListingLocalisationHelpers.GetLocalisedDescriptionOrEntityDescription(_data, _prototype));
-
         UpdateBuyButtonText();
         StoreItemBuyButton.Disabled = !CanBuy();
-
-        SetPreview(texture, productEntity);
     }
+    // DS14-end
 
     private void SetPreview(Texture? texture, EntProtoId? productEntity)
     {
@@ -104,7 +117,17 @@ public sealed partial class StoreListingControl : Control
 
     private void UpdateName()
     {
+        StoreItemName.Text = GetName(); // DS14
+    }
+
+    private string GetName() // DS14
+    {
         var name = ListingLocalisationHelpers.GetLocalisedNameOrEntityName(_data, _prototype);
+
+        // DS14-start
+        if (_data.RemainingStock is { } remaining)
+            name += Loc.GetString("store-ui-remaining-stock", ("remaining", remaining));
+        // DS14-end
 
         var stationTime = _timing.CurTime.Subtract(_ticker.RoundStartTimeSpan);
         if (_data.RestockTime > stationTime)
@@ -112,7 +135,7 @@ public sealed partial class StoreListingControl : Control
             name += Loc.GetString("store-ui-button-out-of-stock");
         }
 
-        StoreItemName.Text = name;
+        return name; // DS14
     }
 
     protected override void FrameUpdate(FrameEventArgs args)

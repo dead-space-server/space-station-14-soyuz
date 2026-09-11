@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Content.Server.Body.Components;
+using Content.Server.DeadSpace.Hooligan.Objectives; // DS14
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
 using Content.Shared.Body.Organ;
@@ -33,11 +34,13 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
     [Dependency] private readonly SharedEntityConditionsSystem _entityConditions = default!;
     [Dependency] private readonly SharedEntityEffectsSystem _entityEffects = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
+    [Dependency] private readonly BodySystem _bodySystem = default!; // DS14 - #45152 metabolism lookup adaptation
 
     private EntityQuery<OrganComponent> _organQuery;
     private EntityQuery<BloodstreamComponent> _bloodstreamQuery; // DS14
     private EntityQuery<SolutionContainerManagerComponent> _solutionQuery;
     private static readonly ProtoId<MetabolismGroupPrototype> Gas = "Gas";
+    private static readonly ProtoId<MetabolismGroupPrototype> Narcotic = "Narcotic"; // DS14
 
     // DS14-start
     private readonly PriorityQueue<ScheduledMetabolizer, TimeSpan> _scheduledMetabolizers = new();
@@ -313,6 +316,12 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
 
                     // We have processed a reagant, so count it towards the cap
                     reagents += 1;
+
+                    if (proto.Metabolisms.ContainsKey(Narcotic))
+                    {
+                        var drugEv = new HooliganDrugConsumedEvent(actualEntity, removed);
+                        RaiseLocalEvent(ref drugEv);
+                    }
                 }
                 // DS14-end
             }
@@ -364,4 +373,43 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
 
         return true;
     }
+
+    // DS14-Start - #45152 adaptation for the server-side metabolism architecture
+    public bool HasMetabolizer(
+        Entity<MetabolizerComponent?> targetOrgan,
+        ProtoId<MetabolizerTypePrototype> targetMetabolizer)
+    {
+        if (!Resolve(targetOrgan.Owner, ref targetOrgan.Comp, false))
+            return false;
+
+        return targetOrgan.Comp.MetabolizerTypes?.Contains(targetMetabolizer) == true;
+    }
+
+    public bool BodyHasMetabolizer(EntityUid targetBody, ProtoId<MetabolizerTypePrototype> targetMetabolizer)
+    {
+        foreach (var organ in _bodySystem.GetBodyOrgans(targetBody))
+        {
+            if (TryComp<MetabolizerComponent>(organ.Id, out var metabolizer) &&
+                HasMetabolizer((organ.Id, metabolizer), targetMetabolizer))
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Adds a metabolizer type to every metabolizing organ in a body.
+    /// </summary>
+    public void AddMetabolizerToBody(EntityUid targetBody, ProtoId<MetabolizerTypePrototype> metabolizerType)
+    {
+        foreach (var organ in _bodySystem.GetBodyOrgans(targetBody))
+        {
+            if (!TryComp<MetabolizerComponent>(organ.Id, out var metabolizer))
+                continue;
+
+            metabolizer.MetabolizerTypes ??= [];
+            metabolizer.MetabolizerTypes.Add(metabolizerType);
+        }
+    }
+    // DS14-End
 }

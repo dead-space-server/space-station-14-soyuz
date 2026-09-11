@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingHandsGlovesCombat
+  id: SoyuzHandsRMC
+  name: боевые перчатки
+  description: Стандартные тактические перчатки, используемые королевскими морпехами.
+  components:
+  - type: Insulated
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hands/basic.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hands/basic.rsi
+
+- type: entity
+  parent: SoyuzHandsRMC
+  id: SoyuzHandsSilverRMC
+  name: серебряные боевые перчатки
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hands/silver.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/hands/silver.rsi

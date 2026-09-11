@@ -1,0 +1,24 @@
+- type: constructionGraph
+  id: TungstenGasCanister
+  start: start
+  graph:
+  - node: start
+    actions:
+    - !type:DestroyEntity {}
+    edges:
+    - to: canister
+      steps:
+      - material: Tungsten
+        amount: 30
+        doAfter: 3
+      - material: Silver
+        amount: 10
+        doAfter: 1
+      - material: Gold
+        amount: 5
+        doAfter: 1
+      - material: Steel
+        amount: 30
+        doAfter: 3
+  - node: canister
+    entity: TungstenGasCanister

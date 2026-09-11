@@ -7683,3 +7683,12 @@ Entries:
   changes:
   - type: Fix
     message: СБ коды теперь учитывают акценты
+- id: 734
+  author: CyberBobeks
+  time: '2026-09-11T18:08:43.376536+00:00'
+  pr: 2334
+  changes:
+  - type: Add
+    message: Тюлени!!!!!
+  - type: Fix
+    message: Некоторые баги с ЦК, шаттлом АПБТ и доступами ID-карт.

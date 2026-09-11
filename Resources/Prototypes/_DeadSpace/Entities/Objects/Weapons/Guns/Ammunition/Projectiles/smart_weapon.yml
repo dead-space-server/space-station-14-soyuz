@@ -9,7 +9,9 @@
       types:
         Piercing: 16
   - type: ChasingWalk
-    speed: 20
+    speed: 40
     maxAngleVectorChangePerImpulse: 10
     impulseInterval: 0.05
     stopAtTarget: false
+  - type: TimedDespawn
+    lifetime: 5

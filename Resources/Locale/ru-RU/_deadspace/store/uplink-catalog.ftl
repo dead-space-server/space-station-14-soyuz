@@ -78,4 +78,4 @@ uplink-shingen-desc = Содержит фирменный кейс Cybersun, TKI
 uplink-smartlink-implanter-name = Имплант «Смартлинк»
 uplink-smartlink-implanter-desc = Имплант, позволяющий пользоваться умным оружием.
 uplink-shingen-ammo-name = Магазин (9x19 мм Smart™)
-uplink-shingen-ammo-desc = Магазин на 30 патронов калибра 9x19 мм Smart™.
+uplink-shingen-ammo-desc = Магазин на 40 патронов калибра 9x19 мм Smart™.

@@ -66,6 +66,7 @@
     targetMarkerCrossColor: "#00FFFF"
     debugZoneColor: "#20ff027f"
     ammoDigitsColor: "#ffba78"
+    magnetismDelay: 0.01
     crosshairAlpha: 0.7
     cornerStickTexture: /Textures/_DeadSpace/Interface/SmartWeapon/corner_stick.png
     crossTexture: /Textures/_DeadSpace/Interface/SmartWeapon/cross.png

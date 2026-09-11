@@ -35,10 +35,10 @@
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
 Resources/Maps/**.yml merge=mapping-merge-driver
-Resources/Textures/_DeadSpace/_Soyuz/**.png merge=ours
-Resources/Textures/_DeadSpace/_Soyuz/**.json merge=ours
-Resources/Prototypes/_DeadSpace/_Soyuz/**.yml merge=ours
-Resources/Locale/_DeadSpace/_Soyuz/**.ftl merge=ours
+Resources/Textures/**/*.png merge=ours #DS14-Soyuz
+Resources/Textures/_DeadSpace/_Soyuz/**.json merge=ours #DS14-Soyuz
+Resources/Prototypes/_DeadSpace/_Soyuz/**.yml merge=ours #DS14-Soyuz
+Resources/Locale/_DeadSpace/_Soyuz/**.ftl merge=ours #DS14-Soyuz
 
 ###############################################################################
 # behavior for image files

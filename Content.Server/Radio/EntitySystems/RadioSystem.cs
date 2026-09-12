@@ -278,7 +278,7 @@ public sealed class RadioSystem : EntitySystem
         var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId); // DS14
         // DS14-Languages-end
 
-        var sendAttemptEv = new RadioSendAttemptEvent(channel, radioSource);
+        var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource); // DS14-Soyuz
         RaiseLocalEvent(ref sendAttemptEv);
         RaiseLocalEvent(radioSource, ref sendAttemptEv);
         var canSend = !sendAttemptEv.Cancelled;
@@ -318,14 +318,21 @@ public sealed class RadioSystem : EntitySystem
 
         var selectedLanguage = language != null ? language.SelectedLanguage : string.Empty; // DS14-Languages
 
-        RaiseLocalEvent(new RadioSpokeEvent(messageSource, message, lexiconMessage, selectedLanguage, ev.Receivers.ToArray())); // DS14
+        // DS14-Soyuz start
+        if (canSend)
+            RaiseLocalEvent(new RadioSpokeEvent(messageSource, message, lexiconMessage, selectedLanguage, ev.Receivers.ToArray()));
+        // DS14-Soyuz end
 
         if (name != Name(messageSource))
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
         else
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
 
-        _replay.RecordServerMessage(chat);
+        // DS14-Soyuz start
+        if (canSend)
+            _replay.RecordServerMessage(chat);
+        // DS14-Soyuz end
+
         _messages.Remove(message);
     }
 

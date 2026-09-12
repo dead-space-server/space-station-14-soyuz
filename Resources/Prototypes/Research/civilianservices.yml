@@ -52,6 +52,7 @@
   - SurveillanceWirelessCameraMonitorCircuitboard
   - TelecomServerCircuitboard
   - HolopadMachineCircuitboard
+  - TelecommunicationBlacklistComputerCircuitboard # DS14-Soyuz
 
 - type: technology
   id: AdvancedEntertainment

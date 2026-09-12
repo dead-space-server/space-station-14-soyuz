@@ -179,9 +179,7 @@
       spawnGas: Plasma
     # DS14-Soyuz-start
     - type: Machine
-      # Only retain parts inserted through MachineFrame. Map-spawned miners must
-      # not generate a free industrial core, board or construction materials.
-      board: null
+      board: PlasmaGasMinerMachineCircuitboard
     - type: ContainerContainer
       containers:
         machine_board: !type:Container

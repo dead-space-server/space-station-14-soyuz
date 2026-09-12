@@ -1624,3 +1624,10 @@ Entries:
   changes:
   - type: Add
     message: Вольфрамовая газовая канистра
+- id: 153
+  author: PERed5
+  time: '2026-09-12T05:59:53.905290+00:00'
+  pr: 465
+  changes:
+  - type: Add
+    message: Тестовые инструменты для будущих апстримов

@@ -1,0 +1,198 @@
+# Шаблоны
+- type: entity
+  parent: ClothingOuterHardsuitERTLeader
+  id: ClothingOuterHardsuitNavyBase
+  name: базовый скафандр ВКФ СССП
+  description: Сам Гефест ковал эти скафандры, сам Аполлон завидовал красоте этих скафандров. Если бы эти скафандры были у войска Одиссея, Одиссей бы легко победил Зевса и проплыл через царство мёртвых.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.02
+    lowPressureMultiplier: 1000
+  - type: TemperatureProtection
+    heatingCoefficient: 0.001
+    coolingCoefficient: 0.001
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: FireProtection
+    reduction: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Poison: 0.4
+        Piercing: 0.4
+        Heat: 0.4
+        Cold: 0.4
+        Shock: 0.4
+        Radiation: 0.4
+        Caustic: 0.4
+        Stun: 0.4
+  - type: AutoInjectReagentClothingOnAllowedState
+    durationRegenReagents: 100
+    allowedStates:
+    - Critical
+    reagents:
+      DexalinPlus: 10
+      Puncturase: 10
+      TranexamicAcid: 10
+      Omnizine: 10
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitNavyCaptain
+  - type: StaminaResistance
+    damageCoefficient: 0.10
+  - type: HardsuitIdentification
+  - type: TTS
+    voice: Adjutant
+  - type: Reflect
+    reflectProb: 0.10
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.7
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+
+# Скафандры
+
+- type: entity
+  parent: ClothingOuterHardsuitNavyBase
+  id: ClothingOuterHardsuitNavyCaptain
+  name: скафандр капитана ВКФ СССП
+  description: Самый лучший скафандр во всей стране. Этот скафандр омывался слезами врагов коммунизма, кровью контрреволюционеров и потом советских инженеров. Скафандр был создан под пение гимна СССП детским хором. Сама Афина благословила владельца скафандра на успешное завершение миссии.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.2
+  - type: FireProtection
+    reduction: 0.7
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.35
+        Slash: 0.35
+        Poison: 0.15
+        Piercing: 0.3
+        Heat: 0.2
+        Cold: 0.2
+        Shock: 0.2
+        Radiation: 0.2
+        Caustic: 0.2
+        Stun: 0.1
+  - type: Reflect
+    reflectProb: 0.15
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.6
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitNavyCaptain
+
+- type: entity
+  parent: ClothingOuterHardsuitNavyBase
+  id: ClothingOuterHardsuitNavyNedical
+  name: скафандр медика ВКФ СССП
+  description: Самый лучший медицинский скафандр во всей стране. Укус зомби будет грозить вам лишь грязью от его зубов, скафандр был скован под молитву Гиппократу. Даже волшебница Кирка не смогла бы превратить владельца этого скафандра в зверя.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_medical.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_medical.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.3
+  - type: FireProtection
+    reduction: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Poison: 0.1
+        Piercing: 0.35
+        Heat: 0.3
+        Cold: 0.3
+        Shock: 0.3
+        Radiation: 0.4
+        Caustic: 0.1
+        Stun: 0.2
+  - type: Reflect
+    reflectProb: 0.1
+  - type: VirusResistance
+    virusResistanceCoefficient: 1
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitNavyMedical
+
+- type: entity
+  parent: ClothingOuterHardsuitNavyBase
+  id: ClothingOuterHardsuitNavyEngineer
+  name: скафандр инженера ВКФ СССП
+  description: Самый лучший инженерный скафандр во всей стране. Сам Гефест поражался мастерству рабочих в таких костюмах, сам Зевс не мог пробить владельца скафандра своей молнией. В этом скафандре легко можно пережить испытание в пещере Полифема и выйти оттуда живым.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_engineering.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy_engineering.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+  - type: FireProtection
+    reduction: 0.8
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.35
+        Slash: 0.35
+        Poison: 0.4
+        Piercing: 0.3
+        Heat: 0.2
+        Cold: 0.2
+        Shock: 0.2
+        Radiation: 0
+        Caustic: 0.4
+        Stun: 0.2
+  - type: Reflect
+    reflectProb: 0.1
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.3
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitNavyEngineer
+
+- type: entity
+  parent: ClothingOuterHardsuitNavyBase
+  id: ClothingOuterHardsuitNavyOfficer
+  name: скафандр офицера ВКФ СССП
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/nanotrasen_navy.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: FireProtection
+    reduction: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.35
+        Slash: 0.35
+        Poison: 0.4
+        Piercing: 0.3
+        Heat: 0.3
+        Cold: 0.3
+        Shock: 0.3
+        Radiation: 0.3
+        Caustic: 0.4
+        Stun: 0.25
+  - type: Reflect
+    reflectProb: 0.15
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.5
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitNavyOfficer

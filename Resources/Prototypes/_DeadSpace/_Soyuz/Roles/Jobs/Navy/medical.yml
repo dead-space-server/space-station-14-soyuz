@@ -1,0 +1,59 @@
+- type: job
+  id: NavyMedical
+  name: job-name-navy-medical
+  description: job-description-navy-medical
+  playTimeTracker: JobNavyMedical
+  setPreference: false
+  startingGear: NavyMedicalGear
+  icon: "JobIconNavyMedical"
+  supervisors: job-supervisors-navy
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NavyMedical
+  - Navy
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantNKO, AntiAlcoholImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
+
+- type: startingGear
+  id: NavyMedicalGear
+  equipment:
+    back: ClothingSatchelNavyMedical
+    jumpsuit: ClothingUniformJumpsuitNavyMedical
+    mask: ClothingMaskGasSwat
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetNKO
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitNavyNedical
+    shoes: ClothingShoesBootsMagNavy
+# Доделать
+    head: ClothingHeadHelmetERTMedic
+    id: ERTMedicIDCard
+    belt: ClothingBeltMedicalFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
+  storage:
+    back:
+    - Defibrillator
+    - BoxMRE
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - Flare
+    - WeaponDisabler
+    - HandheldHealthAnalyzer
+    - ChemistryBottleOmnizine
+    - ChemistryBottleEpinephrine
+    - Cautery
+    - FlashlightLantern
+    - CrowbarRed
+    - ADTCombatHypo
+    - EmergencyMedipen

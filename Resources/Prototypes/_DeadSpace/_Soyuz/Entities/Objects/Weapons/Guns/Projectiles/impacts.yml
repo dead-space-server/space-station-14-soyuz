@@ -1,0 +1,17 @@
+- type: entity
+  id: BulletImpactEffectBlueDisabler
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.2
+  - type: Sprite
+    drawdepth: Effects
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/impacts.rsi
+      state: cold
+  - type: EffectVisuals
+  - type: Tag
+    tags:
+    - HideContextMenu

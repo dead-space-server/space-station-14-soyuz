@@ -298,3 +298,63 @@
     steps: 1
     zeroVisible: true
   - type: Appearance
+
+
+# Пушка ВКФ
+- type: entity
+  parent: BaseWeaponRifle
+  id: WeaponRifleM41Navy
+  name: M41 "Память"
+  description: Встретившись с этим автоматом, можно лишь запомнить врагов. Оснащен стандартным военным калибром 5.45х39, имеет большую скорострельность и вместительный магазин.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/m54cmk1.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/m54cmk1.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Rifles/m54cmk1.rsi
+    size: Large
+  - type: Gun
+    fireRate: 6
+    burstFireRate: 18
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    - Burst
+    shotsPerBurst: 3
+    burstCooldown: 0.15
+    soundGunshot:
+      path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/abakan.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: SoyuzMagazineRifleNavy
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - SoyuzMagazineRifleNavy
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgeCaselessRifleNavy
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgeCaselessRifleNavy
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance

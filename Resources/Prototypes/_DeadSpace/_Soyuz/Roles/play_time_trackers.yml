@@ -5,6 +5,18 @@
   id: JobPolitkom
 
 - type: playTimeTracker
+  id: JobNavyCaptain
+
+- type: playTimeTracker
+  id: JobNavyOfficer
+
+- type: playTimeTracker
+  id: JobNavyEngineer
+
+- type: playTimeTracker
+  id: JobNavyMedical
+
+- type: playTimeTracker
   id: JobOperatorGS
 
 - type: playTimeTracker

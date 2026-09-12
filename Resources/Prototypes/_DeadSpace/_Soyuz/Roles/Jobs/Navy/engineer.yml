@@ -1,0 +1,54 @@
+- type: job
+  id: NavyEngineer
+  name: job-name-navy-engineer
+  description: job-description-navy-engineer
+  playTimeTracker: JobNavyEngineer
+  setPreference: false
+  startingGear: NavyEngineerGear
+  icon: "JobIconNavyEngineer"
+  supervisors: job-supervisors-navy
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NavyEngineering
+  - Navy
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantNKO, AntiAlcoholImplant ]
+  - !type:AddComponentSpecial
+    components:
+      # DS14-Start
+      - type: Skill
+        group: ALL
+      # DS14-End
+
+- type: startingGear
+  id: NavyEngineerGear
+  equipment:
+    back: ClothingSatchelsNavyEngineer
+    jumpsuit: ClothingUniformJumpsuitNavyEngineer
+    mask: ClothingMaskGasSwat
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetNKO
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitNavyEngineer
+    shoes: ClothingShoesBootsMagNavy
+# Доделать
+    head: ClothingHeadHelmetERTEngineer
+    id: ERTEngineerIDCard
+    belt: ClothingUtilityWebbingEngineering
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: KukriKnife
+  storage:
+    back:
+    - FlashlightLantern
+    - WeaponDisabler
+    - EmergencyMedipen
+    - BoxMRE
+    - ERTloadoutAmberSecondary
+    - ERTloadoutAmberPrimary
+    - Flare
+    - RCD
+    - RCDAmmo

@@ -15,3 +15,15 @@
   components:
   - type: CartridgeAmmo
     proto: BulletCaselessRifleUranium
+
+- type: entity
+  parent: BaseCartridgeCaselessRifle
+  id: CartridgeCaselessRifleNavy
+  name: патрон (█.██x██ Navy)
+  description: Патрон засекреченного калибра, который не оставляет после себя гильзы. Дай бог мне здоровья.
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleNavy
+  - type: Tag
+    tags:
+      - CartridgeCaselessRifleNavy

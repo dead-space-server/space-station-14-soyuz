@@ -1,0 +1,46 @@
+- type: entity
+  parent: BaseItem
+  id: GasMinerIndustrialCore
+  name: industrial plasma gas miner module
+  description: A rare high-tech component required to assemble an industrial plasma gas miner.
+  # These cargo-only modules have no PhysicalComposition or lathe recipes,
+  # so MachinePartSystem cannot substitute raw materials in a flatpacker.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/gas_miner_core.rsi
+    state: plasma_miner_module
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - GasMinerIndustrialCore
+
+- type: entity
+  parent: BaseItem
+  id: GasMinerOxygenIndustrialCore
+  name: industrial oxygen gas miner module
+  description: A rare high-tech component required to assemble an industrial oxygen gas miner.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/gas_miner_core.rsi
+    state: oxygen_miner_module
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - GasMinerOxygenIndustrialCore
+
+- type: entity
+  parent: BaseItem
+  id: GasMinerNitrogenIndustrialCore
+  name: industrial nitrogen gas miner module
+  description: A rare high-tech component required to assemble an industrial nitrogen gas miner.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/gas_miner_core.rsi
+    state: nitrogen_miner_module
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - GasMinerNitrogenIndustrialCore

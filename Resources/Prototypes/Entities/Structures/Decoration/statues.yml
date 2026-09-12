@@ -5,6 +5,22 @@
   suffix: Red
   description: An ancient marble statue. The subject is depicted with a floor-length braid and is wielding a red toolbox.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzStatueVenusRed
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: Structures/Decoration/statues.rsi
@@ -19,6 +35,22 @@
   suffix: Blue
   description: An ancient marble statue. The subject is depicted with a floor-length braid and is wielding a blue toolbox.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzStatueVenusBlue
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: Structures/Decoration/statues.rsi

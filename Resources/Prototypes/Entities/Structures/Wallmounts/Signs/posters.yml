@@ -136,6 +136,11 @@
   name: "Missing Gloves"
   description: "This poster references the uproar that followed Nanotrasen's financial cuts toward insulated-glove purchases."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandMissingGloves
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster9_contraband
 
@@ -154,6 +159,11 @@
   name: "RIP Badger"
   description: "This seditious poster references Nanotrasen's genocide of a space station full of badgers."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandRIPBadger
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster11_contraband
 
@@ -226,6 +236,11 @@
   name: "Lamarr"
   description: "This poster depicts Lamarr. Probably made by a traitorous Research Director."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandLamarr
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster19_contraband
 
@@ -235,6 +250,11 @@
   name: "Borg Fancy"
   description: "Being fancy can be for any borg, just need a suit."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandBorgFancy
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster20_contraband
 
@@ -244,6 +264,11 @@
   name: "Borg Fancy v2"
   description: "Borg Fancy, Now only taking the most fancy."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandBorgFancyv2
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster21_contraband
 
@@ -253,6 +278,11 @@
   name: "Kosmicheskaya Stantsiya 13 Does Not Exist"
   description: "A poster mocking CentComm's denial of the existence of the derelict station near Space Station 13."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandKosmicheskayaStantsiya
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster22_contraband
 
@@ -487,6 +517,11 @@
   name: "Weh Watches"
   description: "A poster depicting a loveable green lizard."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterContrabandWehWatches
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster50_contraband
 
@@ -605,6 +640,11 @@
   name: "Missing Spacepen"
   description: "This poster depicts something you will never find."
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterContrabandMissingSpacepen
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       state: poster63_contraband
 
@@ -651,6 +691,11 @@
   name: "Nanotrasen Logo"
   description: "A poster depicting the Nanotrasen logo."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitNanotrasenLogo
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     sprite: Structures/Wallmounts/posters.rsi # DS14-Soyuz
     state: poster2_legit # DS14-Soyuz
@@ -661,6 +706,11 @@
   name: "Cleanliness"
   description: "A poster warning of the dangers of poor hygiene."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitCleanliness
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster3_legit
 
@@ -679,6 +729,11 @@
   name: "Build"
   description: "A poster glorifying the engineering team."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitBuild
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster5_legit
 
@@ -733,6 +788,11 @@
   name: "State Laws"
   description: "A poster instructing cyborgs to state their laws."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitStateLaws
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster11_legit
 
@@ -751,6 +811,11 @@
   name: "Space Cops."
   description: "A poster advertising the television show Space Cops."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitSpaceCops
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster13_legit
 
@@ -805,6 +870,11 @@
   name: "Safety: Internals"
   description: "A poster instructing the viewer to wear internals in the rare environments where there is no oxygen or the air has been rendered toxic."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitSafetyInternals
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster19_legit
 
@@ -814,6 +884,11 @@
   name: "Safety: Eye Protection"
   description: "A poster instructing the viewer to wear eye protection when dealing with chemicals, smoke, or bright lights."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitSafetyEyeProtection
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster20_legit
 
@@ -823,6 +898,11 @@
   name: "Safety: Report"
   description: "A poster instructing the viewer to report suspicious activity to the security force."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitSafetyReport
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster21_legit
 
@@ -832,6 +912,11 @@
   name: "Report Crimes"
   description: "A poster encouraging the swift reporting of crime or seditious behavior to station security."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitReportCrimes
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster22_legit
 
@@ -922,6 +1007,11 @@
   name: "High-Class Martini"
   description: "I told you to shake it, no stirring."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitHighClassMartini
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster32_legit
 
@@ -940,6 +1030,11 @@
   name: "No ERP"
   description: "This poster reminds the crew that Eroticism and Pornography are banned on Nanotrasen stations."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitNoERP
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster34_legit
 
@@ -949,6 +1044,11 @@
   name: "Carbon Dioxide"
   description: "This informational poster teaches the viewer what carbon dioxide is."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitCarbonDioxide
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster35_legit
 
@@ -976,6 +1076,11 @@
   name: "Just a Week Away..."
   description: A poster advertising a long delayed project, it still claims it to be 'just a week away...'
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitJustAWeekAway
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: poster38_legit
 
@@ -985,6 +1090,11 @@
   name: "Sec is Watching You"
   description: "A poster reminding you that security is watching your every move."
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPosterLegitSecWatch
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/posters.rsi # DS14
     state: sec_eye # DS14
@@ -1076,6 +1186,11 @@
   name: "Periodic Table of the Elements"
   description: "A periodic table of the elements, from Hydrogen to Oganesson, and everything inbetween."
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterLegitPeriodicTable
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       state: poster49_legit
 

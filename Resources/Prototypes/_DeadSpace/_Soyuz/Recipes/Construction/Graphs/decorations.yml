@@ -1,0 +1,294 @@
+# Refunds use single-unit stack prototypes and DeleteEntity, without damage destruction.
+
+- type: constructionGraph
+  id: SoyuzBannerUSSP
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2
+      - material: Cloth
+        amount: 4
+        doAfter: 2
+  - node: decor
+    entity: BannerUSSP
+    edges:
+    - to: start
+      conditions:
+      - !type:EntityAnchored
+        anchored: false
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: MaterialCloth1
+        amount: 4
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Cutting
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzBannerFlagUSSP
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: BannerFlagUSSP
+    edges:
+    - to: start
+      conditions:
+      - !type:EntityAnchored
+        anchored: false
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Cutting
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzFullFlagUSSP
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: MetalRod
+        amount: 10
+        doAfter: 2
+      - material: Cloth
+        amount: 4
+        doAfter: 2
+  - node: decor
+    entity: FullFlagUSSP
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 10
+      - !type:SpawnPrototype
+        prototype: MaterialCloth1
+        amount: 4
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Cutting
+        doAfter: 3
+      - tool: Anchoring
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzStatueAngel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Steel
+        amount: 30
+        doAfter: 10
+  - node: decor
+    entity: StatueAngel
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 30
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzStatueThemis
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Steel
+        amount: 30
+        doAfter: 10
+  - node: decor
+    entity: StatueThemis
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 30
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzStatueVenusBlue
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Steel
+        amount: 30
+        doAfter: 10
+  - node: decor
+    entity: StatueVenusBlue
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 30
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzStatueVenusRed
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Steel
+        amount: 30
+        doAfter: 10
+  - node: decor
+    entity: StatueVenusRed
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 30
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzSS13Memorial
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Plasteel
+        amount: 30
+        doAfter: 10
+      - material: Steel
+        amount: 10
+        doAfter: 10
+      - material: MetalRod
+        amount: 10
+        doAfter: 10
+  - node: decor
+    entity: SS13Memorial
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPlasteel1
+        amount: 30
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 10
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 10
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5
+
+- type: constructionGraph
+  id: SoyuzFountain
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Steel
+        amount: 30
+        doAfter: 10
+      - material: Plastic
+        amount: 10
+        doAfter: 10
+      - material: MetalRod
+        amount: 10
+        doAfter: 10
+  - node: decor
+    entity: Fountain
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 30
+      - !type:SpawnPrototype
+        prototype: SheetPlastic1
+        amount: 10
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 10
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Anchoring
+        doAfter: 5
+      - tool: Welding
+        doAfter: 5

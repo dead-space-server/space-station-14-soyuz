@@ -57,6 +57,22 @@
   suffix: На шесте
   description: Лаконичное напоминание о том, что даже в 3-е тысячелетие нельзя забывать про рабочий класс.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzFullFlagUSSP
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 30
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: _DeadSpace/Structures/Decoration/full_flags.rsi

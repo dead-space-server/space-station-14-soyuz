@@ -1,0 +1,1053 @@
+# Refunds use single-unit stack prototypes and DeleteEntity, without damage destruction.
+
+- type: constructionGraph
+  id: SoyuzPosterHB2
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterHB2
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterEngineeringAME
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterEngineeringAME
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterEngineeringHelmet
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterEngineeringHelmet
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterScienceAnomalyReport
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterScienceAnomalyReport
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterOPZ
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterOPZ
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterSNK
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterSNK
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterSECGoodCop
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterSECGoodCop
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzSignSomethingOld2
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: SignSomethingOld2
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitNanotrasenLogo
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitNanotrasenLogo
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterUSSP
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterUSSP
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzUSSPFlag
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 2
+      - material: Cloth
+        amount: 2
+        doAfter: 2
+  - node: decor
+    entity: USSPFlag
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: MaterialCloth1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterOPZGalactic
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterOPZGalactic
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterOPZVoice
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterOPZVoice
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterMultitoolGuide
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterMultitoolGuide
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitJustAWeekAway
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitJustAWeekAway
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterSECArest
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterSECArest
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandKosmicheskayaStantsiya
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandKosmicheskayaStantsiya
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitSpaceCops
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitSpaceCops
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandLamarr
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandLamarr
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitSecWatch
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitSecWatch
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandBorgFancyv2
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandBorgFancyv2
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandBorgFancy
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandBorgFancy
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterMeow
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterMeow
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitHighClassMartini
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitHighClassMartini
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandMissingGloves
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandMissingGloves
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandMissingSpacepen
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandMissingSpacepen
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitNoERP
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitNoERP
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitStateLaws
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitStateLaws
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitReportCrimes
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitReportCrimes
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandRIPBadger
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandRIPBadger
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitBuild
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitBuild
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitPeriodicTable
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitPeriodicTable
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitSafetyInternals
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitSafetyInternals
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitSafetyReport
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitSafetyReport
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitSafetyEyeProtection
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitSafetyEyeProtection
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitCarbonDioxide
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitCarbonDioxide
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterContrabandWehWatches
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterContrabandWehWatches
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPosterLegitCleanliness
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: Paper
+        amount: 5
+        doAfter: 2
+  - node: decor
+    entity: PosterLegitCleanliness
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 5
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzSignScienceDesk
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: WoodPlank
+        amount: 5
+        doAfter: 2
+      - material: Steel
+        amount: 2
+        doAfter: 2
+  - node: decor
+    entity: SignScienceDesk
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 5
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3
+
+- type: constructionGraph
+  id: SoyuzPaintingPersistenceOfMemory
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: decor
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - material: WoodPlank
+        amount: 3
+        doAfter: 2
+  - node: decor
+    entity: PaintingPersistenceOfMemory
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 3
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3

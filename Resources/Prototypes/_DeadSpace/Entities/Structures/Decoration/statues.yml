@@ -4,6 +4,22 @@
   name: статуя ангела
   description: Статуя из чёрного мрамора, изображающая мрачного ангела.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzStatueAngel
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: _DeadSpace/Structures/Decoration/statues.rsi
@@ -29,6 +45,22 @@
   name: статуя Фемиды
   description: Статуя древнегреческой богини правосудия.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzStatueThemis
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: _DeadSpace/Structures/Decoration/statues3264.rsi

@@ -1,0 +1,22 @@
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: PlasmaGasMinerMachineCircuitboard
+  name: plasma gas miner machine board
+  description: A machine printed circuit board for a plasma gas miner.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasMinerPlasma
+    stackRequirements:
+      Tungsten: 240
+      Steel: 30
+      Diamond: 30
+      Silver: 30
+      Gold: 60
+    tagRequirements:
+      GasMinerIndustrialCore:
+        amount: 1
+        defaultPrototype: GasMinerIndustrialCore
+        examineName: gas-miner-industrial-core-machine-part
+

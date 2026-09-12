@@ -51,6 +51,9 @@
   id: GasMask
 
 - type: Tag
+  id: GasMinerIndustrialCore
+
+- type: Tag
   id: GeneralStaff
 
 # H

@@ -45,3 +45,20 @@
   recipeUnlocks:
   - SheetPlastitanium1Soyuz
   - SheetTitanium1Soyuz
+
+- type: technology
+  id: IndustrialGasMining
+  name: research-technology-industrial-gas-mining
+  icon:
+    sprite: Structures/Piping/Atmospherics/miners.rsi
+    state: miner
+  discipline: Industrial
+  tier: 3
+  cost: 20000
+  # The board must be researched, not found on a random technology disk.
+  diskAvailable: false
+  recipeUnlocks:
+  - PlasmaGasMinerMachineCircuitboard
+  technologyPrerequisites:
+  - AdvancedAtmospherics
+  - ProcessingTungsten

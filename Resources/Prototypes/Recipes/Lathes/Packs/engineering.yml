@@ -82,6 +82,7 @@
 - type: latheRecipePack
   id: EngineeringBoards
   recipes:
+  - PlasmaGasMinerMachineCircuitboard # DS14-Soyuz
   - ThermomachineFreezerMachineCircuitBoard
   - HellfireFreezerMachineCircuitBoard
   - PortableScrubberMachineCircuitBoard

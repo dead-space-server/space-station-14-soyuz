@@ -1,0 +1,9 @@
+- type: cargoProduct
+  id: EngineeringGasMinerIndustrialCore
+  icon:
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/gas_miner_core.rsi
+    state: plasma_miner_module
+  product: GasMinerIndustrialCore
+  cost: 999999
+  category: cargoproduct-category-name-engineering
+  group: engineering

@@ -1646,3 +1646,10 @@ Entries:
   changes:
   - type: Add
     message: Анти-метеоритная система
+- id: 156
+  author: Ezio50
+  time: '2026-09-12T16:25:08.756572+00:00'
+  pr: 467
+  changes:
+  - type: Add
+    message: Возможность создания газодобытчиков

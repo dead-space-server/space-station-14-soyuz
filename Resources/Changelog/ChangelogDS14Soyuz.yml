@@ -1631,3 +1631,11 @@ Entries:
   changes:
   - type: Add
     message: Тестовые инструменты для будущих апстримов
+- id: 154
+  author: dododonch
+  time: '2026-09-12T08:05:43.424258+00:00'
+  pr: 461
+  changes:
+  - type: Tweak
+    message: Карты Cluster, Elkridge, Marathon, Saltern, Reach. Количество зарядов
+      краскопульта увеличено до 30.

@@ -1,0 +1,4 @@
+# DS14-Soyuz: merge driver for our version of textures and prototypes
+[merge "ours"]
+    name = "Keep our version"
+    driver = true

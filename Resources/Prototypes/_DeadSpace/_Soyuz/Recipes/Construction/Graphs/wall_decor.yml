@@ -274,7 +274,7 @@
         amount: 1
         doAfter: 2
       - material: Cloth
-        amount: 2
+        amount: 1
         doAfter: 2
   - node: decor
     entity: USSPFlag
@@ -286,7 +286,7 @@
         amount: 1
       - !type:SpawnPrototype
         prototype: MaterialCloth1
-        amount: 2
+        amount: 1
       - !type:DeleteEntity {}
       steps:
       - tool: Prying
@@ -1005,9 +1005,6 @@
       - !type:SnapToGrid {}
       steps:
       - material: WoodPlank
-        amount: 5
-        doAfter: 2
-      - material: Steel
         amount: 2
         doAfter: 2
   - node: decor
@@ -1017,9 +1014,6 @@
       completed:
       - !type:SpawnPrototype
         prototype: MaterialWoodPlank1
-        amount: 5
-      - !type:SpawnPrototype
-        prototype: SheetSteel1
         amount: 2
       - !type:DeleteEntity {}
       steps:
@@ -1037,7 +1031,7 @@
       - !type:SnapToGrid {}
       steps:
       - material: WoodPlank
-        amount: 3
+        amount: 2
         doAfter: 2
   - node: decor
     entity: PaintingPersistenceOfMemory
@@ -1046,7 +1040,7 @@
       completed:
       - !type:SpawnPrototype
         prototype: MaterialWoodPlank1
-        amount: 3
+        amount: 2
       - !type:DeleteEntity {}
       steps:
       - tool: Prying

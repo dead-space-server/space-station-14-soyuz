@@ -1,0 +1,164 @@
+- type: entity
+  parent: CrateEngineeringSecure
+  id: RepairOrderRewardCrate
+  name: repair order reward crate
+  description: A secure engineering crate containing payment for a completed repair order.
+
+- type: repairOrder
+  id: RepairOrderDamagedEngineeringModule
+  name: repair-order-damaged-engineering-sattelite-name
+  description: repair-order-damaged-engineering-sattelite-description
+  objectType: repair-order-object-type-satellite
+  objectName: repair-order-object-name-orbital-communications-satellite
+  difficulty: 2
+  weight: 35
+  targetGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/Sattelite_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 20m
+##Amber
+- type: repairOrder
+  id: RepairOrderDamagedSOBRAmber
+  name: repair-order-damaged-amber-name
+  description: repair-order-damaged-amber-description
+  objectType: repair-order-object-type-medium-shuttle
+  objectName: repair-order-object-name-amber
+  difficulty: 3
+  weight: 5
+  targetGridPath: /Maps/_Soyuz/RepairOrders/amber_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/amber_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 20m
+##Briggle
+- type: repairOrder
+  id: RepairOrderDamagedBriggle
+  name: repair-order-damaged-briggle-name
+  description: repair-order-damaged-briggle-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-briggle
+  difficulty: 2
+  weight: 25
+  targetGridPath: /Maps/_Soyuz/RepairOrders/briggle_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/briggle_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 15m
+##Cargo_Shuttle
+- type: repairOrder
+  id: RepairOrderDamagedCargoShuttle
+  name: repair-order-damaged-cargo-shuttle-name
+  description: repair-order-damaged-cargo-shuttle-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-dinero-mk2
+  difficulty: 1
+  weight: 35
+  targetGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_target.yml
+  damagedGridPath: /Maps/_Soyuz/RepairOrders/cargo_shuttle_damage.yml
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 15m
+
+- type: entity
+  parent: BaseItem
+  id: RepairStructuralAnalyzerAssembly
+  name: unfinished repair structural analyzer
+  description: A partially assembled structural analyzer.
+  components:
+  - type: Sprite
+    sprite: Objects/Tools/t-ray.rsi
+    state: tray-off
+  - type: Item
+    size: Small
+    sprite: Objects/Tools/t-ray.rsi
+  - type: Construction
+    graph: RepairStructuralAnalyzer
+    node: assembly
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+
+- type: entity
+  parent: BaseItem
+  id: RepairStructuralAnalyzer
+  name: repair structural analyzer
+  description: A portable engineering device that highlights unfinished structural repair tasks.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/repair_structural_analyzer.rsi
+    layers:
+    - state: structural-analyzer-off
+      map: ["enum.ToggleableVisuals.Layer"]
+  - type: Item
+    size: Small
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/repair_structural_analyzer.rsi
+  - type: RepairStructuralAnalyzer
+    range: 7
+  - type: ItemToggle
+    popupActivate: repair-structural-analyzer-popup-on
+    popupDeactivate: repair-structural-analyzer-popup-off
+  - type: Construction
+    graph: RepairStructuralAnalyzer
+    node: analyzer
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: { state: structural-analyzer-on }
+          False: { state: structural-analyzer-off }
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 300
+      Glass: 100
+
+- type: entity
+  parent: BaseComputer
+  id: RepairOrdersConsole
+  name: repair orders console
+  description: Used to review and accept station engineering repair orders.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request-eng
+    - map: ["computerLayerKeys"]
+      state: tech_key
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+      state: generic_panel_open
+  - type: RepairOrderConsole
+  - type: ActivatableUI
+    key: enum.RepairOrderUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.RepairOrderUiKey.Key:
+        type: RepairOrderBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: AccessReader
+    access: [["Engineering"]]
+  - type: Computer
+    board: RepairOrdersComputerCircuitboard
+  - type: PointLight
+    radius: 1.5
+    energy: 4.0
+    color: "#EFB341"
+
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: RepairOrdersComputerCircuitboard
+  name: repair orders console computer board
+  description: A computer printed circuit board for a repair orders console.
+  components:
+  - type: Sprite
+    state: cpu_engineering
+  - type: ComputerBoard
+    prototype: RepairOrdersConsole

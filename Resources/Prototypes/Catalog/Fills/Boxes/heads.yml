@@ -25,6 +25,7 @@
         - id: AtmosMonitoringComputerCircuitboard
         - id: PowerComputerCircuitboard
         - id: SolarControlComputerCircuitboard
+        - id: RepairOrdersComputerCircuitboard # DS14-Soyuz
 
 - type: entity
   parent: ToteBase

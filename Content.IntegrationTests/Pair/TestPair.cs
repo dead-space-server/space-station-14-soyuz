@@ -121,6 +121,7 @@ public sealed partial class TestPair : RobustIntegrationTest.TestPair
             var entSysMan = IoCManager.Resolve<IEntitySystemManager>();
             entSysMan.LoadExtraSystemType<DeviceNetworkTestSystem>();
             entSysMan.LoadExtraSystemType<TestDestructibleListenerSystem>();
+            entSysMan.LoadExtraSystemType<Tests.DeadSpace._Soyuz.RepairOrders.RepairOrderActivationTestSystem>();
         };
         return opts;
     }

@@ -1,0 +1,23 @@
+- type: job
+  id: Prisoner
+  name: job-name-prisoner
+  description: Вы - бывший заключённый этой станции, которого забыла прошлая смена.
+  playTimeTracker: JobPrisoner
+  startingGear: PrisonerGear
+  icon: "JobIconPrisoner"
+  supervisors: job-supervisors-everyone
+  spawnOnStation: true
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10h
+  special:
+  - !type:AddComponentSpecial
+    components:
+      - type: Skill
+        group: BaseSkills
+
+- type: startingGear
+  id: PrisonerGear
+  equipment:
+    shoes: ClothingShoesColorBlack

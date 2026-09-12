@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitPrisonerAlt
+  name: чёрный комбинезон заключённого
+  description: С таким комбинезоном вы будете всегда оставаться блатным на зоне.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/prisoner_alt.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/prisoner_alt.rsi

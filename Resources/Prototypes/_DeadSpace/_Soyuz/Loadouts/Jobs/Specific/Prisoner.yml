@@ -1,0 +1,18 @@
+# Jumpsuit
+- type: loadout
+  id: PrisonerJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPrisoner
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: PrisonerJumpsuitAlt
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPrisonerAlt
+  groupBy: "jumpsuit"
+
+# Shoes
+- type: loadout
+  id: PrisonerBoots
+  equiment:
+    shoes: ClothingShoesColorBlack

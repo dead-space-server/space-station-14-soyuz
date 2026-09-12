@@ -23,6 +23,8 @@ using Content.Shared.Doors.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Components;
+using Content.Shared.Parallax.Biomes;
+using Content.Shared.Roles; // DS14-Soyuz
 using Content.Shared.Salvage;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Tiles;
@@ -259,10 +261,46 @@ public sealed class ArrivalsSystem : EntitySystem
         if (!TryGetStationArrivalsShuttle(ev.Station.Value, out var shuttle))
             return;
 
-        if (!TryPickShuttleSpawn(shuttle.Owner, out var spawnLoc))
-            return;
+        // DS14-Soyuz start
+        if (ev.Job != null)
+            var jobPrototype = _protoManager.Index<JobPrototype>(ev.Job);
+            if (jobPrototype.SpawnOnStation)
+            {
+                var stationSpawnPoints = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
+                var stationPositions = new List<EntityCoordinates>();
 
-        ev.SpawnResult = _stationSpawning.SpawnPlayerMob(
+                while (stationSpawnPoints.MoveNext(out var uid, out var spawnPoint, out var xform))
+                {
+                    if (spawnPoint.SpawnType != SpawnPointType.Job)
+                        continue;
+
+                    if (spawnPoint.Job != null && spawnPoint.Job != ev.Job)
+                        continue;
+
+                    if (_station.GetOwningStation(uid, xform) != ev.Station)
+                        continue;
+
+                    stationPositions.Add(xform.Coordinates);
+                }
+
+                if (stationPositions.Count > 0)
+                {
+                    var stationSpawnLoc = _random.Pick(stationPositions);
+                    ev.SpawnResult = _stationSpawning.SpawnPlayerMob(
+                        stationSpawnLoc,
+                        ev.Job,
+                        ev.HumanoidCharacterProfile,
+                        ev.Station);
+
+                    return;
+                }
+            }
+        }
+        // DS14-Soyuz end
+
+        TryGetArrivals(out var arrivals);
+
+        if (!TryComp(arrivals, out TransformComponent? arrivalsXform))
             spawnLoc,
             ev.Job,
             ev.HumanoidCharacterProfile,

@@ -148,6 +148,7 @@
   roles:
   - Reporter
   - Psychologist
+  - Prisoner # DS14-Soyuz
   primary: false
   accountNumber: 1322  #backmen: currency
 

@@ -85,7 +85,7 @@ job-name-senior-salvagespec = Мастер шахтёр
 # I am keeping them for roleplaying opportunities
 job-name-geneticist = генетик
 job-name-no-id = нет ID
-job-name-prisoner = заключённый
+job-name-prisoner = Заключённый
 job-name-roboticist = робототехник
 job-name-syndicate = Рассвет
 job-name-unknown = неизвестно

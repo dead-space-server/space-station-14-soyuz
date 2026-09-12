@@ -41,3 +41,18 @@
   - UnderwearBottomPantiesPolitruk
   - UnderwearTopBraPolitruk
   - UnderwearTopTelnikPolitruk
+
+# Prisoner
+- type: loadoutGroup
+  id: PrisonerJumpsuit
+  name: loadout-group-prisoner-jumpsuit
+  minLimit: 1
+  loadouts:
+  - PrisonerJumpsuit
+  - PrisonerJumpsuitAlt
+
+- type: loadoutGroup
+  id: PrisonerShoes
+  name: loadout-group-prisoner-shoes
+  loadouts:
+  - PrisonerBoots

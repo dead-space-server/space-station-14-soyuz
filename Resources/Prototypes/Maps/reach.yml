@@ -66,6 +66,7 @@
             # Clown: [ 1, 1 ]
             Passenger: [ -1, -1 ]
             ServiceWorker: [ 2, 2 ]
+            Prisoner: [ 1, 1 ]
             # sil
             Borg: [ 1, 1 ]
             BorgSecurity: [ 1, 1 ]

@@ -457,28 +457,28 @@
   description: A jumpsuit used for prisoners. It has suit sensors automatically enabled at all times.
   components:
   - type: Sprite
-    sprite: Clothing/Uniforms/Jumpsuit/color.rsi
-    layers:
-    - state: icon
-      color: "#ff8300"
-    - state: prisoner-icon
-  - type: Item
-    inhandVisuals:
-      left:
-      - state: inhand-left
-        color: "#ff8300"
-      - state: prisoner-inhand-left
-      right:
-      - state: inhand-right
-        color: "#ff8300"
-      - state: prisoner-inhand-right
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/prisoner.rsi # DS14-Soyuz
+    # layers: # DS14-Soyuz disabled
+    # - state: icon
+    #   color: "#ff8300"
+    # - state: prisoner-icon
+  # - type: Item # DS14-Soyuz disabled
+    # inhandVisuals:
+      # left:
+      # - state: inhand-left
+      #   color: "#ff8300"
+      # - state: prisoner-inhand-left
+      # right:
+      # - state: inhand-right
+      #   color: "#ff8300"
+      # - state: prisoner-inhand-right
   - type: Clothing
-    sprite: Clothing/Uniforms/Jumpsuit/color.rsi
-    clothingVisuals:
-      jumpsuit:
-      - state: equipped-INNERCLOTHING
-        color: "#ff8300"
-      - state: prisoner-equipped-INNERCLOTHING
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/prisoner.rsi # DS14-Soyuz
+    # clothingVisuals: # DS14-Soyuz disabled
+      # jumpsuit:
+      # - state: equipped-INNERCLOTHING
+      #   color: "#ff8300"
+      # - state: prisoner-equipped-INNERCLOTHING
   - type: SuitSensor
     controlsLocked: true
     randomMode: false

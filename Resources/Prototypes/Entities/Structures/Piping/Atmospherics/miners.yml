@@ -177,21 +177,6 @@
   components:
     - type: GasMiner
       spawnGas: Plasma
-    # DS14-Soyuz-start
-    - type: Machine
-      board: PlasmaGasMinerMachineCircuitboard
-    - type: ContainerContainer
-      containers:
-        machine_board: !type:Container
-        machine_parts: !type:Container
-    - type: Construction
-      graph: Machine
-      node: machine
-      containers:
-      - machine_parts
-      - machine_board
-    - type: WiresPanel
-    # DS14-Soyuz-end
 
 - type: entity
   name: tritium gas miner

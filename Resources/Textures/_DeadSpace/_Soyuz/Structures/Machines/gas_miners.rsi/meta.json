@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken from tgstation at https://github.com/tgstation/tgstation/commit/b9982f69706135ceea703817586128b298cbf5e5",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "plasma_miner",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "oxygen_miner",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "nitrogen_miner",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
+    }
+  ]
+}

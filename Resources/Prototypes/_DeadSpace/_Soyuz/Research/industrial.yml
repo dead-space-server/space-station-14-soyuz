@@ -55,10 +55,12 @@
   discipline: Industrial
   tier: 3
   cost: 20000
-  # The board must be researched, not found on a random technology disk.
+  # These boards must be researched, not found on random technology disks.
   diskAvailable: false
   recipeUnlocks:
   - PlasmaGasMinerMachineCircuitboard
+  - OxygenGasMinerMachineCircuitboard
+  - NitrogenGasMinerMachineCircuitboard
   technologyPrerequisites:
   - AdvancedAtmospherics
   - ProcessingTungsten

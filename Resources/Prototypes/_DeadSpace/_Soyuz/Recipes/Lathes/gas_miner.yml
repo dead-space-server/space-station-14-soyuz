@@ -9,3 +9,12 @@
     Gold: 100
     IngotTungsten: 3000
 
+- type: latheRecipe
+  parent: PlasmaGasMinerMachineCircuitboard
+  id: OxygenGasMinerMachineCircuitboard
+  result: OxygenGasMinerMachineCircuitboard
+
+- type: latheRecipe
+  parent: PlasmaGasMinerMachineCircuitboard
+  id: NitrogenGasMinerMachineCircuitboard
+  result: NitrogenGasMinerMachineCircuitboard

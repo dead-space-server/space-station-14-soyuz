@@ -54,6 +54,12 @@
   id: GasMinerIndustrialCore
 
 - type: Tag
+  id: GasMinerNitrogenIndustrialCore
+
+- type: Tag
+  id: GasMinerOxygenIndustrialCore
+
+- type: Tag
   id: GeneralStaff
 
 # H

@@ -9,6 +9,12 @@
   "states": [
     {
       "name": "plasma_miner_module"
+    },
+    {
+      "name": "oxygen_miner_module"
+    },
+    {
+      "name": "nitrogen_miner_module"
     }
   ]
 }

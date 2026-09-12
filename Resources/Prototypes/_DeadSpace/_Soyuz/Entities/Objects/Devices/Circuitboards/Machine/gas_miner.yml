@@ -7,7 +7,7 @@
   - type: Sprite
     state: engineering
   - type: MachineBoard
-    prototype: GasMinerPlasma
+    prototype: GasMinerPlasmaConstructible
     stackRequirements:
       Tungsten: 240
       Steel: 30
@@ -20,3 +20,46 @@
         defaultPrototype: GasMinerIndustrialCore
         examineName: gas-miner-industrial-core-machine-part
 
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: OxygenGasMinerMachineCircuitboard
+  name: oxygen gas miner machine board
+  description: A machine printed circuit board for an oxygen gas miner.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasMinerOxygenConstructible
+    stackRequirements:
+      Tungsten: 120
+      Steel: 30
+      Diamond: 30
+      Silver: 30
+      Gold: 30
+    tagRequirements:
+      GasMinerOxygenIndustrialCore:
+        amount: 1
+        defaultPrototype: GasMinerOxygenIndustrialCore
+        examineName: gas-miner-oxygen-industrial-core-machine-part
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: NitrogenGasMinerMachineCircuitboard
+  name: nitrogen gas miner machine board
+  description: A machine printed circuit board for a nitrogen gas miner.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasMinerNitrogenConstructible
+    stackRequirements:
+      Tungsten: 120
+      Steel: 30
+      Diamond: 30
+      Silver: 30
+      Gold: 30
+    tagRequirements:
+      GasMinerNitrogenIndustrialCore:
+        amount: 1
+        defaultPrototype: GasMinerNitrogenIndustrialCore
+        examineName: gas-miner-nitrogen-industrial-core-machine-part

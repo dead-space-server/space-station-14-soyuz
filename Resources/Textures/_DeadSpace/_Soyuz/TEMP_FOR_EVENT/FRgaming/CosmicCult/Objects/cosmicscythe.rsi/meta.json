@@ -8,10 +8,10 @@
     },
     "states": [
         {
-            "name": "base"
+            "name": "icon"
         },
         {
-            "name": "base-spent"
+            "name": "icon-overlay"
         }
     ]
 }

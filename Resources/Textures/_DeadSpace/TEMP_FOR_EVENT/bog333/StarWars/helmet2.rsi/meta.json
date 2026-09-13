@@ -13,9 +13,7 @@
     {
       "name": "icon-flash"
     },
-    {
-      "name": "hood-icon"
-    },
+
     {
       "name": "off-equipped-HELMET",
       "directions": 4
@@ -25,11 +23,11 @@
       "directions": 4
     },
     {
-      "name": "hood-equipped-HELMET",
+      "name": "on-inhand-left",
       "directions": 4
     },
     {
-      "name": "equipped-HELMET",
+      "name": "on-inhand-right",
       "directions": 4
     }
   ]

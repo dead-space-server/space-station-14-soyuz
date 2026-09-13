@@ -95,7 +95,6 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
             _changedPuddles.Add(entity);
     }
 
-    // TODO: This can be predicted once https://github.com/space-wizards/RobustToolbox/pull/5849 is merged
     private void OnPuddleSpread(Entity<PuddleComponent> entity, ref SpreadNeighborsEvent args)
     {
         if (!_solutionContainerSystem.ResolveSolution(entity.Owner, entity.Comp.SolutionName,
@@ -213,7 +212,6 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
         return FixedPoint2.Max(FixedPoint2.Zero, solution.Volume - GetEffectiveOverflowVolume(puddle, solution));
     }
 
-    // TODO: This can be predicted once https://github.com/space-wizards/RobustToolbox/pull/5849 is merged
     private void OnPuddleSlip(Entity<PuddleComponent> entity, ref SlipEvent args)
     {
         // Reactive entities have a chance to get a touch reaction from slipping on a puddle

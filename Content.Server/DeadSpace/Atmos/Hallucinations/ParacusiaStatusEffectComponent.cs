@@ -1,6 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
-namespace Content.Server.DeadSpace.Atmos.Hallucinations;
+namespace Content.Server.DeadSpace.Arena;
 
 [RegisterComponent]
-public sealed partial class ParacusiaStatusEffectComponent : Component;
+public sealed partial class ArenaSpawnPointComponent : Component
+{ }

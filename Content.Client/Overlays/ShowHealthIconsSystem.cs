@@ -130,9 +130,10 @@ private IReadOnlyList<HealthIconPrototype> DecideHealthIcons(Entity<DamageableCo
             }
             else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value))
             {
-                if (_prototypeMan.TryIndex<HealthIconPrototype>(value, out var icon))
-                {
-//DS14-Soyuz-end
+                // Since there is no MobState for a rotting mob, we have to deal with this case first.
+                if (HasComp<RottingComponent>(entity) && _prototypeMan.Resolve(damageableComponent.RottingIcon, out var rottingIcon))
+                    result.Add(rottingIcon);
+                else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value) && _prototypeMan.Resolve(value, out var icon))
                     result.Add(icon);
                 }
             }

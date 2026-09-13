@@ -1,5 +1,5 @@
 adrenal-implant-activated = Ваш пульc повысился и вы чувствуете прилив сил
-rezerv-implant-activated = Ваша верность отечеству придаёт вам сил!
+rezerv-implant-activated = Ваша верность НТ придаёт вам сил!
 sandevistan-implant-activated = Невероятная энергия пронизывает всё ваше тело. Мир вокруг замедляется.
 sandevistan-implant-cooldown = Шипы перестали впиваться вам в позвоночник. Осталось { $seconds } с.
 

@@ -355,10 +355,13 @@
   # DS14-start: use the RSI's pre-upstream worn states.
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/security.rsi
-  - type: PointLight #DS-14
-    color: '#fce883' #DS14-soyuz
-    radius: 6 
+  # DS14-end
+  # DS14-start
+  - type: PointLight
+    color: "#3fb594"
+    radius: 6
     energy: 3
+  # DS14-end
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000
@@ -496,6 +499,14 @@
     color: "#fce883" #DS14-soyuz
     radius: 6
     energy: 3
+    sprite: Clothing/Head/Hardsuits/security-warden.rsi
+  # DS14-end
+  # DS14-start
+  - type: PointLight
+    color: "#3fb594"
+    radius: 6
+    energy: 3
+  # DS14-end
   - type: PressureProtection
     highPressureMultiplier: 0.525
     lowPressureMultiplier: 1000
@@ -661,10 +672,13 @@
   # DS14-start: use the RSI's pre-upstream worn states.
   - type: Clothing
     sprite: Clothing/Head/Hardsuits/security-red.rsi
-  - type: PointLight #DS-14
-    color: '#fce883' #DS14-soyuz
+  # DS14-end
+  # DS14-start
+  - type: PointLight
+    color: "#3fb594"
     radius: 6
     energy: 3
+  # DS14-end
   - type: PressureProtection
     highPressureMultiplier: 0.45
     lowPressureMultiplier: 1000

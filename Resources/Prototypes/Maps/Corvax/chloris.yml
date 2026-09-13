@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxChloris
   mapName: 'Chloris'
-  mapPath: /Maps/_Soyuz/corvax_chloris.yml
+  mapPath: /Maps/corvax_chloris.yml
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 60
@@ -80,4 +80,3 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
-            Zookeeper: [ 1, 1 ]

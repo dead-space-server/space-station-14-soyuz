@@ -24,8 +24,7 @@ public sealed class WizdenContentFreeze
         var protoMan = server.ProtoMan;
 
         var recipesCount = protoMan.Count<FoodRecipePrototype>();
-        // Kofeecheks recipe restoration: LicenseRef-Kofeecheks
-        var recipesLimit = 329; // DS14-Soyuz
+        var recipesLimit = 258; // DS14
 
         if (recipesCount > recipesLimit)
         {

@@ -177,20 +177,6 @@
   - MagazinePistolSubMachineGunExtended
   - MagazinePistolSubMachineGunExtendedEmpty
 # DS14-end
-# DS14-soyuz-start
-  - MagazineBox357Silver
-  - MagazineBoxLightestRifleSilver
-  - MagazineBoxRifleSilver
-  - MagazineBoxLightRifleSilver
-  - MagazineBoxPistolSilver
-  - BoxLethalshotSilver
-  - MagazinePistolSilver
-  - MagazineLightRifleSilver
-  - MagazineRifleSilver
-  - MagazineShotgunSilver
-  - SpeedLoaderMagnumSilver
-  - MagazinePistolSubMachineGunSilver
-# DS14-soyuz-end
 
 - type: latheRecipePack
   id: SecurityWeapons

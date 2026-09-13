@@ -53,9 +53,9 @@ ent-CentcomSpecialOperationsOfficerPDA = { ent-CentcomPDA }
 
 ent-SurgeonPDA = КПК хирурга
     .desc = Красные пятна остались после одной из операций.
-ent-CoronerPDA = КПК патологоанатома
+ent-CoronerPDA = КПК коронера
     .desc = Датчик показывает, что пациент спит. Идеальное время для его вскрытия!
-ent-SeniorSalvagePDA = КПК мастера-шахтёра
+ent-SeniorSalvagePDA = КПК ведущего утилизатора
     .desc = Покрыт засохшей кровью карпов.
 ent-SecurityPilotPDA = КПК пилота милиции
     .desc = Синий, чтобы пятна крови сбитого шаттлом ассистента были заметны на нём.

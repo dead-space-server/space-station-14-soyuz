@@ -1778,6 +1778,7 @@
     tags:
     - MonkeyKingTarget # DS14
   # DS14-end
+
 - type: entity
   name: monkey
   id: MobBaseSyndicateMonkey

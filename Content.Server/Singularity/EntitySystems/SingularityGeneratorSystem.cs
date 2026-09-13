@@ -24,7 +24,7 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     private const string EngineStartupAnnouncement = "comp-generator-engine-startup-announcement";
     private const string SingularityEngineName = "comp-generator-engine-singularity";
     private const string TeslaEngineName = "comp-generator-engine-tesla";
-    private const string EngineStartupAnnouncementSender = "Автономная Система «Марта»"; // DS14-Soyuz value
+    private const string EngineStartupAnnouncementSender = "Автоматические Системы Станции";
     private const string EngineStartupAnnouncementVoice = "Glados";
     // DS14-end
 

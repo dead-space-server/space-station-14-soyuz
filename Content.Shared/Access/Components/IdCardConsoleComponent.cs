@@ -51,6 +51,7 @@ public sealed partial class IdCardConsoleComponent : Component
         "ChiefMedicalOfficer",
         "Quartermaster",
         "Command",
+        "BlueShield",
         "Cryogenics",
         "Lawyer",
         "Armory",

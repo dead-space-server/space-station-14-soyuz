@@ -236,8 +236,8 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatCentcomOfficer
-  name: шинель офицера ГенШтаба
-  description: Шинель из плотной ткани с вшитыми элементами брони, которую носят офицеры ГенШтаба.
+  name: шинель офицера Центком
+  description: Шинель из плотной ткани с вшитыми элементами брони, которую носят офицеры Центком.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/OuterClothing/Coats/centcom_officer.rsi
@@ -258,7 +258,7 @@
 - type: entity
   parent: ClothingOuterCoatParamedicWB
   id: ClothingOuterCoatParamedicALT
-  name: зелёная ветровка фельдшера
+  name: зелёная ветровка парамедика
   description: Надёжная ветровка фельдшера, защита от любого космического ветра.
   components:
   - type: Sprite
@@ -281,3 +281,19 @@
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatSuitJacketBlack]
   id: ClothingOuterCoatSuitJacketBlackOpened
   name: чёрный пиджак
+
+- type: entity
+  parent: ClothingOuterStorageFoldableBase
+  id: ClothingOuterCoatSuitJacketCC
+  name: пиджак агента Центком
+  description: Дорогущий пиджак сотрудника ЦК. Придаёт вид человека, который одним росчерком пера рушит жизни людей.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/OuterClothing/Coats/suit_jacket_cc.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/OuterClothing/Coats/suit_jacket_cc.rsi
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatSuitJacketCC]
+  id: ClothingOuterCoatSuitJacketCCOpened
+  name: пиджак агента Центком

@@ -1,0 +1,102 @@
+- type: entity
+  parent: BaseWeaponBattery
+  id: WeaponNavyCarabine
+  name: лазерный карабин "Полифем"
+  description: Сначала их глаза перестают видеть. Потом их сердца перестают биться. Лучшая лазерная винтовка ВКФ СССП.
+  components:
+  - type: Appearance
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Battery/nanotrasen_navy_rifle/big.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-4
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Battery/nanotrasen_navy_rifle/tiny.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Battery/nanotrasen_navy_rifle/tiny.rsi
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -44
+  - type: Gun
+    fireRate: 5
+    projectileSpeed: 30
+    minAngle: 24
+    maxAngle: 45
+    selectedMode: FullAuto
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    soundGunshot:
+      path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/laser2.ogg
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: true
+  - type: Battery
+    maxCharge: 1600
+    startingCharge: 1600
+  - type: BatteryAmmoProvider
+    proto: BulletEnergyBlue
+    fireCost: 100
+  - type: BatteryWeaponFireModes
+    fireModes:
+    - proto: BulletEnergyBlue
+      fireCost: 100
+    - proto: BulletDisablerAlt
+      fireCost: 75
+  - type: Wieldable
+  - type: UseDelay
+    delay: 0.6
+  - type: BatterySelfRecharger
+    autoRechargePauseTime: 1
+    autoRechargeRate: 450
+
+- type: entity
+  parent: BaseWeaponBatterySmall
+  id: WeaponNavyEnergyGun
+  name: лазерный пистолет "Никто"
+  description: "Бесшумный и невидимый. После выстрела остаётся только крик: Никто меня не убивает! Лучший лазерный пистолет ВКФ СССП." # Тут блин не получилось нормально перевести с английского на русский, должно быть типа "Nobody is killing me!"
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Energy/x01.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-4
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Energy/x01.rsi
+  - type: Gun
+    fireRate: 3
+    projectileSpeed: 40
+    soundGunshot:
+      path: /Audio/_DeadSpace/_Soyuz/Weapons/Guns/Gunshots/1laser9.ogg
+      params:
+        volume: -2
+  - type: Item
+    size: Small
+  - type: BatteryAmmoProvider
+    proto: BulletEnergyBlue
+    fireCost: 80
+  - type: BatteryWeaponFireModes
+    fireModes:
+    - proto: BulletEnergyBlue
+      fireCost: 80
+    - proto: BulletDisablerNavy
+      fireCost: 55
+  - type: Battery
+    maxCharge: 1200
+    startingCharge: 1200
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: true
+  - type: Appearance
+  - type: BatterySelfRecharger
+    autoRechargePauseTime: 1
+    autoRechargeRate: 250
+

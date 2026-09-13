@@ -31,7 +31,6 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
     [Dependency] private readonly IPlayerManager _player = default!; // DS14
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     private readonly SharedTransformSystem _transformSystem;
-    private readonly StationAiTrackEntitySystem _stationAiTrack; // DS14
     private readonly SpriteSystem _spriteSystem;
 
     private NetEntity? _trackedEntity;
@@ -122,13 +121,18 @@ public sealed partial class CrewMonitoringWindow : FancyWindow
             TryToScrollToFocus();
     }
 
-    public void ShowSensors(List<SuitSensorStatus> sensors, EntityUid monitor, EntityCoordinates? monitorCoords)
+    public void ShowSensors(List<SuitSensorStatus> sensors, EntityUid monitor, EntityCoordinates? monitorCoords, bool serverless = false) // DS14
     {
         ClearOutDatedData();
 
         // No server label
         if (sensors.Count == 0)
         {
+            // DS14-start
+            NoServerLabel.Text = Loc.GetString(serverless
+                ? "crew-monitoring-ui-no-sensors-label"
+                : "crew-monitoring-ui-no-server-label");
+            // DS14-end
             NoServerLabel.Visible = true;
             return;
         }

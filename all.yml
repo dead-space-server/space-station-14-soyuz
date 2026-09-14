@@ -1,0 +1,434 @@
+- type: entity
+  save: false
+  name: Urist McBark
+  parent: BaseMobVulpkanin
+  id: MobVulpkanin
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Uristititi McVox
+  parent: BaseMobVox
+  id: MobVox
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  parent: BaseMobSlimePerson
+  id: MobSlimePerson
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McScales
+  # suffix: Urisst' Mzhand
+  parent: BaseMobReptilian
+  id: MobReptilian
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+#Weh
+
+- type: entity
+  save: false
+  name: Urist McFluff
+  parent: BaseMobMoth
+  id: MobMoth
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McHands
+  parent: BaseMobHuman
+  id: MobHuman
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McPlants
+  parent: BaseMobDiona
+  id: MobDiona
+  components:
+    - type: Respirator
+      damage:
+        types:
+          Asphyxiation: 0.5
+      damageRecovery:
+        types:
+          Asphyxiation: -1.0
+    # DS14-Soyuz start
+    - type: Tag
+      tags:
+      - CantSetNormalScale
+    # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McWeb
+  parent: BaseMobArachnid
+  id: MobArachnid
+  components:
+  - type: Respirator
+    saturation: 8 # DS14
+    maxSaturation: 8 # DS14
+    damage:
+      types:
+        Asphyxiation: 1.5 # This makes space and crit more lethal to arachnids.
+    damageRecovery:
+      types:
+        Asphyxiation: -0.75 # DS14
+  # DS14-Soyuz start
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+# DS-14-Soyuz-start
+- type: trait
+  id: ScaleStandart
+  name: trait-scale-standart-name
+  description: trait-scale-standart-desc
+  category: Scale
+  cost: 1
+  blacklist:
+    components:
+      - BorgChassis
+    tags:
+      - CantSetNormalScale
+  components:
+    - type: ScaleVisuals
+      scale: 1.0,1.0
+# DS-14-Soyuz-end
+
+- type: entity
+  parent: BaseMobSpeciesOrganic
+  id: BaseMobKobolt
+  abstract: true
+  components:
+  - type: HumanoidAppearance
+    species: Kobolt
+    hideLayersOnEquip:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+    - Tail
+  - type: Puller
+    needsHands: false
+  - type: Icon
+    sprite: Mobs/Species/Reptilian/parts.rsi
+    state: full
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    scale: 0.9, 0.8 # DS14-Soyuz
+  # - type: ScaleVisuals # DS14-Soyuz disabled
+  #   scale: 0.9, 0.8
+  - type: Fixtures
+    fixtures: # TODO: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        # they r smaller
+        density: 120
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Body
+    prototype: Kobolt
+    requiredLegs: 2
+  - type: Butcherable
+    butcheringType: Spike
+    spawned:
+    - id: FoodMeatLizard
+      amount: 5
+  - type: LizardAccent
+  - type: Speech
+    speechSounds: Lizard
+    speechVerb: Reptilian
+    allowedEmotes: ['Weh']
+  - type: TypingIndicator
+    proto: lizard
+  - type: Vocal
+    sounds:
+      Male: MaleReptilian
+      Female: FemaleReptilian
+      Unsexed: MaleReptilian
+  # - type: BodyEmotes
+  #   soundsId: ReptilianBodyEmotes
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: Scale
+  - type: MeleeWeapon
+    soundHit:
+      collection: AlienClaw
+    angle: 30
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Slash: 5
+  - type: Temperature
+    currentTemperature: 310.15
+    specificHeat: 42
+  - type: TemperatureSpeed
+    thresholds:
+      301: 0.8
+      295: 0.6
+      285: 0.4
+  - type: Wagging
+  - type: Inventory
+    speciesId: reptilian # for reptilian masks
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Human/displacement.rsi
+            state: jumpsuit-female
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.7
+    baseSprintSpeed: 4.9
+  - type: Stamina
+  - type: Sanity # DS14
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - ReptilianLanguage
+    - GeneralLanguage
+  - type: SpeedSliding
+    minSlideSpeed: 5
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      50: 0.7
+      70: 0.5
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      90: PreCritical
+      110: Critical
+      190: Dead
+
+- type: entity
+  parent: BaseSpeciesDummy
+  id: MobKoboltDummy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HumanoidAppearance
+    species: Kobolt
+    hideLayersOnEquip:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+    - Tail
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    scale: 0.9, 0.8
+  - type: Inventory
+    speciesId: reptilian
+    femaleDisplacements:
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: Mobs/Species/Human/displacement.rsi
+            state: jumpsuit-female
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - ReptilianLanguage
+    - GeneralLanguage
+
+- type: entity
+  parent: BaseMobHuman
+  id: MobFelinidBase
+  abstract: true
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    scale: 0.8, 0.8 # DS14-Soyuz
+  # - type: ScaleVisuals # DS14-Soyuz disabled
+  #   scale: 0.8, 0.8
+  - type: CarrySize
+    size: Small
+  - type: CarryStrength
+    strength: SmallOnly
+  - type: HumanoidAppearance
+    species: Felinid
+    hideLayersOnEquip:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
+    - Tail
+  - type: Fixtures
+    fixtures: # TODO: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        # they r smaller
+        density: 120
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Body
+    prototype: Felinid
+  - type: Damageable
+    damageContainer: Biological
+  - type: MeleeWeapon
+    soundHit:
+      collection: Punch
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Blunt: 1
+        Slash: 5
+  - type: TypingIndicator
+    proto: felinid
+  - type: OwOAccent
+  - type: Speech
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 1
+    soundHit:
+      path: /Audio/Effects/hit_kick.ogg
+  - type: Stamina
+  - type: Perishable
+  - type: Vocal
+    wilhelm: "/Audio/_DeadSpace/Voice/Felinid/cat_wilhelm.ogg"
+    sounds:
+      Male: MaleFelinid
+      Female: FemaleFelinid
+      Unsexed: MaleFelinid
+  - type: Felinid # For felinid stuff like hairballs
+  - type: Tag
+    tags:
+    - CatEmotes
+    - FelinidEmotes
+    - CanPilot
+    - FootstepSound
+    - DoorBumpOpener
+    - AnomalyHost
+  - type: Language
+    selectedLanguage: GeneralLanguage
+    knownLanguages:
+    - CatLanguage
+    - GeneralLanguage
+  - type: NightVision
+    animation: false
+    duration: 30
+    color: "#6E000011"
+    transitionSpeed: 100
+    actionToggleNightVision: ActionToggleNightVisionFelenid
+
+- type: entity
+  parent: MobHumanDummy
+  id: MobFelinidDummy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    scale: 0.8, 0.8
+
+#Nya~~
+
+- type: entity
+  save: false
+  name: Urist McXeno
+  parent: BaseMobXenomorph
+  id: MobXenomorph
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McTajaran
+  parent: BaseMobTajaran
+  id: MobTajaran
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McShark
+  parent: BaseMobPlaf
+  id: MobPlaf
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McIPC
+  parent: BaseMobIPC
+  id: MobIPC
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: entity
+  save: false
+  name: Urist McDemon
+  parent: BaseMobDemon
+  id: MobDemon
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
+
+- type: Tag
+  id: CantSetNormalScale
+

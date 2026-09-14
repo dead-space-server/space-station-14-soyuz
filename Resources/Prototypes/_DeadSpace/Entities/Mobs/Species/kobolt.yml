@@ -19,8 +19,9 @@
   - type: Sprite
     noRot: true
     drawdepth: Mobs
-  - type: ScaleVisuals
-    scale: 0.9, 0.8
+    scale: 0.9, 0.8 # DS14-Soyuz
+  # - type: ScaleVisuals # DS14-Soyuz disabled
+  #   scale: 0.9, 0.8
   - type: Fixtures
     fixtures: # TODO: This needs a second fixture just for mob collisions.
       fix1:

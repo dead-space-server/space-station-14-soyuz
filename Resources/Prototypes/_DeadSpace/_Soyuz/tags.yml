@@ -36,6 +36,9 @@
 - type: Tag
   id: ClarkeRLeg
 
+- type: Tag
+  id: CantSetNormalScale
+
 # D
 - type: Tag
   id: DrinkCup

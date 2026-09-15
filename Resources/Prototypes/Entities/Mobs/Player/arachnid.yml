@@ -13,3 +13,8 @@
     damageRecovery:
       types:
         Asphyxiation: -0.75 # DS14
+  # DS14-Soyuz start
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end

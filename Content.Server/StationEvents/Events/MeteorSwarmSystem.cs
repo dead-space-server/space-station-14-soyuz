@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server.DeadSpace._Soyuz.MeteorDefense; // DS14-Soyuz
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking.Rules;
 using Content.Server.Station.Systems;
@@ -78,7 +79,14 @@ public sealed class MeteorSwarmSystem : GameRuleSystem<MeteorSwarmComponent>
             var subOffset = subOffsetAngle.RotateVec(new Vector2( (playableArea.TopRight - playableArea.Center).Length() / 3 * RobustRandom.NextFloat(), 0));
 
             var spawnPosition = new MapCoordinates(center + offset + subOffset, mapId);
+            // DS14-Soyuz start
+            var intercept = new MeteorInterceptAttemptEvent(grid, spawnProto);
+            RaiseLocalEvent(ref intercept);
+            if (intercept.Cancelled)
+                continue;
+
             var meteor = Spawn(spawnProto, spawnPosition);
+            // DS14-Soyuz end
             var physics = Comp<PhysicsComponent>(meteor);
             _physics.ApplyLinearImpulse(meteor, -offset.Normalized() * component.MeteorVelocity * physics.Mass, body: physics);
         }

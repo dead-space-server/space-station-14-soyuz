@@ -3,3 +3,9 @@
   name: Urist McTajaran
   parent: BaseMobTajaran
   id: MobTajaran
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end

@@ -3,6 +3,12 @@
   name: Urist McHands
   parent: BaseMobHuman
   id: MobHuman
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
 
 #Syndie
 - type: entity

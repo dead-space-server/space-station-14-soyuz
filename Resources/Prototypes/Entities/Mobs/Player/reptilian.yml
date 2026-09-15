@@ -4,5 +4,11 @@
   # suffix: Urisst' Mzhand
   parent: BaseMobReptilian
   id: MobReptilian
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end
 
 #Weh

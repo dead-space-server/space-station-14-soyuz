@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server.DeadSpace._Soyuz.MeteorDefense; // DS14-Soyuz
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.ImmovableRod;
 using Content.Server.StationEvents.Components;
@@ -37,7 +38,14 @@ public sealed class ImmovableRodRule : StationEventSystem<ImmovableRodRuleCompon
             var direction = angle.ToVec();
             var mapCoords = _transform.ToMapCoordinates(targetCoords);
             var spawnCoords = mapCoords.Offset(-direction * speed * despawn.Lifetime / 2);
+            // DS14-Soyuz start
+            var intercept = new MeteorInterceptAttemptEvent(targetCoords.EntityId, protoName);
+            RaiseLocalEvent(ref intercept);
+            if (intercept.Cancelled)
+                return;
+
             var ent = Spawn(protoName, spawnCoords);
+            // DS14-Soyuz end
             _gun.ShootProjectile(ent, direction, Vector2.Zero, uid, speed: speed);
         }
         else

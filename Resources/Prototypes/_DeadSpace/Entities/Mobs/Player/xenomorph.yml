@@ -3,3 +3,9 @@
   name: Urist McXeno
   parent: BaseMobXenomorph
   id: MobXenomorph
+  # DS14-Soyuz start
+  components:
+  - type: Tag
+    tags:
+    - CantSetNormalScale
+  # DS14-Soyuz end

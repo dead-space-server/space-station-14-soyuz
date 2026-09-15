@@ -732,7 +732,6 @@ public sealed partial class BanPanel : DefaultWindow
             ButtonResetOn = _gameTiming.CurTime.Add(TimeSpan.FromSeconds(3));
             SubmitButton.ModulateSelfOverride = Color.Red;
             SubmitButton.Text = Loc.GetString("ban-panel-confirm");
-
             return;
         }
 

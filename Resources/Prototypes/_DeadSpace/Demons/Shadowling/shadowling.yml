@@ -11,6 +11,7 @@
   suffix: Тенеморф
   description: Жуткий.
   components:
+
   - type: MovementSpeedModifier
     baseWalkSpeed: 4
     baseSprintSpeed: 4
@@ -176,6 +177,7 @@
     tags:
       - CannotSuicide
       - DoorBumpOpener
+
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:
@@ -279,6 +281,7 @@
   name: Вознесенный
   description: Совершенная форма тьмы.
   components:
+
   - type: Sprite
     noRot: true
     overrideContainerOcclusion: true

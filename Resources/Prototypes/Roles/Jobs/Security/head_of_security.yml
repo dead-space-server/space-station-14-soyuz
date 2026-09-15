@@ -9,7 +9,7 @@
       time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h #DS14-soyuz time requirement
+      time: 40h
     - !type:OverallPlaytimeRequirement
       time: 100h
     - !type:AgeRequirement

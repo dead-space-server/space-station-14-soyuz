@@ -28,7 +28,7 @@ chat-radio-spiders = Связующая паутина
 chat-radio-hivemind = Улей
 chat-radio-source-unknown = Неизвестно
 chat-radio-shadowling = Тенеморф
-chat-radio-soc = НКВБ
+chat-radio-soc = КСО
 chat-radio-carpdragon = Общий разум
 
 # DS14

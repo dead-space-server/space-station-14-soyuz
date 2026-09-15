@@ -159,7 +159,6 @@
         toggleAction: HairstyleAction
   # DS14-end
 
-
 - type: entity
   parent: MobHumanDummy
   id: MobSlimePersonDummy

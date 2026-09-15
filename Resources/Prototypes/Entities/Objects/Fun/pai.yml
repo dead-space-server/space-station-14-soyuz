@@ -228,8 +228,6 @@
 
 # PAI Actions
 
-# PAI Actions
-
 - type: entity
   parent: ActionIntrinsicStore
   id: ActionPAIOpenShop

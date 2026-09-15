@@ -91,6 +91,17 @@ marking-SteampunkRArm = Правая рука Стимпанк
 marking-SteampunkLArm = Левая рука Стимпанк
 marking-SteampunkRLeg = Правая нога Стимпанк
 marking-SteampunkLLeg = Левая нога Стимпанк
+
+
+
+
+
+
+
+
+
+
+
 # Pawsitrons
 marking-PawsitronsHead = Голова Мяузитрон
 marking-PawsitronsChest = Торс Мяузитрон

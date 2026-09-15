@@ -8,18 +8,18 @@
   },
   "states": [
     {
+      "name": "icon"
+    },
+    {
+      "name": "icon-on"
+    },
+    {
       "name": "equipped-FEET",
       "directions": 4
     },
     {
       "name": "on-equipped-FEET",
       "directions": 4
-    },
-    {
-      "name": "icon"
-    },
-    {
-      "name": "icon-on"
     },
     {
       "name": "inhand-left",

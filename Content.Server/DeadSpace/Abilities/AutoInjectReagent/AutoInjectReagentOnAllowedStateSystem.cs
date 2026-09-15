@@ -80,19 +80,48 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
 
     private void OnState(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component, MobStateChangedEvent args)
     {
-        if (!component.IsReady)
-            return;
-
         foreach (var allowedState in component.AllowedStates)
         {
             if (allowedState == args.NewMobState)
             {
-                Inject(component.Reagents, uid);
-                _popup.PopupEntity(Loc.GetString("hypospray-component-feel-prick-message"), uid, uid);
-                _audio.PlayPvs(component.InjectSound, uid);
-                component.IsReady = false;
-                component.TimeUntilRegen = TimeSpan.FromSeconds(component.DurationRegenReagents) + _timing.CurTime;
+                // DS14-Soyuz-start
+                if (component.TimeUntilNextInject == 0 && component.IsReady)
+                {
+                    PerformInject(uid, component);
+                    component.IsReady = false;
+                    component.TimeUntilRegen = TimeSpan.FromSeconds(component.DurationRegenReagents) + _timing.CurTime;
+                    Dirty(uid, component);
+                }
+                else if (component.TimeUntilNextInject > 0 && !component.IsReady)
+                {
+                    component.IsReady = true;
+                    component.NextInjectTime = _timing.CurTime;
+                    Dirty(uid, component);
+                }
+                break;
             }
         }
+    }
+
+    private bool IsInAllowedState(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component)
+    {
+        if (!TryComp<MobStateComponent>(uid, out var mobState))
+            return false;
+
+        foreach (var allowedState in component.AllowedStates)
+        {
+            if (mobState.CurrentState == allowedState)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void PerformInject(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component)
+    {
+        Inject(component.Reagents, uid);
+        _popup.PopupEntity(Loc.GetString("hypospray-component-feel-prick-message"), uid, uid);
+        _audio.PlayPvs(component.InjectSound, uid);
+    // DS14-Soyuz-end
     }
 }

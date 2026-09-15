@@ -42,7 +42,7 @@ public sealed class SoyuzImpulseSystem : EntitySystem
         foreach (var (uid, supplier) in _suppliers)
         {
             var multiplier = 1f;
-            if (TryComp<TransformComponent>(uid, out var xform) &&
+            if (TryComp(uid, out TransformComponent? xform) &&
                 xform.GridUid != null && xform.ParentUid == xform.GridUid &&
                 _atmos.GetTileMixture((uid, xform))?.GetMoles(Gas.ImpulseGas) >= 5f)
                 multiplier = 1.25f;

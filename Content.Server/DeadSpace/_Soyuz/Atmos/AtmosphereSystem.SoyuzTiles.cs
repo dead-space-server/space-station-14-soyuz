@@ -13,11 +13,14 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Radiation.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Atmos.EntitySystems;
 
 public sealed partial class AtmosphereSystem
 {
+    private static readonly ProtoId<ReagentPrototype> SoyuzIneyReagent = "Iney";
+
     [Dependency] private readonly SharedPointLightSystem _soyuzLights = default!;
     private readonly Dictionary<TileAtmosphere, SoyuzTileState> _soyuzTiles = new();
     private readonly ITileReaction _soyuzCleanDecals = new CleanDecalsReaction { OnlyCurrentTile = true };
@@ -75,7 +78,7 @@ public sealed partial class AtmosphereSystem
             air.AdjustMoles(Gas.Iney, -converted);
             air.AdjustMoles(Gas.WaterVapor, converted);
             var tileRef = _map.GetTileRef(tile.GridIndex, grid, tile.GridIndices);
-            var reagent = _protoMan.Index<ReagentPrototype>("Iney");
+            var reagent = _protoMan.Index(SoyuzIneyReagent);
             var volume = FixedPoint2.New(Math.Clamp(converted * 50f, 5f, 100f));
             _soyuzCleanDecals.TileReact(tileRef, reagent, volume, EntityManager, null);
             _soyuzCleanPuddles.TileReact(tileRef, reagent, volume, EntityManager, null);

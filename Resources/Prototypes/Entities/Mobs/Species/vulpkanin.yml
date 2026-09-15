@@ -26,6 +26,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   # DS14-end
   - type: MessyDrinker
     spillChance: 0.33

@@ -165,7 +165,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
             {
                 if (CanFullyEvaporate(solution))
                     args.PushMarkup(Loc.GetString("puddle-component-examine-evaporating"));
-                else if (HasEvaporatingReagents(solution))
+                else if (solution.GetTotalPrototypeQuantity(GetEvaporatingReagents(solution)) > FixedPoint2.Zero)
                     args.PushMarkup(Loc.GetString("puddle-component-examine-evaporating-partial"));
                 else
                     args.PushMarkup(Loc.GetString("puddle-component-examine-evaporating-no"));

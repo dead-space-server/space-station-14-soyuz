@@ -1,0 +1,481 @@
+# Uses the existing target entity names and descriptions.
+
+- type: construction
+  id: SoyuzPosterHB2
+  graph: SoyuzPosterHB2
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterEngineeringAME
+  graph: SoyuzPosterEngineeringAME
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterEngineeringHelmet
+  graph: SoyuzPosterEngineeringHelmet
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterScienceAnomalyReport
+  graph: SoyuzPosterScienceAnomalyReport
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterOPZ
+  graph: SoyuzPosterOPZ
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterSNK
+  graph: SoyuzPosterSNK
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterSECGoodCop
+  graph: SoyuzPosterSECGoodCop
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzSignSomethingOld2
+  graph: SoyuzSignSomethingOld2
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitNanotrasenLogo
+  graph: SoyuzPosterLegitNanotrasenLogo
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterUSSP
+  graph: SoyuzPosterUSSP
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzUSSPFlag
+  graph: SoyuzUSSPFlag
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterOPZGalactic
+  graph: SoyuzPosterOPZGalactic
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterOPZVoice
+  graph: SoyuzPosterOPZVoice
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterMultitoolGuide
+  graph: SoyuzPosterMultitoolGuide
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitJustAWeekAway
+  graph: SoyuzPosterLegitJustAWeekAway
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterSECArest
+  graph: SoyuzPosterSECArest
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandKosmicheskayaStantsiya
+  graph: SoyuzPosterContrabandKosmicheskayaStantsiya
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitSpaceCops
+  graph: SoyuzPosterLegitSpaceCops
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandLamarr
+  graph: SoyuzPosterContrabandLamarr
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitSecWatch
+  graph: SoyuzPosterLegitSecWatch
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandBorgFancyv2
+  graph: SoyuzPosterContrabandBorgFancyv2
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandBorgFancy
+  graph: SoyuzPosterContrabandBorgFancy
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterMeow
+  graph: SoyuzPosterMeow
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitHighClassMartini
+  graph: SoyuzPosterLegitHighClassMartini
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandMissingGloves
+  graph: SoyuzPosterContrabandMissingGloves
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandMissingSpacepen
+  graph: SoyuzPosterContrabandMissingSpacepen
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitNoERP
+  graph: SoyuzPosterLegitNoERP
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitStateLaws
+  graph: SoyuzPosterLegitStateLaws
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitReportCrimes
+  graph: SoyuzPosterLegitReportCrimes
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandRIPBadger
+  graph: SoyuzPosterContrabandRIPBadger
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitBuild
+  graph: SoyuzPosterLegitBuild
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitPeriodicTable
+  graph: SoyuzPosterLegitPeriodicTable
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitSafetyInternals
+  graph: SoyuzPosterLegitSafetyInternals
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitSafetyReport
+  graph: SoyuzPosterLegitSafetyReport
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitSafetyEyeProtection
+  graph: SoyuzPosterLegitSafetyEyeProtection
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitCarbonDioxide
+  graph: SoyuzPosterLegitCarbonDioxide
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterContrabandWehWatches
+  graph: SoyuzPosterContrabandWehWatches
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPosterLegitCleanliness
+  graph: SoyuzPosterLegitCleanliness
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzSignScienceDesk
+  graph: SoyuzSignScienceDesk
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzPaintingPersistenceOfMemory
+  graph: SoyuzPaintingPersistenceOfMemory
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition

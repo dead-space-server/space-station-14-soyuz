@@ -1,0 +1,53 @@
+<!-- Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT -->
+
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'telecommunication-blacklist-console-window-title'}"
+               MinSize="780 520">
+    <BoxContainer Orientation="Vertical">
+        <CenterContainer Name="LockedPanel" HorizontalExpand="True" VerticalExpand="True">
+            <Label Text="{Loc 'telecommunication-blacklist-console-locked'}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" />
+        </CenterContainer>
+
+        <BoxContainer Name="MainPanel" Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+            <BoxContainer Orientation="Vertical" MinWidth="280" MaxWidth="320" Margin="5">
+                <BoxContainer Orientation="Horizontal" Margin="0 0 0 5">
+                    <Label Text="{Loc 'telecommunication-blacklist-console-roster-title'}"
+                           HorizontalExpand="True"
+                           VerticalAlignment="Center" />
+                    <Button Name="RefreshButton"
+                            Text="{Loc 'telecommunication-blacklist-console-refresh'}" />
+                </BoxContainer>
+                <Label Name="RosterEmptyLabel"
+                       Text="{Loc 'telecommunication-blacklist-console-roster-empty'}"
+                       Visible="False" />
+                <ScrollContainer VerticalExpand="True">
+                    <BoxContainer Name="RosterList" Orientation="Vertical" HorizontalExpand="True" />
+                </ScrollContainer>
+            </BoxContainer>
+
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True" Margin="10 5 5 5">
+                <CenterContainer Name="NoSelectionPanel" HorizontalExpand="True" VerticalExpand="True">
+                    <Label Text="{Loc 'telecommunication-blacklist-console-select-target'}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                </CenterContainer>
+
+                <BoxContainer Name="DetailsPanel" Orientation="Vertical" HorizontalExpand="True" VerticalExpand="True">
+                    <Label Name="TargetNameLabel" />
+                    <Label Name="TargetJobLabel" />
+                    <Label Text="{Loc 'telecommunication-blacklist-console-blocked-channels'}"
+                           Margin="0 12 0 5" />
+                    <ScrollContainer VerticalExpand="True">
+                        <BoxContainer Name="ChannelList" Orientation="Vertical" HorizontalExpand="True" />
+                    </ScrollContainer>
+                    <Button Name="ApplyButton"
+                            Text="{Loc 'telecommunication-blacklist-console-apply'}"
+                            HorizontalAlignment="Right"
+                            Margin="0 10 0 0" />
+                </BoxContainer>
+            </BoxContainer>
+        </BoxContainer>
+    </BoxContainer>
+</DefaultWindow>

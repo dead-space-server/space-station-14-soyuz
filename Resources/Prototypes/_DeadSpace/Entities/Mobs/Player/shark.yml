@@ -3,9 +3,3 @@
   name: Urist McShark
   parent: BaseMobPlaf
   id: MobPlaf
-  # DS14-Soyuz start
-  components:
-  - type: Tag
-    tags:
-    - CantSetNormalScale
-  # DS14-Soyuz end

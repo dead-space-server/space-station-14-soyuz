@@ -11,11 +11,6 @@
       damageRecovery:
         types:
           Asphyxiation: -1.0
-    # DS14-Soyuz start
-    - type: Tag
-      tags:
-      - CantSetNormalScale
-    # DS14-Soyuz end
 
 # Reformed Diona
 - type: entity

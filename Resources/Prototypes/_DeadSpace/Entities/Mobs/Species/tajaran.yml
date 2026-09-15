@@ -54,6 +54,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:

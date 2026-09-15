@@ -102,6 +102,8 @@ namespace Content.Server.Atmos.EntitySystems
             if(tile.Air != null)
                 visualsChanged |= React(tile.Air, tile) != ReactionResult.NoReaction; // DS14
 
+            ProcessSoyuzTile(tile); // DS14-Soyuz: open-air effects only on the actual tile mixture.
+
             if (visualsChanged) // DS14
                 InvalidateVisuals(ent, tile);
 

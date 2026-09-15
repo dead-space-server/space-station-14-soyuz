@@ -77,16 +77,15 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
 
         var result = new List<HealthIconPrototype>();
 
-        if (damageableComponent.DamageContainerID == "Biological")
+        if (damageableComponent?.DamageContainerID == "Biological")
         {
             if (TryComp<MobStateComponent>(entity, out var state))
             {
-                // DS14-Soyuz-start
+//DS14-Soyuz-start
                 if (state.CurrentState == MobState.Dead)
                 {
                     int effectiveStage = 1;
 
-                    // Проверяем наличие компонента PerishableComponent
                     if (TryComp<PerishableComponent>(entity, out var perishableComp))
                     {
                         int perishStage = _rotting.PerishStage((entity, perishableComp), 4);
@@ -104,29 +103,28 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
                         {
                             result.Add(rottingIcon);
                         }
+                        return result;
                     }
-                    else
+
+                    effectiveStage = Math.Clamp(effectiveStage, 1, 4);
+                    int iconIndex = effectiveStage - 1;
+
+                    if (iconIndex < damageableComponent.RottingStageIcons.Count)
                     {
-                        effectiveStage = Math.Clamp(effectiveStage, 1, 4);
-                        int iconIndex = effectiveStage - 1;
+                        string iconId = damageableComponent.RottingStageIcons[iconIndex];
 
-                        if (iconIndex < damageableComponent.RottingStageIcons.Count)
+                        if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
                         {
-                            string iconId = damageableComponent.RottingStageIcons[iconIndex];
-
-                            if (_prototypeMan.TryIndex<HealthIconPrototype>(iconId, out var icon))
-                            {
-                                result.Add(icon);
-                            }
-                            else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
-                            {
-                                result.Add(fallbackIcon);
-                            }
+                            result.Add(icon);
                         }
                         else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
                         {
                             result.Add(fallbackIcon);
                         }
+                    }
+                    else if (_prototypeMan.TryIndex<HealthIconPrototype>(damageableComponent.RottingIcon, out var fallbackIcon))
+                    {
+                        result.Add(fallbackIcon);
                     }
                 }
                 else if (damageableComponent.HealthIcons.TryGetValue(state.CurrentState, out var value))
@@ -136,7 +134,7 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
                         result.Add(icon);
                     }
                 }
-                // DS14-Soyuz-end
+//DS14-Soyuz-end
             }
         }
 

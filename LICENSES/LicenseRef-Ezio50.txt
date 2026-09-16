@@ -1,0 +1,62 @@
+Ezio50 Authored Works — All Rights Reserved
+
+Copyright (c) 2026 Ezio50. All rights reserved.
+
+This notice applies to every Ezio50-authored file or separately identified
+portion of a file bearing the following license identifier:
+
+    SPDX-License-Identifier: LicenseRef-Ezio50
+
+It also applies to separately identified integration blocks explicitly marked
+with LicenseRef-Ezio50, for example:
+
+    DS14-Soyuz: LicenseRef-Ezio50
+
+The covered work currently includes, without limitation, Ezio50-authored
+files and separately identified portions related to Soyuz features, including:
+
+- Content.Server/DeadSpace/_Soyuz/Atmos/**
+- Content.Shared/DeadSpace/_Soyuz/Atmos/**
+- Content.Client/DeadSpace/_Soyuz/Atmos/**
+- Resources/Prototypes/_DeadSpace/_Soyuz/Atmospherics/**
+- Resources/Locale/*/_deadspace/_Soyuz/atmos/**
+- Resources/Locale/*/_deadspace/_Soyuz/gases/**
+- Ezio50-authored atmospheric gas prototypes, reactions, systems, effects,
+  guidebook entries, localization, tests, and related integration additions
+  explicitly bearing LicenseRef-Ezio50
+- Any future Ezio50-authored files or separately identified code/data blocks
+  that explicitly bear the LicenseRef-Ezio50 identifier
+
+The covered work is a separately licensed element and is not licensed under the
+repository-level LICENSE.TXT unless the copyright holder explicitly states
+otherwise in writing.
+
+No permission is granted to use, copy, modify, merge, publish, distribute,
+sublicense, sell, host, or create derivative works from the covered work without
+prior written permission from the copyright holder.
+
+The covered work and its future revisions in this repository are explicitly
+designated as "Not a Contribution" to the Dead Space 14 / "Мёртвый Космос"
+project, the dead-space-server organization, and their licensors.
+
+Submission, relicensing, incorporation, or distribution of the covered work
+under different terms requires a separate written agreement from the copyright
+holder.
+
+This notice does not claim copyright in pre-existing upstream code, code written
+by other contributors, audio recordings, fonts, sprites, artwork, engine code,
+or any other third-party materials.
+
+Where an Ezio50-authored modification exists inside a file that also contains
+pre-existing or third-party code, LicenseRef-Ezio50 applies only to the
+separately identifiable Ezio50-authored portion bearing that identifier.
+Pre-existing and third-party portions retain their respective copyright and
+license terms.
+
+Third-party materials retain their respective copyright and license terms.
+Media files remain governed by their embedded metadata, attribution records,
+source licenses, and applicable third-party rights.
+
+This notice does not attempt to revoke, restrict, or alter rights that may
+already have been validly granted in earlier revisions under a separate license,
+agreement, or other authorization.

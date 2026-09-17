@@ -2,61 +2,87 @@ Ezio50 Authored Works — All Rights Reserved
 
 Copyright (c) 2026 Ezio50. All rights reserved.
 
-This notice applies to every Ezio50-authored file or separately identified
-portion of a file bearing the following license identifier:
-
+This notice applies to every Ezio50-authored file bearing the following
+license identifier:
     SPDX-License-Identifier: LicenseRef-Ezio50
 
-It also applies to separately identified integration blocks explicitly marked
-with LicenseRef-Ezio50, for example:
+The covered work currently includes, without limitation, Ezio50-authored files
+bearing the LicenseRef-Ezio50 identifier located in or related to:
 
-    DS14-Soyuz: LicenseRef-Ezio50
+* Content.Server/DeadSpace/_Soyuz/Atmos/**
+* Content.Shared/DeadSpace/_Soyuz/Atmos/**
+* Content.Client/DeadSpace/_Soyuz/Atmos/**
+* Resources/Prototypes/_DeadSpace/_Soyuz/Atmospherics/**
+* Resources/Locale/*/_deadspace/_Soyuz/atmos/**
+* Resources/Locale/*/_deadspace/_Soyuz/gases/**
+* Resources/Prototypes/_DeadSpace/_Soyuz/Entities/Objects/Materials/atmos_crystals.yml
+* Resources/Prototypes/_DeadSpace/_Soyuz/Guidebook/**
+* Resources/Prototypes/_DeadSpace/_Soyuz/Reagents/advanced_gases.yml
+* Resources/Locale/*/_deadspace/_Soyuz/atmos/advanced_gases.ftl
+* Ezio50-authored atmospheric gas prototypes, reactions, systems, effects,
+  visual effects, guidebook entries, localization, tests, and related files
+  explicitly bearing the LicenseRef-Ezio50 identifier
+* Any future Ezio50-authored files explicitly bearing the
+  LicenseRef-Ezio50 identifier
 
-The covered work currently includes, without limitation, Ezio50-authored
-files and separately identified portions related to Soyuz features, including:
+The presence of a directory or file path above does not claim copyright over
+pre-existing files or material written by other contributors.
 
-- Content.Server/DeadSpace/_Soyuz/Atmos/**
-- Content.Shared/DeadSpace/_Soyuz/Atmos/**
-- Content.Client/DeadSpace/_Soyuz/Atmos/**
-- Resources/Prototypes/_DeadSpace/_Soyuz/Atmospherics/**
-- Resources/Locale/*/_deadspace/_Soyuz/atmos/**
-- Resources/Locale/*/_deadspace/_Soyuz/gases/**
-- Ezio50-authored atmospheric gas prototypes, reactions, systems, effects,
-  guidebook entries, localization, tests, and related integration additions
-  explicitly bearing LicenseRef-Ezio50
-- Any future Ezio50-authored files or separately identified code/data blocks
-  that explicitly bear the LicenseRef-Ezio50 identifier
+LicenseRef-Ezio50 applies only to complete files authored by Ezio50 that
+explicitly bear the LicenseRef-Ezio50 identifier.
+
+Files that do not bear the LicenseRef-Ezio50 identifier are not covered by this
+license merely because they are located in one of the directories listed above
+or interact with covered work.
 
 The covered work is a separately licensed element and is not licensed under the
-repository-level LICENSE.TXT unless the copyright holder explicitly states
-otherwise in writing.
+repository-level LICENSE.TXT.
 
-No permission is granted to use, copy, modify, merge, publish, distribute,
-sublicense, sell, host, or create derivative works from the covered work without
-prior written permission from the copyright holder.
+Except for the permissions expressly granted below, no permission is granted to
+use, copy, modify, merge, publish, distribute, sublicense, sell, host, or create
+derivative works from the covered work without prior written permission from
+the copyright holder.
+
+The Dead Space 14 / "Мёртвый Космос" project, the dead-space-server
+organization, and persons authorized by that organization are granted a
+perpetual, worldwide, royalty-free, non-exclusive permission to use, copy,
+modify, merge, maintain, compile, execute, host, and distribute the covered work
+as part of the official Dead Space 14 / "Мёртвый Космос" / Soyuz project.
+
+This permission includes incorporation of the covered work into official source
+repositories, builds, servers, and related infrastructure, as well as changes
+reasonably necessary for maintenance, bug fixes, refactoring, compatibility
+with upstream changes, and continued development of the project.
+
+This permission does not transfer copyright or ownership of the covered work to
+the Dead Space 14 / "Мёртвый Космос" project, the dead-space-server
+organization, or their contributors.
+
+This permission does not authorize the covered work to be relicensed as a
+standalone work under different terms, nor does it authorize use of the covered
+work in an unrelated project without prior written permission from the
+copyright holder.
 
 The covered work and its future revisions in this repository are explicitly
 designated as "Not a Contribution" to the Dead Space 14 / "Мёртвый Космос"
 project, the dead-space-server organization, and their licensors.
 
-Submission, relicensing, incorporation, or distribution of the covered work
-under different terms requires a separate written agreement from the copyright
-holder.
+The "Not a Contribution" designation does not limit the permissions expressly
+granted to the Dead Space 14 / "Мёртвый Космос" project under this license.
+
+Submission under different terms, relicensing, or incorporation of the covered
+work into an unrelated project requires a separate written agreement from the
+copyright holder.
 
 This notice does not claim copyright in pre-existing upstream code, code written
 by other contributors, audio recordings, fonts, sprites, artwork, engine code,
-or any other third-party materials.
-
-Where an Ezio50-authored modification exists inside a file that also contains
-pre-existing or third-party code, LicenseRef-Ezio50 applies only to the
-separately identifiable Ezio50-authored portion bearing that identifier.
-Pre-existing and third-party portions retain their respective copyright and
-license terms.
+or other third-party materials. Those materials retain their respective
+copyright and license terms.
 
 Third-party materials retain their respective copyright and license terms.
 Media files remain governed by their embedded metadata, attribution records,
 source licenses, and applicable third-party rights.
 
-This notice does not attempt to revoke, restrict, or alter rights that may
-already have been validly granted in earlier revisions under a separate license,
-agreement, or other authorization.
+This notice does not attempt to revoke or alter rights that may already have
+been validly granted in earlier revisions under a separate agreement, license,
+platform terms, written permission, or other authorization.

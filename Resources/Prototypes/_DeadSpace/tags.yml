@@ -312,18 +312,6 @@
   id: MagazineRifleBox
 
 - type: Tag
-  id: MagazineGurza
-
-- type: Tag
-  id: MagazineAMD
-
-- type: Tag
-  id: MagazineHristov
-
-- type: Tag
-  id: MagazineRifleBox
-
-- type: Tag
   id: MagazineTommyGun
 
 - type: Tag

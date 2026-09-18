@@ -1,0 +1,89 @@
+#region Комбинезоны
+- type: ghostBarCostume
+  id: JumpsuitBlue
+  name: ghost-bar-costume-ClothingUniformGhostBarBlue
+  category: jumpsuit
+  clothingProto: ClothingUniformGhostBarBlue
+  default: true
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpsuitOrange
+  name: ghost-bar-costume-ClothingUniformGhostBarOrange
+  category: jumpsuit
+  clothingProto: ClothingUniformGhostBarOrange
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpsuitViolet
+  name: ghost-bar-costume-ClothingUniformGhostBarViolet
+  category: jumpsuit
+  clothingProto: ClothingUniformGhostBarViolet
+  slot: jumpsuit
+
+#region Юбки
+- type: ghostBarCostume
+  id: JumpskirtBlue
+  name: ghost-bar-costume-ClothingUniformJumpskirGhostBarBlue
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirGhostBarBlue
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpskirtOrange
+  name: ghost-bar-costume-ClothingUniformJumpskirGhostBarOrange
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirtGhostBarOrange
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpskirtViolet
+  name: ghost-bar-costume-ClothingUniformJumpskirGhostBarViolet
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirtGhostBarViolet
+  slot: jumpsuit
+
+#region Юбки-карандаш
+- type: ghostBarCostume
+  id: JumpskirtPencilBlue
+  name: ghost-bar-costume-ClothingUniformJumpskirtPencilGhostBarBlue
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirtPencilGhostBarBlue
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpskirtPencilOrange
+  name: ghost-bar-costume-ClothingUniformJumpskirtPencilGhostBarOrange
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirtPencilGhostBarOrange
+  slot: jumpsuit
+
+- type: ghostBarCostume
+  id: JumpskirtPencilViolet
+  name: ghost-bar-costume-ClothingUniformJumpskirtPencilGhostBarViolet
+  category: jumpsuit
+  clothingProto: ClothingUniformJumpskirtPencilGhostBarViolet
+  slot: jumpsuit
+
+#region Береты
+- type: ghostBarCostume
+  id: BeretBlue
+  name: ghost-bar-costume-ClothingHeadHatBeretGhostBarBlue
+  category: head
+  clothingProto: ClothingHeadHatBeretGhostBarBlue
+  slot: head
+
+- type: ghostBarCostume
+  id: BeretOrange
+  name: ghost-bar-costume-ClothingHeadHatBeretGhostBarOrange
+  category: head
+  clothingProto: ClothingHeadHatBeretGhostBarOrange
+  slot: head
+
+- type: ghostBarCostume
+  id: BeretViolet
+  name: ghost-bar-costume-ClothingHeadHatBeretGhostBarViolet
+  category: head
+  clothingProto: ClothingHeadHatBeretGhostBarViolet
+  slot: head
+#

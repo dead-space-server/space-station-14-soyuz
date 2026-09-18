@@ -2,6 +2,7 @@
 using Content.Client.Ghost;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
+using Content.Client.DeadSpace._Soyuz.GhostBar;
 using Content.Shared.DeadSpace.Arena; // DS14
 using Content.Shared.Ghost;
 using Robust.Client.UserInterface;
@@ -13,6 +14,7 @@ namespace Content.Client.UserInterface.Systems.Ghost;
 public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
 {
     [Dependency] private readonly IEntityNetworkManager _net = default!;
+    [Dependency] private readonly IEntityManager _entManager = default!; // DS14-Soyuz
 
     [UISystemDependency] private readonly GhostSystem? _system = default;
 
@@ -129,6 +131,7 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
         Gui.ArenaPressed += ArenaPressed; // DS14
+        Gui.GhostBarPressed += GhostBarPressed; // DS14-Soyuz
 
         UpdateGui();
     }
@@ -143,6 +146,7 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.GhostRolesPressed -= GhostRolesPressed;
         Gui.TargetWindow.WarpClicked -= OnWarpClicked;
         Gui.ArenaPressed -= ArenaPressed; // DS14
+        Gui.GhostBarPressed -= GhostBarPressed; // DS14-Soyuz
 
         Gui.Hide();
     }
@@ -171,4 +175,11 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         _net.SendSystemNetworkMessage(msg);
     }
     // DS14-End
+
+    // DS14-Soyuz-start
+    private void GhostBarPressed()
+    {
+        _entManager.System<GhostBarSystem>().RequestJoin();
+    }
+    // DS14-Soyuz-end
 }

@@ -92,11 +92,9 @@
 #
 #   ./upstream-sync.sh resolve-locale
 #       Только *.ftl. Без всяких тегов — чисто по числу строк в блоке
-#       конфликта: если строк поровну — берётся наша версия как есть; если
-#       у входящей стороны строк БОЛЬШЕ (на сколько угодно) — берётся наша
-#       версия ПЛЮС все недостающие строки из входящей (довешиваются в
-#       конец блока, вычисляются как настоящая разница множеств, а не
-#       наугад). Если у входящей стороны строк МЕНЬШЕ — конфликт не трогается.
+#       конфликта: если строк РОВНО поровну — берётся наша версия как есть.
+#       Любая другая разница в числе строк (в любую сторону) — конфликт
+#       не трогается.
 #
 #   ./upstream-sync.sh resolve-conflicts [доп. маркер ...]
 #       Прогоняет ПОДРЯД все существующие в скрипте способы авторазрешения
@@ -107,6 +105,16 @@
 #       добавится ещё один resolve-* способ — впиши вызов его функции сюда
 #       же одной строкой (и его счётчик — в сводку), и resolve-conflicts
 #       начнёт применять и учитывать его тоже.
+#
+#   ./upstream-sync.sh check-duplicates
+#       НЕ резолвер, а диагностика — ничего не меняет, только печатает
+#       отчёт. Ищет дублирующиеся id среди Resources/Prototypes/**/*.yml
+#       (в пределах одного type — совпадение id у РАЗНЫХ типов в SS14
+#       нормально, поэтому сравнение идёт по паре type+id) и дублирующиеся
+#       ключи среди Resources/Locale/**/*.ftl (в пределах одного языка —
+#       совпадение ключа МЕЖДУ языками нормально). Стоит прогонять после
+#       того, как конфликты разрешены (в том числе руками) — это частый
+#       побочный эффект автоматического разрешения.
 #
 #   ./upstream-sync.sh status
 #       Просто показать текущие незакрытые конфликты, отсортированные
@@ -413,7 +421,6 @@ import re
 import subprocess
 import sys
 import time
-from collections import Counter
 
 GITDIR = sys.argv[1]
 
@@ -467,29 +474,12 @@ def conflicted_files():
     return [f for f in out.split("\x00") if f]
 
 
-def missing_from_ours(ours, theirs):
-    """Строки из theirs, которых нет в ours (с учётом повторов) — то, что
-    довешиваем в конец нашей версии."""
-    remaining = Counter(ours)
-    missing = []
-    for line in theirs:
-        if remaining[line] > 0:
-            remaining[line] -= 1
-        else:
-            missing.append(line)
-    return missing
-
-
 def resolve_block(ours, theirs):
+    # Строго: только если строк с обеих сторон конфликта РОВНО поровну —
+    # берём нашу версию как есть. Любая другая разница (в любую сторону)
+    # конфликт не трогает.
     if len(ours) == len(theirs):
         return True, list(ours)
-    if len(theirs) > len(ours):
-        # У входящих строк больше — считаем, что это просто добавили ещё
-        # переводов, и довешиваем к нашей версии все недостающие строки
-        # (а не только одну), сколько бы их ни было.
-        missing = missing_from_ours(ours, theirs)
-        if missing:
-            return True, list(ours) + missing
     return False, None
 
 
@@ -597,6 +587,114 @@ PYEOF
     DSC_LOCALE=0
     DSC_LOCALE_REMAINING=0
   fi
+}
+
+# Не резолвер, а диагностика: ищет дублирующиеся id прототипов (в пределах
+# одного type — SS14 допускает совпадение id у РАЗНЫХ типов, поэтому
+# сравнение идёт именно по паре type+id) и дублирующиеся ключи локализации
+# (в пределах одного языка — совпадение ключа МЕЖДУ языками нормально).
+# Полезно прогнать после того, как конфликты разрешены (в том числе
+# руками), чтобы поймать частый побочный эффект автоматического
+# разрешения — два прототипа с одним id или два перевода с одним ключом.
+check_duplicates() {
+  python3 - <<'PYEOF'
+import re
+import subprocess
+from collections import Counter, defaultdict
+
+
+def tracked_files(patterns):
+    out = subprocess.check_output(
+        ["git", "ls-files", "-z", "--"] + list(patterns),
+        universal_newlines=True,
+    )
+    return [f for f in out.split("\x00") if f]
+
+
+YAML_ENTRY_RE = re.compile(r"(?m)^-\s*")
+TYPE_RE = re.compile(r"(?m)^\s{0,2}type:\s*(\S+)")
+ID_RE = re.compile(r"(?m)^\s{0,2}id:\s*(\S+)")
+
+
+def scan_yaml(path):
+    try:
+        with open(path, encoding="utf-8", errors="ignore") as f:
+            text = f.read()
+    except OSError:
+        return []
+    entries = []
+    for block in YAML_ENTRY_RE.split(text)[1:]:
+        m_type = TYPE_RE.search(block)
+        m_id = ID_RE.search(block)
+        if m_type and m_id:
+            ptype = m_type.group(1).strip().strip("\"'")
+            pid = m_id.group(1).strip().strip("\"'")
+            entries.append((ptype, pid))
+    return entries
+
+
+FTL_KEY_RE = re.compile(r"^([A-Za-z0-9_.\-]+)\s*=")
+
+
+def scan_ftl(path):
+    try:
+        with open(path, encoding="utf-8", errors="ignore") as f:
+            lines = f.readlines()
+    except OSError:
+        return []
+    keys = []
+    for line in lines:
+        # Ключ сообщения в FTL стоит в самом начале строки (без отступа);
+        # строки с отступом — это атрибуты/продолжение предыдущего ключа
+        # (".desc = ..."), а не отдельные ключи, их пропускаем.
+        if not line.strip() or line[0] in " \t#":
+            continue
+        m = FTL_KEY_RE.match(line)
+        if m:
+            keys.append(m.group(1))
+    return keys
+
+
+def locale_lang(path):
+    parts = path.split("/")
+    if "Locale" in parts:
+        idx = parts.index("Locale")
+        if idx + 1 < len(parts):
+            return parts[idx + 1]
+    return "?"
+
+
+def report(title, files, by_key):
+    dupes = {k: v for k, v in by_key.items() if len(v) > 1}
+    print(f"{title}: просканировано файлов — {len(files)}")
+    if not dupes:
+        print("  дубликатов не найдено")
+        return
+    print(f"  найдено дублирующихся — {len(dupes)}")
+    for key, paths in sorted(dupes.items()):
+        counts = Counter(paths)
+        detail = ", ".join(f"{p} (x{n})" if n > 1 else p for p, n in counts.items())
+        label = key if isinstance(key, str) else " / ".join(key)
+        print(f"    {label}: {detail}")
+
+
+yaml_files = tracked_files(["Resources/Prototypes/**/*.yml"])
+yaml_by_key = defaultdict(list)
+for path in yaml_files:
+    for ptype, pid in scan_yaml(path):
+        yaml_by_key[(ptype, pid)].append(path)
+report("YAML-прототипы (id внутри одного type)", yaml_files, yaml_by_key)
+
+print()
+
+ftl_files = tracked_files(["Resources/Locale/**/*.ftl"])
+ftl_by_key = defaultdict(list)
+for path in ftl_files:
+    lang = locale_lang(path)
+    for key in scan_ftl(path):
+        ftl_by_key[(lang, key)].append(path)
+report("FTL-локализация (ключ внутри одного языка)", ftl_files, ftl_by_key)
+PYEOF
 }
 
 # Иногда git пытается смерджить контент по переименованию и путает между
@@ -882,6 +980,10 @@ case "$cmd" in
     resolve_locale_conflicts
     ;;
 
+  check-duplicates)
+    check_duplicates
+    ;;
+
   resolve-conflicts)
     shift || true
     DSC_RENAMES=0 DSC_DELETED=0 DSC_DELETED_SKIPPED=0
@@ -941,7 +1043,7 @@ case "$cmd" in
     ;;
 
   *)
-    echo "Использование: $0 {setup|train <диапазон>|sync [remote] [branch]|resolve-assets|resolve-renames|resolve-deleted|resolve-map|resolve-marked [доп. маркеры...]|resolve-locale|resolve-conflicts [доп. маркеры...]|status}"
+    echo "Использование: $0 {setup|train <диапазон>|sync [remote] [branch]|resolve-assets|resolve-renames|resolve-deleted|resolve-map|resolve-marked [доп. маркеры...]|resolve-locale|resolve-conflicts [доп. маркеры...]|check-duplicates|status}"
     exit 1
     ;;
 esac

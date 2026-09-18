@@ -2,7 +2,7 @@
   id: Convex
   mapName: 'Дуга' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/convex.yml
-  minPlayers: 45
+  minPlayers: 40 #DS14-Soyuz
   stations:
     Convex:
       stationProto: StandardNanotrasenStation

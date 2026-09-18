@@ -16,6 +16,11 @@
   name: Мяу!
   description: Постер с рекламой какой-то ЧВК. Кажется, вы слышали какие-то новости о провалившихся переговорах руководства NanoTrasen с этой организацией. Если они увенчались успехом, на станции могли бы появиться телохранители-горничные глав.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterMeow
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: meow
@@ -38,6 +43,11 @@
   name: плакат "Начало пути"
   description: Рекламный плакат с датой основания популярной металкор-группы с планеты Фелис. На нём изображены глаза солистов. В правом нижнем углу красуется автограф h&b.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterHB2
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: hb2
@@ -49,6 +59,11 @@
   name: плакат "ОПЗ"
   description: ОПЗ не просило разрешения - они взяли своё, и звёзды подчинились.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterOPZ
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: OPZ
@@ -59,6 +74,11 @@
   name: плакат "Земля зовёт"
   description: Плакат направленный на патриотичные нравы жителей ОПЗ, на ней изображена статуя "Родина мать зовёт".
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterOPZVoice
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: OPZvoice
@@ -79,6 +99,11 @@
   name: плакат "Галактика"
   description: В этой галактике находится Рукав Ориона, в его пределах находится весь изученный космос и наш дом - ОПЗ
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterOPZGalactic
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: OPZgalatic
@@ -90,6 +115,11 @@
   name: плакат "СНК"
   description: Свободный мир? Присмотрись. Это просто хорошая сделка.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterSNK
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: SNK
@@ -101,6 +131,11 @@
   name: плакат "СССП"
   description: Галактика велика, но она стоит на рабочем плече. Не забывай.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterUSSP
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: USSP
@@ -123,6 +158,11 @@
   name: плакат "Арест"
   description: Информационный плакат, призывающий граждан к сотрудничеству с СБ. На нём написана инструкция, как правильно вести себя при аресте.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterSECArest
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: sec_arest
@@ -133,6 +173,11 @@
   name: плакат "Хороший коп"
   description: Плакат, который изображает сотрудника СБ, которым можно гордиться.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterSECGoodCop
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: sec_cop
@@ -184,6 +229,11 @@
   name: плакат "Сообщай!"
   description: Плакат, который призывает сотрудников станции сообщать о всех замечанных аномалиях в отдел Исследований.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterScienceAnomalyReport
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: science_anom
@@ -237,6 +287,11 @@
   name: плакат "Носи каску"
   description: Плакат, который настоятельно рекомендует носить каску в отделе инженерии.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterEngineeringHelmet
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: helmet
@@ -247,6 +302,11 @@
   name: плакат "Не забудь перезарядить топливо ДАМ"
   description: Плакат, который напоминает сотрудникам инженерного отдела об обязанности перезарядки топлива ДАМ.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterEngineeringAME
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: dam
@@ -257,6 +317,11 @@
   name: плакат "Используй мультитул"
   description: Обучающий плакат, который объясняет, как правильно использовать мультитул для манипуляций с электропитанием.
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzPosterMultitoolGuide
+      node: decor
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: _DeadSpace/Structures/Wallmounts/posters.rsi
       state: multitool

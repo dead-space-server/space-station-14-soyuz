@@ -551,7 +551,7 @@ entities:
           version: 7
     - type: Broadphase
     - type: BecomesStation
-      id: GeneralStaff
+      id: centcomm
     - type: Physics
       bodyStatus: InAir
       fixedRotation: False

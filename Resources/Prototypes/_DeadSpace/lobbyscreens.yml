@@ -1,8 +1,8 @@
 ﻿﻿# Fobos и его друзья
 
-- type: lobbyBackground
-  id: Oblomok
-  background: /Textures/LobbyScreens/Fobos/anomaly_il_cargo.webp
+#- type: lobbyBackground #DS14-Soyuz disabled
+#  id: Oblomok
+#  background: /Textures/LobbyScreens/Fobos/anomaly_il_cargo.webp
 
 - type: lobbyBackground
   id: Particle_accelerator

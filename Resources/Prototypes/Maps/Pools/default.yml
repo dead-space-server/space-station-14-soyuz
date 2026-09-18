@@ -4,14 +4,14 @@
   - Amber
   - Aspid
   - Bagel
-  # - Barratry # DS14-Soyuz disabled
+  - Barratry
   - Box
-  # - Cluster # broken map, needs resave
+  - Cluster #DS14-Soyuz-enabled
   - Cog
   - Convex
   - Core
   - CorvaxAstra
-  # - CorvaxAvrite # temporarily disabled
+  - CorvaxAvrite
   - CorvaxChloris
   - CorvaxDelta
   - CorvaxGlacier
@@ -20,21 +20,20 @@
   - CorvaxSpectrum
   - CorvaxGlacier
   - CorvaxPearl
-  # - Elkridge # DS14-Soyuz disabled
+  - Elkridge
   - Fland
   - Gate
   - Ishimura
   - Gemini #DS14
-  # - Loop # broken map, needs resave
-  # - Loop
+  - Loop #DS14-Soyuz-enabled
   - Marathon
   - Meta
   - Oasis
   - Omega
   - Origin
   - Packed
-  # - Plasma # broken map, needs resave
-  - Reach
+  - Plasma 
+  - Reach #DS14-Soyuz-enabled
   # - Exo # map prototype is commented out
   - Saltern
   - Snowball # DS14-Soyuz

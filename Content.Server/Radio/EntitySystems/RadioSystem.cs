@@ -50,7 +50,7 @@ public sealed class RadioSystem : EntitySystem
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
-    // DS14-start // DS14-Soyuz localization
+    // DS14-start
     // Fix this
     private readonly Dictionary<string, string[]> _departments = new Dictionary<string, string[]>
     {

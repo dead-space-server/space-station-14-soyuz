@@ -14,3 +14,4 @@ ent-ActionRevenantMindCapture = Захват разума
 ent-ActionRevenantBeamFire = Электромагнитный луч
     .desc = Цена 40 эссенций.
 #DS14-end
+

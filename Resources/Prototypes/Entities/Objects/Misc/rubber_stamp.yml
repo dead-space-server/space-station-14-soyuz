@@ -96,8 +96,8 @@
     stampedColor: "#006600"
     stampState: "paper_stamp-centcom"
     # DS14-start
-    stampPatternTexture: "/Textures/Interface/Stamps/centralcommand_print.png"
-    stampTextMaxScale: 0.92
+    stampTexture: "/Textures/Interface/Stamps/centralcommand_print.png"
+    stampScale: 0.92
     stampCanRotate: false
     # DS14-end
   - type: Sprite
@@ -127,7 +127,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Сервис"
-    stampBackgroundText: "USSP"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-chaplain
@@ -157,7 +157,7 @@
     stampScale: 0.92
     stampTextMaxScale: 0.62
     stampHeaderText: "Юр. Отдел"
-    stampBackgroundText: "USSP"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-lawyer
@@ -214,8 +214,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-ce
@@ -243,8 +243,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-cmo
@@ -272,8 +272,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-hop
@@ -301,8 +301,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-hos
@@ -360,8 +360,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-qm
@@ -389,8 +389,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Рук. состав"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Ком. Состав"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-rd
@@ -493,8 +493,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Милиция"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Безопасность"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-warden
@@ -576,8 +576,8 @@
     # DS14-start
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
-    stampHeaderText: "Милиция"
-    stampBackgroundText: "USSP"
+    stampHeaderText: "Безопасность"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-detective
@@ -634,7 +634,7 @@
     stampPatternTexture: "/Textures/Interface/Stamps/headdep_print_pattern.png"
     stampScale: 0.92
     stampHeaderText: "Мед. Отдел"
-    stampBackgroundText: "USSP"
+    stampBackgroundText: "NanoTrasen"
     # DS14-end
   - type: Sprite
     state: stamp-psychologist

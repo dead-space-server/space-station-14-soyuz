@@ -1,8 +1,8 @@
 - type: gameMap
   id: Packed
   mapName: 'Пакед' #DS14-Soyuz local
-  mapPath: /Maps/_Soyuz/packed.yml
-  minPlayers: 5
+  mapPath: /Maps/_Soyuz/S1_Packed.yml
+  minPlayers: 7 #DS14-Soyuz
   maxPlayers: 35
   stations:
     Packed:

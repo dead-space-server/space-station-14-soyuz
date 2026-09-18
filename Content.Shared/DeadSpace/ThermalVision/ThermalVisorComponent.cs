@@ -2,12 +2,16 @@
 
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
+using Content.Shared.Inventory;
 
 namespace Content.Shared.DeadSpace.ThermalVision;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class ThermalVisorComponent : Component
 {
+    [DataField]
+    public SlotFlags ValidSlots = SlotFlags.EYES;
+
     [DataField]
     public Color? Color = null;
 
@@ -18,6 +22,10 @@ public sealed partial class ThermalVisorComponent : Component
     [DataField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool Animation = true;
+
+    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    public bool UseShader = true;
 
     [DataField]
     [ViewVariables(VVAccess.ReadOnly)]

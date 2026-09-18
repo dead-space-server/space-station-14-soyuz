@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ErtResponseConsole
-  name: консоль запроса поддержки НКВБ
-  description: Консоль запроса поддержки НКВБ которая отправляет сигнал специальным отрядам быстрого реагирования для оказания поддержки станции в критических ситуациях.
+  name: консоль запроса поддержки NanoTrasen
+  description: Консоль запроса поддержки NanoTrasen которая отправляет сигнал отрядам быстрого реагирования для оказания поддержки станции в критических ситуациях.
   components:
   - type: Sprite
     layers:
@@ -22,7 +22,7 @@
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#B64444"
+    color: "#B64444" # DS14-Soyuz
   - type: ActivatableUI
     key: enum.ErtResponseConsoleUiKey.Key
   - type: UserInterface
@@ -75,8 +75,8 @@
 - type: entity
   parent: BaseComputerAiAccess
   id: ErtComputerShuttle
-  name: консоль эвакуации сил НКВБ
-  description: Консоль для эвакуации сил НКВБ с предприятия СССП.
+  name: консоль эвакуации сил КСО
+  description: Консоль для эвакуации сил КСО с актива NanoTrasen.
   components:
   - type: Sprite
     layers:
@@ -96,7 +96,7 @@
   - type: PointLight
     radius: 1.5
     energy: 1.6
-    color: "#B64444"
+    color: "#B64444" # DS14-Soyuz
   - type: ActivatableUI
     key: enum.ErtComputerShuttleUiKey.Key
   - type: UserInterface
@@ -119,8 +119,8 @@
 - type: entity
   parent: ErtComputerShuttle
   id: ErtCounterpartyComputerShuttle
-  name: консоль собр НКВБ
-  description: Консоль собр НКВБ для экстренных команд реагирования.
+  name: консоль обр контрагентов NanoTrasen
+  description: Консоль обр контрагентов NanoTrasen для экстренных команд реагирования.
   components:
   - type: Computer
     board: ErtCounterpartyComputerShuttleCircuitboard
@@ -130,8 +130,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtCounterpartyComputerShuttleCircuitboard
-  name: машинная плата консоли собр НКВБ
-  description: Компьютерная печатная плата для консоли собр НКВБ.
+  name: машинная плата консоли обр контрагентов NanoTrasen
+  description: Компьютерная печатная плата для консоли обр контрагентов NanoTrasen.
   components:
     - type: Sprite
       state: cpu_command
@@ -141,8 +141,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtComputerShuttleCircuitboard
-  name: машинная плата консоли эвакуации сил НКВБ
-  description: Компьютерная печатная плата для консоли эвакуации сил НКВБ.
+  name: машинная плата консоли эвакуации сил КСО
+  description: Компьютерная печатная плата для консоли эвакуации сил КСО.
   components:
     - type: Sprite
       state: cpu_command
@@ -152,8 +152,8 @@
 - type: entity
   parent: BaseComputerCircuitboard
   id: ErtResponseConsoleCircuitboard
-  name: машинная плата консоли запроса поддержки НКВБ
-  description: Компьютерная печатная плата для консоли запроса поддержки НКВБ.
+  name: машинная плата консоли запроса поддержки NanoTrasen
+  description: Компьютерная печатная плата для консоли запроса поддержки NanoTrasen.
   components:
     - type: Sprite
       state: cpu_command

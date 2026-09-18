@@ -17,11 +17,11 @@ namespace Content.Server.StationEvents;
 public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<SurvivalRampingStationEventSchedulerComponent>
 {
     private const int EventPickAttempts = 20;
+    private const float FailedEventRetryCooldown = 30f;
 
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly EventManagerSystem _event = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly EntityTableSystem _entityTable = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
@@ -59,6 +59,9 @@ public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<
     {
         base.Update(frameTime);
 
+        if (_gameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
+
         if (!_event.EventsEnabled)
             return;
 
@@ -68,7 +71,7 @@ public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<
             if (!GameTicker.IsGameRuleActive(uid, gameRule))
                 continue;
 
-            TryPlayAlert(scheduler);
+            TryPlayAlert(uid, scheduler);
 
             if (scheduler.TimeUntilNextEvent > 0f)
             {
@@ -87,7 +90,10 @@ public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<
             // GroupSelector may pick a sub-pool that has no queueable events after
             // max occurrence / active-rule filtering, so retry a few times.
             if (!TryRunRandomEvent(scheduler, phase))
+            {
+                scheduler.TimeUntilNextEvent = FailedEventRetryCooldown;
                 continue;
+            }
 
             PickNextEventTime(scheduler);
         }
@@ -206,7 +212,7 @@ public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<
         return selected;
     }
 
-    private void TryPlayAlert(SurvivalRampingStationEventSchedulerComponent component)
+    private void TryPlayAlert(EntityUid uid, SurvivalRampingStationEventSchedulerComponent component)
     {
         if (component.AlertPlayed || component.AlertTime is not { } alertTime)
             return;
@@ -216,9 +222,9 @@ public sealed class SurvivalRampingStationEventSchedulerSystem : GameRuleSystem<
 
         if (component.AlertAnnouncement is { } announcement)
         {
-            _chat.DispatchGlobalAnnouncement(
+            RuleStation.Announce(uid,
                 Loc.GetString(announcement),
-                component.AlertSender is { } sender ? Loc.GetString(sender) : null,
+                sender: component.AlertSender is { } sender ? Loc.GetString(sender) : null,
                 playSound: component.AlertSound != null,
                 announcementSound: component.AlertSound,
                 colorOverride: component.AlertAnnouncementColor);

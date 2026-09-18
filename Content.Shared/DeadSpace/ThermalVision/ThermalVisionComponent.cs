@@ -17,10 +17,16 @@ public sealed partial class ThermalVisionComponent : Component
     public EntityUid? ActionToggleThermalVisionEntity;
 
     [DataField, AutoNetworkedField]
+    public EntityUid? GrantedBy;
+
+    [DataField, AutoNetworkedField]
     public bool IsActive;
 
     [DataField, AutoNetworkedField]
     public bool Animation = true;
+
+    [DataField, AutoNetworkedField]
+    public bool UseShader = true;
 
     [DataField, AutoNetworkedField]
     public SoundSpecifier? ActivateSound = null;

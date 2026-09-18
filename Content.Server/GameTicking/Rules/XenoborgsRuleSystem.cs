@@ -15,11 +15,11 @@ namespace Content.Server.GameTicking.Rules;
 public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
 {
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
+    // [Dependency] private readonly ChatSystem _chatSystem = default!; // DS14: announcements use RuleStation.
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedMindSystem _mindSystem = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
-    [Dependency] private readonly StationSystem _station = default!;
+    // [Dependency] private readonly StationSystem _station = default!; // DS14: announcements use RuleStation.
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private static readonly Color AnnouncmentColor = Color.Gold;
@@ -30,15 +30,16 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
             return;
 
         var status = mothershipCoreAlive ? "alive" : "dead";
-        _chatSystem.DispatchGlobalAnnouncement(
+        RuleStation.Announce(ent.Owner, // DS14
             Loc.GetString($"xenoborgs-no-more-threat-mothership-core-{status}-announcement"),
             colorOverride: AnnouncmentColor);
     }
 
     public void SendMothershipDeathAnnouncement(Entity<XenoborgsRuleComponent> ent)
     {
-        _chatSystem.DispatchGlobalAnnouncement(
+        RuleStation.Announce(ent.Owner, // DS14
             Loc.GetString("mothership-destroyed-announcement"),
+            sender: Loc.GetString("chat-manager-sender-announcement"), // DS14
             colorOverride: AnnouncmentColor);
 
         ent.Comp.MothershipCoreDeathAnnouncmentSent = true;
@@ -103,7 +104,7 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
     }
     // DS14-end
 
-    private void CheckRoundEnd(XenoborgsRuleComponent xenoborgsRuleComponent)
+    private void CheckRoundEnd(EntityUid uid, XenoborgsRuleComponent xenoborgsRuleComponent) // DS14
     {
         var numXenoborgs = GetNumberXenoborgs();
         var numHumans = _mindSystem.GetAliveHumans().Count;
@@ -111,17 +112,27 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         xenoborgsRuleComponent.MaxNumberXenoborgs = Math.Max(xenoborgsRuleComponent.MaxNumberXenoborgs, numXenoborgs);
 
         if (xenoborgsRuleComponent.XenoborgShuttleCalled
-            || (float)numXenoborgs / (numHumans + numXenoborgs) <= xenoborgsRuleComponent.XenoborgShuttleCallPercentage
-            || _roundEnd.IsRoundEndRequested())
+            || _roundEnd.IsRoundEndRequested()
+            || !ShouldCallEmergencyShuttle(
+                numXenoborgs,
+                numHumans,
+                xenoborgsRuleComponent.XenoborgShuttleCallPercentage)) // DS14
             return;
 
-        foreach (var station in _station.GetStations())
-        {
-            _chatSystem.DispatchStationAnnouncement(station, Loc.GetString("xenoborg-shuttle-call"), colorOverride: Color.BlueViolet);
-        }
-        _roundEnd.RequestRoundEnd(null, null, false, cantRecall: true);
+        RuleStation.Announce(uid, Loc.GetString("xenoborg-shuttle-call"), colorOverride: Color.BlueViolet); // DS14
+        _roundEnd.RequestRoundEnd(null, null, false, name: "station-event-announcer", cantRecall: true, announcementSource: uid); // DS14
         xenoborgsRuleComponent.XenoborgShuttleCalled = true;
     }
+
+    // DS14-start
+    internal static bool ShouldCallEmergencyShuttle(int xenoborgs, int humans, float threshold)
+    {
+        if (humans <= 0 || xenoborgs <= 0)
+            return false;
+
+        return (float) xenoborgs / (humans + xenoborgs) > threshold;
+    }
+    // DS14-end
 
     protected override void Started(EntityUid uid, XenoborgsRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
@@ -137,7 +148,7 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         if (!component.NextRoundEndCheck.HasValue || component.NextRoundEndCheck > _timing.CurTime)
             return;
 
-        CheckRoundEnd(component);
+        CheckRoundEnd(uid, component); // DS14
         component.NextRoundEndCheck = _timing.CurTime + component.EndCheckDelay;
     }
 
@@ -154,6 +165,11 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         var query = EntityQueryEnumerator<XenoborgComponent>();
         while (query.MoveNext(out var xenoborg, out _))
         {
+            // DS14-start
+            if (TerminatingOrDeleted(xenoborg) || EntityManager.IsQueuedForDeletion(xenoborg))
+                continue;
+            // DS14-end
+
             if (HasComp<MothershipCoreComponent>(xenoborg))
                 continue;
 
@@ -178,8 +194,13 @@ public sealed class XenoborgsRuleSystem : GameRuleSystem<XenoborgsRuleComponent>
         var numberMothershipCores = 0;
 
         var mothershipCoreQuery = EntityQueryEnumerator<MothershipCoreComponent>();
-        while (mothershipCoreQuery.MoveNext(out _, out _))
+        while (mothershipCoreQuery.MoveNext(out var core, out _)) // DS14
         {
+            // DS14-start
+            if (TerminatingOrDeleted(core) || EntityManager.IsQueuedForDeletion(core))
+                continue;
+            // DS14-end
+
             numberMothershipCores++;
         }
 

@@ -1,7 +1,7 @@
 - type: gameMap
   id: CorvaxPearl
   mapName: 'Pearl Island'
-  mapPath: /Maps/_Soyuz/corvax_pearl.yml
+  mapPath: /Maps/corvax_pearl.yml
   minPlayers: 25
   maxPlayers: 55
   stations:
@@ -20,8 +20,6 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
-            # NKVB
-            # Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -29,7 +27,7 @@
             HeadOfSecurity: [ 1, 1 ]
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
-            Detective: [ 2, 2 ]
+            Detective: [ 1, 1 ]
             SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 4, 4 ]
             Brigmedic: [ 1, 1 ]
@@ -79,4 +77,3 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
-            Zookeeper: [ 1, 1 ]

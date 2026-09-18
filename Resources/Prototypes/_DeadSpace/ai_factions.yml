@@ -1,6 +1,7 @@
 - type: npcFaction
   id: CentralCommand
   hostile:
+  - AshWalker
   - NanoTrasen
   - SimpleHostile
   - Syndicate
@@ -18,6 +19,7 @@
 - type: npcFaction
   id: Taipan
   hostile:
+  - AshWalker
   - NanoTrasen
   - Syndicate # Because we don't need to be able to see them
   - SimpleHostile
@@ -31,3 +33,7 @@
   - SpiderTerror
   - Blob
   - SyndicateAgent # Because we don't need to be able to see them
+
+# Marker faction for assault Syndicate units that Taipan turrets treat as allies.
+- type: npcFaction
+  id: SyndicateAssault

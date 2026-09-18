@@ -1,0 +1,7 @@
+- type: cargoAccount
+  id: GeneralStaff
+  name: cargo-account-generalstaff-name
+  code: cargo-account-generalstaff-code
+  color: "#B64444"
+  radioChannel: CentCom
+  acquisitionSlip: PaperAcquisitionSlipCargo

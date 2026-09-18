@@ -3,8 +3,6 @@
   id: BaseMobVox
   abstract: true
   components:
-  - type: Hunger
-  - type: Thirst
   - type: Icon
     sprite: Mobs/Species/Vox/parts.rsi
     state: vox_m
@@ -73,6 +71,7 @@
   - type: PassiveDamage
     # Augment normal health regen to be able to tank some Poison damage
     # This allows Vox to take their mask off temporarily to eat something without needing a trip to medbay afterwards.
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     damageCap: 20
@@ -114,8 +113,6 @@
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
     - map: [ "underwearb" ] # Sirena-Underwear
     - map: [ "underweart" ] # Sirena-Underwear
-    # - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
-    # - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
     # - map: [ "jumpsuit" ]
     - map: [ "enum.HumanoidVisualLayers.LFoot" ]
     - map: [ "enum.HumanoidVisualLayers.RFoot" ]
@@ -155,8 +152,6 @@
       visible: false
   - type: HumanoidAppearance
     species: Vox
-    # undergarmentTop: UndergarmentTopTanktopVox # DS14
-    # undergarmentBottom: UndergarmentBottomBoxersVox # DS14
     markingsDisplacement:
       Hair:
         sizeMaps:
@@ -225,10 +220,6 @@
     - GeneralLanguage
     - VoxLanguage
   # DS14-Languages-end
-  # - type: FootPrints # Backmen-footsteps
-    # leftBarePrint: "footprint-left-bare-lizard"
-    # rightBarePrint: "footprint-right-bare-lizard"
-
 
 - type: entity
   parent: BaseSpeciesDummy
@@ -237,8 +228,6 @@
   components:
   - type: HumanoidAppearance
     species: Vox
-    # undergarmentTop: UndergarmentTopTanktopVox # DS14
-    # undergarmentBottom: UndergarmentBottomBoxersVox # DS14
     markingsDisplacement:
       Hair:
         sizeMaps:

@@ -3,6 +3,7 @@
   name: шахтёрское окно
   description: Смотри не заляпай.
   parent: ReinforcedWindow
+  suffix: Союз
   components:
   - type: Sprite
     drawdepth: WallTops
@@ -17,7 +18,7 @@
   name: шахтёрское окно
   description: Смотри не заляпай.
   id: MiningWindowDiagonalSoyuz
-  suffix: diagonal
+  suffix: Диагональное, Союз
   placement:
     mode: SnapgridCenter
     snap:

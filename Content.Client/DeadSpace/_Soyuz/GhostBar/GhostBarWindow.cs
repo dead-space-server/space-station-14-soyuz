@@ -183,7 +183,6 @@ public sealed class GhostBarWindow : DefaultWindow
             if (option.Category != _activeCategory)
                 continue;
 
-            // Дефолтные предметы не показываем — они применяются автоматически
             if (option.Default)
                 continue;
 
@@ -219,15 +218,14 @@ public sealed class GhostBarWindow : DefaultWindow
 
         foreach (var option in _state.Costumes)
         {
-            // В превью показываем и выбранные, и дефолтные
             var show = _state.Selected.Contains(option.Id) || option.Default;
             if (!show)
                 continue;
 
-            if (!_prototypeManager.HasIndex<EntityPrototype>(option.ItemPrototype))
+            if (!_prototypeManager.HasIndex<EntityPrototype>(option.ClothingProto))
                 continue;
 
-            var item = _entManager.SpawnEntity(option.ItemPrototype, MapCoordinates.Nullspace);
+            var item = _entManager.SpawnEntity(option.ClothingProto, MapCoordinates.Nullspace);
             _previewItems.Add(item);
             inventory.TryEquip(dummy, item, option.Slot, silent: true, force: true);
         }

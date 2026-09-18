@@ -208,7 +208,6 @@ public sealed class GhostBarSystem : EntitySystem
         if (!HasComp<GhostBarPlayerComponent>(ev.Entity))
             return;
 
-        // Игрок временно вышел (aghost) — тело остаётся для возврата
         if (_mind.TryGetMind(ev.Entity, out _, out var mind) && mind.VisitingEntity != null)
             return;
 
@@ -356,7 +355,7 @@ public sealed class GhostBarSystem : EntitySystem
                 Id = c.ID,
                 Name = c.Name,
                 Category = c.Category,
-                ItemPrototype = c.ClothingProto.Id,
+                ClothingProto = c.ClothingProto.Id,
                 Slot = c.Slot,
                 Default = c.Default,
             })

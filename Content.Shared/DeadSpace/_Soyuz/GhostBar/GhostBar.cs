@@ -26,7 +26,7 @@ public sealed class GhostBarCostumeOption
     [DataField] public string Id { get; set; } = string.Empty;
     [DataField] public string Name { get; set; } = string.Empty;
     [DataField] public string Category { get; set; } = string.Empty;
-    [DataField] public string ItemPrototype { get; set; } = string.Empty;
+    [DataField] public string ClothingProto { get; set; } = string.Empty;
     [DataField] public string Slot { get; set; } = string.Empty;
     [DataField] public bool Default { get; set; }
 }

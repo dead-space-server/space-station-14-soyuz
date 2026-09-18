@@ -31,7 +31,7 @@ public sealed class GhostBarCostumeCard : PanelContainer
             VerticalExpand = true,
         };
 
-        if (!string.IsNullOrEmpty(option.ItemPrototype))
+        if (!string.IsNullOrEmpty(option.ClothingProto))
         {
             var sprite = new EntityPrototypeView
             {
@@ -41,7 +41,7 @@ public sealed class GhostBarCostumeCard : PanelContainer
                 VerticalAlignment = VAlignment.Center,
                 OverrideDirection = Direction.South,
             };
-            sprite.SetPrototype(option.ItemPrototype);
+            sprite.SetPrototype(option.ClothingProto);
             hbox.AddChild(sprite);
         }
 

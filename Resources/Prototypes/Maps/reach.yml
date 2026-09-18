@@ -3,7 +3,7 @@
   mapName: 'Достигатель' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/S1_Reach.yml
   minPlayers: 0
-  maxPlayers: 10 #DS14-Soyuz
+  maxPlayers: 13 #DS14-Soyuz
   stations:
     Reach:
       stationProto: StandardNanotrasenStation

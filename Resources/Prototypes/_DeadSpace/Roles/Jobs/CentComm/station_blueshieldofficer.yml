@@ -45,6 +45,7 @@
   - Coroner
   - Hydroponics
   - Salvage
+  - NKVB # DS14-Soyuz
   #start-backmen: currency
   minBankBalance: 800
   maxBankBalance: 1200
@@ -89,7 +90,7 @@
     # mask: ClothingMaskGasBlueShield # DS14-Soyuz disabled
     eyes: ClothingEyesGlassesSecurity # DS14-Soyuz
     ears: ClothingHeadsetAltCommand
-    shoes: ClothingShoesOKGB
+    shoes: ClothingShoesBootsBlueShield
     socks: ClothingUnderwearSocksBlueShieldOfficer
     # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled
@@ -121,7 +122,7 @@
     - SpecialOperationsCorps
     allowedJobs:
     - BlueShieldOfficer
-    - CentralCommandBlueShieldOfficer
+    - GeneralStaffKGB # DS14-Soyuz
     - CentralCommandSpecialOperationsOfficer
 
 - type: entity

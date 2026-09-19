@@ -620,6 +620,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("reason");
 
+                    b.Property<bool>("SendToPrison")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("send_to_prison");
+
                     b.Property<int>("Severity")
                         .HasColumnType("INTEGER")
                         .HasColumnName("severity");
@@ -941,9 +945,21 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("disable_ooc_during_vote");
 
+                    b.Property<bool>("EnableLowPlayerPreset")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("enable_low_player_preset");
+
                     b.Property<bool>("Enabled")
                         .HasColumnType("INTEGER")
                         .HasColumnName("enabled");
+
+                    b.Property<string>("LowPlayerPresetId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("low_player_preset_id");
+
+                    b.Property<int>("LowPlayerThreshold")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("low_player_threshold");
 
                     b.Property<int>("MaxRdmRow")
                         .HasColumnType("INTEGER")
@@ -1370,14 +1386,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<int>("ServerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("server_id");
-
-                    b.Property<string>("GamePresetName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("game_preset_name");
-
-                    b.Property<string>("MapName")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("map_name");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("TEXT")

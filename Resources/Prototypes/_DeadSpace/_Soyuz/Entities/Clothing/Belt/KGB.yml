@@ -1,0 +1,46 @@
+- type: entity
+  id: ClothingBeltMilitaryWebbingBlueShieldFilled
+  parent: ClothingBeltMilitaryWebbingMed
+  name: РПС оперативника КГБ
+  description: Ременно-плечевая система, которую используют оперативники комитета государственной безопасности. Довольно прочная.
+  suffix: Заполненный
+  components:
+  - type: StorageFill
+    contents:
+      # - id: ADTCombatHypo # DS14-Soyuz disabled
+      # - id: ADTtelescopicBaton # DS14-Soyuz disabled
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+        amount: 2
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
+      - id: PillCanisterDylovene
+      - id: PillCanisterHyronalin
+      # - id: Zipties # DS14-Soyuz disabled
+        # amount: 2
+      
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
+
+- type: entity
+  id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  name: РПС офицера "Синий Щит"
+  description: РПС, которую носят офицеры "Синий Щит"
+  suffix: Заполненный, ЦентКом
+  components:
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: CombatHypoBlueShield
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline

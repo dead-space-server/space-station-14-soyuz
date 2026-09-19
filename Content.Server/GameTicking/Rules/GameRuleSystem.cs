@@ -1,4 +1,5 @@
 using Content.Server.Atmos.EntitySystems;
+using Content.Server.DeadSpace.CentComm;
 using Content.Server.Chat.Managers;
 using Content.Shared.GameTicking.Components;
 using Robust.Server.GameObjects;
@@ -21,6 +22,8 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     // DS14-end
 
+    [Dependency] protected readonly GameRuleStationSystem RuleStation = default!; // DS14
+
     // Not protected, just to be used in utility methods
     [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
     [Dependency] private readonly MapSystem _map = default!;
@@ -34,8 +37,10 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         SubscribeLocalEvent<T, GameRuleStartedEvent>(OnGameRuleStarted);
         SubscribeLocalEvent<T, GameRuleEndedEvent>(OnGameRuleEnded);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
-        SubscribeLocalEvent<RoundEndDiscordTextAppendEvent>(OnRoundEndDiscordTextAppend); // DS14
-        SubscribeLocalEvent<T, CollectGameRuleAdminStatusEvent>(OnCollectAdminStatus); // DS14
+        // DS14-start
+        SubscribeLocalEvent<RoundEndDiscordTextAppendEvent>(OnRoundEndDiscordTextAppend);
+        SubscribeLocalEvent<T, CollectGameRuleAdminStatusEvent>(OnCollectAdminStatus);
+        // DS14-end
     }
 
     private void OnStartAttempt(RoundStartAttemptEvent args)
@@ -206,6 +211,11 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        // DS14-start
+        if (GameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
+        // DS14-end
 
         var query = EntityQueryEnumerator<T, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var comp1, out var comp2))

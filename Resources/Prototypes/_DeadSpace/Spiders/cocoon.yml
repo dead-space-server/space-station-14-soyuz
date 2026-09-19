@@ -3,9 +3,7 @@
   parent: BaseMob
   id: CocoonSpider
   components:
-  - type: Tag
-    tags:
-    - Wall
+  - type: Wall
   - type: Physics
     bodyType: Static
   - type: Sprite
@@ -55,9 +53,7 @@
   parent: BaseMob
   id: CocoonKingBloodSpider
   components:
-  - type: Tag
-    tags:
-    - Wall
+  - type: Wall
   - type: Physics
     bodyType: Static
   - type: Sprite
@@ -160,7 +156,9 @@
       types:
         Blunt: 1
   - type: Stamina
-  - type: Muted
+  - type: PermanentStatusEffects
+    statusEffects:
+    - StatusEffectSpiderCocoonMuted
   - type: Appearance
   - type: ZombieImmune
   - type: ImmunitetInfectionDead

@@ -9,12 +9,11 @@
       time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h #DS14-soyuz time requirement
+      time: 40h
     - !type:OverallPlaytimeRequirement
       time: 100h
     - !type:AgeRequirement
       requiredAge: 24
-  weight: 10
   startingGear: HoSGear
   icon: "JobIconHeadOfSecurity"
   supervisors: job-supervisors-captain

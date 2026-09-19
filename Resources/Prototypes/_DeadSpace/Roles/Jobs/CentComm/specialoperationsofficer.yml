@@ -44,6 +44,7 @@
     eyes: ClothingEyesGlassesAdvancedOKGB
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestWebElite #DS14-Soyuz
+    mask: WhiteNoiseMaskUnknown
     neck: ClothingNeckCloakCentcomBlack
     belt: WeaponRevolverMateba
     id: CentcomSpecialOperationsOfficerPDA
@@ -70,13 +71,12 @@
         - id: RubberStampMemeDeny
         - id: RubberStampCentcomSpecialOperationOfficer
         - id: BoxFolderBlueFilled
-#DS14-soyuz-start
-        - id: WeaponPulseShotgun #DS14-soyuz
-        - id: WeaponRevolverMatebaAP #DS14-soyuz
+        # DS14-soyuz-start
+        - id: WeaponRevolverMatebaAP
         - id: SpeedLoaderMagnumAP
           amount: 3
         - id: DoorRemoteAll 
-#DS14-soyuz-end
+        # DS14-soyuz-end
 
 - type: entity
   parent: BoxFolderBase

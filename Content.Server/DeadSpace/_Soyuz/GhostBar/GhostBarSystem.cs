@@ -51,9 +51,9 @@ public sealed class GhostBarSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        //SubscribeNetworkEvent<JoinGhostBarEvent>(OnJoin);
-        //SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
-        //SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+        SubscribeNetworkEvent<JoinGhostBarEvent>(OnJoin);
+        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
     }
 
     internal bool CanJoinOnBar(ICommonSession session)

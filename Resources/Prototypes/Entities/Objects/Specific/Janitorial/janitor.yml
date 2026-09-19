@@ -417,7 +417,8 @@
       path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
   #DS14-End
 
-# - type: entity # DS14-Soyuz disabled
+# DS14-Soyuz-start disabled
+# - type: entity
 #   parent: WireBrush
 #   id: WireBrushElectrical
 #   name: electrical wire brush
@@ -425,3 +426,4 @@
 #   components:
 #   - type: Tool
 #     speedModifier: 1.5
+#DS14-Soyuz-end

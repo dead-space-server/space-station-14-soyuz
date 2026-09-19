@@ -157,7 +157,7 @@
   parent: LavalandMiningShop
   id: AdvancedCargoTechMag
   name: продвинутый карготехмаг
-  description: Нагло украденный и перекрашенный утильмаг из базы шахтёров... Зато, на левом боку красуется рисунок боевого слона Рассвета.
+  description: Нагло украденный и перекрашенный утильмаг из базы утилизаторов... Зато, на левом боку красуется рисунок боевого слона синдиката.
   components:
   - type: Sprite
     sprite: _DeadSpace/Structures/Machines/VendingMachines/mining.rsi

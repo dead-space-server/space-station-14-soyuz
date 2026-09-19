@@ -38,7 +38,6 @@ using Content.Shared.Corvax.TTS;
 using Content.Shared.Dataset;
 using Content.DeadSpace.Interfaces.Server;
 using Content.Shared.DeadSpace.Languages.Components;
-using Content.Shared.DeadSpace._Soyuz.PoliticalLoudspeaker;
 using Content.Shared.DeadSpace.Heartbeat;
 using Content.Server.DeadSpace.Languages;
 using Content.Server.Audio;
@@ -65,7 +64,6 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     //[Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedPoliticalLoudspeakerSystem _politicalLoudspeaker = default!; // DS14-Soyuz
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
@@ -993,13 +991,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     {
         var totalWrappedMessage = wrappedMessage;
         var totalMessage = message;
-        var voiceRange = (float) VoiceRange; // DS14-Soyuz
 
-        // Kofeecheks political loudspeaker range integration: LicenseRef-Kofeecheks
-        if (channel == ChatChannel.Local)
-            voiceRange *= _politicalLoudspeaker.GetSpeechModifiers(source).SpeechRangeMultiplier;
-
-        foreach (var (session, data) in GetRecipients(source, voiceRange))
+        foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
             // DS14-Languages-start
             EntityUid listener;

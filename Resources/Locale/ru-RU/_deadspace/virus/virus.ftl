@@ -338,6 +338,10 @@ accent-words-virus-7 = м-м-м… эээ…
 roles-antag-sentient-virus-name = Разумный вирус
 roles-antag-sentient-virus-objective = Заразите как можно больше организмов на станции.
 role-subtype-sentient-virus = Разумный вирус
+
+
+
+
 ghost-role-information-sentient-virus-name = Разумный вирус
 ghost-role-information-sentient-virus-description = Заразите как можно больше организмов на станции.
 ghost-role-information-sentient-virus-rules = Вы [color={ role-type-team-antagonist-color }][bold]{ role-type-solo-antagonist-name }[/bold][/color], распространите вирус по станции.

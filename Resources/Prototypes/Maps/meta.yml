@@ -2,7 +2,7 @@
   id: Meta
   mapName: 'Мета' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/meta.yml
-  minPlayers: 35
+  minPlayers: 27 #DS14-Soyuz
   maxPlayers: 70
   stations:
     Meta:

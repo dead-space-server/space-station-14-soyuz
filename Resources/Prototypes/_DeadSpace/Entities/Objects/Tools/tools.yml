@@ -32,9 +32,6 @@
     - HVCable
     - CableTerminal
     - Deconstruct
-  # DS-14 Soyuz
-  - type: AutoRecharge
-    rechargeDuration: 20
 
 - type: entity
   name: кроваво-красный сварочный аппарат

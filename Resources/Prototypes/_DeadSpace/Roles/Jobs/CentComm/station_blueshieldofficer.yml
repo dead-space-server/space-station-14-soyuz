@@ -90,7 +90,7 @@
     # mask: ClothingMaskGasBlueShield # DS14-Soyuz disabled
     eyes: ClothingEyesGlassesSecurity # DS14-Soyuz
     ears: ClothingHeadsetAltCommand
-    shoes: ClothingShoesOKGB
+    shoes: ClothingShoesBootsBlueShield
     socks: ClothingUnderwearSocksBlueShieldOfficer
     # outerClothing: ClothingOuterArmorBasicBlueShield
     belt: ClothingBeltMilitaryWebbingBlueShieldFilled

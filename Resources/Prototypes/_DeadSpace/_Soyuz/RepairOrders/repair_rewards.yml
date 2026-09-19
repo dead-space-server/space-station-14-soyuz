@@ -1,5 +1,5 @@
-# Costs are repair points. Weights only choose between combinations which spend the same maximum
-# reachable budget; maxCount prevents large orders from paying out dozens of cheap stacks.
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use.
+# Full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 - type: repairReward
   id: RepairOrderSteelReward

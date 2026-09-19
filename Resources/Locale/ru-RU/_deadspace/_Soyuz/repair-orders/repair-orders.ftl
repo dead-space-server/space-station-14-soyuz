@@ -1,3 +1,6 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use.
+# Full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
 ent-RepairOrdersConsole = консоль ремонтных заказов
     .desc = Позволяет просматривать и принимать инженерные заказы станции.
 ent-RepairOrdersComputerCircuitboard = плата консоли ремонтных заказов

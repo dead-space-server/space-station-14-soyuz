@@ -118,6 +118,7 @@ public sealed partial class AtmosphereSystem : SharedAtmosphereSystem
 
         UpdateProcessing(frameTime);
         UpdateHighPressure(frameTime);
+        UpdateSoyuzTiles(frameTime); // DS14-Soyuz: persistent open-air effects and detonation timers.
 
         _exposedTimer += frameTime;
 

@@ -1,0 +1,37 @@
+- type: entity
+  id: SoyuzQuartzCrystal
+  parent: ShardCrystalBase
+  name: quartz crystal
+  description: A crystal condensed from quartz gas.
+  components:
+  - type: RandomSprite
+    available:
+    - enum.DamageStateVisualLayers.Base:
+        shard1: SoyuzQuartzColors
+        shard2: SoyuzQuartzColors
+        shard3: SoyuzQuartzColors
+
+- type: palette
+  id: SoyuzQuartzColors
+  name: Soyuz quartz colors
+  colors:
+    cyan: "#47F8FF"
+    blue: "#39A1FF"
+    yellow: "#FFDE46"
+    pink: "#F06DDB"
+    green: "#80ED99"
+
+- type: entity
+  id: SoyuzAtmosSource
+  name: atmospheric field
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RadiationSource
+    enabled: false
+    intensity: 0
+    slope: 2
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 0
+    color: "#BFFFFF"

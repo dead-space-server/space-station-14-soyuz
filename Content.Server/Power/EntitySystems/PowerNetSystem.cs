@@ -218,6 +218,7 @@ namespace Content.Server.Power.EntitySystems
 
         private void PowerSupplierShutdown(EntityUid uid, PowerSupplierComponent component, ComponentShutdown args)
         {
+            EntityManager.System<Content.Server.DeadSpace._Soyuz.Atmos.SoyuzImpulseSystem>().RemoveSupplier(uid, component); // DS14-Soyuz: remove cached supplier before freeing it.
             _powerState.DetachSupply(component.NetworkSupply); // DS14
             _powerState.Supplies.Free(component.NetworkSupply.Id);
         }

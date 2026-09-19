@@ -1,0 +1,22 @@
+- type: entity
+  parent: ClothingShoesBootsLaceup
+  id: ClothingShoesBootsGhostBarDefault
+  name: шнурованные туфли
+  suffix: Гост-бар, Неснимаемая
+  description: ...
+  components:
+  - type: Unremoveable
+  - type: NoSlip
+  - type: Magboots
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+
+- type: entity
+  parent: ClothingUniformJumpsuitIAA
+  id: ClothingUniformJumpsuitGhostBarDefault
+  name: стильный комбинезон
+  suffix: Гост-бар, Неснимаемая
+  description: ...
+  components:
+  - type: Unremoveable

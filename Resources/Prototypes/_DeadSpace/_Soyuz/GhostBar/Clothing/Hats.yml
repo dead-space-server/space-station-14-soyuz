@@ -1,0 +1,32 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretGhostBarBlue
+  name: голубой космо-берет
+  description: Берет, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/blue.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretGhostBarOrange
+  name: оранжевый космо-берет
+  description: Берет, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/orange.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretGhostBarViolet
+  name: фиолетовый космо-берет
+  description: Берет, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Head/Beret/violet.rsi

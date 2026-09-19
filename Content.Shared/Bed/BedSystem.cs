@@ -27,13 +27,9 @@ public sealed class BedSystem : EntitySystem
     [Dependency] private readonly SharedMetabolizerSystem _metabolizer = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly SleepingSystem _sleepingSystem = default!;
-// DS14-Soyuz start
-//#if SERVER
-    [Dependency] private readonly TagSystem _tagSystem = default!;
-    private static readonly ProtoId<TagPrototype> IgnoreBedHealingTag = "IgnoreBedHealing";
-//#endif
-// DS14-Soyuz end
+
     private EntityQuery<SleepingComponent> _sleepingQuery;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -158,11 +154,7 @@ public sealed class BedSystem : EntitySystem
             {
                 if (_mobStateSystem.IsDead(healedEntity))
                     continue;
-// #if SERVER
-                // DS14-Soyuz: Ignore entities with the IgnoreBedHealing tag
-                if (_tagSystem.HasTag(healedEntity, IgnoreBedHealingTag))
-                    continue;
-// #endif
+
                 var damage = bedComponent.Damage;
 
                 if (_sleepingQuery.HasComp(healedEntity))

@@ -1624,3 +1624,48 @@ Entries:
   changes:
   - type: Add
     message: Вольфрамовая газовая канистра
+- id: 153
+  author: PERed5
+  time: '2026-09-12T05:59:53.905290+00:00'
+  pr: 465
+  changes:
+  - type: Add
+    message: Тестовые инструменты для будущих апстримов
+- id: 154
+  author: dododonch
+  time: '2026-09-12T08:05:43.424258+00:00'
+  pr: 461
+  changes:
+  - type: Tweak
+    message: Карты Cluster, Elkridge, Marathon, Saltern, Reach. Количество зарядов
+      краскопульта увеличено до 30.
+- id: 155
+  author: Ezio50
+  time: '2026-09-12T16:19:31.676473+00:00'
+  pr: 457
+  changes:
+  - type: Add
+    message: Анти-метеоритная система
+- id: 156
+  author: Ezio50
+  time: '2026-09-12T16:25:08.756572+00:00'
+  pr: 467
+  changes:
+  - type: Add
+    message: Возможность создания газодобытчиков
+- id: 157
+  author: Genes1us
+  time: '2026-09-14T13:38:20.077681+00:00'
+  pr: 470
+  changes:
+  - type: Add
+    message: Блеклист для рас стандартного роста для черты стандартного роста
+  - type: Fix
+    message: Стандартный рост для мелких рас
+- id: 158
+  author: Genes1us
+  time: '2026-09-15T10:49:44.704760+00:00'
+  pr: 471
+  changes:
+  - type: Fix
+    message: Вернул всем сущностям их теги обратно

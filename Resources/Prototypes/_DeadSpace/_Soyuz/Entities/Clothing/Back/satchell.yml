@@ -1,0 +1,55 @@
+- type: entity
+  parent: [ ClothingBackpack, BaseCentcommContraband ]
+  id: ClothingSatchelNavyCaptain
+  name: флотская сумка капитана
+  description: Специальный сумка для хранения большинства вещей НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Back/Satchels/nanotrasen_navy_captain.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,5
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: [ ClothingBackpack, BaseCentcommContraband ]
+  id: ClothingSatchelNavyMedical
+  name: флотская сумка медика
+  description: Специальный сумка для хранения большинства вещей НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Back/Satchels/nanotrasen_navy_medical.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,5
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: [ ClothingBackpack, BaseCentcommContraband ]
+  id: ClothingSatchelsNavyEngineer
+  name: флотская сумка инженера
+  description: Специальный сумка для хранения большинства вещей НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Back/Satchels/nanotrasen_navy_engineer.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,5
+  - type: ExplosionResistance
+    damageCoefficient: 0.9
+
+- type: entity
+  parent: [ ClothingBackpack, BaseCentcommContraband ]
+  id: ClothingSatchelNavy
+  name: флотская сумка
+  description: Специальный сумка для хранения большинства вещей НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Back/Satchels/nanotrasen_navy.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,5
+  - type: ExplosionResistance
+    damageCoefficient: 0.9

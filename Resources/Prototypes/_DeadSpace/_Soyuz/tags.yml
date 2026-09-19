@@ -11,6 +11,9 @@
 - type: Tag
   id: BlueInsulatingTape
 
+- type: Tag
+  id: BulletCaselessRifleNavy
+
 # C
 - type: Tag
   id: CartridgeLightestRifle
@@ -36,6 +39,12 @@
 - type: Tag
   id: ClarkeRLeg
 
+- type: Tag
+  id: CartridgeCaselessRifleNavy
+
+- type: Tag
+  id: CantSetNormalScale
+
 # D
 - type: Tag
   id: DrinkCup
@@ -49,6 +58,15 @@
 # G
 - type: Tag
   id: GasMask
+
+- type: Tag
+  id: GasMinerIndustrialCore
+
+- type: Tag
+  id: GasMinerNitrogenIndustrialCore
+
+- type: Tag
+  id: GasMinerOxygenIndustrialCore
 
 - type: Tag
   id: GeneralStaff
@@ -124,6 +142,8 @@
   id: RMCHelmet
 
 # S
+- type: Tag
+  id: SoyuzMagazineRifleNavy
 
 # T
 

@@ -2,7 +2,7 @@
   id: Core
   mapName: 'Ядро' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/core.yml
-  minPlayers: 40
+  minPlayers: 35 #DS14-Soyuz
   maxPlayers: 75
   stations:
     Core:
@@ -82,4 +82,3 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
-            Boxer: [ 2, 2 ]

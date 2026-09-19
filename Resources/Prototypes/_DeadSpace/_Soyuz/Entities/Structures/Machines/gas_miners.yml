@@ -1,0 +1,99 @@
+- type: entity
+  abstract: true
+  parent: GasMinerBase
+  id: GasMinerConstructibleBase
+  suffix: Constructible
+  components:
+  - type: Physics
+    bodyType: Static
+    canCollide: true
+  - type: GasMiner
+    # GasMinerPlasma, GasMinerOxygen and GasMinerNitrogen inherit 400 from
+    # GasMinerBase. Player-built miners produce 400 * 0.75 = 300 mol/s.
+    spawnAmount: 300
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: Destructible
+    thresholds:
+    # WallTungsten is destroyed outright at 650 damage: 650 * 2 = 1300.
+    # Check this first so a sufficiently large hit destroys the stored parts.
+    - trigger:
+        !type:DamageTrigger
+        damage: 1300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+    # WallTungsten becomes a girder at 400 damage: 400 * 2 = 800.
+    # The standard Machine graph transfers existing parts into the frame.
+    - trigger:
+        !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Machine
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: Construction
+    graph: Machine
+    node: machine
+    containers:
+    - machine_parts
+    - machine_board
+  - type: WiresPanel
+
+- type: entity
+  parent: GasMinerConstructibleBase
+  id: GasMinerPlasmaConstructible
+  name: industrial plasma gas miner
+  description: A heavy industrial plasma extractor. Less productive than its factory-built counterpart.
+  components:
+  - type: Sprite
+    # Temporary copy of the original miner.png; replace the PNG with plasma artwork.
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/gas_miners.rsi
+    state: plasma_miner
+  - type: GasMiner
+    spawnGas: Plasma
+  - type: Machine
+    board: PlasmaGasMinerMachineCircuitboard
+
+- type: entity
+  parent: GasMinerConstructibleBase
+  id: GasMinerOxygenConstructible
+  name: industrial oxygen gas miner
+  description: A heavy industrial oxygen extractor. Less productive than its factory-built counterpart.
+  components:
+  - type: Sprite
+    # Temporary copy of the original miner.png; replace the PNG with oxygen artwork.
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/gas_miners.rsi
+    state: oxygen_miner
+  - type: GasMiner
+    spawnGas: Oxygen
+  - type: Machine
+    board: OxygenGasMinerMachineCircuitboard
+
+- type: entity
+  parent: GasMinerConstructibleBase
+  id: GasMinerNitrogenConstructible
+  name: industrial nitrogen gas miner
+  description: A heavy industrial nitrogen extractor. Less productive than its factory-built counterpart.
+  components:
+  - type: Sprite
+    # Temporary copy of the original miner.png; replace the PNG with nitrogen artwork.
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/gas_miners.rsi
+    state: nitrogen_miner
+  - type: GasMiner
+    spawnGas: Nitrogen
+  - type: Machine
+    board: NitrogenGasMinerMachineCircuitboard

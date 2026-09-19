@@ -119,6 +119,7 @@
     - GeneralLanguage
   - type: Tag
     tags:
+    - CantSetNormalScale # DS14-Soyuz
     - IgnoreBedHealing #DS14-Soyuz
     - SiliconIPCEmotes
     - CanPilot

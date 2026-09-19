@@ -28,6 +28,7 @@
   - SOC4
   obeysTo: laws-owner-soc
 
+
 #Servant
 - type: siliconLaw
   id: Servant1

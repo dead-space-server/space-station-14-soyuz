@@ -1,0 +1,99 @@
+- type: entity
+  id: MeteorDefenseBeacon
+  parent: [BaseMachine, ConstructibleMachine]
+  name: meteor defense beacon
+  description: Relays targeting coordinates and stored energy to an external meteor defense complex.
+  components:
+  - type: MeteorDefenseBeacon
+    maxAllowedCharge: 160000000 # 20 intercepts; independent of charge rate.
+    energyPerIntercept: 8000000 # Full capacity of SMESBasic.
+  - type: Battery
+    maxCharge: 40000000 # Five intercepts.
+    startingCharge: 0
+    netsync: false
+  - type: ExaminableBattery
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/MeteorDefense/beacon.rsi
+    snapCardinals: true
+    layers:
+    - state: MeteorDefenseBeacon
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: BatteryCharger
+    voltage: High
+  - type: PowerNetworkBattery
+    canDischarge: false
+    maxChargeRate: 1500000 # Ten SMESBasic outputs (150 kW each), or powerful HV generation.
+  - type: UserInterface
+    interfaces:
+      enum.MeteorDefenseUiKey.Key:
+        type: MeteorDefenseBoundUserInterface
+  - type: ActivatableUI
+    key: enum.MeteorDefenseUiKey.Key
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+  - type: WiresPanel
+  - type: Machine
+    board: MeteorDefenseBeaconCircuitboard
+  - type: Electrified
+    onHandInteract: false
+    onInteractUsing: false
+    onBump: false
+    requirePower: true
+    highVoltageNode: input
+
+- type: entity
+  id: MeteorDefenseBeaconCircuitboard
+  parent: BaseMachineCircuitboard
+  name: meteor defense beacon machine board
+  description: A circuit board for a meteor defense beacon. Requires a separate targeting module.
+  components:
+  - type: MachineBoard
+    prototype: MeteorDefenseBeacon
+    stackRequirements:
+      Manipulator: 1
+      CableHV: 30
+    componentRequirements:
+      PowerCell:
+        amount: 5
+        defaultPrototype: PowerCellSmall
+      MeteorDefenseTargetingModule:
+        amount: 1
+        defaultPrototype: MeteorDefenseTargetingModule
+        examineName: meteor-defense-targeting-module-part
+
+- type: entity
+  id: MeteorDefenseTargetingModule
+  parent: BaseItem
+  name: meteor defense targeting module
+  description: A calibrated targeting module required to construct a meteor defense beacon.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/MeteorDefense/targeting_module.rsi
+    state: meteor_defense_targeting_module
+  - type: Item
+    size: Small
+  - type: MeteorDefenseTargetingModule
+
+- type: cargoProduct
+  id: EngineeringMeteorDefenseTargetingModule
+  icon:
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/MeteorDefense/targeting_module.rsi
+    state: meteor_defense_targeting_module
+  product: MeteorDefenseTargetingModule
+  cost: 333333
+  category: cargoproduct-category-name-engineering
+  group: engineering

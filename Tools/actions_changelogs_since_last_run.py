@@ -30,7 +30,7 @@ DISCORD_WEBHOOK_URL_DEADSPACE = os.environ.get("CHANGELOG_DISCORD_WEBHOOK_DEADSP
 DISCORD_USERNAME = "Последние изменения Союз-1 ☭"
 DISCORD_AVATAR_URL = "https://github.com/PERed5/soyuz/blob/main/soyuz.png?raw=true"
 
-CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14Soyuz.yml"
+CHANGELOG_FILE = "Resources/Changelog/ChangelogDS14.yml"
 MOSCOW_TZ = timezone(timedelta(hours=3))
 
 TYPE_ORDER = ("Add", "Remove", "Tweak", "Fix")
@@ -55,7 +55,7 @@ SECTION_TITLE_TO_TYPE = {
 UNKNOWN_TYPE_LABEL = "❓ Прочее"
 
 ChangelogEntry = dict[str, Any]
-GroupedChanges = dict[str, dict[str, list[tuple[str, str]]]]  # author -> type -> list of (message, pr_url)
+GroupedChanges = dict[str, dict[str, list[str]]]
 
 
 def main():
@@ -83,7 +83,7 @@ def main():
         print("No changelog changes found since the last publish")
         return
 
-    messages = changelog_entries_to_messages(diff)
+    messages = changelog_entries_to_messages(diff, last_publish_date)
     send_messages(messages, last_publish_date)
 
 
@@ -96,6 +96,8 @@ def get_most_recent_workflow(
         if run["id"] == workflow_run["id"]:
             continue
         return run
+    return None
+
     return None
 
 

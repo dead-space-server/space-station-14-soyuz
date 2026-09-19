@@ -51,4 +51,3 @@ public sealed class StationGoalCommand : IConsoleCommand
         return CompletionResult.Empty;
     }
 }
-

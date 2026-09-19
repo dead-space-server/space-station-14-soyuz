@@ -152,10 +152,8 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutRedPrimaryLeader
-    - ERTloadoutRedSecondaryLeader
-    - ERTloadoutRedSupport
-    - UplinkERTRed
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
     - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
@@ -233,12 +231,9 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutGammaPrimaryLeader
-    - ERTloadoutGammaSecondaryLeader
-    - ERTloadoutGammaSupport
-    - ERTloadoutMelee
-    - UplinkERTGamma
-    - BoxCardboardERT
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - BoxCardboardERTGamma
     - PinpointerNuclear
     - CrowbarRed
     - BSAACombatKitFilled
@@ -386,9 +381,9 @@
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     back: ClothingBackpackERTSecurity
     eyes: ClothingEyesHudERT
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedSecurity
+    outerClothing: ClothingOuterHardsuitERTSecurity
     suitstorage: JetpackSecurityFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTSecurityRedPDA
@@ -399,14 +394,12 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
-    - ERTloadoutMelee
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
     - MedkitCombatFilled
     - InjectorCaseERTFilled
     - WeaponDisabler
-    - UplinkERTRed
 
 ## Gamma
 - type: job
@@ -478,15 +471,12 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-    - ERTloadoutGammaSupport
-    - ERTloadoutMelee
     - BoxCardboardERTGamma
     - CrowbarRed
     - PinpointerNuclear
     - BSAACombatKitFilled
     - InjectorCaseERTFilled
     - WeaponDisabler
-    - UplinkERTGamma
 
 # Medical
 ## Amber
@@ -631,9 +621,9 @@
     jumpsuit: ClothingUniformJumpsuitERTMedic
     back: ClothingBackpackERTMedical
     eyes: ClothingEyesHudERTGamma
-    ears: ClothingHeadsetCentCom
+    ears: ClothingHeadsetAltAERT
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitERTRedMedic
+    outerClothing: ClothingOuterHardsuitERTMedical
     suitstorage: JetpackSecurityFilled
     shoes: ADTClothingShoesBootsMagERT
     id: ERTMedicRedPDA
@@ -644,7 +634,6 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
-    - ERTloadoutRedSupport
     - ERTloadoutMelee
     - BoxCardboardERT
     - DefibrillatorCompact
@@ -728,8 +717,6 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-    - ERTloadoutGammaSupport
-    - UplinkERTGamma
     - ERTloadoutMelee
     - BoxCardboardERTGamma
     - DefibrillatorCompact

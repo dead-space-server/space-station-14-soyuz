@@ -83,7 +83,7 @@ namespace Content.IntegrationTests.Tests
             "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/_Soyuz/ds_taipan.yml", // Taipan // DS14-Soyuz path
+            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };

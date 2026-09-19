@@ -606,7 +606,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (!doReaction)
                     continue;
 
-                reaction = prototype.React(mixture, holder, this, HeatScale);
+                reaction = Content.Server.DeadSpace._Soyuz.Atmos.Reactions.SoyuzProductionModifiers.React(prototype, mixture, holder, this, HeatScale); // DS14-Soyuz
                 if(reaction.HasFlag(ReactionResult.StopReactions))
                     break;
             }

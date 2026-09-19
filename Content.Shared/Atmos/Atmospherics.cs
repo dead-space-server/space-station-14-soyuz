@@ -195,7 +195,6 @@ namespace Content.Shared.Atmos
             [Gas.Zauker] = Loc.GetString("gas-zauker-abbreviation"),
             [Gas.Antinoblium] = Loc.GetString("gas-antinoblium-abbreviation"),
             // DS14-end
-            // Ezio50 gases: LicenseRef-Ezio50
             // DS14-Soyuz-start
             [Gas.Kryoxide] = Loc.GetString("gas-kryoxide-abbreviation"),
             [Gas.Etherite] = Loc.GetString("gas-etherite-abbreviation"),

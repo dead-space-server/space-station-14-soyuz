@@ -1,4 +1,4 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using System.Linq;
 using System.Numerics;
@@ -43,8 +43,8 @@ public sealed class GhostBarWindow : DefaultWindow
         IoCManager.InjectDependencies(this);
 
         Title = Loc.GetString("ghost-bar-window-title");
-        MinSize = new Vector2(560, 520);
-        SetSize = new Vector2(560, 520);
+        MinSize = new Vector2(720, 520);
+        SetSize = new Vector2(720, 520);
 
         var outer = new BoxContainer
         {

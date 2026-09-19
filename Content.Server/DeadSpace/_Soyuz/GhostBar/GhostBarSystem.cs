@@ -1,4 +1,4 @@
-// Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using System.Linq;
 using System.Numerics;
@@ -13,6 +13,7 @@ using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Preferences;
+using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.EntitySerialization;
@@ -50,8 +51,9 @@ public sealed class GhostBarSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeNetworkEvent<JoinGhostBarEvent>(OnJoin);
-        SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
+        //SubscribeNetworkEvent<JoinGhostBarEvent>(OnJoin);
+        //SubscribeLocalEvent<PlayerDetachedEvent>(OnPlayerDetached);
+        //SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
     }
 
     internal bool CanJoinOnBar(ICommonSession session)
@@ -99,6 +101,13 @@ public sealed class GhostBarSystem : EntitySystem
     {
         if (_activeEuis.TryGetValue(session, out var current) && ReferenceEquals(current, eui))
             _activeEuis.Remove(session);
+    }
+
+    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    {
+        _ghostBarMap = null;
+        _activeEuis.Clear();
+        _selectedCostumes.Clear();
     }
 
     /// <summary>
@@ -161,7 +170,7 @@ public sealed class GhostBarSystem : EntitySystem
         var profile = _prefs.GetPreferences(player.UserId).SelectedCharacter as HumanoidCharacterProfile;
         var speciesId = profile?.Species ?? SharedHumanoidAppearanceSystem.DefaultSpecies;
 
-        if (!_prototype.TryIndex<SpeciesPrototype>(speciesId, out var species))
+        if (!_prototype.TryIndex(speciesId, out var species))
         {
             Log.Error($"Unknown species prototype '{speciesId}' for ghost-bar.");
             _chat.DispatchServerMessage(player, Loc.GetString("ghost-bar-join-error"));
@@ -194,7 +203,7 @@ public sealed class GhostBarSystem : EntitySystem
         if (ghost.Valid)
             QueueDel(ghost);
 
-        _chat.DispatchServerMessage(player, Loc.GetString("ghost-bar-joined"));
+        _chat.DispatchServerMessage(player, Loc.GetString("ghost-bar-join"));
     }
 
     /// <summary>
@@ -305,11 +314,12 @@ public sealed class GhostBarSystem : EntitySystem
     private void EquipCostumes(EntityUid body, NetUserId userId)
     {
         var selected = GetSelectedCostumes(userId);
-        var selectedCategories = new HashSet<string>();
+        var selectedSlots = new HashSet<string>();
+
         foreach (var id in selected)
         {
             if (_prototype.TryIndex<GhostBarCostumePrototype>(id, out var c))
-                selectedCategories.Add(c.Category);
+                selectedSlots.Add(c.Slot);
         }
 
         var toEquip = new HashSet<string>(selected);
@@ -318,7 +328,7 @@ public sealed class GhostBarSystem : EntitySystem
             if (!costume.Default)
                 continue;
 
-            if (selectedCategories.Contains(costume.Category))
+            if (selectedSlots.Contains(costume.Slot))
                 continue;
 
             toEquip.Add(costume.ID);
@@ -330,9 +340,7 @@ public sealed class GhostBarSystem : EntitySystem
                 continue;
 
             if (string.IsNullOrEmpty(costume.ClothingProto.Id))
-            {
                 continue;
-            }
 
             if (!_prototype.HasIndex<EntityPrototype>(costume.ClothingProto.Id))
                 continue;

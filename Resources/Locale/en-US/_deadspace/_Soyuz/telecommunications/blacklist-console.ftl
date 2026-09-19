@@ -1,5 +1,3 @@
-# Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT
-
 ent-TelecommunicationBlacklistComputer = telecommunications blacklist console
     .desc = Controls station-local radio channel restrictions for crew members.
 ent-TelecommunicationBlacklistComputerCircuitboard = telecommunications blacklist console board

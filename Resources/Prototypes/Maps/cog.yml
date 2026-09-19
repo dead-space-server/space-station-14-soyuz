@@ -2,7 +2,7 @@
   id: Cog
   mapName: 'Ког' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/cog.yml
-  minPlayers: 40
+  minPlayers: 35 #DS14-Soyuz
   stations:
     Cog:
       stationProto: StandardNanotrasenStation
@@ -80,5 +80,3 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
-            Boxer: [ 2, 2 ]
-            Zookeeper: [ 1, 1 ]

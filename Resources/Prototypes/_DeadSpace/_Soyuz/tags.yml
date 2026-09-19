@@ -11,6 +11,9 @@
 - type: Tag
   id: BlueInsulatingTape
 
+- type: Tag
+  id: BulletCaselessRifleNavy
+
 # C
 - type: Tag
   id: CartridgeLightestRifle
@@ -35,6 +38,9 @@
 
 - type: Tag
   id: ClarkeRLeg
+
+- type: Tag
+  id: CartridgeCaselessRifleNavy
 
 - type: Tag
   id: CantSetNormalScale
@@ -136,6 +142,8 @@
   id: RMCHelmet
 
 # S
+- type: Tag
+  id: SoyuzMagazineRifleNavy
 
 # T
 

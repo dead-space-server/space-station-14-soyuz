@@ -10,13 +10,10 @@
       time: 10h
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 10h
-    - !type:OverallPlaytimeRequirement
-      time: 80h
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 40h
-#DS14-soyuz-end
+      time: 10h
   startingGear: WardenGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-hos

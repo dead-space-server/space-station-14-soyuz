@@ -160,9 +160,6 @@
     SpaceCash: 115
   categories:
     - CigaretteMachineInventory
-  conditions:
-    - !type:ListingLimitedStockCondition
-      stock: 2
 #DS14-Soyuz-end
 
 # Contraband

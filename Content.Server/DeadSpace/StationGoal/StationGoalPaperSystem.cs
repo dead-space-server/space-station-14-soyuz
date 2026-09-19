@@ -8,9 +8,9 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Server.Cargo.Systems;
-using Content.Server.Cargo.Components;
+using Content.Server.Cargo.Components; // DS14-Soyuz
 using Content.Shared.Cargo.Components;
-using Content.Shared.Station.Components;
+using Content.Shared.Station.Components; // DS14-Soyuz
 
 namespace Content.Server.DeadSpace.StationGoal;
 

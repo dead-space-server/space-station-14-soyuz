@@ -2,7 +2,7 @@
   id: Amber
   mapName: 'Янтарь' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/amber.yml
-  minPlayers: 30
+  minPlayers: 25 #DS14-Soyuz
   maxPlayers: 70
   stations:
     Amber:

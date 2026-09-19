@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
+using Content.Server.DeadSpace.CentComm;
 using Content.Server.DeadSpace.Lavaland.Components;
 using Content.Server.DeadSpace.Prison.Components;
 using Content.Server.DeadSpace.NoShuttleFTL;
@@ -125,6 +126,12 @@ public sealed partial class ShuttleSystem
         }
         // DS14-prevent-ftl-to-taipan-station-end
 
+        // DS14-start
+        // EmergencyShuttleSystem registers CentComm separately with a coordinate disk requirement.
+        if (HasComp<CentCommStationComponent>(ev.Station))
+            return;
+        // DS14-end
+
         // Add all grid maps as ftl destinations that anyone can FTL to.
         foreach (var gridUid in ev.Station.Comp.Grids)
         {
@@ -243,6 +250,12 @@ public sealed partial class ShuttleSystem
     /// </summary>
     public bool CanFTL(EntityUid shuttleUid, [NotNullWhen(false)] out string? reason)
     {
+
+        // DS14-Soyuz-start
+        if (!_shuttleControl.CanControl(shuttleUid, ShuttleControlType.Ftl, out reason))
+            return false;
+        // DS14-Soyuz-end
+
         // Currently in FTL already
         if (HasComp<FTLComponent>(shuttleUid))
         {

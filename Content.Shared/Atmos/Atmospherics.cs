@@ -170,23 +170,23 @@ namespace Content.Shared.Atmos
         /// </summary>
         public static Dictionary<Gas, string> GasAbbreviations = new Dictionary<Gas, string>()
         {
-            [Gas.Ammonia] = Loc.GetString("gas-ammonia-abbreviation"),
-            [Gas.CarbonDioxide] = Loc.GetString("gas-carbon-dioxide-abbreviation"),
-            [Gas.Frezon] = Loc.GetString("gas-frezon-abbreviation"),
-            // Kofeecheks gases: LicenseRef-Kofeecheks
-            [Gas.Fixirium] = Loc.GetString("gas-fixirium-abbreviation"),
-            [Gas.Hilium] = Loc.GetString("gas-hilium-abbreviation"),
-            [Gas.Hydrogen] = Loc.GetString("gas-hydrogen-abbreviation"),
-            [Gas.Iprit] = Loc.GetString("gas-iprit-abbreviation"),
-            [Gas.Nitrogen] = Loc.GetString("gas-nitrogen-abbreviation"),
-            [Gas.Nitriatium] = Loc.GetString("gas-nitriatium-abbreviation"),
-            [Gas.NitrousOxide] = Loc.GetString("gas-nitrous-oxide-abbreviation"),
             [Gas.Oxygen] = Loc.GetString("gas-oxygen-abbreviation"),
+            [Gas.Nitrogen] = Loc.GetString("gas-nitrogen-abbreviation"),
+            [Gas.CarbonDioxide] = Loc.GetString("gas-carbon-dioxide-abbreviation"),
             [Gas.Plasma] = Loc.GetString("gas-plasma-abbreviation"),
-            [Gas.Brizidium] = Loc.GetString("gas-brizidium-abbreviation"),
             [Gas.Tritium] = Loc.GetString("gas-tritium-abbreviation"),
             [Gas.WaterVapor] = Loc.GetString("gas-water-vapor-abbreviation"),
+            [Gas.Ammonia] = Loc.GetString("gas-ammonia-abbreviation"),
+            [Gas.NitrousOxide] = Loc.GetString("gas-nitrous-oxide-abbreviation"),
+            [Gas.Frezon] = Loc.GetString("gas-frezon-abbreviation"),
             [Gas.InfectionDeadSpace] = Loc.GetString("gas-unknown-abbreviation"),
+            // Kofeecheks gases: LicenseRef-Kofeecheks
+            [Gas.Fixirium] = Loc.GetString("gas-fixirium-abbreviation"),
+            [Gas.Hydrogen] = Loc.GetString("gas-hydrogen-abbreviation"),
+            [Gas.Nitriatium] = Loc.GetString("gas-nitriatium-abbreviation"),
+            [Gas.Hilium] = Loc.GetString("gas-hilium-abbreviation"),
+            [Gas.Brizidium] = Loc.GetString("gas-brizidium-abbreviation"),
+            [Gas.Iprit] = Loc.GetString("gas-iprit-abbreviation"),
             // DS14-start
             [Gas.HyperNoblium] = Loc.GetString("gas-hyper-noblium-abbreviation"),
             [Gas.ProtoNitrate] = Loc.GetString("gas-proto-nitrate-abbreviation"),
@@ -195,6 +195,29 @@ namespace Content.Shared.Atmos
             [Gas.Zauker] = Loc.GetString("gas-zauker-abbreviation"),
             [Gas.Antinoblium] = Loc.GetString("gas-antinoblium-abbreviation"),
             // DS14-end
+            // DS14-Soyuz-start
+            [Gas.Kryoxide] = Loc.GetString("gas-kryoxide-abbreviation"),
+            [Gas.Etherite] = Loc.GetString("gas-etherite-abbreviation"),
+            [Gas.Isoflux] = Loc.GetString("gas-isoflux-abbreviation"),
+            [Gas.Resonite] = Loc.GetString("gas-resonite-abbreviation"),
+            [Gas.Pyroxite] = Loc.GetString("gas-pyroxite-abbreviation"),
+            [Gas.Coronite] = Loc.GetString("gas-coronite-abbreviation"),
+            [Gas.Gravion] = Loc.GetString("gas-gravion-abbreviation"),
+            [Gas.Radion] = Loc.GetString("gas-radion-abbreviation"),
+            [Gas.QuartzGas] = Loc.GetString("gas-quartzgas-abbreviation"),
+            [Gas.ImpulseGas] = Loc.GetString("gas-impulsegas-abbreviation"),
+            [Gas.Iney] = Loc.GetString("gas-iney-abbreviation"),
+            [Gas.Diborane] = Loc.GetString("gas-diborane-abbreviation"),
+            [Gas.GammaGas] = Loc.GetString("gas-gammagas-abbreviation"),
+            [Gas.Forsazh] = Loc.GetString("gas-forsazh-abbreviation"),
+            [Gas.Sumrak] = Loc.GetString("gas-sumrak-abbreviation"),
+            [Gas.Lumin] = Loc.GetString("gas-lumin-abbreviation"),
+            [Gas.Lazarus] = Loc.GetString("gas-lazarus-abbreviation"),
+            [Gas.Chromatin] = Loc.GetString("gas-chromatin-abbreviation"),
+            [Gas.Tlec] = Loc.GetString("gas-tlec-abbreviation"),
+            [Gas.Detonite] = Loc.GetString("gas-detonite-abbreviation"),
+            [Gas.Boracite] = Loc.GetString("gas-boracite-abbreviation"),
+            // DS14-Soyuz-end
         };
 
         #region Excited Groups
@@ -224,7 +247,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 22; // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium
+        public const int TotalNumberOfGases = 43; // DS14-Soyuz: advanced gases // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -403,7 +426,30 @@ namespace Content.Shared.Atmos
         Helium = 18,
         Halon = 19,
         Zauker = 20,
-        Antinoblium = 21
+        Antinoblium = 21, // DS14-Soyuz: append new gases without changing old indices.
         // DS14-end
+        // DS14-Soyuz-start
+        Kryoxide = 22,
+        Etherite = 23,
+        Isoflux = 24,
+        Resonite = 25,
+        Pyroxite = 26,
+        Coronite = 27,
+        Gravion = 28,
+        Radion = 29,
+        QuartzGas = 30,
+        ImpulseGas = 31,
+        Iney = 32,
+        Diborane = 33,
+        GammaGas = 34,
+        Forsazh = 35,
+        Sumrak = 36,
+        Lumin = 37,
+        Lazarus = 38,
+        Chromatin = 39,
+        Tlec = 40,
+        Detonite = 41,
+        Boracite = 42,
+        // DS14-Soyuz-end
     }
 }

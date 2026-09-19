@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Unknown",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "nanotrasen_navy_captain"
+    },
+    {
+      "name": "nanotrasen_navy_officer"
+    },
+    {
+      "name": "green"
+    },
+    {
+      "name": "nanotrasen_navy_wo_engineer"
+    },
+    {
+      "name": "nanotrasen_navy_wo_medical"
+    },
+    {
+      "name": "nanotrasen_navy_sailor"
+    },
+    {
+      "name": "nanotrasen_navy_engineer"
+    },
+    {
+      "name": "nanotrasen_navy_medical"
+    }
+  ]
+}

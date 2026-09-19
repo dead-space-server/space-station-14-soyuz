@@ -123,6 +123,7 @@ namespace Content.Client.Entry
             _prototypeManager.RegisterIgnore("htnPrimitive");
             _prototypeManager.RegisterIgnore("gameMap");
             _prototypeManager.RegisterIgnore("gameMapPool");
+            _prototypeManager.RegisterIgnore("centCommEnvironment"); // DS14
             _prototypeManager.RegisterIgnore("gamePreset");
             _prototypeManager.RegisterIgnore("noiseChannel");
             _prototypeManager.RegisterIgnore("playerConnectionWhitelist");
@@ -192,11 +193,6 @@ namespace Content.Client.Entry
             _documentParsingManager.Initialize();
             _titleWindowManager.Initialize();
             _feedbackManager.Initialize();
-            // DS14-Soyuz-start
-            var roadmapController = new RoadmapUIController();
-            IoCManager.InjectDependencies(roadmapController);
-            roadmapController.Initialize();
-            // DS14-Soyuz-end
 
             _baseClient.RunLevelChanged += (_, args) =>
             {

@@ -145,6 +145,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:
@@ -157,7 +158,6 @@
       enum.MagicMirrorUiKey.Key:
         toggleAction: HairstyleAction
   # DS14-end
-
 
 - type: entity
   parent: MobHumanDummy

@@ -273,7 +273,7 @@
     Gasp:
       path: /Audio/Effects/Gasp/vox_gasp.ogg
     Warcry: # DS14-Soyuz
-      collection: MaleWarcry
+      collection: MaleWarcry # DS14-Soyuz
     DefaultDeathgasp:
       path: /Audio/Effects/Gasp/vox_DeathGasp.ogg
   params:
@@ -562,8 +562,6 @@
       collection: MaleGasp
     DefaultDeathgasp:
       collection: MaleDeathGasp
-    Warcry: # DS14-Soyuz
-      collection: MaleWarcry
 
 - type: emoteSounds
   id: FemaleVulpkanin
@@ -605,7 +603,7 @@
     DefaultDeathgasp:
       collection: FemaleDeathGasp
     Warcry: # DS14-Soyuz
-      collection: FemaleWarcry
+      collection: FemaleWarcry # DS14-Soyuz
 
 # body emotes
 - type: emoteSounds

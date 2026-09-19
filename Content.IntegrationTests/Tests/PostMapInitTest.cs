@@ -65,6 +65,7 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]}, // DS14-Soyuz
             // DS14-end
         };
 

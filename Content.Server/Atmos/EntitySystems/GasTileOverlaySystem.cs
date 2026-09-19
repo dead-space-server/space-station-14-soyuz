@@ -256,6 +256,17 @@ namespace Content.Server.Atmos.EntitySystems
             }
             // DS14-end
 
+            // DS14-Soyuz-Start: sync visual changes even when gas opacity remains constant.
+            var tlec = _atmosphereSystem.GetSoyuzTlecStage(tile);
+            var fireColor = Content.Shared.DeadSpace._Soyuz.Atmos.SoyuzGasVisuals.GetFireColor(tile.Air);
+            var darkness = Content.Shared.DeadSpace._Soyuz.Atmos.SoyuzGasVisuals.Darkness(tile.Air);
+            if (oldData.SoyuzTlecStage != tlec || oldData.SoyuzFireColor != fireColor || oldData.SoyuzDarkness != darkness)
+            {
+                oldData = new GasOverlayData(oldData.FireState, oldData.Opacity, oldData.ByteGasTemperature, tlec, fireColor, darkness);
+                changed = true;
+            }
+            // DS14-Soyuz-End
+
             if (tile is {Air: not null, NoGridTile: false})
             {
                 for (var i = 0; i < VisibleGasId.Length; i++)

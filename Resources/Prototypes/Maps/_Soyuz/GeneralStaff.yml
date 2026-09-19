@@ -1,7 +1,7 @@
 - type: gameMap
   id: GeneralStaff
   mapName: 'Генеральный Штаб'
-  mapPath: /Maps/_Soyuz/generalstaff.yml
+  mapPath: /Maps/_Soyuz/S1_GeneralStaff.yml
   minPlayers: 30
   stations:
     GeneralStaff:

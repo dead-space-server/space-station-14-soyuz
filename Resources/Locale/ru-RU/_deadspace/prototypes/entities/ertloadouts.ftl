@@ -121,6 +121,8 @@ ert-loadout-category-pistolbsupgradekit-description =
 ert-loadout-category-mk58-name = Пистолет ТТ и Станнер
 ert-loadout-category-mk58-description =
     Дешёвый и распространённый пистолет.
+    Дешёвый и распространённый пистолет,
+    производимый дочерней компанией NanoTrasen.
     Использует патроны калибра 9х19 мм.
     Содержит два дополнительных магазина.
 ert-loadout-category-berettam92-name = Beretta M92
@@ -168,6 +170,7 @@ ert-loadout-category-advancedlaser-name = Продвинутый лазерны�
 ert-loadout-category-advancedlaser-description =
     Экспериментальный лазерный пистолет.
     Батарея этого оружия подзаряжается сама со временем.
+ert-loadout-category-advancedlaserert-name = Продвинутый лазерный пистолет ОБР
 ert-loadout-category-energymagnum-name = Энергетический магнум
 ert-loadout-category-energymagnum-description =
     Экспериментальная разработка КСО на основе микроядерного синтеза, благодаря

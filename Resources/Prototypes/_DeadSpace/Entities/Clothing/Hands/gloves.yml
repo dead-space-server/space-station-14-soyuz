@@ -69,7 +69,7 @@
 - type: entity
   parent: ClothingHandsGlovesCombat
   id: ClothingHandsGlovesBlueShield
-  name: боевые перчатки оперативника КГБ
+  name: боевые перчатки офицера "Синий Щит"
   description: Эти тактические перчатки огнеупорны и ударопрочны.
   components:
   - type: Sprite

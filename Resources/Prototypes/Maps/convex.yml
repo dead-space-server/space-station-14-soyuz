@@ -2,7 +2,7 @@
   id: Convex
   mapName: 'Дуга' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/convex.yml
-  minPlayers: 45
+  minPlayers: 40 #DS14-Soyuz
   stations:
     Convex:
       stationProto: StandardNanotrasenStation
@@ -79,4 +79,3 @@
             BorgSecurity: [ 1, 1 ]
             # etc
             ClownSponsor: [ 0, 2 ]
-            Boxer: [ 2, 2 ]

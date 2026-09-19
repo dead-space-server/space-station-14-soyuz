@@ -18,8 +18,7 @@ ent-LightImplanter = { ent-Implanter }
 ent-BikeHornImplanter = { ent-Implanter }
     .suffix = Клаксон
     .desc = { ent-BaseImplantOnlyImplanter.desc }
-# DS14-Soyuz localization (TrackingImplanter)
-ent-TrackingImplanter = имплантер трекера
+ent-TrackingImplanter = { ent-Implanter }
     .suffix = Трекер
     .desc = { ent-BaseImplantOnlyImplanter.desc }
 ent-StorageImplanter = { ent-Implanter }
@@ -61,8 +60,7 @@ ent-DeathAcidifierImplanter = { ent-Implanter }
 ent-FakeMindShieldImplanter = { ent-BaseImplantOnlyImplanterSyndi }
     .suffix = Фальшивый щит разума
     .desc = { ent-BaseImplantOnlyImplanterSyndi.desc }
-# DS14-Soyuz localization (MindShieldImplanter)
-ent-MindShieldImplanter = имплантер щита разума
+ent-MindShieldImplanter = { ent-Implanter }
     .suffix = Щит разума
     .desc = { ent-BaseImplantOnlyImplanter.desc }
 ent-RadioImplanterCentcomm = { ent-BaseImplantOnlyImplanter }

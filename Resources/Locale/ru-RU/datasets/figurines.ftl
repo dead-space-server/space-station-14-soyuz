@@ -313,6 +313,7 @@ figurines-nukie-elite-3 = Ребят, вы живы?
 figurines-nukie-elite-4 = Взрывайте и зачищайте!
 figurines-nukie-elite-5 = Добейте выживших.
 figurines-nukie-elite-6 = Хорошая работа, команда.
+
 figurines-queen-1 = Наше царство должно расти.
 figurines-queen-2 = Улью нужно больше пищи.
 figurines-queen-3 = Мы поглощаем всё.

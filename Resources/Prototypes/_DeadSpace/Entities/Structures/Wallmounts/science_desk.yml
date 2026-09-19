@@ -4,6 +4,11 @@
   name: лекционная доска
   description: На этой доске расписано куча формул и графиков. Кажется, тут описана "Теория АМК"... Блюспейс, редспейс... Чего?
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzSignScienceDesk
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     sprite: _DeadSpace/Structures/Wallmounts/science_desk.rsi
     state: science_desk

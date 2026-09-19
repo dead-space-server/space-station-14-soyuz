@@ -278,7 +278,7 @@ public sealed class MindSystem : SharedMindSystem
             Entity<MindComponent> mindEnt = (mindId, mind);
             Entity<MindContainerComponent> containerEnt = (entity.Value, component);
             RaiseLocalEvent(entity.Value, new MindAddedMessage(mindEnt, containerEnt, oldEntity));
-            RaiseLocalEvent(mindId, new MindGotAddedEvent(mindEnt, containerEnt, oldEntity));
+            RaiseLocalEvent(mindId, new MindGotAddedEvent(mindEnt, containerEnt, oldEntity), true);
             Dirty(entity.Value, component);
 
             // DS14 Add PVS override for new entity so player always sees their controlled entity

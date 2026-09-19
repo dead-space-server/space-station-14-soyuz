@@ -225,6 +225,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   - type: EmoteAnimation # ADT-Emotes
   - type: SpeedSliding # DS14
   # DS14-Languages-start

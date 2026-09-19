@@ -4,7 +4,7 @@
   mapPath: /Maps/_Soyuz/S1_GeneralStaff.yml
   minPlayers: 10
   stations:
-    centcomm:
+    GeneralStaff:
       stationProto: StandardGeneralStaff
       components:
         - type: StationNameSetup

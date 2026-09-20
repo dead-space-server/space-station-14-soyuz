@@ -36,7 +36,7 @@ public sealed class RepairValueTest
           description: repair-order-damaged-cargo-shuttle-description
           objectType: repair-order-object-type-small-shuttle
           objectName: repair-order-object-name-dinero-mk2
-          difficulty: 99
+          difficulty: 10
           targetGridPath: /Maps/_Soyuz/RepairOrders/mini_wreck_target.yml
           damageProfile: RepairDamageLight
           weight: 0
@@ -49,7 +49,7 @@ public sealed class RepairValueTest
           description: repair-order-damaged-cargo-shuttle-description
           objectType: repair-order-object-type-small-shuttle
           objectName: repair-order-object-name-dinero-mk2
-          difficulty: 99
+          difficulty: 10
           targetGridPath: /Maps/_Soyuz/RepairOrders/floor_training_target.yml
           damageProfile: RepairDamageLight
           weight: 0

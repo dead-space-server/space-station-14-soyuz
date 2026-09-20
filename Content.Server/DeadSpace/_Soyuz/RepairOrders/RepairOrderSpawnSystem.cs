@@ -33,6 +33,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
     private const int PlacementAttempts = 20;
 
     [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly MapLoaderSystem _loader = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly RepairOrderGridPlacementSystem _placement = default!;
@@ -117,6 +118,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             }
 
             loadedGridUid = damagedGrid.Owner;
+            _metaData.SetEntityName(loadedGridUid, Loc.GetString(order.ObjectName));
             stageFailure = RepairOrderSpawnFailure.DamageFailed;
             var profile = _prototypes.Index(order.DamageProfile);
             var snapshot = _damage.Snapshot(damagedGrid, order);

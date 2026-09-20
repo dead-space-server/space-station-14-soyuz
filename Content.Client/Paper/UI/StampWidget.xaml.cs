@@ -109,6 +109,7 @@ public sealed partial class StampWidget : PanelContainer
             if (!string.IsNullOrEmpty(value.StampTexture))
             {
                 _stampTexture = _resCache.GetResource<TextureResource>(value.StampTexture);
+                _stampTextureModulate = value.StampedColor;
                 // DS14-start
                 _stampScale = GetPrototypeStampScale(value.StampScale);
                 PanelOverride = null;

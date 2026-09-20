@@ -308,7 +308,9 @@ public sealed class RepairOrderReportSystem : EntitySystem
             report,
             "repair-orders-report-order-name",
             ("value", FormattedMessage.EscapeText(Loc.GetString(order.Name))));
-        AddLine(report, "repair-orders-report-difficulty", ("difficulty", order.Difficulty));
+        AddLine(report, "repair-orders-report-difficulty",
+            ("class", Loc.GetString(RepairOrderDifficulty.GetName(order.Difficulty))),
+            ("difficulty", order.Difficulty), ("max", RepairOrderDifficulty.Maximum));
         return report;
     }
 

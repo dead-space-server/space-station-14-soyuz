@@ -8,6 +8,25 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
+/// <summary>Shared bounds and localized work classes for repair orders and rewards.</summary>
+public static class RepairOrderDifficulty
+{
+    public const int Minimum = 1;
+    public const int Maximum = 10;
+
+    public static void Validate(int difficulty)
+    {
+        if (difficulty < Minimum || difficulty > Maximum)
+            throw new InvalidDataException($"Repair difficulty {difficulty} must be between {Minimum} and {Maximum}.");
+    }
+
+    public static LocId GetName(int difficulty)
+    {
+        Validate(difficulty);
+        return $"repair-orders-difficulty-class-{difficulty}";
+    }
+}
+
 /// <summary>
 /// Describes a repair job and the damaged/reference grids associated with it.
 /// </summary>
@@ -64,6 +83,7 @@ public sealed partial class RepairOrderPrototype : IPrototype, ISerializationHoo
 
     void ISerializationHooks.AfterDeserialization()
     {
+        RepairOrderDifficulty.Validate(Difficulty);
         if (RepairTime <= TimeSpan.Zero)
             throw new InvalidDataException($"Repair order {ID} must have a positive repairTime.");
     }
@@ -170,7 +190,7 @@ public enum RepairRotationMode : byte
 /// One data-driven reward candidate used both for calculation and physical delivery.
 /// </summary>
 [Prototype]
-public sealed partial class RepairRewardPrototype : IPrototype
+public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHooks
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
@@ -189,6 +209,11 @@ public sealed partial class RepairRewardPrototype : IPrototype
 
     [DataField]
     public int MinimumDifficulty = 1;
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        RepairOrderDifficulty.Validate(MinimumDifficulty);
+    }
 }
 
 /// <summary>

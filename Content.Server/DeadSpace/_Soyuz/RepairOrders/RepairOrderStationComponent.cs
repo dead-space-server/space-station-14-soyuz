@@ -12,7 +12,7 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 [RegisterComponent]
 public sealed partial class RepairOrderStationComponent : Component
 {
-    public const int MaximumAvailableOffers = 10;
+    public const int MaximumAvailableOffers = 5;
 
     [DataField]
     public int AvailableOfferCount = MaximumAvailableOffers;

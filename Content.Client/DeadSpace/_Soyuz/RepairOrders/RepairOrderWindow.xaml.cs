@@ -119,12 +119,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         var title = entry.PrototypeId;
         var description = Loc.GetString("repair-orders-missing-prototype", ("prototype", entry.PrototypeId));
-        var difficulty = 0;
         if (_prototype.TryIndex<RepairOrderPrototype>(entry.PrototypeId, out var order))
         {
             title = Loc.GetString(order.Name);
             description = Loc.GetString(order.Description);
-            difficulty = order.Difficulty;
         }
 
         content.AddChild(new Label
@@ -152,11 +150,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
         descriptionLabel.SetMarkup(description);
         content.AddChild(descriptionLabel);
 
-        content.AddChild(new Label
-        {
-            Text = Loc.GetString("repair-orders-difficulty", ("difficulty", difficulty)),
-            FontColorOverride = Color.LightGray,
-        });
+        if (order != null)
+            AddDifficulty(content, order.Difficulty);
 
         if (!available || entry.ExpiresAt == null)
         {
@@ -282,6 +277,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
         content.AddChild(label);
     }
 
+    private static void AddDifficulty(BoxContainer content, int difficulty)
+    {
+        var label = new RichTextLabel { HorizontalExpand = true };
+        label.SetMarkup(Loc.GetString("repair-orders-difficulty",
+            ("class", Loc.GetString(RepairOrderDifficulty.GetName(difficulty))),
+            ("difficulty", difficulty), ("max", RepairOrderDifficulty.Maximum)));
+        content.AddChild(label);
+    }
+
     private Control CreateCompletedCard(RepairOrderCompletedBuiEntry entry)
     {
         var panel = new PanelContainer
@@ -315,6 +319,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 : "repair-orders-status-completed"),
             FontColorOverride = entry.Result == RepairOrderResult.Expired ? Color.Orange : Color.LightGreen,
         });
+
+        if (order != null)
+            AddDifficulty(content, order.Difficulty);
 
         AddDamageSummary(content, entry.DamageEvents);
         AddExclusions(content, entry.Exclusions);

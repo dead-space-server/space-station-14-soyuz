@@ -1,3 +1,4 @@
+# Profile 1: order difficulties 1-2.
 - type: repairDamageProfile
   id: RepairDamageLight
   events:
@@ -54,6 +55,8 @@
   minimumEventSeparation: 2
   maxOccurrencesPerEvent: 1
   maxSeverity: Medium
+
+# Profile 2: order difficulties 3-4.
 - type: repairDamageProfile
   id: RepairDamageStandard
   events:
@@ -110,6 +113,8 @@
   minimumEventSeparation: 2
   maxOccurrencesPerEvent: 1
   maxSeverity: Heavy
+
+# Profile 3: order difficulties 5-6.
 - type: repairDamageProfile
   id: RepairDamageHeavy
   events:
@@ -165,4 +170,120 @@
   minRemainingFloor: 4
   minimumEventSeparation: 2
   maxOccurrencesPerEvent: 1
+  maxSeverity: Heavy
+
+# Profile 4: order difficulty 7.
+- type: repairDamageProfile
+  id: RepairDamageSevere
+  events:
+  - RepairDamageMicroMeteorImpact
+  - RepairDamageMeteorImpact
+  - RepairDamageHeavyMeteorImpact
+  - RepairDamageGrazingImpact
+  - RepairDamagePenetratorStrike
+  - RepairDamageHullBreach
+  - RepairDamageHullTear
+  - RepairDamageHullShear
+  - RepairDamageWindowBlowout
+  - RepairDamageAirlockBlowout
+  - RepairDamageBulkheadCollapse
+  - RepairDamageCorridorCollapse
+  - RepairDamageCornerCollapse
+  - RepairDamageCompartmentBreach
+  - RepairDamageFloorCollapse
+  - RepairDamageFloorCrack
+  - RepairDamageDeckSectionLoss
+  - RepairDamageStructuralShock
+  - RepairDamageDecompressionBurst
+  - RepairDamageMaintenanceRupture
+  - RepairDamageMachineryFailure
+  - RepairDamageMachineryClusterFailure
+  - RepairDamageEngineFailure
+  - RepairDamagePropulsionSectionHit
+  - RepairDamageGeneratorFailure
+  - RepairDamagePowerDistributionFailure
+  - RepairDamageEnergyStorageFailure
+  - RepairDamageLightingFailure
+  - RepairDamageConsoleNetworkFailure
+  - RepairDamageDoorControlFailure
+  - RepairDamageAtmosPumpFailure
+  - RepairDamageVentilationFailure
+  - RepairDamagePipeRupture
+  - RepairDamageAtmosCompartmentFailure
+  - RepairDamageDisposalFailure
+  - RepairDamageDockingFailure
+  - RepairDamageSmallExplosion
+  - RepairDamageLargeExplosion
+  - RepairDamageChainExplosions
+  - RepairDamageMeteorShower
+  minEvents: 8
+  maxEvents: 18
+  maxGenerationAttempts: 30
+  maxEventRolls: 160
+  minDamageFraction: 0.38
+  maxDamageFraction: 0.65
+  maxRemovedFloorFraction: 0.35
+  maxRemovedAnchoredEntityFraction: 0.75
+  minChangedRequirements: 8
+  minRemainingFloor: 4
+  minimumEventSeparation: 1.5
+  maxOccurrencesPerEvent: 3
+  maxSeverity: Heavy
+
+# Profile 5: order difficulties 8-10; extensive damage.
+- type: repairDamageProfile
+  id: RepairDamageCatastrophic
+  events:
+  - RepairDamageMicroMeteorImpact
+  - RepairDamageMeteorImpact
+  - RepairDamageHeavyMeteorImpact
+  - RepairDamageGrazingImpact
+  - RepairDamagePenetratorStrike
+  - RepairDamageHullBreach
+  - RepairDamageHullTear
+  - RepairDamageHullShear
+  - RepairDamageWindowBlowout
+  - RepairDamageAirlockBlowout
+  - RepairDamageBulkheadCollapse
+  - RepairDamageCorridorCollapse
+  - RepairDamageCornerCollapse
+  - RepairDamageCompartmentBreach
+  - RepairDamageFloorCollapse
+  - RepairDamageFloorCrack
+  - RepairDamageDeckSectionLoss
+  - RepairDamageStructuralShock
+  - RepairDamageDecompressionBurst
+  - RepairDamageMaintenanceRupture
+  - RepairDamageMachineryFailure
+  - RepairDamageMachineryClusterFailure
+  - RepairDamageEngineFailure
+  - RepairDamagePropulsionSectionHit
+  - RepairDamageGeneratorFailure
+  - RepairDamagePowerDistributionFailure
+  - RepairDamageEnergyStorageFailure
+  - RepairDamageLightingFailure
+  - RepairDamageConsoleNetworkFailure
+  - RepairDamageDoorControlFailure
+  - RepairDamageAtmosPumpFailure
+  - RepairDamageVentilationFailure
+  - RepairDamagePipeRupture
+  - RepairDamageAtmosCompartmentFailure
+  - RepairDamageDisposalFailure
+  - RepairDamageDockingFailure
+  - RepairDamageSmallExplosion
+  - RepairDamageLargeExplosion
+  - RepairDamageChainExplosions
+  - RepairDamageMeteorShower
+  minEvents: 20
+  maxEvents: 60
+  maxGenerationAttempts: 30
+  maxEventRolls: 400
+  minDamageFraction: 0.5
+  maxDamageFraction: 0.8
+  maxRemovedFloorFraction: 0.45
+  maxRemovedAnchoredEntityFraction: 0.85
+  minChangedRequirements: 16
+  minRemainingFloor: 4
+  minimumEventSeparation: 1
+  maxOccurrencesPerEvent: 6
   maxSeverity: Heavy

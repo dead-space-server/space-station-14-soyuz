@@ -3,6 +3,7 @@
 using System.Numerics;
 using System.Linq;
 using Content.Shared.Atmos.Components;
+using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Maps;
 using Content.Shared.Tag;
@@ -23,6 +24,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
     [Dependency] private readonly MapLoaderSystem _loader = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly SharedAtmosPipeLayersSystem _pipeLayers = default!;
     [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -946,7 +948,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
 
     private string EffectivePipePrototype(EntityUid entity, string prototype)
         => TryComp<AtmosPipeLayersComponent>(entity, out var layers) &&
-           layers.AlternativePrototypes.TryGetValue(layers.CurrentPipeLayer, out var alternative)
+           _pipeLayers.TryGetAlternativePrototype(layers, layers.CurrentPipeLayer, out var alternative)
             ? alternative.Id : prototype;
 
     private void OnPipeLayerCycled(Entity<AtmosPipeLayersComponent> entity, ref TrySetNextPipeLayerCompletedEvent args)

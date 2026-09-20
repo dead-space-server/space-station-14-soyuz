@@ -22,7 +22,7 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 /// </summary>
 public sealed class RepairOrderReportSystem : EntitySystem
 {
-    private static readonly ProtoId<EntityPrototype> GeneralStaffStamp = "RubberStampCentcom";
+    private static readonly EntProtoId GeneralStaffStamp = "RubberStampCentcom";
 
     private static readonly SoundSpecifier PrintSound =
         new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg");

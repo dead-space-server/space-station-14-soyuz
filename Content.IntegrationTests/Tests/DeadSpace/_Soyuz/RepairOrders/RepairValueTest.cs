@@ -10,6 +10,7 @@ using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
@@ -17,6 +18,8 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 [TestFixture]
 public sealed class RepairValueTest
 {
+    private static readonly EntProtoId UnknownStructure = "RepairOrderTestUnknownStructure";
+
     [TestPrototypes]
     private const string Prototypes = """
         - type: entity
@@ -75,7 +78,7 @@ public sealed class RepairValueTest
             });
 
             // A future anchored structure cannot silently receive a price or disappear from coverage.
-            var unknown = prototypes.Index<EntityPrototype>("RepairOrderTestUnknownStructure");
+            var unknown = prototypes.Index(UnknownStructure);
             Assert.That(catalog.Scan(new[] { unknown }).Unclassified,
                 Is.EqualTo(new[] { unknown.ID }));
             Assert.That(catalog.TryResolve(unknown.ID, out _), Is.False);
@@ -105,8 +108,34 @@ public sealed class RepairValueTest
             var tags = prototypes.EnumeratePrototypes<RepairValueTagPrototype>().ToArray();
             var tag = tags.First();
             const string entity = "RepairOrderTestUnknownStructure";
-            var known = new RepairValueGroupPrototype { Tag = tag.ID, Entities = new() { entity } };
-            var exclusion = new RepairValueExclusionPrototype { Reason = "Test helper", Entities = new() { entity } };
+            var serialization = pair.Server.ResolveDependency<ISerializationManager>();
+            // Copy manager-loaded prototypes so invalid fixtures never modify the shared catalog.
+            RepairValueGroupPrototype Group(ProtoId<RepairValueTagPrototype> category, params EntProtoId[] entities)
+            {
+                var group = serialization.CreateCopy(prototypes.EnumeratePrototypes<RepairValueGroupPrototype>().First());
+                group.Tag = category;
+                group.Entities = entities.ToList();
+                return group;
+            }
+
+            RepairValueExclusionPrototype Exclusion(string reason, params EntProtoId[] entities)
+            {
+                var result = serialization.CreateCopy(prototypes.EnumeratePrototypes<RepairValueExclusionPrototype>().First());
+                result.Reason = reason;
+                result.Entities = entities.ToList();
+                return result;
+            }
+
+            RepairValueOverridePrototype Override(int value)
+            {
+                var result = serialization.CreateCopy(prototypes.EnumeratePrototypes<RepairValueOverridePrototype>().First());
+                result.Entity = entity;
+                result.Value = value;
+                return result;
+            }
+
+            var known = Group(tag.ID, entity);
+            var exclusion = Exclusion("Test helper", entity);
             RepairValueCatalog Build(RepairValueGroupPrototype[] groups,
                 RepairValueOverridePrototype[] overrides = null,
                 RepairValueExclusionPrototype[] exclusions = null)
@@ -126,25 +155,26 @@ public sealed class RepairValueTest
             }
 
             Invalid(Build(new[] { known, known }), "duplicate classification");
-            Invalid(Build(new[] { new RepairValueGroupPrototype { Tag = tag.ID, Entities = new() { entity, entity } } }), "duplicate classification");
-            Invalid(Build(new[] { new RepairValueGroupPrototype { Tag = tag.ID } }), "empty group");
-            Invalid(Build(new[] { new RepairValueGroupPrototype { Tag = "MissingRepairValueTag", Entities = new() { entity } } }), "missing RepairValueTag");
-            Invalid(Build(new[] { new RepairValueGroupPrototype { Tag = tag.ID, Entities = new() { "RemovedRepairValueEntity" } } }), "missing EntityPrototype");
+            Invalid(Build(new[] { Group(tag.ID, entity, entity) }), "duplicate classification");
+            Invalid(Build(new[] { Group(tag.ID) }), "empty group");
+            Invalid(Build(new[] { Group("MissingRepairValueTag", entity) }), "missing RepairValueTag");
+            Invalid(Build(new[] { Group(tag.ID, "RemovedRepairValueEntity") }), "missing EntityPrototype");
             Invalid(Build(new[] { known }, exclusions: new[] { exclusion }), "classified AND excluded");
             Invalid(Build(Array.Empty<RepairValueGroupPrototype>(), exclusions: new[]
             {
-                new RepairValueExclusionPrototype { Reason = "Invalid reference", Entities = new() { "RemovedRepairValueEntity" } },
+                Exclusion("Invalid reference", "RemovedRepairValueEntity"),
             }), "missing EntityPrototype");
 
-            var exact = new RepairValueOverridePrototype { Entity = entity, Value = 123 };
+            var exact = Override(123);
             var overridden = Build(new[] { known }, new[] { exact });
             Assert.That(overridden.TryResolve(entity, out points), Is.True);
             Assert.That(points, Is.EqualTo(123));
             Invalid(Build(new[] { known }, new[] { exact, exact }), "duplicate override");
             foreach (var value in new[] { 0, -1 })
             {
-                Invalid(Build(new[] { known }, new[] { new RepairValueOverridePrototype { Entity = entity, Value = value } }), "must be positive");
-                var badTag = new RepairValueTagPrototype { Value = value };
+                Invalid(Build(new[] { known }, new[] { Override(value) }), "must be positive");
+                var badTag = serialization.CreateCopy(tag);
+                badTag.Value = value;
                 var badTags = RepairValueCatalog.Build(prototypes, new[] { badTag },
                     Array.Empty<RepairValueGroupPrototype>(), Array.Empty<RepairValueOverridePrototype>(),
                     Array.Empty<RepairValueExclusionPrototype>());
@@ -154,7 +184,7 @@ public sealed class RepairValueTest
             var excluded = Build(Array.Empty<RepairValueGroupPrototype>(), exclusions: new[] { exclusion });
             Assert.That(excluded.Errors, Is.Empty);
             Assert.That(excluded.IsExcluded(entity), Is.True);
-            Assert.That(excluded.Scan(new[] { prototypes.Index<EntityPrototype>(entity) }).Unclassified, Is.Empty);
+            Assert.That(excluded.Scan(new[] { prototypes.Index(UnknownStructure) }).Unclassified, Is.Empty);
         });
         await pair.CleanReturnAsync();
     }

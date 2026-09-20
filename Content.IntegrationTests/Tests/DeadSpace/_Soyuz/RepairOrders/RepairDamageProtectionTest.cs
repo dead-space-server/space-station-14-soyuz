@@ -10,6 +10,7 @@ using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 
@@ -90,16 +91,26 @@ public sealed class RepairDamageProtectionTest
                 if (!boundary) machines.Add(uid);
             }
             var damage = server.System<RepairOrderDamageSystem>();
-            var order = server.ProtoMan.Index<RepairOrderPrototype>("RepairOrderDamagedCargoShuttle");
+            ProtoId<RepairOrderPrototype> orderId = "RepairOrderDamagedCargoShuttle";
+            var order = server.ProtoMan.Index(orderId);
             var snapshot = damage.Snapshot(map.Grid, order);
             Assert.That(snapshot.ProtectedFloors, Does.Contain(new Vector2i(5, 5)));
-            var profile = new RepairDamageProfilePrototype
-            {
-                Events = new() { eventId }, MinEvents = 1, MaxEvents = 1, MaxGenerationAttempts = 40, MaxEventRolls = 40,
-                MinDamageFraction = .00001f, MaxDamageFraction = .99f, MaxRemovedFloorFraction = .5f,
-                MaxRemovedAnchoredEntityFraction = 1, MinRemainingFloor = 4, MinChangedRequirements = 1,
-                MinimumEventSeparation = 0,
-            };
+            ProtoId<RepairDamageProfilePrototype> profileId = "RepairDamageLight";
+            var profile = server.ResolveDependency<ISerializationManager>().CreateCopy(server.ProtoMan.Index(profileId));
+            profile.Events = new() { eventId };
+            profile.MinEvents = 1;
+            profile.MaxEvents = 1;
+            profile.MaxGenerationAttempts = 40;
+            profile.MaxEventRolls = 40;
+            profile.MinDamageFraction = .00001f;
+            profile.MaxDamageFraction = .99f;
+            profile.MaxRemovedFloorFraction = .5f;
+            profile.MaxRemovedAnchoredEntityFraction = 1;
+            profile.MinRemainingFloor = 4;
+            profile.MinChangedRequirements = 1;
+            profile.MinimumEventSeparation = 0;
+            profile.MaxOccurrencesPerEvent = 1;
+            profile.MaxSeverity = RepairDamageSeverity.Heavy;
             Assert.That(damage.TryGeneratePlan(snapshot, profile, 12345, out var plan, out var reason), Is.True, reason);
             Assert.That(plan.RemovedEntities.All(i => !protectedEntities.Contains(snapshot.Entities[i].Uid)), Is.True);
             Assert.That(plan.RemovedTiles, Does.Not.Contain(new Vector2i(5, 5)));

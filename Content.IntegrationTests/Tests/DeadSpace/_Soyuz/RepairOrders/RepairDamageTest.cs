@@ -12,6 +12,7 @@ using Robust.Shared.Localization;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 
@@ -134,7 +135,7 @@ public sealed class RepairDamageTest
                 Assert.That(name, Is.Not.Empty);
                 Assert.That(description, Is.Not.Empty);
                 Assert.That(damage.CanApply(snapshot, ev), Is.True, ev.ID);
-                var profile = FixtureProfile(ev.ID);
+                var profile = FixtureProfile(server.ProtoMan, server.ResolveDependency<ISerializationManager>(), ev.ID);
                 Assert.That(damage.TryGeneratePlan(snapshot, profile, 12345, out var plan, out var rejection), Is.True, $"{ev.ID}: {rejection}");
                 Assert.That(plan.Events, Has.Length.EqualTo(1));
                 Assert.That(plan.Events[0].Event.Id, Is.EqualTo(ev.ID));
@@ -149,7 +150,8 @@ public sealed class RepairDamageTest
                     Assert.That(RepairOrderDamageSystem.IsConnected(plan.RemovedEntities.Select(i => snapshot.Entities[i].Cell).ToHashSet()), Is.True, ev.ID);
             }
             var withoutEngines = snapshot with { Entities = snapshot.Entities.Where(e => !e.Category.StartsWith("RepairEngine", StringComparison.Ordinal)).ToImmutableArray() };
-            Assert.That(damage.CanApply(withoutEngines, server.ProtoMan.Index<RepairDamageEventPrototype>("RepairDamageEngineFailure")), Is.False);
+            ProtoId<RepairDamageEventPrototype> engineFailure = "RepairDamageEngineFailure";
+            Assert.That(damage.CanApply(withoutEngines, server.ProtoMan.Index(engineFailure)), Is.False);
             var duplicate = RepairDamageSummary.Format(server.ProtoMan,
                 new[] { "RepairDamageMicroMeteorImpact", "RepairDamageMicroMeteorImpact" }, detailed: false);
             Assert.That(duplicate, Does.Contain("2"));
@@ -160,44 +162,62 @@ public sealed class RepairDamageTest
     }
 
     [Test]
-    public void InvalidPlansAreRejectedBeforeMutation()
+    public async Task InvalidPlansAreRejectedBeforeMutation()
     {
-        var profile = FixtureProfile("RepairDamageFloorCollapse");
-        var floors = new[] { new Vector2i(0, 0), new Vector2i(1, 0), new Vector2i(2, 0), new Vector2i(3, 0), new Vector2i(4, 0) }.ToImmutableArray();
-        var snapshot = new RepairDamageSnapshot(EntityUid.Invalid, floors, ImmutableArray<RepairDamageEntity>.Empty, ImmutableArray<Vector2i>.Empty, 2);
-        var cell = new Vector2i(2, 0);
-        var ev = new RepairDamageEventResult("RepairDamageFloorCollapse", ImmutableArray.Create(cell), ImmutableArray.Create(cell), 1);
-        var split = RepairOrderDamageSystem.MakePlan(snapshot, 1, 0, new[] { cell }, Array.Empty<int>(), new[] { ev });
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, split, out var reason), Is.False);
-        Assert.That(reason, Does.Contain("split"));
-        var edge = floors[0];
-        var plan = RepairOrderDamageSystem.MakePlan(snapshot, 1, 0, new[] { edge }, Array.Empty<int>(), new[] { ev with { Centers = ImmutableArray.Create(edge), AffectedCells = ImmutableArray.Create(edge) } });
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.True, reason);
-        profile.MaxRemovedFloorFraction = .1f;
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
-        Assert.That(reason, Does.Contain("Floor removal cap"));
-        profile.MaxRemovedFloorFraction = .9f;
-        profile.MinDamageFraction = .5f;
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
-        Assert.That(reason, Does.Contain("Insufficient"));
-        profile.MinDamageFraction = .01f;
-        profile.MaxDamageFraction = .1f;
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
-        Assert.That(reason, Does.Contain("Maximum damage"));
-        profile.MaxDamageFraction = .99f;
-        profile.MinChangedRequirements = 2;
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out _), Is.False);
-        profile.MinChangedRequirements = 1;
-        Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan with { Events = ImmutableArray.Create(ev with { ChangedRequirements = 0 }) }, out _), Is.False);
+        await using var pair = await PoolManager.GetServerClient();
+        await pair.Server.WaitAssertion(() =>
+        {
+            var profile = FixtureProfile(pair.Server.ProtoMan, pair.Server.ResolveDependency<ISerializationManager>(), "RepairDamageFloorCollapse");
+            var floors = new[] { new Vector2i(0, 0), new Vector2i(1, 0), new Vector2i(2, 0), new Vector2i(3, 0), new Vector2i(4, 0) }.ToImmutableArray();
+            var snapshot = new RepairDamageSnapshot(EntityUid.Invalid, floors, ImmutableArray<RepairDamageEntity>.Empty, ImmutableArray<Vector2i>.Empty, 2);
+            var cell = new Vector2i(2, 0);
+            var ev = new RepairDamageEventResult("RepairDamageFloorCollapse", ImmutableArray.Create(cell), ImmutableArray.Create(cell), 1);
+            var split = RepairOrderDamageSystem.MakePlan(snapshot, 1, 0, new[] { cell }, Array.Empty<int>(), new[] { ev });
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, split, out var reason), Is.False);
+            Assert.That(reason, Does.Contain("split"));
+            var edge = floors[0];
+            var plan = RepairOrderDamageSystem.MakePlan(snapshot, 1, 0, new[] { edge }, Array.Empty<int>(), new[] { ev with { Centers = ImmutableArray.Create(edge), AffectedCells = ImmutableArray.Create(edge) } });
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.True, reason);
+            profile.MaxRemovedFloorFraction = .1f;
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
+            Assert.That(reason, Does.Contain("Floor removal cap"));
+            profile.MaxRemovedFloorFraction = .9f;
+            profile.MinDamageFraction = .5f;
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
+            Assert.That(reason, Does.Contain("Insufficient"));
+            profile.MinDamageFraction = .01f;
+            profile.MaxDamageFraction = .1f;
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out reason), Is.False);
+            Assert.That(reason, Does.Contain("Maximum damage"));
+            profile.MaxDamageFraction = .99f;
+            profile.MinChangedRequirements = 2;
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan, out _), Is.False);
+            profile.MinChangedRequirements = 1;
+            Assert.That(RepairOrderDamageSystem.ValidatePlan(snapshot, profile, plan with { Events = ImmutableArray.Create(ev with { ChangedRequirements = 0 }) }, out _), Is.False);
+        });
+        await pair.CleanReturnAsync();
     }
 
-    private static RepairDamageProfilePrototype FixtureProfile(string ev) => new()
+    private static RepairDamageProfilePrototype FixtureProfile(IPrototypeManager prototypes, ISerializationManager serialization, string ev)
     {
-        Events = new() { ev }, MinEvents = 1, MaxEvents = 1, MaxGenerationAttempts = 30, MaxEventRolls = 30,
-        MinDamageFraction = .00001f, MaxDamageFraction = .99f, MaxRemovedFloorFraction = .9f,
-        MaxRemovedAnchoredEntityFraction = .99f, MinChangedRequirements = 1, MinRemainingFloor = 2,
-        MinimumEventSeparation = 0,
-    };
+        ProtoId<RepairDamageProfilePrototype> profileId = "RepairDamageLight";
+        var profile = serialization.CreateCopy(prototypes.Index(profileId));
+        profile.Events = new() { ev };
+        profile.MinEvents = 1;
+        profile.MaxEvents = 1;
+        profile.MaxGenerationAttempts = 30;
+        profile.MaxEventRolls = 30;
+        profile.MinDamageFraction = .00001f;
+        profile.MaxDamageFraction = .99f;
+        profile.MaxRemovedFloorFraction = .9f;
+        profile.MaxRemovedAnchoredEntityFraction = .99f;
+        profile.MinChangedRequirements = 1;
+        profile.MinRemainingFloor = 2;
+        profile.MinimumEventSeparation = 0;
+        profile.MaxOccurrencesPerEvent = 1;
+        profile.MaxSeverity = RepairDamageSeverity.Heavy;
+        return profile;
+    }
 
     private static string Signature(RepairDamageSnapshot snapshot, RepairOrderDamagePlan plan)
         => string.Join(";", plan.Events.Select(ev => ev.Event.Id + ":" + string.Join("/", ev.Centers))) +

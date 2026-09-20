@@ -7,6 +7,8 @@ using Content.Shared.Access.Components;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
 using Serilog.Events;
 
@@ -15,16 +17,26 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 public sealed partial class RepairOrderRegressionTest
 {
     [Test]
-    public void OfferSelectionRespectsWeightIntervals()
+    public async Task OfferSelectionRespectsWeightIntervals()
     {
-        var light = new RepairOrderPrototype { Weight = 1 };
-        var heavy = new RepairOrderPrototype { Weight = 3 };
-        var candidates = new[] { light, heavy };
-        Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, 0), Is.SameAs(light));
-        Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .249), Is.SameAs(light));
-        Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .25), Is.SameAs(heavy));
-        Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .999), Is.SameAs(heavy));
-        Assert.That(RepairOrderSystem.SelectWeightedOffer(new[] { light }, .999), Is.SameAs(light));
+        await using var pair = await PoolManager.GetServerClient();
+        await pair.Server.WaitAssertion(() =>
+        {
+            ProtoId<RepairOrderPrototype> orderId = "RepairOrderDamagedCargoShuttle";
+            var template = pair.Server.ProtoMan.Index(orderId);
+            var serialization = pair.Server.ResolveDependency<ISerializationManager>();
+            var light = serialization.CreateCopy(template);
+            light.Weight = 1;
+            var heavy = serialization.CreateCopy(template);
+            heavy.Weight = 3;
+            var candidates = new[] { light, heavy };
+            Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, 0), Is.SameAs(light));
+            Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .249), Is.SameAs(light));
+            Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .25), Is.SameAs(heavy));
+            Assert.That(RepairOrderSystem.SelectWeightedOffer(candidates, .999), Is.SameAs(heavy));
+            Assert.That(RepairOrderSystem.SelectWeightedOffer(new[] { light }, .999), Is.SameAs(light));
+        });
+        await pair.CleanReturnAsync();
     }
 
     [TestPrototypes]

@@ -11,6 +11,8 @@ using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.Manager;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 
@@ -85,7 +87,8 @@ public sealed class RepairTechnicalExclusionTest
             EntityUid grid = default;
             try
             {
-                var order = server.ProtoMan.Index<RepairOrderPrototype>("RepairTestFloorCover");
+                ProtoId<RepairOrderPrototype> orderId = "RepairTestFloorCover";
+                var order = server.ProtoMan.Index(orderId);
                 Assert.That(server.System<MapLoaderSystem>().TryLoadGrid(mapId, order.TargetGridPath, out var loaded), Is.True);
                 var target = loaded!.Value;
                 grid = target.Owner;
@@ -96,12 +99,22 @@ public sealed class RepairTechnicalExclusionTest
                 var center = new Vector2i(1, 1);
                 var ev = new RepairDamageEventResult("RepairDamageFloorCollapse", ImmutableArray.Create(center),
                     removedTiles.ToImmutableArray(), removedTiles.Length + removedEntities.Length);
-                var profile = new RepairDamageProfilePrototype
-                {
-                    Events = new() { ev.Event }, MinEvents = 1, MaxEvents = 1, MinDamageFraction = .001f,
-                    MaxDamageFraction = .99f, MaxRemovedFloorFraction = .99f, MaxRemovedAnchoredEntityFraction = 1,
-                    MinRemainingFloor = 2, MinChangedRequirements = 1,
-                };
+                ProtoId<RepairDamageProfilePrototype> profileId = "RepairDamageLight";
+                var profile = server.ResolveDependency<ISerializationManager>().CreateCopy(server.ProtoMan.Index(profileId));
+                profile.Events = new() { ev.Event };
+                profile.MinEvents = 1;
+                profile.MaxEvents = 1;
+                profile.MaxGenerationAttempts = 0;
+                profile.MaxEventRolls = 0;
+                profile.MinDamageFraction = .001f;
+                profile.MaxDamageFraction = .99f;
+                profile.MaxRemovedFloorFraction = .99f;
+                profile.MaxRemovedAnchoredEntityFraction = 1;
+                profile.MinRemainingFloor = 2;
+                profile.MinChangedRequirements = 1;
+                profile.MinimumEventSeparation = 0;
+                profile.MaxOccurrencesPerEvent = 1;
+                profile.MaxSeverity = RepairDamageSeverity.Heavy;
                 var plan = RepairOrderDamageSystem.MakePlan(snapshot, 1, 0, removedTiles, removedEntities, new[] { ev });
                 damage.ApplyPlan(target, snapshot, profile, plan);
                 Assert.That(validation.TryPrepareSession(station, 1, order.ID, grid, out var active), Is.True);

@@ -22,6 +22,8 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 /// </summary>
 public sealed class RepairOrderReportSystem : EntitySystem
 {
+    private static readonly ProtoId<EntityPrototype> GeneralStaffStamp = "RubberStampCentcom";
+
     private static readonly SoundSpecifier PrintSound =
         new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg");
 
@@ -249,7 +251,7 @@ public sealed class RepairOrderReportSystem : EntitySystem
 
     public bool StampReport(Entity<PaperComponent> paper)
     {
-        var prototype = _prototype.Index<EntityPrototype>("RubberStampCentcom");
+        var prototype = _prototype.Index(GeneralStaffStamp);
         if (prototype.Components["Stamp"].Component is not StampComponent stamp) return false;
         return _paper.TryStamp(paper, new StampDisplayInfo
         {

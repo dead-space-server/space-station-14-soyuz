@@ -16,7 +16,7 @@ public sealed class RepairDamageProtectionSystem : EntitySystem
     {
         if (MetaData(uid).EntityPrototype is not { } prototype) return false;
         return CanProcedurallyDamage(prototype) && !_prototypes.EnumeratePrototypes<RepairDamageProtectionPrototype>()
-            .SelectMany(p => p.Components).Any(name => EntityManager.HasComponent(uid, _components.GetRegistration(name).Type));
+            .SelectMany(p => p.Components).Any(name => HasComp(uid, _components.GetRegistration(name).Type));
     }
 
     public bool CanProcedurallyDamage(EntityPrototype prototype)

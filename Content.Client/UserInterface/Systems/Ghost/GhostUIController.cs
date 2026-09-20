@@ -2,7 +2,7 @@
 using Content.Client.DeadSpace.NewLife;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
-using Content.Client.DeadSpace._Soyuz.GhostBar;
+using Content.Client.DeadSpace._Soyuz.GhostBar; // DS14-Soyuz
 using Content.Shared.DeadSpace.Arena; // DS14
 using Content.Shared.Ghost;
 using Robust.Client.UserInterface;

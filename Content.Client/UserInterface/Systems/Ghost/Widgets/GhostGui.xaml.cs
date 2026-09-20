@@ -34,7 +34,7 @@ public sealed partial class GhostGui : UIWidget
         GhostRolesButton.OnPressed += _ => GhostRolesButton.StyleClasses.Remove(StyleClass.Negative);
         NewLifeButton.OnPressed += _ => NewLifePressed?.Invoke();
         ArenaButton.OnPressed += _ => ArenaPressed?.Invoke(); // DS14
-        GhostBarButton.OnPressed += _ => GhostBarPressed?.Invoke();
+        GhostBarButton.OnPressed += _ => GhostBarPressed?.Invoke(); // DS14-Soyuz
     }
 
     public void Hide()

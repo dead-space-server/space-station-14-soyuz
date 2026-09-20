@@ -1290,15 +1290,15 @@ DesoxyephedrineMedipen: CelestinMedipen
 # 2026-07-01 - DS14
 DresserCaptainFilled: VendingMachineCaptainDrobe
 
-# 2026-07-08 - DS14
-CargoRequestEngineeringComputerCircuitboard: null
-CargoRequestMedicalComputerCircuitboard: null
-CargoRequestScienceComputerCircuitboard: null
-CargoRequestServiceComputerCircuitboard: null
-ComputerCargoOrdersEngineering: null
-ComputerCargoOrdersMedical: null
-ComputerCargoOrdersScience: null
-ComputerCargoOrdersService: null
+# 2026-07-08 - DS14 #DS14-Soyuz enabled
+#CargoRequestEngineeringComputerCircuitboard: null
+#CargoRequestMedicalComputerCircuitboard: null
+#CargoRequestScienceComputerCircuitboard: null
+#CargoRequestServiceComputerCircuitboard: null
+#ComputerCargoOrdersEngineering: null
+#ComputerCargoOrdersMedical: null
+#ComputerCargoOrdersScience: null
+#ComputerCargoOrdersService: null
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14
@@ -1312,6 +1312,14 @@ WaterCooler: WaterCoolerTransfer
 # 2026-08-18
 LightReplacer: LightReplacerFilled
 LightReplacerEmpty: LightReplacer # DS14: preserve empty replacers placed on fork maps
+
+
+
+
+
+
+
+
 
 #region DS14-Soyuz migration: All migration DS14-Soyuz server
 SignNTlogo1: null

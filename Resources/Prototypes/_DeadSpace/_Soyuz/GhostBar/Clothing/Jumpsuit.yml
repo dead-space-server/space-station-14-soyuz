@@ -1,0 +1,39 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformGhostBarBase
+  name: космо-комбинезон
+  description: Одежда, которую легально получить на станции, вряд ли получится.
+  suffix: Гост-бар, Неснимаемая
+  abstract: true
+  components:
+  - type: Unremoveable
+
+- type: entity
+  parent: ClothingUniformGhostBarBase
+  id: ClothingUniformGhostBarBlue
+  name: голубой космо-комбинезон
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/blue.rsi
+
+- type: entity
+  parent: ClothingUniformGhostBarBase
+  id: ClothingUniformGhostBarOrange
+  name: оранжевый космо-комбинезон
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/orange.rsi
+
+- type: entity
+  parent: ClothingUniformGhostBarBase
+  id: ClothingUniformGhostBarViolet
+  name: фиолетовый космо-комбинезон
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpsuit/violet.rsi

@@ -1438,6 +1438,7 @@
   - SurveillanceCameraSupply
   - WallmountTelescreen
   - WallmountTelevision
+  - TwoWayLever
 - type: repairValueGroup
   id: RepairValueEngineLarge
   tag: RepairEngineLarge

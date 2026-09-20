@@ -81,9 +81,21 @@ public sealed class RepairDamageTest
                         foreach (var index in plan.RemovedEntities)
                         {
                             var entity = snapshot.Entities[index];
-                            var restored = server.EntMan.SpawnEntity(entity.Prototype, new EntityCoordinates(grid, entity.Position));
+                            var restored = server.EntMan.SpawnEntity(
+                                entity.Prototype,
+                                new EntityCoordinates(grid, entity.Position));
+
                             transform.SetLocalRotation(restored, entity.Rotation);
-                            transform.AnchorEntity(restored);
+
+                            var xform = server.EntMan.GetComponent<TransformComponent>(restored);
+
+                            if (!xform.Anchored)
+                            {
+                                Assert.That(
+                                    transform.AnchorEntity(restored),
+                                    Is.True,
+                                    entity.Prototype);
+                            }
                         }
                         Assert.That(validation.RevalidateAll(grid), Is.True);
                         Assert.That(blueprint.FullyMatchesTarget, Is.True);

@@ -76,19 +76,34 @@ public sealed class RepairDamageProtectionTest
             {
                 var prototype = server.ProtoMan.Index<EntityPrototype>(id);
                 Assert.That(protection.CanProcedurallyDamage(prototype), Is.False, id);
-                var uid = server.EntMan.SpawnEntity(id, new EntityCoordinates(map.Grid.Owner, new Vector2(5.5f, 5.5f)));
-                transform.AnchorEntity(uid);
-                Assert.That(server.EntMan.GetComponent<TransformComponent>(uid).Anchored, Is.True, id);
+                var uid = server.EntMan.SpawnEntity(
+                    id,
+                    new EntityCoordinates(map.Grid.Owner, new Vector2(5.5f, 5.5f)));
+
+                var xform = server.EntMan.GetComponent<TransformComponent>(uid);
+
+                if (!xform.Anchored)
+                    Assert.That(transform.AnchorEntity(uid), Is.True, id);
+
+                Assert.That(xform.Anchored, Is.True, id);
                 protectedEntities.Add(uid);
             }
             var machines = new List<EntityUid>();
             foreach (var cell in cells.Where(c => c != new Vector2i(5, 5)))
             {
                 var boundary = cell.X == 0 || cell.Y == 0 || cell.X == 10 || cell.Y == 10;
-                var uid = server.EntMan.SpawnEntity(boundary ? "WallSolid" : "Autolathe",
+                var prototype = boundary ? "WallSolid" : "Autolathe";
+                var uid = server.EntMan.SpawnEntity(
+                    prototype,
                     new EntityCoordinates(map.Grid.Owner, new Vector2(cell.X + .5f, cell.Y + .5f)));
-                transform.AnchorEntity(uid);
-                if (!boundary) machines.Add(uid);
+
+                var xform = server.EntMan.GetComponent<TransformComponent>(uid);
+
+                if (!xform.Anchored)
+                    Assert.That(transform.AnchorEntity(uid), Is.True, prototype);
+
+                if (!boundary)
+                    machines.Add(uid);
             }
             var damage = server.System<RepairOrderDamageSystem>();
             ProtoId<RepairOrderPrototype> orderId = "RepairOrderDamagedCargoShuttle";

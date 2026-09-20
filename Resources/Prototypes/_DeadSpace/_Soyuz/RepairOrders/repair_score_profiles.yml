@@ -46,6 +46,17 @@
   - selector:
       parents: [Airlock, AirlockExternal]
     canonical: Airlock
+  # Blast door mapping/state/access variants are equivalent for repair purposes.
+  - selector:
+      parents: [BlastDoor]
+    canonical: BlastDoor
+  - selector:
+      parents: [Poweredlight]
+    canonical: Poweredlight
+  # All wall closets/lockers are equivalent for repair purposes.
+  - selector:
+      parents: [BaseWallCloset, BaseWallLocker]
+    canonical: ClosetWall
 
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
   rotationRules:

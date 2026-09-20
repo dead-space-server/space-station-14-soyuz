@@ -1,0 +1,32 @@
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatGhostBarBlue
+  name: голубая космо-куртка
+  description: Одежда, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/blue.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatGhostBarOrange
+  name: оранжевая космо-куртка
+  description: Одежда, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/orange.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatGhostBarViolet
+  name: фиолетовая космо-куртка
+  description: Одежда, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/OuterClothing/Jackets/violet.rsi

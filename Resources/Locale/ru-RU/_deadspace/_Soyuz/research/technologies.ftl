@@ -15,3 +15,4 @@ research-technology-experimental-cloning = Экспериментальное к
 research-technology-clarke = К.Л.А.Р.К.
 research-technology-implants = Импланты
 research-technology-police-beta-technology = Экспериментальный скафандр "Бета-1"
+research-technology-experimental-camera = Полароид

@@ -12,6 +12,11 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 [RegisterComponent]
 public sealed partial class RepairOrderStationComponent : Component
 {
+    public const int MaximumAvailableOffers = 10;
+
+    [DataField]
+    public int AvailableOfferCount = MaximumAvailableOffers;
+
     [DataField]
     public TimeSpan OfferInterval = TimeSpan.FromMinutes(10);
 
@@ -55,8 +60,6 @@ public sealed partial class RepairOrderStationComponent : Component
     [ViewVariables]
     public int NextRuntimeId = 1;
 
-    [ViewVariables]
-    public ProtoId<RepairOrderPrototype>? LastGeneratedPrototype;
 }
 
 [DataDefinition]
@@ -71,17 +74,29 @@ public sealed partial class AvailableRepairOrder
     [ViewVariables]
     public TimeSpan ExpiresAt;
 
-    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, TimeSpan expiresAt)
+    [ViewVariables]
+    public readonly int DamageSeed;
+
+    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, TimeSpan expiresAt, int damageSeed = 0)
     {
         RuntimeId = runtimeId;
         Prototype = prototype;
         ExpiresAt = expiresAt;
+        DamageSeed = damageSeed;
     }
 }
 
 [DataDefinition]
 public sealed partial class ActiveRepairOrder
 {
+    public RepairTechnicalExclusionSnapshot? Exclusions;
+    public int FinalPoints => RepairTechnicalExclusion.FinalPoints(CurrentPoints, Exclusions?.Requirements.Length ?? 0);
+
+    [ViewVariables]
+    public RepairDamageGenerationInfo? DamageGeneration;
+
+    public int DamageSeed => DamageGeneration?.Seed ?? 0;
+
     [ViewVariables]
     public int RuntimeId;
 
@@ -153,6 +168,11 @@ public sealed partial class ActiveRepairOrder
 [DataDefinition]
 public sealed partial class CompletedRepairOrder
 {
+    public RepairTechnicalExclusionSnapshot? Exclusions;
+
+    [ViewVariables]
+    public RepairDamageGenerationInfo? DamageGeneration;
+
     [ViewVariables]
     public int RuntimeId;
 

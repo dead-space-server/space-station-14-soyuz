@@ -1,6 +1,7 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using System.Numerics;
+using System.Linq;
 using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Robust.Shared.EntitySerialization.Systems;
@@ -18,6 +19,8 @@ public enum RepairOrderSpawnFailure : byte
     InvalidGrid,
     NoSpace,
     TransferFailed,
+    DamageFailed,
+    PrepareFailed,
 }
 
 /// <summary>
@@ -36,6 +39,10 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
+    [Dependency] private readonly RepairOrderDamageSystem _damage = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
+    [Dependency] private readonly Robust.Shared.Prototypes.IPrototypeManager _prototypes = default!;
+
     private ISawmill _sawmill = default!;
 
     public override void Initialize()
@@ -47,10 +54,13 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
     public bool TrySpawnDamagedGrid(
         EntityUid console,
         RepairOrderPrototype order,
+        AvailableRepairOrder offer,
         out EntityUid spawnedGrid,
+        out ActiveRepairOrder preparedActive,
         out RepairOrderSpawnFailure failure)
     {
         spawnedGrid = EntityUid.Invalid;
+        preparedActive = default!;
         failure = RepairOrderSpawnFailure.None;
 
         var consoleXform = Transform(console);
@@ -79,7 +89,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
 
         MapId? temporaryMapId = null;
         EntityUid loadedGridUid = EntityUid.Invalid;
-        var transferred = false;
+        var stageFailure = RepairOrderSpawnFailure.LoadFailed;
 
         try
         {
@@ -91,12 +101,12 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             Entity<MapGridComponent>? loadedGrid;
             try
             {
-                loaded = _loader.TryLoadGrid(mapId, order.DamagedGridPath, out loadedGrid);
+                loaded = _loader.TryLoadGrid(mapId, order.TargetGridPath, out loadedGrid);
             }
             catch (Exception exception)
             {
                 failure = RepairOrderSpawnFailure.LoadFailed;
-                _sawmill.Error($"Failed to load damaged repair grid for order {order.ID} from {order.DamagedGridPath}: {exception}");
+                _sawmill.Error($"Failed to load intact repair grid: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}, Path={order.TargetGridPath}: {exception}");
                 return false;
             }
 
@@ -107,6 +117,33 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             }
 
             loadedGridUid = damagedGrid.Owner;
+            stageFailure = RepairOrderSpawnFailure.DamageFailed;
+            var profile = _prototypes.Index(order.DamageProfile);
+            var snapshot = _damage.Snapshot(damagedGrid, order);
+            if (!_damage.TryGeneratePlan(snapshot, profile, offer.DamageSeed, out var plan, out var rejection))
+            {
+                failure = RepairOrderSpawnFailure.DamageFailed;
+                _sawmill.Warning($"Repair damage rejected: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}: {rejection}");
+                return false;
+            }
+            _damage.ApplyPlan(damagedGrid, snapshot, profile, plan);
+            stageFailure = RepairOrderSpawnFailure.PrepareFailed;
+            if (!_validation.TryPrepareSession(stationUid.Value, offer.RuntimeId, offer.Prototype,
+                    damagedGrid.Owner, out preparedActive))
+            {
+                failure = RepairOrderSpawnFailure.PrepareFailed;
+                return false;
+            }
+            preparedActive.DamageGeneration = plan.ToInfo();
+            if (preparedActive.MaxPoints <= 0 || Comp<RepairBlueprintComponent>(damagedGrid.Owner).FullyMatchesTarget)
+            {
+                failure = RepairOrderSpawnFailure.DamageFailed;
+                return false;
+            }
+            _sawmill.Info($"Generated procedural repair damage: Order={order.ID}, RuntimeId={offer.RuntimeId}, " +
+                $"Seed={plan.Seed}, Attempt={plan.Attempt}, Events=[{string.Join(", ", plan.Events.Select(e => e.Event.Id))}], " +
+                $"RemovedTiles={plan.RemovedTiles.Length}, RemovedEntities={plan.RemovedEntities.Length}, DamageValue={plan.DamageValue}, DamageFraction={plan.DamageFraction}");
+            stageFailure = RepairOrderSpawnFailure.TransferFailed;
             var damagedBounds = damagedGrid.Comp.LocalAABB;
             if (damagedBounds.Size.X <= 0f || damagedBounds.Size.Y <= 0f)
             {
@@ -166,7 +203,6 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
                 placementCoordinates.Position,
                 placementAngle,
                 loadedXform);
-            transferred = true;
 
             _map.DeleteMap(mapId);
             temporaryMapId = null;
@@ -176,21 +212,29 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
         }
         catch (Exception exception)
         {
-            failure = RepairOrderSpawnFailure.TransferFailed;
-            _sawmill.Error($"Failed to spawn repair grid for order {order.ID}: {exception}");
+            failure = stageFailure;
+            _sawmill.Error($"Failed to spawn repair grid: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}, Stage={failure}: {exception}");
             return false;
         }
         finally
         {
-            if (temporaryMapId is { } mapId)
-                _map.DeleteMap(mapId);
-
-            if (spawnedGrid == EntityUid.Invalid &&
-                loadedGridUid.IsValid() &&
-                Exists(loadedGridUid) &&
-                (transferred || temporaryMapId == null))
+            try
             {
-                Del(loadedGridUid);
+                if (spawnedGrid == EntityUid.Invalid && loadedGridUid.IsValid() && Exists(loadedGridUid))
+                    _validation.DiscardPreparedSession(loadedGridUid);
+            }
+            finally
+            {
+                try
+                {
+                    if (temporaryMapId is { } mapId)
+                        _map.DeleteMap(mapId);
+                }
+                finally
+                {
+                    if (spawnedGrid == EntityUid.Invalid && loadedGridUid.IsValid() && Exists(loadedGridUid))
+                        Del(loadedGridUid);
+                }
             }
         }
     }

@@ -131,6 +131,20 @@ public sealed partial class RepairOrderWindow : FancyWindow
             HorizontalExpand = true,
         });
 
+        if (order != null)
+        {
+            content.AddChild(new Label
+            {
+                Text = Loc.GetString("repair-orders-object", ("type", Loc.GetString(order.ObjectType)),
+                    ("name", Loc.GetString(order.ObjectName))),
+            });
+        }
+        if (!available)
+        {
+            AddDamageSummary(content, entry.DamageEvents);
+            AddExclusions(content, entry.Exclusions);
+        }
+
         var descriptionLabel = new RichTextLabel { HorizontalExpand = true };
         descriptionLabel.SetMarkup(description);
         content.AddChild(descriptionLabel);
@@ -256,6 +270,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
         return panel;
     }
 
+    private static void AddExclusions(BoxContainer content, RepairExclusionTotals totals)
+    {
+        var label = new RichTextLabel { HorizontalExpand = true };
+        label.SetMessage(Loc.GetString("repair-orders-waiver-summary", ("count", totals.Count),
+            ("used", totals.WaivedPoints), ("max", totals.MaxWaivedPoints), ("percent", totals.PenaltyPercent),
+            ("raw", totals.RawPoints), ("final", totals.FinalPoints)));
+        content.AddChild(label);
+    }
+
     private Control CreateCompletedCard(RepairOrderCompletedBuiEntry entry)
     {
         var panel = new PanelContainer
@@ -289,6 +312,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 : "repair-orders-status-completed"),
             FontColorOverride = entry.Result == RepairOrderResult.Expired ? Color.Orange : Color.LightGreen,
         });
+
+        AddDamageSummary(content, entry.DamageEvents);
+        AddExclusions(content, entry.Exclusions);
 
         if (entry.Rewards.Count > 0)
         {
@@ -360,6 +386,17 @@ public sealed partial class RepairOrderWindow : FancyWindow
         content.AddChild(print);
 
         return panel;
+    }
+
+    private void AddDamageSummary(BoxContainer content, string[] events)
+    {
+        content.AddChild(new Label { Text = Loc.GetString("repair-orders-damage-heading"), StyleClasses = { "LabelHeading" } });
+        var summary = new RichTextLabel { HorizontalExpand = true };
+        summary.SetMessage(RepairDamageSummary.Format(_prototype, events, detailed: false));
+        content.AddChild(summary);
+        var details = new RichTextLabel { HorizontalExpand = true };
+        details.SetMessage(RepairDamageSummary.Format(_prototype, events, detailed: true));
+        content.AddChild(details);
     }
 
     private void UpdateTimers()

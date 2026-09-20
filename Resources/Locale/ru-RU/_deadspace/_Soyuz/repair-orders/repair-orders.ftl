@@ -24,14 +24,14 @@ repair-structural-analyzer-popup-off = Анализатор выключен.
 repair-structural-analyzer-construction-tray-scanner = Т-лучевой сканер
 repair-structural-analyzer-remove-entity = Убрать: { $entity }
 
-repair-order-damaged-engineering-sattelite-name = Спутник временно недоступен в вашем регионе
-repair-order-damaged-engineering-sattelite-description = Орбитальный спутник связи попал под небольшой метеоритный поток. Судя по двум бутылкам водки и оставленным рядом стопкам, дежурные инженеры относились к своей работе без особого энтузиазма. Противометеоритная защита не установлена, спутник выглядит так, будто его сдавали в эксплуатацию со словами «и так сойдёт».
-repair-order-damaged-cargo-shuttle-name = Доставка навылет
-repair-order-damaged-cargo-shuttle-description = Грузовой шаттл найден с массивной дырок от металлического стержня, прошедшего через корпус практически насквозь. Груз до пункта назначения не добрался. Зато в шаттл прибыл совершенно незапланированный груз.
-repair-order-damaged-briggle-name = Протокол задержания метеоритов
-repair-order-damaged-briggle-description = Патрульный шаттл милиции попал под плотный метеоритный поток. Экипаж, судя по повреждениям корпуса, до последнего пытался продолжать движение вместо того, чтобы покинуть опасный участок. Задержать метеориты за нарушение общественного порядка не удалось. Метеориты оказали сопротивление.
-repair-order-damaged-amber-name = Сухой закон
-repair-order-damaged-amber-description = Шаттл специального подразделения обнаружен дрейфующим без экипажа. Следов серьёзного боя не найдено, зато внутри установлен алкомат... Предварительная версия комиссии: шаттл не был потерян в бою. Его просто пропили.
+repair-order-damaged-engineering-sattelite-name = Восстановление орбитального спутника
+repair-order-damaged-engineering-sattelite-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-cargo-shuttle-name = Восстановление «Динеро Mk.II»
+repair-order-damaged-cargo-shuttle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-briggle-name = Восстановление «Бриггл»
+repair-order-damaged-briggle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-amber-name = Восстановление «Янтаря»
+repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 
 repair-orders-window-title = Инженерные ремонтные заказы
 repair-orders-next-offer = Следующее предложение:
@@ -120,3 +120,35 @@ repair-orders-report-partial-reward-pending-note = [bold]Примечание:[/
 repair-orders-error-printer-cooldown = Принтер отчётов ещё не готов.
 repair-orders-error-report-unavailable = Отчёт для этого ремонтного заказа недоступен.
 repair-orders-error-report-terminal-pending = Результат по истечению срока фиксируется. Попробуйте напечатать отчёт ещё раз через несколько секунд.
+
+repair-orders-object = { $type }: { $name }
+repair-orders-damage-heading = Характер повреждений:
+repair-orders-damage-unknown = Неуточнённые структурные повреждения
+repair-orders-damage-event = • { $event }
+repair-orders-damage-event-count = • { $event } ×{ $count }
+repair-orders-error-damage = Не удалось подготовить повреждения объекта. Предложение сохранено.
+
+repair-orders-waiver-heading = Технические исключения
+repair-orders-waiver-action = Техническое исключение: { $name }
+repair-orders-waiver-cancel-action = Отменить исключение: { $name }
+repair-orders-waiver-confirm = Исключить «{ $name }» ({ $points } очков) из обязательного ремонта?
+    Элемент не принесёт очков. Каждое активное исключение дополнительно удерживает 1% заработанных баллов. Итог не может быть ниже нуля.
+    Использовано: { $used } / { $max } очков (лимит — 50% исходной стоимости заказа).
+    Штраф после подтверждения: { $percent }%.
+repair-orders-waiver-cancel-confirm = Отменить исключение для «{ $name }»? Требование снова станет обязательным.
+    Штраф после отмены: { $percent }%.
+repair-orders-waiver-confirm-button = Подтвердить
+repair-orders-waiver-back = Назад
+repair-orders-waiver-unavailable = Требование недоступно, уже выполнено или заказ закрывается.
+repair-orders-waiver-limit = Превышен лимит исключений: максимум 50% исходной стоимости заказа.
+repair-orders-waiver-unknown = Неуточнённое требование
+repair-orders-waiver-summary = Технические исключения: { $count }
+    Исключено: { $used } / { $max } очков
+    Штраф при сдаче: { $percent }%
+    Фактически заработано: { $raw }. После штрафа: { $final }.
+repair-orders-waiver-report = Технических исключений: { $count }
+    Исключённая стоимость: { $used } / { $max }
+    Фактически заработано: { $raw }
+    Штраф за технические исключения: { $percent }% ({ $penalty } очков)
+    Итоговые баллы: { $final }
+repair-orders-waiver-report-entry = • { $name }, клетка ({ $x }, { $y }) — { $points } очков

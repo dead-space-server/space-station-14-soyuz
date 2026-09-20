@@ -41,7 +41,6 @@ public sealed class RepairOrderMapLoadTest
                 .SelectMany(order => new[]
                 {
                     new RepairOrderGridUsage(order.ID, "Target", order.TargetGridPath),
-                    new RepairOrderGridUsage(order.ID, "Damaged", order.DamagedGridPath),
                 })
                 .GroupBy(usage => usage.Path)
                 .OrderBy(group => group.Key.ToString(), StringComparer.Ordinal);

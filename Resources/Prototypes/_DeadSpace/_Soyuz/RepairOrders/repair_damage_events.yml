@@ -1,0 +1,1132 @@
+- type: repairDamageEvent
+  id: RepairDamageMicroMeteorImpact
+  name: repair-damage-micrometeorimpact-name
+  description: repair-damage-micrometeorimpact-description
+  weight: 3
+  severity: Light
+  placement: Boundary
+  maxOccurrences: 2
+  stages:
+  - shape: IrregularBlob
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+    - type: RemoveTile
+      chance: 0.08
+      maxTargets: 2
+- type: repairDamageEvent
+  id: RepairDamageMeteorImpact
+  name: repair-damage-meteorimpact-name
+  description: repair-damage-meteorimpact-description
+  weight: 3
+  severity: Medium
+  placement: Boundary
+  stages:
+  - shape: Ellipse
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.15
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageHeavyMeteorImpact
+  name: repair-damage-heavymeteorimpact-name
+  description: repair-damage-heavymeteorimpact-description
+  weight: 1
+  severity: Heavy
+  placement: Boundary
+  stages:
+  - shape: IrregularBlob
+    minRadius: 3
+    maxRadius: 6
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.2
+      maxTargets: 12
+- type: repairDamageEvent
+  id: RepairDamageGrazingImpact
+  name: repair-damage-grazingimpact-name
+  description: repair-damage-grazingimpact-description
+  weight: 1
+  severity: Medium
+  placement: Boundary
+  targets:
+  - RepairWall
+  - RepairReinforcedWall
+  - RepairHull
+  - RepairHeavyWall
+  - RepairArmoredWall
+  - RepairWindow
+  - RepairReinforcedWindow
+  - RepairHullWindow
+  - RepairHeavyWindow
+  - RepairArmoredWindow
+  stages:
+  - shape: EdgeSegment
+    minRadius: 0
+    maxRadius: 1
+    minLength: 4
+    maxLength: 8
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+- type: repairDamageEvent
+  id: RepairDamagePenetratorStrike
+  name: repair-damage-penetratorstrike-name
+  description: repair-damage-penetratorstrike-description
+  weight: 1
+  severity: Medium
+  placement: BoundaryToInterior
+  stages:
+  - shape: Line
+    minRadius: 1
+    maxRadius: 2
+    minLength: 4
+    maxLength: 8
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.18
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageHullBreach
+  name: repair-damage-hullbreach-name
+  description: repair-damage-hullbreach-description
+  weight: 1
+  severity: Medium
+  placement: Boundary
+  targets:
+  - RepairWall
+  - RepairReinforcedWall
+  - RepairHull
+  - RepairHeavyWall
+  - RepairArmoredWall
+  - RepairWindow
+  - RepairReinforcedWindow
+  - RepairHullWindow
+  - RepairHeavyWindow
+  - RepairArmoredWindow
+  stages:
+  - shape: IrregularBlob
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.15
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageHullTear
+  name: repair-damage-hulltear-name
+  description: repair-damage-hulltear-description
+  weight: 1
+  severity: Medium
+  placement: Boundary
+  targets:
+  - RepairWall
+  - RepairReinforcedWall
+  - RepairHull
+  - RepairHeavyWall
+  - RepairArmoredWall
+  stages:
+  - shape: EdgeSegment
+    minRadius: 1
+    maxRadius: 2
+    minLength: 4
+    maxLength: 7
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+    - type: RemoveTile
+      chance: 0.08
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageHullShear
+  name: repair-damage-hullshear-name
+  description: repair-damage-hullshear-description
+  weight: 1
+  severity: Heavy
+  placement: Boundary
+  targets:
+  - RepairWall
+  - RepairReinforcedWall
+  - RepairHull
+  - RepairHeavyWall
+  - RepairArmoredWall
+  stages:
+  - shape: EdgeSegment
+    minRadius: 1
+    maxRadius: 3
+    minLength: 4
+    maxLength: 8
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+    - type: RemoveTile
+      chance: 0.25
+      maxTargets: 12
+- type: repairDamageEvent
+  id: RepairDamageWindowBlowout
+  name: repair-damage-windowblowout-name
+  description: repair-damage-windowblowout-description
+  weight: 1
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairWindow
+  - RepairReinforcedWindow
+  - RepairHullWindow
+  - RepairHeavyWindow
+  - RepairArmoredWindow
+  boundaryTargets: true
+  stages:
+  - shape: Strip
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairLight
+- type: repairDamageEvent
+  id: RepairDamageAirlockBlowout
+  name: repair-damage-airlockblowout-name
+  description: repair-damage-airlockblowout-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairDoor
+  - RepairHeavyDoor
+  - RepairDocking
+  boundaryTargets: true
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+      maxTargets: 8
+- type: repairDamageEvent
+  id: RepairDamageBulkheadCollapse
+  name: repair-damage-bulkheadcollapse-name
+  description: repair-damage-bulkheadcollapse-description
+  weight: 1
+  severity: Medium
+  placement: Interior
+  targets:
+  - RepairWall
+  - RepairReinforcedWall
+  - RepairHull
+  - RepairHeavyWall
+  - RepairArmoredWall
+  - RepairDoor
+  - RepairHeavyDoor
+  - RepairDocking
+  stages:
+  - shape: Strip
+    minRadius: 0
+    maxRadius: 1
+    minLength: 3
+    maxLength: 7
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+- type: repairDamageEvent
+  id: RepairDamageCorridorCollapse
+  name: repair-damage-corridorcollapse-name
+  description: repair-damage-corridorcollapse-description
+  weight: 1
+  severity: Medium
+  placement: Interior
+  stages:
+  - shape: Rectangle
+    minRadius: 1
+    maxRadius: 1
+    minLength: 3
+    maxLength: 6
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+    - type: RemoveTile
+      chance: 0.1
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageCornerCollapse
+  name: repair-damage-cornercollapse-name
+  description: repair-damage-cornercollapse-description
+  weight: 1
+  severity: Medium
+  placement: BoundaryCorner
+  stages:
+  - shape: IrregularBlob
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.15
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageCompartmentBreach
+  name: repair-damage-compartmentbreach-name
+  description: repair-damage-compartmentbreach-description
+  weight: 1
+  severity: Heavy
+  placement: DenseRepairableArea
+  stages:
+  - shape: IrregularBlob
+    minRadius: 2
+    maxRadius: 5
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.12
+      maxTargets: 12
+- type: repairDamageEvent
+  id: RepairDamageFloorCollapse
+  requiresFloorRemoval: true
+  name: repair-damage-floorcollapse-name
+  description: repair-damage-floorcollapse-description
+  weight: 1
+  severity: Light
+  placement: AnyOccupied
+  stages:
+  - shape: IrregularBlob
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveTile
+      chance: 1
+      maxTargets: 2
+- type: repairDamageEvent
+  id: RepairDamageFloorCrack
+  requiresFloorRemoval: true
+  name: repair-damage-floorcrack-name
+  description: repair-damage-floorcrack-description
+  weight: 1
+  severity: Light
+  placement: AnyOccupied
+  stages:
+  - shape: Line
+    minRadius: 0
+    maxRadius: 0
+    minLength: 1
+    maxLength: 3
+    operations:
+    - type: RemoveTile
+      chance: 1
+      maxTargets: 2
+- type: repairDamageEvent
+  id: RepairDamageDeckSectionLoss
+  requiresFloorRemoval: true
+  name: repair-damage-decksectionloss-name
+  description: repair-damage-decksectionloss-description
+  weight: 1
+  severity: Medium
+  placement: AnyOccupied
+  stages:
+  - shape: Rectangle
+    minRadius: 0
+    maxRadius: 1
+    minLength: 1
+    maxLength: 3
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 1
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageStructuralShock
+  name: repair-damage-structuralshock-name
+  description: repair-damage-structuralshock-description
+  weight: 1
+  severity: Medium
+  placement: DenseRepairableArea
+  stages:
+  - shape: Disc
+    minRadius: 2
+    maxRadius: 4
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.65
+      categories:
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairMachine
+      - RepairMachineLarge
+      - RepairConsole
+- type: repairDamageEvent
+  id: RepairDamageDecompressionBurst
+  name: repair-damage-decompressionburst-name
+  description: repair-damage-decompressionburst-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairWindow
+  - RepairReinforcedWindow
+  - RepairHullWindow
+  - RepairHeavyWindow
+  - RepairArmoredWindow
+  - RepairDoor
+  - RepairHeavyDoor
+  - RepairDocking
+  boundaryTargets: true
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+- type: repairDamageEvent
+  id: RepairDamageMaintenanceRupture
+  name: repair-damage-maintenancerupture-name
+  description: repair-damage-maintenancerupture-description
+  weight: 1
+  severity: Medium
+  placement: Interior
+  targets:
+  - RepairAtmosControl
+  - RepairAtmosProcessing
+  - RepairAtmosPipe
+  - RepairAtmosVent
+  - RepairLight
+  stages:
+  - shape: Strip
+    minRadius: 1
+    maxRadius: 2
+    minLength: 3
+    maxLength: 7
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.85
+      categories:
+      - RepairAtmosControl
+      - RepairAtmosProcessing
+      - RepairAtmosPipe
+      - RepairAtmosVent
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+- type: repairDamageEvent
+  id: RepairDamageMachineryFailure
+  name: repair-damage-machineryfailure-name
+  description: repair-damage-machineryfailure-description
+  weight: 3
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairMachine
+  - RepairMachineLarge
+  - RepairConsole
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairMachine
+      - RepairMachineLarge
+      - RepairConsole
+      maxTargets: 3
+- type: repairDamageEvent
+  id: RepairDamageMachineryClusterFailure
+  name: repair-damage-machineryclusterfailure-name
+  description: repair-damage-machineryclusterfailure-description
+  weight: 1
+  severity: Heavy
+  placement: DenseRepairableArea
+  targets:
+  - RepairMachine
+  - RepairMachineLarge
+  - RepairConsole
+  stages:
+  - shape: Disc
+    minRadius: 2
+    maxRadius: 5
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.9
+      categories:
+      - RepairMachine
+      - RepairMachineLarge
+      - RepairConsole
+      - RepairElectronics
+- type: repairDamageEvent
+  id: RepairDamageEngineFailure
+  name: repair-damage-enginefailure-name
+  description: repair-damage-enginefailure-description
+  weight: 2
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairEngineSmall
+  - RepairEngineLarge
+  stages:
+  - shape: Disc
+    minRadius: 0
+    maxRadius: 0
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairEngineSmall
+      - RepairEngineLarge
+      maxTargets: 1
+- type: repairDamageEvent
+  id: RepairDamagePropulsionSectionHit
+  name: repair-damage-propulsionsectionhit-name
+  description: repair-damage-propulsionsectionhit-description
+  weight: 1
+  severity: Heavy
+  placement: RepairValueTarget
+  targets:
+  - RepairEngineSmall
+  - RepairEngineLarge
+  stages:
+  - shape: Disc
+    minRadius: 0
+    maxRadius: 1
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairEngineSmall
+      - RepairEngineLarge
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.5
+      categories:
+      - RepairMachine
+      - RepairMachineLarge
+      - RepairConsole
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+    - type: RemoveTile
+      chance: 0.08
+      maxTargets: 2
+- type: repairDamageEvent
+  id: RepairDamageGeneratorFailure
+  name: repair-damage-generatorfailure-name
+  description: repair-damage-generatorfailure-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairPowerWallGenerator
+  - RepairGeneratorSmall
+  - RepairGeneratorPortable
+  - RepairGeneratorHeavy
+  - RepairGeneratorRTG
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairPowerAPC
+      - RepairPowerSubstation
+      - RepairPowerStorage
+      - RepairPowerWallGenerator
+      - RepairGeneratorSmall
+      - RepairGeneratorPortable
+      - RepairGeneratorHeavy
+      - RepairGeneratorRTG
+      maxTargets: 3
+- type: repairDamageEvent
+  id: RepairDamagePowerDistributionFailure
+  name: repair-damage-powerdistributionfailure-name
+  description: repair-damage-powerdistributionfailure-description
+  weight: 2
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairPowerAPC
+  - RepairPowerSubstation
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairPowerAPC
+      - RepairPowerSubstation
+      - RepairElectronics
+      - RepairCableLV
+      - RepairCableMV
+      - RepairCableHV
+- type: repairDamageEvent
+  id: RepairDamageEnergyStorageFailure
+  name: repair-damage-energystoragefailure-name
+  description: repair-damage-energystoragefailure-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairPowerStorage
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairPowerStorage
+      - RepairElectronics
+      maxTargets: 3
+- type: repairDamageEvent
+  id: RepairDamageLightingFailure
+  name: repair-damage-lightingfailure-name
+  description: repair-damage-lightingfailure-description
+  weight: 3
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairLight
+  stages:
+  - shape: Strip
+    minRadius: 1
+    maxRadius: 2
+    minLength: 3
+    maxLength: 6
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairLight
+- type: repairDamageEvent
+  id: RepairDamageConsoleNetworkFailure
+  name: repair-damage-consolenetworkfailure-name
+  description: repair-damage-consolenetworkfailure-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairConsole
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairConsole
+- type: repairDamageEvent
+  id: RepairDamageDoorControlFailure
+  name: repair-damage-doorcontrolfailure-name
+  description: repair-damage-doorcontrolfailure-description
+  weight: 1
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairDoor
+  - RepairHeavyDoor
+  - RepairDocking
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairElectronics
+      maxTargets: 4
+- type: repairDamageEvent
+  id: RepairDamageAtmosPumpFailure
+  name: repair-damage-atmospumpfailure-name
+  description: repair-damage-atmospumpfailure-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairAtmosControl
+  - RepairAtmosProcessing
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairAtmosControl
+      - RepairAtmosProcessing
+- type: repairDamageEvent
+  id: RepairDamageVentilationFailure
+  name: repair-damage-ventilationfailure-name
+  description: repair-damage-ventilationfailure-description
+  weight: 1
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairAtmosVent
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 3
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairAtmosVent
+- type: repairDamageEvent
+  id: RepairDamagePipeRupture
+  name: repair-damage-piperupture-name
+  description: repair-damage-piperupture-description
+  weight: 1
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairAtmosPipe
+  stages:
+  - shape: Line
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 6
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      connectedTargets: true
+      categories:
+      - RepairAtmosPipe
+- type: repairDamageEvent
+  id: RepairDamageAtmosCompartmentFailure
+  name: repair-damage-atmoscompartmentfailure-name
+  description: repair-damage-atmoscompartmentfailure-description
+  weight: 1
+  severity: Heavy
+  placement: RepairValueTarget
+  targets:
+  - RepairAtmosControl
+  - RepairAtmosProcessing
+  - RepairAtmosPipe
+  - RepairAtmosVent
+  stages:
+  - shape: Disc
+    minRadius: 2
+    maxRadius: 4
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairAtmosControl
+      - RepairAtmosProcessing
+      - RepairAtmosPipe
+      - RepairAtmosVent
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 0.25
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      - RepairLight
+      - RepairElectronics
+      - RepairDecor
+      - RepairFurniture
+      - RepairSeat
+- type: repairDamageEvent
+  id: RepairDamageDisposalFailure
+  name: repair-damage-disposalfailure-name
+  description: repair-damage-disposalfailure-description
+  weight: 1
+  severity: Light
+  placement: RepairValueTarget
+  targets:
+  - RepairDisposal
+  stages:
+  - shape: Strip
+    minRadius: 0
+    maxRadius: 1
+    minLength: 2
+    maxLength: 6
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairDisposal
+- type: repairDamageEvent
+  id: RepairDamageDockingFailure
+  name: repair-damage-dockingfailure-name
+  description: repair-damage-dockingfailure-description
+  weight: 1
+  severity: Medium
+  placement: RepairValueTarget
+  targets:
+  - RepairDocking
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntitiesByRepairValueCategory
+      chance: 1
+      categories:
+      - RepairWall
+      - RepairReinforcedWall
+      - RepairHull
+      - RepairHeavyWall
+      - RepairArmoredWall
+      - RepairWindow
+      - RepairReinforcedWindow
+      - RepairHullWindow
+      - RepairHeavyWindow
+      - RepairArmoredWindow
+      - RepairDoor
+      - RepairHeavyDoor
+      - RepairDocking
+      maxTargets: 6
+- type: repairDamageEvent
+  id: RepairDamageSmallExplosion
+  name: repair-damage-smallexplosion-name
+  description: repair-damage-smallexplosion-description
+  weight: 3
+  severity: Light
+  placement: Interior
+  maxOccurrences: 2
+  stages:
+  - shape: Disc
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.6
+    - type: RemoveTile
+      chance: 0.05
+      maxTargets: 2
+- type: repairDamageEvent
+  id: RepairDamageLargeExplosion
+  name: repair-damage-largeexplosion-name
+  description: repair-damage-largeexplosion-description
+  weight: 1
+  severity: Heavy
+  placement: Interior
+  stages:
+  - shape: Ellipse
+    minRadius: 2
+    maxRadius: 4
+    minLength: 3
+    maxLength: 6
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.85
+    - type: RemoveTile
+      chance: 0.15
+      maxTargets: 12
+- type: repairDamageEvent
+  id: RepairDamageChainExplosions
+  name: repair-damage-chainexplosions-name
+  description: repair-damage-chainexplosions-description
+  weight: 1
+  severity: Heavy
+  placement: Interior
+  minCenters: 2
+  maxCenters: 4
+  minimumCenterSeparation: 3
+  stages:
+  - shape: MultiPoint
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.7
+    - type: RemoveTile
+      chance: 0.05
+      maxTargets: 12
+- type: repairDamageEvent
+  id: RepairDamageMeteorShower
+  name: repair-damage-meteorshower-name
+  description: repair-damage-meteorshower-description
+  weight: 1
+  severity: Heavy
+  placement: Boundary
+  minCenters: 3
+  maxCenters: 6
+  minimumCenterSeparation: 3
+  stages:
+  - shape: MultiPoint
+    minRadius: 1
+    maxRadius: 2
+    minLength: 2
+    maxLength: 4
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.8
+    - type: RemoveTile
+      chance: 0.08
+      maxTargets: 12

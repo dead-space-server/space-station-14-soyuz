@@ -1,6 +1,9 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using System.Numerics;
+using System.Linq;
+using Content.Shared.Access.Systems;
+using Content.Server.Popups;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Hands;
 using Content.Shared.Hands.EntitySystems;
@@ -22,6 +25,9 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 /// </summary>
 public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 {
+    [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
     private const float SnapshotInterval = 0.25f;
 
     [Dependency] private readonly SharedHandsSystem _hands = default!;
@@ -43,6 +49,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         SubscribeLocalEvent<RepairStructuralAnalyzerComponent, GotUnequippedHandEvent>(OnAnalyzerUnequippedHand);
         SubscribeLocalEvent<RepairStructuralAnalyzerComponent, ComponentShutdown>(OnAnalyzerShutdown);
 
+        SubscribeNetworkEvent<RepairAnalyzerWaiverRequest>(OnWaiverRequest);
         _player.PlayerStatusChanged += OnPlayerStatusChanged;
     }
 
@@ -67,6 +74,25 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             if (session.Status == SessionStatus.InGame)
                 RefreshSession(session);
         }
+    }
+
+    private void OnWaiverRequest(RepairAnalyzerWaiverRequest message, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity is not { } user || !Exists(user) ||
+            !TryGetEnabledAnalyzerRange(user, out var range)) return;
+        if (!_access.FindAccessTags(user).Any(tag => tag.Id == "Engineering"))
+        {
+            _popup.PopupEntity(Loc.GetString("repair-orders-error-access"), user, user);
+            return;
+        }
+        var grid = GetEntity(message.Grid);
+        var authorized = new Dictionary<EntityUid, RepairAnalyzerTaskData[]>();
+        BuildAuthorizedSnapshots(user, range, authorized);
+        if (!authorized.TryGetValue(grid, out var tasks) ||
+            !tasks.Any(t => t.RuntimeId == message.RuntimeId && t.RequirementId == message.RequirementId)) return;
+        if (!_validation.TrySetTechnicalExclusion(grid, message.RuntimeId, message.RequirementId, message.Cancel, out var error))
+            _popup.PopupEntity(Loc.GetString(error), user, user);
+        RefreshUser(user);
     }
 
     private void OnAnalyzerToggled(
@@ -237,7 +263,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             {
                 foreach (var task in cellTasks)
                 {
-                    if (task.State == RepairTaskState.Correct)
+                    if (task.State == RepairTaskState.Correct && !task.Waived)
                         continue;
 
                     var localPosition = task.Type == RepairTaskType.Tile
@@ -258,7 +284,12 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
                         localPosition,
                         task.DisplayLocalRotation,
                         expectedPrototype,
-                        task.State));
+                        task.State)
+                    {
+                        Grid = GetNetEntity(gridUid), RuntimeId = active.RuntimeId, RequirementId = task.RequirementId,
+                        Waived = task.Waived, Points = task.Points,
+                        Exclusions = active.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, blueprint.MaxWaivedPoints, active.CurrentPoints),
+                    });
                 }
             }
 
@@ -289,7 +320,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             return comparison;
 
         comparison = left.LocalRotation.Theta.CompareTo(right.LocalRotation.Theta);
-        return comparison != 0 ? comparison : left.State.CompareTo(right.State);
+        return comparison != 0 ? comparison : left.RequirementId.CompareTo(right.RequirementId);
     }
 
     private static bool SnapshotsEqual(
@@ -312,7 +343,9 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
                     leftTask.LocalPosition != rightTask.LocalPosition ||
                     leftTask.LocalRotation != rightTask.LocalRotation ||
                     leftTask.ExpectedPrototype != rightTask.ExpectedPrototype ||
-                    leftTask.State != rightTask.State)
+                    leftTask.State != rightTask.State || leftTask.RequirementId != rightTask.RequirementId ||
+                    leftTask.RuntimeId != rightTask.RuntimeId || leftTask.Waived != rightTask.Waived ||
+                    leftTask.Exclusions != rightTask.Exclusions)
                 {
                     return false;
                 }

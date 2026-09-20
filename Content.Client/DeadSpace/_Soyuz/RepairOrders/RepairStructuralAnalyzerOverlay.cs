@@ -78,7 +78,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
         foreach (var task in tasks)
         {
-            if (task.State == RepairTaskState.Correct)
+            if (task.State == RepairTaskState.Correct && !task.Waived)
                 continue;
 
             var worldPosition = Vector2.Transform(task.LocalPosition, worldMatrix);
@@ -86,6 +86,16 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
                 continue;
 
             DrawGhost(handle, task, grid.TileSize);
+        }
+
+        // A covering ghost can fill the entire cell. Keep the separate missing base-floor outline visible.
+        foreach (var task in tasks)
+        {
+            if (task.Type != RepairTaskType.Tile || (task.State == RepairTaskState.Correct && !task.Waived)) continue;
+            var worldPosition = Vector2.Transform(task.LocalPosition, worldMatrix);
+            if (Vector2.DistanceSquared(viewerPosition, worldPosition) > rangeSquared) continue;
+            var color = task.Waived ? Color.FromHex("#B477FF") : task.State == RepairTaskState.Missing ? MissingBorder : WrongBorder;
+            handle.DrawRect(Box2.CenteredAround(task.LocalPosition, new Vector2(grid.TileSize * 0.9f)), color, false);
         }
 
         handle.SetTransform(Matrix3x2.Identity);
@@ -114,7 +124,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         var nearestDistanceSquared = float.MaxValue;
         foreach (var task in selectedTasks)
         {
-            if (task.State == RepairTaskState.Correct)
+            if (task.State == RepairTaskState.Correct && !task.Waived)
                 continue;
 
             var worldPosition = Vector2.Transform(task.LocalPosition, worldMatrix);
@@ -136,7 +146,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         // Every unfinished requirement at the same precise local position is shown independently.
         foreach (var task in selectedTasks)
         {
-            if (task.State != RepairTaskState.Correct &&
+            if ((task.State != RepairTaskState.Correct || task.Waived) &&
                 Vector2.DistanceSquared(task.LocalPosition, nearest.LocalPosition) < 0.0001f)
             {
                 tasks.Add(task);
@@ -218,7 +228,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
             var worldMatrix = _transform.GetWorldMatrix(gridUid);
             foreach (var task in tasks)
             {
-                if (task.State == RepairTaskState.Correct)
+                if (task.State == RepairTaskState.Correct && !task.Waived)
                     continue;
 
                 var worldPosition = Vector2.Transform(task.LocalPosition, worldMatrix);
@@ -239,8 +249,8 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
     private void DrawGhost(DrawingHandleWorld handle, RepairAnalyzerTaskData task, float tileSize)
     {
-        var ghostColor = task.State == RepairTaskState.Missing ? MissingGhost : WrongGhost;
-        var borderColor = task.State == RepairTaskState.Missing ? MissingBorder : WrongBorder;
+        var ghostColor = task.Waived ? Color.FromHex("#B477FF").WithAlpha(0.6f) : task.State == RepairTaskState.Missing ? MissingGhost : WrongGhost;
+        var borderColor = task.Waived ? Color.FromHex("#B477FF") : task.State == RepairTaskState.Missing ? MissingBorder : WrongBorder;
 
         if (task.Type == RepairTaskType.Tile)
         {

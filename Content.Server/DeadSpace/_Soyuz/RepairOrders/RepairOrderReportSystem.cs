@@ -1,5 +1,6 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using System.Linq;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
@@ -10,6 +11,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -24,6 +26,7 @@ public sealed class RepairOrderReportSystem : EntitySystem
         new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg");
 
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly ITileDefinitionManager _tiles = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
@@ -158,6 +161,7 @@ public sealed class RepairOrderReportSystem : EntitySystem
         }
 
         _paper.SetContent((printed, paper), report);
+        StampReport((printed, paper));
         _metaData.SetEntityName(printed, Loc.GetString("repair-orders-report-paper-name"));
         _transform.DropNextTo(printed, console.Owner);
         _audio.PlayPvs(PrintSound, console.Owner);
@@ -171,6 +175,8 @@ public sealed class RepairOrderReportSystem : EntitySystem
     private string BuildActiveReport(RepairOrderPrototype order, ActiveRepairOrder active)
     {
         var report = BeginReport(order);
+        AddDamageSummary(report, active.DamageGeneration);
+        AddExclusions(report, active.Exclusions, active.CurrentPoints, active.MaxPoints);
         AddLine(report, "repair-orders-report-progress", ("percent", RepairOrderProgress.CalculatePercent(
             active.CompletedTasks,
             active.TotalTasks)));
@@ -184,11 +190,13 @@ public sealed class RepairOrderReportSystem : EntitySystem
     private string BuildFrozenExpirationReport(RepairOrderPrototype order, ActiveRepairOrder active)
     {
         var report = BeginReport(order);
+        AddDamageSummary(report, active.DamageGeneration);
+        AddExclusions(report, active.Exclusions, active.CurrentPoints, active.MaxPoints);
         AddLine(report, "repair-orders-report-final-progress", ("percent", RepairOrderProgress.CalculatePercent(
             active.CompletedTasks,
             active.TotalTasks)));
         AddLine(report, "repair-orders-report-tasks", ("completed", active.CompletedTasks), ("total", active.TotalTasks));
-        AddLine(report, "repair-orders-report-final-points", ("current", active.CurrentPoints), ("max", active.MaxPoints));
+        AddLine(report, "repair-orders-report-final-points", ("current", active.FinalPoints), ("max", active.MaxPoints));
         AddLine(report, "repair-orders-report-reward-budget", ("budget", active.ExpiredRewardBudget));
         AddLine(
             report,
@@ -204,6 +212,8 @@ public sealed class RepairOrderReportSystem : EntitySystem
     private string BuildTerminalReport(RepairOrderPrototype order, CompletedRepairOrder completed)
     {
         var report = BeginReport(order);
+        AddDamageSummary(report, completed.DamageGeneration);
+        AddExclusions(report, completed.Exclusions, completed.FinalPoints, completed.MaxPoints);
         AddLine(report, "repair-orders-report-final-progress", ("percent", completed.RepairPercent));
         AddLine(
             report,
@@ -235,6 +245,47 @@ public sealed class RepairOrderReportSystem : EntitySystem
             AddLine(report, "repair-orders-report-partial-reward-note");
 
         return report.ToMarkup();
+    }
+
+    public bool StampReport(Entity<PaperComponent> paper)
+    {
+        var prototype = _prototype.Index<EntityPrototype>("RubberStampCentcom");
+        if (prototype.Components["Stamp"].Component is not StampComponent stamp) return false;
+        return _paper.TryStamp(paper, new StampDisplayInfo
+        {
+            StampedName = stamp.StampedName, StampedColor = stamp.StampedColor,
+            StampTexture = stamp.StampTexture, StampPatternTexture = stamp.StampPatternTexture,
+            StampHeaderText = stamp.StampHeaderText, StampBackgroundText = stamp.StampBackgroundText,
+            StampScale = stamp.StampScale, StampMainText = stamp.StampMainText,
+            StampTextMaxScale = stamp.StampTextMaxScale, StampRotation = 0,
+        }, stamp.StampState);
+    }
+
+    private void AddExclusions(FormattedMessage report, RepairTechnicalExclusionSnapshot? snapshot, int raw, int max)
+    {
+        var totals = snapshot?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(max), raw);
+        AddLine(report, "repair-orders-waiver-report", ("count", totals.Count), ("used", totals.WaivedPoints),
+            ("max", totals.MaxWaivedPoints), ("raw", totals.RawPoints), ("percent", totals.PenaltyPercent),
+            ("penalty", totals.PenaltyPoints), ("final", totals.FinalPoints));
+        if (snapshot == null) return;
+        foreach (var requirement in snapshot.Requirements)
+        {
+            var name = Loc.GetString("repair-orders-waiver-unknown");
+            if (requirement.Type != RepairTaskType.Tile && _prototype.TryIndex<EntityPrototype>(requirement.Prototype, out var entity))
+                name = entity.Name;
+            else if (requirement.Type == RepairTaskType.Tile && _tiles.TryGetDefinition(requirement.Prototype, out var tile))
+                name = Loc.GetString(tile.Name);
+            AddLine(report, "repair-orders-waiver-report-entry", ("name", FormattedMessage.EscapeText(name)),
+                ("x", requirement.Cell.X), ("y", requirement.Cell.Y), ("points", requirement.Points));
+        }
+    }
+
+    private void AddDamageSummary(FormattedMessage report, RepairDamageGenerationInfo? info)
+    {
+        AddLine(report, "repair-orders-damage-heading");
+        report.AddText(RepairDamageSummary.Format(_prototype,
+            info?.SelectedEvents.ToArray() ?? Array.Empty<string>(), detailed: true));
+        report.PushNewline();
     }
 
     private FormattedMessage BeginReport(RepairOrderPrototype order)

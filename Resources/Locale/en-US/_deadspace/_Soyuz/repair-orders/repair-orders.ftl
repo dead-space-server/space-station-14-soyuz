@@ -29,14 +29,14 @@ repair-order-damaged-engineering-module-description = Restore the compact engine
 repair-order-stripped-floor-platform-name = Stripped construction platform
 repair-order-stripped-floor-platform-description = Restore steel flooring across the entire stripped five-by-five platform.
 
-repair-order-damaged-engineering-sattelite-name = Satellite unavailable in your region
-repair-order-damaged-engineering-sattelite-description = An orbital communications satellite was caught in a small meteor shower. Judging by the two vodka bottles and nearby shot glasses, the engineers on duty were not particularly enthusiastic about their work. No meteor defenses were installed, and the satellite looks as though it was commissioned with the words "good enough."
-repair-order-damaged-cargo-shuttle-name = Express delivery, straight through
-repair-order-damaged-cargo-shuttle-description = A cargo shuttle was found with a massive hole left by a metal rod that passed almost entirely through its hull. The cargo never reached its destination. The shuttle did, however, receive a completely unscheduled delivery.
-repair-order-damaged-briggle-name = Meteor detention protocol
-repair-order-damaged-briggle-description = A police patrol shuttle was caught in a dense meteor shower. Judging by the hull damage, the crew kept trying to press on instead of leaving the danger zone. Attempts to detain the meteors for disturbing the peace were unsuccessful. The meteors resisted arrest.
-repair-order-damaged-amber-name = Prohibition
-repair-order-damaged-amber-description = A special unit's shuttle was found drifting without its crew. No signs of a serious battle were found, but a booze dispenser had been installed aboard. The commission's preliminary conclusion: the shuttle was not lost in combat. It was simply drunk away.
+repair-order-damaged-engineering-sattelite-name = Orbital satellite restoration
+repair-order-damaged-engineering-sattelite-description = A request to restore this object has been received. The damage will be diagnosed after deployment.
+repair-order-damaged-cargo-shuttle-name = Restoration of Dinero Mk.II
+repair-order-damaged-cargo-shuttle-description = A request to restore this object has been received. The damage will be diagnosed after deployment.
+repair-order-damaged-briggle-name = Restoration of Briggle
+repair-order-damaged-briggle-description = A request to restore this object has been received. The damage will be diagnosed after deployment.
+repair-order-damaged-amber-name = Restoration of Amber
+repair-order-damaged-amber-description = A request to restore this object has been received. The damage will be diagnosed after deployment.
 
 repair-orders-window-title = Engineering repair orders
 repair-orders-next-offer = Next offer:
@@ -125,3 +125,35 @@ repair-orders-report-partial-reward-pending-note = [bold]Note:[/bold] A partial 
 repair-orders-error-printer-cooldown = The report printer is not ready yet.
 repair-orders-error-report-unavailable = A report for this repair order is unavailable.
 repair-orders-error-report-terminal-pending = The deadline result is being recorded. Try printing the report again shortly.
+
+repair-orders-object = { $type }: { $name }
+repair-orders-damage-heading = Damage assessment:
+repair-orders-damage-unknown = Unspecified structural damage
+repair-orders-damage-event = • { $event }
+repair-orders-damage-event-count = • { $event } ×{ $count }
+repair-orders-error-damage = Could not prepare object damage. The offer has been retained.
+
+repair-orders-waiver-heading = Technical exclusions
+repair-orders-waiver-action = Technical exclusion: { $name }
+repair-orders-waiver-cancel-action = Cancel exclusion: { $name }
+repair-orders-waiver-confirm = Exclude "{ $name }" ({ $points } points) from required repairs?
+    This requirement earns no points. Each active exclusion additionally deducts 1% of earned points. Final points cannot fall below zero.
+    Used: { $used } / { $max } points (limit: 50% of the original order value).
+    Penalty after confirmation: { $percent }%.
+repair-orders-waiver-cancel-confirm = Cancel the exclusion for "{ $name }"? This requirement will become mandatory again.
+    Penalty after cancellation: { $percent }%.
+repair-orders-waiver-confirm-button = Confirm
+repair-orders-waiver-back = Back
+repair-orders-waiver-unavailable = This requirement is unavailable, already repaired, or the order is closing.
+repair-orders-waiver-limit = Exclusion limit exceeded: at most 50% of the original order value.
+repair-orders-waiver-unknown = Unspecified requirement
+repair-orders-waiver-summary = Technical exclusions: { $count }
+    Excluded: { $used } / { $max } points
+    Submission penalty: { $percent }%
+    Actually earned: { $raw }. After penalty: { $final }.
+repair-orders-waiver-report = Technical exclusions: { $count }
+    Excluded value: { $used } / { $max }
+    Actually earned: { $raw }
+    Technical exclusion penalty: { $percent }% ({ $penalty } points)
+    Final points: { $final }
+repair-orders-waiver-report-entry = • { $name }, cell ({ $x }, { $y }) — { $points } points

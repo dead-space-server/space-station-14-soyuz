@@ -34,6 +34,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)
     {
+        var showActive = state.Active != null && state.Active.RuntimeId != _state?.Active?.RuntimeId;
         _state = state;
         ActivationLabel.Visible = state.Accepting;
         CompletionLabel.Visible = state.Completing;
@@ -89,6 +90,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
         }
 
         UpdateTimers();
+        if (showActive)
+            OrderTabs.CurrentTab = 1;
     }
 
     protected override void FrameUpdate(FrameEventArgs args)

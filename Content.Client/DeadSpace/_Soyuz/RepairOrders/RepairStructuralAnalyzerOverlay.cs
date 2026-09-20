@@ -65,7 +65,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
                 args.MapId,
                 viewerPosition,
                 rangeSquared,
-                out _,
+                out var selectedGrid,
                 out var tasks,
                 out var grid,
                 out var worldMatrix))
@@ -75,8 +75,10 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
         var handle = args.WorldHandle;
         handle.SetTransform(worldMatrix);
+        var gridRotation = _transform.GetWorldRotation(selectedGrid);
+        var eyeRotation = args.Viewport.Eye?.Rotation ?? Angle.Zero;
 
-        foreach (var task in tasks)
+        foreach (var task in tasks.OrderBy(TileDrawOrder))
         {
             if (task.State == RepairTaskState.Correct && !task.Waived)
                 continue;
@@ -85,7 +87,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
             if (Vector2.DistanceSquared(viewerPosition, worldPosition) > rangeSquared)
                 continue;
 
-            DrawGhost(handle, task, grid.TileSize);
+            DrawGhost(handle, task, grid.TileSize, gridRotation, eyeRotation);
         }
 
         // A covering ghost can fill the entire cell. Keep the separate missing base-floor outline visible.
@@ -95,11 +97,17 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
             var worldPosition = Vector2.Transform(task.LocalPosition, worldMatrix);
             if (Vector2.DistanceSquared(viewerPosition, worldPosition) > rangeSquared) continue;
             var color = task.Waived ? Color.FromHex("#B477FF") : task.State == RepairTaskState.Missing ? MissingBorder : WrongBorder;
-            handle.DrawRect(Box2.CenteredAround(task.LocalPosition, new Vector2(grid.TileSize * 0.9f)), color, false);
+            var size = grid.TileSize * (0.55f + 0.12f * TileDrawOrder(task));
+            handle.DrawRect(Box2.CenteredAround(task.LocalPosition, new Vector2(size)), color, false);
         }
 
         handle.SetTransform(Matrix3x2.Identity);
     }
+
+    private int TileDrawOrder(RepairAnalyzerTaskData task)
+        => task.Type == RepairTaskType.Tile &&
+           _tileDefinitions.TryGetDefinition(task.ExpectedPrototype, out var definition) && definition is ContentTileDefinition tile
+            ? (int) RepairValueCatalog.GetTileLayer(tile) : 4;
 
     /// <summary>
     /// Hit-tests current task positions in world space, retaining the selected grid's live transform.
@@ -247,7 +255,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         return selectedGrid.IsValid();
     }
 
-    private void DrawGhost(DrawingHandleWorld handle, RepairAnalyzerTaskData task, float tileSize)
+    private void DrawGhost(DrawingHandleWorld handle, RepairAnalyzerTaskData task, float tileSize, Angle gridRotation, Angle eyeRotation)
     {
         var ghostColor = task.Waived ? Color.FromHex("#B477FF").WithAlpha(0.6f) : task.State == RepairTaskState.Missing ? MissingGhost : WrongGhost;
         var borderColor = task.Waived ? Color.FromHex("#B477FF") : task.State == RepairTaskState.Missing ? MissingBorder : WrongBorder;
@@ -266,41 +274,19 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
         if (!TryGetEntityVisual(task.ExpectedPrototype, out var visual))
             return;
 
-        var direction = task.LocalRotation.GetCardinalDir();
-        Box2? combinedBounds = null;
-        var hasRotatedLayer = false;
-        var hasUnrotatedLayer = false;
+        // RSI direction is selected in screen space, just as SpriteSystem.RenderSprite does.
+        // Selecting it in grid-local space mirrors offset pipe lanes on rotated shuttles.
+        var screenAngle = (task.LocalRotation + gridRotation + eyeRotation).Reduced().FlipPositive();
+        var spriteRotation = visual.NoRotation ? -gridRotation - eyeRotation
+            : task.LocalRotation - (visual.SnapCardinals ? screenAngle.RoundToCardinalAngle() : Angle.Zero);
         foreach (var layer in visual.Textures)
         {
-            var rotateLayer = !visual.NoRotation &&
-                              !visual.SnapCardinals &&
-                              layer.RotatesWithEntity;
-            var texture = layer.TextureFor(rotateLayer ? Direction.South : direction);
+            var texture = layer.TextureFor(screenAngle, out var directionRotation);
+            var rotation = spriteRotation - (visual.NoRotation ? Angle.Zero : directionRotation);
             var size = texture.Size / (float) EyeManager.PixelsPerMeter * visual.Scale;
-            var bounds = Box2.CenteredAround(task.LocalPosition, size);
-            if (rotateLayer)
-            {
-                handle.DrawTextureRect(
-                    texture,
-                    new Box2Rotated(bounds, task.LocalRotation, task.LocalPosition),
-                    ghostColor);
-                hasRotatedLayer = true;
-            }
-            else
-            {
-                handle.DrawTextureRect(texture, bounds, ghostColor);
-                hasUnrotatedLayer = true;
-            }
-
-            combinedBounds = combinedBounds?.Union(bounds) ?? bounds;
-        }
-
-        if (combinedBounds is { } outline)
-        {
-            if (hasRotatedLayer && !hasUnrotatedLayer)
-                handle.DrawRect(new Box2Rotated(outline, task.LocalRotation, task.LocalPosition), borderColor, false);
-            else
-                handle.DrawRect(outline, borderColor, false);
+            var bounds = new Box2Rotated(Box2.CenteredAround(task.LocalPosition, size), rotation, task.LocalPosition);
+            handle.DrawTextureRect(texture, bounds, ghostColor);
+            handle.DrawRect(bounds, borderColor, false);
         }
     }
 
@@ -365,13 +351,25 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
 
     private readonly record struct PrototypeVisualLayer(IDirectionalTextureProvider TextureProvider)
     {
-        public bool RotatesWithEntity =>
-            TextureProvider is Texture ||
-            TextureProvider is RSI.State { RsiDirections: RsiDirectionType.Dir1 };
-
-        public Texture TextureFor(Direction direction)
+        public Texture TextureFor(Angle angle, out Angle directionRotation)
         {
-            return TextureProvider.TextureFor(direction);
+            directionRotation = Angle.Zero;
+            if (TextureProvider is not RSI.State state)
+                return TextureProvider.TextureFor(Direction.South);
+
+            var direction = SpriteComponent.Layer.GetDirection(state.RsiDirections, angle);
+            directionRotation = (direction switch
+            {
+                RsiDirection.North => Direction.North,
+                RsiDirection.East => Direction.East,
+                RsiDirection.West => Direction.West,
+                RsiDirection.SouthEast => Direction.SouthEast,
+                RsiDirection.SouthWest => Direction.SouthWest,
+                RsiDirection.NorthEast => Direction.NorthEast,
+                RsiDirection.NorthWest => Direction.NorthWest,
+                _ => Direction.South,
+            }).ToAngle();
+            return state.GetFrame(direction, 0);
         }
     }
 }

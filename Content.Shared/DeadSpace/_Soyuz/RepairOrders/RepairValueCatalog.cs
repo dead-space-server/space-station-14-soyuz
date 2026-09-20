@@ -9,6 +9,9 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
+// A placed upper tile includes its supporting layers; removing it exposes the next layer.
+public enum RepairTileLayer : byte { None, Lattice, Plating, Floor }
+
 /// <summary>
 /// Validated exact-ID lookup. Candidate detection is used only by developer validation,
 /// never to assign a runtime price. Invalid catalogs cannot resolve any values.
@@ -16,6 +19,8 @@ namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairValueCatalog
 {
     public static readonly ProtoId<ContentTileDefinition> StandardFloor = "FloorSteel";
+    public static readonly ProtoId<ContentTileDefinition> StandardPlating = "Plating";
+    public static readonly ProtoId<ContentTileDefinition> StandardLattice = "Lattice";
     private readonly Dictionary<string, int> _values = new();
     private readonly Dictionary<string, string> _categories = new();
     private readonly HashSet<string> _excluded = new();
@@ -35,8 +40,49 @@ public sealed class RepairValueCatalog
         return Errors.Count == 0 && _categories.TryGetValue(entity, out category!);
     }
 
-    public static int CanonicalizeTile(int tileId, int steelTileId)
-        => tileId == Tile.Empty.TypeId ? Tile.Empty.TypeId : steelTileId;
+    public static RepairTileLayer GetTileLayer(ContentTileDefinition tile)
+        => tile.TileId == Tile.Empty.TypeId ? RepairTileLayer.None
+            : !tile.IsSubFloor ? RepairTileLayer.Floor
+            : tile.MapAtmosphere ? RepairTileLayer.Lattice : RepairTileLayer.Plating;
+
+    public static int CanonicalizeTile(int tileId, ITileDefinitionManager tiles)
+        => GetTileLayer((ContentTileDefinition) tiles[tileId]) switch
+        {
+            RepairTileLayer.Floor => tiles[StandardFloor.Id].TileId,
+            RepairTileLayer.Plating => tiles[StandardPlating.Id].TileId,
+            RepairTileLayer.Lattice => tiles[StandardLattice.Id].TileId,
+            _ => Tile.Empty.TypeId,
+        };
+
+    /// <summary>Independent requirements represented by a grid tile, preserving original layer visuals.</summary>
+    public static Dictionary<RepairTileLayer, ContentTileDefinition> GetTileLayers(int tileId, ITileDefinitionManager tiles)
+    {
+        var result = new Dictionary<RepairTileLayer, ContentTileDefinition>();
+        var tile = (ContentTileDefinition) tiles[tileId];
+        var top = GetTileLayer(tile);
+        if (top == RepairTileLayer.None)
+            return result;
+
+        result[RepairTileLayer.Lattice] = (ContentTileDefinition) tiles[StandardLattice.Id];
+        if (top >= RepairTileLayer.Plating)
+            result[RepairTileLayer.Plating] = (ContentTileDefinition) tiles[StandardPlating.Id];
+        result[top] = tile;
+
+        // Prefer the target's actual underlying material when its base turf defines one.
+        var visited = new HashSet<string> { tile.ID };
+        while (tile.BaseTurf is { } baseId && visited.Add(baseId.Id) &&
+               tiles.TryGetDefinition(baseId.Id, out var definition) && definition is ContentTileDefinition next)
+        {
+            tile = next;
+            var layer = GetTileLayer(tile);
+            if (layer != RepairTileLayer.None && layer < top)
+            {
+                result[layer] = tile;
+                top = layer;
+            }
+        }
+        return result;
+    }
 
     public static RepairValueCatalog Build(IPrototypeManager prototypes)
         => Build(prototypes,

@@ -76,8 +76,7 @@ public sealed class RepairDamageTest
                         Assert.That(blueprint.FullyMatchesTarget, Is.False);
                         // Restore only damage chosen by the plan. The original blueprint, not DamageSystem,
                         // owns the tasks and credits these initial losses as positive repair work.
-                        var steel = server.ResolveDependency<ITileDefinitionManager>()[RepairValueCatalog.StandardFloor.Id];
-                        maps.SetTiles(grid, loaded.Value.Comp, plan.RemovedTiles.Select(c => (c, new Tile(steel.TileId))).ToList());
+                        maps.SetTiles(grid, loaded.Value.Comp, plan.RemovedTiles.Select(c => (c, new Tile((ushort) blueprint.ExpectedCells[c].Tile!.TileId))).ToList());
                         var transform = server.System<SharedTransformSystem>();
                         foreach (var index in plan.RemovedEntities)
                         {

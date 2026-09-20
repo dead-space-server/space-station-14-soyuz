@@ -78,7 +78,11 @@ public sealed partial class RepairBlueprintComponent : Component
 public sealed class RepairExpectedCellState
 {
     [ViewVariables]
-    public RepairExpectedTileState? Tile;
+    public readonly Dictionary<RepairTileLayer, RepairExpectedTileState> Tiles = new();
+
+    // The original visible tile is still available to diagnostics and map coverage checks.
+    public RepairExpectedTileState? Tile => Tiles.GetValueOrDefault(RepairTileLayer.Floor)
+        ?? Tiles.GetValueOrDefault(RepairTileLayer.Plating) ?? Tiles.GetValueOrDefault(RepairTileLayer.Lattice);
 
     [ViewVariables]
     public readonly List<RepairExpectedEntityState> Entities = new();
@@ -129,7 +133,7 @@ public sealed class RepairExpectedEntityState
 public sealed class RepairUnexpectedCellBaseline
 {
     [ViewVariables]
-    public RepairUnexpectedTileBaseline? Tile;
+    public readonly Dictionary<RepairTileLayer, RepairUnexpectedTileBaseline> Tiles = new();
 
     [ViewVariables]
     public readonly List<RepairUnexpectedEntityBaseline> Entities = new();
@@ -166,6 +170,7 @@ public sealed class RepairTask
 {
     public int RequirementId;
     public bool Waived;
+    public RepairTileLayer TileLayer;
 
     [ViewVariables]
     public RepairTaskType Type;

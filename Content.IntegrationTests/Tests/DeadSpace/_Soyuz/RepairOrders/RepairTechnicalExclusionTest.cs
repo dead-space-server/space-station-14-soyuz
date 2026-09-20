@@ -98,7 +98,7 @@ public sealed class RepairTechnicalExclusionTest
                 var removedEntities = snapshot.Entities.Where(e => removedTiles.Contains(e.Cell)).Select(e => e.Index).ToArray();
                 var center = new Vector2i(1, 1);
                 var ev = new RepairDamageEventResult("RepairDamageFloorCollapse", ImmutableArray.Create(center),
-                    removedTiles.ToImmutableArray(), removedTiles.Length + removedEntities.Length);
+                    removedTiles.ToImmutableArray(), snapshot.CountTileRequirements(removedTiles) + removedEntities.Length);
                 ProtoId<RepairDamageProfilePrototype> profileId = "RepairDamageLight";
                 var profile = server.ResolveDependency<ISerializationManager>().CreateCopy(server.ProtoMan.Index(profileId));
                 profile.Events = new() { ev.Event };
@@ -137,7 +137,7 @@ public sealed class RepairTechnicalExclusionTest
                 Assert.That(waivedFloorIds.Count, Is.LessThan(missingFloors.Length), "The server must refuse to waive every missing floor.");
                 foreach (var id in waivedFloorIds)
                     Assert.That(validation.TrySetTechnicalExclusion(grid, 1, id, true, out _), Is.True);
-                RepairTask Floor() => blueprint.TasksByCell[center].Single(t => t.Type == RepairTaskType.Tile);
+                RepairTask Floor() => blueprint.TasksByCell[center].Single(t => t.Type == RepairTaskType.Tile && t.TileLayer == RepairTileLayer.Floor);
                 RepairTask[] Covers() => blueprint.TasksByCell[center].Where(t => t.Type == RepairTaskType.AnchoredEntity).OrderBy(t => t.RequiredMatchingCount).ToArray();
                 Assert.That(Floor().State, Is.EqualTo(RepairTaskState.Missing));
                 Assert.That(Covers(), Has.Length.EqualTo(2));
@@ -148,6 +148,13 @@ public sealed class RepairTechnicalExclusionTest
                 Assert.That(Floor().State, Is.EqualTo(RepairTaskState.Correct));
                 Assert.That(Covers().All(t => t.State == RepairTaskState.Missing && !t.Waived), Is.True);
                 Assert.That(blueprint.CanComplete, Is.False, "Restoring only the base tile does not restore its coverings.");
+                maps.SetTile(grid, target.Comp, center, new Tile(server.ResolveDependency<ITileDefinitionManager>()["Plating"].TileId));
+                var carpetOnPlating = server.EntMan.SpawnEntity("Carpet", new EntityCoordinates(grid, new Vector2(1.5f, 1.5f)));
+                Assert.That(server.System<SharedTransformSystem>().AnchorEntity(carpetOnPlating), Is.True);
+                validation.RevalidateAll(grid);
+                Assert.That(Floor().State, Is.EqualTo(RepairTaskState.Missing), "A carpet on plating cannot satisfy the upper floor requirement.");
+                Assert.That(Covers().Count(t => t.State == RepairTaskState.Correct), Is.EqualTo(1));
+                server.EntMan.DeleteEntity(carpetOnPlating);
                 maps.SetTile(grid, target.Comp, center, Tile.Empty);
                 validation.RevalidateAll(grid);
                 // Anchored CarpetBase coverings cannot be restored over empty space in this engine.
@@ -165,8 +172,8 @@ public sealed class RepairTechnicalExclusionTest
                 Assert.That(active.Exclusions!.Totals.Count, Is.EqualTo(2));
                 Assert.That(validation.TryRevalidateForCompletion(grid, out var complete), Is.True);
                 Assert.That(complete, Is.False, "Waiving coverings must not waive the missing base floor.");
-                var intactTask = blueprint.TasksByCell[new Vector2i(4, 4)].Single();
-                Assert.That(validation.TrySetTechnicalExclusion(grid, 1, intactTask.RequirementId, false, out _), Is.False);
+                foreach (var intactTask in blueprint.TasksByCell[new Vector2i(4, 4)])
+                    Assert.That(validation.TrySetTechnicalExclusion(grid, 1, intactTask.RequirementId, false, out _), Is.False);
                 var tiles = server.ResolveDependency<ITileDefinitionManager>();
                 maps.SetTiles(grid, target.Comp, removedTiles.Select(c => (c, new Tile(tiles["FloorSteel"].TileId))).ToList());
                 validation.RevalidateAll(grid);
@@ -221,6 +228,11 @@ public sealed class RepairTechnicalExclusionTest
                 Assert.That(server.System<RepairOrderReportSystem>().StampReport((paper, paperComp)), Is.True);
                 Assert.That(paperComp.StampedBy.Single().StampedName, Is.EqualTo("stamp-component-stamped-name-centcom"));
                 Assert.That(paperComp.StampedBy.Single().StampTexture, Is.EqualTo("/Textures/Interface/Stamps/centralcommand_print.png"));
+                server.System<PaperSystem>().SetContent((paper, paperComp), "Repair report");
+                var paperUi = server.System<Robust.Server.GameObjects.UserInterfaceSystem>();
+                Assert.That(paperUi.TryGetUiState<PaperComponent.PaperBoundUserInterfaceState>(paper,
+                    PaperComponent.PaperUiKey.Key, out var readingState), Is.True);
+                Assert.That(readingState!.StampedBy.Single().StampTexture, Is.EqualTo(paperComp.StampedBy.Single().StampTexture));
                 // Exercise the terminal commit with actual nonzero exclusions and a penalized budget.
                 foreach (var child in server.EntMan.EntityQuery<TransformComponent>().Where(x => x.ParentUid == grid &&
                     x.LocalPosition == new Vector2(1.5f, 1.5f)).Select(x => x.Owner).ToArray())

@@ -16,6 +16,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly ITileDefinitionManager _tiles = default!;
     [Dependency] private readonly RepairDamageProtectionSystem _protection = default!;
     private static readonly Vector2i[] Neighbors = { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) };
 
@@ -54,7 +55,11 @@ public sealed class RepairOrderDamageSystem : EntitySystem
         var sorted = entities.OrderBy(e => e.Position.X).ThenBy(e => e.Position.Y)
             .ThenBy(e => e.Prototype, StringComparer.Ordinal).ThenBy(e => e.Rotation.Theta).ThenBy(e => e.Uid)
             .Select((entity, index) => entity with { Index = index }).ToImmutableArray();
-        return new RepairDamageSnapshot(grid.Owner, floors, sorted, SortCells(protectedFloors), floorValue);
+        return new RepairDamageSnapshot(grid.Owner, floors, sorted, SortCells(protectedFloors), floorValue)
+        {
+            FloorLayerCounts = floors.ToImmutableDictionary(cell => cell,
+                cell => RepairValueCatalog.GetTileLayers(_map.GetTileRef(grid.Owner, grid.Comp, cell).Tile.TypeId, _tiles).Count),
+        };
     }
 
     public bool TryGeneratePlan(RepairDamageSnapshot snapshot, RepairDamageProfilePrototype profile, int seed,
@@ -237,7 +242,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
         }
         if (ev.Targets.Count > 0 && !snapshot.Entities.Any(e => removedEntities.Contains(e.Index) && !oldEntities.Contains(e.Index) && Matches(ev.Targets, e.Category))) return false;
         if (ev.RequiresFloorRemoval && removedTiles.Count == oldTiles.Count) return false;
-        var changed = removedTiles.Count - oldTiles.Count + removedEntities.Count - oldEntities.Count;
+        var changed = snapshot.CountTileRequirements(removedTiles.Except(oldTiles)) + removedEntities.Count - oldEntities.Count;
         if (changed == 0) return false;
         result = new RepairDamageEventResult(ev.ID, centers.ToImmutableArray(), SortCells(affected), changed);
         return true;
@@ -291,7 +296,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
     {
         var removedTiles = SortCells(tiles);
         var removedEntities = entities.Distinct().OrderBy(i => i).ToImmutableArray();
-        var value = removedTiles.Length * snapshot.FloorValue + removedEntities.Sum(i => snapshot.Entities[i].Value);
+        var value = snapshot.CountTileRequirements(removedTiles) * snapshot.FloorValue + removedEntities.Sum(i => snapshot.Entities[i].Value);
         return new RepairOrderDamagePlan(seed, attempt, removedTiles, removedEntities, events.ToImmutableArray(), value, snapshot.TotalValue);
     }
 
@@ -308,7 +313,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             reason = "Plan contains invalid, protected or duplicate targets.";
         else if (snapshot.Entities.Any(e => removedTiles.Contains(e.Cell) && !removedEntities.Contains(e.Index)))
             reason = "Plan strands anchored entities without supporting floor.";
-        else if (plan.TotalValue != snapshot.TotalValue || plan.DamageValue != removedTiles.Count * snapshot.FloorValue + removedEntities.Sum(i => snapshot.Entities[i].Value))
+        else if (plan.TotalValue != snapshot.TotalValue || plan.DamageValue != snapshot.CountTileRequirements(removedTiles) * snapshot.FloorValue + removedEntities.Sum(i => snapshot.Entities[i].Value))
             reason = "Plan damage metrics do not match the snapshot.";
         else if (removedTiles.Count > floors.Count * profile.MaxRemovedFloorFraction)
             reason = "Floor removal cap exceeded.";
@@ -316,10 +321,10 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             reason = "Anchored entity removal cap exceeded.";
         else if (plan.DamageFraction > profile.MaxDamageFraction)
             reason = "Maximum damage value exceeded.";
-        else if (requireMinimum && (plan.DamageFraction < profile.MinDamageFraction || removedTiles.Count + removedEntities.Count < profile.MinChangedRequirements || plan.Events.Length < profile.MinEvents))
+        else if (requireMinimum && (plan.DamageFraction < profile.MinDamageFraction || snapshot.CountTileRequirements(removedTiles) + removedEntities.Count < profile.MinChangedRequirements || plan.Events.Length < profile.MinEvents))
             reason = "Insufficient damage or events.";
         else if (plan.Events.Length > profile.MaxEvents || plan.Events.Any(e => e.ChangedRequirements <= 0 || e.Centers.IsEmpty || e.AffectedCells.IsEmpty || !profile.Events.Contains(e.Event)) ||
-                 plan.Events.Sum(e => e.ChangedRequirements) != removedTiles.Count + removedEntities.Count)
+                 plan.Events.Sum(e => e.ChangedRequirements) != snapshot.CountTileRequirements(removedTiles) + removedEntities.Count)
             reason = "Invalid event count or no-op event.";
         else
         {

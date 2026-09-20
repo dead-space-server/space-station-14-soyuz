@@ -162,8 +162,9 @@ public sealed class RepairOrderReportSystem : EntitySystem
             return;
         }
 
-        _paper.SetContent((printed, paper), report);
         StampReport((printed, paper));
+        // SetContent publishes the reading UI state, including the stamps already on the paper.
+        _paper.SetContent((printed, paper), report);
         _metaData.SetEntityName(printed, Loc.GetString("repair-orders-report-paper-name"));
         _transform.DropNextTo(printed, console.Owner);
         _audio.PlayPvs(PrintSound, console.Owner);

@@ -18,7 +18,8 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 [TestFixture]
 public sealed class RepairValueTest
 {
-    private static readonly EntProtoId UnknownStructure = "RepairOrderTestUnknownStructure";
+    // This ID is loaded by TestPrototypes, not by the production YAML directory validator.
+    private static EntProtoId UnknownStructure => "RepairOrderTestUnknownStructure";
 
     [TestPrototypes]
     private const string Prototypes = """
@@ -200,13 +201,25 @@ public sealed class RepairValueTest
             Assert.That(steel, Is.Not.EqualTo(Tile.Empty.TypeId));
             foreach (var tile in definitions.Cast<ContentTileDefinition>())
             {
-                var canonical = RepairValueCatalog.CanonicalizeTile(tile.TileId, steel);
-                Assert.That(canonical, Is.EqualTo(tile.TileId == Tile.Empty.TypeId ? Tile.Empty.TypeId : steel), tile.ID);
+                var canonical = RepairValueCatalog.CanonicalizeTile(tile.TileId, definitions);
+                if (tile.TileId == Tile.Empty.TypeId)
+                    Assert.That(canonical, Is.EqualTo(Tile.Empty.TypeId), tile.ID);
+                else if (tile.IsSubFloor)
+                    Assert.That(canonical, Is.Not.EqualTo(steel), $"{tile.ID}: a support layer is not a finished floor");
+                else
+                    Assert.That(canonical, Is.EqualTo(steel), tile.ID);
             }
         });
         await pair.CleanReturnAsync();
     }
 
+    [TestCase("FloorGlass", "FloorSteel", true)]
+    [TestCase("FloorGlass", "FloorWood", true)]
+    [TestCase("FloorSteel", "Plating", false)]
+    [TestCase("FloorSteel", "Lattice", false)]
+    [TestCase("Plating", "Lattice", false)]
+    [TestCase("Plating", "PlatingDamaged", true)]
+    [TestCase("Lattice", "TrainLattice", true)]
     [TestCase("FloorSteel", "FloorSteel", true)]
     [TestCase("FloorSteel", "FloorWood", true)]
     [TestCase("FloorWood", "FloorSteel", true)]
@@ -220,11 +233,10 @@ public sealed class RepairValueTest
         await pair.Server.WaitAssertion(() =>
         {
             var definitions = pair.Server.ResolveDependency<ITileDefinitionManager>();
-            var steel = definitions[RepairValueCatalog.StandardFloor.Id].TileId;
             var expected = new Tile(definitions[target].TileId);
             var current = new Tile(definitions[actual].TileId, 0, 0, 1);
-            Assert.That(RepairValueCatalog.CanonicalizeTile(expected.TypeId, steel) ==
-                        RepairValueCatalog.CanonicalizeTile(current.TypeId, steel), Is.EqualTo(matches));
+            Assert.That(RepairValueCatalog.CanonicalizeTile(expected.TypeId, definitions) ==
+                        RepairValueCatalog.CanonicalizeTile(current.TypeId, definitions), Is.EqualTo(matches));
         });
         await pair.CleanReturnAsync();
     }
@@ -271,16 +283,30 @@ public sealed class RepairValueTest
                     if (order.ID == "RepairValueTestFloorTraining" && path == order.TargetGridPath)
                     {
                         var definitions = server.ResolveDependency<ITileDefinitionManager>();
-                        var cell = blueprint.ExpectedCells.OrderBy(c => c.Key.X).ThenBy(c => c.Key.Y).First();
+                        var cell = blueprint.ExpectedCells.Where(c => c.Value.Tiles.ContainsKey(RepairTileLayer.Floor))
+                            .OrderBy(c => c.Key.X).ThenBy(c => c.Key.Y).First();
                         var expectedTile = cell.Value.Tile!;
                         var originalId = expectedTile.TileId;
                         var originalPrototype = expectedTile.TilePrototype;
                         maps.SetTile(grid, loaded.Value.Comp, cell.Key, Tile.Empty);
                         Assert.That(validation.RevalidateAll(grid), Is.True);
-                        var task = blueprint.TasksByCell[cell.Key].Single();
+                        var layerPoints = cell.Value.Tiles.Values.Sum(t => t.Points);
+                        var task = blueprint.TasksByCell[cell.Key].Single(t => t.TileLayer == RepairTileLayer.Floor);
+                        Assert.That(blueprint.TasksByCell[cell.Key].Select(t => t.RequirementId).Distinct().Count(), Is.EqualTo(3));
+                        Assert.That(blueprint.TasksByCell[cell.Key].All(t => t.State == RepairTaskState.Missing), Is.True);
                         Assert.That(task.State, Is.EqualTo(RepairTaskState.Missing));
                         Assert.That(task.ExpectedTileId, Is.EqualTo(originalId));
                         Assert.That(task.ExpectedTilePrototype, Is.EqualTo(originalPrototype), "Analyzer uses the original tile.");
+                        Assert.That(blueprint.CurrentPoints, Is.EqualTo(-layerPoints));
+
+                        maps.SetTile(grid, loaded.Value.Comp, cell.Key, new Tile(definitions["Lattice"].TileId));
+                        Assert.That(validation.RevalidateAll(grid), Is.True);
+                        Assert.That(blueprint.TasksByCell[cell.Key].Count(t => t.State == RepairTaskState.Correct), Is.EqualTo(1));
+                        maps.SetTile(grid, loaded.Value.Comp, cell.Key, new Tile(definitions["Plating"].TileId));
+                        Assert.That(validation.RevalidateAll(grid), Is.True);
+                        Assert.That(blueprint.TasksByCell[cell.Key].Count(t => t.State == RepairTaskState.Correct), Is.EqualTo(2));
+                        Assert.That(blueprint.TasksByCell[cell.Key].Single(t => t.TileLayer == RepairTileLayer.Floor).State,
+                            Is.EqualTo(RepairTaskState.Missing));
                         Assert.That(blueprint.CurrentPoints, Is.EqualTo(-expectedTile.Points));
 
                         maps.SetTile(grid, loaded.Value.Comp, cell.Key, new Tile(definitions["FloorWood"].TileId));
@@ -291,8 +317,9 @@ public sealed class RepairValueTest
                         var extraCell = cell.Key + new Robust.Shared.Maths.Vector2i(-1, 0);
                         maps.SetTile(grid, loaded.Value.Comp, extraCell, new Tile(definitions["FloorFreezer"].TileId));
                         Assert.That(validation.RevalidateAll(grid), Is.True);
-                        Assert.That(blueprint.TasksByCell[extraCell].Single().State, Is.EqualTo(RepairTaskState.Wrong));
-                        Assert.That(blueprint.CurrentPoints, Is.EqualTo(-expectedTile.Points));
+                        Assert.That(blueprint.TasksByCell[extraCell], Has.Count.EqualTo(3));
+                        Assert.That(blueprint.TasksByCell[extraCell].All(t => t.State == RepairTaskState.Wrong), Is.True);
+                        Assert.That(blueprint.CurrentPoints, Is.EqualTo(-layerPoints));
                         maps.SetTile(grid, loaded.Value.Comp, extraCell, Tile.Empty);
                         Assert.That(validation.RevalidateAll(grid), Is.True);
                         Assert.That(blueprint.FullyMatchesTarget, Is.True);

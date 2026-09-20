@@ -172,12 +172,13 @@ public sealed partial class RepairOrderRegressionTest
                 Assert.That(uiSystem.TryGetUiState<RepairOrderBoundUserInterfaceState>(console, RepairOrderUiKey.Key, out var unchangedUi), Is.True);
                 Assert.That(unchangedUi, Is.SameAs(initialUi), "An unchanged dirty batch must not publish another UI state.");
 
-                // Every non-empty base floor tile is equivalent; analyzer visuals retain the target tile.
+                // Materials within the same layer are equivalent; analyzer visuals retain the target tile.
                 var definitions = server.ResolveDependency<ITileDefinitionManager>();
                 for (var i = 0; i < cells.Length; i++)
                 {
-                    var otherTile = definitions.First(definition => definition.TileId != Tile.Empty.TypeId &&
-                        definition.TileId != tiles[i].TypeId);
+                    var originalLayer = RepairValueCatalog.GetTileLayer((Content.Shared.Maps.ContentTileDefinition) definitions[tiles[i].TypeId]);
+                    var otherTile = definitions.Cast<Content.Shared.Maps.ContentTileDefinition>().First(definition =>
+                        RepairValueCatalog.GetTileLayer(definition) == originalLayer && definition.TileId != tiles[i].TypeId);
                     maps.SetTile(repairGrid, grid.Comp, cells[i].Key, new Tile(otherTile.TileId));
                 }
                 validation.Update(0f);

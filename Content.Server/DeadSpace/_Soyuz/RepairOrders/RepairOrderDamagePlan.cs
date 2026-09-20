@@ -15,7 +15,9 @@ public sealed record RepairDamageEntity(int Index, EntityUid Uid, string Prototy
 public sealed record RepairDamageSnapshot(EntityUid Grid, ImmutableArray<Vector2i> Floors,
     ImmutableArray<RepairDamageEntity> Entities, ImmutableArray<Vector2i> ProtectedFloors, int FloorValue)
 {
-    public int TotalValue => Floors.Length * FloorValue + Entities.Sum(entity => entity.Value);
+    public ImmutableDictionary<Vector2i, int> FloorLayerCounts { get; init; } = ImmutableDictionary<Vector2i, int>.Empty;
+    public int CountTileRequirements(IEnumerable<Vector2i> cells) => cells.Sum(cell => FloorLayerCounts.GetValueOrDefault(cell, 1));
+    public int TotalValue => CountTileRequirements(Floors) * FloorValue + Entities.Sum(entity => entity.Value);
 }
 
 public sealed record RepairDamageEventResult(ProtoId<RepairDamageEventPrototype> Event,

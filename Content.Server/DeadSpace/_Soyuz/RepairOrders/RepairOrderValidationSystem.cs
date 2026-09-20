@@ -2,6 +2,7 @@
 
 using System.Numerics;
 using System.Linq;
+using Content.Shared.Atmos.Components;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Maps;
 using Content.Shared.Tag;
@@ -45,6 +46,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         SubscribeLocalEvent<TransformComponent, EntityTerminatingEvent>(OnTransformTerminating);
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
         SubscribeLocalEvent<AnchorStateChangedEvent>(OnAnchorStateChanged);
+        SubscribeLocalEvent<AtmosPipeLayersComponent, TrySetNextPipeLayerCompletedEvent>(OnPipeLayerCycled);
+        SubscribeLocalEvent<AtmosPipeLayersComponent, TrySettingPipeLayerCompletedEvent>(OnPipeLayerSet);
         _transform.OnGlobalMoveEvent += OnMove;
         _prototype.PrototypesReloaded += OnPrototypesReloaded;
     }
@@ -314,19 +317,19 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         {
             // Base tiles are independent of every anchored covering (CarpetBase and its descendants).
             if (targetTile.Tile.IsEmpty) continue;
-            var expectedTileId = targetTile.Tile.TypeId;
-            var expectedTilePrototype = ((ContentTileDefinition) _tileDefinitions[expectedTileId]).ID;
-            var expectedCanonicalTileId = RepairValueCatalog.CanonicalizeTile(expectedTileId, scoreLookup.SteelTileId);
-            var expectedCanonicalTilePrototype = ((ContentTileDefinition) _tileDefinitions[expectedCanonicalTileId]).ID;
             var expectedCell = GetOrCreateExpectedCell(blueprint.Comp, targetTile.GridIndices);
-            expectedCell.Tile = new RepairExpectedTileState
+            foreach (var (layer, tile) in RepairValueCatalog.GetTileLayers(targetTile.Tile.TypeId, _tileDefinitions))
             {
-                TileId = expectedTileId,
-                TilePrototype = expectedTilePrototype,
-                CanonicalTileId = expectedCanonicalTileId,
-                CanonicalTilePrototype = expectedCanonicalTilePrototype,
-                Points = scoreLookup.FloorTilePoints,
-            };
+                var canonical = RepairValueCatalog.CanonicalizeTile(tile.TileId, _tileDefinitions);
+                expectedCell.Tiles[layer] = new RepairExpectedTileState
+                {
+                    TileId = tile.TileId,
+                    TilePrototype = tile.ID,
+                    CanonicalTileId = canonical,
+                    CanonicalTilePrototype = ((ContentTileDefinition) _tileDefinitions[canonical]).ID,
+                    Points = scoreLookup.FloorTilePoints,
+                };
+            }
         }
 
         foreach (var (signature, targetEntity) in SnapshotAnchoredEntities(target, scoreLookup))
@@ -382,7 +385,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
 
             var points = ResolveEntityPoints(scoreLookup, prototypeId, xform.LocalPosition);
             var rotationMode = ResolveRotationMode(scoreLookup, prototypeId);
-            var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, prototypeId);
+            var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, EffectivePipePrototype(child, prototypeId));
             var displayRotation = xform.LocalRotation.Reduced().FlipPositive();
             var signature = new AnchoredEntitySignature(
                 canonicalPrototype,
@@ -508,16 +511,18 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         ActualCellState actual,
         RepairScoreLookup scoreLookup)
     {
-        if (expected?.Tile is { } expectedTile)
+        if (expected != null)
         {
-            expectedTile.InitiallyCorrect = actual.CanonicalTileId == expectedTile.CanonicalTileId;
+            foreach (var (layer, tile) in expected.Tiles)
+                tile.InitiallyCorrect = actual.Tiles.ContainsKey(layer);
         }
-        else if (!actual.TileIsEmpty)
+        foreach (var (layer, tile) in actual.Tiles)
         {
-            var baseline = GetOrCreateUnexpectedBaselineCell(blueprint, cell);
-            baseline.Tile = new RepairUnexpectedTileBaseline
+            if (expected?.Tiles.ContainsKey(layer) == true)
+                continue;
+            GetOrCreateUnexpectedBaselineCell(blueprint, cell).Tiles[layer] = new RepairUnexpectedTileBaseline
             {
-                TilePrototype = actual.TilePrototype ?? string.Empty,
+                TilePrototype = tile.ID,
                 Points = scoreLookup.FloorTilePoints,
             };
         }
@@ -571,42 +576,36 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
     {
         var tasks = new List<RepairTask>();
 
-        if (expected?.Tile is { } expectedTile)
+        foreach (var layer in new[] { RepairTileLayer.Lattice, RepairTileLayer.Plating, RepairTileLayer.Floor })
         {
-            tasks.Add(new RepairTask
+            var present = actual.Tiles.TryGetValue(layer, out var actualTile);
+            if (expected != null && expected.Tiles.TryGetValue(layer, out var expectedTile))
             {
-                Type = RepairTaskType.Tile,
-                Cell = cell,
-                ExpectedTileId = expectedTile.TileId,
-                ExpectedTilePrototype = expectedTile.TilePrototype,
-                ExpectedCanonicalTileId = expectedTile.CanonicalTileId,
-                ExpectedCanonicalTilePrototype = expectedTile.CanonicalTilePrototype,
-                Points = expectedTile.Points,
-                InitiallyCorrect = expectedTile.InitiallyCorrect,
-                State = actual.CanonicalTileId == expectedTile.CanonicalTileId
-                    ? RepairTaskState.Correct
-                    : actual.TileIsEmpty
-                        ? RepairTaskState.Missing
-                        : RepairTaskState.Wrong,
-            });
-        }
-        else if (baseline?.Tile is { } baselineTile)
-        {
-            tasks.Add(CreateUnexpectedTileTask(
-                cell,
-                actual.TilePrototype ?? baselineTile.TilePrototype,
-                baselineTile.Points,
-                initiallyCorrect: false,
-                actual.TileIsEmpty ? RepairTaskState.Correct : RepairTaskState.Wrong));
-        }
-        else if (!actual.TileIsEmpty)
-        {
-            tasks.Add(CreateUnexpectedTileTask(
-                cell,
-                actual.TilePrototype ?? string.Empty,
-                scoreLookup.FloorTilePoints,
-                initiallyCorrect: true,
-                RepairTaskState.Wrong));
+                tasks.Add(new RepairTask
+                {
+                    Type = RepairTaskType.Tile,
+                    TileLayer = layer,
+                    Cell = cell,
+                    ExpectedTileId = expectedTile.TileId,
+                    ExpectedTilePrototype = expectedTile.TilePrototype,
+                    ExpectedCanonicalTileId = expectedTile.CanonicalTileId,
+                    ExpectedCanonicalTilePrototype = expectedTile.CanonicalTilePrototype,
+                    Points = expectedTile.Points,
+                    InitiallyCorrect = expectedTile.InitiallyCorrect,
+                    State = present ? RepairTaskState.Correct : RepairTaskState.Missing,
+                });
+            }
+            else if (baseline != null && baseline.Tiles.TryGetValue(layer, out var baselineTile))
+            {
+                tasks.Add(CreateUnexpectedTileTask(cell, layer, actualTile?.ID ?? baselineTile.TilePrototype,
+                    baselineTile.Points, initiallyCorrect: false,
+                    present ? RepairTaskState.Wrong : RepairTaskState.Correct));
+            }
+            else if (present)
+            {
+                tasks.Add(CreateUnexpectedTileTask(cell, layer, actualTile!.ID, scoreLookup.FloorTilePoints,
+                    initiallyCorrect: true, RepairTaskState.Wrong));
+            }
         }
 
         var comparison = CompareEntities(expected, actual);
@@ -713,7 +712,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
                 tasks.Any(t => t.RequirementId == id)) continue;
             tasks.Add(new RepairTask
             {
-                RequirementId = id, Waived = true, Type = key.Type, Cell = key.Cell,
+                RequirementId = id, Waived = true, Type = key.Type, Cell = key.Cell, TileLayer = key.TileLayer,
                 ExpectedEntityPrototype = key.Prototype, ExpectedTilePrototype = waived.Prototype,
                 ExpectedLocalPosition = key.Position, ExpectedLocalRotation = key.Rotation,
                 DisplayLocalRotation = key.Rotation, RequiredMatchingCount = key.RequiredMatchingCount,
@@ -743,6 +742,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
 
     private static RepairTask CreateUnexpectedTileTask(
         Vector2i cell,
+        RepairTileLayer layer,
         string displayPrototype,
         int points,
         bool initiallyCorrect,
@@ -752,6 +752,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         {
             Type = RepairTaskType.Tile,
             Cell = cell,
+            TileLayer = layer,
             ExpectedTileId = Tile.Empty.TypeId,
             ExpectedTilePrototype = displayPrototype,
             ExpectedCanonicalTileId = Tile.Empty.TypeId,
@@ -862,7 +863,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         foreach (var tile in _map.GetAllTiles(grid.Owner, grid.Comp))
         {
             var cell = result.GetOrCreateCell(tile.GridIndices);
-            SetActualTile(cell, tile.Tile.TypeId, scoreLookup);
+            SetActualTile(cell, tile.Tile.TypeId);
         }
 
         var children = Transform(grid.Owner).ChildEnumerator;
@@ -885,7 +886,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         var result = new ActualCellState();
         var tile = _map.GetTileRef(grid.Owner, grid.Comp, cell).Tile;
         if (!tile.IsEmpty)
-            SetActualTile(result, tile.TypeId, scoreLookup);
+            SetActualTile(result, tile.TypeId);
 
         foreach (var child in _map.GetAnchoredEntities(grid.Owner, grid.Comp, cell))
         {
@@ -926,7 +927,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             ResolveEntityPoints(scoreLookup, prototypeId, xform.LocalPosition);
 
         var rotationMode = ResolveRotationMode(scoreLookup, prototypeId);
-        var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, prototypeId);
+        var canonicalPrototype = CanonicalizeEntityPrototype(scoreLookup.EntityIdentityRules, EffectivePipePrototype(child, prototypeId));
         cell = LocalPositionToCell(grid.Comp, xform.LocalPosition);
         entity = new ActualAnchoredEntity
         {
@@ -943,12 +944,21 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         return true;
     }
 
-    private void SetActualTile(ActualCellState cell, int tileId, RepairScoreLookup scoreLookup)
+    private string EffectivePipePrototype(EntityUid entity, string prototype)
+        => TryComp<AtmosPipeLayersComponent>(entity, out var layers) &&
+           layers.AlternativePrototypes.TryGetValue(layers.CurrentPipeLayer, out var alternative)
+            ? alternative.Id : prototype;
+
+    private void OnPipeLayerCycled(Entity<AtmosPipeLayersComponent> entity, ref TrySetNextPipeLayerCompletedEvent args)
+        => MarkDirtyFromCoordinates(Transform(entity).Coordinates);
+
+    private void OnPipeLayerSet(Entity<AtmosPipeLayersComponent> entity, ref TrySettingPipeLayerCompletedEvent args)
+        => MarkDirtyFromCoordinates(Transform(entity).Coordinates);
+
+    private void SetActualTile(ActualCellState cell, int tileId)
     {
-        cell.TileId = tileId;
-        cell.TilePrototype = ((ContentTileDefinition) _tileDefinitions[tileId]).ID;
-        cell.CanonicalTileId = RepairValueCatalog.CanonicalizeTile(tileId, scoreLookup.SteelTileId);
-        cell.CanonicalTilePrototype = ((ContentTileDefinition) _tileDefinitions[cell.CanonicalTileId]).ID;
+        foreach (var (layer, tile) in RepairValueCatalog.GetTileLayers(tileId, _tileDefinitions))
+            cell.Tiles[layer] = tile;
     }
 
     private static void RecalculateProgress(RepairBlueprintComponent blueprint, bool initializeMaxPoints)
@@ -1165,7 +1175,6 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         var lookup = new RepairScoreLookup(order.ID, grid, _valueCatalog)
         {
             FloorTilePoints = profile.FloorTilePoints,
-            SteelTileId = _tileDefinitions[RepairValueCatalog.StandardFloor.Id].TileId,
         };
 
         foreach (var rule in profile.IdentityRules)
@@ -1350,7 +1359,6 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         public readonly EntityUid Grid = grid;
         public readonly RepairValueCatalog Values = values;
         public int FloorTilePoints;
-        public int SteelTileId;
         public bool Invalid;
         public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
         public readonly List<RepairRotationRule> RotationRules = new();
@@ -1392,13 +1400,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
     {
         public static readonly ActualCellState Empty = new();
 
-        public int TileId = Tile.Empty.TypeId;
-        public string? TilePrototype;
-        public int CanonicalTileId = Tile.Empty.TypeId;
-        public string? CanonicalTilePrototype;
+        public readonly Dictionary<RepairTileLayer, ContentTileDefinition> Tiles = new();
         public readonly List<ActualAnchoredEntity> Entities = new();
-
-        public bool TileIsEmpty => TileId == Tile.Empty.TypeId;
     }
 
     private sealed class ActualAnchoredEntity

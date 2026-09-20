@@ -8,11 +8,11 @@ using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
 public readonly record struct RepairRequirementKey(RepairTaskType Type, Vector2i Cell, string Prototype,
-    Vector2 Position, Angle Rotation, int RequiredMatchingCount)
+    Vector2 Position, Angle Rotation, int RequiredMatchingCount, RepairTileLayer TileLayer = RepairTileLayer.None)
 {
     public static RepairRequirementKey For(RepairTask task) => new(task.Type, task.Cell,
         task.ExpectedEntityPrototype ?? string.Empty, task.ExpectedLocalPosition, task.ExpectedLocalRotation,
-        task.RequiredMatchingCount);
+        task.RequiredMatchingCount, task.TileLayer);
 }
 
 /// <summary>Safe immutable descriptor retained after grid cleanup; contains no entity UID.</summary>

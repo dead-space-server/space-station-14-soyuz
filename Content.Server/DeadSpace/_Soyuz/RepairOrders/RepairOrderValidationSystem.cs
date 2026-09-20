@@ -48,8 +48,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         SubscribeLocalEvent<TransformComponent, EntityTerminatingEvent>(OnTransformTerminating);
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
         SubscribeLocalEvent<AnchorStateChangedEvent>(OnAnchorStateChanged);
-        SubscribeLocalEvent<AtmosPipeLayersComponent, TrySetNextPipeLayerCompletedEvent>(OnPipeLayerCycled);
-        SubscribeLocalEvent<AtmosPipeLayersComponent, TrySettingPipeLayerCompletedEvent>(OnPipeLayerSet);
+        SubscribeLocalEvent<TransformComponent, TrySetNextPipeLayerCompletedEvent>(OnPipeLayerCycled);
+        SubscribeLocalEvent<TransformComponent, TrySettingPipeLayerCompletedEvent>(OnPipeLayerSet);
         _transform.OnGlobalMoveEvent += OnMove;
         _prototype.PrototypesReloaded += OnPrototypesReloaded;
     }
@@ -951,11 +951,24 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
            _pipeLayers.TryGetAlternativePrototype(layers, layers.CurrentPipeLayer, out var alternative)
             ? alternative.Id : prototype;
 
-    private void OnPipeLayerCycled(Entity<AtmosPipeLayersComponent> entity, ref TrySetNextPipeLayerCompletedEvent args)
-        => MarkDirtyFromCoordinates(Transform(entity).Coordinates);
+    private void OnPipeLayerCycled(
+        Entity<TransformComponent> entity,
+        ref TrySetNextPipeLayerCompletedEvent args)
+    {
+        if (args.Cancelled)
+            return;
 
-    private void OnPipeLayerSet(Entity<AtmosPipeLayersComponent> entity, ref TrySettingPipeLayerCompletedEvent args)
-        => MarkDirtyFromCoordinates(Transform(entity).Coordinates);
+        MarkDirtyFromCoordinates(entity.Comp.Coordinates);
+    }
+    private void OnPipeLayerSet(
+        Entity<TransformComponent> entity,
+        ref TrySettingPipeLayerCompletedEvent args)
+    {
+        if (args.Cancelled)
+            return;
+
+        MarkDirtyFromCoordinates(entity.Comp.Coordinates);
+    }
 
     private void SetActualTile(ActualCellState cell, int tileId)
     {

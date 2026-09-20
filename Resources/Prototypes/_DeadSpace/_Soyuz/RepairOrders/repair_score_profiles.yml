@@ -8,6 +8,9 @@
   # or light fixtures with a lamp preinserted on spawn.
   identityRules:
   - selector:
+      parents: [Holopad]
+    canonical: Holopad
+  - selector:
       entities: [SMESBasic, SMESBasicEmpty]
     canonical: SMESBasic
   - selector:
@@ -60,6 +63,9 @@
 
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
   rotationRules:
+  - selector:
+      entities: [AirSensor]
+    mode: None
   # Every shuttle thruster and constructed computer is directional, including fork-specific variants.
   - selector:
       allComponents: [Thruster]

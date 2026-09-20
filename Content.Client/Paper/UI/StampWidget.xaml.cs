@@ -110,6 +110,11 @@ public sealed partial class StampWidget : PanelContainer
             {
                 _stampTexture = _resCache.GetResource<TextureResource>(value.StampTexture);
                 _stampTextureModulate = value.StampedColor;
+                if (value.StampTexture.EndsWith("centralcommand_print.png", StringComparison.Ordinal))
+                {
+                    _stampMainText = (value.StampMainText ?? GetStampDisplayText(value.StampedName)).ToUpperInvariant();
+                    _stampFont = new VectorFont(_resCache.GetResource<FontResource>(StampFontPath), HeadStampFontSize * FontOversample);
+                }
                 // DS14-start
                 _stampScale = GetPrototypeStampScale(value.StampScale);
                 PanelOverride = null;
@@ -268,6 +273,8 @@ public sealed partial class StampWidget : PanelContainer
         // DS14-start
         if (_stampPatternTexture != null)
             DrawPatternText(handle);
+        else if (_stampTexture != null && _stampMainText != null)
+            DrawCentralCommandText(handle);
         // DS14-end
     }
 
@@ -480,6 +487,24 @@ public sealed partial class StampWidget : PanelContainer
         }
 
         return width;
+    }
+
+    private void DrawCentralCommandText(DrawingHandleScreen handle)
+    {
+        if (_stampTexture == null || _stampFont == null || _stampMainText == null || _stampTextureModulate == null)
+            return;
+
+        var size = _stampTextureSize == Vector2.Zero ? _stampTexture.Size * _stampScale : _stampTextureSize;
+        var scale = size.X / _stampTexture.Size.X;
+        // The central ribbon's text field in the original 269 x 245 texture.
+        var textArea = UIBox2.FromDimensions(new Vector2(46, 86) * scale, new Vector2(177, 34) * scale);
+        var fontScale = GetFittedTextScale(_stampFont, _stampMainText, scale, textArea.Width);
+        var textSize = new Vector2(MeasureText(_stampFont, _stampMainText, FontOversampleScale * fontScale),
+            _stampFont.GetHeight(FontOversampleScale * fontScale));
+        var topLeft = textArea.TopLeft + (textArea.Size - textSize) * 0.5f;
+        var pivot = size * UIScale * 0.5f;
+        DrawText(handle, _stampFont, _stampMainText, topLeft, _stampTextureModulate.Value,
+            fontScale, UIScale, pivot, GlobalPosition * UIScale + pivot, Orientation, alignGlyphTops: true);
     }
 
     private void DrawPatternText(DrawingHandleScreen handle)

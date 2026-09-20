@@ -42,12 +42,12 @@
   - RepairDamageLargeExplosion
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
-  minEvents: 2
+  minEvents: 1
   maxEvents: 3
   maxGenerationAttempts: 30
   maxEventRolls: 80
   minDamageFraction: 0.08
-  maxDamageFraction: 0.22
+  maxDamageFraction: 0.25
   maxRemovedFloorFraction: 0.12
   maxRemovedAnchoredEntityFraction: 0.3
   minChangedRequirements: 2
@@ -100,12 +100,12 @@
   - RepairDamageLargeExplosion
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
-  minEvents: 3
+  minEvents: 1
   maxEvents: 5
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.15
-  maxDamageFraction: 0.38
+  minDamageFraction: 0.25
+  maxDamageFraction: 0.4
   maxRemovedFloorFraction: 0.18
   maxRemovedAnchoredEntityFraction: 0.48
   minChangedRequirements: 3
@@ -158,12 +158,12 @@
   - RepairDamageLargeExplosion
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
-  minEvents: 4
+  minEvents: 1
   maxEvents: 7
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.25
-  maxDamageFraction: 0.52
+  minDamageFraction: 0.3
+  maxDamageFraction: 0.6
   maxRemovedFloorFraction: 0.25
   maxRemovedAnchoredEntityFraction: 0.65
   minChangedRequirements: 4
@@ -216,12 +216,12 @@
   - RepairDamageLargeExplosion
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
-  minEvents: 8
+  minEvents: 1
   maxEvents: 18
   maxGenerationAttempts: 30
   maxEventRolls: 160
-  minDamageFraction: 0.38
-  maxDamageFraction: 0.65
+  minDamageFraction: 0.4
+  maxDamageFraction: 0.75
   maxRemovedFloorFraction: 0.35
   maxRemovedAnchoredEntityFraction: 0.75
   minChangedRequirements: 8
@@ -274,12 +274,12 @@
   - RepairDamageLargeExplosion
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
-  minEvents: 20
+  minEvents: 1
   maxEvents: 60
   maxGenerationAttempts: 30
   maxEventRolls: 400
   minDamageFraction: 0.5
-  maxDamageFraction: 0.8
+  maxDamageFraction: 0.9
   maxRemovedFloorFraction: 0.45
   maxRemovedAnchoredEntityFraction: 0.85
   minChangedRequirements: 16

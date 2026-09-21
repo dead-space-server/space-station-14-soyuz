@@ -85,26 +85,11 @@ public sealed class RepairOrderSystem : EntitySystem
                     RepairOrderAbortReason.RepairGridDeleted);
             }
 
-            var changed = false;
-            foreach (var (runtimeId, offer) in state.Available.ToArray())
+            if (now >= state.NextOffer && !state.Accepting && !state.Completing)
             {
-                if (offer.ExpiresAt > now)
-                    continue;
-
-                state.Available.Remove(runtimeId);
-                changed = true;
-            }
-
-            if (changed || now >= state.NextOffer)
-            {
-                GenerateOffer((stationUid, state));
-                // Do not catch up missed intervals in a batch.
-                state.NextOffer = now + state.OfferInterval;
-                changed = true;
-            }
-
-            if (changed)
+                GenerateOffer((stationUid, state), refresh: true);
                 UpdateStationUis((stationUid, state));
+            }
         }
     }
 
@@ -149,7 +134,7 @@ public sealed class RepairOrderSystem : EntitySystem
             return;
         }
 
-        if (!state.Available.TryGetValue(args.RuntimeId, out var offer) || offer.ExpiresAt <= _timing.CurTime)
+        if (!state.Available.TryGetValue(args.RuntimeId, out var offer) || state.NextOffer <= _timing.CurTime)
         {
             FailRequest(console.Owner, args.Actor, "repair-orders-error-unavailable", $"offer {args.RuntimeId} is missing or expired");
             return;
@@ -241,8 +226,6 @@ public sealed class RepairOrderSystem : EntitySystem
                     UpdateStationUis((stationUid.Value, state));
             }
         }
-
-        RunPostCommitEffect("offer refill", () => GenerateOffer((stationUid.Value, state)));
 
         // Post-commit notifications cannot fail or roll back the activation. Attempt each independently,
         // so a failing extension subscriber does not prevent the success popup or the final UI refresh.
@@ -388,32 +371,46 @@ public sealed class RepairOrderSystem : EntitySystem
         if (station.Comp.PoolInitialized)
             return;
 
-        station.Comp.PoolInitialized = true;
         GenerateOffer(station);
+        station.Comp.PoolInitialized = true;
         station.Comp.NextOffer = _timing.CurTime + station.Comp.OfferInterval;
         UpdateStationUis(station);
     }
 
-    /// <summary>Fill only vacant slots, weighted without replacement. Existing offers retain seed and lifetime.</summary>
-    public void GenerateOffer(Entity<RepairOrderStationComponent> station)
+    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.</summary>
+    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false)
     {
+        if (station.Comp.Accepting || station.Comp.Completing)
+            return;
+
         var limit = Math.Clamp(station.Comp.AvailableOfferCount, 0, RepairOrderStationComponent.MaximumAvailableOffers);
-        if (station.Comp.Available.Count >= limit) return;
-        var occupied = station.Comp.Available.Values.Select(offer => offer.Prototype.Id).ToHashSet();
+        if (!refresh && station.Comp.Available.Count >= limit) return;
+        var available = refresh
+            ? new Dictionary<int, AvailableRepairOrder>()
+            : new Dictionary<int, AvailableRepairOrder>(station.Comp.Available);
+        var occupied = available.Values.Select(offer => offer.Prototype.Id).ToHashSet();
+        var previous = station.Comp.Available.Values.Select(offer => offer.Prototype.Id).ToHashSet();
         var candidates = _prototype.EnumeratePrototypes<RepairOrderPrototype>()
             .Where(order => float.IsFinite(order.Weight) && order.Weight > 0f && !occupied.Contains(order.ID))
             .OrderBy(order => order.ID, StringComparer.Ordinal).ToList();
-        var seeds = station.Comp.Available.Values.Select(offer => offer.DamageSeed).ToHashSet();
-        while (station.Comp.Available.Count < limit && candidates.Count > 0)
+        var seeds = available.Values.Select(offer => offer.DamageSeed).ToHashSet();
+        var nextRuntimeId = station.Comp.NextRuntimeId;
+        var nextOffer = refresh ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
+        while (available.Count < limit && candidates.Count > 0)
         {
-            var selected = SelectWeightedOffer(candidates, _random.NextDouble());
+            // Prefer different offers; a small catalog can still fill the remaining slots.
+            var fresh = candidates.Where(order => !previous.Contains(order.ID)).ToList();
+            var selected = SelectWeightedOffer(fresh.Count > 0 ? fresh : candidates, _random.NextDouble());
             candidates.Remove(selected);
             var seed = _random.Next();
             while (!seeds.Add(seed)) seed = seed == int.MaxValue ? 0 : seed + 1;
-            var runtimeId = station.Comp.NextRuntimeId++;
-            station.Comp.Available.Add(runtimeId, new AvailableRepairOrder(runtimeId, selected.ID,
-                _timing.CurTime + station.Comp.OfferLifetime, seed));
+            var runtimeId = nextRuntimeId++;
+            available.Add(runtimeId, new AvailableRepairOrder(runtimeId, selected.ID, seed));
         }
+
+        station.Comp.Available = available;
+        station.Comp.NextRuntimeId = nextRuntimeId;
+        station.Comp.NextOffer = nextOffer;
     }
 
     /// <summary>Select from the already filtered positive-weight candidates using a roll in [0, 1).</summary>
@@ -647,12 +644,11 @@ public sealed class RepairOrderSystem : EntitySystem
     private void UpdateConsoleUi(EntityUid console, Entity<RepairOrderStationComponent> station)
     {
         var available = station.Comp.Available.Values
-            .OrderBy(offer => offer.ExpiresAt)
+            .OrderBy(offer => offer.RuntimeId)
             .Select(offer => new RepairOrderBuiEntry(
                 offer.RuntimeId,
                 offer.Prototype.Id,
-                RepairOrderStatus.Available,
-                offer.ExpiresAt))
+                RepairOrderStatus.Available))
             .ToList();
 
         RepairOrderBuiEntry? active = null;

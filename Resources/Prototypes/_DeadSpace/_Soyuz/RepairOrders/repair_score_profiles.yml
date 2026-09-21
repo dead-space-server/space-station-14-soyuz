@@ -7,6 +7,28 @@
   # They intentionally ignore mapping-only state variants such as filled vs empty batteries
   # or light fixtures with a lamp preinserted on spawn.
   identityRules:
+  # Match material and armor before the common windoor ancestors.
+  - selector:
+      parents: [BaseClockworkWindoor]
+    canonical: WindoorClockwork
+  - selector:
+      parents: [BaseSecurePlasmaWindoor]
+    canonical: WindoorSecurePlasma
+  - selector:
+      parents: [BasePlasmaWindoor]
+    canonical: WindoorPlasma
+  - selector:
+      parents: [BaseSecureUraniumWindoor]
+    canonical: WindoorSecureUranium
+  - selector:
+      parents: [BaseUraniumWindoor]
+    canonical: WindoorUranium
+  - selector:
+      parents: [BaseSecureWindoor]
+    canonical: WindoorSecure
+  - selector:
+      parents: [BaseWindoor]
+    canonical: Windoor
   - selector:
       parents: [Holopad]
     canonical: Holopad

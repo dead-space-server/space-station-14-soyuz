@@ -1144,3 +1144,56 @@
   - WizardLightning
   - WizardSmoke
   - XenoborgDeflectorField
+
+- type: repairValueExclusion
+  id: RepairExcludeGasMiners
+  reason: Gas miners should not be procedurally damaged or included in repair requirements.
+  entities:
+  - GasMinerOxygen
+  - GasMinerOxygenStation
+  - GasMinerOxygenStationLarge
+  - GasMinerNitrogen
+  - GasMinerNitrogenStation
+  - GasMinerNitrogenStationLarge
+  - GasMinerCarbonDioxide
+  - GasMinerPlasma
+  - GasMinerTritium
+  - GasMinerFrezon
+  - GasMinerWaterVapor
+  - GasMinerAmmonia
+  - GasMinerNitrousOxide
+  - GasMinerHydrogen
+  - GasMinerFixirium
+  - GasMinerNitriatium
+  - GasMinerHilium
+  - GasMinerBrizidium
+  - GasMinerIprit
+  - GasMinerHyperNoblium
+  - GasMinerProtoNitrate
+  - GasMinerHelium
+  - GasMinerHalon
+  - GasMinerZauker
+  - GasMinerAntinoblium
+  - GasMinerPlasmaConstructible
+  - GasMinerOxygenConstructible
+  - GasMinerNitrogenConstructible
+  - GasMinerInfectionDeadSpace
+
+- type: repairValueExclusion
+  id: RepairExcludeChurchBell
+  reason: Church bells should not be procedurally damaged or included in repair requirements.
+  entities:
+  - ChurchBell
+
+- type: repairValueExclusion
+  id: RepairExcludeScreensAndTimers
+  reason: Screens, timers and station maps are excluded from procedural damage and repair requirements.
+  entities:
+  - WallmountTelescreenFrame
+  - ScreenTimer
+  - WallmountTelescreen
+  - Screen
+  - ArrivalsShuttleTimer
+  - BrigTimer
+  - StationMap
+  - StationMapBroken

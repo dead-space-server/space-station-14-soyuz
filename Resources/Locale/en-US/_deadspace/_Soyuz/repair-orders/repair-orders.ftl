@@ -39,7 +39,7 @@ repair-order-damaged-amber-name = Restoration of Amber
 repair-order-damaged-amber-description = A request to restore this object has been received. The damage will be diagnosed after deployment.
 
 repair-orders-window-title = Engineering repair orders
-repair-orders-next-offer = Next offer:
+repair-orders-next-offer = Next offers:
 repair-orders-activation-in-progress = Locating safe space and transferring the damaged shuttle...
 repair-orders-completion-in-progress = Finalizing the repair order...
 repair-orders-available-heading = Available orders

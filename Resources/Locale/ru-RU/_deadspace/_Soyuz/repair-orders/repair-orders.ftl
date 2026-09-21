@@ -34,7 +34,7 @@ repair-order-damaged-amber-name = Восстановление «Янтаря»
 repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 
 repair-orders-window-title = Инженерные ремонтные заказы
-repair-orders-next-offer = Следующее предложение:
+repair-orders-next-offer = Следующие предложения:
 repair-orders-activation-in-progress = Идёт поиск безопасного места и перенос повреждённого шаттла...
 repair-orders-completion-in-progress = Идёт завершение ремонтного заказа...
 repair-orders-available-heading = Доступные заказы

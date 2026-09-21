@@ -118,32 +118,6 @@
   - FuelCanister
   - GasFilter
   - GasFilterFlipped
-  - GasMinerAmmonia
-  - GasMinerAntinoblium
-  - GasMinerBrizidium
-  - GasMinerCarbonDioxide
-  - GasMinerFixirium
-  - GasMinerFrezon
-  - GasMinerHalon
-  - GasMinerHelium
-  - GasMinerHilium
-  - GasMinerHydrogen
-  - GasMinerHyperNoblium
-  - GasMinerInfectionDeadSpace
-  - GasMinerIprit
-  - GasMinerNitriatium
-  - GasMinerNitrogen
-  - GasMinerNitrogenStation
-  - GasMinerNitrogenStationLarge
-  - GasMinerNitrousOxide
-  - GasMinerOxygen
-  - GasMinerOxygenStation
-  - GasMinerOxygenStationLarge
-  - GasMinerPlasma
-  - GasMinerProtoNitrate
-  - GasMinerTritium
-  - GasMinerWaterVapor
-  - GasMinerZauker
   - GasMixer
   - GasMixerFlipped
   - GasPipeManifold
@@ -777,7 +751,6 @@
   - SignYessmoking
   - SignZomlab
   - StationMapAssembly
-  - StationMapBroken
   - StatueAngel
   - StatueBananiumClown
   - StatueDragonAsia
@@ -793,7 +766,6 @@
   - SurveillanceCameraAssembly
   - SyndieFlag
   - USSPFlag
-  - WallmountTelescreenFrame
   - WallmountTelevisionFrame
   - WarningAir
   - WarningCO2
@@ -1308,7 +1280,6 @@
   entities:
   - ApcNetSwitch
   - ApcNetSwitchDirectional
-  - ArrivalsShuttleTimer
   - BarSign
   - BarSignAlcoholic
   - BarSignComboCafe
@@ -1337,7 +1308,6 @@
   - BarSignWhiskeyEchoes
   - BarSignWiggleRoom
   - BarSignZocalo
-  - BrigTimer
   - ButtonFrame
   - ButtonFrameCaution
   - ButtonFrameCautionSecurity
@@ -1412,9 +1382,7 @@
   - PowerSensor
   - QueueTerminal
   - RandomGate
-  - Screen
   - ScreenDummy
-  - ScreenTimer
   - SignalButton
   - SignalButtonBridge
   - SignalButtonDirectional
@@ -1426,7 +1394,6 @@
   - SignalSwitchDirectional
   - SignalTimer
   - Snowman
-  - StationMap
   - SurveillanceCameraCommand
   - SurveillanceCameraConstructed
   - SurveillanceCameraEngineering
@@ -1436,7 +1403,6 @@
   - SurveillanceCameraSecurity
   - SurveillanceCameraService
   - SurveillanceCameraSupply
-  - WallmountTelescreen
   - WallmountTelevision
   - TwoWayLever
 - type: repairValueGroup
@@ -1792,9 +1758,6 @@
   - FaxMachineCentcom
   - FaxMachineSyndie
   - GasElectrolyzer
-  - GasMinerNitrogenConstructible
-  - GasMinerOxygenConstructible
-  - GasMinerPlasmaConstructible
   - GasRecycler
   - GasThermoMachineFreezer
   - GasThermoMachineFreezerEnabled
@@ -3185,7 +3148,6 @@
   - CarpStatueEyes
   - Catwalk
   - CatwalkDark
-  - ChurchBell
   - ChurchOrganInstrument
   - ClockworkGirder
   - ClockworkGrilleBroken

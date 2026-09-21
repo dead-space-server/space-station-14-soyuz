@@ -58,7 +58,7 @@ public sealed partial class RepairOrderRegressionTest
         """;
 
     [Test]
-    public async Task OffersFillConfiguredLimitAndHaveIndependentLifetime()
+    public async Task OffersRefreshTogetherAtConfiguredInterval()
     {
         await using var pair = await PoolManager.GetServerClient();
         var server = pair.Server;
@@ -81,16 +81,20 @@ public sealed partial class RepairOrderRegressionTest
                 Assert.That(initial.Select(o => o.DamageSeed).Distinct().Count(), Is.EqualTo(initial.Length));
                 orders.GenerateOffer(station);
                 Assert.That(station.Comp.Available.Values, Is.EquivalentTo(initial), "A full pool must not change.");
-                initial[0].ExpiresAt = now;
+                station.Comp.Available.Remove(initial[0].RuntimeId);
+                var remaining = station.Comp.Available.Values.ToArray();
                 station.Comp.NextOffer = now + station.Comp.OfferInterval;
                 orders.Update(0);
-                Assert.That(station.Comp.Available.ContainsKey(initial[0].RuntimeId), Is.False);
-                Assert.That(station.Comp.Available.Count, Is.EqualTo(expected), "Vacant slots refill immediately.");
+                Assert.That(station.Comp.Available.Values, Is.EquivalentTo(remaining), "Vacancies wait for the global refresh.");
                 station.Comp.NextOffer = now;
                 orders.Update(0);
                 Assert.That(station.Comp.Available.Count, Is.EqualTo(expected));
-                foreach (var surviving in initial.Skip(1))
-                    Assert.That(station.Comp.Available[surviving.RuntimeId], Is.SameAs(surviving));
+                Assert.That(station.Comp.NextOffer, Is.EqualTo(now + station.Comp.OfferInterval));
+                foreach (var old in initial)
+                    Assert.That(station.Comp.Available.ContainsKey(old.RuntimeId), Is.False);
+                if (eligible - remaining.Length >= expected)
+                    Assert.That(station.Comp.Available.Values.Select(o => o.Prototype)
+                        .Intersect(remaining.Select(o => o.Prototype)), Is.Empty);
                 Assert.That(station.Comp.Available.Values.Select(o => o.Prototype).Distinct().Count(), Is.EqualTo(station.Comp.Available.Count));
                 station.Comp.Available.Clear();
                 station.Comp.AvailableOfferCount = 1;
@@ -162,12 +166,21 @@ public sealed partial class RepairOrderRegressionTest
                     Assert.That(active.DamageGeneration!.SelectedEvents, Is.Not.Empty);
                     foreach (var retained in available.Skip(1))
                         Assert.That(station.Comp.Available[retained.RuntimeId], Is.SameAs(retained));
-                    Assert.That(station.Comp.Available.Count, Is.EqualTo(available.Length));
+                    Assert.That(station.Comp.Available.Count, Is.EqualTo(available.Length - 1));
                     var afterAccept = station.Comp.Available.Values.ToArray();
                     server.EntMan.EventBus.RaiseLocalEvent(console,
                         new RepairOrderAcceptMessage(available[1].RuntimeId) { Actor = actor, UiKey = RepairOrderUiKey.Key });
                     Assert.That(station.Comp.Active, Is.SameAs(active));
                     Assert.That(station.Comp.Available.Values, Is.EquivalentTo(afterAccept));
+                    var deadline = active.ExpiresAt;
+                    station.Comp.NextOffer = server.ResolveDependency<IGameTiming>().CurTime;
+                    orders.Update(0);
+                    Assert.That(station.Comp.Active, Is.SameAs(active));
+                    Assert.That(active.ExpiresAt, Is.EqualTo(deadline));
+                    Assert.That(station.Comp.Available.Count, Is.EqualTo(available.Length));
+                    foreach (var old in afterAccept)
+                        Assert.That(station.Comp.Available.ContainsKey(old.RuntimeId), Is.False);
+                    afterAccept = station.Comp.Available.Values.ToArray();
                     var completed = new CompletedRepairOrder(active.RuntimeId, active.Prototype, active.CompletedTasks,
                         active.TotalTasks, active.CurrentPoints, active.MaxPoints, 0, RepairOrderResult.Completed, false, null,
                         Array.Empty<RepairOrderRewardResult>());

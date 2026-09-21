@@ -66,10 +66,9 @@ public sealed partial class RepairOrderRegressionTest
                 entMan.RemoveComponent<AccessReaderComponent>(console);
                 var actor = entMan.SpawnEntity(null, map.GridCoords);
                 var prototype = SelectOrder(server.ProtoMan);
-                var now = server.ResolveDependency<IGameTiming>().CurTime;
                 var runtimeId = station.Comp.NextRuntimeId++;
                 station.Comp.Available.Clear();
-                station.Comp.Available.Add(runtimeId, new AvailableRepairOrder(runtimeId, prototype.ID, now + TimeSpan.FromMinutes(1)));
+                station.Comp.Available.Add(runtimeId, new AvailableRepairOrder(runtimeId, prototype.ID));
                 var called = 0;
                 var observedCompleteCommit = false;
                 listener.OnActivated = ev =>

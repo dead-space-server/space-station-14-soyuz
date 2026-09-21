@@ -18,7 +18,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
 
-    private readonly Dictionary<int, (TimeSpan ExpiresAt, Label Timer, Button Accept)> _offerControls = new();
+    private readonly Dictionary<int, Button> _offerControls = new();
     private RepairOrderBoundUserInterfaceState? _state;
     private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
 
@@ -153,7 +153,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         if (order != null)
             AddDifficulty(content, order.Difficulty);
 
-        if (!available || entry.ExpiresAt == null)
+        if (!available)
         {
             content.AddChild(new Label
             {
@@ -252,9 +252,6 @@ public sealed partial class RepairOrderWindow : FancyWindow
         };
         content.AddChild(footer);
 
-        var timer = new Label { VerticalAlignment = VAlignment.Center };
-        footer.AddChild(timer);
-
         var accept = new Button
         {
             Text = Loc.GetString("repair-orders-accept"),
@@ -264,7 +261,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         accept.OnPressed += _ => OnAccept?.Invoke(entry.RuntimeId);
         footer.AddChild(accept);
 
-        _offerControls[entry.RuntimeId] = (entry.ExpiresAt.Value, timer, accept);
+        _offerControls[entry.RuntimeId] = accept;
         return panel;
     }
 
@@ -416,16 +413,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         NextOfferLabel.Text = FormatRemaining(_state.NextOffer - _timing.CurTime);
 
-        foreach (var (_, controls) in _offerControls)
+        foreach (var accept in _offerControls.Values)
         {
-            var remaining = controls.ExpiresAt - _timing.CurTime;
-            controls.Timer.Text = Loc.GetString(
-                "repair-orders-expires-in",
-                ("time", FormatRemaining(remaining)));
-            controls.Accept.Disabled = _state.Active != null ||
-                                       _state.Accepting ||
-                                       _state.Completing ||
-                                       remaining <= TimeSpan.Zero;
+            accept.Disabled = _state.Active != null || _state.Accepting || _state.Completing ||
+                              _state.NextOffer <= _timing.CurTime;
         }
 
         if (_activeControls is { } activeControls)

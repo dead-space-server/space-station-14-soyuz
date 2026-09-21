@@ -20,14 +20,11 @@ public sealed partial class RepairOrderStationComponent : Component
     [DataField]
     public TimeSpan OfferInterval = TimeSpan.FromMinutes(10);
 
-    [DataField]
-    public TimeSpan OfferLifetime = TimeSpan.FromMinutes(5);
-
     [ViewVariables]
     public TimeSpan NextOffer;
 
     [ViewVariables]
-    public readonly Dictionary<int, AvailableRepairOrder> Available = new();
+    public Dictionary<int, AvailableRepairOrder> Available = new();
 
     [ViewVariables]
     public ActiveRepairOrder? Active;
@@ -72,16 +69,12 @@ public sealed partial class AvailableRepairOrder
     public ProtoId<RepairOrderPrototype> Prototype;
 
     [ViewVariables]
-    public TimeSpan ExpiresAt;
-
-    [ViewVariables]
     public readonly int DamageSeed;
 
-    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, TimeSpan expiresAt, int damageSeed = 0)
+    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, int damageSeed = 0)
     {
         RuntimeId = runtimeId;
         Prototype = prototype;
-        ExpiresAt = expiresAt;
         DamageSeed = damageSeed;
     }
 }

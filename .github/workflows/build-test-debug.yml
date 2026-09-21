@@ -128,6 +128,7 @@ jobs:
         echo "Filter: ${{ matrix.filter }}"
 
     - name: Run Content.IntegrationTests
+      timeout-minutes: 35 # DS14
       shell: pwsh
       env:
         TEST_FILTER: ${{ matrix.filter }}

@@ -402,7 +402,7 @@
   id: RepairOrderClothingOuterHardsuitNavyEngineerReward
   entity: ClothingOuterHardsuitNavyEngineer
   cost: 999
-  weight: 5.5
+  weight: 1.5
   maxCount: 1
   minimumDifficulty: 8
 

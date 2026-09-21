@@ -104,12 +104,12 @@
   maxEvents: 5
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.12
-  maxDamageFraction: 0.47
+  minDamageFraction: 0.10
+  maxDamageFraction: 0.60
   maxRemovedFloorFraction: 0.18
   maxRemovedAnchoredEntityFraction: 0.48
-  minChangedRequirements: 3
-  minRemainingFloor: 4
+  minChangedRequirements: 2
+  minRemainingFloor: 3
   minimumEventSeparation: 2
   maxOccurrencesPerEvent: 1
   maxSeverity: Heavy

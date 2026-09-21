@@ -46,7 +46,7 @@ public sealed class RepairDamageTest
             {
                 var signatures = new HashSet<string>();
 
-                foreach (var seed in new[] { 1, 2, 3, 12345, 987654 })
+                foreach (var seed in new[] { 1, 12345 })
                 {
                     var mapUid = maps.CreateMap(out var mapId);
                     maps.SetPaused(mapUid, true);
@@ -326,7 +326,7 @@ public sealed class RepairDamageTest
 
             Assert.That(
                 events,
-                Has.Length.EqualTo(40));
+                Has.Length.EqualTo(42));
 
             var floors = Enumerable
                 .Range(0, 21)

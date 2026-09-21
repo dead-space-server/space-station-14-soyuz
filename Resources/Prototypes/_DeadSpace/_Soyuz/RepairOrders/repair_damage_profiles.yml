@@ -43,7 +43,7 @@
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
   minEvents: 1
-  maxEvents: 3
+  maxEvents: 5
   maxGenerationAttempts: 30
   maxEventRolls: 80
   minDamageFraction: 0.05
@@ -101,7 +101,7 @@
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
   minEvents: 1
-  maxEvents: 5
+  maxEvents: 8
   maxGenerationAttempts: 30
   maxEventRolls: 80
   minDamageFraction: 0.10
@@ -161,7 +161,7 @@
   - RepairDamageChainExplosions
   - RepairDamageMeteorShower
   minEvents: 1
-  maxEvents: 7
+  maxEvents: 9
   maxGenerationAttempts: 30
   maxEventRolls: 80
   minDamageFraction: 0.2

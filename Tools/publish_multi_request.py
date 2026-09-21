@@ -12,6 +12,12 @@ VERSION = os.environ.get("PUBLISH_VERSION") or os.environ["GITHUB_SHA"]
 
 RELEASE_DIR = "release"
 PROGRESS_INTERVAL_SECONDS = 60
+# DS14-Soyuz-start
+UPLOAD_ATTEMPTS = 3
+UPLOAD_RETRY_DELAY_SECONDS = 10
+UPLOAD_WARNING_SIZE_BYTES = 512 * 1024 * 1024
+REQUEST_TIMEOUT = (30, 1800)
+# DS14-Soyuz-end
 
 #
 # CONFIGURATION PARAMETERS
@@ -94,7 +100,11 @@ def main():
     }
 
     print(f"Starting publish...")
-    resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/start", json=data, headers=headers)
+    resp = session.post(
+        f"{ROBUST_CDN_URL}fork/{fork_id}/publish/start",
+        json=data,
+        headers=headers,
+        timeout=REQUEST_TIMEOUT)
     if not resp.ok:
         print(f"Publish start FAILED: {resp.status_code} {resp.reason}")
         print(f"Response: {resp.text}")
@@ -133,7 +143,11 @@ def main():
         "Robust-Cdn-Publish-Id": publish_id
     }
     try:
-        resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/finish", json=data, headers=headers)
+        resp = session.post(
+            f"{ROBUST_CDN_URL}fork/{fork_id}/publish/finish",
+            json=data,
+            headers=headers,
+            timeout=REQUEST_TIMEOUT)
     except Exception:
         abort_publish()
         raise
@@ -153,23 +167,63 @@ def upload_file(session: requests.Session, fork_id: str, publish_id: str, file: 
     size_mb = size_bytes / 1024 / 1024
     print(f"  Uploading {file_name} ({size_mb:.1f} MB)")
 
-    with open(file, "rb") as f:
-        body = ProgressFileReader(f, file_name, size_bytes)
-        headers = {
-            "Content-Type": "application/octet-stream",
-            "Robust-Cdn-Publish-File": file_name,
-            "Robust-Cdn-Publish-Version": VERSION,
-            "Robust-Cdn-Publish-Id": publish_id
-        }
-        try:
-            resp = session.post(f"{ROBUST_CDN_URL}fork/{fork_id}/publish/file", data=body, headers=headers)
-        except requests.RequestException:
-            sent_mb = body.bytes_read / 1024 / 1024
-            print(f"  Upload exception for {file_name}; sent {sent_mb:.1f}/{size_mb:.1f} MB")
-            raise
+    # DS14-Soyuz-start
+    if size_bytes > UPLOAD_WARNING_SIZE_BYTES:
+        print(
+            f"  WARNING: {file_name} is larger than 512 MiB. The CDN reverse proxy must allow "
+            "the complete file as one request body (for nginx, raise client_max_body_size and "
+            "disable proxy_request_buffering).")
 
-    print(f"  Upload finished {file_name}: {resp.status_code} {resp.reason}")
-    return resp
+    headers = {
+        "Content-Type": "application/octet-stream",
+        "Robust-Cdn-Publish-File": file_name,
+        "Robust-Cdn-Publish-Version": VERSION,
+        "Robust-Cdn-Publish-Id": publish_id
+    }
+
+    for attempt in range(1, UPLOAD_ATTEMPTS + 1):
+        with open(file, "rb") as f:
+            body = ProgressFileReader(f, file_name, size_bytes)
+            try:
+                resp = session.post(
+                    f"{ROBUST_CDN_URL}fork/{fork_id}/publish/file",
+                    data=body,
+                    headers=headers,
+                    timeout=REQUEST_TIMEOUT)
+            except requests.RequestException as e:
+                sent_mb = body.bytes_read / 1024 / 1024
+                print(
+                    f"  Upload exception for {file_name} on attempt {attempt}/{UPLOAD_ATTEMPTS}; "
+                    f"sent {sent_mb:.1f}/{size_mb:.1f} MB: {e}")
+                if attempt == UPLOAD_ATTEMPTS:
+                    if size_bytes > UPLOAD_WARNING_SIZE_BYTES:
+                        print(
+                            "  Upload repeatedly failed for a large file. Check the CDN reverse proxy "
+                            "body-size and request timeout limits.")
+                    raise
+
+                delay = UPLOAD_RETRY_DELAY_SECONDS * attempt
+                print(f"  Retrying {file_name} from the beginning in {delay} seconds...")
+                time.sleep(delay)
+                continue
+
+        if resp.status_code < 500:
+            print(f"  Upload finished {file_name}: {resp.status_code} {resp.reason}")
+            return resp
+
+        print(
+            f"  Upload attempt {attempt}/{UPLOAD_ATTEMPTS} returned "
+            f"{resp.status_code} {resp.reason}")
+        if attempt == UPLOAD_ATTEMPTS:
+            print(f"  Upload finished {file_name}: {resp.status_code} {resp.reason}")
+            return resp
+
+        delay = UPLOAD_RETRY_DELAY_SECONDS * attempt
+        print(f"  Retrying {file_name} from the beginning in {delay} seconds...")
+        time.sleep(delay)
+
+    raise AssertionError("Upload retry loop exited unexpectedly")
+    # DS14-Soyuz-end
 
 
 def get_files_to_publish() -> Iterable[str]:

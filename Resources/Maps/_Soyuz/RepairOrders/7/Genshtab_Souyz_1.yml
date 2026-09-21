@@ -1810,7 +1810,7 @@ entities:
         quickInsert:
           length: 0.5
         storage: {}
-- proto: BoxFolderCentCom
+- proto: BoxFolderWhiteEmpty
   entities:
   - uid: 36
     mapInit: true

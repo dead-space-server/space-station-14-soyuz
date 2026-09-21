@@ -252,6 +252,9 @@ public sealed class RepairOrderDamageSystem : EntitySystem
         HashSet<Vector2i> floors, IRobustRandom random)
     {
         var shape = stage.Shape == RepairDamageShape.MultiPoint ? stage.PointShape : stage.Shape;
+        if (shape == RepairDamageShape.Grid)
+            return SortCells(floors);
+
         var radius = random.Next(stage.MinRadius, stage.MaxRadius + 1);
         var length = random.Next(stage.MinLength, stage.MaxLength + 1);
         var side = new Vector2i(-forward.Y, forward.X);

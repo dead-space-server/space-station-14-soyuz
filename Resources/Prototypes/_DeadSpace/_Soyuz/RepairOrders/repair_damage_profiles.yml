@@ -46,7 +46,7 @@
   maxEvents: 3
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.08
+  minDamageFraction: 0.05
   maxDamageFraction: 0.25
   maxRemovedFloorFraction: 0.12
   maxRemovedAnchoredEntityFraction: 0.3
@@ -104,8 +104,8 @@
   maxEvents: 5
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.25
-  maxDamageFraction: 0.4
+  minDamageFraction: 0.12
+  maxDamageFraction: 0.47
   maxRemovedFloorFraction: 0.18
   maxRemovedAnchoredEntityFraction: 0.48
   minChangedRequirements: 3
@@ -118,6 +118,8 @@
 - type: repairDamageProfile
   id: RepairDamageHeavy
   events:
+  - RepairDamageDistributedStructuralFailure
+  - RepairDamageDistributedEquipmentFailure
   - RepairDamageMicroMeteorImpact
   - RepairDamageMeteorImpact
   - RepairDamageHeavyMeteorImpact
@@ -162,13 +164,13 @@
   maxEvents: 7
   maxGenerationAttempts: 30
   maxEventRolls: 80
-  minDamageFraction: 0.3
-  maxDamageFraction: 0.6
+  minDamageFraction: 0.2
+  maxDamageFraction: 0.60
   maxRemovedFloorFraction: 0.25
   maxRemovedAnchoredEntityFraction: 0.65
   minChangedRequirements: 4
   minRemainingFloor: 4
-  minimumEventSeparation: 2
+  minimumEventSeparation: 0
   maxOccurrencesPerEvent: 1
   maxSeverity: Heavy
 
@@ -176,6 +178,8 @@
 - type: repairDamageProfile
   id: RepairDamageSevere
   events:
+  - RepairDamageDistributedStructuralFailure
+  - RepairDamageDistributedEquipmentFailure
   - RepairDamageMicroMeteorImpact
   - RepairDamageMeteorImpact
   - RepairDamageHeavyMeteorImpact
@@ -220,13 +224,13 @@
   maxEvents: 18
   maxGenerationAttempts: 30
   maxEventRolls: 160
-  minDamageFraction: 0.4
-  maxDamageFraction: 0.75
+  minDamageFraction: 0.28
+  maxDamageFraction: 0.63
   maxRemovedFloorFraction: 0.35
   maxRemovedAnchoredEntityFraction: 0.75
   minChangedRequirements: 8
   minRemainingFloor: 4
-  minimumEventSeparation: 1.5
+  minimumEventSeparation: 0
   maxOccurrencesPerEvent: 3
   maxSeverity: Heavy
 
@@ -234,6 +238,8 @@
 - type: repairDamageProfile
   id: RepairDamageCatastrophic
   events:
+  - RepairDamageDistributedStructuralFailure
+  - RepairDamageDistributedEquipmentFailure
   - RepairDamageMicroMeteorImpact
   - RepairDamageMeteorImpact
   - RepairDamageHeavyMeteorImpact
@@ -278,12 +284,12 @@
   maxEvents: 60
   maxGenerationAttempts: 30
   maxEventRolls: 400
-  minDamageFraction: 0.5
-  maxDamageFraction: 0.9
+  minDamageFraction: 0.45
+  maxDamageFraction: 0.75
   maxRemovedFloorFraction: 0.45
   maxRemovedAnchoredEntityFraction: 0.85
   minChangedRequirements: 16
   minRemainingFloor: 4
-  minimumEventSeparation: 1
+  minimumEventSeparation: 0
   maxOccurrencesPerEvent: 6
   maxSeverity: Heavy

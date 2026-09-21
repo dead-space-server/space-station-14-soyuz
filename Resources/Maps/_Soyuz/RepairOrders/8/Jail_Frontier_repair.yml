@@ -19710,8 +19710,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -27.410767,-3.4340515
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: UseDelay
@@ -20424,8 +20422,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.756712,-25.18319
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -20494,8 +20490,6 @@ entities:
     components:
     - type: Transform
       parent: 267
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20513,8 +20507,6 @@ entities:
     components:
     - type: Transform
       parent: 297
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20532,8 +20524,6 @@ entities:
     components:
     - type: Transform
       parent: 297
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20551,8 +20541,6 @@ entities:
     components:
     - type: Transform
       parent: 2227
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20570,8 +20558,6 @@ entities:
     components:
     - type: Transform
       parent: 2227
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20589,8 +20575,6 @@ entities:
     components:
     - type: Transform
       parent: 2238
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20608,8 +20592,6 @@ entities:
     components:
     - type: Transform
       parent: 2238
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20627,8 +20609,6 @@ entities:
     components:
     - type: Transform
       parent: 2249
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20646,8 +20626,6 @@ entities:
     components:
     - type: Transform
       parent: 2249
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20665,8 +20643,6 @@ entities:
     components:
     - type: Transform
       parent: 2260
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20684,8 +20660,6 @@ entities:
     components:
     - type: Transform
       parent: 2260
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20703,8 +20677,6 @@ entities:
     components:
     - type: Transform
       parent: 2307
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20722,8 +20694,6 @@ entities:
     components:
     - type: Transform
       parent: 2314
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20741,8 +20711,6 @@ entities:
     components:
     - type: Transform
       parent: 2319
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20760,8 +20728,6 @@ entities:
     components:
     - type: Transform
       parent: 3483
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20779,8 +20745,6 @@ entities:
     components:
     - type: Transform
       parent: 3483
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -20798,8 +20762,6 @@ entities:
     components:
     - type: Transform
       parent: 3531
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -21345,8 +21307,6 @@ entities:
     - type: Transform
       pos: -15.173433,-20.355053
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21356,8 +21316,6 @@ entities:
     components:
     - type: Transform
       parent: 233
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21384,8 +21342,6 @@ entities:
         Мужчины посмеялись над ней и сказали, чтобы она не лезла не в своё дело, но Лили не отступила. Ей удалось вырвать опоссума из рук мужчины и осторожно взять его на руки. Глядя в яркие, радостные глаза опоссума, она поняла, что должна защитить его любой ценой.
 
         В конце концов Лили удалось спасти опоссума от мужчин, которые оказались членами печально известной контрабандной группировки. Она взяла маленькое существо к себе домой и назвала его Зест, в честь радостной и пикантной энергии, которую он привнёс в её жизнь. С того дня Лили и Зест были неразлучны, и они провели много счастливых лет, исследуя город и распространяя радость повсюду.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21397,8 +21353,6 @@ entities:
     components:
     - type: Transform
       parent: 245
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21433,8 +21387,6 @@ entities:
         Когда день перешёл в ночь, они были измотаны, но счастливы от своего приключения в городе. Они возвращались домой, оживлённо обсуждая все новые впечатления.
 
         Когда их путешествие подошло к концу, им было грустно покидать замёрзшую страну чудес. Но они знали, что снова приобрели невероятные воспоминания и доказали, что для храброго корги и хитрой лисы никакие приключения не страшны.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21463,8 +21415,6 @@ entities:
         Наконец, они устроились на ночлег, глядя на звёздное небо. Они узнали о созвездиях и истории, связанные с ними. Они крепко спали, видя сны о всех невероятных существах и достопримечательностях, которые они видели в тот день.
 
         Покидая пустыню, Ян и Рено чувствовали благодарность за приключение, которое им довелось пережить. Они знали, что узнали так много нового, что их храбрость и любопытство отправили их в ещё одно незабываемое путешествие.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21493,8 +21443,6 @@ entities:
         На вершине перед ними открылся захватывающий вид на окружающие горы и долины. Они сели и стали любоваться видом, наслаждаясь тишиной и покоем вершины.
 
         Спустившись с горы, они поняли, что преодолели большое испытание и создали воспоминания, которые останутся на всю жизнь. Они с воодушевлением обсуждали свои следующие приключения, зная, что великая природа таит в себе ещё много чудес.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21521,8 +21469,6 @@ entities:
         На вершине перед ними открылся захватывающий вид на окружающие горы и долины. Они сели и стали любоваться видом, наслаждаясь тишиной и покоем вершины.
 
         Спустившись с горы, они поняли, что преодолели большое испытание и создали воспоминания, которые останутся на всю жизнь. Они с воодушевлением обсуждали свои следующие приключения, зная, что великая природа таит в себе ещё много чудес.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21551,8 +21497,6 @@ entities:
         Когда день подошёл к концу, Иан и Алиса сидели на пляже и любовались закатом. Они чувствовали себя счастливыми и довольными после захватывающего дня на пляже.
 
         Возвращаясь домой, они пообещали себе вернуться на пляж и исследовать его ещё больше. Они знали, что там ещё много существ и чудес, и им не терпелось испытать всё это вместе.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21579,8 +21523,6 @@ entities:
         Когда день подошёл к концу, Иан и Алиса сидели на пляже и любовались закатом. Они чувствовали себя счастливыми и довольными после захватывающего дня на пляже.
 
         Возвращаясь домой, они пообещали себе вернуться на пляж и исследовать его ещё больше. Они знали, что там ещё много существ и чудес, и им не терпелось испытать всё это вместе.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21613,8 +21555,6 @@ entities:
         Когда солнце начало садиться, Иан и Алиса вернулись домой, усталые, но счастливые. В тот день они помогли многим животным и по пути обрели новых друзей.
 
         С тех пор Иан и Алиса продолжали исследовать ранчо, всегда готовые к новым приключениям и всегда готовые протянуть лапу или морду любому нуждающемуся животному.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21645,8 +21585,6 @@ entities:
         Когда солнце начало садиться, Иан и Алиса вернулись домой, усталые, но счастливые. В тот день они помогли многим животным и по пути обрели новых друзей.
 
         С тех пор Иан и Алиса продолжали исследовать ранчо, всегда готовые к новым приключениям и всегда готовые протянуть лапу или морду любому нуждающемуся животному.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21671,8 +21609,6 @@ entities:
         Когда они достигли вершины, Лена достала гитару и начала играть. Музыка была завораживающей, и группа замолчала, захваченная красотой момента. Когда она закончила последние ноты песни, они разразились аплодисментами, их смех эхом отражался от склона горы.
 
         В этот момент Лена поняла, что нашла своё истинное призвание. Она должна была стать музыкантом, альпинистом и источником вдохновения для всех окружающих. И когда она смотрела на мир с вершины горы, она знала, что всё возможно, если осмелиться мечтать.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21684,8 +21620,6 @@ entities:
     components:
     - type: Transform
       parent: 188
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21713,8 +21647,6 @@ entities:
         Сражение было ожесточённым, но им удалось сдержать нуки и захватить станцию. После этого они раскрыли предателей, и справедливость восторжествовала. Волшебник появился снова, поздравил их с выживанием и так же быстро исчез.
 
         Смит понял, что волшебник был прав: их выживание зависело от их доверия и сотрудничества. Он поклялся себе никогда не забывать этот урок и всегда держать себя в руках, независимо от ситуации.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21727,8 +21659,6 @@ entities:
     - type: Transform
       pos: -4.39075,-1.3499675
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21738,8 +21668,6 @@ entities:
     components:
     - type: Transform
       parent: 233
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21749,8 +21677,6 @@ entities:
     components:
     - type: Transform
       parent: 245
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21773,8 +21699,6 @@ entities:
         Наконец, имена могут также играть важную роль в нашем понимании собственной идентичности и смертности. Как утверждал философ Мартин Хайдеггер, имена можно рассматривать как форму "брошенности", отражающую наше существование как конечных существ в мире, который нам неподвластен. В этом смысле наши имена - это не просто ярлыки, а отражение нашего существования, времени и места, в котором мы находимся.
 
         В заключение хочу сказать, что с философской точки зрения имена играют важную роль в понимании и восприятии мира человеком, отражая как нашу сущностную природу, так и динамику власти в обществе. Это не просто ярлыки, а отражение нашего существования и нашего места в мире.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21805,8 +21729,6 @@ entities:
         Война между двумя фракциями была долгой и кровопролитной, но в конце концов повстанцы вышли победителями. Нар'Си, ослабленная потерей стольких своих последователей, отступила обратно в землю, чтобы больше никогда не появиться.
 
         Так и живёт легенда о Нар'Си, предостерегающая об опасности жертвовать своей индивидуальностью ради обещания вечной жизни.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21834,8 +21756,6 @@ entities:
         overlay:
         - detail_bookmark
         - '#F38BAAFF'
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21861,8 +21781,6 @@ entities:
         overlay:
         - overlay_null
         - null
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21898,8 +21816,6 @@ entities:
 
 
         Момент кульминации вызывает отвращение.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21933,8 +21849,6 @@ entities:
 
 
         Литературный стиль вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21966,8 +21880,6 @@ entities:
 
 
         Момент кульминации довольно странный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -21999,8 +21911,6 @@ entities:
 
 
         Литературный стиль прекрасен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22032,8 +21942,6 @@ entities:
 
 
         Финал нагоняет ужас.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22065,8 +21973,6 @@ entities:
 
 
         Сюжет довольно интересный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22098,8 +22004,6 @@ entities:
 
 
         Вывод из этой истории вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22131,8 +22035,6 @@ entities:
 
 
         Эпилог вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22164,8 +22066,6 @@ entities:
 
 
         Эпилог немного скучен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22197,8 +22097,6 @@ entities:
 
 
         Литературный стиль вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22230,8 +22128,6 @@ entities:
 
 
         Эпилог немного скучен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22263,8 +22159,6 @@ entities:
 
 
         Момент кульминации неадекватен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22296,8 +22190,6 @@ entities:
 
 
         Финал неадекватен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22329,8 +22221,6 @@ entities:
 
 
         Эпилог вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22362,8 +22252,6 @@ entities:
 
 
         Эпилог прекрасен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22395,8 +22283,6 @@ entities:
 
 
         Литературный стиль довольно странный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22428,8 +22314,6 @@ entities:
 
 
         Сюжет нагоняет ужас.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22461,8 +22345,6 @@ entities:
 
 
         Апогей истории очень мил.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22494,8 +22376,6 @@ entities:
 
 
         Стиль иллюстраций причудлив.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22527,8 +22407,6 @@ entities:
 
 
         Сюжет очень мил.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22560,8 +22438,6 @@ entities:
 
 
         Эпилог довольно странный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22593,8 +22469,6 @@ entities:
 
 
         Финал вызывает отвращение.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22626,8 +22500,6 @@ entities:
 
 
         Финал прекрасен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22659,8 +22531,6 @@ entities:
 
 
         Сюжет вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22692,8 +22562,6 @@ entities:
 
 
         Апогей истории вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22725,8 +22593,6 @@ entities:
 
 
         Эпилог причудлив.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22758,8 +22624,6 @@ entities:
 
 
         Литературный стиль прекрасен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22791,8 +22655,6 @@ entities:
 
 
         Стиль иллюстраций довольно интересный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22824,8 +22686,6 @@ entities:
 
 
         Вывод из этой истории довольно интересный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22857,8 +22717,6 @@ entities:
 
 
         Вывод из этой истории неадекватен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22890,8 +22748,6 @@ entities:
 
 
         Финал вызывает отвращение.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22923,8 +22779,6 @@ entities:
 
 
         Сюжет вызывает грусть.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22956,8 +22810,6 @@ entities:
 
 
         Момент кульминации немного скучен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -22989,8 +22841,6 @@ entities:
 
 
         Апогей истории довольно странный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23022,8 +22872,6 @@ entities:
 
 
         Сюжет довольно забавный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23055,8 +22903,6 @@ entities:
 
 
         Финал довольно странный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23088,8 +22934,6 @@ entities:
 
 
         Сюжет вызывает отвращение.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23121,8 +22965,6 @@ entities:
 
 
         Момент кульминации довольно интересный.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23154,8 +22996,6 @@ entities:
 
 
         Стиль иллюстраций неадекватен.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23187,8 +23027,6 @@ entities:
 
 
         Момент кульминации впечатляет.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23200,8 +23038,6 @@ entities:
     components:
     - type: Transform
       parent: 200
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23714,8 +23550,6 @@ entities:
         Чаклз и Снагглз покинули космическую станцию, чувствуя себя счастливыми и исполненными. Они знали, что их приключения будут продолжаться и что они продолжат приносить радость и смех всем видам, с которыми встречаются.
 
         Когда Чаклз вспоминал свои приключения, он осознал, что не смог бы справиться без своих друзей. Будь то ленивец Снагглз, Зорги, которые сыграли с ним розыгрыши, или дети Диона, которым была нужна его помощь, Чаклз знал, что сила смеха способна объединить виды, несмотря на их различия.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23727,8 +23561,6 @@ entities:
     components:
     - type: Transform
       parent: 258
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23776,7 +23608,7 @@ entities:
 
         3 – Определите архетип персонажа.
 
-        Подобно характеристикам, архетипы показывают в чём вы хороши, а в чём не очень, но в более абстрактной форме. 
+        Подобно характеристикам, архетипы показывают в чём вы хороши, а в чём не очень, но в более абстрактной форме.
 
         Как и в случае выше, присвойте модификаторы перечисленным ниже архетипам.
 
@@ -23833,8 +23665,6 @@ entities:
         7 – Игра закончится когда квест будет выполнен! Если вы выжили — получите новую способность.
 
         Выберите из перечисленного: +1 очко характеристики, +1 очко архетипа, +1 максимальный запас решимости.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23857,8 +23687,6 @@ entities:
         Но в то же время удар молнии - это трансцендентный опыт, взгляд на нечто большее, чем мы сами. Это напоминание о том, что во Вселенной действуют силы, которые мы только начинаем постигать, что в мире есть необъятность и сила, которые находятся за пределами нашего понимания. Это возможность выйти за пределы себя и испытать нечто поистине благоговейное, ощутить прикосновение божественной руки и почувствовать всю тяжесть вселенной, обрушивающуюся на нас.
 
         В этом смысле удар молнии - это одновременно смиряющий и преобразующий опыт, который напоминает нам о нашем месте в мире и о нашей связи с большими силами, определяющими нашу жизнь. Это напоминание о том, что как бы мы ни старались контролировать наш мир и нашу судьбу, всегда будут силы, находящиеся вне нашего понимания и контроля, которые будут формировать нашу жизнь так, как мы не можем предсказать или постичь.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23883,8 +23711,6 @@ entities:
         Растущий, я сталкиваюсь с препятствиями на своём пути. Иногда это другие растения, загромождающие мой путь к солнцу. Иногда это ветер, сбивающий меня с курса, угрожающий опрокинуть меня. Но я упорствую, приспосабливаюсь к вызовам, всегда стремясь к свету.
 
         Это бесконечное путешествие, поиски чего-то большего, чем я сам. И всё же это напоминание о красоте и чуде жизни. Я являюсь частью этой земли, частью этой сложной сети существования, и солнце - мой проводник.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23909,8 +23735,6 @@ entities:
         Но почему, спросите вы, это имеет для нас значение? Почему нас должна волновать природа божественного? Ответ заключается в том, что понимание божественного необходимо для нашего собственного духовного роста и развития. Признавая сложность и многообразие божественного, мы глубже понимаем хитросплетения окружающего нас мира и начинаем видеть своё собственное место в нём.
 
         Так давайте же примем множество богов, составляющих божественное, и будем стремиться учиться у каждого из них. Пусть мы будем благословлены мудростью, силой и любовью божественного, и пусть мы продолжаем расти и развиваться в нашем собственном духовном путешествии.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23933,8 +23757,6 @@ entities:
         Но почему, спросите вы, это имеет для нас значение? Почему нас должна волновать природа божественного? Ответ заключается в том, что понимание божественного необходимо для нашего собственного духовного роста и развития. Признавая сложность и многообразие божественного, мы глубже понимаем хитросплетения окружающего нас мира и начинаем видеть своё собственное место в нём.
 
         Так давайте же примем множество богов, составляющих божественное, и будем стремиться учиться у каждого из них. Пусть мы будем благословлены мудростью, силой и любовью божественного, и пусть мы продолжаем расти и развиваться в нашем собственном духовном путешествии.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23946,8 +23768,6 @@ entities:
     components:
     - type: Transform
       parent: 195
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23957,8 +23777,6 @@ entities:
     components:
     - type: Transform
       parent: 210
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -23987,8 +23805,6 @@ entities:
         Эта часть утверждения определяет три ключевых фактора, которые формируют состояние мира: природные силы, социальные структуры и индивидуальный выбор. Фраза "взаимодействие" предполагает, что эти факторы находятся в постоянном взаимодействии друг с другом, и что они могут усиливать или конфликтовать друг с другом в зависимости от контекста. Включение природных сил предполагает, что мир является не только продуктом человеческих действий, но и подвержен влиянию окружающей среды и законов физики. Ссылка на социальные структуры подчёркивает роль институтов, культуры и социальных норм в формировании мира и предполагает, что действия человека не являются чисто индивидуальными, но также формируются под влиянием более широкого социального контекста. Наконец, ссылка на индивидуальный выбор подчёркивает важность самостоятельности и личной ответственности в формировании мира и предполагает, что выбор, который мы делаем как личности, имеет реальные последствия.
 
         Взятое вместе, это заявление предлагает богатый и тонкий философский анализ состояния мира, подчёркивая сложное взаимодействие природных, социальных и индивидуальных факторов, которые формируют наш коллективный опыт. Оно приглашает задуматься об этических последствиях нашего выбора и действий и призывает нас глубоко задуматься о том, как мы можем работать над созданием более справедливого, устойчивого и процветающего мира для всех существ.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -24427,8 +24243,6 @@ entities:
     - type: Transform
       pos: -18.189688,-11.503876
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -31894,8 +31708,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -31922,8 +31734,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -31949,8 +31759,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -31976,8 +31784,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -32005,8 +31811,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -32030,8 +31834,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -32057,8 +31859,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -33776,8 +33576,6 @@ entities:
     components:
     - type: Transform
       parent: 3808
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -33787,8 +33585,6 @@ entities:
     components:
     - type: Transform
       parent: 3828
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -33800,8 +33596,6 @@ entities:
     components:
     - type: Transform
       parent: 1180
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -33811,8 +33605,6 @@ entities:
     components:
     - type: Transform
       parent: 3819
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -33824,8 +33616,6 @@ entities:
     components:
     - type: Transform
       parent: 1206
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35293,8 +35083,6 @@ entities:
       - drink
     - type: Label
       currentLabel: эль
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35322,8 +35110,6 @@ entities:
       - drink
     - type: Label
       currentLabel: пиво
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35351,8 +35137,6 @@ entities:
       - drink
     - type: Label
       currentLabel: кокосовая вода
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35380,8 +35164,6 @@ entities:
       - drink
     - type: Label
       currentLabel: кофе
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35409,8 +35191,6 @@ entities:
       - drink
     - type: Label
       currentLabel: кофейный ликёр
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35438,8 +35218,6 @@ entities:
       - drink
     - type: Label
       currentLabel: коньяк
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35471,8 +35249,6 @@ entities:
       transformed: True
       currentReagent: Cognac
       initialDescription: Стакан-метаморф, который автоматически превращается в ёмкость, соответствующую находящемуся в нём напитку. На донышке виден затёртый номер патента.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35498,8 +35274,6 @@ entities:
       - drink
     - type: Label
       currentLabel: Спейс Кола
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35527,8 +35301,6 @@ entities:
       - drink
     - type: Label
       currentLabel: сливки
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35560,8 +35332,6 @@ entities:
       transformed: True
       currentReagent: DarkandStormy
       initialDescription: Стакан-метаморф, который автоматически превращается в ёмкость, соответствующую находящемуся в нём напитку. На донышке виден затёртый номер патента.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35587,8 +35357,6 @@ entities:
       - drink
     - type: Label
       currentLabel: доктор Гибб
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35616,8 +35384,6 @@ entities:
       - drink
     - type: Label
       currentLabel: Ред Булеан
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35642,8 +35408,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: PressurizedSolution
@@ -35669,8 +35433,6 @@ entities:
       - drink
     - type: Label
       currentLabel: джин
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35698,8 +35460,6 @@ entities:
       - drink
     - type: Label
       currentLabel: зелёный чай
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35724,8 +35484,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35749,8 +35507,6 @@ entities:
       - drink
     - type: Label
       currentLabel: лёд
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35778,8 +35534,6 @@ entities:
       - drink
     - type: Label
       currentLabel: лаймовый сок
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35807,8 +35561,6 @@ entities:
       - drink
     - type: Label
       currentLabel: апельсиновый сок
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35836,8 +35588,6 @@ entities:
       - drink
     - type: Label
       currentLabel: Смайт
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35865,8 +35615,6 @@ entities:
       - drink
     - type: Label
       currentLabel: медовуха
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35890,8 +35638,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35914,8 +35660,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35936,8 +35680,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35961,8 +35703,6 @@ entities:
       - drink
     - type: Label
       currentLabel: рутбир
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -35990,8 +35730,6 @@ entities:
       - drink
     - type: Label
       currentLabel: ром
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36017,8 +35755,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36042,8 +35778,6 @@ entities:
       - drink
     - type: Label
       currentLabel: газированная вода
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36069,8 +35803,6 @@ entities:
       containers:
       - drink
       - grindable
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: PressurizedSolution
@@ -36098,8 +35830,6 @@ entities:
       - drink
     - type: Label
       currentLabel: Спейс Солар Вайнд
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36127,8 +35857,6 @@ entities:
       - drink
     - type: Label
       currentLabel: Спейс-Ап
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36156,8 +35884,6 @@ entities:
       - drink
     - type: Label
       currentLabel: сахар
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36185,8 +35911,6 @@ entities:
       - drink
     - type: Label
       currentLabel: чай
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36214,8 +35938,6 @@ entities:
       - drink
     - type: Label
       currentLabel: текила
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36243,8 +35965,6 @@ entities:
       - drink
     - type: Label
       currentLabel: тоник
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36272,8 +35992,6 @@ entities:
       - drink
     - type: Label
       currentLabel: вермут
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36301,8 +36019,6 @@ entities:
       - drink
     - type: Label
       currentLabel: водка
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36330,8 +36046,6 @@ entities:
       - drink
     - type: Label
       currentLabel: арбузный сок
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36359,8 +36073,6 @@ entities:
       - drink
     - type: Label
       currentLabel: виски
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36392,8 +36104,6 @@ entities:
       transformed: True
       currentReagent: WhiteRussian
       initialDescription: Стакан-метаморф, который автоматически превращается в ёмкость, соответствующую находящемуся в нём напитку. На донышке виден затёртый номер патента.
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36419,8 +36129,6 @@ entities:
       - drink
     - type: Label
       currentLabel: вино
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36499,8 +36207,6 @@ entities:
     components:
     - type: Transform
       parent: 2342
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         gasTank:
@@ -36520,8 +36226,6 @@ entities:
     components:
     - type: Transform
       parent: 2392
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         gasTank:
@@ -36708,8 +36412,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36733,8 +36435,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36758,8 +36458,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36783,8 +36481,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36808,8 +36504,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36833,8 +36527,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36858,8 +36550,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36883,8 +36573,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36908,8 +36596,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36933,8 +36619,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -36954,8 +36638,6 @@ entities:
       solutions: null
       containers:
       - spray
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -36979,8 +36661,6 @@ entities:
       solutions: null
       containers:
       - spray
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -37495,8 +37175,6 @@ entities:
       solutions: null
       containers:
       - food
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -37517,8 +37195,6 @@ entities:
       solutions: null
       containers:
       - food
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -37592,8 +37268,6 @@ entities:
       solutions: null
       containers:
       - food
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -37874,8 +37548,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -23.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1498
@@ -37885,8 +37557,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37898,8 +37568,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -8.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37911,8 +37579,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -7.5,-31.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37924,8 +37590,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -8.5,-31.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37936,8 +37600,6 @@ entities:
     - type: Transform
       pos: -7.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37948,8 +37610,6 @@ entities:
     - type: Transform
       pos: 6.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37960,8 +37620,6 @@ entities:
     - type: Transform
       pos: -1.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37973,8 +37631,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -1.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37986,8 +37642,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 5.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -37999,8 +37653,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38012,8 +37664,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38025,8 +37675,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 2.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38038,8 +37686,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38051,8 +37697,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38064,8 +37708,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -18.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38077,8 +37719,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -22.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38090,8 +37730,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 7.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38103,8 +37741,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 5.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38115,8 +37751,6 @@ entities:
     - type: Transform
       pos: 7.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38128,8 +37762,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38141,8 +37773,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -0.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38154,8 +37784,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38167,8 +37795,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38179,8 +37805,6 @@ entities:
     - type: Transform
       pos: 7.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38192,8 +37816,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 4.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38204,8 +37826,6 @@ entities:
     - type: Transform
       pos: -12.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38217,8 +37837,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38229,8 +37847,6 @@ entities:
     - type: Transform
       pos: -10.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38242,8 +37858,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38255,8 +37869,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38268,8 +37880,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38281,8 +37891,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38293,8 +37901,6 @@ entities:
     - type: Transform
       pos: -18.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38306,8 +37912,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -20.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38319,8 +37923,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 5.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38332,8 +37934,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -11.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1534
@@ -38342,8 +37942,6 @@ entities:
     - type: Transform
       pos: -9.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1535
@@ -38353,8 +37951,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1536
@@ -38363,8 +37959,6 @@ entities:
     - type: Transform
       pos: -3.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1537
@@ -38374,8 +37968,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -3.5,-35.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1538
@@ -38385,8 +37977,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-35.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
 - proto: GasPipeBendAlt1
@@ -38397,8 +37987,6 @@ entities:
     - type: Transform
       pos: -8.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1540
@@ -38408,8 +37996,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1541
@@ -38419,8 +38005,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1542
@@ -38430,8 +38014,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1543
@@ -38441,8 +38023,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -11.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1544
@@ -38451,8 +38031,6 @@ entities:
     - type: Transform
       pos: -11.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
 - proto: GasPipeBendAlt2
@@ -38464,8 +38042,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -19.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38477,8 +38053,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38489,8 +38063,6 @@ entities:
     - type: Transform
       pos: -3.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38502,8 +38074,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -3.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38515,8 +38085,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38527,8 +38095,6 @@ entities:
     - type: Transform
       pos: 0.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38540,8 +38106,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 0.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38553,8 +38117,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38566,8 +38128,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38579,8 +38139,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38592,8 +38150,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38605,8 +38161,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 3.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38617,8 +38171,6 @@ entities:
     - type: Transform
       pos: -1.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38630,8 +38182,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-31.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38642,8 +38192,6 @@ entities:
     - type: Transform
       pos: -6.5,-31.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38654,8 +38202,6 @@ entities:
     - type: Transform
       pos: -4.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38667,8 +38213,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -6.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38680,8 +38224,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38693,8 +38235,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 7.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38706,8 +38246,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38718,8 +38256,6 @@ entities:
     - type: Transform
       pos: 0.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38730,8 +38266,6 @@ entities:
     - type: Transform
       pos: -1.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38743,8 +38277,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38756,8 +38288,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -8.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38768,8 +38298,6 @@ entities:
     - type: Transform
       pos: -8.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38781,8 +38309,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38794,8 +38320,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38807,8 +38331,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -12.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38820,8 +38342,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -15.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38832,8 +38352,6 @@ entities:
     - type: Transform
       pos: -20.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38845,8 +38363,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38858,8 +38374,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -22.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38871,8 +38385,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -22.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38884,8 +38396,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -22.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38896,8 +38406,6 @@ entities:
     - type: Transform
       pos: 4.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38909,8 +38417,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -21.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38922,8 +38428,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -18.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38935,8 +38439,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38947,8 +38449,6 @@ entities:
     - type: Transform
       pos: -17.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38961,8 +38461,6 @@ entities:
     - type: Transform
       pos: -7.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38973,8 +38471,6 @@ entities:
     - type: Transform
       pos: -7.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38985,8 +38481,6 @@ entities:
     - type: Transform
       pos: -12.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -38999,8 +38493,6 @@ entities:
     - type: Transform
       pos: -7.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39011,8 +38503,6 @@ entities:
     - type: Transform
       pos: -2.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39023,8 +38513,6 @@ entities:
     - type: Transform
       pos: -7.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39035,8 +38523,6 @@ entities:
     - type: Transform
       pos: -7.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39047,8 +38533,6 @@ entities:
     - type: Transform
       pos: -12.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39059,8 +38543,6 @@ entities:
     - type: Transform
       pos: -20.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39074,8 +38556,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -23.5,6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1594
@@ -39085,8 +38565,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -21.5,6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1595
@@ -39096,8 +38574,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -19.5,6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1596
@@ -39107,8 +38583,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1597
@@ -39118,8 +38592,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -21.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1598
@@ -39129,8 +38601,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -22.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1599
@@ -39140,8 +38610,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -20.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1600
@@ -39151,8 +38619,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -19.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1601
@@ -39162,8 +38628,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -18.5,4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1602
@@ -39173,8 +38637,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39186,8 +38648,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39199,8 +38659,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39212,8 +38670,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39225,8 +38681,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39238,8 +38692,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39251,8 +38703,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39264,8 +38714,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -16.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39277,8 +38725,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -15.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39290,8 +38736,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39303,8 +38747,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39316,8 +38758,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39328,8 +38768,6 @@ entities:
     - type: Transform
       pos: -18.5,-5.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39340,8 +38778,6 @@ entities:
     - type: Transform
       pos: -18.5,-6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39352,8 +38788,6 @@ entities:
     - type: Transform
       pos: -18.5,-7.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39365,8 +38799,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39378,8 +38810,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39391,8 +38821,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -21.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39404,8 +38832,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39417,8 +38843,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -16.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39430,8 +38854,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -15.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39443,8 +38865,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -14.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39456,8 +38876,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -12.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39469,8 +38887,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39482,8 +38898,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39495,8 +38909,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -9.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39508,8 +38920,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -8.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39521,8 +38931,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 3.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39534,8 +38942,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 2.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39547,8 +38953,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39560,8 +38964,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39573,8 +38975,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -0.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39586,8 +38986,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39599,8 +38997,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39612,8 +39008,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39625,8 +39019,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39638,8 +39030,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -5.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39651,8 +39041,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -6.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39664,8 +39052,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -9.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39677,8 +39063,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39690,8 +39074,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39703,8 +39085,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -12.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39716,8 +39096,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39729,8 +39107,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -14.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39742,8 +39118,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -15.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39755,8 +39129,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -16.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39768,8 +39140,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39781,8 +39151,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -18.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39794,8 +39162,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-30.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39806,8 +39172,6 @@ entities:
     - type: Transform
       pos: -8.5,-32.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39819,8 +39183,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -9.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39832,8 +39194,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-28.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39845,8 +39205,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-27.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39858,8 +39216,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-26.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39871,8 +39227,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-25.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39884,8 +39238,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-24.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39897,8 +39249,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39910,8 +39260,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39923,8 +39271,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39936,8 +39282,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39949,8 +39293,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39962,8 +39304,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39975,8 +39315,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -39988,8 +39326,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40001,8 +39337,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-12.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40014,8 +39348,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-11.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40027,8 +39359,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-10.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40040,8 +39370,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40053,8 +39381,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40066,8 +39392,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40079,8 +39403,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40092,8 +39414,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40105,8 +39425,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40118,8 +39436,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 5.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40131,8 +39447,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 4.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40144,8 +39458,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40157,8 +39469,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40170,8 +39480,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40183,8 +39491,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40195,8 +39501,6 @@ entities:
     - type: Transform
       pos: -7.5,-6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40207,8 +39511,6 @@ entities:
     - type: Transform
       pos: -7.5,-5.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40219,8 +39521,6 @@ entities:
     - type: Transform
       pos: -7.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40231,8 +39531,6 @@ entities:
     - type: Transform
       pos: -7.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40243,8 +39541,6 @@ entities:
     - type: Transform
       pos: -7.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40255,8 +39551,6 @@ entities:
     - type: Transform
       pos: -7.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40267,8 +39561,6 @@ entities:
     - type: Transform
       pos: -7.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40279,8 +39571,6 @@ entities:
     - type: Transform
       pos: -7.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40291,8 +39581,6 @@ entities:
     - type: Transform
       pos: -7.5,-7.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40304,8 +39592,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -6.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40317,8 +39603,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -5.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40330,8 +39614,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40343,8 +39625,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40356,8 +39636,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40369,8 +39647,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40382,8 +39658,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40395,8 +39669,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -2.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40408,8 +39680,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40421,8 +39691,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40434,8 +39702,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40447,8 +39713,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40460,8 +39724,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40473,8 +39735,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 4.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40485,8 +39745,6 @@ entities:
     - type: Transform
       pos: -1.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40498,8 +39756,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -0.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40511,8 +39767,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40524,8 +39778,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40537,8 +39789,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -6.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40550,8 +39800,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -5.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40563,8 +39811,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40576,8 +39822,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -3.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40589,8 +39833,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40602,8 +39844,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 0.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40615,8 +39855,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 1.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40628,8 +39866,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 2.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40641,8 +39877,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 3.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40654,8 +39888,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 5.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40667,8 +39899,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 6.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40679,8 +39909,6 @@ entities:
     - type: Transform
       pos: 5.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40692,8 +39920,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 6.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40705,8 +39931,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40718,8 +39942,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40731,8 +39953,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 4.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40744,8 +39964,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 4.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40757,8 +39975,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40770,8 +39986,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 5.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40783,8 +39997,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 6.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40796,8 +40008,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40809,8 +40019,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40821,8 +40029,6 @@ entities:
     - type: Transform
       pos: -1.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40833,8 +40039,6 @@ entities:
     - type: Transform
       pos: -1.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40845,8 +40049,6 @@ entities:
     - type: Transform
       pos: -1.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40857,8 +40059,6 @@ entities:
     - type: Transform
       pos: -0.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40869,8 +40069,6 @@ entities:
     - type: Transform
       pos: -0.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40882,8 +40080,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -8.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40895,8 +40091,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -9.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40908,8 +40102,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40921,8 +40113,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -11.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40934,8 +40124,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40947,8 +40135,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -10.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40960,8 +40146,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -10.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40973,8 +40157,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -10.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40986,8 +40168,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -10.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -40999,8 +40179,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -10.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41012,8 +40190,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -11.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41025,8 +40201,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41037,8 +40211,6 @@ entities:
     - type: Transform
       pos: -12.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41050,8 +40222,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -14.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41063,8 +40233,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -15.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41076,8 +40244,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -16.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41089,8 +40255,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41102,8 +40266,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41115,8 +40277,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41128,8 +40288,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41141,8 +40299,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41154,8 +40310,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -25.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41167,8 +40321,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -26.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41180,8 +40332,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -24.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41193,8 +40343,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -23.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41206,8 +40354,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -22.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41219,8 +40365,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -21.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41232,8 +40376,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41245,8 +40387,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41257,8 +40397,6 @@ entities:
     - type: Transform
       pos: -20.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41269,8 +40407,6 @@ entities:
     - type: Transform
       pos: -20.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41281,8 +40417,6 @@ entities:
     - type: Transform
       pos: -20.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41293,8 +40427,6 @@ entities:
     - type: Transform
       pos: -20.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41305,8 +40437,6 @@ entities:
     - type: Transform
       pos: -20.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41317,8 +40447,6 @@ entities:
     - type: Transform
       pos: -20.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41330,8 +40458,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41342,8 +40468,6 @@ entities:
     - type: Transform
       pos: -2.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41355,8 +40479,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41367,8 +40489,6 @@ entities:
     - type: Transform
       pos: 2.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41380,8 +40500,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -4.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1775
@@ -41391,8 +40509,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,-35.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1776
@@ -41402,8 +40518,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,-35.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1777
@@ -41413,8 +40527,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
 - proto: GasPipeStraightAlt1
@@ -41426,8 +40538,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1779
@@ -41437,8 +40547,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -1.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1780
@@ -41448,8 +40556,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -13.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1781
@@ -41459,8 +40565,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1782
@@ -41470,8 +40574,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-34.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
   - uid: 1783
@@ -41481,8 +40583,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
 - proto: GasPipeStraightAlt2
@@ -41493,8 +40593,6 @@ entities:
     - type: Transform
       pos: -18.5,-5.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41505,8 +40603,6 @@ entities:
     - type: Transform
       pos: -18.5,-6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41517,8 +40613,6 @@ entities:
     - type: Transform
       pos: -18.5,-7.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41530,8 +40624,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -17.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41543,8 +40635,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -16.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41556,8 +40646,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -15.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41569,8 +40657,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41582,8 +40668,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41595,8 +40679,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41608,8 +40690,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -11.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41621,8 +40701,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41634,8 +40712,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -9.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41647,8 +40723,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -8.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41660,8 +40734,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-6.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41673,8 +40745,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-5.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41686,8 +40756,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41699,8 +40767,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41712,8 +40778,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41725,8 +40789,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41738,8 +40800,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -7.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41751,8 +40811,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41764,8 +40822,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41777,8 +40833,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41789,8 +40843,6 @@ entities:
     - type: Transform
       pos: -2.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41801,8 +40853,6 @@ entities:
     - type: Transform
       pos: -2.5,-1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41813,8 +40863,6 @@ entities:
     - type: Transform
       pos: -2.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41826,8 +40874,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41839,8 +40885,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41852,8 +40896,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41865,8 +40907,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41878,8 +40918,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41891,8 +40929,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41904,8 +40940,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41917,8 +40951,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41930,8 +40962,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 3.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41943,8 +40973,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41956,8 +40984,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41969,8 +40995,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41982,8 +41006,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -41995,8 +41017,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42008,8 +41028,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42021,8 +41039,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -1.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42034,8 +41050,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -0.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42047,8 +41061,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42060,8 +41072,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42073,8 +41083,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42086,8 +41094,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42098,8 +41104,6 @@ entities:
     - type: Transform
       pos: -7.5,-9.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42110,8 +41114,6 @@ entities:
     - type: Transform
       pos: -7.5,-10.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42122,8 +41124,6 @@ entities:
     - type: Transform
       pos: -7.5,-11.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42134,8 +41134,6 @@ entities:
     - type: Transform
       pos: -7.5,-12.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42146,8 +41144,6 @@ entities:
     - type: Transform
       pos: -7.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42158,8 +41154,6 @@ entities:
     - type: Transform
       pos: -7.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42170,8 +41164,6 @@ entities:
     - type: Transform
       pos: -7.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42182,8 +41174,6 @@ entities:
     - type: Transform
       pos: -7.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42194,8 +41184,6 @@ entities:
     - type: Transform
       pos: -7.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42206,8 +41194,6 @@ entities:
     - type: Transform
       pos: -7.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42218,8 +41204,6 @@ entities:
     - type: Transform
       pos: -7.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42230,8 +41214,6 @@ entities:
     - type: Transform
       pos: -7.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42242,8 +41224,6 @@ entities:
     - type: Transform
       pos: -7.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42254,8 +41234,6 @@ entities:
     - type: Transform
       pos: -7.5,-24.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42266,8 +41244,6 @@ entities:
     - type: Transform
       pos: -7.5,-25.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42278,8 +41254,6 @@ entities:
     - type: Transform
       pos: -7.5,-26.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42290,8 +41264,6 @@ entities:
     - type: Transform
       pos: -7.5,-27.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42302,8 +41274,6 @@ entities:
     - type: Transform
       pos: -7.5,-28.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42315,8 +41285,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42328,8 +41296,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42341,8 +41307,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42354,8 +41318,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42366,8 +41328,6 @@ entities:
     - type: Transform
       pos: -7.5,-30.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42379,8 +41339,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -6.5,-32.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42392,8 +41350,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-33.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42405,8 +41361,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -8.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42418,8 +41372,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -9.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42431,8 +41383,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -10.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42444,8 +41394,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -11.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42457,8 +41405,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -12.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42470,8 +41416,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -6.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42483,8 +41427,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -5.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42496,8 +41438,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -4.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42509,8 +41449,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -3.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42522,8 +41460,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42535,8 +41471,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 0.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42548,8 +41482,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 1.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42561,8 +41493,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 2.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42574,8 +41504,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 3.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42587,8 +41515,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 5.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42600,8 +41526,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 6.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42613,8 +41537,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42626,8 +41548,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42639,8 +41559,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 7.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42652,8 +41570,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42665,8 +41581,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42678,8 +41592,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42691,8 +41603,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -0.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42703,8 +41613,6 @@ entities:
     - type: Transform
       pos: 4.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42715,8 +41623,6 @@ entities:
     - type: Transform
       pos: 4.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42727,8 +41633,6 @@ entities:
     - type: Transform
       pos: 4.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42739,8 +41643,6 @@ entities:
     - type: Transform
       pos: 4.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42751,8 +41653,6 @@ entities:
     - type: Transform
       pos: 4.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42763,8 +41663,6 @@ entities:
     - type: Transform
       pos: -1.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42775,8 +41673,6 @@ entities:
     - type: Transform
       pos: -1.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42788,8 +41684,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -9.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42801,8 +41695,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -10.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42814,8 +41706,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -11.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42827,8 +41717,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -13.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42840,8 +41728,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -13.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42853,8 +41739,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -13.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42866,8 +41750,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42879,8 +41761,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42892,8 +41772,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42905,8 +41783,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42918,8 +41794,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42931,8 +41805,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42944,8 +41816,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42957,8 +41827,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -12.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42970,8 +41838,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -13.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42983,8 +41849,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -42995,8 +41859,6 @@ entities:
     - type: Transform
       pos: -15.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43008,8 +41870,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -14.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43021,8 +41881,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -15.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43034,8 +41892,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -16.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43047,8 +41903,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -17.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43060,8 +41914,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -18.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43073,8 +41925,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -19.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43085,8 +41935,6 @@ entities:
     - type: Transform
       pos: -20.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43097,8 +41945,6 @@ entities:
     - type: Transform
       pos: -20.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43109,8 +41955,6 @@ entities:
     - type: Transform
       pos: -20.5,-20.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43121,8 +41965,6 @@ entities:
     - type: Transform
       pos: -20.5,-21.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43133,8 +41975,6 @@ entities:
     - type: Transform
       pos: -20.5,-22.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43146,8 +41986,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -21.5,-23.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43159,8 +41997,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -21.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43172,8 +42008,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -26.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43185,8 +42019,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -25.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43198,8 +42030,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -24.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43211,8 +42041,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -23.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43224,8 +42052,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43237,8 +42063,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43250,8 +42074,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43263,8 +42085,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43276,8 +42096,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43289,8 +42107,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43302,8 +42118,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43315,8 +42129,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -17.5,2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43328,8 +42140,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -18.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43341,8 +42151,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -19.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43354,8 +42162,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -20.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43367,8 +42173,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -21.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43380,8 +42184,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -22.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43393,8 +42195,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -24.5,3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43408,8 +42208,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -17.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43421,8 +42219,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,-9.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43433,8 +42229,6 @@ entities:
     - type: Transform
       pos: -13.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43446,8 +42240,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43459,8 +42251,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -7.5,-19.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43471,8 +42261,6 @@ entities:
     - type: Transform
       pos: -8.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43484,8 +42272,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -7.5,-16.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43497,8 +42283,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43510,8 +42294,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43523,8 +42305,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -7.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43535,8 +42315,6 @@ entities:
     - type: Transform
       pos: -0.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43548,8 +42326,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,1.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43561,8 +42337,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,-2.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43574,8 +42348,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -2.5,-0.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43587,8 +42359,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -1.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43599,8 +42369,6 @@ entities:
     - type: Transform
       pos: -0.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43611,8 +42379,6 @@ entities:
     - type: Transform
       pos: 4.5,-18.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43624,8 +42390,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43637,8 +42401,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -18.5,-15.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43652,8 +42414,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -18.5,-8.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43665,8 +42425,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -7.5,-7.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43678,8 +42436,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43691,8 +42447,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -6.5,-29.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43703,8 +42457,6 @@ entities:
     - type: Transform
       pos: -0.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43716,8 +42468,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -1.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43728,8 +42478,6 @@ entities:
     - type: Transform
       pos: 4.5,-17.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43741,8 +42489,6 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -7.5,-4.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -43754,8 +42500,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -18.5,-3.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: AtmosPipeColor
@@ -63151,8 +61895,6 @@ entities:
     - type: Transform
       pos: -1.4550258,-27.55635
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -63237,8 +61979,6 @@ entities:
     components:
     - type: Transform
       parent: 1241
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63252,8 +61992,6 @@ entities:
     components:
     - type: Transform
       parent: 1241
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63267,8 +62005,6 @@ entities:
     components:
     - type: Transform
       parent: 1241
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63282,8 +62018,6 @@ entities:
     components:
     - type: Transform
       parent: 1241
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63297,8 +62031,6 @@ entities:
     components:
     - type: Transform
       parent: 1241
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63767,8 +62499,6 @@ entities:
     - type: Transform
       pos: -18.470488,-11.43096
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63802,8 +62532,6 @@ entities:
           - 2302
           - 2303
           - 2305
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
 - proto: KitchenReagentGrinder
   entities:
   - uid: 2307
@@ -63946,8 +62674,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63965,8 +62691,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -63984,8 +62708,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -64004,8 +62726,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -64024,8 +62744,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -64044,8 +62762,6 @@ entities:
       solutions: null
       containers:
       - beaker
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -67168,8 +65884,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -67189,8 +65903,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -67210,8 +65922,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -69144,8 +67854,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -73220,8 +71928,6 @@ entities:
       solutions: null
       containers:
       - drink
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -73283,8 +71989,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -73324,8 +72028,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 3
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         stash: !type:ContainerSlot
@@ -73359,8 +72061,6 @@ entities:
     - type: DeviceNetwork
       address: 5D83-1DC7
       receiveFrequency: 1280
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -73387,8 +72087,6 @@ entities:
     - type: Transform
       pos: 0.55698895,-1.8426776
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: UseDelay
@@ -73430,8 +72128,6 @@ entities:
     - type: DeviceNetwork
       address: 21F5-1792
       receiveFrequency: 1280
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -73467,8 +72163,6 @@ entities:
     - type: DeviceNetwork
       address: 5F17-95A4
       receiveFrequency: 1280
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -73497,8 +72191,6 @@ entities:
       parent: 1
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -73532,8 +72224,6 @@ entities:
       parent: 1
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -73573,8 +72263,6 @@ entities:
     - type: DeviceNetwork
       address: 14FA-5D5F
       receiveFrequency: 1280
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -73603,8 +72291,6 @@ entities:
       parent: 1
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -73637,8 +72323,6 @@ entities:
       parent: 1
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -73671,8 +72355,6 @@ entities:
       parent: 1
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: UseDelay
       delays:
         default:
@@ -73712,8 +72394,6 @@ entities:
     - type: DeviceNetwork
       address: 7C70-5B1F
       receiveFrequency: 1280
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -77437,8 +76117,6 @@ entities:
       solutions: null
       containers:
       - food
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -78079,8 +76757,6 @@ entities:
     components:
     - type: Transform
       parent: 1167
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -78095,8 +76771,6 @@ entities:
     components:
     - type: Transform
       parent: 1206
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -78113,8 +76787,6 @@ entities:
       rot: -2.5898456563565393 rad
       pos: -11.584693,-27.72336
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -78131,8 +76803,6 @@ entities:
       rot: -3.000862360992704 rad
       pos: -11.906457,-5.301624
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -78147,8 +76817,6 @@ entities:
     components:
     - type: Transform
       parent: 3808
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -81530,8 +80198,6 @@ entities:
         3806:
           position: 4,1
           _rotation: South
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         storagebase: !type:Container
@@ -81589,8 +80255,6 @@ entities:
         3817:
           position: 6,0
           _rotation: South
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         storagebase: !type:Container
@@ -81642,8 +80306,6 @@ entities:
         1189:
           position: 5,0
           _rotation: South
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         storagebase: !type:Container
@@ -81690,8 +80352,6 @@ entities:
         3827:
           position: 4,0
           _rotation: South
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         storagebase: !type:Container
@@ -81739,8 +80399,6 @@ entities:
         3834:
           position: 4,0
           _rotation: South
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: ContainerContainer
       containers:
         storagebase: !type:Container
@@ -83837,8 +82495,6 @@ entities:
     - type: Transform
       pos: -11.487499,-25.38971
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83849,8 +82505,6 @@ entities:
     - type: Transform
       pos: -11.487499,-25.38971
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83861,8 +82515,6 @@ entities:
     - type: Transform
       pos: -11.487499,-25.38971
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83875,8 +82527,6 @@ entities:
     - type: Transform
       pos: 4.5,-11.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83887,8 +82537,6 @@ entities:
     - type: Transform
       pos: 6.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83899,8 +82547,6 @@ entities:
     - type: Transform
       pos: 6.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83913,8 +82559,6 @@ entities:
     - type: Transform
       pos: -19.402025,-11.401978
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83925,8 +82569,6 @@ entities:
     - type: Transform
       pos: -19.402025,-11.401978
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83937,8 +82579,6 @@ entities:
     - type: Transform
       pos: -19.402025,-11.401978
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83951,8 +82591,6 @@ entities:
     - type: Transform
       pos: 4.5,-11.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83963,8 +82601,6 @@ entities:
     - type: Transform
       pos: 6.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83977,8 +82613,6 @@ entities:
     - type: Transform
       pos: 6.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -83991,8 +82625,6 @@ entities:
     - type: Transform
       pos: 6.5,-14.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -84005,8 +82637,6 @@ entities:
     - type: Transform
       pos: 8.633155,-11.5605545
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -84017,8 +82647,6 @@ entities:
     - type: Transform
       pos: 8.633155,-11.5605545
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -84031,8 +82659,6 @@ entities:
     - type: Transform
       pos: 6.5,-13.5
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -84045,8 +82671,6 @@ entities:
     - type: Transform
       pos: 8.403988,-11.4147215
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -84057,8 +82681,6 @@ entities:
     - type: Transform
       pos: 8.403988,-11.4147215
       parent: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -88576,8 +87198,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -88601,8 +87221,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -88628,8 +87246,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: SolutionContainerManager
       solutions: null
       containers:
@@ -88661,8 +87277,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: Welder
       nextUpdate: 0.9313032
     - type: EmitSoundOnCollide
@@ -88688,8 +87302,6 @@ entities:
           endTime: 0
           startTime: 0
           length: 1
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: Welder
       nextUpdate: 0.9313032
     - type: EmitSoundOnCollide
@@ -88943,8 +87555,6 @@ entities:
     components:
     - type: Transform
       parent: 1167
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -88959,8 +87569,6 @@ entities:
     components:
     - type: Transform
       parent: 1206
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -88975,8 +87583,6 @@ entities:
     components:
     - type: Transform
       parent: 3808
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -88991,8 +87597,6 @@ entities:
     components:
     - type: Transform
       parent: 3828
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: RandomSprite
       selected:
         enum.DamageStateVisualLayers.Base:
@@ -89009,8 +87613,6 @@ entities:
     components:
     - type: Transform
       parent: 1206
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics
@@ -89020,8 +87622,6 @@ entities:
     components:
     - type: Transform
       parent: 3828
-    - type: MeleeWeapon
-      nextAttack: -4848.0292088
     - type: EmitSoundOnCollide
       nextSound: -4848.0292088
     - type: Physics

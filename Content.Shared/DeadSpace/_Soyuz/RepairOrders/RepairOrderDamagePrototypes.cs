@@ -6,7 +6,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
 public enum RepairDamagePlacement { AnyOccupied, Interior, Boundary, BoundaryToInterior, RepairValueTarget, DenseRepairableArea, BoundaryCorner }
-public enum RepairDamageShape { Disc, Ellipse, Line, Strip, Rectangle, IrregularBlob, EdgeSegment, MultiPoint }
+public enum RepairDamageShape { Disc, Ellipse, Line, Strip, Rectangle, IrregularBlob, EdgeSegment, MultiPoint, Grid }
 public enum RepairDamageSeverity { Light, Medium, Heavy }
 public enum RepairDamageOperation { RemoveTile, RemoveAnchoredEntity, RemoveAnchoredEntitiesByRepairValueCategory, RemoveStructuralEntitiesInArea }
 
@@ -102,7 +102,7 @@ public static class RepairDamageConfiguration
                 errors.Add($"Invalid repair damage event {ev.ID}.");
             foreach (var stage in ev.Stages)
             {
-                if (!Enum.IsDefined(stage.Shape) || !Enum.IsDefined(stage.PointShape) || stage.PointShape == RepairDamageShape.MultiPoint ||
+                if (!Enum.IsDefined(stage.Shape) || !Enum.IsDefined(stage.PointShape) || stage.PointShape is RepairDamageShape.MultiPoint or RepairDamageShape.Grid ||
                     stage.MinRadius < 0 || stage.MaxRadius < stage.MinRadius || stage.MinLength < 1 || stage.MaxLength < stage.MinLength ||
                     stage.Operations.Count == 0)
                     errors.Add($"{ev.ID}: invalid shape or empty operations.");

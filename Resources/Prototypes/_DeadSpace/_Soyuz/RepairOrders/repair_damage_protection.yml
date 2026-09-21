@@ -3,6 +3,10 @@
   entities:
   - ButtonFrameCaution
   parents:
+  - BaseWallCloset
+  - BaseWallLocker
+  - BaseWallmountCabinet
+  - BaseWallmountCabinetGlass
   - BaseVendingMachine
   - BoozeDispenserEmpty
   - PosterBase

@@ -284,7 +284,7 @@
   cost: 650
   weight: 0.1
   maxCount: 1
-  minimumDifficulty: 9
+  minimumDifficulty: 5
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
@@ -292,7 +292,7 @@
   cost: 700
   weight: 0.08
   maxCount: 1
-  minimumDifficulty: 10
+  minimumDifficulty: 6
 
 - type: repairRewardPool
   id: RepairOrderEngineeringRewardPool

@@ -117,3 +117,8 @@ repair-damage-chainexplosions-description = Diagnostics identified chain explosi
 
 repair-damage-meteorshower-name = Meteor Shower
 repair-damage-meteorshower-description = Diagnostics identified meteor shower. Restore the affected section.
+
+repair-damage-distributed-structural-failure-name = Widespread structural failure
+repair-damage-distributed-structural-failure-description = Structures and anchored equipment have been lost throughout the object. The supporting deck remains intact.
+repair-damage-distributed-equipment-failure-name = Distributed object damage
+repair-damage-distributed-equipment-failure-description = Scattered structural and equipment losses affect the entire object. The supporting deck remains intact.

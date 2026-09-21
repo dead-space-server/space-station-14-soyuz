@@ -1130,3 +1130,31 @@
     - type: RemoveTile
       chance: 0.08
       maxTargets: 12
+
+- type: repairDamageEvent
+  id: RepairDamageDistributedStructuralFailure
+  name: repair-damage-distributed-structural-failure-name
+  description: repair-damage-distributed-structural-failure-description
+  weight: 8
+  severity: Heavy
+  placement: AnyOccupied
+  maxOccurrences: 6
+  stages:
+  - shape: Grid
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.4
+
+- type: repairDamageEvent
+  id: RepairDamageDistributedEquipmentFailure
+  name: repair-damage-distributed-equipment-failure-name
+  description: repair-damage-distributed-equipment-failure-description
+  weight: 4
+  severity: Heavy
+  placement: AnyOccupied
+  maxOccurrences: 6
+  stages:
+  - shape: Grid
+    operations:
+    - type: RemoveAnchoredEntity
+      chance: 0.18

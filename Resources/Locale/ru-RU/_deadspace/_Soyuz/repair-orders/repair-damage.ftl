@@ -117,3 +117,8 @@ repair-damage-chainexplosions-description = Диагностика выявил�
 
 repair-damage-meteorshower-name = Метеоритный поток
 repair-damage-meteorshower-description = Диагностика выявила: метеоритный поток. Требуется восстановление затронутого участка.
+
+repair-damage-distributed-structural-failure-name = Множественное разрушение конструкций
+repair-damage-distributed-structural-failure-description = По всему объекту утрачены конструкции и закреплённое оборудование. Несущая палуба сохранена.
+repair-damage-distributed-equipment-failure-name = Распределённые повреждения объекта
+repair-damage-distributed-equipment-failure-description = Разрозненные повреждения конструкций и оборудования затронули весь объект. Несущая палуба сохранена.

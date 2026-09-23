@@ -5,7 +5,6 @@
   - GroupTankHarness
   - SecurityBackpack
   - SurvivalSecurity
-  - Trinkets
   - PolaroidKit
   - GroupSpeciesBreathToolSecurity
   - PolitrukJumpsuit
@@ -13,3 +12,49 @@
   - PolitrukHead
   - PolitrukSocks
   - PolitrukUnderwear
+  - Trinkets
+
+- type: roleLoadout
+  id: JobPolitkom
+  groups:
+  - GroupTankHarness
+  - SurvivalSecurity
+  - GroupSpeciesBreathToolSecurity
+  - PolitrukJumpsuit
+  - PolitrukOuterclothing
+  - PolitrukHead
+  - PolitrukSocks
+  - PolitrukUnderwear
+  - PolaroidKit
+  - Trinkets
+
+- type: roleLoadout
+  id: JobOKGB
+  groups:
+  - BlueShieldOfficerBackpack
+  - BlueShieldOfficerJumpsuit
+  - BlueShieldOfficerNeck
+  - OKGBOuterClothing
+  - OKGBGasMask
+  - OKGBHypo
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
+  - BlueShieldOfficerUnderwear
+
+- type: roleLoadout
+  id: JobOperatorGS
+  groups:
+  - OperatorGSHead
+  - OperatorGSShoes
+  - OperatorGSHands
+  - OperatorGSJumpsuit
+  - OperatorGSEars
+  - OperatorGSUnderwear
+  - OperatorGSNeck
+  - Trinkets
+
+- type: roleLoadout
+  id: JobOfficerGS
+  groups:
+  - Trinkets

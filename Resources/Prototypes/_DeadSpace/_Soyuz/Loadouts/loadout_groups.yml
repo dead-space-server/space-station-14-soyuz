@@ -2,7 +2,7 @@
 - type: loadoutGroup
   id: PolitrukOuterclothing
   name: loadout-group-politruk-outerclothing
-  minLimit: 0  
+  minLimit: 0
   loadouts:
   - PolitrukOuterclothingCoat
   - PolitrukOuterclothingMundir
@@ -19,7 +19,7 @@
   id: PolitrukJumpsuit
   name: loadout-group-politruk-jumpsuit
   loadouts:
-  - PolitrukJumpsuit  
+  - PolitrukJumpsuit
   - PolitrukJumpsuitPencilskirt
   - PolitrukJumpsuitSkirt
   - PolitrukJumpsuitDress
@@ -41,3 +41,68 @@
   - UnderwearBottomPantiesPolitruk
   - UnderwearTopBraPolitruk
   - UnderwearTopTelnikPolitruk
+
+- type: loadoutGroup
+  id: OperatorGSHead
+  name: loadout-group-operatorgs-head
+  minLimit: 0
+  loadouts:
+  - OperatorGSHeadHatcap
+  - OperatorGSHeadHat
+  - OperatorGSHeadBeret
+
+- type: loadoutGroup
+  id: OperatorGSHands
+  name: loadout-group-operatorgs-hands
+  minLimit: 0
+  loadouts:
+  - OperatorGSGlovesCombat
+  - OperatorGSGlovesNaval
+
+- type: loadoutGroup
+  id: OperatorGSShoes
+  name: loadout-group-operatorgs-shoes
+  minLimit: 1
+  loadouts:
+  - OperatorGSShoesLaceup
+  - OperatorGSShoesJack
+
+- type: loadoutGroup
+  id: OperatorGSJumpsuit
+  name: loadout-group-operatorgs-jumpsuit
+  minLimit: 1
+  loadouts:
+  - OperatorGSJumpsuitSkirtPencil
+  - OperatorGSJumpsuitDress
+  - OperatorGSJumpsuit
+  - OperatorGSJumpsuitAgent
+  - OperatorGSJumpsuitOfficial
+  - OperatorGSJumpsuitFormal
+  - OperatorGSJumpsuitSkirtOfficer
+
+- type: loadoutGroup
+  id: OperatorGSEars
+  name: loadout-group-operatorgs-ears
+  minLimit: 1
+  loadouts:
+  - OperatorGSEarsAltCentcom
+  - OperatorGSEarsCentcom
+
+- type: loadoutGroup
+  id: OperatorGSUnderwear
+  name: loadout-group-operatorgs-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersOperatorGS
+  - UnderwearBottomPantiesOperatorGS
+  - UnderwearTopBraOperatorGS
+
+- type: loadoutGroup
+  id: OperatorGSNeck
+  name: loadout-grout-operatorgs-neck
+  minLimit: 0
+  loadouts:
+  - OperatorGSNeckTieDet
+  - OperatorGSNeckCloak
+  - OperatorGSNeckScarf

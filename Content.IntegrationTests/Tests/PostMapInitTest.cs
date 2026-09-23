@@ -60,8 +60,7 @@ namespace Content.IntegrationTests.Tests
             // DS14-start: Add our custom maps to whitelist
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]}, //DS14-Soyuz
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]}, //DS14-Soyuz
-            {"/Maps/_Soyuz/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, //DS14-Soyuz
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, //DS14-Soyuz disabled
             // {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, //DS14-Soyuz
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]}, //DS14-Soyuz
@@ -116,15 +115,15 @@ namespace Content.IntegrationTests.Tests
             "Cog",
             "Convex",
             "Core",
-            "CorvaxAstra",
-            "CorvaxAvrite",
-            "CorvaxChloris",
-            "CorvaxDelta",
+            // "CorvaxAstra", // DS14-Soyuz disabled
+            // "CorvaxAvrite", // DS14-Soyuz disabled
+            // "CorvaxChloris", // DS14-Soyuz disabled
+            // "CorvaxDelta", // DS14-Soyuz disabled
             "CorvaxPaper",
             "CorvaxPearl",
-            "CorvaxGlacier",
+            // "CorvaxGlacier", // DS14-Soyuz disabled
             "CorvaxSilly",
-            "CorvaxSpectrum",
+            // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
             "Fland",
             "Gate",

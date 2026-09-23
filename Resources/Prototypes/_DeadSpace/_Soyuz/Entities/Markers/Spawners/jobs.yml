@@ -45,3 +45,15 @@
       layers:
         - state: green
         - state: centcom
+
+- type: entity
+  id: SpawnPointOKGB
+  parent: SpawnPointJobBase
+  name: OKGB spawn
+  components:
+    - type: SpawnPoint
+      job_id: OKGB
+    - type: Sprite
+      layers:
+        - state: green
+        - state: blueshield

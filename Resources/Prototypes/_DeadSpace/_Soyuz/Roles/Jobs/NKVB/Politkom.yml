@@ -3,8 +3,9 @@
   name: job-name-Politkom
   description: job-description-Politkom
   playTimeTracker: JobPolitkom
-  setPreference: false
   startingGear: PolitkomGear
+  whitelisted: true
+  weight: 2
   icon: "JobIconPolitkom"
   supervisors: job-supervisors-centcom
   canBeAntag: false
@@ -31,15 +32,12 @@
   equipment:
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesSecurity
-    gloves: ClothingHandsGlovesColorBlack
+    gloves: ClothingHandsGlovesCombat
     id: PolitkomPDA
     ears: ClothingHeadsetAltCentCom
-    socks: ClothingUnderwearSocksPolitOtdelLong
-    jumpsuit: ClothingUniformJumpsuitPolitRukFormal
-    head: ClothingHeadHatBeretPolitruk
-    back: ClothingBackpackSecurity
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel
     underweart: ClothingUnderwearTopTelnikPolitOtdel
+    back: ClothingBackpackSatchelOfficial
   storage:
     back:
     - Flash
@@ -58,6 +56,6 @@
     socks: ClothingUnderwearSocksPolitOtdelLong
     jumpsuit: ClothingUniformJumpsuitPolitRukFormal
     head: ClothingHeadHatBeretPolitruk
-    back: ClothingBackpackSecurity
+    back: ClothingBackpackSatchelOfficial
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel
     underweart: ClothingUnderwearTopTelnikPolitOtdel

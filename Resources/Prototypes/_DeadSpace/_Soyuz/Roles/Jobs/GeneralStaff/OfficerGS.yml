@@ -40,7 +40,6 @@
     back: ClothingBackpackMilitarySatchel
     shoes: ClothingShoesBootsJackFilled
     eyes: ClothingEyesGlassesHiddenSecurity
-    suitstorage: WeaponRifleAKMCY
     pocket1: TelescopicShield
     pocket2: WeaponPistolX01
   storage:
@@ -49,3 +48,4 @@
      - MagazineLightRifle
      - MagazineLightRifle
      - MagazineLightRifle
+     - WeaponRifleAKMCY

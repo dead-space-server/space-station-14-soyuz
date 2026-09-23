@@ -39,6 +39,7 @@
     underweart: ClothingUnderwearTopTelnikPolitOtdel
     back: ClothingBackpackSatchelOfficial
   storage:
+    back:
     - Flash
     - RubberStampPolitkom
     - PoliticalLoudspeaker

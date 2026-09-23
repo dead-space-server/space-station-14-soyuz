@@ -42,7 +42,7 @@
     eyes: ClothingEyesGlassesHiddenSecurity
     pocket1: TelescopicShield
     pocket2: WeaponPistolX01
-    storage:
+  storage:
      back:
      - BoxZiptie
      - MagazineLightRifle

@@ -1,17 +1,15 @@
 - type: gameMap
   id: CentComm
+  isGrid: true
   mapName: 'Генеральный Штаб'
-  mapPath: /Maps/_Soyuz/S1_GeneralStaff.yml
+  mapPath: /Maps/_Soyuz/centcomm.yml
   minPlayers: 10
   stations:
-    GeneralStaff:
-      stationProto: StandardGeneralStaff
+    centcomm:
+      stationProto: NanotrasenCentralCommand
       components:
         - type: StationNameSetup
-          # DS14-start
-          # mapNameTemplate: '{0} Central Command {1}'
-          # nameGenerator:
-          #   !type:NanotrasenNameGenerator
-          #   prefixCreator: 'TG'
-          mapNameTemplate: '{0} «Цитадель»'
-          # DS14-end
+          mapNameTemplate: '{0} Генеральный Штаб {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefixCreator: 'SDV' # DS14-Soyuz

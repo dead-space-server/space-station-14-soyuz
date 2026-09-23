@@ -1,0 +1,134 @@
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderThrusterMediumFlatpack
+  name: rocket thruster flatpack
+  description: A flatpack used for constructing a medium rocket thruster.
+  components:
+  - type: Flatpack
+    entity: ThrusterMedium
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderApuFlatpack
+  name: APU flatpack
+  description: A flatpack used for constructing a wall-mounted auxiliary power unit.
+  components:
+  - type: Flatpack
+    entity: GeneratorWallmountAPU
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderRtgFlatpack
+  name: RTG flatpack
+  description: A flatpack used for constructing a radioisotope thermoelectric generator.
+  components:
+  - type: Flatpack
+    entity: GeneratorRTG
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BoxCardboard
+  id: RepairOrderShuttleBoardBundle
+  name: shuttle circuit board kit
+  description: A compact set of circuit boards for constructing and extending a shuttle.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: ShuttleConsoleCircuitboard
+        - id: ThrusterMachineCircuitboard
+        - id: GyroscopeMachineCircuitboard
+
+# Ported visually from DeltaV PR #5846. These variants intentionally use only ordinary Storage:
+# no magnet pickup, toggle, research, recipes, lathe or cargo acquisition is registered.
+- type: entity
+  parent: BaseStorageItem
+  id: ConstructionBag
+  name: construction bag
+  description: A robust belt bag for carrying construction materials.
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: Item
+    size: Ginormous
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,9,3
+    quickInsert: true
+    areaInsert: true
+    whitelist:
+      tags:
+      - Ingot
+      - Sheet
+      - ConstructionMaterial
+      - CableCoil
+  - type: Dumpable
+  - type: StaticPrice
+    price: 55.5
+
+- type: entity
+  parent: ConstructionBag
+  id: ConstructionBagOfHolding
+  name: bluespace construction bag
+  description: A bluespace belt bag with exceptional capacity for construction materials.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    layers:
+    - state: icon
+    - state: icon-bluespace-overlay
+    - state: icon-bluespace-overlay-unshaded
+      shader: unshaded
+  - type: Item
+    size: Ginormous
+    inhandVisuals:
+      left:
+      - state: inhand-left
+      - state: inhand-left-bluespace-overlay
+      - state: inhand-left-bluespace-overlay-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right
+      - state: inhand-right-bluespace-overlay
+      - state: inhand-right-bluespace-overlay-unshaded
+        shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    quickEquip: false
+    slots:
+    - Belt
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT
+      - state: equipped-BELT-bluespace-overlay
+      - state: equipped-BELT-bluespace-overlay-unshaded
+        shader: unshaded
+  - type: Storage
+    grid:
+    - 0,0,19,9

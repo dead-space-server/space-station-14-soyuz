@@ -71,7 +71,7 @@
   parent: CrateHydroponics
   id: CrateHydroponicsSeeds
   name: seeds crate
-  description: Big things have small beginnings. Contains twenty-six different seeds. # Kofeecheks Pears: LicenseRef-Kofeecheks
+  description: Big things have small beginnings. Contains twenty-four different seeds.
   components:
   - type: StorageFill
     contents:

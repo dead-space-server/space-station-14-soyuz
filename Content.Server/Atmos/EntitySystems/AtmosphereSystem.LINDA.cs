@@ -102,6 +102,8 @@ namespace Content.Server.Atmos.EntitySystems
             if(tile.Air != null)
                 visualsChanged |= React(tile.Air, tile) != ReactionResult.NoReaction; // DS14
 
+            ProcessSoyuzTile(tile); // DS14-Soyuz: open-air effects only on the actual tile mixture.
+
             if (visualsChanged) // DS14
                 InvalidateVisuals(ent, tile);
 
@@ -260,9 +262,9 @@ namespace Content.Server.Atmos.EntitySystems
                 if (i == (int) Gas.Iprit)
                 {
                     if (delta > 0f)
-                        sharer.EnsureIpritDecayDeadline(receiverIpritDeadline);
+                        sharer.BlendIpritDecayDeadline(sharer.GetMoles(Gas.Iprit) - delta, receiverIpritDeadline, delta);
                     else
-                        receiver.EnsureIpritDecayDeadline(sharerIpritDeadline);
+                        receiver.BlendIpritDecayDeadline(receiver.GetMoles(Gas.Iprit) + delta, sharerIpritDeadline, -delta);
                 }
 
                 movedMoles += delta;

@@ -21,11 +21,6 @@ public sealed partial class ObjectsTabEntry : PanelContainer
         AssocEntity = nent;
         EIDLabel.Text = nent.ToString();
         NameLabel.Text = name;
-        // DS14-start
-        AddProfileLabelStyle(NameLabel, EIDLabel);
-        AddProfileButtonStyle(TeleportButton, DeleteButton);
-        // DS14-end
-
         TeleportButton.Disabled = !manager.CanCommand("tpto");
         DeleteButton.Disabled = !manager.CanCommand("delete");
 
@@ -33,25 +28,4 @@ public sealed partial class ObjectsTabEntry : PanelContainer
         DeleteButton.OnPressed += _ => OnDelete?.Invoke(nent);
     }
 
-    // DS14-start
-    private static void AddProfileLabelStyle(params Label[] labels)
-    {
-        foreach (var label in labels)
-        {
-            if (!label.StyleClasses.Contains(DeadSpaceMenuSheetlet.ProfileLabel))
-                label.AddStyleClass(DeadSpaceMenuSheetlet.ProfileLabel);
-        }
-    }
-
-    private static void AddProfileButtonStyle(params Button[] buttons)
-    {
-        foreach (var button in buttons)
-        {
-            if (!button.StyleClasses.Contains(DeadSpaceMenuSheetlet.ProfileControl))
-                button.AddStyleClass(DeadSpaceMenuSheetlet.ProfileControl);
-
-            button.TextAlign = Label.AlignMode.Center;
-        }
-    }
-    // DS14-end
 }

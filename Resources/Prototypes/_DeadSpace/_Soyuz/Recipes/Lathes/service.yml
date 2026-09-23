@@ -36,3 +36,20 @@
     Plastic: 6370
     Plasma: 8084
     Bananium: 10000
+
+- type: latheRecipe
+  id: PolaroidCamera
+  result: PolaroidCamera
+  completetime: 5
+  materials:
+    Steel: 150
+    Plastic: 100
+    Glass: 50
+
+- type: latheRecipe
+  id: PolaroidCartridge
+  result: PolaroidCartridge
+  completetime: 5
+  materials:
+    Steel: 50
+    Plastic: 150

@@ -1,10 +1,10 @@
 - type: gameMap
   id: CorvaxSilly
   mapName: 'Остров "Силли"' #DS14-Soyuz local
-  mapPath: /Maps/_Soyuz/ds_silly.yml
+  mapPath: /Maps/_Soyuz/S1_Silly.yml
   maxRandomOffset: 0
   randomRotation: false
-  minPlayers: 5
+  minPlayers: 5 #DS14-Soyuz
   maxPlayers: 20
   stations:
     Silly:

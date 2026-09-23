@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Server.Administration;
-using Content.Server.DeadSpace.Administration.GameRules; //DS14
+using Content.Server.DeadSpace.Administration.GameRules;
+using Content.Server.DeadSpace.CentComm;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.Administration;
 using Content.Shared.Database;
@@ -68,9 +69,24 @@ public sealed partial class GameTicker
     /// start it yet, instead waiting until the rule is actually started by other code (usually roundstart)
     /// </summary>
     /// <returns>The entity for the added gamerule</returns>
-    public EntityUid AddGameRule(string ruleId)
+    public EntityUid AddGameRule(string ruleId, EntityUid? targetStation = null) // DS14
     {
+        // DS14-start
+        // No gameplay rule may mutate the world after the immutable round result is created.
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            _sawmill.Warning($"Ignoring attempt to add game rule {ruleId} during PostRound.");
+            return EntityUid.Invalid;
+        }
+        // DS14-end
+
         var ruleEntity = Spawn(ruleId, MapCoordinates.Nullspace);
+        // DS14-start
+        // Added handlers can announce, infect players or pick spawn locations immediately.
+        if (targetStation is { } target)
+            EnsureComp<GameRuleTargetStationComponent>(ruleEntity).Station = target;
+        EntityManager.System<GameRuleStationSystem>().EnsureEventTarget(ruleEntity);
+        // DS14-end
         _sawmill.Info($"Added game rule {ToPrettyString(ruleEntity)}");
         _adminLogger.Add(LogType.EventStarted, $"Added game rule {ToPrettyString(ruleEntity)}");
         var str = Loc.GetString("station-event-system-run-event", ("eventName", ToPrettyString(ruleEntity)));
@@ -113,6 +129,14 @@ public sealed partial class GameTicker
     /// </summary>
     public bool StartGameRule(string ruleId, out EntityUid ruleEntity)
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            ruleEntity = EntityUid.Invalid;
+            return false;
+        }
+        // DS14-end
+
         ruleEntity = AddGameRule(ruleId);
         return StartGameRule(ruleEntity);
     }
@@ -123,6 +147,11 @@ public sealed partial class GameTicker
     /// </summary>
     public bool StartGameRule(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+            return false;
+        // DS14-end
+
         if (!Resolve(ruleEntity, ref ruleData))
             ruleData ??= EnsureComp<GameRuleComponent>(ruleEntity);
 
@@ -183,6 +212,15 @@ public sealed partial class GameTicker
     [PublicAPI]
     public bool EndGameRule(EntityUid ruleEntity, GameRuleComponent? ruleData = null)
     {
+        // DS14-start
+        // Rule Ended handlers may mutate the world, so defer them until RestartRound.
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            _sawmill.Warning($"Ignoring attempt to end game rule {ruleEntity} during PostRound.");
+            return false;
+        }
+        // DS14-end
+
         if (!Resolve(ruleEntity, ref ruleData))
             return false;
 
@@ -272,6 +310,14 @@ public sealed partial class GameTicker
 
     public void ClearGameRules()
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            _sawmill.Warning("Ignoring attempt to clear game rules during PostRound.");
+            return;
+        }
+        // DS14-end
+
         foreach (var rule in GetAddedGameRules())
         {
             EndGameRule(rule);
@@ -320,6 +366,11 @@ public sealed partial class GameTicker
 
     private void UpdateGameRules()
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+            return;
+        // DS14-end
+
         var query = EntityQueryEnumerator<DelayedStartRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var delay, out var rule))
         {
@@ -347,6 +398,16 @@ public sealed partial class GameTicker
                 continue;
             }
 
+            // DS14-start
+            var ent = AddGameRule(rule);
+
+            if (!ent.IsValid())
+            {
+                shell.WriteError("Game rules cannot be added during PostRound.");
+                continue;
+            }
+            // DS14-end
+
             if (shell.Player != null)
             {
                 _adminLogger.Add(LogType.EventStarted, $"{shell.Player} tried to add game rule [{rule}] via command");
@@ -356,7 +417,6 @@ public sealed partial class GameTicker
             {
                 _adminLogger.Add(LogType.EventStarted, $"Unknown tried to add game rule [{rule}] via command");
             }
-            var ent = AddGameRule(rule);
 
             //DS14-Start
             var gameRulesSystem = EntityManager.System<GameRulesServerSystem>();
@@ -377,6 +437,14 @@ public sealed partial class GameTicker
     [AdminCommand(AdminFlags.Fun)]
     private void EndGameRuleCommand(IConsoleShell shell, string argstr, string[] args)
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            shell.WriteError("Game rules cannot be ended during PostRound.");
+            return;
+        }
+        // DS14-end
+
         if (args.Length == 0)
             return;
 
@@ -406,6 +474,14 @@ public sealed partial class GameTicker
     [AdminCommand(AdminFlags.Fun)]
     private void ClearGameRulesCommand(IConsoleShell shell, string argstr, string[] args)
     {
+        // DS14-start
+        if (RunLevel == GameRunLevel.PostRound)
+        {
+            shell.WriteError("Game rules cannot be cleared during PostRound.");
+            return;
+        }
+        // DS14-end
+
         ClearGameRules();
     }
 

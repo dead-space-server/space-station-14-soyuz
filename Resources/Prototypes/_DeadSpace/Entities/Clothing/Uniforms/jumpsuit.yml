@@ -12,7 +12,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitParamedicAlt
-  name: чёрный комбинезон фельдшера
+  name: чёрный комбинезон парамедика
   description: На нём есть плюс, это хорошо, верно?
   components:
   - type: Sprite
@@ -30,6 +30,7 @@
     sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/redji_suit.rsi
   - type: Clothing
     sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/redji_suit.rsi
+
 # Taipan
 
 - type: entity

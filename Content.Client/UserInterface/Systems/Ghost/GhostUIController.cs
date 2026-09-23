@@ -1,7 +1,8 @@
-﻿using Content.Client.Gameplay;
-using Content.Client.Ghost;
+﻿using Content.Client.Ghost;
+using Content.Client.DeadSpace.NewLife;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Client.UserInterface.Systems.Ghost.Widgets;
+using Content.Client.DeadSpace._Soyuz.GhostBar; // DS14-Soyuz
 using Content.Shared.DeadSpace.Arena; // DS14
 using Content.Shared.Ghost;
 using Robust.Client.UserInterface;
@@ -10,11 +11,13 @@ using Robust.Client.UserInterface.Controllers;
 namespace Content.Client.UserInterface.Systems.Ghost;
 
 // TODO hud refactor BEFORE MERGE fix ghost gui being too far up
-public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>
+public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSystem>, IOnSystemChanged<NewLifeSystem>
 {
     [Dependency] private readonly IEntityNetworkManager _net = default!;
+    [Dependency] private readonly IEntityManager _entManager = default!; // DS14-Soyuz
 
     [UISystemDependency] private readonly GhostSystem? _system = default;
+    [UISystemDependency] private readonly NewLifeSystem? _newLife = default;
 
     private GhostGui? Gui => UIManager.GetActiveUIWidgetOrNull<GhostGui>();
 
@@ -57,6 +60,16 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         system.GhostRoleCountUpdated -= OnRoleCountUpdated;
     }
 
+    public void OnSystemLoaded(NewLifeSystem system)
+    {
+        system.StateChanged += UpdateGui;
+    }
+
+    public void OnSystemUnloaded(NewLifeSystem system)
+    {
+        system.StateChanged -= UpdateGui;
+    }
+
     public void UpdateGui()
     {
         if (Gui == null)
@@ -66,6 +79,7 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
 
         Gui.Visible = _system?.IsGhost ?? false;
         Gui.Update(_system?.AvailableGhostRoleCount, _system?.Player?.CanReturnToBody);
+        Gui.UpdateNewLife(_newLife?.State ?? default);
     }
 
     private void OnPlayerRemoved(GhostComponent component)
@@ -126,9 +140,11 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.RequestWarpsPressed += RequestWarps;
         Gui.ReturnToBodyPressed += ReturnToBody;
         Gui.GhostRolesPressed += GhostRolesPressed;
+        Gui.NewLifePressed += NewLifePressed;
         Gui.TargetWindow.WarpClicked += OnWarpClicked;
         Gui.TargetWindow.OnGhostnadoClicked += OnGhostnadoClicked;
         Gui.ArenaPressed += ArenaPressed; // DS14
+        Gui.GhostBarPressed += GhostBarPressed; // DS14-Soyuz
 
         UpdateGui();
     }
@@ -141,8 +157,10 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         Gui.RequestWarpsPressed -= RequestWarps;
         Gui.ReturnToBodyPressed -= ReturnToBody;
         Gui.GhostRolesPressed -= GhostRolesPressed;
+        Gui.NewLifePressed -= NewLifePressed;
         Gui.TargetWindow.WarpClicked -= OnWarpClicked;
         Gui.ArenaPressed -= ArenaPressed; // DS14
+        Gui.GhostBarPressed -= GhostBarPressed; // DS14-Soyuz
 
         Gui.Hide();
     }
@@ -164,6 +182,11 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         _system?.OpenGhostRoles();
     }
 
+    private void NewLifePressed()
+    {
+        _newLife?.OpenWindow();
+    }
+
     // DS14-Start
     private void ArenaPressed()
     {
@@ -171,4 +194,11 @@ public sealed class GhostUIController : UIController, IOnSystemChanged<GhostSyst
         _net.SendSystemNetworkMessage(msg);
     }
     // DS14-End
+
+    // DS14-Soyuz-start
+    private void GhostBarPressed()
+    {
+        _entManager.System<GhostBarSystem>().RequestJoin();
+    }
+    // DS14-Soyuz-end
 }

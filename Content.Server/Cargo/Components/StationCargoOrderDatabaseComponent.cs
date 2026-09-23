@@ -34,11 +34,6 @@ public sealed partial class StationCargoOrderDatabaseComponent : Component
     public bool TradeHijacked;
     // DS14-end
 
-    // DS14-Soyuz-start
-    [DataField]
-    public bool IsGeneralStaff = false;
-    // DS14-Soyuz-end
-
     /// <summary>
     /// Used to determine unique order IDs
     /// </summary>
@@ -53,7 +48,6 @@ public sealed partial class StationCargoOrderDatabaseComponent : Component
     public List<ProtoId<CargoMarketPrototype>> Markets = new()
     {
         "market",
-        "general_staff", //DS14-Soyuz
         // DS14-Start
         "taipan_market",
         "security",

@@ -2,7 +2,7 @@
   id: Meta
   mapName: 'Мета' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/meta.yml
-  minPlayers: 35
+  minPlayers: 27 #DS14-Soyuz
   maxPlayers: 70
   stations:
     Meta:
@@ -42,7 +42,7 @@
             Paramedic: [ 1, 1 ]
             Coroner: [ 1, 1 ]
             MedicalIntern: [ 4, 4 ]
-#            Virologist: [ 1, 1 ]
+            Virologist: [ 1, 1 ]
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]

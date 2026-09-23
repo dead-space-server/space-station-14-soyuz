@@ -17,8 +17,6 @@
   - type: Body
     prototype: Demon
     requiredLegs: 2
-  - type: Hunger
-  - type: Thirst
   - type: Damageable
     damageContainer: Biological
   - type: MeleeWeapon
@@ -48,7 +46,6 @@
     knownLanguages:
     - DemonLanguage
     - GeneralLanguage
-  # - type: FootPrints
 
 - type: entity
   parent: BaseSpeciesDummy

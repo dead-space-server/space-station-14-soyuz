@@ -30,8 +30,9 @@ public record struct RadioReceiveAttemptEvent(RadioChannelPrototype Channel, Ent
 /// Use this event to cancel sending message to every receiver
 /// </summary>
 [ByRefEvent]
-public record struct RadioSendAttemptEvent(RadioChannelPrototype Channel, EntityUid RadioSource)
+public record struct RadioSendAttemptEvent(EntityUid MessageSource, RadioChannelPrototype Channel, EntityUid RadioSource)
 {
+    public readonly EntityUid MessageSource = MessageSource; // DS-14 Soyuz
     public readonly RadioChannelPrototype Channel = Channel;
     public readonly EntityUid RadioSource = RadioSource;
     public bool Cancelled = false;

@@ -1,0 +1,73 @@
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtGhostBarBase
+  name: юбка-карандаш
+  description: Одежда, которую легально получить на станции, вряд ли получится.
+  suffix: Гост-бар, Неснимаемая
+  abstract: true
+  components:
+  - type: Unremoveable
+
+## Обычная юбка
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirGhostBarBlue
+  name: голубая космо-юбка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/blue.rsi
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirtGhostBarOrange
+  name: оранжевая космо-юбка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/orange.rsi
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirtGhostBarViolet
+  name: фиолетовая космо-юбка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/violet.rsi
+
+## Юбка-карандаш
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirtPencilGhostBarBlue
+  name: голубая космическая юбка-карандаш
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/blue_pencil.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/blue_pencil.rsi
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirtPencilGhostBarOrange
+  name: оранжевая космическая юбка-карандаш
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/orange_pencil.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/orange_pencil.rsi
+
+- type: entity
+  parent: ClothingUniformJumpskirtGhostBarBase
+  id: ClothingUniformJumpskirtPencilGhostBarViolet
+  name: фиолетовая космическая юбка-карандаш
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/violet_pencil.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Uniforms/Jumpskirt/violet_pencil.rsi

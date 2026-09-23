@@ -19,9 +19,9 @@ namespace Content.Server.DeadSpace.Demons.Shadowling;
 
 public sealed class ShadowlingAscendanceSystem : EntitySystem
 {
+    [Dependency] private readonly Content.Server.DeadSpace.CentComm.GameRuleStationSystem _ruleStation = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly SmokeSystem _smoke = default!;
@@ -98,7 +98,7 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
             _mind.TransferTo(mindId, newMob, mind: mind);
 
         var message = Loc.GetString("shadowling-ascendance-announcement");
-        var sender = Loc.GetString("shadowling-ascendance-sender");
+
 
         _audio.PlayPvs(new SoundCollectionSpecifier("ShadowlingAscendance2"), newMob);
         _sound.StopStationEventMusic(newMob, StationEventMusicType.Convergence);
@@ -108,7 +108,6 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
         var ruleQuery = EntityQueryEnumerator<ShadowlingRuleComponent>();
         while (ruleQuery.MoveNext(out var ruleComp))
         {
-            ruleComp.IsAscended = true;
             if (ruleComp.AscendanceAnnounced)
             {
                 alreadyAnnounced = true;
@@ -124,11 +123,15 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
 
             Timer.Spawn(TimeSpan.FromSeconds(1.48), () =>
             {
-                _chat.DispatchGlobalAnnouncement(message, sender,
+                _ruleStation.Announce(newMob, message, sender: Loc.GetString("shadowling-ascendance-sender"),
                     colorOverride: Color.FromHex("#ff0000"),
                     announcementSound: new SoundCollectionSpecifier("ShadowlingAscendanceAnnouncement"));
             });
         }
+
+        var allRulesForAscended = EntityQuery<ShadowlingRuleComponent>();
+        foreach (var ruleComp in allRulesForAscended)
+            ruleComp.IsAscended = true;
 
         QueueDel(uid);
     }

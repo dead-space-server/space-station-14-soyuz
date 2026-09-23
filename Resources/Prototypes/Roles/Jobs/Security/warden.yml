@@ -10,14 +10,10 @@
       time: 10h
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 10h
-    - !type:OverallPlaytimeRequirement
-      time: 80h
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 40h
-#DS14-soyuz-end
-  weight: 5
+      time: 10h
   startingGear: WardenGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-hos
@@ -65,7 +61,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetAltSecurityOfficer # DS14
     gloves: ClothingHandsGlovesCombat # DS14-Soyuz
   storage:
     back:

@@ -15,6 +15,11 @@ namespace Content.IntegrationTests.Tests.Atmos;
 [TestOf(typeof(Atmospherics))]
 public sealed class ConstantsTest
 {
+    // DS14-Soyuz start
+    private static readonly EntProtoId AirSensorBaseId = "AirSensorBase";
+    private static readonly EntProtoId AirSensorVoxBaseId = "AirSensorVoxBase";
+    // DS14-Soyuz end
+
     [Test]
     public async Task TotalGasesTest()
     {
@@ -51,8 +56,8 @@ public sealed class ConstantsTest
                 Assert.That(gases.Select(gas => (int) gas).Distinct().Count(), Is.EqualTo(Atmospherics.TotalNumberOfGases));
                 var mixture = new GasMixture();
                 var visibleGases = entityManager.System<GasTileOverlaySystem>().VisibleGasId;
-                var sensor = protoManager.Index<EntityPrototype>("AirSensorBase");
-                var voxSensor = protoManager.Index<EntityPrototype>("AirSensorVoxBase");
+                var sensor = protoManager.Index<EntityPrototype>(AirSensorBaseId);
+                var voxSensor = protoManager.Index<EntityPrototype>(AirSensorVoxBaseId);
                 foreach (var sensorProto in new[] { sensor, voxSensor })
                 {
                     Assert.That(sensorProto.TryGetComponent<AtmosMonitorComponent>(out var monitor, entityManager.ComponentFactory), Is.True);

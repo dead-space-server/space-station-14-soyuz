@@ -1718,3 +1718,14 @@ Entries:
   - type: Tweak
     message: Хвостовая сумка бриг медика и хвостовая сумка Бщ покрашены под стиль
       союза.
+- id: 164
+  author: TheZuTi
+  time: '2026-09-23T13:15:11.685683+00:00'
+  pr: 481
+  changes:
+  - type: Add
+    message: 'Удалено:'
+  - type: Remove
+    message: 'Изменено:'
+  - type: Tweak
+    message: 'Исправлено:'

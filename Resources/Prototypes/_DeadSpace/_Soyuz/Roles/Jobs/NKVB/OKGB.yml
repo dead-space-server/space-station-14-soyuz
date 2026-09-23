@@ -13,7 +13,7 @@
   - AllAccess
   access:
   - CentralCommand
-  - NKVB # DS14-Soyuz
+  - NKVB
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
@@ -24,10 +24,9 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-  # DS14-Soyuz-start
   ranks:
     NKVBRankSeniorLieutenant: []
-  # DS14-Soyuz-end
+
 
 - type: entity
   parent: ClothingBackpackBlueShield
@@ -39,7 +38,6 @@
   - type: StorageFill
     contents:
       - id: BoxMRE
-      # - id: ERTloadoutBlueShieldPrimary # DS14-Soyuz disabled
       - id: ADTtelescopicBaton
       - id: TelescopicShield
       - id: MedkitCombatFilled
@@ -49,9 +47,9 @@
         amount: 2
       - id: CelestinMedipen
         amount: 2
-      - id: ClothingNeckCapeBlueShield # DS14-Soyuz
-      - id: KGBloadoutSecondary # DS14-Soyuz
-      - id: KGBloadoutPrimary # DS14-Soyuz
+      - id: ClothingNeckCapeBlueShield
+      - id: KGBloadoutSecondary
+      - id: KGBloadoutPrimary
 
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
@@ -65,7 +63,6 @@
       - id: JawsOfLife
       - id: PowerDrill
       - id: WelderExperimental
-      # - id: ADTCombatHypo # DS14-Soyuz disabled
       - id: ChemistryBottleEphedrine
       - id: ChemistryBottleOmnizine
       - id: ChemistryBottleOmnizine
@@ -77,7 +74,7 @@
   id: CentcomBlueShieldGear
   equipment:
     head: ClothingHeadHatBeretBlueShield
-    eyes: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
+    eyes: ClothingEyesGlassesAdvancedOKGB
     ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesBlueShield
     shoes: ClothingShoesBootsBlueShield

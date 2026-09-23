@@ -34,13 +34,13 @@
   - BlueShieldOfficerBackpack
   - BlueShieldOfficerJumpsuit
   - BlueShieldOfficerNeck
-  - OKGBOuterClothing # DS14-Soyuz
-  - OKGBGasMask # DS14-Soyuz
-  - OKGBHypo # DS14-Soyuz
+  - OKGBOuterClothing
+  - OKGBGasMask
+  - OKGBHypo
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
-  - BlueShieldOfficerUnderwear # DS14-Underwear
+  - BlueShieldOfficerUnderwear
 
 - type: roleLoadout
   id: JobOperatorGS

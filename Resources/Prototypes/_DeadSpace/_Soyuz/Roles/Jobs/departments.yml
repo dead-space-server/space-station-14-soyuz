@@ -4,7 +4,6 @@
   description: department-NKVB-description
   color: "#ad4040"
   roles:
-  - Politkom
   - Politruk
   - BlueShieldOfficer
   weight: 130
@@ -17,4 +16,6 @@
   roles:
   - OperatorGS
   - OfficerGS
+  - OKGB
+  - Politkom
   weight: 300

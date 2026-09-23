@@ -1,0 +1,102 @@
+- type: job
+  id: OKGB
+  name: job-name-OKGB
+  description: job-description-OKGB
+  playTimeTracker: JobOKGB
+  weight: 1
+  whitelisted: True
+  startingGear: CentcomBlueShieldGear
+  icon: "JobIconBlueShieldOfficer"
+  supervisors: job-supervisors-centcom-administrator
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: ZombieImmune
+    - type: NpcFactionMember
+      factions:
+      - CentralCommand
+  ranks:
+    NKVBRankSeniorLieutenant: []
+
+
+- type: entity
+  parent: ClothingBackpackBlueShield
+  id: ClothingBackpackBlueShieldCentComFilled
+  name: модифицированный рюкзак офицера "Синий Щит"
+  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
+  suffix: Заполненный, ЦентКом
+  components:
+  - type: StorageFill
+    contents:
+      - id: BoxMRE
+      - id: ADTtelescopicBaton
+      - id: TelescopicShield
+      - id: MedkitCombatFilled
+        amount: 2
+      - id: HandheldCrewMonitor
+      - id: Zipties
+        amount: 2
+      - id: CelestinMedipen
+        amount: 2
+      - id: ClothingNeckCapeBlueShield
+      - id: KGBloadoutSecondary
+      - id: KGBloadoutPrimary
+
+- type: entity
+  id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  name: РПС офицера "Синий Щит"
+  description: РПС, которую носят офицеры "Синий Щит"
+  suffix: Заполненный, ЦентКом
+  components:
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
+
+- type: startingGear
+  id: CentcomBlueShieldGear
+  equipment:
+    head: ClothingHeadHatBeretBlueShield
+    eyes: ClothingEyesGlassesAdvancedOKGB
+    ears: ClothingHeadsetAltCentCom
+    gloves: ClothingHandsGlovesBlueShield
+    shoes: ClothingShoesBootsBlueShield
+    id: BlueShieldOfficerPDA
+    pocket1: PistolBlueShield
+    pocket2: WeaponDisabler
+    belt: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+  storage:
+    outerClothing:
+    - ClothingEyesGlassesMeson
+    - DoubleEmergencyOxygenTankFilled
+    - PinpointerUniversal
+
+
+- type: chameleonOutfit
+  id: CentralCommandBlueShieldOfficerChameleonOutfit
+  job: CentralCommandBlueShieldOfficer
+  equipment:
+    head: ClothingHeadHatBeretBlueShield
+    mask: ClothingMaskGasSecurity
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBasicBlueShield
+    shoes: ClothingShoesBootsJack
+    belt: ClothingBeltMilitaryWebbingMed

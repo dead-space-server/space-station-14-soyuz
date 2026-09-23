@@ -8,3 +8,5 @@ loadout-group-politruk-underwear = Политический Руководите
 loadout-group-blue-shield-officer-masks = Оперативник КГБ, противогаз
 loadout-group-blue-shield-officer-hypo = Оперативник КГБ, гипоспрей
 loadout-group-blue-shield-officer-outerclothing = Оперативник КГБ, верхняя одежда
+
+loadout-group-operatorgs-underwear = General Staff Operator, underwear

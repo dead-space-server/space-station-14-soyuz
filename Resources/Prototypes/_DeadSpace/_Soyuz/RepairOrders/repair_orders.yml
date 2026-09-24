@@ -17,7 +17,6 @@
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
   repairTime: 40m
-##Amber
 - type: repairOrder
   id: RepairOrderDamagedSOBRAmber
   name: repair-order-damaged-amber-name
@@ -31,7 +30,6 @@
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
   repairTime: 50m
-##Briggle
 - type: repairOrder
   id: RepairOrderDamagedBriggle
   name: repair-order-damaged-briggle-name
@@ -45,7 +43,6 @@
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
   repairTime: 40m
-##Cargo_Shuttle
 - type: repairOrder
   id: RepairOrderDamagedCargoShuttle
   name: repair-order-damaged-cargo-shuttle-name

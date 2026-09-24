@@ -132,7 +132,6 @@ seeds-grass-name = трава
 seeds-grass-display-name = трава
 seeds-rmc-grape-name = виноград
 seeds-rmc-grape-display-name = виноградные лозы
-seeds-mango-name = манго
 seeds-mango-display-name = манговые деревья
 seeds-explosivebanana-name = взрывной банан
 seeds-explosivebanana-display-name = взрывной банан

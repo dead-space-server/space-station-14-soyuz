@@ -131,7 +131,6 @@ seeds-grass-name = grass
 seeds-grass-display-name = grass
 seeds-rmc-grape-name = grape
 seeds-rmc-grape-display-name = grape vines
-seeds-mango-name = mango
 seeds-mango-display-name = mango trees
 seeds-explosivebanana-name = explosive banana
 seeds-explosivebanana-display-name = explosive banana

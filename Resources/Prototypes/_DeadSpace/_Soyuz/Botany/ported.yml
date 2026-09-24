@@ -147,7 +147,8 @@
   metabolisms:
     Food:
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: 1
   footstepSound:
     collection: FootstepSticky

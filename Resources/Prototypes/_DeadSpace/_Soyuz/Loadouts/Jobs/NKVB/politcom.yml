@@ -1,0 +1,98 @@
+- type: loadout
+  id: PolitcomOuterclothingCoat
+  equipment:
+    outerClothing: ClothingOuterCoatPolitotdel
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: CoatPolitruk
+
+- type: loadout
+  id: PolitcomOuterclothingMundir
+  equipment:
+    outerClothing: ClothingOuterMundirPolitotdel
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MundirPolitruk
+
+# Head
+- type: loadout
+  id: PolitcomHeadBeret
+  equipment:
+    head: ClothingHeadHatBeretPolitruk
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: BeretPolitruk
+
+- type: loadout
+  id: PolitcomHeadCap
+  equipment:
+    head: ClothingHeadPolitrukCap
+
+# Jumpsuit
+- type: loadout
+  id: PolitcomJumpsuitPencilskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtPencilPolitRuk
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: PolitcomJumpsuitSkirt
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPolitRukSkirt
+  groupBy: "jumpskirt"
+
+- type: loadout
+  id: PolitcomJumpsuitDress
+  equipment:
+    jumpsuit: ClothingUniformPolitRukDress
+  groupBy: "jumpskirt"
+
+- type: loadout
+  id: PolitcomJumpsuit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitPolitRuk
+  groupBy: "jumpsuit"
+
+# Socks
+- type: loadout
+  id: PolitcomSocksLong
+  equipment:
+    socks: ClothingUnderwearSocksPolitOtdelLong
+
+- type: loadout
+  id: PolitcomSocks
+  equipment:
+    socks: ClothingUnderwearSocksPolitOtdel
+
+# Underwear
+- type: loadout
+  id: UnderwearBottomBoxersPolitcom
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+
+- type: loadout
+  id: UnderwearBottomPantiesPolitcom
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomStringsolitOtdel
+
+- type: loadout
+  id: UnderwearTopBraPolitcom
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopBraPolitOtdel
+
+- type: loadout
+  id: UnderwearTopTelnikPolitcom
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopTelnikPolitOtdel

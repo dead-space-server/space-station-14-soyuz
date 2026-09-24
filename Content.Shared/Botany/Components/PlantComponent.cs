@@ -64,4 +64,11 @@ public sealed partial class PlantComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public float Potency = 1f;
+
+    /// <summary>
+    /// Persistent genetic property. PlantClone carries it through produce, seeds, and species changes.
+    /// This is independent of the current growth cycle's mutation level.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float GeneticInstability;
 }

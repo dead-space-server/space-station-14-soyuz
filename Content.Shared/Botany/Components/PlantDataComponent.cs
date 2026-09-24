@@ -31,10 +31,10 @@ public sealed partial class PlantDataComponent : Component
     public EntProtoId PacketPrototype;
 
     /// <summary>
-    /// The plant prototypes this plant may mutate into when prompted to.
+    /// Directed species mutations available from this plant.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public List<EntProtoId> MutationPrototypes = [];
+    public List<PlantSpeciesMutation> Mutations = [];
 
     /// <summary>
     /// The entity prototypes that are spawned when this type of seed is harvested.

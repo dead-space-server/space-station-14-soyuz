@@ -146,14 +146,15 @@ public sealed class SoyuzPlantAnalyzerSystem : EntitySystem
             Chemicals = chemicals?.Chemicals.Keys.Select(ReagentName).ToArray() ?? Array.Empty<string>(),
             ConsumedGases = gases?.ConsumeGasses.Keys.Select(GasName).ToArray() ?? Array.Empty<string>(),
             EmittedGases = gases?.ExudeGasses.Keys.Select(GasName).ToArray() ?? Array.Empty<string>(),
-            PossibleMutations = data.MutationPrototypes
-                .Where(id => _prototypes.TryIndex(id, out EntityPrototype? _))
-                .Select(id => _prototypes.Index(id).Name)
+            PossibleMutations = data.Mutations
+                .Where(mutation => _prototypes.TryIndex(mutation.Target, out EntityPrototype? _))
+                .Select(mutation => _prototypes.Index(mutation.Target).Name)
                 .ToArray(),
             HarvestType = harvestType.ToString(),
             Endurance = plant.Endurance,
             Yield = plant.Yield,
             Potency = plant.Potency,
+            GeneticInstability = plant.GeneticInstability,
             Lifespan = plant.Lifespan,
             Maturation = plant.Maturation,
             Production = plant.Production,

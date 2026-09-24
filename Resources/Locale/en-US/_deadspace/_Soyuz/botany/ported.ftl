@@ -362,6 +362,7 @@ soyuz-plant-analyzer-scanned-plant = Scanned plant: { $name }
 soyuz-plant-analyzer-scanned-seed = Scanned seeds: { $name }
 soyuz-plant-analyzer-yield = Yield: { $value }
 soyuz-plant-analyzer-potency = Potency: { $value }
+soyuz-plant-analyzer-genetic-instability = Genetic instability: { $value }
 soyuz-plant-analyzer-harvest = Harvest type: { $value }
 soyuz-plant-analyzer-harvest-Repeat = Perennial
 soyuz-plant-analyzer-harvest-NoRepeat = Ephemeral

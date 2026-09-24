@@ -47,6 +47,10 @@
     production: 8
     yield: 3
   - type: PlantData
+    mutations:
+    - target: LavalandEmberPlant
+      chance: 0.06
+      weight: 100
     name: ash-walker-plant-polypore
     noun: seeds-noun-spores
     packetPrototype: LavalandPolyporeSeeds
@@ -117,6 +121,10 @@
     production: 7
     yield: 3
   - type: PlantData
+    mutations:
+    - target: LavalandInocybePlant
+      chance: 0.2
+      weight: 100
     name: ash-walker-plant-porcini
     noun: seeds-noun-spores
     packetPrototype: LavalandPorciniSeeds
@@ -208,6 +216,10 @@
     production: 8
     yield: 3
   - type: PlantData
+    mutations:
+    - target: LavalandPolyporePlant
+      chance: 0.1
+      weight: 100
     name: ash-walker-plant-inocybe
     noun: seeds-noun-spores
     packetPrototype: LavalandInocybeSeeds
@@ -305,6 +317,15 @@
     production: 10
     yield: 2
   - type: PlantData
+    mutations:
+    - target: GlasscapPlants
+      chance: 0.025
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 55
+        environment:
+          minTemperature: 310
     name: ash-walker-plant-ember
     noun: seeds-noun-spores
     packetPrototype: LavalandEmberSeeds
@@ -389,6 +410,16 @@
     production: 9
     yield: 2
   - type: PlantData
+    mutations:
+    - target: CactusBombPlant
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 60
+        reagents:
+          - id: UnstableMutagen
+            minAmount: 5
     name: ash-walker-plant-cactus
     noun: seeds-noun-seeds
     packetPrototype: LavalandCactusSeeds

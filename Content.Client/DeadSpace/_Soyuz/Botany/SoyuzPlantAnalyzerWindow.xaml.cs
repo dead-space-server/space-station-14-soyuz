@@ -57,6 +57,7 @@ public sealed partial class SoyuzPlantAnalyzerWindow : FancyWindow
         {
             output.AppendLine();
             output.AppendLine(Loc.GetString("soyuz-plant-analyzer-advanced-heading"));
+            Add(output, "soyuz-plant-analyzer-genetic-instability", report.GeneticInstability.ToString("0.#"));
             Add(output, "soyuz-plant-analyzer-nutrient-usage", report.NutrientConsumption.ToString("0.##"));
             Add(output, "soyuz-plant-analyzer-water-usage", report.WaterConsumption.ToString("0.##"));
             Add(output, "soyuz-plant-analyzer-ideal-heat", report.IdealHeat.ToString("0.#"));

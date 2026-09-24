@@ -219,6 +219,11 @@
       effect: !type:PlantChangeTraits
         trait: PlantTraitSeedless
         toggle: true # DS14
+    - name: ChangeGeneticInstability
+      baseOdds: 0.036
+      persists: false
+      effect: !type:PlantAdjustGeneticInstability
+        amount: 15
     - name: Lignification
       baseOdds: 0.036
       persists: false

@@ -161,9 +161,12 @@ public sealed partial class PlantSystem : EntitySystem
         // Process mutations.
         if (ent.Comp.MutationLevel > 0)
         {
-            _mutation.CheckRandomMutations(ent.Owner, Math.Min(ent.Comp.MutationLevel, ent.Comp.MaxMutationLevel));
+            // Consume the temporary dose before changing species. A forced update of the
+            // newly spawned plant must not roll the same mutation attempt a second time.
+            var severity = Math.Min(ent.Comp.MutationLevel, ent.Comp.MaxMutationLevel);
             ent.Comp.MutationLevel = 0;
             DirtyField(ent, ent.Comp, nameof(ent.Comp.MutationLevel));
+            _mutation.CheckRandomMutations(ent.Owner, severity);
         }
 
         if (ent.Comp.Health <= 0)
@@ -251,6 +254,19 @@ public sealed partial class PlantSystem : EntitySystem
 
         ent.Comp.Yield = Math.Max(0, ent.Comp.Yield + amount);
         DirtyField(ent, nameof(ent.Comp.Yield));
+    }
+
+    /// <summary>
+    /// Changes the inherited genetic instability without changing the temporary mutation level.
+    /// </summary>
+    [PublicAPI]
+    public void AdjustGeneticInstability(Entity<PlantComponent?> ent, float amount)
+    {
+        if (!Resolve(ent.Owner, ref ent.Comp, false))
+            return;
+
+        ent.Comp.GeneticInstability = MathHelper.Clamp(ent.Comp.GeneticInstability + amount, 0f, 100f);
+        DirtyField(ent, nameof(ent.Comp.GeneticInstability));
     }
 
     /// <summary>

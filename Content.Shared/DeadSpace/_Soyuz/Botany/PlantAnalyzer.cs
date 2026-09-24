@@ -39,6 +39,7 @@ public sealed class SoyuzPlantAnalyzerReport : BoundUserInterfaceMessage
     public float Endurance { get; init; }
     public int Yield { get; init; }
     public float Potency { get; init; }
+    public float GeneticInstability { get; init; }
     public float Lifespan { get; init; }
     public float Maturation { get; init; }
     public float Production { get; init; }

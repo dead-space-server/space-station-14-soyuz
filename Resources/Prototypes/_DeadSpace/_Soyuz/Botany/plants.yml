@@ -7,14 +7,16 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/cannabis.rsi
   - type: PlantData
+    mutations:
+    - target: RainbowCannabisPlants
+      chance: 0.1
+      weight: 100
     name: seeds-green-marijuana-name
     noun: seeds-noun-seeds
     packetPrototype: GreenMarijuanaSeeds
     productPrototypes:
     - LeavesGreenMarijuana
     - MaterialCloth1
-    mutationPrototypes:
-    - RainbowCannabisPlants
   - type: Plant
     lifespan: 75
     maturation: 8
@@ -150,13 +152,18 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/rose.rsi
   - type: PlantData
+    mutations:
+    - target: RedrosePlants
+      chance: 0.18
+      weight: 100
+    - target: WhiterosePlants
+      chance: 0.18
+      weight: 100
     name: seeds-rose-name
     noun: seeds-noun-seeds
     packetPrototype: RoseSeeds
     productPrototypes:
     - Rose
-    mutationPrototypes:
-    - BlackRosePlants
   - type: Plant
     lifespan: 55
     maturation: 8
@@ -210,13 +217,15 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
   - type: PlantData
+    mutations:
+    - target: CoconestPlants
+      chance: 0.15
+      weight: 100
     name: seeds-coconut-name
     noun: seeds-noun-seeds
     packetPrototype: CoconutSeeds
     productPrototypes:
     - FoodCoconut
-    mutationPrototypes:
-    - CoconestPlants
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -274,13 +283,15 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/hops.rsi
   - type: PlantData
+    mutations:
+    - target: EmployedhopsPlants
+      chance: 0.15
+      weight: 100
     name: seeds-hops-name
     noun: seeds-noun-seeds
     packetPrototype: HopsSeeds
     productPrototypes:
     - FoodHops
-    mutationPrototypes:
-    - EmployedhopsPlants
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -311,8 +322,6 @@
     packetPrototype: HoPsSeeds
     productPrototypes:
     - HopTart
-    mutationPrototypes:
-    - AgentgrainPlants
   - type: Plant
     lifespan: 65
     maturation: 25
@@ -332,6 +341,13 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/agentgrain.rsi
   - type: PlantData
+    mutations:
+    - target: MeatWheatPlants
+      chance: 0.04
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 40
     name: seeds-agentgrain-name
     noun: seeds-noun-seeds
     packetPrototype: AgentGrainSeeds
@@ -356,14 +372,18 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butterfly_orchid.rsi
   - type: PlantData
+    mutations:
+    - target: BiggerflyorchidPlants
+      chance: 0.15
+      weight: 100
+    - target: ButterorchidPlants
+      chance: 0.15
+      weight: 100
     name: seeds-butterflyorchid-name
     noun: seeds-noun-seeds
     packetPrototype: ButterflyOrchidSeeds
     productPrototypes:
     - FoodButterflyOrchid
-    mutationPrototypes:
-    - ButterorchidPlants
-    - BiggerflyorchidPlants
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -533,6 +553,13 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/wheat.rsi
   - type: PlantData
+    mutations:
+    - target: CoffeeArabicaPlants
+      chance: 0.2
+      weight: 100
+    - target: CoffeeRobustPlants
+      chance: 0.2
+      weight: 100
     name: seeds-coffee-name
     noun: seeds-noun-seeds
     packetPrototype: CoffeeSeeds
@@ -664,6 +691,13 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
   - type: PlantData
+    mutations:
+    - target: CosmicRevenantPlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 60
     name: seeds-everyspice-name
     noun: seeds-noun-seeds
     packetPrototype: EveryspiceSeeds
@@ -694,6 +728,10 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/tomato.rsi
   - type: PlantData
+    mutations:
+    - target: BungoPlants
+      chance: 0.06
+      weight: 100
     name: seeds-monkanana-name
     noun: seeds-noun-seeds
     packetPrototype: MonkananaSeeds
@@ -731,6 +769,13 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/towercap.rsi
   - type: PlantData
+    mutations:
+    - target: GlasscapPlants
+      chance: 0.025
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 55
     name: seeds-glowshroom-nf-name
     noun: seeds-noun-spores
     packetPrototype: NFGlowshroomSeeds
@@ -759,13 +804,15 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pomegranate.rsi
   - type: PlantData
+    mutations:
+    - target: GranatapfelPlants
+      chance: 0.1
+      weight: 100
     name: seeds-pomegranate-name
     noun: seeds-noun-seeds
     packetPrototype: PomegranateSeeds
     productPrototypes:
     - FoodPomegranate
-    mutationPrototypes:
-    - GranatapfelPlants
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -859,13 +906,18 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Ghost_Pepper.rsi
   - type: PlantData
+    mutations:
+    - target: EveryspicePlants
+      chance: 0.06
+      weight: 100
+    - target: CosmicRevenantPlants
+      chance: 0.04
+      weight: 100
     name: seeds-ghostpepper-name
     noun: seeds-noun-seeds
     packetPrototype: GhostPepperSeeds
     productPrototypes:
     - FoodGhostPepper
-    mutationPrototypes:
-    - CosmicRevenantPlants
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -941,13 +993,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
   - type: PlantData
+    mutations:
+    - target: AmbrosiaDeusPlants
+      chance: 0.08
+      weight: 100
     name: seeds-ambrosianobilis-name
     noun: seeds-noun-seeds
     packetPrototype: AmbrosiaNobilis
     productPrototypes:
     - FoodAmbrosiaNobilis
-    mutationPrototypes:
-    - AmbrosiaDeusPlants
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -983,6 +1037,10 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/strange_berries.rsi
   - type: PlantData
+    mutations:
+    - target: AnomalyBerryPlants
+      chance: 0.08
+      weight: 100
     name: seeds-strange-berries-name
     noun: seeds-noun-seeds
     packetPrototype: StrangeBerrySeeds
@@ -1085,6 +1143,16 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/evil_apple.rsi
   - type: PlantData
+    mutations:
+    - target: OrganTreePlants
+      chance: 0.03
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 50
+        reagents:
+          - id: UnstableMutagen
+            minAmount: 5
     name: seeds-evilapple-name
     noun: seeds-noun-seeds
     packetPrototype: EvilAppleSeeds
@@ -1361,6 +1429,16 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cannabis_vita.rsi
   - type: PlantData
+    mutations:
+    - target: tritiumCannabis
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 80
+        minGeneticInstability: 65
+        reagents:
+          - id: Uranium
+            minAmount: 5
     name: seeds-cannabisvita-name
     noun: seeds-noun-seeds
     packetPrototype: CannabisVitaSeeds
@@ -1423,6 +1501,13 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lanternfruit.rsi
   - type: PlantData
+    mutations:
+    - target: FloatingfloraPlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 55
     name: seeds-lanternfruit-name
     noun: seeds-noun-seeds
     packetPrototype: LanternfruitSeeds
@@ -1454,6 +1539,10 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/redrose.rsi
   - type: PlantData
+    mutations:
+    - target: BlackRosePlants
+      chance: 0.05
+      weight: 100
     name: seeds-redrose-name
     noun: seeds-noun-seeds
     packetPrototype: RedroseSeeds
@@ -1516,13 +1605,15 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/whiterose.rsi
   - type: PlantData
+    mutations:
+    - target: BlackRosePlants
+      chance: 0.05
+      weight: 100
     name: seeds-whiterose-name
     noun: seeds-noun-seeds
     packetPrototype: WhiteroseSeeds
     productPrototypes:
     - FoodWhiterose
-    mutationPrototypes:
-    - GeraniumPlants
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -1549,6 +1640,10 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/white_lily.rsi
   - type: PlantData
+    mutations:
+    - target: SpacemansTrumpetPlants
+      chance: 0.06
+      weight: 100
     name: seeds-whitelily-name
     noun: seeds-noun-seeds
     packetPrototype: WhiteLilySeeds

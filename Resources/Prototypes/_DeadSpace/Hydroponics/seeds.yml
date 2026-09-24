@@ -84,10 +84,13 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus.rsi
   - type: PlantData
+    mutations:
+    - target: CactusCoralPlant
+      chance: 0.2
+      weight: 100
     name: seeds-cactus-name
     packetPrototype: CactusSeeds
     productPrototypes: [ FoodCactus ]
-    mutationPrototypes: [ CactusCoralPlant, CactusBombPlant, CactusBubblePlant ]
   - type: Plant
     lifespan: 125
     maturation: 12
@@ -122,6 +125,10 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus_coral.rsi
   - type: PlantData
+    mutations:
+    - target: CactusBubblePlant
+      chance: 0.1
+      weight: 100
     name: seeds-cactus-coral-name
     packetPrototype: CactusCoralSeeds
     productPrototypes: [ FoodCactusCoral ]
@@ -196,6 +203,10 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus_bubble.rsi
   - type: PlantData
+    mutations:
+    - target: LavalandCactusPlant
+      chance: 0.06
+      weight: 100
     name: seeds-cactus-bubble-name
     packetPrototype: CactusBubbleSeeds
     productPrototypes: [ FoodCactusBubble ]
@@ -233,6 +244,10 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
   - type: PlantData
+    mutations:
+    - target: RmcmangoPlants
+      chance: 0.1
+      weight: 100
     name: seeds-mango-name
     packetPrototype: MangoSeeds
     productPrototypes: [ FoodMango ]

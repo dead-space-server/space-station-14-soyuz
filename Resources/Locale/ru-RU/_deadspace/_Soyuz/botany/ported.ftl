@@ -422,6 +422,7 @@ soyuz-plant-analyzer-scanned-plant = Просканированное расте
 soyuz-plant-analyzer-scanned-seed = Просканированные семена: { $name }
 soyuz-plant-analyzer-yield = Урожайность: { $value }
 soyuz-plant-analyzer-potency = Потенция: { $value }
+soyuz-plant-analyzer-genetic-instability = Генетическая нестабильность: { $value }
 soyuz-plant-analyzer-harvest = Тип урожая: { $value }
 soyuz-plant-analyzer-harvest-Repeat = Многолетний
 soyuz-plant-analyzer-harvest-NoRepeat = Одноразовый

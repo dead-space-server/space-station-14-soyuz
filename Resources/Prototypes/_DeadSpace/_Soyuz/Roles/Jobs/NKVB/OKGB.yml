@@ -70,8 +70,8 @@
 
 
 - type: chameleonOutfit
-  id: CentralCommandBlueShieldOfficerChameleonOutfit
-  job: BlueShieldOfficer
+  id: OKGBChameleonOutfit
+  job: OKGB
   equipment:
     head: ClothingHeadHatBeretBlueShield
     mask: ClothingMaskGasSecurity

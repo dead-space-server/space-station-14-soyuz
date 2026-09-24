@@ -1,4 +1,7 @@
 # Consolidated English localization for imported Soyuz botany.
+ent-SoyuzPlantAnalyzer = plant analyzer
+    .desc = A handheld device for analyzing plants and seeds.
+
 flavor-complex-spices = like spices
 flavor-complex-avocado = like creamy avocado
 flavor-complex-cucumber = like fresh cucumber

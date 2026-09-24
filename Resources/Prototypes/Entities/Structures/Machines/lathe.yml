@@ -200,6 +200,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - SoyuzBotanyProtolatheStatic
     - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools

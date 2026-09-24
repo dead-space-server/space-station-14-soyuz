@@ -2143,6 +2143,14 @@
   - LizardPlushieBotanist
 
 - type: loadoutGroup
+  id: BotanistEquipment
+  name: loadout-group-botanist-equipment
+  minLimit: 0
+  maxLimit: 1
+  loadouts:
+  - BotanistPlantAnalyzer
+
+- type: loadoutGroup
   id: MimeJobTrinkets
   name: loadout-group-jobtrinkets
   minLimit: 0

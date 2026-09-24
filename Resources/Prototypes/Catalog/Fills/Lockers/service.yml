@@ -141,6 +141,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingHandsGlovesLeather
+    - id: SoyuzPlantAnalyzer
     - id: ClothingOuterApronBotanist
     - id: ClothingHeadBandBotany
     - id: ChemistryBottleRobustHarvest

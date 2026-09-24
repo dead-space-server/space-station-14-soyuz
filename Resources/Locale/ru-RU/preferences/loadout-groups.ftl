@@ -83,6 +83,7 @@ loadout-group-janitor-underwear = Уборщик, нижнее бельё
 loadout-group-botanist-head = Агроном, голова
 loadout-group-botanist-jumpsuit = Агроном, комбинезон
 loadout-group-botanist-backpack = Агроном, рюкзак
+loadout-group-botanist-equipment = Агроном, инструменты
 loadout-group-botanist-outerclothing = Агроном, верхняя одежда
 loadout-group-botanist-underwear = Агроном, нижнее бельё
 loadout-group-clown-head = Клоун, голова

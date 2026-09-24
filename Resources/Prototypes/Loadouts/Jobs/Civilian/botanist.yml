@@ -27,6 +27,12 @@
 
 # Back
 - type: loadout
+  id: BotanistPlantAnalyzer
+  storage:
+    back:
+    - SoyuzPlantAnalyzer
+
+- type: loadout
   id: BotanistBackpack
   equipment:
     back: ClothingBackpackHydroponics

@@ -37,6 +37,11 @@
     Plastic: 100
     Gold: 100
 
+- type: latheRecipePack
+  id: SoyuzBotanyProtolatheStatic
+  recipes:
+  - SoyuzPlantAnalyzer
+
 - type: flavor
   id: spices
   flavorType: Complex

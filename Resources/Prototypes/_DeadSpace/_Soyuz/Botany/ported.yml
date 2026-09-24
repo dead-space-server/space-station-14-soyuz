@@ -81,6 +81,9 @@
 - type: Tag
   id: NFGlowshroomSpores
 
+- type: Tag
+  id: Food
+
 - type: reagent
   id: Everyspice
   name: reagent-name-everyspice

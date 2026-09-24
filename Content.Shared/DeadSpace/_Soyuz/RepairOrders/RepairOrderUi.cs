@@ -1,6 +1,7 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using Robust.Shared.Serialization;
+using System.Linq;
 
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
@@ -52,6 +53,8 @@ public sealed class RepairOrderBuiEntry
     public readonly bool BlueprintReady;
     public readonly int CurrentPoints;
     public readonly int MaxPoints;
+    public readonly string[] DamageEvents;
+    public readonly RepairExclusionTotals Exclusions;
 
     public RepairOrderBuiEntry(
         int runtimeId,
@@ -62,7 +65,9 @@ public sealed class RepairOrderBuiEntry
         int totalTasks = 0,
         bool blueprintReady = false,
         int currentPoints = 0,
-        int maxPoints = 0)
+        int maxPoints = 0,
+        string[]? damageEvents = null,
+        RepairExclusionTotals exclusions = default)
     {
         RuntimeId = runtimeId;
         PrototypeId = prototypeId;
@@ -73,12 +78,16 @@ public sealed class RepairOrderBuiEntry
         BlueprintReady = blueprintReady;
         CurrentPoints = currentPoints;
         MaxPoints = maxPoints;
+        DamageEvents = damageEvents?.ToArray() ?? Array.Empty<string>();
+        Exclusions = exclusions;
     }
 }
 
 [Serializable, NetSerializable]
 public sealed class RepairOrderCompletedBuiEntry
 {
+    public readonly string[] DamageEvents;
+    public readonly RepairExclusionTotals Exclusions;
     public readonly int RuntimeId;
     public readonly string PrototypeId;
     public readonly int CompletedTasks;
@@ -102,8 +111,12 @@ public sealed class RepairOrderCompletedBuiEntry
         int rewardBudget,
         RepairOrderResult result,
         bool delivered,
-        List<RepairOrderRewardBuiEntry> rewards)
+        List<RepairOrderRewardBuiEntry> rewards,
+        string[]? damageEvents = null,
+        RepairExclusionTotals exclusions = default)
     {
+        DamageEvents = damageEvents?.ToArray() ?? Array.Empty<string>();
+        Exclusions = exclusions;
         RuntimeId = runtimeId;
         PrototypeId = prototypeId;
         CompletedTasks = completedTasks;

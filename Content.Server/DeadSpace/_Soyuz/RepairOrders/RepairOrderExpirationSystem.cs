@@ -102,7 +102,7 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
                     return false;
                 }
 
-                var rewardBudget = RepairOrderRewardBudget.ForExpiration(active.CurrentPoints);
+                var rewardBudget = RepairOrderRewardBudget.ForExpiration(active.FinalPoints);
                 var frozenRewards = _rewards.GenerateRewards(order, rewardBudget);
 
                 // Publish the freeze only after its complete immutable reward snapshot has been prepared.
@@ -205,7 +205,7 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
                 active.Prototype,
                 active.CompletedTasks,
                 active.TotalTasks,
-                active.CurrentPoints,
+                active.FinalPoints,
                 active.MaxPoints,
                 active.ExpiredRewardBudget,
                 RepairOrderResult.Expired,

@@ -1,13 +1,31 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using System.IO;
-using Content.Shared.Maps;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
+
+/// <summary>Shared bounds and localized work classes for repair orders and rewards.</summary>
+public static class RepairOrderDifficulty
+{
+    public const int Minimum = 1;
+    public const int Maximum = 10;
+
+    public static void Validate(int difficulty)
+    {
+        if (difficulty < Minimum || difficulty > Maximum)
+            throw new InvalidDataException($"Repair difficulty {difficulty} must be between {Minimum} and {Maximum}.");
+    }
+
+    public static LocId GetName(int difficulty)
+    {
+        Validate(difficulty);
+        return $"repair-orders-difficulty-class-{difficulty}";
+    }
+}
 
 /// <summary>
 /// Describes a repair job and the damaged/reference grids associated with it.
@@ -49,7 +67,7 @@ public sealed partial class RepairOrderPrototype : IPrototype, ISerializationHoo
     public ResPath TargetGridPath;
 
     [DataField(required: true)]
-    public ResPath DamagedGridPath;
+    public ProtoId<RepairDamageProfilePrototype> DamageProfile;
 
     [DataField(required: true)]
     public ProtoId<RepairScoreProfilePrototype> ScoreProfile;
@@ -65,6 +83,7 @@ public sealed partial class RepairOrderPrototype : IPrototype, ISerializationHoo
 
     void ISerializationHooks.AfterDeserialization()
     {
+        RepairOrderDifficulty.Validate(Difficulty);
         if (RepairTime <= TimeSpan.Zero)
             throw new InvalidDataException($"Repair order {ID} must have a positive repairTime.");
     }
@@ -79,35 +98,9 @@ public sealed partial class RepairScoreProfilePrototype : IPrototype
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    /// <summary>
-    /// Point value used by every non-empty target tile without an exact override.
-    /// </summary>
-    [DataField]
-    public int DefaultTilePoints;
-
-    /// <summary>
-    /// Point value used by every anchored target entity which did not match an exact value or rule.
-    /// </summary>
-    [DataField]
-    public int DefaultEntityPoints;
-
-    /// <summary>
-    /// Optional exact overrides. These take precedence over entity rules and defaults.
-    /// </summary>
-    [DataField]
-    public List<RepairScoreValue> Values = new();
-
-    /// <summary>
-    /// Ordered tile identity rules. Matching tile definitions are compared as the configured canonical tile.
-    /// </summary>
-    [DataField]
-    public List<RepairTileIdentityRule> TileIdentityRules = new();
-
-    /// <summary>
-    /// Ordered entity scoring rules. The first matching rule is used.
-    /// </summary>
-    [DataField]
-    public List<RepairScoreRule> Rules = new();
+    /// <summary>Uniform value for restoring or removing any non-empty floor tile.</summary>
+    [DataField(required: true)]
+    public int FloorTilePoints;
 
     /// <summary>
     /// Ordered entity identity rules. Matching prototypes are compared as the configured canonical prototype.
@@ -122,22 +115,6 @@ public sealed partial class RepairScoreProfilePrototype : IPrototype
     /// </summary>
     [DataField]
     public List<RepairRotationRule> RotationRules = new();
-}
-
-[DataDefinition]
-public sealed partial class RepairScoreValue
-{
-    /// <summary>
-    /// Exactly one of Tile or Entity must be configured.
-    /// </summary>
-    [DataField]
-    public ProtoId<ContentTileDefinition>? Tile;
-
-    [DataField]
-    public EntProtoId? Entity;
-
-    [DataField(required: true)]
-    public int Points;
 }
 
 /// <summary>
@@ -171,16 +148,6 @@ public sealed partial class RepairEntitySelector
 }
 
 [DataDefinition]
-public sealed partial class RepairScoreRule
-{
-    [DataField(required: true)]
-    public RepairEntitySelector Selector = new();
-
-    [DataField(required: true)]
-    public int Points;
-}
-
-[DataDefinition]
 public sealed partial class RepairEntityIdentityRule
 {
     [DataField(required: true)]
@@ -188,16 +155,6 @@ public sealed partial class RepairEntityIdentityRule
 
     [DataField(required: true)]
     public EntProtoId Canonical;
-}
-
-[DataDefinition]
-public sealed partial class RepairTileIdentityRule
-{
-    [DataField(required: true)]
-    public List<ProtoId<ContentTileDefinition>> Tiles = new();
-
-    [DataField(required: true)]
-    public ProtoId<ContentTileDefinition> Canonical;
 }
 
 [DataDefinition]
@@ -233,7 +190,7 @@ public enum RepairRotationMode : byte
 /// One data-driven reward candidate used both for calculation and physical delivery.
 /// </summary>
 [Prototype]
-public sealed partial class RepairRewardPrototype : IPrototype
+public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHooks
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
@@ -252,6 +209,11 @@ public sealed partial class RepairRewardPrototype : IPrototype
 
     [DataField]
     public int MinimumDifficulty = 1;
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        RepairOrderDifficulty.Validate(MinimumDifficulty);
+    }
 }
 
 /// <summary>

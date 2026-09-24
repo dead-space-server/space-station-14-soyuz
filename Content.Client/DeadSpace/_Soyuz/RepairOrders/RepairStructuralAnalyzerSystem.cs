@@ -2,6 +2,9 @@
 
 using System.Numerics;
 using Content.Client.ContextMenu.UI;
+using Content.Client.UserInterface.Controls;
+using Content.Client.Message;
+using Robust.Client.UserInterface.Controls;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
@@ -37,6 +40,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 
     private readonly Dictionary<EntityUid, RepairAnalyzerTaskData[]> _authorizedSnapshots = new();
     private RepairStructuralAnalyzerOverlay _overlay = default!;
+    private FancyWindow? _waiverDialog;
 
     public override void Initialize()
     {
@@ -64,6 +68,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 
     public override void Shutdown()
     {
+        _waiverDialog?.Dispose();
         CommandBinds.Unregister<RepairStructuralAnalyzerSystem>();
         _overlayManager.RemoveOverlay(_overlay);
         _authorizedSnapshots.Clear();
@@ -83,6 +88,8 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 
     private void OnRoundRestartCleanup(RoundRestartCleanupEvent message)
     {
+        _waiverDialog?.Dispose();
+        _waiverDialog = null;
         _authorizedSnapshots.Clear();
     }
 
@@ -126,6 +133,32 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         return MathF.Max(0f, component.Range);
     }
 
+    private void ShowWaiverConfirmation(RepairAnalyzerTaskData task)
+    {
+        _waiverDialog?.Dispose();
+        var window = new FancyWindow { Title = Loc.GetString("repair-orders-waiver-heading"), MinWidth = 430 };
+        _waiverDialog = window;
+        var content = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 8 };
+        var explanation = new RichTextLabel { MaxWidth = 480 };
+        explanation.SetMessage(Loc.GetString(task.Waived ? "repair-orders-waiver-cancel-confirm" : "repair-orders-waiver-confirm",
+            ("name", _overlay.GetDisplayName(task)), ("points", task.Points),
+            ("used", task.Exclusions.WaivedPoints), ("max", task.Exclusions.MaxWaivedPoints),
+            ("percent", task.Exclusions.Count + (task.Waived ? -1 : 1))));
+        content.AddChild(explanation);
+        var confirm = new Button { Text = Loc.GetString("repair-orders-waiver-confirm-button") };
+        confirm.OnPressed += _ =>
+        {
+            RaiseNetworkEvent(new RepairAnalyzerWaiverRequest(task.Grid, task.RuntimeId, task.RequirementId, task.Waived));
+            window.Close();
+        };
+        content.AddChild(confirm);
+        var cancel = new Button { Text = Loc.GetString("repair-orders-waiver-back") };
+        cancel.OnPressed += _ => window.Close();
+        content.AddChild(cancel);
+        window.ContentsContainer.AddChild(content);
+        window.OpenCentered();
+    }
+
     private bool OnSecondaryUse(in PointerInputCmdHandler.PointerInputCmdArgs args)
     {
         if (args.State != BoundKeyState.Down || _overlay.Range <= 0f)
@@ -141,9 +174,15 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 
         foreach (var task in tasks)
         {
-            context.AddElement(
-                context.RootMenu,
-                new ContextMenuElement(_overlay.GetDisplayName(task)));
+            var label = Loc.GetString(task.Waived ? "repair-orders-waiver-cancel-action" : "repair-orders-waiver-action",
+                ("name", _overlay.GetDisplayName(task)));
+            var element = new ContextMenuElement(Robust.Shared.Utility.FormattedMessage.EscapeText(label));
+            element.OnPressed += _ =>
+            {
+                context.Close();
+                ShowWaiverConfirmation(task);
+            };
+            context.AddElement(context.RootMenu, element);
         }
 
         var box = UIBox2.FromDimensions(_ui.MousePositionScaled.Position, new Vector2(1f));

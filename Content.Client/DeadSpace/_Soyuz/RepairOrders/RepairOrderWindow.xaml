@@ -6,11 +6,6 @@
                       MinSize="560 420"
                       Title="{Loc 'repair-orders-window-title'}">
     <BoxContainer Orientation="Vertical" Margin="10" VerticalExpand="True" HorizontalExpand="True">
-        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 0 0 8">
-            <Label Text="{Loc 'repair-orders-next-offer'}" />
-            <Label Name="NextOfferLabel" Text="00:00" HorizontalAlignment="Right" HorizontalExpand="True" />
-        </BoxContainer>
-
         <Label Name="ActivationLabel"
                Text="{Loc 'repair-orders-activation-in-progress'}"
                FontColorOverride="#EFB341"
@@ -23,21 +18,29 @@
                Visible="False"
                Margin="0 0 0 8" />
 
-        <controls:HLine Color="#404040" Thickness="2" Margin="0 0 0 8" />
-        <Label Text="{Loc 'repair-orders-available-heading'}" StyleClasses="LabelHeading" Margin="0 0 0 6" />
-        <ScrollContainer VerticalExpand="True" HorizontalExpand="True" HScrollEnabled="False">
-            <BoxContainer Name="AvailableContainer"
-                          Orientation="Vertical"
-                          HorizontalExpand="True"
-                          SeparationOverride="8" />
-        </ScrollContainer>
-
-        <controls:HLine Color="#404040" Thickness="2" Margin="0 8 0 8" />
-        <Label Text="{Loc 'repair-orders-active-heading'}" StyleClasses="LabelHeading" Margin="0 0 0 6" />
-        <BoxContainer Name="ActiveContainer" Orientation="Vertical" HorizontalExpand="True" />
-
-        <controls:HLine Color="#404040" Thickness="2" Margin="0 8 0 8" />
-        <Label Text="{Loc 'repair-orders-completed-heading'}" StyleClasses="LabelHeading" Margin="0 0 0 6" />
-        <BoxContainer Name="CompletedContainer" Orientation="Vertical" HorizontalExpand="True" />
+        <TabContainer Name="OrderTabs" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer TabContainer.TabTitle="{Loc 'repair-orders-available-heading'}"
+                          Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 8 0 8">
+                    <Label Text="{Loc 'repair-orders-next-offer'}" />
+                    <Label Name="NextOfferLabel" Text="00:00" HorizontalAlignment="Right" HorizontalExpand="True" />
+                </BoxContainer>
+                <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                    <BoxContainer Name="AvailableContainer"
+                                  Orientation="Vertical"
+                                  HorizontalExpand="True"
+                                  SeparationOverride="8" />
+                </ScrollContainer>
+            </BoxContainer>
+            <ScrollContainer TabContainer.TabTitle="{Loc 'repair-orders-active-heading'}"
+                             HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="0 8 0 0">
+                    <BoxContainer Name="ActiveContainer" Orientation="Vertical" HorizontalExpand="True" />
+                    <controls:HLine Color="#404040" Thickness="2" Margin="0 8 0 8" />
+                    <Label Text="{Loc 'repair-orders-completed-heading'}" StyleClasses="LabelHeading" Margin="0 0 0 6" />
+                    <BoxContainer Name="CompletedContainer" Orientation="Vertical" HorizontalExpand="True" />
+                </BoxContainer>
+            </ScrollContainer>
+        </TabContainer>
     </BoxContainer>
 </controls:FancyWindow>

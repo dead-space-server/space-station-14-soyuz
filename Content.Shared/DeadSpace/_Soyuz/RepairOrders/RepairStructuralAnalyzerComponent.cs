@@ -20,6 +20,12 @@ public sealed partial class RepairStructuralAnalyzerComponent : Component
 [DataDefinition, Serializable, NetSerializable]
 public sealed partial class RepairAnalyzerTaskData
 {
+    public NetEntity Grid;
+    public int RuntimeId;
+    public int RequirementId;
+    public bool Waived;
+    public RepairExclusionTotals Exclusions;
+    public int Points;
     public RepairTaskType Type;
     public Vector2 LocalPosition;
     public Angle LocalRotation;

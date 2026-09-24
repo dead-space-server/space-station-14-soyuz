@@ -12,17 +12,19 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 [RegisterComponent]
 public sealed partial class RepairOrderStationComponent : Component
 {
-    [DataField]
-    public TimeSpan OfferInterval = TimeSpan.FromMinutes(10);
+    public const int MaximumAvailableOffers = 5;
 
     [DataField]
-    public TimeSpan OfferLifetime = TimeSpan.FromMinutes(5);
+    public int AvailableOfferCount = MaximumAvailableOffers;
+
+    [DataField]
+    public TimeSpan OfferInterval = TimeSpan.FromMinutes(10);
 
     [ViewVariables]
     public TimeSpan NextOffer;
 
     [ViewVariables]
-    public readonly Dictionary<int, AvailableRepairOrder> Available = new();
+    public Dictionary<int, AvailableRepairOrder> Available = new();
 
     [ViewVariables]
     public ActiveRepairOrder? Active;
@@ -55,8 +57,6 @@ public sealed partial class RepairOrderStationComponent : Component
     [ViewVariables]
     public int NextRuntimeId = 1;
 
-    [ViewVariables]
-    public ProtoId<RepairOrderPrototype>? LastGeneratedPrototype;
 }
 
 [DataDefinition]
@@ -69,19 +69,27 @@ public sealed partial class AvailableRepairOrder
     public ProtoId<RepairOrderPrototype> Prototype;
 
     [ViewVariables]
-    public TimeSpan ExpiresAt;
+    public readonly int DamageSeed;
 
-    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, TimeSpan expiresAt)
+    public AvailableRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, int damageSeed = 0)
     {
         RuntimeId = runtimeId;
         Prototype = prototype;
-        ExpiresAt = expiresAt;
+        DamageSeed = damageSeed;
     }
 }
 
 [DataDefinition]
 public sealed partial class ActiveRepairOrder
 {
+    public RepairTechnicalExclusionSnapshot? Exclusions;
+    public int FinalPoints => RepairTechnicalExclusion.FinalPoints(CurrentPoints, Exclusions?.Requirements.Length ?? 0);
+
+    [ViewVariables]
+    public RepairDamageGenerationInfo? DamageGeneration;
+
+    public int DamageSeed => DamageGeneration?.Seed ?? 0;
+
     [ViewVariables]
     public int RuntimeId;
 
@@ -153,6 +161,11 @@ public sealed partial class ActiveRepairOrder
 [DataDefinition]
 public sealed partial class CompletedRepairOrder
 {
+    public RepairTechnicalExclusionSnapshot? Exclusions;
+
+    [ViewVariables]
+    public RepairDamageGenerationInfo? DamageGeneration;
+
     [ViewVariables]
     public int RuntimeId;
 

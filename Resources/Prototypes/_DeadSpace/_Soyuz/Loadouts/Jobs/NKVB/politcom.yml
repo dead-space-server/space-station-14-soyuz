@@ -1,5 +1,5 @@
 - type: loadout
-  id: PolitrukOuterclothingCoat
+  id: PolitcomOuterclothingCoat
   equipment:
     outerClothing: ClothingOuterCoatPolitotdel
   effects:
@@ -7,7 +7,7 @@
     proto: CoatPolitruk
 
 - type: loadout
-  id: PolitrukOuterclothingMundir
+  id: PolitcomOuterclothingMundir
   equipment:
     outerClothing: ClothingOuterMundirPolitotdel
   effects:
@@ -16,7 +16,7 @@
 
 # Head
 - type: loadout
-  id: PolitrukHeadBeret
+  id: PolitcomHeadBeret
   equipment:
     head: ClothingHeadHatBeretPolitruk
   effects:
@@ -24,49 +24,49 @@
     proto: BeretPolitruk
 
 - type: loadout
-  id: PolitrukHeadCap
+  id: PolitcomHeadCap
   equipment:
     head: ClothingHeadPolitrukCap
 
 # Jumpsuit
 - type: loadout
-  id: PolitrukJumpsuitPencilskirt
+  id: PolitcomJumpsuitPencilskirt
   equipment:
     jumpsuit: ClothingUniformJumpskirtPencilPolitRuk
   groupBy: "jumpsuit"
 
 - type: loadout
-  id: PolitrukJumpsuitSkirt
+  id: PolitcomJumpsuitSkirt
   equipment:
     jumpsuit: ClothingUniformJumpsuitPolitRukSkirt
   groupBy: "jumpskirt"
 
 - type: loadout
-  id: PolitrukJumpsuitDress
+  id: PolitcomJumpsuitDress
   equipment:
     jumpsuit: ClothingUniformPolitRukDress
   groupBy: "jumpskirt"
 
 - type: loadout
-  id: PolitrukJumpsuit
+  id: PolitcomJumpsuit
   equipment:
     jumpsuit: ClothingUniformJumpsuitPolitRuk
   groupBy: "jumpsuit"
 
 # Socks
 - type: loadout
-  id: PolitrukSocksLong
+  id: PolitcomSocksLong
   equipment:
     socks: ClothingUnderwearSocksPolitOtdelLong
 
 - type: loadout
-  id: PolitrukSocks
+  id: PolitcomSocks
   equipment:
     socks: ClothingUnderwearSocksPolitOtdel
 
 # Underwear
 - type: loadout
-  id: UnderwearBottomBoxersPolitruk
+  id: UnderwearBottomBoxersPolitcom
   effects:
   - !type:GroupLoadoutEffect
     proto: MaleUnderwear
@@ -74,7 +74,7 @@
     underwearb: ClothingUnderwearBottomBoxersPolitOtdel
 
 - type: loadout
-  id: UnderwearBottomPantiesPolitruk
+  id: UnderwearBottomPantiesPolitcom
   effects:
   - !type:GroupLoadoutEffect
     proto: FemaleUnderwear
@@ -82,7 +82,7 @@
     underwearb: ClothingUnderwearBottomStringsolitOtdel
 
 - type: loadout
-  id: UnderwearTopBraPolitruk
+  id: UnderwearTopBraPolitcom
   effects:
   - !type:GroupLoadoutEffect
     proto: FemaleUnderwear
@@ -90,7 +90,7 @@
     underweart: ClothingUnderwearTopBraPolitOtdel
 
 - type: loadout
-  id: UnderwearTopTelnikPolitruk
+  id: UnderwearTopTelnikPolitcom
   effects:
   - !type:GroupLoadoutEffect
     proto: MaleUnderwear

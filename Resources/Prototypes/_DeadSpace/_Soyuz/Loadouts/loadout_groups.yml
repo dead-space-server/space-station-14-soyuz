@@ -106,3 +106,46 @@
   - OperatorGSNeckTieDet
   - OperatorGSNeckCloak
   - OperatorGSNeckScarf
+
+- type: loadoutGroup
+  id: PolitcomOuterclothing
+  name: loadout-group-politcom-outerclothing
+  minLimit: 0
+  loadouts:
+  - PolitcomOuterclothingCoat
+  - PolitcomOuterclothingMundir
+
+- type: loadoutGroup
+  id: PolitcomHead
+  name: loadout-group-politcom-head
+  minLimit: 0
+  loadouts:
+  - PolitcomHeadBeret
+  - PolitcomHeadCap
+
+- type: loadoutGroup
+  id: PolitcomJumpsuit
+  name: loadout-group-politcom-jumpsuit
+  loadouts:
+  - PolitcomJumpsuit
+  - PolitcomJumpsuitPencilskirt
+  - PolitcomJumpsuitSkirt
+  - PolitcomJumpsuitDress
+
+- type: loadoutGroup
+  id: PolitcomSocks
+  name: loadout-group-politcom-socks
+  loadouts:
+  - PolitcomSocksLong
+  - PolitcomSocks
+
+- type: loadoutGroup
+  id: PolitcomUnderwear
+  name: loadout-group-politcom-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersPolitcom
+  - UnderwearBottomPantiesPolitcom
+  - UnderwearTopBraPolitcom
+  - UnderwearTopTelnikPolitcom

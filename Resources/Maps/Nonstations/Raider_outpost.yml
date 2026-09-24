@@ -10146,7 +10146,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 75
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10220,7 +10219,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 75
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10334,7 +10332,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 25
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10413,7 +10410,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 25
         endurance: 100
         weedHighLevelThreshold: 10

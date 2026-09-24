@@ -11331,7 +11331,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 80
         endurance: 100
         weedHighLevelThreshold: 10

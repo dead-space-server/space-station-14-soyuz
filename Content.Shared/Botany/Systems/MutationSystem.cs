@@ -2,9 +2,13 @@ using JetBrains.Annotations;
 using System.Linq;
 using Content.Shared.Atmos;
 using Content.Shared.Botany.Components;
+using Content.Shared.Botany.Events; // DS14-Soyuz
 using Content.Shared.Botany.Traits.Components;
+using Content.Shared.Chemistry.Components; // DS14-Soyuz
+using Content.Shared.Chemistry.EntitySystems; // DS14-Soyuz
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
+using Content.Shared.FixedPoint; // DS14-Soyuz
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -30,6 +34,7 @@ public sealed partial class PlantMutationSystem : EntitySystem
     [Dependency] private readonly PlantSystem _plant = default!;
     [Dependency] private readonly PlantTraySystem _plantTray = default!;
     [Dependency] private readonly SharedEntityEffectsSystem _entityEffects = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // DS14-Soyuz
 
     private EntityQuery<PlantChemicalsComponent> _chemicalsQuery;
     private EntityQuery<PlantComponent> _plantQuery;
@@ -42,6 +47,10 @@ public sealed partial class PlantMutationSystem : EntitySystem
         _randomMutations = _prototypeManager.Index(RandomPlantMutations);
         _chemicalsQuery = GetEntityQuery<PlantChemicalsComponent>();
         _plantQuery = GetEntityQuery<PlantComponent>();
+        // DS14-Soyuz start: validate the directed graph on load and reload.
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnMutationPrototypesReloaded);
+        ValidateSpeciesMutationGraph();
+        // DS14-Soyuz end
         // DS14-end
     }
 
@@ -68,26 +77,164 @@ public sealed partial class PlantMutationSystem : EntitySystem
         }
     }
 
+    // DS14-Soyuz start: conditional directed species mutations
+    /// <summary>
+    /// Runs exactly once after the existing ChangeSpecies effect succeeds. Requirements
+    /// are checked before independent chance rolls; weight only breaks multiple successes.
+    /// </summary>
+    [PublicAPI]
+    public void TrySpeciesChange(Entity<PlantDataComponent?> plant)
+    {
+        if (!_net.IsServer || !Resolve(plant, ref plant.Comp, false) || plant.Comp.Mutations.Count == 0)
+            return;
+
+        if (!_plantQuery.TryComp(plant.Owner, out var genetics))
+            return;
+
+        Entity<PlantTrayComponent>? tray = _plant.TryGetTray(plant.Owner, out var trayEnt) ? trayEnt : null;
+
+        var environment = new PlantMutationEnvironmentEvent();
+        RaiseLocalEvent(plant.Owner, ref environment);
+        var passed = new List<PlantSpeciesMutation>();
+        foreach (var mutation in plant.Comp.Mutations)
+        {
+            if (RequirementsMet(plant.Owner, genetics, tray, environment, mutation.Requirements)
+                && Random(mutation.Chance))
+                passed.Add(mutation);
+        }
+
+        if (passed.Count == 0)
+            return;
+
+        var totalWeight = passed.Sum(m => m.Weight);
+        var roll = _random.NextFloat() * totalWeight;
+        var selected = passed[^1];
+        foreach (var mutation in passed)
+        {
+            roll -= mutation.Weight;
+            if (roll > 0f)
+                continue;
+
+            selected = mutation;
+            break;
+        }
+
+        // Charge only after the selected species was actually spawned.
+        if (SpeciesChange(plant, selected.Target) && tray is { } selectedTray)
+            ConsumeReagents(selectedTray, selected.Requirements.Reagents);
+    }
+
+    private bool RequirementsMet(
+        EntityUid plantUid,
+        PlantComponent genetics,
+        Entity<PlantTrayComponent>? tray,
+        PlantMutationEnvironmentEvent environment,
+        PlantSpeciesMutationRequirements requirements)
+    {
+        if (!Within(genetics.Potency, requirements.MinPotency, requirements.MaxPotency)
+            || !Within(genetics.GeneticInstability, requirements.MinGeneticInstability, requirements.MaxGeneticInstability))
+            return false;
+
+        if (requirements.MinWater != null || requirements.MaxWater != null
+            || requirements.MinNutrients != null || requirements.MaxNutrients != null)
+        {
+            if (tray is not { } plantedTray
+                || !Within(plantedTray.Comp.WaterLevel, requirements.MinWater, requirements.MaxWater)
+                || !Within(plantedTray.Comp.NutritionLevel, requirements.MinNutrients, requirements.MaxNutrients))
+                return false;
+        }
+
+        foreach (var trait in requirements.RequiredTraits)
+        {
+            if (!Factory.TryGetRegistration(trait, out var registration) || !HasComp(plantUid, registration.Type))
+                return false;
+        }
+
+        if (requirements.Reagents.Count > 0)
+        {
+            if (tray is not { } plantedTray
+                || !_solutions.TryGetSolution(plantedTray.Owner, plantedTray.Comp.SoilSolutionName, out _, out var solution))
+                return false;
+
+            foreach (var reagent in requirements.Reagents)
+            {
+                var amount = solution.Contents
+                    .Where(entry => entry.Reagent.Prototype == reagent.Id.Id)
+                    .Sum(entry => entry.Quantity.Float());
+                if (amount < reagent.MinAmount)
+                    return false;
+            }
+        }
+
+        if (requirements.Environment is not { } external)
+            return true;
+
+        if ((external.MinTemperature != null || external.MaxTemperature != null || external.Gases.Count > 0)
+            && environment.Atmosphere is not { } atmosphere)
+            return false;
+
+        if (external.MinTemperature != null || external.MaxTemperature != null)
+        {
+            if (!Within(environment.Atmosphere!.Temperature, external.MinTemperature, external.MaxTemperature))
+                return false;
+        }
+
+        foreach (var gas in external.Gases)
+        {
+            if (!Within(environment.Atmosphere!.GetMoles(gas.Id), gas.MinAmount, gas.MaxAmount))
+                return false;
+        }
+
+        if (external.MinLight != null || external.MaxLight != null)
+        {
+            if (environment.Light is not { } light || !Within(light, external.MinLight, external.MaxLight))
+                return false;
+        }
+
+        return true;
+    }
+
+    private void ConsumeReagents(Entity<PlantTrayComponent> tray, List<PlantMutationReagentRequirement> reagents)
+    {
+        if (reagents.All(r => r.ConsumeAmount <= 0f)
+            || !_solutions.TryGetSolution(tray.Owner, tray.Comp.SoilSolutionName, out var solutionEnt, out var solution))
+            return;
+
+        foreach (var reagent in reagents)
+        {
+            var remaining = FixedPoint2.New(reagent.ConsumeAmount);
+            if (remaining <= FixedPoint2.Zero)
+                continue;
+
+            foreach (var entry in solution.Contents.ToArray())
+            {
+                if (entry.Reagent.Prototype != reagent.Id.Id)
+                    continue;
+
+                var removed = _solutions.RemoveReagent(solutionEnt.Value, entry.Reagent, FixedPoint2.Min(remaining, entry.Quantity));
+                remaining -= removed;
+                if (remaining <= FixedPoint2.Zero)
+                    break;
+            }
+        }
+    }
+
+    private static bool Within(float value, float? min, float? max) =>
+        (min == null || value >= min.Value) && (max == null || value <= max.Value);
+
     /// <summary>
     /// Replaces the current plant species with a new one from prototype,
     /// preserving lifecycle state.
     /// </summary>
-    [PublicAPI]
-    public void SpeciesChange(Entity<PlantDataComponent?> oldPlant, EntProtoId newPlantProto)
+    private bool SpeciesChange(Entity<PlantDataComponent?> oldPlant, EntProtoId newPlantProto)
     {
         if (!Resolve(oldPlant, ref oldPlant.Comp, false))
-            return;
-
-        if (oldPlant.Comp.MutationPrototypes.Count == 0)
-            return;
-
-        if (!_net.IsServer)
-            return;
+            return false;
 
         // Clone state via snapshot and apply to new plant.
         var snapshot = _botany.ClonePlantSnapshotData(oldPlant.Owner, cloneLifecycle: true);
         if (snapshot == null)
-            return;
+            return false;
 
         var newPlantUid = SpawnAtPosition(newPlantProto, Transform(oldPlant.Owner).Coordinates);
         _botany.ApplyPlantSnapshotData(snapshot, newPlantUid, cloneLifecycle: true);
@@ -102,7 +249,9 @@ public sealed partial class PlantMutationSystem : EntitySystem
 
         _plant.ForceUpdate(newPlantUid);
         QueueDel(oldPlant);
+        return true;
     }
+    // DS14-Soyuz end
 
     private void ChemicalsSpeciesChange(EntityUid plantUid, EntProtoId plantProto)
     {

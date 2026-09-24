@@ -133,7 +133,7 @@ namespace Content.Shared.Atmos
                 return; // DS14-Soyuz
 
             Moles[gasId] = quantity;
-            // DS-14 Soyuz
+            // DS14-Soyuz
             if (gasId == (int) Gas.Iprit)
                 ResetIpritDecayDeadlineIfEmpty();
         }
@@ -158,7 +158,7 @@ namespace Content.Shared.Atmos
             ref var moles = ref Moles[gasId];
             moles = MathF.Max(moles + quantity, 0);
 
-            // DS-14 Soyuz
+            // DS14-Soyuz
             if (gasId == (int) Gas.Iprit)
                 ResetIpritDecayDeadlineIfEmpty();
         }

@@ -64,4 +64,13 @@ public sealed partial class PlantComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public float Potency = 1f;
+
+    // DS14-Soyuz start: inherited genetic instability
+    /// <summary>
+    /// Persistent genetic property. PlantClone carries it through produce, seeds, and species changes.
+    /// This is independent of the current growth cycle's mutation level.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float GeneticInstability;
+    // DS14-Soyuz end
 }

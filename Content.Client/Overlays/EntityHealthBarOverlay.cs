@@ -55,7 +55,7 @@ public sealed class EntityHealthBarOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        // DS-14 Soyuz
+        // DS14-Soyuz
         if (!SoyuzOverlayViewport.IsPrimary(args, _entManager, _playerManager))
             return;
 

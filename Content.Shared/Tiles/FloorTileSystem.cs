@@ -105,7 +105,7 @@ public sealed class FloorTileSystem : EntitySystem
         // otherwise check it isn't blocked by a wall
         if (!canAccessCenter && _turf.TryGetTileRef(location, out var tileRef))
         {
-            // DS-14 Soyuz
+            // DS14-Soyuz
             if (TryComp<MapGridComponent>(tileRef.Value.GridUid, out var tileGrid) &&
                 _tileCenterCollision.IsBlocked(
                     (tileRef.Value.GridUid, tileGrid),

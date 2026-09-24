@@ -50,10 +50,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/wheat.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: AgentgrainPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-wheat-name
     packetPrototype: WheatSeeds
     productPrototypes: [ WheatBushel ]
-    mutationPrototypes: [ MeatWheatPlants ]
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -141,10 +146,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/banana.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: MimanaPlants
+      chance: 0.25
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-banana-name
     packetPrototype: BananaSeeds
     productPrototypes: [ FoodBanana ]
-    mutationPrototypes: [ MimanaPlants ]
   - type: Plant
     lifespan: 50
     maturation: 6
@@ -176,6 +186,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/mimana.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: MonkananaPlants
+      chance: 0.12
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-mimana-name
     packetPrototype: MimanaSeeds
     productPrototypes: [ FoodMimana ]
@@ -245,10 +261,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/laughin_pea.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: WorldPeaPlants
+      chance: 0.12
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-laughin-pea-name
     packetPrototype: LaughinPeaSeeds
     productPrototypes: [ FoodLaughinPeaPod ]
-    mutationPrototypes: [ WorldPeaPlants ]
   - type: Plant
     lifespan: 25
     growthStages: 3
@@ -284,10 +305,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lemon.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LimePlants
+      chance: 0.25
+      weight: 100
+    - target: LemoPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-lemon-name
     packetPrototype: LemonSeeds
     productPrototypes: [ FoodLemon ]
-    mutationPrototypes: [ LemoonPlants, LimePlants, OrangePlants ]
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -315,6 +344,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lemoon.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: ExtradimensionalOrangePlants
+      chance: 0.03
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 50
+    # DS14-Soyuz end
     name: seeds-lemoon-name
     packetPrototype: LemoonSeeds
     productPrototypes: [ FoodLemoon ]
@@ -345,10 +383,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lime.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: OrangePlants
+      chance: 0.12
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-lime-name
     packetPrototype: LimeSeeds
     productPrototypes: [ FoodLime ]
-    mutationPrototypes: [ OrangePlants, LemonPlants ]
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -376,10 +419,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/orange.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LemoonPlants
+      chance: 0.07
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-orange-name
     packetPrototype: OrangeSeeds
     productPrototypes: [ FoodOrange ]
-    mutationPrototypes: [ ExtradimensionalOrangePlants, LemonPlants, LimePlants ]
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -507,10 +555,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/sugarcane.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: PapercanePlants
+      chance: 0.2
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-sugarcane-name
     packetPrototype: SugarcaneSeeds
     productPrototypes: [ Sugarcane ]
-    mutationPrototypes: [ PapercanePlants ]
   - type: Plant
     lifespan: 60
     maturation: 6
@@ -594,11 +647,16 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/towercap.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: SteelcapPlants
+      chance: 0.25
+      weight: 100
+    # DS14-Soyuz end
     noun: seeds-noun-spores
     name: seeds-towercap-name
     packetPrototype: TowercapSeeds
     productPrototypes: [ Log ]
-    mutationPrototypes: [ SteelcapPlants ]
   - type: Plant
     lifespan: 80
     maturation: 15
@@ -622,6 +680,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/steelcap.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: PlaststeelcapPlants
+      chance: 0.04
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 50
+    # DS14-Soyuz end
     noun: seeds-noun-spores
     name: seeds-steelcap-name
     packetPrototype: SteelcapSeeds
@@ -649,10 +716,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/tomato.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: BlueTomatoPlants
+      chance: 0.25
+      weight: 100
+    - target: BloodTomatoPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-tomato-name
     packetPrototype: TomatoSeeds
     productPrototypes: [ FoodTomato ]
-    mutationPrototypes: [ BlueTomatoPlants, BloodTomatoPlants ]
   - type: Plant
     lifespan: 25
     maturation: 8
@@ -690,6 +765,20 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/blue_tomato.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: BluespaceTomatoPlants
+      chance: 0.05
+      weight: 100
+      requirements:
+        minPotency: 70
+        reagents:
+          - id: UnstableMutagen
+            minAmount: 5
+        environment:
+          minTemperature: 285
+          maxTemperature: 310
+    # DS14-Soyuz end
     name: seeds-bluetomato-name
     packetPrototype: BlueTomatoSeeds
     productPrototypes: [ FoodBlueTomato ]
@@ -730,6 +819,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/blood_tomato.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: KisserTomatoPlants
+      chance: 0.05
+      weight: 100
+    - target: KisserTomatoFakePlants
+      chance: 0.08
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-bloodtomato-name
     packetPrototype: BloodTomatoSeeds
     productPrototypes: [ FoodBloodTomato ]
@@ -807,10 +905,10 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/eggplant.rsi
   - type: PlantData
+    # DS14-Soyuz: eggplant has no directed transition to the egg plant.
     name: seeds-eggplant-name
     packetPrototype: EggplantSeeds
     productPrototypes: [ FoodEggplant ]
-    mutationPrototypes: [ EggyPlants ]
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -904,10 +1002,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/apple.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: GoldenApplePlants
+      chance: 0.22
+      weight: 100
+    - target: EvilApplePlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-apple-name
     packetPrototype: AppleSeeds
     productPrototypes: [ FoodApple ]
-    mutationPrototypes: [ GoldenApplePlants ]
   - type: Plant
     lifespan: 55
     maturation: 6
@@ -935,6 +1041,19 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/golden_apple.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: SpesosPlants
+      chance: 0.03
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 55
+        reagents:
+          - id: Uranium
+            minAmount: 5
+            consumeAmount: 2
+    # DS14-Soyuz end
     name: seeds-goldenapple-name
     packetPrototype: GoldenAppleSeeds
     productPrototypes: [ FoodGoldenApple ]
@@ -971,6 +1090,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/corn.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: SnapcornPlants
+      chance: 0.08
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-corn-name
     packetPrototype: CornSeeds
     productPrototypes: [ FoodCorn ]
@@ -1005,10 +1130,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/onion.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: OnionRedPlants
+      chance: 0.2
+      weight: 100
+    - target: BloonionPlants
+      chance: 0.15
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-onion-name
     packetPrototype: OnionSeeds
     productPrototypes: [ FoodOnion ]
-    mutationPrototypes: [ OnionRedPlants, BloonionPlants ]
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -1087,6 +1220,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/chanterelle.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: FlyAmanitaPlants
+      chance: 0.2
+      weight: 100
+    # DS14-Soyuz end
     noun: seeds-noun-spores
     name: seeds-chanterelle-name
     packetPrototype: ChanterelleSeeds
@@ -1150,12 +1289,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/cannabis.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: GreenMarijuanaPlants
+      chance: 0.22
+      weight: 100
+    - target: RainbowCannabisPlants
+      chance: 0.12
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-cannabis-name
     packetPrototype: CannabisSeeds
     productPrototypes: [ LeavesCannabis ]
-    # DS14-start: preserve the custom tritium cannabis mutation.
-    mutationPrototypes: [ RainbowCannabisPlants, tritiumCannabis ]
-    # DS14-end
   - type: Plant
     lifespan: 75
     maturation: 8
@@ -1183,6 +1328,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/rainbow_cannabis.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: CannabisVitaPlants
+      chance: 0.06
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-rainbow-cannabis-name
     packetPrototype: RainbowCannabisSeeds
     productPrototypes: [ LeavesCannabisRainbow ]
@@ -1259,10 +1410,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/nettle.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: DeathNettlePlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-nettle-name
     packetPrototype: NettleSeeds
     productPrototypes: [ Nettle ]
-    mutationPrototypes: [ DeathNettlePlants ]
   - type: Plant
     lifespan: 25
     maturation: 8
@@ -1327,10 +1483,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/chili.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: ChillyPlants
+      chance: 0.25
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-chili-name
     packetPrototype: ChiliSeeds
     productPrototypes: [ FoodChiliPepper ]
-    mutationPrototypes: [ ChillyPlants ]
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -1365,6 +1526,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/chilly.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: GhostPepperPlants
+      chance: 0.12
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-chilly-name
     packetPrototype: ChillySeeds
     productPrototypes: [ FoodChillyPepper ]
@@ -1402,10 +1569,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/poppy.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LilyPlants
+      chance: 0.2
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-poppy-name
     packetPrototype: PoppySeeds
     productPrototypes: [ FoodPoppy ]
-    mutationPrototypes: [ LilyPlants ]
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -1434,10 +1606,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lily.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: WhiteLilyPlants
+      chance: 0.1
+      weight: 100
+    - target: SpacemansTrumpetPlants
+      chance: 0.08
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-lily-name
     packetPrototype: LilySeeds
     productPrototypes: [ FoodLily ]
-    mutationPrototypes: [ SpacemansTrumpetPlants ]
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -1497,6 +1677,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/lingzhi.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: NfglowshroomPlants
+      chance: 0.06
+      weight: 100
+    # DS14-Soyuz end
     noun: seeds-noun-spores
     name: seeds-lingzhi-name
     packetPrototype: LingzhiSeeds
@@ -1529,10 +1715,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/ambrosia_vulgaris.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: AmbrosiaNobilisPlants
+      chance: 0.15
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-ambrosiavulgaris-name
     packetPrototype: AmbrosiaVulgarisSeeds
     productPrototypes: [ FoodAmbrosiaVulgaris ]
-    mutationPrototypes: [ AmbrosiaDeusPlants ]
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -1569,6 +1760,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: GalaxythistlePlants
+      chance: 0.04
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-ambrosiadeus-name
     packetPrototype: AmbrosiaDeusSeeds
     productPrototypes: [ FoodAmbrosiaDeus ]
@@ -1604,10 +1801,28 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/galaxythistle.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: GlasstlePlants
+      chance: 0.04
+      weight: 100
+    - target: CrystalThistlePlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 80
+        minGeneticInstability: 65
+        reagents:
+          - id: Uranium
+            minAmount: 5
+            consumeAmount: 2
+        environment:
+          minTemperature: 285
+          maxTemperature: 310
+    # DS14-Soyuz end
     name: seeds-galaxythistle-name
     packetPrototype: GalaxythistleSeeds
     productPrototypes: [ FoodGalaxythistle ]
-    mutationPrototypes: [ GlasstlePlants ]
   - type: Plant
     lifespan: 25
     maturation: 10
@@ -1661,6 +1876,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/fly_amanita.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LingzhiPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     noun: seeds-noun-spores
     name: seeds-flyamanita-name
     packetPrototype: FlyAmanitaSeeds
@@ -1694,10 +1915,18 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/gatfruit.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: FakeCapfruitPlants
+      chance: 0.25
+      weight: 100
+    - target: RealCapfruitPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-gatfruit-name
     packetPrototype: GatfruitSeeds
     productPrototypes: [ FoodGatfruit ]
-    mutationPrototypes: [ FakeCapfruitPlants, RealCapfruitPlants ]
   - type: Plant
     lifespan: 65
     maturation: 25
@@ -1814,10 +2043,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/soybeans.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: KoibeanPlants
+      chance: 0.1
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-soybeans-name
     packetPrototype: SoybeanSeeds
     productPrototypes: [ FoodSoybeans ]
-    mutationPrototypes: [ KoibeanPlants ]
   - type: Plant
     lifespan: 25
     maturation: 6
@@ -1933,10 +2167,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/watermelon.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: HolymelonPlants
+      chance: 0.05
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-watermelon-name
     packetPrototype: WatermelonSeeds
     productPrototypes: [ FoodWatermelon ]
-    mutationPrototypes: [ HolymelonPlants ]
   - type: Plant
     lifespan: 55
     maturation: 12
@@ -2033,6 +2272,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/berries.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: StrangeBerriesPlants
+      chance: 0.18
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-berries-name
     packetPrototype: BerrySeeds
     productPrototypes: [ FoodBerries ]
@@ -2064,6 +2309,19 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/bungo.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: ExplosiveBananaPlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 85
+        minGeneticInstability: 70
+        reagents:
+          - id: UnstableMutagen
+            minAmount: 10
+            consumeAmount: 5
+    # DS14-Soyuz end
     name: seeds-bungo-name
     packetPrototype: BungoSeeds
     productPrototypes: [ FoodBungo ]
@@ -2100,10 +2358,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/pea.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LaughinPeaPlants
+      chance: 0.25
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-pea-name
     packetPrototype: PeaSeeds
     productPrototypes: [ FoodPeaPod ]
-    mutationPrototypes: [ LaughinPeaPlants ]
   - type: Plant
     lifespan: 25
     growthStages: 3
@@ -2171,10 +2434,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/pumpkin.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: BluePumpkinPlants
+      chance: 0.2
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-pumpkin-name
     packetPrototype: PumpkinSeeds
     productPrototypes: [ FoodPumpkin ]
-    mutationPrototypes: [ BluePumpkinPlants ]
   - type: Plant
     lifespan: 55
     maturation: 10
@@ -2204,6 +2472,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/blue_pumpkin.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: BarrelmelonPlants
+      chance: 0.07
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-blue-pumpkin-name
     packetPrototype: BluePumpkinSeeds
     productPrototypes: [ FoodBluePumpkin ]
@@ -2240,10 +2514,15 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/cotton.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: PyrottonPlants
+      chance: 0.15
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-cotton-name
     packetPrototype: CottonSeeds
     productPrototypes: [ CottonBol ]
-    mutationPrototypes: [ PyrottonPlants ]
   - type: Plant
     lifespan: 25
     maturation: 8
@@ -2299,6 +2578,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/cherry.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: sakura
+      chance: 0.07
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-cherry-name
     packetPrototype: CherrySeeds
     productPrototypes: [ FoodCherry ]
@@ -2329,6 +2614,12 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/anomaly_berry.rsi
   - type: PlantData
+    # DS14-Soyuz start: directed species mutations
+    mutations:
+    - target: LanternfruitPlants
+      chance: 0.04
+      weight: 100
+    # DS14-Soyuz end
     name: seeds-anomaly-berry-name
     packetPrototype: AnomalyBerrySeeds
     productPrototypes: [ FoodAnomalyBerry ]

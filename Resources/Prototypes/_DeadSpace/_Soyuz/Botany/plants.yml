@@ -1,0 +1,1671 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+# Soyuz botany plants ported to the upstream entity-component model.
+- type: entity
+  parent: BasePlant
+  id: GreenMarijuanaPlants
+  name: green marijuana
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/cannabis.rsi
+  - type: PlantData
+    mutations:
+    - target: RainbowCannabisPlants
+      chance: 0.1
+      weight: 100
+    name: seeds-green-marijuana-name
+    noun: seeds-noun-seeds
+    packetPrototype: GreenMarijuanaSeeds
+    productPrototypes:
+    - LeavesGreenMarijuana
+    - MaterialCloth1
+  - type: Plant
+    lifespan: 75
+    maturation: 8
+    production: 12
+    yield: 2
+    potency: 20
+    growthStages: 3
+  - type: PlantGrowth
+    waterConsumption: 0.4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      THC:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: LemoPlants
+  name: lemo tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lemo.rsi
+  - type: PlantData
+    name: seeds-lemo-name
+    noun: seeds-noun-seeds
+    packetPrototype: LemoSeeds
+    productPrototypes:
+    - FoodLemo
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: KisserTomatoPlants
+  name: kisser tomato vine
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
+  - type: PlantData
+    name: seeds-kissertomato-name
+    noun: seeds-noun-seeds
+    packetPrototype: KisserTomatoSeeds
+    productPrototypes:
+    - MobTomatoKisser
+  - type: Plant
+    lifespan: 25
+    maturation: 15
+    production: 6
+    yield: 2
+    potency: 10
+    growthStages: 2
+  - type: PlantGrowth
+    waterConsumption: 0.6
+    nutrientConsumption: 0.7
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Blood:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      JuiceTomato:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: KisserTomatoFakePlants
+  name: kisser tomato vine
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
+  - type: PlantData
+    name: seeds-kissertomato-name
+    noun: seeds-noun-seeds
+    packetPrototype: KisserTomatoFakeSeeds
+    productPrototypes:
+    - MobTomatoKisserFake
+  - type: Plant
+    lifespan: 25
+    maturation: 15
+    production: 6
+    yield: 2
+    potency: 10
+    growthStages: 2
+  - type: PlantGrowth
+    waterConsumption: 0.6
+    nutrientConsumption: 0.7
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Blood:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      JuiceTomato:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: RosePlants
+  name: rose bush
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/rose.rsi
+  - type: PlantData
+    mutations:
+    - target: RedrosePlants
+      chance: 0.18
+      weight: 100
+    - target: WhiterosePlants
+      chance: 0.18
+      weight: 100
+    name: seeds-rose-name
+    noun: seeds-noun-seeds
+    packetPrototype: RoseSeeds
+    productPrototypes:
+    - Rose
+  - type: Plant
+    lifespan: 55
+    maturation: 8
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Razorium:
+        min: 1
+        max: 3
+        potencyDivisor: 12
+- type: entity
+  parent: BasePlant
+  id: BlackRosePlants
+  name: black rose bush
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/blackRose.rsi
+  - type: PlantData
+    name: seeds-blackrose-name
+    noun: seeds-noun-seeds
+    packetPrototype: BlackRoseSeeds
+    productPrototypes:
+    - RoseBlack
+  - type: Plant
+    lifespan: 55
+    maturation: 8
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Razorium:
+        min: 1
+        max: 5
+        potencyDivisor: 8
+      SulfuricAcid:
+        min: 1
+        max: 8
+        potencyDivisor: 10
+- type: entity
+  parent: BasePlant
+  id: CoconutPlants
+  name: coconut tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+  - type: PlantData
+    mutations:
+    - target: CoconestPlants
+      chance: 0.15
+      weight: 100
+    name: seeds-coconut-name
+    noun: seeds-noun-seeds
+    packetPrototype: CoconutSeeds
+    productPrototypes:
+    - FoodCoconut
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      CoconutWater:
+        min: 1
+        max: 20
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: CoconestPlants
+  name: coconest tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconest.rsi
+  - type: PlantData
+    name: seeds-coconest-name
+    noun: seeds-noun-seeds
+    packetPrototype: CoconutBeesSeeds
+    productPrototypes:
+    - FoodCoconutBees
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      BuzzochloricBees:
+        min: 1
+        max: 15
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: HopsPlants
+  name: hops bine
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/hops.rsi
+  - type: PlantData
+    mutations:
+    - target: EmployedhopsPlants
+      chance: 0.15
+      weight: 100
+    name: seeds-hops-name
+    noun: seeds-noun-seeds
+    packetPrototype: HopsSeeds
+    productPrototypes:
+    - FoodHops
+  - type: Plant
+    lifespan: 25
+    maturation: 6
+    production: 3
+    yield: 3
+    potency: 5
+    growthStages: 3
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Beer:
+        min: 1
+        max: 20
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: EmployedhopsPlants
+  name: HoPs bine
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/employedhops.rsi
+  - type: PlantData
+    name: seeds-employedhops-name
+    noun: seeds-noun-seeds
+    packetPrototype: HoPsSeeds
+    productPrototypes:
+    - HopTart
+  - type: Plant
+    lifespan: 65
+    maturation: 25
+    production: 25
+    yield: 1
+    potency: 5
+    growthStages: 3
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+- type: entity
+  parent: BasePlant
+  id: AgentgrainPlants
+  name: agent grain bine
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/agentgrain.rsi
+  - type: PlantData
+    mutations:
+    - target: MeatWheatPlants
+      chance: 0.04
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 40
+    name: seeds-agentgrain-name
+    noun: seeds-noun-seeds
+    packetPrototype: AgentGrainSeeds
+    productPrototypes:
+    - AgentIDCard
+  - type: Plant
+    lifespan: 65
+    maturation: 25
+    production: 25
+    yield: 1
+    potency: 5
+    growthStages: 3
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+- type: entity
+  parent: BasePlant
+  id: ButterflyorchidPlants
+  name: butterfly orchids
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butterfly_orchid.rsi
+  - type: PlantData
+    mutations:
+    - target: BiggerflyorchidPlants
+      chance: 0.15
+      weight: 100
+    - target: ButterorchidPlants
+      chance: 0.15
+      weight: 100
+    name: seeds-butterflyorchid-name
+    noun: seeds-noun-seeds
+    packetPrototype: ButterflyOrchidSeeds
+    productPrototypes:
+    - FoodButterflyOrchid
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 4
+    yield: 3
+    potency: 10
+    growthStages: 4
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantChemicals
+    chemicals:
+      Vitamin:
+        min: 1
+        max: 15
+        potencyDivisor: 25
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: BiggerflyorchidPlants
+  name: biggerfly orchids
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/biggerfly_orchid.rsi
+  - type: PlantData
+    name: seeds-biggerflyorchid-name
+    noun: seeds-noun-seeds
+    packetPrototype: BiggerflyOrchidSeeds
+    productPrototypes:
+    - FoodBiggerflyOrchid
+  - type: Plant
+    lifespan: 35
+    maturation: 15
+    production: 4
+    yield: 3
+    potency: 25
+    growthStages: 4
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantChemicals
+    chemicals:
+      ButterfliesBiggerReagent:
+        min: 1
+        max: 25
+        potencyDivisor: 25
+      Nutriment:
+        min: 1
+        max: 15
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: ButterorchidPlants
+  name: butter orchids
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butter_orchid.rsi
+  - type: PlantData
+    name: seeds-butterorchid-name
+    noun: seeds-noun-seeds
+    packetPrototype: ButterOrchidSeeds
+    productPrototypes:
+    - FoodButter
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 4
+    yield: 3
+    potency: 10
+    growthStages: 4
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantChemicals
+    chemicals:
+      Vitamin:
+        min: 1
+        max: 5
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: FloatingfloraPlants
+  name: floating flora
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+  - type: PlantData
+    name: seeds-floatingflora-name
+    noun: seeds-noun-seeds
+    packetPrototype: FloatingFloraSeeds
+    productPrototypes:
+    - FoodFloatingFlora
+    - FoodFloatingFloraPink
+    - FoodFloatingFloraOrange
+    - FoodFloatingFloraBlue
+  - type: Plant
+    lifespan: 25
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 20
+    growthStages: 3
+  - type: PlantGrowth
+    nutrientConsumption: 0.4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 25
+      Vitamin:
+        min: 1
+        max: 5
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: PompombushPlants
+  name: pompom bush
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
+  - type: PlantData
+    name: seeds-pompombush-name
+    noun: seeds-noun-seeds
+    packetPrototype: PompomBushSeeds
+    productPrototypes:
+    - MaterialPom1
+  - type: Plant
+    lifespan: 25
+    maturation: 8
+    production: 3
+    yield: 3
+    potency: 5
+    growthStages: 3
+  - type: PlantGrowth
+    waterConsumption: 0.6
+- type: entity
+  parent: BasePlant
+  id: SpesosPlants
+  name: gold leaf trees
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/spesostree.rsi
+  - type: PlantData
+    name: seeds-spesos-name
+    noun: seeds-noun-seeds
+    packetPrototype: SpesosTreeSeeds
+    productPrototypes:
+    - GoldLeaf
+  - type: Plant
+    lifespan: 45
+    maturation: 15
+    production: 8
+    yield: 1
+    potency: 10
+    growthStages: 2
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantTraitSeedless
+- type: entity
+  parent: BasePlant
+  id: CoffeePlants
+  name: coffee plants
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+  - type: PlantData
+    mutations:
+    - target: CoffeeArabicaPlants
+      chance: 0.2
+      weight: 100
+    - target: CoffeeRobustPlants
+      chance: 0.2
+      weight: 100
+    name: seeds-coffee-name
+    noun: seeds-noun-seeds
+    packetPrototype: CoffeeSeeds
+    productPrototypes:
+    - FoodCoffee
+  - type: Plant
+    lifespan: 25
+    maturation: 9
+    production: 1
+    yield: 2
+    potency: 5
+    growthStages: 5
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 2
+        max: 8
+        potencyDivisor: 16
+      Theobromine:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: AvocadoPlants
+  name: avocado plants
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - type: PlantData
+    name: seeds-avocado-name
+    noun: seeds-noun-seeds
+    packetPrototype: AvocadoSeeds
+    productPrototypes:
+    - FoodAvocado
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+    growthStages: 5
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: CucumberPlants
+  name: cucumber plants
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - type: PlantData
+    name: seeds-cucumber-name
+    noun: seeds-noun-seeds
+    packetPrototype: CucumberSeeds
+    productPrototypes:
+    - FoodCucumber
+  - type: Plant
+    lifespan: 50
+    maturation: 7
+    production: 5
+    yield: 4
+    potency: 10
+    growthStages: 5
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: BeesPlants
+  name: honeycomb
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - type: PlantData
+    name: seeds-bees-name
+    noun: seeds-noun-nothing
+    packetPrototype: BeeSeeds
+    productPrototypes:
+    - FoodHoneyComb
+  - type: Plant
+    lifespan: 60
+    maturation: 7
+    production: 5
+    yield: 4
+    potency: 10
+    growthStages: 4
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+  - type: SoyuzPreventSwabbing
+- type: entity
+  parent: BasePlant
+  id: EveryspicePlants
+  name: everyspice plants
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
+  - type: PlantData
+    mutations:
+    - target: CosmicRevenantPlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 60
+    name: seeds-everyspice-name
+    noun: seeds-noun-seeds
+    packetPrototype: EveryspiceSeeds
+    productPrototypes:
+    - FoodEveryspice
+  - type: Plant
+    lifespan: 25
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 20
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Everyspice:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 293
+    highHeatTolerance: 313
+- type: entity
+  parent: BasePlant
+  id: MonkananaPlants
+  name: monkanana trees
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - type: PlantData
+    mutations:
+    - target: BungoPlants
+      chance: 0.06
+      weight: 100
+    name: seeds-monkanana-name
+    noun: seeds-noun-seeds
+    packetPrototype: MonkananaSeeds
+    productPrototypes:
+    - FoodMonkanana
+  - type: Plant
+    lifespan: 50
+    maturation: 12
+    production: 6
+    yield: 3
+    potency: 25
+    growthStages: 4
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Vitamin:
+        min: 5
+        max: 16
+        potencyDivisor: 5
+      Nutriment:
+        min: 3
+        max: 6
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: NfglowshroomPlants
+  name: glowshroom
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/towercap.rsi
+  - type: PlantData
+    mutations:
+    - target: GlasscapPlants
+      chance: 0.025
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 55
+    name: seeds-glowshroom-nf-name
+    noun: seeds-noun-spores
+    packetPrototype: NFGlowshroomSeeds
+    productPrototypes:
+    - NFFoodGlowshroom
+  - type: Plant
+    lifespan: 60
+    maturation: 12
+    production: 3
+    yield: 2
+    potency: 30
+    growthStages: 4
+  - type: PlantGrowth
+    waterConsumption: 0.8
+  - type: PlantChemicals
+    chemicals:
+      Radium:
+        min: 4
+        max: 12
+        potencyDivisor: 20
+- type: entity
+  parent: BasePlant
+  id: PomegranatePlants
+  name: pomegranate tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pomegranate.rsi
+  - type: PlantData
+    mutations:
+    - target: GranatapfelPlants
+      chance: 0.1
+      weight: 100
+    name: seeds-pomegranate-name
+    noun: seeds-noun-seeds
+    packetPrototype: PomegranateSeeds
+    productPrototypes:
+    - FoodPomegranate
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 4
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: GranatapfelPlants
+  name: granatapfel tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/granatapfel.rsi
+  - type: PlantData
+    name: seeds-granatapfel-name
+    noun: seeds-noun-seeds
+    packetPrototype: GranatapfelSeeds
+    productPrototypes:
+    - FoodGranatapfel
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 4
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Sulfur:
+        min: 1
+        max: 20
+        potencyDivisor: 5
+      Hydrogen:
+        min: 1
+        max: 20
+        potencyDivisor: 5
+      Ethanol:
+        min: 1
+        max: 20
+        potencyDivisor: 5
+- type: entity
+  parent: BasePlant
+  id: CrystalThistlePlants
+  name: crystalthistle
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
+  - type: PlantData
+    name: seeds-crystalthistle-name
+    noun: seeds-noun-seeds
+    packetPrototype: CrystalThistleSeeds
+    productPrototypes:
+    - FoodCrystalThistle
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 3
+    yield: 3
+    potency: 10
+    growthStages: 3
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantChemicals
+    chemicals:
+      Ethyloxyephedrine:
+        min: 1
+        max: 25
+        potencyDivisor: 4
+      Vitamin:
+        min: 1
+        max: 25
+        potencyDivisor: 4
+- type: entity
+  parent: BasePlant
+  id: GhostPepperPlants
+  name: ghost pepper
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Ghost_Pepper.rsi
+  - type: PlantData
+    mutations:
+    - target: EveryspicePlants
+      chance: 0.06
+      weight: 100
+    - target: CosmicRevenantPlants
+      chance: 0.04
+      weight: 100
+    name: seeds-ghostpepper-name
+    noun: seeds-noun-seeds
+    packetPrototype: GhostPepperSeeds
+    productPrototypes:
+    - FoodGhostPepper
+  - type: Plant
+    lifespan: 25
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 20
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      CapsaicinOil:
+        min: 2
+        max: 20
+        potencyDivisor: 10
+      Nutriment:
+        min: 2
+        max: 8
+        potencyDivisor: 25
+      Vitamin:
+        min: 2
+        max: 8
+        potencyDivisor: 25
+      Thermite:
+        min: 5
+        max: 20
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: CosmicRevenantPlants
+  name: cosmic revenant pepper
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Cosmic_Revenant.rsi
+  - type: PlantData
+    name: seeds-cosmicrevenant-name
+    noun: seeds-noun-seeds
+    packetPrototype: CosmicRevenantSeeds
+    productPrototypes:
+    - FoodCosmicRevenant
+  - type: Plant
+    lifespan: 25
+    maturation: 6
+    production: 6
+    yield: 2
+    potency: 20
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      CapsaicinOil:
+        min: 3
+        max: 30
+        potencyDivisor: 10
+      Nutriment:
+        min: 4
+        max: 10
+        potencyDivisor: 25
+      Vitamin:
+        min: 1
+        max: 5
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: AmbrosiaNobilisPlants
+  name: ambrosia nobilis
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
+  - type: PlantData
+    mutations:
+    - target: AmbrosiaDeusPlants
+      chance: 0.08
+      weight: 100
+    name: seeds-ambrosianobilis-name
+    noun: seeds-noun-seeds
+    packetPrototype: AmbrosiaNobilis
+    productPrototypes:
+    - FoodAmbrosiaNobilis
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 3
+    yield: 3
+    potency: 10
+    growthStages: 6
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 2
+        potencyDivisor: 10
+      SpaceDrugs:
+        min: 1
+        max: 5
+        potencyDivisor: 20
+      Tricordrazine:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+      Negacordrazine:
+        min: 0
+        max: 2
+        potencyDivisor: 50
+- type: entity
+  parent: BasePlant
+  id: StrangeBerriesPlants
+  name: strange berry bush
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/strange_berries.rsi
+  - type: PlantData
+    mutations:
+    - target: AnomalyBerryPlants
+      chance: 0.08
+      weight: 100
+    name: seeds-strange-berries-name
+    noun: seeds-noun-seeds
+    packetPrototype: StrangeBerrySeeds
+    productPrototypes:
+    - FoodStrangeBerries
+  - type: Plant
+    lifespan: 50
+    maturation: 6
+    production: 6
+    yield: 4
+  - type: PlantGrowth
+    nutrientConsumption: 0.6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Artifexium:
+        min: 2
+        max: 5
+        potencyDivisor: 30
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 40
+- type: entity
+  parent: BasePlant
+  id: BluespaceTomatoPlants
+  name: bluespace tomato
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bluespace_tomato.rsi
+  - type: PlantData
+    name: seeds-bluespace-tomato-name
+    noun: seeds-noun-seeds
+    packetPrototype: BluespaceTomatoSeeds
+    productPrototypes:
+    - FoodBluespaceTomato
+  - type: Plant
+    lifespan: 25
+    maturation: 8
+    production: 6
+    yield: 2
+    potency: 10
+  - type: PlantGrowth
+    waterConsumption: 0.5
+    nutrientConsumption: 0.6
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 3
+        potencyDivisor: 20
+      Singulo:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+  - type: PlantAtmospheric
+    lowHeatTolerance: 288
+    highHeatTolerance: 308
+- type: entity
+  parent: BasePlant
+  id: OrganTreePlants
+  name: organ tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/organtree.rsi
+  - type: PlantData
+    name: seeds-organ-tree-name
+    noun: seeds-noun-seeds
+    packetPrototype: OrganTreeSeeds
+    productPrototypes:
+    - FoodOrganTree
+  - type: Plant
+    lifespan: 10
+    maturation: 12
+    production: 15
+    yield: 1
+    potency: 10
+    growthStages: 6
+  - type: PlantGrowth
+    waterConsumption: 0.6
+    nutrientConsumption: 0.8
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 2
+        potencyDivisor: 40
+      Vitamin:
+        min: 1
+        max: 2
+        potencyDivisor: 40
+- type: entity
+  parent: BasePlant
+  id: EvilApplePlants
+  name: devilish apple tree
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/evil_apple.rsi
+  - type: PlantData
+    mutations:
+    - target: OrganTreePlants
+      chance: 0.03
+      weight: 100
+      requirements:
+        minPotency: 70
+        minGeneticInstability: 50
+        reagents:
+          - id: UnstableMutagen
+            minAmount: 5
+    name: seeds-evilapple-name
+    noun: seeds-noun-seeds
+    packetPrototype: EvilAppleSeeds
+    productPrototypes:
+    - FoodEvilApple
+  - type: Plant
+    lifespan: 50
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantGrowth
+    waterConsumption: 1
+    nutrientConsumption: 1.25
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      DevilJuice:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+- type: entity
+  parent: BasePlant
+  id: ResinferaPlants
+  name: resinfera
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/resinfera.rsi
+  - type: PlantData
+    name: seeds-resinfera-name
+    noun: seeds-noun-seeds
+    packetPrototype: ResinferaSeeds
+    productPrototypes:
+    - FoodResinfera
+  - type: Plant
+    lifespan: 25
+    maturation: 10
+    production: 3
+    yield: 2
+    potency: 10
+    growthStages: 5
+  - type: PlantGrowth
+    waterConsumption: 0.3
+    nutrientConsumption: 1.5
+  - type: PlantChemicals
+    chemicals:
+      Vitamin:
+        min: 1
+        max: 20
+        potencyDivisor: 7
+- type: entity
+  parent: BasePlant
+  id: RmcmangoPlants
+  name: mango trees
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
+  - type: PlantData
+    name: seeds-mango-name
+    noun: seeds-noun-seeds
+    packetPrototype: RMCMangoSeeds
+    productPrototypes:
+    - RMCFoodMango
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 5
+        potencyDivisor: 20
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: ExplosiveBananaPlants
+  name: explosive banana
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/explosive_banana.rsi
+  - type: PlantData
+    name: seeds-explosivebanana-name
+    noun: seeds-noun-seeds
+    packetPrototype: ExplosiveBananaSeeds
+    productPrototypes:
+    - ExplosiveBanana
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: CoffeeArabicaPlants
+  name: coffee arabica beans
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+  - type: PlantData
+    name: seeds-coffeearabica-name
+    noun: seeds-noun-seeds
+    packetPrototype: CoffeeArabicaSeeds
+    productPrototypes:
+    - FoodCoffeeArabica
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: CoffeeRobustPlants
+  name: coffee robust beans
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+  - type: PlantData
+    name: seeds-coffeerobust-name
+    noun: seeds-noun-seeds
+    packetPrototype: CoffeeRobustSeeds
+    productPrototypes:
+    - FoodCoffeeRobust
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: GeraniumPlants
+  name: geranium
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/geranium.rsi
+  - type: PlantData
+    name: seeds-geranium-name
+    noun: seeds-noun-seeds
+    packetPrototype: GeraniumSeeds
+    productPrototypes:
+    - FoodGeranium
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: PlaststeelcapPlants
+  name: plaststeel cap
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/plaststeelcap.rsi
+  - type: PlantData
+    name: seeds-plaststeelcap-name
+    noun: seeds-noun-seeds
+    packetPrototype: PlastSteelcapSeeds
+    productPrototypes:
+    - PlastSteelLog
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: GlasscapPlants
+  name: glass cap
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glasscap.rsi
+  - type: PlantData
+    name: seeds-glasscap-name
+    noun: seeds-noun-seeds
+    packetPrototype: GlasscapSeeds
+    productPrototypes:
+    - GlassLog
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: CannabisVitaPlants
+  name: cannabis vita leaves
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cannabis_vita.rsi
+  - type: PlantData
+    mutations:
+    - target: tritiumCannabis
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 80
+        minGeneticInstability: 65
+        reagents:
+          - id: Uranium
+            minAmount: 5
+    name: seeds-cannabisvita-name
+    noun: seeds-noun-seeds
+    packetPrototype: CannabisVitaSeeds
+    productPrototypes:
+    - CannabisVitaLeaves
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: BarrelmelonPlants
+  name: barrelmelon
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/barrelmelon.rsi
+  - type: PlantData
+    name: seeds-barrelmelon-name
+    noun: seeds-noun-seeds
+    packetPrototype: BarrelmelonSeeds
+    productPrototypes:
+    - FoodBarrelmelon
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: LanternfruitPlants
+  name: lanternfruit
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lanternfruit.rsi
+  - type: PlantData
+    mutations:
+    - target: FloatingfloraPlants
+      chance: 0.02
+      weight: 100
+      requirements:
+        minPotency: 75
+        minGeneticInstability: 55
+    name: seeds-lanternfruit-name
+    noun: seeds-noun-seeds
+    packetPrototype: LanternfruitSeeds
+    productPrototypes:
+    - FoodLanternfruit
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: RedrosePlants
+  name: red rose
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/redrose.rsi
+  - type: PlantData
+    mutations:
+    - target: BlackRosePlants
+      chance: 0.05
+      weight: 100
+    name: seeds-redrose-name
+    noun: seeds-noun-seeds
+    packetPrototype: RedroseSeeds
+    productPrototypes:
+    - FoodRedrose
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: SnapcornPlants
+  name: snapcorn
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/snapcorn.rsi
+  - type: PlantData
+    name: seeds-snapcorn-name
+    noun: seeds-noun-seeds
+    packetPrototype: SnapcornSeeds
+    productPrototypes:
+    - FoodSnapcorn
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: WhiterosePlants
+  name: white rose
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/whiterose.rsi
+  - type: PlantData
+    mutations:
+    - target: BlackRosePlants
+      chance: 0.05
+      weight: 100
+    name: seeds-whiterose-name
+    noun: seeds-noun-seeds
+    packetPrototype: WhiteroseSeeds
+    productPrototypes:
+    - FoodWhiterose
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25
+- type: entity
+  parent: BasePlant
+  id: WhiteLilyPlants
+  name: white lily
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/white_lily.rsi
+  - type: PlantData
+    mutations:
+    - target: SpacemansTrumpetPlants
+      chance: 0.06
+      weight: 100
+    name: seeds-whitelily-name
+    noun: seeds-noun-seeds
+    packetPrototype: WhiteLilySeeds
+    productPrototypes:
+    - FoodWhiteLily
+  - type: Plant
+    lifespan: 55
+    maturation: 6
+    production: 6
+    yield: 3
+    potency: 10
+  - type: PlantHarvest
+    harvestRepeat: Repeat
+  - type: PlantChemicals
+    chemicals:
+      Nutriment:
+        min: 1
+        max: 10
+        potencyDivisor: 10
+      Vitamin:
+        min: 1
+        max: 4
+        potencyDivisor: 25

@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
 # Полная русская локализация портированных культур ботаники Soyuz.
 # Названия и описания переведены вручную с учётом игрового контекста.
 

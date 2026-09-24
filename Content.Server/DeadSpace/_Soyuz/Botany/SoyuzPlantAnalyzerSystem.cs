@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 using Content.Shared.Botany.Components;
 using Content.Shared.Botany.Items.Components;
 using Content.Shared.Botany.Systems;

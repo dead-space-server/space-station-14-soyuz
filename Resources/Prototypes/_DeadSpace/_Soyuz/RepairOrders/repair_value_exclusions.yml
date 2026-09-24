@@ -174,7 +174,7 @@
   - sakura
   - tritiumCannabis
 
-# DS-14 Soyuz start: living botany plants are not repairable station structures.
+# DS14-Soyuz start: living botany plants are not repairable station structures.
 - type: repairValueExclusion
   id: RepairExcludeSoyuzBotanyPlants
   reason: Living botany plants are outside station repair construction.
@@ -228,7 +228,7 @@
   - StrangeBerriesPlants
   - WhiteLilyPlants
   - WhiterosePlants
-# DS-14 Soyuz end
+# DS14-Soyuz end
 
 - type: repairValueExclusion
   id: RepairExcludeDeployableWeapons

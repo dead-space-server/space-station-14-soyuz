@@ -329,7 +329,7 @@ public sealed partial class AnchorableSystem : EntitySystem
     /// <param name="grid"></param>
     public bool TileFree(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
-        // DS-14 Soyuz
+        // DS14-Soyuz
         return !_tileCenterCollision.IsBlocked(grid, gridIndices, collisionLayer, collisionMask);
     }
 

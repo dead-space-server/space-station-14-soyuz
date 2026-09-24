@@ -49,7 +49,7 @@ public abstract partial class SharedToolSystem
 
         var tileRef = _maps.GetTileRef(gridUid, grid, args.GridTile);
         var coords = _maps.ToCoordinates(tileRef, grid);
-        // DS-14 Soyuz
+        // DS14-Soyuz
         if (comp.RequiresUnobstructed && _tileCenterCollision.IsBlocked(
                 (gridUid, grid),
                 tileRef.GridIndices,
@@ -88,7 +88,7 @@ public abstract partial class SharedToolSystem
         if (string.IsNullOrWhiteSpace(tileDef.BaseTurf))
             return false;
 
-        // DS-14 Soyuz
+        // DS14-Soyuz
         if (comp.RequiresUnobstructed && _tileCenterCollision.IsBlocked(
                 (gridUid, mapGrid),
                 tileRef.GridIndices,

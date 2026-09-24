@@ -3,7 +3,7 @@ using Content.Shared.Botany.Events;
 using Content.Shared.Botany.Systems;
 using Content.Shared.Botany.Traits.Components;
 using Content.Shared.Interaction;
-using Content.Shared.Kitchen.Components; // DS-14 Soyuz
+using Content.Shared.Kitchen.Components; // DS14-Soyuz
 using Content.Shared.Popups;
 using Content.Shared.Tools.Systems;
 
@@ -15,7 +15,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
     // DS14-start
     [Dependency] private readonly PlantHarvestSystem _plantHarvest = default!;
     [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
-    [Dependency] private readonly PlantTraySystem _plantTray = default!; // DS-14 Soyuz
+    [Dependency] private readonly PlantTraySystem _plantTray = default!; // DS14-Soyuz
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedToolSystem _tool = default!;
 
@@ -27,7 +27,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
         // DS14-start: current engine uses explicit event subscriptions and query initialization.
         base.Initialize();
         SubscribeLocalEvent<PlantTraitLigneousComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<PlantTrayComponent, InteractUsingEvent>(OnTrayInteractUsing); // DS-14 Soyuz
+        SubscribeLocalEvent<PlantTrayComponent, InteractUsingEvent>(OnTrayInteractUsing); // DS14-Soyuz
         _holderQuery = GetEntityQuery<PlantHolderComponent>();
         // DS14-end
 
@@ -45,7 +45,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
         TryHarvestWithTool(ent.Owner, ent.Comp, holder, ref args);
     }
 
-    // DS-14 Soyuz start: allow sharp tools to harvest ligneous plants through their tray.
+    // DS14-Soyuz start: allow sharp tools to harvest ligneous plants through their tray.
     private void OnTrayInteractUsing(Entity<PlantTrayComponent> ent, ref InteractUsingEvent args)
     {
         if (args.Handled || !_plantTray.TryGetPlant(ent.AsNullable(), out var plantUid) ||
@@ -80,7 +80,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
         _plantHarvest.TryHandleHarvest(plant, args.User);
         args.Handled = true;
     }
-    // DS-14 Soyuz end
+    // DS14-Soyuz end
 
     private void OnDoHarvest(Entity<PlantTraitLigneousComponent> ent, ref DoHarvestEvent args)
     {

@@ -604,7 +604,7 @@ public sealed class RCDSystem : EntitySystem
             }
 
             // The tile has a structure sitting on it
-            // DS-14 Soyuz
+            // DS14-Soyuz
             if (TryComp<MapGridComponent>(tile.GridUid, out var grid) &&
                 _tileCenterCollision.IsBlocked(
                     (tile.GridUid, grid),

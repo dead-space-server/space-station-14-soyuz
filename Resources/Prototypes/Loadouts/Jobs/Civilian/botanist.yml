@@ -26,13 +26,13 @@
     jumpsuit: ClothingUniformOveralls
 
 # Back
-# DS-14 Soyuz start: optional pre-round analyzer
+# DS14-Soyuz start: optional pre-round analyzer
 - type: loadout
   id: BotanistPlantAnalyzer
   storage:
     back:
     - SoyuzPlantAnalyzer
-# DS-14 Soyuz end
+# DS14-Soyuz end
 
 - type: loadout
   id: BotanistBackpack

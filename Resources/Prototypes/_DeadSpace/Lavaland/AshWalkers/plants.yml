@@ -47,12 +47,12 @@
     production: 8
     yield: 3
   - type: PlantData
-    # DS-14 Soyuz start: directed species mutations
+    # DS14-Soyuz start: directed species mutations
     mutations:
     - target: LavalandEmberPlant
       chance: 0.06
       weight: 100
-    # DS-14 Soyuz end
+    # DS14-Soyuz end
     name: ash-walker-plant-polypore
     noun: seeds-noun-spores
     packetPrototype: LavalandPolyporeSeeds
@@ -123,12 +123,12 @@
     production: 7
     yield: 3
   - type: PlantData
-    # DS-14 Soyuz start: directed species mutations
+    # DS14-Soyuz start: directed species mutations
     mutations:
     - target: LavalandInocybePlant
       chance: 0.2
       weight: 100
-    # DS-14 Soyuz end
+    # DS14-Soyuz end
     name: ash-walker-plant-porcini
     noun: seeds-noun-spores
     packetPrototype: LavalandPorciniSeeds
@@ -220,12 +220,12 @@
     production: 8
     yield: 3
   - type: PlantData
-    # DS-14 Soyuz start: directed species mutations
+    # DS14-Soyuz start: directed species mutations
     mutations:
     - target: LavalandPolyporePlant
       chance: 0.1
       weight: 100
-    # DS-14 Soyuz end
+    # DS14-Soyuz end
     name: ash-walker-plant-inocybe
     noun: seeds-noun-spores
     packetPrototype: LavalandInocybeSeeds
@@ -323,7 +323,7 @@
     production: 10
     yield: 2
   - type: PlantData
-    # DS-14 Soyuz start: directed species mutations
+    # DS14-Soyuz start: directed species mutations
     mutations:
     - target: GlasscapPlants
       chance: 0.025
@@ -333,7 +333,7 @@
         minGeneticInstability: 55
         environment:
           minTemperature: 310
-    # DS-14 Soyuz end
+    # DS14-Soyuz end
     name: ash-walker-plant-ember
     noun: seeds-noun-spores
     packetPrototype: LavalandEmberSeeds
@@ -418,7 +418,7 @@
     production: 9
     yield: 2
   - type: PlantData
-    # DS-14 Soyuz start: directed species mutations
+    # DS14-Soyuz start: directed species mutations
     mutations:
     - target: CactusBombPlant
       chance: 0.02
@@ -429,7 +429,7 @@
         reagents:
           - id: UnstableMutagen
             minAmount: 5
-    # DS-14 Soyuz end
+    # DS14-Soyuz end
     name: ash-walker-plant-cactus
     noun: seeds-noun-seeds
     packetPrototype: LavalandCactusSeeds

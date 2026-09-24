@@ -1086,7 +1086,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     // ReSharper disable once InconsistentNaming
     private string SanitizeInGameICMessage(EntityUid source, string message, out string? emoteStr, bool capitalize = true, bool punctuate = false, bool capitalizeTheWordI = true)
     {
-        // DS-14 Soyuz
+        // DS14-Soyuz
         var newMessage = SanitizeMessageReplaceWords(source, message.Trim());
 
         GetRadioKeycodePrefix(source, newMessage, out newMessage, out var prefix);

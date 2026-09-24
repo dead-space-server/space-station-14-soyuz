@@ -11364,7 +11364,7 @@ entities:
         id: towercap
         harvestLogImpact: null
         plantLogImpact: null
-        # DS-14 Soyuz: directed species mutations.
+        # DS14-Soyuz: directed species mutations.
         mutations:
         - target: SteelcapPlants
           chance: 0.25

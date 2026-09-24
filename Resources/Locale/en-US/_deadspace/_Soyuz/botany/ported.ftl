@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
 # Consolidated English localization for imported Soyuz botany.
 ent-SoyuzPlantAnalyzer = plant analyzer
     .desc = A handheld device for analyzing plants and seeds.

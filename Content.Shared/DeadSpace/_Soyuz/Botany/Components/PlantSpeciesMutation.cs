@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 using Content.Shared.Atmos;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;

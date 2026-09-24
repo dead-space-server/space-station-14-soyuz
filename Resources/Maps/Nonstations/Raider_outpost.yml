@@ -10184,7 +10184,7 @@ entities:
         id: cannabis
         harvestLogImpact: null
         plantLogImpact: null
-        # DS-14 Soyuz: directed species mutations.
+        # DS14-Soyuz: directed species mutations.
         mutations:
         - target: RainbowCannabisPlants
           chance: 0.12
@@ -10257,7 +10257,7 @@ entities:
         id: cannabis
         harvestLogImpact: null
         plantLogImpact: null
-        # DS-14 Soyuz: directed species mutations.
+        # DS14-Soyuz: directed species mutations.
         mutations:
         - target: RainbowCannabisPlants
           chance: 0.12
@@ -10375,7 +10375,7 @@ entities:
         id: wheat
         harvestLogImpact: null
         plantLogImpact: null
-        # DS-14 Soyuz: directed species mutations.
+        # DS14-Soyuz: directed species mutations.
         mutations:
         - target: MeatWheatPlants
           chance: 0.1
@@ -10453,7 +10453,7 @@ entities:
         id: wheat
         harvestLogImpact: null
         plantLogImpact: null
-        # DS-14 Soyuz: directed species mutations.
+        # DS14-Soyuz: directed species mutations.
         mutations:
         - target: MeatWheatPlants
           chance: 0.1

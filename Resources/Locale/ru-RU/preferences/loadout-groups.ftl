@@ -83,9 +83,9 @@ loadout-group-janitor-underwear = Уборщик, нижнее бельё
 loadout-group-botanist-head = Агроном, голова
 loadout-group-botanist-jumpsuit = Агроном, комбинезон
 loadout-group-botanist-backpack = Агроном, рюкзак
-# DS-14 Soyuz start
+# DS14-Soyuz start
 loadout-group-botanist-equipment = Агроном, инструменты
-# DS-14 Soyuz end
+# DS14-Soyuz end
 loadout-group-botanist-outerclothing = Агроном, верхняя одежда
 loadout-group-botanist-underwear = Агроном, нижнее бельё
 loadout-group-clown-head = Клоун, голова

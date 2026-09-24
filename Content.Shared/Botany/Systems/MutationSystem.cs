@@ -2,13 +2,13 @@ using JetBrains.Annotations;
 using System.Linq;
 using Content.Shared.Atmos;
 using Content.Shared.Botany.Components;
-using Content.Shared.Botany.Events; // DS-14 Soyuz
+using Content.Shared.Botany.Events; // DS14-Soyuz
 using Content.Shared.Botany.Traits.Components;
-using Content.Shared.Chemistry.Components; // DS-14 Soyuz
-using Content.Shared.Chemistry.EntitySystems; // DS-14 Soyuz
+using Content.Shared.Chemistry.Components; // DS14-Soyuz
+using Content.Shared.Chemistry.EntitySystems; // DS14-Soyuz
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
-using Content.Shared.FixedPoint; // DS-14 Soyuz
+using Content.Shared.FixedPoint; // DS14-Soyuz
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -34,7 +34,7 @@ public sealed partial class PlantMutationSystem : EntitySystem
     [Dependency] private readonly PlantSystem _plant = default!;
     [Dependency] private readonly PlantTraySystem _plantTray = default!;
     [Dependency] private readonly SharedEntityEffectsSystem _entityEffects = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // DS-14 Soyuz
+    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // DS14-Soyuz
 
     private EntityQuery<PlantChemicalsComponent> _chemicalsQuery;
     private EntityQuery<PlantComponent> _plantQuery;
@@ -47,10 +47,10 @@ public sealed partial class PlantMutationSystem : EntitySystem
         _randomMutations = _prototypeManager.Index(RandomPlantMutations);
         _chemicalsQuery = GetEntityQuery<PlantChemicalsComponent>();
         _plantQuery = GetEntityQuery<PlantComponent>();
-        // DS-14 Soyuz start: validate the directed graph on load and reload.
+        // DS14-Soyuz start: validate the directed graph on load and reload.
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnMutationPrototypesReloaded);
         ValidateSpeciesMutationGraph();
-        // DS-14 Soyuz end
+        // DS14-Soyuz end
         // DS14-end
     }
 
@@ -77,7 +77,7 @@ public sealed partial class PlantMutationSystem : EntitySystem
         }
     }
 
-    // DS-14 Soyuz start: conditional directed species mutations
+    // DS14-Soyuz start: conditional directed species mutations
     /// <summary>
     /// Runs exactly once after the existing ChangeSpecies effect succeeds. Requirements
     /// are checked before independent chance rolls; weight only breaks multiple successes.
@@ -251,7 +251,7 @@ public sealed partial class PlantMutationSystem : EntitySystem
         QueueDel(oldPlant);
         return true;
     }
-    // DS-14 Soyuz end
+    // DS14-Soyuz end
 
     private void ChemicalsSpeciesChange(EntityUid plantUid, EntProtoId plantProto)
     {

@@ -38,7 +38,7 @@ namespace Content.Shared.Humanoid.Markings
         [DataField("coloring")]
         public MarkingColors Coloring { get; private set; } = new();
 
-        // DS-14 Soyuz
+        // DS14-Soyuz
         /// <summary>
         /// Optional shader applied to every sprite layer of the marking.
         /// </summary>

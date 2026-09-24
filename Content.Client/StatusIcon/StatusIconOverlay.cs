@@ -39,7 +39,7 @@ public sealed class StatusIconOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        // DS-14 Soyuz
+        // DS14-Soyuz
         if (!SoyuzOverlayViewport.IsPrimary(args, _entity, _playerManager))
             return;
 

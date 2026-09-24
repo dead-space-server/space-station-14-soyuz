@@ -264,7 +264,7 @@
       path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
   #DS14-End
 
-# DS-14 Soyuz: WireBrushElectrical is defined in _DeadSpace/_Soyuz.
+# DS14-Soyuz: WireBrushElectrical is defined in _DeadSpace/_Soyuz.
 - type: entity
   name: golden plunger
   id: GoldenPlunger

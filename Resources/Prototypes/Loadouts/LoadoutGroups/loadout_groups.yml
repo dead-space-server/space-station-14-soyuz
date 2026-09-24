@@ -2142,7 +2142,7 @@
   loadouts:
   - LizardPlushieBotanist
 
-# DS-14 Soyuz start: optional botanist equipment
+# DS14-Soyuz start: optional botanist equipment
 - type: loadoutGroup
   id: BotanistEquipment
   name: loadout-group-botanist-equipment
@@ -2150,7 +2150,7 @@
   maxLimit: 1
   loadouts:
   - BotanistPlantAnalyzer
-# DS-14 Soyuz end
+# DS14-Soyuz end
 
 - type: loadoutGroup
   id: MimeJobTrinkets

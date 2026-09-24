@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Kofeecheks
+// SPDX-License-Identifier: LicenseRef-Kofeecheks
 namespace Content.Shared.DeadSpace._Soyuz.Botany;
 
 /// <summary>

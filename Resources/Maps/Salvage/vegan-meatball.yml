@@ -520,7 +520,7 @@ entities:
         displayName: seeds-cannabis-display-name
         noun: seeds-noun-seeds
         name: seeds-cannabis-name
-        mutationPrototypes: []
+        mutations: [] # DS-14 Soyuz: directed species mutations.
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         bioluminescent: False
@@ -591,7 +591,7 @@ entities:
         displayName: seeds-galaxythistle-display-name
         noun: seeds-noun-seeds
         name: seeds-galaxythistle-name
-        mutationPrototypes: []
+        mutations: [] # DS-14 Soyuz: directed species mutations.
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         bioluminescent: False

@@ -262,6 +262,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - SoyuzBotanyProtolatheStatic # DS-14 Soyuz: plant analyzer available without research
     - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools

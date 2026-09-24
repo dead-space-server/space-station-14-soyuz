@@ -11365,8 +11365,10 @@ entities:
         id: towercap
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - steelcap
+        # DS-14 Soyuz: directed species mutations.
+        mutations:
+        - target: SteelcapPlants
+          chance: 0.25
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False

@@ -5,10 +5,10 @@
   description: Relays targeting coordinates and stored energy to an external meteor defense complex.
   components:
   - type: MeteorDefenseBeacon
-    maxAllowedCharge: 160000000 # 20 intercepts; independent of charge rate.
+    maxAllowedCharge: 640000000 # 80 intercepts; independent of charge rate.
     energyPerIntercept: 8000000 # Full capacity of SMESBasic.
   - type: Battery
-    maxCharge: 40000000 # Five intercepts.
+    maxCharge: 640000000 # 80 intercepts.
     startingCharge: 0
     netsync: false
   - type: ExaminableBattery
@@ -27,7 +27,7 @@
     voltage: High
   - type: PowerNetworkBattery
     canDischarge: false
-    maxChargeRate: 1500000 # Ten SMESBasic outputs (150 kW each), or powerful HV generation.
+    maxChargeRate: 5000000 # 5 MW maximum charging rate.
   - type: UserInterface
     interfaces:
       enum.MeteorDefenseUiKey.Key:

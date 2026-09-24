@@ -23,4 +23,7 @@
   id: JobOfficerGS
 
 - type: playTimeTracker
+  id: JobGeneralStaffKGB
+
+- type: playTimeTracker
   id: JobOKGB

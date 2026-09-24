@@ -49,3 +49,17 @@
      - MagazineLightRifle
      - MagazineLightRifle
      - WeaponRifleAKMCY
+
+- type: chameleonOutfit
+  id: OfficerGSChameleonOutfit
+  job: OfficerGS
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficer
+    shoes: ClothingShoesBootsJackFilled
+    head: ClothingHeadHatBeretCentcomNaval
+    mask: ClothingMaskGasSecurity
+    eyes: ClothingEyesGlassesHiddenSecurity
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterCoatCentcomOfficer
+    ears: ClothingHeadsetAltCentCom
+    back: ClothingBackpackMilitarySatchel

@@ -38,6 +38,29 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Zauker,
             Gas.Antinoblium,
             // DS14-end
+            // DS14-Soyuz start
+            Gas.Kryoxide,
+            Gas.Etherite,
+            Gas.Isoflux,
+            Gas.Resonite,
+            Gas.Pyroxite,
+            Gas.Coronite,
+            Gas.Gravion,
+            Gas.Radion,
+            Gas.QuartzGas,
+            Gas.ImpulseGas,
+            Gas.Iney,
+            Gas.Diborane,
+            Gas.GammaGas,
+            Gas.Forsazh,
+            Gas.Sumrak,
+            Gas.Lumin,
+            Gas.Lazarus,
+            Gas.Chromatin,
+            Gas.Tlec,
+            Gas.Detonite,
+            Gas.Boracite,
+            // DS14-Soyuz end
         };
 
         // Presets for 'dumb' air alarm modes

@@ -35,6 +35,8 @@
     # - id: ClothingHandsGlovesArkalyse # DS14-Soyuz disabled
     # - id: ClothingShoesBootsJack # DS14-disabled
     # - id: ClothingOuterCoatWarden # DS14-disabled
+    - id: PolaroidCamera # DS14-Soyuz
+    - id: BoxPolaroidCartridges # DS14-Soyuz
     - id: ClothingOuterWinterWarden
     - id: RubberStampWarden
     - id: DoorRemoteArmory

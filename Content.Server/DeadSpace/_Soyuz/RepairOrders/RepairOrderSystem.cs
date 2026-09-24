@@ -85,26 +85,11 @@ public sealed class RepairOrderSystem : EntitySystem
                     RepairOrderAbortReason.RepairGridDeleted);
             }
 
-            var changed = false;
-            foreach (var (runtimeId, offer) in state.Available.ToArray())
+            if (now >= state.NextOffer && !state.Accepting && !state.Completing)
             {
-                if (offer.ExpiresAt > now)
-                    continue;
-
-                state.Available.Remove(runtimeId);
-                changed = true;
-            }
-
-            if (now >= state.NextOffer)
-            {
-                GenerateOffer((stationUid, state));
-                // Do not catch up missed intervals in a batch.
-                state.NextOffer = now + state.OfferInterval;
-                changed = true;
-            }
-
-            if (changed)
+                GenerateOffer((stationUid, state), refresh: true);
                 UpdateStationUis((stationUid, state));
+            }
         }
     }
 
@@ -149,7 +134,7 @@ public sealed class RepairOrderSystem : EntitySystem
             return;
         }
 
-        if (!state.Available.TryGetValue(args.RuntimeId, out var offer) || offer.ExpiresAt <= _timing.CurTime)
+        if (!state.Available.TryGetValue(args.RuntimeId, out var offer) || state.NextOffer <= _timing.CurTime)
         {
             FailRequest(console.Owner, args.Actor, "repair-orders-error-unavailable", $"offer {args.RuntimeId} is missing or expired");
             return;
@@ -181,7 +166,7 @@ public sealed class RepairOrderSystem : EntitySystem
         {
             UpdateStationUis((stationUid.Value, state));
 
-            if (!_spawn.TrySpawnDamagedGrid(console.Owner, orderPrototype, out var gridUid, out var failure))
+            if (!_spawn.TrySpawnDamagedGrid(console.Owner, orderPrototype, offer, out var gridUid, out var preparedActive, out var failure))
             {
                 FailRequest(
                     console.Owner,
@@ -192,21 +177,6 @@ public sealed class RepairOrderSystem : EntitySystem
             }
 
             spawnedGrid = gridUid;
-            if (!_validation.TryPrepareSession(
-                    stationUid.Value,
-                    offer.RuntimeId,
-                    offer.Prototype,
-                    gridUid,
-                    out var preparedActive))
-            {
-                FailRequest(
-                    console.Owner,
-                    args.Actor,
-                    "repair-orders-error-prepare",
-                    $"activation of offer {offer.RuntimeId} ({offer.Prototype}) failed while preparing its validation session");
-                return;
-            }
-
             var startedAt = _timing.CurTime;
             preparedActive.StartedAt = startedAt;
             preparedActive.ExpiresAt = startedAt + orderPrototype.RepairTime;
@@ -401,46 +371,60 @@ public sealed class RepairOrderSystem : EntitySystem
         if (station.Comp.PoolInitialized)
             return;
 
-        station.Comp.PoolInitialized = true;
         GenerateOffer(station);
+        station.Comp.PoolInitialized = true;
         station.Comp.NextOffer = _timing.CurTime + station.Comp.OfferInterval;
         UpdateStationUis(station);
     }
 
-    private void GenerateOffer(Entity<RepairOrderStationComponent> station)
+    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.</summary>
+    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false)
     {
-        var candidates = _prototype.EnumeratePrototypes<RepairOrderPrototype>()
-            .Where(order => order.Weight > 0f)
-            .ToList();
-
-        if (candidates.Count > 1 && station.Comp.LastGeneratedPrototype is { } lastGenerated)
-            candidates.RemoveAll(order => order.ID == lastGenerated.Id);
-
-        var totalWeight = candidates.Sum(order => order.Weight);
-        if (candidates.Count == 0 || totalWeight <= 0f)
-        {
-            _sawmill.Warning($"No positively weighted repair order prototypes are available for station {station.Owner}.");
+        if (station.Comp.Accepting || station.Comp.Completing)
             return;
+
+        var limit = Math.Clamp(station.Comp.AvailableOfferCount, 0, RepairOrderStationComponent.MaximumAvailableOffers);
+        if (!refresh && station.Comp.Available.Count >= limit) return;
+        var available = refresh
+            ? new Dictionary<int, AvailableRepairOrder>()
+            : new Dictionary<int, AvailableRepairOrder>(station.Comp.Available);
+        var occupied = available.Values.Select(offer => offer.Prototype.Id).ToHashSet();
+        var previous = station.Comp.Available.Values.Select(offer => offer.Prototype.Id).ToHashSet();
+        var candidates = _prototype.EnumeratePrototypes<RepairOrderPrototype>()
+            .Where(order => float.IsFinite(order.Weight) && order.Weight > 0f && !occupied.Contains(order.ID))
+            .OrderBy(order => order.ID, StringComparer.Ordinal).ToList();
+        var seeds = available.Values.Select(offer => offer.DamageSeed).ToHashSet();
+        var nextRuntimeId = station.Comp.NextRuntimeId;
+        var nextOffer = refresh ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
+        while (available.Count < limit && candidates.Count > 0)
+        {
+            // Prefer different offers; a small catalog can still fill the remaining slots.
+            var fresh = candidates.Where(order => !previous.Contains(order.ID)).ToList();
+            var selected = SelectWeightedOffer(fresh.Count > 0 ? fresh : candidates, _random.NextDouble());
+            candidates.Remove(selected);
+            var seed = _random.Next();
+            while (!seeds.Add(seed)) seed = seed == int.MaxValue ? 0 : seed + 1;
+            var runtimeId = nextRuntimeId++;
+            available.Add(runtimeId, new AvailableRepairOrder(runtimeId, selected.ID, seed));
         }
 
-        var roll = _random.NextFloat(0f, totalWeight);
-        var selected = candidates[^1];
+        station.Comp.Available = available;
+        station.Comp.NextRuntimeId = nextRuntimeId;
+        station.Comp.NextOffer = nextOffer;
+    }
+
+    /// <summary>Select from the already filtered positive-weight candidates using a roll in [0, 1).</summary>
+    public static RepairOrderPrototype SelectWeightedOffer(IReadOnlyList<RepairOrderPrototype> candidates, double unitRoll)
+    {
+        if (candidates.Count == 0 || !double.IsFinite(unitRoll) || unitRoll < 0 || unitRoll >= 1)
+            throw new ArgumentOutOfRangeException(nameof(unitRoll));
+        var roll = unitRoll * candidates.Sum(order => (double) order.Weight);
         foreach (var candidate in candidates)
         {
             roll -= candidate.Weight;
-            if (roll > 0f)
-                continue;
-
-            selected = candidate;
-            break;
+            if (roll < 0) return candidate;
         }
-
-        var runtimeId = station.Comp.NextRuntimeId++;
-        station.Comp.Available[runtimeId] = new AvailableRepairOrder(
-            runtimeId,
-            selected.ID,
-            _timing.CurTime + station.Comp.OfferLifetime);
-        station.Comp.LastGeneratedPrototype = selected.ID;
+        return candidates[^1];
     }
 
     public void RefreshStationUis(EntityUid stationUid)
@@ -468,6 +452,8 @@ public sealed class RepairOrderSystem : EntitySystem
         }
 
         repairGrid = expectedActive.GridUid;
+        completed.DamageGeneration = expectedActive.DamageGeneration;
+        completed.Exclusions = expectedActive.Exclusions;
         state.Completed = completed;
         state.Active = null;
         return true;
@@ -658,12 +644,11 @@ public sealed class RepairOrderSystem : EntitySystem
     private void UpdateConsoleUi(EntityUid console, Entity<RepairOrderStationComponent> station)
     {
         var available = station.Comp.Available.Values
-            .OrderBy(offer => offer.ExpiresAt)
+            .OrderBy(offer => offer.RuntimeId)
             .Select(offer => new RepairOrderBuiEntry(
                 offer.RuntimeId,
                 offer.Prototype.Id,
-                RepairOrderStatus.Available,
-                offer.ExpiresAt))
+                RepairOrderStatus.Available))
             .ToList();
 
         RepairOrderBuiEntry? active = null;
@@ -678,7 +663,9 @@ public sealed class RepairOrderSystem : EntitySystem
                 totalTasks: activeOrder.TotalTasks,
                 blueprintReady: activeOrder.BlueprintReady,
                 currentPoints: activeOrder.CurrentPoints,
-                maxPoints: activeOrder.MaxPoints);
+                maxPoints: activeOrder.MaxPoints,
+                damageEvents: activeOrder.DamageGeneration?.SelectedEvents.ToArray(),
+                exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints));
         }
 
         RepairOrderCompletedBuiEntry? completed = null;
@@ -697,7 +684,9 @@ public sealed class RepairOrderSystem : EntitySystem
                 completedOrder.Delivered,
                 completedOrder.Rewards
                     .Select(reward => new RepairOrderRewardBuiEntry(reward.Reward.Id, reward.Count))
-                    .ToList());
+                    .ToList(),
+                completedOrder.DamageGeneration?.SelectedEvents.ToArray(),
+                completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints));
         }
 
         _ui.SetUiState(console, RepairOrderUiKey.Key, new RepairOrderBoundUserInterfaceState(
@@ -722,6 +711,8 @@ public sealed class RepairOrderSystem : EntitySystem
         {
             RepairOrderSpawnFailure.NoStation => "repair-orders-error-no-station",
             RepairOrderSpawnFailure.NoStationGrid => "repair-orders-error-no-grid",
+            RepairOrderSpawnFailure.DamageFailed => "repair-orders-error-damage",
+            RepairOrderSpawnFailure.PrepareFailed => "repair-orders-error-prepare",
             RepairOrderSpawnFailure.LoadFailed => "repair-orders-error-load",
             RepairOrderSpawnFailure.InvalidGrid => "repair-orders-error-invalid-grid",
             RepairOrderSpawnFailure.NoSpace => "repair-orders-error-no-space",

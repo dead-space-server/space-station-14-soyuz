@@ -40,6 +40,29 @@
       Zauker: stationZauker
       Antinoblium: stationAntinoblium
       # DS14-end
+      # DS14-Soyuz start
+      Kryoxide: danger
+      Etherite: danger
+      Isoflux: danger
+      Resonite: danger
+      Pyroxite: danger
+      Coronite: danger
+      Gravion: danger
+      Radion: danger
+      QuartzGas: danger
+      ImpulseGas: danger
+      Iney: danger
+      Diborane: danger
+      GammaGas: danger
+      Forsazh: danger
+      Sumrak: danger
+      Lumin: danger
+      Lazarus: danger
+      Chromatin: danger
+      Tlec: danger
+      Detonite: danger
+      Boracite: danger
+      # DS14-Soyuz end
   - type: Tag
     tags:
       - AirSensor

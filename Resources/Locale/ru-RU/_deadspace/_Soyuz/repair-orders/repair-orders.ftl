@@ -24,17 +24,17 @@ repair-structural-analyzer-popup-off = Анализатор выключен.
 repair-structural-analyzer-construction-tray-scanner = Т-лучевой сканер
 repair-structural-analyzer-remove-entity = Убрать: { $entity }
 
-repair-order-damaged-engineering-sattelite-name = Спутник временно недоступен в вашем регионе
-repair-order-damaged-engineering-sattelite-description = Орбитальный спутник связи попал под небольшой метеоритный поток. Судя по двум бутылкам водки и оставленным рядом стопкам, дежурные инженеры относились к своей работе без особого энтузиазма. Противометеоритная защита не установлена, спутник выглядит так, будто его сдавали в эксплуатацию со словами «и так сойдёт».
-repair-order-damaged-cargo-shuttle-name = Доставка навылет
-repair-order-damaged-cargo-shuttle-description = Грузовой шаттл найден с массивной дырок от металлического стержня, прошедшего через корпус практически насквозь. Груз до пункта назначения не добрался. Зато в шаттл прибыл совершенно незапланированный груз.
-repair-order-damaged-briggle-name = Протокол задержания метеоритов
-repair-order-damaged-briggle-description = Патрульный шаттл милиции попал под плотный метеоритный поток. Экипаж, судя по повреждениям корпуса, до последнего пытался продолжать движение вместо того, чтобы покинуть опасный участок. Задержать метеориты за нарушение общественного порядка не удалось. Метеориты оказали сопротивление.
-repair-order-damaged-amber-name = Сухой закон
-repair-order-damaged-amber-description = Шаттл специального подразделения обнаружен дрейфующим без экипажа. Следов серьёзного боя не найдено, зато внутри установлен алкомат... Предварительная версия комиссии: шаттл не был потерян в бою. Его просто пропили.
+repair-order-damaged-engineering-sattelite-name = Восстановление орбитального спутника
+repair-order-damaged-engineering-sattelite-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-cargo-shuttle-name = Восстановление «Динеро Mk.II»
+repair-order-damaged-cargo-shuttle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-briggle-name = Восстановление «Бриггл»
+repair-order-damaged-briggle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-amber-name = Восстановление «Янтаря»
+repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 
 repair-orders-window-title = Инженерные ремонтные заказы
-repair-orders-next-offer = Следующее предложение:
+repair-orders-next-offer = Следующие предложения:
 repair-orders-activation-in-progress = Идёт поиск безопасного места и перенос повреждённого шаттла...
 repair-orders-completion-in-progress = Идёт завершение ремонтного заказа...
 repair-orders-available-heading = Доступные заказы
@@ -44,7 +44,7 @@ repair-orders-none-available = Сейчас нет доступных ремон
 repair-orders-none-active = Активного ремонтного заказа нет.
 repair-orders-none-completed = Завершённых ремонтных заказов пока нет.
 repair-orders-missing-prototype = Неизвестный заказ ({ $prototype })
-repair-orders-difficulty = Сложность: { $difficulty }
+repair-orders-difficulty = Класс работ: { $class } ({ $difficulty }/{ $max })
 repair-orders-status-active = Статус: активен
 repair-orders-time-remaining = Осталось: { $time }
 repair-orders-progress-tasks = Восстановлено: { $completed } / { $total }
@@ -101,7 +101,7 @@ repair-orders-report-title = [head=2]ОТЧЁТ О РЕМОНТНЫХ РАБОТ
 repair-orders-report-object-name = [bold]Наименование объекта:[/bold] { $value }
 repair-orders-report-object-type = [bold]Тип объекта:[/bold] { $value }
 repair-orders-report-order-name = [bold]Заказ:[/bold] { $value }
-repair-orders-report-difficulty = [bold]Сложность:[/bold] { $difficulty }
+repair-orders-report-difficulty = [bold]Класс работ:[/bold] { $class } ({ $difficulty }/{ $max })
 repair-orders-report-progress = [bold]Состояние ремонта:[/bold] { $percent }%
 repair-orders-report-final-progress = [bold]Итоговый прогресс:[/bold] { $percent }%
 repair-orders-report-tasks = [bold]Выполнено задач:[/bold] { $completed } / { $total }
@@ -120,3 +120,86 @@ repair-orders-report-partial-reward-pending-note = [bold]Примечание:[/
 repair-orders-error-printer-cooldown = Принтер отчётов ещё не готов.
 repair-orders-error-report-unavailable = Отчёт для этого ремонтного заказа недоступен.
 repair-orders-error-report-terminal-pending = Результат по истечению срока фиксируется. Попробуйте напечатать отчёт ещё раз через несколько секунд.
+
+repair-orders-object = { $type }: { $name }
+repair-orders-damage-heading = Характер повреждений:
+repair-orders-damage-unknown = Неуточнённые структурные повреждения
+repair-orders-damage-event = • { $event }
+repair-orders-damage-event-count = • { $event } ×{ $count }
+repair-orders-error-damage = Не удалось подготовить повреждения объекта. Предложение сохранено.
+
+repair-orders-waiver-heading = Технические исключения
+repair-orders-waiver-action = Техническое исключение: { $name }
+repair-orders-waiver-cancel-action = Отменить исключение: { $name }
+repair-orders-waiver-confirm = Исключить «{ $name }» ({ $points } очков) из обязательного ремонта?
+    Элемент не принесёт очков. Каждое активное исключение дополнительно удерживает 1% заработанных баллов. Итог не может быть ниже нуля.
+    Использовано: { $used } / { $max } очков (лимит — 50% исходной стоимости заказа).
+    Штраф после подтверждения: { $percent }%.
+repair-orders-waiver-cancel-confirm = Отменить исключение для «{ $name }»? Требование снова станет обязательным.
+    Штраф после отмены: { $percent }%.
+repair-orders-waiver-confirm-button = Подтвердить
+repair-orders-waiver-back = Назад
+repair-orders-waiver-unavailable = Требование недоступно, уже выполнено или заказ закрывается.
+repair-orders-waiver-limit = Превышен лимит исключений: максимум 50% исходной стоимости заказа.
+repair-orders-waiver-unknown = Неуточнённое требование
+repair-orders-waiver-summary = Технические исключения: { $count }
+    Исключено: { $used } / { $max } очков
+    Штраф при сдаче: { $percent }%
+    Фактически заработано: { $raw }. После штрафа: { $final }.
+repair-orders-waiver-report = Технических исключений: { $count }
+    Исключённая стоимость: { $used } / { $max }
+    Фактически заработано: { $raw }
+    Штраф за технические исключения: { $percent }% ({ $penalty } очков)
+    Итоговые баллы: { $final }
+repair-orders-waiver-report-entry = • { $name }, клетка ({ $x }, { $y }) — { $points } очков
+
+repair-orders-difficulty-class-1 = Текущий ремонт
+repair-orders-difficulty-class-2 = Плановый ремонт
+repair-orders-difficulty-class-3 = Расширенный ремонт
+repair-orders-difficulty-class-4 = Комплексный ремонт
+repair-orders-difficulty-class-5 = Восстановительный ремонт
+repair-orders-difficulty-class-6 = Капитальный ремонт
+repair-orders-difficulty-class-7 = Специальное восстановление
+repair-orders-difficulty-class-8 = Аварийное восстановление
+repair-orders-difficulty-class-9 = Критическое восстановление
+repair-orders-difficulty-class-10 = Полное восстановление
+
+repair-order-imported-description = Восстановите конструкцию и оборудование объекта по эталонному проекту. Объём работ указан в классе сложности заказа.
+repair-order-object-type-terminal = Орбитальный терминал
+repair-order-object-type-evacuation-shuttle = Эвакуационный шаттл
+repair-order-object-type-command-shuttle = Штабной шаттл
+repair-order-object-type-prison-complex = Тюремный комплекс
+repair-order-object-type-engineering-shuttle = Инженерный корабль
+repair-order-object-type-expedition-shuttle = Экспедиционный корабль
+repair-order-caravan-name = Восстановление объекта «Караван»
+repair-order-object-name-caravan = Караван
+repair-order-launch-name = Восстановление объекта «Баркас»
+repair-order-object-name-launch = Баркас
+repair-order-blizzard-name = Восстановление объекта «Вьюга»
+repair-order-object-name-blizzard = Вьюга
+repair-order-courier-name = Восстановление объекта «Курьер»
+repair-order-object-name-courier = Курьер
+repair-order-north-name = Восстановление объекта «Север»
+repair-order-object-name-north = Север
+repair-order-frontier-name = Восстановление объекта «Рубеж»
+repair-order-object-name-frontier = Рубеж
+repair-order-hope-name = Восстановление объекта «Надежда»
+repair-order-object-name-hope = Надежда
+repair-order-dawn-name = Восстановление объекта «Рассвет»
+repair-order-object-name-dawn = Рассвет
+repair-order-ark-name = Восстановление объекта «Ковчег»
+repair-order-object-name-ark = Ковчег
+repair-order-pennant-name = Восстановление объекта «Вымпел»
+repair-order-object-name-pennant = Вымпел
+repair-order-bastion-name = Восстановление объекта «Бастион»
+repair-order-object-name-bastion = Бастион
+repair-order-eclipse-name = Восстановление объекта «Затмение»
+repair-order-object-name-eclipse = Затмение
+repair-order-corsair-name = Восстановление объекта «Корсар»
+repair-order-object-name-corsair = Корсар
+repair-order-granite-name = Восстановление объекта «Гранит»
+repair-order-object-name-granite = Гранит
+repair-order-hephaestus-name = Восстановление объекта «Гефест»
+repair-order-object-name-hephaestus = Гефест
+repair-order-apogee-name = Восстановление объекта «Апогей»
+repair-order-object-name-apogee = Апогей

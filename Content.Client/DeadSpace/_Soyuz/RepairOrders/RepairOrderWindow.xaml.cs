@@ -18,7 +18,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
 
-    private readonly Dictionary<int, (TimeSpan ExpiresAt, Label Timer, Button Accept)> _offerControls = new();
+    private readonly Dictionary<int, Button> _offerControls = new();
     private RepairOrderBoundUserInterfaceState? _state;
     private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
 
@@ -34,6 +34,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)
     {
+        var showActive = state.Active != null && state.Active.RuntimeId != _state?.Active?.RuntimeId;
         _state = state;
         ActivationLabel.Visible = state.Accepting;
         CompletionLabel.Visible = state.Completing;
@@ -89,6 +90,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
         }
 
         UpdateTimers();
+        if (showActive)
+            OrderTabs.CurrentTab = 1;
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -116,12 +119,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         var title = entry.PrototypeId;
         var description = Loc.GetString("repair-orders-missing-prototype", ("prototype", entry.PrototypeId));
-        var difficulty = 0;
         if (_prototype.TryIndex<RepairOrderPrototype>(entry.PrototypeId, out var order))
         {
             title = Loc.GetString(order.Name);
             description = Loc.GetString(order.Description);
-            difficulty = order.Difficulty;
         }
 
         content.AddChild(new Label
@@ -131,17 +132,28 @@ public sealed partial class RepairOrderWindow : FancyWindow
             HorizontalExpand = true,
         });
 
+        if (order != null)
+        {
+            content.AddChild(new Label
+            {
+                Text = Loc.GetString("repair-orders-object", ("type", Loc.GetString(order.ObjectType)),
+                    ("name", Loc.GetString(order.ObjectName))),
+            });
+        }
+        if (!available)
+        {
+            AddDamageSummary(content, entry.DamageEvents);
+            AddExclusions(content, entry.Exclusions);
+        }
+
         var descriptionLabel = new RichTextLabel { HorizontalExpand = true };
         descriptionLabel.SetMarkup(description);
         content.AddChild(descriptionLabel);
 
-        content.AddChild(new Label
-        {
-            Text = Loc.GetString("repair-orders-difficulty", ("difficulty", difficulty)),
-            FontColorOverride = Color.LightGray,
-        });
+        if (order != null)
+            AddDifficulty(content, order.Difficulty);
 
-        if (!available || entry.ExpiresAt == null)
+        if (!available)
         {
             content.AddChild(new Label
             {
@@ -240,9 +252,6 @@ public sealed partial class RepairOrderWindow : FancyWindow
         };
         content.AddChild(footer);
 
-        var timer = new Label { VerticalAlignment = VAlignment.Center };
-        footer.AddChild(timer);
-
         var accept = new Button
         {
             Text = Loc.GetString("repair-orders-accept"),
@@ -252,8 +261,26 @@ public sealed partial class RepairOrderWindow : FancyWindow
         accept.OnPressed += _ => OnAccept?.Invoke(entry.RuntimeId);
         footer.AddChild(accept);
 
-        _offerControls[entry.RuntimeId] = (entry.ExpiresAt.Value, timer, accept);
+        _offerControls[entry.RuntimeId] = accept;
         return panel;
+    }
+
+    private static void AddExclusions(BoxContainer content, RepairExclusionTotals totals)
+    {
+        var label = new RichTextLabel { HorizontalExpand = true };
+        label.SetMessage(Loc.GetString("repair-orders-waiver-summary", ("count", totals.Count),
+            ("used", totals.WaivedPoints), ("max", totals.MaxWaivedPoints), ("percent", totals.PenaltyPercent),
+            ("raw", totals.RawPoints), ("final", totals.FinalPoints)));
+        content.AddChild(label);
+    }
+
+    private static void AddDifficulty(BoxContainer content, int difficulty)
+    {
+        var label = new RichTextLabel { HorizontalExpand = true };
+        label.SetMarkup(Loc.GetString("repair-orders-difficulty",
+            ("class", Loc.GetString(RepairOrderDifficulty.GetName(difficulty))),
+            ("difficulty", difficulty), ("max", RepairOrderDifficulty.Maximum)));
+        content.AddChild(label);
     }
 
     private Control CreateCompletedCard(RepairOrderCompletedBuiEntry entry)
@@ -289,6 +316,12 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 : "repair-orders-status-completed"),
             FontColorOverride = entry.Result == RepairOrderResult.Expired ? Color.Orange : Color.LightGreen,
         });
+
+        if (order != null)
+            AddDifficulty(content, order.Difficulty);
+
+        AddDamageSummary(content, entry.DamageEvents);
+        AddExclusions(content, entry.Exclusions);
 
         if (entry.Rewards.Count > 0)
         {
@@ -362,6 +395,17 @@ public sealed partial class RepairOrderWindow : FancyWindow
         return panel;
     }
 
+    private void AddDamageSummary(BoxContainer content, string[] events)
+    {
+        content.AddChild(new Label { Text = Loc.GetString("repair-orders-damage-heading"), StyleClasses = { "LabelHeading" } });
+        var summary = new RichTextLabel { HorizontalExpand = true };
+        summary.SetMessage(RepairDamageSummary.Format(_prototype, events, detailed: false));
+        content.AddChild(summary);
+        var details = new RichTextLabel { HorizontalExpand = true };
+        details.SetMessage(RepairDamageSummary.Format(_prototype, events, detailed: true));
+        content.AddChild(details);
+    }
+
     private void UpdateTimers()
     {
         if (_state == null)
@@ -369,16 +413,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         NextOfferLabel.Text = FormatRemaining(_state.NextOffer - _timing.CurTime);
 
-        foreach (var (_, controls) in _offerControls)
+        foreach (var accept in _offerControls.Values)
         {
-            var remaining = controls.ExpiresAt - _timing.CurTime;
-            controls.Timer.Text = Loc.GetString(
-                "repair-orders-expires-in",
-                ("time", FormatRemaining(remaining)));
-            controls.Accept.Disabled = _state.Active != null ||
-                                       _state.Accepting ||
-                                       _state.Completing ||
-                                       remaining <= TimeSpan.Zero;
+            accept.Disabled = _state.Active != null || _state.Accepting || _state.Completing ||
+                              _state.NextOffer <= _timing.CurTime;
         }
 
         if (_activeControls is { } activeControls)

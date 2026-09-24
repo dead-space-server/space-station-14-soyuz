@@ -121,7 +121,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            var rewardBudget = RepairOrderRewardBudget.ForSuccessfulCompletion(active.CurrentPoints);
+            var rewardBudget = RepairOrderRewardBudget.ForSuccessfulCompletion(active.FinalPoints);
             active.PendingRewards ??= _rewards.GenerateRewards(order, rewardBudget);
             var rewards = active.PendingRewards;
             var completed = new CompletedRepairOrder(
@@ -129,7 +129,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 active.Prototype,
                 active.CompletedTasks,
                 active.TotalTasks,
-                active.CurrentPoints,
+                active.FinalPoints,
                 active.MaxPoints,
                 rewardBudget,
                 RepairOrderResult.Completed,

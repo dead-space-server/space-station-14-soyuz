@@ -1,26 +1,35 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT
 
 using Content.Server.Popups;
+using Content.Server.Pinpointer;
 using Content.Server.Power.Components;
+using Content.Server.Radio.EntitySystems;
 using Content.Server.Station.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.DeadSpace._Soyuz.MeteorDefense;
 using Content.Shared.Interaction;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
+using Content.Shared.Radio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
 
 namespace Content.Server.DeadSpace._Soyuz.MeteorDefense;
 
 public sealed class MeteorDefenseSystem : EntitySystem
 {
+    private static readonly ProtoId<RadioChannelPrototype> EngineeringChannel = "Engineering";
+
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly SharedBatterySystem _battery = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly RadioSystem _radio = default!;
+    [Dependency] private readonly NavMapSystem _navMap = default!;
 
     private float _uiElapsed;
 
@@ -136,6 +145,9 @@ public sealed class MeteorDefenseSystem : EntitySystem
             // attempt in this tick sees the remainder. Never partially pay for a failed interception.
             _battery.SetCharge((uid, battery), charge - cost);
             args.Cancelled = true;
+            var location = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(uid));
+            var message = Loc.GetString("meteor-defense-intercept-radio", ("location", location));
+            _radio.SendRadioMessage(uid, message, EngineeringChannel, uid);
             UpdateUi(uid, comp);
             return;
         }

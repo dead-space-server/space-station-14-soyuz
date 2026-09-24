@@ -383,7 +383,9 @@
     - id: ERTloadoutSecuritySecondary # DS14
     - id: ClothingNeckBodyCamera # DS14
     - id: PortableCameraMonitor # DS14
-    - id: WeaponRifleAEK # DS14-Soyuz replaced
+    - id: WeaponRifleAEK # DS14-Soyuz
+    - id: PolaroidCamera # DS14-Soyuz
+    - id: BoxPolaroidCartridges # DS14-Soyuz
     - id: BoxMagazineLightRifle # DS14
     - id: PatrolTablet # DS14
     - id: PlushieLizardJobHeadofsecurity

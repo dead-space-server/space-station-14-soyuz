@@ -1,0 +1,60 @@
+- type: job
+  id: Politkom
+  name: job-name-Politkom
+  description: job-description-Politkom
+  playTimeTracker: JobPolitkom
+  startingGear: PolitkomGear
+  whitelisted: true
+  icon: "JobIconPolitkom"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB
+  #start-backmen: currency
+  minBankBalance: 800
+  maxBankBalance: 1200
+  wageDepartment: Command
+  wage: 200
+  #end-backmen: currency
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+  - !type:AddComponentSpecial
+    components:
+      - type: CommandStaff
+
+- type: startingGear
+  id: PolitkomGear
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesCombat
+    id: PolitkomPDA
+    ears: ClothingHeadsetAltCentCom
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+    underweart: ClothingUnderwearTopTelnikPolitOtdel
+    back: ClothingBackpackSatchelOfficial
+  storage:
+    back:
+    - Flash
+    - RubberStampPolitkom
+    - PoliticalLoudspeaker
+
+- type: chameleonOutfit
+  id: PolitkomChameleonOutfit
+  job: Politkom
+  hasMindShield: true
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesSecurity
+    gloves: ClothingHandsGlovesColorBlack
+    ears: ClothingHeadsetAltCentCom
+    socks: ClothingUnderwearSocksPolitOtdelLong
+    jumpsuit: ClothingUniformJumpsuitPolitRukFormal
+    head: ClothingHeadHatBeretPolitruk
+    back: ClothingBackpackSatchelOfficial
+    underwearb: ClothingUnderwearBottomBoxersPolitOtdel
+    underweart: ClothingUnderwearTopTelnikPolitOtdel

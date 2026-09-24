@@ -4,3 +4,9 @@
   - CloningConsoleComputerCircuitboardSoyuz
   - ExperimentalCloningPodMachineCircuitboard
   - MedicalScannerMachineCircuitboardSoyuz
+
+- type: latheRecipePack
+  id: PolaroidCamera
+  recipes:
+  - PolaroidCamera
+  - PolaroidCartridge

@@ -14,6 +14,12 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 [Access(typeof(RepairOrderValidationSystem), typeof(RepairStructuralAnalyzerSystem))]
 public sealed partial class RepairBlueprintComponent : Component
 {
+    public readonly Dictionary<RepairRequirementKey, int> RequirementIds = new();
+    public readonly Dictionary<int, RepairWaivedRequirement> WaivedRequirements = new();
+    public int NextRequirementId = 1;
+    public int MaxWaivedPoints;
+    public bool CanComplete;
+
     [ViewVariables]
     public EntityUid Station;
 
@@ -42,13 +48,6 @@ public sealed partial class RepairBlueprintComponent : Component
     /// </summary>
     [ViewVariables]
     public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
-
-    /// <summary>
-    /// Runtime tile id canonicalization map generated from the score profile.
-    /// This lets validation compare equivalent tile definitions without changing analyzer visuals.
-    /// </summary>
-    [ViewVariables]
-    public readonly Dictionary<int, int> TileIdentityIds = new();
 
     [ViewVariables]
     public int TotalTasks;
@@ -79,7 +78,11 @@ public sealed partial class RepairBlueprintComponent : Component
 public sealed class RepairExpectedCellState
 {
     [ViewVariables]
-    public RepairExpectedTileState? Tile;
+    public readonly Dictionary<RepairTileLayer, RepairExpectedTileState> Tiles = new();
+
+    // The original visible tile is still available to diagnostics and map coverage checks.
+    public RepairExpectedTileState? Tile => Tiles.GetValueOrDefault(RepairTileLayer.Floor)
+        ?? Tiles.GetValueOrDefault(RepairTileLayer.Plating) ?? Tiles.GetValueOrDefault(RepairTileLayer.Lattice);
 
     [ViewVariables]
     public readonly List<RepairExpectedEntityState> Entities = new();
@@ -130,7 +133,7 @@ public sealed class RepairExpectedEntityState
 public sealed class RepairUnexpectedCellBaseline
 {
     [ViewVariables]
-    public RepairUnexpectedTileBaseline? Tile;
+    public readonly Dictionary<RepairTileLayer, RepairUnexpectedTileBaseline> Tiles = new();
 
     [ViewVariables]
     public readonly List<RepairUnexpectedEntityBaseline> Entities = new();
@@ -165,6 +168,10 @@ public sealed class RepairUnexpectedEntityBaseline
 /// </summary>
 public sealed class RepairTask
 {
+    public int RequirementId;
+    public bool Waived;
+    public RepairTileLayer TileLayer;
+
     [ViewVariables]
     public RepairTaskType Type;
 
@@ -226,8 +233,13 @@ public sealed class RepairTask
     public RepairTaskState State;
 }
 
+/// <summary>
+/// Canonical comparison state plus the original prototype used only for valuation.
+/// Identity comparisons ignore ValuePrototype, including unexpected baseline matching.
+/// </summary>
 public readonly record struct RepairAnchoredEntitySignature(
     string Prototype,
     Vector2 LocalPosition,
     Angle LocalRotation,
-    RepairRotationMode RotationMode);
+    RepairRotationMode RotationMode,
+    string? ValuePrototype = null);

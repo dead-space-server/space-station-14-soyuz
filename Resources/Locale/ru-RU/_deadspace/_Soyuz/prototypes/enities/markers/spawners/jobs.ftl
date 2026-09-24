@@ -1,8 +1,10 @@
-ent-SpawnPointOperatorGS = точка спавна оператора ГШ
+ent-SpawnPointOperatorGS = точка спавна Оператора ГШ
     .desc = { ent-SpawnPointJobBase.desc }
 ent-SpawnPointPolitruk = точка спавна Политического Руководителя
     .desc = { ent-SpawnPointJobBase.desc }
 ent-SpawnPointPolitkom = точка спавна Политического Комиссара
     .desc = { ent-SpawnPointJobBase.desc }
 ent-SpawnPointOfficerGS = Точка спавна Офицера ГШ
+    .desc = { ent-SpawnPointJobBase.desc }
+ent-SpawnPointOKGB = Точка спавна Оперативника КГБ Штаба
     .desc = { ent-SpawnPointJobBase.desc }

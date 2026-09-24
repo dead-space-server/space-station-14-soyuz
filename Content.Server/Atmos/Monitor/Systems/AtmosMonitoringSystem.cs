@@ -486,7 +486,12 @@ public sealed class AtmosMonitorSystem : EntitySystem
         SetThreshold(uid, AtmosMonitorThresholdType.Pressure, allThresholdData.PressureThreshold);
         foreach (var gas in Enum.GetValues<Gas>())
         {
-            SetThreshold(uid, AtmosMonitorThresholdType.Gas, allThresholdData.GasThresholds[gas], gas);
+            // DS14-Soyuz start
+            if (allThresholdData.GasThresholds.TryGetValue(gas, out var threshold))
+                SetThreshold(uid, AtmosMonitorThresholdType.Gas, threshold, gas);
+            else
+                Log.Error($"Copied air sensor data for {ToPrettyString(uid)} has no threshold for {gas}.");
+            // DS14-Soyuz end
         }
     }
 }

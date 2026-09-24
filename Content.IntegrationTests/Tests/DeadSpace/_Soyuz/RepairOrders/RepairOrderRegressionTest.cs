@@ -66,10 +66,9 @@ public sealed partial class RepairOrderRegressionTest
                 entMan.RemoveComponent<AccessReaderComponent>(console);
                 var actor = entMan.SpawnEntity(null, map.GridCoords);
                 var prototype = SelectOrder(server.ProtoMan);
-                var now = server.ResolveDependency<IGameTiming>().CurTime;
                 var runtimeId = station.Comp.NextRuntimeId++;
                 station.Comp.Available.Clear();
-                station.Comp.Available.Add(runtimeId, new AvailableRepairOrder(runtimeId, prototype.ID, now + TimeSpan.FromMinutes(1)));
+                station.Comp.Available.Add(runtimeId, new AvailableRepairOrder(runtimeId, prototype.ID));
                 var called = 0;
                 var observedCompleteCommit = false;
                 listener.OnActivated = ev =>
@@ -172,29 +171,24 @@ public sealed partial class RepairOrderRegressionTest
                 Assert.That(uiSystem.TryGetUiState<RepairOrderBoundUserInterfaceState>(console, RepairOrderUiKey.Key, out var unchangedUi), Is.True);
                 Assert.That(unchangedUi, Is.SameAs(initialUi), "An unchanged dirty batch must not publish another UI state.");
 
-                // Replace two tiles without removing support or splitting the grid.
+                // Materials within the same layer are equivalent; analyzer visuals retain the target tile.
                 var definitions = server.ResolveDependency<ITileDefinitionManager>();
-                IReadOnlyDictionary<int, int> tileIdentities = blueprint.TileIdentityIds;
                 for (var i = 0; i < cells.Length; i++)
                 {
-                    var canonical = cells[i].Value.Tile!.CanonicalTileId;
-                    var wrongTile = definitions.First(definition => definition.TileId != Tile.Empty.TypeId &&
-                        (tileIdentities.TryGetValue(definition.TileId, out var id) ? id : definition.TileId) != canonical);
-                    maps.SetTile(repairGrid, grid.Comp, cells[i].Key, new Tile(wrongTile.TileId));
+                    var originalLayer = RepairValueCatalog.GetTileLayer((Content.Shared.Maps.ContentTileDefinition) definitions[tiles[i].TypeId]);
+                    var otherTile = definitions.Cast<Content.Shared.Maps.ContentTileDefinition>().First(definition =>
+                        RepairValueCatalog.GetTileLayer(definition) == originalLayer && definition.TileId != tiles[i].TypeId);
+                    maps.SetTile(repairGrid, grid.Comp, cells[i].Key, new Tile(otherTile.TileId));
                 }
-
                 validation.Update(0f);
-                var penalty = cells.Sum(entry => entry.Value.Tile!.Points);
-                Assert.That(active.CompletedTasks, Is.EqualTo(initial.CompletedTasks - cells.Length));
-                Assert.That(active.TotalTasks, Is.EqualTo(initial.TotalTasks));
-                Assert.That(active.CurrentPoints, Is.EqualTo(initial.CurrentPoints - penalty));
-                Assert.That(active.MaxPoints, Is.EqualTo(initial.MaxPoints));
-                Assert.That(blueprint.FullyMatchesTarget, Is.False);
+                Assert.That((active.CompletedTasks, active.TotalTasks, active.CurrentPoints, active.MaxPoints), Is.EqualTo(initial));
+                Assert.That(blueprint.FullyMatchesTarget, Is.True);
                 Assert.That(uiSystem.TryGetUiState<RepairOrderBoundUserInterfaceState>(console, RepairOrderUiKey.Key, out var changedUi), Is.True);
-                Assert.That(changedUi, Is.Not.SameAs(initialUi));
-                Assert.That(changedUi!.Active!.CurrentPoints, Is.EqualTo(active.CurrentPoints));
+                Assert.That(changedUi, Is.SameAs(initialUi));
                 Assert.That(validation.TryRevalidateForCompletion(repairGrid, out var matches), Is.True);
-                Assert.That(matches, Is.False);
+                Assert.That(matches, Is.True);
+                for (var i = 0; i < cells.Length; i++)
+                    Assert.That(cells[i].Value.Tile!.TileId, Is.EqualTo(tiles[i].TypeId));
 
                 for (var i = 0; i < cells.Length; i++)
                     maps.SetTile(repairGrid, grid.Comp, cells[i].Key, tiles[i]);

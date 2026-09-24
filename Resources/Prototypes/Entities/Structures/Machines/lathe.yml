@@ -220,6 +220,7 @@
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
     - ExperimentalCloning # DS14-Soyuz
+    - PolaroidCamera # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - Vehicle # DS14
   - type: EmagLatheRecipes
@@ -228,6 +229,11 @@
     - SecurityExplosives
     - SecurityEquipment
     - SecurityWeapons
+  # DS14-Soyuz-start
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [["Research"]]
+  # DS14-Soyuz-end
 
 - type: entity
   id: ProtolatheHyperConvection
@@ -275,6 +281,7 @@
     - LanguageImplanters
     - MedicalDynamic
     - ExperimentalCloning
+    - PolaroidCamera
     - ProcessingTungsten
     - Vehicle
   #DS14-soyuz end
@@ -330,6 +337,11 @@
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
   - type: RequireProjectileTarget
+  # DS14-Soyuz-start
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [["Research"]]
+  # DS14-Soyuz-end
 
 - type: entity
   id: CircuitImprinterHyperConvection
@@ -668,6 +680,11 @@
       staticPacks:
       - OreSmelting
       - RGlassSmelting
+    # DS14-Soyuz-start
+    - type: ActivatableUIRequiresAccess
+    - type: AccessReader
+      access: [["Salvage"], ["SeniorSalvage"]]
+    # DS14-Soyuz-end
 #DS14-start
     - type: LavalandOreRedeemer
       miningAccess:

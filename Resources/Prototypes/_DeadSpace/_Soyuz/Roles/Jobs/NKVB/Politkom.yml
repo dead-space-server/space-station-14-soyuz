@@ -5,7 +5,6 @@
   playTimeTracker: JobPolitkom
   startingGear: PolitkomGear
   whitelisted: true
-  weight: 2
   icon: "JobIconPolitkom"
   supervisors: job-supervisors-centcom
   canBeAntag: false

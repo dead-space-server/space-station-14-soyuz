@@ -4,7 +4,6 @@
   description: job-description-OperatorGS
   playTimeTracker: JobOperatorGS
   whitelisted: True
-  weight: 20
   startingGear: OperatorGSGear
   icon: "JobIconNanotrasen"
   canBeAntag: false
@@ -36,3 +35,14 @@
     eyes: ClothingEyesGlassesHiddenSecurity
     back: ClothingBackpackSatchelOfficial
     socks: ClothingUnderwearSocksNormal
+
+- type: chameleonOutfit
+  id: OperatorGSChameleonOutfit
+  job: OperatorGS
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatCentcomcap
+    gloves: ClothingHandsGlovesCentcomNaval
+    neck: ClothingNeckCloakCentcom
+    back: ClothingBackpackSatchelOfficial

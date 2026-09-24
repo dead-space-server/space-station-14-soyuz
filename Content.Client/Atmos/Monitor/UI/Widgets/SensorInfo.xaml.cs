@@ -25,6 +25,8 @@ public sealed partial class SensorInfo : BoxContainer
     private ThresholdControl _temperatureThreshold;
     private Dictionary<Gas, ThresholdControl> _gasThresholds = new();
     private Dictionary<Gas, RichTextLabel> _gasLabels = new();
+    // DS14-Soyuz
+    private readonly HashSet<Gas> _missingThresholds = new();
     private Button _copySettings => CCopySettings;
 
     public SensorInfo(AtmosSensorData data, string address)
@@ -57,17 +59,22 @@ public sealed partial class SensorInfo : BoxContainer
 
             ProtoId<GasPrototype> gasProtoId = atmosphereSystem.GetGas(gas);
             var gasName = _prototypeManager.Index(gasProtoId).Name;
+            // DS14-Soyuz start
+            var hasThreshold = TryGetGasThreshold(data, gas, out var threshold);
 
             label.SetMarkup(Loc.GetString("air-alarm-ui-gases-indicator",
                 ("gas", Loc.GetString(gasName)),
-                ("color", AirAlarmWindow.ColorForThreshold(fractionGas, data.GasThresholds[gas])),
+                ("color", hasThreshold ? AirAlarmWindow.ColorForThreshold(fractionGas, threshold!) : Color.White),
                 ("amount", $"{amount:0.####}"),
                 ("percentage", $"{(100 * fractionGas):0.##}")));
             GasContainer.AddChild(label);
             _gasLabels.Add(gas, label);
 
-            var threshold = data.GasThresholds[gas];
-            var gasThresholdControl = new ThresholdControl(Loc.GetString($"air-alarm-ui-thresholds-gas-title"), threshold, AtmosMonitorThresholdType.Gas, gas, 100);
+            if (!hasThreshold)
+                continue;
+
+            var gasThresholdControl = new ThresholdControl(Loc.GetString($"air-alarm-ui-thresholds-gas-title"), threshold!, AtmosMonitorThresholdType.Gas, gas, 100);
+            // DS14-Soyuz end
             gasThresholdControl.Margin = new Thickness(20, 2, 2, 2);
             gasThresholdControl.ThresholdDataChanged += (type, alarmThreshold, arg3) =>
             {
@@ -124,19 +131,26 @@ public sealed partial class SensorInfo : BoxContainer
         {
             if (!_gasLabels.TryGetValue(gas, out var label))
             {
-                continue;
+                // DS14-Soyuz start
+                label = new RichTextLabel();
+                GasContainer.AddChild(label);
+                _gasLabels.Add(gas, label);
+                // DS14-Soyuz end
             }
 
             var fractionGas = amount / data.TotalMoles;
 
             ProtoId<GasPrototype> gasProtoId = atmosphereSystem.GetGas(gas);
             var gasName = _prototypeManager.Index(gasProtoId).Name;
+            // DS14-Soyuz start
+            var hasThreshold = TryGetGasThreshold(data, gas, out var threshold);
 
             label.SetMarkup(Loc.GetString("air-alarm-ui-gases-indicator",
                 ("gas", Loc.GetString(gasName)),
-                ("color", AirAlarmWindow.ColorForThreshold(fractionGas, data.GasThresholds[gas])),
+                ("color", hasThreshold ? AirAlarmWindow.ColorForThreshold(fractionGas, threshold!) : Color.White),
                 ("amount", $"{amount:0.####}"),
                 ("percentage", $"{(100 * fractionGas):0.##}")));
+            // DS14-Soyuz end
         }
 
         _pressureThreshold.UpdateThresholdData(data.PressureThreshold, data.Pressure);
@@ -148,8 +162,23 @@ public sealed partial class SensorInfo : BoxContainer
                 continue;
             }
 
-            control.UpdateThresholdData(threshold, data.Gases[gas] / data.TotalMoles);
+            // DS14-Soyuz start
+            if (data.Gases.TryGetValue(gas, out var amount))
+                control.UpdateThresholdData(threshold, amount / data.TotalMoles);
+            // DS14-Soyuz end
         }
     }
+
+    // DS14-Soyuz start
+    private bool TryGetGasThreshold(AtmosSensorData data, Gas gas, out AtmosAlarmThreshold? threshold)
+    {
+        if (data.GasThresholds.TryGetValue(gas, out threshold))
+            return true;
+
+        if (_missingThresholds.Add(gas))
+            Logger.Error($"Air sensor {_address} has no threshold for {gas}.");
+        return false;
+    }
+    // DS14-Soyuz end
 
  }

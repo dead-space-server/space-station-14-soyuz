@@ -30,6 +30,29 @@
       Zauker: stationZauker
       Antinoblium: stationAntinoblium
       # DS14-end
+      # DS14-Soyuz start
+      Kryoxide: danger
+      Etherite: danger
+      Isoflux: danger
+      Resonite: danger
+      Pyroxite: danger
+      Coronite: danger
+      Gravion: danger
+      Radion: danger
+      QuartzGas: danger
+      ImpulseGas: danger
+      Iney: danger
+      Diborane: danger
+      GammaGas: danger
+      Forsazh: danger
+      Sumrak: danger
+      Lumin: danger
+      Lazarus: danger
+      Chromatin: danger
+      Tlec: danger
+      Detonite: danger
+      Boracite: danger
+      # DS14-Soyuz end
 
 - type: entity
   parent: [AirSensorVoxBase, AirSensor]
@@ -79,6 +102,29 @@
     - Zauker
     - Antinoblium
     # DS14-end
+    # DS14-Soyuz start
+    - Kryoxide
+    - Etherite
+    - Isoflux
+    - Resonite
+    - Pyroxite
+    - Coronite
+    - Gravion
+    - Radion
+    - QuartzGas
+    - ImpulseGas
+    - Iney
+    - Diborane
+    - GammaGas
+    - Forsazh
+    - Sumrak
+    - Lumin
+    - Lazarus
+    - Chromatin
+    - Tlec
+    - Detonite
+    - Boracite
+    # DS14-Soyuz end
 
 # use this to prevent overriding filters with hardcoded defaults
 - type: entity

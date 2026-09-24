@@ -3,6 +3,7 @@ using Content.Shared.Botany.Events;
 using Content.Shared.Botany.Systems;
 using Content.Shared.Botany.Traits.Components;
 using Content.Shared.Interaction;
+using Content.Shared.Kitchen.Components;
 using Content.Shared.Popups;
 using Content.Shared.Tools.Systems;
 
@@ -14,6 +15,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
     // DS14-start
     [Dependency] private readonly PlantHarvestSystem _plantHarvest = default!;
     [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
+    [Dependency] private readonly PlantTraySystem _plantTray = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedToolSystem _tool = default!;
 
@@ -25,6 +27,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
         // DS14-start: current engine uses explicit event subscriptions and query initialization.
         base.Initialize();
         SubscribeLocalEvent<PlantTraitLigneousComponent, InteractUsingEvent>(OnInteractUsing);
+        SubscribeLocalEvent<PlantTrayComponent, InteractUsingEvent>(OnTrayInteractUsing);
         _holderQuery = GetEntityQuery<PlantHolderComponent>();
         // DS14-end
 
@@ -39,26 +42,45 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
         if (!_holderQuery.TryComp(ent.Owner, out var holder)) // DS14
             return;
 
-        if (!holder.ReadyForHarvest) // DS14
+        TryHarvestWithTool(ent.Owner, ent.Comp, holder, ref args);
+    }
+
+    // DS14-Soyuz start: allow sharp tools to harvest ligneous plants through their tray.
+    private void OnTrayInteractUsing(Entity<PlantTrayComponent> ent, ref InteractUsingEvent args)
+    {
+        if (args.Handled || !_plantTray.TryGetPlant(ent.AsNullable(), out var plantUid) ||
+            !TryComp<PlantTraitLigneousComponent>(plantUid, out var ligneous) ||
+            !_holderQuery.TryComp(plantUid, out var holder))
             return;
 
-        if (_plantHolder.IsDead(ent.Owner))
+        TryHarvestWithTool(plantUid.Value, ligneous, holder, ref args);
+    }
+
+    private void TryHarvestWithTool(EntityUid plant, PlantTraitLigneousComponent ligneous,
+        PlantHolderComponent holder, ref InteractUsingEvent args)
+    {
+        if (!holder.ReadyForHarvest)
+            return;
+
+        if (_plantHolder.IsDead(plant))
         {
             _popup.PopupCursor(Loc.GetString("plant-component-dead-plant-message"), args.User);
             return;
         }
 
-        // Ligneous requires sharp tool.
-        var harvestToolQuality = ent.Comp.HarvestToolQuality;
-        if (harvestToolQuality.HasValue && !_tool.HasQuality(args.Used, harvestToolQuality.Value))
+        // Hatchets and scythes use Sharp, while saws expose the configured tool quality.
+        var harvestToolQuality = ligneous.HarvestToolQuality;
+        if (!HasComp<SharpComponent>(args.Used) &&
+            (!harvestToolQuality.HasValue || !_tool.HasQuality(args.Used, harvestToolQuality.Value)))
         {
             _popup.PopupCursor(Loc.GetString("plant-component-ligneous-cant-harvest-message"), args.User);
             return;
         }
 
-        _plantHarvest.TryHandleHarvest(ent.Owner, args.User);
+        _plantHarvest.TryHandleHarvest(plant, args.User);
         args.Handled = true;
     }
+    // DS14-Soyuz end
 
     private void OnDoHarvest(Entity<PlantTraitLigneousComponent> ent, ref DoHarvestEvent args)
     {

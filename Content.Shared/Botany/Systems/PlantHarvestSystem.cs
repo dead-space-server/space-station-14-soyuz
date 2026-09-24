@@ -58,7 +58,10 @@ public sealed partial class PlantHarvestSystem : EntitySystem
             return;
 
         // TODO: Remove this once trays have a proper UI.
-        TryHandleHarvest(plantUid.Value, args.User);
+        // DS14-Soyuz start: let plant traits reject hand harvesting through the tray.
+        var ev = new DoHarvestEvent(args.User, plantUid.Value);
+        RaiseLocalEvent(plantUid.Value, ref ev);
+        // DS14-Soyuz end
         args.Handled = true;
     }
 

@@ -1,0 +1,2591 @@
+# Clean-room Soyuz botany prototypes.
+# All prototype logic and text are locally rewritten; each RSI keeps its own
+# license metadata. No AGPL C# implementation was imported.
+
+- type: entity
+  parent: BaseHandheldComputer
+  id: SoyuzPlantAnalyzer
+  name: plant analyzer
+  description: Переносной прибор для анализа растений и семян.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/healthanalyzer.rsi
+    state: icon
+  - type: Item
+    storedRotation: -90
+  - type: ActivatableUI
+    key: enum.SoyuzPlantAnalyzerUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.SoyuzPlantAnalyzerUiKey.Key:
+        type: SoyuzPlantAnalyzerBoundUserInterface
+  - type: SoyuzPlantAnalyzer
+    scanDelay: 0.5
+    advancedScanDelay: 1
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: SoyuzPlantAnalyzer
+  result: SoyuzPlantAnalyzer
+  categories:
+  - Tools
+  completetime: 3
+  materials:
+    Steel: 500
+    Glass: 500
+    Plastic: 100
+    Gold: 100
+
+- type: flavor
+  id: spices
+  flavorType: Complex
+  description: flavor-complex-spices
+
+- type: flavor
+  id: avocado
+  flavorType: Complex
+  description: flavor-complex-avocado
+
+- type: flavor
+  id: cucumber
+  flavorType: Complex
+  description: flavor-complex-cucumber
+
+- type: flavor
+  id: hairy
+  flavorType: Complex
+  description: flavor-complex-hairy
+
+- type: flavor
+  id: honeycomb
+  flavorType: Complex
+  description: flavor-complex-honeycomb
+
+- type: flavor
+  id: pomegranate
+  flavorType: Complex
+  description: flavor-complex-pomegranate
+
+- type: flavor
+  id: granatapfel
+  flavorType: Complex
+  description: flavor-complex-granatapfel
+
+- type: Tag
+  id: Lemo
+
+- type: Tag
+  id: ShellCoconut
+
+- type: Tag
+  id: NFGlowshroomSpores
+
+- type: reagent
+  id: Everyspice
+  name: reagent-name-everyspice
+  group: Foods
+  desc: reagent-desc-everyspice
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: spices
+  flavorMinimum: 0.05
+  color: "#7a481f"
+  recognizable: true
+
+- type: reagent
+  id: ButterfliesBiggerReagent
+  name: reagent-name-butterfliesbigger
+  group: Toxins
+  desc: reagent-desc-butterfliesbigger
+  physicalDesc: reagent-physical-desc-reallynervous
+  flavor: sweet
+  color: "#c0992e"
+  metabolisms:
+    Poison:
+      effects:
+      - !type:PopupMessage
+        type: Local
+        messages:
+        - butterflies-effect-stomach
+        - butterflies-effect-looks
+        - butterflies-effect-heart
+        - butterflies-effect-exciting
+        - butterflies-effect-hands
+        - butterflies-effect-chaos
+        - butterflies-effect-chaos-two
+        - butterflies-effect-chaos-three
+        probability: 0.4
+
+- type: reagent
+  id: DevilJuice
+  name: reagent-name-devil-juice
+  group: Toxins
+  desc: reagent-desc-devil-juice
+  physicalDesc: reagent-physical-desc-devil-juice
+  flavor: bitter
+  color: "#66181a"
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1.5
+            Cellular: 1
+
+- type: reagent
+  id: Honey
+  name: reagent-name-honey
+  group: Foods
+  desc: reagent-desc-honey
+  physicalDesc: reagent-physical-desc-gloopy
+  flavor: honey
+  flavorMinimum: 0.05
+  color: "#e79a3f"
+  viscosity: 0.5
+  recognizable: true
+  metabolisms:
+    Food:
+      effects:
+      - !type:SatiateHunger
+        factor: 1
+  footstepSound:
+    collection: FootstepSticky
+    params:
+      volume: 6
+
+- type: reagent
+  id: JuicePomegranate
+  name: reagent-name-juice-pomegranate
+  parent: BaseJuice
+  desc: reagent-desc-juice-pomegranate
+  physicalDesc: reagent-physical-desc-crisp
+  flavor: fruity
+  color: "#a8151a"
+  recognizable: true
+
+- type: reagent
+  id: NevcottaPowder
+  name: reagent-name-nevcottapowder
+  group: Toxins
+  desc: reagent-desc-nevcottapowder
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: bitter
+  color: "#faf9f6"
+  metabolisms:
+    Poison:
+      metabolismRate: 0.05
+      effects:
+      - !type:Vomit
+        conditions:
+        - !type:ReagentCondition
+          reagent: NevcottaPowder
+          min: 10
+        probability: 0.15
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Asphyxiation: 0.25
+      - !type:ModifyParalysis
+        probability: 0.05
+        time: 2
+
+- type: reagent
+  id: Negacordrazine
+  name: reagent-name-negacordrazine
+  group: Medicine
+  desc: reagent-desc-negacordrazine
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#d34b26"
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.2
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:TotalDamageCondition
+          min: 30
+        damage:
+          types:
+            Asphyxiation: -1
+            Bloodloss: -1
+            Blunt: -0.4
+            Slash: -0.4
+            Piercing: -0.4
+            Heat: -0.4
+            Shock: -0.4
+            Cold: -0.4
+            Caustic: -0.4
+            Poison: -1
+            Radiation: -1
+
+- type: constructionGraph
+  id: Everyspice
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: FoodEveryspiceRoasted
+      completed:
+      - !type:PlaySound
+        sound: /Audio/Effects/sizzle.ogg
+      steps:
+      - minTemperature: 365
+  - node: FoodEveryspiceRoasted
+    entity: FoodEveryspiceRoasted
+
+- type: foodSequenceElement
+  id: Everyspice
+  scale: 0.8, 0.8
+  name: food-sequence-content-everyspice
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Avocado
+  name: food-sequence-content-avocado
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Cucumber
+  name: food-sequence-content-cucumber
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Pickle
+  name: food-sequence-content-pickle
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Honeycomb
+  name: food-sequence-content-honeycomb
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Monkanana
+  name: food-sequence-content-monkanana
+  sprites:
+  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Pomegranate
+  name: food-sequence-content-pomegranate
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pomegranate.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: Granatapfel
+  name: food-sequence-content-granatapfel
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/granatapfel.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: RMCMango
+  name: food-sequence-content-mango
+  sprites:
+  - sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
+    state: produce
+
+- type: foodSequenceElement
+  id: RMCMangoBurger
+  name: food-sequence-content-mango
+  sprites:
+  - sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
+    state: produce
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodLemo
+  components:
+  - type: FlavorProfile
+    flavors:
+      - sweet
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 4
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lemo.rsi
+    state: fruit_pink
+  - type: Produce
+    plantId: LemoPlants
+  - type: SliceableFood
+    count: 5
+    slice: FoodLemoSlice
+  - type: Tag
+    tags:
+    - Fruit
+
+    - Lemo
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodLemoSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - sweet
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lemo.rsi
+  - type: Tag
+    tags:
+    - Fruit
+    - Slice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 5
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 2
+        - ReagentId: Vitamin
+          Quantity: 0.8
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoconut
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+    state: coconut
+  - type: Item
+    size: Normal
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+    heldPrefix: coconut
+  - type: Produce
+    plantId: CoconutPlants
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      path: /Audio/Items/Toys/card_tube_bonk.ogg
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 5
+  - type: StaminaDamageOnHit
+    damage: 10
+    sound: /Audio/Items/Toys/card_tube_bonk.ogg
+  - type: LandAtCursor
+  - type: Tag
+    tags:
+    - Fruit
+    - Vegetable #don't ask me
+    - ShellCoconut
+  - type: FlavorProfile
+    flavors:
+      - nutty
+  - type: SliceableFood
+    count: 2
+    slice: FoodCoconutSlice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: CoconutWater
+          Quantity: 10
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodCoconutSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - nutty
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+  - type: Tag
+    tags:
+    - Fruit
+    - Slice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 2
+        - ReagentId: CoconutWater
+          Quantity: 5
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoconutBees
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconest.rsi
+    state: coconest
+  - type: Item
+    size: Normal
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconest.rsi
+    heldPrefix: coconest
+  - type: Produce
+    plantId: CoconestPlants
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      path: /Audio/Items/Toys/card_tube_bonk.ogg
+  - type: Damageable
+    damageContainer: Biological
+  - type: DamageOnHighSpeedImpact
+    minimumSpeed: 0.1
+    damage:
+      types:
+        Blunt: 1
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Items/Toys/card_tube_bonk.ogg
+      - !type:SpillBehavior
+        solution: food
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: LandAtCursor
+  - type: Tag
+    tags:
+    - Fruit
+    - Vegetable
+    - ShellCoconut
+  - type: FlavorProfile
+    flavors:
+      - nutty
+      - honey
+  - type: SliceableFood
+    count: 2
+    slice: FoodCoconutBeeSlice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: BuzzochloricBees
+          Quantity: 10
+  - type: Spillable
+    solution: food
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodCoconutBeeSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - nutty
+      - honey
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconest.rsi
+  - type: Tag
+    tags:
+    - Fruit
+    - Slice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 2
+        - ReagentId: BuzzochloricBees
+          Quantity: 5
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoconutJoke
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+    state: coconut
+  - type: Item
+    size: Normal
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+    heldPrefix: coconut
+  - type: Produce
+    plantId: CoconutPlants
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      path: /Audio/Items/Toys/card_tube_bonk.ogg
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 15
+  - type: StaminaDamageOnHit
+    damage: 100 #hehe
+    sound: /Audio/Items/Toys/card_tube_bonk.ogg
+  - type: LandAtCursor
+  - type: Tag
+    tags:
+    - Fruit
+    - Vegetable
+    - ShellCoconut
+  - type: FlavorProfile
+    flavors:
+      - nutty
+  - type: SliceableFood
+    count: 2
+    slice: FoodCoconutSlice
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: CoconutWater
+          Quantity: 10
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodHops
+  components:
+  - type: FlavorProfile
+    flavors:
+    - beer
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 9
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 4
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/hops.rsi
+    state: hops
+  - type: Produce
+    plantId: HopsPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Beer
+        Quantity: 10
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodButterflyOrchid
+  components:
+  - type: Clothing
+    slots:
+    - HEAD
+    quickEquip: false
+  - type: FlavorProfile
+    flavors:
+    - honey
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 5
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butterfly_orchid.rsi
+    state: produce
+  - type: Produce
+    plantId: ButterflyorchidPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Vitamin
+        Quantity: 15
+  - type: Tag
+    tags:
+    - Flower
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodBiggerflyOrchid
+  components:
+  - type: FlavorProfile
+    flavors:
+    - honey
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: ButterfliesBiggerReagent
+          Quantity: 10
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/biggerfly_orchid.rsi
+    state: produce
+  - type: Produce
+    plantId: BiggerflyorchidPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: ButterfliesBiggerReagent
+        Quantity: 15
+  - type: Tag
+    tags:
+    - Flower
+
+- type: entity
+  parent: [FoodProduceBase, BaseDeployFoldable]
+  id: FoodFloatingFlora
+  components:
+  - type: FlavorProfile
+    flavors:
+      - medicine
+  - type: Tag
+    tags:
+    - Flower
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 12
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Produce
+    plantId: FloatingfloraPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Vitamin
+        Quantity: 3
+#foldable
+  - type: Transform
+    noRot: true
+  - type: Item
+    size: Normal
+    heldPrefix: floating_flora_y
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+    noRot: true
+    layers:
+    - state: floating_flora_y
+      map: ["unfoldedLayer"]
+    - state: floating_flora_folded_y
+      map: ["foldedLayer"]
+      visible: false
+    - type: InteractionOutline
+  - type: Pullable
+#trying to float
+  - type: MovementIgnoreGravity # nyoom
+    weightless: true
+  - type: Physics
+    bodyStatus: InAir
+  - type: FloatingVisuals
+    canFloat: True
+
+# flora color variants
+- type: entity
+  parent: [FoodFloatingFlora]
+  id: FoodFloatingFloraPink
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+    noRot: true
+    layers:
+    - state: floating_flora_p
+      map: ["unfoldedLayer"]
+    - state: floating_flora_folded_p
+      map: ["foldedLayer"]
+      visible: false
+
+- type: entity
+  parent: [FoodFloatingFlora]
+  id: FoodFloatingFloraOrange
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+    noRot: true
+    layers:
+    - state: floating_flora_o
+      map: ["unfoldedLayer"]
+    - state: floating_flora_folded_o
+      map: ["foldedLayer"]
+      visible: false
+
+- type: entity
+  parent: [FoodFloatingFlora]
+  id: FoodFloatingFloraBlue
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+    noRot: true
+    layers:
+    - state: floating_flora_b
+      map: ["unfoldedLayer"]
+    - state: floating_flora_folded_b
+      map: ["foldedLayer"]
+      visible: false
+
+
+- type: entity
+  parent: LeavesCannabis
+  id: LeavesGreenMarijuana
+  components:
+  - type: Produce
+    plantId: GreenMarijuanaPlants
+
+
+- type: entity
+  parent: SeedBase
+  id: GreenMarijuanaSeeds
+  components:
+  - type: Seed
+    plantId: GreenMarijuanaPlants
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/cannabis.rsi
+
+- type: entity
+  parent: SeedBase
+  id: LemoSeeds
+  components:
+  - type: Seed
+    plantId: LemoPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lemo.rsi
+
+- type: entity
+  parent: SeedBase
+  id: KisserTomatoSeeds
+  components:
+  - type: Seed
+    plantId: KisserTomatoPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
+
+- type: entity
+  parent: SeedBase
+  suffix: Syndicate
+  id: KisserTomatoFakeSeeds
+  components:
+  - type: Seed
+    plantId: KisserTomatoFakePlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
+
+- type: entity
+  parent: SeedBase
+  id: RoseSeeds
+  components:
+    - type: Seed
+      plantId: RosePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/rose.rsi
+
+- type: entity
+  parent: [SeedBase, BaseMajorContraband]
+  id: BlackRoseSeeds
+  components:
+    - type: Seed
+      plantId: BlackRosePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/blackRose.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CoconutSeeds
+  components:
+    - type: Seed
+      plantId: CoconutPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconut.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CoconutBeesSeeds
+  components:
+    - type: Seed
+      plantId: CoconestPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/coconest.rsi
+
+- type: entity
+  parent: SeedBase
+  id: HopsSeeds
+  components:
+  - type: Seed
+    plantId: HopsPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/hops.rsi
+
+- type: entity
+  parent: SeedBase
+  id: HoPsSeeds # really riding on yaml being case sensitive here
+  components:
+  - type: Seed
+    plantId: EmployedhopsPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/employedhops.rsi
+
+- type: entity
+  parent: SeedBase
+  id: AgentGrainSeeds
+  components:
+  - type: Seed
+    plantId: AgentgrainPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/agentgrain.rsi
+
+- type: entity
+  parent: SeedBase
+  id: ButterflyOrchidSeeds
+  components:
+    - type: Seed
+      plantId: ButterflyorchidPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butterfly_orchid.rsi
+
+- type: entity
+  parent: SeedBase
+  id: BiggerflyOrchidSeeds
+  components:
+    - type: Seed
+      plantId: BiggerflyorchidPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/biggerfly_orchid.rsi
+
+- type: entity
+  parent: SeedBase
+  id: ButterOrchidSeeds
+  components:
+    - type: Seed
+      plantId: ButterorchidPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/butter_orchid.rsi
+
+- type: entity
+  parent: SeedBase
+  id: FloatingFloraSeeds
+  components:
+    - type: Seed
+      plantId: FloatingfloraPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
+
+- type: entity
+  parent: SeedBase
+  id: PompomBushSeeds
+  components:
+    - type: Seed
+      plantId: PompombushPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodAvocado
+  components:
+  - type: FlavorProfile
+    flavors:
+      - avocado
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 16
+        reagents:
+        - ReagentId: Nutriment #place holder
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 6
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    plantId: AvocadoPlants
+  - type: SliceableFood
+    count: 2
+    slice: FoodAvocadoSlice
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Cornoil
+        Quantity: 5
+  - type: Tag
+    tags:
+      - Fruit
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodAvocadoSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - avocado
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Cornoil
+        Quantity: 2.5
+  - type: Tag
+    tags:
+      - Fruit
+      - Slice
+  - type: FoodSequenceElement
+    entries:
+      Taco: Avocado
+      Burger: Avocado
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCucumber
+  components:
+  - type: FlavorProfile
+    flavors:
+      - cucumber
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment #place holder
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 4
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    plantId: CucumberPlants
+  - type: SliceableFood
+    count: 4
+    slice: FoodCucumberSlice
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Water
+        Quantity: 10
+  - type: Tag
+    tags:
+      - Vegetable
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodCucumberSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - cucumber
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 1.5
+        - ReagentId: Vitamin
+          Quantity: 1
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Water
+        Quantity: 2.5
+  - type: Tag
+    tags:
+      - Vegetable
+      - Slice
+  - type: FoodSequenceElement
+    entries:
+      Taco: Cucumber
+      Burger: Cucumber
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodPickle
+  components:
+  - type: FlavorProfile
+    flavors:
+      - salty
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment #place holder
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 4
+        - ReagentId: Saline
+          Quantity: 10
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Item
+    heldPrefix: pickle
+  - type: SliceableFood
+    count: 4
+    slice: FoodPickleSlice
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Saline
+        Quantity: 10
+  - type: Tag
+    tags:
+      - Vegetable
+
+- type: entity
+  parent: ProduceSliceBase
+  id: FoodPickleSlice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - salty
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 5
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 1.5
+        - ReagentId: Vitamin
+          Quantity: 1
+        - ReagentId: Saline
+          Quantity: 2.5
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Saline
+        Quantity: 2.5
+  - type: Tag
+    tags:
+      - Vegetable
+      - Slice
+  - type: FoodSequenceElement
+    entries:
+      Taco: Pickle
+      Burger: Pickle
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodHoneyComb
+  components:
+  - type: FlavorProfile
+    flavors:
+      - honeycomb
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Honey
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 5
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Item
+    heldPrefix: produce
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Honey
+        Quantity: 5
+  - type: FoodSequenceElement
+    entries:
+      Burger: Honeycomb
+      Taco: Honeycomb
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodEveryspice
+  components:
+  - type: FlavorProfile
+    flavors:
+      - spices
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Everyspice
+          Quantity: 5
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: Tag
+    tags:
+      - Fruit
+  - type: AtmosExposed
+  - type: Temperature
+  - type: Construction
+    graph: Everyspice
+    node: start
+    defaultTarget: FoodEveryspiceRoasted
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodEveryspiceRoasted
+  components:
+  - type: FlavorProfile
+    flavors:
+      - peppery
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Blackpepper
+          Quantity: 5
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
+    state: produce-roasted
+  - type: Item
+    heldPrefix: produce-roasted
+  - type: Tag
+    tags:
+      - Fruit
+  - type: Construction
+    graph: Everyspice
+    node: FoodEveryspiceRoasted
+  - type: FoodSequenceElement
+    entries:
+      Burger: Everyspice
+      Skewer: Everyspice
+      Taco: Everyspice
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodMonkanana
+  components:
+  - type: FlavorProfile
+    flavors:
+      - hairy
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 25
+        reagents:
+        - ReagentId: Vitamin
+          Quantity: 11
+        - ReagentId: Nutriment
+          Quantity: 5
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Produce
+    plantId: MonkananaPlants
+  - type: Extractable
+    grindableSolutionName: food
+  - type: Tag
+    tags:
+      - Fruit
+  - type: FoodSequenceElement
+    entries:
+      Burger: Monkanana
+      Skewer: Monkanana
+      Taco: Monkanana
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodPomegranate
+  components:
+  - type: FlavorProfile
+    flavors:
+      - pomegranate
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 17
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: Vitamin
+          Quantity: 7
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pomegranate.rsi
+  - type: Produce
+    plantId: PomegranatePlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+        - ReagentId: JuicePomegranate
+          Quantity: 10
+  - type: Tag
+    tags:
+      - Fruit
+  - type: FoodSequenceElement
+    entries:
+      Burger: Pomegranate
+      Taco: Pomegranate
+
+- type: entity
+  parent: [FoodProduceBase, ItemHeftyBase]
+  id: FoodGranatapfel
+  components:
+    - type: FlavorProfile
+      flavors:
+        - granatapfel
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 9
+          canReact: false
+          reagents:
+            - ReagentId: Sulfur
+              Quantity: 3
+            - ReagentId: Ethanol
+              Quantity: 3
+            - ReagentId: Hydrogen
+              Quantity: 3
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/granatapfel.rsi
+    - type: Produce
+      plantId: GranatapfelPlants
+    - type: Extractable
+      grindableSolutionName: food
+      juiceSolution:
+        reagents:
+          - ReagentId: WeldingFuel
+            Quantity: 10
+    - type: Damageable
+      damageContainer: Biological
+    - type: DamageOnHighSpeedImpact
+      minimumSpeed: 0.1
+      damage:
+        types:
+          Blunt: 1
+    - type: Destructible
+      thresholds:
+        - trigger: !type:DamageTrigger
+            damage: 1
+          behaviors:
+            - !type:PlaySoundBehavior
+              sound:
+                path: /Audio/Effects/pop.ogg
+            - !type:TriggerBehavior
+              keyOut: granatapfel-trigger
+            - !type:DoActsBehavior
+              acts: ["Destruction"]
+    - type: ChemicalAmmo
+      solution: food
+    - type: ProjectileGrenade
+      fillPrototype: GranatapfelSeeds
+      capacity: 10
+      triggerKey: granatapfel-trigger
+    - type: ContainerContainer
+      containers:
+        cluster-payload: !type:Container
+    - type: Tag
+      tags:
+        - Fruit
+    - type: FoodSequenceElement
+      entries:
+        Burger: Granatapfel
+        Taco: Granatapfel
+
+
+- type: entity
+  parent: SeedBase
+  id: SpesosTreeSeeds
+  components:
+    - type: Seed
+      plantId: SpesosPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/spesostree.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CoffeeSeeds
+  components:
+    - type: Seed
+      plantId: CoffeePlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/wheat.rsi
+
+- type: entity
+  parent: SeedBase
+  id: AvocadoSeeds
+  components:
+    - type: Seed
+      plantId: AvocadoPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/tomato.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CucumberSeeds
+  components:
+    - type: Seed
+      plantId: CucumberPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/tomato.rsi
+
+- type: entity
+  parent: SeedBase
+  id: BeeSeeds
+  components:
+    - type: Seed
+      plantId: BeesPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/tomato.rsi
+    - type: StaticPrice
+      price: 50
+    - type: Damageable
+      damageContainer: Inorganic
+      damageModifierSet: Glass
+    # "it's a jar of bees, it should break into bees"
+    - type: Destructible
+      thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 3
+        behaviors:
+        - !type:PlaySoundBehavior
+          sound:
+            collection: GlassBreak
+        - !type:SpawnEntitiesBehavior
+          spawn:
+            MobAngryBee:
+              min: 1
+              max: 1
+          transferForensics: true
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+    - type: DamageOnLand
+      ignoreResistances: true
+      damage:
+        types:
+          Blunt: 3
+    - type: DamageOtherOnHit
+      damage:
+        types:
+          Blunt: 3
+
+- type: entity
+  parent: SeedBase
+  id: EveryspiceSeeds
+  components:
+    - type: Seed
+      plantId: EveryspicePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/everyspice.rsi
+
+- type: entity
+  parent: SeedBase
+  id: MonkananaSeeds
+  components:
+    - type: Seed
+      plantId: MonkananaPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/tomato.rsi
+
+- type: entity
+  parent: SeedBase
+  id: NFGlowshroomSeeds
+  components:
+    - type: Seed
+      plantId: NfglowshroomPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/towercap.rsi
+    - type: Item
+      heldPrefix: seed
+    - type: Tag
+      tags:
+      - NFGlowshroomSpores
+
+- type: entity
+  parent: SeedBase
+  id: PomegranateSeeds
+  components:
+    - type: Seed
+      plantId: PomegranatePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pomegranate.rsi
+
+- type: entity
+  parent: SeedBase
+  id: GranatapfelSeeds
+  components:
+    - type: Seed
+      plantId: GranatapfelPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/granatapfel.rsi
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCrystalThistle
+  components:
+  - type: FlavorProfile
+    flavors:
+    - sharp
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 25
+        reagents:
+        - ReagentId: Vitamin
+          Quantity: 10
+        - ReagentId: Ethyloxyephedrine
+          Quantity: 15
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
+  - type: Produce
+    plantId: CrystalThistlePlants
+  - type: Extractable
+    grindableSolutionName: food
+  - type: FoodSequenceElement
+    entries:
+      Burger: CrystalThistle
+      Taco: CrystalThistle
+      Skewer: CrystalThistle
+
+- type: foodSequenceElement
+  id: CrystalThistle
+  name: food-sequence-content-crystal-thistle
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
+    state: harvest
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodGhostPepper
+  components:
+  - type: FlavorProfile
+    flavors:
+    - spicy
+    - sweet
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 39
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: CapsaicinOil
+          Quantity: 15
+        - ReagentId: Vitamin
+          Quantity: 6
+        - ReagentId: Thermite
+          Quantity: 10
+  - type: TileFrictionModifier
+    modifier: 0.05
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Ghost_Pepper.rsi
+  - type: Produce
+    plantId: GhostPepperPlants
+  - type: Tag
+    tags:
+    - Vegetable
+  - type: FoodSequenceElement
+    entries:
+      Burger: GhostPepper
+      Taco: GhostPepper
+      Skewer: GhostPepper
+
+- type: foodSequenceElement
+  id: GhostPepper
+  name: food-sequence-content-ghost-pepper
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Ghost_Pepper.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCosmicRevenant
+  components:
+  - type: FlavorProfile
+    flavors:
+    - spicy
+    - spooky
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 41
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: CapsaicinOil
+          Quantity: 20
+        - ReagentId: Vitamin
+          Quantity: 13
+  - type: TileFrictionModifier
+    modifier: 0.0001
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Cosmic_Revenant.rsi
+  - type: Produce
+    plantId: CosmicRevenantPlants
+  - type: Tag
+    tags:
+    - Vegetable
+  - type: FoodSequenceElement
+    entries:
+      Burger: CosmicRevenant
+      Taco: CosmicRevenant
+      Skewer: CosmicRevenant
+
+- type: foodSequenceElement
+  id: CosmicRevenant
+  name: food-sequence-content-revenant
+  sprites:
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Cosmic_Revenant.rsi
+    state: produce
+  tags:
+  - Vegetable
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodAmbrosiaNobilis
+  components:
+  - type: FlavorProfile
+    flavors:
+      - leafy
+      - medicine
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Tricordrazine
+          Quantity: 3
+        - ReagentId: SpaceDrugs
+          Quantity: 5
+        - ReagentId: Nutriment
+          Quantity: 2
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    plantId: AmbrosiaNobilisPlants
+  - type: Extractable
+    grindableSolutionName: food
+  - type: Clothing
+    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
+    slots:
+    - HEAD
+  - type: Tag
+    tags:
+    - Ambrosia
+  - type: FoodSequenceElement
+    entries:
+      Taco: AmbrosiaDeus
+      Burger: AmbrosiaDeusBurger
+
+
+- type: entity
+  parent: SeedBase
+  id: CrystalThistleSeeds
+  components:
+    - type: Seed
+      plantId: CrystalThistlePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
+
+- type: entity
+  parent: SeedBase
+  id: GhostPepperSeeds
+  components:
+    - type: Seed
+      plantId: GhostPepperPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Ghost_Pepper.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CosmicRevenantSeeds
+  components:
+    - type: Seed
+      plantId: CosmicRevenantPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Cosmic_Revenant.rsi
+
+- type: entity
+  parent: SeedBase
+  id: AmbrosiaNobilis
+  components:
+    - type: Seed
+      plantId: AmbrosiaNobilisPlants
+    - type: Sprite
+      sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodStrangeBerries
+  components:
+  - type: FlavorProfile
+    flavors:
+      - metallic
+      - berry
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 11
+        reagents:
+        - ReagentId: Artifexium
+          Quantity: 5
+        - ReagentId: Vitamin
+          Quantity: 4
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/strange_berries.rsi
+  - type: Produce
+    plantId: StrangeBerriesPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Artifexium
+        Quantity: 5
+
+- type: entity
+  id: Nevcotta
+  parent: ProduceBase
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/nevcotta.rsi
+    state: icon
+  - type: SolutionContainerManager
+  - type: Produce
+    plantId: TowercapPlants # Shhh, I don't want to make this an actual plant yet!
+  - type: Log
+    spawnedPrototype: NevcottaBark
+    spawnCount: 2
+
+- type: entity
+  id: NevcottaBark
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/nevcotta.rsi
+    state: bark
+  - type: Extractable
+    grindableSolutionName: food
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: NevcottaPowder
+          Quantity: 5
+        - ReagentId: Fiber
+          Quantity: 4
+
+
+- type: entity
+  parent: FoodBlueTomato
+  id: FoodBluespaceTomato
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Singulo
+          Quantity: 5
+        canReact: false
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bluespace_tomato.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    plantId: BluespaceTomatoPlants
+  - type: Extractable
+    grindableSolutionName: food
+    juiceSolution:
+      reagents:
+      - ReagentId: Singulo
+        Quantity: 5
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: desecration
+      - !type:SpillBehavior
+        solution: food
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - Fruit
+    - Vegetable
+
+
+- type: entity
+  parent: SeedBase
+  id: StrangeBerrySeeds
+  components:
+    - type: Seed
+      plantId: StrangeBerriesPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/strange_berries.rsi
+
+- type: entity
+  parent: SeedBase
+  id: BluespaceTomatoSeeds
+  components:
+  - type: Seed
+    plantId: BluespaceTomatoPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bluespace_tomato.rsi
+
+
+- type: entity
+  id: EffectOrganTree
+  name: organ tree harvest
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: RandomSpawner
+    chance: 1
+    offset: 0.1
+    prototypes:
+    - OrganHumanBrain
+    - OrganHumanEyes
+    - OrganHumanTongue
+    - OrganHumanAppendix
+    - OrganHumanEars
+    - OrganHumanLungs
+    - OrganHumanHeart
+    - OrganHumanStomach
+    - OrganHumanLiver
+    - OrganHumanKidneys
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodOrganTree
+  components:
+    - type: FlavorProfile
+      flavors:
+        - strange
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/organtree.rsi
+      state: produce
+    - type: Produce
+      plantId: OrganTreePlants
+    - type: Butcherable
+      butcheringType: Knife
+      spawned:
+        - id: EffectOrganTree
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 5
+          reagents:
+            - ReagentId: Nutriment
+              Quantity: 2
+            - ReagentId: Vitamin
+              Quantity: 2
+    - type: Tag
+      tags:
+        - Fruit
+
+- type: entity
+  id: TrashMimanaPeelStealthy
+  parent: TrashMimanaPeel
+  suffix: Stealthy
+  components:
+  - type: Stealth
+    minVisibility: .15
+    maxVisibility: 1
+  - type: StealthOnMove
+    passiveVisibilityRate: -0.37
+    movementVisibilityRate: 0.50
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodEvilApple
+  components:
+    - type: FlavorProfile
+      flavors:
+        - perfid
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 14
+          reagents:
+            - ReagentId: DevilJuice
+              Quantity: 5
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/evil_apple.rsi
+    - type: Item
+      heldPrefix: produce
+    - type: Produce
+      plantId: EvilApplePlants
+    - type: Tag
+      tags:
+        - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodResinfera
+  components:
+    - type: FlavorProfile
+      flavors:
+        - bitter
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 20
+          reagents:
+            - ReagentId: Vitamin
+              Quantity: 5
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/resinfera.rsi
+    - type: Item
+      heldPrefix: produce
+    - type: Produce
+      plantId: ResinferaPlants
+    - type: Tag
+      tags:
+        - Fruit
+
+
+- type: entity
+  parent: GroundTobacco
+  id: GroundTobacco5
+  suffix: 5
+  components:
+  - type: Stack
+    stackType: GroundTobacco
+    count: 5
+
+- type: entity
+  parent: GroundCannabis
+  id: GroundCannabis5
+  suffix: 5
+  components:
+  - type: Stack
+    stackType: GroundCannabis
+    count: 5
+
+- type: entity
+  parent: GroundCannabis
+  id: GroundCannabis10
+  suffix: 10
+  components:
+  - type: Stack
+    stackType: GroundCannabis
+    count: 10
+
+- type: entity
+  parent: LeavesTobaccoDried
+  id: LeavesTobaccoDried5
+  suffix: 5
+  components:
+  - type: Stack
+    stackType: LeavesTobaccoDried
+    count: 5
+
+
+- type: entity
+  parent: SeedBase
+  id: OrganTreeSeeds
+  components:
+  - type: Seed
+    plantId: OrganTreePlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/organtree.rsi
+
+
+- type: entity
+  parent: SeedBase
+  id: EvilAppleSeeds
+  components:
+    - type: Seed
+      plantId: EvilApplePlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/evil_apple.rsi
+
+- type: entity
+  parent: SeedBase
+  id: ResinferaSeeds
+  components:
+    - type: Seed
+      plantId: ResinferaPlants
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/resinfera.rsi
+
+
+- type: entity
+  parent: FoodProduceBase
+  id: RMCFoodMango
+  components:
+  - type: FlavorProfile
+    flavors:
+      - sweet
+      - fruity
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 9
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: Vitamin
+          Quantity: 5
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
+  - type: Item
+    heldPrefix: produce
+  - type: Produce
+    plantId: RmcmangoPlants
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 10
+  - type: Tag
+    tags:
+    - Fruit
+  - type: FoodSequenceElement
+    entries:
+      Taco: RMCMango
+      Burger: RMCMangoBurger
+
+
+- type: entity
+  parent: SeedBase
+  id: RMCMangoSeeds
+  components:
+    - type: Seed
+      plantId: RmcmangoPlants
+    - type: Sprite
+      sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
+
+- type: entity
+  parent: SeedBase
+  id: ExplosiveBananaSeeds
+  components:
+  - type: Seed
+    plantId: ExplosiveBananaPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/explosive_banana.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CoffeeArabicaSeeds
+  components:
+  - type: Seed
+    plantId: CoffeeArabicaPlants
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CoffeeRobustSeeds
+  components:
+  - type: Seed
+    plantId: CoffeeRobustPlants
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+
+- type: entity
+  parent: SeedBase
+  id: GeraniumSeeds
+  components:
+  - type: Seed
+    plantId: GeraniumPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/geranium.rsi
+
+- type: entity
+  parent: SeedBase
+  id: PlastSteelcapSeeds
+  components:
+  - type: Seed
+    plantId: PlaststeelcapPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/plaststeelcap.rsi
+
+- type: entity
+  parent: SeedBase
+  id: GlasscapSeeds
+  components:
+  - type: Seed
+    plantId: GlasscapPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glasscap.rsi
+
+- type: entity
+  parent: SeedBase
+  id: CannabisVitaSeeds
+  components:
+  - type: Seed
+    plantId: CannabisVitaPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cannabis_vita.rsi
+
+- type: entity
+  parent: SeedBase
+  id: BarrelmelonSeeds
+  components:
+  - type: Seed
+    plantId: BarrelmelonPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/barrelmelon.rsi
+
+- type: entity
+  parent: SeedBase
+  id: LanternfruitSeeds
+  components:
+  - type: Seed
+    plantId: LanternfruitPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lanternfruit.rsi
+
+- type: entity
+  parent: SeedBase
+  id: RedroseSeeds
+  components:
+  - type: Seed
+    plantId: RedrosePlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/redrose.rsi
+
+- type: entity
+  parent: SeedBase
+  id: SnapcornSeeds
+  components:
+  - type: Seed
+    plantId: SnapcornPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/snapcorn.rsi
+
+- type: entity
+  parent: SeedBase
+  id: WhiteroseSeeds
+  components:
+  - type: Seed
+    plantId: WhiterosePlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/whiterose.rsi
+
+- type: entity
+  parent: SeedBase
+  id: WhiteLilySeeds
+  components:
+  - type: Seed
+    plantId: WhiteLilyPlants
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/white_lily.rsi
+
+- type: entity
+  parent: FoodProduceBase
+  id: ExplosiveBanana
+  components:
+  - type: Damageable
+    damageContainer: Biological
+  - type: DamageOnHighSpeedImpact
+    minimumSpeed: 0.1
+    damage:
+      types:
+        Blunt: 1
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/explosive_banana.rsi
+    state: produce
+  - type: Produce
+    plantId: ExplosiveBananaPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoffeeArabica
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+    state: produce
+  - type: Produce
+    plantId: CoffeeArabicaPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoffeeRobust
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+    state: produce
+  - type: Produce
+    plantId: CoffeeRobustPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodGeranium
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/geranium.rsi
+    state: produce
+  - type: Produce
+    plantId: GeraniumPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: ProduceBase
+  id: PlastSteelLog
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/plaststeelcap.rsi
+    state: produce
+  - type: Produce
+    plantId: PlaststeelcapPlants
+  - type: SolutionContainerManager
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+  - type: Log
+    spawnedPrototype: SheetPlasteel1
+    spawnCount: 1
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: ProduceBase
+  id: GlassLog
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glasscap.rsi
+    state: produce
+  - type: Produce
+    plantId: GlasscapPlants
+  - type: SolutionContainerManager
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+  - type: Log
+    spawnedPrototype: SheetGlass1
+    spawnCount: 1
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: CannabisVitaLeaves
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cannabis_vita.rsi
+    state: produce
+  - type: Produce
+    plantId: CannabisVitaPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodBarrelmelon
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/barrelmelon.rsi
+    state: produce
+  - type: Produce
+    plantId: BarrelmelonPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodLanternfruit
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lanternfruit.rsi
+    state: produce
+  - type: Produce
+    plantId: LanternfruitPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodRedrose
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/redrose.rsi
+    state: produce
+  - type: Produce
+    plantId: RedrosePlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodSnapcorn
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/snapcorn.rsi
+    state: produce
+  - type: Produce
+    plantId: SnapcornPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodWhiterose
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/whiterose.rsi
+    state: produce
+  - type: Produce
+    plantId: WhiterosePlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodWhiteLily
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/white_lily.rsi
+    state: produce
+  - type: Produce
+    plantId: WhiteLilyPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 14
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+        - ReagentId: Vitamin
+          Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
+
+# Clean-room compatibility products for source plants whose original definitions
+# lived outside the botany files. These keep every harvested product available
+# without importing unrelated source code or restrictive assets.
+- type: entity
+  parent: FoodProduceBase
+  id: MobTomatoKisser
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Produce
+    plantId: KisserTomatoPlants
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: MobTomatoKisserFake
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    state: produce
+  - type: Produce
+    plantId: KisserTomatoFakePlants
+  - type: Tag
+    tags:
+    - Fruit
+
+- type: entity
+  parent: FoodProduceBase
+  id: Rose
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/rose.rsi
+    state: harvest
+  - type: Produce
+    plantId: RosePlants
+  - type: Tag
+    tags:
+    - Flower
+
+- type: entity
+  parent: FoodProduceBase
+  id: RoseBlack
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/blackRose.rsi
+    state: harvest
+  - type: Produce
+    plantId: BlackRosePlants
+  - type: Tag
+    tags:
+    - Flower
+
+- type: entity
+  parent: FoodProduceBase
+  id: HopTart
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/employedhops.rsi
+    state: harvest
+  - type: Produce
+    plantId: EmployedhopsPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 8
+  - type: Tag
+    tags:
+    - Food
+
+- type: entity
+  parent: FoodProduceBase
+  id: MaterialPom1
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
+    state: harvest
+  - type: Produce
+    plantId: PompombushPlants
+
+- type: entity
+  parent: FoodProduceBase
+  id: GoldLeaf
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      food: {}
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/spesostree.rsi
+    state: harvest
+  - type: Produce
+    plantId: SpesosPlants
+
+- type: entity
+  parent: FoodProduceBase
+  id: FoodCoffee
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/wheat.rsi
+    state: produce
+  - type: Produce
+    plantId: CoffeePlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 8
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+  - type: Tag
+    tags:
+    - Food
+
+- type: entity
+  parent: FoodProduceBase
+  id: NFFoodGlowshroom
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Hydroponics/towercap.rsi
+    state: produce
+  - type: Produce
+    plantId: NfglowshroomPlants
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 8
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+  - type: Tag
+    tags:
+    - Food

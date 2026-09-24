@@ -2,6 +2,7 @@ using Content.Shared.Botany.Components;
 using Content.Shared.Botany.Items.Components;
 using Content.Shared.Botany.Systems;
 using Content.Shared.Botany.Events;
+using Content.Shared.DeadSpace._Soyuz.Botany;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
@@ -56,6 +57,14 @@ public sealed partial class BotanySwabSystem : EntitySystem
         if (args.Target == null || !args.CanReach || !_plantQuery.HasComp(args.Target)) // DS14
             return;
 
+        // DS14-Soyuz start
+        if (HasComp<SoyuzPreventSwabbingComponent>(args.Target))
+        {
+            _popup.PopupCursor(Loc.GetString("botany-cannot-be-swabbed-message"), args.User);
+            return;
+        }
+        // DS14-Soyuz end
+
         _doAfter.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, ent.Comp.SwabDelay, new BotanySwabDoAfterEvent(), ent.Owner, target: args.Target, used: ent.Owner)
         {
             Broadcast = true,
@@ -71,6 +80,14 @@ public sealed partial class BotanySwabSystem : EntitySystem
     {
         if (args.Cancelled || args.Handled || !_plantQuery.HasComp(args.Args.Target)) // DS14
             return;
+
+        // DS14-Soyuz start
+        if (HasComp<SoyuzPreventSwabbingComponent>(args.Args.Target))
+        {
+            _popup.PopupCursor(Loc.GetString("botany-cannot-be-swabbed-message"), args.Args.User);
+            return;
+        }
+        // DS14-Soyuz end
 
         var targetPlant = args.Args.Target.Value;
 

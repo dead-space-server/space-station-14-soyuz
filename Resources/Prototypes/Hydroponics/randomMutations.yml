@@ -219,11 +219,13 @@
       effect: !type:PlantChangeTraits
         trait: PlantTraitSeedless
         toggle: true # DS14
+    # DS-14 Soyuz start: inherited instability effect
     - name: ChangeGeneticInstability
       baseOdds: 0.036
       persists: false
       effect: !type:PlantAdjustGeneticInstability
         amount: 15
+    # DS-14 Soyuz end
     - name: Lignification
       baseOdds: 0.036
       persists: false

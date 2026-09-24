@@ -30,11 +30,13 @@ public sealed partial class PlantDataComponent : Component
     [DataField(required: true), AutoNetworkedField]
     public EntProtoId PacketPrototype;
 
+    // DS-14 Soyuz start: directed species mutations
     /// <summary>
     /// Directed species mutations available from this plant.
     /// </summary>
     [DataField, AutoNetworkedField]
     public List<PlantSpeciesMutation> Mutations = [];
+    // DS-14 Soyuz end
 
     /// <summary>
     /// The entity prototypes that are spawned when this type of seed is harvested.

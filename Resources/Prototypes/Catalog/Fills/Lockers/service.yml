@@ -141,7 +141,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingHandsGlovesLeather
-    - id: SoyuzPlantAnalyzer
+    - id: SoyuzPlantAnalyzer # DS-14 Soyuz: one guaranteed analyzer
     - id: ClothingOuterApronBotanist
     - id: ClothingHeadBandBotany
     - id: ChemistryBottleRobustHarvest

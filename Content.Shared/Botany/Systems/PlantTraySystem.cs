@@ -125,7 +125,7 @@ public sealed partial class PlantTraySystem : EntitySystem
         if (!_solutionContainer.ResolveSolution(trayUid, trayComp.SoilSolutionName, ref trayComp.SoilSolution, out var solution))
             return;
 
-        // DS14-Soyuz start: reagents must replenish an empty tray as well.
+        // DS-14 Soyuz start: reagents must replenish an empty tray as well.
         TryGetPlant(ent, out var plantUid);
 
         if (solution.Volume <= 0)
@@ -140,7 +140,7 @@ public sealed partial class PlantTraySystem : EntitySystem
             if (plantUid is { } plant)
                 _entityEffects.ApplyEffects(plant, [.. reagentProto.PlantMetabolisms], entry.Quantity.Float());
         }
-        // DS14-Soyuz end
+        // DS-14 Soyuz end
 
         _solutionContainer.RemoveEachReagent(trayComp.SoilSolution.Value, FixedPoint2.New(1));
     }

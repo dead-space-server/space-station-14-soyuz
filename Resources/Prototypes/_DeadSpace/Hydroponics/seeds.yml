@@ -84,10 +84,12 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus.rsi
   - type: PlantData
+    # DS-14 Soyuz start: directed species mutations
     mutations:
     - target: CactusCoralPlant
       chance: 0.2
       weight: 100
+    # DS-14 Soyuz end
     name: seeds-cactus-name
     packetPrototype: CactusSeeds
     productPrototypes: [ FoodCactus ]
@@ -125,10 +127,12 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus_coral.rsi
   - type: PlantData
+    # DS-14 Soyuz start: directed species mutations
     mutations:
     - target: CactusBubblePlant
       chance: 0.1
       weight: 100
+    # DS-14 Soyuz end
     name: seeds-cactus-coral-name
     packetPrototype: CactusCoralSeeds
     productPrototypes: [ FoodCactusCoral ]
@@ -203,10 +207,12 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/cactus_bubble.rsi
   - type: PlantData
+    # DS-14 Soyuz start: directed species mutations
     mutations:
     - target: LavalandCactusPlant
       chance: 0.06
       weight: 100
+    # DS-14 Soyuz end
     name: seeds-cactus-bubble-name
     packetPrototype: CactusBubbleSeeds
     productPrototypes: [ FoodCactusBubble ]
@@ -244,10 +250,12 @@
   - type: Sprite
     sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
   - type: PlantData
+    # DS-14 Soyuz start: directed species mutations
     mutations:
     - target: RmcmangoPlants
       chance: 0.1
       weight: 100
+    # DS-14 Soyuz end
     name: seeds-mango-name
     packetPrototype: MangoSeeds
     productPrototypes: [ FoodMango ]

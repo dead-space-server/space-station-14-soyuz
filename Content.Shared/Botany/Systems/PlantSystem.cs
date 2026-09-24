@@ -161,12 +161,14 @@ public sealed partial class PlantSystem : EntitySystem
         // Process mutations.
         if (ent.Comp.MutationLevel > 0)
         {
+            // DS-14 Soyuz start: consume the dose before species replacement.
             // Consume the temporary dose before changing species. A forced update of the
             // newly spawned plant must not roll the same mutation attempt a second time.
             var severity = Math.Min(ent.Comp.MutationLevel, ent.Comp.MaxMutationLevel);
             ent.Comp.MutationLevel = 0;
             DirtyField(ent, ent.Comp, nameof(ent.Comp.MutationLevel));
             _mutation.CheckRandomMutations(ent.Owner, severity);
+            // DS-14 Soyuz end
         }
 
         if (ent.Comp.Health <= 0)
@@ -256,6 +258,7 @@ public sealed partial class PlantSystem : EntitySystem
         DirtyField(ent, nameof(ent.Comp.Yield));
     }
 
+    // DS-14 Soyuz start: persistent genetic instability
     /// <summary>
     /// Changes the inherited genetic instability without changing the temporary mutation level.
     /// </summary>
@@ -268,6 +271,7 @@ public sealed partial class PlantSystem : EntitySystem
         ent.Comp.GeneticInstability = MathHelper.Clamp(ent.Comp.GeneticInstability + amount, 0f, 100f);
         DirtyField(ent, nameof(ent.Comp.GeneticInstability));
     }
+    // DS-14 Soyuz end
 
     /// <summary>
     /// Adjusts the maturation time of a plant component.

@@ -39,7 +39,7 @@
     TowercapSeeds: 5
     WheatSeeds: 5
     WatermelonSeeds: 5
-    # DS14-Soyuz start
+    # DS-14 Soyuz start
     GreenMarijuanaSeeds: 2
     LemoSeeds: 5
     RoseSeeds: 5
@@ -84,7 +84,7 @@
     EvilAppleSeeds: 2
     ResinferaSeeds: 1
     RMCMangoSeeds: 5
-    # DS14-Soyuz end
+    # DS-14 Soyuz end
   contrabandInventory:
     TobaccoSeeds: 2
     FoodSnackSemki: 2

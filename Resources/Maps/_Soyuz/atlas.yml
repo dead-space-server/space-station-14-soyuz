@@ -2853,14 +2853,6 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: NavMap
-- proto: ActionToggleLight
-  entities:
-  - uid: 7876
-    components:
-    - type: Transform
-      parent: 7875
-    - type: InstantAction
-      container: 7875
 - proto: AirAlarm
   entities:
   - uid: 1942

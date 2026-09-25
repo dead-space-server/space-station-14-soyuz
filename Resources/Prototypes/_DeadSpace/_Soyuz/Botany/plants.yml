@@ -594,7 +594,7 @@
   name: avocado plants
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
   - type: PlantData
     name: seeds-avocado-name
     noun: seeds-noun-seeds
@@ -628,7 +628,7 @@
   name: cucumber plants
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/pea.rsi
   - type: PlantData
     name: seeds-cucumber-name
     noun: seeds-noun-seeds
@@ -641,7 +641,7 @@
     production: 5
     yield: 4
     potency: 10
-    growthStages: 5
+    growthStages: 3
   - type: PlantChemicals
     chemicals:
       Nutriment:
@@ -658,7 +658,7 @@
   name: honeycomb
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/cocoa.rsi
   - type: PlantData
     name: seeds-bees-name
     noun: seeds-noun-nothing
@@ -728,7 +728,7 @@
   name: monkanana trees
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/banana.rsi
   - type: PlantData
     mutations:
     - target: BungoPlants

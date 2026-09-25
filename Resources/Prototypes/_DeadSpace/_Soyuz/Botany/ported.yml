@@ -259,35 +259,35 @@
   id: Avocado
   name: food-sequence-content-avocado
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Cucumber
   name: food-sequence-content-cucumber
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Pickle
   name: food-sequence-content-pickle
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Honeycomb
   name: food-sequence-content-honeycomb
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/honey_frame.rsi
+    state: honey_frame
 
 - type: foodSequenceElement
   id: Monkanana
   name: food-sequence-content-monkanana
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: Objects/Specific/Hydroponics/banana.rsi
     state: produce
 
 - type: foodSequenceElement
@@ -948,7 +948,7 @@
         - ReagentId: Vitamin
           Quantity: 6
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
     state: produce
   - type: Item
     heldPrefix: produce
@@ -984,7 +984,7 @@
         - ReagentId: Vitamin
           Quantity: 3
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
     state: produce
   - type: Extractable
     grindableSolutionName: food
@@ -1018,7 +1018,7 @@
         - ReagentId: Vitamin
           Quantity: 4
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
   - type: Item
     heldPrefix: produce
@@ -1054,7 +1054,7 @@
         - ReagentId: Vitamin
           Quantity: 1
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
   - type: Extractable
     grindableSolutionName: food
@@ -1090,10 +1090,10 @@
         - ReagentId: Saline
           Quantity: 10
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
   - type: Item
-    heldPrefix: pickle
+    heldPrefix: produce
   - type: SliceableFood
     count: 4
     slice: FoodPickleSlice
@@ -1126,7 +1126,7 @@
         - ReagentId: Saline
           Quantity: 2.5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/pea.rsi
     state: produce
   - type: Extractable
     grindableSolutionName: food
@@ -1160,10 +1160,9 @@
         - ReagentId: Vitamin
           Quantity: 5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/honey_frame.rsi
+    state: honey_frame
   - type: Item
-    heldPrefix: produce
   - type: Extractable
     grindableSolutionName: food
     juiceSolution:
@@ -1251,7 +1250,7 @@
         - ReagentId: Nutriment
           Quantity: 5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: Objects/Specific/Hydroponics/banana.rsi
     state: produce
   - type: Produce
     plantId: MonkananaPlants
@@ -1390,7 +1389,7 @@
     - type: Seed
       plantId: AvocadoPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: _DeadSpace/Objects/Specific/Hydroponics/mango.rsi
 
 - type: entity
   parent: SeedBase
@@ -1399,7 +1398,7 @@
     - type: Seed
       plantId: CucumberPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: Objects/Specific/Hydroponics/pea.rsi
 
 - type: entity
   parent: SeedBase
@@ -1408,7 +1407,7 @@
     - type: Seed
       plantId: BeesPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: Objects/Specific/Hydroponics/cocoa.rsi
     - type: StaticPrice
       price: 50
     - type: Damageable
@@ -1458,7 +1457,7 @@
     - type: Seed
       plantId: MonkananaPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: Objects/Specific/Hydroponics/banana.rsi
 
 - type: entity
   parent: SeedBase

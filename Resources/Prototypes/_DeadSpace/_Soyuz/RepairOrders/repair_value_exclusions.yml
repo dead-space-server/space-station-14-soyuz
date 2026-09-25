@@ -21,6 +21,8 @@
   - PlasticFlapsAirtightClear
   - PlasticFlapsAirtightOpaque
   - CargoPallet
+  - CargoPalletSell
+  - CargoPalletBuy
   - PlastitaniumPlasmaWindowDiagonalIndestructible
   - PlastitaniumPlasmaWindowIndestructible
   - PlastitaniumWindowDiagonalIndestructible
@@ -53,6 +55,7 @@
   - CableHVUncuttable
   - CableMVUncuttable
   - CableApcExtensionUncuttable
+  - CableTerminalUncuttable
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities

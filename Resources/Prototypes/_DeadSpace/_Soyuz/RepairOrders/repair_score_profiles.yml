@@ -11,11 +11,8 @@
   - selector:
       entities:
       - WindowReinforcedDirectional
-      - WindowReinforcedDirectionalIndestructible
       - PlasmaReinforcedWindowDirectional
-      - PlasmaReinforcedWindowDirectionalIndestructible
       - UraniumReinforcedWindowDirectional
-      - UraniumReinforcedWindowDirectionalIndestructible
     canonical: WindowReinforcedDirectional
   # Match material and armor before the common windoor ancestors.
   - selector:

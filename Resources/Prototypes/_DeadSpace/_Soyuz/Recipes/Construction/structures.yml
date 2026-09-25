@@ -53,3 +53,16 @@
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
+
+- type: construction
+  id: WindowFrostedDirectional
+  graph: WindowDirectional
+  startNode: start
+  targetNode: windowFrostedDirectional
+  category: construction-category-structures
+  canBuildInImpassable: true
+  conditions:
+    - !type:EmptyOrWindowValidInTile
+    - !type:NoWindowsInTile
+  objectType: Structure
+  placementMode: SnapgridCenter

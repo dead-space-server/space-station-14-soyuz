@@ -7,6 +7,16 @@
   # They intentionally ignore mapping-only state variants such as filled vs empty batteries
   # or light fixtures with a lamp preinserted on spawn.
   identityRules:
+  # Reinforced directional windows can be rebuilt from the standard reinforced-glass recipe.
+  - selector:
+      entities:
+      - WindowReinforcedDirectional
+      - WindowReinforcedDirectionalIndestructible
+      - PlasmaReinforcedWindowDirectional
+      - PlasmaReinforcedWindowDirectionalIndestructible
+      - UraniumReinforcedWindowDirectional
+      - UraniumReinforcedWindowDirectionalIndestructible
+    canonical: WindowReinforcedDirectional
   # Match material and armor before the common windoor ancestors.
   - selector:
       parents: [BaseClockworkWindoor]
@@ -34,16 +44,19 @@
     canonical: Holopad
   - selector:
       entities: [SMESBasic, SMESBasicEmpty]
-    canonical: SMESBasic
+    canonical: SMESBasicEmpty
   - selector:
       entities: [SMESAdvanced, SMESAdvancedEmpty]
-    canonical: SMESAdvanced
+    canonical: SMESAdvancedEmpty
   - selector:
       entities: [SubstationBasic, SubstationBasicEmpty]
-    canonical: SubstationBasic
+    canonical: SubstationBasicEmpty
   - selector:
-      entities: [APCBasic, APCConstructed]
-    canonical: APCBasic
+      entities: [BaseSubstationWall, SubstationWallBasic]
+    canonical: BaseSubstationWall
+  - selector:
+      entities: [APCBasic, APCConstructed, APCHighCapacity, APCSuperCapacity, APCHyperCapacity]
+    canonical: APCConstructed
   - selector:
       parents: [PoweredlightEmpty]
     canonical: Poweredlight

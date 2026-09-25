@@ -1279,6 +1279,13 @@
   - ChurchBell
 
 - type: repairValueExclusion
+  id: RepairExcludeBasicGenerators
+  reason: Basic thermoelectric generators cannot be rebuilt for repair orders.
+  entities:
+  - GeneratorBasic
+  - GeneratorBasic15kW
+
+- type: repairValueExclusion
   id: RepairExcludeScreensAndTimers
   reason: Screens, timers and station maps are excluded from procedural damage and repair requirements.
   entities:

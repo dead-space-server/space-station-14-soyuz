@@ -15,8 +15,12 @@
   entities:
   - PlastitaniumPlasmaWindow
   - PlastitaniumPlasmaWindowDiagonal
+  - PlastitaniumPlasmaWindowDiagonalIndestructible
+  - PlastitaniumPlasmaWindowIndestructible
   - PlastitaniumWindow
   - PlastitaniumWindowDiagonal
+  - PlastitaniumWindowDiagonalIndestructible
+  - PlastitaniumWindowIndestructible
   - XenoborgWindow
 - type: repairValueGroup
   id: RepairValueAtmosControl
@@ -171,16 +175,19 @@
   tag: RepairCableHV
   entities:
   - CableHV
+  - CableHVUncuttable
 - type: repairValueGroup
   id: RepairValueCableLV
   tag: RepairCableLV
   entities:
   - CableApcExtension
+  - CableApcExtensionUncuttable
 - type: repairValueGroup
   id: RepairValueCableMV
   tag: RepairCableMV
   entities:
   - CableMV
+  - CableMVUncuttable
 - type: repairValueGroup
   id: RepairValueConsole
   tag: RepairConsole
@@ -1592,12 +1599,16 @@
   entities:
   - WallTungsten
   - WallTungstenDiagonal
+  - WallTungstenDiagonalIndestructible
+  - WallTungstenIndestructible
 - type: repairValueGroup
   id: RepairValueHeavyWindow
   tag: RepairHeavyWindow
   entities:
   - TungstenWindow
   - TungstenWindowDiagonal
+  - TungstenWindowDiagonalIndestructible
+  - TungstenWindowIndestructible
 - type: repairValueGroup
   id: RepairValueHull
   tag: RepairHull
@@ -2118,6 +2129,7 @@
   - BaseAPC
   - CableDet
   - CableTerminal
+  - CableTerminalUncuttable
   - ParticleAcceleratorControlBoxUnfinished
   - ParticleAcceleratorEmitterForeUnfinished
   - ParticleAcceleratorEmitterPortUnfinished
@@ -2169,12 +2181,15 @@
   - WallReinforced
   - WallReinforcedChitin
   - WallReinforcedDiagonal
+  - WallReinforcedIndestructible
   - WallReinforcedRust
+  - WallReinforcedRustIndestructible
   - WallReinforcedSolidDark
   - WallReinforcedSolidDarkDiagonal
   - WallReinforcedSolidDarkRust
   - WallReinforcedVine
   - WallRiveted
+  - WallRivetedIndestructible
 - type: repairValueGroup
   id: RepairValueReinforcedWindow
   tag: RepairReinforcedWindow
@@ -2182,14 +2197,20 @@
   - MiningWindowDiagonalSoyuz
   - MiningWindowSoyuz
   - PlasmaReinforcedWindowDirectional
+  - PlasmaReinforcedWindowDirectionalIndestructible
   - ReinforcedPlasmaWindow
   - ReinforcedPlasmaWindowDiagonal
+  - ReinforcedPlasmaWindowIndestructible
   - ReinforcedUraniumWindow
   - ReinforcedUraniumWindowDiagonal
+  - ReinforcedUraniumWindowIndestructible
   - ReinforcedWindow
   - ReinforcedWindowDiagonal
+  - ReinforcedWindowIndestructible
   - UraniumReinforcedWindowDirectional
+  - UraniumReinforcedWindowDirectionalIndestructible
   - WindowReinforcedDirectional
+  - WindowReinforcedDirectionalIndestructible
   - XenoResinWindow
 - type: repairValueGroup
   id: RepairValueSeat
@@ -3215,6 +3236,7 @@
   - StairWoodLight
   - StairWoodRed
   - Stairs
+  - StationAnchorIndestructible
   - StorageCanisterBroken
   - TaikoInstrument
   - TargetClown
@@ -3367,6 +3389,8 @@
   - WallMiningDiagonal
   - WallPlasma
   - WallPlastic
+  - WallPlastitaniumDiagonalIndestructible
+  - WallPlastitaniumIndestructible
   - WallSandCobblebrick
   - WallSandstone
   - WallSilver
@@ -3375,7 +3399,9 @@
   - WallSolidChitin
   - WallSolidDarkDiagonal
   - WallSolidDiagonal
+  - WallSolidIndestructible
   - WallSolidRust
+  - WallSolidRustIndestructible
   - WallSolidVine
   - WallUranium
   - WallVaultAlien
@@ -3408,6 +3434,7 @@
   - WindowDiagonal
   - WindowDirectional
   - WindowFrostedDirectional
+  - WindowIndestructible
 - type: repairValueGroup
   id: RepairValueDocking
   tag: RepairDocking

@@ -95,15 +95,15 @@
 
 - type: repairValueTag
   id: RepairHeavyDoor
-  value: 12
+  value: 20
 
 - type: repairValueTag
   id: RepairHeavyWall
-  value: 10
+  value: 18
 
 - type: repairValueTag
   id: RepairHeavyWindow
-  value: 10
+  value: 18
 
 - type: repairValueTag
   id: RepairHull
@@ -175,4 +175,4 @@
 
 - type: repairValueTag
   id: RepairDocking
-  value: 12
+  value: 25

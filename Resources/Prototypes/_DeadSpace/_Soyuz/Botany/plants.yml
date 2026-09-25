@@ -72,82 +72,6 @@
         potencyDivisor: 25
 - type: entity
   parent: BasePlant
-  id: KisserTomatoPlants
-  name: kisser tomato vine
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
-  - type: PlantData
-    name: seeds-kissertomato-name
-    noun: seeds-noun-seeds
-    packetPrototype: KisserTomatoSeeds
-    productPrototypes:
-    - MobTomatoKisser
-  - type: Plant
-    lifespan: 25
-    maturation: 15
-    production: 6
-    yield: 2
-    potency: 10
-    growthStages: 2
-  - type: PlantGrowth
-    waterConsumption: 0.6
-    nutrientConsumption: 0.7
-  - type: PlantHarvest
-    harvestRepeat: Repeat
-  - type: PlantChemicals
-    chemicals:
-      Blood:
-        min: 1
-        max: 10
-        potencyDivisor: 10
-      JuiceTomato:
-        min: 1
-        max: 4
-        potencyDivisor: 25
-  - type: PlantAtmospheric
-    lowHeatTolerance: 288
-    highHeatTolerance: 308
-- type: entity
-  parent: BasePlant
-  id: KisserTomatoFakePlants
-  name: kisser tomato vine
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
-  - type: PlantData
-    name: seeds-kissertomato-name
-    noun: seeds-noun-seeds
-    packetPrototype: KisserTomatoFakeSeeds
-    productPrototypes:
-    - MobTomatoKisserFake
-  - type: Plant
-    lifespan: 25
-    maturation: 15
-    production: 6
-    yield: 2
-    potency: 10
-    growthStages: 2
-  - type: PlantGrowth
-    waterConsumption: 0.6
-    nutrientConsumption: 0.7
-  - type: PlantHarvest
-    harvestRepeat: Repeat
-  - type: PlantChemicals
-    chemicals:
-      Blood:
-        min: 1
-        max: 10
-        potencyDivisor: 10
-      JuiceTomato:
-        min: 1
-        max: 4
-        potencyDivisor: 25
-  - type: PlantAtmospheric
-    lowHeatTolerance: 288
-    highHeatTolerance: 308
-- type: entity
-  parent: BasePlant
   id: RosePlants
   name: rose bush
   components:
@@ -504,28 +428,6 @@
         potencyDivisor: 25
 - type: entity
   parent: BasePlant
-  id: PompombushPlants
-  name: pompom bush
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
-  - type: PlantData
-    name: seeds-pompombush-name
-    noun: seeds-noun-seeds
-    packetPrototype: PompomBushSeeds
-    productPrototypes:
-    - MaterialPom1
-  - type: Plant
-    lifespan: 25
-    maturation: 8
-    production: 3
-    yield: 3
-    potency: 5
-    growthStages: 3
-  - type: PlantGrowth
-    waterConsumption: 0.6
-- type: entity
-  parent: BasePlant
   id: SpesosPlants
   name: gold leaf trees
   components:
@@ -594,7 +496,7 @@
   name: avocado plants
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
   - type: PlantData
     name: seeds-avocado-name
     noun: seeds-noun-seeds
@@ -628,7 +530,7 @@
   name: cucumber plants
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
   - type: PlantData
     name: seeds-cucumber-name
     noun: seeds-noun-seeds
@@ -658,7 +560,7 @@
   name: honeycomb
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bees.rsi
   - type: PlantData
     name: seeds-bees-name
     noun: seeds-noun-nothing
@@ -728,7 +630,7 @@
   name: monkanana trees
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/monkanana.rsi
   - type: PlantData
     mutations:
     - target: BungoPlants
@@ -769,7 +671,7 @@
   name: glowshroom
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/towercap.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glowshroom.rsi
   - type: PlantData
     mutations:
     - target: GlasscapPlants
@@ -1225,6 +1127,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 5
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1349,6 +1252,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1380,6 +1284,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1411,6 +1316,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1452,6 +1358,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1521,6 +1428,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1556,6 +1464,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1587,6 +1496,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1622,6 +1532,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals
@@ -1657,6 +1568,7 @@
     production: 6
     yield: 3
     potency: 10
+    growthStages: 3
   - type: PlantHarvest
     harvestRepeat: Repeat
   - type: PlantChemicals

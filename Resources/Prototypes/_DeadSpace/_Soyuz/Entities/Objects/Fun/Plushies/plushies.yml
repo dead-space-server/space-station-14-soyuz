@@ -102,3 +102,13 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
     state: okgb1
+
+- type: entity
+  parent: BasePlushieSoyuz
+  id: PlushieMonokuma
+  name: плюшевый монокума
+  description: Мишк.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Fun/plushies.rsi
+    state: monokuma

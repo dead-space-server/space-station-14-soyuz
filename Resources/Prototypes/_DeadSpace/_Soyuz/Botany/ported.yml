@@ -259,35 +259,35 @@
   id: Avocado
   name: food-sequence-content-avocado
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Cucumber
   name: food-sequence-content-cucumber
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Pickle
   name: food-sequence-content-pickle
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
+    state: pickle
 
 - type: foodSequenceElement
   id: Honeycomb
   name: food-sequence-content-honeycomb
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bees.rsi
     state: produce
 
 - type: foodSequenceElement
   id: Monkanana
   name: food-sequence-content-monkanana
   sprites:
-  - sprite: Objects/Specific/Hydroponics/tomato.rsi
+  - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/monkanana.rsi
     state: produce
 
 - type: foodSequenceElement
@@ -805,25 +805,6 @@
 
 - type: entity
   parent: SeedBase
-  id: KisserTomatoSeeds
-  components:
-  - type: Seed
-    plantId: KisserTomatoPlants
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
-
-- type: entity
-  parent: SeedBase
-  suffix: Syndicate
-  id: KisserTomatoFakeSeeds
-  components:
-  - type: Seed
-    plantId: KisserTomatoFakePlants
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/tomatokisser.rsi
-
-- type: entity
-  parent: SeedBase
   id: RoseSeeds
   components:
     - type: Seed
@@ -922,16 +903,6 @@
       sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/floating_flora.rsi
 
 - type: entity
-  parent: SeedBase
-  id: PompomBushSeeds
-  components:
-    - type: Seed
-      plantId: PompombushPlants
-    - type: Sprite
-      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
-
-
-- type: entity
   parent: FoodProduceBase
   id: FoodAvocado
   components:
@@ -948,7 +919,7 @@
         - ReagentId: Vitamin
           Quantity: 6
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
     state: produce
   - type: Item
     heldPrefix: produce
@@ -984,8 +955,8 @@
         - ReagentId: Vitamin
           Quantity: 3
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
+    state: slice
   - type: Extractable
     grindableSolutionName: food
     juiceSolution:
@@ -1018,7 +989,7 @@
         - ReagentId: Vitamin
           Quantity: 4
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
     state: produce
   - type: Item
     heldPrefix: produce
@@ -1054,8 +1025,8 @@
         - ReagentId: Vitamin
           Quantity: 1
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
+    state: slice
   - type: Extractable
     grindableSolutionName: food
     juiceSolution:
@@ -1090,8 +1061,8 @@
         - ReagentId: Saline
           Quantity: 10
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
+    state: pickle
   - type: Item
     heldPrefix: pickle
   - type: SliceableFood
@@ -1126,8 +1097,8 @@
         - ReagentId: Saline
           Quantity: 2.5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
+    state: pickleslice
   - type: Extractable
     grindableSolutionName: food
     juiceSolution:
@@ -1160,7 +1131,7 @@
         - ReagentId: Vitamin
           Quantity: 5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bees.rsi
     state: produce
   - type: Item
     heldPrefix: produce
@@ -1251,7 +1222,7 @@
         - ReagentId: Nutriment
           Quantity: 5
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/monkanana.rsi
     state: produce
   - type: Produce
     plantId: MonkananaPlants
@@ -1390,7 +1361,7 @@
     - type: Seed
       plantId: AvocadoPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
 
 - type: entity
   parent: SeedBase
@@ -1399,7 +1370,7 @@
     - type: Seed
       plantId: CucumberPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
 
 - type: entity
   parent: SeedBase
@@ -1408,7 +1379,7 @@
     - type: Seed
       plantId: BeesPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/bees.rsi
     - type: StaticPrice
       price: 50
     - type: Damageable
@@ -1458,7 +1429,7 @@
     - type: Seed
       plantId: MonkananaPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/tomato.rsi
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/monkanana.rsi
 
 - type: entity
   parent: SeedBase
@@ -1467,7 +1438,7 @@
     - type: Seed
       plantId: NfglowshroomPlants
     - type: Sprite
-      sprite: Objects/Specific/Hydroponics/towercap.rsi
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glowshroom.rsi
     - type: Item
       heldPrefix: seed
     - type: Tag
@@ -1511,6 +1482,7 @@
           Quantity: 15
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
+    state: produce
   - type: Produce
     plantId: CrystalThistlePlants
   - type: Extractable
@@ -1526,7 +1498,7 @@
   name: food-sequence-content-crystal-thistle
   sprites:
   - sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Crystal_Thistle.rsi
-    state: harvest
+    state: produce
 
 - type: entity
   parent: FoodProduceBase
@@ -2345,6 +2317,12 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/lanternfruit.rsi
     state: produce
+  # DS14-Soyuz: the harvested fruit gives off a soft, warm glow.
+  - type: PointLight
+    color: "#FFE7A3"
+    radius: 1.6
+    energy: 0.8
+    softness: 0.7
   - type: Produce
     plantId: LanternfruitPlants
   - type: SolutionContainerManager
@@ -2448,41 +2426,6 @@
     tags:
     - Fruit
 
-# Clean-room compatibility products for source plants whose original definitions
-# lived outside the botany files. These keep every harvested product available
-# without importing unrelated source code or restrictive assets.
-- type: entity
-  parent: FoodProduceBase
-  id: MobTomatoKisser
-  components:
-  - type: SolutionContainerManager
-    solutions:
-      food: {}
-  - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
-  - type: Produce
-    plantId: KisserTomatoPlants
-  - type: Tag
-    tags:
-    - Fruit
-
-- type: entity
-  parent: FoodProduceBase
-  id: MobTomatoKisserFake
-  components:
-  - type: SolutionContainerManager
-    solutions:
-      food: {}
-  - type: Sprite
-    sprite: Objects/Specific/Hydroponics/tomato.rsi
-    state: produce
-  - type: Produce
-    plantId: KisserTomatoFakePlants
-  - type: Tag
-    tags:
-    - Fruit
-
 - type: entity
   parent: FoodProduceBase
   id: Rose
@@ -2492,7 +2435,7 @@
       food: {}
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/rose.rsi
-    state: harvest
+    state: icon
   - type: Produce
     plantId: RosePlants
   - type: Tag
@@ -2508,7 +2451,7 @@
       food: {}
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/blackRose.rsi
-    state: harvest
+    state: icon
   - type: Produce
     plantId: BlackRosePlants
   - type: Tag
@@ -2520,8 +2463,10 @@
   id: HopTart
   components:
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/employedhops.rsi
-    state: harvest
+    sprite: Objects/Misc/id_cards.rsi
+    layers:
+    - state: default
+    - state: idpassenger
   - type: Produce
     plantId: EmployedhopsPlants
   - type: SolutionContainerManager
@@ -2537,27 +2482,14 @@
 
 - type: entity
   parent: FoodProduceBase
-  id: MaterialPom1
-  components:
-  - type: SolutionContainerManager
-    solutions:
-      food: {}
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/pompombush.rsi
-    state: harvest
-  - type: Produce
-    plantId: PompombushPlants
-
-- type: entity
-  parent: FoodProduceBase
   id: GoldLeaf
   components:
   - type: SolutionContainerManager
     solutions:
       food: {}
   - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/spesostree.rsi
-    state: harvest
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/valuables.rsi
+    state: gold_leaf
   - type: Produce
     plantId: SpesosPlants
 
@@ -2586,8 +2518,14 @@
   id: NFFoodGlowshroom
   components:
   - type: Sprite
-    sprite: Objects/Specific/Hydroponics/towercap.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/glowshroom.rsi
     state: produce
+  # DS14-Soyuz: keep the picked mushroom visible in the dark.
+  - type: PointLight
+    color: "#FFE7A3"
+    radius: 1.6
+    energy: 0.8
+    softness: 0.7
   - type: Produce
     plantId: NfglowshroomPlants
   - type: SolutionContainerManager

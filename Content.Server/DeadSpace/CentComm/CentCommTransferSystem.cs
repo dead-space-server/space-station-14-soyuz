@@ -148,7 +148,7 @@ public sealed class CentCommTransferSystem : EntitySystem
         var announcement = Loc.GetString("centcomm-transfer-announcement");
         _chat.DispatchAdminFilteredAnnouncement(_ruleStation.GetEventPlayers(grid), announcement,
             sender: Loc.GetString("chat-manager-sender-announcement"),
-            colorOverride: Color.FromHex("#1d8bad"),
+            colorOverride: Color.FromHex("#b64444"), //DS14-Soyuz
             announcementSound: new SoundPathSpecifier("/Audio/Misc/gamma.ogg"),
             originalMessage: announcement, voice: "Announcer");
         _log.Add(LogType.AdminMessage, LogImpact.High,

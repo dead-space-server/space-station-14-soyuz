@@ -49,7 +49,7 @@ namespace Content.Shared.Administration
             public bool CustomTTS = default!; // Corvax-TTS
             // DS14-announce-start
             public NetEntity? TargetGrid;
-            public string ColorHex = "1d8bad";
+            public string ColorHex = "b64444"; //DS14-Soyuz
             public string SoundPath = "/Audio/_DeadSpace/Announcements/centcomm.ogg";
             public float SoundVolume = 5f;
             public string Sender = "";

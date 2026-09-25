@@ -87,11 +87,11 @@
 
 - type: repairValueTag
   id: RepairGeneratorSmall
-  value: 5
+  value: 25
 
 - type: repairValueTag
   id: RepairGrille
-  value: 3
+  value: 5
 
 - type: repairValueTag
   id: RepairHeavyDoor
@@ -151,28 +151,28 @@
 
 - type: repairValueTag
   id: RepairSeat
-  value: 2
-
-- type: repairValueTag
-  id: RepairStorage
-  value: 5
-
-- type: repairValueTag
-  id: RepairStructure
-  value: 5
-
-- type: repairValueTag
-  id: RepairTable
   value: 3
 
 - type: repairValueTag
+  id: RepairStorage
+  value: 6
+
+- type: repairValueTag
+  id: RepairStructure
+  value: 6
+
+- type: repairValueTag
+  id: RepairTable
+  value: 4
+
+- type: repairValueTag
   id: RepairWall
-  value: 5
+  value: 6
 
 - type: repairValueTag
   id: RepairWindow
-  value: 5
+  value: 6
 
 - type: repairValueTag
   id: RepairDocking
-  value: 25
+  value: 35

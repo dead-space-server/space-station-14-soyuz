@@ -9,7 +9,9 @@
       stationProto: NanotrasenCentralCommand
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Генеральный Штаб {1}'
+#DS14-Soyuz start
+          mapNameTemplate: '{0} «Цитадель»'
           nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: 'SDV' # DS14-Soyuz
+            !type:GeneralStaffGenerator
+            prefixCreator: 'SDV' 
+#DS14-Soyuz end

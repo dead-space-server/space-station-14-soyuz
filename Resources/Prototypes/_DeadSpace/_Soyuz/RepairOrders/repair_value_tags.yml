@@ -1,0 +1,178 @@
+# Repair-only prices. Exact IDs are deliberate; new candidates must be classified in CI.
+# Values retain the engineering profile scale (floor 2, wall 5, machine 15, RTG 40).
+
+- type: repairValueTag
+  id: RepairArmoredWall
+  value: 15
+
+- type: repairValueTag
+  id: RepairArmoredWindow
+  value: 15
+
+- type: repairValueTag
+  id: RepairAtmosControl
+  value: 7
+
+- type: repairValueTag
+  id: RepairAtmosPipe
+  value: 3
+
+- type: repairValueTag
+  id: RepairAtmosProcessing
+  value: 8
+
+- type: repairValueTag
+  id: RepairAtmosVent
+  value: 6
+
+- type: repairValueTag
+  id: RepairCableHV
+  value: 4
+
+- type: repairValueTag
+  id: RepairCableLV
+  value: 2
+
+- type: repairValueTag
+  id: RepairCableMV
+  value: 3
+
+- type: repairValueTag
+  id: RepairConsole
+  value: 15
+
+- type: repairValueTag
+  id: RepairDecor
+  value: 2
+
+- type: repairValueTag
+  id: RepairDefense
+  value: 20
+
+- type: repairValueTag
+  id: RepairDisposal
+  value: 5
+
+- type: repairValueTag
+  id: RepairDoor
+  value: 8
+
+- type: repairValueTag
+  id: RepairElectronics
+  value: 5
+
+- type: repairValueTag
+  id: RepairEngineLarge
+  value: 20
+
+- type: repairValueTag
+  id: RepairEngineSmall
+  value: 15
+
+- type: repairValueTag
+  id: RepairFurniture
+  value: 4
+
+- type: repairValueTag
+  id: RepairGeneratorHeavy
+  value: 35
+
+- type: repairValueTag
+  id: RepairGeneratorPortable
+  value: 25
+
+- type: repairValueTag
+  id: RepairGeneratorRTG
+  value: 40
+
+- type: repairValueTag
+  id: RepairGeneratorSmall
+  value: 5
+
+- type: repairValueTag
+  id: RepairGrille
+  value: 3
+
+- type: repairValueTag
+  id: RepairHeavyDoor
+  value: 12
+
+- type: repairValueTag
+  id: RepairHeavyWall
+  value: 10
+
+- type: repairValueTag
+  id: RepairHeavyWindow
+  value: 10
+
+- type: repairValueTag
+  id: RepairHull
+  value: 8
+
+- type: repairValueTag
+  id: RepairHullWindow
+  value: 8
+
+- type: repairValueTag
+  id: RepairLight
+  value: 4
+
+- type: repairValueTag
+  id: RepairMachine
+  value: 15
+
+- type: repairValueTag
+  id: RepairMachineLarge
+  value: 30
+
+- type: repairValueTag
+  id: RepairPowerAPC
+  value: 12
+
+- type: repairValueTag
+  id: RepairPowerStorage
+  value: 20
+
+- type: repairValueTag
+  id: RepairPowerSubstation
+  value: 15
+
+- type: repairValueTag
+  id: RepairPowerWallGenerator
+  value: 20
+
+- type: repairValueTag
+  id: RepairReinforcedWall
+  value: 6
+
+- type: repairValueTag
+  id: RepairReinforcedWindow
+  value: 6
+
+- type: repairValueTag
+  id: RepairSeat
+  value: 2
+
+- type: repairValueTag
+  id: RepairStorage
+  value: 5
+
+- type: repairValueTag
+  id: RepairStructure
+  value: 5
+
+- type: repairValueTag
+  id: RepairTable
+  value: 3
+
+- type: repairValueTag
+  id: RepairWall
+  value: 5
+
+- type: repairValueTag
+  id: RepairWindow
+  value: 5
+
+- type: repairValueTag
+  id: RepairDocking
+  value: 12

@@ -90,7 +90,7 @@
     children:
     - id: WetFloorSign
       amount: 3
-    - id: LightReplacer
+    - id: LightReplacerFilled
     - id: BoxLightMixed
     - id: Holoprojector
     - !type:AllSelector
@@ -141,6 +141,7 @@
   table: !type:AllSelector
     children:
     - id: ClothingHandsGlovesLeather
+    - id: SoyuzPlantAnalyzer # DS14-Soyuz: one guaranteed analyzer
     - id: ClothingOuterApronBotanist
     - id: ClothingHeadBandBotany
     - id: ChemistryBottleRobustHarvest

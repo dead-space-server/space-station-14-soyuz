@@ -24,13 +24,43 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
-            // Kofeecheks gases: LicenseRef-Kofeecheks
-            Gas.Nitryl,
+            // DS14-start
+            Gas.InfectionDeadSpace,
             Gas.Nitriatium,
             Gas.Hilium,
             Gas.Brizidium,
             Gas.Iprit,
-            Gas.InfectionDeadSpace // DS14
+            Gas.Hydrogen,
+            Gas.HyperNoblium,
+            Gas.ProtoNitrate,
+            Gas.Helium,
+            Gas.Halon,
+            Gas.Zauker,
+            Gas.Antinoblium,
+            // DS14-end
+            // DS14-Soyuz start
+            Gas.Kryoxide,
+            Gas.Etherite,
+            Gas.Isoflux,
+            Gas.Resonite,
+            Gas.Pyroxite,
+            Gas.Coronite,
+            Gas.Gravion,
+            Gas.Radion,
+            Gas.QuartzGas,
+            Gas.ImpulseGas,
+            Gas.Iney,
+            Gas.Diborane,
+            Gas.GammaGas,
+            Gas.Forsazh,
+            Gas.Sumrak,
+            Gas.Lumin,
+            Gas.Lazarus,
+            Gas.Chromatin,
+            Gas.Tlec,
+            Gas.Detonite,
+            Gas.Boracite,
+            // DS14-Soyuz end
         };
 
         // Presets for 'dumb' air alarm modes

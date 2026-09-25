@@ -41,7 +41,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/_Soyuz/centcomm.yml",
+            // "/Maps/centcomm.yml", // DS14: CentComm is covered by GameMaps as a full station map.
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -57,14 +57,15 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist // Some maps replaced to /_Soyuz/ directory for DS14-Soyuz 
-            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
-            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
+            // DS14-start: Add our custom maps to whitelist
+            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]}, //DS14-Soyuz
+            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]}, //DS14-Soyuz
+            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, //DS14-Soyuz disabled
             // {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
-            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]}
+            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, //DS14-Soyuz
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]}, //DS14-Soyuz
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]}, //DS14-Soyuz
+            {"/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml", ["BoxFolderCentCom"]} //DS14-Soyuz
             // DS14-end
         };
 
@@ -78,9 +79,12 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] DoNotMapWhitelist =
         {
             "/Maps/_Soyuz/centcomm.yml", // DS14-Soyuz path
+            "/Maps/centcomm.yml",
+            "/Maps/_Soyuz/S1_GeneralStaff.yml", // DS14-Soyuz path
+            "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/_Soyuz/ds_taipan.yml", // Taipan // DS14-Soyuz path
+            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
         };
@@ -92,7 +96,7 @@ namespace Content.IntegrationTests.Tests
             .Select(glob => new Regex(GlobToRegex(glob), RegexOptions.IgnoreCase | RegexOptions.Compiled))
             .ToArray();
 
-        // DS14-start: Add our custom game maps 
+        // DS14-start: Add our custom game maps
         private static readonly string[] GameMaps =
         {
             "Dev",
@@ -101,6 +105,7 @@ namespace Content.IntegrationTests.Tests
             "MeteorArena",
             "dm01-entryway",
             "DSTaipan",
+            "DsTram2",
             "Amber",
             // "Aspid", // remap in progress
             "Bagel",
@@ -110,15 +115,15 @@ namespace Content.IntegrationTests.Tests
             "Cog",
             "Convex",
             "Core",
-            "CorvaxAstra",
-            "CorvaxAvrite",
-            "CorvaxChloris",
-            "CorvaxDelta",
+            // "CorvaxAstra", // DS14-Soyuz disabled
+            // "CorvaxAvrite", // DS14-Soyuz disabled
+            // "CorvaxChloris", // DS14-Soyuz disabled
+            // "CorvaxDelta", // DS14-Soyuz disabled
             "CorvaxPaper",
             "CorvaxPearl",
-            "CorvaxGlacier",
+            // "CorvaxGlacier", // DS14-Soyuz disabled
             "CorvaxSilly",
-            "CorvaxSpectrum",
+            // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
             "Fland",
             "Gate",
@@ -139,6 +144,7 @@ namespace Content.IntegrationTests.Tests
             "Snowball",
             "Serpentcrest",
             "Train",
+            "GeneralStaff",
         };
 
         private static readonly string[] GameMapsExcludedFromTests =

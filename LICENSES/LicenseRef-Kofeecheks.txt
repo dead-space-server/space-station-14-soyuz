@@ -4,7 +4,7 @@ Copyright (c) 2026 Kofeecheks. All rights reserved.
 
 This notice applies to every Kofeecheks-authored file or separately identified
 portion of a file bearing this license identifier or the integration marker
-"DS-14 Soyuz":
+"DS14-Soyuz":
 
     SPDX-License-Identifier: LicenseRef-Kofeecheks
 

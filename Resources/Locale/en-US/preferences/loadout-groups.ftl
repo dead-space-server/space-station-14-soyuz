@@ -73,6 +73,9 @@ loadout-group-janitor-plunger = Janitor plunger
 loadout-group-botanist-head = Botanist head
 loadout-group-botanist-jumpsuit = Botanist jumpsuit
 loadout-group-botanist-backpack = Botanist backpack
+# DS14-Soyuz start
+loadout-group-botanist-equipment = Botanist equipment
+# DS14-Soyuz end
 loadout-group-botanist-outerclothing = Botanist outer clothing
 
 loadout-group-clown-head = Clown head
@@ -193,6 +196,7 @@ loadout-group-medical-doctor-id = Medical Doctor ID
 
 loadout-group-medical-intern-jumpsuit = Medical intern jumpsuit
 
+loadout-group-chemist-head = Chemist head
 loadout-group-chemist-jumpsuit = Chemist jumpsuit
 loadout-group-chemist-outerclothing = Chemist outer clothing
 loadout-group-chemist-backpack = Chemist backpack

@@ -7745,15 +7745,6 @@ entities:
       parent: 658
     - type: Physics
       canCollide: False
-- proto: FoodMeatTomato
-  entities:
-  - uid: 1237
-    components:
-    - type: Transform
-      pos: 16.265053,-16.357336
-      parent: 658
-    - type: Physics
-      canCollide: False
 - proto: FoodPieBananaCream
   entities:
   - uid: 1238
@@ -10155,7 +10146,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 75
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10194,8 +10184,10 @@ entities:
         id: cannabis
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - rainbowCannabis
+        # DS14-Soyuz: directed species mutations.
+        mutations:
+        - target: RainbowCannabisPlants
+          chance: 0.12
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False
@@ -10227,7 +10219,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 75
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10266,8 +10257,10 @@ entities:
         id: cannabis
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - rainbowCannabis
+        # DS14-Soyuz: directed species mutations.
+        mutations:
+        - target: RainbowCannabisPlants
+          chance: 0.12
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False
@@ -10339,7 +10332,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 25
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10383,8 +10375,10 @@ entities:
         id: wheat
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - meatwheat
+        # DS14-Soyuz: directed species mutations.
+        mutations:
+        - target: MeatWheatPlants
+          chance: 0.1
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False
@@ -10416,7 +10410,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 25
         endurance: 100
         weedHighLevelThreshold: 10
@@ -10460,8 +10453,10 @@ entities:
         id: wheat
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - meatwheat
+        # DS14-Soyuz: directed species mutations.
+        mutations:
+        - target: MeatWheatPlants
+          chance: 0.1
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False

@@ -1,0 +1,236 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+using System.IO;
+using Content.Shared.Tag;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
+
+namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
+
+/// <summary>Shared bounds and localized work classes for repair orders and rewards.</summary>
+public static class RepairOrderDifficulty
+{
+    public const int Minimum = 1;
+    public const int Maximum = 10;
+
+    public static void Validate(int difficulty)
+    {
+        if (difficulty < Minimum || difficulty > Maximum)
+            throw new InvalidDataException($"Repair difficulty {difficulty} must be between {Minimum} and {Maximum}.");
+    }
+
+    public static LocId GetName(int difficulty)
+    {
+        Validate(difficulty);
+        return $"repair-orders-difficulty-class-{difficulty}";
+    }
+}
+
+/// <summary>
+/// Describes a repair job and the damaged/reference grids associated with it.
+/// </summary>
+[Prototype]
+public sealed partial class RepairOrderPrototype : IPrototype, ISerializationHooks
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    [DataField(required: true)]
+    public LocId Name = string.Empty;
+
+    [DataField(required: true)]
+    public LocId Description = string.Empty;
+
+    /// <summary>
+    /// Formal type of the repaired object, used in official reports independently of the order's flavor name.
+    /// </summary>
+    [DataField(required: true)]
+    public LocId ObjectType = string.Empty;
+
+    /// <summary>
+    /// Formal name of the repaired object. <see cref="Name"/> remains the name of the repair order itself.
+    /// </summary>
+    [DataField(required: true)]
+    public LocId ObjectName = string.Empty;
+
+    [DataField]
+    public int Difficulty = 1;
+
+    [DataField]
+    public float Weight = 1f;
+
+    /// <summary>
+    /// Reference grid loaded only on a temporary paused map while building a repair blueprint.
+    /// </summary>
+    [DataField(required: true)]
+    public ResPath TargetGridPath;
+
+    [DataField(required: true)]
+    public ProtoId<RepairDamageProfilePrototype> DamageProfile;
+
+    [DataField(required: true)]
+    public ProtoId<RepairScoreProfilePrototype> ScoreProfile;
+
+    [DataField(required: true)]
+    public ProtoId<RepairRewardPoolPrototype> RewardPool;
+
+    /// <summary>
+    /// Authoritative time available after the order has been fully activated.
+    /// </summary>
+    [DataField(required: true)]
+    public TimeSpan RepairTime;
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        RepairOrderDifficulty.Validate(Difficulty);
+        if (RepairTime <= TimeSpan.Zero)
+            throw new InvalidDataException($"Repair order {ID} must have a positive repairTime.");
+    }
+}
+
+/// <summary>
+/// Data-driven point values and rotation requirements for repair blueprint requirements.
+/// </summary>
+[Prototype]
+public sealed partial class RepairScoreProfilePrototype : IPrototype
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    /// <summary>Uniform value for restoring or removing any non-empty floor tile.</summary>
+    [DataField(required: true)]
+    public int FloorTilePoints;
+
+    /// <summary>
+    /// Ordered entity identity rules. Matching prototypes are compared as the configured canonical prototype.
+    /// This is used for map-only variants such as filled/empty power machines.
+    /// </summary>
+    [DataField]
+    public List<RepairEntityIdentityRule> IdentityRules = new();
+
+    /// <summary>
+    /// Ordered entity rotation rules. The first matching rule is used.
+    /// Entities which match no rule ignore rotation.
+    /// </summary>
+    [DataField]
+    public List<RepairRotationRule> RotationRules = new();
+}
+
+/// <summary>
+/// Selects entity prototypes without requiring every derived prototype to be listed explicitly.
+/// Non-empty selector groups are ANDed; entries inside a group are ORed, except AllTags and
+/// AllComponents which require every listed value.
+/// </summary>
+[DataDefinition]
+public sealed partial class RepairEntitySelector
+{
+    /// <summary>
+    /// Exact entity prototypes accepted by this selector.
+    /// </summary>
+    [DataField]
+    public List<EntProtoId> Entities = new();
+
+    /// <summary>
+    /// Entity prototype families accepted by this selector. The family root itself also matches.
+    /// </summary>
+    [DataField]
+    public List<EntProtoId> Parents = new();
+
+    [DataField]
+    public List<ProtoId<TagPrototype>> AllTags = new();
+
+    /// <summary>
+    /// YAML component names which must all be present on the fully inherited entity prototype.
+    /// </summary>
+    [DataField]
+    public List<string> AllComponents = new();
+}
+
+[DataDefinition]
+public sealed partial class RepairEntityIdentityRule
+{
+    [DataField(required: true)]
+    public RepairEntitySelector Selector = new();
+
+    [DataField(required: true)]
+    public EntProtoId Canonical;
+}
+
+[DataDefinition]
+public sealed partial class RepairRotationRule
+{
+    [DataField(required: true)]
+    public RepairEntitySelector Selector = new();
+
+    [DataField(required: true)]
+    public RepairRotationMode Mode;
+}
+
+/// <summary>
+/// Determines how an entity's local rotation is compared with the target blueprint.
+/// </summary>
+public enum RepairRotationMode : byte
+{
+    None,
+
+    /// <summary>
+    /// All four cardinal rotations are distinct.
+    /// </summary>
+    Exact,
+
+    /// <summary>
+    /// Opposite directions are equivalent. Used for straight pipes: horizontal and vertical matter,
+    /// but rotating a straight pipe by 180 degrees does not.
+    /// </summary>
+    Axis,
+}
+
+/// <summary>
+/// One data-driven reward candidate used both for calculation and physical delivery.
+/// </summary>
+[Prototype]
+public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHooks
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    [DataField(required: true)]
+    public EntProtoId Entity;
+
+    [DataField(required: true)]
+    public int Cost;
+
+    [DataField]
+    public float Weight = 1f;
+
+    [DataField]
+    public int MaxCount = 1;
+
+    [DataField]
+    public int MinimumDifficulty = 1;
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        RepairOrderDifficulty.Validate(MinimumDifficulty);
+    }
+}
+
+/// <summary>
+/// Reusable set of reward candidates available to one or more repair orders.
+/// </summary>
+[Prototype]
+public sealed partial class RepairRewardPoolPrototype : IPrototype
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    /// <summary>
+    /// Physical container spawned beside the console that submits a completed order.
+    /// </summary>
+    [DataField(required: true)]
+    public EntProtoId DeliveryContainer;
+
+    [DataField(required: true)]
+    public List<ProtoId<RepairRewardPrototype>> Rewards = new();
+}

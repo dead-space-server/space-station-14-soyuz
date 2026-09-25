@@ -87,7 +87,7 @@ public sealed class DoAfterOverlay : Overlay
             if (comp.DoAfters.Count == 0)
                 continue;
 
-            // DS-14 Soyuz: do-after progress is private to the player performing the action.
+            // DS14-Soyuz: do-after progress is private to the player performing the action.
             // Do not draw another player's action bar at all.
             if (uid != localEnt)
                 continue;

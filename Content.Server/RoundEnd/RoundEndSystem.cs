@@ -29,8 +29,9 @@ namespace Content.Server.RoundEnd
     /// Handles ending rounds normally and also via requesting it (e.g. via comms console)
     /// If you request a round end then an escape shuttle will be used.
     /// </summary>
-    public sealed class RoundEndSystem : EntitySystem
+    public sealed partial class RoundEndSystem : EntitySystem // DS14
     {
+        [Dependency] private readonly Content.Server.DeadSpace.CentComm.GameRuleStationSystem _ruleStation = default!; // DS14
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
         [Dependency] private readonly IChatManager _chatManager = default!;
@@ -84,6 +85,7 @@ namespace Content.Server.RoundEnd
                 _countdownTokenSource.Cancel();
                 _countdownTokenSource = null;
             }
+            ResetRoundTransitionTimer(); // DS14
 
             if (_cooldownTokenSource != null)
             {
@@ -151,7 +153,7 @@ namespace Content.Server.RoundEnd
         /// <param name="text">text in the announcement of shuttle calling</param>
         /// <param name="name">name in the announcement of shuttle calling</param>
         /// <param name="cantRecall">if the station shouldn't be able to recall the shuttle</param>
-        public void RequestRoundEnd(EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false)
+        public void RequestRoundEnd(EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false, EntityUid? announcementSource = null) // DS14
         {
             var duration = DefaultCountdownDuration;
 
@@ -166,7 +168,7 @@ namespace Content.Server.RoundEnd
                 }
             }
 
-            RequestRoundEnd(duration, requester, machine, checkCooldown, text, name, cantRecall);
+            RequestRoundEnd(duration, requester, machine, checkCooldown, text, name, cantRecall, announcementSource); // DS14
         }
 
         /// <summary>
@@ -179,7 +181,7 @@ namespace Content.Server.RoundEnd
         /// <param name="text">text in the announcement of shuttle calling</param>
         /// <param name="name">name in the announcement of shuttle calling</param>
         /// <param name="cantRecall">if the station shouldn't be able to recall the shuttle</param>
-        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false)
+        public void RequestRoundEnd(TimeSpan countdownTime, EntityUid? requester = null, EntityUid? machine = null, bool checkCooldown = true, string text = "round-end-system-shuttle-called-announcement", string name = "round-end-system-shuttle-sender-announcement", bool cantRecall = false, EntityUid? announcementSource = null) // DS14
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
@@ -214,7 +216,12 @@ namespace Content.Server.RoundEnd
                 units = "eta-units-minutes";
             }
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(text,
+            // DS14-start
+            var recipients = announcementSource is { } source
+                ? _ruleStation.GetEventPlayers(source)
+                : _ruleStation.GetStationPlayers();
+            // DS14-end
+            _chatSystem.DispatchAdminFilteredAnnouncement(recipients, Loc.GetString(text, // DS14
                 ("time", time),
                 ("units", Loc.GetString(units))),
                 Loc.GetString(name),
@@ -222,8 +229,12 @@ namespace Content.Server.RoundEnd
                 null,
                 Color.Gold);
 
-            if (!_autoCalledBefore) _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/emergency_s_called.ogg", Filter.Broadcast(), true, AudioParams.Default.AddVolume(-4)); // DS14-Announcements: Custom sound for auto-called
-            else _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/crew_s_called.ogg", Filter.Broadcast(), true, AudioParams.Default.AddVolume(-2)); // DS14-Announcements
+            // DS14-start
+            if (!_autoCalledBefore)
+                _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/emergency_s_called.ogg", Filter.Broadcast(), true, AudioParams.Default.AddVolume(-4));
+            else
+                _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/crew_s_called.ogg", Filter.Broadcast(), true, AudioParams.Default.AddVolume(-2));
+            // DS14-end
 
             LastCountdownStart = _gameTiming.CurTime;
             ExpectedCountdownEnd = _gameTiming.CurTime + countdownTime;
@@ -250,7 +261,7 @@ namespace Content.Server.RoundEnd
             }
         }
 
-        public void CancelRoundEndCountdown(EntityUid? requester = null, EntityUid? machine = null, bool forceRecall = false)
+        public void CancelRoundEndCountdown(EntityUid? requester = null, EntityUid? machine = null, bool forceRecall = false, EntityUid? announcementSource = null) // DS14
         {
             if (_gameTicker.RunLevel != GameRunLevel.InRound)
                 return;
@@ -270,10 +281,18 @@ namespace Content.Server.RoundEnd
             else
                 _adminLogger.Add(LogType.ShuttleRecalled, LogImpact.High, $"Shuttle recalled{what}");
 
-            _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
-                Loc.GetString("round-end-system-shuttle-sender-announcement"), false, colorOverride: Color.Gold);
+            // DS14-start
+            var recipients = announcementSource is { } source
+                ? _ruleStation.GetEventPlayers(source)
+                : _ruleStation.GetStationPlayers();
+            var sender = announcementSource is { } station && HasComp<StationDataComponent>(station)
+                ? Name(station)
+                : Loc.GetString("round-end-system-shuttle-sender-announcement");
+            _chatSystem.DispatchAdminFilteredAnnouncement(recipients, Loc.GetString("round-end-system-shuttle-recalled-announcement"),
+                sender, false, colorOverride: Color.Gold);
+            // DS14-end
 
-            _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/emergency_s_recalled.ogg", Filter.Broadcast(), true, AudioParams.Default.AddVolume(-2)); // DS14-Announcements
+            _audio.PlayGlobal("/Audio/_DeadSpace/Announcements/emergency_s_recalled.ogg", recipients, true, AudioParams.Default.AddVolume(-2)); // DS14
 
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;
@@ -306,7 +325,7 @@ namespace Content.Server.RoundEnd
             RaiseLocalEvent(RoundEndSystemChangedEvent.Default);
             _gameTicker.EndRound();
             _countdownTokenSource?.Cancel();
-            _countdownTokenSource = new();
+            _countdownTokenSource = null; // DS14
 
             countdownTime ??= TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.RoundRestartTime));
             int time;
@@ -326,7 +345,7 @@ namespace Content.Server.RoundEnd
                     "round-end-system-round-restart-eta-announcement",
                     ("time", time),
                     ("units", Loc.GetString(unitsLocString))));
-            Timer.Spawn(countdownTime.Value, AfterEndRoundRestart, _countdownTokenSource.Token);
+            StartRoundRestartTimer(countdownTime.Value); // DS14
 
             _chatManager.DispatchServerAnnouncement(Loc.GetString("round-end-system-rules-reminder-announcement")); // DS14
         }
@@ -343,7 +362,7 @@ namespace Content.Server.RoundEnd
             TimeSpan time,
             string sender = "comms-console-announcement-title-centcom",
             string textCall = "round-end-system-shuttle-called-announcement",
-            string textAnnounce = "round-end-system-shuttle-already-called-announcement")
+            string textAnnounce = "round-end-system-shuttle-already-called-announcement", EntityUid? announcementSource = null) // DS14
         {
             switch (behavior)
             {
@@ -354,14 +373,18 @@ namespace Content.Server.RoundEnd
                     // Check is shuttle called or not. We should only dispatch announcement if it's already called
                     if (IsRoundEndRequested())
                     {
-                        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(textAnnounce),
+                        // DS14-start
+                        _chatSystem.DispatchAdminFilteredAnnouncement(
+                            announcementSource is { } source ? _ruleStation.GetEventPlayers(source) : _ruleStation.GetStationPlayers(),
+                            Loc.GetString(textAnnounce),
+                            // DS14-end
                             Loc.GetString(sender),
                             colorOverride: Color.Gold);
                     }
                     else
                     {
                         RequestRoundEnd(time, checkCooldown: false, text: textCall,
-                            name: Loc.GetString(sender));
+                            name: Loc.GetString(sender), announcementSource: announcementSource); // DS14
                     }
                     break;
             }

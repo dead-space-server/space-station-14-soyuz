@@ -182,6 +182,7 @@ namespace Content.Server.Database
                     PlaytimeAtNote = ban.PlaytimeAtNote,
                     Players = [..ban.UserIds.Select(bp => new BanPlayer { UserId = bp.UserId })],
                     ExemptFlags = ban.ExemptFlags,
+                    SendToPrison = ban.SendToPrison,
                     Roles = ban.Roles == null
                         ? []
                         : ban.Roles.Value.Select(brd => new BanRole
@@ -267,7 +268,8 @@ namespace Content.Server.Database
                 aUid,
                 unban,
                 ban.ExemptFlags,
-                roles);
+                roles,
+                ban.SendToPrison);
         }
 
         private static UnbanDef? ConvertUnban(Unban? unban)
@@ -425,7 +427,10 @@ namespace Content.Server.Database
                 DisableOocDuringVote = entity.DisableOocDuringVote,
                 PreventRepeatMode = entity.PreventRepeatMode,
                 CheckPlayerLimit = entity.CheckPlayerLimit,
-                WhitelistModesJson = entity.WhitelistModesJson
+                WhitelistModesJson = entity.WhitelistModesJson,
+                EnableLowPlayerPreset = entity.EnableLowPlayerPreset,
+                LowPlayerThreshold = entity.LowPlayerThreshold,
+                LowPlayerPresetId = entity.LowPlayerPresetId
             };
         }
 
@@ -450,6 +455,9 @@ namespace Content.Server.Database
             entity.PreventRepeatMode = config.PreventRepeatMode;
             entity.CheckPlayerLimit = config.CheckPlayerLimit;
             entity.WhitelistModesJson = config.WhitelistModesJson;
+            entity.EnableLowPlayerPreset = config.EnableLowPlayerPreset;
+            entity.LowPlayerThreshold = config.LowPlayerThreshold;
+            entity.LowPlayerPresetId = config.LowPlayerPresetId;
             await db.DbContext.SaveChangesAsync(cancel);
         }
         //DS14-End

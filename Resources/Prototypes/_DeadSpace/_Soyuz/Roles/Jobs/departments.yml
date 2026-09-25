@@ -4,10 +4,22 @@
   description: department-NKVB-description
   color: "#ad4040"
   roles:
-  - Politkom
   - Politruk
   - BlueShieldOfficer
   weight: 130
+
+- type: department
+  id: Navy
+  name: department-navy
+  description: department-navy-description
+  color: "#ad4040"
+  roles:
+  - NavyCaptain
+  - NavyEngineer
+  - NavyMedical
+  - NavyOfficer
+  editorHidden: true
+  weight: 2000
 
 - type: department
   id: SoyuzGeneralStaff
@@ -17,4 +29,6 @@
   roles:
   - OperatorGS
   - OfficerGS
+  - OKGB
+  - Politkom
   weight: 300

@@ -39,6 +39,52 @@
     TowercapSeeds: 5
     WheatSeeds: 5
     WatermelonSeeds: 5
+    # DS14-Soyuz start
+    GreenMarijuanaSeeds: 2
+    LemoSeeds: 5
+    RoseSeeds: 5
+    BlackRoseSeeds: 3
+    CoconutSeeds: 5
+    CoconutBeesSeeds: 2
+    HopsSeeds: 5
+    HoPsSeeds: 2
+    AgentGrainSeeds: 1
+    ButterflyOrchidSeeds: 5
+    BiggerflyOrchidSeeds: 3
+    ButterOrchidSeeds: 3
+    FloatingFloraSeeds: 3
+    PompomBushSeeds: 5
+    GeraniumSeeds: 5
+    PlastSteelcapSeeds: 2
+    GlasscapSeeds: 2
+    CannabisVitaSeeds: 2
+    BarrelmelonSeeds: 5
+    LanternfruitSeeds: 5
+    RedroseSeeds: 5
+    SnapcornSeeds: 5
+    WhiteroseSeeds: 5
+    WhiteLilySeeds: 5
+    SpesosTreeSeeds: 2
+    CoffeeSeeds: 3
+    AvocadoSeeds: 5
+    CucumberSeeds: 5
+    BeeSeeds: 2
+    EveryspiceSeeds: 2
+    MonkananaSeeds: 2
+    NFGlowshroomSeeds: 2
+    PomegranateSeeds: 3
+    GranatapfelSeeds: 3
+    CrystalThistleSeeds: 2
+    GhostPepperSeeds: 2
+    CosmicRevenantSeeds: 1
+    AmbrosiaNobilis: 2
+    StrangeBerrySeeds: 3
+    BluespaceTomatoSeeds: 1
+    OrganTreeSeeds: 1
+    EvilAppleSeeds: 2
+    ResinferaSeeds: 1
+    RMCMangoSeeds: 5
+    # DS14-Soyuz end
   contrabandInventory:
     TobaccoSeeds: 2
     FoodSnackSemki: 2

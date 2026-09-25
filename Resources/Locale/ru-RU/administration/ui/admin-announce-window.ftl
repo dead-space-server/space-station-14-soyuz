@@ -18,5 +18,6 @@ admin-announce-color-placeholder = Цвет (HEX)
 admin-announce-sound-placeholder = Путь к звуку
 admin-announce-volume-placeholder = Громкость
 admin-announce-sender-placeholder = Подпись отправителя
-admin-announce-sender-default = Оператор ГШ
+admin-announce-sender-default = Оператор ЦК
+admin-announce-templates-button = Шаблоны
 # DS14-end

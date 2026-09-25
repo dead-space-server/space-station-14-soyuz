@@ -169,6 +169,18 @@
     path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/shura-ty-ne-ver-slezam.ogg
 
 - type: jukebox
+  id: VStraneDurakov
+  name: "Леонид Сергеевич - А в стране дураков дураков не осталось"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-sergeev-a-v-strane-durakov-ne-ostalos.ogg
+
+- type: jukebox
+  id: EightteenBerez
+  name: "Чиж&Ко - 18 берёз"
+  path:
+    path: /Audio/_DeadSpace/_Soyuz/Jukebox/lampovaya/leonid-sergeev-a-v-strane-durakov-ne-ostalos.ogg
+
+- type: jukebox
   id: BiShambala
   name: "Би-2 - Шамбала"
   path:

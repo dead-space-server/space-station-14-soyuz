@@ -103,7 +103,7 @@ namespace Content.Server.Bible
             if (args.Target == null || args.Target == args.User) // DS14-Soyuz
                 return;
 
-            // DS-14 Soyuz
+            // DS14-Soyuz
             if (_mobStateSystem.IsDead(args.Target.Value))
             {
                 _revival.TryRevive((uid, component), args.User, args.Target.Value, useDelay);

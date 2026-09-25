@@ -80,7 +80,6 @@
   - BartenderJumpsuit
   - CommonBackpack
   - BartenderOuterClothing
-  - BartenderGoldenShaker
   - Glasses
   - Survival
   - Trinkets
@@ -125,6 +124,7 @@
   id: JobLibrarian
   groups:
   - GroupTankHarness
+  - LibrarianSpecialization # DS14
   - LibrarianJumpsuit
   - CommonBackpack
   - Glasses
@@ -194,6 +194,7 @@
   - BotanistJumpsuit
   - BotanistBackpack
   - BotanistOuterClothing
+  - BotanistEquipment # DS14-Soyuz
   - Glasses
   - Survival
   - Trinkets
@@ -209,8 +210,6 @@
   - ClownSpecialization # DS14
   - ClownHead
   - ClownJumpsuit
-  - ClownNeck #DS14
-  - ClownMask #DS14
   - ClownBackpack
   - ClownOuterClothing
   - ClownShoes
@@ -485,9 +484,8 @@
   id: JobDetective
   groups:
   - GroupTankHarness
-  - DetectiveSpecialization # DS14
   - DetectiveHead
-  - DetectiveNeck
+#  - DetectiveNeck # DS14-disabled
   - DetectiveJumpsuit
   - DetectiveBackpack
   - DetectiveOuterClothing
@@ -495,11 +493,11 @@
   - SurvivalSecurity
   - Trinkets
   - DetectiveJobTrinkets
-  - PolaroidKit # DS14-Soyuz
   - GroupSpeciesBreathToolSecurity
   - DetectiveSocks # DS14-Underwear
   - DetectiveUnderwear # DS14-Underwear
   - DetectiveMedal # DS14-Medal
+  - PolaroidKit # DS14-Soyuz
 
 - type: roleLoadout
   id: JobSecurityCadet
@@ -558,7 +556,7 @@
   - ReporterJobTrinkets
   - GroupSpeciesBreathTool
   - ReporterUnderwear # DS14-Underwear
-  - PolaroidKit # DS14
+  - PolaroidKit # DS14-Soyuz
 
 - type: roleLoadout
   id: JobPsychologist

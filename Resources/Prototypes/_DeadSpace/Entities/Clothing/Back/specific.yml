@@ -159,7 +159,7 @@
 - type: entity
   parent: ClothingBackpackTailbag
   id: ClothingBackpackTailbagSalvage
-  name: подсумок шахтёров на хвост плафеимов
+  name: подсумок утилизатора на хвост плафеимов
   description: Удобный подсумок на хвост. Рок и камень!
   components:
   - type: Sprite
@@ -181,8 +181,8 @@
 - type: entity
   parent: ClothingBackpackTailbag
   id: ClothingBackpackTailbagSecurity
-  name: подсумок СГМ на хвост плафеимов
-  description: Удобный подсумок на хвост. СГМ любят свободные карманы.
+  name: подсумок сб на хвост плафеимов
+  description: Удобный подсумок на хвост. Сб любят свободные карманы.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Back/Tailbag/security.rsi
@@ -208,8 +208,8 @@
 - type: entity
   parent: ClothingBackpackTailbag
   id: ClothingBackpackTailbagBrigmedic
-  name: подсумок дежурного врача на хвост плафеимов
-  description: Удобный подсумок на хвост. Дежурные врачи любят свободные карманы.
+  name: подсумок бригмедика на хвост плафеимов
+  description: Удобный подсумок на хвост. Бригмедики любят свободные карманы.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Back/Tailbag/brigmedic.rsi
@@ -230,7 +230,7 @@
 - type: entity
   parent: ClothingBackpackTailbag
   id: ClothingBackpackTailbagCoroner
-  name: подсумок патологоанатома на хвост плафеимов
+  name: подсумок коронера на хвост плафеимов
   description: Удобный подсумок на хвост. Не для трупов.
   components:
   - type: Sprite
@@ -252,7 +252,7 @@
 - type: entity
   parent: ClothingBackpackTailbag
   id: ClothingBackpackTailbagBlueshield
-  name: подсумок оперативника КГБ на хвост плафеимов
+  name: подсумок синего щита на хвост плафеимов
   description: Удобный подсумок на хвост. Точно не риг.
   components:
   - type: Sprite

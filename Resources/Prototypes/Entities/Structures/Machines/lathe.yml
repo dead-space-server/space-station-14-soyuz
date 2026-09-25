@@ -200,6 +200,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - SoyuzBotanyProtolatheStatic # DS14-Soyuz: available without research
     - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools
@@ -220,6 +221,7 @@
     - LanguageImplanters # DS14
     - MedicalDynamic # DS14
     - ExperimentalCloning # DS14-Soyuz
+    - PolaroidCamera # DS14-Soyuz
     - ProcessingTungsten # DS14-Soyuz
     - Vehicle # DS14
   - type: EmagLatheRecipes
@@ -228,6 +230,11 @@
     - SecurityExplosives
     - SecurityEquipment
     - SecurityWeapons
+  # DS14-Soyuz-start
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [["Research"]]
+  # DS14-Soyuz-end
 
 - type: entity
   id: ProtolatheHyperConvection
@@ -255,6 +262,7 @@
     staticPacks:
     - ChemistryStatic
     - SurgeryStatic
+    - SoyuzBotanyProtolatheStatic # DS14-Soyuz: plant analyzer available without research
     - BlueInsulatingTapeStatic # Kofeecheks QoL: LicenseRef-Kofeecheks
     dynamicPacks:
     - AdvancedTools
@@ -275,6 +283,7 @@
     - LanguageImplanters
     - MedicalDynamic
     - ExperimentalCloning
+    - PolaroidCamera
     - ProcessingTungsten
     - Vehicle
   #DS14-soyuz end
@@ -330,6 +339,11 @@
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
   - type: RequireProjectileTarget
+  # DS14-Soyuz-start
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [["Research"]]
+  # DS14-Soyuz-end
 
 - type: entity
   id: CircuitImprinterHyperConvection
@@ -668,6 +682,11 @@
       staticPacks:
       - OreSmelting
       - RGlassSmelting
+    # DS14-Soyuz-start
+    - type: ActivatableUIRequiresAccess
+    - type: AccessReader
+      access: [["Salvage"], ["SeniorSalvage"]]
+    # DS14-Soyuz-end
 #DS14-start
     - type: LavalandOreRedeemer
       miningAccess:
@@ -774,6 +793,7 @@
     - FloorConcreteTilesStatic
     - CircuitFloorsStatic
     - FloorMarbleTilesStatic
+    - SpecialFloorTilesStatic # DS14
     dynamicPacks:
     - FauxTiles
   - type: MaterialStorage

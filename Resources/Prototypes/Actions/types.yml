@@ -66,18 +66,6 @@
 
 - type: entity
   parent: BaseMentalAction
-  id: OwOVoice
-  name: Change speech
-  components:
-  - type: Action
-    checkCanInteract: false
-    icon: Interface/Actions/owo-button.png
-    iconOn: Interface/Actions/owo-button-on.png
-  - type: InstantAction
-    event: !type:OwOAccentActionEvent
-
-- type: entity
-  parent: BaseMentalAction
   id: ActionTurnUndead
   name: Turn Undead
   description: Succumb to your infection and become a zombie.
@@ -177,10 +165,10 @@
   name: Activate EMP
   description: Triggers a small EMP pulse around you
   components:
-# DS14-start
-#  - type: LimitedCharges
-#    maxCharges: 3
-# DS14-end
+  # DS14-start
+  - type: LimitedCharges
+    maxCharges: 3
+  # DS14-end
   - type: Action
     checkCanInteract: false
     useDelay: 10 #DS14-value
@@ -453,6 +441,17 @@
       state: icon
   - type: InstantAction
     event: !type:GravityJumpEvent {}
+
+- type: entity
+  parent: ActionGravityJump
+  id: ActionJumpBoost
+  name: Jump boost
+  components:
+  - type: Action
+    useDelay: 10
+    icon:
+      sprite: Interface/Actions/actions_borg.rsi
+      state: xenoborg-jump-module
 
 - type: entity
   parent: BaseAction

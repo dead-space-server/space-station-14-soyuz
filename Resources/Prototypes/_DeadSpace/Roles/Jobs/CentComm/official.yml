@@ -12,6 +12,7 @@
   - AllAccess
   access:
   - CentralCommand
+  - BlueShield
   - ErtTeamLeader
   special:
   - !type:AddImplantSpecial
@@ -53,6 +54,7 @@
 - type: entity
   parent: ClothingBackpackSatchelOfficial
   id: ClothingBackpackSatchelAdministratorFilled
+  suffix: АЦК
   components:
   - type: StorageFill
     contents:
@@ -61,8 +63,8 @@
         - id: BoxFolderCentComEmpty
         - id: RubberStampAdministratorCC
         - id: RubberStampApproved
-        - id: MagazineCaselessRifle
-        - id: MagazineCaselessRifle
+        - id: MagazineEagleGold
+        - id: MagazineEagleGold
 
 - type: chameleonOutfit
   id: CentcomGearChameleonOutfit

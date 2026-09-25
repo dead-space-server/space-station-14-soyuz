@@ -35,6 +35,7 @@ loadout-group-hop-backpack = Начальник отдела кадров, рю�
 loadout-group-hop-outerclothing = Начальник отдела кадров, верхняя одежда
 loadout-group-hop-shoes = Начальник отдела кадров, обувь
 loadout-group-hop-underwear = Начальник отдела кадров, нижнее бельё
+
 # Civilian
 loadout-group-passenger-jumpsuit = Разнорабочий, комбинезон
 loadout-group-passenger-mask = Разнорабочий, маска
@@ -82,6 +83,9 @@ loadout-group-janitor-underwear = Уборщик, нижнее бельё
 loadout-group-botanist-head = Агроном, голова
 loadout-group-botanist-jumpsuit = Агроном, комбинезон
 loadout-group-botanist-backpack = Агроном, рюкзак
+# DS14-Soyuz start
+loadout-group-botanist-equipment = Агроном, инструменты
+# DS14-Soyuz end
 loadout-group-botanist-outerclothing = Агроном, верхняя одежда
 loadout-group-botanist-underwear = Агроном, нижнее бельё
 loadout-group-clown-head = Клоун, голова
@@ -92,6 +96,7 @@ loadout-group-clown-backpack = Клоун, рюкзак
 loadout-group-clown-outerclothing = Клоун, верхняя одежда
 loadout-group-clown-shoes = Клоун, обувь
 loadout-group-clown-underwear = Клоун, нижнее бельё
+
 loadout-group-mime-head = Мим, голова
 loadout-group-mime-mask = Мим, маска
 loadout-group-mime-jumpsuit = Мим, комбинезон
@@ -135,8 +140,8 @@ loadout-group-chief-engineer-outerclothing = Старший инженер, ве
 loadout-group-chief-engineer-neck = Старший инженер, шея
 loadout-group-chief-engineer-shoes = Старший инженер, обувь
 loadout-group-chief-engineer-underwear = Старший инженер, нижнее бельё
-loadout-group-technical-assistant-jumpsuit = Технический ассистент, комбинезон
-loadout-group-technical-assistant-underwear = Технический ассистент, нижнее бельё
+loadout-group-technical-assistant-jumpsuit = Слесарь, комбинезон
+loadout-group-technical-assistant-underwear = Слесарь, нижнее бельё
 loadout-group-station-engineer-head = Инженер, голова
 loadout-group-station-engineer-jumpsuit = Инженер, комбинезон
 loadout-group-station-engineer-backpack = Инженер, рюкзак
@@ -172,6 +177,7 @@ loadout-group-scientist-id = Научный сотрудник, ID
 loadout-group-scientist-underwear = Научный сотрудник, нижнее бельё
 loadout-group-research-assistant-jumpsuit = Младший научный сотрудник, комбинезон
 loadout-group-research-assistant-underwear = Младший научный сотрудни, нижнее бельё
+
 # Security
 loadout-group-head-of-security-head = Начальник милиции, голова
 loadout-group-head-of-security-jumpsuit = Начальник милиции, комбинезон
@@ -208,6 +214,7 @@ loadout-group-security-cadet-jumpsuit = Младший милиционер, к�
 loadout-group-security-cadet-socks = Младший милиционер, ноги
 loadout-group-security-cadet-underwear = Младший милиционер, нижнее бельё
 loadout-group-security-star = Милиция, Звёздочка
+
 # Medical
 loadout-group-medical-gloves = Медицинский отдел, перчатки
 loadout-group-medical-mask = Медицинский отдел, маска
@@ -232,6 +239,7 @@ loadout-group-medical-doctor-underwear = Врач, нижнее бельё
 loadout-group-medical-intern-jumpsuit = Интерн, комбинезон
 loadout-group-medical-intern-underwear = Интерн, нижнее бельё
 
+loadout-group-chemist-head = Химик, головной убор
 loadout-group-chemist-jumpsuit = Химик, комбинезон
 loadout-group-chemist-outerclothing = Химик, верхняя одежда
 loadout-group-chemist-backpack = Химик, рюкзак
@@ -243,6 +251,7 @@ loadout-group-paramedic-outerclothing = Фельдшер, верхняя оде�
 loadout-group-paramedic-shoes = Фельдшер, обувь
 loadout-group-paramedic-backpack = Фельдшер, рюкзак
 loadout-group-paramedic-underwear = Фельдшер, нижнее бельё
+
 # Wildcards
 loadout-group-zookeeper-underwear = Ветеринар, нижнее бельё
 loadout-group-reporter-jumpsuit = Репортёр, комбинезон

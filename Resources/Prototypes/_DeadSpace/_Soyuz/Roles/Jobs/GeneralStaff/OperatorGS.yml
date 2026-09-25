@@ -4,8 +4,7 @@
   description: job-description-OperatorGS
   playTimeTracker: JobOperatorGS
   whitelisted: True
-  weight: 20
-  startingGear: CentcomOperatorGear
+  startingGear: OperatorGSGear
   icon: "JobIconNanotrasen"
   canBeAntag: false
   accessGroups:
@@ -25,3 +24,25 @@
     - type: Skill
       group: ALL
   supervisors: job-supervisors-centcom-administrator
+
+- type: startingGear
+  id: OperatorGSGear
+  equipment:
+    id: CentcomOperatorPDA
+    pocket1: RubberStampCentcom
+    pocket2: ClothingMaskGasCentcom
+    belt: BoxFolderCentComClipboard
+    eyes: ClothingEyesGlassesHiddenSecurity
+    back: ClothingBackpackSatchelOfficial
+    socks: ClothingUnderwearSocksNormal
+
+- type: chameleonOutfit
+  id: OperatorGSChameleonOutfit
+  job: OperatorGS
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatCentcomcap
+    gloves: ClothingHandsGlovesCentcomNaval
+    neck: ClothingNeckCloakCentcom
+    back: ClothingBackpackSatchelOfficial

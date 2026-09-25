@@ -46,6 +46,7 @@ using Robust.Server.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Server.DeadSpace.Prison;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -66,13 +67,13 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly PrisonSystem _prison = default!;
     [Dependency] private readonly RoleSystem _role = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly IServerDbManager _db = default!;
     [Dependency] private readonly ErtResponseSystem _ertResponseSystem = default!;
 
@@ -196,7 +197,7 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
             return;
         }
 
-        _chatSystem.DispatchGlobalAnnouncement(
+        RuleStation.Announce(uid,
             Loc.GetString("rev-alert-stage-massacre-end-with-rev-won"),
             colorOverride: Color.Red,
             usePresetTTS: true);
@@ -319,6 +320,9 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        if (GameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
 
         // Defeat ends the rule immediately, so queued cleanup must continue independently of ActiveTick.
         if (_pendingCleanupRule is { } rule &&
@@ -444,10 +448,11 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         var headRevNames = _antag.GetAntagIdentifiers(uid)
             .Select(entry => entry.Item3)
             .ToList();
-        _chatSystem.DispatchGlobalAnnouncement(
+        RuleStation.Announce(uid,
             Loc.GetString(
                 "rev-alert-stage-massacre-start",
                 ("headRevsNames", string.Join(", ", headRevNames))),
+            sender: Loc.GetString("chat-manager-sender-announcement"),
             colorOverride: Color.Red,
             usePresetTTS: true);
 
@@ -496,11 +501,12 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         component.RevolutionaryBodies.Clear();
         component.HeadRevolutionaryMinds.Clear();
 
-        _chatSystem.DispatchGlobalAnnouncement(
+        RuleStation.Announce(uid,
             Loc.GetString("rev-alert-stage-massacre-end-with-rev-lost"),
+            sender: Loc.GetString("chat-manager-sender-announcement"),
             colorOverride: Color.Green,
             usePresetTTS: true);
-        _roundEnd.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime);
+        _roundEnd.DoRoundEndBehavior(RoundEndBehavior.ShuttleCall, component.ShuttleCallTime, announcementSource: uid);
         GameTicker.EndGameRule(uid, gameRule);
     }
 
@@ -1420,9 +1426,16 @@ public sealed class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleCo
         if (!hasMind && !alwaysConvertible)
             return false;
 
+        if (_prison.IsEntityPrisoner(targetUid) ||
+            hasMind && mind != null && _prison.IsMindPrisoner(mindId, mind))
+        {
+            return false;
+        }
+
         if (HasComp<RevolutionaryComponent>(targetUid) ||
             HasComp<HeadRevolutionaryComponent>(targetUid) ||
             HasComp<MindShieldComponent>(targetUid) ||
+            HasComp<RevolutionaryImmuneComponent>(targetUid) ||
             (!HasComp<HumanoidAppearanceComponent>(targetUid) && !alwaysConvertible) ||
             !_mobState.IsAlive(targetUid) ||
             HasComp<ZombieComponent>(targetUid))

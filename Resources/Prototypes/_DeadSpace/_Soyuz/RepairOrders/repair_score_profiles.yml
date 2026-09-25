@@ -1,0 +1,154 @@
+- type: repairScoreProfile
+  id: RepairOrderEngineeringScore
+  # All non-empty tiles share one value; original tile IDs remain available for visuals.
+  floorTilePoints: 2
+
+  # Identity rules are applied before target/current entity comparison.
+  # They intentionally ignore mapping-only state variants such as filled vs empty batteries
+  # or light fixtures with a lamp preinserted on spawn.
+  identityRules:
+  # Match material and armor before the common windoor ancestors.
+  - selector:
+      parents: [BaseClockworkWindoor]
+    canonical: WindoorClockwork
+  - selector:
+      parents: [BaseSecurePlasmaWindoor]
+    canonical: WindoorSecurePlasma
+  - selector:
+      parents: [BasePlasmaWindoor]
+    canonical: WindoorPlasma
+  - selector:
+      parents: [BaseSecureUraniumWindoor]
+    canonical: WindoorSecureUranium
+  - selector:
+      parents: [BaseUraniumWindoor]
+    canonical: WindoorUranium
+  - selector:
+      parents: [BaseSecureWindoor]
+    canonical: WindoorSecure
+  - selector:
+      parents: [BaseWindoor]
+    canonical: Windoor
+  - selector:
+      parents: [Holopad]
+    canonical: Holopad
+  - selector:
+      entities: [SMESBasic, SMESBasicEmpty]
+    canonical: SMESBasic
+  - selector:
+      entities: [SMESAdvanced, SMESAdvancedEmpty]
+    canonical: SMESAdvanced
+  - selector:
+      entities: [SubstationBasic, SubstationBasicEmpty]
+    canonical: SubstationBasic
+  - selector:
+      entities: [APCBasic, APCConstructed]
+    canonical: APCBasic
+  - selector:
+      parents: [PoweredlightEmpty]
+    canonical: Poweredlight
+  - selector:
+      parents: [PoweredSmallLightEmpty]
+    canonical: PoweredSmallLight
+  - selector:
+      parents: [PoweredLightPostSmallEmpty]
+    canonical: PoweredLightPostSmall
+  - selector:
+      entities: [MiningWindow, MiningWindowSoyuz]
+    canonical: MiningWindow
+  - selector:
+      entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
+    canonical: MiningWindowDiagonal
+  - selector:
+      parents: [AirlockGlassShuttle]
+    canonical: AirlockGlassShuttle
+  - selector:
+      parents: [AirlockShuttle]
+    canonical: AirlockShuttle
+  - selector:
+      parents: [AirlockGlass, AirlockExternalGlass]
+    canonical: AirlockGlass
+  - selector:
+      parents: [Airlock, AirlockExternal]
+    canonical: Airlock
+  # Blast door mapping/state/access variants are equivalent for repair purposes.
+  - selector:
+      parents: [BlastDoor]
+    canonical: BlastDoor
+  - selector:
+      parents: [Poweredlight]
+    canonical: Poweredlight
+  # All wall closets/lockers are equivalent for repair purposes.
+  - selector:
+      parents: [BaseWallCloset, BaseWallLocker]
+    canonical: ClosetWall
+
+  # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
+  rotationRules:
+  - selector:
+      entities: [AirSensor]
+    mode: None
+  # Every shuttle thruster and constructed computer is directional, including fork-specific variants.
+  - selector:
+      allComponents: [Thruster]
+    mode: Exact
+  - selector:
+      allComponents: [Computer]
+    mode: Exact
+
+  # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
+  - selector:
+      parents: [GasPipeStraight]
+    mode: Axis
+  - selector:
+      parents: [GasPassiveVent, GasVentScrubber, GasVentPump]
+    mode: Exact
+  - selector:
+      parents: [GasPipeBase]
+    mode: Exact
+
+  # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
+  - selector:
+      allComponents: [AtmosDevice]
+    mode: Exact
+
+  - selector:
+      parents: [DisposalPipe]
+    mode: Axis
+
+  - selector:
+      parents: [DisposalPipeBase]
+    mode: Exact
+
+  # Directional atmos fixtures.
+  - selector:
+      parents: [AtmosDeviceFanDirectional]
+    mode: Exact
+
+  # Wallmount APUs are directional.
+  - selector:
+      parents: [GeneratorWallmountAPU, GeneratorWallmountAPULV]
+    mode: Exact
+
+  # Light fixtures and bulbs.
+  - selector:
+      allComponents: [PoweredLight]
+    mode: Exact
+  - selector:
+      parents:
+      - BaseLightbulb
+      - EmergencyLight
+    mode: Exact
+
+  # Shuttle airlocks and docking ports are directional.
+  - selector:
+      parents: [AirlockShuttle]
+    mode: Exact
+  - selector:
+      allComponents: [Docking]
+    mode: Exact
+
+  # Chairs, sofas, benches and other SeatBase descendants are directional.
+  - selector:
+      parents: [SeatBase]
+    mode: Exact

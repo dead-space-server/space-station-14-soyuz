@@ -2,7 +2,7 @@
   id: Plasma
   mapName: 'Плазма' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/plasma.yml
-  minPlayers: 25
+  minPlayers: 20 #DS14-Soyuz
   maxPlayers: 40
   stations:
     Plasma:
@@ -45,7 +45,7 @@
             Coroner: [ 1, 1 ]
             Psychologist: [ 1, 1 ]
             MedicalIntern: [ 4, 4 ]
-#            Virologist: [ 1, 1 ]
+            Virologist: [ 2, 2 ] # DS14
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]

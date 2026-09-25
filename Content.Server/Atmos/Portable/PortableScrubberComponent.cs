@@ -1,4 +1,5 @@
 using Content.Shared.Atmos;
+using Content.Shared.Atmos.Piping.Unary.Components; // DS14-Soyuz
 using Content.Shared.Guidebook;
 
 namespace Content.Server.Atmos.Portable
@@ -21,23 +22,8 @@ namespace Content.Server.Atmos.Portable
         /// this can't be changed in game.
         /// </summary>
         [DataField("filterGases")]
-        public HashSet<Gas> FilterGases = new()
-        {
-            Gas.CarbonDioxide,
-            Gas.Plasma,
-            Gas.Tritium,
-            Gas.WaterVapor,
-            Gas.Ammonia,
-            Gas.NitrousOxide,
-            Gas.Frezon,
-            // Kofeecheks gases: LicenseRef-Kofeecheks
-            Gas.Nitryl,
-            Gas.Nitriatium,
-            Gas.Hilium,
-            Gas.Brizidium,
-            Gas.Iprit,
-            Gas.InfectionDeadSpace
-        };
+        // DS14-Soyuz
+        public HashSet<Gas> FilterGases = new(GasVentScrubberData.DefaultFilterGases);
 
         [ViewVariables(VVAccess.ReadWrite)]
         public bool Enabled = true;

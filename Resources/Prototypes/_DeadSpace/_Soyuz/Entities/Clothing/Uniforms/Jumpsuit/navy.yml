@@ -1,0 +1,43 @@
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingUniformBase ]
+  id: ClothingUniformJumpsuitNavyCaptain
+  name: флотская одежда капитана
+  description: Элитная одежда для НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_captain.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_captain.rsi
+
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingUniformBase ]
+  id: ClothingUniformJumpsuitNavyMedical
+  name: флотская одежда медика
+  description: Элитная одежда для НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_medical.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_medical.rsi
+
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingUniformBase ]
+  id: ClothingUniformJumpsuitNavyEngineer
+  name: флотская одежда инженера
+  description: Элитная одежда для НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_engineer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_engineer.rsi
+
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingUniformBase ]
+  id: ClothingUniformJumpsuitNavy
+  name: флотская одежда
+  description: Элитная одежда для НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_officer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/nanotrasen_navy_officer.rsi

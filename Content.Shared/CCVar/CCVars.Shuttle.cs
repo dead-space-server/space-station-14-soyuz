@@ -37,7 +37,7 @@ public sealed partial class CCVars
     ///     The map to use for the arrivals station.
     /// </summary>
     public static readonly CVarDef<string> ArrivalsMap =
-        CVarDef.Create("shuttle.arrivals_map", "/Maps/_Soyuz/Misc/terminal.yml", CVar.SERVERONLY);
+        CVarDef.Create("shuttle.arrivals_map", "/Maps/_Soyuz/Misc/terminal.yml", CVar.SERVERONLY); // DS14-Soyuz
 
     /// <summary>
     ///     Cooldown between arrivals departures. This should be longer than the FTL time or it will double cycle.
@@ -124,7 +124,7 @@ public sealed partial class CCVars
     ///     Is the emergency shuttle allowed to be early launched.
     /// </summary>
     public static readonly CVarDef<bool> EmergencyEarlyLaunchAllowed =
-        CVarDef.Create("shuttle.emergency_early_launch_allowed", true, CVar.SERVER | CVar.REPLICATED); //DS14-Soyuz value (true)
+        CVarDef.Create("shuttle.emergency_early_launch_allowed", false, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     ///     How long the emergency shuttle remains docked with the station, in seconds.

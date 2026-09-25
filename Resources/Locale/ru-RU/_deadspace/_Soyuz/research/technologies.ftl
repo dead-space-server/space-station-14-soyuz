@@ -14,3 +14,5 @@ research-technology-plastitan-titan = Изготовления пластита�
 research-technology-experimental-cloning = Экспериментальное клонирование
 research-technology-clarke = К.Л.А.Р.К.
 research-technology-implants = Импланты
+research-technology-police-beta-technology = Экспериментальный скафандр "Бета-1"
+research-technology-experimental-camera = Полароид

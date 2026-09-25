@@ -4,6 +4,11 @@
   name: флаг СССП
   description: Скромный государственный флаг Союза Советских Социалистических Планет.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzBannerFlagUSSP
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Decoration/banner.rsi
     state: USSPFlag
@@ -14,6 +19,11 @@
   name: знамя СССП
   description: Гордое, золотистое знамя Союза Советских Социалистических Планет, отражающие в себе культуру и волю народов.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzBannerUSSP
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Decoration/banner.rsi
     state: USSPBanner

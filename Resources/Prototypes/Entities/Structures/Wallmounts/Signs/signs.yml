@@ -1259,6 +1259,11 @@
   name: old sign
   description: Looks like a planet crashing by some station above it. It's kinda scary.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzSignSomethingOld2
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: something-old2
 

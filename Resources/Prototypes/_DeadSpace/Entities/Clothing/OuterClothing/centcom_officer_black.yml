@@ -2,7 +2,7 @@
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitCentcomBlack
   name: скафандр Полевого Офицера
-  description: Скафандр предназначенный для элитного офицера НКВБ.
+  description: Скафандр предназначенный для элитного офицера КСО.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/OuterClothing/Hardsuits/centcom_officer_black.rsi
@@ -34,11 +34,11 @@
     size: Huge
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitSecurityRed
+  parent: [ClothingHeadHelmetHardsuitSecurityRed]
   id: ClothingHeadHelmetHardsuitCentcomBlack
   categories: [ HideSpawnMenu, DoNotMap ]
   name: шлем скафандра Полевого Офицера
-  description: Предназначен для элитного офицера НКВБ.
+  description: Предназначен для элитного офицера КСО.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/centcom_officer_black.rsi
@@ -57,7 +57,7 @@
   parent: ClothingBackpack
   id: ClothingBackpackCentcomBlack
   name: модифицированный рюкзак Полевого Офицера
-  description: Рюкзак элитного Офицера НКВБ.
+  description: Рюкзак элитного Офицера КСО.
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Back/centcom_officer_black.rsi
@@ -82,7 +82,6 @@
         ents: []
   - type: StorageFill
     contents:
-        - id: ERTloadoutGammaPrimary
         - id: BoxCardboardERT
         - id: JawsOfLifeSpecialOperationsOfficer
         - id: BSAACombatKitFilled

@@ -1,26 +1,41 @@
+# Тут ещё были прототипы РПСов КГБ со станции и КГБ с ГШ, но я их переместил в директорию /_Soyuz/. Так что ищите там.
+
 - type: entity
-  id: ClothingBeltMilitaryWebbingBlueShieldFilled
-  parent: ClothingBeltMilitaryWebbingMed
-  name: РПС оперативника КГБ
-  description: Ременно-плечевая система, которую используют оперативники комитета государственной безопасности. Довольно прочная.
-  suffix: Заполненный
+  id: ClothingBeltMilitaryWebbingRedSwordCentComFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  name: РПС офицера "Красный Меч"
+  description: РПС, которую носят офицеры "Красный Меч"
+  suffix: Заполненный, ЦентКом
   components:
   - type: StorageFill
     contents:
-      # - id: ADTCombatHypo # DS14-Soyuz disabled
-      # - id: ADTtelescopicBaton # DS14-Soyuz disabled
-      - id: ChemistryBottleEphedrine
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: CombatHypoRedSword
+      - id: ChemistryBottleCelestin
+      - id: ChemistryBottleCelestin
       - id: ChemistryBottleOmnizine
-        amount: 2
       - id: ChemistryBottleBicaridine
       - id: ChemistryBottleDexalinPlus
       - id: ChemistryBottleDermaline
-      - id: PillCanisterDylovene
-      - id: PillCanisterHyronalin
-      # - id: Zipties # DS14-Soyuz disabled
-        # amount: 2
-      
-  - type: Sprite
-    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
-  - type: Clothing
-    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
+
+- type: entity
+  id: ClothingBeltMilitaryWebbingGreenBeretCentComFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  name: РПС офицера "Зелёный Берет"
+  description: РПС, которую носят офицеры "Зелёный Берет"
+  suffix: Заполненный, ЦентКом
+  components:
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: ADTCombatHypo
+      - id: ChemistryBottleCelestin
+      - id: ChemistryBottleCelestin
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline

@@ -1,0 +1,32 @@
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarBlueScarf
+  name: голубой космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/blue.rsi
+
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarOrangeScarf
+  name: оранжевый космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/orange.rsi
+
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarWhiteScarf
+  name: белоснежный космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/white.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/white.rsi

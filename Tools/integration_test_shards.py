@@ -37,7 +37,7 @@ SLOW_TEST_METHOD_BALANCE_WEIGHTS = {
         "AllComponentsOneToOneDeleteTest": 30,
         "SpawnAndDeleteAllEntitiesInTheSameSpot": 80,
         "SpawnAndDeleteAllEntitiesOnDifferentMaps": 65,
-        "SpawnAndDeleteEntityCountTest": 75,
+        "SpawnAndDeleteEntityCountTest": 260,  # DS14: Runs every entity prototype through server-client replication.
         "SpawnAndDirtyAllEntities": 260,
     },
 }

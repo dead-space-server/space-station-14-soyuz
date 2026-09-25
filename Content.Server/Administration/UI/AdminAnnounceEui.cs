@@ -103,34 +103,6 @@ namespace Content.Server.Administration.UI
                             break;
                         }
                     }
-                    _adminLogger.Add(
-                        LogType.Chat,
-                        LogImpact.Low,
-                        $"{Player.Name} has sent admin announcement " +
-                        $"[type={doAnnounce.AnnounceType}] " +
-                        $"[color={hex}] " +
-                        $"[sound={(sound != null ? doAnnounce.SoundPath : "none")}] " +
-                        $"[volume={doAnnounce.SoundVolume}] " +
-                        $"[announcer=\"{doAnnounce.Announcer}\"] " +
-                        $"[sender=\"{doAnnounce.Sender}\"] " +
-                        $": {doAnnounce.Announcement}"
-                    );
-                    // DS14-announce-end
-
-                    _adminLogger.Add(
-                        LogType.Chat,
-                        LogImpact.Low,
-                        $"{Player.Name} has sent admin announcement " +
-                        $"[type={doAnnounce.AnnounceType}] " +
-                        $"[target={targetLog}] " +
-                        $"[color={hex}] " +
-                        $"[sound={(sound != null ? doAnnounce.SoundPath : "none")}] " +
-                        $"[volume={doAnnounce.SoundVolume}] " +
-                        $"[announcer=\"{doAnnounce.Announcer}\"] " +
-                        $"[sender=\"{doAnnounce.Sender}\"] " +
-                        $": {doAnnounce.Announcement}"
-                    );
-                    // DS14-announce-end
 
                     _adminLogger.Add(
                         LogType.Chat,
@@ -269,7 +241,7 @@ namespace Content.Server.Administration.UI
             var hex = colorHex?.Trim();
 
             if (string.IsNullOrWhiteSpace(hex))
-                hex = "B64444"; // DS14-Soyuz value
+                hex = "1d8bad";
 
             if (!hex.StartsWith('#'))
                 hex = "#" + hex;
@@ -280,7 +252,7 @@ namespace Content.Server.Administration.UI
             }
             catch (FormatException)
             {
-                return ("#B64444", Color.FromHex("#B64444")); // DS14-Soyuz value
+                return ("#1d8bad", Color.FromHex("#1d8bad"));
             }
         }
 

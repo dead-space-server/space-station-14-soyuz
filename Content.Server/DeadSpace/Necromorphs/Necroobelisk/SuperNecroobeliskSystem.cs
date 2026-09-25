@@ -40,7 +40,7 @@ namespace Content.Server.DeadSpace.Necromorphs.Necroobelisk;
 public sealed class SuperNecroobeliskSystem : SharedSuperNecroobeliskSystem
 {
     private const string ActivationAnnouncement = "unitology-centcomm-announcement-supermatter-obelisk-activated";
-    private const string ActivationAnnouncementSender = "Автономная Система «Марта»"; // DS14-Soyuz value
+    private const string ActivationAnnouncementSender = "Автоматические Системы Станции";
     private const string ActivationAnnouncementVoice = "Glados";
 
     [Dependency] private readonly IGameTiming _gameTiming = default!;
@@ -215,7 +215,8 @@ public sealed class SuperNecroobeliskSystem : SharedSuperNecroobeliskSystem
             requester: null,
             checkCooldown: false,
             text: "uni-centcomm-announcement-obelisk-was-destroyed",
-            name: "round-end-system-shuttle-sender-announcement"
+            name: "round-end-system-shuttle-sender-announcement",
+            announcementSource: uid
         );
     }
 

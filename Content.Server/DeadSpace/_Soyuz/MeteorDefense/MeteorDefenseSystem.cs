@@ -1,5 +1,6 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE.TXT
 
+using System.Collections.Generic;
 using Content.Server.Popups;
 using Content.Server.Pinpointer;
 using Content.Server.Power.Components;
@@ -31,6 +32,7 @@ public sealed class MeteorDefenseSystem : EntitySystem
     [Dependency] private readonly RadioSystem _radio = default!;
     [Dependency] private readonly NavMapSystem _navMap = default!;
 
+    private readonly Dictionary<EntityUid, int> _pendingInterceptions = new();
     private float _uiElapsed;
 
     public override void Initialize()
@@ -145,9 +147,8 @@ public sealed class MeteorDefenseSystem : EntitySystem
             // attempt in this tick sees the remainder. Never partially pay for a failed interception.
             _battery.SetCharge((uid, battery), charge - cost);
             args.Cancelled = true;
-            var location = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(uid));
-            var message = Loc.GetString("meteor-defense-intercept-radio", ("location", location));
-            _radio.SendRadioMessage(uid, message, EngineeringChannel, uid);
+            _pendingInterceptions.TryGetValue(uid, out var count);
+            _pendingInterceptions[uid] = count + 1;
             UpdateUi(uid, comp);
             return;
         }
@@ -180,6 +181,17 @@ public sealed class MeteorDefenseSystem : EntitySystem
         if (_uiElapsed < 1f)
             return;
         _uiElapsed = 0;
+
+        foreach (var (uid, count) in _pendingInterceptions)
+        {
+            if (TerminatingOrDeleted(uid))
+                continue;
+
+            var location = FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString(uid));
+            var message = Loc.GetString("meteor-defense-intercept-radio", ("location", location), ("count", count));
+            _radio.SendRadioMessage(uid, message, EngineeringChannel, uid);
+        }
+        _pendingInterceptions.Clear();
 
         var query = EntityQueryEnumerator<MeteorDefenseBeaconComponent>();
         while (query.MoveNext(out var uid, out var comp))

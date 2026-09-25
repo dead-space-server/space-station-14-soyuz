@@ -18,6 +18,38 @@
   - TableDebug
   - WallDebug
 
+  - PlasticFlapsAirtightClear
+  - PlasticFlapsAirtightOpaque
+  - CargoPallet
+  - PlastitaniumPlasmaWindowDiagonalIndestructible
+  - PlastitaniumPlasmaWindowIndestructible
+  - PlastitaniumWindowDiagonalIndestructible
+  - PlastitaniumWindowIndestructible
+
+  - WallTungstenDiagonalIndestructible
+  - WallTungstenIndestructible
+  - TungstenWindowDiagonalIndestructible
+  - TungstenWindowIndestructible
+
+  - WallReinforcedIndestructible
+  - WallReinforcedRustIndestructible
+  - WallRivetedIndestructible
+
+  - PlasmaReinforcedWindowDirectionalIndestructible
+  - ReinforcedPlasmaWindowIndestructible
+  - ReinforcedUraniumWindowIndestructible
+  - ReinforcedWindowIndestructible
+  - UraniumReinforcedWindowDirectionalIndestructible
+  - WindowReinforcedDirectionalIndestructible
+
+  - WallPlastitaniumDiagonalIndestructible
+  - WallPlastitaniumIndestructible
+  - WallSolidIndestructible
+  - WallSolidRustIndestructible
+  - WindowIndestructible
+
+  - StationAnchorIndestructible
+
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
   reason: Living entities, infestations, anomalies and event-only entities.

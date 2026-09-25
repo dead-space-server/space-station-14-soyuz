@@ -1817,3 +1817,12 @@ Entries:
   changes:
   - type: Fix
     message: мелкие и незначительные баги ботаники
+- id: 173
+  author: Ezio50
+  time: '2026-09-25T22:22:44.117141+00:00'
+  pr: 487
+  changes:
+  - type: Add
+    message: Пополнение правил ремонтных заказов
+  - type: Add
+    message: Рецепт направленного матового окна

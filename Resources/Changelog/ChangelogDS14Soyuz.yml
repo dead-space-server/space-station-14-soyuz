@@ -1810,3 +1810,10 @@ Entries:
   changes:
   - type: Tweak
     message: Спрайты сумок бриг меда, спрайты магниток милиции, к-9 на милиции
+- id: 172
+  author: Kofeecheks
+  time: '2026-09-25T19:13:34.896755+00:00'
+  pr: 491
+  changes:
+  - type: Fix
+    message: мелкие и незначительные баги ботаники

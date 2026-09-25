@@ -50,9 +50,9 @@ namespace Content.Shared.Administration
             // DS14-announce-start
             public NetEntity? TargetGrid;
             public string ColorHex = "b64444"; //DS14-Soyuz
-            public string SoundPath = "/Audio/_DeadSpace/Announcements/centcomm.ogg";
+            public string SoundPath = "/Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg"; //DS14-Soyuz
             public float SoundVolume = 5f;
-            public string Sender = "";
+            public string Sender = "Оператор ГШ"; //DS14-Soyuz
             // DS14-announce-end
         }
     }

@@ -819,15 +819,6 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/blood_tomato.rsi
   - type: PlantData
-    # DS14-Soyuz start: directed species mutations
-    mutations:
-    - target: KisserTomatoPlants
-      chance: 0.05
-      weight: 100
-    - target: KisserTomatoFakePlants
-      chance: 0.08
-      weight: 100
-    # DS14-Soyuz end
     name: seeds-bloodtomato-name
     packetPrototype: BloodTomatoSeeds
     productPrototypes: [ FoodBloodTomato ]
@@ -1343,6 +1334,7 @@
     production: 12
     yield: 2
     potency: 20
+    growthStages: 3 # DS14-Soyuz: match rainbow_cannabis.rsi stages.
   - type: PlantGrowth
     nutrientConsumption: 0.5
   - type: PlantAtmospheric
@@ -2398,7 +2390,7 @@
     sprite: Objects/Specific/Hydroponics/world_pea.rsi
   - type: PlantData
     name: seeds-worldpea-name
-    packetPrototype: PeaSeeds
+    packetPrototype: WorldPeaSeeds # DS14-Soyuz
     productPrototypes: [ FoodWorldPeas ]
   - type: Plant
     lifespan: 25

@@ -1,4 +1,3 @@
-# Деревня дураков
 - type: entity
   parent: ClothingMaskBase
   id: ClothingMaskClownPencil
@@ -97,3 +96,22 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/yellow.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Masks/Gaiters/yellow.rsi
+
+- type: entity
+  parent: ClothingMaskBase
+  id: ClothingMaskBlushing
+  name: маска смущения
+  description: Не смотри я смущаюсь.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Blushing.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Masks/Blushing.rsi
+  - type: BreathMask
+  - type: Tag
+    tags:
+    - ClownMask
+    - WhitelistChameleon
+  - type: HideLayerClothing
+    slots:
+    - Snout

@@ -154,6 +154,16 @@ public sealed partial class BotanySystem : EntitySystem
             return;
 
         _cloning.CloneComponents(snapshot.Value, target, settings);
+
+        // DS14-Soyuz: growth stages select sprites from the target species' RSI.
+        // A snapshot from another species must not request states that RSI lacks.
+        if (MetaData(target).EntityPrototype?.ID is { } speciesId &&
+            TryGetPlantComponent<PlantComponent>(null, speciesId, out var speciesPlant) &&
+            TryComp<PlantComponent>(target, out var plant))
+        {
+            plant.GrowthStages = speciesPlant.GrowthStages;
+            Dirty(target, plant);
+        }
     }
 
     /// <summary>

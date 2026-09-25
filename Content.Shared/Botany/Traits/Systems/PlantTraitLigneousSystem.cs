@@ -36,9 +36,8 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
 
     private void OnInteractUsing(Entity<PlantTraitLigneousComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled)
-            return;
-
+        // DS14-Soyuz: a tool may mark the interaction handled before the plant receives it.
+        // A ready ligneous plant still needs to recognize a sharp harvesting tool.
         if (!_holderQuery.TryComp(ent.Owner, out var holder)) // DS14
             return;
 
@@ -48,7 +47,7 @@ public sealed partial class PlantTraitLigneousSystem : EntitySystem
     // DS14-Soyuz start: allow sharp tools to harvest ligneous plants through their tray.
     private void OnTrayInteractUsing(Entity<PlantTrayComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || !_plantTray.TryGetPlant(ent.AsNullable(), out var plantUid) ||
+        if (!_plantTray.TryGetPlant(ent.AsNullable(), out var plantUid) ||
             !TryComp<PlantTraitLigneousComponent>(plantUid, out var ligneous) ||
             !_holderQuery.TryComp(plantUid, out var holder))
             return;

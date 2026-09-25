@@ -7,7 +7,7 @@ namespace Content.Shared.Botany.Components;
 /// Component for storing plant growth data.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)]
-[Access(typeof(PlantSystem), typeof(PlantMutationSystem))]
+[Access(typeof(PlantSystem), typeof(PlantMutationSystem), typeof(BotanySystem))] // DS14-Soyuz: normalize visual stages after cloning.
 public sealed partial class PlantComponent : Component
 {
     /// <summary>

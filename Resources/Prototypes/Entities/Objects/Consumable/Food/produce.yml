@@ -2262,7 +2262,7 @@
   - type: Sprite
     sprite: Objects/Specific/Hydroponics/holymelon.rsi
   - type: Produce
-    plantId: WatermelonPlants
+    plantId: HolymelonPlants # DS14-Soyuz
   - type: Extractable
     juiceSolution:
       reagents:

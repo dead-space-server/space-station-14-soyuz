@@ -52854,15 +52854,6 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: FoodMeatTomato
-  entities:
-  - uid: 8503
-    components:
-    - type: Transform
-      pos: -57.370502,-68.42446
-      parent: 2
-    - type: Physics
-      canCollide: False
 - proto: FoodMeatXeno
   entities:
   - uid: 8504

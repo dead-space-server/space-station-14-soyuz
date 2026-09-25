@@ -81,6 +81,7 @@ namespace Content.IntegrationTests.Tests
             "/Maps/centcomm.yml",
             "/Maps/_Soyuz/S1_GeneralStaff.yml", // DS14-Soyuz path
             "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
+            "/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path

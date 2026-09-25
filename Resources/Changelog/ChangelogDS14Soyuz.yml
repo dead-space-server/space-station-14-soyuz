@@ -1833,3 +1833,14 @@ Entries:
   changes:
   - type: Fix
     message: Хекс коды объявлений
+- id: 175
+  author: kripssteri
+  time: '2026-09-25T23:30:45.955771+00:00'
+  pr: 475
+  changes:
+  - type: Add
+    message: 'Две карты под ремапп: Outpost и Maus'
+  - type: Tweak
+    message: Карта Atlas обновлена до последней визовской версии, также под ремапп.
+  - type: Tweak
+    message: Тайл "решётки поезда" теперь совместим с обычной решёткой (By kainse).

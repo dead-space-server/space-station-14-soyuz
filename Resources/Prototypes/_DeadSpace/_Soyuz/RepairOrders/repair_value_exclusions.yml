@@ -50,6 +50,10 @@
 
   - StationAnchorIndestructible
 
+  - CableHVUncuttable
+  - CableMVUncuttable
+  - CableApcExtensionUncuttable
+
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
   reason: Living entities, infestations, anomalies and event-only entities.

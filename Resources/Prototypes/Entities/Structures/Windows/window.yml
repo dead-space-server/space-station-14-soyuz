@@ -245,6 +245,12 @@
   - type: StaticPrice
     price: 35
 
+  # DS14-Soyuz start
+  - type: Construction
+    graph: WindowDirectional
+    node: windowFrostedDirectional
+  # DS14-Soyuz end
+
 - type: entity
   parent: Window
   id: WindowDiagonal

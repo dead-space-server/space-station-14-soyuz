@@ -11,6 +11,14 @@
               amount: 1
               doAfter: 2
 
+        # DS14-Soyuz start
+        - to: windowFrostedDirectional
+          steps:
+            - material: Glass
+              amount: 1
+              doAfter: 2
+        # DS14-Soyuz end
+
         - to: windowReinforcedDirectional
           steps:
             - material: ReinforcedGlass
@@ -60,6 +68,23 @@
               doAfter: 1
             - tool: Anchoring
               doAfter: 2
+
+    # DS14-Soyuz start
+    - node: windowFrostedDirectional
+      entity: WindowFrostedDirectional
+      edges:
+        - to: start
+          completed:
+            - !type:GivePrototype
+              prototype: SheetGlass1
+              amount: 1
+            - !type:DeleteEntity {}
+          steps:
+            - tool: Screwing
+              doAfter: 1
+            - tool: Anchoring
+              doAfter: 2
+    # DS14-Soyuz end
 
     - node: windowReinforcedDirectional
       entity: WindowReinforcedDirectional

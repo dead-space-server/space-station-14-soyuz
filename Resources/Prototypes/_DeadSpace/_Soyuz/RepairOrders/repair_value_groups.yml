@@ -2100,8 +2100,6 @@
   - AmeControllerUnanchored
   - AmeShielding
   - ContainmentFieldGenerator
-  - GeneratorBasic
-  - GeneratorBasic15kW
   - GeneratorWallmountBasic
   - GravityGenerator
   - GravityGeneratorMini
@@ -3140,9 +3138,6 @@
   - CarbonDioxideCanisterBroken
   - CardBin
   - CardBinEmpty
-  - CargoPallet
-  - CargoPalletBuy
-  - CargoPalletSell
   - CarpStatue
   - CarpStatueEmpty
   - CarpStatueEyes
@@ -3211,8 +3206,6 @@
   - PinionAirlockAssembly
   - PinionAirlockAssemblyGlass
   - PlasmaCanisterBroken
-  - PlasticFlapsAirtightClear
-  - PlasticFlapsAirtightOpaque
   - PlasticFlapsClear
   - PlasticFlapsOpaque
   - PlastitaniumGirder

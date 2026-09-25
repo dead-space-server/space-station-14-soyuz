@@ -18,6 +18,12 @@
   - TableDebug
   - WallDebug
 
+  - PlasticFlapsAirtightClear
+  - PlasticFlapsAirtightOpaque
+  - CargoPallet
+  - CargoPalletSell
+  - CargoPalletBuy
+
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
   reason: Living entities, infestations, anomalies and event-only entities.
@@ -1238,6 +1244,13 @@
   reason: Church bells should not be procedurally damaged or included in repair requirements.
   entities:
   - ChurchBell
+
+- type: repairValueExclusion
+  id: RepairExcludeBasicGenerators
+  reason: Basic thermoelectric generators cannot be rebuilt for repair orders.
+  entities:
+  - GeneratorBasic
+  - GeneratorBasic15kW
 
 - type: repairValueExclusion
   id: RepairExcludeScreensAndTimers

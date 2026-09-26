@@ -1,12 +1,15 @@
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using System.Diagnostics.CodeAnalysis; // DS14-Soyuz
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
+using Content.Shared.Administration; // DS14-Soyuz
 using Content.Server.GameTicking.Events;
 using Content.Server.Spawners.Components;
 using Content.Server.Speech.Components;
 using Content.Server.Station.Components;
+using Content.Server.Players.JobWhitelist; // DS14-Soyuz
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
@@ -34,6 +37,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly SharedJobSystem _jobs = default!;
         [Dependency] private readonly AdminSystem _admin = default!;
+        [Dependency] private readonly JobWhitelistManager _jobWhitelistManager = default!; // DS14-Soyuz
 
         public static readonly EntProtoId ObserverPrototypeName = "MobObserver";
         public static readonly EntProtoId AdminObserverPrototypeName = "AdminObserver";
@@ -150,6 +154,17 @@ namespace Content.Server.GameTicking
             if (jobBans == null || jobId != null && jobBans.Contains(jobId)) //TODO: use IsRoleBanned directly?
                 return;
 
+            // DS14-Soyuz start
+            if (jobId != null)
+            {
+                var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
+                if (!CheckWhitelist(player, jobProto, out var reason))
+                {
+                    return;
+                }
+            }
+            // DS14-Soyuz end
+
             if (jobId != null)
             {
                 var jobs = new List<ProtoId<JobPrototype>> {jobId};
@@ -263,6 +278,18 @@ namespace Content.Server.GameTicking
                 character.JobPriorities,
                 true,
                 restrictedRoles);
+
+            // DS14-Soyuz start
+            if (jobId != null)
+            {
+                var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
+                if (!CheckWhitelist(player, jobProto, out var reason))
+                {
+                    return;
+                }
+            }
+            // DS14-Soyuz end
+
             // If no job available, stay in lobby, or if no lobby spawn as observer
             if (jobId is null)
             {
@@ -554,5 +581,24 @@ namespace Content.Server.GameTicking
         }
 
         #endregion
+
+        // DS14-Soyuz start
+        public bool CheckWhitelist(ICommonSession player, JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
+        {
+            reason = default;
+
+            if (!_cfg.GetCVar(CCVars.GameRoleWhitelist) || !job.Whitelisted)
+                return true;
+
+            if (_adminManager.IsAdmin(player, includeDeAdmin: true)) // Check admin flag
+                return true;
+
+            if (_jobWhitelistManager.IsAllowed(player, job.ID)) // Check whitelist
+                return true;
+
+            reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
+            return false;
+        }
+        // DS14-Soyuz end
     }
 }

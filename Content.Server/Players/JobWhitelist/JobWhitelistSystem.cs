@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using Content.Server.Administration.Managers; // DS14-Soyuz
 using Content.Server.GameTicking.Events;
 using Content.Server.Station.Events;
 using Content.Shared.CCVar;
@@ -12,6 +13,7 @@ namespace Content.Server.Players.JobWhitelist;
 
 public sealed class JobWhitelistSystem : EntitySystem
 {
+    [Dependency] private readonly IAdminManager _adminManager = default!; // DS14-Soyuz
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly JobWhitelistManager _manager = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
@@ -56,6 +58,11 @@ public sealed class JobWhitelistSystem : EntitySystem
         if (ev.Jobs is null)
             return;
 
+        // DS14-Soyuz-start
+        if (_adminManager.IsAdmin(ev.Player, includeDeAdmin: true))
+            return;
+        // DS14-Soyuz-end
+
         foreach (var proto in ev.Jobs)
         {
             if (!_manager.IsAllowed(ev.Player, proto))
@@ -68,6 +75,11 @@ public sealed class JobWhitelistSystem : EntitySystem
     {
         if (!_config.GetCVar(CCVars.GameRoleWhitelist))
             return;
+
+        // DS14-Soyuz-start
+        if (_adminManager.IsAdmin(ev.Player, includeDeAdmin: true))
+            return;
+        // DS14-Soyuz-end
 
         foreach (var job in _whitelistedJobs)
         {

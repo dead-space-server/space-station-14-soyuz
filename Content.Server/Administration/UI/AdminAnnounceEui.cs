@@ -241,7 +241,7 @@ namespace Content.Server.Administration.UI
             var hex = colorHex?.Trim();
 
             if (string.IsNullOrWhiteSpace(hex))
-                hex = "1d8bad";
+                hex = "b64444"; //DS14-Soyuz
 
             if (!hex.StartsWith('#'))
                 hex = "#" + hex;
@@ -252,7 +252,7 @@ namespace Content.Server.Administration.UI
             }
             catch (FormatException)
             {
-                return ("#1d8bad", Color.FromHex("#1d8bad"));
+                return ("#b64444", Color.FromHex("#b64444")); //DS14-Soyuz
             }
         }
 

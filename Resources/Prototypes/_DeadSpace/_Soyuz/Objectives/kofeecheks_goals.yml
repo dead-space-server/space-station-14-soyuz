@@ -6,6 +6,8 @@
   text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/DelegationReception.xml
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -13,6 +15,8 @@
   text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/Theater.xml
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -20,6 +24,8 @@
   text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/LongRangeExpeditions.xml
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -28,6 +34,8 @@
   startingEquipment: CrateVirologyPlan
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -35,6 +43,8 @@
   text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/SeedFund.xml
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"
 
 - type: stationGoal
@@ -44,4 +54,6 @@
   startingEquipmentAmount: 2
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
+    stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+    stampScale: 0.92
     stampedColor: "#006600"

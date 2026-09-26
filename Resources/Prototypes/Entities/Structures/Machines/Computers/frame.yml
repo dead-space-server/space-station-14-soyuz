@@ -62,6 +62,10 @@
           missingWires: { state: 2 }
           monitorMissing: { state: 3 }
           monitorUnsecured: { state: 4 }
+          # DS14-Soyuz start: Visuals for the boardless BaseComputer construction path.
+          baseMonitorMissing: { state: 3 }
+          baseMonitorUnsecured: { state: 4 }
+          # DS14-Soyuz end
 
 - type: entity
   parent: BaseStructureComputer

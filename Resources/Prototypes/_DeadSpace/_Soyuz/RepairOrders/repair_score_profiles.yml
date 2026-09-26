@@ -1,3 +1,5 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
 - type: repairScoreProfile
   id: RepairOrderEngineeringScore
   # All non-empty tiles share one value; original tile IDs remain available for visuals.
@@ -118,24 +120,29 @@
   - selector:
       entities: [BaseSubstationWall, SubstationWallBasic]
     canonical: BaseSubstationWall
+  # Anchored and unanchored gyroscopes are restored with the constructible machine.
+  - selector:
+      parents: [Gyroscope]
+    canonical: Gyroscope
   - selector:
       entities: [APCBasic, APCConstructed, APCHighCapacity, APCSuperCapacity, APCHyperCapacity]
     canonical: APCConstructed
+  # Every classified light fixture matches the hand-built tube fixture, with or without a bulb.
   - selector:
-      parents: [PoweredlightEmpty]
-    canonical: Poweredlight
+      parents: [AlwaysPoweredWallLight, AlwaysPoweredStrobeLight, LightPostSmall, NinjaGroundLight, Floodlight]
+    canonical: PoweredlightEmpty
   - selector:
-      parents: [PoweredSmallLightEmpty]
-    canonical: PoweredSmallLight
-  - selector:
-      parents: [PoweredLightPostSmallEmpty]
-    canonical: PoweredLightPostSmall
+      entities: [FloodlightBroken]
+    canonical: PoweredlightEmpty
   - selector:
       entities: [MiningWindow, MiningWindowSoyuz]
     canonical: MiningWindow
   - selector:
       entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
     canonical: MiningWindowDiagonal
+  - selector:
+      entities: [AirlockExternalGlassShuttleGeneralStaff, AirlockGlassShuttleXenoborgLocked]
+    canonical: AirlockGlassShuttle
   - selector:
       parents: [AirlockGlassShuttle]
     canonical: AirlockGlassShuttle
@@ -152,9 +159,6 @@
   - selector:
       parents: [BlastDoor]
     canonical: BlastDoor
-  - selector:
-      parents: [Poweredlight]
-    canonical: Poweredlight
   # All wall closets/lockers are equivalent for repair purposes.
   - selector:
       parents: [BaseWallCloset, BaseWallLocker]
@@ -165,7 +169,11 @@
   - selector:
       entities: [AirSensor]
     mode: None
-  # Every shuttle thruster and constructed computer is directional, including fork-specific variants.
+  # Gyroscopes work in any orientation; keep this before the general Thruster rule.
+  - selector:
+      parents: [Gyroscope]
+    mode: None
+  # Shuttle thrusters and constructed computers are directional, including fork-specific variants.
   - selector:
       allComponents: [Thruster]
     mode: Exact

@@ -143,7 +143,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         explanation.SetMessage(Loc.GetString(task.Waived ? "repair-orders-waiver-cancel-confirm" : "repair-orders-waiver-confirm",
             ("name", _overlay.GetDisplayName(task)), ("points", task.Points),
             ("used", task.Exclusions.WaivedPoints), ("max", task.Exclusions.MaxWaivedPoints),
-            ("percent", task.Exclusions.Count + (task.Waived ? -1 : 1))));
+            ("percent", RepairTechnicalExclusion.PenaltyPercent(task.Exclusions.Count + (task.Waived ? -1 : 1)))));
         content.AddChild(explanation);
         var confirm = new Button { Text = Loc.GetString("repair-orders-waiver-confirm-button") };
         confirm.OnPressed += _ =>

@@ -41,6 +41,11 @@
                     <BoxContainer Name="CompletedContainer" Orientation="Vertical" HorizontalExpand="True" />
                 </BoxContainer>
             </ScrollContainer>
+            <ScrollContainer TabContainer.TabTitle="{Loc 'repair-orders-worklist-heading'}"
+                             HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="WorklistContainer" Orientation="Vertical"
+                              HorizontalExpand="True" SeparationOverride="4" Margin="0 8 0 0" />
+            </ScrollContainer>
         </TabContainer>
     </BoxContainer>
 </controls:FancyWindow>

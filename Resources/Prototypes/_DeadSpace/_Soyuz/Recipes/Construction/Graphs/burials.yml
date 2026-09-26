@@ -1,0 +1,77 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+- type: constructionGraph
+  id: WoodenGrave
+  start: start
+  graph:
+  - node: start
+    actions:
+    - !type:DeleteEntity {}
+    edges:
+    - to: frame
+      steps:
+      - material: WoodPlank
+        amount: 10
+        doAfter: 5
+  - node: frame
+    entity: SoyuzWoodenGraveFrame
+    edges:
+    - to: grave
+      steps:
+      - tool: Digging
+        doAfter: 5
+  - node: grave
+    entity: CrateWoodenGrave
+    actions:
+    - !type:SnapToGrid {}
+    - !type:SetAnchor {}
+
+- type: constructionGraph
+  id: StoneGrave
+  start: start
+  graph:
+  - node: start
+    actions:
+    - !type:DeleteEntity {}
+    edges:
+    - to: frame
+      steps:
+      - material: Steel
+        amount: 10
+        doAfter: 5
+  - node: frame
+    entity: SoyuzStoneGraveFrame
+    edges:
+    - to: grave
+      steps:
+      - tool: Digging
+        doAfter: 5
+  - node: grave
+    entity: CrateStoneGrave
+    actions:
+    - !type:SnapToGrid {}
+    - !type:SetAnchor {}
+
+- type: constructionGraph
+  id: DugSoil
+  start: start
+  graph:
+  - node: start
+    actions:
+    - !type:DeleteEntity {}
+    edges:
+    - to: dug
+      steps:
+      - tool: Digging
+        doAfter: 5
+  - node: dug
+    entity: SoyuzDugSoilMound
+    edges:
+    - to: soil
+      completed:
+      - !type:SnapToGrid {}
+      steps:
+      - tool: Hoeing
+        doAfter: 3
+  - node: soil
+    entity: hydroponicsSoil

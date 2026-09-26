@@ -1,3 +1,5 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
 ent-RepairOrdersConsole = консоль ремонтных заказов
     .desc = Позволяет просматривать и принимать инженерные заказы станции.
 ent-RepairOrdersComputerCircuitboard = плата консоли ремонтных заказов
@@ -50,6 +52,11 @@ repair-orders-time-remaining = Осталось: { $time }
 repair-orders-progress-tasks = Восстановлено: { $completed } / { $total }
 repair-orders-progress-percent = { $percent }%
 repair-orders-blueprint-unavailable = Эталонный чертёж недоступен.
+repair-orders-worklist-heading = Список работ
+repair-orders-worklist-target = Что требуется
+repair-orders-worklist-count = Осталось
+repair-orders-worklist-remove = Убрать: { $target }
+repair-orders-worklist-complete = Обязательных работ не осталось. Новые повреждения появятся здесь.
 repair-orders-points = Баллы: { $current } / { $max }
 repair-orders-accept = Принять
 repair-orders-submit = Сдать заказ
@@ -132,7 +139,7 @@ repair-orders-waiver-heading = Технические исключения
 repair-orders-waiver-action = Техническое исключение: { $name }
 repair-orders-waiver-cancel-action = Отменить исключение: { $name }
 repair-orders-waiver-confirm = Исключить «{ $name }» ({ $points } очков) из обязательного ремонта?
-    Элемент не принесёт очков. Каждое активное исключение дополнительно удерживает 1% заработанных баллов. Итог не может быть ниже нуля.
+    Элемент не принесёт очков. Каждые 10 активных исключений дополнительно удерживают 1% заработанных баллов. Итог не может быть ниже нуля.
     Использовано: { $used } / { $max } очков (лимит — 50% исходной стоимости заказа).
     Штраф после подтверждения: { $percent }%.
 repair-orders-waiver-cancel-confirm = Отменить исключение для «{ $name }»? Требование снова станет обязательным.

@@ -1,0 +1,70 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+- type: construction
+  id: CrateWoodenGrave
+  name: construction-soyuz-wooden-grave
+  graph: WoodenGrave
+  startNode: start
+  targetNode: grave
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  conditions: &naturalSoilConditions
+  - !type:TileNotBlocked {}
+  - !type:TileType
+    targets:
+    # Natural soil and grass.
+    - FloorPlanetGrass
+    - FloorPlanetDirt
+    - FloorPlanetFairyGrass
+    - FloorGrass
+    - FloorGrassJungle
+    - FloorGrassDark
+    - FloorGrassLight
+    - FloorFairyGrass
+    - FloorDirt
+    # Loose sand, including asteroid and iron sand.
+    - FloorDesert
+    - FloorLowDesert
+    - FloorAsteroidSand
+    - FloorAsteroidSandBorderless
+    - FloorAsteroidSandDug
+    - FloorAsteroidSandDugBorderless
+    - FloorAsteroidSandRed
+    - FloorAsteroidSandRedBorderless
+    - FloorAsteroidSandUnvariantized
+    - FloorAsteroidSandUnvariantizedBorderless
+    - FloorAsteroidIronsand
+    - FloorAsteroidIronsandBorderless
+    - FloorAsteroidIronsandUnvariantized
+    - FloorAsteroidIronsandUnvariantizedBorderless
+    - IronsandPacked
+    # Snow can also be dug with a shovel.
+    - FloorSnow
+    - FloorSnowDug
+    guideText: construction-soyuz-natural-ground-only
+
+- type: construction
+  id: CrateStoneGrave
+  name: construction-soyuz-stone-grave
+  graph: StoneGrave
+  startNode: start
+  targetNode: grave
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  conditions: *naturalSoilConditions
+
+- type: construction
+  id: hydroponicsSoil
+  name: construction-soyuz-dug-soil
+  graph: DugSoil
+  startNode: start
+  targetNode: soil
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  conditions: *naturalSoilConditions

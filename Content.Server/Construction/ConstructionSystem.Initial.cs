@@ -167,6 +167,10 @@ namespace Content.Server.Construction
 
             var steps = new List<ConstructionGraphStep>();
             var used = new HashSet<EntityUid>();
+            // DS14-Soyuz start: an initial digging step uses the held shovel without consuming it.
+            var heldTool = _handsSystem.GetActiveItem(user);
+            var usesTool = false;
+            // DS14-Soyuz end
 
             foreach (var step in edge.Steps)
             {
@@ -176,6 +180,12 @@ namespace Content.Server.Construction
 
                 switch (step)
                 {
+                    // DS14-Soyuz start
+                    case ToolConstructionGraphStep toolStep:
+                        handled = heldTool is { } tool && _toolSystem.HasQuality(tool, toolStep.Tool);
+                        usesTool = true;
+                        break;
+                    // DS14-Soyuz end
                     case MaterialConstructionGraphStep materialStep:
                         foreach (var entity in EnumerateNearby(user))
                         {
@@ -257,7 +267,9 @@ namespace Content.Server.Construction
             {
                 BreakOnDamage = true,
                 BreakOnMove = true,
-                NeedHand = false,
+                // DS14-Soyuz start
+                NeedHand = usesTool,
+                // DS14-Soyuz end
                 // allow simultaneously starting several construction jobs using the same stack of materials.
                 CancelDuplicate = false,
                 BlockDuplicate = false,
@@ -519,8 +531,11 @@ namespace Content.Server.Construction
                         if (entityInsert.EntityValid(holding, EntityManager, Factory))
                             valid = true;
                         break;
-                    case ToolConstructionGraphStep _:
-                        throw new InvalidDataException("Invalid first step for item recipe!");
+                    // DS14-Soyuz start: shovel-first ground construction is validated like other tool steps.
+                    case ToolConstructionGraphStep toolStep:
+                        valid = _toolSystem.HasQuality(holding, toolStep.Tool);
+                        break;
+                    // DS14-Soyuz end
                 }
 
                 if (valid)

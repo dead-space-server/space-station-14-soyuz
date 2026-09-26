@@ -652,8 +652,12 @@ public sealed class RepairOrderSystem : EntitySystem
             .ToList();
 
         RepairOrderBuiEntry? active = null;
+        var worklist = new List<RepairOrderWorklistEntry>();
         if (station.Comp.Active is { } activeOrder)
         {
+            if (activeOrder.BlueprintReady)
+                worklist = _validation.GetWorklist(activeOrder.GridUid);
+
             active = new RepairOrderBuiEntry(
                 activeOrder.RuntimeId,
                 activeOrder.Prototype.Id,
@@ -692,6 +696,7 @@ public sealed class RepairOrderSystem : EntitySystem
         _ui.SetUiState(console, RepairOrderUiKey.Key, new RepairOrderBoundUserInterfaceState(
             available,
             active,
+            worklist,
             completed,
             station.Comp.NextOffer,
             station.Comp.OfferInterval,

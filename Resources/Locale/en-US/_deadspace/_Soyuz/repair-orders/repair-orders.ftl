@@ -1,3 +1,5 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
 ent-RepairOrdersConsole = repair orders console
     .desc = Used to review and accept station engineering repair orders.
 ent-RepairOrdersComputerCircuitboard = repair orders console computer board
@@ -55,6 +57,11 @@ repair-orders-time-remaining = Time remaining: { $time }
 repair-orders-progress-tasks = Restored: { $completed } / { $total }
 repair-orders-progress-percent = { $percent }%
 repair-orders-blueprint-unavailable = Reference blueprint is unavailable.
+repair-orders-worklist-heading = Work list
+repair-orders-worklist-target = Required work
+repair-orders-worklist-count = Remaining
+repair-orders-worklist-remove = Remove: { $target }
+repair-orders-worklist-complete = No required work remains. New damage will appear here.
 repair-orders-points = Points: { $current } / { $max }
 repair-orders-accept = Accept
 repair-orders-submit = Submit order
@@ -137,7 +144,7 @@ repair-orders-waiver-heading = Technical exclusions
 repair-orders-waiver-action = Technical exclusion: { $name }
 repair-orders-waiver-cancel-action = Cancel exclusion: { $name }
 repair-orders-waiver-confirm = Exclude "{ $name }" ({ $points } points) from required repairs?
-    This requirement earns no points. Each active exclusion additionally deducts 1% of earned points. Final points cannot fall below zero.
+    This requirement earns no points. Every 10 active exclusions additionally deduct 1% of earned points. Final points cannot fall below zero.
     Used: { $used } / { $max } points (limit: 50% of the original order value).
     Penalty after confirmation: { $percent }%.
 repair-orders-waiver-cancel-confirm = Cancel the exclusion for "{ $name }"? This requirement will become mandatory again.

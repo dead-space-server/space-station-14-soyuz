@@ -7,6 +7,17 @@
   placementMode: SnapgridCenter
   canBuildInImpassable: false
 
+# DS14-Soyuz start: A generic computer can be assembled without a circuit board.
+- type: construction
+  id: BaseComputer
+  graph: Computer
+  startNode: start
+  targetNode: computerBase
+  category: construction-category-machines
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+# DS14-Soyuz end
+
 - type: construction
   id: MachineFrame
   graph: Machine

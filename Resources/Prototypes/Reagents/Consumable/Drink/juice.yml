@@ -8,7 +8,10 @@
   color: "#FDAD01"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceapple.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
 
 - type: reagent
@@ -21,7 +24,10 @@
   color: "#FFE777"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebanana.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceBerry
@@ -33,7 +39,10 @@
   color: "#660099"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceberry.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceBluePumpkin
@@ -45,7 +54,10 @@
   color: "#00BFFF"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebluepumpkin.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceBungo
@@ -57,7 +69,10 @@
   color: "#F9E43D"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebungo.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceCarrot
@@ -69,7 +84,10 @@
   color: "#FF8820"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecarrot.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Drink:
       effects:
@@ -93,7 +111,10 @@
   color: "#512284"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicegrape.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceLemon
@@ -120,7 +141,10 @@
   color: "#99bb43"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicelime.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 # /datum/reagent/drink/orangejuice/on_mob_life(var/mob/living/M)
 
@@ -155,7 +179,10 @@
   color: yellow
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepineapple.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuicePotato
@@ -167,7 +194,10 @@
   color: "#302000"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepotato.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceTomato
@@ -179,7 +209,10 @@
   color: "#731008"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicetomato.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: JuiceWatermelon
@@ -206,4 +239,7 @@
   color: "#84031a"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecherry.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false

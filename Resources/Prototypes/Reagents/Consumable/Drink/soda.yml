@@ -55,7 +55,10 @@
   color: "#2E6671"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_changelingsting.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: DrGibb
@@ -82,7 +85,10 @@
   color: "#ffffbf"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_energydrink.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Drink:
       effects:
@@ -108,7 +114,10 @@
   color: "#ae94a6"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_grapesoda.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: IceCream
@@ -137,7 +146,10 @@
   color: "#878F00"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlime.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: LemonLimeCranberry
@@ -149,7 +161,10 @@
   color: "#803C53"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlimecranberry.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: PwrGame
@@ -161,7 +176,10 @@
   color: "#9385bf"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pwrgame.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   fizziness: 0.9 # gamers crave the fizz
 
 - type: reagent
@@ -271,7 +289,10 @@
   color: "#9F3400"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_starkist.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: FourteenLoko
@@ -317,4 +338,7 @@
   color: "#66538F"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_shamblersjuice.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false

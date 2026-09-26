@@ -7,7 +7,10 @@
   color: "#664330"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_eznutrient.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-thick
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -30,7 +33,10 @@
   color: "#5b406c"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_left4zed.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-heterogeneous
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -65,7 +71,10 @@
   color: "#9e9886"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pestkiller.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -92,7 +101,10 @@
   color: "#49002E"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_plantbgone.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -129,7 +141,10 @@
   color: "#3e901c"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_robustharvest.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-robust
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -186,7 +201,10 @@
   color: "#3CB371"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sedin.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-sickly
   plantMetabolism:
     - !type:PlantAdjustHealth
@@ -205,7 +223,10 @@
   color: "#968395"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_weedkiller.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -233,7 +254,10 @@
   color: "#77b58e"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ammonia.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: -33.0
   meltingPoint: -77.7
   plantMetabolism:
@@ -318,7 +342,10 @@
   color: "#a1000b"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_diethylamine.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 55.5
   meltingPoint: -50.0
   plantMetabolism:

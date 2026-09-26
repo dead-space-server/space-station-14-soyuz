@@ -7,7 +7,10 @@
   color: "#AF14B7"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_acetone.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 55.5
   meltingPoint: -50.0
 
@@ -20,7 +23,10 @@
   color: "#E7EA91"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_phenol.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 55.5
   meltingPoint: -50.0
   metabolisms:
@@ -40,7 +46,10 @@
   color: "#22282b"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_charcoal.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 4200.0
   meltingPoint: 3550.0
   metabolisms:
@@ -62,7 +71,10 @@
   color: white
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ash.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: Lye
@@ -73,7 +85,10 @@
   color: "#e5420b"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lye.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Poison:
       effects:
@@ -90,7 +105,10 @@
   color: white
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumcarbonate.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
 
 - type: reagent
   id: Artifexium
@@ -103,7 +121,10 @@
   color: "#776291"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_artifexium.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Poison:
       effects:
@@ -128,7 +149,10 @@
   color: "#827394"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_artifactglue.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -146,7 +170,10 @@
   color: "#E7EA91"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_benzene.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 353.2
   meltingPoint: 278.7
   metabolisms:
@@ -165,7 +192,10 @@
   color: "white"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hydroxide.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 1661.0
   meltingPoint: 596.0
 
@@ -177,7 +207,10 @@
   color: "white"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumhydroxide.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 1661.0
   meltingPoint: 596.0
   metabolisms:
@@ -205,7 +238,10 @@
   color: "#434b4d"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fersilicite.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 2962.0
   meltingPoint: 1638.0
 
@@ -218,7 +254,10 @@
   color: "#F0F0F0"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumpolyacrylate.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Poison:
       effects:
@@ -240,7 +279,10 @@
   color: "#E6E6DA"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_cellulose.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-crystalline
 
 - type: reagent
@@ -253,7 +295,10 @@
   color: "#bf1365"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_rororium.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Medicine:
       effects:

@@ -10,7 +10,10 @@
   color: "#a1000b"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_bleach.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 111.0
   meltingPoint: -5.0
   metabolisms:
@@ -48,7 +51,10 @@
   color: "#c8ff69"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacecleaner.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   boilingPoint: 147.0 # Made this up, loosely based on bleach
   meltingPoint: -11.0
@@ -69,7 +75,10 @@
   color: "#c8dfc9"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_soapreagent.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   boilingPoint: 100.0
   meltingPoint: 60.0
@@ -107,7 +116,10 @@
   color: "#77b58e"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacelube.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   boilingPoint: 290.0 # Glycerin
   meltingPoint: 18.2
@@ -124,7 +136,10 @@
   color: "#ffffff"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spaceglue.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   boilingPoint: 250.0
   meltingPoint: 380.0
   tileReactions:

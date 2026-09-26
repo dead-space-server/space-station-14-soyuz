@@ -78,7 +78,10 @@
   color: "#2cf274"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_slime.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   standsout: true
   physicalDesc: reagent-physical-desc-viscous
@@ -115,7 +118,10 @@
   color: "#cd7314"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sap.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.10
@@ -179,7 +185,10 @@
   color: "#2b0700"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_zombieblood.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   decorativePuddle: true # DS14
   metabolisms:
     Drink:
@@ -207,7 +216,10 @@
   color: "#f4692e"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ichor.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   recognizable: true
   metabolisms:
     Drink:
@@ -247,7 +259,10 @@
   color: "#d8d8b0"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fat.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-exotic-smelling
   footstepSound:
     collection: FootstepBlood
@@ -263,7 +278,10 @@
   color: "#87ab08"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vomit.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   evaporationSpeed: 0.3
   physicalDesc: reagent-physical-desc-pungent
   slipData:
@@ -293,7 +311,10 @@
   color: "#C584B8"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_greymatter.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   metabolisms:
     Drink:
       effects:
@@ -316,7 +337,10 @@
   color: "#800000"
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_livingtissue.rsi
-    state: icon
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
   physicalDesc: reagent-physical-desc-ferrous
   footstepSound:
     collection: FootstepBlood

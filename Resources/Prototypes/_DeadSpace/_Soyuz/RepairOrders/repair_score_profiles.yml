@@ -7,19 +7,93 @@
   # They intentionally ignore mapping-only state variants such as filled vs empty batteries
   # or light fixtures with a lamp preinserted on spawn.
   identityRules:
-  # Match material and armor before the common windoor ancestors.
+  # Indestructible directional windows match their constructible material variants.
+  - selector:
+      entities: [WindowReinforcedDirectionalIndestructible]
+    canonical: WindowReinforcedDirectional
+  - selector:
+      entities: [PlasmaReinforcedWindowDirectionalIndestructible]
+    canonical: PlasmaReinforcedWindowDirectional
+  - selector:
+      entities: [UraniumReinforcedWindowDirectionalIndestructible]
+    canonical: UraniumReinforcedWindowDirectional
+  # Map-only indestructible and uncuttable variants are repaired with constructible equivalents.
+  - selector:
+      entities: [PlastitaniumPlasmaWindowDiagonalIndestructible]
+    canonical: PlastitaniumPlasmaWindowDiagonal
+  - selector:
+      entities: [PlastitaniumPlasmaWindowIndestructible]
+    canonical: PlastitaniumPlasmaWindow
+  - selector:
+      entities: [PlastitaniumWindowDiagonalIndestructible]
+    canonical: PlastitaniumWindowDiagonal
+  - selector:
+      entities: [PlastitaniumWindowIndestructible]
+    canonical: PlastitaniumWindow
+  - selector:
+      entities: [WallTungstenDiagonalIndestructible]
+    canonical: WallTungstenDiagonal
+  - selector:
+      entities: [WallTungstenIndestructible]
+    canonical: WallTungsten
+  - selector:
+      entities: [TungstenWindowDiagonalIndestructible]
+    canonical: TungstenWindowDiagonal
+  - selector:
+      entities: [TungstenWindowIndestructible]
+    canonical: TungstenWindow
+  - selector:
+      entities: [WallReinforcedIndestructible, WallReinforcedRust, WallReinforcedRustIndestructible, WallRiveted, WallRivetedIndestructible]
+    canonical: WallReinforced
+  - selector:
+      entities: [ReinforcedPlasmaWindowIndestructible]
+    canonical: ReinforcedPlasmaWindow
+  - selector:
+      entities: [ReinforcedUraniumWindowIndestructible]
+    canonical: ReinforcedUraniumWindow
+  - selector:
+      entities: [ReinforcedWindowIndestructible]
+    canonical: ReinforcedWindow
+  - selector:
+      entities: [StationAnchorIndestructible]
+    canonical: StationAnchor
+  - selector:
+      entities: [WallPlastitaniumDiagonalIndestructible]
+    canonical: WallPlastitaniumDiagonal
+  - selector:
+      entities: [WallPlastitaniumIndestructible]
+    canonical: WallPlastitanium
+  - selector:
+      entities: [WallSolidIndestructible, WallSolidRust, WallSolidRustIndestructible]
+    canonical: WallSolid
+  - selector:
+      entities: [WindowIndestructible]
+    canonical: Window
+  - selector:
+      entities: [CableHVUncuttable]
+    canonical: CableHV
+  - selector:
+      entities: [CableMVUncuttable]
+    canonical: CableMV
+  - selector:
+      entities: [CableApcExtensionUncuttable]
+    canonical: CableApcExtension
+  - selector:
+      entities: [CableTerminalUncuttable]
+    canonical: CableTerminal
+  # Match armor before the common windoor ancestors; all secure materials rebuild as WindoorSecure.
   - selector:
       parents: [BaseClockworkWindoor]
     canonical: WindoorClockwork
   - selector:
       parents: [BaseSecurePlasmaWindoor]
-    canonical: WindoorSecurePlasma
+    canonical: WindoorSecure
   - selector:
       parents: [BasePlasmaWindoor]
     canonical: WindoorPlasma
   - selector:
       parents: [BaseSecureUraniumWindoor]
-    canonical: WindoorSecureUranium
+    canonical: WindoorSecure
   - selector:
       parents: [BaseUraniumWindoor]
     canonical: WindoorUranium
@@ -34,16 +108,19 @@
     canonical: Holopad
   - selector:
       entities: [SMESBasic, SMESBasicEmpty]
-    canonical: SMESBasic
+    canonical: SMESBasicEmpty
   - selector:
       entities: [SMESAdvanced, SMESAdvancedEmpty]
-    canonical: SMESAdvanced
+    canonical: SMESAdvancedEmpty
   - selector:
       entities: [SubstationBasic, SubstationBasicEmpty]
-    canonical: SubstationBasic
+    canonical: SubstationBasicEmpty
   - selector:
-      entities: [APCBasic, APCConstructed]
-    canonical: APCBasic
+      entities: [BaseSubstationWall, SubstationWallBasic]
+    canonical: BaseSubstationWall
+  - selector:
+      entities: [APCBasic, APCConstructed, APCHighCapacity, APCSuperCapacity, APCHyperCapacity]
+    canonical: APCConstructed
   - selector:
       parents: [PoweredlightEmpty]
     canonical: Poweredlight

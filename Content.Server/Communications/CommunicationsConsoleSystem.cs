@@ -52,7 +52,7 @@ namespace Content.Server.Communications
         private const float UIUpdateInterval = 5.0f;
 
         // DS14-start
-        private const string DefaultEmagAnnouncementColor = "#1d8bad";
+        private const string DefaultEmagAnnouncementColor = "#b64444"; //DS14-Soyuz
         private static readonly ProtoId<SoundCollectionPrototype> EmagAnnouncementSounds = "EmagAnnouncementSounds";
         // DS14-end
 

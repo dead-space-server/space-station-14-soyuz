@@ -120,10 +120,3 @@
   tags:
     - "Медикаменты"
 
-- type: roadmapEntry
-  id: Roadmap14
-  title: "тест"
-  description: "тест"
-  category: Completed
-  tags:
-    - "тест"

@@ -9,6 +9,7 @@ using Content.Server.GameTicking.Events;
 using Content.Server.Spawners.Components;
 using Content.Server.Speech.Components;
 using Content.Server.Station.Components;
+using Content.Server.Players.JobWhitelist; // DS14-Soyuz
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
@@ -36,10 +37,10 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly SharedJobSystem _jobs = default!;
         [Dependency] private readonly AdminSystem _admin = default!;
+        [Dependency] private readonly JobWhitelistManager _jobWhitelistManager = default!; // DS14-Soyuz
 
         public static readonly EntProtoId ObserverPrototypeName = "MobObserver";
         public static readonly EntProtoId AdminObserverPrototypeName = "AdminObserver";
-        private readonly Dictionary<NetUserId, HashSet<string>> _jobWhitelists = new(); // DS14-Soyuz
 
         /// <summary>
         /// How many players have joined the round through normal methods.
@@ -157,9 +158,8 @@ namespace Content.Server.GameTicking
             if (jobId != null)
             {
                 var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
-                if (!CheckWhitelist(jobProto, out var reason))
+                if (!CheckWhitelist(player, jobProto, out var reason))
                 {
-                    _chatManager.DispatchServerMessage(player, reason.ToMarkup());
                     return;
                 }
             }
@@ -283,9 +283,8 @@ namespace Content.Server.GameTicking
             if (jobId != null)
             {
                 var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
-                if (!CheckWhitelist(jobProto, out var reason))
+                if (!CheckWhitelist(player, jobProto, out var reason))
                 {
-                    _chatManager.DispatchServerMessage(player, reason.ToMarkup());
                     return;
                 }
             }
@@ -583,22 +582,17 @@ namespace Content.Server.GameTicking
 
         #endregion
 
-        // DS14-Soyuz start
-        public bool CheckWhitelist(JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
+        public bool CheckWhitelist(ICommonSession player, JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
         {
             reason = default;
 
             if (!_cfg.GetCVar(CCVars.GameRoleWhitelist) || !job.Whitelisted)
                 return true;
 
-            var player = _playerManager.LocalSession;
-            if (player == null) // NullReferenceException protect
-                return true;
-
             if (_adminManager.HasAdminFlag(player, AdminFlags.Admin)) // Check admin flag
                 return true;
 
-            if (_jobWhitelists.TryGetValue(player.UserId, out var whitelistedJobs) && whitelistedJobs.Contains(job.ID)) // Check whitelist
+            if (_jobWhitelistManager.IsAllowed(player, job.ID)) // Check whitelist
                 return true;
 
             reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));

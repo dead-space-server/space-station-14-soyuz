@@ -1858,3 +1858,10 @@ Entries:
   changes:
   - type: Tweak
     message: Еще раз свечение скафандров сб переделано.
+- id: 178
+  author: Genes1us
+  time: '2026-09-26T12:46:45.792958+00:00'
+  pr: 448
+  changes:
+  - type: Fix
+    message: Логика проверки админ флага для вайт-лист ролей.

@@ -76,6 +76,14 @@
   desc: reagent-desc-slime
   flavor: slimy
   color: "#2cf274"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_slime.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   standsout: true
   physicalDesc: reagent-physical-desc-viscous
@@ -110,6 +118,14 @@
   desc: reagent-desc-sap
   flavor: sweet
   color: "#cd7314"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sap.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.10
@@ -171,6 +187,14 @@
   physicalDesc: reagent-physical-desc-necrotic
   flavor: bitter
   color: "#2b0700"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_zombieblood.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   decorativePuddle: true # DS14
   metabolisms:
     Drink:
@@ -196,6 +220,14 @@
   physicalDesc: reagent-physical-desc-roaring
   flavor: metallic
   color: "#f4692e"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ichor.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   metabolisms:
     Drink:
@@ -233,6 +265,14 @@
   desc: reagent-desc-fat
   flavor: terrible
   color: "#d8d8b0"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fat.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-exotic-smelling
   footstepSound:
     collection: FootstepBlood
@@ -246,6 +286,14 @@
   desc: reagent-desc-vomit
   flavor: terrible
   color: "#87ab08"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vomit.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   evaporationSpeed: 0.3
   physicalDesc: reagent-physical-desc-pungent
   slipData:
@@ -273,6 +321,14 @@
   physicalDesc: reagent-physical-desc-neural
   flavor: mindful
   color: "#C584B8"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_greymatter.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Drink:
       effects:
@@ -293,6 +349,14 @@
   desc: reagent-desc-living-tissue
   flavor: metallic
   color: "#800000"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_livingtissue.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-ferrous
   footstepSound:
     collection: FootstepBlood

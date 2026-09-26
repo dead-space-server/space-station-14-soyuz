@@ -8,6 +8,14 @@
   - Chemist
   flavor: bitter
   color: "#a1000b"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_bleach.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: 111.0
   meltingPoint: -5.0
   metabolisms:
@@ -43,6 +51,14 @@
   physicalDesc: reagent-physical-desc-lemony-fresh
   flavor: bitter
   color: "#c8ff69"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacecleaner.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 147.0 # Made this up, loosely based on bleach
   meltingPoint: -11.0
@@ -61,6 +77,14 @@
   physicalDesc: reagent-physical-desc-soapy
   flavor: clean
   color: "#c8dfc9"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_soapreagent.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 100.0
   meltingPoint: 60.0
@@ -96,6 +120,14 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: funny
   color: "#77b58e"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacelube.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 290.0 # Glycerin
   meltingPoint: 18.2
@@ -110,6 +142,14 @@
   physicalDesc: reagent-physical-desc-sticky
   flavor: glue
   color: "#ffffff"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spaceglue.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: 250.0
   meltingPoint: 380.0
   tileReactions:

@@ -582,6 +582,7 @@ namespace Content.Server.GameTicking
 
         #endregion
 
+        // DS14-Soyuz start
         public bool CheckWhitelist(ICommonSession player, JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
         {
             reason = default;
@@ -589,7 +590,7 @@ namespace Content.Server.GameTicking
             if (!_cfg.GetCVar(CCVars.GameRoleWhitelist) || !job.Whitelisted)
                 return true;
 
-            if (_adminManager.HasAdminFlag(player, AdminFlags.Admin)) // Check admin flag
+            if (_adminManager.IsAdmin(player, includeDeAdmin: true)) // Check admin flag
                 return true;
 
             if (_jobWhitelistManager.IsAllowed(player, job.ID)) // Check whitelist

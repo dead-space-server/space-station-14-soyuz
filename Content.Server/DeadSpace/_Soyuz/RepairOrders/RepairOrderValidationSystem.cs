@@ -88,6 +88,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             if (!TryComp<RepairBlueprintComponent>(gridUid, out var blueprint) || !blueprint.Ready)
                 continue;
 
+            var previousWorklist = GetWorklist(gridUid);
             var progressInputsChanged = false;
             foreach (var cell in cells)
             {
@@ -97,10 +98,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             if (!progressInputsChanged)
                 continue;
 
-            var previousProgress = (blueprint.CompletedTasks, blueprint.TotalTasks, blueprint.CurrentPoints);
             RecalculateProgress(blueprint, initializeMaxPoints: false);
-            if (previousProgress != (blueprint.CompletedTasks, blueprint.TotalTasks, blueprint.CurrentPoints))
-                SyncProgress((gridUid, blueprint));
+            SyncProgress((gridUid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(gridUid)));
         }
     }
 
@@ -428,6 +427,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         var actual = SnapshotActualGrid((repairGrid, grid), scoreLookup);
+        var previousWorklist = GetWorklist(repairGrid);
         var cells = new HashSet<Vector2i>(blueprint.ExpectedCells.Keys);
         cells.UnionWith(blueprint.UnexpectedBaselineCells.Keys);
         cells.UnionWith(blueprint.TasksByCell.Keys);
@@ -468,7 +468,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         RecalculateProgress(blueprint, initializeBaseline);
-        SyncProgress((repairGrid, blueprint));
+        SyncProgress((repairGrid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(repairGrid)));
         blueprint.FullyMatchesTarget &= !scoreLookup.Invalid;
         blueprint.CanComplete &= !scoreLookup.Invalid;
         return !scoreLookup.Invalid;
@@ -731,7 +731,10 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             var previous = previousTasks![i];
             progressInputsChanged = previous.State != tasks[i].State ||
                 previous.Points != tasks[i].Points ||
-                previous.InitiallyCorrect != tasks[i].InitiallyCorrect || previous.Waived != tasks[i].Waived;
+                previous.InitiallyCorrect != tasks[i].InitiallyCorrect || previous.Waived != tasks[i].Waived ||
+                previous.Type != tasks[i].Type || previous.ExpectedTileId != tasks[i].ExpectedTileId ||
+                previous.ExpectedTilePrototype != tasks[i].ExpectedTilePrototype ||
+                previous.ExpectedEntityPrototype != tasks[i].ExpectedEntityPrototype;
         }
 
         if (tasks.Count == 0)
@@ -1018,7 +1021,57 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         return state == RepairTaskState.Correct ? task.Points : 0;
     }
 
-    private void SyncProgress(Entity<RepairBlueprintComponent> blueprint)
+    public List<RepairOrderWorklistEntry> GetWorklist(EntityUid repairGrid)
+    {
+        if (!TryComp<RepairBlueprintComponent>(repairGrid, out var blueprint) || !blueprint.Ready)
+            return new List<RepairOrderWorklistEntry>();
+
+        var counts = new Dictionary<(RepairTaskType Type, string PrototypeId, bool Remove), int>();
+        foreach (var task in blueprint.TasksByCell.Values.SelectMany(tasks => tasks))
+        {
+            if (task.Waived || task.State == RepairTaskState.Correct)
+                continue;
+
+            var remove = task.Type == RepairTaskType.RemoveAnchoredEntity ||
+                task.Type == RepairTaskType.Tile && task.ExpectedTileId == Tile.Empty.TypeId;
+            var prototypeId = task.Type == RepairTaskType.Tile
+                ? task.ExpectedTilePrototype
+                : task.ExpectedEntityPrototype;
+            if (string.IsNullOrEmpty(prototypeId))
+                continue;
+
+            var key = (task.Type, prototypeId, remove);
+            counts[key] = counts.GetValueOrDefault(key) + 1;
+        }
+
+        return counts.OrderBy(entry => entry.Key.Remove)
+            .ThenBy(entry => entry.Key.Type)
+            .ThenBy(entry => entry.Key.PrototypeId, StringComparer.Ordinal)
+            .Select(entry => new RepairOrderWorklistEntry(
+                entry.Key.Type, entry.Key.PrototypeId, entry.Key.Remove, entry.Value))
+            .ToList();
+    }
+
+    private static bool WorklistChanged(
+        IReadOnlyList<RepairOrderWorklistEntry> previous,
+        IReadOnlyList<RepairOrderWorklistEntry> current)
+    {
+        if (previous.Count != current.Count)
+            return true;
+
+        for (var i = 0; i < previous.Count; i++)
+        {
+            if (previous[i].Type != current[i].Type ||
+                previous[i].PrototypeId != current[i].PrototypeId ||
+                previous[i].Remove != current[i].Remove ||
+                previous[i].Count != current[i].Count)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void SyncProgress(Entity<RepairBlueprintComponent> blueprint, bool forceUiRefresh = false)
     {
         if (!TryComp<RepairOrderStationComponent>(blueprint.Comp.Station, out var station) ||
             station.Active is not { } active ||
@@ -1035,7 +1088,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             active.TotalTasks == blueprint.Comp.TotalTasks &&
             active.BlueprintReady == blueprint.Comp.Ready &&
             active.CurrentPoints == blueprint.Comp.CurrentPoints &&
-            active.MaxPoints == blueprint.Comp.MaxPoints)
+            active.MaxPoints == blueprint.Comp.MaxPoints && !forceUiRefresh)
         {
             return;
         }

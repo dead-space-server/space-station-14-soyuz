@@ -84,6 +84,23 @@ public sealed class RepairOrderBuiEntry
 }
 
 [Serializable, NetSerializable]
+public sealed class RepairOrderWorklistEntry
+{
+    public readonly RepairTaskType Type;
+    public readonly string PrototypeId;
+    public readonly bool Remove;
+    public readonly int Count;
+
+    public RepairOrderWorklistEntry(RepairTaskType type, string prototypeId, bool remove, int count)
+    {
+        Type = type;
+        PrototypeId = prototypeId;
+        Remove = remove;
+        Count = count;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class RepairOrderCompletedBuiEntry
 {
     public readonly string[] DamageEvents;
@@ -149,6 +166,7 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
 {
     public readonly List<RepairOrderBuiEntry> Available;
     public readonly RepairOrderBuiEntry? Active;
+    public readonly List<RepairOrderWorklistEntry> Worklist;
     public readonly RepairOrderCompletedBuiEntry? Completed;
     public readonly TimeSpan NextOffer;
     public readonly TimeSpan OfferInterval;
@@ -158,6 +176,7 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
     public RepairOrderBoundUserInterfaceState(
         List<RepairOrderBuiEntry> available,
         RepairOrderBuiEntry? active,
+        List<RepairOrderWorklistEntry> worklist,
         RepairOrderCompletedBuiEntry? completed,
         TimeSpan nextOffer,
         TimeSpan offerInterval,
@@ -166,6 +185,7 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
     {
         Available = available;
         Active = active;
+        Worklist = worklist;
         Completed = completed;
         NextOffer = nextOffer;
         OfferInterval = offerInterval;

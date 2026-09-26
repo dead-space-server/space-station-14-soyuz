@@ -1,0 +1,50 @@
+- type: entity
+  id: SoyuzWoodenGraveFrame
+  parent: BaseStructure
+  name: wooden grave frame
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/Crates/wooden_grave.rsi
+    state: base
+  - type: Construction
+    graph: WoodenGrave
+    node: frame
+
+- type: entity
+  id: SoyuzStoneGraveFrame
+  parent: BaseStructure
+  name: stone grave frame
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: Structures/Storage/Crates/stone_grave.rsi
+    state: base
+  - type: Construction
+    graph: StoneGrave
+    node: frame
+
+- type: entity
+  id: SoyuzDugSoilMound
+  parent: BaseStructure
+  name: dug soil
+  categories: [ DoNotMap ]
+  components:
+  - type: Sprite
+    sprite: Structures/Hydroponics/misc.rsi
+    state: soil
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.1"
+        density: 190
+        hard: false
+        mask:
+        - FullTileMask
+        layer:
+        - FullTileMask
+  - type: Construction
+    graph: DugSoil
+    node: dug

@@ -1,0 +1,9 @@
+tool-quality-hoeing-name = Hoeing
+tool-quality-hoeing-tool-name = Hoe
+construction-soyuz-wooden-grave = Wooden grave
+construction-soyuz-stone-grave = Stone grave
+construction-soyuz-dug-soil = Garden bed
+ent-SoyuzWoodenGraveFrame = wooden grave frame
+ent-SoyuzStoneGraveFrame = stone grave frame
+ent-SoyuzDugSoilMound = dug soil
+construction-soyuz-natural-ground-only = Build only on natural soil, grass, sand, or snow.

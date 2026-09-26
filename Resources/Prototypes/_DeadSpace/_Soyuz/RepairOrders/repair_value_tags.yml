@@ -107,11 +107,11 @@
 
 - type: repairValueTag
   id: RepairHull
-  value: 8
+  value: 15
 
 - type: repairValueTag
   id: RepairHullWindow
-  value: 8
+  value: 15
 
 - type: repairValueTag
   id: RepairLight

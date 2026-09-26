@@ -1059,6 +1059,14 @@
   - FireworkBox
 
 - type: repairValueExclusion
+  id: RepairExcludeConstructionIntermediates
+  reason: Temporary construction stages are not completed repair structures.
+  entities:
+  - SoyuzDugSoilMound
+  - SoyuzStoneGraveFrame
+  - SoyuzWoodenGraveFrame
+
+- type: repairValueExclusion
   id: RepairExcludeTemporaryAndVirtual
   reason: Temporary effects, portals, holograms and virtual barriers.
   entities:

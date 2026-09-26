@@ -57,6 +57,11 @@
         solution: soil
   - type: Appearance
   - type: PlantTrayVisuals
+  # DS14-Soyuz start
+  - type: Construction
+    graph: DugSoil
+    node: soil
+  # DS14-Soyuz end
 
 - type: entity
   parent: hydroponicsSoil

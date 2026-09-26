@@ -6,18 +6,19 @@ namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
 public static class RepairTechnicalExclusion
 {
-    // A cost cap and a per-requirement penalty are intentionally independent.
+    // A cost cap and a penalty for each full ten waived requirements are intentionally independent.
     public static int MaxWaivedPoints(int maxPoints) => Math.Max(0, maxPoints) / 2;
     public static bool CanAdd(int waivedPoints, int maxWaivedPoints, int points)
         => points > 0 && waivedPoints >= 0 && (long) waivedPoints + points <= maxWaivedPoints;
+    public static int PenaltyPercent(int count) => Math.Min(100, Math.Max(0, count) / 10);
     public static int FinalPoints(int rawPoints, int count)
-        => (int) ((long) Math.Max(0, rawPoints) * Math.Max(0, 100 - Math.Max(0, count)) / 100);
+        => (int) ((long) Math.Max(0, rawPoints) * (100 - PenaltyPercent(count)) / 100);
 }
 
 [Serializable, NetSerializable]
 public readonly record struct RepairExclusionTotals(int Count, int WaivedPoints, int MaxWaivedPoints, int RawPoints)
 {
-    public int PenaltyPercent => Count;
+    public int PenaltyPercent => RepairTechnicalExclusion.PenaltyPercent(Count);
     public int FinalPoints => RepairTechnicalExclusion.FinalPoints(RawPoints, Count);
     public int PenaltyPoints => Math.Max(0, RawPoints) - FinalPoints;
 }

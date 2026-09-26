@@ -264,7 +264,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_command.svg.96dpi.png"
+    # DS14-Soyuz start: use the existing Soyuz command heading for these forms.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_command.svg.96dpi.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0

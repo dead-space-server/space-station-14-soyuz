@@ -88,6 +88,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             if (!TryComp<RepairBlueprintComponent>(gridUid, out var blueprint) || !blueprint.Ready)
                 continue;
 
+            var previousWorklist = GetWorklist(gridUid);
             var progressInputsChanged = false;
             foreach (var cell in cells)
             {
@@ -98,7 +99,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
                 continue;
 
             RecalculateProgress(blueprint, initializeMaxPoints: false);
-            SyncProgress((gridUid, blueprint), forceUiRefresh: true);
+            SyncProgress((gridUid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(gridUid)));
         }
     }
 
@@ -426,6 +427,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         var actual = SnapshotActualGrid((repairGrid, grid), scoreLookup);
+        var previousWorklist = GetWorklist(repairGrid);
         var cells = new HashSet<Vector2i>(blueprint.ExpectedCells.Keys);
         cells.UnionWith(blueprint.UnexpectedBaselineCells.Keys);
         cells.UnionWith(blueprint.TasksByCell.Keys);
@@ -466,7 +468,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         RecalculateProgress(blueprint, initializeBaseline);
-        SyncProgress((repairGrid, blueprint), forceUiRefresh: true);
+        SyncProgress((repairGrid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(repairGrid)));
         blueprint.FullyMatchesTarget &= !scoreLookup.Invalid;
         blueprint.CanComplete &= !scoreLookup.Invalid;
         return !scoreLookup.Invalid;
@@ -1048,6 +1050,25 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             .Select(entry => new RepairOrderWorklistEntry(
                 entry.Key.Type, entry.Key.PrototypeId, entry.Key.Remove, entry.Value))
             .ToList();
+    }
+
+    private static bool WorklistChanged(
+        IReadOnlyList<RepairOrderWorklistEntry> previous,
+        IReadOnlyList<RepairOrderWorklistEntry> current)
+    {
+        if (previous.Count != current.Count)
+            return true;
+
+        for (var i = 0; i < previous.Count; i++)
+        {
+            if (previous[i].Type != current[i].Type ||
+                previous[i].PrototypeId != current[i].PrototypeId ||
+                previous[i].Remove != current[i].Remove ||
+                previous[i].Count != current[i].Count)
+                return true;
+        }
+
+        return false;
     }
 
     private void SyncProgress(Entity<RepairBlueprintComponent> blueprint, bool forceUiRefresh = false)

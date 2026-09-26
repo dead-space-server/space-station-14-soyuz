@@ -297,7 +297,7 @@
     sprintModifier: 0.85 # DS14-value
   - type: HeldSpeedModifier
   - type: ToggleableClothing
-    clothingPrototype: ClothingHeadHelmetHardsuitSecurity
+    clothingPrototype: ClothingHeadHelmetHardsuitSecuritySoyuz #DS14-soyuz
   - type: Tag
     tags:
     - CorgiWearable
@@ -619,7 +619,7 @@
     sprintModifier: 0.85 # DS-14 value
   - type: HeldSpeedModifier
   - type: ToggleableClothing
-    clothingPrototype: ClothingHeadHelmetHardsuitSecurityRed
+    clothingPrototype: ClothingHeadHelmetHardsuitSecurityRedSoyuz #DS14-soyuz
     # DS14-start
   - type: PhysicalComposition
     materialComposition:

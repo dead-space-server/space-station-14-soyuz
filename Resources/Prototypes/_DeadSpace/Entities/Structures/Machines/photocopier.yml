@@ -216,7 +216,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_cargo.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_cargo.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -240,7 +242,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_civilian.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_civilian.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -264,8 +268,8 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    # DS14-Soyuz start: use the existing Soyuz command heading for these forms.
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_command.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_command.png"
     # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
@@ -290,7 +294,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_engineering.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_engineering.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -314,7 +320,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_law.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_law.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -338,7 +346,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_medical.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_medical.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -362,7 +372,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_science.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_science.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -386,7 +398,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_security.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz document heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_security.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -410,7 +424,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_centcomm.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz General Staff heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_centcomm.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -436,7 +452,9 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/Interface/Paper/paper_heading_ussp_centcomm.svg.96dpi.png"
+    # DS14-Soyuz start: use the Soyuz General Staff heading.
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_centcomm.png"
+    # DS14-Soyuz end
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0

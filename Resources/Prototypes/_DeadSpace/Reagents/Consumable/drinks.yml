@@ -42,12 +42,14 @@
   physicalDesc: reagent-physical-desc-aromatic
   flavor: sakura
   color: "#d2a2bc"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sakurajuice.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: CherryBlossom
@@ -72,12 +74,14 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: alcohol
   color: "#8B4513"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_baltica9.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   metabolisms:
     Drink:
@@ -182,12 +186,14 @@
   physicalDesc: reagent-physical-desc-fizzy-and-creamy
   flavor: durf
   color: "#A65F11"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_durf.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Alcohol:
       metabolismRate: 0.05

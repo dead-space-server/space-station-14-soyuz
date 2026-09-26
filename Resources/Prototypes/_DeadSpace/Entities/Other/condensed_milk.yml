@@ -5,12 +5,14 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: sweet
   color: "#FFDEAD"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_condensedmilk.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 290.0
   meltingPoint: 18.2
@@ -78,12 +80,14 @@
   physicalDesc: reagent-physical-desc-sticky
   flavor: sweet
   color: "#86521f"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_boiledcondensedmilk.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 250.0
   meltingPoint: 380.2

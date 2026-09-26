@@ -6,12 +6,14 @@
   physicalDesc: reagent-physical-desc-sugary
   flavor: sweet
   color: aquamarine
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_astrotame.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -22,12 +24,14 @@
   physicalDesc: reagent-physical-desc-gloopy
   flavor: sweet
   color: darkred
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_bbqsauce.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -38,12 +42,14 @@
   physicalDesc: reagent-physical-desc-cold
   flavor: cold
   color: skyblue
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_coldsauce.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: Cornoil
@@ -53,12 +59,14 @@
   physicalDesc: reagent-physical-desc-oily
   flavor: oily
   color: yellow
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_cornoil.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -69,12 +77,14 @@
   physicalDesc: reagent-physical-desc-overpowering
   flavor: spicy
   color: gray
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_horseradishsauce.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -85,12 +95,14 @@
   physicalDesc: reagent-physical-desc-spicy
   flavor: spicy
   color: red
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hotsauce.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -101,12 +113,14 @@
   physicalDesc: reagent-physical-desc-tangy
   flavor: tomato
   color: red
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ketchup.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -117,12 +131,14 @@
   physicalDesc: reagent-physical-desc-saucey
   flavor: ketchunaise
   color: "#fba399"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ketchunaise.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -133,12 +149,14 @@
   physicalDesc: reagent-physical-desc-funny
   flavor: sweet
   color: "#803280"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_laughinsyrup.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -149,12 +167,14 @@
   physicalDesc: reagent-physical-desc-thick
   flavor: mayonnaise
   color: "#f9f5e5"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mayo.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -165,12 +185,14 @@
   physicalDesc: reagent-physical-desc-thick
   flavor: mustard
   color: "#ffdb58"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mustard.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -181,12 +203,14 @@
   physicalDesc: reagent-physical-desc-sour
   flavor: sour
   color: "#efdaae"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vinaigrette.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -197,12 +221,14 @@
   physicalDesc: reagent-physical-desc-salty
   flavor: salty
   color: saddlebrown
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_soysauce.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   metabolisms:
     Food:
@@ -222,12 +248,14 @@
   physicalDesc: reagent-physical-desc-grainy
   flavor: salty
   color: "#cfd1d0"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_tablesalt.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   boilingPoint: 1465.0
   meltingPoint: 800.7
@@ -259,12 +287,14 @@
   desc: reagent-desc-syrup
   flavor: sweet
   color: "#fb7125"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_syrup.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.55 #Start using syrup to attach your remote recievers to your microwaves!

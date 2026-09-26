@@ -53,12 +53,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: soda
   color: "#2E6671"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_changelingsting.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: DrGibb
@@ -83,12 +85,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: energydrink
   color: "#ffffbf"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_energydrink.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Drink:
       effects:
@@ -112,12 +116,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: grapesoda
   color: "#ae94a6"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_grapesoda.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: IceCream
@@ -144,12 +150,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: lemonlimesoda
   color: "#878F00"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlime.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: LemonLimeCranberry
@@ -159,12 +167,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: lemonlimecranberrysoda
   color: "#803C53"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlimecranberry.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: PwrGame
@@ -174,12 +184,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: pwrgamesoda
   color: "#9385bf"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pwrgame.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   fizziness: 0.9 # gamers crave the fizz
 
 - type: reagent
@@ -287,12 +299,14 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: starkistsoda
   color: "#9F3400"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_starkist.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: FourteenLoko
@@ -336,9 +350,11 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: metallic
   color: "#66538F"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_shamblersjuice.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end

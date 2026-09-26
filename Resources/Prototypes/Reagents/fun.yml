@@ -6,12 +6,14 @@
   physicalDesc: reagent-physical-desc-fibrous
   flavor: carpet
   color: "#800000"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_carpetium.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   tileReactions:
   - !type:CreateEntityTileReaction
     entity: Carpet
@@ -40,12 +42,14 @@
   physicalDesc: reagent-physical-desc-fibrous
   flavor: fiber
   color: "#808080"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fiber.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Food:
       effects:
@@ -64,12 +68,14 @@
   contrabandSeverity: Minor
   flavor: bee
   color: "#FFD35D"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_buzzochloricbees.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   tileReactions:
   - !type:CreateEntityTileReaction
     entity: MobBee
@@ -163,12 +169,14 @@
   physicalDesc: reagent-physical-desc-bee-guts
   flavor: bee
   color: "#86530E"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_groundbee.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: Saxoite
@@ -177,12 +185,14 @@
   physicalDesc: reagent-physical-desc-ground-brass
   flavor: sax
   color: "#B8A603"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_saxoite.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: Licoxide
@@ -193,12 +203,14 @@
   contrabandSeverity: Minor
   flavor: shocking
   color: "#FDD023"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_licoxide.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate : 2.0
@@ -217,12 +229,14 @@
   physicalDesc: reagent-physical-desc-reflective
   flavor: sharp
   color: "#e3fffb"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_razorium.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -264,12 +278,14 @@
   - Medical
   flavor: cold
   color: "#b3f1ff"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fresium.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: 50.0
   meltingPoint: 45.0
   tileReactions:
@@ -360,12 +376,14 @@
   physicalDesc: reagent-physical-desc-funny
   flavor: funny
   color: "#FF4DD2"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_laughter.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   slipData:
     requiredSlipSpeed: 3.5 #clown juice gotta slip
   metabolisms:
@@ -389,12 +407,14 @@
   physicalDesc: reagent-physical-desc-vibrant
   flavor: weh
   color: "#59b23a"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicethatmakesyouweh.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate: 0.25
@@ -430,12 +450,14 @@
   physicalDesc: reagent-physical-desc-inversed
   flavor: hew
   color: "#a64dc5"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicethatmakesyouhew.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate: 0.25
@@ -471,12 +493,14 @@
   physicalDesc: reagent-physical-desc-fluffy
   flavor: dogfood
   color: "#ed9715"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_corgijuice.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate: 0.2
@@ -511,12 +535,14 @@
   physicalDesc: reagent-physical-desc-milky
   flavor: cannedtuna
   color: "#d8bed8"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_felinase.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate: 0.2
@@ -567,12 +593,14 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: dogfood
   color: "#b87333"
+  # DS14-Soyuz start
   metamorphicSprite:
     sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_caninase.rsi
     state: icon_empty
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Poison:
       metabolismRate: 0.2

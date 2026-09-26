@@ -5,6 +5,9 @@
   physicalDesc: reagent-physical-desc-acidic
   flavor: bitter
   color: "#AF14B7"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_acetone.rsi
+    state: icon
   boilingPoint: 55.5
   meltingPoint: -50.0
 
@@ -15,6 +18,9 @@
   physicalDesc: reagent-physical-desc-acidic
   flavor: bitter
   color: "#E7EA91"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_phenol.rsi
+    state: icon
   boilingPoint: 55.5
   meltingPoint: -50.0
   metabolisms:
@@ -32,6 +38,9 @@
   desc: reagent-desc-charcoal
   physicalDesc: reagent-physical-desc-porous
   color: "#22282b"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_charcoal.rsi
+    state: icon
   boilingPoint: 4200.0
   meltingPoint: 3550.0
   metabolisms:
@@ -51,6 +60,9 @@
   desc: reagent-desc-ash
   physicalDesc: reagent-physical-desc-powdery
   color: white
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ash.rsi
+    state: icon
 
 - type: reagent
   id: Lye
@@ -59,6 +71,9 @@
   flavor: alkaline
   physicalDesc: reagent-physical-desc-alkaline
   color: "#e5420b"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lye.rsi
+    state: icon
   metabolisms:
     Poison:
       effects:
@@ -73,6 +88,9 @@
   desc: reagent-desc-sodium-carbonate
   physicalDesc: reagent-physical-desc-powdery
   color: white
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumcarbonate.rsi
+    state: icon
 
 - type: reagent
   id: Artifexium
@@ -83,6 +101,9 @@
   allowedDepartments:
   - Science
   color: "#776291"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_artifexium.rsi
+    state: icon
   metabolisms:
     Poison:
       effects:
@@ -105,6 +126,9 @@
   flavor: artifactglue
   physicalDesc: reagent-physical-desc-non-newtonian
   color: "#827394"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_artifactglue.rsi
+    state: icon
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -120,6 +144,9 @@
   allowedJobs:
   - Chemist
   color: "#E7EA91"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_benzene.rsi
+    state: icon
   boilingPoint: 353.2
   meltingPoint: 278.7
   metabolisms:
@@ -136,6 +163,9 @@
   desc: reagent-desc-hydroxide
   physicalDesc: reagent-physical-desc-alkaline
   color: "white"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hydroxide.rsi
+    state: icon
   boilingPoint: 1661.0
   meltingPoint: 596.0
 
@@ -145,6 +175,9 @@
   desc: reagent-desc-sodium-hydroxide
   physicalDesc: reagent-physical-desc-alkaline
   color: "white"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumhydroxide.rsi
+    state: icon
   boilingPoint: 1661.0
   meltingPoint: 596.0
   metabolisms:
@@ -170,6 +203,9 @@
   physicalDesc: reagent-physical-desc-crystalline
   flavor: metallic
   color: "#434b4d"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fersilicite.rsi
+    state: icon
   boilingPoint: 2962.0
   meltingPoint: 1638.0
 
@@ -180,6 +216,9 @@
   flavor: bitter
   physicalDesc: reagent-physical-desc-grainy
   color: "#F0F0F0"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodiumpolyacrylate.rsi
+    state: icon
   metabolisms:
     Poison:
       effects:
@@ -199,6 +238,9 @@
   desc: reagent-desc-cellulose
   flavor: bitter
   color: "#E6E6DA"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_cellulose.rsi
+    state: icon
   physicalDesc: reagent-physical-desc-crystalline
 
 - type: reagent
@@ -209,6 +251,9 @@
   flavor: tingly
   physicalDesc: reagent-physical-desc-refreshing
   color: "#bf1365"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_rororium.rsi
+    state: icon
   metabolisms:
     Medicine:
       effects:

@@ -7,6 +7,9 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: nutriment
   color: "#24591F"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_nutriment.rsi
+    state: icon
   metabolisms:
     Food:
       effects:
@@ -27,6 +30,9 @@
   physicalDesc: reagent-physical-desc-chalky
   flavor: vitamin
   color: "#D3D3D3"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vitamin.rsi
+    state: icon
   metabolisms:
     Food: #This makes it not compete with medicines, a large bonus for something that can heal
       effects:
@@ -56,6 +62,9 @@
   physicalDesc: reagent-physical-desc-clumpy
   flavor: protein
   color: "#FFFFE5"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_protein.rsi
+    state: icon
   metabolisms:
     Food:
       effects:
@@ -109,3 +118,6 @@
   desc: reagent-desc-pumpkin-flesh
   flavor: pumpkin
   color: "#fc9300"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pumpkinflesh.rsi
+    state: icon

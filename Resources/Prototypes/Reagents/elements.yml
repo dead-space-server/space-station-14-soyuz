@@ -6,6 +6,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: metallic
   color: "#848789"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_aluminium.rsi
+    state: icon
   boilingPoint: 2327.0
   meltingPoint: 660.0
 
@@ -17,6 +20,9 @@
   physicalDesc: reagent-physical-desc-crystalline
   flavor: bitter
   color: "#22282b"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_carbon.rsi
+    state: icon
   boilingPoint: 4200.0
   meltingPoint: 3550.0
 
@@ -28,6 +34,9 @@
   physicalDesc: reagent-physical-desc-gaseous
   flavor: bitter
   color: "#a2ff00"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_chlorine.rsi
+    state: icon
   meltingPoint: -101.5
   boilingPoint: -34.04
   plantMetabolism:
@@ -55,6 +64,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: metallic
   color: "#b05b3c"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_copper.rsi
+    state: icon
   boilingPoint: 2595.0
   meltingPoint: 1083.0
   metabolisms:
@@ -85,6 +97,9 @@
   physicalDesc: reagent-physical-desc-gaseous
   flavor: bitter
   color: "#ba85cc"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fluorine.rsi
+    state: icon
   boilingPoint: -188.11
   meltingPoint: -219.67
   plantMetabolism:
@@ -112,6 +127,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: metallic
   color: "#F7C430"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_gold.rsi
+    state: icon
   boilingPoint: 2700.0
   meltingPoint: 1064.76
 
@@ -123,6 +141,9 @@
   physicalDesc: reagent-physical-desc-gaseous
   flavor: bitter
   color: "#cccccc"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hydrogen.rsi
+    state: icon
   boilingPoint: -253.0
   meltingPoint: -259.2
 
@@ -134,6 +155,9 @@
   physicalDesc: reagent-physical-desc-dark-brown
   flavor: bitter
   color: "#BC8A00"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_iodine.rsi
+    state: icon
   boilingPoint: 184.3
   meltingPoint: 113.7
 
@@ -145,6 +169,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: metallic
   color: "#434b4d"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_iron.rsi
+    state: icon
   boilingPoint: 2862.0
   meltingPoint: 1538.0
   metabolisms:
@@ -175,6 +202,9 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: metallic
   color: "#d6c0a7"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lithium.rsi
+    state: icon
   meltingPoint: 180.5
   boilingPoint: 1330.0
   metabolisms:
@@ -202,6 +232,9 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: metallic
   color: "#929296"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mercury.rsi
+    state: icon
   meltingPoint: -38.83
   boilingPoint: 356.73
   metabolisms:
@@ -223,6 +256,9 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: metallic
   color: "#c6c8cc"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_potassium.rsi
+    state: icon
   meltingPoint: 65.5
   boilingPoint: 759.0
 
@@ -234,6 +270,9 @@
   physicalDesc: reagent-physical-desc-powdery
   flavor: metallic
   color: "#f5da9a"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_phosphorus.rsi
+    state: icon
   meltingPoint: 44.2
   boilingPoint: 280.5
   plantMetabolism:
@@ -253,6 +292,9 @@
   physicalDesc: reagent-physical-desc-glowing
   flavor: metallic
   color: "#00ff04"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_radium.rsi
+    state: icon
   meltingPoint: 700.0
   boilingPoint: 1737.0
 
@@ -264,6 +306,9 @@
   physicalDesc: reagent-physical-desc-crystalline
   flavor: metallic
   color: "#364266"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_silicon.rsi
+    state: icon
   boilingPoint: 3265.0
   meltingPoint: 1414.0
   metabolisms:
@@ -282,6 +327,9 @@
   physicalDesc: reagent-physical-desc-reasonably-metallic
   flavor: metallic
   color: "#d0d0d0"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_silver.rsi
+    state: icon
   boilingPoint: 2212.0
   meltingPoint: 960.5
 
@@ -293,6 +341,9 @@
   physicalDesc: reagent-physical-desc-powdery
   flavor: bitter
   color: "#fff385"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sulfur.rsi
+    state: icon
   boilingPoint: 445.0
   meltingPoint: 120.0
   metabolisms:
@@ -311,6 +362,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: bitter
   color: "#a7b3d6"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodium.rsi
+    state: icon
   meltingPoint: 97.8
   boilingPoint: 883.0
 
@@ -322,6 +376,9 @@
   physicalDesc: reagent-physical-desc-metallic
   flavor: metallic
   color: "#8fa191"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_uranium.rsi
+    state: icon
   meltingPoint: 1133.0
   boilingPoint: 4131.0
   plantMetabolism:
@@ -350,5 +407,8 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: metallic
   color: "#bababa"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_zinc.rsi
+    state: icon
   meltingPoint: 419.5
   boilingPoint: 907.0

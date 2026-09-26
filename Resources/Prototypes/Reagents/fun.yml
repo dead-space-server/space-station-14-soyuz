@@ -6,6 +6,9 @@
   physicalDesc: reagent-physical-desc-fibrous
   flavor: carpet
   color: "#800000"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_carpetium.rsi
+    state: icon
   tileReactions:
   - !type:CreateEntityTileReaction
     entity: Carpet
@@ -34,6 +37,9 @@
   physicalDesc: reagent-physical-desc-fibrous
   flavor: fiber
   color: "#808080"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fiber.rsi
+    state: icon
   metabolisms:
     Food:
       effects:
@@ -52,6 +58,9 @@
   contrabandSeverity: Minor
   flavor: bee
   color: "#FFD35D"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_buzzochloricbees.rsi
+    state: icon
   tileReactions:
   - !type:CreateEntityTileReaction
     entity: MobBee
@@ -145,6 +154,9 @@
   physicalDesc: reagent-physical-desc-bee-guts
   flavor: bee
   color: "#86530E"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_groundbee.rsi
+    state: icon
 
 - type: reagent
   id: Saxoite
@@ -153,6 +165,9 @@
   physicalDesc: reagent-physical-desc-ground-brass
   flavor: sax
   color: "#B8A603"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_saxoite.rsi
+    state: icon
 
 - type: reagent
   id: Licoxide
@@ -163,6 +178,9 @@
   contrabandSeverity: Minor
   flavor: shocking
   color: "#FDD023"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_licoxide.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate : 2.0
@@ -181,6 +199,9 @@
   physicalDesc: reagent-physical-desc-reflective
   flavor: sharp
   color: "#e3fffb"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_razorium.rsi
+    state: icon
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -222,6 +243,9 @@
   - Medical
   flavor: cold
   color: "#b3f1ff"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_fresium.rsi
+    state: icon
   boilingPoint: 50.0
   meltingPoint: 45.0
   tileReactions:
@@ -312,6 +336,9 @@
   physicalDesc: reagent-physical-desc-funny
   flavor: funny
   color: "#FF4DD2"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_laughter.rsi
+    state: icon
   slipData:
     requiredSlipSpeed: 3.5 #clown juice gotta slip
   metabolisms:
@@ -335,6 +362,9 @@
   physicalDesc: reagent-physical-desc-vibrant
   flavor: weh
   color: "#59b23a"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicethatmakesyouweh.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate: 0.25
@@ -370,6 +400,9 @@
   physicalDesc: reagent-physical-desc-inversed
   flavor: hew
   color: "#a64dc5"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicethatmakesyouhew.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate: 0.25
@@ -405,6 +438,9 @@
   physicalDesc: reagent-physical-desc-fluffy
   flavor: dogfood
   color: "#ed9715"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_corgijuice.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate: 0.2
@@ -439,6 +475,9 @@
   physicalDesc: reagent-physical-desc-milky
   flavor: cannedtuna
   color: "#d8bed8"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_felinase.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate: 0.2
@@ -489,6 +528,9 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: dogfood
   color: "#b87333"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_caninase.rsi
+    state: icon
   metabolisms:
     Poison:
       metabolismRate: 0.2

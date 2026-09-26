@@ -8,6 +8,9 @@
   - Chemist
   flavor: bitter
   color: "#a1000b"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_bleach.rsi
+    state: icon
   boilingPoint: 111.0
   meltingPoint: -5.0
   metabolisms:
@@ -43,6 +46,9 @@
   physicalDesc: reagent-physical-desc-lemony-fresh
   flavor: bitter
   color: "#c8ff69"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacecleaner.rsi
+    state: icon
   recognizable: true
   boilingPoint: 147.0 # Made this up, loosely based on bleach
   meltingPoint: -11.0
@@ -61,6 +67,9 @@
   physicalDesc: reagent-physical-desc-soapy
   flavor: clean
   color: "#c8dfc9"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_soapreagent.rsi
+    state: icon
   recognizable: true
   boilingPoint: 100.0
   meltingPoint: 60.0
@@ -96,6 +105,9 @@
   physicalDesc: reagent-physical-desc-shiny
   flavor: funny
   color: "#77b58e"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spacelube.rsi
+    state: icon
   recognizable: true
   boilingPoint: 290.0 # Glycerin
   meltingPoint: 18.2
@@ -110,6 +122,9 @@
   physicalDesc: reagent-physical-desc-sticky
   flavor: glue
   color: "#ffffff"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_spaceglue.rsi
+    state: icon
   boilingPoint: 250.0
   meltingPoint: 380.0
   tileReactions:

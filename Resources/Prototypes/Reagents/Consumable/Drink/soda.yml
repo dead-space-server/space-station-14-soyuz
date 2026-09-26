@@ -53,6 +53,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: soda
   color: "#2E6671"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_changelingsting.rsi
+    state: icon
 
 - type: reagent
   id: DrGibb
@@ -77,6 +80,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: energydrink
   color: "#ffffbf"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_energydrink.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -100,6 +106,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: grapesoda
   color: "#ae94a6"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_grapesoda.rsi
+    state: icon
 
 - type: reagent
   id: IceCream
@@ -126,6 +135,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: lemonlimesoda
   color: "#878F00"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlime.rsi
+    state: icon
 
 - type: reagent
   id: LemonLimeCranberry
@@ -135,6 +147,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: lemonlimecranberrysoda
   color: "#803C53"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_lemonlimecranberry.rsi
+    state: icon
 
 - type: reagent
   id: PwrGame
@@ -144,6 +159,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: pwrgamesoda
   color: "#9385bf"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pwrgame.rsi
+    state: icon
   fizziness: 0.9 # gamers crave the fizz
 
 - type: reagent
@@ -251,6 +269,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: starkistsoda
   color: "#9F3400"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_starkist.rsi
+    state: icon
 
 - type: reagent
   id: FourteenLoko
@@ -294,3 +315,6 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: metallic
   color: "#66538F"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_shamblersjuice.rsi
+    state: icon

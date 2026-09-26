@@ -48,6 +48,9 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: alcohol
   color: "#c9144a"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_campari.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:

@@ -42,6 +42,9 @@
   physicalDesc: reagent-physical-desc-aromatic
   flavor: sakura
   color: "#d2a2bc"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sakurajuice.rsi
+    state: icon
 
 - type: reagent
   id: CherryBlossom
@@ -66,6 +69,9 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: alcohol
   color: "#8B4513"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_baltica9.rsi
+    state: icon
   recognizable: true
   metabolisms:
     Drink:
@@ -170,6 +176,9 @@
   physicalDesc: reagent-physical-desc-fizzy-and-creamy
   flavor: durf
   color: "#A65F11"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_durf.rsi
+    state: icon
   metabolisms:
     Alcohol:
       metabolismRate: 0.05

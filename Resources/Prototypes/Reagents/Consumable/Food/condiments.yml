@@ -6,6 +6,9 @@
   physicalDesc: reagent-physical-desc-sugary
   flavor: sweet
   color: aquamarine
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_astrotame.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -16,6 +19,9 @@
   physicalDesc: reagent-physical-desc-gloopy
   flavor: sweet
   color: darkred
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_bbqsauce.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -26,6 +32,9 @@
   physicalDesc: reagent-physical-desc-cold
   flavor: cold
   color: skyblue
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_coldsauce.rsi
+    state: icon
 
 - type: reagent
   id: Cornoil
@@ -35,6 +44,9 @@
   physicalDesc: reagent-physical-desc-oily
   flavor: oily
   color: yellow
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_cornoil.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -45,6 +57,9 @@
   physicalDesc: reagent-physical-desc-overpowering
   flavor: spicy
   color: gray
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_horseradishsauce.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -55,6 +70,9 @@
   physicalDesc: reagent-physical-desc-spicy
   flavor: spicy
   color: red
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hotsauce.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -65,6 +83,9 @@
   physicalDesc: reagent-physical-desc-tangy
   flavor: tomato
   color: red
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ketchup.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -75,6 +96,9 @@
   physicalDesc: reagent-physical-desc-saucey
   flavor: ketchunaise
   color: "#fba399"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ketchunaise.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -85,6 +109,9 @@
   physicalDesc: reagent-physical-desc-funny
   flavor: sweet
   color: "#803280"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_laughinsyrup.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -95,6 +122,9 @@
   physicalDesc: reagent-physical-desc-thick
   flavor: mayonnaise
   color: "#f9f5e5"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mayo.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -105,6 +135,9 @@
   physicalDesc: reagent-physical-desc-thick
   flavor: mustard
   color: "#ffdb58"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mustard.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -115,6 +148,9 @@
   physicalDesc: reagent-physical-desc-sour
   flavor: sour
   color: "#efdaae"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vinaigrette.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -125,6 +161,9 @@
   physicalDesc: reagent-physical-desc-salty
   flavor: salty
   color: saddlebrown
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_soysauce.rsi
+    state: icon
   recognizable: true
   metabolisms:
     Food:
@@ -144,6 +183,9 @@
   physicalDesc: reagent-physical-desc-grainy
   flavor: salty
   color: "#cfd1d0"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_tablesalt.rsi
+    state: icon
   recognizable: true
   boilingPoint: 1465.0
   meltingPoint: 800.7
@@ -175,6 +217,9 @@
   desc: reagent-desc-syrup
   flavor: sweet
   color: "#fb7125"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_syrup.rsi
+    state: icon
   recognizable: true
   physicalDesc: reagent-physical-desc-sticky
   viscosity: 0.55 #Start using syrup to attach your remote recievers to your microwaves!

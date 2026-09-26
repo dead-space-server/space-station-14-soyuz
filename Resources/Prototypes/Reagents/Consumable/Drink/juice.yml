@@ -6,6 +6,9 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: apple
   color: "#FDAD01"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceapple.rsi
+    state: icon
   recognizable: true
 
 - type: reagent
@@ -16,6 +19,9 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: banana
   color: "#FFE777"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebanana.rsi
+    state: icon
 
 - type: reagent
   id: JuiceBerry
@@ -25,6 +31,9 @@
   physicalDesc: reagent-physical-desc-sweet
   flavor: berry
   color: "#660099"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceberry.rsi
+    state: icon
 
 - type: reagent
   id: JuiceBluePumpkin
@@ -34,6 +43,9 @@
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: bluepumpkin
   color: "#00BFFF"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebluepumpkin.rsi
+    state: icon
 
 - type: reagent
   id: JuiceBungo
@@ -43,6 +55,9 @@
   physicalDesc: reagent-physical-desc-tart
   flavor: bungo
   color: "#F9E43D"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebungo.rsi
+    state: icon
 
 - type: reagent
   id: JuiceCarrot
@@ -52,6 +67,9 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: carrot
   color: "#FF8820"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecarrot.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -73,6 +91,9 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: juice
   color: "#512284"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicegrape.rsi
+    state: icon
 
 - type: reagent
   id: JuiceLemon
@@ -97,6 +118,9 @@
   physicalDesc: reagent-physical-desc-citric
   flavor: sour
   color: "#99bb43"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicelime.rsi
+    state: icon
 
 # /datum/reagent/drink/orangejuice/on_mob_life(var/mob/living/M)
 
@@ -129,6 +153,9 @@
   physicalDesc: reagent-physical-desc-tropical
   flavor: pineapple
   color: yellow
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepineapple.rsi
+    state: icon
 
 - type: reagent
   id: JuicePotato
@@ -138,6 +165,9 @@
   physicalDesc: reagent-physical-desc-starchy
   flavor: potatoes
   color: "#302000"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepotato.rsi
+    state: icon
 
 - type: reagent
   id: JuiceTomato
@@ -147,6 +177,9 @@
   physicalDesc: reagent-physical-desc-saucey
   flavor: tomato
   color: "#731008"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicetomato.rsi
+    state: icon
 
 - type: reagent
   id: JuiceWatermelon
@@ -171,3 +204,6 @@
   physicalDesc: reagent-physical-desc-sweet
   flavor: cherry
   color: "#84031a"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecherry.rsi
+    state: icon

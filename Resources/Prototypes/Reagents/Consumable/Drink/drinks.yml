@@ -35,6 +35,9 @@
   physicalDesc: reagent-physical-desc-aromatic
   flavor: chocolate
   color: "#664300"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hotcocoa.rsi
+    state: icon
   recognizable: true
   metabolisms:
     Drink:
@@ -54,6 +57,9 @@
   physicalDesc: reagent-physical-desc-creamy
   flavor: creamy
   color: "#DFD7AF"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_cream.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -69,6 +75,9 @@
   physicalDesc: reagent-physical-desc-milky
   flavor: nutty
   color: "#f4eadb"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_coconutwater.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -84,6 +93,9 @@
   physicalDesc: reagent-physical-desc-syrupy
   flavor: creamy
   color: "#FFEABF"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_creamofcoconut.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -224,6 +236,9 @@
   physicalDesc: reagent-physical-desc-sickly
   flavor: bitter
   color: "#6600CC"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceberrypoison.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -266,6 +281,9 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: milk
   color: "#DFDFDF"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milk.rsi
+    state: icon
   recognizable: true
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -281,12 +299,18 @@
 
 - type: reagent
   id: MilkGoat
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milkgoat.rsi
+    state: icon
   parent: Milk
   name: reagent-name-milk-goat
   desc: reagent-desc-milk-goat
 
 - type: reagent
   id: MilkSheep
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milksheep.rsi
+    state: icon
   parent: Milk
   name: reagent-name-milk-sheep
   desc: reagent-desc-milk-sheep
@@ -299,6 +323,9 @@
   physicalDesc: reagent-physical-desc-refreshing
   flavor: oats
   color: "#DEDACD"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milkoat.rsi
+    state: icon
   recognizable: true
   metabolisms:
     Drink:
@@ -315,6 +342,9 @@
   physicalDesc: reagent-physical-desc-refreshing
   flavor: soy
   color: "#D2C29D"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milksoy.rsi
+    state: icon
 
 - type: reagent
   id: MilkSpoiled
@@ -324,6 +354,9 @@
   physicalDesc: reagent-physical-desc-putrid
   flavor: terrible
   color: "#faffba"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_milkspoiled.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -333,6 +366,9 @@
 
 - type: reagent
   id: Nothing
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_nothing.rsi
+    state: icon
   name: reagent-name-nothing
   desc: reagent-desc-nothing
   group: Drinks
@@ -386,6 +422,9 @@
   physicalDesc: reagent-physical-desc-fizzy
   flavor: fizzy
   color: "#619494"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sodawater.rsi
+    state: icon
   fizziness: 0.8
 
 - type: reagent
@@ -464,6 +503,9 @@
   physicalDesc: reagent-physical-desc-translucent
   flavor: water
   color: "#75b1f0"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_water.rsi
+    state: icon
   recognizable: true
   boilingPoint: 100.0
   meltingPoint: 0.0
@@ -523,6 +565,9 @@
   physicalDesc: reagent-physical-desc-wormy
   flavor: cheapnoodles
   color: "#664300"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_dryramen.rsi
+    state: icon
   metabolisms:
     Food:
       effects:
@@ -538,6 +583,9 @@
   physicalDesc: reagent-physical-desc-wormy
   flavor: cheapnoodles
   color: "#664300"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hotramen.rsi
+    state: icon
   metabolisms:
     Food:
       effects:
@@ -577,6 +625,9 @@
   physicalDesc: reagent-physical-desc-creamy
   flavor: pilk
   color: "#e7c69f"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pilk.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:
@@ -593,6 +644,9 @@
   physicalDesc: reagent-physical-desc-sour
   flavor: bitter
   color: "#B3B599"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_posca.rsi
+    state: icon
 
 - type: reagent
   id: OrangeLimeSoda
@@ -634,6 +688,9 @@
   physicalDesc: reagent-physical-desc-murky
   flavor: mopwata
   color: "#59502b"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_mopwata.rsi
+    state: icon
   metabolisms:
     Drink:
       effects:

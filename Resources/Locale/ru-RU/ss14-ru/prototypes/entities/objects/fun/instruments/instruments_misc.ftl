@@ -4,12 +4,14 @@ ent-SeashellInstrument = ракушка
     .desc = Для создания ритма береговой линии.
 ent-BirdToyInstrument = птичий свист
     .desc = Очаровательный маленький свисток в форме птички. Он прекрасно звучит.
+# DS14-Soyuz-start
 ent-PhoneInstrument = красный телефон
-    .desc = Средство связи для САМЫХ экстренных ситуаций. ЦК не обещает, что ответит на ваш звонок.
-ent-PhoneInstrumentCentComm = красный телефон ЦК
-    .desc = Прямая линия обратного вызова Центрального Командования.
-ent-PhoneInstrumentSyndicate = кроваво-красный телефон
+    .desc = Средство связи для САМЫХ экстренных ситуаций. ГШ не обещает, что ответит на ваш звонок.
+ent-PhoneInstrumentCentComm = красный телефон ГШ
+    .desc = Прямая линия обратного вызова Генерального Штаба.
+ent-PhoneInstrumentSyndicate = болотно-зелёный телефон
     .desc = Для злых людей, для связи с друзьями.
+# DS14-Soyuz-end
 ent-HelicopterInstrument = игрушечный вертолёт
     .desc = Ч-ка-ч-ка-ч-ка-ч-ка-ч-ка-ч-ка-ч-ка...
 ent-CannedApplauseInstrument = готовые аплодисменты

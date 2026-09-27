@@ -112,14 +112,14 @@
 
 - type: ghostBarCostume
   id: CoatBlue
-  name: ghost-bar-costume-ClothingHeadHatBeretGhostBarBlue
+  name: ghost-bar-costume-ClothingOuterCoatGhostBarBlue
   category: outer
   clothingProto: ClothingOuterCoatGhostBarBlue
   slot: outerClothing
 
 - type: ghostBarCostume
   id: CoatOrange
-  name: ghost-bar-costume-ClothingHeadHatBeretGhostBarOrange
+  name: ghost-bar-costume-ClothingOuterCoatGhostBarOrange
   category: outer
   clothingProto: ClothingOuterCoatGhostBarOrange
   slot: outerClothing

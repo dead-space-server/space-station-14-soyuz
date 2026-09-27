@@ -1,6 +1,8 @@
 red-phone-report-title = Красный телефон
-red-phone-report-prompt = Оставьте короткое сообщение для Центрального Командования.
-red-phone-popup-cooldown = Перед следующим звонком на ЦК нужно немного подождать.
+# DS14-Soyuz-start
+red-phone-report-prompt = Оставьте короткое сообщение для Генерального Штаба.
+red-phone-popup-cooldown = Перед следующим звонком на ГШ нужно немного подождать.
+# DS14-Soyuz-end
 red-phone-popup-unavailable = Эта линия сейчас недоступна.
 red-phone-access-denied = Доступ запрещён.
 red-phone-emote-incoming-call = Красный телефон издаёт характерный звук входящего вызова.
@@ -8,7 +10,9 @@ red-phone-emote-call-ended = Красный телефон издаёт хара
 
 red-phone-window-title = {$title}
 red-phone-window-contacts = Последние звонившие
-red-phone-window-no-contacts = Нет телефонов, которые связывались с ЦК.
+# DS14-Soyuz-start
+red-phone-window-no-contacts = Нет телефонов, которые связывались с ГШ.
+# DS14-Soyuz-end
 red-phone-window-call = Позвонить
 red-phone-window-end-call = Завершить
 

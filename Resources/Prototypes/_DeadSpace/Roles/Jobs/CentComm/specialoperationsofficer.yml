@@ -12,7 +12,7 @@
   - AllAccess
   access:
   - CentralCommand
-  - SOD
+  # - SOD # DS14-Soyuz
   - NKVB # DS14-Soyuz
   special:
   - !type:AddImplantSpecial

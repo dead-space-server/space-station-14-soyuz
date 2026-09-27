@@ -7,6 +7,7 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Audio.Jukebox;
 using Content.Shared.DeadSpace._Soyuz.Jukebox;
+using Content.Shared.Ghost;
 using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -31,6 +32,8 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     [Dependency] private readonly IRobustRandom _random = default!;
 
     private readonly Dictionary<EntityUid, PlaybackHistoryState> _playbackStates = new();
+    private readonly HashSet<EntityUid> _autoPaused = new();
+    private const float ListenerRange = 10f;
 
     private sealed class PlaybackHistoryState
     {
@@ -76,6 +79,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (Exists(component.AudioStream))
         {
             Audio.SetState(component.AudioStream, AudioState.Playing);
+            _autoPaused.Remove(uid);
             Dirty(uid, component);
         }
         else
@@ -98,6 +102,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     private void OnJukeboxPause(Entity<JukeboxComponent> ent, ref JukeboxPauseMessage args)
     {
         Audio.SetState(ent.Comp.AudioStream, AudioState.Paused);
+        _autoPaused.Remove(ent.Owner);
     }
 
     private void OnJukeboxSetTime(EntityUid uid, JukeboxComponent component, JukeboxSetTimeMessage args)
@@ -168,6 +173,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     private void Stop(Entity<JukeboxComponent> entity)
     {
         Audio.SetState(entity.Comp.AudioStream, AudioState.Stopped);
+        _autoPaused.Remove(entity.Owner);
         Dirty(entity);
     }
 
@@ -205,10 +211,31 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
                 }
             }
 
+            if (!TryComp(comp.AudioStream, out AudioComponent? audio))
+            {
+                _autoPaused.Remove(uid);
+                continue;
+            }
+
+            var hasListeners = HasListenersInRange(uid, ListenerRange);
+
+            if (!hasListeners)
+            {
+                if (audio.State == AudioState.Playing)
+                {
+                    Audio.SetState(comp.AudioStream, AudioState.Paused);
+                    _autoPaused.Add(uid);
+                }
+
+                continue;
+            }
+
+            if (_autoPaused.Remove(uid) && audio.State == AudioState.Paused)
+                Audio.SetState(comp.AudioStream, AudioState.Playing);
+
             // DS-14 Start: Poll finished playback here so repeat, shuffle, and history
             // all advance through the same authoritative server path.
             if (!TryGetSongLength(comp.SelectedSongId, out var length) ||
-                !TryComp(comp.AudioStream, out AudioComponent? audio) ||
                 audio.State != AudioState.Playing)
             {
                 continue;
@@ -226,6 +253,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     {
         component.AudioStream = Audio.Stop(component.AudioStream);
         _playbackStates.Remove(uid);
+        _autoPaused.Remove(uid);
     }
 
     private void DirectSetVisualState(EntityUid uid, JukeboxVisualState state)
@@ -255,6 +283,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (component.SelectedSongId == null)
         {
             component.AudioStream = Audio.Stop(component.AudioStream);
+            _autoPaused.Remove(uid);
             Dirty(uid, component);
             return;
         }
@@ -269,6 +298,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (songId == null)
         {
             component.AudioStream = Audio.Stop(component.AudioStream);
+            _autoPaused.Remove(uid);
             Dirty(uid, component);
             return;
         }
@@ -308,9 +338,10 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             jukeboxProto.Path,
             uid,
             AudioParams.Default
-                .WithMaxDistance(10f)
+                .WithMaxDistance(ListenerRange)
                 .WithVolume(JukeboxVolume.ToDb(component.Volume)))?.Entity;
 
+        _autoPaused.Remove(uid);
         if (updateHistory && component.AudioStream != null)
             PushHistory(uid, songId);
 
@@ -322,6 +353,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     {
         component.SelectedSongId = songId;
         component.AudioStream = Audio.Stop(component.AudioStream);
+        _autoPaused.Remove(uid);
         ShowSelectionVisual(uid, component);
         Dirty(uid, component);
     }
@@ -336,6 +368,38 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     private bool HasActiveStream(EntityUid? audioStream)
     {
         return TryComp(audioStream, out AudioComponent? audio) && audio.State != AudioState.Stopped;
+    }
+
+    private bool HasListenersInRange(EntityUid uid, float range)
+    {
+        if (!TryComp(uid, out TransformComponent? jukeboxXform))
+            return false;
+
+        var jukeboxPos = jukeboxXform.WorldPosition;
+        var jukeboxMap = jukeboxXform.MapID;
+        var rangeSquared = range * range;
+
+        var actorQuery = EntityQueryEnumerator<ActorComponent, TransformComponent>();
+        while (actorQuery.MoveNext(out _, out _, out var actorXform))
+        {
+            if (actorXform.MapID != jukeboxMap)
+                continue;
+
+            if ((actorXform.WorldPosition - jukeboxPos).LengthSquared() <= rangeSquared)
+                return true;
+        }
+
+        var ghostQuery = EntityQueryEnumerator<GhostComponent, TransformComponent>();
+        while (ghostQuery.MoveNext(out _, out _, out var ghostXform))
+        {
+            if (ghostXform.MapID != jukeboxMap)
+                continue;
+
+            if ((ghostXform.WorldPosition - jukeboxPos).LengthSquared() <= rangeSquared)
+                return true;
+        }
+
+        return false;
     }
 
     private ProtoId<JukeboxPrototype>? ResolveNextSong(EntityUid uid, JukeboxComponent component, out bool fromHistory)
@@ -409,7 +473,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (!TryResolveSong(songId, out var proto))
             return false;
 
-        length = (float) Audio.GetAudioLength(Audio.ResolveSound(proto.Path)).TotalSeconds;
+        length = (float)Audio.GetAudioLength(Audio.ResolveSound(proto.Path)).TotalSeconds;
         return true;
     }
 
@@ -428,10 +492,10 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     private float GetPlaybackPosition(AudioComponent audio)
     {
         if (audio.State == AudioState.Paused)
-            return Math.Max(0f, (float) ((audio.PauseTime ?? _timing.CurTime) - audio.AudioStart).TotalSeconds);
+            return Math.Max(0f, (float)((audio.PauseTime ?? _timing.CurTime) - audio.AudioStart).TotalSeconds);
 
         if (audio.State == AudioState.Playing)
-            return Math.Max(0f, (float) (_timing.CurTime - audio.AudioStart).TotalSeconds);
+            return Math.Max(0f, (float)(_timing.CurTime - audio.AudioStart).TotalSeconds);
 
         return 0f;
     }

@@ -38,10 +38,7 @@ public sealed partial class RepairOrderStationComponent : Component
     [ViewVariables]
     public readonly HashSet<EntityUid> PendingCleanupGrids = new();
 
-    /// <summary>
-    /// Last known usable repair-orders console position, stored relative to its station grid so it remains useful
-    /// after the console entity itself is deleted.
-    /// </summary>
+    /// <summary>Last known usable repair-orders console position on its station grid.</summary>
     [ViewVariables]
     public EntityCoordinates? LastRepairConsoleCoordinates;
 
@@ -50,6 +47,18 @@ public sealed partial class RepairOrderStationComponent : Component
 
     [ViewVariables]
     public bool Completing;
+
+    [ViewVariables]
+    public long RepairPoints;
+
+    [ViewVariables]
+    public long EngineeringReputation;
+
+    [ViewVariables]
+    public bool ShopPurchaseInProgress;
+
+    /// <summary>Idempotency keys of purchases committed during this round.</summary>
+    public readonly HashSet<Guid> CompletedShopRequests = new();
 
     [ViewVariables]
     public bool PoolInitialized;
@@ -99,10 +108,6 @@ public sealed partial class ActiveRepairOrder
     [ViewVariables]
     public EntityUid GridUid;
 
-    /// <summary>
-    /// Console through which this order was activated. Its UID is only a preferred live anchor; the station also
-    /// retains grid-local coordinates for use after the console is deleted.
-    /// </summary>
     [ViewVariables]
     public EntityUid? ActivationConsole;
 
@@ -129,7 +134,7 @@ public sealed partial class ActiveRepairOrder
 
     /// <summary>
     /// True once deadline revalidation has frozen the terminal Expired snapshot.
-    /// Delivery retries must never recalculate progress or rewards after this point.
+    /// Retries must never recalculate progress or earned currency after this point.
     /// </summary>
     [ViewVariables]
     public bool ExpirationFrozen;
@@ -138,17 +143,13 @@ public sealed partial class ActiveRepairOrder
     public int ExpiredRewardBudget;
 
     [ViewVariables]
+    public int ExpiredReputation;
+
+    [ViewVariables]
     public TimeSpan NextExpirationAttempt;
 
     [ViewVariables]
     public readonly HashSet<EntityUid> ExpirationAdditionalGrids = new();
-
-    /// <summary>
-    /// Reward selection is frozen on the first valid completion attempt so a failed physical delivery can retry
-    /// the same earned result instead of rolling a different reward set.
-    /// </summary>
-    [ViewVariables]
-    public List<RepairOrderRewardResult>? PendingRewards;
 
     public ActiveRepairOrder(int runtimeId, ProtoId<RepairOrderPrototype> prototype, EntityUid gridUid)
     {
@@ -191,17 +192,35 @@ public sealed partial class CompletedRepairOrder
     public int RewardBudget;
 
     [ViewVariables]
+    public int EarnedReputation;
+
+    [ViewVariables]
     public RepairOrderResult Result;
 
-    [ViewVariables]
-    public bool Delivered;
+    public CompletedRepairOrder(
+        int runtimeId,
+        ProtoId<RepairOrderPrototype> prototype,
+        int completedTasks,
+        int totalTasks,
+        int finalPoints,
+        int maxPoints,
+        int rewardBudget,
+        int earnedReputation,
+        RepairOrderResult result)
+    {
+        RuntimeId = runtimeId;
+        Prototype = prototype;
+        CompletedTasks = completedTasks;
+        TotalTasks = totalTasks;
+        FinalPoints = finalPoints;
+        MaxPoints = maxPoints;
+        RepairPercent = RepairOrderProgress.CalculatePercent(completedTasks, totalTasks);
+        RewardBudget = rewardBudget;
+        EarnedReputation = earnedReputation;
+        Result = result;
+    }
 
-    [ViewVariables]
-    public readonly List<EntityUid> DeliveryContainers = new();
-
-    [ViewVariables]
-    public readonly List<RepairOrderRewardResult> Rewards = new();
-
+    // Keep the constructor used by existing lifecycle tests; physical rewards are no longer issued on completion.
     public CompletedRepairOrder(
         int runtimeId,
         ProtoId<RepairOrderPrototype> prototype,
@@ -214,20 +233,8 @@ public sealed partial class CompletedRepairOrder
         bool delivered,
         IEnumerable<EntityUid>? deliveryContainers,
         IEnumerable<RepairOrderRewardResult> rewards)
+        : this(runtimeId, prototype, completedTasks, totalTasks, finalPoints, maxPoints, rewardBudget, 0, result)
     {
-        RuntimeId = runtimeId;
-        Prototype = prototype;
-        CompletedTasks = completedTasks;
-        TotalTasks = totalTasks;
-        FinalPoints = finalPoints;
-        MaxPoints = maxPoints;
-        RepairPercent = RepairOrderProgress.CalculatePercent(completedTasks, totalTasks);
-        RewardBudget = rewardBudget;
-        Result = result;
-        Delivered = delivered;
-        if (deliveryContainers != null)
-            DeliveryContainers.AddRange(deliveryContainers);
-        Rewards.AddRange(rewards);
     }
 }
 

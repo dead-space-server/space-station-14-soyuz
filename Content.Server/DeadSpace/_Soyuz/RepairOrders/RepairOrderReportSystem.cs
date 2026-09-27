@@ -201,6 +201,7 @@ public sealed class RepairOrderReportSystem : EntitySystem
         AddLine(report, "repair-orders-report-tasks", ("completed", active.CompletedTasks), ("total", active.TotalTasks));
         AddLine(report, "repair-orders-report-final-points", ("current", active.FinalPoints), ("max", active.MaxPoints));
         AddLine(report, "repair-orders-report-reward-budget", ("budget", active.ExpiredRewardBudget));
+        AddLine(report, "repair-orders-report-pending-reputation", ("reputation", active.ExpiredReputation));
         AddLine(
             report,
             "repair-orders-report-status",
@@ -229,6 +230,7 @@ public sealed class RepairOrderReportSystem : EntitySystem
             ("current", completed.FinalPoints),
             ("max", completed.MaxPoints));
         AddLine(report, "repair-orders-report-reward-budget", ("budget", completed.RewardBudget));
+        AddLine(report, "repair-orders-report-reputation", ("reputation", completed.EarnedReputation));
 
         if (completed.Result == RepairOrderResult.Completed)
         {

@@ -20,40 +20,10 @@
   - PlasticFlapsAirtightClear
   - PlasticFlapsAirtightOpaque
   - CargoPallet
-  - PlastitaniumPlasmaWindowDiagonalIndestructible
-  - PlastitaniumPlasmaWindowIndestructible
-  - PlastitaniumWindowDiagonalIndestructible
-  - PlastitaniumWindowIndestructible
-
-  - WallTungstenDiagonalIndestructible
-  - WallTungstenIndestructible
-  - TungstenWindowDiagonalIndestructible
-  - TungstenWindowIndestructible
-
-  - WallReinforcedIndestructible
-  - WallReinforcedRustIndestructible
-  - WallRivetedIndestructible
-
-  - PlasmaReinforcedWindowDirectionalIndestructible
-  - ReinforcedPlasmaWindowIndestructible
-  - ReinforcedUraniumWindowIndestructible
-  - ReinforcedWindowIndestructible
-  - UraniumReinforcedWindowDirectionalIndestructible
-  - WindowReinforcedDirectionalIndestructible
-
-  - WallPlastitaniumDiagonalIndestructible
-  - WallPlastitaniumIndestructible
-  - WallSolidIndestructible
-  - WallSolidRustIndestructible
-  - WindowIndestructible
-
-  - StationAnchorIndestructible
-
-  - PlasticFlapsAirtightClear
-  - PlasticFlapsAirtightOpaque
-  - CargoPallet
   - CargoPalletSell
   - CargoPalletBuy
+  - StationAnchor
+  - StationAnchorIndestructible
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities

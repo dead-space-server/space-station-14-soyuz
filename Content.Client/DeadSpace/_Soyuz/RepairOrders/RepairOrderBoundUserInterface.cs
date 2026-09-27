@@ -20,6 +20,7 @@ public sealed class RepairOrderBoundUserInterface : BoundUserInterface
         _window.OnAccept += runtimeId => SendMessage(new RepairOrderAcceptMessage(runtimeId));
         _window.OnComplete += runtimeId => SendMessage(new RepairOrderCompleteMessage(runtimeId));
         _window.OnPrintReport += runtimeId => SendMessage(new RepairOrderPrintReportMessage(runtimeId));
+        _window.OnShopPurchase += (requestId, lines) => SendMessage(new RepairOrderShopPurchaseMessage(requestId, lines));
         _window.OnClose += Close;
         _window.OpenCentered();
     }
@@ -30,6 +31,13 @@ public sealed class RepairOrderBoundUserInterface : BoundUserInterface
 
         if (state is RepairOrderBoundUserInterfaceState repairState)
             _window?.UpdateState(repairState);
+    }
+
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+    {
+        base.ReceiveMessage(message);
+        if (message is RepairOrderShopResultMessage result)
+            _window?.ShowShopResult(result);
     }
 
     protected override void Dispose(bool disposing)

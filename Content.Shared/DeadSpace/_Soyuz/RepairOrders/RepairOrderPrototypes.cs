@@ -187,7 +187,7 @@ public enum RepairRotationMode : byte
 }
 
 /// <summary>
-/// One data-driven reward candidate used both for calculation and physical delivery.
+/// One item in the repair orders shop and its physical delivery.
 /// </summary>
 [Prototype]
 public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHooks
@@ -202,35 +202,93 @@ public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHo
     public int Cost;
 
     [DataField]
-    public float Weight = 1f;
-
-    [DataField]
     public int MaxCount = 1;
 
     [DataField]
-    public int MinimumDifficulty = 1;
+    public int MinimumShopLevel = 1;
+
+    /// <summary>Conceal the catalog entry until its minimum shop level is reached.</summary>
+    [DataField]
+    public bool Classified;
 
     void ISerializationHooks.AfterDeserialization()
     {
-        RepairOrderDifficulty.Validate(MinimumDifficulty);
+        if (Cost <= 0 || MaxCount <= 0 || MinimumShopLevel <= 0)
+            throw new InvalidDataException($"Repair reward {ID} must have positive cost, maxCount and minimumShopLevel.");
     }
 }
 
 /// <summary>
-/// Reusable set of reward candidates available to one or more repair orders.
+/// Reusable shop catalog and economy configuration for repair orders.
 /// </summary>
 [Prototype]
-public sealed partial class RepairRewardPoolPrototype : IPrototype
+public sealed partial class RepairRewardPoolPrototype : IPrototype, ISerializationHooks
 {
     [IdDataField]
     public string ID { get; private set; } = default!;
 
     /// <summary>
-    /// Physical container spawned beside the console that submits a completed order.
+    /// Physical container spawned beside the console that processes a purchase.
     /// </summary>
     [DataField(required: true)]
     public EntProtoId DeliveryContainer;
 
     [DataField(required: true)]
     public List<ProtoId<RepairRewardPrototype>> Rewards = new();
+
+    /// <summary>Reputation required for each shop level, starting with level one.</summary>
+    [DataField(required: true)]
+    public List<int> ShopLevelThresholds = new();
+
+    /// <summary>Base reputation for difficulties one through ten, in order.</summary>
+    [DataField(required: true)]
+    public List<int> BaseReputationByDifficulty = new();
+
+    [DataField(required: true)]
+    public List<RepairRewardQualityBand> QualityBands = new();
+
+    void ISerializationHooks.AfterDeserialization()
+    {
+        if (Rewards.Count == 0 || new HashSet<ProtoId<RepairRewardPrototype>>(Rewards).Count != Rewards.Count)
+            throw new InvalidDataException($"Repair reward pool {ID} must contain unique rewards.");
+
+        if (ShopLevelThresholds.Count == 0 || ShopLevelThresholds[0] != 0)
+            throw new InvalidDataException($"Repair reward pool {ID} must start shop levels at zero reputation.");
+
+        for (var i = 1; i < ShopLevelThresholds.Count; i++)
+        {
+            if (ShopLevelThresholds[i] <= ShopLevelThresholds[i - 1])
+                throw new InvalidDataException($"Repair reward pool {ID} has unordered shop level thresholds.");
+        }
+
+        if (BaseReputationByDifficulty.Count != RepairOrderDifficulty.Maximum ||
+            BaseReputationByDifficulty.Exists(value => value < 0))
+            throw new InvalidDataException($"Repair reward pool {ID} must define nonnegative reputation for every difficulty.");
+
+        var nextPercent = 0;
+        foreach (var band in QualityBands)
+        {
+            if (band.MinPercent != nextPercent || band.MaxPercent < band.MinPercent ||
+                band.MaxPercent > 100 || band.MultiplierPercent < 0)
+                throw new InvalidDataException($"Repair reward pool {ID} has invalid or overlapping quality bands.");
+
+            nextPercent = band.MaxPercent + 1;
+        }
+
+        if (nextPercent != 101)
+            throw new InvalidDataException($"Repair reward pool {ID} quality bands must cover 0 through 100 percent.");
+    }
+}
+
+[DataDefinition]
+public sealed partial class RepairRewardQualityBand
+{
+    [DataField(required: true)]
+    public int MinPercent;
+
+    [DataField(required: true)]
+    public int MaxPercent;
+
+    [DataField(required: true)]
+    public int MultiplierPercent;
 }

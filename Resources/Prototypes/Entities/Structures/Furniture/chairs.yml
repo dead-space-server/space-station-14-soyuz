@@ -117,6 +117,11 @@
   components:
   - type: Sprite
     state: chair-greyscale
+  # DS14-Soyuz start: Keep the greyscale chair on its own construction node.
+  - type: Construction
+    graph: Seat
+    node: chairGreyscale
+  # DS14-Soyuz end
 
 - type: entity
   name: stool

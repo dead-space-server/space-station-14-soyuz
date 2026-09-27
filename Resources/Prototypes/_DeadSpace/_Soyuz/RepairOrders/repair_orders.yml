@@ -1,8 +1,8 @@
 - type: entity
   parent: CrateEngineeringSecure
   id: RepairOrderRewardCrate
-  name: repair order reward crate
-  description: A secure engineering crate containing payment for a completed repair order.
+  name: repair order shop crate
+  description: A secure engineering crate containing purchases from the repair order shop.
 
 - type: repairOrder
   id: RepairOrderDamagedEngineeringModule
@@ -131,6 +131,7 @@
       visible: false
       state: generic_panel_open
   - type: RepairOrderConsole
+    shopRewardPool: RepairOrderEngineeringRewardPool
   - type: ActivatableUI
     key: enum.RepairOrderUiKey.Key
   - type: ActivatableUIRequiresAccess

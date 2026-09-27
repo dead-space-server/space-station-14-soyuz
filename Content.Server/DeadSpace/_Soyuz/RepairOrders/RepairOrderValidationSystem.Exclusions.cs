@@ -42,7 +42,6 @@ public sealed partial class RepairOrderValidationSystem
                 task.Cell, task.ExpectedEntityPrototype ?? task.ExpectedTilePrototype ?? string.Empty, task.Points));
         }
         // Explicit decisions survive normal revalidation; only this endpoint changes the overlay.
-        active.PendingRewards = null;
         RevalidateAll(grid);
         _repairOrders.RefreshStationUis(blueprint.Station);
         error = string.Empty;

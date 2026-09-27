@@ -627,7 +627,7 @@
     stateDoorOpen: blueshield_open
     stateDoorClosed: blueshield_door
   - type: AccessReader
-    access: [["NKVB"]] # DS14-Soyuz
+    access: [["BlueShield"]]
 
 # Coroner
 - type: entity

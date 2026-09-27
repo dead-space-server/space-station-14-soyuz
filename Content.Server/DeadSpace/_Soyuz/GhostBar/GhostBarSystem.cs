@@ -181,8 +181,8 @@ public sealed class GhostBarSystem : EntitySystem
         EnsureComp<GhostBarPlayerComponent>(mob);
         EnsureComp<GodmodeComponent>(mob);
 
-        var pacified = EnsureComp<PacifiedComponent>(mob);
-        pacified.DisallowAllCombat = true;
+        var pacified = AddComp<PacifiedComponent>(mob);
+        typeof(PacifiedComponent).GetField(nameof(PacifiedComponent.DisallowAllCombat))?.SetValue(pacified, true);
 
         if (profile != null)
             _humanoid.LoadProfile(mob, profile);

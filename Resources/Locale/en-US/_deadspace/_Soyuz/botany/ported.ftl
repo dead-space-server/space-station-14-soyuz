@@ -106,8 +106,6 @@ seeds-ghostpepper-name = ghost pepper
 seeds-ghostpepper-display-name = ghost pepper
 seeds-cosmicrevenant-name = cosmic revenant
 seeds-cosmicrevenant-display-name = cosmic revenant pepper
-seeds-ambrosianobilis-name = ambrosia nobilis
-seeds-ambrosianobilis-display-name = ambrosia nobilis
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 RatherUncreative <RatherUncreativeName@proton.me>
 #
@@ -259,16 +257,12 @@ ent-FoodGhostPepper = ghost pepper
     .desc = So hot, you'll have one foot in the grave.
 ent-FoodCosmicRevenant = cosmic revenant
     .desc = Is this even a pepper? Looks... Haunted.
-ent-FoodAmbrosiaNobilis = ambrosia nobilis
-    .desc = An blue medicinal plant for those who need to be toped off. May have some funky side effects.
 ent-CrystalThistleSeeds = packet of crystalthistle seeds
     .desc = "Like a bag of needles."
 ent-GhostPepperSeeds = packet of ghost pepper seeds
     .desc = "Be sure to plant these six feet under."
 ent-CosmicRevenantSeeds = packet of cosmic revenant seeds
     .desc = "Harvest dark spirits for the good of the station."
-ent-AmbrosiaNobilis = packet of ambrosia nobilis seeds
-    .desc = ambrosia nobilis
 ent-FoodStrangeBerries = strange berries
     .desc = A handful of strange berries.
 ent-Nevcotta = nevcotta log

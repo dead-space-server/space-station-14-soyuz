@@ -1709,7 +1709,7 @@
   - type: PlantData
     # DS14-Soyuz start: directed species mutations
     mutations:
-    - target: AmbrosiaNobilisPlants
+    - target: AmbrosiaDeusPlants
       chance: 0.15
       weight: 100
     # DS14-Soyuz end

@@ -891,50 +891,6 @@
     highHeatTolerance: 308
 - type: entity
   parent: BasePlant
-  id: AmbrosiaNobilisPlants
-  name: ambrosia nobilis
-  components:
-  - type: Sprite
-    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
-  - type: PlantData
-    mutations:
-    - target: AmbrosiaDeusPlants
-      chance: 0.08
-      weight: 100
-    name: seeds-ambrosianobilis-name
-    noun: seeds-noun-seeds
-    packetPrototype: AmbrosiaNobilis
-    productPrototypes:
-    - FoodAmbrosiaNobilis
-  - type: Plant
-    lifespan: 25
-    maturation: 10
-    production: 3
-    yield: 3
-    potency: 10
-    growthStages: 6
-  - type: PlantGrowth
-    waterConsumption: 0.6
-  - type: PlantChemicals
-    chemicals:
-      Nutriment:
-        min: 1
-        max: 2
-        potencyDivisor: 10
-      SpaceDrugs:
-        min: 1
-        max: 5
-        potencyDivisor: 20
-      Tricordrazine:
-        min: 1
-        max: 4
-        potencyDivisor: 25
-      Negacordrazine:
-        min: 0
-        max: 2
-        potencyDivisor: 50
-- type: entity
-  parent: BasePlant
   id: StrangeBerriesPlants
   name: strange berry bush
   components:

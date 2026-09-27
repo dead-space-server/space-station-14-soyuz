@@ -187,7 +187,6 @@
   reason: Living botany plants are outside station repair construction.
   entities:
   - AgentgrainPlants
-  - AmbrosiaNobilisPlants
   - AvocadoPlants
   - BarrelmelonPlants
   - BeesPlants

@@ -1,0 +1,27 @@
+- type: entity
+  parent: BaseItem
+  id: BlueprintSprayPainter
+  name: чертёжник
+  description: Наносит строительные чертежи на пол и под решётки.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Tools/spray_painter.rsi
+    state: spray_painter
+  - type: Item
+    sprite: _DeadSpace/Objects/Tools/spray_painter.rsi
+  - type: ActivatableUI
+    key: enum.SprayPainterUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.SprayPainterUiKey.Key:
+        type: SprayPainterBoundUserInterface
+  - type: SprayPainter
+    decalMode: Add
+    selectedDecal: BlueprintWall
+    decalColorEditable: false
+    fixedDecalColor: '#66CCFF80'
+    allowedDecalTags:
+    - blueprint
+    allowDecalsOnGrilles: true
+    decalOnly: true
+    decalChargeCost: 0

@@ -1931,3 +1931,16 @@ Entries:
   changes:
   - type: Add
     message: Яйцефрут в массы
+- id: 184
+  author: Ezio50
+  time: '2026-09-27T21:46:18.426878+00:00'
+  pr: 499
+  changes:
+  - type: Add
+    message: Доступ на консоль ремонтных заказов
+  - type: Add
+    message: Чертёжник
+  - type: Tweak
+    message: Способ получения наград с ремонтных заказов
+  - type: Tweak
+    message: Убран промежуточный Нобилис

@@ -5,6 +5,8 @@
   entities:
   - WallPlastitanium
   - WallPlastitaniumDiagonal
+  - WallPlastitaniumDiagonalIndestructible
+  - WallPlastitaniumIndestructible
   - WallTitanaluminum
   - WallTitanaluminumDiagonal
   - WallXenoborg
@@ -1953,7 +1955,6 @@
   - SpaceHeaterAnchored
   - SpaceHeaterEnabled
   - StasisBed
-  - StationAnchor
   - StationAnchorOff
   - SurveillanceCameraRouterCommand
   - SurveillanceCameraRouterConstructed
@@ -3388,8 +3389,6 @@
   - WallMiningDiagonal
   - WallPlasma
   - WallPlastic
-  - WallPlastitaniumDiagonalIndestructible
-  - WallPlastitaniumIndestructible
   - WallSandCobblebrick
   - WallSandstone
   - WallSilver

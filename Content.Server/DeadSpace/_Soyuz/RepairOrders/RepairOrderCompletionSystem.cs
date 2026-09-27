@@ -1,6 +1,5 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
-using System.Linq;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
@@ -23,7 +22,6 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
     [Dependency] private readonly RepairOrderExpirationSystem _expiration = default!;
-    [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
     [Dependency] private readonly RepairOrderRewardSystem _rewards = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly StationSystem _station = default!;
@@ -94,7 +92,6 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
 
         state.Completing = true;
 
-        RepairOrderDelivery? delivery = null;
         var committed = false;
         var actor = args.Actor;
         try
@@ -122,8 +119,14 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             }
 
             var rewardBudget = RepairOrderRewardBudget.ForSuccessfulCompletion(active.FinalPoints);
-            active.PendingRewards ??= _rewards.GenerateRewards(order, rewardBudget);
-            var rewards = active.PendingRewards;
+            var repairPercent = RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks);
+            if (!_rewards.TryCalculateReputation(order, repairPercent, out var earnedReputation))
+            {
+                Fail(console.Owner, args.Actor, "repair-orders-error-complete-unavailable",
+                    $"invalid reputation configuration for order {active.Prototype}");
+                return;
+            }
+
             var completed = new CompletedRepairOrder(
                 active.RuntimeId,
                 active.Prototype,
@@ -132,38 +135,13 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 active.FinalPoints,
                 active.MaxPoints,
                 rewardBudget,
-                RepairOrderResult.Completed,
-                delivered: false,
-                deliveryContainers: null,
-                rewards: rewards);
+                earnedReputation,
+                RepairOrderResult.Completed);
 
             _repairOrders.RememberRepairConsole(stationUid.Value, console.Owner);
 
-            if (!_delivery.TryDeliver(
-                    stationUid.Value,
-                    active.RuntimeId,
-                    console.Owner,
-                    order,
-                    rewards,
-                    out var preparedDelivery))
-            {
-                Fail(
-                    console.Owner,
-                    args.Actor,
-                    "repair-orders-error-delivery",
-                    $"physical reward delivery failed for order {active.RuntimeId}");
-                return;
-            }
-
-            delivery = preparedDelivery;
-            completed.Delivered = true;
-            completed.DeliveryContainers.AddRange(delivery.Containers);
-
             if (!_repairOrders.TryCommitCompletion(stationUid.Value, active, completed, out var repairGrid))
             {
-                _delivery.Rollback(delivery);
-                delivery = null;
-
                 Fail(
                     console.Owner,
                     args.Actor,
@@ -173,7 +151,6 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             }
 
             committed = true;
-            _delivery.Commit(delivery);
 
             // The completed snapshot contains every persistent result; runtime cleanup remains player-safe.
             _repairOrders.CleanupTerminalGrid(stationUid.Value, repairGrid);
@@ -181,9 +158,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             _repairOrders.RunPostCommitEffect("completion log", () => _sawmill.Info(
                 $"Completed repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +
                 $"{completed.CompletedTasks}/{completed.TotalTasks} tasks, {completed.FinalPoints}/{completed.MaxPoints} points, " +
-                $"{completed.Rewards.Sum(reward => reward.Count)} physical rewards delivered in " +
-                $"{completed.DeliveryContainers.Count} protected container(s) " +
-                $"[{string.Join(", ", completed.DeliveryContainers)}]; " +
+                $"earned {completed.RewardBudget} repair points and {completed.EarnedReputation} reputation; " +
                 $"queued grid {repairGrid} for deletion."));
             _repairOrders.RunPostCommitEffect("completion popup", () => _popup.PopupEntity(
                 Loc.GetString("repair-orders-complete-success"),
@@ -200,8 +175,6 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                     $"but post-commit processing failed: {exception}"));
                 return;
             }
-
-            _delivery.Rollback(delivery);
 
             _sawmill.Error(
                 $"Failed to complete repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {exception}");

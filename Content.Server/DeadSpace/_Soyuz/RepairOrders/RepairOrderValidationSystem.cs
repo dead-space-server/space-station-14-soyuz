@@ -1093,9 +1093,6 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             return;
         }
 
-        if (active.CurrentPoints != blueprint.Comp.CurrentPoints ||
-            (active.Exclusions?.Totals.Count ?? 0) != exclusions.Totals.Count)
-            active.PendingRewards = null;
         active.Exclusions = exclusions;
         active.CompletedTasks = blueprint.Comp.CompletedTasks;
         active.TotalTasks = blueprint.Comp.TotalTasks;

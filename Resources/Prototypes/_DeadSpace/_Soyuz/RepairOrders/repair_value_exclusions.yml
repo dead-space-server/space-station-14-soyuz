@@ -22,6 +22,8 @@
   - CargoPallet
   - CargoPalletSell
   - CargoPalletBuy
+  - StationAnchor
+  - StationAnchorIndestructible
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
@@ -185,7 +187,6 @@
   reason: Living botany plants are outside station repair construction.
   entities:
   - AgentgrainPlants
-  - AmbrosiaNobilisPlants
   - AvocadoPlants
   - BarrelmelonPlants
   - BeesPlants

@@ -1589,46 +1589,6 @@
   - Vegetable
 
 - type: entity
-  parent: FoodProduceBase
-  id: FoodAmbrosiaNobilis
-  components:
-  - type: FlavorProfile
-    flavors:
-      - leafy
-      - medicine
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 10
-        reagents:
-        - ReagentId: Tricordrazine
-          Quantity: 3
-        - ReagentId: SpaceDrugs
-          Quantity: 5
-        - ReagentId: Nutriment
-          Quantity: 2
-  - type: Sprite
-    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
-  - type: Item
-    heldPrefix: produce
-  - type: Produce
-    plantId: AmbrosiaNobilisPlants
-  - type: Extractable
-    grindableSolutionName: food
-  - type: Clothing
-    sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
-    slots:
-    - HEAD
-  - type: Tag
-    tags:
-    - Ambrosia
-  - type: FoodSequenceElement
-    entries:
-      Taco: AmbrosiaDeus
-      Burger: AmbrosiaDeusBurger
-
-
-- type: entity
   parent: SeedBase
   id: CrystalThistleSeeds
   components:
@@ -1654,16 +1614,6 @@
       plantId: CosmicRevenantPlants
     - type: Sprite
       sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/Cosmic_Revenant.rsi
-
-- type: entity
-  parent: SeedBase
-  id: AmbrosiaNobilis
-  components:
-    - type: Seed
-      plantId: AmbrosiaNobilisPlants
-    - type: Sprite
-      sprite: Objects/Specific/Hydroponics/ambrosia_deus.rsi
-
 
 - type: entity
   parent: FoodProduceBase

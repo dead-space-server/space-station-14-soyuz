@@ -111,6 +111,11 @@ public sealed class ClientClothingSystem : ClothingSystem
         if (inventory.SpeciesId != null)
             item.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
 
+        //DS-14-Soyuz start
+        if (layers == null && args.Slot == "head" && inventory.SpeciesId == "plaf")
+            item.ClothingVisuals.TryGetValue("head-reptilian", out layers);
+        //DS-14-Soyuz end
+
         // if that returned nothing, attempt to find generic data
         if (layers == null && !item.ClothingVisuals.TryGetValue(args.Slot, out layers))
         {
@@ -173,6 +178,10 @@ public sealed class ClientClothingSystem : ClothingSystem
         // species specific
         if (speciesId != null && rsi.TryGetState($"{state}-{speciesId}", out _))
             state = $"{state}-{speciesId}";
+        //DS-14-Soyuz start
+        else if (slot == "head" && speciesId == "plaf" && rsi.TryGetState($"{state}-reptilian", out _))
+            state = $"{state}-reptilian";
+        //DS-14-Soyuz end
         else if (!rsi.TryGetState(state, out _))
             return false;
 
@@ -341,8 +350,12 @@ public sealed class ClientClothingSystem : ClothingSystem
             if (displacementData is not null)
             {
                 //Checking that the state is not tied to the current race. In this case we don't need to use the displacement maps.
-                if (layerData.State is not null && inventory.SpeciesId is not null && layerData.State.EndsWith(inventory.SpeciesId))
+                //DS-14-Soyuz start
+                if (layerData.State is not null && inventory.SpeciesId is not null &&
+                    (layerData.State.EndsWith(inventory.SpeciesId) ||
+                     (slot == "head" && inventory.SpeciesId == "plaf" && layerData.State.EndsWith("-reptilian"))))
                     continue;
+                //DS-14-Soyuz end
 
                 if (_displacement.TryAddDisplacement(displacementData, (equipee, sprite), index, key, out var displacementKey))
                 {

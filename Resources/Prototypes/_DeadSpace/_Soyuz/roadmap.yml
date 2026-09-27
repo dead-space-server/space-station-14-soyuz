@@ -107,7 +107,7 @@
   id: Roadmap12
   title: "Вайтлист"
   description: "Добавить вайтлист роли, доступные при наличие роли в дискорд сервере союза"
-  category: Planned
+  category: Completed
   tags:
     - "Вайтлист"
     - "QoL"

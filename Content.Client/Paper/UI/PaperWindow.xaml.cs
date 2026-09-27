@@ -45,6 +45,32 @@ namespace Content.Client.Paper.UI
         // See PaperVisualsComponent.ContentImageNumLines.
         private float _paperContentLineScale = 1.0f;
 
+        // DS14-Soyuz start: fit Soyuz document headings to the available paper width.
+        private bool _scaleSoyuzHeader;
+
+        private void UpdateSoyuzHeaderScale()
+        {
+            if (!_scaleSoyuzHeader || HeaderImage.TextureNormal is not { } texture ||
+                PaperContent.Size.X <= 0 || ScrollingContents.Size.X <= 0)
+                return;
+
+            var visibleRight = ScrollingContents.GlobalPosition.X + ScrollingContents.Size.X;
+            foreach (var scrollBar in ScrollingContents.Children.OfType<VScrollBar>())
+                visibleRight -= scrollBar.DesiredSize.X;
+
+            // The heading is left aligned, so its actual position gives the available visible width.
+            var width = MathF.Min(PaperContent.Size.X, visibleRight - HeaderImage.GlobalPosition.X - 4f);
+            if (width <= 0)
+                return;
+
+            var scale = width / texture.Size.X;
+            if (MathF.Abs(HeaderImage.Scale.X - scale) < 0.001f)
+                return;
+
+            HeaderImage.Scale = new Vector2(scale, scale);
+        }
+        // DS14-Soyuz end
+
         // If paper limits the size in one or both axes, it'll affect whether
         // we're able to resize this UI or not. Default to everything enabled:
         private DragMode _allowedResizeModes = ~DragMode.None;
@@ -264,7 +290,13 @@ namespace Content.Client.Paper.UI
             if (visuals.HeaderImagePath != null)
             {
                 HeaderImage.TexturePath = visuals.HeaderImagePath;
-                HeaderImage.MinSize = HeaderImage.TextureNormal?.Size ?? Vector2.Zero;
+                // DS14-Soyuz start: scale the new headings uniformly to the paper width.
+                _scaleSoyuzHeader = visuals.HeaderImagePath.StartsWith(
+                    "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_", StringComparison.Ordinal);
+                HeaderImage.Scale = _scaleSoyuzHeader ? new Vector2(0.5f, 0.5f) : Vector2.One;
+                HeaderImage.HorizontalAlignment = _scaleSoyuzHeader ? HAlignment.Left : HAlignment.Center;
+                HeaderImage.MinSize = _scaleSoyuzHeader ? Vector2.Zero : HeaderImage.TextureNormal?.Size ?? Vector2.Zero;
+                // DS14-Soyuz end
             }
             HeaderImage.ModulateSelfOverride = visuals.HeaderImageModulate;
             HeaderImage.Margin = new Thickness(visuals.HeaderMargin.Left, visuals.HeaderMargin.Top,
@@ -339,6 +371,10 @@ namespace Content.Client.Paper.UI
         /// </summary>
         protected override void Draw(DrawingHandleScreen handle)
         {
+            // DS14-Soyuz start: use the final scrollbar position after the first layout pass.
+            UpdateSoyuzHeaderScale();
+            // DS14-Soyuz end
+
             // Now do the deferred setup of the written area. At the point
             // that InitVisuals runs, the label hasn't had it's style initialized
             // so we need to get some info out now:

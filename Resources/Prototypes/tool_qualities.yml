@@ -90,3 +90,12 @@
   spawn: Shovel
   icon: { sprite: Objects/Tools/shovel.rsi, state: icon }
 # DS14-end
+
+# DS14-Soyuz start
+- type: tool
+  id: Hoeing
+  name: tool-quality-hoeing-name
+  toolName: tool-quality-hoeing-tool-name
+  spawn: HydroponicsToolMiniHoe
+  icon: { sprite: Objects/Tools/Hydroponics/hoe.rsi, state: icon }
+# DS14-Soyuz end

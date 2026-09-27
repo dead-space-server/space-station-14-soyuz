@@ -32,6 +32,10 @@ public sealed partial class StampWidget : PanelContainer
     private const float HeadPatternTextTop = 30.0f;
     private const float PatternTextLineHeight = 23.0f;
     private const float HeadPatternTextLineHeight = 19.0f;
+    // DS14-Soyuz start: center department stamp titles inside the ribbon of the 171x76 pattern.
+    private const float HeadDepartmentTextTop = 25.0f;
+    private const float HeadDepartmentTextBottom = 51.0f;
+    // DS14-Soyuz end
     private const float LowPatternTextHorizontalInset = 35.0f;
     private const float LowPatternTextOffsetX = 18.0f;
     private const float LowPatternTextBottom = 37.5f;
@@ -51,6 +55,10 @@ public sealed partial class StampWidget : PanelContainer
     private const float MultiLineFontHeightToLineHeight = 0.88f;
     private const float PatternMainFieldTop = 20.0f;
     private const float PatternMainFieldBottomInset = 8.0f;
+    // DS14-Soyuz start: the department-force pattern leaves this band clear for its title.
+    private const float DepartmentForceTextTop = 120.0f;
+    private const float DepartmentForceTextBottom = 150.0f;
+    // DS14-Soyuz end
     private const float LegacyStampMaxWidth = 310.0f;
     private const float LegacyStampPanelHorizontalInset = 24.0f;
     private const int LegacyStampMaxFontSize = 15;
@@ -77,6 +85,10 @@ public sealed partial class StampWidget : PanelContainer
     private string? _stampBackgroundText;
     private float _stampTextMaxScale;
     private bool _isNtPattern;
+    // DS14-Soyuz start
+    private bool _isHeadDepartmentPattern;
+    private bool _isDepartmentForcePattern;
+    // DS14-Soyuz end
     private bool _isLowPattern;
     private Vector2 _stampTextureSize;
     private Vector2 _stampPatternSize;
@@ -130,6 +142,10 @@ public sealed partial class StampWidget : PanelContainer
                 _stampTextureModulate = value.StampedColor;
                 _stampScale = GetPrototypeStampScale(value.StampScale);
                 _isNtPattern = value.StampPatternTexture.EndsWith("nt_print_pattern.png", StringComparison.Ordinal);
+                // DS14-Soyuz start
+                _isHeadDepartmentPattern = value.StampPatternTexture.EndsWith("headdep_print_pattern.png", StringComparison.Ordinal);
+                _isDepartmentForcePattern = value.StampPatternTexture.EndsWith("deparmforce_print_pattern.png", StringComparison.Ordinal);
+                // DS14-Soyuz end
                 var hasHeader = value.StampHeaderText != null;
                 _isLowPattern = _stampPatternTexture.Size.Y <= 60;
                 var stampFontSize = _isLowPattern ? LowPatternStampFontSize : hasHeader ? HeadStampFontSize : StampFontSize;
@@ -198,6 +214,10 @@ public sealed partial class StampWidget : PanelContainer
         _stampBackgroundText = null;
         _stampTextMaxScale = 0.0f;
         _isNtPattern = false;
+        // DS14-Soyuz start
+        _isHeadDepartmentPattern = false;
+        _isDepartmentForcePattern = false;
+        // DS14-Soyuz end
         _isLowPattern = false;
         _stampTextureSize = Vector2.Zero;
         _stampPatternSize = Vector2.Zero;
@@ -504,12 +524,13 @@ public sealed partial class StampWidget : PanelContainer
         // The central ribbon's text field in the original 269 x 245 texture.
         var textArea = UIBox2.FromDimensions(new Vector2(46, 86) * scale, new Vector2(177, 34) * scale);
         var fontScale = GetFittedTextScale(_stampFont, _stampMainText, scale, textArea.Width);
-        var textSize = new Vector2(MeasureText(_stampFont, _stampMainText, FontOversampleScale * fontScale),
-            _stampFont.GetHeight(FontOversampleScale * fontScale));
-        var topLeft = textArea.TopLeft + (textArea.Size - textSize) * 0.5f;
+        var textWidth = MeasureText(_stampFont, _stampMainText, FontOversampleScale * fontScale);
+        var inkBounds = GetTextInkBounds(_stampFont, _stampMainText, FontOversampleScale * fontScale);
+        var topLeft = new Vector2(textArea.Left + (textArea.Width - textWidth) * 0.5f,
+            textArea.Top + textArea.Height * 0.5f - (inkBounds.X + inkBounds.Y) * 0.5f);
         var pivot = size * UIScale * 0.5f;
         DrawText(handle, _stampFont, _stampMainText, topLeft, _stampTextureModulate.Value,
-            fontScale, UIScale, pivot, GlobalPosition * UIScale + pivot, Orientation, alignGlyphTops: true);
+            fontScale, UIScale, pivot, GlobalPosition * UIScale + pivot, Orientation);
     }
     // DS14-Soyuz end
 
@@ -574,15 +595,23 @@ public sealed partial class StampWidget : PanelContainer
                 alignGlyphTops: true);
         }
 
-        var fontHeight = _stampFont.GetHeight(mainLayoutFontScale);
+        // DS14-Soyuz start: center the visible glyphs, not the font line box, inside the stamp.
         var textAreaTop = GetMainTextAreaTop(textureScale);
         var textAreaBottom = GetMainTextAreaBottom(patternSize, textureScale);
-        var textAreaHeight = MathF.Max(fontHeight, textAreaBottom - textAreaTop);
         var lineHeight = GetMainTextLineHeight(patternSize, textureScale, mainLayoutFontScale);
-        var textBlockHeight = _stampTextLines.Length <= 1
-            ? fontHeight
-            : fontHeight + ((_stampTextLines.Length - 1) * lineHeight);
-        var y = textAreaTop + MathF.Max(0.0f, (textAreaHeight - textBlockHeight) * 0.5f);
+        var inkTop = float.PositiveInfinity;
+        var inkBottom = float.NegativeInfinity;
+        for (var i = 0; i < _stampTextLines.Length; i++)
+        {
+            var bounds = GetTextInkBounds(_stampFont, _stampTextLines[i], mainLayoutFontScale);
+            inkTop = MathF.Min(inkTop, i * lineHeight + bounds.X);
+            inkBottom = MathF.Max(inkBottom, i * lineHeight + bounds.Y);
+        }
+
+        var y = _stampTextLines.Length == 0
+            ? textAreaTop
+            : (textAreaTop + textAreaBottom - inkTop - inkBottom) * 0.5f;
+        // DS14-Soyuz end
         var horizontalInset = _patternTextHorizontalInset * textureScale;
         var availableTextWidth = MathF.Max(1.0f, patternSize.X - horizontalInset * 2.0f);
 
@@ -661,6 +690,14 @@ public sealed partial class StampWidget : PanelContainer
 
     private float GetMainTextAreaTop(float textureScale)
     {
+        // DS14-Soyuz start
+        if (_isHeadDepartmentPattern)
+            return HeadDepartmentTextTop * textureScale;
+
+        if (_isDepartmentForcePattern)
+            return DepartmentForceTextTop * textureScale;
+        // DS14-Soyuz end
+
         if (_isLowPattern)
             return 0.0f;
 
@@ -672,6 +709,14 @@ public sealed partial class StampWidget : PanelContainer
 
     private float GetMainTextAreaBottom(Vector2 patternSize, float textureScale)
     {
+        // DS14-Soyuz start
+        if (_isHeadDepartmentPattern)
+            return HeadDepartmentTextBottom * textureScale;
+
+        if (_isDepartmentForcePattern)
+            return DepartmentForceTextBottom * textureScale;
+        // DS14-Soyuz end
+
         if (_isLowPattern)
             return MathF.Min(patternSize.Y, LowPatternTextBottom * textureScale);
 
@@ -693,6 +738,31 @@ public sealed partial class StampWidget : PanelContainer
 
         return Math.Clamp(baseFontScale * (maxWidth / textWidth), PatternTextMinScale, baseFontScale);
     }
+
+    // DS14-Soyuz start: measure painted glyphs so decorative stamp text stays visually centered.
+    private static Vector2 GetTextInkBounds(Font font, string text, float scale)
+    {
+        var top = float.PositiveInfinity;
+        var bottom = float.NegativeInfinity;
+        var ascent = font.GetAscent(scale);
+
+        foreach (var rune in text.EnumerateRunes())
+        {
+            if (Rune.IsWhiteSpace(rune))
+                continue;
+
+            var metrics = font.GetCharMetrics(rune, scale);
+            if (metrics == null || metrics.Value.Height <= 0)
+                continue;
+
+            var glyphTop = ascent - metrics.Value.BearingY;
+            top = MathF.Min(top, glyphTop);
+            bottom = MathF.Max(bottom, glyphTop + metrics.Value.Height);
+        }
+
+        return float.IsPositiveInfinity(top) ? new Vector2(0, font.GetHeight(scale)) : new Vector2(top, bottom);
+    }
+    // DS14-Soyuz end
 
     private static void DrawText(
         DrawingHandleScreen handle,

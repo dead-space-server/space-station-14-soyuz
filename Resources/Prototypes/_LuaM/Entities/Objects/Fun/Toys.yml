@@ -196,6 +196,11 @@
   - type: MeleeWeapon
     soundHit:
       path: /Audio/Items/Toys/weh.ogg
+    # DS14-Soyuz start: the repair map loads this plushie with the parent's harmless damage.
+    damage:
+      types:
+        Blunt: 0
+    # DS14-Soyuz end
 
 - type: entity
   parent: BaseAkiPlushie

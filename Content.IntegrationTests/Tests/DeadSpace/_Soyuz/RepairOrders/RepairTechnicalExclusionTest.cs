@@ -9,18 +9,20 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairTechnicalExclusionTest
 {
     [TestCase(0, 1000)]
-    [TestCase(1, 990)]
-    [TestCase(2, 980)]
-    [TestCase(3, 970)]
-    [TestCase(5, 950)]
-    [TestCase(10, 900)]
-    [TestCase(100, 0)]
-    [TestCase(101, 0)]
-    public void LinearPenaltyAndRewardBudget(int count, int expected)
+    [TestCase(1, 1000)]
+    [TestCase(9, 1000)]
+    [TestCase(10, 990)]
+    [TestCase(19, 990)]
+    [TestCase(20, 980)]
+    [TestCase(100, 900)]
+    [TestCase(999, 10)]
+    [TestCase(1000, 0)]
+    [TestCase(1001, 0)]
+    public void EveryTenthExclusionPenaltyAndRewardBudget(int count, int expected)
     {
         var totals = new RepairExclusionTotals(count, count * 2, 500, 1000);
 
-        Assert.That(totals.PenaltyPercent, Is.EqualTo(count));
+        Assert.That(totals.PenaltyPercent, Is.EqualTo(Math.Min(100, count / 10)));
         Assert.That(totals.FinalPoints, Is.EqualTo(expected));
         Assert.That(
             RepairOrderRewardBudget.ForSuccessfulCompletion(totals.FinalPoints),
@@ -30,8 +32,8 @@ public sealed class RepairTechnicalExclusionTest
             Is.EqualTo(expected / 2));
     }
 
-    [TestCase(800, 3, 776)]
-    [TestCase(820, 4, 787)]
+    [TestCase(800, 30, 776)]
+    [TestCase(820, 40, 787)]
     public void PenaltyUsesExactIntegerFloor(int raw, int count, int expected)
         => Assert.That(
             RepairTechnicalExclusion.FinalPoints(raw, count),
@@ -51,10 +53,10 @@ public sealed class RepairTechnicalExclusionTest
 
         Assert.That(
             new RepairExclusionTotals(1, 500, max, 1000).FinalPoints,
-            Is.EqualTo(990));
+            Is.EqualTo(1000));
 
         Assert.That(
             new RepairExclusionTotals(10, 100, max, 1000).FinalPoints,
-            Is.EqualTo(900));
+            Is.EqualTo(990));
     }
 }

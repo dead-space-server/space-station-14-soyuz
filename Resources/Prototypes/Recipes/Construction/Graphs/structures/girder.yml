@@ -661,16 +661,15 @@
             - tool: Cutting
               doAfter: 1
 
+        # DS14-Soyuz start: Preserve the diagonal shuttle wall's rotation when adding tungsten.
         - to: tungstendiagonalWall
-          completed:
-            - !type:SnapToGrid
-              southRotation: true
           conditions:
             - !type:EntityAnchored { }
           steps:
             - material: SheetTungsten
               amount: 3
               doAfter: 1
+        # DS14-Soyuz end
 
 
     - node: wallrust

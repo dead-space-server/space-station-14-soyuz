@@ -1865,3 +1865,31 @@ Entries:
   changes:
   - type: Fix
     message: Логика проверки админ флага для вайт-лист ролей.
+- id: 179
+  author: Ezio50
+  time: '2026-09-26T21:09:02.767385+00:00'
+  pr: 496
+  changes:
+  - type: Add
+    message: Крафт могил, грядки.
+  - type: Fix
+    message: Отображение текста на печатях, расположение печатей
+  - type: Fix
+    message: Баги ремонтных заказов
+  - type: Fix
+    message: Бланки командования
+- id: 180
+  author: Kofeecheks
+  time: '2026-09-26T21:11:31.367139+00:00'
+  pr: 495
+  changes:
+  - type: Add
+    message: Уникальные метаморфные стаканы для 154 реагентов с четырьмя уровнями
+      заполнения.
+- id: 181
+  author: Ezio50
+  time: '2026-09-26T21:51:38.975277+00:00'
+  pr: 497
+  changes:
+  - type: Tweak
+    message: Респрайт хэдеров

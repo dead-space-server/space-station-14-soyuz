@@ -1,3 +1,5 @@
+# Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
 - type: entity
   name: распечатанный документ
   parent: Paper
@@ -16,7 +18,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_cargo.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_cargo.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -40,7 +42,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_civilian.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_civilian.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -64,7 +66,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_command.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_command.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -88,7 +90,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_engineering.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_engineering.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -112,7 +114,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_law.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_law.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -136,7 +138,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_medical.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_medical.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -160,7 +162,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_science.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_science.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -184,7 +186,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_security.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_ussp_security.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0
@@ -208,7 +210,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_syndicate_ussp.svg.96dpi.png"
+    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_syndicate_ussp.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0

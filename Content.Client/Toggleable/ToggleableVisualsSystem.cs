@@ -85,6 +85,11 @@ public sealed class ToggleableVisualsSystem : VisualizerSystem<ToggleableVisuals
         if (inventory.SpeciesId != null)
             component.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
 
+        //DS-14-Soyuz start
+        if (layers == null && args.Slot == "head" && inventory.SpeciesId == "plaf")
+            component.ClothingVisuals.TryGetValue("head-reptilian", out layers);
+        //DS-14-Soyuz end
+
         // No species specific data.  Try to default to generic data.
         if (layers == null && !component.ClothingVisuals.TryGetValue(args.Slot, out layers))
             return;

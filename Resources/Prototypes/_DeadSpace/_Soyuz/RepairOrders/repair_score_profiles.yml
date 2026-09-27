@@ -55,9 +55,6 @@
       entities: [ReinforcedWindowIndestructible]
     canonical: ReinforcedWindow
   - selector:
-      entities: [StationAnchorIndestructible]
-    canonical: StationAnchor
-  - selector:
       entities: [WallPlastitaniumDiagonalIndestructible]
     canonical: WallPlastitaniumDiagonal
   - selector:

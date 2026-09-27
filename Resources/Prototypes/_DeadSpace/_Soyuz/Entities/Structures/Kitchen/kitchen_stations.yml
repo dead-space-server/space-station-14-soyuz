@@ -7,9 +7,13 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Kitchen/range_oven.rsi
-    state: icon
+    state: state_0
     drawdepth: SmallObjects
     snapCardinals: true
+  - type: IconSmooth
+    key: kitchen_counters
+    mode: CardinalFlags
+    base: state_
   - type: EntityHeater
     settingSound:
       path: /Audio/Weapons/click.ogg

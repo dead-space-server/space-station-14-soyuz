@@ -6,20 +6,28 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Kitchen/counter.rsi
-    state: icon
+    state: state_0
     snapCardinals: true
+  - type: IconSmooth
+    key: kitchen_counters
+    mode: CardinalFlags
+    base: state_
+  - type: Transform
+    noRot: true
   - type: PlaceableSurface
 
 - type: entity
   id: KitchenCounterCorner
   parent: KitchenCounter
   name: kitchen corner counter
-  description: Rotates to join two arms of the kitchen set.
+  description: A corner section that turns toward adjoining kitchen modules.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Kitchen/counter_corner.rsi
-    state: icon
+    state: state_0
     snapCardinals: true
+  - type: Transform
+    noRot: true
 
 - type: entity
   id: KitchenCounterSink
@@ -30,11 +38,18 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Kitchen/counter_sink.rsi
     layers:
-    - state: icon
+    - state: state_0
     - state: icon
       map: [ "enum.SolutionContainerLayers.Fill" ]
       visible: false
     snapCardinals: true
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: IconSmooth
+    key: kitchen_counters
+    mode: CardinalFlags
+    base: state_
 
 - type: entity
   id: KitchenAssemblyCounter
@@ -44,7 +59,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Kitchen/counter_assembly.rsi
-    state: icon
+    state: state_0
     snapCardinals: true
   - type: CookingVessel
     method: Assembly

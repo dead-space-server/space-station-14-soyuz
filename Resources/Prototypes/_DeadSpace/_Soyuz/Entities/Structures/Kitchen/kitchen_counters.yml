@@ -1,0 +1,70 @@
+- type: entity
+  id: KitchenCounter
+  parent: BaseStructure
+  name: kitchen counter
+  description: A continuous work surface for the kitchen set.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/counter.rsi
+    state: icon
+    snapCardinals: true
+  - type: PlaceableSurface
+
+- type: entity
+  id: KitchenCounterCorner
+  parent: KitchenCounter
+  name: kitchen corner counter
+  description: Rotates to join two arms of the kitchen set.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/counter_corner.rsi
+    state: icon
+    snapCardinals: true
+
+- type: entity
+  id: KitchenCounterSink
+  parent: Sink
+  name: kitchen counter sink
+  description: The matching sink section of the kitchen set.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/counter_sink.rsi
+    layers:
+    - state: icon
+    - state: icon
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
+    snapCardinals: true
+
+- type: entity
+  id: KitchenAssemblyCounter
+  parent: KitchenCounter
+  name: kitchen assembly counter
+  description: A work surface with a board for assembling prepared food.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/counter_assembly.rsi
+    state: icon
+    snapCardinals: true
+  - type: CookingVessel
+    method: Assembly
+    minimumTemperature: 0
+  - type: CookingStation
+    selfAppliance: PrepTable
+  - type: UserInterface
+    interfaces:
+      enum.CookingUiKey.Key:
+        type: CookingBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CookingUiKey.Key
+  - type: ContainerContainer
+    containers:
+      cooking: !type:Container
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 150
+  - type: RefillableSolution
+    solution: cooker
+  - type: DrainableSolution
+    solution: cooker

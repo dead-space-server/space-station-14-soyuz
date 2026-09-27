@@ -1,0 +1,110 @@
+# One tile appliance: two spots on the stove top and a storage compartment for bakeware.
+- type: entity
+  id: KitchenRangeOven
+  parent: BaseHeaterMachine
+  name: kitchen range
+  description: A stove top above a full oven. Cookware goes on top; bakeware goes inside.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/range_oven.rsi
+    state: icon
+    drawdepth: SmallObjects
+    snapCardinals: true
+  - type: EntityHeater
+    settingSound:
+      path: /Audio/Weapons/click.ogg
+  - type: ItemPlacer
+    maxEntities: 2
+    whitelist:
+      components:
+      - CookingVessel
+  - type: PlaceableSurface
+  - type: CookingStation
+    topAppliance: Stove
+    ovenAppliance: Oven
+  - type: Machine
+    board: KitchenRangeOvenMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      oven: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+
+# Bench appliances share the same cooking vessel model and heat their own contents.
+- type: entity
+  id: KitchenWaffleIron
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  name: tabletop waffle iron
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/waffle_iron.rsi
+    state: icon
+    drawdepth: SmallObjects
+  - type: ApcPowerReceiver
+    powerLoad: 0
+  - type: EntityHeater
+  - type: CookingStation
+    selfAppliance: WaffleIron
+  - type: Machine
+    board: KitchenWaffleIronMachineCircuitboard
+  - type: CookingVessel
+    method: WaffleIron
+  - type: Temperature
+  - type: UserInterface
+    interfaces:
+      enum.CookingUiKey.Key:
+        type: CookingBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CookingUiKey.Key
+  - type: ContainerContainer
+    containers:
+      cooking: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 120
+  - type: RefillableSolution
+    solution: cooker
+  - type: DrainableSolution
+    solution: cooker
+
+- type: entity
+  id: KitchenTabletopGrill
+  parent: [ BaseMachinePowered, SmallConstructibleMachine ]
+  name: tabletop grill
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/tabletop_grill.rsi
+    state: icon
+    drawdepth: SmallObjects
+  - type: ApcPowerReceiver
+    powerLoad: 0
+  - type: EntityHeater
+  - type: CookingStation
+    selfAppliance: Grill
+  - type: Machine
+    board: KitchenTabletopGrillMachineCircuitboard
+  - type: CookingVessel
+    method: Grill
+  - type: Temperature
+  - type: UserInterface
+    interfaces:
+      enum.CookingUiKey.Key:
+        type: CookingBoundUserInterface
+  - type: ActivatableUI
+    key: enum.CookingUiKey.Key
+  - type: ContainerContainer
+    containers:
+      cooking: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 120
+  - type: RefillableSolution
+    solution: cooker
+  - type: DrainableSolution
+    solution: cooker

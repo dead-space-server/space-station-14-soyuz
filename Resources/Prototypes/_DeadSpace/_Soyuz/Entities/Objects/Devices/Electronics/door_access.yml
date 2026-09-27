@@ -5,4 +5,4 @@
   suffix: НКВБ, Закрыт
   components:
   - type: AccessReader
-    access: [["NKVB"]]
+    access: [["NKVB"], ["BlueShield"]]

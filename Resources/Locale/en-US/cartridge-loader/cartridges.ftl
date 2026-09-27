@@ -105,7 +105,9 @@ wanted-list-history-table-time-col = Time
 wanted-list-history-table-reason-col = Crime
 wanted-list-history-table-initiator-col = Initiator
 
-messenger-cartridge-program-name = NanoChat
+# DS14-Soyuz-start
+messenger-cartridge-program-name = Redline
+# DS14-Soyuz-end
 messenger-status-connecting = Connecting...
 messenger-status-connection-lost = Connection Lost
 messenger-search-placeholder = Search by name or job

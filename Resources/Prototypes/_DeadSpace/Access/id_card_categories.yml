@@ -51,7 +51,7 @@
   name: id-card-console-category-special-operations
   order: 80
   centCommOnly: true
-  accessLevels: [SOD, ErtTeamLeader]
+  accessLevels: [SOD, ErtTeamLeader, NKVB] # Проверить!!!
 
 - type: idCardAccessCategory
   id: CentralCommand

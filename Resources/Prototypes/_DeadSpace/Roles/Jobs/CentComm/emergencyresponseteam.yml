@@ -152,8 +152,12 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutRedPrimary
-    - ERTloadoutRedSecondary
+    # DS14-Soyuz-start
+    - ERTloadoutRedPrimaryLeader
+    - ERTloadoutRedSecondaryLeader
+    - ERTloadoutRedSupport
+    - UplinkERTRed
+    # DS14-Soyuz-end
     - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
@@ -231,9 +235,13 @@
     pocket2: DoorRemoteCustom
   storage:
     back:
-    - ERTloadoutGammaPrimary
-    - ERTloadoutGammaSecondary
-    - BoxCardboardERTGamma
+    # DS14-Soyuz-start
+    - ERTloadoutGammaPrimaryLeader
+    - ERTloadoutGammaSecondaryLeader
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
+    # DS14-Soyuz-end
+    - BoxCardboardERT
     - PinpointerNuclear
     - CrowbarRed
     - BSAACombatKitFilled
@@ -386,6 +394,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
+    - UplinkERTRed # DS14-Soyuz
     - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
@@ -459,7 +468,11 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-    - BoxCardboardERTGamma
+    # DS14-Soyuz-start
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma
+    # DS14-Soyuz-end
+    - BoxCardboardERT
     - CrowbarRed
     - PinpointerNuclear
     - BSAACombatKitFilled
@@ -614,7 +627,7 @@
     back:
     - ERTloadoutRedPrimary
     - ERTloadoutRedSecondary
-    - ERTloadoutMelee
+    - UplinkERTRed # DS14-Soyuz
     - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
@@ -693,8 +706,9 @@
     back:
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
-    - ERTloadoutMelee
-    - BoxCardboardERTGamma
+    - ERTloadoutGammaSupport
+    - UplinkERTGamma # DS14-Soyuz
+    - BoxCardboardERT
     - DefibrillatorCompact
     - PinpointerNuclear
     - JugTheCircleOmnizine

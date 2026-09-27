@@ -95,7 +95,9 @@ wanted-list-history-table-time-col = Время
 wanted-list-history-table-reason-col = Преступление
 wanted-list-history-table-initiator-col = Инициатор
 
-messenger-cartridge-program-name = NanoChat
+# DS14-Soyuz-start
+messenger-cartridge-program-name = Redline
+# DS14-Soyuz-end
 messenger-cartridge-taipan-program-name = SyndiChat
 messenger-status-connecting = Подключение...
 messenger-status-connection-lost = Ошибка!

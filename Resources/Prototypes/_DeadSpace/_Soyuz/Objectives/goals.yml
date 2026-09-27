@@ -7,5 +7,5 @@
       stampedColor: "#505050"
       stampState: "paper_stamp-greytide"
     - stampedName: stamp-component-stamped-name-centcom
-      stampTexture: /Textures/Interface/Stamps/centralcommand_print.png
+      stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
       stampedColor: "#006600"

@@ -479,9 +479,7 @@
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false
   - type: PaperVisuals
-    # DS14-Soyuz start: Use the updated Dawn document header.
-    headerImagePath: "/Textures/_DeadSpace/_Soyuz/Paper/paper_heading_syndicate_ussp.png"
-    # DS14-Soyuz end
+    headerImagePath: "/Textures/Interface/Paper/paper_heading_syndicate.svg.96dpi.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 6.0, 6.0, 6.0, 6.0

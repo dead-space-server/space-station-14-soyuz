@@ -180,7 +180,9 @@ public sealed class GhostBarSystem : EntitySystem
         var mob = Spawn(species.Prototype, spawnCoords.Value);
         EnsureComp<GhostBarPlayerComponent>(mob);
         EnsureComp<GodmodeComponent>(mob);
-        EnsureComp<PacifiedComponent>(mob);
+
+        var pacified = EnsureComp<PacifiedComponent>(mob);
+        pacified.DisallowAllCombat = true;
 
         if (profile != null)
             _humanoid.LoadProfile(mob, profile);

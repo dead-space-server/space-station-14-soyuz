@@ -1944,3 +1944,12 @@ Entries:
     message: Способ получения наград с ремонтных заказов
   - type: Tweak
     message: Убран промежуточный Нобилис
+- id: 185
+  author: Ezio50
+  time: '2026-09-28T20:58:38.709788+00:00'
+  pr: 503
+  changes:
+  - type: Add
+    message: Заказы мед. отделу
+  - type: Fix
+    message: Спавн ремонтных заказов

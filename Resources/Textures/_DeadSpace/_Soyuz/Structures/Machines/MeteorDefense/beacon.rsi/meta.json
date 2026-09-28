@@ -5,10 +5,12 @@
     "y": 32
   },
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made by github:Ezio50",
+  "copyright": "Sprited by github:Ezio50, resprited and animated by discord:kainse_",
   "states": [
     {
-      "name": "MeteorDefenseBeacon"
+      "name": "MeteorDefenseBeacon",
+      "directions": 1,
+      "delays": [[0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12]]
     }
   ]
 }

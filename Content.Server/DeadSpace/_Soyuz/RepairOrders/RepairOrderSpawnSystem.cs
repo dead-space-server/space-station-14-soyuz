@@ -162,17 +162,20 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
 
             var preferredAngle = _transform.GetWorldRotation(consoleXform) - MathF.PI / 2f;
             var spawnDistance = MathF.Max(MinimumSpawnDistance, damagedBounds.MaxDimension * 2f);
+            var (consolePosition, _) = _transform.GetWorldPositionRotation(consoleXform);
 
             MapCoordinates placementCoordinates = MapCoordinates.Nullspace;
             Angle placementAngle = Angle.Zero;
             var foundPlacement = false;
+            var nearestDistanceSquared = float.PositiveInfinity;
 
+            // A free position on the preferred side can be much farther from the console than
+            // a free position on another side of a large station grid.
             for (var directionIndex = 0; directionIndex < 4; directionIndex++)
             {
                 var directionAngle = preferredAngle + directionIndex * MathF.PI / 2f;
                 var direction = directionAngle.ToVec();
-                var outsidePoint = stationBounds.Center + direction * (stationBounds.MaxDimension * 2f);
-                var origin = stationBounds.ClosestPoint(outsidePoint);
+                var origin = ExitStationBounds(stationBounds, consolePosition, direction);
 
                 if (!_placement.TryFindPlacement(
                         stationGridXform.MapID,
@@ -182,14 +185,20 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
                         spawnDistance,
                         LateralOffset,
                         PlacementAttempts,
-                        out placementCoordinates,
-                        out placementAngle))
+                        out var candidateCoordinates,
+                        out var candidateAngle))
                 {
                     continue;
                 }
 
+                var distanceSquared = Vector2.DistanceSquared(consolePosition, candidateCoordinates.Position);
+                if (distanceSquared >= nearestDistanceSquared)
+                    continue;
+
+                nearestDistanceSquared = distanceSquared;
+                placementCoordinates = candidateCoordinates;
+                placementAngle = candidateAngle;
                 foundPlacement = true;
-                break;
             }
 
             if (!foundPlacement)
@@ -239,5 +248,21 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
                 }
             }
         }
+    }
+
+    private static Vector2 ExitStationBounds(Box2 bounds, Vector2 consolePosition, Vector2 direction)
+    {
+        const float directionTolerance = 0.0001f;
+        var start = bounds.ClosestPoint(consolePosition);
+        var distance = float.PositiveInfinity;
+        if (direction.X > directionTolerance)
+            distance = MathF.Min(distance, (bounds.Right - start.X) / direction.X);
+        else if (direction.X < -directionTolerance)
+            distance = MathF.Min(distance, (bounds.Left - start.X) / direction.X);
+        if (direction.Y > directionTolerance)
+            distance = MathF.Min(distance, (bounds.Top - start.Y) / direction.Y);
+        else if (direction.Y < -directionTolerance)
+            distance = MathF.Min(distance, (bounds.Bottom - start.Y) / direction.Y);
+        return start + direction * MathF.Max(0f, distance);
     }
 }

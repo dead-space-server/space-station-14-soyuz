@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "license": "Unknown",
+  "copyright": "User-provided closed source image #2 (image-2.png) and open source 'Отправка и награда-открыт.png'; author and license not supplied.",
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "icon-open"
+    }
+  ]
+}

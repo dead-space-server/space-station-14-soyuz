@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 64
+  },
+  "license": "Unknown",
+  "copyright": "User-provided source image #1 (image-1.png); author and license not supplied.",
+  "states": [
+    {
+      "name": "icon"
+    }
+  ]
+}

@@ -23,7 +23,6 @@
   - CargoPalletSell
   - CargoPalletBuy
   - StationAnchor
-  - StationAnchorIndestructible
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities

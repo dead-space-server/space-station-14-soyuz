@@ -123,6 +123,80 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         return TryDeliver(station, purchaseId, anchor, pool, rewards, out delivery);
     }
 
+    // DS14-Soyuz-start: medical orders reuse the same protected placement and delivery handle.
+    public bool TryDeliverMedical(
+        EntityUid station,
+        Guid purchaseId,
+        EntityUid console,
+        EntProtoId containerPrototype,
+        IReadOnlyList<EntProtoId> items,
+        out RepairOrderDelivery delivery)
+    {
+        delivery = default!;
+        if (items.Count == 0 ||
+            !_prototype.TryIndex<EntityPrototype>(containerPrototype, out _) ||
+            !TryComp(console, out TransformComponent? consoleTransform) ||
+            consoleTransform.MapID == MapId.Nullspace || consoleTransform.GridUid == null)
+            return false;
+
+        foreach (var item in items)
+        {
+            if (!_prototype.TryIndex<EntityPrototype>(item, out _))
+                return false;
+        }
+
+        var key = new RepairOrderDeliveryKey(station, RepairOrderDeliveryKind.MedicalShopPurchase, purchaseId);
+        if (_deliveries.ContainsKey(key))
+            return false;
+
+        var anchor = new RepairOrderDeliveryAnchor(consoleTransform.Coordinates, console,
+            $"medical orders console {ToPrettyString(console)}", IncludeOrigin: false);
+        var attempt = new RepairOrderDelivery(key);
+        try
+        {
+            if (!TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                    out var currentContainer, out var storage))
+                throw new InvalidOperationException("Cannot prepare the medical delivery container.");
+
+            foreach (var entityId in items)
+            {
+                if (storage.Contents.ContainedEntities.Count >= storage.Capacity)
+                {
+                    if (!TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                            out currentContainer, out storage))
+                        throw new InvalidOperationException("Cannot prepare an additional medical delivery container.");
+                }
+
+                var item = Spawn(entityId, Transform(currentContainer).Coordinates);
+                attempt.RewardEntities.Add(item);
+                if (storage.Open || !_entityStorage.CanInsert(item, currentContainer, storage))
+                {
+                    if (storage.Contents.ContainedEntities.Count == 0 ||
+                        !TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                            out currentContainer, out storage) ||
+                        storage.Open || !_entityStorage.CanInsert(item, currentContainer, storage))
+                        throw new InvalidOperationException($"Medical delivery container cannot hold {entityId}.");
+
+                    _transform.SetCoordinates(item, Transform(currentContainer).Coordinates);
+                }
+
+                if (!_entityStorage.Insert(item, currentContainer, storage))
+                    throw new InvalidOperationException($"Cannot insert {entityId} into medical delivery.");
+            }
+
+            _deliveries.Add(key, attempt);
+            delivery = attempt;
+            return true;
+        }
+        catch (Exception exception)
+        {
+            _sawmill.Error($"Medical shop delivery {purchaseId} failed: {exception}");
+            Rollback(attempt);
+            return false;
+        }
+    }
+    // DS14-Soyuz-end
+
     private bool TryDeliver(
         EntityUid station,
         Guid purchaseId,
@@ -308,6 +382,19 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         out EntityUid deliveryContainer,
         out EntityStorageComponent storage)
     {
+        return TryCreateDeliveryContainer(anchor, pool.DeliveryContainer, pool.ID, attempt,
+            out deliveryContainer, out storage);
+    }
+
+    // DS14-Soyuz-start: let other Soyuz shops reuse repair-order placement and rollback.
+    private bool TryCreateDeliveryContainer(
+        RepairOrderDeliveryAnchor anchor,
+        EntProtoId containerPrototype,
+        string source,
+        RepairOrderDelivery attempt,
+        out EntityUid deliveryContainer,
+        out EntityStorageComponent storage)
+    {
         deliveryContainer = EntityUid.Invalid;
         storage = default!;
         if (!TryFindDeliveryCoordinates(
@@ -318,11 +405,11 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                 out var reusedFirstPosition))
         {
             _sawmill.Warning(
-                $"Cannot deliver rewards from pool {pool.ID}: {anchor.Description} has no usable placement.");
+                $"Cannot deliver rewards from {source}: {anchor.Description} has no usable placement.");
             return false;
         }
 
-        deliveryContainer = Spawn(pool.DeliveryContainer, coordinates);
+        deliveryContainer = Spawn(containerPrototype, coordinates);
         attempt.ContainersInternal.Add(deliveryContainer);
 
         if (usedDropFallback)
@@ -338,7 +425,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         {
             _sawmill.Error(
                 $"Cannot remember the actual placement of protected reward container {deliveryContainer} " +
-                $"for reward pool {pool.ID}.");
+                $"for {source}.");
             return false;
         }
 
@@ -352,14 +439,15 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         if (!TryComp(deliveryContainer, out EntityStorageComponent? foundStorage))
         {
             _sawmill.Error(
-                $"Cannot deliver rewards from pool {pool.ID}: delivery container " +
-                $"{pool.DeliveryContainer} has no EntityStorage component.");
+                $"Cannot deliver rewards from {source}: delivery container " +
+                $"{containerPrototype} has no EntityStorage component.");
             return false;
         }
 
         storage = foundStorage;
         return true;
     }
+    // DS14-Soyuz-end
 
     private bool TryPlaceOversizedReward(
         EntityUid reward,
@@ -566,6 +654,7 @@ internal enum RepairOrderDeliveryKind : byte
 {
     RepairOrder,
     ShopPurchase,
+    MedicalShopPurchase, // DS14-Soyuz
 }
 
 internal readonly record struct RepairOrderDeliveryKey(EntityUid Station, RepairOrderDeliveryKind Kind, Guid PurchaseId);

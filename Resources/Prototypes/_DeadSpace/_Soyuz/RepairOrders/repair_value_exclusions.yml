@@ -20,40 +20,10 @@
   - PlasticFlapsAirtightClear
   - PlasticFlapsAirtightOpaque
   - CargoPallet
-  - PlastitaniumPlasmaWindowDiagonalIndestructible
-  - PlastitaniumPlasmaWindowIndestructible
-  - PlastitaniumWindowDiagonalIndestructible
-  - PlastitaniumWindowIndestructible
-
-  - WallTungstenDiagonalIndestructible
-  - WallTungstenIndestructible
-  - TungstenWindowDiagonalIndestructible
-  - TungstenWindowIndestructible
-
-  - WallReinforcedIndestructible
-  - WallReinforcedRustIndestructible
-  - WallRivetedIndestructible
-
-  - PlasmaReinforcedWindowDirectionalIndestructible
-  - ReinforcedPlasmaWindowIndestructible
-  - ReinforcedUraniumWindowIndestructible
-  - ReinforcedWindowIndestructible
-  - UraniumReinforcedWindowDirectionalIndestructible
-  - WindowReinforcedDirectionalIndestructible
-
-  - WallPlastitaniumDiagonalIndestructible
-  - WallPlastitaniumIndestructible
-  - WallSolidIndestructible
-  - WallSolidRustIndestructible
-  - WindowIndestructible
-
-  - StationAnchorIndestructible
-
-  - PlasticFlapsAirtightClear
-  - PlasticFlapsAirtightOpaque
-  - CargoPallet
   - CargoPalletSell
   - CargoPalletBuy
+  - StationAnchor
+  - StationAnchorIndestructible
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
@@ -217,7 +187,6 @@
   reason: Living botany plants are outside station repair construction.
   entities:
   - AgentgrainPlants
-  - AmbrosiaNobilisPlants
   - AvocadoPlants
   - BarrelmelonPlants
   - BeesPlants
@@ -1088,6 +1057,12 @@
   reason: Trigger-only technical entities, not repair structures.
   entities:
   - FireworkBox
+
+- type: repairValueExclusion
+  id: RepairExcludeIndestructibleStationAnchor
+  reason: Map-only indestructible station anchors cannot be rebuilt.
+  entities:
+  - StationAnchorIndestructible
 
 - type: repairValueExclusion
   id: RepairExcludeConstructionIntermediates

@@ -46,6 +46,9 @@ public sealed partial class SprayPainterWindow : DefaultWindow
     // Tab controls
     private Dictionary<string, SprayPainterGroup> _paintableControls = new();
     private BoxContainer? _pipeControl;
+    // DS14-Soyuz-start
+    private bool _decalOnly;
+    // DS14-Soyuz-end
 
     // Decals
     private List<SprayPainterDecalEntry> _currentDecals = [];
@@ -100,8 +103,11 @@ public sealed partial class SprayPainterWindow : DefaultWindow
     /// <param name="stylesByGroup">Each group, mapped by name to the set of named styles by their associated entity prototype.</param>
     /// <param name="groupsByCategory">The set of categories and the groups associated with them.</param>
     /// <param name="decals">A list of each decal.</param>
-    public void PopulateCategories(Dictionary<string, Dictionary<string, EntProtoId>> stylesByGroup, Dictionary<string, List<string>> groupsByCategory, List<SprayPainterDecalEntry> decals)
+    public void PopulateCategories(Dictionary<string, Dictionary<string, EntProtoId>> stylesByGroup, Dictionary<string, List<string>> groupsByCategory, List<SprayPainterDecalEntry> decals, bool decalOnly = false) // DS14-Soyuz
     {
+        // DS14-Soyuz-start
+        _decalOnly = decalOnly;
+        // DS14-Soyuz-end
         bool tabsCleared = false;
         var lastTab = Tabs.CurrentTab;
 
@@ -182,7 +188,10 @@ public sealed partial class SprayPainterWindow : DefaultWindow
             }
         }
 
-        PopulateColors(_currentPalette);
+        // DS14-Soyuz-start
+        if (!_decalOnly)
+            PopulateColors(_currentPalette);
+        // DS14-Soyuz-end
 
         if (!_currentDecals.Equals(decals))
         {
@@ -211,6 +220,11 @@ public sealed partial class SprayPainterWindow : DefaultWindow
 
     public void PopulateColors(Dictionary<string, Color> palette)
     {
+        // DS14-Soyuz-start
+        if (_decalOnly)
+            return;
+        // DS14-Soyuz-end
+
         // Create pipe tab controls if they don't exist
         bool tabCreated = false;
         if (_pipeControl == null)
@@ -294,6 +308,13 @@ public sealed partial class SprayPainterWindow : DefaultWindow
         if (_sprayPainterDecals != null)
             _sprayPainterDecals.SetColor(color);
     }
+
+    // DS14-Soyuz-start
+    public void SetDecalColorEditing(bool editable, Color? fixedColor)
+    {
+        _sprayPainterDecals?.SetColorEditing(editable, fixedColor);
+    }
+    // DS14-Soyuz-end
 
     public void SetDecalSnap(bool snap)
     {

@@ -113,9 +113,8 @@ public sealed class RepairOrderCompletedBuiEntry
     public readonly int MaxPoints;
     public readonly int RepairPercent;
     public readonly int RewardBudget;
+    public readonly int EarnedReputation;
     public readonly RepairOrderResult Result;
-    public readonly bool Delivered;
-    public readonly List<RepairOrderRewardBuiEntry> Rewards;
 
     public RepairOrderCompletedBuiEntry(
         int runtimeId,
@@ -126,9 +125,8 @@ public sealed class RepairOrderCompletedBuiEntry
         int maxPoints,
         int repairPercent,
         int rewardBudget,
+        int earnedReputation,
         RepairOrderResult result,
-        bool delivered,
-        List<RepairOrderRewardBuiEntry> rewards,
         string[]? damageEvents = null,
         RepairExclusionTotals exclusions = default)
     {
@@ -142,9 +140,8 @@ public sealed class RepairOrderCompletedBuiEntry
         MaxPoints = maxPoints;
         RepairPercent = repairPercent;
         RewardBudget = rewardBudget;
+        EarnedReputation = earnedReputation;
         Result = result;
-        Delivered = delivered;
-        Rewards = rewards;
     }
 }
 
@@ -172,6 +169,12 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
     public readonly TimeSpan OfferInterval;
     public readonly bool Accepting;
     public readonly bool Completing;
+    public readonly string ShopRewardPoolId;
+    public readonly long RepairPoints;
+    public readonly long EngineeringReputation;
+    public readonly int ShopLevel;
+    public readonly int? NextShopLevelThreshold;
+    public readonly bool ShopPurchaseInProgress;
 
     public RepairOrderBoundUserInterfaceState(
         List<RepairOrderBuiEntry> available,
@@ -181,7 +184,13 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
         TimeSpan nextOffer,
         TimeSpan offerInterval,
         bool accepting,
-        bool completing)
+        bool completing,
+        string shopRewardPoolId,
+        long repairPoints,
+        long engineeringReputation,
+        int shopLevel,
+        int? nextShopLevelThreshold,
+        bool shopPurchaseInProgress)
     {
         Available = available;
         Active = active;
@@ -191,6 +200,12 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
         OfferInterval = offerInterval;
         Accepting = accepting;
         Completing = completing;
+        ShopRewardPoolId = shopRewardPoolId;
+        RepairPoints = repairPoints;
+        EngineeringReputation = engineeringReputation;
+        ShopLevel = shopLevel;
+        NextShopLevelThreshold = nextShopLevelThreshold;
+        ShopPurchaseInProgress = shopPurchaseInProgress;
     }
 }
 
@@ -233,5 +248,34 @@ public sealed class RepairOrderPrintReportMessage : BoundUserInterfaceMessage
     public RepairOrderPrintReportMessage(int runtimeId)
     {
         RuntimeId = runtimeId;
+    }
+}
+
+/// <summary>Requests a complete cart purchase; all prices and limits are recalculated on the server.</summary>
+[Serializable, NetSerializable]
+public sealed class RepairOrderShopPurchaseMessage : BoundUserInterfaceMessage
+{
+    public readonly string RequestId;
+    public readonly List<RepairOrderRewardBuiEntry> Lines;
+
+    public RepairOrderShopPurchaseMessage(string requestId, List<RepairOrderRewardBuiEntry> lines)
+    {
+        RequestId = requestId;
+        Lines = lines;
+    }
+}
+
+[Serializable, NetSerializable]
+public sealed class RepairOrderShopResultMessage : BoundUserInterfaceMessage
+{
+    public readonly string RequestId;
+    public readonly bool Success;
+    public readonly string Message;
+
+    public RepairOrderShopResultMessage(string requestId, bool success, string message)
+    {
+        RequestId = requestId;
+        Success = success;
+        Message = message;
     }
 }

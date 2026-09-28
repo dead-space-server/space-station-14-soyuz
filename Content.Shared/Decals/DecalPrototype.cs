@@ -10,6 +10,9 @@ namespace Content.Shared.Decals
         [IdDataField] public string ID { get; private set; } = null!;
         [DataField("sprite")] public SpriteSpecifier Sprite { get; private set; } = SpriteSpecifier.Invalid;
         [DataField("tags")] public List<string> Tags = new();
+        // DS14-Soyuz-start: Optional label for data-driven spray painter choices.
+        [DataField] public string? SprayPainterName;
+        // DS14-Soyuz-end
         [DataField("showMenu")] public bool ShowMenu = true;
 
         /// <summary>

@@ -40,6 +40,7 @@
     WheatSeeds: 5
     WatermelonSeeds: 5
     # DS14-Soyuz start
+    EggySeeds: 5
     GreenMarijuanaSeeds: 2
     LemoSeeds: 5
     RoseSeeds: 5
@@ -76,7 +77,6 @@
     CrystalThistleSeeds: 2
     GhostPepperSeeds: 2
     CosmicRevenantSeeds: 1
-    AmbrosiaNobilis: 2
     StrangeBerrySeeds: 3
     BluespaceTomatoSeeds: 1
     OrganTreeSeeds: 1

@@ -2,7 +2,7 @@
   id: Command
   name: id-card-console-category-command
   order: 0
-  accessLevels: [Command, Captain, HeadOfPersonnel, HeadOfSecurity, ChiefEngineer, ChiefMedicalOfficer, ResearchDirector, Quartermaster, BlueShield, Cryogenics, TaipanCommand, TaipanCommunicationsOfficer, TaipanResearchDirector, TaipanTechnicalOperationsSupervisor]
+  accessLevels: [Command, Captain, HeadOfPersonnel, HeadOfSecurity, ChiefEngineer, ChiefMedicalOfficer, ResearchDirector, Quartermaster, BlueShield, NKVB, Cryogenics, TaipanCommand, TaipanCommunicationsOfficer, TaipanResearchDirector, TaipanTechnicalOperationsSupervisor] # DS14-Soyuz
 
 - type: idCardAccessCategory
   id: Security

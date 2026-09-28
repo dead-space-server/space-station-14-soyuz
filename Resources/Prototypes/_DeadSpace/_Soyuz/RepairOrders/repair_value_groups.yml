@@ -1693,6 +1693,9 @@
   - AutolatheHyperConvection
   - AutolatheHyperConvectionTaipan
   - AutolatheTaipan
+  - SoyuzMedicalPatientReceiver
+  - SoyuzMedicalPatientSender
+  - SoyuzMedicalReagentOrderMachine
   - BackmenVendingMachineChang
   - BackmenVendingMachineCigs
   - BackmenVendingMachineClothing
@@ -1720,6 +1723,7 @@
   - BackmenVendingMachineWallMedical
   - BackmenVendingMachineWinter
   - BackmenVendingMachineYooTool
+  -
   - BaseGasCondenser
   - BaseResearchAndDevelopmentPointSource
   - Biogenerator

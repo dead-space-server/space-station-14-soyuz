@@ -7,6 +7,7 @@ using Content.Shared.DeadSpace._Soyuz.MedicalOrders;
 using Content.Shared.Station.Components;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.MedicalOrders;
@@ -14,6 +15,8 @@ namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.MedicalOrders;
 [TestFixture]
 public sealed class MedicalOrderTest
 {
+    private static readonly ProtoId<MedicalOrderConfigPrototype> MedicalOrdersConfig = "SoyuzMedicalOrders";
+
     [Test]
     public void WeightedSelectionUsesExactIntegerIntervals()
     {
@@ -44,7 +47,7 @@ public sealed class MedicalOrderTest
             {
                 var orders = server.System<MedicalOrderSystem>();
                 orders.Update(0);
-                var config = server.ProtoMan.Index<MedicalOrderConfigPrototype>("SoyuzMedicalOrders");
+                var config = server.ProtoMan.Index(MedicalOrdersConfig);
                 var state = entMan.GetComponent<MedicalOrderStationComponent>(station);
 
                 Assert.That(state.ReagentOffers.Count, Is.EqualTo(config.ReagentOfferCount));

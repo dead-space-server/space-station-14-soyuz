@@ -1693,6 +1693,9 @@
   - AutolatheHyperConvection
   - AutolatheHyperConvectionTaipan
   - AutolatheTaipan
+  - SoyuzMedicalPatientReceiver
+  - SoyuzMedicalPatientSender
+  - SoyuzMedicalReagentOrderMachine
   - BackmenVendingMachineChang
   - BackmenVendingMachineCigs
   - BackmenVendingMachineClothing

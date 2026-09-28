@@ -1,0 +1,104 @@
+- type: entity
+  abstract: true
+  parent: BaseMachinePowered
+  id: SoyuzMedicalOrderMachineBase
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: ActivatableUI
+    key: enum.MedicalOrderUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.MedicalOrderUiKey.Key:
+        type: MedicalOrderBoundUserInterface
+  - type: AccessReader
+    access: [["Medical"], ["Chemistry"], ["ChiefMedicalOfficer"]]
+  - type: MedicalOrderMachine
+    config: SoyuzMedicalOrders
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_reagent_order_machine.rsi
+    noRot: true
+    offset: 0, 0.5
+    layers:
+    - state: icon
+      map: [base]
+
+- type: entity
+  parent: SoyuzMedicalOrderMachineBase
+  id: SoyuzMedicalReagentOrderMachine
+  name: medical reagent order terminal
+  description: Accepts chemistry orders and delivers medical shop purchases.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_reagent_order_machine.rsi
+  - type: MedicalOrderMachine
+    kind: Reagent
+  - type: ContainerContainer
+    containers:
+      beakerSlot: !type:ContainerSlot
+  - type: ItemSlots
+    slots:
+      beakerSlot:
+        whitelist:
+          components:
+          - FitsInDispenser
+
+- type: entity
+  parent: SoyuzMedicalOrderMachineBase
+  id: SoyuzMedicalPatientReceiver
+  name: medical patient receiver
+  description: Creates patients for station medical orders.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_receiver.rsi
+  - type: MedicalOrderMachine
+    kind: PatientReceiver
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: icon-open }
+          False: { state: icon }
+  - type: EntityStorage
+    capacity: 1
+    maxSize: 2
+    showContents: false
+    openOnMove: false
+    isCollidableWhenOpen: true
+    enteringOffset: 0, -1
+    enteringRange: 0.6
+  - type: ContainerContainer
+    containers:
+      entity_storage: !type:Container
+
+- type: entity
+  parent: SoyuzMedicalOrderMachineBase
+  id: SoyuzMedicalPatientSender
+  name: medical patient sender
+  description: Checks and dispatches recovered patients.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_sender.rsi
+  - type: MedicalOrderMachine
+    kind: PatientSender
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: icon-open }
+          False: { state: icon }
+  - type: EntityStorage
+    capacity: 1
+    maxSize: 2
+    showContents: false
+    openOnMove: false
+    isCollidableWhenOpen: true
+    enteringOffset: 0, -1
+    enteringRange: 0.6
+  - type: ContainerContainer
+    containers:
+      entity_storage: !type:Container

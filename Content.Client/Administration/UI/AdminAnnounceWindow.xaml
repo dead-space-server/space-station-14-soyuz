@@ -37,11 +37,13 @@
                             Text=" "
                             MinSize="30 28"
                             SetSize="30 28"/>
+                        <!--DS14-Soyuz-start-->
                     <LineEdit Name="ColorHex"
                               Access="Public"
                               PlaceHolder="{Loc admin-announce-color-placeholder}"
-                              Text="1d8bad"
+                              Text="b64444"
                               HorizontalExpand="True"/>
+                        <!--DS14-Soyuz-end-->
                 </BoxContainer>
                 <LineEdit Name="SoundPath"
                           Access="Public"

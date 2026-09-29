@@ -68,6 +68,6 @@
             Passenger: [ -1, -1 ]
             ServiceWorker: [ 2, 2 ]
             # sil
-            Borg: [ 1, 2 ] 
+            Borg: [ 1, 2 ] #DS14-Soyuz
             BorgSecurity: [ 1, 1 ]
             # etc

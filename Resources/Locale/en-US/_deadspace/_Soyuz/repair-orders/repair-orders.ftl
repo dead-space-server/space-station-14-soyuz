@@ -1,5 +1,7 @@
 ent-RepairOrdersConsole = repair orders console
     .desc = Used to review and accept station engineering repair orders.
+signal-port-name-repair-order-dock = Repair order dock
+signal-port-description-repair-order-dock = Link a docking airlock's Dock status port here to spawn repair shuttles at that dock.
 ent-RepairOrdersComputerCircuitboard = repair orders console computer board
     .desc = A computer printed circuit board for a repair orders console.
 ent-RepairStructuralAnalyzer = repair structural analyzer

@@ -1,5 +1,7 @@
 ent-RepairOrdersConsole = консоль ремонтных заказов
     .desc = Позволяет просматривать и принимать инженерные заказы станции.
+signal-port-name-repair-order-dock = Стык ремонтных заказов
+signal-port-description-repair-order-dock = Подключите сюда порт «Статус дока» стыковочного шлюза, чтобы ремонтные шаттлы появлялись у него.
 ent-RepairOrdersComputerCircuitboard = плата консоли ремонтных заказов
     .desc = Компьютерная плата для консоли ремонтных заказов.
 ent-RepairStructuralAnalyzer = структурный анализатор

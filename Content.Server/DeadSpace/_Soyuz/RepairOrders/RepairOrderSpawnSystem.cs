@@ -2,11 +2,16 @@
 
 using System.Numerics;
 using System.Linq;
+using Content.Server.DeviceLinking.Systems;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.DeviceLinking;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
@@ -31,12 +36,17 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
     private const float MinimumSpawnDistance = 32f;
     private const float LateralOffset = 8f;
     private const int PlacementAttempts = 20;
+    private static readonly ProtoId<SourcePortPrototype> DockStatusPort = "DockStatus";
+    private static readonly ProtoId<SinkPortPrototype> RepairOrderDockPort = "RepairOrderDock";
 
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly MapLoaderSystem _loader = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DockingSystem _docking = default!;
     [Dependency] private readonly RepairOrderGridPlacementSystem _placement = default!;
+    [Dependency] private readonly ShuttleSystem _shuttle = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
@@ -153,6 +163,14 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
                 return false;
             }
 
+            if (TryDockAtLinkedAirlock(console, stationUid.Value, loadedGridUid))
+            {
+                _map.DeleteMap(mapId);
+                temporaryMapId = null;
+                spawnedGrid = loadedGridUid;
+                return true;
+            }
+
             var (stationPosition, stationRotation) = _transform.GetWorldPositionRotation(stationGridXform);
             var stationBounds = new Box2Rotated(
                     stationGrid.LocalAABB.Translated(stationPosition),
@@ -244,10 +262,53 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
                 finally
                 {
                     if (spawnedGrid == EntityUid.Invalid && loadedGridUid.IsValid() && Exists(loadedGridUid))
+                    {
+                        foreach (var dock in _docking.GetDocks(loadedGridUid))
+                            _docking.Undock(dock);
+
                         Del(loadedGridUid);
+                    }
                 }
             }
         }
+    }
+
+    private bool TryDockAtLinkedAirlock(EntityUid console, EntityUid station, EntityUid repairGrid)
+    {
+        if (!TryComp<DeviceLinkSinkComponent>(console, out var sink))
+            return false;
+
+        foreach (var linkedUid in sink.LinkedSources)
+        {
+            if (!TryComp<DockingComponent>(linkedUid, out var stationDock) ||
+                !TryComp<TransformComponent>(linkedUid, out var dockXform) ||
+                !dockXform.Anchored ||
+                dockXform.GridUid is not { } dockGrid ||
+                _station.GetOwningStation(dockGrid) != station ||
+                !_deviceLink.GetLinks(linkedUid, console).Contains((DockStatusPort, RepairOrderDockPort)))
+            {
+                continue;
+            }
+
+            foreach (var shuttleDock in _docking.GetDocks(repairGrid))
+            {
+                var config = _docking.GetDockingConfig(
+                    repairGrid,
+                    dockGrid,
+                    shuttleDock.Owner,
+                    shuttleDock.Comp,
+                    linkedUid,
+                    stationDock);
+
+                if (config == null)
+                    continue;
+
+                _shuttle.FTLDock((repairGrid, Transform(repairGrid)), config);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static Vector2 ExitStationBounds(Box2 bounds, Vector2 consolePosition, Vector2 direction)

@@ -5,7 +5,7 @@
   icon:
     sprite: _DeadSpace/Structures/Machines/holopad_h.rsi
     state: base
-  discipline: Industrial
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -17,7 +17,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Engineer/backpack.rsi
     state: icon
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -37,7 +37,7 @@
   icon:
     sprite: Objects/Vehicles/atv.rsi
     state: vehicle
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -50,7 +50,7 @@
   icon:
     sprite: _DeadSpace/Objects/Specific/Hydroponics/plant_bag.rsi
     state: icon
-  discipline: Industrial
+  discipline: Medical #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -66,7 +66,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Salvage/Standart/backpack.rsi
     state: icon
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -83,7 +83,7 @@
   icon:
     sprite: _DeadSpace/Objects/Vehicles/hoverbike.rsi
     state: vehicle
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 3
   cost: 1500
   recipeUnlocks:

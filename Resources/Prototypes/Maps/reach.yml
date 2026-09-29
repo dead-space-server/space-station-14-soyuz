@@ -29,6 +29,7 @@
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 1, 1 ]
             Brigmedic: [ 1, 1 ]
+            SecurityPilot: [ 1, 1 ] #DS14-Soyuz
             SecurityOfficer: [ 1, 2 ]
             SecurityCadet: [ 1, 1 ]
             # med
@@ -37,16 +38,19 @@
             Chemist: [ 1, 1 ]
             MedicalDoctor: [ 1, 2 ]
             Virologist: [ 1, 1 ]
+            MedicalIntern: [ 1, 1 ] #DS14-Soyuz
             Paramedic: [ 1, 1 ] #DS14-Soyuz
             # rnd
             ResearchDirector: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
             Scientist: [ 1, 2 ]
+            ResearchAssistant: [ 2, 2 ] #DS14-Soyuz
             # eng
             ChiefEngineer: [ 1, 1 ]
             SeniorEngineer: [ 1, 1 ]
             AtmosphericTechnician: [ 1, 1 ]
             StationEngineer: [ 2, 2 ]
+            TechnicalAssistant: [ 1, 1 ] #DS14-Soyuz
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
@@ -64,6 +68,6 @@
             Passenger: [ -1, -1 ]
             ServiceWorker: [ 2, 2 ]
             # sil
-            Borg: [ 1, 1 ]
+            Borg: [ 1, 2 ] 
             BorgSecurity: [ 1, 1 ]
             # etc

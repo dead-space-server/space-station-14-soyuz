@@ -22,7 +22,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 {
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
-    public List<SprayPainterDecalEntry> Decals = [];
+    // DS14-Soyuz: Decal lists are built per tool from AllowedDecalTags.
     public Dictionary<string, List<string>> PaintableGroupsByCategory = new();
     public Dictionary<string, Dictionary<string, EntProtoId>> PaintableStylesByGroup = new();
 
@@ -76,22 +76,29 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
                 PaintableGroupsByCategory[category.ID] = groupList;
         }
 
-        Decals.Clear();
-        foreach (var decalPrototype in Proto.EnumeratePrototypes<DecalPrototype>().OrderBy(x => x.ID))
-        {
-            if (!decalPrototype.Tags.Contains("station")
-                && !decalPrototype.Tags.Contains("markings")
-                || decalPrototype.Tags.Contains("dirty"))
-                continue;
-
-            Decals.Add(new SprayPainterDecalEntry(decalPrototype.ID, decalPrototype.Sprite));
-        }
+        // DS14-Soyuz: The UI must not cache one decal list for every painter.
     }
 
             // DS14-start
+    // DS14-Soyuz-start
+    public List<SprayPainterDecalEntry> GetFilteredDecals(SprayPainterComponent component)
+    {
+        return Proto.EnumeratePrototypes<DecalPrototype>()
+            .Where(decal => IsDecalAllowed(component, decal))
+            .OrderBy(decal => decal.ID)
+            .Select(decal => new SprayPainterDecalEntry(decal.ID, decal.Sprite, decal.SprayPainterName ?? decal.ID)) // DS14-Soyuz
+            .ToList();
+    }
+    // DS14-Soyuz-end
+
     public Dictionary<string, List<string>> GetFilteredPaintableGroups(SprayPainterComponent component)
     {
         var filteredGroups = new Dictionary<string, List<string>>();
+
+        // DS14-Soyuz-start
+        if (component.DecalOnly)
+            return filteredGroups;
+        // DS14-Soyuz-end
 
         foreach (var category in Proto.EnumeratePrototypes<PaintableGroupCategoryPrototype>().OrderBy(x => x.ID))
         {
@@ -121,6 +128,11 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
         SprayPainterComponent component)
     {
         var filteredStyles = new Dictionary<string, Dictionary<string, EntProtoId>>();
+
+        // DS14-Soyuz-start
+        if (component.DecalOnly)
+            return filteredStyles;
+        // DS14-Soyuz-end
 
         foreach (var groupId in PaintableStylesByGroup.Keys)
         {
@@ -172,4 +184,5 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 /// <summary>
 /// A spray paintable decal, mapped by ID.
 /// </summary>
-public sealed record SprayPainterDecalEntry(string Name, SpriteSpecifier Sprite);
+// DS14-Soyuz: DisplayName is optional prototype data; Name remains the decal ID sent to the server.
+public sealed record SprayPainterDecalEntry(string Name, SpriteSpecifier Sprite, string DisplayName);

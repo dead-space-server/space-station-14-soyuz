@@ -17,12 +17,12 @@
   - DebugThruster
   - TableDebug
   - WallDebug
-
   - PlasticFlapsAirtightClear
   - PlasticFlapsAirtightOpaque
   - CargoPallet
   - CargoPalletSell
   - CargoPalletBuy
+  - StationAnchor
 
 - type: repairValueExclusion
   id: RepairExcludeBiologicalAndEventEntities
@@ -186,7 +186,6 @@
   reason: Living botany plants are outside station repair construction.
   entities:
   - AgentgrainPlants
-  - AmbrosiaNobilisPlants
   - AvocadoPlants
   - BarrelmelonPlants
   - BeesPlants
@@ -1057,6 +1056,20 @@
   reason: Trigger-only technical entities, not repair structures.
   entities:
   - FireworkBox
+
+- type: repairValueExclusion
+  id: RepairExcludeIndestructibleStationAnchor
+  reason: Map-only indestructible station anchors cannot be rebuilt.
+  entities:
+  - StationAnchorIndestructible
+
+- type: repairValueExclusion
+  id: RepairExcludeConstructionIntermediates
+  reason: Temporary construction stages are not completed repair structures.
+  entities:
+  - SoyuzDugSoilMound
+  - SoyuzStoneGraveFrame
+  - SoyuzWoodenGraveFrame
 
 - type: repairValueExclusion
   id: RepairExcludeTemporaryAndVirtual

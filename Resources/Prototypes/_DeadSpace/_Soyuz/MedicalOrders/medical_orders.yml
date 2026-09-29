@@ -1,0 +1,665 @@
+- type: randomHumanoidSettings
+  id: SoyuzMedicalOrderPatient
+  speciesBlacklist: [Vox]
+
+- type: medicalOrderConfig
+  id: SoyuzMedicalOrders
+  reagentOfferCount: 5
+  patientOfferCount: 5
+  offerRefreshInterval: 10m
+  minReagentEntries: 1
+  maxReagentEntries: 20
+  minDamageEntries: 1
+  maxDamageEntries: 3
+  pointsPerDamage: 1
+  expiredRewardMultiplierPercent: 50
+  patientCompletionDamageThreshold: 20
+  patientRandomHumanoidSettings: SoyuzMedicalOrderPatient
+  patientGown: ClothingOuterHospitalGown
+  deliveryContainer: CrateMedical
+  shopLevelThresholds: [0, 100, 200, 350, 500, 650, 800, 1000]
+  difficulties:
+  - minScore: 0
+    maxScore: 99
+    timeLimit: 10m
+    baseReputation: 10
+  - minScore: 100
+    maxScore: 179
+    timeLimit: 20m
+    baseReputation: 20
+  - minScore: 180
+    maxScore: 100000
+    timeLimit: 30m
+    baseReputation: 35
+  qualityBands:
+  - minPercent: 0
+    maxPercent: 39
+    multiplierPercent: 0
+  - minPercent: 40
+    maxPercent: 59
+    multiplierPercent: 50
+  - minPercent: 60
+    maxPercent: 74
+    multiplierPercent: 75
+  - minPercent: 75
+    maxPercent: 89
+    multiplierPercent: 100
+  - minPercent: 90
+    maxPercent: 99
+    multiplierPercent: 115
+  - minPercent: 100
+    maxPercent: 100
+    multiplierPercent: 130
+  reagents:
+  - reagent: Actiradol
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Ambuzol
+    canGenerate: false
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: AmbuzolPlus
+    canGenerate: false
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Arcryox
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Arithrazine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: AshWalkerBloodTonic
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Barozine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Bicaridine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Bruizine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Cognizine
+    canGenerate: false
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Cryoxadone
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Cryptobiolin
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Dermaline
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Derytracine
+    canGenerate: false
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Dexalin
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: DexalinPlus
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Diphenhydramine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Diphenylmethylamine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Doxarubixadone
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Dylovene
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Epinephrine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Ethyloxyephedrine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Ethylredoxrazine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Fragmentin
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: FriogeliyevaKislota
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Haloperidol
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Heparin
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Holywater
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Hyronalin
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Inaprovaline
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Infectizine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Insuzine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Ipecac
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Karachnocid
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Kelotane
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Lacerinol
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Leporazine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Lipozine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Mycocline
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Necrosol
+    canGenerate: false
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Necrovir
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Negacordrazine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Oculine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Omnizine
+    canGenerate: false
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Opporozidone
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Panacemycin
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Phalanximine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: PolypyryliumOligomers
+    canGenerate: false
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: PotassiumIodide
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Psicodine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: PulpedBananaPeel
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Puncturase
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Pyrazine
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Saline
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Sentidol
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Septomycin
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Siderlac
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Sigynate
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: SpiderExtract
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: SpiderLurkerSmokeExtract
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: SpiderReaperExtract
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: SpiderWebExtract
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Stellibinin
+    canGenerate: false
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Synaptizine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Synaptodol
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: TranexamicAcid
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Tricordrazine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: Ultravasculine
+    canGenerate: false
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Vestine
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Virucidine
+    canGenerate: true
+    weight: 5
+    pointsPerUnit: 3
+    minAmount: 10
+    maxAmount: 30
+  - reagent: ZetaOne
+    canGenerate: false
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Aloxadone
+    canGenerate: true
+    weight: 2
+    pointsPerUnit: 6
+    minAmount: 5
+    maxAmount: 20
+  - reagent: Mannitol
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  - reagent: Pax
+    canGenerate: true
+    weight: 10
+    pointsPerUnit: 1
+    minAmount: 10
+    maxAmount: 40
+  damages:
+  - damageType: Blunt
+    canGenerate: true
+    weight: 10
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Slash
+    canGenerate: true
+    weight: 10
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Piercing
+    canGenerate: true
+    weight: 8
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Heat
+    canGenerate: true
+    weight: 8
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Cold
+    canGenerate: true
+    weight: 6
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Poison
+    canGenerate: true
+    weight: 7
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Asphyxiation
+    canGenerate: true
+    weight: 6
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Radiation
+    canGenerate: true
+    weight: 4
+    minAmount: 15
+    maxAmount: 50
+  reagentShop:
+  - id: Beaker
+    entity: Beaker
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: LargeBeaker
+    entity: LargeBeaker
+    cost: 15
+    maxCount: 8
+    minimumShopLevel: 1
+  - id: Syringe
+    entity: Syringe
+    cost: 8
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Dropper
+    entity: Dropper
+    cost: 6
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: Jug
+    entity: Jug
+    cost: 20
+    maxCount: 5
+    minimumShopLevel: 3
+  - id: PillCanister
+    entity: PillCanister
+    cost: 12
+    maxCount: 8
+    minimumShopLevel: 3
+  - id: ChemVendRestock
+    entity: VendingMachineRestockChemVend
+    cost: 90
+    maxCount: 2
+    minimumShopLevel: 3
+  - id: ChemMasterBoard
+    entity: ChemMasterMachineCircuitboard
+    cost: 120
+    maxCount: 1
+    minimumShopLevel: 5
+  - id: Hypospray
+    entity: Hypospray
+    cost: 300
+    maxCount: 1
+    minimumShopLevel: 7
+  patientShop:
+  - id: Medkit
+    entity: MedkitFilled
+    cost: 20
+    maxCount: 5
+    minimumShopLevel: 1
+  - id: BurnMedkit
+    entity: MedkitBurnFilled
+    cost: 35
+    maxCount: 4
+    minimumShopLevel: 2
+  - id: BruteMedkit
+    entity: MedkitBruteFilled
+    cost: 35
+    maxCount: 4
+    minimumShopLevel: 2
+  - id: ToxinMedkit
+    entity: MedkitToxinFilled
+    cost: 40
+    maxCount: 4
+    minimumShopLevel: 2
+  - id: OxygenMedkit
+    entity: MedkitOxygenFilled
+    cost: 40
+    maxCount: 4
+    minimumShopLevel: 2
+  - id: RadiationMedkit
+    entity: MedkitRadiationFilled
+    cost: 50
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: BruteInjector
+    entity: BruteAutoInjector
+    cost: 30
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: BurnInjector
+    entity: BurnAutoInjector
+    cost: 30
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: AdvancedMedkit
+    entity: MedkitAdvancedFilled
+    cost: 80
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: Defibrillator
+    entity: Defibrillator
+    cost: 130
+    maxCount: 1
+    minimumShopLevel: 4
+  - id: ParamedicSuit
+    entity: ClothingOuterHardsuitVoidParamed
+    cost: 220
+    maxCount: 1
+    minimumShopLevel: 5
+  - id: MedicalScannerBoard
+    entity: MedicalScannerMachineCircuitboard
+    cost: 150
+    maxCount: 1
+    minimumShopLevel: 5
+  - id: CrewMonitor
+    entity: HandheldCrewMonitor
+    cost: 180
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: Hypospray
+    entity: Hypospray
+    cost: 300
+    maxCount: 1
+    minimumShopLevel: 7
+  - id: MedicalHardsuit
+    entity: ClothingOuterHardsuitMedical
+    cost: 400
+    maxCount: 1
+    minimumShopLevel: 8
+  - id: CombatMedkit
+    entity: MedkitCombatFilled
+    cost: 250
+    maxCount: 2
+    minimumShopLevel: 8

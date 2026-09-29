@@ -1,430 +1,413 @@
+# Add classified: true to a reward to conceal its name, icon and price until minimumShopLevel.
 - type: repairReward
   id: RepairOrderSteelReward
   entity: SheetSteel
-  cost: 1
-  weight: 6
+  cost: 3
   maxCount: 40
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderGlassReward
   entity: SheetGlass
   cost: 2
-  weight: 6
   maxCount: 5
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderRodsReward
   entity: PartRodMetal
   cost: 1
-  weight: 6
   maxCount: 15
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderPlasticReward
   entity: SheetPlastic
   cost: 3
-  weight: 6
   maxCount: 3
-  minimumDifficulty: 2
+  minimumShopLevel: 2
 
 - type: repairReward
   id: RepairOrderCableReward
   entity: CableApcStack
   cost: 1
-  weight: 8
   maxCount: 4
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderCableMvReward
   entity: CableMVStack
   cost: 1
-  weight: 6
   maxCount: 4
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderCableHvReward
   entity: CableHVStack
   cost: 1
-  weight: 4
   maxCount: 4
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderHighPowerCellReward
   entity: PowerCellHigh
-  cost: 10
-  weight: 2.5
+  cost: 100
   maxCount: 2
-  minimumDifficulty: 4
+  minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderHolofanProjectorReward
   entity: HolofanProjector
   cost: 10
-  weight: 1.5
   maxCount: 1
-  minimumDifficulty: 5
+  minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderPowerDrillReward
   entity: PowerDrill
   cost: 125
-  weight: 1.5
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderJawsOfLifeReward
   entity: JawsOfLife
   cost: 150
-  weight: 1.2
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderPlasteelReward
   entity: SheetPlasteel
-  cost: 3
-  weight: 6
+  cost: 4
   maxCount: 25
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderPlasmaReward
   entity: SheetPlasma
   cost: 5
-  weight: 6
-  maxCount: 5
-  minimumDifficulty: 1
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderPlasmaGlassReward
   entity: SheetPGlass
   cost: 4
-  weight: 3
-  maxCount: 3
-  minimumDifficulty: 1
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderSilverReward
   entity: IngotSilver
-  cost: 12
-  weight: 6
-  maxCount: 1
-  minimumDifficulty: 1
+  cost: 9
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderGoldReward
   entity: IngotGold
-  cost: 13
-  weight: 6
-  maxCount: 2
-  minimumDifficulty: 1
+  cost: 11
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderUraniumReward
   entity: SheetUranium
   cost: 22
-  weight: 2
-  maxCount: 2
-  minimumDifficulty: 1
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderUraniumGlassReward
   entity: SheetUGlass
-  cost: 15
-  weight: 1.5
-  maxCount: 1
-  minimumDifficulty: 1
+  cost: 5
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderReinforcedGlassReward
   entity: SheetRGlass
-  cost: 15
-  weight: 1.2
-  maxCount: 1
-  minimumDifficulty: 1
+  cost: 5
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderTungstenReward
   entity: SheetTungsten
   cost: 5
-  weight: 2
   maxCount: 15
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderRcdAmmoReward
   entity: RCDAmmo
-  cost: 3
-  weight: 3
+  cost: 50
   maxCount: 9
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderAdvancedWelderReward
   entity: WelderExperimental
-  cost: 102
-  weight: 2.5
+  cost: 192
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderRcdReward
   entity: RCD
   cost: 54
-  weight: 1
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderChiefEngineerBeltReward
   entity: ClothingBeltChiefEngineerFilled
-  cost: 197
-  weight: 4.1
+  cost: 437
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderShuttleConsoleBoardReward
   entity: ShuttleConsoleCircuitboard
-  cost: 11
-  weight: 5
+  cost: 10
   maxCount: 2
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderThrusterFlatpackReward
   entity: ThrusterFlatpack
-  cost: 7
-  weight: 5
+  cost: 10
   maxCount: 10
-  minimumDifficulty: 2
+  minimumShopLevel: 2
 
 - type: repairReward
   id: RepairOrderGyroscopeFlatpackReward
   entity: GyroscopeFlatpack
-  cost: 9
-  weight: 5.7
+  cost: 10
   maxCount: 2
-  minimumDifficulty: 2
+  minimumShopLevel: 2
 
 - type: repairReward
   id: RepairOrderRocketThrusterFlatpackReward
   entity: RepairOrderThrusterMediumFlatpack
-  cost: 50
-  weight: 4.9
+  cost: 15
   maxCount: 3
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderMiniGravityFlatpackReward
   entity: GravityGenMiniFlatpack
-  cost: 34
-  weight: 5
+  cost: 20
   maxCount: 1
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderApuFlatpackReward
   entity: RepairOrderApuFlatpack
-  cost: 22
-  weight: 3.8
+  cost: 25
   maxCount: 10
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderRtgFlatpackReward
   entity: RepairOrderRtgFlatpack
-  cost: 21
-  weight: 3.45
+  cost: 25
   maxCount: 5
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderShuttleBoardBundleReward
   entity: RepairOrderShuttleBoardBundle
-  cost: 39
-  weight: 6.6
-  maxCount: 1
-  minimumDifficulty: 1
+  cost: 25
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderConstructionBagReward
   entity: ConstructionBag
-  cost: 4
-  weight: 7.4
-  maxCount: 1
-  minimumDifficulty: 2
+  cost: 75
+  maxCount: 10
+  minimumShopLevel: 2
 
 - type: repairReward
   id: RepairOrderMicroreactorCellReward
   entity: PowerCellMicroreactor
-  cost: 148
-  weight: 1.7
+  cost: 600
   maxCount: 1
-  minimumDifficulty: 4
+  minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderMassScannerReward
   entity: BluespaceHandHeldMassScanner
-  cost: 19
-  weight: 3
+  cost: 201
   maxCount: 1
-  minimumDifficulty: 1
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
   entity: ConstructionBagOfHolding
-  cost: 321
-  weight: 2.1
+  cost: 421
   maxCount: 1
-  minimumDifficulty: 5
+  minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
   entity: RCDRecharging
   cost: 501
-  weight: 2.3
   maxCount: 1
-  minimumDifficulty: 5
+  minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderGasMinerIndustrialCoreReward
   entity: GasMinerIndustrialCore
-  cost: 800
-  weight: 2.1
+  cost: 900
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderGasMinerNitrogenIndustrialCoreReward
   entity: GasMinerNitrogenIndustrialCore
-  cost: 600
-  weight: 2.2
+  cost: 800
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderGasMinerOxygenIndustrialCoreReward
   entity: GasMinerOxygenIndustrialCore
-  cost: 600
-  weight: 2.3
+  cost: 800
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderOxygenGasMinerMachineCircuitboardReward
   entity: OxygenGasMinerMachineCircuitboard
-  cost: 300
-  weight: 3.0
+  cost: 500
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderNitrogenGasMinerMachineCircuitboardReward
   entity: NitrogenGasMinerMachineCircuitboard
-  cost: 300
-  weight: 3.0
+  cost: 500
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderPlasmaGasMinerMachineCircuitboardReward
   entity: PlasmaGasMinerMachineCircuitboard
-  cost: 300
-  weight: 3.0
+  cost: 500
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderMeteorDefenseTargetingModuleReward
   entity: MeteorDefenseTargetingModule
   cost: 250
-  weight: 2.3
   maxCount: 1
-  minimumDifficulty: 4
+  minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderClothingEyesHudGreenBeretReward
   entity: ClothingEyesHudGreenBeret
-  cost: 500
-  weight: 5.2
+  cost: 302
   maxCount: 1
-  minimumDifficulty: 7
+  minimumShopLevel: 7
+  classified: true
 
 - type: repairReward
   id: RepairOrderRCDSyndicateReward
   entity: RCDSyndicate
   cost: 99
-  weight: 3.2
   maxCount: 1
-  minimumDifficulty: 2
+  minimumShopLevel: 5
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingNeckCloakCeReward
   entity: ClothingNeckCloakCe
   cost: 111
-  weight: 2.2
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 7
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingNeckCloakCatReward
   entity: ClothingNeckCloakCat
   cost: 111
-  weight: 2.2
   maxCount: 1
-  minimumDifficulty: 1
+  minimumShopLevel: 7
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingNeckCloakCentcomBlackReward
   entity: ClothingNeckCloakCentcomBlack
   cost: 111
-  weight: 2.2
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 7
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
   entity: ClothingOuterHardsuitTaipanAtmosphericsEngineer
   cost: 99
-  weight: 0.5
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitNavyEngineerReward
   entity: ClothingOuterHardsuitNavyEngineer
-  cost: 999
-  weight: 1.5
+  cost: 1999
   maxCount: 1
-  minimumDifficulty: 8
+  minimumShopLevel: 8
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingBackpackRIGEngineerReward
   entity: ClothingBackpackRIGEngineer
   cost: 222
-  weight: 3.5
   maxCount: 1
-  minimumDifficulty: 3
+  minimumShopLevel: 3
+  classified: true
 
 - type: repairReward
   id: RepairOrderClothingBackpackRIGERTEngineerReward
   entity: ClothingBackpackRIGERTEngineer
-  cost: 333
-  weight: 7.5
+  cost: 555
   maxCount: 1
-  minimumDifficulty: 5
+  minimumShopLevel: 6
+  classified: true
 
 - type: repairRewardPool
   id: RepairOrderEngineeringRewardPool
   deliveryContainer: RepairOrderRewardCrate
+  shopLevelThresholds: [0, 100, 200, 350, 500, 650, 800, 1000]
+  baseReputationByDifficulty: [100, 150, 200, 350, 450, 600, 800, 1000, 2000, 5000]
+  qualityBands:
+  - minPercent: 0
+    maxPercent: 39
+    multiplierPercent: 0
+  - minPercent: 40
+    maxPercent: 59
+    multiplierPercent: 50
+  - minPercent: 60
+    maxPercent: 74
+    multiplierPercent: 75
+  - minPercent: 75
+    maxPercent: 89
+    multiplierPercent: 100
+  - minPercent: 90
+    maxPercent: 99
+    multiplierPercent: 115
+  - minPercent: 100
+    maxPercent: 100
+    multiplierPercent: 130
   rewards:
   - RepairOrderSteelReward
   - RepairOrderGlassReward

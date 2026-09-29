@@ -5,6 +5,14 @@
   desc: reagent-desc-e-z-nutrient
   flavor: bitter
   color: "#664330"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_eznutrient.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-thick
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -25,6 +33,14 @@
   desc: reagent-desc-left4-zed
   flavor: bitter
   color: "#5b406c"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_left4zed.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-heterogeneous
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -57,6 +73,14 @@
   desc: reagent-desc-pest-killer
   flavor: bitter
   color: "#9e9886"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pestkiller.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -81,6 +105,14 @@
   desc: reagent-desc-plant-b-gone
   flavor: bitter
   color: "#49002E"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_plantbgone.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -115,6 +147,14 @@
   desc: reagent-desc-robust-harvest
   flavor: bitter
   color: "#3e901c"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_robustharvest.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-robust
   plantMetabolism:
     - !type:PlantAdjustNutrition
@@ -169,6 +209,14 @@
   desc: reagent-desc-sedin
   flavor: bitter
   color: "#3CB371"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_sedin.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-sickly
   plantMetabolism:
     - !type:PlantAdjustHealth
@@ -185,6 +233,14 @@
   desc: reagent-desc-weed-killer
   flavor: bitter
   color: "#968395"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_weedkiller.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   physicalDesc: reagent-physical-desc-bubbling
   plantMetabolism:
     - !type:PlantAdjustToxins
@@ -210,6 +266,14 @@
   physicalDesc: reagent-physical-desc-pungent
   flavor: bitter
   color: "#77b58e"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ammonia.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: -33.0
   meltingPoint: -77.7
   plantMetabolism:
@@ -292,6 +356,14 @@
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: bitter
   color: "#a1000b"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_diethylamine.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: 55.5
   meltingPoint: -50.0
   plantMetabolism:

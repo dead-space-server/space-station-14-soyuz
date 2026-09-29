@@ -41,6 +41,30 @@
                     <BoxContainer Name="CompletedContainer" Orientation="Vertical" HorizontalExpand="True" />
                 </BoxContainer>
             </ScrollContainer>
+            <ScrollContainer TabContainer.TabTitle="{Loc 'repair-orders-worklist-heading'}"
+                             HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="WorklistContainer" Orientation="Vertical"
+                              HorizontalExpand="True" SeparationOverride="4" Margin="0 8 0 0" />
+            </ScrollContainer>
+            <BoxContainer TabContainer.TabTitle="{Loc 'repair-orders-shop-heading'}"
+                          Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+                <Label Name="ShopPointsLabel" Margin="0 4 0 0" />
+                <Label Name="ShopReputationLabel" />
+                <Label Name="ShopLevelLabel" />
+                <Label Name="ShopProgressLabel" />
+                <ProgressBar Name="ShopProgressBar" MinValue="0" MaxValue="1" MinHeight="16" HorizontalExpand="True" />
+                <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True" Margin="0 8 0 0">
+                    <BoxContainer Name="ShopCatalogContainer" Orientation="Vertical"
+                                  HorizontalExpand="True" SeparationOverride="4" />
+                </ScrollContainer>
+                <Label Text="{Loc 'repair-orders-shop-cart'}" StyleClasses="LabelHeading" Margin="0 8 0 0" />
+                <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" MaxHeight="140">
+                    <BoxContainer Name="ShopCartContainer" Orientation="Vertical" HorizontalExpand="True" />
+                </ScrollContainer>
+                <Label Name="ShopTotalLabel" />
+                <Label Name="ShopResultLabel" />
+                <Button Name="ShopCheckoutButton" Text="{Loc 'repair-orders-shop-checkout'}" />
+            </BoxContainer>
         </TabContainer>
     </BoxContainer>
 </controls:FancyWindow>

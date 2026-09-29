@@ -9,7 +9,9 @@ namespace Content.Client.Paper.UI;
 public sealed partial class StampCollection : Container
 {
     // DS14-start
-    private const int MaxColumns = 3;
+    // DS14-Soyuz start: keep two full stamps on each document row.
+    private const int MaxColumns = 2;
+    // DS14-Soyuz end
     private const float ColumnGap = 6.0f;
     private const float RowGap = 6.0f;
     private const float FallbackStampZoneWidth = 520.0f;
@@ -55,7 +57,10 @@ public sealed partial class StampCollection : Container
     {
         var availablePixelWidth = GetAvailablePixelWidth(availableSize.X);
         var scale = MathF.Max(UIScale, 0.001f);
-        var cappedAvailableSize = new Vector2(availablePixelWidth / scale, availableSize.Y);
+        // DS14-Soyuz start: measure each stamp within half a row so wide stamps shrink with their text.
+        var stampPixelWidth = MathF.Max(1.0f, MathF.Floor((availablePixelWidth - ColumnGap) / MaxColumns));
+        var cappedAvailableSize = new Vector2(stampPixelWidth / scale, availableSize.Y);
+        // DS14-Soyuz end
 
         foreach (var stamp in _stamps)
         {

@@ -5,6 +5,8 @@
   entities:
   - WallPlastitanium
   - WallPlastitaniumDiagonal
+  - WallPlastitaniumDiagonalIndestructible
+  - WallPlastitaniumIndestructible
   - WallTitanaluminum
   - WallTitanaluminumDiagonal
   - WallXenoborg
@@ -1691,6 +1693,9 @@
   - AutolatheHyperConvection
   - AutolatheHyperConvectionTaipan
   - AutolatheTaipan
+  - SoyuzMedicalPatientReceiver
+  - SoyuzMedicalPatientSender
+  - SoyuzMedicalReagentOrderMachine
   - BackmenVendingMachineChang
   - BackmenVendingMachineCigs
   - BackmenVendingMachineClothing
@@ -1953,7 +1958,6 @@
   - SpaceHeaterAnchored
   - SpaceHeaterEnabled
   - StasisBed
-  - StationAnchor
   - StationAnchorOff
   - SurveillanceCameraRouterCommand
   - SurveillanceCameraRouterConstructed
@@ -3236,7 +3240,6 @@
   - StairWoodLight
   - StairWoodRed
   - Stairs
-  - StationAnchorIndestructible
   - StorageCanisterBroken
   - TaikoInstrument
   - TargetClown
@@ -3389,8 +3392,6 @@
   - WallMiningDiagonal
   - WallPlasma
   - WallPlastic
-  - WallPlastitaniumDiagonalIndestructible
-  - WallPlastitaniumIndestructible
   - WallSandCobblebrick
   - WallSandstone
   - WallSilver

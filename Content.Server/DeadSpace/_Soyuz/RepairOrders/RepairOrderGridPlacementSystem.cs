@@ -8,8 +8,7 @@ using Robust.Shared.Random;
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
 /// <summary>
-/// Repair-order-local copy of the salvage magnet placement search.
-/// Keeping it local avoids changing the existing magnet implementation or behavior.
+/// Searches for an unoccupied position near the repair-orders console.
 /// </summary>
 public sealed class RepairOrderGridPlacementSystem : EntitySystem
 {
@@ -17,7 +16,8 @@ public sealed class RepairOrderGridPlacementSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
 
     /// <summary>
-    /// Searches progressively farther from <paramref name="origin"/>, with randomized lateral offset and rotation.
+    /// Searches progressively farther from <paramref name="origin"/>. Every distance tries the
+    /// center and both lateral offsets before moving outward, so a free nearby slot is not skipped by jitter.
     /// </summary>
     public bool TryFindPlacement(
         MapId mapId,
@@ -42,27 +42,26 @@ public sealed class RepairOrderGridPlacementSystem : EntitySystem
 
         direction = Vector2.Normalize(direction);
         var lateralDirection = new Vector2(-direction.Y, direction.X);
-        var fraction = 0.5f;
-
-        // Match the salvage magnet's progressive distance, lateral jitter and random rotation.
+        var offsets = new[] { 0f, lateralOffset, -lateralOffset };
         for (var i = 0; i < attempts; i++)
         {
-            var position = origin +
-                           direction * (spawnDistance * fraction) +
-                           lateralDirection * _random.NextFloat(-lateralOffset, lateralOffset);
-
-            angle = _random.NextAngle();
-            var translatedBounds = localBounds.Translated(position);
-            var rotatedBounds = new Box2Rotated(translatedBounds, angle, position);
-
-            if (_mapManager.FindGridsIntersecting(mapId, rotatedBounds).Any())
+            var distance = spawnDistance * (0.5f + i * 0.1f);
+            foreach (var offset in offsets)
             {
-                fraction += 0.1f;
-                continue;
-            }
+                var position = origin + direction * distance + lateralDirection * offset;
+                var translatedBounds = localBounds.Translated(position);
+                var randomAngle = _random.NextAngle();
+                foreach (var candidateAngle in new[] { randomAngle, Angle.Zero, Angle.FromDegrees(90) })
+                {
+                    var rotatedBounds = new Box2Rotated(translatedBounds, candidateAngle, position);
+                    if (_mapManager.FindGridsIntersecting(mapId, rotatedBounds).Any())
+                        continue;
 
-            coordinates = new MapCoordinates(position, mapId);
-            return true;
+                    coordinates = new MapCoordinates(position, mapId);
+                    angle = candidateAngle;
+                    return true;
+                }
+            }
         }
 
         coordinates = MapCoordinates.Nullspace;

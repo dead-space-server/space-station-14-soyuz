@@ -185,7 +185,7 @@ public sealed class RepairOrderSystem : EntitySystem
                 ? coordinates
                 : state.LastRepairConsoleCoordinates;
 
-            // Authoritative commit: publish the complete session and its reward fallback coordinates together.
+            // Authoritative commit: publish the complete session and its fallback coordinates together.
             // No callbacks or other potentially throwing preparation belong past this boundary.
             if (!state.Available.Remove(offer.RuntimeId))
             {
@@ -318,10 +318,6 @@ public sealed class RepairOrderSystem : EntitySystem
         return (stationUid.Value, state);
     }
 
-    /// <summary>
-    /// Remembers a usable repair-orders console as grid-local station coordinates. Returns false for deleted,
-    /// nullspace, off-grid, or foreign-station consoles without replacing the previous known position.
-    /// </summary>
     public bool RememberRepairConsole(EntityUid stationUid, EntityUid consoleUid)
     {
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state))
@@ -339,10 +335,7 @@ public sealed class RepairOrderSystem : EntitySystem
         return true;
     }
 
-    private bool TryGetRepairConsoleCoordinates(
-        EntityUid stationUid,
-        EntityUid consoleUid,
-        out EntityCoordinates coordinates)
+    private bool TryGetRepairConsoleCoordinates(EntityUid stationUid, EntityUid consoleUid, out EntityCoordinates coordinates)
     {
         coordinates = EntityCoordinates.Invalid;
         if (!consoleUid.IsValid() ||
@@ -355,15 +348,10 @@ public sealed class RepairOrderSystem : EntitySystem
             !Exists(gridUid) ||
             MetaData(gridUid).EntityLifeStage >= EntityLifeStage.Terminating ||
             _station.GetOwningStation(consoleUid, transform) != stationUid)
-        {
             return false;
-        }
 
         coordinates = _transform.GetMoverCoordinates(consoleUid, transform);
-        if (coordinates == EntityCoordinates.Invalid || coordinates.EntityId != gridUid)
-            return false;
-
-        return true;
+        return coordinates != EntityCoordinates.Invalid && coordinates.EntityId == gridUid;
     }
 
     private void InitializeStation(Entity<RepairOrderStationComponent> station)
@@ -446,7 +434,11 @@ public sealed class RepairOrderSystem : EntitySystem
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
             !ReferenceEquals(state.Active, expectedActive) ||
             completed.RuntimeId != expectedActive.RuntimeId ||
-            completed.Prototype != expectedActive.Prototype)
+            completed.Prototype != expectedActive.Prototype ||
+            completed.RewardBudget < 0 ||
+            completed.EarnedReputation < 0 ||
+            state.RepairPoints > long.MaxValue - completed.RewardBudget ||
+            state.EngineeringReputation > long.MaxValue - completed.EarnedReputation)
         {
             return false;
         }
@@ -454,6 +446,8 @@ public sealed class RepairOrderSystem : EntitySystem
         repairGrid = expectedActive.GridUid;
         completed.DamageGeneration = expectedActive.DamageGeneration;
         completed.Exclusions = expectedActive.Exclusions;
+        state.RepairPoints += completed.RewardBudget;
+        state.EngineeringReputation += completed.EarnedReputation;
         state.Completed = completed;
         state.Active = null;
         return true;
@@ -652,8 +646,12 @@ public sealed class RepairOrderSystem : EntitySystem
             .ToList();
 
         RepairOrderBuiEntry? active = null;
+        var worklist = new List<RepairOrderWorklistEntry>();
         if (station.Comp.Active is { } activeOrder)
         {
+            if (activeOrder.BlueprintReady)
+                worklist = _validation.GetWorklist(activeOrder.GridUid);
+
             active = new RepairOrderBuiEntry(
                 activeOrder.RuntimeId,
                 activeOrder.Prototype.Id,
@@ -680,23 +678,37 @@ public sealed class RepairOrderSystem : EntitySystem
                 completedOrder.MaxPoints,
                 completedOrder.RepairPercent,
                 completedOrder.RewardBudget,
+                completedOrder.EarnedReputation,
                 completedOrder.Result,
-                completedOrder.Delivered,
-                completedOrder.Rewards
-                    .Select(reward => new RepairOrderRewardBuiEntry(reward.Reward.Id, reward.Count))
-                    .ToList(),
                 completedOrder.DamageGeneration?.SelectedEvents.ToArray(),
                 completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints));
+        }
+
+        var shopPoolId = Comp<RepairOrderConsoleComponent>(console).ShopRewardPool;
+        var shopLevel = 0;
+        int? nextShopLevelThreshold = null;
+        if (_prototype.TryIndex<RepairRewardPoolPrototype>(shopPoolId, out var shopPool))
+        {
+            shopLevel = RepairOrderRewardSystem.GetShopLevel(shopPool, station.Comp.EngineeringReputation);
+            if (shopLevel < shopPool.ShopLevelThresholds.Count)
+                nextShopLevelThreshold = shopPool.ShopLevelThresholds[shopLevel];
         }
 
         _ui.SetUiState(console, RepairOrderUiKey.Key, new RepairOrderBoundUserInterfaceState(
             available,
             active,
+            worklist,
             completed,
             station.Comp.NextOffer,
             station.Comp.OfferInterval,
             station.Comp.Accepting,
-            station.Comp.Completing));
+            station.Comp.Completing,
+            shopPoolId.Id,
+            station.Comp.RepairPoints,
+            station.Comp.EngineeringReputation,
+            shopLevel,
+            nextShopLevelThreshold,
+            station.Comp.ShopPurchaseInProgress));
     }
 
     private void FailRequest(EntityUid console, EntityUid actor, string locKey, string logReason)

@@ -48,6 +48,14 @@
   physicalDesc: reagent-physical-desc-bubbly
   flavor: alcohol
   color: "#c9144a"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_campari.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Drink:
       effects:

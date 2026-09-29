@@ -806,6 +806,13 @@
   - type: Physics
     bodyType: Static
   - type: Grave
+  # DS14-Soyuz start
+  - type: Construction
+    graph: WoodenGrave
+    node: grave
+    containers:
+    - entity_storage
+  # DS14-Soyuz end
   - type: ProRottingContainer
   - type: EntityStorage
     airtight: true
@@ -835,6 +842,13 @@
   - type: Icon
     sprite: Structures/Storage/Crates/stone_grave.rsi
     state: base
+  # DS14-Soyuz start
+  - type: Construction
+    graph: StoneGrave
+    node: grave
+    containers:
+    - entity_storage
+  # DS14-Soyuz end
 
 - type: entity
   parent: CrateGenericSteel

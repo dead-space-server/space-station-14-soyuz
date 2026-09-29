@@ -13,6 +13,9 @@
     BoxInflatable: 2
     ClothingHeadHatCone: 4
     TabletPowerMonitoring: 2
+    # DS14-Soyuz-start: Construction planning tool.
+    BlueprintSprayPainter: 4
+    # DS14-Soyuz-end
   contrabandInventory:
     CowToolboxFilled: 1
     DrinkBeerCan: 3

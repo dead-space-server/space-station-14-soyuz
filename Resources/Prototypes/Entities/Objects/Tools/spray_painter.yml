@@ -16,6 +16,13 @@
       enum.SprayPainterUiKey.Key:
         type: SprayPainterBoundUserInterface
   - type: SprayPainter
+    # DS14-Soyuz-start: Ordinary painters cannot select construction blueprints.
+    allowedDecalTags:
+    - station
+    - markings
+    allowDecalsOnGrilles: false
+    decalOnly: false
+    # DS14-Soyuz-end
     colorPalette:
       red: '#FF1212FF'
       yellow: '#B3A234FF'

@@ -1,4 +1,6 @@
-app-catalog-entry-messenger-name = NanoChat
+# DS14-Soyuz-start
+app-catalog-entry-messenger-name = Redline
+# DS14-Soyuz-end
 app-catalog-entry-messenger-desc = Система обмена сообщениями между членами экипажа.
 app-catalog-entry-messenger-taipan-name = SyndiChat
 app-catalog-entry-messenger-taipan-desc = Система обмена сообщениями между персоналом объекта.

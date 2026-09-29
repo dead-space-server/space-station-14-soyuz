@@ -16,7 +16,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
 /// <summary>
-/// Materializes a completed reward snapshot into the pool's configured physical container.
+/// Materializes a shop purchase into the pool's configured physical container.
 /// </summary>
 public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 {
@@ -43,14 +43,14 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     }
 
     /// <summary>
-    /// Creates as many protected reward containers as necessary beside the exact console used for submission.
+    /// Creates as many protected reward containers as necessary beside the purchasing console.
     /// On failure every entity created by this attempt is queued for deletion.
     /// </summary>
     public bool TryDeliver(
         EntityUid station,
-        int runtimeId,
+        Guid purchaseId,
         EntityUid console,
-        RepairOrderPrototype order,
+        RepairRewardPoolPrototype pool,
         IReadOnlyList<RepairOrderRewardResult> rewards,
         out RepairOrderDelivery delivery)
     {
@@ -60,7 +60,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         {
             delivery = default!;
             _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: console {ToPrettyString(console)} " +
+                $"Cannot deliver shop purchase {purchaseId}: console {ToPrettyString(console)} " +
                 "is not on a usable grid.");
             return false;
         }
@@ -70,7 +70,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             console,
             $"console {ToPrettyString(console)}",
             IncludeOrigin: false);
-        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+        return TryDeliver(station, purchaseId, anchor, pool, rewards, out delivery);
     }
 
     /// <summary>
@@ -79,8 +79,8 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     /// </summary>
     public bool TryDeliverAtStation(
         EntityUid station,
-        int runtimeId,
-        RepairOrderPrototype order,
+        Guid purchaseId,
+        RepairRewardPoolPrototype pool,
         IReadOnlyList<RepairOrderRewardResult> rewards,
         out RepairOrderDelivery delivery)
     {
@@ -91,7 +91,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             !TryFindStationDeliveryOrigin((stationGrid.Value, grid), out var origin))
         {
             _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: station {station} has no safe delivery tile.");
+                $"Cannot deliver shop purchase {purchaseId}: station {station} has no safe delivery tile.");
             return false;
         }
 
@@ -100,7 +100,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             null,
             $"station grid {stationGrid.Value}",
             IncludeOrigin: true);
-        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+        return TryDeliver(station, purchaseId, anchor, pool, rewards, out delivery);
     }
 
     /// <summary>
@@ -109,9 +109,9 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     /// </summary>
     public bool TryDeliverAtCoordinates(
         EntityUid station,
-        int runtimeId,
+        Guid purchaseId,
         EntityCoordinates coordinates,
-        RepairOrderPrototype order,
+        RepairRewardPoolPrototype pool,
         IReadOnlyList<RepairOrderRewardResult> rewards,
         out RepairOrderDelivery delivery)
     {
@@ -120,46 +120,120 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             null,
             $"last known repair-orders console position {coordinates}",
             IncludeOrigin: true);
-        return TryDeliver(station, runtimeId, anchor, order, rewards, out delivery);
+        return TryDeliver(station, purchaseId, anchor, pool, rewards, out delivery);
     }
+
+    // DS14-Soyuz-start: medical orders reuse the same protected placement and delivery handle.
+    public bool TryDeliverMedical(
+        EntityUid station,
+        Guid purchaseId,
+        EntityUid console,
+        EntProtoId containerPrototype,
+        IReadOnlyList<EntProtoId> items,
+        out RepairOrderDelivery delivery)
+    {
+        delivery = default!;
+        if (items.Count == 0 ||
+            !_prototype.TryIndex<EntityPrototype>(containerPrototype, out _) ||
+            !TryComp(console, out TransformComponent? consoleTransform) ||
+            consoleTransform.MapID == MapId.Nullspace || consoleTransform.GridUid == null)
+            return false;
+
+        foreach (var item in items)
+        {
+            if (!_prototype.TryIndex<EntityPrototype>(item, out _))
+                return false;
+        }
+
+        var key = new RepairOrderDeliveryKey(station, RepairOrderDeliveryKind.MedicalShopPurchase, purchaseId);
+        if (_deliveries.ContainsKey(key))
+            return false;
+
+        var anchor = new RepairOrderDeliveryAnchor(consoleTransform.Coordinates, console,
+            $"medical orders console {ToPrettyString(console)}", IncludeOrigin: false);
+        var attempt = new RepairOrderDelivery(key);
+        try
+        {
+            if (!TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                    out var currentContainer, out var storage))
+                throw new InvalidOperationException("Cannot prepare the medical delivery container.");
+
+            foreach (var entityId in items)
+            {
+                if (storage.Contents.ContainedEntities.Count >= storage.Capacity)
+                {
+                    if (!TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                            out currentContainer, out storage))
+                        throw new InvalidOperationException("Cannot prepare an additional medical delivery container.");
+                }
+
+                var item = Spawn(entityId, Transform(currentContainer).Coordinates);
+                attempt.RewardEntities.Add(item);
+                if (storage.Open || !_entityStorage.CanInsert(item, currentContainer, storage))
+                {
+                    if (storage.Contents.ContainedEntities.Count == 0 ||
+                        !TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
+                            out currentContainer, out storage) ||
+                        storage.Open || !_entityStorage.CanInsert(item, currentContainer, storage))
+                        throw new InvalidOperationException($"Medical delivery container cannot hold {entityId}.");
+
+                    _transform.SetCoordinates(item, Transform(currentContainer).Coordinates);
+                }
+
+                if (!_entityStorage.Insert(item, currentContainer, storage))
+                    throw new InvalidOperationException($"Cannot insert {entityId} into medical delivery.");
+            }
+
+            _deliveries.Add(key, attempt);
+            delivery = attempt;
+            return true;
+        }
+        catch (Exception exception)
+        {
+            _sawmill.Error($"Medical shop delivery {purchaseId} failed: {exception}");
+            Rollback(attempt);
+            return false;
+        }
+    }
+    // DS14-Soyuz-end
 
     private bool TryDeliver(
         EntityUid station,
-        int runtimeId,
+        Guid purchaseId,
         RepairOrderDeliveryAnchor anchor,
-        RepairOrderPrototype order,
+        RepairRewardPoolPrototype pool,
         IReadOnlyList<RepairOrderRewardResult> rewards,
         out RepairOrderDelivery delivery)
     {
-        var key = new RepairOrderDeliveryKey(station, runtimeId);
+        var key = new RepairOrderDeliveryKey(station, RepairOrderDeliveryKind.ShopPurchase, purchaseId);
         if (_deliveries.TryGetValue(key, out var existingDelivery))
         {
+            if (existingDelivery.Committed)
+            {
+                delivery = default!;
+                _sawmill.Warning($"Shop delivery {purchaseId} on station {station} was already committed.");
+                return false;
+            }
+
             delivery = existingDelivery;
             _sawmill.Debug(
-                $"Reused existing reward delivery for repair order {runtimeId} on station {station}; " +
+                $"Reused existing shop delivery {purchaseId} on station {station}; " +
                 "no additional rewards or containers were spawned.");
             return true;
         }
 
         delivery = default!;
-        if (!_prototype.TryIndex<RepairRewardPoolPrototype>(order.RewardPool, out var pool))
-        {
-            _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: reward pool {order.RewardPool} is missing.");
-            return false;
-        }
-
         if (!_prototype.TryIndex<EntityPrototype>(pool.DeliveryContainer, out _))
         {
             _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: delivery container {pool.DeliveryContainer} is missing.");
+                $"Cannot deliver shop purchase {purchaseId}: delivery container {pool.DeliveryContainer} is missing.");
             return false;
         }
 
         var attempt = new RepairOrderDelivery(key);
         try
         {
-            if (!TryCreateDeliveryContainer(anchor, order, pool, attempt, out var currentContainer, out var currentStorage))
+            if (!TryCreateDeliveryContainer(anchor, pool, attempt, out var currentContainer, out var currentStorage))
                 throw new InvalidOperationException("The first protected reward container could not be created.");
 
             foreach (var result in rewards)
@@ -176,7 +250,6 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                     {
                         if (!TryCreateDeliveryContainer(
                                 anchor,
-                                order,
                                 pool,
                                 attempt,
                                 out currentContainer,
@@ -206,7 +279,6 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                         {
                             if (!TryCreateDeliveryContainer(
                                     anchor,
-                                    order,
                                     pool,
                                     attempt,
                                     out currentContainer,
@@ -256,7 +328,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             try
             {
                 _sawmill.Error(
-                    $"Failed to create reward delivery for repair order {order.ID} at {anchor.Description}: {exception}");
+                    $"Failed to create shop delivery {purchaseId} at {anchor.Description}: {exception}");
             }
             finally
             {
@@ -268,7 +340,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 
     /// <summary>
     /// Idempotently removes an uncommitted physical delivery. Rewards are deleted before their containers so
-    /// destroying an EntityStorage cannot spill payment from a failed completion attempt into the world.
+    /// destroying an EntityStorage cannot spill items from a failed purchase into the world.
     /// </summary>
     public void Rollback(RepairOrderDelivery? delivery)
     {
@@ -295,7 +367,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     }
 
     /// <summary>
-    /// Transfers ownership of a prepared delivery to a successfully completed order. Once committed, even a
+    /// Transfers ownership of a prepared delivery to a successful purchase. Once committed, even a
     /// repeated rollback request cannot delete or duplicate the delivered rewards.
     /// </summary>
     public void Commit(RepairOrderDelivery delivery)
@@ -305,8 +377,20 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 
     private bool TryCreateDeliveryContainer(
         RepairOrderDeliveryAnchor anchor,
-        RepairOrderPrototype order,
         RepairRewardPoolPrototype pool,
+        RepairOrderDelivery attempt,
+        out EntityUid deliveryContainer,
+        out EntityStorageComponent storage)
+    {
+        return TryCreateDeliveryContainer(anchor, pool.DeliveryContainer, pool.ID, attempt,
+            out deliveryContainer, out storage);
+    }
+
+    // DS14-Soyuz-start: let other Soyuz shops reuse repair-order placement and rollback.
+    private bool TryCreateDeliveryContainer(
+        RepairOrderDeliveryAnchor anchor,
+        EntProtoId containerPrototype,
+        string source,
         RepairOrderDelivery attempt,
         out EntityUid deliveryContainer,
         out EntityStorageComponent storage)
@@ -321,11 +405,11 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                 out var reusedFirstPosition))
         {
             _sawmill.Warning(
-                $"Cannot deliver rewards for repair order {order.ID}: {anchor.Description} has no usable placement.");
+                $"Cannot deliver rewards from {source}: {anchor.Description} has no usable placement.");
             return false;
         }
 
-        deliveryContainer = Spawn(pool.DeliveryContainer, coordinates);
+        deliveryContainer = Spawn(containerPrototype, coordinates);
         attempt.ContainersInternal.Add(deliveryContainer);
 
         if (usedDropFallback)
@@ -341,7 +425,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         {
             _sawmill.Error(
                 $"Cannot remember the actual placement of protected reward container {deliveryContainer} " +
-                $"for repair order {order.ID}.");
+                $"for {source}.");
             return false;
         }
 
@@ -355,14 +439,15 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         if (!TryComp(deliveryContainer, out EntityStorageComponent? foundStorage))
         {
             _sawmill.Error(
-                $"Cannot deliver rewards for repair order {order.ID}: delivery container " +
-                $"{pool.DeliveryContainer} has no EntityStorage component.");
+                $"Cannot deliver rewards from {source}: delivery container " +
+                $"{containerPrototype} has no EntityStorage component.");
             return false;
         }
 
         storage = foundStorage;
         return true;
     }
+    // DS14-Soyuz-end
 
     private bool TryPlaceOversizedReward(
         EntityUid reward,
@@ -546,7 +631,7 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
 
 /// <summary>
 /// Ownership handle for physical entities created by one delivery attempt.
-/// The completion system either commits the listed protected containers or rolls the whole handle back.
+/// The shop either commits the listed protected containers or rolls the whole handle back.
 /// </summary>
 public sealed class RepairOrderDelivery
 {
@@ -565,7 +650,14 @@ public sealed class RepairOrderDelivery
     }
 }
 
-internal readonly record struct RepairOrderDeliveryKey(EntityUid Station, int RuntimeId);
+internal enum RepairOrderDeliveryKind : byte
+{
+    RepairOrder,
+    ShopPurchase,
+    MedicalShopPurchase, // DS14-Soyuz
+}
+
+internal readonly record struct RepairOrderDeliveryKey(EntityUid Station, RepairOrderDeliveryKind Kind, Guid PurchaseId);
 
 internal readonly record struct RepairOrderDeliveryCell(EntityUid Grid, Vector2i Indices);
 

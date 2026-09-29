@@ -6,6 +6,14 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: apple
   color: "#FDAD01"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceapple.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   recognizable: true
 
 - type: reagent
@@ -16,6 +24,14 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: banana
   color: "#FFE777"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebanana.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceBerry
@@ -25,6 +41,14 @@
   physicalDesc: reagent-physical-desc-sweet
   flavor: berry
   color: "#660099"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juiceberry.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceBluePumpkin
@@ -34,6 +58,14 @@
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: bluepumpkin
   color: "#00BFFF"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebluepumpkin.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceBungo
@@ -43,6 +75,14 @@
   physicalDesc: reagent-physical-desc-tart
   flavor: bungo
   color: "#F9E43D"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicebungo.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceCarrot
@@ -52,6 +92,14 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: carrot
   color: "#FF8820"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecarrot.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Drink:
       effects:
@@ -73,6 +121,14 @@
   physicalDesc: reagent-physical-desc-crisp
   flavor: juice
   color: "#512284"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicegrape.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceLemon
@@ -97,6 +153,14 @@
   physicalDesc: reagent-physical-desc-citric
   flavor: sour
   color: "#99bb43"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicelime.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 # /datum/reagent/drink/orangejuice/on_mob_life(var/mob/living/M)
 
@@ -129,6 +193,14 @@
   physicalDesc: reagent-physical-desc-tropical
   flavor: pineapple
   color: yellow
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepineapple.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuicePotato
@@ -138,6 +210,14 @@
   physicalDesc: reagent-physical-desc-starchy
   flavor: potatoes
   color: "#302000"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicepotato.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceTomato
@@ -147,6 +227,14 @@
   physicalDesc: reagent-physical-desc-saucey
   flavor: tomato
   color: "#731008"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicetomato.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: JuiceWatermelon
@@ -171,3 +259,11 @@
   physicalDesc: reagent-physical-desc-sweet
   flavor: cherry
   color: "#84031a"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_juicecherry.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end

@@ -25,6 +25,13 @@
     materialComposition:
       Steel: 100
   - type: BotanyHoe
+  # DS14-Soyuz start
+  - type: Tool
+    qualities:
+    - Hoeing
+    useSound:
+      path: /Audio/Items/shovel_dig.ogg
+  # DS14-Soyuz end
   #DS14-Start
   - type: EmitSoundOnPickup
     sound:

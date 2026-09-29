@@ -1953,3 +1953,10 @@ Entries:
     message: Заказы мед. отделу
   - type: Fix
     message: Спавн ремонтных заказов
+- id: 186
+  author: Genes1us
+  time: '2026-09-29T18:11:23.873989+00:00'
+  pr: 506
+  changes:
+  - type: Fix
+    message: Теперь точно исправил хексы объяв от ГШ

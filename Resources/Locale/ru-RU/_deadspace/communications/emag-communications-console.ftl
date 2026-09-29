@@ -19,7 +19,9 @@ emag-comms-announcer-placeholder = Название организации
 emag-comms-signature = Подпись
 emag-comms-signature-placeholder = Имя или должность отправителя
 emag-comms-color = Цвет
-emag-comms-color-placeholder = #1d8bad
+# DS14-Soyuz-start
+emag-comms-color-placeholder = #b64444
+# DS14-Soyuz-end
 emag-comms-announcement = Текст объявления
 emag-comms-announcement-placeholder = Введите текст объявления…
 emag-comms-sound = Звуковой сигнал

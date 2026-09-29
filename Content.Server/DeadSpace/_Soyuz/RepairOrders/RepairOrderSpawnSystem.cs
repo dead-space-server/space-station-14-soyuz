@@ -281,7 +281,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
         foreach (var linkedUid in sink.LinkedSources)
         {
             if (!TryComp<DockingComponent>(linkedUid, out var stationDock) ||
-                !TryComp<TransformComponent>(linkedUid, out var dockXform) ||
+                !TryComp(linkedUid, out TransformComponent? dockXform) ||
                 !dockXform.Anchored ||
                 dockXform.GridUid is not { } dockGrid ||
                 _station.GetOwningStation(dockGrid) != station ||

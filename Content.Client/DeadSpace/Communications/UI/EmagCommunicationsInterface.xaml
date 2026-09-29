@@ -96,7 +96,7 @@
                                 SetSize="32 28" />
                         <LineEdit Name="ColorHexInput"
                                   Access="Public"
-                                  Text="1d8bad"
+                                  Text="b44444"
                                   PlaceHolder="{Loc 'emag-comms-color-placeholder'}"
                                   HorizontalExpand="True" />
                     </BoxContainer>

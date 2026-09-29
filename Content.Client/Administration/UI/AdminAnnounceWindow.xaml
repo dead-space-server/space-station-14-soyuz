@@ -40,7 +40,7 @@
                     <LineEdit Name="ColorHex"
                               Access="Public"
                               PlaceHolder="{Loc admin-announce-color-placeholder}"
-                              Text="1d8bad"
+                              Text="b44444"
                               HorizontalExpand="True"/>
                 </BoxContainer>
                 <LineEdit Name="SoundPath"

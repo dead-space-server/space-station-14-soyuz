@@ -94,11 +94,13 @@
                                 Text=" "
                                 MinSize="32 28"
                                 SetSize="32 28" />
+                     <!--DS14-Soyuz-start-->
                         <LineEdit Name="ColorHexInput"
                                   Access="Public"
-                                  Text="1d8bad"
+                                  Text="b64444"
                                   PlaceHolder="{Loc 'emag-comms-color-placeholder'}"
                                   HorizontalExpand="True" />
+                     <!--DS14-Soyuz-end-->
                     </BoxContainer>
                 </BoxContainer>
             </BoxContainer>

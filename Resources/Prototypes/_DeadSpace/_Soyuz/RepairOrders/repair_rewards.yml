@@ -435,7 +435,7 @@
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitNavyEngineerReward
   entity: ClothingOuterHardsuitNavyEngineer
-  cost: 1199
+  cost: 1499
   maxCount: 1
   minimumShopLevel: 8
   classified: true

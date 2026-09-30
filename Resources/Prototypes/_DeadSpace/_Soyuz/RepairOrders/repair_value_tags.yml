@@ -143,7 +143,7 @@
 
 - type: repairValueTag
   id: RepairReinforcedWall
-  value: 6
+  value: 10
 
 - type: repairValueTag
   id: RepairReinforcedWindow

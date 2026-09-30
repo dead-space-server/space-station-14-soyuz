@@ -340,7 +340,7 @@
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
   entity: RCDRecharging
-  cost: 501
+  cost: 201
   maxCount: 1
   minimumShopLevel: 5
 

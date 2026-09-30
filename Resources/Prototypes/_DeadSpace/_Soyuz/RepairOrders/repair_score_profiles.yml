@@ -132,6 +132,10 @@
   - selector:
       parents: [BlastDoor]
     canonical: BlastDoor
+  # Filled bookshelves match the hand-built empty bookshelf.
+  - selector:
+      entities: [BookshelfFilled]
+    canonical: Bookshelf
   # All wall closets/lockers are equivalent for repair purposes.
   - selector:
       parents: [BaseWallCloset, BaseWallLocker]

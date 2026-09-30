@@ -198,7 +198,7 @@
 - type: repairReward
   id: RepairOrderMassScannerReward
   entity: BluespaceHandHeldMassScanner
-  cost: 201
+  cost: 101
   maxCount: 1
   minimumShopLevel: 1
 
@@ -261,21 +261,21 @@
 - type: repairReward
   id: RepairOrderPowerDrillReward
   entity: PowerDrill
-  cost: 125
+  cost: 50
   maxCount: 1
   minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderJawsOfLifeReward
   entity: JawsOfLife
-  cost: 150
+  cost: 60
   maxCount: 1
   minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderAdvancedWelderReward
   entity: WelderExperimental
-  cost: 192
+  cost: 77
   maxCount: 1
   minimumShopLevel: 3
 
@@ -333,7 +333,7 @@
 - type: repairReward
   id: RepairOrderChiefEngineerBeltReward
   entity: ClothingBeltChiefEngineerFilled
-  cost: 337
+  cost: 236
   maxCount: 1
   minimumShopLevel: 5
 
@@ -435,7 +435,7 @@
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitNavyEngineerReward
   entity: ClothingOuterHardsuitNavyEngineer
-  cost: 1999
+  cost: 1499
   maxCount: 1
   minimumShopLevel: 8
   classified: true

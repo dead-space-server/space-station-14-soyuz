@@ -290,21 +290,21 @@
 - type: repairReward
   id: RepairOrderHighPowerCellReward
   entity: PowerCellHigh
-  cost: 100
+  cost: 75
   maxCount: 2
   minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderMeteorDefenseTargetingModuleReward
   entity: MeteorDefenseTargetingModule
-  cost: 250
+  cost: 300
   maxCount: 1
   minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderMicroreactorCellReward
   entity: PowerCellMicroreactor
-  cost: 300
+  cost: 250
   maxCount: 1
   minimumShopLevel: 4
 
@@ -318,7 +318,7 @@
 - type: repairReward
   id: RepairOrderRCDSyndicateReward
   entity: RCDSyndicate
-  cost: 99
+  cost: 30
   maxCount: 1
   minimumShopLevel: 5
   classified: true
@@ -326,7 +326,7 @@
 - type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
   entity: ConstructionBagOfHolding
-  cost: 321
+  cost: 251
   maxCount: 1
   minimumShopLevel: 5
 
@@ -355,7 +355,7 @@
 - type: repairReward
   id: RepairOrderClothingNeckCloakCeReward
   entity: ClothingNeckCloakCe
-  cost: 55
+  cost: 22
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -363,7 +363,7 @@
 - type: repairReward
   id: RepairOrderClothingNeckCloakCatReward
   entity: ClothingNeckCloakCat
-  cost: 55
+  cost: 22
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -435,7 +435,7 @@
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitNavyEngineerReward
   entity: ClothingOuterHardsuitNavyEngineer
-  cost: 1499
+  cost: 1899
   maxCount: 1
   minimumShopLevel: 8
   classified: true

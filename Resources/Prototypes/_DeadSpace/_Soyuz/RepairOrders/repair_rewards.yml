@@ -133,6 +133,20 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderPowerConsoleBoardReward
+  entity: PowerComputerCircuitboard
+  cost: 10
+  maxCount: 2
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderMassScannerConsoleBoardReward
+  entity: RadarConsoleCircuitboard
+  cost: 10
+  maxCount: 2
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderGoldReward
   entity: IngotGold
   cost: 11
@@ -470,6 +484,8 @@
   - RepairOrderSilverReward
   - RepairOrderRcdAmmoReward
   - RepairOrderShuttleConsoleBoardReward
+  - RepairOrderPowerConsoleBoardReward
+  - RepairOrderMassScannerConsoleBoardReward
   - RepairOrderGoldReward
   - RepairOrderRocketThrusterFlatpackReward
   - RepairOrderMiniGravityFlatpackReward

@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseFlatpack
   id: RepairOrderThrusterMediumFlatpack
-  name: rocket thruster flatpack
-  description: A flatpack used for constructing a medium rocket thruster.
+  name: large rocket thruster flatpack
+  description: A flatpack used for constructing a large rocket thruster.
   components:
   - type: Flatpack
     entity: ThrusterMedium

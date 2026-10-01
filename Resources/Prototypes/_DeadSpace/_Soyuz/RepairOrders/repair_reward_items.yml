@@ -138,8 +138,6 @@
         - id: APCElectronics
         - id: AirAlarmElectronics
           amount: 2
-        - id: FireAlarmElectronics
-          amount: 2
 
 # Ported visually from DeltaV PR #5846. These variants intentionally use only ordinary Storage:
 # no magnet pickup, toggle, research, recipes, lathe or cargo acquisition is registered.

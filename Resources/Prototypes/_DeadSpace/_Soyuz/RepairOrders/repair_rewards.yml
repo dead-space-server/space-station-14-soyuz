@@ -261,7 +261,7 @@
 - type: repairReward
   id: RepairOrderSmesAdvancedFlatpackReward
   entity: RepairOrderSmesAdvancedFlatpack
-  cost: 50
+  cost: 30
   maxCount: 3
   minimumShopLevel: 3
 

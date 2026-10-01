@@ -154,6 +154,13 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderWallmountSubstationFlatpackReward
+  entity: RepairOrderWallmountSubstationFlatpack
+  cost: 10
+  maxCount: 5
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderUraniumReward
   entity: SheetUranium
   cost: 22
@@ -165,6 +172,13 @@
   entity: RepairOrderApuFlatpack
   cost: 25
   maxCount: 10
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderSubstationFlatpackReward
+  entity: RepairOrderSubstationFlatpack
+  cost: 15
+  maxCount: 5
   minimumShopLevel: 1
 
 - type: repairReward
@@ -229,6 +243,27 @@
   cost: 30
   maxCount: 1
   minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderSmesBasicFlatpackReward
+  entity: RepairOrderSmesBasicFlatpack
+  cost: 15
+  maxCount: 5
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderEngineeringBoardBundleReward
+  entity: RepairOrderEngineeringBoardBundle
+  cost: 25
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderSmesAdvancedFlatpackReward
+  entity: RepairOrderSmesAdvancedFlatpack
+  cost: 50
+  maxCount: 3
+  minimumShopLevel: 3
 
 - type: repairReward
   id: RepairOrderRcdReward
@@ -484,8 +519,10 @@
   - RepairOrderShuttleConsoleBoardReward
   - RepairOrderPowerConsoleBoardReward
   - RepairOrderMassScannerConsoleBoardReward
+  - RepairOrderWallmountSubstationFlatpackReward
   - RepairOrderGoldReward
   - RepairOrderRocketThrusterFlatpackReward
+  - RepairOrderSubstationFlatpackReward
   - RepairOrderMiniGravityFlatpackReward
   - RepairOrderUraniumReward
   - RepairOrderApuFlatpackReward
@@ -495,25 +532,28 @@
   - RepairOrderPlasticReward
   - RepairOrderThrusterFlatpackReward
   - RepairOrderGyroscopeFlatpackReward
+  - RepairOrderSmesBasicFlatpackReward
   - RepairOrderConstructionBagReward
+  - RepairOrderEngineeringBoardBundleReward
   - RepairOrderVoidJetpackReward
   - RepairOrderBlindingMagbootsReward
-  - RepairOrderRcdReward
-  - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
+  - RepairOrderSmesAdvancedFlatpackReward
   - RepairOrderPowerDrillReward
+  - RepairOrderRcdReward
   - RepairOrderJawsOfLifeReward
   - RepairOrderAdvancedWelderReward
+  - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
   - RepairOrderClothingBackpackRIGEngineerReward
   - RepairOrderTitaniumReward
   - RepairOrderPlastitaniumReward
   - RepairOrderHighPowerCellReward
-  - RepairOrderMeteorDefenseTargetingModuleReward
   - RepairOrderMicroreactorCellReward
+  - RepairOrderMeteorDefenseTargetingModuleReward
   - RepairOrderHolofanProjectorReward
   - RepairOrderRCDSyndicateReward
-  - RepairOrderBluespaceConstructionBagReward
-  - RepairOrderChiefEngineerBeltReward
   - RepairOrderExperimentalRcdReward
+  - RepairOrderChiefEngineerBeltReward
+  - RepairOrderBluespaceConstructionBagReward
   - RepairOrderClothingBackpackRIGERTEngineerReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward

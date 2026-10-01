@@ -57,6 +57,90 @@
         - id: ThrusterMachineCircuitboard
         - id: GyroscopeMachineCircuitboard
 
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSmesAdvancedFlatpack
+  name: advanced SMES flatpack
+  description: A flatpack used for constructing an advanced SMES.
+  components:
+  - type: Flatpack
+    entity: SMESAdvanced
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSmesBasicFlatpack
+  name: SMES flatpack
+  description: A flatpack used for constructing a SMES.
+  components:
+  - type: Flatpack
+    entity: SMESBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSubstationFlatpack
+  name: substation flatpack
+  description: A flatpack used for constructing a substation.
+  components:
+  - type: Flatpack
+    entity: SubstationBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderWallmountSubstationFlatpack
+  name: wall-mounted substation flatpack
+  description: A flatpack used for constructing a wall-mounted substation.
+  components:
+  - type: Flatpack
+    entity: SubstationWallBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BoxCardboard
+  id: RepairOrderEngineeringBoardBundle
+  name: engineering electronics kit
+  description: Contains electronics for two airlocks, two firelocks, an APC, two air alarms and two fire alarms.
+  components:
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,4,2
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: DoorElectronics
+          amount: 2
+        - id: FirelockElectronics
+          amount: 2
+        - id: APCElectronics
+        - id: AirAlarmElectronics
+          amount: 2
+        - id: FireAlarmElectronics
+          amount: 2
+
 # Ported visually from DeltaV PR #5846. These variants intentionally use only ordinary Storage:
 # no magnet pickup, toggle, research, recipes, lathe or cargo acquisition is registered.
 - type: entity

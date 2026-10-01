@@ -1,11 +1,13 @@
-# Plastitanium
-# DS14-Soyuz start: Allow titanium and plastitanium structures for all builders.
 - type: construction
   id: TitaniumGirder
   graph: TitaniumGirder
   startNode: start
   targetNode: titaniumGirder
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -19,6 +21,10 @@
   startNode: start
   targetNode: plastitaniumGirder
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -32,6 +38,10 @@
   startNode: start
   targetNode: plastitaniumplasmaWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
   conditions:
   - !type:EmptyOrWindowValidInTile
@@ -46,6 +56,10 @@
   startNode: start
   targetNode: plastitaniumWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
   conditions:
   - !type:EmptyOrWindowValidInTile
@@ -60,6 +74,10 @@
   startNode: start
   targetNode: plastitaniumplasmaWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
   conditions:
   - !type:EmptyOrWindowValidInTile
@@ -73,6 +91,10 @@
   startNode: start
   targetNode: plastitaniumWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
   conditions:
   - !type:EmptyOrWindowValidInTile
@@ -86,6 +108,10 @@
   startNode: start
   targetNode: plastitaniumWall
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -99,14 +125,16 @@
   startNode: start
   targetNode: diagonalplastitaniumWall
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
   canBuildInImpassable: false
   conditions:
   - !type:TileNotBlocked
-
-# DS14-Soyuz end
 
     # Secret Doors
 

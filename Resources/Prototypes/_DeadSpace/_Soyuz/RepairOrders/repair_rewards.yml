@@ -70,13 +70,6 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderTitaniumReward
-  entity: SheetTitanium
-  cost: 5
-  maxCount: 15
-  minimumShopLevel: 1
-
-- type: repairReward
   id: RepairOrderPlasmaReward
   entity: SheetPlasma
   cost: 5
@@ -101,13 +94,6 @@
   id: RepairOrderTungstenReward
   entity: SheetTungsten
   cost: 5
-  maxCount: 15
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderPlastitaniumReward
-  entity: SheetPlastitanium
-  cost: 8
   maxCount: 15
   minimumShopLevel: 1
 
@@ -286,6 +272,20 @@
   maxCount: 1
   minimumShopLevel: 3
   classified: true
+
+- type: repairReward
+  id: RepairOrderTitaniumReward
+  entity: SheetTitanium
+  cost: 10
+  maxCount: 15
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderPlastitaniumReward
+  entity: SheetPlastitanium
+  cost: 15
+  maxCount: 15
+  minimumShopLevel: 4
 
 - type: repairReward
   id: RepairOrderHighPowerCellReward
@@ -475,12 +475,10 @@
   - RepairOrderIngotTungstenReward
   - RepairOrderPlasteelReward
   - RepairOrderPlasmaGlassReward
-  - RepairOrderTitaniumReward
   - RepairOrderPlasmaReward
   - RepairOrderUraniumGlassReward
   - RepairOrderReinforcedGlassReward
   - RepairOrderTungstenReward
-  - RepairOrderPlastitaniumReward
   - RepairOrderSilverReward
   - RepairOrderRcdAmmoReward
   - RepairOrderShuttleConsoleBoardReward
@@ -506,6 +504,8 @@
   - RepairOrderJawsOfLifeReward
   - RepairOrderAdvancedWelderReward
   - RepairOrderClothingBackpackRIGEngineerReward
+  - RepairOrderTitaniumReward
+  - RepairOrderPlastitaniumReward
   - RepairOrderHighPowerCellReward
   - RepairOrderMeteorDefenseTargetingModuleReward
   - RepairOrderMicroreactorCellReward

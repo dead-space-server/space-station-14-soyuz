@@ -422,12 +422,14 @@ namespace Content.Server.Atmos.EntitySystems
         /// to the target. This may return negative if you have your mixtures swapped.</returns>
         /// <remarks>Note that this method doesn't take into account the heat capacity of the
         /// transferred volume causing a pressure rise in the target <see cref="GasMixture"/>.</remarks>
-        [PublicAPI]
-        public static float FractionToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
-        {
-            var molesToTransfer = MolesToMaxPressure(mix1, mix2, targetPressure);
-            return molesToTransfer / mix1.TotalMoles;
-        }
+        // DS14-Soyuz-start
+        // [PublicAPI]
+        // public static float FractionToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
+        // {
+        //     var molesToTransfer = MolesToMaxPressure(mix1, mix2, targetPressure);
+        //     return molesToTransfer / mix1.TotalMoles;
+        // }
+        // DS14-Soyuz-end
 
         /// <summary>
         /// Determines the number of moles to be removed and transferred from a source
@@ -442,54 +444,56 @@ namespace Content.Server.Atmos.EntitySystems
         /// <returns>The difference in moles required to reach the target pressure.</returns>
         /// <remarks>Note that this method doesn't take into account the heat capacity of the
         /// transferred volume causing a pressure rise in the target <see cref="GasMixture"/>.</remarks>
-        [PublicAPI]
-        public static float MolesToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
-        {
-            /*
-             Calculate the moles required to reach the target pressure.
-             The formula is derived from the ideal gas law and the
-             general Richman's law, under the simplification that all the specific heat capacities are equal.
-             Derivation can also be seen at
-             https://github.com/space-wizards/space-station-14/pull/35211/files/a0ae787fe07a4e792570f55b49d9dd8038eb6e4d#r1961183456
-             TODO ATMOS Make this properly obey the heat capacity change on the target mixture.
+        // DS14-Soyuz-start
+        // [PublicAPI]
+        // public static float MolesToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
+        // {
+        /*
+         Calculate the moles required to reach the target pressure.
+         The formula is derived from the ideal gas law and the
+         general Richman's law, under the simplification that all the specific heat capacities are equal.
+         Derivation can also be seen at
+         https://github.com/space-wizards/space-station-14/pull/35211/files/a0ae787fe07a4e792570f55b49d9dd8038eb6e4d#r1961183456
+         TODO ATMOS Make this properly obey the heat capacity change on the target mixture.
 
-             Derivation is as follows.
-             Assume A is mix1, B is mix2, C is the combined mixture after transfer.
-             We can express the number of moles in C:
-             n_C = n_A + n_B
+         Derivation is as follows.
+         Assume A is mix1, B is mix2, C is the combined mixture after transfer.
+         We can express the number of moles in C:
+         n_C = n_A + n_B
 
-             We can then determine the temperature of C:
-             T_C = \frac{T_A n_A c_A + T_B n_B c_B}{n_A c_A + n_B c_B}
+         We can then determine the temperature of C:
+         T_C = \frac{T_A n_A c_A + T_B n_B c_B}{n_A c_A + n_B c_B}
 
-             Where c_A and c_B are the specific heats of mixtures A and B, respectively.
-             We can then express the pressure of C:
-             P_C = \frac{n_C R T_C}{V_C}
+         Where c_A and c_B are the specific heats of mixtures A and B, respectively.
+         We can then express the pressure of C:
+         P_C = \frac{n_C R T_C}{V_C}
 
-             Using the above equations, we can express P_C as follows:
-             P_C = \frac{(n_A + n_B) R (\frac{T_a n_A + T_B n_B}{n_A + n_B}}{V_C}
+         Using the above equations, we can express P_C as follows:
+         P_C = \frac{(n_A + n_B) R (\frac{T_a n_A + T_B n_B}{n_A + n_B}}{V_C}
 
-             Which can be reduced to:
-             P_C = \frac{R (T_A n_A + T_B n_B)}{V_C}
+         Which can be reduced to:
+         P_C = \frac{R (T_A n_A + T_B n_B)}{V_C}
 
-             Solving for n_A gives:
-             n_A = \frac{P_C V_C - R T_B n_B}{R T_A}
+         Solving for n_A gives:
+         n_A = \frac{P_C V_C - R T_B n_B}{R T_A}
 
-             Using the ideal gas law to substitute:
-             n_A = \frac{P_C V_C - P_B V_B}{R T_A}
+         Using the ideal gas law to substitute:
+         n_A = \frac{P_C V_C - P_B V_B}{R T_A}
 
-             The output volume doesn't change:
-             V_B = V_C
+         The output volume doesn't change:
+         V_B = V_C
 
-             So:
-             n_A = \frac{(P_C - P_B) V_B}{R T_A}
-             */
+         So:
+         n_A = \frac{(P_C - P_B) V_B}{R T_A}
+         */
 
-            var delta = targetPressure - mix2.Pressure;
-            var requiredMoles = (delta * mix2.Volume) / (mix1.Temperature * Atmospherics.R);
+        //    var delta = targetPressure - mix2.Pressure;
+        //    var requiredMoles = (delta * mix2.Volume) / (mix1.Temperature * Atmospherics.R);
 
-            // Return the fraction of moles to transfer.
-            return requiredMoles;
-        }
+        // Return the fraction of moles to transfer.
+        //    return requiredMoles;
+        // }
+        // DS14-Soyuz-end
 
         /// <summary>
         /// Determines the number of moles that need to be removed from a <see cref="GasMixture"/> to reach a target pressure threshold.

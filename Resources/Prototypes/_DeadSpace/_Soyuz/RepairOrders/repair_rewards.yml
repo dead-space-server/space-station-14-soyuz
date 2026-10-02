@@ -49,6 +49,13 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderClothReward
+  entity: MaterialCloth
+  cost: 2
+  maxCount: 15
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderIngotTungstenReward
   entity: IngotTungsten
   cost: 2
@@ -507,6 +514,7 @@
   - RepairOrderSteelReward
   - RepairOrderGlassReward
   - RepairOrderWoodPlankReward
+  - RepairOrderClothReward
   - RepairOrderIngotTungstenReward
   - RepairOrderPlasteelReward
   - RepairOrderPlasmaGlassReward

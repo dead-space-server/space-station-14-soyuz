@@ -1,8 +1,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackRIGSecurity
-  name: модифицированный боевой рюкзак брига
-  description: Повышенной вместительности рюкзак с функцией РИГ промышленного производства для станционной службы безопасности.
+  name: модифицированный боевой рюкзак милиции #DS14-Souyz
+  description: Повышенной вместительности рюкзак с функцией РИГ промышленного производства для совесткой гражданской милиции. #DS14-Souyz
   components:
   - type: Storage
     grid:
@@ -11,7 +11,7 @@
     equipDelay: 1.5
     unequipDelay: 1.5
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Standart/backpack.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Standart/backpack.rsi  #DS14-Souyz
     scale: 0.8, 0.8
   - type: ClothingSpeedModifier
     walkModifier: 1
@@ -30,13 +30,13 @@
 - type: entity
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterRIGSecurity
-  name: боевой офицерский скафандр
+  name: боевой скафандр милиции #DS14-Souyz
   description: Хочу, чтобы имя моё стерегло страхом наши границы крепче цепей и укреплений.
   components:
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Standart/outer.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Standart/outer.rsi #DS14-Souyz 
   - type: Clothing
-    sprite: _DeadSpace/RIGs/Security/Standart/outer.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Standart/outer.rsi #DS14-Souyz
     equipSound: /Audio/_DeadSpace/Misc/rig_equip.ogg
   - type: PressureProtection
     highPressureMultiplier: 0.02
@@ -65,14 +65,14 @@
 - type: entity
   parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetRIGSecurity
-  name: шлем боевого офицерского скафандра
+  name: шлем боевого офицерского скафандра #DS14-Souyz
   description: The Love I Lost - Fried by Fluoride.
   components:
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Standart/helmet.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Standart/helmet.rsi #DS14-Souyz
     scale: 0.7, 0.7
   - type: Clothing
-    sprite: _DeadSpace/RIGs/Security/Standart/helmet.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Standart/helmet.rsi #DS14-Souyz
   - type: PressureProtection
     highPressureMultiplier: 0.08
     lowPressureMultiplier: 1000
@@ -94,8 +94,8 @@
 - type: entity
   parent: ClothingBackpack
   id: ClothingBackpackRIGSecurityAdvanced
-  name: продвинутый модифицированный боевой рюкзак брига
-  description: Повышенной вместительности рюкзак с функцией РИГ промышленного производства для станционной службы безопасности.
+  name: продвинутый модифицированный боевой рюкзак милиции #DS14-Souyz
+  description: Повышенной вместительности рюкзак с функцией РИГ промышленного производства для совесткой гражданской милиции. #DS14-Souyz
   components:
   - type: Storage
     grid:
@@ -104,7 +104,7 @@
     equipDelay: 1
     unequipDelay: 1
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Advanced/backpack.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Advanced/backpack.rsi #DS14-Souyz
     scale: 0.8, 0.8
   - type: ClothingSpeedModifier
     walkModifier: 1
@@ -123,13 +123,13 @@
 - type: entity
   parent: ClothingOuterHardsuitBase
   id: ClothingOuterRIGSecurityAdvanced
-  name: продвинутый боевой офицерский скафандр
+  name: продвинутый боевой скафандр милиции #DS14-Souyz
   description: Хочу, чтобы имя моё стерегло страхом наши границы крепче цепей и укреплений.
   components:
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Advanced/outer.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Advanced/outer.rsi #DS14-Souyz
   - type: Clothing
-    sprite: _DeadSpace/RIGs/Security/Advanced/outer.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Advanced/outer.rsi #DS14-Souyz
     equipSound: /Audio/_DeadSpace/Misc/rig_equip.ogg
   - type: PressureProtection
     highPressureMultiplier: 0.02
@@ -158,14 +158,14 @@
 - type: entity
   parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetRIGSecurityAdvanced
-  name: шлем продвинутого боевого офицерского скафандра
+  name: шлем продвинутого боевого скафандра милиции #DS14-Souyz
   description: Честно, тут должно быть что-то написано.
   components:
   - type: Sprite
-    sprite: _DeadSpace/RIGs/Security/Advanced/helmet.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Advanced/helmet.rsi #DS14-Souyz
     scale: 0.7, 0.7
   - type: Clothing
-    sprite: _DeadSpace/RIGs/Security/Advanced/helmet.rsi
+    sprite: _DeadSpace/_Soyuz/RIGs/Security/Advanced/helmet.rsi #DS14-Souyz
   - type: PressureProtection
     highPressureMultiplier: 0.08
     lowPressureMultiplier: 1000

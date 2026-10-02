@@ -1,0 +1,14 @@
+- type: reagent
+  id: Morby
+  name: Морби
+  parent: BaseAlcohol
+  desc:  Странная смесь, пахнет морем и чем-то ещё непонятным. Говорят, что её придумала какая-то странная чудачка, которая продавала её в бутылках из-под спейс-колы. Пить её или нет - решать тебе, но помни, что она может быть опасной для здоровья.
+  physicalDesc: Крепко пахнущее, ярко-голубое
+  flavor: morby
+  color: "#005fa8"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/morby.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 5
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false

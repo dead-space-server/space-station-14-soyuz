@@ -1,9 +1,9 @@
 - type: reagent
   id: Morby
-  name: Морби
+  name: reagent-name-morbi
   parent: BaseAlcohol
-  desc:  Странная смесь, пахнет морем и чем-то ещё непонятным. Говорят, что её придумала какая-то странная чудачка, которая продавала её в бутылках из-под спейс-колы. Пить её или нет - решать тебе, но помни, что она может быть опасной для здоровья.
-  physicalDesc: Крепко пахнущее, ярко-голубое
+  desc:  reagent-desc-morbi
+  physicalDesc: reagent-physical-desc-morbi
   flavor: morby
   color: "#005fa8"
   metamorphicSprite:

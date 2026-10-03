@@ -2,6 +2,7 @@
   id: Ambusol
   text: "/Paperwork/StationGoal/Ambusol.xml"
   startingEquipment: CrateCommandStationGoalAmbusol
+  minPlayers: 25
   extraStamps:
     - stampedName: Наркомат ВБ
       stampedColor: "#505050"

@@ -57,3 +57,8 @@ ghost-bar-costume-ClothingOuterCoatGhostBarViolet = Фиолетовая кос�
 ghost-bar-costume-ClothingNeckGhostBarBlueScarf = Голубой космо-шарф
 ghost-bar-costume-ClothingNeckGhostBarOrangeScarf = Оранжевый космо-шарф
 ghost-bar-costume-ClothingNeckGhostBarWhiteScarf = Белоснежный космо-шарф
+
+# Наплечные мантии
+ghost-bar-costume-ClothingNeckGhostBarBlueMantleShoulder = Голубая наплечная космо-мантия
+ghost-bar-costume-ClothingNeckGhostBarOrangeMantleShoulder = Оранжевая наплечная космо-мантия
+ghost-bar-costume-ClothingNeckGhostBarVioletMantleShoulder = Фиолетовая наплечная космо-мантия

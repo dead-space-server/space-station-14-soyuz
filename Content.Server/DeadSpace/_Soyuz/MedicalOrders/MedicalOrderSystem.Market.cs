@@ -10,18 +10,39 @@ namespace Content.Server.DeadSpace._Soyuz.MedicalOrders;
 
 public sealed partial class MedicalOrderSystem
 {
+    private readonly Dictionary<string, Dictionary<string, decimal>> _marketBasePrices = new();
+
+    private decimal GetMarketBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
+    {
+        if (config.MarketBasePriceMin is not { } minimum || config.MarketBasePriceMax is not { } maximum)
+            return entry.BasePrice;
+
+        if (!_marketBasePrices.TryGetValue(config.ID, out var prices))
+        {
+            var minimumCents = (int) decimal.Ceiling(minimum * 100m);
+            var maximumCents = (int) decimal.Floor(maximum * 100m);
+            prices = new Dictionary<string, decimal>();
+            foreach (var reagent in config.MarketReagents)
+                prices.Add(reagent.Reagent.Id, _random.Next(minimumCents, maximumCents + 1) / 100m);
+            _marketBasePrices.Add(config.ID, prices);
+        }
+
+        return prices[entry.Reagent.Id];
+    }
+
     /// <summary>
     /// Integrates the declining price over the entire delivery, including the minimum-price tail.
     /// Integrating instead of multiplying by the opening price prevents gains from splitting a delivery.
     /// </summary>
     public static (decimal Points, decimal Reputation) GetMarketReturn(
-        MedicalReagentMarketEntry entry, decimal pressure, decimal volume)
+        MedicalReagentMarketEntry entry, decimal pressure, decimal volume, decimal? basePrice = null)
     {
+        var openingPrice = basePrice ?? entry.BasePrice;
         var remainingDemand = Math.Max(0m, entry.SaturationVolume - pressure);
         var decliningVolume = Math.Min(volume, remainingDemand);
-        var points = entry.MinimumPrice * volume + (entry.BasePrice - entry.MinimumPrice) *
+        var points = entry.MinimumPrice * volume + (openingPrice - entry.MinimumPrice) *
             decliningVolume * (remainingDemand - decliningVolume / 2m) / entry.SaturationVolume;
-        return (points, points * entry.ReputationPerUnit / entry.BasePrice);
+        return (points, points * entry.ReputationPerUnit / openingPrice);
     }
 
     public static decimal RecoverMarketPressure(MedicalReagentMarketEntry entry,
@@ -53,16 +74,17 @@ public sealed partial class MedicalOrderSystem
         var accepted = FixedPoint2.Zero;
         foreach (var entry in config.MarketReagents.Where(r => r.Enabled))
         {
+            var basePrice = GetMarketBasePrice(config, entry);
             var pressure = GetMarketPressure(state, entry);
-            var price = entry.BasePrice - (entry.BasePrice - entry.MinimumPrice) *
+            var price = basePrice - (basePrice - entry.MinimumPrice) *
                 Math.Min(pressure / entry.SaturationVolume, 1m);
             var amount = solution?.GetTotalPrototypeQuantity(entry.Reagent) ?? FixedPoint2.Zero;
-            var reward = GetMarketReturn(entry, pressure, amount.Value / 100m);
+            var reward = GetMarketReturn(entry, pressure, amount.Value / 100m, basePrice);
             totalPoints += reward.Points;
             totalReputation += reward.Reputation;
             accepted += amount;
             views.Add(new MedicalReagentMarketView(entry.Reagent.Id, (double) price,
-                (double) (price * entry.ReputationPerUnit / entry.BasePrice), amount.Float()));
+                (double) (price * entry.ReputationPerUnit / basePrice), amount.Float()));
         }
 
         points = (long) Math.Min(decimal.Floor(totalPoints), long.MaxValue - state.Points);
@@ -108,7 +130,7 @@ public sealed partial class MedicalOrderSystem
                 sold = true;
                 var pressure = GetMarketPressure(state, entry);
                 var volume = removed.Value / 100m;
-                var reward = GetMarketReturn(entry, pressure, volume);
+                var reward = GetMarketReturn(entry, pressure, volume, GetMarketBasePrice(config, entry));
                 totalPoints += reward.Points;
                 totalReputation += reward.Reputation;
                 demand[entry.Reagent.Id] = new MedicalReagentMarketDemand

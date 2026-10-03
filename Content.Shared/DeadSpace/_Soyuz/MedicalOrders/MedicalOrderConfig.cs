@@ -27,6 +27,8 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField(required: true)] public ProtoId<RandomHumanoidSettingsPrototype> PatientRandomHumanoidSettings;
     [DataField(required: true)] public EntProtoId PatientGown;
     [DataField(required: true)] public EntProtoId DeliveryContainer;
+    [DataField] public decimal? MarketBasePriceMin;
+    [DataField] public decimal? MarketBasePriceMax;
     [DataField(required: true)] public List<MedicalReagentMarketEntry> MarketReagents = new();
     [DataField(required: true)] public List<MedicalOrderDamage> Damages = new();
     [DataField(required: true)] public List<MedicalOrderDifficulty> Difficulties = new();
@@ -50,6 +52,15 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
                 r.SaturationVolume <= 0 || r.SaturationVolume > 1000000 ||
                 r.RecoveryPerMinute <= 0 || r.RecoveryPerMinute > 1000000))
             throw new InvalidDataException($"Medical orders config {ID} has an invalid reagent market.");
+
+        if (MarketBasePriceMin != null || MarketBasePriceMax != null)
+        {
+            if (MarketBasePriceMin is not { } minimum || MarketBasePriceMax is not { } maximum ||
+                minimum <= 0 || maximum > 1000000 || minimum > maximum ||
+                decimal.Ceiling(minimum * 100m) > decimal.Floor(maximum * 100m) ||
+                MarketReagents.Any(r => r.MinimumPrice > minimum))
+                throw new InvalidDataException($"Medical orders config {ID} has an invalid market base price range.");
+        }
 
         if (Damages.Count(d => d.CanGenerate) < MinDamageEntries ||
             Damages.GroupBy(d => d.DamageType).Any(g => g.Count() != 1) ||

@@ -62,6 +62,11 @@
     kind: PatientReceiver
   - type: Machine
     board: SoyuzMedicalPatientReceiverMachineCircuitboard
+  - type: Construction
+    containers:
+    - machine_parts
+    - machine_board
+    - entity_storage
   - type: EmptyOnMachineDeconstruct
     containers:
     - entity_storage
@@ -98,6 +103,11 @@
     kind: PatientSender
   - type: Machine
     board: SoyuzMedicalPatientSenderMachineCircuitboard
+  - type: Construction
+    containers:
+    - machine_parts
+    - machine_board
+    - entity_storage
   - type: EmptyOnMachineDeconstruct
     containers:
     - entity_storage

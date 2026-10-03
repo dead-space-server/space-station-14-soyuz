@@ -15,6 +15,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace._Soyuz.MedicalOrders;
 using Content.Shared.FixedPoint;
+using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
@@ -57,6 +58,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     {
         base.Initialize();
         _sawmill = _logManager.GetSawmill("medical_orders");
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _marketBasePrices.Clear());
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentStartup>(OnMachineStartup);
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentShutdown>(OnMachineShutdown);
         SubscribeLocalEvent<MedicalOrderStationComponent, ComponentShutdown>(OnStationShutdown);

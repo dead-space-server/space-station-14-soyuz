@@ -2030,3 +2030,10 @@ Entries:
     message: Химическая биржа, строится из платы у ГВ
   - type: Tweak
     message: Система портативных раций
+- id: 192
+  author: Ezio50
+  time: '2026-10-03T20:59:58.568937+00:00'
+  pr: 512
+  changes:
+  - type: Tweak
+    message: Репутация хим. биржы

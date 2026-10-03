@@ -18913,8 +18913,6 @@ entities:
       pos: -21.5,76.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 94
   - uid: 555
@@ -18923,8 +18921,7 @@ entities:
       pos: -19.5,72.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
+
       deviceLists:
       - 94
 - proto: AltarToolbox
@@ -22680,10 +22677,6 @@ entities:
           - 1114
           - 1115
           - 1116
-    - type: UserInterface
-      actors:
-        enum.StorageUiKey.Key:
-        - invalid
     - type: ActiveUserInterface
   - uid: 1117
     components:
@@ -82851,8 +82844,7 @@ entities:
       pos: -18.5,65.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
+
       deviceLists:
       - 94
   - uid: 10703
@@ -82861,8 +82853,7 @@ entities:
       pos: -22.5,68.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
+
       deviceLists:
       - 94
   - uid: 10704
@@ -82871,8 +82862,7 @@ entities:
       pos: -20.5,70.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
+
       deviceLists:
       - 94
   - uid: 10705
@@ -82881,8 +82871,6 @@ entities:
       pos: -21.5,75.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 94
   - uid: 10706
@@ -120366,11 +120354,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 4529.2569669
-      thrownTime: 4529.2288041
-      thrower: invalid
 - proto: OrganHumanEyes
   entities:
   - uid: 15379
@@ -120432,11 +120415,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 4558.6300771
-      thrownTime: 4558.5954414
-      thrower: invalid
 - proto: OxygenCanister
   entities:
   - uid: 15382
@@ -121274,11 +121252,6 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-    - type: ThrownItem
-      playLandSound: True
-      landTime: 3748.8893916
-      thrownTime: 3748.8629178
-      thrower: invalid
   - uid: 23241
     components:
     - type: Transform
@@ -133134,8 +133107,6 @@ entities:
       pos: -19.5,77.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
   - uid: 16964
     components:
     - type: Transform
@@ -133143,8 +133114,6 @@ entities:
       pos: -19.5,76.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
   - uid: 16965
     components:
     - type: Transform
@@ -133152,8 +133121,6 @@ entities:
       pos: -23.5,76.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
   - uid: 16966
     components:
     - type: Transform
@@ -133161,8 +133128,6 @@ entities:
       pos: -23.5,77.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
   - uid: 16967
     components:
     - type: Transform
@@ -133449,8 +133414,6 @@ entities:
       pos: -20.5,75.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
     - type: DeviceLinkSource
       linkedPorts:
         16964:

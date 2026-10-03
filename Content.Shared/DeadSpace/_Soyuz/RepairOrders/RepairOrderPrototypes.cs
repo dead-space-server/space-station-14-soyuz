@@ -137,6 +137,12 @@ public sealed partial class RepairEntitySelector
     [DataField]
     public List<EntProtoId> Parents = new();
 
+    /// <summary>
+    /// Include abstract prototypes when traversing parent families.
+    /// </summary>
+    [DataField]
+    public bool IncludeAbstractParents;
+
     [DataField]
     public List<ProtoId<TagPrototype>> AllTags = new();
 

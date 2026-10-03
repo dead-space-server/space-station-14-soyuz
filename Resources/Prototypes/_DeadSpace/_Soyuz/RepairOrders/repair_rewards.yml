@@ -275,7 +275,7 @@
 - type: repairReward
   id: RepairOrderRcdReward
   entity: RCD
-  cost: 54
+  cost: 30
   maxCount: 1
   minimumShopLevel: 3
 
@@ -360,7 +360,7 @@
 - type: repairReward
   id: RepairOrderRCDSyndicateReward
   entity: RCDSyndicate
-  cost: 30
+  cost: 50
   maxCount: 1
   minimumShopLevel: 5
   classified: true
@@ -375,14 +375,14 @@
 - type: repairReward
   id: RepairOrderChiefEngineerBeltReward
   entity: ClothingBeltChiefEngineerFilled
-  cost: 236
+  cost: 336
   maxCount: 1
   minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
   entity: RCDRecharging
-  cost: 201
+  cost: 301
   maxCount: 1
   minimumShopLevel: 5
 

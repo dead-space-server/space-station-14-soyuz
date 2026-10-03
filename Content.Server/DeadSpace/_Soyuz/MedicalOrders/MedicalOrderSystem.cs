@@ -740,7 +740,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
             state.Busy = true;
             acquired = true;
-            var pool = kind == MedicalOrderMachineKind.Reagent ? config.ReagentShop : config.PatientShop;
+            var pool = config.Shop;
             var level = GetShopLevel(state.Reputation, config);
 
             var items = new List<EntProtoId>();
@@ -845,8 +845,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var active = patient ? state.PatientActive : state.ReagentActive;
         var completed = patient ? state.LastPatient : state.LastReagent;
         var level = GetShopLevel(state.Reputation, config);
-        var pool = machine.Kind == MedicalOrderMachineKind.Reagent ? config.ReagentShop :
-            machine.Kind == MedicalOrderMachineKind.PatientSender ? config.PatientShop : null;
+        var pool = machine.Kind == MedicalOrderMachineKind.PatientReceiver ? null : config.Shop;
         var shop = pool?.Where(i => i.Enabled).Select((i, index) => new MedicalOrderShopItemView(
             level < i.MinimumShopLevel ? $"classified-{index}" : i.ID,
             level < i.MinimumShopLevel ? string.Empty : i.Entity.Id,

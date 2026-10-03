@@ -117,7 +117,7 @@ public sealed class TunableRadioSystem : EntitySystem
             return;
         var frequency = TryComp<TunableRadioComponent>(args.RadioReceiver, out var tuning) && IsTunable(args.RadioReceiver)
             ? tuning.Frequency : _prototypes.Index(TunableRadioComponent.Channel).Frequency;
-        if (frequency != args.Channel.Frequency)
+        if (frequency != args.Frequency)
             args.Cancelled = true;
     }
 

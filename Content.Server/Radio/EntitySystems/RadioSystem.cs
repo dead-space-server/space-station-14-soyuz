@@ -170,12 +170,12 @@ public sealed class RadioSystem : EntitySystem
     public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true, ResolvedSoundSpecifier? sound = null, AudioParams? soundParams = null) // DS14-Soyuz
     {
         // DS14-Soyuz start
-        if (channel.ID == TunableRadioComponent.Channel.Id && TryComp<TunableRadioComponent>(radioSource, out var tuning))
-            channel = channel.WithFrequency(tuning.Frequency);
+        var frequency = channel.ID == TunableRadioComponent.Channel.Id &&
+            TryComp<TunableRadioComponent>(radioSource, out var tuning) ? tuning.Frequency : channel.Frequency;
         // DS14-Soyuz end
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         // DS14-Soyuz start
-        var messageKey = (messageSource, message, channel.ID, channel.Frequency);
+        var messageKey = (messageSource, message, channel.ID, frequency);
         if (!_messages.Add(messageKey))
             return;
 
@@ -286,10 +286,10 @@ public sealed class RadioSystem : EntitySystem
                 chatMsgLexicon = new MsgChatMessage { Message = chatLexicon };
             }
 
-            var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId, sound, soundParams); // DS14-Soyuz
+            var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId, sound, soundParams, frequency); // DS14-Soyuz
             // DS14-Languages-end
 
-            var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource); // DS14-Soyuz
+            var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource, frequency); // DS14-Soyuz
             RaiseLocalEvent(ref sendAttemptEv);
             RaiseLocalEvent(radioSource, ref sendAttemptEv);
             var canSend = !sendAttemptEv.Cancelled;
@@ -317,7 +317,7 @@ public sealed class RadioSystem : EntitySystem
                     continue;
 
                 // check if message can be sent to specific receiver
-                var attemptEv = new RadioReceiveAttemptEvent(channel, radioSource, receiver);
+                var attemptEv = new RadioReceiveAttemptEvent(channel, radioSource, receiver, frequency); // DS14-Soyuz
                 RaiseLocalEvent(ref attemptEv);
                 RaiseLocalEvent(receiver, ref attemptEv);
                 if (attemptEv.Cancelled)

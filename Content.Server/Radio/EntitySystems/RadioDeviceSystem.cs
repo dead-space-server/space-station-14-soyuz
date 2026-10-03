@@ -198,7 +198,7 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
         {
             _audio.PlayPvs(args.Sound, uid, (args.SoundParams ?? AudioParams.Default).WithVolume(-5).WithMaxDistance(3));
             _chat.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Emote,
-                ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false);
+                ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false, ignoreActionBlocker: true);
             return;
         }
         // DS14-Soyuz end

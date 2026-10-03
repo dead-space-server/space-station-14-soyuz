@@ -89,9 +89,9 @@
   marketReagents:
   - reagent: Actiradol
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Ambuzol
@@ -110,16 +110,16 @@
     recoveryPerMinute: 10
   - reagent: Arcryox
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Arithrazine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: AshWalkerBloodTonic
@@ -131,23 +131,23 @@
     recoveryPerMinute: 10
   - reagent: Barozine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Bicaridine
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Bruizine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Cognizine
@@ -159,23 +159,23 @@
     recoveryPerMinute: 10
   - reagent: Cryoxadone
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Cryptobiolin
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Dermaline
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Derytracine
@@ -187,23 +187,23 @@
     recoveryPerMinute: 10
   - reagent: Dexalin
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: DexalinPlus
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Diphenhydramine
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Diphenylmethylamine
@@ -215,16 +215,16 @@
     recoveryPerMinute: 10
   - reagent: Doxarubixadone
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Dylovene
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Epinephrine
@@ -257,23 +257,23 @@
     recoveryPerMinute: 10
   - reagent: FriogeliyevaKislota
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Haloperidol
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Heparin
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Holywater
@@ -285,37 +285,37 @@
     recoveryPerMinute: 10
   - reagent: Hyronalin
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Inaprovaline
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Infectizine
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Insuzine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Ipecac
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Karachnocid
@@ -327,37 +327,37 @@
     recoveryPerMinute: 10
   - reagent: Kelotane
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Lacerinol
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Leporazine
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Lipozine
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Mycocline
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Necrosol
@@ -383,9 +383,9 @@
     recoveryPerMinute: 10
   - reagent: Oculine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Omnizine
@@ -404,16 +404,16 @@
     recoveryPerMinute: 10
   - reagent: Panacemycin
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Phalanximine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: PolypyryliumOligomers
@@ -425,16 +425,16 @@
     recoveryPerMinute: 10
   - reagent: PotassiumIodide
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Psicodine
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: PulpedBananaPeel
@@ -446,37 +446,37 @@
     recoveryPerMinute: 10
   - reagent: Puncturase
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Pyrazine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Saline
     enabled: true
-    basePrice: 0.1
-    minimumPrice: 0.01
-    reputationPerUnit: 0.02
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 0.03
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Sentidol
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Septomycin
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Siderlac
@@ -488,9 +488,9 @@
     recoveryPerMinute: 10
   - reagent: Sigynate
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: SpiderExtract
@@ -530,30 +530,30 @@
     recoveryPerMinute: 10
   - reagent: Synaptizine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Synaptodol
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: TranexamicAcid
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Tricordrazine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Ultravasculine
@@ -572,9 +572,9 @@
     recoveryPerMinute: 10
   - reagent: Virucidine
     enabled: true
-    basePrice: 0.5
-    minimumPrice: 0.05
-    reputationPerUnit: 0.1
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 0.15
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: ZetaOne
@@ -586,23 +586,23 @@
     recoveryPerMinute: 10
   - reagent: Aloxadone
     enabled: true
-    basePrice: 1
-    minimumPrice: 0.1
-    reputationPerUnit: 0.2
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 0.4
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Mannitol
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   - reagent: Pax
     enabled: true
-    basePrice: 0.25
-    minimumPrice: 0.025
-    reputationPerUnit: 0.05
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 0.075
     saturationVolume: 100
     recoveryPerMinute: 10
   damages:

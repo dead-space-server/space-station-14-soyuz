@@ -6,7 +6,7 @@
   icon:
     sprite: Objects/Tools/handdrill.rsi
     state: handdrill
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -25,7 +25,7 @@
   icon:
     sprite: Objects/Tools/handheld_mass_scanner.rsi
     state: icon
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -39,7 +39,7 @@
   icon:
     sprite: Structures/Power/turbo_recharger.rsi
     state: empty
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -53,7 +53,7 @@
   icon:
     sprite: Structures/Machines/flatpacker.rsi
     state: base
-  discipline: Industrial
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -65,7 +65,7 @@
   icon:
     sprite: Structures/Machines/protolathe_hypercon.rsi
     state: building
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -81,7 +81,7 @@
   icon:
     sprite: Structures/Power/Generation/portable_generator.rsi
     state: portgen0
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -99,7 +99,7 @@
   icon:
     sprite: Structures/Piping/Atmospherics/thermomachine.rsi
     state: freezerOff
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -112,7 +112,7 @@
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
     state: ripley
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -133,7 +133,7 @@
   icon:
     sprite: Clothing/Eyes/Hud/diag.rsi
     state: icon
-  discipline: Industrial
+  discipline: Medical #DS14-Soyuz
   tier: 2
   cost: 7000
   recipeUnlocks:
@@ -152,7 +152,7 @@
   icon:
     sprite: Structures/Shuttles/gyroscope.rsi
     state: base
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -167,7 +167,7 @@
   icon:
     sprite: Objects/Devices/Holoprojectors/atmos.rsi
     state: icon
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -183,7 +183,7 @@
   icon:
     sprite: Objects/Tools/welder_experimental.rsi
     state: icon
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -201,7 +201,7 @@
   icon:
     sprite: Objects/Tools/handdrilldiamond.rsi
     state: handdrill
-  discipline: Industrial
+  discipline: Cargo #DS14-Soyuz
   tier: 2
   cost: 12500
   recipeUnlocks:
@@ -222,7 +222,7 @@
   icon:
     sprite: Clothing/Back/Backpacks/holding.rsi
     state: holding
-  discipline: Industrial
+  discipline: RND #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -237,7 +237,7 @@
   icon:
     sprite: Objects/Power/power_cells.rsi
     state: microreactor
-  discipline: Industrial
+  discipline: Engineering #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:

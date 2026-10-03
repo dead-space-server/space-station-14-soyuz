@@ -1219,6 +1219,14 @@
   - XenoborgDeflectorField
 
 - type: repairValueExclusion
+  id: RepairExcludeArcadeMachines
+  reason: Arcade machines should remain intact and outside repair requirements.
+  entities:
+  - BlockGameArcade
+  - SpaceVillainArcade
+  - SpaceVillainArcadeFilled
+
+- type: repairValueExclusion
   id: RepairExcludeGasMiners
   reason: Gas miners should not be procedurally damaged or included in repair requirements.
   entities:

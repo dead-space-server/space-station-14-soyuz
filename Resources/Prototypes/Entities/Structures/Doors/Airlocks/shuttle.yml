@@ -11,6 +11,9 @@
     ports:
       - DoorStatus
       - DockStatus
+    # DS14-Soyuz-start
+    range: 1000
+    # DS14-Soyuz-end
   - type: Fixtures
     fixtures:
       fix1:

@@ -37,6 +37,11 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
+  # DS14-Soyuz start: Match the buildable fireplace to its construction graph.
+  - type: Construction
+    graph: SoyuzFireplace
+    node: fireplace
+  # DS14-Soyuz end
   - type: Destructible
     thresholds:
       - trigger:

@@ -33,8 +33,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField(required: true)] public List<MedicalOrderReagent> Reagents = new();
     [DataField(required: true)] public List<MedicalOrderDamage> Damages = new();
     [DataField(required: true)] public List<MedicalOrderDifficulty> Difficulties = new();
-    [DataField(required: true)] public List<MedicalOrderShopItem> ReagentShop = new();
-    [DataField(required: true)] public List<MedicalOrderShopItem> PatientShop = new();
+    [DataField(required: true)] public List<MedicalOrderShopItem> Shop = new();
     [DataField(required: true)] public List<int> ShopLevelThresholds = new();
     [DataField(required: true)] public List<MedicalOrderQualityBand> QualityBands = new();
 
@@ -79,7 +78,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
             throw new InvalidDataException($"Medical orders config {ID} has generated scores outside difficulty ranges.");
 
         if (ShopLevelThresholds.Count == 0 || ShopLevelThresholds[0] != 0 ||
-            ReagentShop.Count == 0 || PatientShop.Count == 0)
+            Shop.Count == 0)
             throw new InvalidDataException($"Medical orders config {ID} has an empty shop.");
 
         for (var i = 1; i < ShopLevelThresholds.Count; i++)
@@ -88,13 +87,10 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
                 throw new InvalidDataException($"Medical orders config {ID} has unordered shop levels.");
         }
 
-        foreach (var shop in new[] { ReagentShop, PatientShop })
-        {
-            if (shop.GroupBy(i => i.ID).Any(g => g.Count() != 1) ||
-                shop.Any(i => i.Cost <= 0 || i.MaxCount <= 0 || i.MinimumShopLevel < 1 ||
-                              i.MinimumShopLevel > ShopLevelThresholds.Count))
-                throw new InvalidDataException($"Medical orders config {ID} has invalid shop items.");
-        }
+        if (Shop.GroupBy(i => i.ID).Any(g => g.Count() != 1) ||
+            Shop.Any(i => i.Cost <= 0 || i.MaxCount <= 0 || i.MinimumShopLevel < 1 ||
+                          i.MinimumShopLevel > ShopLevelThresholds.Count))
+            throw new InvalidDataException($"Medical orders config {ID} has invalid shop items.");
 
         var next = 0;
         foreach (var band in QualityBands)

@@ -1325,7 +1325,9 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         if (selector.Parents.Count > 0 &&
-            !selector.Parents.Any(parent => IsPrototypeOrDescendant(prototype.ID, parent.Id)))
+            !selector.Parents.Any(parent => selector.IncludeAbstractParents
+                ? IsPrototypeOrDescendantIncludingAbstract(prototype.ID, parent.Id)
+                : IsPrototypeOrDescendant(prototype.ID, parent.Id)))
         {
             return false;
         }
@@ -1373,6 +1375,12 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         return false;
     }
 
+    private bool IsPrototypeOrDescendantIncludingAbstract(string prototypeId, string parentId)
+    {
+        return _prototype.EnumerateAllParents<EntityPrototype>(prototypeId, includeSelf: true)
+            .Any(parent => parent.id == parentId);
+    }
+
     private bool ValidateSelector(string profile, RepairEntitySelector selector, string ruleType)
     {
         if (selector.Entities.Count == 0 &&
@@ -1385,13 +1393,25 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             return false;
         }
 
-        foreach (var entity in selector.Entities.Concat(selector.Parents))
+        foreach (var entity in selector.Entities)
         {
             if (_prototype.HasIndex<EntityPrototype>(entity))
                 continue;
 
             _sawmill.Warning(
                 $"Repair score profile {profile} contains a {ruleType} selector with missing entity prototype {entity}; the rule is ignored.");
+            return false;
+        }
+
+        foreach (var parent in selector.Parents)
+        {
+            if (_prototype.HasIndex<EntityPrototype>(parent) ||
+                selector.IncludeAbstractParents &&
+                _prototype.EnumerateAllParents<EntityPrototype>(parent.Id, includeSelf: true).Any())
+                continue;
+
+            _sawmill.Warning(
+                $"Repair score profile {profile} contains a {ruleType} selector with missing entity prototype {parent}; the rule is ignored.");
             return false;
         }
 

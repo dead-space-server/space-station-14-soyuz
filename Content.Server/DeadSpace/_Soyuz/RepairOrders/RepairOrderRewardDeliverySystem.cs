@@ -152,6 +152,8 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         var anchor = new RepairOrderDeliveryAnchor(consoleTransform.Coordinates, console,
             $"medical orders console {ToPrettyString(console)}", IncludeOrigin: false);
         var attempt = new RepairOrderDelivery(key);
+        if (!_deliveries.TryAdd(key, attempt))
+            return false;
         try
         {
             if (!TryCreateDeliveryContainer(anchor, containerPrototype, "medical orders", attempt,
@@ -180,11 +182,28 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                     _transform.SetCoordinates(item, Transform(currentContainer).Coordinates);
                 }
 
-                if (!_entityStorage.Insert(item, currentContainer, storage))
+                if (!_entityStorage.Insert(item, currentContainer, storage) || storage.Open ||
+                    !storage.Contents.ContainedEntities.Contains(item))
                     throw new InvalidOperationException($"Cannot insert {entityId} into medical delivery.");
             }
 
-            _deliveries.Add(key, attempt);
+            var contained = new HashSet<EntityUid>();
+            foreach (var container in attempt.ContainersInternal)
+            {
+                if (!Exists(container) || Terminating(container) || EntityManager.IsQueuedForDeletion(container) ||
+                    !TryComp<EntityStorageComponent>(container, out var containerStorage) || containerStorage.Open)
+                    throw new InvalidOperationException("The prepared medical delivery container is unavailable.");
+
+                contained.UnionWith(containerStorage.Contents.ContainedEntities);
+            }
+
+            foreach (var item in attempt.RewardEntities)
+            {
+                if (!Exists(item) || Terminating(item) || EntityManager.IsQueuedForDeletion(item) ||
+                    !contained.Contains(item))
+                    throw new InvalidOperationException("The prepared medical delivery item is unavailable.");
+            }
+
             delivery = attempt;
             return true;
         }

@@ -1,10 +1,11 @@
 - type: entity
   abstract: true
-  parent: BaseMachinePowered
+  parent: [BaseMachinePowered, ConstructibleMachine]
   id: SoyuzMedicalOrderMachineBase
   placement:
     mode: SnapgridCenter
   components:
+  - type: WiresPanel
   - type: ActivatableUI
     key: enum.MedicalOrderUiKey.Key
   - type: ActivatableUIRequiresPower
@@ -28,15 +29,19 @@
 - type: entity
   parent: SoyuzMedicalOrderMachineBase
   id: SoyuzMedicalReagentOrderMachine
-  name: medical reagent order terminal
-  description: Accepts chemistry orders and delivers medical shop purchases.
+  name: pharmaceutical exchange terminal
+  description: Buys approved medicines at market prices and delivers medical shop purchases.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_reagent_order_machine.rsi
   - type: MedicalOrderMachine
     kind: Reagent
+  - type: Machine
+    board: SoyuzMedicalReagentOrderMachineCircuitboard
   - type: ContainerContainer
     containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
       beakerSlot: !type:ContainerSlot
   - type: ItemSlots
     slots:
@@ -55,6 +60,11 @@
     sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_receiver.rsi
   - type: MedicalOrderMachine
     kind: PatientReceiver
+  - type: Machine
+    board: SoyuzMedicalPatientReceiverMachineCircuitboard
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - entity_storage
   - type: Appearance
   - type: GenericVisualizer
     visuals:
@@ -72,6 +82,8 @@
     enteringRange: 0.6
   - type: ContainerContainer
     containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
       entity_storage: !type:Container
 
 - type: entity
@@ -84,6 +96,11 @@
     sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_sender.rsi
   - type: MedicalOrderMachine
     kind: PatientSender
+  - type: Machine
+    board: SoyuzMedicalPatientSenderMachineCircuitboard
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - entity_storage
   - type: Appearance
   - type: GenericVisualizer
     visuals:
@@ -101,4 +118,51 @@
     enteringRange: 0.6
   - type: ContainerContainer
     containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
       entity_storage: !type:Container
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: SoyuzMedicalReagentOrderMachineCircuitboard
+  name: pharmaceutical exchange terminal machine board
+  description: A machine board for a pharmaceutical exchange terminal.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: SoyuzMedicalReagentOrderMachine
+    stackRequirements:
+      Manipulator: 1
+      Glass: 1
+      Cable: 1
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: SoyuzMedicalPatientReceiverMachineCircuitboard
+  name: medical patient receiver machine board
+  description: A machine board for a medical patient receiver.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: SoyuzMedicalPatientReceiver
+    stackRequirements:
+      Manipulator: 1
+      Glass: 5
+      Cable: 1
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: SoyuzMedicalPatientSenderMachineCircuitboard
+  name: medical patient sender machine board
+  description: A machine board for a medical patient sender.
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: SoyuzMedicalPatientSender
+    stackRequirements:
+      Manipulator: 1
+      Glass: 5
+      Cable: 1

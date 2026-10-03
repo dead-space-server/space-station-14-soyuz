@@ -35,4 +35,16 @@ public sealed partial class RadioChannelPrototype : IPrototype
     /// </summary>
     [DataField("longRange"), ViewVariables]
     public bool LongRange = false;
+
+    // DS14-Soyuz start
+    public RadioChannelPrototype WithFrequency(int frequency) => new()
+    {
+        ID = ID,
+        Name = Name,
+        KeyCode = KeyCode,
+        Frequency = frequency,
+        Color = Color,
+        LongRange = LongRange,
+    };
+    // DS14-Soyuz end
 }

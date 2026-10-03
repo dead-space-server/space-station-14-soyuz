@@ -14,6 +14,9 @@ using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeadSpace.Languages.Components;
+using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
+using Robust.Shared.Audio; // DS14-Soyuz
+using Robust.Shared.Audio.Systems; // DS14-Soyuz
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -28,9 +31,10 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
     [Dependency] private readonly RadioSystem _radio = default!;
     [Dependency] private readonly InteractionSystem _interaction = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!; // DS14-Soyuz
 
     // Used to prevent a shitter from using a bunch of radios to spam chat.
-    private HashSet<(string, EntityUid, RadioChannelPrototype)> _recentlySent = new();
+    private HashSet<(string, EntityUid, RadioChannelPrototype, int)> _recentlySent = new(); // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -141,10 +145,14 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
             return;
 
         var proto = _protoMan.Index<RadioChannelPrototype>(component.BroadcastChannel);
+        // DS14-Soyuz start
+        var frequency = component.BroadcastChannel == TunableRadioComponent.Channel &&
+            TryComp<TunableRadioComponent>(uid, out var tuning) ? tuning.Frequency : proto.Frequency;
+        // DS14-Soyuz end
 
         using (args.PushGroup(nameof(RadioMicrophoneComponent)))
         {
-            args.PushMarkup(Loc.GetString("handheld-radio-component-on-examine", ("frequency", proto.Frequency)));
+            args.PushMarkup(Loc.GetString("handheld-radio-component-on-examine", ("frequency", frequency))); // DS14-Soyuz
             args.PushMarkup(Loc.GetString("handheld-radio-component-chennel-examine",
                 ("channel", proto.LocalizedName)));
         }
@@ -152,11 +160,15 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
 
     private void OnListen(EntityUid uid, RadioMicrophoneComponent component, ListenEvent args)
     {
-        if (HasComp<RadioSpeakerComponent>(args.Source))
+        if (!component.Enabled || HasComp<RadioSpeakerComponent>(args.Source)) // DS14-Soyuz
             return; // no feedback loops please.
 
         var channel = _protoMan.Index<RadioChannelPrototype>(component.BroadcastChannel)!;
-        if (_recentlySent.Add((args.Message, args.Source, channel)))
+        // DS14-Soyuz start
+        var frequency = component.BroadcastChannel == TunableRadioComponent.Channel &&
+            TryComp<TunableRadioComponent>(uid, out var tuning) ? tuning.Frequency : channel.Frequency;
+        // DS14-Soyuz end
+        if (_recentlySent.Add((args.Message, args.Source, channel, frequency))) // DS14-Soyuz
             _radio.SendRadioMessage(args.Source, args.Message, channel, uid);
     }
 
@@ -171,7 +183,7 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
 
     private void OnReceiveRadio(EntityUid uid, RadioSpeakerComponent component, ref RadioReceiveEvent args)
     {
-        if (uid == args.RadioSource)
+        if (!component.Enabled || uid == args.RadioSource) // DS14-Soyuz
             return;
 
         var nameEv = new TransformSpeakerNameEvent(args.MessageSource, Name(args.MessageSource));
@@ -180,6 +192,16 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
         var name = Loc.GetString("speech-name-relay",
             ("speaker", Name(uid)),
             ("originalName", nameEv.VoiceName));
+
+        // DS14-Soyuz start
+        if (args.Sound != null)
+        {
+            _audio.PlayPvs(args.Sound, uid, (args.SoundParams ?? AudioParams.Default).WithVolume(-5).WithMaxDistance(3));
+            _chat.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Emote,
+                ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false);
+            return;
+        }
+        // DS14-Soyuz end
 
         // DS14-start
         // не совсем грамотная и верная реализация, но быстрая.

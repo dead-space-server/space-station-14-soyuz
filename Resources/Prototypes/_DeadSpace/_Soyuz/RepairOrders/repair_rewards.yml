@@ -411,9 +411,17 @@
   classified: true
 
 - type: repairReward
-  id: RepairOrderClothingNeckCloakCentcomBlackReward
-  entity: ClothingNeckCloakCentcomBlack
+  id: RepairOrderClothingNeckCloakSrReward
+  entity: ClothingNeckCloakSr
   cost: 33
+  maxCount: 1
+  minimumShopLevel: 7
+  classified: true
+
+- type: repairReward
+  id: RepairOrderClothingNeckCloakPirateCapReward
+  entity: ClothingNeckCloakPirateCap
+  cost: 44
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -565,7 +573,8 @@
   - RepairOrderClothingBackpackRIGERTEngineerReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward
-  - RepairOrderClothingNeckCloakCentcomBlackReward
+  - RepairOrderClothingNeckCloakSrReward
+  - RepairOrderClothingNeckCloakPirateCapReward
   - RepairOrderClothingEyesHudGreenBeretReward
   - RepairOrderOxygenGasMinerMachineCircuitboardReward
   - RepairOrderNitrogenGasMinerMachineCircuitboardReward

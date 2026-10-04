@@ -87,6 +87,8 @@ namespace Content.IntegrationTests.Tests
             "/Maps/_Soyuz/S1_GeneralStaff.yml",
             "/Maps/_Soyuz/generalstaff.yml",
             "/Maps/_Soyuz/Shuttles/**",
+            "/Maps/_Soyuz/Shuttles/Pilot/**",
+            "/Maps/_Soyuz/Shuttles/GenStaff/**",
             // DS14-Soyuz-end
         };
 
@@ -130,8 +132,7 @@ namespace Content.IntegrationTests.Tests
             "Gate",
             "Ishimura",
             // "Gemini", // map load failure
-            // "Loop", // map load failure
-            // "Loop",
+            "Loop", // DS14-Soyuz
             "Marathon",
             "Meta",
             "Oasis",
@@ -150,9 +151,9 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            "Aspid", // remap in progress
-            "Cluster", // invalid EntityUid reference in Storage
-            "Loop", // invalid EntityUid reference in Storage
+            // "Aspid", // DS14-Soyuz enabled
+            // "Cluster", // DS14-Soyuz enabled
+            // "Loop", // DS14-Soyuz enabled
             "Gemini", // map load failure
         };
         /// <summary>

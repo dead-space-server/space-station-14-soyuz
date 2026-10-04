@@ -1,4 +1,5 @@
-﻿using Content.Server.GameTicking;
+﻿using Content.Server.DeadSpace.CentComm;
+using Content.Server.GameTicking;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Systems;
 using Robust.Shared.Map;
@@ -31,6 +32,12 @@ public sealed class SpawnPointSystem : EntitySystem
         {
             if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
                 continue;
+
+            // DS14-Soyuz-start
+            // Temporary solution until the General Staff is completed
+            if (args.Station != null && HasComp<CentCommStationComponent>(args.Station.Value))
+                continue;
+            // DS14-Soyuz-start
 
             if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {

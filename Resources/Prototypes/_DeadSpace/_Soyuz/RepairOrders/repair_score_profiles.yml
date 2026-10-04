@@ -167,6 +167,7 @@
     mode: Exact
   - selector:
       parents: [GasPipeBase]
+      includeAbstractParents: true
     mode: Exact
 
   # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
@@ -180,6 +181,7 @@
 
   - selector:
       parents: [DisposalPipeBase]
+      includeAbstractParents: true
     mode: Exact
 
   # Directional atmos fixtures.

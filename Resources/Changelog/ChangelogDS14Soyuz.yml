@@ -2004,3 +2004,36 @@ Entries:
       (используйте мультитул)
   - type: Fix
     message: Крафты из пластитана/титана
+- id: 190
+  author: Genes1us
+  time: '2026-10-03T20:20:53.531178+00:00'
+  pr: 510
+  changes:
+  - type: Add
+    message: Сабфрейм легализован
+  - type: Add
+    message: Ограничение на количество игроков для отправки определённого плана
+  - type: Add
+    message: Наплечные мантии для гост-бара
+  - type: Remove
+    message: Аспид из пула карт до фикса всех косяков
+  - type: Remove
+    message: Второй план с выводом амбузола
+  - type: Fix
+    message: Одежду гост-бара больше нельзя разрезать
+- id: 191
+  author: Ezio50
+  time: '2026-10-03T20:26:19.826859+00:00'
+  pr: 511
+  changes:
+  - type: Add
+    message: Химическая биржа, строится из платы у ГВ
+  - type: Tweak
+    message: Система портативных раций
+- id: 192
+  author: Ezio50
+  time: '2026-10-03T20:59:58.568937+00:00'
+  pr: 512
+  changes:
+  - type: Tweak
+    message: Репутация хим. биржы

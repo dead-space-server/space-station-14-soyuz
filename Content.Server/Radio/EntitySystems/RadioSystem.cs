@@ -26,6 +26,8 @@ using System.Text.RegularExpressions;
 using Content.Shared.DeadSpace.Languages.Components;
 using Content.Server.DeadSpace.Languages;
 using Content.Shared.DeadSpace.Languages.Prototypes;
+using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
+using Robust.Shared.Audio; // DS14-Soyuz
 
 namespace Content.Server.Radio.EntitySystems;
 
@@ -46,7 +48,7 @@ public sealed class RadioSystem : EntitySystem
     [Dependency] private readonly GameTicker _gameTicker = default!; // DS14
 
     // set used to prevent radio feedback loops.
-    private readonly HashSet<string> _messages = new();
+    private readonly HashSet<(EntityUid Source, string Message, string Channel, int Frequency)> _messages = new(); // DS14-Soyuz
 
     private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
@@ -155,9 +157,9 @@ public sealed class RadioSystem : EntitySystem
     /// <summary>
     /// Send radio message to all active radio listeners
     /// </summary>
-    public void SendRadioMessage(EntityUid messageSource, string message, ProtoId<RadioChannelPrototype> channel, EntityUid radioSource, bool escapeMarkup = true)
+    public void SendRadioMessage(EntityUid messageSource, string message, ProtoId<RadioChannelPrototype> channel, EntityUid radioSource, bool escapeMarkup = true, ResolvedSoundSpecifier? sound = null, AudioParams? soundParams = null) // DS14-Soyuz
     {
-        SendRadioMessage(messageSource, message, _prototype.Index(channel), radioSource, escapeMarkup: escapeMarkup);
+        SendRadioMessage(messageSource, message, _prototype.Index(channel), radioSource, escapeMarkup: escapeMarkup, sound: sound, soundParams: soundParams); // DS14-Soyuz
     }
 
     /// <summary>
@@ -165,175 +167,189 @@ public sealed class RadioSystem : EntitySystem
     /// </summary>
     /// <param name="messageSource">Entity that spoke the message</param>
     /// <param name="radioSource">Entity that picked up the message and will send it, e.g. headset</param>
-    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true)
+    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true, ResolvedSoundSpecifier? sound = null, AudioParams? soundParams = null) // DS14-Soyuz
     {
+        // DS14-Soyuz start
+        var frequency = channel.ID == TunableRadioComponent.Channel.Id &&
+            TryComp<TunableRadioComponent>(radioSource, out var tuning) ? tuning.Frequency : channel.Frequency;
+        // DS14-Soyuz end
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
-        if (!_messages.Add(message))
+        // DS14-Soyuz start
+        var messageKey = (messageSource, message, channel.ID, frequency);
+        if (!_messages.Add(messageKey))
             return;
 
-        var evt = new TransformSpeakerNameEvent(messageSource, MetaData(messageSource).EntityName);
-        RaiseLocalEvent(messageSource, evt);
-
-        var name = evt.VoiceName;
-        name = FormattedMessage.EscapeText(name);
-
-        SpeechVerbPrototype speech;
-        if (evt.SpeechVerb != null && _prototype.Resolve(evt.SpeechVerb, out var evntProto))
-            speech = evntProto;
-        else
-            speech = _chat.GetSpeechVerb(messageSource, message);
-
-        var content = escapeMarkup
-            ? FormattedMessage.EscapeText(message)
-            : message;
-
-        // DS14-start
-
-        var headsetColor = TryComp(radioSource, out HeadsetComponent? headset) ? headset.Color : channel.Color;
-
-        var job = String.Empty;
-        if (_inventory.HasSlot(messageSource, "id"))
+        try
         {
-            job = Loc.GetString("chat-radio-source-unknown");
+            // DS14-Soyuz end
+            var evt = new TransformSpeakerNameEvent(messageSource, MetaData(messageSource).EntityName);
+            RaiseLocalEvent(messageSource, evt);
 
-            if (_inventory.TryGetSlotEntity(messageSource, "id", out var idSlotEntity))
+            var name = evt.VoiceName;
+            name = FormattedMessage.EscapeText(name);
+
+            SpeechVerbPrototype speech;
+            if (evt.SpeechVerb != null && _prototype.Resolve(evt.SpeechVerb, out var evntProto))
+                speech = evntProto;
+            else
+                speech = _chat.GetSpeechVerb(messageSource, message);
+
+            var content = escapeMarkup
+                ? FormattedMessage.EscapeText(message)
+                : message;
+
+            // DS14-start
+
+            var headsetColor = TryComp(radioSource, out HeadsetComponent? headset) ? headset.Color : channel.Color;
+
+            var job = String.Empty;
+            if (_inventory.HasSlot(messageSource, "id"))
             {
-                if (TryComp(idSlotEntity, out PdaComponent? pda))
-                    idSlotEntity = pda.ContainedId;
+                job = Loc.GetString("chat-radio-source-unknown");
 
-                job = TryComp(idSlotEntity, out IdCardComponent? idCard) && !string.IsNullOrEmpty(idCard.LocalizedJobTitle)
-                    ? _chat.SanitizeMessageCapital(idCard.LocalizedJobTitle)
-                    : Loc.GetString("chat-radio-source-unknown");
+                if (_inventory.TryGetSlotEntity(messageSource, "id", out var idSlotEntity))
+                {
+                    if (TryComp(idSlotEntity, out PdaComponent? pda))
+                        idSlotEntity = pda.ContainedId;
+
+                    job = TryComp(idSlotEntity, out IdCardComponent? idCard) && !string.IsNullOrEmpty(idCard.LocalizedJobTitle)
+                        ? _chat.SanitizeMessageCapital(idCard.LocalizedJobTitle)
+                        : Loc.GetString("chat-radio-source-unknown");
+                }
+
+                job = $"\\[{job}\\] ";
             }
 
-            job = $"\\[{job}\\] ";
-        }
+            content = Highlight(content);
+            ProtoId<LanguagePrototype>? languageId = null;
 
-        content = Highlight(content);
-        ProtoId<LanguagePrototype>? languageId = null;
+            if (TryComp<LanguageComponent>(messageSource, out var language))
+                languageId = language.SelectedLanguage;
 
-        if (TryComp<LanguageComponent>(messageSource, out var language))
-            languageId = language.SelectedLanguage;
+            string langName = _language.GetLangName(languageId);
 
-        string langName = _language.GetLangName(languageId);
+            var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold-lang" : "chat-radio-message-wrap-lang",
+                ("channel-color", channel.Color),
+                ("fontType", speech.FontId),
+                ("fontSize", speech.FontSize),
+                ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+                ("language", Loc.GetString(langName)),
+                ("channel", $"\\[{channel.LocalizedName}\\]"),
+                ("name", name),
+                ("message", content),
+                ("headset-color", headsetColor),
+                ("job", job));
 
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold-lang" : "chat-radio-message-wrap-lang",
-            ("channel-color", channel.Color),
-            ("fontType", speech.FontId),
-            ("fontSize", speech.FontSize),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
-            ("language", Loc.GetString(langName)),
-            ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", name),
-            ("message", content),
-            ("headset-color", headsetColor),
-            ("job", job));
+            // DS14-end
 
-        // DS14-end
-
-        // most radios are relayed to chat, so lets parse the chat message beforehand
-        var chat = new ChatMessage(
-            ChatChannel.Radio,
-            message,
-            wrappedMessage,
-            NetEntity.Invalid,
-            null);
-        var chatMsg = new MsgChatMessage { Message = chat };
-
-        // DS14-Languages-start
-        var lexiconMessage = message;
-        var chatMsgLexicon = chatMsg;
-
-        if (language != null)
-        {
-            lexiconMessage = _language.TransformWord(message, language.SelectedLanguage);
-
-            var lexiconContent = escapeMarkup
-            ? FormattedMessage.EscapeText(lexiconMessage)
-            : lexiconMessage;
-
-            lexiconContent = Highlight(lexiconContent);
-
-            var wrappedLexiconMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
-            ("channel-color", channel.Color),
-            ("fontType", speech.FontId),
-            ("fontSize", speech.FontSize),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
-            ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", name),
-            ("message", lexiconContent),
-            ("headset-color", headsetColor),
-            ("job", job));
-
-            var chatLexicon = new ChatMessage(
+            // most radios are relayed to chat, so lets parse the chat message beforehand
+            var chat = new ChatMessage(
                 ChatChannel.Radio,
-                lexiconMessage,
-                wrappedLexiconMessage,
+                message,
+                wrappedMessage,
                 NetEntity.Invalid,
                 null);
+            var chatMsg = new MsgChatMessage { Message = chat };
 
-            chatMsgLexicon = new MsgChatMessage { Message = chatLexicon };
-        }
+            // DS14-Languages-start
+            var lexiconMessage = message;
+            var chatMsgLexicon = chatMsg;
 
-        var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId); // DS14
-        // DS14-Languages-end
-
-        var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource); // DS14-Soyuz
-        RaiseLocalEvent(ref sendAttemptEv);
-        RaiseLocalEvent(radioSource, ref sendAttemptEv);
-        var canSend = !sendAttemptEv.Cancelled;
-
-        var sourceMapId = Transform(radioSource).MapID;
-        var hasActiveServer = HasActiveServer(sourceMapId, channel.ID);
-        var sourceServerExempt = _exemptQuery.HasComp(radioSource);
-
-        var radioQuery = EntityQueryEnumerator<ActiveRadioComponent, TransformComponent>();
-        while (canSend && radioQuery.MoveNext(out var receiver, out var radio, out var transform))
-        {
-            if (!radio.ReceiveAllChannels)
+            if (language != null)
             {
-                if (!radio.Channels.Contains(channel.ID) || (TryComp<IntercomComponent>(receiver, out var intercom) &&
-                                                             !intercom.SupportedChannels.Contains(channel.ID)))
-                    continue;
+                lexiconMessage = _language.TransformWord(message, language.SelectedLanguage);
+
+                var lexiconContent = escapeMarkup
+                ? FormattedMessage.EscapeText(lexiconMessage)
+                : lexiconMessage;
+
+                lexiconContent = Highlight(lexiconContent);
+
+                var wrappedLexiconMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
+                ("channel-color", channel.Color),
+                ("fontType", speech.FontId),
+                ("fontSize", speech.FontSize),
+                ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+                ("channel", $"\\[{channel.LocalizedName}\\]"),
+                ("name", name),
+                ("message", lexiconContent),
+                ("headset-color", headsetColor),
+                ("job", job));
+
+                var chatLexicon = new ChatMessage(
+                    ChatChannel.Radio,
+                    lexiconMessage,
+                    wrappedLexiconMessage,
+                    NetEntity.Invalid,
+                    null);
+
+                chatMsgLexicon = new MsgChatMessage { Message = chatLexicon };
             }
 
-            if (!channel.LongRange && transform.MapID != sourceMapId && !radio.GlobalReceive)
-                continue;
+            var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId, sound, soundParams, frequency); // DS14-Soyuz
+            // DS14-Languages-end
 
-            // don't need telecom server for long range channels or handheld radios and intercoms
-            var needServer = !channel.LongRange && !sourceServerExempt;
-            if (needServer && !hasActiveServer)
-                continue;
+            var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource, frequency); // DS14-Soyuz
+            RaiseLocalEvent(ref sendAttemptEv);
+            RaiseLocalEvent(radioSource, ref sendAttemptEv);
+            var canSend = !sendAttemptEv.Cancelled;
 
-            // check if message can be sent to specific receiver
-            var attemptEv = new RadioReceiveAttemptEvent(channel, radioSource, receiver);
-            RaiseLocalEvent(ref attemptEv);
-            RaiseLocalEvent(receiver, ref attemptEv);
-            if (attemptEv.Cancelled)
-                continue;
+            var sourceMapId = Transform(radioSource).MapID;
+            var hasActiveServer = HasActiveServer(sourceMapId, channel.ID);
+            var sourceServerExempt = _exemptQuery.HasComp(radioSource);
 
-            // send the message
-            RaiseLocalEvent(receiver, ref ev);
+            var radioQuery = EntityQueryEnumerator<ActiveRadioComponent, TransformComponent>();
+            while (canSend && radioQuery.MoveNext(out var receiver, out var radio, out var transform))
+            {
+                if (!radio.ReceiveAllChannels)
+                {
+                    if (!radio.Channels.Contains(channel.ID) || (TryComp<IntercomComponent>(receiver, out var intercom) &&
+                                                                 !intercom.SupportedChannels.Contains(channel.ID)))
+                        continue;
+                }
+
+                if (!channel.LongRange && transform.MapID != sourceMapId && !radio.GlobalReceive)
+                    continue;
+
+                // don't need telecom server for long range channels or handheld radios and intercoms
+                var needServer = !channel.LongRange && !sourceServerExempt;
+                if (needServer && !hasActiveServer)
+                    continue;
+
+                // check if message can be sent to specific receiver
+                var attemptEv = new RadioReceiveAttemptEvent(channel, radioSource, receiver, frequency); // DS14-Soyuz
+                RaiseLocalEvent(ref attemptEv);
+                RaiseLocalEvent(receiver, ref attemptEv);
+                if (attemptEv.Cancelled)
+                    continue;
+
+                // send the message
+                RaiseLocalEvent(receiver, ref ev);
+            }
+
+            var selectedLanguage = language != null ? language.SelectedLanguage : string.Empty; // DS14-Languages
+
+            // DS14-Soyuz start
+            if (canSend && sound == null) // DS14-Soyuz
+                RaiseLocalEvent(new RadioSpokeEvent(messageSource, message, lexiconMessage, selectedLanguage, ev.Receivers.ToArray()));
+            // DS14-Soyuz end
+
+            if (name != Name(messageSource))
+                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
+            else
+                _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
+
+            // DS14-Soyuz start
+            if (canSend)
+                _replay.RecordServerMessage(chat);
+            // DS14-Soyuz end
+            // DS14-Soyuz start
         }
-
-        var selectedLanguage = language != null ? language.SelectedLanguage : string.Empty; // DS14-Languages
-
-        // DS14-Soyuz start
-        if (canSend)
-            RaiseLocalEvent(new RadioSpokeEvent(messageSource, message, lexiconMessage, selectedLanguage, ev.Receivers.ToArray()));
+        finally
+        {
+            _messages.Remove(messageKey);
+        }
         // DS14-Soyuz end
-
-        if (name != Name(messageSource))
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} as {name} on {channel.LocalizedName}: {message}");
-        else
-            _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Radio message from {ToPrettyString(messageSource):user} on {channel.LocalizedName}: {message}");
-
-        // DS14-Soyuz start
-        if (canSend)
-            _replay.RecordServerMessage(chat);
-        // DS14-Soyuz end
-
-        _messages.Remove(message);
     }
 
     /// <inheritdoc cref="TelecomServerComponent"/>

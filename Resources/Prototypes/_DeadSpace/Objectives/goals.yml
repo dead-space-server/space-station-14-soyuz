@@ -1,6 +1,7 @@
 - type: stationGoal
   id: SolarPanels
   text: "/Paperwork/StationGoal/SolarPanels.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -9,6 +10,7 @@
 - type: stationGoal
   id: Artifacts
   text: "/Paperwork/StationGoal/Artifacts.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -17,6 +19,7 @@
 - type: stationGoal
   id: Bank
   text: "/Paperwork/StationGoal/Bank.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -25,6 +28,7 @@
 - type: stationGoal
   id: Zoo
   text: "/Paperwork/StationGoal/Zoo.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -33,6 +37,7 @@
 - type: stationGoal
   id: BiggerDorms
   text: "/Paperwork/StationGoal/BiggerDorms.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -41,6 +46,7 @@
 - type: stationGoal
   id: Fight
   text: "/Paperwork/StationGoal/Fight.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -57,6 +63,7 @@
 - type: stationGoal
   id: BornToKill
   text: "/Paperwork/StationGoal/BornToKill.xml"
+  minPlayers: 10 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -66,6 +73,7 @@
   id: Chill
   text: "/Paperwork/StationGoal/Chill.xml"
   modifyStationBalance: -7500
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -74,6 +82,7 @@
 - type: stationGoal
   id: Borgs
   text: "/Paperwork/StationGoal/Borgs.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -82,6 +91,7 @@
 - type: stationGoal
   id: Bar
   text: "/Paperwork/StationGoal/Bar.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -90,6 +100,7 @@
 - type: stationGoal
   id: MiningOutpost
   text: "/Paperwork/StationGoal/MiningOutpost.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -99,6 +110,7 @@
   id: MilitaryShuttle
   text: "/Paperwork/StationGoal/MilitaryShuttle.xml"
   modifyStationBalance: 30000
+  minPlayers: 15 # DS14-Soyuz
   extraStamps:
   - stampedName: "Г.В.С"
     stampedColor: "#505050"
@@ -116,6 +128,7 @@
   id: OrbitalBunker
   text: "/Paperwork/StationGoal/OrbitalBunker.xml"
   modifyStationBalance: 30000
+  minPlayers: 15 # DS14-Soyuz
   extraStamps:
     - stampedName: "Г.В.С"
       stampedColor: "#505050"
@@ -132,6 +145,7 @@
 - type: stationGoal
   id: Anomalies
   text: "/Paperwork/StationGoal/Anomalies.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -140,6 +154,7 @@
 - type: stationGoal
   id: HydroponicsInVacuum
   text: "/Paperwork/StationGoal/HydroponicsInVacuum.xml"
+  minPlayers: 0 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -148,6 +163,7 @@
 - type: stationGoal
   id: ShuttleMedical
   text: "/Paperwork/StationGoal/ShuttleMedical.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -156,6 +172,7 @@
 - type: stationGoal
   id: ShuttleMiner
   text: "/Paperwork/StationGoal/ShuttleMiner.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -164,6 +181,7 @@
 - type: stationGoal
   id: ShuttleRND
   text: "/Paperwork/StationGoal/ShuttleRND.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -172,6 +190,7 @@
 - type: stationGoal
   id: ShuttleDock
   text: "/Paperwork/StationGoal/ShuttleDock.xml"
+  minPlayers: 10 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -180,6 +199,7 @@
 - type: stationGoal
   id: Museum
   text: "/Paperwork/StationGoal/Museum.xml"
+  minPlayers: 10 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -188,6 +208,7 @@
 - type: stationGoal
   id: KartHall
   text: "/Paperwork/StationGoal/KartHall.xml"
+  minPlayers: 10 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz
@@ -196,6 +217,7 @@
 - type: stationGoal
   id: Satellite
   text: "/Paperwork/StationGoal/Satellite.xml"
+  minPlayers: 5 # DS14-Soyuz
   extraStamps:
   - stampedName: stamp-component-stamped-name-centcom
     stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png # DS14-Soyuz

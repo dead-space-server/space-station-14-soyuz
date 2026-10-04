@@ -11,6 +11,7 @@ using Content.Server.Cargo.Systems;
 using Content.Server.Cargo.Components; // DS14-Soyuz
 using Content.Shared.Cargo.Components;
 using Content.Shared.Station.Components; // DS14-Soyuz
+using Robust.Server.Player; // DS14-Soyuz
 
 namespace Content.Server.DeadSpace.StationGoal;
 
@@ -25,6 +26,7 @@ public sealed class StationGoalPaperSystem : EntitySystem
     [Dependency] private readonly IResourceManager _resourceManager = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly CargoSystem _cargo = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -34,7 +36,16 @@ public sealed class StationGoalPaperSystem : EntitySystem
 
     private void OnRoundStarted(RoundStartedEvent ev)
     {
-        var availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().ToList();
+        // DS14-Soyuz-start
+        var playersCount = _playerManager.PlayerCount;
+        var availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().Where(goal => goal.MinPlayers <= playersCount).ToList();
+
+        if (availableGoals.Count == 0)
+        {
+            Log.Warning("No station goals available for current player count. Using all goals");
+            availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().ToList();
+        }
+        // DS14-Soyuz-end
         var goal = _random.Pick(availableGoals);
 
         SendStationGoal(goal);

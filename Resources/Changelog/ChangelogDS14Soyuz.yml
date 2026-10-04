@@ -2068,3 +2068,12 @@ Entries:
   changes:
   - type: Tweak
     message: Остальные плакаты с экзоморфами
+- id: 196
+  author: Ezio50
+  time: '2026-10-04T22:42:16.240086+00:00'
+  pr: 513
+  changes:
+  - type: Add
+    message: Новые награды в мед. заказах.
+  - type: Fix
+    message: Стыковочные шлюзы ремонтных заказов (надеюсь).

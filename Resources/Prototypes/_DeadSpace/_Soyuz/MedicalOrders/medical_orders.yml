@@ -16,6 +16,8 @@
   deliveryContainer: CrateMedical
   marketBasePriceMin: 0.5
   marketBasePriceMax: 3
+  marketBaseReputationMin: 0.5
+  marketBaseReputationMax: 2
   shopLevelThresholds: [0, 100, 250, 450, 700, 1000, 1350, 1750]
   difficulties:
   - minScore: 0
@@ -684,6 +686,26 @@
     cost: 15
     maxCount: 4
     minimumShopLevel: 1
+  - id: BeakerCMO
+    entity: BeakerCMO
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 1
+  - id: MedicatedSuture
+    entity: MedicatedSuture
+    cost: 15
+    maxCount: 10
+    minimumShopLevel: 2
+  - id: RegenerativeMesh
+    entity: RegenerativeMesh
+    cost: 15
+    maxCount: 10
+    minimumShopLevel: 2
+  - id: Nanopaste
+    entity: Nanopaste
+    cost: 15
+    maxCount: 10
+    minimumShopLevel: 2
   - id: MedkitToxinFilled
     entity: MedkitToxinFilled
     cost: 20
@@ -764,6 +786,11 @@
     cost: 100
     maxCount: 5
     minimumShopLevel: 3
+  - id: DefibrillatorCompact
+    entity: DefibrillatorCompact
+    cost: 100
+    maxCount: 1
+    minimumShopLevel: 3
   - id: EmergencyMedipen
     entity: EmergencyMedipen
     cost: 25
@@ -809,16 +836,6 @@
     cost: 25
     maxCount: 10
     minimumShopLevel: 4
-  - id: Stimpack
-    entity: Stimpack
-    cost: 25
-    maxCount: 10
-    minimumShopLevel: 4
-  - id: StimpackMini
-    entity: StimpackMini
-    cost: 25
-    maxCount: 10
-    minimumShopLevel: 4
   - id: CombatMedipen
     entity: CombatMedipen
     cost: 25
@@ -836,11 +853,6 @@
     minimumShopLevel: 4
   - id: DerytracineMedipen
     entity: DerytracineMedipen
-    cost: 25
-    maxCount: 10
-    minimumShopLevel: 4
-  - id: IchorMedipen
-    entity: IchorMedipen
     cost: 25
     maxCount: 10
     minimumShopLevel: 4
@@ -874,6 +886,21 @@
     cost: 25
     maxCount: 10
     minimumShopLevel: 4
+  - id: IchorMedipen
+    entity: IchorMedipen
+    cost: 75
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: Stimpack
+    entity: Stimpack
+    cost: 100
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: StimpackMini
+    entity: StimpackMini
+    cost: 100
+    maxCount: 10
+    minimumShopLevel: 4
   - id: HypoParamedic
     entity: HypoParamedic
     cost: 200
@@ -881,6 +908,11 @@
     minimumShopLevel: 5
   - id: AdvancedJetInjector
     entity: AdvancedJetInjector
+    cost: 200
+    maxCount: 1
+    minimumShopLevel: 5
+  - id: DefibrillatorSyndicate
+    entity: DefibrillatorSyndicate
     cost: 200
     maxCount: 1
     minimumShopLevel: 5
@@ -899,3 +931,28 @@
     cost: 500
     maxCount: 1
     minimumShopLevel: 6
+  - id: ClothingOuterHardsuitERTAmberMedic
+    entity: ClothingOuterHardsuitERTAmberMedic
+    cost: 500
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: MedicalScannerMachineCircuitboard
+    entity: MedicalScannerMachineCircuitboard
+    cost: 1000
+    maxCount: 1
+    minimumShopLevel: 7
+  - id: CloningConsoleComputerCircuitboard
+    entity: CloningConsoleComputerCircuitboard
+    cost: 1000
+    maxCount: 1
+    minimumShopLevel: 7
+  - id: CloningPodMachineCircuitboard
+    entity: CloningPodMachineCircuitboard
+    cost: 1000
+    maxCount: 1
+    minimumShopLevel: 7
+  - id: ClothingOuterHardsuitNavyNedical
+    entity: ClothingOuterHardsuitNavyNedical
+    cost: 3000
+    maxCount: 1
+    minimumShopLevel: 8

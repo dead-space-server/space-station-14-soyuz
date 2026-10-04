@@ -13,7 +13,6 @@ using Content.Shared.Radio.Components;
 using Content.Shared.Speech.Components;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
-using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.Radio;
@@ -38,7 +37,7 @@ public sealed class TunableRadioSystem : EntitySystem
         SubscribeLocalEvent<TunableRadioComponent, TunableRadioSetFrequencyMessage>(OnSetFrequency);
         SubscribeLocalEvent<TunableRadioComponent, TunableRadioToggleMessage>(OnToggle);
         SubscribeLocalEvent<RadioReceiveAttemptEvent>(OnReceiveAttempt);
-        SubscribeLocalEvent<VocalComponent, ScreamPlayedEvent>(OnScream);
+        SubscribeLocalEvent<VocalComponent, EmoteSoundPlayedEvent>(OnVocalSound);
     }
 
     public override void Update(float frameTime)
@@ -121,10 +120,24 @@ public sealed class TunableRadioSystem : EntitySystem
             args.Cancelled = true;
     }
 
-    private void OnScream(EntityUid uid, VocalComponent component, ref ScreamPlayedEvent args)
+    private void OnVocalSound(EntityUid uid, VocalComponent component, ref EmoteSoundPlayedEvent args)
     {
         if (HasComp<SpectralComponent>(uid))
             return;
+        var messageId = args.EmoteId == component.ScreamId ? "soyuz-radio-scream" : args.EmoteId switch
+        {
+            "ScreamOnDamage" => "soyuz-radio-pain-scream",
+            "Gasp" or "CriticalSufferingGasp" => "soyuz-radio-gasp",
+            "CriticalSufferingGroan" => "soyuz-radio-groan",
+            "Cough" or "CriticalSufferingCough" => "soyuz-radio-cough",
+            "CriticalSufferingRetch" => "soyuz-radio-retch",
+            "Crying" => "soyuz-radio-crying",
+            "DefaultDeathgasp" or "MonkeyDeathgasp" or "ScurretDeathgasp" => "soyuz-radio-deathgasp",
+            _ => null,
+        };
+        if (messageId == null)
+            return;
+        var message = Loc.GetString(messageId);
         var source = Transform(uid);
         var position = _transform.GetWorldPosition(source);
         var sent = new HashSet<int>();
@@ -140,16 +153,13 @@ public sealed class TunableRadioSystem : EntitySystem
                 continue;
             try
             {
-                _radio.SendRadioMessage(uid, Loc.GetString("soyuz-radio-scream"), TunableRadioComponent.Channel,
+                _radio.SendRadioMessage(uid, message, TunableRadioComponent.Channel,
                     radioUid, sound: args.Sound, soundParams: args.SoundParams);
             }
             catch (Exception exception)
             {
-                Log.Error($"Relaying scream from {uid} through radio {radioUid} failed: {exception}");
+                Log.Error($"Relaying vocal sound from {uid} through radio {radioUid} failed: {exception}");
             }
         }
     }
 }
-
-[ByRefEvent]
-public readonly record struct ScreamPlayedEvent(ResolvedSoundSpecifier Sound, AudioParams SoundParams);

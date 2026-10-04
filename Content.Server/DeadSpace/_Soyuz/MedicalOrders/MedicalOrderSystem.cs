@@ -58,7 +58,11 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     {
         base.Initialize();
         _sawmill = _logManager.GetSawmill("medical_orders");
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _marketBasePrices.Clear());
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
+        {
+            _marketBasePrices.Clear();
+            _marketBaseReputations.Clear();
+        });
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentStartup>(OnMachineStartup);
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentShutdown>(OnMachineShutdown);
         SubscribeLocalEvent<MedicalOrderStationComponent, ComponentShutdown>(OnStationShutdown);

@@ -375,14 +375,14 @@
 - type: repairReward
   id: RepairOrderChiefEngineerBeltReward
   entity: ClothingBeltChiefEngineerFilled
-  cost: 336
+  cost: 236
   maxCount: 1
   minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
   entity: RCDRecharging
-  cost: 301
+  cost: 251
   maxCount: 1
   minimumShopLevel: 5
 
@@ -413,7 +413,7 @@
 - type: repairReward
   id: RepairOrderClothingNeckCloakCentcomBlackReward
   entity: ClothingNeckCloakCentcomBlack
-  cost: 55
+  cost: 33
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -421,7 +421,7 @@
 - type: repairReward
   id: RepairOrderClothingEyesHudGreenBeretReward
   entity: ClothingEyesHudGreenBeret
-  cost: 302
+  cost: 202
   maxCount: 1
   minimumShopLevel: 7
   classified: true

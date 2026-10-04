@@ -618,8 +618,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             foreach (var expectedEntity in expected.Entities)
             {
                 var matchedCount = comparison.MatchedCounts.GetValueOrDefault(expectedEntity);
-                var hasUnexpectedAtPosition = comparison.UnexpectedPositions.Contains(
-                    expectedEntity.Signature.LocalPosition);
+                var hasUnexpectedAtPosition = comparison.UnexpectedPositions.Any(position =>
+                    position.EqualsApprox(expectedEntity.Signature.LocalPosition));
 
                 for (var requiredCount = 1; requiredCount <= expectedEntity.Count; requiredCount++)
                 {
@@ -847,9 +847,9 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
     {
         return actual.Anchored == expected.Anchored &&
                actual.Signature.Prototype == expected.Signature.Prototype &&
-               actual.Signature.LocalPosition == expected.Signature.LocalPosition &&
-               CanonicalizeRotation(actual.RawLocalRotation, expected.Signature.RotationMode) ==
-               expected.Signature.LocalRotation;
+               actual.Signature.LocalPosition.EqualsApprox(expected.Signature.LocalPosition) &&
+               CanonicalizeRotation(actual.RawLocalRotation, expected.Signature.RotationMode)
+                   .EqualsApprox(expected.Signature.LocalRotation);
     }
 
     private static int RotationSpecificity(RepairRotationMode mode)

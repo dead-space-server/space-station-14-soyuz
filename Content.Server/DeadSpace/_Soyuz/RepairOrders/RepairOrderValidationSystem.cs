@@ -2,6 +2,7 @@
 
 using System.Numerics;
 using System.Linq;
+using Content.Server.Construction;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
@@ -46,6 +47,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         SubscribeLocalEvent<RepairBlueprintComponent, ComponentShutdown>(OnBlueprintShutdown);
         SubscribeLocalEvent<RepairBlueprintComponent, GridSplitEvent>(OnGridSplit);
         SubscribeLocalEvent<TransformComponent, EntityTerminatingEvent>(OnTransformTerminating);
+        SubscribeLocalEvent<TransformComponent, AfterConstructionChangeEntityEvent>(OnConstructionChanged);
         SubscribeLocalEvent<TileChangedEvent>(OnTileChanged);
         SubscribeLocalEvent<AnchorStateChangedEvent>(OnAnchorStateChanged);
         SubscribeLocalEvent<TransformComponent, TrySetNextPipeLayerCompletedEvent>(OnPipeLayerCycled);
@@ -1141,6 +1143,12 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         }
 
         MarkDirty(gridUid, LocalPositionToCell(grid, entity.Comp.LocalPosition));
+    }
+
+    private void OnConstructionChanged(Entity<TransformComponent> entity, ref AfterConstructionChangeEntityEvent args)
+    {
+        if (entity.Comp.Anchored)
+            MarkDirtyFromCoordinates(entity.Comp.Coordinates);
     }
 
     private void MarkDirtyFromCoordinates(EntityCoordinates coordinates)

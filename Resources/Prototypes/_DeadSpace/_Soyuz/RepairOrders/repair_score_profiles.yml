@@ -202,6 +202,11 @@
       - EmergencyLight
     mode: Exact
 
+  # Shuttle airlocks and docking ports are directional.
+  - selector:
+      allComponents: [Docking]
+    mode: Exact
+
   # Chairs, sofas, benches and other SeatBase descendants are directional.
   - selector:
       parents: [SeatBase]

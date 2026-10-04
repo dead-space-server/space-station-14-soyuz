@@ -9,7 +9,7 @@ using Robust.Shared.Audio; // DS14-Soyuz
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Content.Server.DeadSpace._Soyuz.Radio; // DS14-Soyuz
+using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
 
 namespace Content.Server.Speech.EntitySystems;
 
@@ -129,7 +129,7 @@ public sealed class VocalSystem : EntitySystem
 
         var resolved = _audio.ResolveSound(sound);
         _audio.PlayPvs(resolved, uid, soundParams);
-        var ev = new ScreamPlayedEvent(resolved, soundParams);
+        var ev = new EmoteSoundPlayedEvent(component.ScreamId, resolved, soundParams);
         RaiseLocalEvent(uid, ref ev);
         return true;
         // DS14-Soyuz end

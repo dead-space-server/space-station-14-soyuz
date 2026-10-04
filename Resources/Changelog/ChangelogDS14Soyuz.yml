@@ -2044,3 +2044,20 @@ Entries:
   changes:
   - type: Tweak
     message: Название и описание плаката с спрайтом МИР ТРУД МАЙ
+- id: 194
+  author: Genes1us
+  time: '2026-10-04T10:58:03.647460+00:00'
+  pr: 504
+  changes:
+  - type: Add
+    message: Вернул аспид в пул карт
+  - type: Add
+    message: Алкомат и раздатчик алкоголя на аспиде
+  - type: Add
+    message: Атмос топор на аспиде
+  - type: Tweak
+    message: Параллакс на сноуболле
+  - type: Fix
+    message: Все тесты, связанные с картами
+  - type: Fix
+    message: Спавн игроков на станции ГШ. Теперь они там не спавнятся

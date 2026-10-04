@@ -134,6 +134,9 @@
       state: generic_panel_open
   - type: RepairOrderConsole
     shopRewardPool: RepairOrderEngineeringRewardPool
+  - type: DeviceLinkSink
+    ports:
+    - RepairOrderDock
   - type: ActivatableUI
     key: enum.RepairOrderUiKey.Key
   - type: ActivatableUIRequiresAccess

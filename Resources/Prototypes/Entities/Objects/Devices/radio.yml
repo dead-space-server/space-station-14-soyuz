@@ -14,6 +14,13 @@
   parent: BaseItem
   id: RadioHandheld
   components:
+  # DS14-Soyuz start
+  - type: TunableRadio
+  - type: UserInterface
+    interfaces:
+      enum.TunableRadioUiKey.Key:
+        type: TunableRadioBoundUserInterface
+  # DS14-Soyuz end
   - type: TelecomExempt
   - type: RadioMicrophone
     broadcastChannel: Handheld

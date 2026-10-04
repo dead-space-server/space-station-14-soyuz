@@ -10,21 +10,28 @@ namespace Content.Server.DeadSpace._Soyuz.MedicalOrders;
 public sealed partial class MedicalOrderStationComponent : Component
 {
     public string ConfigId = string.Empty;
-    public Dictionary<int, MedicalOrderOffer> ReagentOffers = new();
     public Dictionary<int, MedicalOrderOffer> PatientOffers = new();
-    public MedicalOrderActive? ReagentActive;
     public MedicalOrderActive? PatientActive;
     public bool PatientAccepting;
-    public MedicalOrderResult? LastReagent;
     public MedicalOrderResult? LastPatient;
     public TimeSpan NextRefresh;
-    public int NextReagentRuntimeId = 1;
     public int NextPatientRuntimeId = 1;
     public long Points;
     public long Reputation;
+    public decimal MarketPointRemainder;
+    public decimal MarketReputationRemainder;
+    public long LastMarketPoints;
+    public long LastMarketReputation;
+    public Dictionary<string, MedicalReagentMarketDemand> MarketDemand = new();
     public bool Busy;
     public readonly Dictionary<Guid, (MedicalOrderMachineKind Kind, Dictionary<string, int> Cart)> CommittedPurchases = new();
     public readonly HashSet<EntityUid> Machines = new();
+}
+
+public sealed class MedicalReagentMarketDemand
+{
+    public decimal Pressure;
+    public TimeSpan UpdatedAt;
 }
 
 public sealed class MedicalOrderOffer

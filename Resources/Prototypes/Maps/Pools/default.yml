@@ -2,7 +2,7 @@
   id: DefaultMapPool
   maps:
   - Amber
-  - Aspid
+  - Aspid # DS14-Soyuz-enabled
   - Bagel
   - Barratry
   - Box
@@ -15,7 +15,7 @@
   # - CorvaxChloris # DS14-Soyuz-disabled
   # - CorvaxDelta # DS14-Soyuz-disabled
   # - CorvaxGlacier # DS14-Soyuz-disabled
-  # - CorvaxPaper # Removed by Liv
+  # - CorvaxPaper # remap in progress
   - CorvaxSilly
   # - CorvaxSpectrum # DS14-Soyuz-disabled
   # - CorvaxGlacier # DS14-Soyuz-disabled

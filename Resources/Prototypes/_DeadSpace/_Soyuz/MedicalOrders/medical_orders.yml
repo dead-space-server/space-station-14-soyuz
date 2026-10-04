@@ -4,33 +4,70 @@
 
 - type: medicalOrderConfig
   id: SoyuzMedicalOrders
-  reagentOfferCount: 5
-  patientOfferCount: 5
+  patientOfferCount: 10
   offerRefreshInterval: 10m
-  minReagentEntries: 1
-  maxReagentEntries: 20
   minDamageEntries: 1
-  maxDamageEntries: 3
+  maxDamageEntries: 8
   pointsPerDamage: 1
   expiredRewardMultiplierPercent: 50
   patientCompletionDamageThreshold: 20
   patientRandomHumanoidSettings: SoyuzMedicalOrderPatient
   patientGown: ClothingOuterHospitalGown
   deliveryContainer: CrateMedical
-  shopLevelThresholds: [0, 100, 200, 350, 500, 650, 800, 1000]
+  marketBasePriceMin: 0.5
+  marketBasePriceMax: 3
+  shopLevelThresholds: [0, 100, 250, 450, 700, 1000, 1350, 1750]
   difficulties:
   - minScore: 0
-    maxScore: 99
+    weight: 26
+    maxScore: 59
     timeLimit: 10m
-    baseReputation: 10
-  - minScore: 100
-    maxScore: 179
+    baseReputation: 100
+  - minScore: 60
+    weight: 20
+    maxScore: 109
+    timeLimit: 12m
+    baseReputation: 150
+  - minScore: 110
+    weight: 15
+    maxScore: 159
+    timeLimit: 14m
+    baseReputation: 200
+  - minScore: 160
+    weight: 12
+    maxScore: 209
+    timeLimit: 16m
+    baseReputation: 250
+  - minScore: 210
+    weight: 9
+    maxScore: 259
+    timeLimit: 18m
+    baseReputation: 300
+  - minScore: 260
+    weight: 6
+    maxScore: 309
     timeLimit: 20m
-    baseReputation: 20
-  - minScore: 180
-    maxScore: 100000
+    baseReputation: 350
+  - minScore: 310
+    weight: 4
+    maxScore: 359
+    timeLimit: 22m
+    baseReputation: 400
+  - minScore: 360
+    weight: 2
+    maxScore: 409
+    timeLimit: 25m
+    baseReputation: 450
+  - minScore: 410
+    weight: 1
+    maxScore: 459
+    timeLimit: 28m
+    baseReputation: 500
+  - minScore: 460
+    weight: 1
+    maxScore: 510
     timeLimit: 30m
-    baseReputation: 35
+    baseReputation: 600
   qualityBands:
   - minPercent: 0
     maxPercent: 39
@@ -50,451 +87,526 @@
   - minPercent: 100
     maxPercent: 100
     multiplierPercent: 130
-  reagents:
+  # Prices reach their floor after 100 units of net supply; demand recovers by 10 units/min.
+  marketReagents:
   - reagent: Actiradol
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Ambuzol
-    canGenerate: false
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 5
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: AmbuzolPlus
-    canGenerate: false
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: false
+    basePrice: 1
+    minimumPrice: 0.1
+    reputationPerUnit: 10
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Arcryox
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 2
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Arithrazine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: AshWalkerBloodTonic
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Barozine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Bicaridine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Bruizine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Cognizine
-    canGenerate: false
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 10
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Cryoxadone
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Cryptobiolin
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Dermaline
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Derytracine
-    canGenerate: false
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Dexalin
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: DexalinPlus
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Diphenhydramine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Diphenylmethylamine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Doxarubixadone
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 3
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Dylovene
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Epinephrine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Ethyloxyephedrine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Ethylredoxrazine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Fragmentin
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: FriogeliyevaKislota
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Haloperidol
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Heparin
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Holywater
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 10
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Hyronalin
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Inaprovaline
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Infectizine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Insuzine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Ipecac
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Karachnocid
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Kelotane
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Lacerinol
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Leporazine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Lipozine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Mycocline
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Necrosol
-    canGenerate: false
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: false
+    basePrice: 1
+    minimumPrice: 0.1
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Necrovir
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Negacordrazine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Oculine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Omnizine
-    canGenerate: false
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: false
+    basePrice: 1
+    minimumPrice: 0.1
+    reputationPerUnit: 20
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Opporozidone
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Panacemycin
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Phalanximine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: PolypyryliumOligomers
-    canGenerate: false
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: PotassiumIodide
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Psicodine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: PulpedBananaPeel
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Puncturase
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Pyrazine
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Saline
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.15
+    minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Sentidol
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Septomycin
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Siderlac
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Sigynate
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: SpiderExtract
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: SpiderLurkerSmokeExtract
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: SpiderReaperExtract
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: SpiderWebExtract
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Stellibinin
-    canGenerate: false
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Synaptizine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Synaptodol
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: TranexamicAcid
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Tricordrazine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Ultravasculine
-    canGenerate: false
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: false
+    basePrice: 1
+    minimumPrice: 0.1
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Vestine
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Virucidine
-    canGenerate: true
-    weight: 5
-    pointsPerUnit: 3
-    minAmount: 10
-    maxAmount: 30
+    enabled: true
+    basePrice: 0.75
+    minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: ZetaOne
-    canGenerate: false
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Aloxadone
-    canGenerate: true
-    weight: 2
-    pointsPerUnit: 6
-    minAmount: 5
-    maxAmount: 20
+    enabled: true
+    basePrice: 2
+    minimumPrice: 0.2
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Mannitol
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Pax
-    canGenerate: true
-    weight: 10
-    pointsPerUnit: 1
-    minAmount: 10
-    maxAmount: 40
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   damages:
   - damageType: Blunt
     canGenerate: true
@@ -536,130 +648,254 @@
     weight: 4
     minAmount: 15
     maxAmount: 50
-  reagentShop:
-  - id: Beaker
-    entity: Beaker
+  shop:
+  - id: Brutepack
+    entity: Brutepack
     cost: 5
     maxCount: 10
     minimumShopLevel: 1
-  - id: LargeBeaker
-    entity: LargeBeaker
-    cost: 15
-    maxCount: 8
-    minimumShopLevel: 1
-  - id: Syringe
-    entity: Syringe
-    cost: 8
+  - id: Ointment
+    entity: Ointment
+    cost: 5
     maxCount: 10
     minimumShopLevel: 1
-  - id: Dropper
-    entity: Dropper
-    cost: 6
-    maxCount: 5
-    minimumShopLevel: 2
-  - id: Jug
-    entity: Jug
-    cost: 20
-    maxCount: 5
-    minimumShopLevel: 3
-  - id: PillCanister
-    entity: PillCanister
-    cost: 12
-    maxCount: 8
-    minimumShopLevel: 3
-  - id: ChemVendRestock
-    entity: VendingMachineRestockChemVend
-    cost: 90
-    maxCount: 2
-    minimumShopLevel: 3
-  - id: ChemMasterBoard
-    entity: ChemMasterMachineCircuitboard
-    cost: 120
-    maxCount: 1
-    minimumShopLevel: 5
-  - id: Hypospray
-    entity: Hypospray
-    cost: 300
-    maxCount: 1
-    minimumShopLevel: 7
-  patientShop:
-  - id: Medkit
+  - id: Bloodpack
+    entity: Bloodpack
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Gauze
+    entity: Gauze
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: MedkitFilled
     entity: MedkitFilled
-    cost: 20
+    cost: 10
     maxCount: 5
     minimumShopLevel: 1
-  - id: BurnMedkit
+  - id: MedkitBurnFilled
     entity: MedkitBurnFilled
-    cost: 35
+    cost: 15
     maxCount: 4
-    minimumShopLevel: 2
-  - id: BruteMedkit
+    minimumShopLevel: 1
+  - id: MedkitBruteFilled
     entity: MedkitBruteFilled
-    cost: 35
+    cost: 15
     maxCount: 4
-    minimumShopLevel: 2
-  - id: ToxinMedkit
+    minimumShopLevel: 1
+  - id: MedkitToxinFilled
     entity: MedkitToxinFilled
-    cost: 40
+    cost: 20
     maxCount: 4
     minimumShopLevel: 2
-  - id: OxygenMedkit
+  - id: MedkitOxygenFilled
     entity: MedkitOxygenFilled
-    cost: 40
+    cost: 20
     maxCount: 4
     minimumShopLevel: 2
-  - id: RadiationMedkit
+  - id: MedkitRadiationFilled
     entity: MedkitRadiationFilled
+    cost: 25
+    maxCount: 3
+    minimumShopLevel: 2
+  - id: FilledVirusMedkit
+    entity: FilledVirusMedkit
+    cost: 30
+    maxCount: 3
+    minimumShopLevel: 2
+  - id: VendingMachineRestockMedical
+    entity: VendingMachineRestockMedical
     cost: 50
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: VendingMachineRestockChemVend
+    entity: VendingMachineRestockChemVend
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: LavalandMedkitAdvancedBruteFilled
+    entity: LavalandMedkitAdvancedBruteFilled
+    cost: 35
     maxCount: 3
     minimumShopLevel: 3
-  - id: BruteInjector
-    entity: BruteAutoInjector
-    cost: 30
-    maxCount: 5
-    minimumShopLevel: 2
-  - id: BurnInjector
-    entity: BurnAutoInjector
-    cost: 30
-    maxCount: 5
-    minimumShopLevel: 2
-  - id: AdvancedMedkit
+  - id: LavalandMedkitAdvancedBurnFilled
+    entity: LavalandMedkitAdvancedBurnFilled
+    cost: 35
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: MedkitAdvancedFilled
     entity: MedkitAdvancedFilled
-    cost: 80
+    cost: 35
     maxCount: 3
     minimumShopLevel: 3
-  - id: Defibrillator
-    entity: Defibrillator
-    cost: 130
-    maxCount: 1
+  - id: FilledSuperVirusMedkit
+    entity: FilledSuperVirusMedkit
+    cost: 40
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: MedkitCombatFilled
+    entity: MedkitCombatFilled
+    cost: 40
+    maxCount: 2
+    minimumShopLevel: 3
+  - id: StimkitFilled
+    entity: StimkitFilled
+    cost: 45
+    maxCount: 2
+    minimumShopLevel: 3
+  - id: BSAACombatKitFilled
+    entity: BSAACombatKitFilled
+    cost: 45
+    maxCount: 2
+    minimumShopLevel: 3
+  - id: SyringeBluespace
+    entity: SyringeBluespace
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 3
+  - id: ERTGammaMedicCombatKitFilled
+    entity: ERTGammaMedicCombatKitFilled
+    cost: 50
+    maxCount: 2
+    minimumShopLevel: 3
+  - id: BluespaceBeaker
+    entity: BluespaceBeaker
+    cost: 100
+    maxCount: 5
+    minimumShopLevel: 3
+  - id: EmergencyMedipen
+    entity: EmergencyMedipen
+    cost: 25
+    maxCount: 10
     minimumShopLevel: 4
-  - id: ParamedicSuit
-    entity: ClothingOuterHardsuitVoidParamed
-    cost: 220
+  - id: AntiPoisonMedipen
+    entity: AntiPoisonMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: BruteAutoInjector
+    entity: BruteAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: BurnAutoInjector
+    entity: BurnAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: RadAutoInjector
+    entity: RadAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: PunctAutoInjector
+    entity: PunctAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: PyraAutoInjector
+    entity: PyraAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: AirlossAutoInjector
+    entity: AirlossAutoInjector
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: SpaceMedipen
+    entity: SpaceMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: Stimpack
+    entity: Stimpack
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: StimpackMini
+    entity: StimpackMini
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: CombatMedipen
+    entity: CombatMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: WehMedipen
+    entity: WehMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: CelestinMedipen
+    entity: CelestinMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: DerytracineMedipen
+    entity: DerytracineMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: IchorMedipen
+    entity: IchorMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: NutritiousMedipen
+    entity: NutritiousMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: LavalandSurvMedipen
+    entity: LavalandSurvMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: NECROMedipen
+    entity: NECROMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: SCSTMedipen
+    entity: SCSTMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: ZetaOneMedipen
+    entity: ZetaOneMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: ZetaTwoMedipen
+    entity: ZetaTwoMedipen
+    cost: 25
+    maxCount: 10
+    minimumShopLevel: 4
+  - id: HypoParamedic
+    entity: HypoParamedic
+    cost: 200
     maxCount: 1
     minimumShopLevel: 5
-  - id: MedicalScannerBoard
-    entity: MedicalScannerMachineCircuitboard
-    cost: 150
+  - id: AdvancedJetInjector
+    entity: AdvancedJetInjector
+    cost: 200
     maxCount: 1
     minimumShopLevel: 5
-  - id: CrewMonitor
-    entity: HandheldCrewMonitor
-    cost: 180
-    maxCount: 1
-    minimumShopLevel: 6
-  - id: Hypospray
-    entity: Hypospray
+  - id: WeakViralSolutionVial
+    entity: WeakViralSolutionVial
     cost: 300
     maxCount: 1
-    minimumShopLevel: 7
-  - id: MedicalHardsuit
-    entity: ClothingOuterHardsuitMedical
+    minimumShopLevel: 6
+  - id: MediumViralSolutionVial
+    entity: MediumViralSolutionVial
     cost: 400
     maxCount: 1
-    minimumShopLevel: 8
-  - id: CombatMedkit
-    entity: MedkitCombatFilled
-    cost: 250
-    maxCount: 2
-    minimumShopLevel: 8
+    minimumShopLevel: 6
+  - id: StrongViralSolutionVial
+    entity: StrongViralSolutionVial
+    cost: 500
+    maxCount: 1
+    minimumShopLevel: 6

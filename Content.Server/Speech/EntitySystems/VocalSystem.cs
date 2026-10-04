@@ -5,9 +5,11 @@ using Content.Shared.Chat.Prototypes;
 using Content.Shared.Humanoid;
 using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
+using Robust.Shared.Audio; // DS14-Soyuz
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Content.Server.DeadSpace._Soyuz.Radio; // DS14-Soyuz
 
 namespace Content.Server.Speech.EntitySystems;
 
@@ -105,16 +107,32 @@ public sealed class VocalSystem : EntitySystem
 
     public bool TryPlayScreamSound(EntityUid uid, VocalComponent component)
     {
+        // DS14-Soyuz start
+        SoundSpecifier? sound;
+        AudioParams soundParams;
         if (_random.Prob(component.WilhelmProbability))
         {
-            _audio.PlayPvs(component.Wilhelm, uid, component.Wilhelm.Params);
-            return true;
+            sound = component.Wilhelm;
+            soundParams = sound.Params;
+        }
+        else
+        {
+            if (component.EmoteSounds is not { } soundsId)
+                return false;
+            var sounds = _proto.Index(soundsId);
+            if (!sounds.Sounds.TryGetValue(component.ScreamId, out sound))
+                sound = sounds.FallbackSound;
+            if (sound == null)
+                return false;
+            soundParams = sounds.GeneralParams ?? sound.Params;
         }
 
-        if (component.EmoteSounds is not { } sounds)
-            return false;
-
-        return _chat.TryPlayEmoteSound(uid, _proto.Index(sounds), component.ScreamId);
+        var resolved = _audio.ResolveSound(sound);
+        _audio.PlayPvs(resolved, uid, soundParams);
+        var ev = new ScreamPlayedEvent(resolved, soundParams);
+        RaiseLocalEvent(uid, ref ev);
+        return true;
+        // DS14-Soyuz end
     }
 
     private void LoadSounds(EntityUid uid, VocalComponent component, Sex? sex = null)

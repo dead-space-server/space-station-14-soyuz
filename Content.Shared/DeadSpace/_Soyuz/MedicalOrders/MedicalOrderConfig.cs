@@ -17,11 +17,8 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [IdDataField]
     public string ID { get; private set; } = default!;
 
-    [DataField(required: true)] public int ReagentOfferCount;
     [DataField(required: true)] public int PatientOfferCount;
     [DataField(required: true)] public TimeSpan OfferRefreshInterval;
-    [DataField(required: true)] public int MinReagentEntries;
-    [DataField(required: true)] public int MaxReagentEntries;
     [DataField(required: true)] public int MinDamageEntries;
     [DataField(required: true)] public int MaxDamageEntries;
     [DataField(required: true)] public int PointsPerDamage;
@@ -30,28 +27,40 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField(required: true)] public ProtoId<RandomHumanoidSettingsPrototype> PatientRandomHumanoidSettings;
     [DataField(required: true)] public EntProtoId PatientGown;
     [DataField(required: true)] public EntProtoId DeliveryContainer;
-    [DataField(required: true)] public List<MedicalOrderReagent> Reagents = new();
+    [DataField] public decimal? MarketBasePriceMin;
+    [DataField] public decimal? MarketBasePriceMax;
+    [DataField(required: true)] public List<MedicalReagentMarketEntry> MarketReagents = new();
     [DataField(required: true)] public List<MedicalOrderDamage> Damages = new();
     [DataField(required: true)] public List<MedicalOrderDifficulty> Difficulties = new();
-    [DataField(required: true)] public List<MedicalOrderShopItem> ReagentShop = new();
-    [DataField(required: true)] public List<MedicalOrderShopItem> PatientShop = new();
+    [DataField(required: true)] public List<MedicalOrderShopItem> Shop = new();
     [DataField(required: true)] public List<int> ShopLevelThresholds = new();
     [DataField(required: true)] public List<MedicalOrderQualityBand> QualityBands = new();
 
     void ISerializationHooks.AfterDeserialization()
     {
-        if (ReagentOfferCount < 1 || PatientOfferCount < 1 || OfferRefreshInterval <= TimeSpan.Zero ||
-            MinReagentEntries < 1 || MaxReagentEntries < MinReagentEntries ||
+        if (PatientOfferCount < 1 || OfferRefreshInterval <= TimeSpan.Zero ||
             MinDamageEntries < 1 || MaxDamageEntries < MinDamageEntries ||
             PointsPerDamage < 1 || ExpiredRewardMultiplierPercent is < 0 or > 100 ||
             PatientCompletionDamageThreshold < 0)
             throw new InvalidDataException($"Medical orders config {ID} has invalid generation limits.");
 
-        if (Reagents.Count(r => r.CanGenerate) < MinReagentEntries ||
-            Reagents.GroupBy(r => r.Reagent).Any(g => g.Count() != 1) ||
-            Reagents.Any(r => r.Weight <= 0 || r.PointsPerUnit <= 0 || r.MinAmount <= 0 || r.MaxAmount < r.MinAmount) ||
-            Reagents.Where(r => r.CanGenerate).Sum(r => (long) r.Weight) > int.MaxValue)
-            throw new InvalidDataException($"Medical orders config {ID} has an invalid reagent catalog.");
+        if (!MarketReagents.Any(r => r.Enabled) ||
+            MarketReagents.GroupBy(r => r.Reagent).Any(g => g.Count() != 1) ||
+            MarketReagents.Any(r => r.BasePrice <= 0 || r.BasePrice > 1000000 ||
+                r.MinimumPrice <= 0 || r.MinimumPrice > r.BasePrice ||
+                r.ReputationPerUnit < 0 || r.ReputationPerUnit > 1000000 ||
+                r.SaturationVolume <= 0 || r.SaturationVolume > 1000000 ||
+                r.RecoveryPerMinute <= 0 || r.RecoveryPerMinute > 1000000))
+            throw new InvalidDataException($"Medical orders config {ID} has an invalid reagent market.");
+
+        if (MarketBasePriceMin != null || MarketBasePriceMax != null)
+        {
+            if (MarketBasePriceMin is not { } minimum || MarketBasePriceMax is not { } maximum ||
+                minimum <= 0 || maximum > 1000000 || minimum > maximum ||
+                decimal.Ceiling(minimum * 100m) > decimal.Floor(maximum * 100m) ||
+                MarketReagents.Any(r => r.MinimumPrice > minimum))
+                throw new InvalidDataException($"Medical orders config {ID} has an invalid market base price range.");
+        }
 
         if (Damages.Count(d => d.CanGenerate) < MinDamageEntries ||
             Damages.GroupBy(d => d.DamageType).Any(g => g.Count() != 1) ||
@@ -60,7 +69,9 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
             throw new InvalidDataException($"Medical orders config {ID} has an invalid damage catalog.");
 
         if (Difficulties.Count < 3 || Difficulties[0].MinScore != 0 ||
-            Difficulties.Any(d => d.MaxScore < d.MinScore || d.TimeLimit <= TimeSpan.Zero || d.BaseReputation < 0))
+            Difficulties.Any(d => d.MaxScore < d.MinScore || d.TimeLimit <= TimeSpan.Zero ||
+                d.BaseReputation < 0 || d.Weight <= 0) ||
+            Difficulties.Sum(d => (long) d.Weight) > int.MaxValue)
             throw new InvalidDataException($"Medical orders config {ID} has invalid difficulties.");
 
         for (var i = 1; i < Difficulties.Count; i++)
@@ -69,17 +80,14 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
                 throw new InvalidDataException($"Medical orders config {ID} has gaps in difficulty scores.");
         }
 
-        var maxReagentScore = Reagents.Where(r => r.CanGenerate)
-            .Select(r => (long) r.MaxAmount * r.PointsPerUnit)
-            .OrderByDescending(value => value).Take(MaxReagentEntries).Sum();
         var maxPatientScore = Damages.Where(d => d.CanGenerate)
             .Select(d => (long) d.MaxAmount * PointsPerDamage)
             .OrderByDescending(value => value).Take(MaxDamageEntries).Sum();
-        if (maxReagentScore > Difficulties[^1].MaxScore || maxPatientScore > Difficulties[^1].MaxScore)
+        if (maxPatientScore > Difficulties[^1].MaxScore)
             throw new InvalidDataException($"Medical orders config {ID} has generated scores outside difficulty ranges.");
 
         if (ShopLevelThresholds.Count == 0 || ShopLevelThresholds[0] != 0 ||
-            ReagentShop.Count == 0 || PatientShop.Count == 0)
+            Shop.Count == 0)
             throw new InvalidDataException($"Medical orders config {ID} has an empty shop.");
 
         for (var i = 1; i < ShopLevelThresholds.Count; i++)
@@ -88,13 +96,10 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
                 throw new InvalidDataException($"Medical orders config {ID} has unordered shop levels.");
         }
 
-        foreach (var shop in new[] { ReagentShop, PatientShop })
-        {
-            if (shop.GroupBy(i => i.ID).Any(g => g.Count() != 1) ||
-                shop.Any(i => i.Cost <= 0 || i.MaxCount <= 0 || i.MinimumShopLevel < 1 ||
-                              i.MinimumShopLevel > ShopLevelThresholds.Count))
-                throw new InvalidDataException($"Medical orders config {ID} has invalid shop items.");
-        }
+        if (Shop.GroupBy(i => i.ID).Any(g => g.Count() != 1) ||
+            Shop.Any(i => i.Cost <= 0 || i.MaxCount <= 0 || i.MinimumShopLevel < 1 ||
+                          i.MinimumShopLevel > ShopLevelThresholds.Count))
+            throw new InvalidDataException($"Medical orders config {ID} has invalid shop items.");
 
         var next = 0;
         foreach (var band in QualityBands)
@@ -110,14 +115,15 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
 }
 
 [DataDefinition]
-public sealed partial class MedicalOrderReagent
+public sealed partial class MedicalReagentMarketEntry
 {
     [DataField(required: true)] public ProtoId<ReagentPrototype> Reagent;
-    [DataField] public bool CanGenerate = true;
-    [DataField(required: true)] public int Weight;
-    [DataField(required: true)] public int PointsPerUnit;
-    [DataField(required: true)] public int MinAmount;
-    [DataField(required: true)] public int MaxAmount;
+    [DataField] public bool Enabled = true;
+    [DataField(required: true)] public decimal BasePrice;
+    [DataField(required: true)] public decimal MinimumPrice;
+    [DataField(required: true)] public decimal ReputationPerUnit;
+    [DataField(required: true)] public decimal SaturationVolume;
+    [DataField(required: true)] public decimal RecoveryPerMinute;
 }
 
 [DataDefinition]
@@ -133,6 +139,7 @@ public sealed partial class MedicalOrderDamage
 [DataDefinition]
 public sealed partial class MedicalOrderDifficulty
 {
+    [DataField(required: true)] public int Weight;
     [DataField(required: true)] public int MinScore;
     [DataField(required: true)] public int MaxScore;
     [DataField(required: true)] public TimeSpan TimeLimit;

@@ -57,16 +57,14 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist
-            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]}, //DS14-Soyuz
-            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]}, //DS14-Soyuz
-            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, //DS14-Soyuz disabled
-            // {"/Maps/_Soyuz/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, //DS14-Soyuz
-            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]}, //DS14-Soyuz
-            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]}, //DS14-Soyuz
-            {"/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml", ["BoxFolderCentCom"]} //DS14-Soyuz
-            // DS14-end
+            // DS14-Soyuz-start
+            // Special comment for markers (Our maps rarely get remapped as it is and will be added during remapping)
+            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
+            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -78,16 +76,20 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/_Soyuz/centcomm.yml", // DS14-Soyuz path
             "/Maps/centcomm.yml",
-            "/Maps/_Soyuz/S1_GeneralStaff.yml", // DS14-Soyuz path
-            "/Maps/_Soyuz/generalstaff.yml", // DS14-Soyuz
-            "/Maps/_Soyuz/Shuttles/GenStaff/GenStaffShuttle.yml", // DS14-Soyuz
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
             "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
+            // DS14-Soyuz-start
+            "/Maps/_Soyuz/centcomm.yml",
+            "/Maps/_Soyuz/S1_GeneralStaff.yml",
+            "/Maps/_Soyuz/generalstaff.yml",
+            "/Maps/_Soyuz/Shuttles/**",
+            "/Maps/_Soyuz/Shuttles/Pilot/**",
+            "/Maps/_Soyuz/Shuttles/GenStaff/**",
+            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -108,11 +110,11 @@ namespace Content.IntegrationTests.Tests
             "DSTaipan",
             "DsTram2",
             "Amber",
-            // "Aspid", // remap in progress
+            "Aspid", // DS14-Soyuz
             "Bagel",
             "Barratry",
             "Box",
-            // "Cluster", // invalid EntityUid reference in Storage
+            "Cluster", // DS14-Soyuz
             "Cog",
             "Convex",
             "Core",
@@ -130,8 +132,7 @@ namespace Content.IntegrationTests.Tests
             "Gate",
             "Ishimura",
             // "Gemini", // map load failure
-            // "Loop", // map load failure
-            // "Loop",
+            "Loop", // DS14-Soyuz
             "Marathon",
             "Meta",
             "Oasis",
@@ -145,14 +146,14 @@ namespace Content.IntegrationTests.Tests
             "Snowball",
             "Serpentcrest",
             "Train",
-            "GeneralStaff",
+            "GeneralStaff", // DS14-Soyuz
         };
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            "Aspid", // remap in progress
-            "Cluster", // invalid EntityUid reference in Storage
-            "Loop", // invalid EntityUid reference in Storage
+            // "Aspid", // DS14-Soyuz enabled
+            // "Cluster", // DS14-Soyuz enabled
+            // "Loop", // DS14-Soyuz enabled
             "Gemini", // map load failure
         };
         /// <summary>

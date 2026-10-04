@@ -78,27 +78,10 @@
   - selector:
       entities: [CableTerminalUncuttable]
     canonical: CableTerminal
-  # Match armor before the common windoor ancestors; all secure materials rebuild as WindoorSecure.
-  - selector:
-      parents: [BaseClockworkWindoor]
-    canonical: WindoorClockwork
-  - selector:
-      parents: [BaseSecurePlasmaWindoor]
-    canonical: WindoorSecure
-  - selector:
-      parents: [BasePlasmaWindoor]
-    canonical: WindoorPlasma
-  - selector:
-      parents: [BaseSecureUraniumWindoor]
-    canonical: WindoorSecure
-  - selector:
-      parents: [BaseUraniumWindoor]
-    canonical: WindoorUranium
-  - selector:
-      parents: [BaseSecureWindoor]
-    canonical: WindoorSecure
+  # Any sliding window or armored sliding window can be rebuilt with any material variant.
   - selector:
       parents: [BaseWindoor]
+      includeAbstractParents: true
     canonical: Windoor
   - selector:
       parents: [Holopad]
@@ -135,12 +118,7 @@
   - selector:
       entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
     canonical: MiningWindowDiagonal
-  - selector:
-      entities: [AirlockExternalGlassShuttleGeneralStaff, AirlockGlassShuttleXenoborgLocked]
-    canonical: AirlockGlassShuttle
-  - selector:
-      parents: [AirlockGlassShuttle]
-    canonical: AirlockGlassShuttle
+  # Any docking airlock can be rebuilt with either hand-built shuttle airlock.
   - selector:
       parents: [AirlockShuttle]
     canonical: AirlockShuttle
@@ -154,6 +132,10 @@
   - selector:
       parents: [BlastDoor]
     canonical: BlastDoor
+  # Filled bookshelves match the hand-built empty bookshelf.
+  - selector:
+      entities: [BookshelfFilled]
+    canonical: Bookshelf
   # All wall closets/lockers are equivalent for repair purposes.
   - selector:
       parents: [BaseWallCloset, BaseWallLocker]

@@ -1,31 +1,10 @@
 # Add classified: true to a reward to conceal its name, icon and price until minimumShopLevel.
 - type: repairReward
-  id: RepairOrderSteelReward
-  entity: SheetSteel
-  cost: 3
-  maxCount: 40
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderGlassReward
-  entity: SheetGlass
-  cost: 2
-  maxCount: 5
-  minimumShopLevel: 1
-
-- type: repairReward
   id: RepairOrderRodsReward
   entity: PartRodMetal
   cost: 1
   maxCount: 15
   minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderPlasticReward
-  entity: SheetPlastic
-  cost: 3
-  maxCount: 3
-  minimumShopLevel: 2
 
 - type: repairReward
   id: RepairOrderCableReward
@@ -49,45 +28,45 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderHighPowerCellReward
-  entity: PowerCellHigh
-  cost: 100
-  maxCount: 2
-  minimumShopLevel: 4
+  id: RepairOrderSteelReward
+  entity: SheetSteel
+  cost: 2
+  maxCount: 40
+  minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderHolofanProjectorReward
-  entity: HolofanProjector
-  cost: 10
-  maxCount: 1
-  minimumShopLevel: 5
+  id: RepairOrderGlassReward
+  entity: SheetGlass
+  cost: 2
+  maxCount: 5
+  minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderPowerDrillReward
-  entity: PowerDrill
-  cost: 125
-  maxCount: 1
-  minimumShopLevel: 3
+  id: RepairOrderWoodPlankReward
+  entity: MaterialWoodPlank
+  cost: 2
+  maxCount: 15
+  minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderJawsOfLifeReward
-  entity: JawsOfLife
-  cost: 150
-  maxCount: 1
-  minimumShopLevel: 3
+  id: RepairOrderClothReward
+  entity: MaterialCloth
+  cost: 2
+  maxCount: 15
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderIngotTungstenReward
+  entity: IngotTungsten
+  cost: 2
+  maxCount: 15
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderPlasteelReward
   entity: SheetPlasteel
-  cost: 4
+  cost: 3
   maxCount: 25
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderPlasmaReward
-  entity: SheetPlasma
-  cost: 5
-  maxCount: 10
   minimumShopLevel: 1
 
 - type: repairReward
@@ -98,23 +77,9 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderSilverReward
-  entity: IngotSilver
-  cost: 9
-  maxCount: 10
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderGoldReward
-  entity: IngotGold
-  cost: 11
-  maxCount: 10
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: RepairOrderUraniumReward
-  entity: SheetUranium
-  cost: 22
+  id: RepairOrderPlasmaReward
+  entity: SheetPlasma
+  cost: 5
   maxCount: 10
   minimumShopLevel: 1
 
@@ -140,32 +105,18 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderRcdAmmoReward
-  entity: RCDAmmo
-  cost: 50
-  maxCount: 9
+  id: RepairOrderSilverReward
+  entity: IngotSilver
+  cost: 9
+  maxCount: 10
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderAdvancedWelderReward
-  entity: WelderExperimental
-  cost: 192
-  maxCount: 1
-  minimumShopLevel: 3
-
-- type: repairReward
-  id: RepairOrderRcdReward
-  entity: RCD
-  cost: 54
-  maxCount: 1
-  minimumShopLevel: 3
-
-- type: repairReward
-  id: RepairOrderChiefEngineerBeltReward
-  entity: ClothingBeltChiefEngineerFilled
-  cost: 437
-  maxCount: 1
-  minimumShopLevel: 5
+  id: RepairOrderRcdAmmoReward
+  entity: RCDAmmo
+  cost: 10
+  maxCount: 9
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderShuttleConsoleBoardReward
@@ -175,18 +126,25 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderThrusterFlatpackReward
-  entity: ThrusterFlatpack
-  cost: 10
-  maxCount: 10
-  minimumShopLevel: 2
-
-- type: repairReward
-  id: RepairOrderGyroscopeFlatpackReward
-  entity: GyroscopeFlatpack
+  id: RepairOrderPowerConsoleBoardReward
+  entity: PowerComputerCircuitboard
   cost: 10
   maxCount: 2
-  minimumShopLevel: 2
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderMassScannerConsoleBoardReward
+  entity: RadarConsoleCircuitboard
+  cost: 10
+  maxCount: 2
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderGoldReward
+  entity: IngotGold
+  cost: 11
+  maxCount: 10
+  minimumShopLevel: 1
 
 - type: repairReward
   id: RepairOrderRocketThrusterFlatpackReward
@@ -203,10 +161,31 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderWallmountSubstationFlatpackReward
+  entity: RepairOrderWallmountSubstationFlatpack
+  cost: 10
+  maxCount: 5
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderUraniumReward
+  entity: SheetUranium
+  cost: 22
+  maxCount: 10
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderApuFlatpackReward
   entity: RepairOrderApuFlatpack
   cost: 25
   maxCount: 10
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: RepairOrderSubstationFlatpackReward
+  entity: RepairOrderSubstationFlatpack
+  cost: 15
+  maxCount: 5
   minimumShopLevel: 1
 
 - type: repairReward
@@ -224,62 +203,227 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: RepairOrderConstructionBagReward
-  entity: ConstructionBag
-  cost: 75
-  maxCount: 10
-  minimumShopLevel: 2
-
-- type: repairReward
-  id: RepairOrderMicroreactorCellReward
-  entity: PowerCellMicroreactor
-  cost: 600
-  maxCount: 1
-  minimumShopLevel: 4
-
-- type: repairReward
   id: RepairOrderMassScannerReward
   entity: BluespaceHandHeldMassScanner
-  cost: 201
+  cost: 101
   maxCount: 1
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderPlasticReward
+  entity: SheetPlastic
+  cost: 3
+  maxCount: 3
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderThrusterFlatpackReward
+  entity: ThrusterFlatpack
+  cost: 10
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderGyroscopeFlatpackReward
+  entity: GyroscopeFlatpack
+  cost: 10
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderConstructionBagReward
+  entity: ConstructionBag
+  cost: 25
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderVoidJetpackReward
+  entity: JetpackVoidFilled
+  cost: 30
+  maxCount: 1
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderBlindingMagbootsReward
+  entity: ClothingShoesBootsMagBlinding
+  cost: 30
+  maxCount: 1
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderSmesBasicFlatpackReward
+  entity: RepairOrderSmesBasicFlatpack
+  cost: 15
+  maxCount: 5
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderEngineeringBoardBundleReward
+  entity: RepairOrderEngineeringBoardBundle
+  cost: 25
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderSmesAdvancedFlatpackReward
+  entity: RepairOrderSmesAdvancedFlatpack
+  cost: 30
+  maxCount: 3
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderRcdReward
+  entity: RCD
+  cost: 30
+  maxCount: 1
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
+  entity: ClothingOuterHardsuitTaipanAtmosphericsEngineer
+  cost: 99
+  maxCount: 1
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderPowerDrillReward
+  entity: PowerDrill
+  cost: 50
+  maxCount: 1
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderJawsOfLifeReward
+  entity: JawsOfLife
+  cost: 60
+  maxCount: 1
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderAdvancedWelderReward
+  entity: WelderExperimental
+  cost: 77
+  maxCount: 1
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderClothingBackpackRIGEngineerReward
+  entity: ClothingBackpackRIGEngineer
+  cost: 222
+  maxCount: 1
+  minimumShopLevel: 3
+  classified: true
+
+- type: repairReward
+  id: RepairOrderTitaniumReward
+  entity: SheetTitanium
+  cost: 10
+  maxCount: 15
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderPlastitaniumReward
+  entity: SheetPlastitanium
+  cost: 15
+  maxCount: 15
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderHighPowerCellReward
+  entity: PowerCellHigh
+  cost: 75
+  maxCount: 2
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderMeteorDefenseTargetingModuleReward
+  entity: MeteorDefenseTargetingModule
+  cost: 300
+  maxCount: 1
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderMicroreactorCellReward
+  entity: PowerCellMicroreactor
+  cost: 250
+  maxCount: 1
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: RepairOrderHolofanProjectorReward
+  entity: HolofanProjector
+  cost: 10
+  maxCount: 1
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: RepairOrderRCDSyndicateReward
+  entity: RCDSyndicate
+  cost: 50
+  maxCount: 1
+  minimumShopLevel: 5
+  classified: true
+
+- type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
   entity: ConstructionBagOfHolding
-  cost: 421
+  cost: 251
+  maxCount: 1
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: RepairOrderChiefEngineerBeltReward
+  entity: ClothingBeltChiefEngineerFilled
+  cost: 336
   maxCount: 1
   minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderExperimentalRcdReward
   entity: RCDRecharging
-  cost: 501
+  cost: 301
   maxCount: 1
   minimumShopLevel: 5
 
 - type: repairReward
-  id: RepairOrderGasMinerIndustrialCoreReward
-  entity: GasMinerIndustrialCore
-  cost: 900
+  id: RepairOrderClothingBackpackRIGERTEngineerReward
+  entity: ClothingBackpackRIGERTEngineer
+  cost: 333
   maxCount: 1
-  minimumShopLevel: 8
+  minimumShopLevel: 6
   classified: true
 
 - type: repairReward
-  id: RepairOrderGasMinerNitrogenIndustrialCoreReward
-  entity: GasMinerNitrogenIndustrialCore
-  cost: 800
+  id: RepairOrderClothingNeckCloakCeReward
+  entity: ClothingNeckCloakCe
+  cost: 22
   maxCount: 1
-  minimumShopLevel: 8
+  minimumShopLevel: 7
   classified: true
 
 - type: repairReward
-  id: RepairOrderGasMinerOxygenIndustrialCoreReward
-  entity: GasMinerOxygenIndustrialCore
-  cost: 800
+  id: RepairOrderClothingNeckCloakCatReward
+  entity: ClothingNeckCloakCat
+  cost: 22
   maxCount: 1
-  minimumShopLevel: 8
+  minimumShopLevel: 7
+  classified: true
+
+- type: repairReward
+  id: RepairOrderClothingNeckCloakCentcomBlackReward
+  entity: ClothingNeckCloakCentcomBlack
+  cost: 55
+  maxCount: 1
+  minimumShopLevel: 7
+  classified: true
+
+- type: repairReward
+  id: RepairOrderClothingEyesHudGreenBeretReward
+  entity: ClothingEyesHudGreenBeret
+  cost: 302
+  maxCount: 1
+  minimumShopLevel: 7
   classified: true
 
 - type: repairReward
@@ -307,81 +451,35 @@
   classified: true
 
 - type: repairReward
-  id: RepairOrderMeteorDefenseTargetingModuleReward
-  entity: MeteorDefenseTargetingModule
-  cost: 250
-  maxCount: 1
-  minimumShopLevel: 4
-
-- type: repairReward
-  id: RepairOrderClothingEyesHudGreenBeretReward
-  entity: ClothingEyesHudGreenBeret
-  cost: 302
-  maxCount: 1
-  minimumShopLevel: 7
-  classified: true
-
-- type: repairReward
-  id: RepairOrderRCDSyndicateReward
-  entity: RCDSyndicate
-  cost: 99
-  maxCount: 1
-  minimumShopLevel: 5
-  classified: true
-
-- type: repairReward
-  id: RepairOrderClothingNeckCloakCeReward
-  entity: ClothingNeckCloakCe
-  cost: 111
-  maxCount: 1
-  minimumShopLevel: 7
-  classified: true
-
-- type: repairReward
-  id: RepairOrderClothingNeckCloakCatReward
-  entity: ClothingNeckCloakCat
-  cost: 111
-  maxCount: 1
-  minimumShopLevel: 7
-  classified: true
-
-- type: repairReward
-  id: RepairOrderClothingNeckCloakCentcomBlackReward
-  entity: ClothingNeckCloakCentcomBlack
-  cost: 111
-  maxCount: 1
-  minimumShopLevel: 7
-  classified: true
-
-- type: repairReward
-  id: RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
-  entity: ClothingOuterHardsuitTaipanAtmosphericsEngineer
-  cost: 99
-  maxCount: 1
-  minimumShopLevel: 3
-
-- type: repairReward
-  id: RepairOrderClothingOuterHardsuitNavyEngineerReward
-  entity: ClothingOuterHardsuitNavyEngineer
-  cost: 1999
+  id: RepairOrderGasMinerNitrogenIndustrialCoreReward
+  entity: GasMinerNitrogenIndustrialCore
+  cost: 800
   maxCount: 1
   minimumShopLevel: 8
   classified: true
 
 - type: repairReward
-  id: RepairOrderClothingBackpackRIGEngineerReward
-  entity: ClothingBackpackRIGEngineer
-  cost: 222
+  id: RepairOrderGasMinerOxygenIndustrialCoreReward
+  entity: GasMinerOxygenIndustrialCore
+  cost: 800
   maxCount: 1
-  minimumShopLevel: 3
+  minimumShopLevel: 8
   classified: true
 
 - type: repairReward
-  id: RepairOrderClothingBackpackRIGERTEngineerReward
-  entity: ClothingBackpackRIGERTEngineer
-  cost: 555
+  id: RepairOrderGasMinerIndustrialCoreReward
+  entity: GasMinerIndustrialCore
+  cost: 900
   maxCount: 1
-  minimumShopLevel: 6
+  minimumShopLevel: 8
+  classified: true
+
+- type: repairReward
+  id: RepairOrderClothingOuterHardsuitNavyEngineerReward
+  entity: ClothingOuterHardsuitNavyEngineer
+  cost: 1899
+  maxCount: 1
+  minimumShopLevel: 8
   classified: true
 
 - type: repairRewardPool
@@ -409,56 +507,70 @@
     maxPercent: 100
     multiplierPercent: 130
   rewards:
-  - RepairOrderSteelReward
-  - RepairOrderGlassReward
   - RepairOrderRodsReward
-  - RepairOrderPlasticReward
   - RepairOrderCableReward
   - RepairOrderCableMvReward
   - RepairOrderCableHvReward
-  - RepairOrderHighPowerCellReward
-  - RepairOrderHolofanProjectorReward
-  - RepairOrderPowerDrillReward
-  - RepairOrderJawsOfLifeReward
+  - RepairOrderSteelReward
+  - RepairOrderGlassReward
+  - RepairOrderWoodPlankReward
+  - RepairOrderClothReward
+  - RepairOrderIngotTungstenReward
   - RepairOrderPlasteelReward
-  - RepairOrderPlasmaReward
   - RepairOrderPlasmaGlassReward
-  - RepairOrderSilverReward
-  - RepairOrderGoldReward
-  - RepairOrderUraniumReward
+  - RepairOrderPlasmaReward
   - RepairOrderUraniumGlassReward
   - RepairOrderReinforcedGlassReward
   - RepairOrderTungstenReward
+  - RepairOrderSilverReward
   - RepairOrderRcdAmmoReward
-  - RepairOrderAdvancedWelderReward
-  - RepairOrderRcdReward
-  - RepairOrderChiefEngineerBeltReward
   - RepairOrderShuttleConsoleBoardReward
-  - RepairOrderThrusterFlatpackReward
-  - RepairOrderGyroscopeFlatpackReward
+  - RepairOrderPowerConsoleBoardReward
+  - RepairOrderMassScannerConsoleBoardReward
+  - RepairOrderWallmountSubstationFlatpackReward
+  - RepairOrderGoldReward
   - RepairOrderRocketThrusterFlatpackReward
+  - RepairOrderSubstationFlatpackReward
   - RepairOrderMiniGravityFlatpackReward
+  - RepairOrderUraniumReward
   - RepairOrderApuFlatpackReward
   - RepairOrderRtgFlatpackReward
   - RepairOrderShuttleBoardBundleReward
-  - RepairOrderConstructionBagReward
-  - RepairOrderMicroreactorCellReward
   - RepairOrderMassScannerReward
-  - RepairOrderBluespaceConstructionBagReward
-  - RepairOrderExperimentalRcdReward
-  - RepairOrderGasMinerIndustrialCoreReward
-  - RepairOrderGasMinerNitrogenIndustrialCoreReward
-  - RepairOrderGasMinerOxygenIndustrialCoreReward
-  - RepairOrderOxygenGasMinerMachineCircuitboardReward
-  - RepairOrderNitrogenGasMinerMachineCircuitboardReward
-  - RepairOrderPlasmaGasMinerMachineCircuitboardReward
+  - RepairOrderPlasticReward
+  - RepairOrderThrusterFlatpackReward
+  - RepairOrderGyroscopeFlatpackReward
+  - RepairOrderSmesBasicFlatpackReward
+  - RepairOrderConstructionBagReward
+  - RepairOrderEngineeringBoardBundleReward
+  - RepairOrderVoidJetpackReward
+  - RepairOrderBlindingMagbootsReward
+  - RepairOrderSmesAdvancedFlatpackReward
+  - RepairOrderPowerDrillReward
+  - RepairOrderRcdReward
+  - RepairOrderJawsOfLifeReward
+  - RepairOrderAdvancedWelderReward
+  - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
+  - RepairOrderClothingBackpackRIGEngineerReward
+  - RepairOrderTitaniumReward
+  - RepairOrderPlastitaniumReward
+  - RepairOrderHighPowerCellReward
+  - RepairOrderMicroreactorCellReward
   - RepairOrderMeteorDefenseTargetingModuleReward
-  - RepairOrderClothingEyesHudGreenBeretReward
+  - RepairOrderHolofanProjectorReward
   - RepairOrderRCDSyndicateReward
+  - RepairOrderExperimentalRcdReward
+  - RepairOrderChiefEngineerBeltReward
+  - RepairOrderBluespaceConstructionBagReward
+  - RepairOrderClothingBackpackRIGERTEngineerReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward
   - RepairOrderClothingNeckCloakCentcomBlackReward
-  - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
+  - RepairOrderClothingEyesHudGreenBeretReward
+  - RepairOrderOxygenGasMinerMachineCircuitboardReward
+  - RepairOrderNitrogenGasMinerMachineCircuitboardReward
+  - RepairOrderPlasmaGasMinerMachineCircuitboardReward
+  - RepairOrderGasMinerNitrogenIndustrialCoreReward
+  - RepairOrderGasMinerOxygenIndustrialCoreReward
+  - RepairOrderGasMinerIndustrialCoreReward
   - RepairOrderClothingOuterHardsuitNavyEngineerReward
-  - RepairOrderClothingBackpackRIGEngineerReward
-  - RepairOrderClothingBackpackRIGERTEngineerReward

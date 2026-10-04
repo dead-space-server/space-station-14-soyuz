@@ -1291,14 +1291,16 @@ DesoxyephedrineMedipen: CelestinMedipen
 DresserCaptainFilled: VendingMachineCaptainDrobe
 
 # 2026-07-08 - DS14
-#CargoRequestEngineeringComputerCircuitboard: null #DS14-Soyuz
-#CargoRequestMedicalComputerCircuitboard: null #DS14-Soyuz
-#CargoRequestScienceComputerCircuitboard: null #DS14-Soyuz
-#CargoRequestServiceComputerCircuitboard: null #DS14-Soyuz
-#ComputerCargoOrdersEngineering: null #DS14-Soyuz
-#ComputerCargoOrdersMedical: null #DS14-Soyuz
-#ComputerCargoOrdersScience: null #DS14-Soyuz
-#ComputerCargoOrdersService: null #DS14-Soyuz # Куча комментариев чтоб скрипт не снес
+# DS14-Soyuz-start
+# CargoRequestEngineeringComputerCircuitboard: null
+# CargoRequestMedicalComputerCircuitboard: null
+# CargoRequestScienceComputerCircuitboard: null
+# CargoRequestServiceComputerCircuitboard: null
+# ComputerCargoOrdersEngineering: null
+# ComputerCargoOrdersMedical: null
+# ComputerCargoOrdersScience: null
+# ComputerCargoOrdersService: null
+# DS14-Soyuz-end
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14
@@ -1353,6 +1355,3 @@ ADTDoubleBedTop: null
 ADTDoubleBedBottom: null
 NTFlag: BlankFlag
 SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist
-SpawnPointOperatorGS: null
-SpawnPointOfficerGS: null
-SpawnPointPolitkom: null

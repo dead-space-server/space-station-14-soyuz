@@ -2,6 +2,7 @@
 
 using System.Linq;
 using Content.Server.Popups;
+using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
@@ -33,6 +34,7 @@ public sealed class RepairOrderSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly RepairOrderSpawnSystem _spawn = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
+    [Dependency] private readonly DockingSystem _docking = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
@@ -215,7 +217,10 @@ public sealed class RepairOrderSystem : EntitySystem
                     finally
                     {
                         if (Exists(rollbackGrid))
+                        {
+                            UndockRepairGrid(rollbackGrid);
                             Del(rollbackGrid);
+                        }
                     }
                 }
             }
@@ -297,7 +302,7 @@ public sealed class RepairOrderSystem : EntitySystem
                 finally
                 {
                     if (Exists(grid) && MetaData(grid).EntityLifeStage < EntityLifeStage.Terminating)
-                        QueueDel(grid);
+                        QueueDeleteRepairGrid(grid);
                 }
             });
         }
@@ -512,7 +517,7 @@ public sealed class RepairOrderSystem : EntitySystem
                 foreach (var gridUid in ownedGrids)
                 {
                     if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-                        QueueDel(gridUid);
+                        QueueDeleteRepairGrid(gridUid);
                 }
             }
             finally
@@ -546,7 +551,7 @@ public sealed class RepairOrderSystem : EntitySystem
 
         _validation.DiscardPreparedSession(gridUid);
         if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-            QueueDel(gridUid);
+            QueueDeleteRepairGrid(gridUid);
     }
 
     /// <summary>
@@ -619,8 +624,20 @@ public sealed class RepairOrderSystem : EntitySystem
 
             _validation.DiscardPreparedSession(gridUid);
             if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-                QueueDel(gridUid);
+                QueueDeleteRepairGrid(gridUid);
         }
+    }
+
+    private void QueueDeleteRepairGrid(EntityUid gridUid)
+    {
+        UndockRepairGrid(gridUid);
+        QueueDel(gridUid);
+    }
+
+    private void UndockRepairGrid(EntityUid gridUid)
+    {
+        foreach (var dock in _docking.GetDocks(gridUid))
+            _docking.Undock(dock);
     }
 
     private void UpdateStationUis(Entity<RepairOrderStationComponent> station)

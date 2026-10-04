@@ -42,7 +42,7 @@ public sealed class GasFilterSystem : SharedGasFilterSystem
     {
         if (!ent.Comp.Enabled
             || !_nodeContainer.TryGetNodes(ent.Owner, ent.Comp.Inlet, ent.Comp.Filter, ent.Comp.Outlet, out PipeNode? inletNode, out PipeNode? filterNode, out PipeNode? outletNode)
-            || (outletNode.Air.Pressure >= Atmospherics.MaxOutputPressure && filterNode.Air.Pressure >= Atmospherics.MaxOutputPressure)) // No need to transfer if targets are full.
+            || outletNode.Air.Pressure >= Atmospherics.MaxOutputPressure) // No need to transfer if target is full.
         {
             _ambientSoundSystem.SetAmbience(ent.Owner, false);
             return;
@@ -61,31 +61,19 @@ public sealed class GasFilterSystem : SharedGasFilterSystem
 
         if (ent.Comp.FilteredGas.HasValue)
         {
-            // Make sure we don't pump over the pressure limit.
-            var limitMolesFilter =
-                AtmosphereSystem.MolesToMaxPressure(removed, filterNode.Air, Atmospherics.MaxOutputPressure);
+            // DS14-Soyuz-start
+            var filteredOut = new GasMixture() { Temperature = removed.Temperature };
 
-            var availableMoles = removed.GetMoles(ent.Comp.FilteredGas.Value);
-            var filteredMoles = Math.Max(Math.Min(limitMolesFilter, availableMoles), 0);
-            var filteredGasMixture = new GasMixture { Temperature = removed.Temperature };
+            filteredOut.SetMoles(ent.Comp.FilteredGas.Value, removed.GetMoles(ent.Comp.FilteredGas.Value));
+            removed.SetMoles(ent.Comp.FilteredGas.Value, 0f);
 
-            filteredGasMixture.SetMoles(ent.Comp.FilteredGas.Value, filteredMoles);
-            removed.AdjustMoles(ent.Comp.FilteredGas.Value, -filteredMoles);
-
-            _atmosphereSystem.Merge(filterNode.Air, filteredGasMixture);
-
-            _ambientSoundSystem.SetAmbience(ent.Owner, filteredMoles > 0f);
+            var target = filterNode.Air.Pressure < Atmospherics.MaxOutputPressure ? filterNode : inletNode;
+            _atmosphereSystem.Merge(target.Air, filteredOut);
+            _ambientSoundSystem.SetAmbience(ent.Owner, filteredOut.TotalMoles > 0f);
         }
 
-        // Fraction of `removed` that can be sent to outlet without exceeding max pressure.
-        var limitRatioOutlet =
-            AtmosphereSystem.FractionToMaxPressure(removed, outletNode.Air, Atmospherics.MaxOutputPressure);
-
-        // This might end up negative, but such cases are handled correctly by the `RemoveRatio` method
-        var passthrough = removed.RemoveRatio(limitRatioOutlet);
-
-        _atmosphereSystem.Merge(outletNode.Air, passthrough);
-        _atmosphereSystem.Merge(inletNode.Air, removed);
+        _atmosphereSystem.Merge(outletNode.Air, removed);
+        // DS14-Soyuz-end
     }
 
     private void OnFilterLeaveAtmosphere(Entity<GasFilterComponent> ent, ref AtmosDeviceDisabledEvent args)

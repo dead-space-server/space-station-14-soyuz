@@ -4,8 +4,10 @@ relax-martial-ability = Вы разжимаете свой кулак.
 unreflect-smoking-carp = Вы больше не концентрируетесь.
 reflect-smoking-carp = Вы начинаете концентрироваться.
 
-voice-message-cqc-1 = Отойдите от ВИП персоны! 
+voice-message-cqc-1 = Отойдите от ВИП персоны!
+# DS14-Soyuz-start
 voice-message-cqc-2 = Слава СССП!
+# DS14-Soyuz-end
 voice-message-cqc-3 = Лучшая защита - нападение!
 
 voice-message-carp-1 = МОЁ ВРЕМЯ ПРИШЛО! 

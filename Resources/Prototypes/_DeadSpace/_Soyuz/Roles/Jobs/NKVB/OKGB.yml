@@ -30,9 +30,9 @@
 - type: entity
   parent: ClothingBackpackBlueShield
   id: ClothingBackpackBlueShieldCentComFilled
-  name: модифицированный рюкзак офицера "Синий Щит"
-  description: Рюкзак офицера "Синий Щит" с функцией РИГ.
-  suffix: Заполненный, ЦентКом
+  name: модифицированный рюкзак оперативника КГБ
+  description: Рюкзак оперативника КГБ с функцией РИГ.
+  suffix: Заполненный, ГенШтаб
   components:
   - type: StorageFill
     contents:

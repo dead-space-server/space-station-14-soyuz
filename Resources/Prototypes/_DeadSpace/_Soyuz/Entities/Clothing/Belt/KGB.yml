@@ -28,9 +28,9 @@
 - type: entity
   id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
   parent: ClothingBeltMilitaryWebbingBlueShieldFilled
-  name: РПС офицера "Синий Щит"
-  description: РПС, которую носят офицеры "Синий Щит"
-  suffix: Заполненный, ЦентКом
+  name: РПС оперативника КГБ
+  description: Ременно-плечевая система, которую используют оперативники комитета государственной безопасности.
+  suffix: Заполненный, ГенШтаб
   components:
   - type: StorageFill
     contents:

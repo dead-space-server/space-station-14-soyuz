@@ -1291,14 +1291,16 @@ DesoxyephedrineMedipen: CelestinMedipen
 DresserCaptainFilled: VendingMachineCaptainDrobe
 
 # 2026-07-08 - DS14
-CargoRequestEngineeringComputerCircuitboard: null
-CargoRequestMedicalComputerCircuitboard: null
-CargoRequestScienceComputerCircuitboard: null
-CargoRequestServiceComputerCircuitboard: null
-ComputerCargoOrdersEngineering: null
-ComputerCargoOrdersMedical: null
-ComputerCargoOrdersScience: null
-ComputerCargoOrdersService: null
+# DS14-Soyuz-start
+# CargoRequestEngineeringComputerCircuitboard: null
+# CargoRequestMedicalComputerCircuitboard: null
+# CargoRequestScienceComputerCircuitboard: null
+# CargoRequestServiceComputerCircuitboard: null
+# ComputerCargoOrdersEngineering: null
+# ComputerCargoOrdersMedical: null
+# ComputerCargoOrdersScience: null
+# ComputerCargoOrdersService: null
+# DS14-Soyuz-end
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14

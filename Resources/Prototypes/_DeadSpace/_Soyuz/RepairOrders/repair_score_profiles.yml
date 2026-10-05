@@ -81,6 +81,7 @@
   # Any sliding window or armored sliding window can be rebuilt with any material variant.
   - selector:
       parents: [BaseWindoor]
+      includeAbstractParents: true
     canonical: Windoor
   - selector:
       parents: [Holopad]
@@ -131,6 +132,10 @@
   - selector:
       parents: [BlastDoor]
     canonical: BlastDoor
+  # Filled bookshelves match the hand-built empty bookshelf.
+  - selector:
+      entities: [BookshelfFilled]
+    canonical: Bookshelf
   # All wall closets/lockers are equivalent for repair purposes.
   - selector:
       parents: [BaseWallCloset, BaseWallLocker]
@@ -162,6 +167,7 @@
     mode: Exact
   - selector:
       parents: [GasPipeBase]
+      includeAbstractParents: true
     mode: Exact
 
   # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
@@ -175,6 +181,7 @@
 
   - selector:
       parents: [DisposalPipeBase]
+      includeAbstractParents: true
     mode: Exact
 
   # Directional atmos fixtures.
@@ -198,9 +205,6 @@
     mode: Exact
 
   # Shuttle airlocks and docking ports are directional.
-  - selector:
-      parents: [AirlockShuttle]
-    mode: Exact
   - selector:
       allComponents: [Docking]
     mode: Exact

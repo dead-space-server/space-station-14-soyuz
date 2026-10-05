@@ -82,6 +82,10 @@ entities:
       mapPaused: True
     - type: GridTree
     - type: Broadphase
+    - type: Parallax
+      parallax: SnowballStation
+    - type: MapLight
+      ambientLightColor: "#555555"
     - type: OccluderTree
   - uid: 2
     components:

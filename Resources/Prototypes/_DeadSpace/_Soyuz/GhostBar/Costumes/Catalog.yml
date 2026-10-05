@@ -152,3 +152,24 @@
   category: neck
   clothingProto: ClothingNeckGhostBarWhiteScarf
   slot: neck
+
+- type: ghostBarCostume
+  id: BlueMantleShoulder
+  name: ghost-bar-costume-ClothingNeckGhostBarBlueMantleShoulder
+  category: neck
+  clothingProto: ClothingNeckGhostBarBlueMantleShoulder
+  slot: neck
+
+- type: ghostBarCostume
+  id: OrangeMantleShoulder
+  name: ghost-bar-costume-ClothingNeckGhostBarOrangeMantleShoulder
+  category: neck
+  clothingProto: ClothingNeckGhostBarOrangeMantleShoulder
+  slot: neck
+
+- type: ghostBarCostume
+  id: VioletMantleShoulder
+  name: ghost-bar-costume-ClothingNeckGhostBarVioletMantleShoulder
+  category: neck
+  clothingProto: ClothingNeckGhostBarVioletMantleShoulder
+  slot: neck

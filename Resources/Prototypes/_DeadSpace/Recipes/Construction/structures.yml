@@ -1,13 +1,13 @@
-# Plastitanium
 - type: construction
   id: TitaniumGirder
   graph: TitaniumGirder
   startNode: start
   targetNode: titaniumGirder
   category: construction-category-structures
-  entityWhitelist:
-    tags:
-    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -21,9 +21,10 @@
   startNode: start
   targetNode: plastitaniumGirder
   category: construction-category-structures
-  entityWhitelist:
-    tags:
-    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -37,10 +38,11 @@
   startNode: start
   targetNode: plastitaniumplasmaWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-  entityWhitelist:
-    tags:
-    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -54,10 +56,11 @@
   startNode: start
   targetNode: plastitaniumWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-  entityWhitelist:
-    tags:
-    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -71,10 +74,11 @@
   startNode: start
   targetNode: plastitaniumplasmaWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-  entityWhitelist:
-    tags:
-    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -87,10 +91,11 @@
   startNode: start
   targetNode: plastitaniumWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-  entityWhitelist:
-    tags:
-    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -103,9 +108,10 @@
   startNode: start
   targetNode: plastitaniumWall
   category: construction-category-structures
-  entityWhitelist:
-    tags:
-    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -119,9 +125,10 @@
   startNode: start
   targetNode: diagonalplastitaniumWall
   category: construction-category-structures
-  entityWhitelist:
-    tags:
-    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true

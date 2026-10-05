@@ -1,0 +1,14 @@
+- type: reagent
+  id: Morby
+  name: reagent-name-morbi
+  parent: BaseAlcohol
+  desc:  reagent-desc-morbi
+  physicalDesc: reagent-physical-desc-morbi
+  flavor: morby
+  color: "#005fa8"
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/morby.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 5
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false

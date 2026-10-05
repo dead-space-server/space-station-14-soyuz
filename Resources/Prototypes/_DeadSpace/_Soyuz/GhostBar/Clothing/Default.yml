@@ -13,10 +13,14 @@
     sprintModifier: 1
 
 - type: entity
-  parent: ClothingUniformJumpsuitIAA
+  parent: ClothingUniformGhostBarBase
   id: ClothingUniformJumpsuitGhostBarDefault
   name: стильный комбинезон
   suffix: Гост-бар, Неснимаемая
   description: ...
   components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/magistrate.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Uniforms/Jumpsuit/magistrate.rsi
   - type: Unremoveable

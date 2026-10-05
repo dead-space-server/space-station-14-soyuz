@@ -60,17 +60,19 @@ public sealed class MedicalOrderView
     public readonly int MaximumScore;
     public readonly int CurrentScore;
     public readonly int Difficulty;
+    public readonly int ReputationReward;
     public readonly TimeSpan TimeLimit;
     public readonly TimeSpan? Deadline;
 
     public MedicalOrderView(int runtimeId, MedicalOrderLineView[] lines, int maximumScore,
-        int currentScore, int difficulty, TimeSpan timeLimit, TimeSpan? deadline = null)
+        int currentScore, int difficulty, TimeSpan timeLimit, int reputationReward, TimeSpan? deadline = null)
     {
         RuntimeId = runtimeId;
         Lines = lines;
         MaximumScore = maximumScore;
         CurrentScore = currentScore;
         Difficulty = difficulty;
+        ReputationReward = reputationReward;
         TimeLimit = timeLimit;
         Deadline = deadline;
     }
@@ -112,6 +114,23 @@ public sealed class MedicalOrderShopCartLine
 }
 
 [Serializable, NetSerializable]
+public sealed class MedicalReagentMarketView
+{
+    public readonly string Reagent;
+    public readonly double Price;
+    public readonly double Reputation;
+    public readonly float Available;
+
+    public MedicalReagentMarketView(string reagent, double price, double reputation, float available)
+    {
+        Reagent = reagent;
+        Price = price;
+        Reputation = reputation;
+        Available = available;
+    }
+}
+
+[Serializable, NetSerializable]
 public sealed class MedicalOrderUiState : BoundUserInterfaceState
 {
     public readonly MedicalOrderMachineKind Kind;
@@ -134,6 +153,13 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
     public readonly bool PatientAlive;
     public readonly bool PatientCritical;
     public readonly string? ReagentBeakerName;
+    public readonly MedicalReagentMarketView[] Market;
+    public readonly long MarketPreviewPoints;
+    public readonly long MarketPreviewReputation;
+    public readonly float MarketAcceptedVolume;
+    public readonly float MarketRejectedVolume;
+    public readonly long LastMarketPoints;
+    public readonly long LastMarketReputation;
 
     public MedicalOrderUiState(MedicalOrderMachineKind kind, MedicalOrderView[] offers,
         MedicalOrderView? active, MedicalOrderView? lastCompleted, TimeSpan nextRefresh,
@@ -141,7 +167,9 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         MedicalOrderShopItemView[] shop, int lastAwardedPoints, int lastAwardedReputation,
         bool lastExpired, float? patientInitialDamage, float? patientCurrentDamage,
         int patientCompletionThreshold, bool patientInserted, bool patientAlive, bool patientCritical,
-        string? reagentBeakerName)
+        string? reagentBeakerName, MedicalReagentMarketView[] market,
+        long marketPreviewPoints, long marketPreviewReputation, float marketAcceptedVolume,
+        float marketRejectedVolume, long lastMarketPoints, long lastMarketReputation)
     {
         Kind = kind;
         Offers = offers;
@@ -163,6 +191,13 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         PatientAlive = patientAlive;
         PatientCritical = patientCritical;
         ReagentBeakerName = reagentBeakerName;
+        Market = market;
+        MarketPreviewPoints = marketPreviewPoints;
+        MarketPreviewReputation = marketPreviewReputation;
+        MarketAcceptedVolume = marketAcceptedVolume;
+        MarketRejectedVolume = marketRejectedVolume;
+        LastMarketPoints = lastMarketPoints;
+        LastMarketReputation = lastMarketReputation;
     }
 }
 
@@ -172,7 +207,7 @@ public enum MedicalOrderAction : byte
     Accept,
     Complete,
     Purchase,
-    TransferReagents,
+    SellReagents,
 }
 
 /// <summary>All fields are untrusted; the server derives station, machine and prices itself.</summary>

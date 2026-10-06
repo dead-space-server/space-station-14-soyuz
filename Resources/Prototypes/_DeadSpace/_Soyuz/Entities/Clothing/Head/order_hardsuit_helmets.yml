@@ -1,0 +1,85 @@
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingHeadHelmetHardsuitERTLeader, ClothingHeadSuitWithLightBase ]
+  id: ClothingHeadHelmetHardsuitOrdersBase
+  name: базовый шлем служебного скафандра СССП
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
+  - type: ClothingGrantComponent
+    component:
+      - type: ImmunNecroobelisk
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.90
+        Heat: 0.90
+        Radiation: 0.90
+        Caustic: 0.95
+        Poison: 0.90
+  - type: PointLight
+    color: "#00FFFF"
+    radius: 7
+    energy: 5
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+
+# Шлема
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitOrdersBase
+  id: ClothingHeadHelmetHardsuitRepairOrderEngineer
+  name: шлем скафандра ремонтной бригады
+  description: Герметичный шлем ремонтной службы СССП со встроенным фонарём для работы в обесточенных отсеках и на внешней обшивке. Визор защищает глаза при сварке.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.8
+        Radiation: 0.8
+        Caustic: 0.95
+        Poison: 0.9
+  - type: EyeProtection
+  - type: PointLight
+    color: "#FFE0B3"
+    radius: 10
+    energy: 7
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitOrdersBase
+  id: ClothingHeadHelmetHardsuitMedicalOrderMedic
+  name: шлем скафандра медицинской эвакуации
+  description: Герметичный шлем медицинской эвакуационной службы СССП со встроенным фонарём для поиска пострадавших в аварийных отсеках. Медицинский визор отображает состояние здоровья пациентов.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/medical_order_medic.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/medical_order_medic.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+        Radiation: 0.9
+        Caustic: 0.8
+        Poison: 0.8
+  - type: ShowHealthBars
+  - type: ShowHealthIcons
+  - type: PointLight
+    color: "#FFFFFF"

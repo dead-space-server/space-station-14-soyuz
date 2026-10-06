@@ -1,0 +1,209 @@
+- type: entity
+  parent: ClothingOuterHardsuitERTLeader
+  id: ClothingOuterHardsuitOrdersBase
+  name: базовый служебный скафандр СССП
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/repair_order_engineer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/repair_order_engineer.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.02
+    lowPressureMultiplier: 1000
+  - type: TemperatureProtection
+    heatingCoefficient: 0.001
+    coolingCoefficient: 0.001
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: FireProtection
+    reduction: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Poison: 0.75
+        Piercing: 0.3
+        Heat: 0.45
+        Cold: 0.4
+        Shock: 0.4
+        Radiation: 0.4
+        Caustic: 0.5
+        Stun: 0.4
+  - type: AutoInjectReagentClothingOnAllowedState
+    durationRegenReagents: 100
+    allowedStates:
+    - Critical
+    reagents:
+      DexalinPlus: 10
+      Puncturase: 10
+      TranexamicAcid: 10
+      Omnizine: 10
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+  - type: HeldSpeedModifier
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitRepairOrderEngineer
+  - type: StaminaResistance
+    damageCoefficient: 0.8
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.4
+  - type: HardsuitIdentification
+  - type: TTS
+    voice: Adjutant
+  - type: Reflect
+    reflectProb: 0.10
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.7
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+
+# Скафандры
+
+- type: entity
+  parent: ClothingOuterHardsuitOrdersBase
+  id: ClothingOuterHardsuitRepairOrderEngineer
+  name: скафандр ремонтной бригады
+  description: Защитный скафандр ремонтной службы СССП для восстановления аварийных станций и повреждённых шаттлов. Оснащён встроенным блюспейс сканером масс и креплением для дыхательного баллона. Усиленная радиационная и взрывная защита помогает работать там, где обычный ремонт заканчивается эвакуацией.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/repair_order_engineer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/repair_order_engineer.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+  - type: FireProtection
+    reduction: 1
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.55
+        Poison: 0.75
+        Piercing: 0.55
+        Heat: 0.25
+        Cold: 0.2
+        Shock: 0.2
+        Radiation: 0
+        Caustic: 0.4
+        Stun: 0.35
+  - type: Reflect
+    reflectProb: 0.1
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.25
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitRepairOrderEngineer
+  - type: AllowSuitStorage
+    whitelist:
+      components:
+      - GasTank
+  - type: RadarConsole
+    toggleAction: ActionRepairOrderHardsuitMassScanner
+    maxRange: 342
+    followEntity: true
+    advanced: true
+    allowedComponents:
+    - component: Projectile
+      color: "#FF0000"
+    - component: MobState
+      color: "#FFFFFF"
+    - component: Item
+      color: "#FFD700"
+    blacklistComponents:
+    - CartridgeAmmo
+    - Dragon
+    blacklistTags:
+    - Ore
+    - Trash
+  - type: ActivatableUI
+    key: enum.RadarConsoleUiKey.Key
+    inHandsOnly: false
+    singleUser: true
+    verbOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.RadarConsoleUiKey.Key:
+        type: RadarConsoleBoundUserInterface
+
+- type: entity
+  parent: ClothingOuterHardsuitOrdersBase
+  id: ClothingOuterHardsuitMedicalOrderMedic
+  name: скафандр медицинской эвакуации
+  description: Скафандр медицинской эвакуационной службы СССП для оказания помощи и перевозки пострадавших из опасных зон. Внутренние отделения вмещают лекарства и медицинские инструменты. Лёгкие приводы и химическая защита позволяют быстро добраться до пациента и вынести его к спасательному шаттлу.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/medical_order_medic.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/medical_order_medic.rsi
+  - type: ExplosionResistance
+    damageCoefficient: 0.7
+  - type: FireProtection
+    reduction: 0.5
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.55
+        Poison: 0.5
+        Piercing: 0.55
+        Heat: 0.6
+        Cold: 0.3
+        Shock: 0.3
+        Radiation: 0.6
+        Caustic: 0.2
+        Stun: 0.35
+  - type: Reflect
+    reflectProb: 0.1
+  - type: VirusResistance
+    virusResistanceCoefficient: 0.05
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.05
+  - type: ClothingSpeedModifier
+    walkModifier: 1.05
+    sprintModifier: 1.05
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHelmetHardsuitMedicalOrderMedic
+  - type: Storage
+    grid:
+    - 0,0,3,3
+    maxItemSize: Normal
+    whitelist:
+      tags:
+      - Bottle
+      - Spray
+      - Brutepack
+      - Bloodpack
+      - Gauze
+      - Ointment
+      - Tourniquet
+      - PillCanister
+      - DiscreteHealthAnalyzer
+      - SurgeryTool
+      - Dropper
+      - Medkit
+      - CompactDefibrillator
+      - Nanopaste
+      - Syringe
+      - Hypospray
+      components:
+      - Injector
+      - Pill
+      - HealthAnalyzer
+      - Defibrillator
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+
+- type: entity
+  parent: ActionHandheldRadarToggle
+  id: ActionRepairOrderHardsuitMassScanner
+  name: Встроенный сканер масс
+  description: Открыть блюспейс сканер масс скафандра ремонтной бригады.

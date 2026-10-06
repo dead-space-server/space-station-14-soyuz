@@ -189,6 +189,13 @@
     reputationPerUnit: 1
     saturationVolume: 100
     recoveryPerMinute: 10
+  - reagent: Desoxyephedrine
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Dexalin
     enabled: true
     basePrice: 0.375
@@ -228,6 +235,13 @@
     enabled: true
     basePrice: 0.15
     minimumPrice: 0.015
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
+  - reagent: Ephedrine
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
     reputationPerUnit: 1
     saturationVolume: 100
     recoveryPerMinute: 10
@@ -364,6 +378,13 @@
     reputationPerUnit: 1
     saturationVolume: 100
     recoveryPerMinute: 10
+  - reagent: Napalm
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
   - reagent: Necrosol
     enabled: false
     basePrice: 1
@@ -494,6 +515,13 @@
     enabled: true
     basePrice: 0.75
     minimumPrice: 0.075
+    reputationPerUnit: 1
+    saturationVolume: 100
+    recoveryPerMinute: 10
+  - reagent: SpaceDrugs
+    enabled: true
+    basePrice: 0.375
+    minimumPrice: 0.0375
     reputationPerUnit: 1
     saturationVolume: 100
     recoveryPerMinute: 10
@@ -951,8 +979,8 @@
     cost: 1000
     maxCount: 1
     minimumShopLevel: 7
-  - id: ClothingOuterHardsuitNavyNedical
-    entity: ClothingOuterHardsuitNavyNedical
-    cost: 3000
+  - id: ClothingOuterHardsuitMedicalOrderMedic
+    entity: ClothingOuterHardsuitMedicalOrderMedic
+    cost: 2500
     maxCount: 1
     minimumShopLevel: 8

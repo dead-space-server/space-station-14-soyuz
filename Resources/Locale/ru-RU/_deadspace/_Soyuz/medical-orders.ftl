@@ -39,6 +39,7 @@ medical-orders-patient-state = Жив: { $alive }, критическое сос
 medical-orders-yes = да
 medical-orders-no = нет
 medical-orders-expired = время истекло
+medical-orders-patient-lost = пациент утрачен
 medical-orders-complete-status = выполнен
 medical-orders-classified = Засекреченный предмет
 medical-orders-shop-line = { $name } | { $cost } очков | ур. { $level }

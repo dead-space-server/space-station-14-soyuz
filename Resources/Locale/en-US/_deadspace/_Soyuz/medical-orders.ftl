@@ -39,6 +39,7 @@ medical-orders-patient-state = Alive: { $alive }, critical: { $critical }
 medical-orders-yes = yes
 medical-orders-no = no
 medical-orders-expired = expired
+medical-orders-patient-lost = patient lost
 medical-orders-complete-status = completed
 medical-orders-classified = Classified item
 medical-orders-shop-line = { $name } | { $cost } points | level { $level }

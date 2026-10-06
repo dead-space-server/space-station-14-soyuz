@@ -19,6 +19,14 @@ public sealed partial class SpawnPointComponent : Component, ISpawnPoint
     [DataField("spawn_type"), ViewVariables(VVAccess.ReadWrite)]
     public SpawnPointType SpawnType { get; set; } = SpawnPointType.Unset;
 
+    // DS14-Soyuz-start
+    /// <summary>
+    /// For spawners on General Staff.
+    /// </summary>
+    [DataField("general_staff_role")]
+    public bool GeneralStaffRole { get; set; } = false;
+    // DS14-Soyuz-end
+
     public override string ToString()
     {
         return $"{Job} {SpawnType}";

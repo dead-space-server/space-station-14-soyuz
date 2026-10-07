@@ -19,7 +19,6 @@
   - type: PlacementReplacement
     key: ladders
   - type: Ladder
-  - type: BlockXenoConstruction
   - type: RMCMesonsNonviewable
   - type: RMCIgnoreGhostInteractionLimits
 

@@ -1,6 +1,4 @@
-﻿using Content.Shared._RMC14.Dropship;
-using Content.Shared._RMC14.Marines;
-using Content.Shared.Damage;
+﻿using Content.Shared.Damage.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Robust.Shared.Map;
@@ -17,15 +15,11 @@ public abstract class SharedRMCTeleporterSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
 
     private EntityQuery<ActorComponent> _actorQuery;
-    private EntityQuery<AlmayerComponent> _almayerQuery;
-    private EntityQuery<DropshipComponent> _dropshipQuery;
     private EntityQuery<MapGridComponent> _mapGridQuery;
 
     public override void Initialize()
     {
         _actorQuery = GetEntityQuery<ActorComponent>();
-        _almayerQuery = GetEntityQuery<AlmayerComponent>();
-        _dropshipQuery = GetEntityQuery<DropshipComponent>();
         _mapGridQuery = GetEntityQuery<MapGridComponent>();
 
         SubscribeLocalEvent<RMCTeleporterComponent, StartCollideEvent>(OnTeleportStartCollide);
@@ -36,9 +30,7 @@ public abstract class SharedRMCTeleporterSystem : EntitySystem
     private void OnTeleportStartCollide(Entity<RMCTeleporterComponent> ent, ref StartCollideEvent args)
     {
         var other = args.OtherEntity;
-        if (_almayerQuery.HasComp(other) ||
-            _dropshipQuery.HasComp(other) ||
-            _mapGridQuery.HasComp(other))
+        if (_mapGridQuery.HasComp(other))
         {
             return;
         }

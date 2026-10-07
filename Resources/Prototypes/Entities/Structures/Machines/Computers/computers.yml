@@ -1090,6 +1090,7 @@
       visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
+    mode: PrintSlip # DS14-Soyuz
     account: Engineering
     announcementChannel: Engineering
     removeLimitAccess: [ "ChiefEngineer" ]
@@ -1126,6 +1127,7 @@
       visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
+    mode: PrintSlip # DS14-Soyuz
     account: Medical
     announcementChannel: Medical
     removeLimitAccess: [ "ChiefMedicalOfficer" ]
@@ -1162,6 +1164,7 @@
       visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
+    mode: PrintSlip # DS14-Soyuz
     account: Science
     announcementChannel: Science
     removeLimitAccess: [ "ResearchDirector" ]
@@ -1200,6 +1203,7 @@
       visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
+    mode: PrintSlip # DS14-Soyuz
     account: Security
     announcementChannel: Security
     removeLimitAccess:
@@ -1239,6 +1243,7 @@
       visible: false # DS14
       state: generic_panel_open
   - type: CargoOrderConsole
+    mode: PrintSlip # DS14-Soyuz
     account: Service
     announcementChannel: Service
     removeLimitAccess: [ "HeadOfPersonnel" ]

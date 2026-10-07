@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "made by EmoGarbage, ammo state made by AjexRose and modified by Emo garbage, sec state resprite by inspector_jeleshka (discord) for Space Station 14 server РњС‘СЂС‚РІС‹Р№ РљРѕСЃРјРѕСЃ made by EmoGarbage, ammo state made by AjexRose and modified by Emo garbage, unlit-building by DinnerCalzone (github)",
+    "copyright": "made by EmoGarbage, sec state resprite by inspector_jeleshka (discord) for Space Station 14 server, unlit-building by DinnerCalzone (github), armed by sastr for Space Station 14 server Союз-1, resprited by pered6664 for Space Station 14 server Союз-1",
     "size": {
         "x": 32,
         "y": 32
@@ -27,9 +27,6 @@
         },
         {
             "name": "cargo"
-        },
-        {
-            "name": "ammo"
         },
         {
             "name": "panel"
@@ -67,6 +64,12 @@
                     0.15
                 ]
             ]
+        },
+        {
+            "name": "armed"
+        },
+        {
+            "name": "icon_armed"
         }
     ]
 }

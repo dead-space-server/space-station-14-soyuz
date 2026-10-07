@@ -230,11 +230,6 @@
     - SecurityExplosives
     - SecurityEquipment
     - SecurityWeapons
-  # DS14-Soyuz-start
-  - type: ActivatableUIRequiresAccess
-  - type: AccessReader
-    access: [["Research"]]
-  # DS14-Soyuz-end
 
 - type: entity
   id: ProtolatheHyperConvection

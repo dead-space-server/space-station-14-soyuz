@@ -1,0 +1,34 @@
+# Tier 1
+
+# Tier 2
+- type: technology
+  id: PlastitanCreate
+  name: research-technology-plastitan-titan
+  icon:
+    sprite: Objects/Materials/ingots.rsi
+    state: silver
+  discipline: Engineering
+  tier: 2
+  cost: 10000
+  recipeUnlocks:
+  - SheetPlastitanium1Soyuz
+  - SheetTitanium1Soyuz
+
+# Tier 3
+- type: technology
+  id: IndustrialGasMining
+  name: research-technology-industrial-gas-mining
+  icon:
+    sprite: Structures/Piping/Atmospherics/miners.rsi
+    state: miner
+  discipline: Engineering
+  tier: 3
+  cost: 17500
+  diskAvailable: false
+  recipeUnlocks:
+  - PlasmaGasMinerMachineCircuitboard
+  - OxygenGasMinerMachineCircuitboard
+  - NitrogenGasMinerMachineCircuitboard
+  technologyPrerequisites:
+  - AdvancedAtmospherics
+  - ProcessingTungsten

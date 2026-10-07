@@ -1,0 +1,77 @@
+- type: techDiscipline
+  id: Engineering
+  name: research-discipline-engineering
+  color: "#F2AC26"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: engineering
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4
+
+- type: techDiscipline
+  id: Security
+  name: research-discipline-security
+  color: "#DD3535"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: security
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4
+
+- type: techDiscipline
+  id: RND
+  name: research-discipline-RND
+  color: "#C68CFA"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: RND
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4
+
+- type: techDiscipline
+  id: Service
+  name: research-discipline-service
+  color: "#6CA729"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: service
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4
+
+- type: techDiscipline
+  id: Medical
+  name: research-discipline-medical
+  color: "#57B8F0"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: medical
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4
+
+- type: techDiscipline
+  id: Cargo
+  name: research-discipline-cargo
+  color: "#A46106"
+  icon:
+    sprite: _DeadSpace/_Soyuz/Interface/Misc/research_disciplines.rsi
+    state: cargo
+  tierPrerequisites:
+    1: 0
+    2: 0.75
+    3: 0.75
+  lockoutTier: 4

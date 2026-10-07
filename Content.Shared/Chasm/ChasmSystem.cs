@@ -117,6 +117,11 @@ public sealed class ChasmSystem : EntitySystem
         falling.NextDeletionTime = _timing.CurTime + falling.DeletionTime;
         _blocker.UpdateCanMove(tripper);
 
+        // DS14-Soyuz-start
+        var fallingEvent = new ChasmFallingEvent(chasm);
+        RaiseLocalEvent(tripper, ref fallingEvent);
+        // DS14-Soyuz-end
+
         if (playSound && _net.IsServer)
             _audio.PlayPvs(component.FallingSound, chasm);
 

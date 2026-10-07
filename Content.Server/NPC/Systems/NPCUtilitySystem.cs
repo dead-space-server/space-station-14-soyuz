@@ -12,6 +12,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Examine;
 using Content.Shared.Fluids.Components;
 using Content.Shared.Inventory;
+using Content.Shared.Mech.Components; // DS14-Soyuz
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -322,6 +323,16 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case TargetHealthCon con:
             {
+                // DS14-Soyuz-start
+                if (TryComp<MechComponent>(targetUid, out var mech))
+                {
+                    if (mech.Broken || mech.MaxIntegrity <= 0)
+                        return 0f;
+
+                    return Math.Clamp((float) (mech.Integrity / mech.MaxIntegrity), 0f, 1f);
+                }
+                // DS14-Soyuz-end
+
                 // DS14-start
                 if (!TryComp(targetUid, out DamageableComponent? damage) ||
                     !TryComp(targetUid, out MobThresholdsComponent? thresholds))
@@ -358,6 +369,18 @@ public sealed class NPCUtilitySystem : EntitySystem
             }
             case TargetIsAliveCon con:
             {
+                // DS14-Soyuz-start
+                if (TryComp<MechComponent>(targetUid, out var mech))
+                {
+                    if (mech.Broken || mech.PilotSlot.ContainedEntity is not { } pilot)
+                        return 0f;
+
+                    return _mobState.IsAlive(pilot) || con.IncludePreCritical && _mobState.IsPreCritical(pilot)
+                        ? 1f
+                        : 0f;
+                }
+                // DS14-Soyuz-end
+
                 return _mobState.IsAlive(targetUid) || con.IncludePreCritical && _mobState.IsPreCritical(targetUid)
                     ? 1f
                     : 0f;

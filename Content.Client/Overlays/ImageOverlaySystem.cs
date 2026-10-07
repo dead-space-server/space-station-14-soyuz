@@ -2,6 +2,7 @@ using Content.Shared.Clothing;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Overlays;
 using Robust.Client.Graphics;
+using Robust.Shared.GameObjects;
 
 namespace Content.Client.Overlays;
 
@@ -19,9 +20,9 @@ public sealed partial class ImageOverlaySystem : EquipmentHudSystem<ImageOverlay
     {
         base.Initialize();
         _overlay = new();
+        SubscribeLocalEvent<ImageOverlayComponent, ItemMaskToggledEvent>(OnItemToggled); // DS14-Soyuz
     }
 
-    [SubscribeLocalEvent]
     private void OnItemToggled(Entity<ImageOverlayComponent> ent, ref ItemMaskToggledEvent args)
     {
         _overlay.SetActive(ent.Comp, !args.Mask.Comp.IsToggled);

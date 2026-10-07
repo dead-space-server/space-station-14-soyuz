@@ -31,6 +31,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField] public decimal? MarketBasePriceMax;
     [DataField] public decimal? MarketBaseReputationMin;
     [DataField] public decimal? MarketBaseReputationMax;
+    [DataField] public Dictionary<MedicalReagentDifficulty, MedicalReagentMarketTier> MarketDifficulties = new();
     [DataField(required: true)] public List<MedicalReagentMarketEntry> MarketReagents = new();
     [DataField(required: true)] public List<MedicalOrderDamage> Damages = new();
     [DataField(required: true)] public List<MedicalOrderDifficulty> Difficulties = new();
@@ -71,6 +72,20 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
                 decimal.Ceiling(minimum * 100m) > decimal.Floor(maximum * 100m))
                 throw new InvalidDataException($"Medical orders config {ID} has an invalid market base reputation range.");
         }
+
+        foreach (var tier in MarketDifficulties.Values)
+        {
+            if (tier.BasePriceMin <= 0 || tier.BasePriceMax > 1000000 || tier.BasePriceMin > tier.BasePriceMax ||
+                decimal.Ceiling(tier.BasePriceMin * 100m) > decimal.Floor(tier.BasePriceMax * 100m) ||
+                tier.BaseReputationMin < 0 || tier.BaseReputationMax > 1000000 ||
+                tier.BaseReputationMin > tier.BaseReputationMax ||
+                decimal.Ceiling(tier.BaseReputationMin * 100m) > decimal.Floor(tier.BaseReputationMax * 100m))
+                throw new InvalidDataException($"Medical orders config {ID} has an invalid market difficulty range.");
+        }
+
+        if (MarketDifficulties.Count > 0 && MarketReagents.Any(r =>
+                !MarketDifficulties.TryGetValue(r.Difficulty, out var tier) || r.MinimumPrice > tier.BasePriceMin))
+            throw new InvalidDataException($"Medical orders config {ID} has a missing or incompatible market difficulty.");
 
         if (Damages.Count(d => d.CanGenerate) < MinDamageEntries ||
             Damages.GroupBy(d => d.DamageType).Any(g => g.Count() != 1) ||
@@ -129,11 +144,28 @@ public sealed partial class MedicalReagentMarketEntry
 {
     [DataField(required: true)] public ProtoId<ReagentPrototype> Reagent;
     [DataField] public bool Enabled = true;
+    [DataField] public MedicalReagentDifficulty Difficulty;
     [DataField(required: true)] public decimal BasePrice;
     [DataField(required: true)] public decimal MinimumPrice;
     [DataField(required: true)] public decimal ReputationPerUnit;
     [DataField(required: true)] public decimal SaturationVolume;
     [DataField(required: true)] public decimal RecoveryPerMinute;
+}
+
+public enum MedicalReagentDifficulty : byte
+{
+    Easy,
+    Medium,
+    Hard,
+}
+
+[DataDefinition]
+public sealed partial class MedicalReagentMarketTier
+{
+    [DataField(required: true)] public decimal BasePriceMin;
+    [DataField(required: true)] public decimal BasePriceMax;
+    [DataField(required: true)] public decimal BaseReputationMin;
+    [DataField(required: true)] public decimal BaseReputationMax;
 }
 
 [DataDefinition]

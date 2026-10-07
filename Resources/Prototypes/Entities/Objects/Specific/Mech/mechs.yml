@@ -6,6 +6,16 @@
   - type: MobMover
   - type: Mech
   - type: MechAir
+  # DS14-Soyuz-start
+  - type: NpcFactionMember
+  - type: Flammable
+    damage:
+      types:
+        Heat: 5
+  - type: FireVisuals
+    sprite: Mobs/Effects/onfire.rsi
+    normalState: Standing
+  # DS14-Soyuz-end
   - type: Vehicle
     canAttack: true
   - type: VehicleHandBlocker
@@ -156,6 +166,33 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 2.25
     baseSprintSpeed: 3.6
+
+  # DS14-Soyuz-start
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers:
+        - mech-battery-slot
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+          PartRodMetal1:
+            min: 2
+            max: 4
+      - !type:ChangeConstructionNodeBehavior
+        node: start
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
 
 - type: entity
   id: MechRipleyBattery

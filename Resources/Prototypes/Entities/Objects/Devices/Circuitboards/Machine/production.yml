@@ -932,6 +932,46 @@
       Cable: 5
 
 - type: entity
+  parent: BaseMachineCircuitboard
+  id: KitchenRangeOvenMachineCircuitboard
+  name: kitchen range machine board
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenRangeOven
+    stackRequirements:
+      Manipulator: 4
+      Glass: 2
+      Cable: 5
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: KitchenWaffleIronMachineCircuitboard
+  name: waffle iron machine board
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenWaffleIron
+    stackRequirements:
+      Manipulator: 2
+      Cable: 3
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: KitchenTabletopGrillMachineCircuitboard
+  name: tabletop grill machine board
+  components:
+  - type: Sprite
+    state: service
+  - type: MachineBoard
+    prototype: KitchenTabletopGrill
+    stackRequirements:
+      Manipulator: 3
+      Cable: 4
+
+- type: entity
   id: StasisBedMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: stasis bed machine board

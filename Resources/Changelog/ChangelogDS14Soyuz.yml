@@ -2077,3 +2077,23 @@ Entries:
     message: Новые награды в мед. заказах.
   - type: Fix
     message: Стыковочные шлюзы ремонтных заказов (надеюсь).
+- id: 197
+  author: ExoDoomer
+  time: '2026-10-05T17:12:35.280865+00:00'
+  pr: 516
+  changes:
+  - type: Tweak
+    message: Вещи ОСЩ переименованы в вещи ОКГБ
+- id: 198
+  author: Ezio50
+  time: '2026-10-06T19:41:31.632284+00:00'
+  pr: 519
+  changes:
+  - type: Add
+    message: Новые реагенты в биржу
+  - type: Add
+    message: Два новых меха для мед. заказов
+  - type: Tweak
+    message: Награды ремонтных заказов
+  - type: Fix
+    message: Отображение защиты от вирусов

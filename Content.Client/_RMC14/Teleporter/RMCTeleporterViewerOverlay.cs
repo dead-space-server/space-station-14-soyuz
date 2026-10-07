@@ -16,7 +16,6 @@ public sealed class RMCTeleporterViewerOverlay : Overlay
 {
     [Dependency] private readonly IEntityManager _entity = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
-    [Dependency] private readonly IOverlayManager _overlay = default!;
 
     private readonly SharedContainerSystem _container;
     private readonly EntityLookupSystem _entityLookup;

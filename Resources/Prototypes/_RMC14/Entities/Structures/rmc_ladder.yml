@@ -19,8 +19,6 @@
   - type: PlacementReplacement
     key: ladders
   - type: Ladder
-  - type: RMCMesonsNonviewable
-  - type: RMCIgnoreGhostInteractionLimits
 
 - type: entity
   parent: RMCLadder

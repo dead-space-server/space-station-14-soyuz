@@ -41,7 +41,7 @@
   id:  ArmedTechFab
   name: research-technology-armed-tech-fab-technology
   icon:
-    sprite: Structures/Machines/techfab.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
     state: icon_armed
   discipline: Security
   tier: 2

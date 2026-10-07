@@ -105,7 +105,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             if (state.PatientActive is { } patient)
             {
                 if (!Exists(patient.Terminal) || Terminating(patient.Terminal) ||
-                    patient.Patient is not { } body || !Exists(body) || Terminating(body) || now >= patient.Deadline)
+                    IsPatientMissing(patient) || now >= patient.Deadline)
                     FinalizeOrder(uid, state, config, patient, expired: true);
             }
 
@@ -464,6 +464,12 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             return;
         }
 
+        if (IsPatientMissing(active))
+        {
+            FinalizeOrder(station, state, config, active, expired: true);
+            return;
+        }
+
         if (!TryComp<EntityStorageComponent>(sender, out var storage) || storage.Open ||
             storage.Contents.ContainedEntities.Count != 1)
         {
@@ -504,9 +510,16 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             QueueDel(body);
     }
 
+    private bool IsPatientMissing(MedicalOrderActive active)
+    {
+        return active.Patient is not { } body || !Exists(body) || Terminating(body) ||
+            EntityManager.IsQueuedForDeletion(body);
+    }
+
     private int GetScore(MedicalOrderActive active, MedicalOrderConfigPrototype config)
     {
-        if (active.Patient is not { } body || !TryComp<DamageableComponent>(body, out var damageable))
+        if (IsPatientMissing(active) || active.Patient is not { } body ||
+            !TryComp<DamageableComponent>(body, out var damageable))
             return 0;
         return ((active.InitialDamage - damageable.TotalDamage) *
             FixedPoint2.New(config.PointsPerDamage)).Int();
@@ -526,7 +539,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             MedicalOrderResult result;
             try
             {
-                expired |= _timing.CurTime >= active.Deadline;
+                var patientLost = IsPatientMissing(active);
+                expired |= patientLost || _timing.CurTime >= active.Deadline;
                 var score = GetScore(active, config);
                 var effective = Math.Max(0, score);
                 var points = (int) Math.Min(int.MaxValue,
@@ -537,7 +551,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 var baseReputation = config.Difficulties[active.Offer.Difficulty].BaseReputation;
                 // A successfully dispatched patient earns the advertised fixed reward.
                 // Partial treatment after expiry cannot pay more reputation than timely completion.
-                var reputation = expired
+                var reputation = patientLost ? 0 : expired
                     ? (int) Math.Min(int.MaxValue,
                         ((long) baseReputation * Math.Min(band.MultiplierPercent, 100) *
                             config.ExpiredRewardMultiplierPercent + 5000) / 10000)
@@ -551,6 +565,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                     AwardedPoints = creditedPoints,
                     AwardedReputation = creditedReputation,
                     Expired = expired,
+                    PatientLost = patientLost,
                 };
             }
             catch (Exception exception)
@@ -571,7 +586,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             {
                 try
                 {
-                    if (active.Patient is { } body && Exists(body) &&
+                    if (!IsPatientMissing(active) && active.Patient is { } body &&
                         TryComp<MedicalOrderPatientComponent>(body, out var marker) &&
                         marker.Station == station && marker.RuntimeId == active.Offer.RuntimeId)
                         RemComp<MedicalOrderPatientComponent>(body);
@@ -805,7 +820,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             machine.Kind == MedicalOrderMachineKind.Reagent &&
             _itemSlots.GetItemOrNull(uid, "beakerSlot") is { } beaker ? Name(beaker) : null,
             market, marketPoints, marketReputation, acceptedVolume, rejectedVolume,
-            state.LastMarketPoints, state.LastMarketReputation));
+            state.LastMarketPoints, state.LastMarketReputation, completed?.PatientLost ?? false));
     }
 
     private static MedicalOrderView View(MedicalOrderOffer offer, MedicalOrderActive? active, int score,

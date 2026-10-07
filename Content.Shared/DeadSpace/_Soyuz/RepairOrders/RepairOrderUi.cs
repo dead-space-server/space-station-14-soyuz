@@ -28,6 +28,8 @@ public enum RepairOrderUiKey : byte
 
 public static class RepairOrderProgress
 {
+    public static readonly TimeSpan EarlySubmissionDelay = TimeSpan.FromMinutes(10);
+
     public static float CalculateFraction(int completedTasks, int totalTasks)
     {
         return totalTasks <= 0
@@ -48,6 +50,7 @@ public sealed class RepairOrderBuiEntry
     public readonly string PrototypeId;
     public readonly RepairOrderStatus Status;
     public readonly TimeSpan? ExpiresAt;
+    public readonly TimeSpan? EarlySubmissionAvailableAt;
     public readonly int CompletedTasks;
     public readonly int TotalTasks;
     public readonly bool BlueprintReady;
@@ -67,12 +70,14 @@ public sealed class RepairOrderBuiEntry
         int currentPoints = 0,
         int maxPoints = 0,
         string[]? damageEvents = null,
-        RepairExclusionTotals exclusions = default)
+        RepairExclusionTotals exclusions = default,
+        TimeSpan? earlySubmissionAvailableAt = null)
     {
         RuntimeId = runtimeId;
         PrototypeId = prototypeId;
         Status = status;
         ExpiresAt = expiresAt;
+        EarlySubmissionAvailableAt = earlySubmissionAvailableAt;
         CompletedTasks = completedTasks;
         TotalTasks = totalTasks;
         BlueprintReady = blueprintReady;
@@ -230,10 +235,12 @@ public sealed class RepairOrderAcceptMessage : BoundUserInterfaceMessage
 public sealed class RepairOrderCompleteMessage : BoundUserInterfaceMessage
 {
     public readonly int RuntimeId;
+    public readonly bool AllowIncomplete;
 
-    public RepairOrderCompleteMessage(int runtimeId)
+    public RepairOrderCompleteMessage(int runtimeId, bool allowIncomplete = false)
     {
         RuntimeId = runtimeId;
+        AllowIncomplete = allowIncomplete;
     }
 }
 

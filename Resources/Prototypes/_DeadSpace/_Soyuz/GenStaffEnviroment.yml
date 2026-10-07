@@ -1,0 +1,9 @@
+- type: centCommEnvironment
+  id: GeneralStaffBaseEnvironment
+  parallax: Sky
+  atmosphere:
+    volume: 2500
+    temperature: 258,15
+    moles:
+      Oxygen: 21.824879
+      Nitrogen: 82.10312

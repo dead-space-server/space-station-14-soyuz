@@ -5,6 +5,7 @@
   components:
   - type: SpawnPoint
     job_id: Politkom
+    general_staff_role: true
   - type: Sprite
     layers:
       - state: green
@@ -17,6 +18,7 @@
   components:
   - type: SpawnPoint
     job_id: Politruk
+    general_staff_role: true
   - type: Sprite
     layers:
       - state: green
@@ -29,6 +31,7 @@
   components:
     - type: SpawnPoint
       job_id: OperatorGS
+      general_staff_role: true
     - type: Sprite
       layers:
         - state: green
@@ -41,6 +44,7 @@
   components:
     - type: SpawnPoint
       job_id: OfficerGS
+      general_staff_role: true
     - type: Sprite
       layers:
         - state: green
@@ -53,6 +57,7 @@
   components:
     - type: SpawnPoint
       job_id: OKGB
+      general_staff_role: true
     - type: Sprite
       layers:
         - state: green

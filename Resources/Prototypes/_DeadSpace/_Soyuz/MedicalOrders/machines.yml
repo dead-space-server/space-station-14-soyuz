@@ -53,8 +53,8 @@
 - type: entity
   parent: SoyuzMedicalOrderMachineBase
   id: SoyuzMedicalPatientReceiver
-  name: medical patient receiver
-  description: Creates patients for station medical orders.
+  name: casualty delivery capsule
+  description: Delivers casualties to the station for treatment under medical contracts.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_receiver.rsi
@@ -94,8 +94,8 @@
 - type: entity
   parent: SoyuzMedicalOrderMachineBase
   id: SoyuzMedicalPatientSender
-  name: medical patient sender
-  description: Checks and dispatches recovered patients.
+  name: recovered patient evacuation capsule
+  description: Checks recovered patients and evacuates them from the station after treatment.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Machines/MedicalOrders/medical_patient_sender.rsi
@@ -150,8 +150,8 @@
 - type: entity
   parent: BaseMachineCircuitboard
   id: SoyuzMedicalPatientReceiverMachineCircuitboard
-  name: medical patient receiver machine board
-  description: A machine board for a medical patient receiver.
+  name: casualty delivery capsule machine board
+  description: A machine board for a casualty delivery capsule.
   components:
   - type: Sprite
     state: medical
@@ -165,8 +165,8 @@
 - type: entity
   parent: BaseMachineCircuitboard
   id: SoyuzMedicalPatientSenderMachineCircuitboard
-  name: medical patient sender machine board
-  description: A machine board for a medical patient sender.
+  name: recovered patient evacuation capsule machine board
+  description: A machine board for a recovered patient evacuation capsule.
   components:
   - type: Sprite
     state: medical

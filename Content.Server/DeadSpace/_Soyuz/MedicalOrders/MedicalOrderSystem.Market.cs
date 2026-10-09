@@ -1,5 +1,6 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.DeadSpace._Soyuz.MedicalOrders;
@@ -12,6 +13,16 @@ public sealed partial class MedicalOrderSystem
 {
     private readonly Dictionary<string, Dictionary<string, decimal>> _marketBasePrices = new();
     private readonly Dictionary<string, Dictionary<string, decimal>> _marketBaseReputations = new();
+
+    private bool TryGetMedicalBeaker(EntityUid terminal,
+        [NotNullWhen(true)] out Entity<SolutionComponent>? entity,
+        [NotNullWhen(true)] out Solution? solution)
+    {
+        entity = null;
+        solution = null;
+        return _itemSlots.GetItemOrNull(terminal, "beakerSlot") is { } beaker &&
+            _solutions.TryGetFitsInDispenser(beaker, out entity, out solution) && entity != null && solution != null;
+    }
 
     private decimal GetMarketBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
     {
@@ -140,9 +151,7 @@ public sealed partial class MedicalOrderSystem
         var committed = false;
         try
         {
-            if (_itemSlots.GetItemOrNull(terminal, "beakerSlot") is not { } beaker ||
-                !_solutions.TryGetFitsInDispenser(beaker, out var solutionEntity, out var solution) ||
-                solutionEntity == null)
+            if (!TryGetMedicalBeaker(terminal, out var solutionEntity, out var solution))
             {
                 Reject(terminal, actor, "medical-orders-error-no-beaker");
                 return;

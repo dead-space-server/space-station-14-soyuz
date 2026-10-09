@@ -10,14 +10,12 @@ using Content.Server.Storage.EntitySystems;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Access.Systems;
-using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace._Soyuz.MedicalOrders;
 using Content.Shared.FixedPoint;
 using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
-using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
@@ -102,6 +100,15 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 UpdateStationUis(state, config);
             }
 
+            if (config.SpecialDifficulties.Count > 0 && now >= state.NextSpecialRefresh)
+            {
+                RefreshSpecialOffers(state, config);
+                UpdateStationUis(state, config);
+            }
+            if (state.SpecialActive is { } special &&
+                FinalizeSpecial(state, special, expired: now >= special.Deadline))
+                UpdateStationUis(state, config);
+
             if (state.PatientActive is { } patient)
             {
                 if (!Exists(patient.Terminal) || Terminating(patient.Terminal) ||
@@ -110,7 +117,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             }
 
             if (refreshUi)
-                UpdateStationUis(state, config, marketOnly: state.PatientActive == null);
+                UpdateStationUis(state, config, marketOnly: state.PatientActive == null &&
+                    state.SpecialActive == null);
         }
     }
 
@@ -147,6 +155,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             marker.RuntimeId == active.Offer.RuntimeId)
             RemComp<MedicalOrderPatientComponent>(body);
         station.Comp.Machines.Clear();
+        if (station.Comp.SpecialActive is { } special)
+            RemoveSpecialPatientMarkers(special);
     }
 
     private MedicalOrderStationComponent? EnsureStation(EntityUid machineUid, MedicalOrderMachineComponent machine)
@@ -161,6 +171,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             if (!_prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var config))
                 return null;
             RefreshOffers(state, config);
+            if (config.SpecialDifficulties.Count > 0)
+                RefreshSpecialOffers(state, config);
         }
 
         if (state.ConfigId != machine.Config.Id)
@@ -189,7 +201,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     }
 
     private MedicalOrderOffer? GeneratePatientOffer(MedicalOrderStationComponent state,
-        MedicalOrderConfigPrototype config, int difficulty)
+        MedicalOrderConfigPrototype config, int difficulty, bool allocateRuntimeId = true)
     {
         var candidates = config.Damages.Where(d => d.CanGenerate).ToList();
         if (candidates.Count < config.MinDamageEntries)
@@ -231,7 +243,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var futureMaximum = selectedTypes.Sum(d => d.MaxAmount);
         var offer = new MedicalOrderOffer
         {
-            RuntimeId = state.NextPatientRuntimeId++,
+            RuntimeId = allocateRuntimeId ? state.NextPatientRuntimeId++ : 0,
             Patient = true,
             Difficulty = difficulty,
             TimeLimit = definition.TimeLimit,
@@ -292,6 +304,9 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             return;
         }
 
+        if (state.SpecialActive is { } special && _timing.CurTime >= special.Deadline)
+            FinalizeSpecial(state, special, expired: true);
+
         switch (args.Action)
         {
             case MedicalOrderAction.Accept:
@@ -311,6 +326,22 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             case MedicalOrderAction.SellReagents:
                 if (machine.Comp.Kind == MedicalOrderMachineKind.Reagent)
                     TrySellReagents(machine.Owner, args.Actor, state, config);
+                break;
+            case MedicalOrderAction.AcceptSpecial:
+                if (machine.Comp.Kind == MedicalOrderMachineKind.PatientReceiver)
+                    TryAcceptSpecial(station, machine.Owner, args.Actor, state, config, args.RuntimeId);
+                break;
+            case MedicalOrderAction.IssueSpecialPatient:
+                if (machine.Comp.Kind == MedicalOrderMachineKind.PatientReceiver)
+                    TryIssueSpecialPatient(station, machine.Owner, args.Actor, state, config, args.RuntimeId);
+                break;
+            case MedicalOrderAction.SubmitSpecialPatient:
+                if (machine.Comp.Kind == MedicalOrderMachineKind.PatientSender)
+                    TrySubmitSpecialPatient(station, machine.Owner, args.Actor, state, config, args.RuntimeId);
+                break;
+            case MedicalOrderAction.SupplySpecialReagents:
+                if (machine.Comp.Kind == MedicalOrderMachineKind.Reagent)
+                    TrySupplySpecialReagents(station, machine.Owner, args.Actor, state, args.RuntimeId);
                 break;
         }
 
@@ -353,98 +384,38 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     }
 
     private void TryAcceptPatient(EntityUid station, EntityUid receiver, EntityUid actor,
-        MedicalOrderStationComponent state,
-        MedicalOrderConfigPrototype config, int runtimeId)
+        MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, int runtimeId)
     {
-        if (state.Busy || state.PatientActive != null || state.PatientAccepting || state.NextRefresh <= _timing.CurTime ||
-            !state.PatientOffers.TryGetValue(runtimeId, out var offer) ||
-            !TryComp<EntityStorageComponent>(receiver, out var storage) || storage.Open ||
-            storage.Contents.ContainedEntities.Count != 0)
+        if (state.Busy || state.PatientActive != null || state.SpecialActive != null || state.PatientAccepting ||
+            state.NextRefresh <= _timing.CurTime || !state.PatientOffers.TryGetValue(runtimeId, out var offer))
         {
             Reject(receiver, actor, "medical-orders-error-unavailable");
             return;
         }
 
-        EntityUid? body = null;
-        EntityUid? gown = null;
+        MedicalOrderActive? prepared = null;
         state.Busy = true;
         state.PatientAccepting = true;
         try
         {
-            body = _randomHumanoids.SpawnRandomHumanoid(config.PatientRandomHumanoidSettings.Id,
-                Transform(receiver).Coordinates, string.Empty);
-            gown = Spawn(config.PatientGown, Transform(receiver).Coordinates);
-            if (!_inventory.TryEquip(body.Value, gown.Value, "outerClothing", silent: true, force: true))
-            {
-                Reject(receiver, actor, "medical-orders-error-patient-create");
+            prepared = PreparePatient(station, receiver, actor, config, offer,
+                _timing.CurTime + offer.TimeLimit);
+            if (prepared == null)
                 return;
-            }
-
-            if (!HasComp<DamageableComponent>(body.Value) || !HasComp<Content.Shared.Mobs.Components.MobStateComponent>(body.Value))
-            {
-                Reject(receiver, actor, "medical-orders-error-patient-create");
-                return;
-            }
-
-            var damage = new DamageSpecifier();
-            foreach (var line in offer.Lines)
-                damage.DamageDict[line.ID] = FixedPoint2.New(line.Amount);
-            if (!_damageable.TryChangeDamage(body.Value, damage, ignoreResistances: true))
-            {
-                Reject(receiver, actor, "medical-orders-error-patient-create");
-                return;
-            }
-
-            _mobState.ChangeMobState(body.Value, MobState.Dead);
-            if (!_storage.CanInsert(body.Value, receiver, storage) ||
-                !_storage.Insert(body.Value, receiver, storage))
-            {
-                Reject(receiver, actor, "medical-orders-error-patient-create");
-                return;
-            }
-
-            var marker = EnsureComp<MedicalOrderPatientComponent>(body.Value);
-            marker.Station = station;
-            marker.RuntimeId = runtimeId;
-            var actualDamage = Comp<DamageableComponent>(body.Value).TotalDamage;
-            var active = new MedicalOrderActive
-            {
-                Offer = CopyOffer(offer),
-                Terminal = receiver,
-                AcceptedAt = _timing.CurTime,
-                Deadline = _timing.CurTime + offer.TimeLimit,
-                Patient = body,
-                InitialDamage = actualDamage,
-            };
-            if (!Exists(station) || Terminating(station) || EntityManager.IsQueuedForDeletion(station) ||
-                !Exists(receiver) || Terminating(receiver) || EntityManager.IsQueuedForDeletion(receiver) ||
-                !Exists(body.Value) || Terminating(body.Value) || EntityManager.IsQueuedForDeletion(body.Value) ||
-                _stations.GetOwningStation(receiver) != station ||
-                !this.IsPowered(receiver, EntityManager) || !_access.IsAllowed(actor, receiver) ||
-                storage.Open || storage.Contents.ContainedEntities.Count != 1 ||
-                !storage.Contents.ContainedEntities.Contains(body.Value) ||
-                state.PatientActive != null || !state.PatientOffers.Remove(runtimeId))
+            if (state.PatientActive != null || state.SpecialActive != null || state.NextRefresh <= _timing.CurTime ||
+                !state.PatientOffers.Remove(runtimeId))
             {
                 Reject(receiver, actor, "medical-orders-error-unavailable");
                 return;
             }
-            state.PatientActive = active;
-            body = null;
-            gown = null;
-        }
-        catch (Exception exception)
-        {
-            _sawmill.Error($"Creating medical order patient {runtimeId} failed: {exception}");
-            Reject(receiver, actor, "medical-orders-error-patient-create");
+            state.PatientActive = prepared;
+            prepared = null;
         }
         finally
         {
             try
             {
-                if (body is { } failedBody && Exists(failedBody))
-                    QueueDel(failedBody);
-                if (gown is { } failedGown && Exists(failedGown))
-                    QueueDel(failedGown);
+                DiscardPreparedPatient(prepared);
             }
             finally
             {
@@ -483,28 +454,12 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             return;
         }
 
-        var body = storage.Contents.ContainedEntities.First();
-        if (active.Patient != body ||
-            !TryComp<MedicalOrderPatientComponent>(body, out var marker) ||
-            marker.Station != station || marker.RuntimeId != runtimeId)
+        if (!CanSubmitPatient(station, sender, active, config, out var error))
         {
-            Reject(sender, actor, "medical-orders-error-wrong-patient");
+            Reject(sender, actor, error);
             return;
         }
-
-        if (!_mobState.IsAlive(body) || _mobState.IsCritical(body))
-        {
-            Reject(sender, actor, "medical-orders-error-not-alive");
-            return;
-        }
-
-        if (
-            !TryComp<DamageableComponent>(body, out var damageable) ||
-            damageable.TotalDamage > FixedPoint2.New(config.PatientCompletionDamageThreshold))
-        {
-            Reject(sender, actor, "medical-orders-error-damage");
-            return;
-        }
+        var body = active.Patient!.Value;
 
         if (FinalizeOrder(station, state, config, active, expired: false) && Exists(body))
             QueueDel(body);
@@ -772,12 +727,16 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var completed = patient ? state.LastPatient : null;
         var level = GetShopLevel(state.Reputation, config);
         var pool = machine.Kind == MedicalOrderMachineKind.PatientReceiver ? null : config.Shop;
-        var shop = pool?.Where(i => i.Enabled).Select((i, index) => new MedicalOrderShopItemView(
-            level < i.MinimumShopLevel ? $"classified-{index}" : i.ID,
-            level < i.MinimumShopLevel ? string.Empty : i.Entity.Id,
-            level < i.MinimumShopLevel ? 0 : i.Cost,
-            level < i.MinimumShopLevel ? 0 : i.MaxCount,
-            i.MinimumShopLevel, level < i.MinimumShopLevel)).ToArray() ??
+        var shop = pool?.Where(i => i.Enabled).Select((i, index) =>
+        {
+            var classified = i.Classified && level < i.MinimumShopLevel;
+            return new MedicalOrderShopItemView(
+                classified ? $"classified-{index}" : i.ID,
+                classified ? string.Empty : i.Entity.Id,
+                classified ? 0 : i.Cost,
+                classified ? 0 : i.MaxCount,
+                i.MinimumShopLevel, classified);
+        }).ToArray() ??
             Array.Empty<MedicalOrderShopItemView>();
         float? initialDamage = null;
         float? currentDamage = null;
@@ -820,7 +779,12 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             machine.Kind == MedicalOrderMachineKind.Reagent &&
             _itemSlots.GetItemOrNull(uid, "beakerSlot") is { } beaker ? Name(beaker) : null,
             market, marketPoints, marketReputation, acceptedVolume, rejectedVolume,
-            state.LastMarketPoints, state.LastMarketReputation, completed?.PatientLost ?? false));
+            state.LastMarketPoints, state.LastMarketReputation, completed?.PatientLost ?? false,
+            state.SpecialOffers.Values.OrderBy(o => o.Difficulty).ThenBy(o => o.RuntimeId)
+                .Select(o => SpecialView(uid, machine.Kind, o, null, config)).ToArray(),
+            state.SpecialActive is { } special
+                ? SpecialView(uid, machine.Kind, special.Offer, special, config) : null,
+            state.LastSpecial, state.NextSpecialRefresh));
     }
 
     private static MedicalOrderView View(MedicalOrderOffer offer, MedicalOrderActive? active, int score,

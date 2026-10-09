@@ -136,6 +136,8 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
 
         if (next != 101)
             throw new InvalidDataException($"Medical orders config {ID} must cover every quality percentage.");
+
+        ValidateSpecialContracts();
     }
 }
 
@@ -197,6 +199,7 @@ public sealed partial class MedicalOrderShopItem
     [DataField(required: true)] public int MaxCount;
     [DataField(required: true)] public int MinimumShopLevel;
     [DataField] public bool Enabled = true;
+    [DataField] public bool Classified;
 }
 
 [DataDefinition]

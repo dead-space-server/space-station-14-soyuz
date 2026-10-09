@@ -3,7 +3,9 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Numerics;
+using Content.Shared.Construction;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.Tag;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
@@ -18,6 +20,8 @@ public sealed class RepairOrderDamageSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly ITileDefinitionManager _tiles = default!;
     [Dependency] private readonly RepairDamageProtectionSystem _protection = default!;
+    [Dependency] private readonly TagSystem _tags = default!;
+    private static readonly ProtoId<TagPrototype> WindowTag = "Window";
     private static readonly Vector2i[] Neighbors = { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) };
 
     public RepairDamageSnapshot Snapshot(Entity<MapGridComponent> grid, RepairOrderPrototype order)
@@ -31,6 +35,8 @@ public sealed class RepairOrderDamageSystem : EntitySystem
         var floors = SortCells(_map.GetAllTiles(grid.Owner, grid.Comp).Where(t => !t.Tile.IsEmpty).Select(t => t.GridIndices));
         var entities = new List<RepairDamageEntity>();
         var protectedFloors = new HashSet<Vector2i>();
+        var windows = new Dictionary<Vector2i, List<EntityUid>>();
+        var windowSupports = new HashSet<EntityUid>();
         var children = Transform(grid.Owner).ChildEnumerator;
         while (children.MoveNext(out var child))
         {
@@ -38,6 +44,13 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             if (!xform.Anchored || xform.ParentUid != grid.Owner) continue;
             var cell = new Vector2i((int) Math.Floor(xform.LocalPosition.X / grid.Comp.TileSize),
                 (int) Math.Floor(xform.LocalPosition.Y / grid.Comp.TileSize));
+            if (_tags.HasTag(child, WindowTag))
+            {
+                if (!windows.TryGetValue(cell, out var cellWindows))
+                    windows[cell] = cellWindows = new List<EntityUid>();
+                cellWindows.Add(child);
+            }
+            if (HasComp<SharedCanBuildWindowOnTopComponent>(child)) windowSupports.Add(child);
             var id = MetaData(child).EntityPrototype?.ID;
             if (id == null || values.IsExcluded(id))
             {
@@ -52,11 +65,24 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             if (protectedEntity) protectedFloors.Add(cell);
             entities.Add(new RepairDamageEntity(0, child, id, xform.LocalPosition, xform.LocalRotation, cell, category, value, protectedEntity));
         }
+        var tracked = entities.ToDictionary(e => e.Uid);
+        for (var i = 0; i < entities.Count; i++)
+        {
+            var entity = entities[i];
+            if (!windowSupports.Contains(entity.Uid) || !windows.TryGetValue(entity.Cell, out var cellWindows) ||
+                cellWindows.All(uid => tracked.TryGetValue(uid, out var window) && !window.Protected)) continue;
+            entities[i] = entity with { Protected = true };
+            protectedFloors.Add(entity.Cell);
+        }
         var sorted = entities.OrderBy(e => e.Position.X).ThenBy(e => e.Position.Y)
             .ThenBy(e => e.Prototype, StringComparer.Ordinal).ThenBy(e => e.Rotation.Theta).ThenBy(e => e.Uid)
             .Select((entity, index) => entity with { Index = index }).ToImmutableArray();
+        var indices = sorted.ToDictionary(e => e.Uid, e => e.Index);
+        var dependencies = sorted.Where(e => !e.Protected && windowSupports.Contains(e.Uid) && windows.ContainsKey(e.Cell))
+            .ToImmutableDictionary(e => e.Index, e => windows[e.Cell].Select(uid => indices[uid]).ToImmutableArray());
         return new RepairDamageSnapshot(grid.Owner, floors, sorted, SortCells(protectedFloors), floorValue)
         {
+            RemovalDependencies = dependencies,
             FloorLayerCounts = floors.ToImmutableDictionary(cell => cell,
                 cell => RepairValueCatalog.GetTileLayers(_map.GetTileRef(grid.Owner, grid.Comp, cell).Tile.TypeId, _tiles).Count),
         };
@@ -231,6 +257,8 @@ public sealed class RepairOrderDamageSystem : EntitySystem
                             if (applied >= op.MaxTargets) break;
                             if (entity.Protected || removedEntities.Contains(entity.Index) || !targets.Contains(entity.Cell) || !Matches(op.Categories, entity.Category) || random.NextDouble() >= op.Chance) continue;
                             removedEntities.Add(entity.Index);
+                            if (snapshot.RemovalDependencies.TryGetValue(entity.Index, out var dependencies))
+                                removedEntities.UnionWith(dependencies);
                             affected.Add(entity.Cell);
                             applied++;
                         }
@@ -316,6 +344,8 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             reason = "Plan contains invalid, protected or duplicate targets.";
         else if (snapshot.Entities.Any(e => removedTiles.Contains(e.Cell) && !removedEntities.Contains(e.Index)))
             reason = "Plan strands anchored entities without supporting floor.";
+        else if (snapshot.RemovalDependencies.Any(pair => removedEntities.Contains(pair.Key) && pair.Value.Any(i => !removedEntities.Contains(i))))
+            reason = "Plan removes window support without its windows.";
         else if (plan.TotalValue != snapshot.TotalValue || plan.DamageValue != snapshot.CountTileRequirements(removedTiles) * snapshot.FloorValue + removedEntities.Sum(i => snapshot.Entities[i].Value))
             reason = "Plan damage metrics do not match the snapshot.";
         else if (removedTiles.Count > floors.Count * profile.MaxRemovedFloorFraction)

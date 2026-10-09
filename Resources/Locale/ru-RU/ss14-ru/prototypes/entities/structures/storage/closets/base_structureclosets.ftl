@@ -1,9 +1,13 @@
 ent-ClosetBase = шкаф
-    .desc = Стандартное хранилище NanoTrasen.
+# DS14-Souyz-Start
+    .desc = Стандартное хранилище СССП.
+# DS14-Souyz-End
 ent-ClosetSteelBase = { ent-ClosetBase }
     .desc = { ent-ClosetBase.desc }
 ent-BaseWallCloset = настенный шкаф
-    .desc = Стандартное хранилище NanoTrasen, теперь и на стене.
+# DS14-Souyz-Start
+    .desc = Стандартное хранилище СССП, теперь и на стене.
+# DS14-Souyz-End
 ent-BaseWallLocker = { ent-BaseWallCloset }
     .desc = { ent-BaseWallCloset.desc }
 ent-SuitStorageBase = хранилище скафандра

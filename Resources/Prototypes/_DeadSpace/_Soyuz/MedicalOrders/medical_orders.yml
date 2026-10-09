@@ -1219,7 +1219,7 @@
     classified: true
   - id: ADTCyberHypospray
     entity: ADTCyberHypospray
-    cost: 20000
+    cost: 30000
     maxCount: 1
     minimumShopLevel: 10
     classified: true

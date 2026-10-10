@@ -18,6 +18,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     public string ID { get; private set; } = default!;
 
     [DataField(required: true)] public int PatientOfferCount;
+    [DataField(required: true)] public List<string> PatientOrderTitles = new();
     [DataField(required: true)] public TimeSpan OfferRefreshInterval;
     [DataField(required: true)] public int MinDamageEntries;
     [DataField(required: true)] public int MaxDamageEntries;
@@ -42,6 +43,8 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     void ISerializationHooks.AfterDeserialization()
     {
         if (PatientOfferCount < 1 || OfferRefreshInterval <= TimeSpan.Zero ||
+            PatientOrderTitles.Distinct().Count() < PatientOfferCount ||
+            PatientOrderTitles.Any(string.IsNullOrWhiteSpace) ||
             MinDamageEntries < 1 || MaxDamageEntries < MinDamageEntries ||
             PointsPerDamage < 1 || ExpiredRewardMultiplierPercent is < 0 or > 100 ||
             PatientCompletionDamageThreshold < 0)
@@ -95,8 +98,9 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
 
         if (Difficulties.Count < 3 || Difficulties[0].MinScore != 0 ||
             Difficulties.Any(d => d.MaxScore < d.MinScore || d.TimeLimit <= TimeSpan.Zero ||
-                d.BaseReputation < 0 || d.Weight <= 0) ||
-            Difficulties.Sum(d => (long) d.Weight) > int.MaxValue)
+                d.BaseReputation < 0 || d.Weight <= 0 || d.PatientOfferWeight is <= 0) ||
+            Difficulties.Sum(d => (long) d.Weight) > int.MaxValue ||
+            Difficulties.Sum(d => (long) (d.PatientOfferWeight ?? d.Weight)) > int.MaxValue)
             throw new InvalidDataException($"Medical orders config {ID} has invalid difficulties.");
 
         for (var i = 1; i < Difficulties.Count; i++)
@@ -136,6 +140,8 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
 
         if (next != 101)
             throw new InvalidDataException($"Medical orders config {ID} must cover every quality percentage.");
+
+        ValidateSpecialContracts();
     }
 }
 
@@ -182,6 +188,7 @@ public sealed partial class MedicalOrderDamage
 public sealed partial class MedicalOrderDifficulty
 {
     [DataField(required: true)] public int Weight;
+    [DataField] public int? PatientOfferWeight;
     [DataField(required: true)] public int MinScore;
     [DataField(required: true)] public int MaxScore;
     [DataField(required: true)] public TimeSpan TimeLimit;
@@ -197,6 +204,8 @@ public sealed partial class MedicalOrderShopItem
     [DataField(required: true)] public int MaxCount;
     [DataField(required: true)] public int MinimumShopLevel;
     [DataField] public bool Enabled = true;
+    [DataField] public bool Classified;
+    [DataField] public bool EmagOnly;
 }
 
 [DataDefinition]

@@ -1,4 +1,165 @@
 - type: entity
+  parent: PowerDrill
+  id: RepairCrewPowerDrill
+  name: repair crew power drill
+  description: A reinforced power drill issued to repair crews for rapid assembly work.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+  - type: Tool
+    speedModifier: 2
+  - type: MultipleTool
+    entries:
+    - behavior: Screwing
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+        state: drill_screw
+      useSound: /Audio/Items/drill_use.ogg
+      changeSound: /Audio/Items/change_drill.ogg
+    - behavior: Anchoring
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+        state: drill_bolt
+      useSound: /Audio/Items/drill_use.ogg
+      changeSound: /Audio/Items/change_drill.ogg
+
+- type: entity
+  parent: WelderExperimental
+  id: RepairCrewWelder
+  name: repair crew welding tool
+  description: A self-refueling welding tool with an upgraded burner for prolonged restoration work.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_welder.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_welder.rsi
+  - type: Tool
+    speedModifier: 1.8
+
+- type: entity
+  parent: JawsOfLife
+  id: RepairCrewJawsOfLife
+  name: repair crew jaws of life
+  description: A hydraulic rescue tool with improved prying and cutting drives.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Tool
+    speedModifier: 1.5
+  - type: Prying
+    speedModifier: 2.25
+  - type: MultipleTool
+    entries:
+    - behavior: Prying
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+        state: jaws_pry
+      useSound: /Audio/Items/jaws_pry.ogg
+      changeSound: /Audio/Items/change_jaws.ogg
+    - behavior: Cutting
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+        state: jaws_cutter
+      useSound: /Audio/Items/jaws_cut.ogg
+      changeSound: /Audio/Items/change_jaws.ogg
+
+- type: entity
+  parent: RCDCE
+  id: RepairCrewRCD
+  name: repair crew RCD
+  description: An economical rapid construction device with a built-in charge regenerator.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: AutoRecharge
+    rechargeDuration: 10
+
+- type: entity
+  parent: BaseClothingBeltEngineering
+  id: ClothingBeltRepairCrew
+  name: repair crew toolbelt
+  description: An orange-and-grey toolbelt issued for restoration work aboard damaged stations and shuttles.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: ItemMapper
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew_overlay.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,1
+
+- type: entity
+  parent: ClothingBeltRepairCrew
+  id: ClothingBeltRepairCrewFilled
+  description: A repair crew toolbelt equipped with a power drill, jaws of life, welding tool, RCD, multitool, holofan projector, gas analyzer and network configurator.
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: RepairCrewPowerDrill
+    - id: RepairCrewJawsOfLife
+    - id: RepairCrewWelder
+    - id: Multitool
+    - id: HolofanProjector
+    - id: GasAnalyzer
+    - id: NetworkConfigurator
+    - id: RepairCrewRCD
+
+- type: entity
+  parent: ClothingEyesGlassesMesonCE
+  id: ClothingEyesGlassesRepairRestorer
+  name: repair crew diagnostic goggles
+  description: Repair crew diagnostic goggles with a structural worklist and a directional display.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: RepairStructuralAnalyzer
+    navigation: true
+  - type: ItemToggle
+    activated: true
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakRepairRestorer
+  name: repair crew commendation cloak
+  description: A personalized cloak awarded for distinguished service in the repair crew, with a built-in warm-white light.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: RepairOrderKeepsake
+  - type: ItemToggle
+    verbToggleOn: repair-orders-keepsake-light-on
+    verbToggleOff: repair-orders-keepsake-light-off
+  - type: ItemTogglePointLight
+  - type: PointLight
+    enabled: false
+    radius: 6
+    energy: 3
+    color: "#FFE6CC"
+
+- type: entity
   parent: BaseFlatpack
   id: RepairOrderThrusterMediumFlatpack
   name: large rocket thruster flatpack

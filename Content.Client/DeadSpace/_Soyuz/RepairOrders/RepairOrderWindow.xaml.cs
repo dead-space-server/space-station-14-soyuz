@@ -36,6 +36,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
     private bool _shopPurchasePending => _draft.PendingRequestId != null;
     private bool _retryPendingPurchase;
     private FancyWindow? _completionDialog;
+    private FancyWindow? _briefingDialog;
+    private FancyWindow? _shopDetailsDialog;
+    private string? _shopDetailsRewardId;
     private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
 
     public event Action<int>? OnAccept;
@@ -52,6 +55,12 @@ public sealed partial class RepairOrderWindow : FancyWindow
         IoCManager.InjectDependencies(this);
         _sprite = _entitySystemManager.GetEntitySystem<SpriteSystem>();
         ShopSearch.Text = _draft.Search;
+        ShopCompact.Pressed = _draft.Compact;
+        ShopCompact.OnToggled += args =>
+        {
+            _draft.Compact = args.Pressed;
+            UpdateShop();
+        };
         OrderTabs.CurrentTab = _draft.Tab;
         ShopSearch.OnTextChanged += args =>
         {
@@ -59,17 +68,50 @@ public sealed partial class RepairOrderWindow : FancyWindow
             UpdateShop();
         };
         ShopCheckoutButton.OnPressed += _ => SubmitShopPurchase();
+        BriefingButton.OnPressed += _ => ShowBriefing();
         OnClose += () =>
         {
             SaveDraft();
             _completionDialog?.Dispose();
             _completionDialog = null;
+            _briefingDialog?.Dispose();
+            _briefingDialog = null;
+            CloseShopDetails();
         };
     }
 
     public void SaveDraft()
     {
         _draft.Tab = OrderTabs.CurrentTab;
+    }
+
+    private void ShowBriefing()
+    {
+        _briefingDialog?.Dispose();
+        var dialog = new FancyWindow
+        {
+            Title = Loc.GetString("repair-orders-briefing-title"),
+            SetSize = new Vector2(460, 440),
+            MinSize = new Vector2(360, 260),
+        };
+        _briefingDialog = dialog;
+        dialog.OnClose += () =>
+        {
+            if (ReferenceEquals(_briefingDialog, dialog))
+                _briefingDialog = null;
+            dialog.Dispose();
+        };
+        var scroll = new ScrollContainer
+        {
+            HScrollEnabled = false,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        };
+        var text = new RichTextLabel { HorizontalExpand = true, Margin = new Thickness(8) };
+        text.SetMessage(Loc.GetString("repair-orders-briefing-text"));
+        scroll.AddChild(text);
+        dialog.ContentsContainer.AddChild(scroll);
+        dialog.OpenCentered();
     }
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)
@@ -307,27 +349,48 @@ public sealed partial class RepairOrderWindow : FancyWindow
         ShopCartContainer.RemoveAllChildren();
         if (!_prototype.TryIndex<RepairRewardPoolPrototype>(state.ShopRewardPoolId, out var pool))
         {
+            CloseShopDetails();
             ShopCatalogContainer.AddChild(new Label { Text = Loc.GetString("repair-orders-shop-unavailable") });
             ShopCheckoutButton.Disabled = true;
             return;
         }
 
         var validRewards = new HashSet<string>();
+        var compact = _draft.Compact;
+        WrapContainer? cards = null;
+        if (compact)
+        {
+            cards = new WrapContainer
+            {
+                HorizontalExpand = true,
+                EqualSize = true,
+                SeparationOverride = 8,
+                CrossSeparationOverride = 8,
+            };
+            ShopCatalogContainer.AddChild(cards);
+        }
+        var visibleRewards = 0;
         var search = ShopSearch.Text.Trim();
         foreach (var rewardId in pool.Rewards)
         {
             if (!_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
+                reward.EmagOnly && !state.ShopEmagged ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
                 continue;
 
             var id = rewardId.Id;
             validRewards.Add(id);
-            _shopCart.TryGetValue(id, out var count);
             var locked = state.ShopLevel < reward.MinimumShopLevel;
             var classified = reward.Classified && locked;
             var name = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name;
             if (!name.Contains(search, StringComparison.OrdinalIgnoreCase))
                 continue;
+            visibleRewards++;
+            if (cards != null)
+            {
+                cards.AddChild(CreateShopCard(reward, entity, locked, classified));
+                continue;
+            }
             var row = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
             var content = new BoxContainer
             {
@@ -364,11 +427,14 @@ public sealed partial class RepairOrderWindow : FancyWindow
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
                 HorizontalExpand = true,
+                SeparationOverride = 0,
+                VerticalAlignment = VAlignment.Center,
             };
             details.AddChild(new Label
             {
                 Text = name,
                 HorizontalExpand = true,
+                ToolTip = classified ? name : entity.Name + "\n" + entity.Description,
             });
             details.AddChild(new Label
             {
@@ -377,50 +443,11 @@ public sealed partial class RepairOrderWindow : FancyWindow
                     : Loc.GetString("repair-orders-shop-item-details",
                         ("cost", reward.Cost), ("level", reward.MinimumShopLevel)),
                 FontColorOverride = locked ? Color.Orange : Color.LightGray,
+                VerticalAlignment = VAlignment.Center,
             });
             content.AddChild(details);
 
-            var remove = new Button
-            {
-                Text = Loc.GetString("repair-orders-shop-remove"),
-                Disabled = count == 0 || _shopPurchasePending,
-            };
-            remove.OnPressed += _ => ChangeShopQuantity(id, -1, reward.MaxCount);
-            content.AddChild(remove);
-            var quantity = new LineEdit
-            {
-                Text = count.ToString(),
-                MinSize = new Vector2(48, 0),
-                VerticalAlignment = VAlignment.Center,
-                Editable = !locked && !_shopPurchasePending,
-                IsValid = text => string.IsNullOrEmpty(text) ||
-                                    (int.TryParse(text, out var value) && value >= 0 && value <= reward.MaxCount),
-            };
-            content.AddChild(quantity);
-            var add = new Button
-            {
-                Text = Loc.GetString("repair-orders-shop-add"),
-                Disabled = locked || count >= reward.MaxCount || _shopPurchasePending,
-            };
-            add.OnPressed += _ => ChangeShopQuantity(id, 1, reward.MaxCount);
-            content.AddChild(add);
-            quantity.OnTextChanged += args =>
-            {
-                if (_shopPurchasePending || locked)
-                    return;
-                var next = int.TryParse(args.Text, out var value) ? value : 0;
-                if (next == 0)
-                    _shopCart.Remove(id);
-                else
-                    _shopCart[id] = next;
-
-                remove.Disabled = next == 0 || _shopPurchasePending;
-                add.Disabled = locked || next >= reward.MaxCount || _shopPurchasePending;
-                ShopResultLabel.Text = string.Empty;
-                UpdateShopCart();
-            };
-            quantity.OnFocusExit += _ => quantity.Text =
-                (_shopCart.TryGetValue(id, out var value) ? value : 0).ToString();
+            content.AddChild(CreateShopQuantityControls(reward, locked, false));
             ShopCatalogContainer.AddChild(row);
         }
 
@@ -429,10 +456,233 @@ public sealed partial class RepairOrderWindow : FancyWindow
             foreach (var stale in _shopCart.Keys.Where(id => !validRewards.Contains(id)).ToArray())
                 _shopCart.Remove(stale);
         }
-        if (ShopCatalogContainer.ChildCount == 0)
+        if (visibleRewards == 0)
             ShopCatalogContainer.AddChild(new Label { Text = Loc.GetString("repair-orders-shop-no-results") });
 
         UpdateShopCart();
+        UpdateShopDetails();
+    }
+
+    private Control CreateShopCard(RepairRewardPrototype reward, EntityPrototype entity, bool locked, bool classified)
+    {
+        var card = new PanelContainer { SetWidth = 190 };
+        var content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            Margin = new Thickness(6),
+            SeparationOverride = 4,
+        };
+        card.AddChild(content);
+        var name = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name;
+        var preview = new ContainerButton
+        {
+            HorizontalExpand = true,
+            ToolTip = name,
+        };
+        var image = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            MouseFilter = MouseFilterMode.Ignore,
+            SeparationOverride = 4,
+        };
+        image.AddChild(CreateShopIcon(entity, classified, 64));
+        image.AddChild(new Label
+        {
+            Text = name,
+            ClipText = true,
+            HorizontalExpand = true,
+            MouseFilter = MouseFilterMode.Ignore,
+        });
+        preview.AddChild(image);
+        preview.OnPressed += _ => OpenShopDetails(reward.ID);
+        content.AddChild(preview);
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-shop-price", ("cost", reward.Cost)),
+            StyleClasses = { "LabelHeading" },
+            Visible = !classified,
+        });
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-shop-required-level", ("level", reward.MinimumShopLevel)),
+            FontColorOverride = locked ? Color.Orange : Color.LightGray,
+        });
+        content.AddChild(CreateShopQuantityControls(reward, locked, true));
+        return card;
+    }
+
+    private Control CreateShopIcon(EntityPrototype entity, bool classified, int size)
+    {
+        if (classified)
+            return new Label
+            {
+                Text = Loc.GetString("repair-orders-shop-classified-icon"),
+                SetSize = new Vector2(size, size),
+                HorizontalAlignment = HAlignment.Center,
+                VerticalAlignment = VAlignment.Center,
+                FontColorOverride = Color.Orange,
+                MouseFilter = MouseFilterMode.Ignore,
+            };
+
+        var icon = new EntityPrototypeView
+        {
+            SetSize = new Vector2(size, size),
+            Stretch = SpriteView.StretchMode.Fit,
+            HorizontalAlignment = HAlignment.Center,
+            MouseFilter = MouseFilterMode.Ignore,
+        };
+        icon.SetPrototype(entity.ID);
+        return icon;
+    }
+
+    private Control CreateShopQuantityControls(RepairRewardPrototype reward, bool locked, bool compact)
+    {
+        var id = reward.ID;
+        _shopCart.TryGetValue(id, out var count);
+        var controls = new BoxContainer { SeparationOverride = 4, HorizontalExpand = compact };
+        var remove = new Button
+        {
+            Text = compact ? "−" : Loc.GetString("repair-orders-shop-remove"),
+            ToolTip = Loc.GetString("repair-orders-shop-remove"),
+            Disabled = count == 0 || _shopPurchasePending,
+            MinWidth = 28,
+        };
+        remove.OnPressed += _ => ChangeShopQuantity(id, -1, reward.MaxCount);
+        controls.AddChild(remove);
+        var quantity = new LineEdit
+        {
+            Text = count.ToString(),
+            ToolTip = Loc.GetString("repair-orders-shop-quantity"),
+            SetWidth = compact ? 42 : 48,
+            VerticalAlignment = VAlignment.Center,
+            Editable = !locked && !_shopPurchasePending,
+            IsValid = text => string.IsNullOrEmpty(text) ||
+                                (int.TryParse(text, out var value) && value >= 0 && value <= reward.MaxCount),
+        };
+        controls.AddChild(quantity);
+        var add = new Button
+        {
+            Text = Loc.GetString(compact ? "repair-orders-shop-to-cart" : "repair-orders-shop-add"),
+            Disabled = locked || count >= reward.MaxCount || _shopPurchasePending,
+            HorizontalExpand = compact,
+        };
+        add.Label.ClipText = compact;
+        add.OnPressed += _ => ChangeShopQuantity(id, 1, reward.MaxCount);
+        controls.AddChild(add);
+        quantity.OnTextChanged += args =>
+        {
+            if (_shopPurchasePending || locked)
+                return;
+            var next = int.TryParse(args.Text, out var value) ? value : 0;
+            if (next == 0)
+                _shopCart.Remove(id);
+            else
+                _shopCart[id] = next;
+            remove.Disabled = next == 0 || _shopPurchasePending;
+            add.Disabled = locked || next >= reward.MaxCount || _shopPurchasePending;
+            ShopResultLabel.Text = string.Empty;
+            UpdateShopCart();
+            UpdateShopDetails();
+        };
+        quantity.OnFocusExit += _ => quantity.Text =
+            (_shopCart.TryGetValue(id, out var value) ? value : 0).ToString();
+        return controls;
+    }
+
+    private void OpenShopDetails(string id)
+    {
+        CloseShopDetails();
+        var dialog = new FancyWindow
+        {
+            Title = Loc.GetString("repair-orders-shop-product"),
+            SetSize = new Vector2(420, 360),
+            MinSize = new Vector2(320, 260),
+        };
+        _shopDetailsDialog = dialog;
+        _shopDetailsRewardId = id;
+        dialog.OnClose += () =>
+        {
+            if (ReferenceEquals(_shopDetailsDialog, dialog))
+            {
+                _shopDetailsDialog = null;
+                _shopDetailsRewardId = null;
+            }
+            dialog.Dispose();
+        };
+        UpdateShopDetails();
+        if (_shopDetailsDialog == dialog)
+            dialog.OpenCentered();
+    }
+
+    private void CloseShopDetails()
+    {
+        _shopDetailsDialog?.Dispose();
+        _shopDetailsDialog = null;
+        _shopDetailsRewardId = null;
+    }
+
+    private void UpdateShopDetails()
+    {
+        if (_shopDetailsDialog is not { } dialog || _shopDetailsRewardId is not { } id)
+            return;
+        if (_state == null ||
+            !_prototype.TryIndex<RepairRewardPoolPrototype>(_state.ShopRewardPoolId, out var pool) ||
+            !pool.Rewards.Any(rewardId => rewardId.Id == id) ||
+            !_prototype.TryIndex<RepairRewardPrototype>(id, out var reward) ||
+            reward.EmagOnly && !_state.ShopEmagged ||
+            !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
+        {
+            CloseShopDetails();
+            return;
+        }
+
+        var locked = _state.ShopLevel < reward.MinimumShopLevel;
+        var classified = reward.Classified && locked;
+        _shopCart.TryGetValue(id, out var count);
+        dialog.ContentsContainer.RemoveAllChildren();
+        var scroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true, HorizontalExpand = true };
+        var content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            SeparationOverride = 8,
+            Margin = new Thickness(8),
+        };
+        scroll.AddChild(content);
+        dialog.ContentsContainer.AddChild(scroll);
+        content.AddChild(CreateShopIcon(entity, classified, 96));
+        var name = new RichTextLabel();
+        name.SetMessage(classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name);
+        content.AddChild(name);
+        var description = new RichTextLabel();
+        description.SetMessage(classified
+            ? Loc.GetString("repair-orders-shop-classified-details", ("level", reward.MinimumShopLevel))
+            : entity.Description);
+        content.AddChild(description);
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-shop-price", ("cost", reward.Cost)),
+            Visible = !classified,
+        });
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-shop-required-level", ("level", reward.MinimumShopLevel)),
+            FontColorOverride = locked ? Color.Orange : Color.LightGray,
+        });
+        var limit = new RichTextLabel();
+        limit.SetMessage(Loc.GetString("repair-orders-shop-purchase-limit", ("count", reward.MaxCount)));
+        content.AddChild(limit);
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-shop-in-cart", ("count", count)),
+        });
+        var add = new Button
+        {
+            Text = Loc.GetString("repair-orders-shop-to-cart"),
+            Disabled = locked || count >= reward.MaxCount || _shopPurchasePending,
+        };
+        add.OnPressed += _ => ChangeShopQuantity(id, 1, reward.MaxCount);
+        content.AddChild(add);
     }
 
     private void UpdateShopCart()
@@ -449,6 +699,12 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 !_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
                 continue;
+
+            if (reward.EmagOnly && !_state.ShopEmagged)
+            {
+                valid = false;
+                continue;
+            }
 
             valid &= count <= reward.MaxCount && _state.ShopLevel >= reward.MinimumShopLevel;
 

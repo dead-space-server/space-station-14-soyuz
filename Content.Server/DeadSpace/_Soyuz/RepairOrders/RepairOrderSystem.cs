@@ -6,6 +6,7 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.Emag.Systems;
 using Content.Shared.Ghost;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
@@ -31,6 +32,7 @@ public sealed class RepairOrderSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly EmagSystem _emag = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly RepairOrderSpawnSystem _spawn = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
@@ -49,6 +51,7 @@ public sealed class RepairOrderSystem : EntitySystem
         _sawmill = _logManager.GetSawmill("repair_orders");
 
         SubscribeLocalEvent<RepairOrderConsoleComponent, ComponentStartup>(OnConsoleStartup);
+        SubscribeLocalEvent<RepairOrderConsoleComponent, GotEmaggedEvent>(OnConsoleEmagged);
         SubscribeLocalEvent<RepairOrderStationComponent, ComponentShutdown>(OnStationShutdown);
         SubscribeLocalEvent<RepairOrderConsoleComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
         Subs.BuiEvents<RepairOrderConsoleComponent>(RepairOrderUiKey.Key, subs =>
@@ -98,6 +101,19 @@ public sealed class RepairOrderSystem : EntitySystem
     private void OnConsoleStartup(Entity<RepairOrderConsoleComponent> console, ref ComponentStartup args)
     {
         EnsureStationState(console.Owner);
+    }
+
+    private void OnConsoleEmagged(Entity<RepairOrderConsoleComponent> console, ref GotEmaggedEvent args)
+    {
+        if (!_emag.CompareFlag(args.Type, EmagType.Interaction) ||
+            _emag.CheckFlag(console.Owner, EmagType.Interaction) ||
+            !_prototype.TryIndex<RepairRewardPoolPrototype>(console.Comp.ShopRewardPool, out var pool) ||
+            !pool.Rewards.Any(id => _prototype.TryIndex<RepairRewardPrototype>(id, out var reward) && reward.EmagOnly) ||
+            EnsureStationState(console.Owner) is not { } station || station.Comp.ShopPurchaseInProgress)
+            return;
+
+        args.Handled = true;
+        UpdateConsoleUi(console.Owner, station, contrabandUnlocked: true);
     }
 
     private void OnOpenAttempt(Entity<RepairOrderConsoleComponent> console, ref ActivatableUIOpenAttemptEvent args)
@@ -652,7 +668,8 @@ public sealed class RepairOrderSystem : EntitySystem
         }
     }
 
-    private void UpdateConsoleUi(EntityUid console, Entity<RepairOrderStationComponent> station)
+    private void UpdateConsoleUi(EntityUid console, Entity<RepairOrderStationComponent> station,
+        bool contrabandUnlocked = false)
     {
         var available = station.Comp.Available.Values
             .OrderBy(offer => offer.RuntimeId)
@@ -726,7 +743,8 @@ public sealed class RepairOrderSystem : EntitySystem
             station.Comp.EngineeringReputation,
             shopLevel,
             nextShopLevelThreshold,
-            station.Comp.ShopPurchaseInProgress));
+            station.Comp.ShopPurchaseInProgress,
+            contrabandUnlocked || _emag.CheckFlag(console, EmagType.Interaction)));
     }
 
     private void FailRequest(EntityUid console, EntityUid actor, string locKey, string logReason)

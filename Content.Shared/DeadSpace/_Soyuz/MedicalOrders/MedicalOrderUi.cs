@@ -33,6 +33,7 @@ public sealed partial class MedicalOrderPatientComponent : Component
 {
     public EntityUid Station;
     public int RuntimeId;
+    public int SpecialRuntimeId;
 }
 
 [Serializable, NetSerializable]
@@ -56,6 +57,7 @@ public sealed class MedicalOrderLineView
 public sealed class MedicalOrderView
 {
     public readonly int RuntimeId;
+    public readonly string Title;
     public readonly MedicalOrderLineView[] Lines;
     public readonly int MaximumScore;
     public readonly int CurrentScore;
@@ -64,10 +66,11 @@ public sealed class MedicalOrderView
     public readonly TimeSpan TimeLimit;
     public readonly TimeSpan? Deadline;
 
-    public MedicalOrderView(int runtimeId, MedicalOrderLineView[] lines, int maximumScore,
+    public MedicalOrderView(int runtimeId, string title, MedicalOrderLineView[] lines, int maximumScore,
         int currentScore, int difficulty, TimeSpan timeLimit, int reputationReward, TimeSpan? deadline = null)
     {
         RuntimeId = runtimeId;
+        Title = title;
         Lines = lines;
         MaximumScore = maximumScore;
         CurrentScore = currentScore;
@@ -161,6 +164,10 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
     public readonly float MarketRejectedVolume;
     public readonly long LastMarketPoints;
     public readonly long LastMarketReputation;
+    public readonly MedicalSpecialContractView[] SpecialOffers;
+    public readonly MedicalSpecialContractView? SpecialActive;
+    public readonly MedicalSpecialResultView? LastSpecial;
+    public readonly TimeSpan NextSpecialRefresh;
 
     public MedicalOrderUiState(MedicalOrderMachineKind kind, MedicalOrderView[] offers,
         MedicalOrderView? active, MedicalOrderView? lastCompleted, TimeSpan nextRefresh,
@@ -171,7 +178,9 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         string? reagentBeakerName, MedicalReagentMarketView[] market,
         long marketPreviewPoints, long marketPreviewReputation, float marketAcceptedVolume,
         float marketRejectedVolume, long lastMarketPoints, long lastMarketReputation,
-        bool lastPatientLost = false)
+        bool lastPatientLost = false, MedicalSpecialContractView[]? specialOffers = null,
+        MedicalSpecialContractView? specialActive = null, MedicalSpecialResultView? lastSpecial = null,
+        TimeSpan nextSpecialRefresh = default)
     {
         Kind = kind;
         Offers = offers;
@@ -201,6 +210,10 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         MarketRejectedVolume = marketRejectedVolume;
         LastMarketPoints = lastMarketPoints;
         LastMarketReputation = lastMarketReputation;
+        SpecialOffers = specialOffers ?? Array.Empty<MedicalSpecialContractView>();
+        SpecialActive = specialActive;
+        LastSpecial = lastSpecial;
+        NextSpecialRefresh = nextSpecialRefresh;
     }
 }
 
@@ -211,6 +224,10 @@ public enum MedicalOrderAction : byte
     Complete,
     Purchase,
     SellReagents,
+    AcceptSpecial,
+    IssueSpecialPatient,
+    SubmitSpecialPatient,
+    SupplySpecialReagents,
 }
 
 /// <summary>All fields are untrusted; the server derives station, machine and prices itself.</summary>

@@ -36,6 +36,37 @@ repair-structural-analyzer-popup-off = Анализатор выключен.
 repair-structural-analyzer-construction-tray-scanner = Т-лучевой сканер
 repair-structural-analyzer-remove-entity = Убрать: { $entity }
 
+ent-ClothingEyesGlassesRepairRestorer = диагностические очки ремонтной бригады
+    .desc = Служебные очки с янтарными линзами и системой структурной диагностики. Показывают оставшиеся работы и направляют к выбранному участку ремонта.
+ent-ClothingNeckCloakRepairRestorer = наградной плащ ремонтной бригады
+    .desc = Именной плащ с серебристым воротником и оранжевой отделкой, выдаваемый за заслуги перед ремонтной службой. Встроенный свет помогает бригаде работать в темноте.
+repair-orders-keepsake-name = наградной плащ ремонтной бригады — { $owner }
+repair-orders-keepsake-light-on = Включить сигнальный свет
+repair-orders-keepsake-light-off = Выключить сигнальный свет
+repair-orders-shop-compact = Компактный вид
+repair-orders-shop-product = Информация о товаре
+repair-orders-shop-price = { $cost } очков
+repair-orders-shop-required-level = Уровень { $level }
+repair-orders-shop-to-cart = В корзину
+repair-orders-shop-quantity = Количество в корзине
+repair-orders-shop-in-cart = В корзине: { $count }
+repair-orders-shop-purchase-limit = Не более { $count } шт. за одну покупку
+repair-analyzer-layers-title = Слои структурного анализатора
+repair-restorer-window-title = Навигация ремонтной бригады
+repair-restorer-all = Ближайшая ошибка
+repair-restorer-no-tasks = Нет оставшихся работ в выбранной категории.
+repair-restorer-group = { $name } — { $count }
+repair-restorer-target = { $name }: { $distance } м ({ $index }/{ $count })
+repair-analyzer-layer-All = Все слои
+repair-analyzer-layer-Lattice = Решётчатое основание
+repair-analyzer-layer-Plating = Обшивка пола
+repair-analyzer-layer-Floor = Напольное покрытие
+repair-analyzer-layer-CableLow = Кабели низкого напряжения
+repair-analyzer-layer-CableMedium = Кабели среднего напряжения
+repair-analyzer-layer-CableHigh = Кабели высокого напряжения
+repair-analyzer-layer-Pipes = Трубы
+repair-analyzer-layer-Structures = Конструкции и оборудование
+
 repair-order-damaged-engineering-sattelite-name = Восстановление орбитального спутника
 repair-order-damaged-engineering-sattelite-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 repair-order-damaged-cargo-shuttle-name = Восстановление «Динеро Mk.II»
@@ -46,6 +77,22 @@ repair-order-damaged-amber-name = Восстановление «Янтаря»
 repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 
 repair-orders-window-title = Инженерные ремонтные заказы
+repair-orders-briefing-title = Памятка бригаде
+repair-orders-briefing-text =
+    Порядок работ
+    Выберите подходящий заказ и примите его через консоль. После доставки объекта осмотрите повреждения, подготовьте материалы и восстановите конструкции по исходной схеме. Следите за сроком выполнения: ремонтная служба ожидает возвращения объекта вовремя.
+
+    Структурный анализатор
+    Перед выходом подготовьте и включите структурный анализатор. Он подсвечивает незавершённые работы поблизости; фильтры помогают отдельно осмотреть полы, кабели, трубы и оборудование. Прибор собирается вручную из трёх листов стали, Т-лучевого сканера, листа стекла и двух отрезков кабеля. Готовые анализаторы также выдаёт инженерный автомат «Энгивенд».
+
+    Диагностические очки
+    Диагностические очки ремонтной бригады отображают список оставшихся работ и направление к выбранному участку. Наденьте и включите их, затем выберите нужный вид работ в настройках навигации. Очки последовательно проводят по участкам ремонта или направляют к ближайшему неисправному узлу.
+
+    Скафандр ремонтной бригады
+    Служебный скафандр рассчитан на работу в вакууме и аварийных отсеках, оснащён усиленной радиационной и взрывной защитой, встроенным блюспейс-сканером масс и креплением для дыхательного баллона. Шлем защищает глаза при сварке и освещает рабочую зону. Перед выходом за пределы герметичного отсека проверьте запас дыхательной смеси. Скафандр и диагностические очки доступны в магазине ремонтной службы.
+
+    Сдача объекта
+    После ремонта вернитесь к консоли, сдайте объект и распечатайте отчёт. Если завершить все работы невозможно, досрочная сдача доступна через десять минут после принятия заказа. Невыполненные работы и нарушения уменьшают вознаграждение.
 repair-orders-next-offer = Следующие предложения:
 repair-orders-activation-in-progress = Идёт поиск безопасного места и перенос повреждённого шаттла...
 repair-orders-completion-in-progress = Идёт завершение ремонтного заказа...
@@ -254,3 +301,29 @@ repair-order-hephaestus-name = Восстановление объекта «Г�
 repair-order-object-name-hephaestus = Гефест
 repair-order-apogee-name = Восстановление объекта «Апогей»
 repair-order-object-name-apogee = Апогей
+repair-order-object-type-observation-module = Смотровой модуль
+repair-order-object-type-observation-post = Наблюдательный пост
+repair-order-object-type-cargo-depot = Грузовой склад
+repair-order-object-type-solar-complex = Солнечный комплекс
+repair-order-panorama-name = Восстановление объекта «Панорама»
+repair-order-object-name-panorama = Панорама
+repair-order-watchpost-name = Восстановление объекта «Дозор»
+repair-order-object-name-watchpost = Дозор
+repair-order-transit-name = Восстановление объекта «Транзит»
+repair-order-object-name-transit = Транзит
+repair-order-helios-name = Восстановление объекта «Гелиос»
+repair-order-object-name-helios = Гелиос
+
+ent-RepairCrewPowerDrill = дрель ремонтной бригады
+    .desc = Усиленная электрическая дрель для быстрого монтажа и демонтажа конструкций.
+ent-RepairCrewWelder = сварочный аппарат ремонтной бригады
+    .desc = Сварочный аппарат с усиленной горелкой и системой регенерации топлива для длительных восстановительных работ.
+ent-RepairCrewJawsOfLife = челюсти жизни ремонтной бригады
+    .desc = Гидравлический спасательный инструмент с ускоренными приводами вскрытия и резки.
+ent-RepairCrewRCD = РСУ ремонтной бригады
+    .desc = Экономичное устройство быстрого строительства со встроенной системой восстановления заряда.
+ent-ClothingBeltRepairCrew = пояс ремонтной бригады
+    .desc = Оранжево-серый инструментальный пояс для восстановительных работ на повреждённых станциях и шаттлах.
+ent-ClothingBeltRepairCrewFilled = { ent-ClothingBeltRepairCrew }
+    .desc = Пояс ремонтной бригады с дрелью, челюстями жизни, сварочным аппаратом, РСУ, мультитулом, голопроектором атмосферных барьеров, газоанализатором и конфигуратором сетей.
+    .suffix = Заполненный

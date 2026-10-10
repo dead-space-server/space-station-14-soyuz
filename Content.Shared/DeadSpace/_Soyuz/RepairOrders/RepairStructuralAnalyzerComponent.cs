@@ -15,6 +15,9 @@ public sealed partial class RepairStructuralAnalyzerComponent : Component
 {
     [DataField, AutoNetworkedField]
     public float Range = 7f;
+
+    [DataField, AutoNetworkedField]
+    public bool Navigation;
 }
 
 [DataDefinition, Serializable, NetSerializable]
@@ -31,6 +34,7 @@ public sealed partial class RepairAnalyzerTaskData
     public Angle LocalRotation;
     public string ExpectedPrototype = string.Empty;
     public RepairTaskState State;
+    public RepairAnalyzerLayer Layer;
 
     public RepairAnalyzerTaskData(
         RepairTaskType type,
@@ -61,4 +65,18 @@ public enum RepairTaskState : byte
     Missing,
     Wrong,
     Correct,
+}
+
+[Serializable, NetSerializable]
+public enum RepairAnalyzerLayer : byte
+{
+    All,
+    Lattice,
+    Plating,
+    Floor,
+    CableLow,
+    CableMedium,
+    CableHigh,
+    Pipes,
+    Structures,
 }

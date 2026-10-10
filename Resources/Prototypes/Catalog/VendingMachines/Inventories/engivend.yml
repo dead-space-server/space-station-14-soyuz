@@ -15,6 +15,7 @@
     TabletPowerMonitoring: 2
     # DS14-Soyuz-start: Construction planning tool.
     BlueprintSprayPainter: 4
+    RepairStructuralAnalyzer: 3
     # DS14-Soyuz-end
   contrabandInventory:
     CowToolboxFilled: 1

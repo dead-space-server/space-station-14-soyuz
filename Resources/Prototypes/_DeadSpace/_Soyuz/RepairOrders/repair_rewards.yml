@@ -376,7 +376,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewBeltReward
   entity: ClothingBeltRepairCrewFilled
-  cost: 600
+  cost: 300
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -384,7 +384,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewRcdReward
   entity: RepairCrewRCD
-  cost: 250
+  cost: 150
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -392,7 +392,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewPowerDrillReward
   entity: RepairCrewPowerDrill
-  cost: 150
+  cost: 50
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -400,7 +400,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewJawsOfLifeReward
   entity: RepairCrewJawsOfLife
-  cost: 225
+  cost: 75
   maxCount: 1
   minimumShopLevel: 7
   classified: true
@@ -408,7 +408,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewWelderReward
   entity: RepairCrewWelder
-  cost: 200
+  cost: 50
   maxCount: 1
   minimumShopLevel: 7
   classified: true

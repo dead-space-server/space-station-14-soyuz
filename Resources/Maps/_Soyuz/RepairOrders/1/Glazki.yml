@@ -162,7 +162,6 @@ entities:
       pos: 1.9198227,-1.0144348
       parent: 1
     - type: TimerTrigger
-      user: invalid
       nextBeep: -78.4855194
       nextTrigger: -76.4855194
     - type: EmitSoundOnCollide

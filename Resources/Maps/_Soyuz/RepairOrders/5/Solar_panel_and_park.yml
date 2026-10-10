@@ -2117,7 +2117,6 @@ entities:
       pos: 3.5,2.5
       parent: 1
     - type: Store
-      startingMap: invalid
       fullListingsCatalog:
       - id: UplinkTraitorUltraHristovMagAP
         productComponents: null
@@ -40974,7 +40973,6 @@ entities:
       pos: 3.5,3.5
       parent: 1
     - type: Store
-      startingMap: invalid
       fullListingsCatalog:
       - id: UplinkTraitorUltraHristovMagAP
         productComponents: null

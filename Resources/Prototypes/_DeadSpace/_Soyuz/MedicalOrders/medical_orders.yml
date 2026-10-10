@@ -1140,11 +1140,6 @@
     cost: 500
     maxCount: 10
     minimumShopLevel: 5
-  - id: ClothingOuterHardsuitERTAmberMedic
-    entity: ClothingOuterHardsuitERTAmberMedic
-    cost: 1100
-    maxCount: 1
-    minimumShopLevel: 5
   - id: BSAACombatKitFilled
     entity: BSAACombatKitFilled
     cost: 600
@@ -1173,6 +1168,11 @@
   - id: CloningPodMachineCircuitboard
     entity: CloningPodMachineCircuitboard
     cost: 1500
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: ClothingOuterHardsuitERTAmberMedic
+    entity: ClothingOuterHardsuitERTAmberMedic
+    cost: 3500
     maxCount: 1
     minimumShopLevel: 6
   - id: Stimpack

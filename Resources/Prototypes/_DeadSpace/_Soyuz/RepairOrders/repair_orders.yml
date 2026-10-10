@@ -739,3 +739,115 @@
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
   repairTime: 120m
+
+- type: repairOrder
+  id: RepairOrderPanoramaLevel1
+  name: repair-order-panorama-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-observation-module
+  objectName: repair-order-object-name-panorama
+  difficulty: 1
+  weight: 100
+  targetGridPath: /Maps/_Soyuz/RepairOrders/1/Glazki.yml
+  damageProfile: RepairDamageLight
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 40m
+
+- type: repairOrder
+  id: RepairOrderPanoramaLevel2
+  name: repair-order-panorama-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-observation-module
+  objectName: repair-order-object-name-panorama
+  difficulty: 2
+  weight: 60
+  targetGridPath: /Maps/_Soyuz/RepairOrders/1/Glazki.yml
+  damageProfile: RepairDamageLight
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 50m
+
+- type: repairOrder
+  id: RepairOrderWatchpostLevel1
+  name: repair-order-watchpost-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-observation-post
+  objectName: repair-order-object-name-watchpost
+  difficulty: 1
+  weight: 100
+  targetGridPath: /Maps/_Soyuz/RepairOrders/1/Post_nabludeniya.yml
+  damageProfile: RepairDamageLight
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 40m
+
+- type: repairOrder
+  id: RepairOrderWatchpostLevel2
+  name: repair-order-watchpost-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-observation-post
+  objectName: repair-order-object-name-watchpost
+  difficulty: 2
+  weight: 60
+  targetGridPath: /Maps/_Soyuz/RepairOrders/1/Post_nabludeniya.yml
+  damageProfile: RepairDamageLight
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 50m
+
+- type: repairOrder
+  id: RepairOrderTransitLevel2
+  name: repair-order-transit-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-cargo-depot
+  objectName: repair-order-object-name-transit
+  difficulty: 2
+  weight: 60
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/Cargo_crates.yml
+  damageProfile: RepairDamageLight
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 50m
+
+- type: repairOrder
+  id: RepairOrderTransitLevel3
+  name: repair-order-transit-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-cargo-depot
+  objectName: repair-order-object-name-transit
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/Cargo_crates.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderHeliosLevel4
+  name: repair-order-helios-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-solar-complex
+  objectName: repair-order-object-name-helios
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/5/Solar_panel_and_park.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m
+
+- type: repairOrder
+  id: RepairOrderHeliosLevel5
+  name: repair-order-helios-name
+  description: repair-order-imported-description
+  objectType: repair-order-object-type-solar-complex
+  objectName: repair-order-object-name-helios
+  difficulty: 5
+  weight: 13
+  targetGridPath: /Maps/_Soyuz/RepairOrders/5/Solar_panel_and_park.yml
+  damageProfile: RepairDamageHeavy
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 70m

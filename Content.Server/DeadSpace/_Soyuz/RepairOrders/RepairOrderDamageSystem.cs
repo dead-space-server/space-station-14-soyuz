@@ -58,8 +58,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
                 protectedFloors.Add(cell);
                 continue;
             }
-            if (!values.TryResolve(id, out var value))
-                throw new InvalidOperationException($"Repair value configuration error: order {order.ID}, grid {grid.Owner}, entity {id}, position {xform.LocalPosition}.");
+            values.TryResolve(id, out var value);
             values.TryGetCategory(id, out var category);
             var protectedEntity = !_protection.CanProcedurallyDamage(child);
             if (protectedEntity) protectedFloors.Add(cell);

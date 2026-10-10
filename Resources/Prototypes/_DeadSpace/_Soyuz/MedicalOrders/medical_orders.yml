@@ -1120,19 +1120,19 @@
     cost: 350
     maxCount: 10
     minimumShopLevel: 5
+  - id: CombatMedipen
+    entity: CombatMedipen
+    cost: 400
+    maxCount: 10
+    minimumShopLevel: 5
   - id: NECROMedipen
     entity: NECROMedipen
-    cost: 350
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: SCSTMedipen
     entity: SCSTMedipen
-    cost: 350
-    maxCount: 10
-    minimumShopLevel: 5
-  - id: CombatMedipen
-    entity: CombatMedipen
-    cost: 400
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: IchorMedipen

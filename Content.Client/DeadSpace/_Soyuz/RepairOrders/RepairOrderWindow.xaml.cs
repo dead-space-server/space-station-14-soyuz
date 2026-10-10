@@ -36,6 +36,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
     private bool _shopPurchasePending => _draft.PendingRequestId != null;
     private bool _retryPendingPurchase;
     private FancyWindow? _completionDialog;
+    private FancyWindow? _briefingDialog;
     private FancyWindow? _shopDetailsDialog;
     private string? _shopDetailsRewardId;
     private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
@@ -67,11 +68,14 @@ public sealed partial class RepairOrderWindow : FancyWindow
             UpdateShop();
         };
         ShopCheckoutButton.OnPressed += _ => SubmitShopPurchase();
+        BriefingButton.OnPressed += _ => ShowBriefing();
         OnClose += () =>
         {
             SaveDraft();
             _completionDialog?.Dispose();
             _completionDialog = null;
+            _briefingDialog?.Dispose();
+            _briefingDialog = null;
             CloseShopDetails();
         };
     }
@@ -79,6 +83,35 @@ public sealed partial class RepairOrderWindow : FancyWindow
     public void SaveDraft()
     {
         _draft.Tab = OrderTabs.CurrentTab;
+    }
+
+    private void ShowBriefing()
+    {
+        _briefingDialog?.Dispose();
+        var dialog = new FancyWindow
+        {
+            Title = Loc.GetString("repair-orders-briefing-title"),
+            SetSize = new Vector2(460, 440),
+            MinSize = new Vector2(360, 260),
+        };
+        _briefingDialog = dialog;
+        dialog.OnClose += () =>
+        {
+            if (ReferenceEquals(_briefingDialog, dialog))
+                _briefingDialog = null;
+            dialog.Dispose();
+        };
+        var scroll = new ScrollContainer
+        {
+            HScrollEnabled = false,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+        };
+        var text = new RichTextLabel { HorizontalExpand = true, Margin = new Thickness(8) };
+        text.SetMessage(Loc.GetString("repair-orders-briefing-text"));
+        scroll.AddChild(text);
+        dialog.ContentsContainer.AddChild(scroll);
+        dialog.OpenCentered();
     }
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)

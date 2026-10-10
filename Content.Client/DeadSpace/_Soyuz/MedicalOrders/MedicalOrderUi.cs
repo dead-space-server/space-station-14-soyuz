@@ -476,7 +476,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
 
         if (state.LastCompleted is { } completed)
             _completed.AddChild(Info(
-                Loc.GetString("medical-orders-last-result", ("id", completed.RuntimeId),
+                Loc.GetString("medical-orders-last-result", ("title", Loc.GetString(completed.Title)),
                     ("score", completed.CurrentScore), ("points", state.LastAwardedPoints),
                     ("reputation", state.LastAwardedReputation),
                     ("status", Loc.GetString(state.LastPatientLost
@@ -523,7 +523,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         heading.AddChild(icon);
         heading.AddChild(new Label
         {
-            Text = Loc.GetString("medical-orders-order-number", ("id", order.RuntimeId)),
+            Text = Loc.GetString(order.Title),
             StyleClasses = { "LabelHeading" },
             VerticalAlignment = VAlignment.Center,
             HorizontalExpand = true,

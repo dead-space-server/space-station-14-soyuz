@@ -259,3 +259,17 @@ repair-order-hephaestus-name = Restoration of Hephaestus
 repair-order-object-name-hephaestus = Hephaestus
 repair-order-apogee-name = Restoration of Apogee
 repair-order-object-name-apogee = Apogee
+
+ent-RepairCrewPowerDrill = repair crew power drill
+    .desc = A reinforced power drill issued to repair crews for rapid assembly work.
+ent-RepairCrewWelder = repair crew welding tool
+    .desc = A self-refueling welding tool with an upgraded burner for prolonged restoration work.
+ent-RepairCrewJawsOfLife = repair crew jaws of life
+    .desc = A hydraulic rescue tool with improved prying and cutting drives.
+ent-RepairCrewRCD = repair crew RCD
+    .desc = An economical rapid construction device with a built-in charge regenerator.
+ent-ClothingBeltRepairCrew = repair crew toolbelt
+    .desc = An orange-and-grey toolbelt issued for restoration work aboard damaged stations and shuttles.
+ent-ClothingBeltRepairCrewFilled = { ent-ClothingBeltRepairCrew }
+    .desc = A repair crew toolbelt equipped with a power drill, jaws of life, welding tool, RCD, multitool, holofan projector, gas analyzer and network configurator.
+    .suffix = Filled

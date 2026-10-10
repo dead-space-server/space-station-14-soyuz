@@ -374,6 +374,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         foreach (var rewardId in pool.Rewards)
         {
             if (!_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
+                reward.EmagOnly && !state.ShopEmagged ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
                 continue;
 
@@ -628,6 +629,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             !_prototype.TryIndex<RepairRewardPoolPrototype>(_state.ShopRewardPoolId, out var pool) ||
             !pool.Rewards.Any(rewardId => rewardId.Id == id) ||
             !_prototype.TryIndex<RepairRewardPrototype>(id, out var reward) ||
+            reward.EmagOnly && !_state.ShopEmagged ||
             !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
         {
             CloseShopDetails();
@@ -697,6 +699,12 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 !_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
                 continue;
+
+            if (reward.EmagOnly && !_state.ShopEmagged)
+            {
+                valid = false;
+                continue;
+            }
 
             valid &= count <= reward.MaxCount && _state.ShopLevel >= reward.MinimumShopLevel;
 

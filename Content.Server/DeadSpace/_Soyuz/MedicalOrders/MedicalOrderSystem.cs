@@ -13,6 +13,7 @@ using Content.Shared.Access.Systems;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace._Soyuz.MedicalOrders;
+using Content.Shared.Emag.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.GameTicking;
 using Content.Shared.Inventory;
@@ -46,6 +47,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     [Dependency] private readonly EntityStorageSystem _storage = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly EmagSystem _emag = default!;
     [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
 
     private ISawmill _sawmill = default!;
@@ -63,6 +65,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         });
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentStartup>(OnMachineStartup);
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentShutdown>(OnMachineShutdown);
+        SubscribeLocalEvent<MedicalOrderMachineComponent, GotEmaggedEvent>(OnMachineEmagged);
         SubscribeLocalEvent<MedicalOrderStationComponent, ComponentShutdown>(OnStationShutdown);
         SubscribeLocalEvent<MedicalOrderMachineComponent, EntInsertedIntoContainerMessage>(OnBeakerInserted);
         SubscribeLocalEvent<MedicalOrderMachineComponent, EntRemovedFromContainerMessage>(OnBeakerRemoved);
@@ -187,16 +190,23 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
     private void RefreshOffers(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
     {
-        state.PatientOffers.Clear();
-        var totalWeight = config.Difficulties.Sum(d => d.Weight);
+        var offers = new Dictionary<int, MedicalOrderOffer>();
+        var titles = config.PatientOrderTitles.Distinct().ToList();
+        var totalWeight = config.Difficulties.Sum(d => d.PatientOfferWeight ?? d.Weight);
         for (var i = 0; i < config.PatientOfferCount; i++)
         {
-            var selected = SelectWeighted(config.Difficulties, d => d.Weight, _random.Next(totalWeight));
+            var selected = SelectWeighted(config.Difficulties, d => d.PatientOfferWeight ?? d.Weight,
+                _random.Next(totalWeight));
             var difficulty = config.Difficulties.IndexOf(selected);
-            if (GeneratePatientOffer(state, config, difficulty) is { } offer)
-                state.PatientOffers.Add(offer.RuntimeId, offer);
+            var offer = GeneratePatientOffer(state, config, difficulty);
+            if (offer == null)
+                throw new InvalidOperationException($"Cannot generate medical patient offer for difficulty {difficulty + 1}.");
+
+            offer.Title = _random.PickAndTake(titles);
+            offers.Add(offer.RuntimeId, offer);
         }
 
+        state.PatientOffers = offers;
         state.NextRefresh = _timing.CurTime + config.OfferRefreshInterval;
     }
 
@@ -279,6 +289,20 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         }
 
         throw new ArgumentOutOfRangeException(nameof(roll));
+    }
+
+    private void OnMachineEmagged(Entity<MedicalOrderMachineComponent> machine, ref GotEmaggedEvent args)
+    {
+        if (machine.Comp.Kind == MedicalOrderMachineKind.PatientReceiver ||
+            !_emag.CompareFlag(args.Type, EmagType.Interaction) ||
+            _emag.CheckFlag(machine.Owner, EmagType.Interaction) ||
+            EnsureStation(machine.Owner, machine.Comp) is not { } state || state.Busy ||
+            !_prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var config) ||
+            !config.Shop.Any(i => i.Enabled && i.EmagOnly))
+            return;
+
+        args.Handled = true;
+        UpdateUi(machine.Owner, machine.Comp, state, config, contrabandUnlocked: true);
     }
 
     private void OnUiOpened(Entity<MedicalOrderMachineComponent> machine, ref BoundUIOpenedEvent args)
@@ -374,6 +398,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var copy = new MedicalOrderOffer
         {
             RuntimeId = original.RuntimeId,
+            Title = original.Title,
             Patient = original.Patient,
             MaximumScore = original.MaximumScore,
             Difficulty = original.Difficulty,
@@ -537,6 +562,18 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             state.LastPatient = result;
             state.PatientActive = null;
 
+            if (!result.Expired)
+            {
+                try
+                {
+                    RefreshOffers(state, config);
+                }
+                catch (Exception exception)
+                {
+                    _sawmill.Error($"Refreshing medical patient offers after {active.Offer.RuntimeId} failed: {exception}");
+                }
+            }
+
             if (active.Offer.Patient)
             {
                 try
@@ -614,15 +651,18 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             acquired = true;
             var pool = config.Shop;
             var level = GetShopLevel(state.Reputation, config);
+            var emagged = _emag.CheckFlag(machine, EmagType.Interaction);
+            var requiresEmag = false;
 
             var items = new List<EntProtoId>();
             foreach (var (id, count) in normalized)
             {
                 var entry = pool.FirstOrDefault(e => e.ID == id);
-                if (entry == null || !entry.Enabled || level < entry.MinimumShopLevel ||
+                if (entry == null || !entry.Enabled || entry.EmagOnly && !emagged || level < entry.MinimumShopLevel ||
                     count > entry.MaxCount || !_prototypes.TryIndex<EntityPrototype>(entry.Entity, out _))
                     return;
 
+                requiresEmag |= entry.EmagOnly;
                 var lineCost = (long) entry.Cost * count;
                 if (lineCost > long.MaxValue - total)
                     return;
@@ -650,7 +690,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             if (!Exists(machine) || Terminating(machine) || EntityManager.IsQueuedForDeletion(machine) ||
                 !Exists(station) || Terminating(station) || EntityManager.IsQueuedForDeletion(station) ||
                 _stations.GetOwningStation(machine) != station || !this.IsPowered(machine, EntityManager) ||
-                !_access.IsAllowed(request.Actor, machine))
+                !_access.IsAllowed(request.Actor, machine) ||
+                requiresEmag && !_emag.CheckFlag(machine, EmagType.Interaction))
             {
                 message = "medical-orders-error-unavailable";
                 return;
@@ -719,7 +760,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     }
 
     private void UpdateUi(EntityUid uid, MedicalOrderMachineComponent machine,
-        MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
+        MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, bool contrabandUnlocked = false)
     {
         var patient = machine.Kind != MedicalOrderMachineKind.Reagent;
         var offers = patient ? state.PatientOffers.Values.ToArray() : Array.Empty<MedicalOrderOffer>();
@@ -727,7 +768,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var completed = patient ? state.LastPatient : null;
         var level = GetShopLevel(state.Reputation, config);
         var pool = machine.Kind == MedicalOrderMachineKind.PatientReceiver ? null : config.Shop;
-        var shop = pool?.Where(i => i.Enabled).Select((i, index) =>
+        var emagged = contrabandUnlocked || _emag.CheckFlag(uid, EmagType.Interaction);
+        var shop = pool?.Where(i => i.Enabled && (!i.EmagOnly || emagged)).Select((i, index) =>
         {
             var classified = i.Classified && level < i.MinimumShopLevel;
             return new MedicalOrderShopItemView(
@@ -793,7 +835,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var lines = offer.Lines.Select(line => new MedicalOrderLineView(line.ID, line.Amount,
             active != null && active.Submitted.TryGetValue(line.ID, out var submitted) ? submitted.Float() : 0,
             line.PointsPerUnit)).ToArray();
-        return new MedicalOrderView(offer.RuntimeId, lines, offer.MaximumScore, score,
+        return new MedicalOrderView(offer.RuntimeId, offer.Title, lines, offer.MaximumScore, score,
             offer.Difficulty, offer.TimeLimit, config.Difficulties[offer.Difficulty].BaseReputation,
             active?.Deadline);
     }

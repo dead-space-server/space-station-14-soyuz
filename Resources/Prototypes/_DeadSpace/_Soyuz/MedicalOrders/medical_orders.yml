@@ -4,7 +4,28 @@
 
 - type: medicalOrderConfig
   id: SoyuzMedicalOrders
-  patientOfferCount: 15
+  patientOfferCount: 5
+  patientOrderTitles:
+  - medical-orders-patient-title-return
+  - medical-orders-patient-title-lifeline
+  - medical-orders-patient-title-second-wind
+  - medical-orders-patient-title-night-watch
+  - medical-orders-patient-title-rescue
+  - medical-orders-patient-title-recovery
+  - medical-orders-patient-title-safe-harbor
+  - medical-orders-patient-title-pulse
+  - medical-orders-patient-title-first-aid
+  - medical-orders-patient-title-long-way
+  - medical-orders-patient-title-frontier
+  - medical-orders-patient-title-signal
+  - medical-orders-patient-title-homeward
+  - medical-orders-patient-title-care
+  - medical-orders-patient-title-duty
+  - medical-orders-patient-title-clearance
+  - medical-orders-patient-title-shift
+  - medical-orders-patient-title-hope
+  - medical-orders-patient-title-rendezvous
+  - medical-orders-patient-title-shelter
   offerRefreshInterval: 10m
   minDamageEntries: 1
   maxDamageEntries: 8
@@ -110,21 +131,25 @@
   difficulties:
   - minScore: 0
     weight: 26
+    patientOfferWeight: 520
     maxScore: 59
     timeLimit: 10m
     baseReputation: 100
   - minScore: 60
     weight: 20
+    patientOfferWeight: 400
     maxScore: 109
     timeLimit: 12m
     baseReputation: 150
   - minScore: 110
     weight: 15
+    patientOfferWeight: 300
     maxScore: 159
     timeLimit: 14m
     baseReputation: 220
   - minScore: 160
     weight: 12
+    patientOfferWeight: 240
     maxScore: 209
     timeLimit: 16m
     baseReputation: 320
@@ -1025,6 +1050,7 @@
     cost: 750
     maxCount: 2
     minimumShopLevel: 3
+    emagOnly: true
   - id: DefibrillatorCompact
     entity: DefibrillatorCompact
     cost: 400
@@ -1062,92 +1088,92 @@
     minimumShopLevel: 5
   - id: AntiPoisonMedipen
     entity: AntiPoisonMedipen
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: BruteAutoInjector
     entity: BruteAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: BurnAutoInjector
     entity: BurnAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: RadAutoInjector
     entity: RadAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: PunctAutoInjector
     entity: PunctAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: PyraAutoInjector
     entity: PyraAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: AirlossAutoInjector
     entity: AirlossAutoInjector
-    cost: 200
+    cost: 150
     maxCount: 10
     minimumShopLevel: 5
   - id: ZetaOneMedipen
     entity: ZetaOneMedipen
-    cost: 250
+    cost: 200
     maxCount: 10
     minimumShopLevel: 5
   - id: ZetaTwoMedipen
     entity: ZetaTwoMedipen
-    cost: 250
+    cost: 200
     maxCount: 10
     minimumShopLevel: 5
   - id: CelestinMedipen
     entity: CelestinMedipen
-    cost: 300
+    cost: 250
     maxCount: 10
     minimumShopLevel: 5
   - id: DerytracineMedipen
     entity: DerytracineMedipen
-    cost: 350
+    cost: 300
     maxCount: 10
     minimumShopLevel: 5
   - id: LavalandSurvMedipen
     entity: LavalandSurvMedipen
-    cost: 350
+    cost: 300
     maxCount: 10
     minimumShopLevel: 5
   - id: CombatMedipen
     entity: CombatMedipen
-    cost: 400
+    cost: 350
     maxCount: 10
     minimumShopLevel: 5
   - id: NECROMedipen
     entity: NECROMedipen
-    cost: 450
+    cost: 400
     maxCount: 10
     minimumShopLevel: 5
   - id: SCSTMedipen
     entity: SCSTMedipen
-    cost: 450
+    cost: 400
     maxCount: 10
     minimumShopLevel: 5
   - id: IchorMedipen
     entity: IchorMedipen
-    cost: 500
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: BSAACombatKitFilled
     entity: BSAACombatKitFilled
-    cost: 600
+    cost: 550
     maxCount: 2
     minimumShopLevel: 6
   - id: ERTGammaMedicCombatKitFilled
     entity: ERTGammaMedicCombatKitFilled
-    cost: 600
+    cost: 550
     maxCount: 2
     minimumShopLevel: 6
   - id: MediumViralSolutionVial
@@ -1155,56 +1181,56 @@
     cost: 1000
     maxCount: 1
     minimumShopLevel: 6
+  - id: ClothingOuterHardsuitMedicalOrderMedic
+    entity: ClothingOuterHardsuitMedicalOrderMedic
+    cost: 1500
+    maxCount: 1
+    minimumShopLevel: 6
+    classified: true
   - id: MedicalScannerMachineCircuitboard
     entity: MedicalScannerMachineCircuitboard
-    cost: 1500
+    cost: 2500
     maxCount: 1
     minimumShopLevel: 6
   - id: CloningConsoleComputerCircuitboard
     entity: CloningConsoleComputerCircuitboard
-    cost: 1500
+    cost: 2500
     maxCount: 1
     minimumShopLevel: 6
   - id: CloningPodMachineCircuitboard
     entity: CloningPodMachineCircuitboard
-    cost: 1500
+    cost: 2500
     maxCount: 1
     minimumShopLevel: 6
   - id: ClothingOuterHardsuitERTAmberMedic
     entity: ClothingOuterHardsuitERTAmberMedic
-    cost: 3500
+    cost: 5500
     maxCount: 1
     minimumShopLevel: 6
+    emagOnly: true
   - id: Stimpack
     entity: Stimpack
     cost: 750
     maxCount: 10
     minimumShopLevel: 7
-    classified: true
+    emagOnly: true
   - id: StimpackMini
     entity: StimpackMini
     cost: 750
     maxCount: 10
     minimumShopLevel: 7
-    classified: true
+    emagOnly: true
   - id: AdvancedJetInjector
     entity: AdvancedJetInjector
     cost: 1250
     maxCount: 1
     minimumShopLevel: 7
     classified: true
-  - id: ClothingOuterHardsuitMedicalOrderMedic
-    entity: ClothingOuterHardsuitMedicalOrderMedic
-    cost: 2000
-    maxCount: 1
-    minimumShopLevel: 7
-    classified: true
-  - id: DefibrillatorSyndicate
-    entity: DefibrillatorSyndicate
-    cost: 5000
-    maxCount: 1
+  - id: PowerCellMicroreactor
+    entity: PowerCellMicroreactor
+    cost: 1000
+    maxCount: 5
     minimumShopLevel: 8
-    classified: true
   - id: HypoParamedic
     entity: HypoParamedic
     cost: 1500
@@ -1219,7 +1245,7 @@
     classified: true
   - id: ADTCyberHypospray
     entity: ADTCyberHypospray
-    cost: 30000
+    cost: 20000
     maxCount: 1
     minimumShopLevel: 10
     classified: true

@@ -44,6 +44,7 @@ public sealed class MedicalReagentMarketDemand
 public sealed class MedicalOrderOffer
 {
     public int RuntimeId;
+    public string Title = string.Empty;
     public bool Patient;
     public readonly List<MedicalOrderRequirement> Lines = new();
     public int MaximumScore;

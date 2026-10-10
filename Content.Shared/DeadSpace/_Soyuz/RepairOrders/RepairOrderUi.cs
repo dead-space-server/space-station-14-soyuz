@@ -180,6 +180,7 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
     public readonly int ShopLevel;
     public readonly int? NextShopLevelThreshold;
     public readonly bool ShopPurchaseInProgress;
+    public readonly bool ShopEmagged;
 
     public RepairOrderBoundUserInterfaceState(
         List<RepairOrderBuiEntry> available,
@@ -195,7 +196,8 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
         long engineeringReputation,
         int shopLevel,
         int? nextShopLevelThreshold,
-        bool shopPurchaseInProgress)
+        bool shopPurchaseInProgress,
+        bool shopEmagged)
     {
         Available = available;
         Active = active;
@@ -211,6 +213,7 @@ public sealed class RepairOrderBoundUserInterfaceState : BoundUserInterfaceState
         ShopLevel = shopLevel;
         NextShopLevelThreshold = nextShopLevelThreshold;
         ShopPurchaseInProgress = shopPurchaseInProgress;
+        ShopEmagged = shopEmagged;
     }
 }
 

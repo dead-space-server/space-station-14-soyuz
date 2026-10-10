@@ -57,6 +57,7 @@ public sealed class MedicalOrderLineView
 public sealed class MedicalOrderView
 {
     public readonly int RuntimeId;
+    public readonly string Title;
     public readonly MedicalOrderLineView[] Lines;
     public readonly int MaximumScore;
     public readonly int CurrentScore;
@@ -65,10 +66,11 @@ public sealed class MedicalOrderView
     public readonly TimeSpan TimeLimit;
     public readonly TimeSpan? Deadline;
 
-    public MedicalOrderView(int runtimeId, MedicalOrderLineView[] lines, int maximumScore,
+    public MedicalOrderView(int runtimeId, string title, MedicalOrderLineView[] lines, int maximumScore,
         int currentScore, int difficulty, TimeSpan timeLimit, int reputationReward, TimeSpan? deadline = null)
     {
         RuntimeId = runtimeId;
+        Title = title;
         Lines = lines;
         MaximumScore = maximumScore;
         CurrentScore = currentScore;

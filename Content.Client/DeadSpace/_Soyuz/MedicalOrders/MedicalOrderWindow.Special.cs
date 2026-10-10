@@ -144,15 +144,18 @@ public sealed partial class MedicalOrderWindow
             ("site", Loc.GetString(order.Site)), ("patients", order.Patients.Length),
             ("minutes", (int) order.TimeLimit.TotalMinutes))));
         content.AddChild(Info(Loc.GetString("medical-special-summary", ("difficulty", order.Difficulty + 1),
-            ("minutes", (int) order.TimeLimit.TotalMinutes), ("points", order.MaximumPoints),
-            ("reputation", order.Reputation))));
+            ("minutes", (int) order.TimeLimit.TotalMinutes))));
         content.AddChild(new Label
         {
             Text = Loc.GetString("medical-special-penalty", ("percent", order.PenaltyPercent)),
             FontColorOverride = Color.Orange,
         });
         foreach (var line in order.Reagents)
-            content.AddChild(Info(LineText(line, MedicalOrderMachineKind.Reagent)));
+            content.AddChild(Info(active
+                ? LineText(line, MedicalOrderMachineKind.Reagent)
+                : Loc.GetString("medical-special-classified-reagent",
+                    ("submitted", line.Submitted), ("required", line.Required),
+                    ("remaining", Math.Max(0, line.Required - line.Submitted)))));
         content.AddChild(Info(Loc.GetString("medical-special-patient-progress",
             ("submitted", order.Patients.Count(p => p.Status == MedicalSpecialPatientStatus.Submitted)),
             ("total", order.Patients.Length))));

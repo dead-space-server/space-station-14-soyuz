@@ -1,4 +1,44 @@
 - type: entity
+  parent: ClothingEyesGlassesMesonCE
+  id: ClothingEyesGlassesRepairRestorer
+  name: repair crew diagnostic goggles
+  description: Repair crew diagnostic goggles with a structural worklist and a directional display.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: RepairStructuralAnalyzer
+    navigation: true
+  - type: ItemToggle
+    activated: true
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakRepairRestorer
+  name: repair crew commendation cloak
+  description: A personalized cloak awarded for distinguished service in the repair crew, with a built-in warm-white light.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: RepairOrderKeepsake
+  - type: ItemToggle
+    verbToggleOn: repair-orders-keepsake-light-on
+    verbToggleOff: repair-orders-keepsake-light-off
+  - type: ItemTogglePointLight
+  - type: PointLight
+    enabled: false
+    radius: 6
+    energy: 3
+    color: "#FFE6CC"
+
+- type: entity
   parent: BaseFlatpack
   id: RepairOrderThrusterMediumFlatpack
   name: large rocket thruster flatpack

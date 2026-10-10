@@ -18,6 +18,7 @@ public sealed class RepairOrderRewardSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
     [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -89,6 +90,12 @@ public sealed class RepairOrderRewardSystem : EntitySystem
             {
                 result = "repair-orders-shop-error-delivery";
                 return;
+            }
+
+            foreach (var item in delivery.RewardEntities)
+            {
+                if (HasComp<RepairOrderKeepsakeComponent>(item))
+                    _metaData.SetEntityName(item, Loc.GetString("repair-orders-keepsake-name", ("owner", Name(args.Actor))));
             }
 
             // No callback or other throwing work belongs between the balance check and commit.

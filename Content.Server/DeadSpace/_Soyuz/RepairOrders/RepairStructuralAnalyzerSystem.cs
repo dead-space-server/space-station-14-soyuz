@@ -2,6 +2,9 @@
 
 using System.Numerics;
 using System.Linq;
+using Content.Server.Power.Components;
+using Content.Shared.Atmos.Components;
+using Content.Shared.Power;
 using Content.Shared.Access.Systems;
 using Content.Server.Popups;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
@@ -16,6 +19,7 @@ using Robust.Shared.Enums;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
@@ -34,8 +38,10 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
 
     private readonly Dictionary<NetUserId, Dictionary<EntityUid, RepairAnalyzerTaskData[]>> _sentSnapshots = new();
+    private readonly Dictionary<NetUserId, Dictionary<EntityUid, RepairAnalyzerTaskData[]>> _sentNavigationSnapshots = new();
     private float _snapshotAccumulator;
 
     public override void Initialize()
@@ -57,6 +63,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     {
         _player.PlayerStatusChanged -= OnPlayerStatusChanged;
         _sentSnapshots.Clear();
+        _sentNavigationSnapshots.Clear();
         base.Shutdown();
     }
 
@@ -149,7 +156,9 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             return;
         }
 
-        if (_sentSnapshots.Remove(args.Session.UserId, out var snapshots) && snapshots.Count > 0)
+        var hadLocal = _sentSnapshots.Remove(args.Session.UserId, out var snapshots) && snapshots.Count > 0;
+        var hadNavigation = _sentNavigationSnapshots.Remove(args.Session.UserId, out var navigation) && navigation.Count > 0;
+        if (hadLocal || hadNavigation)
             RaiseNetworkEvent(new RepairAnalyzerSnapshotEvent(Array.Empty<RepairAnalyzerGridSnapshot>()), args.Session);
     }
 
@@ -167,6 +176,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     private void RefreshSession(ICommonSession session)
     {
         var snapshots = new Dictionary<EntityUid, RepairAnalyzerTaskData[]>();
+        var navigationSnapshots = new Dictionary<EntityUid, RepairAnalyzerTaskData[]>();
         if (session.AttachedEntity is { Valid: true } user &&
             Exists(user) &&
             TryGetEnabledAnalyzerRange(user, out var range))
@@ -174,19 +184,28 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             BuildAuthorizedSnapshots(user, range, snapshots);
         }
 
-        if (_sentSnapshots.TryGetValue(session.UserId, out var previous) &&
-            SnapshotsEqual(previous, snapshots))
+        if (session.AttachedEntity is { Valid: true } wearer && Exists(wearer) && HasNavigationGlasses(wearer))
+            BuildAuthorizedSnapshots(wearer, float.PositiveInfinity, navigationSnapshots, navigation: true);
+
+        var localChanged = !_sentSnapshots.TryGetValue(session.UserId, out var previous) ||
+                           !SnapshotsEqual(previous, snapshots);
+        var navigationChanged = !_sentNavigationSnapshots.TryGetValue(session.UserId, out var previousNavigation) ||
+                                !SnapshotsEqual(previousNavigation, navigationSnapshots);
+        if (!localChanged && !navigationChanged)
         {
             return;
         }
 
-        SendSnapshot(session, snapshots);
+        SendSnapshot(session, snapshots, navigationSnapshots, navigationChanged);
         _sentSnapshots[session.UserId] = snapshots;
+        _sentNavigationSnapshots[session.UserId] = navigationSnapshots;
     }
 
     private void SendSnapshot(
         ICommonSession session,
-        IReadOnlyDictionary<EntityUid, RepairAnalyzerTaskData[]> snapshots)
+        IReadOnlyDictionary<EntityUid, RepairAnalyzerTaskData[]> snapshots,
+        IReadOnlyDictionary<EntityUid, RepairAnalyzerTaskData[]> navigationSnapshots,
+        bool navigationChanged)
     {
         var networkSnapshots = new RepairAnalyzerGridSnapshot[snapshots.Count];
         var index = 0;
@@ -195,7 +214,10 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             networkSnapshots[index++] = new RepairAnalyzerGridSnapshot(GetNetEntity(gridUid), tasks);
         }
 
-        RaiseNetworkEvent(new RepairAnalyzerSnapshotEvent(networkSnapshots), session);
+        var navigation = navigationChanged
+            ? navigationSnapshots.Select(pair => new RepairAnalyzerGridSnapshot(GetNetEntity(pair.Key), pair.Value)).ToArray()
+            : Array.Empty<RepairAnalyzerGridSnapshot>();
+        RaiseNetworkEvent(new RepairAnalyzerSnapshotEvent(networkSnapshots, navigation, navigationChanged), session);
     }
 
     /// <summary>
@@ -226,6 +248,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     private float GetEnabledRange(EntityUid analyzer)
     {
         if (!TryComp<RepairStructuralAnalyzerComponent>(analyzer, out var component) ||
+            component.Navigation ||
             !TryComp<ItemToggleComponent>(analyzer, out var toggle) ||
             !toggle.Activated)
         {
@@ -235,10 +258,16 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         return MathF.Max(0f, component.Range);
     }
 
+    private bool HasNavigationGlasses(EntityUid user)
+        => _inventory.TryGetSlotEntity(user, "eyes", out var glasses) &&
+           TryComp<RepairStructuralAnalyzerComponent>(glasses, out var analyzer) && analyzer.Navigation &&
+           TryComp<ItemToggleComponent>(glasses, out var toggle) && toggle.Activated;
+
     private void BuildAuthorizedSnapshots(
         EntityUid user,
         float range,
-        Dictionary<EntityUid, RepairAnalyzerTaskData[]> snapshots)
+        Dictionary<EntityUid, RepairAnalyzerTaskData[]> snapshots,
+        bool navigation = false)
     {
         var viewerCoordinates = _transform.GetMapCoordinates(user);
         var rangeSquared = range * range;
@@ -247,6 +276,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         while (query.MoveNext(out var gridUid, out var blueprint, out var grid, out var gridTransform))
         {
             if (!blueprint.Ready ||
+                (navigation && Transform(user).GridUid != gridUid) ||
                 gridTransform.MapID != viewerCoordinates.MapId ||
                 !TryComp<RepairOrderStationComponent>(blueprint.Station, out var station) ||
                 station.Active is not { } active ||
@@ -263,7 +293,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             {
                 foreach (var task in cellTasks)
                 {
-                    if (task.State == RepairTaskState.Correct && !task.Waived)
+                    if ((navigation && task.Waived) || (task.State == RepairTaskState.Correct && !task.Waived))
                         continue;
 
                     var localPosition = task.Type == RepairTaskType.Tile
@@ -288,6 +318,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
                     {
                         Grid = GetNetEntity(gridUid), RuntimeId = active.RuntimeId, RequirementId = task.RequirementId,
                         Waived = task.Waived, Points = task.Points,
+                        Layer = GetLayer(task, expectedPrototype),
                         Exclusions = active.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, blueprint.MaxWaivedPoints, active.CurrentPoints),
                     });
                 }
@@ -299,6 +330,31 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             tasks.Sort(CompareTasks);
             snapshots.Add(gridUid, tasks.ToArray());
         }
+    }
+
+    private RepairAnalyzerLayer GetLayer(RepairTask task, string prototypeId)
+    {
+        if (task.Type == RepairTaskType.Tile)
+            return task.TileLayer switch
+            {
+                RepairTileLayer.Lattice => RepairAnalyzerLayer.Lattice,
+                RepairTileLayer.Plating => RepairAnalyzerLayer.Plating,
+                _ => RepairAnalyzerLayer.Floor,
+            };
+
+        if (_prototype.TryIndex<EntityPrototype>(prototypeId, out var prototype))
+        {
+            if (prototype.TryGetComponent<CableComponent>("Cable", out var cable))
+                return cable.CableType switch
+                {
+                    CableType.HighVoltage => RepairAnalyzerLayer.CableHigh,
+                    CableType.MediumVoltage => RepairAnalyzerLayer.CableMedium,
+                    _ => RepairAnalyzerLayer.CableLow,
+                };
+            if (prototype.TryGetComponent<AtmosPipeLayersComponent>("AtmosPipeLayers", out _))
+                return RepairAnalyzerLayer.Pipes;
+        }
+        return RepairAnalyzerLayer.Structures;
     }
 
     private static int CompareTasks(RepairAnalyzerTaskData left, RepairAnalyzerTaskData right)
@@ -339,7 +395,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             {
                 var leftTask = leftTasks[i];
                 var rightTask = rightTasks[i];
-                if (leftTask.Type != rightTask.Type ||
+                if (leftTask.Type != rightTask.Type || leftTask.Layer != rightTask.Layer ||
                     leftTask.LocalPosition != rightTask.LocalPosition ||
                     leftTask.LocalRotation != rightTask.LocalRotation ||
                     leftTask.ExpectedPrototype != rightTask.ExpectedPrototype ||

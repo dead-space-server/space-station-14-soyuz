@@ -36,6 +36,7 @@ public sealed class RepairOrderShopDraft
     public string? RewardPoolId;
     public string Search = string.Empty;
     public int Tab;
+    public bool Compact = true;
     public string? PendingRequestId;
     public List<RepairOrderRewardBuiEntry>? PendingLines;
 }

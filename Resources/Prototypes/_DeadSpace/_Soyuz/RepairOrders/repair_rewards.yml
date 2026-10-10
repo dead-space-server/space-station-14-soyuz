@@ -490,10 +490,24 @@
   minimumShopLevel: 8
   classified: true
 
+- type: repairReward
+  id: RepairOrderRestorerGogglesReward
+  entity: ClothingEyesGlassesRepairRestorer
+  cost: 100
+  maxCount: 5
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: RepairOrderRestorerCloakReward
+  entity: ClothingNeckCloakRepairRestorer
+  cost: 999
+  maxCount: 1
+  minimumShopLevel: 9
+
 - type: repairRewardPool
   id: RepairOrderEngineeringRewardPool
   deliveryContainer: RepairOrderRewardCrate
-  shopLevelThresholds: [0, 100, 200, 350, 500, 650, 800, 1000]
+  shopLevelThresholds: [0, 100, 200, 350, 500, 650, 800, 1000, 1200]
   baseReputationByDifficulty: [100, 150, 200, 350, 450, 600, 800, 1000, 2000, 5000]
   qualityBands:
   - minPercent: 0
@@ -559,6 +573,7 @@
   - RepairOrderJawsOfLifeReward
   - RepairOrderAdvancedWelderReward
   - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
+  - RepairOrderRestorerGogglesReward
   - RepairOrderClothingBackpackRIGEngineerReward
   - RepairOrderTitaniumReward
   - RepairOrderPlastitaniumReward
@@ -583,3 +598,4 @@
   - RepairOrderGasMinerOxygenIndustrialCoreReward
   - RepairOrderGasMinerIndustrialCoreReward
   - RepairOrderClothingOuterHardsuitRepairOrderEngineerReward
+  - RepairOrderRestorerCloakReward

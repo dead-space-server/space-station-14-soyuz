@@ -1201,7 +1201,7 @@
     classified: true
   - id: DefibrillatorSyndicate
     entity: DefibrillatorSyndicate
-    cost: 1000
+    cost: 5000
     maxCount: 1
     minimumShopLevel: 8
     classified: true

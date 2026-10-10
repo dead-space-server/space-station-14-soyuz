@@ -411,7 +411,7 @@
   objectType: repair-order-object-type-terminal
   objectName: repair-order-object-name-frontier
   difficulty: 5
-  weight: 13
+  weight: 17
   targetGridPath: /Maps/_Soyuz/RepairOrders/4/Terminal_repair.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -425,7 +425,7 @@
   objectType: repair-order-object-type-terminal
   objectName: repair-order-object-name-frontier
   difficulty: 6
-  weight: 8
+  weight: 16
   targetGridPath: /Maps/_Soyuz/RepairOrders/4/Terminal_repair.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -453,7 +453,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-hope
   difficulty: 5
-  weight: 13
+  weight: 17
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_1.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -467,7 +467,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-hope
   difficulty: 6
-  weight: 8
+  weight: 16
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_1.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -481,7 +481,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-hope
   difficulty: 7
-  weight: 5
+  weight: 14
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_1.yml
   damageProfile: RepairDamageSevere
   scoreProfile: RepairOrderEngineeringScore
@@ -509,7 +509,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-dawn
   difficulty: 5
-  weight: 13
+  weight: 17
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_2.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -523,7 +523,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-dawn
   difficulty: 6
-  weight: 8
+  weight: 16
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_2.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -537,7 +537,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-dawn
   difficulty: 7
-  weight: 5
+  weight: 14
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Evac_2.yml
   damageProfile: RepairDamageSevere
   scoreProfile: RepairOrderEngineeringScore
@@ -551,7 +551,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-ark
   difficulty: 5
-  weight: 13
+  weight: 17
   targetGridPath: /Maps/_Soyuz/RepairOrders/6/Evac_Wode.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -565,7 +565,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-ark
   difficulty: 6
-  weight: 8
+  weight: 16
   targetGridPath: /Maps/_Soyuz/RepairOrders/6/Evac_Wode.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -579,7 +579,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-ark
   difficulty: 7
-  weight: 5
+  weight: 14
   targetGridPath: /Maps/_Soyuz/RepairOrders/6/Evac_Wode.yml
   damageProfile: RepairDamageSevere
   scoreProfile: RepairOrderEngineeringScore
@@ -593,7 +593,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-ark
   difficulty: 8
-  weight: 3
+  weight: 13
   targetGridPath: /Maps/_Soyuz/RepairOrders/6/Evac_Wode.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -607,7 +607,7 @@
   objectType: repair-order-object-type-command-shuttle
   objectName: repair-order-object-name-pennant
   difficulty: 6
-  weight: 8
+  weight: 16
   targetGridPath: /Maps/_Soyuz/RepairOrders/7/Genshtab_Souyz_1.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore
@@ -621,7 +621,7 @@
   objectType: repair-order-object-type-command-shuttle
   objectName: repair-order-object-name-pennant
   difficulty: 7
-  weight: 5
+  weight: 14
   targetGridPath: /Maps/_Soyuz/RepairOrders/7/Genshtab_Souyz_1.yml
   damageProfile: RepairDamageSevere
   scoreProfile: RepairOrderEngineeringScore
@@ -635,7 +635,7 @@
   objectType: repair-order-object-type-command-shuttle
   objectName: repair-order-object-name-pennant
   difficulty: 8
-  weight: 3
+  weight: 13
   targetGridPath: /Maps/_Soyuz/RepairOrders/7/Genshtab_Souyz_1.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -649,7 +649,7 @@
   objectType: repair-order-object-type-command-shuttle
   objectName: repair-order-object-name-pennant
   difficulty: 9
-  weight: 2
+  weight: 12
   targetGridPath: /Maps/_Soyuz/RepairOrders/7/Genshtab_Souyz_1.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -663,7 +663,7 @@
   objectType: repair-order-object-type-prison-complex
   objectName: repair-order-object-name-bastion
   difficulty: 8
-  weight: 3
+  weight: 13
   targetGridPath: /Maps/_Soyuz/RepairOrders/8/Jail_Frontier_repair.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -677,7 +677,7 @@
   objectType: repair-order-object-type-evacuation-shuttle
   objectName: repair-order-object-name-eclipse
   difficulty: 8
-  weight: 3
+  weight: 13
   targetGridPath: /Maps/_Soyuz/RepairOrders/8/Syndi_Evac_1.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -691,7 +691,7 @@
   objectType: repair-order-object-type-medium-shuttle
   objectName: repair-order-object-name-corsair
   difficulty: 9
-  weight: 2
+  weight: 12
   targetGridPath: /Maps/_Soyuz/RepairOrders/9/Pirate_2.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -705,7 +705,7 @@
   objectType: repair-order-object-type-medium-shuttle
   objectName: repair-order-object-name-granite
   difficulty: 9
-  weight: 2
+  weight: 12
   targetGridPath: /Maps/_Soyuz/RepairOrders/9/Sobr_1.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -719,7 +719,7 @@
   objectType: repair-order-object-type-engineering-shuttle
   objectName: repair-order-object-name-hephaestus
   difficulty: 10
-  weight: 1
+  weight: 11
   targetGridPath: /Maps/_Soyuz/RepairOrders/10/SOBR_Engineer_10.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -733,7 +733,7 @@
   objectType: repair-order-object-type-expedition-shuttle
   objectName: repair-order-object-name-apogee
   difficulty: 10
-  weight: 1
+  weight: 11
   targetGridPath: /Maps/_Soyuz/RepairOrders/10/Unitology_2.yml
   damageProfile: RepairDamageCatastrophic
   scoreProfile: RepairOrderEngineeringScore
@@ -845,7 +845,7 @@
   objectType: repair-order-object-type-solar-complex
   objectName: repair-order-object-name-helios
   difficulty: 5
-  weight: 13
+  weight: 17
   targetGridPath: /Maps/_Soyuz/RepairOrders/5/Solar_panel_and_park.yml
   damageProfile: RepairDamageHeavy
   scoreProfile: RepairOrderEngineeringScore

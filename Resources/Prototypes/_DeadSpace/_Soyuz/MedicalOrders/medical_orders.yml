@@ -155,31 +155,37 @@
     baseReputation: 320
   - minScore: 210
     weight: 9
+    patientOfferWeight: 30
     maxScore: 259
     timeLimit: 18m
     baseReputation: 460
   - minScore: 260
     weight: 6
+    patientOfferWeight: 26
     maxScore: 309
     timeLimit: 20m
     baseReputation: 650
   - minScore: 310
     weight: 4
+    patientOfferWeight: 22
     maxScore: 359
     timeLimit: 22m
     baseReputation: 900
   - minScore: 360
     weight: 2
+    patientOfferWeight: 20
     maxScore: 409
     timeLimit: 25m
     baseReputation: 1250
   - minScore: 410
     weight: 1
+    patientOfferWeight: 18
     maxScore: 459
     timeLimit: 28m
     baseReputation: 1700
   - minScore: 460
     weight: 1
+    patientOfferWeight: 17
     maxScore: 510
     timeLimit: 30m
     baseReputation: 3000

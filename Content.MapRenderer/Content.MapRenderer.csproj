@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="NUnit" />
     <PackageReference Include="Moq" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="4.1.2" />
+    <PackageReference Include="SixLabors.ImageSharp" />
   </ItemGroup>
 
   <Import Project="..\RobustToolbox\MSBuild\Robust.Properties.targets" />

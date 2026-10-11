@@ -190032,24 +190032,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -33.5,-66.5
       parent: 2
-- proto: SkillBookAtmos
-  entities:
-  - uid: 25808
-    components:
-    - type: Transform
-      pos: -18.620682,31.694319
-      parent: 2
-    - type: Physics
-      canCollide: False
-- proto: SkillBookResearch
-  entities:
-  - uid: 25809
-    components:
-    - type: Transform
-      pos: -69.08842,-30.833864
-      parent: 2
-    - type: Physics
-      canCollide: False
 - proto: SmartFridge
   entities:
   - uid: 25810

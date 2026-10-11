@@ -3,7 +3,6 @@
 using Content.Server.Access.Components;
 using Content.Server.Administration.Logs;
 using Content.Server.Body.Systems;
-using Content.Server.DeadSpace.Skill;
 using Content.Server.Popups;
 using Content.Server.Traits.Assorted;
 using Content.Shared.Access.Components;
@@ -15,7 +14,6 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Database;
 using Content.Shared.DeadSpace.CCCCVars;
 using Content.Shared.DeadSpace.Psychiatry;
-using Content.Shared.DeadSpace.Skills.Prototypes;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
@@ -45,7 +43,6 @@ public sealed class PsychiatrySystem : SharedPsychiatrySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
-    [Dependency] private readonly SkillSystem _skills = default!;
     [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly VomitSystem _vomit = default!;
@@ -59,7 +56,6 @@ public sealed class PsychiatrySystem : SharedPsychiatrySystem
     private static readonly ProtoId<ReagentPrototype> Schizotoxin = SpecialPillReagentId;
     private static readonly ProtoId<ReagentPrototype> PsychogenLatent = "PsychogenLatent";
     private static readonly ProtoId<ReagentPrototype> PsychiatryRemedy = "PsychiatryRemedy";
-    private static readonly ProtoId<SkillPrototype> AdvancedTreatment = "AdvancedTreatment";
 
     private float _accum;
 
@@ -680,10 +676,6 @@ public sealed class PsychiatrySystem : SharedPsychiatrySystem
         department = (primary ?? fallback)!;
         return primary != null || fallback != null;
     }
-
-    public bool HasAdvancedTreatment(EntityUid user) =>
-        _skills.CnowThisSkill(user, AdvancedTreatment);
-
     private TimeSpan GasCooldown()
     {
         return TimeSpan.FromSeconds(_cfg.GetCVar(CCCCVars.PsychiatryGasOnsetSec));

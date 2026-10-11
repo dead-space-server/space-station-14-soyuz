@@ -123446,10 +123446,7 @@ entities:
         entity_storage: !type:Container
           showEnts: False
           occludes: True
-          ents:
-          - 17142
-          - 17143
-          - 17144
+          ents: []
         paper_label: !type:ContainerSlot
           showEnts: False
           occludes: True
@@ -222952,12 +222949,12 @@ entities:
       parent: 2
     - type: Paper
       content: >-
-        БЛЯТЬ!! ПРИНЕСИТЕ МНЕ ЧЁРТОВУ БУМАГУ!! 
+        БЛЯТЬ!! ПРИНЕСИТЕ МНЕ ЧЁРТОВУ БУМАГУ!!
 
 
 
 
-                            Я ТОНУ!! ТОНУ!! ЧЁРТ!! 
+                            Я ТОНУ!! ТОНУ!! ЧЁРТ!!
 
 
                                                                    ГРЁБАННЫЙ МУХОМОР!!
@@ -222974,7 +222971,7 @@ entities:
 
 
 
-                                           Я СЛЫШУ КАК КТО-ТО ЗЛИТСЯ ЗА СТЕНОЙ!! ЭТО ТОЧНО ЗА МНОЙ!! 
+                                           Я СЛЫШУ КАК КТО-ТО ЗЛИТСЯ ЗА СТЕНОЙ!! ЭТО ТОЧНО ЗА МНОЙ!!
 
 
 
@@ -223037,7 +223034,7 @@ entities:
       canCollide: False
     - type: Paper
       content: >2-
-                                                        [bold]Доклад № 234[/bold] 
+                                                        [bold]Доклад № 234[/bold]
 
         Объект исследования: Аномалия BR-UN-3380, кодовое обозначение «Солнышко».
 
@@ -223770,7 +223767,7 @@ entities:
 
         Время от начала смены и дата: ░░/░░░/░░░
 
-        Составитель документа: 
+        Составитель документа:
 
         Леонардо Дэ Бахмето
 
@@ -223823,7 +223820,7 @@ entities:
         Должность составителя: Оператор ВРС
 
 
-        Текст приказа: Необходимо устранить всех кобольдов на станции, а именно: 
+        Текст приказа: Необходимо устранить всех кобольдов на станции, а именно:
 
 
         1. Плюм-Бум
@@ -256620,61 +256617,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 5.5,16.5
       parent: 44049
-- proto: SkillBookComplexDeconstruction
-  entities:
-  - uid: 34959
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 64.56282,-95.729836
-      parent: 2
-    - type: Physics
-      canCollide: False
-- proto: SkillBookHacking
-  entities:
-  - uid: 34960
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 66.484695,-95.49546
-      parent: 2
-    - type: Physics
-      canCollide: False
-- proto: SkillBookRobotics
-  entities:
-  - uid: 34961
-    components:
-    - type: Transform
-      pos: 59.67107,-24.34575
-      parent: 2
-    - type: Physics
-      canCollide: False
-- proto: SkillBookShuttleControl
-  entities:
-  - uid: 17142
-    components:
-    - type: Transform
-      parent: 17141
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 17141
-  - uid: 17143
-    components:
-    - type: Transform
-      parent: 17141
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 17141
-  - uid: 17144
-    components:
-    - type: Transform
-      parent: 17141
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-      storage: 17141
 - proto: SmartFridge
   entities:
   - uid: 34962

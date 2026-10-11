@@ -61,10 +61,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: Skill
-      group: BlueShield
 
 - type: startingGear
   id: BlueShieldOfficerGear

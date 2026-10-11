@@ -149921,10 +149921,10 @@ entities:
         Уважаемый сотрудник находящийся на станции NanoTrasen. Наёмное бюро [pfont="OpenLukyanov"]"Dark.Торг"[/pfont] предлагает вам деловой контракт. В ваши задачи входят продажа всего [cut]хлама [/cut] [bold][pfont="BoxRound"][сonf=2]полезного инвентаря[/сonf][/pfont][/bold] которое лежит в технических тунелях и в вашей кладовке.
 
 
-        Получку за продажу товаров мы делим 25 на 75, [bold][pfont="OpenLukyanov"]вам приходит прибыль в 25% от всей получки[/pfont][/bold]. 
+        Получку за продажу товаров мы делим 25 на 75, [bold][pfont="OpenLukyanov"]вам приходит прибыль в 25% от всей получки[/pfont][/bold].
 
 
-        [italic][pfont="Bedstead"]Вы можете связаться с нашим курьером на распределительной станции по вылету с Станции ЦентКом.[/pfont] 
+        [italic][pfont="Bedstead"]Вы можете связаться с нашим курьером на распределительной станции по вылету с Станции ЦентКом.[/pfont]
 
 
         Удачи торговец! Полного вам кошелька![/italic]
@@ -171883,26 +171883,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: 21.5,-33.5
       parent: 2
-- proto: SkillBookAtmos
-  entities:
-  - uid: 24201
-    components:
-    - type: Transform
-      rot: 1.1706551313400269 rad
-      pos: -40.881348,-54.440186
-      parent: 2
-    - type: Physics
-      canCollide: False
-- proto: SkillBookSingularityAssembly
-  entities:
-  - uid: 24202
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 31.42638,24.52367
-      parent: 2
-    - type: Physics
-      canCollide: False
 - proto: SlicedBucketBase
   entities:
   - uid: 24203

@@ -151,8 +151,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: IntrinsicRadioTransmitter
         channels:
@@ -206,8 +204,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: InstantCriticalCarry
       - type: IntrinsicRadioTransmitter
@@ -263,8 +259,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: CircleDeacon
       - type: ObeliskActivateAbility
       - type: IntrinsicRadioTransmitter
@@ -318,8 +312,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: IntrinsicRadioTransmitter
         channels:
@@ -373,8 +365,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: CircleDeacon
       - type: ObeliskActivateAbility
       - type: IntrinsicRadioTransmitter
@@ -428,8 +418,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: IntrinsicRadioTransmitter
         channels:
@@ -482,8 +470,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: AutoImplant
         implants:
@@ -538,8 +524,6 @@
         fadeFromBlackDuration: 3
         textDelay: 0.8
         charactersPerSecond: 50
-      - type: Skill
-        group: ALL
       - type: ObeliskActivateAbility
       - type: AutoImplant
         implants:

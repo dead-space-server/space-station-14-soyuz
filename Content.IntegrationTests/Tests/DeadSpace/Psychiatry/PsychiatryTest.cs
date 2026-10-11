@@ -30,8 +30,6 @@ using Content.Shared.StatusEffectNew;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace.CCCCVars;
 using Content.Shared.DeadSpace.Psychiatry;
-using Content.Shared.DeadSpace.Skills.Components;
-using Content.Shared.DeadSpace.Skills.Prototypes;
 using Content.Shared.FixedPoint;
 using Content.Shared.Ghost;
 using Content.Shared.MedicalScanner;
@@ -213,20 +211,6 @@ public sealed class PsychiatryTest : InteractionTest
             psych.AdjustStage(SPlayer, -2, "drop");
             Assert.That(SharedPsychiatrySystem.LowerStage(SchizophreniaStage.Latent, 2), Is.EqualTo(SchizophreniaStage.None));
             Assert.That(SEntMan.HasComponent<SchizophreniaComponent>(SPlayer), Is.False);
-        });
-    }
-
-    [Test]
-    public async Task EncephalographRequiresAdvancedTreatment()
-    {
-        await Server.WaitAssertion(() =>
-        {
-            var psych = SEntMan.System<PsychiatrySystem>();
-            Assert.That(psych.HasAdvancedTreatment(SPlayer), Is.False);
-
-            var skills = SEntMan.EnsureComponent<SkillComponent>(SPlayer);
-            skills.Skills[new ProtoId<SkillPrototype>("AdvancedTreatment")] = 1f;
-            Assert.That(psych.HasAdvancedTreatment(SPlayer), Is.True);
         });
     }
 
@@ -734,18 +718,6 @@ public sealed class PsychiatryTest : InteractionTest
 
             Assert.That(extra, Is.False);
             Assert.That(poison, Is.EqualTo(FixedPoint2.New(1)));
-        });
-    }
-
-    [Test]
-    public async Task PsychiatryCraftsHaveNoSkillCheck()
-    {
-        await Server.WaitAssertion(() =>
-        {
-            Assert.That(ProtoMan.TryIndex(FirmwarePatchCraft, out var patch), Is.True);
-            Assert.That(ProtoMan.TryIndex(CascadeSpikeCraft, out var spike), Is.True);
-            Assert.That(patch!.Conditions.Any(condition => condition is SkillCondition), Is.False);
-            Assert.That(spike!.Conditions.Any(condition => condition is SkillCondition), Is.False);
         });
     }
 

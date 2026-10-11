@@ -2,6 +2,7 @@
   id: LockerPolitRuk
   parent: LockerBaseSecure
   name: шкаф политического руководителя
+  description: Стандартное хранилище СССП.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Storage/closet.rsi

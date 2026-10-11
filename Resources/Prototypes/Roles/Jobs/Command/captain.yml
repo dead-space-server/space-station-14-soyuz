@@ -58,13 +58,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-      - type: CommandStaff
-      # DS14-Start
-      - type: Skill
-        group: Captain
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     CMDRankCaptain: []

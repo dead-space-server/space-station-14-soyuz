@@ -5,7 +5,6 @@ using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 using Content.Shared.Mind;
 using Content.Shared.Zombies;
-using Content.Shared.DeadSpace.Skills.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -99,14 +98,6 @@ public sealed partial class ReformSystem : EntitySystem
         // This transfers the mind to the new entity
         if (_mindSystem.TryGetMind(uid, out var mindId, out var mind))
             _mindSystem.TransferTo(mindId, child, mind: mind);
-
-        // DS14-start
-        if (TryComp<SkillComponent>(uid, out var oldSkills))
-        {
-            var newSkills = EnsureComp<SkillComponent>(child);
-            newSkills.Skills = new Dictionary<ProtoId<SkillPrototype>, float>(oldSkills.Skills);
-        }
-        // DS14-end
 
         // Delete the old entity
         QueueDel(uid);

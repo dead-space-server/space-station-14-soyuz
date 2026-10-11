@@ -22,7 +22,6 @@ public sealed class CharacterInfoEvent : EntityEventArgs
     public readonly NetEntity NetEntity;
     public readonly ProtoId<JobPrototype>? Job;
     public readonly Dictionary<string, List<ObjectiveInfo>> Objectives;
-    public readonly List<SkillInfo> Skills; // DS14-Skills
     public readonly string? Briefing;
 
     public CharacterInfoEvent(
@@ -33,7 +32,6 @@ public sealed class CharacterInfoEvent : EntityEventArgs
     {
         NetEntity = netEntity;
         Objectives = objectives;
-        Skills = skills;
         Briefing = briefing;
         Job = job;
     }

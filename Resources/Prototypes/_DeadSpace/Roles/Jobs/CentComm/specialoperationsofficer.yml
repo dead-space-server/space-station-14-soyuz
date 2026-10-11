@@ -24,8 +24,6 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-    - type: Skill
-      group: ALL
 #DS14-Soyuz-end
   ranks:
     NKVBRankMajorGeneral:

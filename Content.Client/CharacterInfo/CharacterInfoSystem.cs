@@ -49,7 +49,6 @@ public sealed class CharacterInfoSystem : EntitySystem
     public readonly record struct CharacterData(
         EntityUid Entity,
         Dictionary<string, List<ObjectiveInfo>> Objectives,
-        List<SkillInfo> Skills, // DS14-Skills
         string? Briefing,
         ProtoId<JobPrototype>? JobId,
         string EntityName

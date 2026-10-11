@@ -38,7 +38,7 @@
     idleDripTransfer: 0.5
     yankSpillFraction: 0.25
     bloodpackFillAmount: 20
-    bloodReagent: Blood
+    bloodReagent: DonorBlood
     bloodpackTag: Bloodpack
     attachDelay: 1.5
     yankBlood: 5

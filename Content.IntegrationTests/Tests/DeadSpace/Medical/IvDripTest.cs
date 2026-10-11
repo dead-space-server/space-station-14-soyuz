@@ -1,9 +1,11 @@
 #nullable enable
 using Content.IntegrationTests.Tests.Interaction;
+using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Prototypes;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage.Components;
 using Content.Shared.DeadSpace.Medical.IvDrip;
 using Content.Shared.FixedPoint;
@@ -37,8 +39,8 @@ public sealed class IvDripTest : InteractionTest
     private static readonly ProtoId<InjectorModePrototype> SyringeDrawMode = "SyringeDrawMode";
     private static readonly ProtoId<VendingMachineInventoryPrototype> NanoMedPlus = "NanoMedPlusInventory";
     private static readonly ProtoId<VendingMachineInventoryPrototype> NanoMed = "NanoMedInventory";
-    private static readonly ProtoId<Content.Shared.Chemistry.Reagent.ReagentPrototype> Bicaridine = "Bicaridine";
-    private static readonly ProtoId<Content.Shared.Chemistry.Reagent.ReagentPrototype> Blood = "Blood";
+    private static readonly ProtoId<ReagentPrototype> Bicaridine = "Bicaridine";
+    private static readonly ProtoId<ReagentPrototype> Blood = "Blood";
 
     [Test]
     public async Task UnfoldsOnceAndCannotRefold()
@@ -559,7 +561,7 @@ public sealed class IvDripTest : InteractionTest
             Assert.That(comp.YankBlood, Is.EqualTo(5f));
             Assert.That(comp.MinYankSpill, Is.EqualTo(1f));
             Assert.That(comp.BloodpackFillAmount, Is.EqualTo(20f));
-            Assert.That(comp.BloodReagent.Id, Is.EqualTo("Blood"));
+            Assert.That(comp.BloodReagent.Id, Is.EqualTo("DonorBlood"));
             Assert.That(comp.BloodpackTag.Id, Is.EqualTo("Bloodpack"));
             Assert.That(comp.YankDamage.DamageDict["Piercing"], Is.EqualTo(FixedPoint2.New(6)));
             Assert.That(comp.YankDamage.DamageDict["Slash"], Is.EqualTo(FixedPoint2.New(4)));
@@ -608,7 +610,7 @@ public sealed class IvDripTest : InteractionTest
     }
 
     [Test]
-    public async Task BloodpackFillsTankWithBlood()
+    public async Task BloodpackFillsTankWithDonorBlood()
     {
         await AddAtmosphere();
 
@@ -623,10 +625,59 @@ public sealed class IvDripTest : InteractionTest
             SEntMan.EventBus.RaiseLocalEvent(drip, ev);
             Assert.That(ev.Handled, Is.True);
 
+            var dripComp = SEntMan.GetComponent<IvDripComponent>(drip);
             var solutions = SEntMan.System<SharedSolutionContainerSystem>();
-            Assert.That(solutions.TryGetSolution(drip, SEntMan.GetComponent<IvDripComponent>(drip).TankSolution, out _, out var tank), Is.True);
-            Assert.That(tank!.Volume, Is.EqualTo(FixedPoint2.New(20)));
-            Assert.That(tank.ContainsPrototype(Blood), Is.True);
+            Assert.That(solutions.TryGetSolution(drip, dripComp.TankSolution, out _, out var tank), Is.True);
+            Assert.That(tank!.Volume, Is.EqualTo(FixedPoint2.New(dripComp.BloodpackFillAmount)));
+            Assert.That(tank.ContainsPrototype(dripComp.BloodReagent), Is.True);
+            Assert.That(tank.ContainsPrototype(Blood), Is.False);
+        });
+    }
+
+    [Test]
+    public async Task DonorBloodRestoresBloodWithoutProteins()
+    {
+        await AddAtmosphere();
+
+        EntityUid patient = default;
+        ProtoId<ReagentPrototype> donorReagent = default;
+        FixedPoint2 bloodBefore = default;
+        FixedPoint2 donorBefore = default;
+
+        await Server.WaitPost(() =>
+        {
+            var coords = SEntMan.GetComponent<TransformComponent>(SPlayer).Coordinates;
+            patient = SEntMan.SpawnEntity(TargetProto, coords);
+            var drip = SEntMan.SpawnEntity(Drip, coords);
+            donorReagent = SEntMan.GetComponent<IvDripComponent>(drip).BloodReagent;
+
+            var bloodstream = SEntMan.System<BloodstreamSystem>();
+            Assert.That(bloodstream.TryModifyBloodLevel(patient, FixedPoint2.New(-30)), Is.True);
+            typeof(BloodstreamComponent).GetField("BloodRefreshAmount")!.SetValue(
+                SEntMan.GetComponent<BloodstreamComponent>(patient),
+                FixedPoint2.Zero);
+
+            var solutions = SEntMan.System<SharedSolutionContainerSystem>();
+            Assert.That(solutions.TryGetSolution(patient, BloodstreamComponent.DefaultBloodSolutionName, out var soln, out _), Is.True);
+            Assert.That(solutions.TryAddReagent(soln!.Value, donorReagent, FixedPoint2.New(4)), Is.True);
+            Assert.That(solutions.TryGetSolution(patient, BloodstreamComponent.DefaultBloodSolutionName, out _, out var blood), Is.True);
+            bloodBefore = blood!.GetTotalPrototypeQuantity(Blood);
+            donorBefore = blood.GetTotalPrototypeQuantity(donorReagent);
+            Assert.That(donorBefore, Is.EqualTo(FixedPoint2.New(4)));
+            AssertNoForeignBloodReagents(blood, donorReagent);
+        });
+
+        await RunSeconds(6f);
+
+        await Server.WaitAssertion(() =>
+        {
+            var solutions = SEntMan.System<SharedSolutionContainerSystem>();
+            Assert.That(solutions.TryGetSolution(patient, BloodstreamComponent.DefaultBloodSolutionName, out _, out var blood), Is.True);
+            var donorNow = blood!.GetTotalPrototypeQuantity(donorReagent);
+            var consumed = donorBefore - donorNow;
+            Assert.That(consumed, Is.EqualTo(donorBefore));
+            Assert.That(blood.GetTotalPrototypeQuantity(Blood) - bloodBefore, Is.EqualTo(consumed));
+            AssertNoForeignBloodReagents(blood, donorReagent);
         });
     }
 
@@ -777,5 +828,14 @@ public sealed class IvDripTest : InteractionTest
 
             Assert.That(SEntMan.EntityQuery<PuddleComponent>().Count(), Is.EqualTo(puddles));
         });
+    }
+
+    private static void AssertNoForeignBloodReagents(Solution blood, ProtoId<ReagentPrototype> donorReagent)
+    {
+        foreach (var quantity in blood.Contents)
+        {
+            var id = quantity.Reagent.Prototype;
+            Assert.That(id == Blood.Id || id == donorReagent.Id, Is.True);
+        }
     }
 }

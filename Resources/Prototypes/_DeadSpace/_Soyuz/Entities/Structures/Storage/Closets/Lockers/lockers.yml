@@ -1,0 +1,21 @@
+- type: entity
+  id: LockerPolitRuk
+  parent: LockerBaseSecure
+  name: шкаф политического руководителя
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Storage/closet.rsi
+    layers:
+    - state: politruk
+      map: ["enum.StorageVisualLayers.Base"]
+    - state: politruk_door
+      map: ["enum.StorageVisualLayers.Door"]
+    - state: locked
+      map: ["enum.LockVisualLayers.Lock"]
+      shader: unshaded
+  - type: EntityStorageVisuals
+    stateBaseClosed: politruk
+    stateDoorOpen: politruk_open
+    stateDoorClosed: politruk_door
+  - type: AccessReader  
+    access: [ ["NKVB"] ]

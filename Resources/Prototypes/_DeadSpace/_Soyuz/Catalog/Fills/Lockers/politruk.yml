@@ -1,0 +1,14 @@
+- type: entity
+  id: LockerPolitRukFilled
+  name: шкаф политического руководителя
+  parent: LockerPolitRuk
+  suffix: Заполненный
+  components:
+  - type: StorageFill
+    contents:
+    - id: BibleCommunistManifesto
+    - id: BoxFolderRedThreePapers
+    - id: MagazinePistolMTS
+      amount: 2
+    - id: ClothingBeltSecurity
+    - id: CigarGoldCase

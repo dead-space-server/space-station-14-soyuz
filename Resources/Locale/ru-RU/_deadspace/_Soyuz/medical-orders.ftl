@@ -148,3 +148,5 @@ medical-special-site-mine = шахта №17
 medical-special-site-outpost = форпост «Вектор»
 medical-special-site-expedition = экспедиция «Горизонт»
 medical-special-site-convoy = конвой «Меридиан»
+ent-SoyuzMedicalRandomCombatMedkit = боевая аптечка с медипенами
+    .desc = Боевая аптечка со случайным комплектом из восьми медипенов.

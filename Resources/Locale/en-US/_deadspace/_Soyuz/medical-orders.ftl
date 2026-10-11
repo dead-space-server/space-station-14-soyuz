@@ -148,3 +148,5 @@ medical-special-site-mine = Mine 17
 medical-special-site-outpost = Vector outpost
 medical-special-site-expedition = Horizon expedition
 medical-special-site-convoy = Meridian convoy
+ent-SoyuzMedicalRandomCombatMedkit = combat medipen kit
+    .desc = A combat medical kit containing a random assortment of eight medipens.

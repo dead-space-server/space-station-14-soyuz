@@ -2,6 +2,58 @@
   id: SoyuzMedicalOrderPatient
   speciesBlacklist: [Vox]
 
+- type: entity
+  parent: MedkitCombat
+  id: SoyuzMedicalRandomCombatMedkit
+  name: combat medipen kit
+  description: A combat medical kit containing a random assortment of eight medipens.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:GroupSelector
+        rolls: 8
+        children:
+        - id: EmergencyMedipen
+          weight: 20
+        - id: AntiPoisonMedipen
+          weight: 14
+        - id: BruteAutoInjector
+          weight: 14
+        - id: BurnAutoInjector
+          weight: 14
+        - id: RadAutoInjector
+          weight: 14
+        - id: PunctAutoInjector
+          weight: 14
+        - id: PyraAutoInjector
+          weight: 14
+        - id: AirlossAutoInjector
+          weight: 14
+        - id: SpaceMedipen
+          weight: 20
+        - id: CombatMedipen
+          weight: 0.5
+        - id: WehMedipen
+          weight: 14
+        - id: CelestinMedipen
+          weight: 4
+        - id: DerytracineMedipen
+          weight: 4
+        - id: NutritiousMedipen
+          weight: 20
+        - id: LavalandSurvMedipen
+          weight: 6
+        - id: NECROMedipen
+          weight: 0.5
+        - id: SCSTMedipen
+          weight: 0.5
+        - id: ZetaOneMedipen
+          weight: 8
+        - id: ZetaTwoMedipen
+          weight: 8
+        - id: IchorMedipen
+          weight: 0.25
+
 - type: medicalOrderConfig
   id: SoyuzMedicalOrders
   patientOfferCount: 5
@@ -1041,11 +1093,6 @@
     cost: 300
     maxCount: 3
     minimumShopLevel: 3
-  - id: MedkitCombatFilled
-    entity: MedkitCombatFilled
-    cost: 400
-    maxCount: 2
-    minimumShopLevel: 3
   - id: StimkitFilled
     entity: StimkitFilled
     cost: 750
@@ -1166,6 +1213,11 @@
     entity: IchorMedipen
     cost: 500
     maxCount: 10
+    minimumShopLevel: 5
+  - id: SoyuzMedicalRandomCombatMedkit
+    entity: SoyuzMedicalRandomCombatMedkit
+    cost: 999
+    maxCount: 2
     minimumShopLevel: 5
   - id: BSAACombatKitFilled
     entity: BSAACombatKitFilled

@@ -5,6 +5,7 @@ using System.Numerics;
 using Content.Client.DeadSpace.CameraArchives;
 using Content.Server.DeadSpace.CameraArchives;
 using Content.Shared.DeadSpace.CameraArchives;
+using Content.Shared.DeadSpace.UniformAccessories.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
@@ -13,6 +14,7 @@ using Content.Shared.SSDIndicator;
 using Content.Shared.SurveillanceCamera;
 using Content.Shared.TextScreen;
 using Content.Shared.DeadSpace.SignBoard;
+using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Maths;
@@ -264,6 +266,19 @@ public sealed class CameraArchiveConsoleTest
 
             Assert.That(inventory.TryEquip(mob, body, "neck", force: true, silent: true), Is.True);
             Assert.That(stills.ShouldRecord(body), Is.True);
+
+            Assert.That(inventory.TryUnequip(mob, "neck", silent: true, force: true), Is.True);
+            var suit = ents.SpawnEntity("ClothingUniformJumpsuitColorGrey", map.GridCoords);
+            var holder = ents.GetComponent<UniformAccessoryHolderComponent>(suit);
+            Assert.That(holder.AccessoryContainer, Is.Not.Null);
+            Assert.That(server.System<SharedContainerSystem>().Insert(body, holder.AccessoryContainer), Is.True);
+            Assert.That(stills.ShouldRecord(body), Is.False);
+
+            Assert.That(inventory.TryEquip(mob, suit, "jumpsuit", force: true, silent: true), Is.True);
+            Assert.That(stills.ShouldRecord(body), Is.True);
+
+            Assert.That(inventory.TryUnequip(mob, "jumpsuit", silent: true, force: true), Is.True);
+            Assert.That(stills.ShouldRecord(body), Is.False);
         });
 
         await pair.CleanReturnAsync();

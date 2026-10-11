@@ -56,7 +56,7 @@ public sealed partial class NpcFactionSystem
         if (!Resolve(ent, ref ent.Comp, false))
             return false;
 
-        return ent.Comp.Ignored.Contains(target);
+        return ent.Comp.Ignored.Contains(target) || ent.Comp.Ignored.Contains(GetFactionOwner(target)); // DS14-Soyuz
     }
 
     /// <summary>

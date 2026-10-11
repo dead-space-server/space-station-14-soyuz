@@ -1241,8 +1241,7 @@
     yield: 3
     potency: 10
     growthStages: 3
-  - type: PlantHarvest
-    harvestRepeat: Repeat
+  - type: PlantTraitLigneous
   - type: PlantChemicals
     chemicals:
       Nutriment:
@@ -1273,8 +1272,7 @@
     yield: 3
     potency: 10
     growthStages: 3
-  - type: PlantHarvest
-    harvestRepeat: Repeat
+  - type: PlantTraitLigneous
   - type: PlantChemicals
     chemicals:
       Nutriment:

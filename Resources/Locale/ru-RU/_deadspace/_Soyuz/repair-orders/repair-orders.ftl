@@ -70,6 +70,13 @@ repair-orders-worklist-complete = Обязательных работ не ос�
 repair-orders-points = Баллы: { $current } / { $max }
 repair-orders-accept = Принять
 repair-orders-submit = Сдать заказ
+repair-orders-submit-early = Сдать заказ досрочно
+repair-orders-submit-early-wait = Досрочная сдача через { $time }
+repair-orders-error-submit-early-delay = Досрочная сдача доступна через 10 минут после принятия заказа.
+repair-orders-submit-early-button = Сдать с текущим результатом
+repair-orders-submit-early-confirm = Ремонт выполнен на { $percent }%. Текущая награда с учётом штрафов: { $points } очков.
+    Репутация зависит от процента ремонта. Невыполненные работы не оплачиваются, дополнительные повреждения и исключения уменьшают награду.
+    После сдачи ремонтный объект будет удалён. Сдать заказ в текущем состоянии?
 repair-orders-expires-in = Истекает через: { $time }
 repair-orders-status-completed = Статус: завершён
 repair-orders-status-expired = Статус: срок истёк
@@ -79,6 +86,8 @@ repair-orders-earned-points = Получено ремонтных очков: { 
 repair-orders-earned-reputation = Получено репутации инженерного отдела: { $reputation }
 
 repair-orders-shop-heading = Магазин
+repair-orders-shop-search = Поиск товаров…
+repair-orders-shop-no-results = Товары не найдены.
 repair-orders-shop-points = Ремонтные очки: { $points }
 repair-orders-shop-reputation = Репутация инженерного отдела: { $reputation }
 repair-orders-shop-level = Уровень магазина: { $level }

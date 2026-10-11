@@ -680,7 +680,8 @@ public sealed class RepairOrderSystem : EntitySystem
                 currentPoints: activeOrder.CurrentPoints,
                 maxPoints: activeOrder.MaxPoints,
                 damageEvents: activeOrder.DamageGeneration?.SelectedEvents.ToArray(),
-                exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints));
+                exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints),
+                earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay);
         }
 
         RepairOrderCompletedBuiEntry? completed = null;

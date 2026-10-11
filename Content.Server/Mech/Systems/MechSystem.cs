@@ -3,6 +3,7 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
 using Content.Shared.Atmos;
+using Content.Shared.Atmos.Components; // DS14-Soyuz
 using Content.Shared.Damage.Systems; // DS14 - Current engine keeps DamageChangedEvent in this namespace.
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
@@ -32,6 +33,7 @@ namespace Content.Server.Mech.Systems;
 public sealed partial class MechSystem : SharedMechSystem
 {
     [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
+    [Dependency] private readonly FlammableSystem _flammable = default!; // DS14-Soyuz
     [Dependency] private readonly SharedBatterySystem _battery = default!;
     [Dependency] private readonly ContainerSystem _container = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
@@ -309,10 +311,30 @@ public sealed partial class MechSystem : SharedMechSystem
 
     public override void BreakMech(EntityUid uid, MechComponent? component = null)
     {
+        // DS14-Soyuz-start
+        if (!Resolve(uid, ref component))
+            return;
+
+        var pilot = component.PilotSlot.ContainedEntity;
+        var fireStacks = TryComp(uid, out FlammableComponent? fire) && fire.OnFire ? fire.FireStacks : 0f;
+        // DS14-Soyuz-end
+
         base.BreakMech(uid, component);
 
         _ui.CloseUi(uid, MechUiKey.Key);
         Vehicle.RefreshCanRun(uid);
+
+        // DS14-Soyuz-start
+        if (pilot is not { } pilotUid || component.PilotSlot.ContainedEntity == pilotUid ||
+            fireStacks <= 0f || TerminatingOrDeleted(pilotUid) ||
+            !TryComp(pilotUid, out FlammableComponent? pilotFire))
+        {
+            return;
+        }
+
+        _flammable.SetFireStacks(pilotUid, Math.Max(pilotFire.FireStacks, fireStacks), pilotFire);
+        _flammable.Ignite(pilotUid, uid, pilotFire);
+        // DS14-Soyuz-end
     }
 
     public override bool TryChangeEnergy(EntityUid uid, FixedPoint2 delta, MechComponent? component = null)

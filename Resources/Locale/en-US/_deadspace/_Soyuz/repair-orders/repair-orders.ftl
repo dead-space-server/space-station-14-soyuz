@@ -75,6 +75,13 @@ repair-orders-worklist-complete = No required work remains. New damage will appe
 repair-orders-points = Points: { $current } / { $max }
 repair-orders-accept = Accept
 repair-orders-submit = Submit order
+repair-orders-submit-early = Submit unfinished order
+repair-orders-submit-early-wait = Early submission in { $time }
+repair-orders-error-submit-early-delay = Early submission is available 10 minutes after accepting the order.
+repair-orders-submit-early-button = Submit current result
+repair-orders-submit-early-confirm = Repairs are { $percent }% complete. Current reward after penalties: { $points } points.
+    Reputation depends on repair progress. Unfinished work earns no points; additional damage and exclusions reduce the reward.
+    The repair object will be removed after submission. Submit it in its current condition?
 repair-orders-expires-in = Expires in: { $time }
 repair-orders-status-completed = Status: completed
 repair-orders-status-expired = Status: expired
@@ -84,6 +91,8 @@ repair-orders-earned-points = Repair points earned: { $points }
 repair-orders-earned-reputation = Engineering reputation earned: { $reputation }
 
 repair-orders-shop-heading = Shop
+repair-orders-shop-search = Search items…
+repair-orders-shop-no-results = No items found.
 repair-orders-shop-points = Repair points: { $points }
 repair-orders-shop-reputation = Engineering reputation: { $reputation }
 repair-orders-shop-level = Shop level: { $level }

@@ -30,30 +30,59 @@ public sealed partial class RepairOrderWindow : FancyWindow
     private readonly SpriteSystem _sprite;
 
     private readonly Dictionary<int, Button> _offerControls = new();
-    private readonly Dictionary<string, int> _shopCart = new();
+    private readonly RepairOrderShopDraft _draft;
+    private readonly Dictionary<string, int> _shopCart;
     private RepairOrderBoundUserInterfaceState? _state;
-    private bool _shopPurchasePending;
-    private string? _pendingShopRequestId;
+    private bool _shopPurchasePending => _draft.PendingRequestId != null;
+    private bool _retryPendingPurchase;
+    private FancyWindow? _completionDialog;
     private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
 
     public event Action<int>? OnAccept;
-    public event Action<int>? OnComplete;
+    public event Action<int, bool>? OnComplete;
     public event Action<int>? OnPrintReport;
     public event Action<string, List<RepairOrderRewardBuiEntry>>? OnShopPurchase;
 
-    public RepairOrderWindow()
+    public RepairOrderWindow(RepairOrderShopDraft? draft = null)
     {
+        _draft = draft ?? new RepairOrderShopDraft();
+        _shopCart = _draft.Cart;
+        _retryPendingPurchase = _shopPurchasePending;
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
         _sprite = _entitySystemManager.GetEntitySystem<SpriteSystem>();
+        ShopSearch.Text = _draft.Search;
+        OrderTabs.CurrentTab = _draft.Tab;
+        ShopSearch.OnTextChanged += args =>
+        {
+            _draft.Search = args.Text;
+            UpdateShop();
+        };
         ShopCheckoutButton.OnPressed += _ => SubmitShopPurchase();
+        OnClose += () =>
+        {
+            SaveDraft();
+            _completionDialog?.Dispose();
+            _completionDialog = null;
+        };
+    }
+
+    public void SaveDraft()
+    {
+        _draft.Tab = OrderTabs.CurrentTab;
     }
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)
     {
-        var showActive = state.Active != null && state.Active.RuntimeId != _state?.Active?.RuntimeId;
-        if (_state != null && _state.ShopRewardPoolId != state.ShopRewardPoolId)
+        var showActive = _state != null && state.Active != null && state.Active.RuntimeId != _state.Active?.RuntimeId;
+        if (_draft.RewardPoolId != null && _draft.RewardPoolId != state.ShopRewardPoolId && !_shopPurchasePending)
             _shopCart.Clear();
+        _draft.RewardPoolId = state.ShopRewardPoolId;
+        if (state.Active?.RuntimeId != _state?.Active?.RuntimeId || state.Completing)
+        {
+            _completionDialog?.Dispose();
+            _completionDialog = null;
+        }
         _state = state;
         ActivationLabel.Visible = state.Accepting;
         CompletionLabel.Visible = state.Completing;
@@ -115,15 +144,21 @@ public sealed partial class RepairOrderWindow : FancyWindow
         UpdateTimers();
         if (showActive)
             OrderTabs.CurrentTab = 1;
+        if (_retryPendingPurchase)
+        {
+            _retryPendingPurchase = false;
+            if (_draft.PendingRequestId is { } requestId && _draft.PendingLines is { } lines)
+                OnShopPurchase?.Invoke(requestId, lines.ToList());
+        }
     }
 
     public void ShowShopResult(RepairOrderShopResultMessage result)
     {
-        if (result.RequestId != _pendingShopRequestId)
+        if (result.RequestId != _draft.PendingRequestId)
             return;
 
-        _shopPurchasePending = false;
-        _pendingShopRequestId = null;
+        _draft.PendingRequestId = null;
+        _draft.PendingLines = null;
         if (result.Success)
             _shopCart.Clear();
 
@@ -243,6 +278,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
             return;
 
         var state = _state;
+        if (_shopPurchasePending)
+            ShopResultLabel.Text = Loc.GetString("repair-orders-shop-processing");
         ShopPointsLabel.Text = Loc.GetString("repair-orders-shop-points", ("points", state.RepairPoints));
         ShopReputationLabel.Text = Loc.GetString("repair-orders-shop-reputation", ("reputation", state.EngineeringReputation));
         ShopLevelLabel.Text = state.ShopLevel > 0
@@ -275,7 +312,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
             return;
         }
 
-        var visibleRewards = new HashSet<string>();
+        var validRewards = new HashSet<string>();
+        var search = ShopSearch.Text.Trim();
         foreach (var rewardId in pool.Rewards)
         {
             if (!_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
@@ -283,10 +321,13 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 continue;
 
             var id = rewardId.Id;
-            visibleRewards.Add(id);
+            validRewards.Add(id);
             _shopCart.TryGetValue(id, out var count);
             var locked = state.ShopLevel < reward.MinimumShopLevel;
             var classified = reward.Classified && locked;
+            var name = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name;
+            if (!name.Contains(search, StringComparison.OrdinalIgnoreCase))
+                continue;
             var row = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
             var content = new BoxContainer
             {
@@ -326,7 +367,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             };
             details.AddChild(new Label
             {
-                Text = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name,
+                Text = name,
                 HorizontalExpand = true,
             });
             details.AddChild(new Label
@@ -365,6 +406,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
             content.AddChild(add);
             quantity.OnTextChanged += args =>
             {
+                if (_shopPurchasePending || locked)
+                    return;
                 var next = int.TryParse(args.Text, out var value) ? value : 0;
                 if (next == 0)
                     _shopCart.Remove(id);
@@ -381,8 +424,13 @@ public sealed partial class RepairOrderWindow : FancyWindow
             ShopCatalogContainer.AddChild(row);
         }
 
-        foreach (var stale in _shopCart.Keys.Where(id => !visibleRewards.Contains(id)).ToArray())
-            _shopCart.Remove(stale);
+        if (!_shopPurchasePending)
+        {
+            foreach (var stale in _shopCart.Keys.Where(id => !validRewards.Contains(id)).ToArray())
+                _shopCart.Remove(stale);
+        }
+        if (ShopCatalogContainer.ChildCount == 0)
+            ShopCatalogContainer.AddChild(new Label { Text = Loc.GetString("repair-orders-shop-no-results") });
 
         UpdateShopCart();
     }
@@ -394,12 +442,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         ShopCartContainer.RemoveAllChildren();
         long total = 0;
+        var valid = true;
         foreach (var rewardId in pool.Rewards)
         {
             if (!_shopCart.TryGetValue(rewardId.Id, out var count) || count <= 0 ||
                 !_prototype.TryIndex<RepairRewardPrototype>(rewardId, out var reward) ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out var entity))
                 continue;
+
+            valid &= count <= reward.MaxCount && _state.ShopLevel >= reward.MinimumShopLevel;
 
             // Two int values always multiply within long; guard the running sum explicitly.
             var lineCost = (long) reward.Cost * count;
@@ -417,13 +468,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
         ShopTotalLabel.Text = Loc.GetString("repair-orders-shop-total", ("total", total));
         ShopCheckoutButton.Disabled = _shopCart.Count == 0 || _shopPurchasePending ||
-                                      _state.ShopPurchaseInProgress || total > _state.RepairPoints;
+                                      _state.ShopPurchaseInProgress || !valid || total > _state.RepairPoints;
     }
 
     private void ChangeShopQuantity(string id, int delta, int maxCount)
     {
+        if (_shopPurchasePending)
+            return;
         _shopCart.TryGetValue(id, out var current);
-        var next = Math.Clamp(current + delta, 0, maxCount);
+        var next = (int) Math.Clamp((long) current + delta, 0, maxCount);
         if (next == 0)
             _shopCart.Remove(id);
         else
@@ -435,16 +488,77 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
     private void SubmitShopPurchase()
     {
-        if (_shopPurchasePending || _shopCart.Count == 0)
+        if (_shopPurchasePending || ShopCheckoutButton.Disabled || _shopCart.Count == 0)
             return;
 
-        _shopPurchasePending = true;
-        _pendingShopRequestId = Guid.NewGuid().ToString("N");
-        ShopResultLabel.Text = Loc.GetString("repair-orders-shop-processing");
-        OnShopPurchase?.Invoke(_pendingShopRequestId, _shopCart
+        var requestId = Guid.NewGuid().ToString("N");
+        var lines = _shopCart
             .Select(line => new RepairOrderRewardBuiEntry(line.Key, line.Value))
-            .ToList());
+            .ToList();
+        _draft.PendingLines = lines;
+        _draft.PendingRequestId = requestId;
+        ShopResultLabel.Text = Loc.GetString("repair-orders-shop-processing");
+        OnShopPurchase?.Invoke(requestId, lines.ToList());
         UpdateShop();
+    }
+
+    private void RequestCompletion(int runtimeId)
+    {
+        if (_state?.Active is not { } active || active.RuntimeId != runtimeId ||
+            !active.BlueprintReady || _state.Completing || active.ExpiresAt <= _timing.CurTime)
+            return;
+
+        if (_state.Worklist.Count == 0)
+        {
+            OnComplete?.Invoke(runtimeId, false);
+            return;
+        }
+
+        if (!CanSubmitEarly(active))
+            return;
+
+        _completionDialog?.Dispose();
+        var dialog = new FancyWindow
+        {
+            Title = Loc.GetString("repair-orders-submit-early"),
+            MinWidth = 400,
+        };
+        _completionDialog = dialog;
+        dialog.OnClose += () =>
+        {
+            if (ReferenceEquals(_completionDialog, dialog))
+                _completionDialog = null;
+            dialog.Dispose();
+        };
+        var content = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            SeparationOverride = 8,
+            Margin = new Thickness(8),
+        };
+        var summary = new RichTextLabel { MaxWidth = 460 };
+        summary.SetMessage(Loc.GetString("repair-orders-submit-early-confirm",
+            ("percent", RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks)),
+            ("points", active.Exclusions.FinalPoints)));
+        content.AddChild(summary);
+        var confirm = new Button { Text = Loc.GetString("repair-orders-submit-early-button") };
+        confirm.OnPressed += _ =>
+        {
+            if (_state?.Active is not { } current || current.RuntimeId != runtimeId ||
+                !current.BlueprintReady || _state.Completing || current.ExpiresAt <= _timing.CurTime ||
+                (_state.Worklist.Count > 0 && !CanSubmitEarly(current)))
+                return;
+
+            confirm.Disabled = true;
+            OnComplete?.Invoke(runtimeId, true);
+            dialog.Close();
+        };
+        content.AddChild(confirm);
+        var cancel = new Button { Text = Loc.GetString("repair-orders-waiver-back") };
+        cancel.OnPressed += _ => dialog.Close();
+        content.AddChild(cancel);
+        dialog.ContentsContainer.AddChild(content);
+        dialog.OpenCentered();
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -585,12 +699,13 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
             var complete = new Button
             {
-                Text = Loc.GetString("repair-orders-submit"),
+                Text = Loc.GetString(_state?.Worklist.Count > 0 ? "repair-orders-submit-early" : "repair-orders-submit"),
                 HorizontalAlignment = HAlignment.Right,
                 HorizontalExpand = true,
-                Disabled = !entry.BlueprintReady || _state?.Completing == true,
+                Disabled = !entry.BlueprintReady || _state?.Completing == true ||
+                           (_state?.Worklist.Count > 0 && !CanSubmitEarly(entry)),
             };
-            complete.OnPressed += _ => OnComplete?.Invoke(entry.RuntimeId);
+            complete.OnPressed += _ => RequestCompletion(entry.RuntimeId);
             actions.AddChild(complete);
             if (_activeControls is { } activeControls)
                 _activeControls = (activeControls.ExpiresAt, activeControls.Timer, complete);
@@ -744,10 +859,20 @@ public sealed partial class RepairOrderWindow : FancyWindow
             activeControls.Timer.Text = Loc.GetString(
                 "repair-orders-time-remaining",
                 ("time", FormatRemaining(remaining)));
-            activeControls.Complete.Disabled = _state.Completing ||
-                                               !_state.Active!.BlueprintReady ||
-                                               remaining <= TimeSpan.Zero;
+            var active = _state.Active!;
+            var unfinished = _state.Worklist.Count > 0;
+            var waiting = unfinished && !CanSubmitEarly(active);
+            activeControls.Complete.Text = waiting && active.EarlySubmissionAvailableAt is { } availableAt
+                ? Loc.GetString("repair-orders-submit-early-wait", ("time", FormatRemaining(availableAt - _timing.CurTime)))
+                : Loc.GetString(unfinished ? "repair-orders-submit-early" : "repair-orders-submit");
+            activeControls.Complete.Disabled = _state.Completing || !active.BlueprintReady ||
+                                               remaining <= TimeSpan.Zero || waiting;
         }
+    }
+
+    private bool CanSubmitEarly(RepairOrderBuiEntry entry)
+    {
+        return entry.EarlySubmissionAvailableAt is { } availableAt && _timing.CurTime >= availableAt;
     }
 
     private static string FormatRemaining(TimeSpan remaining)

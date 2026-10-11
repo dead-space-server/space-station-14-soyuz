@@ -72,4 +72,5 @@ public sealed class MedicalOrderResult
     public int AwardedPoints;
     public int AwardedReputation;
     public bool Expired;
+    public bool PatientLost;
 }

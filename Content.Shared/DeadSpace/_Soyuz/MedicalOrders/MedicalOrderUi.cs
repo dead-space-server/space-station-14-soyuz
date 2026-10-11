@@ -140,6 +140,7 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
     public readonly int LastAwardedPoints;
     public readonly int LastAwardedReputation;
     public readonly bool LastExpired;
+    public readonly bool LastPatientLost;
     public readonly TimeSpan NextRefresh;
     public readonly long Points;
     public readonly long Reputation;
@@ -169,7 +170,8 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         int patientCompletionThreshold, bool patientInserted, bool patientAlive, bool patientCritical,
         string? reagentBeakerName, MedicalReagentMarketView[] market,
         long marketPreviewPoints, long marketPreviewReputation, float marketAcceptedVolume,
-        float marketRejectedVolume, long lastMarketPoints, long lastMarketReputation)
+        float marketRejectedVolume, long lastMarketPoints, long lastMarketReputation,
+        bool lastPatientLost = false)
     {
         Kind = kind;
         Offers = offers;
@@ -178,6 +180,7 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         LastAwardedPoints = lastAwardedPoints;
         LastAwardedReputation = lastAwardedReputation;
         LastExpired = lastExpired;
+        LastPatientLost = lastPatientLost;
         NextRefresh = nextRefresh;
         Points = points;
         Reputation = reputation;

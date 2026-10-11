@@ -15,16 +15,22 @@ public sealed partial class MedicalOrderSystem
 
     private decimal GetMarketBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
     {
-        if (config.MarketBasePriceMin is not { } minimum || config.MarketBasePriceMax is not { } maximum)
+        if (config.MarketDifficulties.Count == 0 &&
+            (config.MarketBasePriceMin == null || config.MarketBasePriceMax == null))
             return entry.BasePrice;
 
         if (!_marketBasePrices.TryGetValue(config.ID, out var prices))
         {
-            var minimumCents = (int) decimal.Ceiling(minimum * 100m);
-            var maximumCents = (int) decimal.Floor(maximum * 100m);
             prices = new Dictionary<string, decimal>();
             foreach (var reagent in config.MarketReagents)
+            {
+                config.MarketDifficulties.TryGetValue(reagent.Difficulty, out var tier);
+                var minimum = tier?.BasePriceMin ?? config.MarketBasePriceMin!.Value;
+                var maximum = tier?.BasePriceMax ?? config.MarketBasePriceMax!.Value;
+                var minimumCents = (int) decimal.Ceiling(minimum * 100m);
+                var maximumCents = (int) decimal.Floor(maximum * 100m);
                 prices.Add(reagent.Reagent.Id, _random.Next(minimumCents, maximumCents + 1) / 100m);
+            }
             _marketBasePrices.Add(config.ID, prices);
         }
 
@@ -33,16 +39,22 @@ public sealed partial class MedicalOrderSystem
 
     private decimal GetMarketBaseReputation(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
     {
-        if (config.MarketBaseReputationMin is not { } minimum || config.MarketBaseReputationMax is not { } maximum)
+        if (config.MarketDifficulties.Count == 0 &&
+            (config.MarketBaseReputationMin == null || config.MarketBaseReputationMax == null))
             return entry.ReputationPerUnit;
 
         if (!_marketBaseReputations.TryGetValue(config.ID, out var reputations))
         {
-            var minimumCents = (int) decimal.Ceiling(minimum * 100m);
-            var maximumCents = (int) decimal.Floor(maximum * 100m);
             reputations = new Dictionary<string, decimal>();
             foreach (var reagent in config.MarketReagents)
+            {
+                config.MarketDifficulties.TryGetValue(reagent.Difficulty, out var tier);
+                var minimum = tier?.BaseReputationMin ?? config.MarketBaseReputationMin!.Value;
+                var maximum = tier?.BaseReputationMax ?? config.MarketBaseReputationMax!.Value;
+                var minimumCents = (int) decimal.Ceiling(minimum * 100m);
+                var maximumCents = (int) decimal.Floor(maximum * 100m);
                 reputations.Add(reagent.Reagent.Id, _random.Next(minimumCents, maximumCents + 1) / 100m);
+            }
             _marketBaseReputations.Add(config.ID, reputations);
         }
 

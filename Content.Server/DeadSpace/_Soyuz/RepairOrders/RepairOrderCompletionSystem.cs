@@ -108,13 +108,21 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            if (!fullyMatchesTarget)
+            if ((!fullyMatchesTarget && !args.AllowIncomplete) ||
+                (active.Exclusions is { } exclusions && exclusions.Totals.WaivedPoints > exclusions.Totals.MaxWaivedPoints))
             {
                 Fail(
                     console.Owner,
                     args.Actor,
                     "repair-orders-error-incomplete",
                     $"grid {active.GridUid} does not fully match its target blueprint");
+                return;
+            }
+
+            if (!fullyMatchesTarget && _timing.CurTime < active.StartedAt + RepairOrderProgress.EarlySubmissionDelay)
+            {
+                Fail(console.Owner, args.Actor, "repair-orders-error-submit-early-delay",
+                    $"order {active.RuntimeId} was accepted less than ten minutes ago");
                 return;
             }
 

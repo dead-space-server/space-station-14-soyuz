@@ -72,6 +72,15 @@ public sealed partial class NPCCombatSystem
             if (comp.Status == CombatStatus.Unspecified)
                 continue;
 
+            // DS14-Soyuz-start
+            if (IsInactiveMechTarget(comp.Target))
+            {
+                comp.Status = CombatStatus.TargetUnreachable;
+                comp.ShootAccumulator = 0f;
+                continue;
+            }
+            // DS14-Soyuz-end
+
             if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
             {
                 comp.Status = CombatStatus.TargetUnreachable;

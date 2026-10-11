@@ -53,6 +53,7 @@
                 <Label Name="ShopLevelLabel" />
                 <Label Name="ShopProgressLabel" />
                 <ProgressBar Name="ShopProgressBar" MinValue="0" MaxValue="1" MinHeight="16" HorizontalExpand="True" />
+                <LineEdit Name="ShopSearch" PlaceHolder="{Loc 'repair-orders-shop-search'}" HorizontalExpand="True" Margin="0 8 0 0" />
                 <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True" Margin="0 8 0 0">
                     <BoxContainer Name="ShopCatalogContainer" Orientation="Vertical"
                                   HorizontalExpand="True" SeparationOverride="4" />

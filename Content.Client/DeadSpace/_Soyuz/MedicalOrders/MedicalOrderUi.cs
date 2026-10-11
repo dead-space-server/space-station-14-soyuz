@@ -468,8 +468,9 @@ public sealed class MedicalOrderWindow : FancyWindow
                 Loc.GetString("medical-orders-last-result", ("id", completed.RuntimeId),
                     ("score", completed.CurrentScore), ("points", state.LastAwardedPoints),
                     ("reputation", state.LastAwardedReputation),
-                    ("status", Loc.GetString(state.LastExpired
-                        ? "medical-orders-expired" : "medical-orders-complete-status")))));
+                    ("status", Loc.GetString(state.LastPatientLost
+                        ? "medical-orders-patient-lost"
+                        : state.LastExpired ? "medical-orders-expired" : "medical-orders-complete-status")))));
         else
             _completed.AddChild(Info(Loc.GetString("medical-orders-none")));
 

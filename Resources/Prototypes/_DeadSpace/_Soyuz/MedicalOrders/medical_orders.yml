@@ -1016,11 +1016,6 @@
     cost: 150
     maxCount: 3
     minimumShopLevel: 1
-  - id: BeakerCMO
-    entity: BeakerCMO
-    cost: 250
-    maxCount: 5
-    minimumShopLevel: 1
   - id: SyringeBluespace
     entity: SyringeBluespace
     cost: 250
@@ -1137,51 +1132,53 @@
     cost: 200
     maxCount: 10
     minimumShopLevel: 5
-  - id: CelestinMedipen
-    entity: CelestinMedipen
-    cost: 250
-    maxCount: 10
-    minimumShopLevel: 5
-  - id: DerytracineMedipen
-    entity: DerytracineMedipen
-    cost: 300
-    maxCount: 10
-    minimumShopLevel: 5
   - id: LavalandSurvMedipen
     entity: LavalandSurvMedipen
     cost: 300
     maxCount: 10
     minimumShopLevel: 5
+  - id: CelestinMedipen
+    entity: CelestinMedipen
+    cost: 350
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: DerytracineMedipen
+    entity: DerytracineMedipen
+    cost: 350
+    maxCount: 10
+    minimumShopLevel: 5
   - id: CombatMedipen
     entity: CombatMedipen
-    cost: 350
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: NECROMedipen
     entity: NECROMedipen
-    cost: 400
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: SCSTMedipen
     entity: SCSTMedipen
-    cost: 400
+    cost: 450
     maxCount: 10
     minimumShopLevel: 5
   - id: IchorMedipen
     entity: IchorMedipen
-    cost: 450
+    cost: 500
     maxCount: 10
     minimumShopLevel: 5
   - id: BSAACombatKitFilled
     entity: BSAACombatKitFilled
-    cost: 550
+    cost: 850
     maxCount: 2
     minimumShopLevel: 6
+    emagOnly: true
   - id: ERTGammaMedicCombatKitFilled
     entity: ERTGammaMedicCombatKitFilled
-    cost: 550
+    cost: 850
     maxCount: 2
     minimumShopLevel: 6
+    emagOnly: true
   - id: MediumViralSolutionVial
     entity: MediumViralSolutionVial
     cost: 1000
@@ -1254,4 +1251,4 @@
     cost: 20000
     maxCount: 1
     minimumShopLevel: 10
-    classified: true
+    emagOnly: true

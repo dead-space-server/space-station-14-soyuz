@@ -1,6 +1,6 @@
 - type: entity
   id: LockerPolitRukFilled
-  name: Шкаф политического руководителя
+  name: шкаф политического руководителя
   parent: LockerPolitRuk
   suffix: Заполненный
   components:

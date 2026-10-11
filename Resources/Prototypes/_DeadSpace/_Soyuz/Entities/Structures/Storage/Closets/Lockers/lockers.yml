@@ -1,7 +1,7 @@
 - type: entity
   id: LockerPolitRuk
   parent: LockerBaseSecure
-  name: Шкаф политического руководителя
+  name: шкаф политического руководителя
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Structures/Storage/closet.rsi

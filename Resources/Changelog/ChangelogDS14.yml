@@ -8525,3 +8525,10 @@ Entries:
   changes:
   - type: Tweak
     message: Ремилии и Вавы теперь понимают общегалактический
+- id: 819
+  author: Manstari
+  time: '2026-10-11T13:00:50.751200+00:00'
+  pr: 2499
+  changes:
+  - type: Remove
+    message: Навыки и их упоминания в коде

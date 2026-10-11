@@ -8547,3 +8547,10 @@ Entries:
   changes:
   - type: Add
     message: Разнообразные классические игры для КПК
+- id: 822
+  author: BlueDogDoc
+  time: '2026-10-11T14:20:22.025105+00:00'
+  pr: 2503
+  changes:
+  - type: Add
+    message: Донорская кровь для капельниц, чтобы не проходило желудок.

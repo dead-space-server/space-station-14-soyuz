@@ -1285,3 +1285,13 @@
   - BrigTimer
   - StationMap
   - StationMapBroken
+
+- type: repairValueExclusion
+  id: RepairExcludeLadders
+  reason: Не ебу
+  entities:
+  - RMCLadder
+  - RMCLadderRope
+  - RMCLadderRopeAltDrawdepth
+  - RMCLadderThrough
+  - RMCLadderUp

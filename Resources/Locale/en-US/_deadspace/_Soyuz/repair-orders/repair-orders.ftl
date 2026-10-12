@@ -273,3 +273,11 @@ ent-ClothingBeltRepairCrew = repair crew toolbelt
 ent-ClothingBeltRepairCrewFilled = { ent-ClothingBeltRepairCrew }
     .desc = A repair crew toolbelt equipped with a power drill, jaws of life, welding tool, RCD, multitool, holofan projector, gas analyzer and network configurator.
     .suffix = Filled
+
+ent-ClothingShoesBootsMagRepairCrew = repair crew magboots
+    .desc = Magnetic boots for work aboard damaged stations and shuttles. Assisted movement increases walking and sprinting speed by 5%, including with the magnets enabled.
+
+ent-ConstructionBagRandomFilled = random resource bag
+    .desc = A construction bag completely filled with ten randomly selected full stacks of resources. Contains no cables.
+ent-ConstructionBagOfHoldingRandomFilled = bluespace random resource bag
+    .desc = A bluespace construction bag completely filled with fifty randomly selected full stacks of resources. Contains no cables.

@@ -232,7 +232,7 @@
 
 - type: repairReward
   id: RepairOrderConstructionBagReward
-  entity: ConstructionBag
+  entity: ConstructionBagRandomFilled
   cost: 25
   maxCount: 10
   minimumShopLevel: 2
@@ -368,7 +368,7 @@
 
 - type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
-  entity: ConstructionBagOfHolding
+  entity: ConstructionBagOfHoldingRandomFilled
   cost: 151
   maxCount: 1
   minimumShopLevel: 5
@@ -380,6 +380,13 @@
   maxCount: 1
   minimumShopLevel: 8
   classified: true
+
+- type: repairReward
+  id: RepairOrderRepairCrewMagbootsReward
+  entity: ClothingShoesBootsMagRepairCrew
+  cost: 100
+  maxCount: 1
+  minimumShopLevel: 8
 
 - type: repairReward
   id: RepairOrderRepairCrewRcdReward
@@ -621,6 +628,7 @@
   - RepairOrderRepairCrewWelderReward
   - RepairOrderClothingEyesHudGreenBeretReward
   - RepairOrderRepairCrewJawsOfLifeReward
+  - RepairOrderRepairCrewMagbootsReward
   - RepairOrderRepairCrewRcdReward
   - RepairOrderOxygenGasMinerMachineCircuitboardReward
   - RepairOrderNitrogenGasMinerMachineCircuitboardReward

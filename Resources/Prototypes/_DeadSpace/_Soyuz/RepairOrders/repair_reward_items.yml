@@ -375,3 +375,93 @@
   - type: Storage
     grid:
     - 0,0,19,9
+
+- type: entity
+  parent: ClothingShoesBootsMagBase
+  id: ClothingShoesBootsMagRepairCrew
+  name: repair crew magboots
+  description: Magnetic boots with assisted movement for restoration work aboard damaged stations and shuttles.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 1.05
+    sprintModifier: 1.05
+    requireActivated: false
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+    size: Normal
+  - type: StaticPrice
+    price: 1500
+
+- type: entityTable
+  id: RepairOrderRandomResources
+  table: !type:GroupSelector
+    children:
+    - id: SheetSteel
+      weight: 60
+    - id: SheetGlass
+      weight: 60
+    - id: SheetRGlass
+      weight: 24
+    - id: SheetPlasteel
+      weight: 40
+    - id: SheetPGlass
+      weight: 30
+    - id: SheetRPGlass
+      weight: 24
+    - id: SheetUGlass
+      weight: 24
+    - id: SheetRUGlass
+      weight: 20
+    - id: SheetPlasma
+      weight: 24
+    - id: SheetPlastic
+      weight: 40
+    - id: SheetTitanium
+      weight: 15
+    - id: SheetPlastitanium
+      weight: 10
+    - id: SheetTungsten
+      weight: 24
+    - id: IngotTungsten
+      weight: 60
+    - id: IngotSilver
+      weight: 13
+    - id: IngotGold
+      weight: 11
+    - id: SheetUranium
+      weight: 5
+    - id: MaterialWoodPlank
+      weight: 60
+    - id: MaterialCloth
+      weight: 60
+    - id: PartRodMetal
+      weight: 120
+
+- type: entity
+  parent: ConstructionBag
+  id: ConstructionBagRandomFilled
+  name: random resource bag
+  description: A construction bag filled with ten randomly selected full stacks of resources.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:NestedSelector
+        tableId: RepairOrderRandomResources
+        rolls: 10
+
+- type: entity
+  parent: ConstructionBagOfHolding
+  id: ConstructionBagOfHoldingRandomFilled
+  name: bluespace random resource bag
+  description: A bluespace construction bag filled with fifty randomly selected full stacks of resources.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:NestedSelector
+        tableId: RepairOrderRandomResources
+        rolls: 50

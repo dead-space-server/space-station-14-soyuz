@@ -28,6 +28,7 @@ public sealed class RMCTeleporterViewerOverlay : Overlay
     private readonly EntityQuery<TransformComponent> _transformQuery;
 
     private readonly List<(Entity<SpriteComponent> Ent, Vector2 Position, Angle Rotation)> _toDraw = new();
+    public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
     public RMCTeleporterViewerOverlay()
     {

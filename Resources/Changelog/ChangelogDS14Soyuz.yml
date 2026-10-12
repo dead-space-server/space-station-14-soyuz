@@ -2106,3 +2106,12 @@ Entries:
     message: Стеклошляпник и пласталешляпник теперь дерево без многолетия
   - type: Fix
     message: Бессмертие в Рипли
+- id: 200
+  author: Genes1us
+  time: '2026-10-12T18:26:58.693581+00:00'
+  pr: 518
+  changes:
+  - type: Add
+    message: Лестница
+  - type: Add
+    message: Ограниченный обзор у сварочных масок

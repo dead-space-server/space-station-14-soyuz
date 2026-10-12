@@ -8601,3 +8601,10 @@ Entries:
     message: Новые арт лобби by fyrmor
   - type: Tweak
     message: Мелкий респрайт первой версии стиля Гейста
+- id: 828
+  author: CyberBobeks
+  time: '2026-10-12T14:57:57.216070+00:00'
+  pr: 2512
+  changes:
+  - type: Add
+    message: Новый провайдер для TTS - /N/TTS.

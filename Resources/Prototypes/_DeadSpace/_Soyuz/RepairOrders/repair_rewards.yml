@@ -232,8 +232,15 @@
 
 - type: repairReward
   id: RepairOrderConstructionBagReward
-  entity: ConstructionBagRandomFilled
+  entity: ConstructionBag
   cost: 25
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: RepairOrderFilledConstructionBagReward
+  entity: ConstructionBagRandomFilled
+  cost: 50
   maxCount: 10
   minimumShopLevel: 2
 
@@ -368,8 +375,15 @@
 
 - type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
-  entity: ConstructionBagOfHoldingRandomFilled
+  entity: ConstructionBagOfHolding
   cost: 151
+  maxCount: 1
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: RepairOrderFilledBluespaceConstructionBagReward
+  entity: ConstructionBagOfHoldingRandomFilled
+  cost: 287
   maxCount: 1
   minimumShopLevel: 5
 
@@ -603,6 +617,7 @@
   - RepairOrderEngineeringBoardBundleReward
   - RepairOrderVoidJetpackReward
   - RepairOrderBlindingMagbootsReward
+  - RepairOrderFilledConstructionBagReward
   - RepairOrderSmesAdvancedFlatpackReward
   - RepairOrderRcdReward
   - RepairOrderPowerDrillReward
@@ -619,6 +634,7 @@
   - RepairOrderHolofanProjectorReward
   - RepairOrderRCDSyndicateReward
   - RepairOrderBluespaceConstructionBagReward
+  - RepairOrderFilledBluespaceConstructionBagReward
   - RepairOrderClothingBackpackRIGERTEngineerReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward

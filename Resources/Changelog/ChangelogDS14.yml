@@ -8608,3 +8608,11 @@ Entries:
   changes:
   - type: Add
     message: Новый провайдер для TTS - /N/TTS.
+- id: 829
+  author: vv210410-bit
+  time: '2026-10-13T09:54:19.152838+00:00'
+  pr: 2510
+  changes:
+  - type: Tweak
+    message: Теперь, если емагнуть стазисную кровать, то труп на ней будет гнить в
+      10 раз быстрее.

@@ -230,6 +230,8 @@
   - StrangeBerriesPlants
   - WhiteLilyPlants
   - WhiterosePlants
+  - LockerPolitRukFilled
+  - LockerPolitRuk
 # DS14-Soyuz end
 
 - type: repairValueExclusion

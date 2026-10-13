@@ -2115,3 +2115,12 @@ Entries:
     message: Лестница
   - type: Add
     message: Ограниченный обзор у сварочных масок
+- id: 201
+  author: ExoDoomer
+  time: '2026-10-13T12:17:46.647462+00:00'
+  pr: 521
+  changes:
+  - type: Add
+    message: Добавлен Шкаф политического руководителя
+  - type: Tweak
+    message: Описание всех шкафов

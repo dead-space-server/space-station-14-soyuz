@@ -4,46 +4,6 @@
 # All prototype logic and text are locally rewritten; each RSI keeps its own
 # license metadata. No AGPL C# implementation was imported.
 
-- type: entity
-  parent: BaseHandheldComputer
-  id: SoyuzPlantAnalyzer
-  name: plant analyzer
-  description: Переносной прибор для анализа растений и семян.
-  components:
-  - type: Sprite
-    sprite: Objects/Specific/Medical/healthanalyzer.rsi
-    state: icon
-  - type: Item
-    storedRotation: -90
-  - type: ActivatableUI
-    key: enum.SoyuzPlantAnalyzerUiKey.Key
-    inHandsOnly: true
-  - type: UserInterface
-    interfaces:
-      enum.SoyuzPlantAnalyzerUiKey.Key:
-        type: SoyuzPlantAnalyzerBoundUserInterface
-  - type: SoyuzPlantAnalyzer
-    scanDelay: 0.5
-    advancedScanDelay: 1
-
-- type: latheRecipe
-  parent: BaseToolRecipe
-  id: SoyuzPlantAnalyzer
-  result: SoyuzPlantAnalyzer
-  categories:
-  - Tools
-  completetime: 3
-  materials:
-    Steel: 500
-    Glass: 500
-    Plastic: 100
-    Gold: 100
-
-- type: latheRecipePack
-  id: SoyuzBotanyProtolatheStatic
-  recipes:
-  - SoyuzPlantAnalyzer
-
 - type: flavor
   id: spices
   flavorType: Complex

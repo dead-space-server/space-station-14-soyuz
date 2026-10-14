@@ -290,6 +290,7 @@
       - CigPack
       - Dropper
       components:
+      - PlantAnalyzer # DS14-Soyuz
       - BotanySampleTaker
       - BotanyHoe
       - Seed

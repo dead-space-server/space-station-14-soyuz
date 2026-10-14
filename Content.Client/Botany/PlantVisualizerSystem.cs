@@ -17,12 +17,19 @@ public sealed partial class PlantVisualizerSystem : VisualizerSystem<PlantVisual
         SubscribeLocalEvent<PlantVisualsComponent, ComponentStartup>(OnComponentStartup);
         SubscribeLocalEvent<PlantComponent, AfterAutoHandleStateEvent>(OnPlantState);
         SubscribeLocalEvent<PlantHolderComponent, AfterAutoHandleStateEvent>(OnHolderState);
+        // DS14-Soyuz start
+        SubscribeLocalEvent<PlantChemicalsComponent, AfterAutoHandleStateEvent>(OnChemicalsState);
+        SubscribeLocalEvent<PlantGrowthComponent, AfterAutoHandleStateEvent>(OnGrowthState);
+        SubscribeLocalEvent<PlantAtmosphericComponent, AfterAutoHandleStateEvent>(OnAtmosphericState);
+        SubscribeLocalEvent<PlantConsumeExudeGasComponent, AfterAutoHandleStateEvent>(OnGasState);
+        // DS14-Soyuz end
         SubscribeLocalEvent<EntityUid>(UpdateSprite);
     }
     // DS14-end
 
     // DS14-start: current engine uses readonly IoC fields.
     [Dependency] private readonly PlantSystem _plant = default!;
+    [Dependency] private readonly PlantAnalyzerSystem _plantAnalyzer = default!; // DS14-Soyuz
     [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
     [Dependency] private readonly PlantTrayVisualizerSystem _plantTrayVisualizer = default!;
     // DS14-end
@@ -46,14 +53,38 @@ public sealed partial class PlantVisualizerSystem : VisualizerSystem<PlantVisual
     private void OnPlantState(Entity<PlantComponent> ent, ref AfterAutoHandleStateEvent args)
     {
         UpdateSprite(ent.Owner);
+        _plantAnalyzer.UpdatePlantUi(ent.Owner); // DS14-Soyuz
     }
 
     private void OnHolderState(Entity<PlantHolderComponent> ent, ref AfterAutoHandleStateEvent args)
     {
         UpdateSprite(ent.Owner);
+        _plantAnalyzer.UpdatePlantUi(ent.Owner); // DS14-Soyuz
         if (_plant.TryGetTray(ent.Owner, out var trayEnt))
             _plantTrayVisualizer.UpdateTrayWarnings(trayEnt.AsNullable());
     }
+
+    // DS14-Soyuz start
+    private void OnChemicalsState(Entity<PlantChemicalsComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        _plantAnalyzer.UpdatePlantUi(ent.Owner);
+    }
+
+    private void OnGrowthState(Entity<PlantGrowthComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        _plantAnalyzer.UpdatePlantUi(ent.Owner);
+    }
+
+    private void OnAtmosphericState(Entity<PlantAtmosphericComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        _plantAnalyzer.UpdatePlantUi(ent.Owner);
+    }
+
+    private void OnGasState(Entity<PlantConsumeExudeGasComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        _plantAnalyzer.UpdatePlantUi(ent.Owner);
+    }
+    // DS14-Soyuz end
 
     private void UpdateSprite(EntityUid plantUid)
     {

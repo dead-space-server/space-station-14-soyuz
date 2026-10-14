@@ -4,10 +4,6 @@
 # Названия и описания переведены вручную с учётом игрового контекста.
 
 # Названия культур
-ent-SoyuzPlantAnalyzer = анализатор растений
-    .desc = Переносной прибор для анализа растений и семян.
-
-# DS14-Soyuz: names shown for plant entities in the right-click menu.
 ent-AgentgrainPlants = { seeds-agentgrain-name }
 ent-AloePlants = { seeds-aloe-name }
 ent-AmbrosiaDeusPlants = { seeds-ambrosiadeus-name }
@@ -523,44 +519,3 @@ ent-NFFoodGlowshroom = светогриб
 botany-cannot-be-swabbed-message = С этого растения нельзя взять пыльцу.
 plant-holder-component-cannot-be-sampled-message = С этого растения нельзя взять образец.
 plant-analyzer-unknown-plant = неизвестное растение
-soyuz-plant-analyzer-title = Анализатор растений
-soyuz-plant-analyzer-basic-mode = Обычный анализ
-soyuz-plant-analyzer-advanced-mode = Расширенный анализ
-soyuz-plant-analyzer-no-data = Растение или семена ещё не просканированы.
-soyuz-plant-analyzer-scanned-plant = Просканированное растение: { $name }
-soyuz-plant-analyzer-scanned-seed = Просканированные семена: { $name }
-soyuz-plant-analyzer-yield = Урожайность: { $value }
-soyuz-plant-analyzer-potency = Потенция: { $value }
-soyuz-plant-analyzer-genetic-instability = Генетическая нестабильность: { $value }
-soyuz-plant-analyzer-harvest = Тип урожая: { $value }
-soyuz-plant-analyzer-harvest-Repeat = Многолетний
-soyuz-plant-analyzer-harvest-NoRepeat = Одноразовый
-soyuz-plant-analyzer-harvest-SelfHarvest = Самособираемый
-soyuz-plant-analyzer-harvest-Unknown = Неизвестно
-soyuz-plant-analyzer-endurance = Прочность: { $value }
-soyuz-plant-analyzer-lifespan = Продолжительность жизни: { $value }
-soyuz-plant-analyzer-maturation = Созревание: { $value }
-soyuz-plant-analyzer-production = Производство: { $value }
-soyuz-plant-analyzer-growth-stages = Стадии роста: { $value }
-soyuz-plant-analyzer-chemistry = Химические вещества: { $value }
-soyuz-plant-analyzer-consumes = Потребляемые газы: { $value }
-soyuz-plant-analyzer-emits = Выделяемые газы: { $value }
-soyuz-plant-analyzer-mutations = Возможные мутации: { $value }
-soyuz-plant-analyzer-none = отсутствуют
-soyuz-plant-analyzer-advanced-heading = Расширенные параметры
-soyuz-plant-analyzer-nutrient-usage = Расход питательных веществ: { $value }
-soyuz-plant-analyzer-water-usage = Расход воды: { $value }
-soyuz-plant-analyzer-ideal-heat = Идеальная температура: { $value } K
-soyuz-plant-analyzer-heat-tolerance = Допуск температуры: ±{ $value } K
-soyuz-plant-analyzer-ideal-light = Идеальная освещённость: { $value }
-soyuz-plant-analyzer-light-tolerance = Допуск освещённости: ±{ $value }
-soyuz-plant-analyzer-toxins = Допуск токсинов: { $value }
-soyuz-plant-analyzer-low-pressure = Минимальное давление: { $value } кПа
-soyuz-plant-analyzer-high-pressure = Максимальное давление: { $value } кПа
-soyuz-plant-analyzer-pests = Устойчивость к вредителям: { $value }
-soyuz-plant-analyzer-weeds = Устойчивость к сорнякам: { $value }
-soyuz-plant-analyzer-traits = Особенности: { $value }
-soyuz-plant-analyzer-trait-seedless = безсемянное
-soyuz-plant-analyzer-trait-ligneous = древесное
-soyuz-plant-analyzer-trait-screaming = кричащее
-entity-name-SoyuzPlantAnalyzer = анализатор растений

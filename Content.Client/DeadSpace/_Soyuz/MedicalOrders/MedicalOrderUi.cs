@@ -56,7 +56,7 @@ public sealed class MedicalOrderBoundUserInterface : BoundUserInterface
     }
 }
 
-public sealed class MedicalOrderWindow : FancyWindow
+public sealed partial class MedicalOrderWindow : FancyWindow
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
@@ -295,6 +295,8 @@ public sealed class MedicalOrderWindow : FancyWindow
         _marketPage.AddChild(salePanel);
         _marketSearch.OnTextChanged += _ => RebuildMarket();
 
+        InitializeSpecialContracts();
+
         root.AddChild(_tabs);
         ContentsContainer.AddChild(root);
     }
@@ -339,6 +341,15 @@ public sealed class MedicalOrderWindow : FancyWindow
         if (_state != null && _state.Kind != state.Kind)
             _cart.Clear();
         _state = state;
+        foreach (var id in _cart.Keys.ToArray())
+        {
+            var item = state.Shop.FirstOrDefault(i => i.ID == id && !i.Classified &&
+                i.MinimumShopLevel <= state.ShopLevel);
+            if (item == null)
+                _cart.Remove(id);
+            else
+                _cart[id] = Math.Min(_cart[id], item.MaxCount);
+        }
         Title = Loc.GetString(state.Kind == MedicalOrderMachineKind.Reagent
             ? "medical-orders-market-window-title" : "medical-orders-window-title");
         _heading.Text = Title;
@@ -393,7 +404,7 @@ public sealed class MedicalOrderWindow : FancyWindow
                 var button = new Button
                 {
                     Text = Loc.GetString("medical-orders-accept"),
-                    Disabled = state.Active != null,
+                    Disabled = state.Active != null || state.SpecialActive != null,
                     HorizontalExpand = true,
                 };
                 button.OnPressed += _ => OnRequest?.Invoke(new MedicalOrderRequestMessage(MedicalOrderAction.Accept, id));
@@ -465,7 +476,7 @@ public sealed class MedicalOrderWindow : FancyWindow
 
         if (state.LastCompleted is { } completed)
             _completed.AddChild(Info(
-                Loc.GetString("medical-orders-last-result", ("id", completed.RuntimeId),
+                Loc.GetString("medical-orders-last-result", ("title", Loc.GetString(completed.Title)),
                     ("score", completed.CurrentScore), ("points", state.LastAwardedPoints),
                     ("reputation", state.LastAwardedReputation),
                     ("status", Loc.GetString(state.LastPatientLost
@@ -475,6 +486,7 @@ public sealed class MedicalOrderWindow : FancyWindow
             _completed.AddChild(Info(Loc.GetString("medical-orders-none")));
 
         RebuildMarket();
+        RebuildSpecialContracts();
         // Market quotes refresh every second; keep unchanged shop buttons and the cart in place.
         if (previous == null || previous.Points != state.Points || previous.ShopLevel != state.ShopLevel ||
             !previous.Shop.Select(i => (i.ID, i.Entity, i.Cost, i.MaxCount, i.MinimumShopLevel, i.Classified))
@@ -511,7 +523,7 @@ public sealed class MedicalOrderWindow : FancyWindow
         heading.AddChild(icon);
         heading.AddChild(new Label
         {
-            Text = Loc.GetString("medical-orders-order-number", ("id", order.RuntimeId)),
+            Text = Loc.GetString(order.Title),
             StyleClasses = { "LabelHeading" },
             VerticalAlignment = VAlignment.Center,
             HorizontalExpand = true,
@@ -706,7 +718,7 @@ public sealed class MedicalOrderWindow : FancyWindow
             });
             details.AddChild(new Label
             {
-                Text = locked
+                Text = item.Classified
                     ? Loc.GetString("medical-orders-shop-locked", ("level", item.MinimumShopLevel))
                     : Loc.GetString("medical-orders-shop-price", ("cost", item.Cost),
                         ("level", item.MinimumShopLevel)),
@@ -813,6 +825,7 @@ public sealed class MedicalOrderWindow : FancyWindow
     {
         if (_state == null)
             return;
+        UpdateSpecialTimer();
         if (_state.Kind == MedicalOrderMachineKind.Reagent)
         {
             _timer.Text = Loc.GetString("medical-orders-market-live-prices");

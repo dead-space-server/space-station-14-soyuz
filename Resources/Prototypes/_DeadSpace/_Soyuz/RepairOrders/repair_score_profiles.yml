@@ -139,6 +139,7 @@
   # All wall closets/lockers are equivalent for repair purposes.
   - selector:
       parents: [BaseWallCloset, BaseWallLocker]
+      includeAbstractParents: true
     canonical: ClosetWall
 
   # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
@@ -202,6 +203,7 @@
       parents:
       - BaseLightbulb
       - EmergencyLight
+      includeAbstractParents: true
     mode: Exact
 
   # Shuttle airlocks and docking ports are directional.
@@ -212,4 +214,5 @@
   # Chairs, sofas, benches and other SeatBase descendants are directional.
   - selector:
       parents: [SeatBase]
+      includeAbstractParents: true
     mode: Exact

@@ -217,6 +217,9 @@ public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHo
     [DataField]
     public bool Classified;
 
+    [DataField]
+    public bool EmagOnly;
+
     void ISerializationHooks.AfterDeserialization()
     {
         if (Cost <= 0 || MaxCount <= 0 || MinimumShopLevel <= 0)

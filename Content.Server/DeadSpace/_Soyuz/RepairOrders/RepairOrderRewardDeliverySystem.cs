@@ -685,3 +685,6 @@ internal readonly record struct RepairOrderDeliveryAnchor(
     EntityUid? DropFallbackEntity,
     string Description,
     bool IncludeOrigin);
+
+[RegisterComponent]
+public sealed partial class RepairOrderKeepsakeComponent : Component;

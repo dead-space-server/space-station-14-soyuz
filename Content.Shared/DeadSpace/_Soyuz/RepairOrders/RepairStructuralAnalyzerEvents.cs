@@ -12,10 +12,15 @@ namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairAnalyzerSnapshotEvent : EntityEventArgs
 {
     public RepairAnalyzerGridSnapshot[] Grids { get; }
+    public RepairAnalyzerGridSnapshot[] NavigationGrids { get; }
+    public bool NavigationChanged { get; }
 
-    public RepairAnalyzerSnapshotEvent(RepairAnalyzerGridSnapshot[] grids)
+    public RepairAnalyzerSnapshotEvent(RepairAnalyzerGridSnapshot[] grids,
+        RepairAnalyzerGridSnapshot[]? navigationGrids = null, bool navigationChanged = true)
     {
         Grids = grids;
+        NavigationGrids = navigationGrids ?? Array.Empty<RepairAnalyzerGridSnapshot>();
+        NavigationChanged = navigationChanged;
     }
 }
 

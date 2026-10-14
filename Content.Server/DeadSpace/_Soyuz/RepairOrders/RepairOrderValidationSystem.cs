@@ -268,7 +268,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
             blueprint.Comp.EntityIdentityRules.Clear();
             blueprint.Comp.EntityIdentityRules.AddRange(scoreLookup.EntityIdentityRules);
             BuildExpectedTarget(blueprint, target, scoreLookup);
-            return !scoreLookup.Invalid;
+            return true;
         }
         catch (Exception exception)
         {
@@ -471,9 +471,7 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
 
         RecalculateProgress(blueprint, initializeBaseline);
         SyncProgress((repairGrid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(repairGrid)));
-        blueprint.FullyMatchesTarget &= !scoreLookup.Invalid;
-        blueprint.CanComplete &= !scoreLookup.Invalid;
-        return !scoreLookup.Invalid;
+        return true;
     }
 
     /// <summary>
@@ -929,7 +927,6 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         if (scoreLookup.Values.IsExcluded(prototypeId))
             return false;
 
-        // Even an identity-equivalent actual variant needs its own exact classification.
         if (!scoreLookup.Values.TryResolve(prototypeId, out _))
             ResolveEntityPoints(scoreLookup, prototypeId, xform.LocalPosition);
 
@@ -1281,13 +1278,11 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         if (lookup.Values.TryResolve(entityPrototype, out var points))
             return points;
 
-        lookup.Invalid = true;
         if (lookup.MissingValues.Add(entityPrototype))
         {
-            _sawmill.Error($"Repair value configuration error: order {lookup.Order}, grid {lookup.Grid}, " +
-                           $"entity prototype {entityPrototype}, position {position}. No exact RepairValue classification.");
+            _sawmill.Debug($"Repair order {lookup.Order}, grid {lookup.Grid}, entity prototype {entityPrototype}, " +
+                           $"position {position}: no RepairValue classification; using 0 points.");
         }
-        // Invalid sessions cannot activate or complete. No default price is assigned.
         return 0;
     }
 
@@ -1452,7 +1447,6 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         public readonly EntityUid Grid = grid;
         public readonly RepairValueCatalog Values = values;
         public int FloorTilePoints;
-        public bool Invalid;
         public readonly List<RepairEntityIdentityRule> EntityIdentityRules = new();
         public readonly List<RepairRotationRule> RotationRules = new();
         public readonly HashSet<string> MissingValues = new();

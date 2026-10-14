@@ -230,6 +230,8 @@
   - StrangeBerriesPlants
   - WhiteLilyPlants
   - WhiterosePlants
+  - LockerPolitRukFilled
+  - LockerPolitRuk
 # DS14-Soyuz end
 
 - type: repairValueExclusion
@@ -1285,3 +1287,13 @@
   - BrigTimer
   - StationMap
   - StationMapBroken
+
+- type: repairValueExclusion
+  id: RepairExcludeLadders
+  reason: Не ебу
+  entities:
+  - RMCLadder
+  - RMCLadderRope
+  - RMCLadderRopeAltDrawdepth
+  - RMCLadderThrough
+  - RMCLadderUp

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Created by terra_blade666 (discord) for Space Station 14 server Мёртвый Космос",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "politruk",
+      "directions": 1
+    },
+    {
+      "name": "politruk_door",
+      "directions": 1
+    },
+    {
+      "name": "politruk_open",
+      "directions": 1
+    },
+    {
+      "name": "locked"
+    },
+    {
+      "name": "unlocked"
+    }
+  ]
+}

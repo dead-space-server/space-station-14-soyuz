@@ -2124,3 +2124,18 @@ Entries:
     message: Добавлен Шкаф политического руководителя
   - type: Tweak
     message: Описание всех шкафов
+- id: 202
+  author: Ezio50
+  time: '2026-10-14T06:36:30.766791+00:00'
+  pr: 522
+  changes:
+  - type: Add
+    message: Новые заказы в медицинских заказах
+  - type: Add
+    message: Новый план
+  - type: Add
+    message: QoL в ремонтные заказы
+  - type: Tweak
+    message: Генерация поломок ремонтных заказов
+  - type: Fix
+    message: Цены в магазине медицинских заказов

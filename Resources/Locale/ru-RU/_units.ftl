@@ -95,3 +95,8 @@ units-kelvin-long = кельвин
 units-k-kelvin-long = килокельвин
 units-m-kelvin-long = мегакельвин
 units-g-kelvin-long = гигакельвин
+
+# DS14-Soyuz start: upstream plant analyzer
+units-mole = моль
+units-u = ед.
+# DS14-Soyuz end

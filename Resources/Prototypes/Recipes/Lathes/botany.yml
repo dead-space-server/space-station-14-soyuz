@@ -37,3 +37,10 @@
   parent: BaseHydroToolRecipe
   id: HydroponicsToolClippers
   result: HydroponicsToolClippers
+
+# DS14-Soyuz start: upstream plant analyzer
+- type: latheRecipe
+  parent: HandheldHealthAnalyzer
+  id: PlantAnalyzer
+  result: PlantAnalyzer
+# DS14-Soyuz end

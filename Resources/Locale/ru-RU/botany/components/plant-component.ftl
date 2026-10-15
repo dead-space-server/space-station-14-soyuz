@@ -12,3 +12,9 @@ plant-component-heat-improper-warning = Мигает [color=orange]предуп�
 plant-component-pressure-improper-warning = Мигает [color=lightblue]предупреждение о неподходящем атмосферном давлении[/color].
 plant-component-gas-missing-warning = Мигает [color=cyan]предупреждение о неподходящем составе атмосферы[/color].
 plant-component-ligneous-cant-harvest-message = Растение слишком прочное, чтобы собрать его голыми руками.
+
+# DS14-Soyuz start: upstream plant analyzer
+plant-component-toxins-high-warning = [color=orange]Растение страдает от токсинов.[/color]
+plant-component-weeds-high-warning = [color=orange]Сорняки угрожают растению.[/color]
+plant-component-pests-high-warning = [color=orange]Вредители угрожают растению.[/color]
+# DS14-Soyuz end

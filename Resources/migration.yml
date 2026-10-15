@@ -1355,3 +1355,5 @@ ADTDoubleBedTop: null
 ADTDoubleBedBottom: null
 NTFlag: BlankFlag
 SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist
+
+SoyuzPlantAnalyzer: PlantAnalyzer # DS14-Soyuz

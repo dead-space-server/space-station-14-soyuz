@@ -19,7 +19,7 @@ public sealed partial class PlantHarvestSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<PlantTrayComponent, InteractHandEvent>(OnInteractHand);
+        // DS14-Soyuz: tray hand-harvesting subscription removed; tray interaction opens its UI.
         SubscribeLocalEvent<PlantHolderComponent, PlantGrowEvent>(OnPlantGrow);
         SubscribeLocalEvent<PlantHolderComponent, InteractHandEvent>(OnInteractHand);
         SubscribeLocalEvent<PlantHolderComponent, DoHarvestEvent>(OnHandledDoHarvest);
@@ -37,7 +37,7 @@ public sealed partial class PlantHarvestSystem : EntitySystem
     [Dependency] private readonly PlantSystem _plant = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
-    [Dependency] private readonly PlantTraySystem _plantTray = default!;
+    // DS14-Soyuz: PlantTraySystem dependency removed with the tray hand-harvesting handler.
 
     private EntityQuery<PlantHolderComponent> _holderQuery;
     private EntityQuery<PlantHarvestComponent> _harvestQuery;
@@ -45,26 +45,7 @@ public sealed partial class PlantHarvestSystem : EntitySystem
     private EntityQuery<PlantDataComponent> _dataQuery;
     // DS14-end
 
-    private void OnInteractHand(Entity<PlantTrayComponent> ent, ref InteractHandEvent args)
-    {
-        if (args.Handled)
-            return;
-
-        if (!_plantTray.TryGetPlant(ent.AsNullable(), out var plantUid)
-            // DS14-start
-            || !_holderQuery.TryComp(plantUid, out var holder)
-            || !holder.ReadyForHarvest)
-            // DS14-end
-            return;
-
-        // TODO: Remove this once trays have a proper UI.
-        // DS14-Soyuz start: let plant traits reject hand harvesting through the tray.
-        var ev = new DoHarvestEvent(args.User, plantUid.Value);
-        RaiseLocalEvent(plantUid.Value, ref ev);
-        // DS14-Soyuz end
-        args.Handled = true;
-    }
-
+    // DS14-Soyuz: tray OnInteractHand handler removed; plant harvesting remains unchanged.
     private void OnPlantGrow(Entity<PlantHolderComponent> ent, ref PlantGrowEvent args) // DS14
     {
         // DS14-start

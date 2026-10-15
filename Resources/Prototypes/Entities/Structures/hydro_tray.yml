@@ -4,6 +4,15 @@
   id: hydroponicsTray
   description: An interstellar-grade space farmplot allowing for rapid growth and selective breeding of crops. Just... keep in mind the space weeds.
   components:
+  # DS14-Soyuz start
+  - type: ActivatableUI
+    key: enum.PlantTrayUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.PlantTrayUiKey.Key:
+        type: PlantTrayBoundUserInterface
+        interactionRange: 2
+  # DS14-Soyuz end
   - type: Fixtures
     fixtures:
       fix1:

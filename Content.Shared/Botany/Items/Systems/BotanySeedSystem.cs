@@ -20,6 +20,7 @@ public sealed partial class BotanySeedSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<SeedComponent, PlantAnalyzerAttemptEvent>(OnPlantAnalyzerAttempt); // DS14-Soyuz
 
         SubscribeLocalEvent<SeedComponent, AfterInteractEvent>(OnAfterInteract);
         SubscribeLocalEvent<PlantTrayComponent, PlantingSeedAttemptEvent>(OnPlantingSeedAttempt);
@@ -40,6 +41,18 @@ public sealed partial class BotanySeedSystem : EntitySystem
     private EntityQuery<PlantTrayComponent> _trayQuery;
     private EntityQuery<PaperLabelComponent> _labelQuery;
     // DS14-end
+
+    // DS14-Soyuz start
+    private void OnPlantAnalyzerAttempt(Entity<SeedComponent> ent, ref PlantAnalyzerAttemptEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        args.PlantData = ent.Comp.PlantData;
+        args.PlantProtoId = ent.Comp.PlantProtoId;
+        args.Handled = true;
+    }
+    // DS14-Soyuz end
 
     private void OnAfterInteract(Entity<SeedComponent> ent, ref AfterInteractEvent args)
     {

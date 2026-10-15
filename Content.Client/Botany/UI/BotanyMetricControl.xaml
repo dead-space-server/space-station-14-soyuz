@@ -1,6 +1,3 @@
-<!-- SPDX-FileCopyrightText: 2017-2026 Space Wizards Federation -->
-<!-- SPDX-License-Identifier: MIT -->
-
 <PanelContainer xmlns="https://spacestation14.io"
                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                 x:Class="Content.Client.Botany.UI.BotanyMetricControl"

@@ -69,7 +69,7 @@ public sealed class CQCSystem : CQCSharedSystem
 
     private void OnPowerPunchAction(Entity<CQCComponent> ent, ref CQCPowerPunchEvent args)
     {
-        if (args.Handled)
+        if (args.Handled || !ent.Comp.Concentrated)
             return;
 
         SelectCombo(ent, CQCList.PowerPunch);
@@ -79,7 +79,7 @@ public sealed class CQCSystem : CQCSharedSystem
 
     private void OnMutePunchAction(Entity<CQCComponent> ent, ref CQCMuteEvent args)
     {
-        if (args.Handled)
+        if (args.Handled || !ent.Comp.Concentrated)
             return;
 
         SelectCombo(ent, CQCList.MuteAttack);
@@ -89,7 +89,7 @@ public sealed class CQCSystem : CQCSharedSystem
 
     private void OnRelaxAction(Entity<CQCComponent> ent, ref CQCRelaxEvent args)
     {
-        if (args.Handled)
+        if (args.Handled || !ent.Comp.Concentrated)
             return;
 
         ent.Comp.SelectedCombo = null;
@@ -113,7 +113,7 @@ public sealed class CQCSystem : CQCSharedSystem
     }
     private void DoCQCHit(Entity<CQCComponent> ent, EntityUid hitEntity)
     {
-        if (ent.Comp.SelectedCombo is not { } combo)
+        if (!ent.Comp.Concentrated || ent.Comp.SelectedCombo is not { } combo)
             return;
 
         switch (combo)
@@ -153,34 +153,50 @@ public sealed class CQCSystem : CQCSharedSystem
         {
             RemComp<CQCCantUseWeaponComponent>(ent);
             ent.Comp.SelectedCombo = null;
-
-            foreach (var actionEnt in ent.Comp.BaseCQCActionEntities)
-            {
-                _action.RemoveAction(ent.Owner, actionEnt);
-                QueueDel(actionEnt);
-            }
-
-            ent.Comp.BaseCQCActionEntities.Clear();
+            SetBaseActionsEnabled(ent, false);
         }
         else
         {
             EnsureComp<CQCCantUseWeaponComponent>(ent);
-            foreach (var action in ent.Comp.BaseCQC)
-            {
-                EntityUid? actionEnt = null;
-                _action.AddAction(ent.Owner, ref actionEnt, action);
-
-                if (actionEnt != null)
-                    ent.Comp.BaseCQCActionEntities.Add(actionEnt.Value);
-            }
+            EnsureBaseActions(ent);
+            SetBaseActionsEnabled(ent, true);
         }
         ent.Comp.Concentrated = !ent.Comp.Concentrated;
         _action.SetToggled(ent.Comp.CQCConcentrationActionEntity, ent.Comp.Concentrated);
     }
 
+    private void EnsureBaseActions(Entity<CQCComponent> ent)
+    {
+        for (var i = ent.Comp.BaseCQCActionEntities.Count - 1; i >= 0; i--)
+        {
+            if (!TerminatingOrDeleted(ent.Comp.BaseCQCActionEntities[i]))
+                continue;
+
+            ent.Comp.BaseCQCActionEntities.RemoveAt(i);
+        }
+
+        if (ent.Comp.BaseCQCActionEntities.Count > 0)
+            return;
+
+        foreach (var action in ent.Comp.BaseCQC)
+        {
+            EntityUid? actionEnt = null;
+            _action.AddAction(ent.Owner, ref actionEnt, action);
+
+            if (actionEnt != null)
+                ent.Comp.BaseCQCActionEntities.Add(actionEnt.Value);
+        }
+    }
+
+    private void SetBaseActionsEnabled(Entity<CQCComponent> ent, bool enabled)
+    {
+        foreach (var actionEnt in ent.Comp.BaseCQCActionEntities)
+            _action.SetEnabled(actionEnt, enabled);
+    }
+
     private void CQCStepPunch(Entity<CQCStepPunchComponent> ent, ref CQCStepPunchEvent args)
     {
-        if (args.Handled)
+        if (args.Handled || !TryComp<CQCComponent>(args.Performer, out var cqc) || !cqc.Concentrated)
             return;
 
         args.Handled = true;

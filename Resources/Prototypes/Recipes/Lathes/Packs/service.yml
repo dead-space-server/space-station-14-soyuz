@@ -37,6 +37,9 @@
   - MicrowaveMachineCircuitboard
   - ReagentGrinderMachineCircuitboard
   - ElectricGrillMachineCircuitboard
+  - KitchenRangeOvenMachineCircuitboard
+  - KitchenWaffleIronMachineCircuitboard
+  - KitchenTabletopGrillMachineCircuitboard
   - BoozeDispenserMachineCircuitboard
   - SodaDispenserMachineCircuitboard
   - SmartFridgeCircuitboard

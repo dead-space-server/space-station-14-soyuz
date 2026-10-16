@@ -6,7 +6,7 @@
   icon:
     sprite: _DeadSpace/RIGs/EVA/backpack.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -22,7 +22,7 @@
   icon:
     sprite: Objects/Vehicles/janicart.rsi
     state: vehicle
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -37,7 +37,7 @@
   icon:
     sprite: Structures/Machines/computers.rsi
     state: computer
-  discipline: CivilianServices
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -49,7 +49,7 @@
   icon:
     sprite: Objects/Specific/Medical/defibsmall.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: Medical #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -63,7 +63,7 @@
   icon:
     sprite: Objects/Devices/pinpointer.rsi
     state: pinpointer-way
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:

@@ -1,0 +1,75 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "made by EmoGarbage, sec state resprite by inspector_jeleshka (discord) for Space Station 14 server, unlit-building by DinnerCalzone (github), armed by sastr for Space Station 14 server Союз-1, resprited by pered6664 for Space Station 14 server Союз-1",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "med"
+        },
+        {
+            "name": "sec"
+        },
+        {
+            "name": "sci"
+        },
+        {
+            "name": "engi"
+        },
+        {
+            "name": "service"
+        },
+        {
+            "name": "cargo"
+        },
+        {
+            "name": "panel"
+        },
+        {
+            "name": "unlit"
+        },
+        {
+            "name": "inserting",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "unlit-building",
+            "delays": [
+                [
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15,
+                    0.15
+                ]
+            ]
+        },
+        {
+            "name": "armed"
+        },
+        {
+            "name": "icon_armed"
+        }
+    ]
+}

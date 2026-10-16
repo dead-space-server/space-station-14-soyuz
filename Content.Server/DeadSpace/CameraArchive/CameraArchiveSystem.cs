@@ -198,6 +198,9 @@ public sealed class CameraArchiveSystem : EntitySystem
 
     public bool ShouldRecord(EntityUid camera)
     {
+        if (!Exists(camera))
+            return false;
+
         if (OnCentComm(camera))
             return false;
 
@@ -247,6 +250,9 @@ public sealed class CameraArchiveSystem : EntitySystem
 
     private bool OnCentComm(EntityUid uid)
     {
+        if (!TryComp(uid, out TransformComponent? _))
+            return false;
+
         return _station.GetOwningStation(uid) is { } station && HasComp<CentCommStationComponent>(station);
     }
 

@@ -73,9 +73,6 @@ public sealed partial class IvDripComponent : Component
     public float FastTransfer;
 
     [DataField]
-    public float IdleDripTransfer;
-
-    [DataField]
     public DamageSpecifier YankDamage = new();
 
     [DataField]

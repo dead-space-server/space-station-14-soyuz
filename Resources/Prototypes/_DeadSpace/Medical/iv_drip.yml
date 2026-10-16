@@ -35,7 +35,6 @@
     slowTransfer: 0.5
     mediumTransfer: 1.5
     fastTransfer: 3
-    idleDripTransfer: 0.5
     yankSpillFraction: 0.25
     bloodpackFillAmount: 20
     bloodReagent: DonorBlood

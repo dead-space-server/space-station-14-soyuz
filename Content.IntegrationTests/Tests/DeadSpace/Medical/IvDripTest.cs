@@ -426,12 +426,13 @@ public sealed class IvDripTest : InteractionTest
     }
 
     [Test]
-    public async Task IdleDripsWhenRunningDetached()
+    public async Task RunningDetachedKeepsTheBag()
     {
         await AddAtmosphere();
 
         EntityUid drip = default;
         FixedPoint2 startVol = default;
+        var puddles = 0;
 
         await Server.WaitPost(() =>
         {
@@ -446,6 +447,7 @@ public sealed class IvDripTest : InteractionTest
             Assert.That(solutions.TryAddReagent(soln!.Value, Bicaridine, FixedPoint2.New(20)), Is.True);
             Assert.That(solutions.TryGetSolution(drip, SEntMan.GetComponent<IvDripComponent>(drip).TankSolution, out _, out var tank), Is.True);
             startVol = tank!.Volume;
+            puddles = SEntMan.EntityQuery<PuddleComponent>().Count();
 
             var dripComp = SEntMan.GetComponent<IvDripComponent>(drip);
             dripComp.Speed = IvDripSpeed.Fast;
@@ -459,7 +461,8 @@ public sealed class IvDripTest : InteractionTest
         {
             var solutions = SEntMan.System<SharedSolutionContainerSystem>();
             Assert.That(solutions.TryGetSolution(drip, SEntMan.GetComponent<IvDripComponent>(drip).TankSolution, out _, out var tank), Is.True);
-            Assert.That(tank!.Volume, Is.LessThan(startVol));
+            Assert.That(tank!.Volume, Is.EqualTo(startVol));
+            Assert.That(SEntMan.EntityQuery<PuddleComponent>().Count(), Is.EqualTo(puddles));
         });
     }
 
@@ -556,7 +559,6 @@ public sealed class IvDripTest : InteractionTest
             Assert.That(comp.SlowTransfer, Is.EqualTo(0.5f));
             Assert.That(comp.MediumTransfer, Is.EqualTo(1.5f));
             Assert.That(comp.FastTransfer, Is.EqualTo(3f));
-            Assert.That(comp.IdleDripTransfer, Is.EqualTo(0.5f));
             Assert.That(comp.AttachDelay, Is.EqualTo(1.5f));
             Assert.That(comp.YankBlood, Is.EqualTo(5f));
             Assert.That(comp.MinYankSpill, Is.EqualTo(1f));

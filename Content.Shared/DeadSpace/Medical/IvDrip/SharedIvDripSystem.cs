@@ -682,7 +682,7 @@ public abstract class SharedIvDripSystem : EntitySystem
                     comp.PatientWasDowned = true;
             }
 
-            if (comp.Speed == IvDripSpeed.Off)
+            if (comp.Speed == IvDripSpeed.Off || comp.AttachedPatient is not { } attached)
                 continue;
 
             if (_timing.CurTime < comp.NextTransfer)
@@ -691,13 +691,7 @@ public abstract class SharedIvDripSystem : EntitySystem
             comp.NextTransfer = _timing.CurTime + TimeSpan.FromSeconds(comp.TransferIntervalSeconds);
             Dirty(uid, comp);
 
-            if (comp.AttachedPatient is { } attached)
-            {
-                DoTransfer((uid, comp), attached);
-                continue;
-            }
-
-            DoIdleDrip((uid, comp));
+            DoTransfer((uid, comp), attached);
         }
     }
 
@@ -717,20 +711,6 @@ public abstract class SharedIvDripSystem : EntitySystem
 
         _bloodstream.TryAddToBloodstream(patient, injected);
         _reactive.DoEntityReaction(patient, injected, ReactionMethod.Injection);
-        UpdateVisuals(drip);
-    }
-
-    private void DoIdleDrip(Entity<IvDripComponent> drip)
-    {
-        if (!TryGetTankSolution(drip, out var soln, out var solution) || solution.Volume <= FixedPoint2.Zero)
-            return;
-
-        var amount = FixedPoint2.Min(FixedPoint2.New(drip.Comp.IdleDripTransfer), solution.Volume);
-        if (amount <= FixedPoint2.Zero)
-            return;
-
-        var split = _solutions.SplitSolution(soln, amount);
-        _puddle.TrySpillAt(drip.Owner, split, out _);
         UpdateVisuals(drip);
     }
 

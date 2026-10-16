@@ -8710,3 +8710,10 @@ Entries:
   changes:
   - type: Tweak
     message: Архив камер добавлен в планшет ГСБ
+- id: 838
+  author: BlueDogDoc
+  time: '2026-10-16T19:12:57.098949+00:00'
+  pr: 2534
+  changes:
+  - type: Tweak
+    message: После отключение концентрации, кнопки действий не пропадают, а выключаются.

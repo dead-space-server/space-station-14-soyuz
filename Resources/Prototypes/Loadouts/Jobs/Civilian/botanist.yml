@@ -31,7 +31,7 @@
   id: BotanistPlantAnalyzer
   storage:
     back:
-    - SoyuzPlantAnalyzer
+    - PlantAnalyzer
 # DS14-Soyuz end
 
 - type: loadout

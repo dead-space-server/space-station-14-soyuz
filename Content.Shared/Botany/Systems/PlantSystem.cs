@@ -17,6 +17,7 @@ public sealed partial class PlantSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<PlantComponent, PlantAnalyzerAttemptEvent>(OnPlantAnalyzerAttempt); // DS14-Soyuz
 
         SubscribeLocalEvent<PlantComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<PlantComponent, PlantCrossPollinateEvent>(OnCrossPollinate);
@@ -374,6 +375,21 @@ public sealed partial class PlantSystem : EntitySystem
 
         if (ent.Comp.MissingGas)
             markup.Add(Loc.GetString("plant-component-gas-missing-warning"));
+
+        // DS14-Soyuz start
+        if (TryGetTray(ent.Owner, out var tray))
+        {
+            if (TryComp<PlantToxinsComponent>(ent.Owner, out var toxins) && tray.Comp.ToxinLevel > toxins.ToxinsTolerance)
+                markup.Add(Loc.GetString("plant-component-toxins-high-warning"));
+            if (TryComp<PlantWeedPestComponent>(ent.Owner, out var weedPest))
+            {
+                if (tray.Comp.WeedLevel > weedPest.WeedTolerance)
+                    markup.Add(Loc.GetString("plant-component-weeds-high-warning"));
+                if (tray.Comp.PestLevel > weedPest.PestTolerance)
+                    markup.Add(Loc.GetString("plant-component-pests-high-warning"));
+            }
+        }
+        // DS14-Soyuz end
 
         return string.Join("\n", markup);
     }

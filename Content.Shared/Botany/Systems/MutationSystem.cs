@@ -75,6 +75,10 @@ public sealed partial class PlantMutationSystem : EntitySystem
                     ent.Comp.Mutations.Add(mutation);
             }
         }
+        // DS14-Soyuz start
+        var changed = new PlantMutationsChangedEvent(ent.Owner);
+        RaiseLocalEvent(ref changed);
+        // DS14-Soyuz end
     }
 
     // DS14-Soyuz start: conditional directed species mutations
@@ -248,6 +252,8 @@ public sealed partial class PlantMutationSystem : EntitySystem
             _plant.PlantingPlant(newPlantUid);
 
         _plant.ForceUpdate(newPlantUid);
+        var changed = new PlantSpeciesChangedEvent(oldPlant.Owner, newPlantUid, newPlantProto);
+        RaiseLocalEvent(ref changed);
         QueueDel(oldPlant);
         return true;
     }

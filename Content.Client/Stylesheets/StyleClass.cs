@@ -49,6 +49,7 @@ public static class StyleClass
     public const string BackgroundPanelOpenLeft = "BackgroundPanelOpenLeft"; // replaces `BackgroundOpenLeft`
     public const string BackgroundPanelOpenRight = "BackgroundPanelOpenRight"; // replaces `BackgroundOpenRight`
 
+    public const string Panel = "Panel"; // DS14-Soyuz
     public const string PanelDark = "PanelDark";
     public const string PanelDeep = "PanelDeep";
     public const string PanelLight = "PanelLight";

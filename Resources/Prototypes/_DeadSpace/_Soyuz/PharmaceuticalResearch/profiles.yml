@@ -1,0 +1,97 @@
+- type: pharmaceuticalProfile
+  id: PharmaMedicine
+  groups: [Medicine]
+  roles: Organic
+  solubility: 0.65
+  stability: 0.8
+
+- type: pharmaceuticalProfile
+  id: PharmaBiological
+  groups: [Biological]
+  roles: Biological, Organic
+  solubility: 0.4
+  stability: 0.5
+
+- type: pharmaceuticalProfile
+  id: PharmaFoods
+  groups: [Foods, Food, Botanical]
+  roles: Organic
+  solubility: 0.5
+  stability: 0.65
+
+- type: pharmaceuticalProfile
+  id: PharmaDrinks
+  groups: [Drinks, AlcoholicDrinks]
+  roles: Organic
+  solubility: 0.8
+  stability: 0.65
+
+- type: pharmaceuticalProfile
+  id: PharmaMinerals
+  groups: [Elements, Metals, Materials]
+  roles: Mineral
+  solubility: 0.2
+
+- type: pharmaceuticalProfile
+  id: PharmaToxins
+  groups: [Toxins, Narcotics, Pyrotechnic]
+  roles: Hazard
+  toxicity: 1
+  stability: 0.5
+
+- type: pharmaceuticalProfile
+  id: PharmaRestricted
+  groups: [Special, Admin, Debug]
+  roles: Restricted
+
+- type: pharmaceuticalProfile
+  id: PharmaRestrictedCompounds
+  reagents: [Artifexium, Romerol, ZombieBlood, Vestine]
+  roles: Restricted, Hazard
+  toxicity: 3
+
+- type: pharmaceuticalProfile
+  id: PharmaWater
+  reagents: [Water]
+  roles: Solvent
+  solubility: 1
+  stability: 1
+
+- type: pharmaceuticalProfile
+  id: PharmaAlcohol
+  reagents: [Ethanol]
+  roles: Solvent, Organic
+  solubility: 0.9
+  stability: 0.85
+  toxicity: 0.15
+
+- type: pharmaceuticalProfile
+  id: PharmaStabilizers
+  reagents: [Sugar, Nutriment, Saline]
+  roles: Stabilizer, Organic
+  solubility: 0.85
+  stability: 0.9
+
+- type: pharmaceuticalProfile
+  id: PharmaBuffers
+  reagents: [SodiumCarbonate]
+  roles: Buffer, Stabilizer, Mineral
+  acidity: -0.3
+  stability: 0.95
+  solubility: 0.8
+
+- type: pharmaceuticalProfile
+  id: PharmaAcids
+  reagents: [SulfuricAcid, FluorosulfuricAcid]
+  roles: Hazard, Mineral
+  acidity: 1
+  toxicity: 2
+  stability: 0.6
+  solubility: 0.9
+
+- type: pharmaceuticalProfile
+  id: PharmaSorbent
+  reagents: [Charcoal, Carbon]
+  roles: Stabilizer, Mineral
+  solubility: 0.1
+  stability: 1

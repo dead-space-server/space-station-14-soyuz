@@ -57,12 +57,14 @@ public struct HealthAnalyzerReagentEntry
     public string ReagentId;
     public FixedPoint2 Quantity;
     public bool Overdosed;
+    public string? DisplayName; // DS14-Soyuz
 
-    public HealthAnalyzerReagentEntry(string reagentId, FixedPoint2 quantity, bool overdosed)
+    public HealthAnalyzerReagentEntry(string reagentId, FixedPoint2 quantity, bool overdosed, string? displayName = null) // DS14-Soyuz
     {
         ReagentId = reagentId;
         Quantity = quantity;
         Overdosed = overdosed;
+        DisplayName = displayName; // DS14-Soyuz
     }
 }
 // DS14-end

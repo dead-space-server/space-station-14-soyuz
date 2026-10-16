@@ -1,0 +1,172 @@
+- type: entity
+  id: SoyuzPharmaceuticalLaboratory
+  parent: [BaseMachinePowered, ConstructibleMachine]
+  name: pharmaceutical research laboratory
+  description: An integrated pharmaceutical research complex with analytical, synthesis, purification and biological testing chambers.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: PharmaceuticalLaboratory
+  - type: Sprite
+    sprite: Structures/Machines/mixer.rsi
+    snapCardinals: true
+    color: "#B9E8E2"
+    layers:
+    - state: mixer_empty
+    - state: mixer_screens
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+  - type: Icon
+    sprite: Structures/Machines/mixer.rsi
+    state: mixer_empty
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.4,0.35,0.4"
+        density: 190
+        mask: [MachineMask]
+        layer: [MachineLayer]
+  - type: ActivatableUI
+    key: enum.PharmaceuticalUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: ActivatableUIRequiresAccess
+  - type: AccessReader
+    access: [[Chemistry], [ChiefMedicalOfficer]]
+  - type: UserInterface
+    interfaces:
+      enum.PharmaceuticalUiKey.Key:
+        type: PharmaceuticalBoundUserInterface
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: {visible: true}
+          False: {visible: false}
+  - type: WiresPanel
+  - type: Machine
+    board: SoyuzPharmaceuticalLaboratoryMachineCircuitboard
+  - type: ContainerContainer
+    containers:
+      beakerSlot: !type:ContainerSlot
+      outputSlot: !type:ContainerSlot
+      biomodels: !type:Container
+      machine_board: !type:Container
+      machine_parts: !type:Container
+  - type: ItemSlots
+    slots:
+      beakerSlot:
+        name: pharma-input
+        whitelist:
+          components: [FitsInDispenser]
+      outputSlot:
+        name: pharma-output
+        whitelist:
+          components: [FitsInDispenser]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:ChangeConstructionNodeBehavior
+        node: machineFrame
+      - !type:DoActsBehavior
+        acts: [Destruction]
+  - type: GuideHelp
+    guides: [Chemicals]
+
+- type: entity
+  id: SoyuzPharmaceuticalLaboratoryMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: pharmaceutical research laboratory machine board
+  components:
+  - type: Sprite
+    state: medical
+  - type: MachineBoard
+    prototype: SoyuzPharmaceuticalLaboratory
+    stackRequirements:
+      Manipulator: 2
+      Glass: 5
+      Steel: 5
+      Cable: 2
+
+- type: latheRecipe
+  id: SoyuzPharmaceuticalLaboratoryMachineCircuitboard
+  parent: [BaseGoldCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  result: SoyuzPharmaceuticalLaboratoryMachineCircuitboard
+
+- type: entity
+  id: SoyuzPharmaceuticalBiomodel
+  name: sealed pharmacological tissue model
+  categories: [HideSpawnMenu]
+  components:
+  - type: PharmaceuticalBiomodel
+  - type: Damageable
+    damageContainer: Biological
+  - type: Metabolizer
+    solution: chemicals
+    solutionOnBody: false
+    updateInterval: 0.2
+    metabolizerTypes: [Human]
+    maxReagents: 3
+    groups:
+    - id: Medicine
+    - id: Poison
+    - id: Narcotic
+    - id: Drink
+    - id: Food
+    - id: Alcohol
+  - type: SolutionContainerManager
+    solutions:
+      chemicals:
+        maxVol: 100
+        canReact: false
+
+- type: reagent
+  id: SoyuzExperimentalMedicine
+  worksOnTheDead: true
+  name: reagent-name-soyuz-experimental-medicine
+  desc: reagent-desc-soyuz-experimental-medicine
+  physicalDesc: reagent-physical-desc-translucent
+  group: Medicine
+  color: "#74E1CA"
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.35
+      effects: []
+    Poison:
+      metabolismRate: 0.35
+      effects: []
+    Narcotic:
+      metabolismRate: 0.35
+      effects: []
+    Drink:
+      metabolismRate: 0.35
+      effects: []
+    Food:
+      metabolismRate: 0.35
+      effects: []
+    Alcohol:
+      metabolismRate: 0.35
+      effects: []
+
+- type: reagent
+  id: SoyuzPharmaceuticalResidue
+  name: reagent-name-soyuz-pharmaceutical-residue
+  desc: reagent-desc-soyuz-pharmaceutical-residue
+  physicalDesc: reagent-physical-desc-thick
+  group: Toxins
+  color: "#8C7D67"
+  metabolisms:
+    Poison:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5

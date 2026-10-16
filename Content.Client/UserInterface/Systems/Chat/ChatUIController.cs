@@ -6,6 +6,7 @@ using Content.Client.Chat;
 using Content.Client.Chat.Managers;
 using Content.Client.Chat.TypingIndicator;
 using Content.Client.Chat.UI;
+using Content.Client.DeadSpace.Psychiatry; //DS-14
 using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
@@ -869,6 +870,9 @@ public sealed partial class ChatUIController : UIController
 
     public void ProcessChatMessage(ChatMessage msg, bool speechBubble = true)
     {
+        //DS-14 start
+        _ent.System<PsychiatryClientSystem>().GarbleHeard(msg);
+        //DS-14 end
         // color the name unless it's something like "the old man"
         if ((msg.Channel == ChatChannel.Local || msg.Channel == ChatChannel.Whisper) && _chatNameColorsEnabled)
         {

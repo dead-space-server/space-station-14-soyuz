@@ -51,6 +51,16 @@ public sealed partial class SchizophreniaComponent : Component
 
     [DataField]
     public TimeSpan NextUnrealSound;
+
+    [DataField, AutoNetworkedField]
+    public float PhantomAmount;
+
+    [DataField, AutoNetworkedField]
+    public string PhantomType = "";
+
+    public TimeSpan NextPhantom;
+
+    public TimeSpan PhantomUntil;
 }
 
 [RegisterComponent]

@@ -395,7 +395,10 @@ public sealed class CCCCVars
         CVarDef.Create("deadspace.psychiatry_remap_mob_simple", 0.65f, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<float> PsychiatryRemapMobAcute =
-        CVarDef.Create("deadspace.psychiatry_remap_mob_acute", 0.9f, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("deadspace.psychiatry_remap_mob_acute", 0.6f, CVar.SERVER | CVar.REPLICATED);
+
+    public static readonly CVarDef<float> PsychiatryRemapMobHumanoid =
+        CVarDef.Create("deadspace.psychiatry_remap_mob_humanoid", 0.3f, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<float> PsychiatryRemapItemLatent =
         CVarDef.Create("deadspace.psychiatry_remap_item_latent", 0.35f, CVar.SERVER | CVar.REPLICATED);
@@ -404,13 +407,21 @@ public sealed class CCCCVars
         CVarDef.Create("deadspace.psychiatry_remap_item_simple", 0.45f, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<float> PsychiatryRemapItemAcute =
-        CVarDef.Create("deadspace.psychiatry_remap_item_acute", 0.55f, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("deadspace.psychiatry_remap_item_acute", 0.2f, CVar.SERVER | CVar.REPLICATED);
 
     // На острой стадии подмена чаще монстр, чем животное.
     public static readonly CVarDef<float> PsychiatryRemapMonsterChance =
         CVarDef.Create("deadspace.psychiatry_remap_monster_chance", 200f / 255f, CVar.SERVER | CVar.REPLICATED);
 
-    // На сколько клеток вокруг видны подмены и мясные стены.
+    public static readonly CVarDef<float> PsychiatryPhantomMinFraction =
+        CVarDef.Create("deadspace.psychiatry_phantom_min_fraction", 0.35f, CVar.SERVER);
+
+    public static readonly CVarDef<float> PsychiatryPhantomMaxFraction =
+        CVarDef.Create("deadspace.psychiatry_phantom_max_fraction", 0.65f, CVar.SERVER);
+
+    public static readonly CVarDef<float> PsychiatryPhantomMinRoom =
+        CVarDef.Create("deadspace.psychiatry_phantom_min_room", 8f, CVar.SERVER);
+
     public static readonly CVarDef<float> PsychiatryRemapRadius =
         CVarDef.Create("deadspace.psychiatry_remap_radius", 12f, CVar.SERVER | CVar.REPLICATED);
 }

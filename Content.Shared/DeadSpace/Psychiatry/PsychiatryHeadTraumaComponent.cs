@@ -8,4 +8,6 @@ namespace Content.Shared.DeadSpace.Psychiatry;
 [RegisterComponent]
 public sealed partial class PsychiatryHeadTraumaComponent : Component
 {
+    [DataField]
+    public bool Suppressed;
 }

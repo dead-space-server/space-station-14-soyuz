@@ -1,6 +1,3 @@
-psychiatry-examine-appears = It looks like [bold]{$name}[/bold].
-
-psychiatry-name-meat-wall = writhing meat wall
 psychiatry-name-cow = cow
 psychiatry-name-monkey = monkey
 psychiatry-name-mouse = mouse
@@ -83,6 +80,9 @@ ent-PillPsychogenLatent = psychogen-L pill
 ent-PillPsychiatryRemedy = traumatic brain injury remedy
     .suffix = Admin
     .desc = Clears every stage of a traumatic brain injury. Does nothing to an IPC.
+ent-PillPsychiatryStageStep = traumatic brain injury stage step
+    .suffix = Admin
+    .desc = Each tablet raises a traumatic brain injury by one stage, never past acute. Does nothing to an IPC or a mindshield.
 
 ent-ClothingHeadNeuroMesh = neuro-mesh
     .desc = A cranial mesh. An encephalograph reads which brain region is firing through it.
@@ -97,6 +97,8 @@ reagent-name-schizotoxin = schizotoxin
 reagent-desc-schizotoxin = Forces an acute traumatic brain injury and ignores antagonist immunity.
 reagent-name-psychiatry-remedy = traumatic brain injury remedy
 reagent-desc-psychiatry-remedy = Clears every stage of a traumatic brain injury. Does nothing to a positronic brain.
+reagent-name-psychiatry-stage-step = traumatic brain injury stage step
+reagent-desc-psychiatry-stage-step = Raises a traumatic brain injury by one stage, never past acute. Does nothing to a positronic brain or a mindshield.
 reagent-name-neuroclarity = neuroclarity
 reagent-desc-neuroclarity = A prescription course for traumatic brain injury. One pill lasts about five minutes. Latent needs one, simple two, acute three. A second pill while the first is still in the blood does not count and poisons. Does nothing to a positronic brain.
 reagent-effect-guidebook-psychiatry-clarity = A course. Length equals the stage number. A second pill while the first is still in the blood does not count.

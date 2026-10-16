@@ -93,6 +93,25 @@
           Quantity: 5
 
 - type: entity
+  parent: BasePsychiatryPill
+  id: PillPsychiatryStageStep
+  name: psychiatry stage step
+  suffix: Admin
+  description: Each tablet raises a traumatic brain injury by one stage, never past acute. Does nothing to a positronic or a mindshield.
+  components:
+  - type: Pill
+    pillType: 4
+  - type: Sprite
+    state: pill5
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 5
+        reagents:
+        - ReagentId: PsychiatryStageStep
+          Quantity: 5
+
+- type: entity
   parent: ClothingHeadBase
   id: ClothingHeadNeuroMesh
   name: neuro-mesh

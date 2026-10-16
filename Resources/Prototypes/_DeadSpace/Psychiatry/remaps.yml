@@ -224,9 +224,3 @@
   name: psychiatry-name-watcher
   pools: [ Monster ]
   weight: 25
-
-- type: psychiatryRemap
-  id: PsychiatryRemapMeatWall
-  sprite: { sprite: Structures/Walls/meat.rsi, state: full }
-  name: psychiatry-name-meat-wall
-  wall: true

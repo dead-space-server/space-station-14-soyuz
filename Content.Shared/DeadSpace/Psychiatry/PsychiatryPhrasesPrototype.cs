@@ -33,5 +33,11 @@ public sealed partial class PsychiatryPhrasesPrototype : IPrototype
     public List<string> RadioNames = new();
 
     [DataField]
+    public List<string> Syllables = new();
+
+    [DataField]
+    public List<string> PhantomTypes = new();
+
+    [DataField]
     public List<ProtoId<JobPrototype>> RadioJobs = new();
 }

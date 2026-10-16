@@ -40,6 +40,7 @@ using Content.Shared.DeadSpace.Languages.Components;
 using Content.Shared.DeadSpace.Heartbeat;
 using Content.Server.DeadSpace.Languages;
 using Content.Server.Audio;
+using Content.Server.DeadSpace.Psychiatry; //DS-14
 
 namespace Content.Server.Chat.Systems;
 
@@ -67,6 +68,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
     [Dependency] private readonly ServerGlobalSoundSystem _sound = default!; // DS14
+    [Dependency] private readonly PsychiatrySystem _psychiatry = default!; //DS-14
     private IServerChatFilter? _chatFilter; // DS14-chat-filter
 
     // DS14: last words must remain visible to their speaker despite critical hearing suppression.
@@ -1039,6 +1041,15 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
+            //DS-14 start
+            if (channel is ChatChannel.Local or ChatChannel.Whisper
+                && listener != source
+                && _psychiatry.TryGarbleSpeech(listener, totalMessage, totalWrappedMessage, out var heard, out var heardWrapped))
+            {
+                totalMessage = heard;
+                totalWrappedMessage = heardWrapped;
+            }
+            //DS-14 end
             if (IsCriticalHearingBlocked(listener, source, channel)) // DS14: pass the speaker into the targeted bypass check.
             {
                 var hearingMessage = GetCriticalHearingMessage(listener, source);

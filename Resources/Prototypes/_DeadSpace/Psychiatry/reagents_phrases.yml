@@ -86,6 +86,19 @@
       effects: []
 
 - type: reagent
+  id: PsychiatryStageStep
+  name: reagent-name-psychiatry-stage-step
+  group: Medicine
+  desc: reagent-desc-psychiatry-stage-step
+  physicalDesc: reagent-physical-desc-shiny
+  flavor: medicine
+  color: "#C4B0E0"
+  metabolisms:
+    Medicine:
+      metabolismRate: 1.0
+      effects: []
+
+- type: reagent
   id: PsychogenLatent
   name: reagent-name-psychogen-latent
   group: Toxins
@@ -191,6 +204,37 @@
   - psychiatry-radio-name-2
   - psychiatry-radio-name-3
   - psychiatry-radio-name-4
+  syllables:
+  - кро
+  - мель
+  - ша
+  - ну
+  - при
+  - хо
+  - ва
+  - ти
+  - ле
+  - му
+  - за
+  - ро
+  - не
+  - ка
+  - вы
+  - по
+  - си
+  - тра
+  - мо
+  - ли
+  phantomTypes:
+  - Blunt
+  - Slash
+  - Piercing
+  - Heat
+  - Cold
+  - Shock
+  - Poison
+  - Caustic
+  - Asphyxiation
   radioJobs:
   - Passenger
   - StationEngineer

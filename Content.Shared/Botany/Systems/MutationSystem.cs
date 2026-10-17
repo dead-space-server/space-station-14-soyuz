@@ -1,9 +1,11 @@
 using JetBrains.Annotations;
 using System.Linq;
+using Content.Shared.Administration.Logs; // DS14
 using Content.Shared.Atmos;
 using Content.Shared.Botany.Components;
 using Content.Shared.Botany.Traits.Components;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Database; // DS14
 using Content.Shared.EntityEffects;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
@@ -30,6 +32,7 @@ public sealed partial class PlantMutationSystem : EntitySystem
     [Dependency] private readonly PlantSystem _plant = default!;
     [Dependency] private readonly PlantTraySystem _plantTray = default!;
     [Dependency] private readonly SharedEntityEffectsSystem _entityEffects = default!;
+    [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
 
     private EntityQuery<PlantChemicalsComponent> _chemicalsQuery;
     private EntityQuery<PlantComponent> _plantQuery;
@@ -64,6 +67,12 @@ public sealed partial class PlantMutationSystem : EntitySystem
                 // Stat adjustments do not persist by being an attached effect, they just change the stat.
                 if (mutation.Persists && ent.Comp.Mutations.All(m => m.Name != mutation.Name))
                     ent.Comp.Mutations.Add(mutation);
+
+                var name = TryComp<PlantDataComponent>(ent.Owner, out var data) // DS14
+                    ? Loc.GetString(data.Name) // DS14
+                    : MetaData(ent.Owner).EntityName; // DS14
+                _adminLog.Add(LogType.Botany, MutationImpact(mutation.Name), // DS14
+                    $"{ent.Owner:plant} ({name:name}) mutated {mutation.Name:mutation} at {Transform(ent.Owner).Coordinates:pos}."); // DS14
             }
         }
     }
@@ -291,6 +300,16 @@ public sealed partial class PlantMutationSystem : EntitySystem
             return false;
 
         return _random.Prob(p);
+    }
+
+    private static LogImpact MutationImpact(string mutation)
+    {
+        return mutation switch
+        {
+            "Sentient" => LogImpact.High,
+            "Kudzufication" or "ChangeSpecies" or "ChangeChemicals" or "ChangeExudeGasses" or "ChangeConsumeGasses" => LogImpact.Medium,
+            _ => LogImpact.Low,
+        };
     }
     // DS14-end
 }

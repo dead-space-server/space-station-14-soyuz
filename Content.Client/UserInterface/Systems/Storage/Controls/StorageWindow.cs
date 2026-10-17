@@ -253,6 +253,10 @@ public sealed class StorageWindow : BaseWindow
         #region Sidebar
         _sidebar.Children.Clear();
         var rows = boundingGrid.Height + 1;
+        // DS14-start
+        if (_entity.System<StorageSystem>().NestedStorage && rows < 2)
+            rows = 2;
+        // DS14-end
         _sidebar.Rows = rows;
 
         var exitButton = new TextureButton
@@ -306,6 +310,7 @@ public sealed class StorageWindow : BaseWindow
             {
                 TextureNormal = _backTexture,
                 Scale = new Vector2(2, 2),
+                ToolTip = Loc.GetString("comp-storage-window-back"), // DS14
             };
             _backButton.OnPressed += _ =>
             {

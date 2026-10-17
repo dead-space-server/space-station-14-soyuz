@@ -225,6 +225,9 @@ public sealed class CCCCVars
     public static readonly CVarDef<bool> PopOutChat =
     CVarDef.Create("Chat.PopOut", false, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+    public static readonly CVarDef<string> PopOutChatFailedBuild =
+        CVarDef.Create("Chat.PopOutFailedBuild", "", CVar.CLIENTONLY | CVar.ARCHIVE);
+
     public static readonly CVarDef<bool> PsychiatryEnabled =
         CVarDef.Create("deadspace.psychiatry_enabled", true, CVar.SERVER | CVar.REPLICATED);
 

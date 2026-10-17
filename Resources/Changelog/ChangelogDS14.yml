@@ -8790,3 +8790,10 @@ Entries:
   changes:
   - type: Fix
     message: Теперь, отдельное окно чата не должно убивать клиент
+- id: 846
+  author: Atickov
+  time: '2026-10-17T12:43:38.707785+00:00'
+  pr: 2479
+  changes:
+  - type: Tweak
+    message: полный ремапп тайпана (by Leo_bahmet)

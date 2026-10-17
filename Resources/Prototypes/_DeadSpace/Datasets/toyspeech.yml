@@ -399,7 +399,7 @@
   id: PlushieValeniyaSatoSpeech
   values:
     prefix: plushies-sato-
-    count: 7
+    count: 6
 
 - type: localizedDataset
   id: PlushieViytSpeech

@@ -556,7 +556,7 @@
 - type: entity
   parent: BasePlushieDeadSpaceMisc
   id: PlushieEllis
-  name: плюшевый Эллис
+  name: плюшевый Эллис Тинкер
   description: Плюшевая игрушка белого вульпканина в форме офицера "синий щит". При виде плюшки внутри вас появляется ощущение спокойствия и надежности, будто эта игрушка способна вас защитить от любой угрозы. Пахнет омнизином и метом.
   components:
   - type: Sprite
@@ -1567,8 +1567,8 @@
 - type: entity
   parent: BasePlushieDeadSpaceMisc
   id: PlushieSargonValeniyaSato
-  name: плюшевая Валения Сато
-  description: Неприметная вульпа... с пулемётом?
+  name: плюшевая Валения
+  description: Бардовая вульпа. Выглядит так, будто прошла через многое, но вновь оказалась тут - на обочине дороги.
   components:
   - type: Sprite
     state: plushie_valeniya

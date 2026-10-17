@@ -566,8 +566,10 @@
   - type: Item
     sprite: _DeadSpace/Sponsor/Amaliz/kinetic_accelerator/kinetic_accelerator2.rsi
     size: Normal
+    heldPrefix: null
   - type: Clothing
     sprite: _DeadSpace/Sponsor/Amaliz/kinetic_accelerator/kinetic_accelerator2.rsi
+  - type: GunRequiresWield
 
 # Mask
 - type: entity

@@ -8783,3 +8783,10 @@ Entries:
   changes:
   - type: Add
     message: Кнопка назад для вложенных контейнеров
+- id: 845
+  author: IvanKuvalda
+  time: '2026-10-17T12:07:02.839314+00:00'
+  pr: 2522
+  changes:
+  - type: Fix
+    message: Теперь, отдельное окно чата не должно убивать клиент

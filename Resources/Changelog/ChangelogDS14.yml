@@ -8797,3 +8797,11 @@ Entries:
   changes:
   - type: Tweak
     message: полный ремапп тайпана (by Leo_bahmet)
+- id: 847
+  author: zubekkk
+  time: '2026-10-17T18:48:12.350100+00:00'
+  pr: 2544
+  changes:
+  - type: Add
+    message: команда `timetransferui`, которая вызывает меню переноса времени. Доступна
+      с плашкой `PLAYTIME`

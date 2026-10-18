@@ -16,6 +16,7 @@ public sealed record RepairDamageSnapshot(EntityUid Grid, ImmutableArray<Vector2
     ImmutableArray<RepairDamageEntity> Entities, ImmutableArray<Vector2i> ProtectedFloors, int FloorValue)
 {
     public ImmutableDictionary<Vector2i, int> FloorLayerCounts { get; init; } = ImmutableDictionary<Vector2i, int>.Empty;
+    public ImmutableDictionary<int, ImmutableArray<int>> RemovalDependencies { get; init; } = ImmutableDictionary<int, ImmutableArray<int>>.Empty;
     public int CountTileRequirements(IEnumerable<Vector2i> cells) => cells.Sum(cell => FloorLayerCounts.GetValueOrDefault(cell, 1));
     public int TotalValue => CountTileRequirements(Floors) * FloorValue + Entities.Sum(entity => entity.Value);
 }

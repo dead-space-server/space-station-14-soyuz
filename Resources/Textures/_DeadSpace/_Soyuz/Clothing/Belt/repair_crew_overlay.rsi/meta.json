@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Recolored by Ezio50. Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/dc89ef0239830774bd3d9d7d6c8da2856da2b869, [state: golden_plunger, wetfloorsign and cleaner_grenade] by andrew_fenriz (discord) for Space Station 14 server Мёртвый Космос, [state: welding, weldingblue, weldingflame, weldinggasmask, weldingpaint] by pyfya (discord) for Space Station 14 server Мёртвый Космос",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "crowbar"
+    },
+    {
+      "name": "crowbar_red"
+    },
+    {
+      "name": "cutters_red"
+    },
+    {
+      "name": "drill"
+    },
+    {
+      "name": "jaws"
+    },
+    {
+      "name": "multitool"
+    },
+    {
+      "name": "screwdriver_nuke"
+    },
+    {
+      "name": "wrench"
+    },
+    {
+      "name": "welding"
+    },
+    {
+      "name": "welding_flame"
+    },
+    {
+      "name": "welding_flameblue"
+    },
+    {
+      "name": "welding_gasmask"
+    },
+    {
+      "name": "welding_painted"
+    }
+  ]
+}

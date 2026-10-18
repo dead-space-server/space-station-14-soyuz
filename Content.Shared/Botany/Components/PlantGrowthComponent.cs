@@ -6,7 +6,7 @@ namespace Content.Shared.Botany.Components;
 /// <summary>
 /// Component for basic parameters for plant growth.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)] // DS14-Soyuz
 [Access(typeof(PlantGrowthSystem))]
 public sealed partial class PlantGrowthComponent : Component
 {

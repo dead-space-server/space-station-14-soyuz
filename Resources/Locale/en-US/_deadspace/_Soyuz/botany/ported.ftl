@@ -1,9 +1,6 @@
 # SPDX-FileCopyrightText: 2026 Kofeecheks
 # SPDX-License-Identifier: LicenseRef-Kofeecheks
 # Consolidated English localization for imported Soyuz botany.
-ent-SoyuzPlantAnalyzer = plant analyzer
-    .desc = A handheld device for analyzing plants and seeds.
-
 flavor-complex-spices = like spices
 flavor-complex-avocado = like creamy avocado
 flavor-complex-cucumber = like fresh cucumber
@@ -340,44 +337,3 @@ ent-NFFoodGlowshroom = glowshroom
 botany-cannot-be-swabbed-message = This plant cannot be pollinated.
 plant-holder-component-cannot-be-sampled-message = This plant cannot be sampled.
 plant-analyzer-unknown-plant = unknown plant
-soyuz-plant-analyzer-title = Plant Analyzer
-soyuz-plant-analyzer-basic-mode = Basic analysis
-soyuz-plant-analyzer-advanced-mode = Advanced analysis
-soyuz-plant-analyzer-no-data = No plant or seed has been scanned yet.
-soyuz-plant-analyzer-scanned-plant = Scanned plant: { $name }
-soyuz-plant-analyzer-scanned-seed = Scanned seeds: { $name }
-soyuz-plant-analyzer-yield = Yield: { $value }
-soyuz-plant-analyzer-potency = Potency: { $value }
-soyuz-plant-analyzer-genetic-instability = Genetic instability: { $value }
-soyuz-plant-analyzer-harvest = Harvest type: { $value }
-soyuz-plant-analyzer-harvest-Repeat = Perennial
-soyuz-plant-analyzer-harvest-NoRepeat = Ephemeral
-soyuz-plant-analyzer-harvest-SelfHarvest = Self-harvesting
-soyuz-plant-analyzer-harvest-Unknown = Unknown
-soyuz-plant-analyzer-endurance = Endurance: { $value }
-soyuz-plant-analyzer-lifespan = Lifespan: { $value }
-soyuz-plant-analyzer-maturation = Maturation: { $value }
-soyuz-plant-analyzer-production = Production: { $value }
-soyuz-plant-analyzer-growth-stages = Growth stages: { $value }
-soyuz-plant-analyzer-chemistry = Chemicals: { $value }
-soyuz-plant-analyzer-consumes = Consumed gases: { $value }
-soyuz-plant-analyzer-emits = Emitted gases: { $value }
-soyuz-plant-analyzer-mutations = Possible mutations: { $value }
-soyuz-plant-analyzer-none = none
-soyuz-plant-analyzer-advanced-heading = Advanced parameters
-soyuz-plant-analyzer-nutrient-usage = Nutrient consumption: { $value }
-soyuz-plant-analyzer-water-usage = Water consumption: { $value }
-soyuz-plant-analyzer-ideal-heat = Ideal heat: { $value } K
-soyuz-plant-analyzer-heat-tolerance = Heat tolerance: ±{ $value } K
-soyuz-plant-analyzer-ideal-light = Ideal light: { $value }
-soyuz-plant-analyzer-light-tolerance = Light tolerance: ±{ $value }
-soyuz-plant-analyzer-toxins = Toxin tolerance: { $value }
-soyuz-plant-analyzer-low-pressure = Low pressure: { $value } kPa
-soyuz-plant-analyzer-high-pressure = High pressure: { $value } kPa
-soyuz-plant-analyzer-pests = Pest tolerance: { $value }
-soyuz-plant-analyzer-weeds = Weed tolerance: { $value }
-soyuz-plant-analyzer-traits = Traits: { $value }
-soyuz-plant-analyzer-trait-seedless = seedless
-soyuz-plant-analyzer-trait-ligneous = ligneous
-soyuz-plant-analyzer-trait-screaming = screaming
-entity-name-SoyuzPlantAnalyzer = plant analyzer

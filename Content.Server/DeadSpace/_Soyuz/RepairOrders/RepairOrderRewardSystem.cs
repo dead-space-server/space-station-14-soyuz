@@ -1,8 +1,10 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using System.Linq;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
+using Content.Shared.Emag.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 
@@ -14,10 +16,12 @@ public sealed class RepairOrderRewardSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly EmagSystem _emag = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
     [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -75,9 +79,11 @@ public sealed class RepairOrderRewardSystem : EntitySystem
                 return;
 
             var shopLevel = GetShopLevel(pool, state.EngineeringReputation);
-            if (!TryBuildPurchase(pool, args.Lines, shopLevel, out var rewards, out var totalCost, out result))
+            if (!TryBuildPurchase(pool, args.Lines, shopLevel, out var rewards, out var totalCost, out result,
+                    emagged: _emag.CheckFlag(console.Owner, EmagType.Interaction)))
                 return;
 
+            var requiresEmag = rewards.Any(r => _prototype.Index<RepairRewardPrototype>(r.Reward).EmagOnly);
             if (state.RepairPoints < totalCost)
             {
                 result = "repair-orders-shop-error-points";
@@ -90,6 +96,15 @@ public sealed class RepairOrderRewardSystem : EntitySystem
                 result = "repair-orders-shop-error-delivery";
                 return;
             }
+
+            foreach (var item in delivery.RewardEntities)
+            {
+                if (HasComp<RepairOrderKeepsakeComponent>(item))
+                    _metaData.SetEntityName(item, Loc.GetString("repair-orders-keepsake-name", ("owner", Name(args.Actor))));
+            }
+
+            if (requiresEmag && !_emag.CheckFlag(console.Owner, EmagType.Interaction))
+                return;
 
             // No callback or other throwing work belongs between the balance check and commit.
             if (state.RepairPoints < totalCost)
@@ -178,7 +193,8 @@ public sealed class RepairOrderRewardSystem : EntitySystem
         int shopLevel,
         out List<RepairOrderRewardResult> rewards,
         out long totalCost,
-        out string error)
+        out string error,
+        bool emagged = false)
     {
         rewards = new List<RepairOrderRewardResult>();
         totalCost = 0;
@@ -205,6 +221,9 @@ public sealed class RepairOrderRewardSystem : EntitySystem
                 !_prototype.TryIndex<RepairRewardPrototype>(line.RewardPrototypeId, out var reward) ||
                 !_prototype.TryIndex<EntityPrototype>(reward.Entity, out _) ||
                 line.Count <= 0 || line.Count > reward.MaxCount || reward.Cost <= 0)
+                return false;
+
+            if (reward.EmagOnly && !emagged)
                 return false;
 
             if (reward.MinimumShopLevel > shopLevel)

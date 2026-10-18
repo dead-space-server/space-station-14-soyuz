@@ -12,3 +12,9 @@ plant-component-heat-improper-warning = The [color=orange]improper temperature l
 plant-component-pressure-improper-warning = The [color=lightblue]improper environment pressure alert[/color] is blinking.
 plant-component-gas-missing-warning = The [color=cyan]improper gas environment alert[/color] is blinking.
 plant-component-ligneous-cant-harvest-message = The plant is too tough to harvest with your bare hands.
+
+# DS14-Soyuz start: upstream plant analyzer
+plant-component-toxins-high-warning = [color=orange]The plant is suffering from toxins.[/color]
+plant-component-weeds-high-warning = [color=orange]Weeds are threatening the plant.[/color]
+plant-component-pests-high-warning = [color=orange]Pests are threatening the plant.[/color]
+# DS14-Soyuz end

@@ -10,3 +10,11 @@
     - stampedName: stamp-component-stamped-name-centcom
       stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
       stampedColor: "#006600"
+
+- type: stationGoal
+  id: SoyuzRepairOrders
+  text: /Paperwork/_DeadSpace/_Soyuz/StationGoal/RepairOrders.xml
+  extraStamps:
+    - stampedName: stamp-component-stamped-name-centcom
+      stampPatternTexture: /Textures/Interface/Stamps/centralcommand_print.png
+      stampedColor: "#006600"

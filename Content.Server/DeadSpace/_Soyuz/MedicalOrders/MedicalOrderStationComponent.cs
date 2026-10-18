@@ -26,6 +26,13 @@ public sealed partial class MedicalOrderStationComponent : Component
     public bool Busy;
     public readonly Dictionary<Guid, (MedicalOrderMachineKind Kind, Dictionary<string, int> Cart)> CommittedPurchases = new();
     public readonly HashSet<EntityUid> Machines = new();
+    public readonly Dictionary<int, MedicalSpecialOffer> SpecialOffers = new();
+    public MedicalSpecialActive? SpecialActive;
+    public MedicalSpecialResultView? LastSpecial;
+    public TimeSpan NextSpecialRefresh;
+    public int NextSpecialRuntimeId = 1;
+    public decimal SpecialPointRemainder;
+    public decimal SpecialReputationRemainder;
 }
 
 public sealed class MedicalReagentMarketDemand
@@ -37,6 +44,7 @@ public sealed class MedicalReagentMarketDemand
 public sealed class MedicalOrderOffer
 {
     public int RuntimeId;
+    public string Title = string.Empty;
     public bool Patient;
     public readonly List<MedicalOrderRequirement> Lines = new();
     public int MaximumScore;
@@ -60,6 +68,8 @@ public sealed class MedicalOrderActive
     public TimeSpan Deadline;
     public EntityUid Terminal;
     public EntityUid? Patient;
+    public EntityUid? Gown;
+    public string PatientName = string.Empty;
     public FixedPoint2 InitialDamage;
     public readonly Dictionary<string, FixedPoint2> Submitted = new();
     public bool Finalizing;
@@ -73,4 +83,40 @@ public sealed class MedicalOrderResult
     public int AwardedReputation;
     public bool Expired;
     public bool PatientLost;
+}
+
+public sealed class MedicalSpecialOffer
+{
+    public int RuntimeId;
+    public int Difficulty;
+    public string Title = string.Empty;
+    public string Description = string.Empty;
+    public string Site = string.Empty;
+    public MedicalSpecialDifficulty Terms = default!;
+    public readonly List<MedicalOrderOffer> Patients = new();
+    public readonly List<MedicalSpecialReagent> Reagents = new();
+    public decimal ChemicalPoints;
+    public decimal ChemicalReputation;
+    public decimal Reputation;
+}
+
+public sealed class MedicalSpecialReagent
+{
+    public string ID = string.Empty;
+    public int Amount;
+}
+
+public sealed class MedicalSpecialActive
+{
+    public MedicalSpecialOffer Offer = default!;
+    public TimeSpan Deadline;
+    public readonly List<MedicalSpecialPatient> Patients = new();
+    public Dictionary<string, FixedPoint2> Submitted = new();
+}
+
+public sealed class MedicalSpecialPatient
+{
+    public MedicalOrderActive? Active;
+    public bool Submitted;
+    public int Score;
 }

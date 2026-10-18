@@ -6,6 +6,7 @@ using Content.Shared.Clothing.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Robust.Client.GameObjects;
+using Robust.Shared.Prototypes; // DS14-Soyuz
 
 namespace Content.Client.DeadSpace.Clothing;
 
@@ -13,11 +14,16 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
 {
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private readonly IPrototypeManager _prototypes = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
         SubscribeLocalEvent<HideLayerClothingComponent, GotEquippedEvent>(OnGotEquipped);
         SubscribeLocalEvent<HideLayerClothingComponent, GotUnequippedEvent>(OnGotUnequipped);
+        // DS14-Soyuz-start: an item without HideLayerClothing may hide another item's own visuals.
+        SubscribeLocalEvent<InventoryComponent, DidEquipEvent>(OnDidEquip);
+        SubscribeLocalEvent<InventoryComponent, DidUnequipEvent>(OnDidUnequip);
+        // DS14-Soyuz-end
         SubscribeLocalEvent<MaskComponent, ItemMaskToggledEvent>(OnMaskToggled);
         SubscribeLocalEvent<ClothingComponent, EquipmentVisualsUpdatedEvent>(OnEquipmentVisualsUpdated);
     }
@@ -43,6 +49,7 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
     private void OnEquipmentVisualsUpdated(Entity<ClothingComponent> ent, ref EquipmentVisualsUpdatedEvent args)
     {
         RefreshSlots(args.Equipee, args.Slot);
+        RefreshDependentSlots(args.Equipee, args.Slot); // DS14-Soyuz
 
         if (!TryComp(ent, out HideLayerClothingComponent? hide))
             return;
@@ -52,6 +59,27 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
             RefreshSlots(args.Equipee, hiddenSlot);
         }
     }
+
+    // DS14-Soyuz-start
+    private void OnDidEquip(Entity<InventoryComponent> ent, ref DidEquipEvent args)
+        => RefreshDependentSlots(args.Equipee, args.Slot);
+
+    private void OnDidUnequip(Entity<InventoryComponent> ent, ref DidUnequipEvent args)
+        => RefreshDependentSlots(args.Equipee, args.Slot);
+
+    private void RefreshDependentSlots(EntityUid wearer, string changedSlot)
+    {
+        if (!TryComp(wearer, out InventoryComponent? inventory))
+            return;
+
+        var enumerator = _inventory.GetSlotEnumerator((wearer, inventory));
+        while (enumerator.NextItem(out var item, out var slot))
+        {
+            if (TryComp(item, out HideLayerClothingComponent? hide) && ContainsSlot(hide.HiddenBy.Keys, changedSlot))
+                RefreshSlots(wearer, slot.Name);
+        }
+    }
+    // DS14-Soyuz-end
 
     private void RefreshSlots(EntityUid wearer, string? slot = null)
     {
@@ -106,6 +134,29 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
 
     private bool ShouldHideSlot(Entity<InventoryComponent, InventorySlotsComponent, SpriteComponent> wearer, string slot)
     {
+        // DS14-Soyuz-start
+        if (_inventory.TryGetSlotEntity(wearer, slot, out var equipped, wearer.Comp1) &&
+            TryComp(equipped, out HideLayerClothingComponent? ownHide) &&
+            IsEnabled(ownHide, CompOrNull<MaskComponent>(equipped.Value)))
+        {
+            foreach (var (otherSlot, prototypes) in ownHide.HiddenBy)
+            {
+                if (_inventory.TryGetSlotEntity(wearer, otherSlot, out var other, wearer.Comp1) &&
+                    _inventory.TryGetSlot(wearer, otherSlot, out var definition, wearer.Comp1) &&
+                    TryComp(other, out ClothingComponent? otherClothing) &&
+                    (otherClothing.Slots & definition.SlotFlags) != SlotFlags.NONE &&
+                    MetaData(other.Value).EntityPrototype is { } prototype)
+                {
+                    foreach (var (parentId, _) in _prototypes.EnumerateAllParents<EntityPrototype>(prototype.ID, includeSelf: true))
+                    {
+                        if (prototypes.Contains(parentId))
+                            return true;
+                    }
+                }
+            }
+        }
+        // DS14-Soyuz-end
+
         var enumerator = _inventory.GetSlotEnumerator((wearer.Owner, wearer.Comp1));
         while (enumerator.NextItem(out var item, out _))
         {

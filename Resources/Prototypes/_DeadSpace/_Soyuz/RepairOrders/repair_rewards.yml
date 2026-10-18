@@ -203,6 +203,13 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: RepairOrderAutolatheFlatpackReward
+  entity: RepairOrderAutolatheFlatpack
+  cost: 50
+  maxCount: 5
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderMassScannerReward
   entity: BluespaceHandHeldMassScanner
   cost: 101
@@ -372,6 +379,13 @@
   minimumShopLevel: 5
   classified: true
   emagOnly: true
+
+- type: repairReward
+  id: RepairOrderHandCuttingMachineReward
+  entity: HandCuttingMachine
+  cost: 100
+  maxCount: 1
+  minimumShopLevel: 5
 
 - type: repairReward
   id: RepairOrderBluespaceConstructionBagReward
@@ -622,6 +636,7 @@
   - RepairOrderApuFlatpackReward
   - RepairOrderRtgFlatpackReward
   - RepairOrderShuttleBoardBundleReward
+  - RepairOrderAutolatheFlatpackReward
   - RepairOrderMassScannerReward
   - RepairOrderPlasticReward
   - RepairOrderThrusterFlatpackReward
@@ -647,6 +662,7 @@
   - RepairOrderMeteorDefenseTargetingModuleReward
   - RepairOrderHolofanProjectorReward
   - RepairOrderRCDSyndicateReward
+  - RepairOrderHandCuttingMachineReward
   - RepairOrderBluespaceConstructionBagReward
   - RepairOrderFilledBluespaceConstructionBagReward
   - RepairOrderReconstructionCartridgeReward

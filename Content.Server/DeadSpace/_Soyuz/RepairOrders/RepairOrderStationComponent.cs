@@ -87,7 +87,7 @@ public sealed partial class RepairOrderCleanupComponent : Component
 public sealed partial class RepairRetainedGridComponent : Component
 {
     public EntityUid Station;
-    public bool Initialized;
+    public bool OwnershipRegistered;
     public TimeSpan NextAttempt;
 }
 

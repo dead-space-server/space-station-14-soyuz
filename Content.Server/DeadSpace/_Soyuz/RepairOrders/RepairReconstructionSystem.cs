@@ -566,7 +566,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
                 transaction.Disposal.Add(entity);
             // Never enroll a player's body or inventory as disposable container contents.
             if (_orders.TryFindPlayerInRepairEntity(entity, out _) ||
-                !TryComp<TransformComponent>(entity, out var transform))
+                !TryComp(entity, out TransformComponent? transform))
                 continue;
             var children = transform.ChildEnumerator;
             while (children.MoveNext(out var child))
@@ -579,8 +579,8 @@ public sealed class RepairReconstructionSystem : EntitySystem
         if (!Exists(entity))
             return true;
         if (_orders.TryFindPlayerInRepairEntity(entity, out _) ||
-            !TryComp<TransformComponent>(entity, out var transform) || transform.ChildCount != 0 ||
-            !TryComp<MetaDataComponent>(entity, out var metadata))
+            !TryComp(entity, out TransformComponent? transform) || transform.ChildCount != 0 ||
+            !TryComp(entity, out MetaDataComponent? metadata))
             return false;
 
         try
@@ -588,7 +588,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
             // Use supported transform/metadata APIs; never reset lifecycle state or re-enter a
             // terminating entity's deletion. Handle children separately before their parent.
             _lookup.RemoveFromEntityTree(entity, transform);
-            TryComp<TransformComponent>(transform.ParentUid, out var parent);
+            TryComp(transform.ParentUid, out TransformComponent? parent);
             _transform.DetachEntity(entity, transform, metadata, parent,
                 terminating: metadata.EntityLifeStage >= EntityLifeStage.Terminating);
             _metaData.SetEntityPaused(entity, true, metadata);
@@ -604,7 +604,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
 
         if (!Exists(entity))
             return true;
-        if (!TryComp<MetaDataComponent>(entity, out metadata) ||
+        if (!TryComp(entity, out metadata) ||
             metadata.EntityLifeStage != EntityLifeStage.Terminating || !IsRollbackEntityIsolated(entity))
             return false;
 
@@ -619,8 +619,8 @@ public sealed class RepairReconstructionSystem : EntitySystem
     }
 
     private bool IsRollbackEntityIsolated(EntityUid entity)
-        => TryComp<MetaDataComponent>(entity, out var metadata) && metadata.EntityPaused &&
-           TryComp<TransformComponent>(entity, out var transform) &&
+        => TryComp(entity, out MetaDataComponent? metadata) && metadata.EntityPaused &&
+           TryComp(entity, out TransformComponent? transform) &&
            !transform.ParentUid.IsValid() && transform.MapID == MapId.Nullspace && transform.GridUid == null &&
            !transform.Anchored && transform.ChildCount == 0 && !_lookup.TryGetCurrentBroadphase(transform, out _);
 

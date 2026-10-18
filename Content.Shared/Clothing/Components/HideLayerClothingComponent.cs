@@ -1,6 +1,7 @@
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes; // DS14-Soyuz
 
 namespace Content.Shared.Clothing.Components;
 
@@ -31,6 +32,12 @@ public sealed partial class HideLayerClothingComponent : Component
     /// </summary>
     [DataField]
     public HashSet<string> ClothingSlots = new();
+
+    // DS14-Soyuz-start
+    /// <summary>Hide this item's own equipped visuals under clothing derived from these prototypes, by slot.</summary>
+    [DataField]
+    public Dictionary<string, HashSet<EntProtoId>> HiddenBy = new();
+    // DS14-Soyuz-end
 
     /// <summary>
     /// Humanoid body layers on the wearer to hide while this clothing is active.

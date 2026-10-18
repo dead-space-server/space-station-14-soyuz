@@ -467,7 +467,7 @@ public sealed class RepairOrderSystem : EntitySystem
             order.Difficulty < 7 || order.Difficulty > 10 || retentionCost <= 0 || completed.RewardBudget != 0 ||
             completed.RetentionCost != retentionCost ||
             !TryComp<RepairRetainedGridComponent>(expectedActive.GridUid, out var retained) ||
-            retained.Station != stationUid || retained.Initialized))
+            retained.Station != stationUid || retained.OwnershipRegistered))
             return false;
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
             !ReferenceEquals(state.Active, expectedActive) ||
@@ -656,7 +656,7 @@ public sealed class RepairOrderSystem : EntitySystem
         var query = EntityQueryEnumerator<RepairRetainedGridComponent>();
         while (query.MoveNext(out var grid, out var retained))
         {
-            if (retained.Initialized || retained.NextAttempt > _timing.CurTime)
+            if (retained.OwnershipRegistered || retained.NextAttempt > _timing.CurTime)
                 continue;
             retained.NextAttempt = _timing.CurTime + TimeSpan.FromSeconds(5);
             pending.Add(grid);
@@ -667,7 +667,7 @@ public sealed class RepairOrderSystem : EntitySystem
 
     public void RegisterRetainedGrid(EntityUid grid)
     {
-        if (!TryComp<RepairRetainedGridComponent>(grid, out var retained) || retained.Initialized ||
+        if (!TryComp<RepairRetainedGridComponent>(grid, out var retained) || retained.OwnershipRegistered ||
             !Exists(retained.Station) || !HasComp<StationDataComponent>(retained.Station))
             return;
 
@@ -675,7 +675,7 @@ public sealed class RepairOrderSystem : EntitySystem
         if (_station.GetOwningStation(grid) != retained.Station)
             _station.AddGridToStation(retained.Station, grid);
         _validation.DiscardPreparedSession(grid);
-        retained.Initialized = true;
+        retained.OwnershipRegistered = true;
     }
 
     private void OnRetainedGridSplit(Entity<RepairRetainedGridComponent> grid, ref GridSplitEvent args)

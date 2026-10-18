@@ -47,7 +47,7 @@
   table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
     children:
     - id: DragonSpawn
-    #- id: NinjaSpawn Временно, пока не будут завершены тесты.
+    - id: NinjaSpawn
     - id: ParadoxCloneSpawn
     - id: SleeperAgents
     - id: ZombieOutbreak
@@ -305,7 +305,7 @@
     # - DoorjackObjective # DS14 ninja balance
     - SpiderChargeObjective
     - TerrorObjective
-    - MassArrestObjective
+    # - MassArrestObjective # DS14
     - NinjaSurviveObjective
     - NinjaKillRandomPersonObjective # DS14 ninja balance
     #DS14-start
@@ -329,6 +329,7 @@
         color: Green
         sound: /Audio/Misc/ninja_greeting.ogg
       components:
+      - type: CustomNameOnSpawn #DS14
       - type: RenegadeCANTSubordinate #DS14
       - type: SpaceNinja
       - type: NpcFactionMember

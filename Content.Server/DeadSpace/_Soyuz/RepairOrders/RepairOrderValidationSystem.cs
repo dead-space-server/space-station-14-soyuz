@@ -89,20 +89,43 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         {
             if (!TryComp<RepairBlueprintComponent>(gridUid, out var blueprint) || !blueprint.Ready)
                 continue;
-
-            var previousWorklist = GetWorklist(gridUid);
-            var progressInputsChanged = false;
-            foreach (var cell in cells)
+            if (blueprint.ReconstructionPending)
             {
-                progressInputsChanged |= RevalidateCell((gridUid, blueprint), cell);
-            }
-
-            if (!progressInputsChanged)
+                if (!_dirtyCells.TryGetValue(gridUid, out var deferred))
+                    _dirtyCells[gridUid] = deferred = new HashSet<Vector2i>();
+                deferred.UnionWith(cells);
                 continue;
-
-            RecalculateProgress(blueprint, initializeMaxPoints: false);
-            SyncProgress((gridUid, blueprint), forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(gridUid)));
+            }
+            RevalidateDirtyCells((gridUid, blueprint), cells);
         }
+    }
+
+    /// <summary>Flushes existing cell invalidations without rescanning the entire grid for a tablet quote.</summary>
+    public bool RefreshDirtyCells(EntityUid grid)
+    {
+        if (!TryComp<RepairBlueprintComponent>(grid, out var blueprint) || !blueprint.Ready || blueprint.ReconstructionPending)
+            return false;
+        if (_dirtyCells.Remove(grid, out var cells))
+            RevalidateDirtyCells((grid, blueprint), cells);
+        return true;
+    }
+
+    private void RevalidateDirtyCells(Entity<RepairBlueprintComponent> grid, HashSet<Vector2i> cells)
+    {
+        var previousWorklist = GetWorklist(grid);
+        var changed = false;
+        foreach (var cell in cells)
+            changed |= RevalidateCell(grid, cell);
+        if (!changed)
+            return;
+        RecalculateProgress(grid.Comp, initializeMaxPoints: false);
+        SyncProgress(grid, forceUiRefresh: WorklistChanged(previousWorklist, GetWorklist(grid)));
+    }
+
+    public void PublishReconstructionResult(EntityUid grid)
+    {
+        if (TryComp<RepairBlueprintComponent>(grid, out var blueprint) && blueprint.Ready)
+            SyncProgress((grid, blueprint), forceUiRefresh: true);
     }
 
     /// <summary>
@@ -1072,7 +1095,8 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
 
     private void SyncProgress(Entity<RepairBlueprintComponent> blueprint, bool forceUiRefresh = false)
     {
-        if (!TryComp<RepairOrderStationComponent>(blueprint.Comp.Station, out var station) ||
+        if (blueprint.Comp.ReconstructionPending ||
+            !TryComp<RepairOrderStationComponent>(blueprint.Comp.Station, out var station) ||
             station.Active is not { } active ||
             active.GridUid != blueprint.Owner ||
             active.ExpirationFrozen)
@@ -1284,6 +1308,38 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
                            $"position {position}: no RepairValue classification; using 0 points.");
         }
         return 0;
+    }
+
+    /// <summary>
+    /// Resolves missing construction through the same immutable target and value catalog as scoring.
+    /// Prefer the constructible identity (empty/standard variants), preserving the source task's price.
+    /// </summary>
+    public bool TryGetReconstructionPrototype(EntityUid grid, RepairTask task, out string prototype)
+    {
+        prototype = string.Empty;
+        if (task.Type != RepairTaskType.AnchoredEntity || task.ExpectedEntityPrototype == null ||
+            !TryComp<RepairBlueprintComponent>(grid, out var blueprint) ||
+            !_scoreLookups.TryGetValue(grid, out var lookup) ||
+            !blueprint.ExpectedCells.TryGetValue(task.Cell, out var cell))
+            return false;
+
+        var expected = cell.Entities.FirstOrDefault(entity => entity.Signature.Prototype == task.ExpectedEntityPrototype &&
+            entity.Signature.LocalPosition.EqualsApprox(task.ExpectedLocalPosition) &&
+            entity.Signature.LocalRotation.EqualsApprox(task.ExpectedLocalRotation) &&
+            entity.Signature.RotationMode == task.RotationMode && entity.Points == task.Points &&
+            entity.Count >= task.RequiredMatchingCount);
+        if (expected == null || !lookup.Values.TryResolve(expected.Signature.ValuePrototype ?? expected.Signature.Prototype, out var points) ||
+            points <= 0 || points != task.Points)
+            return false;
+
+        var candidate = task.ExpectedEntityPrototype;
+        if (!_prototype.TryIndex<EntityPrototype>(candidate, out var definition) || definition.Abstract)
+            candidate = expected.Signature.ValuePrototype ?? expected.Signature.Prototype;
+        if (!_prototype.TryIndex<EntityPrototype>(candidate, out definition) || definition.Abstract)
+            return false;
+
+        prototype = candidate;
+        return true;
     }
 
     private string CanonicalizeEntityPrototype(

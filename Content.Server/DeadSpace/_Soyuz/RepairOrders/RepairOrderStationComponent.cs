@@ -46,7 +46,14 @@ public sealed partial class RepairOrderStationComponent : Component
     public bool Accepting;
 
     [ViewVariables]
-    public bool Completing;
+    public bool Completing
+    {
+        get => _completing || ReconstructionPending;
+        set => _completing = value;
+    }
+
+    private bool _completing;
+    public bool ReconstructionPending;
 
     [ViewVariables]
     public long RepairPoints;
@@ -66,6 +73,22 @@ public sealed partial class RepairOrderStationComponent : Component
     [ViewVariables]
     public int NextRuntimeId = 1;
 
+}
+
+/// <summary>Deferred disposal survives blueprint removal and propagates to split fragments.</summary>
+[RegisterComponent]
+public sealed partial class RepairOrderCleanupComponent : Component
+{
+    public EntityUid Station;
+}
+
+/// <summary>Post-commit ownership can be registered again without charging the station twice.</summary>
+[RegisterComponent]
+public sealed partial class RepairRetainedGridComponent : Component
+{
+    public EntityUid Station;
+    public bool Initialized;
+    public TimeSpan NextAttempt;
 }
 
 [DataDefinition]
@@ -163,6 +186,7 @@ public sealed partial class ActiveRepairOrder
 public sealed partial class CompletedRepairOrder
 {
     public RepairTechnicalExclusionSnapshot? Exclusions;
+    public long RetentionCost;
 
     [ViewVariables]
     public RepairDamageGenerationInfo? DamageGeneration;

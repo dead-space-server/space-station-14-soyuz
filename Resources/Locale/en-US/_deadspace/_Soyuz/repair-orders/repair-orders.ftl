@@ -281,3 +281,34 @@ ent-ConstructionBagRandomFilled = random resource bag
     .desc = A construction bag completely filled with ten randomly selected full stacks of resources. Contains no cables.
 ent-ConstructionBagOfHoldingRandomFilled = bluespace random resource bag
     .desc = A bluespace construction bag completely filled with fifty randomly selected full stacks of resources. Contains no cables.
+
+
+ent-RepairReconstructionTablet = repair crew reconstruction tablet
+    .desc = Rebuilds a selected patch up to 5×5 from an active repair order's reference blueprint. Select opposite corners, check the cost, then use the tablet in hand to begin. Restores floors and all valued structures and equipment in the blueprint. Each point of repair value costs one charge. Holds 1000 matrix charges. Engineering access required.
+ent-RepairReconstructionCartridge = reconstruction matrix cartridge
+    .desc = A white-grey cartridge of compressed construction matter for reconstruction tablets. Capacity: 50 charges. Incompatible with ordinary RCDs.
+repair-reconstructor-refilled = Loaded { $charges } matrix charges.
+repair-reconstructor-no-work = No available reconstruction tasks in this patch. Select missing blueprint elements.
+repair-reconstructor-no-charge = Requires { $charges } charges; the tablet holds { $available }. Reconstruction has not started. Load a cartridge or select a smaller area.
+repair-reconstructor-start = Reconstructing the selected patch: { $count } tasks, { $charges } charges. Stay still and keep holding the tablet.
+repair-reconstructor-select-start = Click opposite corners on the repair object to select an area. Maximum size: 5×5.
+repair-reconstructor-select-end = First corner selected. Click the opposite corner of an area up to 5×5.
+repair-reconstructor-area-limit = Maximum area size: 5×5. Pick a closer second corner or clear the selection through the context menu.
+repair-reconstructor-quote = Charges required: { $charges }. Available: { $available }. Cells with skipped tasks: { $blocked } (marked red). Use the tablet in hand to begin. Select a smaller area if the cost exceeds { $max } charges.
+repair-reconstructor-price-changed = The quote changed: { $charges } charges required, { $available } available. Cells with skipped tasks: { $blocked } (marked red). Review the area and use the tablet again to confirm. Capacity: { $max } charges.
+repair-reconstructor-recovery = Reconstruction cancelled. The original state is being restored; the tablet is temporarily busy. Charges will be refunded after rollback completes.
+repair-reconstructor-over-capacity = Requires { $charges } charges, but the tablet holds at most { $max }. Reconstruction has not started. Select a smaller area.
+repair-reconstructor-clear-selection = Clear reconstruction area
+repair-reconstructor-no-order = No active repair object with a reference blueprint here.
+repair-reconstructor-changed = The selected tasks are no longer available or the quote changed. Select the area again. No charges were spent.
+repair-reconstructor-failed = The patch could not be restored to its blueprint. Changes were rolled back and charges refunded.
+repair-reconstructor-success = Patch restored to its blueprint.
+repair-orders-retain = Keep object
+repair-orders-retain-cost = Keep object — { $points } points
+repair-orders-retain-confirm = Purchase this object for { $points } repair points?
+    The price equals its original full repair value and does not decrease for an early purchase. This order will award no repair points. The object remains with the station and its control restrictions are lifted.
+repair-orders-retain-unavailable = Only difficulty 7–10 orders can be purchased.
+repair-orders-retain-price-changed = The purchase price differs from the confirmed quote. Open confirmation again.
+repair-orders-retain-success = Object purchased and retained by the station.
+repair-orders-status-retained = Status: purchased by the station
+repair-orders-retain-paid = Repair points spent on purchase: { $points }

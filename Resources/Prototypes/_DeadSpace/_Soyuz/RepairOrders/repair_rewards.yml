@@ -435,12 +435,26 @@
   classified: true
 
 - type: repairReward
+  id: RepairOrderReconstructionCartridgeReward
+  entity: RepairReconstructionCartridge
+  cost: 15
+  maxCount: 10
+  minimumShopLevel: 6
+
+- type: repairReward
   id: RepairOrderClothingBackpackRIGERTEngineerReward
   entity: ClothingBackpackRIGERTEngineer
   cost: 333
   maxCount: 1
   minimumShopLevel: 6
   emagOnly: true
+
+- type: repairReward
+  id: RepairOrderReconstructionTabletReward
+  entity: RepairReconstructionTablet
+  cost: 500
+  maxCount: 5
+  minimumShopLevel: 6
 
 - type: repairReward
   id: RepairOrderClothingNeckCloakCeReward
@@ -635,7 +649,9 @@
   - RepairOrderRCDSyndicateReward
   - RepairOrderBluespaceConstructionBagReward
   - RepairOrderFilledBluespaceConstructionBagReward
+  - RepairOrderReconstructionCartridgeReward
   - RepairOrderClothingBackpackRIGERTEngineerReward
+  - RepairOrderReconstructionTabletReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward
   - RepairOrderClothingNeckCloakSrReward

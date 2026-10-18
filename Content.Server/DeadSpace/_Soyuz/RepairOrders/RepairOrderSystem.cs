@@ -8,6 +8,9 @@ using Content.Shared.Access.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Ghost;
+using Content.Shared.Mind.Components;
+using Content.Shared.Station.Components;
+using Robust.Server.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
 using Content.Shared.UserInterface;
@@ -53,6 +56,8 @@ public sealed class RepairOrderSystem : EntitySystem
         SubscribeLocalEvent<RepairOrderConsoleComponent, ComponentStartup>(OnConsoleStartup);
         SubscribeLocalEvent<RepairOrderConsoleComponent, GotEmaggedEvent>(OnConsoleEmagged);
         SubscribeLocalEvent<RepairOrderStationComponent, ComponentShutdown>(OnStationShutdown);
+        SubscribeLocalEvent<RepairOrderCleanupComponent, GridSplitEvent>(OnCleanupGridSplit);
+        SubscribeLocalEvent<RepairRetainedGridComponent, GridSplitEvent>(OnRetainedGridSplit);
         SubscribeLocalEvent<RepairOrderConsoleComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
         Subs.BuiEvents<RepairOrderConsoleComponent>(RepairOrderUiKey.Key, subs =>
         {
@@ -64,6 +69,9 @@ public sealed class RepairOrderSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        ProcessRetainedGrids();
+        ProcessCleanupGrids();
 
         var now = _timing.CurTime;
         if (now >= _nextConsoleDiscovery)
@@ -318,7 +326,7 @@ public sealed class RepairOrderSystem : EntitySystem
                 finally
                 {
                     if (Exists(grid) && MetaData(grid).EntityLifeStage < EntityLifeStage.Terminating)
-                        QueueDeleteRepairGrid(grid);
+                        EnsureComp<RepairOrderCleanupComponent>(grid).Station = station.Owner;
                 }
             });
         }
@@ -386,8 +394,9 @@ public sealed class RepairOrderSystem : EntitySystem
         UpdateStationUis(station);
     }
 
-    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.</summary>
-    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false)
+    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.
+    /// A full refresh can preserve the existing timer when triggered by order completion.</summary>
+    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false, bool resetTimer = true)
     {
         if (station.Comp.Accepting || station.Comp.Completing)
             return;
@@ -404,7 +413,7 @@ public sealed class RepairOrderSystem : EntitySystem
             .OrderBy(order => order.ID, StringComparer.Ordinal).ToList();
         var seeds = available.Values.Select(offer => offer.DamageSeed).ToHashSet();
         var nextRuntimeId = station.Comp.NextRuntimeId;
-        var nextOffer = refresh ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
+        var nextOffer = refresh && resetTimer ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
         while (available.Count < limit && candidates.Count > 0)
         {
             // Prefer different offers; a small catalog can still fill the remaining slots.
@@ -452,10 +461,19 @@ public sealed class RepairOrderSystem : EntitySystem
         out EntityUid repairGrid)
     {
         repairGrid = EntityUid.Invalid;
+        var retaining = completed.Result == RepairOrderResult.Retained;
+        var retentionCost = retaining ? expectedActive.MaxPoints : 0;
+        if (retaining && (!_prototype.TryIndex<RepairOrderPrototype>(expectedActive.Prototype, out var order) ||
+            order.Difficulty < 7 || order.Difficulty > 10 || retentionCost <= 0 || completed.RewardBudget != 0 ||
+            completed.RetentionCost != retentionCost ||
+            !TryComp<RepairRetainedGridComponent>(expectedActive.GridUid, out var retained) ||
+            retained.Station != stationUid || retained.Initialized))
+            return false;
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
             !ReferenceEquals(state.Active, expectedActive) ||
             completed.RuntimeId != expectedActive.RuntimeId ||
             completed.Prototype != expectedActive.Prototype ||
+            state.RepairPoints < retentionCost ||
             completed.RewardBudget < 0 ||
             completed.EarnedReputation < 0 ||
             state.RepairPoints > long.MaxValue - completed.RewardBudget ||
@@ -467,7 +485,7 @@ public sealed class RepairOrderSystem : EntitySystem
         repairGrid = expectedActive.GridUid;
         completed.DamageGeneration = expectedActive.DamageGeneration;
         completed.Exclusions = expectedActive.Exclusions;
-        state.RepairPoints += completed.RewardBudget;
+        state.RepairPoints = state.RepairPoints - retentionCost + completed.RewardBudget;
         state.EngineeringReputation += completed.EarnedReputation;
         state.Completed = completed;
         state.Active = null;
@@ -516,31 +534,16 @@ public sealed class RepairOrderSystem : EntitySystem
 
         // Claim the transition before cleanup so component shutdown and repeated abort calls are harmless.
         state.Active = null;
+        // The computed lock still remains held if a reconstruction journal is awaiting rollback.
         state.Completing = false;
 
         RunPostCommitEffect("abort log", () => _sawmill.Warning(
             $"Aborted repair order {active.RuntimeId} ({active.Prototype}) for station {stationUid}: {reason}. " +
             $"No completion or rewards were produced; disposing {ownedGrids.Count} repair grid(s)."));
 
-        try
-        {
-            _validation.DiscardPreparedSession(active.GridUid);
-        }
-        finally
-        {
-            try
-            {
-                foreach (var gridUid in ownedGrids)
-                {
-                    if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-                        QueueDeleteRepairGrid(gridUid);
-                }
-            }
-            finally
-            {
-                RunPostCommitEffect("abort UI refresh", () => UpdateStationUis((stationUid, state)));
-            }
-        }
+        // Register every fragment before any blueprint shutdown callback can run.
+        CleanupTerminalGrids(stationUid, ownedGrids);
+        RunPostCommitEffect("abort UI refresh", () => UpdateStationUis((stationUid, state)));
 
         return true;
     }
@@ -553,7 +556,7 @@ public sealed class RepairOrderSystem : EntitySystem
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state))
             return;
 
-        if (!Exists(gridUid))
+        if (!Exists(gridUid) || MetaData(gridUid).EntityLifeStage >= EntityLifeStage.Terminating)
         {
             state.PendingCleanupGrids.Remove(gridUid);
             return;
@@ -561,13 +564,9 @@ public sealed class RepairOrderSystem : EntitySystem
 
         // Pending cleanup is authoritative ownership: keep the grid locked until deletion has actually completed.
         state.PendingCleanupGrids.Add(gridUid);
+        EnsureComp<RepairOrderCleanupComponent>(gridUid).Station = stationUid;
 
-        if (TryFindPlayerOnRepairGrid(gridUid, out _))
-            return;
-
-        _validation.DiscardPreparedSession(gridUid);
-        if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-            QueueDeleteRepairGrid(gridUid);
+        // Dispose in Update, outside grid-split and component-shutdown callbacks.
     }
 
     /// <summary>
@@ -580,6 +579,11 @@ public sealed class RepairOrderSystem : EntitySystem
             return;
 
         state.PendingCleanupGrids.UnionWith(gridUids);
+        foreach (var gridUid in gridUids)
+        {
+            if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
+                EnsureComp<RepairOrderCleanupComponent>(gridUid).Station = stationUid;
+        }
 
         foreach (var gridUid in gridUids)
             CleanupTerminalGrid(stationUid, gridUid);
@@ -603,8 +607,24 @@ public sealed class RepairOrderSystem : EntitySystem
     }
 
     public bool TryFindPlayerOnRepairGrid(EntityUid repairGrid, out EntityUid player)
+        => TryFindPlayerInRepairEntity(repairGrid, out player);
+
+    /// <summary>Protects both repair grids and reconstructed containers, including nested offline bodies.</summary>
+    public bool TryFindPlayerInRepairEntity(EntityUid entity, out EntityUid player)
     {
         player = EntityUid.Invalid;
+
+        // Minds remain on bodies when their owners disconnect or visit another entity.
+        var bodies = EntityQueryEnumerator<MindContainerComponent, TransformComponent>();
+        while (bodies.MoveNext(out var body, out var mind, out var bodyTransform))
+        {
+            if (mind.Mind != null && !HasComp<GhostComponent>(body) &&
+                (body == entity || bodyTransform.GridUid == entity || _transform.ContainsEntity(entity, (body, bodyTransform))))
+            {
+                player = body;
+                return true;
+            }
+        }
 
         foreach (var session in _playerManager.Sessions)
         {
@@ -613,7 +633,7 @@ public sealed class RepairOrderSystem : EntitySystem
                 !Exists(attached) ||
                 HasComp<GhostComponent>(attached) ||
                 !TryComp(attached, out TransformComponent? transform) ||
-                transform.GridUid != repairGrid)
+                (attached != entity && transform.GridUid != entity && !_transform.ContainsEntity(entity, (attached, transform))))
             {
                 continue;
             }
@@ -627,27 +647,82 @@ public sealed class RepairOrderSystem : EntitySystem
 
     private void ProcessPendingGridCleanup(Entity<RepairOrderStationComponent> station)
     {
-        foreach (var gridUid in station.Comp.PendingCleanupGrids.ToArray())
+        station.Comp.PendingCleanupGrids.RemoveWhere(grid => !Exists(grid));
+    }
+
+    private void ProcessRetainedGrids()
+    {
+        var pending = new List<EntityUid>();
+        var query = EntityQueryEnumerator<RepairRetainedGridComponent>();
+        while (query.MoveNext(out var grid, out var retained))
         {
-            if (!Exists(gridUid))
-            {
-                station.Comp.PendingCleanupGrids.Remove(gridUid);
+            if (retained.Initialized || retained.NextAttempt > _timing.CurTime)
                 continue;
-            }
+            retained.NextAttempt = _timing.CurTime + TimeSpan.FromSeconds(5);
+            pending.Add(grid);
+        }
+        foreach (var grid in pending)
+            RunPostCommitEffect("retained object registration", () => RegisterRetainedGrid(grid));
+    }
 
-            if (TryFindPlayerOnRepairGrid(gridUid, out _))
+    public void RegisterRetainedGrid(EntityUid grid)
+    {
+        if (!TryComp<RepairRetainedGridComponent>(grid, out var retained) || retained.Initialized ||
+            !Exists(retained.Station) || !HasComp<StationDataComponent>(retained.Station))
+            return;
+
+        // Register ownership before removing the blueprint; any split inherits the marker below.
+        if (_station.GetOwningStation(grid) != retained.Station)
+            _station.AddGridToStation(retained.Station, grid);
+        _validation.DiscardPreparedSession(grid);
+        retained.Initialized = true;
+    }
+
+    private void OnRetainedGridSplit(Entity<RepairRetainedGridComponent> grid, ref GridSplitEvent args)
+    {
+        foreach (var fragment in args.NewGrids)
+            EnsureComp<RepairRetainedGridComponent>(fragment).Station = grid.Comp.Station;
+    }
+
+    private void ProcessCleanupGrids()
+    {
+        // Materialize before deletion: shutdown callbacks may mutate the query's component set.
+        var pending = new List<EntityUid>();
+        var query = EntityQueryEnumerator<RepairOrderCleanupComponent>();
+        while (query.MoveNext(out var grid, out _))
+            pending.Add(grid);
+
+        foreach (var grid in pending)
+        {
+            if (!Exists(grid) || MetaData(grid).EntityLifeStage >= EntityLifeStage.Terminating ||
+                TryFindPlayerOnRepairGrid(grid, out _))
                 continue;
 
-            _validation.DiscardPreparedSession(gridUid);
-            if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating)
-                QueueDeleteRepairGrid(gridUid);
+            if (TryComp<RepairBlueprintComponent>(grid, out var blueprint) && blueprint.ReconstructionPending)
+                continue;
+            RunPostCommitEffect("terminal grid cleanup", () => DeleteRepairGrid(grid));
         }
     }
 
-    private void QueueDeleteRepairGrid(EntityUid gridUid)
+    private void OnCleanupGridSplit(Entity<RepairOrderCleanupComponent> grid, ref GridSplitEvent args)
     {
+        foreach (var fragment in args.NewGrids)
+        {
+            EnsureComp<RepairOrderCleanupComponent>(fragment).Station = grid.Comp.Station;
+        }
+
+        TrackPendingCleanupSplit(grid.Comp.Station, grid.Owner, args.NewGrids);
+    }
+
+    private void DeleteRepairGrid(EntityUid gridUid)
+    {
+        _validation.DiscardPreparedSession(gridUid);
         UndockRepairGrid(gridUid);
-        QueueDel(gridUid);
+        // Undocking and blueprint shutdown can invoke other systems. Recheck after all callbacks,
+        // then delete synchronously: no player can enter between this check and a later queue flush.
+        if (Exists(gridUid) && MetaData(gridUid).EntityLifeStage < EntityLifeStage.Terminating &&
+            !TryFindPlayerOnRepairGrid(gridUid, out _))
+            Del(gridUid);
     }
 
     private void UndockRepairGrid(EntityUid gridUid)
@@ -698,7 +773,11 @@ public sealed class RepairOrderSystem : EntitySystem
                 maxPoints: activeOrder.MaxPoints,
                 damageEvents: activeOrder.DamageGeneration?.SelectedEvents.ToArray(),
                 exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints),
-                earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay);
+                earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay,
+                retentionCost: _prototype.TryIndex<RepairOrderPrototype>(activeOrder.Prototype, out var activePrototype) &&
+                               activePrototype.Difficulty is >= 7 and <= 10
+                    ? activeOrder.MaxPoints
+                    : null);
         }
 
         RepairOrderCompletedBuiEntry? completed = null;
@@ -716,7 +795,8 @@ public sealed class RepairOrderSystem : EntitySystem
                 completedOrder.EarnedReputation,
                 completedOrder.Result,
                 completedOrder.DamageGeneration?.SelectedEvents.ToArray(),
-                completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints));
+                completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints),
+                completedOrder.RetentionCost);
         }
 
         var shopPoolId = Comp<RepairOrderConsoleComponent>(console).ShopRewardPool;

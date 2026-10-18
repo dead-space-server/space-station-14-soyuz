@@ -39,10 +39,11 @@ public sealed partial class RepairOrderWindow : FancyWindow
     private FancyWindow? _briefingDialog;
     private FancyWindow? _shopDetailsDialog;
     private string? _shopDetailsRewardId;
-    private (TimeSpan ExpiresAt, Label Timer, Button Complete)? _activeControls;
+    private (TimeSpan ExpiresAt, Label Timer, Button Complete, Button? Retain)? _activeControls;
 
     public event Action<int>? OnAccept;
     public event Action<int, bool>? OnComplete;
+    public event Action<int, bool, long>? OnRetain;
     public event Action<int>? OnPrintReport;
     public event Action<string, List<RepairOrderRewardBuiEntry>>? OnShopPurchase;
 
@@ -758,25 +759,29 @@ public sealed partial class RepairOrderWindow : FancyWindow
         UpdateShop();
     }
 
-    private void RequestCompletion(int runtimeId)
+    private void RequestCompletion(int runtimeId, bool retain = false)
     {
         if (_state?.Active is not { } active || active.RuntimeId != runtimeId ||
             !active.BlueprintReady || _state.Completing || active.ExpiresAt <= _timing.CurTime)
             return;
 
-        if (_state.Worklist.Count == 0)
+        if (retain && active.RetentionCost == null)
+            return;
+
+        if (!retain && _state.Worklist.Count == 0)
         {
             OnComplete?.Invoke(runtimeId, false);
             return;
         }
 
-        if (!CanSubmitEarly(active))
+        if (_state.Worklist.Count > 0 && !CanSubmitEarly(active))
             return;
 
+        var retentionCost = active.RetentionCost ?? 0;
         _completionDialog?.Dispose();
         var dialog = new FancyWindow
         {
-            Title = Loc.GetString("repair-orders-submit-early"),
+            Title = Loc.GetString(retain ? "repair-orders-retain" : "repair-orders-submit-early"),
             MinWidth = 400,
         };
         _completionDialog = dialog;
@@ -793,11 +798,11 @@ public sealed partial class RepairOrderWindow : FancyWindow
             Margin = new Thickness(8),
         };
         var summary = new RichTextLabel { MaxWidth = 460 };
-        summary.SetMessage(Loc.GetString("repair-orders-submit-early-confirm",
+        summary.SetMessage(Loc.GetString(retain ? "repair-orders-retain-confirm" : "repair-orders-submit-early-confirm",
             ("percent", RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks)),
-            ("points", active.Exclusions.FinalPoints)));
+            ("points", retain ? retentionCost : active.Exclusions.FinalPoints)));
         content.AddChild(summary);
-        var confirm = new Button { Text = Loc.GetString("repair-orders-submit-early-button") };
+        var confirm = new Button { Text = Loc.GetString(retain ? "repair-orders-retain" : "repair-orders-submit-early-button") };
         confirm.OnPressed += _ =>
         {
             if (_state?.Active is not { } current || current.RuntimeId != runtimeId ||
@@ -806,7 +811,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 return;
 
             confirm.Disabled = true;
-            OnComplete?.Invoke(runtimeId, true);
+            if (retain)
+                OnRetain?.Invoke(runtimeId, _state.Worklist.Count > 0, retentionCost);
+            else
+                OnComplete?.Invoke(runtimeId, true);
             dialog.Close();
         };
         content.AddChild(confirm);
@@ -893,7 +901,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 content.AddChild(remainingLabel);
 
                 // The button is assigned below after all other active-order fields are built.
-                _activeControls = (activeExpiresAt, remainingLabel, null!);
+                _activeControls = (activeExpiresAt, remainingLabel, null!, null);
             }
 
             var fraction = entry.BlueprintReady
@@ -963,8 +971,19 @@ public sealed partial class RepairOrderWindow : FancyWindow
             };
             complete.OnPressed += _ => RequestCompletion(entry.RuntimeId);
             actions.AddChild(complete);
+            Button? retain = null;
+            if (entry.RetentionCost is { } retentionCost)
+            {
+                retain = new Button
+                {
+                    Text = Loc.GetString("repair-orders-retain-cost", ("points", retentionCost)),
+                    HorizontalExpand = true,
+                };
+                retain.OnPressed += _ => RequestCompletion(entry.RuntimeId, retain: true);
+                content.AddChild(retain);
+            }
             if (_activeControls is { } activeControls)
-                _activeControls = (activeControls.ExpiresAt, activeControls.Timer, complete);
+                _activeControls = (activeControls.ExpiresAt, activeControls.Timer, complete, retain);
             return panel;
         }
 
@@ -1037,7 +1056,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         {
             Text = Loc.GetString(entry.Result == RepairOrderResult.Expired
                 ? "repair-orders-status-expired"
-                : "repair-orders-status-completed"),
+                : entry.Result == RepairOrderResult.Retained ? "repair-orders-status-retained" : "repair-orders-status-completed"),
             FontColorOverride = entry.Result == RepairOrderResult.Expired ? Color.Orange : Color.LightGreen,
         });
 
@@ -1065,7 +1084,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
         });
         content.AddChild(new Label
         {
-            Text = Loc.GetString("repair-orders-earned-points", ("points", entry.RewardBudget)),
+            Text = entry.Result == RepairOrderResult.Retained
+                ? Loc.GetString("repair-orders-retain-paid", ("points", entry.RetentionCost))
+                : Loc.GetString("repair-orders-earned-points", ("points", entry.RewardBudget)),
             FontColorOverride = Color.LightGreen,
         });
         content.AddChild(new Label
@@ -1123,6 +1144,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 : Loc.GetString(unfinished ? "repair-orders-submit-early" : "repair-orders-submit");
             activeControls.Complete.Disabled = _state.Completing || !active.BlueprintReady ||
                                                remaining <= TimeSpan.Zero || waiting;
+            if (activeControls.Retain is { } retain)
+                retain.Disabled = activeControls.Complete.Disabled || active.RetentionCost == null ||
+                                  _state.RepairPoints < active.RetentionCost.Value;
         }
     }
 

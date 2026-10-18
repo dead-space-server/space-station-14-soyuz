@@ -8856,3 +8856,10 @@ Entries:
     message: Т-лучевой не показывал ниндзя в инвизе.
   - type: Fix
     message: При суициде второй шанс срабатывает.
+- id: 850
+  author: BlueDogDoc
+  time: '2026-10-18T20:45:13.052899+00:00'
+  pr: 2547
+  changes:
+  - type: Fix
+    message: Животных теперь видно, сорри

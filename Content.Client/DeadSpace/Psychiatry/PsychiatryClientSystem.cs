@@ -1,6 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using System.Numerics;
+using Content.Client.DamageState;
 using Content.Client.Gameplay;
 using Content.Client.Humanoid;
 using Content.Client.Sirena.Animations;
@@ -597,7 +598,7 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         return true;
     }
 
-    private void ApplyRemap(EntityUid uid, SpriteComponent sprite, ResPath rsi, string state, string fakeName, string? kind)
+    internal void ApplyRemap(EntityUid uid, SpriteComponent sprite, ResPath rsi, string state, string fakeName, string? kind)
     {
         var remap = EnsureComp<PsychiatryRemapComponent>(uid);
         remap.FakeName = fakeName;
@@ -683,7 +684,7 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         return false;
     }
 
-    private void Restore(EntityUid uid, bool leftArea = false)
+    internal void Restore(EntityUid uid, bool leftArea = false)
     {
         if (!TryComp(uid, out PsychiatryRemapComponent? remap))
             return;
@@ -729,22 +730,10 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         var ent = (uid, sprite);
         _sprites.RemoveLayer(ent, RemapLayer.Fake, false);
 
-        var keep = SnapshotMatches(remap, remap.DrawRsi, remap.DrawState);
-        var seen = 0;
         var remove = new List<int>();
-        foreach (ISpriteLayer layer in sprite.AllLayers)
-        {
-            if (LayerMatches(layer, remap.DrawRsi, remap.DrawState))
-                remove.Add(seen);
-            seen++;
-        }
-
-        var extras = remove.Count - keep;
-        for (var n = remove.Count - 1; n >= 0 && extras > 0; n--)
-        {
+        CollectLooseExtras(ent, remap, remove);
+        for (var n = 0; n < remove.Count; n++)
             _sprites.RemoveLayer(ent, remove[n], false);
-            extras--;
-        }
 
         if (!HasExtraRemapLayer(uid, sprite, remap))
             return;
@@ -752,17 +741,53 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         RemoveUnmappedReplacement(ent, sprite, remap);
     }
 
+    private void CollectLooseExtras(Entity<SpriteComponent> ent, PsychiatryRemapComponent remap, List<int> remove)
+    {
+        var keep = SnapshotMatches(remap, remap.DrawRsi, remap.DrawState);
+        var seen = 0;
+        var body = 0;
+        var loose = new List<int>();
+        foreach (ISpriteLayer layer in ent.Comp.AllLayers)
+        {
+            if (LayerMatches(layer, remap.DrawRsi, remap.DrawState))
+            {
+                if (IsMappedBody(ent.Owner, ent.Comp, seen))
+                    body++;
+                else
+                    loose.Add(seen);
+            }
+
+            seen++;
+        }
+
+        var extras = loose.Count - Math.Max(0, keep - body);
+        for (var n = loose.Count - 1; n >= 0 && extras > 0; n--)
+        {
+            remove.Add(loose[n]);
+            extras--;
+        }
+    }
+
     private static int SnapshotMatches(PsychiatryRemapComponent remap, ResPath rsi, string state)
     {
         var n = 0;
-        var suffix = $":{rsi}:{state}";
+        var wanted = rsi.ToString();
         foreach (var key in remap.OriginalLayerVisible.Keys)
         {
-            if (key.EndsWith(suffix, StringComparison.Ordinal))
+            if (SpriteKeyMatches(key, wanted, state))
                 n++;
         }
 
         return n;
+    }
+
+    internal static bool SpriteKeyMatches(string key, string wantedPath, string state)
+    {
+        var split = key.Split(':', 3);
+        if (split.Length < 3)
+            return false;
+
+        return split[2] == state && PathsMatch(split[1], wantedPath);
     }
 
     private bool HasExtraRemapLayer(EntityUid uid, SpriteComponent sprite, PsychiatryRemapComponent remap)
@@ -770,27 +795,50 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         if (_sprites.LayerMapTryGet((uid, sprite), RemapLayer.Fake, out _, false))
             return true;
 
-        var matches = 0;
-        foreach (ISpriteLayer layer in sprite.AllLayers)
-        {
-            if (LayerMatches(layer, remap.DrawRsi, remap.DrawState))
-                matches++;
-        }
-
-        return matches > SnapshotMatches(remap, remap.DrawRsi, remap.DrawState);
+        var remove = new List<int>();
+        CollectLooseExtras((uid, sprite), remap, remove);
+        return remove.Count > 0;
     }
 
     private static bool LayerMatches(ISpriteLayer layer, ResPath rsi, string state)
     {
         var path = layer.Rsi?.Path.ToString() ?? string.Empty;
-        var wanted = rsi.ToString();
-        return layer.RsiState == state
-               && (path == wanted
-                   || path.EndsWith(wanted, StringComparison.OrdinalIgnoreCase)
-                   || wanted.EndsWith(path, StringComparison.OrdinalIgnoreCase));
+        return layer.RsiState == state && PathsMatch(path, rsi.ToString());
     }
 
-    private void SweepStuckSprites()
+    private static bool PathsMatch(string path, string wanted)
+    {
+        if (path.Length == 0 || wanted.Length == 0)
+            return false;
+
+        return path.Equals(wanted, StringComparison.OrdinalIgnoreCase)
+               || path.EndsWith(wanted, StringComparison.OrdinalIgnoreCase)
+               || wanted.EndsWith(path, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool IsRealAnimal(EntityUid uid)
+    {
+        return HasComp<MobStateComponent>(uid) && !HasComp<HumanoidAppearanceComponent>(uid);
+    }
+
+    private bool IsMappedBody(EntityUid uid, SpriteComponent sprite, int index)
+    {
+        return IndexMapped(uid, sprite, index, "movement")
+               || IndexMapped(uid, sprite, index, DamageStateVisualLayers.Base)
+               || IndexMapped(uid, sprite, index, DamageStateVisualLayers.BaseUnshaded);
+    }
+
+    private bool IndexMapped(EntityUid uid, SpriteComponent sprite, int index, string key)
+    {
+        return _sprites.LayerMapTryGet((uid, sprite), key, out var mapped, false) && mapped == index;
+    }
+
+    private bool IndexMapped(EntityUid uid, SpriteComponent sprite, int index, Enum key)
+    {
+        return _sprites.LayerMapTryGet((uid, sprite), key, out var mapped, false) && mapped == index;
+    }
+
+    internal void SweepStuckSprites()
     {
         if (_hallucinationKeys.Count == 0)
         {
@@ -818,13 +866,19 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
 
         var ent = (uid, sprite);
         _sprites.RemoveLayer(ent, RemapLayer.Fake, false);
+        if (IsRealAnimal(uid))
+            return;
+
         var remove = new List<int>();
         var otherPath = false;
         var index = 0;
         foreach (ISpriteLayer layer in sprite.AllLayers)
         {
             if (IsHallucinationLayer(layer))
-                remove.Add(index);
+            {
+                if (!IsMappedBody(uid, sprite, index))
+                    remove.Add(index);
+            }
             else if (layer.Rsi != null)
                 otherPath = true;
             index++;
@@ -848,9 +902,7 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         {
             if (layer.RsiState != key.State)
                 continue;
-            if (path == key.Path
-                || path.EndsWith(key.Path, StringComparison.OrdinalIgnoreCase)
-                || key.Path.EndsWith(path, StringComparison.OrdinalIgnoreCase))
+            if (PathsMatch(path, key.Path))
                 return true;
         }
 
@@ -990,7 +1042,7 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
         return n;
     }
 
-    private void ClearVisuals()
+    internal void ClearVisuals()
     {
         var toClear = new List<EntityUid>();
         var q = EntityQueryEnumerator<PsychiatryRemapComponent>();
@@ -1024,13 +1076,16 @@ public sealed class PsychiatryClientSystem : SharedPsychiatrySystem
             foreach (ISpriteLayer layer in sprite.AllLayers)
             {
                 if (LayerMatches(layer, remap.DrawRsi, remap.DrawState))
-                    remove.Add(index);
+                {
+                    if (!IsMappedBody(uid, sprite!, index))
+                        remove.Add(index);
+                }
                 else if (layer.Rsi != null)
                     otherPath = true;
                 index++;
             }
 
-            if (otherPath || HasComp<HumanoidAppearanceComponent>(uid))
+            if (!IsRealAnimal(uid) && (otherPath || HasComp<HumanoidAppearanceComponent>(uid)))
             {
                 for (var n = remove.Count - 1; n >= 0; n--)
                     _sprites.RemoveLayer(ent, remove[n], false);

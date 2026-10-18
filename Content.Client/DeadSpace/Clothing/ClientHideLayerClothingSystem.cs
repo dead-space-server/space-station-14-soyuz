@@ -20,9 +20,9 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
     {
         SubscribeLocalEvent<HideLayerClothingComponent, GotEquippedEvent>(OnGotEquipped);
         SubscribeLocalEvent<HideLayerClothingComponent, GotUnequippedEvent>(OnGotUnequipped);
-        // DS14-Soyuz-start: an item without HideLayerClothing may hide another item's own visuals.
-        SubscribeLocalEvent<InventoryComponent, DidEquipEvent>(OnDidEquip);
-        SubscribeLocalEvent<InventoryComponent, DidUnequipEvent>(OnDidUnequip);
+        // DS14-Soyuz-start: inventory broadcasts these events; its directed subscriptions are already occupied.
+        SubscribeLocalEvent<DidEquipEvent>(OnDidEquip);
+        SubscribeLocalEvent<DidUnequipEvent>(OnDidUnequip);
         // DS14-Soyuz-end
         SubscribeLocalEvent<MaskComponent, ItemMaskToggledEvent>(OnMaskToggled);
         SubscribeLocalEvent<ClothingComponent, EquipmentVisualsUpdatedEvent>(OnEquipmentVisualsUpdated);
@@ -61,10 +61,10 @@ public sealed class ClientHideLayerClothingSystem : EntitySystem
     }
 
     // DS14-Soyuz-start
-    private void OnDidEquip(Entity<InventoryComponent> ent, ref DidEquipEvent args)
+    private void OnDidEquip(DidEquipEvent args)
         => RefreshDependentSlots(args.Equipee, args.Slot);
 
-    private void OnDidUnequip(Entity<InventoryComponent> ent, ref DidUnequipEvent args)
+    private void OnDidUnequip(DidUnequipEvent args)
         => RefreshDependentSlots(args.Equipee, args.Slot);
 
     private void RefreshDependentSlots(EntityUid wearer, string changedSlot)

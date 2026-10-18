@@ -513,7 +513,7 @@
 - type: repairReward
   id: RepairOrderOxygenGasMinerMachineCircuitboardReward
   entity: OxygenGasMinerMachineCircuitboard
-  cost: 500
+  cost: 300
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -521,7 +521,7 @@
 - type: repairReward
   id: RepairOrderNitrogenGasMinerMachineCircuitboardReward
   entity: NitrogenGasMinerMachineCircuitboard
-  cost: 500
+  cost: 300
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -529,7 +529,7 @@
 - type: repairReward
   id: RepairOrderPlasmaGasMinerMachineCircuitboardReward
   entity: PlasmaGasMinerMachineCircuitboard
-  cost: 500
+  cost: 300
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -537,7 +537,7 @@
 - type: repairReward
   id: RepairOrderGasMinerNitrogenIndustrialCoreReward
   entity: GasMinerNitrogenIndustrialCore
-  cost: 800
+  cost: 400
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -545,7 +545,7 @@
 - type: repairReward
   id: RepairOrderGasMinerOxygenIndustrialCoreReward
   entity: GasMinerOxygenIndustrialCore
-  cost: 800
+  cost: 400
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -553,7 +553,7 @@
 - type: repairReward
   id: RepairOrderGasMinerIndustrialCoreReward
   entity: GasMinerIndustrialCore
-  cost: 900
+  cost: 500
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -561,7 +561,7 @@
 - type: repairReward
   id: RepairOrderClothingOuterHardsuitRepairOrderEngineerReward
   entity: ClothingOuterHardsuitRepairOrderEngineer
-  cost: 900
+  cost: 500
   maxCount: 1
   minimumShopLevel: 8
   classified: true
@@ -577,7 +577,7 @@
 - type: repairReward
   id: RepairOrderRestorerCloakReward
   entity: ClothingNeckCloakRepairRestorer
-  cost: 999
+  cost: 99
   maxCount: 1
   minimumShopLevel: 9
   classified: true

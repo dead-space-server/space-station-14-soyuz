@@ -75,6 +75,8 @@ public sealed class LavalandMadMinerSystem : EntitySystem
     [Dependency] private readonly Content.Shared.Jittering.SharedJitteringSystem _jitter = default!;
     [Dependency] private readonly LavalandMadMinerHookSystem _hook = default!;
     [Dependency] private readonly Content.Shared.Throwing.ThrowingSystem _throwing = default!;
+    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
+    [Dependency] private readonly LavalandFaunaRaidSystem _raids = default!;
 
     private int _nextHudId = 100000;
 
@@ -90,12 +92,44 @@ public sealed class LavalandMadMinerSystem : EntitySystem
         SubscribeLocalEvent<LavalandMadMinerHookVisualComponent, InteractHandEvent>(OnHookVisualInteract);
     }
 
+    /// <summary>A miner the planet put this close (tiles) to another grid - the base, the ash walkers - is not spawned.</summary>
+    private const float OtherGridExclusion = 60f;
+
     private void OnMapInit(Entity<LavalandMadMinerComponent> ent, ref MapInitEvent args)
     {
+        if (IsNearOtherGrid(ent.Owner))
+        {
+            QueueDel(ent.Owner);
+            return;
+        }
+
         ent.Comp.HudId = _nextHudId++;
         ent.Comp.SpawnCoordinates = _transform.GetMapCoordinates(ent.Owner);
         ent.Comp.SelectedMusic = ent.Comp.Music.Count == 0 ? null : _random.Pick(ent.Comp.Music);
         BuildPlatform(ent.Owner);
+    }
+
+    private bool IsNearOtherGrid(EntityUid uid)
+    {
+        var xform = Transform(uid);
+        // Only where the planet itself spawned it: on its own terrain, not on a grid.
+        if (xform.MapUid is not { } mapUid || xform.GridUid != mapUid)
+            return false;
+
+        var box = Box2.CenteredAround(_transform.GetWorldPosition(xform), new Vector2(OtherGridExclusion * 2f));
+        foreach (var other in _mapManager.FindGridsIntersecting(xform.MapID, box))
+        {
+            if (other.Owner != mapUid)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>The hook flies straight: no catching anyone behind a wall.</summary>
+    private bool CanHook(EntityUid from, EntityUid target, float range)
+    {
+        return _interaction.InRangeUnobstructed(from, target, range);
     }
 
     private void OnShutdown(Entity<LavalandMadMinerComponent> ent, ref ComponentShutdown args)
@@ -128,6 +162,11 @@ public sealed class LavalandMadMinerSystem : EntitySystem
                 ThinkRisen(uid, miner, xform, now);
                 continue;
             }
+
+            // A raid on the outpost: it spits blood at the players and blinks far away, leaving everyone alone till
+            // the raid is over.
+            if (UpdateRaidRetreat(uid, miner, xform, now))
+                continue;
 
             TrySpeak(uid, miner, now);
 
@@ -165,7 +204,7 @@ public sealed class LavalandMadMinerSystem : EntitySystem
             else if (distance <= 9f && now >= miner.NextFeint)
                 Feint(uid, miner, target, now);
 
-            if (now >= miner.NextHook && distance <= 14f)
+            if (now >= miner.NextHook && distance <= 14f && CanHook(uid, target, 14f))
             {
                 miner.NextHook = now + miner.HookCooldown;
                 if (_random.Prob(miner.HookAttackChance))
@@ -219,7 +258,7 @@ public sealed class LavalandMadMinerSystem : EntitySystem
             var distance = Vector2.Distance(origin, _transform.GetWorldPosition(player));
             if (distance > miner.ChaseRange)
                 continue;
-            if (distance <= miner.SplitPursuitNearRadius)
+            if (distance <= miner.SplitPursuitNearRadius && CanHook(uid, player, miner.SplitPursuitNearRadius + 1f))
                 nearby.Add(player);
             if (distance <= farDistance)
                 continue;
@@ -266,6 +305,102 @@ public sealed class LavalandMadMinerSystem : EntitySystem
                     _physics.SetLinearVelocity(player, body.LinearVelocity, body: victimBody);
             }
         }
+    }
+
+    /// <summary>A raid sends it at least this far (tiles) from the outpost.</summary>
+    private const float RaidRetreatFromOutpost = 70f;
+
+    /// <summary>
+    /// While a raid is on the outpost of its lavaland it keeps out of the way: a fight going on ends with a spit of
+    /// blood towards the players and a long blink back; until the raid is over it hunts nobody. False without a raid.
+    /// </summary>
+    private bool UpdateRaidRetreat(EntityUid uid, LavalandMadMinerComponent miner, TransformComponent xform, TimeSpan now)
+    {
+        if (xform.MapUid is not { } map || !_raids.IsRaidRunning(map))
+        {
+            if (miner.RaidRetreat)
+            {
+                miner.RaidRetreat = false;
+                if (TryComp<HTNComponent>(uid, out var calmHtn))
+                    _htn.SetHTNEnabled((uid, calmHtn), true);
+            }
+
+            return false;
+        }
+
+        if (miner.RaidRetreat)
+            return true;
+
+        miner.RaidRetreat = true;
+        if (miner.Active)
+        {
+            foreach (var session in miner.HudRecipients)
+            {
+                if (session.AttachedEntity is { } player)
+                    _popup.PopupEntity(Loc.GetString("lavaland-mad-miner-raid-retreat"), uid, player, PopupType.MediumCaution);
+            }
+
+            EndFight(uid, miner);
+        }
+
+        BlinkAwayFromOutpost(uid, miner, map);
+
+        if (TryComp<HTNComponent>(uid, out var htn))
+            _htn.SetHTNEnabled((uid, htn), false);
+        return true;
+    }
+
+    /// <summary>
+    /// Far from the outpost: straight away from it, onto open ground at least <see cref="RaidRetreatFromOutpost"/>
+    /// tiles off - one long blink (a jump, too far for a dash through the rocks). Already that far: it stays.
+    /// </summary>
+    private void BlinkAwayFromOutpost(EntityUid uid, LavalandMadMinerComponent miner, EntityUid map)
+    {
+        if (!_raids.TryGetOutpostCenter(map, out var outpost))
+            return;
+
+        var origin = _transform.GetMapCoordinates(uid);
+        var away = origin.Position - outpost;
+        if (away.Length() >= RaidRetreatFromOutpost)
+            return;
+
+        away = away.LengthSquared() < 0.01f ? _random.NextAngle().ToVec() : Vector2.Normalize(away);
+        // Straight away first, then turning a little more to the sides if the way is lava or rock.
+        for (var turn = 0; turn <= 6; turn++)
+        {
+            var angle = Angle.FromDegrees((turn % 2 == 0 ? 1 : -1) * (turn + 1) / 2 * 20f);
+            var direction = angle.RotateVec(away);
+            for (var distance = RaidRetreatFromOutpost; distance <= RaidRetreatFromOutpost + 30f; distance += 2f)
+            {
+                var destination = new MapCoordinates(outpost + direction * distance, origin.MapId);
+                if (!IsOpenGround(destination))
+                    continue;
+
+                JumpTo(uid, miner, destination);
+                return;
+            }
+        }
+
+        // The land that far is not there yet (it is only made around players): as far along the way as there is.
+        var current = (origin.Position - outpost).Length();
+        for (var distance = RaidRetreatFromOutpost - 2f; distance > current + 4f; distance -= 2f)
+        {
+            var destination = new MapCoordinates(outpost + away * distance, origin.MapId);
+            if (!IsOpenGround(destination))
+                continue;
+
+            JumpTo(uid, miner, destination);
+            return;
+        }
+    }
+
+    private void JumpTo(EntityUid uid, LavalandMadMinerComponent miner, MapCoordinates destination)
+    {
+        if (miner.BlinkSound != null)
+            _audio.PlayPvs(miner.BlinkSound, uid);
+        _transform.SetMapCoordinates(uid, destination);
+        if (miner.BlinkSound != null)
+            _audio.PlayPvs(miner.BlinkSound, uid);
     }
 
     private void StartFight(EntityUid uid, LavalandMadMinerComponent miner, TimeSpan now)
@@ -457,7 +592,8 @@ public sealed class LavalandMadMinerSystem : EntitySystem
             if (session.AttachedEntity is not { Valid: true } victim ||
                 IsDead(victim) || HasComp<GhostComponent>(victim) ||
                 Transform(victim).MapID != Transform(uid).MapID ||
-                Vector2.DistanceSquared(impactCenter, _transform.GetWorldPosition(victim)) > miner.HookSplashRadius * miner.HookSplashRadius)
+                Vector2.DistanceSquared(impactCenter, _transform.GetWorldPosition(victim)) > miner.HookSplashRadius * miner.HookSplashRadius ||
+                victim != target && !CanHook(target, victim, miner.HookSplashRadius + 1f))
                 continue;
             AddHookTarget(uid, miner, victim);
         }

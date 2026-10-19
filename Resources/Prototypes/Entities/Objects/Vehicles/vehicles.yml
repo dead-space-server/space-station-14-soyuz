@@ -214,10 +214,10 @@
     position: Stand
     buckleOffset: "0.01,0.15"
     lockBuckleOffset: true
-  # DS14-Soyuz-start: janitorial supplies compartment, 4 columns by 6 rows.
+  # DS14-Soyuz-start: janitorial supplies compartment, 4 columns by 4 rows.
   - type: Storage
     grid:
-    - 0,0,3,5
+    - 0,0,3,3
     maxItemSize: Large
     whitelist:
       tags:

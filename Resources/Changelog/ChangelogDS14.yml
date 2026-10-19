@@ -8863,3 +8863,10 @@ Entries:
   changes:
   - type: Fix
     message: Животных теперь видно, сорри
+- id: 851
+  author: vv210410-bit
+  time: '2026-10-19T11:53:53.829907+00:00'
+  pr: 2554
+  changes:
+  - type: Tweak
+    message: Теперь админ заметки видны обычным игрокам

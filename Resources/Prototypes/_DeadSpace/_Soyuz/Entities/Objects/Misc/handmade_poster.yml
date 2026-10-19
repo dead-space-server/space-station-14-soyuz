@@ -1,0 +1,61 @@
+- type: entity
+  parent: BasePaper
+  id: HandmadePoster
+  name: poster blank
+  description: A blank homemade poster. Attach it to a wall, then draw on it while holding a pen.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/handmade_poster.rsi
+    noRot: true
+    layers:
+    - state: blank
+    - map: ["enum.HandmadePosterVisualLayers.Drawing"]
+      visible: false
+  - type: Item
+    size: Normal
+  - type: Tag
+    tags:
+    - Document
+  - type: ActivatableUI
+    key: enum.HandmadePosterUiKey.Drawing
+    requiresComplex: false
+  - type: WallMount
+    arc: 360
+  - type: Sticky
+    whitelist:
+      components:
+      - Wall
+    verbText: handmade-poster-unstick-verb
+    stickPopupSuccess: handmade-poster-stuck
+    unstickPopupSuccess: handmade-poster-unstuck
+  - type: StickyVisualizer
+  - type: HandmadePoster
+  - type: UserInterface
+    interfaces:
+      enum.HandmadePosterUiKey.Drawing:
+        type: HandmadePosterDrawingBoundUserInterface
+  - type: Construction
+    graph: HandmadePoster
+    node: poster
+
+- type: construction
+  id: HandmadePoster
+  graph: HandmadePoster
+  startNode: start
+  targetNode: poster
+  category: construction-category-misc
+  objectType: Item
+
+- type: constructionGraph
+  id: HandmadePoster
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: poster
+      steps:
+      - material: Paper
+        amount: 10
+        doAfter: 2
+  - node: poster
+    entity: HandmadePoster

@@ -33,6 +33,5 @@ public sealed partial class RepairValueOverridePrototype : IPrototype
 public sealed partial class RepairValueExclusionPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
-    [DataField(required: true)] public string Reason = string.Empty;
     [DataField(required: true)] public List<EntProtoId> Entities = new();
 }

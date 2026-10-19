@@ -10,6 +10,8 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Popups;
+using Content.Shared.Tiles;
 using Content.Shared.Throwing;
 using Robust.Server.Player;
 using Robust.Shared.Audio;
@@ -42,6 +44,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     private readonly List<EntityUid> _participants = new();
     private readonly HashSet<Vector2i> _detonatingTiles = new();
@@ -62,6 +65,66 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         SubscribeLocalEvent<LavalandAshDrakeComponent, LavalandBossFightStartedEvent>(OnBossFightStarted);
         SubscribeLocalEvent<LavalandAshDrakeComponent, LavalandBossResetEvent>(OnBossReset);
         SubscribeLocalEvent<LavalandAshDrakeComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshMovementSpeed);
+        SubscribeLocalEvent<LavalandAshDrakeComponent, MobStateChangedEvent>(OnDrakeMobStateChanged);
+    }
+
+    /// <summary>The drake is dead: every pool of lava on its arena cools down.</summary>
+    private void OnDrakeMobStateChanged(Entity<LavalandAshDrakeComponent> ent, ref MobStateChangedEvent args)
+    {
+        if (args.NewMobState != MobState.Dead || Transform(ent).GridUid is not { } grid)
+            return;
+
+        ent.Comp.PendingChaseLava.Clear();
+        var lava = EntityQueryEnumerator<LavaComponent, TransformComponent>();
+        while (lava.MoveNext(out var lavaUid, out _, out var lavaXform))
+        {
+            if (lavaXform.GridUid == grid)
+                QueueDel(lavaUid);
+        }
+    }
+
+    /// <summary>
+    /// Below the chase threshold the lava hunts the players: their tile is marked and floods a moment later
+    /// (for a second). Not during the cage - the caged player is safe from it.
+    /// </summary>
+    private void ProcessChaseLava(
+        EntityUid bossUid,
+        LavalandAshDrakeComponent drake,
+        LavalandBossComponent boss,
+        EntityUid gridUid,
+        MapGridComponent grid,
+        TimeSpan now)
+    {
+        for (var i = drake.PendingChaseLava.Count - 1; i >= 0; i--)
+        {
+            var pending = drake.PendingChaseLava[i];
+            if (pending.At > now)
+                continue;
+
+            drake.PendingChaseLava.RemoveAt(i);
+            if (pending.Grid == gridUid && !drake.CageActive)
+                SpawnAnchored(drake.ChaseLavaPrototype, gridUid, grid, pending.Tile);
+        }
+
+        if (drake.CageActive || now < drake.NextChaseLava ||
+            !TryComp<DamageableComponent>(bossUid, out var damageable) || boss.MaxHealth <= 0)
+        {
+            return;
+        }
+
+        var healthFraction = Math.Clamp(1f - (float) damageable.TotalDamage / boss.MaxHealth, 0f, 1f);
+        if (healthFraction > drake.ChaseLavaHealthFraction)
+            return;
+
+        drake.NextChaseLava = now + drake.ChaseLavaInterval;
+        foreach (var participant in _participants)
+        {
+            if (GetEntityTile(participant, gridUid, grid) is not { } tile)
+                continue;
+
+            SpawnAnchored(drake.ChaseLavaWarningPrototype, gridUid, grid, tile);
+            drake.PendingChaseLava.Add((gridUid, tile, now + drake.ChaseLavaDelay));
+        }
     }
 
     public override void Update(float frameTime)
@@ -98,6 +161,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
 
             ProcessHealthPhases(uid, drake, boss, arena, arena.Grid, grid, now);
             ProcessWhelpAttacks(drake, grid, now);
+            ProcessChaseLava(uid, drake, boss, arena.Grid, grid, now);
 
             if (drake.CageActive)
             {
@@ -122,6 +186,10 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
                 continue;
 
             RunAttack(uid, drake, arena, arena.Grid, grid, target.Value, now);
+
+            // Enraged after someone escaped its cage: everything comes much faster.
+            if (now < drake.EscapeEnrageUntil && drake.NextAttack > now)
+                drake.NextAttack = now + (drake.NextAttack - now) * drake.EscapeEnrageCooldownMultiplier;
         }
     }
 
@@ -360,6 +428,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         var cageCenter = GetCageCenter(arena, targetTile.Value, drake.CageHalfSize);
 
         drake.CageCenter = cageCenter;
+        drake.CagedPlayer = target;
         drake.CageActive = true;
         drake.CagePhase = 0;
         drake.CageEndAt = now + drake.CageDuration;
@@ -395,6 +464,22 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         if (now >= drake.CageEndAt)
         {
             EndCageAttack(boss, drake, arena, gridUid, grid, now);
+            return;
+        }
+
+        // tgstation: escaping the cage (teleport, jaunter...) makes the drake furious.
+        if (drake.CagedPlayer is { } caged && !IsDead(caged) &&
+            (TerminatingOrDeleted(caged) || GetEntityTile(caged, gridUid, grid) is not { } cagedTile ||
+             Math.Max(Math.Abs(cagedTile.X - drake.CageCenter.X), Math.Abs(cagedTile.Y - drake.CageCenter.Y)) > drake.CageHalfSize + 1))
+        {
+            EndCageAttack(boss, drake, arena, gridUid, grid, now);
+            drake.EscapeEnrageUntil = now + drake.EscapeEnrageDuration;
+            drake.BusyUntil = now;
+            drake.NextAttack = now;
+            foreach (var participant in _participants)
+            {
+                _popup.PopupEntity(Loc.GetString("lavaland-ash-drake-escape-enrage"), participant, participant, PopupType.LargeCaution);
+            }
             return;
         }
 
@@ -487,6 +572,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         drake.CageSafeTile = null;
         drake.NextCageFillAt = TimeSpan.Zero;
 
+        drake.CagedPlayer = null;
         if (!Exists(boss))
             return;
 
@@ -874,7 +960,9 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
             drake.NextQueuedSwoop = TimeSpan.Zero;
         }
 
-        SetVisual(boss, LavalandAshDrakeVisualState.Shadow);
+        // It shoots up out of sight (no shadow on the ground) and flies there to its mark.
+        SetVisual(boss, LavalandAshDrakeVisualState.Dragon);
+        SkyMove(boss, now, Math.Min(0.35f, (float) drake.SwoopWindup.TotalSeconds), rising: true, slant: 0f);
         _movement.RefreshMovementSpeedModifiers(boss);
 
         drake.BusyUntil = now + drake.SwoopWindup + TimeSpan.FromSeconds(drake.SwoopStepDelay.TotalSeconds * steps) + drake.SwoopRecover;
@@ -930,7 +1018,6 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
             nextTile = ClampToInnerArena(arena, nextTile);
 
         _transform.SetCoordinates(boss, _map.GridTileToLocal(gridUid, grid, nextTile));
-        SetVisual(boss, LavalandAshDrakeVisualState.Shadow);
 
         drake.SwoopRemainingSteps--;
         drake.NextSwoopStep = now + drake.SwoopStepDelay;
@@ -1006,6 +1093,8 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         var tile = GetEntityTile(boss, gridUid, grid) ?? Vector2i.Zero;
         SpawnAnchored(drake.LandingPrototype, gridUid, grid, tile);
         SetVisual(boss, LavalandAshDrakeVisualState.Swoop);
+        // Down on the mark at a slant, from one side or the other.
+        SkyMove(boss, now, (float) drake.SwoopRecover.TotalSeconds, rising: false, slant: _random.Prob(0.5f) ? 0.6f : -0.6f);
 
         drake.SwoopImpactAt = now + drake.SwoopRecover;
         drake.BusyUntil = drake.SwoopImpactAt + TimeSpan.FromSeconds(0.25);
@@ -1032,6 +1121,7 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
         drake.SwoopFireRainTilesQueued = 0;
 
         SetVisual(boss, LavalandAshDrakeVisualState.Dragon);
+        RemComp<LavalandSkyDropComponent>(boss);
         _movement.RefreshMovementSpeedModifiers(boss);
 
         if (drake.PendingSwoops > 0)
@@ -1566,6 +1656,8 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
     private void ClearRuntimeState(EntityUid uid, LavalandAshDrakeComponent drake, bool restoreVisual)
     {
         drake.PendingTiles.Clear();
+        // Reset mid-swoop: back down out of the sky.
+        RemComp<LavalandSkyDropComponent>(uid);
         drake.Swooping = false;
         drake.SwoopInvulnerable = false;
         drake.SwoopTarget = null;
@@ -1648,6 +1740,22 @@ public sealed class LavalandAshDrakeSystem : EntitySystem
             return;
 
         drake.LastPressureByTarget[target] = now;
+    }
+
+    /// <summary>Height of the swoop above the arena, in tiles: well out of sight.</summary>
+    private const float SwoopHeight = 14f;
+
+    /// <summary>Moves the drake's sprite up into the sky or down out of it (the drake itself stays on the ground).</summary>
+    private void SkyMove(EntityUid uid, TimeSpan now, float duration, bool rising, float slant)
+    {
+        var drop = EnsureComp<LavalandSkyDropComponent>(uid);
+        drop.Start = now;
+        drop.Duration = Math.Max(0.05f, duration);
+        drop.Height = SwoopHeight;
+        drop.Rising = rising;
+        drop.Sinking = false;
+        drop.Slant = slant;
+        Dirty(uid, drop);
     }
 
     private void SetVisual(EntityUid uid, LavalandAshDrakeVisualState state)

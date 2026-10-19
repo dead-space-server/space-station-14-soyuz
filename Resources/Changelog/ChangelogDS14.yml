@@ -8870,3 +8870,10 @@ Entries:
   changes:
   - type: Tweak
     message: Теперь админ заметки видны обычным игрокам
+- id: 852
+  author: TheZuTi
+  time: '2026-10-19T13:56:52.377551+00:00'
+  pr: 2526
+  changes:
+  - type: Tweak
+    message: Огромный патч лаваленда

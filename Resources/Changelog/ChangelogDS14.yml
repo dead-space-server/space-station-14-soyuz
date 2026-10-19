@@ -8877,3 +8877,10 @@ Entries:
   changes:
   - type: Tweak
     message: Огромный патч лаваленда
+- id: 853
+  author: BlueDogDoc
+  time: '2026-10-19T17:51:24.016033+00:00'
+  pr: 2538
+  changes:
+  - type: Add
+    message: невидимый тайл для мапинга

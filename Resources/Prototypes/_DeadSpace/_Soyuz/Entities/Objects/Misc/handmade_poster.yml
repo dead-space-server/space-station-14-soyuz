@@ -1,8 +1,8 @@
 - type: entity
   parent: BasePaper
   id: HandmadePoster
-  name: poster blank
-  description: A homemade wall poster for drawing with a pen. Dismantle it with a crowbar to recover the paper.
+  name: poster
+  description: A white homemade paper poster.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Misc/handmade_poster.rsi
@@ -37,6 +37,7 @@
 
 - type: construction
   id: HandmadePoster
+  name: construction-recipe-handmade-poster
   graph: HandmadePoster
   startNode: start
   targetNode: poster

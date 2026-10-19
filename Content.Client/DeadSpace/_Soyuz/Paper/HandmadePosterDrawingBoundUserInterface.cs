@@ -116,9 +116,8 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
         _clear.OnPressed += _ => _canvas.Clear();
         tools.AddChild(_clear);
         root.AddChild(tools);
-        root.AddChild(new Label { Text = Loc.GetString("handmade-poster-drawing-navigation") });
         root.AddChild(_canvas);
-        _status = new RichTextLabel();
+        _status = new RichTextLabel { Visible = false };
         root.AddChild(_status);
 
         var actions = new BoxContainer { SeparationOverride = 4 };
@@ -232,13 +231,12 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
         _clear.Disabled = !editable;
         _reload.Disabled = _saving || _serverRevision < 0;
         var key = _error ?? (_saving ? "handmade-poster-drawing-saving" :
-            _conflict ? "handmade-poster-drawing-conflict" :
-            !editable ? "handmade-poster-drawing-readonly" :
-            _dirty ? "handmade-poster-drawing-unsaved" : "handmade-poster-drawing-ready");
+            _conflict ? "handmade-poster-drawing-conflict" : null);
         if (_statusKey != key)
         {
             _statusKey = key;
-            _status.SetMessage(Loc.GetString(key));
+            _status.Visible = key != null;
+            _status.SetMessage(key == null ? string.Empty : Loc.GetString(key));
         }
     }
 }

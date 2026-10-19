@@ -2,17 +2,22 @@
   parent: BasePaper
   id: HandmadePoster
   name: poster blank
-  description: A blank homemade poster. Attach it to a wall, then draw on it while holding a pen.
+  description: A homemade wall poster for drawing with a pen. Dismantle it with a crowbar to recover the paper.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Misc/handmade_poster.rsi
     noRot: true
+    drawdepth: WallMountedItems
     layers:
     - state: blank
     - map: ["enum.HandmadePosterVisualLayers.Drawing"]
       visible: false
   - type: Item
     size: Normal
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
   - type: Tag
     tags:
     - Document
@@ -21,14 +26,6 @@
     requiresComplex: false
   - type: WallMount
     arc: 360
-  - type: Sticky
-    whitelist:
-      components:
-      - Wall
-    verbText: handmade-poster-unstick-verb
-    stickPopupSuccess: handmade-poster-stuck
-    unstickPopupSuccess: handmade-poster-unstuck
-  - type: StickyVisualizer
   - type: HandmadePoster
   - type: UserInterface
     interfaces:
@@ -44,7 +41,11 @@
   startNode: start
   targetNode: poster
   category: construction-category-misc
-  objectType: Item
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
 
 - type: constructionGraph
   id: HandmadePoster
@@ -59,3 +60,13 @@
         doAfter: 2
   - node: poster
     entity: HandmadePoster
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 10
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3

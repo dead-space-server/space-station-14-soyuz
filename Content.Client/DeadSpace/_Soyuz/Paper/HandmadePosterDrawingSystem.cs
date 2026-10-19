@@ -83,7 +83,7 @@ public sealed class HandmadePosterDrawingSystem : EntitySystem
 
 internal static class HandmadePosterTextures
 {
-    public static Image<Rgba32> CreateImage(byte[] pixels)
+    public static Image<Rgba32> CreateImage(uint[] pixels)
     {
         var image = new Image<Rgba32>(HandmadePosterDrawing.Width, HandmadePosterDrawing.Height);
         if (pixels.Length != HandmadePosterDrawing.PixelCount)
@@ -92,11 +92,9 @@ internal static class HandmadePosterTextures
         for (var y = 0; y < image.Height; y++)
         for (var x = 0; x < image.Width; x++)
         {
-            var index = pixels[y * image.Width + x];
-            if (index >= HandmadePosterDrawing.Palette.Length)
-                continue;
-            var color = HandmadePosterDrawing.Palette[index];
-            image[x, y] = new Rgba32(color.RByte, color.GByte, color.BByte, color.AByte);
+            var pixel = pixels[y * image.Width + x];
+            image[x, y] = new Rgba32((byte) (pixel >> 24), (byte) (pixel >> 16),
+                (byte) (pixel >> 8), (byte) pixel);
         }
         return image;
     }

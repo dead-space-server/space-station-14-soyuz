@@ -3,20 +3,18 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Item;
-using Content.Shared.Sticky;
-using Content.Shared.Sticky.Components;
-using Content.Shared.Sticky.Systems;
 using Content.Shared.Wall;
 using Content.Shared.Tag;
 using Content.Shared.Verbs;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using static Content.Shared.Interaction.SharedInteractionSystem;
 
 namespace Content.Shared.DeadSpace._Soyuz.Paper;
 
@@ -25,7 +23,7 @@ namespace Content.Shared.DeadSpace._Soyuz.Paper;
 public sealed partial class HandmadePosterComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public byte[] Pixels = Array.Empty<byte>();
+    public uint[] Pixels = Array.Empty<uint>();
 
     [DataField, AutoNetworkedField]
     public int DrawingRevision;
@@ -34,15 +32,13 @@ public sealed partial class HandmadePosterComponent : Component
 }
 
 /// <summary>
-/// Keeps a wall-mounted poster accessible without bypassing range or obstruction checks.
-/// Attachment and removal are handled by the existing sticky item system.
+/// Validates editing of a constructed wall poster. Construction also handles dismantling it.
 /// </summary>
 public sealed class HandmadePosterSystem : EntitySystem
 {
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly StickySystem _sticky = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
@@ -51,15 +47,12 @@ public sealed class HandmadePosterSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
     private static readonly SoundSpecifier DrawingSound = new SoundCollectionSpecifier("PaperScribbles");
+    private static readonly ProtoId<TagPrototype> WriteTag = "Write";
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<HandmadePosterComponent, AccessibleOverrideEvent>(OnAccessible);
-        SubscribeLocalEvent<HandmadePosterComponent, AttemptEntityStickEvent>(OnStickAttempt);
-        SubscribeLocalEvent<HandmadePosterComponent, AttemptEntityUnstickEvent>(OnUnstickAttempt);
         SubscribeLocalEvent<HandmadePosterComponent, GettingPickedUpAttemptEvent>(OnPickupAttempt);
-        SubscribeLocalEvent<HandmadePosterComponent, EntGotRemovedFromContainerMessage>(OnRemoved);
         SubscribeLocalEvent<HandmadePosterComponent, GetVerbsEvent<Verb>>(OnDrawingVerb);
         SubscribeLocalEvent<HandmadePosterComponent, BoundUIOpenedEvent>(OnDrawingOpened);
         SubscribeLocalEvent<HandmadePosterComponent, HandmadePosterDrawingSaveMessage>(OnDrawingSave);
@@ -97,10 +90,10 @@ public sealed class HandmadePosterSystem : EntitySystem
     public bool CanDraw(EntityUid poster, EntityUid user)
     {
         return !IsUnavailable(poster) && !IsUnavailable(user) && !MetaData(poster).EntityPaused &&
-            IsAttached(poster, out _) &&
+            IsAttached(poster) &&
             _blocker.CanInteract(user, poster) && _blocker.CanComplexInteract(user) &&
             _interaction.InRangeAndAccessible(user, poster) &&
-            _hands.GetActiveItem(user) is { } pen && _tags.HasTag(pen, "Write");
+            _hands.GetActiveItem(user) is { } pen && _tags.HasTag(pen, WriteTag);
     }
 
     private void OnDrawingSave(Entity<HandmadePosterComponent> ent, ref HandmadePosterDrawingSaveMessage args)
@@ -130,7 +123,7 @@ public sealed class HandmadePosterSystem : EntitySystem
         foreach (var pixel in args.Pixels)
             hasInk |= pixel != 0;
 
-        ent.Comp.Pixels = hasInk ? (byte[]) args.Pixels.Clone() : Array.Empty<byte>();
+        ent.Comp.Pixels = hasInk ? (uint[]) args.Pixels.Clone() : Array.Empty<uint>();
         ent.Comp.DrawingRevision++;
         ent.Comp.NextDrawingSave = _timing.CurTime + TimeSpan.FromSeconds(0.5);
         Dirty(ent.Owner, ent.Comp);
@@ -151,64 +144,24 @@ public sealed class HandmadePosterSystem : EntitySystem
             new HandmadePosterDrawingResult(ent.Comp.Pixels, ent.Comp.DrawingRevision, requestId, error), user);
     }
 
-    private bool IsAttached(EntityUid uid, out EntityUid wall)
+    private bool IsAttached(EntityUid uid)
     {
-        wall = default;
-        if (!TryComp<StickyComponent>(uid, out var sticky) || sticky.StuckTo is not { } target ||
-            IsUnavailable(target) || !HasComp<WallComponent>(target) ||
-            !_containers.TryGetContainingContainer((uid, null, null), out var container) ||
-            container.Owner != target || !container.ShowContents)
+        var xform = Transform(uid);
+        if (!xform.Anchored || xform.GridUid is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var grid))
             return false;
 
-        wall = target;
-        return true;
-    }
-
-    private void OnAccessible(Entity<HandmadePosterComponent> ent, ref AccessibleOverrideEvent args)
-    {
-        if (args.Target != ent.Owner || args.Handled || !IsAttached(ent.Owner, out var wall) ||
-            !_interaction.IsAccessible(args.User, wall))
-            return;
-
-        args.Handled = true;
-        args.Accessible = true;
-    }
-
-    private void OnStickAttempt(Entity<HandmadePosterComponent> ent, ref AttemptEntityStickEvent args)
-    {
-        // Also runs immediately before insertion, so a stale or repeated attachment cannot move a poster.
-        if (IsUnavailable(ent.Owner) || IsUnavailable(args.Target) || IsUnavailable(args.User) ||
-            !_blocker.CanInteract(args.User, ent.Owner) || !_blocker.CanComplexInteract(args.User) ||
-            !HasComp<WallComponent>(args.Target) ||
-            !TryComp<StickyComponent>(ent.Owner, out var sticky) || sticky.StuckTo != null ||
-            _hands.GetActiveItem(args.User) != ent.Owner ||
-            !_interaction.InRangeAndAccessible(args.User, args.Target))
-            args.Cancelled = true;
-    }
-
-    private void OnUnstickAttempt(Entity<HandmadePosterComponent> ent, ref AttemptEntityUnstickEvent args)
-    {
-        if (IsUnavailable(ent.Owner) || IsUnavailable(args.User) ||
-            !_blocker.CanInteract(args.User, ent.Owner) || !_blocker.CanComplexInteract(args.User) ||
-            !IsAttached(ent.Owner, out var wall) || wall != args.Target ||
-            !_interaction.InRangeAndAccessible(args.User, ent.Owner))
-            args.Cancelled = true;
+        foreach (var wall in _map.GetAnchoredEntities(gridUid, grid, xform.Coordinates))
+        {
+            if (!IsUnavailable(wall) && HasComp<WallComponent>(wall))
+                return true;
+        }
+        return false;
     }
 
     private void OnPickupAttempt(EntityUid uid, HandmadePosterComponent component, GettingPickedUpAttemptEvent args)
     {
-        // An empty-hand click views the drawing; the existing unstick verb removes the poster.
-        if (IsAttached(uid, out _))
-            args.Cancel();
-    }
-
-    private void OnRemoved(EntityUid uid, HandmadePosterComponent component, EntGotRemovedFromContainerMessage args)
-    {
-        if (_timing.ApplyingState || TerminatingOrDeleted(uid))
-            return;
-
-        if (TryComp<StickyComponent>(uid, out var sticky) && sticky.StuckTo == args.Container.Owner)
-            _sticky.RefreshStuckState((uid, sticky));
+        // Viewing is allowed, but the poster can only be removed by dismantling it.
+        args.Cancel();
     }
 
     private bool IsUnavailable(EntityUid uid) => TerminatingOrDeleted(uid) || EntityManager.IsQueuedForDeletion(uid);
@@ -220,7 +173,7 @@ public static class HandmadePosterDrawing
     public const int Height = 104;
     public const int PixelCount = Width * Height;
 
-    // Index zero is transparent: the eraser reveals the paper underneath.
+    // Preset brush colors; saved pixels contain packed RGB with an opaque alpha byte.
     public static readonly Color[] Palette =
     {
         Color.Transparent, Color.FromHex("#202020"), Color.White, Color.FromHex("#929292"),
@@ -230,14 +183,18 @@ public static class HandmadePosterDrawing
         Color.FromHex("#E8B796"),
     };
 
-    public static bool IsValid(byte[]? pixels)
+    public static uint Pack(Color color) => ((uint) color.RByte << 24) | ((uint) color.GByte << 16) |
+        ((uint) color.BByte << 8) | 0xFFu;
+
+    public static bool IsValid(uint[]? pixels)
     {
         if (pixels == null || pixels.Length != 0 && pixels.Length != PixelCount)
             return false;
 
         foreach (var pixel in pixels)
         {
-            if (pixel >= Palette.Length)
+            // Zero is the eraser. Partial transparency is not part of RGB drawing.
+            if (pixel != 0 && (pixel & 0xFFu) != 0xFFu)
                 return false;
         }
         return true;
@@ -251,24 +208,24 @@ public enum HandmadePosterUiKey : byte { Drawing }
 public enum HandmadePosterVisualLayers : byte { Drawing }
 
 [Serializable, NetSerializable]
-public sealed class HandmadePosterDrawingState(byte[] pixels, int revision) : BoundUserInterfaceState
+public sealed class HandmadePosterDrawingState(uint[] pixels, int revision) : BoundUserInterfaceState
 {
-    public readonly byte[] Pixels = pixels;
+    public readonly uint[] Pixels = pixels;
     public readonly int Revision = revision;
 }
 
 [Serializable, NetSerializable]
-public sealed class HandmadePosterDrawingSaveMessage(byte[] pixels, int revision, Guid requestId) : BoundUserInterfaceMessage
+public sealed class HandmadePosterDrawingSaveMessage(uint[] pixels, int revision, Guid requestId) : BoundUserInterfaceMessage
 {
-    public readonly byte[] Pixels = pixels;
+    public readonly uint[] Pixels = pixels;
     public readonly int Revision = revision;
     public readonly Guid RequestId = requestId;
 }
 
 [Serializable, NetSerializable]
-public sealed class HandmadePosterDrawingResult(byte[] pixels, int revision, Guid requestId, string? error) : BoundUserInterfaceMessage
+public sealed class HandmadePosterDrawingResult(uint[] pixels, int revision, Guid requestId, string? error) : BoundUserInterfaceMessage
 {
-    public readonly byte[] Pixels = pixels;
+    public readonly uint[] Pixels = pixels;
     public readonly int Revision = revision;
     public readonly Guid RequestId = requestId;
     public readonly string? Error = error;

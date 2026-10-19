@@ -52,8 +52,9 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
     private readonly Button _reload;
     private readonly Button _eraser;
     private readonly List<Button> _colors = new();
+    private readonly ColorSelectorSliders _rgb;
     private readonly RichTextLabel _status;
-    private byte[] _serverPixels = Array.Empty<byte>();
+    private uint[] _serverPixels = Array.Empty<uint>();
     private int _serverRevision = -1;
     private int _editRevision = -1;
     private bool _dirty;
@@ -88,6 +89,15 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
             palette.AddChild(button);
         }
         root.AddChild(palette);
+        _rgb = new ColorSelectorSliders
+        {
+            SelectorType = ColorSelectorSliders.ColorSelectorType.Rgb,
+            IsAlphaVisible = false,
+            Color = HandmadePosterDrawing.Palette[1],
+            HorizontalExpand = true,
+        };
+        _rgb.OnColorChanged += color => SelectColor(HandmadePosterDrawing.Pack(color));
+        root.AddChild(_rgb);
 
         var tools = new BoxContainer { SeparationOverride = 4 };
         tools.AddChild(new Label { Text = Loc.GetString("handmade-poster-drawing-brush") });
@@ -97,7 +107,7 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
         brush.ValueChanged += args => _canvas.BrushSize = args.Value;
         tools.AddChild(brush);
         _eraser = new Button { Text = Loc.GetString("handmade-poster-drawing-eraser"), ToggleMode = true };
-        _eraser.OnPressed += _ => SelectColor(0);
+        _eraser.OnPressed += _ => SelectColor(0u);
         tools.AddChild(_eraser);
         _undo = new Button { Text = Loc.GetString("handmade-poster-drawing-undo") };
         _undo.OnPressed += _ => _canvas.Undo();
@@ -106,6 +116,7 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
         _clear.OnPressed += _ => _canvas.Clear();
         tools.AddChild(_clear);
         root.AddChild(tools);
+        root.AddChild(new Label { Text = Loc.GetString("handmade-poster-drawing-navigation") });
         root.AddChild(_canvas);
         _status = new RichTextLabel();
         root.AddChild(_status);
@@ -122,7 +133,7 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
             _pendingRequest = requestId;
             _canvas.StopStroke();
             UpdateControls();
-            Save?.Invoke(new HandmadePosterDrawingSaveMessage((byte[]) _canvas.Pixels.Clone(), _editRevision, requestId));
+            Save?.Invoke(new HandmadePosterDrawingSaveMessage((uint[]) _canvas.Pixels.Clone(), _editRevision, requestId));
         };
         actions.AddChild(_save);
         _reload = new Button { Text = Loc.GetString("handmade-poster-drawing-reload"), HorizontalExpand = true };
@@ -140,18 +151,26 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
 
     private void SelectColor(byte index)
     {
-        _canvas.SelectedColor = index;
-        _eraser.Pressed = index == 0;
-        for (var i = 0; i < _colors.Count; i++)
-            _colors[i].Pressed = i + 1 == index;
+        var color = HandmadePosterDrawing.Palette[index];
+        _rgb.Color = color;
+        SelectColor(HandmadePosterDrawing.Pack(color));
     }
 
-    public void ApplyState(byte[] pixels, int revision)
+    private void SelectColor(uint color)
+    {
+        _canvas.StopStroke();
+        _canvas.SelectedColor = color;
+        _eraser.Pressed = color == 0;
+        for (var i = 0; i < _colors.Count; i++)
+            _colors[i].Pressed = HandmadePosterDrawing.Pack(HandmadePosterDrawing.Palette[i + 1]) == color;
+    }
+
+    public void ApplyState(uint[] pixels, int revision)
     {
         if (revision <= _serverRevision || !HandmadePosterDrawing.IsValid(pixels))
             return;
 
-        _serverPixels = (byte[]) pixels.Clone();
+        _serverPixels = (uint[]) pixels.Clone();
         _serverRevision = revision;
         var identical = pixels.Length == 0 ? !_canvas.Pixels.Any(p => p != 0) : pixels.SequenceEqual(_canvas.Pixels);
         if (!_dirty && !_saving || identical)
@@ -227,17 +246,20 @@ public sealed class HandmadePosterDrawingWindow : DefaultWindow
 public sealed class HandmadePosterCanvas : Control
 {
     [Dependency] private readonly IClyde _clyde = default!;
-    public byte[] Pixels { get; private set; } = new byte[HandmadePosterDrawing.PixelCount];
+    public uint[] Pixels { get; private set; } = new uint[HandmadePosterDrawing.PixelCount];
     public bool Editable;
-    public byte SelectedColor = 1;
+    public uint SelectedColor = HandmadePosterDrawing.Pack(HandmadePosterDrawing.Palette[1]);
     public int BrushSize = 1;
     public bool HasUndo => _undo.Count > 0;
     public event Action? Changed;
 
-    private readonly List<byte[]> _undo = new();
+    private readonly List<uint[]> _undo = new();
     private OwnedTexture? _texture;
     private bool _textureDirty = true;
     private Vector2i? _lastPoint;
+    private float _zoom = 1f;
+    private Vector2 _pan;
+    private Vector2? _panPoint;
 
     public HandmadePosterCanvas()
     {
@@ -249,10 +271,10 @@ public sealed class HandmadePosterCanvas : Control
         VerticalExpand = true;
     }
 
-    public void SetPixels(byte[] pixels)
+    public void SetPixels(uint[] pixels)
     {
         Pixels = pixels.Length == HandmadePosterDrawing.PixelCount
-            ? (byte[]) pixels.Clone() : new byte[HandmadePosterDrawing.PixelCount];
+            ? (uint[]) pixels.Clone() : new uint[HandmadePosterDrawing.PixelCount];
         _undo.Clear();
         _textureDirty = true;
         StopStroke();
@@ -264,7 +286,7 @@ public sealed class HandmadePosterCanvas : Control
     {
         if (_undo.Count == 32)
             _undo.RemoveAt(0);
-        _undo.Add((byte[]) Pixels.Clone());
+        _undo.Add((uint[]) Pixels.Clone());
     }
 
     public void Undo()
@@ -311,15 +333,49 @@ public sealed class HandmadePosterCanvas : Control
     {
         var imageSize = new Vector2(HandmadePosterDrawing.Width, HandmadePosterDrawing.Height);
         var scale = Math.Min(PixelSize.X / imageSize.X, PixelSize.Y / imageSize.Y);
-        var size = imageSize * Math.Max(0, scale);
-        return UIBox2.FromDimensions(((Vector2) PixelSize - size) / 2, size);
+        var size = imageSize * Math.Max(0, scale) * _zoom;
+        return UIBox2.FromDimensions(((Vector2) PixelSize - size) / 2 + _pan, size);
+    }
+
+    private void ClampPan()
+    {
+        var overflow = GetCanvasRect().Size - (Vector2) PixelSize;
+        _pan = new Vector2(
+            Math.Clamp(_pan.X, -Math.Max(0, overflow.X) / 2, Math.Max(0, overflow.X) / 2),
+            Math.Clamp(_pan.Y, -Math.Max(0, overflow.Y) / 2, Math.Max(0, overflow.Y) / 2));
+    }
+
+    protected override void Resized()
+    {
+        base.Resized();
+        ClampPan();
+        StopStroke();
+    }
+
+    protected override void MouseWheel(GUIMouseWheelEventArgs args)
+    {
+        base.MouseWheel(args);
+        var rect = GetCanvasRect();
+        if (args.Delta.Y == 0 || rect.Width <= 0 || rect.Height <= 0)
+            return;
+
+        var anchor = args.RelativePixelPosition;
+        var imagePosition = (anchor - rect.TopLeft) / rect.Size;
+        _zoom = Math.Clamp(_zoom * MathF.Pow(1.25f, args.Delta.Y), 1f, 16f);
+        var size = GetCanvasRect().Size;
+        _pan = anchor - imagePosition * size - ((Vector2) PixelSize - size) / 2;
+        ClampPan();
+        StopStroke();
+        _panPoint = null;
+        args.Handle();
     }
 
     private bool TryGetPoint(Vector2 position, out Vector2i point)
     {
         point = default;
         var rect = GetCanvasRect();
-        if (rect.Width <= 0 || !rect.Contains(position))
+        if (rect.Width <= 0 || rect.Height <= 0 || !rect.Contains(position) ||
+            !UIBox2.FromDimensions(Vector2.Zero, (Vector2) PixelSize).Contains(position))
             return false;
         var relative = (position - rect.TopLeft) / rect.Size;
         point = new Vector2i(Math.Clamp((int) (relative.X * HandmadePosterDrawing.Width), 0, HandmadePosterDrawing.Width - 1),
@@ -330,6 +386,13 @@ public sealed class HandmadePosterCanvas : Control
     protected override void KeyBindDown(GUIBoundKeyEventArgs args)
     {
         base.KeyBindDown(args);
+        if (args.Function == EngineKeyFunctions.UIRightClick)
+        {
+            StopStroke();
+            _panPoint = args.RelativePixelPosition;
+            args.Handle();
+            return;
+        }
         if (!Editable || args.Function != EngineKeyFunctions.UIClick || !TryGetPoint(args.RelativePixelPosition, out var point))
             return;
         Remember();
@@ -341,6 +404,8 @@ public sealed class HandmadePosterCanvas : Control
     protected override void KeyBindUp(GUIBoundKeyEventArgs args)
     {
         base.KeyBindUp(args);
+        if (args.Function == EngineKeyFunctions.UIRightClick)
+            _panPoint = null;
         if (args.Function == EngineKeyFunctions.UIClick)
             StopStroke();
     }
@@ -348,6 +413,14 @@ public sealed class HandmadePosterCanvas : Control
     protected override void MouseMove(GUIMouseMoveEventArgs args)
     {
         base.MouseMove(args);
+        if (_panPoint is { } panPoint)
+        {
+            _pan += args.RelativePixelPosition - panPoint;
+            _panPoint = args.RelativePixelPosition;
+            ClampPan();
+            args.Handle();
+            return;
+        }
         if (!Editable || _lastPoint is not { } last || !TryGetPoint(args.RelativePixelPosition, out var point))
             return;
         PaintLine(last, point);
@@ -359,6 +432,7 @@ public sealed class HandmadePosterCanvas : Control
     {
         base.MouseExited();
         StopStroke();
+        _panPoint = null;
     }
 
     private void PaintLine(Vector2i from, Vector2i to)

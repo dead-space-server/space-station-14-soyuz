@@ -183,20 +183,6 @@ public sealed class StickySystem : EntitySystem
         RaiseLocalEvent(uid, ref ev);
     }
 
-    // DS14-Soyuz-start: reconcile attachment after an item leaves its surface through another container API.
-    public void RefreshStuckState(Entity<StickyComponent> ent)
-    {
-        if (ent.Comp.StuckTo == null ||
-            _container.TryGetContainingContainer((ent.Owner, null, null), out var container) &&
-            container.Owner == ent.Comp.StuckTo)
-            return;
-
-        ent.Comp.StuckTo = null;
-        Dirty(ent.Owner, ent.Comp);
-        _appearance.SetData(ent.Owner, StickyVisuals.IsStuck, false);
-    }
-    // DS14-Soyuz-end
-
     public void UnstickFromEntity(Entity<StickyComponent> ent, EntityUid user)
     {
         var (uid, comp) = ent;

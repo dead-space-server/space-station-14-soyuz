@@ -135,7 +135,7 @@
     - FloorLavalandAsh
     - FloorLavalandPaleGrass
     entities:
-    - MobLavalandMadMiner
+    - LavalandMadMinerSpawner
 
   - !type:BiomeEntityLayer
     threshold: 0.9993

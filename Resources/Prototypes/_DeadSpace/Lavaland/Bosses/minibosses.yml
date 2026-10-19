@@ -1,3 +1,15 @@
+# The planet's spawn of a mad miner: not next to the outpost or any other grid.
+- type: entity
+  parent: MarkerBase
+  id: LavalandMadMinerSpawner
+  name: безумный шахтёр
+  suffix: Lavaland, спавнер
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: LavalandMadMinerSpawner
+
 - type: entity
   parent: [ BaseMobAsteroid, BaseMobLavalandFauna ]
   id: MobLavalandMadMiner

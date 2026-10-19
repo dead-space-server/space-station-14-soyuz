@@ -10,12 +10,27 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.DeadSpace.Lavaland.Components;
 
+/// <summary>
+/// Where the planet spawns a mad miner: it appears here unless another grid (the outpost, the ash walkers, ruins) is
+/// close. A miner spawned by hand is not held to that.
+/// </summary>
+[RegisterComponent]
+public sealed partial class LavalandMadMinerSpawnerComponent : Component
+{
+    [DataField]
+    public EntProtoId Prototype = "MobLavalandMadMiner";
+}
+
 [RegisterComponent]
 public sealed partial class LavalandMadMinerComponent : Component
 {
     /// <summary>Out of the way of a raid on the outpost: it hunts nobody until the raid is over.</summary>
     [ViewVariables]
     public bool RaidRetreat;
+
+    /// <summary>Its blink off the screen is over by then: it is taken far from the outpost.</summary>
+    [ViewVariables]
+    public TimeSpan? RaidJumpAt;
 
     [DataField] public float MaxHealth = 1250f;
     [DataField] public float NoticeRange = 7f;

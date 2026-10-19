@@ -84,6 +84,7 @@ public sealed class LavalandMadMinerSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<LavalandMadMinerComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<LavalandMadMinerSpawnerComponent, MapInitEvent>(OnSpawnerMapInit);
         SubscribeLocalEvent<LavalandMadMinerComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<LavalandMadMinerComponent, MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<LavalandMadMinerComponent, DamageChangedEvent>(OnDamageChanged);
@@ -92,17 +93,20 @@ public sealed class LavalandMadMinerSystem : EntitySystem
         SubscribeLocalEvent<LavalandMadMinerHookVisualComponent, InteractHandEvent>(OnHookVisualInteract);
     }
 
-    /// <summary>A miner the planet put this close (tiles) to another grid - the base, the ash walkers - is not spawned.</summary>
+    /// <summary>A miner the planet would put this close (tiles) to another grid - the base, the ash walkers - is not spawned.</summary>
     private const float OtherGridExclusion = 60f;
+
+    /// <summary>The planet's spawn of a miner: not next to the outpost or any other grid; the marker itself goes.</summary>
+    private void OnSpawnerMapInit(Entity<LavalandMadMinerSpawnerComponent> ent, ref MapInitEvent args)
+    {
+        if (!IsNearOtherGrid(ent.Owner))
+            Spawn(ent.Comp.Prototype, _transform.GetMapCoordinates(ent.Owner));
+
+        QueueDel(ent.Owner);
+    }
 
     private void OnMapInit(Entity<LavalandMadMinerComponent> ent, ref MapInitEvent args)
     {
-        if (IsNearOtherGrid(ent.Owner))
-        {
-            QueueDel(ent.Owner);
-            return;
-        }
-
         ent.Comp.HudId = _nextHudId++;
         ent.Comp.SpawnCoordinates = _transform.GetMapCoordinates(ent.Owner);
         ent.Comp.SelectedMusic = ent.Comp.Music.Count == 0 ? null : _random.Pick(ent.Comp.Music);
@@ -321,6 +325,7 @@ public sealed class LavalandMadMinerSystem : EntitySystem
             if (miner.RaidRetreat)
             {
                 miner.RaidRetreat = false;
+                miner.RaidJumpAt = null;
                 if (TryComp<HTNComponent>(uid, out var calmHtn))
                     _htn.SetHTNEnabled((uid, calmHtn), true);
             }
@@ -329,26 +334,53 @@ public sealed class LavalandMadMinerSystem : EntitySystem
         }
 
         if (miner.RaidRetreat)
+        {
+            // The blink off the screen is done: now far from the outpost, out of everyone's sight.
+            if (miner.RaidJumpAt is { } jumpAt && now >= jumpAt)
+            {
+                miner.RaidJumpAt = null;
+                BlinkAwayFromOutpost(uid, miner, map);
+            }
+
             return true;
+        }
 
         miner.RaidRetreat = true;
+        if (TryComp<HTNComponent>(uid, out var htn))
+            _htn.SetHTNEnabled((uid, htn), false);
+
         if (miner.Active)
         {
+            // Left where it stood, not on the miner: it is gone from sight a moment later and its popup with it.
+            var spot = Transform(uid).Coordinates;
             foreach (var session in miner.HudRecipients)
             {
                 if (session.AttachedEntity is { } player)
-                    _popup.PopupEntity(Loc.GetString("lavaland-mad-miner-raid-retreat"), uid, player, PopupType.MediumCaution);
+                    _popup.PopupCoordinates(Loc.GetString("lavaland-mad-miner-raid-retreat"), spot, player, PopupType.MediumCaution);
             }
 
             EndFight(uid, miner);
         }
 
-        BlinkAwayFromOutpost(uid, miner, map);
+        // A blink back away from the outpost, off the players' screens; the long jump comes after it.
+        miner.RaidJumpAt = now + RaidRetreatBlinkTime;
+        if (_raids.TryGetOutpostCenter(map, out var outpost))
+        {
+            var origin = _transform.GetMapCoordinates(uid);
+            var away = origin.Position - outpost;
+            away = away.LengthSquared() < 0.01f ? _random.NextAngle().ToVec() : Vector2.Normalize(away);
+            var destination = origin.Offset(away * RaidRetreatBlinkDistance);
+            var speed = RaidRetreatBlinkDistance / (float) RaidRetreatBlinkTime.TotalSeconds;
+            _blink.TryStartDash(uid, destination, speed, RaidRetreatBlinkTime, miner.BlinkStallTimeout, miner.BlinkSound);
+        }
 
-        if (TryComp<HTNComponent>(uid, out var htn))
-            _htn.SetHTNEnabled((uid, htn), false);
         return true;
     }
+
+    /// <summary>The blink off the screen when a raid starts: this far, this long.</summary>
+    private const float RaidRetreatBlinkDistance = 14f;
+
+    private static readonly TimeSpan RaidRetreatBlinkTime = TimeSpan.FromSeconds(0.6);
 
     /// <summary>
     /// Far from the outpost: straight away from it, onto open ground at least <see cref="RaidRetreatFromOutpost"/>

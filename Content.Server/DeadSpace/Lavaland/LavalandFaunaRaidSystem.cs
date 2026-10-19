@@ -156,7 +156,12 @@ public sealed class LavalandFaunaRaidSystem : EntitySystem
             case LavalandFaunaRaidStage.Active when raid.DefenseCheckAt is { } checkAt && now >= checkAt:
                 raid.DefenseCheckAt = null;
                 if (TryFindOutpost(ent, out var outpost) && !AnyDefender(outpost))
+                {
                     RuinOutpost(outpost, config, mapId);
+                    // Nobody came: the outpost is torn apart and the raid is over - tendrils, timer and music go.
+                    EndRaid(ent, mapId);
+                    return;
+                }
                 break;
         }
 

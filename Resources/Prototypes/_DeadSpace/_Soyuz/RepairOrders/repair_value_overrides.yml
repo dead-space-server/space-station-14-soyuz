@@ -1,0 +1,9 @@
+- type: repairValueOverride
+  id: RepairValueThrusterLarge
+  entity: ThrusterLarge
+  value: 50
+
+- type: repairValueOverride
+  id: RepairValueThrusterLargeUnanchored
+  entity: ThrusterLargeUnanchored
+  value: 50

@@ -15,7 +15,9 @@
     - UplinkAllies
     - UplinkWearables
     - UplinkJob
+    - UplinkUltra # DS14
     - UplinkPointless
+    - UplinkPresets
     currencyWhitelist:
     - Telecrystal
     balance:
@@ -47,6 +49,8 @@
   - type: Store
     name: store-preset-name-changeling
     categories:
-    - ChangelingAbilities
+    - ChangelingStoreCombat
+    - ChangelingStoreStealth
+    - ChangelingStoreUtility
     currencyWhitelist:
     - ChangelingDNA

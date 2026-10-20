@@ -1,6 +1,6 @@
 - type: gameMap
   id: Saltern
-  mapName: 'Saltern'
+  mapName: 'Салтерн' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/saltern.yml
   minPlayers: 7
   maxPlayers: 35
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Saltern {1}'
+          mapNameTemplate: '{0} Салтерн {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
@@ -19,7 +19,7 @@
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
             # NKVB
-            # Politruk: [ 1, 1 ]
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]

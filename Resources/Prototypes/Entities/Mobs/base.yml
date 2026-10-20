@@ -117,7 +117,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      100: Critical
+      100: Critical # DS14
       200: Dead
   - type: MobStateActions
     actions:

@@ -5432,7 +5432,7 @@ entities:
     - type: Transform
       pos: -1.5,-2.5
       parent: 1
-- proto: USSPtallflag
+- proto: USSPFlag
   entities:
   - uid: 483
     components:

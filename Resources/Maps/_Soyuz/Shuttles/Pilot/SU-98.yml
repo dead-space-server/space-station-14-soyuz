@@ -5424,7 +5424,7 @@ entities:
     - type: Transform
       pos: -0.5,22.5
       parent: 1
-- proto: USSPtallflag
+- proto: USSPFlag
   entities:
   - uid: 829
     components:

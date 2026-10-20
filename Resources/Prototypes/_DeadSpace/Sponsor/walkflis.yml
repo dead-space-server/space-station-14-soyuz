@@ -67,7 +67,7 @@
     tags: [] # ignore "WhitelistChameleon" tag
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, ShowMedicalIcons ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, ShowMedicalIcons]
   id: ClothingHeadHelmetHardsuitwalkflis
   categories: [ HideSpawnMenu ]
   name: шлем боевого скафандра
@@ -148,6 +148,7 @@
   id: ClothingMaskWeldingGaswalkflis
   name: сварочный противогаз
   description: Противогаз со встроенными сварочными очками и защитной маской для лица. Выглядит как череп, явно созданный ботаником.
+  categories: [ HideSpawnMenu ]
 
 # Headset
 - type: entity
@@ -188,6 +189,7 @@
     - NewsReaderCartridge
     - AstroNavCartridge
     - MedTekCartridge
+    - MessengerCartridge
   - type: PdaBorderColor
     borderColor: "#336899"
   - type: Tag
@@ -563,6 +565,7 @@
   id: PlushieWalkflis
   name: плюшевая Рейм
   description: Это.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/walkflis/toy.rsi

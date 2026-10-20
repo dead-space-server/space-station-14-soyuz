@@ -1,6 +1,7 @@
 - type: npcFaction
   id: Dragon
   hostile:
+  - AshWalker
   - NanoTrasen
   - Syndicate
   - Xeno
@@ -19,6 +20,7 @@
 - type: npcFaction
   id: NanoTrasen
   hostile:
+  - AshWalker
   - SimpleHostile
   - Syndicate
   - Xeno
@@ -57,6 +59,7 @@
 - type: npcFaction
   id: SimpleHostile
   hostile:
+  - AshWalker
   - NanoTrasen
   - Syndicate
   - Passive
@@ -80,11 +83,14 @@
 - type: npcFaction
   id: Syndicate
   hostile:
+  - AshWalker
   - NanoTrasen
   - SimpleHostile
   - Xeno
   - PetsNT
   - Zombie
+  - Ninja # DS14
+  - Revenant # DS14
   - Dragon
   - AllHostile
   - Wizard
@@ -98,6 +104,7 @@
 - type: npcFaction
   id: SyndicateAgent
   hostile:
+  - AshWalker
   - SimpleHostile
   - Xeno
   - Zombie
@@ -110,9 +117,57 @@
   - SpiderTerror # DS14
 # DS14-agents-faction-end
 
+## ds-14-start
+- type: npcFaction
+  id: Revenant
+  hostile:
+  - AshWalker
+  - Revolutionary
+  - NanoTrasen
+  - SimpleNeutral
+  - SimpleHostile
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Zombie
+  - Xeno
+  - AllHostile
+  - Ninja
+  - Wizard
+  - Dragon
+  - Xenoborg
+  - CentralCommand
+  - SpiderTerror
+  - Blob
+  - SyndicateAgent
+
+- type: npcFaction
+  id: Ninja
+  hostile:
+  - AshWalker
+  - Revolutionary
+  - NanoTrasen
+  - SimpleNeutral
+  - SimpleHostile
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Zombie
+  - Xeno
+  - AllHostile
+  - Wizard
+  - Dragon
+  - Xenoborg
+  - CentralCommand
+  - SpiderTerror
+  - Blob
+  - SyndicateAgent
+## ds-14-end
+
 - type: npcFaction
   id: Xeno
   hostile:
+  - AshWalker
   - NanoTrasen
   - Syndicate
   - Passive
@@ -133,6 +188,7 @@
 - type: npcFaction
   id: Zombie
   hostile:
+  - AshWalker
   - NanoTrasen
   - SimpleNeutral
   - SimpleHostile
@@ -154,6 +210,7 @@
 - type: npcFaction
   id: Revolutionary
   hostile:
+  - AshWalker
   - NanoTrasen
   - Zombie
   - SimpleHostile
@@ -169,6 +226,7 @@
 - type: npcFaction
   id: AllHostile
   hostile:
+  - AshWalker
   - NanoTrasen
   - Dragon
   - Mouse
@@ -192,6 +250,7 @@
 - type: npcFaction
   id: Wizard
   hostile:
+  - AshWalker
   - NanoTrasen
   - Dragon
   - Mouse
@@ -215,6 +274,7 @@
 - type: npcFaction
   id: Xenoborg
   hostile:
+  - AshWalker
   # they have brains
   - NanoTrasen
   - Syndicate

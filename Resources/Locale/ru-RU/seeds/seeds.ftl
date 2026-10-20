@@ -49,7 +49,6 @@ seeds-bluetomato-display-name = куст синего томата
 seeds-bloodtomato-name = кровяной томат
 seeds-bloodtomato-display-name = куст кровяного томата
 seeds-killertomato-name = томат-убийца
-seeds-killertomato-display-name = куст томата-убийцы
 seeds-eggplant-name = баклажан
 seeds-eggplant-display-name = баклажан
 seeds-apple-name = яблоко

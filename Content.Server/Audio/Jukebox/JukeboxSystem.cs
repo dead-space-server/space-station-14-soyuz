@@ -1,3 +1,4 @@
+/* DS14-Soyuz-disabled
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Audio.Jukebox;
@@ -155,3 +156,4 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         _appearanceSystem.SetData(uid, JukeboxVisuals.VisualState, finalState);
     }
 }
+*/

@@ -15,7 +15,7 @@
   id: ClothingBackpackdrippenwagenAlt
   name: грузовой сервочереп
   description: Изготовлено на заказ организацией LaFleur Wear.
-  # categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/drippenwagenAlt/backpack.rsi
@@ -141,7 +141,7 @@
     sprintModifier: 0.9
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetHardsuitdrippenwagenAlt
   categories: [ HideSpawnMenu ]
   name: шлем Инквизитора

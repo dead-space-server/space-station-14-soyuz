@@ -120,6 +120,18 @@
   itemDrop: FloorTileItemWhiteSteel10
   heatCapacity: 10000
 
+- type: tile
+  id: FloorWhiteSteel11
+  name: белая стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/wsteel11.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemWhiteSteel11
+  heatCapacity: 10000
+
 ## Обычные
 - type: tile
   id: FloorSteel1
@@ -241,6 +253,18 @@
   itemDrop: FloorTileItemSteel10
   heatCapacity: 10000
 
+- type: tile
+  id: FloorSteel11
+  name: стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/steel11.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemSteel11
+  heatCapacity: 10000
+
 ## Тёмные
 - type: tile
   id: FloorBlackSteel1
@@ -360,4 +384,16 @@
   footstepSounds:
     collection: FootstepTile
   itemDrop: FloorTileItemBlackSteel10
+  heatCapacity: 10000
+
+- type: tile
+  id: FloorBlackSteel11
+  name: тёмная стальная плитка
+  sprite: /Textures/_DeadSpace/_Soyuz/Tiles/bsteel11.png
+  baseTurf: Plating
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepTile
+  itemDrop: FloorTileItemBlackSteel11
   heatCapacity: 10000

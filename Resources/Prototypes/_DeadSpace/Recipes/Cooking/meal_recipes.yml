@@ -13,6 +13,15 @@
     Egg: 10
 
 - type: microwaveMealRecipe
+  id: RecipeDriedCannabisTritium
+  name: сушёные листья тритиевой конопли
+  result: LeavesCannabisTritiumDried
+  time: 10
+  group: Medicinal
+  solids:
+    LeavesCannabisTritium: 1
+
+- type: microwaveMealRecipe
   id: RecipeNotsandwich
   name: notsandwich recipe
   result: NotSandwich
@@ -326,3 +335,15 @@
     FoodOnionSlice: 5
     FoodMeat: 1
     FoodDough: 1
+
+- type: microwaveMealRecipe
+  id: RecipeDumpling
+  name: Рецепт пельменей
+  result: FoodPelmeniBowl
+  time: 10
+  group: Savory
+  reagents:
+    Water: 20
+  solids:
+    FoodBowlBig: 1
+    FoodDumpling: 6

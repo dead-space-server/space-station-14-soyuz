@@ -1,0 +1,43 @@
+- type: entity
+  parent: [ ClothingHeadset, BaseCentcommContraband ]
+  id: ClothingHeadsetNKO
+  name: гарнитура НКО
+  description: Стандартная гарнитура НКО СССП.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCentCom
+      - EncryptionKeyNKO
+      - EncryptionKeyStationMaster
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_base.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_base.rsi
+  - type: Headset
+    color: "#b64444"
+
+- type: entity
+  parent: ClothingHeadsetNKO
+  id: ClothingHeadsetNKOCaptain
+  name: гарнитура капитана НКО
+  description: Элитная гарнитура капитана НКО СССП.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
+    equippedState: equipped-EARS
+
+- type: entity
+  parent: ClothingHeadsetNKOCaptain
+  id: ClothingHeadsetNKOCaptainAlt
+  name: полноразмерная гарнитура капитана НКО
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
+    state: icon_alt
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Ears/Headsets/nanotrasen_navy_command.rsi
+    equippedState: alt-equipped-EARS

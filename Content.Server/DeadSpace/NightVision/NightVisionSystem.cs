@@ -13,7 +13,7 @@ public sealed class NightVisionSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<NightVisionComponent, ComponentStartup>(OnComponentStartup);
+        SubscribeLocalEvent<NightVisionComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<NightVisionComponent, ComponentRemove>(OnComponentRemove);
         SubscribeLocalEvent<NightVisionComponent, ComponentGetState>(OnNightVisionGetState);
         SubscribeLocalEvent<NightVisionComponent, ToggleNightVisionActionEvent>(OnToggleNightVision);
@@ -46,10 +46,11 @@ public sealed class NightVisionSystem : EntitySystem
             _timing.CurTick.Value,
             component.ActivateSound,
             component.Animation,
-            component.Duration);
+            component.Duration,
+            component.Desaturation);
     }
 
-    private void OnComponentStartup(EntityUid uid, NightVisionComponent component, ComponentStartup args)
+    private void OnMapInit(EntityUid uid, NightVisionComponent component, MapInitEvent args)
     {
         _actions.AddAction(uid, ref component.ActionToggleNightVisionEntity, component.ActionToggleNightVision);
     }

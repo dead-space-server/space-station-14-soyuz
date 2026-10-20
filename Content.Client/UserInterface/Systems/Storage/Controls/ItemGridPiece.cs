@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Items.Systems;
 using Content.Shared.Item;
 using Content.Shared.Storage;
@@ -15,6 +16,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
     private readonly StorageUIController _storageController;
 
     private readonly List<(Texture, Vector2)> _texturesPositions = new();
+    public EntityUid? StorageEntity { get; set; } // DS14
 
     public readonly EntityUid Entity;
     public ItemStorageLocation Location;
@@ -46,6 +48,10 @@ public sealed class ItemGridPiece : Control, IEntityControl
     private Texture? _markedFirstTexture;
     private readonly string _markedSecondTexturePath = "Storage/marked_second";
     private Texture? _markedSecondTexture;
+    // DS14-start
+    private readonly string _markedPriorityTexturePath = "Storage/marked_priority";
+    private Texture? _markedPriorityTexture;
+    // DS14-end
     #endregion
 
     public ItemGridPiece(Entity<ItemComponent> entity, ItemStorageLocation location,  IEntityManager entityManager)
@@ -92,6 +98,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
         _bottomRightTexture = Theme.ResolveTextureOrNull(_bottomRightTexturePath)?.Texture;
         _markedFirstTexture = Theme.ResolveTextureOrNull(_markedFirstTexturePath)?.Texture;
         _markedSecondTexture = Theme.ResolveTextureOrNull(_markedSecondTexturePath)?.Texture;
+        _markedPriorityTexture = Theme.ResolveTextureOrNull(_markedPriorityTexturePath)?.Texture; // DS14
     }
 
     protected override void Draw(DrawingHandleScreen handle)
@@ -116,8 +123,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
         var size = _centerTexture!.Size * 2 * UIScale;
 
         var hovering = !_storageController.IsDragging && UserInterfaceManager.CurrentlyHovered == this;
-        //yeah, this coloring is kinda hardcoded. deal with it. B)
-        Color? colorModulate = hovering  ? null : Color.FromHex("#a8a8a8");
+        Color? colorModulate = hovering ? null : DeadSpaceStylePalette.TextInactive; // DS14
 
         var marked = Marked != null;
         Vector2i? maybeMarkedPos = null;
@@ -205,6 +211,7 @@ public sealed class ItemGridPiece : Control, IEntityControl
             {
                 ItemGridPieceMarks.First => _markedFirstTexture,
                 ItemGridPieceMarks.Second => _markedSecondTexture,
+                ItemGridPieceMarks.Priority => _markedPriorityTexture, // DS14
                 _ => null,
             };
 
@@ -302,4 +309,5 @@ public enum ItemGridPieceMarks
 {
     First,
     Second,
+    Priority, //DS14
 }

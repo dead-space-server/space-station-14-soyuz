@@ -1,0 +1,113 @@
+# Надо ребаланс места и содержимого сделать
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzBeltMarineRMC
+  name: L70 pattern ammo load rig
+  description: Standart-issue Royal Marines Commando rig. It consists of a modular belt with various clips. This is the standard variant, designed for bulk ammunition-carrying operations.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/ammo.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/ammo.rsi
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzBeltUtilityGeneralRMC
+  name: L26 general utility pouch
+  description: A small, lightweight pouch that can be clipped onto kestrel armour to provide additional storage. The newer model, while uncomfortable, can also be clipped around the waist.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/general.rsi
+  - type: Clothing
+    slots:
+    - suitStorage
+    - belt
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/general.rsi
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzBeltMedicalRMC
+  name: L75 pattern medical storage rig
+  description: Standart-issue Royal Marines Commando rig. It consists of a modular belt with various clips. This version is a less common configuration, designed to transport bulkier medical supplies.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/medical.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/medical.rsi
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzBeltHolsterPistolRMC
+  name: L165 pattern general pistol holster rig
+  description: Standart-issue Royal Marines Commando rig. It consists of a modular belt with various clips. This version has a holster assembly that allows one to carry the most common pistols. It also contains side pouches that can store most pistol magazines.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/holster.rsi
+    layers:
+    - state: icon
+    - state: icon-front
+      map: [ "holstered" ]
+    - state: half
+      map: [ "openLayer" ]
+    - state: full
+      map: [ "closedLayer" ]
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/holster.rsi
+    slots:
+    - suitStorage
+    - belt
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzBeltUtilityCombatRMC
+  name: L177 pattern combat toolbelt rig
+  description: Standart-issue Royal Marines Commando rig of the RMC for engineers conducting repairs within combat zones. It consists of a modular belt with various clips and pouches for tools along with a holster for a sidearm. Due to the bulk of the sidearm, it is unable to hold as many tools as its standard counterpart.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/combat_utility.rsi
+    layers:
+    - state: icon
+    - sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/combat_utility.rsi
+      state: icon-front
+    - state: half
+      map: [ "openLayer" ]
+    - state: full
+      map: [ "closedLayer" ]
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/combat_utility.rsi
+
+- type: entity
+  parent: ClothingBeltMedical
+  id: SoyuzBeltMedicBagRMC
+  name: L75 pattern lifesaver bag
+  description: Standart-issue Royal Marines Commando rig. This configuration mounts a duffel bag filled with a range of injectors and light medical supplies, and is common among medics.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/medicbag.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/medicbag.rsi
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: SoyuzShotgunShellLoadingRigRMC
+  name: L70 pattern shotgun shell loading rig
+  description: An ammunition belt designed to hold shotgun shells. # or individual bullets. TODO RMC14
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/shotgun.rsi
+    layers:
+    - state: icon
+    - state: sixth
+      visible: false
+    - state: third
+      visible: false
+    - state: half
+      visible: false
+    - state: twothirds
+      visible: false
+    - state: fivesixths
+      visible: false
+    - state: full
+      visible: false
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/belt/shotgun.rsi

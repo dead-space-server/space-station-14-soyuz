@@ -9,7 +9,7 @@
   id: ClothingBackpackVjladosBio
   name: блюспейс органический рюкзак
   description: Рюкзак использующий технологию блюспейса для увелечения своего максимального объёма. Состоит из органических компонентов. Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
-  # categories: [ HideSpawnMenu ]
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/vjlados/bio/backpack.rsi
@@ -102,7 +102,7 @@
     size: Huge
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetHardsuitVjladosBio
   categories: [ HideSpawnMenu ]
   name: шлем биологического скафандра
@@ -152,7 +152,7 @@
 
 # ClothingOuter
 - type: entity
-  parent: ClothingOuterCoatSyndieCapArmored
+  parent: ClothingOuterVestArmorSec
   id: ClothingOuterHoodieVjladosBio
   name: органический бронированный тренч
   description: Принадлежит члену экипажа, находящемуся под покровительством спонсорской организации.
@@ -169,6 +169,7 @@
   id: ClothingUnderwearBottomVjladosBioMan
   name: классические боксёры
   description: Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/vjlados/bio/under/man.rsi
@@ -178,6 +179,7 @@
   id: ClothingUnderwearTopVjladosBio
   name: классическое бра
   description: Принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/vjlados/bio/under/women/bra.rsi
@@ -300,6 +302,7 @@
   parent: ClothingHeadset
   id: ClothingHeadsetVjlados
   name: гарнитура ксеноида
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/vjlados/bio/headset.rsi

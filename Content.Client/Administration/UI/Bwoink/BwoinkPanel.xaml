@@ -1,10 +1,18 @@
-﻿<BoxContainer
+<BoxContainer
     xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Orientation="Vertical"
-    HorizontalExpand="True">
-    <OutputPanel Name="TextOutput" VerticalExpand="true" />
-    <RichTextLabel Name="TypingIndicator" Access="Public" />
+    HorizontalExpand="True"
+    VerticalExpand="True"
+    SeparationOverride="6">
+    <!-- DS14-start -->
+    <OutputPanel Name="TextOutput"
+                 VerticalExpand="True" />
+    <RichTextLabel Name="TypingIndicator"
+                   Access="Public" />
     <HistoryLineEdit Name="SenderLineEdit" />
-    <RichTextLabel Name="RelayedToDiscordLabel" Access="Public" Visible="False" />
+    <RichTextLabel Name="RelayedToDiscordLabel"
+                   Access="Public"
+                   Visible="False" />
+    <!-- DS14-end -->
 </BoxContainer>

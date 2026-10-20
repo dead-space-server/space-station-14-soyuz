@@ -485,6 +485,7 @@
   - type: Tag
     tags:
     - Beer
+    - DrinkBeerBottleFull # DS14-Soyuz
 
 - type: entity
   parent: [DrinkVisualsAllFilled, DrinkBottleGlassSmallBaseFull]

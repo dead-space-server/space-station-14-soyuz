@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Sprites by nikitok007 (Discord), other is-cards taken from tgstation and resprited for Nanotrasen Navy by Agronomist-NN (GitHub), resprited by pered6664 (discord) for Space Station 14 Server Dead Space Soyuz-1",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+        "name": "id-card-hollow"
+    },
+    {
+        "name": "lead"
+    },
+    {
+        "name": "med"
+    },
+    {
+        "name": "base"
+    },
+    {
+        "name": "id-nanotrasen-navy-sailor"
+    },
+    {
+        "name": "id-nanotrasen-navy-engineer"
+    },
+    {
+        "name": "id-nanotrasen-navy-medical"
+    },
+    {
+        "name": "id-nanotrasen-navy-wo"
+    },
+    {
+        "name": "id-nanotrasen-navy-wo-engineer"
+    },
+    {
+        "name": "id-nanotrasen-navy-wo-medical"
+    },
+    {
+        "name": "id-nanotrasen-navy-officer"
+    },
+    {
+        "name": "id-nanotrasen-navy-cap"
+    }
+  ]
+}

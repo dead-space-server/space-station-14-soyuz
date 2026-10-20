@@ -15,6 +15,7 @@ using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Standing;
+using Content.Shared.Weapons.Melee;
 using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
 using Robust.Shared.Input.Binding;
@@ -41,6 +42,8 @@ public abstract partial class SharedStunSystem
     [Dependency] private readonly SpeedSlidingSystem _speedSliding = default!; // DS14
 
     public static readonly ProtoId<AlertPrototype> KnockdownAlert = "Knockdown";
+
+    protected static readonly TimeSpan ForceStandMeleeSuppressionTime = TimeSpan.FromMilliseconds(250); // DS14
 
     private void InitializeKnockdown()
     {
@@ -376,10 +379,14 @@ public abstract partial class SharedStunSystem
         return !ev.Cancelled;
     }
 
-    private bool StandingBlocked(Entity<KnockedDownComponent> entity)
+    // DS14-start
+    private bool StandingBlocked(Entity<KnockedDownComponent> entity, bool force = false)
+    // DS14-end
     {
-        if (!TryStand(entity))
+        // DS14-start
+        if (force ? !CanForceStandNow(entity) : !TryStand(entity))
             return true;
+        // DS14-end
 
         if (!IntersectingStandingColliders(entity.Owner))
             return false;
@@ -389,6 +396,27 @@ public abstract partial class SharedStunSystem
         return true;
 
     }
+
+    // DS14-start
+    private bool CanForceStandNow(Entity<KnockedDownComponent> entity)
+    {
+        // Damage extends NextUpdate to interrupt normal standing. A force stand still respects
+        // movement blockers, but deliberately ignores that extension.
+        if (!Blocker.CanMove(entity))
+            return false;
+
+        var ev = new StandUpAttemptEvent(entity.Comp.AutoStand);
+        RaiseLocalEvent(entity, ref ev);
+
+        if (ev.Autostand != entity.Comp.AutoStand)
+            SetAutoStand((entity.Owner, entity.Comp), ev.Autostand);
+
+        if (ev.Message != null)
+            _popup.PopupClient(ev.Message.Value.Item1, entity, entity, ev.Message.Value.Item2);
+
+        return !ev.Cancelled;
+    }
+    // DS14-end
 
     private void OnForceStandup(ForceStandUpEvent msg, EntitySessionEventArgs args)
     {
@@ -406,14 +434,21 @@ public abstract partial class SharedStunSystem
         // That way if we fail to stand, the game will try to stand for us when we are able to
         SetAutoStand(entity, true);
 
-        if (StandingBlocked((entity, entity.Comp)))
+        // DS14-start
+        if (StandingBlocked((entity, entity.Comp), force: true))
             return;
+        // DS14-end
 
         if (!_hands.TryGetEmptyHand(entity.Owner, out _))
             return;
 
         if (!TryForceStand(entity.Owner))
             return;
+
+        // DS14-start
+        var suppressMelee = EnsureComp<SuppressMeleeAfterStandComponent>(entity.Owner);
+        suppressMelee.SuppressedUntil = GameTiming.CurTime + ForceStandMeleeSuppressionTime;
+        // DS14-end
 
         // If we have a DoAfter, cancel it
         CancelKnockdownDoAfter(entity);
@@ -444,7 +479,9 @@ public abstract partial class SharedStunSystem
         var ev = new TryForceStandEvent(entity.Comp.ForceStandStamina);
         RaiseLocalEvent(entity, ref ev);
 
-        if (!Stamina.TryTakeStamina(entity, ev.Stamina, entity.Comp, visual: true))
+        // DS14-start
+        if (!Stamina.TryTakeStamina(entity, ev.Stamina, entity.Comp, visual: true, ignoreResist: true))
+        // DS14-end
         {
             _popup.PopupClient(Loc.GetString("knockdown-component-pushup-failure"), entity, entity, PopupType.MediumCaution);
             return false;

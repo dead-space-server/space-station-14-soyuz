@@ -15,3 +15,16 @@
   technologyPrerequisites:
   - CompactDefibrillatorTechnology
   - AdvancedAnomalyResearch
+
+- type: technology
+  id: PolaroidCamera
+  name: research-technology-experimental-camera
+  icon:
+    sprite: Objects/Devices/travel_camera.rsi
+    state: icon
+  discipline: CivilianServices
+  tier: 1
+  cost: 7500
+  recipeUnlocks:
+  - PolaroidCamera
+  - PolaroidCartridge

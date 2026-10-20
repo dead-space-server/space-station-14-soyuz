@@ -1,0 +1,1 @@
+rmc-storage-limit-accessories = You can't fit any more accessories in the helmet!

@@ -1,4 +1,5 @@
 using Content.Shared.Construction.Prototypes;
+using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
@@ -14,19 +15,34 @@ namespace Content.Shared.Preferences
     public sealed class PlayerPreferences
     {
         private Dictionary<int, ICharacterProfile> _characters;
+        private Dictionary<int, ICharacterProfile> _inaccessibleCharacters; // DS14
 
-        public PlayerPreferences(IEnumerable<KeyValuePair<int, ICharacterProfile>> characters, int selectedCharacterIndex, Color adminOOCColor, List<ProtoId<ConstructionPrototype>> constructionFavorites)
+        public PlayerPreferences(
+            IEnumerable<KeyValuePair<int, ICharacterProfile>> characters,
+            int selectedCharacterIndex,
+            Color adminOOCColor,
+            List<ProtoId<ConstructionPrototype>> constructionFavorites,
+            IEnumerable<KeyValuePair<int, ICharacterProfile>>? inaccessibleCharacters = null,
+            List<ProtoId<AntagPrototype>>? favoriteAntags = null) // DS14
         {
             _characters = new Dictionary<int, ICharacterProfile>(characters);
+            _inaccessibleCharacters = inaccessibleCharacters != null // DS14
+                ? new Dictionary<int, ICharacterProfile>(inaccessibleCharacters)
+                : new Dictionary<int, ICharacterProfile>();
             SelectedCharacterIndex = selectedCharacterIndex;
             AdminOOCColor = adminOOCColor;
             ConstructionFavorites = constructionFavorites;
+            FavoriteAntags = favoriteAntags ?? [];
         }
 
         /// <summary>
         ///     All player characters.
         /// </summary>
         public IReadOnlyDictionary<int, ICharacterProfile> Characters => _characters;
+
+        // DS14-start
+        public IReadOnlyDictionary<int, ICharacterProfile> InaccessibleCharacters => _inaccessibleCharacters;
+        // DS14-end
 
         public ICharacterProfile GetProfile(int index)
         {
@@ -49,6 +65,10 @@ namespace Content.Shared.Preferences
         ///    List of favorite items in the construction menu.
         /// </summary>
         public List<ProtoId<ConstructionPrototype>> ConstructionFavorites { get; set; } = [];
+
+        // DS14-start
+        public List<ProtoId<AntagPrototype>> FavoriteAntags { get; set; } = [];
+        // DS14-end
 
         public int IndexOfCharacter(ICharacterProfile profile)
         {

@@ -38,12 +38,29 @@
     Unknown by name or rank
     Whose acts will not be forgotten
   components:
+    # DS14-Soyuz-start
+    - type: Construction
+      graph: SoyuzSS13Memorial
+      node: decor
+    - type: Damageable
+      damageContainer: StructuralInorganic
+      damageModifierSet: StructuralMetallicStrong
+    - type: Destructible
+      thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 400
+        behaviors:
+        - !type:DoActsBehavior
+          acts: ["Destruction"]
+    # DS14-Soyuz-end
     - type: Sprite
       sprite: Structures/Furniture/Memorials/ss13_memorial.rsi
       state: memorial
       drawdepth: Mobs
       noRot: true
       offset: "0.0,0.8"
+    - type: Prayable #DS14-Soyuz
 
 - type: entity
   parent: Memorial

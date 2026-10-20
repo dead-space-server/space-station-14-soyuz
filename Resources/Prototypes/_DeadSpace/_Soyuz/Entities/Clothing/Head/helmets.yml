@@ -1,0 +1,49 @@
+- type: entity
+  parent: ClothingHeadHelmetBase
+  id: SoyuzClothingHeadHelmetBase
+  abstract: true
+  name: шлем
+  description: Слава умывальнику.
+  components:
+  - type: Item
+    size: Normal
+    storedRotation: 0
+  - type: Storage
+    maxItemSize: Tiny
+    grid:
+    - 0,0,3,1 # 4 slots
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: [ ]
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: IgnoreContentsSize
+    items:
+      components:
+      - HelmetAccessory
+  - type: Appearance
+  - type: HelmetAccessoryHolder
+    isHat: false
+  - type: Tag
+    tags:
+    - RMCHelmet
+    - WhitelistChameleon
+  - type: IdentityBlocker
+
+- type: entity
+  parent: SoyuzClothingHeadHelmetBase
+  id: SoyuzClothingHeadHelmetArmoredBase
+  abstract: true
+  name: шлем
+  description: Слава умывальнику.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9

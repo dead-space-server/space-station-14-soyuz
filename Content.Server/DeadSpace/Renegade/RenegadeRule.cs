@@ -21,10 +21,8 @@ public sealed class RenegadeRule : StationEventSystem<Renegade.Components.Renega
 {
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
     [Dependency] private readonly RoleSystem _role = default!;
+    [Dependency] private readonly SharedObjectivesSystem _objectives = default!;
 
     public override void Initialize()
     {
@@ -33,27 +31,24 @@ public sealed class RenegadeRule : StationEventSystem<Renegade.Components.Renega
         SubscribeLocalEvent<CommunicationConsoleCallShuttleAttemptEvent>(OnShuttleCallAttempt);
     }
 
-    protected override void Added(EntityUid uid, Renegade.Components.RenegadeRuleComponent component, GameRuleComponent gameRule, GameRuleAddedEvent args)
+    protected override void AppendRoundEndDiscordText(EntityUid uid,
+        Renegade.Components.RenegadeRuleComponent component,
+        GameRuleComponent gameRule,
+        ref RoundEndDiscordTextAppendEvent args)
     {
-        base.Added(uid, component, gameRule, args);
-    }
-
-    protected override void AppendRoundEndText(EntityUid uid, Renegade.Components.RenegadeRuleComponent component, GameRuleComponent gameRule,
-        ref RoundEndTextAppendEvent args)
-    {
-        base.AppendRoundEndText(uid, component, gameRule, ref args);
+        base.AppendRoundEndDiscordText(uid, component, gameRule, ref args);
 
         var sessionData = _antag.GetAntagIdentifiers(uid);
-
         foreach (var (mind, data, name) in sessionData)
         {
-            _role.MindHasRole<RenegadeSubmissionConditionComponent>(mind, out var role);
-            var count = CompOrNull<RenegadeSubmissionConditionComponent>(role)?.SubordinateCommand.Count ?? 0;
+            var count = 0;
+            if (_role.MindHasRole<RenegadeSubmissionConditionComponent>(mind, out var role))
+                count = role.Value.Comp2.SubordinateCommand.Count;
 
             args.AddLine(Loc.GetString("renegade-sub-name-user",
-            ("name", name),
-            ("username", data.UserName),
-            ("count", count)));
+                ("name", name),
+                ("username", data.UserName),
+                ("count", count)));
         }
     }
 
@@ -94,10 +89,9 @@ public sealed class RenegadeRule : StationEventSystem<Renegade.Components.Renega
             return;
 
         var msg = new GameGlobalSoundEvent("/Audio/_DeadSpace/Renegade/the_Renegade_has_captured_the_space_station.ogg", AudioParams.Default);
-        var stationFilter = _stationSystem.GetInOwningStation(RenegadeEntity);
-        stationFilter.AddPlayersByPvs(RenegadeEntity, entityManager: EntityManager);
+        var stationFilter = RuleStation.GetEventPlayers(RenegadeEntity);
         RaiseNetworkEvent(msg, stationFilter);
 
-        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-renegade-shuttle-called-announcement"), playSound: true, colorOverride: Color.DarkRed);
+        RuleStation.Announce(RenegadeEntity, Loc.GetString("round-end-system-renegade-shuttle-called-announcement"), playSound: true, colorOverride: Color.DarkRed);
     }
 }

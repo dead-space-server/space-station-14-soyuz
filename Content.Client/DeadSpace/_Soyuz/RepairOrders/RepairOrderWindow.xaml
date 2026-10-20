@@ -1,0 +1,75 @@
+<!-- Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT -->
+
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      SetSize="720 720"
+                      MinSize="560 420"
+                      Title="{Loc 'repair-orders-window-title'}">
+    <BoxContainer Orientation="Vertical" Margin="10" VerticalExpand="True" HorizontalExpand="True">
+        <Label Name="ActivationLabel"
+               Text="{Loc 'repair-orders-activation-in-progress'}"
+               FontColorOverride="#EFB341"
+               Visible="False"
+               Margin="0 0 0 8" />
+
+        <Label Name="CompletionLabel"
+               Text="{Loc 'repair-orders-completion-in-progress'}"
+               FontColorOverride="#EFB341"
+               Visible="False"
+               Margin="0 0 0 8" />
+
+        <Button Name="BriefingButton" Text="{Loc 'repair-orders-briefing-title'}"
+                HorizontalAlignment="Right" Margin="0 0 0 6" />
+
+        <TabContainer Name="OrderTabs" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer TabContainer.TabTitle="{Loc 'repair-orders-available-heading'}"
+                          Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 8 0 8">
+                    <Label Text="{Loc 'repair-orders-next-offer'}" />
+                    <Label Name="NextOfferLabel" Text="00:00" HorizontalAlignment="Right" HorizontalExpand="True" />
+                </BoxContainer>
+                <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                    <BoxContainer Name="AvailableContainer"
+                                  Orientation="Vertical"
+                                  HorizontalExpand="True"
+                                  SeparationOverride="8" />
+                </ScrollContainer>
+            </BoxContainer>
+            <ScrollContainer TabContainer.TabTitle="{Loc 'repair-orders-active-heading'}"
+                             HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Orientation="Vertical" HorizontalExpand="True" Margin="0 8 0 0">
+                    <BoxContainer Name="ActiveContainer" Orientation="Vertical" HorizontalExpand="True" />
+                    <controls:HLine Color="#404040" Thickness="2" Margin="0 8 0 8" />
+                    <Label Text="{Loc 'repair-orders-completed-heading'}" StyleClasses="LabelHeading" Margin="0 0 0 6" />
+                    <BoxContainer Name="CompletedContainer" Orientation="Vertical" HorizontalExpand="True" />
+                </BoxContainer>
+            </ScrollContainer>
+            <ScrollContainer TabContainer.TabTitle="{Loc 'repair-orders-worklist-heading'}"
+                             HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True">
+                <BoxContainer Name="WorklistContainer" Orientation="Vertical"
+                              HorizontalExpand="True" SeparationOverride="4" Margin="0 8 0 0" />
+            </ScrollContainer>
+            <BoxContainer TabContainer.TabTitle="{Loc 'repair-orders-shop-heading'}"
+                          Orientation="Vertical" VerticalExpand="True" HorizontalExpand="True">
+                <Label Name="ShopPointsLabel" Margin="0 4 0 0" />
+                <Label Name="ShopReputationLabel" />
+                <Label Name="ShopLevelLabel" />
+                <Label Name="ShopProgressLabel" />
+                <ProgressBar Name="ShopProgressBar" MinValue="0" MaxValue="1" MinHeight="16" HorizontalExpand="True" />
+                <LineEdit Name="ShopSearch" PlaceHolder="{Loc 'repair-orders-shop-search'}" HorizontalExpand="True" Margin="0 8 0 0" />
+                <CheckBox Name="ShopCompact" Text="{Loc 'repair-orders-shop-compact'}" Margin="0 4 0 0" />
+                <ScrollContainer HScrollEnabled="False" VerticalExpand="True" HorizontalExpand="True" Margin="0 8 0 0">
+                    <BoxContainer Name="ShopCatalogContainer" Orientation="Vertical"
+                                  HorizontalExpand="True" SeparationOverride="4" />
+                </ScrollContainer>
+                <Label Text="{Loc 'repair-orders-shop-cart'}" StyleClasses="LabelHeading" Margin="0 8 0 0" />
+                <ScrollContainer HScrollEnabled="False" HorizontalExpand="True" MaxHeight="140">
+                    <BoxContainer Name="ShopCartContainer" Orientation="Vertical" HorizontalExpand="True" />
+                </ScrollContainer>
+                <Label Name="ShopTotalLabel" />
+                <Label Name="ShopResultLabel" />
+                <Button Name="ShopCheckoutButton" Text="{Loc 'repair-orders-shop-checkout'}" />
+            </BoxContainer>
+        </TabContainer>
+    </BoxContainer>
+</controls:FancyWindow>

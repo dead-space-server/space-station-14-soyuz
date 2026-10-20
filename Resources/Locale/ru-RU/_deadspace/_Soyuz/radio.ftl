@@ -1,0 +1,14 @@
+soyuz-radio-configure = Настроить частоту
+soyuz-radio-title = Настройка рации
+soyuz-radio-frequency = Частота (1000–9999)
+soyuz-radio-apply = Применить
+soyuz-radio-microphone = Микрофон
+soyuz-radio-speaker = Динамик
+soyuz-radio-scream = передаёт крик!
+soyuz-radio-pain-scream = передаёт крик боли!
+soyuz-radio-gasp = передаёт судорожный вдох!
+soyuz-radio-groan = передаёт болезненный стон!
+soyuz-radio-cough = передаёт кашель!
+soyuz-radio-retch = передаёт звуки рвотных позывов!
+soyuz-radio-crying = передаёт плач!
+soyuz-radio-deathgasp = передаёт последний вздох!

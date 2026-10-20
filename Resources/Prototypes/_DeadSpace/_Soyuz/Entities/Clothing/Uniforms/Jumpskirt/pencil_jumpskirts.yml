@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtPencilPolitRuk
+  name: юбка-карандаш политического отдела
+  description: Красивая бордовая юбка-карандаш.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/pencil_politruk.rsi
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtPencilHoP
+  name: юбка-карандаш начальника отдела кадров
+  description: Оч красивая.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/hop_pencil.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/hop_pencil.rsi

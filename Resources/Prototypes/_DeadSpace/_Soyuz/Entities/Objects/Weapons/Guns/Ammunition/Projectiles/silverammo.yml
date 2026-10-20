@@ -1,7 +1,7 @@
 - type: entity
   id: BulletMagnumSilver
   name: пуля (.45 магнум серебряный)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -37,7 +37,7 @@
 - type: entity
   id: BulletLightRifleSilver
   name: пуля (7.62х39 мм серебряный)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -49,7 +49,7 @@
 - type: entity
   id: BulletPistolSilver
   name: пуля (9х19 мм серебряный)
-  parent: BaseBulletAP
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile

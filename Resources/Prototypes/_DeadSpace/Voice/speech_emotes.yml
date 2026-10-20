@@ -141,9 +141,36 @@
     - purring
     - purred
 
+# Shark emotes
+
+- type: emote
+  id: TeethClack
+  name: chat-emote-name-teeth-clack
+  category: Vocal
+  icon: _DeadSpace/Interface/Emotes/teeth_clack.png
+  whitelist:
+    requireAll: true
+    components:
+    - Vocal
+    tags:
+    - SharkEmotes
+  blacklist:
+    tags:
+    - SiliconEmotes
+    - SiliconIPCEmotes
+  chatMessages: ["chat-emote-msg-teeth-clack"]
+  chatTriggers:
+    - клацает зубами
+    - щёлкает зубами
+
 # Remnants of ADT
 
 - type: emote
   id: WorkOut
   name: chat-emote-name-workout
   chatMessages: ["chat-emote-msg-workout"]
+
+- type: emote
+  id: SpinGunNSS
+  name: chat-emote-name-spingun-nss
+  chatMessages: ["chat-emote-name-spingun-nss"]

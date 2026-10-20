@@ -37,11 +37,7 @@ public sealed class LogWindowTest : InteractionTest
         var refresh = logWindow.Logs.RefreshButton;
         var cont = logWindow.Logs.LogsContainer;
 
-        // Search for the log we added earlier.
-        await Client.WaitPost(() => search.Text = guid.ToString());
-        await ClickControl(refresh);
-        await RunTicks(5);
-        var searchResult = cont.Children.Where(x => x.Visible && x is AdminLogLabel).Cast<AdminLogLabel>().ToArray();
+        var searchResult = await SearchLogs(guid);
         Assert.That(searchResult.Length, Is.EqualTo(1));
         Assert.That(searchResult[0].Log.Message, Contains.Substring($" test log 1: {guid}"));
 
@@ -49,12 +45,39 @@ public sealed class LogWindowTest : InteractionTest
         guid = Guid.NewGuid();
         await Server.WaitPost(() => log.Add(LogType.Unknown, $"{SPlayer} test log 2: {guid}"));
 
-        // Update the search and refresh
-        await Client.WaitPost(() => search.Text = guid.ToString());
-        await ClickControl(refresh);
-        await RunTicks(5);
-        searchResult = cont.Children.Where(x => x.Visible && x is AdminLogLabel).Cast<AdminLogLabel>().ToArray();
+        searchResult = await SearchLogs(guid);
         Assert.That(searchResult.Length, Is.EqualTo(1));
         Assert.That(searchResult[0].Log.Message, Contains.Substring($" test log 2: {guid}"));
+
+        async Task<AdminLogLabel[]> SearchLogs(Guid searchGuid)
+        {
+            await Client.WaitPost(() => search.Text = searchGuid.ToString());
+            await ClickControl(refresh);
+
+            // DS14-start
+            // The query runs outside the simulation ticks, so wait for the matching replacement instead of assuming
+            // that a fixed delay was long enough on a loaded CI runner.
+            await Pair.RunUntilSynced();
+
+            var expected = searchGuid.ToString();
+            var result = Array.Empty<AdminLogLabel>();
+            for (var i = 0; i < 120; i++)
+            {
+                await RunTicks(1);
+                result = cont.Children
+                    .Where(x => x.Visible && x is AdminLogLabel)
+                    .Cast<AdminLogLabel>()
+                    .ToArray();
+
+                if (result.Length == 1 &&
+                    result[0].Log.Message.Contains(expected, StringComparison.Ordinal))
+                {
+                    return result;
+                }
+            }
+
+            return result;
+            // DS14-end
+        }
     }
 }

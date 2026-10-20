@@ -1,0 +1,22 @@
+- type: entity
+  parent: FoodBakedBase
+  id: FoodBraidedCheese
+  name: сыр косичка
+  description: Стрёмно, но под пиво пойдёт.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - cheesy
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Food/sir.rsi
+    layers:
+      - state: sir
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 15
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 6
+        - ReagentId: Vitamin
+          Quantity: 4

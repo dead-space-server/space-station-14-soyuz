@@ -49,6 +49,20 @@
   - type: PhysicalComposition
     materialComposition:
       Glass: 25
+  #DS14-Start
+  - type: Tag
+    tags:
+      - DrinkGlass
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/drinkglass_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/drinkglass_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/drinkglass_drop.ogg
+  #DS14-End
 
 # Porcelain (like glass but no shard)
 - type: entity
@@ -116,6 +130,17 @@
   - type: PhysicalComposition
     materialComposition:
       Plastic: 25
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/plastic_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/plastic_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/plastic_drop.ogg
+  #DS14-End
 
 # Strong plastic
 - type: entity
@@ -191,6 +216,17 @@
   - type: PhysicalComposition
     materialComposition:
       Cardboard: 25
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/cardboard_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/cardboard_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/cardboard_drop.ogg
+  #DS14-End
 
 # Weak metal
 - type: entity
@@ -230,6 +266,17 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 25
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/food_plate_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/food_plate_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/food_plate_drop.ogg
+  #DS14-End
 
 # strong metal
 - type: entity
@@ -305,3 +352,14 @@
   - type: PhysicalComposition
     materialComposition:
       Gold: 25
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/iron_rod_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/metal_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/materials/metal_drop.ogg
+  #DS14-End

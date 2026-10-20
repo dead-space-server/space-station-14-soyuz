@@ -6,6 +6,15 @@
   id: BaseSword
   abstract: true
   components:
+  # DS14-start
+  - type: Parry
+    parryableWeapons:
+      tags:
+      - ParryStandardWeapon
+  - type: Tag
+    tags:
+    - ParryStandardWeapon
+  # DS14-end
   - type: Sharp
   - type: Execution
     doAfterDuration: 4.0
@@ -21,6 +30,17 @@
   - type: Tool
     qualities:
     - Slicing
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/knife/knife_drop.ogg
+  #DS14-End
 
 #Shortswords
 - type: entity
@@ -83,8 +103,12 @@
         Slash: 17 #cmon, it has to be at least BETTER than the rest.
     soundHit:
         path: /Audio/Weapons/bladeslice.ogg
+  # DS14-start
+  - type: SandevistanMeleeAttackRate
+    modifier: 1.35
+  # DS14-end
   - type: Reflect
-    reflectProb: .1
+    reflectProb: .2 #DS14
     spread: 90
   - type: Item
     storedSprite:
@@ -95,10 +119,11 @@
   - type: Tag
     tags:
     - CaptainSabre
+    - ParryStandardWeapon # DS14
   - type: DisarmMalus
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-inanimate
-    weight: 0.0002 # 5,000 times less likely than 1 regular animal
+    weight: 0.02 # 5,000 times less likely than 1 regular animal #DS14 P.S Я не уверен насколько это будет часто...
   - type: PirateAccent
     # not putting a BlockMovement component here cause that's funny.
   - type: StealTarget
@@ -170,6 +195,13 @@
     shape:
     - 0,0,0,3
   - type: EnergyKatana
+  # DS14-start
+  - type: Parry
+    parryableWeapons:
+      tags:
+      - ParryStandardWeapon
+      - ParryEnergySword
+  # DS14-end
   - type: DashAbility
   - type: LimitedCharges
     maxCharges: 3
@@ -186,6 +218,7 @@
   - type: Tag #DS14
     tags:
     - EnergyKatana
+    - ParryEnergySword
 
 #Greatswords
 - type: entity

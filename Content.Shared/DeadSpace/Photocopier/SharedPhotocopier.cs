@@ -98,4 +98,26 @@ public enum PhotocopierFormCategory // Ideally, it should be its own FormCategor
     NTOperator,
     Syndicate,
     Nukeops,
+    // DS14-start
+    NTPersonnel,
+    // {{TARGET.*}}/{{AUTHOR.*}}/{{ARTICLES}}/{{SENTENCE}} placeholders.
+    NTCriminalRecords,
+    // DS14-end
 }
+
+// DS14-start
+public static class PaperworkTextSubstitutions
+{
+    public static string ApplyBase(string text, string documentName, TimeSpan roundDuration, string? stationName)
+    {
+        text = text.Replace("DOCUMENT NAME", documentName);
+        text = text.Replace("{{HOUR.MINUTE.SECOND}}", roundDuration.ToString("hh\\:mm\\:ss"));
+        text = text.Replace("{{DAY.MONTH.YEAR}}", DateTime.UtcNow.AddHours(3).ToString("dd.MM") + ".2710");
+
+        if (stationName != null)
+            text = text.Replace("STATION XX-00", stationName);
+
+        return text;
+    }
+}
+// DS14-end

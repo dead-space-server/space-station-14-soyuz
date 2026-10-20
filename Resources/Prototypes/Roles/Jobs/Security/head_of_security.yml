@@ -9,12 +9,11 @@
       time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h #DS14-soyuz time requirement
+      time: 40h
     - !type:OverallPlaytimeRequirement
       time: 100h
     - !type:AgeRequirement
       requiredAge: 24
-  weight: 10
   startingGear: HoSGear
   icon: "JobIconHeadOfSecurity"
   supervisors: job-supervisors-captain
@@ -33,10 +32,10 @@
   - GenpopEnter
   - GenpopLeave
   #start-backmen: currency
-  minBankBalance: 400
-  maxBankBalance: 600
+  minBankBalance: 600 # DS14-value
+  maxBankBalance: 1000 # DS14-value
   wageDepartment: Command
-  wage: 150
+  wage: 450 # DS14-value
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial
@@ -50,6 +49,26 @@
       - type: Skill
         group: BasicAndShuttleControl
       # DS14-End
+#DS14-Soyuz-end
+  ranks:
+    RMCRankMarineCommandant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 7200000 # 2000 часов Ахахахах это ваще рофл
+    NKVBRankMajorGeneral:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 3600000 # 1000 часов Вот прикол будет
+    SGMRankCaptain:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 360000 # 100 часов
+    SGMRankSeniorLieutenant:
+    - !type:RoleTimeRequirement
+      role: JobHeadOfSecurity
+      time: 180000 # 50 часов
+    SGMRankLieutenant: []
+#DS14-Soyuz-end
 
 - type: startingGear
   id: HoSGear

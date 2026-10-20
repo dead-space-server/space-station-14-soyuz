@@ -1,0 +1,1306 @@
+- type: randomHumanoidSettings
+  id: SoyuzMedicalOrderPatient
+  speciesBlacklist: [Vox]
+
+- type: entity
+  parent: MedkitCombat
+  id: SoyuzMedicalRandomCombatMedkit
+  name: combat medipen kit
+  description: A combat medical kit containing a random assortment of eight medipens.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:GroupSelector
+        rolls: 8
+        children:
+        - id: EmergencyMedipen
+          weight: 20
+        - id: AntiPoisonMedipen
+          weight: 14
+        - id: BruteAutoInjector
+          weight: 14
+        - id: BurnAutoInjector
+          weight: 14
+        - id: RadAutoInjector
+          weight: 14
+        - id: PunctAutoInjector
+          weight: 14
+        - id: PyraAutoInjector
+          weight: 14
+        - id: AirlossAutoInjector
+          weight: 14
+        - id: SpaceMedipen
+          weight: 20
+        - id: CombatMedipen
+          weight: 0.5
+        - id: WehMedipen
+          weight: 14
+        - id: CelestinMedipen
+          weight: 4
+        - id: DerytracineMedipen
+          weight: 4
+        - id: NutritiousMedipen
+          weight: 20
+        - id: LavalandSurvMedipen
+          weight: 6
+        - id: NECROMedipen
+          weight: 0.5
+        - id: SCSTMedipen
+          weight: 0.5
+        - id: ZetaOneMedipen
+          weight: 8
+        - id: ZetaTwoMedipen
+          weight: 8
+        - id: IchorMedipen
+          weight: 0.25
+
+- type: medicalOrderConfig
+  id: SoyuzMedicalOrders
+  patientOfferCount: 5
+  patientOrderTitles:
+  - medical-orders-patient-title-return
+  - medical-orders-patient-title-lifeline
+  - medical-orders-patient-title-second-wind
+  - medical-orders-patient-title-night-watch
+  - medical-orders-patient-title-rescue
+  - medical-orders-patient-title-recovery
+  - medical-orders-patient-title-safe-harbor
+  - medical-orders-patient-title-pulse
+  - medical-orders-patient-title-first-aid
+  - medical-orders-patient-title-long-way
+  - medical-orders-patient-title-frontier
+  - medical-orders-patient-title-signal
+  - medical-orders-patient-title-homeward
+  - medical-orders-patient-title-care
+  - medical-orders-patient-title-duty
+  - medical-orders-patient-title-clearance
+  - medical-orders-patient-title-shift
+  - medical-orders-patient-title-hope
+  - medical-orders-patient-title-rendezvous
+  - medical-orders-patient-title-shelter
+  offerRefreshInterval: 10m
+  minDamageEntries: 1
+  maxDamageEntries: 8
+  pointsPerDamage: 1
+  expiredRewardMultiplierPercent: 50
+  patientCompletionDamageThreshold: 20
+  patientRandomHumanoidSettings: SoyuzMedicalOrderPatient
+  patientGown: ClothingOuterHospitalGown
+  deliveryContainer: CrateMedical
+  specialOfferCount: 6
+  specialRefreshInterval: 20m
+  specialDifficulties:
+  - weight: 5
+    timeLimit: 10m
+    minPatients: 3
+    maxPatients: 4
+    minPatientDifficulty: 3
+    maxPatientDifficulty: 5
+    minReagents: 2
+    maxReagents: 2
+    minVolume: 200
+    maxVolume: 300
+    reagents:
+      Easy: { minimum: 2, maximum: 2 }
+    pointBonus: 750
+    reputationBonus: 300
+    reputationPercent: 20
+    reputationCap: 1500
+    penaltyPercent: 25
+  - weight: 3
+    timeLimit: 15m
+    minPatients: 4
+    maxPatients: 5
+    minPatientDifficulty: 5
+    maxPatientDifficulty: 8
+    minReagents: 3
+    maxReagents: 4
+    minVolume: 300
+    maxVolume: 400
+    reagents:
+      Easy: { minimum: 1, maximum: 2 }
+      Medium: { minimum: 1, maximum: 3 }
+    pointBonus: 1500
+    reputationBonus: 600
+    reputationPercent: 20
+    reputationCap: 3000
+    penaltyPercent: 50
+  - weight: 1
+    timeLimit: 20m
+    minPatients: 6
+    maxPatients: 7
+    minPatientDifficulty: 7
+    maxPatientDifficulty: 10
+    minReagents: 4
+    maxReagents: 5
+    minVolume: 400
+    maxVolume: 500
+    reagents:
+      Hard: { minimum: 2, maximum: 3 }
+      Medium: { minimum: 1, maximum: 3 }
+    pointBonus: 2000
+    reputationBonus: 1000
+    reputationPercent: 20
+    reputationCap: 5500
+    penaltyPercent: 75
+  specialScenarios:
+  - title: medical-special-title-distress
+    description: medical-special-description-distress
+  - title: medical-special-title-shift
+    description: medical-special-description-shift
+  - title: medical-special-title-evacuation
+    description: medical-special-description-evacuation
+  - title: medical-special-title-rescue
+    description: medical-special-description-rescue
+  - title: medical-special-title-relief
+    description: medical-special-description-relief
+  - title: medical-special-title-emergency
+    description: medical-special-description-emergency
+  specialSites:
+  - medical-special-site-helios
+  - medical-special-site-orion
+  - medical-special-site-mine
+  - medical-special-site-outpost
+  - medical-special-site-expedition
+  - medical-special-site-convoy
+  marketDifficulties:
+    Easy:
+      basePriceMin: 0.75
+      basePriceMax: 1.4
+      baseReputationMin: 1
+      baseReputationMax: 3
+    Medium:
+      basePriceMin: 1.5
+      basePriceMax: 2.9
+      baseReputationMin: 3
+      baseReputationMax: 5
+    Hard:
+      basePriceMin: 3
+      basePriceMax: 5
+      baseReputationMin: 5
+      baseReputationMax: 7
+  shopLevelThresholds: [0, 450, 1100, 2050, 3400, 5300, 7950, 11550, 16550, 25050]
+  difficulties:
+  - minScore: 0
+    weight: 26
+    patientOfferWeight: 520
+    maxScore: 59
+    timeLimit: 10m
+    baseReputation: 100
+  - minScore: 60
+    weight: 20
+    patientOfferWeight: 400
+    maxScore: 109
+    timeLimit: 12m
+    baseReputation: 150
+  - minScore: 110
+    weight: 15
+    patientOfferWeight: 300
+    maxScore: 159
+    timeLimit: 14m
+    baseReputation: 220
+  - minScore: 160
+    weight: 12
+    patientOfferWeight: 240
+    maxScore: 209
+    timeLimit: 16m
+    baseReputation: 320
+  - minScore: 210
+    weight: 9
+    patientOfferWeight: 30
+    maxScore: 259
+    timeLimit: 18m
+    baseReputation: 460
+  - minScore: 260
+    weight: 6
+    patientOfferWeight: 26
+    maxScore: 309
+    timeLimit: 20m
+    baseReputation: 650
+  - minScore: 310
+    weight: 4
+    patientOfferWeight: 22
+    maxScore: 359
+    timeLimit: 22m
+    baseReputation: 900
+  - minScore: 360
+    weight: 2
+    patientOfferWeight: 20
+    maxScore: 409
+    timeLimit: 25m
+    baseReputation: 1250
+  - minScore: 410
+    weight: 1
+    patientOfferWeight: 18
+    maxScore: 459
+    timeLimit: 28m
+    baseReputation: 1700
+  - minScore: 460
+    weight: 1
+    patientOfferWeight: 17
+    maxScore: 510
+    timeLimit: 30m
+    baseReputation: 3000
+  qualityBands:
+  - minPercent: 0
+    maxPercent: 39
+    multiplierPercent: 0
+  - minPercent: 40
+    maxPercent: 59
+    multiplierPercent: 50
+  - minPercent: 60
+    maxPercent: 74
+    multiplierPercent: 75
+  - minPercent: 75
+    maxPercent: 89
+    multiplierPercent: 100
+  - minPercent: 90
+    maxPercent: 99
+    multiplierPercent: 115
+  - minPercent: 100
+    maxPercent: 100
+    multiplierPercent: 130
+  # Prices reach their floor after 150 units of net supply; demand recovers by 15 units/min.
+  marketReagents:
+  - reagent: Actiradol
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Aloxadone
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.2
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ambuzol
+    enabled: false
+    difficulty: Hard
+    basePrice: 2.5
+    minimumPrice: 0.05
+    reputationPerUnit: 2.5
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: AmbuzolPlus
+    enabled: false
+    difficulty: Hard
+    basePrice: 2.5
+    minimumPrice: 0.1
+    reputationPerUnit: 2.5
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Arcryox
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.2
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Arithrazine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.075
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: AshWalkerBloodTonic
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.025
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Barozine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Bicaridine
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Bruizine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.075
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Celestin
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.25
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Charcoal
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: ChloralHydrate
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Cognizine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.05
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Cryoxadone
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.2
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Cryptobiolin
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Dermaline
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Derytracine
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Desoxyephedrine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Dexalin
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: DexalinPlus
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.2
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Diphenhydramine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Diphenylmethylamine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.025
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Doxarubixadone
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.2
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Dylovene
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ephedrine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Epinephrine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.025
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ethyloxyephedrine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.025
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ethylredoxrazine
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.025
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Fragmentin
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.025
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: FriogeliyevaKislota
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Gliomorphin
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.15
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Haloperidol
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.0375
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Happiness
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.25
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Heparin
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Holywater
+    enabled: false
+    difficulty: Easy
+    basePrice: 0.75
+    minimumPrice: 0.025
+    reputationPerUnit: 0.75
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Hyronalin
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Illumidol
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.25
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Impedrezene
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Inaprovaline
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Infectizine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.0375
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Insuzine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ipecac
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Karachnocid
+    enabled: false
+    difficulty: Hard
+    basePrice: 2.5
+    minimumPrice: 0.025
+    reputationPerUnit: 2.5
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Kelotane
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Lacerinol
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Laughter
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Leporazine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.0375
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Lipozine
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Mannitol
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Mycocline
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Napalm
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Necrosol
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.1
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Necrovir
+    enabled: false
+    difficulty: Hard
+    basePrice: 2.5
+    minimumPrice: 0.025
+    reputationPerUnit: 2.5
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Negacordrazine
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: NorepinephricAcid
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.25
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Oculine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.075
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Omnizine
+    enabled: false
+    basePrice: 1
+    minimumPrice: 0.1
+    reputationPerUnit: 20
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Opporozidone
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.025
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Panacemycin
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.2
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Pax
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Phalanximine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: PolypyryliumOligomers
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: PotassiumIodide
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Psicodine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.0375
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: PulpedBananaPeel
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Puncturase
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Pyrazine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Saline
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.015
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Sentidol
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Septomycin
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Siderlac
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.025
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Sigynate
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: SpaceDrugs
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.0375
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: SpiderExtract
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: SpiderLurkerSmokeExtract
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: SpiderReaperExtract
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: SpiderWebExtract
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Stellibinin
+    enabled: false
+    basePrice: 0.5
+    minimumPrice: 0.05
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Synaptizine
+    enabled: true
+    difficulty: Easy
+    basePrice: 1.075
+    minimumPrice: 0.075
+    reputationPerUnit: 2
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Synaptodol
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.0375
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: TranexamicAcid
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.0375
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Tricordrazine
+    enabled: true
+    difficulty: Medium
+    basePrice: 2.2
+    minimumPrice: 0.075
+    reputationPerUnit: 4
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Ultravasculine
+    enabled: false
+    difficulty: Medium
+    basePrice: 1.5
+    minimumPrice: 0.1
+    reputationPerUnit: 1.5
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Vestine
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: Virucidine
+    enabled: true
+    difficulty: Hard
+    basePrice: 4
+    minimumPrice: 0.075
+    reputationPerUnit: 6
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  - reagent: ZetaOne
+    enabled: false
+    basePrice: 0.25
+    minimumPrice: 0.025
+    reputationPerUnit: 1
+    saturationVolume: 150
+    recoveryPerMinute: 15
+  damages:
+  - damageType: Blunt
+    canGenerate: true
+    weight: 10
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Slash
+    canGenerate: true
+    weight: 10
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Piercing
+    canGenerate: true
+    weight: 8
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Heat
+    canGenerate: true
+    weight: 8
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Cold
+    canGenerate: true
+    weight: 6
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Poison
+    canGenerate: true
+    weight: 7
+    minAmount: 20
+    maxAmount: 60
+  - damageType: Asphyxiation
+    canGenerate: true
+    weight: 6
+    minAmount: 25
+    maxAmount: 70
+  - damageType: Radiation
+    canGenerate: true
+    weight: 4
+    minAmount: 15
+    maxAmount: 50
+  shop:
+  - id: Brutepack
+    entity: Brutepack
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Ointment
+    entity: Ointment
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Bloodpack
+    entity: Bloodpack
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Gauze
+    entity: Gauze
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Nanopaste
+    entity: Nanopaste
+    cost: 30
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: MedkitFilled
+    entity: MedkitFilled
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 1
+  - id: MedkitBurnFilled
+    entity: MedkitBurnFilled
+    cost: 50
+    maxCount: 4
+    minimumShopLevel: 1
+  - id: MedkitBruteFilled
+    entity: MedkitBruteFilled
+    cost: 50
+    maxCount: 4
+    minimumShopLevel: 1
+  - id: MedkitToxinFilled
+    entity: MedkitToxinFilled
+    cost: 50
+    maxCount: 4
+    minimumShopLevel: 1
+  - id: MedkitOxygenFilled
+    entity: MedkitOxygenFilled
+    cost: 50
+    maxCount: 4
+    minimumShopLevel: 1
+  - id: MedkitRadiationFilled
+    entity: MedkitRadiationFilled
+    cost: 50
+    maxCount: 3
+    minimumShopLevel: 1
+  - id: VendingMachineRestockMedical
+    entity: VendingMachineRestockMedical
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 1
+  - id: VendingMachineRestockChemVend
+    entity: VendingMachineRestockChemVend
+    cost: 50
+    maxCount: 5
+    minimumShopLevel: 1
+  - id: MedicatedSuture
+    entity: MedicatedSuture
+    cost: 60
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: RegenerativeMesh
+    entity: RegenerativeMesh
+    cost: 60
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: FilledVirusMedkit
+    entity: FilledVirusMedkit
+    cost: 150
+    maxCount: 3
+    minimumShopLevel: 1
+  - id: SyringeBluespace
+    entity: SyringeBluespace
+    cost: 250
+    maxCount: 5
+    minimumShopLevel: 2
+  - id: LavalandMedkitAdvancedBruteFilled
+    entity: LavalandMedkitAdvancedBruteFilled
+    cost: 150
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: LavalandMedkitAdvancedBurnFilled
+    entity: LavalandMedkitAdvancedBurnFilled
+    cost: 150
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: MedkitAdvancedFilled
+    entity: MedkitAdvancedFilled
+    cost: 150
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: FilledSuperVirusMedkit
+    entity: FilledSuperVirusMedkit
+    cost: 300
+    maxCount: 3
+    minimumShopLevel: 3
+  - id: StimkitFilled
+    entity: StimkitFilled
+    cost: 750
+    maxCount: 2
+    minimumShopLevel: 3
+    emagOnly: true
+  - id: DefibrillatorCompact
+    entity: DefibrillatorCompact
+    cost: 400
+    maxCount: 1
+    minimumShopLevel: 4
+  - id: WeakViralSolutionVial
+    entity: WeakViralSolutionVial
+    cost: 500
+    maxCount: 1
+    minimumShopLevel: 4
+  - id: BluespaceBeaker
+    entity: BluespaceBeaker
+    cost: 1000
+    maxCount: 5
+    minimumShopLevel: 4
+  - id: EmergencyMedipen
+    entity: EmergencyMedipen
+    cost: 100
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: SpaceMedipen
+    entity: SpaceMedipen
+    cost: 100
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: NutritiousMedipen
+    entity: NutritiousMedipen
+    cost: 100
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: WehMedipen
+    entity: WehMedipen
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: AntiPoisonMedipen
+    entity: AntiPoisonMedipen
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: BruteAutoInjector
+    entity: BruteAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: BurnAutoInjector
+    entity: BurnAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: RadAutoInjector
+    entity: RadAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: PunctAutoInjector
+    entity: PunctAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: PyraAutoInjector
+    entity: PyraAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: AirlossAutoInjector
+    entity: AirlossAutoInjector
+    cost: 150
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: ZetaOneMedipen
+    entity: ZetaOneMedipen
+    cost: 200
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: ZetaTwoMedipen
+    entity: ZetaTwoMedipen
+    cost: 200
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: LavalandSurvMedipen
+    entity: LavalandSurvMedipen
+    cost: 300
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: CelestinMedipen
+    entity: CelestinMedipen
+    cost: 350
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: DerytracineMedipen
+    entity: DerytracineMedipen
+    cost: 350
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: CombatMedipen
+    entity: CombatMedipen
+    cost: 450
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: NECROMedipen
+    entity: NECROMedipen
+    cost: 450
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: SCSTMedipen
+    entity: SCSTMedipen
+    cost: 450
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: IchorMedipen
+    entity: IchorMedipen
+    cost: 500
+    maxCount: 10
+    minimumShopLevel: 5
+  - id: SoyuzMedicalRandomCombatMedkit
+    entity: SoyuzMedicalRandomCombatMedkit
+    cost: 999
+    maxCount: 2
+    minimumShopLevel: 5
+  - id: BSAACombatKitFilled
+    entity: BSAACombatKitFilled
+    cost: 850
+    maxCount: 2
+    minimumShopLevel: 6
+    emagOnly: true
+  - id: ERTGammaMedicCombatKitFilled
+    entity: ERTGammaMedicCombatKitFilled
+    cost: 850
+    maxCount: 2
+    minimumShopLevel: 6
+    emagOnly: true
+  - id: MediumViralSolutionVial
+    entity: MediumViralSolutionVial
+    cost: 1000
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: ClothingOuterHardsuitMedicalOrderMedic
+    entity: ClothingOuterHardsuitMedicalOrderMedic
+    cost: 1500
+    maxCount: 1
+    minimumShopLevel: 6
+    classified: true
+  - id: MedicalScannerMachineCircuitboard
+    entity: MedicalScannerMachineCircuitboard
+    cost: 2500
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: CloningConsoleComputerCircuitboard
+    entity: CloningConsoleComputerCircuitboard
+    cost: 2500
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: CloningPodMachineCircuitboard
+    entity: CloningPodMachineCircuitboard
+    cost: 2500
+    maxCount: 1
+    minimumShopLevel: 6
+  - id: ClothingOuterHardsuitERTAmberMedic
+    entity: ClothingOuterHardsuitERTAmberMedic
+    cost: 5500
+    maxCount: 1
+    minimumShopLevel: 6
+    emagOnly: true
+  - id: Stimpack
+    entity: Stimpack
+    cost: 750
+    maxCount: 10
+    minimumShopLevel: 7
+    emagOnly: true
+  - id: StimpackMini
+    entity: StimpackMini
+    cost: 750
+    maxCount: 10
+    minimumShopLevel: 7
+    emagOnly: true
+  - id: AdvancedJetInjector
+    entity: AdvancedJetInjector
+    cost: 1250
+    maxCount: 1
+    minimumShopLevel: 7
+    classified: true
+  - id: PowerCellMicroreactor
+    entity: PowerCellMicroreactor
+    cost: 1000
+    maxCount: 5
+    minimumShopLevel: 8
+  - id: HypoParamedic
+    entity: HypoParamedic
+    cost: 1500
+    maxCount: 1
+    minimumShopLevel: 8
+    classified: true
+  - id: StrongViralSolutionVial
+    entity: StrongViralSolutionVial
+    cost: 1500
+    maxCount: 1
+    minimumShopLevel: 8
+    classified: true
+  - id: ADTCyberHypospray
+    entity: ADTCyberHypospray
+    cost: 20000
+    maxCount: 1
+    minimumShopLevel: 10
+    emagOnly: true

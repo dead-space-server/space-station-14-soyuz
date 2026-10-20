@@ -2,7 +2,7 @@
   parent: ChemicalMedipen
   id: NECROMedipen
   name: медипен ОПНУ
-  description: Разработка NanoTrasen. Содержит вещества для лечения повреждений наносимых некроморфами.
+  description: Разработка СССП. Содержит вещества для лечения повреждений наносимых некроморфами.
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/medipen.rsi
@@ -39,13 +39,37 @@
   name: боевая медицина
   description: Для любителей незаменивой классики.
   components:
+  - type: Storage
+    grid:
+    - 0,0,5,1
+  - type: StorageFill
+    contents:
+      - id: MedicatedSuture
+      - id: RegenerativeMesh
+      - id: JetInjector
+      - id: ChemistryBottlePuncturase
+      - id: ChemistryBottleDermaline
+      - id: CombatMedipen
+        amount: 2
+      - id: AirlossAutoInjector
+
+- type: entity
+  parent: MedkitCombat
+  id: ERTGammaMedicCombatKitFilled
+  name: боевая аптечка медика ОБР
+  description: Компактный набор полевого медика отряда быстрого реагирования.
+  components:
+  - type: Storage
+    grid:
+    - 0,0,5,1
   - type: StorageFill
     contents:
       - id: MedicatedSuture
         amount: 2
       - id: RegenerativeMesh
       - id: CombatMedipen
-      - id: AirlossAutoInjector
+        amount: 2
+      - id: Tourniquet
 
 - type: entity
   id: InjectorCase
@@ -162,10 +186,10 @@
   components:
   - type: StorageFill
     contents:
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
-      - id: DesoxyephedrineMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
+      - id: CelestinMedipen
 
 ## Боевая медицина ОБР
 - type: entity

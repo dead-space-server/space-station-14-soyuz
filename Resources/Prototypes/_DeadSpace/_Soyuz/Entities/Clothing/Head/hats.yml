@@ -1,0 +1,21 @@
+- type: entity
+  parent: ClothingHeadHatCapcap
+  id: ClothingHeadHatBeretCaptainSheriff
+  name: берет шерифа
+  description: Уже уходишь, ковбой?
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/sheriff_beret.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/sheriff_beret.rsi
+
+- type: entity
+  parent: ClothingHeadHatCapcap
+  id: ClothingHeadHatCapcapSheriff
+  name: фуражка шерифа
+  description: Уже уходишь, ковбой?
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/sheriff_capcap.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/sheriff_capcap.rsi

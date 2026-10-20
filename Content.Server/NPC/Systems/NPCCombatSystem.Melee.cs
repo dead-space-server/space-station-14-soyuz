@@ -60,6 +60,14 @@ public sealed partial class NPCCombatSystem
     {
         component.Status = CombatStatus.Normal;
 
+        // DS14-Soyuz-start
+        if (IsInactiveMechTarget(component.Target))
+        {
+            component.Status = CombatStatus.TargetUnreachable;
+            return;
+        }
+        // DS14-Soyuz-end
+
         if (!_melee.TryGetWeapon(uid, out var weaponUid, out var weapon))
         {
             component.Status = CombatStatus.NoWeapon;

@@ -93,3 +93,8 @@ units-kelvin-long = Kelvin
 units-k-kelvin-long = Kilokelvin
 units-m-kelvin-long = Megakelvin
 units-g-kelvin-long = Gigakelvin
+
+# DS14-Soyuz start: upstream plant analyzer
+units-mole = mol
+units-u = u
+# DS14-Soyuz end

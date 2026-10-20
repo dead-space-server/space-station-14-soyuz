@@ -1,12 +1,12 @@
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Humanoid;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
 using Content.Client.Message;
 using Content.Client.Players.PlayTimeTracking;
-using Content.Client.Stylesheets;
 using Content.Client.Sprite;
 using Content.Client.UserInterface.Systems.Guidebook;
 using Content.DeadSpace.Interfaces.Client;
@@ -14,6 +14,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Clothing;
 using Content.Shared.Corvax.CCCVars;
 using Content.Shared.Corvax.TTS; // Corvax-TTS
+using Content.Shared.DeadSpace.Roles;
 using Content.Shared.GameTicking;
 using Content.Shared.Guidebook;
 using Content.Shared.Humanoid;
@@ -29,6 +30,7 @@ using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Client.Utility;
 using Robust.Shared.Configuration;
@@ -53,7 +55,7 @@ namespace Content.Client.Lobby.UI
         private readonly MarkingManager _markingManager;
         private readonly JobRequirementsManager _requirements;
         private readonly LobbyUIController _controller;
-        private IClientSponsorsManager? _sponsorsManager; // DS14-sponsors
+        private IClientSponsorsManager? _sponsorsManager; // DS14
 
         private readonly SpriteSystem _sprite;
 
@@ -85,6 +87,18 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public JobPrototype? JobOverride;
 
+        // DS14-start
+        private AntagPrototype? _antagPreviewOverride;
+        private RoleLoadout? _antagPreviewLoadout;
+        private readonly HashSet<ProtoId<AntagPrototype>> _favoriteAntags = new();
+        private readonly Dictionary<ProtoId<AntagPrototype>, List<Button>> _favoriteAntagButtons = new();
+        private readonly Dictionary<ProtoId<AntagPrototype>, (Control Row, Button Button)> _favoriteAntagRows = new();
+        private BoxContainer? _favoriteAntagContents;
+        private Control? _favoriteAntagCategory;
+        private bool _antagFavoritesInitialized;
+        private static readonly ProtoId<AntagMenuPrototype> DefaultAntagMenu = "Default";
+        // DS14-end
+
         /// <summary>
         /// The character slot for the current profile.
         /// </summary>
@@ -106,6 +120,7 @@ namespace Content.Client.Lobby.UI
         private ColorSelectorSliders _rgbSkinColorSelector;
 
         private bool _isDirty;
+        private bool _readOnly; // DS14
 
         private static readonly ProtoId<GuideEntryPrototype> DefaultSpeciesGuidebook = "Species";
 
@@ -141,6 +156,8 @@ namespace Content.Client.Lobby.UI
 
             _maxNameLength = _cfgManager.GetCVar(CCVars.MaxNameLength);
             _allowFlavorText = _cfgManager.GetCVar(CCVars.FlavorText);
+
+            AntagSearch.OnTextChanged += _ => RefreshAntags(); // DS14
 
             ImportButton.OnPressed += args =>
             {
@@ -267,26 +284,85 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnMarkingSelect += newStyle =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
+                // DS14-start
+                var selectedId = newStyle.id;
+                if (Profile.Appearance.HairGradientEnabled)
+                {
+                    var gradientId = selectedId + "Gradient";
+                    if (_markingManager.Markings.ContainsKey(gradientId))
+                        selectedId = gradientId;
+                }
+                // DS14-End
                 Profile = Profile.WithCharacterAppearance(
-                    Profile.Appearance.WithHairStyleName(newStyle.id));
+                    Profile.Appearance.WithHairStyleName(selectedId)); // DS14
                 ReloadPreview();
             };
 
             HairStylePicker.OnColorChanged += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairColor(newColor.marking.MarkingColors[0]));
+                // DS14-start
+                if (Profile.Appearance.HairGradientEnabled && newColor.marking.MarkingColors.Count > 1)
+                {
+                    Profile = Profile.WithCharacterAppearance(
+                        Profile.Appearance.WithHairGradientColor(newColor.marking.MarkingColors[1]));
+                }
+                // DS14-end
                 UpdateCMarkingsHair();
                 ReloadPreview();
             };
 
+            // DS14-start
+            HairStylePicker.OnGradientChanged += gradient =>
+            {
+                if (Profile is null || _readOnly)
+                    return;
+
+                var currentHairId = Profile.Appearance.HairStyleId;
+
+                if (gradient.enabled)
+                {
+                    var baseId = currentHairId;
+                    if (baseId.EndsWith("Gradient"))
+                        baseId = baseId[..^"Gradient".Length];
+
+                    var gradientId = baseId + "Gradient";
+                    if (_markingManager.Markings.ContainsKey(gradientId))
+                    {
+                        Profile = Profile.WithCharacterAppearance(
+                            Profile.Appearance.WithHairStyleName(gradientId)
+                                .WithHairGradientEnabled(true)
+                                .WithHairGradientColor(gradient.color));
+                    }
+                }
+                else
+                {
+                    var baseId = currentHairId;
+                    if (baseId.EndsWith("Gradient"))
+                        baseId = baseId[..^"Gradient".Length];
+
+                    if (baseId.Length > 0 && _markingManager.Markings.ContainsKey(baseId))
+                    {
+                        Profile = Profile.WithCharacterAppearance(
+                            Profile.Appearance.WithHairStyleName(baseId)
+                                .WithHairGradientEnabled(false));
+                    }
+                }
+
+                UpdateHairPickers();
+                UpdateCMarkingsHair();
+                ReloadPreview();
+            };
+            // DS14-end
+
             FacialHairPicker.OnMarkingSelect += newStyle =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairStyleName(newStyle.id));
@@ -295,7 +371,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnColorChanged += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairColor(newColor.marking.MarkingColors[0]));
@@ -305,10 +381,11 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnSlotRemove += _ =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairStyleName(HairStyles.DefaultHairStyle)
+                        .WithHairGradientEnabled(false) // DS14
                 );
                 UpdateHairPickers();
                 UpdateCMarkingsHair();
@@ -317,7 +394,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnSlotRemove += _ =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithFacialHairStyleName(HairStyles.DefaultFacialHairStyle)
@@ -329,7 +406,7 @@ namespace Content.Client.Lobby.UI
 
             HairStylePicker.OnSlotAdd += delegate()
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
 
                 var hair = _markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.Hair, Profile.Species).Keys
@@ -337,6 +414,15 @@ namespace Content.Client.Lobby.UI
 
                 if (string.IsNullOrEmpty(hair))
                     return;
+
+                // DS14-start
+                if (Profile.Appearance.HairGradientEnabled)
+                {
+                    var gradientHair = hair + "Gradient";
+                    if (_markingManager.Markings.ContainsKey(gradientHair))
+                        hair = gradientHair;
+                }
+                // DS14-end
 
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithHairStyleName(hair)
@@ -349,7 +435,7 @@ namespace Content.Client.Lobby.UI
 
             FacialHairPicker.OnSlotAdd += delegate()
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
 
                 var hair = _markingManager.MarkingsByCategoryAndSpecies(MarkingCategories.FacialHair, Profile.Species).Keys
@@ -388,7 +474,7 @@ namespace Content.Client.Lobby.UI
 
             EyeColorPicker.OnEyeColorPicked += newColor =>
             {
-                if (Profile is null)
+                if (Profile is null || _readOnly) // DS14
                     return;
                 Profile = Profile.WithCharacterAppearance(
                     Profile.Appearance.WithEyeColor(newColor));
@@ -415,6 +501,9 @@ namespace Content.Client.Lobby.UI
             PreferenceUnavailableButton.OnItemSelected += args =>
             {
                 PreferenceUnavailableButton.SelectId(args.Id);
+                if (_readOnly) // DS14
+                    return;
+
                 Profile = Profile?.WithPreferenceUnavailable((PreferenceUnavailableMode) args.Id);
                 SetDirty();
             };
@@ -517,8 +606,9 @@ namespace Content.Client.Lobby.UI
                 TraitsList.AddChild(new Label
                 {
                     Text = Loc.GetString("humanoid-profile-editor-no-traits"),
-                    FontColorOverride = Color.Gray,
                 });
+                if (_readOnly) // DS14
+                    SetInteractiveControlsDisabled(TraitsList, true);
                 return;
             }
 
@@ -553,9 +643,9 @@ namespace Content.Client.Lobby.UI
                     // Label
                     TraitsList.AddChild(new Label
                     {
-                        Text = Loc.GetString(category.Name),
+                        Text = Loc.GetString(category.Name), //DS-14
                         Margin = new Thickness(0, 10, 0, 0),
-                        StyleClasses = { StyleClass.LabelHeading },
+                        StyleClasses = { DeadSpaceStyleClass.SectionTitle }, // DS14
                     });
                 }
 
@@ -573,6 +663,9 @@ namespace Content.Client.Lobby.UI
 
                     selector.PreferenceChanged += preference =>
                     {
+                        if (_readOnly) // DS14
+                            return;
+
                         if (preference)
                         {
                             Profile = Profile?.WithTraitPreference(trait.ID, _prototypeManager);
@@ -594,7 +687,6 @@ namespace Content.Client.Lobby.UI
                     TraitsList.AddChild(new Label
                     {
                         Text = Loc.GetString("humanoid-profile-editor-trait-count-hint", ("current", selectionCount) ,("max", category.MaxTraitPoints)),
-                        FontColorOverride = Color.Gray
                     });
                 }
 
@@ -612,6 +704,9 @@ namespace Content.Client.Lobby.UI
                     TraitsList.AddChild(selector);
                 }
             }
+
+            if (_readOnly) // DS14
+                SetInteractiveControlsDisabled(TraitsList, true);
         }
 
         /// <summary>
@@ -619,7 +714,7 @@ namespace Content.Client.Lobby.UI
         /// </summary>
         public void RefreshSpecies()
         {
-            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14-sponsors
+            IoCManager.Instance!.TryResolveType(out _sponsorsManager); // DS14
 
             SpeciesButton.Clear();
             _species.Clear();
@@ -638,8 +733,7 @@ namespace Content.Client.Lobby.UI
                     SpeciesButton.SelectId(i);
                 }
 
-                // DS14-sponsors: Disable species that are sponsor-only unless the sponsor has access
-                if (_sponsorsManager != null && _species[i].SponsorOnly)
+                if (_sponsorsManager != null && _species[i].SponsorOnly) // DS14
                 {
                     SpeciesButton.SetItemDisabled(SpeciesButton.GetIdx(i), true);
 
@@ -651,7 +745,7 @@ namespace Content.Client.Lobby.UI
             }
 
             // If our species isn't available then reset it to default.
-            if (Profile != null)
+            if (Profile != null && !_readOnly) // DS14
             {
                 if (!speciesIds.Contains(Profile.Species))
                 {
@@ -671,72 +765,420 @@ namespace Content.Client.Lobby.UI
         public void RefreshAntags()
         {
             AntagList.RemoveAllChildren();
-            var items = new[]
+            _favoriteAntagContents = null;
+            _favoriteAntagCategory = null;
+            _favoriteAntagButtons.Clear();
+            _favoriteAntagRows.Clear();
+
+            // DS14-start
+            if (!_antagFavoritesInitialized && _preferencesManager.Preferences is not null)
             {
-                ("humanoid-profile-editor-antag-preference-yes-button", 0),
-                ("humanoid-profile-editor-antag-preference-no-button", 1)
+                _favoriteAntags.UnionWith(_preferencesManager.Preferences.FavoriteAntags);
+                _antagFavoritesInitialized = true;
+            }
+
+            _prototypeManager.TryIndex(DefaultAntagMenu, out var menu);
+
+            var roleColors = GetAntagRoleColors(menu);
+            var search = AntagSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(search))
+            {
+                foreach (var antag in _prototypeManager.EnumeratePrototypes<AntagPrototype>()
+                             .Where(antag => antag.SetPreference &&
+                                 (Loc.GetString(antag.Name).Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                                  antag.ID.Contains(search, StringComparison.OrdinalIgnoreCase)))
+                             .OrderBy(antag => Loc.GetString(antag.Name)))
+                {
+                    AntagList.AddChild(CreateAntagSelector(
+                        antag,
+                        roleColors.GetValueOrDefault(antag.ID, AntagPrototype.GroupColor)));
+                }
+
+                if (_readOnly)
+                    SetInteractiveControlsDisabled(AntagList, true);
+                return;
+            }
+
+            if (_favoriteAntags.Count > 0)
+            {
+                AntagList.AddChild(CreateAntagCategory(
+                    Loc.GetString("antag-menu-category-favorites"),
+                    new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/examine-star.png")),
+                    DeadSpaceStylePalette.Amber,
+                    _favoriteAntags.OrderBy(id => id.Id).ToList(),
+                    Array.Empty<AntagSubcategory>(),
+                    0,
+                    true));
+            }
+
+            if (menu == null)
+            {
+                foreach (var antag in _prototypeManager.EnumeratePrototypes<AntagPrototype>()
+                             .Where(antag => antag.SetPreference)
+                             .OrderBy(antag => Loc.GetString(antag.Name)))
+                {
+                    AntagList.AddChild(CreateAntagSelector(antag, AntagPrototype.GroupColor));
+                }
+            }
+            else
+            {
+                foreach (var categoryId in menu.Categories)
+                {
+                    if (!_prototypeManager.TryIndex(categoryId, out var category))
+                    {
+                        _sawmill.Error($"Antag menu '{menu.ID}' references missing category '{categoryId}'.");
+                        continue;
+                    }
+
+                    AntagList.AddChild(CreateAntagCategory(
+                        category.Name,
+                        category.Icon,
+                        category.OutlineColor,
+                        category.Antags,
+                        category.Subcategories,
+                        0));
+                }
+            }
+
+            if (_readOnly)
+                SetInteractiveControlsDisabled(AntagList, true);
+            // DS14-end
+        }
+
+        // DS14-start
+        private Control CreateAntagSelector(AntagPrototype antag, Color outlineColor, bool favorite = false)
+        {
+            var row = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                HorizontalExpand = true,
+                Margin = new Thickness(5f, 3f),
+                SeparationOverride = 6,
             };
 
-            foreach (var antag in _prototypeManager.EnumeratePrototypes<AntagPrototype>().OrderBy(a => Loc.GetString(a.Name)))
+            var title = new Label
             {
-                if (!antag.SetPreference)
-                    continue;
+                Text = Loc.GetString(antag.Name),
+                ToolTip = Loc.GetString(antag.Objective),
+                HorizontalExpand = true,
+                VerticalAlignment = VAlignment.Center,
+            };
+            row.AddChild(title);
 
-                var antagContainer = new BoxContainer()
+            var favoriteButton = new Button
+            {
+                Text = _favoriteAntags.Contains(antag.ID) ? "★" : "☆",
+                ToolTip = Loc.GetString(_favoriteAntags.Contains(antag.ID)
+                    ? "antag-menu-remove-favorite"
+                    : "antag-menu-add-favorite"),
+                SetSize = new Vector2(28, 28),
+                VerticalAlignment = VAlignment.Center,
+            };
+
+            if (!_favoriteAntagButtons.TryGetValue(antag.ID, out var favoriteButtons))
+            {
+                favoriteButtons = [];
+                _favoriteAntagButtons.Add(antag.ID, favoriteButtons);
+            }
+
+            favoriteButtons.Add(favoriteButton);
+            favoriteButton.OnPressed += _ =>
+            {
+                var added = _favoriteAntags.Add(antag.ID);
+                if (!added)
+                    _favoriteAntags.Remove(antag.ID);
+
+                if (added && string.IsNullOrWhiteSpace(AntagSearch.Text))
                 {
-                    Orientation = LayoutOrientation.Horizontal,
-                };
-
-                var selector = new RequirementsSelector()
-                {
-                    Margin = new Thickness(3f, 3f, 3f, 0f),
-                };
-                selector.OnOpenGuidebook += OnOpenGuidebook;
-
-                var title = Loc.GetString(antag.Name);
-                var description = Loc.GetString(antag.Objective);
-                selector.Setup(items, title, 250, description, guides: antag.Guides); // DS14
-                selector.Select(Profile?.AntagPreferences.Contains(antag.ID) == true ? 0 : 1);
-
-                // DS14-syndicate-sponsor-start
-                if (_sponsorsManager?.TryGetInfo(out var sponsor) == true && sponsor.HavePriorityAntag)
-                {
-                    selector.UnlockRequirements();
+                    if (_favoriteAntagContents != null)
+                    {
+                        _favoriteAntagContents.AddChild(CreateAntagSelector(antag, DeadSpaceStylePalette.Amber, true));
+                    }
+                    else
+                    {
+                        var favoritesCategory = CreateAntagCategory(
+                            Loc.GetString("antag-menu-category-favorites"),
+                            new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/examine-star.png")),
+                            DeadSpaceStylePalette.Amber,
+                            _favoriteAntags.OrderBy(id => id.Id).ToList(),
+                            Array.Empty<AntagSubcategory>(),
+                            0,
+                            true);
+                        AntagList.AddChild(favoritesCategory);
+                        favoritesCategory.SetPositionInParent(0);
+                    }
                 }
-                else if (!_requirements.IsAllowed(
-                        antag,
-                        (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter,
-                        out var reason))
+                else if (!added && _favoriteAntagRows.Remove(antag.ID, out var entry))
                 {
-                    selector.LockRequirements(reason);
+                    _favoriteAntagContents?.RemoveChild(entry.Row);
+                    _favoriteAntagButtons[antag.ID].Remove(entry.Button);
+                    if (_favoriteAntagRows.Count == 0 && _favoriteAntagCategory != null)
+                    {
+                        AntagList.RemoveChild(_favoriteAntagCategory);
+                        _favoriteAntagCategory = null;
+                        _favoriteAntagContents = null;
+                    }
+                }
+
+                var favoriteText = added ? "★" : "☆";
+                var favoriteTooltip = Loc.GetString(added
+                    ? "antag-menu-remove-favorite"
+                    : "antag-menu-add-favorite");
+
+                if (_favoriteAntagButtons.TryGetValue(antag.ID, out var buttons))
+                {
+                    foreach (var button in buttons)
+                    {
+                        if (button.Disposed)
+                            continue;
+
+                        button.Text = favoriteText;
+                        button.ToolTip = favoriteTooltip;
+                    }
+                }
+
+                _preferencesManager.UpdateAntagFavorites(_favoriteAntags.OrderBy(id => id.Id).ToList());
+            };
+            row.AddChild(favoriteButton);
+
+            if (antag.Guides != null)
+            {
+                var guide = new TextureButton
+                {
+                    SetSize = new Vector2(21, 21),
+                    StyleClasses = { "HelpButton" },
+                    VerticalAlignment = VAlignment.Center,
+                };
+                guide.OnPressed += _ => OnOpenGuidebook?.Invoke(antag.Guides);
+                row.AddChild(guide);
+            }
+
+            var loadoutButton = new Button
+            {
+                Text = Loc.GetString("loadout-window"),
+                VerticalAlignment = VAlignment.Center,
+            };
+
+            if (antag.RoleLoadout == null ||
+                !_prototypeManager.TryIndex(antag.RoleLoadout.Value, out RoleLoadoutPrototype? roleLoadoutProto))
+            {
+                loadoutButton.Disabled = true;
+            }
+            else
+            {
+                loadoutButton.OnPressed += _ =>
+                {
+                    if (_readOnly || Profile == null)
+                        return;
+
+                    Profile.Loadouts.TryGetValue(roleLoadoutProto.ID, out var storedLoadout);
+                    var loadout = storedLoadout?.Clone() ?? new RoleLoadout(roleLoadoutProto.ID);
+                    if (storedLoadout == null)
+                        loadout.SetDefault(Profile, _playerManager.LocalSession, _prototypeManager);
+
+                    OpenAntagLoadout(antag, loadout, roleLoadoutProto);
+                };
+            }
+
+            row.AddChild(loadoutButton);
+
+            var checkBox = new CheckBox
+            {
+                Pressed = Profile?.AntagPreferences.Contains(antag.ID) == true,
+                LeftAlign = true,
+                SetSize = new Vector2(28, 28),
+                VerticalAlignment = VAlignment.Center,
+                ToolTip = Loc.GetString(antag.Objective),
+            };
+
+            if (_sponsorsManager?.TryGetInfo(out var sponsor) == true && sponsor.HavePriorityAntag)
+            {
+                checkBox.Disabled = false;
+            }
+            else if (!_requirements.IsAllowed(
+                         antag,
+                         (HumanoidCharacterProfile?) _preferencesManager.Preferences?.SelectedCharacter,
+                         out var reason))
+            {
+                checkBox.Disabled = true;
+                checkBox.Pressed = false;
+                var tooltip = new Tooltip();
+                tooltip.SetMessage(reason);
+                checkBox.TooltipSupplier = _ => tooltip;
+                if (!_readOnly)
+                {
                     Profile = Profile?.WithAntagPreference(antag.ID, false);
                     SetDirty();
                 }
-                else
+            }
+            else
+            {
+                checkBox.Disabled = false;
+            }
+
+            checkBox.OnToggled += args =>
+            {
+                if (_readOnly)
+                    return;
+
+                Profile = Profile?.WithAntagPreference(antag.ID, args.Pressed);
+                SetDirty();
+            };
+
+            row.AddChild(checkBox);
+
+            var outline = new PanelContainer
+            {
+                HorizontalExpand = true,
+                Margin = new Thickness(2f),
+                PanelOverride = new StyleBoxFlat
                 {
-                    selector.UnlockRequirements();
+                    BackgroundColor = Color.Transparent,
+                    BorderColor = outlineColor,
+                    BorderThickness = new Thickness(1),
+                },
+            };
+            outline.AddChild(row);
+            if (favorite)
+                _favoriteAntagRows.Add(antag.ID, (outline, favoriteButton));
+            return outline;
+        }
+
+        private Control CreateAntagCategory(
+            string name,
+            SpriteSpecifier? icon,
+            Color outlineColor,
+            IReadOnlyList<ProtoId<AntagPrototype>> antags,
+            IReadOnlyList<AntagSubcategory> subcategories,
+            int depth,
+            bool favoritesCategory = false)
+        {
+            var contents = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Vertical,
+                Margin = new Thickness(14f, 2f, 0f, 4f),
+            };
+
+            if (favoritesCategory)
+                _favoriteAntagContents = contents;
+
+            foreach (var antagId in antags)
+            {
+                if (!_prototypeManager.TryIndex(antagId, out var antag))
+                {
+                    _sawmill.Error($"Antag category '{name}' references missing antag '{antagId}'.");
+                    continue;
                 }
-                // DS14-syndicate-sponsor-end
 
-                selector.OnSelected += preference =>
+                if (antag.SetPreference)
+                    contents.AddChild(CreateAntagSelector(antag, outlineColor, favoritesCategory));
+            }
+
+            foreach (var subcategory in subcategories)
+            {
+                contents.AddChild(CreateAntagCategory(
+                    subcategory.Name,
+                    subcategory.Icon,
+                    subcategory.OutlineColor ?? outlineColor,
+                    subcategory.Antags,
+                    subcategory.Subcategories,
+                    depth + 1));
+            }
+
+            var heading = new ContainerButton
+            {
+                ToggleMode = true,
+                HorizontalExpand = true,
+                Margin = new Thickness(depth * 8f, 2f, 0f, 2f),
+            };
+            var headingContents = new BoxContainer
+            {
+                Orientation = LayoutOrientation.Horizontal,
+                SeparationOverride = 6,
+            };
+
+            if (icon != null)
+            {
+                headingContents.AddChild(new TextureRect
                 {
-                    Profile = Profile?.WithAntagPreference(antag.ID, preference == 0);
-                    SetDirty();
-                };
-
-                antagContainer.AddChild(selector);
-
-                antagContainer.AddChild(new Button()
-                {
-                    Disabled = true,
-                    Text = Loc.GetString("loadout-window"),
-                    HorizontalAlignment = HAlignment.Right,
-                    Margin = new Thickness(3f, 0f, 0f, 0f),
+                    Texture = _sprite.Frame0(icon),
+                    SetSize = new Vector2(32, 32),
+                    Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                    VerticalAlignment = VAlignment.Center,
                 });
+            }
 
-                AntagList.AddChild(antagContainer);
+            headingContents.AddChild(new Label
+            {
+                Text = name,
+                VerticalAlignment = VAlignment.Center,
+            });
+            heading.AddChild(headingContents);
+
+            var body = new CollapsibleBody();
+            body.AddChild(contents);
+
+            var collapsible = new Collapsible
+            {
+                HorizontalExpand = true,
+                BodyVisible = false,
+            };
+            collapsible.AddChild(heading);
+            collapsible.AddChild(body);
+
+            var outline = new PanelContainer
+            {
+                HorizontalExpand = true,
+                Margin = new Thickness(2f),
+                PanelOverride = new StyleBoxFlat
+                {
+                    BackgroundColor = Color.Transparent,
+                    BorderColor = outlineColor,
+                    BorderThickness = new Thickness(2),
+                },
+            };
+            outline.AddChild(collapsible);
+            if (favoritesCategory)
+                _favoriteAntagCategory = outline;
+            return outline;
+        }
+
+        private Dictionary<ProtoId<AntagPrototype>, Color> GetAntagRoleColors(AntagMenuPrototype? menu)
+        {
+            var colors = new Dictionary<ProtoId<AntagPrototype>, Color>();
+            if (menu == null)
+                return colors;
+
+            foreach (var categoryId in menu.Categories)
+            {
+                if (!_prototypeManager.TryIndex(categoryId, out var category))
+                    continue;
+
+                AddAntagRoleColors(colors, category.Antags, category.Subcategories, category.OutlineColor);
+            }
+
+            return colors;
+        }
+
+        private static void AddAntagRoleColors(
+            Dictionary<ProtoId<AntagPrototype>, Color> colors,
+            IReadOnlyList<ProtoId<AntagPrototype>> antags,
+            IReadOnlyList<AntagSubcategory> subcategories,
+            Color inheritedColor)
+        {
+            foreach (var antag in antags)
+                colors.TryAdd(antag, inheritedColor);
+
+            foreach (var subcategory in subcategories)
+            {
+                AddAntagRoleColors(
+                    colors,
+                    subcategory.Antags,
+                    subcategory.Subcategories,
+                    subcategory.OutlineColor ?? inheritedColor);
             }
         }
+        // DS14-end
 
         private void SetDirty()
         {
@@ -773,7 +1215,24 @@ namespace Content.Client.Lobby.UI
             if (Profile == null || !_prototypeManager.HasIndex(Profile.Species))
                 return;
 
-            PreviewDummy = _controller.LoadProfileEntity(Profile, JobOverride, ShowClothes.Pressed);
+            // DS14-start
+            if (_antagPreviewOverride?.PreviewStartingGear is { } startingGear)
+            {
+                PreviewDummy = _controller.LoadProfileEntity(Profile, null, false);
+                _controller.GiveDummyAntagStartingGear(PreviewDummy, startingGear);
+                _controller.GiveDummyLoadout(PreviewDummy, _antagPreviewLoadout);
+            }
+            else if (_antagPreviewOverride != null)
+            {
+                // Without antagonist gear, retain the highest-priority job as the preview base.
+                PreviewDummy = _controller.LoadProfileEntity(Profile, null, true);
+                _controller.GiveDummyLoadout(PreviewDummy, _antagPreviewLoadout);
+            }
+            else
+            {
+                PreviewDummy = _controller.LoadProfileEntity(Profile, JobOverride, ShowClothes.Pressed);
+            }
+            // DS14-end
             SpriteView.SetEntity(PreviewDummy);
             _entManager.System<MetaDataSystem>().SetEntityName(PreviewDummy, Profile.Name);
 
@@ -794,8 +1253,9 @@ namespace Content.Client.Lobby.UI
         /// <summary>
         /// Sets the editor to the specified profile with the specified slot.
         /// </summary>
-        public void SetProfile(HumanoidCharacterProfile? profile, int? slot)
+        public void SetProfile(HumanoidCharacterProfile? profile, int? slot, bool readOnly = false) // DS14
         {
+            _readOnly = readOnly; // DS14
             Profile = profile?.Clone();
             CharacterSlot = slot;
             IsDirty = false;
@@ -828,7 +1288,115 @@ namespace Content.Client.Lobby.UI
             {
                 PreferenceUnavailableButton.SelectId((int) Profile.PreferenceUnavailable);
             }
+
+            ApplyReadOnlyState(); // DS14
         }
+
+        // DS14-start
+        public bool IsReadOnly => _readOnly;
+
+        private void ApplyReadOnlyState()
+        {
+            if (!_readOnly)
+            {
+                NameEdit.Editable = true;
+                NameRandomize.Disabled = false;
+                RandomizeEverythingButton.Disabled = false;
+                ImportButton.Disabled = false;
+                ExportButton.Disabled = false;
+                ExportImageButton.Disabled = false;
+                OpenImagesButton.Disabled = false;
+                SpeciesButton.Disabled = false;
+                AgeEdit.Editable = true;
+                SexButton.Disabled = false;
+                PronounsButton.Disabled = false;
+                ShowClothes.Disabled = false;
+                SpawnPriorityButton.Disabled = false;
+                VoiceButton.Disabled = false;
+                VoicePlayButton.Disabled = false;
+                PreferenceUnavailableButton.Disabled = false;
+                SpeciesInfoButton.Disabled = false;
+                SpriteRotateLeft.Disabled = false;
+                SpriteRotateRight.Disabled = false;
+                Skin.Disabled = false;
+                SetInteractiveControlsDisabled(RgbSkinColorContainer, false);
+                SetInteractiveControlsDisabled(HairStylePicker, false);
+                SetInteractiveControlsDisabled(FacialHairPicker, false);
+                SetInteractiveControlsDisabled(EyeColorPicker, false);
+                SetInteractiveControlsDisabled(Markings, false);
+                if (_flavorText != null)
+                    SetInteractiveControlsDisabled(_flavorText, false);
+                if (_flavorTextEdit != null)
+                    _flavorTextEdit.Editable = true;
+                UpdateSaveButton();
+                return;
+            }
+
+            NameEdit.Editable = false;
+            NameRandomize.Disabled = true;
+            RandomizeEverythingButton.Disabled = true;
+            ExportButton.Disabled = false;
+            SaveButton.Disabled = true;
+            ResetButton.Disabled = true;
+            ImportButton.Disabled = true;
+            ExportImageButton.Disabled = true;
+            OpenImagesButton.Disabled = true;
+            SpeciesButton.Disabled = true;
+            AgeEdit.Editable = false;
+            SexButton.Disabled = true;
+            PronounsButton.Disabled = true;
+            ShowClothes.Disabled = true;
+            SpawnPriorityButton.Disabled = true;
+            VoiceButton.Disabled = true;
+            VoicePlayButton.Disabled = true;
+            PreferenceUnavailableButton.Disabled = true;
+            SpeciesInfoButton.Disabled = true;
+            SpriteRotateLeft.Disabled = true;
+            SpriteRotateRight.Disabled = true;
+            Skin.Disabled = true;
+            SetInteractiveControlsDisabled(RgbSkinColorContainer, true);
+            SetInteractiveControlsDisabled(HairStylePicker, true);
+            SetInteractiveControlsDisabled(FacialHairPicker, true);
+            SetInteractiveControlsDisabled(EyeColorPicker, true);
+            SetInteractiveControlsDisabled(Markings, true);
+            SetInteractiveControlsDisabled(JobList, true);
+            SetInteractiveControlsDisabled(AntagList, true);
+            SetInteractiveControlsDisabled(TraitsList, true);
+            if (_flavorTextEdit != null)
+                _flavorTextEdit.Editable = false;
+            if (_flavorText != null)
+                SetInteractiveControlsDisabled(_flavorText, true);
+            _loadoutWindow?.Dispose();
+            _loadoutWindow = null;
+        }
+
+        private void SetInteractiveControlsDisabled(Control control, bool disabled)
+        {
+            foreach (var child in control.Children)
+            {
+                if (child == ExportButton)
+                    continue;
+
+                switch (child)
+                {
+                    case BaseButton button:
+                        button.Disabled = disabled;
+                        break;
+                    case LineEdit lineEdit:
+                        lineEdit.Editable = !disabled;
+                        break;
+                    case TextEdit textEdit:
+                        textEdit.Editable = !disabled;
+                        break;
+                    case Slider slider:
+                        slider.Disabled = disabled;
+                        break;
+                }
+
+                SetInteractiveControlsDisabled(child, disabled);
+            }
+        }
+        // DS14-end
 
         /// <summary>
         /// A slim reload that only updates the entity itself and not any of the job entities, etc.
@@ -921,18 +1489,12 @@ namespace Content.Client.Lobby.UI
                         });
                     }
 
-                    category.AddChild(new PanelContainer
+                    category.AddChild(new Label
                     {
-                        PanelOverride = new StyleBoxFlat {BackgroundColor = Color.FromHex("#464966")},
-                        Children =
-                        {
-                            new Label
-                            {
-                                Text = Loc.GetString("humanoid-profile-editor-department-jobs-label",
-                                    ("departmentName", departmentName)),
-                                Margin = new Thickness(5f, 0, 0, 0)
-                            }
-                        }
+                        Text = Loc.GetString("humanoid-profile-editor-department-jobs-label",
+                            ("departmentName", departmentName)),
+                        Margin = new Thickness(5f, 0, 0, 0),
+                        StyleClasses = { DeadSpaceStyleClass.SectionTitle }, // DS14
                     });
 
                     _jobCategories[department.ID] = category;
@@ -943,7 +1505,10 @@ namespace Content.Client.Lobby.UI
                     .Where(job => job.SetPreference)
                     .ToArray();
 
-                Array.Sort(jobs, JobUIComparer.Instance);
+                // DS14-start - upstream roles UI lives in this combined editor file.
+                if (JobUIComparer.TryCreate(_prototypeManager, null, out var comparer))
+                    Array.Sort(jobs, comparer);
+                // DS14-end
 
                 foreach (var job in jobs)
                 {
@@ -955,6 +1520,7 @@ namespace Content.Client.Lobby.UI
                     var selector = new RequirementsSelector()
                     {
                         Margin = new Thickness(3f, 3f, 3f, 0f),
+                        UseJobPriorityColors = true, // DS14
                     };
                     selector.OnOpenGuidebook += OnOpenGuidebook;
 
@@ -978,6 +1544,9 @@ namespace Content.Client.Lobby.UI
 
                     selector.OnSelected += selectedPrio =>
                     {
+                        if (_readOnly) // DS14
+                            return;
+
                         var selectedJobPrio = (JobPriority) selectedPrio;
                         Profile = Profile?.WithJobPriority(job.ID, selectedJobPrio);
 
@@ -1026,6 +1595,9 @@ namespace Content.Client.Lobby.UI
                     {
                         loadoutWindowBtn.OnPressed += args =>
                         {
+                            if (_readOnly) // DS14
+                                return;
+
                             RoleLoadout? loadout = null;
 
                             // Clone so we don't modify the underlying loadout.
@@ -1050,10 +1622,15 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateJobPriorities();
+            if (_readOnly) // DS14
+                SetInteractiveControlsDisabled(JobList, true);
         }
 
         private void OpenLoadout(JobPrototype? jobProto, RoleLoadout roleLoadout, RoleLoadoutPrototype roleLoadoutProto)
         {
+            if (_readOnly) // DS14
+                return;
+
             _loadoutWindow?.Dispose();
             _loadoutWindow = null;
             var collection = IoCManager.Instance;
@@ -1111,9 +1688,73 @@ namespace Content.Client.Lobby.UI
             UpdateJobPriorities();
         }
 
+        // DS14-start
+        private void OpenAntagLoadout(
+            AntagPrototype antag,
+            RoleLoadout roleLoadout,
+            RoleLoadoutPrototype roleLoadoutProto)
+        {
+            if (_readOnly)
+                return;
+
+            _loadoutWindow?.Dispose();
+            _loadoutWindow = null;
+            var collection = IoCManager.Instance;
+
+            if (collection == null || _playerManager.LocalSession == null || Profile == null)
+                return;
+
+            JobOverride = null;
+            _antagPreviewOverride = antag;
+            _antagPreviewLoadout = roleLoadout;
+            var session = _playerManager.LocalSession;
+
+            _loadoutWindow = new LoadoutWindow(Profile, roleLoadout, roleLoadoutProto, session, collection)
+            {
+                Title = Loc.GetString("loadout-window-title-loadout", ("job", Loc.GetString(antag.Name))),
+            };
+            _loadoutWindow.RefreshLoadouts(roleLoadout, session, collection);
+            _loadoutWindow.OpenCenteredLeft();
+
+            _loadoutWindow.OnNameChanged += name =>
+            {
+                roleLoadout.EntityName = name;
+                Profile = Profile.WithLoadout(roleLoadout);
+                SetDirty();
+            };
+
+            _loadoutWindow.OnLoadoutPressed += (loadoutGroup, loadoutProto) =>
+            {
+                roleLoadout.AddLoadout(loadoutGroup, loadoutProto, _prototypeManager);
+                _loadoutWindow.RefreshLoadouts(roleLoadout, session, collection);
+                Profile = Profile?.WithLoadout(roleLoadout);
+                SetDirty();
+                ReloadPreview();
+            };
+
+            _loadoutWindow.OnLoadoutUnpressed += (loadoutGroup, loadoutProto) =>
+            {
+                roleLoadout.RemoveLoadout(loadoutGroup, loadoutProto, _prototypeManager);
+                _loadoutWindow.RefreshLoadouts(roleLoadout, session, collection);
+                Profile = Profile?.WithLoadout(roleLoadout);
+                SetDirty();
+                ReloadPreview();
+            };
+
+            ReloadPreview();
+
+            _loadoutWindow.OnClose += () =>
+            {
+                _antagPreviewOverride = null;
+                _antagPreviewLoadout = null;
+                ReloadPreview();
+            };
+        }
+        // DS14-end
+
         private void OnFlavorTextChange(string content)
         {
-            if (Profile is null)
+            if (Profile is null || _readOnly) // DS14
                 return;
 
             Profile = Profile.WithFlavorText(content);
@@ -1122,7 +1763,7 @@ namespace Content.Client.Lobby.UI
 
         private void OnMarkingChange(MarkingSet markings)
         {
-            if (Profile is null)
+            if (Profile is null || _readOnly) // DS14
                 return;
 
             Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithMarkings(markings.GetForwardEnumerator().ToList()));
@@ -1131,7 +1772,7 @@ namespace Content.Client.Lobby.UI
 
         private void OnSkinColorOnValueChanged()
         {
-            if (Profile is null) return;
+            if (Profile is null || _readOnly) return; // DS14
 
             var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
             var strategy = _prototypeManager.Index(skin).Strategy;
@@ -1198,12 +1839,18 @@ namespace Content.Client.Lobby.UI
 
         private void SetAge(int newAge)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithAge(newAge);
             ReloadPreview();
         }
 
         private void SetSex(Sex newSex)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSex(newSex);
             // for convenience, default to most common gender when new sex is selected
             switch (newSex)
@@ -1227,6 +1874,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetGender(Gender newGender)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithGender(newGender);
             ReloadPreview();
         }
@@ -1234,6 +1884,9 @@ namespace Content.Client.Lobby.UI
         // Corvax-TTS-Start
         private void SetVoice(string newVoice)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithVoice(newVoice);
             IsDirty = true;
         }
@@ -1241,6 +1894,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetSpecies(string newSpecies)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSpecies(newSpecies);
             OnSkinColorOnValueChanged(); // Species may have special color prefs, make sure to update it.
             Markings.SetSpecies(newSpecies); // Repopulate the markings tab as well.
@@ -1255,6 +1911,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetName(string newName)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithName(newName);
             SetDirty();
 
@@ -1266,6 +1925,9 @@ namespace Content.Client.Lobby.UI
 
         private void SetSpawnPriority(SpawnPriorityPreference newSpawnPriority)
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = Profile?.WithSpawnPriorityPreference(newSpawnPriority);
             SetDirty();
         }
@@ -1441,14 +2103,40 @@ namespace Content.Client.Lobby.UI
             {
                 return;
             }
-            var hairMarking = Profile.Appearance.HairStyleId == HairStyles.DefaultHairStyle
+
+            // DS14-start
+            var hairId = Profile.Appearance.HairStyleId;
+            var gradientEnabled = Profile.Appearance.HairGradientEnabled;
+
+            var hairColors = new List<Color> { Profile.Appearance.HairColor };
+            if (gradientEnabled)
+            {
+                hairColors.Add(Profile.Appearance.HairGradientColor);
+            }
+
+            // If gradient enabled, the ID should be the Gradient version (it's set in OnGradientChanged)
+            // But make sure the marking actually exists; if not, fall back
+            if (gradientEnabled && !_markingManager.Markings.ContainsKey(hairId))
+            {
+                var gradientId = hairId + "Gradient";
+                if (_markingManager.Markings.ContainsKey(gradientId))
+                    hairId = gradientId;
+            }
+            // DS14-end
+
+            var hairMarking = hairId == HairStyles.DefaultHairStyle
                 ? new List<Marking>()
-                : new() { new(Profile.Appearance.HairStyleId, new List<Color>() { Profile.Appearance.HairColor }) };
+                : new() { new(hairId, hairColors) };
 
             var facialHairMarking = Profile.Appearance.FacialHairStyleId == HairStyles.DefaultFacialHairStyle
                 ? new List<Marking>()
                 : new() { new(Profile.Appearance.FacialHairStyleId, new List<Color>() { Profile.Appearance.FacialHairColor }) };
 
+            // DS14-start
+            HairStylePicker.SetGradientData(
+                gradientEnabled,
+                Profile.Appearance.HairGradientColor);
+            // DS14-end
             HairStylePicker.UpdateData(
                 hairMarking,
                 Profile.Species,
@@ -1541,8 +2229,10 @@ namespace Content.Client.Lobby.UI
 
         private void UpdateSaveButton()
         {
-            SaveButton.Disabled = Profile is null || !IsDirty;
-            ResetButton.Disabled = Profile is null || !IsDirty;
+            // DS14-start
+            SaveButton.Disabled = _readOnly || Profile is null || !IsDirty;
+            ResetButton.Disabled = _readOnly || Profile is null || !IsDirty;
+            // DS14-end
         }
 
         private void SetPreviewRotation(Direction direction)
@@ -1552,6 +2242,9 @@ namespace Content.Client.Lobby.UI
 
         private void RandomizeEverything()
         {
+            if (_readOnly) // DS14
+                return;
+
             Profile = HumanoidCharacterProfile.Random();
             SetProfile(Profile, CharacterSlot);
             SetDirty();
@@ -1559,7 +2252,7 @@ namespace Content.Client.Lobby.UI
 
         private void RandomizeName()
         {
-            if (Profile == null) return;
+            if (Profile == null || _readOnly) return; // DS14
             var name = HumanoidCharacterProfile.GetName(Profile.Species, Profile.Gender);
             SetName(name);
             UpdateNameEdit();
@@ -1567,7 +2260,7 @@ namespace Content.Client.Lobby.UI
 
         private async void ExportImage()
         {
-            if (_imaging)
+            if (_imaging || _readOnly) // DS14
                 return;
 
             var dir = SpriteView.OverrideDirection ?? Direction.South;
@@ -1580,7 +2273,7 @@ namespace Content.Client.Lobby.UI
 
         private async void ImportProfile()
         {
-            if (_exporting || CharacterSlot == null || Profile == null)
+            if (_exporting || _readOnly || CharacterSlot == null || Profile == null) // DS14
                 return;
 
             StartExport();
@@ -1652,7 +2345,7 @@ namespace Content.Client.Lobby.UI
         private void EndExport()
         {
             _exporting = false;
-            ImportButton.Disabled = false;
+            ImportButton.Disabled = _readOnly; // DS14
             ExportButton.Disabled = false;
         }
     }

@@ -1,7 +1,7 @@
 - type: gameMap
   id: CentComm
-  isGrid: true # Did you know that centcomm is the only "game map" that isn't actually a map? Send help.
-  mapName: 'Central Command'
+  isGrid: true
+  mapName: 'Генеральный Штаб'
   mapPath: /Maps/_Soyuz/centcomm.yml
   minPlayers: 10
   stations:
@@ -9,7 +9,8 @@
       stationProto: NanotrasenCentralCommand
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Central Command {1}'
+#DS14-Soyuz start
+          mapNameTemplate: '{0} «Цитадель»'
           nameGenerator:
-            !type:NanotrasenNameGenerator
-            prefixCreator: 'TG'
+            !type:GeneralStaffGenerator
+#DS14-Soyuz end

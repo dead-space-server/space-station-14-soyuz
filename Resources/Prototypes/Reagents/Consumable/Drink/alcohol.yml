@@ -97,7 +97,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -121,7 +122,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -144,7 +146,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -158,6 +161,14 @@
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: alcohol
   color: "#b05b3c"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_ethanol.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   boilingPoint: 78.2
   meltingPoint: -114.1
   metabolisms:
@@ -232,7 +243,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -300,7 +312,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -330,7 +343,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -353,7 +367,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -376,7 +391,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -402,6 +418,7 @@
   name: reagent-name-vodka
   parent: BaseAlcohol
   desc: reagent-desc-vodka
+  evaporationSpeed: 0.3 # DS14
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: vodka
   color: "#d1d1d155"
@@ -415,7 +432,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -439,7 +457,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -479,7 +498,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 3
       - !type:AdjustReagent
         reagent: Ethanol
@@ -598,7 +618,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -621,7 +642,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -647,7 +669,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -715,7 +738,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -739,7 +763,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -792,7 +817,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -830,7 +856,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -853,7 +880,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -891,7 +919,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -948,6 +977,7 @@
   id: DoctorsDelight
   name: reagent-name-doctors-delight
   parent: BaseDrink
+  group: AlcoholicDrinks # DS14
   desc: reagent-desc-doctors-delight
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
@@ -961,9 +991,11 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         factor: -2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -993,7 +1025,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1062,7 +1095,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1085,7 +1119,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1109,7 +1144,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1133,7 +1169,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1177,6 +1214,14 @@
   physicalDesc: reagent-physical-desc-strong-smelling
   flavor: hooch
   color: "#664e00"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_hooch.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
 
 - type: reagent
   id: IcedBeer
@@ -1211,7 +1256,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1234,7 +1280,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1257,7 +1304,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1325,7 +1373,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1409,7 +1458,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1479,7 +1529,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1502,7 +1553,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1531,7 +1583,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1554,7 +1607,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1577,7 +1631,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1600,7 +1655,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1653,7 +1709,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1676,14 +1733,17 @@
   metabolisms:
     Drink:
       effects:
-        - !type:GenericStatusEffect
-          key: RatvarianLanguage
-          component: RatvarianLanguage
-        - !type:SatiateThirst
-          factor: 2
-        - !type:AdjustReagent
-          reagent: Ethanol
-          amount: 0.15
+      # DS14-Start: Ratvarian language still uses the current branch's status-effect API.
+      - !type:GenericStatusEffect
+        key: RatvarianLanguage
+        component: RatvarianLanguage
+      # DS14-End
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Ethanol
+        amount: 0.15
 
 - type: reagent
   id: Silencer
@@ -1702,10 +1762,10 @@
   metabolisms:
     Drink:
       effects:
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-      - !type:SatiateThirst
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
 
 - type: reagent
@@ -1788,7 +1848,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1827,7 +1888,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1883,7 +1945,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1906,7 +1969,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1930,7 +1994,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1954,7 +2019,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -1965,14 +2031,24 @@
   id: WhiteGilgamesh
   name: reagent-name-white-gilgamesh
   parent: BaseDrink
+  group: AlcoholicDrinks # DS14
   desc: reagent-desc-white-gilgamesh
   physicalDesc: reagent-physical-desc-creamy
   flavor: white-gilgamesh
   color: "#e5d27e"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_whitegilgamesh.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -1996,7 +2072,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2019,7 +2096,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2050,7 +2128,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2081,7 +2160,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2112,7 +2192,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2143,7 +2224,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2174,7 +2256,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2205,7 +2288,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2228,7 +2312,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2251,7 +2336,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2277,10 +2363,10 @@
   metabolisms:
     Drink:
       effects:
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-      - !type:SatiateThirst
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2303,7 +2389,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2336,7 +2423,8 @@
         damage:
           types:
             Poison: .5
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 1
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2359,7 +2447,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2382,7 +2471,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2405,7 +2495,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2428,7 +2519,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2451,7 +2543,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2474,7 +2567,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
@@ -2497,7 +2591,8 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
+        - !type:Satiate
+          satiationType: Thirst
           factor: 1
         - !type:AdjustReagent
           reagent: Ethanol
@@ -2520,7 +2615,8 @@
   metabolisms:
     Drink:
       effects:
-      - !type:SatiateThirst
+      - !type:Satiate
+        satiationType: Thirst
         factor: 3
       - !type:AdjustReagent
         reagent: Ethanol

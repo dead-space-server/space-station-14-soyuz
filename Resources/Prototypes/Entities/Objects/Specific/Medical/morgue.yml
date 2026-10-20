@@ -42,6 +42,8 @@
         density: 80
         mask:
         - ItemMask
+        layer:
+        - BulletImpassable
   - type: EntityStorage
     capacity: 1
     isCollidableWhenOpen: true
@@ -102,6 +104,15 @@
       - !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/poster_broken.ogg
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/glove_drop.ogg
 # DS14-end
 
 - type: entity

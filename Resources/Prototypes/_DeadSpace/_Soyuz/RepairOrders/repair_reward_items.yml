@@ -1,0 +1,467 @@
+- type: entity
+  parent: PowerDrill
+  id: RepairCrewPowerDrill
+  name: repair crew power drill
+  description: A reinforced power drill issued to repair crews for rapid assembly work.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+  - type: Tool
+    speedModifier: 2
+  - type: MultipleTool
+    entries:
+    - behavior: Screwing
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+        state: drill_screw
+      useSound: /Audio/Items/drill_use.ogg
+      changeSound: /Audio/Items/change_drill.ogg
+    - behavior: Anchoring
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_drill.rsi
+        state: drill_bolt
+      useSound: /Audio/Items/drill_use.ogg
+      changeSound: /Audio/Items/change_drill.ogg
+
+- type: entity
+  parent: WelderExperimental
+  id: RepairCrewWelder
+  name: repair crew welding tool
+  description: A self-refueling welding tool with an upgraded burner for prolonged restoration work.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_welder.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_welder.rsi
+  - type: Tool
+    speedModifier: 1.8
+
+- type: entity
+  parent: JawsOfLife
+  id: RepairCrewJawsOfLife
+  name: repair crew jaws of life
+  description: A hydraulic rescue tool with improved prying and cutting drives.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+  - type: Tool
+    speedModifier: 1.5
+  - type: Prying
+    speedModifier: 2.25
+  - type: MultipleTool
+    entries:
+    - behavior: Prying
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+        state: jaws_pry
+      useSound: /Audio/Items/jaws_pry.ogg
+      changeSound: /Audio/Items/change_jaws.ogg
+    - behavior: Cutting
+      sprite:
+        sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_jaws.rsi
+        state: jaws_cutter
+      useSound: /Audio/Items/jaws_cut.ogg
+      changeSound: /Audio/Items/change_jaws.ogg
+
+- type: entity
+  parent: RCDCE
+  id: RepairCrewRCD
+  name: repair crew RCD
+  description: An economical rapid construction device with a built-in charge regenerator.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_crew_rcd.rsi
+  - type: AutoRecharge
+    rechargeDuration: 10
+
+- type: entity
+  parent: BaseClothingBeltEngineering
+  id: ClothingBeltRepairCrew
+  name: repair crew toolbelt
+  description: An orange-and-grey toolbelt issued for restoration work aboard damaged stations and shuttles.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+  - type: ItemMapper
+    sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew_overlay.rsi
+  - type: Storage
+    grid:
+    - 0,0,9,1
+
+- type: entity
+  parent: ClothingBeltRepairCrew
+  id: ClothingBeltRepairCrewFilled
+  description: A repair crew toolbelt equipped with a power drill, jaws of life, welding tool, RCD, multitool, holofan projector, gas analyzer and network configurator.
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+    - id: RepairCrewPowerDrill
+    - id: RepairCrewJawsOfLife
+    - id: RepairCrewWelder
+    - id: Multitool
+    - id: HolofanProjector
+    - id: GasAnalyzer
+    - id: NetworkConfigurator
+    - id: RepairCrewRCD
+
+- type: entity
+  parent: ClothingEyesGlassesMesonCE
+  id: ClothingEyesGlassesRepairRestorer
+  name: repair crew diagnostic goggles
+  description: Repair crew diagnostic goggles with a structural worklist and a directional display.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Eyes/Glasses/repair_restorer.rsi
+  - type: RepairStructuralAnalyzer
+    navigation: true
+  - type: ItemToggle
+    activated: true
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakRepairRestorer
+  name: repair crew commendation cloak
+  description: A personalized cloak awarded for distinguished service in the repair crew, with a built-in warm-white light.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Neck/Cloaks/repair_restorer.rsi
+  - type: RepairOrderKeepsake
+  - type: ItemToggle
+    verbToggleOn: repair-orders-keepsake-light-on
+    verbToggleOff: repair-orders-keepsake-light-off
+  - type: ItemTogglePointLight
+  - type: PointLight
+    enabled: false
+    radius: 6
+    energy: 3
+    color: "#FFE6CC"
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderThrusterMediumFlatpack
+  name: large rocket thruster flatpack
+  description: A flatpack used for constructing a large rocket thruster.
+  components:
+  - type: Flatpack
+    entity: ThrusterMedium
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderApuFlatpack
+  name: APU flatpack
+  description: A flatpack used for constructing a wall-mounted auxiliary power unit.
+  components:
+  - type: Flatpack
+    entity: GeneratorWallmountAPU
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderRtgFlatpack
+  name: RTG flatpack
+  description: A flatpack used for constructing a radioisotope thermoelectric generator.
+  components:
+  - type: Flatpack
+    entity: GeneratorRTG
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BoxCardboard
+  id: RepairOrderShuttleBoardBundle
+  name: shuttle circuit board kit
+  description: A compact set of circuit boards for constructing and extending a shuttle.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: ShuttleConsoleCircuitboard
+        - id: ThrusterMachineCircuitboard
+        - id: GyroscopeMachineCircuitboard
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSmesAdvancedFlatpack
+  name: advanced SMES flatpack
+  description: A flatpack used for constructing an advanced SMES.
+  components:
+  - type: Flatpack
+    entity: SMESAdvanced
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSmesBasicFlatpack
+  name: SMES flatpack
+  description: A flatpack used for constructing a SMES.
+  components:
+  - type: Flatpack
+    entity: SMESBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderSubstationFlatpack
+  name: substation flatpack
+  description: A flatpack used for constructing a substation.
+  components:
+  - type: Flatpack
+    entity: SubstationBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
+  id: RepairOrderWallmountSubstationFlatpack
+  name: wall-mounted substation flatpack
+  description: A flatpack used for constructing a wall-mounted substation.
+  components:
+  - type: Flatpack
+    entity: SubstationWallBasic
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BoxCardboard
+  id: RepairOrderEngineeringBoardBundle
+  name: engineering electronics kit
+  description: Contains electronics for two airlocks, two firelocks, an APC, two air alarms and two fire alarms.
+  components:
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,4,2
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: DoorElectronics
+          amount: 2
+        - id: FirelockElectronics
+          amount: 2
+        - id: APCElectronics
+        - id: AirAlarmElectronics
+          amount: 2
+
+# Ported visually from DeltaV PR #5846. These variants intentionally use only ordinary Storage:
+# no magnet pickup, toggle, research, recipes, lathe or cargo acquisition is registered.
+- type: entity
+  parent: BaseStorageItem
+  id: ConstructionBag
+  name: construction bag
+  description: A robust belt bag for carrying construction materials.
+  categories: [HideSpawnMenu]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: Item
+    size: Ginormous
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,9,3
+    quickInsert: true
+    areaInsert: true
+    whitelist:
+      tags:
+      - Ingot
+      - Sheet
+      - ConstructionMaterial
+      - CableCoil
+  - type: Dumpable
+  - type: StaticPrice
+    price: 55.5
+
+- type: entity
+  parent: ConstructionBag
+  id: ConstructionBagOfHolding
+  name: bluespace construction bag
+  description: A bluespace belt bag with exceptional capacity for construction materials.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    layers:
+    - state: icon
+    - state: icon-bluespace-overlay
+    - state: icon-bluespace-overlay-unshaded
+      shader: unshaded
+  - type: Item
+    size: Ginormous
+    inhandVisuals:
+      left:
+      - state: inhand-left
+      - state: inhand-left-bluespace-overlay
+      - state: inhand-left-bluespace-overlay-unshaded
+        shader: unshaded
+      right:
+      - state: inhand-right
+      - state: inhand-right-bluespace-overlay
+      - state: inhand-right-bluespace-overlay-unshaded
+        shader: unshaded
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Engineering/construction_bag.rsi
+    quickEquip: false
+    slots:
+    - Belt
+    clothingVisuals:
+      belt:
+      - state: equipped-BELT
+      - state: equipped-BELT-bluespace-overlay
+      - state: equipped-BELT-bluespace-overlay-unshaded
+        shader: unshaded
+  - type: Storage
+    grid:
+    - 0,0,19,9
+
+- type: entity
+  parent: ClothingShoesBootsMagBase
+  id: ClothingShoesBootsMagRepairCrew
+  name: repair crew magboots
+  description: Magnetic boots with assisted movement for restoration work aboard damaged stations and shuttles.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 1.05
+    sprintModifier: 1.05
+    requireActivated: false
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+    size: Normal
+  - type: StaticPrice
+    price: 1500
+
+- type: entityTable
+  id: RepairOrderRandomResources
+  table: !type:GroupSelector
+    children:
+    - id: SheetSteel
+      weight: 60
+    - id: SheetGlass
+      weight: 60
+    - id: SheetRGlass
+      weight: 24
+    - id: SheetPlasteel
+      weight: 40
+    - id: SheetPGlass
+      weight: 30
+    - id: SheetRPGlass
+      weight: 24
+    - id: SheetUGlass
+      weight: 24
+    - id: SheetRUGlass
+      weight: 20
+    - id: SheetPlasma
+      weight: 24
+    - id: SheetPlastic
+      weight: 40
+    - id: SheetTitanium
+      weight: 15
+    - id: SheetPlastitanium
+      weight: 10
+    - id: SheetTungsten
+      weight: 24
+    - id: IngotTungsten
+      weight: 60
+    - id: IngotSilver
+      weight: 13
+    - id: IngotGold
+      weight: 11
+    - id: SheetUranium
+      weight: 5
+    - id: MaterialWoodPlank
+      weight: 60
+    - id: MaterialCloth
+      weight: 60
+    - id: PartRodMetal
+      weight: 120
+
+- type: entity
+  parent: ConstructionBag
+  id: ConstructionBagRandomFilled
+  name: random resource bag
+  description: A construction bag filled with ten randomly selected full stacks of resources.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:NestedSelector
+        tableId: RepairOrderRandomResources
+        rolls: 10
+
+- type: entity
+  parent: ConstructionBagOfHolding
+  id: ConstructionBagOfHoldingRandomFilled
+  name: bluespace random resource bag
+  description: A bluespace construction bag filled with fifty randomly selected full stacks of resources.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:NestedSelector
+        tableId: RepairOrderRandomResources
+        rolls: 50

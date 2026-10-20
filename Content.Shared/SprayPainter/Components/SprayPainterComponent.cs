@@ -56,6 +56,23 @@ public sealed partial class SprayPainterComponent : Component
     public HashSet<string> AllowedCategories = new();
     // DS14-end
 
+    // DS14-Soyuz-start: Keep construction decals and object painting separate per tool.
+    [DataField, AutoNetworkedField]
+    public HashSet<string> AllowedDecalTags = new() { "station", "markings" };
+
+    [DataField, AutoNetworkedField]
+    public bool AllowDecalsOnGrilles;
+
+    [DataField, AutoNetworkedField]
+    public bool DecalOnly;
+
+    [DataField, AutoNetworkedField]
+    public bool DecalColorEditable = true;
+
+    [DataField, AutoNetworkedField]
+    public Color? FixedDecalColor;
+    // DS14-Soyuz-end
+
     /// <summary>
     /// The currently open tab of the painter
     /// (Are you selecting canister color?)

@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Administration.Logs;
 using Content.Server.Stack;
+using Content.Server.DeadSpace.Administration;
 using Content.Server.Store.Components;
 using Content.Shared.Actions;
 using Content.Shared.Database;
@@ -113,7 +114,7 @@ public sealed partial class StoreSystem
         // only tell operatives to lock their uplink if it can be locked
         var showFooter = HasComp<RingerUplinkComponent>(store);
 
-        var state = new StoreUpdateState(component.LastAvailableListings, allCurrency, showFooter, component.RefundAllowed);
+        var state = new StoreUpdateState(component.LastAvailableListings, allCurrency, showFooter, component.RefundAllowed, component.Categories); // DS14
         _ui.SetUiState(store, StoreUiKey.Key, state);
     }
 
@@ -191,6 +192,13 @@ public sealed partial class StoreSystem
         }
          // end-backmen: currency
 
+        // Apply components from a dummy prototype directly to the buyer.
+        if (listing.ProductComponents != null &&
+            _proto.TryIndex<EntityPrototype>(listing.ProductComponents, out var productComponents))
+        {
+            EntityManager.AddComponents(buyer, productComponents.Components);
+        }
+
         //spawn entity
         if (listing.ProductEntity != null)
         {
@@ -198,6 +206,11 @@ public sealed partial class StoreSystem
             _hands.PickupOrDrop(buyer, product);
 
             HandleRefundComp(uid, component, product);
+
+            // DS14-start
+            if (component.AccountOwner is { } antagMind)
+                EnsureComp<AntagPurchasedEntityComponent>(product).MindId = antagMind;
+            // DS14-end
 
             var xForm = Transform(product);
 
@@ -207,6 +220,10 @@ public sealed partial class StoreSystem
                 while (childEnumerator.MoveNext(out var child))
                 {
                     component.BoughtEntities.Add(child);
+                    // DS14-start
+                    if (component.AccountOwner is { } childAntagMind)
+                        EnsureComp<AntagPurchasedEntityComponent>(child).MindId = childAntagMind;
+                    // DS14-end
                 }
             }
         }

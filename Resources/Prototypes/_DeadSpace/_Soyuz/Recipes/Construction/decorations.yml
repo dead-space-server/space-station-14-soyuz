@@ -1,0 +1,109 @@
+# Uses the existing target entity names and descriptions.
+
+- type: construction
+  id: SoyuzBannerUSSP
+  graph: SoyuzBannerUSSP
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzBannerFlagUSSP
+  graph: SoyuzBannerFlagUSSP
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzFullFlagUSSP
+  graph: SoyuzFullFlagUSSP
+  startNode: start
+  targetNode: decor
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzStatueAngel
+  graph: SoyuzStatueAngel
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzStatueThemis
+  graph: SoyuzStatueThemis
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzStatueVenusBlue
+  graph: SoyuzStatueVenusBlue
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzStatueVenusRed
+  graph: SoyuzStatueVenusRed
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzSS13Memorial
+  graph: SoyuzSS13Memorial
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: SoyuzFountain
+  graph: SoyuzFountain
+  startNode: start
+  targetNode: decor
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked

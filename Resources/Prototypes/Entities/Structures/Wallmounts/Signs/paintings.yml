@@ -30,6 +30,11 @@
   name: The Persistence of Memory
   description: This painting depicts a barren landscape. It's filled with various surreal objects.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzPaintingPersistenceOfMemory
+    node: decor
+  # DS14-Soyuz-end
   - type: Sprite
     state: painting2
 

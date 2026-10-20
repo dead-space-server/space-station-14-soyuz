@@ -1,4 +1,5 @@
 using Content.Server.Atmos.EntitySystems;
+using Content.Server.DeadSpace.CentComm;
 using Content.Server.Chat.Managers;
 using Content.Shared.GameTicking.Components;
 using Robust.Server.GameObjects;
@@ -21,6 +22,8 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     // DS14-end
 
+    [Dependency] protected readonly GameRuleStationSystem RuleStation = default!; // DS14
+
     // Not protected, just to be used in utility methods
     [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
     [Dependency] private readonly MapSystem _map = default!;
@@ -34,6 +37,10 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         SubscribeLocalEvent<T, GameRuleStartedEvent>(OnGameRuleStarted);
         SubscribeLocalEvent<T, GameRuleEndedEvent>(OnGameRuleEnded);
         SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
+        // DS14-start
+        SubscribeLocalEvent<RoundEndDiscordTextAppendEvent>(OnRoundEndDiscordTextAppend);
+        SubscribeLocalEvent<T, CollectGameRuleAdminStatusEvent>(OnCollectAdminStatus);
+        // DS14-end
     }
 
     private void OnStartAttempt(RoundStartAttemptEvent args)
@@ -116,6 +123,30 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         }
     }
 
+    // DS14-start
+    private void OnRoundEndDiscordTextAppend(RoundEndDiscordTextAppendEvent ev)
+    {
+        var query = AllEntityQuery<T>();
+        while (query.MoveNext(out var uid, out var comp))
+        {
+            if (!TryComp<GameRuleComponent>(uid, out var ruleData))
+                continue;
+
+            AppendRoundEndDiscordText(uid, comp, ruleData, ref ev);
+        }
+    }
+    // DS14-end
+
+    // DS14-start
+    private void OnCollectAdminStatus(EntityUid uid, T component, CollectGameRuleAdminStatusEvent args)
+    {
+        if (!TryComp<GameRuleComponent>(uid, out var ruleData))
+            return;
+
+        AppendAdminStatus(uid, component, ruleData, args);
+    }
+    // DS14-end
+
     /// <summary>
     /// Called when the gamerule is added
     /// </summary>
@@ -148,6 +179,27 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
 
     }
 
+    // DS14-start
+    /// <summary>
+    /// Called at the end of a round when Discord-only log text needs to be added for a game rule.
+    /// </summary>
+    protected virtual void AppendRoundEndDiscordText(EntityUid uid, T component, GameRuleComponent gameRule, ref RoundEndDiscordTextAppendEvent args)
+    {
+
+    }
+
+    /// <summary>
+    /// Adds a read-only section to the centralized periodic admin status report.
+    /// </summary>
+    protected virtual void AppendAdminStatus(EntityUid uid,
+        T component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+
+    }
+    // DS14-end
+
     /// <summary>
     /// Called on an active gamerule entity in the Update function
     /// </summary>
@@ -159,6 +211,11 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        // DS14-start
+        if (GameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
+        // DS14-end
 
         var query = EntityQueryEnumerator<T, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var comp1, out var comp2))

@@ -52,6 +52,15 @@
       Glass: 230
     chemicalComposition:
       Silicon: 20
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
 
 - type: entity
   id: AutolatheMachineCircuitboardTaipan
@@ -192,18 +201,6 @@
     stackRequirements:
       Manipulator: 2
       Steel: 5
-
-- type: entity
-  id: BiofabricatorMachineCircuitboardTaipan
-  parent: BaseMachineCircuitboardTaipan
-  name: фабрикатор биокубов (машинная плата)
-  description: Печатная плата фабрикатора биокубов.
-  components:
-  - type: MachineBoard
-    prototype: BiofabricatorTaipan
-    stackRequirements:
-      Manipulator: 4
-      Glass: 1
 
 - type: entity
   id: WeaponryTechFabCircuitboardTaipan
@@ -357,4 +354,18 @@
     prototype: CrewMonitoringServerTaipan
     stackRequirements:
       Steel: 1
+      Cable: 2
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: GasElectrolyzerMachineCircuitBoard
+  name: газовый электролизер (машинная плата)
+  description: Печатная плата для газового электролизера.
+  components:
+  - type: Sprite
+    state: engineering
+  - type: MachineBoard
+    prototype: GasElectrolyzer
+    stackRequirements:
+      Manipulator: 1
       Cable: 2

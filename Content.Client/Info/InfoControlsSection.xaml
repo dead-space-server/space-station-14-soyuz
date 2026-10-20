@@ -1,6 +1,7 @@
-﻿<BoxContainer xmlns="https://spacestation14.io"
+<BoxContainer xmlns="https://spacestation14.io"
               Orientation="Vertical">
-    <Label Text="{Loc 'ui-info-header-controls'}" StyleClasses="LabelHeading"/>
+    <!-- DS14-start -->
+    <Label Text="{Loc 'ui-info-header-controls'}" StyleClasses="DeadSpaceSectionTitle"/>
     <BoxContainer Orientation="Horizontal"
                   SeparationOverride="5">
         <Label Text="{Loc 'ui-info-text-controls'}"/>
@@ -8,4 +9,5 @@
                 Text="{Loc 'ui-info-button-controls'}"
                 Access="Public"/>
     </BoxContainer>
+    <!-- DS14-end -->
 </BoxContainer>

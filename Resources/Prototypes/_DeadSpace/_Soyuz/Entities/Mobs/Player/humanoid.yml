@@ -32,3 +32,188 @@
     - type: Loadout
       prototypes: [ PolitkomGear ]
       roleLoadout: [ RoleSurvivalStandard ]      
+
+# Navy
+## Captain
+- type: entity
+  id: RandomHumanoidSpawnerNavyCaptain
+  name: капитан ВКФ
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Markers/jobs.rsi
+      state: nanotrasen_navy_captain
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavyCaptain
+      - NamesLastNavy
+      nameFormat: name-format-ert
+    - type: RandomHumanoidSpawner
+      settings: NavyCaptain
+
+- type: randomHumanoidSettings
+  id: NavyCaptain
+  parent: EventHumanoidERTZombieImmune
+  components:
+    - type: GhostRole
+      name: ghost-role-information-navy-captain-name
+      description: ghost-role-information-navy-captain-description
+      rules: ghost-role-information-nonantagonist-rules
+      category: ghost-role-information-navy-category
+      requirements:
+        - !type:DepartmentTimeRequirement
+          department: Medical
+          time: 36000 # 10 hours
+        - !type:DepartmentTimeRequirement
+          department: Security
+          time: 72000 # 20 hours
+        - !type:DepartmentTimeRequirement
+          department: Command
+          time: 36000 # 10 hours
+      raffle:
+        settings: short
+      job: NavyCaptain
+    - type: Loadout
+      prototypes: [ NavyCaptainGear ]
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavyCaptain
+      - NamesLastNavy
+      nameFormat: name-format-ert
+
+## Officer
+- type: entity
+  id: RandomHumanoidSpawnerNavyOfficer
+  name: офицер ВКФ
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Markers/jobs.rsi
+      state: nanotrasen_navy_officer
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavy
+      - NamesLastNavy
+      nameFormat: name-format-ert
+    - type: RandomHumanoidSpawner
+      settings: NavyOfficer
+
+- type: randomHumanoidSettings
+  id: NavyOfficer
+  parent: EventHumanoidERTZombieImmune
+  components:
+    - type: GhostRole
+      name: ghost-role-information-navy-officer-name
+      description: ghost-role-information-navy-officer-description
+      rules: ghost-role-information-nonantagonist-rules
+      category: ghost-role-information-navy-category
+      requirements:
+        - !type:DepartmentTimeRequirement
+          department: Medical
+          time: 36000 # 10 hours
+        - !type:DepartmentTimeRequirement
+          department: Security
+          time: 72000 # 20 hours
+        - !type:DepartmentTimeRequirement
+          department: Command
+          time: 36000 # 10 hours
+      raffle:
+        settings: short
+      job: NavyOfficer
+    - type: Loadout
+      prototypes: [ NavyOfficerGear ]
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavyCaptain
+      - NamesLastNavy
+      nameFormat: name-format-ert
+
+## Medical
+- type: entity
+  id: RandomHumanoidSpawnerNavyMedical
+  name: медик ВКФ
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Markers/jobs.rsi
+      state: nanotrasen_navy_medical
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavy
+      - NamesLastNavy
+      nameFormat: name-format-ert
+    - type: RandomHumanoidSpawner
+      settings: NavyMedical
+
+- type: randomHumanoidSettings
+  id: NavyMedical
+  parent: EventHumanoidERTZombieImmune
+  components:
+    - type: GhostRole
+      name: ghost-role-information-navy-medical-name
+      description: ghost-role-information-navy-medical-description
+      rules: ghost-role-information-nonantagonist-rules
+      category: ghost-role-information-navy-category
+      requirements:
+        - !type:DepartmentTimeRequirement
+          department: Medical
+          time: 36000 # 10 hours
+        - !type:DepartmentTimeRequirement
+          department: Security
+          time: 72000 # 20 hours
+        - !type:DepartmentTimeRequirement
+          department: Command
+          time: 36000 # 10 hours
+      raffle:
+        settings: short
+      job: NavyMedical
+    - type: Loadout
+      prototypes: [ NavyMedicalGear ]
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavy
+      - NamesLastNavy
+      nameFormat: name-format-ert
+
+## Engineer
+- type: entity
+  id: RandomHumanoidSpawnerNavyEngineer
+  name: инженер ВКФ
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Markers/jobs.rsi
+      state: nanotrasen_navy_engineer
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavy
+      - NamesLastNavy
+      nameFormat: name-format-ert
+    - type: RandomHumanoidSpawner
+      settings: NavyEngineer
+
+- type: randomHumanoidSettings
+  id: NavyEngineer
+  parent: EventHumanoidERTZombieImmune
+  components:
+    - type: GhostRole
+      name: ghost-role-information-navy-engineer-name
+      description: ghost-role-information-navy-engineer-description
+      rules: ghost-role-information-nonantagonist-rules
+      category: ghost-role-information-navy-category
+      requirements:
+        - !type:DepartmentTimeRequirement
+          department: Medical
+          time: 36000 # 10 hours
+        - !type:DepartmentTimeRequirement
+          department: Security
+          time: 72000 # 20 hours
+        - !type:DepartmentTimeRequirement
+          department: Command
+          time: 36000 # 10 hours
+      raffle:
+        settings: short
+      job: NavyEngineer
+    - type: Loadout
+      prototypes: [ NavyEngineerGear ]
+    - type: RandomMetadata
+      nameSegments:
+      - NamesFirstNavy
+      - NamesLastNavy
+      nameFormat: name-format-ert

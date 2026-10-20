@@ -71,6 +71,14 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField, AutoNetworkedField]
     public bool ResistanceBypass = false;
 
+    // DS14-start
+    /// <summary>
+    /// Optional armor-bypass override used only by the right-click heavy attack.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool? HeavyAttackResistanceBypass;
+    // DS14-end
+
     /// <summary>
     /// Base damage for this weapon. Can be modified via heavy damage or other means.
     /// </summary>
@@ -167,6 +175,30 @@ public sealed partial class MeleeWeaponComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool MustBeEquippedToUse = false;
+
+    /// <summary>
+    /// The last entity hit that the weapon was unable to damage.
+    /// Used to track <see cref="UndamagedSwings"/>.
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public EntityUid? LastUndamagedHitEntity;
+
+    /// <summary>
+    /// The number of failed swings against an entity required to display a pop-up that the weapon isn't dealing any damage.
+    /// If set to 0, no pop-up will be displayed.
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
+    /// </summary>
+    [DataField]
+    public int UndamagedAlertThreshold = 5;
+
+    /// <summary>
+    /// Tracks the number of swings that dealt no damage to <see cref="LastUndamagedHitEntity"/>.
+    /// <seealso cref="UndamagedAlertThreshold"/>
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public int UndamagedSwings = 0;
 }
 
 /// <summary>
@@ -177,3 +209,11 @@ public sealed class GetMeleeWeaponEvent : HandledEntityEventArgs
 {
     public EntityUid? Weapon;
 }
+
+// DS14-start
+[RegisterComponent]
+public sealed partial class SuppressMeleeAfterStandComponent : Component
+{
+    public TimeSpan SuppressedUntil;
+}
+// DS14-end

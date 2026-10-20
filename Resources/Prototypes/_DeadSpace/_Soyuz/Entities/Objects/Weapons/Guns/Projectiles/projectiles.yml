@@ -1,0 +1,101 @@
+- type: entity
+  parent: BaseBullet
+  id: BulletEnergyBlue
+  name: синий лазерный выстрел
+  description: Нихуя себе.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - Energy
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    layers:
+    - state: bluelaser
+      shader: unshaded
+  - type: Projectile
+    impactEffect: BulletImpactEffectBlueDisabler
+    damage:
+      types:
+        Heat: 30
+    soundHit:
+      collection: MeatLaserImpact
+  - type: PointLight
+    radius: 2
+    color: blue
+    energy: 0.5
+  - type: Ammo
+    muzzleFlash: MuzzleFlashEffectTempCold
+
+- type: entity
+  parent: BulletEnergyBlue
+  id: BulletEnergyRed
+  name: красный лазерный выстрел
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    layers:
+    - state: redlaser
+      shader: unshaded
+
+- type: entity
+  parent: BaseBullet
+  id: BulletDisablerNavy
+  name : оглушающий заряд
+  description: Ну не нихуя себе.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - Energy
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Projectiles/energybolts.rsi
+    scale: 0.7,0.7
+    layers:
+    - state: mediumstun
+      shader: unshaded
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        hard: false
+        mask:
+        - Opaque
+        - Impassable
+        - BulletImpassable
+  - type: Ammo
+    muzzleFlash: MuzzleFlashEffectOmnilaser
+  - type: StaminaDamageOnCollide
+    damage: 30
+  - type: Projectile
+    impactEffect: BulletImpactEffectDisabler
+    damage:
+      types:
+        Heat: 0
+    soundHit:
+      collection: WeakHit
+    forceSound: true
+
+- type: entity
+  parent: BulletDisablerNavy
+  id: BulletDisablerAlt
+  name : оглушающий заряд
+  description: Прям вообще не нихуя себе.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: StaminaDamageOnCollide
+    damage: 25

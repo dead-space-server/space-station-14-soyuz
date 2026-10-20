@@ -22,9 +22,9 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly TTSManager _ttsManager = default!;
-    [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly IRobustRandom _rng = default!;
     [Dependency] private readonly LanguageSystem _language = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!; // DS14
 
     private readonly List<string> _sampleText =
         new()
@@ -170,29 +170,36 @@ public sealed partial class TTSSystem : EntitySystem
 
     private async void HandleSay(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string speaker)
     {
+        // DS14-start
+        var recipientData = GetExpandedVoiceRecipients(uid, SharedChatSystem.VoiceRange);
+        var recipients = recipientData.Keys;
+        // DS14-end
         var soundData = await GenerateTTS(message, speaker);
 
         byte[]? soundLexiconData = null;
+        var understanding = new HashSet<ICommonSession>(_language.GetUnderstanding(languageId));
 
-        if (_language.NeedGenerateTTS(uid, languageId, false))
+        if (NeedsLexiconTTS(languageId, recipients, understanding))
             soundLexiconData = await GenerateTTS(lexiconMessage, speaker);
-
-        var understanding = _language.GetUnderstanding(languageId);
 
         if (soundData is null) return;
 
-        foreach (var session in Filter.Pvs(uid).Recipients)
+        // DS14-start: carry recipient-specific remote hearing attenuation and source.
+        foreach (var (session, data) in recipientData)
         {
+            var audioSource = GetNetEntity(data.AudioSourceOverride ?? uid);
+
             if (!understanding.Contains(session))
             {
                 if (soundLexiconData is null)
-                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid), isSoundLexicon: true, languageId: languageId), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], audioSource, isSoundLexicon: true, languageId: languageId, distanceOverride: data.AudioRangeOverride), session);
                 else
-                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, GetNetEntity(uid)), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(soundLexiconData, audioSource, distanceOverride: data.AudioRangeOverride), session);
             }
             else
-                RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid), isSoundLexicon: false), session);
+                RaiseNetworkEvent(new PlayTTSEvent(soundData, audioSource, isSoundLexicon: false, distanceOverride: data.AudioRangeOverride), session);
         }
+        // DS14-end
 
     }
 
@@ -272,11 +279,16 @@ public sealed partial class TTSSystem : EntitySystem
 
     private async void HandleWhisper(EntityUid uid, string message, string lexiconMessage, ProtoId<LanguagePrototype> languageId, string obfMessage, string speaker)
     {
+        // DS14-start
+        var recipientData = GetExpandedVoiceRecipients(uid, SharedChatSystem.WhisperMuffledRange);
+        var recipients = recipientData.Keys;
+        // DS14-end
         var fullSoundData = await GenerateTTS(message, speaker, true);
 
         byte[]? lexiconSoundData = null;
+        var understanding = new HashSet<ICommonSession>(_language.GetUnderstanding(languageId));
 
-        if (_language.NeedGenerateTTS(uid, languageId, true))
+        if (NeedsLexiconTTS(languageId, recipients, understanding))
             lexiconSoundData = await GenerateTTS(lexiconMessage, speaker);
 
         // var obfSoundData = await GenerateTTS(obfMessage, speaker, true);
@@ -285,33 +297,72 @@ public sealed partial class TTSSystem : EntitySystem
 
         if (fullSoundData is null) return;
 
-        var fullTtsEvent = new PlayTTSEvent(fullSoundData, GetNetEntity(uid), isWhisper: true);
-
-        var understanding = _language.GetUnderstanding(languageId);
-
-        // TODO: Check obstacles
-        var xformQuery = GetEntityQuery<TransformComponent>();
-        var sourcePos = _xforms.GetWorldPosition(xformQuery.GetComponent(uid), xformQuery);
-        var receptions = Filter.Pvs(uid).Recipients;
-        foreach (var session in receptions)
+        // DS14-start: carry recipient-specific remote hearing attenuation and source.
+        foreach (var (session, data) in recipientData)
         {
-            if (!session.AttachedEntity.HasValue) continue;
-            var xform = xformQuery.GetComponent(session.AttachedEntity.Value);
-            var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
-            if (distance > ChatSystem.VoiceRange * ChatSystem.VoiceRange)
-                continue;
+            var audioSource = GetNetEntity(data.AudioSourceOverride ?? uid);
 
             if (!understanding.Contains(session))
             {
                 if (lexiconSoundData is null)
-                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], GetNetEntity(uid), isWhisper: true, isSoundLexicon: true, languageId: languageId), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(new byte[0], audioSource, isWhisper: true, isSoundLexicon: true, languageId: languageId, distanceOverride: data.AudioRangeOverride), session);
                 else
-                    RaiseNetworkEvent(new PlayTTSEvent(lexiconSoundData, GetNetEntity(uid), isWhisper: true), session);
+                    RaiseNetworkEvent(new PlayTTSEvent(lexiconSoundData, audioSource, isWhisper: true, distanceOverride: data.AudioRangeOverride), session);
             }
             else
-                RaiseNetworkEvent(fullTtsEvent, session);
+                RaiseNetworkEvent(new PlayTTSEvent(fullSoundData, audioSource, isWhisper: true, distanceOverride: data.AudioRangeOverride), session);
 
         }
+        // DS14-end
+    }
+
+    // DS14-start: PVS can follow a movable remote eye, so establish ordinary listeners by their attached entities first.
+    private Dictionary<ICommonSession, ChatSystem.ICChatRecipientData> GetExpandedVoiceRecipients(EntityUid source, float voiceRange)
+    {
+        var recipients = new Dictionary<ICommonSession, ChatSystem.ICChatRecipientData>();
+        var sourceXform = Transform(source);
+        var sourcePosition = _transform.GetWorldPosition(sourceXform);
+
+        foreach (var session in Filter.Pvs(source).Recipients)
+        {
+            if (session.AttachedEntity is not { Valid: true } listener ||
+                !TryComp(listener, out TransformComponent? listenerXform) ||
+                listenerXform.MapID != sourceXform.MapID)
+            {
+                continue;
+            }
+
+            var distance = (sourcePosition - _transform.GetWorldPosition(listenerXform)).Length();
+            if (distance >= voiceRange)
+                continue;
+
+            recipients.TryAdd(session, new ChatSystem.ICChatRecipientData(distance, false));
+        }
+
+        RaiseLocalEvent(new ExpandICChatRecipientsEvent(source, voiceRange, recipients));
+
+        return recipients;
+    }
+    // DS14-end
+
+    private bool NeedsLexiconTTS(
+        ProtoId<LanguagePrototype> languageId,
+        IEnumerable<ICommonSession> recipients,
+        HashSet<ICommonSession> understanding)
+    {
+        if (string.IsNullOrEmpty(languageId))
+            return false;
+
+        if (!_prototypeManager.TryIndex(languageId, out var languageProto) || !languageProto.GenerateTTSForLexicon)
+            return false;
+
+        foreach (var session in recipients)
+        {
+            if (!understanding.Contains(session))
+                return true;
+        }
+
+        return false;
     }
 
     // ReSharper disable once InconsistentNaming

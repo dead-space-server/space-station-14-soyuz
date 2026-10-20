@@ -7,11 +7,10 @@ using Content.Server.Beam;
 using Content.Server.DeadSpace.Renegade.Components;
 using Content.Shared.DeadSpace.Renegade.Components;
 using Content.Shared.Silicons.Borgs.Components;
-using Content.Shared.Stunnable;
 using Content.Shared.DeadSpace.Renegade;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
-using Content.Shared.StatusEffect;
+using Content.Server.Electrocution;
 
 namespace Content.Server.DeadSpace.Renegade;
 
@@ -22,10 +21,9 @@ public sealed class RenegadeLightningAbilitySystem : EntitySystem
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private readonly BeamSystem _beam = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffect = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
 
     public override void Initialize()
     {
@@ -73,8 +71,6 @@ public sealed class RenegadeLightningAbilitySystem : EntitySystem
 
         var targets = _lookup.GetEntitiesInRange<MobStateComponent>(_transform.GetMapCoordinates(target, xform), component.Range);
 
-        _statusEffect.TryAddStatusEffect<StunnedComponent>(uid, "Stun", TimeSpan.FromSeconds(2f), true);
-
         foreach (var (entity, mobStateComponent) in targets)
         {
             if (entity == uid)
@@ -88,7 +84,12 @@ public sealed class RenegadeLightningAbilitySystem : EntitySystem
                 continue;
 
             _beam.TryCreateBeam(uid, entity, component.LightingPrototypeId);
-            _stun.TryUpdateParalyzeDuration(entity, TimeSpan.FromSeconds(5));
+            _electrocution.TryDoElectrocution(entity,
+                uid,
+                shockDamage: null,
+                time: TimeSpan.FromSeconds(5),
+                refresh: true,
+                isLightning: true);
         }
     }
 }

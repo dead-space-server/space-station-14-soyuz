@@ -6,6 +6,7 @@ using Content.Server.Destructible;
 using Content.Server.Popups;
 using Content.Shared.Atmos.Piping.Unary.Components;
 using Content.Shared.Charges.Components;
+using Content.Shared.Construction; // DS14-Soyuz: reuse the grille's existing window-building marker.
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Database;
 using Content.Shared.Decals;
@@ -49,10 +50,14 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// </summary>
     private void OnFloorAfterInteract(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || args.Target != null)
+        // DS14-Soyuz-start: Only a painter configured for grilles may draw on their grid tile.
+        if (args.Handled || args.Target is { } target &&
+            (!ent.Comp.AllowDecalsOnGrilles || !HasComp<SharedCanBuildWindowOnTopComponent>(target)))
             return;
+        // DS14-Soyuz-end
 
-        if (ent.Comp.ColorPickerEnabled)
+        // DS14-Soyuz: A fixed-tint blueprint tool cannot sample another decal's color.
+        if (ent.Comp.DecalColorEditable && ent.Comp.ColorPickerEnabled)
         {
             PickColor(ent, ref args);
             return;
@@ -78,10 +83,17 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 
         if (ent.Comp.DecalMode == DecalPaintMode.Add)
         {
+            // DS14-Soyuz-start: Validate again at placement, including stale or injected SelectedDecal values.
+            if (!Proto.TryIndex<DecalPrototype>(ent.Comp.SelectedDecal, out var decal) || !IsDecalAllowed(ent.Comp, decal))
+                return;
+            // DS14-Soyuz-end
+
             // Offset painting for adding decals
             position = position.Offset(new(-0.5f));
 
-            if (!_decals.TryAddDecal(ent.Comp.SelectedDecal, position, out _, ent.Comp.SelectedDecalColor, Angle.FromDegrees(ent.Comp.SelectedDecalAngle), 0, false))
+            // DS14-Soyuz: Fixed tint is enforced at placement, even if SelectedDecalColor is stale or injected.
+            var decalColor = ent.Comp.DecalColorEditable ? ent.Comp.SelectedDecalColor : ent.Comp.FixedDecalColor;
+            if (!_decals.TryAddDecal(ent.Comp.SelectedDecal, position, out _, decalColor, Angle.FromDegrees(ent.Comp.SelectedDecalAngle), 0, false))
                 return;
         }
         else
@@ -93,7 +105,8 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
                 return;
             }
 
-            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: IsDecalValid);
+            // DS14-Soyuz: A painter may remove only decals from its own allowed tags.
+            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: decal => IsDecalValid(ent.Comp, decal));
             if (decals.Count <= 0)
             {
                 _popup.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
@@ -108,7 +121,10 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
 
         _audio.PlayPvs(ent.Comp.SpraySound, ent);
 
-        _charges.TryUseCharges((ent, charges), ent.Comp.DecalChargeCost);
+        // DS14-Soyuz-start: Zero-cost blueprint decals need no charge component.
+        if (ent.Comp.DecalChargeCost > 0)
+            _charges.TryUseCharges((ent, charges), ent.Comp.DecalChargeCost);
+        // DS14-Soyuz-end
 
         AdminLogger.Add(LogType.CrayonDraw, LogImpact.Low, $"{ToPrettyString(args.User):user} painted a {ent.Comp.SelectedDecal}");
     }
@@ -116,14 +132,13 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// <summary>
     /// Returns whether <paramref name="decal"/> is valid to interact with when a spray painter is used to interact with the floor.
     /// </summary>
-    private bool IsDecalValid(Decal decal)
+    private bool IsDecalValid(SprayPainterComponent painter, Decal decal)
     {
         if (!Proto.TryIndex<DecalPrototype>(decal.Id, out var decalProto))
             return false;
 
-        return (decalProto.Tags.Contains("station")
-            || decalProto.Tags.Contains("markings"))
-            && !decalProto.Tags.Contains("dirty");
+        // DS14-Soyuz: Use the same per-tool policy for picking and removing decals.
+        return IsDecalAllowed(painter, decalProto);
     }
 
     /// <summary>
@@ -144,6 +159,11 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     {
         if (args.Handled || args.Cancelled)
             return;
+
+        // DS14-Soyuz-start
+        if (ent.Comp.DecalOnly)
+            return;
+        // DS14-Soyuz-end
 
         if (args.Args.Target is not { } target)
             return;
@@ -167,6 +187,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             return;
 
         if (!TryComp<SprayPainterComponent>(args.Used, out var painter) ||
+            painter.DecalOnly || // DS14-Soyuz: blueprint tools cannot paint pipes.
             painter.PickedColor is not { } colorName)
             return;
 
@@ -205,7 +226,8 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             return;
 
         var clickPos = args.ClickLocation.Position;
-        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: IsDecalValid);
+        // DS14-Soyuz: Restrict the color picker to this painter's decals.
+        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: decal => IsDecalValid(ent.Comp, decal));
         if (decals.Count == 0)
         {
             _popup.PopupEntity(Loc.GetString("spray-painter-interact-no-color-pick"), args.User, args.User);

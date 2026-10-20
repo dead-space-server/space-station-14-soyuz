@@ -1,0 +1,14 @@
+soyuz-radio-configure = Set frequency
+soyuz-radio-title = Radio settings
+soyuz-radio-frequency = Frequency (1000–9999)
+soyuz-radio-apply = Apply
+soyuz-radio-microphone = Microphone
+soyuz-radio-speaker = Speaker
+soyuz-radio-scream = relays a scream!
+soyuz-radio-pain-scream = relays a scream of pain!
+soyuz-radio-gasp = relays a gasp!
+soyuz-radio-groan = relays a pained groan!
+soyuz-radio-cough = relays a cough!
+soyuz-radio-retch = relays retching sounds!
+soyuz-radio-crying = relays crying!
+soyuz-radio-deathgasp = relays a final breath!

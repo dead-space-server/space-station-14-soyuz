@@ -12,10 +12,14 @@ store-category-wearables = Экипировка
 store-category-implants = Импланты
 store-category-job = Должность
 store-category-pointless = Безделушки
+store-category-presets = Пресеты
 store-discounted-items = Скидки
 
 # Revenant
 store-category-abilities = Способности
+store-category-combat = Боевые
+store-category-utility = Вспомогательные
+store-category-stealth = Скрытность
 
 # Wizard
 store-caregory-spellbook-offensive = Атакующие заклинания
@@ -35,3 +39,4 @@ store-category-lavaland-mining-medical = Медицина
 store-category-lavaland-mining-details = Детали
 store-category-lavaland-mining-cash = Деньги
 store-category-lavaland-mining-contraband = Контрабанда
+store-category-cargotechmag-taipan = Тайпан

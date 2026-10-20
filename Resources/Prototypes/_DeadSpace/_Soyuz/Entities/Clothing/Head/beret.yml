@@ -15,3 +15,14 @@
         Slash: 0.90
         Piercing: 0.90
         Heat: 0.90
+
+- type: entity
+  parent: [ClothingHeadBase, BaseCommandContraband]
+  id: ClothingHeadHatBeretHop
+  name: берет начальника отдела кадров
+  description: Какая же она ахуенная.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/beret_hop.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/beret_hop.rsi

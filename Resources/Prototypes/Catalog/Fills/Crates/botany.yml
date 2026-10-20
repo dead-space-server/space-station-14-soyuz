@@ -22,6 +22,10 @@
         amount: 2
       - id: SakuraSeeds # DS14
         amount: 2
+      - id: CactusSeeds # DS14
+        amount: 1
+      - id: MangoSeeds # DS14
+        amount: 1
 
 - type: entity
   parent: CrateHydroSecure
@@ -93,6 +97,7 @@
       - id: GrapeSeeds
       - id: WatermelonSeeds
       - id: PeaSeeds
+      - id: PearSeeds # Kofeecheks Pears: LicenseRef-Kofeecheks
       - id: CherrySeeds
       - id: CocoaSeeds
       - id: CottonSeeds

@@ -283,9 +283,9 @@ figurines-AI-7 = Белки представляют угрозу для оре�
 
 figurines-footsoldier-1 = Я злой мальчик. С каждым днём всё меньше мальчик, с каждым днём всё больше злой.
 figurines-footsoldier-2 = Кого ты выберешь? Их или нас? Нас или их?
-figurines-footsoldier-3 = Слава Синдикату!
-figurines-footsoldier-4 = Долой Nanotrasen!
-figurines-footsoldier-5 = Я лучше умру, чем присоединюсь к Nanotrasen.
+figurines-footsoldier-3 = Слава Рассвету!
+figurines-footsoldier-4 = Долой СССП!
+figurines-footsoldier-5 = Я лучше умру, чем присоединюсь к СССП.
 
 figurines-holoclown-1 = Помогаю своему старшему брату.
 figurines-holoclown-2 = Привет, офицер!
@@ -313,6 +313,7 @@ figurines-nukie-elite-3 = Ребят, вы живы?
 figurines-nukie-elite-4 = Взрывайте и зачищайте!
 figurines-nukie-elite-5 = Добейте выживших.
 figurines-nukie-elite-6 = Хорошая работа, команда.
+
 figurines-queen-1 = Наше царство должно расти.
 figurines-queen-2 = Улью нужно больше пищи.
 figurines-queen-3 = Мы поглощаем всё.

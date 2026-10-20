@@ -1,0 +1,16 @@
+- type: entity
+  parent: DrinkGlass
+  id: MorbyGlass
+  name: Морби
+  description: Странная смесь, пахнет морем и чем-то ещё непонятным. Говорят, что её придумала какая-то странная чудачка, которая продавала её в бутылках из-под спейс-колы. Пить её или нет - решать тебе, но помни, что она может быть опасной для здоровья.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Morby
+          Quantity: 30
+  - type: Icon
+    sprite: /Textures/_DeadSpace/_Soyuz/Objects/Consumable/Drinks/morby.rsi
+    state: icon

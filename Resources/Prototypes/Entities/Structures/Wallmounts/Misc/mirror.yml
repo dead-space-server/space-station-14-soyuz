@@ -9,6 +9,11 @@
   - type: Sprite
     sprite: Structures/Wallmounts/mirror.rsi
     state: mirror
+  # DS14-Soyuz start: Keep the buildable mirror on its construction graph.
+  - type: Construction
+    graph: SoyuzMirror
+    node: mirror
+  # DS14-Soyuz end
   - type: MagicMirror #instant and silent
     changeHairSound: null
     addSlotTime: 0
@@ -41,3 +46,8 @@
   components:
   - type: Sprite
     state: rectangle-mirror
+  # DS14-Soyuz start: The modern mirror uses a separate construction graph.
+  - type: Construction
+    graph: SoyuzMirrorModern
+    node: mirror
+  # DS14-Soyuz end

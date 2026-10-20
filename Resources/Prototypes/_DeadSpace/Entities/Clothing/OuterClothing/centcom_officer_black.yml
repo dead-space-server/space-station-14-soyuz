@@ -34,7 +34,7 @@
     size: Huge
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitSecurityRed
+  parent: [ClothingHeadHelmetHardsuitSecurityRed]
   id: ClothingHeadHelmetHardsuitCentcomBlack
   categories: [ HideSpawnMenu, DoNotMap ]
   name: шлем скафандра Полевого Офицера
@@ -82,10 +82,8 @@
         ents: []
   - type: StorageFill
     contents:
-        - id: ERTloadoutGammaPrimary
-        - id: ERTloadoutGammaSecondary
         - id: BoxCardboardERT
-        - id: JawsOfLife
+        - id: JawsOfLifeSpecialOperationsOfficer
         - id: BSAACombatKitFilled
         - id: InjectorCaseERTFilled
         - id: InjectorCaseStimFilled
@@ -93,6 +91,9 @@
         - id: PinpointerNuclear
         - id: SpeedLoaderMagnum
         - id: SpeedLoaderMagnum
+        - id: SpeedLoaderMagnum
+        - id: SpeedLoaderMagnum
         - id: MagazineBoxMagnum
+        - id: MacroBombImplanter
   - type: ExplosionResistance
     damageCoefficient: 0.6

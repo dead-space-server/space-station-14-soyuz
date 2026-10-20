@@ -1,4 +1,5 @@
 device-pda-slot-component-slot-name-cartridge = Cartridge
+device-pda-slot-component-slot-name-tool = Tool
 
 default-program-name = Program
 notekeeper-program-name = Notekeeper
@@ -28,6 +29,8 @@ log-probe-printout-entry = #{$number} / {$time} / {$accessor}
 astro-nav-program-name = AstroNav
 
 med-tek-program-name = MedTek
+
+snake-cartridge-program-name = Snake Game
 
 # NanoTask cartridge
 
@@ -73,6 +76,7 @@ nano-task-printed-low-priority = [bold]Priority[/bold]: Low
 # Wanted list cartridge
 wanted-list-program-name = Wanted list
 wanted-list-label-no-records = It's all right, cowboy
+wanted-list-records-title = Records
 wanted-list-search-placeholder = Search by name and status
 
 wanted-list-age-label = [color=darkgray]Age:[/color] [color=white]{$age}[/color]
@@ -100,3 +104,20 @@ wanted-list-status-label = [color=darkgray]status:[/color] {$status ->
 wanted-list-history-table-time-col = Time
 wanted-list-history-table-reason-col = Crime
 wanted-list-history-table-initiator-col = Initiator
+
+# DS14-Soyuz-start
+messenger-cartridge-program-name = Redline
+# DS14-Soyuz-end
+messenger-status-connecting = Connecting...
+messenger-status-connection-lost = Connection Lost
+messenger-search-placeholder = Search by name or job
+messenger-no-users = No contacts found
+messenger-search-empty = No contacts match the search
+messenger-send = Send
+messenger-select-user = Select a user
+messenger-back = Back
+messenger-notification-message = {$sender} sent a message
+messenger-typing-popup = Typing in a PDA...
+messenger-disable-chat = Disable chat
+messenger-enable-chat = Enable chat
+messenger-unread-header = New messages

@@ -1,13 +1,15 @@
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using System.Diagnostics.CodeAnalysis; // DS14-Soyuz
 using Content.Server.Administration.Managers;
 using Content.Server.Administration.Systems;
+using Content.Shared.Administration; // DS14-Soyuz
 using Content.Server.GameTicking.Events;
-using Content.Server.Ghost;
 using Content.Server.Spawners.Components;
 using Content.Server.Speech.Components;
 using Content.Server.Station.Components;
+using Content.Server.Players.JobWhitelist; // DS14-Soyuz
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
@@ -35,6 +37,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly SharedJobSystem _jobs = default!;
         [Dependency] private readonly AdminSystem _admin = default!;
+        [Dependency] private readonly JobWhitelistManager _jobWhitelistManager = default!; // DS14-Soyuz
 
         public static readonly EntProtoId ObserverPrototypeName = "MobObserver";
         public static readonly EntProtoId AdminObserverPrototypeName = "AdminObserver";
@@ -48,12 +51,15 @@ namespace Content.Server.GameTicking
         // Mainly to avoid allocations.
         private readonly List<EntityCoordinates> _possiblePositions = new();
 
-        private List<EntityUid> GetSpawnableStations()
+        private List<EntityUid> GetSpawnableStations(bool forRandomSpawn = false)
         {
             var spawnableStations = new List<EntityUid>();
             var query = EntityQueryEnumerator<StationJobsComponent, StationSpawningComponent>();
-            while (query.MoveNext(out var uid, out _, out _))
+            while (query.MoveNext(out var uid, out _, out var spawning))
             {
+                if (forRandomSpawn && !spawning.AllowRandomSpawn)
+                    continue;
+
                 spawnableStations.Add(uid);
             }
 
@@ -115,19 +121,23 @@ namespace Content.Server.GameTicking
             _stationJobs.CalcExtendedAccess(stationJobCounts);
 
             // Spawn everybody in!
+            var spawnedPlayers = new List<ICommonSession>();
             foreach (var (player, (job, station)) in assignedJobs)
             {
                 if (job == null)
                     continue;
 
-                SpawnPlayer(_playerManager.GetSessionById(player), profiles[player], station, job, false);
+                var session = _playerManager.GetSessionById(player);
+                SpawnPlayer(session, profiles[player], station, job, false);
+                if (_playerGameStatuses.GetValueOrDefault(player) == PlayerGameStatus.JoinedGame)
+                    spawnedPlayers.Add(session);
             }
 
             RefreshLateJoinAllowed();
 
             // Allow rules to add roles to players who have been spawned in. (For example, on-station traitors)
             RaiseLocalEvent(new RulePlayerJobsAssignedEvent(
-                assignedJobs.Keys.Select(x => _playerManager.GetSessionById(x)).ToArray(),
+                spawnedPlayers.ToArray(),
                 profiles,
                 force));
         }
@@ -143,6 +153,17 @@ namespace Content.Server.GameTicking
             var jobBans = _banManager.GetJobBans(player.UserId);
             if (jobBans == null || jobId != null && jobBans.Contains(jobId)) //TODO: use IsRoleBanned directly?
                 return;
+
+            // DS14-Soyuz start
+            if (jobId != null)
+            {
+                var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
+                if (!CheckWhitelist(player, jobProto, out var reason))
+                {
+                    return;
+                }
+            }
+            // DS14-Soyuz end
 
             if (jobId != null)
             {
@@ -169,7 +190,7 @@ namespace Content.Server.GameTicking
 
             if (station == EntityUid.Invalid)
             {
-                var stations = GetSpawnableStations();
+                var stations = GetSpawnableStations(forRandomSpawn: true);
                 _robustRandom.Shuffle(stations);
                 if (stations.Count == 0)
                     station = EntityUid.Invalid;
@@ -213,9 +234,28 @@ namespace Content.Server.GameTicking
                 character = HumanoidCharacterProfile.RandomWithSpecies(speciesId);
             }
 
+            var attempt = new PlayerSpawnAttemptEvent(player, character, station, jobId);
+            RaiseLocalEvent(ref attempt);
+            if (attempt.Cancelled)
+            {
+                if (attempt.Reason != null)
+                    _chatManager.DispatchServerMessage(player, attempt.Reason);
+                return;
+            }
+
             // We raise this event to allow other systems to handle spawning this player themselves. (e.g. late-join wizard, etc)
             var bev = new PlayerBeforeSpawnEvent(player, character, jobId, lateJoin, station);
             RaiseLocalEvent(bev);
+
+            if (bev.Cancelled)
+            {
+                if (bev.Reason != null)
+                    _chatManager.DispatchServerMessage(player, bev.Reason);
+                return;
+            }
+
+            if (bev.Deferred)
+                return;
 
             // Do nothing, something else has handled spawning this player for us!
             if (bev.Handled)
@@ -238,6 +278,18 @@ namespace Content.Server.GameTicking
                 character.JobPriorities,
                 true,
                 restrictedRoles);
+
+            // DS14-Soyuz start
+            if (jobId != null)
+            {
+                var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
+                if (!CheckWhitelist(player, jobProto, out var reason))
+                {
+                    return;
+                }
+            }
+            // DS14-Soyuz end
+
             // If no job available, stay in lobby, or if no lobby spawn as observer
             if (jobId is null)
             {
@@ -255,6 +307,15 @@ namespace Content.Server.GameTicking
             }
 
             DoSpawn(player, character, station, jobId, silent, out var mob, out var jobPrototype, out var jobName);
+            // DS14-start
+            var arrivalJobName = jobName;
+            if (_idCard.TryFindIdCard(mob, out var arrivalCard)
+                && arrivalCard.Comp.LocalizedJobTitle is { } arrivalTitle
+                && !string.IsNullOrWhiteSpace(arrivalTitle))
+            {
+                arrivalJobName = arrivalTitle;
+            }
+            // DS14-end
 
             if (lateJoin && !silent)
             {
@@ -265,7 +326,7 @@ namespace Content.Server.GameTicking
                             ("character", MetaData(mob).EntityName),
                                 ("gender", character.Gender), // Corvax-LastnameGender
                             ("entity", mob),
-                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))),
+                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(arrivalJobName))), // DS14
                         Loc.GetString("latejoin-arrival-sender"),
                         playDefaultSound: false,
                         colorOverride: Color.Gold);
@@ -277,7 +338,7 @@ namespace Content.Server.GameTicking
                             ("character", MetaData(mob).EntityName),
                                 ("gender", character.Gender), // Corvax-LastnameGender
                             ("entity", mob),
-                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(jobName))),
+                            ("job", CultureInfo.CurrentCulture.TextInfo.ToTitleCase(arrivalJobName))), // DS14
                         Loc.GetString("latejoin-arrival-sender"),
                         playDefaultSound: false);
                 }
@@ -520,5 +581,24 @@ namespace Content.Server.GameTicking
         }
 
         #endregion
+
+        // DS14-Soyuz start
+        public bool CheckWhitelist(ICommonSession player, JobPrototype job, [NotNullWhen(false)] out FormattedMessage? reason)
+        {
+            reason = default;
+
+            if (!_cfg.GetCVar(CCVars.GameRoleWhitelist) || !job.Whitelisted)
+                return true;
+
+            if (_adminManager.IsAdmin(player, includeDeAdmin: true)) // Check admin flag
+                return true;
+
+            if (_jobWhitelistManager.IsAllowed(player, job.ID)) // Check whitelist
+                return true;
+
+            reason = FormattedMessage.FromUnformatted(Loc.GetString("role-not-whitelisted"));
+            return false;
+        }
+        // DS14-Soyuz end
     }
 }

@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+- type: latheRecipe
+  id: BlueInsulatingTapeSoyuz
+  result: BlueInsulatingTape
+  completetime: 1
+  materials:
+    Plastic: 100
+
+- type: latheRecipePack
+  id: BlueInsulatingTapeStatic
+  recipes:
+  - BlueInsulatingTapeSoyuz

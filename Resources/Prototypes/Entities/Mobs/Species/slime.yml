@@ -4,8 +4,6 @@
   id: BaseMobSlimePerson
   abstract: true
   components:
-  - type: Hunger
-  - type: Thirst
   - type: Icon
     sprite: Mobs/Species/Slime/parts.rsi
     state: full
@@ -58,6 +56,7 @@
     damageContainer: Biological
     damageModifierSet: Slime
   - type: PassiveDamage # Around 8 damage a minute healed
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     damageCap: 65
@@ -96,10 +95,20 @@
       methods: [ Touch ]
       effects:
       - !type:HealthChange
+        # DS14-start
+        conditions:
+        - !type:WearingFullHardsuitCondition
+          inverted: true
+        # DS14-end
         damage:
           types:
             Heat: 1 # DS14-value
       - !type:PopupMessage
+        # DS14-start
+        conditions:
+        - !type:WearingFullHardsuitCondition
+          inverted: true
+        # DS14-end
         type: Local
         visualType: Large
         messages: [ "slime-hurt-by-water-popup" ]
@@ -136,6 +145,7 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:
@@ -148,10 +158,6 @@
       enum.MagicMirrorUiKey.Key:
         toggleAction: HairstyleAction
   # DS14-end
-  # - type: FootPrints # Backmen-footsteps
-    # leftBarePrint: "footprint-left-bare-slime"
-    # rightBarePrint: "footprint-right-bare-slime"
-
 
 - type: entity
   parent: MobHumanDummy

@@ -15,7 +15,7 @@ station-beacon-perma-brig = Пермабриг
 station-beacon-detective = Следователь
 station-beacon-courtroom = Зал суда
 # Corvax-Localization-Start
-station-beacon-law = Офис АСК
+station-beacon-law = Офис САП
 # Corvax-Localization-End
 station-beacon-security-checkpoint = КПП милиции
 station-beacon-medical = Медицинский отдел

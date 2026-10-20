@@ -14,3 +14,14 @@
     state: shield
   name: alerts-political-loudspeaker-fortify-name
   description: alerts-political-loudspeaker-fortify-desc
+
+# IPC battery alert must be server-driven; Borg client handler does not process IPC entities.
+- type: alert
+  parent: BorgBattery
+  id: IpcBattery
+  clientHandled: false
+
+- type: alert
+  parent: BorgBatteryNone
+  id: IpcBatteryNone
+  clientHandled: false

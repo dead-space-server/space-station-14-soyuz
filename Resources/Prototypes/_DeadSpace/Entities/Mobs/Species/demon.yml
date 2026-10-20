@@ -17,8 +17,6 @@
   - type: Body
     prototype: Demon
     requiredLegs: 2
-  - type: Hunger
-  - type: Thirst
   - type: Damageable
     damageContainer: Biological
   - type: MeleeWeapon
@@ -35,7 +33,7 @@
     currentTemperature: 310.15
     specificHeat: 46
   - type: Perishable
-  - type: Sanity # DS14
+  - type: Sanity
   - type: Vocal
     sounds:
       Male: MaleHuman
@@ -48,7 +46,6 @@
     knownLanguages:
     - DemonLanguage
     - GeneralLanguage
-  # - type: FootPrints
 
 - type: entity
   parent: BaseSpeciesDummy

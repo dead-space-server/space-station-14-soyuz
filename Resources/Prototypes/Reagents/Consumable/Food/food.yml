@@ -7,10 +7,19 @@
   physicalDesc: reagent-physical-desc-opaque
   flavor: nutriment
   color: "#24591F"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_nutriment.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Food:
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
   plantMetabolism:
   - !type:PlantAdjustNutrition
     amount: 1.5
@@ -26,6 +35,14 @@
   physicalDesc: reagent-physical-desc-chalky
   flavor: vitamin
   color: "#D3D3D3"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_vitamin.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Food: #This makes it not compete with medicines, a large bonus for something that can heal
       effects:
@@ -37,7 +54,8 @@
       # Helps you stop bleeding to an extent.
       - !type:ModifyBleed
         amount: -0.25
-      - !type:SatiateHunger #Numbers are balanced with this in mind + it helps limit how much healing you can get from food
+      - !type:Satiate #Numbers are balanced with this in mind + it helps limit how much healing you can get from food
+        satiationType: Hunger
   # Lets plants benefit too
   plantMetabolism:
   - !type:PlantAdjustNutrition
@@ -54,6 +72,14 @@
   physicalDesc: reagent-physical-desc-clumpy
   flavor: protein
   color: "#FFFFE5"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_protein.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end
   metabolisms:
     Food:
       effects:
@@ -63,7 +89,8 @@
           Brute: -0.4
       - !type:ModifyBloodLevel
         amount: 1 # weaker than iron but pretty good all things considered
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
   pricePerUnit: 3
 
 - type: reagent
@@ -78,7 +105,8 @@
   metabolisms:
     Food:
       effects:
-      - !type:SatiateHunger
+      - !type:Satiate
+        satiationType: Hunger
         conditions:
         - !type:ReagentCondition #Only satiates when eaten with nutriment
           reagent: Nutriment
@@ -105,3 +133,11 @@
   desc: reagent-desc-pumpkin-flesh
   flavor: pumpkin
   color: "#fc9300"
+  # DS14-Soyuz start
+  metamorphicSprite:
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Drinks/metamorphic_pumpkinflesh.rsi
+    state: icon_empty
+  metamorphicMaxFillLevels: 4
+  metamorphicFillBaseName: fill-
+  metamorphicChangeColor: false
+  # DS14-Soyuz end

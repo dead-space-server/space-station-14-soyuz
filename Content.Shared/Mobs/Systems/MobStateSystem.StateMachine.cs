@@ -1,6 +1,9 @@
 ﻿using Content.Shared.Database;
+using Content.Shared.DeadSpace.Arena;
 using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Movement.Components; //DS14
+using Content.Shared.DeadSpace.Movement.Components; // DS14
 using Robust.Shared.Player;
 
 namespace Content.Shared.Mobs.Systems;
@@ -80,6 +83,11 @@ public partial class MobStateSystem
     protected virtual void OnStateChanged(EntityUid entity, MobStateComponent component, MobState oldState,
         MobState newState)
     {
+        // DS14-start
+        if (oldState == MobState.PreCritical && newState == MobState.Alive)
+            if (!HasComp<WheelchairUserComponent>(entity) && !IsBuckledToDownStrap(entity))
+                _standing.Stand(entity, force: true);
+        // DS14-end
     }
 
     /// <summary>
@@ -112,6 +120,10 @@ public partial class MobStateSystem
         var ev = new MobStateChangedEvent(target, component, oldState, newState, origin);
         OnStateChanged(target, component, oldState, newState);
         RaiseLocalEvent(target, ev, true);
+        // DS14-start: don't log arena player state changes to the admin log
+        if (HasComp<ArenaPlayerComponent>(target))
+            return;
+        // DS14-end
         if (origin != null && HasComp<ActorComponent>(origin) && HasComp<ActorComponent>(target) && oldState < newState)
             _adminLogger.Add(LogType.Damaged, LogImpact.High, $"{ToPrettyString(origin):player} caused {ToPrettyString(target):player} state to change from {oldState} to {newState}");
         else

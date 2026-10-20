@@ -27,6 +27,7 @@ using Robust.Shared.Utility;
 namespace Content.IntegrationTests.Tests
 {
     [TestFixture]
+    [NonParallelizable]
     public sealed class PostMapInitTest
     {
         private const bool SkipTestMaps = true;
@@ -40,7 +41,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] Grids =
         {
-            "/Maps/_Soyuz/centcomm.yml",
+            // "/Maps/centcomm.yml", // DS14: CentComm is covered by GameMaps as a full station map.
             AdminTestArenaSystem.ArenaMapPath
         };
 
@@ -54,25 +55,16 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly Dictionary<string, HashSet<EntProtoId>> DoNotMapWhitelistSpecific = new()
         {
-            // {"/Maps/bagel.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist
-            // {"/Maps/barratry.yml", ["RubberStampCaptain"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/cluster.yml", ["RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_box.yml", ["RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]}, // DS-14 Soyuz: Disabled
-            // {"/Maps/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]}, // DS-14 Soyuz: Disabled
-            // DS-14 Soyuz: Add our custom maps to whitelist
-            {"/Maps/_Soyuz/bagel.yml", ["RubberStampMime"]},
+            // DS14-Soyuz-start
+            // Special comment for markers (Our maps rarely get remapped as it is and will be added during remapping)
             {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
             {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown", "RubberStampSyndicate"]},
-            // DS14-end
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -84,14 +76,20 @@ namespace Content.IntegrationTests.Tests
         /// </remarks>
         private static readonly string[] DoNotMapWhitelist =
         {
-            "/Maps/_Soyuz/centcomm.yml",
-            "/Maps/_Soyuz/centcomm.yml",
+            "/Maps/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/ds_taipan.yml", // Taipan
-            "/Maps/_Soyuz/ds_taipan.yml", // Taipan
+            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
+            // DS14-Soyuz-start
+            "/Maps/_Soyuz/centcomm.yml",
+            "/Maps/_Soyuz/S1_GeneralStaff.yml",
+            "/Maps/_Soyuz/generalstaff.yml",
+            "/Maps/_Soyuz/Shuttles/**",
+            "/Maps/_Soyuz/Shuttles/Pilot/**",
+            "/Maps/_Soyuz/Shuttles/GenStaff/**",
+            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -101,7 +99,7 @@ namespace Content.IntegrationTests.Tests
             .Select(glob => new Regex(GlobToRegex(glob), RegexOptions.IgnoreCase | RegexOptions.Compiled))
             .ToArray();
 
-        // DS14-start: Add our custom game maps 
+        // DS14-start: Add our custom game maps
         private static readonly string[] GameMaps =
         {
             "Dev",
@@ -110,53 +108,53 @@ namespace Content.IntegrationTests.Tests
             "MeteorArena",
             "dm01-entryway",
             "DSTaipan",
+            "DsTram2",
             "Amber",
-            // "Aspid", // remap in progress
+            "Aspid", // DS14-Soyuz
             "Bagel",
             "Barratry",
             "Box",
-            // "Cluster", // invalid EntityUid reference in Storage
+            "Cluster", // DS14-Soyuz
             "Cog",
             "Convex",
             "Core",
-            "CorvaxAstra",
-            "CorvaxAvrite",
-            "CorvaxChloris",
-            "CorvaxDelta",
+            // "CorvaxAstra", // DS14-Soyuz disabled
+            // "CorvaxAvrite", // DS14-Soyuz disabled
+            // "CorvaxChloris", // DS14-Soyuz disabled
+            // "CorvaxDelta", // DS14-Soyuz disabled
             "CorvaxPaper",
             "CorvaxPearl",
-            "CorvaxGlacier",
+            // "CorvaxGlacier", // DS14-Soyuz disabled
             "CorvaxSilly",
-            "CorvaxSpectrum",
+            // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
             "Fland",
             "Gate",
             "Ishimura",
             // "Gemini", // map load failure
-            // "Loop", // map load failure
-            // "Loop",
+            "Loop", // DS14-Soyuz
             "Marathon",
             "Meta",
             "Oasis",
             "Omega",
             "Origin",
             "Packed",
-            // "Plasma", // map load failure
+            "Plasma",
             "Reach",
             "Ishimura",
             "Saltern",
             "Snowball",
             "Serpentcrest",
             "Train",
+            "GeneralStaff", // DS14-Soyuz
         };
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            "Aspid", // remap in progress
-            "Cluster", // invalid EntityUid reference in Storage
-            "Loop", // invalid EntityUid reference in Storage
+            // "Aspid", // DS14-Soyuz enabled
+            // "Cluster", // DS14-Soyuz enabled
+            // "Loop", // DS14-Soyuz enabled
             "Gemini", // map load failure
-            "Plasma", // map load failure
         };
         /// <summary>
         /// Jobs whose dedicated spawn points were removed (migrated to null) but are still listed

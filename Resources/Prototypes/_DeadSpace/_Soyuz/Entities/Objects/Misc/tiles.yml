@@ -180,6 +180,24 @@
   - type: Stack
     stackType: FloorTileWhiteSteel10
 
+- type: entity
+  parent: FloorTileItemBase
+  id: FloorTileItemWhiteSteel11
+  name: белая стальная плитка
+  description: О, это же белая стальная плитка из новой производственной серии.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tiles/tile.rsi
+    state: wsteel11
+  - type: Item
+    heldPrefix: terracotta
+  - type: FloorTile
+    outputs:
+    - Plating
+    - FloorWhiteSteel11
+  - type: Stack
+    stackType: FloorTileWhiteSteel11
+
 ## Обычная
 - type: entity
   parent: FloorTileItemBase
@@ -361,6 +379,24 @@
   - type: Stack
     stackType: FloorTileSteel10
 
+- type: entity
+  parent: FloorTileItemBase
+  id: FloorTileItemSteel11
+  name: стальная плитка
+  description: О, это же стальная плитка из новой производственной серии.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tiles/tile.rsi
+    state: steel11
+  - type: Item
+    heldPrefix: terracotta
+  - type: FloorTile
+    outputs:
+    - Plating
+    - FloorSteel11
+  - type: Stack
+    stackType: FloorTileSteel11
+
 ## Тёмная
 - type: entity
   parent: FloorTileItemBase
@@ -541,3 +577,21 @@
     - FloorBlackSteel10
   - type: Stack
     stackType: FloorTileBlackSteel10
+
+- type: entity
+  parent: FloorTileItemBase
+  id: FloorTileItemBlackSteel11
+  name: тёмная стальная плитка
+  description: О, это же тёмная стальная плитка из новой производственной серии.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tiles/tile.rsi
+    state: bsteel11
+  - type: Item
+    heldPrefix: terracotta
+  - type: FloorTile
+    outputs:
+    - Plating
+    - FloorBlackSteel11
+  - type: Stack
+    stackType: FloorTileBlackSteel11

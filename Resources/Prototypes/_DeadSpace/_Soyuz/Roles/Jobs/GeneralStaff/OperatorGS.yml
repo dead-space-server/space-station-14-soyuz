@@ -1,0 +1,48 @@
+- type: job
+  id: OperatorGS
+  name: job-name-OperatorGS
+  description: job-description-OperatorGS
+  playTimeTracker: JobOperatorGS
+  whitelisted: True
+  startingGear: OperatorGSGear
+  icon: "JobIconNanotrasen"
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant, DeathRattleImplantCentcomm ]
+  - !type:AddComponentSpecial
+    components:
+    - type: AntagImmune
+    - type: ZombieImmune
+    - type: NpcFactionMember
+      factions:
+      - CentralCommand
+    - type: Skill
+      group: ALL
+  supervisors: job-supervisors-centcom-administrator
+
+- type: startingGear
+  id: OperatorGSGear
+  equipment:
+    id: CentcomOperatorPDA
+    pocket1: RubberStampCentcom
+    pocket2: ClothingMaskGasCentcom
+    belt: BoxFolderCentComClipboard
+    eyes: ClothingEyesGlassesHiddenSecurity
+    back: ClothingBackpackSatchelOfficial
+    socks: ClothingUnderwearSocksNormal
+
+- type: chameleonOutfit
+  id: OperatorGSChameleonOutfit
+  job: OperatorGS
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+    shoes: ClothingShoesBootsJack
+    head: ClothingHeadHatCentcomcap
+    gloves: ClothingHandsGlovesCentcomNaval
+    neck: ClothingNeckCloakCentcom
+    back: ClothingBackpackSatchelOfficial

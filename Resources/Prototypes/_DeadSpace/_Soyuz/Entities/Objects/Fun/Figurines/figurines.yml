@@ -75,12 +75,3 @@
     state: pilot1
   - type: SpeakOnTrigger
     pack: FigurinesPilot
-
-- type: entity
-  parent: BaseFigurineSoyuz
-  id: FigurineIDK1
-  name: фигурка важного дядьки
-  description: Как вам мой наряд?
-  components:
-  - type: Sprite
-    state: idkwhois1

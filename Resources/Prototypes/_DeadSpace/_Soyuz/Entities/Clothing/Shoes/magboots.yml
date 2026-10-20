@@ -12,3 +12,18 @@
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
+
+- type: entity
+  parent: ADTClothingShoesBootsMagERT
+  id: ClothingShoesBootsMagNavy
+  name: продвинутые магнитные сапоги ВКФ
+  description: Новейшие магнитные сапоги, которые не замедляют движения своего владельца.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/magboots-nanotrasen-navy.rsi
+    state: icon
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/magboots-nanotrasen-navy.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1

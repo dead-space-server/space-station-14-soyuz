@@ -7,28 +7,41 @@ using static Content.Client.Stylesheets.StylesheetHelpers;
 namespace Content.Client.Stylesheets.Sheetlets;
 
 [CommonSheetlet]
-public sealed class PanelSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, IButtonConfig
+public sealed class PanelSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet, IButtonConfig, IPanelConfig
 {
     public override StyleRule[] GetRules(T sheet, object config)
     {
-        IButtonConfig buttonCfg = sheet;
+        var box = new StyleBoxFlat { BackgroundColor = sheet.SecondaryPalette.Background }; // DS14-Soyuz
+        var boxLight = new StyleBoxFlat
+        {
+            BackgroundColor = sheet.SecondaryPalette.BackgroundLight
+        };
+        var boxDark = new StyleBoxFlat
+        {
+            BackgroundColor = sheet.SecondaryPalette.BackgroundDark
+        };
+        var boxDeep = new StyleBoxFlat
+        {
+            BackgroundColor = sheet.DeepPanelBackgroundColor
+        };
+        var boxInsetDeep = new StyleBoxFlat
+        {
+            BackgroundColor = sheet.DeepPanelBackgroundColor,
+            BorderColor = sheet.DeepPanelBorderColor,
+            BorderThickness = new Thickness(2f)
+        };
 
-        var boxLight = new StyleBoxFlat()
-        {
-            BackgroundColor = sheet.SecondaryPalette.BackgroundLight,
-        };
-        var boxDark = new StyleBoxFlat()
-        {
-            BackgroundColor = sheet.SecondaryPalette.BackgroundDark,
-        };
         var boxPositive = new StyleBoxFlat { BackgroundColor = sheet.PositivePalette.Background };
         var boxNegative = new StyleBoxFlat { BackgroundColor = sheet.NegativePalette.Background };
         var boxHighlight = new StyleBoxFlat { BackgroundColor = sheet.HighlightPalette.Background };
 
         return
         [
+            E<PanelContainer>().Class(StyleClass.Panel).Panel(box), // DS14-Soyuz
             E<PanelContainer>().Class(StyleClass.PanelLight).Panel(boxLight),
             E<PanelContainer>().Class(StyleClass.PanelDark).Panel(boxDark),
+            E<PanelContainer>().Class(StyleClass.PanelDeep).Panel(boxDeep),
+            E<PanelContainer>().Class(StyleClass.PanelInsetDeep).Panel(boxInsetDeep),
 
             E<PanelContainer>().Class(StyleClass.Positive).Panel(boxPositive),
             E<PanelContainer>().Class(StyleClass.Negative).Panel(boxNegative),
@@ -55,7 +68,7 @@ public sealed class PanelSheetlet<T> : Sheetlet<T> where T : PalettedStylesheet,
             E()
                 .Class(StyleClass.BackgroundPanelOpenRight)
                 .Prop(PanelContainer.StylePropertyPanel, StyleBoxHelpers.OpenRightStyleBox(sheet))
-                .Modulate(sheet.SecondaryPalette.Background),
+                .Modulate(sheet.SecondaryPalette.Background)
         ];
     }
 }

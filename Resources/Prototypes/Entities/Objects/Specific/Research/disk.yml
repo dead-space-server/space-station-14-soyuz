@@ -5,12 +5,23 @@
   description: A disk for the R&D server containing 1000 points.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Research/researchdisk.rsi
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk1.rsi #DS14-soyuz
     state: icon
   - type: ResearchDisk
   - type: GuideHelp
     guides:
     - Science
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: ResearchDisk
@@ -18,6 +29,9 @@
   name: research point disk (5000)
   description: A disk for the R&D server containing 5000 points.
   components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk5.rsi #DS14-soyuz
+    state: icon
   - type: ResearchDisk
     points: 5000
 
@@ -27,6 +41,9 @@
   name: research point disk (10000)
   description: A disk for the R&D server containing 10000 points.
   components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Research/researchdisk10.rsi #DS14-soyuz
+    state: icon
   - type: ResearchDisk
     points: 10000
 
@@ -62,6 +79,17 @@
     price: 100
   - type: StealTarget
     stealGroup: TechnologyDisk
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/disk_drop.ogg
+  #DS14-End
 
 - type: entity
   parent: TechnologyDisk

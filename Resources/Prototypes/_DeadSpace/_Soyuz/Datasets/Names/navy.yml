@@ -1,0 +1,17 @@
+- type: localizedDataset
+  id: NamesFirstNavyCaptain
+  values:
+    prefix: names-navy-first-captain-dataset-
+    count: 5
+
+- type: localizedDataset
+  id: NamesFirstNavy
+  values:
+    prefix: names-navy-first-dataset-
+    count: 6
+
+- type: localizedDataset
+  id: NamesLastNavy
+  values:
+    prefix: names-navy-last-dataset-
+    count: 55

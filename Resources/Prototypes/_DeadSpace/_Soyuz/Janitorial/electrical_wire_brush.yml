@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+- type: entity
+  parent: [BaseItem, PowerCellSlotSmallItem]
+  id: WireBrushElectrical
+  name: electrical wire brush
+  description: A bristly steel wire brush with a moving head, allowing for a way easier time cleaning.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Specific/Janitorial/wirebrush_electrical.rsi
+    layers:
+    - state: icon
+    - state: active
+      visible: false
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Item
+    storedSprite:
+      sprite: _DeadSpace/_Soyuz/Objects/Specific/Janitorial/wirebrush_electrical.rsi
+      state: storage
+    size: Small
+  - type: Appearance
+  - type: ItemToggle
+    predictable: false
+    soundActivate:
+      path: /Audio/Items/change_drill.ogg
+    soundDeactivate:
+      path: /Audio/Weapons/telescopicoff.ogg
+      params:
+        volume: -5
+  - type: ItemToggleActiveSound
+    activeSound:
+      path: /Audio/Ambience/Objects/circular_saw.ogg
+      params:
+        volume: -6
+        maxDistance: 2
+  - type: ToggleableVisuals
+    spriteLayer: enum.ToggleableVisuals.Layer
+  - type: ComponentToggler
+    components:
+    - type: Tool
+      qualities:
+      - Brushing
+      speedModifier: 4
+      useSound: /Audio/Items/drill_use.ogg
+  - type: ToggleCellDraw
+  - type: PowerCellDraw
+    drawRate: 1
+    useCharge: 0
+  - type: Tag
+    tags:
+    - WireBrush
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 50
+      Plastic: 50
+  - type: StaticPrice
+    price: 22
+  - type: MeleeWeapon
+    wideAnimationRotation: 45
+    damage:
+      types:
+        Piercing: 3
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gas_analyzer/gas_analyzer_drop.ogg

@@ -1,0 +1,38 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+using Robust.Shared.Serialization;
+
+namespace Content.Shared.DeadSpace._Soyuz.RepairOrders;
+
+/// <summary>
+/// Complete replacement of the analyzer data currently authorized for one specific client.
+/// An empty array revokes every previously supplied snapshot.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class RepairAnalyzerSnapshotEvent : EntityEventArgs
+{
+    public RepairAnalyzerGridSnapshot[] Grids { get; }
+    public RepairAnalyzerGridSnapshot[] NavigationGrids { get; }
+    public bool NavigationChanged { get; }
+
+    public RepairAnalyzerSnapshotEvent(RepairAnalyzerGridSnapshot[] grids,
+        RepairAnalyzerGridSnapshot[]? navigationGrids = null, bool navigationChanged = true)
+    {
+        Grids = grids;
+        NavigationGrids = navigationGrids ?? Array.Empty<RepairAnalyzerGridSnapshot>();
+        NavigationChanged = navigationChanged;
+    }
+}
+
+[Serializable, NetSerializable]
+public readonly struct RepairAnalyzerGridSnapshot
+{
+    public readonly NetEntity Grid;
+    public readonly RepairAnalyzerTaskData[] Tasks;
+
+    public RepairAnalyzerGridSnapshot(NetEntity grid, RepairAnalyzerTaskData[] tasks)
+    {
+        Grid = grid;
+        Tasks = tasks;
+    }
+}

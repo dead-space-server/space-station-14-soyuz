@@ -37,7 +37,9 @@ artifact-trigger-hint-death = Эссенция жизни
 artifact-trigger-hint-radiation = Радиация
 artifact-trigger-hint-pressure = Экстремальное давление
 artifact-trigger-hint-regular-gases = Стандартные атмосферные газы
-artifact-trigger-hint-plasma = Газообразная плазма
+# DS14-Soyuz-start
+artifact-trigger-hint-plasma = Нетвёрдая плазма
+# DS14-Soyuz-end
 artifact-trigger-hint-land = Активное замедление
 artifact-trigger-hint-examine = Внимательное изучение
 artifact-trigger-hint-medical = Терапевтические химикаты
@@ -47,12 +49,15 @@ xenoarch-trigger-tip-cold = Газ низкой температуры
 xenoarch-trigger-tip-no-oxygen = Безвоздушное пространство
 xenoarch-trigger-tip-water = Вода
 xenoarch-trigger-tip-co2 = Углекислый газ
-xenoarch-trigger-tip-plasma = Газообразная плазма
+# DS14-Soyuz-start
+xenoarch-trigger-tip-plasma = Нетвёрдая плазма
+# DS14-Soyuz-end
 xenoarch-trigger-tip-tritium = Тритий
 xenoarch-trigger-tip-ammonia = Аммиак
 xenoarch-trigger-tip-n2o = Оксид азота
 xenoarch-trigger-tip-frezon = Фрезон
-xenoarch-trigger-tip-radiation = Радиация
+xenoarch-trigger-tip-radiation = Тяжёлое ионное излучение
+xenoarch-trigger-tip-microwave = Микроволновое излучение
 xenoarch-trigger-tip-brute-damage = Физические повреждения
 xenoarch-trigger-tip-interaction = Физические взаимодействия
 xenoarch-trigger-tip-wrenching = Прикручиваение
@@ -67,6 +72,17 @@ xenoarch-trigger-tip-blood = Кровь
 xenoarch-trigger-tip-throw = Бросок
 xenoarch-trigger-tip-death = Смерть
 xenoarch-trigger-tip-magnet = Магнитные волны
+xenoarch-trigger-tip-money = Взяточничество
+xenoarch-trigger-tip-knowledge = Получение знаний
+xenoarch-trigger-tip-carbs = Поглощение углеводов
+xenoarch-trigger-tip-meat = Поглощение белка
+xenoarch-trigger-tip-produce = Поглощение полезной пищи
+xenoarch-trigger-tip-stamp = Бюрократическое одобрение
+xenoarch-trigger-tip-shock = Электрический разряд
+xenoarch-trigger-tip-particle = Частицы, воздействующие на сингулярность
+xenoarch-trigger-tip-anomparticle = Частицы, воздействующие на аномалии
+xenoarch-trigger-tip-stamina-damage = Органическое истощение
+xenoarch-trigger-tip-laser = Попадания высокоинтенсивных фотонов
 xenoarch-trigger-examine-wrenching = На нем крутится какая-то мелочь.
 xenoarch-trigger-examine-prying = На поверхности виднеется панель.
 xenoarch-trigger-examine-screwing = Виднеется болтовидная часть с небольшим углублением на ней.

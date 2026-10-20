@@ -14,6 +14,12 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
 
         private GasReactionPrototype[] _gasReactions = [];
+        // DS14-start: most active tiles are normal O2/N2 air; skip reaction scans when no reaction-only gases exist.
+        private int[] _reactionFastPathGasIds = [];
+        private readonly float[] _reactionFastPathMinimumMoles = new float[Atmospherics.TotalNumberOfGases];
+        private bool _useReactionFastPath;
+        // DS14-end
+        private readonly GasMixture _scrubBuffer = new(); // DS14
 
         /// <summary>
         ///     List of gas reactions ordered by priority.
@@ -26,7 +32,67 @@ namespace Content.Server.Atmos.EntitySystems
 
             _gasReactions = _protoMan.EnumeratePrototypes<GasReactionPrototype>().ToArray();
             Array.Sort(_gasReactions, (a, b) => b.Priority.CompareTo(a.Priority));
+            CacheReactionFastPath(); // DS14
         }
+
+        // DS14-start
+        private void CacheReactionFastPath()
+        {
+            Array.Clear(_reactionFastPathMinimumMoles);
+            var fastPathGasIds = new List<int>(Atmospherics.TotalNumberOfGases);
+            var canUseFastPath = true;
+
+            foreach (var reaction in _gasReactions)
+            {
+                var hasReactionOnlyRequirement = false;
+                for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
+                {
+                    var minimum = reaction.MinimumRequirements[i];
+                    if (minimum <= 0)
+                        continue;
+
+                    if (i is (int) Gas.Oxygen or (int) Gas.Nitrogen)
+                        continue;
+
+                    hasReactionOnlyRequirement = true;
+                    if (_reactionFastPathMinimumMoles[i] == 0 || minimum < _reactionFastPathMinimumMoles[i])
+                    {
+                        _reactionFastPathMinimumMoles[i] = minimum;
+                    }
+                }
+
+                if (hasReactionOnlyRequirement)
+                    continue;
+
+                canUseFastPath = false;
+                break;
+            }
+
+            if (canUseFastPath)
+            {
+                for (var i = 0; i < _reactionFastPathMinimumMoles.Length; i++)
+                {
+                    if (_reactionFastPathMinimumMoles[i] > 0)
+                        fastPathGasIds.Add(i);
+                }
+            }
+
+            _useReactionFastPath = canUseFastPath;
+            _reactionFastPathGasIds = fastPathGasIds.ToArray();
+        }
+
+        private bool HasPossibleReactionOnlyGas(GasMixture mixture)
+        {
+            var moles = mixture.Moles;
+            foreach (var gas in _reactionFastPathGasIds)
+            {
+                if (moles[gas] >= _reactionFastPathMinimumMoles[gas])
+                    return true;
+            }
+
+            return false;
+        }
+        // DS14-end
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override float GetHeatCapacityCalculation(float[] moles, bool space)
@@ -98,6 +164,9 @@ namespace Content.Server.Atmos.EntitySystems
             }
 
             NumericsHelpers.Add(receiver.Moles, giver.Moles);
+            // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
+            var giverIprit = giver.GetMoles(Gas.Iprit);
+            receiver.BlendIpritDecayDeadline(receiver.GetMoles(Gas.Iprit) - giverIprit, giver.IpritDecayDeadline, giverIprit);
         }
 
         /// <summary>
@@ -143,6 +212,9 @@ namespace Content.Server.Atmos.EntitySystems
                 // transfer moles
                 NumericsHelpers.Multiply(source.Moles, fraction, buffer);
                 NumericsHelpers.Add(receiver.Moles, buffer);
+                // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
+                var addedIprit = buffer[(int) Gas.Iprit];
+                receiver.BlendIpritDecayDeadline(receiver.GetMoles(Gas.Iprit) - addedIprit, source.IpritDecayDeadline, addedIprit);
             }
         }
 
@@ -207,9 +279,16 @@ namespace Content.Server.Atmos.EntitySystems
         /// <summary>
         ///     Scrubs specified gases from a gas mixture into a <see cref="destination"/> gas mixture.
         /// </summary>
-        public void ScrubInto(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases)
+        public void ScrubInto(GasMixture mixture, GasMixture destination, HashSet<Gas> filterGases) // DS14
         {
-            var buffer = new GasMixture(mixture.Volume){Temperature = mixture.Temperature};
+            // DS14-start
+            // Reuse one mixture and mole array; atmos devices run serially.
+            var buffer = _scrubBuffer;
+            buffer.Clear();
+            buffer.Volume = mixture.Volume;
+            buffer.Temperature = mixture.Temperature;
+            // DS14-end
+            var ipritDecayDeadline = mixture.IpritDecayDeadline; // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
 
             foreach (var gas in filterGases)
             {
@@ -217,6 +296,7 @@ namespace Content.Server.Atmos.EntitySystems
                 mixture.SetMoles(gas, 0f);
             }
 
+            buffer.EnsureIpritDecayDeadline(ipritDecayDeadline); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
             Merge(destination, buffer);
         }
 
@@ -342,12 +422,14 @@ namespace Content.Server.Atmos.EntitySystems
         /// to the target. This may return negative if you have your mixtures swapped.</returns>
         /// <remarks>Note that this method doesn't take into account the heat capacity of the
         /// transferred volume causing a pressure rise in the target <see cref="GasMixture"/>.</remarks>
-        [PublicAPI]
-        public static float FractionToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
-        {
-            var molesToTransfer = MolesToMaxPressure(mix1, mix2, targetPressure);
-            return molesToTransfer / mix1.TotalMoles;
-        }
+        // DS14-Soyuz-start
+        // [PublicAPI]
+        // public static float FractionToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
+        // {
+        //     var molesToTransfer = MolesToMaxPressure(mix1, mix2, targetPressure);
+        //     return molesToTransfer / mix1.TotalMoles;
+        // }
+        // DS14-Soyuz-end
 
         /// <summary>
         /// Determines the number of moles to be removed and transferred from a source
@@ -362,54 +444,56 @@ namespace Content.Server.Atmos.EntitySystems
         /// <returns>The difference in moles required to reach the target pressure.</returns>
         /// <remarks>Note that this method doesn't take into account the heat capacity of the
         /// transferred volume causing a pressure rise in the target <see cref="GasMixture"/>.</remarks>
-        [PublicAPI]
-        public static float MolesToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
-        {
-            /*
-             Calculate the moles required to reach the target pressure.
-             The formula is derived from the ideal gas law and the
-             general Richman's law, under the simplification that all the specific heat capacities are equal.
-             Derivation can also be seen at
-             https://github.com/space-wizards/space-station-14/pull/35211/files/a0ae787fe07a4e792570f55b49d9dd8038eb6e4d#r1961183456
-             TODO ATMOS Make this properly obey the heat capacity change on the target mixture.
+        // DS14-Soyuz-start
+        // [PublicAPI]
+        // public static float MolesToMaxPressure(GasMixture mix1, GasMixture mix2, float targetPressure)
+        // {
+        /*
+         Calculate the moles required to reach the target pressure.
+         The formula is derived from the ideal gas law and the
+         general Richman's law, under the simplification that all the specific heat capacities are equal.
+         Derivation can also be seen at
+         https://github.com/space-wizards/space-station-14/pull/35211/files/a0ae787fe07a4e792570f55b49d9dd8038eb6e4d#r1961183456
+         TODO ATMOS Make this properly obey the heat capacity change on the target mixture.
 
-             Derivation is as follows.
-             Assume A is mix1, B is mix2, C is the combined mixture after transfer.
-             We can express the number of moles in C:
-             n_C = n_A + n_B
+         Derivation is as follows.
+         Assume A is mix1, B is mix2, C is the combined mixture after transfer.
+         We can express the number of moles in C:
+         n_C = n_A + n_B
 
-             We can then determine the temperature of C:
-             T_C = \frac{T_A n_A c_A + T_B n_B c_B}{n_A c_A + n_B c_B}
+         We can then determine the temperature of C:
+         T_C = \frac{T_A n_A c_A + T_B n_B c_B}{n_A c_A + n_B c_B}
 
-             Where c_A and c_B are the specific heats of mixtures A and B, respectively.
-             We can then express the pressure of C:
-             P_C = \frac{n_C R T_C}{V_C}
+         Where c_A and c_B are the specific heats of mixtures A and B, respectively.
+         We can then express the pressure of C:
+         P_C = \frac{n_C R T_C}{V_C}
 
-             Using the above equations, we can express P_C as follows:
-             P_C = \frac{(n_A + n_B) R (\frac{T_a n_A + T_B n_B}{n_A + n_B}}{V_C}
+         Using the above equations, we can express P_C as follows:
+         P_C = \frac{(n_A + n_B) R (\frac{T_a n_A + T_B n_B}{n_A + n_B}}{V_C}
 
-             Which can be reduced to:
-             P_C = \frac{R (T_A n_A + T_B n_B)}{V_C}
+         Which can be reduced to:
+         P_C = \frac{R (T_A n_A + T_B n_B)}{V_C}
 
-             Solving for n_A gives:
-             n_A = \frac{P_C V_C - R T_B n_B}{R T_A}
+         Solving for n_A gives:
+         n_A = \frac{P_C V_C - R T_B n_B}{R T_A}
 
-             Using the ideal gas law to substitute:
-             n_A = \frac{P_C V_C - P_B V_B}{R T_A}
+         Using the ideal gas law to substitute:
+         n_A = \frac{P_C V_C - P_B V_B}{R T_A}
 
-             The output volume doesn't change:
-             V_B = V_C
+         The output volume doesn't change:
+         V_B = V_C
 
-             So:
-             n_A = \frac{(P_C - P_B) V_B}{R T_A}
-             */
+         So:
+         n_A = \frac{(P_C - P_B) V_B}{R T_A}
+         */
 
-            var delta = targetPressure - mix2.Pressure;
-            var requiredMoles = (delta * mix2.Volume) / (mix1.Temperature * Atmospherics.R);
+        //    var delta = targetPressure - mix2.Pressure;
+        //    var requiredMoles = (delta * mix2.Volume) / (mix1.Temperature * Atmospherics.R);
 
-            // Return the fraction of moles to transfer.
-            return requiredMoles;
-        }
+        // Return the fraction of moles to transfer.
+        //    return requiredMoles;
+        // }
+        // DS14-Soyuz-end
 
         /// <summary>
         /// Determines the number of moles that need to be removed from a <see cref="GasMixture"/> to reach a target pressure threshold.
@@ -498,6 +582,9 @@ namespace Content.Server.Atmos.EntitySystems
         public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
         {
             var reaction = ReactionResult.NoReaction;
+            if (_useReactionFastPath && !HasPossibleReactionOnlyGas(mixture)) // DS14
+                return reaction;
+
             var temperature = mixture.Temperature;
             var energy = GetThermalEnergy(mixture);
 
@@ -523,7 +610,7 @@ namespace Content.Server.Atmos.EntitySystems
                 if (!doReaction)
                     continue;
 
-                reaction = prototype.React(mixture, holder, this, HeatScale);
+                reaction = Content.Server.DeadSpace._Soyuz.Atmos.Reactions.SoyuzProductionModifiers.React(prototype, mixture, holder, this, HeatScale); // DS14-Soyuz
                 if(reaction.HasFlag(ReactionResult.StopReactions))
                     break;
             }
@@ -549,6 +636,7 @@ namespace Content.Server.Atmos.EntitySystems
 
             NumericsHelpers.Add(mixture.Moles, molsToAdd);
             NumericsHelpers.Max(mixture.Moles, 0f);
+            mixture.ResetIpritDecayDeadlineIfEmpty(); // Kofeecheks Iprit decay: LicenseRef-Kofeecheks
         }
 
         public enum GasCompareResult

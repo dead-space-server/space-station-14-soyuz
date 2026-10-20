@@ -1,7 +1,9 @@
 using Content.Shared.Medical.SuitSensor;
+using Content.Shared.Medical.CrewMonitoring;
 
 namespace Content.Server.Medical.CrewMonitoring;
 
+[AutoGenerateComponentPause] // DS14
 [RegisterComponent]
 [Access(typeof(CrewMonitoringConsoleSystem))]
 public sealed partial class CrewMonitoringConsoleComponent : Component
@@ -16,4 +18,21 @@ public sealed partial class CrewMonitoringConsoleComponent : Component
     /// </summary>
     [DataField("sensorTimeout"), ViewVariables(VVAccess.ReadWrite)]
     public float SensorTimeout = 10f;
+
+    // DS14-start
+    /// <summary>
+    /// Read suit sensors directly for an administrator's personal monitor, without a monitoring server.
+    /// </summary>
+    [DataField]
+    public bool AdminMonitor;
+
+    [DataField]
+    [AutoPausedField]
+    public TimeSpan NextSound = TimeSpan.Zero;
+
+    [DataField]
+    public TimeSpan SoundInterval = TimeSpan.FromSeconds(10);
+
+    public CrewMonitoringConsolePingMode CurrentPingMode = CrewMonitoringConsolePingMode.Severe;
+    // DS14-end
 }

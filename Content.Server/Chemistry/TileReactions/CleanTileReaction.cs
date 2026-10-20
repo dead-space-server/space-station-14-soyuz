@@ -16,6 +16,10 @@ namespace Content.Server.Chemistry.TileReactions;
 [DataDefinition]
 public sealed partial class CleanTileReaction : ITileReaction
 {
+    // DS14-Soyuz-start: optional exact-tile cleaning for open Iney.
+    [DataField]
+    public bool OnlyCurrentTile;
+    // DS14-Soyuz-end
     /// <summary>
     /// How much it costs to clean 1 unit of reagent.
     /// </summary>
@@ -45,6 +49,13 @@ public sealed partial class CleanTileReaction : ITileReaction
 
         foreach (var entity in entities)
         {
+            // DS14-Soyuz-start: intersecting bounds alone can include a neighbouring puddle.
+            if (OnlyCurrentTile &&
+                (!entityManager.TryGetComponent<TransformComponent>(entity, out var xform) ||
+                 xform.GridUid != tile.GridUid ||
+                 entityManager.System<SharedTransformSystem>().GetGridTilePositionOrDefault((entity, xform)) != tile.GridIndices))
+                continue;
+            // DS14-Soyuz-end
             if (!puddleQuery.TryGetComponent(entity, out var puddle) ||
                 !solutionContainerSystem.TryGetSolution(entity, puddle.SolutionName, out var puddleSolution, out _))
             {

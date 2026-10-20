@@ -194,6 +194,12 @@ stack-artifact-fragment =
         [few] фрагмента
        *[other] фрагментов
     } артефакта
+stack-xenoborg-crystal =
+    { $amount ->
+        [1] кристалл ксеноборгов
+        [few] кристалла ксеноборгов
+       *[other] кристаллов ксеноборгов
+    }
 # best materials
 stack-ground-tobacco =
     { $amount ->
@@ -228,6 +234,17 @@ stack-dried-rainbow-cannabis-leaves =
         [few] сушённых листа
        *[other] сушённых листьев
     } радужной конопли
+stack-ground-tritium-cannabis =
+    { $amount ->
+        [1] измельчённую тритиевую коноплю
+       *[other] измельчённой тритиевой конопли
+    }
+stack-dried-tritium-cannabis-leaves =
+    { $amount ->
+        [1] сушённый лист
+        [few] сушённых листа
+       *[other] сушённых листьев
+    } тритиевой конопли
 stack-cigarette-filter =
     { $amount ->
         [1] сигаретный фильтр
@@ -242,6 +259,7 @@ stack-rolling-paper =
     }
 stack-fulton = фултон
 stack-credit = кредиты
+stack-dirty-credit = грязные кредиты # DS14
 stack-plasma =
     { $amount ->
         [1] лист
@@ -282,6 +300,7 @@ stack-brutepack = набор от ушибов
 stack-bloodpack = пакет крови
 stack-medicated-suture = медицинская нить
 stack-regenerative-mesh = регенеративная сеть
+stack-tourniquet = жгут
 stack-micro-manipulator = модульная машинная часть
 stack-pancake = блинчик
 stack-blueberry-pancake = блинчик с черникой

@@ -1,4 +1,6 @@
 using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
 using Content.Server.DeadSpace.Lavaland.Components;
 using Content.Server.Parallax;
 using Content.Server.Tiles;
@@ -17,11 +19,15 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.DeadSpace.Lavaland;
 
 public sealed class LavalandFaunaPopulationSystem : EntitySystem
 {
+    private const int InitialSpawnBatchSize = 6;
+    private const float FtlLandingAreaPadding = 16f;
+
     private const CollisionGroup SpawnBlockerMask =
         CollisionGroup.Impassable |
         CollisionGroup.HighImpassable |
@@ -102,7 +108,7 @@ public sealed class LavalandFaunaPopulationSystem : EntitySystem
         }
     }
 
-    public void SetupMap(EntityUid mapUid, LavalandPlanetPrototype planet)
+    public async Task SetupMap(EntityUid mapUid, LavalandPlanetPrototype planet, CancellationToken cancellation)
     {
         if (!planet.FaunaEnabled || planet.FaunaSpawns.Count == 0)
             return;
@@ -111,16 +117,25 @@ public sealed class LavalandFaunaPopulationSystem : EntitySystem
         population.SectorCooldowns.Clear();
         population.NextSpawnTime = _timing.CurTime + GetUpdateInterval(planet);
 
-        if (planet.FaunaInitialSpawnCount > 0)
+        var requested = Math.Min(planet.FaunaInitialSpawnCount, planet.FaunaHardCap);
+        var attempted = 0;
+        var spawned = 0;
+        while (attempted < requested)
         {
-            var requested = Math.Min(planet.FaunaInitialSpawnCount, planet.FaunaHardCap);
-            var spawned = SpawnFauna(mapUid, population, planet, requested);
+            cancellation.ThrowIfCancellationRequested();
+            var batch = Math.Min(InitialSpawnBatchSize, requested - attempted);
+            var placed = SpawnFauna(mapUid, population, planet, batch);
+            attempted += batch;
+            spawned += placed;
 
-            Log.Info($"Lavaland fauna initial spawn placed {spawned}/{requested} mobs.");
-
-            if (spawned < requested)
-                Log.Warning($"Lavaland fauna initial spawn only placed {spawned}/{requested} mobs.");
+            if (attempted < requested)
+                await Timer.Delay(1, cancellation);
         }
+
+        Log.Info($"Lavaland fauna initial spawn placed {spawned}/{requested} mobs.");
+
+        if (spawned < requested)
+            Log.Warning($"Lavaland fauna initial spawn only placed {spawned}/{requested} mobs.");
     }
 
     private void OnSpawnedFaunaMobStateChanged(Entity<LavalandSpawnedFaunaComponent> ent, ref MobStateChangedEvent args)
@@ -465,15 +480,22 @@ public sealed class LavalandFaunaPopulationSystem : EntitySystem
             return true;
         }
 
-        if (planet.FtlEnabled &&
-            planet.FaunaFtlBeaconExclusionRadius > 0f &&
-            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <=
-            planet.FaunaFtlBeaconExclusionRadius * planet.FaunaFtlBeaconExclusionRadius)
+        var ftlRadius = GetFtlBeaconExclusionRadius(planet.FaunaFtlBeaconExclusionRadius, planet);
+        if (ftlRadius > 0f &&
+            Vector2.DistanceSquared(center, planet.FtlBeaconOffset) <= ftlRadius * ftlRadius)
         {
             return true;
         }
 
         return false;
+    }
+
+    private static float GetFtlBeaconExclusionRadius(float configuredRadius, LavalandPlanetPrototype planet)
+    {
+        if (!planet.FtlEnabled)
+            return 0f;
+
+        return Math.Max(configuredRadius, Math.Max(0f, planet.FtlFallbackMaxOffset) + FtlLandingAreaPadding);
     }
 
     private static Vector2i GetSector(Vector2 center, int sectorSize)

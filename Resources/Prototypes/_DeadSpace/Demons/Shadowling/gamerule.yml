@@ -4,7 +4,7 @@
   components:
   - type: StationEvent
     weight: 5
-    earliestStart: 25
+    earliestStart: 35
     minimumPlayers: 45
     maxOccurrences: 3
     duration: null
@@ -16,6 +16,7 @@
       min: 1
       max: 1
       playerRatio: 20
+      requireNotDead: true
       briefing:
         text: shadowling-role-greeting
         color: Red

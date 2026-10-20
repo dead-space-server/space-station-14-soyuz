@@ -4,6 +4,7 @@ using System.Numerics;
 using Content.Client.Administration.Managers;
 using Content.Client.Administration.Systems;
 using Content.Client.Administration.UI.Bwoink;
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Gameplay;
 using Content.Client.Lobby;
 using Content.Client.Lobby.UI;
@@ -228,14 +229,17 @@ public sealed class AHelpUIController: UIController, IOnSystemChanged<BwoinkSyst
         helper.EverOpened = false;
 
         var monitor = _clyde.EnumerateMonitors().First();
+        var popOutSize = helper.Control.GetPreferredWindowSize(); // DS14
 
         helper.ClydeWindow = _clyde.CreateWindow(new WindowCreateParameters
         {
             Maximized = false,
             Title = Loc.GetString("bwoink-admin-title"),
             Monitor = monitor,
-            Width = 900,
-            Height = 500
+            // DS14-start
+            Width = (int) popOutSize.X,
+            Height = (int) popOutSize.Y
+            // DS14-end
         });
 
         helper.ClydeWindow.RequestClosed += helper.OnRequestClosed;
@@ -518,14 +522,14 @@ public sealed class UserAHelpUIHandler : IAHelpUIHandler
 
     public void ToggleWindow()
     {
-        EnsureInit(_discordRelayActive);
-        if (_window!.IsOpen)
+        var createdWindow = EnsureInit(_discordRelayActive);
+        if (!createdWindow && _window!.IsOpen)
         {
             _window.Close();
         }
         else
         {
-            _window.OpenCentered();
+            _window!.OpenCentered();
         }
     }
 
@@ -559,27 +563,39 @@ public sealed class UserAHelpUIHandler : IAHelpUIHandler
         _window!.OpenCentered();
     }
 
-    private void EnsureInit(bool relayActive)
+    /// <summary>
+    /// Create new ahelp window or return existing window
+    /// </summary>
+    /// <returns>True if new window was created</returns>
+    private bool EnsureInit(bool relayActive)
     {
         if (_window is { Disposed: false })
-            return;
+            return false;
         _chatPanel = new BwoinkPanel(text => SendMessageAction?.Invoke(_ownerId, text, true, false));
         _chatPanel.InputTextChanged += text => InputTextChanged?.Invoke(_ownerId, text);
         _chatPanel.RelayedToDiscordLabel.Visible = relayActive;
+        _chatPanel.TypingIndicator.Visible = false; // DS14
+        _chatPanel.Margin = new Thickness(10); // DS14
         _window = new DefaultWindow()
         {
-            TitleClass="windowTitleAlert",
-            HeaderClass="windowHeaderAlert",
             Title=Loc.GetString("bwoink-user-title"),
-            MinSize = new Vector2(600, 400), // DS14-resize
+            MinSize = new Vector2(600, 400), // DS14
         };
         _window.OnClose += () => { OnClose?.Invoke(); };
         _window.OnOpen += () => { OnOpen?.Invoke(); };
-        _window.Contents.AddChild(_chatPanel);
+        // DS14-start
+        var shell = new PanelContainer
+        {
+            StyleClasses = { DeadSpaceMenuSheetlet.Shell }
+        };
+        shell.AddChild(_chatPanel);
+        _window.Contents.AddChild(shell);
+        // DS14-end
 
         var introText = Loc.GetString("bwoink-system-introductory-message");
         var introMessage = new SharedBwoinkSystem.BwoinkTextMessage( _ownerId, SharedBwoinkSystem.SystemUserId, introText);
         Receive(introMessage);
+        return true;
     }
 
     public void Dispose()

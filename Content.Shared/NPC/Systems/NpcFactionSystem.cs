@@ -3,6 +3,8 @@ using Content.Shared.NPC.Prototypes;
 using Robust.Shared.Prototypes;
 using System.Collections.Frozen;
 using System.Linq;
+using Content.Shared.Mech.Components; // DS14-Soyuz
+using Content.Shared.Vehicle.Components; // DS14-Soyuz
 
 namespace Content.Shared.NPC.Systems;
 
@@ -183,14 +185,15 @@ public sealed partial class NpcFactionSystem : EntitySystem
         var hostiles = GetNearbyFactions(ent, range, ent.Comp1.HostileFactions)
             // ignore mobs that have both hostile faction and the same faction,
             // otherwise having multiple factions is strictly negative
-            .Where(target => !IsEntityFriendly((ent, ent.Comp1), target));
+            .Where(target => !IsEntityFriendly((ent, ent.Comp1), target))
+            .Distinct(); // DS14-Soyuz
         if (!Resolve(ent, ref ent.Comp2, false))
             return hostiles;
 
         // ignore anything from enemy faction that we are explicitly friendly towards
         var faction = (ent.Owner, ent.Comp2);
         return hostiles
-            .Union(GetHostiles(faction))
+            .Union(GetHostiles(faction).Select(GetCombatTarget)) // DS14-Soyuz
             .Where(target => !IsIgnored(faction, target));
     }
 
@@ -213,7 +216,11 @@ public sealed partial class NpcFactionSystem : EntitySystem
             if (!factions.Overlaps(ent.Comp.Factions))
                 continue;
 
-            yield return ent.Owner;
+            // DS14-Soyuz-start
+            var target = GetCombatTarget(ent.Owner);
+            if (target != entity)
+                yield return target;
+            // DS14-Soyuz-end
         }
     }
 
@@ -222,11 +229,43 @@ public sealed partial class NpcFactionSystem : EntitySystem
     /// </remarks>
     public bool IsEntityFriendly(Entity<NpcFactionMemberComponent?> ent, Entity<NpcFactionMemberComponent?> other)
     {
+        // DS14-Soyuz-start
+        var owner = GetFactionOwner(ent.Owner);
+        var otherOwner = GetFactionOwner(other.Owner);
+        if (owner != ent.Owner)
+            ent = (owner, null);
+        if (otherOwner != other.Owner)
+            other = (otherOwner, null);
+        // DS14-Soyuz-end
+
         if (!Resolve(ent, ref ent.Comp, false) || !Resolve(other, ref other.Comp, false))
             return false;
 
         return ent.Comp.Factions.Overlaps(other.Comp.Factions) || ent.Comp.FriendlyFactions.Overlaps(other.Comp.Factions);
     }
+
+    // DS14-Soyuz-start
+    private EntityUid GetCombatTarget(EntityUid target)
+    {
+        if (TryComp<VehicleOperatorComponent>(target, out var vehicleOperator) &&
+            vehicleOperator.Vehicle is { } vehicle &&
+            TryComp<MechComponent>(vehicle, out var mech) &&
+            mech.PilotSlot.ContainedEntity == target)
+        {
+            return vehicle;
+        }
+
+        return target;
+    }
+
+    private EntityUid GetFactionOwner(EntityUid target)
+    {
+        if (TryComp<MechComponent>(target, out var mech) && mech.PilotSlot.ContainedEntity is { } pilot)
+            return pilot;
+
+        return target;
+    }
+    // DS14-Soyuz-end
 
     public bool IsFactionFriendly([ForbidLiteral] string target, [ForbidLiteral] string with)
     {

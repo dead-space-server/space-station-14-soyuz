@@ -1,0 +1,29 @@
+- type: entity
+  id: CartridgeCaselessRifleIncendiary
+  name: cartridge (.25 caseless incendiary)
+  parent: BaseCartridgeCaselessRifle
+  description: A small caliber utilizing caseless technology, omitting conventional brass casing in favor of hardened propellant. Standard kinetic ammunition is common and useful in most situations.
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleIncendiary
+
+- type: entity
+  id: CartridgeCaselessRifleUranium
+  name: cartridge (.25 caseless uranium)
+  parent: BaseCartridgeCaselessRifle
+  description: A small caliber utilizing caseless technology, omitting conventional brass casing in favor of hardened propellant. Standard kinetic ammunition is common and useful in most situations.
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleUranium
+
+- type: entity
+  parent: BaseCartridgeCaselessRifle
+  id: CartridgeCaselessRifleNavy
+  name: патрон (█.██x██ Navy)
+  description: Патрон засекреченного калибра, который не оставляет после себя гильзы. Дай бог мне здоровья.
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleNavy
+  - type: Tag
+    tags:
+      - CartridgeCaselessRifleNavy

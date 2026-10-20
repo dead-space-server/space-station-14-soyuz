@@ -1,0 +1,126 @@
+- type: loadout
+  id: OperatorGSHeadHatcap
+  equipment:
+    head: ClothingHeadHatCentcomcap
+
+- type: loadout
+  id: OperatorGSHeadHat
+  equipment:
+    head: ClothingHeadHatCentcom
+
+- type: loadout
+  id: OperatorGSHeadBeret
+  equipment:
+    head: ClothingHeadHatBeretCentcomNaval
+
+- type: loadout
+  id: OperatorGSGlovesNaval
+  equipment:
+    gloves: ClothingHandsGlovesCentcomNaval
+
+- type: loadout
+  id: OperatorGSGlovesCombat
+  equipment:
+    gloves: ClothingHandsGlovesCombat
+
+- type: loadout
+  id: OperatorGSShoesLaceup
+  equipment:
+    shoes: ClothingShoesBootsLaceup
+
+- type: loadout
+  id: OperatorGSShoesJack
+  equipment:
+    shoes: ClothingShoesBootsJack
+
+- type: loadout
+  id: OperatorGSJumpsuitSkirtPencil
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtPencilCentcomOfficial
+  groupBy: "jumpskirt"
+
+- type: loadout
+  id: OperatorGSJumpsuitSkirtOfficer
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtCentcomOfficer
+  groupBy: "jumpskirt"
+
+- type: loadout
+  id: OperatorGSJumpsuitDress
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtCentcomFormalDress
+  groupBy: "jumpskirt"
+
+- type: loadout
+  id: OperatorGSJumpsuit
+  equipment:
+   jumpsuit: ClothingUniformJumpsuitCentcomOfficer
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: OperatorGSJumpsuitAgent
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomAgent
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: OperatorGSJumpsuitOfficial
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: OperatorGSJumpsuitFormal
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomFormal
+  groupBy: "jumpsuit"
+
+- type: loadout
+  id: OperatorGSEarsAltCentcom
+  equipment:
+    ears: ClothingHeadsetAltCentCom
+
+- type: loadout
+  id: OperatorGSEarsCentcom
+  equipment:
+    ears: ClothingHeadsetCentCom
+
+
+- type: loadout
+  id: UnderwearTopBraOperatorGS
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopBraCentcomm
+
+- type: loadout
+  id: UnderwearBottomPantiesOperatorGS
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomPantiesCentcomm
+
+- type: loadout
+  id: UnderwearBottomBoxersOperatorGS
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomBoxersCentcomm
+
+- type: loadout
+  id: OperatorGSNeckScarf
+  equipment:
+    neck: ClothingNeckScarfStripedCentcom
+
+- type: loadout
+  id: OperatorGSNeckCloak
+  equipment:
+    neck: ClothingNeckCloakCentcom
+
+- type: loadout
+  id: OperatorGSNeckTieDet
+  equipment:
+    neck: ClothingNeckTieDet

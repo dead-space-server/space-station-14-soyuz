@@ -8,8 +8,10 @@ using Content.Shared.Toggleable;
 using Content.Shared.Verbs;
 using Content.Shared.Wieldable;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Item.ItemToggle;
 /// <summary>
@@ -24,6 +26,7 @@ public sealed class ItemToggleSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly IGameTiming _timing = default!; // DS14
 
     private EntityQuery<ItemToggleComponent> _query;
 
@@ -374,9 +377,14 @@ public sealed class ItemToggleSystem : EntitySystem
         var (uid, comp) = ent;
         if (!args.Activated)
         {
-            comp.PlayingStream = _audio.Stop(comp.PlayingStream);
+            comp.PlayingStream = StopActiveSound(comp.PlayingStream); // DS14
             return;
         }
+
+        // DS14-start
+        if (comp.PlayingStream != null && !_audio.IsPlaying(comp.PlayingStream))
+            comp.PlayingStream = null;
+        // DS14-end
 
         if (comp.ActiveSound != null && comp.PlayingStream == null)
         {
@@ -392,7 +400,19 @@ public sealed class ItemToggleSystem : EntitySystem
     // DS14-start
     private void OnActiveSoundShutdown(Entity<ItemToggleActiveSoundComponent> ent, ref ComponentShutdown args)
     {
-        ent.Comp.PlayingStream = _audio.Stop(ent.Comp.PlayingStream);
+        ent.Comp.PlayingStream = StopActiveSound(ent.Comp.PlayingStream, force: true);
+    }
+
+    private EntityUid? StopActiveSound(EntityUid? stream, bool force = false)
+    {
+        if (stream == null)
+            return null;
+
+        if (!force && !_timing.IsFirstTimePredicted)
+            return stream;
+
+        _audio.SetState(stream, AudioState.Stopped, force: true);
+        return _audio.Stop(stream);
     }
     // DS14-end
 }

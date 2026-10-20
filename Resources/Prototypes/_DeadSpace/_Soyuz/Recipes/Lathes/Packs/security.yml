@@ -96,3 +96,10 @@
   - MagazineShotgunNewEmpty
   - MagazineShotgunDrum
   - MagazineShotgunDrumEmpty
+
+- type: latheRecipePack
+  id: ImplantsPack
+  recipes:
+  - EyeSocketImplanter
+  - TrackingImplanter
+  - MindShieldImplanter

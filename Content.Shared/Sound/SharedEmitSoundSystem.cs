@@ -5,15 +5,15 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Maps;
 using Content.Shared.Mobs;
 using Content.Shared.Popups;
+using Content.Shared.DeadSpace.Sound.Systems;
 using Content.Shared.Sound.Components;
 using Content.Shared.Throwing;
 using Content.Shared.UserInterface;
 using Content.Shared.Whitelist;
 using JetBrains.Annotations;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Components;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.GameStates;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
@@ -34,6 +34,7 @@ public abstract class SharedEmitSoundSystem : EntitySystem
     [Dependency] protected readonly IRobustRandom Random = default!;
     [Dependency] private   readonly SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private   readonly SharedAudioSystem _audioSystem = default!;
+    [Dependency] private readonly AdjustableAudioSystem _adjustableAudio = default!; // DS14
     [Dependency] protected readonly SharedPopupSystem Popup = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
@@ -98,7 +99,7 @@ public abstract class SharedEmitSoundSystem : EntitySystem
             return;
 
         // hand throwing not predicted sadly
-        TryEmitSound(uid, component, args.User, false);
+        TryEmitSound(uid, component, args.User, false, itemSound: true); // DS14
     }
 
     private void OnEmitSoundOnUseInHand(EntityUid uid, EmitSoundOnUseComponent component, UseInHandEvent args)
@@ -112,7 +113,7 @@ public abstract class SharedEmitSoundSystem : EntitySystem
 
     private void OnEmitSoundOnThrown(EntityUid uid, BaseEmitSoundComponent component, ref ThrownEvent args)
     {
-        TryEmitSound(uid, component, args.User, false);
+        TryEmitSound(uid, component, args.User, false, itemSound: true); // DS14
     }
 
     private void OnEmitSoundOnActivateInWorld(EntityUid uid, EmitSoundOnActivateComponent component, ActivateInWorldEvent args)
@@ -126,12 +127,22 @@ public abstract class SharedEmitSoundSystem : EntitySystem
 
     private void OnEmitSoundOnPickup(EntityUid uid, EmitSoundOnPickupComponent component, GotEquippedHandEvent args)
     {
-        TryEmitSound(uid, component, args.User);
+        // DS14-start
+        if (HasComp<SuppressPickupDropSoundComponent>(uid))
+            return;
+
+        TryEmitSound(uid, component, args.User, itemSound: true);
+        // DS14-end
     }
 
     private void OnEmitSoundOnDrop(EntityUid uid, EmitSoundOnDropComponent component, DroppedEvent args)
     {
-        TryEmitSound(uid, component, args.User);
+        // DS14-start
+        if (HasComp<SuppressPickupDropSoundComponent>(uid))
+            return;
+
+        TryEmitSound(uid, component, args.User, itemSound: true);
+        // DS14-end
     }
 
     private void OnEmitSoundOnInteractUsing(Entity<EmitSoundOnInteractUsingComponent> ent, ref InteractUsingEvent args)
@@ -141,29 +152,48 @@ public abstract class SharedEmitSoundSystem : EntitySystem
             TryEmitSound(ent, ent.Comp, args.User);
         }
     }
-    protected void TryEmitSound(EntityUid uid, BaseEmitSoundComponent component, EntityUid? user=null, bool predict=true)
+
+    protected void TryEmitSound(EntityUid uid, BaseEmitSoundComponent component, EntityUid? user=null, bool predict=true, bool itemSound=false) // DS14
     {
         if (component.Sound == null)
             return;
 
+        (EntityUid Entity, AudioComponent Component)? audio = null; // DS14
+
         if (component.Positional)
         {
             var coords = Transform(uid).Coordinates;
+            // DS14-start
             if (predict)
-                _audioSystem.PlayPredicted(component.Sound, coords, user);
+                audio = _audioSystem.PlayPredicted(component.Sound, coords, user);
             else if (_netMan.IsServer)
                 // don't predict sounds that client couldn't have played already
-                _audioSystem.PlayPvs(component.Sound, coords);
+                audio = _audioSystem.PlayPvs(component.Sound, coords);
+            // DS14-end
         }
         else
         {
+            // DS14-start
             if (predict)
-                _audioSystem.PlayPredicted(component.Sound, uid, user);
+                audio = _audioSystem.PlayPredicted(component.Sound, uid, user);
             else if (_netMan.IsServer)
                 // don't predict sounds that client couldn't have played already
-                _audioSystem.PlayPvs(component.Sound, uid);
+                audio = _audioSystem.PlayPvs(component.Sound, uid);
+            // DS14-end
         }
+
+        // DS14-start
+        if (itemSound)
+            MarkItemSoundAudio(audio);
+        // DS14-end
     }
+
+    // DS14-start
+    private void MarkItemSoundAudio((EntityUid Entity, AudioComponent Component)? audio)
+    {
+        _adjustableAudio.Mark(audio);
+    }
+    // DS14-end
 
     private void OnEmitSoundOnCollide(EntityUid uid, EmitSoundOnCollideComponent component, ref StartCollideEvent args)
     {

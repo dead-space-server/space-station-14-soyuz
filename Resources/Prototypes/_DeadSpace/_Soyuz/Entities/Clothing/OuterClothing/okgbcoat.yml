@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: [ ClothingOuterStorageBase, ClothingOuterArmorBasicBlueShield ]
   id: ClothingOuterCoatOKGB
   name: бронешинель оперативника КГБ
   description: Шинель, усиленная специальными сплавами для дополнительной защиты. Выдается только самым элитным оперативникам КГБ.
@@ -8,17 +8,9 @@
       sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Coats/okgb.rsi
     - type: Clothing
       sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Coats/okgb.rsi
-    - type: Armor
-      modifiers:
-        coefficients:
-          Blunt: 0.55
-          Slash: 0.55
-          Piercing: 0.4
-          Heat: 0.75
-          Caustic: 0.75
 
 - type: entity
-  parent: ClothingOuterCoatOKGB
+  parent: [ ClothingOuterStorageBase, ClothingOuterArmorBasicBlueShield ]
   id: ClothingOuterBlackCoatOKGB
   name: тёмная бронешинель оперативника КГБ
   description: Шинель, усиленная специальными сплавами для дополнительной защиты. Выдается только самым элитным оперативникам КГБ.

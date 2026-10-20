@@ -262,6 +262,10 @@
   id: Gasses
   name: guide-entry-gasses
   text: "/ServerInfo/Guidebook/Engineering/Gasses.xml"
+  # DS14-Soyuz-start
+  children:
+  - SoyuzAdvancedGases
+  # DS14-Soyuz-end
 
 - type: guideEntry
   id: ShuttleCraft

@@ -299,6 +299,7 @@
   #   description: Некроморф
   # - type: GhostTakeoverAvailable
   - type: PassiveDamage
+    intervalHaltOnDamageTaken: 5s
     allowedStates:
     - Alive
     - Critical
@@ -380,3 +381,10 @@
     selectedLanguage: NecromorfLanguage
     knownLanguages:
     - NecromorfLanguage
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Unitolog
+  - type: ActiveRadio
+    channels:
+    - Unitolog
+  - type: IntrinsicRadioReceiver

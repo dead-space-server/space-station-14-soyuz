@@ -1,6 +1,7 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
 using System.Linq;
+using Content.Server.Guardian;
 using Content.Shared.DeadSpace.Virus.Components;
 using Content.Shared.DeadSpace.Virus.Symptoms;
 using Content.Shared.DeadSpace.Necromorphs.InfectionDead.Components;
@@ -25,6 +26,7 @@ using Content.Shared.Body.Prototypes;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Physics;
+using Content.Shared.Movement.Systems;
 
 namespace Content.Server.DeadSpace.Virus.Systems;
 
@@ -58,6 +60,10 @@ public sealed partial class VirusSystem : SharedVirusSystem
     ///     Поэтому требуется обновлять в списке.
     /// </summary>
     private readonly List<EntityUid> _virusUpdateQueue = new();
+    private readonly HashSet<Entity<MobStateComponent>> _nearbyInfectionTargets = new();
+    private readonly Dictionary<string, int> _infectedByStrain = new(StringComparer.Ordinal);
+    private bool _infectionLookupInProgress;
+
     public const SlotFlags ProtectiveSlots =
             SlotFlags.FEET |
             SlotFlags.HEAD |
@@ -78,8 +84,18 @@ public sealed partial class VirusSystem : SharedVirusSystem
         SubscribeLocalEvent<VirusComponent, MobStateChangedEvent>(OnMobStateChanged);
         SubscribeLocalEvent<VirusComponent, CauseVirusEvent>(OnCauseVirus);
         SubscribeLocalEvent<VirusComponent, CureVirusEvent>(OnCureVirus);
+        SubscribeLocalEvent<PartialParalysisComponent, RefreshMovementSpeedModifiersEvent>(OnRefreshSpeed);
 
         RashInitialize();
+    }
+
+    private void OnRefreshSpeed(Entity<PartialParalysisComponent> entity, ref RefreshMovementSpeedModifiersEvent ev)
+    {
+        if (TryComp<VirusComponent>(entity, out var virus) &&
+            HasSymptom<PartialParalysisSymptom>((entity, virus)))
+        {
+            ev.ModifySpeed(0.65f);
+        }
     }
 
     public override void Update(float frameTime)
@@ -159,7 +175,6 @@ public sealed partial class VirusSystem : SharedVirusSystem
         var compList = whitelist.Components.ToHashSet();
 
         compList.Add("MobState");
-        compList.Add("HumanoidAppearance");
         compList.Add("Bloodstream");
 
         _timedWindowSystem.Reset(component.VirusUpdateWindow);
@@ -170,6 +185,7 @@ public sealed partial class VirusSystem : SharedVirusSystem
         if (string.IsNullOrEmpty(component.Data.StrainId))
             component.Data.StrainId = GenerateStrainId();
 
+        AddInfectedStrain(component.Data.StrainId);
         UpdateBloodVirusData((uid, component), true);
     }
 
@@ -181,6 +197,7 @@ public sealed partial class VirusSystem : SharedVirusSystem
         }
 
         UpdateBloodVirusData((uid, component), false);
+        RemoveInfectedStrain(component.Data.StrainId);
     }
 
     /// <summary>
@@ -278,6 +295,8 @@ public sealed partial class VirusSystem : SharedVirusSystem
     /// </summary>
     public void RebuildSymptoms(Entity<VirusComponent> host, VirusData source)
     {
+        var oldStrainId = host.Comp.Data.StrainId;
+
         for (var i = host.Comp.ActiveSymptomInstances.Count - 1; i >= 0; i--)
         {
             var instance = host.Comp.ActiveSymptomInstances[i];
@@ -291,6 +310,7 @@ public sealed partial class VirusSystem : SharedVirusSystem
         }
 
         host.Comp.Data = (VirusData)source.CloneForInfection();
+        UpdateInfectedStrain(oldStrainId, host.Comp.Data.StrainId);
 
         foreach (var protoSymptom in host.Comp.Data.ActiveSymptom)
         {
@@ -348,24 +368,48 @@ public sealed partial class VirusSystem : SharedVirusSystem
         if (!Resolve(host, ref component, false))
             return;
 
-        // Берём только мобов
-        var entities = _lookup.GetEntitiesInRange<MobStateComponent>(_transform.GetMapCoordinates(host, Transform(host)), range).ToList();
+        var coordinates = _transform.GetMapCoordinates(host, Transform(host));
+        var wasLookupInProgress = _infectionLookupInProgress;
+        var targets = wasLookupInProgress
+            ? new HashSet<Entity<MobStateComponent>>()
+            : _nearbyInfectionTargets;
 
-        if (entities.Count <= 0)
-            return;
+        targets.Clear();
+        _lookup.GetEntitiesInRange(coordinates, range, targets);
 
-        foreach (var ent in entities)
+        if (!wasLookupInProgress)
+            _infectionLookupInProgress = true;
+
+        try
         {
-            var target = ent.Owner;
+            foreach (var ent in targets)
+            {
+                var target = ent.Owner;
 
-            if (target == host)
-                continue;
+                if (target == host)
+                    continue;
 
-            if (!_interaction.InRangeUnobstructed(host, target, range, CollisionGroup.Opaque))
-                continue;
+                if (!CanAttemptInfect(target, component.Data))
+                    continue;
 
-            ProbInfect((host, component), target);
+                if (!_interaction.InRangeUnobstructed(host, target, range, CollisionGroup.Opaque))
+                    continue;
+
+                ProbInfect((host, component), target);
+            }
         }
+        finally
+        {
+            targets.Clear();
+
+            if (!wasLookupInProgress)
+                _infectionLookupInProgress = false;
+        }
+    }
+
+    private bool CanAttemptInfect(EntityUid target, VirusData data)
+    {
+        return _tag.HasTag(target, IgnoreCanInfectTag) || CanInfect(target, data);
     }
 
     /// <summary>
@@ -421,6 +465,9 @@ public sealed partial class VirusSystem : SharedVirusSystem
 
     public void InfectEntity(VirusData data, EntityUid target)
     {
+        if (HasComp<GuardianComponent>(target))
+            return;
+
         if (TryComp<VirusComponent>(target, out var targetVirus)
             && targetVirus.Data.StrainId == data.StrainId)
         {
@@ -475,7 +522,8 @@ public sealed partial class VirusSystem : SharedVirusSystem
 
     public bool CanInfect(EntityUid target, VirusData data)
     {
-        if (HasComp<ZombieComponent>(target)
+        if (HasComp<GuardianComponent>(target)
+            || HasComp<ZombieComponent>(target)
             || HasComp<NecromorfComponent>(target)
             || HasComp<InfectionDeadComponent>(target)
             || HasComp<PendingZombieComponent>(target))
@@ -524,6 +572,63 @@ public sealed partial class VirusSystem : SharedVirusSystem
         return new string(id);
     }
 
+    public int GetInfectedCount(string strainId)
+    {
+        return string.IsNullOrEmpty(strainId)
+            ? 0
+            : _infectedByStrain.GetValueOrDefault(strainId);
+    }
+
+    private void AddInfectedStrain(string strainId)
+    {
+        if (string.IsNullOrEmpty(strainId))
+            return;
+
+        _infectedByStrain[strainId] = GetInfectedCount(strainId) + 1;
+    }
+
+    private void RemoveInfectedStrain(string strainId)
+    {
+        if (string.IsNullOrEmpty(strainId) || !_infectedByStrain.TryGetValue(strainId, out var count))
+            return;
+
+        if (count <= 1)
+        {
+            _infectedByStrain.Remove(strainId);
+            return;
+        }
+
+        _infectedByStrain[strainId] = count - 1;
+    }
+
+    private void UpdateInfectedStrain(string oldStrainId, string newStrainId)
+    {
+        if (oldStrainId == newStrainId)
+            return;
+
+        RemoveInfectedStrain(oldStrainId);
+        AddInfectedStrain(newStrainId);
+    }
+
+    public static bool CanAddSymptom(
+        IReadOnlyCollection<ProtoId<VirusSymptomPrototype>> activeSymptoms,
+        ProtoId<VirusSymptomPrototype> symptomId,
+        VirusSymptomPrototype symptom,
+        bool isTaipan)
+    {
+        if (activeSymptoms.Contains(symptomId))
+            return false;
+
+        if (symptom.TaipanOnly && !isTaipan)
+            return false;
+
+        if (symptom.RequiredSymptom is { } required &&
+            !activeSymptoms.Contains(required))
+            return false;
+
+        return !symptom.BlockedBySymptoms.Any(blocked => activeSymptoms.Contains(blocked));
+    }
+
     public VirusData GenerateVirusData(
     string strainId,
     Dictionary<DangerIndicatorSymptom, int> symptomsByDanger,
@@ -540,6 +645,7 @@ public sealed partial class VirusSystem : SharedVirusSystem
                 .EnumeratePrototypes<VirusSymptomPrototype>()
                 .Where(p =>
                     p.DangerIndicator == danger &&
+                    !p.TaipanOnly &&
                     !data.ActiveSymptom.Contains(p.ID))
                 .ToList();
 
@@ -737,6 +843,21 @@ public sealed partial class VirusSystem : SharedVirusSystem
 
             VirusSymptom.ParalyzedLegs =>
                 new ParalyzedLegsSymptom(newWindow),
+
+            VirusSymptom.PartialParalysis =>
+                new PartialParalysisSymptom(newWindow),
+
+            VirusSymptom.RespiratoryFailure =>
+                new RespiratoryFailureSymptom(newWindow),
+
+            VirusSymptom.VascularRupture =>
+                new VascularRuptureSymptom(newWindow),
+
+            VirusSymptom.EnhancedNecrosis =>
+                new EnhancedNecrosisSymptom(newWindow),
+
+            VirusSymptom.Necromutation =>
+                new NecromutationSymptom(newWindow),
 
             _ => throw new ArgumentOutOfRangeException(
                 nameof(proto.SymptomType),

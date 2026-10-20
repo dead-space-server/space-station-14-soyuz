@@ -19,6 +19,7 @@ namespace Content.IntegrationTests.Tests
     public sealed class EntityTest
     {
         private static readonly ProtoId<EntityCategoryPrototype> SpawnerCategory = "Spawner";
+        private const int DirtyPrototypeBatchSize = 256; // DS14
 
         [Test]
         public async Task SpawnAndDeleteAllEntitiesOnDifferentMaps()
@@ -168,25 +169,53 @@ namespace Content.IntegrationTests.Tests
                 .Select(p => p.ID)
                 .ToList();
 
-            await server.WaitPost(() =>
+            // DS14-start
+            var clientEntityManager = client.ResolveDependency<IEntityManager>();
+            var maximumReceivedEntities = 0;
+            var completed = 0;
+
+            foreach (var batch in protoIds.Chunk(DirtyPrototypeBatchSize))
             {
-                foreach (var protoId in protoIds)
+                var mapIds = new List<MapId>(batch.Length);
+                var clientEntitiesBefore = clientEntityManager.EntityCount;
+
+                await server.WaitPost(() =>
                 {
-                    mapSys.CreateMap(out var mapId);
-                    var grid = mapManager.CreateGridEntity(mapId);
-                    var ent = sEntMan.SpawnEntity(protoId, new EntityCoordinates(grid.Owner, 0.5f, 0.5f));
-                    foreach (var (_, component) in sEntMan.GetNetComponents(ent))
+                    foreach (var protoId in batch)
                     {
-                        sEntMan.Dirty(ent, component);
+                        mapSys.CreateMap(out var mapId);
+                        mapIds.Add(mapId);
+                        var grid = mapManager.CreateGridEntity(mapId);
+                        var ent = sEntMan.SpawnEntity(protoId, new EntityCoordinates(grid.Owner, 0.5f, 0.5f));
+                        foreach (var (_, component) in sEntMan.GetNetComponents(ent))
+                        {
+                            sEntMan.Dirty(ent, component);
+                        }
                     }
-                }
-            });
+                });
 
-            await pair.RunTicksSync(15);
+                await pair.RunTicksSync(15);
+                maximumReceivedEntities = Math.Max(
+                    maximumReceivedEntities,
+                    clientEntityManager.EntityCount - clientEntitiesBefore);
 
-            // Make sure the client actually received the entities
-            // 500 is completely arbitrary. Note that the client & sever entity counts aren't expected to match.
-            Assert.That(client.ResolveDependency<IEntityManager>().EntityCount, Is.GreaterThan(500));
+                await server.WaitPost(() =>
+                {
+                    foreach (var mapId in mapIds)
+                    {
+                        if (mapSys.MapExists(mapId))
+                            mapSys.DeleteMap(mapId);
+                    }
+                });
+                await pair.RunTicksSync(5);
+
+                completed += batch.Length;
+                TestContext.Progress.WriteLine($"SpawnAndDirtyAllEntities: {completed}/{protoIds.Count} prototypes");
+            }
+
+            // Make sure a complete batch actually reached the client. The exact server and client counts can differ.
+            Assert.That(maximumReceivedEntities, Is.GreaterThan(500));
+            // DS14-end
 
             await server.WaitPost(() =>
             {

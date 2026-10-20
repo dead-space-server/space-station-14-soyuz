@@ -15,6 +15,10 @@ namespace Content.Server.Chemistry.TileReactions;
 [DataDefinition]
 public sealed partial class CleanDecalsReaction : ITileReaction
 {
+    // DS14-Soyuz-start: optional exact-tile cleaning for open Iney.
+    [DataField]
+    public bool OnlyCurrentTile;
+    // DS14-Soyuz-end
     /// <summary>
     /// For every cleaned decal we lose this much reagent.
     /// </summary>
@@ -44,6 +48,12 @@ public sealed partial class CleanDecalsReaction : ITileReaction
 
         foreach (var decal in decals)
         {
+            // DS14-Soyuz-start: the normal generous bounds also intersect neighbouring decals.
+            if (OnlyCurrentTile && new Vector2i(
+                    (int) MathF.Floor(decal.Decal.Coordinates.X / grid.TileSize),
+                    (int) MathF.Floor(decal.Decal.Coordinates.Y / grid.TileSize)) != tile.GridIndices)
+                continue;
+            // DS14-Soyuz-end
             if (!decal.Decal.Cleanable)
                 continue;
 

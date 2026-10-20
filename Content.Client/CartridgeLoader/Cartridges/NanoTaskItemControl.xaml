@@ -1,32 +1,26 @@
-<Control xmlns="https://spacestation14.io" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+<Control xmlns="https://spacestation14.io">
     <BoxContainer Name="MainContainer"
                   Orientation="Horizontal"
                   SetWidth="250">
         <Button Name="MainButton"
                 HorizontalExpand="True"
                 VerticalExpand="True"
-                StyleClasses="ButtonSquare"
-                Margin="-1 0 0 0">
-            <BoxContainer Orientation="Horizontal" HorizontalExpand="True">
+                Margin="0 0 4 0">
+            <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="6 3 6 3">
                 <BoxContainer Orientation="Vertical"
                               VerticalExpand="True"
-                              HorizontalExpand="True"
-                              Margin="-5 0 0 0">
-                    <Label Name="TaskLabel"
-                           StyleClasses="LabelSubText" />
+                              HorizontalExpand="True">
+                    <Label Name="TaskLabel"/>
+                    <!-- DS14-start -->
                     <Label Name="TaskForLabel"
-                           StyleClasses="LabelSubText"
-                           Margin="0 -5 0 0" />
+                           StyleClasses="DeadSpaceSubtitle"
+                           Margin="0 1 0 0" />
+                    <!-- DS14-end -->
                 </BoxContainer>
             </BoxContainer>
         </Button>
         <Button Name="DoneButton"
                 VerticalExpand="True"
-                Text="{Loc 'nano-task-ui-done'}">
-            <Button.StyleClasses>
-                <system:String>ButtonSmall</system:String>
-                <system:String>OpenLeft</system:String>
-            </Button.StyleClasses>
-        </Button>
+                Text="{Loc 'nano-task-ui-done'}" />
     </BoxContainer>
 </Control>

@@ -1,0 +1,72 @@
+- type: entity
+  parent: DeathRattleImplant
+  id: DeathRattleImplantNKO
+  name: предсмертный хрип НКО
+  description: Имплант НКО, сообщающий о смерти владельца.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TriggerOnMobstateChange
+    mobState:
+    - Alive
+    - Critical
+    - Dead
+  - type: RattleOnTrigger
+    radioChannels: 
+    - NKO
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: RadioImplantNKO
+  name: имплант "радио"
+  description: Этот имплант даёт доступ к радиочастоте UNKNOWN без гарнитуры.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: RadioImplant
+    radioChannels:
+    - NKO
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: NoSwearingImplant
+  name: имплант "культурности"
+  description: Этот имплант сделает вас более культурным.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: ReplacementAccent
+      accent: NoSwearingAccent
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: EyeSocketImplant
+  name: имплант "глазница"
+  description: Этот имплант улучшает ваши глаза, даруя защиту от вспышек и возможность видеть в темноте.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: NightVision
+      animation: false
+      duration: 30
+      color: "#6E000011"
+      transitionSpeed: 100
+      actionToggleNightVision: ActionToggleNightVisionFelenid
+    - type: FlashImmunity
+    - type: EyeProtection
+      protectionTime: 5
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: HolyImplant
+  name: просветление
+  description: Позволяет просвятить существо в веру священника, что в свою очередь позволит просвященному существу использовать библию.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+  - type: ComponentInjectorImplant
+    targetComponents:
+    - type: BibleUser

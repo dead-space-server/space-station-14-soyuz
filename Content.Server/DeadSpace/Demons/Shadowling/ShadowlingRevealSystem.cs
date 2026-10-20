@@ -12,6 +12,7 @@ using Content.Shared.Emoting;
 using Content.Shared.Stunnable;
 using Content.Server.Fluids.EntitySystems;
 using Content.Shared.Chemistry.Components;
+using Robust.Shared.Map;
 
 namespace Content.Server.DeadSpace.Demons.Shadowling;
 
@@ -32,6 +33,7 @@ public sealed class ShadowlingRevealSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<ShadowlingRevealComponent, ComponentInit>(OnComponentInit);
+        SubscribeLocalEvent<ShadowlingRevealComponent, ComponentShutdown>(OnComponentShutdown);
         SubscribeLocalEvent<ShadowlingRevealComponent, ShadowlingRevealEvent>(OnRevealAction);
         SubscribeLocalEvent<ShadowlingRevealComponent, ShadowlingRevealDoAfterEvent>(OnDoAfter);
     }
@@ -39,6 +41,11 @@ public sealed class ShadowlingRevealSystem : EntitySystem
     private void OnComponentInit(EntityUid uid, ShadowlingRevealComponent component, ComponentInit args)
     {
         _actions.AddAction(uid, ref component.ActionRevealEntity, component.ActionReveal);
+    }
+
+    private void OnComponentShutdown(EntityUid uid, ShadowlingRevealComponent component, ComponentShutdown args)
+    {
+        _actions.RemoveAction(uid, component.ActionRevealEntity);
     }
 
     private void OnRevealAction(EntityUid uid, ShadowlingRevealComponent component, ShadowlingRevealEvent args)
@@ -98,7 +105,7 @@ public sealed class ShadowlingRevealSystem : EntitySystem
         if (xform.GridUid == null)
             return;
 
-        var smoke = Spawn("Smoke", _transform.GetMapCoordinates(uid, xform));
+        var smoke = Spawn("Smoke", new EntityCoordinates(xform.GridUid.Value, xform.Coordinates.Position));
         if (TryComp<SmokeComponent>(smoke, out var smokeComp))
             _smoke.StartSmoke(smoke, new Solution(), duration, spread, smokeComp);
     }

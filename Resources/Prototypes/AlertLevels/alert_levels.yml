@@ -39,7 +39,8 @@
     gamma:
       announcement: alert-level-gamma-announcement
       selectable: false
-      sound: /Audio/_DeadSpace/AlertLevels/gamma.ogg # DS14 alert sound
+      sound:
+        collection: AlertLevelGamma # DS14 alert sound
       disableSelection: true
       color: PaleVioletRed
       emergencyLightColor: PaleVioletRed
@@ -55,7 +56,7 @@
     enigma:
       announcement: alert-level-enigma-announcement
       selectable: false
-      sound: /Audio/_DeadSpace/_Soyuz/AlertLevels/enigma_new_style_alert.ogg # DS14-soyuz
+      sound: /Audio/_DeadSpace/AlertLevels/enigma.ogg # DS14 alert sound
       disableSelection: true
       color: '#EF7200'
       emergencyLightColor: '#EF7200'

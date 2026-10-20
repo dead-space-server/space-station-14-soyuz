@@ -3,8 +3,11 @@
 [SetUpFixture]
 public sealed class PoolManagerTestEventHandler
 {
-    // This value is completely arbitrary.
-    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(45); // DS14-value
+    // DS14-start
+    // Keep this below the CI job timeout so the pool can emit a useful death report
+    // instead of being terminated by the runner without diagnostics.
+    private static TimeSpan MaximumTotalTestingTimeLimit => TimeSpan.FromMinutes(20);
+    // DS14-end
     private static TimeSpan HardStopTimeLimit => MaximumTotalTestingTimeLimit.Add(TimeSpan.FromMinutes(1));
 
     [OneTimeSetUp]

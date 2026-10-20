@@ -209,14 +209,14 @@
 - type: reaction
   id: Ambuzol
   reactants:
-    Dylovene:
+    Diphenhydramine: #DS14
       amount: 1
     Ammonia:
       amount: 1
     ZombieBlood:
       amount: 2
   products:
-    Ambuzol: 4
+    Ambuzol: 1 #DS14
 
 - type: reaction
   id: AmbuzolPlus
@@ -569,6 +569,19 @@
       amount: 1
   products:
     Opporozidone: 3
+
+- type: reaction
+  id: OpporozidoneLivingTissue
+  minTemp: 400
+  reactants:
+    LivingTissue:
+      amount: 2
+    Plasma:
+      amount: 2
+    Doxarubixadone:
+      amount: 2
+  products:
+    Opporozidone: 6
 
 - type: reaction
   id: Arcryox

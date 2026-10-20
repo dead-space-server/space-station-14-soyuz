@@ -130,7 +130,7 @@
   components:
   - type: Sprite
     state: stomach-c-u2
-  # DS14-start: IPC can ingest selected food/drinks (roboburger, machine oil) without full human metabolism
+  # DS14-Soyuz-start: IPC can ingest selected food/drinks (roboburger, machine oil) without full human metabolism
   - type: SolutionContainerManager
     solutions:
       stomach:
@@ -141,7 +141,7 @@
         - ReagentId: WeldingFuel
           Quantity: 5
   - type: Stomach
-  # DS14-end
+  # DS14-Soyuz-end
   # The stomach metabolizes stuff like foods and drinks.
   # TODO: Have it work off of the ent's solution container, and move this
   # to intestines instead.

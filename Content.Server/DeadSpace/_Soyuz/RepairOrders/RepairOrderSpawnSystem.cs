@@ -1,0 +1,329 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+using System.Numerics;
+using System.Linq;
+using Content.Server.DeviceLinking.Systems;
+using Content.Server.Shuttles.Components;
+using Content.Server.Shuttles.Systems;
+using Content.Server.Station.Systems;
+using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.DeviceLinking;
+using Robust.Shared.EntitySerialization.Systems;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
+
+namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
+
+public enum RepairOrderSpawnFailure : byte
+{
+    None,
+    NoStation,
+    NoStationGrid,
+    LoadFailed,
+    InvalidGrid,
+    NoSpace,
+    TransferFailed,
+    DamageFailed,
+    PrepareFailed,
+}
+
+/// <summary>
+/// Loads and places damaged repair grids without exposing a partially completed activation.
+/// </summary>
+public sealed class RepairOrderSpawnSystem : EntitySystem
+{
+    private const float MinimumSpawnDistance = 32f;
+    private const float LateralOffset = 8f;
+    private const int PlacementAttempts = 20;
+    private static readonly ProtoId<SourcePortPrototype> DockStatusPort = "DockStatus";
+    private static readonly ProtoId<SinkPortPrototype> RepairOrderDockPort = "RepairOrderDock";
+
+    [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
+    [Dependency] private readonly MapLoaderSystem _loader = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
+    [Dependency] private readonly DockingSystem _docking = default!;
+    [Dependency] private readonly RepairOrderGridPlacementSystem _placement = default!;
+    [Dependency] private readonly ShuttleSystem _shuttle = default!;
+    [Dependency] private readonly StationSystem _station = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
+
+    [Dependency] private readonly RepairOrderDamageSystem _damage = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
+    [Dependency] private readonly Robust.Shared.Prototypes.IPrototypeManager _prototypes = default!;
+
+    private ISawmill _sawmill = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        _sawmill = _logManager.GetSawmill("repair_orders");
+    }
+
+    public bool TrySpawnDamagedGrid(
+        EntityUid console,
+        RepairOrderPrototype order,
+        AvailableRepairOrder offer,
+        out EntityUid spawnedGrid,
+        out ActiveRepairOrder preparedActive,
+        out RepairOrderSpawnFailure failure)
+    {
+        spawnedGrid = EntityUid.Invalid;
+        preparedActive = default!;
+        failure = RepairOrderSpawnFailure.None;
+
+        var consoleXform = Transform(console);
+        var stationUid = _station.GetOwningStation(console, consoleXform);
+        if (stationUid == null)
+        {
+            failure = RepairOrderSpawnFailure.NoStation;
+            return false;
+        }
+
+        var stationGridUid = consoleXform.GridUid;
+        if (stationGridUid == null ||
+            !TryComp<MapGridComponent>(stationGridUid.Value, out var stationGrid) ||
+            _station.GetOwningStation(stationGridUid.Value) != stationUid)
+        {
+            failure = RepairOrderSpawnFailure.NoStationGrid;
+            return false;
+        }
+
+        var stationGridXform = Transform(stationGridUid.Value);
+        if (stationGridXform.MapID == MapId.Nullspace || stationGridXform.MapUid == null)
+        {
+            failure = RepairOrderSpawnFailure.NoStationGrid;
+            return false;
+        }
+
+        MapId? temporaryMapId = null;
+        EntityUid loadedGridUid = EntityUid.Invalid;
+        var stageFailure = RepairOrderSpawnFailure.LoadFailed;
+
+        try
+        {
+            var temporaryMap = _map.CreateMap(out var mapId);
+            temporaryMapId = mapId;
+            _map.SetPaused(temporaryMap, true);
+
+            bool loaded;
+            Entity<MapGridComponent>? loadedGrid;
+            try
+            {
+                loaded = _loader.TryLoadGrid(mapId, order.TargetGridPath, out loadedGrid);
+            }
+            catch (Exception exception)
+            {
+                failure = RepairOrderSpawnFailure.LoadFailed;
+                _sawmill.Error($"Failed to load intact repair grid: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}, Path={order.TargetGridPath}: {exception}");
+                return false;
+            }
+
+            if (!loaded || loadedGrid is not { } damagedGrid)
+            {
+                failure = RepairOrderSpawnFailure.LoadFailed;
+                return false;
+            }
+
+            loadedGridUid = damagedGrid.Owner;
+            _metaData.SetEntityName(loadedGridUid, Loc.GetString(order.ObjectName));
+            stageFailure = RepairOrderSpawnFailure.DamageFailed;
+            var profile = _prototypes.Index(order.DamageProfile);
+            var snapshot = _damage.Snapshot(damagedGrid, order);
+            if (!_damage.TryGeneratePlan(snapshot, profile, offer.DamageSeed, out var plan, out var rejection))
+            {
+                failure = RepairOrderSpawnFailure.DamageFailed;
+                _sawmill.Warning($"Repair damage rejected: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}: {rejection}");
+                return false;
+            }
+            _damage.ApplyPlan(damagedGrid, snapshot, profile, plan);
+            stageFailure = RepairOrderSpawnFailure.PrepareFailed;
+            if (!_validation.TryPrepareSession(stationUid.Value, offer.RuntimeId, offer.Prototype,
+                    damagedGrid.Owner, out preparedActive))
+            {
+                failure = RepairOrderSpawnFailure.PrepareFailed;
+                return false;
+            }
+            preparedActive.DamageGeneration = plan.ToInfo();
+            if (preparedActive.MaxPoints <= 0 || Comp<RepairBlueprintComponent>(damagedGrid.Owner).FullyMatchesTarget)
+            {
+                failure = RepairOrderSpawnFailure.DamageFailed;
+                return false;
+            }
+            _sawmill.Info($"Generated procedural repair damage: Order={order.ID}, RuntimeId={offer.RuntimeId}, " +
+                $"Seed={plan.Seed}, Attempt={plan.Attempt}, Events=[{string.Join(", ", plan.Events.Select(e => e.Event.Id))}], " +
+                $"RemovedTiles={plan.RemovedTiles.Length}, RemovedEntities={plan.RemovedEntities.Length}, DamageValue={plan.DamageValue}, DamageFraction={plan.DamageFraction}");
+            stageFailure = RepairOrderSpawnFailure.TransferFailed;
+            var damagedBounds = damagedGrid.Comp.LocalAABB;
+            if (damagedBounds.Size.X <= 0f || damagedBounds.Size.Y <= 0f)
+            {
+                failure = RepairOrderSpawnFailure.InvalidGrid;
+                return false;
+            }
+
+            if (TryDockAtLinkedAirlock(console, stationUid.Value, loadedGridUid))
+            {
+                _map.DeleteMap(mapId);
+                temporaryMapId = null;
+                spawnedGrid = loadedGridUid;
+                return true;
+            }
+
+            var (stationPosition, stationRotation) = _transform.GetWorldPositionRotation(stationGridXform);
+            var stationBounds = new Box2Rotated(
+                    stationGrid.LocalAABB.Translated(stationPosition),
+                    stationRotation,
+                    stationPosition)
+                .CalcBoundingBox();
+
+            var preferredAngle = _transform.GetWorldRotation(consoleXform) - MathF.PI / 2f;
+            var spawnDistance = MathF.Max(MinimumSpawnDistance, damagedBounds.MaxDimension * 2f);
+            var (consolePosition, _) = _transform.GetWorldPositionRotation(consoleXform);
+
+            MapCoordinates placementCoordinates = MapCoordinates.Nullspace;
+            Angle placementAngle = Angle.Zero;
+            var foundPlacement = false;
+            var nearestDistanceSquared = float.PositiveInfinity;
+
+            // A free position on the preferred side can be much farther from the console than
+            // a free position on another side of a large station grid.
+            for (var directionIndex = 0; directionIndex < 4; directionIndex++)
+            {
+                var directionAngle = preferredAngle + directionIndex * MathF.PI / 2f;
+                var direction = directionAngle.ToVec();
+                var origin = ExitStationBounds(stationBounds, consolePosition, direction);
+
+                if (!_placement.TryFindPlacement(
+                        stationGridXform.MapID,
+                        origin,
+                        direction,
+                        damagedBounds,
+                        spawnDistance,
+                        LateralOffset,
+                        PlacementAttempts,
+                        out var candidateCoordinates,
+                        out var candidateAngle))
+                {
+                    continue;
+                }
+
+                var distanceSquared = Vector2.DistanceSquared(consolePosition, candidateCoordinates.Position);
+                if (distanceSquared >= nearestDistanceSquared)
+                    continue;
+
+                nearestDistanceSquared = distanceSquared;
+                placementCoordinates = candidateCoordinates;
+                placementAngle = candidateAngle;
+                foundPlacement = true;
+            }
+
+            if (!foundPlacement)
+            {
+                failure = RepairOrderSpawnFailure.NoSpace;
+                return false;
+            }
+
+            var loadedXform = Transform(loadedGridUid);
+            _transform.SetParent(loadedGridUid, loadedXform, stationGridXform.MapUid.Value);
+            _transform.SetWorldPositionRotation(
+                loadedGridUid,
+                placementCoordinates.Position,
+                placementAngle,
+                loadedXform);
+
+            _map.DeleteMap(mapId);
+            temporaryMapId = null;
+
+            spawnedGrid = loadedGridUid;
+            return true;
+        }
+        catch (Exception exception)
+        {
+            failure = stageFailure;
+            _sawmill.Error($"Failed to spawn repair grid: Order={order.ID}, RuntimeId={offer.RuntimeId}, Seed={offer.DamageSeed}, Stage={failure}: {exception}");
+            return false;
+        }
+        finally
+        {
+            try
+            {
+                if (spawnedGrid == EntityUid.Invalid && loadedGridUid.IsValid() && Exists(loadedGridUid))
+                    _validation.DiscardPreparedSession(loadedGridUid);
+            }
+            finally
+            {
+                try
+                {
+                    if (temporaryMapId is { } mapId)
+                        _map.DeleteMap(mapId);
+                }
+                finally
+                {
+                    if (spawnedGrid == EntityUid.Invalid && loadedGridUid.IsValid() && Exists(loadedGridUid))
+                    {
+                        foreach (var dock in _docking.GetDocks(loadedGridUid))
+                            _docking.Undock(dock);
+
+                        Del(loadedGridUid);
+                    }
+                }
+            }
+        }
+    }
+
+    private bool TryDockAtLinkedAirlock(EntityUid console, EntityUid station, EntityUid repairGrid)
+    {
+        if (!TryComp<DeviceLinkSinkComponent>(console, out var sink))
+            return false;
+
+        foreach (var linkedUid in sink.LinkedSources)
+        {
+            if (!TryComp<DockingComponent>(linkedUid, out var stationDock) ||
+                !TryComp(linkedUid, out TransformComponent? dockXform) ||
+                !dockXform.Anchored ||
+                dockXform.GridUid is not { } dockGrid ||
+                _station.GetOwningStation(dockGrid) != station ||
+                !_deviceLink.GetLinks(linkedUid, console).Contains((DockStatusPort, RepairOrderDockPort)))
+            {
+                continue;
+            }
+
+            foreach (var shuttleDock in _docking.GetDocks(repairGrid))
+            {
+                var config = _docking.GetDockingConfig(
+                    repairGrid,
+                    dockGrid,
+                    shuttleDock.Owner,
+                    shuttleDock.Comp,
+                    linkedUid,
+                    stationDock);
+
+                if (config == null)
+                    continue;
+
+                _shuttle.FTLDock((repairGrid, Transform(repairGrid)), config);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static Vector2 ExitStationBounds(Box2 bounds, Vector2 consolePosition, Vector2 direction)
+    {
+        const float directionTolerance = 0.0001f;
+        var start = bounds.ClosestPoint(consolePosition);
+        var distance = float.PositiveInfinity;
+        if (direction.X > directionTolerance)
+            distance = MathF.Min(distance, (bounds.Right - start.X) / direction.X);
+        else if (direction.X < -directionTolerance)
+            distance = MathF.Min(distance, (bounds.Left - start.X) / direction.X);
+        if (direction.Y > directionTolerance)
+            distance = MathF.Min(distance, (bounds.Top - start.Y) / direction.Y);
+        else if (direction.Y < -directionTolerance)
+            distance = MathF.Min(distance, (bounds.Bottom - start.Y) / direction.Y);
+        return start + direction * MathF.Max(0f, distance);
+    }
+}

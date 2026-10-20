@@ -1,5 +1,6 @@
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
+using Content.Shared.Cloning.Events;
 using Content.Shared.Emp;
 using Content.Shared.IdentityManagement;
 using Content.Shared.IdentityManagement.Components;
@@ -18,17 +19,26 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
         base.Initialize();
         SubscribeLocalEvent<ChameleonClothingComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<ChameleonClothingComponent, ChameleonPrototypeSelectedMessage>(OnSelected);
+        SubscribeLocalEvent<ChameleonClothingComponent, CloningItemEvent>(OnCloningItem); // DS14
     }
 
     private void OnMapInit(EntityUid uid, ChameleonClothingComponent component, MapInitEvent args)
     {
-        SetSelectedPrototype(uid, component.Default, true, component);
+        SetSelectedPrototype(uid, component.Default, true, component: component);
     }
 
     private void OnSelected(EntityUid uid, ChameleonClothingComponent component, ChameleonPrototypeSelectedMessage args)
     {
         SetSelectedPrototype(uid, args.SelectedId, component: component);
     }
+
+    // DS14-start
+    private void OnCloningItem(EntityUid uid, ChameleonClothingComponent component, ref CloningItemEvent args)
+    {
+        if (TryComp<ChameleonClothingComponent>(args.CloneUid, out var clone))
+            SetSelectedPrototype(args.CloneUid, component.Default, forceUpdate: true, component: clone);
+    }
+    // DS14-end
 
     private void UpdateUi(EntityUid uid, ChameleonClothingComponent? component = null)
     {
@@ -42,7 +52,7 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
     /// <summary>
     ///     Change chameleon items name, description and sprite to mimic other entity prototype.
     /// </summary>
-    public override void SetSelectedPrototype(EntityUid uid, string? protoId, bool forceUpdate = false,
+    public override void SetSelectedPrototype(EntityUid uid, string? protoId, bool forceUpdate = false, bool validate = true,
         ChameleonClothingComponent? component = null)
     {
         if (!Resolve(uid, ref component, false))
@@ -56,7 +66,7 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
         // make sure that it is valid change
         if (string.IsNullOrEmpty(protoId) || !_proto.TryIndex(protoId, out EntityPrototype? proto))
             return;
-        if (!IsValidTarget(proto, component.Slot, component.RequireTag))
+        if (validate && !IsValidTarget(proto, component.Slot, component.RequireTag))
             return;
         component.Default = protoId;
 

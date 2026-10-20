@@ -1,0 +1,35 @@
+- type: construction
+  id: SoyuzMirror
+  graph: SoyuzMirror
+  startNode: start
+  targetNode: mirror
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzMirrorModern
+  graph: SoyuzMirrorModern
+  startNode: start
+  targetNode: mirror
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: construction
+  id: SoyuzFireplace
+  graph: SoyuzFireplace
+  startNode: start
+  targetNode: fireplace
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked

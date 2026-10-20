@@ -15,10 +15,12 @@
     ClothingUniformJumpskirtPencilDetectiveGrey: 2 # DS14
     ClothingOuterVestDetective: 2
     ClothingNeckTieDet: 2
+    ClothingNeckTieRed: 2
+    ClothingNeckHorrific: 2
     ClothingHeadHatFedoraGrey: 2
     ClothingHandsGlovesColorBlack: 2
     ClothingHandsGlovesLatex: 2
-    ClothingHeadsetSecurity: 2
+    ClothingHeadsetAltSecurityOfficer: 2 # ds14
     ClothingUniformJumpsuitDetectiveGreyAlt: 2 # DS14
     ClothingUniformJumpsuitDetectiveAlt: 2 # DS14
   contrabandInventory:

@@ -38,6 +38,7 @@ public abstract class BasePowerNet<TNetType> : BaseNetConnectorNodeGroup<TNetTyp
         // Linked network can be default if it was re-connected twice in one tick.
         DebugTools.Assert(consumer.NetworkLoad.LinkedNetwork == default || consumer.NetworkLoad.LinkedNetwork == NetworkNode.Id);
         consumer.NetworkLoad.LinkedNetwork = default;
+        PowerNetSystem.QueuePossiblyDisconnectedLoad(consumer.NetworkLoad); // DS14
         Consumers.Remove(consumer);
         QueueNetworkReconnect();
     }

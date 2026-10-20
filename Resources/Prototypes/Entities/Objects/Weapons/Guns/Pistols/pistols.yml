@@ -68,6 +68,17 @@
   - type: Appearance
   - type: StaticPrice
     price: 500
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  #DS14-End
 
 - type: entity
   name: viper
@@ -75,6 +86,7 @@
   id: WeaponPistolViper
   description: A common handgun illegally modified by the Syndicate. The Viper sports a selector switch between semi-auto and ‘rock and roll’. The standard sidearm for any soldier who fights under the three serpents. Feeds from .35 pistol magazines.
   components:
+  - type: Akimbo # DS14
   - type: Sprite
     sprite: Objects/Weapons/Guns/Pistols/viper.rsi
   - type: ItemSlots
@@ -138,6 +150,17 @@
     autoRefillRate: 2s
     affectedByEmp: true
   - type: AmmoCounter
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  #DS14-End
 
 - type: entity
   name: cobra
@@ -209,6 +232,7 @@
     sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
   - type: Item
     storedOffset: 0,-2
+  - type: Akimbo # DS14
   - type: Gun
     fireRate: 5 # DS14
     availableModes:

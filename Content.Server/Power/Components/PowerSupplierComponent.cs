@@ -10,7 +10,18 @@ namespace Content.Server.Power.Components
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("supplyRate")]
         [GuidebookData]
-        public float MaxSupply { get => NetworkSupply.MaxSupply; set => NetworkSupply.MaxSupply = value; }
+        public float MaxSupply { get => NetworkSupply.MaxSupply / SoyuzOutputMultiplier; set => NetworkSupply.MaxSupply = value * SoyuzOutputMultiplier; } // DS14-Soyuz
+
+        // DS14-Soyuz-start: keep generator setpoints separate from the solver's atmospheric bonus.
+        public float SoyuzOutputMultiplier { get; private set; } = 1f;
+
+        public void SetSoyuzOutputMultiplier(float multiplier)
+        {
+            var setpoint = MaxSupply;
+            SoyuzOutputMultiplier = multiplier;
+            MaxSupply = setpoint;
+        }
+        // DS14-Soyuz-end
 
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("supplyRampTolerance")]

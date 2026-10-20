@@ -97,7 +97,7 @@
       coefficients:
         Blunt: 0.5
         Slash: 0.5
-        Piercing: 0.5
+        Piercing: 0.6
         Heat: 0.5
         Radiation: 0.5
         Caustic: 0.5
@@ -109,7 +109,7 @@
 
 # Helmet
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase]
   id: ClothingHeadHelmetHardsuitWhoTo
   name: шлем устаревшего скафандра ОБР
   description: Герметичный шлем от устаревшей модели скафандра ОБР. Оснащён стандартным светом.

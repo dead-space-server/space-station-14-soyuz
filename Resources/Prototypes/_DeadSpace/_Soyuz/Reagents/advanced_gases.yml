@@ -1,0 +1,223 @@
+- type: reagent
+  id: Kryoxide
+  name: reagent-name-soyuz-kryoxide
+  desc: reagent-desc-soyuz-kryoxide
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#B8E8FF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Etherite
+  name: reagent-name-soyuz-etherite
+  desc: reagent-desc-soyuz-etherite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#20BFAF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Isoflux
+  name: reagent-name-soyuz-isoflux
+  desc: reagent-desc-soyuz-isoflux
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#5345C9"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Resonite
+  name: reagent-name-soyuz-resonite
+  desc: reagent-desc-soyuz-resonite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#B74CFF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Pyroxite
+  name: reagent-name-soyuz-pyroxite
+  desc: reagent-desc-soyuz-pyroxite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#E64B28"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Coronite
+  name: reagent-name-soyuz-coronite
+  desc: reagent-desc-soyuz-coronite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#FFD447"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Gravion
+  name: reagent-name-soyuz-gravion
+  desc: reagent-desc-soyuz-gravion
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#352768"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Radion
+  name: reagent-name-soyuz-radion
+  desc: reagent-desc-soyuz-radion
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#66F533"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: QuartzGas
+  name: reagent-name-soyuz-quartzgas
+  desc: reagent-desc-soyuz-quartzgas
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#D9FFFF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: ImpulseGas
+  name: reagent-name-soyuz-impulsegas
+  desc: reagent-desc-soyuz-impulsegas
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#237DFF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Iney
+  name: reagent-name-soyuz-iney
+  desc: reagent-desc-soyuz-iney
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#EDF7FF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Diborane
+  name: reagent-name-soyuz-diborane
+  desc: reagent-desc-soyuz-diborane
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#F59B32"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: GammaGas
+  name: reagent-name-soyuz-gammagas
+  desc: reagent-desc-soyuz-gammagas
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#CFED35"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Forsazh
+  name: reagent-name-soyuz-forsazh
+  desc: reagent-desc-soyuz-forsazh
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#FF641F"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Sumrak
+  name: reagent-name-soyuz-sumrak
+  desc: reagent-desc-soyuz-sumrak
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#21132F"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Lumin
+  name: reagent-name-soyuz-lumin
+  desc: reagent-desc-soyuz-lumin
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#BFFFFF"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Lazarus
+  name: reagent-name-soyuz-lazarus
+  desc: reagent-desc-soyuz-lazarus
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: medicine
+  color: "#A5FFD3"
+  boilingPoint: -230
+  meltingPoint: -260
+  metabolisms:
+    Gas:
+      effects:
+      - !type:EvenHealthChange
+        minScale: 0.2
+        damage:
+          Brute: -1
+          Burn: -0.8
+      - !type:HealthChange
+        minScale: 0.2
+        damage:
+          types:
+            Poison: -0.48
+
+- type: reagent
+  id: Chromatin
+  name: reagent-name-soyuz-chromatin
+  desc: reagent-desc-soyuz-chromatin
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#E6A2CC"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Tlec
+  name: reagent-name-soyuz-tlec
+  desc: reagent-desc-soyuz-tlec
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#8F202C"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Detonite
+  name: reagent-name-soyuz-detonite
+  desc: reagent-desc-soyuz-detonite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#D95A36"
+  boilingPoint: -230
+  meltingPoint: -260
+
+- type: reagent
+  id: Boracite
+  name: reagent-name-soyuz-boracite
+  desc: reagent-desc-soyuz-boracite
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#C98A55"
+  boilingPoint: -230
+  meltingPoint: -260
+

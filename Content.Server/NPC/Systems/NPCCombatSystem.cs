@@ -1,10 +1,14 @@
 using Content.Server.Interaction;
 using Content.Server.Weapons.Ranged.Systems;
+using Content.Shared.Mech.Components; // DS14-Soyuz
+using Content.Shared.Mobs; // DS14-Soyuz
+using Content.Shared.Mobs.Components; // DS14-Soyuz
 using Content.Shared.Weapons.Melee;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -17,6 +21,8 @@ public sealed partial class NPCCombatSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IComponentFactory _componentFactory = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly GunSystem _gun = default!;
     [Dependency] private readonly InteractionSystem _interaction = default!;
@@ -44,4 +50,14 @@ public sealed partial class NPCCombatSystem : EntitySystem
         UpdateMelee(frameTime);
         UpdateRanged(frameTime);
     }
+
+    // DS14-Soyuz-start
+    private bool IsInactiveMechTarget(EntityUid target)
+    {
+        return TryComp<MechComponent>(target, out var mech) &&
+               (mech.Broken || mech.PilotSlot.ContainedEntity is not { } pilot ||
+                !TryComp<MobStateComponent>(pilot, out var mobState) ||
+                mobState.CurrentState is not (MobState.Alive or MobState.PreCritical));
+    }
+    // DS14-Soyuz-end
 }

@@ -8,7 +8,10 @@ using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Server.Cargo.Systems;
+using Content.Server.Cargo.Components; // DS14-Soyuz
 using Content.Shared.Cargo.Components;
+using Content.Shared.Station.Components; // DS14-Soyuz
+using Robust.Server.Player; // DS14-Soyuz
 
 namespace Content.Server.DeadSpace.StationGoal;
 
@@ -23,6 +26,7 @@ public sealed class StationGoalPaperSystem : EntitySystem
     [Dependency] private readonly IResourceManager _resourceManager = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly CargoSystem _cargo = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -32,7 +36,16 @@ public sealed class StationGoalPaperSystem : EntitySystem
 
     private void OnRoundStarted(RoundStartedEvent ev)
     {
-        var availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().ToList();
+        // DS14-Soyuz-start
+        var playersCount = _playerManager.PlayerCount;
+        var availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().Where(goal => goal.MinPlayers <= playersCount).ToList();
+
+        if (availableGoals.Count == 0)
+        {
+            Log.Warning("No station goals available for current player count. Using all goals");
+            availableGoals = _prototypeManager.EnumeratePrototypes<StationGoalPrototype>().ToList();
+        }
+        // DS14-Soyuz-end
         var goal = _random.Pick(availableGoals);
 
         SendStationGoal(goal);
@@ -46,6 +59,7 @@ public sealed class StationGoalPaperSystem : EntitySystem
     {
         var wasSent = false;
         var wasModifiedOnce = false;
+        var stationsWithEquipment = new HashSet<EntityUid>(); // DS14-Soyuz
 
         string text = _resourceManager.ContentFileReadText(goal.Text).ReadToEnd();
 
@@ -59,6 +73,10 @@ public sealed class StationGoalPaperSystem : EntitySystem
                 text = text.Replace("STATION XX-00", Name(station));
                 if (goal.ModifyStationBalance != null && goal.ModifyStationBalance != 0 && !wasModifiedOnce)
                     wasModifiedOnce = ModifyStationBalance(station, goal.ModifyStationBalance.Value);
+// DS14-Soyuz-start
+                if (goal.StartingEquipment != null && stationsWithEquipment.Add(station))
+                    SpawnStartingEquipment(station, goal.StartingEquipment.Value, goal.StartingEquipmentAmount);
+// DS14-Soyuz-end
             }
 
             var stamps = new List<StampDisplayInfo>{};
@@ -86,6 +104,36 @@ public sealed class StationGoalPaperSystem : EntitySystem
 
         return wasSent;
     }
+// DS14-Soyuz-start
+    private void SpawnStartingEquipment(EntityUid station, EntProtoId equipment, int amount)
+    {
+        if (!TryComp<StationCargoOrderDatabaseComponent>(station, out var cargoDb) ||
+            !TryComp<StationDataComponent>(station, out var stationData) ||
+            !TryComp<StationBankAccountComponent>(station, out var bank))
+        {
+            return;
+        }
+
+        if (!_prototypeManager.TryIndex<EntityPrototype>(equipment, out var equipmentPrototype))
+            return;
+
+        if (amount <= 0)
+            return;
+
+        _cargo.AddAndApproveOrder(
+            station,
+            equipment,
+            equipmentPrototype.Name,
+            0,
+            amount,
+            "ГШ",
+            "Поставка по плану станции",
+            "Поставка по плану станции",
+            cargoDb,
+            bank.PrimaryAccount,
+            (station, stationData));
+    }
+// DS14-Soyuz-end
 
     /// <summary>
     ///     Adds the amount of money from the prototype of the station goal to the station's cargo balance

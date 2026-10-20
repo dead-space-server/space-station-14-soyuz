@@ -35,6 +35,8 @@
     # - id: ClothingHandsGlovesArkalyse # DS14-Soyuz disabled
     # - id: ClothingShoesBootsJack # DS14-disabled
     # - id: ClothingOuterCoatWarden # DS14-disabled
+    - id: PolaroidCamera # DS14-Soyuz
+    - id: BoxPolaroidCartridges # DS14-Soyuz
     - id: ClothingOuterWinterWarden
     - id: RubberStampWarden
     - id: DoorRemoteArmory
@@ -175,15 +177,20 @@
     - id: FlippoEngravedLighter
     - id: FlashlightSeclite
     - id: ForensicScanner
+      amount: 2 # DS14-Soyuz
     - id: LogProbeCartridge
     - id: BoxForensicPad
       amount: 2
     - id: DrinkDetFlask
+      amount: 2 # DS14-Soyuz
     - id: ClothingHandsGlovesForensic
+      amount: 2 # DS14-Soyuz
     - id: RubberStampDetective
+      amount: 2 # DS14-Soyuz
     - id: HoloprojectorSecurity
     - id: BoxEvidenceMarkers
     - id: HandLabeler
+      amount: 2 # DS14-Soyuz
     - id: ADTtelescopicBaton # ADT
     - id: BoxFolderRed # DS14
     - id: BoxFolderYellow # DS14
@@ -360,57 +367,3 @@
     children:
     - id: WeaponLaserCarbine
       amount: 3
-
-# DS14-start
-
-- type: entity
-  parent: [GunSafeBaseSecure, BaseSecurityContraband]
-  id: GunSafeDominator
-  name: dominators safe
-  components:
-  - type: StorageFill
-    contents:
-    - id: PistolDominator
-      amount: 3
-
-- type: entity
-  parent: [GunSafeBaseSecure, BaseSecurityContraband]
-  id: GunSafeVerdict
-  name: verdicts safe
-  components:
-  - type: StorageFill
-    contents:
-    - id: WeaponRevolverVerdict
-      amount: 3
-    - id: SpeedLoaderMagnum
-      amount: 6
-
-- type: entity
-  parent: [GunSafeBaseSecure, BaseSecurityContraband]
-  id: GunSafeArmorHeavy
-  name: armor heavy safe
-  components:
-  - type: StorageFill
-    contents:
-    - id: ClothingOuterArmorHeavy
-    - id: ClothingShoesSwat
-    - id: ClothingMaskGasSwat
-    - id: ClothingHeadHelmetSwat
-
-- type: entity
-  id: LockerBlueShieldFilled
-  suffix: BlueShield, Filled
-  parent: LockerBlueShield
-  components:
-  - type: StorageFill
-    contents:
-      - id: NitrogenTankFilled
-      - id: OxygenTankFilled
-      - id: MedkitFilled
-      - id: MedkitCombatFilled
-      - id: MedkitAdvancedFilled
-      - id: ClothingEyesGlassesAdvancedOKGB # DS14-Soyuz
-      - id: RubberStampBlueShield
-      - id: WeaponDisabler
-      - id: ClothingHeadHelmetSwat
-      - id: ClothingNeckCloakNanotrasen # DS14-Soyuz

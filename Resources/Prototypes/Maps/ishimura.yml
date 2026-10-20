@@ -1,6 +1,6 @@
 - type: gameMap
   id: Ishimura
-  mapName: 'USG Ishimura'
+  mapName: 'USG Ишимура' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/ishimura.yml
   minPlayers: 25
   maxPlayers: 55
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Ishimura {1}'
+          mapNameTemplate: '{0} Ишимура {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: 'USG'
@@ -20,6 +20,8 @@
             # cmd
             Captain: [ 1, 1 ]
             BlueShieldOfficer: [ 1, 1 ]
+            # NKVB
+            Politruk: [ 1, 1 ]
             # law
             IAA: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
@@ -28,6 +30,7 @@
             Warden: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
             Detective: [ 1, 1 ]
+            SecurityPilot: [ 1, 1 ]
             SecurityOfficer: [ 4, 4 ]
             Brigmedic: [ 1, 1 ]
             SecurityCadet: [ 2, 2 ]
@@ -55,7 +58,7 @@
             # sup
             Quartermaster: [ 1, 1 ]
             SeniorSalvageSpecialist: [ 1, 1 ]
-            SalvageSpecialist: [ 3, 3 ]
+            SalvageSpecialist: [ 4, 4 ] #DS14
             CargoTechnician: [ 3, 3 ]
             # civ
             HeadOfPersonnel: [ 1, 1 ]

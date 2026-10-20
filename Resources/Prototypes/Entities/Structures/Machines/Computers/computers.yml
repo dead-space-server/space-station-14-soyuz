@@ -98,6 +98,17 @@
   name: emergency shuttle console
   description: Handles authorization to early launch the shuttle.
   components:
+  # DS14-start
+  - type: Tag
+    tags:
+    - Structure
+    - EmagImmune
+    - AccessBreakerImmune
+  - type: Destructible
+    thresholds: []
+  - type: Anchorable
+    flags: Anchorable
+  # DS14-end
   - type: AccessReader
     access:
     - [ Command ]
@@ -483,6 +494,7 @@
     receiveFrequencyId: CrewMonitor
   - type: WirelessNetworkConnection
     range: 1200
+  - type: StationLimitedNetwork # DS14
 
 - type: entity
   parent: BaseComputerAiAccess
@@ -596,6 +608,87 @@
   description: Terminal for programming Nanotrasen employee ID cards to access parts of the station.
   components:
   - type: IdCardConsole
+    # DS14-start
+    accessLevels:
+    - Captain
+    - HeadOfPersonnel
+    - HeadOfSecurity
+    - ChiefEngineer
+    - ResearchDirector
+    - ChiefMedicalOfficer
+    - Quartermaster
+    - Command
+    - BlueShield
+    - NKVB # DS14-Soyuz
+    - Cryogenics
+    - Lawyer
+    - Armory
+    - Detective
+    - Brigmedic
+    - Security
+    - Brig
+    - GenpopEnter
+    - GenpopLeave
+    - Chemistry
+    - Paramedic
+    - Coroner
+    - Virology
+    - Medical
+    - Research
+    - Atmospherics
+    - Engineering
+    - SeniorSalvage
+    - Salvage
+    - Cargo
+    - Service
+    - Bar
+    - Chapel
+    - Hydroponics
+    - Janitor
+    - Kitchen
+    - Theatre
+    - Maintenance
+    - External
+    # DS14-end
+    basicAccessLevels:
+    - Coroner
+    - Medical
+    - Research
+    - Engineering
+    - Salvage
+    - Cargo
+    - Service
+    - Kitchen
+    - Bar
+    - Hydroponics
+    - Chapel
+    - Janitor
+    - Theatre
+    - External
+    - Maintenance
+    extendedAccessLevels:
+    - Detective
+    - Security
+    - Brigmedic
+    - Brig
+    - Chemistry
+    - Atmospherics
+    - Virology
+    - Coroner
+    - Medical
+    - Research
+    - Engineering
+    - Salvage
+    - Cargo
+    - Service
+    - Kitchen
+    - Bar
+    - Hydroponics
+    - Chapel
+    - Janitor
+    - Theatre
+    - External
+    - Maintenance
     privilegedIdSlot:
       name: id-card-console-privileged-id
       ejectSound: /Audio/Machines/id_swipe.ogg
@@ -607,6 +700,7 @@
         - IdCard
     targetIdSlot:
       name: id-card-console-target-id
+      priority: 1 # DS14
       ejectSound: /Audio/Machines/id_swipe.ogg
       insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
       ejectOnBreak: true
@@ -614,6 +708,7 @@
       whitelist:
         components:
         - IdCard
+  - type: PersonnelDismissal # DS14
   - type: ActivatableUI
     key: enum.IdCardConsoleUiKey.Key
   - type: UserInterface
@@ -894,6 +989,7 @@
     #     color: "#00FF00"
     blacklistComponents:
       - CartridgeAmmo
+      - Dragon
     blacklistTags:
       - Ore
       - Trash

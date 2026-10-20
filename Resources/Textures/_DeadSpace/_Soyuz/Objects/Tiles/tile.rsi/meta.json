@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Created by pered6664 (discord) for Space Station 14 server Мёртвый Космос",
+  "copyright": "Created by pered6664 (discord) for Space Station 14 server Мёртвый Космос. States wsteel11, steel11, bsteel11 made by genes1us (Discord)",
   "size": {
     "x": 32,
     "y": 32
@@ -38,6 +38,9 @@
       "name": "wsteel10"
     },
     {
+      "name": "wsteel11"
+    },
+    {
       "name": "steel1"
     },
     {
@@ -68,6 +71,9 @@
       "name": "steel10"
     },
     {
+      "name": "steel11"
+    },
+    {
       "name": "bsteel1"
     },
     {
@@ -96,6 +102,9 @@
     },
     {
       "name": "bsteel10"
+    },
+    {
+      "name": "bsteel11"
     }
   ]
 }

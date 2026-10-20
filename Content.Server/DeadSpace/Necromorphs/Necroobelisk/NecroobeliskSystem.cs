@@ -22,18 +22,19 @@ using Content.Server.RoundEnd;
 using Content.Server.DeadSpace.Necromorphs.Unitology;
 using Content.Shared.Damage.Components;
 using Robust.Shared.Audio.Systems;
+using Content.Shared.DeadSpace.Necromorphs.Unitology.Components;
+using Content.Shared.Zombies;
 
 namespace Content.Server.DeadSpace.Necromorphs.Necroobelisk;
 
 public sealed class NecroobeliskSystem : SharedNecroobeliskSystem
 {
+    [Dependency] private readonly Content.Server.DeadSpace.CentComm.GameRuleStationSystem _ruleStation = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly DamageableSystem _damage = default!;
-    [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly IAdminManager _adminManager = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly BeamSystem _beam = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
 
@@ -84,8 +85,7 @@ public sealed class NecroobeliskSystem : SharedNecroobeliskSystem
             return;
 
         var msg = new GameGlobalSoundEvent(component.SoundConvergence, AudioParams.Default);
-        var stationFilter = _stationSystem.GetInOwningStation(uid);
-        stationFilter.AddPlayersByPvs(uid, entityManager: EntityManager);
+        var stationFilter = _ruleStation.GetEventPlayers(uid);
         RaiseNetworkEvent(msg, stationFilter);
 
         component.IsStageConvergence = true;
@@ -101,7 +101,8 @@ public sealed class NecroobeliskSystem : SharedNecroobeliskSystem
             requester: null,
             checkCooldown: false,
             text: "uni-centcomm-announcement-obelisk-was-destroyed",
-            name: "round-end-system-shuttle-sender-announcement"
+            name: "round-end-system-shuttle-sender-announcement",
+            announcementSource: uid
         );
     }
 
@@ -119,11 +120,10 @@ public sealed class NecroobeliskSystem : SharedNecroobeliskSystem
             return;
 
         var msg = new GameGlobalSoundEvent(component.SoundInit, AudioParams.Default);
-        var stationFilter = _stationSystem.GetInOwningStation(uid);
-        stationFilter.AddPlayersByPvs(uid, entityManager: EntityManager);
+        var stationFilter = _ruleStation.GetEventPlayers(uid);
         RaiseNetworkEvent(msg, stationFilter);
 
-        _chatSystem.DispatchGlobalAnnouncement(Loc.GetString(str), playSound: true, colorOverride: color);
+        _ruleStation.Announce(uid, Loc.GetString(str), sender: Loc.GetString("chat-manager-sender-announcement"), playSound: true, colorOverride: color);
     }
     private void OnSeverityChanged(EntityUid uid, NecroobeliskComponent component, ref NecroobeliskPulseEvent args)
     {
@@ -139,8 +139,15 @@ public sealed class NecroobeliskSystem : SharedNecroobeliskSystem
 
     private void OnSanityLost(EntityUid uid, NecroobeliskComponent component, ref SanityLostEvent args)
     {
-        if (HasComp<NecromorfComponent>(args.VictinUID))
+        if (HasComp<NecromorfComponent>(args.VictinUID) || HasComp<ZombieComponent>(args.VictinUID))
             return;
+
+        if (!HasComp<UnitologyComponent>(args.VictinUID)
+            && !HasComp<UnitologyHeadComponent>(args.VictinUID)
+            && !HasComp<UnitologyEnslavedComponent>(args.VictinUID))
+        {
+            AddComp<UnitologyEnslavedComponent>(args.VictinUID);
+        }
 
         if (!HasComp<InfectionDeadComponent>(args.VictinUID))
             AddComp<InfectionDeadComponent>(args.VictinUID);

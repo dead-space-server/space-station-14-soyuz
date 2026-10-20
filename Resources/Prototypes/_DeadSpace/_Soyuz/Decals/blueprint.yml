@@ -1,0 +1,402 @@
+# Each choice is only a decal. Add another blueprint-tagged decal with its own
+# sprite and sprayPainterName to make a new construction image available.
+
+- type: decal
+  id: BlueprintWall
+  sprayPainterName: обычная стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/solid.rsi
+    state: full
+
+- type: decal
+  id: BlueprintReinforcedWall
+  sprayPainterName: укреплённая стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/solid.rsi
+    state: rgeneric
+
+- type: decal
+  id: BlueprintShuttleWall
+  sprayPainterName: стена шаттла
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/shuttle.rsi
+    state: full
+
+- type: decal
+  id: BlueprintPlastitaniumWall
+  sprayPainterName: пластотитановая стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/plastitanium.rsi
+    state: full
+
+- type: decal
+  id: BlueprintTungstenWall
+  sprayPainterName: вольфрамовая стена
+  tags: [blueprint]
+  sprite:
+    sprite: _DeadSpace/_Soyuz/Structures/Walls/tungsten.rsi
+    state: full
+
+- type: decal
+  id: BlueprintWoodWall
+  sprayPainterName: деревянная стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/wood.rsi
+    state: full
+
+- type: decal
+  id: BlueprintRivetedWall
+  sprayPainterName: клёпаная стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/riveted.rsi
+    state: full
+
+- type: decal
+  id: BlueprintGrille
+  sprayPainterName: решётка
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/grille.rsi
+    state: grille
+
+- type: decal
+  id: BlueprintWindow
+  sprayPainterName: окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintReinforcedWindow
+  sprayPainterName: укреплённое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/reinforced_window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintPlastitaniumWindow
+  sprayPainterName: пластотитановое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/plastitanium_window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintAirlock
+  sprayPainterName: шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/basic.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassAirlock
+  sprayPainterName: стеклянный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/basic.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintShuttleAirlock
+  sprayPainterName: стыковочный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/shuttle.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassShuttleAirlock
+  sprayPainterName: стеклянный стыковочный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/shuttle.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintEngineeringAirlock
+  sprayPainterName: инженерный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/engineering.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintAtmosphericsAirlock
+  sprayPainterName: атмосферный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/atmospherics.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintSecurityAirlock
+  sprayPainterName: шлюз службы безопасности
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/security.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintMedicalAirlock
+  sprayPainterName: медицинский шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/medical.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintScienceAirlock
+  sprayPainterName: научный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/science.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintCommandAirlock
+  sprayPainterName: командный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/command.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintExternalAirlock
+  sprayPainterName: внешний шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/external.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintDiagonalWall
+  sprayPainterName: угловая обычная стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/solid_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalReinforcedWall
+  sprayPainterName: угловая укреплённая стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/reinforced_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalShuttleWall
+  sprayPainterName: угловая стена шаттла
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/shuttle_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalPlastitaniumWall
+  sprayPainterName: угловая пластотитановая стена
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/plastitanium_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalTungstenWall
+  sprayPainterName: угловая вольфрамовая стена
+  tags: [blueprint]
+  sprite:
+    sprite: _DeadSpace/_Soyuz/Structures/Walls/tungsten_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalGrille
+  sprayPainterName: угловая решётка
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Walls/grille.rsi
+    state: grille_diagonal
+
+- type: decal
+  id: BlueprintDiagonalWindow
+  sprayPainterName: угловое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/window_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalReinforcedWindow
+  sprayPainterName: угловое укреплённое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/reinforced_window_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintDiagonalPlastitaniumWindow
+  sprayPainterName: угловое пластотитановое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/plastitanium_window_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintShuttleWindow
+  sprayPainterName: окно шаттла
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/shuttle_window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintDiagonalShuttleWindow
+  sprayPainterName: угловое окно шаттла
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/shuttle_window_diagonal.rsi
+    state: state0
+
+- type: decal
+  id: BlueprintReinforcedPlasmaWindow
+  sprayPainterName: укреплённое плазменное окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/reinforced_plasma_window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintReinforcedUraniumWindow
+  sprayPainterName: укреплённое урановое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/reinforced_uranium_window.rsi
+    state: full
+
+- type: decal
+  id: BlueprintDirectionalWindow
+  sprayPainterName: направленное окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/directional.rsi
+    state: window
+
+- type: decal
+  id: BlueprintDirectionalReinforcedWindow
+  sprayPainterName: направленное укреплённое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/directional.rsi
+    state: reinforced_window
+
+- type: decal
+  id: BlueprintDirectionalFrostedWindow
+  sprayPainterName: направленное матовое окно
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Windows/directional.rsi
+    state: frosted_window
+
+- type: decal
+  id: BlueprintCargoAirlock
+  sprayPainterName: грузовой шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/cargo.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintMaintenanceAirlock
+  sprayPainterName: технический шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/maint.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassEngineeringAirlock
+  sprayPainterName: стеклянный инженерный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/engineering.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassAtmosphericsAirlock
+  sprayPainterName: стеклянный атмосферный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/atmospherics.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassSecurityAirlock
+  sprayPainterName: стеклянный шлюз службы безопасности
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/security.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassMedicalAirlock
+  sprayPainterName: стеклянный медицинский шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/medical.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassScienceAirlock
+  sprayPainterName: стеклянный научный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/science.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassCommandAirlock
+  sprayPainterName: стеклянный командный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/command.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassCargoAirlock
+  sprayPainterName: стеклянный грузовой шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/cargo.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintFirelock
+  sprayPainterName: пожарный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Standard/firelock.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintGlassFirelock
+  sprayPainterName: стеклянный пожарный шлюз
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Airlocks/Glass/firelock.rsi
+    state: closed
+
+- type: decal
+  id: BlueprintBlastDoor
+  sprayPainterName: взрывозащитная дверь
+  tags: [blueprint]
+  sprite:
+    sprite: Structures/Doors/Shutters/blastdoor.rsi
+    state: closed

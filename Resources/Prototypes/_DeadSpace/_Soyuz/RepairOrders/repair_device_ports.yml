@@ -1,0 +1,4 @@
+- type: sinkPort
+  id: RepairOrderDock
+  name: signal-port-name-repair-order-dock
+  description: signal-port-description-repair-order-dock

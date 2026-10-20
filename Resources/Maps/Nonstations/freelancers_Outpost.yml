@@ -11331,7 +11331,6 @@ entities:
       lastProduce: 1
       health: 100
       seed: !type:SeedPrototype
-        mutations: []
         lifespan: 80
         endurance: 100
         weedHighLevelThreshold: 10
@@ -11365,8 +11364,10 @@ entities:
         id: towercap
         harvestLogImpact: null
         plantLogImpact: null
-        mutationPrototypes:
-        - steelcap
+        # DS14-Soyuz: directed species mutations.
+        mutations:
+        - target: SteelcapPlants
+          chance: 0.25
         turnIntoKudzu: False
         kudzuPrototype: WeakKudzu
         screaming: False

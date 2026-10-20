@@ -8,6 +8,7 @@ using Content.Shared.CombatMode;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
+using Content.Shared.DeadSpace.Weapons.Akimbo;
 using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Hands.EntitySystems;
@@ -18,6 +19,7 @@ using Content.Shared.Throwing;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Hitscan.Components;
+using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
@@ -33,6 +35,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
+using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -87,6 +90,8 @@ public abstract partial class SharedGunSystem : EntitySystem
     private const float InteractNextFire = 0.3f;
     private const double SafetyNextFire = 0.5;
     private const float EjectOffset = 0.4f;
+    private const float SpentCasingFadeDelay = 4f;
+    private const float SpentCasingFadeDuration = 1.5f;
     protected const string AmmoExamineColor = "yellow";
     protected const string FireRateExamineColor = "yellow";
     public const string ModeExamineColor = "cyan";
@@ -102,12 +107,14 @@ public abstract partial class SharedGunSystem : EntitySystem
         InitializeBattery();
         InitializeCartridge();
         InitializeChamberMagazine();
+        InitializeCustomAmmoCounter();
         InitializeMagazine();
         InitializeRevolver();
         InitializeBasicEntity();
         InitializeClothing();
         InitializeContainer();
         InitializeSolution();
+        InitializeTargetFinder(); // DS14 - pre-v288 explicit event subscriptions (#45247)
 
         // Interactions
         SubscribeLocalEvent<GunComponent, GetVerbsEvent<AlternativeVerb>>(OnAltVerb);
@@ -155,11 +162,44 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (gun.Owner != GetEntity(msg.Gun))
             return;
 
+        // DS14-start
+        var akimbo = new AkimboSelectGunEvent(user.Value, gun.Owner);
+        RaiseLocalEvent(gun.Owner, ref akimbo);
+        if (akimbo.SelectedGun != gun.Owner)
+        {
+            if (!TryComp<GunComponent>(akimbo.SelectedGun, out var selectedGun))
+                return;
+
+            gun = (akimbo.SelectedGun, selectedGun);
+        }
+
+        // Every akimbo request is a fresh trigger pull for the selected pistol.
+        if (akimbo.Active &&
+            gun.Comp.SelectedMode == SelectiveFire.SemiAuto &&
+            !gun.Comp.BurstActivated &&
+            gun.Comp.ShotCounter != 0)
+        {
+            gun.Comp.ShotCounter = 0;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.ShotCounter));
+        }
+        // DS14-end
+
+        // DS14-start
+        // Hold-to-attack sends a request for every attempted trigger pull. Reset semi-auto and completed burst
+        // counters before that pull, but preserve full-auto timing and an already active burst.
+        if (msg.Continuous &&
+            gun.Comp.ShotCounter != 0 &&
+            gun.Comp.SelectedMode != SelectiveFire.FullAuto &&
+            !gun.Comp.BurstActivated)
+        {
+            gun.Comp.ShotCounter = 0;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.ShotCounter));
+        }
+        // DS14-end
+
         gun.Comp.ShootCoordinates = GetCoordinates(msg.Coordinates);
         gun.Comp.Target = GetEntity(msg.Target);
         AttemptShoot(user.Value, gun);
-        if (msg.Continuous)
-            gun.Comp.ShotCounter = 0;
     }
 
     private void OnStopShootRequest(RequestStopShootEvent ev, EntitySessionEventArgs args)
@@ -224,6 +264,22 @@ public abstract partial class SharedGunSystem : EntitySystem
         ent.Comp.Target = null;
         DirtyField(ent.AsNullable(), nameof(GunComponent.ShotCounter));
     }
+
+    // DS14-start
+    /// <summary>
+    /// Stops every continuation after a deliberately single execution shot.
+    /// </summary>
+    public void StopExecutionShooting(Entity<GunComponent> ent)
+    {
+        StopShooting(ent);
+        ent.Comp.BurstActivated = false;
+        ent.Comp.BurstShotsCount = 0;
+        ent.Comp.ShotCounter = 0;
+        ent.Comp.ShootCoordinates = null;
+        ent.Comp.Target = null;
+        Dirty(ent);
+    }
+    // DS14-end
 
     /// <summary>
     /// Attempts to shoot at the target coordinates. Resets the shot counter after every shot.
@@ -414,7 +470,7 @@ public abstract partial class SharedGunSystem : EntitySystem
 
         // Shoot confirmed - sounds also played here in case it's invalid (e.g. cartridge already spent).
         Shoot(gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems);
-        var shotEv = new GunShotEvent(user, ev.Ammo);
+        var shotEv = new GunShotEvent(user, ev.Ammo, toCoordinates.Value);
         RaiseLocalEvent(gun, ref shotEv);
 
         if (!userImpulse || !TryComp<PhysicsComponent>(user, out var userPhysics))
@@ -467,6 +523,11 @@ public abstract partial class SharedGunSystem : EntitySystem
             Projectiles.SetShooter(uid, projectile, shooter.Value);
 
         TransformSystem.SetWorldRotation(uid, direction.ToWorldAngle() + projectile.Angle);
+
+        // DS14-start: reusable projectiles must restart their shooter-ignore window for every shot.
+        var shotEvent = new ProjectileShotEvent();
+        RaiseLocalEvent(uid, ref shotEvent);
+        // DS14-end
     }
 
     protected abstract void Popup(string message, EntityUid? uid, EntityUid? user);
@@ -504,6 +565,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         // TODO: Sound limit version.
         var offsetPos = Random.NextVector2(EjectOffset);
         var xform = Transform(entity);
+        var cartridge = CompOrNull<CartridgeAmmoComponent>(entity);
 
         var coordinates = TransformSystem.GetMapCoordinates(entity, xform).Offset(offsetPos);
 
@@ -517,10 +579,24 @@ public abstract partial class SharedGunSystem : EntitySystem
             ejectAngle += 3.7f; // 212 degrees; casings should eject slightly to the right and behind of a gun
             ThrowingSystem.TryThrow(entity, ejectAngle.ToVec().Normalized() / 100, 5f);
         }
-        if (playSound && TryComp<CartridgeAmmoComponent>(entity, out var cartridge))
+        if (playSound && cartridge != null)
         {
             Audio.PlayPvs(cartridge.EjectSound, entity, AudioParams.Default.WithVariation(SharedContentAudioSystem.DefaultVariation).WithVolume(-1f));
         }
+
+        if (_netManager.IsServer && cartridge is { Spent: true, DeleteOnSpawn: false })
+            AddSpentCasingFade(entity);
+    }
+
+    private void AddSpentCasingFade(EntityUid entity)
+    {
+        var fade = EnsureComp<CasingFadeComponent>(entity);
+        fade.FadeDelay = SpentCasingFadeDelay;
+        fade.FadeDuration = SpentCasingFadeDuration;
+        Dirty(entity, fade);
+
+        var despawn = EnsureComp<TimedDespawnComponent>(entity);
+        despawn.Lifetime = SpentCasingFadeDelay + SpentCasingFadeDuration + 0.1f;
     }
 
     protected IShootable EnsureShootable(EntityUid uid)
@@ -675,7 +751,16 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Serializable, NetSerializable]
     public sealed class HitscanEvent : EntityEventArgs
     {
+        // DS14-start: animated hitscan visuals.
         public List<(NetCoordinates coordinates, Angle angle, SpriteSpecifier Sprite, float Distance)> Sprites = [];
+        public List<HitscanTrace> Traces = [];
+        public SpriteSpecifier? MuzzleFlash;
+        public SpriteSpecifier? TravelFlash;
+        public SpriteSpecifier? ImpactFlash;
+        public ExtendedSpriteSpecifier? Bullet;
+        public HitscanLightVisual? BulletLight;
+        public float Speed;
+        // DS14-end
     }
 
     /// <summary>
@@ -722,7 +807,10 @@ public record struct AttemptShootEvent(EntityUid User, string? Message, bool Can
 /// </summary>
 /// <param name="User">The user that fired this gun.</param>
 [ByRefEvent]
-public record struct GunShotEvent(EntityUid User, List<(EntityUid? Uid, IShootable Shootable)> Ammo);
+public record struct GunShotEvent(
+    EntityUid User,
+    List<(EntityUid? Uid, IShootable Shootable)> Ammo,
+    EntityCoordinates Target = default);
 
 /// <summary>
 /// Raised on an entity after firing a gun to see if any components or systems would allow this entity to be pushed
@@ -746,6 +834,7 @@ public enum AmmoVisuals : byte
     AmmoCount,
     AmmoMax,
     HasAmmo, // used for generic visualizers. c# stuff can just check ammocount != 0
+    IsFull, // used for generic visualizers. c# stuff can just check ammocount == ammomax
     MagLoaded,
     BoltClosed,
 }

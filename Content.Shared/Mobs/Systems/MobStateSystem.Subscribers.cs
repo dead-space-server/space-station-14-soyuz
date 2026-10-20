@@ -1,6 +1,7 @@
 ﻿using Content.Shared.Bed.Sleep;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CombatMode.Pacification;
+using Content.Shared.Cuffs;
 using Content.Shared.Damage;
 using Content.Shared.Damage.ForceSay;
 using Content.Shared.Damage.Systems;
@@ -11,19 +12,29 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
 using Content.Shared.Mobs.Components;
+using Content.Shared.DeadSpace.Movement.Events;
+using Content.Shared.Gravity;
+using Content.Shared.Movement.Components; //DS14
+using Content.Shared.DeadSpace.Movement.Components; // DS14
+using Content.Shared.Stunnable;
 using Content.Shared.Movement.Events;
+using Content.Shared.Movement.Systems;
 using Content.Shared.Pointing;
 using Content.Shared.Pulling.Events;
 using Content.Shared.Speech;
 using Content.Shared.Standing;
 using Content.Shared.Strip.Components;
 using Content.Shared.Throwing;
+using Content.Shared.Weapons.Misc;
 using Robust.Shared.Physics.Components;
 
 namespace Content.Shared.Mobs.Systems;
 
 public partial class MobStateSystem
 {
+    [Dependency] private readonly SharedGravitySystem _gravity = default!;
+    [Dependency] private readonly SharedJetpackSystem _jetpack = default!;
+
     //General purpose event subscriptions. If you can avoid it register these events inside their own systems
     private void SubscribeEvents()
     {
@@ -47,8 +58,16 @@ public partial class MobStateSystem
         SubscribeLocalEvent<MobStateComponent, CombatModeShouldHandInteractEvent>(OnCombatModeShouldHandInteract);
         SubscribeLocalEvent<MobStateComponent, AttemptPacifiedAttackEvent>(OnAttemptPacifiedAttack);
         SubscribeLocalEvent<MobStateComponent, DamageModifyEvent>(OnDamageModify);
+        SubscribeLocalEvent<MobStateComponent, AttemptActivateJetpackHandledEvent>(OnJetpackAttempt);
+        SubscribeLocalEvent<MobStateComponent, MoveInputEvent>(OnMoveInput);
+        SubscribeLocalEvent<MobStateComponent, WeightlessnessChangedEvent>(OnWeightlessnessChanged);
+        SubscribeLocalEvent<MobStateComponent, CanWeightlessMoveEvent>(OnCanWeightlessMove,
+            after: [typeof(SharedJetpackSystem), typeof(MovementIgnoreGravitySystem), typeof(SharedGrapplingGunSystem)]);
 
         SubscribeLocalEvent<MobStateComponent, UnbuckleAttemptEvent>(OnUnbuckleAttempt);
+        SubscribeLocalEvent<MobStateComponent, AfterAutoHandleStateEvent>(OnAfterAutoHandleState); // DS14
+        // DS14 - current engine baseline requires explicit event subscriptions.
+        SubscribeLocalEvent<MobStateComponent, CheckIncapacitatedCuffEvent>(OnIncapCuffCheck);
     }
 
     private void OnUnbuckleAttempt(Entity<MobStateComponent> ent, ref UnbuckleAttemptEvent args)
@@ -65,6 +84,20 @@ public partial class MobStateSystem
         var ev = new DropHandItemsEvent();
         RaiseLocalEvent(target, ref ev);
     }
+
+    // DS14-start
+    private bool IsBuckledToDownStrap(EntityUid target)
+    {
+        if (!TryComp<BuckleComponent>(target, out var buckle) ||
+            buckle.BuckledTo is not { } strapUid ||
+            !TryComp<StrapComponent>(strapUid, out var strap))
+        {
+            return false;
+        }
+
+        return strap.Position == StrapPosition.Down;
+    }
+    // DS14-end
 
     private void CheckConcious(Entity<MobStateComponent> ent, ref ConsciousAttemptEvent args)
     {
@@ -94,6 +127,19 @@ public partial class MobStateSystem
             case MobState.Invalid:
                 //unused
                 break;
+            // DS14-start
+            case MobState.PreCritical:
+                if (!HasComp<WheelchairUserComponent>(target))
+                {
+                    RemComp<WormComponent>(target);
+                    RemComp<KnockedDownComponent>(target);
+                    if (IsBuckledToDownStrap(target))
+                        _standing.Down(target, playSound: false, dropHeldItems: false, force: true);
+                    else
+                        _standing.Stand(target, force: true);
+                }
+                break;
+            // DS14-end
             default:
                 throw new NotImplementedException();
         }
@@ -111,7 +157,8 @@ public partial class MobStateSystem
         {
             case MobState.Alive:
             {
-                _standing.Stand(target);
+                if (!HasComp<WormComponent>(target))
+                    _standing.Stand(target);
                 _appearance.SetData(target, MobStateVisuals.State, MobState.Alive);
                 break;
             }
@@ -133,6 +180,15 @@ public partial class MobStateSystem
                 //unused;
                 break;
             }
+            // DS14-start
+            case MobState.PreCritical:
+                DisableJetpack(target);
+                ClearWeightlessMoveInput(target);
+                EnsureComp<WormComponent>(target);
+                _standing.Down(target);
+                _appearance.SetData(target, MobStateVisuals.State, MobState.PreCritical);
+                break;
+            // DS14-end
             default:
             {
                 throw new NotImplementedException();
@@ -141,6 +197,20 @@ public partial class MobStateSystem
     }
 
     #region Event Subscribers
+
+    // DS14-start
+    // Adapted to the explicit subscription model used by this branch.
+    private void OnAfterAutoHandleState(Entity<MobStateComponent> ent, ref AfterAutoHandleStateEvent args)
+    {
+        if (ent.Comp.LastReceivedState == ent.Comp.CurrentState)
+            return;
+
+        var ev = new MobStateChangedEvent(ent, ent.Comp, ent.Comp.LastReceivedState, ent.Comp.CurrentState);
+        OnStateChanged(ent, ent.Comp, ent.Comp.LastReceivedState, ent.Comp.CurrentState);
+        RaiseLocalEvent(ent, ev, true);
+        ent.Comp.LastReceivedState = ent.Comp.CurrentState;
+    }
+    // DS14-end
 
     private void OnSleepAttempt(EntityUid target, MobStateComponent component, ref TryingToSleepEvent args)
     {
@@ -209,6 +279,92 @@ public partial class MobStateSystem
     private void OnDamageModify(Entity<MobStateComponent> ent, ref DamageModifyEvent args)
     {
         args.Damage *= _damageable.UniversalMobDamageModifier;
+    }
+
+    private void OnJetpackAttempt(Entity<MobStateComponent> ent, ref AttemptActivateJetpackHandledEvent args)
+    {
+        if (!args.Enabled || ent.Comp.CurrentState != MobState.PreCritical)
+            return;
+
+        args.Handled = true;
+    }
+
+    private void OnMoveInput(Entity<MobStateComponent> ent, ref MoveInputEvent args)
+    {
+        if (ent.Comp.CurrentState != MobState.PreCritical ||
+            !_gravity.IsWeightless(ent.Owner))
+        {
+            return;
+        }
+
+        ClearDirectionalMoveInput(args.Entity);
+    }
+
+    private void OnWeightlessnessChanged(Entity<MobStateComponent> ent, ref WeightlessnessChangedEvent args)
+    {
+        // DS14-start
+        if (ent.Comp.CurrentState != MobState.PreCritical)
+            return;
+
+        if (_timing.ApplyingState)
+            return;
+
+        if (args.Weightless)
+        {
+            DisableJetpack(ent.Owner);
+            ClearWeightlessMoveInput(ent.Owner);
+        }
+        else if (HasComp<WormComponent>(ent.Owner))
+        {
+            _standing.Down(ent.Owner);
+        }
+        // DS14-end
+    }
+
+    private void OnCanWeightlessMove(Entity<MobStateComponent> ent, ref CanWeightlessMoveEvent args)
+    {
+        if (ent.Comp.CurrentState == MobState.PreCritical)
+            args.CanMove = false;
+    }
+
+    private void DisableJetpack(EntityUid uid)
+    {
+        if (!TryComp<JetpackUserComponent>(uid, out var user) ||
+            !TryComp<JetpackComponent>(user.Jetpack, out var jetpack))
+        {
+            return;
+        }
+
+        _jetpack.SetEnabled(user.Jetpack, jetpack, false, uid);
+    }
+
+    private void ClearWeightlessMoveInput(EntityUid uid)
+    {
+        if (!_gravity.IsWeightless(uid) ||
+            !TryComp<InputMoverComponent>(uid, out var mover))
+        {
+            return;
+        }
+
+        ClearDirectionalMoveInput((uid, mover));
+    }
+
+    private void ClearDirectionalMoveInput(Entity<InputMoverComponent> ent)
+    {
+        var movement = ent.Comp.HeldMoveButtons;
+        var newMovement = movement & ~MoveButtons.AnyDirection;
+
+        if (movement == newMovement)
+            return;
+
+        ent.Comp.HeldMoveButtons = newMovement;
+        Dirty(ent.Owner, ent.Comp);
+    }
+
+    private void OnIncapCuffCheck(Entity<MobStateComponent> ent, ref CheckIncapacitatedCuffEvent args)
+    {
+        if (IsIncapacitated(ent, ent.Comp))
+            args.Incapacitated = true;
     }
 
     #endregion

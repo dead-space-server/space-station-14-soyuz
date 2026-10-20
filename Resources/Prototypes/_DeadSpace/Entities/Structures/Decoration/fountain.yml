@@ -4,6 +4,22 @@
   name: фонтан
   description: Огромный фонтан из белого камня с кристально прозрачным водой.
   components:
+  # DS14-Soyuz-start
+  - type: Construction
+    graph: SoyuzFountain
+    node: decor
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  # DS14-Soyuz-end
   - type: Sprite
     noRot: true
     sprite: _DeadSpace/Structures/Decoration/fountain.rsi

@@ -1,0 +1,4 @@
+- type: guideEntry
+  id: SoyuzAdvancedGases
+  name: guide-entry-soyuz-advanced-gases
+  text: "/Prototypes/_DeadSpace/_Soyuz/Guidebook/AdvancedGases.xml"

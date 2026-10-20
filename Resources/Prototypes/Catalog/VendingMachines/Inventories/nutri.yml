@@ -19,8 +19,7 @@
     BoxAgrichem: 1
     MortarAndPestle: 1
     HandheldJuicer: 1
-    #TO DO:
-    #plant analyzer
+    PlantAnalyzer: 4 # DS14-Soyuz
   contrabandInventory:
     ChemistryBottleUnstableMutagen: 1
     Joint: 1

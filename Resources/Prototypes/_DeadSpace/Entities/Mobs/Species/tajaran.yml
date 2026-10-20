@@ -18,8 +18,6 @@
     prototype: Tajaran
     requiredLegs: 2
   - type: RoarAccent
-  - type: Hunger
-  - type: Thirst
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Fur
@@ -56,14 +54,12 @@
     - FootstepSound
     - DoorBumpOpener
     - AnomalyHost
+    - CantSetNormalScale # DS14-Soyuz
   - type: Language
     selectedLanguage: GeneralLanguage
     knownLanguages:
     - CatLanguage
     - GeneralLanguage
-  # - type: FootPrints
-    # leftBarePrint: "footprint-left-bare-lizard"
-    # rightBarePrint: "footprint-right-bare-lizard"
   - type: FootstepModifier
     footstepSoundCollection: null
     allowedSoundCollections:

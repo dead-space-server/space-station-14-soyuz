@@ -1,0 +1,17 @@
+﻿- type: entity
+  id: PottedPlantDS1
+  parent: PottedPlantBase
+  name: "комнатное растение"
+  description: "Э, а чё это с кактусом?"
+  components:
+  - type: Sprite
+    state: plant-31
+
+- type: entity
+  id: PottedPlantDS2
+  parent: PottedPlantBase
+  name: Бансай
+  description: Истинный путь лишь тот, который ты выбрал сам.
+  components:
+  - type: Sprite
+    state: plant-32

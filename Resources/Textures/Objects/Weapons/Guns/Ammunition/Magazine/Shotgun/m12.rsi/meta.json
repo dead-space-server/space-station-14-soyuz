@@ -23,9 +23,6 @@
             "name": "silver"
         },
         {
-            "name": "incendiary"
-        },
-        {
             "name": "mag-1"
         },
         {
@@ -43,6 +40,9 @@
         {
             "name": "inhand-right-stripe",
             "directions": 4
-        }
+        },
+    {
+      "name": "incendiary"
+    }
     ]
 }

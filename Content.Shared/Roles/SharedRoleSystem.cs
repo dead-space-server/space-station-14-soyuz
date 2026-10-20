@@ -145,6 +145,12 @@ public abstract class SharedRoleSystem : EntitySystem
             return;
         }
 
+        var antagonist = protoEnt.TryGetComponent<MindRoleComponent>(out var rolePrototype, Factory) && rolePrototype.Antag;
+        var attempt = new MindRoleAddAttemptEvent(mindId, mind, protoId, antagonist);
+        RaiseLocalEvent(mindId, attempt, true);
+        if (attempt.Cancelled)
+            return;
+
         //TODO don't let a prototype being added a second time
         //If that was somehow to occur, a second mindrole for that comp would be created
         //Meaning any mind role checks could return wrong results, since they just return the first match they find
@@ -211,6 +217,13 @@ public abstract class SharedRoleSystem : EntitySystem
         SetRoleType(ent.Owner, roleType, subtype);
         return true;
     }
+
+    // DS14-start
+    public bool RefreshMindRoleType(Entity<MindComponent?> ent)
+    {
+        return MindRolesUpdate(ent);
+    }
+    // DS14-end
 
     /// <summary>
     ///     Return the most recently specified role type and subtype, or Neutral
@@ -316,6 +329,29 @@ public abstract class SharedRoleSystem : EntitySystem
 
         return MindRemoveRoleDo(mind, delete, deleteName);
     }
+
+    // DS14-start
+    /// <summary>
+    /// Removes every role that marks a mind as an antagonist in one update.
+    /// </summary>
+    public bool MindRemoveAntagonistRoles(Entity<MindComponent?> mind)
+    {
+        if (!Resolve(mind.Owner, ref mind.Comp))
+            return false;
+
+        var delete = new List<EntityUid>();
+        foreach (var role in mind.Comp.MindRoleContainer.ContainedEntities)
+        {
+            if (TryComp<MindRoleComponent>(role, out var roleComp) &&
+                (roleComp.Antag || roleComp.ExclusiveAntag))
+            {
+                delete.Add(role);
+            }
+        }
+
+        return MindRemoveRoleDo(mind, delete, "antagonist roles");
+    }
+    // DS14-end
 
     private string RemoveRoleLogNameGeneration(string name, string newName, string original)
     {

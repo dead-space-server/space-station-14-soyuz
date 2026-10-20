@@ -1,0 +1,479 @@
+- type: gasReaction
+  id: SoyuzKryoxideProduction
+  priority: 4
+  minimumTemperature: 160
+  maximumTemperature: 220
+  minimumRequirements:
+    Oxygen: 20
+    CarbonDioxide: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Kryoxide
+    productMoles: 2
+    fraction: 0.333333333
+    energyPerBlock: 12000
+    minimumTemperature: 160
+    maximumTemperature: 220
+    minimumPressure: 100
+    maximumPressure: 600
+    reactants:
+      Oxygen: 2
+      CarbonDioxide: 1
+
+- type: gasReaction
+  id: SoyuzEtheriteProduction
+  priority: 4
+  minimumTemperature: 120
+  maximumTemperature: 180
+  minimumRequirements:
+    Nitrogen: 20
+    Plasma: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Etherite
+    productMoles: 2
+    fraction: 0.250000000
+    energyPerBlock: 20000
+    minimumTemperature: 120
+    maximumTemperature: 180
+    minimumPressure: 0
+    maximumPressure: 400
+    reactants:
+      Nitrogen: 2
+      Plasma: 1
+
+- type: gasReaction
+  id: SoyuzIsofluxProduction
+  priority: 4
+  minimumTemperature: 90
+  maximumTemperature: 140
+  minimumRequirements:
+    CarbonDioxide: 20
+    Plasma: 10
+    Tritium: 0.01
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Isoflux
+    productMoles: 2
+    fraction: 0.250000000
+    energyPerBlock: 18000
+    minimumTemperature: 90
+    maximumTemperature: 140
+    minimumPressure: 0
+    maximumPressure: 300
+    reactants:
+      CarbonDioxide: 2
+      Plasma: 1
+
+- type: gasReaction
+  id: SoyuzResoniteProduction
+  priority: 4
+  minimumTemperature: 70
+  maximumTemperature: 110
+  minimumRequirements:
+    Kryoxide: 5
+    Etherite: 5
+    Isoflux: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Resonite
+    productMoles: 2
+    fraction: 0.200000000
+    energyPerBlock: 35000
+    minimumTemperature: 70
+    maximumTemperature: 110
+    minimumPressure: 80
+    maximumPressure: 300
+    reactants:
+      Kryoxide: 1
+      Etherite: 1
+      Isoflux: 1
+
+- type: gasReaction
+  id: SoyuzPyroxiteProduction
+  priority: 4
+  minimumTemperature: 70
+  maximumTemperature: 110
+  minimumRequirements:
+    Kryoxide: 5
+    Etherite: 5
+    Plasma: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Pyroxite
+    productMoles: 2
+    fraction: 0.200000000
+    energyPerBlock: 30000
+    minimumTemperature: 70
+    maximumTemperature: 110
+    minimumPressure: 60
+    maximumPressure: 250
+    reactants:
+      Kryoxide: 1
+      Etherite: 1
+      Plasma: 1
+
+- type: gasReaction
+  id: SoyuzCoroniteProduction
+  priority: 4
+  minimumTemperature: 70
+  maximumTemperature: 110
+  minimumRequirements:
+    Resonite: 10
+    NitrousOxide: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Coronite
+    productMoles: 2
+    fraction: 0.200000000
+    energyPerBlock: 45000
+    minimumTemperature: 70
+    maximumTemperature: 110
+    minimumPressure: 0
+    maximumPressure: 250
+    reactants:
+      Resonite: 2
+      NitrousOxide: 1
+
+- type: gasReaction
+  id: SoyuzGravionProduction
+  priority: 4
+  minimumTemperature: 100
+  maximumTemperature: 150
+  minimumRequirements:
+    Nitrogen: 20
+    Isoflux: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Gravion
+    productMoles: 2
+    fraction: 0.250000000
+    energyPerBlock: 10000
+    minimumTemperature: 100
+    maximumTemperature: 150
+    minimumPressure: 150
+    reactants:
+      Nitrogen: 2
+      Isoflux: 1
+
+- type: gasReaction
+  id: SoyuzRadionProduction
+  priority: 4
+  minimumTemperature: 55
+  maximumTemperature: 90
+  minimumRequirements:
+    Resonite: 10
+    Tritium: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Radion
+    productMoles: 2
+    fraction: 0.05
+    energyPerBlock: 55000
+    minimumTemperature: 55
+    maximumTemperature: 90
+    minimumPressure: 100
+    maximumPressure: 350
+    reactants:
+      Resonite: 2
+      Tritium: 1
+
+- type: gasReaction
+  id: SoyuzQuartzGasProduction
+  priority: 4
+  minimumTemperature: 90
+  maximumTemperature: 130
+  minimumRequirements:
+    Kryoxide: 10
+    CarbonDioxide: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: QuartzGas
+    productMoles: 2
+    fraction: 0.333333333
+    energyPerBlock: 5000
+    minimumTemperature: 90
+    maximumTemperature: 130
+    minimumPressure: 200
+    reactants:
+      Kryoxide: 2
+      CarbonDioxide: 1
+
+- type: gasReaction
+  id: SoyuzImpulseGasProduction
+  priority: 4
+  minimumTemperature: 110
+  maximumTemperature: 160
+  minimumRequirements:
+    Etherite: 5
+    Fixirium: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: ImpulseGas
+    productMoles: 2
+    fraction: 0.250000000
+    energyPerBlock: 18000
+    minimumTemperature: 110
+    maximumTemperature: 160
+    minimumPressure: 100
+    maximumPressure: 400
+    reactants:
+      Etherite: 1
+      Fixirium: 1
+
+- type: gasReaction
+  id: SoyuzIneyProduction
+  priority: 4
+  minimumTemperature: 2.7
+  maximumTemperature: 220
+  minimumRequirements:
+    WaterVapor: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Iney
+    productMoles: 1
+    fraction: 0.500000000
+    energyPerBlock: -10000
+    minimumTemperature: 2.7
+    maximumTemperature: 220
+    minimumPressure: 0
+    reactants:
+      WaterVapor: 1
+
+- type: gasReaction
+  id: SoyuzDiboraneProduction
+  priority: 4
+  minimumTemperature: 80
+  maximumTemperature: 120
+  minimumRequirements:
+    Etherite: 5
+    Plasma: 5
+    Boracite: 1
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Diborane
+    productMoles: 2
+    fraction: 0.05
+    energyPerBlock: 25000
+    minimumTemperature: 80
+    maximumTemperature: 120
+    minimumPressure: 0
+    maximumPressure: 150
+    reactants:
+      Etherite: 1
+      Plasma: 1
+
+- type: gasReaction
+  id: SoyuzGammaGasProduction
+  priority: 4
+  minimumTemperature: 45
+  maximumTemperature: 80
+  minimumRequirements:
+    Resonite: 10
+    Plasma: 5
+    Fixirium: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: GammaGas
+    productMoles: 1
+    fraction: 0.200000000
+    energyPerBlock: 65000
+    minimumTemperature: 45
+    maximumTemperature: 80
+    minimumPressure: 150
+    maximumPressure: 500
+    reactants:
+      Resonite: 2
+      Plasma: 1
+      Fixirium: 1
+
+- type: gasReaction
+  id: SoyuzForsazhProduction
+  priority: 4
+  minimumTemperature: 140
+  maximumTemperature: 190
+  minimumRequirements:
+    Etherite: 5
+    NitrousOxide: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Forsazh
+    productMoles: 2
+    fraction: 0.250000000
+    energyPerBlock: 18000
+    minimumTemperature: 140
+    maximumTemperature: 190
+    minimumPressure: 0
+    maximumPressure: 300
+    reactants:
+      Etherite: 1
+      NitrousOxide: 1
+
+- type: gasReaction
+  id: SoyuzSumrakProduction
+  priority: 4
+  minimumTemperature: 100
+  maximumTemperature: 150
+  minimumRequirements:
+    CarbonDioxide: 20
+    Etherite: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Sumrak
+    productMoles: 2
+    fraction: 0.333333333
+    energyPerBlock: 5000
+    minimumTemperature: 100
+    maximumTemperature: 150
+    minimumPressure: 100
+    maximumPressure: 500
+    reactants:
+      CarbonDioxide: 2
+      Etherite: 1
+
+- type: gasReaction
+  id: SoyuzLuminProduction
+  priority: 4
+  minimumTemperature: 150
+  maximumTemperature: 210
+  minimumRequirements:
+    Oxygen: 20
+    Etherite: 10
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Lumin
+    productMoles: 2
+    fraction: 0.333333333
+    energyPerBlock: 5000
+    minimumTemperature: 150
+    maximumTemperature: 210
+    minimumPressure: 100
+    maximumPressure: 500
+    reactants:
+      Oxygen: 2
+      Etherite: 1
+
+- type: gasReaction
+  id: SoyuzLazarusProduction
+  priority: 4
+  minimumTemperature: 60
+  maximumTemperature: 100
+  minimumRequirements:
+    Hilium: 10
+    Resonite: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Lazarus
+    productMoles: 2
+    fraction: 0.200000000
+    energyPerBlock: 35000
+    minimumTemperature: 60
+    maximumTemperature: 100
+    minimumPressure: 80
+    maximumPressure: 250
+    reactants:
+      Hilium: 2
+      Resonite: 1
+
+- type: gasReaction
+  id: SoyuzChromatinProduction
+  priority: 4
+  minimumTemperature: 190
+  maximumTemperature: 240
+  minimumRequirements:
+    Oxygen: 5
+    CarbonDioxide: 5
+    WaterVapor: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Chromatin
+    productMoles: 2
+    fraction: 0.333333333
+    energyPerBlock: 0
+    minimumTemperature: 190
+    maximumTemperature: 240
+    minimumPressure: 0
+    reactants:
+      Oxygen: 1
+      CarbonDioxide: 1
+      WaterVapor: 1
+
+- type: gasReaction
+  id: SoyuzTlecProduction
+  priority: 4
+  minimumTemperature: 55
+  maximumTemperature: 90
+  minimumRequirements:
+    Pyroxite: 10
+    Detonite: 5
+    Tritium: 5
+    Coronite: 1
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Tlec
+    productMoles: 1
+    fraction: 0.05
+    energyPerBlock: 45000
+    minimumTemperature: 55
+    maximumTemperature: 90
+    minimumPressure: 0
+    maximumPressure: 180
+    reactants:
+      Pyroxite: 2
+      Detonite: 1
+      Tritium: 1
+
+- type: gasReaction
+  id: SoyuzDetoniteProduction
+  priority: 4
+  minimumTemperature: 50
+  maximumTemperature: 80
+  minimumRequirements:
+    Pyroxite: 10
+    Resonite: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Detonite
+    productMoles: 1
+    fraction: 0.2
+    energyPerBlock: 40000
+    minimumTemperature: 50
+    maximumTemperature: 80
+    minimumPressure: 100
+    maximumPressure: 300
+    reactants:
+      Pyroxite: 2
+      Resonite: 1
+
+- type: gasReaction
+  id: SoyuzBoraciteProduction
+  priority: 4
+  minimumTemperature: 60
+  maximumTemperature: 100
+  minimumRequirements:
+    Kryoxide: 5
+    Isoflux: 5
+    Resonite: 5
+  effects:
+  - !type:SoyuzProductionReaction
+    product: Boracite
+    productMoles: 1
+    fraction: 0.2
+    energyPerBlock: 30000
+    minimumTemperature: 60
+    maximumTemperature: 100
+    minimumPressure: 80
+    maximumPressure: 250
+    reactants:
+      Kryoxide: 1
+      Isoflux: 1
+      Resonite: 1
+
+- type: gasReaction
+  id: SoyuzDiboraneOxidation
+  priority: 10
+  minimumRequirements:
+    Diborane: 0.5
+    Oxygen: 1
+  effects:
+  - !type:DiboraneOxidationReaction {}

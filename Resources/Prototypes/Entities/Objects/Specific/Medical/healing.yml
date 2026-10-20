@@ -12,6 +12,17 @@
   # Inherited
   - type: StaticPrice
     price: 0
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/regenerative_mesh/regen_mesh_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/regenerative_mesh/regen_mesh_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/regenerative_mesh/regen_mesh_drop.ogg
+  #DS14-End
 
 - type: entity
   name: ointment
@@ -33,6 +44,7 @@
   - type: Healing
     damageContainers:
       - Biological
+      - Skeletal # DS14
     damage:
       types:
         Heat: -5
@@ -92,6 +104,7 @@
   - type: Healing
     damageContainers:
       - Biological
+      - Skeletal # DS14
     damage:
       types:
         Heat: -10
@@ -140,6 +153,7 @@
   - type: Healing
     damageContainers:
       - Biological
+      - Skeletal # DS14
     damage:
       types:
         Blunt: -5
@@ -199,6 +213,7 @@
   - type: Healing
     damageContainers:
       - Biological
+      - Skeletal # DS14
     damage:
       types:
         Blunt: -10
@@ -280,6 +295,7 @@
   parent: BaseHealingItem
   id: Tourniquet
   name: tourniquet
+  suffix: Один # DS14
   description: Stops bleeding! Hopefully.
   components:
     - type: Tag
@@ -290,13 +306,16 @@
       state: tourniquet
     - type: Item
       heldPrefix: tourniquet
+    # DS14-Start
+    - type: Stack
+      stackType: Tourniquet
+      count: 1
+    # DS14-End
     - type: Healing
       damageContainers:
         - Biological
       damage:
         types:
-          Blunt: 5 # Tourniquets HURT
-          Asphyxiation: 5 # Essentially Stopping all blood reaching a part of your body
       bloodlossModifier: -10 # Tourniquets stop bleeding
       delay: 0.5
       healingBeginSound:
@@ -309,6 +328,17 @@
         params:
           volume: 1.0
           variation: 0.125
+
+# DS14-Start
+- type: entity
+  id: Tourniquet3
+  parent: Tourniquet
+  suffix: Полный
+  components:
+  - type: Stack
+    stackType: Tourniquet
+    count: 3
+# DS14-End
 
 - type: entity
   name: roll of gauze
@@ -331,6 +361,7 @@
   - type: Healing
     damageContainers:
       - Biological
+      - Skeletal # DS14
     damage:
       types:
         Slash: -5
@@ -1110,6 +1141,21 @@
         maxVol: 15
         reagents:
         - ReagentId: Stimulants
+          Quantity: 15
+
+- type: entity
+  suffix: hivarol
+  parent: PrefilledSyringe
+  id: SyringeHivarol
+  components:
+  - type: Label
+    currentLabel: reagent-name-hivarol
+  - type: SolutionContainerManager
+    solutions:
+      injector:
+        maxVol: 15
+        reagents:
+        - ReagentId: Hivarol
           Quantity: 15
 
 # Entity Tables

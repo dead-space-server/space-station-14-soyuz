@@ -1,3 +1,4 @@
+using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Message;
 using Content.Client.RichText;
 using Content.Client.UserInterface.RichText;
@@ -82,7 +83,6 @@ public sealed partial class NewsReaderUiFragment : BoxContainer
         DislikeCount.Text = article.Dislikes.ToString();
 
         UpdateComments(article.Comments);
-        // DS14-end
     }
 
     // DS14-start
@@ -95,7 +95,8 @@ public sealed partial class NewsReaderUiFragment : BoxContainer
             var noCommentsLabel = new RichTextLabel
             {
                 Margin = new Thickness(4, 4, 4, 4),
-                HorizontalAlignment = HAlignment.Center
+                HorizontalAlignment = HAlignment.Center,
+                StyleClasses = { DeadSpaceStyleClass.Subtitle },
             };
             noCommentsLabel.SetMarkup(Loc.GetString("news-read-ui-no-comments"));
             CommentsContainer.AddChild(noCommentsLabel);
@@ -107,7 +108,8 @@ public sealed partial class NewsReaderUiFragment : BoxContainer
             var commentBox = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
-                Margin = new Thickness(0, 0, 0, 4)
+                HorizontalExpand = true,
+                Margin = new Thickness(6, 4, 6, 8),
             };
 
             var metaLabel = new RichTextLabel

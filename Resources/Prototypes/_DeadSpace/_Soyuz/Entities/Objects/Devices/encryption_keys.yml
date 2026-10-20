@@ -1,0 +1,17 @@
+- type: entity
+  parent: [ EncryptionKey, BaseCentcommContraband ]
+  id: EncryptionKeyNKO
+  name: ключ шифрования НКО СССП
+  description: Ключ шифрования для лучших из лучших.
+  components:
+  - type: EncryptionKey
+    channels:
+    - NKO
+    defaultChannel: CentCom
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/encryption_keys.rsi
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/encryption_keys.rsi
+    layers:
+    - state: crypt_dark_gold
+    - state: nano_label

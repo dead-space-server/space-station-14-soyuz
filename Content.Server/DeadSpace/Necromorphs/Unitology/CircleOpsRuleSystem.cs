@@ -1,5 +1,6 @@
 // Мёртвый Космос, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-fobos/master/LICENSE.TXT
 
+using Content.Server.Antag;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.Prototypes;
 using Content.Shared.Cargo.Prototypes;
@@ -23,13 +24,14 @@ using Content.Server.RoundEnd;
 using Content.Shared.DeadSpace.Necromorphs.Necroobelisk;
 using Content.Server.DeadSpace.NoShuttleFTL;
 using Content.Server.GameTicking;
-using Content.Server.Antag;
 using Content.Server.Database;
+using Content.Shared.DeadSpace.TheCircle.Shuttles;
 
 namespace Content.Server.DeadSpace.Necromorphs.Unitology;
 
 public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
 {
+    [Dependency] private readonly AntagSelectionSystem _antag = default!;
     [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly TimedWindowSystem _timedWindow = default!;
@@ -37,7 +39,6 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
     [Dependency] private readonly ErtResponseSystem _ertResponseSystem = default!;
     [Dependency] private readonly CargoSystem _cargoSystem = default!;
     [Dependency] private readonly RoundEndSystem _roundEndSystem = default!;
-    [Dependency] private readonly AntagSelectionSystem _antag = default!;
     [Dependency] private readonly IServerDbManager _db = default!;
     private const int AdditionalSupport = 100000;
     private static readonly ProtoId<CargoAccountPrototype> Account = "Security";
@@ -63,17 +64,6 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
         var winText = Loc.GetString($"thecircle-{(component.State == CircleOpsState.Convergence ? "opsmajor" : "crewmajor")}");
         args.AddLine(winText);
 
-        foreach (var cond in Array.Empty<string>())
-
-        args.AddLine(Loc.GetString("thecircle-list-start"));
-
-        var antags = _antag.GetAntagIdentifiers(uid);
-
-        foreach (var (_, sessionData, name) in antags)
-        {
-            args.AddLine(Loc.GetString("thecircle-initial-name", ("name", name), ("user", sessionData.UserName)));
-        }
-
         var winner = component.State == CircleOpsState.Convergence
             ? BiStatWinner.Antagonist
             : BiStatWinner.Crew;
@@ -89,6 +79,52 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
 
             }
         });
+    }
+
+    protected override void AppendRoundEndDiscordText(EntityUid uid,
+        CircleOpsRuleComponent component,
+        GameRuleComponent gameRule,
+        ref RoundEndDiscordTextAppendEvent args)
+    {
+        args.AddLine(Loc.GetString("thecircle-list-start"));
+
+        var antags = _antag.GetAntagIdentifiers(uid);
+        foreach (var (_, sessionData, name) in antags)
+        {
+            args.AddLine(Loc.GetString("thecircle-initial-name", ("name", name), ("user", sessionData.UserName)));
+        }
+
+        args.AddLine("");
+    }
+
+    protected override void AppendAdminStatus(EntityUid uid,
+        CircleOpsRuleComponent component,
+        GameRuleComponent gameRule,
+        CollectGameRuleAdminStatusEvent args)
+    {
+        var state = Loc.GetString($"game-rule-admin-status-circle-stage-{component.State.ToString().ToLowerInvariant()}");
+        var activation = component.State switch
+        {
+            CircleOpsState.Convergence => Loc.GetString("game-rule-admin-status-circle-obelisk-convergence"),
+            CircleOpsState.ObeliskActivated => Loc.GetString("game-rule-admin-status-circle-obelisk-active"),
+            _ => Loc.GetString("game-rule-admin-status-circle-obelisk-inactive"),
+        };
+
+        var lines = new List<string>
+        {
+            Loc.GetString("game-rule-admin-status-circle-summary",
+                ("stage", state),
+                ("activation", activation)),
+        };
+
+        if (component.State == CircleOpsState.ObeliskActivated)
+        {
+            var remaining = TimeSpan.FromSeconds(_timedWindow.GetSecondsRemaining(component.WindowUntilSpawnMoon));
+            lines.Add(Loc.GetString("game-rule-admin-status-circle-countdown",
+                ("time", remaining.ToString(@"mm\:ss"))));
+        }
+
+        args.AddSection(Loc.GetString("game-rule-admin-status-circle-title"), lines);
     }
 
     protected override void Started(EntityUid uid, CircleOpsRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
@@ -131,6 +167,11 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
             && HasComp<NoShuttleFTLComponent>(component.Shuttle.Value))
         {
             RemComp<NoShuttleFTLComponent>(component.Shuttle.Value);
+            if (TryComp<CirclePrimaryShuttleComponent>(component.Shuttle.Value, out var shuttle))
+            {
+                shuttle.Unlocked = true;
+                Dirty(component.Shuttle.Value, shuttle);
+            }
         }
 
         if (component.State == CircleOpsState.ObeliskActivated
@@ -147,7 +188,7 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
 
     private void OnRuleLoadedGrids(Entity<CircleOpsRuleComponent> ent, ref RuleLoadedGridsEvent args)
     {
-        var query = EntityQueryEnumerator<NoShuttleFTLComponent>();
+        var query = EntityQueryEnumerator<CirclePrimaryShuttleComponent>();
         while (query.MoveNext(out var uid, out _))
         {
             if (Transform(uid).MapID == args.Map)
@@ -194,6 +235,15 @@ public sealed class CircleOpsRuleSystem : GameRuleSystem<CircleOpsRuleComponent>
 
             component.State = CircleOpsState.WarDeclared;
             _timedWindow.Reset(component.WindowAfterWarDeclare);
+
+            if (component.Shuttle is { } shuttleUid &&
+                TryComp<CirclePrimaryShuttleComponent>(shuttleUid, out var shuttle))
+            {
+                shuttle.UnlockAt = component.WindowAfterWarDeclare.Remaining;
+                shuttle.TimerStarted = true;
+                shuttle.Unlocked = false;
+                Dirty(shuttleUid, shuttle);
+            }
 
             _alertLevel.SetLevel(component.TargetStation.Value, AlertLevel, false, true, true);
 

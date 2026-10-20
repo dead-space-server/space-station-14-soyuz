@@ -3,6 +3,7 @@ using Content.Server.Atmos.Components;
 using Content.Server.Body.Components;
 using Content.Server.Chat;
 using Content.Server.Chat.Managers;
+using Content.Server.DeadSpace.Prison;
 using Content.Server.Ghost;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Humanoid;
@@ -50,6 +51,7 @@ using Content.Shared.NPC.Components; // DS14
 using System.Linq; // DS14
 using Content.Shared.Cuffs.Components; // DS14
 using Content.Shared.Temperature.Components;
+using Content.Shared.StatusEffectNew; // DS14
 
 namespace Content.Server.Zombies;
 
@@ -76,12 +78,15 @@ public sealed partial class ZombieSystem
     [Dependency] private readonly NPCSystem _npc = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly ISharedPlayerManager _player = default!;
+    [Dependency] private readonly PrisonSystem _prison = default!;
     [Dependency] private readonly VirusSystem _virus = default!; // DS14
     [Dependency] private readonly LanguageSystem _language = default!; // DS14
+    [Dependency] private readonly StatusEffectsSystem _newStatusEffects = default!; // DS14
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";
     private static readonly ProtoId<TagPrototype> CannotSuicideTag = "CannotSuicide";
     private static readonly ProtoId<LanguagePrototype> ZombieLanguage = "ZombieLanguage"; // DS14
+    private static readonly EntProtoId ZombieAdrenalineEffect = "StatusEffectZombieAdrenaline"; // DS14
     private static readonly ProtoId<NpcFactionPrototype> ZombieFaction = "Zombie";
     private static readonly string MindRoleZombie = "MindRoleZombie";
     private static readonly List<ProtoId<AntagPrototype>> BannableZombiePrototypes = ["Zombie"];
@@ -114,6 +119,9 @@ public sealed partial class ZombieSystem
     {
         //Don't zombfiy zombies
         if (HasComp<ZombieComponent>(target) || HasComp<ZombieImmuneComponent>(target))
+            return;
+
+        if (_prison.IsEntityPrisoner(target))
             return;
 
         // DS14-start
@@ -149,13 +157,13 @@ public sealed partial class ZombieSystem
         //get diseases, breath, be thirst, be hungry, die in space, get double sentience, have offspring or be paraplegic.
         RemComp<RespiratorComponent>(target);
         RemComp<BarotraumaComponent>(target);
-        RemComp<HungerComponent>(target);
-        RemComp<ThirstComponent>(target);
+        RemComp<SatiationComponent>(target);
         RemComp<ReproductiveComponent>(target);
         RemComp<ReproductivePartnerComponent>(target);
         RemComp<LegsParalyzedComponent>(target);
         RemComp<ComplexInteractionComponent>(target);
         RemComp<SentienceTargetComponent>(target);
+        _newStatusEffects.TrySetStatusEffectDuration(target, ZombieAdrenalineEffect); // DS14
 
         // DS14-start
         if (HasComp<VirusComponent>(target))
@@ -280,7 +288,7 @@ public sealed partial class ZombieSystem
         //Heals the zombie from all the damage it took while human
         _damageable.ClearAllDamage(target);
         _mobState.ChangeMobState(target, MobState.Alive);
-        
+
         // DS14-start
         if (TryComp<NpcFactionMemberComponent>(target, out var factionComp))
         {

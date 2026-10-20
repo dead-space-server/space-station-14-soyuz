@@ -36,17 +36,13 @@ public sealed class SprayPainterBoundUserInterface(EntityUid owner, Enum uiKey) 
         var sprayPainter = EntMan.System<SprayPainterSystem>();
 
         // DS14-start
-        // _window.PopulateCategories(sprayPainter.PaintableStylesByGroup, sprayPainter.PaintableGroupsByCategory, sprayPainter.Decals);
-        // Update();
         if (EntMan.TryGetComponent(Owner, out SprayPainterComponent? sprayPainterComp))
         {
             var filteredGroups = sprayPainter.GetFilteredPaintableGroups(sprayPainterComp);
             var filteredStyles = sprayPainter.GetFilteredPaintableStyles(sprayPainterComp);
-            _window.PopulateCategories(filteredStyles, filteredGroups, sprayPainter.Decals);
-        }
-        else
-        {
-            _window.PopulateCategories(sprayPainter.PaintableStylesByGroup, sprayPainter.PaintableGroupsByCategory, sprayPainter.Decals);
+            // DS14-Soyuz: Filter decals and tabs by the component on this specific tool.
+            var filteredDecals = sprayPainter.GetFilteredDecals(sprayPainterComp);
+            _window.PopulateCategories(filteredStyles, filteredGroups, filteredDecals, sprayPainterComp.DecalOnly);
         }
         // DS14-end
 
@@ -64,12 +60,19 @@ public sealed class SprayPainterBoundUserInterface(EntityUid owner, Enum uiKey) 
         if (!EntMan.TryGetComponent(Owner, out SprayPainterComponent? sprayPainter))
             return;
 
-        _window.PopulateColors(sprayPainter.ColorPalette);
-        if (sprayPainter.PickedColor != null)
-            _window.SelectColor(sprayPainter.PickedColor);
-        _window.SetSelectedStyles(sprayPainter.StylesByGroup);
+        // DS14-Soyuz-start: A blueprint tool has no pipe or object-painting controls.
+        if (!sprayPainter.DecalOnly)
+        {
+            _window.PopulateColors(sprayPainter.ColorPalette);
+            if (sprayPainter.PickedColor != null)
+                _window.SelectColor(sprayPainter.PickedColor);
+            _window.SetSelectedStyles(sprayPainter.StylesByGroup);
+        }
+        // DS14-Soyuz-end
         _window.SetSelectedDecal(sprayPainter.SelectedDecal);
         _window.SetDecalAngle(sprayPainter.SelectedDecalAngle);
+        // DS14-Soyuz: Hide color editing for blueprints while preserving rotation.
+        _window.SetDecalColorEditing(sprayPainter.DecalColorEditable, sprayPainter.FixedDecalColor);
         _window.SetDecalColor(sprayPainter.SelectedDecalColor);
         _window.SetDecalSnap(sprayPainter.SnapDecals);
         _window.SetDecalColorPicker(sprayPainter.ColorPickerEnabled);

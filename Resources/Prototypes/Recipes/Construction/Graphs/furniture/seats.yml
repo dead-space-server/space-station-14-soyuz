@@ -11,6 +11,13 @@
             - material: Steel
               amount: 1
               doAfter: 1
+        # DS14-Soyuz start: Greyscale chair uses the same steel cost as the standard chair.
+        - to: chairGreyscale
+          steps:
+            - material: Steel
+              amount: 1
+              doAfter: 1
+        # DS14-Soyuz end
         - to: stool
           steps:
             - material: Steel
@@ -198,6 +205,19 @@
           steps:
             - tool: Screwing
               doAfter: 1
+
+    # DS14-Soyuz start: Build and deconstruct the greyscale chair independently.
+    - node: chairGreyscale
+      entity: ChairGreyscale
+      edges:
+        - to: start
+          completed:
+            - !type:SpawnPrototype
+              prototype: SheetSteel1
+          steps:
+            - tool: Screwing
+              doAfter: 1
+    # DS14-Soyuz end
 
     - node: stool
       entity: Stool

@@ -2,11 +2,13 @@ using Content.Server.Body.Systems;
 using Content.Server.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Popups;
 using Content.Shared.Projectiles;
 using Content.Shared.Tag;
+using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Collections;
 using Robust.Shared.Prototypes;
@@ -31,6 +33,7 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<SolutionInjectOnProjectileHitComponent, ProjectileHitEvent>(HandleProjectileHit);
+        SubscribeLocalEvent<SolutionInjectOnProjectileHitComponent, HitscanRaycastFiredEvent>(HandleHitscanHit); // DS14
         SubscribeLocalEvent<SolutionInjectOnEmbedComponent, EmbedEvent>(HandleEmbed);
         SubscribeLocalEvent<MeleeChemicalInjectorComponent, MeleeHitEvent>(HandleMeleeHit);
         SubscribeLocalEvent<SolutionInjectWhileEmbeddedComponent, InjectOverTimeEvent>(OnInjectOverTime);
@@ -40,6 +43,16 @@ public sealed class SolutionInjectOnCollideSystem : EntitySystem
     {
         DoInjection((entity.Owner, entity.Comp), args.Target, args.Shooter);
     }
+
+    // DS14-start: preserve chemical bolt behavior when projectile ammo is converted to hitscan.
+    private void HandleHitscanHit(Entity<SolutionInjectOnProjectileHitComponent> entity, ref HitscanRaycastFiredEvent args)
+    {
+        if (args.Data.HitEntity == null)
+            return;
+
+        DoInjection((entity.Owner, entity.Comp), args.Data.HitEntity.Value, args.Data.Shooter ?? args.Data.Gun);
+    }
+    // DS14-end
 
     private void HandleEmbed(Entity<SolutionInjectOnEmbedComponent> entity, ref EmbedEvent args)
     {

@@ -24,7 +24,7 @@ public sealed partial class VirusResistanceSystem : EntitySystem
 
     private void OnArmorExamine(Entity<VirusResistanceComponent> ent, ref ArmorExamineEvent args)
     {
-        var value = MathF.Round(ent.Comp.VirusResistanceCoefficient * 100, 1);
+        var value = MathF.Round((1f - ent.Comp.VirusResistanceCoefficient) * 100, 1); // DS14-Soyuz
 
         if (value == 0)
             return;

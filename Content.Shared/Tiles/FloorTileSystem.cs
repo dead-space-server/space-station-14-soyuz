@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace._Soyuz.Construction;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
@@ -14,7 +15,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -28,7 +28,6 @@ public sealed class FloorTileSystem : EntitySystem
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedStackSystem _stackSystem = default!;
@@ -37,13 +36,9 @@ public sealed class FloorTileSystem : EntitySystem
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly TileCenterCollisionSystem _tileCenterCollision = default!; // DS14-Soyuz
 
     private static readonly Vector2 CheckRange = new(1f, 1f);
-
-    /// <summary>
-    ///     A recycled hashset used to check for walls when trying to place tiles on turfs.
-    /// </summary>
-    private readonly HashSet<EntityUid> _turfCheck = [];
 
     public override void Initialize()
     {
@@ -68,41 +63,40 @@ public sealed class FloorTileSystem : EntitySystem
         if (locationMap.MapId == MapId.Nullspace)
             return;
 
-        var physicQuery = GetEntityQuery<PhysicsComponent>();
         var transformQuery = GetEntityQuery<TransformComponent>();
 
-        var map = _transform.ToMapCoordinates(location);
+        TryComp<MapGridComponent>(location.EntityId, out var mapGrid);
 
-        // Disallow placement close to grids.
-        // FTLing close is okay but this makes alignment too finnicky.
-        // While you may already have a tile close you want to replace when we get half-tiles that may also be finnicky
-        // so we're just gon with this for now.
-        const bool inRange = true;
-        var state = (inRange, location.EntityId);
-        _mapManager.FindGridsIntersecting(map.MapId, new Box2(map.Position - CheckRange, map.Position + CheckRange), ref state,
-            static (EntityUid entityUid, MapGridComponent grid, ref (bool weh, EntityUid EntityId) tuple) =>
-            {
-                if (tuple.EntityId == entityUid)
-                    return true;
-
-                tuple.weh = false;
-                return false;
-            });
-
-        if (!state.inRange)
+        // Replacing an existing tile does not expand the grid into its neighbours.
+        if (mapGrid == null || _map.GetTileRef(location.EntityId, mapGrid, location).Tile.IsEmpty)
         {
-            if (_netManager.IsClient && _timing.IsFirstTimePredicted)
-                _popup.PopupEntity(Loc.GetString("invalid-floor-placement"), args.User);
+            var state = (InRange: true, Grid: location.EntityId);
+            _mapManager.FindGridsIntersecting(locationMap.MapId,
+                new Box2(locationMap.Position - CheckRange, locationMap.Position + CheckRange), ref state,
+                static (EntityUid entityUid, MapGridComponent grid, ref (bool InRange, EntityUid Grid) state) =>
+                {
+                    if (state.Grid == entityUid)
+                        return true;
 
-            return;
+                    state.InRange = false;
+                    return false;
+                });
+
+            if (!state.InRange)
+            {
+                if (_netManager.IsClient && _timing.IsFirstTimePredicted)
+                    _popup.PopupEntity(Loc.GetString("invalid-floor-placement"), args.User);
+
+                return;
+            }
         }
 
         var userPos = _transform.ToMapCoordinates(transformQuery.GetComponent(args.User).Coordinates).Position;
-        var dir = userPos - map.Position;
+        var dir = userPos - locationMap.Position;
         var canAccessCenter = false;
         if (dir.LengthSquared() > 0.01)
         {
-            var ray = new CollisionRay(map.Position, dir.Normalized(), (int) CollisionGroup.Impassable);
+            var ray = new CollisionRay(locationMap.Position, dir.Normalized(), (int) CollisionGroup.Impassable);
             var results = _physics.IntersectRay(locationMap.MapId, ray, dir.Length(), returnOnFirstHit: true);
             canAccessCenter = !results.Any();
         }
@@ -111,21 +105,16 @@ public sealed class FloorTileSystem : EntitySystem
         // otherwise check it isn't blocked by a wall
         if (!canAccessCenter && _turf.TryGetTileRef(location, out var tileRef))
         {
-            _turfCheck.Clear();
-            _lookup.GetEntitiesInTile(tileRef.Value, _turfCheck);
-            foreach (var ent in _turfCheck)
+            // DS14-Soyuz
+            if (TryComp<MapGridComponent>(tileRef.Value.GridUid, out var tileGrid) &&
+                _tileCenterCollision.IsBlocked(
+                    (tileRef.Value.GridUid, tileGrid),
+                    tileRef.Value.GridIndices,
+                    collisionMask: (int) CollisionGroup.Impassable))
             {
-                if (physicQuery.TryGetComponent(ent, out var phys) &&
-                    phys.BodyType == BodyType.Static &&
-                    phys.Hard &&
-                    (phys.CollisionLayer & (int)CollisionGroup.Impassable) != 0)
-                {
-                    return;
-                }
+                return;
             }
         }
-        TryComp<MapGridComponent>(location.EntityId, out var mapGrid);
-
         foreach (var currentTile in component.Outputs)
         {
             var currentTileDefinition = (ContentTileDefinition) _tileDefinitionManager[currentTile];

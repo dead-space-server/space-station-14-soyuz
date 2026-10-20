@@ -8,10 +8,16 @@
   id: AmbrosiaDeus
 
 - type: Tag
+  id: AmeJar
+
+- type: Tag
   id: AnimateSpellBlacklist
 
 - type: Tag
   id: BatteryWeaponFireModesSprites
+
+- type: Tag
+  id: Baltica9
 
 - type: Tag
   id: BerryDelight
@@ -47,6 +53,9 @@
   id: DrinkBeerBottleFull
 
 - type: Tag
+  id: DrinkGlass
+
+- type: Tag
   id: CantChangeScale
 
 - type: Tag
@@ -57,6 +66,9 @@
 
 - type: Tag
   id: CartridgeSniperRifle
+
+- type: Tag
+  id: CartridgeHeavyPistol
 
 - type: Tag
   id: CatEmotes
@@ -84,6 +96,9 @@
 
 - type: Tag
   id: DeathNettle
+
+- type: Tag
+  id: DebugUplink
 
 - type: Tag
   id: DockCentcommERT
@@ -116,10 +131,19 @@
   id: DockCentcommERTOfficialShuttle
 
 - type: Tag
+  id: DockCentcommERTFieldOfficerShuttle
+
+- type: Tag
+  id: SealWearable
+
+- type: Tag
   id: DonkCo
 
 - type: Tag
   id: Demon
+
+- type: Tag
+  id: Durf
 
 - type: Tag
   id: EnergyCartridge
@@ -134,10 +158,22 @@
   id: EnergySwordDouble
 
 - type: Tag
+  id: ParryEnergySword
+
+- type: Tag
+  id: ParryAll
+
+- type: Tag
+  id: ParryStandardWeapon
+
+- type: Tag
   id: EncryptionTaipan
 
 - type: Tag
   id: ExplorerSuitLavaland
+
+- type: Tag
+  id: FoodBreadBaguette
 
 - type: Tag
   id: FlamethrowerBackTank
@@ -164,7 +200,19 @@
   id: FoodChiliPepper
 
 - type: Tag
+  id: FoodDoughSmallFlat
+
+- type: Tag
+  id: FoodDoughSmallSlice
+
+- type: Tag
+  id: FoodMeatSmallBall
+
+- type: Tag
   id: GasTank
+
+- type: Tag
+  id: GasTankBorg
 
 - type: Tag
   id: GiantSpiderSpace
@@ -174,6 +222,12 @@
 
 - type: Tag
   id: GrenadeCleanade
+
+- type: Tag
+  id: RockGuitarInstrument
+
+- type: Tag
+  id: RPG70
 
 - type: Tag
   id: HardHat
@@ -224,7 +278,13 @@
   id: LoneOpsUplink
 
 - type: Tag
+  id: NukeOpsCommanderUplink
+
+- type: Tag
   id: MagazineCarbineSKS
+
+- type: Tag
+  id: MagazineSmartWeaponShingen
 
 - type: Tag
   id: Magmite
@@ -237,6 +297,7 @@
 
 - type: Tag
   id: MagazineEagleAP
+
 
 - type: Tag
   id: MagazineGurza
@@ -258,6 +319,9 @@
 
 - type: Tag
   id: MantisBlades
+
+- type: Tag
+  id: Monowire
 
 - type: Tag
   id: MeatAnomalyCooked
@@ -299,6 +363,9 @@
   id: Plastitanium
 
 - type: Tag
+  id: PoSabre
+
+- type: Tag
   id: Plasteel
 
 - type: Tag
@@ -309,6 +376,9 @@
 
 - type: Tag
   id: RevolverPython
+
+- type: Tag
+  id: SharkEmotes
 
 - type: Tag
   id: ShotgunBulldog
@@ -437,6 +507,18 @@
   id: WhiteFlower
 
 - type: Tag
+  id: WriteReWrite
+
+- type: Tag
   id: YellowFlower
+
+- type: Tag
+  id: GasGrenadeShell
+
+- type: Tag
+  id: GasGrenadeShellRed
+
+- type: Tag
+  id: GasGrenadeShellBlue
 
   # Обязательно в алфавитном порядке

@@ -49,6 +49,10 @@ namespace Content.Client.Atmos.Overlays
         private readonly Texture[][] _fireFrames = new Texture[FireStates][];
 
         private int _gasCount;
+        // DS14-Soyuz-start
+        private readonly int[] _soyuzGasIds;
+        private readonly Color[] _soyuzGasColors;
+        // DS14-Soyuz-end
 
         public const int GasOverlayZIndex = (int) Shared.DrawDepth.DrawDepth.Effects; // Under ghosts, above mostly everything else
 
@@ -63,6 +67,13 @@ namespace Content.Client.Atmos.Overlays
             ZIndex = GasOverlayZIndex;
 
             _gasCount = system.VisibleGasId.Length;
+            // DS14-Soyuz-start: new gases reuse neutral textures tinted by their prototype colors.
+            _soyuzGasIds = system.VisibleGasId;
+            _soyuzGasColors = new Color[_gasCount];
+            for (var i = 0; i < _gasCount; i++)
+                _soyuzGasColors[i] = system.VisibleGasId[i] >= (int) Gas.Kryoxide
+                    ? Color.FromHex("#" + _atmosphereSystem.GetGas(system.VisibleGasId[i]).Color) : Color.White;
+            // DS14-Soyuz-end
             _timer = new float[_gasCount];
             _frameDelays = new float[_gasCount][];
             _frameCounter = new int[_gasCount];
@@ -161,6 +172,8 @@ namespace Content.Client.Atmos.Overlays
             var gridState = (args.WorldBounds,
                 args.WorldHandle,
                 _gasCount,
+                _soyuzGasIds, // DS14-Soyuz
+                _soyuzGasColors, // DS14-Soyuz
                 _frames,
                 _frameCounter,
                 _fireFrames,
@@ -184,6 +197,8 @@ namespace Content.Client.Atmos.Overlays
                     ref (Box2Rotated WorldBounds,
                         DrawingHandleWorld drawHandle,
                         int gasCount,
+                        int[] soyuzGasIds, // DS14-Soyuz
+                        Color[] soyuzGasColors, // DS14-Soyuz
                         Texture[][] frames,
                         int[] frameCounter,
                         Texture[][] fireFrames,
@@ -230,7 +245,14 @@ namespace Content.Client.Atmos.Overlays
                             {
                                 var opacity = gas.Opacity[i];
                                 if (opacity > 0)
-                                    state.drawHandle.DrawTexture(state.frames[i][state.frameCounter[i]], tilePosition, Color.White.WithAlpha(opacity));
+                                {
+                                    // DS14-Soyuz-start
+                                    var color = state.soyuzGasColors[i];
+                                    if (state.soyuzGasIds[i] == (int) Gas.Tlec)
+                                        color = Content.Shared.DeadSpace._Soyuz.Atmos.SoyuzGasVisuals.TlecColor(gas.SoyuzTlecStage, color);
+                                    state.drawHandle.DrawTexture(state.frames[i][state.frameCounter[i]], tilePosition, color.WithAlpha(opacity));
+                                    // DS14-Soyuz-end
+                                }
                             }
                         }
                     }
@@ -252,10 +274,23 @@ namespace Content.Client.Atmos.Overlays
 
                             var fireState = gas.FireState - 1;
                             var texture = state.fireFrames[fireState][state.fireFrameCounter[fireState]];
-                            state.drawHandle.DrawTexture(texture, index);
+                            state.drawHandle.DrawTexture(texture, index, Content.Shared.DeadSpace._Soyuz.Atmos.SoyuzGasVisuals.FireColor(gas.SoyuzFireColor)); // DS14-Soyuz
                         }
                     }
 
+                    // DS14-Soyuz-start: bounded attenuation after gas/fire rendering, never absolute black.
+                    foreach (var chunk in comp.Chunks.Values)
+                    {
+                        var enumerator = new GasChunkEnumerator(chunk);
+                        while (enumerator.MoveNext(out var gas))
+                        {
+                            var index = chunk.Origin + (enumerator.X, enumerator.Y);
+                            if (gas.SoyuzDarkness == 0 || !localBounds.Contains(index))
+                                continue;
+                            state.drawHandle.DrawRect(new Box2(index.X, index.Y, index.X + 1, index.Y + 1), Color.Black.WithAlpha(gas.SoyuzDarkness));
+                        }
+                    }
+                    // DS14-Soyuz-end
                     return true;
                 });
 

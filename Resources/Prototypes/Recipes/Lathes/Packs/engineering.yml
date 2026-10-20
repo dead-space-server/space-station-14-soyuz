@@ -55,6 +55,7 @@
   id: EngineeringBoardsStatic
   recipes:
   - SpaceHeaterMachineCircuitBoard
+  - GasElectrolyzerMachineCircuitBoard # DS14
 
 ## Dynamic
 
@@ -67,6 +68,7 @@
   - Fulton
   - FultonBeacon
   - BluespaceHandHeldMassScannerEmpty #DS14
+  - InsulatedGloves #DS14
 
 - type: latheRecipePack
   id: AtmosTools
@@ -81,6 +83,11 @@
 - type: latheRecipePack
   id: EngineeringBoards
   recipes:
+  # DS14-Soyuz-start
+  - PlasmaGasMinerMachineCircuitboard
+  - OxygenGasMinerMachineCircuitboard
+  - NitrogenGasMinerMachineCircuitboard
+  # DS14-Soyuz-end
   - ThermomachineFreezerMachineCircuitBoard
   - HellfireFreezerMachineCircuitBoard
   - PortableScrubberMachineCircuitBoard

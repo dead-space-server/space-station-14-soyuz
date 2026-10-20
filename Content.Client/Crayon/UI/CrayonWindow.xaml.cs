@@ -32,6 +32,8 @@ namespace Content.Client.Crayon.UI
         public event Action<Color>? OnColorSelected;
         public event Action<string>? OnSelected;
 
+        public event Action<Angle>? OnRotationChanged; //DS14
+
         public CrayonWindow()
         {
             RobustXamlLoader.Load(this);
@@ -40,6 +42,16 @@ namespace Content.Client.Crayon.UI
 
             Search.OnTextChanged += SearchChanged;
             ColorSelector.OnColorChanged += SelectColor;
+			
+			// DS14-start
+			RotationInput.OnTextChanged += args =>
+			{
+				if (int.TryParse(args.Text, out var degrees))
+				{
+					OnRotationChanged?.Invoke(Angle.FromDegrees(degrees));
+				}
+			};
+			// DS14-end
         }
 
         private void SelectColor(Color color)
@@ -110,10 +122,9 @@ namespace Content.Client.Crayon.UI
                     {
                         var panelContainer = new PanelContainer()
                         {
-                            PanelOverride = new StyleBoxFlat()
-                            {
-                                BackgroundColor = StyleNano.ButtonColorDefault,
-                            },
+                            // DS14-start: the wrapper is a functional selection frame, not a local color surface.
+                            StyleClasses = { StyleClass.BackgroundPanel },
+                            // DS14-end
                             Children =
                             {
                                 button,

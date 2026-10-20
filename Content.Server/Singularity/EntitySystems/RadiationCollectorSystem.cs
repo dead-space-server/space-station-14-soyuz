@@ -100,6 +100,16 @@ public sealed class RadiationCollectorSystem : EntitySystem
             float temperatureMod = 1.5f * gasTankComponent.Air.Temperature / (150f + gasTankComponent.Air.Temperature);
             charge += args.TotalRads * reactantMol * component.ChargeModifier * gas.PowerGenerationEfficiency * temperatureMod;
 
+            // DS14-Soyuz-start: Gamma uses this collector's plasma baseline, with independent fuel accounting.
+            if (gas.ReactantPrototype == Gas.Plasma)
+            {
+                var gamma = gasTankComponent.Air.GetMoles(Gas.GammaGas);
+                charge += args.TotalRads * gamma * component.ChargeModifier * gas.PowerGenerationEfficiency * temperatureMod * 2f;
+                var consumed = Math.Clamp(args.TotalRads * gamma * gas.ReactantBreakdownRate * 0.10f, 0f, gamma);
+                gasTankComponent.Air.AdjustMoles(Gas.GammaGas, -consumed);
+            }
+            // DS14-Soyuz-end
+
             if (delta > 0)
             {
                 gasTankComponent.Air.AdjustMoles(gas.ReactantPrototype, -Math.Min(delta, reactantMol));

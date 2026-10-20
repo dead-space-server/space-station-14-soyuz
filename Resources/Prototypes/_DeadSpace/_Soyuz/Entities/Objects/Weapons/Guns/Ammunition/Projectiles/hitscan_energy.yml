@@ -1,0 +1,8 @@
+- type: entity
+  parent: BulletDisablerTrace
+  id: SoyuzBulletDisablerTrace
+  name: disabler bolt
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanStaminaDamage
+    staminaDamage: 45

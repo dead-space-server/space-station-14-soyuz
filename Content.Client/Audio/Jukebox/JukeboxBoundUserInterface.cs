@@ -1,3 +1,4 @@
+/* DS14-Soyuz: Disabled
 using Content.Shared.Audio.Jukebox;
 using Robust.Client.Audio;
 using Robust.Client.UserInterface;
@@ -98,4 +99,4 @@ public sealed class JukeboxBoundUserInterface : BoundUserInterface
         SendMessage(new JukeboxSetTimeMessage(sentTime));
     }
 }
-
+*/

@@ -3,6 +3,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Server.Explosion.EntitySystems;
+using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Power.Components;
@@ -37,6 +38,9 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        if (GameTicker.RunLevel == GameRunLevel.PostRound)
+            return;
 
         var query = EntityQueryEnumerator<BrokenTechGameRuleComponent, GameRuleComponent>();
         while (query.MoveNext(out var uid, out var ruleComp, out var gameRule))
@@ -116,6 +120,7 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
     private List<EntityUid> FilterEntities(List<EntityUid> entities, BrokenTechEntry entry)
     {
         var result = new List<EntityUid>();
+
         foreach (var ent in entities)
         {
             if (TerminatingOrDeleted(ent))
@@ -179,10 +184,12 @@ public sealed class BrokenTechGameRuleSystem : GameRuleSystem<BrokenTechGameRule
     {
         if (TerminatingOrDeleted(uid))
             return;
+
         SpawnFromTable(uid, action.SpawnTable);
         _explosion.QueueExplosion(uid, action.ExplosionType, action.ExplosionIntensity, 1f, 2f, maxTileBreak: 0);
         QueueDel(uid);
     }
+
     private void HandleBlock(EntityUid uid, BlockWorkingEntityAction action)
     {
         if (Deleted(uid))

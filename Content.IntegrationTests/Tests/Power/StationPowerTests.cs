@@ -32,12 +32,12 @@ public sealed class StationPowerTests
         "Cog",
         "Convex",
         "Core",
-        "CorvaxAstra",
-        "CorvaxAvrite",
-        "CorvaxDelta",
+        // "CorvaxAstra", // DS14-Soyuz disabled
+        // "CorvaxAvrite", // DS14-Soyuz disabled
+        // "CorvaxDelta", // DS14-Soyuz disabled
         // "CorvaxPaper", // APC overloaded
         "CorvaxSilly",
-        "CorvaxSpectrum",
+        // "CorvaxSpectrum", // DS14-Soyuz disabled
         "Elkridge",
         // "Exo", // map removed
         "Fland",
@@ -58,6 +58,7 @@ public sealed class StationPowerTests
         "Reach",
         "Saltern",
         "Train",
+        "DsTram2", // guess what? DS14
     ];
 
     [Explicit]

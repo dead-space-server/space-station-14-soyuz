@@ -124,6 +124,8 @@
     - PlushieSharkBlue
     - PlushieVox
     - PlushieXeno
+    - PlushieSpaceSheep
+    - PlushieSheep
     - PlasticBanana
     - RevolverCapGun
     - SnapPopBox
@@ -157,7 +159,12 @@
     - PlushieJokerge
     - PlushieFloran
     - PlushieJuggernaut
+    - PlushieZaratana
+    - PlushieAgnes
+    - PlushieGoldShip
+    - PlushieBourbon
     - PlushieLieutenant
+    - PlushieCobla
   - type: WiresPanel
   - type: Wires
     layoutId: Arcade

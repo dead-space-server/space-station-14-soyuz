@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Chat.Managers;
 using Content.Server.Database;
+using Content.Server.DeadSpace.Prison;
 using Content.Server.GameTicking;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
@@ -128,7 +129,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     {
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Server, null);
 
-        await _db.AddBanAsync(banDef);
+        banDef = await _db.AddBanAsync(banDef);
 
         if (_cfg.GetCVar(CCVars.ServerBanResetLastReadRules))
         {
@@ -176,7 +177,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         if (_banWebhooksManager != null)
         {
             var webhookMinutes = banInfo.Duration.HasValue ? (uint?)banInfo.Duration.Value.TotalMinutes : null;
-            await _banWebhooksManager.SendBan(targetName, adminName, webhookMinutes, banInfo.Reason, banDef.ExpirationTime, null, 0xff0000, "Серверный бан", null);
+            await _banWebhooksManager.SendBan(targetName, adminName, webhookMinutes, banInfo.Reason, banDef.ExpirationTime, null, 0xff0000, "Серверный бан", banDef.RoundIds.FirstOrNull(), banDef.Id);
         }
         // DS14-bans-weebhook-end
 
@@ -197,10 +198,18 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
     private void KickMatchingConnectedPlayers(BanDef def, string source)
     {
+        var prison = _systems.GetEntitySystem<PrisonSystem>();
+
         foreach (var player in _playerManager.Sessions)
         {
             if (BanMatchesPlayer(player, def))
             {
+                if (prison.TrySendToPrison(player, def))
+                {
+                    _sawmill.Info($"Sent player {player.Name} ({player.UserId}) to prison through {source}");
+                    continue;
+                }
+
                 KickForBanDef(player, def);
                 _sawmill.Info($"Kicked player {player.Name} ({player.UserId}) through {source}");
             }
@@ -247,7 +256,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Role, roleDefs);
 
-        await AddRoleBan(banDef);
+        banDef = await AddRoleBan(banDef);
 
         var length = expires == null
             ? Loc.GetString("cmd-roleban-inf")
@@ -273,12 +282,11 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         // DS14-bans-weebhook-start
         if (_banWebhooksManager != null)
         {
-            var webhookTargetName = banInfo.Users.Count == 0 ? "null" : banInfo.Users.First().UserName;
             var webhookAdminName = banInfo.BanningAdmin == null
                 ? Loc.GetString("system-user")
                 : (await _db.GetPlayerRecordByUserId(banInfo.BanningAdmin.Value))?.LastSeenUserName ?? Loc.GetString("system-user");
             var minutes = banInfo.Duration.HasValue ? (uint?)banInfo.Duration.Value.TotalMinutes : null;
-            await _banWebhooksManager.SendBan(webhookTargetName, webhookAdminName, minutes, banInfo.Reason, expires, string.Join(", ", roleDefs), 0x002fff, "Бан роли", null);
+            await _banWebhooksManager.SendBan(targetName, webhookAdminName, minutes, banInfo.Reason, expires, string.Join(", ", roleDefs), 0x002fff, "Бан роли", banDef.RoundIds.FirstOrNull(), banDef.Id);
         }
         // DS14-bans-weebhook-end
     }
@@ -323,7 +331,8 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             GetSeverityForServerBan(banInfo, CCVars.ServerBanDefaultSeverity),
             banInfo.BanningAdmin,
             null,
-            roles: roleBans), expires);
+            roles: roleBans,
+            sendToPrison: banInfo is CreateServerBanInfo serverBanInfo && serverBanInfo.SendToPrison), expires);
     }
 
     private async Task<TimeSpan> GetPlayTime(CreateBanInfo banInfo)
@@ -368,7 +377,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         throw new ArgumentException($"Unknown prototype kind for role bans: {typeof(T)}");
     }
 
-    private async Task AddRoleBan(BanDef banDef)
+    private async Task<BanDef> AddRoleBan(BanDef banDef)
     {
         banDef = await _db.AddBanAsync(banDef);
 
@@ -380,6 +389,8 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
                 cachedBans.Add(banDef);
             }
         }
+
+        return banDef;
     }
 
     public async Task<string> PardonRoleBan(int banId, NetUserId? unbanningAdmin, DateTimeOffset unbanTime)

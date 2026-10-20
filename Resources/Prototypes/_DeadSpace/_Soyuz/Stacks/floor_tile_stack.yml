@@ -67,6 +67,12 @@
   spawn: FloorTileItemWhiteSteel10
   maxCount: 30
 
+- type: stack
+  id: FloorTileWhiteSteel11
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemWhiteSteel11
+  maxCount: 30
+
 ## Обычная
 - type: stack
   id: FloorTileSteel1
@@ -128,6 +134,12 @@
   spawn: FloorTileItemSteel10
   maxCount: 30
 
+- type: stack
+  id: FloorTileSteel11
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemSteel11
+  maxCount: 30
+
 ## Тёмная
 - type: stack
   id: FloorTileBlackSteel1
@@ -187,4 +199,10 @@
   id: FloorTileBlackSteel10
   name: stack-floor-tile-terracotta
   spawn: FloorTileItemBlackSteel10
+  maxCount: 30
+
+- type: stack
+  id: FloorTileBlackSteel11
+  name: stack-floor-tile-terracotta
+  spawn: FloorTileItemBlackSteel11
   maxCount: 30

@@ -1,0 +1,77 @@
+# SPDX-FileCopyrightText: 2026 Kofeecheks
+# SPDX-License-Identifier: LicenseRef-Kofeecheks
+
+- type: entity
+  id: BaseChemistryVirusVial
+  parent: BaseChemistryEmptyVial
+  categories: [ HideSpawnMenu ]
+  name: vial
+  description: A small vial.
+  suffix: Romerol, 15
+  components:
+  - type: Label
+    currentLabel: reagent-name-romerol
+  - type: SolutionContainerManager
+    solutions:
+      beaker:
+        maxVol: 15
+        reagents:
+        - ReagentId: Romerol
+          Quantity: 15
+
+- type: entity
+  id: BoxVirus
+  parent: BoxVial
+  categories: [ HideSpawnMenu ]
+  name: virology vial box
+  description: A box containing Romerol samples.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: BaseChemistryVirusVial
+        amount: 6
+
+- type: entity
+  id: CrateVirologyPlan
+  parent: CrateMedicalSecure
+  categories: [ HideSpawnMenu ]
+  name: virology reserve crate
+  description: Contains a box of samples for the station goal.
+  components:
+  - type: StorageFill
+    contents:
+    - id: BoxVirus
+
+- type: entity
+  id: MobGiantSpiderSpaceNoEgg
+  parent: MobSpiderSpace
+  name: giant space spider
+  description: It glows brighter and has a larger abdomen. This cannot be good.
+  suffix: No eggs
+  components:
+  - type: Sprite
+    scale: 1.2, 1.2
+  - type: Body
+    prototype: Bloodsucker
+  - type: Tag
+    tags:
+    - GiantSpiderSpace
+  - type: Butcherable
+    spawned:
+    - id: FoodMeatSpider
+      amount: 2
+
+- type: entity
+  id: CrateNPCGiantSpiderSpaceNoEgg
+  parent: CrateSecure
+  categories: [ HideSpawnMenu ]
+  name: space spider crate
+  description: Contains four giant space spiders incapable of laying eggs.
+  components:
+  - type: AccessReader
+    access: [["Security"], ["Captain"]]
+  - type: StorageFill
+    contents:
+    - id: MobGiantSpiderSpaceNoEgg
+      amount: 4

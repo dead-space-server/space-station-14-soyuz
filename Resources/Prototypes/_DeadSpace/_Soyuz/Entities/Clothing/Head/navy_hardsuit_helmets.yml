@@ -1,0 +1,118 @@
+# Шаблоны
+- type: entity
+  parent: [ BaseCentcommContraband, ClothingHeadHelmetHardsuitERTLeader, ClothingHeadSuitWithLightBase ]
+  id: ClothingHeadHelmetHardsuitNavyBase
+  name: базовый шлем ВКФ СССП
+  description: Глядя на его фонарик вам хочется рыдать.
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: ClothingGrantComponent
+    component: 
+      - type: ImmunNecroobelisk
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.90
+        Heat: 0.90
+        Radiation: 0.90
+        Caustic: 0.95
+        Poison: 0.90
+  - type: PointLight
+    color: "#00FFFF"
+    radius: 7
+    energy: 5
+  - type: Tag
+    tags: [] # ignore "WhitelistChameleon" tag
+
+# Шлема
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitNavyBase
+  id: ClothingHeadHelmetHardsuitNavyCaptain
+  name: шлем скафандра капитана ВКФ СССП
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_captain.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.85
+        Heat: 0.85
+        Radiation: 0.85
+        Caustic: 0.95
+        Poison: 0.85
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitNavyBase
+  id: ClothingHeadHelmetHardsuitNavyMedical
+  name: шлем скафандра медика ВКФ СССП
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_medical.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_medical.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+        Radiation: 0.9
+        Caustic: 0.8
+        Poison: 0.8
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitNavyBase
+  id: ClothingHeadHelmetHardsuitNavyEngineer
+  name: шлем скафандра инженера ВКФ СССП
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_engineering.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy_engineering.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.8
+        Radiation: 0.8
+        Caustic: 0.95
+        Poison: 0.9
+
+- type: entity
+  parent: ClothingHeadHelmetHardsuitNavyBase
+  id: ClothingHeadHelmetHardsuitNavyOfficer
+  name: шлем скафандра офицера ВКФ СССП
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/nanotrasen_navy.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.9
+        Heat: 0.95
+        Radiation: 0.95
+        Caustic: 0.95
+        Poison: 0.9

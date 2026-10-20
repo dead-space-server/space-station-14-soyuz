@@ -1,0 +1,337 @@
+ent-RepairOrdersConsole = консоль ремонтных заказов
+    .desc = Позволяет просматривать и принимать инженерные заказы станции.
+signal-port-name-repair-order-dock = Стык ремонтных заказов
+signal-port-description-repair-order-dock = Подключите сюда порт «Статус дока» стыковочного шлюза, чтобы ремонтные шаттлы появлялись у него.
+ent-RepairOrdersComputerCircuitboard = плата консоли ремонтных заказов
+    .desc = Компьютерная плата для консоли ремонтных заказов.
+ent-RepairStructuralAnalyzer = структурный анализатор
+    .desc = Переносной инженерный прибор, подсвечивающий незавершённые задачи структурного ремонта.
+ent-RepairOrderRewardCrate = ящик магазина ремонтных заказов
+    .desc = Защищённый инженерный ящик с покупками из магазина ремонтных заказов.
+ent-RepairOrderThrusterMediumFlatpack = упаковка большого ракетного двигателя
+    .desc = Универсальная упаковка для сборки большого ракетного двигателя.
+ent-RepairOrderApuFlatpack = упаковка ВСУ
+    .desc = Универсальная упаковка для сборки настенной вспомогательной силовой установки.
+ent-RepairOrderRtgFlatpack = упаковка РИТЭГ
+    .desc = Универсальная упаковка для сборки радиоизотопного термоэлектрического генератора.
+ent-RepairOrderShuttleBoardBundle = комплект шаттловых плат
+    .desc = Набор полезных плат для строительства и расширения шаттла.
+ent-RepairOrderSmesAdvancedFlatpack = упаковка продвинутого СМЭС
+    .desc = Универсальная упаковка для сборки продвинутого СМЭС.
+ent-RepairOrderSmesBasicFlatpack = упаковка обычного СМЭС
+    .desc = Универсальная упаковка для сборки обычного СМЭС.
+ent-RepairOrderSubstationFlatpack = упаковка подстанции
+    .desc = Универсальная упаковка для сборки подстанции.
+ent-RepairOrderWallmountSubstationFlatpack = упаковка настенной подстанции
+    .desc = Универсальная упаковка для сборки настенной подстанции.
+ent-RepairOrderEngineeringBoardBundle = комплект инженерных плат
+    .desc = Содержит две платы шлюза, две платы пожарного шлюза, плату ЛКП, две платы воздушной сигнализции и две платы пожарной сигнализации.
+ent-ConstructionBag = сумка для материалов
+    .desc = Прочная поясная сумка для хранения строительных материалов.
+ent-ConstructionBagOfHolding = блюспейс-сумка для материалов
+    .desc = Блюспейс-сумка исключительной вместимости для строительных материалов.
+
+repair-structural-analyzer-popup-on = Анализатор включён.
+repair-structural-analyzer-popup-off = Анализатор выключен.
+repair-structural-analyzer-construction-tray-scanner = Т-лучевой сканер
+repair-structural-analyzer-remove-entity = Убрать: { $entity }
+
+ent-ClothingEyesGlassesRepairRestorer = диагностические очки ремонтной бригады
+    .desc = Служебные очки с янтарными линзами и системой структурной диагностики. Показывают оставшиеся работы и направляют к выбранному участку ремонта.
+ent-ClothingNeckCloakRepairRestorer = наградной плащ ремонтной бригады
+    .desc = Именной плащ с серебристым воротником и оранжевой отделкой, выдаваемый за заслуги перед ремонтной службой. Встроенный свет помогает бригаде работать в темноте.
+repair-orders-keepsake-name = наградной плащ ремонтной бригады — { $owner }
+repair-orders-keepsake-light-on = Включить сигнальный свет
+repair-orders-keepsake-light-off = Выключить сигнальный свет
+repair-orders-shop-compact = Компактный вид
+repair-orders-shop-product = Информация о товаре
+repair-orders-shop-price = { $cost } очков
+repair-orders-shop-required-level = Уровень { $level }
+repair-orders-shop-to-cart = В корзину
+repair-orders-shop-quantity = Количество в корзине
+repair-orders-shop-in-cart = В корзине: { $count }
+repair-orders-shop-purchase-limit = Не более { $count } шт. за одну покупку
+repair-analyzer-layers-title = Слои структурного анализатора
+repair-restorer-window-title = Навигация ремонтной бригады
+repair-restorer-all = Ближайшая ошибка
+repair-restorer-no-tasks = Нет оставшихся работ в выбранной категории.
+repair-restorer-group = { $name } — { $count }
+repair-restorer-target = { $name }: { $distance } м ({ $index }/{ $count })
+repair-analyzer-layer-All = Все слои
+repair-analyzer-layer-Lattice = Решётчатое основание
+repair-analyzer-layer-Plating = Обшивка пола
+repair-analyzer-layer-Floor = Напольное покрытие
+repair-analyzer-layer-CableLow = Кабели низкого напряжения
+repair-analyzer-layer-CableMedium = Кабели среднего напряжения
+repair-analyzer-layer-CableHigh = Кабели высокого напряжения
+repair-analyzer-layer-Pipes = Трубы
+repair-analyzer-layer-Structures = Конструкции и оборудование
+
+repair-order-damaged-engineering-sattelite-name = Восстановление орбитального спутника
+repair-order-damaged-engineering-sattelite-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-cargo-shuttle-name = Восстановление «Динеро Mk.II»
+repair-order-damaged-cargo-shuttle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-briggle-name = Восстановление «Бриггл»
+repair-order-damaged-briggle-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+repair-order-damaged-amber-name = Восстановление «Янтаря»
+repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
+
+repair-orders-window-title = Инженерные ремонтные заказы
+repair-orders-briefing-title = Памятка бригаде
+repair-orders-briefing-text =
+    Порядок работ
+    Выберите подходящий заказ и примите его через консоль. После доставки объекта осмотрите повреждения, подготовьте материалы и восстановите конструкции по исходной схеме. Следите за сроком выполнения: ремонтная служба ожидает возвращения объекта вовремя.
+
+    Структурный анализатор
+    Перед выходом подготовьте и включите структурный анализатор. Он подсвечивает незавершённые работы поблизости; фильтры помогают отдельно осмотреть полы, кабели, трубы и оборудование. Прибор собирается вручную из трёх листов стали, Т-лучевого сканера, листа стекла и двух отрезков кабеля. Готовые анализаторы также выдаёт инженерный автомат «Энгивенд».
+
+    Диагностические очки
+    Диагностические очки ремонтной бригады отображают список оставшихся работ и направление к выбранному участку. Наденьте и включите их, затем выберите нужный вид работ в настройках навигации. Очки последовательно проводят по участкам ремонта или направляют к ближайшему неисправному узлу.
+
+    Скафандр ремонтной бригады
+    Служебный скафандр рассчитан на работу в вакууме и аварийных отсеках, оснащён усиленной радиационной и взрывной защитой, встроенным блюспейс-сканером масс и креплением для дыхательного баллона. Шлем защищает глаза при сварке и освещает рабочую зону. Перед выходом за пределы герметичного отсека проверьте запас дыхательной смеси. Скафандр и диагностические очки доступны в магазине ремонтной службы.
+
+    Сдача объекта
+    После ремонта вернитесь к консоли, сдайте объект и распечатайте отчёт. Если завершить все работы невозможно, досрочная сдача доступна через десять минут после принятия заказа. Невыполненные работы и нарушения уменьшают вознаграждение.
+repair-orders-next-offer = Следующие предложения:
+repair-orders-activation-in-progress = Идёт поиск безопасного места и перенос повреждённого шаттла...
+repair-orders-completion-in-progress = Идёт завершение ремонтного заказа...
+repair-orders-available-heading = Доступные заказы
+repair-orders-active-heading = Активный заказ
+repair-orders-completed-heading = Последний завершённый заказ
+repair-orders-none-available = Сейчас нет доступных ремонтных заказов.
+repair-orders-none-active = Активного ремонтного заказа нет.
+repair-orders-none-completed = Завершённых ремонтных заказов пока нет.
+repair-orders-missing-prototype = Неизвестный заказ ({ $prototype })
+repair-orders-difficulty = Класс работ: { $class } ({ $difficulty }/{ $max })
+repair-orders-status-active = Статус: активен
+repair-orders-time-remaining = Осталось: { $time }
+repair-orders-progress-tasks = Восстановлено: { $completed } / { $total }
+repair-orders-progress-percent = { $percent }%
+repair-orders-blueprint-unavailable = Эталонный чертёж недоступен.
+repair-orders-worklist-heading = Список работ
+repair-orders-worklist-target = Что требуется
+repair-orders-worklist-count = Осталось
+repair-orders-worklist-remove = Убрать: { $target }
+repair-orders-worklist-complete = Обязательных работ не осталось. Новые повреждения появятся здесь.
+repair-orders-points = Баллы: { $current } / { $max }
+repair-orders-accept = Принять
+repair-orders-submit = Сдать заказ
+repair-orders-submit-early = Сдать заказ досрочно
+repair-orders-submit-early-wait = Досрочная сдача через { $time }
+repair-orders-error-submit-early-delay = Досрочная сдача доступна через 10 минут после принятия заказа.
+repair-orders-submit-early-button = Сдать с текущим результатом
+repair-orders-submit-early-confirm = Ремонт выполнен на { $percent }%. Текущая награда с учётом штрафов: { $points } очков.
+    Репутация зависит от процента ремонта. Невыполненные работы не оплачиваются, дополнительные повреждения и исключения уменьшают награду.
+    После сдачи ремонтный объект будет удалён. Сдать заказ в текущем состоянии?
+repair-orders-expires-in = Истекает через: { $time }
+repair-orders-status-completed = Статус: завершён
+repair-orders-status-expired = Статус: срок истёк
+repair-orders-final-tasks = Итог ремонта: { $completed } / { $total }
+repair-orders-final-points = Итоговые баллы: { $current } / { $max }
+repair-orders-earned-points = Получено ремонтных очков: { $points }
+repair-orders-earned-reputation = Получено репутации инженерного отдела: { $reputation }
+
+repair-orders-shop-heading = Магазин
+repair-orders-shop-search = Поиск товаров…
+repair-orders-shop-no-results = Товары не найдены.
+repair-orders-shop-points = Ремонтные очки: { $points }
+repair-orders-shop-reputation = Репутация инженерного отдела: { $reputation }
+repair-orders-shop-level = Уровень магазина: { $level }
+repair-orders-shop-next-level = До следующего уровня: { $reputation } / { $required }
+repair-orders-shop-max-level = Максимальный уровень магазина
+repair-orders-shop-unavailable = Магазин недоступен: набор товаров не найден.
+repair-orders-shop-item-details = Цена: { $cost } · Требуется уровень: { $level }
+repair-orders-shop-classified = Засекречено
+repair-orders-shop-classified-icon = ?
+repair-orders-shop-classified-details = Доступ после достижения уровня { $level }
+repair-orders-shop-add = Добавить
+repair-orders-shop-remove = Убрать
+repair-orders-shop-cart = Корзина
+repair-orders-shop-cart-empty = Корзина пуста.
+repair-orders-shop-cart-line = { $name } ×{ $count } — { $cost } очков
+repair-orders-shop-total = Итого: { $total } очков
+repair-orders-shop-checkout = Оформить заказ
+repair-orders-shop-processing = Оформление заказа...
+repair-orders-shop-success = Заказ оформлен. Товары доставлены рядом с консолью.
+repair-orders-shop-error-invalid = Состав заказа недействителен.
+repair-orders-shop-error-empty = Корзина пуста.
+repair-orders-shop-error-points = Недостаточно ремонтных очков.
+repair-orders-shop-error-level = Недостаточный уровень магазина.
+repair-orders-shop-error-delivery = Не удалось доставить заказ. Очки не списаны.
+repair-orders-shop-error-busy = Другая покупка уже обрабатывается.
+
+repair-orders-error-access = Требуется инженерный доступ.
+repair-orders-error-no-station = Эта консоль не подключена к станции.
+repair-orders-error-no-grid = Консоль не установлена на Grid станции.
+repair-orders-error-unavailable = Этот ремонтный заказ больше недоступен.
+repair-orders-error-active = У станции уже есть активный ремонтный заказ.
+repair-orders-error-busy = Сейчас уже выполняется принятие другого ремонтного заказа.
+repair-orders-error-load = Не удалось загрузить файл повреждённого шаттла.
+repair-orders-error-invalid-grid = Файл повреждённого шаттла не содержит одного пригодного Grid.
+repair-orders-error-no-space = Не удалось найти безопасное место для повреждённого шаттла.
+repair-orders-error-transfer = Не удалось перенести повреждённый шаттл в игровой мир.
+repair-orders-error-prepare = Не удалось подготовить эталонный чертёж. Заказ остался доступен.
+repair-orders-error-complete-unavailable = Этот активный ремонтный заказ больше нельзя сдать.
+repair-orders-error-complete-busy = Этот ремонтный заказ уже завершается.
+repair-orders-error-blueprint = Эталонный чертёж недоступен; заказ остаётся активным.
+repair-orders-error-incomplete = Ремонт ещё не завершён. Конструкция не соответствует целевой схеме.
+repair-orders-error-occupied = Нельзя сдать ремонтный шаттл, пока на его борту находятся люди.
+repair-orders-shuttle-controls-locked = Системы управления заблокированы до завершения ремонтных работ.
+repair-orders-success = Ремонтный заказ принят. Повреждённый шаттл прибыл.
+repair-orders-complete-success = Ремонтный заказ сдан. Очки и репутация начислены станции.
+repair-orders-expired-partial-reward = Срок ремонтных работ истёк. Станции начислены ремонтные очки; репутация рассчитана по состоянию ремонта.
+repair-orders-expired-no-reward = Срок ремонтных работ истёк. Репутация рассчитана по состоянию ремонта.
+
+repair-order-object-type-satellite = Спутник
+repair-order-object-type-small-shuttle = Малый шаттл
+repair-order-object-type-medium-shuttle = Средний шаттл
+repair-order-object-name-orbital-communications-satellite = Орбитальный спутник связи
+repair-order-object-name-amber = Шаттл быстрого реагирования «Янтарь»
+repair-order-object-name-briggle = Патрульный шаттл «Бриггл»
+repair-order-object-name-dinero-mk2 = Грузовой шаттл «Динеро MK2»
+
+repair-orders-print-report = Печать отчёта
+repair-orders-report-paper-name = отчёт о ремонтных работах
+repair-orders-report-title = [head=2]ОТЧЁТ О РЕМОНТНЫХ РАБОТАХ[/head]
+repair-orders-report-object-name = [bold]Наименование объекта:[/bold] { $value }
+repair-orders-report-object-type = [bold]Тип объекта:[/bold] { $value }
+repair-orders-report-order-name = [bold]Заказ:[/bold] { $value }
+repair-orders-report-difficulty = [bold]Класс работ:[/bold] { $class } ({ $difficulty }/{ $max })
+repair-orders-report-progress = [bold]Состояние ремонта:[/bold] { $percent }%
+repair-orders-report-final-progress = [bold]Итоговый прогресс:[/bold] { $percent }%
+repair-orders-report-tasks = [bold]Выполнено задач:[/bold] { $completed } / { $total }
+repair-orders-report-points = [bold]Набрано баллов:[/bold] { $current } / { $max }
+repair-orders-report-final-points = [bold]Итоговые баллы:[/bold] { $current } / { $max }
+repair-orders-report-remaining = [bold]Оставшееся время:[/bold] { $time }
+repair-orders-report-reward-budget = [bold]Ремонтные очки:[/bold] { $budget }
+repair-orders-report-pending-reputation = [bold]Репутация после обработки:[/bold] { $reputation }
+repair-orders-report-reputation = [bold]Получено репутации:[/bold] { $reputation }
+repair-orders-report-status = [bold]Статус:[/bold] { $status }
+repair-orders-report-status-active = В процессе
+repair-orders-report-status-completed = Ремонт завершён
+repair-orders-report-status-expired = Срок ремонта истёк
+repair-orders-report-status-expired-pending = Срок ремонта истёк; ожидается завершение обработки
+repair-orders-report-timeout-reason = [bold]Причина завершения:[/bold] Истекло отведённое время на ремонтные работы.
+repair-orders-report-partial-reward-note = [bold]Примечание:[/bold] Станции начислено 50% заработанных баллов в ремонтных очках.
+repair-orders-report-partial-reward-pending-note = [bold]Примечание:[/bold] Рассчитаны ремонтные очки в размере 50% заработанных баллов; завершение обработки ожидается.
+repair-orders-error-printer-cooldown = Принтер отчётов ещё не готов.
+repair-orders-error-report-unavailable = Отчёт для этого ремонтного заказа недоступен.
+repair-orders-error-report-terminal-pending = Результат по истечению срока фиксируется. Попробуйте напечатать отчёт ещё раз через несколько секунд.
+
+repair-orders-object = { $type }: { $name }
+repair-orders-damage-heading = Характер повреждений:
+repair-orders-damage-unknown = Неуточнённые структурные повреждения
+repair-orders-damage-event = • { $event }
+repair-orders-damage-event-count = • { $event } ×{ $count }
+repair-orders-error-damage = Не удалось подготовить повреждения объекта. Предложение сохранено.
+
+repair-orders-waiver-heading = Технические исключения
+repair-orders-waiver-action = Техническое исключение: { $name }
+repair-orders-waiver-cancel-action = Отменить исключение: { $name }
+repair-orders-waiver-confirm = Исключить «{ $name }» ({ $points } очков) из обязательного ремонта?
+    Элемент не принесёт очков. Каждые 10 активных исключений дополнительно удерживают 1% заработанных баллов. Итог не может быть ниже нуля.
+    Использовано: { $used } / { $max } очков (лимит — 50% исходной стоимости заказа).
+    Штраф после подтверждения: { $percent }%.
+repair-orders-waiver-cancel-confirm = Отменить исключение для «{ $name }»? Требование снова станет обязательным.
+    Штраф после отмены: { $percent }%.
+repair-orders-waiver-confirm-button = Подтвердить
+repair-orders-waiver-back = Назад
+repair-orders-waiver-unavailable = Требование недоступно, уже выполнено или заказ закрывается.
+repair-orders-waiver-limit = Превышен лимит исключений: максимум 50% исходной стоимости заказа.
+repair-orders-waiver-unknown = Неуточнённое требование
+repair-orders-waiver-summary = Технические исключения: { $count }
+    Исключено: { $used } / { $max } очков
+    Штраф при сдаче: { $percent }%
+    Фактически заработано: { $raw }. После штрафа: { $final }.
+repair-orders-waiver-report = Технических исключений: { $count }
+    Исключённая стоимость: { $used } / { $max }
+    Фактически заработано: { $raw }
+    Штраф за технические исключения: { $percent }% ({ $penalty } очков)
+    Итоговые баллы: { $final }
+repair-orders-waiver-report-entry = • { $name }, клетка ({ $x }, { $y }) — { $points } очков
+
+repair-orders-difficulty-class-1 = Текущий ремонт
+repair-orders-difficulty-class-2 = Плановый ремонт
+repair-orders-difficulty-class-3 = Расширенный ремонт
+repair-orders-difficulty-class-4 = Комплексный ремонт
+repair-orders-difficulty-class-5 = Восстановительный ремонт
+repair-orders-difficulty-class-6 = Капитальный ремонт
+repair-orders-difficulty-class-7 = Специальное восстановление
+repair-orders-difficulty-class-8 = Аварийное восстановление
+repair-orders-difficulty-class-9 = Критическое восстановление
+repair-orders-difficulty-class-10 = Полное восстановление
+
+repair-order-imported-description = Восстановите конструкцию и оборудование объекта по эталонному проекту. Объём работ указан в классе сложности заказа.
+repair-order-object-type-terminal = Орбитальный терминал
+repair-order-object-type-evacuation-shuttle = Эвакуационный шаттл
+repair-order-object-type-command-shuttle = Штабной шаттл
+repair-order-object-type-prison-complex = Тюремный комплекс
+repair-order-object-type-engineering-shuttle = Инженерный корабль
+repair-order-object-type-expedition-shuttle = Экспедиционный корабль
+repair-order-caravan-name = Восстановление объекта «Караван»
+repair-order-object-name-caravan = Караван
+repair-order-launch-name = Восстановление объекта «Баркас»
+repair-order-object-name-launch = Баркас
+repair-order-blizzard-name = Восстановление объекта «Вьюга»
+repair-order-object-name-blizzard = Вьюга
+repair-order-courier-name = Восстановление объекта «Курьер»
+repair-order-object-name-courier = Курьер
+repair-order-north-name = Восстановление объекта «Север»
+repair-order-object-name-north = Север
+repair-order-frontier-name = Восстановление объекта «Рубеж»
+repair-order-object-name-frontier = Рубеж
+repair-order-hope-name = Восстановление объекта «Надежда»
+repair-order-object-name-hope = Надежда
+repair-order-dawn-name = Восстановление объекта «Рассвет»
+repair-order-object-name-dawn = Рассвет
+repair-order-ark-name = Восстановление объекта «Ковчег»
+repair-order-object-name-ark = Ковчег
+repair-order-pennant-name = Восстановление объекта «Вымпел»
+repair-order-object-name-pennant = Вымпел
+repair-order-bastion-name = Восстановление объекта «Бастион»
+repair-order-object-name-bastion = Бастион
+repair-order-eclipse-name = Восстановление объекта «Затмение»
+repair-order-object-name-eclipse = Затмение
+repair-order-corsair-name = Восстановление объекта «Корсар»
+repair-order-object-name-corsair = Корсар
+repair-order-granite-name = Восстановление объекта «Гранит»
+repair-order-object-name-granite = Гранит
+repair-order-hephaestus-name = Восстановление объекта «Гефест»
+repair-order-object-name-hephaestus = Гефест
+repair-order-apogee-name = Восстановление объекта «Апогей»
+repair-order-object-name-apogee = Апогей
+repair-order-object-type-observation-module = Смотровой модуль
+repair-order-object-type-observation-post = Наблюдательный пост
+repair-order-object-type-cargo-depot = Грузовой склад
+repair-order-object-type-solar-complex = Солнечный комплекс
+repair-order-panorama-name = Восстановление объекта «Панорама»
+repair-order-object-name-panorama = Панорама
+repair-order-watchpost-name = Восстановление объекта «Дозор»
+repair-order-object-name-watchpost = Дозор
+repair-order-transit-name = Восстановление объекта «Транзит»
+repair-order-object-name-transit = Транзит
+repair-order-helios-name = Восстановление объекта «Гелиос»
+repair-order-object-name-helios = Гелиос
+
+ent-RepairCrewPowerDrill = дрель ремонтной бригады
+    .desc = Усиленная электрическая дрель для быстрого монтажа и демонтажа конструкций.
+ent-RepairCrewWelder = сварочный аппарат ремонтной бригады
+    .desc = Сварочный аппарат с усиленной горелкой и системой регенерации топлива для длительных восстановительных работ.
+ent-RepairCrewJawsOfLife = челюсти жизни ремонтной бригады
+    .desc = Гидравлический спасательный инструмент с ускоренными приводами вскрытия и резки.
+ent-RepairCrewRCD = РСУ ремонтной бригады
+    .desc = Экономичное устройство быстрого строительства со встроенной системой восстановления заряда.
+ent-ClothingBeltRepairCrew = пояс ремонтной бригады
+    .desc = Оранжево-серый инструментальный пояс для восстановительных работ на повреждённых станциях и шаттлах.
+ent-ClothingBeltRepairCrewFilled = { ent-ClothingBeltRepairCrew }
+    .desc = Пояс ремонтной бригады с дрелью, челюстями жизни, сварочным аппаратом, РСУ, мультитулом, голопроектором атмосферных барьеров, газоанализатором и конфигуратором сетей.
+    .suffix = Заполненный
+
+ent-ClothingShoesBootsMagRepairCrew = магнитные ботинки ремонтной бригады
+    .desc = Магнитные ботинки для работы на повреждённых станциях и шаттлах. Приводы ускоряют ходьбу и бег на 5%, в том числе при включённых магнитах.
+
+ent-ConstructionBagRandomFilled = сумка со случайными ресурсами
+    .desc = Сумка для материалов, полностью заполненная десятью случайными полными стаками ресурсов. Проводки внутри нет.
+ent-ConstructionBagOfHoldingRandomFilled = блюспейс-сумка со случайными ресурсами
+    .desc = Блюспейс-сумка для материалов, полностью заполненная пятьюдесятью случайными полными стаками ресурсов. Проводки внутри нет.

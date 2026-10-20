@@ -16,3 +16,12 @@
   - type: FlashImmunity
   - type: EyeProtection
     protectionTime: 6
+  - type: ThermalVisorExperimental
+    activateSound:
+      path: /Audio/_DeadSpace/NightVision/pnv.ogg
+    activateSoundOff:
+      path: /Audio/_DeadSpace/NightVision/pnv_off.ogg
+    pulseDuration: 4
+  - type: Battery
+    maxCharge: 800
+    startingCharge: 800

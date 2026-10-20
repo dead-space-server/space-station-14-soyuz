@@ -1,0 +1,19 @@
+- type: reaction
+  id: Morby
+  reactants:
+    JuiceLemon:
+      amount: 1
+    Rum:
+      amount: 2
+    Gin:
+      amount: 1
+    Margarita:
+      amount: 3
+    Vodka:
+      amount: 1
+    BlueCuracao:
+      amount: 2
+    Ice:
+      amount: 1
+  products:
+    Morby: 10

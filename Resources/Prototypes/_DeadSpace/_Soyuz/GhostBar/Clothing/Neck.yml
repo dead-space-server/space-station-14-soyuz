@@ -1,0 +1,67 @@
+# Шарфы
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarBlueScarf
+  name: голубой космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/blue.rsi
+
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarOrangeScarf
+  name: оранжевый космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/orange.rsi
+
+- type: entity
+  parent: ClothingScarfBase
+  id: ClothingNeckGhostBarWhiteScarf
+  name: белоснежный космо-шарф
+  description: Шарф, который легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/white.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/Scarfs/white.rsi
+
+# Наплечные мантии ClothingNeckBase
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckGhostBarBlueMantleShoulder
+  name: голубая наплечная космо-мантия
+  description: Мантия, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/blue.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckGhostBarOrangeMantleShoulder
+  name: оранжевая наплечная космо-мантия
+  description: Мантия, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/orange.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckGhostBarVioletMantleShoulder
+  name: фиолетовая наплечная космо-мантия
+  description: Мантия, которую легально получить на станции, вряд ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Neck/MantleShoulder/violet.rsi

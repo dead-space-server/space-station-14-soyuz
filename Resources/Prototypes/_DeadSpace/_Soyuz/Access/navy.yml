@@ -1,0 +1,28 @@
+- type: accessLevel
+  id: NavyCaptain
+  name: id-card-access-level-navy-captain
+
+- type: accessLevel
+  id: NavyOfficer
+  name: id-card-access-level-navy-officer
+
+- type: accessLevel
+  id: NavyMedical
+  name: id-card-access-level-navy-medical
+
+- type: accessLevel
+  id: NavyEngineering
+  name: id-card-access-level-navy-engineering
+
+- type: accessLevel
+  id: Navy
+  name: id-card-access-level-navy
+
+- type: accessGroup
+  id: NavyAll
+  tags:
+  - NavyCaptain
+  - NavyOfficer
+  - NavyMedical
+  - NavyEngineering
+  - Navy

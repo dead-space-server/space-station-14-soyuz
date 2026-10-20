@@ -1,6 +1,8 @@
 ## UI
 
 cargo-console-menu-title = Консоль заказа грузов
+cargo-console-menu-flavor-left = Закажите даже больше коробок пиццы, чем обычно!
+cargo-console-menu-flavor-right = v2.1
 cargo-console-menu-account-name-label = Аккаунт:{ " " }
 cargo-console-menu-account-name-none-text = Нет
 cargo-console-menu-account-name-format = [bold][color={ $color }]{ $name }[/color][/bold] [font="Monospace"]\[{ $code }\][/font]
@@ -17,11 +19,14 @@ cargo-console-menu-categories-label = Категории:{ " " }
 cargo-console-menu-search-bar-placeholder = Поиск
 cargo-console-menu-requests-label = Запросы
 cargo-console-menu-orders-label = Заказы
-cargo-console-menu-order-reason-description = Причина: { $reason }
 cargo-console-menu-populate-categories-all-text = Все
+cargo-console-menu-order-row-title = {$productName} (x{$orderAmount} за {$orderPrice}$)
 cargo-console-menu-populate-orders-cargo-order-row-product-name-text = Заказ от: {$orderRequester} из [color={$accountColor}]{$account}[/color]
-cargo-console-menu-cargo-order-row-approve-button = Одобрить
-cargo-console-menu-cargo-order-row-cancel-button = Отменить
+cargo-console-menu-order-row-product-description = Причина: {$orderReason}
+cargo-console-menu-order-row-button-approve = Одобрить
+cargo-console-menu-order-row-button-cancel = Отменить
+cargo-console-menu-order-row-alerts-reason-absent = Причина не уточняется
+cargo-console-menu-order-row-alerts-requester-unknown = Неизвестно
 cargo-console-menu-tab-title-orders = Заказы
 cargo-console-menu-tab-title-funds = Переводы
 cargo-console-menu-account-action-transfer-limit = [bold]Лимит перевода:[/bold] ${ $limit }
@@ -32,6 +37,7 @@ cargo-console-menu-account-action-button = Перевести
 cargo-console-menu-toggle-account-lock-button = Переключить лимит перевода
 cargo-console-menu-account-action-option-withdraw = Обналичить
 cargo-console-menu-account-action-option-transfer = Перевести деньги на { $code }
+cargo-console-menu-trade-hijacked = [color=red]торговый канал недоступен[/color]
 # Orders
 cargo-console-order-not-allowed = Доступ запрещён
 cargo-console-station-not-found = Нет доступной станции
@@ -41,6 +47,7 @@ cargo-console-snip-snip = Заказ урезан до вместимости
 cargo-console-insufficient-funds = Недостаточно средств (требуется { $cost })
 cargo-console-unfulfilled = Нет места для выполнения заказа
 cargo-console-trade-station = Отправлено на { $destination }
+cargo-console-trade-hijacked = Торговый канал недоступен
 cargo-console-unlock-approved-order-broadcast = [bold]Заказ на { $productName } x{ $orderAmount }[/bold], стоимостью [bold]{ $cost }[/bold], был одобрен [bold]{ $approver }[/bold]
 cargo-console-fund-withdraw-broadcast = [bold]{ $name } снял { $amount } кредитов с { $name1 } \[{ $code1 }\]
 cargo-console-fund-transfer-broadcast = [bold]{ $name } перевёл { $amount } кредитов { $name1 } \[{ $code1 }\] на { $name2 } \[{ $code2 }\][/bold]

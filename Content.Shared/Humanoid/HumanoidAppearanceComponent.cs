@@ -100,20 +100,25 @@ public sealed partial class HumanoidAppearanceComponent : Component
     [ViewVariables(VVAccess.ReadOnly)]
     public Color? CachedFacialHairColor;
 
+    // DS14-start
+    /// <summary>
+    ///     Градиент включн
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool HairGradientEnabled;
+
+    /// <summary>
+    ///     ЦЦвет градиента
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public Color HairGradientColor = Color.Black;
+    // DS14-end
+
     /// <summary>
     ///     Which layers of this humanoid that should be hidden on equipping a corresponding item..
     /// </summary>
     [DataField]
     public HashSet<HumanoidVisualLayers> HideLayersOnEquip = [HumanoidVisualLayers.Hair];
-
-    // /// <summary>
-    // ///     Which markings the humanoid defaults to when nudity is toggled off.
-    // /// </summary>
-    // [DataField]
-    // public ProtoId<MarkingPrototype>? UndergarmentTop = new ProtoId<MarkingPrototype>("UndergarmentTopTanktop");
-
-    // [DataField]
-    // public ProtoId<MarkingPrototype>? UndergarmentBottom = new ProtoId<MarkingPrototype>("UndergarmentBottomBoxers");
 
     /// <summary>
     ///     The displacement maps that will be applied to specific layers of the humanoid.

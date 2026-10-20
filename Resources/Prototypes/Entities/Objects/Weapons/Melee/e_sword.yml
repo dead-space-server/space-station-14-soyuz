@@ -3,6 +3,15 @@
   parent: BaseItem
   abstract: true
   components:
+  - type: Tag # DS14
+    tags:
+    - ParryEnergySword
+  - type: Parry # DS14
+    requiresActiveToggle: true # DS14
+    parryableWeapons:
+      tags:
+      - ParryStandardWeapon
+      - ParryEnergySword
   - type: EnergySword
   - type: ItemToggle
     onActivate: false # DS14
@@ -73,6 +82,17 @@
   - type: Reflect
   - type: IgnitionSource
     temperature: 700
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_drop.ogg
+  #DS14-End
 
 - type: entity
   name: energy sword
@@ -96,6 +116,7 @@
   - type: Tag # DS14
     tags:
     - EnergySword
+    - ParryEnergySword
 
 - type: entity
   name: energy dagger
@@ -239,6 +260,7 @@
   - type: Tag
     tags:
     - Write
+    - ParryEnergySword # DS14
 
 - type: entity
   parent: [BaseItem, BaseSyndicateContraband]
@@ -331,6 +353,10 @@
     damage:
       types:
         Blunt: 4.5
+  # DS14-start
+  - type: SandevistanMeleeAttackRate
+    modifier: 1.35
+  # DS14-end
   - type: Sprite
     sprite: Objects/Weapons/Melee/e_sword_double.rsi
     layers:
@@ -349,6 +375,7 @@
   - type: Tag # DS14
     tags:
     - EnergySwordDouble
+    - ParryEnergySword
 
 # Item will look weird in handslot. Will need to adjust handstorage visuals in a future PR
 - type: entity

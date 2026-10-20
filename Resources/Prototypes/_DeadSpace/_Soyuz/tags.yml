@@ -1,5 +1,20 @@
 # Ставить новые теги строго в алфавитном порядке A-Z
 
+# Kofeecheks QoL: LicenseRef-Kofeecheks
+
+# A
+
+# B
+- type: Tag
+  id: BlueprintSecurityAutolathe
+
+- type: Tag
+  id: BlueInsulatingTape
+
+- type: Tag
+  id: BulletCaselessRifleNavy
+
+# C
 - type: Tag
   id: CartridgeLightestRifle
 
@@ -25,17 +40,50 @@
   id: ClarkeRLeg
 
 - type: Tag
-  id: DrinkCup
-  
-- type: Tag
-  id: DrinkGlass
+  id: CartridgeCaselessRifleNavy
 
+- type: Tag
+  id: CantSetNormalScale
+
+# D
+- type: Tag
+  id: DrinkCup
+
+# E
 - type: Tag
   id: ExperimentalCloningPodMachineCircuitboard
 
+# F
+
+# G
+- type: Tag
+  id: GasMask
+
+- type: Tag
+  id: GasMinerIndustrialCore
+
+- type: Tag
+  id: GasMinerNitrogenIndustrialCore
+
+- type: Tag
+  id: GasMinerOxygenIndustrialCore
+
+- type: Tag
+  id: GeneralStaff
+
+# H
+
+# I
 - type: Tag
   id: IgnoreBedHealing
 
+# J
+
+# K
+
+# L
+
+# M
 - type: Tag
   id: MagazineAntiMaterielSV
 
@@ -66,6 +114,11 @@
 - type: Tag
   id: MagazineShotgunSaiga
 
+# N
+
+# O
+
+# P
 - type: Tag
   id: PoliceBetaBody
 
@@ -77,3 +130,60 @@
 
 - type: Tag
   id: PoliceBetaLegs
+
+- type: Tag
+  id: PolaroidCartridge
+
+# Q
+
+# R
+
+- type: Tag
+  id: RMCHelmet
+
+# S
+- type: Tag
+  id: SoyuzMagazineRifleNavy
+
+# T
+
+# U
+
+# V
+
+# W
+
+# X
+
+# Y
+
+# Z
+
+
+#region Это ты
+
+
+
+
+
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠳⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠚⢧⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⢠⠃⠀⠈⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠔⠉⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⢀⠏⠀⠀⠀⠀⠙⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡔⠁⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⢰⠒⠒⠲⠤⣄⠀⠀⠀⠀⠀⣠⠋⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠘⡆⠀⠀⠀⠀⠙⠢⡄⠀⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⣗⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⢸⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⡠⠾⠀⠀⠀⠀⠀⠀⠈⠳⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣺⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠶⢭⢤⢤⠤⢤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣞⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⢸⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡗⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡃⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⢳⠀⠀⠀⣠⣠⣠⣄⣄⣤⣤⣤⣄⠀⠀⠀⠀⠀⠀⣤⣤⣤⣤⠤⠤⣤⠤⠄⠀⠀⠀⢀⡞⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⡼⠀⠀⢰⣿⣿⣿⡗⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⡃⠀⠨⡇⠀⠀⢀⣴⣋⣀⡀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⢻⡚⠒⠖⠷⠀⠀⣇⠀⠀⠨⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠂⠀⠀⡇⠀⠀⠁⠈⠀⣱⠋⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠓⢤⡀⠀⠀⠀⠸⠀⠀⠀⠙⠿⠛⠁⠀⣀⣀⡀⠀⠀⠈⠛⠟⠋⠀⠀⠐⠃⠀⠀⢀⡰⠚⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⢠⠟⠀⠔⢲⣁⠤⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⢀⠀⠀⠀⠠⠒⣕⠜⠀⠀⠀⠳⡄⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠦⡤⠖⠋⠓⠒⠖⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡘⣆⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠈⠓⠒⠒⠚⠚⠦⢤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⠖⠋⠙⠙⠙⠉⠉⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡍⠓⠓⠲⠆⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠣⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠙⣹⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

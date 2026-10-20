@@ -1,13 +1,13 @@
-# Plastitanium
 - type: construction
   id: TitaniumGirder
   graph: TitaniumGirder
   startNode: start
   targetNode: titaniumGirder
   category: construction-category-structures
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -21,9 +21,10 @@
   startNode: start
   targetNode: plastitaniumGirder
   category: construction-category-structures
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -37,10 +38,11 @@
   startNode: start
   targetNode: plastitaniumplasmaWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -54,10 +56,11 @@
   startNode: start
   targetNode: plastitaniumWindow
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -71,10 +74,11 @@
   startNode: start
   targetNode: plastitaniumplasmaWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -87,10 +91,11 @@
   startNode: start
   targetNode: plastitaniumWindowDiagonal
   category: construction-category-structures
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   canBuildInImpassable: true
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
   conditions:
   - !type:EmptyOrWindowValidInTile
   - !type:NoWindowsInTile
@@ -103,9 +108,10 @@
   startNode: start
   targetNode: plastitaniumWall
   category: construction-category-structures
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
@@ -119,9 +125,10 @@
   startNode: start
   targetNode: diagonalplastitaniumWall
   category: construction-category-structures
-#  entityWhitelist: # DS14-soyuz disabled
-#    tags:
-#    - TaipanRole
+  # DS14-Soyuz disabled
+  # entityWhitelist:
+  #   tags:
+  #   - TaipanRole
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
@@ -601,3 +608,72 @@
   canBuildInImpassable: false
   conditions:
   - !type:TileNotBlocked
+
+# Railing Glass
+
+- type: construction
+  id: RailingGlass
+  graph: RailingGlass
+  startNode: start
+  targetNode: railingGlass
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: RailingGlassCorner
+  name: construction-recipe-railing-glass-corner
+  graph: RailingGlass
+  startNode: start
+  targetNode: railingGlassCorner
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: RailingGlassCornerSmall
+  name: construction-recipe-railing-glass-corner-small
+  graph: RailingGlass
+  startNode: start
+  targetNode: railingGlassCornerSmall
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: RailingGlassRound
+  name: construction-recipe-railing-glass-round
+  graph: RailingGlass
+  startNode: start
+  targetNode: railingGlassRound
+  category: construction-category-structures
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: CatwalkDark
+  graph: CatwalkDark
+  startNode: start
+  targetNode: CatwalkDark
+  category: construction-category-structures
+  conditions:
+    - !type:TileNotBlocked
+      failIfSpace: false
+    - !type:TileType
+      targets:
+        - Lattice
+        - Plating
+  objectType: Structure
+  placementMode: SnapgridCenter

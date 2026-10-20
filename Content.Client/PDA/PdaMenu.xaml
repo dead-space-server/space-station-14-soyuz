@@ -8,10 +8,10 @@
         <pda:PdaNavigationButton Name="ProgramListButton" Access="Public" MinWidth="100" LabelText="{Loc 'comp-pda-io-program-list-button'}"/>
         <pda:PdaNavigationButton Name="SettingsButton" MinWidth="100" LabelText="{Loc 'comp-pda-io-settings-button'}"/>
 
-        <pda:PdaNavigationButton Name="ProgramTitle" Access="Public" BorderThickness="0 0 0 2" CurrentTabBorderThickness="2 0 0 2"
-                                 ActiveBgColor="#202023" Visible="False"/>
+        <pda:PdaNavigationButton Name="ProgramTitle" Access="Public" HorizontalExpand="True" BorderThickness="0 0 0 2" CurrentTabBorderThickness="2 0 0 2"
+                                 Visible="False"/>
 
-        <pda:PdaNavigationButton HorizontalExpand="True"/>
+        <pda:PdaNavigationButton Name="NavigationSpacer" Access="Public" HorizontalExpand="True"/>
 
         <pda:PdaNavigationButton Name="ProgramCloseButton" Access="Public" IconScale="0.5 0.5" BorderThickness="0 0 2 2"
                                  Visible="False" IsActive="False" SetWidth="32"/>
@@ -22,30 +22,38 @@
         <pda:PdaNavigationButton Name="EjectPaiButton" Access="Public" SetWidth="32"/>
     </BoxContainer>
     <BoxContainer Name="ViewContainer" HorizontalExpand="True" VerticalExpand="True" Access="Public">
-        <BoxContainer Orientation="Vertical"
-                      VerticalExpand="True"
-                      HorizontalExpand="True"
-                      MinSize="50 50"
-                      Margin="8">
-            <ContainerButton Name="PdaOwnerButton">
-                <RichTextLabel Name="PdaOwnerLabel" Access="Public"/>
-            </ContainerButton>
-            <ContainerButton Name="IdInfoButton">
-                <RichTextLabel Name="IdInfoLabel" Access="Public"/>
-            </ContainerButton>
-            <ContainerButton Name="StationNameButton">
-                <RichTextLabel Name="StationNameLabel" Access="Public"/>
-            </ContainerButton>
-            <ContainerButton Name="StationAlertLevelButton">
-                <RichTextLabel Name="StationAlertLevelLabel" Access="Public"/>
-            </ContainerButton>
-            <ContainerButton Name="StationTimeButton">
-                <RichTextLabel Name="StationTimeLabel" Access="Public"/>
-            </ContainerButton>
-            <ContainerButton Name="StationAlertLevelInstructionsButton">
-                <RichTextLabel Name="StationAlertLevelInstructions" Access="Public"/>
-            </ContainerButton>
-        </BoxContainer>
+        <!-- DS14-start -->
+        <ScrollContainer HorizontalExpand="True"
+                         VerticalExpand="True"
+                         HScrollEnabled="False"
+                         VScrollEnabled="True">
+            <BoxContainer Orientation="Vertical"
+                          HorizontalExpand="True"
+                          MinSize="50 50"
+                          Margin="8"
+                          SeparationOverride="2"
+                          StyleClasses="PdaHomeSummary">
+                <ContainerButton Name="PdaOwnerButton">
+                    <RichTextLabel Name="PdaOwnerLabel" Access="Public"/>
+                </ContainerButton>
+                <ContainerButton Name="IdInfoButton">
+                    <RichTextLabel Name="IdInfoLabel" Access="Public"/>
+                </ContainerButton>
+                <ContainerButton Name="StationNameButton">
+                    <RichTextLabel Name="StationNameLabel" Access="Public"/>
+                </ContainerButton>
+                <ContainerButton Name="StationAlertLevelButton">
+                    <RichTextLabel Name="StationAlertLevelLabel" Access="Public"/>
+                </ContainerButton>
+                <ContainerButton Name="StationTimeButton">
+                    <RichTextLabel Name="StationTimeLabel" Access="Public"/>
+                </ContainerButton>
+                <ContainerButton Name="StationAlertLevelInstructionsButton">
+                    <RichTextLabel Name="StationAlertLevelInstructions" Access="Public"/>
+                </ContainerButton>
+            </BoxContainer>
+        </ScrollContainer>
+        <!-- DS14-end -->
         <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="True">
             <BoxContainer Orientation="Vertical"
                           VerticalExpand="True"
@@ -79,6 +87,12 @@
                                        Visible="False"
                                        Text="{Loc 'pda-bound-user-interface-lock-uplink-title'}"
                                        Description="{Loc 'pda-bound-user-interface-lock-uplink-description'}"/>
+                <!-- DS14-Start -->
+                <pda:PdaSettingsButton Name="ToggleSilentModeButton"
+                                       Access="Public"
+                                       Text="{Loc 'comp-pda-ui-silent-mode-button-off'}"
+                                       Description="{Loc 'comp-pda-ui-silent-mode-button-description-off'}"/>
+                <!-- DS14-End -->
             </BoxContainer>
         </ScrollContainer>
         <BoxContainer Orientation="Vertical"

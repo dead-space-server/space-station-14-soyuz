@@ -12,7 +12,7 @@ namespace Content.Shared.Mobs.Components
     /// </summary>
     [RegisterComponent]
     [NetworkedComponent]
-    [AutoGenerateComponentState]
+    [AutoGenerateComponentState(true)]
     [Access(typeof(MobStateSystem), typeof(MobThresholdSystem))]
     public sealed partial class MobStateComponent : Component
     {
@@ -20,13 +20,20 @@ namespace Content.Shared.Mobs.Components
         [AutoNetworkedField, ViewVariables]
         public MobState CurrentState { get; set; } = MobState.Alive;
 
+        /// <summary>
+        /// The last state that was received by the client.
+        /// </summary>
+        [ViewVariables]
+        public MobState LastReceivedState = MobState.Alive;
+
         [DataField]
         [AutoNetworkedField]
         public HashSet<MobState> AllowedStates = new()
             {
                 MobState.Alive,
                 MobState.Critical,
-                MobState.Dead
+                MobState.Dead,
+                MobState.PreCritical, // DS14
             };
     }
 }

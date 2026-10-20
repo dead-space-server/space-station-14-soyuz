@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Content.Shared.Actions;
+using Content.Shared.Blocking.Components;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Emp;
 using Content.Shared.Examine;
 using Content.Shared.Hands;
@@ -14,25 +16,37 @@ using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Toggleable;
 using Content.Shared.Verbs;
+using Robust.Shared.Containers;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Blocking;
 
 public sealed partial class BlockingSystem : EntitySystem
 {
-    [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private SharedActionsSystem _actionsSystem = default!;
+    [Dependency] private ActionContainerSystem _actionContainer = default!;
+    [Dependency] private SharedTransformSystem _transformSystem = default!;
+    [Dependency] private FixtureSystem _fixtureSystem = default!;
+    [Dependency] private SharedHandsSystem _handsSystem = default!;
+    [Dependency] private SharedPopupSystem _popupSystem = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private ExamineSystemShared _examine = default!;
+    [Dependency] private TurfSystem _turf = default!;
+    // DS14-start
+    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    // DS14-end
+
+    [Dependency] private EntityQuery<BlockingComponent> _blockQuery = default!;
+    //[Dependency] private EntityQuery<BlockingUserComponent> _userQuery = default!;
+    //[Dependency] private EntityQuery<HandsComponent> _handQuery = default!;
+    //[Dependency] private EntityQuery<MobStateComponent> _mobQuery = default!;
+    // ps я не уверен что так делать безопасно, но на это жалуются тесты не дай бог что то упадёт
 
     public override void Initialize()
     {
@@ -50,9 +64,7 @@ public sealed partial class BlockingSystem : EntitySystem
 
         SubscribeLocalEvent<BlockingComponent, GetVerbsEvent<ExamineVerb>>(OnVerbExamine);
         SubscribeLocalEvent<BlockingComponent, MapInitEvent>(OnMapInit);
-        // DS14-start EMP-disables-energy-shield
-        SubscribeLocalEvent<EmpDisableItemToggleComponent, EmpItemToggleDisabledEvent>(OnEmpItemToggleDisabled);
-        // DS14-end
+        SubscribeLocalEvent<EmpDisableItemToggleComponent, EmpItemToggleDisabledEvent>(OnEmpItemToggleDisabled); // DS14
     }
 
     private void OnMapInit(EntityUid uid, BlockingComponent component, MapInitEvent args)
@@ -95,7 +107,7 @@ public sealed partial class BlockingSystem : EntitySystem
         if (args.Handled)
             return;
 
-        // DS14-start EMP-disables-energy-shield
+        // DS14-start
         if (HasComp<EmpDisableItemToggleComponent>(uid) && HasComp<EmpDisabledComponent>(uid))
         {
             CantBlockError(args.Performer);
@@ -132,7 +144,7 @@ public sealed partial class BlockingSystem : EntitySystem
         args.Handled = true;
     }
 
-    // DS14-start EMP-disables-energy-shield
+    // DS14-start
     private void OnEmpItemToggleDisabled(Entity<EmpDisableItemToggleComponent> ent, ref EmpItemToggleDisabledEvent args)
     {
         if (!TryComp<BlockingComponent>(ent.Owner, out var blocking))
@@ -197,11 +209,15 @@ public sealed partial class BlockingSystem : EntitySystem
             var mobQuery = GetEntityQuery<MobStateComponent>();
             foreach (var uid in intersecting)
             {
-                if (uid != user && mobQuery.HasComponent(uid))
-                {
-                    TooCloseError(user);
-                    return false;
-                }
+                // DS14-start
+                if (uid == user ||
+                    !mobQuery.HasComponent(uid) ||
+                    _container.IsEntityOrParentInContainer(uid))
+                    continue;
+
+                TooCloseError(user);
+                return false;
+                // DS14-end
             }
         }
 
@@ -219,7 +235,7 @@ public sealed partial class BlockingSystem : EntitySystem
         {
             _fixtureSystem.TryCreateFixture(user,
                 component.Shape,
-                BlockingComponent.BlockFixtureID,
+                BlockingComponent.BlockFixtureId,
                 hard: true,
                 collisionLayer: (int)CollisionGroup.WallLayer,
                 body: physicsComponent);
@@ -234,13 +250,13 @@ public sealed partial class BlockingSystem : EntitySystem
     private void CantBlockError(EntityUid user)
     {
         var msgError = Loc.GetString("action-popup-blocking-user-cant-block");
-        _popupSystem.PopupClient(msgError, user, user);
+        _popupSystem.PopupEntity(msgError, user, user);
     }
 
     private void TooCloseError(EntityUid user)
     {
         var msgError = Loc.GetString("action-popup-blocking-user-too-close");
-        _popupSystem.PopupClient(msgError, user, user);
+        _popupSystem.PopupEntity(msgError, user, user);
     }
 
     /// <summary>
@@ -272,7 +288,7 @@ public sealed partial class BlockingSystem : EntitySystem
                 _transformSystem.Unanchor(user, xform, false);
 
             _actionsSystem.SetToggled(component.BlockingToggleActionEntity, false);
-            _fixtureSystem.DestroyFixture(user, BlockingComponent.BlockFixtureID, body: physicsComponent);
+            _fixtureSystem.DestroyFixture(user, BlockingComponent.BlockFixtureId, body: physicsComponent);
             _physics.SetBodyType(user, blockingUserComponent.OriginalBodyType, body: physicsComponent);
             _popupSystem.PopupPredicted(msgUser, msgOther, user, user);
         }
@@ -316,13 +332,18 @@ public sealed partial class BlockingSystem : EntitySystem
         component.User = null;
     }
 
+    private DamageModifierSet GetBlockingModifier(Entity<BlockingComponent> entity)
+    {
+        return entity.Comp.IsBlocking ? entity.Comp.ActiveBlockModifier ?? entity.Comp.PassiveBlockModifier : entity.Comp.PassiveBlockModifier;
+    }
+
     private void OnVerbExamine(EntityUid uid, BlockingComponent component, GetVerbsEvent<ExamineVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
         var fraction = component.IsBlocking ? component.ActiveBlockFraction : component.PassiveBlockFraction;
-        var modifier = component.IsBlocking ? component.ActiveBlockDamageModifier : component.PassiveBlockDamageModifer;
+        var modifier = GetBlockingModifier((uid, component));
 
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("blocking-fraction", ("value", MathF.Round(fraction * 100, 1))));
@@ -342,7 +363,7 @@ public sealed partial class BlockingSystem : EntitySystem
         {
             msg.PushNewline();
             msg.AddMarkupOrThrow(Robust.Shared.Localization.Loc.GetString("blocking-coefficient-value",
-                ("type", coefficient.Key),
+                ("type", GetLocalizedDamageType(coefficient.Key)), // DS14
                 ("value", MathF.Round(coefficient.Value * 100, 1))
             ));
         }
@@ -351,9 +372,18 @@ public sealed partial class BlockingSystem : EntitySystem
         {
             msg.PushNewline();
             msg.AddMarkupOrThrow(Robust.Shared.Localization.Loc.GetString("blocking-reduction-value",
-                ("type", flat.Key),
+                ("type", GetLocalizedDamageType(flat.Key)), // DS14
                 ("value", flat.Value)
             ));
         }
     }
+
+    // DS14-start
+    private string GetLocalizedDamageType(string type)
+    {
+        return _prototype.TryIndex<DamageTypePrototype>(type, out var prototype)
+            ? prototype.LocalizedName
+            : type;
+    }
+    // DS14-end
 }

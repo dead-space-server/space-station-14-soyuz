@@ -11,7 +11,6 @@
       time: 60h
     - !type:AgeRequirement
       requiredAge: 24
-  weight: 10
   startingGear: ResearchDirectorGear
   icon: "JobIconResearchDirector"
   supervisors: job-supervisors-captain
@@ -25,10 +24,10 @@
   - Cryogenics
   - External #DS14
   #start-backmen: currency
-  minBankBalance: 400
-  maxBankBalance: 600
+  minBankBalance: 500 # DS14-value
+  maxBankBalance: 700 # DS14-value
   wageDepartment: Command
-  wage: 150
+  wage: 450 # DS14-value
   #end-backmen: currency
   special:
   - !type:AddImplantSpecial

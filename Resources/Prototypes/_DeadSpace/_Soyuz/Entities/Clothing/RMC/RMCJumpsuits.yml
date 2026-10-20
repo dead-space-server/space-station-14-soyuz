@@ -1,0 +1,43 @@
+- type: entity
+  parent: SoyuzClothingUniformBase
+  id: SoyuzFatiguesDesertRMC
+  name: пустынная полевая форма королевского морпеха
+  description: Стандартная полевая форма королевских морпехов.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/jumpsuits/desert.rsi
+  - type: WebbingClothing
+
+- type: entity
+  parent: SoyuzFatiguesDesertRMC
+  id: SoyuzFatiguesBlackRMC
+  name: чёрная полевая форма королевского морпеха
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/jumpsuits/black.rsi
+
+- type: entity
+  parent: SoyuzClothingUniformBase
+  id: SoyuzFatiguesDesertRMCTeamlead
+  name: пустынная полевая форма командира группы королевских морпехов
+  description: Стандартная полевая форма королевских морпехов. Обычно носится сержантами или офицерами.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/jumpsuits/desert_team_lead.rsi
+
+- type: entity
+  parent: SoyuzFatiguesDesertRMCTeamlead
+  id: SoyuzFatiguesBlackRMCTeamlead
+  name: чёрная полевая форма командира группы королевских морпехов
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/jumpsuits/black_team_lead.rsi
+
+- type: entity
+  parent: SoyuzClothingUniformBase
+  id: SoyuzFatiguesServiceRMC
+  name: парадная форма королевского морпеха
+  description: Стандартная парадная форма королевских морпехов. Обычно носится офицерами.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/RMC/jumpsuits/service.rsi

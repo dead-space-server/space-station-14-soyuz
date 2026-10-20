@@ -15,14 +15,10 @@
     footstepSoundCollection:
       collection: FootstepBorg
   - type: Mech
-    ignorePressure: true
+    airtight: true
     baseState: clarke
     openState: clarke-open
     brokenState: clarke-broken
-    mechToPilotDamageMultiplier: 0.75
-    pilotWhitelist:
-      components:
-      - HumanoidAppearance
     equipmentWhitelist:
       tags:
       - ClarkeEquipment

@@ -50,6 +50,17 @@
       path: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
   - type: StaticPrice
     price: 500
+  #DS14-Start
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/ballistics/pistol/pistol_drop.ogg
+  #DS14-End
 
 - type: entity
   name: Deckard
@@ -87,6 +98,7 @@
   id: WeaponRevolverInspector
   description: A double-action revolver manufactured by various companies. It is readily available on the civilian market, making it a popular choice among private investigators. You feel lucky just holding it. Loads 6 rounds of .45 magnum.
   components:
+  - type: Akimbo # DS14
   - type: Sprite
     sprite: Objects/Weapons/Guns/Revolvers/inspector.rsi
   - type: Clothing
@@ -131,6 +143,7 @@
   id: WeaponRevolverPython
   description: A powerful double-action revolver manufactured by the Syndicate. Loud and flashy, perfect for any agent looking to make a statement. Loads 6 rounds of .45 magnum.
   components:
+  - type: Akimbo # DS14
   - type: Sprite
     sprite: Objects/Weapons/Guns/Revolvers/python.rsi
   - type: Clothing

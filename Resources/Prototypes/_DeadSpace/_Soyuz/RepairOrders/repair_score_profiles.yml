@@ -1,0 +1,218 @@
+- type: repairScoreProfile
+  id: RepairOrderEngineeringScore
+  # All non-empty tiles share one value; original tile IDs remain available for visuals.
+  floorTilePoints: 2
+
+  # Identity rules are applied before target/current entity comparison.
+  # They intentionally ignore mapping-only state variants such as filled vs empty batteries
+  # or light fixtures with a lamp preinserted on spawn.
+  identityRules:
+  # Indestructible directional windows match their constructible material variants.
+  - selector:
+      entities: [WindowReinforcedDirectionalIndestructible]
+    canonical: WindowReinforcedDirectional
+  - selector:
+      entities: [PlasmaReinforcedWindowDirectionalIndestructible]
+    canonical: PlasmaReinforcedWindowDirectional
+  - selector:
+      entities: [UraniumReinforcedWindowDirectionalIndestructible]
+    canonical: UraniumReinforcedWindowDirectional
+  # Map-only indestructible and uncuttable variants are repaired with constructible equivalents.
+  - selector:
+      entities: [PlastitaniumPlasmaWindowDiagonalIndestructible]
+    canonical: PlastitaniumPlasmaWindowDiagonal
+  - selector:
+      entities: [PlastitaniumPlasmaWindowIndestructible]
+    canonical: PlastitaniumPlasmaWindow
+  - selector:
+      entities: [PlastitaniumWindowDiagonalIndestructible]
+    canonical: PlastitaniumWindowDiagonal
+  - selector:
+      entities: [PlastitaniumWindowIndestructible]
+    canonical: PlastitaniumWindow
+  - selector:
+      entities: [WallTungstenDiagonalIndestructible]
+    canonical: WallTungstenDiagonal
+  - selector:
+      entities: [WallTungstenIndestructible]
+    canonical: WallTungsten
+  - selector:
+      entities: [TungstenWindowDiagonalIndestructible]
+    canonical: TungstenWindowDiagonal
+  - selector:
+      entities: [TungstenWindowIndestructible]
+    canonical: TungstenWindow
+  - selector:
+      entities: [WallReinforcedIndestructible, WallReinforcedRust, WallReinforcedRustIndestructible, WallRiveted, WallRivetedIndestructible]
+    canonical: WallReinforced
+  - selector:
+      entities: [ReinforcedPlasmaWindowIndestructible]
+    canonical: ReinforcedPlasmaWindow
+  - selector:
+      entities: [ReinforcedUraniumWindowIndestructible]
+    canonical: ReinforcedUraniumWindow
+  - selector:
+      entities: [ReinforcedWindowIndestructible]
+    canonical: ReinforcedWindow
+  - selector:
+      entities: [WallPlastitaniumDiagonalIndestructible]
+    canonical: WallPlastitaniumDiagonal
+  - selector:
+      entities: [WallPlastitaniumIndestructible]
+    canonical: WallPlastitanium
+  - selector:
+      entities: [WallSolidIndestructible, WallSolidRust, WallSolidRustIndestructible]
+    canonical: WallSolid
+  - selector:
+      entities: [WindowIndestructible]
+    canonical: Window
+  - selector:
+      entities: [CableHVUncuttable]
+    canonical: CableHV
+  - selector:
+      entities: [CableMVUncuttable]
+    canonical: CableMV
+  - selector:
+      entities: [CableApcExtensionUncuttable]
+    canonical: CableApcExtension
+  - selector:
+      entities: [CableTerminalUncuttable]
+    canonical: CableTerminal
+  # Any sliding window or armored sliding window can be rebuilt with any material variant.
+  - selector:
+      parents: [BaseWindoor]
+      includeAbstractParents: true
+    canonical: Windoor
+  - selector:
+      parents: [Holopad]
+    canonical: Holopad
+  - selector:
+      entities: [SMESBasic, SMESBasicEmpty]
+    canonical: SMESBasicEmpty
+  - selector:
+      entities: [SMESAdvanced, SMESAdvancedEmpty]
+    canonical: SMESAdvancedEmpty
+  - selector:
+      entities: [SubstationBasic, SubstationBasicEmpty]
+    canonical: SubstationBasicEmpty
+  - selector:
+      entities: [BaseSubstationWall, SubstationWallBasic]
+    canonical: BaseSubstationWall
+  # Anchored and unanchored gyroscopes are restored with the constructible machine.
+  - selector:
+      parents: [Gyroscope]
+    canonical: Gyroscope
+  - selector:
+      entities: [APCBasic, APCConstructed, APCHighCapacity, APCSuperCapacity, APCHyperCapacity]
+    canonical: APCConstructed
+  # Every classified light fixture matches the hand-built tube fixture, with or without a bulb.
+  - selector:
+      parents: [AlwaysPoweredWallLight, AlwaysPoweredStrobeLight, LightPostSmall, NinjaGroundLight, Floodlight]
+    canonical: PoweredlightEmpty
+  - selector:
+      entities: [FloodlightBroken]
+    canonical: PoweredlightEmpty
+  - selector:
+      entities: [MiningWindow, MiningWindowSoyuz]
+    canonical: MiningWindow
+  - selector:
+      entities: [MiningWindowDiagonal, MiningWindowDiagonalSoyuz]
+    canonical: MiningWindowDiagonal
+  # Any docking airlock can be rebuilt with either hand-built shuttle airlock.
+  - selector:
+      parents: [AirlockShuttle]
+    canonical: AirlockShuttle
+  - selector:
+      parents: [AirlockGlass, AirlockExternalGlass]
+    canonical: AirlockGlass
+  - selector:
+      parents: [Airlock, AirlockExternal]
+    canonical: Airlock
+  # Blast door mapping/state/access variants are equivalent for repair purposes.
+  - selector:
+      parents: [BlastDoor]
+    canonical: BlastDoor
+  # Filled bookshelves match the hand-built empty bookshelf.
+  - selector:
+      entities: [BookshelfFilled]
+    canonical: Bookshelf
+  # All wall closets/lockers are equivalent for repair purposes.
+  - selector:
+      parents: [BaseWallCloset, BaseWallLocker]
+      includeAbstractParents: true
+    canonical: ClosetWall
+
+  # Rotation is opt-in. Tables and ordinary walls/windows/airlocks therefore ignore it.
+  rotationRules:
+  - selector:
+      entities: [AirSensor]
+    mode: None
+  # Gyroscopes work in any orientation; keep this before the general Thruster rule.
+  - selector:
+      parents: [Gyroscope]
+    mode: None
+  # Shuttle thrusters and constructed computers are directional, including fork-specific variants.
+  - selector:
+      allComponents: [Thruster]
+    mode: Exact
+  - selector:
+      allComponents: [Computer]
+    mode: Exact
+
+  # Straight pipes only distinguish horizontal from vertical. All other atmos pipes are directional.
+  - selector:
+      parents: [GasPipeStraight]
+    mode: Axis
+  - selector:
+      parents: [GasPassiveVent, GasVentScrubber, GasVentPump]
+    mode: Exact
+  - selector:
+      parents: [GasPipeBase]
+      includeAbstractParents: true
+    mode: Exact
+
+  # Covers other gas-network machinery, including pumps, valves, filters, mixers, injectors and gas miners.
+  - selector:
+      allComponents: [AtmosDevice]
+    mode: Exact
+
+  - selector:
+      parents: [DisposalPipe]
+    mode: Axis
+
+  - selector:
+      parents: [DisposalPipeBase]
+      includeAbstractParents: true
+    mode: Exact
+
+  # Directional atmos fixtures.
+  - selector:
+      parents: [AtmosDeviceFanDirectional]
+    mode: Exact
+
+  # Wallmount APUs are directional.
+  - selector:
+      parents: [GeneratorWallmountAPU, GeneratorWallmountAPULV]
+    mode: Exact
+
+  # Light fixtures and bulbs.
+  - selector:
+      allComponents: [PoweredLight]
+    mode: Exact
+  - selector:
+      parents:
+      - BaseLightbulb
+      - EmergencyLight
+      includeAbstractParents: true
+    mode: Exact
+
+  # Shuttle airlocks and docking ports are directional.
+  - selector:
+      allComponents: [Docking]
+    mode: Exact
+
+  # Chairs, sofas, benches and other SeatBase descendants are directional.
+  - selector:
+      parents: [SeatBase]
+      includeAbstractParents: true
+    mode: Exact

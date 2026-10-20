@@ -21,13 +21,13 @@
         ejectSound: /Audio/Items/unsheath.ogg
         whitelist:
           tags:
-          - SupremeSabre
+          - PoSabre
   - type: ItemMapper
     mapLayers:
       sheath-sabre:
         whitelist:
           tags:
-          - SupremeSabre
+          - PoSabre
   - type: Appearance
   - type: Storage
     grid:
@@ -45,11 +45,14 @@
   - type: EntityTableContainerFill
     containers:
       item:
-        id: ADTObjectWeaponsMeleeSupremeSabre
+        id: PoSabre
       storagebase: !type:AllSelector
         children:
         - id: Truncheon
+        - id: Truncheonsec
         - id: ADTtelescopicBaton
         - id: Handcuffs
+          amount: 2
+        - id: TelescopicShield
           amount: 2
         - id: SmokeGrenade

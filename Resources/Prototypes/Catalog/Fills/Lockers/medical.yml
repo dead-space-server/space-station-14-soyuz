@@ -126,6 +126,13 @@
     - id: HandheldHealthAnalyzer
     - id: BoxBodyBag
     - id: HypoParamedic # DS14-Soyuz
+    - id: ClothingHandsGlovesLatex
+    - id: ClothingHeadsetMedical
+    - id: ClothingMaskSterile
+    - id: HandheldGPSBasic
+    - id: MedkitFilled
+      prob: 0.3
+    - id: MedkitAdvancedFilled
     - !type:GroupSelector
       children:
       - id: RollerBedSpawnFolded

@@ -1,0 +1,30 @@
+- type: repairDamageProtection
+  id: RepairDamageProtectedFamilies
+  entities:
+  - ButtonFrameCaution
+  parents:
+  - BaseWallCloset
+  - BaseWallLocker
+  - BaseWallmountCabinet
+  - BaseWallmountCabinetGlass
+  - BaseVendingMachine
+  - BoozeDispenserEmpty
+  - PosterBase
+  - ButtonFrame
+  - SignalSwitch
+  - SignalButton
+  - ApcNetSwitch
+  - TwoWayLever
+  - ShuttleGunBase
+  - BaseWeaponTurret
+  - WeaponTurretSyndicateBroken
+  - PipeShuttleCallButton
+  - PipeShuttleModeButton
+  components:
+  - VendingMachine
+  - SignalSwitch
+  - ApcNetSwitch
+  - TwoWayLever
+  - TurretTargetSettings
+  - DeployableTurret
+  - StationAiTurret

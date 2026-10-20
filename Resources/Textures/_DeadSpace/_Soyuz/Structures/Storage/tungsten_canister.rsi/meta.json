@@ -1,0 +1,59 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Create by: github@Ezio50",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "can-connector"
+        },
+        {
+            "name": "locked"
+        },
+        {
+            "name": "unlocked"
+        },
+        {
+            "name": "can-o0",
+            "delays": [
+                [
+                    0.5,
+                    0.5
+                ]
+            ]
+        },
+        {
+            "name": "can-o1"
+        },
+        {
+            "name": "can-o2"
+        },
+        {
+            "name": "can-o3"
+        },
+        {
+            "name": "can-open"
+        },
+        {
+            "name": "tungsten"
+        },
+        {
+            "name": "tungsten-1"
+        },
+        {
+            "name": "bounty"
+        },
+        {
+            "name": "captains_paper"
+        },
+        {
+            "name": "invoice"
+        },
+        {
+            "name": "paper"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 - type: gameMap
   id: Snowball
-  mapName: 'Snowball Station'
+  mapName: 'Станция "Снежок"' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/snowball.yml
   minPlayers: 15
   maxPlayers: 50
@@ -9,7 +9,7 @@
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Snowball Station {1}'
+          mapNameTemplate: '{0} Станция "Снежок" {1}' #DS14-Soyuz local
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'

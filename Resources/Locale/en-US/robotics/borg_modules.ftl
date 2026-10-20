@@ -9,6 +9,8 @@ borg-slot-small-containers-empty = Small containers
 borg-slot-chemical-containers-empty = Chemical containers
 borg-slot-documents-empty = Books and papers
 borg-slot-soap-empty = Soap
+# Kofeecheks QoL: LicenseRef-Kofeecheks
+borg-slot-cleanade-empty = Cleaner grenade
 borg-slot-instruments-empty = Instruments
 borg-slot-beakers-empty = Beakers
 borg-slot-brains-empty = Brains and MMIs
@@ -16,3 +18,4 @@ borg-slot-modules-empty = Modules
 borg-slot-powercell-empty = Powercells
 borg-slot-inflatable-door-empty = Inflatable Door
 borg-slot-inflatable-wall-empty = Inflatable Wall
+borg-slot-xenoborg-crystal-empty = Xenoborg crystals

@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.ContextMenu.UI;
+using Content.Client.DeadSpace.Stylesheets; // DS14
 using Content.Client.Examine;
-using Content.Client.PDA;
 using Content.Client.Resources;
 using Content.Client.Silicons.Laws.SiliconLawEditUi;
 using Content.Client.UserInterface.Controls;
@@ -1538,59 +1538,55 @@ namespace Content.Client.Stylesheets
                     .Pseudo(TextureButton.StylePseudoClassHover)
                     .Prop(TextureButton.StylePropertyTexture, resCache.GetTexture("/Textures/Interface/Radial/back_hover.png")),
 
+                // DS14-start
                 //PDA - Backgrounds
                 Element<PanelContainer>().Class("PdaContentBackground")
-                    .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenBoth)
-                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#25252a")),
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
+                    {
+                        BackgroundColor = DeadSpaceStylePalette.SurfaceInset,
+                        BorderColor = DeadSpaceStylePalette.BorderInset,
+                        BorderThickness = new Thickness(1),
+                    })
+                    .Prop(Control.StylePropertyModulateSelf, Color.White),
 
                 Element<PanelContainer>().Class("PdaBackground")
-                    .Prop(PanelContainer.StylePropertyPanel, BaseButtonOpenBoth)
-                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#000000")),
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
+                    {
+                        BackgroundColor = DeadSpaceStylePalette.SurfaceIcon,
+                        BorderColor = DeadSpaceStylePalette.CyanDim,
+                        BorderThickness = new Thickness(1),
+                    })
+                    .Prop(Control.StylePropertyModulateSelf, Color.White),
 
                 Element<PanelContainer>().Class("PdaBackgroundRect")
-                    .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#717059")),
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
+                    {
+                        BackgroundColor = DeadSpaceStylePalette.SurfaceStatus,
+                        BorderColor = DeadSpaceStylePalette.CyanDim,
+                        BorderThickness = new Thickness(2),
+                    })
+                    .Prop(Control.StylePropertyModulateSelf, Color.White),
 
                 Element<PanelContainer>().Class("PdaBorderRect")
-                    .Prop(PanelContainer.StylePropertyPanel, AngleBorderRect),
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat
+                    {
+                        BackgroundColor = Color.Transparent,
+                        BorderColor = DeadSpaceStylePalette.CyanBright,
+                        BorderThickness = new Thickness(1),
+                    }),
 
                 Element<PanelContainer>().Class("BackgroundDark")
-                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(Color.FromHex("#25252A"))),
-
-                //PDA - Buttons
-                Element<PdaSettingsButton>().Pseudo(ContainerButton.StylePseudoClassNormal)
-                    .Prop(PdaSettingsButton.StylePropertyBgColor, Color.FromHex(PdaSettingsButton.NormalBgColor))
-                    .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
-
-                Element<PdaSettingsButton>().Pseudo(ContainerButton.StylePseudoClassHover)
-                    .Prop(PdaSettingsButton.StylePropertyBgColor, Color.FromHex(PdaSettingsButton.HoverColor))
-                    .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
-
-                Element<PdaSettingsButton>().Pseudo(ContainerButton.StylePseudoClassPressed)
-                    .Prop(PdaSettingsButton.StylePropertyBgColor, Color.FromHex(PdaSettingsButton.PressedColor))
-                    .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.EnabledFgColor)),
-
-                Element<PdaSettingsButton>().Pseudo(ContainerButton.StylePseudoClassDisabled)
-                    .Prop(PdaSettingsButton.StylePropertyBgColor, Color.FromHex(PdaSettingsButton.NormalBgColor))
-                    .Prop(PdaSettingsButton.StylePropertyFgColor, Color.FromHex(PdaSettingsButton.DisabledFgColor)),
-
-                Element<PdaProgramItem>().Pseudo(ContainerButton.StylePseudoClassNormal)
-                    .Prop(PdaProgramItem.StylePropertyBgColor, Color.FromHex(PdaProgramItem.NormalBgColor)),
-
-                Element<PdaProgramItem>().Pseudo(ContainerButton.StylePseudoClassHover)
-                    .Prop(PdaProgramItem.StylePropertyBgColor, Color.FromHex(PdaProgramItem.HoverColor)),
-
-                Element<PdaProgramItem>().Pseudo(ContainerButton.StylePseudoClassPressed)
-                    .Prop(PdaProgramItem.StylePropertyBgColor, Color.FromHex(PdaProgramItem.HoverColor)),
+                    .Prop(PanelContainer.StylePropertyPanel, new StyleBoxFlat(DeadSpaceStylePalette.SurfaceDark)),
 
                 //PDA - Text
                 Element<Label>().Class("PdaContentFooterText")
                     .Prop(Label.StylePropertyFont, notoSans10)
-                    .Prop(Label.StylePropertyFontColor, Color.FromHex("#757575")),
+                    .Prop(Label.StylePropertyFontColor, DeadSpaceStylePalette.TextMuted),
 
                 Element<Label>().Class("PdaWindowFooterText")
                     .Prop(Label.StylePropertyFont, notoSans10)
-                    .Prop(Label.StylePropertyFontColor, Color.FromHex("#333d3b")),
+                    .Prop(Label.StylePropertyFontColor, DeadSpaceStylePalette.TextMuted),
+                // DS14-end
 
                 // Fancy Tree
                 Element<ContainerButton>().Identifier(TreeItem.StyleIdentifierTreeButton)

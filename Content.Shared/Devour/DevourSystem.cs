@@ -19,7 +19,7 @@ public sealed class DevourSystem : EntitySystem
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
-    [Dependency] private readonly SharedBloodstreamSystem _bloodstreamSystem = default!;
+    [Dependency] private readonly BloodstreamSystem _bloodstreamSystem = default!;
     [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
@@ -69,6 +69,7 @@ public sealed class DevourSystem : EntitySystem
         {
             switch (targetState.CurrentState)
             {
+                case MobState.PreCritical: // DS14
                 case MobState.Critical:
                 case MobState.Dead:
 
@@ -140,4 +141,3 @@ public sealed partial class DevourActionEvent : EntityTargetActionEvent;
 
 [Serializable, NetSerializable]
 public sealed partial class DevourDoAfterEvent : SimpleDoAfterEvent;
-

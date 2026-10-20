@@ -22,11 +22,7 @@ public sealed partial class CloningPodComponent : Component
     [ViewVariables]
     public float CloningProgress = 0;
 
-    //DS14-start
-    /// <summary>
-    /// How much biomass does it require.
-    /// </summary>
-    [DataField] //DS14-end ViewVariables > DataField
+    [ViewVariables]
     public int UsedBiomass = 70;
 
     [ViewVariables]
@@ -64,12 +60,13 @@ public sealed partial class CloningPodComponent : Component
 
     [ViewVariables]
     public EntityUid? ConnectedConsole;
+
     // DS14-start
     /// <summary>
     /// If true, cloning can be performed despite uncloning
     /// </summary>
     [DataField]
-    public bool CanCloneUnclonable = true;
+    public bool CanCloneUnclonable = false;
     // DS14-end
 }
 

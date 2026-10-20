@@ -70,6 +70,7 @@
       - id: ClothingNeckMantleHOP
       - id: ClothingNeckCloakHop
       - id: ClothingHeadHatHopcap
+      - id: ClothingUniformJumpsuitHoPWhite # DS14
       - id: ClothingOuterWinterHoP
       - id: ClothingOuterCoatHOP # Corvax-Resprite
       - id: ADTClothingNeckHoPAltCloak # ADT-Resprite
@@ -78,6 +79,10 @@
       - id: ClothingUnderwearTopBraHeadofPersonnel # DS14-Underwear
       - id: ClothingUnderwearBottomPantiesHeadofPersonnel # DS14-Underwear
       - id: ClothingEyesGlasses
+      - id: ClothingHeadHatBeretHop # DS14-Soyuz
+      - id: ClothingUniformJumpsuitHoPTurtle # DS14-Soyuz
+      - id: ClothingUniformJumpskirtHoPTurtle # DS14-Soyuz
+      - id: ClothingUniformJumpskirtPencilHoP # DS14-Soyuz
 
 - type: entity
   id: DresserHeadOfSecurityFilled

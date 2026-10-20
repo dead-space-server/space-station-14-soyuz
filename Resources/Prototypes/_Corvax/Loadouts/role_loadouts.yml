@@ -4,8 +4,11 @@
   - GroupTankHarness
   - LawyerNeck
   - IAAJumpsuit
+  - IAAOuterClothing # DS14
+  - IAAGloves # DS14
   - CommonBackpack
   - Survival
   - Trinkets
+  - PolaroidKit # DS14
   - GroupSpeciesBreathTool
   - IAAUnderwear

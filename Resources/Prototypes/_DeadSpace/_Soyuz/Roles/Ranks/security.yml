@@ -1,0 +1,65 @@
+- type: rank
+  id: SGMRankCaptain
+  name: Капитан Милиции
+  prefix: Кап.
+  paygrade: М10
+
+- type: rank
+  id: SGMRankSeniorLieutenant
+  name: Старший Лейтенант
+  prefix: Стар. Лей.
+  paygrade: М9
+
+- type: rank
+  id: SGMRankLieutenant
+  name: Лейтенант
+  prefix: Лей.
+  paygrade: М8
+
+- type: rank
+  id: SGMRankSeniorWarrantOfficer
+  name: Старший Прапорщик
+  prefix: Стар. Прапор.
+  paygrade: М7
+
+- type: rank
+  id: SGMRankWarrantOfficer
+  name: Прапорщик
+  prefix: Прапор.
+  paygrade: М6
+
+- type: rank
+  id: SGMRankChiefSergeant
+  name: Старшина
+  prefix: Стар.
+  paygrade: М5
+
+- type: rank
+  id: SGMRankSeniorSergeant
+  name: Старший Сержант
+  prefix: Стар. Серж.
+  paygrade: М4
+
+- type: rank
+  id: SGMRankSergeant
+  name: Сержант
+  prefix: Серж.
+  paygrade: М3
+
+- type: rank
+  id: SGMRankJuniorSergeant
+  name: Младший Сержант
+  prefix: Млад. Серж.
+  paygrade: М2
+
+- type: rank
+  id: SGMRankPrivate
+  name: Рядовой
+  prefix: Ряд.
+  paygrade: М1
+
+- type: rank
+  id: SGMRankPidoras
+  name: Курсант
+  prefix: Курс.
+  paygrade: КК

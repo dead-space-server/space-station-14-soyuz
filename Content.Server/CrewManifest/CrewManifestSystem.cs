@@ -235,14 +235,19 @@ public sealed class CrewManifestSystem : EntitySystem
             entriesSort.Add((job, entry));
         }
 
-        entriesSort.Sort((a, b) =>
+        var jobWeights = Comp<StationDataComponent>(station).JobWeights;
+        // DS14 - current engine baseline has no EntitySystem.ProtoMan shortcut.
+        if (JobUIComparer.TryCreate(_prototypeManager, jobWeights, out var comparer))
         {
-            var cmp = JobUIComparer.Instance.Compare(a.job, b.job);
-            if (cmp != 0)
-                return cmp;
+            entriesSort.Sort((a, b) =>
+            {
+                var cmp = comparer.Compare(a.job, b.job);
+                if (cmp != 0)
+                    return cmp;
 
-            return string.Compare(a.entry.Name, b.entry.Name, StringComparison.CurrentCultureIgnoreCase);
-        });
+                return string.Compare(a.entry.Name, b.entry.Name, StringComparison.CurrentCultureIgnoreCase);
+            });
+        }
 
         entries.Entries = entriesSort.Select(x => x.entry).ToArray();
         _cachedEntries[station] = entries;

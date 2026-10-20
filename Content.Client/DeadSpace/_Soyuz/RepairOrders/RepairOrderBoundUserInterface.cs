@@ -1,0 +1,57 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
+
+using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+
+namespace Content.Client.DeadSpace._Soyuz.RepairOrders;
+
+public sealed class RepairOrderBoundUserInterface : BoundUserInterface
+{
+    private RepairOrderWindow? _window;
+
+    public RepairOrderBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
+    {
+    }
+
+    protected override void Open()
+    {
+        base.Open();
+
+        var draft = PlayerManager.LocalEntity is { } actor
+            ? EntMan.System<RepairOrderShopSystem>().GetDraft(Owner, actor)
+            : new RepairOrderShopDraft();
+        _window = new RepairOrderWindow(draft);
+        _window.OnAccept += runtimeId => SendMessage(new RepairOrderAcceptMessage(runtimeId));
+        _window.OnComplete += (runtimeId, allowIncomplete) => SendMessage(new RepairOrderCompleteMessage(runtimeId, allowIncomplete));
+        _window.OnPrintReport += runtimeId => SendMessage(new RepairOrderPrintReportMessage(runtimeId));
+        _window.OnShopPurchase += (requestId, lines) => SendMessage(new RepairOrderShopPurchaseMessage(requestId, lines));
+        _window.OnClose += Close;
+        _window.OpenCentered();
+    }
+
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        base.UpdateState(state);
+
+        if (state is RepairOrderBoundUserInterfaceState repairState)
+            _window?.UpdateState(repairState);
+    }
+
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
+    {
+        base.ReceiveMessage(message);
+        if (message is RepairOrderShopResultMessage result)
+            _window?.ShowShopResult(result);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+
+        if (!disposing)
+            return;
+
+        _window?.SaveDraft();
+        _window?.Close();
+        _window?.Dispose();
+    }
+}

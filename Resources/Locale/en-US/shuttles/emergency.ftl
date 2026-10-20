@@ -1,9 +1,31 @@
 # Commands
 ## Delay shuttle round end
-cmd-delayroundend-desc = Stops the timer that ends the round when the emergency shuttle exits hyperspace.
-cmd-delayroundend-help = Usage: delayroundend
-emergency-shuttle-command-round-yes = Round delayed.
-emergency-shuttle-command-round-no = Unable to delay round end.
+cmd-delayroundend-desc = Pauses or adjusts the timer until the round ends, or until it restarts after the manifest.
+cmd-delayroundend-help =
+    Usage: delayroundend [seconds]
+    Positive values add time and negative values subtract it. With no argument, pauses or resumes the timer.
+cmd-delayroundend-invalid-seconds = {$value} isn't a valid amount of seconds.
+cmd-delayroundend-paused =
+    { $restart ->
+        [true] Round restart paused.
+       *[false] Round end paused.
+    }
+cmd-delayroundend-resumed =
+    { $restart ->
+        [true] Round restart resumed.
+       *[false] Round end resumed.
+    }
+cmd-delayroundend-extended =
+    { $restart ->
+        [true] Round restart delayed by {$seconds} seconds.
+       *[false] Round end extended by {$seconds} seconds.
+    }
+cmd-delayroundend-shortened =
+    { $restart ->
+        [true] Round restart moved forward by {$seconds} seconds.
+       *[false] Round end shortened by {$seconds} seconds.
+    }
+cmd-delayroundend-no-timer = There is no round end or restart timer to adjust.
 
 ## Dock emergency shuttle
 cmd-dockemergencyshuttle-desc = Calls the emergency shuttle and docks it to the station... if it can.
@@ -31,12 +53,34 @@ emergency-shuttle-console-denied = Access denied
 emergency-shuttle-console-window-title = Emergency Shuttle Console
 emergency-shuttle-ui-engines = ENGINES:
 emergency-shuttle-ui-idle = Idle
+emergency-shuttle-ui-status-title = SHUTTLE STATUS
+emergency-shuttle-ui-status-waiting = Awaiting launch
+emergency-shuttle-ui-status-early-disabled = Standard route
+emergency-shuttle-ui-status-countdown = Launch in {$time}
+emergency-shuttle-ui-route = Route:
+emergency-shuttle-ui-route-standard = Central Command
+emergency-shuttle-ui-route-raider-outpost = Syndicate Raider Outpost
 emergency-shuttle-ui-repeal-all = Repeal All
 emergency-shuttle-ui-early-authorize = Early Launch Authorization
 emergency-shuttle-ui-authorize = AUTHORIZE
 emergency-shuttle-ui-repeal = REPEAL
 emergency-shuttle-ui-authorizations = Authorizations
 emergency-shuttle-ui-remaining = Remaining: {$remaining}
+emergency-shuttle-console-hijack-denied = No active hijack contract found.
+emergency-shuttle-console-hijack-already-started = Hijack sequence is already active.
+emergency-shuttle-console-hijack-already-complete = The shuttle is already compromised.
+emergency-shuttle-console-hijack-announcer = Station Automated Systems
+emergency-shuttle-console-hijack-started = Attention all facility officers. Unauthorized access to emergency shuttle systems has been detected. A bluespace route alteration is in progress; exact location unknown. Security is ordered to disable the rerouting protocols on the emergency shuttle bridge using the appropriate control console.
+emergency-shuttle-console-hijack-cancelled = Attention, rerouting protocols have been cancelled. Evacuation continues under standard procedure.
+emergency-shuttle-console-hijack-completed = Attention, the emergency shuttle bluespace route has been altered. Bluespace jump initiated. All crew are advised to leave the emergency shuttle.
+emergency-shuttle-ui-hijack = BLUESPACE ROUTE REROUTE
+emergency-shuttle-ui-hijack-start = INITIATE REROUTE
+emergency-shuttle-ui-hijack-cancel = DISABLE PROTOCOLS
+emergency-shuttle-ui-hijack-inactive = Rerouting protocols ready
+emergency-shuttle-ui-hijack-active = Route alteration: {$time}
+emergency-shuttle-ui-hijack-complete = Route altered
+emergency-shuttle-ui-hijack-welcome = Welcome, {$name}
+emergency-shuttle-ui-hijack-unknown = UNKNOWN
 
 # Map Misc.
 map-name-centcomm = Central Command

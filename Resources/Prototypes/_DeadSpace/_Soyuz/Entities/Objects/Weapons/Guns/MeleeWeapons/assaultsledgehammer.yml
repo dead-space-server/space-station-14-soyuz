@@ -1,0 +1,38 @@
+
+- type: entity
+  name: штурмовая кувалда
+  parent: BaseItem
+  id: AssaultSledgehammer
+  description: Штурмовая кувалда, что способна снести не одну стену на станции. Применяется Наркоматом Всесоюзной Безопасности и Советской Гражданской Милицией.
+  components:
+  - type: MeleeRequiresWield
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/assaultsledgehammer.rsi
+    quickEquip: false
+    slots:
+    - back
+    - suitStorage
+  - type: MeleeThrowOnHit
+    distance: 1
+    stunTime: 0
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 10
+        Structural: 15
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Melee/assaultsledgehammer.rsi
+    state: icon
+  - type: MeleeWeapon
+    attackRate: 0.35
+    angle: 25
+    wideAnimationRotation: 135
+    damage:
+      types:
+        Blunt: 50
+        Structural: 50
+    soundHit:
+      collection: MetalThud
+  - type: Wieldable
+  - type: Item
+    size: Large

@@ -2146,3 +2146,12 @@ Entries:
   changes:
   - type: Tweak
     message: Анализатор растений заменён на официальный
+- id: 204
+  author: kainse-miau
+  time: '2026-10-20T13:58:57.925318+00:00'
+  pr: 530
+  changes:
+  - type: Add
+    message: Раковина на кухню.
+  - type: Tweak
+    message: Декали в гостбаре, оформление пары локаций.

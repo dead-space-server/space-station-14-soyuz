@@ -1,4 +1,16 @@
 - type: microwaveMealRecipe
+  id: RecipeSoyMeat
+  name: soy-meat-recipe
+  result: FoodSoyMeat
+  time: 10
+  group: Savory
+  solids:
+    FoodSoybeans: 2
+  reagents:
+    Nutriment: 10
+    Flour: 5
+
+- type: microwaveMealRecipe
   id: RecipeNutsWithCondensedMilk
   name: oreshki recipe
   result: FoodNutsWithCondensedMilk

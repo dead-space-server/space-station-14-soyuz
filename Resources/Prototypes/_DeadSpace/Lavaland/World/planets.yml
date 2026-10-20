@@ -69,7 +69,7 @@
   - LavalandOreGibtonite
   goldgrubAmbush:
     enabled: true
-    chance: 0.015
+    chance: 0.006
     playerCooldown: 300
     requireOre: true
     prototype: MobLavalandGoldgrub
@@ -201,6 +201,19 @@
     climbOutDuration: 1.4
     bossArenas:
       LavalandHierophantCaveArena: 1
+    customGrids:
+    - path: /Maps/Lavaland/Chromite.yml
+      count: 1
+      name: Хромитовые обломки
+      minDistance: 35
+      minSeparation: 12
+      spawnAttempts: 200
+    - path: /Maps/Lavaland/Xenoborg2.yml
+      count: 1
+      name: Заваленый шаттл
+      minDistance: 35
+      minSeparation: 12
+      spawnAttempts: 200
     elite: MobLavalandPandora
     eliteMinDistance: 45
     eliteMaxDistance: 105
@@ -255,10 +268,10 @@
     warningSound:
       path: /Audio/_DeadSpace/Lavaland/lava_warning.ogg
     tendrils:
-    - LavalandNecropolisTendrilGoliath
-    - LavalandNecropolisTendrilGoliath
-    - LavalandNecropolisTendrilWatcher
-    - LavalandNecropolisTendrilLegion
+    - LavalandNecropolisTendrilRaidGoliath
+    - LavalandNecropolisTendrilRaidGoliath
+    - LavalandNecropolisTendrilRaidWatcher
+    - LavalandNecropolisTendrilRaidLegion
     music:
     - path: /Audio/_DeadSpace/Lavaland/Raid/fauna-raid-1.ogg
     - path: /Audio/_DeadSpace/Lavaland/Raid/fauna-raid-2.ogg
@@ -334,11 +347,44 @@
     components:
     - LavalandShuttle
   customGrids:
+  - path: /Maps/Lavaland/Chill.yml
+    count: 1
+    name: Чил зона
+    minDistance: 120
+    maxDistance: 300
+    minSeparation: 80
+    footprintRadius: 8
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/Dinooo.yml
+    count: 1
+    name: Научный обломок
+    minDistance: 120
+    maxDistance: 300
+    minSeparation: 80
+    footprintRadius: 8
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/LavaScrap.yml
+    count: 1
+    name: Лавовые обломки
+    minDistance: 120
+    maxDistance: 300
+    minSeparation: 80
+    footprintRadius: 8
+    spawnAttempts: 160
+  - path: /Maps/Lavaland/Xeno.yml
+    count: 1
+    name: Разбитый шаттл
+    minDistance: 120
+    maxDistance: 300
+    minSeparation: 80
+    footprintRadius: 8
+    spawnAttempts: 160
+  # Far out, at the edge of the map: well away from the miners' outpost in the middle.
   - path: /Maps/Lavaland/ds_ashwalkers_base.yml
     count: 1
     name: База пеплоходцев
-    minDistance: 160
-    maxDistance: 300
+    minDistance: 250
+    maxDistance: 320
     minSeparation: 120
     footprintRadius: 10
     spawnAttempts: 160

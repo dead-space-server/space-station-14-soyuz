@@ -39,6 +39,7 @@ namespace Content.Server.DeadSpace.Lavaland;
 /// </summary>
 public sealed class LavalandLootWeaponAbilitiesSystem : EntitySystem
 {
+    [Dependency] private readonly Content.Shared.Actions.SharedActionsSystem _actions = default!;
     [Dependency] private readonly BlinkSystem _blink = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
@@ -75,6 +76,8 @@ public sealed class LavalandLootWeaponAbilitiesSystem : EntitySystem
         SubscribeLocalEvent<LavalandSoulscytheComponent, GettingPickedUpAttemptEvent>(OnScythePickupAttempt);
         SubscribeLocalEvent<LavalandSoulscytheComponent, ExaminedEvent>(OnScytheExamined);
         SubscribeLocalEvent<LavalandSoulscytheComponent, AttackAttemptEvent>(OnScytheAttackAttempt);
+        SubscribeLocalEvent<LavalandBossComponent, DamageModifyEvent>(OnBossDamageModify);
+        SubscribeLocalEvent<LavalandEliteComponent, DamageModifyEvent>(OnEliteDamageModify);
 
         SubscribeLocalEvent<LavalandConcussiveGauntletsComponent, GotEquippedEvent>(OnGauntletsEquipped);
         SubscribeLocalEvent<LavalandConcussiveGauntletsComponent, GotUnequippedEvent>(OnGauntletsUnequipped);
@@ -147,7 +150,10 @@ public sealed class LavalandLootWeaponAbilitiesSystem : EntitySystem
         if (target.MapId != origin.MapId || direction.LengthSquared() < 0.01f)
             return;
 
-        ent.Comp.NextThrow = now + (ent.Comp.LaunchMode ? ent.Comp.LaunchCooldown : ent.Comp.CrystalsCooldown);
+        var cooldown = ent.Comp.LaunchMode ? ent.Comp.LaunchCooldown : ent.Comp.CrystalsCooldown;
+        ent.Comp.NextThrow = now + cooldown;
+        // The action button shows the same recharge.
+        _actions.SetCooldown(ent.Comp.ThrowActionEntity, now, now + cooldown);
         var dagger = Spawn(ent.Comp.DaggerProjectile, Transform(user).Coordinates);
         var daggerComp = EnsureComp<LavalandCainAndAbelDaggerComponent>(dagger);
         daggerComp.Weapon = ent.Owner;
@@ -295,6 +301,31 @@ public sealed class LavalandLootWeaponAbilitiesSystem : EntitySystem
     }
 
     /// <summary>Too far from its master: no blows.</summary>
+    /// <summary>
+    /// The awakened scythe fighting on its own barely scratches bosses and elites: its master kept away while it
+    /// alone cut down any boss.
+    /// </summary>
+    private const float ScytheBossDamageFactor = 0.25f;
+
+    private void OnBossDamageModify(EntityUid uid, LavalandBossComponent component, DamageModifyEvent args)
+    {
+        ReduceScytheDamage(args);
+    }
+
+    private void OnEliteDamageModify(EntityUid uid, LavalandEliteComponent component, DamageModifyEvent args)
+    {
+        ReduceScytheDamage(args);
+    }
+
+    private void ReduceScytheDamage(DamageModifyEvent args)
+    {
+        if (args.Origin is { } origin &&
+            TryComp<LavalandSoulscytheComponent>(origin, out var scythe) && scythe.Possessed)
+        {
+            args.Damage *= ScytheBossDamageFactor;
+        }
+    }
+
     private void OnScytheAttackAttempt(Entity<LavalandSoulscytheComponent> ent, ref AttackAttemptEvent args)
     {
         if (ent.Comp.Possessed && ent.Comp.OutOfRange)

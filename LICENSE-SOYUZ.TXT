@@ -45,7 +45,8 @@ Space Station 14 и художественном видении авторов. 
   - Content.Client/DeadSpace/_Soyuz/**
   - Content.Server/DeadSpace/_Soyuz/**
   - Content.Shared/DeadSpace/_Soyuz/**
-  - Content.Tests/Server/DeadSpace/Soyuz/**
+  - Content.Tests/Server/DeadSpace/_Soyuz/**
+  - Content.IntegrationTests/Tests/DeadSpace/_Soyuz/**
   - Resources/Prototypes/_DeadSpace/_Soyuz/**
   - Resources/Locale/*/_deadspace/_Soyuz/**
   - Resources/Textures/_DeadSpace/_Soyuz/**

@@ -9002,3 +9002,10 @@ Entries:
   changes:
   - type: Add
     message: КПК игры для большего списка проф
+- id: 860
+  author: BlueDogDoc
+  time: '2026-10-21T14:35:46.232117+00:00'
+  pr: 2558
+  changes:
+  - type: Tweak
+    message: Анимация РСУ

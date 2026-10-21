@@ -30,6 +30,7 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
+using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
 
 namespace Content.Server.DeadSpace.Lavaland;
@@ -68,6 +69,7 @@ public sealed class LavalandBossLootSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<LavalandMayhemBottleComponent, UseInHandEvent>(OnMayhem);
+        SubscribeLocalEvent<LavalandMayhemAffectedComponent, ComponentShutdown>(OnMayhemShutdown);
         SubscribeLocalEvent<LavalandAnomalousCrystalComponent, InteractHandEvent>(OnCrystalTouch);
         SubscribeLocalEvent<LavalandAnomalousCrystalComponent, ExaminedEvent>(OnCrystalExamined);
         SubscribeLocalEvent<LavalandVoiceOfGodItemComponent, UseInHandEvent>(OnVoiceItemUse);
@@ -150,6 +152,8 @@ public sealed class LavalandBossLootSystem : EntitySystem
 
         var weapon = Spawn(bottle.Weapon, Transform(target).Coordinates);
         EnsureComp<UnremoveableComponent>(weapon);
+        // It goes on its own too: a gibbed berserker drops it, and nothing would ever take it away then.
+        EnsureComp<TimedDespawnComponent>(weapon).Lifetime = (float) bottle.Duration.TotalSeconds;
         _hands.PickupOrDrop(target, weapon);
 
         if (bottle.Reagent is { } reagent)
@@ -164,10 +168,15 @@ public sealed class LavalandBossLootSystem : EntitySystem
 
     private void EndMayhem(EntityUid target)
     {
-        if (TryComp<LavalandMayhemAffectedComponent>(target, out var affected) && affected.Weapon is { } weapon)
-            QueueDel(weapon);
         RemComp<LavalandMayhemAffectedComponent>(target);
         _popup.PopupEntity(Loc.GetString("lavaland-mayhem-end"), target, target);
+    }
+
+    /// <summary>The frenzy is over, whatever ended it (time, death, the body gone): the weapon goes with it.</summary>
+    private void OnMayhemShutdown(Entity<LavalandMayhemAffectedComponent> ent, ref ComponentShutdown args)
+    {
+        if (ent.Comp.Weapon is { } weapon && !TerminatingOrDeleted(weapon))
+            QueueDel(weapon);
     }
 
     #endregion

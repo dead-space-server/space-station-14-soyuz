@@ -431,11 +431,13 @@
     - LavalandNecropolisChestHardsuit
     - LavalandNecropolisChest
     - LavalandNecropolisChest
+    - BubblegumTrophy
+    # Only one of its unique items drops.
+    uniqueRewards:
     # Either the armour-piercing spell blade or the soulscythe.
     - LavalandBubblegumWeaponSpawner
     - LavalandMayhemBottle
     - ClothingOuterLavalandHeckSuit
-    - BubblegumTrophy
   - type: LavalandBubblegum
   - type: NpcFactionMember
     factions:

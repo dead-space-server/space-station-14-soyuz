@@ -145,7 +145,9 @@ public sealed class ExplosivePkaUpgradeSystem : EntitySystem
         // A wide margin: the blast spreads a few tiles past its visual radius.
         var nearOutpost = IsNearOutpost(center, ent.Comp.Radius + 6f);
 
-        foreach (var victim in _lookup.GetEntitiesInRange(center, ent.Comp.Radius))
+        // Only what lies or stands in the open: the default lookup also reached into bags and backpacks, and the
+        // blast broke everything carried in them.
+        foreach (var victim in _lookup.GetEntitiesInRange(center, ent.Comp.Radius, LookupFlags.Uncontained))
         {
             if (victim == ent.Owner)
                 continue;

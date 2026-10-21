@@ -1728,7 +1728,11 @@ public sealed partial class LavalandBossArenaSystem : EntitySystem
 
     private void SpawnDeathRewards(EntityUid bossUid, LavalandBossComponent boss)
     {
-        if (boss.DeathRewards.Count == 0)
+        var rewards = new List<EntProtoId>(boss.DeathRewards);
+        if (boss.UniqueRewards.Count > 0)
+            rewards.Add(_random.Pick(boss.UniqueRewards));
+
+        if (rewards.Count == 0)
             return;
 
         if (!TryComp(bossUid, out TransformComponent? xform) ||
@@ -1738,7 +1742,7 @@ public sealed partial class LavalandBossArenaSystem : EntitySystem
             if (!TryComp(bossUid, out TransformComponent? fallbackXform))
                 return;
 
-            foreach (var reward in boss.DeathRewards)
+            foreach (var reward in rewards)
             {
                 if (_prototype.HasIndex<EntityPrototype>(reward.Id))
                     Spawn(reward.Id, fallbackXform.Coordinates);
@@ -1748,9 +1752,9 @@ public sealed partial class LavalandBossArenaSystem : EntitySystem
         }
 
         var center = _map.LocalToTile(gridUid, grid, xform.Coordinates);
-        for (var i = 0; i < boss.DeathRewards.Count; i++)
+        for (var i = 0; i < rewards.Count; i++)
         {
-            var reward = boss.DeathRewards[i];
+            var reward = rewards[i];
             if (!_prototype.HasIndex<EntityPrototype>(reward.Id))
             {
                 Log.Error($"Lavaland boss {ToPrettyString(bossUid)} has missing death reward prototype {reward}.");

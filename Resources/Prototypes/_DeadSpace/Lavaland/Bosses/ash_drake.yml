@@ -339,11 +339,13 @@
     deathSound: /Audio/_DeadSpace/Lavaland/AshDrake/demon_dies.ogg
     deathRewards:
     - LavalandNecropolisChest
+    - AshDrakeTrophy
+    # Only one of its unique items drops.
+    uniqueRewards:
     - ClothingOuterSuitAshDrake
     - LavalandSpectralBlade
     - LavalandAshDrakeFireballSpellbookDrop
     - LavalandLavaStaff
-    - AshDrakeTrophy
   - type: LavalandAshDrake
   - type: NpcFactionMember
     factions:

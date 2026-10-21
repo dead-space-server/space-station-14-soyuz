@@ -204,13 +204,15 @@
     deathSound: /Audio/Effects/demon_dies.ogg
     deathRewards:
     - LavalandNecropolisChestHardsuit
-    - LavalandDarkInfusedBlade
     - LavalandNecropolisChest
+    - ColossusTrophy
+    # Only one of its unique items drops.
+    uniqueRewards:
+    - LavalandDarkInfusedBlade
     - LavalandFireStaff
     - LavalandCainAndAbel
     - LavalandAnomalousCrystalRandom
     - LavalandVoiceOfGod
-    - ColossusTrophy
   - type: LavalandColossus
   - type: NpcFactionMember
     factions:

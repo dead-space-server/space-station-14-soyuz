@@ -98,6 +98,8 @@ public sealed class ChasmSystem : EntitySystem
         if (_net.IsClient)
             return;
 
+        UpdateHovering(); // DS14
+
         var query = EntityQueryEnumerator<ChasmFallingComponent>();
         while (query.MoveNext(out var uid, out var chasm))
         {
@@ -226,6 +228,15 @@ public sealed class ChasmSystem : EntitySystem
             return false;
         }
 
+        return TickHoverGrace(tripper, duration);
+    }
+
+    /// <summary>
+    /// Counts down the time held over a chasm, starting it (with a warning) on the first tick over one.
+    /// True while there is time left.
+    /// </summary>
+    private bool TickHoverGrace(EntityUid tripper, TimeSpan duration)
+    {
         var now = _timing.CurTime;
         if (!TryComp<ChasmHoverGraceComponent>(tripper, out var grace) || now - grace.LastSeen > HoverGraceGap)
         {
@@ -242,6 +253,44 @@ public sealed class ChasmSystem : EntitySystem
 
         grace.LastSeen = now;
         return now < grace.FallAt;
+    }
+
+    private readonly HashSet<Entity<ChasmComponent>> _hoverChasms = new();
+
+    /// <summary>
+    /// Standing in anti-gravity clothing with a timer the wearer is weightless, and a chasm's step trigger leaves the
+    /// weightless alone: the countdown over a chasm runs here, and at its end they fall in all the same.
+    /// </summary>
+    private void UpdateHovering()
+    {
+        var query = EntityQueryEnumerator<AntiGravityChasmHoldComponent, TransformComponent>();
+        while (query.MoveNext(out var item, out var hold, out var itemXform))
+        {
+            var wearer = itemXform.ParentUid;
+            if (!hold.Timer || !wearer.IsValid() || HasComp<ChasmFallingComponent>(wearer) ||
+                !_gravity.IsWeightless(wearer) || GetAntiGravityClothing(wearer) != item ||
+                !TryComp<MobStateComponent>(wearer, out var mobState) || mobState.CurrentState == MobState.Dead ||
+                _grapple.IsEntityHooked(wearer))
+            {
+                continue;
+            }
+
+            _hoverChasms.Clear();
+            _lookup.GetEntitiesInRange(_transform.GetMapCoordinates(wearer), 0.05f, _hoverChasms);
+            Entity<ChasmComponent>? chasm = null;
+            foreach (var found in _hoverChasms)
+            {
+                chasm = found;
+                break;
+            }
+
+            if (chasm is not { } over)
+                continue;
+
+            var duration = IsDeepNight(wearer) ? hold.DeepNightGrace : hold.Grace;
+            if (duration > TimeSpan.Zero && !TickHoverGrace(wearer, duration))
+                StartFalling(over, over.Comp, wearer);
+        }
     }
 
     /// <summary>

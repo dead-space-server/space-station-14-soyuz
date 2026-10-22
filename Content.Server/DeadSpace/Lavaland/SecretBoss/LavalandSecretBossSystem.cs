@@ -1195,7 +1195,8 @@ public sealed class LavalandSecretBossSystem : EntitySystem
         foreach (var container in _containers.GetAllContainers(item, manager))
         {
             // The solutions live in containers of their own: they are copied above, as they are.
-            if (container.ID.StartsWith(SolutionContainerPrefix, StringComparison.Ordinal))
+            var containerId = container.ID;
+            if (containerId.StartsWith(SolutionContainerPrefix, StringComparison.Ordinal))
                 continue;
 
             if (!_containers.TryGetContainer(clone, container.ID, out var target))

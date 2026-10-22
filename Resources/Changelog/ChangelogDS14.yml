@@ -9009,3 +9009,14 @@ Entries:
   changes:
   - type: Tweak
     message: Анимация РСУ
+- id: 861
+  author: TheZuTi
+  time: '2026-10-22T08:50:51.312622+00:00'
+  pr: 2569
+  changes:
+  - type: Remove
+    message: ОВБ
+  - type: Tweak
+    message: Будучи феленидом нельзя пикнуть роль СЩ, АВД, Капитан
+  - type: Fix
+    message: Фикс ещё багов лавы

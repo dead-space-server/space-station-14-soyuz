@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterHardsuitERTLeader
+  parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitOrdersBase
   name: базовый служебный скафандр СССП
   abstract: true

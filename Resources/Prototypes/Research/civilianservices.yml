@@ -6,7 +6,7 @@
   icon:
     sprite: Structures/Machines/seed_extractor.rsi
     state: seedextractor
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -20,7 +20,7 @@
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
     state: hamtr
-  discipline: CivilianServices
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -40,7 +40,7 @@
   icon:
     sprite: Structures/Wallmounts/camera.rsi
     state: cameracase
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -60,7 +60,7 @@
   icon:
     sprite: Structures/Machines/computers.rsi
     state: television
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -76,7 +76,7 @@
   icon:
     sprite: Structures/Machines/fat_sucker.rsi
     state: display
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -91,7 +91,7 @@
   icon:
     sprite: Objects/Tiles/tile.rsi
     state: astroice
-  discipline: CivilianServices
+  discipline: Engineering #DS14-Soyuz
   tier: 2
   cost: 5000
   recipeUnlocks:
@@ -114,8 +114,8 @@
   icon:
     sprite: Structures/Machines/stasis_bed.rsi
     state: icon
-  discipline: CivilianServices
-  tier: 2
+  discipline: Medical #DS14-Soyuz
+  tier: 1
   cost: 7500
   recipeUnlocks:
   - StasisBedMachineCircuitboard
@@ -129,7 +129,7 @@
   icon:
     sprite: Mobs/Silicon/chassis.rsi
     state: medical
-  discipline: CivilianServices
+  discipline: Cargo #DS14-Soyuz
   tier: 2
   cost: 5000
   recipeUnlocks:
@@ -142,7 +142,7 @@
   icon:
     sprite: Objects/Specific/Janitorial/advmop.rsi
     state: advmop
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -158,7 +158,7 @@
   icon:
     sprite: Objects/Specific/Mech/mecha.rsi
     state: honker
-  discipline: CivilianServices
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -178,7 +178,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -191,7 +191,7 @@
   icon:
     sprite: Structures/cargo_telepad.rsi
     state: display
-  discipline: CivilianServices
+  discipline: Cargo #DS14-Soyuz
   tier: 2
   cost: 15000
   recipeUnlocks:
@@ -203,7 +203,7 @@
   icon:
     sprite: Objects/Fun/push_horn.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: Service #DS14-Soyuz
   tier: 2
   cost: 4000
   recipeUnlocks:
@@ -219,7 +219,7 @@
     state: implanter0
     layers:
     - state: implanter1
-  discipline: CivilianServices
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -245,7 +245,7 @@
   icon:
     sprite: Clothing/Shoes/Boots/speedboots.rsi
     state: icon
-  discipline: CivilianServices
+  discipline: RND #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:
@@ -257,7 +257,7 @@
   icon:
     sprite: Objects/Specific/Chemistry/beaker_bluespace.rsi
     state: beakerbluespace
-  discipline: CivilianServices
+  discipline: Medical #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:
@@ -271,7 +271,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Cannons/syringe_gun.rsi
     state: syringe_gun
-  discipline: CivilianServices
+  discipline: Medical #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:

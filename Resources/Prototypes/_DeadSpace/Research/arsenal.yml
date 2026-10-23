@@ -5,7 +5,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -30,7 +30,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Shotguns/enforcer.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -63,7 +63,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Rifles/lecter.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -90,7 +90,7 @@
   icon:
     sprite: Objects/Weapons/Guns/SMGs/drozd.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -120,7 +120,7 @@
   icon:
     sprite: _DeadSpace/Objects/Weapons/Guns/Battery/multishot.rsi
     state: icon-0
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 15000
   recipeUnlocks:
@@ -134,7 +134,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Security/Standart/backpack.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 15000
   recipeUnlocks:
@@ -228,7 +228,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Security/Advanced/backpack.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -246,7 +246,7 @@
   icon:
     sprite: _DeadSpace/Objects/Weapons/Melee/magmite/magmite-crusher.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 20000
   recipeUnlocks:
@@ -260,7 +260,7 @@
   icon:
     sprite: _DeadSpace/Clothing/Hands/gloves_arkalis.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -272,7 +272,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
     state: base
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -284,7 +284,7 @@
   icon:
     sprite: _DeadSpace/Clothing/Eyes/Hud/thermal_experimental.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:

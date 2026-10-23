@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ BaseCentcommContraband, ClothingHeadHelmetHardsuitERTLeader, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitOrdersBase
   name: базовый шлем служебного скафандра СССП
   abstract: true
@@ -9,9 +9,6 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
-  - type: ClothingGrantComponent
-    component:
-      - type: ImmunNecroobelisk
   - type: Armor
     modifiers:
       coefficients:

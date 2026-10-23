@@ -1,4 +1,17 @@
 - type: microwaveMealRecipe
+  id: RecipeMilkNoodleSoup
+  name: milk-noodle-soup-recipe
+  result: FoodSoupMilkNoodle
+  time: 10
+  group: Soup
+  reagents:
+    Milk: 10
+    Sugar: 5
+  solids:
+    FoodBowlBig: 1
+    FoodNoodlesBoiled: 1
+
+- type: microwaveMealRecipe
   id: RecipeSoyMeat
   name: soy-meat-recipe
   result: FoodSoyMeat

@@ -4,7 +4,7 @@
   parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ]
   id: ClothingHeadHelmetHardsuitRepairOrderEngineer
   name: шлем скафандра ремонтной бригады
-  description: Герметичный шлем ремонтной службы СССП со встроенным фонарём для работы в обесточенных отсеках и на внешней обшивке. Визор защищает глаза при сварке.
+  description: Герметичный шлем ремонтной службы СССП со встроенными фонарём и сканером масс. Фонарь освещает рабочую зону в обесточенных отсеках и на внешней обшивке, а визор защищает глаза при сварке.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite

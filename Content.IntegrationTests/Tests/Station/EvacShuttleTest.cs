@@ -24,7 +24,7 @@ public sealed class EvacShuttleTest
     [Test]
     public async Task EmergencyEvacTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings { DummyTicker = true, Dirty = true });
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings { DummyTicker = true, Dirty = true, Fresh = true }); // DS14-Soyuz: isolate initial station state.
         var server = pair.Server;
         var entMan = server.EntMan;
         var ticker = server.System<GameTicker>();

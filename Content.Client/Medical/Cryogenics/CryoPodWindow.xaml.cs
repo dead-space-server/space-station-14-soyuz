@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Atmos;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Content.Shared.Damage.Components;
 using Content.Shared.EntityConditions.Conditions;
 using Content.Shared.FixedPoint;
@@ -124,12 +125,18 @@ public sealed partial class CryoPodWindow : FancyWindow
                 var chartQuantity = FixedPoint2.Max(0, quantity - chemsQuantityOvershoot);
 
                 var reagentProto = _prototypeManager.Index<ReagentPrototype>(reagent.Prototype);
+                // DS14-Soyuz start
+                var chartId = reagent.Prototype;
+                if (reagent.Prototype == PharmaceuticalData.PrototypeId && reagent.Data?.OfType<PharmaceuticalData>().FirstOrDefault() is { } medicine)
+                    chartId += ":" + medicine.Formula + ":" + medicine.Quality + ":" + medicine.SourceQuality + ":" +
+                        medicine.SourceTemperature.ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+                // DS14-Soyuz end
                 ChemicalsChart.SetEntry(
-                    reagent.Prototype,
-                    reagentProto.LocalizedName,
+                    chartId, // DS14-Soyuz
+                    reagent.GetLocalizedName(reagentProto), // DS14-Soyuz
                     (float)chartQuantity,
-                    reagentProto.SubstanceColor,
-                    tooltip: $"{quantity}u {reagentProto.LocalizedName}"
+                    reagent.GetColor(reagentProto), // DS14-Soyuz
+                    tooltip: $"{quantity}u {reagent.GetLocalizedName(reagentProto)}" // DS14-Soyuz
                 );
 
                 var temp = TryFindMaxTemperatureRequirement(reagent);

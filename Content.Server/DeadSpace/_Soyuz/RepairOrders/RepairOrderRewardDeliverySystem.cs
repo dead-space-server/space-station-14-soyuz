@@ -477,15 +477,14 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                 anchor,
                 attempt,
                 out var coordinates,
-                out var usedDropFallback,
-                out _))
+                out _,
+                out _,
+                allowFallback: false))
         {
             return false;
         }
 
         _transform.SetCoordinates(reward, coordinates);
-        if (usedDropFallback)
-            _transform.DropNextTo(reward, anchor.DropFallbackEntity!.Value);
 
         return TryRememberDeliveryPlacement(reward, attempt, rememberAsFirstContainer: false);
     }
@@ -500,7 +499,8 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         RepairOrderDelivery attempt,
         out EntityCoordinates coordinates,
         out bool usedDropFallback,
-        out bool reusedFirstPosition)
+        out bool reusedFirstPosition,
+        bool allowFallback = true)
     {
         coordinates = EntityCoordinates.Invalid;
         usedDropFallback = false;
@@ -545,6 +545,10 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             coordinates = candidate;
             return true;
         }
+
+        // Only protected containers may reuse a position; oversized rewards require a clear tile.
+        if (!allowFallback)
+            return false;
 
         if (attempt.FirstContainerCoordinates is { } firstContainerCoordinates)
         {

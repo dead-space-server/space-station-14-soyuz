@@ -1,0 +1,16 @@
+- type: entity
+  parent: BasePDACartridge
+  id: TimerCartridge
+  name: timer cartridge
+  description: A countdown timer with PDA notifications.
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:TimerCartridgeUi
+  - type: Cartridge
+    programName: timer-cartridge-program-name
+    icon:
+      sprite: Objects/Devices/wristwatch.rsi
+      state: wristwatch
+  - type: TimerCartridge

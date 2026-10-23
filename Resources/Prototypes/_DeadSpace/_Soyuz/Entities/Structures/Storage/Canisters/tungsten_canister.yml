@@ -41,6 +41,20 @@
         acts: [ "Destruction" ]
 
 - type: entity
+  parent: TungstenGasCanister
+  id: TungstenTlecCanister
+  name: tungsten canister "BOOM"
+  description: A reinforced tungsten canister filled with Tlec. The "BOOM" label is a reminder to think before opening the valve.
+  components:
+  - type: GasCanister
+    releaseValve: false
+    gasMixture:
+      volume: 9000
+      moles:
+        Tlec: 16616.16
+      temperature: 293.15
+
+- type: entity
   parent: StorageCanisterBroken
   id: TungstenGasCanisterBroken
   name: broken tungsten gas canister

@@ -142,8 +142,8 @@ public sealed class RepairValueCatalog
 
         foreach (var exclusion in exclusions)
         {
-            if (exclusion.Entities.Count == 0 || string.IsNullOrWhiteSpace(exclusion.Reason))
-                result.Errors.Add($"RepairValueExclusion {exclusion.ID}: entities and reason are required.");
+            if (exclusion.Entities.Count == 0)
+                result.Errors.Add($"RepairValueExclusion {exclusion.ID}: entities are required.");
             foreach (var entity in exclusion.Entities)
             {
                 CheckEntity(entity, exclusion.ID);

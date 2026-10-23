@@ -10,6 +10,7 @@ using Content.Shared.Storage.Components;
 using Content.Shared.Tag;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Content.Shared.DeadSpace._Soyuz.Nutrition; // DS14-Soyuz
 
 namespace Content.Shared.Nutrition.EntitySystems;
 
@@ -103,6 +104,9 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
         MergeFlavorProfiles(start, result);
         MergeTrash(start.Owner, result);
         MergeTags(start, result);
+        // DS14-Soyuz-start
+        EntityManager.System<SoyFoodSystem>().Inherit(start.Owner, result);
+        // DS14-Soyuz-end
     }
 
     private bool TryAddFoodElement(Entity<FoodSequenceStartPointComponent> start, Entity<FoodSequenceElementComponent, EdibleComponent?> element, EntityUid? user = null)
@@ -153,6 +157,9 @@ public sealed class FoodSequenceSystem : SharedFoodSequenceSystem
             start.Comp.Finished = true;
 
         UpdateFoodName(start);
+        // DS14-Soyuz-start
+        EntityManager.System<SoyFoodSystem>().AddIngredient(start.Owner, element.Owner);
+        // DS14-Soyuz-end
         MergeFoodSolutions(start.Owner, element.Owner);
         MergeFlavorProfiles(start, element);
         MergeTrash(start.Owner, element.Owner);

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Clipboard sprites are by Endecc (Github) for SS14 Wizard's Den, taken from https://github.com/space-wizards/space-station-14/pull/21023, qm_clipboard_paper is a modified version of paper from bureaucracy.rsi. Palette recolor for Soyuz repair crew; original pixel geometry and alpha preserved.",
+  "copyright": "Original clipboard sprites by Endecc (Github) for SS14 Wizard's Den, taken from https://github.com/space-wizards/space-station-14/pull/21023; qm_clipboard_paper originally modified from bureaucracy.rsi. Repair crew tablet resprite for Soyuz, drawn with Aseprite MCP: rugged casing, blueprint display, matching overlay, belt and in-hand sprites. Original state names retained for compatibility. Colors adapted to the supplied Palette of Dead Space.",
   "size": {
     "x": 32,
     "y": 32

@@ -79,6 +79,21 @@ repair-order-damaged-amber-name = Восстановление «Янтаря»
 repair-order-damaged-amber-description = Получен запрос на восстановление объекта. Точный характер повреждений будет установлен после его развёртывания.
 
 repair-orders-window-title = Инженерные ремонтные заказы
+repair-orders-service-title = РЕМОНТНАЯ СЛУЖБА
+repair-orders-service-subtitle = Диспетчерская инженерного отдела
+repair-orders-header-balance = { $points } очков
+repair-orders-nav-offers = Заказы
+repair-orders-offer-count = Предложения · { $count }
+repair-orders-offer-meta = Класс { $level }  /  { $minutes } мин
+repair-orders-offer-duration = Срок выполнения: { $minutes } мин после доставки
+repair-orders-offer-retention = Доступен выкуп: объект можно оставить станции за стоимость полного ремонта. Условия готовности те же, что при сдаче; ремонтные очки за выкуп не начисляются.
+repair-orders-reference-title = Эталонная схема объекта
+repair-orders-reference-open = Открыть схему
+repair-orders-offer-busy = Сначала завершите активный заказ.
+repair-orders-offer-processing = Дождитесь завершения операции.
+repair-orders-offer-refreshing = Ожидается обновление предложений.
+repair-orders-offer-ready = Заказ готов к принятию.
+repair-orders-worklist-summary = Осталось задач: { $count }
 repair-orders-briefing-title = Памятка бригаде
 repair-orders-briefing-text =
     Порядок работ

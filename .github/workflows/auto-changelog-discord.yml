@@ -80,7 +80,7 @@ jobs:
 
           for title, emoji in sections.items():
               pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
-              
+
               for block in re.findall(pattern, desc, flags=re.DOTALL):
                   lines = [
                       line.strip("- ").strip()

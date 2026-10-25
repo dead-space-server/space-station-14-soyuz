@@ -1,3 +1,4 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 using System.Numerics;
 using Content.Shared.DeadSpace._Soyuz.Sobr;
 using Content.Client.UserInterface.Controls;

@@ -11,7 +11,7 @@
 - type: sobrSquad
   id: SobrSquadGamma
   name: sobr-squad-gamma
-  color: "#a83f86"
+  color: "#DB7093"
 
 - type: sobrSquad
   id: SobrSquadRed
@@ -26,17 +26,17 @@
 - type: sobrSquad
   id: SobrSquadEngineers
   name: sobr-squad-engineers
-  color: "#d6591a"
+  color: "#EF7200"
 
 - type: sobrSquad
   id: SobrSquadSierra
   name: sobr-squad-sierra
-  color: "#4b796d"
+  color: "#136B66"
 
 - type: sobrSquad
   id: SobrSquadCburn
   name: sobr-squad-cburn
-  color: "#8fd032"
+  color: "#20B2AA"
 
 - type: sobrSquad
   id: SobrSquadScst

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Помощник для мерджа апстрима (fobos) в форке Soyuz.
+# Помощник для мерджа апстрима (upstream) в форке Soyuz.
 # Не завязан конкретно на SS14 — просто набор git-примитивов вокруг rerere.
 #
 # Команды:
@@ -12,7 +12,7 @@
 #       разрешённых в прошлом конфликтах. Работает только если в истории
 #       реально ЕСТЬ старые merge-коммиты (не squash) с апстримом —
 #       проверь: git log --merges
-#       Пример: ./upstream-sync.sh train fobos/master
+#       Пример: ./upstream-sync.sh train upstream/master
 #       ВАЖНО: коммить/стэшни все локальные изменения перед запуском —
 #       скрипт временно переключает HEAD между коммитами и делает hard reset.
 #       Можно прерывать в любой момент (Ctrl+C, закрытие терминала, сбой,
@@ -22,11 +22,11 @@
 #       а не начнёт заново. Скрипт сам игнорирует SIGHUP (обрыв терминала
 #       не убьёт процесс), но для реально долгого прогона всё равно лучше
 #       запускать через nohup, чтобы не зависеть от держащегося окна:
-#         nohup bash upstream-sync.sh train fobos/master > train.log 2>&1 &
+#         nohup bash upstream-sync.sh train upstream/master > train.log 2>&1 &
 #         tail -f train.log
 #
 #   ./upstream-sync.sh sync [remote] [branch]
-#       git fetch + git merge с апстримом (remote по умолчанию "fobos",
+#       git fetch + git merge с апстримом (remote по умолчанию "upstream",
 #       branch по умолчанию "master"), с -X patience и с find-renames=90 —
 #       поднятый порог схожести для определения переименований, чтобы
 #       разные мелкие однотипные файлы (как meta.json у .rsi) реже
@@ -879,7 +879,7 @@ case "$cmd" in
     ;;
 
   train)
-    range="${2:?Укажи диапазон коммитов, например: fobos/master}"
+    range="${2:?Укажи диапазон коммитов, например: upstream/master}"
 
     branch=$(git symbolic-ref -q --short HEAD || true)
     orig_head=$(git rev-parse HEAD)
@@ -939,7 +939,7 @@ case "$cmd" in
     ;;
 
   sync)
-    remote="${2:-fobos}"
+    remote="${2:-upstream}"
     branch="${3:-master}"
 
     echo "Фетчу $remote/$branch..."

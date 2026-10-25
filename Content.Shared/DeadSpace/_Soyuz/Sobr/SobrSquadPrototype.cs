@@ -8,7 +8,7 @@ namespace Content.Shared.DeadSpace._Soyuz.Sobr;
 /// Описание отряда патриотов. Пишешь прототип и дальше этот отряд используется
 /// в пультах и капсулах. Все ясн понятн ставлю лосяру
 /// </summary>
-[Prototype("sobrSquad")]
+[Prototype]
 public sealed partial class SobrSquadPrototype : IPrototype
 {
     [IdDataField]

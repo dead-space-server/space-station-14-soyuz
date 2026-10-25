@@ -1,0 +1,28 @@
+using Robust.Shared.Maths;
+using Robust.Shared.Prototypes;
+
+namespace Content.Shared.DeadSpace._Soyuz.Sobr;
+
+/// <summary>
+/// Описание отряда патриотов. Пишешь прототип и дальше этот отряд используется
+/// в пультах и капсулах. Все ясн понятн ставлю лосяру
+/// </summary>
+[Prototype("sobrSquad")]
+public sealed partial class SobrSquadPrototype : IPrototype
+{
+    [IdDataField]
+    public string ID { get; private set; } = default!;
+
+    /// <summary>
+    /// Как звать твой отряд
+    /// Использовать либо ключ локализации, либо прям в название хардкодом бахай
+    /// </summary>
+    [DataField(required: true)]
+    public string Name = string.Empty;
+
+    /// <summary>
+    /// Цвет кнопощке в пульте вызова
+    /// </summary>
+    [DataField]
+    public Color Color = Color.White;
+}

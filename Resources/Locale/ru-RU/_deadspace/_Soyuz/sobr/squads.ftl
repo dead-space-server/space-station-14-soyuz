@@ -1,0 +1,9 @@
+sobr-squad-gamma = СОБР Гамма
+sobr-squad-red = СОБР Красный
+sobr-squad-amber = СОБР Оберег
+sobr-squad-engineers = СОБР Инженеры
+sobr-squad-sierra = РХБЗЗ Сьерра
+sobr-squad-cburn = РХБЗЗ
+sobr-squad-scst = ОППУ
+sobr-squad-scnt = ОПНУ
+sobr-squad-bsaa = АПБТ

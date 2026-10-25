@@ -1,3 +1,5 @@
+sobr-squad-navy = Военно-Космический Флот
+sobr-squad-death-squad = Эскадрон Смерти
 sobr-squad-gamma = СОБР Гамма
 sobr-squad-red = СОБР Красный
 sobr-squad-amber = СОБР Оберег

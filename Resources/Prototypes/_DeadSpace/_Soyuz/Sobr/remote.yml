@@ -6,9 +6,8 @@
   suffix: Все отряды
   components:
   - type: Sprite
-    # WIP: Сделать нормальный спрайт
-    sprite: Objects/Devices/communication.rsi
-    state: walkietalkie
+    sprite: _DeadSpace/_Soyuz/Sobr/remote.rsi
+    state: remote
   - type: SobrSquadRemote
     squads:
     - SobrSquadGamma
@@ -20,6 +19,27 @@
     - SobrSquadScst
     - SobrSquadScnt
     - SobrSquadBsaa
+  - type: ActivatableUI
+    key: enum.SobrRemoteUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.SobrRemoteUiKey.Key:
+        type: SobrRemoteBoundUserInterface
+
+- type: entity
+  parent: BaseItem
+  id: SobrSquadRemoteSpecial
+  name: пульт особых капсул
+  description: Выводит бойцов особых подразделений специального назначения из криосна.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/remote.rsi
+    state: remote-special
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadDeathSquad
+    - SobrSquadNavy
   - type: ActivatableUI
     key: enum.SobrRemoteUiKey.Key
     inHandsOnly: true

@@ -42,6 +42,9 @@
         },
         {
             "name": "cryotest"
+        },
+        {
+            "name": "cryospecial"
         }
     ]
 }

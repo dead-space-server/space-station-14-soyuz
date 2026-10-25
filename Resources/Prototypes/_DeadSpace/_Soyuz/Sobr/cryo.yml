@@ -32,6 +32,20 @@
 
 - type: entity
   parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleSpecialEmpty
+  name: специальная криокапсула особого назначения
+  suffix: Особая, пустышка
+  description: Бронированная капсула глубокого сна для особых подразделений специального назначения. Вы явно не хотите видеть, кто там внутри.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryospecial
+
+- type: entity
+  parent: BaseSobrCryoCapsule
   id: BaseSobrCryoCapsuleGammaEmpty
   name: криокапсула
   suffix: Гамма, пустышка
@@ -160,6 +174,56 @@
     offset: 0, 0.5
     state: cryotest
 
+# Эскадрон смерти и ВКФ
+- type: entity
+  parent: BaseSobrCryoCapsuleSpecialEmpty
+  id: SobrCryoCapsuleSpecialDeathSquadAndNavyCaptain
+  suffix: Эскадрон смерти и ВКФ, капитан
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadNavy: RandomHumanoidSpawnerNavyCaptain
+      SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
+- type: entity
+  parent: BaseSobrCryoCapsuleSpecialEmpty
+  id: SobrCryoCapsuleSpecialDeathSquadAndNavyMedical
+  suffix: Эскадрон смерти и ВКФ, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadNavy: RandomHumanoidSpawnerNavyMedical
+      SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
+- type: entity
+  parent: BaseSobrCryoCapsuleSpecialEmpty
+  id: SobrCryoCapsuleSpecialDeathSquadAndNavyEngineer
+  suffix: Эскадрон смерти и ВКФ, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadNavy: RandomHumanoidSpawnerNavyEngineer
+      SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
+- type: entity
+  parent: BaseSobrCryoCapsuleSpecialEmpty
+  id: SobrCryoCapsuleSpecialDeathSquadAndNavyOfficer
+  suffix: Эскадрон смерти и ВКФ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadNavy: RandomHumanoidSpawnerNavyOfficer
+      SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
+- type: entity
+  parent: BaseSobrCryoCapsuleSpecialEmpty
+  id: SobrCryoCapsuleSpecialOnlyDeathSquad
+  suffix: Эскадрон смерти
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
 # Гамма
 - type: entity
   parent: BaseSobrCryoCapsuleGammaEmpty
@@ -168,7 +232,6 @@
   suffix: Гамма, лидер
   components:
   - type: SobrCryoCapsule
-    wakeSound: /Audio/_DeadSpace/_Soyuz/StationEvents/Nuke.ogg
     fighters:
       SobrSquadGamma: RandomHumanoidSpawnerERTLeaderGamma
 

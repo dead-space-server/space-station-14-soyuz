@@ -19,6 +19,8 @@
     - SobrSquadScst
     - SobrSquadScnt
     - SobrSquadBsaa
+    - SobrSquadDeathSquad
+    - SobrSquadNavy
   - type: ActivatableUI
     key: enum.SobrRemoteUiKey.Key
     inHandsOnly: true

@@ -47,6 +47,15 @@ public sealed partial class SobrCryoCapsuleComponent : Component
     [DataField]
     public SoundSpecifier? WakeSound;
 
+    /// <summary>
+    /// Через сколько минут новый слоняра появляется в криокапсуле. Если 0, то не появится никогда. (Считается на все отряды, а не на один)
+    /// </summary>
+    [DataField]
+    public float RefillMinutes;
+
+    [ViewVariables]
+    public TimeSpan? NextRefill;
+
     [ViewVariables]
     public bool Used;
 

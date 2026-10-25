@@ -27,6 +27,23 @@ public sealed class SobrCryoSystem : EntitySystem
         SubscribeLocalEvent<SobrSquadRemoteComponent, SobrRemoteWakeMessage>(OnWake);
     }
 
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        var curTime = _timing.CurTime;
+        var query = EntityQueryEnumerator<SobrCryoCapsuleComponent>();
+        while (query.MoveNext(out _, out var capsule))
+        {
+            if (capsule.NextRefill is not { } next || curTime < next)
+                continue;
+
+            capsule.NextRefill = null;
+            capsule.Used = false;
+            capsule.Occupants.Clear();
+        }
+    }
+
     private void OnUiOpened(Entity<SobrSquadRemoteComponent> ent, ref BoundUIOpenedEvent args)
     {
         if (args.UiKey is not SobrRemoteUiKey)
@@ -83,6 +100,9 @@ public sealed class SobrCryoSystem : EntitySystem
         }
 
         capsule.Comp.Used = true;
+
+        if (capsule.Comp.RefillMinutes > 0)
+            capsule.Comp.NextRefill = _timing.CurTime + TimeSpan.FromMinutes(capsule.Comp.RefillMinutes);
 
         _audio.PlayPvs(capsule.Comp.WakeSound, capsule.Owner);
         return count;

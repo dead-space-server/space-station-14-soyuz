@@ -1297,3 +1297,60 @@
   - RMCLadderRopeAltDrawdepth
   - RMCLadderThrough
   - RMCLadderUp
+
+- type: repairValueExclusion
+  id: RepairExcludeSOBRCryo
+  reason: Аллахом велено
+  entities:
+  - BaseSobrCryoCapsuleSpecialEmpty
+  - BaseSobrCryoCapsuleGammaEmpty
+  - BaseSobrCryoCapsuleRedEmpty
+  - BaseSobrCryoCapsuleAmberEmpty
+  - BaseSobrCryoCapsuleEngineersEmpty
+  - BaseSobrCryoCapsuleSierraEmpty
+  - BaseSobrCryoCapsuleCburnEmpty
+  - BaseSobrCryoCapsuleScstEmpty
+  - BaseSobrCryoCapsuleScntEmpty
+  - BaseSobrCryoCapsuleBSAAEmpty
+  - BaseSobrCryoCapsuleTestEmpty
+  - SobrCryoCapsuleAllCburnSquads
+  - SobrCryoCapsuleAllSquads
+  - SobrCryoCapsuleSpecialDeathSquadAndNavyCaptain
+  - SobrCryoCapsuleSpecialDeathSquadAndNavyMedical
+  - SobrCryoCapsuleSpecialDeathSquadAndNavyEngineer
+  - SobrCryoCapsuleSpecialDeathSquadAndNavyOfficer
+  - SobrCryoCapsuleSpecialOnlyDeathSquad
+  - SobrCryoCapsuleAllSquadsLeader
+  - SobrCryoCapsuleAllSquadsMedical
+  - SobrCryoCapsuleAllSquadsEngineer
+  - SobrCryoCapsuleAllSquadsSecurity
+  - SobrCryoCapsuleAllSquadsCburnLeader
+  - SobrCryoCapsuleAllSquadsCburnAgent
+  - SobrCryoCapsuleGammaLeader
+  - SobrCryoCapsuleGammaEngineer
+  - SobrCryoCapsuleGammaSecurity
+  - SobrCryoCapsuleGammaMedic
+  - SobrCryoCapsuleRedLeader
+  - SobrCryoCapsuleRedEngineer
+  - SobrCryoCapsuleRedSecurity
+  - SobrCryoCapsuleRedMedic
+  - SobrCryoCapsuleAmberLeader
+  - SobrCryoCapsuleAmberEngineer
+  - SobrCryoCapsuleAmberSecurity
+  - SobrCryoCapsuleAmberMedic
+  - SobrCryoCapsuleEngineersLeader
+  - SobrCryoCapsuleEngineersEngineer
+  - SobrCryoCapsuleSierraLeader
+  - SobrCryoCapsuleSierraAgent
+  - SobrCryoCapsuleCburnLeader
+  - SobrCryoCapsuleCburnAgent
+  - SobrCryoCapsuleScstLeader
+  - SobrCryoCapsuleScstAgent
+  - SobrCryoCapsuleScntLeader
+  - SobrCryoCapsuleScntAgent
+  - SobrCryoCapsuleBsaaLeader
+  - SobrCryoCapsuleBsaaSpecialist
+  - SobrCryoCapsuleBsaaFlamer
+  - SobrCryoCapsuleBsaaMedic
+  - SobrCryoCapsuleBsaaFighter
+  - SobrCryoCapsuleMixedExample

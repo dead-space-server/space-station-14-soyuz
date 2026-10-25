@@ -28,6 +28,7 @@
         - MachineLayer
   - type: SobrCryoCapsule
     wakeSound: /Audio/_DeadSpace/Misc/rig_equip.ogg
+    refillMinutes: 20
     fighters: {}
 
 - type: entity
@@ -174,6 +175,26 @@
     offset: 0, 0.5
     state: cryotest
 
+- type: entity
+  parent: BaseSobrCryoCapsuleSierraEmpty
+  id: SobrCryoCapsuleAllCburnSquads
+  name: криокапсула
+  suffix: Все отряды, РХБЗЗ
+  abstract: true
+  components:
+  - type: SobrCryoCapsule
+    refillMinutes: 10
+
+- type: entity
+  parent: BaseSobrCryoCapsuleGammaEmpty
+  id: SobrCryoCapsuleAllSquads
+  name: криокапсула
+  suffix: Все отряды, СОБР
+  abstract: true
+  components:
+  - type: SobrCryoCapsule
+    refillMinutes: 10
+
 # Эскадрон смерти и ВКФ
 - type: entity
   parent: BaseSobrCryoCapsuleSpecialEmpty
@@ -223,6 +244,80 @@
   - type: SobrCryoCapsule
     fighters:
       SobrSquadDeathSquad: RandomHumanoidSpawnerDeathSquad
+
+# Все отряды
+## СОБР
+- type: entity
+  parent: SobrCryoCapsuleAllSquads
+  id: SobrCryoCapsuleAllSquadsLeader
+  suffix: Все отряды, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTLeaderGamma
+      SobrSquadRed: RandomHumanoidSpawnerERTLeaderRed
+      SobrSquadAmber: RandomHumanoidSpawnerERTLeaderAmber
+      SobrSquadEngineers: RandomHumanoidSpawnerERTLeaderAmber
+
+- type: entity
+  parent: SobrCryoCapsuleAllSquads
+  id: SobrCryoCapsuleAllSquadsMedical
+  suffix: Все отряды, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTMedicalGamma
+      SobrSquadRed: RandomHumanoidSpawnerERTMedicalRed
+      SobrSquadAmber: RandomHumanoidSpawnerERTMedicalAmber
+
+- type: entity
+  parent: SobrCryoCapsuleAllSquads
+  id: SobrCryoCapsuleAllSquadsEngineer
+  suffix: Все отряды, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTEngineerGamma
+      SobrSquadRed: RandomHumanoidSpawnerERTEngineerRed
+      SobrSquadAmber: RandomHumanoidSpawnerERTEngineerAmber
+      SobrSquadEngineers: RandomHumanoidSpawnerERTEngineerAmber
+
+- type: entity
+  parent: SobrCryoCapsuleAllSquads
+  id: SobrCryoCapsuleAllSquadsSecurity
+  suffix: Все отряды, офицер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTSecurityGamma
+      SobrSquadRed: RandomHumanoidSpawnerERTSecurityRed
+      SobrSquadAmber: RandomHumanoidSpawnerERTSecurityAmber
+
+## РХБЗЗ
+- type: entity
+  parent: SobrCryoCapsuleAllCburnSquads
+  id: SobrCryoCapsuleAllSquadsCburnLeader
+  suffix: Все отряды, РХБЗЗ, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadSierra: RandomHumanoidSpawnerSierraLeader
+      SobrSquadCburn: RandomHumanoidSpawnerCBURNLeader
+      SobrSquadScst: RandomHumanoidSpawnerSCSTLeader
+      SobrSquadScnt: RandomHumanoidSpawnerSCNTLeader
+
+
+- type: entity
+  parent: SobrCryoCapsuleAllCburnSquads
+  id: SobrCryoCapsuleAllSquadsCburnAgent
+  suffix: Все отряды, РХБЗЗ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadSierra: RandomHumanoidSpawnerSierraAgent
+      SobrSquadCburn: RandomHumanoidSpawnerCBURNAgent
+      SobrSquadScst: RandomHumanoidSpawnerSCSTAgent
+      SobrSquadScnt: RandomHumanoidSpawnerSCNTAgent
 
 # Гамма
 - type: entity

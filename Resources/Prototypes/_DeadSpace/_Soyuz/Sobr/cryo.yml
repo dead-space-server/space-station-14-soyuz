@@ -1,0 +1,456 @@
+# Базовый
+- type: entity
+  parent: BaseStructure
+  id: BaseSobrCryoCapsule
+  name: криокапсула СОБР
+  description: Капсула глубокого сна бойца СОБР. Активируется командованием.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-base
+  - type: InteractionOutline
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: SobrCryoCapsule
+    wakeSound: /Audio/_DeadSpace/Misc/rig_equip.ogg
+    fighters: {}
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleGammaEmpty
+  name: криокапсула
+  suffix: Гамма, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-gamma
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleRedEmpty
+  name: криокапсула
+  suffix: Красный, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-red
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleAmberEmpty
+  name: криокапсула
+  suffix: Оберег, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-amber
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleEngineersEmpty
+  name: криокапсула
+  suffix: Инженеры, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-engineers
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleSierraEmpty
+  name: криокапсула
+  suffix: РХБЗЗ Сьерра, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-sierra
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleCburnEmpty
+  name: криокапсула
+  suffix: РХБЗЗ, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-cburn
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleScstEmpty
+  name: криокапсула
+  suffix: ОППУ, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-scst
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleScntEmpty
+  name: криокапсула
+  suffix: ОПНУ, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: cryo-scnt
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleBSAAEmpty
+  name: криокапсула
+  suffix: АПБТ, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: 'cryo-bsaa'
+
+- type: entity
+  parent: BaseSobrCryoCapsule
+  id: BaseSobrCryoCapsuleTestEmpty
+  name: криокапсула
+  suffix: Тестовая, пустышка
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/cryo.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    state: "cryo-test"
+
+# Гамма
+- type: entity
+  parent: BaseSobrCryoCapsuleGammaEmpty
+  id: SobrCryoCapsuleGammaLeader
+  name: криокапсула
+  suffix: Гамма, лидер
+  components:
+  - type: SobrCryoCapsule
+    wakeSound: /Audio/_DeadSpace/_Soyuz/StationEvents/Nuke.ogg
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTLeaderGamma
+
+- type: entity
+  parent: BaseSobrCryoCapsuleGammaEmpty
+  id: SobrCryoCapsuleGammaEngineer
+  name: криокапсула
+  suffix: Гамма, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTEngineerGamma
+
+- type: entity
+  parent: BaseSobrCryoCapsuleGammaEmpty
+  id: SobrCryoCapsuleGammaSecurity
+  name: криокапсула
+  suffix: Гамма, офицер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTSecurityGamma
+
+- type: entity
+  parent: BaseSobrCryoCapsuleGammaEmpty
+  id: SobrCryoCapsuleGammaMedic
+  name: криокапсула
+  suffix: Гамма, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTMedicalGamma
+
+# Красный
+- type: entity
+  parent: BaseSobrCryoCapsuleRedEmpty
+  id: SobrCryoCapsuleRedLeader
+  name: криокапсула
+  suffix: Красный, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadRed: RandomHumanoidSpawnerERTLeaderRed
+
+- type: entity
+  parent: BaseSobrCryoCapsuleRedEmpty
+  id: SobrCryoCapsuleRedEngineer
+  name: криокапсула
+  suffix: Красный, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadRed: RandomHumanoidSpawnerERTEngineerRed
+
+- type: entity
+  parent: BaseSobrCryoCapsuleRedEmpty
+  id: SobrCryoCapsuleRedSecurity
+  name: криокапсула
+  suffix: Красный, офицер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadRed: RandomHumanoidSpawnerERTSecurityRed
+
+- type: entity
+  parent: BaseSobrCryoCapsuleRedEmpty
+  id: SobrCryoCapsuleRedMedic
+  name: криокапсула
+  suffix: Красный, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadRed: RandomHumanoidSpawnerERTMedicalRed
+
+# Оберег
+- type: entity
+  parent: BaseSobrCryoCapsuleAmberEmpty
+  id: SobrCryoCapsuleAmberLeader
+  name: криокапсула
+  suffix: Оберег, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadAmber: RandomHumanoidSpawnerERTLeaderAmber
+
+- type: entity
+  parent: BaseSobrCryoCapsuleAmberEmpty
+  id: SobrCryoCapsuleAmberEngineer
+  name: криокапсула
+  suffix: Оберег, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadAmber: RandomHumanoidSpawnerERTEngineerAmber
+
+- type: entity
+  parent: BaseSobrCryoCapsuleAmberEmpty
+  id: SobrCryoCapsuleAmberSecurity
+  name: криокапсула
+  suffix: Оберег, офицер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadAmber: RandomHumanoidSpawnerERTSecurityAmber
+
+- type: entity
+  parent: BaseSobrCryoCapsuleAmberEmpty
+  id: SobrCryoCapsuleAmberMedic
+  name: криокапсула
+  suffix: Оберег, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadAmber: RandomHumanoidSpawnerERTMedicalAmber
+
+# Инженеры
+- type: entity
+  parent: BaseSobrCryoCapsuleEngineersEmpty
+  id: SobrCryoCapsuleEngineersLeader
+  name: криокапсула
+  suffix: Инженеры, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadEngineers: RandomHumanoidSpawnerERTLeaderAmber
+
+- type: entity
+  parent: BaseSobrCryoCapsuleEngineersEmpty
+  id: SobrCryoCapsuleEngineersEngineer
+  name: криокапсула
+  suffix: Инженеры, инженер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadEngineers: RandomHumanoidSpawnerERTEngineerAmber
+
+# РХБЗЗ Сьерра
+- type: entity
+  parent: BaseSobrCryoCapsuleSierraEmpty
+  id: SobrCryoCapsuleSierraLeader
+  name: криокапсула
+  suffix: РХБЗЗ Сьерра, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadSierra: RandomHumanoidSpawnerSierraLeader
+
+- type: entity
+  parent: BaseSobrCryoCapsuleSierraEmpty
+  id: SobrCryoCapsuleSierraAgent
+  name: криокапсула
+  suffix: РХБЗЗ Сьерра, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadSierra: RandomHumanoidSpawnerSierraAgent
+
+# РХБЗЗ
+- type: entity
+  parent: BaseSobrCryoCapsuleCburnEmpty
+  id: SobrCryoCapsuleCburnLeader
+  name: криокапсула
+  suffix: РХБЗЗ, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadCburn: RandomHumanoidSpawnerCBURNLeader
+
+- type: entity
+  parent: BaseSobrCryoCapsuleCburnEmpty
+  id: SobrCryoCapsuleCburnAgent
+  name: криокапсула
+  suffix: РХБЗЗ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadCburn: RandomHumanoidSpawnerCBURNAgent
+
+# ОППУ
+- type: entity
+  parent: BaseSobrCryoCapsuleScstEmpty
+  id: SobrCryoCapsuleScstLeader
+  name: криокапсула
+  suffix: ОППУ, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadScst: RandomHumanoidSpawnerSCSTLeader
+
+- type: entity
+  parent: BaseSobrCryoCapsuleScstEmpty
+  id: SobrCryoCapsuleScstAgent
+  name: криокапсула
+  suffix: ОППУ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadScst: RandomHumanoidSpawnerSCSTAgent
+
+# ОПНУ
+- type: entity
+  parent: BaseSobrCryoCapsuleScntEmpty
+  id: SobrCryoCapsuleScntLeader
+  name: криокапсула
+  suffix: ОПНУ, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadScnt: RandomHumanoidSpawnerSCNTLeader
+
+- type: entity
+  parent: BaseSobrCryoCapsuleScntEmpty
+  id: SobrCryoCapsuleScntAgent
+  name: криокапсула
+  suffix: ОПНУ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadScnt: RandomHumanoidSpawnerSCNTAgent
+
+# АПБТ
+- type: entity
+  parent: BaseSobrCryoCapsuleBSAAEmpty
+  id: SobrCryoCapsuleBsaaLeader
+  name: криокапсула
+  suffix: АПБТ, лидер
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadBsaa: RandomHumanoidSpawnerBSAALeader
+
+- type: entity
+  parent: BaseSobrCryoCapsuleBSAAEmpty
+  id: SobrCryoCapsuleBsaaSpecialist
+  name: криокапсула
+  suffix: АПБТ, специалист
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadBsaa: RandomHumanoidSpawnerBSAASpecialist
+
+- type: entity
+  parent: BaseSobrCryoCapsuleBSAAEmpty
+  id: SobrCryoCapsuleBsaaFlamer
+  name: криокапсула
+  suffix: АПБТ, огнемётчик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadBsaa: RandomHumanoidSpawnerBSAAFlamer
+
+- type: entity
+  parent: BaseSobrCryoCapsuleBSAAEmpty
+  id: SobrCryoCapsuleBsaaMedic
+  name: криокапсула
+  suffix: АПБТ, медик
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadBsaa: RandomHumanoidSpawnerBSAAMedic
+
+- type: entity
+  parent: BaseSobrCryoCapsuleBSAAEmpty
+  id: SobrCryoCapsuleBsaaFighter
+  name: криокапсула
+  suffix: АПБТ, боец
+  components:
+  - type: SobrCryoCapsule
+    fighters:
+      SobrSquadBsaa: RandomHumanoidSpawnerBSAAFighter
+
+# Тест
+- type: entity
+  parent: BaseSobrCryoCapsuleTestEmpty
+  id: SobrCryoCapsuleMixedExample
+  name: криокапсула
+  suffix: Тест, офицеры гаммы, красного, оберега
+  description: Универсальная капсула офицера. Кто выйдет из неё, зависит от пробуждённого отряда.
+  components:
+  - type: SobrCryoCapsule
+    count: 2
+    fighters:
+      SobrSquadGamma: RandomHumanoidSpawnerERTSecurityGamma
+      SobrSquadAmber: RandomHumanoidSpawnerERTSecurityAmber
+      SobrSquadRed: RandomHumanoidSpawnerERTSecurityRed

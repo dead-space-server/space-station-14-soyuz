@@ -1,0 +1,11 @@
+sobr-squad-navy = Военно-Космический Флот
+sobr-squad-death-squad = ОСН "Дым"
+sobr-squad-gamma = СОБР Альфа
+sobr-squad-red = СОБР Вымпел
+sobr-squad-amber = СОБР Оберег
+sobr-squad-engineers = СОБР Пересвет
+sobr-squad-sierra = РХБЗЗ Сьерра
+sobr-squad-cburn = РХБЗЗ Рысь
+sobr-squad-scst = ОППУ
+sobr-squad-scnt = ОПНУ
+sobr-squad-bsaa = АПБТ

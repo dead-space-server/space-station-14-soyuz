@@ -1,0 +1,17 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Created by pered6664 (discord) for space station 14 server Мёртвый Космос Союз-1",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "remote"
+        },
+        {
+            "name": "remote-special"
+        }
+    ]
+}

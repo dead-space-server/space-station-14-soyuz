@@ -1,0 +1,54 @@
+- type: sobrSquad
+  id: SobrSquadNavy
+  name: sobr-squad-navy
+  color: "#4b5320"
+
+- type: sobrSquad
+  id: SobrSquadDeathSquad
+  name: sobr-squad-death-squad
+  color: "#9400D3"
+
+- type: sobrSquad
+  id: SobrSquadGamma
+  name: sobr-squad-gamma
+  color: "#DB7093"
+
+- type: sobrSquad
+  id: SobrSquadRed
+  name: sobr-squad-red
+  color: "#a9423c"
+
+- type: sobrSquad
+  id: SobrSquadAmber
+  name: sobr-squad-amber
+  color: "#d0b01a"
+
+- type: sobrSquad
+  id: SobrSquadEngineers
+  name: sobr-squad-engineers
+  color: "#EF7200"
+
+- type: sobrSquad
+  id: SobrSquadSierra
+  name: sobr-squad-sierra
+  color: "#136B66"
+
+- type: sobrSquad
+  id: SobrSquadCburn
+  name: sobr-squad-cburn
+  color: "#20B2AA"
+
+- type: sobrSquad
+  id: SobrSquadScst
+  name: sobr-squad-scst
+  color: "#ceaaed"
+
+- type: sobrSquad
+  id: SobrSquadScnt
+  name: sobr-squad-scnt
+  color: "#5eb052"
+
+- type: sobrSquad
+  id: SobrSquadBsaa
+  name: sobr-squad-bsaa
+  color: "#518ea3"

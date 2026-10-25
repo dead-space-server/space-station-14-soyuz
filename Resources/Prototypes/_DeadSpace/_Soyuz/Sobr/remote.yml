@@ -1,0 +1,141 @@
+- type: entity
+  parent: BaseItem
+  id: SobrSquadRemote
+  name: пульт пробуждения отрядов
+  description: Выводит бойцов выбранного отряда из криосна.
+  suffix: Все отряды
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/remote.rsi
+    state: remote
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadGamma
+    - SobrSquadRed
+    - SobrSquadAmber
+    - SobrSquadEngineers
+    - SobrSquadSierra
+    - SobrSquadCburn
+    - SobrSquadScst
+    - SobrSquadScnt
+    - SobrSquadBsaa
+    - SobrSquadDeathSquad
+    - SobrSquadNavy
+  - type: ActivatableUI
+    key: enum.SobrRemoteUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.SobrRemoteUiKey.Key:
+        type: SobrRemoteBoundUserInterface
+
+- type: entity
+  parent: BaseItem
+  id: SobrSquadRemoteSpecial
+  name: пульт особых капсул
+  description: Выводит бойцов особых подразделений специального назначения из криосна.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Sobr/remote.rsi
+    state: remote-special
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadDeathSquad
+    - SobrSquadNavy
+  - type: ActivatableUI
+    key: enum.SobrRemoteUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.SobrRemoteUiKey.Key:
+        type: SobrRemoteBoundUserInterface
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteLimit
+  suffix: Все отряды, лимит радиуса и кулдаун на пробуждение
+  components:
+  - type: SobrSquadRemote
+    maxRange: 40
+    cooldown: 2
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteGammaOnly
+  suffix: Только гамма
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadGamma
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteRedOnly
+  suffix: Только красный
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadRed
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteAmberOnly
+  suffix: Только эмбер
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadAmber
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteEngineeringOnly
+  suffix: Только инженеры
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadEngineers
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteCburnOnly
+  suffix: Только РХБЗЗ
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadCburn
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteSierraOnly
+  suffix: Только РХБЗЗ Сьерра
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadSierra
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteSCSTOnly
+  suffix: Только РХБЗЗ ОППУ
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadScst
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteSCNTOnly
+  suffix: Только РХБЗЗ ОПНУ
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadScnt
+
+- type: entity
+  parent: SobrSquadRemote
+  id: SobrSquadRemoteBSAAOnly
+  suffix: Только АПБТ
+  components:
+  - type: SobrSquadRemote
+    squads:
+    - SobrSquadBsaa

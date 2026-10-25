@@ -97,7 +97,6 @@ jobs:
               exit(0)
 
           # DS14-Soyuz-start
-          # ---------- Медиа из описания PR ----------
           media_pattern = (
               r"!\[[^\]]*\]\((https?://[^)\s]+)\)"            # ![alt](url)
               r"|<img[^>]+src=[\"']([^\"']+)[\"']"             # <img src="url">

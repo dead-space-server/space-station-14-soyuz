@@ -4,8 +4,8 @@
   name: Станция СОБР
   description: Загружает станцию СОБР с криокапсулами, пультом отрядов и спавнером Генерала Специальных Операций.
   components:
-  - type: LoadMapRule
-    mapPath: /Maps/_Soyuz/S1_generalStaff.yml # WIP: работа над станцией в процессе
+#  - type: LoadMapRule
+#    mapPath: /Maps/_Soyuz/S1_GeneralStaff.yml # WIP: работа над станцией в процессе
 
 - type: entity
   parent: BaseGameRule

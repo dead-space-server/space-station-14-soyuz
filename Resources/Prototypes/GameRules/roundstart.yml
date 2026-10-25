@@ -22,7 +22,7 @@
     rules:
     - id: Thief
       prob: 0.5
-    - id: Hooligan # DS14 
+    - id: Hooligan # DS14
       prob: 1
     - id: SubWizard
       prob: 0.05
@@ -169,11 +169,22 @@
       - RoleSurvivalNukie
       components:
         # DS14-start
+      - type: GhostRoleIntroduction
+        useNukeopsOperationName: true
+        textLoc: nukeops-briefing
+        textColor: '#ff4747'
+        font: /Fonts/Bedstead/Bedstead.otf
+        fontSize: 18
+        operationFontSize: 26
+        sound:
+          path: /Audio/Ambience/Antag/nukeops_start.ogg
+        duration: 12
+        fadeFromBlackDuration: 3
+        textDelay: 0.8
+        charactersPerSecond: 50
       - type: CustomNameOnSpawn
         namePrefix: "Командир"
       # DS14-end
-      - type: Skill
-        group: ALL
       - type: NukeOperative
       - type: RandomMetadata
         nameSegments:
@@ -193,6 +204,19 @@
       - RoleSurvivalNukie
       components:
         # DS14-start
+      - type: GhostRoleIntroduction
+        useNukeopsOperationName: true
+        textLoc: nukeops-briefing
+        textColor: '#ff4747'
+        font: /Fonts/Bedstead/Bedstead.otf
+        fontSize: 18
+        operationFontSize: 26
+        sound:
+          path: /Audio/Ambience/Antag/nukeops_start.ogg
+        duration: 12
+        fadeFromBlackDuration: 3
+        textDelay: 0.8
+        charactersPerSecond: 50
       - type: CustomNameOnSpawn
         namePrefix: "Агент"
       # DS14-end
@@ -219,6 +243,19 @@
       - RoleSurvivalNukie
       components:
         # DS14-start
+      - type: GhostRoleIntroduction
+        useNukeopsOperationName: true
+        textLoc: nukeops-briefing
+        textColor: '#ff4747'
+        font: /Fonts/Bedstead/Bedstead.otf
+        fontSize: 18
+        operationFontSize: 26
+        sound:
+          path: /Audio/Ambience/Antag/nukeops_start.ogg
+        duration: 12
+        fadeFromBlackDuration: 3
+        textDelay: 0.8
+        charactersPerSecond: 50
       - type: CustomNameOnSpawn
         namePrefix: "Оператор"
       # DS14-end
@@ -306,9 +343,6 @@
     - prefRoles: [ Traitor ]
       max: 15
       playerRatio: 5
-      components:
-      - type: Skill
-        group: ALL
       blacklist:
         components:
         - AntagImmune
@@ -337,9 +371,6 @@
       mindRoles:
       - MindRoleTraitorReinforcement
       sponsorsPriority: true
-      components:
-      - type: Skill
-        group: ALL
 
 - type: entity
   id: Changeling

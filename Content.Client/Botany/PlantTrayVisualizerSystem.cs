@@ -20,7 +20,6 @@ public sealed partial class PlantTrayVisualizerSystem : VisualizerSystem<PlantTr
 
     // DS14-start: current engine uses readonly IoC fields.
     [Dependency] private readonly PlantTraySystem _plantTray = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!; // DS14-Soyuz
     [Dependency] private readonly PlantHolderSystem _plantHolder = default!;
     // DS14-end
 
@@ -60,11 +59,6 @@ public sealed partial class PlantTrayVisualizerSystem : VisualizerSystem<PlantTr
     {
         if (!Resolve(ent.Owner, ref ent.Comp, false))
             return;
-
-        // DS14-Soyuz start
-        if (_ui.TryGetOpenUi(ent.Owner, PlantTrayUiKey.Key, out var bui))
-            bui.Update();
-        // DS14-Soyuz end
 
         if (!ent.Comp.DrawWarnings)
             return;

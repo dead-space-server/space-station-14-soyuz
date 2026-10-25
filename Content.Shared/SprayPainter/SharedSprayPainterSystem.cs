@@ -100,11 +100,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     // DS14-start
     public IEnumerable<PaintableGroupPrototype> GetAllowedGroups(SprayPainterComponent component)
     {
-        // DS14-Soyuz-start
-        if (component.DecalOnly)
-            yield break;
-        // DS14-Soyuz-end
-
         foreach (var groupProto in Proto.EnumeratePrototypes<PaintableGroupPrototype>())
         {
             bool isAllowed = component.AllowedCategories.Count == 0;
@@ -131,11 +126,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
 
     public bool IsGroupAllowed(SprayPainterComponent component, string groupId)
     {
-        // DS14-Soyuz-start
-        if (component.DecalOnly)
-            return false;
-        // DS14-Soyuz-end
-
         if (component.AllowedCategories.Count == 0)
             return true;
 
@@ -151,22 +141,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
         return false;
     }
     // DS14-end
-
-    // DS14-Soyuz-start
-    public bool IsDecalAllowed(SprayPainterComponent component, DecalPrototype decal)
-    {
-        if (decal.Tags.Contains("dirty"))
-            return false;
-
-        foreach (var tag in decal.Tags)
-        {
-            if (component.AllowedDecalTags.Contains(tag))
-                return true;
-        }
-
-        return false;
-    }
-    // DS14-Soyuz-end
 
     private void SetPipeColor(Entity<SprayPainterComponent> ent, string? paletteKey)
     {
@@ -280,11 +254,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
 
         if (!TryComp<SprayPainterComponent>(args.Used, out var painter))
             return;
-
-        // DS14-Soyuz-start
-        if (painter.DecalOnly)
-            return;
-        // DS14-Soyuz-end
 
         // DS14-start
         if (!TryGetPaintableGroup(ent.Comp, painter, out var group, out var selectedStyle, out var targetGroup))
@@ -467,11 +436,6 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     /// </summary>
     private void OnSetDecalColorPicker(Entity<SprayPainterComponent> ent, ref SprayPainterSetDecalColorPickerMessage args)
     {
-        // DS14-Soyuz-start
-        if (!ent.Comp.DecalColorEditable)
-            return;
-        // DS14-Soyuz-end
-
         ent.Comp.ColorPickerEnabled = args.Toggle;
         Dirty(ent);
         UpdateUi(ent);

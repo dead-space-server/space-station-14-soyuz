@@ -201,7 +201,7 @@ public sealed partial class ShuttleConsoleSystem
         // DS14-Soyuz-end
 
         // Check shuttle can FTL to this target.
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, consoleUid.Value)) // DS14
         {
             return;
         }
@@ -218,6 +218,14 @@ public sealed partial class ShuttleConsoleSystem
         {
             return;
         }
+
+        // DS14-start: expedition beacons sit in the middle of a procedural asteroid, so arriving exactly on
+        // one buries the shuttle inside the generated dungeon. Drop into a clear spot around it instead.
+        if (_shuttle.TryGetExpeditionLandingSpot(shuttleUid.Value, targetCoordinates, targetAngle, out var landingCoordinates))
+        {
+            targetCoordinates = landingCoordinates;
+        }
+        // DS14-end
 
         // Client sends the "adjusted" coordinates and we adjust it back to get the actual transform coordinates.
         var adjustedCoordinates = targetCoordinates.Offset(targetAngle.RotateVec(-shuttlePhysics.LocalCenter));
@@ -254,7 +262,7 @@ public sealed partial class ShuttleConsoleSystem
         if (!_shuttle.CanFTL(shuttleUid.Value, out _))
             return;
 
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, consoleUid.Value)) // DS14
             return;
 
         var tagEv = new FTLTagEvent();
@@ -300,7 +308,7 @@ public sealed partial class ShuttleConsoleSystem
         if (!_shuttle.CanFTL(shuttleUid.Value, out _))
             return false;
 
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, shuttleUid.Value)) // DS14
             return false;
 
         var ev = new ShuttleConsoleFTLTravelStartEvent(ent.Owner);
@@ -357,4 +365,20 @@ public sealed partial class ShuttleConsoleSystem
                 beacons.RemoveAt(i);
         }
     }
+
+    // DS14-start
+    private List<MapId> GetAllowedFTLMaps(EntityUid shuttleUid, EntityUid consoleUid)
+    {
+        var result = new List<MapId>();
+        var query = AllEntityQuery<MapComponent>();
+
+        while (query.MoveNext(out _, out var map))
+        {
+            if (_shuttle.CanFTLTo(shuttleUid, map.MapId, consoleUid))
+                result.Add(map.MapId);
+        }
+
+        return result;
+    }
+    // DS14-end
 }

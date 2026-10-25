@@ -1,4 +1,3 @@
-using Content.Server.DeadSpace.Skill;
 using Content.Server.Mind;
 using Content.Server.Roles;
 using Content.Server.Roles.Jobs;
@@ -61,21 +60,7 @@ public sealed class CharacterInfoSystem : EntitySystem
             briefing = _roles.MindGetBriefing(mindId);
         }
 
-        // DS14-Skills-Start
-        var skills = new List<SkillInfo>();
 
-        if (TryComp<SkillComponent>(entity, out var skillComponent))
-        {
-            foreach (var skill in skillComponent.Skills)
-            {
-                var info = _skill.GetSkillInfo(entity, skill.Key);
-
-                if (info != null)
-                    skills.Add(info.Value);
-            }
-        }
-
-        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), objectives, skills, briefing, job), args.SenderSession);
-        // DS14-Skills-End
+        RaiseNetworkEvent(new CharacterInfoEvent(GetNetEntity(entity), objectives, briefing, job), args.SenderSession);
     }
 }

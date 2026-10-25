@@ -1,10 +1,13 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.Animations;
+using Content.Shared.DeadSpace.CCCCVars; // DS14
+using Content.Shared.DeadSpace.Storage; // DS14
 using Content.Shared.Hands;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Client.Player;
+using Robust.Shared.Configuration; // DS14
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -16,6 +19,7 @@ public sealed class StorageSystem : SharedStorageSystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly EntityPickupAnimationSystem _entityPickupAnimation = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!; // DS14
 
     private Dictionary<EntityUid, ItemStorageLocation> _oldStoredItems = new();
     private Dictionary<EntityUid, EntityUid> _oldPriorityItems = new(); // DS14
@@ -29,7 +33,16 @@ public sealed class StorageSystem : SharedStorageSystem
         SubscribeLocalEvent<StorageComponent, ComponentHandleState>(OnStorageHandleState);
         SubscribeNetworkEvent<PickupAnimationEvent>(HandlePickupAnimation);
         SubscribeAllEvent<AnimateInsertingEntitiesEvent>(HandleAnimatingInsertingEntities);
+        SubscribeLocalEvent<CheckMultipleInventoryWindowsEvent>(OnCheckMultipleInventoryWindows); // DS14
     }
+
+    // DS14-start
+    private void OnCheckMultipleInventoryWindows(ref CheckMultipleInventoryWindowsEvent ev)
+    {
+        if (_cfg.GetCVar(CCCCVars.MultipleInventoryWindows))
+            ev.Enabled = true;
+    }
+    // DS14-end
 
     private void OnStorageHandleState(EntityUid uid, StorageComponent component, ref ComponentHandleState args)
     {

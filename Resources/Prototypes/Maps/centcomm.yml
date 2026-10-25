@@ -1,8 +1,7 @@
 - type: gameMap
   id: CentComm
-  isGrid: true
-  mapName: 'Генеральный Штаб'
-  mapPath: /Maps/_Soyuz/centcomm.yml
+  mapName: 'Central Command'
+  mapPath: /Maps/centcomm.yml
   minPlayers: 10
   stations:
     centcomm:

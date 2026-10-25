@@ -4,7 +4,7 @@
   - Amber
   - Aspid # DS14-Soyuz-enabled
   - Bagel
-  - Barratry
+  # - Barratry # remap in progress
   - Box
   - Cluster #DS14-Soyuz-enabled
   - Cog
@@ -21,7 +21,7 @@
   # - CorvaxGlacier # DS14-Soyuz-disabled
   - CorvaxPearl
   - Elkridge
-  - Fland
+  # - Fland # remap in progress
   - Gate
   - Ishimura
   - Gemini #DS14
@@ -30,7 +30,7 @@
   - Meta
   - Oasis
   - Omega
-  - Origin
+  # - Origin # remap in progress
   - Packed
   - Plasma 
   - Reach #DS14-Soyuz-enabled

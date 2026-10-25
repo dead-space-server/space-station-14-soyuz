@@ -16,7 +16,26 @@
     - !type:OverallPlaytimeRequirement
       time: 144000 # 40 hours
     - !type:AgeRequirement
-      requiredAge: 24
+      requiredAge: 26
+    # DS14-start: every round-start species but the felinids
+    - !type:SpeciesRequirement
+      species:
+        - Human
+        - SlimePerson
+        - Reptilian
+        - Demon
+        - Moth
+        - Vulpkanin
+        - Tajaran
+        - Arachnid
+        - IPC
+        - Shark
+        - Diona
+        - Dwarf
+        - Kobolt
+        - Vox
+        - Xenomorph
+    # DS14-end
   startingGear: IAAGear
   icon: "JobIconIAA"
   supervisors: job-supervisors-centcom
@@ -49,7 +68,7 @@
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: IAAPDA
-    eyes: ClothingEyesGlassesSunglasses
+    eyes: ClothingEyesGlassesHiddenSecurity # DS14
     ears: ClothingHeadsetIAA
     socks: ClothingUnderwearSockIAA # DS14
     pocket1: ADTtelescopicBaton

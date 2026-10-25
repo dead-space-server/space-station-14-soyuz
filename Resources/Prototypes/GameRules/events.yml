@@ -266,13 +266,18 @@
   parent: BaseGameRule
   id: NinjaSpawn
   components:
+  #DS14-start
+  - type: LoadMapRule
+    mapPath: /Maps/_DeadSpace/Ninja/ninja.yml
+  - type: RuleGrids
+  #DS14-end
   - type: StationEvent
     weight: 3 # DS14
     duration: null
     earliestStart: 30
     reoccurrenceDelay: 30 # DS14
     minimumPlayers: 30
-  - type: SpaceSpawnRule
+  #- type: SpaceSpawnRule ##DS14
   - type: AntagLoadProfileRule
   # DS14-start
     speciesOverride: Human
@@ -300,9 +305,15 @@
     # - DoorjackObjective # DS14 ninja balance
     - SpiderChargeObjective
     - TerrorObjective
-    - MassArrestObjective
+    # - MassArrestObjective # DS14
     - NinjaSurviveObjective
     - NinjaKillRandomPersonObjective # DS14 ninja balance
+    #DS14-start
+    - NinjaKillRandomPersonObjective
+    - NinjaAiHackObjective
+    - NinjaProtectPersonObjective
+    - NinjaInfoScanObjective
+    #DS14-end
   - type: AntagSelection
     agentName: ninja-round-end-agent-name
     definitions:
@@ -318,14 +329,12 @@
         color: Green
         sound: /Audio/Misc/ninja_greeting.ogg
       components:
+      - type: CustomNameOnSpawn #DS14
       - type: RenegadeCANTSubordinate #DS14
       - type: SpaceNinja
       - type: NpcFactionMember
         factions:
-        - Ninja ## ds-14
-      - type: AutoImplant
-        implants:
-        - DeathAcidifierImplant
+        - Ninja ## DS14
       - type: RandomMetadata
         nameSegments:
         - NamesNinjaTitle

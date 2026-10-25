@@ -10,7 +10,6 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-using Content.Shared.DeadSpace.Skills.Prototypes;
 using Content.Shared.DeadSpace.Necromorphs.InfectionDead.Components;
 
 namespace Content.Shared.Species;

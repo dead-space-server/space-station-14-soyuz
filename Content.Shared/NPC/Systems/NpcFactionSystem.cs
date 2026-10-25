@@ -244,28 +244,18 @@ public sealed partial class NpcFactionSystem : EntitySystem
         return ent.Comp.Factions.Overlaps(other.Comp.Factions) || ent.Comp.FriendlyFactions.Overlaps(other.Comp.Factions);
     }
 
-    // DS14-Soyuz-start
-    private EntityUid GetCombatTarget(EntityUid target)
+    // DS14-start
+    /// <remarks>
+    /// 1-way and purely faction based, ignores faction exception: one of other's factions is hostile to ent.
+    /// </remarks>
+    public bool IsEntityHostile(Entity<NpcFactionMemberComponent?> ent, Entity<NpcFactionMemberComponent?> other)
     {
-        if (TryComp<VehicleOperatorComponent>(target, out var vehicleOperator) &&
-            vehicleOperator.Vehicle is { } vehicle &&
-            TryComp<MechComponent>(vehicle, out var mech) &&
-            mech.PilotSlot.ContainedEntity == target)
-        {
-            return vehicle;
-        }
+        if (!Resolve(ent, ref ent.Comp, false) || !Resolve(other, ref other.Comp, false))
+            return false;
 
-        return target;
+        return ent.Comp.HostileFactions.Overlaps(other.Comp.Factions);
     }
-
-    private EntityUid GetFactionOwner(EntityUid target)
-    {
-        if (TryComp<MechComponent>(target, out var mech) && mech.PilotSlot.ContainedEntity is { } pilot)
-            return pilot;
-
-        return target;
-    }
-    // DS14-Soyuz-end
+    // DS14-end
 
     public bool IsFactionFriendly([ForbidLiteral] string target, [ForbidLiteral] string with)
     {

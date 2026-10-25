@@ -1,6 +1,5 @@
 using System.Linq;
 using Content.Client.CharacterInfo;
-using Content.Client.DeadSpace.Skill;
 using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Gameplay;
 using Content.Client.Stylesheets;
@@ -142,7 +141,7 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
             return;
         }
 
-        var (entity, objectives, skills, briefing, jobId, entityName) = data;
+        var (entity, objectives, briefing, jobId, entityName) = data;
 
         _window.SpriteView.SetEntity(entity);
 
@@ -189,7 +188,7 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
 
                     var titleMessage = new FormattedMessage();
                     var descriptionMessage = new FormattedMessage();
-                    
+
                     //DS14-start
                     titleMessage.AddMarkupPermissive(condition.Title);
                     descriptionMessage.AddMarkupPermissive(condition.Description);
@@ -331,14 +330,4 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
     }
 
     // DS14
-    private void OnSkillsButtonPressed(ButtonEventArgs args)
-    {
-        if (_currentSkills.Count == 0)
-            return;
-
-        _skillsWindow?.Close();
-        _skillsWindow = new SkillsListWindow();
-        _skillsWindow.SetSkills(_currentSkills);
-        _skillsWindow.OpenCentered();
-    }
 }

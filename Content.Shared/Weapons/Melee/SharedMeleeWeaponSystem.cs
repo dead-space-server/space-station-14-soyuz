@@ -240,6 +240,15 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             return;
         }
 
+        // DS14-start: Legionnaire knife RMB activates rage instead of making a wide attack.
+        if (HasComp<Content.Shared.DeadSpace.TheCircle.Legion.LegionKnifeComponent>(weaponUid))
+        {
+            var ev = new Content.Shared.DeadSpace.TheCircle.Legion.LegionKnifeRageAttemptEvent(user);
+            RaiseLocalEvent(weaponUid, ev);
+            return;
+        }
+        // DS14-end
+
         AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
     }
 
@@ -656,6 +665,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (component.HeavyAttackResistanceBypass is { } heavyAttackResistanceBypass) // DS14
             resistanceBypass = heavyAttackResistanceBypass; // DS14
         var entities = GetEntityList(ev.Entities);
+        // DS14-start: the client may list entities the server does not know (client-side ones, or already deleted)
+        entities.RemoveAll(uid => !uid.IsValid() || TerminatingOrDeleted(uid));
+        // DS14-end
 
         if (entities.Count == 0)
         {

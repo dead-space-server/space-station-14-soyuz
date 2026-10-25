@@ -7,7 +7,7 @@ namespace Content.Shared.Botany.Components;
 /// <summary>
 /// Component for gas to consume/exude on plant growth.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)] // DS14-Soyuz
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true)]
 [Access(typeof(SharedPlantConsumeExudeGasSystem))]
 public sealed partial class PlantConsumeExudeGasComponent : Component
 {

@@ -17,19 +17,6 @@ public sealed partial class StationGoalPrototype : IPrototype
 
     [DataField]
     public int? ModifyStationBalance;
-
     [DataField]
     public List<StampDisplayInfo>? ExtraStamps;
-
-    //DS14-Soyuz-start
-    [DataField]
-    public EntProtoId? StartingEquipment;
-
-    [DataField]
-    public int StartingEquipmentAmount = 1;
-
-    [DataField]
-    public int MinPlayers { get; private set; } = 0;
-
-    //DS14-Soyuz-end
 }

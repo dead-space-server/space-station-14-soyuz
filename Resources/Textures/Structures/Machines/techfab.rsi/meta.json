@@ -67,12 +67,6 @@
                     0.15
                 ]
             ]
-        },
-        {
-            "name": "armed"
-        },
-        {
-            "name": "icon_armed"
         }
     ]
 }

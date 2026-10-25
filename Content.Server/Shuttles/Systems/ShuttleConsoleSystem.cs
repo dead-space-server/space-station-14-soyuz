@@ -25,6 +25,7 @@ using Robust.Shared.Utility;
 using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
 using Content.Server.DeviceLinking.Systems;
+using Robust.Shared.Containers; // DS14
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -68,6 +69,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<ShuttleConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChange);
         SubscribeLocalEvent<ShuttleConsoleComponent, ShuttleConsoleSignalButtonPressedMessage>(OnSignalButton); // DS14
         SubscribeLocalEvent<ShuttleConsoleComponent, AfterActivatableUIOpenEvent>(OnConsoleUIOpenAttempt);
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntInsertedIntoContainerMessage>(OnConsoleContainerChanged); // DS14
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntRemovedFromContainerMessage>(OnConsoleContainerChanged); // DS14
         Subs.BuiEvents<ShuttleConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
             subs.Event<ShuttleConsoleFTLBeaconMessage>(OnBeaconFTLMessage);
@@ -114,13 +117,18 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         RefreshShuttleConsoles();
     }
 
+    // DS14-start
+    private void OnConsoleContainerChanged(EntityUid uid, ShuttleConsoleComponent component, ContainerModifiedMessage args)
+    {
+        RefreshShuttleConsoles();
+    }
+    // DS14-end
+
     /// <summary>
     /// Refreshes all the shuttle console data for a particular grid.
     /// </summary>
     public void RefreshShuttleConsoles(EntityUid gridUid)
     {
-        var exclusions = new List<ShuttleExclusionObject>();
-        GetExclusions(ref exclusions);
         _consoles.Clear();
         _lookup.GetChildEntities(gridUid, _consoles);
         DockingInterfaceState? dockState = null;
@@ -129,6 +137,24 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             UpdateState(entity, ref dockState);
         }
+
+        // DS14-start
+        var droneQuery = AllEntityQuery<DroneConsoleComponent>();
+
+        while (droneQuery.MoveNext(out var droneUid, out _))
+        {
+            var target = GetDroneConsole(droneUid);
+
+            if (target == null || target == droneUid)
+                continue;
+
+            if (_xformQuery.TryGetComponent(target.Value, out var targetXform) &&
+                targetXform.GridUid == gridUid)
+            {
+                UpdateState(droneUid, ref dockState);
+            }
+        }
+        // DS14-end
     }
 
     /// <summary>
@@ -145,6 +171,12 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             UpdateState(uid, ref dockState);
         }
+    }
+
+    public void RefreshShuttleConsole(EntityUid consoleUid)
+    {
+        DockingInterfaceState? dockState = null;
+        UpdateState(consoleUid, ref dockState);
     }
 
     /// <summary>
@@ -289,6 +321,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             if (TryComp<RadarConsoleComponent>(consoleUid, out var radar))
                 navState.Blips = _radarBlips.CollectSpaceBlips(consoleUid, radar, navState.MaxRange); // DS14
             mapState = GetMapState(shuttleGridUid.Value);
+            mapState.FTLAllowedMaps = GetAllowedFTLMaps(shuttleGridUid.Value, entity.Value); // DS14
         }
         else
         {

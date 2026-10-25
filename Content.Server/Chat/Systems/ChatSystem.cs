@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.TTS;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,7 @@ using Content.Shared.DeadSpace.Languages.Components;
 using Content.Shared.DeadSpace.Heartbeat;
 using Content.Server.DeadSpace.Languages;
 using Content.Server.Audio;
+using Content.Server.DeadSpace.Psychiatry; //DS-14
 
 namespace Content.Server.Chat.Systems;
 
@@ -68,6 +70,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
     [Dependency] private readonly LanguageSystem _language = default!; // DS14-Languages
     [Dependency] private readonly ServerGlobalSoundSystem _sound = default!; // DS14
+    [Dependency] private readonly PsychiatrySystem _psychiatry = default!; //DS-14
     private IServerChatFilter? _chatFilter; // DS14-chat-filter
 
     // DS14: last words must remain visible to their speaker despite critical hearing suppression.
@@ -370,8 +373,11 @@ public sealed partial class ChatSystem : SharedChatSystem
         string lexiconMessage = _language.TransformWord(message, languageId);
 
         string langName = _language.GetLangName(languageId);
+        var announcementWrap = _language.ShowInChat(languageId)
+            ? "chat-manager-sender-announcement-wrap-message-lang"
+            : "chat-manager-sender-announcement-wrap-message";
 
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message-lang", ("sender", sender), ("language", langName), ("message", FormattedMessage.EscapeText(message)));
+        var wrappedMessage = Loc.GetString(announcementWrap, ("sender", sender), ("language", langName), ("message", FormattedMessage.EscapeText(message)));
 
         // DS14-chat-filter-start
         if (_chatFilter != null && _chatFilter.NotAllowedMessage(wrappedMessage))
@@ -402,9 +408,14 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             _sound.PlayAnnonceGlobal(Filter.Broadcast(), announcementSound ?? DefaultAnnouncementSound, announcementSound?.Params ?? AudioParams.Default.WithVolume(-2f), true); //DS14
 
-            if (author != null && TryComp<TTSComponent>(author.Value, out var tts) && tts.VoicePrototypeId != null) // For comms console announcements
+            // DS14-start
+            var ttsVoice = author is { } speaker && TryComp<TTSComponent>(speaker, out var tts)
+                ? TTSVoices.GetVoice(tts, _configurationManager.GetCVar(TTSProviderCVars.Provider))
+                : null;
+            // DS14-end
+            if (author != null && ttsVoice != null) // DS14
             {
-                var ev = new AnnounceSpokeEvent(tts.VoicePrototypeId, originalMessage, lexiconMessage, languageId, filter, author.Value);
+                var ev = new AnnounceSpokeEvent(ttsVoice, originalMessage, lexiconMessage, languageId, filter, author.Value); // DS14
                 RaiseLocalEvent(ev);
             }
             else if (usePresetTTS && sender == Loc.GetString("chat-manager-sender-announcement")) // For admin announcements from Centcomm with preset voices
@@ -441,7 +452,10 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         var lexiconMessage = _language.TransformWord(message, languageId);
         var langName = _language.GetLangName(languageId);
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message-lang",
+        var announcementWrap = _language.ShowInChat(languageId)
+            ? "chat-manager-sender-announcement-wrap-message-lang"
+            : "chat-manager-sender-announcement-wrap-message";
+        var wrappedMessage = Loc.GetString(announcementWrap,
             ("sender", sender),
             ("language", langName),
             ("message", FormattedMessage.EscapeText(message)));
@@ -532,8 +546,11 @@ public sealed partial class ChatSystem : SharedChatSystem
         string lexiconMessage = _language.TransformWord(message, languageId);
 
         string langName = _language.GetLangName(languageId);
+        var announcementWrap = _language.ShowInChat(languageId)
+            ? "chat-manager-sender-announcement-wrap-message-lang"
+            : "chat-manager-sender-announcement-wrap-message";
 
-        var wrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message-lang", ("sender", sender), ("language", langName), ("message", FormattedMessage.EscapeText(message)));
+        var wrappedMessage = Loc.GetString(announcementWrap, ("sender", sender), ("language", langName), ("message", FormattedMessage.EscapeText(message)));
         var lexiconWrappedMessage = Loc.GetString("chat-manager-sender-announcement-wrap-message", ("sender", sender), ("message", FormattedMessage.EscapeText(lexiconMessage)));
 
         var station = _stationSystem.GetOwningStation(source);
@@ -640,8 +657,11 @@ public sealed partial class ChatSystem : SharedChatSystem
             lexiconMessage = _language.TransformWord(message, language.SelectedLanguage);
 
         string langName = _language.GetLangName(source, language);
+        var showLanguage = language != null && _language.ShowInChat(language.SelectedLanguage);
 
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message-lang" : "chat-manager-entity-say-wrap-message-lang",
+        var wrappedMessage = Loc.GetString(speech.Bold
+                ? showLanguage ? "chat-manager-entity-say-bold-wrap-message-lang" : "chat-manager-entity-say-bold-wrap-message"
+                : showLanguage ? "chat-manager-entity-say-wrap-message-lang" : "chat-manager-entity-say-wrap-message",
             ("entityName", name),
             ("verb", verb),
             ("language", langName),
@@ -738,11 +758,15 @@ public sealed partial class ChatSystem : SharedChatSystem
             lexiconMessage = _language.TransformWord(message, language.SelectedLanguage);
 
         string langName = _language.GetLangName(source, language);
+        var showLanguage = language != null && _language.ShowInChat(language.SelectedLanguage);
+        var whisperWrap = showLanguage
+            ? "chat-manager-entity-whisper-wrap-message-lang"
+            : "chat-manager-entity-whisper-wrap-message";
 
-        var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message-lang",
+        var wrappedMessage = Loc.GetString(whisperWrap,
             ("entityName", name), ("language", langName), ("message", FormattedMessage.EscapeText(message)));
 
-        var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message-lang",
+        var wrappedobfuscatedMessage = Loc.GetString(whisperWrap,
             ("entityName", nameIdentity), ("language", langName), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
 
         var wrappedMessageUnk = Loc.GetString("chat-manager-entity-whisper-wrap-message",
@@ -1019,6 +1043,15 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
+            //DS-14 start
+            if (channel is ChatChannel.Local or ChatChannel.Whisper
+                && listener != source
+                && _psychiatry.TryGarbleSpeech(listener, totalMessage, totalWrappedMessage, out var heard, out var heardWrapped))
+            {
+                totalMessage = heard;
+                totalWrappedMessage = heardWrapped;
+            }
+            //DS-14 end
             if (IsCriticalHearingBlocked(listener, source, channel)) // DS14: pass the speaker into the targeted bypass check.
             {
                 var hearingMessage = GetCriticalHearingMessage(listener, source);

@@ -50,14 +50,10 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// </summary>
     private void OnFloorAfterInteract(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
     {
-        // DS14-Soyuz-start: Only a painter configured for grilles may draw on their grid tile.
-        if (args.Handled || args.Target is { } target &&
-            (!ent.Comp.AllowDecalsOnGrilles || !HasComp<SharedCanBuildWindowOnTopComponent>(target)))
+        if (args.Handled || args.Target != null)
             return;
-        // DS14-Soyuz-end
 
-        // DS14-Soyuz: A fixed-tint blueprint tool cannot sample another decal's color.
-        if (ent.Comp.DecalColorEditable && ent.Comp.ColorPickerEnabled)
+        if (ent.Comp.ColorPickerEnabled)
         {
             PickColor(ent, ref args);
             return;
@@ -105,8 +101,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
                 return;
             }
 
-            // DS14-Soyuz: A painter may remove only decals from its own allowed tags.
-            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: decal => IsDecalValid(ent.Comp, decal));
+            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: IsDecalValid);
             if (decals.Count <= 0)
             {
                 _popup.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
@@ -132,7 +127,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// <summary>
     /// Returns whether <paramref name="decal"/> is valid to interact with when a spray painter is used to interact with the floor.
     /// </summary>
-    private bool IsDecalValid(SprayPainterComponent painter, Decal decal)
+    private bool IsDecalValid(Decal decal)
     {
         if (!Proto.TryIndex<DecalPrototype>(decal.Id, out var decalProto))
             return false;
@@ -226,8 +221,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             return;
 
         var clickPos = args.ClickLocation.Position;
-        // DS14-Soyuz: Restrict the color picker to this painter's decals.
-        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: decal => IsDecalValid(ent.Comp, decal));
+        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: IsDecalValid);
         if (decals.Count == 0)
         {
             _popup.PopupEntity(Loc.GetString("spray-painter-interact-no-color-pick"), args.User, args.User);

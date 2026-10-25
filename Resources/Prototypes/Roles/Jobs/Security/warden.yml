@@ -61,7 +61,7 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
-    ears: ClothingHeadsetAltSecurityOfficer # DS14
+    ears: ClothingHeadsetAltSecurityOfficer #ds14
     gloves: ClothingHandsGlovesCombat # DS14-Soyuz
   storage:
     back:

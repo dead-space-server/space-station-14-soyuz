@@ -3,13 +3,14 @@ using Content.Shared.Chat;
 using Content.Shared.Chat.Prototypes;
 using Content.Shared.Damage.Components;
 using Content.Shared.DeadSpace.Heartbeat;
-using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
 using Content.Shared.Humanoid;
 using Content.Shared.Jittering;
 using Content.Shared.Medical;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Speech.Muting;
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
@@ -26,6 +27,7 @@ public sealed class CriticalSufferingSystem : EntitySystem
     [Dependency] private readonly MobThresholdSystem _thresholds = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly VomitSystem _vomit = default!;
+    [Dependency] private readonly StatusEffectsSystem _effects = default!;
 
     private static readonly SoundSpecifier MaleGasp = new SoundCollectionSpecifier("CriticalSufferingMaleGasp");
     private static readonly SoundSpecifier FemaleGasp = new SoundCollectionSpecifier("CriticalSufferingFemaleGasp");
@@ -143,7 +145,7 @@ public sealed class CriticalSufferingSystem : EntitySystem
             _ => "CriticalSufferingGasp",
         };
 
-        PlayVoice(uid, symptom, state, emote); // DS14-Soyuz
+        PlayVoice(uid, symptom, state);
         _chat.TryEmoteWithChat(
             uid,
             emote,
@@ -183,8 +185,11 @@ public sealed class CriticalSufferingSystem : EntitySystem
             : CriticalSymptom.Groan;
     }
 
-    private void PlayVoice(EntityUid uid, CriticalSymptom symptom, MobState state, string emoteId) // DS14-Soyuz
+    private void PlayVoice(EntityUid uid, CriticalSymptom symptom, MobState state)
     {
+        if (_effects.HasEffectComp<MutedStatusEffectComponent>(uid))
+            return;
+
         if (!TryComp<HumanoidAppearanceComponent>(uid, out var appearance))
             return;
 
@@ -209,12 +214,7 @@ public sealed class CriticalSufferingSystem : EntitySystem
             .WithVariation(0.08f)
             .WithPitchScale(_random.NextFloat(0.94f, 1.03f));
 
-        // DS14-Soyuz start
-        var resolved = _audio.ResolveSound(sound);
-        _audio.PlayPvs(resolved, uid, audioParams);
-        var ev = new EmoteSoundPlayedEvent(emoteId, resolved, audioParams);
-        RaiseLocalEvent(uid, ref ev);
-        // DS14-Soyuz end
+        _audio.PlayPvs(sound, uid, audioParams);
     }
 
     private void TriggerJitter(EntityUid uid, MobState state, float depth)

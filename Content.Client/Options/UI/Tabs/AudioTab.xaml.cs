@@ -107,13 +107,11 @@ public sealed partial class AudioTab : Control
             SliderVolumeJukeboxMusic,
             scale: ContentAudioSystem.JukeboxMusicMultiplier);
 
-// DS14-Soyuz-start disabled
-        // Control.AddOptionPercentSlider( 
-        //    CCCCVars.JukeboxAutoVolume,
-        //    SliderVolumeJukeboxAuto,
-        //    scale: ContentAudioSystem.JukeboxAutoMultiplier);
+        Control.AddOptionPercentSlider(
+            CCCCVars.JukeboxAutoVolume,
+            SliderVolumeJukeboxAuto,
+            scale: ContentAudioSystem.JukeboxAutoMultiplier);
         // DS14-End
-// DS14-Soyuz-end disabled
 
         Control.AddOptionCheckBox(CCVars.LobbyMusicEnabled, LobbyMusicCheckBox);
         Control.AddOptionCheckBox(CCVars.RestartSoundsEnabled, RestartSoundsCheckBox);
@@ -129,6 +127,13 @@ public sealed partial class AudioTab : Control
         Control.AddOptionCheckBox(AreaEchoCVars.Enabled, AreaEchoCheckBox);
         Control.AddOptionCheckBox(AreaEchoCVars.HighQuality, AreaEchoQualityCheckBox);
         Control.AddOptionCheckBox(AreaEchoCVars.SpaceMuffling, SpaceMufflingCheckBox);
+        // DS14-end
+
+        // DS14-start
+        Control.AddOptionCheckBox(AreaEchoCVars.Enabled, AreaEchoCheckBox);
+        Control.AddOptionCheckBox(AreaEchoCVars.HighQuality, AreaEchoQualityCheckBox);
+        Control.AddOptionCheckBox(AreaEchoCVars.SpaceMuffling, SpaceMufflingCheckBox);
+        Control.AddOptionCheckBox(AreaEchoCVars.RadioCues, RadioCuesCheckBox);
         // DS14-end
 
         Control.Initialize();

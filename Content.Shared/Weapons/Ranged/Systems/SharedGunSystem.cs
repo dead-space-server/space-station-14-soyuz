@@ -115,6 +115,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         InitializeContainer();
         InitializeSolution();
         InitializeTargetFinder(); // DS14 - pre-v288 explicit event subscriptions (#45247)
+        InitializeNinja(); // DS14
 
         // Interactions
         SubscribeLocalEvent<GunComponent, GetVerbsEvent<AlternativeVerb>>(OnAltVerb);
@@ -278,6 +279,19 @@ public abstract partial class SharedGunSystem : EntitySystem
         ent.Comp.ShootCoordinates = null;
         ent.Comp.Target = null;
         Dirty(ent);
+    }
+    // DS14-end
+
+    // DS14-start
+    /// <summary>
+    /// Aims a projectile shot without a gun at a target, so it hits the target even lying down
+    /// (shots fly over anyone lying who isn't their target).
+    /// </summary>
+    public void SetProjectileTarget(EntityUid projectile, EntityUid target)
+    {
+        var targeted = EnsureComp<TargetedProjectileComponent>(projectile);
+        targeted.Target = target;
+        Dirty(projectile, targeted);
     }
     // DS14-end
 

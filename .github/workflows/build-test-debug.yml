@@ -136,21 +136,14 @@ jobs:
       run: |
         New-Item -ItemType Directory -Force -Path TestResults | Out-Null
         $env:DOTNET_gcServer=1
-        # DS14-start
-        $testArgs = @(
-          "Content.IntegrationTests/Content.IntegrationTests.csproj"
-          "--no-build"
-          "--configuration", "DebugOpt"
-          "--filter", $env:TEST_FILTER
-          "--blame-hang"
-          "--blame-hang-timeout", "10m"
-          "--blame-hang-dump-type", "mini"
-          "--logger", "console;verbosity=normal"
-          "--logger", "trx;LogFileName=$env:TEST_RESULTS_NAME"
-          "--results-directory", "TestResults"
-        )
-        dotnet test @testArgs -- NUnit.ConsoleOut=1 NUnit.MapWarningTo=Failed
-        # DS14-end
+        dotnet test Content.IntegrationTests/Content.IntegrationTests.csproj `
+          --no-build `
+          --configuration DebugOpt `
+          --filter "$env:TEST_FILTER" `
+          --logger "console;verbosity=normal" `
+          --logger "trx;LogFileName=$env:TEST_RESULTS_NAME" `
+          --results-directory TestResults `
+          -- NUnit.ConsoleOut=1 NUnit.MapWarningTo=Failed
 
     - name: Print integration test failures
       if: always()

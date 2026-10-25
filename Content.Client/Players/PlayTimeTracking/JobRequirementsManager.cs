@@ -281,6 +281,15 @@ public sealed class JobRequirementsManager : ISharedPlaytimeManager
         return true;
     }
 
+    public bool CheckWhitelist(AntagPrototype antag, [NotNullWhen(false)] out FormattedMessage? reason)
+    {
+        reason = default;
+
+        // TODO: Implement antag whitelisting.
+
+        return true;
+    }
+
     public TimeSpan FetchOverallPlaytime()
     {
         return _roles.TryGetValue("Overall", out var overallPlaytime) ? overallPlaytime : TimeSpan.Zero;

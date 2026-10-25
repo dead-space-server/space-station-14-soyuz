@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using System.Threading;
+using Content.Client.DeadSpace.Psychiatry; //DS-14
 using Content.Client.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
@@ -121,6 +122,11 @@ namespace Content.Client.Examine
                 return false;
             }
 
+            //DS-14 start
+            if (EntityManager.System<PsychiatryClientSystem>().HidesFromMenu(entity))
+                return false;
+            //DS-14 end
+
             DoExamine(entity);
             return true;
         }
@@ -129,6 +135,11 @@ namespace Content.Client.Examine
         {
             if (!CanExamine(args.User, args.Target))
                 return;
+
+            //DS-14 start
+            if (EntityManager.System<PsychiatryClientSystem>().HidesFromMenu(args.Target))
+                return;
+            //DS-14 end
 
             // Basic examine verb.
             ExamineVerb verb = new();
@@ -401,6 +412,11 @@ namespace Content.Client.Examine
             var playerEnt = userOverride ?? _playerManager.LocalEntity;
             if (playerEnt == null)
                 return;
+
+            //DS-14 start
+            if (EntityManager.System<PsychiatryClientSystem>().HidesFromMenu(entity))
+                return;
+            //DS-14 end
 
             FormattedMessage message;
 

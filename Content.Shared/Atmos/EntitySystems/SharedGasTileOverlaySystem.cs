@@ -70,11 +70,6 @@ public abstract class SharedGasTileOverlaySystem : EntitySystem
     {
         [ViewVariables] public readonly byte FireState;
         [ViewVariables] public readonly byte[] Opacity;
-        // DS14-Soyuz-start: compact visual state for open tile gas.
-        public readonly byte SoyuzTlecStage;
-        public readonly byte SoyuzFireColor;
-        public readonly byte SoyuzDarkness;
-        // DS14-Soyuz-end
         // TODO change fire color based on ByteTemp
 
         /// <summary>
@@ -89,26 +84,16 @@ public abstract class SharedGasTileOverlaySystem : EntitySystem
         [ViewVariables] public readonly byte ByteGasPressure;
         // DS14-end
 
-        public GasOverlayData(byte fireState, byte[] opacity, ThermalByte byteTemp, byte bytePressure = 0, byte soyuzTlecStage = 0, byte soyuzFireColor = 0, byte soyuzDarkness = 0) // DS14-Soyuz
+        public GasOverlayData(byte fireState, byte[] opacity, ThermalByte byteTemp, byte bytePressure = 0) // DS14
         {
             FireState = fireState;
             Opacity = opacity;
             ByteGasTemperature = byteTemp;
             ByteGasPressure = bytePressure; // DS14
-            
-            // DS14-Soyuz-start
-            SoyuzTlecStage = soyuzTlecStage;
-            SoyuzFireColor = soyuzFireColor;
-            SoyuzDarkness = soyuzDarkness;
-            // DS14-Soyuz-end
         }
 
         public bool Equals(GasOverlayData other)
         {
-            // DS14-Soyuz-start
-            if (SoyuzTlecStage != other.SoyuzTlecStage || SoyuzFireColor != other.SoyuzFireColor || SoyuzDarkness != other.SoyuzDarkness)
-                return false;
-            // DS14-Soyuz-end
             if (FireState != other.FireState)
                 return false;
 

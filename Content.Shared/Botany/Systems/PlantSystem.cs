@@ -17,7 +17,6 @@ public sealed partial class PlantSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PlantComponent, PlantAnalyzerAttemptEvent>(OnPlantAnalyzerAttempt); // DS14-Soyuz
 
         SubscribeLocalEvent<PlantComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<PlantComponent, PlantCrossPollinateEvent>(OnCrossPollinate);
@@ -162,14 +161,9 @@ public sealed partial class PlantSystem : EntitySystem
         // Process mutations.
         if (ent.Comp.MutationLevel > 0)
         {
-            // DS14-Soyuz start: consume the dose before species replacement.
-            // Consume the temporary dose before changing species. A forced update of the
-            // newly spawned plant must not roll the same mutation attempt a second time.
-            var severity = Math.Min(ent.Comp.MutationLevel, ent.Comp.MaxMutationLevel);
+            _mutation.CheckRandomMutations(ent.Owner, Math.Min(ent.Comp.MutationLevel, ent.Comp.MaxMutationLevel));
             ent.Comp.MutationLevel = 0;
             DirtyField(ent, ent.Comp, nameof(ent.Comp.MutationLevel));
-            _mutation.CheckRandomMutations(ent.Owner, severity);
-            // DS14-Soyuz end
         }
 
         if (ent.Comp.Health <= 0)
@@ -258,21 +252,6 @@ public sealed partial class PlantSystem : EntitySystem
         ent.Comp.Yield = Math.Max(0, ent.Comp.Yield + amount);
         DirtyField(ent, nameof(ent.Comp.Yield));
     }
-
-    // DS14-Soyuz start: persistent genetic instability
-    /// <summary>
-    /// Changes the inherited genetic instability without changing the temporary mutation level.
-    /// </summary>
-    [PublicAPI]
-    public void AdjustGeneticInstability(Entity<PlantComponent?> ent, float amount)
-    {
-        if (!Resolve(ent.Owner, ref ent.Comp, false))
-            return;
-
-        ent.Comp.GeneticInstability = MathHelper.Clamp(ent.Comp.GeneticInstability + amount, 0f, 100f);
-        DirtyField(ent, nameof(ent.Comp.GeneticInstability));
-    }
-    // DS14-Soyuz end
 
     /// <summary>
     /// Adjusts the maturation time of a plant component.
@@ -375,21 +354,6 @@ public sealed partial class PlantSystem : EntitySystem
 
         if (ent.Comp.MissingGas)
             markup.Add(Loc.GetString("plant-component-gas-missing-warning"));
-
-        // DS14-Soyuz start
-        if (TryGetTray(ent.Owner, out var tray))
-        {
-            if (TryComp<PlantToxinsComponent>(ent.Owner, out var toxins) && tray.Comp.ToxinLevel > toxins.ToxinsTolerance)
-                markup.Add(Loc.GetString("plant-component-toxins-high-warning"));
-            if (TryComp<PlantWeedPestComponent>(ent.Owner, out var weedPest))
-            {
-                if (tray.Comp.WeedLevel > weedPest.WeedTolerance)
-                    markup.Add(Loc.GetString("plant-component-weeds-high-warning"));
-                if (tray.Comp.PestLevel > weedPest.PestTolerance)
-                    markup.Add(Loc.GetString("plant-component-pests-high-warning"));
-            }
-        }
-        // DS14-Soyuz end
 
         return string.Join("\n", markup);
     }

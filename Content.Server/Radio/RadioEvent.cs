@@ -2,17 +2,12 @@ using Content.Shared.Chat;
 using Content.Shared.Radio;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeadSpace.Languages.Prototypes;
-using Robust.Shared.Audio; // DS14-Soyuz
 
 namespace Content.Server.Radio;
 
 // DS14-Soyuz start
 [ByRefEvent]
-public readonly record struct RadioReceiveEvent(string Message, EntityUid MessageSource, RadioChannelPrototype Channel, EntityUid RadioSource, MsgChatMessage ChatMsg, MsgChatMessage LexiconChatMsg, List<EntityUid> Receivers, ProtoId<LanguagePrototype>? LanguageId = null, ResolvedSoundSpecifier? Sound = null, AudioParams? SoundParams = null, int? FrequencyOverride = null)
-{
-    public int Frequency => FrequencyOverride ?? Channel.Frequency;
-}
-// DS14-Soyuz end
+public readonly record struct RadioReceiveEvent(string Message, EntityUid MessageSource, RadioChannelPrototype Channel, EntityUid RadioSource, MsgChatMessage ChatMsg, MsgChatMessage LexiconChatMsg, List<EntityUid> Receivers, ProtoId<LanguagePrototype>? LanguageId = null);
 
 /// <summary>
 /// Event raised on the parent entity of a headset radio when a radio message is received

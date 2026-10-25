@@ -9054,3 +9054,10 @@ Entries:
   changes:
   - type: Fix
     message: Исправлен маркер потолка.
+- id: 866
+  author: IvanKuvalda
+  time: '2026-10-25T09:23:20.219974+00:00'
+  pr: 2572
+  changes:
+  - type: Add
+    message: небольшой бафф сщ и его синоби набора

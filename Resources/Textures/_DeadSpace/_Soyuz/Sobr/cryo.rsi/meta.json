@@ -8,37 +8,40 @@
     },
     "states": [
         {
-            "name": "cryo-base"
+            "name": "pod-open"
         },
         {
-            "name": "cryo-gamma"
-        }, 
-        {
-            "name": "cryo-red"
+            "name": "cryobase"
         },
         {
-            "name": "cryo-amber"
+            "name": "cryogamma"
         },
         {
-            "name": "cryo-engineers"
+            "name": "cryored"
         },
         {
-            "name": "cryo-sierra"
+            "name": "cryoamber"
         },
         {
-            "name": "cryo-cburn"
+            "name": "cryoengineers"
         },
         {
-            "name": "cryo-scst"
+            "name": "cryosierra"
         },
         {
-            "name": "cryo-scnt"
+            "name": "cryocburn"
         },
         {
-            "name": "cryo-bsaa"
+            "name": "cryoscst"
         },
         {
-            "name": "cryo-test"
+            "name": "cryoscnt"
+        },
+        {
+            "name": "cryobsaa"
+        },
+        {
+            "name": "cryotest"
         }
     ]
 }

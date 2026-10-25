@@ -11,7 +11,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-base
+    state: cryobase
   - type: InteractionOutline
   - type: Transform
     noRot: true
@@ -41,7 +41,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-gamma
+    state: cryogamma
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -54,7 +54,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-red
+    state: cryored
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -67,7 +67,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-amber
+    state: cryoamber
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -80,7 +80,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-engineers
+    state: cryoengineers
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -93,7 +93,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-sierra
+    state: cryosierra
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -106,7 +106,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-cburn
+    state: cryocburn
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -119,7 +119,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-scst
+    state: cryoscst
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -132,7 +132,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: cryo-scnt
+    state: cryoscnt
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -145,7 +145,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: 'cryo-bsaa'
+    state: cryobsaa
 
 - type: entity
   parent: BaseSobrCryoCapsule
@@ -158,7 +158,7 @@
     drawdepth: Mobs
     noRot: true
     offset: 0, 0.5
-    state: "cryo-test"
+    state: cryotest
 
 # Гамма
 - type: entity

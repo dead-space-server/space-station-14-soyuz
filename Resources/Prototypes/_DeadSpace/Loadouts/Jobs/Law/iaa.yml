@@ -2,13 +2,13 @@
 - type: loadout
   id: IAAJumpsuit
   equipment:
-    jumpsuit: ClothingUniformJumpsuitIAA
+    jumpsuit: ClothingUniformJumpsuitPOSA # DS14-Soyuz
 
 # Outerclothing
 - type: loadout
   id: IAASuitJacket
   equipment:
-    outerClothing: ClothingOuterCoatSuitJacketBlackOpened
+    outerClothing: ClothingOuterPOSAJacket # DS14-Soyuz
 
 # Gloves
 - type: loadout

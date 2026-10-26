@@ -149,3 +149,10 @@
   - UnderwearBottomPantiesPolitcom
   - UnderwearTopBraPolitcom
   - UnderwearTopTelnikPolitcom
+
+- type: loadoutGroup
+  id: POSAHead
+  name: loadout-group-posa-head
+  minLimit: 0
+  loadouts:
+  - POSAHeadCap

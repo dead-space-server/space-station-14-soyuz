@@ -9,6 +9,10 @@
   - CommonBackpack
   - Survival
   - Trinkets
-  - PolaroidKit # DS14
   - GroupSpeciesBreathTool
   - IAAUnderwear
+  # DS14-Soyuz-start
+  - PolaroidKit
+  - POSAHeadCap
+  - POSAJumpskirt
+  # DS14-Soyuz-end

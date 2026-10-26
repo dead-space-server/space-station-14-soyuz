@@ -1,0 +1,13 @@
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterPOSAJacket
+  name: пиджак системного агента прокуратуры
+  description: Стильный и крутой пиджак.
+  components:
+    - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Coats/posa_coats.rsi
+    - type: Clothing
+      sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Coats/posa_coats.rsi
+    - type: PhysicalComposition
+      materialComposition:
+        Cloth: 100

@@ -10,7 +10,7 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/politrukskirt.rsi
 
 - type: entity
-  parent: ClothingUniformJumpskirtGhostBarBase
+  parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtPOSA
   name: юбка системного агента прокуратуры 
   description: Смотря на человека в этой юбке, вы понимаете, что она ваш последний шанс не оказаться со старшим следователем и его паяльником в допросной.

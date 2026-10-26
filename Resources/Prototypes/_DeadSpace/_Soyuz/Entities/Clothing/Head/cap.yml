@@ -8,3 +8,14 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Soft/politrukcap.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Soft/politrukcap.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadPOSACap
+  name: фуражка системного агента прокуратуры
+  description: Стильная.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/posa_cap.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hats/posa_cap.rsi

@@ -2,7 +2,7 @@
   parent: ClothingOuterArmorBase
   id: SoyuzClothingOuterArmorBase
   name: базовая броня великого союза
-  description: Слава умывальнику.
+  description: Союз велик🚲
   abstract: true
   components:
   - type: Sprite

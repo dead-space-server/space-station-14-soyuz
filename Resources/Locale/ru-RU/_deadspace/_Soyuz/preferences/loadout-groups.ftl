@@ -24,3 +24,6 @@ loadout-group-operatorgs-shoes = Оператор ГШ, обувь
 loadout-group-operatorgs-hands = Оператор ГШ, перчатки
 loadout-group-operatorgs-head = Оператор ГШ, голова
 loadout-group-operatorgs-underwear = Оператор ГШ, нижнее бельё
+
+# САП
+loadout-group-posa-head = САП, голова

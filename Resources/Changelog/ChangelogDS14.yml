@@ -9130,3 +9130,10 @@ Entries:
   changes:
   - type: Add
     message: Looc для голопадов (в тч и ИИ)
+- id: 876
+  author: BlueDogDoc
+  time: '2026-10-26T22:33:59.145422+00:00'
+  pr: 2583
+  changes:
+  - type: Tweak
+    message: Память КПК увеличена до 99

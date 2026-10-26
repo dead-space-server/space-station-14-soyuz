@@ -36,17 +36,13 @@ public sealed class SprayPainterBoundUserInterface(EntityUid owner, Enum uiKey) 
         var sprayPainter = EntMan.System<SprayPainterSystem>();
 
         // DS14-start
-        // _window.PopulateCategories(sprayPainter.PaintableStylesByGroup, sprayPainter.PaintableGroupsByCategory, sprayPainter.Decals);
-        // Update();
         if (EntMan.TryGetComponent(Owner, out SprayPainterComponent? sprayPainterComp))
         {
             var filteredGroups = sprayPainter.GetFilteredPaintableGroups(sprayPainterComp);
             var filteredStyles = sprayPainter.GetFilteredPaintableStyles(sprayPainterComp);
-            _window.PopulateCategories(filteredStyles, filteredGroups, sprayPainter.Decals);
-        }
-        else
-        {
-            _window.PopulateCategories(sprayPainter.PaintableStylesByGroup, sprayPainter.PaintableGroupsByCategory, sprayPainter.Decals);
+            // DS14-Soyuz
+            var filteredDecals = sprayPainter.GetFilteredDecals(sprayPainterComp);
+            _window.PopulateCategories(filteredStyles, filteredGroups, filteredDecals, sprayPainterComp.DecalOnly);
         }
         // DS14-end
 

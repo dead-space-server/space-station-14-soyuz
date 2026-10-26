@@ -64,4 +64,8 @@ public sealed partial class PlantComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public float Potency = 1f;
+
+    // DS14-Soyuz
+    [DataField, AutoNetworkedField]
+    public float GeneticInstability;
 }

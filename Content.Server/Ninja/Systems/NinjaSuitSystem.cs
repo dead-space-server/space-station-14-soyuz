@@ -163,7 +163,7 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
         args.Handled = true;
 
         // DS14-start
-        if (CheckDisabled(ent, user))
+        if (TryComp<SpiderOSComponent>(ent, out var spiderOS) && !spiderOS.SuitActivated)
             return;
         // DS14-end
 

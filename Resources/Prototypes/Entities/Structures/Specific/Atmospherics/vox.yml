@@ -29,6 +29,7 @@
       Halon: stationHalon
       Zauker: stationZauker
       Antinoblium: stationAntinoblium
+      Psychogen: stationPsychogen
       # DS14-end
       # DS14-Soyuz start
       Kryoxide: danger
@@ -101,7 +102,7 @@
     - Halon
     - Zauker
     - Antinoblium
-      Psychogen: stationPsychogen
+    - Psychogen
     # DS14-end
     # DS14-Soyuz start
     - Kryoxide

@@ -93,19 +93,15 @@ public sealed partial class SprayPainterDecals : Control
                 PanelOverride = new StyleBoxFlat
                 {
                     // DS14-start: the wrapper is a functional selection frame, not a local color surface.
-                    StyleClasses = { StyleClass.BackgroundPanel },
+                    BackgroundColor = Color.Transparent,
+                    BorderColor = _selectedDecal == decal.Name ? Color.FromHex("#E8D374") : Color.Transparent,
+                    BorderThickness = new Thickness(1),
                     // DS14-end
-                    Children =
-                    {
-                        button,
-                    },
-                };
-                DecalsGrid.AddChild(panelContainer);
-            }
-            else
-            {
-                DecalsGrid.AddChild(button);
-            }
+                },
+            };
+            panelContainer.AddChild(button);
+            DecalsGrid.AddChild(panelContainer);
+            // DS14-Soyuz-end
         }
     }
 

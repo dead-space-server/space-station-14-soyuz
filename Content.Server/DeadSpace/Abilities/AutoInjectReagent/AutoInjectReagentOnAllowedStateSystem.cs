@@ -96,6 +96,20 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
         }
     }
 
+    private bool IsInAllowedState(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component)
+    {
+        if (!TryComp<MobStateComponent>(uid, out var mobState))
+            return false;
+
+        foreach (var allowedState in component.AllowedStates)
+        {
+            if (mobState.CurrentState == allowedState)
+                return true;
+        }
+
+        return false;
+    }
+
     private void PerformInject(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component)
     {
         Inject(component.Reagents, uid);

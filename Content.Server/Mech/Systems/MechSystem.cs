@@ -3,6 +3,7 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Systems;
 using Content.Server.Mech.Components;
 using Content.Shared.Atmos;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Damage.Systems; // DS14 - Current engine keeps DamageChangedEvent in this namespace.
 using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;

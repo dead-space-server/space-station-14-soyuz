@@ -14,6 +14,9 @@ using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeadSpace.Languages.Components;
+using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
+using Robust.Shared.Audio; // DS14-Soyuz
+using Robust.Shared.Audio.Systems; // DS14-Soyuz
 using Content.Shared.Verbs;// DS14
 using Content.Shared.Database;// DS14
 using Robust.Shared.Player;// DS14
@@ -193,6 +196,16 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
         var name = Loc.GetString("speech-name-relay",
             ("speaker", Name(uid)),
             ("originalName", nameEv.VoiceName));
+
+        // DS14-Soyuz start
+        if (args.Sound != null)
+        {
+            _audio.PlayPvs(args.Sound, uid, (args.SoundParams ?? AudioParams.Default).WithVolume(-5).WithMaxDistance(3));
+            _chat.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Emote,
+                ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false, ignoreActionBlocker: true);
+            return;
+        }
+        // DS14-Soyuz end
 
         // DS14-start
         // не совсем грамотная и верная реализация, но быстрая.

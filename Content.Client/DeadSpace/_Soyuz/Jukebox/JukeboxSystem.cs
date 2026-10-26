@@ -212,7 +212,9 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         if (audioStream == null || !TryComp(audioStream, out AudioComponent? audio))
             return;
 
-        var volumeDb = JukeboxVolume.ToDb(JukeboxVolume.Clamp(volume));
+        var volumeDb = _cfg.GetCVar(CCCCVars.JukeboxMusicMute)
+            ? float.NegativeInfinity
+            : JukeboxVolume.ToDb(JukeboxVolume.Clamp(volume));
 
         if (Math.Abs(audio.Volume - volumeDb) <= 0.001f)
             return;

@@ -142,6 +142,22 @@ public abstract class SharedSprayPainterSystem : EntitySystem
     }
     // DS14-end
 
+    // DS14-Soyuz-start
+    public bool IsDecalAllowed(SprayPainterComponent component, DecalPrototype decal)
+    {
+        if (decal.Tags.Contains("dirty"))
+            return false;
+
+        foreach (var tag in decal.Tags)
+        {
+            if (component.AllowedDecalTags.Contains(tag))
+                return true;
+        }
+
+        return false;
+    }
+    // DS14-Soyuz-end
+
     private void SetPipeColor(Entity<SprayPainterComponent> ent, string? paletteKey)
     {
         if (paletteKey == null || paletteKey == ent.Comp.PickedColor)

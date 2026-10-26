@@ -374,27 +374,6 @@ public sealed class DemonShadowSystem : SharedDemonShadowSystem
         });
     }
 
-    /// <summary>
-    /// Данный метод удаляет сущность из контейнера, в который ее вставили.
-    /// Необходимо для удаления возможности перемещать теневые коконы в ящиках/шкафах.
-    /// </summary>
-    private void OnInserted(EntityUid uid, DemonShadowComponent component, EntGotInsertedIntoContainerMessage args)
-    {
-        if (!HasComp<EntityStorageComponent>(args.Container.Owner))
-            return;
-
-        // Откладываем удаление на следующий тик! Иначе может возникнуть проблема с флагами системы контейнеров
-        Timer.Spawn(0, () =>
-        {
-            _popup.PopupEntity(
-                "Стены хранилища не могут удержать эту материю",
-                args.Container.Owner,
-                PopupType.MediumCaution
-            );
-            _containerSystem.Remove(uid, args.Container);
-        });
-    }
-
     private void ToggleFixtures(EntityUid uid, bool isHasFixture)
     {
         if (!isHasFixture)

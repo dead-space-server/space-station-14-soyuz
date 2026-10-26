@@ -36,6 +36,10 @@ public sealed partial class PlantDataComponent : Component
     [DataField, AutoNetworkedField]
     public List<EntProtoId> MutationPrototypes = [];
 
+    // DS14-Soyuz
+    [DataField, AutoNetworkedField]
+    public List<PlantSpeciesMutation> Mutations = [];
+
     /// <summary>
     /// The entity prototypes that are spawned when this type of seed is harvested.
     /// </summary>

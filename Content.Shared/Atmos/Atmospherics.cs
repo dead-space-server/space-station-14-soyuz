@@ -200,6 +200,29 @@ namespace Content.Shared.Atmos
             [Gas.Zauker] = Loc.GetString("gas-zauker-abbreviation"),
             [Gas.Antinoblium] = Loc.GetString("gas-antinoblium-abbreviation"),
             [Gas.Psychogen] = Loc.GetString("gas-psychogen-abbreviation"),
+            // DS14-Soyuz-start
+            [Gas.Kryoxide] = Loc.GetString("gas-kryoxide-abbreviation"),
+            [Gas.Etherite] = Loc.GetString("gas-etherite-abbreviation"),
+            [Gas.Isoflux] = Loc.GetString("gas-isoflux-abbreviation"),
+            [Gas.Resonite] = Loc.GetString("gas-resonite-abbreviation"),
+            [Gas.Pyroxite] = Loc.GetString("gas-pyroxite-abbreviation"),
+            [Gas.Coronite] = Loc.GetString("gas-coronite-abbreviation"),
+            [Gas.Gravion] = Loc.GetString("gas-gravion-abbreviation"),
+            [Gas.Radion] = Loc.GetString("gas-radion-abbreviation"),
+            [Gas.QuartzGas] = Loc.GetString("gas-quartzgas-abbreviation"),
+            [Gas.ImpulseGas] = Loc.GetString("gas-impulsegas-abbreviation"),
+            [Gas.Iney] = Loc.GetString("gas-iney-abbreviation"),
+            [Gas.Diborane] = Loc.GetString("gas-diborane-abbreviation"),
+            [Gas.GammaGas] = Loc.GetString("gas-gammagas-abbreviation"),
+            [Gas.Forsazh] = Loc.GetString("gas-forsazh-abbreviation"),
+            [Gas.Sumrak] = Loc.GetString("gas-sumrak-abbreviation"),
+            [Gas.Lumin] = Loc.GetString("gas-lumin-abbreviation"),
+            [Gas.Lazarus] = Loc.GetString("gas-lazarus-abbreviation"),
+            [Gas.Chromatin] = Loc.GetString("gas-chromatin-abbreviation"),
+            [Gas.Tlec] = Loc.GetString("gas-tlec-abbreviation"),
+            [Gas.Detonite] = Loc.GetString("gas-detonite-abbreviation"),
+            [Gas.Boracite] = Loc.GetString("gas-boracite-abbreviation"),
+            // DS14-Soyuz-end
             // DS14-end
         };
 
@@ -230,7 +253,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 23; // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium, Psychogen
+        public const int TotalNumberOfGases = 44; // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium, Psychogen
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -410,7 +433,30 @@ namespace Content.Shared.Atmos
         Halon = 19,
         Zauker = 20,
         Antinoblium = 21,
-        Psychogen = 22
+        Psychogen = 22,
         // DS14-end
+        // DS14-Soyuz
+        Kryoxide = 23,
+        Etherite = 24,
+        Isoflux = 25,
+        Resonite = 26,
+        Pyroxite = 27,
+        Coronite = 28,
+        Gravion = 29,
+        Radion = 30,
+        QuartzGas = 31,
+        ImpulseGas = 32,
+        Iney = 33,
+        Diborane = 34,
+        GammaGas = 35,
+        Forsazh = 36,
+        Sumrak = 37,
+        Lumin = 38,
+        Lazarus = 39,
+        Chromatin = 40,
+        Tlec = 41,
+        Detonite = 42,
+        Boracite = 43,
+        // DS14-Soyuz-end
     }
 }

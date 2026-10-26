@@ -61,7 +61,7 @@ public abstract class StripedDisplayControl : BoxContainer
             _showingEmpty = false;
         }
 
-        var rowStyle = _rowCount++ % 2 == 0 ? StyleClass.Panel : StyleClass.PanelDark;
+        var rowStyle = _rowCount++ % 2 == 0 ? StyleClass.BackgroundPanel : StyleClass.PanelDark;
         var row = new BoxContainer
         {
             Orientation = LayoutOrientation.Horizontal,

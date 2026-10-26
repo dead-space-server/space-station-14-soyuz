@@ -154,6 +154,10 @@
   name: loadout-group-iaa-jumpsuit
   loadouts:
   - IAAJumpsuit
+  # DS14-Soyuz-start  
+  - POSAJumpskirt
+  - POSAJumpskirtPencil
+  # DS14-Soyuz-end
 
 - type: loadoutGroup
   id: IAAOuterClothing

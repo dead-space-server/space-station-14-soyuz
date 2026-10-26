@@ -9137,3 +9137,10 @@ Entries:
   changes:
   - type: Tweak
     message: Память КПК увеличена до 99
+- id: 877
+  author: BlueDogDoc
+  time: '2026-10-26T22:38:36.710364+00:00'
+  pr: 2587
+  changes:
+  - type: Fix
+    message: Мостик держится над водой.

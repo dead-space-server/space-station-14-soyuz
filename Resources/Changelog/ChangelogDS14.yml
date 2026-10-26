@@ -9144,3 +9144,14 @@ Entries:
   changes:
   - type: Fix
     message: Мостик держится над водой.
+- id: 878
+  author: IvanKuvalda
+  time: '2026-10-26T22:41:42.829936+00:00'
+  pr: 2574
+  changes:
+  - type: Add
+    message: Добавлена рука для тенедемона - ПКМ для удара, ЛКМ для выстрела крюком
+  - type: Tweak
+    message: Тенедемон способен получать урон от фальшфеерных патрон
+  - type: Tweak
+    message: Урон тенедемона чуть понижен

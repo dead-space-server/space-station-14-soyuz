@@ -33,9 +33,24 @@ jobs:
         run: |
           python <<'EOF'
           import base64
+          import html  # DS14-Soyuz
           import json
+          import mimetypes  # DS14-Soyuz
           import os
           import re
+          import urllib.request  # DS14-Soyuz
+
+          # DS14-Soyuz-start
+          MEDIA_DIR = "/tmp/media"
+          MAX_FILES = 10
+          MAX_TOTAL = 9 * 1024 * 1024  # лимит вебхука ~10 МБ, оставляем запас
+          ALLOWED_HOSTS = re.compile(
+              r"^https://(github\.com/user-attachments/(assets|files)/"
+              r"|(private-user-images|user-images)\.githubusercontent\.com/)"
+          )
+
+          os.makedirs(MEDIA_DIR, exist_ok=True)
+          # DS14-Soyuz-end
 
           def set_output(name, value):
               with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
@@ -65,7 +80,7 @@ jobs:
 
           for title, emoji in sections.items():
               pattern = rf"- {re.escape(title)}:\s*(.*?)(?=\n- [^:]|$)"
-              
+
               for block in re.findall(pattern, desc, flags=re.DOTALL):
                   lines = [
                       line.strip("- ").strip()
@@ -80,6 +95,67 @@ jobs:
               print("No changelog changes found. Skipping Discord notification.")
               set_output("should_send", "false")
               exit(0)
+
+          # DS14-Soyuz-start
+          media_pattern = (
+              r"!\[[^\]]*\]\((https?://[^)\s]+)\)"            # ![alt](url)
+              r"|<img[^>]+src=[\"']([^\"']+)[\"']"             # <img src="url">
+              r"|(https://github\.com/user-attachments/\S+)"   # голая ссылка (видео)
+          )
+
+          urls = []
+          for m in re.finditer(media_pattern, desc):
+              url = next(g for g in m.groups() if g)
+              url = html.unescape(url).rstrip(")>.,;\"'")
+              if url not in urls:
+                  urls.append(url)
+
+          saved = 0
+          total = 0
+          link_fallback = []
+
+          for url in urls:
+              if not ALLOWED_HOSTS.match(url):
+                  print(f"Пропуск (хост не разрешён): {url}")
+                  continue
+
+              if saved >= MAX_FILES:
+                  link_fallback.append(url)
+                  continue
+
+              try:
+                  req = urllib.request.Request(url, headers={"User-Agent": "changelog-bot"})
+                  with urllib.request.urlopen(req, timeout=60) as r:
+                      ctype = r.headers.get_content_type()
+                      if not (ctype.startswith("image/") or ctype.startswith("video/")):
+                          print(f"Пропуск (не медиа, {ctype}): {url}")
+                          continue
+                      data = r.read(MAX_TOTAL + 1)
+              except Exception as e:
+                  print(f"Не удалось скачать {url}: {e}")
+                  link_fallback.append(url)
+                  continue
+
+              if len(data) > MAX_TOTAL or total + len(data) > MAX_TOTAL:
+                  link_fallback.append(url)
+                  continue
+
+              ext = mimetypes.guess_extension(ctype) or ""
+              if ext == ".jpe":
+                  ext = ".jpg"
+
+              path = os.path.join(MEDIA_DIR, f"{saved}{ext}")
+              with open(path, "wb") as f:
+                  f.write(data)
+
+              saved += 1
+              total += len(data)
+
+          if link_fallback:
+              content_lines.append("")
+              content_lines.append("📎 Медиа:")
+              content_lines.extend(link_fallback)
+          # DS14-Soyuz-end
 
           message_content = "\n".join(content_lines)
 
@@ -111,15 +187,23 @@ jobs:
             exit 1
           fi
 
-          PAYLOAD=$(cat "$PAYLOAD_FILE")
+          # DS14-Soyuz-start
+          FILE_ARGS=()
+          i=0
+          for f in /tmp/media/*; do
+            [ -f "$f" ] || continue
+            FILE_ARGS+=(-F "files[$i]=@$f")
+            i=$((i+1))
+          done
 
           curl -X POST \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
+            -F "payload_json=<$PAYLOAD_FILE;type=application/json" \
+            "${FILE_ARGS[@]}" \
             "$WEBHOOK_URL" \
             --fail \
             --silent \
             --show-error
+          # DS14-Soyuz-end
 
       - name: Send to Discord (Deadspace)
         if: steps.parse.outputs.should_send == 'true'
@@ -132,12 +216,20 @@ jobs:
             exit 1
           fi
 
-          PAYLOAD=$(cat "$PAYLOAD_FILE")
+          # DS14-Soyuz-start
+          FILE_ARGS=()
+          i=0
+          for f in /tmp/media/*; do
+            [ -f "$f" ] || continue
+            FILE_ARGS+=(-F "files[$i]=@$f")
+            i=$((i+1))
+          done
 
           curl -X POST \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
+            -F "payload_json=<$PAYLOAD_FILE;type=application/json" \
+            "${FILE_ARGS[@]}" \
             "$WEBHOOK_URL" \
             --fail \
             --silent \
             --show-error
+          # DS14-Soyuz-end

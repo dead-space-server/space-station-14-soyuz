@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterHardsuitERTLeader
+  parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitOrdersBase
   name: базовый служебный скафандр СССП
   abstract: true
@@ -48,15 +48,6 @@
     clothingPrototype: ClothingHeadHelmetHardsuitRepairOrderEngineer
   - type: StaminaResistance
     damageCoefficient: 0.8
-  - type: ZombificationResistance
-    zombificationResistanceCoefficient: 0.4
-  - type: HardsuitIdentification
-  - type: TTS
-    voice: Adjutant
-  - type: Reflect
-    reflectProb: 0.10
-  - type: VirusResistance
-    virusResistanceCoefficient: 0.7
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
 
@@ -66,7 +57,7 @@
   parent: ClothingOuterHardsuitOrdersBase
   id: ClothingOuterHardsuitRepairOrderEngineer
   name: скафандр ремонтной бригады
-  description: Защитный скафандр ремонтной службы СССП для восстановления аварийных станций и повреждённых шаттлов. Оснащён встроенным блюспейс сканером масс и креплением для дыхательного баллона. Усиленная радиационная и взрывная защита помогает работать там, где обычный ремонт заканчивается эвакуацией.
+  description: Защитный скафандр ремонтной службы СССП для восстановления аварийных станций и повреждённых шаттлов. Оснащён креплением для дыхательного баллона. Усиленная радиационная и взрывная защита помогает работать там, где обычный ремонт заканчивается эвакуацией.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/repair_order_engineer.rsi
@@ -79,16 +70,13 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.5
-        Slash: 0.55
-        Poison: 0.75
-        Piercing: 0.55
-        Heat: 0.25
-        Cold: 0.2
-        Shock: 0.2
-        Radiation: 0
-        Caustic: 0.4
-        Stun: 1
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.5
+        Shock: 0.8
+        Radiation: 0.1
+        Caustic: 0.5
   - type: Reflect
     reflectProb: 0.1
   - type: VirusResistance
@@ -101,24 +89,6 @@
     whitelist:
       components:
       - GasTank
-  - type: RadarConsole
-    toggleAction: ActionRepairOrderHardsuitMassScanner
-    maxRange: 342
-    followEntity: true
-    advanced: true
-    allowedComponents:
-    - component: Projectile
-      color: "#FF0000"
-    - component: MobState
-      color: "#FFFFFF"
-    - component: Item
-      color: "#FFD700"
-    blacklistComponents:
-    - CartridgeAmmo
-    - Dragon
-    blacklistTags:
-    - Ore
-    - Trash
   - type: ActivatableUI
     key: enum.RadarConsoleUiKey.Key
     inHandsOnly: false

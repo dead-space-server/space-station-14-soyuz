@@ -1,0 +1,43 @@
+#- type: entity
+#  parent: BaseGameRule
+#  id: SobrStationRule
+#  name: Станция СОБР
+#  description: Загружает станцию СОБР с криокапсулами, пультом отрядов и спавнером Генерала Специальных Операций.
+#  components:
+#  - type: LoadMapRule
+#    mapPath: /Maps/_Soyuz/S1_GeneralStaff.yml # WIP: работа над станцией в процессе
+
+- type: entity
+  parent: BaseGameRule
+  id: SobrStationRuleAnnouncement
+  name: Станция СОБР
+  description: Загружает станцию СОБР с криокапсулами, пультом отрядов и спавнером Генерала Специальных Операций. Оповещает станцию о спавне станции.
+  components:
+#  - type: LoadMapRule
+#    mapPath: /Maps/_Soyuz/S1_generalStaff.yml # WIP: работа над станцией в процессе
+  - type: StationEvent
+    startAnnouncement: station-event-sobr-station-spawn
+    startAnnouncementColor: '#990811'
+    startAudio:
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg
+
+- type: preloadedGrid # Это тоже переработать надо
+  id: SoyuzDeathSquadShuttle
+  path: /Maps/Shuttles/ShuttleEvent/deathsquad.yml
+  copies: 1
+
+- type: entity
+  parent: BaseGameRule
+  id: SoyuzDeathSquadRule
+  name: Остров смерти
+  description: Спавнит секретный остров Эскадрона Смерти и ВКФ СССП. Смерть врагам партии.
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-deathsquad-station-spawn
+    startAnnouncementColor: '#781f19'
+    startAudio:
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/Parabellum.ogg
+    willNotStartRandomly: true
+  - type: RuleGrids
+  - type: LoadMapRule
+    preloadedGrid: SoyuzDeathSquadShuttle

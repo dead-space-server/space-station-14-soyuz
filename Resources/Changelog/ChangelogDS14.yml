@@ -9188,3 +9188,10 @@ Entries:
   changes:
   - type: Tweak
     message: Карта Тайпана (by Leo_Bahmet)
+- id: 883
+  author: IvanKuvalda
+  time: '2026-10-27T12:16:24.647546+00:00'
+  pr: 2593
+  changes:
+  - type: Add
+    message: Иконка предкрита

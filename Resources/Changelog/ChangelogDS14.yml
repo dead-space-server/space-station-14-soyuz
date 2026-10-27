@@ -9195,3 +9195,10 @@ Entries:
   changes:
   - type: Add
     message: Иконка предкрита
+- id: 884
+  author: KillFroozy
+  time: '2026-10-27T19:10:28.070530+00:00'
+  pr: 2596
+  changes:
+  - type: Tweak
+    message: Таяры теперь умеют мурлыкать.

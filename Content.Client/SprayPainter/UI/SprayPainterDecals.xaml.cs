@@ -92,20 +92,14 @@ public sealed partial class SprayPainterDecals : Control
             {
                 PanelOverride = new StyleBoxFlat
                 {
-                    // DS14-start: the wrapper is a functional selection frame, not a local color surface.
-                    StyleClasses = { StyleClass.BackgroundPanel },
-                    // DS14-end
-                    Children =
-                    {
-                        button,
-                    },
-                };
-                DecalsGrid.AddChild(panelContainer);
-            }
-            else
-            {
-                DecalsGrid.AddChild(button);
-            }
+                    BackgroundColor = Color.Transparent,
+                    BorderColor = _selectedDecal == decal.Name ? Color.FromHex("#E8D374") : Color.Transparent,
+                    BorderThickness = new Thickness(1),
+                },
+            };
+            panelContainer.AddChild(button);
+            DecalsGrid.AddChild(panelContainer);
+            // DS14-Soyuz-end
         }
     }
 
@@ -158,7 +152,8 @@ public sealed partial class SprayPainterDecals : Control
     public void SetSelectedDecal(string name)
     {
         _selectedDecal = name;
-        SelectedDecalName.Text = name;
+        // DS14-Soyuz: Keep the prototype ID for selection while showing its configured name.
+        SelectedDecalName.Text = _decals.FirstOrDefault(decal => decal.Name == name)?.DisplayName ?? name;
 
         if (_sprite is null)
             return;

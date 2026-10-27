@@ -162,11 +162,6 @@ public sealed class NinjaSuitSystem : SharedNinjaSuitSystem
 
         args.Handled = true;
 
-        // DS14-start
-        if (CheckDisabled(ent, user))
-            return;
-        // DS14-end
-
         var katana = ninja.Katana.Value;
         var coords = _transform.GetWorldPosition(katana);
         var distance = (_transform.GetWorldPosition(user) - coords).Length();

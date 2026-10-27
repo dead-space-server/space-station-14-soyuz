@@ -50,10 +50,13 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// </summary>
     private void OnFloorAfterInteract(Entity<SprayPainterComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || args.Target != null)
+        // DS14-Soyuz-start
+        if (args.Handled || args.Target is { } target &&
+            (!ent.Comp.AllowDecalsOnGrilles || !HasComp<SharedCanBuildWindowOnTopComponent>(target)))
             return;
+        // DS14-Soyuz-end
 
-        if (ent.Comp.ColorPickerEnabled)
+        if (ent.Comp.DecalColorEditable && ent.Comp.ColorPickerEnabled) // DS14-Soyuz
         {
             PickColor(ent, ref args);
             return;
@@ -101,7 +104,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
                 return;
             }
 
-            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: IsDecalValid);
+            var decals = _decals.GetDecalsInRange(grid, position.Position, validDelegate: decal => IsDecalValid(ent.Comp, decal)); // DS14-Soyuz
             if (decals.Count <= 0)
             {
                 _popup.PopupEntity(Loc.GetString("spray-painter-interact-nothing-to-remove"), args.User, args.User);
@@ -127,7 +130,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
     /// <summary>
     /// Returns whether <paramref name="decal"/> is valid to interact with when a spray painter is used to interact with the floor.
     /// </summary>
-    private bool IsDecalValid(Decal decal)
+    private bool IsDecalValid(SprayPainterComponent painter, Decal decal)
     {
         if (!Proto.TryIndex<DecalPrototype>(decal.Id, out var decalProto))
             return false;
@@ -221,7 +224,7 @@ public sealed class SprayPainterSystem : SharedSprayPainterSystem
             return;
 
         var clickPos = args.ClickLocation.Position;
-        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: IsDecalValid);
+        var decals = _decals.GetDecalsInRange(grid, clickPos, validDelegate: decal => IsDecalValid(ent.Comp, decal)); // DS14-Soyuz
         if (decals.Count == 0)
         {
             _popup.PopupEntity(Loc.GetString("spray-painter-interact-no-color-pick"), args.User, args.User);

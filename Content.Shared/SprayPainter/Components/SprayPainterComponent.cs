@@ -116,6 +116,23 @@ public sealed partial class SprayPainterComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool ColorPickerEnabled = false;
+
+    // DS14-Soyuz-start
+    [DataField, AutoNetworkedField]
+    public HashSet<string> AllowedDecalTags = new() { "station", "markings" };
+
+    [DataField, AutoNetworkedField]
+    public bool AllowDecalsOnGrilles;
+
+    [DataField, AutoNetworkedField]
+    public bool DecalOnly;
+
+    [DataField, AutoNetworkedField]
+    public bool DecalColorEditable = true;
+
+    [DataField, AutoNetworkedField]
+    public Color? FixedDecalColor;
+    // DS14-Soyuz-end
 }
 
 /// <summary>

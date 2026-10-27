@@ -7,7 +7,7 @@ namespace Content.Shared.Botany.Components;
 /// Component for storing plant growth data.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(fieldDeltas: true, raiseAfterAutoHandleState: true)]
-[Access(typeof(PlantSystem), typeof(PlantMutationSystem))]
+[Access(typeof(PlantSystem), typeof(PlantMutationSystem), typeof(BotanySystem))] // DS14-Soyuz: normalize visual stages after cloning.
 public sealed partial class PlantComponent : Component
 {
     /// <summary>
@@ -64,4 +64,13 @@ public sealed partial class PlantComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public float Potency = 1f;
+
+    // DS14-Soyuz start: inherited genetic instability
+    /// <summary>
+    /// Persistent genetic property. PlantClone carries it through produce, seeds, and species changes.
+    /// This is independent of the current growth cycle's mutation level.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float GeneticInstability;
+    // DS14-Soyuz end
 }

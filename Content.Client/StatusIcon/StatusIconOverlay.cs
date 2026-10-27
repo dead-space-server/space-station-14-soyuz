@@ -1,4 +1,4 @@
-using Content.Client.DeadSpace._Soyuz.Overlays;
+using Content.Client.DeadSpace._Soyuz.Overlays; // DS14-Soyuz
 using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Client.GameObjects;
@@ -16,7 +16,6 @@ public sealed class StatusIconOverlay : Overlay
     private static readonly ProtoId<ShaderPrototype> UnshadedShader = "unshaded";
 
     [Dependency] private readonly IEntityManager _entity = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!; // DS14-Soyuz
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPlayerManager _player = default!; //DS-14
@@ -44,6 +43,11 @@ public sealed class StatusIconOverlay : Overlay
         if (!_entity.TryGetComponent(_player.LocalEntity, out EyeComponent? playerEye) || args.Viewport.Eye != playerEye.Eye)
             return;
         //DS-14 end
+
+        // DS14-Soyuz-start
+        if (!SoyuzOverlayViewport.IsPrimary(args, _entity, _player))
+            return;
+        // DS14-Soyuz-end
 
         var handle = args.WorldHandle;
 

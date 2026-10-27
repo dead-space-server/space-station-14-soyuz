@@ -147,15 +147,6 @@ public abstract class SharedDashAbilitySystem : EntitySystem
             return false;
         }
 
-        // DS14-start: #45041 destination collision check adapted without the newer TeleportAction refactor.
-        var targetRotation = _transform.GetWorldRotation(args.Target.EntityId);
-        if (IsDestinationBlocked(user, target, targetRotation))
-        {
-            _popup.PopupClient(Loc.GetString("dash-ability-blocked"), user, user);
-            return;
-        }
-        // DS14-end
-
         if (!_sharedCharges.TryUseCharge(uid))
         {
             DashPopup(predicted, "dash-ability-no-charges", uid, user);

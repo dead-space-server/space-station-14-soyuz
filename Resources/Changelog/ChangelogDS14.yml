@@ -9181,3 +9181,10 @@ Entries:
   changes:
   - type: Add
     message: Возможность создавать панельки из игры, чтобы не мучаться с XAML
+- id: 882
+  author: Manstari
+  time: '2026-10-27T08:12:08.541851+00:00'
+  pr: 2591
+  changes:
+  - type: Tweak
+    message: Карта Тайпана (by Leo_Bahmet)

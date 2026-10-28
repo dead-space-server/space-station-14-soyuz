@@ -1,0 +1,236 @@
+- type: entity
+  id: MilitiaOperationConsole
+  parent: BaseComputer
+  name: терминал оперативного обеспечения милиции
+  description: Ведомственный терминал для проведения операций, передачи изъятых документов и заказа снабжения.
+  components:
+  - type: MilitiaOperationConsole
+    config: MilitiaOperations
+  - type: Sprite
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - map:
+      - computerLayerBody
+      state: computer
+    - map:
+      - computerLayerKeyboard
+      state: generic_keyboard
+    - map:
+      - computerLayerScreen
+      state: security
+    - map:
+      - computerLayerKeys
+      state: security_key
+    - map:
+      - enum.WiresVisualLayers.MaintenancePanel
+      visible: false
+      state: generic_panel_open
+  - type: ActivatableUI
+    key: enum.MilitiaOperationUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.MilitiaOperationUiKey.Key:
+        type: MilitiaOperationBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: AccessReader
+    access:
+    - - Security
+    - - HeadOfSecurity
+  - type: ItemSlots
+    slots:
+      operationDocument:
+        name: militia-operation-document-slot
+        whitelist:
+          components:
+          - MilitiaOperationDocument
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+        ents: []
+      operationDocument: !type:ContainerSlot {}
+  - type: Computer
+    board: MilitiaOperationComputerCircuitboard
+
+- type: entity
+  id: MilitiaOperationComputerCircuitboard
+  parent: BaseComputerCircuitboard
+  name: плата терминала оперативного обеспечения милиции
+  description: Печатная плата ведомственного терминала милиции.
+  components:
+  - type: Sprite
+    state: cpu_security
+  - type: ComputerBoard
+    prototype: MilitiaOperationConsole
+
+- type: entity
+  id: MilitiaOperationDocument
+  parent: BaseItem
+  name: оперативные материалы «Рассвета»
+  description: Пакет служебных материалов с контрольной пломбой. Представляет интерес для следствия.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/MilitiaOperations/document.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: MilitiaOperationDocument
+
+- type: entity
+  id: MilitiaOperationSupplyCrate
+  parent: CrateSecgear
+  name: ящик ведомственного снабжения
+  description: Имущество, выделенное милиции по заявке оперативного подразделения.
+
+- type: entity
+  id: MilitiaOperationRaiderBase
+  parent: MobSyndicateFootsoldier
+  abstract: true
+  name: боевик «Рассвета»
+  suffix: Враждебный
+  description: Вооружённый участник нелегальной группы.
+  components:
+  - type: MovementIgnoreGravity
+    weightless: false
+  - type: CanMoveInAir
+  - type: Loadout
+    prototypes: []
+  - type: AutoImplant
+    implants: []
+  - type: HTN
+    rootTask:
+      task: MilitiaCombatCompound
+    blackboard:
+      MeleeMissChance: !type:Single 0.08
+      VisionRadius: !type:Single 12
+      AggroVisionRadius: !type:Single 12
+      NavInteract: !type:Bool true
+      NavPry: !type:Bool true
+
+- type: entity
+  id: MilitiaOperationRaiderScout
+  suffix: Враждебный
+  parent: MilitiaOperationRaiderBase
+  name: дозорный «Рассвета»
+  components:
+  - type: MilitiaOperationActor
+    equipment: MilitiaEquipmentScout
+    squadRole: Flanker
+
+- type: entity
+  id: MilitiaOperationRaiderAssault
+  suffix: Враждебный
+  parent: MilitiaOperationRaiderBase
+  name: штурмовик «Рассвета»
+  components:
+  - type: MilitiaOperationActor
+    equipment: MilitiaEquipmentAssault
+
+- type: entity
+  id: MilitiaOperationRaiderGuard
+  suffix: Враждебный
+  parent: MilitiaOperationRaiderBase
+  name: охранник «Рассвета»
+  components:
+  - type: MilitiaOperationActor
+    equipment: MilitiaEquipmentGuard
+    squadRole: Support
+
+- type: entity
+  id: MilitiaOperationRaiderSaboteur
+  suffix: Враждебный
+  parent: MilitiaOperationRaiderBase
+  name: диверсант «Рассвета»
+  components:
+  - type: MilitiaOperationActor
+    equipment: MilitiaEquipmentSaboteur
+    squadRole: Flanker
+
+- type: militiaOperationConfig
+  id: MilitiaOperations
+  documentGuard: MilitiaOperationRaiderCustodian
+  document: MilitiaOperationDocument
+  crew:
+  - MilitiaOperationRaiderScout
+  - MilitiaOperationRaiderAssault
+  - MilitiaOperationRaiderGuard
+  - MilitiaOperationRaiderSaboteur
+  operations:
+  - MilitiaOperationDesant
+  - MilitiaOperationScience
+  - MilitiaOperationCargo
+  - MilitiaOperationFlagship
+  shop: MilitiaOperationSupplyPool
+  shopEnabled: false
+  cooldown: 5m
+  medic: MilitiaOperationRaiderMedic
+
+- type: entity
+  id: MilitiaOperationRaiderCustodian
+  parent: MilitiaOperationRaiderGuard
+  name: хранитель оперативных материалов «Рассвета»
+  suffix: Враждебный
+  description: Старший охранник отряда, отвечающий за сохранность оперативных документов. Материалы находятся в его сумке.
+
+- type: militiaOperation
+  id: MilitiaOperationDesant
+  name: militia-operation-desant-name
+  description: militia-operation-desant-description
+  map: /Maps/_Soyuz/MilitiaOperations/desantrassvet.yml
+  points: 250
+  reputation: 100
+  minimumCrew: 5
+  maximumCrew: 7
+  medics: 1
+  duration: 60m
+
+- type: militiaOperation
+  id: MilitiaOperationScience
+  name: militia-operation-science-name
+  description: militia-operation-science-description
+  map: /Maps/_Soyuz/MilitiaOperations/ksenirassvet.yml
+  points: 400
+  reputation: 150
+  minimumCrew: 7
+  maximumCrew: 10
+  medics: 2
+  duration: 75m
+
+- type: militiaOperation
+  id: MilitiaOperationCargo
+  name: militia-operation-cargo-name
+  description: militia-operation-cargo-description
+  map: /Maps/_Soyuz/MilitiaOperations/cargorassvet.yml
+  points: 300
+  reputation: 100
+  minimumCrew: 7
+  maximumCrew: 10
+  medics: 2
+  duration: 60m
+
+- type: militiaOperation
+  id: MilitiaOperationFlagship
+  name: militia-operation-flagship-name
+  description: militia-operation-flagship-description
+  map: /Maps/_Soyuz/MilitiaOperations/bigshiprassvet.yml
+  points: 900
+  reputation: 300
+  minimumCrew: 10
+  maximumCrew: 15
+  duration: 90m
+  medics: 3
+
+- type: entity
+  id: MilitiaOperationRaiderMedic
+  suffix: Враждебный
+  parent: MilitiaOperationRaiderBase
+  name: полевой медик «Рассвета»
+  description: Полевой медик штурмовой группы. Вооружён и обучен оказывать помощь под огнём.
+  components:
+  - type: MilitiaOperationActor
+    equipment: MilitiaEquipmentMedic
+    medic: true
+    treatmentThreshold: 15
+    treatmentRange: 14
+    treatmentCooldown: 2s

@@ -1,7 +1,10 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 using System.Numerics;
 using Content.Shared.DeadSpace._Soyuz.EvacZones;
+using Content.Shared.Shuttles.Components;
+using Content.Shared.Shuttles.Systems;
 using Robust.Client.Graphics;
+using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Input;
@@ -9,6 +12,7 @@ using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Maths;
+using Robust.Shared.Physics.Components;
 
 namespace Content.Client.DeadSpace._Soyuz.EvacZones;
 
@@ -20,6 +24,8 @@ public sealed class EvacMapControl : Control
     [Dependency] private readonly IEntityManager _entMan = default!;
 
     private readonly SharedTransformSystem _xform;
+    private readonly SharedShuttleSystem _shuttles;
+    private readonly Font _font;
     private readonly List<Vector2> _tris = new();
 
     public MapId Map;
@@ -42,6 +48,10 @@ public sealed class EvacMapControl : Control
     {
         IoCManager.InjectDependencies(this);
         _xform = _entMan.System<SharedTransformSystem>();
+        _shuttles = _entMan.System<SharedShuttleSystem>();
+
+        var cache = IoCManager.Resolve<IResourceCache>();
+        _font = new VectorFont(cache.GetResource<FontResource>("/EngineFonts/NotoSans/NotoSans-Regular.ttf"), 10);
 
         MouseFilter = MouseFilterMode.Stop;
         RectClipContent = true;
@@ -116,7 +126,7 @@ public sealed class EvacMapControl : Control
             if (_current != null)
             {
                 if (_current.Count == 1)
-                    _current.Add(_current[0] + new Vector2(0.01f, 0f));
+                    _current.Add(_current[0] + new Vector2(0.01f, 0f)); // точка = короткий штрих
 
                 if (Strokes.Count < EvacZoneConstants.MaxStrokes)
                 {
@@ -260,13 +270,18 @@ public sealed class EvacMapControl : Control
 
     private void DrawMapGrids(DrawingHandleScreen handle)
     {
-        var color = new Color(130, 160, 190, 220);
+        var size = new Vector2(PixelSize.X, PixelSize.Y);
         var query = _entMan.EntityQueryEnumerator<MapGridComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var grid, out var xform))
         {
             if (xform.MapID != Map)
                 continue;
 
+            _entMan.TryGetComponent(uid, out IFFComponent? iff);
+            if (!_entMan.TryGetComponent(uid, out PhysicsComponent? body) || !_shuttles.CanDraw(uid, body, iff))
+                continue;
+
+            var color = _shuttles.GetIFFColor(uid, self: false, iff);
             var matrix = _xform.GetWorldMatrix(uid);
             var box = grid.LocalAABB;
             var c0 = ToScreen(Vector2.Transform(box.BottomLeft, matrix));
@@ -278,6 +293,32 @@ public sealed class EvacMapControl : Control
             handle.DrawLine(c1, c2, color);
             handle.DrawLine(c2, c3, color);
             handle.DrawLine(c3, c0, color);
+
+            var labelName = _shuttles.GetIFFLabel(uid, self: false, iff);
+            if (labelName == null)
+                continue;
+
+            var worldCenter = Vector2.Transform(box.Center, matrix);
+            var distance = (worldCenter - Origin).Length();
+            var labelText = Loc.GetString("shuttle-console-iff-label",
+                ("name", labelName), ("distance", $"{distance:0.0}"));
+            var coordsText = $"({worldCenter.X:0.0}, {worldCenter.Y:0.0})";
+            var coordColor = new Color(color.R * 0.8f, color.G * 0.8f, color.B * 0.8f, 0.5f);
+
+            var labelDim = handle.GetDimensions(_font, labelText, 1f);
+            var coordsDim = handle.GetDimensions(_font, coordsText, 0.7f);
+
+            var yOffset = MathF.Max(box.Height, box.Width) * Scale / 1.8f;
+            var anchor = ToScreen(worldCenter) + new Vector2(0, yOffset);
+
+            var labelPos = anchor - new Vector2(labelDim.X / 2f, 0);
+            var coordPos = anchor - new Vector2(coordsDim.X / 2f, -labelDim.Y);
+
+            var clamped = Vector2.Clamp(labelPos, Vector2.Zero, size - labelDim);
+            handle.DrawString(_font, clamped, labelText, color);
+
+            if (clamped == labelPos)
+                handle.DrawString(_font, coordPos, coordsText, 0.7f, coordColor);
         }
     }
 }

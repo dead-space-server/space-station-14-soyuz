@@ -7,6 +7,7 @@ using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.Graphics.RSI;
 using Robust.Shared.Utility;
 
 namespace Content.Client.DeadSpace._Soyuz.Shuttles;
@@ -38,9 +39,9 @@ public sealed class ShuttleCollisionSafetyControl : PanelContainer
         content.AddChild(row);
         row.AddChild(new TextureRect
         {
-            Texture = new AtlasTexture(_resources.GetResource<TextureResource>(
-                "/Textures/_DeadSpace/_Soyuz/Structures/Machines/rubezh_sensor.rsi/on.png").Texture,
-                UIBox2.FromDimensions(new Vector2(32, 0), new Vector2(32))),
+            Texture = _resources.GetResource<RSIResource>(
+                new ResPath("/Textures/_DeadSpace/_Soyuz/Structures/Machines/rubezh_sensor.rsi"))
+                .RSI["on"].GetFrame(RsiDirection.North, 0),
             SetSize = new Vector2(32), Stretch = TextureRect.StretchMode.KeepCentered,
             MouseFilter = MouseFilterMode.Ignore,
         });

@@ -1,0 +1,55 @@
+- type: lockdownDepartment
+  id: LockdownDepartmentCommand
+  name: lockdown-department-command
+  access:
+  - Command
+
+- type: lockdownDepartment
+  id: LockdownDepartmentSecurity
+  name: lockdown-department-security
+  access:
+  - Security
+  - Brig
+  - Armory
+  - Detective
+
+- type: lockdownDepartment
+  id: LockdownDepartmentMedical
+  name: lockdown-department-medical
+  access:
+  - Medical
+  - Chemistry
+
+- type: lockdownDepartment
+  id: LockdownDepartmentEngineering
+  name: lockdown-department-engineering
+  access:
+  - Engineering
+  - Atmospherics
+
+- type: lockdownDepartment
+  id: LockdownDepartmentScience
+  name: lockdown-department-science
+  access:
+  - Research
+
+- type: lockdownDepartment
+  id: LockdownDepartmentCargo
+  name: lockdown-department-cargo
+  access:
+  - Cargo
+  - Salvage
+  - Quartermaster
+
+- type: lockdownDepartment
+  id: LockdownDepartmentService
+  name: lockdown-department-service
+  access:
+  - Service
+  - Bar
+  - Kitchen
+  - Janitor
+  - Hydroponics
+  - Theatre
+  - Chapel
+  - Library

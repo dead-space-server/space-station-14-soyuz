@@ -1,0 +1,111 @@
+- type: entity
+  parent: BaseComputer
+  id: ComputerLockdown
+  name: консоль безопасности станции
+  description: Позволяет объявить локдаун в отделе или на всей станции. Для работы требуется имплант специального допуска.
+  components:
+  - type: LockdownConsole
+    departments:
+    - LockdownDepartmentCommand
+    - LockdownDepartmentSecurity
+    - LockdownDepartmentMedical
+    - LockdownDepartmentEngineering
+    - LockdownDepartmentScience
+    - LockdownDepartmentCargo
+    - LockdownDepartmentService
+    keyJobs:
+    - Captain
+    - HeadOfSecurity
+    stationCancelJob: Captain
+    warningDelay: 20
+    lockdownDuration: 1800
+    keyConfirmWindow: 10
+    cancelledCooldown: 300
+    successCooldown: 180
+  - type: ActivatableUI
+    key: enum.LockdownConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.LockdownConsoleUiKey.Key:
+        type: LockdownConsoleBoundUserInterface
+  - type: Speech
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Common
+  - type: TTS
+    voicePrototypeId: Glados
+
+- type: entity
+  id: LockdownDoorHologram
+  name: голограмма локдауна
+  description: Предупреждающая голограмма. Шлюз заблокирован.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Effects/lockdown_hologram.rsi
+    drawdepth: Overdoors
+    noRot: true
+    layers:
+    - state: lockdown
+      shader: unshaded
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: LockdownAccessImplant
+  name: имплант специального допуска
+  description: Вшивается в запястье сущности и даёт доступ к консоли безопасност станции. Ваш личный криптографический ключ прямо у вас в руке.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: LockdownAccessImplant
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: LockdownAccessImplanter
+  name: имплантер
+  suffix: Специальный допуск
+  description: Одноразовый имплантер с имплантом специального допуска.
+  components:
+  - type: Implanter
+    implant: LockdownAccessImplant
+
+- type: entity
+  parent: BaseAction
+  id: ActionLockdownFreePass
+  name: Свободный допуск
+  description: На 10 секунд снимает выбранную дверь с локдауна, чтобы пройти. Не работает в зелёный и синий код.
+  components:
+  - type: Action
+    icon: _DeadSpace/_Soyuz/Actions/lockdown_free_pass.png
+  - type: TargetAction
+    range: 2
+  - type: EntityTargetAction
+    event: !type:LockdownFreePassEvent
+    canTargetSelf: false
+    whitelist:
+      components:
+      - Door
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: LockdownFreePassImplant
+  name: имплант свободного допуска
+  description: Позволяет на 10 секунд снять дверь с локдауна, чтобы пройти. Не работает в зелёный и синий код.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    implantAction: ActionLockdownFreePass
+  - type: LockdownFreePassImplant
+    duration: 10
+    disabledAlertLevels:
+    - green
+    - blue
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: LockdownFreePassImplanter
+  name: имплантер
+  suffix: Свободный допуск
+  description: Одноразовый имплантер с имплантом «свободный допуск».
+  components:
+  - type: Implanter
+    implant: LockdownFreePassImplant

@@ -21,11 +21,6 @@
     startAudio:
       path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg
 
-- type: preloadedGrid
-  id: SoyuzDeathSquad
-  path: Maps/_Soyuz/S1_deathsquad.yml
-  copies: 1
-
 - type: entity
   parent: BaseGameRule
   id: SoyuzDeathSquadRule
@@ -40,4 +35,4 @@
     willNotStartRandomly: true
   - type: RuleGrids
   - type: LoadMapRule
-    preloadedGrid: SoyuzDeathSquad
+    mapPath: Maps/_Soyuz/S1_deathsquad.yml

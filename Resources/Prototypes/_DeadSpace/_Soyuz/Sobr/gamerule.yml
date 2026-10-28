@@ -35,4 +35,4 @@
     willNotStartRandomly: true
   - type: RuleGrids
   - type: LoadMapRule
-    mapPath: Maps/_Soyuz/S1_deathsquad.yml
+    mapPath: /Maps/_Soyuz/S1_deathsquad.yml

@@ -9202,3 +9202,10 @@ Entries:
   changes:
   - type: Tweak
     message: Таяры теперь умеют мурлыкать.
+- id: 885
+  author: IvanKuvalda
+  time: '2026-10-28T01:42:57.594083+00:00'
+  pr: 2595
+  changes:
+  - type: Add
+    message: Локаль имени в шизофреническом сообщении убрана

@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseAction
+  id: ActionLockdownFreePass
+  name: Свободный допуск
+  description: На 10 секунд снимает выбранную дверь с локдауна, чтобы пройти. Не работает в зелёный и синий код.
+  components:
+  - type: Action
+    icon: _DeadSpace/_Soyuz/Actions/lockdown_free_pass.png
+  - type: TargetAction
+    range: 2
+  - type: EntityTargetAction
+    event: !type:LockdownFreePassEvent
+    canTargetSelf: false
+    whitelist:
+      components:
+      - Door

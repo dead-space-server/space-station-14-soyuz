@@ -1,0 +1,32 @@
+- type: entity
+  id: GravityGeneratorInvisible
+  parent: GravityGeneratorMini
+  suffix: Гравген, Для маппинга
+  components:
+  - type: AmbientSound
+    volume: -100
+  - type: Physics
+    canCollide: false
+  - type: Stealth
+    minVisibility: -1
+    maxVisibility: -1
+  - type: ApcPowerReceiver
+    powerLoad: 2
+  - type: PowerCharge
+    idlePower: 1
+    activePower: 2
+  - type: ActivatableUI
+    key: enum.StorageUiKey.Key
+  - type: UserInterface
+    interfaces: {}
+
+- type: entity
+  id: StationAnchorInvisible
+  parent: StationAnchorIndestructible
+  suffix: Якорь, Для маппинга
+  components:
+  - type: Physics
+    canCollide: false
+  - type: Stealth
+    minVisibility: -1
+    maxVisibility: -1

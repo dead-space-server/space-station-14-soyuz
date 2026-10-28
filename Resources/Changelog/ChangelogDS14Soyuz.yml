@@ -2187,3 +2187,10 @@ Entries:
   changes:
   - type: Tweak
     message: Респрайт одежды для Системного Агента Прокуратуры
+- id: 208
+  author: Genes1us
+  time: '2026-10-28T16:46:18.491270+00:00'
+  pr: 538
+  changes:
+  - type: Add
+    message: Невидимый гравген и невидимый якорь мапперам

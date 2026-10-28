@@ -66,7 +66,7 @@ public sealed class LavalandHierophantStaffSystem : EntitySystem
         SubscribeLocalEvent<LavalandHierophantStaffComponent, LavalandHierophantStaffChaserActionEvent>(OnChaser);
         SubscribeLocalEvent<AttachmentHierophantChaserEvent>(OnAttachmentChaser);
         SubscribeLocalEvent<LavalandHierophantStaffComponent, LavalandAltUseEvent>(OnAltUse);
-        SubscribeLocalEvent<LavalandHierophantStaffComponent, GetVerbsEvent<UtilityVerb>>(OnGetBlessVerb);
+        SubscribeLocalEvent<MobThresholdsComponent, GetVerbsEvent<AlternativeVerb>>(OnGetBlessVerb);
         SubscribeLocalEvent<LavalandHierophantStaffComponent, LavalandHierophantBlessDoAfterEvent>(OnBlessDoAfter);
         SubscribeLocalEvent<LavalandHierophantStaffComponent, GotEquippedHandEvent>(OnEquippedHand);
         SubscribeLocalEvent<LavalandHierophantStaffComponent, GotUnequippedHandEvent>(OnUnequippedHand);
@@ -80,7 +80,12 @@ public sealed class LavalandHierophantStaffSystem : EntitySystem
         if (!CanUseStaff(ent, user))
             return;
 
-        // Only the blink here: the blessing is the staff's own action on a creature (see OnGetBlessVerb).
+        // On a living creature it is the blessing (the same as the verb in OnGetBlessVerb); anywhere else the blink.
+        if (args.Target is { } target && CanBless(target))
+        {
+            TryStartBlessing(ent, user, target);
+            return;
+        }
 
         var now = _timing.CurTime;
         if (now < ent.Comp.NextBlink)
@@ -106,23 +111,34 @@ public sealed class LavalandHierophantStaffSystem : EntitySystem
         UpdateAlerts(ent, user);
     }
 
-    /// <summary>The blessing, a verb of the staff on a living creature: not the same keys as the blink.</summary>
-    private void OnGetBlessVerb(Entity<LavalandHierophantStaffComponent> ent, ref GetVerbsEvent<UtilityVerb> args)
+    /// <summary>
+    /// The blessing: the alternative action on a living creature with the staff in hand (not the blink's keys).
+    /// </summary>
+    private void OnGetBlessVerb(Entity<MobThresholdsComponent> target, ref GetVerbsEvent<AlternativeVerb> args)
     {
-        var target = args.Target;
         var user = args.User;
-        if (!args.CanAccess || !args.CanInteract || target == ent.Owner ||
-            !HasComp<InputMoverComponent>(target) || !HasComp<MobStateComponent>(target) || IsDead(target) ||
-            !CanUseStaff(ent, user))
+        if (!args.CanAccess || !args.CanInteract ||
+            args.Using is not { } staff ||
+            !TryComp<LavalandHierophantStaffComponent>(staff, out var staffComp) ||
+            !CanBless(target) || !CanUseStaff(staff, user))
         {
             return;
         }
 
-        args.Verbs.Add(new UtilityVerb
+        var targetUid = target.Owner;
+        args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("lavaland-hierophant-staff-bless-verb"),
-            Act = () => TryStartBlessing(ent, user, target),
+            Priority = 5,
+            Act = () => TryStartBlessing((staff, staffComp), user, targetUid),
         });
+    }
+
+    /// <summary>A living creature that walks on its own: the blessing is only for such.</summary>
+    private bool CanBless(EntityUid target)
+    {
+        return HasComp<MobThresholdsComponent>(target) && HasComp<InputMoverComponent>(target) &&
+               HasComp<MobStateComponent>(target) && !IsDead(target);
     }
 
     private void TryStartBlessing(Entity<LavalandHierophantStaffComponent> ent, EntityUid user, EntityUid target)

@@ -104,9 +104,16 @@ public sealed partial class RepairOrderRegressionTest
 
                     Assert.That(orders.AbortActiveOrder(station.Owner, repairGrid, RepairOrderAbortReason.ValidationRuntimeLost), Is.True);
                     Assert.That(station.Comp.Active, Is.Null);
-                    Assert.That(entMan.HasComponent<RepairBlueprintComponent>(repairGrid), Is.False);
-                    Assert.That(entMan.IsQueuedForDeletion(repairGrid), Is.True);
+                    Assert.That(station.Comp.PendingCleanupGrids, Does.Contain(repairGrid));
+                    Assert.That(entMan.HasComponent<RepairOrderCleanupComponent>(repairGrid), Is.True);
+                    Assert.That(entMan.EntityExists(repairGrid), Is.True);
                     Assert.That(orders.AbortActiveOrder(station.Owner, repairGrid, RepairOrderAbortReason.ValidationRuntimeLost), Is.False);
+
+                    // Cleanup runs outside lifecycle callbacks and deletes an unoccupied grid synchronously.
+                    orders.Update(0f);
+                    Assert.That(entMan.HasComponent<RepairBlueprintComponent>(repairGrid), Is.False);
+                    Assert.That(entMan.EntityExists(repairGrid), Is.False);
+                    Assert.That(station.Comp.PendingCleanupGrids, Is.Empty);
                 }
                 finally
                 {
@@ -262,13 +269,15 @@ public sealed partial class RepairOrderRegressionTest
                     else
                     {
                         Assert.That(orders.AbortActiveOrder(station.Owner, repairGrid.Owner, RepairOrderAbortReason.ValidationRuntimeLost), Is.True);
-                        AssertControls(repairGrid.Owner, true);
+                        AssertControls(repairGrid.Owner, false);
                     }
 
                     Assert.That(station.Comp.Active, Is.Null);
-                    Assert.That(entMan.IsQueuedForDeletion(repairGrid.Owner), Is.True);
-                    entMan.DeleteEntity(repairGrid.Owner);
+                    Assert.That(station.Comp.PendingCleanupGrids, Does.Contain(repairGrid.Owner));
+                    Assert.That(entMan.HasComponent<RepairOrderCleanupComponent>(repairGrid.Owner), Is.True);
+                    Assert.That(entMan.EntityExists(repairGrid.Owner), Is.True);
                     orders.Update(0f);
+                    Assert.That(entMan.EntityExists(repairGrid.Owner), Is.False);
                     Assert.That(station.Comp.PendingCleanupGrids, Is.Empty);
                     // The policy retains no stale ownership after cleanup. This does not resurrect the grid.
                     AssertControls(repairGrid.Owner, true);

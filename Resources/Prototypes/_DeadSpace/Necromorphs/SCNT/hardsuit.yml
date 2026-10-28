@@ -1,5 +1,5 @@
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetCBURNNECROLeader
   name: шлем лидера ОПНУ
   description: Устойчивый к давлению и ударостойкий шлем ОПНУ.
@@ -84,7 +84,7 @@
       Omnizine: 5
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetCBURNNECROSoldier
   name: шлем солдата ОПНУ
   description: Устойчивый к давлению и ударостойкий шлем ОПНУ.

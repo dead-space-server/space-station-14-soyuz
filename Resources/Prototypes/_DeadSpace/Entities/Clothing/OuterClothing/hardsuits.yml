@@ -66,7 +66,7 @@
     sprintModifier: 0.90
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitSecurityRed]
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTAmberLeader
   name: шлем скафандра лидера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
@@ -96,7 +96,7 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitSecurityRed]
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTRedLeader
   name: шлем скафандра лидера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
@@ -136,7 +136,7 @@
     sprintModifier: 0.9
 
 - type: entity
-  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
+  parent: [ ClothingHeadHelmetRIGSecurityAdvanced, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTAmberSecurity
   name: шлем скафандра офицера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
@@ -167,7 +167,7 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitSecurityRed]
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTRedSecurity
   name: шлем скафандра офицера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
@@ -206,7 +206,7 @@
     sprintModifier: 0.95
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitMedChemEVA]
+  parent: [ ClothingHeadHelmetHardsuitMedChemEVA, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTAmberMedic
   name: шлем скафандра медика Эмбер
   description: Надеюсь оно спасёт от стержня мага.
@@ -237,7 +237,7 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitMedChemEVA]
+  parent: [ ClothingHeadHelmetHardsuitMedChemEVA, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTRedMedic
   name: шлем скафандра медика ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
@@ -281,7 +281,7 @@
     sprintModifier: 0.9
 
 - type: entity
-  parent: [ClothingHeadHelmetRIGEngineer]
+  parent: [ ClothingHeadHelmetRIGEngineer, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTAmberEngineer
   name: шлем скафандра инженера Эмбер
   description: Надеюсь оно спасёт от кирпича.
@@ -334,7 +334,7 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ClothingHeadHelmetRIGEngineer]
+  parent: [ ClothingHeadHelmetRIGEngineer, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTRedEngineer
   name: шлем скафандра инженера ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.
@@ -380,7 +380,7 @@
     sprintModifier: 0.9
 
 - type: entity
-  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
+  parent: [ ClothingHeadHelmetRIGSecurityAdvanced, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTAmberJanitor
   name: шлем скафандра офицера Эмбер
   description: Надеюсь оно спасёт от стержня мага.
@@ -411,7 +411,7 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ClothingHeadHelmetRIGSecurityAdvanced]
+  parent: [ ClothingHeadHelmetRIGSecurityAdvanced, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetERTRedJanitor
   name: шлем скафандра уборщика ОБР «Красного Кода»
   description: Надеюсь оно спасёт от стержня мага.

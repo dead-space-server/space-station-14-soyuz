@@ -80,14 +80,16 @@ public sealed partial class MedicalOrderWindow : FancyWindow
     private readonly BoxContainer _shopPage;
     private readonly BoxContainer _marketPage;
     private readonly BoxContainer _market;
+    private readonly BoxContainer _reagentDetails;
+    private readonly ScrollContainer _reagentDetailsScroll;
     private readonly LineEdit _marketSearch;
     private readonly Label _marketBeaker;
-    private readonly Label _marketSummary;
-    private readonly Label _marketRejected;
-    private readonly Label _marketLast;
+    private readonly RichTextLabel _marketSummary;
+    private readonly RichTextLabel _marketRejected;
+    private readonly RichTextLabel _marketLast;
     private readonly Button _marketBeakerButton;
     private readonly Button _marketSell;
-    private readonly EntityPrototypeView _machineIcon;
+    private readonly TextureRect _serviceIcon;
     private readonly Dictionary<string, int> _cart = new();
     private MedicalOrderUiState? _state;
     private string? _pendingPurchase;
@@ -99,8 +101,8 @@ public sealed partial class MedicalOrderWindow : FancyWindow
     {
         IoCManager.InjectDependencies(this);
         Title = Loc.GetString("medical-orders-window-title");
-        MinSize = new Vector2(680, 600);
-        SetSize = new Vector2(720, 700);
+        MinSize = new Vector2(960, 560);
+        SetSize = new Vector2(1120, 720);
 
         var root = new BoxContainer
         {
@@ -111,47 +113,40 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             Margin = new Thickness(10),
         };
 
-        var overview = new PanelContainer { HorizontalExpand = true };
+        var overview = Surface();
         var overviewRow = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             Margin = new Thickness(10, 8),
             SeparationOverride = 12,
         };
-        _machineIcon = new EntityPrototypeView
-        {
-            SetSize = new Vector2(48, 48),
-            Stretch = SpriteView.StretchMode.Fit,
-        };
-        overviewRow.AddChild(_machineIcon);
+        _serviceIcon = InterfaceIcon("service", 48);
+        overviewRow.AddChild(_serviceIcon);
         var overviewText = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
             SeparationOverride = 3,
         };
-        _heading = new Label
-        {
-            Text = Loc.GetString("medical-orders-window-title"),
-            StyleClasses = { "LabelHeading" },
-        };
+        _heading = ThemeLabel(Loc.GetString("medical-orders-window-title"));
+        _heading.StyleClasses.Add("LabelHeading");
+        _heading.ClipText = true;
         overviewText.AddChild(_heading);
-        _header = new Label { FontColorOverride = Color.LightGray };
+        _header = ThemeLabel(string.Empty, muted: true);
+        _header.ClipText = true;
         overviewText.AddChild(_header);
         overviewRow.AddChild(overviewText);
-        _timer = new Label
-        {
-            VerticalAlignment = VAlignment.Center,
-            FontColorOverride = Color.LightBlue,
-        };
-        overviewText.AddChild(_timer);
+        _timer = ThemeLabel(string.Empty);
+        _timer.VerticalAlignment = VAlignment.Center;
+        overviewRow.AddChild(_timer);
         overview.AddChild(overviewRow);
         root.AddChild(overview);
 
         _notice = new Label { Visible = false, Margin = new Thickness(4, 0) };
         root.AddChild(_notice);
 
-        _tabs = new TabContainer { HorizontalExpand = true, VerticalExpand = true };
+        _tabs = new TabContainer { HorizontalExpand = true, VerticalExpand = true, TabsVisible = false };
+        _tabs.PanelStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.Transparent };
         _offersPage = Page(_tabs, "medical-orders-offers");
         var offersScroll = new ScrollContainer
         {
@@ -178,15 +173,11 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         _activePage.AddChild(activeScroll);
 
         _shopPage = Page(_tabs, "medical-orders-shop");
-        var progressPanel = new PanelContainer { HorizontalExpand = true };
+        var progressPanel = Surface();
         var progressContent = Column();
         progressContent.Margin = new Thickness(10, 8);
-        progressContent.AddChild(new Label
-        {
-            Text = Loc.GetString("medical-orders-shop-level-heading"),
-            StyleClasses = { "LabelHeading" },
-        });
-        _shopProgressLabel = new Label { FontColorOverride = Color.LightGray };
+        progressContent.AddChild(SectionHeading("supplies", "medical-orders-shop-level-heading"));
+        _shopProgressLabel = ThemeLabel(string.Empty, muted: true);
         progressContent.AddChild(_shopProgressLabel);
         _shopProgress = new ProgressBar
         {
@@ -204,36 +195,37 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             HorizontalExpand = true,
             VerticalExpand = true,
             HScrollEnabled = false,
+            SizeFlagsStretchRatio = 3,
         };
         var shopContent = Column();
         _shop = Section(shopContent, "medical-orders-catalog-heading");
         shopScroll.AddChild(shopContent);
-        _shopPage.AddChild(shopScroll);
+        var shopBody = new BoxContainer { HorizontalExpand = true, VerticalExpand = true, SeparationOverride = 12 };
+        shopBody.AddChild(shopScroll);
+        _shopPage.AddChild(shopBody);
 
-        var cartPanel = new PanelContainer { HorizontalExpand = true };
+        var cartPanel = Surface();
+        cartPanel.MinWidth = 300;
+        cartPanel.SizeFlagsStretchRatio = 2;
         var cartContent = Column();
         cartContent.Margin = new Thickness(10, 8);
-        cartContent.AddChild(new Label
-        {
-            Text = Loc.GetString("medical-orders-cart-heading"),
-            StyleClasses = { "LabelHeading" },
-        });
+        cartContent.AddChild(SectionHeading("supplies", "medical-orders-cart-heading"));
         _cartLines = Column();
         var cartScroll = new ScrollContainer
         {
             HorizontalExpand = true,
             HScrollEnabled = false,
-            MaxHeight = 120,
+            VerticalExpand = true,
         };
         cartScroll.AddChild(_cartLines);
         cartContent.AddChild(cartScroll);
-        _cartSummary = new Label { FontColorOverride = Color.LightBlue };
+        _cartSummary = ThemeLabel(string.Empty);
         cartContent.AddChild(_cartSummary);
-        _checkout = new Button { Text = Loc.GetString("medical-orders-checkout"), HorizontalExpand = true };
+        _checkout = new Button { Text = Loc.GetString("medical-orders-checkout"), HorizontalExpand = true, MinHeight = 38 };
         _checkout.OnPressed += _ => SubmitCart();
         cartContent.AddChild(_checkout);
         cartPanel.AddChild(cartContent);
-        _shopPage.AddChild(cartPanel);
+        shopBody.AddChild(cartPanel);
 
         _marketPage = Page(_tabs, "medical-orders-market-title");
         _marketPage.SetPositionInParent(2);
@@ -242,10 +234,15 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             PlaceHolder = Loc.GetString("medical-orders-market-search"),
             HorizontalExpand = true,
         };
-        _marketPage.AddChild(_marketSearch);
-        var marketPanel = new PanelContainer { HorizontalExpand = true, VerticalExpand = true };
+        var marketBody = new BoxContainer { HorizontalExpand = true, VerticalExpand = true, SeparationOverride = 12 };
+        _marketPage.AddChild(marketBody);
+        var marketPanel = Surface();
+        marketPanel.VerticalExpand = true;
+        marketPanel.SizeFlagsStretchRatio = 3;
         var marketContent = Column();
         marketContent.Margin = new Thickness(8);
+        marketContent.AddChild(SectionHeading("quotes", "medical-orders-market-live-prices"));
+        marketContent.AddChild(_marketSearch);
         marketContent.AddChild(MarketRow(new[] { "reagent", "price", "reputation", "volume" }
             .Select(heading => Loc.GetString($"medical-orders-market-column-{heading}")).ToArray(), true));
         var marketScroll = new ScrollContainer
@@ -259,17 +256,23 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         marketScroll.AddChild(_market);
         marketContent.AddChild(marketScroll);
         marketPanel.AddChild(marketContent);
-        _marketPage.AddChild(marketPanel);
-        var salePanel = new PanelContainer { HorizontalExpand = true };
+        marketBody.AddChild(marketPanel);
+        var marketSidebar = Column();
+        marketSidebar.VerticalExpand = true;
+        marketSidebar.SizeFlagsStretchRatio = 2;
+        marketSidebar.MinWidth = 300;
+        marketBody.AddChild(marketSidebar);
+        var salePanel = Surface();
         var saleContent = Column();
         saleContent.Margin = new Thickness(10, 8);
+        saleContent.AddChild(SectionHeading("beaker", "medical-orders-sale-heading"));
         var beakerRow = new BoxContainer
         {
-            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
             HorizontalExpand = true,
             SeparationOverride = 8,
         };
-        _marketBeaker = Info(string.Empty);
+        _marketBeaker = ThemeLabel(string.Empty, muted: true);
         _marketBeaker.ClipText = true;
         _marketBeaker.VerticalAlignment = VAlignment.Center;
         beakerRow.AddChild(_marketBeaker);
@@ -277,28 +280,45 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         _marketBeakerButton.OnPressed += _ => OnBeakerSlot?.Invoke();
         beakerRow.AddChild(_marketBeakerButton);
         saleContent.AddChild(beakerRow);
-        _marketSummary = new Label { FontColorOverride = Color.LightBlue };
+        _marketSummary = new RichTextLabel { HorizontalExpand = true };
         saleContent.AddChild(_marketSummary);
-        _marketRejected = Info(string.Empty);
+        _marketRejected = new RichTextLabel { HorizontalExpand = true };
         saleContent.AddChild(_marketRejected);
-        _marketLast = Info(string.Empty);
+        _marketLast = new RichTextLabel { HorizontalExpand = true };
         saleContent.AddChild(_marketLast);
         _marketSell = new Button
         {
             Text = Loc.GetString("medical-orders-market-sell"),
             HorizontalExpand = true,
+            MinHeight = 44,
         };
         _marketSell.OnPressed += _ => OnRequest?.Invoke(
             new MedicalOrderRequestMessage(MedicalOrderAction.SellReagents));
         saleContent.AddChild(_marketSell);
         salePanel.AddChild(saleContent);
-        _marketPage.AddChild(salePanel);
+        marketSidebar.AddChild(salePanel);
+        var detailsPanel = Surface();
+        detailsPanel.VerticalExpand = true;
+        var detailsContent = Column();
+        detailsContent.Margin = new Thickness(10, 8);
+        detailsContent.AddChild(SectionHeading("beaker", "medical-orders-reagent-heading"));
+        var detailsScroll = new ScrollContainer
+        {
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            HScrollEnabled = false,
+        };
+        _reagentDetailsScroll = detailsScroll;
+        _reagentDetails = Column();
+        detailsScroll.AddChild(_reagentDetails);
+        detailsContent.AddChild(detailsScroll);
+        detailsPanel.AddChild(detailsContent);
+        marketSidebar.AddChild(detailsPanel);
         _marketSearch.OnTextChanged += _ => RebuildMarket();
 
         InitializeSpecialContracts();
 
-        root.AddChild(_tabs);
-        ContentsContainer.AddChild(root);
+        InitializePresentation(root);
     }
 
     private static BoxContainer Page(TabContainer tabs, string title)
@@ -317,16 +337,13 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         SeparationOverride = 7,
     };
 
-    private static BoxContainer Section(BoxContainer parent, string title)
+    private BoxContainer Section(BoxContainer parent, string title)
     {
-        var panel = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
+        var panel = Surface();
         var content = Column();
         content.Margin = new Thickness(10, 8);
-        content.AddChild(new Label
-        {
-            Text = Loc.GetString(title),
-            StyleClasses = { "LabelHeading" },
-        });
+        content.AddChild(SectionHeading(title == "medical-orders-completed" ? "history" :
+            title == "medical-orders-active" ? "patient" : title == "medical-orders-catalog-heading" ? "supplies" : "orders", title));
         var body = Column();
         content.AddChild(body);
         panel.AddChild(content);
@@ -337,10 +354,12 @@ public sealed partial class MedicalOrderWindow : FancyWindow
     public void UpdateState(MedicalOrderUiState state)
     {
         var previous = _state;
-        var firstState = previous == null;
+        var kindChanged = previous == null || previous.Kind != state.Kind;
         if (_state != null && _state.Kind != state.Kind)
             _cart.Clear();
         _state = state;
+        if (kindChanged)
+            ApplyPresentation();
         foreach (var id in _cart.Keys.ToArray())
         {
             var item = state.Shop.FirstOrDefault(i => i.ID == id && !i.Classified &&
@@ -352,27 +371,29 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         }
         Title = Loc.GetString(state.Kind == MedicalOrderMachineKind.Reagent
             ? "medical-orders-market-window-title" : "medical-orders-window-title");
-        _heading.Text = Title;
+        _heading.Text = Loc.GetString(state.Kind switch
+        {
+            MedicalOrderMachineKind.Reagent => "medical-orders-exchange-heading",
+            MedicalOrderMachineKind.PatientSender => "medical-orders-evacuation-heading",
+            _ => "medical-orders-dispatch-heading",
+        });
+        _heading.ToolTip = _heading.Text;
         TabContainer.SetTabVisible(_offersPage, state.Kind == MedicalOrderMachineKind.PatientReceiver);
         TabContainer.SetTabVisible(_activePage, state.Kind != MedicalOrderMachineKind.Reagent);
         TabContainer.SetTabVisible(_shopPage, state.Kind != MedicalOrderMachineKind.PatientReceiver);
         TabContainer.SetTabVisible(_marketPage, state.Kind == MedicalOrderMachineKind.Reagent);
-        if (firstState)
+        if (kindChanged)
             _tabs.CurrentTab = state.Kind switch
             {
                 MedicalOrderMachineKind.Reagent => 2,
                 MedicalOrderMachineKind.PatientSender => 1,
                 _ => 0,
             };
-        _machineIcon.SetPrototype(state.Kind switch
-        {
-            MedicalOrderMachineKind.Reagent => "SoyuzMedicalReagentOrderMachine",
-            MedicalOrderMachineKind.PatientReceiver => "SoyuzMedicalPatientReceiver",
-            _ => "SoyuzMedicalPatientSender",
-        });
+        UpdateNavigation();
         _header.Text = Loc.GetString("medical-orders-economy",
             ("points", state.Points), ("reputation", state.Reputation),
             ("level", state.ShopLevel));
+        _header.ToolTip = _header.Text;
         if (state.NextShopLevelThreshold is { } next)
         {
             _shopProgress.Visible = true;
@@ -406,6 +427,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                     Text = Loc.GetString("medical-orders-accept"),
                     Disabled = state.Active != null || state.SpecialActive != null,
                     HorizontalExpand = true,
+                    MinHeight = 34,
                 };
                 button.OnPressed += _ => OnRequest?.Invoke(new MedicalOrderRequestMessage(MedicalOrderAction.Accept, id));
                 content.AddChild(button);
@@ -419,17 +441,14 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             {
                 Text = Loc.GetString("medical-orders-score", ("score", active.CurrentScore),
                     ("max", active.MaximumScore)),
-                FontColorOverride = Color.LightBlue,
+                FontColorOverride = Accent,
             });
 
             if (state.Kind != MedicalOrderMachineKind.Reagent &&
                 state.PatientInitialDamage is { } initial && state.PatientCurrentDamage is { } current)
             {
-                content.AddChild(new Label
-                {
-                    Text = Loc.GetString("medical-orders-patient-health", ("initial", initial),
-                        ("current", current), ("threshold", state.PatientCompletionThreshold)),
-                });
+                content.AddChild(WrappedText(Loc.GetString("medical-orders-patient-health", ("initial", initial),
+                    ("current", current), ("threshold", state.PatientCompletionThreshold))));
                 content.AddChild(new ProgressBar
                 {
                     MinValue = 0f,
@@ -437,6 +456,8 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                     Value = initial <= 0 ? 0f : Math.Clamp(1f - current / initial, 0f, 1f),
                     HorizontalExpand = true,
                     MinHeight = 12f,
+                    BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#1B3036") },
+                    ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Accent },
                 });
                 if (state.Kind == MedicalOrderMachineKind.PatientSender)
                 {
@@ -444,7 +465,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                     {
                         Text = Loc.GetString(state.PatientInserted
                             ? "medical-orders-patient-inserted" : "medical-orders-patient-not-inserted"),
-                        FontColorOverride = state.PatientInserted ? Color.LightGreen : Color.Orange,
+                        FontColorOverride = state.PatientInserted ? Accent : Warning,
                     });
                     content.AddChild(new Label
                     {
@@ -453,6 +474,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                                 ? "medical-orders-yes" : "medical-orders-no")),
                             ("critical", Loc.GetString(state.PatientCritical
                                 ? "medical-orders-yes" : "medical-orders-no"))),
+                        FontColorOverride = Ink,
                     });
                 }
             }
@@ -488,7 +510,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         RebuildMarket();
         RebuildSpecialContracts();
         // Market quotes refresh every second; keep unchanged shop buttons and the cart in place.
-        if (previous == null || previous.Points != state.Points || previous.ShopLevel != state.ShopLevel ||
+        if (kindChanged || previous == null || previous.Points != state.Points || previous.ShopLevel != state.ShopLevel ||
             !previous.Shop.Select(i => (i.ID, i.Entity, i.Cost, i.MaxCount, i.MinimumShopLevel, i.Classified))
                 .SequenceEqual(state.Shop.Select(i =>
                     (i.ID, i.Entity, i.Cost, i.MaxCount, i.MinimumShopLevel, i.Classified))))
@@ -496,16 +518,21 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         UpdateTimer();
     }
 
-    private static Label Info(string value) => new()
+    private RichTextLabel Info(string value)
     {
-        Text = value,
-        HorizontalExpand = true,
-        FontColorOverride = Color.LightGray,
-    };
+        var label = new RichTextLabel { HorizontalExpand = true };
+        label.SetMessage(value, Muted);
+        return label;
+    }
 
     private BoxContainer OrderCard(BoxContainer parent, MedicalOrderView order, MedicalOrderMachineKind kind)
     {
-        var panel = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
+        var panel = new PanelContainer
+        {
+            HorizontalExpand = true,
+            Margin = new Thickness(0, 4),
+            PanelOverride = SheetStyle(emphasis: order.Deadline != null),
+        };
         var content = Column();
         content.Margin = new Thickness(8);
         var heading = new BoxContainer
@@ -513,30 +540,16 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             SeparationOverride = 8,
         };
-        var icon = new EntityPrototypeView
-        {
-            SetSize = new Vector2(36, 36),
-            Stretch = SpriteView.StretchMode.Fit,
-        };
-        icon.SetPrototype(kind == MedicalOrderMachineKind.Reagent
-            ? "SoyuzMedicalReagentOrderMachine" : "SoyuzMedicalPatientReceiver");
-        heading.AddChild(icon);
-        heading.AddChild(new Label
-        {
-            Text = Loc.GetString(order.Title),
-            StyleClasses = { "LabelHeading" },
-            VerticalAlignment = VAlignment.Center,
-            HorizontalExpand = true,
-        });
+        heading.AddChild(InterfaceIcon(kind == MedicalOrderMachineKind.Reagent ? "orders" : "patient"));
+        var title = WrappedText(Loc.GetString(order.Title));
+        title.StyleClasses.Add("LabelHeading");
+        title.VerticalAlignment = VAlignment.Center;
+        heading.AddChild(title);
         content.AddChild(heading);
         content.AddChild(Info(OrderTitle(order)));
         foreach (var line in order.Lines)
         {
-            content.AddChild(new Label
-            {
-                Text = LineText(line, kind),
-                HorizontalExpand = true,
-            });
+            content.AddChild(WrappedText(LineText(line, kind)));
             if (order.Deadline != null && kind == MedicalOrderMachineKind.Reagent)
                 content.AddChild(new ProgressBar
                 {
@@ -579,7 +592,9 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         if (_state == null || _state.Kind != MedicalOrderMachineKind.Reagent)
             return;
 
-        _market.RemoveAllChildren();
+        _market.DisposeAllChildren();
+        _marketRows.Clear();
+        var visibleReagents = new List<string>();
         var index = 0;
         foreach (var entry in _state.Market)
         {
@@ -587,44 +602,48 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                 ? reagent.LocalizedName : entry.Reagent;
             if (!name.Contains(_marketSearch.Text, StringComparison.CurrentCultureIgnoreCase))
                 continue;
-            var panel = new PanelContainer
+            var panel = new ContainerButton
             {
                 HorizontalExpand = true,
-                PanelOverride = new StyleBoxFlat
-                {
-                    BackgroundColor = Color.FromHex(entry.Available > 0
-                        ? "#263C39" : index % 2 == 0 ? "#252A35" : "#2C3240"),
-                },
+                StyleBoxOverride = MarketRowStyle(entry.Reagent == _selectedReagent, entry.Available > 0, index),
+                ToolTip = name,
             };
             panel.AddChild(MarketRow(new[]
             {
                 name, entry.Price.ToString("0.###"), entry.Reputation.ToString("0.####"),
                 entry.Available.ToString("0.##"),
             }, false, reagent?.SubstanceColor, entry.Available > 0));
+            var reagentId = entry.Reagent;
+            panel.OnPressed += _ => SelectReagent(reagentId);
+            _marketRows.Add((reagentId, panel, entry.Available > 0, index));
+            visibleReagents.Add(reagentId);
             _market.AddChild(panel);
             index++;
         }
         if (index == 0)
             _market.AddChild(Info(Loc.GetString("medical-orders-none")));
+        SelectReagent(_selectedReagent != null && visibleReagents.Contains(_selectedReagent)
+            ? _selectedReagent : visibleReagents.FirstOrDefault());
 
         _marketBeaker.Text = _state.ReagentBeakerName is { } beakerName
             ? Loc.GetString("medical-orders-beaker-inserted", ("name", beakerName))
             : Loc.GetString("medical-orders-beaker-empty");
+        _marketBeaker.ToolTip = _marketBeaker.Text;
         _marketBeakerButton.Text = Loc.GetString(_state.ReagentBeakerName == null
             ? "medical-orders-insert-beaker" : "medical-orders-eject-beaker");
-        _marketSummary.Text = Loc.GetString("medical-orders-market-preview",
+        _marketSummary.SetMessage(Loc.GetString("medical-orders-market-preview",
             ("volume", _state.MarketAcceptedVolume.ToString("0.##")),
-            ("points", _state.MarketPreviewPoints), ("reputation", _state.MarketPreviewReputation));
+            ("points", _state.MarketPreviewPoints), ("reputation", _state.MarketPreviewReputation)), Accent);
         _marketRejected.Visible = _state.MarketRejectedVolume > 0;
-        _marketRejected.Text = Loc.GetString("medical-orders-market-rejected",
-            ("volume", _state.MarketRejectedVolume.ToString("0.##")));
+        _marketRejected.SetMessage(Loc.GetString("medical-orders-market-rejected",
+            ("volume", _state.MarketRejectedVolume.ToString("0.##"))), Warning);
         _marketLast.Visible = _state.LastMarketPoints > 0 || _state.LastMarketReputation > 0;
-        _marketLast.Text = Loc.GetString("medical-orders-market-last-sale",
-            ("points", _state.LastMarketPoints), ("reputation", _state.LastMarketReputation));
+        _marketLast.SetMessage(Loc.GetString("medical-orders-market-last-sale",
+            ("points", _state.LastMarketPoints), ("reputation", _state.LastMarketReputation)), Muted);
         _marketSell.Disabled = _state.MarketAcceptedVolume <= 0;
     }
 
-    private static BoxContainer MarketRow(string[] values, bool heading, Color? reagentColor = null,
+    private BoxContainer MarketRow(string[] values, bool heading, Color? reagentColor = null,
         bool supplied = false)
     {
         var row = new BoxContainer
@@ -633,28 +652,40 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             HorizontalExpand = true,
             SeparationOverride = 8,
             Margin = new Thickness(8, 6),
+            MouseFilter = MouseFilterMode.Ignore,
         };
-        var nameCell = new BoxContainer { HorizontalExpand = true, SeparationOverride = 8 };
+        var nameCell = new BoxContainer
+        {
+            HorizontalExpand = true,
+            SeparationOverride = 8,
+            MouseFilter = MouseFilterMode.Ignore,
+        };
         nameCell.AddChild(new PanelContainer
         {
             SetWidth = 6,
             PanelOverride = new StyleBoxFlat { BackgroundColor = reagentColor ?? Color.Transparent },
+            MouseFilter = MouseFilterMode.Ignore,
         });
-        var name = new Label { Text = values[0], HorizontalExpand = true, ClipText = true, ToolTip = values[0] };
+        var name = heading ? ThemeLabel(values[0]) : new Label { Text = values[0], FontColorOverride = Ink };
+        name.HorizontalExpand = true;
+        name.ClipText = true;
+        name.ToolTip = values[0];
+        name.MouseFilter = MouseFilterMode.Ignore;
         if (heading)
             name.StyleClasses.Add("LabelHeading");
         nameCell.AddChild(name);
         row.AddChild(nameCell);
         for (var i = 1; i < values.Length; i++)
         {
-            var cell = new Label
+            var cell = heading ? ThemeLabel(values[i], muted: true) : new Label
             {
                 Text = values[i],
-                SetWidth = i == 2 ? 130 : 110,
-                ClipText = true,
-                ToolTip = values[i],
-                FontColorOverride = supplied ? Color.LightGreen : Color.LightGray,
+                FontColorOverride = supplied ? Accent : Muted,
             };
+            cell.SetWidth = i == 1 ? 80 : 110;
+            cell.ClipText = true;
+            cell.ToolTip = values[i];
+            cell.MouseFilter = MouseFilterMode.Ignore;
             if (heading)
                 cell.StyleClasses.Add("LabelHeading");
             row.AddChild(cell);
@@ -680,7 +711,12 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                 name = entity.Name;
             }
 
-            var panel = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
+            var panel = new PanelContainer
+            {
+                HorizontalExpand = true,
+                Margin = new Thickness(0, 2),
+                PanelOverride = SheetStyle(),
+            };
             var row = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal,
@@ -705,25 +741,20 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                     Text = "?",
                     MinSize = new Vector2(40, 40),
                     VerticalAlignment = VAlignment.Center,
-                    FontColorOverride = Color.LightGray,
+                    FontColorOverride = Muted,
                 });
             }
 
             var details = Column();
-            details.AddChild(new Label
-            {
-                Text = name,
-                StyleClasses = { "LabelHeading" },
-                FontColorOverride = locked ? Color.LightGray : null,
-            });
-            details.AddChild(new Label
-            {
-                Text = item.Classified
+            var itemName = WrappedText(name);
+            itemName.StyleClasses.Add("LabelHeading");
+            details.AddChild(itemName);
+            var price = new RichTextLabel { HorizontalExpand = true };
+            price.SetMessage(item.Classified
                     ? Loc.GetString("medical-orders-shop-locked", ("level", item.MinimumShopLevel))
                     : Loc.GetString("medical-orders-shop-price", ("cost", item.Cost),
-                        ("level", item.MinimumShopLevel)),
-                FontColorOverride = locked ? Color.Orange : Color.LightBlue,
-            });
+                        ("level", item.MinimumShopLevel)), locked ? Warning : Accent);
+            details.AddChild(price);
             row.AddChild(details);
 
             var controls = new BoxContainer
@@ -744,6 +775,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             controls.AddChild(new Label
             {
                 Text = count.ToString(),
+                FontColorOverride = Ink,
                 MinSize = new Vector2(25, 0),
                 HorizontalAlignment = HAlignment.Center,
                 VerticalAlignment = VAlignment.Center,
@@ -772,7 +804,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         if (_state == null)
             return;
         long total = 0;
-        _cartLines.RemoveAllChildren();
+        _cartLines.DisposeAllChildren();
         foreach (var item in _state.Shop)
         {
             if (_cart.TryGetValue(item.ID, out var count) && count > 0)
@@ -781,12 +813,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                 var name = item.Entity;
                 if (_prototypes.TryIndex<EntityPrototype>(item.Entity, out var entity))
                     name = entity.Name;
-                _cartLines.AddChild(new Label
-                {
-                    Text = Loc.GetString("medical-orders-cart-line", ("name", name),
-                        ("count", count), ("total", item.Cost * count)),
-                    HorizontalExpand = true,
-                });
+                _cartLines.AddChild(CartLine(item, name, count));
             }
         }
         if (_cartLines.ChildCount == 0)

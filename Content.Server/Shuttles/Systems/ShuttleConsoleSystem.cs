@@ -302,7 +302,13 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         if (_ui.HasUi(consoleUid, ShuttleConsoleUiKey.Key))
         {
-            _ui.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, new ShuttleBoundUserInterfaceState(navState, mapState, dockState));
+            // DS14-Soyuz-start
+            var state = new ShuttleBoundUserInterfaceState(navState, mapState, dockState)
+            {
+                CollisionSafety = EntityManager.System<Content.Server.DeadSpace._Soyuz.Shuttles.ShuttleCollisionSensorSystem>().GetStatus(shuttleGridUid),
+            };
+            _ui.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, state);
+            // DS14-Soyuz-end
         }
     }
 

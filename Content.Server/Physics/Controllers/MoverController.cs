@@ -30,6 +30,7 @@ public sealed class MoverController : SharedMoverController
         "Amount of ActiveInputMovers being processed by MoverController");
 
     [Dependency] private readonly ThrusterSystem _thruster = default!;
+    [Dependency] private readonly Content.Server.DeadSpace._Soyuz.Shuttles.ShuttleCollisionSensorSystem _collisionSensors = default!; // DS14-Soyuz
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
     // DS14-Soyuz-start
@@ -579,6 +580,14 @@ public sealed class MoverController : SharedMoverController
             pilots.Item2.Add((uid, pilot, mover, xform));
         }
 
+        // DS14-Soyuz-start
+        foreach (var grid in _collisionSensors.GetControlledShuttles())
+        {
+            if (!newPilots.ContainsKey(grid) && !CanPilot(grid) && _shuttleQuery.TryComp(grid, out var shuttle))
+                newPilots[grid] = (shuttle, []);
+        }
+        // DS14-Soyuz-end
+
         // Reset inputs for non-piloted shuttles.
         foreach (var (shuttleUid, (shuttle, _)) in _shuttlePilots)
         {
@@ -586,6 +595,7 @@ public sealed class MoverController : SharedMoverController
                 continue;
 
             _thruster.DisableLinearThrusters(shuttle);
+            _thruster.SetAngularThrust(shuttle, false); // DS14-Soyuz
         }
 
         _shuttlePilots = newPilots;
@@ -635,6 +645,7 @@ public sealed class MoverController : SharedMoverController
             linearInput /= Math.Max(1, linearCount);
             angularInput /= Math.Max(1, angularCount);
             brakeInput /= Math.Max(1, brakeCount);
+            _collisionSensors.FilterMovement(shuttleUid, ref linearInput, ref angularInput, ref brakeInput); // DS14-Soyuz
 
             // Handle shuttle movement
             if (brakeInput > 0f)

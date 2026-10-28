@@ -1,0 +1,14 @@
+ent-TimerCartridge = timer cartridge
+    .desc = A countdown timer with PDA notifications.
+timer-cartridge-program-name = Timer
+timer-cartridge-hours = Hours
+timer-cartridge-minutes = Minutes
+timer-cartridge-seconds = Seconds
+timer-cartridge-name-placeholder = Reminder name (optional)
+timer-cartridge-start = Start
+timer-cartridge-pause = Pause
+timer-cartridge-resume = Resume
+timer-cartridge-reset = Reset
+timer-cartridge-status-idle = Set a duration and start the timer.
+timer-cartridge-notification = The timer has finished!
+timer-cartridge-notification-named = The timer "{ $name }" has finished!

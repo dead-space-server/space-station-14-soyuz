@@ -2,7 +2,7 @@
   parent: ClothingUniformBase
   id: SoyuzClothingUniformBase
   name: крутая одежда
-  description: Слава умывальнику.
+  description: Крутая одежда.
   abstract: true
   components:
   - type: WebbingClothing
@@ -41,7 +41,7 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/hop_turtle.rsi
 
 - type: entity
-  parent: [SoyuzClothingUniformBase, BaseCommandContraband]
+  parent: SoyuzClothingUniformBase
   id: ClothingUniformUSSPJumpsuit
   name: футболка с гербом СССП
   description: Самая стильная футболка во всём государстве.
@@ -50,3 +50,14 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/ussp_jumpsuit.rsi
+
+- type: entity
+  parent: SoyuzClothingUniformBase
+  id: ClothingUniformJumpsuitPOSA # POSA -> Prosecutor's Office System Agent -> Системный агент прокуратуры
+  name: рубашка системного агента прокуратуры 
+  description: Смотря на человека в этой рубашке, вы понимаете, что он ваш последний шанс не оказаться со старшим следователем и его паяльником в допросной.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/posa.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpsuit/posa.rsi

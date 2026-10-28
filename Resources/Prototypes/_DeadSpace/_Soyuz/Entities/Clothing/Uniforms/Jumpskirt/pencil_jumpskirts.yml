@@ -19,3 +19,14 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/hop_pencil.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/hop_pencil.rsi
+
+- type: entity
+  parent: ClothingUniformSkirtBase
+  id: ClothingUniformJumpskirtPencilPOSA
+  name: юбка-карандаш системного агента прокуратуры 
+  description: Смотря на человека в этой юбке, вы понимаете, что она ваш последний шанс не оказаться со старшим следователем и его паяльником в допросной.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/posa_pencil.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Clothing/Uniforms/Jumpskirt/posa_pencil.rsi

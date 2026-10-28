@@ -1,0 +1,17 @@
+# Фуражка
+- type: loadout
+  id: POSAHeadCap
+  equipment:
+    head: ClothingHeadPOSACap
+
+# Юбка
+- type: loadout
+  id: POSAJumpskirt
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtPOSA
+
+# Юбка-карандаш
+- type: loadout
+  id: POSAJumpskirtPencil
+  equipment:
+    jumpsuit: ClothingUniformJumpskirtPencilPOSA

@@ -33,7 +33,7 @@
     channels:
     - Common
   - type: TTS
-    voicePrototypeId: Glados
+    voice: Glados
 
 - type: entity
   id: LockdownDoorHologram

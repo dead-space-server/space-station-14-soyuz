@@ -1,29 +1,44 @@
 - type: lockdownDepartment
   id: LockdownDepartmentCommand
   name: lockdown-department-command
-  access:
+  access: 
+  - Captain
   - Command
+  - ChiefEngineer
+  - ChiefMedicalOfficer
+  - Cryogenics
+  - HeadOfPersonnel
+  - HeadOfSecurity
+  - Quartermaster
+  - ResearchDirector
 
 - type: lockdownDepartment
   id: LockdownDepartmentSecurity
   name: lockdown-department-security
   access:
+  - HeadOfSecurity
   - Security
-  - Brig
+  - Brigmedic
   - Armory
+  - Brig
   - Detective
 
 - type: lockdownDepartment
   id: LockdownDepartmentMedical
   name: lockdown-department-medical
   access:
+  - ChiefMedicalOfficer
   - Medical
   - Chemistry
+  - Paramedic
+  - Coroner
+  - Virology
 
 - type: lockdownDepartment
   id: LockdownDepartmentEngineering
   name: lockdown-department-engineering
   access:
+  - ChiefEngineer
   - Engineering
   - Atmospherics
 
@@ -31,25 +46,28 @@
   id: LockdownDepartmentScience
   name: lockdown-department-science
   access:
+  - ResearchDirector
   - Research
 
 - type: lockdownDepartment
   id: LockdownDepartmentCargo
   name: lockdown-department-cargo
   access:
-  - Cargo
-  - Salvage
   - Quartermaster
+  - Salvage
+  - Cargo
+  - SeniorSalvage
 
 - type: lockdownDepartment
   id: LockdownDepartmentService
   name: lockdown-department-service
   access:
-  - Service
+  - HeadOfPersonnel
   - Bar
   - Kitchen
-  - Janitor
   - Hydroponics
+  - Service
+  - Janitor
   - Theatre
   - Chapel
-  - Library
+  - Lawyer

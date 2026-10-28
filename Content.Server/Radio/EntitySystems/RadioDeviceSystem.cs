@@ -17,7 +17,6 @@ using Content.Shared.DeadSpace.Languages.Components;
 using Content.Shared.Verbs;// DS14
 using Content.Shared.Database;// DS14
 using Robust.Shared.Player;// DS14
-using Robust.Shared.Audio.Systems; // DS14-Soyuz
 using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
 namespace Content.Server.Radio.EntitySystems;
 
@@ -32,7 +31,6 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
     [Dependency] private readonly RadioSystem _radio = default!;
     [Dependency] private readonly InteractionSystem _interaction = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!; // DS14-Soyuz
 
     // Used to prevent a shitter from using a bunch of radios to spam chat.
     private HashSet<(string, EntityUid, RadioChannelPrototype, int)> _recentlySent = new(); // DS14-Soyuz

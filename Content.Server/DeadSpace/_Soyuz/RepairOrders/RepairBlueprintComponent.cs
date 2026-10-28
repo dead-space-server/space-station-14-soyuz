@@ -19,6 +19,7 @@ public sealed partial class RepairBlueprintComponent : Component
     public int NextRequirementId = 1;
     public int MaxWaivedPoints;
     public bool CanComplete;
+    public bool ReconstructionPending;
 
     [ViewVariables]
     public EntityUid Station;

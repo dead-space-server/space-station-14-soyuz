@@ -9209,3 +9209,10 @@ Entries:
   changes:
   - type: Add
     message: Локаль имени в шизофреническом сообщении убрана
+- id: 886
+  author: tetsrare
+  time: '2026-10-28T10:15:56.038112+00:00'
+  pr: 2579
+  changes:
+  - type: Add
+    message: токсикология на гласир

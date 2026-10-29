@@ -234,14 +234,20 @@ public sealed class LavalandStrongStormSystem : EntitySystem
         return result;
     }
 
-    /// <summary>The hot ash the wind carries burns everyone out in the open.</summary>
+    /// <summary>
+    /// The hot ash the wind carries burns everyone out in the open, except those protected from the storm (the same
+    /// helmet and suit that keep the ordinary ash storm off).
+    /// </summary>
     private void Burn(EntityUid map, LavalandStrongStormConfig config)
     {
         if (config.Damage.Empty)
             return;
 
-        foreach (var (player, _) in PlayersInTheOpen(map))
+        foreach (var (player, xform) in PlayersInTheOpen(map))
         {
+            if (_lavalandWeather.IsWeatherImmune(player, xform))
+                continue;
+
             _damageable.TryChangeDamage(player, config.Damage, interruptsDoAfters: false, origin: map);
         }
     }

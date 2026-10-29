@@ -3,6 +3,7 @@
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.DeadSpace.Attachments;
 using Content.Server.DeadSpace.Lavaland.Components;
+using Content.Server.DeadSpace.Lavaland.SecretBoss;
 using Content.Shared.Damage;
 using Content.Shared.DeadSpace.Lavaland;
 using Content.Shared.DeadSpace.Attachments;
@@ -116,7 +117,8 @@ public sealed class LavalandPressureDamageSystem : SharedLavalandPressureDamageS
             return true;
         }
 
-        if (!HasComp<LavalandBossComponent>(target) ||
+        // The Celestial is no arena boss, but the mark takes its share off it all the same.
+        if ((!HasComp<LavalandBossComponent>(target) && !HasComp<LavalandSecretBossMobComponent>(target)) ||
             !_threshold.TryGetThresholdForState(target, MobState.Dead, out var dead))
         {
             return false;

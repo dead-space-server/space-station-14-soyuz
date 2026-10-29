@@ -313,7 +313,10 @@ public sealed class LavalandWeatherSystem : EntitySystem
         _weatherEntities.Clear();
     }
 
-    private bool IsWeatherImmune(EntityUid uid, TransformComponent xform)
+    /// <summary>
+    /// The mob, or whatever it sits in, is immune to the weather, or wears protection on both head and body.
+    /// </summary>
+    public bool IsWeatherImmune(EntityUid uid, TransformComponent xform)
     {
         while (true)
         {

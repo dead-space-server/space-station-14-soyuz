@@ -25,19 +25,27 @@
     sections:
     - id: criminal
       name: lockdown-section-criminal
-      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/criminal.png
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: criminal
       uiKey: enum.CriminalRecordsConsoleKey.Key
     # - id: medical
     #   name: lockdown-section-medical
-    #   icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/medical.png
+    #  icon:
+    #    sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+    #    state: cameras
     #   uiKey: enum.АпстримаНет(.Key
     - id: cameras
       name: lockdown-section-cameras
-      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/cameras.png
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: cameras
       uiKey: enum.SurveillanceCameraMonitorUiKey.Key
     - id: crew
       name: lockdown-section-crew
-      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/crew.png
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: crew
       uiKey: enum.CrewMonitoringUIKey.Key
   - type: ActivatableUI
     key: enum.LockdownConsoleUiKey.Key

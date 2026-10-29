@@ -29,7 +29,8 @@ public sealed partial class LockdownConsoleWindow : FancyWindow
     public event Action? OnCancelStation;
     public event Action<string>? OnOpenSection;
 
-    private static readonly ResPath LockdownIcon = new("_DeadSpace/_Soyuz/Interface/SecurityConsole/lockdown.png");
+    private static readonly SpriteSpecifier LockdownIcon =
+        new SpriteSpecifier.Rsi(new ResPath("_DeadSpace/_Soyuz/Icons/security_console.rsi"), "lockdown");
 
     private static readonly Color Accent = Color.FromHex("#4aa3ff");
     private static readonly Color Muted = Color.FromHex("#6f86a3");
@@ -139,7 +140,7 @@ public sealed partial class LockdownConsoleWindow : FancyWindow
 
         _lockdownItem = CreateSidebarItem(
             Loc.GetString("lockdown-ui-tab-lockdown"),
-            new SpriteSpecifier.Texture(LockdownIcon),
+            LockdownIcon,
             selected: true);
         SidebarList.AddChild(_lockdownItem.Button);
 

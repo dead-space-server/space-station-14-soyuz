@@ -34,7 +34,6 @@ public sealed class EvacMapControl : Control
     public float Scale = 3f;
     public List<EvacZoneStroke> Strokes = new();
     public Color Brush = Color.Green;
-    public Color MarkerColor = Color.White;
     public bool Eraser;
 
     public event Action? Changed;
@@ -228,9 +227,10 @@ public sealed class EvacMapControl : Control
         if (_current != null)
             DrawStroke(handle, _current, Brush);
 
+        // Метка планшета.
         var o = ToScreen(Origin);
-        handle.DrawCircle(o, 4f, MarkerColor);
-        handle.DrawCircle(o, 8f, MarkerColor.WithAlpha(0.5f), false);
+        handle.DrawCircle(o, 4f, Color.White);
+        handle.DrawCircle(o, 8f, Color.White.WithAlpha(0.5f), false);
     }
 
     private void DrawStroke(DrawingHandleScreen handle, List<Vector2> worldPoints, Color color)

@@ -1,11 +1,8 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 using System.Numerics;
 using Content.Server.Chat.Systems;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DeadSpace._Soyuz.EvacZones;
 using Content.Shared.Popups;
-using Content.Shared.Shuttles.Components;
-using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
@@ -18,7 +15,6 @@ public sealed class EvacZoneSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
 
@@ -28,26 +24,6 @@ public sealed class EvacZoneSystem : EntitySystem
 
         SubscribeLocalEvent<EvacZoneTabletComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<EvacZoneTabletComponent, EvacTabletSendMessage>(OnSend);
-        SubscribeLocalEvent<EvacZoneTabletComponent, EntInsertedIntoContainerMessage>(OnDiskInserted);
-        SubscribeLocalEvent<EvacZoneTabletComponent, EntRemovedFromContainerMessage>(OnDiskRemoved);
-    }
-
-    private void OnDiskInserted(Entity<EvacZoneTabletComponent> ent, ref EntInsertedIntoContainerMessage args)
-    {
-        if (args.Container.ID == EvacZoneTabletComponent.DiskSlotId)
-            RefreshUi(ent);
-    }
-
-    private void OnDiskRemoved(Entity<EvacZoneTabletComponent> ent, ref EntRemovedFromContainerMessage args)
-    {
-        if (args.Container.ID == EvacZoneTabletComponent.DiskSlotId)
-            RefreshUi(ent);
-    }
-
-    private void RefreshUi(Entity<EvacZoneTabletComponent> ent)
-    {
-        if (_ui.IsUiOpen(ent.Owner, EvacTabletUiKey.Key))
-            UpdateUi(ent);
     }
 
     private void OnUiOpened(Entity<EvacZoneTabletComponent> ent, ref BoundUIOpenedEvent args)
@@ -66,7 +42,7 @@ public sealed class EvacZoneSystem : EntitySystem
             return;
         }
 
-        var (targetMap, _, _) = GetTarget(ent);
+        var targetMap = _transform.GetMapCoordinates(ent.Owner).MapId;
         if (targetMap == MapId.Nullspace)
             return;
 
@@ -79,6 +55,7 @@ public sealed class EvacZoneSystem : EntitySystem
         var strokes = Sanitize(args.Strokes, ent.Comp);
         var zones = EnsureComp<EvacZoneMapComponent>(mapUid);
 
+        // Считаем, какие зоны появились (для текста объявления).
         var added = new int[ent.Comp.Palette.Count];
         var addedTotal = 0;
         foreach (var stroke in strokes)
@@ -129,7 +106,8 @@ public sealed class EvacZoneSystem : EntitySystem
 
     private void UpdateUi(Entity<EvacZoneTabletComponent> ent)
     {
-        var (targetMap, center, usingDisk) = GetTarget(ent);
+        var own = _transform.GetMapCoordinates(ent.Owner);
+        var targetMap = own.MapId;
         var strokes = new List<EvacZoneStroke>();
 
         var mapUid = _map.GetMapOrInvalid(targetMap);
@@ -141,29 +119,12 @@ public sealed class EvacZoneSystem : EntitySystem
 
         var state = new EvacTabletBuiState(
             targetMap,
-            center,
+            own.Position,
             strokes,
             ent.Comp.Palette,
-            ent.Comp.Announcement != null,
-            usingDisk);
+            ent.Comp.Announcement != null);
 
         _ui.SetUiState(ent.Owner, EvacTabletUiKey.Key, state);
-    }
-
-    private (MapId Map, Vector2 Center, bool FromDisk) GetTarget(Entity<EvacZoneTabletComponent> ent)
-    {
-        if (_itemSlots.TryGetSlot(ent.Owner, EvacZoneTabletComponent.DiskSlotId, out var slot) &&
-            slot.Item is { } disk &&
-            TryComp<ShuttleDestinationCoordinatesComponent>(disk, out var dest) &&
-            dest.Destination is { } destination &&
-            TryComp(destination, out TransformComponent? destXform) &&
-            destXform.MapID != MapId.Nullspace)
-        {
-            return (destXform.MapID, _transform.GetWorldPosition(destXform), true);
-        }
-
-        var own = _transform.GetMapCoordinates(ent.Owner);
-        return (own.MapId, own.Position, false);
     }
 
     private static List<EvacZoneStroke> Sanitize(List<EvacZoneStroke> input, EvacZoneTabletComponent tablet)

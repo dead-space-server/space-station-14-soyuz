@@ -12,10 +12,6 @@ namespace Content.Shared.DeadSpace._Soyuz.EvacZones;
 [RegisterComponent]
 public sealed partial class EvacZoneTabletComponent : Component
 {
-    /// <summary>
-    /// Диск с координатами выбирает карту, на которой работает планшет
-    /// </summary>
-    public const string DiskSlotId = "disk_slot";
 
     /// <summary>
     /// Ключ локализации текста объявления, а если пусто, то объявления нет

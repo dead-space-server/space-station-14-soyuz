@@ -3,6 +3,7 @@ using System.Numerics;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.DeadSpace._Soyuz.EvacZones;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared.Maths;
 
 namespace Content.Client.DeadSpace._Soyuz.EvacZones;
 
@@ -90,16 +91,16 @@ public sealed class EvacTabletWindow : FancyWindow
 
     public void Update(EvacTabletBuiState state)
     {
-        _map.Map = state.Map;
-        _map.Origin = state.Origin;
-        _map.Strokes = state.Strokes;
-        _announce.Visible = state.CanAnnounce;
-
-        if (!_initialized)
+        if (!_initialized || _map.Map != state.Map)
         {
             _initialized = true;
             _map.Center = state.Origin;
         }
+
+        _map.Map = state.Map;
+        _map.Origin = state.Origin;
+        _map.Strokes = state.Strokes;
+        _announce.Visible = state.CanAnnounce;
 
         _colors.RemoveAllChildren();
         var first = true;

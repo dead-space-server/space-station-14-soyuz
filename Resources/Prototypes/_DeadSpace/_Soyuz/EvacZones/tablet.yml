@@ -11,13 +11,6 @@
     state: evac-tablet-silent
   - type: EvacZoneTablet
     cooldown: 3
-  - type: ItemSlots
-    slots:
-      disk_slot:
-        name: evac-tablet-disk-slot
-        whitelist:
-          components:
-          - ShuttleDestinationCoordinates
   - type: ActivatableUI
     key: enum.EvacTabletUiKey.Key
     inHandsOnly: true

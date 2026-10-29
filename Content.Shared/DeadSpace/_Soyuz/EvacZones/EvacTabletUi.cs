@@ -21,16 +21,13 @@ public sealed class EvacTabletBuiState : BoundUserInterfaceState
     public List<EvacZoneColor> Palette;
     public bool CanAnnounce;
 
-    public bool UsingDisk;
-
-    public EvacTabletBuiState(MapId map, Vector2 origin, List<EvacZoneStroke> strokes, List<EvacZoneColor> palette, bool canAnnounce, bool usingDisk)
+    public EvacTabletBuiState(MapId map, Vector2 origin, List<EvacZoneStroke> strokes, List<EvacZoneColor> palette, bool canAnnounce)
     {
         Map = map;
         Origin = origin;
         Strokes = strokes;
         Palette = palette;
         CanAnnounce = canAnnounce;
-        UsingDisk = usingDisk;
     }
 }
 

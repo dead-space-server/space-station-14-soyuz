@@ -61,6 +61,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
             subs.Event<LockdownCancelDepartmentMessage>(OnCancelDepartment);
             subs.Event<LockdownConfirmStationMessage>(OnConfirmStation);
             subs.Event<LockdownCancelStationMessage>(OnCancelStation);
+            subs.Event<SecurityConsoleOpenSectionMessage>(OnOpenSection);
         });
     }
 
@@ -146,6 +147,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
 
         foreach (var door in doors)
         {
+            // Дверь запоминаем сразу, чтобы при отмене с неё в любом случае снялся счётчик блокировок.
             instance.Doors.Add(door);
 
             try
@@ -175,7 +177,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Снимает блокировку со всех дверей экземпляра
+    /// Снимает блокировку со всех дверей экземпляра. Из словарей состояния экземпляр убирает вызывающий.
     /// </summary>
     private void Finish(LockdownStationComponent state, LockdownInstance instance)
     {
@@ -208,6 +210,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     {
         var result = new List<EntityUid>();
 
+        // Счётчики для диагностики: показывают, на каком фильтре отсеиваются двери.
         var total = 0;
         var skipped = 0;
         var onStation = 0;
@@ -219,6 +222,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
         {
             total++;
 
+            // Общие шлюзы коридоров и противопожарные шлюзы не трогаем.
             if (HasComp<LockdownImmuneComponent>(uid) || HasComp<FirelockComponent>(uid))
             {
                 skipped++;
@@ -266,7 +270,8 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Все считыватели доступа двери
+    /// Все считыватели доступа двери. Требования доступа часто хранятся не на самой двери,
+    /// а на электронике двери, вставленной в контейнер (ContainerAccessProvider).
     /// </summary>
     private List<AccessReaderComponent> GetAccessReaders(EntityUid door)
     {
@@ -312,11 +317,9 @@ public sealed class LockdownConsoleSystem : EntitySystem
         var comp = EnsureComp<LockdownDoorComponent>(uid);
         comp.Locks++;
 
+        // Дверь уже заблокирована другим локдауном.
         if (comp.Locks > 1)
             return;
-
-        if (TryComp<DoorComponent>(uid, out var door))
-            comp.WasOpen = door.State == DoorState.Open;
 
         _doors.TryClose(uid);
 
@@ -326,6 +329,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
             _doors.SetBoltsDown((uid, bolt), true);
         }
 
+        // Голограмма — только визуал: если прототип не загрузился, блокировка двери всё равно работает.
         if (_proto.HasIndex<EntityPrototype>(HologramPrototype))
             comp.Hologram = Spawn(HologramPrototype, new EntityCoordinates(uid, Vector2.Zero));
         else
@@ -347,19 +351,12 @@ public sealed class LockdownConsoleSystem : EntitySystem
         if (comp.Hologram is { } hologram)
             QueueDel(hologram);
 
-        bool shouldOpen = comp.WasOpen || comp.Relocking || comp.FreePassUntil != null;
-
         RemComp<LockdownDoorComponent>(uid);
-
-        if (shouldOpen || !HasComp<DoorBoltComponent>(uid))
-        {
-            _doors.TryOpen(uid);
-        }
     }
 
     /// <summary>
-    /// Двери без болтов (гермозатворы, ставни) тоже нельзя открыть, пока на них висит локдаун
-    /// Исключение это дверь, снятая с локдауна имплантом "свободный допуск"
+    /// Двери без болтов (гермозатворы, ставни) тоже нельзя открыть, пока на них висит локдаун.
+    /// Исключение — дверь, снятая с локдауна имплантом «свободный допуск».
     /// </summary>
     private void OnBeforeDoorOpened(EntityUid uid, LockdownDoorComponent comp, BeforeDoorOpenedEvent args)
     {
@@ -368,7 +365,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Пока действует "свободный допуск", дверь удерживается открытой, чтобы можно было пройти
+    /// Пока действует «свободный допуск», дверь удерживается открытой, чтобы можно было пройти.
     /// </summary>
     private void OnBeforeDoorClosed(EntityUid uid, LockdownDoorComponent comp, BeforeDoorClosedEvent args)
     {
@@ -382,7 +379,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Запасной путь: в некоторых версиях действие импланта приходит на владельца, а не на сам имплант
+    /// Запасной путь: в некоторых версиях действие импланта приходит на владельца, а не на сам имплант.
     /// </summary>
     private void OnFreePassOnUser(EntityUid uid, ImplantedComponent implanted, LockdownFreePassEvent args)
     {
@@ -434,6 +431,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
         if (TryComp<DoorBoltComponent>(target, out var bolt))
             _doors.SetBoltsDown((target, bolt), false);
 
+        // Без указания пользователя: иначе дверь проверит доступ владельца импланта и может не открыться.
         _doors.TryOpen(target);
 
         args.Handled = true;
@@ -456,6 +454,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
             return;
         }
 
+        // Если в проёме кто-то стоит, закрытие не удастся, поэтому пробуем снова на следующем тике.
         if (door.State != DoorState.Closed)
         {
             _doors.TryClose(uid);
@@ -491,9 +490,9 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Определяет помещение, в котором стоит бак: заливка по тайлам, пока не упрёмся в стены и двери
-    /// Помещение относится к отделу, если хотя бы одна из его дверей даёт доступ отдела
-    /// Слишком большие зоны (коридоры, холлы) ни к какому отделу не относятся
+    /// Определяет помещение, в котором стоит бак: заливка по тайлам, пока не упрёмся в стены и двери.
+    /// Помещение относится к отделу, если хотя бы одна из его дверей даёт доступ отдела.
+    /// Слишком большие зоны (коридоры, холлы) ни к какому отделу не относятся.
     /// </summary>
     private bool RoomMatchesAccess(TransformComponent binXform, HashSet<string> access, int limit)
     {
@@ -535,6 +534,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
                 if (blocked)
                     continue;
 
+                // Пустой тайл (космос) — граница помещения.
                 if (!_map.TryGetTileRef(gridUid, grid, next, out var tileRef) || tileRef.Tile.IsEmpty)
                     continue;
 
@@ -556,7 +556,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Пока на баке висит локдаун, в него нельзя ничего положить
+    /// Пока на баке висит локдаун, в него нельзя ничего положить.
     /// </summary>
     private void OnBinInsertAttempt(EntityUid uid, LockdownBinLockComponent comp, ContainerIsInsertingAttemptEvent args)
     {
@@ -637,6 +637,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
         Finish(state, instance);
         state.Departments.Remove(args.Department);
 
+        // Отмена до блокировки шлюзов блокирует консоль.
         if (wasPending)
             state.ConsoleLockedUntil = _timing.CurTime + ent.Comp.CancelledCooldown;
 
@@ -734,6 +735,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
             if (!state.Confirmations.TryGetValue(key.ToString(), out var confirmation) || confirmation.ExpiresAt <= now)
                 return false;
 
+            // Каждый ключ должен подтвердить отдельный человек.
             if (!users.Add(confirmation.User))
                 return false;
         }
@@ -746,7 +748,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     #region Helpers
 
     /// <summary>
-    /// Общая проверка: консоль на станции, у пользователя есть имплант допуска
+    /// Общая проверка: консоль на станции, у пользователя есть имплант допуска.
     /// </summary>
     private bool TryGetContext(
         Entity<LockdownConsoleComponent> console,
@@ -812,7 +814,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
     }
 
     /// <summary>
-    /// Объявление в общую рацию от имени консоли. Если исходная консоль удалена, берётся любая другая консоль станции
+    /// Объявление в общую рацию от имени консоли. Если исходная консоль удалена, берётся любая другая консоль станции.
     /// </summary>
     private void Announce(EntityUid station, EntityUid preferred, string message)
     {
@@ -835,6 +837,7 @@ public sealed class LockdownConsoleSystem : EntitySystem
         if (source == EntityUid.Invalid)
             return;
 
+        // ";" — префикс общей рации. Консоль говорит через IntrinsicRadioTransmitter, TTS озвучивает сообщение.
         _chat.TrySendInGameICMessage(
             source,
             ";" + message,
@@ -903,7 +906,23 @@ public sealed class LockdownConsoleSystem : EntitySystem
             keys.Add(new LockdownKeyEntry(job.ToString(), jobName, confirmed, expires));
         }
 
+        var sections = new List<SecuritySectionEntry>();
+        foreach (var section in comp.Sections)
+        {
+            sections.Add(new SecuritySectionEntry(section.Id, Loc.GetString(section.Name), section.Icon));
+        }
+
+        // Список смотрящих с имплантом допуска: пункт LOCKDOWN у остальных будет неактивен.
+        var accessActors = new List<NetEntity>();
+        foreach (var actor in _ui.GetActors(console, LockdownConsoleUiKey.Key))
+        {
+            if (HasAccessImplant(actor))
+                accessActors.Add(GetNetEntity(actor));
+        }
+
         var uiState = new LockdownConsoleBoundUserInterfaceState(
+            accessActors,
+            sections,
             hasStation,
             now,
             state?.ConsoleLockedUntil ?? TimeSpan.Zero,
@@ -912,6 +931,21 @@ public sealed class LockdownConsoleSystem : EntitySystem
             keys);
 
         _ui.SetUiState(console, LockdownConsoleUiKey.Key, uiState);
+    }
+
+    /// <summary>
+    /// Кнопка бокового меню: открывает на этой же консоли интерфейс выбранного раздела.
+    /// </summary>
+    private void OnOpenSection(EntityUid uid, LockdownConsoleComponent comp, SecurityConsoleOpenSectionMessage args)
+    {
+        foreach (var section in comp.Sections)
+        {
+            if (section.Id != args.Section || section.UiKey == null)
+                continue;
+
+            _ui.OpenUi(uid, section.UiKey, args.Actor);
+            return;
+        }
     }
 
     #endregion

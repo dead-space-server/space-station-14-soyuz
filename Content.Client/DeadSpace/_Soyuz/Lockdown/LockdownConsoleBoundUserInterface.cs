@@ -2,6 +2,7 @@
 
 using Content.Shared.DeadSpace._Soyuz.Lockdown;
 using JetBrains.Annotations;
+using Robust.Client.Player;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.DeadSpace._Soyuz.Lockdown;
@@ -9,6 +10,8 @@ namespace Content.Client.DeadSpace._Soyuz.Lockdown;
 [UsedImplicitly]
 public sealed class LockdownConsoleBoundUserInterface : BoundUserInterface
 {
+    [Dependency] private readonly IPlayerManager _player = default!;
+
     private LockdownConsoleWindow? _window;
 
     public LockdownConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
@@ -25,13 +28,20 @@ public sealed class LockdownConsoleBoundUserInterface : BoundUserInterface
         _window.OnCancelDepartment += id => SendMessage(new LockdownCancelDepartmentMessage(id));
         _window.OnConfirmStation += () => SendMessage(new LockdownConfirmStationMessage());
         _window.OnCancelStation += () => SendMessage(new LockdownCancelStationMessage());
+        _window.OnOpenSection += id => SendMessage(new SecurityConsoleOpenSectionMessage(id));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
 
-        if (state is LockdownConsoleBoundUserInterfaceState cast)
-            _window?.UpdateState(cast);
+        if (state is not LockdownConsoleBoundUserInterfaceState cast)
+            return;
+
+        // Допуск есть, если сервер включил нашу сущность в список владельцев импланта.
+        var hasAccess = _player.LocalEntity is { } player
+                        && cast.AccessActors.Contains(EntMan.GetNetEntity(player));
+
+        _window?.UpdateState(cast, hasAccess);
     }
 }

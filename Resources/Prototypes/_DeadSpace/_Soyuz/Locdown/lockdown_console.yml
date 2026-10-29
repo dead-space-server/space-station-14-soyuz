@@ -22,18 +22,44 @@
     keyConfirmWindow: 10
     cancelledCooldown: 300
     successCooldown: 180
+    sections:
+    - id: criminal
+      name: lockdown-section-criminal
+      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/criminal.png
+      uiKey: enum.CriminalRecordsConsoleKey.Key
+    # - id: medical
+    #   name: lockdown-section-medical
+    #   icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/medical.png
+    #   uiKey: enum.АпстримаНет(.Key
+    - id: cameras
+      name: lockdown-section-cameras
+      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/cameras.png
+      uiKey: enum.SurveillanceCameraMonitorUiKey.Key
+    - id: crew
+      name: lockdown-section-crew
+      icon: _DeadSpace/_Soyuz/Interface/SecurityConsole/crew.png
+      uiKey: enum.CrewMonitoringUIKey.Key
   - type: ActivatableUI
     key: enum.LockdownConsoleUiKey.Key
   - type: UserInterface
     interfaces:
       enum.LockdownConsoleUiKey.Key:
         type: LockdownConsoleBoundUserInterface
+      enum.CriminalRecordsConsoleKey.Key:
+        type: CriminalRecordsConsoleBoundUserInterface
+      enum.SurveillanceCameraMonitorUiKey.Key:
+        type: SurveillanceCameraMonitorBoundUserInterface
+      enum.CrewMonitoringUIKey.Key:
+        type: CrewMonitoringBoundUserInterface
   - type: Speech
   - type: IntrinsicRadioTransmitter
     channels:
     - Common
   - type: TTS
     voice: Glados
+  - type: CriminalRecordsConsole
+  - type: CrewMonitoringConsole
+  - type: SurveillanceCameraMonitor
 
 - type: entity
   id: LockdownDoorHologram

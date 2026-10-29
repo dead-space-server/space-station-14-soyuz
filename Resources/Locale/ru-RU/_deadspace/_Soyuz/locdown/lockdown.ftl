@@ -52,3 +52,16 @@ lockdown-ui-key-confirmed = { $job }: подтверждено ({ $time })
 lockdown-freepass-no-lockdown = Эта дверь не заблокирована локдауном.
 lockdown-freepass-too-far = Дверь слишком далеко.
 lockdown-freepass-alert-level = При текущем уровне тревоги имплант не работает.
+
+# Главное меню консоли безопасности
+lockdown-ui-menu = МЕНЮ
+lockdown-ui-header = Консоль безопасности станции
+lockdown-ui-footer = Союз-1
+lockdown-ui-tab-lockdown = LOCKDOWN
+lockdown-ui-need-access = нужен допуск
+lockdown-ui-no-access-title = Требуется допуск
+lockdown-ui-no-access-text = Для управления локдауном нужен имплант специального допуска.
+lockdown-section-criminal = Криминалистические записи
+lockdown-section-medical = Медицинские записи
+lockdown-section-cameras = Камеры видеонаблюдения
+lockdown-section-crew = Консоль учёта экипажа

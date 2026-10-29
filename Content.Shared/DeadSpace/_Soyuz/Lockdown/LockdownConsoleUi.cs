@@ -1,6 +1,7 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
 using Robust.Shared.Serialization;
+using Robust.Shared.Utility;
 
 namespace Content.Shared.DeadSpace._Soyuz.Lockdown;
 
@@ -14,13 +15,9 @@ public enum LockdownConsoleUiKey : byte
 public enum LockdownPhase : byte
 {
     None,
-    /// <summary>
-    /// Объявлен, идёт обратный отсчёт до блокировки.
-    /// </summary>
+    /// <summary>Объявлен, идёт обратный отсчёт до блокировки.</summary>
     Pending,
-    /// <summary>
-    /// Шлюзы заблокированы.
-    /// </summary>
+    /// <summary>Шлюзы заблокированы.</summary>
     Active,
 }
 
@@ -45,7 +42,7 @@ public sealed class LockdownEntry
 }
 
 /// <summary>
-/// Один из ключей локдауна станции
+/// Один из «ключей» локдауна станции.
 /// </summary>
 [Serializable, NetSerializable]
 public sealed class LockdownKeyEntry
@@ -64,9 +61,33 @@ public sealed class LockdownKeyEntry
     }
 }
 
+/// <summary>
+/// Раздел бокового меню (запись, камеры и т.д.).
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class SecuritySectionEntry
+{
+    public readonly string Id;
+    public readonly string Name;
+    public readonly SpriteSpecifier? Icon;
+
+    public SecuritySectionEntry(string id, string name, SpriteSpecifier? icon)
+    {
+        Id = id;
+        Name = name;
+        Icon = icon;
+    }
+}
+
 [Serializable, NetSerializable]
 public sealed class LockdownConsoleBoundUserInterfaceState : BoundUserInterfaceState
 {
+    /// <summary>
+    /// Те из смотрящих консоль, у кого есть имплант специального допуска (разблокирует пункт LOCKDOWN).
+    /// Клиент сам проверяет, есть ли в списке его сущность.
+    /// </summary>
+    public readonly List<NetEntity> AccessActors;
+    public readonly List<SecuritySectionEntry> Sections;
     public readonly bool HasStation;
     public readonly TimeSpan CurTime;
     public readonly TimeSpan ConsoleLockedUntil;
@@ -75,6 +96,8 @@ public sealed class LockdownConsoleBoundUserInterfaceState : BoundUserInterfaceS
     public readonly List<LockdownKeyEntry> Keys;
 
     public LockdownConsoleBoundUserInterfaceState(
+        List<NetEntity> accessActors,
+        List<SecuritySectionEntry> sections,
         bool hasStation,
         TimeSpan curTime,
         TimeSpan consoleLockedUntil,
@@ -82,6 +105,8 @@ public sealed class LockdownConsoleBoundUserInterfaceState : BoundUserInterfaceS
         LockdownEntry station,
         List<LockdownKeyEntry> keys)
     {
+        AccessActors = accessActors;
+        Sections = sections;
         HasStation = hasStation;
         CurTime = curTime;
         ConsoleLockedUntil = consoleLockedUntil;
@@ -113,11 +138,21 @@ public sealed class LockdownCancelDepartmentMessage : BoundUserInterfaceMessage
     }
 }
 
-/// <summary>
-/// Подтверждение ключа для локдауна станции
-/// </summary>
+/// <summary>Подтверждение «ключа» для локдауна станции.</summary>
 [Serializable, NetSerializable]
 public sealed class LockdownConfirmStationMessage : BoundUserInterfaceMessage;
 
 [Serializable, NetSerializable]
 public sealed class LockdownCancelStationMessage : BoundUserInterfaceMessage;
+
+/// <summary>Открыть дополнительный раздел консоли (записи, камеры и т.д.).</summary>
+[Serializable, NetSerializable]
+public sealed class SecurityConsoleOpenSectionMessage : BoundUserInterfaceMessage
+{
+    public readonly string Section;
+
+    public SecurityConsoleOpenSectionMessage(string section)
+    {
+        Section = section;
+    }
+}

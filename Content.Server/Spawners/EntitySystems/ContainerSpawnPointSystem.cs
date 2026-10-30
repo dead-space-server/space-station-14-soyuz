@@ -44,6 +44,11 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
             if (args.Station != null && _station.GetOwningStation(uid, xform) != args.Station)
                 continue;
 
+            // DS14-Soyuz-start.
+            if (TryComp<SpawnPointComponent>(uid, out var spawnPointComp) && !spawnPointComp.GeneralStaffRole)
+                continue;
+            // DS14-Soyuz-end
+
             // If it's unset, then we allow it to be used for both roundstart and midround joins
             if (spawnPoint.SpawnType == SpawnPointType.Unset)
             {
@@ -67,7 +72,16 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
         }
 
         if (possibleContainers.Count == 0)
+        // DS14-Soyuz-start
+        {
+            if (args.HumanoidCharacterProfile?.SpawnPriority == SpawnPriorityPreference.Arrivals)
+            {
+                TryGetSpawn(args);
+            }
+
             return;
+        }
+        // DS14-Soyuz-end
         // we just need some default coords so we can spawn the player entity.
         var baseCoords = possibleContainers[0].Comp3.Coordinates;
 
@@ -94,7 +108,54 @@ public sealed class ContainerSpawnPointSystem : EntitySystem
 
         Del(args.SpawnResult);
         args.SpawnResult = null;
+
+        // DS14-Soyuz-start
+        if (args.HumanoidCharacterProfile?.SpawnPriority == SpawnPriorityPreference.Arrivals)
+        {
+            TryGetSpawn(args);
+        }
+        // DS14-Soyuz-end
     }
+
+    // DS14-Soyuz-start
+    /// <summary>
+    /// Find the free point, but not on General Staff.
+    /// </summary>
+    private void TryGetSpawn(PlayerSpawningEvent args)
+    {
+        var query = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
+        var possiblePoints = new List<Entity<SpawnPointComponent, TransformComponent>>();
+
+        while (query.MoveNext(out var uid, out var spawnPoint, out var xform))
+        {
+            if (args.Station != null && _station.GetOwningStation(uid, xform) != args.Station)
+                continue;
+
+            if (!spawnPoint.GeneralStaffRole)
+                continue;
+
+            if (spawnPoint.SpawnType != SpawnPointType.LateJoin)
+                continue;
+
+            if (spawnPoint.Job != null && spawnPoint.Job != args.Job)
+                continue;
+
+            possiblePoints.Add((uid, spawnPoint, xform));
+        }
+
+        if (possiblePoints.Count == 0)
+            return;
+
+        _random.Shuffle(possiblePoints);
+        var chosen = possiblePoints[0];
+
+        args.SpawnResult = _stationSpawning.SpawnPlayerMob(
+            chosen.Comp2.Coordinates,
+            args.Job,
+            args.HumanoidCharacterProfile,
+            args.Station);
+    }
+    // DS14-Soyuz-end
 }
 
 /// <summary>

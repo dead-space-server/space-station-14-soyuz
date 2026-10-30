@@ -1,0 +1,10 @@
+- type: entity
+  parent: BaseComputerCircuitboard
+  id: MaterialMarketplacePriceConsoleCircuitboard
+  name: плата консоли цен торгомата
+  description: Печатная плата для консоли цен торгомата.
+  components:
+  - type: Sprite
+    state: cpu_supply
+  - type: ComputerBoard
+    prototype: MaterialMarketplacePriceConsole

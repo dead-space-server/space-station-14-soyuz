@@ -89,6 +89,8 @@
   description: Позволяет квартирмейстеру выставлять цены на материалы и предметы в торгоматах станции.
   components:
   - type: MaterialMarketplacePriceConsole
+  - type: Computer
+    board: MaterialMarketplacePriceConsoleCircuitboard
   - type: Sprite
     layers:
     - map: ["computerLayerBody"]

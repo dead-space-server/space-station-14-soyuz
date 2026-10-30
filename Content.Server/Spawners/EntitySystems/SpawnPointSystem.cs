@@ -34,10 +34,9 @@ public sealed class SpawnPointSystem : EntitySystem
                 continue;
 
             // DS14-Soyuz-start
-            // Temporary solution until the General Staff is completed
-            if (args.Station != null && HasComp<CentCommStationComponent>(args.Station.Value))
+            if (spawnPoint.GeneralStaffRole != (args.Station != null && HasComp<CentCommStationComponent>(args.Station.Value)))
                 continue;
-            // DS14-Soyuz-start
+            // DS14-Soyuz-end
 
             if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
             {

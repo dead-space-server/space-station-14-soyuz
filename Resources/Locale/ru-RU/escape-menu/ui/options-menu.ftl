@@ -420,3 +420,4 @@ ui-options-function-use-world-target-action = Использовать спос�
 ui-options-function-parry = Парирование
 ##DS14-end
 ui-options-function-switch-component-mode = Переключить режим компонентов предмета
+ui-options-function-switch-gun-ammo-mode = Переключить тип выстрела оружия

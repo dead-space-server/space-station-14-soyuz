@@ -1071,6 +1071,8 @@
   entities:
   - SoyuzDugSoilMound
   - SoyuzStoneGraveFrame
+  - MilitiaOperationConsole
+  - MilitiaOperationSupplyCrate
   - SoyuzWoodenGraveFrame
 
 - type: repairValueExclusion

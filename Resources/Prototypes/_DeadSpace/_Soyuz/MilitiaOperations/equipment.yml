@@ -1,0 +1,286 @@
+- type: entity
+  id: MilitiaOperationCombatMedicineBottle
+  parent: [BaseChemistryBottleFilled, BaseSyndicateContraband]
+  name: флакон боевого регенератора
+  description: Препарат для лечения пулевых ранений и ожогов. На этикетке стоит маркировка полевой медицинской службы «Рассвета».
+  suffix: Деритрацин
+  components:
+  - type: Label
+    currentLabel: reagent-name-derytracine
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: Derytracine
+          Quantity: 30
+
+- type: militiaEquipment
+  id: MilitiaEquipmentBase
+  abstract: true
+  equipment:
+    jumpsuit:
+    - ClothingUniformJumpsuitOperative
+    - ClothingUniformJumpsuitSyndieFormal
+    mask:
+    - ClothingMaskGasSyndicate
+    gloves:
+    - ClothingHandsGlovesCombat
+    back:
+    - ClothingBackpackSatchelTaipan
+    belt:
+    - ClothingBeltMilitaryWebbing
+    shoes:
+    - ClothingShoesBootsMagSyndie
+    - ClothingShoesBootsCombat
+    id:
+    - SyndiPDA
+    eyes:
+    - ClothingEyesHudSyndicate
+  supplies:
+  - CombatKnife
+  - Crowbar
+  - MedicatedSuture
+  - RegenerativeMesh
+  reloadTime: 2.5s
+  grenades:
+  - GrenadeFlashBang
+
+- type: militiaEquipment
+  id: MilitiaEquipmentScout
+  parent: MilitiaEquipmentBase
+  protection:
+  - suit: ClothingOuterHardsuitSyndie
+    helmet: ClothingHeadHelmetHardsuitSyndie
+  - suit: ClothingOuterHardsuitSyndieElite
+    helmet: ClothingHeadHelmetHardsuitSyndieElite
+  - suit: ClothingOuterHardsuitAgentForestGhost
+    helmet: ClothingHeadHelmetHardsuitAgentForestGhost
+  - suit: ClothingOuterArmorRaid
+    helmet: ClothingHeadHelmetRaid
+  - suit: ClothingOuterVestWebMerc
+    helmet: ClothingHeadHelmetMerc
+  - suit: ClothingOuterHardsuitTaipanRecruit
+    helmet: ClothingHeadHelmetHardsuitTaipanRecruit
+  weapons:
+  - weapon: WeaponPistolViper
+    magazine: MagazinePistolHighCapacity
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolCobra
+    magazine: MagazinePistolCaselessRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolGurza
+    magazine: MagazineGurza
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolDesertEagle
+    magazine: MagazineEagle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolGoldDesertEagle
+    magazine: MagazineEagleGold
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleEstoc
+    magazine: MagazineRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponCarbineSKS
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSniperR17
+    magazine: MagazineR17
+    minimumMagazines: 3
+    maximumMagazines: 3
+
+- type: militiaEquipment
+  id: MilitiaEquipmentAssault
+  parent: MilitiaEquipmentBase
+  protection:
+  - suit: ClothingOuterHardsuitSyndie
+    helmet: ClothingHeadHelmetHardsuitSyndie
+  - suit: ClothingOuterHardsuitSyndieElite
+    helmet: ClothingHeadHelmetHardsuitSyndieElite
+  - suit: ClothingOuterHardsuitAgentForestGhost
+    helmet: ClothingHeadHelmetHardsuitAgentForestGhost
+  - suit: ClothingOuterArmorRaid
+    helmet: ClothingHeadHelmetRaid
+  - suit: ClothingOuterVestWebMerc
+    helmet: ClothingHeadHelmetMerc
+  - suit: ClothingOuterHardsuitTaipanRecruit
+    helmet: ClothingHeadHelmetHardsuitTaipanRecruit
+  - suit: ADTClothingOuterHardsuitCybersunBodyGuard
+    helmet: ADTClothingHeadHelmetHardsuitCybersunBodyGuard
+  weapons:
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleM90GrenadeLauncher
+    magazine: MagazineRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleAk
+    magazine: MagazineLightRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleXC67
+    magazine: ADTExtMagazineRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleEstoc
+    magazine: MagazineRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponCarbineSKS
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 3
+    maximumMagazines: 3
+
+- type: militiaEquipment
+  id: MilitiaEquipmentGuard
+  parent: MilitiaEquipmentBase
+  protection:
+  - suit: ClothingOuterHardsuitSyndieElite
+    helmet: ClothingHeadHelmetHardsuitSyndieElite
+  - suit: ClothingOuterHardsuitSyndieCommander
+    helmet: ClothingHeadHelmetHardsuitSyndieCommander
+  - suit: ClothingOuterHardsuitJuggernaut
+    helmet: ClothingHeadHelmetHardsuitCybersun
+  - suit: ADTClothingOuterHardsuitCybersunBodyGuard
+    helmet: ADTClothingHeadHelmetHardsuitCybersunBodyGuard
+  - suit: ClothingOuterArmorRaid
+    helmet: ClothingHeadHelmetRaid
+  weapons:
+  - weapon: WeaponShotgunBulldog
+    magazine: MagazineShotgun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponShotgunHammerhead
+    magazine: ADTMagazineShotgunXL
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponShotgunHammerheadIncendiary
+    magazine: ADTMagazineShotgunIncendiaryXL
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponShotgun9000Alpha
+    magazine: MagazineShotgun9000Alpha
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponLightMachineGunL6
+    magazine: MagazineLightRifleBox
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSniperR17
+    magazine: MagazineR17
+    minimumMagazines: 3
+    maximumMagazines: 3
+  reloadTime: 3.5s
+
+- type: militiaEquipment
+  id: MilitiaEquipmentSaboteur
+  parent: MilitiaEquipmentBase
+  protection:
+  - suit: ClothingOuterHardsuitSyndie
+    helmet: ClothingHeadHelmetHardsuitSyndie
+  - suit: ClothingOuterHardsuitSyndieElite
+    helmet: ClothingHeadHelmetHardsuitSyndieElite
+  - suit: ClothingOuterHardsuitAgentForestGhost
+    helmet: ClothingHeadHelmetHardsuitAgentForestGhost
+  - suit: ClothingOuterArmorRaid
+    helmet: ClothingHeadHelmetRaid
+  - suit: ClothingOuterVestWebMerc
+    helmet: ClothingHeadHelmetMerc
+  - suit: ClothingOuterHardsuitTaipanRecruit
+    helmet: ClothingHeadHelmetHardsuitTaipanRecruit
+  weapons:
+  - weapon: WeaponPistolCobra
+    magazine: MagazinePistolCaselessRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolGurza
+    magazine: MagazineGurza
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolDesertEagle
+    magazine: MagazineEagle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponRifleXC67
+    magazine: ADTExtMagazineRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponCarbineSKS
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSniperR17
+    magazine: MagazineR17
+    minimumMagazines: 3
+    maximumMagazines: 3
+
+- type: militiaEquipment
+  id: MilitiaEquipmentMedic
+  parent: MilitiaEquipmentBase
+  protection:
+  - suit: ClothingOuterHardsuitSyndieMedic
+    helmet: ClothingHeadHelmetHardsuitSyndieMedic
+  - suit: ClothingOuterHardsuitTaipanParamedic
+    helmet: ClothingHeadHelmetHardsuitTaipanParamedic
+  - suit: ClothingOuterHardsuitSyndieElite
+    helmet: ClothingHeadHelmetHardsuitSyndieElite
+  weapons:
+  - weapon: WeaponPistolViper
+    magazine: MagazinePistolHighCapacity
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolCobra
+    magazine: MagazinePistolCaselessRifle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolGurza
+    magazine: MagazineGurza
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponPistolDesertEagle
+    magazine: MagazineEagle
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 3
+    maximumMagazines: 3
+  supplies:
+  - CombatKnife
+  - Crowbar
+  - SyndiHypo
+  - ChemistryBottleOmnizine
+  - MilitiaOperationCombatMedicineBottle

@@ -1,11 +1,18 @@
 - type: entity
-  id: MaterialMarketplace
   parent: [ BaseMachinePowered, ConstructibleMachine ]
+  id: MaterialMarketplace
   name: Торгомат
   description: Терминал для покупки и продажи материалов. Просто добавь социализм!
   components:
   - type: MaterialMarketplace
     fillLevels: 6
+    departmentAccess:
+      ResearchDirector: Science
+      ChiefEngineer: Engineering
+      ChiefMedicalOfficer: Medical
+      HeadOfSecurity: Security
+      HeadOfPersonnel: Service
+      Quartermaster: Cargo
 #    whitelistTags:
 #    - Sheet
 #    - RawMaterial
@@ -69,6 +76,32 @@
     anchored: true
     noRot: true
   - type: Pullable
+
+- type: entity
+  parent: BaseComputer
+  id: MaterialMarketplacePriceConsole
+  name: консоль цен торгомата
+  description: Позволяет квартирмейстеру выставлять цены на материалы и предметы в торгоматах станции.
+  components:
+  - type: MaterialMarketplacePriceConsole
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request
+    - map: ["computerLayerKeys"]
+      state: tech_key
+  - type: AccessReader
+    access: [["Quartermaster"]]
+  - type: ActivatableUI
+    key: enum.MaterialMarketplacePriceConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.MaterialMarketplacePriceConsoleUiKey.Key:
+        type: MaterialMarketplacePriceConsoleBoundUserInterface
 
 - type: materialMarketplaceCategory
   id: Construction

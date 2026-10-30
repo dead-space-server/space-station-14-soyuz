@@ -1367,3 +1367,13 @@
   - MaterialMarketplace
   - MaterialMarketplacePriceConsole
   - PublicMarket
+
+- type: repairValueExclusion
+  id: RepairExcludeSS14Rinok
+  reason: обосраца
+  entities:
+  - ComputerLockdown
+  - AirlockExternalGlassShuttleSecurity
+  - AirlockExternalGlassShuttleSecurityRandom
+  - AirlockExternalGlassShuttleDeathSquad
+  - AirlockExternalGlassShuttleGeneralStaff

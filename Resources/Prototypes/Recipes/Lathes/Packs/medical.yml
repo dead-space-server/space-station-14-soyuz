@@ -82,6 +82,7 @@
 - type: latheRecipePack
   id: MedicalBoardsStatic
   recipes:
+  - SoyuzPharmaceuticalLaboratoryMachineCircuitboard # DS14-Soyuz
   - ElectrolysisUnitMachineCircuitboard
   - CentrifugeMachineCircuitboard
   - ChemDispenserMachineCircuitboard

@@ -29,7 +29,7 @@ public sealed partial class ReagentDisplayControl : StripedDisplayControl
         if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var prototype))
             return;
 
-        AddRow(prototype.LocalizedName, $"{quantity}{Loc.GetString("units-u")}", prototype.SubstanceColor, trailingControls);
+        AddRow(reagent.GetLocalizedName(prototype), $"{quantity}{Loc.GetString("units-u")}", reagent.GetColor(prototype), trailingControls); // DS14-Soyuz
     }
 
     /// <summary>

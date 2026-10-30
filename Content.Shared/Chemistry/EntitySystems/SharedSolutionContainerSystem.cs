@@ -7,6 +7,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Content.Shared.Containers;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
@@ -461,7 +462,7 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
         else
         {
             var proto = PrototypeManager.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
-            solution.AddReagent(proto, acceptedQuantity, temperature.Value, PrototypeManager);
+            solution.AddReagent(proto, acceptedQuantity, temperature.Value, PrototypeManager, reagentQuantity.Reagent.Data); // DS14-Soyuz: preserve experimental formula data during temperature-aware transfers.
         }
 
         UpdateChemicals(soln);
@@ -979,21 +980,24 @@ public abstract partial class SharedSolutionContainerSystem : EntitySystem
 
         msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-main-text"));
 
-        var reagentPrototypes = solution.GetReagentPrototypes(PrototypeManager);
-
-        // Sort the reagents by amount, descending then alphabetically
-        var sortedReagentPrototypes = reagentPrototypes
-            .OrderByDescending(pair => pair.Value.Value)
-            .ThenBy(pair => pair.Key.LocalizedName);
-
-        foreach (var (proto, quantity) in sortedReagentPrototypes)
+        // DS14-Soyuz start
+        var ordinary = solution.GetReagentPrototypes(PrototypeManager).Where(p => p.Key.ID != PharmaceuticalData.PrototypeId)
+            .Select(p => (Name: p.Key.LocalizedName, Color: p.Key.SubstanceColor, Quantity: p.Value));
+        var medicines = solution.Contents.Where(r => r.Reagent.Prototype == PharmaceuticalData.PrototypeId).Select(r =>
+        {
+            var prototype = PrototypeManager.Index<ReagentPrototype>(r.Reagent.Prototype);
+            return (Name: r.Reagent.GetLocalizedName(prototype), Color: r.Reagent.GetColor(prototype), Quantity: r.Quantity);
+        });
+        var medicineRows = medicines.GroupBy(r => (r.Name, r.Color))
+            .Select(group => (group.Key.Name, group.Key.Color, Quantity: group.Aggregate(FixedPoint2.Zero, (total, row) => total + row.Quantity)));
+        var rows = ordinary.Concat(medicineRows).OrderByDescending(row => row.Quantity.Value).ThenBy(row => row.Name);
+        foreach (var row in rows)
         {
             msg.PushNewline();
-            msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-chemical"
-                , ("type", proto.LocalizedName)
-                , ("color", proto.SubstanceColor.ToHexNoAlpha())
-                , ("amount", quantity)));
+            msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-chemical",
+                ("type", row.Name), ("color", row.Color.ToHexNoAlpha()), ("amount", row.Quantity)));
         }
+        // DS14-Soyuz end
 
         msg.PushNewline();
         msg.AddMarkupOrThrow(Loc.GetString("scannable-solution-temperature", ("temperature", Math.Round(solution.Temperature))));

@@ -328,12 +328,14 @@ public sealed class LavalandResonatorSystem : EntitySystem
                 continue;
             }
 
-            // Gatherable walls are queue-deleted, so clear their collision before the burst projectiles spawn this tick.
-            if (TryComp<PhysicsComponent>(uid, out var physics))
-                _physics.SetCanCollide(uid, false, body: physics);
-
             ApplyBonusYield(uid, field);
             _gatherable.Gather(uid, gatherer);
+
+            // DS14-Soyuz-start: keep collision when destruction was cancelled (e.g. a primed gibtonite vein).
+            // Successfully gathered walls must stop blocking the projectiles spawned later in this burst.
+            if (EntityManager.IsQueuedForDeletion(uid) && TryComp<PhysicsComponent>(uid, out var physics))
+                _physics.SetCanCollide(uid, false, body: physics);
+            // DS14-Soyuz-end
         }
     }
 

@@ -35,7 +35,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] NoSpawnMaps =
         {
-            "CentComm",
+            // "CentComm", // DS14-Soyuz
             "Dart"
         };
 
@@ -96,7 +96,7 @@ namespace Content.IntegrationTests.Tests
         {
             "Dev",
             "TestTeg",
-            "CentComm",
+            // "CentComm", //DS14-Soyuz
             "MeteorArena",
             "dm01-entryway",
             "DSTaipan",

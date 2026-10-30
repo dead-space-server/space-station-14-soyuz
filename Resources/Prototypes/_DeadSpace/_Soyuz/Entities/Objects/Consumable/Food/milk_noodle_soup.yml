@@ -1,0 +1,26 @@
+- type: entity
+  parent: FoodBowlBase
+  id: FoodSoupMilkNoodle
+  name: milk noodle soup
+  description: Tender noodles in sweet milk. Every spoonful brings back carefree childhood memories.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - sweet
+    - milk
+    - pasta
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/milk_noodle_soup.rsi
+    layers:
+    - state: icon
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 40
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 20
+        - ReagentId: Milk
+          Quantity: 10
+        - ReagentId: Sugar
+          Quantity: 5

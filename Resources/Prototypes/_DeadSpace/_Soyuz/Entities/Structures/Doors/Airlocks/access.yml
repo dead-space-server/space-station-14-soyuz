@@ -30,6 +30,19 @@
     containers:
       board: [ DoorElectronicsExternal ]
 
+- type: entity
+  parent: AirlockGlassShuttle
+  id: AirlockExternalGlassShuttleDeathSquad
+  name: стыковочный шлюз особого шаттла
+  description: Необходим для соединения двух космических кораблей вместе.
+  suffix: Эскадрон смерти, Стеклянный, Стыковочный
+  components:
+  - type: GridFill
+    path: "/Maps/_Soyuz/Shuttles/deathsquad.yml"
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsExternal ]
+
 # Стык шаттла ПГШ
 - type: entity
   parent: AirlockShuttleSyndicate

@@ -1,6 +1,7 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
+using Content.Server.DeadSpace._Soyuz.PublicMarket;
 using Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
@@ -15,7 +16,10 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
 {
     private const double MaxPrice = 10000;
 
+    private const int MaxCommissionPercent = 50;
+
     [Dependency] private readonly MaterialMarketplaceSystem _marketplace = default!;
+    [Dependency] private readonly PublicMarketSystem _publicMarket = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly AccessReaderSystem _access = default!;
@@ -29,6 +33,32 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
         SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, BoundUIOpenedEvent>(OnOpened);
         SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, MaterialMarketplaceSetPriceMessage>(OnSetPrice);
         SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, MaterialMarketplaceSetDynamicPricingMessage>(OnSetDynamicPricing);
+        SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, MaterialMarketplaceSetCommissionMessage>(OnSetCommission);
+    }
+
+    private void OnSetCommission(
+        EntityUid uid,
+        MaterialMarketplacePriceConsoleComponent comp,
+        MaterialMarketplaceSetCommissionMessage args)
+    {
+        if (!_access.IsAllowed(args.Actor, uid))
+            return;
+
+        var station = _station.GetOwningStation(uid);
+        if (station == null)
+            return;
+
+        if (args.Percent < 0 || args.Percent > MaxCommissionPercent)
+        {
+            _popup.PopupEntity($"Комиссия должна быть от 0 до {MaxCommissionPercent}%.", uid, args.Actor);
+            return;
+        }
+
+        var prices = EnsureComp<MaterialMarketplacePricesComponent>(station.Value);
+        prices.MarketCommissionPercent = args.Percent;
+
+        _publicMarket.RefreshStation(station.Value);
+        UpdateUI(uid);
     }
 
     private void OnSetDynamicPricing(
@@ -108,11 +138,13 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
         var entries = new List<MarketplacePriceEntry>();
         var station = _station.GetOwningStation(uid);
         var dynamicPricing = true;
+        var commissionPercent = 0;
 
         if (station != null)
         {
             var prices = CompOrNull<MaterialMarketplacePricesComponent>(station.Value);
             dynamicPricing = prices?.DynamicPricing ?? true;
+            commissionPercent = prices?.MarketCommissionPercent ?? 0;
             var seenMaterials = new HashSet<string>();
             var seenItems = new HashSet<string>();
 
@@ -161,6 +193,6 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
             }
         }
 
-        _ui.SetUiState(uid, MaterialMarketplacePriceConsoleUiKey.Key, new MaterialMarketplacePriceConsoleState(entries, dynamicPricing));
+        _ui.SetUiState(uid, MaterialMarketplacePriceConsoleUiKey.Key, new MaterialMarketplacePriceConsoleState(entries, dynamicPricing, commissionPercent));
     }
 }

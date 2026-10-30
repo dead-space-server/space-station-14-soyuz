@@ -78,6 +78,59 @@
   - type: Pullable
 
 - type: entity
+  parent: BaseMachinePowered
+  id: PublicMarket
+  name: общий торгомат
+  description: Торговая площадка отделов станции. Вставьте предмет, назначьте цену, и вырученные деньги пойдут на счёт вашего отдела. На корпусе вцарапано "SS14 - рынок".
+  components:
+  - type: PublicMarket
+    departmentAccess:
+      ResearchDirector: Science
+      ChiefEngineer: Engineering
+      ChiefMedicalOfficer: Medical
+      HeadOfSecurity: Security
+      HeadOfPersonnel: Service
+      Quartermaster: Cargo
+    sellerDepartments:
+      Science: Science
+      Engineering: Engineering
+      Medical: Medical
+      Security: Security
+      Cargo: Cargo
+      Civilian: Service
+  - type: ContainerContainer
+    containers:
+      public_market_items: !type:Container
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/material_marketplace.rsi
+    layers:
+    - state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+          - MachineLayer
+  - type: ActivatableUI
+    key: enum.PublicMarketUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.PublicMarketUiKey.Key:
+        type: PublicMarketBoundUserInterface
+  - type: StaticPrice
+    price: 250
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Pullable
+
+- type: entity
   parent: BaseComputer
   id: MaterialMarketplacePriceConsole
   name: консоль цен торгомата

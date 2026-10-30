@@ -1359,3 +1359,11 @@
   entities:
   - GravityGeneratorInvisible
   - StationAnchorInvisible
+
+- type: repairValueExclusion
+  id: RepairExcludeSS14Rinok
+  reason: SS14 - рынок
+  entities:
+  - MaterialMarketplace
+  - MaterialMarketplacePriceConsole
+  - PublicMarket

@@ -68,6 +68,12 @@ public sealed partial class MaterialMarketplacePricesComponent : Component
 
     [ViewVariables]
     public TimeSpan NextUpdate;
+
+    /// <summary>
+    /// Комиссия общего рынка, % от цены лота. Удерживается с продавца и уходит на счёт почты
+    /// </summary>
+    [DataField]
+    public int MarketCommissionPercent;
 }
 
 [Serializable, NetSerializable]
@@ -102,11 +108,24 @@ public sealed class MarketplacePriceEntry(
 }
 
 [NetSerializable, Serializable]
-public sealed class MaterialMarketplacePriceConsoleState(List<MarketplacePriceEntry> entries, bool dynamicPricing)
+public sealed class MaterialMarketplacePriceConsoleState(
+    List<MarketplacePriceEntry> entries,
+    bool dynamicPricing,
+    int marketCommissionPercent)
     : BoundUserInterfaceState
 {
     public readonly List<MarketplacePriceEntry> Entries = entries;
     public readonly bool DynamicPricing = dynamicPricing;
+    public readonly int MarketCommissionPercent = marketCommissionPercent;
+}
+
+/// <summary>
+/// Задать комиссию общего рынка (в процентах)
+/// </summary>
+[NetSerializable, Serializable]
+public sealed class MaterialMarketplaceSetCommissionMessage(int percent) : BoundUserInterfaceMessage
+{
+    public readonly int Percent = percent;
 }
 
 /// <summary>

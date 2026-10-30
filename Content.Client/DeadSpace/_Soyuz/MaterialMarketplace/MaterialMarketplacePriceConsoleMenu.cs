@@ -15,19 +15,19 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
     private readonly BoxContainer _list;
     private readonly Label _dynamicLabel;
     private readonly Button _dynamicButton;
+    private readonly LineEdit _commissionEdit;
 
     private MaterialMarketplacePriceConsoleState? _state;
     private string _searchFilter = string.Empty;
 
-    /// <summary>
-    /// isItem, id, price (null - сбросить).
-    /// </summary>
+    /// <summary>isItem, id, price (null - сбросить).</summary>
     public event Action<bool, string, double?>? OnSetPrice;
 
-    /// <summary>
-    /// true - включить динамическую цену, false - выключить.
-    /// </summary>
+    /// <summary>true - включить динамическую цену, false - выключить.</summary>
     public event Action<bool>? OnSetDynamicPricing;
+
+    /// <summary>Комиссия общего рынка в процентах.</summary>
+    public event Action<int>? OnSetCommission;
 
     public MaterialMarketplacePriceConsoleMenu()
     {
@@ -62,6 +62,33 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
         dynamicRow.AddChild(_dynamicLabel);
         dynamicRow.AddChild(_dynamicButton);
         main.AddChild(dynamicRow);
+
+        var commissionRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 10,
+            Margin = new Thickness(0, 0, 0, 10),
+        };
+
+        commissionRow.AddChild(new Label
+        {
+            Text = "Комиссия общего рынка, % (от 0 до 50):",
+            HorizontalExpand = true,
+            VerticalAlignment = VAlignment.Center,
+        });
+
+        _commissionEdit = new LineEdit { MinWidth = 70 };
+        commissionRow.AddChild(_commissionEdit);
+
+        var commissionSet = new Button { Text = "Задать" };
+        commissionSet.OnPressed += _ =>
+        {
+            if (int.TryParse(_commissionEdit.Text.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var percent))
+                OnSetCommission?.Invoke(percent);
+        };
+        commissionRow.AddChild(commissionSet);
+        main.AddChild(commissionRow);
 
         _searchBar = new LineEdit
         {
@@ -98,6 +125,7 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
     public void UpdateState(MaterialMarketplacePriceConsoleState state)
     {
         _state = state;
+        _commissionEdit.Text = state.MarketCommissionPercent.ToString(CultureInfo.InvariantCulture);
         Rebuild();
     }
 

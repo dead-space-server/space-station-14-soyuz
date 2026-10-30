@@ -20,6 +20,8 @@ public sealed class MaterialMarketplacePriceConsoleBoundUserInterface : BoundUse
             SendMessage(new MaterialMarketplaceSetPriceMessage(isItem, id, price));
         _menu.OnSetDynamicPricing += enabled =>
             SendMessage(new MaterialMarketplaceSetDynamicPricingMessage(enabled));
+        _menu.OnSetCommission += percent =>
+            SendMessage(new MaterialMarketplaceSetCommissionMessage(percent));
         _menu.OnClose += Close;
         _menu.OpenCentered();
     }

@@ -1,7 +1,7 @@
 - type: entity
   parent: [ BaseMachinePowered, ConstructibleMachine ]
   id: MaterialMarketplace
-  name: Торгомат
+  name: торгомат
   description: Терминал для покупки и продажи материалов. Просто добавь социализм!
   components:
   - type: MaterialMarketplace
@@ -21,17 +21,12 @@
     - Ore
 #    whitelistMaterials:
     blacklistMaterials:
-    - Biomass
-    - Bones
     - Gunpowder
-    - WebSilk
-    - Cotton
     - Meaterial
     - RawQuartz
-    - Coal
-    - RawSalt
+  - type: OreSiloClient
   - type: MaterialStorage
-    storageLimit: 1000
+#    storageLimit: 1000
 #    whitelist:
 #      tags:
 #        - Sheet

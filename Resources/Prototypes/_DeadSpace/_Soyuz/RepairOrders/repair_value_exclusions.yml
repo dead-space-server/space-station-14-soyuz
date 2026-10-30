@@ -1369,7 +1369,7 @@
   - PublicMarket
 
 - type: repairValueExclusion
-  id: RepairExcludeSS14Rinok
+  id: RepairExcludeIdk
   reason: обосраца
   entities:
   - ComputerLockdown

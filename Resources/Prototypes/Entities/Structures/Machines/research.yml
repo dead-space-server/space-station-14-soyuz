@@ -26,10 +26,14 @@
   - type: ResearchServer
   - type: TechnologyDatabase
     supportedDisciplines:
-    - Industrial
-    - Arsenal
-    - Experimental
-    - CivilianServices
+#DS14-Soyuz start
+    - Service
+    - Security
+    - RND
+    - Medical
+    - Engineering
+    - Cargo
+#DS14-Soyuz end
   - type: ApcPowerReceiver
     powerLoad: 200
   - type: ExtensionCableReceiver

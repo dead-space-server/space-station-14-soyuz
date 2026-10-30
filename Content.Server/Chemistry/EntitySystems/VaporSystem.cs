@@ -16,6 +16,9 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Spawners;
 using System.Numerics;
+using System.Linq; // DS14-Soyuz
+using Content.Server.Chemistry.TileReactions; // DS14-Soyuz
+using Robust.Shared.Timing; // DS14-Soyuz
 
 namespace Content.Server.Chemistry.EntitySystems
 {
@@ -29,6 +32,7 @@ namespace Content.Server.Chemistry.EntitySystems
         [Dependency] private readonly ThrowingSystem _throwing = default!;
         [Dependency] private readonly ReactiveSystem _reactive = default!;
         [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
+        [Dependency] private readonly IGameTiming _timing = default!; // DS14-Soyuz
 
         public override void Initialize()
         {
@@ -106,7 +110,7 @@ namespace Content.Server.Chemistry.EntitySystems
             while (query.MoveNext(out var uid, out var vaporComp, out var container, out var xform))
             {
                 // Return early if we're not active
-                if (!vaporComp.Active)
+                if (!vaporComp.Active || MetaData(uid).EntityPaused) // DS14-Soyuz: pause repeated cleaning as well.
                     continue;
 
                 // Get the current location of the vapor entity first
@@ -114,10 +118,11 @@ namespace Content.Server.Chemistry.EntitySystems
                 {
                     var tile = _map.GetTileRef(xform.GridUid.Value, gridComp, xform.Coordinates);
 
-                    // Check if the tile is a tile we've reacted with previously. If so, skip it.
-                    // If we have no previous tile reference, we don't return so we can save one.
-                    if (vaporComp.PreviousTileRef != null && tile == vaporComp.PreviousTileRef)
+                    // DS14-Soyuz-start: cleaning can retry while the vapor remains over a tile.
+                    var sameTile = vaporComp.PreviousTileRef == tile;
+                    if (sameTile && _timing.CurTime < vaporComp.NextCleaningReaction)
                         continue;
+                    // DS14-Soyuz-end
 
                     // Enumerate over all the reagents in the vapor entity solution
                     foreach (var (_, soln) in _solutionContainerSystem.EnumerateSolutions((uid, container)))
@@ -135,11 +140,19 @@ namespace Content.Server.Chemistry.EntitySystems
 
                             var reagent = _protoManager.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
 
+                            // DS14-Soyuz-start
+                            var cleaningReagent = reagent.TileReactions.Any(tileReaction => tileReaction is CleanTileReaction);
+                            if (sameTile && !cleaningReagent)
+                                continue;
+                            // DS14-Soyuz-end
+
                             // Limit the reaction amount to a minimum value to ensure no floating point funnies.
                             // Ex: A solution with a low percentage transfer amount will slowly approach 0.01... and never get deleted
-                            var clampedAmount = Math.Max(
-                                (float)reagentQuantity.Quantity * vaporComp.TransferAmountPercentage,
-                                vaporComp.MinimumTransferAmount);
+                            // DS14-Soyuz: offer the available cleaner, consuming only what the tile actually uses.
+                            var clampedAmount = cleaningReagent ? (float) reagentQuantity.Quantity :
+                                Math.Min((float) reagentQuantity.Quantity, Math.Max(
+                                    (float) reagentQuantity.Quantity * vaporComp.TransferAmountPercentage,
+                                    vaporComp.MinimumTransferAmount)); // DS14-Soyuz
 
                             // Preform the reagent's TileReaction
                             var reaction =
@@ -162,6 +175,7 @@ namespace Content.Server.Chemistry.EntitySystems
 
                     // Set the previous tile reference to the current tile
                     vaporComp.PreviousTileRef = tile;
+                    vaporComp.NextCleaningReaction = _timing.CurTime + TimeSpan.FromSeconds(0.1); // DS14-Soyuz
                 }
             }
         }

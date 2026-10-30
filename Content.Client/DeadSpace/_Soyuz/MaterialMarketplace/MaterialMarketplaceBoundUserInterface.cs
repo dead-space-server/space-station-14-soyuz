@@ -1,3 +1,4 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 using Content.Shared.DeadSpace._Soyuz.MaterialMarketplace;
 
 namespace Content.Client.DeadSpace._Soyuz.MaterialMarketplace;
@@ -16,7 +17,9 @@ public sealed class MaterialMarketplaceBoundUserInterface : BoundUserInterface
         base.Open();
 
         _menu = new MaterialMarketplaceMenu();
-        _menu.OnBuyPressed += OnBuyPressed;
+        _menu.OnCheckout += OnCheckout;
+        _menu.OnRequestPayment += () => SendMessage(new MaterialMarketplaceRequestPaymentMessage());
+        _menu.OnEjectCash += () => SendMessage(new MaterialMarketplaceEjectCashMessage());
         _menu.OnClose += Close;
         _menu.OpenCentered();
     }
@@ -32,12 +35,27 @@ public sealed class MaterialMarketplaceBoundUserInterface : BoundUserInterface
             _menu.UpdateState(marketplaceState);
     }
 
-    private void OnBuyPressed(string materialId, int amount)
+    protected override void ReceiveMessage(BoundUserInterfaceMessage message)
     {
-        if (amount <= 0)
+        base.ReceiveMessage(message);
+
+        switch (message)
+        {
+            case MaterialMarketplacePaymentOptionsMessage options:
+                _menu?.SetPaymentOptions(options);
+                break;
+            case MaterialMarketplaceCheckoutResultMessage result:
+                _menu?.OnCheckoutResult(result.Success);
+                break;
+        }
+    }
+
+    private void OnCheckout(List<MarketplaceCartLine> lines, MarketplacePayment payment)
+    {
+        if (lines.Count == 0)
             return;
 
-        SendMessage(new MaterialMarketplaceBuyMessage(materialId, amount));
+        SendMessage(new MaterialMarketplaceCheckoutMessage(lines, payment));
     }
 
     protected override void Dispose(bool disposing)

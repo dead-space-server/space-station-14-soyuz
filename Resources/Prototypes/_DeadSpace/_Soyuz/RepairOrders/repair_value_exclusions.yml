@@ -1313,8 +1313,6 @@
   - BaseSobrCryoCapsuleScntEmpty
   - BaseSobrCryoCapsuleBSAAEmpty
   - BaseSobrCryoCapsuleTestEmpty
-  - SobrCryoCapsuleAllCburnSquads
-  - SobrCryoCapsuleAllSquads
   - SobrCryoCapsuleSpecialDeathSquadAndNavyCaptain
   - SobrCryoCapsuleSpecialDeathSquadAndNavyMedical
   - SobrCryoCapsuleSpecialDeathSquadAndNavyEngineer
@@ -1354,3 +1352,18 @@
   - SobrCryoCapsuleBsaaMedic
   - SobrCryoCapsuleBsaaFighter
   - SobrCryoCapsuleMixedExample
+
+- type: repairValueExclusion
+  id: RepairExcludeMapping
+  reason: Не ебу x2
+  entities:
+  - GravityGeneratorInvisible
+  - StationAnchorInvisible
+
+- type: repairValueExclusion
+  id: RepairExcludeSS14Rinok
+  reason: SS14 - рынок
+  entities:
+  - MaterialMarketplace
+  - MaterialMarketplacePriceConsole
+  - PublicMarket

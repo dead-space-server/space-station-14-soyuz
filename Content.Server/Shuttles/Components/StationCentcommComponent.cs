@@ -16,7 +16,7 @@ public sealed partial class StationCentcommComponent : Component
     public float ShuttleIndex;
 
     [DataField]
-    public ProtoId<GameMapPrototype> Map = "CentComm"; // DS14
+    public ProtoId<GameMapPrototype> Map = "GeneralStaff"; // DS14-Soyuz
 
     /// <summary>
     /// Centcomm entity that was loaded.

@@ -75,3 +75,14 @@
     state: pilot1
   - type: SpeakOnTrigger
     pack: FigurinesPilot
+
+- type: entity
+  parent: BaseFigurineSoyuz
+  id: FigurineOfficer1
+  name: фигурка милиционера
+  description: Очень крутой милиционер?
+  components:
+  - type: Sprite
+    state: officer1
+  - type: SpeakOnTrigger
+    pack: FigurinesOfficer

@@ -28,6 +28,30 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
 
         SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, BoundUIOpenedEvent>(OnOpened);
         SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, MaterialMarketplaceSetPriceMessage>(OnSetPrice);
+        SubscribeLocalEvent<MaterialMarketplacePriceConsoleComponent, MaterialMarketplaceSetDynamicPricingMessage>(OnSetDynamicPricing);
+    }
+
+    private void OnSetDynamicPricing(
+        EntityUid uid,
+        MaterialMarketplacePriceConsoleComponent comp,
+        MaterialMarketplaceSetDynamicPricingMessage args)
+    {
+        if (!_access.IsAllowed(args.Actor, uid))
+            return;
+
+        var station = _station.GetOwningStation(uid);
+        if (station == null)
+            return;
+
+        var prices = EnsureComp<MaterialMarketplacePricesComponent>(station.Value);
+        prices.DynamicPricing = args.Enabled;
+
+        prices.MaterialMultipliers.Clear();
+        prices.PurchasedThisPeriod.Clear();
+        prices.NextUpdate = TimeSpan.Zero;
+
+        _marketplace.RefreshStation(station.Value);
+        UpdateUI(uid);
     }
 
     private void OnOpened(EntityUid uid, MaterialMarketplacePriceConsoleComponent comp, BoundUIOpenedEvent args)
@@ -83,10 +107,12 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
     {
         var entries = new List<MarketplacePriceEntry>();
         var station = _station.GetOwningStation(uid);
+        var dynamicPricing = true;
 
         if (station != null)
         {
             var prices = CompOrNull<MaterialMarketplacePricesComponent>(station.Value);
+            dynamicPricing = prices?.DynamicPricing ?? true;
             var seenMaterials = new HashSet<string>();
             var seenItems = new HashSet<string>();
 
@@ -109,7 +135,8 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
                         _marketplace.GetMaterialDisplayName(mat),
                         false,
                         custom,
-                        mat.Price * perEntity));
+                        mat.Price * perEntity,
+                        _marketplace.GetMaterialMultiplier(prices, mat.ID)));
                 }
 
                 foreach (var protoId in _marketplace.GetStoredItems(marketUid, marketComp).Keys)
@@ -130,10 +157,10 @@ public sealed class MaterialMarketplacePriceConsoleSystem : EntitySystem
             foreach (var protoId in seenItems)
             {
                 double? custom = prices != null && prices.ItemPrices.TryGetValue(protoId, out var c) ? c : null;
-                entries.Add(new MarketplacePriceEntry(protoId, _marketplace.GetItemName(protoId), true, custom, null));
+                entries.Add(new MarketplacePriceEntry(protoId, _marketplace.GetItemName(protoId), true, custom, null, 1.0));
             }
         }
 
-        _ui.SetUiState(uid, MaterialMarketplacePriceConsoleUiKey.Key, new MaterialMarketplacePriceConsoleState(entries));
+        _ui.SetUiState(uid, MaterialMarketplacePriceConsoleUiKey.Key, new MaterialMarketplacePriceConsoleState(entries, dynamicPricing));
     }
 }

@@ -13,17 +13,26 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
 {
     private readonly LineEdit _searchBar;
     private readonly BoxContainer _list;
+    private readonly Label _dynamicLabel;
+    private readonly Button _dynamicButton;
 
     private MaterialMarketplacePriceConsoleState? _state;
     private string _searchFilter = string.Empty;
 
-    /// <summary>isItem, id, price (null - сбросить).</summary>
+    /// <summary>
+    /// isItem, id, price (null - сбросить).
+    /// </summary>
     public event Action<bool, string, double?>? OnSetPrice;
+
+    /// <summary>
+    /// true - включить динамическую цену, false - выключить.
+    /// </summary>
+    public event Action<bool>? OnSetDynamicPricing;
 
     public MaterialMarketplacePriceConsoleMenu()
     {
         Title = "Консоль цен торгомата";
-        SetSize = new Vector2(760, 700);
+        SetSize = new Vector2(860, 700);
         Resizable = false;
 
         var main = new BoxContainer
@@ -33,6 +42,26 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
             HorizontalExpand = true,
             Margin = new Thickness(10, 30, 10, 10),
         };
+
+        var dynamicRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 10,
+            Margin = new Thickness(0, 0, 0, 10),
+        };
+
+        _dynamicLabel = new Label { HorizontalExpand = true, VerticalAlignment = VAlignment.Center };
+        _dynamicButton = new Button { MinWidth = 260 };
+        _dynamicButton.OnPressed += _ =>
+        {
+            if (_state != null)
+                OnSetDynamicPricing?.Invoke(!_state.DynamicPricing);
+        };
+
+        dynamicRow.AddChild(_dynamicLabel);
+        dynamicRow.AddChild(_dynamicButton);
+        main.AddChild(dynamicRow);
 
         _searchBar = new LineEdit
         {
@@ -77,6 +106,19 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
         _list.RemoveAllChildren();
         if (_state == null)
             return;
+
+        if (_state.DynamicPricing)
+        {
+            _dynamicLabel.Text = "Динамическая цена: включена (от 50% до 200% от базовой)";
+            _dynamicLabel.FontColorOverride = Color.LightGreen;
+            _dynamicButton.Text = "Выключить динамическую цену";
+        }
+        else
+        {
+            _dynamicLabel.Text = "Динамическая цена: выключена";
+            _dynamicLabel.FontColorOverride = Color.Orange;
+            _dynamicButton.Text = "Включить динамическую цену";
+        }
 
         AddSection("Материалы (цена за единицу товара)", false);
         AddSection("Предметы (цена за штуку)", true);
@@ -147,6 +189,19 @@ public sealed class MaterialMarketplacePriceConsoleMenu : FancyWindow
             Text = info,
             FontColorOverride = infoColor,
             MinWidth = 140,
+        });
+
+        var showMultiplier = _state!.DynamicPricing && !entry.IsItem;
+        var multiplierColor = entry.Multiplier > 1.005
+            ? Color.OrangeRed
+            : entry.Multiplier < 0.995 ? Color.LightSkyBlue : Color.LightGray;
+
+        row.AddChild(new Label
+        {
+            Text = showMultiplier ? $"{entry.Multiplier * 100:0}%" : string.Empty,
+            FontColorOverride = multiplierColor,
+            MinWidth = 50,
+            HorizontalAlignment = HAlignment.Right,
         });
 
         var edit = new LineEdit

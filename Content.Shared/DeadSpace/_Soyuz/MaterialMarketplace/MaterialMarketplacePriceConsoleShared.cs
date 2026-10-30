@@ -22,6 +22,52 @@ public sealed partial class MaterialMarketplacePricesComponent : Component
 
     [DataField]
     public Dictionary<string, double> ItemPrices = new();
+
+    /// <summary>
+    /// Динамическая цена на материалы: цена = базовая * множитель, множитель зависит от спроса.
+    /// </summary>
+    [DataField]
+    public bool DynamicPricing = true;
+
+    /// <summary>
+    /// Текущий множитель цены по материалам (1.0 = базовая цена).
+    /// </summary>
+    [DataField]
+    public Dictionary<string, double> MaterialMultipliers = new();
+
+    /// <summary>
+    /// Сколько единиц каждого материала купили за текущий период.
+    /// </summary>
+    [ViewVariables]
+    public Dictionary<string, int> PurchasedThisPeriod = new();
+
+    /// <summary>
+    /// Как часто пересчитываются множители.
+    /// </summary>
+    [DataField]
+    public TimeSpan UpdateInterval = TimeSpan.FromMinutes(5);
+
+    /// <summary>
+    /// Сколько единиц материала нужно купить за период, чтобы цель множителя стала максимальной (200%).
+    /// Меньше покупок - цель ближе к минимальной (50%).
+    /// </summary>
+    [DataField]
+    public int SaturationPerPeriod = 20;
+
+    [DataField]
+    public double MinMultiplier = 0.5;
+
+    [DataField]
+    public double MaxMultiplier = 2.0;
+
+    /// <summary>
+    /// Какую долю расстояния до цели множитель проходит за один пересчёт (чем меньше, тем медленнее).
+    /// </summary>
+    [DataField]
+    public double Smoothing = 0.1;
+
+    [ViewVariables]
+    public TimeSpan NextUpdate;
 }
 
 [Serializable, NetSerializable]
@@ -35,19 +81,41 @@ public enum MaterialMarketplacePriceConsoleUiKey : byte
 /// DefaultPrice есть только у материалов.
 /// </summary>
 [NetSerializable, Serializable]
-public sealed class MarketplacePriceEntry(string id, string name, bool isItem, double? customPrice, double? defaultPrice)
+public sealed class MarketplacePriceEntry(
+    string id,
+    string name,
+    bool isItem,
+    double? customPrice,
+    double? defaultPrice,
+    double multiplier)
 {
     public readonly string Id = id;
     public readonly string Name = name;
     public readonly bool IsItem = isItem;
     public readonly double? CustomPrice = customPrice;
     public readonly double? DefaultPrice = defaultPrice;
+
+    /// <summary>
+    /// Текущий динамический множитель (1.0 для предметов или при выключенной динамической цене).
+    /// </summary>
+    public readonly double Multiplier = multiplier;
 }
 
 [NetSerializable, Serializable]
-public sealed class MaterialMarketplacePriceConsoleState(List<MarketplacePriceEntry> entries) : BoundUserInterfaceState
+public sealed class MaterialMarketplacePriceConsoleState(List<MarketplacePriceEntry> entries, bool dynamicPricing)
+    : BoundUserInterfaceState
 {
     public readonly List<MarketplacePriceEntry> Entries = entries;
+    public readonly bool DynamicPricing = dynamicPricing;
+}
+
+/// <summary>
+/// Включить или выключить динамическую цену. При любом переключении множители сбрасываются к 100%.
+/// </summary>
+[NetSerializable, Serializable]
+public sealed class MaterialMarketplaceSetDynamicPricingMessage(bool enabled) : BoundUserInterfaceMessage
+{
+    public readonly bool Enabled = enabled;
 }
 
 /// <summary>

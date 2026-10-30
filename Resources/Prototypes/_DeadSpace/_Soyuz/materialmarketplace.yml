@@ -58,6 +58,11 @@
         - MachineMask
         layer:
           - MachineLayer
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      marketplace_items: !type:Container
   - type: ActivatableUI
     key: enum.MaterialMarketplaceUiKey.Key
   - type: ActivatableUIRequiresPower

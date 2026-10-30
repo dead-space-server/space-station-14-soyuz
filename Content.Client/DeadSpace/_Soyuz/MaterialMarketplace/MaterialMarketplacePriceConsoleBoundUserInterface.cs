@@ -18,6 +18,8 @@ public sealed class MaterialMarketplacePriceConsoleBoundUserInterface : BoundUse
         _menu = new MaterialMarketplacePriceConsoleMenu();
         _menu.OnSetPrice += (isItem, id, price) =>
             SendMessage(new MaterialMarketplaceSetPriceMessage(isItem, id, price));
+        _menu.OnSetDynamicPricing += enabled =>
+            SendMessage(new MaterialMarketplaceSetDynamicPricingMessage(enabled));
         _menu.OnClose += Close;
         _menu.OpenCentered();
     }

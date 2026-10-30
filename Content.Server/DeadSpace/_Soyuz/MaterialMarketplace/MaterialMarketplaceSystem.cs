@@ -17,6 +17,7 @@ using Content.Shared.Stacks;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.DeadSpace._Soyuz.MaterialMarketplace
 {
@@ -40,6 +41,7 @@ namespace Content.Server.DeadSpace._Soyuz.MaterialMarketplace
         [Dependency] private readonly SharedIdCardSystem _idCard = default!;
         [Dependency] private readonly SharedPopupSystem _popup = default!;
         [Dependency] private readonly PowerReceiverSystem _power = default!;
+        [Dependency] private readonly IGameTiming _timing = default!;
 
         private List<MaterialPrototype> _cachedMaterials = new();
 
@@ -155,12 +157,74 @@ namespace Content.Server.DeadSpace._Soyuz.MaterialMarketplace
             return station == null ? null : CompOrNull<MaterialMarketplacePricesComponent>(station.Value);
         }
 
+        /// <summary>
+        /// Текущий множитель динамической цены (1.0, если динамическая цена выключена).
+        /// </summary>
+        public double GetMaterialMultiplier(MaterialMarketplacePricesComponent? prices, string materialId)
+        {
+            if (prices == null || !prices.DynamicPricing)
+                return 1.0;
+
+            return prices.MaterialMultipliers.GetValueOrDefault(materialId, 1.0);
+        }
+
         private double GetMaterialPrice(MaterialPrototype mat, int perEntity, MaterialMarketplacePricesComponent? prices)
         {
-            if (prices != null && prices.MaterialPrices.TryGetValue(mat.ID, out var custom))
-                return custom;
+            var basePrice = prices != null && prices.MaterialPrices.TryGetValue(mat.ID, out var custom)
+                ? custom
+                : mat.Price * perEntity;
 
-            return mat.Price * perEntity;
+            return basePrice * GetMaterialMultiplier(prices, mat.ID);
+        }
+
+        public override void Update(float frameTime)
+        {
+            base.Update(frameTime);
+
+            var query = EntityQueryEnumerator<MaterialMarketplacePricesComponent>();
+            while (query.MoveNext(out var station, out var prices))
+            {
+                if (!prices.DynamicPricing)
+                    continue;
+
+                // Первый запуск (или после переключения): отсчитываем период с текущего момента.
+                if (prices.NextUpdate == TimeSpan.Zero)
+                {
+                    prices.NextUpdate = _timing.CurTime + prices.UpdateInterval;
+                    continue;
+                }
+
+                if (_timing.CurTime < prices.NextUpdate)
+                    continue;
+
+                prices.NextUpdate = _timing.CurTime + prices.UpdateInterval;
+                UpdateDynamicPrices(prices);
+                RefreshStation(station);
+            }
+        }
+
+        /// <summary>
+        /// Раз в период двигаем множитель каждого материала к цели:
+        /// много покупок - цель растёт к максимуму (200%), мало - падает к минимуму (50%).
+        /// Движение плавное: за один пересчёт проходится только доля Smoothing пути.
+        /// </summary>
+        private void UpdateDynamicPrices(MaterialMarketplacePricesComponent prices)
+        {
+            var saturation = Math.Max(1, prices.SaturationPerPeriod);
+
+            foreach (var material in _cachedMaterials)
+            {
+                var bought = prices.PurchasedThisPeriod.GetValueOrDefault(material.ID);
+                var demand = Math.Clamp(bought / (double) saturation, 0.0, 1.0);
+                var target = prices.MinMultiplier + (prices.MaxMultiplier - prices.MinMultiplier) * demand;
+
+                var current = prices.MaterialMultipliers.GetValueOrDefault(material.ID, 1.0);
+                var next = current + (target - current) * prices.Smoothing;
+
+                prices.MaterialMultipliers[material.ID] = Math.Clamp(next, prices.MinMultiplier, prices.MaxMultiplier);
+            }
+
+            prices.PurchasedThisPeriod.Clear();
         }
 
         #endregion
@@ -516,6 +580,17 @@ namespace Content.Server.DeadSpace._Soyuz.MaterialMarketplace
                     Log.Error($"Торгомат {ToPrettyString(uid)}: не удалось списать {totalUnits} {material.ID} после оплаты.");
             }
 
+            if (materialPlan.Count > 0)
+            {
+                var pricesComp = EnsureComp<MaterialMarketplacePricesComponent>(station.Value);
+                foreach (var (material, amount, _) in materialPlan)
+                {
+                    pricesComp.PurchasedThisPeriod[material.ID] =
+                        pricesComp.PurchasedThisPeriod.GetValueOrDefault(material.ID) + amount;
+                }
+            }
+
+            // Выдача предметов.
             if (itemPlan.Count > 0 && _container.TryGetContainer(uid, comp.ItemContainerId, out var container))
             {
                 foreach (var (protoId, amount) in itemPlan)

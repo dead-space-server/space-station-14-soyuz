@@ -24,6 +24,7 @@ using System.Linq;
 using Content.Shared.Body.Systems;
 using Content.Shared.EntityEffects.Effects.Solution;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
+using Content.Server.Chemistry.TileReactions; // DS14-Soyuz
 
 namespace Content.Server.Fluids.EntitySystems;
 
@@ -79,6 +80,18 @@ public sealed class SmokeSystem : EntitySystem
             smoke.NextSecond += TimeSpan.FromSeconds(1);
             SmokeReact(uid, smoke.SmokeEntity);
         }
+
+        // DS14-Soyuz-start: persistent cleaning only; other smoke chemistry retains its one-shot tile reactions.
+        var cleaningQuery = EntityQueryEnumerator<SmokeComponent>();
+        while (cleaningQuery.MoveNext(out var foamUid, out var foam))
+        {
+            if (foam.SharedSolutionOwner == null || curTime < foam.NextTileReaction || MetaData(foamUid).EntityPaused)
+                continue;
+
+            foam.NextTileReaction = curTime + TimeSpan.FromSeconds(0.5);
+            ReactOnTile(foamUid, foam);
+        }
+        // DS14-Soyuz-end
     }
 
     private void OnStartCollide(Entity<SmokeComponent> entity, ref StartCollideEvent args)
@@ -130,6 +143,14 @@ public sealed class SmokeSystem : EntitySystem
 
     private void OnSmokeSpread(Entity<SmokeComponent> entity, ref SpreadNeighborsEvent args)
     {
+        // DS14-Soyuz-start
+        if (entity.Comp.SharedSolutionOwner != null)
+        {
+            SpreadCleaningSmoke(entity, ref args);
+            return;
+        }
+        // DS14-Soyuz-end
+
         if (entity.Comp.SpreadAmount == 0 || !_solutionContainerSystem.ResolveSolution(entity.Owner, SmokeComponent.SolutionName, ref entity.Comp.Solution, out var solution))
         {
             RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
@@ -244,7 +265,8 @@ public sealed class SmokeSystem : EntitySystem
     /// <summary>
     /// Sets up a smoke component for spreading.
     /// </summary>
-    public void StartSmoke(EntityUid uid, Solution solution, float duration, int spreadAmount, SmokeComponent? component = null)
+    public void StartSmoke(EntityUid uid, Solution solution, float duration, int spreadAmount, SmokeComponent? component = null,
+        EntityUid? sharedSolutionOwner = null) // DS14-Soyuz
     {
         if (!Resolve(uid, ref component))
             return;
@@ -252,6 +274,17 @@ public sealed class SmokeSystem : EntitySystem
         component.SpreadAmount = spreadAmount;
         component.Duration = duration;
         component.TransferRate = solution.Volume / duration;
+        // DS14-Soyuz-start: share only pure cleaning solutions; do not concentrate poison or other smoke mixtures.
+        component.SharedSolutionOwner = sharedSolutionOwner;
+        if (sharedSolutionOwner == null && solution.Contents.Count > 0 && solution.Contents.All(quantity =>
+                _prototype.Index<ReagentPrototype>(quantity.Reagent.Prototype).TileReactions.Any(reaction => reaction is CleanTileReaction)))
+        {
+            component.SharedSolutionOwner = uid;
+        }
+        if (sharedSolutionOwner is { } owner && _smokeQuery.TryGetComponent(owner, out var reservoir))
+            component.TransferRate = reservoir.TransferRate;
+        component.NextTileReaction = _timing.CurTime + TimeSpan.FromSeconds(0.5);
+        // DS14-Soyuz-end
         TryAddSolution(uid, solution);
         Dirty(uid, component);
         EnsureComp<ActiveEdgeSpreaderComponent>(uid);
@@ -267,8 +300,12 @@ public sealed class SmokeSystem : EntitySystem
         var timer = EnsureComp<TimedDespawnComponent>(uid);
         timer.Lifetime = duration;
 
-        // The tile reaction happens here because it only occurs once.
+        // DS14-Soyuz: cleaning clouds also retry later, charging every reaction to their shared reservoir.
         ReactOnTile(uid, component);
+        // DS14-Soyuz-start: child cleaning tiles have an empty local solution.
+        if (component.SharedSolutionOwner != null)
+            UpdateVisuals((uid, component, null));
+        // DS14-Soyuz-end
     }
 
     /// <summary>
@@ -279,17 +316,17 @@ public sealed class SmokeSystem : EntitySystem
         if (!Resolve(smokeUid, ref component))
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(smokeUid, SmokeComponent.SolutionName, ref component.Solution, out var solution) ||
+        if (!TryGetSmokeSolution((smokeUid, component), out var source, out var solution) || // DS14-Soyuz
             solution.Contents.Count == 0)
         {
             return;
         }
 
-        ReactWithEntity(entity, smokeUid, solution, component);
+        ReactWithEntity(entity, smokeUid, source, solution, component); // DS14-Soyuz
         UpdateVisuals((smokeUid, component));
     }
 
-    private void ReactWithEntity(EntityUid entity, EntityUid smokeUid, Solution solution, SmokeComponent? component = null)
+    private void ReactWithEntity(EntityUid entity, EntityUid smokeUid, Entity<SolutionComponent> source, Solution solution, SmokeComponent? component = null) // DS14-Soyuz
     {
         if (!Resolve(smokeUid, ref component))
             return;
@@ -314,7 +351,7 @@ public sealed class SmokeSystem : EntitySystem
             return;
         }
 
-        var transferSolution = _solutionContainerSystem.SplitSolution(component.Solution!.Value, transferAmount);
+        var transferSolution = _solutionContainerSystem.SplitSolution(source, transferAmount); // DS14-Soyuz
         ReactWithSolution(entity, transferSolution, true);
         // DS14-end
 
@@ -346,7 +383,7 @@ public sealed class SmokeSystem : EntitySystem
         if (!Resolve(uid, ref component, ref xform))
             return;
 
-        if (!_solutionContainerSystem.ResolveSolution(uid, SmokeComponent.SolutionName, ref component.Solution, out var solution) || !solution.Any())
+        if (!TryGetSmokeSolution((uid, component), out var source, out var solution) || !solution.Any()) // DS14-Soyuz
             return;
 
         if (!TryComp<MapGridComponent>(xform.GridUid, out var mapGrid))
@@ -360,9 +397,59 @@ public sealed class SmokeSystem : EntitySystem
                 continue;
 
             var reagent = _prototype.Index<ReagentPrototype>(reagentQuantity.Reagent.Prototype);
-            reagent.ReactionTile(tile, reagentQuantity.Quantity, EntityManager, reagentQuantity.Reagent.Data);
+            // DS14-Soyuz-start: tile cleaning consumes real reagent, including every repeated pass.
+            var reacted = reagent.ReactionTile(tile, reagentQuantity.Quantity, EntityManager, reagentQuantity.Reagent.Data);
+            if (component.SharedSolutionOwner != null)
+                _solutionContainerSystem.RemoveReagent(source, reagentQuantity.Reagent,
+                    FixedPoint2.Min(reagentQuantity.Quantity, FixedPoint2.Max(FixedPoint2.Zero, reacted)));
+            // DS14-Soyuz-end
         }
     }
+
+    // DS14-Soyuz-start
+    private bool TryGetSmokeSolution(Entity<SmokeComponent> smoke, out Entity<SolutionComponent> source, out Solution solution)
+    {
+        source = default;
+        solution = default!;
+        var owner = smoke.Comp.SharedSolutionOwner ?? smoke.Owner;
+        if (TerminatingOrDeleted(owner) || !_smokeQuery.TryGetComponent(owner, out var reservoir) ||
+            !_solutionContainerSystem.ResolveSolution(owner, SmokeComponent.SolutionName, ref reservoir.Solution, out var found))
+            return false;
+
+        source = reservoir.Solution.Value;
+        solution = found;
+        return true;
+    }
+
+    private void SpreadCleaningSmoke(Entity<SmokeComponent> entity, ref SpreadNeighborsEvent args)
+    {
+        if (entity.Comp.SharedSolutionOwner is not { } owner ||
+            !_smokeQuery.TryGetComponent(owner, out var reservoir) || reservoir.SpreadAmount <= 0 ||
+            !TryGetSmokeSolution(entity, out _, out var solution) || solution.Volume <= FixedPoint2.Zero ||
+            Prototype(entity) is not { } prototype)
+        {
+            RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
+            return;
+        }
+
+        TryComp<TimedDespawnComponent>(entity, out var timer);
+        foreach (var neighbor in args.NeighborFreeTiles)
+        {
+            if (args.Updates <= 0 || reservoir.SpreadAmount <= 0 || solution.Volume <= FixedPoint2.Zero)
+                break;
+
+            var coords = _map.GridTileToLocal(neighbor.Tile.GridUid, neighbor.Grid, neighbor.Tile.GridIndices);
+            var child = Spawn(prototype.ID, coords);
+            reservoir.SpreadAmount--;
+            args.Updates--;
+            StartSmoke(child, new Solution(), timer?.Lifetime ?? entity.Comp.Duration, 0, sharedSolutionOwner: owner);
+        }
+
+        // Every new tile spends one shared spread unit; enclosed branches cannot strand or duplicate the budget.
+        if (args.NeighborFreeTiles.Count == 0 || reservoir.SpreadAmount <= 0 || solution.Volume <= FixedPoint2.Zero)
+            RemCompDeferred<ActiveEdgeSpreaderComponent>(entity);
+    }
+    // DS14-Soyuz-end
 
     /// <summary>
     /// Adds the specified solution to the relevant smoke solution.
@@ -387,8 +474,13 @@ public sealed class SmokeSystem : EntitySystem
     private void UpdateVisuals(Entity<SmokeComponent?, AppearanceComponent?> smoke)
     {
         if (!Resolve(smoke, ref smoke.Comp1, ref smoke.Comp2) ||
-            !_solutionContainerSystem.ResolveSolution(smoke.Owner, SmokeComponent.SolutionName, ref smoke.Comp1.Solution, out var solution))
+            !TryGetSmokeSolution((smoke.Owner, smoke.Comp1), out _, out var solution)) // DS14-Soyuz
             return;
+
+        // DS14-Soyuz-start: exhausted cleaning foam remains visible until its normal dissolve animation.
+        if (smoke.Comp1.SharedSolutionOwner != null && solution.Volume <= FixedPoint2.Zero)
+            return;
+        // DS14-Soyuz-end
 
         var color = solution.GetColor(_prototype);
         _appearance.SetData(smoke.Owner, SmokeVisuals.Color, color, smoke.Comp2);

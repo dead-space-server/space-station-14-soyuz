@@ -41,19 +41,34 @@ public sealed partial class CleanTileReaction : ITileReaction
         IEntityManager entityManager
         , List<ReagentData>? data)
     {
-        var entities = entityManager.System<EntityLookupSystem>().GetLocalEntitiesIntersecting(tile, 0f).ToArray();
+        // DS14-Soyuz-start: spend the available cleaner on the aimed tile before overlapping neighbours.
+        if (reactVolume <= FixedPoint2.Zero || !float.IsFinite(CleanAmountMultiplier) || CleanAmountMultiplier <= 0)
+            return FixedPoint2.Zero;
+
         var puddleQuery = entityManager.GetEntityQuery<PuddleComponent>();
+        var transformSystem = entityManager.System<SharedTransformSystem>();
+        var entities = entityManager.System<EntityLookupSystem>().GetLocalEntitiesIntersecting(tile, 0f)
+            .Where(entity => puddleQuery.HasComponent(entity))
+            .OrderBy(entity => entityManager.TryGetComponent(entity, out TransformComponent? transform) &&
+                               transform.GridUid == tile.GridUid &&
+                               transformSystem.GetGridTilePositionOrDefault((entity, transform)) == tile.GridIndices ? 0 : 1)
+            .ToArray();
+        // DS14-Soyuz-end
         var solutionContainerSystem = entityManager.System<SharedSolutionContainerSystem>();
         // Multiply as the amount we can actually purge is higher than the react amount.
         var purgeAmount = reactVolume / CleanAmountMultiplier;
 
         foreach (var entity in entities)
         {
+            // DS14-Soyuz-start: an already clean puddle must not stop the rest of the pass.
+            if (purgeAmount <= FixedPoint2.Zero)
+                break;
+            // DS14-Soyuz-end
             // DS14-Soyuz-start: intersecting bounds alone can include a neighbouring puddle.
             if (OnlyCurrentTile &&
-                (!entityManager.TryGetComponent<TransformComponent>(entity, out var xform) ||
+                (!entityManager.TryGetComponent(entity, out TransformComponent? xform) ||
                  xform.GridUid != tile.GridUid ||
-                 entityManager.System<SharedTransformSystem>().GetGridTilePositionOrDefault((entity, xform)) != tile.GridIndices))
+                 transformSystem.GetGridTilePositionOrDefault((entity, xform)) != tile.GridIndices))
                 continue;
             // DS14-Soyuz-end
             if (!puddleQuery.TryGetComponent(entity, out var puddle) ||
@@ -64,14 +79,20 @@ public sealed partial class CleanTileReaction : ITileReaction
 
             var purgeable = solutionContainerSystem.SplitSolutionWithout(puddleSolution.Value, purgeAmount, ReplacementReagent, reagent.ID);
 
+            // DS14-Soyuz-start
+            if (purgeable.Volume <= FixedPoint2.Zero)
+                continue;
+            // DS14-Soyuz-end
+
             purgeAmount -= purgeable.Volume;
 
             solutionContainerSystem.TryAddSolution(puddleSolution.Value, new Solution(ReplacementReagent, purgeable.Volume));
-
-            if (purgeable.Volume <= FixedPoint2.Zero)
-                break;
         }
 
-        return (reactVolume / CleanAmountMultiplier - purgeAmount) * CleanAmountMultiplier;
+        // DS14-Soyuz-start: charge trace amounts too, and never exceed the supplied dose after rounding.
+        var cleaned = reactVolume / CleanAmountMultiplier - purgeAmount;
+        return cleaned <= FixedPoint2.Zero ? FixedPoint2.Zero :
+            FixedPoint2.Min(reactVolume, FixedPoint2.Max(FixedPoint2.Epsilon, cleaned * CleanAmountMultiplier));
+        // DS14-Soyuz-end
     }
 }

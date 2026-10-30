@@ -19,6 +19,11 @@ public sealed partial class SmokeComponent : Component
     [ViewVariables]
     public Entity<SolutionComponent>? Solution = null;
 
+    // DS14-Soyuz-start: server runtime for cleaning clouds sharing one finite reservoir and spread budget.
+    public EntityUid? SharedSolutionOwner;
+    public TimeSpan NextTileReaction;
+    // DS14-Soyuz-end
+
     /// <summary>
     /// The max amount of tiles this smoke cloud can spread to.
     /// </summary>

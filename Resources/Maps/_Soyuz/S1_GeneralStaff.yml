@@ -4,13 +4,13 @@ meta:
   engineVersion: 276.0.0
   forkId: ""
   forkVersion: ""
-  time: 10/30/2026 08:43:02
+  time: 10/30/2026 10:14:27
   entityCount: 31726
 maps: []
 grids:
 - 1
 orphans:
-- 0
+- 1
 nullspace: []
 tilemap:
   5: Space
@@ -79479,7 +79479,7 @@ entities:
       pos: 89.5,21.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -198383.56
+      secondsUntilStateChange: -198330.66
       state: Closing
   - uid: 10254
     components:
@@ -79561,7 +79561,7 @@ entities:
       pos: 153.5,-17.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -148270.28
+      secondsUntilStateChange: -148217.38
       state: Closing
   - uid: 10267
     components:
@@ -142711,7 +142711,7 @@ entities:
       pos: 38.5,31.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -254616.64
+      secondsUntilStateChange: -254563.73
       state: Opening
   - uid: 18277
     components:
@@ -142719,7 +142719,7 @@ entities:
       pos: 37.5,31.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -254616.34
+      secondsUntilStateChange: -254563.44
       state: Opening
   - uid: 18278
     components:

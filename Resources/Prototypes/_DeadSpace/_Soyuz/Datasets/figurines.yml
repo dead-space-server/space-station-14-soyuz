@@ -39,3 +39,10 @@
   values:
     prefix: figurines-pilot-
     count: 16
+
+# Милиционер
+- type: localizedDataset
+  id: FigurinesOfficer
+  values:
+    prefix: figurines-officer-
+    count: 9

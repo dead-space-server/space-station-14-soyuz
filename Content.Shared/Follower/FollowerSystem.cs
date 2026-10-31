@@ -315,6 +315,11 @@ public sealed class FollowerSystem : EntitySystem
         if (!deparent || !TryComp(uid, out TransformComponent? xform))
             return;
 
+        // DS14-Soyuz-Start
+        if (xform.MapUid is { } map && TerminatingOrDeleted(map))
+            return;
+        // DS14-Soyuz-End
+
         _transform.AttachToGridOrMap(uid, xform);
         if (xform.MapUid != null)
             return;

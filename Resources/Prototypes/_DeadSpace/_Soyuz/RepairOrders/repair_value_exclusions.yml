@@ -1281,3 +1281,6 @@
   - SobrCryoCapsuleMixedExample
   - GravityGeneratorInvisible
   - StationAnchorInvisible
+  - MaterialMarketplace
+  - MaterialMarketplacePriceConsole
+  - PublicMarket

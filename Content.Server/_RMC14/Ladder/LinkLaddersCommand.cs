@@ -6,7 +6,7 @@ using Robust.Shared.Toolshed.Syntax;
 
 namespace Content.Server._RMC14.Admin.Utility;
 
-[ToolshedCommand, AdminCommand(AdminFlags.VarEdit)]
+[AdminCommand(AdminFlags.VarEdit)] // DS14-Soyuz
 internal sealed class LinkLaddersCommand : ToolshedCommand
 {
     private SharedLadderSystem? _ladder;

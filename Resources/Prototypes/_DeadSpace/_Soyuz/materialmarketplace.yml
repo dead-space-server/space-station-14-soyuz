@@ -1,11 +1,18 @@
 - type: entity
-  id: MaterialMarketplace
   parent: [ BaseMachinePowered, ConstructibleMachine ]
-  name: Торгомат
+  id: MaterialMarketplace
+  name: торгомат
   description: Терминал для покупки и продажи материалов. Просто добавь социализм!
   components:
   - type: MaterialMarketplace
     fillLevels: 6
+    departmentAccess:
+      ResearchDirector: Science
+      ChiefEngineer: Engineering
+      ChiefMedicalOfficer: Medical
+      HeadOfSecurity: Security
+      HeadOfPersonnel: Service
+      Quartermaster: Cargo
 #    whitelistTags:
 #    - Sheet
 #    - RawMaterial
@@ -14,17 +21,12 @@
     - Ore
 #    whitelistMaterials:
     blacklistMaterials:
-    - Biomass
-    - Bones
     - Gunpowder
-    - WebSilk
-    - Cotton
     - Meaterial
     - RawQuartz
-    - Coal
-    - RawSalt
+  - type: OreSiloClient
   - type: MaterialStorage
-    storageLimit: 1000
+#    storageLimit: 1000
 #    whitelist:
 #      tags:
 #        - Sheet
@@ -51,6 +53,11 @@
         - MachineMask
         layer:
           - MachineLayer
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container
+      machine_parts: !type:Container
+      marketplace_items: !type:Container
   - type: ActivatableUI
     key: enum.MaterialMarketplaceUiKey.Key
   - type: ActivatableUIRequiresPower
@@ -69,6 +76,87 @@
     anchored: true
     noRot: true
   - type: Pullable
+
+- type: entity
+  parent: BaseMachinePowered
+  id: PublicMarket
+  name: общий торгомат
+  description: Торговая площадка отделов станции. Вставьте предмет, назначьте цену, и вырученные деньги пойдут на счёт вашего отдела. На корпусе вцарапано "SS14 - рынок".
+  components:
+  - type: PublicMarket
+    departmentAccess:
+      ResearchDirector: Science
+      ChiefEngineer: Engineering
+      ChiefMedicalOfficer: Medical
+      HeadOfSecurity: Security
+      HeadOfPersonnel: Service
+      Quartermaster: Cargo
+    sellerDepartments:
+      Science: Science
+      Engineering: Engineering
+      Medical: Medical
+      Security: Security
+      Cargo: Cargo
+      Civilian: Service
+  - type: ContainerContainer
+    containers:
+      public_market_items: !type:Container
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/material_marketplace.rsi
+    layers:
+    - state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+          - MachineLayer
+  - type: ActivatableUI
+    key: enum.PublicMarketUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.PublicMarketUiKey.Key:
+        type: PublicMarketBoundUserInterface
+  - type: StaticPrice
+    price: 250
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Pullable
+
+- type: entity
+  parent: BaseComputer
+  id: MaterialMarketplacePriceConsole
+  name: консоль цен торгомата
+  description: Позволяет квартирмейстеру выставлять цены на материалы и предметы в торгоматах станции.
+  components:
+  - type: MaterialMarketplacePriceConsole
+  - type: Computer
+    board: MaterialMarketplacePriceConsoleCircuitboard
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request
+    - map: ["computerLayerKeys"]
+      state: tech_key
+  - type: AccessReader
+    access: [["Quartermaster"]]
+  - type: ActivatableUI
+    key: enum.MaterialMarketplacePriceConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.MaterialMarketplacePriceConsoleUiKey.Key:
+        type: MaterialMarketplacePriceConsoleBoundUserInterface
 
 - type: materialMarketplaceCategory
   id: Construction

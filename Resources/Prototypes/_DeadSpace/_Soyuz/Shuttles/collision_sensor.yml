@@ -1,0 +1,164 @@
+- type: entity
+  id: ShuttleCollisionSensor
+  parent: BaseStructure
+  name: датчик предотвращения столкновений «Рубеж»
+  description: Направленный датчик предотвращения столкновений. Передаёт данные в консоль шаттла и поддерживает автоматическое торможение. Дальность обнаружения - 30 метров.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/rubezh_sensor.rsi
+    layers:
+    - state: off
+      map: [enum.ShuttleCollisionVisuals.State]
+  - type: ShuttleCollisionSensor
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: Rotatable
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: ExtensionCableReceiver
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ShuttleCollisionVisuals.State:
+        enum.ShuttleCollisionVisuals.State:
+          Off: { state: off }
+          On: { state: on }
+          Warning: { state: warning }
+  - type: DeviceLinkSource
+    ports:
+    - ShuttleCollisionDanger
+    - ShuttleCollisionClear
+    - ShuttleCollisionStatus
+    lastSignals:
+      ShuttleCollisionStatus: false
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 30
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [Destruction]
+  - type: Construction
+    graph: ShuttleCollisionSensor
+    node: sensor
+    containers: [sensorParts, frameSteel]
+  - type: ContainerContainer
+    containers:
+      sensorParts: !type:Container
+        ents: []
+      frameSteel: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 100
+
+- type: entity
+  id: ShuttleCollisionSensorAssembly
+  parent: BaseStructureDynamic
+  name: каркас датчика «Рубеж»
+  description: Корпус направленного датчика предотвращения столкновений. Требует установки электроники и проводки.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/rubezh_sensor.rsi
+    state: off
+  - type: InteractionOutline
+  - type: Anchorable
+  - type: Rotatable
+  - type: Construction
+    graph: ShuttleCollisionSensor
+    node: assembly
+    containers: [sensorParts, frameSteel]
+  - type: ContainerContainer
+    containers:
+      sensorParts: !type:Container
+        ents: []
+      frameSteel: !type:Container
+        ents: []
+
+- type: construction
+  id: ShuttleCollisionSensor
+  name: construction-shuttle-collision-sensor-name
+  description: construction-shuttle-collision-sensor-description
+  graph: ShuttleCollisionSensor
+  startNode: start
+  targetNode: sensor
+  category: construction-category-structures
+  placementMode: SnapgridCenter
+  objectType: Structure
+  canRotate: true
+
+- type: constructionGraph
+  id: ShuttleCollisionSensor
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: assembly
+      steps:
+      - material: Steel
+        amount: 2
+        store: frameSteel
+        doAfter: 2
+  - node: assembly
+    entity: ShuttleCollisionSensorAssembly
+    edges:
+    - to: sensor
+      conditions:
+      - !type:EntityAnchored {}
+      steps:
+      - material: Cable
+        amount: 3
+        store: sensorParts
+        doAfter: 1
+      - tag: ProximitySensor
+        store: sensorParts
+        name: construction-graph-tag-proximity-sensor
+        icon:
+          sprite: Objects/Misc/proximity_sensor.rsi
+          state: icon
+      - tool: Screwing
+        doAfter: 2
+    - to: start
+      conditions:
+      - !type:EntityAnchored
+        anchored: false
+      steps:
+      - tool: Screwing
+        doAfter: 2
+      completed:
+      - !type:EmptyContainer
+        container: sensorParts
+      - !type:EmptyContainer
+        container: frameSteel
+      - !type:DeleteEntity {}
+  - node: sensor
+    entity: ShuttleCollisionSensor
+    edges:
+    - to: assembly
+      steps:
+      - tool: Screwing
+        doAfter: 3
+
+- type: sourcePort
+  id: ShuttleCollisionDanger
+  name: shuttle-collision-port-danger
+  description: shuttle-collision-port-danger-description
+  defaultLinks: [On]
+
+- type: sourcePort
+  id: ShuttleCollisionClear
+  name: shuttle-collision-port-clear
+  description: shuttle-collision-port-clear-description
+  defaultLinks: [Off]
+
+- type: sourcePort
+  id: ShuttleCollisionStatus
+  name: shuttle-collision-port-status
+  description: shuttle-collision-port-status-description

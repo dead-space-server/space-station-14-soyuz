@@ -9,6 +9,7 @@ public sealed class ShuttleBoundUserInterfaceState : BoundUserInterfaceState
     public NavInterfaceState NavState;
     public ShuttleMapInterfaceState MapState;
     public DockingInterfaceState DockState;
+    public Content.Shared.DeadSpace._Soyuz.Shuttles.ShuttleCollisionStatus? CollisionSafety; // DS14-Soyuz
 
     public ShuttleBoundUserInterfaceState(NavInterfaceState navState, ShuttleMapInterfaceState mapState, DockingInterfaceState dockState)
     {

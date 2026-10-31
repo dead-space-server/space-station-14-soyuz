@@ -13,7 +13,7 @@
     color: white
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitSecurity]
+  parent: [ ClothingHeadHelmetHardsuitSecurity, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetHardsuitSecurityPilot
   categories: [ HideSpawnMenu ]
   name: security pilot hardsuit helmet

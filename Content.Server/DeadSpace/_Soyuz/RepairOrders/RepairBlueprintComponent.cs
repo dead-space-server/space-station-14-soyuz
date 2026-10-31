@@ -11,7 +11,7 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 /// Immutable expected target state plus derived validation results for one specific repair grid.
 /// </summary>
 [RegisterComponent]
-[Access(typeof(RepairOrderValidationSystem), typeof(RepairStructuralAnalyzerSystem))]
+[Access(typeof(RepairOrderValidationSystem), typeof(RepairStructuralAnalyzerSystem), typeof(RepairReconstructionSystem))]
 public sealed partial class RepairBlueprintComponent : Component
 {
     public readonly Dictionary<RepairRequirementKey, int> RequirementIds = new();
@@ -19,6 +19,8 @@ public sealed partial class RepairBlueprintComponent : Component
     public int NextRequirementId = 1;
     public int MaxWaivedPoints;
     public bool CanComplete;
+    // A failed reconstruction retains its journal and lifecycle lock until rollback has completed.
+    public bool ReconstructionPending;
 
     [ViewVariables]
     public EntityUid Station;
@@ -200,7 +202,7 @@ public sealed class RepairTask
     public Angle ExpectedLocalRotation;
 
     /// <summary>
-    /// Original mapped rotation used only for analyzer ghost rendering. Validation uses ExpectedLocalRotation
+    /// Original mapped rotation used for analyzer ghosts and reconstruction. Validation uses ExpectedLocalRotation
     /// after applying RotationMode, so objects with RotationMode.None still ignore rotation for scoring.
     /// </summary>
     [ViewVariables]

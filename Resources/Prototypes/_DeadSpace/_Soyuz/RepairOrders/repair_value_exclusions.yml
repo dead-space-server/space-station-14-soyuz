@@ -1,6 +1,15 @@
+# Пример заполнения общего списка исключений:
+# - type: repairValueExclusion
+#   id: RepairExclude
+#   tags:
+#   - Paper
+#   entities:
+#   - HandmadePoster
+# Добавляйте записи в существующий RepairExclude ниже, не создавая второй прототип.
+
 - type: repairValueExclusion
-  id: RepairExcludeAdminAndDebug
-  reason: Administrative and debug test entities.
+  id: RepairExclude
+  tags: []
   entities:
   - DebugAPCRecharging
   - DebugBatteryDischarger
@@ -23,11 +32,6 @@
   - CargoPalletSell
   - CargoPalletBuy
   - StationAnchor
-
-- type: repairValueExclusion
-  id: RepairExcludeBiologicalAndEventEntities
-  reason: Living entities, infestations, anomalies and event-only entities.
-  entities:
   - AloePlants
   - AmbrosiaDeusPlants
   - AmbrosiaVulgarisPlants
@@ -179,12 +183,6 @@
   - WorldPeaPlants
   - sakura
   - tritiumCannabis
-
-# DS14-Soyuz start: living botany plants are not repairable station structures.
-- type: repairValueExclusion
-  id: RepairExcludeSoyuzBotanyPlants
-  reason: Living botany plants are outside station repair construction.
-  entities:
   - AgentgrainPlants
   - AvocadoPlants
   - BarrelmelonPlants
@@ -232,12 +230,6 @@
   - WhiterosePlants
   - LockerPolitRukFilled
   - LockerPolitRuk
-# DS14-Soyuz end
-
-- type: repairValueExclusion
-  id: RepairExcludeDeployableWeapons
-  reason: Armed traps and mines, not repair structures.
-  entities:
   - CircleRcdTriggerKudzu
   - CircleRcdTriggerMeleeTentacle
   - CircleRcdTriggerRangedTentacle
@@ -262,11 +254,6 @@
   - SpawnFloorTrapXenoDrone
   - StunRune
   - Tripwire
-
-- type: repairValueExclusion
-  id: RepairExcludeMarkersAndSpawners
-  reason: Mapping markers, spawn locations and invisible navigation helpers.
-  entities:
   - AITimedSpawner
   - AltarSpawner
   - AnomalyTrapBluespace
@@ -886,11 +873,6 @@
   - WarpPointBeacon
   - WorldChunk
   - XenoAITimedSpawner
-
-- type: repairValueExclusion
-  id: RepairExcludeNaturalTerrain
-  reason: Natural terrain and resource deposits, outside station repair construction.
-  entities:
   - BasaltFive
   - BasaltFour
   - BasaltOne
@@ -1052,31 +1034,11 @@
   - WallRockTin
   - WallRockTungsten
   - WallRockUranium
-
-- type: repairValueExclusion
-  id: RepairExcludeTechnicalHelpers
-  reason: Trigger-only technical entities, not repair structures.
-  entities:
   - FireworkBox
-
-- type: repairValueExclusion
-  id: RepairExcludeIndestructibleStationAnchor
-  reason: Map-only indestructible station anchors cannot be rebuilt.
-  entities:
   - StationAnchorIndestructible
-
-- type: repairValueExclusion
-  id: RepairExcludeConstructionIntermediates
-  reason: Temporary construction stages are not completed repair structures.
-  entities:
   - SoyuzDugSoilMound
   - SoyuzStoneGraveFrame
   - SoyuzWoodenGraveFrame
-
-- type: repairValueExclusion
-  id: RepairExcludeTemporaryAndVirtual
-  reason: Temporary effects, portals, holograms and virtual barriers.
-  entities:
   - Acidifier
   - AluminiumMetalFoam
   - AnomalyTechBeam
@@ -1219,19 +1181,9 @@
   - WizardLightning
   - WizardSmoke
   - XenoborgDeflectorField
-
-- type: repairValueExclusion
-  id: RepairExcludeArcadeMachines
-  reason: Arcade machines should remain intact and outside repair requirements.
-  entities:
   - BlockGameArcade
   - SpaceVillainArcade
   - SpaceVillainArcadeFilled
-
-- type: repairValueExclusion
-  id: RepairExcludeGasMiners
-  reason: Gas miners should not be procedurally damaged or included in repair requirements.
-  entities:
   - GasMinerOxygen
   - GasMinerOxygenStation
   - GasMinerOxygenStationLarge
@@ -1261,24 +1213,9 @@
   - GasMinerOxygenConstructible
   - GasMinerNitrogenConstructible
   - GasMinerInfectionDeadSpace
-
-- type: repairValueExclusion
-  id: RepairExcludeChurchBell
-  reason: Church bells should not be procedurally damaged or included in repair requirements.
-  entities:
   - ChurchBell
-
-- type: repairValueExclusion
-  id: RepairExcludeBasicGenerators
-  reason: Basic thermoelectric generators cannot be rebuilt for repair orders.
-  entities:
   - GeneratorBasic
   - GeneratorBasic15kW
-
-- type: repairValueExclusion
-  id: RepairExcludeScreensAndTimers
-  reason: Screens, timers and station maps are excluded from procedural damage and repair requirements.
-  entities:
   - WallmountTelescreenFrame
   - ScreenTimer
   - WallmountTelescreen
@@ -1287,21 +1224,11 @@
   - BrigTimer
   - StationMap
   - StationMapBroken
-
-- type: repairValueExclusion
-  id: RepairExcludeLadders
-  reason: Не ебу
-  entities:
   - RMCLadder
   - RMCLadderRope
   - RMCLadderRopeAltDrawdepth
   - RMCLadderThrough
   - RMCLadderUp
-
-- type: repairValueExclusion
-  id: RepairExcludeSOBRCryo
-  reason: Аллахом велено
-  entities:
   - BaseSobrCryoCapsuleSpecialEmpty
   - BaseSobrCryoCapsuleGammaEmpty
   - BaseSobrCryoCapsuleRedEmpty
@@ -1352,18 +1279,8 @@
   - SobrCryoCapsuleBsaaMedic
   - SobrCryoCapsuleBsaaFighter
   - SobrCryoCapsuleMixedExample
-
-- type: repairValueExclusion
-  id: RepairExcludeMapping
-  reason: Не ебу x2
-  entities:
   - GravityGeneratorInvisible
   - StationAnchorInvisible
-
-- type: repairValueExclusion
-  id: RepairExcludeSS14Rinok
-  reason: SS14 - рынок
-  entities:
   - MaterialMarketplace
   - MaterialMarketplacePriceConsole
   - PublicMarket

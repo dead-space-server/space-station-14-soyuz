@@ -851,3 +851,143 @@
   scoreProfile: RepairOrderEngineeringScore
   rewardPool: RepairOrderEngineeringRewardPool
   repairTime: 70m
+
+- type: repairOrder
+  id: RepairOrderMiniSecurityLevel3
+  name: repair-order-mini-security-name
+  description: repair-order-mini-security-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-security
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_security_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderMiniSecurityLevel4
+  name: repair-order-mini-security-name
+  description: repair-order-mini-security-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-security
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_security_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m
+
+- type: repairOrder
+  id: RepairOrderMiniMedicalLevel3
+  name: repair-order-mini-medical-name
+  description: repair-order-mini-medical-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-medical
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_medical_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderMiniMedicalLevel4
+  name: repair-order-mini-medical-name
+  description: repair-order-mini-medical-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-medical
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_medical_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m
+
+- type: repairOrder
+  id: RepairOrderMiniScienceLevel3
+  name: repair-order-mini-science-name
+  description: repair-order-mini-science-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-science
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_science_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderMiniScienceLevel4
+  name: repair-order-mini-science-name
+  description: repair-order-mini-science-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-science
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_science_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m
+
+- type: repairOrder
+  id: RepairOrderMiniBarLevel3
+  name: repair-order-mini-bar-name
+  description: repair-order-mini-bar-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-bar
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_bar_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderMiniBarLevel4
+  name: repair-order-mini-bar-name
+  description: repair-order-mini-bar-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-bar
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_bar_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m
+
+- type: repairOrder
+  id: RepairOrderMiniEngineeringLevel3
+  name: repair-order-mini-engineering-name
+  description: repair-order-mini-engineering-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-engineering
+  difficulty: 3
+  weight: 36
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_engineering_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 60m
+
+- type: repairOrder
+  id: RepairOrderMiniEngineeringLevel4
+  name: repair-order-mini-engineering-name
+  description: repair-order-mini-engineering-description
+  objectType: repair-order-object-type-small-shuttle
+  objectName: repair-order-object-name-mini-engineering
+  difficulty: 4
+  weight: 22
+  targetGridPath: /Maps/_Soyuz/RepairOrders/3/mini_engineering_target.yml
+  damageProfile: RepairDamageStandard
+  scoreProfile: RepairOrderEngineeringScore
+  rewardPool: RepairOrderEngineeringRewardPool
+  repairTime: 65m

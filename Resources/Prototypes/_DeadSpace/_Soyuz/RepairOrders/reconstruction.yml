@@ -1,0 +1,46 @@
+- type: entity
+  parent: BaseItem
+  id: RepairReconstructionTablet
+  name: reconstruction tablet
+  description: Reconstructs a selected patch up to 5x5 of an active repair order from its structural blueprint. Load reconstruction matrix cartridges before use.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_reconstruction_tablet.rsi
+    layers:
+    - state: qm_clipboard
+    - state: qm_clipboard_over
+  - type: Item
+    size: Normal
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_reconstruction_tablet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/repair_reconstruction_tablet.rsi
+    slots: [Belt]
+    quickEquip: false
+  - type: LimitedCharges
+    maxCharges: 1000
+    lastCharges: -1
+  - type: RepairStructuralAnalyzer
+  - type: ItemToggle
+    activated: true
+    onUse: false
+    onActivate: false
+  - type: RepairReconstructor
+    range: 7
+    delay: 5
+
+- type: entity
+  parent: BaseItem
+  id: RepairReconstructionCartridge
+  name: reconstruction matrix cartridge
+  description: A dedicated compressed-matter matrix for reconstruction tablets. Contains 50 charges.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/reconstruction_matrix.rsi
+    state: ammo
+  - type: Item
+    size: Small
+    sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/reconstruction_matrix.rsi
+    heldPrefix: ammo
+  - type: RepairReconstructionCartridge
+  - type: LimitedCharges
+    maxCharges: 50

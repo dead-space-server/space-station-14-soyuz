@@ -1,44 +1,22 @@
-- type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
-  id: ClothingHeadHelmetHardsuitOrdersBase
-  name: базовый шлем служебного скафандра СССП
-  abstract: true
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
-  - type: Clothing
-    sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.90
-        Heat: 0.90
-        Radiation: 0.90
-        Caustic: 0.95
-        Poison: 0.90
-  - type: PointLight
-    color: "#00FFFF"
-    radius: 7
-    energy: 5
-  - type: Tag
-    tags: [] # ignore "WhitelistChameleon" tag
-
 # Шлема
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitOrdersBase
+  parent: [ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ]
   id: ClothingHeadHelmetHardsuitRepairOrderEngineer
   name: шлем скафандра ремонтной бригады
-  description: Герметичный шлем ремонтной службы СССП со встроенным фонарём для работы в обесточенных отсеках и на внешней обшивке. Визор защищает глаза при сварке.
+  description: Герметичный шлем ремонтной службы СССП со встроенными фонарём и сканером масс. Фонарь освещает рабочую зону в обесточенных отсеках и на внешней обшивке, а визор защищает глаза при сварке.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/repair_order_engineer.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.08
+  - type: FlashbangProtection
+    reduction: 2
+  - type: Tag
+    tags: []
   - type: Armor
     modifiers:
       coefficients:
@@ -54,7 +32,7 @@
     energy: 7
 
 - type: entity
-  parent: ClothingHeadHelmetHardsuitOrdersBase
+  parent: [ BaseCentcommContraband, ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ]
   id: ClothingHeadHelmetHardsuitMedicalOrderMedic
   name: шлем скафандра медицинской эвакуации
   description: Герметичный шлем медицинской эвакуационной службы СССП со встроенным фонарём для поиска пострадавших в аварийных отсеках. Медицинский визор отображает состояние здоровья пациентов.
@@ -64,6 +42,12 @@
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/medical_order_medic.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Head/Hardsuits/medical_order_medic.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.08
+  - type: FlashbangProtection
+    reduction: 2
+  - type: Tag
+    tags: []
   - type: Armor
     modifiers:
       coefficients:
@@ -78,3 +62,5 @@
   - type: ShowHealthIcons
   - type: PointLight
     color: "#FFFFFF"
+    radius: 7
+    energy: 5

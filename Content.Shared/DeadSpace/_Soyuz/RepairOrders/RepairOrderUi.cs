@@ -18,6 +18,7 @@ public enum RepairOrderResult : byte
 {
     Completed,
     Expired,
+    Retained,
 }
 
 [Serializable, NetSerializable]
@@ -58,6 +59,7 @@ public sealed class RepairOrderBuiEntry
     public readonly int MaxPoints;
     public readonly string[] DamageEvents;
     public readonly RepairExclusionTotals Exclusions;
+    public readonly long? RetentionCost;
 
     public RepairOrderBuiEntry(
         int runtimeId,
@@ -71,13 +73,15 @@ public sealed class RepairOrderBuiEntry
         int maxPoints = 0,
         string[]? damageEvents = null,
         RepairExclusionTotals exclusions = default,
-        TimeSpan? earlySubmissionAvailableAt = null)
+        TimeSpan? earlySubmissionAvailableAt = null,
+        long? retentionCost = null)
     {
         RuntimeId = runtimeId;
         PrototypeId = prototypeId;
         Status = status;
         ExpiresAt = expiresAt;
         EarlySubmissionAvailableAt = earlySubmissionAvailableAt;
+        RetentionCost = retentionCost;
         CompletedTasks = completedTasks;
         TotalTasks = totalTasks;
         BlueprintReady = blueprintReady;
@@ -120,6 +124,7 @@ public sealed class RepairOrderCompletedBuiEntry
     public readonly int RewardBudget;
     public readonly int EarnedReputation;
     public readonly RepairOrderResult Result;
+    public readonly long RetentionCost;
 
     public RepairOrderCompletedBuiEntry(
         int runtimeId,
@@ -133,7 +138,8 @@ public sealed class RepairOrderCompletedBuiEntry
         int earnedReputation,
         RepairOrderResult result,
         string[]? damageEvents = null,
-        RepairExclusionTotals exclusions = default)
+        RepairExclusionTotals exclusions = default,
+        long retentionCost = 0)
     {
         DamageEvents = damageEvents?.ToArray() ?? Array.Empty<string>();
         Exclusions = exclusions;
@@ -147,6 +153,7 @@ public sealed class RepairOrderCompletedBuiEntry
         RewardBudget = rewardBudget;
         EarnedReputation = earnedReputation;
         Result = result;
+        RetentionCost = retentionCost;
     }
 }
 
@@ -239,11 +246,15 @@ public sealed class RepairOrderCompleteMessage : BoundUserInterfaceMessage
 {
     public readonly int RuntimeId;
     public readonly bool AllowIncomplete;
+    public readonly bool Retain;
+    public readonly long ExpectedRetentionCost;
 
-    public RepairOrderCompleteMessage(int runtimeId, bool allowIncomplete = false)
+    public RepairOrderCompleteMessage(int runtimeId, bool allowIncomplete = false, bool retain = false, long expectedRetentionCost = 0)
     {
         RuntimeId = runtimeId;
         AllowIncomplete = allowIncomplete;
+        Retain = retain;
+        ExpectedRetentionCost = expectedRetentionCost;
     }
 }
 

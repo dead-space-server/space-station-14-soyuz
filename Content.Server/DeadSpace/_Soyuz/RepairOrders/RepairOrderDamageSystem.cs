@@ -20,16 +20,16 @@ public sealed class RepairOrderDamageSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly ITileDefinitionManager _tiles = default!;
     [Dependency] private readonly RepairDamageProtectionSystem _protection = default!;
+    [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly TagSystem _tags = default!;
     private static readonly ProtoId<TagPrototype> WindowTag = "Window";
     private static readonly Vector2i[] Neighbors = { new(1, 0), new(0, 1), new(-1, 0), new(0, -1) };
 
-    public RepairDamageSnapshot Snapshot(Entity<MapGridComponent> grid, RepairOrderPrototype order)
+    public RepairDamageSnapshot Snapshot(Entity<MapGridComponent> grid, RepairOrderPrototype order,
+        RepairValueCatalog? values = null)
     {
         _protection.ValidateConfiguration();
-        var values = RepairValueCatalog.Build(_prototypes);
-        if (values.Errors.Count != 0)
-            throw new InvalidOperationException(string.Join("\n", values.Errors));
+        values ??= _validation.GetValueCatalog();
         var floorValue = _prototypes.Index(order.ScoreProfile).FloorTilePoints;
         if (floorValue <= 0) throw new InvalidOperationException($"{order.ID}: invalid floor value.");
         var floors = SortCells(_map.GetAllTiles(grid.Owner, grid.Comp).Where(t => !t.Tile.IsEmpty).Select(t => t.GridIndices));

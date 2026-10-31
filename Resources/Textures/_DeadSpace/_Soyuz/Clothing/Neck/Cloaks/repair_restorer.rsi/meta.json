@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Recolored for Soyuz. Created by GentleButter for Frontier Station",
+  "copyright": "Based on the Frontier station representative cloak (ClothingNeckCloakSr), created by GentleButter for Frontier Station. Repair crew variant for Soyuz with Aseprite MCP using the grey, silver and orange colors of the repair crew hardsuit. Original silhouette, collar, folds and direction layouts preserved; rear repair crew emblem is a golden circular badge with a pale symmetrical industrial symbol based on the supplied reference.",
   "size": {
     "x": 32,
     "y": 32

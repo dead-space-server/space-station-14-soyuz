@@ -131,7 +131,8 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             _metaData.SetEntityName(loadedGridUid, Loc.GetString(order.ObjectName));
             stageFailure = RepairOrderSpawnFailure.DamageFailed;
             var profile = _prototypes.Index(order.DamageProfile);
-            var snapshot = _damage.Snapshot(damagedGrid, order);
+            var values = _validation.GetValueCatalog();
+            var snapshot = _damage.Snapshot(damagedGrid, order, values);
             if (!_damage.TryGeneratePlan(snapshot, profile, offer.DamageSeed, out var plan, out var rejection))
             {
                 failure = RepairOrderSpawnFailure.DamageFailed;
@@ -141,7 +142,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             _damage.ApplyPlan(damagedGrid, snapshot, profile, plan);
             stageFailure = RepairOrderSpawnFailure.PrepareFailed;
             if (!_validation.TryPrepareSession(stationUid.Value, offer.RuntimeId, offer.Prototype,
-                    damagedGrid.Owner, out preparedActive))
+                    damagedGrid.Owner, out preparedActive, values))
             {
                 failure = RepairOrderSpawnFailure.PrepareFailed;
                 return false;

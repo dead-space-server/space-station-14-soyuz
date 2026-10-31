@@ -119,10 +119,9 @@ public sealed class RepairValueTest
                 return group;
             }
 
-            RepairValueExclusionPrototype Exclusion(string reason, params EntProtoId[] entities)
+            RepairValueExclusionPrototype Exclusion(params EntProtoId[] entities)
             {
                 var result = serialization.CreateCopy(prototypes.EnumeratePrototypes<RepairValueExclusionPrototype>().First());
-                result.Reason = reason;
                 result.Entities = entities.ToList();
                 return result;
             }
@@ -136,7 +135,7 @@ public sealed class RepairValueTest
             }
 
             var known = Group(tag.ID, entity);
-            var exclusion = Exclusion("Test helper", entity);
+            var exclusion = Exclusion(entity);
             RepairValueCatalog Build(RepairValueGroupPrototype[] groups,
                 RepairValueOverridePrototype[] overrides = null,
                 RepairValueExclusionPrototype[] exclusions = null)
@@ -163,7 +162,7 @@ public sealed class RepairValueTest
             Invalid(Build(new[] { known }, exclusions: new[] { exclusion }), "classified AND excluded");
             Invalid(Build(Array.Empty<RepairValueGroupPrototype>(), exclusions: new[]
             {
-                Exclusion("Invalid reference", "RemovedRepairValueEntity"),
+                Exclusion("RemovedRepairValueEntity"),
             }), "missing EntityPrototype");
 
             var exact = Override(123);

@@ -17,8 +17,11 @@ public sealed partial class MedicalOrderWindow
     private void InitializeSpecialContracts()
     {
         var page = Page(_tabs, "medical-special-tab");
-        _specialClock = new Label { FontColorOverride = Color.LightBlue };
-        page.AddChild(_specialClock);
+        var clockPanel = Surface();
+        _specialClock = ThemeLabel(string.Empty);
+        _specialClock.Margin = new Thickness(10, 8);
+        clockPanel.AddChild(_specialClock);
+        page.AddChild(clockPanel);
         var scroll = new ScrollContainer
         {
             HorizontalExpand = true,
@@ -131,25 +134,29 @@ public sealed partial class MedicalOrderWindow
 
     private BoxContainer SpecialCard(BoxContainer parent, MedicalSpecialContractView order, bool active)
     {
-        var panel = new PanelContainer { HorizontalExpand = true, Margin = new Thickness(2) };
+        var panel = new PanelContainer
+        {
+            HorizontalExpand = true,
+            Margin = new Thickness(0, 4),
+            PanelOverride = SheetStyle(emphasis: active),
+        };
         var content = Column();
         content.Margin = new Thickness(10);
-        content.AddChild(new Label
-        {
-            Text = Loc.GetString(order.Title, ("site", Loc.GetString(order.Site))),
-            StyleClasses = { "LabelHeading" },
-        });
+        var heading = new BoxContainer { HorizontalExpand = true, SeparationOverride = 8 };
+        heading.AddChild(InterfaceIcon("emergency"));
+        var title = WrappedText(Loc.GetString(order.Title, ("site", Loc.GetString(order.Site))));
+        title.StyleClasses.Add("LabelHeading");
+        heading.AddChild(title);
+        content.AddChild(heading);
         content.AddChild(Info(Loc.GetString("medical-special-number", ("id", order.RuntimeId))));
         content.AddChild(WrappedText(Loc.GetString(order.Description,
             ("site", Loc.GetString(order.Site)), ("patients", order.Patients.Length),
             ("minutes", (int) order.TimeLimit.TotalMinutes))));
         content.AddChild(Info(Loc.GetString("medical-special-summary", ("difficulty", order.Difficulty + 1),
             ("minutes", (int) order.TimeLimit.TotalMinutes))));
-        content.AddChild(new Label
-        {
-            Text = Loc.GetString("medical-special-penalty", ("percent", order.PenaltyPercent)),
-            FontColorOverride = Color.Orange,
-        });
+        var penalty = new RichTextLabel { HorizontalExpand = true };
+        penalty.SetMessage(Loc.GetString("medical-special-penalty", ("percent", order.PenaltyPercent)), Warning);
+        content.AddChild(penalty);
         foreach (var line in order.Reagents)
             content.AddChild(Info(active
                 ? LineText(line, MedicalOrderMachineKind.Reagent)
@@ -174,7 +181,7 @@ public sealed partial class MedicalOrderWindow
                 {
                     Text = Loc.GetString("medical-special-patient-heading", ("id", patient.Order.RuntimeId),
                         ("name", patient.Name), ("difficulty", patient.Order.Difficulty + 1), ("status", status)),
-                    FontColorOverride = patient.Status == MedicalSpecialPatientStatus.Lost ? Color.Orange : Color.LightBlue,
+                    FontColorOverride = patient.Status == MedicalSpecialPatientStatus.Lost ? Warning : Accent,
                     HorizontalExpand = true,
                     ClipText = true,
                     ToolTip = patient.Name,
@@ -190,10 +197,10 @@ public sealed partial class MedicalOrderWindow
         return content;
     }
 
-    private static RichTextLabel WrappedText(string text)
+    private RichTextLabel WrappedText(string text)
     {
         var label = new RichTextLabel { HorizontalExpand = true };
-        label.SetMessage(text);
+        label.SetMessage(text, Ink);
         return label;
     }
 

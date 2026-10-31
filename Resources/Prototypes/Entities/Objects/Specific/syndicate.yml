@@ -175,17 +175,6 @@
 # DS14-end
 
 - type: entity
-  parent: BaseUplinkRadio40TC
-  id: BaseUplinkRadio40TCCommander
-  suffix: 40 TC, NukeOps Commander
-  components:
-  - type: Tag
-    tags:
-    - NukeOpsUplink
-    - NukeOpsCommanderUplink
-# DS14-end
-
-- type: entity
   parent: BaseUplinkRadio40TC #DS14
   id: BaseUplinkRadio60TC
   suffix: 40 TC, LoneOps #DS14-Soyuz 60>40

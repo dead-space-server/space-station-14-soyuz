@@ -260,7 +260,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 43; // DS14-Soyuz: advanced gases // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium
+        public const int TotalNumberOfGases = 44; // DS14-Soyuz: advanced gases // Kofeecheks gases: LicenseRef-Kofeecheks //DS14: HyperNoblium, ProtoNitrate, Helium, Halon, Zauker, Antinoblium
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -443,27 +443,27 @@ namespace Content.Shared.Atmos
         Psychogen = 22,
         // DS14-end
         // DS14-Soyuz-start
-        Kryoxide = 22,
-        Etherite = 23,
-        Isoflux = 24,
-        Resonite = 25,
-        Pyroxite = 26,
-        Coronite = 27,
-        Gravion = 28,
-        Radion = 29,
-        QuartzGas = 30,
-        ImpulseGas = 31,
-        Iney = 32,
-        Diborane = 33,
-        GammaGas = 34,
-        Forsazh = 35,
-        Sumrak = 36,
-        Lumin = 37,
-        Lazarus = 38,
-        Chromatin = 39,
-        Tlec = 40,
-        Detonite = 41,
-        Boracite = 42,
+        Kryoxide = 23,
+        Etherite = 24,
+        Isoflux = 25,
+        Resonite = 26,
+        Pyroxite = 27,
+        Coronite = 28,
+        Gravion = 29,
+        Radion = 30,
+        QuartzGas = 31,
+        ImpulseGas = 32,
+        Iney = 33,
+        Diborane = 34,
+        GammaGas = 35,
+        Forsazh = 36,
+        Sumrak = 37,
+        Lumin = 38,
+        Lazarus = 39,
+        Chromatin = 40,
+        Tlec = 41,
+        Detonite = 42,
+        Boracite = 43,
         // DS14-Soyuz-end
     }
 }

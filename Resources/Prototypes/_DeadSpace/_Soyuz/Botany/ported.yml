@@ -15,11 +15,6 @@
   description: flavor-complex-avocado
 
 - type: flavor
-  id: cucumber
-  flavorType: Complex
-  description: flavor-complex-cucumber
-
-- type: flavor
   id: hairy
   flavorType: Complex
   description: flavor-complex-hairy
@@ -932,41 +927,6 @@
       Taco: Avocado
       Burger: Avocado
 
-- type: entity
-  parent: FoodProduceBase
-  id: FoodCucumber
-  components:
-  - type: FlavorProfile
-    flavors:
-      - cucumber
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 20
-        reagents:
-        - ReagentId: Nutriment #place holder
-          Quantity: 6
-        - ReagentId: Vitamin
-          Quantity: 4
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
-    state: produce
-  - type: Item
-    heldPrefix: produce
-  - type: Produce
-    plantId: CucumberPlants
-  - type: SliceableFood
-    count: 4
-    slice: FoodCucumberSlice
-  - type: Extractable
-    grindableSolutionName: food
-    juiceSolution:
-      reagents:
-      - ReagentId: Water
-        Quantity: 10
-  - type: Tag
-    tags:
-      - Vegetable
 
 - type: entity
   parent: ProduceSliceBase
@@ -1322,15 +1282,6 @@
       plantId: AvocadoPlants
     - type: Sprite
       sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/avocado.rsi
-
-- type: entity
-  parent: SeedBase
-  id: CucumberSeeds
-  components:
-    - type: Seed
-      plantId: CucumberPlants
-    - type: Sprite
-      sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
 
 - type: entity
   parent: SeedBase

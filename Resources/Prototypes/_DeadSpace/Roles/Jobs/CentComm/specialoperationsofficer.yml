@@ -43,7 +43,6 @@
     mask: WhiteNoiseMaskUnknown
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterVestWebElite #DS14-Soyuz
-    mask: WhiteNoiseMaskUnknown
     neck: ClothingNeckCloakCentcomBlack
     belt: WeaponRevolverMateba
     id: CentcomSpecialOperationsOfficerPDA

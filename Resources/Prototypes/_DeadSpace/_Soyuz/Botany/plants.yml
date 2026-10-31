@@ -526,36 +526,6 @@
         potencyDivisor: 25
 - type: entity
   parent: BasePlant
-  id: CucumberPlants
-  name: cucumber plants
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Objects/Specific/Hydroponics/cucumber.rsi
-  - type: PlantData
-    name: seeds-cucumber-name
-    noun: seeds-noun-seeds
-    packetPrototype: CucumberSeeds
-    productPrototypes:
-    - FoodCucumber
-  - type: Plant
-    lifespan: 50
-    maturation: 7
-    production: 5
-    yield: 4
-    potency: 10
-    growthStages: 5
-  - type: PlantChemicals
-    chemicals:
-      Nutriment:
-        min: 1
-        max: 10
-        potencyDivisor: 10
-      Vitamin:
-        min: 1
-        max: 4
-        potencyDivisor: 25
-- type: entity
-  parent: BasePlant
   id: BeesPlants
   name: honeycomb
   components:

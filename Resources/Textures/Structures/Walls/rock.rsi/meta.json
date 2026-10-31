@@ -245,13 +245,13 @@
             "name": "gibtonite_inactive"
         },
         {
-            "name": "rock_tungsten"
-        },
-        {
           "name": "rock_magmite"
         },
         {
           "name": "rock_bluespace"
+        },
+        {
+            "name": "rock_tungsten"
         }
     ]
 }

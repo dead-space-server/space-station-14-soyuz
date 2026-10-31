@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Помощник для мерджа апстрима (fobos) в форке Soyuz.
+# Помощник для мерджа апстрима (upstream) в форке Soyuz.
 # Не завязан конкретно на SS14 — просто набор git-примитивов вокруг rerere.
 #
 # Команды:
@@ -12,7 +12,7 @@
 #       разрешённых в прошлом конфликтах. Работает только если в истории
 #       реально ЕСТЬ старые merge-коммиты (не squash) с апстримом —
 #       проверь: git log --merges
-#       Пример: ./upstream-sync.sh train fobos/master
+#       Пример: ./upstream-sync.sh train upstream/master
 #       ВАЖНО: коммить/стэшни все локальные изменения перед запуском —
 #       скрипт временно переключает HEAD между коммитами и делает hard reset.
 #       Можно прерывать в любой момент (Ctrl+C, закрытие терминала, сбой,
@@ -22,11 +22,11 @@
 #       а не начнёт заново. Скрипт сам игнорирует SIGHUP (обрыв терминала
 #       не убьёт процесс), но для реально долгого прогона всё равно лучше
 #       запускать через nohup, чтобы не зависеть от держащегося окна:
-#         nohup bash upstream-sync.sh train fobos/master > train.log 2>&1 &
+#         nohup bash upstream-sync.sh train upstream/master > train.log 2>&1 &
 #         tail -f train.log
 #
 #   ./upstream-sync.sh sync [remote] [branch]
-#       git fetch + git merge с апстримом (remote по умолчанию "fobos",
+#       git fetch + git merge с апстримом (remote по умолчанию "upstream",
 #       branch по умолчанию "master"), с -X patience и с find-renames=90 —
 #       поднятый порог схожести для определения переименований, чтобы
 #       разные мелкие однотипные файлы (как meta.json у .rsi) реже
@@ -45,13 +45,21 @@
 #
 #   ./upstream-sync.sh resolve-renames
 #       Чинит случаи, когда git при мердже перепутал переименования РАЗНЫХ
-#       файлов между собой (типично для мелких однотипных meta.json —
+#       файлов между собой (типично для мелких однотипных meta.json — 
 #       конфликт тогда выглядит как <<<<<<< HEAD:путь1 / ||||||| база:путь2
 #       / ======= / >>>>>>> апстрим:путь3 с ТРЕМЯ разными путями). Такой
 #       конфликт разбирать построчно бессмысленно — это мешанина из
 #       нескольких файлов, а не правки одного. Если "наш" путь лежит под
 #       _Soyuz — просто восстанавливает его настоящее содержимое из HEAD
 #       напрямую, в обход всей этой путаницы.
+#
+#   ./upstream-sync.sh resolve-meta
+#       meta.json ВНЕ папки _Soyuz: если в нашей версии в поле "copyright"
+#       нет слова "Союз" (без учёта регистра) — берётся входящая версия
+#       файла ЦЕЛИКОМ (из MERGE_HEAD; без мерджа — из стадии индекса :3:).
+#       Если слово есть — файл считается нашим и не трогается — ни этой
+#       командой, ни resolve-marked (иначе правило "1 строка на 1 строку без
+#       тега → входящее" перезаписало бы его).
 #
 #   ./upstream-sync.sh resolve-deleted
 #       Конфликты типа "добавлено/удалено" (git status показывает AA, AU,
@@ -73,6 +81,9 @@
 #
 #   ./upstream-sync.sh resolve-marked [доп. маркер ...]
 #       Разрешает конфликты, где наша сторона явно помечена как союзовская.
+#       Для ВСЕХ файлов: если в блоке конфликта наша сторона пуста (ни одной
+#       строки или только пустые), а у входящей что-то есть — берётся
+#       входящее (проверяется раньше всех правил ниже).
 #       Для .yml и .cs действует отдельное, более широкое правило:
 #         - если в НАШЕЙ стороне конфликта НЕТ вообще ни одного тега союза
 #           (ни "#DS14-Soyuz", ни "-start"/"-end") — автоматически берётся
@@ -98,8 +109,8 @@
 #
 #   ./upstream-sync.sh resolve-conflicts [доп. маркер ...]
 #       Прогоняет ПОДРЯД все существующие в скрипте способы авторазрешения
-#       (сейчас: resolve-renames + resolve-deleted + resolve-map +
-#       resolve-assets + resolve-marked + resolve-locale) и в конце
+#       (сейчас: resolve-renames + resolve-meta + resolve-deleted + resolve-map +
+#       resolve-assets + resolve-locale + resolve-marked) и в конце
 #       печатает сводную таблицу — сколько конфликтов разрешил каждый
 #       способ и сколько осталось. Это единая точка входа: если в скрипт
 #       добавится ещё один resolve-* способ — впиши вызов его функции сюда
@@ -111,7 +122,7 @@
 #       отчёт. Ищет дублирующиеся id среди Resources/Prototypes/**/*.yml
 #       (в пределах одного type — совпадение id у РАЗНЫХ типов в SS14
 #       нормально, поэтому сравнение идёт по паре type+id) и дублирующиеся
-#       ключи среди Resources/Locale/**/*.ftl (в пределах одного языка —
+#       ключи среди Resources/Locale/**/*.ftl (в пределах одного языка — 
 #       совпадение ключа МЕЖДУ языками нормально). Стоит прогонять после
 #       того, как конфликты разрешены (в том числе руками) — это частый
 #       побочный эффект автоматического разрешения.
@@ -184,6 +195,7 @@ resolve_asset_conflicts() {
 
 resolve_marked_blocks() {
   python3 - "$gitdir" "$@" <<'PYEOF'
+import json
 import os
 import re
 import subprocess
@@ -191,6 +203,10 @@ import sys
 import time
 
 GITDIR = sys.argv[1]
+# Слова в copyright у meta.json вне _Soyuz, по которым файл считается нашим
+# (без учёта регистра) — такой файл правила ниже не трогают (см. resolve-meta).
+OUR_META_WORDS = ("союз",)
+COPYRIGHT_RE = re.compile(r'"copyright"\s*:\s*"((?:[^"\\]|\\.)*)"', re.IGNORECASE)
 # Маркеры, которые означают "эту строку/блок трогать нельзя, это наша
 # (Союз) правка". Можно дописать свои через аргументы командной строки.
 LINE_MARKERS = ["# DS14-Soyuz", "#DS14-Soyuz"] + sys.argv[2:]
@@ -250,6 +266,27 @@ def conflicted_files():
     return [f for f in out.split("\x00") if f]
 
 
+def is_our_meta(path):
+    """meta.json вне _Soyuz, у которого в нашей версии в copyright есть
+    слово из OUR_META_WORDS ("Союз") — файл наш, автоправила его не трогают."""
+    parts = path.split("/")
+    if parts[-1] != "meta.json" or "_Soyuz" in parts[:-1]:
+        return False
+    r = subprocess.run(["git", "show", f"HEAD:{path}"], capture_output=True)
+    if r.returncode != 0:
+        return False
+    text = r.stdout.decode("utf-8-sig", errors="replace")
+    copyright_text = ""
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict) and isinstance(obj.get("copyright"), str):
+            copyright_text = obj["copyright"]
+    except ValueError:
+        m = COPYRIGHT_RE.search(text)
+        copyright_text = m.group(1) if m else ""
+    return any(w in copyright_text.lower() for w in OUR_META_WORDS)
+
+
 def marked_block(ours):
     """Проверяет, считается ли ours целиком "союзовским" блоком, и что
     именно считать "строками кода" для сравнения длины с входящими.
@@ -268,34 +305,65 @@ def marked_block(ours):
     return False, []
 
 
+def is_blank(lines):
+    return all(not line.strip() for line in lines)
+
+
 def resolve_block(ours, theirs, is_yml_cs):
-    """Решает, что делать с одним блоком конфликта. Возвращает (True, lines)
-    если разрешили, иначе (False, None)."""
+    """Решает, что делать с одним блоком конфликта. Возвращает
+    (True, lines, kind) если разрешили, иначе (False, None, None).
+    kind: "empty" — наша сторона пуста, "tag" — решили по тегам/правилам."""
+    # Для ВСЕХ файлов: у нас в этом месте ничего нет (только пустые строки),
+    # а у входящей стороны что-то есть — просто берём входящее.
+    if is_blank(ours) and not is_blank(theirs):
+        return True, list(theirs), "empty"
+
+    # У входящей стороны ничего нет, а у нас что-то есть — берём наше.
+    if is_blank(theirs) and not is_blank(ours):
+        return True, list(ours), "empty"
+
     if is_yml_cs:
-        # Отдельное, более широкое правило для .yml/.cs: если в нашей
-        # стороне НЕТ вообще ни одного тега союза (в любом виде) — входящее
-        # принимается автоматически, независимо от числа строк. Если есть
-        # хотя бы один тег — входящее НИКОГДА не принимается автоматически,
-        # даже если он не складывается в аккуратный "помеченный блок".
+        # Если в нашей стороне нет вообще ни одного тега союза —
+        # автоматически берём входящую версию.
         has_any_tag = any(any(m in line for m in ALL_MARKERS) for line in ours)
         if not has_any_tag:
-            return True, list(theirs)
+            return True, list(theirs), "tag"
+
         if len(ours) == 1 and len(theirs) == 1:
-            return True, list(ours)
+            return True, list(ours), "tag"
+
+        # Полный блок START/END берём всегда, независимо от длины.
+        if ours and any(m in ours[0] for m in START_MARKERS) \
+                and any(m in ours[-1] for m in END_MARKERS):
+            return True, list(ours), "tag"
+
         is_marked, code_lines = marked_block(ours)
         if is_marked and len(code_lines) <= len(theirs):
-            return True, list(ours)
-        return False, None
+            return True, list(ours), "tag"
 
-    # Обычные файлы (не .yml/.cs) — прежнее поведение без изменений.
+        # Если есть хотя бы один тег, и наша сторона не меньше входящей —
+        # берём нашу версию.
+        if has_any_tag and len(ours) >= len(theirs):
+            return True, list(ours), "tag"
+
+        return False, None, None
+
+    # Обычные файлы (не .yml/.cs)
     if len(ours) == 1 and len(theirs) == 1:
         text = ours[0] + theirs[0]
         keep_ours = any(m in text for m in LINE_MARKERS)
-        return True, [ours[0] if keep_ours else theirs[0]]
+        return True, [ours[0] if keep_ours else theirs[0]], "tag"
+
+    # Для обычных файлов тоже разрешаем блоки START/END без ограничения длины.
+    if ours and any(m in ours[0] for m in START_MARKERS) \
+            and any(m in ours[-1] for m in END_MARKERS):
+        return True, list(ours), "tag"
+
     is_marked, code_lines = marked_block(ours)
     if is_marked and len(code_lines) <= len(theirs):
-        return True, list(ours)
-    return False, None
+        return True, list(ours), "tag"
+
+    return False, None, None
 
 
 def process_file(path):
@@ -311,6 +379,7 @@ def process_file(path):
     i, n = 0, len(lines)
     resolved = 0
     remaining = 0
+    empty = 0
     changed = False
 
     while i < n:
@@ -346,10 +415,12 @@ def process_file(path):
 
             end = j  # индекс закрывающей строки
 
-            resolved_here, chosen = resolve_block(ours, theirs, is_yml_cs)
+            resolved_here, chosen, kind = resolve_block(ours, theirs, is_yml_cs)
             if resolved_here:
                 out.extend(chosen)
                 resolved += 1
+                if kind == "empty":
+                    empty += 1
                 changed = True
             else:
                 out.extend(lines[start:end + 1])
@@ -364,30 +435,36 @@ def process_file(path):
         with open(path, "w", encoding="utf-8", errors="surrogateescape", newline="") as f:
             f.writelines(out)
 
-    return resolved, remaining
+    return resolved, remaining, empty
 
 
 total_resolved = 0
 total_remaining = 0
+total_empty = 0
 any_resolved = False
 for path in conflicted_files():
+    if is_our_meta(path):
+        print(f"  оставлен (наш meta.json — в copyright есть «Союз»): {path}")
+        continue
     result = process_file(path)
     if result is None:
         print(f"  пропущено (не читается как текст): {path}")
         continue
 
-    resolved, remaining = result
+    resolved, remaining, empty = result
     if resolved == 0 and remaining == 0:
         print(f"  нет текстовых маркеров конфликта (бинарный/структурный) — не трогаю: {path}")
         continue
 
     total_resolved += resolved
     total_remaining += remaining
+    total_empty += empty
     if resolved:
         any_resolved = True
 
     status = "полностью разрешён" if remaining == 0 else f"осталось {remaining} конфликтов"
-    print(f"  {path}: помеченных блоков разрешено — {resolved}, {status}")
+    extra = f" (из них при пустой нашей стороне — {empty})" if empty else ""
+    print(f"  {path}: блоков разрешено — {resolved}{extra}, {status}")
 
     if remaining == 0 and resolved:
         git_add_retry(path)
@@ -395,25 +472,27 @@ for path in conflicted_files():
 if not any_resolved:
     print("  помеченных конфликтов не найдено")
 
-with open(os.path.join(GITDIR, ".dsresolve-count-marked"), "w") as f:
-    f.write(f"{total_resolved} {total_remaining}\n")
+with open(os.path.join(GITDIR, ".dsresolve-count-marked"), "w", newline="\n") as f:
+    f.write(f"{total_resolved - total_empty} {total_remaining} {total_empty}\n")
 PYEOF
   if [ -f "$gitdir/.dsresolve-count-marked" ]; then
-    read -r DSC_MARKED DSC_MARKED_REMAINING < "$gitdir/.dsresolve-count-marked"
+    read -r DSC_MARKED DSC_MARKED_REMAINING DSC_EMPTY < "$gitdir/.dsresolve-count-marked"
     rm -f "$gitdir/.dsresolve-count-marked"
+    DSC_MARKED=${DSC_MARKED//$'\r'/}; DSC_MARKED_REMAINING=${DSC_MARKED_REMAINING//$'\r'/}
+    DSC_EMPTY=${DSC_EMPTY//$'\r'/}
   else
     DSC_MARKED=0
     DSC_MARKED_REMAINING=0
+    DSC_EMPTY=0
   fi
 }
 
 # Локализация (.ftl) — свой отдельный, простой критерий, без завязки на
-# теги союза: если строк с обеих сторон конфликта поровну — берём нашу
-# версию как есть. Если у входящей стороны РОВНО на одну строку больше —
-# считаем, что это просто добавили один новый перевод/строку, и берём
-# нашу версию ПЛЮС эту недостающую строку (довешиваем её в конец блока).
-# Любая другая разница в числе строк — не трогаем, слишком похоже на
-# настоящую переработку, а не просто добавление.
+# теги союза: если строк с обеих сторон конфликта РОВНО поровну — берём
+# нашу версию как есть. Любая другая разница в числе строк — не трогаем.
+# Общее для всех файлов правило "наша сторона пуста, а входящая нет — 
+# берём входящее" продублировано и здесь, чтобы resolve-locale работала
+# так же и отдельно от resolve-marked.
 resolve_locale_conflicts() {
   python3 - "$gitdir" <<'PYEOF'
 import os
@@ -475,9 +554,15 @@ def conflicted_files():
 
 
 def resolve_block(ours, theirs):
-    # Строго: только если строк с обеих сторон конфликта РОВНО поровну —
+    # Строго: только если строк с обеих сторон конфликта РОВНО поровну — 
     # берём нашу версию как есть. Любая другая разница (в любую сторону)
-    # конфликт не трогает.
+    # конфликт не трогает. Исключение — общее правило для всех файлов:
+    # наша сторона пуста (только пустые строки), а у входящей что-то есть.
+    if all(not line.strip() for line in ours) and not all(not line.strip() for line in theirs):
+        return True, list(theirs)
+    # ДОБАВЛЕНО: входящая пуста, а наша нет — берём нашу.
+    if all(not line.strip() for line in theirs) and not all(not line.strip() for line in ours):
+        return True, list(ours)
     if len(ours) == len(theirs):
         return True, list(ours)
     return False, None
@@ -577,12 +662,13 @@ for path in conflicted_files():
 if not any_resolved:
     print("  локализационных конфликтов не найдено")
 
-with open(os.path.join(GITDIR, ".dsresolve-count-locale"), "w") as f:
+with open(os.path.join(GITDIR, ".dsresolve-count-locale"), "w", newline="\n") as f:
     f.write(f"{total_resolved} {total_remaining}\n")
 PYEOF
   if [ -f "$gitdir/.dsresolve-count-locale" ]; then
     read -r DSC_LOCALE DSC_LOCALE_REMAINING < "$gitdir/.dsresolve-count-locale"
     rm -f "$gitdir/.dsresolve-count-locale"
+    DSC_LOCALE=${DSC_LOCALE//$'\r'/}; DSC_LOCALE_REMAINING=${DSC_LOCALE_REMAINING//$'\r'/}
   else
     DSC_LOCALE=0
     DSC_LOCALE_REMAINING=0
@@ -697,6 +783,156 @@ report("FTL-локализация (ключ внутри одного язык�
 PYEOF
 }
 
+# meta.json (RSI-метаданные спрайтов) ВНЕ папки _Soyuz: если в нашей версии
+# в поле "copyright" нет слова "Союз" (без учёта регистра) — файл не наш и
+# ничем союзовским не помечен, поэтому берём входящую версию ЦЕЛИКОМ. Если
+# слово есть — файл считаем нашим и не трогаем (пусть решают другие
+# resolve-* или руки). Нашу версию читаем из HEAD, а входящую — из
+# MERGE_HEAD (без мерджа — из стадии индекса :3:): при путанице с
+# переименованиями (см. resolve-renames) стадии индекса могут относиться к
+# ДРУГОМУ файлу, а содержимое по этому пути из HEAD/MERGE_HEAD — настоящее.
+resolve_meta_conflicts() {
+  python3 - "$gitdir" <<'PYEOF'
+import json
+import os
+import re
+import subprocess
+import sys
+import time
+
+GITDIR = sys.argv[1]
+# Слова в copyright, по которым файл считается нашим (без учёта регистра).
+OUR_WORDS = ("союз",)
+COPYRIGHT_RE = re.compile(r'"copyright"\s*:\s*"((?:[^"\\]|\\.)*)"', re.IGNORECASE)
+
+
+def git_add_retry(path, max_attempts=20):
+    lockfile = os.path.join(GITDIR, "index.lock")
+    for attempt in range(1, max_attempts + 1):
+        result = subprocess.run(
+            ["git", "add", "--", path], capture_output=True, text=True
+        )
+        if result.returncode == 0:
+            return True
+        stderr = result.stderr or ""
+        if "did not match any files" in stderr:
+            return True
+        if "index.lock" not in stderr:
+            print(stderr, end="", file=sys.stderr)
+            return False
+        if os.path.exists(lockfile):
+            age = time.time() - os.path.getmtime(lockfile)
+            if age > 60:
+                try:
+                    os.remove(lockfile)
+                except OSError:
+                    pass
+                continue
+        if attempt >= max_attempts:
+            print(
+                f"  не получилось добавить в индекс: {path} — index.lock не отпускает. "
+                "Закрой всё, что может держать репозиторий, и попробуй снова.",
+                file=sys.stderr,
+            )
+            return False
+        time.sleep(0.5)
+    return False
+
+
+def git_show(spec):
+    r = subprocess.run(["git", "show", spec], capture_output=True)
+    return r.stdout if r.returncode == 0 else None
+
+
+def conflicted_meta_files():
+    out = subprocess.check_output(
+        ["git", "diff", "--name-only", "--diff-filter=U", "-z"],
+        universal_newlines=True,
+    )
+    result = []
+    for f in out.split("\x00"):
+        if not f:
+            continue
+        parts = f.split("/")
+        if parts[-1] != "meta.json":
+            continue
+        if "_Soyuz" in parts[:-1]:
+            continue
+        result.append(f)
+    return result
+
+
+def copyright_of(data):
+    text = data.decode("utf-8-sig", errors="replace")
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict) and isinstance(obj.get("copyright"), str):
+            return obj["copyright"]
+    except ValueError:
+        pass
+    m = COPYRIGHT_RE.search(text)
+    return m.group(1) if m else ""
+
+
+mh = subprocess.run(
+    ["git", "rev-parse", "-q", "--verify", "MERGE_HEAD"],
+    capture_output=True, text=True,
+)
+merge_head = mh.stdout.strip() if mh.returncode == 0 else ""
+
+
+def incoming(path):
+    if merge_head:
+        return git_show(f"{merge_head}:{path}")
+    return git_show(f":3:{path}")
+
+
+accepted = 0
+kept = 0
+skipped = 0
+for path in conflicted_meta_files():
+    ours = git_show(f"HEAD:{path}")
+    if ours is None:
+        ours = git_show(f":2:{path}")
+    if ours is None:
+        print(f"  пропущено (у нас такого файла нет): {path}")
+        skipped += 1
+        continue
+
+    cr = copyright_of(ours).lower()
+    if any(w in cr for w in OUR_WORDS):
+        kept += 1   # наш файл — не трогаем, дальше решат другие resolve-*
+        continue
+
+    theirs = incoming(path)
+    if theirs is None:
+        print(f"  пропущено (во входящей версии такого файла нет): {path}")
+        skipped += 1
+        continue
+
+    with open(path, "wb") as f:
+        f.write(theirs)
+    if git_add_retry(path):
+        accepted += 1
+    else:
+        skipped += 1
+
+print(f"  meta.json вне _Soyuz: взята входящая версия — {accepted}, "
+      f"оставлено (в copyright есть «Союз») — {kept}, пропущено — {skipped}")
+
+with open(os.path.join(GITDIR, ".dsresolve-count-meta"), "w", newline="\n") as f:
+    f.write(f"{accepted} {kept + skipped}\n")
+PYEOF
+  if [ -f "$gitdir/.dsresolve-count-meta" ]; then
+    read -r DSC_META DSC_META_REMAINING < "$gitdir/.dsresolve-count-meta"
+    rm -f "$gitdir/.dsresolve-count-meta"
+    DSC_META=${DSC_META//$'\r'/}; DSC_META_REMAINING=${DSC_META_REMAINING//$'\r'/}
+  else
+    DSC_META=0
+    DSC_META_REMAINING=0
+  fi
+}
+
 # Иногда git пытается смерджить контент по переименованию и путает между
 # собой РАЗНЫЕ файлы — обычно с мелкими однотипными json/yml (как meta.json
 # у .rsi), у которых похожая структура. Признак: в маркере конфликта после
@@ -733,7 +969,7 @@ resolve_rename_conflicts() {
 # Конфликты типа "добавлено/удалено" (AA/AU/UA/DU/UD/DD в git status) — это
 # НЕ "обе стороны поменяли содержимое" (UU), а история вида "файл появился
 # только на одной стороне" или "удалён на одной, изменён на другой". Часто
-# это тот же побочный эффект путаницы с переименованиями похожих meta.json —
+# это тот же побочный эффект путаницы с переименованиями похожих meta.json — 
 # разбирать содержимое смысла нет, просто принимаем то, что сейчас лежит в
 # рабочем дереве (git add), а если файла там больше нет — снимаем с индекса.
 resolve_deleted_conflicts() {
@@ -809,7 +1045,7 @@ resolve_map_conflicts() {
 # руками. Если файлу больше 60 секунд — почти наверняка это именно
 # брошенный лок, а не реально работающий сейчас git, и его можно смело
 # убрать самим. Возвращает 0, если можно спокойно продолжать (лока нет
-# или он был старым и его снесли), и 1, если лок свежий и его не трогали —
+# или он был старым и его снесли), и 1, если лок свежий и его не трогали — 
 # решение, что делать дальше, остаётся за вызывающим кодом.
 clear_stale_lock() {
   local lockfile="$1/index.lock"
@@ -879,7 +1115,7 @@ case "$cmd" in
     ;;
 
   train)
-    range="${2:?Укажи диапазон коммитов, например: fobos/master}"
+    range="${2:?Укажи диапазон коммитов, например: upstream/master}"
 
     branch=$(git symbolic-ref -q --short HEAD || true)
     orig_head=$(git rev-parse HEAD)
@@ -939,7 +1175,7 @@ case "$cmd" in
     ;;
 
   sync)
-    remote="${2:-fobos}"
+    remote="${2:-upstream}"
     branch="${3:-master}"
 
     echo "Фетчу $remote/$branch..."
@@ -961,6 +1197,10 @@ case "$cmd" in
 
   resolve-renames)
     resolve_rename_conflicts
+    ;;
+
+  resolve-meta)
+    resolve_meta_conflicts
     ;;
 
   resolve-deleted)
@@ -989,11 +1229,15 @@ case "$cmd" in
     DSC_RENAMES=0 DSC_DELETED=0 DSC_DELETED_SKIPPED=0
     DSC_MAP_OURS=0 DSC_MAP_THEIRS=0
     DSC_PNG=0 DSC_OGG=0 DSC_SVGYML=0 DSC_SVGYML_SKIPPED=0
-    DSC_MARKED=0 DSC_MARKED_REMAINING=0
+    DSC_MARKED=0 DSC_MARKED_REMAINING=0 DSC_EMPTY=0
+    DSC_META=0 DSC_META_REMAINING=0
     DSC_LOCALE=0 DSC_LOCALE_REMAINING=0
 
     echo "== переименования: чиним перепутанные git rename для _Soyuz =="
     resolve_rename_conflicts
+    echo
+    echo "== meta.json вне _Soyuz: без «Союз» в copyright — входящая версия =="
+    resolve_meta_conflicts
     echo
     echo "== добавлено/удалено: конфликты не-both-modified =="
     resolve_deleted_conflicts
@@ -1004,11 +1248,11 @@ case "$cmd" in
     echo "== ассеты: png/ogg сразу, svg/png.yml/svg.yml — с проверкой =="
     resolve_asset_conflicts
     echo
+    echo "== Локализация (.ftl) — раньше marked, чтобы «поровну → наше» не перебивалось =="
+    resolve_locale_conflicts
+    echo
     echo "== Помеченные (#DS14-Soyuz / -start.../-end) конфликты =="
     resolve_marked_blocks "$@"
-    echo
-    echo "== Локализация (.ftl) =="
-    resolve_locale_conflicts
     echo
 
     remaining_files=0
@@ -1017,10 +1261,11 @@ case "$cmd" in
       remaining_files=$((remaining_files + 1))
     done < <(git diff --name-only --diff-filter=U 2>/dev/null)
 
-    total=$((DSC_RENAMES + DSC_DELETED + DSC_MAP_OURS + DSC_MAP_THEIRS + DSC_PNG + DSC_OGG + DSC_SVGYML + DSC_MARKED + DSC_LOCALE))
+    total=$((DSC_RENAMES + DSC_META + DSC_DELETED + DSC_MAP_OURS + DSC_MAP_THEIRS + DSC_PNG + DSC_OGG + DSC_SVGYML + DSC_MARKED + DSC_EMPTY + DSC_LOCALE))
 
     echo "===== Итого разрешено конфликтов: $total ====="
     echo "  переименования (_Soyuz):        $DSC_RENAMES"
+    echo "  meta.json вне _Soyuz (входящая): $DSC_META  (оставлено/пропущено: $DSC_META_REMAINING)"
     echo "  добавлено/удалено:              $DSC_DELETED  (пропущено с маркерами: $DSC_DELETED_SKIPPED)"
     echo "  карты — наша версия (_Soyuz):    $DSC_MAP_OURS"
     echo "  карты — входящая (остальные):    $DSC_MAP_THEIRS"
@@ -1028,6 +1273,7 @@ case "$cmd" in
     echo "  ogg:                             $DSC_OGG"
     echo "  svg/png.yml/svg.yml:             $DSC_SVGYML  (пропущено с маркерами: $DSC_SVGYML_SKIPPED)"
     echo "  помеченные блоки (#DS14-Soyuz):  $DSC_MARKED  (не подошло под правило: $DSC_MARKED_REMAINING)"
+    echo "  наша сторона пуста → входящее:   $DSC_EMPTY"
     echo "  локализация (.ftl):              $DSC_LOCALE  (не подошло под правило: $DSC_LOCALE_REMAINING)"
     echo "  ------------------------------------------"
     echo "  осталось конфликтующих файлов:   $remaining_files"
@@ -1043,7 +1289,7 @@ case "$cmd" in
     ;;
 
   *)
-    echo "Использование: $0 {setup|train <диапазон>|sync [remote] [branch]|resolve-assets|resolve-renames|resolve-deleted|resolve-map|resolve-marked [доп. маркеры...]|resolve-locale|resolve-conflicts [доп. маркеры...]|check-duplicates|status}"
+    echo "Использование: $0 {setup|train <диапазон>|sync [remote] [branch]|resolve-assets|resolve-renames|resolve-meta|resolve-deleted|resolve-map|resolve-marked [доп. маркеры...]|resolve-locale|resolve-conflicts [доп. маркеры...]|check-duplicates|status}"
     exit 1
     ;;
 esac

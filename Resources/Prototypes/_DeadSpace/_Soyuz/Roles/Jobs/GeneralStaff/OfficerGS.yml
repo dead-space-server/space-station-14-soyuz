@@ -21,8 +21,6 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-    - type: Skill
-      group: ALL
   supervisors: job-supervisors-centcom-administrator
 
 - type: startingGear

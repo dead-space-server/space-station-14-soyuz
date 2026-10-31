@@ -58,11 +58,6 @@ public sealed class JobWhitelistSystem : EntitySystem
         if (ev.Jobs is null)
             return;
 
-        // DS14-Soyuz-start
-        if (_adminManager.IsAdmin(ev.Player, includeDeAdmin: true))
-            return;
-        // DS14-Soyuz-end
-
         foreach (var proto in ev.Jobs)
         {
             if (!_manager.IsAllowed(ev.Player, proto))

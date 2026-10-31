@@ -68,8 +68,6 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
-  - type: HardsuitIdentification
-    nonlethal: true
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
 
@@ -284,7 +282,7 @@
 
 # Mask
 - type: entity
-  parent: ClothingMaskGasSyndicate
+  parent: ClothingMaskGasSponsor
   id: ClothingMaskGasSil
   name: противогаз ЗК-2М "Защитная Смерть"
   description: Противогаз который принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
@@ -299,7 +297,7 @@
     tags: [] # ignore "WhitelistChameleon" tag
 
 - type: entity
-  parent: ClothingMaskGasSyndicate
+  parent: ClothingMaskGasSponsor
   id: ClothingMaskGasBlackSil
   name: тактическая маска "Тень"
   description: Дыхательная маска которая принадлежат члену экипажа, находящемуся под покровительством спонсорской организации.
@@ -391,6 +389,7 @@
       toggleable-clothing: !type:ContainerSlot {}
       storagebase: !type:Container
         ents: []
+  - type: HardsuitIdentification
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
 

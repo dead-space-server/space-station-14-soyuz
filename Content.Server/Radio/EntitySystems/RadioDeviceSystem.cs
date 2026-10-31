@@ -14,10 +14,10 @@ using Content.Shared.Speech;
 using Content.Shared.Speech.Components;
 using Robust.Shared.Prototypes;
 using Content.Shared.DeadSpace.Languages.Components;
+using Content.Shared.Verbs;// DS14
+using Content.Shared.Database;// DS14
+using Robust.Shared.Player;// DS14
 using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
-using Robust.Shared.Audio; // DS14-Soyuz
-using Robust.Shared.Audio.Systems; // DS14-Soyuz
-
 namespace Content.Server.Radio.EntitySystems;
 
 /// <summary>
@@ -31,7 +31,6 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
     [Dependency] private readonly RadioSystem _radio = default!;
     [Dependency] private readonly InteractionSystem _interaction = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!; // DS14-Soyuz
 
     // Used to prevent a shitter from using a bunch of radios to spam chat.
     private HashSet<(string, EntityUid, RadioChannelPrototype, int)> _recentlySent = new(); // DS14-Soyuz
@@ -54,6 +53,8 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
         SubscribeLocalEvent<IntercomComponent, ToggleIntercomMicMessage>(OnToggleIntercomMic);
         SubscribeLocalEvent<IntercomComponent, ToggleIntercomSpeakerMessage>(OnToggleIntercomSpeaker);
         SubscribeLocalEvent<IntercomComponent, SelectIntercomChannelMessage>(OnSelectIntercomChannel);
+
+        SubscribeLocalEvent<RadioMicrophoneComponent, GetVerbsEvent<Verb>>(OnGetVerb); // DS14
     }
 
     public override void Update(float frameTime)
@@ -193,16 +194,6 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
             ("speaker", Name(uid)),
             ("originalName", nameEv.VoiceName));
 
-        // DS14-Soyuz start
-        if (args.Sound != null)
-        {
-            _audio.PlayPvs(args.Sound, uid, (args.SoundParams ?? AudioParams.Default).WithVolume(-5).WithMaxDistance(3));
-            _chat.TrySendInGameICMessage(uid, args.Message, InGameICChatType.Emote,
-                ChatTransmitRange.GhostRangeLimit, nameOverride: name, checkRadioPrefix: false, ignoreActionBlocker: true);
-            return;
-        }
-        // DS14-Soyuz end
-
         // DS14-start
         // не совсем грамотная и верная реализация, но быстрая.
         if (TryComp<LanguageComponent>(args.MessageSource, out var languageSource) && TryComp<LanguageComponent>(uid, out var language))
@@ -275,4 +266,62 @@ public sealed class RadioDeviceSystem : SharedRadioDeviceSystem
             speaker.Channels = new() { channel.Value };
         Dirty(ent);
     }
+
+    // DS14-start
+    //Не совсем правильная реализация, но быстро и не нужно много переделывать.
+    private void OnGetVerb(EntityUid uid, RadioMicrophoneComponent component, GetVerbsEvent<Verb> args)
+    {
+        if (HasComp<ActorComponent>(uid) ||
+                !args.CanAccess ||
+                !args.CanInteract ||
+                !args.CanComplexInteract)
+            return;
+
+        if (!component.ToggleOnInteract)
+            return;
+
+        if (!component.Enabled)
+            return;
+
+        if (component.PowerRequired && !this.IsPowered(uid, EntityManager))
+            return;
+
+        var on = HasComp<ActiveListenerComponent>(uid);
+        args.Verbs.Add(new Verb
+        {
+            Priority = 1,
+            Disabled = on,
+            Category = VerbCategory.Microphone,
+            Text = Loc.GetString("handheld-radio-component-mic-on-set"),
+            Impact = LogImpact.Low,
+            DoContactInteraction = false,
+            CloseMenu = true,
+            Act = () =>
+            {
+                var state = Loc.GetString(!on ? "handheld-radio-component-mic-on-state" : "handheld-radio-component-mic-off-state");
+                var message = Loc.GetString("handheld-radio-component-mic-change", ("microphonState", state));
+                _popup.PopupEntity(message, args.User, args.User);
+                EnsureComp<ActiveListenerComponent>(uid).Range = component.ListenRange;
+            },
+        });
+
+        args.Verbs.Add(new Verb
+        {
+            Priority = 0,
+            Disabled = !on,
+            Category = VerbCategory.Microphone,
+            Text = Loc.GetString("handheld-radio-component-mic-off-set"),
+            Impact = LogImpact.Low,
+            DoContactInteraction = false,
+            CloseMenu = true,
+            Act = () =>
+            {
+                var state = Loc.GetString(!on ? "handheld-radio-component-mic-on-state" : "handheld-radio-component-mic-off-state");
+                var message = Loc.GetString("handheld-radio-component-mic-change", ("microphonState", state));
+                _popup.PopupEntity(message, args.User, args.User);
+                RemCompDeferred<ActiveListenerComponent>(uid);
+            }
+        });
+    }
+    // DS14-end
 }

@@ -70,9 +70,11 @@
     - id: DoubleEmergencyOxygenTanksastr
     - id: ClothingUniformJumpsuitsastr
     - id: PDAsastr
-    - id: MedkitAdvancedFilled
+    - id: MedkitCombatsastr
     - id: ClothingHeadHelmetsastr
     - id: ClothingMasksastr
+    - id: WeaponProtoKineticAcceleratorsastr
+    - id: WeaponCrushersastr
   - type: TypingIndicatorClothing
     proto: TypingIndicatorsastr
   - type: Tag
@@ -91,6 +93,7 @@
     - 0,0,7,1
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/belt.rsi
+    scale: 0.8, 0.8
     layers:
     - state: icon
       map: [ "unfoldedLayer" ]
@@ -223,6 +226,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/outer.rsi
+    scale: 0.8, 0.8
   - type: Clothing
     sprite: _DeadSpace/Sponsor/sastr/outer.rsi
   - type: SolutionContainerManager
@@ -244,6 +248,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/helmet2.rsi
+    scale: 0.75, 0.75
     layers:
     - state: icon
       map: [ "unfoldedLayer" ]
@@ -288,31 +293,24 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: _DeadSpace/Sponsor/sastr/jumpsuit.rsi
-    layers:
-    - state: icon
-      map: [ "unfoldedLayer" ]
-    - state: h-icon
-      map: ["foldedLayer"]
-      visible: false
+    sprite: _DeadSpace/Sponsor/sastr/jumpicon.rsi
+    scale: 0.7, 0.7
   - type: Clothing
     sprite: _DeadSpace/Sponsor/sastr/jumpsuit.rsi
-  - type: Appearance
-  - type: Foldable
-    canFoldInsideContainer: true
-  - type: GroupExamine
-  - type: FoldableClothing
-    foldedEquippedPrefix: h
-    foldedHeldPrefix: h
-  - type: GenericVisualizer
-    visuals:
-      enum.FoldedVisuals.State:
-        foldedLayer:
-          True: {visible: true}
-          False: {visible: false}
-        unfoldedLayer:
-          True: {visible: false}
-          False: {visible: true}
+  - type: Tag
+    tags: [ ]
+
+# jumpsuit2.rsi
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitsastr2
+  name: форма Klecsh //
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/jumpsuit2.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Sponsor/sastr/jumpsuit2.rsi
   - type: Tag
     tags: [ ]
 
@@ -339,10 +337,12 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/headset.rsi
+    scale: 0.75, 0.75
   - type: Clothing
     sprite: _DeadSpace/Sponsor/sastr/headset.rsi
   - type: Headset
-    color: "#111111"
+    color: "#2a3424" 
+    colorEnd: "#000000"
   - type: EncryptionKeyHolder
     keySlots: 5
   - type: FlashbangProtection
@@ -359,6 +359,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/gloves.rsi
+    scale: 0.8, 0.8
   - type: Clothing
     sprite: _DeadSpace/Sponsor/sastr/gloves.rsi
   - type: Tag
@@ -373,6 +374,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/cloak.rsi
+    scale: 0.8, 0.8
     layers:
     - state: icon
       map: [ "unfoldedLayer" ]
@@ -385,6 +387,8 @@
   - type: Foldable
     canFoldInsideContainer: true
   - type: GroupExamine
+  - type: ClothingVisualLayerAnchor
+    slot: head
   - type: FoldableClothing
     foldedEquippedPrefix: h
     foldedHeldPrefix: h
@@ -467,6 +471,7 @@
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/hud.rsi
+    scale: 0.8, 0.8
     layers:
     - state: icon
       map: [ "unfoldedLayer" ]
@@ -499,13 +504,14 @@
 
 # gasmask.rsi
 - type: entity
-  parent: ClothingMaskGasSecurity
+  parent: ClothingMaskGasSponsor
   id: ClothingMasksastr
   name: балаклава Klecsh //
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
     sprite: _DeadSpace/Sponsor/sastr/gasmask.rsi
+    scale: 0.8, 0.8
   - type: Clothing
     sprite: _DeadSpace/Sponsor/sastr/gasmask.rsi
   - type: HideLayerClothing
@@ -601,9 +607,9 @@
       - AstroNavCartridge
       - MessengerCartridge
   - type: PdaBorderColor
-    borderColor: "#2a3424"
-    accentHColor: "#242424"
-    accentVColor: "#3a4533"
+    borderColor: "#010101"
+    accentHColor: "#010101"
+    accentVColor: "#010101"
   - type: Tag
     tags: [ ]
 
@@ -937,6 +943,177 @@
   idleState: default3
   offset: 0.125, 0.125
 
+# kinetic_accelerator.rsi
+- type: entity
+  parent: WeaponProtoKineticAcceleratorReapeter
+  id: WeaponProtoKineticAcceleratorsastr
+  categories: [ HideSpawnMenu ]
+  name: протокинетическая винтовка Klecsh //
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/kinetic_accelerator.rsi
+    layers:
+    - state: icon
+    - state: animation-icon
+      visible: false
+      map: [ "empty-icon" ]
+  - type: BasicEntityAmmoProvider
+    proto: BulletChargesastr2
+    capacity: 3
+    count: 3
+  - type: Item
+    sprite: _DeadSpace/Sponsor/sastr/kinetic_accelerator.rsi
+    size: Normal
+    heldPrefix: null
+  - type: Clothing
+    sprite: _DeadSpace/Sponsor/sastr/kinetic_accelerator.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt
+  - type: AttachmentHolder
+    slotOverlays:
+      bayonet_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: bayonet
+        offset: 0.71875,0.4375
+      light_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: flight
+        stateOn: flight_on
+        offset: 0.46875,0.34375
+  - type: PointLight
+    color: "#aef633"
+    enabled: false
+    radius: 4
+
+- type: entity
+  id: BulletChargesastr2
+  name: charge bolt
+  parent: BulletKinetic
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/crusher.rsi
+    noRot: false
+    layers:
+      - state: icon4
+        shader: unshaded
+
+# crusher.rsi
+- type: entity
+  parent: [ BaseWeaponCrusher, BaseSecurityCargoContraband , BaseCrusherAttachmentSlots]
+  categories: [ HideSpawnMenu ]
+  id: WeaponCrushersastr
+  name: протокинетическое копьё Klecsh //
+  components:
+  - type: AttachmentOverlaySprite
+    sprite: _Goob/Lavaland/Objects/Weapons/Crushers/crusher_overlays.rsi
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/crusher.rsi
+    scale: 0.8, 0.8
+    layers:
+    - state: icon
+      map: [ base ]
+    - state: icon2
+      map: [ plunger ]
+      visible: false
+  - type: Item
+    sprite: _DeadSpace/Sponsor/sastr/crusher.rsi
+    size: Huge
+  - type: AmmoCounter
+  - type: UseDelayOnShoot
+  - type: UseDelay
+    delay: 0.9
+  - type: LeechOnMarker
+    leech:
+      groups:
+        Brute: -11
+  - type: Gun
+    soundGunshot: /Audio/_DeadSpace/Sponsor/pvrsifvlAlt2/crusher_shot.ogg
+    fireRate: 1
+    useKey: false
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.5
+    rechargeSound:
+      path: /Audio/_DeadSpace/Sponsor/pvrsifvlAlt2/crusher_reload.ogg
+  - type: BasicEntityAmmoProvider
+    proto: BulletChargesastr
+    capacity: 1
+    count: 1
+  - type: MeleeWeapon
+    attackRate: 1
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 10
+        Slash: 7
+    soundHit:
+      collection: MetalThud
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 10
+        Slash: 4
+        Structural: 30
+  - type: GenericVisualizer
+    visuals:
+      enum.WieldableVisuals.Wielded:
+        plunger:
+          True: { state: icon }
+          False: { state: icon }
+        base:
+          True: { state: icon2 }
+          False: { state: icon }
+  - type: Appearance
+  - type: PointLight
+    color: "#aef633"
+    enabled: false
+    radius: 4
+  - type: GunRequiresWield
+  - type: DisarmMalus
+  - type: Prying
+
+- type: entity
+  id: BulletChargesastr
+  name: charge bolt
+  parent: BulletCharge
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/crusher.rsi
+    noRot: false
+    layers:
+      - state: icon4
+        shader: unshaded
+  - type: DamageMarkerOnCollide
+    effect:
+      sprite: _DeadSpace/Sponsor/sastr/crusher.rsi
+      state: icon3
+
+# MEDKIT
+- type: entity
+  parent: MedkitCombat
+  id: MedkitCombatsastr
+  name: боевая аптечка Klecsh //
+  description: Экстренная помощь, возвращающая с того света.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/sastr/misk.rsi
+    state: icon
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,3,1
+  - type: StorageFill
+    contents:
+    - id: MedicatedSuture
+      amount: 2
+    - id: RegenerativeMesh
+    - id: Bloodpack
+
 # документ
 - type: entity
   parent: PaperPrintedCentcomm
@@ -974,120 +1151,10 @@
   - type: Tag
     tags: [] # ignore "WhitelistChameleon" tag
 
-#MARK: 0_0
-
-- type: entity
-  parent: BaseVehicleStrap
-  id: Vehiclesastr
-  name: мопед
-  description: Врум врум!
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: UnpoweredFlashlight
-  - type: Strap
-    position: Stand
-    buckleOffset: "0.01,0.15"
-    lockBuckleOffset: true
-  - type: MovementSpeedModifier
-    weightlessModifier: 0
-    baseAcceleration: 1.4
-    baseFriction: 0.8
-    friction: 2
-    frictionNoInput: 8
-    baseWalkSpeed: 5
-    baseSprintSpeed: 8
-  - type: GenericKeyedVehicle
-    containerId: key_slot
-    keyWhitelist:
-      tags:
-      - KeyUniversal
-  - type: Sprite
-    sprite: _DeadSpace/Sponsor/sastr/atv.rsi
-    drawdepth: Mobs
-    layers:
-    - state: vehicle
-      map: ["movement"]
-  - type: ContainerContainer
-    containers:
-      key_slot: !type:ContainerSlot
-  - type: Appearance
-  - type: GravityAffected
-  - type: Vehicle
-    keyEjectRequiresOperator: true
-    protectOperatorUnstrap: true
-    movementSound:
-      collection: FootstepBorg
-    movementSoundDistance: 1.5
-  - type: PointLight
-    enabled: false
-    radius: 10.5
-    softness: 2
-    mask: /Textures/Effects/LightMasks/cone.png
-    autoRot: true
-  - type: ItemSlots
-    slots:
-      key_slot:
-        name: vehicle-slot-component-slot-name-keys
-        whitelist:
-          tags:
-          - KeyUniversal
-        insertSound:
-          path: /Audio/Effects/Vehicle/vehiclestartup.ogg
-          params:
-            volume: -3
-  - type: SpriteMovement
-    movementLayers:
-      movement:
-        state: vehicle-moving
-    noMovementLayers:
-      movement:
-        state: vehicle
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 350
-      behaviors:
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
-        damage: 350
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalGlassBreak
-      - !type:ExplodeBehavior
-
-- type: entity
-  id: Casesastr
-  name: кейс
-  description: Прочный военный кейс.
-  parent: BaseERTloadoutPrimary
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/Objects/Misc/case_gr.rsi
-    state: closed
-  - type: ThiefUndeterminedBackpack
-    possibleSets:
-    - Vehiclesastr
-  - type: ActivatableUI
-    key: enum.ThiefBackpackUIKey.Key
-  - type: UserInterface
-    interfaces:
-      enum.ThiefBackpackUIKey.Key:
-        type: ThiefBackpackBoundUserInterface
-
-- type: thiefBackpackSet
-  id: Vehiclesastr
-  name: ert-loadout-category-sastr-name
-  description: ert-loadout-category-sastr-description
-  sprite:
-    sprite: _DeadSpace/Sponsor/sastr/atv.rsi
-    state: icon
-  content:
-  - Vehiclesastr
-  - VehicleKeyUniversal
+- type: customGhost
+  id: sastr-ghost
+  login: YameteKudasai
+  spritePath: _DeadSpace/Sponsor/sastr/s.rsi
+  alpha: 0.6
+  name: / / / 
+  description: / / /   

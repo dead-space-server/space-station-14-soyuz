@@ -1,6 +1,5 @@
 using System.Collections.Frozen;
 using Content.Shared.Chat.Prototypes;
-using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
 using Content.Shared.Speech;
 using Robust.Shared.Audio;
 using Robust.Shared.Random;
@@ -157,12 +156,7 @@ public abstract partial class SharedChatSystem
 
         // optional override params > general params for all sounds in set > individual sound params
         var param = audioParams ?? proto.GeneralParams ?? sound.Params;
-        // DS14-Soyuz start
-        var resolved = _audio.ResolveSound(sound);
-        _audio.PlayPvs(resolved, uid, param);
-        var ev = new EmoteSoundPlayedEvent(emoteId, resolved, param);
-        RaiseLocalEvent(uid, ref ev);
-        // DS14-Soyuz end
+        _audio.PlayPvs(sound, uid, param);
         return true;
     }
     /// <summary>

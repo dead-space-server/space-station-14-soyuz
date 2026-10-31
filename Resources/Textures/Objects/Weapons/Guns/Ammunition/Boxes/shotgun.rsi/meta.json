@@ -53,18 +53,6 @@
             "name": "mag-flare-2"
         },
         {
-            "name": "mag-silver-1"
-        },
-        {
-            "name": "mag-silver-2"
-        },
-        {
-            "name": "mag-silver-3"
-        },
-        {
-            "name": "mag-silver-4"
-        },
-        {
             "name": "mag-incend-1"
         },
         {
@@ -93,9 +81,6 @@
         },
         {
             "name": "tranquilizer"
-        },
-        {
-           "name": "silver"
         }
     ]
 }

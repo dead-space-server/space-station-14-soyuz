@@ -223,6 +223,8 @@
       collection: TajaranMaleMeows
     Warcry:
       collection: MaleWarcry
+    Purr:
+      collection: FelinidPurrs
 
 - type: emoteSounds
   id: FemaleTajaran
@@ -273,6 +275,8 @@
       collection: TajaranFemaleMeows
     Warcry:
       collection: FemaleWarcry
+    Purr:
+      collection: FelinidPurrs
 
 - type: emoteSounds
   id: MaleMed

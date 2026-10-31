@@ -95,7 +95,6 @@ public abstract class SharedGasTileOverlaySystem : EntitySystem
             Opacity = opacity;
             ByteGasTemperature = byteTemp;
             ByteGasPressure = bytePressure; // DS14
-            
             // DS14-Soyuz-start
             SoyuzTlecStage = soyuzTlecStage;
             SoyuzFireColor = soyuzFireColor;

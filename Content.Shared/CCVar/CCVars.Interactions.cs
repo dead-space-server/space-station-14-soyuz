@@ -69,7 +69,7 @@ public sealed partial class CCVars
     /// Whether or not storage can be opened recursively.
     /// </summary>
     public static readonly CVarDef<bool> NestedStorage =
-        CVarDef.Create("control.nested_storage", false, CVar.REPLICATED | CVar.SERVER); // DS14-value
+        CVarDef.Create("control.nested_storage", true, CVar.REPLICATED | CVar.SERVER);
 
     /// <summary>
     ///     If enabled, melee weapons that have click-to-attack patterns (unarmed, slow weapons) will continue attacking if the button is held.

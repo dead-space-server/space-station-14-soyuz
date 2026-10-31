@@ -81,7 +81,7 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
         {
             if (TryComp<MobStateComponent>(entity, out var state))
             {
-//DS14-Soyuz-start
+                // DS14-Soyuz-start
                 if (state.CurrentState == MobState.Dead)
                 {
                     int effectiveStage = 1;
@@ -134,7 +134,7 @@ public sealed class ShowHealthIconsSystem : EquipmentHudSystem<ShowHealthIconsCo
                         result.Add(icon);
                     }
                 }
-//DS14-Soyuz-end
+                // DS14-Soyuz-end
             }
         }
 

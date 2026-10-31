@@ -8,9 +8,8 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Power;
+using Content.Shared.Atmos.Rotting;//DS14
 using Content.Shared.Power.EntitySystems;
-using Content.Shared.Tag;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -43,6 +42,7 @@ public sealed class BedSystem : EntitySystem
         SubscribeLocalEvent<StasisBedComponent, GotEmaggedEvent>(OnStasisEmagged);
         SubscribeLocalEvent<StasisBedComponent, PowerChangedEvent>(OnPowerChanged);
         SubscribeLocalEvent<StasisBedBuckledComponent, GetMetabolicMultiplierEvent>(OnStasisGetMetabolicMultiplier);
+        SubscribeLocalEvent<StasisBedBuckledComponent, GetRotMultiplierEvent>(OnStasisGetRotMultiplier); //DS14
 
         _sleepingQuery = GetEntityQuery<SleepingComponent>();
     }
@@ -52,6 +52,25 @@ public sealed class BedSystem : EntitySystem
         _actConts.EnsureAction(ent.Owner, ref ent.Comp.SleepAction, SleepingSystem.SleepActionId);
         Dirty(ent);
     }
+
+    //DS14-Start
+    private void OnStasisGetRotMultiplier(Entity<StasisBedBuckledComponent> ent, ref GetRotMultiplierEvent args)
+    {
+        if (!TryComp<BuckleComponent>(ent, out var buckle) || buckle.BuckledTo is not { } buckledTo)
+            return;
+
+        if (!TryComp<StasisBedComponent>(buckledTo, out var stasis))
+            return;
+
+        if (!_powerReceiver.IsPowered(buckledTo))
+            return;
+
+        if (!_emag.CheckFlag(buckledTo, EmagType.Interaction))
+            return;
+
+        args.Multiplier *= 1f / stasis.Multiplier;
+    }
+    //DS14-End
 
     private void OnStrapped(Entity<HealOnBuckleComponent> bed, ref StrappedEvent args)
     {
@@ -67,9 +86,9 @@ public sealed class BedSystem : EntitySystem
     private void OnUnstrapped(Entity<HealOnBuckleComponent> bed, ref UnstrappedEvent args)
     {
         // If the entity being unbuckled is terminating, we shouldn't try to act upon it, as some components may be gone
-        if (!Terminating(args.Buckle.Owner) && bed.Comp.SleepAction != null)
+        if (!Terminating(args.Buckle.Owner))
         {
-            _actionsSystem.RemoveAction(args.Buckle.Owner, bed.Comp.SleepAction.Value);
+            _actionsSystem.RemoveAction(args.Buckle.Owner, bed.Comp.SleepAction);
             _sleepingSystem.TryWaking(args.Buckle.Owner);
         }
 
@@ -84,7 +103,7 @@ public sealed class BedSystem : EntitySystem
 
     private void OnStasisUnstrapped(Entity<StasisBedComponent> ent, ref UnstrappedEvent args)
     {
-        RemComp<StasisBedBuckledComponent>(ent);
+        RemComp<StasisBedBuckledComponent>(args.Buckle);
         _metabolizer.UpdateMetabolicMultiplier(args.Buckle);
     }
 
@@ -96,6 +115,7 @@ public sealed class BedSystem : EntitySystem
         if (_emag.CheckFlag(ent, EmagType.Interaction))
             return;
 
+        RemComp<AntiRotOnBuckleComponent>(ent);
         ent.Comp.Multiplier = 1f / ent.Comp.Multiplier;
         UpdateMetabolisms(ent.Owner);
         Dirty(ent);

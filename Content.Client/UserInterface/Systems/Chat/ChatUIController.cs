@@ -6,6 +6,7 @@ using Content.Client.Chat;
 using Content.Client.Chat.Managers;
 using Content.Client.Chat.TypingIndicator;
 using Content.Client.Chat.UI;
+using Content.Client.DeadSpace.Psychiatry; //DS-14
 using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Examine;
 using Content.Client.Gameplay;
@@ -33,6 +34,7 @@ using Robust.Client.State;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Client.UserInterface.Controls;
+using Robust.Shared;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects.Components.Localization;
 using Robust.Shared.Input.Binding;
@@ -140,7 +142,12 @@ public sealed partial class ChatUIController : UIController
 
     private readonly HashSet<ChatBox> _chats = new();
     public IReadOnlySet<ChatBox> Chats => _chats;
-    private ChatWindow? _mainChatPopOut; // DS14
+    // DS14-start
+    private ChatWindow? _mainChatPopOut;
+    private ChatBox? _pendingMainChatPopOut;
+    private bool _mainChatPopOutFailed;
+    private bool _updatingPopOutChat;
+    // DS14-end
 
     /// <summary>
     ///     The max amount of characters an entity can send in one message
@@ -181,6 +188,22 @@ public sealed partial class ChatUIController : UIController
     {
         _sawmill = Logger.GetSawmill("chat");
         _sawmill.Level = LogLevel.Info;
+        // DS14-start
+        _config.OnValueChanged(CCCCVars.PopOutChat, OnPopOutChatChanged);
+
+        var build = _config.GetCVar(CVars.BuildVersion);
+        var failedBuild = _config.GetCVar(CCCCVars.PopOutChatFailedBuild);
+
+        if (failedBuild.Length != 0 && failedBuild == build)
+        {
+            DisablePopOutChat();
+            _config.SaveToFile();
+        }
+        else
+        {
+            RestorePopOutChatAfterUpdate();
+        }
+        // DS14-end
         _admin.AdminStatusUpdated += UpdateChannelPermissions;
         _player.LocalPlayerAttached += OnAttachedChanged;
         _player.LocalPlayerDetached += OnAttachedChanged;
@@ -328,7 +351,42 @@ public sealed partial class ChatUIController : UIController
 
         chatBox.Main = setting;
         // DS14-start
-        if (_config.GetCVar(CCCCVars.PopOutChat) && setting)
+        if (!setting)
+        {
+            _pendingMainChatPopOut = null;
+        }
+        else if (!_mainChatPopOutFailed && _config.GetCVar(CCCCVars.PopOutChat))
+        {
+            _pendingMainChatPopOut = chatBox;
+        }
+        else if (_mainChatPopOut != null)
+        {
+            CloseMainChatPopOut();
+        }
+        // DS14-end
+    }
+
+    // DS14-start
+    private void UpdateMainChatPopOut()
+    {
+        if (_pendingMainChatPopOut is not { } chatBox)
+            return;
+
+        _pendingMainChatPopOut = null;
+
+        if (chatBox.Disposed || !chatBox.Main || UIManager.ActiveScreen is not InGameScreen)
+            return;
+
+        var build = _config.GetCVar(CVars.BuildVersion);
+
+        if (build.Length != 0)
+        {
+            _config.SetCVar(CCCCVars.PopOutChatFailedBuild, build);
+            _config.SaveToFile();
+        }
+
+        var poppedOut = false;
+        try
         {
             var popOut = _mainChatPopOut;
             if (popOut == null)
@@ -338,10 +396,74 @@ public sealed partial class ChatUIController : UIController
                 popOut.PoppedOutClosed += OnMainChatPopOutClosed;
             }
 
-            popOut.PopOutChatRef(ref chatBox);
+            poppedOut = popOut.PopOutChatRef(ref chatBox);
         }
-        // DS14-end
+        catch (Exception e)
+        {
+            _sawmill.Error($"Failed to move the main chat into a separate window, keeping it in the HUD:\n{e}");
+            CloseMainChatPopOut();
+            _mainChatPopOut = null;
+        }
+
+        if (poppedOut)
+        {
+            if (build.Length != 0)
+                _config.SetCVar(CCCCVars.PopOutChatFailedBuild, string.Empty);
+        }
+        else
+        {
+            _mainChatPopOut = null;
+            DisablePopOutChat();
+        }
+
+        _config.SaveToFile();
     }
+
+    private void OnPopOutChatChanged(bool enabled)
+    {
+        if (_updatingPopOutChat)
+            return;
+
+        _config.SetCVar(CCCCVars.PopOutChatFailedBuild, string.Empty);
+    }
+
+    private void SetPopOutChat(bool enabled)
+    {
+        _updatingPopOutChat = true;
+        _config.SetCVar(CCCCVars.PopOutChat, enabled);
+        _updatingPopOutChat = false;
+    }
+
+    private void DisablePopOutChat()
+    {
+        _mainChatPopOutFailed = true;
+
+        var build = _config.GetCVar(CVars.BuildVersion);
+        if (build.Length == 0)
+        {
+            _sawmill.Warning("Keeping the chat in the HUD for this session: the separate chat window could not be created.");
+            return;
+        }
+
+        _config.SetCVar(CCCCVars.PopOutChatFailedBuild, build);
+        SetPopOutChat(false);
+        _sawmill.Warning("Keeping the chat in the HUD: the separate chat window could not be created.");
+    }
+
+    private void RestorePopOutChatAfterUpdate()
+    {
+        var build = _config.GetCVar(CVars.BuildVersion);
+        var failedBuild = _config.GetCVar(CCCCVars.PopOutChatFailedBuild);
+
+        if (build.Length == 0 || failedBuild.Length == 0 || failedBuild == build)
+            return;
+
+        _config.SetCVar(CCCCVars.PopOutChatFailedBuild, string.Empty);
+        SetPopOutChat(true);
+        _config.SaveToFile();
+        _sawmill.Info("The client was updated, enabling the separate chat window again.");
+    }
+    // DS14-end
 
     // DS14-start
     private void OnMainChatPopOutClosed()
@@ -639,6 +761,7 @@ public sealed partial class ChatUIController : UIController
 
     public override void FrameUpdate(FrameEventArgs delta)
     {
+        UpdateMainChatPopOut(); // DS14
         UpdateQueuedSpeechBubbles(delta);
     }
 
@@ -869,6 +992,11 @@ public sealed partial class ChatUIController : UIController
 
     public void ProcessChatMessage(ChatMessage msg, bool speechBubble = true)
     {
+        //DS-14 start
+        // A chat message may come before the entity systems are up (connecting, a test pair being reset).
+        if (_ent.TrySystem<PsychiatryClientSystem>(out var psychiatry))
+            psychiatry.GarbleHeard(msg);
+        //DS-14 end
         // color the name unless it's something like "the old man"
         if ((msg.Channel == ChatChannel.Local || msg.Channel == ChatChannel.Whisper) && _chatNameColorsEnabled)
         {

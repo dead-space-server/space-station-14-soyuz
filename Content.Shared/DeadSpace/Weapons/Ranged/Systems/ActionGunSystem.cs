@@ -1,11 +1,29 @@
 #pragma warning disable IDE0130
 using Content.Shared.Actions.Components;
+using Content.Shared.DeadSpace.Actions;
 using Content.Shared.Weapons.Ranged.Components;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
 public sealed partial class ActionGunSystem
 {
+    private void SubscribeActionAvailability()
+    {
+        SubscribeLocalEvent<ActionGunComponent, ActionAvailabilityEvent>(OnAvailability);
+    }
+
+    private void OnAvailability(Entity<ActionGunComponent> ent, ref ActionAvailabilityEvent args)
+    {
+        if (ent.Comp.ActionEntity != args.Action.Owner)
+            return;
+
+        if (ent.Comp.Gun is { } gun && !TerminatingOrDeleted(gun) && HasComp<GunComponent>(gun))
+            return;
+
+        args.Available = false;
+        _actions.SetEnabled(new Entity<ActionComponent?>(args.Action.Owner, args.Action.Comp), false);
+    }
+
     private void OnShoot(Entity<ActionGunComponent> ent, ref ActionGunShootEvent args)
     {
         if (ent.Comp.Gun is not { } gunUid || !TryComp<GunComponent>(gunUid, out var gun))

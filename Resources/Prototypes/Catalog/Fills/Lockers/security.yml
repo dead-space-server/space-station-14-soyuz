@@ -55,6 +55,7 @@
     - id: CriminalRecordsMonitor
     - id: PlushieLizardJobWarden
       prob: 0.02
+    - id: FieldprojectorSecurity # DS14
 
 - type: entityTable
   id: FillLockerWardenHarduit

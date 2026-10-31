@@ -80,13 +80,14 @@ public sealed partial class DamageableComponent : Component
     public Dictionary<MobState, ProtoId<HealthIconPrototype>> HealthIcons = new()
     {
         { MobState.Alive, "HealthIconFine" },
+        { MobState.PreCritical, "HealthIconPreCritical" }, // DS14
         { MobState.Critical, "HealthIconCritical" },
         { MobState.Dead, "HealthIconDead" },
     };
 
     [DataField]
     public ProtoId<HealthIconPrototype> RottingIcon = "HealthIconRotting";
-// DS14-Soyuz-start
+    // DS14-Soyuz-start
     [DataField]
     public List<ProtoId<HealthIconPrototype>> RottingStageIcons = new()
     {
@@ -95,7 +96,7 @@ public sealed partial class DamageableComponent : Component
         "HealthIconRottingStage3",
         "HealthIconRottingStage4",
     };
-// DS14-Soyuz-end
+    // DS14-Soyuz-end
     [DataField]
     public FixedPoint2? HealthBarThreshold;
 }

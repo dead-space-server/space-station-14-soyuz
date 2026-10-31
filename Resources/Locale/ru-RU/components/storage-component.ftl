@@ -9,5 +9,6 @@ comp-storage-window-title = Предмет хранилище
 comp-storage-window-weight = { $weight }/{ $maxWeight }, Максимальный размер содержимого: { $size }
 comp-storage-window-slots = Слоты: { $itemCount }/{ $maxCount }, Максимальный размер содержимого: { $size }
 comp-storage-window-dummy = Кукла
+comp-storage-window-back = Назад
 comp-storage-verb-open-storage = Открыть хранилище
 comp-storage-verb-close-storage = Закрыть хранилище

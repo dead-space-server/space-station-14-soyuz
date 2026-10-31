@@ -187,6 +187,7 @@
       - MedTekCartridge
       - BankCartridge
       - MessengerCartridge
+      - PdaGamesCartridge
 
 - type: entity
   parent: BasePDA
@@ -216,6 +217,7 @@
       - MedTekCartridge
       - BankCartridge
       - MessengerCartridge
+      - PdaGamesCartridge
 
 - type: entity
   parent: BasePDA
@@ -246,6 +248,7 @@
       - AstroNavCartridge
       - BankCartridge
       - MessengerCartridge
+      - PdaGamesCartridge
 
 - type: entity
   parent: BasePDA
@@ -275,6 +278,7 @@
     - AstroNavCartridge
     - BankCartridge
     - MessengerCartridge
+    - PdaGamesCartridge
 
 - type: entity
   parent: BasePDA
@@ -330,6 +334,7 @@
     - NotekeeperCartridge
     - NanoTaskCartridge
     - TaipanMessengerCartridge
+    - PdaGamesCartridge
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -443,6 +448,7 @@
       - NanoTaskCartridge
       - MedTekCartridge
       - TaipanMessengerCartridge
+      - PdaGamesCartridge
 
 - type: entity
   parent: BaseTaipanPDA
@@ -466,6 +472,7 @@
       - NanoTaskCartridge
       - MedTekCartridge
       - TaipanMessengerCartridge
+      - PdaGamesCartridge
 
 - type: entity
   parent: BaseTaipanPDA
@@ -553,3 +560,4 @@
       - NanoTaskCartridge
       - AstroNavCartridge
       - TaipanMessengerCartridge
+      - PdaGamesCartridge

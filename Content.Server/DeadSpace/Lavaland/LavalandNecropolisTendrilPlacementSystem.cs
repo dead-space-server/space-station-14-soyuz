@@ -2,6 +2,7 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.DeadSpace.Lavaland.Components;
+using Content.Server.DeadSpace.Lavaland.SecretBoss;
 using Content.Server.Parallax;
 using Content.Server.Tiles;
 using Content.Shared.Chasm;
@@ -41,10 +42,12 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
     [Dependency] private readonly BiomeSystem _biome = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly LavalandSecretBossSystem _secretBoss = default!;
 
     private readonly Dictionary<EntProtoId, int> _counts = new();
     private readonly List<Vector2i> _placed = new();
@@ -284,6 +287,8 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
                 (int) MathF.Round(MathF.Sin(angle) * distance));
 
             if (IsInsideExclusion(candidate, planet) ||
+                IsNearCelestialPit(mapUid, candidate) ||
+                IsNearOtherGrid(mapUid, grid, candidate) ||
                 !IsSeparated(candidate, placed, minSeparationSquared) ||
                 !IsTileSafe(mapUid, grid, biome, candidate))
             {
@@ -292,6 +297,27 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
 
             indices = candidate;
             return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Tendrils keep this far (tiles) from any other grid on the planet: the ash walkers' base, ruins.</summary>
+    private const float OtherGridExclusion = 32f;
+
+    /// <summary>
+    /// Another grid on the planet (the ash walkers' base and the like) close by: a tendril there kept pouring fauna
+    /// onto it, as if a raid had come.
+    /// </summary>
+    private bool IsNearOtherGrid(EntityUid mapUid, MapGridComponent grid, Vector2i indices)
+    {
+        var position = _map.GridTileToWorldPos(mapUid, grid, indices);
+        var mapId = Transform(mapUid).MapID;
+        var box = Box2.CenteredAround(position, new Vector2(OtherGridExclusion * 2f));
+        foreach (var other in _mapManager.FindGridsIntersecting(mapId, box))
+        {
+            if (other.Owner != mapUid)
+                return true;
         }
 
         return false;
@@ -407,6 +433,18 @@ public sealed class LavalandNecropolisTendrilPlacementSystem : EntitySystem
         }
 
         return false;
+    }
+
+    /// <summary>While the Celestial's pit is open, nothing grows in the area the players search it in.</summary>
+    private bool IsNearCelestialPit(EntityUid mapUid, Vector2i indices)
+    {
+        if (!_secretBoss.TryGetPit(mapUid, out var pit, out var noiseCenter, out var config))
+            return false;
+
+        var position = new Vector2(indices.X, indices.Y);
+        var radius = Math.Max(config.NoiseRadius, config.FaunaClearRadius);
+        return Vector2.DistanceSquared(position, noiseCenter) <= radius * radius ||
+               Vector2.DistanceSquared(position, pit) <= radius * radius;
     }
 
     private static float GetFtlBeaconExclusionRadius(float configuredRadius, LavalandPlanetPrototype planet)

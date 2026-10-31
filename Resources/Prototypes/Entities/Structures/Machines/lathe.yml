@@ -443,6 +443,7 @@
     - SecurityBorgModulesTierTwo # DS14
     - SecurityBorgModulesTierThree # DS14
     - StunBola # DS14
+    - SecurityHolographicMatrix # DS14
 # DS14-Soyuz-start
     - ArmedTechFabCircuitboard
     - ProcessingTungsten
@@ -581,6 +582,7 @@
     - ClothingMedical
     - ClothingScience
     - ClothingSecurity
+    - ClothingIAAOfficer # DS14
     - ClothingService
     - WinterCoats
     - Ties

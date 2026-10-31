@@ -143,17 +143,14 @@ public sealed class RadarConsoleSystem : SharedRadarConsoleSystem
         _actions.AddAction(args.User, ref component.ToggleActionEntity, component.ToggleAction, uid);
     }
 
-    // DS14-Soyuz-start
     private void OnRadarUnequippedHand(EntityUid uid, RadarConsoleComponent component, GotUnequippedHandEvent args)
     {
-        // DS14-Soyuz disabled
-        // _actions.RemoveAction(args.User, component.ToggleActionEntity);
+        _actions.RemoveAction(args.User, component.ToggleActionEntity);
         component.FollowEntity = false;
 
         if (_uiSystem.IsUiOpen(uid, RadarConsoleUiKey.Key, args.User))
             _uiSystem.CloseUi(uid, RadarConsoleUiKey.Key, args.User);
     }
-    // DS14-Soyuz-end
 
     private void OnRadarEquipped(EntityUid uid, RadarConsoleComponent component, GotEquippedEvent args)
     {
@@ -165,18 +162,15 @@ public sealed class RadarConsoleSystem : SharedRadarConsoleSystem
         _actions.AddAction(args.Equipee, ref component.ToggleActionEntity, component.ToggleAction, uid);
     }
 
-    // DS14-Soyuz-start
     private void OnRadarUnequipped(EntityUid uid, RadarConsoleComponent component, GotUnequippedEvent args)
     {
         component.FollowEntity = false;
 
-        // DS14-Soyuz disabled
-        // _actions.RemoveAction(args.Equipee, component.ToggleActionEntity);
+        _actions.RemoveAction(args.Equipee, component.ToggleActionEntity);
 
         if (_uiSystem.IsUiOpen(uid, RadarConsoleUiKey.Key, args.Equipee))
             _uiSystem.CloseUi(uid, RadarConsoleUiKey.Key, args.Equipee);
     }
-    // DS14-Soyuz-end
 
     private void OnRadarConsoleShutdown(EntityUid uid, RadarConsoleComponent component, ComponentShutdown args)
     {

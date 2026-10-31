@@ -32,14 +32,14 @@
             "name": "inhand-right-stripe",
             "directions": 4
         },
-        {
-            "name": "incendiary"
-        },
-        {
-            "name": "practice"
-        },
-        {
-            "name": "uranium"
-        }
+    {
+      "name": "incendiary"
+    },
+    {
+      "name": "practice"
+    },
+    {
+      "name": "uranium"
+    }
     ]
 }

@@ -13,3 +13,11 @@
   components:
   - type: AccessReader
     access: [["BlueShield"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsNinja
+  suffix: Ниндзя, Закрыт
+  components:
+  - type: AccessReader
+    access: [["Ninja"]]

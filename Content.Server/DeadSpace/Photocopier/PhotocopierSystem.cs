@@ -245,6 +245,14 @@ public sealed class PhotocopierSystem : EntitySystem
 
     private void OnFormButtonPressed(EntityUid uid, PhotocopierComponent component, PhotocopierChoseFormMessage args)
     {
+        // Only an existing form: the id comes from the client.
+        if (!_proto.TryIndex(args.PaperworkForm, out var form))
+            return;
+
+        // And only of a category this photocopier offers (an emagged one offers them all), as the menu shows them.
+        if (!component.WasEmagged && component.AllowedFormCategories?.Contains(form.Category) != true)
+            return;
+
         component.ChosenPaper = args.PaperworkForm;
         UpdateUserInterface(uid, component);
     }
@@ -263,6 +271,10 @@ public sealed class PhotocopierSystem : EntitySystem
 
     private void OnPrintButtonPressed(EntityUid uid, PhotocopierComponent component, PhotocopierPrintMessage args)
     {
+        // The amount comes from the client: a negative one would add toner, a huge one would flood the print queue.
+        if (args.Amount < 1 || args.Amount > component.MaxCopiesPerPrint)
+            return;
+
         if (args.Amount > component.TonerLeft)
         {
             _popupSystem.PopupEntity(Loc.GetString("photocopier-popup-low-toner-amount"), uid, args.Actor);
@@ -283,10 +295,8 @@ public sealed class PhotocopierSystem : EntitySystem
         }
         else if (args.Mode == PhotocopierMode.Print)
         {
-            if (component.ChosenPaper is not { } form)
+            if (component.ChosenPaper is not { } form || !_proto.TryIndex(form, out var formPrototype))
                 return;
-
-            var formPrototype = _proto.Index(form);
 
             PrintForm(uid, args.Amount, formPrototype, component);
             _adminLogger.Add(LogType.Action, LogImpact.Low, $"{ToPrettyString(args.Actor):actor} start printing {args.Amount} copys of '{Loc.GetString(formPrototype.Name)}' on photocopier");

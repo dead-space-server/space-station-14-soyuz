@@ -1,6 +1,57 @@
 # Тут ещё были прототипы РПСов КГБ со станции и КГБ с ГШ, но я их переместил в директорию /_Soyuz/. Так что ищите там.
 
 - type: entity
+  id: ClothingBeltMilitaryWebbingBlueShieldFilled
+  parent: ClothingBeltMilitaryWebbingMed
+  name: РПС офицера "Синий Щит"
+  description: РПС, которую носят офицеры "Синий Щит"
+  suffix: Заполненный
+  components:
+  - type: StorageFill
+    contents:
+      - id: CombatHypoBlueShield
+      - id: ADTtelescopicBaton
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+        amount: 2
+      - id: PillCanisterHyronalin
+      - id: Zipties
+        amount: 2
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
+      - id: PillCanisterDylovene
+      - id: Zipties
+        amount: 2
+      
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Belt/webbing_blueshield.rsi
+
+- type: entity
+  id: ClothingBeltMilitaryWebbingBlueShieldCentComFilled
+  parent: ClothingBeltMilitaryWebbingBlueShieldFilled
+  # DS14-Soyuz-start
+  name: РПС оперативника КГБ
+  description: Ременно-плечевая система, которую используют оперативники комитета государственной безопасности.
+  suffix: Заполненный, ГенШтаб
+  # DS14-Soyuz-end
+  components:
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: CombatHypoBlueShield
+      - id: ChemistryBottleEphedrine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleOmnizine
+      - id: ChemistryBottleBicaridine
+      - id: ChemistryBottleDexalinPlus
+      - id: ChemistryBottleDermaline
+
+- type: entity
   id: ClothingBeltMilitaryWebbingRedSwordCentComFilled
   parent: ClothingBeltMilitaryWebbingBlueShieldFilled
   name: РПС офицера "Красный Меч"

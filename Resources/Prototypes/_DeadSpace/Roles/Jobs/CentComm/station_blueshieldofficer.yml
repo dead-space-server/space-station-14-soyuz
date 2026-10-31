@@ -62,10 +62,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: Skill
-      group: BlueShield
 #DS14-Soyuz-end
   ranks:
     SGMRankLieutenant:

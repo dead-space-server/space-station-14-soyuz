@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.Weapons.Ranged.Events;
 using Content.Shared.Emp;
 using Content.Shared.Examine;
 using Content.Shared.Weapons.Ranged.Components;
@@ -15,6 +16,7 @@ public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
     [Dependency] private readonly MetaDataSystem _metadata = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedGunSystem _gun = default!;
+    [Dependency] private readonly Content.Shared.Weapons.Ranged.Upgrades.GunUpgradeSystem _gunUpgrade = default!; // DS14
 
     private EntityQuery<EmpDisabledComponent> _empDisabledQuery;
 
@@ -35,6 +37,12 @@ public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        // DS14-start: the server alone gives charges back. Predicted on the client's clock, a charge came back a moment
+        // early now and then, and the client played a shot the server never fired (phantom shots).
+        if (_netManager.IsClient)
+            return;
+        // DS14-end
         var query = EntityQueryEnumerator<RechargeBasicEntityAmmoComponent, BasicEntityAmmoProviderComponent>();
 
         while (query.MoveNext(out var uid, out var recharge, out var ammo))
@@ -65,10 +73,46 @@ public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
                 continue;
             }
 
-            recharge.NextCharge = recharge.NextCharge.Value + TimeSpan.FromSeconds(recharge.RechargeCooldown);
+            recharge.NextCharge = recharge.NextCharge.Value + TimeSpan.FromSeconds(GetCooldown(uid, recharge)); // DS14
             Dirty(uid, recharge);
         }
     }
+
+    // DS14-start
+    /// <summary>
+    /// The recharge, quickened by whatever speeds up the gun's fire (a fire rate upgrade): on a gun that has to wait
+    /// for its charges (a kinetic shotgun or repeater) the faster fire alone changed nothing. Then whatever else slows
+    /// or quickens it (an overheated barrel, the gun's fire mode) has its say.
+    /// </summary>
+    private float GetCooldown(EntityUid uid, RechargeBasicEntityAmmoComponent recharge)
+    {
+        var cooldown = recharge.RechargeCooldown;
+        if (TryComp<GunComponent>(uid, out var gun) && gun.FireRate > 0f && gun.FireRateModified > 0f)
+        {
+            // Upgrades kept off the fire rate itself (the repeater) still count here.
+            var boost = gun.FireRateModified / gun.FireRate * _gunUpgrade.GetFireRateUpgradeBoost(uid);
+            if (boost > 1f)
+                cooldown /= boost;
+        }
+
+        var ev = new RechargeBasicEntityAmmoCooldownEvent(cooldown);
+        RaiseLocalEvent(uid, ref ev);
+        return MathF.Max(0f, ev.Cooldown);
+    }
+
+    /// <summary>
+    /// The charge being recharged now starts over with the cooldown as it is at this moment (one that has just got
+    /// longer or shorter).
+    /// </summary>
+    public void RestartCharge(Entity<RechargeBasicEntityAmmoComponent?> ent)
+    {
+        if (!Resolve(ent, ref ent.Comp, false) || ent.Comp.NextCharge == null)
+            return;
+
+        ent.Comp.NextCharge = _timing.CurTime + TimeSpan.FromSeconds(GetCooldown(ent, ent.Comp));
+        Dirty(ent);
+    }
+    // DS14-end
 
     private void OnInit(Entity<RechargeBasicEntityAmmoComponent> ent, ref MapInitEvent args)
     {
@@ -100,7 +144,7 @@ public sealed class RechargeBasicEntityAmmoSystem : EntitySystem
 
         if (ent.Comp.NextCharge == null || ent.Comp.NextCharge < _timing.CurTime)
         {
-            ent.Comp.NextCharge = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.RechargeCooldown);
+            ent.Comp.NextCharge = _timing.CurTime + TimeSpan.FromSeconds(GetCooldown(ent, ent.Comp)); // DS14
             Dirty(ent);
         }
     }

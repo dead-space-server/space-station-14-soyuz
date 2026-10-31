@@ -21,6 +21,7 @@
     - Ore
 #    whitelistMaterials:
     blacklistMaterials:
+    - Biomass
     - Gunpowder
     - Meaterial
     - RawQuartz

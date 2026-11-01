@@ -127,6 +127,7 @@
   id: BlueShieldOfficerIDCard
   components:
     - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Misc/id_cards.rsi
       layers:
         - state: NKVBCard
         - state: idokgb

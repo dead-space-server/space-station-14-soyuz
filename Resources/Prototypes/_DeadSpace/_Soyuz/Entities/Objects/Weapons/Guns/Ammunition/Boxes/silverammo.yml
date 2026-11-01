@@ -6,12 +6,12 @@
   - type: BallisticAmmoProvider
     proto: CartridgeMagnumSilver
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Boxes/silver_shotgun.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-silver-2
       map: ["enum.GunVisualLayers.Mag"]
-    - state: silver
 
 - type: entity
   parent: BaseMagazineBoxLightestRifle
@@ -21,12 +21,12 @@
   - type: BallisticAmmoProvider
     proto: CartridgeLightestRifleSilver
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Boxes/silver_shotgun.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-silver-2
       map: ["enum.GunVisualLayers.Mag"]
-    - state: silver
 
 - type: entity
   parent: BaseMagazineBoxRifle
@@ -36,12 +36,12 @@
   - type: BallisticAmmoProvider
     proto: CartridgeRifleSilver
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Boxes/silver_shotgun.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-silver-2
       map: ["enum.GunVisualLayers.Mag"]
-    - state: silver
 
 - type: entity
   parent: BaseMagazineBoxLightRifle
@@ -51,12 +51,12 @@
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifleSilver
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Boxes/silver_shotgun.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-silver-2
       map: ["enum.GunVisualLayers.Mag"]
-    - state: silver
 
 - type: entity
   parent: BaseMagazineBoxPistol
@@ -66,12 +66,12 @@
   - type: BallisticAmmoProvider
     proto: CartridgePistolSilver
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Boxes/silver_shotgun.rsi
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-silver-2
       map: ["enum.GunVisualLayers.Mag"]
-    - state: silver
 
 - type: entity
   parent: AmmoProviderShotgunShell
@@ -84,6 +84,5 @@
       layers:
       - state: base
         map: ["enum.GunVisualLayers.Base"]
-      - state: mag-silver-4
+      - state: mag-silver-2
         map: ["enum.GunVisualLayers.Mag"]
-      - state: silver

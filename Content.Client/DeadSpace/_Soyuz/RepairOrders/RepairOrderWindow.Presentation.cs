@@ -157,7 +157,7 @@ public sealed partial class RepairOrderWindow
         var entry = _state.Available.FirstOrDefault(offer => offer.RuntimeId == _selectedOfferId)
             ?? _state.Available.FirstOrDefault();
         _selectedOfferId = entry?.RuntimeId;
-        OfferCountLabel.Text = Loc.GetString("repair-orders-offer-count", ("count", _state.Available.Count));
+        OfferCountLabel.Text = Loc.GetString("repair-orders-offer-count");
         foreach (var (id, card) in _offerControls)
             card.StyleBoxOverride = SurfaceStyle(accent: id == _selectedOfferId);
 

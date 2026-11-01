@@ -37,9 +37,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
     [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly FloorTileSystem _floors = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly RepairOrderSystem _orders = default!;
@@ -576,53 +574,16 @@ public sealed class RepairReconstructionSystem : EntitySystem
 
     private bool TryDisposeRollbackEntity(ReconstructionTransaction transaction, EntityUid entity)
     {
-        if (!Exists(entity))
-            return true;
-        if (_orders.TryFindPlayerInRepairEntity(entity, out _) ||
-            !TryComp(entity, out TransformComponent? transform) || transform.ChildCount != 0 ||
-            !TryComp(entity, out MetaDataComponent? metadata))
+        if (!_orders.TryDisposeRepairEntity(entity))
             return false;
 
-        try
-        {
-            // Use supported transform/metadata APIs; never reset lifecycle state or re-enter a
-            // terminating entity's deletion. Handle children separately before their parent.
-            _lookup.RemoveFromEntityTree(entity, transform);
-            TryComp(transform.ParentUid, out TransformComponent? parent);
-            _transform.DetachEntity(entity, transform, metadata, parent,
-                terminating: metadata.EntityLifeStage >= EntityLifeStage.Terminating);
-            _metaData.SetEntityPaused(entity, true, metadata);
-            if (!IsRollbackEntityIsolated(entity))
-                return false;
-            if (metadata.EntityLifeStage < EntityLifeStage.Terminating)
-                Del(entity);
-        }
-        catch (Exception exception)
-        {
-            LogFailure("reconstruction entity rollback", transaction.Grid, exception);
-        }
-
-        if (!Exists(entity))
-            return true;
-        if (!TryComp(entity, out metadata) ||
-            metadata.EntityLifeStage != EntityLifeStage.Terminating || !IsRollbackEntityIsolated(entity))
-            return false;
-
-        // The engine owns this broken lifecycle. Nullspace + pause + no broadphase/children is
-        // the safe content-side fallback; do not confuse isolation with physical deletion.
-        if (transaction.Quarantined.Add(entity))
+        if (Exists(entity) && transaction.Quarantined.Add(entity))
             _orders.RunPostCommitEffect("reconstruction quarantine log", () =>
                 _logs.GetSawmill("repair_orders").Error(
                     $"Reconstruction entity {entity} could not finish engine deletion and was isolated in nullspace. " +
                     "Its lifecycle remains owned by the engine; repair rollback can finish safely."));
         return true;
     }
-
-    private bool IsRollbackEntityIsolated(EntityUid entity)
-        => TryComp(entity, out MetaDataComponent? metadata) && metadata.EntityPaused &&
-           TryComp(entity, out TransformComponent? transform) &&
-           !transform.ParentUid.IsValid() && transform.MapID == MapId.Nullspace && transform.GridUid == null &&
-           !transform.Anchored && transform.ChildCount == 0 && !_lookup.TryGetCurrentBroadphase(transform, out _);
 
     private void FinishTransaction(ReconstructionTransaction transaction, bool success)
     {

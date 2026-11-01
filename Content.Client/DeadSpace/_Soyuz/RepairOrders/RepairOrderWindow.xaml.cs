@@ -55,6 +55,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         _retryPendingPurchase = _shopPurchasePending;
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+        _prototype.PrototypesReloaded += OnPrototypesReloaded;
         _sprite = _entitySystemManager.GetEntitySystem<SpriteSystem>();
         InitializePresentation();
         ShopSearch.Text = _draft.Search;
@@ -86,6 +87,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
     public void SaveDraft()
     {
         _draft.Tab = OrderTabs.CurrentTab;
+    }
+
+    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args) => UpdateShop();
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+            _prototype.PrototypesReloaded -= OnPrototypesReloaded;
+        base.Dispose(disposing);
     }
 
     private void ShowBriefing()
@@ -157,6 +167,8 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
     public void UpdateState(RepairOrderBoundUserInterfaceState state)
     {
+        var rebuildShop = _state == null || _state.ShopRewardPoolId != state.ShopRewardPoolId ||
+            _state.ShopLevel != state.ShopLevel || _state.ShopEmagged != state.ShopEmagged;
         var showActive = _state != null && state.Active != null && state.Active.RuntimeId != _state.Active?.RuntimeId;
         if (_draft.RewardPoolId != null && _draft.RewardPoolId != state.ShopRewardPoolId && !_shopPurchasePending)
             _shopCart.Clear();
@@ -225,7 +237,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         HeaderBalanceLabel.Text = Loc.GetString("repair-orders-header-balance", ("points", state.RepairPoints));
         HeaderLevelLabel.Text = Loc.GetString("repair-orders-shop-level", ("level", state.ShopLevel));
         UpdateWorklist(state);
-        UpdateShop();
+        UpdateShop(rebuildShop);
 
         UpdateTimers();
         if (showActive)
@@ -356,7 +368,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
         }
     }
 
-    private void UpdateShop()
+    private void UpdateShop(bool rebuildCatalog = true)
     {
         if (_state == null)
             return;
@@ -387,8 +399,14 @@ public sealed partial class RepairOrderWindow : FancyWindow
             ShopProgressLabel.Text = Loc.GetString("repair-orders-shop-max-level");
         }
 
-        ShopCatalogContainer.RemoveAllChildren();
-        ShopCartContainer.RemoveAllChildren();
+        if (!rebuildCatalog)
+        {
+            UpdateShopCart();
+            return;
+        }
+
+        ShopCatalogContainer.DisposeAllChildren();
+        ShopCartContainer.DisposeAllChildren();
         if (!_prototype.TryIndex<RepairRewardPoolPrototype>(state.ShopRewardPoolId, out var pool))
         {
             CloseShopDetails();

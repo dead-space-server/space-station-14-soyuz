@@ -6,6 +6,7 @@ using Content.Server.Power.Components;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Power;
 using Content.Shared.Access.Systems;
+using Content.Shared.ActionBlocker;
 using Content.Server.Popups;
 using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
@@ -32,6 +33,7 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 {
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StationSystem _station = default!;
@@ -92,6 +94,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     private void OnWaiverRequest(RepairAnalyzerWaiverRequest message, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } user || !Exists(user) ||
+            !_blocker.CanInteract(user, null) || !_blocker.CanComplexInteract(user) ||
             !TryGetEnabledAnalyzerRange(user, out var range)) return;
         if (!_access.FindAccessTags(user).Any(tag => tag.Id == "Engineering"))
         {

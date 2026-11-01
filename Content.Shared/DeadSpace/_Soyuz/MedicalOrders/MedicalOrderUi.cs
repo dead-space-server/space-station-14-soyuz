@@ -3,6 +3,7 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
+using Content.Shared.FixedPoint;
 
 namespace Content.Shared.DeadSpace._Soyuz.MedicalOrders;
 
@@ -123,15 +124,28 @@ public sealed class MedicalReagentMarketView
     public readonly double Price;
     public readonly double Reputation;
     public readonly float Available;
+    public readonly double Multiplier;
+    public readonly double BasePrice;
+    public readonly int BonusPercent;
+    public readonly float BonusRemaining;
 
-    public MedicalReagentMarketView(string reagent, double price, double reputation, float available)
+    public MedicalReagentMarketView(string reagent, double price, double reputation, float available,
+        double multiplier = 1, double basePrice = 0, int bonusPercent = 0, float bonusRemaining = 0)
     {
         Reagent = reagent;
         Price = price;
         Reputation = reputation;
         Available = available;
+        Multiplier = multiplier;
+        BasePrice = basePrice;
+        BonusPercent = bonusPercent;
+        BonusRemaining = bonusRemaining;
     }
 }
+
+[Serializable, NetSerializable]
+public sealed record MedicalMarketNewsView(int Id, string Reagent, string Headline, string Body, string Source,
+    int BonusPercent, FixedPoint2 Volume, FixedPoint2 Remaining, TimeSpan CreatedAt, TimeSpan ExpiresAt);
 
 [Serializable, NetSerializable]
 public sealed class MedicalOrderUiState : BoundUserInterfaceState
@@ -168,6 +182,8 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
     public readonly MedicalSpecialContractView? SpecialActive;
     public readonly MedicalSpecialResultView? LastSpecial;
     public readonly TimeSpan NextSpecialRefresh;
+    public readonly MedicalMarketNewsView[] MarketNews;
+    public readonly TimeSpan NextMarketNews;
 
     public MedicalOrderUiState(MedicalOrderMachineKind kind, MedicalOrderView[] offers,
         MedicalOrderView? active, MedicalOrderView? lastCompleted, TimeSpan nextRefresh,
@@ -180,7 +196,8 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         float marketRejectedVolume, long lastMarketPoints, long lastMarketReputation,
         bool lastPatientLost = false, MedicalSpecialContractView[]? specialOffers = null,
         MedicalSpecialContractView? specialActive = null, MedicalSpecialResultView? lastSpecial = null,
-        TimeSpan nextSpecialRefresh = default)
+        TimeSpan nextSpecialRefresh = default, MedicalMarketNewsView[]? marketNews = null,
+        TimeSpan nextMarketNews = default)
     {
         Kind = kind;
         Offers = offers;
@@ -214,6 +231,8 @@ public sealed class MedicalOrderUiState : BoundUserInterfaceState
         SpecialActive = specialActive;
         LastSpecial = lastSpecial;
         NextSpecialRefresh = nextSpecialRefresh;
+        MarketNews = marketNews ?? Array.Empty<MedicalMarketNewsView>();
+        NextMarketNews = nextMarketNews;
     }
 }
 

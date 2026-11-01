@@ -318,6 +318,7 @@
     - CargoBoardsStatic
     - MedicalBoardsStatic
     - EngineeringBoardsStatic
+    - SoyuzOrderBoards # DS14-Soyuz
     - CraftStationCircuits # DS14
     dynamicPacks:
     - EngineeringBoards

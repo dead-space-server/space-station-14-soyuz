@@ -100,6 +100,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
     public MedicalOrderWindow()
     {
         IoCManager.InjectDependencies(this);
+        _prototypes.PrototypesReloaded += OnPrototypesReloaded;
         Title = Loc.GetString("medical-orders-window-title");
         MinSize = new Vector2(960, 560);
         SetSize = new Vector2(1120, 720);
@@ -243,8 +244,6 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         marketContent.Margin = new Thickness(8);
         marketContent.AddChild(SectionHeading("quotes", "medical-orders-market-live-prices"));
         marketContent.AddChild(_marketSearch);
-        marketContent.AddChild(MarketRow(new[] { "reagent", "price", "reputation", "volume" }
-            .Select(heading => Loc.GetString($"medical-orders-market-column-{heading}")).ToArray(), true));
         var marketScroll = new ScrollContainer
         {
             HorizontalExpand = true,
@@ -253,7 +252,11 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         };
         _market = Column();
         _market.SeparationOverride = 2;
-        marketScroll.AddChild(_market);
+        var marketTable = Column();
+        marketTable.AddChild(MarketRow(new[] { "reagent", "price", "reputation", "volume" }
+            .Select(heading => Loc.GetString($"medical-orders-market-column-{heading}")).ToArray(), true));
+        marketTable.AddChild(_market);
+        marketScroll.AddChild(marketTable);
         marketContent.AddChild(marketScroll);
         marketPanel.AddChild(marketContent);
         marketBody.AddChild(marketPanel);
@@ -317,8 +320,27 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         _marketSearch.OnTextChanged += _ => RebuildMarket();
 
         InitializeSpecialContracts();
+        InitializeMarketNews();
 
         InitializePresentation(root);
+    }
+
+    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    {
+        if (_state is not { } state)
+            return;
+        _state = null;
+        _marketInitialized = false;
+        _reagentDetailsInitialized = false;
+        _displayedNews = null;
+        UpdateState(state);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+            _prototypes.PrototypesReloaded -= OnPrototypesReloaded;
+        base.Dispose(disposing);
     }
 
     private static BoxContainer Page(TabContainer tabs, string title)
@@ -382,6 +404,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         TabContainer.SetTabVisible(_activePage, state.Kind != MedicalOrderMachineKind.Reagent);
         TabContainer.SetTabVisible(_shopPage, state.Kind != MedicalOrderMachineKind.PatientReceiver);
         TabContainer.SetTabVisible(_marketPage, state.Kind == MedicalOrderMachineKind.Reagent);
+        TabContainer.SetTabVisible(_newsPage, state.Kind == MedicalOrderMachineKind.Reagent);
         if (kindChanged)
             _tabs.CurrentTab = state.Kind switch
             {
@@ -408,115 +431,164 @@ public sealed partial class MedicalOrderWindow : FancyWindow
             _shopProgressLabel.Text = Loc.GetString("medical-orders-max-level");
         }
 
-        _offers.RemoveAllChildren();
-        _active.RemoveAllChildren();
-        _completed.RemoveAllChildren();
-
-        if (state.Kind == MedicalOrderMachineKind.PatientSender)
-            _active.AddChild(Info(Loc.GetString("medical-orders-sender-instructions")));
-        else if (state.Offers.Length == 0)
-            _offers.AddChild(Info(Loc.GetString("medical-orders-none")));
-        else
+        if (previous == null || !SamePatients(previous, state))
         {
-            foreach (var offer in state.Offers)
-            {
-                var content = OrderCard(_offers, offer, state.Kind);
-                var id = offer.RuntimeId;
-                var button = new Button
-                {
-                    Text = Loc.GetString("medical-orders-accept"),
-                    Disabled = state.Active != null || state.SpecialActive != null,
-                    HorizontalExpand = true,
-                    MinHeight = 34,
-                };
-                button.OnPressed += _ => OnRequest?.Invoke(new MedicalOrderRequestMessage(MedicalOrderAction.Accept, id));
-                content.AddChild(button);
-            }
-        }
+            _offers.DisposeAllChildren();
+            _active.DisposeAllChildren();
+            _completed.DisposeAllChildren();
 
-        if (state.Active is { } active)
-        {
-            var content = OrderCard(_active, active, state.Kind);
-            content.AddChild(new Label
+            if (state.Kind == MedicalOrderMachineKind.PatientSender)
+                _active.AddChild(Info(Loc.GetString("medical-orders-sender-instructions")));
+            else if (state.Offers.Length == 0)
+                _offers.AddChild(Info(Loc.GetString("medical-orders-none")));
+            else
             {
-                Text = Loc.GetString("medical-orders-score", ("score", active.CurrentScore),
-                    ("max", active.MaximumScore)),
-                FontColorOverride = Accent,
-            });
-
-            if (state.Kind != MedicalOrderMachineKind.Reagent &&
-                state.PatientInitialDamage is { } initial && state.PatientCurrentDamage is { } current)
-            {
-                content.AddChild(WrappedText(Loc.GetString("medical-orders-patient-health", ("initial", initial),
-                    ("current", current), ("threshold", state.PatientCompletionThreshold))));
-                content.AddChild(new ProgressBar
+                foreach (var offer in state.Offers)
                 {
-                    MinValue = 0f,
-                    MaxValue = 1f,
-                    Value = initial <= 0 ? 0f : Math.Clamp(1f - current / initial, 0f, 1f),
-                    HorizontalExpand = true,
-                    MinHeight = 12f,
-                    BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#1B3036") },
-                    ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Accent },
-                });
-                if (state.Kind == MedicalOrderMachineKind.PatientSender)
-                {
-                    content.AddChild(new Label
+                    var content = OrderCard(_offers, offer, state.Kind);
+                    var id = offer.RuntimeId;
+                    var button = new Button
                     {
-                        Text = Loc.GetString(state.PatientInserted
-                            ? "medical-orders-patient-inserted" : "medical-orders-patient-not-inserted"),
-                        FontColorOverride = state.PatientInserted ? Accent : Warning,
-                    });
-                    content.AddChild(new Label
-                    {
-                        Text = Loc.GetString("medical-orders-patient-state",
-                            ("alive", Loc.GetString(state.PatientAlive
-                                ? "medical-orders-yes" : "medical-orders-no")),
-                            ("critical", Loc.GetString(state.PatientCritical
-                                ? "medical-orders-yes" : "medical-orders-no"))),
-                        FontColorOverride = Ink,
-                    });
+                        Text = Loc.GetString("medical-orders-accept"),
+                        Disabled = state.Active != null || state.SpecialActive != null,
+                        HorizontalExpand = true,
+                        MinHeight = 34,
+                    };
+                    button.OnPressed += _ => OnRequest?.Invoke(new MedicalOrderRequestMessage(MedicalOrderAction.Accept, id));
+                    content.AddChild(button);
                 }
             }
 
-            if (state.Kind != MedicalOrderMachineKind.PatientReceiver)
+            if (state.Active is { } active)
             {
-                var complete = new Button
+                var content = OrderCard(_active, active, state.Kind);
+                content.AddChild(new Label
                 {
-                    Text = Loc.GetString("medical-orders-complete"),
-                    HorizontalExpand = true,
-                };
-                complete.OnPressed += _ => OnRequest?.Invoke(
-                    new MedicalOrderRequestMessage(MedicalOrderAction.Complete, active.RuntimeId));
-                content.AddChild(complete);
+                    Text = Loc.GetString("medical-orders-score", ("score", active.CurrentScore),
+                        ("max", active.MaximumScore)),
+                    FontColorOverride = Accent,
+                });
+
+                if (state.Kind != MedicalOrderMachineKind.Reagent &&
+                    state.PatientInitialDamage is { } initial && state.PatientCurrentDamage is { } current)
+                {
+                    content.AddChild(WrappedText(Loc.GetString("medical-orders-patient-health", ("initial", initial),
+                        ("current", current), ("threshold", state.PatientCompletionThreshold))));
+                    content.AddChild(new ProgressBar
+                    {
+                        MinValue = 0f,
+                        MaxValue = 1f,
+                        Value = initial <= 0 ? 0f : Math.Clamp(1f - current / initial, 0f, 1f),
+                        HorizontalExpand = true,
+                        MinHeight = 12f,
+                        BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#1B3036") },
+                        ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Accent },
+                    });
+                    if (state.Kind == MedicalOrderMachineKind.PatientSender)
+                    {
+                        content.AddChild(new Label
+                        {
+                            Text = Loc.GetString(state.PatientInserted
+                                ? "medical-orders-patient-inserted" : "medical-orders-patient-not-inserted"),
+                            FontColorOverride = state.PatientInserted ? Accent : Warning,
+                        });
+                        content.AddChild(new Label
+                        {
+                            Text = Loc.GetString("medical-orders-patient-state",
+                                ("alive", Loc.GetString(state.PatientAlive
+                                    ? "medical-orders-yes" : "medical-orders-no")),
+                                ("critical", Loc.GetString(state.PatientCritical
+                                    ? "medical-orders-yes" : "medical-orders-no"))),
+                            FontColorOverride = Ink,
+                        });
+                    }
+                }
+
+                if (state.Kind != MedicalOrderMachineKind.PatientReceiver)
+                {
+                    var complete = new Button
+                    {
+                        Text = Loc.GetString("medical-orders-complete"),
+                        HorizontalExpand = true,
+                    };
+                    complete.OnPressed += _ => OnRequest?.Invoke(
+                        new MedicalOrderRequestMessage(MedicalOrderAction.Complete, active.RuntimeId));
+                    content.AddChild(complete);
+                }
+                else
+                    content.AddChild(Info(Loc.GetString("medical-orders-receiver-instructions")));
             }
             else
-                content.AddChild(Info(Loc.GetString("medical-orders-receiver-instructions")));
-        }
-        else
-            _active.AddChild(Info(Loc.GetString("medical-orders-none")));
+                _active.AddChild(Info(Loc.GetString("medical-orders-none")));
 
-        if (state.LastCompleted is { } completed)
-            _completed.AddChild(Info(
-                Loc.GetString("medical-orders-last-result", ("title", Loc.GetString(completed.Title)),
-                    ("score", completed.CurrentScore), ("points", state.LastAwardedPoints),
-                    ("reputation", state.LastAwardedReputation),
-                    ("status", Loc.GetString(state.LastPatientLost
-                        ? "medical-orders-patient-lost"
-                        : state.LastExpired ? "medical-orders-expired" : "medical-orders-complete-status")))));
-        else
-            _completed.AddChild(Info(Loc.GetString("medical-orders-none")));
+            if (state.LastCompleted is { } completed)
+                _completed.AddChild(Info(
+                    Loc.GetString("medical-orders-last-result", ("title", Loc.GetString(completed.Title)),
+                        ("score", completed.CurrentScore), ("points", state.LastAwardedPoints),
+                        ("reputation", state.LastAwardedReputation),
+                        ("status", Loc.GetString(state.LastPatientLost
+                            ? "medical-orders-patient-lost"
+                            : state.LastExpired ? "medical-orders-expired" : "medical-orders-complete-status")))));
+            else
+                _completed.AddChild(Info(Loc.GetString("medical-orders-none")));
+        }
 
         RebuildMarket();
-        RebuildSpecialContracts();
+        UpdateMarketNews();
+        if (previous == null || !SameSpecials(previous, state))
+            RebuildSpecialContracts();
         // Market quotes refresh every second; keep unchanged shop buttons and the cart in place.
-        if (kindChanged || previous == null || previous.Points != state.Points || previous.ShopLevel != state.ShopLevel ||
+        if (kindChanged || previous == null || previous.ShopLevel != state.ShopLevel ||
             !previous.Shop.Select(i => (i.ID, i.Entity, i.Cost, i.MaxCount, i.MinimumShopLevel, i.Classified))
                 .SequenceEqual(state.Shop.Select(i =>
                     (i.ID, i.Entity, i.Cost, i.MaxCount, i.MinimumShopLevel, i.Classified))))
             RebuildShop();
+        else
+            UpdateCart(rebuildLines: false);
         UpdateTimer();
     }
+
+    private static bool SameLines(MedicalOrderLineView[] a, MedicalOrderLineView[] b)
+        => a.Select(l => (l.ID, l.Required, l.Submitted, l.PointsPerUnit))
+            .SequenceEqual(b.Select(l => (l.ID, l.Required, l.Submitted, l.PointsPerUnit)));
+
+    private static bool SameOrder(MedicalOrderView? a, MedicalOrderView? b)
+        => ReferenceEquals(a, b) || a != null && b != null &&
+            (a.RuntimeId, a.Title, a.MaximumScore, a.CurrentScore, a.Difficulty, a.ReputationReward, a.TimeLimit, a.Deadline) ==
+            (b.RuntimeId, b.Title, b.MaximumScore, b.CurrentScore, b.Difficulty, b.ReputationReward, b.TimeLimit, b.Deadline) &&
+            SameLines(a.Lines, b.Lines);
+
+    private static bool SamePatients(MedicalOrderUiState a, MedicalOrderUiState b)
+        => a.Offers.Length == b.Offers.Length && a.Offers.Zip(b.Offers).All(p => SameOrder(p.First, p.Second)) &&
+            SameOrder(a.Active, b.Active) && SameOrder(a.LastCompleted, b.LastCompleted) &&
+            (a.Kind, a.SpecialActive?.RuntimeId, a.LastAwardedPoints, a.LastAwardedReputation, a.LastExpired, a.LastPatientLost,
+                a.PatientInitialDamage, a.PatientCurrentDamage, a.PatientCompletionThreshold,
+                a.PatientInserted, a.PatientAlive, a.PatientCritical) ==
+            (b.Kind, b.SpecialActive?.RuntimeId, b.LastAwardedPoints, b.LastAwardedReputation, b.LastExpired, b.LastPatientLost,
+                b.PatientInitialDamage, b.PatientCurrentDamage, b.PatientCompletionThreshold,
+                b.PatientInserted, b.PatientAlive, b.PatientCritical);
+
+    private static bool SameSpecial(MedicalSpecialContractView? a, MedicalSpecialContractView? b)
+        => ReferenceEquals(a, b) || a != null && b != null &&
+            (a.RuntimeId, a.Difficulty, a.Title, a.Description, a.Site, a.TimeLimit, a.Deadline,
+                a.MaximumPoints, a.Reputation, a.PenaltyPercent, a.CanIssue) ==
+            (b.RuntimeId, b.Difficulty, b.Title, b.Description, b.Site, b.TimeLimit, b.Deadline,
+                b.MaximumPoints, b.Reputation, b.PenaltyPercent, b.CanIssue) &&
+            SameLines(a.Reagents, b.Reagents) && a.Patients.Length == b.Patients.Length &&
+            a.Patients.Zip(b.Patients).All(p => SameOrder(p.First.Order, p.Second.Order) &&
+                (p.First.Status, p.First.CurrentDamage, p.First.CanSubmit, p.First.Name) ==
+                (p.Second.Status, p.Second.CurrentDamage, p.Second.CanSubmit, p.Second.Name));
+
+    private static bool SameSpecials(MedicalOrderUiState a, MedicalOrderUiState b)
+        => a.Kind == b.Kind && a.Active?.RuntimeId == b.Active?.RuntimeId &&
+            a.ReagentBeakerName == b.ReagentBeakerName &&
+            a.SpecialOffers.Length == b.SpecialOffers.Length &&
+            a.SpecialOffers.Zip(b.SpecialOffers).All(p => SameSpecial(p.First, p.Second)) &&
+            SameSpecial(a.SpecialActive, b.SpecialActive) &&
+            (a.LastSpecial?.Title, a.LastSpecial?.Site, a.LastSpecial?.Expired, a.LastSpecial?.Points, a.LastSpecial?.Reputation) ==
+            (b.LastSpecial?.Title, b.LastSpecial?.Site, b.LastSpecial?.Expired, b.LastSpecial?.Points, b.LastSpecial?.Reputation) &&
+            a.Market.Select(r => (r.Reagent, r.Available > 0))
+                .SequenceEqual(b.Market.Select(r => (r.Reagent, r.Available > 0)));
 
     private RichTextLabel Info(string value)
     {
@@ -592,35 +664,64 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         if (_state == null || _state.Kind != MedicalOrderMachineKind.Reagent)
             return;
 
-        _market.DisposeAllChildren();
-        _marketRows.Clear();
-        var visibleReagents = new List<string>();
-        var index = 0;
-        foreach (var entry in _state.Market)
+        var entries = _state.Market.Where(entry =>
         {
             var name = _prototypes.TryIndex<ReagentPrototype>(entry.Reagent, out var reagent)
                 ? reagent.LocalizedName : entry.Reagent;
-            if (!name.Contains(_marketSearch.Text, StringComparison.CurrentCultureIgnoreCase))
+            return name.Contains(_marketSearch.Text, StringComparison.CurrentCultureIgnoreCase);
+        }).ToArray();
+        var rebuild = !_marketInitialized ||
+            !_marketRows.Select(row => row.Reagent).SequenceEqual(entries.Select(entry => entry.Reagent));
+        if (rebuild)
+        {
+            _market.DisposeAllChildren();
+            _marketRows.Clear();
+            _marketCells.Clear();
+            _marketInitialized = true;
+        }
+        var visibleReagents = new List<string>();
+        var index = 0;
+        foreach (var entry in entries)
+        {
+            var name = _prototypes.TryIndex<ReagentPrototype>(entry.Reagent, out var reagent)
+                ? reagent.LocalizedName : entry.Reagent;
+            var values = new[]
+            {
+                name, entry.Price.ToString("0.#"), entry.Reputation.ToString("0.#"),
+                entry.Available.ToString("0.##"),
+            };
+            visibleReagents.Add(entry.Reagent);
+            if (!rebuild)
+            {
+                var cells = _marketCells[entry.Reagent];
+                for (var i = 0; i < cells.Count; i++)
+                {
+                    cells[i].Text = values[i];
+                    cells[i].ToolTip = values[i];
+                    cells[i].FontColorOverride = i == 0 ? Ink : entry.Available > 0 ? Accent : Muted;
+                }
+                var row = _marketRows[index];
+                row.Button.ToolTip = MarketTooltip(entry, name);
+                _marketRows[index] = (entry.Reagent, row.Button, entry.Available > 0, index);
+                index++;
                 continue;
+            }
             var panel = new ContainerButton
             {
                 HorizontalExpand = true,
                 StyleBoxOverride = MarketRowStyle(entry.Reagent == _selectedReagent, entry.Available > 0, index),
-                ToolTip = name,
+                ToolTip = MarketTooltip(entry, name),
             };
-            panel.AddChild(MarketRow(new[]
-            {
-                name, entry.Price.ToString("0.###"), entry.Reputation.ToString("0.####"),
-                entry.Available.ToString("0.##"),
-            }, false, reagent?.SubstanceColor, entry.Available > 0));
+            var labels = new List<Label>();
+            panel.AddChild(MarketRow(values, false, reagent?.SubstanceColor, entry.Available > 0, labels));
             var reagentId = entry.Reagent;
             panel.OnPressed += _ => SelectReagent(reagentId);
             _marketRows.Add((reagentId, panel, entry.Available > 0, index));
-            visibleReagents.Add(reagentId);
+            _marketCells.Add(reagentId, labels);
             _market.AddChild(panel);
             index++;
         }
-        if (index == 0)
+        if (rebuild && index == 0)
             _market.AddChild(Info(Loc.GetString("medical-orders-none")));
         SelectReagent(_selectedReagent != null && visibleReagents.Contains(_selectedReagent)
             ? _selectedReagent : visibleReagents.FirstOrDefault());
@@ -644,19 +745,21 @@ public sealed partial class MedicalOrderWindow : FancyWindow
     }
 
     private BoxContainer MarketRow(string[] values, bool heading, Color? reagentColor = null,
-        bool supplied = false)
+        bool supplied = false, List<Label>? cells = null)
     {
         var row = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
             HorizontalExpand = true,
             SeparationOverride = 8,
-            Margin = new Thickness(8, 6),
+            Margin = new Thickness(heading ? 9 : 8, 6),
             MouseFilter = MouseFilterMode.Ignore,
         };
         var nameCell = new BoxContainer
         {
             HorizontalExpand = true,
+            SizeFlagsStretchRatio = 3,
+            MinWidth = 112,
             SeparationOverride = 8,
             MouseFilter = MouseFilterMode.Ignore,
         };
@@ -671,9 +774,8 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         name.ClipText = true;
         name.ToolTip = values[0];
         name.MouseFilter = MouseFilterMode.Ignore;
-        if (heading)
-            name.StyleClasses.Add("LabelHeading");
         nameCell.AddChild(name);
+        cells?.Add(name);
         row.AddChild(nameCell);
         for (var i = 1; i < values.Length; i++)
         {
@@ -682,13 +784,13 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                 Text = values[i],
                 FontColorOverride = supplied ? Accent : Muted,
             };
-            cell.SetWidth = i == 1 ? 80 : 110;
+            cell.MinWidth = i == 1 ? 65 : 80;
+            cell.HorizontalExpand = true;
             cell.ClipText = true;
             cell.ToolTip = values[i];
             cell.MouseFilter = MouseFilterMode.Ignore;
-            if (heading)
-                cell.StyleClasses.Add("LabelHeading");
             row.AddChild(cell);
+            cells?.Add(cell);
         }
         return row;
     }
@@ -799,12 +901,13 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         RebuildShop();
     }
 
-    private void UpdateCart()
+    private void UpdateCart(bool rebuildLines = true)
     {
         if (_state == null)
             return;
         long total = 0;
-        _cartLines.DisposeAllChildren();
+        if (rebuildLines)
+            _cartLines.DisposeAllChildren();
         foreach (var item in _state.Shop)
         {
             if (_cart.TryGetValue(item.ID, out var count) && count > 0)
@@ -813,10 +916,11 @@ public sealed partial class MedicalOrderWindow : FancyWindow
                 var name = item.Entity;
                 if (_prototypes.TryIndex<EntityPrototype>(item.Entity, out var entity))
                     name = entity.Name;
-                _cartLines.AddChild(CartLine(item, name, count));
+                if (rebuildLines)
+                    _cartLines.AddChild(CartLine(item, name, count));
             }
         }
-        if (_cartLines.ChildCount == 0)
+        if (rebuildLines && _cartLines.ChildCount == 0)
             _cartLines.AddChild(Info(Loc.GetString("medical-orders-cart-empty")));
         _cartSummary.Text = Loc.GetString("medical-orders-cart-total", ("total", total));
         _checkout.Visible = _state.Kind != MedicalOrderMachineKind.PatientReceiver;
@@ -855,6 +959,7 @@ public sealed partial class MedicalOrderWindow : FancyWindow
         UpdateSpecialTimer();
         if (_state.Kind == MedicalOrderMachineKind.Reagent)
         {
+            UpdateMarketNewsClock();
             _timer.Text = Loc.GetString("medical-orders-market-live-prices");
             return;
         }

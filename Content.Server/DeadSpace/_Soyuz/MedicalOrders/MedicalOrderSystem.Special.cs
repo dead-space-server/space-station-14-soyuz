@@ -189,7 +189,7 @@ public sealed partial class MedicalOrderSystem
             patient.Score = Math.Max(0, GetScore(body, config));
             patient.Submitted = true;
             if (body.Patient is { } uid && Exists(uid))
-                QueueDel(uid);
+                _patientCleanup.Add(uid);
         }
         catch (Exception exception)
         {

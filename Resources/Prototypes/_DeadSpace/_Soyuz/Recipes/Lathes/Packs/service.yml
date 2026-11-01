@@ -10,3 +10,11 @@
   recipes:
   - PolaroidCamera
   - PolaroidCartridge
+
+- type: latheRecipePack
+  id: SoyuzOrderBoards
+  recipes:
+  - RepairOrdersComputerCircuitboard
+  - SoyuzMedicalPatientReceiverMachineCircuitboard
+  - SoyuzMedicalPatientSenderMachineCircuitboard
+  - SoyuzMedicalReagentOrderMachineCircuitboard

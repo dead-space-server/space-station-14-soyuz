@@ -14,6 +14,32 @@ namespace Content.Server.DeadSpace._Soyuz.MedicalOrders;
 
 public sealed partial class MedicalOrderSystem
 {
+    private readonly HashSet<EntityUid> _patientCleanup = new();
+
+    private void CleanupPatients()
+    {
+        foreach (var body in _patientCleanup.ToArray())
+        {
+            if (!Exists(body))
+            {
+                _patientCleanup.Remove(body);
+                continue;
+            }
+            if (Terminating(body) || EntityManager.IsQueuedForDeletion(body) ||
+                _repairOrders.TryFindPlayerInRepairEntity(body, out _))
+                continue;
+            try
+            {
+                Del(body);
+                _patientCleanup.Remove(body);
+            }
+            catch (Exception exception)
+            {
+                _sawmill.Error($"Medical patient cleanup failed for {body}: {exception}");
+            }
+        }
+    }
+
     private bool CanReceivePatient(EntityUid receiver)
     {
         return Exists(receiver) && !Terminating(receiver) && !EntityManager.IsQueuedForDeletion(receiver) &&
@@ -101,12 +127,12 @@ public sealed partial class MedicalOrderSystem
         try
         {
             if (prepared.Patient is { } body && Exists(body) && !Terminating(body))
-                QueueDel(body);
+                _patientCleanup.Add(body);
         }
         finally
         {
             if (prepared.Gown is { } gown && Exists(gown) && !Terminating(gown))
-                QueueDel(gown);
+                _patientCleanup.Add(gown);
         }
     }
 
@@ -123,6 +149,10 @@ public sealed partial class MedicalOrderSystem
             !storage.Contents.ContainedEntities.Contains(body) ||
             !TryComp<MedicalOrderPatientComponent>(body, out var marker) || marker.Station != station ||
             marker.RuntimeId != active.Offer.RuntimeId || marker.SpecialRuntimeId != specialRuntimeId)
+            return false;
+
+        error = "medical-orders-error-patient-occupied";
+        if (_repairOrders.TryFindPlayerInRepairEntity(body, out _))
             return false;
 
         error = "medical-orders-error-not-alive";

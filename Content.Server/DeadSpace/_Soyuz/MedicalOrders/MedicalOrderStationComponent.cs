@@ -23,6 +23,13 @@ public sealed partial class MedicalOrderStationComponent : Component
     public long LastMarketPoints;
     public long LastMarketReputation;
     public Dictionary<string, MedicalReagentMarketDemand> MarketDemand = new();
+    public MedicalOrderConfigPrototype? MarketConfiguration;
+    public TimeSpan NextMarketFluctuation;
+    public Dictionary<string, decimal> MarketTrends = new();
+    public TimeSpan NextMarketNews;
+    public int NextMarketNewsId = 1;
+    public List<MedicalMarketNews> MarketNews = new();
+    public List<string> MarketNewsBodyPool = new();
     public bool Busy;
     public readonly Dictionary<Guid, (MedicalOrderMachineKind Kind, Dictionary<string, int> Cart)> CommittedPurchases = new();
     public readonly HashSet<EntityUid> Machines = new();
@@ -40,6 +47,9 @@ public sealed class MedicalReagentMarketDemand
     public decimal Pressure;
     public TimeSpan UpdatedAt;
 }
+
+public sealed record MedicalMarketNews(int Id, string Reagent, string Headline, string Body, string Source,
+    int BonusPercent, FixedPoint2 Volume, FixedPoint2 Remaining, TimeSpan CreatedAt, TimeSpan ExpiresAt);
 
 public sealed class MedicalOrderOffer
 {

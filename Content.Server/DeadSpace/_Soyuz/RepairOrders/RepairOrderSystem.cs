@@ -41,6 +41,8 @@ public sealed class RepairOrderSystem : EntitySystem
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly DockingSystem _docking = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
@@ -644,6 +646,44 @@ public sealed class RepairOrderSystem : EntitySystem
 
         return false;
     }
+
+    /// <summary>Disposes a childless rollback entity, isolating an unfinished engine deletion without re-entering it.</summary>
+    public bool TryDisposeRepairEntity(EntityUid entity)
+    {
+        if (!Exists(entity))
+            return true;
+        if (TryFindPlayerInRepairEntity(entity, out _) ||
+            !TryComp(entity, out TransformComponent? transform) || transform.ChildCount != 0 ||
+            !TryComp(entity, out MetaDataComponent? metadata))
+            return false;
+
+        try
+        {
+            _lookup.RemoveFromEntityTree(entity, transform);
+            TryComp(transform.ParentUid, out TransformComponent? parent);
+            _transform.DetachEntity(entity, transform, metadata, parent,
+                terminating: metadata.EntityLifeStage >= EntityLifeStage.Terminating);
+            _metaData.SetEntityPaused(entity, true, metadata);
+            if (!IsRollbackEntityIsolated(entity))
+                return false;
+            if (metadata.EntityLifeStage < EntityLifeStage.Terminating)
+                Del(entity);
+        }
+        catch (Exception exception)
+        {
+            RunPostCommitEffect("rollback disposal log", () =>
+                _sawmill.Error($"Failed to dispose repair-owned entity {entity}: {exception}"));
+        }
+
+        return !Exists(entity) || TryComp(entity, out metadata) &&
+            metadata.EntityLifeStage == EntityLifeStage.Terminating && IsRollbackEntityIsolated(entity);
+    }
+
+    private bool IsRollbackEntityIsolated(EntityUid entity)
+        => TryComp(entity, out MetaDataComponent? metadata) && metadata.EntityPaused &&
+           TryComp(entity, out TransformComponent? transform) &&
+           !transform.ParentUid.IsValid() && transform.MapID == MapId.Nullspace && transform.GridUid == null &&
+           !transform.Anchored && transform.ChildCount == 0 && !_lookup.TryGetCurrentBroadphase(transform, out _);
 
     private void ProcessPendingGridCleanup(Entity<RepairOrderStationComponent> station)
     {

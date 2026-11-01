@@ -19,10 +19,19 @@ public sealed partial class MedicalOrderWindow
     private readonly List<(TextureRect Icon, string Name)> _themeIcons = new();
     private readonly List<ContainerButton> _navigation = new();
     private readonly List<(string Reagent, ContainerButton Button, bool Supplied, int Index)> _marketRows = new();
+    private readonly Dictionary<string, List<Label>> _marketCells = new();
+    private bool _marketInitialized;
     private string? _selectedReagent;
     private string? _displayedReagent;
     private bool _reagentDetailsInitialized;
     private PanelContainer _background = default!;
+    private BoxContainer _newsPage = default!;
+    private BoxContainer _newsCards = default!;
+    private Label _newsClock = default!;
+    private MedicalMarketNewsView[]? _displayedNews;
+    private readonly List<(MedicalMarketNewsView News, Label Clock)> _newsClocks = new();
+    private readonly List<(MedicalMarketNewsView News, RichTextLabel Terms)> _newsTerms = new();
+    private readonly HashSet<int> _expiredNews = new();
 
     private bool IsExchange => _state?.Kind == MedicalOrderMachineKind.Reagent;
     private Color Ink => Color.FromHex(IsExchange ? "#E9E7F5" : "#D8E5E6");
@@ -39,7 +48,6 @@ public sealed partial class MedicalOrderWindow
         BorderThickness = new Thickness(1),
     };
 
-    // Only permanent controls are registered; frequently rebuilt cards are styled directly.
     private PanelContainer Surface()
     {
         var panel = new PanelContainer { HorizontalExpand = true, PanelOverride = SheetStyle() };
@@ -92,9 +100,9 @@ public sealed partial class MedicalOrderWindow
         var navigation = Column();
         navigation.HorizontalExpand = false;
         navigation.SetWidth = 120;
-        var icons = new[] { "orders", "patient", "quotes", "supplies", "emergency" };
+        var icons = new[] { "orders", "patient", "quotes", "supplies", "emergency", "orders" };
         var titles = new[] { "medical-orders-nav-dispatch", "medical-orders-nav-treatment",
-            "medical-orders-nav-exchange", "medical-orders-nav-supply", "medical-orders-nav-emergency" };
+            "medical-orders-nav-exchange", "medical-orders-nav-supply", "medical-orders-nav-emergency", "medical-market-news-tab" };
         for (var index = 0; index < icons.Length; index++)
         {
             var tab = index;
@@ -174,27 +182,167 @@ public sealed partial class MedicalOrderWindow
         BorderThickness = new Thickness(1),
     };
 
+    private static string MarketTooltip(MedicalReagentMarketView entry, string name) =>
+        Loc.GetString("medical-market-price-detail", ("reagent", name),
+            ("base", entry.BasePrice.ToString("0.#")), ("change", ((entry.Multiplier - 1) * 100).ToString("+0.0;-0.0;0")))
+        + (entry.BonusPercent > 0 ? "\n" + Loc.GetString("medical-market-price-bonus",
+            ("bonus", entry.BonusPercent), ("volume", entry.BonusRemaining.ToString("0.##"))) : string.Empty);
+
+    private void InitializeMarketNews()
+    {
+        _newsPage = Page(_tabs, "medical-market-news-tab");
+        var masthead = Surface();
+        var heading = Column();
+        heading.Margin = new Thickness(12);
+        heading.AddChild(SectionHeading("orders", "medical-market-news-heading"));
+        _newsClock = ThemeLabel(string.Empty, muted: true);
+        heading.AddChild(_newsClock);
+        masthead.AddChild(heading);
+        _newsPage.AddChild(masthead);
+        var scroll = new ScrollContainer { HorizontalExpand = true, VerticalExpand = true, HScrollEnabled = false };
+        _newsCards = Column();
+        scroll.AddChild(_newsCards);
+        _newsPage.AddChild(scroll);
+    }
+
+    private void UpdateMarketNews()
+    {
+        if (_state == null || !IsExchange)
+            return;
+        var expired = _state.MarketNews.Where(n => n.ExpiresAt <= _timing.CurTime).Select(n => n.Id).ToHashSet();
+        if (_displayedNews != null && _displayedNews.SequenceEqual(_state.MarketNews) && _expiredNews.SetEquals(expired))
+        {
+            UpdateMarketNewsPrices();
+            return;
+        }
+        _displayedNews = _state.MarketNews;
+        _expiredNews.Clear();
+        _expiredNews.UnionWith(expired);
+        _newsCards.DisposeAllChildren();
+        _newsClocks.Clear();
+        _newsTerms.Clear();
+        var active = _state.MarketNews.Where(n => n.Remaining > FixedPoint2.Zero && n.ExpiresAt > _timing.CurTime)
+            .OrderByDescending(n => n.Id).ToArray();
+        var archive = _state.MarketNews.Except(active).OrderByDescending(n => n.Id).ToArray();
+        foreach (var news in active)
+            _newsCards.AddChild(MarketNewsCard(news, true));
+        if (archive.Length > 0)
+        {
+            var heading = new Label { Text = Loc.GetString("medical-market-news-archive"), FontColorOverride = Muted,
+                Margin = new Thickness(4, 12, 4, 4), StyleClasses = { "LabelHeading" } };
+            _newsCards.AddChild(heading);
+            foreach (var news in archive)
+                _newsCards.AddChild(MarketNewsCard(news, false));
+        }
+        UpdateMarketNewsClock();
+        UpdateMarketNewsPrices();
+    }
+
+    private Control MarketNewsCard(MedicalMarketNewsView news, bool active)
+    {
+        var panel = new PanelContainer { HorizontalExpand = true, PanelOverride = SheetStyle(active) };
+        var row = new BoxContainer { HorizontalExpand = true, SeparationOverride = 0 };
+        row.AddChild(new PanelContainer { SetWidth = 4,
+            PanelOverride = new StyleBoxFlat { BackgroundColor = active ? Accent : Muted.WithAlpha(0.3f) } });
+        var content = Column();
+        content.Margin = new Thickness(12);
+        var source = Loc.GetString(news.Source);
+        var reagent = _prototypes.TryIndex<ReagentPrototype>(news.Reagent, out var prototype)
+            ? prototype.LocalizedName : news.Reagent;
+        var dateline = new Label { FontColorOverride = Muted, ClipText = true, HorizontalExpand = true,
+            Text = Loc.GetString("medical-market-news-dateline", ("source", source)) };
+        dateline.ToolTip = dateline.Text;
+        content.AddChild(dateline);
+        var title = WrappedText(Loc.GetString(news.Headline));
+        title.StyleClasses.Add("LabelHeading");
+        content.AddChild(title);
+        content.AddChild(WrappedText(Loc.GetString(news.Body, ("reagent", reagent), ("source", source))));
+        if (active)
+        {
+            var badge = new PanelContainer { PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#493369") } };
+            var terms = WrappedText(string.Empty);
+            terms.Margin = new Thickness(8, 6);
+            badge.AddChild(terms);
+            content.AddChild(badge);
+            _newsTerms.Add((news, terms));
+            content.AddChild(new ProgressBar
+            {
+                HorizontalExpand = true, MinHeight = 8, MinValue = 0, MaxValue = 1,
+                Value = news.Volume > FixedPoint2.Zero ? 1f - news.Remaining.Float() / news.Volume.Float() : 0f,
+                BackgroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#14111F") },
+                ForegroundStyleBoxOverride = new StyleBoxFlat { BackgroundColor = Accent },
+            });
+            content.AddChild(Info(Loc.GetString("medical-market-news-quota", ("remaining", news.Remaining.Float().ToString("0.##")),
+                ("volume", news.Volume.Float().ToString("0.##")))));
+            var clockPanel = new PanelContainer
+            {
+                HorizontalAlignment = HAlignment.Left,
+                PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#211B30"),
+                    BorderColor = Color.FromHex("#65517F"), BorderThickness = new Thickness(1) },
+            };
+            var clock = new Label { FontColorOverride = Accent, Margin = new Thickness(8, 5) };
+            clockPanel.AddChild(clock);
+            content.AddChild(clockPanel);
+            _newsClocks.Add((news, clock));
+        }
+        else
+            content.AddChild(Info(Loc.GetString(news.Remaining <= FixedPoint2.Zero
+                ? "medical-market-news-fulfilled" : "medical-market-news-expired")));
+        row.AddChild(content);
+        panel.AddChild(row);
+        return panel;
+    }
+
+    private void UpdateMarketNewsPrices()
+    {
+        if (_state == null)
+            return;
+        foreach (var (news, terms) in _newsTerms)
+        {
+            var quote = _state.Market.FirstOrDefault(r => r.Reagent == news.Reagent);
+            var reagent = _prototypes.TryIndex<ReagentPrototype>(news.Reagent, out var prototype)
+                ? prototype.LocalizedName : news.Reagent;
+            terms.SetMessage(Loc.GetString("medical-market-news-terms", ("reagent", reagent),
+                ("points", (quote?.Price ?? 0).ToString("0.#")),
+                ("reputation", (quote?.Reputation ?? 0).ToString("0.#")), ("bonus", news.BonusPercent)), Ink);
+        }
+    }
+
+    private void UpdateMarketNewsClock()
+    {
+        if (_state == null)
+            return;
+        var next = _state.NextMarketNews - _timing.CurTime;
+        _newsClock.Text = Loc.GetString("medical-market-news-next", ("time", MarketNewsTime(next)));
+        if (_newsClocks.Any(n => n.News.ExpiresAt <= _timing.CurTime))
+        {
+            UpdateMarketNews();
+            return;
+        }
+        foreach (var (news, clock) in _newsClocks)
+            clock.Text = Loc.GetString("medical-market-news-closes", ("time", MarketNewsTime(news.ExpiresAt - _timing.CurTime)));
+    }
+
+    private static string MarketNewsTime(TimeSpan time) =>
+        $"{(int) Math.Max(0, time.TotalMinutes):00}:{Math.Max(0, time.Seconds):00}";
+
     private void SelectReagent(string? id)
     {
         _selectedReagent = id;
         foreach (var (reagent, button, supplied, index) in _marketRows)
             button.StyleBoxOverride = MarketRowStyle(reagent == id, supplied, index);
-        // Quotes change every second; keep the recipe and its scroll position while reading it.
         if (_reagentDetailsInitialized && _displayedReagent == id)
             return;
         _reagentDetailsInitialized = true;
         _displayedReagent = id;
         _reagentDetailsScroll.SetScrollValue(Vector2.Zero);
         _reagentDetails.DisposeAllChildren();
-        if (id == null || !_prototypes.TryIndex<ReagentPrototype>(id, out var prototype))
+        if (id == null || !_prototypes.HasIndex<ReagentPrototype>(id))
         {
             _reagentDetails.AddChild(Info(Loc.GetString("medical-orders-reagent-empty")));
             return;
         }
 
-        _reagentDetails.AddChild(ReagentCard(id, Loc.GetString("medical-orders-reagent-physical",
-            ("description", prototype.LocalizedPhysicalDescription)), emphasis: true));
-        _reagentDetails.AddChild(WrappedText(prototype.LocalizedDescription));
         var recipes = _prototypes.EnumeratePrototypes<ReactionPrototype>()
             .Where(reaction => reaction.Products.TryGetValue(id, out var amount) && amount > FixedPoint2.Zero)
             .OrderBy(reaction => reaction.Source)

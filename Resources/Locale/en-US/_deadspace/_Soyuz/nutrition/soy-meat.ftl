@@ -6,3 +6,7 @@ ent-FoodSoyMeatRotten = rotten soy meat
     .desc = Even plant-based meat does not keep forever.
 soy-meat-recipe = soy meat recipe
 soy-food-name-suffix = { " " }(with soy meat)
+ent-FoodSoyMeatMeatball = soy meatball
+    .desc = A ball of soy mince, ready for further cooking.
+reagent-name-soy-protein = soy protein
+reagent-desc-soy-protein = Plant-based protein extracted from soy meat.

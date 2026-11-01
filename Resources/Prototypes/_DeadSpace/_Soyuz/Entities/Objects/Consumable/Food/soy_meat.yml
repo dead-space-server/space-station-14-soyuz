@@ -18,7 +18,7 @@
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
-        - ReagentId: Protein
+        - ReagentId: SoyProtein
           Quantity: 5
   - type: SliceableFood
     slice: FoodSoyMeatCutlet
@@ -47,7 +47,7 @@
         reagents:
         - ReagentId: Nutriment
           Quantity: 3
-        - ReagentId: Protein
+        - ReagentId: SoyProtein
           Quantity: 2
   - type: SoyFood
     ingredient: FoodMeatCutlet
@@ -65,7 +65,7 @@
     solutions:
       food:
         reagents:
-        - ReagentId: Protein
+        - ReagentId: SoyProtein
           Quantity: 5
         - ReagentId: GastroToxin
           Quantity: 4
@@ -73,3 +73,49 @@
           Quantity: 4
   - type: SoyFood
     ingredient: FoodMeatRotten
+
+- type: entity
+  parent: FoodMeatMeatball
+  id: FoodSoyMeatMeatball
+  name: soy meatball
+  description: A ball of soy mince, ready for further cooking.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - soy
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: SoyProtein
+          Quantity: 1
+        - ReagentId: Fat
+          Quantity: 5
+  - type: SoyFood
+    ingredient: FoodMeatMeatball
+
+- type: reagent
+  parent: Protein
+  id: SoyProtein
+  name: reagent-name-soy-protein
+  desc: reagent-desc-soy-protein
+  flavor: soy
+
+- type: reaction
+  id: CreateSoyMeatball
+  impact: Low
+  quantized: true
+  conserveEnergy: false
+  guidebookFoodCategory: Savory
+  reactants:
+    SoyProtein:
+      amount: 5
+    Flour:
+      amount: 5
+    Egg:
+      amount: 6
+  effects:
+  - !type:SpawnEntity
+    entity: FoodSoyMeatMeatball

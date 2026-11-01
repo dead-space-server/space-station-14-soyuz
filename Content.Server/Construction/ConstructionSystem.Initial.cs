@@ -7,6 +7,7 @@ using Content.Shared.Construction;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Construction.Steps;
 using Content.Shared.Coordinates;
+using Content.Shared.DeadSpace._Soyuz.Nutrition; // DS14-Soyuz
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.Components;
@@ -281,6 +282,13 @@ namespace Content.Server.Construction
                 return null;
             }
 
+            // DS14-Soyuz-start
+            var soyFood = EntityManager.System<SoyFoodSystem>();
+            var foodOrigin = default(SoyFoodOrigin);
+            foreach (var ingredient in container.ContainedEntities)
+                foodOrigin = foodOrigin.Merge(soyFood.GetOrigin(ingredient));
+            // DS14-Soyuz-end
+
             var newEntityProto = graph.Nodes[edge.Target].Entity.GetId(null, user, new(EntityManager));
             var newEntity = SpawnAttachedTo(newEntityProto, coords, rotation: angle);
 
@@ -290,6 +298,8 @@ namespace Content.Server.Construction
                 Del(newEntity); // Screw you, make proper construction graphs.
                 return null;
             }
+
+            soyFood.Apply(newEntity, foodOrigin, true); // DS14-Soyuz
 
             // We attempt to set the pathfinding target.
             SetPathfindingTarget(newEntity, targetNode.Name, construction);

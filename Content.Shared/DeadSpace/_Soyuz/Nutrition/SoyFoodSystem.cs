@@ -36,9 +36,24 @@ public sealed class SoyFoodSystem : EntitySystem
 
     private static readonly ProtoId<TagPrototype> MeatTag = "Meat";
     private static readonly ProtoId<ReagentPrototype> RawProtein = "UncookedAnimalProteins";
-    private static readonly ProtoId<ReagentPrototype> Protein = "Protein";
+    private static readonly ProtoId<ReagentPrototype> SoyProtein = "SoyProtein";
     private static readonly ProtoId<FlavorPrototype> SoyFlavor = "soy";
     private static readonly ProtoId<FlavorPrototype> MeatFlavor = "meaty";
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<SoyFoodComponent, SolutionContainerChangedEvent>(OnSolutionChanged);
+    }
+
+    private void OnSolutionChanged(Entity<SoyFoodComponent> ent, ref SolutionContainerChangedEvent args)
+    {
+        if (ent.Comp.ContainsAnimalMeat || !GetOrigin(ent).ContainsAnimalMeat)
+            return;
+
+        ent.Comp.ContainsAnimalMeat = true;
+        Dirty(ent);
+    }
 
     public string? GetIngredientId(EntityUid uid)
     {
@@ -49,14 +64,12 @@ public sealed class SoyFoodSystem : EntitySystem
 
     public SoyFoodOrigin GetOrigin(EntityUid uid)
     {
-        if (TryComp<SoyFoodComponent>(uid, out var soy))
-            return new(true, soy.ContainsAnimalMeat);
-
-        var animalMeat = _tags.HasTag(uid, MeatTag);
+        TryComp<SoyFoodComponent>(uid, out var soy);
+        var animalMeat = soy?.ContainsAnimalMeat ?? _tags.HasTag(uid, MeatTag);
         if (TryComp<EdibleComponent>(uid, out var edible) &&
             _solutions.TryGetSolution(uid, edible.Solution, out _, out var solution))
             animalMeat |= solution.GetTotalPrototypeQuantity(RawProtein.Id) > 0;
-        return new(false, animalMeat);
+        return new(soy != null, animalMeat);
     }
 
     /// <summary>Used for copying a food item, not for mixing in a new ingredient.</summary>
@@ -104,6 +117,6 @@ public sealed class SoyFoodSystem : EntitySystem
         if (raw <= 0)
             return;
         _solutions.RemoveReagent(soln.Value, RawProtein.Id, raw);
-        _solutions.TryAddReagent(soln.Value, Protein.Id, raw);
+        _solutions.TryAddReagent(soln.Value, SoyProtein.Id, raw);
     }
 }

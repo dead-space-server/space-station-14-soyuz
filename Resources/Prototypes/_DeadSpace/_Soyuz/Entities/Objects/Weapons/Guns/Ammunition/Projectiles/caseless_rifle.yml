@@ -21,3 +21,17 @@
       types:
         Blunt: 10
         Radiation: 9
+
+- type: entity
+  parent: BulletTrace
+  id: BulletCaselessRifleNavy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicDamage
+    damage:
+      types:
+        Piercing: 15
+        Structural: 15
+    ignoreResistances: true
+  - type: HitscanStaminaDamage
+    staminaDamage: 15

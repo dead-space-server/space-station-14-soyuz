@@ -16,6 +16,9 @@
       map: [ "enum.PdaVisualLayers.IdLight" ]
       shader: "unshaded"
       visible: false
+  - type: Icon
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/pda.rsi
+    state: pda
 
 - type: entity
   parent: BasePDA
@@ -35,7 +38,9 @@
       map: [ "enum.PdaVisualLayers.IdLight" ]
       shader: "unshaded"
       visible: false
-
+  - type: Icon
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/pda.rsi
+    state: pda
 
 - type: entity
   parent: SoyuzBaseWidePDA

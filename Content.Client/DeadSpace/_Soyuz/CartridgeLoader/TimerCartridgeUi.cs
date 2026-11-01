@@ -21,6 +21,7 @@ public sealed partial class TimerCartridgeUi : UIFragment
             _control = new TimerCartridgeControl();
 
         _control.Send = message => userInterface.SendMessage(new CartridgeUiMessage(message));
+        _control.Timer = fragmentOwner;
     }
 
     public override void UpdateState(BoundUserInterfaceState state)
@@ -33,8 +34,10 @@ public sealed partial class TimerCartridgeUi : UIFragment
 public sealed class TimerCartridgeControl : BoxContainer
 {
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IEntityManager _entities = default!;
 
     public Action<TimerCartridgeMessage>? Send;
+    public EntityUid? Timer;
     private readonly SpinBox _hours;
     private readonly SpinBox _minutes;
     private readonly SpinBox _seconds;
@@ -136,11 +139,15 @@ public sealed class TimerCartridgeControl : BoxContainer
 
     private void UpdateDisplay()
     {
+        var now = _timing.CurTime;
+        if (Timer is { } uid && _entities.TryGetComponent(uid, out MetaDataComponent? metadata))
+            now -= _entities.System<MetaDataSystem>().GetPauseTime(uid, metadata);
+
         var active = _state?.Status is PdaTimerStatus.Running or PdaTimerStatus.Paused;
         _start.Disabled = _state == null || active || SelectedSeconds is < 1 or > TimerCartridgeState.MaxDurationSeconds;
         var remaining = _state switch
         {
-            { Status: PdaTimerStatus.Running } timer => (timer.EndsAt - _timing.CurTime).TotalSeconds,
+            { Status: PdaTimerStatus.Running } timer => (timer.EndsAt - now).TotalSeconds,
             { Status: PdaTimerStatus.Paused } timer => timer.Remaining.TotalSeconds,
             { Status: PdaTimerStatus.Finished } => 0,
             _ => SelectedSeconds,

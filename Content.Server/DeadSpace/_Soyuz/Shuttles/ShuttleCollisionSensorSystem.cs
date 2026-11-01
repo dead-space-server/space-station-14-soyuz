@@ -511,9 +511,11 @@ public sealed class ShuttleCollisionSensorSystem : EntitySystem
             if (!IsActive(reading) || status.Mode == ShuttleCollisionMode.Off ||
                 (status.Distance is { } previous && previous <= reading.Distance!.Value))
                 continue;
-            status.Distance = MathF.Round(reading.Distance!.Value, 1);
+            status.Distance = reading.Distance;
             status.Direction = (-_transform.GetWorldRotation(uid)).RotateVec(reading.Direction).ToWorldAngle().GetCardinalDir();
         }
+        if (status.Distance is { } distance)
+            status.Distance = MathF.Round(distance, 1);
         if (TryComp<ShuttleComponent>(uid, out var shuttle))
         {
             for (var i = 0; i < shuttle.LinearThrust.Length; i++)

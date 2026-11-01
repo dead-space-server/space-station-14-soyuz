@@ -73,14 +73,16 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Poison: 0.6
-        Heat: 0.8
-        Shock: 0.9
+        Blunt: 0.6
+        Slash: 0.55
+        Piercing: 0.55
+        Poison: 0.5
+        Heat: 0.6
+        Cold: 0.3
+        Shock: 0.3
         Radiation: 0.6
-        Caustic: 0.7
+        Caustic: 0.2
+        Stun: 1
   - type: VirusResistance
     virusResistanceCoefficient: 0.05
   - type: ZombificationResistance

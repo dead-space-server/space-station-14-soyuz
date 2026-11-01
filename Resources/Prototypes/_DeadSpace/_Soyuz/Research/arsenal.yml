@@ -41,7 +41,7 @@
   id:  ArmedTechFab
   name: research-technology-armed-tech-fab-technology
   icon:
-    sprite: Structures/Machines/techfab.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/arm_fab.rsi
     state: icon_armed
   discipline: Arsenal
   tier: 2

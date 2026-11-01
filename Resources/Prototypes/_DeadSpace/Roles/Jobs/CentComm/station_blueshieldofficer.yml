@@ -96,7 +96,7 @@
     pocket1: PistolBlueShield
 
 - type: entity
-  parent: BasePDA
+  parent: SoyuzBasePDA # DS14-Soyuz
   id: BlueShieldOfficerPDA
   components:
   - type: Pda

@@ -1,3 +1,5 @@
+/* DS14-Soyuz start
+// Disabled
 using Content.Client.DeadSpace._Soyuz.Jukebox; // DS14-Soyuz
 using Content.Shared.Audio.Jukebox; // DS14
 using Content.Shared.DeadSpace.Audio;
@@ -188,3 +190,5 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         _sprite.LayerSetRsiState(sprite.AsNullable(), layer, state);
     }
 }
+// DS14-Soyuz-end
+*/

@@ -211,7 +211,7 @@ public sealed class AreaEchoTest
                     Assert.That(preset, Is.EqualTo(-1), "Music must not enter the room reverb send.");
                     sound.Gain = 0f;
                     sound.Volume = float.NegativeInfinity;
-                    client.System<Content.Client.Audio.Jukebox.JukeboxSystem>().FrameUpdate(0.016f);
+                    client.System<Content.Client.DeadSpace._Soyuz.Jukebox.JukeboxSystem>().FrameUpdate(0.016f); // DS14-Soyuz
                     Assert.That(sound.Volume, Is.EqualTo(float.NegativeInfinity), "Music volume must not resurrect an out-of-range engine stream.");
                     entMan.DeleteEntity(uid);
                 }

@@ -3,12 +3,14 @@
 using System; // DS-14
 using System.Collections.Generic; // DS-14
 using Content.Shared.Audio.Jukebox;
+using Content.Shared.DeadSpace.Audio;
 using Content.Shared.DeadSpace.CCCCVars; // DS14-jukebox-mute
 using Content.Shared.DeadSpace._Soyuz.Jukebox;
 using Robust.Client.Audio; // DS-14
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Shared.Audio.Components; // DS-14
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration; // DS14-jukebox-mute
 using Robust.Shared.Prototypes;
 
@@ -23,22 +25,28 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
     [Dependency] private readonly IConfigurationManager _cfg = default!; // DS14-jukebox-mute
     [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SpriteSystem _sprite = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!; // DS14
     // DS-14 Start: Store a transient client-only override per jukebox so menu drags can
     // update the local audio stream before replicated component state arrives.
     private readonly Dictionary<EntityUid, float> _volumeOverrides = new();
     private const float VolumeOverrideSyncTolerance = 0.01f;
     // DS-14 End
+    private float _jukeboxAutoVolume; // DS14
 
     public override void Initialize()
     {
         base.Initialize();
-        UpdatesAfter.Add(typeof(AudioSystem)); // DS-14
+
+        UpdatesOutsidePrediction = true; // DS14
+        UpdatesAfter.Add(typeof(Robust.Client.Audio.AudioSystem)); // DS14
+
         SubscribeLocalEvent<JukeboxComponent, AppearanceChangeEvent>(OnAppearanceChange);
         SubscribeLocalEvent<JukeboxComponent, AnimationCompletedEvent>(OnAnimationCompleted);
         SubscribeLocalEvent<JukeboxComponent, AfterAutoHandleStateEvent>(OnJukeboxAfterState);
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnJukeboxShutdown); // DS-14
 
         _protoManager.PrototypesReloaded += OnProtoReload;
+        Subs.CVar(_cfg, CCCCVars.JukeboxAutoVolume, SetJukeboxAutoVolume, true); // DS14
     }
 
     public override void Shutdown()
@@ -47,17 +55,36 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         _protoManager.PrototypesReloaded -= OnProtoReload;
     }
 
+    // DS14-Start
+    private void SetJukeboxAutoVolume(float volume)
+    {
+        _jukeboxAutoVolume = volume;
+    }
+    // DS14-End
+
     // DS-14 Start: Audio stream entities may be recreated independently of the UI, so the
     // effective client volume is re-applied every frame to whichever stream is active.
     public override void FrameUpdate(float frameTime)
     {
         base.FrameUpdate(frameTime);
 
+        var audio = EntityManager.System<Robust.Client.Audio.AudioSystem>();
+        var listener = audio.GetListenerCoordinates();
+        var autoVolume = SharedAudioSystem.GainToVolume(_jukeboxAutoVolume / 1f);
         var query = AllEntityQuery<JukeboxComponent>();
 
-        while (query.MoveNext(out var uid, out var component))
+        while (query.MoveNext(out var uid, out var comp))
         {
-            ApplyClientVolume(component.AudioStream, GetEffectiveVolume(uid, component));
+            var effectiveVolume = GetEffectiveVolume(uid, comp);
+
+            if (comp.AudioStream == null || !TryComp<AudioComponent>(comp.AudioStream.Value, out var audioComp))
+                continue;
+
+            var distance = (_transform.GetWorldPosition(uid) - listener.Position).Length();
+            var gain = SpatialAudio.GetDistanceGain(distance, audioComp.Params.MaxDistance);
+            // Preserve the engine's map/range mute, including stereo buffers that bypass native distance falloff.
+            var targetVolume = effectiveVolume + autoVolume + SharedAudioSystem.GainToVolume(gain);
+            ApplyClientVolume(comp.AudioStream, targetVolume);
         }
     }
     // DS-14 End

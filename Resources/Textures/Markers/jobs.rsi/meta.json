@@ -240,6 +240,12 @@
         },
         {
             "name": "iaaofficer"
+    	},
+        {
+            "name": "Politruk"
+        },
+        {
+            "name": "Politkom"
     	}
     ]
 }

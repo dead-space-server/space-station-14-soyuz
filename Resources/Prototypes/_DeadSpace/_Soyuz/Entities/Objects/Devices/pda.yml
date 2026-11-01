@@ -1,5 +1,25 @@
 - type: entity
-  parent: BaseWidePDA
+  parent: BasePDA
+  id: SoyuzBaseWidePDA
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/pda.rsi
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda"
+    - state: "light_overlay_wide"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - state: "id_overlay_wide"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+
+
+- type: entity
+  parent: SoyuzBaseWidePDA
   id: PolitrukPDA
   name: КПК Политического Руководителя
   description: Скромный, алый как Советской флаг, КПК Политического руководителя Управления ПолитКонтроля НКВБ. В нем довольно много записей о разного рода коммунизме. Почему этот глаз смотрит вечно на тебя?
@@ -23,7 +43,7 @@
     state: pda-politruk
 
 - type: entity
-  parent: BaseWidePDA
+  parent: SoyuzBaseWidePDA
   id: PolitkomPDA
   name: КПК Политического Комиссара
   description: Грозный и властный кпк ПолитКомиссара Управления ПолитКонтроля НКВБ. Он бдит и следит, он направляет и кричит "НЕСИТЕ ТРУПОВОЗКИ!!!" 

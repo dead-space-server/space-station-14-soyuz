@@ -80,6 +80,9 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
             if (comp.AudioStream == null || !TryComp<AudioComponent>(comp.AudioStream.Value, out var audioComp))
                 continue;
 
+            if (audioComp.Volume == float.NegativeInfinity)
+                continue;
+
             var distance = (_transform.GetWorldPosition(uid) - listener.Position).Length();
             var gain = SpatialAudio.GetDistanceGain(distance, audioComp.Params.MaxDistance);
             // Preserve the engine's map/range mute, including stereo buffers that bypass native distance falloff.

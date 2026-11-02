@@ -24,7 +24,7 @@ public sealed class WizdenContentFreeze
         var protoMan = server.ProtoMan;
 
         var recipesCount = protoMan.Count<FoodRecipePrototype>();
-        var recipesLimit = 258; // DS14
+        var recipesLimit = 329; // DS14-Soyuz
 
         if (recipesCount > recipesLimit)
         {

@@ -1260,18 +1260,28 @@ public sealed partial class RepairOrderValidationSystem : EntitySystem
         if (values.Errors.Count != 0)
             _sawmill.Warning("Repair value catalog contains invalid entries; valid entries remain active and affected entities are protected:\n" +
                              string.Join("\n", values.Errors));
+        var coverage = values.Scan(_prototype.EnumeratePrototypes<EntityPrototype>());
+        if (coverage.Unclassified.Length != 0)
+            _sawmill.Warning("Repair value catalog contains unclassified prototypes; autoExcludeUnclassified protects them when enabled:\n" + coverage);
         return values;
+    }
+
+    public int GetFloorTilePoints(RepairOrderPrototype order)
+    {
+        if (_prototype.TryIndex(order.ScoreProfile, out var profile) && profile.FloorTilePoints > 0)
+            return profile.FloorTilePoints;
+        _sawmill.Warning($"{order.ID}: missing or invalid repair score profile {order.ScoreProfile}; using 1 point per tile layer.");
+        return 1;
     }
 
     private RepairScoreLookup BuildScoreLookup(RepairOrderPrototype order, EntityUid grid, RepairValueCatalog values)
     {
-        var profile = _prototype.Index(order.ScoreProfile);
-        if (profile.FloorTilePoints <= 0)
-            throw new InvalidOperationException($"Repair score profile {profile.ID}: floorTilePoints must be positive.");
         var lookup = new RepairScoreLookup(order.ID, grid, values)
         {
-            FloorTilePoints = profile.FloorTilePoints,
+            FloorTilePoints = GetFloorTilePoints(order),
         };
+        if (!_prototype.TryIndex(order.ScoreProfile, out var profile))
+            return lookup;
 
         foreach (var rule in profile.IdentityRules)
         {

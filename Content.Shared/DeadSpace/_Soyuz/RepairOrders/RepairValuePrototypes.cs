@@ -35,6 +35,7 @@ public sealed partial class RepairValueExclusionPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
     [DataField] public List<EntProtoId> Entities = new();
+    [DataField] public bool AutoExcludeUnclassified;
 
     /// <summary>Match any gameplay tag on the fully inherited entity prototype, not runtime tag changes.</summary>
     [DataField] public List<ProtoId<TagPrototype>> Tags = new();

@@ -28,6 +28,7 @@ public sealed record RepairDamageEventResult(ProtoId<RepairDamageEventPrototype>
 public sealed record RepairOrderDamagePlan(int Seed, int Attempt, ImmutableArray<Vector2i> RemovedTiles,
     ImmutableArray<int> RemovedEntities, ImmutableArray<RepairDamageEventResult> Events, int DamageValue, int TotalValue)
 {
+    public bool RelaxedMinimums { get; init; }
     public float DamageFraction => TotalValue > 0 ? (float) DamageValue / TotalValue : 0;
     public RepairDamageGenerationInfo ToInfo() => new(Seed, Attempt, Events.Select(e => e.Event.Id).ToImmutableArray(),
         RemovedTiles.Length, RemovedEntities.Length, DamageValue, DamageFraction);

@@ -9,6 +9,7 @@
 
 - type: repairValueExclusion
   id: RepairExclude
+  autoExcludeUnclassified: true
   tags: []
   entities:
   - DebugAPCRecharging

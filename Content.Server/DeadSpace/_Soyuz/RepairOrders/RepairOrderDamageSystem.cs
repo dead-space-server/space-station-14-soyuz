@@ -30,8 +30,7 @@ public sealed class RepairOrderDamageSystem : EntitySystem
     {
         _protection.ValidateConfiguration();
         values ??= _validation.GetValueCatalog();
-        var floorValue = _prototypes.Index(order.ScoreProfile).FloorTilePoints;
-        if (floorValue <= 0) throw new InvalidOperationException($"{order.ID}: invalid floor value.");
+        var floorValue = _validation.GetFloorTilePoints(order);
         var floors = SortCells(_map.GetAllTiles(grid.Owner, grid.Comp).Where(t => !t.Tile.IsEmpty).Select(t => t.GridIndices));
         var entities = new List<RepairDamageEntity>();
         var protectedFloors = new HashSet<Vector2i>();
@@ -91,12 +90,32 @@ public sealed class RepairOrderDamageSystem : EntitySystem
         out RepairOrderDamagePlan plan, out string rejection)
     {
         plan = default!;
-        var errors = RepairDamageConfiguration.Validate(_prototypes);
-        if (errors.Count > 0) { rejection = string.Join("; ", errors); return false; }
-        var events = profile.Events.Select(id => _prototypes.Index(id))
+        if (!RepairDamageConfiguration.IsValid(profile))
+        {
+            rejection = $"Invalid repair damage profile {profile.ID}.";
+            return false;
+        }
+        var validEvents = new List<RepairDamageEventPrototype>();
+        foreach (var id in profile.Events.Distinct())
+        {
+            if (!_prototypes.TryIndex(id, out var ev))
+            {
+                Log.Warning($"{profile.ID}: missing damage event {id}; event ignored.");
+                continue;
+            }
+            var errors = RepairDamageConfiguration.ValidateEvent(_prototypes, ev);
+            if (errors.Count != 0)
+            {
+                Log.Warning(string.Join("; ", errors));
+                continue;
+            }
+            validEvents.Add(ev);
+        }
+        var events = validEvents
             .Where(ev => ev.Severity <= profile.MaxSeverity && CanApply(snapshot, ev))
             .OrderBy(ev => ev.ID, StringComparer.Ordinal).ToArray();
         rejection = "No applicable event combination meets the profile limits.";
+        RepairOrderDamagePlan? fallback = null;
         var floors = snapshot.Floors.ToHashSet();
         for (var attempt = 0; attempt < profile.MaxGenerationAttempts; attempt++)
         {
@@ -128,6 +147,8 @@ public sealed class RepairOrderDamageSystem : EntitySystem
                 // Reject excess and topology damage before accepting even a staged event. Never trim a heavy
                 // event into a different semantic event merely to meet the remaining budget.
                 if (!ValidatePlan(snapshot, profile, candidate, out rejection, requireMinimum: false)) continue;
+                if (candidate.DamageValue > 0 && (fallback == null || candidate.DamageValue > fallback.DamageValue))
+                    fallback = candidate;
                 tiles = nextTiles;
                 entities = nextEntities;
                 selected.Add(result);
@@ -140,6 +161,13 @@ public sealed class RepairOrderDamageSystem : EntitySystem
             var final = MakePlan(snapshot, seed, attempt, tiles, entities, selected);
             if (!ValidatePlan(snapshot, profile, final, out rejection)) continue;
             plan = final;
+            return true;
+        }
+        if (fallback != null)
+        {
+            plan = fallback with { RelaxedMinimums = true };
+            rejection = string.Empty;
+            Log.Warning($"{profile.ID}: generated repair damage below the requested minimum; safety limits remain enforced.");
             return true;
         }
         return false;
@@ -387,7 +415,9 @@ public sealed class RepairOrderDamageSystem : EntitySystem
     {
         if (grid.Owner != snapshot.Grid)
             throw new InvalidOperationException("Repair damage snapshot belongs to another grid.");
-        if (!ValidatePlan(snapshot, profile, plan, out var reason))
+        if (plan.DamageValue <= 0)
+            throw new InvalidOperationException("Cannot apply empty repair damage.");
+        if (!ValidatePlan(snapshot, profile, plan, out var reason, requireMinimum: !plan.RelaxedMinimums))
             throw new InvalidOperationException($"Cannot apply repair damage: {reason}");
         // Inspect every target before the first mutation. Snapshot and Apply run synchronously on a paused map.
         foreach (var index in plan.RemovedEntities)

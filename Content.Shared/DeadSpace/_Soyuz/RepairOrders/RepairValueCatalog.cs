@@ -21,6 +21,7 @@ public sealed class RepairValueCatalog
     private readonly Dictionary<string, int> _values = new();
     private readonly Dictionary<string, string> _categories = new();
     private readonly HashSet<string> _excluded = new();
+    private bool _autoExcludeUnclassified;
     private readonly bool _allowPartial;
     public readonly List<string> Errors = new();
 
@@ -32,7 +33,8 @@ public sealed class RepairValueCatalog
         return (_allowPartial || Errors.Count == 0) && _values.TryGetValue(entity, out value);
     }
 
-    public bool IsExcluded(string entity) => (_allowPartial || Errors.Count == 0) && _excluded.Contains(entity);
+    public bool IsExcluded(string entity) => (_allowPartial || Errors.Count == 0) &&
+        (_excluded.Contains(entity) || _autoExcludeUnclassified && !_values.ContainsKey(entity));
 
     public bool TryGetCategory(string entity, out string category)
     {
@@ -174,7 +176,8 @@ public sealed class RepairValueCatalog
         var excludedTags = new HashSet<ProtoId<TagPrototype>>();
         foreach (var exclusion in exclusions)
         {
-            if (exclusion.Entities.Count == 0 && exclusion.Tags.Count == 0)
+            result._autoExcludeUnclassified |= exclusion.AutoExcludeUnclassified;
+            if (exclusion.Entities.Count == 0 && exclusion.Tags.Count == 0 && !exclusion.AutoExcludeUnclassified)
                 result.Errors.Add($"RepairValueExclusion {exclusion.ID}: entities or tags are required.");
             foreach (var tag in exclusion.Tags)
             {

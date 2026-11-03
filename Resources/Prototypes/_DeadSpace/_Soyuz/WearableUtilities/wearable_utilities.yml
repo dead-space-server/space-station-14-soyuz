@@ -1,0 +1,117 @@
+- type: entity
+  parent: BaseUniformAccessory
+  id: EmergencyChestInjector
+  name: chest emergency injector
+  description: A reusable emergency injector attached to a jumpsuit. Fill the 20-unit reservoir and arm it to inject its contents once when the wearer enters critical condition.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+    layers:
+    - state: injector-empty
+      map: [injector]
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+    heldPrefix: injector
+    size: Small
+  - type: UniformAccessory
+    category: EmergencyInjector
+    limit: 1
+    drawOnItemIcon: false
+    color: "#60aaa5"
+    playerSprite:
+      sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+      state: equipped-injector
+  - type: WearableUtility
+    kind: Injector
+    actionPrototype: ActionEmergencyChestInjector
+  - type: SolutionContainerManager
+    solutions:
+      injector:
+        maxVol: 20
+  - type: RefillableSolution
+    solution: injector
+  - type: DrainableSolution
+    solution: injector
+  - type: DrawableSolution
+    solution: injector
+  - type: ExaminableSolution
+    solution: injector
+    exactVolume: true
+  - type: Spillable
+    solution: injector
+  - type: GenericVisualizer
+    visuals:
+      enum.WearableUtilityVisuals.State:
+        injector:
+          Off: {state: injector}
+          Ready: {state: injector-ready}
+          Empty: {state: injector-empty}
+  - type: StaticPrice
+    price: 500
+
+- type: entity
+  parent: BaseUniformAccessory
+  id: ToolSelectionBracelet
+  name: tool selection bracelet
+  description: A wrist controller with six bindings for tools and medical supplies in your worn belt or bag. Attaches to gloves or occupies the gloves slot. It has no storage of its own.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+    state: bracelet
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+    heldPrefix: bracelet
+    size: Small
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+    equippedState: equipped-bracelet
+    slots: [gloves]
+  - type: UniformAccessory
+    category: ToolBracelet
+    limit: 1
+    drawOnItemIcon: false
+    color: "#d0a45b"
+    playerSprite:
+      sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+      state: equipped-bracelet
+  - type: WearableUtility
+    kind: Bracelet
+    actionPrototype: ActionToolSelectionBracelet
+  - type: ContainerContainer
+    containers:
+      tool_swap: !type:ContainerSlot
+  - type: UserInterface
+    interfaces:
+      enum.ToolBraceletUiKey.Key:
+        type: ToolBraceletBoundUserInterface
+  - type: StaticPrice
+    price: 300
+
+- type: entity
+  id: ActionEmergencyChestInjector
+  name: Arm emergency injector
+  description: Arm or disarm the chest emergency injector.
+  components:
+  - type: Action
+    icon:
+      sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+      state: injector
+    iconOn:
+      sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+      state: injector-ready
+    useDelay: 0.5
+  - type: InstantAction
+    event: !type:WearableUtilityActionEvent
+
+- type: entity
+  id: ActionToolSelectionBracelet
+  name: Select tools and medical supplies
+  description: Open the tool selection bracelet.
+  components:
+  - type: Action
+    icon:
+      sprite: _DeadSpace/_Soyuz/Objects/Devices/wearable_utilities.rsi
+      state: bracelet
+    useDelay: 0.2
+  - type: InstantAction
+    event: !type:WearableUtilityActionEvent

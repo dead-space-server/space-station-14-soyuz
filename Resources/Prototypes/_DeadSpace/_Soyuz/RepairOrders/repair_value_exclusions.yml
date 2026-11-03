@@ -12,6 +12,8 @@
   autoExcludeUnclassified: true
   tags: []
   entities:
+  - EmergencyChestInjector
+  - ToolSelectionBracelet
   - DebugAPCRecharging
   - DebugBatteryDischarger
   - DebugBatteryStorage

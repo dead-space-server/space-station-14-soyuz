@@ -1,5 +1,12 @@
 # Add classified: true to a reward to conceal its name, icon and price until minimumShopLevel.
 - type: repairReward
+  id: RepairOrderCreditsReward
+  entity: SpaceCash1000
+  cost: 1
+  maxCount: 100
+  minimumShopLevel: 1
+
+- type: repairReward
   id: RepairOrderRodsReward
   entity: PartRodMetal
   cost: 1
@@ -336,6 +343,13 @@
   minimumShopLevel: 3
 
 - type: repairReward
+  id: RepairOrderToolBraceletReward
+  entity: ToolSelectionBracelet
+  cost: 75
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
   id: RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
   entity: ClothingOuterHardsuitTaipanAtmosphericsEngineer
   cost: 99
@@ -663,6 +677,7 @@
     maxPercent: 100
     multiplierPercent: 130
   rewards:
+  - RepairOrderCreditsReward
   - RepairOrderRodsReward
   - RepairOrderCableReward
   - RepairOrderCableMvReward
@@ -710,6 +725,7 @@
   - RepairOrderRcdReward
   - RepairOrderPowerDrillReward
   - RepairOrderJawsOfLifeReward
+  - RepairOrderToolBraceletReward
   - RepairOrderAdvancedWelderReward
   - RepairOrderClothingOuterHardsuitTaipanAtmosphericsEngineerReward
   - RepairOrderRestorerGogglesReward

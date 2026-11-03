@@ -9,6 +9,7 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Storage.Components;
+using Robust.Shared.Random;
 
 namespace Content.Server.DeadSpace._Soyuz.MedicalOrders;
 
@@ -65,12 +66,32 @@ public sealed partial class MedicalOrderSystem
                 Transform(receiver).Coordinates, string.Empty);
             gown = Spawn(config.PatientGown, Transform(receiver).Coordinates);
             if (!_inventory.TryEquip(body.Value, gown.Value, "outerClothing", silent: true, force: true) ||
-                !HasComp<DamageableComponent>(body.Value) || !HasComp<MobStateComponent>(body.Value))
+                !TryComp<DamageableComponent>(body.Value, out var damageable) || !HasComp<MobStateComponent>(body.Value))
                 return null;
 
+            var supportedTypes = config.Damages.Where(d => d.CanGenerate &&
+                damageable.Damage.DamageDict.ContainsKey(d.DamageType.Id)).ToArray();
+            if (supportedTypes.Length == 0)
+                return null;
+
+            var preparedOffer = CopyOffer(offer);
             var damage = new DamageSpecifier();
             foreach (var line in offer.Lines)
-                damage.DamageDict[line.ID] = FixedPoint2.New(line.Amount);
+            {
+                var type = damageable.Damage.DamageDict.ContainsKey(line.ID)
+                    ? line.ID : _random.Pick(supportedTypes).DamageType.Id;
+                damage.DamageDict[type] = damage.DamageDict.GetValueOrDefault(type) + FixedPoint2.New(line.Amount);
+            }
+            preparedOffer.Lines.Clear();
+            foreach (var (type, amount) in damage.DamageDict)
+            {
+                preparedOffer.Lines.Add(new MedicalOrderRequirement
+                {
+                    ID = type,
+                    Amount = amount.Int(),
+                    PointsPerUnit = config.PointsPerDamage,
+                });
+            }
             if (!_damageable.TryChangeDamage(body.Value, damage, ignoreResistances: true))
                 return null;
 
@@ -92,7 +113,7 @@ public sealed partial class MedicalOrderSystem
 
             var prepared = new MedicalOrderActive
             {
-                Offer = CopyOffer(offer),
+                Offer = preparedOffer,
                 Terminal = receiver,
                 AcceptedAt = _timing.CurTime,
                 Deadline = deadline,

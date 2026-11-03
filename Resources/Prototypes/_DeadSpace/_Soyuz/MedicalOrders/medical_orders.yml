@@ -1170,6 +1170,16 @@
     cost: 5
     maxCount: 10
     minimumShopLevel: 1
+  - id: BlueInsulatingTape
+    entity: BlueInsulatingTape
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Credits
+    entity: SpaceCash1000
+    cost: 10
+    maxCount: 100
+    minimumShopLevel: 1
   - id: Nanopaste
     entity: Nanopaste
     cost: 30
@@ -1250,6 +1260,11 @@
     cost: 150
     maxCount: 3
     minimumShopLevel: 3
+  - id: ToolSelectionBracelet
+    entity: ToolSelectionBracelet
+    cost: 150
+    maxCount: 2
+    minimumShopLevel: 3
   - id: FilledSuperVirusMedkit
     entity: FilledSuperVirusMedkit
     cost: 300
@@ -1270,6 +1285,16 @@
     entity: WeakViralSolutionVial
     cost: 500
     maxCount: 1
+    minimumShopLevel: 4
+  - id: ChemBagOfHolding
+    entity: ChemBagOfHolding
+    cost: 500
+    maxCount: 1
+    minimumShopLevel: 4
+  - id: EmergencyChestInjector
+    entity: EmergencyChestInjector
+    cost: 500
+    maxCount: 2
     minimumShopLevel: 4
   - id: BluespaceBeaker
     entity: BluespaceBeaker

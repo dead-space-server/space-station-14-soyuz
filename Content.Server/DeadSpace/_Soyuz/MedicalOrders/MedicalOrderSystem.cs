@@ -864,6 +864,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     private static MedicalOrderView View(MedicalOrderOffer offer, MedicalOrderActive? active, int score,
         MedicalOrderConfigPrototype config)
     {
+        offer = active?.Offer ?? offer;
         var lines = offer.Lines.Select(line => new MedicalOrderLineView(line.ID, line.Amount,
             active != null && active.Submitted.TryGetValue(line.ID, out var submitted) ? submitted.Float() : 0,
             line.PointsPerUnit)).ToArray();

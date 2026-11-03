@@ -1,0 +1,54 @@
+# Базовый прото
+- type: entity
+  parent: BaseItem
+  id: BaseEvacZoneTablet
+  name: планшет зон
+  description: Планшет с картой космоса. На нём можно рисовать зоны, которые отображаются на сканере масс.
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/EvacZones/tablet.rsi
+    state: evac-tablet-silent
+  - type: EvacZoneTablet
+    cooldown: 3
+  - type: ActivatableUI
+    key: enum.EvacTabletUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.EvacTabletUiKey.Key:
+        type: EvacTabletBoundUserInterface
+
+# Основные планшеты
+- type: entity
+  parent: BaseEvacZoneTablet
+  id: EvacZoneTabletSilent
+  suffix: Без объявления
+
+- type: entity
+  parent: BaseEvacZoneTablet
+  id: EvacZoneTabletCentcom
+  name: планшет зон ГШ
+  suffix: Объявление ГШ
+  components:
+  - type: Sprite
+    state: evac-tablet
+  - type: EvacZoneTablet
+    announcement: evac-announcement-centcom
+    announcementSender: evac-sender-centcom
+    announcementSound:
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg
+
+- type: entity
+  parent: BaseEvacZoneTablet
+  id: EvacZoneTabletSobr
+  name: планшет зон СОБР
+  suffix: Объявление СОБР
+  components:
+  - type: Sprite
+    state: evac-tablet
+  - type: EvacZoneTablet
+    announcement: evac-announcement-sobr
+    announcementSender: evac-sender-sobr
+    announcementSound:
+      path: /Audio/_DeadSpace/_Soyuz/Announcements/centcomm.ogg

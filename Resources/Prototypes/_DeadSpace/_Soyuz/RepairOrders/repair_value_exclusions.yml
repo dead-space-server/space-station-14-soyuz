@@ -1367,3 +1367,13 @@
   - MaterialMarketplace
   - MaterialMarketplacePriceConsole
   - PublicMarket
+
+- type: repairValueExclusion
+  id: RepairExcludeIdk
+  reason: обосраца
+  entities:
+  - ComputerLockdown
+  - AirlockExternalGlassShuttleSecurity
+  - AirlockExternalGlassShuttleSecurityRandom
+  - AirlockExternalGlassShuttleDeathSquad
+  - AirlockExternalGlassShuttleGeneralStaff

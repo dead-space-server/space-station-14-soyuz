@@ -71,12 +71,14 @@
         - id: RubberStampMemeDeny
         - id: RubberStampCentcomSpecialOperationOfficer
         - id: BoxFolderBlueFilled
-        # DS14-soyuz-start
+        # DS14-Soyuz-start
         - id: WeaponRevolverMatebaAP
         - id: SpeedLoaderMagnumAP
           amount: 3
-        - id: DoorRemoteAll 
-        # DS14-soyuz-end
+        - id: DoorRemoteAll
+        - id: SobrSquadRemote
+        - id: EvacZoneTabletSobr
+        # DS14-Soyuz-end
 
 - type: entity
   parent: BoxFolderBase

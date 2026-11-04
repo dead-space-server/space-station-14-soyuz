@@ -64,6 +64,7 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
             {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/S1_deathsquad.yml", ["BoxFolderBlueFilled", "RubberStampCentcomSpecialOperationOfficer", "RubberStampMemeDeny"]},
             // DS14-Soyuz-end
         };
 

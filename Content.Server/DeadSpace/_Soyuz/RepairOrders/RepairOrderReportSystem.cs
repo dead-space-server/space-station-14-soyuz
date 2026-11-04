@@ -232,6 +232,13 @@ public sealed class RepairOrderReportSystem : EntitySystem
         AddLine(report, "repair-orders-report-reward-budget", ("budget", completed.RewardBudget));
         AddLine(report, "repair-orders-report-reputation", ("reputation", completed.EarnedReputation));
 
+        if (completed.Result == RepairOrderResult.Retained)
+        {
+            AddLine(report, "repair-orders-report-status", ("status", Loc.GetString("repair-orders-status-retained")));
+            AddLine(report, "repair-orders-retain-paid", ("points", completed.RetentionCost));
+            return report.ToMarkup();
+        }
+
         if (completed.Result == RepairOrderResult.Completed)
         {
             AddLine(

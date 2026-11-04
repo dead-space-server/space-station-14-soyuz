@@ -40,6 +40,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
     public float Range;
     public RepairAnalyzerLayer LayerFilter;
     public (EntityUid Grid, RepairAnalyzerTaskData Task)? NavigationTarget;
+    public (EntityUid Grid, Vector2i Start, Vector2i End, Vector2i[] Blocked)? ReconstructionSelection;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpaceEntities;
 
@@ -73,6 +74,7 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
                 out var grid,
                 out var worldMatrix))
         {
+            DrawReconstructionSelection(args);
             return;
         }
 
@@ -104,6 +106,35 @@ public sealed class RepairStructuralAnalyzerOverlay : Overlay
             handle.DrawRect(Box2.CenteredAround(task.LocalPosition, new Vector2(size)), color, false);
         }
 
+        handle.SetTransform(Matrix3x2.Identity);
+        DrawReconstructionSelection(args);
+    }
+
+    private void DrawReconstructionSelection(in OverlayDrawArgs args)
+    {
+        if (ReconstructionSelection is not { } selection ||
+            !_entityManager.TryGetComponent<MapGridComponent>(selection.Grid, out var grid) ||
+            _transform.GetMapCoordinates(selection.Grid).MapId != args.MapId)
+            return;
+
+        var minimum = new Vector2(Math.Min(selection.Start.X, selection.End.X), Math.Min(selection.Start.Y, selection.End.Y));
+        var maximum = new Vector2(Math.Max(selection.Start.X, selection.End.X) + 1, Math.Max(selection.Start.Y, selection.End.Y) + 1);
+        var bounds = new Box2(minimum * grid.TileSize, maximum * grid.TileSize);
+        var handle = args.WorldHandle;
+        var color = Color.FromHex("#FFB347");
+        handle.SetTransform(_transform.GetWorldMatrix(selection.Grid));
+        handle.DrawRect(bounds, color.WithAlpha(0.12f));
+        handle.DrawRect(bounds, color, false);
+        foreach (var cell in selection.Blocked)
+        {
+            var lower = new Vector2(cell.X, cell.Y) * grid.TileSize;
+            var upper = lower + new Vector2(grid.TileSize);
+            handle.DrawRect(new Box2(lower, upper), WrongBorder.WithAlpha(0.25f));
+            var inset = new Vector2(grid.TileSize * 0.15f);
+            handle.DrawLine(lower + inset, upper - inset, WrongBorder);
+            handle.DrawLine(new Vector2(lower.X, upper.Y) + new Vector2(inset.X, -inset.Y),
+                new Vector2(upper.X, lower.Y) + new Vector2(-inset.X, inset.Y), WrongBorder);
+        }
         handle.SetTransform(Matrix3x2.Identity);
     }
 

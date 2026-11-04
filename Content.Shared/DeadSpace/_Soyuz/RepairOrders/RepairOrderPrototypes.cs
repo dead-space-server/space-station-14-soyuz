@@ -204,6 +204,12 @@ public sealed partial class RepairRewardPrototype : IPrototype, ISerializationHo
     [DataField(required: true)]
     public EntProtoId Entity;
 
+    [DataField]
+    public LocId? ShopName;
+
+    [DataField]
+    public List<SpriteSpecifier> ShopIcon = new();
+
     [DataField(required: true)]
     public int Cost;
 

@@ -49,6 +49,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     [Dependency] private readonly AccessReaderSystem _access = default!;
     [Dependency] private readonly EmagSystem _emag = default!;
     [Dependency] private readonly RepairOrderRewardDeliverySystem _delivery = default!;
+    [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
 
     private ISawmill _sawmill = default!;
     private TimeSpan _nextDiscovery;
@@ -62,6 +63,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         {
             _marketBasePrices.Clear();
             _marketBaseReputations.Clear();
+            _patientCleanup.Clear();
         });
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentStartup>(OnMachineStartup);
         SubscribeLocalEvent<MedicalOrderMachineComponent, ComponentShutdown>(OnMachineShutdown);
@@ -69,6 +71,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         SubscribeLocalEvent<MedicalOrderStationComponent, ComponentShutdown>(OnStationShutdown);
         SubscribeLocalEvent<MedicalOrderMachineComponent, EntInsertedIntoContainerMessage>(OnBeakerInserted);
         SubscribeLocalEvent<MedicalOrderMachineComponent, EntRemovedFromContainerMessage>(OnBeakerRemoved);
+        SubscribeLocalEvent<MedicalOrderMachineComponent, StorageAfterOpenEvent>(OnStorageOpened);
+        SubscribeLocalEvent<MedicalOrderMachineComponent, StorageAfterCloseEvent>(OnStorageClosed);
         Subs.BuiEvents<MedicalOrderMachineComponent>(MedicalOrderUiKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnUiOpened);
@@ -79,6 +83,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        CleanupPatients();
         var now = _timing.CurTime;
         var refreshUi = now >= _nextUiRefresh;
         if (refreshUi)
@@ -96,6 +101,12 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 continue;
             if (!_prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var config))
                 continue;
+
+            var marketChanged = RefreshMarketConfiguration(state, config);
+            marketChanged |= TryFluctuateMarket(state, config);
+            marketChanged |= TryPublishMarketNews(state, config);
+            if (marketChanged)
+                UpdateStationUis(state, config);
 
             if (now >= state.NextRefresh)
             {
@@ -120,8 +131,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             }
 
             if (refreshUi)
-                UpdateStationUis(state, config, marketOnly: state.PatientActive == null &&
-                    state.SpecialActive == null);
+                UpdateStationUis(state, config);
         }
     }
 
@@ -139,14 +149,14 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
     private void OnMachineShutdown(Entity<MedicalOrderMachineComponent> machine, ref ComponentShutdown args)
     {
-        if (_stations.GetOwningStation(machine.Owner) is not { } station ||
-            !TryComp<MedicalOrderStationComponent>(station, out var state))
-            return;
-
-        state.Machines.Remove(machine.Owner);
-        if (state.PatientActive is { } patient && patient.Terminal == machine.Owner &&
-            _prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var patientConfig))
-            FinalizeOrder(station, state, patientConfig, patient, expired: true);
+        var query = EntityQueryEnumerator<MedicalOrderStationComponent>();
+        while (query.MoveNext(out var station, out var state))
+        {
+            state.Machines.Remove(machine.Owner);
+            if (state.PatientActive is { } patient && patient.Terminal == machine.Owner &&
+                _prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var patientConfig))
+                FinalizeOrder(station, state, patientConfig, patient, expired: true);
+        }
     }
 
     private void OnStationShutdown(Entity<MedicalOrderStationComponent> station, ref ComponentShutdown args)
@@ -164,7 +174,14 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
     private MedicalOrderStationComponent? EnsureStation(EntityUid machineUid, MedicalOrderMachineComponent machine)
     {
-        if (_stations.GetOwningStation(machineUid) is not { } station)
+        var owner = _stations.GetOwningStation(machineUid);
+        var query = EntityQueryEnumerator<MedicalOrderStationComponent>();
+        while (query.MoveNext(out var previousStation, out var previous))
+        {
+            if (previousStation != owner)
+                previous.Machines.Remove(machineUid);
+        }
+        if (owner is not { } station)
             return null;
 
         var state = EnsureComp<MedicalOrderStationComponent>(station);
@@ -173,6 +190,9 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             state.ConfigId = machine.Config.Id;
             if (!_prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var config))
                 return null;
+            state.MarketTrends = config.MarketReagents.ToDictionary(r => r.Reagent.Id, _ => _random.Next(-10, 11) / 100m);
+            state.NextMarketFluctuation = _timing.CurTime + config.MarketFluctuationInterval;
+            state.NextMarketNews = NextMarketNewsAt(config);
             RefreshOffers(state, config);
             if (config.SpecialDifficulties.Count > 0)
                 RefreshSpecialOffers(state, config);
@@ -328,6 +348,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             return;
         }
 
+        RefreshMarketConfiguration(state, config);
         if (state.SpecialActive is { } special && _timing.CurTime >= special.Deadline)
             FinalizeSpecial(state, special, expired: true);
 
@@ -374,19 +395,25 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
     private void OnBeakerInserted(Entity<MedicalOrderMachineComponent> machine, ref EntInsertedIntoContainerMessage args)
     {
-        UpdateBeakerUi(machine);
+        UpdateMachineUi(machine);
     }
 
     private void OnBeakerRemoved(Entity<MedicalOrderMachineComponent> machine, ref EntRemovedFromContainerMessage args)
     {
-        UpdateBeakerUi(machine);
+        UpdateMachineUi(machine);
     }
 
-    private void UpdateBeakerUi(Entity<MedicalOrderMachineComponent> machine)
+    private void OnStorageOpened(Entity<MedicalOrderMachineComponent> machine, ref StorageAfterOpenEvent args)
+        => UpdateMachineUi(machine);
+
+    private void OnStorageClosed(Entity<MedicalOrderMachineComponent> machine, ref StorageAfterCloseEvent args)
+        => UpdateMachineUi(machine);
+
+    private void UpdateMachineUi(Entity<MedicalOrderMachineComponent> machine)
     {
-        if (machine.Comp.Kind != MedicalOrderMachineKind.Reagent ||
-            _stations.GetOwningStation(machine.Owner) is not { } station ||
+        if (_stations.GetOwningStation(machine.Owner) is not { } station ||
             !TryComp<MedicalOrderStationComponent>(station, out var state) ||
+            state.Busy || state.ConfigId != machine.Comp.Config.Id ||
             !_prototypes.TryIndex<MedicalOrderConfigPrototype>(state.ConfigId, out var config))
             return;
 
@@ -486,8 +513,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         }
         var body = active.Patient!.Value;
 
-        if (FinalizeOrder(station, state, config, active, expired: false) && Exists(body))
-            QueueDel(body);
+        if (FinalizeOrder(station, state, config, active, expired: false))
+            _patientCleanup.Add(body);
     }
 
     private bool IsPatientMissing(MedicalOrderActive active)
@@ -743,25 +770,26 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString(key), machine, actor, PopupType.SmallCaution);
     }
 
-    private void UpdateStationUis(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config,
-        bool marketOnly = false)
+    private void UpdateStationUis(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
     {
         foreach (var uid in state.Machines.ToArray())
         {
-            if (!Exists(uid) || !TryComp<MedicalOrderMachineComponent>(uid, out var machine))
+            if (!Exists(uid) || !TryComp<MedicalOrderMachineComponent>(uid, out var machine) ||
+                !TryComp<MedicalOrderStationComponent>(_stations.GetOwningStation(uid), out var owner) ||
+                !ReferenceEquals(owner, state) || owner.ConfigId != machine.Config.Id)
             {
                 state.Machines.Remove(uid);
                 continue;
             }
 
-            if (!marketOnly || machine.Kind == MedicalOrderMachineKind.Reagent)
-                UpdateUi(uid, machine, state, config);
+            UpdateUi(uid, machine, state, config);
         }
     }
 
     private void UpdateUi(EntityUid uid, MedicalOrderMachineComponent machine,
         MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, bool contrabandUnlocked = false)
     {
+        RefreshMarketConfiguration(state, config);
         var patient = machine.Kind != MedicalOrderMachineKind.Reagent;
         var offers = patient ? state.PatientOffers.Values.ToArray() : Array.Empty<MedicalOrderOffer>();
         var active = patient ? state.PatientActive : null;
@@ -826,12 +854,17 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 .Select(o => SpecialView(uid, machine.Kind, o, null, config)).ToArray(),
             state.SpecialActive is { } special
                 ? SpecialView(uid, machine.Kind, special.Offer, special, config) : null,
-            state.LastSpecial, state.NextSpecialRefresh));
+            state.LastSpecial, state.NextSpecialRefresh,
+            machine.Kind == MedicalOrderMachineKind.Reagent ? state.MarketNews.Select(n =>
+                new MedicalMarketNewsView(n.Id, n.Reagent, n.Headline, n.Body, n.Source, n.BonusPercent,
+                    n.Volume, n.Remaining, n.CreatedAt, n.ExpiresAt)).ToArray() : Array.Empty<MedicalMarketNewsView>(),
+            state.NextMarketNews));
     }
 
     private static MedicalOrderView View(MedicalOrderOffer offer, MedicalOrderActive? active, int score,
         MedicalOrderConfigPrototype config)
     {
+        offer = active?.Offer ?? offer;
         var lines = offer.Lines.Select(line => new MedicalOrderLineView(line.ID, line.Amount,
             active != null && active.Submitted.TryGetValue(line.ID, out var submitted) ? submitted.Float() : 0,
             line.PointsPerUnit)).ToArray();

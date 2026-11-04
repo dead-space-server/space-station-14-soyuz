@@ -84,7 +84,7 @@
     openOnMove: false
     isCollidableWhenOpen: true
     enteringOffset: 0, -1
-    enteringRange: 0.6
+    enteringRange: 0.03
   - type: ContainerContainer
     containers:
       machine_board: !type:Container
@@ -125,7 +125,7 @@
     openOnMove: false
     isCollidableWhenOpen: true
     enteringOffset: 0, -1
-    enteringRange: 0.6
+    enteringRange: 0.03
   - type: ContainerContainer
     containers:
       machine_board: !type:Container

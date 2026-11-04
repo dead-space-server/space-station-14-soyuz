@@ -260,692 +260,854 @@
   - minPercent: 100
     maxPercent: 100
     multiplierPercent: 130
-  # Prices reach their floor after 150 units of net supply; demand recovers by 15 units/min.
+  marketFluctuationInterval: 45s
+  marketPriceStepPercent: 8
+  marketNewsMinInterval: 4m
+  marketNewsMaxInterval: 7m
+  marketNewsDuration: 10m
+  marketNewsMinVolume: 150
+  marketNewsMaxVolume: 300
+  marketNewsBonuses: [50, 75, 100]
+  marketNewsHeadlines:
+  - medical-market-news-headline-01
+  - medical-market-news-headline-02
+  - medical-market-news-headline-03
+  - medical-market-news-headline-04
+  - medical-market-news-headline-05
+  - medical-market-news-headline-06
+  - medical-market-news-headline-07
+  - medical-market-news-headline-08
+  - medical-market-news-headline-09
+  - medical-market-news-headline-10
+  marketNewsSources:
+  - medical-market-news-source-01
+  - medical-market-news-source-02
+  - medical-market-news-source-03
+  - medical-market-news-source-04
+  - medical-market-news-source-05
+  - medical-market-news-source-06
+  - medical-market-news-source-07
+  - medical-market-news-source-08
+  - medical-market-news-source-09
+  - medical-market-news-source-10
+  marketNewsBodies:
+  - medical-market-news-body-001
+  - medical-market-news-body-002
+  - medical-market-news-body-003
+  - medical-market-news-body-004
+  - medical-market-news-body-005
+  - medical-market-news-body-006
+  - medical-market-news-body-007
+  - medical-market-news-body-008
+  - medical-market-news-body-009
+  - medical-market-news-body-010
+  - medical-market-news-body-011
+  - medical-market-news-body-012
+  - medical-market-news-body-013
+  - medical-market-news-body-014
+  - medical-market-news-body-015
+  - medical-market-news-body-016
+  - medical-market-news-body-017
+  - medical-market-news-body-018
+  - medical-market-news-body-019
+  - medical-market-news-body-020
+  - medical-market-news-body-021
+  - medical-market-news-body-022
+  - medical-market-news-body-023
+  - medical-market-news-body-024
+  - medical-market-news-body-025
+  - medical-market-news-body-026
+  - medical-market-news-body-027
+  - medical-market-news-body-028
+  - medical-market-news-body-029
+  - medical-market-news-body-030
+  - medical-market-news-body-031
+  - medical-market-news-body-032
+  - medical-market-news-body-033
+  - medical-market-news-body-034
+  - medical-market-news-body-035
+  - medical-market-news-body-036
+  - medical-market-news-body-037
+  - medical-market-news-body-038
+  - medical-market-news-body-039
+  - medical-market-news-body-040
+  - medical-market-news-body-041
+  - medical-market-news-body-042
+  - medical-market-news-body-043
+  - medical-market-news-body-044
+  - medical-market-news-body-045
+  - medical-market-news-body-046
+  - medical-market-news-body-047
+  - medical-market-news-body-048
+  - medical-market-news-body-049
+  - medical-market-news-body-050
+  - medical-market-news-body-051
+  - medical-market-news-body-052
+  - medical-market-news-body-053
+  - medical-market-news-body-054
+  - medical-market-news-body-055
+  - medical-market-news-body-056
+  - medical-market-news-body-057
+  - medical-market-news-body-058
+  - medical-market-news-body-059
+  - medical-market-news-body-060
+  - medical-market-news-body-061
+  - medical-market-news-body-062
+  - medical-market-news-body-063
+  - medical-market-news-body-064
+  - medical-market-news-body-065
+  - medical-market-news-body-066
+  - medical-market-news-body-067
+  - medical-market-news-body-068
+  - medical-market-news-body-069
+  - medical-market-news-body-070
+  - medical-market-news-body-071
+  - medical-market-news-body-072
+  - medical-market-news-body-073
+  - medical-market-news-body-074
+  - medical-market-news-body-075
+  - medical-market-news-body-076
+  - medical-market-news-body-077
+  - medical-market-news-body-078
+  - medical-market-news-body-079
+  - medical-market-news-body-080
+  - medical-market-news-body-081
+  - medical-market-news-body-082
+  - medical-market-news-body-083
+  - medical-market-news-body-084
+  - medical-market-news-body-085
+  - medical-market-news-body-086
+  - medical-market-news-body-087
+  - medical-market-news-body-088
+  - medical-market-news-body-089
+  - medical-market-news-body-090
+  - medical-market-news-body-091
+  - medical-market-news-body-092
+  - medical-market-news-body-093
+  - medical-market-news-body-094
+  - medical-market-news-body-095
+  - medical-market-news-body-096
+  - medical-market-news-body-097
+  - medical-market-news-body-098
+  - medical-market-news-body-099
+  - medical-market-news-body-100
+  - medical-market-news-body-101
+  - medical-market-news-body-102
+  - medical-market-news-body-103
+  - medical-market-news-body-104
+  - medical-market-news-body-105
+  - medical-market-news-body-106
+  - medical-market-news-body-107
+  - medical-market-news-body-108
+  - medical-market-news-body-109
+  - medical-market-news-body-110
+  - medical-market-news-body-111
+  - medical-market-news-body-112
+  - medical-market-news-body-113
+  - medical-market-news-body-114
+  - medical-market-news-body-115
+  - medical-market-news-body-116
+  - medical-market-news-body-117
+  - medical-market-news-body-118
+  - medical-market-news-body-119
+  - medical-market-news-body-120
+  - medical-market-news-body-121
+  - medical-market-news-body-122
+  - medical-market-news-body-123
+  - medical-market-news-body-124
+  - medical-market-news-body-125
+  - medical-market-news-body-126
+  - medical-market-news-body-127
+  - medical-market-news-body-128
+  - medical-market-news-body-129
+  - medical-market-news-body-130
+  - medical-market-news-body-131
+  - medical-market-news-body-132
+  - medical-market-news-body-133
+  - medical-market-news-body-134
+  - medical-market-news-body-135
+  - medical-market-news-body-136
+  - medical-market-news-body-137
+  - medical-market-news-body-138
+  - medical-market-news-body-139
+  - medical-market-news-body-140
+  - medical-market-news-body-141
+  - medical-market-news-body-142
+  - medical-market-news-body-143
+  - medical-market-news-body-144
+  - medical-market-news-body-145
+  - medical-market-news-body-146
+  - medical-market-news-body-147
+  - medical-market-news-body-148
+  - medical-market-news-body-149
+  - medical-market-news-body-150
+  - medical-market-news-body-151
+  - medical-market-news-body-152
+  - medical-market-news-body-153
+  - medical-market-news-body-154
+  - medical-market-news-body-155
+  - medical-market-news-body-156
+  - medical-market-news-body-157
+  - medical-market-news-body-158
+  - medical-market-news-body-159
+  - medical-market-news-body-160
+  - medical-market-news-body-161
+  - medical-market-news-body-162
+  - medical-market-news-body-163
+  - medical-market-news-body-164
+  - medical-market-news-body-165
+  - medical-market-news-body-166
+  - medical-market-news-body-167
+  - medical-market-news-body-168
+  - medical-market-news-body-169
+  - medical-market-news-body-170
+  - medical-market-news-body-171
+  - medical-market-news-body-172
+  - medical-market-news-body-173
+  - medical-market-news-body-174
+  - medical-market-news-body-175
+  - medical-market-news-body-176
+  - medical-market-news-body-177
+  - medical-market-news-body-178
+  - medical-market-news-body-179
+  - medical-market-news-body-180
+  - medical-market-news-body-181
+  - medical-market-news-body-182
+  - medical-market-news-body-183
+  - medical-market-news-body-184
+  - medical-market-news-body-185
+  - medical-market-news-body-186
+  - medical-market-news-body-187
+  - medical-market-news-body-188
+  - medical-market-news-body-189
+  - medical-market-news-body-190
+  - medical-market-news-body-191
+  - medical-market-news-body-192
+  - medical-market-news-body-193
+  - medical-market-news-body-194
+  - medical-market-news-body-195
+  - medical-market-news-body-196
+  - medical-market-news-body-197
+  - medical-market-news-body-198
+  - medical-market-news-body-199
+  - medical-market-news-body-200
+  - medical-market-news-body-201
+  - medical-market-news-body-202
+  - medical-market-news-body-203
+  - medical-market-news-body-204
+  - medical-market-news-body-205
+  - medical-market-news-body-206
+  - medical-market-news-body-207
+  - medical-market-news-body-208
+  - medical-market-news-body-209
+  - medical-market-news-body-210
+  - medical-market-news-body-211
+  - medical-market-news-body-212
+  - medical-market-news-body-213
+  - medical-market-news-body-214
+  - medical-market-news-body-215
+  - medical-market-news-body-216
+  - medical-market-news-body-217
+  - medical-market-news-body-218
+  - medical-market-news-body-219
   marketReagents:
   - reagent: Actiradol
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Aloxadone
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.2
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ambuzol
     enabled: false
     difficulty: Hard
     basePrice: 2.5
-    minimumPrice: 0.05
     reputationPerUnit: 2.5
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: AmbuzolPlus
     enabled: false
     difficulty: Hard
     basePrice: 2.5
-    minimumPrice: 0.1
     reputationPerUnit: 2.5
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Arcryox
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.2
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Arithrazine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.075
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: AshWalkerBloodTonic
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.025
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Barozine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Bicaridine
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Bruizine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.075
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Celestin
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.25
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Charcoal
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: ChloralHydrate
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Cognizine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.05
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Cryoxadone
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.2
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Cryptobiolin
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Dermaline
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Derytracine
     enabled: false
     basePrice: 0.5
-    minimumPrice: 0.05
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Desoxyephedrine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Dexalin
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: DexalinPlus
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.2
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Diphenhydramine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Diphenylmethylamine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.025
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Doxarubixadone
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.2
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Dylovene
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ephedrine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Epinephrine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.025
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ethyloxyephedrine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.025
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ethylredoxrazine
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.025
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Fragmentin
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.025
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: FriogeliyevaKislota
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Gliomorphin
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.15
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Haloperidol
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.0375
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Happiness
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.25
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Heparin
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Holywater
     enabled: false
     difficulty: Easy
     basePrice: 0.75
-    minimumPrice: 0.025
     reputationPerUnit: 0.75
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Hyronalin
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Illumidol
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.25
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Impedrezene
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Inaprovaline
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Infectizine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.0375
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Insuzine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ipecac
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Karachnocid
     enabled: false
     difficulty: Hard
     basePrice: 2.5
-    minimumPrice: 0.025
     reputationPerUnit: 2.5
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Kelotane
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Lacerinol
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Laughter
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Leporazine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.0375
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Lipozine
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Mannitol
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Mycocline
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Napalm
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Necrosol
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.1
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Necrovir
     enabled: false
     difficulty: Hard
     basePrice: 2.5
-    minimumPrice: 0.025
     reputationPerUnit: 2.5
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Negacordrazine
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: NorepinephricAcid
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.25
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Oculine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.075
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Omnizine
     enabled: false
     basePrice: 1
-    minimumPrice: 0.1
     reputationPerUnit: 20
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Opporozidone
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.025
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Panacemycin
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.2
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Pax
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Phalanximine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: PolypyryliumOligomers
     enabled: false
     basePrice: 0.5
-    minimumPrice: 0.05
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: PotassiumIodide
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Psicodine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.0375
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: PulpedBananaPeel
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Puncturase
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Pyrazine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Saline
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.015
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Sentidol
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Septomycin
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Siderlac
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.025
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Sigynate
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: SpaceDrugs
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.0375
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: SpiderExtract
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: SpiderLurkerSmokeExtract
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: SpiderReaperExtract
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: SpiderWebExtract
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Stellibinin
     enabled: false
     basePrice: 0.5
-    minimumPrice: 0.05
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Synaptizine
     enabled: true
     difficulty: Easy
     basePrice: 1.075
-    minimumPrice: 0.075
     reputationPerUnit: 2
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Synaptodol
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.0375
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: TranexamicAcid
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.0375
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Tricordrazine
     enabled: true
     difficulty: Medium
     basePrice: 2.2
-    minimumPrice: 0.075
     reputationPerUnit: 4
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Ultravasculine
     enabled: false
     difficulty: Medium
     basePrice: 1.5
-    minimumPrice: 0.1
     reputationPerUnit: 1.5
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Vestine
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: Virucidine
     enabled: true
     difficulty: Hard
     basePrice: 4
-    minimumPrice: 0.075
     reputationPerUnit: 6
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   - reagent: ZetaOne
     enabled: false
     basePrice: 0.25
-    minimumPrice: 0.025
     reputationPerUnit: 1
-    saturationVolume: 150
-    recoveryPerMinute: 15
+    saturationVolume: 250
+    recoveryPerMinute: 25
   damages:
   - damageType: Blunt
     canGenerate: true
@@ -1007,6 +1169,16 @@
     entity: Gauze
     cost: 5
     maxCount: 10
+    minimumShopLevel: 1
+  - id: BlueInsulatingTape
+    entity: BlueInsulatingTape
+    cost: 5
+    maxCount: 10
+    minimumShopLevel: 1
+  - id: Credits
+    entity: SpaceCash1000
+    cost: 10
+    maxCount: 100
     minimumShopLevel: 1
   - id: Nanopaste
     entity: Nanopaste
@@ -1088,6 +1260,11 @@
     cost: 150
     maxCount: 3
     minimumShopLevel: 3
+  - id: ToolSelectionBracelet
+    entity: ToolSelectionBracelet
+    cost: 150
+    maxCount: 2
+    minimumShopLevel: 3
   - id: FilledSuperVirusMedkit
     entity: FilledSuperVirusMedkit
     cost: 300
@@ -1108,6 +1285,16 @@
     entity: WeakViralSolutionVial
     cost: 500
     maxCount: 1
+    minimumShopLevel: 4
+  - id: ChemBagOfHolding
+    entity: ChemBagOfHolding
+    cost: 500
+    maxCount: 1
+    minimumShopLevel: 4
+  - id: EmergencyChestInjector
+    entity: EmergencyChestInjector
+    cost: 500
+    maxCount: 2
     minimumShopLevel: 4
   - id: BluespaceBeaker
     entity: BluespaceBeaker

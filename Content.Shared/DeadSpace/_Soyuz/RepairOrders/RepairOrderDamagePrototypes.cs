@@ -76,47 +76,59 @@ public sealed partial class RepairDamageAction
 /// <summary>Configuration validation shared by generation and prototype integration tests.</summary>
 public static class RepairDamageConfiguration
 {
+    private static bool Fraction(float value) => float.IsFinite(value) && value >= 0 && value <= 1;
+
     public static List<string> Validate(IPrototypeManager prototypes)
     {
         var errors = new List<string>();
-        static bool Fraction(float value) => float.IsFinite(value) && value >= 0 && value <= 1;
         foreach (var profile in prototypes.EnumeratePrototypes<RepairDamageProfilePrototype>())
         {
-            if (profile.MinEvents < 1 || profile.MaxEvents < profile.MinEvents || profile.MaxGenerationAttempts < 1 ||
-                profile.MaxEventRolls < profile.MaxEvents || profile.MinChangedRequirements < 1 || profile.MinRemainingFloor < 2 ||
-                profile.MaxOccurrencesPerEvent < 1 || !float.IsFinite(profile.MinimumEventSeparation) || profile.MinimumEventSeparation < 0 ||
-                !Enum.IsDefined(profile.MaxSeverity) || !Fraction(profile.MinDamageFraction) || profile.MinDamageFraction <= 0 ||
-                !Fraction(profile.MaxDamageFraction) || profile.MaxDamageFraction >= 1 || profile.MinDamageFraction > profile.MaxDamageFraction ||
-                !Fraction(profile.MaxRemovedFloorFraction) || !Fraction(profile.MaxRemovedAnchoredEntityFraction) ||
-                profile.Events.Count == 0 || profile.Events.Distinct().Count() != profile.Events.Count)
+            if (!IsValid(profile))
                 errors.Add($"Invalid repair damage profile {profile.ID}.");
             foreach (var id in profile.Events)
                 if (!prototypes.HasIndex(id)) errors.Add($"{profile.ID}: missing damage event {id}.");
         }
         foreach (var ev in prototypes.EnumeratePrototypes<RepairDamageEventPrototype>())
+            errors.AddRange(ValidateEvent(prototypes, ev));
+        return errors;
+    }
+
+    public static bool IsValid(RepairDamageProfilePrototype profile)
+        => profile.MinEvents >= 1 && profile.MaxEvents >= profile.MinEvents && profile.MaxGenerationAttempts >= 1 &&
+           profile.MaxEventRolls >= profile.MaxEvents && profile.MinChangedRequirements >= 1 && profile.MinRemainingFloor >= 2 &&
+           profile.MaxOccurrencesPerEvent >= 1 && float.IsFinite(profile.MinimumEventSeparation) && profile.MinimumEventSeparation >= 0 &&
+           Enum.IsDefined(profile.MaxSeverity) && Fraction(profile.MinDamageFraction) && profile.MinDamageFraction > 0 &&
+           Fraction(profile.MaxDamageFraction) && profile.MaxDamageFraction < 1 && profile.MinDamageFraction <= profile.MaxDamageFraction &&
+           Fraction(profile.MaxRemovedFloorFraction) && Fraction(profile.MaxRemovedAnchoredEntityFraction) &&
+           profile.Events.Count > 0 && profile.Events.Distinct().Count() == profile.Events.Count;
+
+    public static bool HasValidEvents(IPrototypeManager prototypes, RepairDamageProfilePrototype profile)
+        => profile.Events.Any(id => prototypes.TryIndex(id, out var ev) && ValidateEvent(prototypes, ev).Count == 0);
+
+    public static List<string> ValidateEvent(IPrototypeManager prototypes, RepairDamageEventPrototype ev)
+    {
+        var errors = new List<string>();
+        if (!float.IsFinite(ev.Weight) || ev.Weight <= 0 || !Enum.IsDefined(ev.Placement) || !Enum.IsDefined(ev.Severity) ||
+            ev.Stages.Count == 0 || ev.MinCenters < 1 || ev.MaxCenters < ev.MinCenters || ev.MaxOccurrences is <= 0 ||
+            !float.IsFinite(ev.MinimumCenterSeparation) || ev.MinimumCenterSeparation < 0 ||
+            ev.Placement == RepairDamagePlacement.RepairValueTarget && ev.Targets.Count == 0)
+            errors.Add($"Invalid repair damage event {ev.ID}.");
+        foreach (var stage in ev.Stages)
         {
-            if (!float.IsFinite(ev.Weight) || ev.Weight <= 0 || !Enum.IsDefined(ev.Placement) || !Enum.IsDefined(ev.Severity) ||
-                ev.Stages.Count == 0 || ev.MinCenters < 1 || ev.MaxCenters < ev.MinCenters || ev.MaxOccurrences is <= 0 ||
-                !float.IsFinite(ev.MinimumCenterSeparation) || ev.MinimumCenterSeparation < 0 ||
-                ev.Placement == RepairDamagePlacement.RepairValueTarget && ev.Targets.Count == 0)
-                errors.Add($"Invalid repair damage event {ev.ID}.");
-            foreach (var stage in ev.Stages)
+            if (!Enum.IsDefined(stage.Shape) || !Enum.IsDefined(stage.PointShape) || stage.PointShape is RepairDamageShape.MultiPoint or RepairDamageShape.Grid ||
+                stage.MinRadius < 0 || stage.MaxRadius < stage.MinRadius || stage.MinLength < 1 || stage.MaxLength < stage.MinLength ||
+                stage.Operations.Count == 0)
+                errors.Add($"{ev.ID}: invalid shape or empty operations.");
+            foreach (var op in stage.Operations)
             {
-                if (!Enum.IsDefined(stage.Shape) || !Enum.IsDefined(stage.PointShape) || stage.PointShape is RepairDamageShape.MultiPoint or RepairDamageShape.Grid ||
-                    stage.MinRadius < 0 || stage.MaxRadius < stage.MinRadius || stage.MinLength < 1 || stage.MaxLength < stage.MinLength ||
-                    stage.Operations.Count == 0)
-                    errors.Add($"{ev.ID}: invalid shape or empty operations.");
-                foreach (var op in stage.Operations)
-                {
-                    if (!Enum.IsDefined(op.Type) || !Fraction(op.Chance) || op.Chance <= 0 || op.MaxTargets < 1 ||
-                        (op.Type is RepairDamageOperation.RemoveAnchoredEntitiesByRepairValueCategory or RepairDamageOperation.RemoveStructuralEntitiesInArea) && op.Categories.Count == 0 ||
-                        op.ConnectedTargets && (op.Type == RepairDamageOperation.RemoveTile || op.Chance != 1 || op.MaxTargets != int.MaxValue))
-                        errors.Add($"{ev.ID}: invalid operation.");
-                }
+                if (!Enum.IsDefined(op.Type) || !Fraction(op.Chance) || op.Chance <= 0 || op.MaxTargets < 1 ||
+                    (op.Type is RepairDamageOperation.RemoveAnchoredEntitiesByRepairValueCategory or RepairDamageOperation.RemoveStructuralEntitiesInArea) && op.Categories.Count == 0 ||
+                    op.ConnectedTargets && (op.Type == RepairDamageOperation.RemoveTile || op.Chance != 1 || op.MaxTargets != int.MaxValue))
+                    errors.Add($"{ev.ID}: invalid operation.");
             }
-            foreach (var category in ev.Targets.Concat(ev.Stages.SelectMany(s => s.Operations).SelectMany(o => o.Categories)))
-                if (!prototypes.HasIndex(category)) errors.Add($"{ev.ID}: missing repair value category {category}.");
         }
+        foreach (var category in ev.Targets.Concat(ev.Stages.SelectMany(s => s.Operations).SelectMany(o => o.Categories)))
+            if (!prototypes.HasIndex(category)) errors.Add($"{ev.ID}: missing repair value category {category}.");
         return errors;
     }
 }

@@ -53,3 +53,23 @@
   materials:
     Steel: 50
     Plastic: 150
+
+- type: latheRecipe
+  parent: [BaseCircuitboardRecipe, BaseEngineeringComputerRecipeCategory]
+  id: RepairOrdersComputerCircuitboard
+  result: RepairOrdersComputerCircuitboard
+
+- type: latheRecipe
+  parent: [BaseCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: SoyuzMedicalPatientReceiverMachineCircuitboard
+  result: SoyuzMedicalPatientReceiverMachineCircuitboard
+
+- type: latheRecipe
+  parent: [BaseCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: SoyuzMedicalPatientSenderMachineCircuitboard
+  result: SoyuzMedicalPatientSenderMachineCircuitboard
+
+- type: latheRecipe
+  parent: [BaseCircuitboardRecipe, BaseMedicalMachineRecipeCategory]
+  id: SoyuzMedicalReagentOrderMachineCircuitboard
+  result: SoyuzMedicalReagentOrderMachineCircuitboard

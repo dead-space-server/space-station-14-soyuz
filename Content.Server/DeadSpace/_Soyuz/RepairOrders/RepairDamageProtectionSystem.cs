@@ -11,12 +11,14 @@ public sealed class RepairDamageProtectionSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly IComponentFactory _components = default!;
+    [Dependency] private readonly ILogManager _logManager = default!;
+    private readonly HashSet<string> _configurationWarnings = new();
 
     public bool CanProcedurallyDamage(EntityUid uid)
     {
         if (MetaData(uid).EntityPrototype is not { } prototype) return false;
         return CanProcedurallyDamage(prototype) && !_prototypes.EnumeratePrototypes<RepairDamageProtectionPrototype>()
-            .SelectMany(p => p.Components).Any(name => HasComp(uid, _components.GetRegistration(name).Type));
+            .SelectMany(p => p.Components).Any(name => _components.TryGetRegistration(name, out var registration) && HasComp(uid, registration.Type));
     }
 
     public bool CanProcedurallyDamage(EntityPrototype prototype)
@@ -30,14 +32,20 @@ public sealed class RepairDamageProtectionSystem : EntitySystem
 
     public void ValidateConfiguration()
     {
+        void Warn(string diagnostic)
+        {
+            if (_configurationWarnings.Add(diagnostic))
+                _logManager.GetSawmill("repair_orders").Warning(diagnostic);
+        }
+
         foreach (var rule in _prototypes.EnumeratePrototypes<RepairDamageProtectionPrototype>())
         {
             foreach (var id in rule.Entities)
-                if (!_prototypes.HasIndex(id)) throw new InvalidOperationException($"{rule.ID}: unknown protected prototype {id}.");
+                if (!_prototypes.HasIndex(id)) Warn($"{rule.ID}: unknown protected prototype {id}; entry ignored.");
             foreach (var id in rule.Parents)
-                if (!_prototypes.HasMapping<EntityPrototype>(id.Id)) throw new InvalidOperationException($"{rule.ID}: unknown protected family {id}.");
+                if (!_prototypes.HasMapping<EntityPrototype>(id.Id)) Warn($"{rule.ID}: unknown protected family {id}; entry ignored.");
             foreach (var name in rule.Components)
-                if (!_components.TryGetRegistration(name, out _)) throw new InvalidOperationException($"{rule.ID}: unknown protection component {name}.");
+                if (!_components.TryGetRegistration(name, out _)) Warn($"{rule.ID}: unknown protection component {name}; entry ignored.");
         }
     }
 }

@@ -18,6 +18,13 @@ public sealed class RepairOrderShuttleControlSystem : EntitySystem
 
     private void OnShuttleControlAttempt(ref ShuttleControlAttemptEvent args)
     {
+        if (HasComp<RepairOrderCleanupComponent>(args.GridUid))
+        {
+            args.Cancelled = true;
+            args.Reason = Loc.GetString("repair-orders-shuttle-controls-locked");
+            return;
+        }
+
         var query = EntityQueryEnumerator<RepairOrderStationComponent>();
         while (query.MoveNext(out _, out var station))
         {

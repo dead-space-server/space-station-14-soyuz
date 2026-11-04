@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Created by Ezio50. Bracelet based on vgstation13 wristwatch: https://github.com/vgstation-coders/vgstation13/blob/223bf37a7386249ecf1fe425ca8cef25821ca9d7/icons/obj/watches/wristwatch.dmi and clothing_accessories.dmi at that commit. Injector based on tgstation pAI at https://github.com/tgstation/tgstation/commit/9ddb8cf084e292571d4e9c79745db25befbd82fe. Equipped injector based on the Dead Space body camera by ravanesus (discord).",
+  "size": { "x": 32, "y": 32 },
+  "states": [
+    { "name": "injector" },
+    { "name": "injector-ready" },
+    { "name": "injector-empty" },
+    { "name": "bracelet" },
+    { "name": "equipped-injector", "directions": 4 },
+    { "name": "equipped-bracelet", "directions": 4 },
+    { "name": "injector-inhand-left", "directions": 4 },
+    { "name": "injector-inhand-right", "directions": 4 },
+    { "name": "bracelet-inhand-left", "directions": 4 },
+    { "name": "bracelet-inhand-right", "directions": 4 }
+  ]
+}

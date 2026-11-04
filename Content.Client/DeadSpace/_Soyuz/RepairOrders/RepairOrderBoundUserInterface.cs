@@ -22,6 +22,7 @@ public sealed class RepairOrderBoundUserInterface : BoundUserInterface
         _window = new RepairOrderWindow(draft);
         _window.OnAccept += runtimeId => SendMessage(new RepairOrderAcceptMessage(runtimeId));
         _window.OnComplete += (runtimeId, allowIncomplete) => SendMessage(new RepairOrderCompleteMessage(runtimeId, allowIncomplete));
+        _window.OnRetain += (runtimeId, allowIncomplete, price) => SendMessage(new RepairOrderCompleteMessage(runtimeId, allowIncomplete, retain: true, expectedRetentionCost: price));
         _window.OnPrintReport += runtimeId => SendMessage(new RepairOrderPrintReportMessage(runtimeId));
         _window.OnShopPurchase += (requestId, lines) => SendMessage(new RepairOrderShopPurchaseMessage(requestId, lines));
         _window.OnClose += Close;

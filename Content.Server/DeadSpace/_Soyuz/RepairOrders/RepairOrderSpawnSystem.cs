@@ -38,6 +38,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
     private const int PlacementAttempts = 20;
     private static readonly ProtoId<SourcePortPrototype> DockStatusPort = "DockStatus";
     private static readonly ProtoId<SinkPortPrototype> RepairOrderDockPort = "RepairOrderDock";
+    private static readonly ProtoId<RepairDamageProfilePrototype> FallbackDamageProfile = "RepairDamageLight";
 
     [Dependency] private readonly ILogManager _logManager = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
@@ -130,8 +131,19 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             loadedGridUid = damagedGrid.Owner;
             _metaData.SetEntityName(loadedGridUid, Loc.GetString(order.ObjectName));
             stageFailure = RepairOrderSpawnFailure.DamageFailed;
-            var profile = _prototypes.Index(order.DamageProfile);
-            var snapshot = _damage.Snapshot(damagedGrid, order);
+            if (!_prototypes.TryIndex(order.DamageProfile, out var profile) || !RepairDamageConfiguration.IsValid(profile) ||
+                !RepairDamageConfiguration.HasValidEvents(_prototypes, profile))
+            {
+                _sawmill.Warning($"{order.ID}: missing or invalid damage profile {order.DamageProfile}; trying {FallbackDamageProfile}.");
+                if (!_prototypes.TryIndex(FallbackDamageProfile, out profile) || !RepairDamageConfiguration.IsValid(profile) ||
+                    !RepairDamageConfiguration.HasValidEvents(_prototypes, profile))
+                {
+                    failure = RepairOrderSpawnFailure.DamageFailed;
+                    return false;
+                }
+            }
+            var values = _validation.GetValueCatalog();
+            var snapshot = _damage.Snapshot(damagedGrid, order, values);
             if (!_damage.TryGeneratePlan(snapshot, profile, offer.DamageSeed, out var plan, out var rejection))
             {
                 failure = RepairOrderSpawnFailure.DamageFailed;
@@ -141,7 +153,7 @@ public sealed class RepairOrderSpawnSystem : EntitySystem
             _damage.ApplyPlan(damagedGrid, snapshot, profile, plan);
             stageFailure = RepairOrderSpawnFailure.PrepareFailed;
             if (!_validation.TryPrepareSession(stationUid.Value, offer.RuntimeId, offer.Prototype,
-                    damagedGrid.Owner, out preparedActive))
+                    damagedGrid.Owner, out preparedActive, values))
             {
                 failure = RepairOrderSpawnFailure.PrepareFailed;
                 return false;

@@ -25,6 +25,7 @@
     - Tie
     - Medal
     - Camera
+    - EmergencyInjector # DS14-Soyuz
 #    - Patch
 #    - Armband
 
@@ -36,6 +37,7 @@
   - type: UniformAccessoryHolder
     allowedCategories:
     - Wristwatch
+    - ToolBracelet # DS14-Soyuz
 
 #- type: entity
 #  abstract: true

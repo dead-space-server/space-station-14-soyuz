@@ -6,7 +6,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Parts/core.rsi
     state: medium
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -18,7 +18,7 @@
   icon:
     sprite: _DeadSpace/Structures/Machines/Computers.rsi
     state: law_board_configurator_console
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -33,7 +33,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Research/backpack.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 15000
   recipeUnlocks:
@@ -52,7 +52,7 @@
   icon:
     sprite: _DeadSpace/RIGs/Parts/core.rsi
     state: adv
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -64,7 +64,7 @@
   icon:
     sprite: _DeadSpace/Clothing/Shoes/Boots/super_mag_boots.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 20000
   recipeUnlocks:
@@ -76,7 +76,7 @@
   icon:
     sprite: Clothing/Back/Specific/harmpack.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -91,7 +91,7 @@
   icon:
     sprite: Clothing/Hands/Gloves/powerglove.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -103,7 +103,7 @@
   icon:
     sprite: _DeadSpace/Objects/Fun/hand_teleporter.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 3
   cost: 20000
   recipeUnlocks:

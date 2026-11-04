@@ -5,7 +5,7 @@
   description: Используется для создания самых продвинутых оружейных технологий СССП.
   components:
   - type: Sprite
-    sprite: Structures/Machines/techfab.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
     layers:
     - state: icon
       map: ["enum.LatheVisualLayers.IsRunning"]
@@ -23,21 +23,339 @@
     idleState: icon
     runningState: icon
     dynamicPacks:
-    - SecurityAmmoTungsten
-    - ProcessingTungsten
+    # Security: Tier 1
+    - PistolsMKWeapons
+    - DraconicMunitions
+    - NonlethalAmmunition
+    - UraniumMunitions
+    - AdvancedRiotControl
+    - ExplosiveTechnology
+    # Security: Tier 2
+    - SilverAmmo
+    - Implanters
+    - ArmedTechFab
+    - PosketDefenseWeaponry
     - BallisticsShotguns
     - BallisticsAutomaticWeapons
+    - SecurityAmmoTungsten
     - SecurityMagazine
+    - SecurityPoliceBetaTechnology
+    - ShotgunsWeapons
+    - RiflesWeapons
+    - DrozdWeapons
+    - ConcentratedPhotonWeaponry
+    - RIGSecurity
+    - ClothingEyesGlassesThermalVisorExperimentalTech
+    - ConcentratedLaserWeaponry
+    - BasicShuttleArmament
+    - SpecialMeans
+    - SecurityTurretsTechnology
+    - SecurityBorgModulesTierTwo
+    # Security: Tier 3
     - AdvancedBallisticsShotguns
     - AdvancedBallisticsAutomaticWeapons
+    - AdvancedShotgunMagazine
     - AdvancedSecurityMagazine
     - BallisticsLargeCaliberWeapons
-    - PosketDefenseWeaponry
-    - AdvancedShotgunMagazine
-    - AdvancedRiotControl
+    - RIGSecurityAdvanced
+    - MagmiteArsenalTech
+    - ClothingHandsGlovesArkalyseTech
+    - ShotgunMagnum
+    - PortableMicrofusionWeaponry
+    - AdvancedShuttleWeapon
+    - SecurityBorgModulesTierThree
+    - BluespaceTimeManipulation
+    - ProcessingTungsten
   - type: MaterialStorage
     whitelist:
       tags:
         - Sheet
         - RawMaterial
         - Ingot
+
+- type: entity
+  id: SoyuzRNDProtolathe
+  parent: Protolathe
+  name: исследовательский протолат
+  description: Converts raw materials into advanced items.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: sci
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Machine
+    board: ProtolatheMachineCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    dynamicPacks:
+    - ScienceEquipment
+    - ScienceExplosives
+    - ScienceClothing
+    - ScienceWeapons
+    - Equipment
+    - NightVisionTech
+    - LanguageImplanters
+    # RND: Tier 1
+    - MediumCore
+    - LawBoardConfiguratorTech
+    - BasicRobotics
+    - BasicAnomalousResearch
+    - BasicXenoArcheology
+    - AlternativeResearch
+    - MagnetsTech
+    - AnomalyCoreHarnessing
+    - MechanicalCompression
+    - CritterMechs
+    # RND: Tier 2
+    - ProcessingTungsten
+    - RIGResearch
+    - AdvancedCore
+    - ClothingShoesBootsMagSuperTech
+    - DualWieldingTechnology
+    - AppHubSoftwareTech
+    - AbnormalArtifactManipulation
+    - AdvancedAnomalyResearch
+    - DeterrenceTechnologies
+    - GravityManipulation
+    - HONKMech
+    - LanguageImplants
+    # RND: Tier 3
+    - ClothingHandsGlovesPowergloveActiveTech
+    - HandTeleporterResearchTech
+    - QuantumLeaping
+    - BluespaceStorage
+    - QuantumFiberWeaving
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons
+
+- type: entity
+  id: SoyuzEngineeringProtolathe
+  parent: Protolathe
+  name: инженерный протолат
+  description: Converts raw materials into advanced items.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: engi
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Machine
+    board: ProtolatheMachineCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - BlueInsulatingTapeStatic
+    dynamicPacks:
+    - AdvancedTools
+    - PowerCells
+    - AtmosTools
+    - EngineeringWeapons
+    # Engineering: Tier 1
+    - RIGEngineer
+    - AdvancedPowercells
+    - IndustrialEngineering
+    - PowerGeneration
+    - AtmosphericTech
+    # Engineering: Tier 2
+    - PlastitanCreate
+    - Shuttlecraft
+    - AdvancedAtmospherics
+    - AdvancedToolsTechnology
+    - FauxAstroTiles
+    # Engineering: Tier 3
+    - IndustrialGasMining
+    - OptimizedMicrogalvanism
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons
+
+- type: entity
+  id: SoyuzServiceProtolathe
+  parent: Protolathe
+  name: протолат сервисного отдела
+  description: Converts raw materials into advanced items.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: service
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Machine
+    board: ProtolatheMachineCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - SoyuzBotanyProtolatheStatic
+    dynamicPacks:
+    - Janitor
+    - Instruments
+    # Service: Tier 1
+    - HolopadHandheldTech
+    - RIGEVA
+    - VehicleJanicartTech
+    - Hydroponics
+    - AudioVisualCommunication
+    - AdvancedEntertainment
+    - MeatManipulation
+    - PolaroidCamera
+    # Service: Tier 2
+    - AdvancedCleaning
+    - AdvancedSpray
+    - PushHorn
+    # Service: Tier 3
+    - PinpointerUniversalTech
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons
+
+- type: entity
+  id: SoyuzCargoProtolathe
+  parent: Protolathe
+  name: протолат почты
+  description: Converts raw materials into advanced items.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
+    snapCardinals: true
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: cargo
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Machine
+    board: ProtolatheMachineCircuitboard
+  - type: Lathe
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    dynamicPacks:
+    - Mining
+    - Vehicle
+    # Cargo: Tier 1
+    - Clarke
+    - SalvageEquipment
+    - SpaceScanning
+    - RipleyAPLU
+    - SalvageWeapons
+    # Cargo: Tier 2
+    - QuadBikeTech
+    - MassExcavation
+    - MechanizedTreatment
+    - BluespaceCargoTransport
+    # Cargo: Tier 3
+    - RIGSalvage
+    - HoverbikeTech
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons
+
+- type: entity
+  parent: Protolathe
+  id: SoyuzMedicalProtolathe
+  name: медицинский протолат
+  description: Converts raw materials into advanced items.
+  components:
+  - type: Machine
+    board: ProtolatheMachineCircuitboard
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: ["enum.LatheVisualLayers.IsRunning"]
+    - state: med
+    - state: unlit
+      shader: unshaded
+      map: ["enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      visible: false
+  - type: Lathe
+    idleState: icon
+    runningState: icon
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
+    staticPacks:
+    - ChemistryStatic
+    - SurgeryStatic
+    dynamicPacks:
+    - Chemistry
+    - MedicalDynamic
+    # Medical: Tier 1
+    - BiochemicalStasis
+    # Medical: Tier 2
+    - ExperimentalCloning
+    - HoldingBags
+    - CompactDefibrillatorTechnology
+    - HUD
+    # Medical: Tier 3
+    - BluespaceChemistry
+    - LauncherSyringe
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - SecurityAmmo
+    - SecurityExplosives
+    - SecurityEquipment
+    - SecurityWeapons

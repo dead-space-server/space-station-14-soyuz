@@ -32,9 +32,9 @@ public sealed class StationPowerTests
         "Cog",
         "Convex",
         "Core",
-        // "CorvaxAstra", // DS14-Soyuz disabled
-        // "CorvaxAvrite", // DS14-Soyuz disabled
-        // "CorvaxDelta", // DS14-Soyuz disabled
+        "CorvaxAstra",
+        "CorvaxAvrite",
+        "CorvaxDelta",
         // "CorvaxPaper", // APC overloaded
         "CorvaxSilly",
         // "CorvaxSpectrum", // DS14-Soyuz disabled

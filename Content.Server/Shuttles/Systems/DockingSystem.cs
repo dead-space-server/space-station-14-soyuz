@@ -497,6 +497,7 @@ namespace Content.Server.Shuttles.Systems
                 return;
             }
 
+            _console.NoteShuttleControl(args.Actor, uid); //DS-14
             Dock((ourDock.Value, ourDockComp), (targetDock.Value, targetDockComp));
         }
 

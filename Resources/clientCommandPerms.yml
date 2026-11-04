@@ -76,6 +76,7 @@
     - dumpentities
     - showwallmounts
     - showaccessreaders
+    - showdevicelinks # DS14
     - quickinspect
 
 - Flags: MAPPING
@@ -88,6 +89,8 @@
     - toggledecals
     - showwallmounts
     - showaccessreaders
+    - showinvisibletiles # DS14
+    - showdevicelinks # DS14
 
 - Flags: QUERY
   Commands:
@@ -103,6 +106,8 @@
 - Flags: ADMIN
   Commands:
     - gamerulesui
+    - showinvisibletiles
+    - showdevicelinks
 
 - Flags: SERVER
   Commands:

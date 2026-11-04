@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Botany.Components;
-using Content.Shared.Botany.Events; // DS14-Soyuz
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;
@@ -25,7 +24,6 @@ public sealed partial class PlantTraySystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<PlantTrayComponent, PlantAnalyzerAttemptEvent>(OnPlantAnalyzerAttempt); // DS14-Soyuz
 
         SubscribeLocalEvent<PlantTrayComponent, ExaminedEvent>(OnExamine);
         SubscribeLocalEvent<PlantTrayComponent, SolutionTransferredEvent>(OnSolutionTransferred);
@@ -56,24 +54,24 @@ public sealed partial class PlantTraySystem : EntitySystem
 
         using (args.PushGroup(nameof(PlantTrayComponent)))
         {
-            // DS14-Soyuz start
             if (!TryGetPlant(ent.AsNullable(), out var plantUid))
             {
                 args.PushMarkup(Loc.GetString("tray-component-nothing-planted-message"));
+                if (_dataQuery.TryComp(plantUid, out var plantData)) // DS14
+                {
+                    var name = Loc.GetString(plantData.Name);
+                    args.PushMarkup(Loc.GetString("plant-component-something-already-growing-message", ("seedName", name)));
+                }
             }
-            else if (_dataQuery.TryComp(plantUid, out var plantData))
-            {
-                var name = Loc.GetString(plantData.Name);
-                args.PushMarkup(Loc.GetString("plant-component-something-already-growing-message", ("seedName", name)));
-            }
-            // DS14-Soyuz end
 
             args.PushMarkup(Loc.GetString("tray-component-water-level-message",
                 ("waterLevel", (int)ent.Comp.WaterLevel)));
             args.PushMarkup(Loc.GetString("tray-component-nutrient-level-message",
                 ("nutritionLevel", (int)ent.Comp.NutritionLevel)));
 
-            args.PushMarkup(GetTrayWarningsMarkup(ent.AsNullable())); // DS14-Soyuz: includes plant warnings; separate call removed.
+            args.PushMarkup(GetTrayWarningsMarkup(ent.AsNullable()));
+            if (plantUid != null && ent.Comp.DrawWarnings)
+                args.PushMarkup(_plant.GetPlantWarningsMarkup(plantUid.Value));
         }
     }
 
@@ -127,8 +125,8 @@ public sealed partial class PlantTraySystem : EntitySystem
         if (!_solutionContainer.ResolveSolution(trayUid, trayComp.SoilSolutionName, ref trayComp.SoilSolution, out var solution))
             return;
 
-        // DS14-Soyuz start: reagents must replenish an empty tray as well.
-        TryGetPlant(ent, out var plantUid);
+        if (!TryGetPlant(ent, out var plantUid))
+            return;
 
         if (solution.Volume <= 0)
             return;
@@ -139,10 +137,8 @@ public sealed partial class PlantTraySystem : EntitySystem
         {
             var reagentProto = _prototypeManager.Index<ReagentPrototype>(entry.Reagent.Prototype); // DS14 - current engine has no EntitySystem.ProtoMan shortcut.
             _entityEffects.ApplyEffects(trayUid, [.. reagentProto.PlantMetabolisms], entry.Quantity.Float());
-            if (plantUid is { } plant)
-                _entityEffects.ApplyEffects(plant, [.. reagentProto.PlantMetabolisms], entry.Quantity.Float());
+            _entityEffects.ApplyEffects(plantUid.Value, [.. reagentProto.PlantMetabolisms], entry.Quantity.Float());
         }
-        // DS14-Soyuz end
 
         _solutionContainer.RemoveEachReagent(trayComp.SoilSolution.Value, FixedPoint2.New(1));
     }
@@ -337,21 +333,6 @@ public sealed partial class PlantTraySystem : EntitySystem
 
         if (GetPestThreshold(ent))
             markup.Add(Loc.GetString("tray-component-pest-high-level-warning"));
-
-        // DS14-Soyuz start
-        if (ent.Comp.DrawWarnings && TryGetPlant(ent, out var plantUid) &&
-            TryComp<PlantHolderComponent>(plantUid.Value, out var holder))
-        {
-            if (holder.ImproperHeat)
-                markup.Add(Loc.GetString("tray-component-plant-improper-heat-warning"));
-            if (holder.ImproperPressure)
-                markup.Add(Loc.GetString("tray-component-plant-improper-pressure-warning"));
-            if (holder.MissingGas)
-                markup.Add(Loc.GetString("tray-component-plant-missing-gas-warning"));
-            if (_plantHolder.GetHealthThreshold(plantUid.Value))
-                markup.Add(Loc.GetString("tray-component-plant-health-warning"));
-        }
-        // DS14-Soyuz end
 
         return string.Join("\n", markup);
     }

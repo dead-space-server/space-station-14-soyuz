@@ -80,17 +80,9 @@ namespace Content.IntegrationTests.Tests
             "/Maps/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
+            "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
-            // DS14-Soyuz-start
-            "/Maps/_Soyuz/centcomm.yml",
-            "/Maps/_Soyuz/S1_GeneralStaff.yml",
-            "/Maps/_Soyuz/generalstaff.yml",
-            "/Maps/_Soyuz/Shuttles/**",
-            "/Maps/_Soyuz/Shuttles/Pilot/**",
-            "/Maps/_Soyuz/Shuttles/GenStaff/**",
-            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -115,17 +107,17 @@ namespace Content.IntegrationTests.Tests
             "Bagel",
             "Barratry",
             "Box",
-            "Cluster", // DS14-Soyuz
+            // "Cluster", // invalid EntityUid reference in Storage
             "Cog",
             "Convex",
             "Core",
-            // "CorvaxAstra", // DS14-Soyuz disabled
-            // "CorvaxAvrite", // DS14-Soyuz disabled
-            // "CorvaxChloris", // DS14-Soyuz disabled
-            // "CorvaxDelta", // DS14-Soyuz disabled
+            "CorvaxAstra",
+            "CorvaxAvrite",
+            "CorvaxChloris",
+            "CorvaxDelta",
             "CorvaxPaper",
             "CorvaxPearl",
-            // "CorvaxGlacier", // DS14-Soyuz disabled
+            "CorvaxGlacier",
             "CorvaxSilly",
             // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
@@ -133,7 +125,8 @@ namespace Content.IntegrationTests.Tests
             "Gate",
             "Ishimura",
             // "Gemini", // map load failure
-            "Loop", // DS14-Soyuz
+            // "Loop", // map load failure
+            // "Loop",
             "Marathon",
             "Meta",
             "Oasis",
@@ -152,9 +145,9 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            // "Aspid", // DS14-Soyuz enabled
-            // "Cluster", // DS14-Soyuz enabled
-            // "Loop", // DS14-Soyuz enabled
+            "Aspid", // remap in progress
+            "Cluster", // invalid EntityUid reference in Storage
+            "Loop", // invalid EntityUid reference in Storage
             "Gemini", // map load failure
         };
         /// <summary>
@@ -166,6 +159,7 @@ namespace Content.IntegrationTests.Tests
             "Boxer",
             "Zookeeper",
             "Lawyer",
+            "IAAOfficer",
         };
         // DS14-end
 

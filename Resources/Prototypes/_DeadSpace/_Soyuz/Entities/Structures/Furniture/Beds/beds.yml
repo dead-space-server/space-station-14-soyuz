@@ -1,18 +1,5 @@
 - type: entity
   parent: Bed
-  id: BedWood
-  name: деревянная кровать
-  description: Удобная деревянная кровать.
-  components:
-  - type: Sprite
-    sprite: _DeadSpace/_Soyuz/Structures/Furniture/Beds/bed.rsi
-    state: bed-WOOD
-  - type: Construction
-    graph: bed
-    node: bedwood
-
-- type: entity
-  parent: Bed
   id: BedGold
   name: золотая кровать
   description: Удобная золотая кровать.

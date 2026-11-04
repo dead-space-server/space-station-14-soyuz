@@ -74,16 +74,16 @@ public sealed partial class ShuttleConsoleSystem
             var beaconCoordinates = targetXform.Coordinates;
 
             if (TryGetDockingBeaconTarget(dockingBeacon, out var dockingTarget, out var dockingMap) &&
-                TryConsoleDockFTL(ent, dockingTarget, beaconCoordinates, angle, dockingMap, dockingBeacon))
+                TryConsoleDockFTL(ent, dockingTarget, beaconCoordinates, angle, dockingMap, dockingBeacon, args.Actor)) //DS-14
             {
                 return;
             }
 
-            ConsoleBeaconFallbackFTL(ent, beaconCoordinates, angle, targetXform.MapID, dockingBeacon);
+            ConsoleBeaconFallbackFTL(ent, beaconCoordinates, angle, targetXform.MapID, dockingBeacon, args.Actor); //DS-14
             return;
         }
 
-        ConsoleFTL(ent, targetCoordinates, angle, targetXform.MapID);
+        ConsoleFTL(ent, targetCoordinates, angle, targetXform.MapID, args.Actor); //DS-14
     }
 
     private bool TryGetDockingBeaconTarget(
@@ -125,7 +125,7 @@ public sealed partial class ShuttleConsoleSystem
 
         var targetCoordinates = new EntityCoordinates(mapUid, args.Coordinates.Position);
         var angle = args.Angle.Reduced();
-        ConsoleFTL(entity, targetCoordinates, angle, args.Coordinates.MapId);
+        ConsoleFTL(entity, targetCoordinates, angle, args.Coordinates.MapId, args.Actor); //DS-14
     }
 
     // DS14-Soyuz-start
@@ -179,7 +179,7 @@ public sealed partial class ShuttleConsoleSystem
     /// <summary>
     /// Handles shuttle console FTLs.
     /// </summary>
-    private void ConsoleFTL(Entity<ShuttleConsoleComponent> ent, EntityCoordinates targetCoordinates, Angle targetAngle, MapId targetMap)
+    private void ConsoleFTL(Entity<ShuttleConsoleComponent> ent, EntityCoordinates targetCoordinates, Angle targetAngle, MapId targetMap, EntityUid actor) //DS-14
     {
         var consoleUid = GetDroneConsole(ent.Owner);
 
@@ -201,7 +201,7 @@ public sealed partial class ShuttleConsoleSystem
         // DS14-Soyuz-end
 
         // Check shuttle can FTL to this target.
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, consoleUid.Value)) // DS14
         {
             return;
         }
@@ -219,6 +219,14 @@ public sealed partial class ShuttleConsoleSystem
             return;
         }
 
+        // DS14-start: expedition beacons sit in the middle of a procedural asteroid, so arriving exactly on
+        // one buries the shuttle inside the generated dungeon. Drop into a clear spot around it instead.
+        if (_shuttle.TryGetExpeditionLandingSpot(shuttleUid.Value, targetCoordinates, targetAngle, out var landingCoordinates))
+        {
+            targetCoordinates = landingCoordinates;
+        }
+        // DS14-end
+
         // Client sends the "adjusted" coordinates and we adjust it back to get the actual transform coordinates.
         var adjustedCoordinates = targetCoordinates.Offset(targetAngle.RotateVec(-shuttlePhysics.LocalCenter));
 
@@ -228,6 +236,7 @@ public sealed partial class ShuttleConsoleSystem
         var ev = new ShuttleConsoleFTLTravelStartEvent(ent.Owner);
         RaiseLocalEvent(ref ev);
 
+        NoteShuttleControl(actor, ent.Owner); //DS-14
         _shuttle.FTLToCoordinates(shuttleUid.Value, shuttleComp, adjustedCoordinates, targetAngle);
     }
 
@@ -236,7 +245,8 @@ public sealed partial class ShuttleConsoleSystem
         EntityCoordinates targetCoordinates,
         Angle targetAngle,
         MapId targetMap,
-        FTLDockingBeaconComponent dockingBeacon)
+        FTLDockingBeaconComponent dockingBeacon,
+        EntityUid actor) //DS-14
     {
         var consoleUid = GetDroneConsole(ent.Owner);
 
@@ -254,7 +264,7 @@ public sealed partial class ShuttleConsoleSystem
         if (!_shuttle.CanFTL(shuttleUid.Value, out _))
             return;
 
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, consoleUid.Value)) // DS14
             return;
 
         var tagEv = new FTLTagEvent();
@@ -263,6 +273,7 @@ public sealed partial class ShuttleConsoleSystem
         var ev = new ShuttleConsoleFTLTravelStartEvent(ent.Owner);
         RaiseLocalEvent(ref ev);
 
+        NoteShuttleControl(actor, ent.Owner); //DS-14
         _shuttle.FTLToCoordinates(
             shuttleUid.Value,
             shuttleComp,
@@ -279,7 +290,8 @@ public sealed partial class ShuttleConsoleSystem
         EntityCoordinates fallbackCoordinates,
         Angle targetAngle,
         MapId targetMap,
-        FTLDockingBeaconComponent dockingBeacon)
+        FTLDockingBeaconComponent dockingBeacon,
+        EntityUid actor) //DS-14
     {
         var consoleUid = GetDroneConsole(ent.Owner);
 
@@ -300,12 +312,13 @@ public sealed partial class ShuttleConsoleSystem
         if (!_shuttle.CanFTL(shuttleUid.Value, out _))
             return false;
 
-        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, ent))
+        if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, shuttleUid.Value)) // DS14
             return false;
 
         var ev = new ShuttleConsoleFTLTravelStartEvent(ent.Owner);
         RaiseLocalEvent(ref ev);
 
+        NoteShuttleControl(actor, ent.Owner); //DS-14
         _shuttle.FTLToDock(
             shuttleUid.Value,
             shuttleComp,
@@ -357,4 +370,20 @@ public sealed partial class ShuttleConsoleSystem
                 beacons.RemoveAt(i);
         }
     }
+
+    // DS14-start
+    private List<MapId> GetAllowedFTLMaps(EntityUid shuttleUid, EntityUid consoleUid)
+    {
+        var result = new List<MapId>();
+        var query = AllEntityQuery<MapComponent>();
+
+        while (query.MoveNext(out _, out var map))
+        {
+            if (_shuttle.CanFTLTo(shuttleUid, map.MapId, consoleUid))
+                result.Add(map.MapId);
+        }
+
+        return result;
+    }
+    // DS14-end
 }

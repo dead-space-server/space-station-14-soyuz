@@ -6,6 +6,7 @@
   parent: BaseERTloadoutPrimary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertcases.rsi
     state: kgb
   - type: ThiefUndeterminedBackpack
     possibleSets:
@@ -31,6 +32,7 @@
   parent: BaseERTloadoutSecondary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertboxes.rsi
     state: kgb
   - type: Item
     size: Small

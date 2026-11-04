@@ -141,7 +141,7 @@ public sealed class HealingSystem : EntitySystem
             args.Args.Delay = healing.Delay * GetScaledHealingPenalty(target.Owner, healing.SelfHealPenaltyMultiplier);
     }
 
-    private bool HasDamage(Entity<HealingComponent> healing, Entity<DamageableComponent> target)
+    public bool HasDamage(Entity<HealingComponent> healing, Entity<DamageableComponent> target) // DS14-Soyuz
     {
         // DS14-start
         if (healing.Comp.HealEyeDamage && TryComp<BlindableComponent>(target.Owner, out var blindable) && blindable.EyeDamage > 0)

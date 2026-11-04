@@ -68,6 +68,13 @@ public sealed partial class RepairOrderStationComponent : Component
 
 }
 
+/// <summary>Deferred disposal survives blueprint removal and propagates to split fragments.</summary>
+[RegisterComponent]
+public sealed partial class RepairOrderCleanupComponent : Component
+{
+    public EntityUid Station;
+}
+
 [DataDefinition]
 public sealed partial class AvailableRepairOrder
 {

@@ -292,7 +292,7 @@
     proto: DemonShadowHandProjectile
     capacity: 1
   - type: RechargeBasicEntityAmmo
-    rechargeCooldown: 8
+    rechargeCooldown: 25
     rechargeSound:
       path: /Audio/_DeadSpace/Demons/shadow.ogg
       params:

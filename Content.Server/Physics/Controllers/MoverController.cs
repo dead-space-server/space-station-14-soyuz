@@ -27,6 +27,7 @@ public sealed class MoverController : SharedMoverController
 
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly ShuttleConsoleSystem _shuttleConsole = default!; //DS-14
 
     private Dictionary<EntityUid, (ShuttleComponent, List<(EntityUid, PilotComponent, InputMoverComponent, TransformComponent)>)> _shuttlePilots = new();
 
@@ -449,6 +450,8 @@ public sealed class MoverController : SharedMoverController
         }
 
         pilot.HeldButtons = buttons;
+        if (state) //DS-14
+            _shuttleConsole.NoteShuttleControl(uid, pilot.Console.Value); //DS-14
     }
 
     private static void ApplyTick(PilotComponent component, float fraction)

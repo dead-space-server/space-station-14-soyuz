@@ -322,6 +322,7 @@
     dynamicPacks:
     - EngineeringBoards
     - CargoBoards
+    - BluespaceBoards # DS14
     - MedicalBoards
     - ServiceBoards
     - ScienceBoards

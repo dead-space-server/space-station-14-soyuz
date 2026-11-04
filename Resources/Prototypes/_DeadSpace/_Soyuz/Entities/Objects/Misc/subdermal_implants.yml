@@ -70,3 +70,27 @@
   - type: ComponentInjectorImplant
     targetComponents:
     - type: BibleUser
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: LockdownFreePassImplant
+  name: имплант свободного допуска
+  description: Позволяет на 10 секунд снять дверь с локдауна, чтобы пройти. Не работает в зелёный и синий код.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SubdermalImplant
+    implantAction: ActionLockdownFreePass
+  - type: LockdownFreePassImplant
+    duration: 10
+    disabledAlertLevels:
+    - green
+    - blue
+
+- type: entity
+  parent: BaseSubdermalImplant
+  id: LockdownAccessImplant
+  name: имплант специального допуска
+  description: Вшивается в запястье сущности и даёт доступ к консоли безопасност станции. Ваш личный криптографический ключ прямо у вас в руке.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: LockdownAccessImplant

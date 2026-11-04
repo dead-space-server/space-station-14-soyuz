@@ -1,0 +1,84 @@
+- type: entity
+  parent: BaseComputer
+  id: ComputerLockdown
+  name: консоль безопасности станции
+  description: Позволяет объявить локдаун в отделе или на всей станции. Для работы требуется имплант специального допуска.
+  components:
+  - type: LockdownConsole
+    departments:
+    - LockdownDepartmentCommand
+    - LockdownDepartmentSecurity
+    - LockdownDepartmentMedical
+    - LockdownDepartmentEngineering
+    - LockdownDepartmentScience
+    - LockdownDepartmentCargo
+    - LockdownDepartmentService
+    keyJobs:
+    - Captain
+    - HeadOfSecurity
+    stationCancelJob: Captain
+    warningDelay: 20
+    lockdownDuration: 1800
+    keyConfirmWindow: 10
+    cancelledCooldown: 300
+    successCooldown: 180
+    sections:
+    - id: criminal
+      name: lockdown-section-criminal
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: criminal
+      uiKey: enum.CriminalRecordsConsoleKey.Key
+    # - id: medical
+    #   name: lockdown-section-medical
+    #  icon:
+    #    sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+    #    state: cameras
+    #   uiKey: enum.АпстримаНет(.Key
+    - id: cameras
+      name: lockdown-section-cameras
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: cameras
+      uiKey: enum.SurveillanceCameraMonitorUiKey.Key
+    - id: crew
+      name: lockdown-section-crew
+      icon:
+        sprite: _DeadSpace/_Soyuz/Icons/security_console.rsi
+        state: crew
+      uiKey: enum.CrewMonitoringUIKey.Key
+  - type: ActivatableUI
+    key: enum.LockdownConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.LockdownConsoleUiKey.Key:
+        type: LockdownConsoleBoundUserInterface
+      enum.CriminalRecordsConsoleKey.Key:
+        type: CriminalRecordsConsoleBoundUserInterface
+      enum.SurveillanceCameraMonitorUiKey.Key:
+        type: SurveillanceCameraMonitorBoundUserInterface
+      enum.CrewMonitoringUIKey.Key:
+        type: CrewMonitoringBoundUserInterface
+  - type: Speech
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Common
+  - type: TTS
+    voice: Glados
+  - type: CriminalRecordsConsole
+  - type: CrewMonitoringConsole
+  - type: SurveillanceCameraMonitor
+
+- type: entity
+  id: LockdownDoorHologram
+  name: голограмма локдауна
+  description: Предупреждающая голограмма. Шлюз заблокирован.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Effects/lockdown_hologram.rsi
+    drawdepth: Overdoors
+    noRot: true
+    layers:
+    - state: lockdown
+      shader: unshaded

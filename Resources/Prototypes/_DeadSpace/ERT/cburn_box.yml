@@ -157,6 +157,7 @@
       - id: SCSTMedipen
       - id: SCSTMedipen
       - id: SCSTMedipen
+      - id: EvacZoneTabletSobr # DS14-Soyuz
 
 - type: entity
   name: армейская РПС ОППУ
@@ -232,6 +233,7 @@
       - id: NECROMedipen
       - id: ZetaTwoMedipen
       - id: ZetaTwoMedipen
+      - id: EvacZoneTabletSobr # DS14-Soyuz
 
 - type: entity
   name: армейская РПС ОПНУ
@@ -300,6 +302,7 @@
       - id: GrenadeIncendiary
       - id: ClusterBangFull
       - id: ClusterBangFull
+      - id: EvacZoneTabletSobr # DS14-Soyuz
 
 - type: entity
   name: армейская РПС РХБЗЗ
@@ -368,6 +371,7 @@
       - id: C4
       - id: GrenadeIncendiary
       - id: GrenadeIncendiary
+      - id: EvacZoneTabletSobr # DS14-Soyuz
 
 - type: entity
   name: армейская РПС РХБЗЗ Сьерры

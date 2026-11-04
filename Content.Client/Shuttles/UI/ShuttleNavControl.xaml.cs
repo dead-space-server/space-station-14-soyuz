@@ -13,6 +13,8 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
+using Content.Client.DeadSpace._Soyuz.EvacZones; // DS14-Soyuz
+using Content.Shared.DeadSpace._Soyuz.EvacZones; // DS14-Soyuz
 
 namespace Content.Client.Shuttles.UI;
 
@@ -295,6 +297,15 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         }
 
         DrawSpaceBlips(handle, worldToShuttle, shuttleToView); //DS14
+
+        // DS14-Soyuz-start: зоны эвакуации на сканере масс
+        var evacWorldToView = worldToShuttle * shuttleToView;
+        EvacZoneRadarDrawer.Draw(
+            handle,
+            xform.MapID,
+            worldPoint => Vector2.Transform(worldPoint, evacWorldToView),
+            Math.Max(3f, EvacZoneConstants.Thickness * MinimapScale));
+        // DS14-Soyuz-end
     }
 
     /// <summary>

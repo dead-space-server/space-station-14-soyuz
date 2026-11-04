@@ -75,6 +75,7 @@
     - CriminalRecordsMonitor
     - HandheldCrewMonitor
     - MedkitCombatFilled
+    - EvacZoneTabletSobr # DS14-Soyuz    
 
 ## Red
 - type: job
@@ -145,6 +146,7 @@
     - ERTloadoutRedSecondaryLeader
     - ERTloadoutRedSupport
     - UplinkERTRed
+    - EvacZoneTabletSobr
     # DS14-Soyuz-end
     - BoxCardboardERT
     - PinpointerNuclear
@@ -222,6 +224,7 @@
     - ERTloadoutGammaSecondaryLeader
     - ERTloadoutGammaSupport
     - UplinkERTGamma
+    - EvacZoneTabletSobr
     # DS14-Soyuz-end
     - BoxCardboardERT
     - PinpointerNuclear

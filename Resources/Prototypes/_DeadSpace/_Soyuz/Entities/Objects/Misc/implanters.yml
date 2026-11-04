@@ -46,3 +46,23 @@
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Specific/Medical/holy_implanter.rsi
   - type: Implanter
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: LockdownAccessImplanter
+  name: имплантер
+  suffix: Специальный допуск
+  description: Одноразовый имплантер с имплантом специального допуска.
+  components:
+  - type: Implanter
+    implant: LockdownAccessImplant
+
+- type: entity
+  parent: BaseImplantOnlyImplanter
+  id: LockdownFreePassImplanter
+  name: имплантер
+  suffix: Свободный допуск
+  description: Одноразовый имплантер с имплантом «свободный допуск».
+  components:
+  - type: Implanter
+    implant: LockdownFreePassImplant

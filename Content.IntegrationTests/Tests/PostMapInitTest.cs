@@ -57,14 +57,15 @@ namespace Content.IntegrationTests.Tests
         {
             {"/Maps/Shuttles/ShuttleEvent/honki.yml", ["GoldenBikeHorn", "RubberStampClown"]},
             {"/Maps/Shuttles/ShuttleEvent/syndie_evacpod.yml", ["RubberStampSyndicate"]},
-            // DS14-start: Add our custom maps to whitelist
-            {"/Maps/barratry.yml", ["RubberStampCaptain"]},
-            {"/Maps/cluster.yml", ["RubberStampMime"]},
-            {"/Maps/corvax_pilgrim.yml", ["ClothingHeadHatCatEars", "BoxFolderCentCom"]},
-            {"/Maps/ds_silly.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
-            {"/Maps/gemini.yml", ["RubberStampClown"]},
-            // DS14-end
+            // DS14-Soyuz-start
+            // Special comment for markers (Our maps rarely get remapped as it is and will be added during remapping)
+            {"/Maps/_Soyuz/barratry.yml", ["RubberStampCaptain"]},
+            {"/Maps/_Soyuz/cluster.yml", ["RubberStampMime"]},
+            {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
+            {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
+            {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/S1_deathsquad.yml", ["BoxFolderBlueFilled", "RubberStampCentcomSpecialOperationOfficer", "RubberStampMemeDeny"]},
+            // DS14-Soyuz-end
         };
 
         /// <summary>

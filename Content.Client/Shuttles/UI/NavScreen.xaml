@@ -1,8 +1,11 @@
+<!-- DS14-Soyuz-start -->
 <controls:BoxContainer Visible="False"
               HorizontalExpand="True"
               xmlns:controls="https://spacestation14.io"
               xmlns:ui="clr-namespace:Content.Client.Shuttles.UI"
+              xmlns:collision="clr-namespace:Content.Client.DeadSpace._Soyuz.Shuttles"
               xmlns:controls1="clr-namespace:Content.Client.UserInterface.Controls">
+                <!-- DS14-Soyuz-end -->
                 <ui:ShuttleNavControl Name="NavRadar"
                                  MouseFilter="Stop"
                                  VerticalAlignment="Stretch"
@@ -10,6 +13,7 @@
                                  HorizontalExpand="True"
                                  Margin="5 4 10 5"/>
                 <!-- Nav controls -->
+                <controls:ScrollContainer VerticalExpand="True" HScrollEnabled="False" MinWidth="300" MaxWidth="300"> <!-- DS14-Soyuz -->
                 <controls:BoxContainer Name="RightDisplayNav"
                       VerticalAlignment="Top"
                       HorizontalAlignment="Right"
@@ -131,6 +135,7 @@
                     <controls:Button Name="SignalButton"
                             Text="{controls:Loc 'shuttle-console-signal-toggle'}"
                             TextAlign="Center"/>
+                    <collision:ShuttleCollisionSafetyControl Name="CollisionSafety" Access="Public"/> <!-- DS14-Soyuz -->
                     <!-- Thrusters Config -->
                     <controls1:StripeBack
                         MinSize="48 48"
@@ -165,4 +170,5 @@
                     </controls:BoxContainer> -->
                     <!-- End Thrusters Config -->
                 </controls:BoxContainer>
+                </controls:ScrollContainer> <!-- DS14-Soyuz -->
             </controls:BoxContainer>

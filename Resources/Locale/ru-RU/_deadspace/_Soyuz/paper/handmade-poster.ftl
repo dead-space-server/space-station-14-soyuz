@@ -1,0 +1,16 @@
+ent-HandmadePoster = Плакат
+    .desc = Белый самодельный бумажный плакат
+construction-recipe-handmade-poster = заготовка для плаката
+handmade-poster-drawing-verb = Открыть рисунок
+handmade-poster-drawing-title = Рисунок на плакате
+handmade-poster-drawing-brush = Кисть:
+handmade-poster-drawing-eraser = Ластик
+handmade-poster-drawing-undo = Отменить
+handmade-poster-drawing-clear = Очистить
+handmade-poster-drawing-save = Сохранить рисунок
+handmade-poster-drawing-reload = Сбросить новые изменения
+handmade-poster-drawing-readonly = Редактирование недоступно.
+handmade-poster-drawing-conflict = Рисунок изменён другим игроком. Конфликт версий.
+handmade-poster-drawing-wait = Подождите немного перед следующим сохранением.
+handmade-poster-drawing-invalid = Не удалось сохранить: неверный формат рисунка.
+handmade-poster-drawing-saving = Сохранение рисунка…

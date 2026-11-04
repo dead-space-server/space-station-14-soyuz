@@ -1,0 +1,74 @@
+- type: entity
+  parent: BasePaper
+  id: HandmadePoster
+  name: poster
+  description: A white homemade paper poster.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Misc/handmade_poster.rsi
+    noRot: true
+    drawdepth: WallMountedItems
+    layers:
+    - state: blank
+    - map: ["enum.HandmadePosterVisualLayers.Drawing"]
+      visible: false
+  - type: Item
+    size: Normal
+  - type: Transform
+    anchored: true
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Tag
+    tags:
+    - Document
+  - type: ActivatableUI
+    key: enum.HandmadePosterUiKey.Drawing
+    requiresComplex: false
+  - type: WallMount
+    arc: 360
+  - type: HandmadePoster
+  - type: UserInterface
+    interfaces:
+      enum.HandmadePosterUiKey.Drawing:
+        type: HandmadePosterDrawingBoundUserInterface
+  - type: Construction
+    graph: HandmadePoster
+    node: poster
+
+- type: construction
+  id: HandmadePoster
+  name: construction-recipe-handmade-poster
+  graph: HandmadePoster
+  startNode: start
+  targetNode: poster
+  category: construction-category-misc
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+- type: constructionGraph
+  id: HandmadePoster
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: poster
+      steps:
+      - material: Paper
+        amount: 10
+        doAfter: 2
+  - node: poster
+    entity: HandmadePoster
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPaper1
+        amount: 10
+      - !type:DeleteEntity {}
+      steps:
+      - tool: Prying
+        doAfter: 3

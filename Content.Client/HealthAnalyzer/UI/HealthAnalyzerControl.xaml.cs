@@ -239,6 +239,7 @@ public sealed partial class HealthAnalyzerControl : BoxContainer
             var name = _prototypes.TryIndex<ReagentPrototype>(reagent.ReagentId, out var prototype)
                 ? prototype.LocalizedName
                 : reagent.ReagentId;
+            name = reagent.DisplayName ?? name; // DS14-Soyuz
 
             var amount = $"{name} - {reagent.Quantity} {Loc.GetString("health-analyzer-window-reagents-unit")}";
             var escapedAmount = FormattedMessage.EscapeText(amount);

@@ -908,12 +908,12 @@ namespace Content.Shared.Chemistry.Components
                 if (first)
                 {
                     first = false;
-                    mixColor = proto.SubstanceColor;
+                    mixColor = reagent.GetColor(proto); // DS14-Soyuz
                     continue;
                 }
 
                 var interpolateValue = quantity.Float() / runningTotalQuantity.Float();
-                mixColor = Color.InterpolateBetween(mixColor, proto.SubstanceColor, interpolateValue);
+                mixColor = Color.InterpolateBetween(mixColor, reagent.GetColor(proto), interpolateValue); // DS14-Soyuz
             }
             return mixColor;
         }
@@ -951,12 +951,12 @@ namespace Content.Shared.Chemistry.Components
                 if (first)
                 {
                     first = false;
-                    mixColor = proto.SubstanceColor;
+                    mixColor = reagent.GetColor(proto); // DS14-Soyuz
                     continue;
                 }
 
                 var interpolateValue = quantity.Float() / runningTotalQuantity.Float();
-                mixColor = Color.InterpolateBetween(mixColor, proto.SubstanceColor, interpolateValue);
+                mixColor = Color.InterpolateBetween(mixColor, reagent.GetColor(proto), interpolateValue); // DS14-Soyuz
             }
             return mixColor;
         }

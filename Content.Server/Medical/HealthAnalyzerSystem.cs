@@ -3,6 +3,7 @@ using Content.Shared.Body.Components;
 // DS14-start
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Content.Shared.DeadSpace.Cloning;
 using Content.Shared.EntityConditions.Conditions;
 using Content.Shared.EntityEffects.Effects.Damage;
@@ -11,6 +12,7 @@ using Robust.Shared.Prototypes;
 using Content.Shared.Paper;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.DeadSpace.Medical;
+using System.Linq; // DS14-Soyuz
 using System.Text;
 using Content.Shared.Damage.Prototypes;
 // DS14-end
@@ -321,10 +323,16 @@ public sealed class HealthAnalyzerSystem : EntitySystem
             if (quantity <= FixedPoint2.Zero || IsBloodReagent(reagentId.Prototype, bloodstream))
                 continue;
 
+            // DS14-Soyuz start
+            var displayName = reagentId.Prototype == PharmaceuticalData.PrototypeId &&
+                reagentId.Data?.OfType<PharmaceuticalData>().FirstOrDefault() is { Registered: true } medicine
+                ? medicine.Label : null;
+            // DS14-Soyuz end
             result.Add(new HealthAnalyzerReagentEntry(
                 reagentId.Prototype,
                 quantity,
-                IsOverdose(reagentId.Prototype, quantity)));
+                IsOverdose(reagentId.Prototype, quantity),
+                displayName)); // DS14-Soyuz
         }
 
         result.Sort((left, right) => right.Quantity.CompareTo(left.Quantity));
@@ -469,6 +477,7 @@ public sealed class HealthAnalyzerSystem : EntitySystem
                     reagentName = reagentProto.LocalizedName;
                 }
 
+                reagentName = entry.DisplayName ?? reagentName; // DS14-Soyuz
                 sb.AppendLine($"• {reagentName}: {entry.Quantity}u");
             }
         }

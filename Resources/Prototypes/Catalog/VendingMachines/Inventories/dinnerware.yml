@@ -31,6 +31,20 @@
     ADTDrinkTeapot: 1 # ADT
     MortarAndPestle: 1
     HandheldJuicer: 1
+    KitchenCookingPan: 2
+    KitchenSautePan: 1
+    KitchenCookingPot: 2
+    KitchenSaucepan: 1
+    KitchenWok: 1
+    KitchenKettle: 1
+    KitchenCoffeePot: 1
+    KitchenBakingSheet: 2
+    KitchenBreadTin: 1
+    KitchenPieTin: 1
+    KitchenMuffinTin: 1
+    KitchenDeepDish: 1
+    KitchenPizzaTray: 1
+    KitchenClayPot: 1
   contrabandInventory:
     CandyBowl: 1
     BarSpoon: 2

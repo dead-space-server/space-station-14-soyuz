@@ -15,6 +15,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Content.Shared.Destructible;
+using Content.Shared.DeadSpace._Soyuz.Nutrition; // DS14-Soyuz
 
 namespace Content.Server.Nutrition.EntitySystems;
 
@@ -112,6 +113,9 @@ public sealed class SliceableFoodSystem : EntitySystem
             return EntityUid.Invalid;
 
         var sliceUid = Spawn(entity.Comp2.Slice, _transform.GetMapCoordinates((entity, entity.Comp1)));
+        // DS14-Soyuz-start
+        EntityManager.System<SoyFoodSystem>().Inherit(entity.Owner, sliceUid);
+        // DS14-Soyuz-end
 
         // try putting the slice into the container if the food being sliced is in a container!
         // this lets you do things like slice a pizza up inside of a hot food cart without making a food-everywhere mess

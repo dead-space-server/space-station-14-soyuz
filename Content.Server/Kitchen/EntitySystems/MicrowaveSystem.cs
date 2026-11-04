@@ -42,6 +42,7 @@ using Content.Shared.Chat;
 using Content.Shared.Damage.Components;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Temperature.Components;
+using Content.Shared.DeadSpace._Soyuz.Nutrition; // DS14-Soyuz
 
 namespace Content.Server.Kitchen.EntitySystems
 {
@@ -70,6 +71,7 @@ namespace Content.Server.Kitchen.EntitySystems
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly SharedSuicideSystem _suicide = default!;
         [Dependency] private readonly SharedPowerStateSystem _powerState = default!;
+        [Dependency] private readonly SoyFoodSystem _soyFood = default!; // DS14-Soyuz
 
         private static readonly EntProtoId MalfunctionSpark = "Spark";
 
@@ -198,8 +200,34 @@ namespace Content.Server.Kitchen.EntitySystems
             }
         }
 
-        private void SubtractContents(MicrowaveComponent component, FoodRecipePrototype recipe)
+        // DS14-Soyuz-start
+        private string? GetIngredientId(EntityUid item)
         {
+            return TryComp<StackComponent>(item, out var stack)
+                ? _prototype.Index(stack.StackTypeId).Spawn
+                : _soyFood.GetIngredientId(item);
+        }
+
+        private bool TrySubtractContents(MicrowaveComponent component, FoodRecipePrototype recipe, out SoyFoodOrigin origin)
+        {
+            origin = default;
+            // Recheck every portion before consuming anything. Contents may have changed during cooking.
+            var solids = new Dictionary<string, int>();
+            var reagents = new Dictionary<string, FixedPoint2>();
+            foreach (var item in component.Storage.ContainedEntities)
+            {
+                if (TerminatingOrDeleted(item) || EntityManager.IsQueuedForDeletion(item))
+                    return false;
+                if (GetIngredientId(item) is { } id)
+                    solids[id] = solids.GetValueOrDefault(id) + (TryComp<StackComponent>(item, out var stack) ? stack.Count : 1);
+                if (!_solutionContainer.TryGetDrainableSolution(item, out _, out var solution))
+                    continue;
+                foreach (var (reagent, quantity) in solution.Contents)
+                    reagents[reagent.Prototype] = reagents.GetValueOrDefault(reagent.Prototype) + quantity;
+            }
+            if (CanSatisfyRecipe(component, recipe, solids, reagents).Item2 <= 0)
+                return false;
+
             // TODO Turn recipe.IngredientsReagents into a ReagentQuantity[]
 
             var totalReagentsToRemove = new Dictionary<string, FixedPoint2>(recipe.IngredientsReagents);
@@ -239,29 +267,13 @@ namespace Content.Server.Kitchen.EntitySystems
                 {
                     foreach (var item in component.Storage.ContainedEntities)
                     {
-                        string? itemID = null;
-
-                        // If an entity has a stack component, use the stacktype instead of prototype id
-                        if (TryComp<StackComponent>(item, out var stackComp))
-                        {
-                            itemID = _prototype.Index(stackComp.StackTypeId).Spawn;
-                        }
-                        else
-                        {
-                            var metaData = MetaData(item);
-                            if (metaData.EntityPrototype == null)
-                            {
-                                continue;
-                            }
-                            itemID = metaData.EntityPrototype.ID;
-                        }
-
-                        if (itemID != recipeSolid.Key)
+                        if (GetIngredientId(item) != recipeSolid.Key)
                         {
                             continue;
                         }
 
-                        if (stackComp is not null)
+                        origin = origin.Merge(_soyFood.GetOrigin(item));
+                        if (TryComp<StackComponent>(item, out var stackComp))
                         {
                             if (stackComp.Count == 1)
                             {
@@ -279,7 +291,9 @@ namespace Content.Server.Kitchen.EntitySystems
                     }
                 }
             }
+            return true;
         }
+        // DS14-Soyuz-end
 
         private void OnInit(Entity<MicrowaveComponent> ent, ref ComponentInit args)
         {
@@ -586,9 +600,9 @@ namespace Content.Server.Kitchen.EntitySystems
                 }
                 else
                 {
-                    var metaData = MetaData(item); //this simply begs for cooking refactor
-                    if (metaData.EntityPrototype is not null)
-                        solidID = metaData.EntityPrototype.ID;
+                    // DS14-Soyuz-start
+                    solidID = _soyFood.GetIngredientId(item);
+                    // DS14-Soyuz-end
                 }
 
                 if (solidID is null)
@@ -707,8 +721,12 @@ namespace Content.Server.Kitchen.EntitySystems
                     var coords = Transform(uid).Coordinates;
                     for (var i = 0; i < active.PortionedRecipe.Item2; i++)
                     {
-                        SubtractContents(microwave, active.PortionedRecipe.Item1);
-                        Spawn(active.PortionedRecipe.Item1.Result, coords);
+                        // DS14-Soyuz-start
+                        if (!TrySubtractContents(microwave, active.PortionedRecipe.Item1, out var origin))
+                            break;
+                        var result = Spawn(active.PortionedRecipe.Item1.Result, coords);
+                        _soyFood.Apply(result, origin, true);
+                        // DS14-Soyuz-end
                     }
                 }
 

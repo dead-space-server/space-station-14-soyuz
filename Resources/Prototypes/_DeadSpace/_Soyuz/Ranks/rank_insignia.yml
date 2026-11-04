@@ -1,0 +1,21 @@
+- type: entity
+  abstract: true
+  parent: BaseUniformAccessory
+  id: RankInsigniaBase
+  name: лычки
+  description: Погоны со знаками различия. Показывают звание владельца.
+  components:
+  - type: UniformAccessory
+    category: Rank
+    limit: 1
+    color: "#D4AF37"
+    drawOnItemIcon: false
+    hasIconSprite: false
+  - type: RankInsignia
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Clothing/Accessories/rank_insignia.rsi
+    state: icon
+
+- type: entity
+  parent: RankInsigniaBase
+  id: RankInsigniaDefault

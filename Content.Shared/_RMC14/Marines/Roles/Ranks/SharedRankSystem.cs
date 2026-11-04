@@ -49,6 +49,20 @@ public abstract class SharedRankSystem : EntitySystem
         Dirty(uid, comp);
     }
 
+    // DS14-Soyuz-start
+    /// <summary>
+    ///     Removes a mob's rank (for example when its insignia are taken off or hidden).
+    /// </summary>
+    public void ClearRank(EntityUid uid)
+    {
+        if (!TryComp<RankComponent>(uid, out var comp) || comp.Rank == null)
+            return;
+
+        comp.Rank = null;
+        Dirty(uid, comp);
+    }
+    // DS14-Soyuz-end
+
     /// <summary>
     ///     Gets the rank of a given mob.
     /// </summary>

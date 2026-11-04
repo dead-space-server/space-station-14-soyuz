@@ -580,7 +580,7 @@
 - type: repairReward
   id: RepairOrderRepairCrewRcdReward
   entity: RepairCrewRCD
-  cost: 150
+  cost: 125
   maxCount: 1
   minimumShopLevel: 8
 
@@ -611,6 +611,16 @@
 - type: repairReward
   id: RepairOrderRepairCrewBeltReward
   entity: ClothingBeltRepairCrewFilled
+  shopName: repair-orders-shop-filled-repair-belt
+  shopIcon:
+  - sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew.rsi
+    state: icon
+  - sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew_overlay.rsi
+    state: drill
+  - sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew_overlay.rsi
+    state: jaws
+  - sprite: _DeadSpace/_Soyuz/Clothing/Belt/repair_crew_overlay.rsi
+    state: multitool
   cost: 300
   maxCount: 1
   minimumShopLevel: 8

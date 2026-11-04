@@ -287,6 +287,7 @@ ent-RepairCrewRCD = repair crew RCD
     .desc = An economical rapid construction device with a built-in charge regenerator.
 ent-ClothingBeltRepairCrew = repair crew toolbelt
     .desc = An orange-and-grey toolbelt issued for restoration work aboard damaged stations and shuttles.
+repair-orders-shop-filled-repair-belt = filled repair crew toolbelt
 ent-ClothingBeltRepairCrewFilled = { ent-ClothingBeltRepairCrew }
     .desc = A repair crew toolbelt equipped with a power drill, jaws of life, welding tool, RCD, multitool, holofan projector, gas analyzer and network configurator.
     .suffix = Filled

@@ -442,7 +442,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             validRewards.Add(id);
             var locked = state.ShopLevel < reward.MinimumShopLevel;
             var classified = reward.Classified && locked;
-            var name = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name;
+            var name = classified ? Loc.GetString("repair-orders-shop-classified") : GetShopName(reward, entity);
             if (!name.Contains(search, StringComparison.OrdinalIgnoreCase))
                 continue;
             visibleRewards++;
@@ -474,13 +474,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             }
             else
             {
-                var icon = new EntityPrototypeView
-                {
-                    SetSize = new Vector2(32, 32),
-                    Stretch = SpriteView.StretchMode.Fit,
-                };
-                icon.SetPrototype(entity.ID);
-                content.AddChild(icon);
+                content.AddChild(CreateShopIcon(reward, entity, false, 32));
             }
 
             var details = new BoxContainer
@@ -495,7 +489,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 Text = name,
                 HorizontalExpand = true,
                 ClipText = true,
-                ToolTip = classified ? name : entity.Name + "\n" + entity.Description,
+                ToolTip = classified ? name : name + "\n" + entity.Description,
             });
             var price = new RichTextLabel { HorizontalExpand = true };
             price.SetMessage(classified
@@ -531,7 +525,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             SeparationOverride = 4,
         };
         card.AddChild(content);
-        var name = classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name;
+        var name = classified ? Loc.GetString("repair-orders-shop-classified") : GetShopName(reward, entity);
         var preview = new ContainerButton
         {
             HorizontalExpand = true,
@@ -543,7 +537,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
             MouseFilter = MouseFilterMode.Ignore,
             SeparationOverride = 4,
         };
-        image.AddChild(CreateShopIcon(entity, classified, 64));
+        image.AddChild(CreateShopIcon(reward, entity, classified, 64));
         image.AddChild(new Label
         {
             Text = name,
@@ -569,7 +563,10 @@ public sealed partial class RepairOrderWindow : FancyWindow
         return card;
     }
 
-    private Control CreateShopIcon(EntityPrototype entity, bool classified, int size)
+    private static string GetShopName(RepairRewardPrototype reward, EntityPrototype entity)
+        => reward.ShopName is { } name ? Loc.GetString(name) : entity.Name;
+
+    private Control CreateShopIcon(RepairRewardPrototype reward, EntityPrototype entity, bool classified, int size)
     {
         if (classified)
             return new Label
@@ -581,6 +578,27 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 FontColorOverride = Color.Orange,
                 MouseFilter = MouseFilterMode.Ignore,
             };
+
+        if (reward.ShopIcon.Count > 0)
+        {
+            var layers = new Control
+            {
+                SetSize = new Vector2(size, size),
+                HorizontalAlignment = HAlignment.Center,
+                MouseFilter = MouseFilterMode.Ignore,
+            };
+            foreach (var layer in reward.ShopIcon)
+            {
+                layers.AddChild(new TextureRect
+                {
+                    SetSize = new Vector2(size, size),
+                    Texture = _sprite.Frame0(layer),
+                    Stretch = TextureRect.StretchMode.KeepAspectCentered,
+                    MouseFilter = MouseFilterMode.Ignore,
+                });
+            }
+            return layers;
+        }
 
         var icon = new EntityPrototypeView
         {
@@ -708,9 +726,9 @@ public sealed partial class RepairOrderWindow : FancyWindow
         };
         scroll.AddChild(content);
         dialog.ContentsContainer.AddChild(scroll);
-        content.AddChild(CreateShopIcon(entity, classified, 96));
+        content.AddChild(CreateShopIcon(reward, entity, classified, 96));
         var name = new RichTextLabel();
-        name.SetMessage(classified ? Loc.GetString("repair-orders-shop-classified") : entity.Name);
+        name.SetMessage(classified ? Loc.GetString("repair-orders-shop-classified") : GetShopName(reward, entity));
         content.AddChild(name);
         var description = new RichTextLabel();
         description.SetMessage(classified
@@ -772,7 +790,7 @@ public sealed partial class RepairOrderWindow : FancyWindow
 
             var line = new RichTextLabel { HorizontalExpand = true };
             line.SetMessage(Loc.GetString("repair-orders-shop-cart-line",
-                ("name", entity.Name), ("count", count), ("cost", lineCost)));
+                ("name", GetShopName(reward, entity)), ("count", count), ("cost", lineCost)));
             ShopCartContainer.AddChild(line);
         }
 

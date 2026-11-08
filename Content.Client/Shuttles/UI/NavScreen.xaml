@@ -1,11 +1,9 @@
-<!-- DS14-Soyuz-start -->
 <controls:BoxContainer Visible="False"
               HorizontalExpand="True"
               xmlns:controls="https://spacestation14.io"
               xmlns:ui="clr-namespace:Content.Client.Shuttles.UI"
-              xmlns:collision="clr-namespace:Content.Client.DeadSpace._Soyuz.Shuttles"
-              xmlns:controls1="clr-namespace:Content.Client.UserInterface.Controls">
-                <!-- DS14-Soyuz-end -->
+              xmlns:controls1="clr-namespace:Content.Client.UserInterface.Controls"
+              xmlns:collision="clr-namespace:Content.Client.DeadSpace._Soyuz.Shuttles"> <!-- DS14-Soyuz -->
                 <ui:ShuttleNavControl Name="NavRadar"
                                  MouseFilter="Stop"
                                  VerticalAlignment="Stretch"

@@ -1,14 +1,11 @@
 ﻿using System.Linq;
 using Content.Shared.DeadSpace.UniformAccessories;
 using Content.Shared.DeadSpace.UniformAccessories.Components;
-using Robust.Shared.Containers;
 
 namespace Content.Server.DeadSpace.UniformAccessories;
 
 public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-
     public override void Initialize()
     {
         base.Initialize();

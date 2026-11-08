@@ -5,6 +5,7 @@ using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Events;
 using Content.Shared.Damage.Components;
 using Content.Shared.DeadSpace.Chemistry.Components;
+using Content.Shared.DeadSpace._Soyuz.LowOnline; // DS14-Soyuz
 using Content.Shared.DoAfter;
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
@@ -162,6 +163,11 @@ public sealed class MedibotSystem : EntitySystem
         // DS14-end
 
         _solutionContainer.TryAddReagent(injectable.Value, treatment.Reagent, treatment.Quantity, out _);
+
+        // DS14-Soyuz-start
+        var injected = new MedibotInjectedEvent(medibot.Owner, target);
+        RaiseLocalEvent(medibot.Owner, ref injected);
+        // DS14-Soyuz-end
 
         _popup.PopupEntity(Loc.GetString("injector-component-feel-prick-message"), target, target);
         _popup.PopupClient(Loc.GetString("medibot-target-injected"), medibot, medibot);

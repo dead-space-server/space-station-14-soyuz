@@ -27,6 +27,7 @@
     - Camera
 #    - Patch
 #    - Armband
+    - Rank # DS14-Soyuz
 
 - type: entity
   abstract: true

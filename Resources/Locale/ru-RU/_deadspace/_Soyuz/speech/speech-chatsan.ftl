@@ -930,3 +930,12 @@ soyuz-chatsan-replacement-sus = подозрительно
 
 soyuz-chatsan-word-sussy = (?:с[ау]сс?и|sussy)
 soyuz-chatsan-replacement-sussy = подозрительный
+
+soyuz-chatsan-word-1 = зха
+soyuz-chatsan-replacement-1 = завхоза
+soyuz-chatsan-word-2 = зху
+soyuz-chatsan-replacement-2 = завхозу
+soyuz-chatsan-word-3 = зхом
+soyuz-chatsan-replacement-3 = завхозом
+soyuz-chatsan-word-4 = зхы
+soyuz-chatsan-replacement-4 = завхозы

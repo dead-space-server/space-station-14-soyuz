@@ -42,12 +42,6 @@ public sealed partial class ShuttleConsoleSystem
 
     private void OnBeaconFTLMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleFTLBeaconMessage args)
     {
-
-        // DS14-Soyuz-start
-        if (!CanUseFtlControls(ent, args.Actor))
-            return;
-        // DS14-Soyuz-end
-
         var beaconEnt = GetEntity(args.Beacon);
         if (!_xformQuery.TryGetComponent(beaconEnt, out var targetXform))
         {
@@ -109,12 +103,6 @@ public sealed partial class ShuttleConsoleSystem
 
     private void OnPositionFTLMessage(Entity<ShuttleConsoleComponent> entity, ref ShuttleConsoleFTLPositionMessage args)
     {
-
-        // DS14-Soyuz-start
-        if (!CanUseFtlControls(entity, args.Actor))
-            return;
-        // DS14-Soyuz-end
-
         var mapUid = _mapSystem.GetMap(args.Coordinates.MapId);
 
         // If it's beacons only block all position messages.
@@ -127,21 +115,6 @@ public sealed partial class ShuttleConsoleSystem
         var angle = args.Angle.Reduced();
         ConsoleFTL(entity, targetCoordinates, angle, args.Coordinates.MapId, args.Actor); //DS-14
     }
-
-    // DS14-Soyuz-start
-    private bool CanUseFtlControls(Entity<ShuttleConsoleComponent> console, EntityUid user)
-    {
-        var controlledConsole = GetDroneConsole(console.Owner);
-        if (controlledConsole == null ||
-            !_xformQuery.TryGetComponent(controlledConsole.Value, out var consoleXform) ||
-            consoleXform.GridUid is not { } gridUid)
-        {
-            return false;
-        }
-
-        return _shuttleControl.CanControl(gridUid, ShuttleControlType.Ftl, user);
-    }
-    // DS14-Soyuz-end
 
     private void GetBeacons(ref List<ShuttleBeaconObject>? beacons)
     {
@@ -195,10 +168,11 @@ public sealed partial class ShuttleConsoleSystem
             return;
 
         // Check shuttle can even FTL
-        // DS14-Soyuz-start
-        if (!_shuttle.CanFTL(shuttleUid.Value, out _))
+        if (!_shuttle.CanFTL(shuttleUid.Value, out var reason))
+        {
+            // TODO: Session popup
             return;
-        // DS14-Soyuz-end
+        }
 
         // Check shuttle can FTL to this target.
         if (!CanConsoleFTLToMap(shuttleUid.Value, targetMap, consoleUid.Value)) // DS14

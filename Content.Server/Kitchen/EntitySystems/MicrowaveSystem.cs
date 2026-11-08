@@ -211,7 +211,6 @@ namespace Content.Server.Kitchen.EntitySystems
         private bool TrySubtractContents(MicrowaveComponent component, FoodRecipePrototype recipe, out SoyFoodOrigin origin)
         {
             origin = default;
-            // Recheck every portion before consuming anything. Contents may have changed during cooking.
             var solids = new Dictionary<string, int>();
             var reagents = new Dictionary<string, FixedPoint2>();
             foreach (var item in component.Storage.ContainedEntities)
@@ -227,6 +226,7 @@ namespace Content.Server.Kitchen.EntitySystems
             }
             if (CanSatisfyRecipe(component, recipe, solids, reagents).Item2 <= 0)
                 return false;
+        // DS14-Soyuz-end
 
             // TODO Turn recipe.IngredientsReagents into a ReagentQuantity[]
 

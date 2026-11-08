@@ -23,16 +23,12 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         if (container == null || container.ContainedEntities.Count == 0)
             return;
 
-        var transform = Transform(holder);
-        var coordinates = transform.Coordinates;
-        var accessories = container.ContainedEntities.ToArray();
-
-        foreach (var accessory in accessories)
+// DS14-Soyuz-start
+        foreach (var accessory in container.ContainedEntities.ToArray())
         {
-            if (_container.Remove(accessory, container, reparent: false))
-            {
-                Transform(accessory).Coordinates = coordinates;
-            }
+            if (!TerminatingOrDeleted(accessory))
+                QueueDel(accessory);
+// DS14-Soyuz-end
         }
     }
 

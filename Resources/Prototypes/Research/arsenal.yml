@@ -6,7 +6,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Cargo #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -26,7 +26,7 @@
   icon:
     sprite: _DeadSpace/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi # DS14-texture-localization
     state: incendiarydisplay
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -63,7 +63,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
     state: beanbag
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -80,7 +80,7 @@
   icon:
     sprite: Objects/Materials/Sheets/other.rsi
     state: uranium
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -102,7 +102,7 @@
   icon:
     sprite: Objects/Weapons/Melee/truncheon.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 8000
   recipeUnlocks:
@@ -118,7 +118,7 @@
   icon:
     sprite: Objects/Devices/payload.rsi
     state: payload-explosive-armed
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -140,7 +140,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/laser_cannon.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -156,7 +156,7 @@
   icon:
     sprite: Structures/Power/cage_recharger.rsi
     state: full
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10500
   recipeUnlocks:
@@ -179,7 +179,7 @@
   icon:
     sprite: Objects/Power/portable_recharger.rsi
     state: charging
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -192,7 +192,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Turrets/sentry_turret.rsi
     state: cover_closed
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 15000
   recipeUnlocks:
@@ -205,125 +205,12 @@
   icon:
     sprite: _DeadSpace/SecurityBorg/borg_module_sec.rsi
     state: security
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
   - BorgModuleSecurityJump
 # DS14-end
-
-# DS14-Soyuz-start
-- type: technology
-  id:  ArmedTechFab
-  name: research-technology-armed-tech-fab-technology
-  icon:
-    sprite: Structures/Machines/techfab.rsi
-    state: icon_armed
-  discipline: Arsenal
-  tier: 2
-  cost: 12500
-  recipeUnlocks:
-  - ArmedTechFabCircuitboard
-
-- type: technology
-  id: PosketDefenseWeaponry
-  name: research-technology-pistols
-  icon:
-    sprite: Objects/Weapons/Guns/Pistols/mk58.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 2
-  cost: 10000
-  recipeUnlocks:
-  - WeaponPistolMk58
-  - WeaponRevolverPythonSoyuz
-
-- type: technology
-  id: BallisticsShotguns
-  name: research-technology-shotguns-soyuz
-  icon:
-    sprite: Objects/Weapons/Guns/Shotguns/pump.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 2
-  cost: 12000
-  recipeUnlocks:
-  - WeaponShotgunKammerer
-  - WeaponShotgunEnforcer
-
-- type: technology
-  id: BallisticsAutomaticWeapons
-  name: research-technology-automatic-weapons
-  icon:
-    sprite: Objects/Weapons/Guns/Rifles/ak.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-  - WeaponRifleAkSoyuz
-  - WeaponSubMachineGunDrozd
-
-- type: technology
-  id: SecurityAmmoTungsten
-  name: research-technology-ammo-tungsten-technology
-  icon:
-    sprite: _DeadSpace/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
-    state: icon_tungsten
-  discipline: Arsenal
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-  - MagazineBoxRifleTungsten
-  - MagazineBoxLightRifleTungsten
-  - MagazineBoxMagnumTungsten
-  - MagazineBoxPistolTungsten
-  - SpeedLoaderMagnumTungsten
-  - MagazineLightRifleTungsten
-  - MagazineRifleTungsten
-  - MagazinePistolSubMachineGunTungsten
-  - MagazinePistolTungsten
-  - MagazineLightRifleVSSTungsten
-  - MagazineLightRifleAsValTungsten
-
-- type: technology
-  id: SecurityMagazine
-  name: research-technology-ammo-magazine
-  icon:
-    sprite: _DeadSpace/_Soyuz/Objects/Weapons/Guns/Ammunition/Magazine/LightRifle/asval.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 2
-  cost: 15000
-  recipeUnlocks:
-  - MagazineLightRifleAsVal
-  - MagazineLightRifleAsValEmpty
-  - MagazineLightRifleAsValPractice
-  - MagazineLightRifleAsValUranium
-  - MagazineLightRifleAsValIncendiary
-  - MagazineLightRifleVSS
-  - MagazineLightRifleVSSEmpty
-  - MagazineLightRifleVSSPractice
-  - MagazineLightRifleVSSUranium
-  - MagazineLightRifleVSSIncendiary
-# DS14-Soyuz-end
-
-# DS14-Soyuz-start
-- type: technology
-  id: SecurityPoliceBetaTechnology
-  name: research-technology-police-beta-technology
-  icon:
-    sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/beta.rsi
-    state: icon
-  discipline: Arsenal
-  tier: 2
-  cost: 12500
-  recipeUnlocks:
-  - PoliceBetaLegs
-  - PoliceBetaHead
-  - PoliceBetaComp
-  - PoliceBetaBody
-# DS14-Soyuz-end
 
 # Tier 3
 
@@ -398,7 +285,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/advancedlasergun.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -411,7 +298,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Ammunition/Magazine/Grenade/grenade_cartridge.rsi
     state: icon
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:
@@ -428,7 +315,7 @@
   icon:
     sprite: _DeadSpace/SecurityBorg/borg_module_sec.rsi
     state: security
-  discipline: Arsenal
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 15000
   recipeUnlocks:

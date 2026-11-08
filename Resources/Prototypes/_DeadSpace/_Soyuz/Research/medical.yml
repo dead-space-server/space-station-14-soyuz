@@ -1,3 +1,5 @@
+# Tier 1
+
 # Tier 2
 - type: technology
   id: ExperimentalCloning
@@ -5,7 +7,7 @@
   icon:
     sprite: _DeadSpace/_Soyuz/Structures/Machines/cloning.rsi
     state: pod_0
-  discipline: CivilianServices
+  discipline: Medical
   tier: 2
   cost: 25000
   recipeUnlocks:
@@ -16,15 +18,4 @@
   - CompactDefibrillatorTechnology
   - AdvancedAnomalyResearch
 
-- type: technology
-  id: PolaroidCamera
-  name: research-technology-experimental-camera
-  icon:
-    sprite: Objects/Devices/travel_camera.rsi
-    state: icon
-  discipline: CivilianServices
-  tier: 1
-  cost: 7500
-  recipeUnlocks:
-  - PolaroidCamera
-  - PolaroidCartridge
+# Tier 3

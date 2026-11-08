@@ -6,7 +6,7 @@
   icon:
     sprite: Structures/Machines/exosuit_fabricator.rsi
     state: fab-idle
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -19,7 +19,7 @@
   icon:
     sprite: Objects/Specific/Research/anomalyscanner.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -36,7 +36,7 @@
   icon:
     sprite: Structures/Machines/artifact_analyzer.rsi
     state: display
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -50,7 +50,7 @@
   icon:
     sprite: Structures/Machines/tech_disk_printer.rsi
     state: display
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 5000
   recipeUnlocks:
@@ -62,7 +62,7 @@
   icon:
     sprite: Clothing/Shoes/Boots/magboots-science.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 7500
   recipeUnlocks:
@@ -75,7 +75,7 @@
   icon:
     sprite: Objects/Weapons/Melee/gorilla.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 1
   cost: 10000
   recipeUnlocks:
@@ -89,7 +89,7 @@
   icon:
     sprite: Structures/Machines/artifact_crusher.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 5000
   recipeUnlocks:
@@ -102,7 +102,7 @@
   icon:
     sprite: Structures/Machines/anomaly_sync.rsi
     state: base
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -119,7 +119,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Battery/particle_decelerator.rsi
     state: base
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 7500
   recipeUnlocks:
@@ -132,7 +132,7 @@
   icon:
     sprite: Objects/Weapons/Guns/Launchers/tether_gun.rsi
     state: base
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 2
   cost: 10000
   recipeUnlocks:
@@ -147,7 +147,7 @@
   icon:
     sprite: Objects/Devices/swapper.rsi
     state: icon
-  discipline: Experimental
+  discipline: RND #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:
@@ -159,7 +159,7 @@
   icon:
     sprite: Objects/Devices/desynchronizer.rsi
     state: icon
-  discipline: Experimental
+  discipline: Security #DS14-Soyuz
   tier: 3
   cost: 10000
   recipeUnlocks:

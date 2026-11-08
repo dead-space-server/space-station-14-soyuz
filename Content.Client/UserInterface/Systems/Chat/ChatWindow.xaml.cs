@@ -49,12 +49,6 @@ public sealed partial class ChatWindow : FancyWindow
         _popOutButton.OnPressed += _ => PopOut();
         // DS14-end
 
-        // DS14-start
-        CloseButton.Parent!.AddChild(_popOutButton);
-        _popOutButton.SetPositionInParent(CloseButton.GetPositionInParent());
-        _popOutButton.OnPressed += _ => PopOut();
-        // DS14-end
-
         // These are necessary for the controls inside the chatbox to initialize correctly:
         Chatbox.Repopulate();
         var controller = UserInterfaceManager.GetUIController<ChatUIController>();

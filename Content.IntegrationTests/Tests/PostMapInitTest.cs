@@ -145,9 +145,11 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            "Aspid", // remap in progress
-            "Cluster", // invalid EntityUid reference in Storage
-            "Loop", // invalid EntityUid reference in Storage
+            // DS14-Soyuz-start
+            // "Aspid", // remap in progress
+            // "Cluster", // invalid EntityUid reference in Storage
+            // "Loop", // invalid EntityUid reference in Storage
+            // DS14-Soyuz-end
             "Gemini", // map load failure
         };
         /// <summary>

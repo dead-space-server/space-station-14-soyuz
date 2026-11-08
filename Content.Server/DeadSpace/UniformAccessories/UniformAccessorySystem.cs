@@ -23,13 +23,13 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         if (container == null || container.ContainedEntities.Count == 0)
             return;
 
-// DS14-Soyuz-start
+        // DS14-Soyuz-start
         foreach (var accessory in container.ContainedEntities.ToArray())
         {
             if (!TerminatingOrDeleted(accessory))
                 QueueDel(accessory);
-// DS14-Soyuz-end
         }
+        // DS14-Soyuz-end
     }
 
 }

@@ -16,6 +16,7 @@ namespace Content.Server.DeadSpace._Soyuz.Ranks;
 public sealed class RankInsigniaSystem : SharedRankInsigniaSystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedItemSystem _item = default!;
     [Dependency] private readonly SharedRankSystem _rank = default!;
@@ -23,7 +24,7 @@ public sealed class RankInsigniaSystem : SharedRankInsigniaSystem
 
     private const string JumpsuitSlot = "jumpsuit";
 
-    private static readonly EntProtoId InsigniaPrototype = "RankInsignia";
+    private static readonly EntProtoId DefaultInsignia = "RankInsigniaDefault";
 
     private readonly List<EntityUid> _pending = new();
     private TimeSpan _nextScan;
@@ -96,7 +97,10 @@ public sealed class RankInsigniaSystem : SharedRankInsigniaSystem
         if (!Container.TryGetContainer(uniform.Value, UniformAccessoryHolderComponent.ContainerId, out var container))
             return false;
 
-        var insignia = Spawn(InsigniaPrototype, Transform(mob).Coordinates);
+        var specific = $"RankInsignia{rank}";
+        var spawnProto = _proto.HasIndex<EntityPrototype>(specific) ? specific : DefaultInsignia.Id;
+
+        var insignia = Spawn(spawnProto, Transform(mob).Coordinates);
         var comp = EnsureComp<RankInsigniaComponent>(insignia);
         comp.Rank = rank;
         Dirty(insignia, comp);

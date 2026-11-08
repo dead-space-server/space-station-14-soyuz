@@ -1,14 +1,11 @@
 ﻿using System.Linq;
 using Content.Shared.DeadSpace.UniformAccessories;
 using Content.Shared.DeadSpace.UniformAccessories.Components;
-using Robust.Shared.Containers;
 
 namespace Content.Server.DeadSpace.UniformAccessories;
 
 public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
 {
-    [Dependency] private readonly SharedContainerSystem _container = default!;
-
     public override void Initialize()
     {
         base.Initialize();
@@ -23,20 +20,13 @@ public sealed class UniformAccessorySystem : SharedUniformAccessorySystem
         if (container == null || container.ContainedEntities.Count == 0)
             return;
 
-        var transform = Transform(holder);
-        var coordinates = transform.Coordinates;
-        var accessories = container.ContainedEntities.ToArray();
-
-        foreach (var accessory in accessories)
+        // DS14-Soyuz-start
+        foreach (var accessory in container.ContainedEntities.ToArray())
         {
-            if (!_container.Remove(accessory, container, reparent: false))
-                continue;
-
-            if (!coordinates.IsValid(EntityManager) || TerminatingOrDeleted(coordinates.EntityId))
-                continue;
-
-            Transform(accessory).Coordinates = coordinates;
+            if (!TerminatingOrDeleted(accessory))
+                QueueDel(accessory);
         }
+        // DS14-Soyuz-end
     }
 
 }

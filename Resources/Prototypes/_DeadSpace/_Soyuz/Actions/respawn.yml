@@ -1,0 +1,14 @@
+- type: entity
+  parent: BaseAction
+  id: ActionGhostRespawn
+  name: Респавн
+  description: Вернуться в лобби и начать заново. Доступно через 20 минут после того, как вы стали призраком.
+  components:
+  - type: Action
+    icon:
+      sprite: _DeadSpace/_Soyuz/Icons/respawn.rsi
+      state: respawn
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: InstantAction
+    event: !type:GhostRespawnActionEvent

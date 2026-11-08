@@ -29,7 +29,11 @@ public sealed class GhostRespawnConfirmWindow : DefaultWindow
         {
             MaxWidth = 440,
         };
-        text.SetMessage(FormattedMessage.FromMarkupPermissive(Loc.GetString("respawn-confirm-text")));
+
+        var markup = Loc.GetString("respawn-confirm-text")
+                     + "\n\n[color=#e06a6a][bold]" + Loc.GetString("respawn-confirm-warning-title") + "[/bold][/color] "
+                     + Loc.GetString("respawn-confirm-warning");
+        text.SetMessage(FormattedMessage.FromMarkupPermissive(markup));
         root.AddChild(text);
 
         var buttons = new BoxContainer

@@ -35564,29 +35564,7 @@ entities:
       pos: 8.422102,42.702522
       parent: 2
     - type: Storage
-      storedItems:
-        708:
-          position: 0,0
-          _rotation: South
-        709:
-          position: 1,0
-          _rotation: South
-        710:
-          position: 2,0
-          _rotation: South
-        711:
-          position: 3,0
-          _rotation: South
     - type: ContainerContainer
-      containers:
-        storagebase: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 708
-          - 709
-          - 710
-          - 711
     - type: Physics
       canCollide: False
 - proto: BoxShotgunFlare
@@ -108377,30 +108355,6 @@ entities:
       parent: 11958
 - proto: PhotocopierTonerCartridge
   entities:
-  - uid: 708
-    components:
-    - type: Transform
-      parent: 707
-    - type: Physics
-      canCollide: False
-  - uid: 709
-    components:
-    - type: Transform
-      parent: 707
-    - type: Physics
-      canCollide: False
-  - uid: 710
-    components:
-    - type: Transform
-      parent: 707
-    - type: Physics
-      canCollide: False
-  - uid: 711
-    components:
-    - type: Transform
-      parent: 707
-    - type: Physics
-      canCollide: False
   - uid: 8264
     components:
     - type: Transform

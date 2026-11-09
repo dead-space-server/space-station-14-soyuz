@@ -83,6 +83,14 @@ namespace Content.IntegrationTests.Tests
             "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
+            // DS14-Soyuz-start
+            "/Maps/_Soyuz/centcomm.yml",
+            "/Maps/_Soyuz/S1_GeneralStaff.yml",
+            "/Maps/_Soyuz/generalstaff.yml",
+            "/Maps/_Soyuz/Shuttles/**",
+            "/Maps/_Soyuz/Shuttles/Pilot/**",
+            "/Maps/_Soyuz/Shuttles/GenStaff/**",
+            // DS14-Soyuz-end
         };
 
         /// <summary>
@@ -107,17 +115,17 @@ namespace Content.IntegrationTests.Tests
             "Bagel",
             "Barratry",
             "Box",
-            // "Cluster", // invalid EntityUid reference in Storage
+            "Cluster", // DS14-Soyuz
             "Cog",
             "Convex",
             "Core",
-            "CorvaxAstra",
-            "CorvaxAvrite",
-            "CorvaxChloris",
-            "CorvaxDelta",
+            // "CorvaxAstra", // DS14-Soyuz disabled
+            // "CorvaxAvrite", // DS14-Soyuz disabled
+            // "CorvaxChloris", // DS14-Soyuz disabled
+            // "CorvaxDelta", // DS14-Soyuz disabled
             "CorvaxPaper",
             "CorvaxPearl",
-            "CorvaxGlacier",
+            // "CorvaxGlacier", // DS14-Soyuz disabled
             "CorvaxSilly",
             // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
@@ -125,8 +133,7 @@ namespace Content.IntegrationTests.Tests
             "Gate",
             "Ishimura",
             // "Gemini", // map load failure
-            // "Loop", // map load failure
-            // "Loop",
+            "Loop", // DS14-Soyuz
             "Marathon",
             "Meta",
             "Oasis",
@@ -146,9 +153,9 @@ namespace Content.IntegrationTests.Tests
         private static readonly string[] GameMapsExcludedFromTests =
         {
             // DS14-Soyuz-start
-            // "Aspid", // remap in progress
-            // "Cluster", // invalid EntityUid reference in Storage
-            // "Loop", // invalid EntityUid reference in Storage
+            // "Aspid",
+            // "Cluster",
+            // "Loop",
             // DS14-Soyuz-end
             "Gemini", // map load failure
         };

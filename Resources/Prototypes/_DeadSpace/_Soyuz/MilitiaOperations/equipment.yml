@@ -77,8 +77,8 @@
     maximumMagazines: 3
   - weapon: WeaponPistolDesertEagle
     magazine: MagazineEagle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 0
+    maximumMagazines: 1
   - weapon: WeaponPistolGoldDesertEagle
     magazine: MagazineEagleGold
     minimumMagazines: 3
@@ -175,14 +175,6 @@
     magazine: ADTMagazineShotgunXL
     minimumMagazines: 3
     maximumMagazines: 3
-  - weapon: WeaponShotgunHammerheadIncendiary
-    magazine: ADTMagazineShotgunIncendiaryXL
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponShotgun9000Alpha
-    magazine: MagazineShotgun9000Alpha
-    minimumMagazines: 3
-    maximumMagazines: 3
   - weapon: WeaponLightMachineGunL6
     magazine: MagazineLightRifleBox
     minimumMagazines: 3
@@ -220,8 +212,8 @@
     maximumMagazines: 3
   - weapon: WeaponPistolDesertEagle
     magazine: MagazineEagle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 0
+    maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
     minimumMagazines: 3
@@ -268,8 +260,8 @@
     maximumMagazines: 3
   - weapon: WeaponPistolDesertEagle
     magazine: MagazineEagle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 0
+    maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
     minimumMagazines: 3

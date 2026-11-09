@@ -140,7 +140,7 @@ public sealed partial class MilitiaOperationSystem
         actor.Backpack = backpack.Value;
         actor.Webbing = webbing.Value;
         var weapon = profile.Weapons[random.Next(profile.Weapons.Count)];
-        if (weapon.MinimumMagazines < 1 || weapon.MaximumMagazines < weapon.MinimumMagazines || weapon.MaximumMagazines > 6)
+        if (weapon.MinimumMagazines < 0 || weapon.MaximumMagazines < weapon.MinimumMagazines || weapon.MaximumMagazines > 6)
             throw new InvalidOperationException($"Invalid militia ammunition allowance in {profile.ID}.");
         actor.Weapon = Spawn(weapon.Weapon, Transform(uid).Coordinates);
         actor.CreatedEquipment.Add(actor.Weapon);

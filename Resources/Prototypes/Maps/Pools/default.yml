@@ -10,15 +10,16 @@
   - Cog
   - Convex
   - Core
-  # - CorvaxAstra # DS14-Soyuz-disabled
-  # - CorvaxAvrite # DS14-Soyuz-disabled
-  # - CorvaxChloris # DS14-Soyuz-disabled
-  # - CorvaxDelta # DS14-Soyuz-disabled
-  # - CorvaxGlacier # DS14-Soyuz-disabled
+  # DS14-Soyuz-start
+  # - CorvaxAstra
+  # - CorvaxAvrite
+  # - CorvaxChloris
+  # - CorvaxDelta
+  # - CorvaxGlacier
+  # - CorvaxGlacier
+  # DS14-Soyuz-end
   # - CorvaxPaper # remap in progress
   - CorvaxSilly
-  # - CorvaxSpectrum # DS14-Soyuz-disabled
-  # - CorvaxGlacier # DS14-Soyuz-disabled
   - CorvaxPearl
   - Elkridge
   # - Fland # remap in progress

@@ -1378,7 +1378,7 @@
   - AirlockExternalGlassShuttleGeneralStaff
 
 - type: repairValueExclusion
-  id: RepairExcludeIdk
+  id: RepairExcludeFuckUpstream
   reason: Апстримовская хуйня я эту систему перепишу когда нибудь
   entities:
   - AirlockBlueShieldLocked

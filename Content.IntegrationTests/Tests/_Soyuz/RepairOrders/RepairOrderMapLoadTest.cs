@@ -9,7 +9,7 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 [TestFixture]
 public sealed class RepairOrderMapLoadTest

@@ -13,7 +13,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 [TestFixture]
 public sealed class RepairValueTest

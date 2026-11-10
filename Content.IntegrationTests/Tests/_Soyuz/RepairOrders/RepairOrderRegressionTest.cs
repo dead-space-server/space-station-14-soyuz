@@ -18,7 +18,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Serilog.Events;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 [TestFixture]
 public sealed partial class RepairOrderRegressionTest

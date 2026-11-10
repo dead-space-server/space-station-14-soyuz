@@ -10,7 +10,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.MedicalOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.MedicalOrders;
 
 [TestFixture]
 public sealed class MedicalOrderTest

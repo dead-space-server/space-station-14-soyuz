@@ -5,7 +5,7 @@ using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Reflection;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 // Registered only on the server: the subscribed component does not exist on the client.
 [Reflect(false)]

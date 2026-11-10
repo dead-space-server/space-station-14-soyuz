@@ -12,7 +12,7 @@ using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
 using Serilog.Events;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 public sealed partial class RepairOrderRegressionTest
 {

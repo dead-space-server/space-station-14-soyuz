@@ -3,7 +3,7 @@
 using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 
-namespace Content.IntegrationTests.Tests.DeadSpace._Soyuz.RepairOrders;
+namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
 [TestFixture]
 public sealed class RepairTechnicalExclusionTest

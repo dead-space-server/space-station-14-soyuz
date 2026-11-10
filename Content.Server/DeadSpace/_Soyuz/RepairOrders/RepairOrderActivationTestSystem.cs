@@ -1,14 +1,11 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 
 #nullable enable
-using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Reflection;
 
-namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
+namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
-// Registered only on the server: the subscribed component does not exist on the client.
-[Reflect(false)]
 public sealed class RepairOrderActivationTestSystem : EntitySystem
 {
     public Action<RepairOrderActivatedEvent>? OnActivated;

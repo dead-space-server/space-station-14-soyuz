@@ -30,6 +30,7 @@ SLOW_TEST_UNIT_BALANCE_WEIGHTS = {
     "EntityTest": 160,
     "Pinpointer": 25,
     "PostMapInitTest": 260,
+    "_Soyuz": 400, # DS14-Soyuz
 }
 
 SLOW_TEST_METHOD_BALANCE_WEIGHTS = {

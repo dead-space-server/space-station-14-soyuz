@@ -21906,6 +21906,55 @@ entities:
       fibers:
       - изолирующие наномашинные волокна
       fingerprints: []
+- proto: PlushiePERedGora
+  entities:
+  - uid: 544
+    mapInit: true
+    components:
+    - type: Transform
+      pos: -1.9195557,1.3507538
+      parent: 1
+    - type: UseDelay
+      delays:
+        default:
+          endTime: 0
+          startTime: 0
+          length: 60
+    - type: DeviceNetwork
+      address: 5C34-8628
+      receiveFrequency: 1280
+    - type: MeleeWeapon
+      nextAttack: -775.883009
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          temperature: 293.15
+          canReact: True
+          maxVol: 0
+          name: food
+          reagents: []
+      containers:
+      - food
+    - type: ContainerContainer
+      containers:
+        stash: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        solution@food: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: 545
+    - type: EmitSoundOnCollide
+      nextSound: -4387.2460653
+    - type: Physics
+      canCollide: False
+    - type: Forensics
+      residues: []
+      dNAs: []
+      fibers:
+      - изолирующие наномашинные волокна
+      fingerprints: []
 - proto: PlushieSilAily
   entities:
   - uid: 494

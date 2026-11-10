@@ -7,8 +7,6 @@ using Robust.Shared.Reflection;
 
 namespace Content.IntegrationTests.Tests._Soyuz.RepairOrders;
 
-// Registered only on the server: the subscribed component does not exist on the client.
-[Reflect(false)]
 public sealed class RepairOrderActivationTestSystem : EntitySystem
 {
     public Action<RepairOrderActivatedEvent>? OnActivated;

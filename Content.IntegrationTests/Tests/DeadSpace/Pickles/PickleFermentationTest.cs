@@ -818,11 +818,16 @@ public sealed class PickleFermentationTest : InteractionTest
     {
         await Server.WaitAssertion(() =>
         {
+            // DS14-Soyuz-start
+            var jarComp = SEntMan.GetComponent<PickleJarComponent>(jar);
+            jarComp.RemainingPieces = 3;
+            // DS14-Soyu-end
             var coords = SEntMan.GetComponent<TransformComponent>(SPlayer).Coordinates;
             var eater = SEntMan.SpawnEntity(mob, coords);
             Assert.That(HandSys.TryPickupAnyHand(eater, jar), Is.True, $"{mob} should hold the jar");
 
             var before = SEntMan.GetComponent<PickleJarComponent>(jar).RemainingPieces;
+            Assert.That(before, Is.GreaterThan(0), $"{mob}: jar must not be empty before the check"); // DS14-Soyuz
             var edible = CanDigest(eater, Cucumber);
             var ev = new Content.Shared.Interaction.Events.UseInHandEvent(eater);
             SEntMan.EventBus.RaiseLocalEvent(jar, ev);

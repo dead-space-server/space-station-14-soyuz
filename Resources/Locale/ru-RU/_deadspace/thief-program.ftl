@@ -3,6 +3,8 @@
 
 thief-program-name = ВорПРО
 thief-program-unlocked = Программа «ВорПРО» установлена на ваш КПК. Проверьте список программ!
+thief-program-removed = Программа «ВорПРО» удалена с вашего КПК.
+thief-program-wrong-tool = Это не тот инструмент. Нужен инструмент из вашего брифинга.
 
 ## Header
 thief-program-balance = Баланс: [color=#8fa063]{$balance}[/color] dCR
@@ -58,9 +60,6 @@ thief-program-exchanged = Обмен выполнен: {$amount} обычных 
 thief-program-carry-hint = Важно: в цель раунда идут только dCR, которые вы несёте с собой!
 
 ## Uplink listings
-# Listing names reuse the already-existing item locales (ent-*) referenced from thief_program_listings.yml.
-thief-program-removed = Программа «ВорПРО» удалена с вашего КПК.
-thief-program-wrong-tool = Это не тот инструмент. Нужен инструмент из вашего брифинга.
 # Listing names reference the implant locales below and item locales from thief_program_listings.yml.
 
 ## Implant names used by the thief uplink preview (DS14)

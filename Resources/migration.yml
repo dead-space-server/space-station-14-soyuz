@@ -1291,7 +1291,6 @@ DesoxyephedrineMedipen: CelestinMedipen
 DresserCaptainFilled: VendingMachineCaptainDrobe
 
 # 2026-07-08 - DS14
-# DS14-Soyuz-start
 # CargoRequestEngineeringComputerCircuitboard: null
 # CargoRequestMedicalComputerCircuitboard: null
 # CargoRequestScienceComputerCircuitboard: null
@@ -1300,7 +1299,6 @@ DresserCaptainFilled: VendingMachineCaptainDrobe
 # ComputerCargoOrdersMedical: null
 # ComputerCargoOrdersScience: null
 # ComputerCargoOrdersService: null
-# DS14-Soyuz-end
 # p.s зути не дай бог скажешь отменять
 
 # 2026-07-14 - DS14
@@ -1315,7 +1313,7 @@ WaterCooler: WaterCoolerTransfer
 LightReplacer: LightReplacerFilled
 LightReplacerEmpty: LightReplacer # DS14: preserve empty replacers placed on fork maps
 
-#region DS14-Soyuz migration: All migration DS14-Soyuz server
+#region DS14-Soyuz-start migration: All migration DS14-Soyuz server
 SignNTlogo1: null
 SignNTlogo2: null
 SignNTlogo3: null
@@ -1355,5 +1353,5 @@ ADTDoubleBedTop: null
 ADTDoubleBedBottom: null
 NTFlag: BlankFlag
 SpawnPointSeniorCourier: SpawnPointSeniorSalvageSpecialist
-
 SoyuzPlantAnalyzer: PlantAnalyzer # DS14-Soyuz
+# DS14-Soyuz-end

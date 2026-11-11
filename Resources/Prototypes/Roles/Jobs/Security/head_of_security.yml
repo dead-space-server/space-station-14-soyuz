@@ -44,11 +44,6 @@
     components:
       - type: CommandStaff
   - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: BasicAndShuttleControl
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     RMCRankMarineCommandant:

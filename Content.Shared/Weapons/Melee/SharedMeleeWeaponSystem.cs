@@ -1,3 +1,4 @@
+using Content.Shared.DeadSpace.Weapons.Ranged.Components;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -123,6 +124,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
     private void OnMeleeShotAttempted(EntityUid uid, MeleeWeaponComponent comp, ref ShotAttemptedEvent args)
     {
+        if (HasComp<GunMeleeIndependentComponent>(uid)) // DS14
+            return; // DS14
+
         if (comp.NextAttack > Timing.CurTime)
             args.Cancel();
     }
@@ -131,6 +135,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
     {
         if (!TryComp<GunComponent>(uid, out var gun))
             return;
+
+        if (HasComp<GunMeleeIndependentComponent>(uid)) // DS14
+            return; // DS14
 
         if (gun.NextFire > component.NextAttack)
         {
@@ -239,6 +246,15 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         {
             return;
         }
+
+        // DS14-start: Legionnaire knife RMB activates rage instead of making a wide attack.
+        if (HasComp<Content.Shared.DeadSpace.TheCircle.Legion.LegionKnifeComponent>(weaponUid))
+        {
+            var ev = new Content.Shared.DeadSpace.TheCircle.Legion.LegionKnifeRageAttemptEvent(user);
+            RaiseLocalEvent(weaponUid, ev);
+            return;
+        }
+        // DS14-end
 
         AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
     }
@@ -656,6 +672,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (component.HeavyAttackResistanceBypass is { } heavyAttackResistanceBypass) // DS14
             resistanceBypass = heavyAttackResistanceBypass; // DS14
         var entities = GetEntityList(ev.Entities);
+        // DS14-start: the client may list entities the server does not know (client-side ones, or already deleted)
+        entities.RemoveAll(uid => !uid.IsValid() || TerminatingOrDeleted(uid));
+        // DS14-end
 
         if (entities.Count == 0)
         {

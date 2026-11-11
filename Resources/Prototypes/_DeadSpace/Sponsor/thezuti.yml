@@ -120,6 +120,7 @@
   - type: ClothingSpeedModifier
     walkModifier: 1
     sprintModifier: 1
+  - type: HardsuitIdentification
   - type: Armor
     modifiers:
       coefficients:
@@ -247,7 +248,7 @@
 
 # Gas Mask
 - type: entity
-  parent: ClothingMaskGasSyndicate
+  parent: ClothingMaskGasSponsor
   id: ClothingMaskGasTheZuTi
   name: боевой респиратор валькирии
   description: Улучшенная модель боевого респиратора с повышенной эффективностью фильтрации воздуха.
@@ -387,6 +388,17 @@
   name: Правосудие
   description: Один взгляд на это копье дает вам понять о неотвратимости судьбы. Божественной кары не избежать и остается только молиться.
   components:
+  - type: AttachmentHolder
+    slotOverlays:
+      bayonet_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: bayonet
+        offset: 0.625,0.4375
+      light_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: flight
+        stateOn: flight_on
+        offset: 0.4375,0.28125
   - type: Gun
     fireRate: 0.5
     selectedMode: SemiAuto

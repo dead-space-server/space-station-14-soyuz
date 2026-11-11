@@ -1,0 +1,12 @@
+- type: soundCollection
+  id: PsychiatryNearby
+  files:
+  - /Audio/Voice/Human/malescream_1.ogg
+  - /Audio/Voice/Human/malescream_6.ogg
+  - /Audio/Voice/Human/femalescream_2.ogg
+  - /Audio/Voice/Human/femalescream_4.ogg
+  - /Audio/Voice/Talk/speak_1.ogg
+  - /Audio/Voice/Talk/speak_2_ask.ogg
+  - /Audio/Voice/Talk/speak_3_exclaim.ogg
+  - /Audio/Voice/Zombie/zombie-1.ogg
+  - /Audio/Voice/Zombie/zombie-2.ogg

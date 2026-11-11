@@ -1,9 +1,9 @@
 ent-ClothingUnderwearTopBase = блять
     .desc = Если ты видишь этот текст, то что то пошло не так...
 ent-ClothingUnderwearTopBraWhite = бра
-    .desc = Стандартное нижнее белье для женского персонала СССП.
+    .desc = Стандартное нижнее белье для женского персонала NanoTrasen.
 ent-ClothingUnderwearTopBraSports = спортивное бра
-    .desc = Стандартное нижнее белье для женского персонала СССП.
+    .desc = Стандартное нижнее белье для женского персонала NanoTrasen.
 ent-ClothingUnderwearTopBraSportsAlternative = альтернативное спортивное бра
     .desc = Стандартное нижнее белье для женского персонала СССП.
 ent-ClothingUnderwearTopBraNuclearOperative = бра легионера

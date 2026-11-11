@@ -1,4 +1,4 @@
-﻿- type: gameMap
+- type: gameMap
   id: Cluster
   mapName: 'Кластер' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/cluster.yml

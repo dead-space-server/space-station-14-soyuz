@@ -25,8 +25,8 @@ MAX_SHARD_NAME_LENGTH = 96
 
 # DS14-Soyuz-start
 ISOLATED_TEST_DIRECTORIES = (
-    Path("DeadSpace/_Soyuz/RepairOrders"),
-    Path("DeadSpace/_Soyuz/MedicalOrders"),
+    Path("_Soyuz/RepairOrders"),
+    Path("_Soyuz/MedicalOrders"),
 )
 # DS14-Soyuz-end
 
@@ -37,6 +37,7 @@ SLOW_TEST_UNIT_BALANCE_WEIGHTS = {
     "EntityTest": 160,
     "Pinpointer": 25,
     "PostMapInitTest": 260,
+    "_Soyuz": 400, # DS14-Soyuz
 }
 
 SLOW_TEST_METHOD_BALANCE_WEIGHTS = {
@@ -44,7 +45,7 @@ SLOW_TEST_METHOD_BALANCE_WEIGHTS = {
         "AllComponentsOneToOneDeleteTest": 30,
         "SpawnAndDeleteAllEntitiesInTheSameSpot": 80,
         "SpawnAndDeleteAllEntitiesOnDifferentMaps": 65,
-        "SpawnAndDeleteEntityCountTest": 260,  # DS14: Runs every entity prototype through server-client replication.
+        "SpawnAndDeleteEntityCountTest": 75,
         "SpawnAndDirtyAllEntities": 260,
     },
 }

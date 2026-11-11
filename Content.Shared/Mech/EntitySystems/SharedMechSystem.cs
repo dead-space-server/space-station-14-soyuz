@@ -40,7 +40,6 @@ public abstract partial class SharedMechSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] protected readonly VehicleSystem Vehicle = default!; // DS14 - Keep readonly dependencies on the current engine.
-    [Dependency] private readonly ChasmSystem _chasm = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -57,19 +56,6 @@ public abstract partial class SharedMechSystem : EntitySystem
         SubscribeLocalEvent<MechComponent, VehicleOperatorSetEvent>(OnOperatorSet);
         SubscribeLocalEvent<MechComponent, GettingAttackedAttemptEvent>(OnGettingAttackedAttempt);
         // DS14-end
-        SubscribeLocalEvent<MechComponent, ChasmFallingEvent>(OnChasmFalling); // DS14-Soyuz
-    }
-
-    // DS14-Soyuz-start
-    private void OnChasmFalling(Entity<MechComponent> ent, ref ChasmFallingEvent args)
-    {
-        if (_net.IsClient || ent.Comp.PilotSlot.ContainedEntity is not { } pilot ||
-            !TryComp<ChasmComponent>(args.Chasm, out var chasm) || !TryEject(ent, ent.Comp))
-        {
-            return;
-        }
-
-        _chasm.StartFalling(args.Chasm, chasm, pilot, playSound: false);
     }
     // DS14-Soyuz-end
 
@@ -334,11 +320,6 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return false;
 
-        // DS14-Soyuz-start
-        if (HasComp<ChasmFallingComponent>(uid) || HasComp<ChasmFallingComponent>(toInsert))
-            return false;
-        // DS14-Soyuz-end
-
         if (!_actionBlocker.CanMove(toInsert))
             return false;
 
@@ -391,12 +372,10 @@ public abstract partial class SharedMechSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return false;
 
-        // DS14-Soyuz-start
-        if (component.PilotSlot.ContainedEntity is not { } pilot)
+        if (!Vehicle.TryGetOperator(uid, out var operatorEnt))
             return false;
 
-        return _container.Remove(pilot, component.PilotSlot, force: force);
-        // DS14-Soyuz-end
+        return _container.RemoveEntity(uid, operatorEnt.Value);
     }
 
     private void OnGetMeleeWeapon(Entity<VehicleOperatorComponent> ent, ref GetMeleeWeaponEvent args)

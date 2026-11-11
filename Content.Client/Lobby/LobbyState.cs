@@ -78,8 +78,6 @@ namespace Content.Client.Lobby
 
             Lobby.DonateButton.OnPressed += OnDonatePressed;
 
-            Lobby.DonateButton.OnPressed += OnDonatePressed;
-
             _gameTicker.InfoBlobUpdated += UpdateLobbyUi;
             _gameTicker.LobbyStatusUpdated += LobbyStatusUpdated;
             _gameTicker.LobbyLateJoinStatusUpdated += LobbyLateJoinStatusUpdated;
@@ -116,8 +114,6 @@ namespace Content.Client.Lobby
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
             Lobby.AshWalkerCancelButton.OnPressed -= OnAshWalkerCancel;
-
-            Lobby.DonateButton.OnPressed -= OnDonatePressed;
 
             Lobby.DonateButton.OnPressed -= OnDonatePressed;
 

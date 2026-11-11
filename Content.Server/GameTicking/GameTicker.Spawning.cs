@@ -157,16 +157,6 @@ namespace Content.Server.GameTicking
             // DS14-Soyuz start
             if (jobId != null)
             {
-                var jobProto = _prototypeManager.Index<JobPrototype>(jobId);
-                if (!CheckWhitelist(player, jobProto, out var reason))
-                {
-                    return;
-                }
-            }
-            // DS14-Soyuz end
-
-            if (jobId != null)
-            {
                 var jobs = new List<ProtoId<JobPrototype>> {jobId};
                 var ev = new IsRoleAllowedEvent(player, jobs, null);
                 RaiseLocalEvent(ref ev);

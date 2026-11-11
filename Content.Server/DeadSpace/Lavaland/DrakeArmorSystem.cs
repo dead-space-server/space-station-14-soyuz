@@ -39,6 +39,7 @@ public sealed class DrakeArmorSystem : EntitySystem
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private readonly LavalandNecropolisArtifactSystem _artifacts = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly StunSystem _stun = default!;
@@ -188,19 +189,22 @@ public sealed class DrakeArmorSystem : EntitySystem
             return;
         }
 
-        var ttsVoice = TryComp<TTSComponent>(args.Performer, out var sourceTts)
-            ? sourceTts.VoicePrototypeId
+        // A memento mori on them lets go and slips off, instead of turning the old body to ash.
+        _artifacts.ReleaseMemento(args.Performer);
+
+        var ttsVoices = TryComp<TTSComponent>(args.Performer, out var sourceTts)
+            ? new Dictionary<string, string>(sourceTts.Voices)
             : null;
         var skeleton = _polymorph.PolymorphEntity(args.Performer, args.SkeletonPolymorph);
         if (skeleton is not { } skeletonUid)
             return;
 
-        if (ttsVoice != null &&
+        if (ttsVoices != null &&
             TryComp<TTSComponent>(skeletonUid, out var skeletonTts) &&
             TryComp<HumanoidAppearanceComponent>(skeletonUid, out var skeletonAppearance))
         {
-            skeletonTts.VoicePrototypeId = ttsVoice;
-            skeletonAppearance.Voice = ttsVoice;
+            skeletonTts.Voices = new(ttsVoices);
+            skeletonAppearance.TtsVoices = new(ttsVoices);
         }
 
         TransferCompatibleDamage(args.Performer, skeletonUid);

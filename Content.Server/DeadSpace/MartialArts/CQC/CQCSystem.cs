@@ -3,6 +3,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Audio;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Popups;
@@ -18,14 +19,18 @@ using Robust.Shared.Prototypes;
 using Content.Server.DeadSpace.MartialArts.CQC.Components;
 using Content.Shared.DeadSpace.MartialArts.CQC;
 using Content.Shared.Actions;
-using Content.Shared.StatusEffectNew;
+using Content.Shared.DeadSpace.Actions;
+using Content.Shared.Eye.Blinding.Components;
+using Content.Shared.Eye.Blinding.Systems;
+using Content.Shared.StatusEffect;
 using Content.Shared.DeadSpace.MartialArts.CQC.Components;
+using Content.Server.Physics.Controllers;
+using Content.Shared.GameTicking;
 
 namespace Content.Server.DeadSpace.MartialArts.CQC;
 
 public sealed class CQCSystem : CQCSharedSystem
 {
-    private static readonly EntProtoId MutedEffect = "StatusEffectCQCMuted";
 
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly StaminaSystem _stamina = default!;
@@ -38,19 +43,25 @@ public sealed class CQCSystem : CQCSharedSystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly SharedActionsSystem _action = default!;
+    [Dependency] private readonly ActionGateSystem _gate = default!;
     [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly RayCastSystem _rayCast = default!;
 
     private readonly HashSet<EntityUid> _receivers = new();
+    private readonly HashSet<EntityUid> _knockbackTargets = new();
+    private readonly List<EntityUid> _finishedKnockbacks = new();
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<CQCComponent, CQCPowerPunchEvent>(OnPowerPunchAction);
-        SubscribeLocalEvent<CQCComponent, CQCMuteEvent>(OnMutePunchAction);
+        SubscribeLocalEvent<CQCComponent, CQCEyeAttackEvent>(OnEyeAttackAction);
         SubscribeLocalEvent<CQCComponent, CQCRelaxEvent>(OnRelaxAction);
         SubscribeLocalEvent<CQCComponent, MeleeHitEvent>(OnMeleeHitEvent);
         SubscribeLocalEvent<CQCComponent, CQCConcentrationEvent>(CQCConcentration);
         SubscribeLocalEvent<CQCStepPunchComponent, CQCStepPunchEvent>(CQCStepPunch);
+        SubscribeLocalEvent<PhysicsUpdateBeforeSolveEvent>(OnBeforeSolve, after: [typeof(MoverController)]);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _knockbackTargets.Clear());
     }
 
     private void SelectCombo(Entity<CQCComponent> ent, CQCList combo)
@@ -69,12 +80,12 @@ public sealed class CQCSystem : CQCSharedSystem
         args.Handled = true;
     }
 
-    private void OnMutePunchAction(Entity<CQCComponent> ent, ref CQCMuteEvent args)
+    private void OnEyeAttackAction(Entity<CQCComponent> ent, ref CQCEyeAttackEvent args)
     {
         if (args.Handled)
             return;
 
-        SelectCombo(ent, CQCList.MuteAttack);
+        SelectCombo(ent, CQCList.EyeAttack);
 
         args.Handled = true;
     }
@@ -105,7 +116,7 @@ public sealed class CQCSystem : CQCSharedSystem
     }
     private void DoCQCHit(Entity<CQCComponent> ent, EntityUid hitEntity)
     {
-        if (ent.Comp.SelectedCombo is not { } combo)
+        if (!ent.Comp.Concentrated || ent.Comp.SelectedCombo is not { } combo)
             return;
 
         switch (combo)
@@ -125,10 +136,11 @@ public sealed class CQCSystem : CQCSharedSystem
                 OnPowerPunch(ent, hitEntity, ent.Comp.Params.MaxPushDistance, ent.Comp.Params.PushStrength);
                 break;
 
-            case CQCList.MuteAttack:
-                _statusEffects.TrySetStatusEffectDuration(hitEntity, MutedEffect, ent.Comp.Params.ParalyzeTimeMuteAtack);
-                DamageHit(hitEntity, ent.Comp.Params.DamageTypeForMuteAtack, ent.Comp.Params.HitDamageForMuteAtack, ent.Comp.Params.IgnoreResist, out _);
-                _stamina.TakeStaminaDamage(hitEntity, ent.Comp.Params.StaminaDamageMuteAtack);
+            case CQCList.EyeAttack:
+                _statusEffects.TryAddStatusEffect<TemporaryBlindnessComponent>(hitEntity,
+                    TemporaryBlindnessSystem.BlindingStatusEffect, ent.Comp.Params.BlindnessTimeEyeAttack, true);
+                DamageHit(hitEntity, ent.Comp.Params.DamageTypeForEyeAttack, ent.Comp.Params.HitDamageForEyeAttack, ent.Comp.Params.IgnoreResist, out _);
+                _stamina.TakeStaminaDamage(hitEntity, ent.Comp.Params.StaminaDamageEyeAttack);
                 break;
         }
         ent.Comp.SelectedCombo = null;
@@ -145,28 +157,14 @@ public sealed class CQCSystem : CQCSharedSystem
         {
             RemComp<CQCCantUseWeaponComponent>(ent);
             ent.Comp.SelectedCombo = null;
-
-            foreach (var actionEnt in ent.Comp.BaseCQCActionEntities)
-            {
-                _action.RemoveAction(ent.Owner, actionEnt);
-                QueueDel(actionEnt);
-            }
-
-            ent.Comp.BaseCQCActionEntities.Clear();
         }
         else
         {
             EnsureComp<CQCCantUseWeaponComponent>(ent);
-            foreach (var action in ent.Comp.BaseCQC)
-            {
-                EntityUid? actionEnt = null;
-                _action.AddAction(ent.Owner, ref actionEnt, action);
-
-                if (actionEnt != null)
-                    ent.Comp.BaseCQCActionEntities.Add(actionEnt.Value);
-            }
         }
+
         ent.Comp.Concentrated = !ent.Comp.Concentrated;
+        _gate.Set(ent.Owner, "cqc", ent.Comp.BaseCQC, ent.Comp.Concentrated);
         _action.SetToggled(ent.Comp.CQCConcentrationActionEntity, ent.Comp.Concentrated);
     }
 
@@ -249,5 +247,57 @@ public sealed class CQCSystem : CQCSharedSystem
 
         var impulse = dir * pushStrength;
         _physics.ApplyLinearImpulse(hitEnt, impulse, body: physicsComponent);
+
+        _knockbackTargets.Add(hitEnt);
+    }
+
+    private void OnBeforeSolve(ref PhysicsUpdateBeforeSolveEvent args)
+    {
+        _finishedKnockbacks.Clear();
+        foreach (var target in _knockbackTargets)
+        {
+            if (!TryComp<PhysicsComponent>(target, out var body) || !body.CanCollide ||
+                !TryComp<FixturesComponent>(target, out var fixtures))
+            {
+                _finishedKnockbacks.Add(target);
+                continue;
+            }
+
+            var translation = body.LinearVelocity * args.DeltaTime;
+            var distance = translation.Length();
+            if (distance <= 0.5f)
+            {
+                _finishedKnockbacks.Add(target);
+                continue;
+            }
+
+            var xform = Transform(target);
+            var origin = _physics.GetPhysicsTransform(target, xform);
+            var fraction = 1f;
+            foreach (var fixture in fixtures.Fixtures.Values)
+            {
+                if (!fixture.Hard)
+                    continue;
+
+                var filter = new QueryFilter
+                {
+                    LayerBits = fixture.CollisionLayer,
+                    MaskBits = fixture.CollisionMask,
+                    Flags = QueryFlags.Static,
+                    IsIgnored = uid => uid == target,
+                };
+                var cast = _rayCast.CastShape(xform.MapID, fixture.Shape, origin, translation, filter,
+                    RayCastSystem.RayCastClosestCallback);
+                foreach (var hit in cast.Results)
+                    fraction = MathF.Min(fraction, hit.Fraction);
+            }
+
+            // Keep the full impulse in open space, but stop just short of a wall before the discrete physics step.
+            if (fraction < 1f)
+                _physics.SetLinearVelocity(target, body.LinearVelocity * MathF.Max(0f, fraction - 0.01f / distance), body: body);
+        }
+
+        foreach (var target in _finishedKnockbacks)
+            _knockbackTargets.Remove(target);
     }
 }

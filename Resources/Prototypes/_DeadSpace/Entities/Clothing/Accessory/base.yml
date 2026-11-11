@@ -28,6 +28,7 @@
     - EmergencyInjector # DS14-Soyuz
 #    - Patch
 #    - Armband
+    - Rank # DS14-Soyuz
 
 - type: entity
   abstract: true

@@ -13,6 +13,7 @@
     shape:
     - 0,0,2,1
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertcases.rsi
     state: sred
   - type: ThiefUndeterminedBackpack
     maxSelectedSets: 2
@@ -44,6 +45,7 @@
     shape:
     - 0,0,2,1
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertcases.rsi
     state: sgamma
   - type: ThiefUndeterminedBackpack
     maxSelectedSets: 2

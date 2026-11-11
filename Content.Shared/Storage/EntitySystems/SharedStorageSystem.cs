@@ -244,6 +244,7 @@ public abstract class SharedStorageSystem : EntitySystem
             StoredItems = storedItems,
             SavedLocations = component.SavedLocations,
             PriorityItems = priorityItems, // DS14
+            GridGroups = new Dictionary<string, List<Box2i>>(component.GridGroups), //DS14
             Whitelist = component.Whitelist,
             Blacklist = component.Blacklist,
             QuickInsert = component.QuickInsert,
@@ -1118,7 +1119,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         if (!ignoreStacks
             && _stackQuery.TryGetComponent(insertEnt, out var stack)
-            && HasSpaceInStacks((uid, storageComp), stack.StackTypeId))
+            && HasSpaceInStacks((uid, storageComp), stack.StackTypeId, insertEnt)) // DS14: only stacks it may merge into
         {
             reason = null;
             return true;
@@ -1290,6 +1291,10 @@ public abstract class SharedStorageSystem : EntitySystem
             && !ContainerSystem.Insert(insertEnt, storageComp.Container)
             && toInsertCount == insertStack.Count)
         {
+            // DS14-start: no room for it - its system may offer something else (merge fultons of different beacons).
+            var failed = new StorageStackInsertFailedEvent(uid, user);
+            RaiseLocalEvent(insertEnt, ref failed);
+            // DS14-end
             // Failed to insert anything.
             return false;
         }
@@ -1318,6 +1323,10 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!CanInsert(ent, toInsert.Value, out var reason, ent.Comp))
         {
             _popupSystem.PopupClient(Loc.GetString(reason ?? "comp-storage-cant-insert"), ent, player);
+            // DS14-start: no room - a fulton stack may offer to merge with one of another beacon
+            var failed = new StorageStackInsertFailedEvent(ent, player);
+            RaiseLocalEvent(toInsert.Value, ref failed);
+            // DS14-end
             return false;
         }
 
@@ -1394,7 +1403,12 @@ public abstract class SharedStorageSystem : EntitySystem
         if (FindSavedLocation(storageEnt, itemEnt, out storageLocation))
             return true;
 
-        var storageBounding = storageEnt.Comp.Grid.GetBoundingBox();
+        // DS14-start
+        var allBoxes = new List<Box2i>();
+        foreach (var group in storageEnt.Comp.GetEffectiveGroups())
+            allBoxes.AddRange(group);
+        var storageBounding = allBoxes.GetBoundingBox();
+        // DS14-end
 
         Angle startAngle;
         if (storageEnt.Comp.DefaultStorageOrientation == null)
@@ -1502,7 +1516,8 @@ public abstract class SharedStorageSystem : EntitySystem
                         _itemShape.Clear();
                         ItemSystem.GetAdjustedItemShape(_itemShape, itemEnt, angle, position);
 
-                        if (ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, _itemShape, _ignored))
+                        if (ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, _itemShape, _ignored)
+                            && ItemShapeInSingleGroup(_itemShape, storageEnt.Comp)) // DS14
                         {
                             storageLocation = new ItemStorageLocation(angle, position);
                             return true;
@@ -1711,9 +1726,20 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!Resolve(itemEnt, ref itemEnt.Comp) || !Resolve(storageEnt, ref storageEnt.Comp))
             return false;
 
-        var gridBounds = storageEnt.Comp.Grid.GetBoundingBox();
-        if (!gridBounds.Contains(position))
+        // DS14-start
+        var inAnyGroup = false;
+        foreach (var group in storageEnt.Comp.GetEffectiveGroups())
+        {
+            if (group.Contains(position))
+            {
+                inAnyGroup = true;
+                break;
+            }
+        }
+
+        if (!inAnyGroup)
             return false;
+        // DS14-end
 
         var itemShape = ItemSystem.GetAdjustedItemShape(itemEnt, rotation, position);
         // Ignore the item's existing location for fitting purposes.
@@ -1724,8 +1750,58 @@ public abstract class SharedStorageSystem : EntitySystem
             AddOccupied(itemEnt, existing, _ignored);
         }
 
-        return ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, itemShape, _ignored);
+        // DS14-start
+        if (!ItemFitsInGridLocation(storageEnt.Comp.OccupiedGrid, itemShape, _ignored))
+            return false;
+
+        if (!ItemShapeInSingleGroup(itemShape, storageEnt.Comp))
+            return false;
+
+        return true;
+        // DS14-end
     }
+
+    // DS14-start
+    private bool ItemShapeInSingleGroup(IReadOnlyList<Box2i> itemShape, StorageComponent comp)
+    {
+        var groups = comp.GridGroups;
+        if (groups.Count <= 1)
+            return true;
+
+        var groupList = new List<List<Box2i>>(groups.Values);
+
+        int? currentGroup = null;
+
+        foreach (var box in itemShape)
+        {
+            for (var x = box.Left; x <= box.Right; x++)
+            {
+                for (var y = box.Bottom; y <= box.Top; y++)
+                {
+                    int tileGroup = -1;
+                    for (var i = 0; i < groupList.Count; i++)
+                    {
+                        if (groupList[i].Contains(x, y))
+                        {
+                            tileGroup = i;
+                            break;
+                        }
+                    }
+
+                    if (tileGroup < 0)
+                        return false;
+
+                    if (currentGroup == null)
+                        currentGroup = tileGroup;
+                    else if (currentGroup != tileGroup)
+                        return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    // DS14-end
 
     /// <summary>
     /// Checks if a space on a grid is valid and not occupied by any other pieces.
@@ -1763,7 +1839,11 @@ public abstract class SharedStorageSystem : EntitySystem
     protected void UpdateOccupied(Entity<StorageComponent> ent)
     {
         ent.Comp.OccupiedGrid.Clear();
-        RemoveOccupied(ent.Comp.Grid, ent.Comp.OccupiedGrid);
+
+        // DS14-start
+        foreach (var group in ent.Comp.GetEffectiveGroups())
+            RemoveOccupied(group, ent.Comp.OccupiedGrid);
+        // DS14-end
 
         Dirty(ent);
 
@@ -1880,7 +1960,8 @@ public abstract class SharedStorageSystem : EntitySystem
         return GetCumulativeItemAreas(uid) < uid.Comp.Grid.GetArea() || HasSpaceInStacks(uid);
     }
 
-    private bool HasSpaceInStacks(Entity<StorageComponent?> uid, ProtoId<StackPrototype>? stackType = null)
+    private bool HasSpaceInStacks(Entity<StorageComponent?> uid, ProtoId<StackPrototype>? stackType = null,
+        EntityUid? donor = null) // DS14
     {
         if (!Resolve(uid, ref uid.Comp))
             return false;
@@ -1895,6 +1976,16 @@ public abstract class SharedStorageSystem : EntitySystem
 
             if (_stack.GetAvailableSpace(stack) == 0)
                 continue;
+
+            // DS14-start: a stack that refuses to merge (fultons of another beacon) is no room for it
+            if (donor is { } merging)
+            {
+                var attempt = new StackMergeAttemptEvent(contained);
+                RaiseLocalEvent(merging, ref attempt);
+                if (attempt.Cancelled)
+                    continue;
+            }
+            // DS14-end
 
             return true;
         }
@@ -2118,6 +2209,7 @@ public abstract class SharedStorageSystem : EntitySystem
         public Dictionary<NetEntity, ItemStorageLocation> StoredItems = new();
         public Dictionary<string, List<ItemStorageLocation>> SavedLocations = new();
         public Dictionary<NetEntity, NetEntity> PriorityItems = new(); // DS14
+        public Dictionary<string, List<Box2i>>? GridGroups = new(); // DS14
         public List<Box2i> Grid = new();
         public ProtoId<ItemSizePrototype>? MaxItemSize;
         public EntityWhitelist? Whitelist;
@@ -2132,3 +2224,9 @@ public abstract class SharedStorageSystem : EntitySystem
         public StorageDefaultOrientation? DefaultStorageOrientation;
     }
 }
+
+// DS14-start
+/// <summary>Raised on a stack that could neither merge into a storage's stacks nor fit into it.</summary>
+[ByRefEvent]
+public readonly record struct StorageStackInsertFailedEvent(EntityUid Storage, EntityUid? User);
+// DS14-end

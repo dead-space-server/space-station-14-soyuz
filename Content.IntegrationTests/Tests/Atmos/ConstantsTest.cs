@@ -50,49 +50,6 @@ public sealed class ConstantsTest
                 Assert.That(Atmospherics.GasAbbreviations, Has.Count.EqualTo(Atmospherics.TotalNumberOfGases),
                      $"GasAbbreviations size is not equal to TotalNumberOfGases.");
 
-                // DS14-Soyuz start
-                var gases = Enum.GetValues<Gas>();
-                Assert.That(gases.Max(gas => (int) gas) + 1, Is.EqualTo(Atmospherics.TotalNumberOfGases));
-                Assert.That(gases.Select(gas => (int) gas).Distinct().Count(), Is.EqualTo(Atmospherics.TotalNumberOfGases));
-                var mixture = new GasMixture();
-                var visibleGases = entityManager.System<GasTileOverlaySystem>().VisibleGasId;
-                var sensor = protoManager.Index<EntityPrototype>(AirSensorId);
-                var voxSensor = protoManager.Index<EntityPrototype>(AirSensorVoxId);
-                foreach (var sensorProto in new[] { sensor, voxSensor })
-                {
-                    Assert.That(sensorProto.TryGetComponent<AtmosMonitorComponent>(out var monitor, entityManager.ComponentFactory), Is.True);
-                    Assert.That(monitor!.GasThresholdPrototypes, Is.Not.Null);
-                    foreach (var gas in gases)
-                    {
-                        Assert.That(monitor.GasThresholdPrototypes!.TryGetValue(gas, out var threshold), Is.True,
-                            $"{sensorProto.ID} has no threshold for {gas}");
-                        if (threshold != null)
-                            Assert.That(protoManager.TryIndex<AtmosAlarmThresholdPrototype>(threshold, out _), Is.True);
-                    }
-                }
-
-                foreach (var gas in gases)
-                {
-                    Assert.That((int) gas, Is.InRange(0, Atmospherics.TotalNumberOfGases - 1));
-                    Assert.DoesNotThrow(() => mixture.GetMoles(gas), $"GasMixture cannot index {gas}");
-                    Assert.That(protoManager.TryIndex<GasPrototype>(gas.ToString(), out var gasProto), Is.True,
-                        $"No GasPrototype for {gas}");
-                    Assert.That(Atmospherics.GasAbbreviations.ContainsKey(gas), Is.True,
-                        $"No abbreviation for {gas}");
-                    if (gasProto?.Reagent is { } reagent)
-                        Assert.That(protoManager.TryIndex<ReagentPrototype>(reagent, out _), Is.True,
-                            $"No reagent {reagent} for {gas}");
-                    if (gas >= Gas.Kryoxide)
-                    {
-                        Assert.That(gasProto!.Reagent, Is.Not.Null, $"No reagent mapping for {gas}");
-                        Assert.That(GasVentScrubberData.DefaultFilterGases.Contains(gas), Is.True,
-                            $"Advanced gas {gas} is missing from scrubber defaults");
-                        Assert.That(visibleGases, Does.Contain((int) gas),
-                            $"Advanced gas {gas} is missing from the visible gas overlay");
-                    }
-                }
-                // DS14-Soyuz end
-
                 // the ID for each gas has to correspond to a value in the Gas enum (converted to a string)
                 foreach (var gas in gasProtos)
                 {

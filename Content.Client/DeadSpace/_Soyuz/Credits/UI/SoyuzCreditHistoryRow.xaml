@@ -1,5 +1,5 @@
 <PanelContainer xmlns="https://spacestation14.io"
-                Name="Root"
+                Name="RowPanel"
                 HorizontalExpand="True">
     <BoxContainer Orientation="Horizontal" Margin="10 6 10 6" SeparationOverride="12">
         <Label Name="AmountLabel" MinWidth="72" VerticalAlignment="Center" StyleClasses="LabelHeading" />

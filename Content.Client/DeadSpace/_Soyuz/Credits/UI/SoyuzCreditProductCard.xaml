@@ -1,5 +1,5 @@
 <PanelContainer xmlns="https://spacestation14.io"
-                Name="Root"
+                Name="CardPanel"
                 HorizontalExpand="True">
     <BoxContainer Orientation="Horizontal" Margin="12 10 12 10" SeparationOverride="14">
         <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="4" MinWidth="200">

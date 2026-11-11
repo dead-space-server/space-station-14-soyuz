@@ -176,13 +176,13 @@ deadspace-chatsan-word-76 = уча
 deadspace-chatsan-replacement-76 = ускорителя частиц
 
 deadspace-chatsan-word-77 = см
-deadspace-chatsan-replacement-77 = суперматерия
+deadspace-chatsan-replacement-77 = старший милиционер
 deadspace-chatsan-word-78 = сма
-deadspace-chatsan-replacement-78 = суперматерии
+deadspace-chatsan-replacement-78 = старшего милиционера
 deadspace-chatsan-word-79 = сму
-deadspace-chatsan-replacement-79 = суперматерии
+deadspace-chatsan-replacement-79 = старшему милиционеру
 deadspace-chatsan-word-80 = смом
-deadspace-chatsan-replacement-80 = суперматерией
+deadspace-chatsan-replacement-80 = старшим милиционером
 
 deadspace-chatsan-word-81 = норм
 deadspace-chatsan-replacement-81 = нормально
@@ -291,7 +291,7 @@ deadspace-chatsan-word-120 = ясн
 deadspace-chatsan-replacement-120 = ясно
 
 deadspace-chatsan-word-121 = всм
-deadspace-chatsan-replacement-121 = всмысле
+deadspace-chatsan-replacement-121 = в смысле
 
 deadspace-chatsan-word-122 = чзх
 deadspace-chatsan-replacement-122 = что за херня
@@ -308,9 +308,9 @@ deadspace-chatsan-word-126 = сво
 deadspace-chatsan-replacement-126 = свой
 
 deadspace-chatsan-word-127 = имба
-deadspace-chatsan-replacement-127 = нечестно
+deadspace-chatsan-replacement-127 = офигенно
 deadspace-chatsan-word-128 = имбулечка
-deadspace-chatsan-replacement-128 = нечестно
+deadspace-chatsan-replacement-128 = офигенно
 
 deadspace-chatsan-word-129 = разлокать
 deadspace-chatsan-replacement-129 = разблокировать
@@ -393,7 +393,7 @@ deadspace-chatsan-word-157 = хоса
 deadspace-chatsan-replacement-157 = нма
 
 deadspace-chatsan-word-158 = смо
-deadspace-chatsan-replacement-158 = главрач
+deadspace-chatsan-replacement-158 = главврач
 
 deadspace-chatsan-word-159 = се
 deadspace-chatsan-replacement-159 = си
@@ -448,7 +448,7 @@ deadspace-chatsan-replacement-179 = главным научным сотрудн
 deadspace-chatsan-word-180 = нры
 deadspace-chatsan-replacement-180 = главные научные сотрудники
 
-deadspace-chatsan-word-181 = км
+deadspace-chatsan-word-181 = зх
 deadspace-chatsan-replacement-181 = завхоз
 deadspace-chatsan-word-182 = кма
 deadspace-chatsan-replacement-182 = завхоза

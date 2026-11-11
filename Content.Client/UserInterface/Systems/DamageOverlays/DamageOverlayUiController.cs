@@ -1,4 +1,5 @@
 using Content.Shared.Damage.Components;
+using Content.Shared.DeadSpace.Psychiatry; //DS-14
 using Content.Shared.DeadSpace.TheCircle.Dreadnought;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
@@ -66,6 +67,19 @@ public sealed class DamageOverlayUiController : UIController
         UpdateOverlays(args.Target, args.MobState, args.Damageable, args.Threshold);
     }
 
+    public void RefreshLocal(EntityUid entity) //DS-14
+    {
+        if (!EntityManager.TryGetComponent<MobStateComponent>(entity, out var mobState))
+            return;
+        if (mobState.CurrentState == MobState.Dead)
+        {
+            ClearOverlay();
+            return;
+        }
+
+        UpdateOverlays(entity, mobState);
+    }
+
     private void ClearOverlay()
     {
         _overlay.Reset();
@@ -127,6 +141,24 @@ public sealed class DamageOverlayUiController : UIController
                 {
                     _overlay.OxygenLevel = FixedPoint2.Min(1f, oxyDamage / critThreshold).Float();
                 }
+
+                //DS-14 start
+                if (EntityManager.TryGetComponent<SchizophreniaComponent>(entity, out var schizo)
+                    && schizo.PhantomAmount > 0f
+                    && schizo.Stage >= SchizophreniaStage.Simple)
+                {
+                    var extra = Math.Clamp(schizo.PhantomAmount / critThreshold.Float(), 0f, 0.4f);
+                    if (schizo.PhantomType == "Asphyxiation")
+                    {
+                        if (_overlay.OxygenLevel < 0.85f)
+                            _overlay.OxygenLevel = Math.Min(0.85f, _overlay.OxygenLevel + extra);
+                    }
+                    else if (_overlay.PainLevel < 0.85f)
+                    {
+                        _overlay.PainLevel = Math.Min(0.85f, _overlay.PainLevel + extra);
+                    }
+                }
+                //DS-14 end
 
                 _overlay.PreCriticalLevel = mobState.CurrentState == MobState.PreCritical
                     ? GetStateProgress(entity, MobState.PreCritical, MobState.Critical, damageable.TotalDamage, thresholds)

@@ -17,13 +17,13 @@ public sealed class JammerSystem : SharedJammerSystem
 
     private void OnRadioSendAttempt(ref RadioSendAttemptEvent args)
     {
-        if (ShouldCancel(args.RadioSource, args.Frequency)) // DS14-Soyuz
+        if (ShouldCancel(args.RadioSource, args.Channel.Frequency))
             args.Cancelled = true;
     }
 
     private void OnRadioReceiveAttempt(ref RadioReceiveAttemptEvent args)
     {
-        if (ShouldCancel(args.RadioReceiver, args.Frequency)) // DS14-Soyuz
+        if (ShouldCancel(args.RadioReceiver, args.Channel.Frequency))
             args.Cancelled = true;
     }
 

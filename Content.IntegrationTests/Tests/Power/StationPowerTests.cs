@@ -24,7 +24,7 @@ public sealed class StationPowerTests
     [
         // "DSTaipan", // remap in progress
         "Amber",
-        // "Aspid", // remap in progress
+        "Aspid", // DS14-Soyuz
         "Bagel",
         "Barratry",
         "Box",
@@ -32,12 +32,14 @@ public sealed class StationPowerTests
         "Cog",
         "Convex",
         "Core",
-        // "CorvaxAstra", // DS14-Soyuz disabled
-        // "CorvaxAvrite", // DS14-Soyuz disabled
-        // "CorvaxDelta", // DS14-Soyuz disabled
+        // DS14-Soyuz-start
+        // "CorvaxAstra",
+        // "CorvaxAvrite",
+        // "CorvaxDelta",
+        // DS14-Soyuz-end
         // "CorvaxPaper", // APC overloaded
         "CorvaxSilly",
-        // "CorvaxSpectrum", // DS14-Soyuz disabled
+        // "CorvaxSpectrum", // DS14-Soyuz
         "Elkridge",
         // "Exo", // map removed
         "Fland",
@@ -59,6 +61,7 @@ public sealed class StationPowerTests
         "Saltern",
         "Train",
         "DsTram2", // guess what? DS14
+        "GeneralStaff" // DS14-Soyuz
     ];
 
     [Explicit]

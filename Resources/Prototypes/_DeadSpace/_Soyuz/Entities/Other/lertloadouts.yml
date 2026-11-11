@@ -9,6 +9,7 @@
   parent: BaseERTloadoutPrimary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertcases.rsi
     state: lred
   - type: ThiefUndeterminedBackpack
     possibleSets:
@@ -33,6 +34,7 @@
   parent: BaseERTloadoutSecondary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertboxes.rsi
     state: lred
   - type: ThiefUndeterminedBackpack
     possibleSets:
@@ -55,6 +57,7 @@
   parent: BaseERTloadoutPrimary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertcases.rsi
     state: lgamma
   - type: ThiefUndeterminedBackpack
     possibleSets:
@@ -80,6 +83,7 @@
   parent: BaseERTloadoutSecondary
   components:
   - type: Sprite
+    sprite: _DeadSpace/_Soyuz/ERT/ertboxes.rsi
     state: lgamma
   - type: ThiefUndeterminedBackpack
     possibleSets:

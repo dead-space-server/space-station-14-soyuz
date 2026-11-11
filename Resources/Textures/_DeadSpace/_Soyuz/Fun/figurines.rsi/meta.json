@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Мade by koseop (discord) for Space Station 14 server Мёртвый Космос Союз-1",
+  "copyright": "Мade by koseop (discord), officer1 by pinkimilki (discord) for Space Station 14 server Мёртвый Космос Союз-1",
   "size": {
     "x": 32,
     "y": 32
@@ -24,6 +24,9 @@
     },
     {
       "name": "scientist1"
+    },
+    {
+      "name": "officer1"
     }
   ]
 }

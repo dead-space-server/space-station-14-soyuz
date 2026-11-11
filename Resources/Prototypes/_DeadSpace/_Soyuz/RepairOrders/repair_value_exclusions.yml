@@ -771,7 +771,6 @@
   - SpawnPointCircleEngineer
   - SpawnPointCircleFighterHeavy
   - SpawnPointCircleFighterLight
-  - SpawnPointCircleGeist
   - SpawnPointCircleMedic
   - SpawnPointClown
   - SpawnPointCoroner
@@ -1354,3 +1353,163 @@
   - SobrCryoCapsuleBsaaMedic
   - SobrCryoCapsuleBsaaFighter
   - SobrCryoCapsuleMixedExample
+
+- type: repairValueExclusion
+  id: RepairExcludeMapping
+  reason: Не ебу x2
+  entities:
+  - GravityGeneratorInvisible
+  - StationAnchorInvisible
+
+- type: repairValueExclusion
+  id: RepairExcludeSS14Rinok
+  reason: SS14 - рынок
+  entities:
+  - MaterialMarketplace
+  - MaterialMarketplacePriceConsole
+  - PublicMarket
+
+- type: repairValueExclusion
+  id: RepairExcludeIdk
+  reason: обосраца
+  entities:
+  - ComputerLockdown
+  - AirlockExternalGlassShuttleSecurity
+  - AirlockExternalGlassShuttleSecurityRandom
+  - AirlockExternalGlassShuttleDeathSquad
+  - AirlockExternalGlassShuttleGeneralStaff
+
+- type: repairValueExclusion
+  id: RepairExcludeFuckUpstream
+  reason: Апстримовская хуйня я эту систему перепишу когда нибудь
+  entities:
+  - AirlockBlueShieldLocked
+  - AirlockExternalGlassShuttleNinjaLocked
+  - AirlockHatchNinjaLocked
+  - AirlockNinja
+  - AirlockNinjagGlass
+  - BluespaceMiner
+  - CrateBluespaceMinerBoard
+  - CrateDragonFoxReaper
+  - CrateDragonFoxReaper1
+  - CrateDragonFoxReaper2
+  - CratePickleSeeds
+  - EffectArchitectConstruct1
+  - EffectArchitectConstruct3
+  - ExperimentalObeliskShard
+  - FTLDiskSpawnPoint
+  - FloraTreeLavalandAsh
+  - GasCanisterPsychogen
+  - HoloFani750
+  - HolosignBulletShield
+  - LavalandAnomalousCrystalDarkReprise
+  - LavalandAnomalousCrystalEmitter
+  - LavalandAnomalousCrystalHonk
+  - LavalandAnomalousCrystalRandom
+  - LavalandAnomalousCrystalThemeWarp
+  - LavalandAshDrakeChaseLava
+  - LavalandBasaltBoulderSpawner
+  - LavalandBluespaceWell
+  - LavalandBossArenaSpawnPoint
+  - LavalandBubblegumBloodWall
+  - LavalandBubblegumBloodWallMark
+  - LavalandBubblegumDeadlyHand
+  - LavalandBubblegumWeaponSpawner
+  - LavalandCainAndAbelCrystal
+  - LavalandCainAndAbelEngraved
+  - LavalandCelestialFlower
+  - LavalandCelestialHoleFence
+  - LavalandCelestialInvisibleWall
+  - LavalandCelestialPit
+  - LavalandChromiteExit
+  - LavalandChromiteFloorCrystal
+  - LavalandChromiteFloorCrystalPurple
+  - LavalandChromiteLandingFlower
+  - LavalandChromiteLandingFlowerGlow
+  - LavalandChromitePit
+  - LavalandColossusBurstMark
+  - LavalandEliteTumor
+  - LavalandEliteTumorWall
+  - LavalandGeistAmbushTrigger
+  - LavalandGeistHoleDust
+  - LavalandGeistTrapSpawner
+  - LavalandGeistWatchTrigger
+  - LavalandGoldgrubAmbushTestSpawner
+  - LavalandHierophantArenaFloorAlt
+  - LavalandLavaStaffWarning
+  - LavalandLegionRockMark
+  - LavalandLegionSentinel
+  - LavalandLegionSentinelBeam
+  - LavalandLegionSentinelTracer
+  - LavalandLegionSpawner
+  - LavalandLegionnaireBonfire
+  - LavalandLegionnaireChargeTelegraph
+  - LavalandMadMinerSpawner
+  - LavalandMarkerBeacon
+  - LavalandMorkiteExtractor
+  - LavalandNecropolisTendrilRaidGoliath
+  - LavalandNecropolisTendrilRaidLegion
+  - LavalandNecropolisTendrilRaidWatcher
+  - LavalandPandoraSafeTelegraph
+  - LavalandPandoraTelegraph
+  - LavalandRealityHole
+  - LavalandStormShelterBlocker
+  - LavalandStormStaffSpark
+  - LavalandStormStaffTelegraph
+  - LavalandStormStaffThunderbolt
+  - LavalandWhelpFlockTrigger
+  - LavalandWildWhelpNest
+  - LavalandWildWhelpTestSpawner
+  - NTTribune
+  - NecropolisArch
+  - NecropolisArchFront
+  - NecropolisDrakeStatue
+  - NecropolisDrakeStatueFalling
+  - NecropolisGate
+  - NecropolisGateFront
+  - NecropolisGateLegion
+  - NecropolisGateLocked
+  - NecropolisStoneBlock
+  - NecropolisStoneBlockBurnt
+  - NecropolisStoneBlockCracked
+  - NecropolisStoneCenter
+  - NecropolisStoneCenterBurnt
+  - NecropolisStoneCenterCracked
+  - NecropolisStoneSlab
+  - NecropolisStoneSlabBurnt
+  - NecropolisStoneSlabCracked
+  - NecropolisStoneSurrounding
+  - NecropolisStoneSurroundingBurnt
+  - NecropolisStoneSurroundingCracked
+  - NecropolisStoneSurroundingTile
+  - NecropolisStoneSurroundingTileBurnt
+  - NecropolisStoneSurroundingTileCracked
+  - NecropolisStoneTile
+  - NecropolisStoneTileBurnt
+  - NecropolisStoneTileCracked
+  - NinjaBeam
+  - NinjaCaltrop
+  - NinjaComputerShuttle
+  - NinjaInfoConsole
+  - NinjaInfoScanner
+  - NinjaMindScannerMarker
+  - NinjaNet
+  - NinjaRespawnCapsule
+  - PickleBarrelWood
+  - RcdBuildSite
+  - SamuraiSwordCabinet
+  - ScrapGeneratorFrame
+  - ScrapGeneratorPlasma
+  - ScrapGeneratorPlasmaLeaking
+  - ScrapGeneratorUranium
+  - ScrapGeneratorUraniumLeaking
+  - SpawnPointCircleShockTrooper
+  - SpawnPointGeistMidround
+  - SpawnPointGhostGeistMidround
+  - SpawnPointGhostGeistMidroundCalled
+  - SpawnPointIAAOfficer
+  - SpawnPointSpaceNinja
+  - VendingMachineWallMedicalRescue
+  - WallLegionArena
+  - WallNecropolisLavaland
+  - WallRockChromiteCavesBoundary

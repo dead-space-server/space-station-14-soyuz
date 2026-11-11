@@ -9,5 +9,6 @@ comp-storage-window-title = Storage Item
 comp-storage-window-weight = { $weight }/{ $maxWeight }, Max Size: {$size}
 comp-storage-window-slots = Slots: { $itemCount }/{ $maxCount }, Max Size: {$size}
 comp-storage-window-dummy = Dummy
+comp-storage-window-back = Back
 comp-storage-verb-open-storage = Open Storage
 comp-storage-verb-close-storage = Close Storage

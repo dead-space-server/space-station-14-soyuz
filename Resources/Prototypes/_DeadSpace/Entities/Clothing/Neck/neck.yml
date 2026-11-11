@@ -31,6 +31,36 @@
   - type: Clothing
     sprite: _DeadSpace/Clothing/Neck/blueshieldmantle_shoulder.rsi
 
+- type: entity 
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckPonchoBlueShield
+  name: пончо офицера "Синий Щит" с подсумками
+  description: Перестрелки с Ядерными Оперативниками - обычное дело. Это пончо — символ преданности NanoTrasen. Благодаря структуре данного пончо оно может от части спасти от кислоты, изнутри плаща есть несколько подсумков.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Neck/cowboy_neck_bs.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Neck/cowboy_neck_bs.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.6
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,3,1
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: Item
+    size: Normal
+
 - type: entity
   parent: [ClothingNeckBase, BaseCommandContraband]
   id: ClothingNeckMantleRedSwordShoulder
@@ -124,3 +154,16 @@
     sprite: _DeadSpace/Clothing/Neck/captain_mantle_black.rsi
   - type: Clothing
     sprite: _DeadSpace/Clothing/Neck/captain_mantle_black.rsi
+
+- type: entity
+  parent: [ClothingScarfBase, BaseHighlyIllegalContraband]
+  id: ClothingNeckScarfNinja
+  name: шарф ниндзя
+  description: Шарф клана Паука, сотканный из нановолокон. Его цвет гармонирует с остальным вашим снаряжением.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Clothing/Neck/spaceninja.rsi
+  - type: Clothing
+    sprite: _DeadSpace/Clothing/Neck/spaceninja.rsi
+  - type: NinjaAppearanceItem
+    itemType: Scarf

@@ -5,6 +5,7 @@ using Content.Shared.Actions.Components;
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace.Actions; //DS-14
 using Content.Shared.DoAfter;
 using Content.Shared.Hands;
 using Content.Shared.Interaction;
@@ -33,6 +34,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     [Dependency] private   readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private   readonly SharedTransformSystem _transform = default!;
     [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private   readonly ActionAvailabilitySystem _availability = default!; //DS-14
 
     private EntityQuery<ActionComponent> _actionQuery;
     private EntityQuery<ActionsComponent> _actionsQuery;
@@ -309,6 +311,9 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
         DebugTools.Assert(action.Comp.AttachedEntity == user);
         if (!action.Comp.Enabled)
+            return false;
+
+        if (!_availability.IsAvailable(action)) //DS-14
             return false;
 
         var curTime = GameTiming.CurTime;

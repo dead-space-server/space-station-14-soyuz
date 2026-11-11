@@ -165,6 +165,9 @@ def get_last_changelog_by_sha(
 def diff_changelog(
     old: dict[str, Any], cur: dict[str, Any]
 ) -> Iterable[ChangelogEntry]:
+    """
+    Find all new entries not present in the previous publish.
+    """
     old_entry_ids = {entry.get("id") for entry in old.get("Entries", [])}
     for entry in cur.get("Entries", []):
         if entry.get("id") not in old_entry_ids:
@@ -353,7 +356,10 @@ def send_discord_webhook(webhook_url: str, content: str):
         "content": content,
         "allowed_mentions": {"parse": []},
     }
-    
+
+
+def send_discord_webhook(description: str, last_publish_date: str, include_footer: bool):
+    body = get_discord_body(description, last_publish_date, include_footer)
     retry_attempt = 0
     try:
         response = requests.post(webhook_url, json=body, timeout=10)

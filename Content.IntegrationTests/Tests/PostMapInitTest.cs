@@ -35,7 +35,7 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] NoSpawnMaps =
         {
-            "CentComm",
+            // "CentComm", // DS14-Soyuz
             "Dart"
         };
 
@@ -64,6 +64,7 @@ namespace Content.IntegrationTests.Tests
             {"/Maps/_Soyuz/ds_silly_snow.yml", ["RubberStampClown", "RubberStampMime"]},
             {"/Maps/_Soyuz/gemini.yml", ["RubberStampClown"]},
             {"/Maps/_Soyuz/ds_box.yml", ["RubberStampSyndicate"]},
+            {"/Maps/_Soyuz/S1_deathsquad.yml", ["BoxFolderBlueFilled", "RubberStampCentcomSpecialOperationOfficer", "RubberStampMemeDeny"]},
             // DS14-Soyuz-end
         };
 
@@ -79,7 +80,7 @@ namespace Content.IntegrationTests.Tests
             "/Maps/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
+            "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
             // DS14-Soyuz-start
@@ -104,7 +105,7 @@ namespace Content.IntegrationTests.Tests
         {
             "Dev",
             "TestTeg",
-            "CentComm",
+            // "CentComm", //DS14-Soyuz
             "MeteorArena",
             "dm01-entryway",
             "DSTaipan",
@@ -151,9 +152,11 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            // "Aspid", // DS14-Soyuz enabled
-            // "Cluster", // DS14-Soyuz enabled
-            // "Loop", // DS14-Soyuz enabled
+            // DS14-Soyuz-start
+            // "Aspid",
+            // "Cluster",
+            // "Loop",
+            // DS14-Soyuz-end
             "Gemini", // map load failure
         };
         /// <summary>
@@ -165,6 +168,7 @@ namespace Content.IntegrationTests.Tests
             "Boxer",
             "Zookeeper",
             "Lawyer",
+            "IAAOfficer",
         };
         // DS14-end
 

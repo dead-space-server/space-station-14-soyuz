@@ -64,7 +64,7 @@
   meltingPoint: -11.0
   tileReactions:
     - !type:CleanTileReaction
-      cleanCost: 0.01
+      cleanCost: 0.04 # DS14-Soyuz
     - !type:CleanDecalsReaction {}
     - !type:ReplaceTileReaction
       replacements:

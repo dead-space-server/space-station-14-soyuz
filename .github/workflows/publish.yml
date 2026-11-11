@@ -23,7 +23,7 @@ jobs:
 
     steps:
     - name: Install dependencies
-      run: sudo apt-get install -y python3-paramiko python3-lxml python3-requests python3-yaml jq
+      run: sudo apt-get install -y python3-paramiko python3-lxml python3-requests python3-yaml
 
     - uses: actions/checkout@v4.2.2
       with:

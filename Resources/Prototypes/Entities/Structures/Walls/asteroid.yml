@@ -65,6 +65,7 @@
   id: BaseRockGibtonite
   suffix: Gibtonite
   components:
+  - type: Gibtonite # DS14-Soyuz: mining primes the fuse instead of silently deleting the vein.
   - type: Appearance
   - type: GenericVisualizer
     visuals:

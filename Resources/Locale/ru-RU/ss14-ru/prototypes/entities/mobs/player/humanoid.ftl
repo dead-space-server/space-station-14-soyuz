@@ -71,6 +71,7 @@ ent-RandomHumanoidSpawnerCBURNAgent = Боец РХБЗЗ
 ent-RandomHumanoidSpawnerSCSTAgent = Боец ОППУ
     .desc = { "" }
     .suffix = ОБХУ, Призрачная роль
+    .suffix = ОБХУ, Призрачная роль
 ent-RandomHumanoidSpawnerSCNTAgent = Боец ОПНУ
     .desc = { "" }
     .suffix = ОБХУ, Призрачная роль

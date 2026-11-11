@@ -1939,6 +1939,12 @@
     deadspace-chatsan-word-349: deadspace-chatsan-replacement-349
     # DS14-chatsan-end
     chatsan-word-69: chatsan-replacement-69 # :godo:
+    # DS14-Soyuz-chatsan-start
+    soyuz-chatsan-word-1: soyuz-chatsan-replacement-1
+    soyuz-chatsan-word-2: soyuz-chatsan-replacement-2 
+    soyuz-chatsan-word-3: soyuz-chatsan-replacement-3
+    soyuz-chatsan-word-4: soyuz-chatsan-replacement-4
+    # DS14-Soyuz-chatsan-end
 
 - type: accent
   id: liar

@@ -2,7 +2,7 @@ using Content.Shared.Administration.Logs;
 using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Database;
-using Content.Shared.Decals; // DS14-Soyuz: validate decals against each painter's allowed tags.
+using Content.Shared.Decals; // DS14-Soyuz
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
@@ -60,7 +60,7 @@ public abstract class SharedSprayPainterSystem : EntitySystem
 
     private void OnMapInit(Entity<SprayPainterComponent> ent, ref MapInitEvent args)
     {
-        // DS14-Soyuz-start: A construction decal tool does not initialize object-painting styles.
+        // DS14-Soyuz-start
         if (ent.Comp.DecalOnly)
             return;
         // DS14-Soyuz-end

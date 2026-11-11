@@ -4,6 +4,7 @@ roles-antag-thecircle-medic-name = Отряд "Круг" - Cерафим
 roles-antag-thecircle-engineer-name = Отряд "Круг" - Зодчий
 roles-antag-thecircle-commander-name = Отряд "Круг" - Кардинал
 roles-antag-thecircle-geist-name = Отряд "Круг" - Гейст
+roles-antag-thecircle-shock-trooper-name = Отряд "Круг" - Шок Трупер
 
 roles-antag-thecircle-light-objective = Помогите своему ударному отряду радикальных юнитологов своей скоростью, выбегая вперёд, заставляя недругов тратить ресурсы на вас!
 roles-antag-thecircle-heavy-objective = Идите вперёд не боясь ран, не мешая Вестникам, ведь вы - тяжёлый боец ударного отряда радикальных юнитологов!
@@ -11,6 +12,7 @@ roles-antag-thecircle-medic-objective = Обеспечте свой ударны
 roles-antag-thecircle-engineer-objective = С помощью С4 и РСУ пробейте путь к обелиску своему ударному отряду радикальных юнитологов!
 roles-antag-thecircle-commander-objective = Вы - глава ударного отряда радикальных юнитологов, сделайте всё возможное, да бы выкрасть обелиск-артефакт со станции, и призвать на этой же станции нового бога!
 roles-antag-thecircle-geist-objective = Используйте скрытность и ловушки, чтобы устранять противников и прокладывать путь отряду «Круг». Вы можете вылететь раньше своей команды, после разрешение Кардинала конечно.
+roles-antag-thecircle-shock-trooper-objective = Выберите спеца...
 
 roles-antag-thecircle-engineer-start = 
     Вы - Инженер отряда "Круг".
@@ -31,6 +33,32 @@ roles-antag-thecircle-light-start =
 roles-antag-thecircle-geist-start =
     Вы - Шок Трупер "Гейст" ударного отряда «Круг».
     Используйте скрытность, ловушки и внезапные атаки для поддержки своего отряда.
+roles-antag-thecircle-shock-trooper-start =
+    Вы - Шок-трупер ударного отряда «Круг».
+    Устройте кровавую баню на станции.
+roles-antag-thecircle-geist-midround-name = Гейст Круга
+roles-antag-thecircle-geist-midround-description = Одиночный диверсант Круга. Задачу выполнять не обязательно: можно просто срывать работу станции. Нельзя уничтожать гравитацию и энергосистему станции.
+roles-antag-thecircle-geist-midround-start =
+    Вы - Гейст, одиночный диверсант Круга.
+    Задачу выполнять не обязательно: срывайте работу станции ловушками, осколками обелиска и внезапными атаками.
+    Не уничтожайте гравитацию и энергосистему станции.
+roles-antag-thecircle-geist-called-name = Гейст Круга (подкрепление)
+roles-antag-thecircle-geist-called-description = Смертники Круга призвали вас на помощь: помогите им вызвать обелиск и обратить экипаж в рабов.
+roles-antag-thecircle-geist-called-start =
+    Вы - Гейст, подкрепление, вызванное смертниками Круга.
+    Помогите им вызвать обелиск и обратить экипаж в рабов. Ваши задачи - в меню целей антагониста.
+
+antag-gear-selector-geist-name = Гейст
+antag-gear-selector-geist-description = Скрытный шок-трупер с прежним снаряжением, невидимостью и ловушками.
+loadout-group-the-circle-geist-style = Стиль снаряжения Гейста
+antag-gear-selector-legion-name = Легионер
+antag-gear-selector-legion-description = Быстрый боец без огнестрела, вооружённый вампирическим ножом и способностью «Бешенство».
+antag-gear-selector-survival-name = Отсроченный шок
+antag-gear-selector-survival-description = После пяти успешных ударов по людям за одно бешенство временно повышает границу состояния Alive со 100 до 150 урона. После завершения бешенства граница возвращается к 100. Повторные удары по одной цели учитываются.
+antag-gear-selector-predator-name = Хищник
+antag-gear-selector-predator-description = После пяти успешных ударов по людям во время бешенства даёт ещё +10% скорости и +10% вампиризма. Повторные удары по одной цели учитываются.
+antag-gear-selector-geist-briefing = Вы выбрали Гейста. Используйте скрытность, ловушки и внезапные атаки, чтобы открыть путь Кругу.
+antag-gear-selector-legion-briefing = Вы выбрали Легионера. У вас нет огнестрела: полагайтесь на нож, вампиризм и бешенство. Первый удар запускает охотничьи импульсы, второй прекращает их, третий по той же цели завершает бешенство.
 roles-antag-thecircle-commander-start = 
     Вы - Командир отряда "Круг".
     Вы максимально серьёзная роль, потому отыгрыш также важен! 
@@ -40,3 +68,4 @@ thecircle-list-start = Члены ударного отряда "Круг" бы�
 thecircle-initial-name = [color=#5e9cff]{ $name }[/color] был одним из террористов "Круг" / [color=gray]{ $user }[/color]
 thecircle-crewmajor = [color=green]Победа экипажа[/color]
 thecircle-opsmajor = [color=#5e9cff]Успех отряда "Круг"[/color]
+circle-fighter-introduction = Боец Круга, выполните поставленную задачу и обеспечьте победу отряда.

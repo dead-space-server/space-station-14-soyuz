@@ -1,7 +1,7 @@
 - type: entity
-  parent: BaseBulletIncendiary
   id: BulletCaselessRifleIncendiary
   name: bullet (.25 caseless incendiary)
+  parent: BaseBulletIncendiary
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
@@ -11,9 +11,9 @@
         Heat: 16
 
 - type: entity
-  parent: BaseBulletUranium
   id: BulletCaselessRifleUranium
   name: bullet (.25 caseless uranium)
+  parent: BaseBulletUranium
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile

@@ -1,3 +1,4 @@
+using Content.Server.Administration.Logs; //DS-14
 using Content.Server.DeadSpace.Shuttles.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
@@ -5,6 +6,7 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Systems;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Buckle.Components; //DS-14
 using Content.Shared.Alert;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
@@ -22,9 +24,11 @@ using Robust.Shared.Collections;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
+using Content.Shared.Database; //DS-14
 using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
 using Content.Server.DeviceLinking.Systems;
+using Robust.Shared.Containers; // DS14
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -37,9 +41,6 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
-    // DS14-Soyuz-start
-    [Dependency] private readonly ShuttleControlSystem _shuttleControl = default!;
-    // DS14-Soyuz-end
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly TagSystem _tags = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
@@ -47,12 +48,14 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     // DS14-start
     [Dependency] private readonly DeviceLinkSystem _link = default!;
     [Dependency] private readonly RadarBlipSystem _radarBlips = default!;
+    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     // DS14-end
 
     private EntityQuery<MetaDataComponent> _metaQuery;
     private EntityQuery<TransformComponent> _xformQuery;
 
     private readonly HashSet<Entity<ShuttleConsoleComponent>> _consoles = new();
+    private readonly Dictionary<EntityUid, EntityUid> _shuttleControl = new(); //DS-14
 
     private static readonly ProtoId<TagPrototype> CanPilotTag = "CanPilot";
 
@@ -68,6 +71,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<ShuttleConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChange);
         SubscribeLocalEvent<ShuttleConsoleComponent, ShuttleConsoleSignalButtonPressedMessage>(OnSignalButton); // DS14
         SubscribeLocalEvent<ShuttleConsoleComponent, AfterActivatableUIOpenEvent>(OnConsoleUIOpenAttempt);
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntInsertedIntoContainerMessage>(OnConsoleContainerChanged); // DS14
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntRemovedFromContainerMessage>(OnConsoleContainerChanged); // DS14
         Subs.BuiEvents<ShuttleConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
             subs.Event<ShuttleConsoleFTLBeaconMessage>(OnBeaconFTLMessage);
@@ -87,6 +92,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         SubscribeLocalEvent<PilotComponent, ComponentGetState>(OnGetState);
         SubscribeLocalEvent<PilotComponent, StopPilotingAlertEvent>(OnStopPilotingAlert);
+        SubscribeLocalEvent<PilotComponent, UnbuckledEvent>(OnPilotUnbuckled); //DS-14
 
         SubscribeLocalEvent<FTLDestinationComponent, ComponentStartup>(OnFtlDestStartup);
         SubscribeLocalEvent<FTLDestinationComponent, ComponentShutdown>(OnFtlDestShutdown);
@@ -114,13 +120,18 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         RefreshShuttleConsoles();
     }
 
+    // DS14-start
+    private void OnConsoleContainerChanged(EntityUid uid, ShuttleConsoleComponent component, ContainerModifiedMessage args)
+    {
+        RefreshShuttleConsoles();
+    }
+    // DS14-end
+
     /// <summary>
     /// Refreshes all the shuttle console data for a particular grid.
     /// </summary>
     public void RefreshShuttleConsoles(EntityUid gridUid)
     {
-        var exclusions = new List<ShuttleExclusionObject>();
-        GetExclusions(ref exclusions);
         _consoles.Clear();
         _lookup.GetChildEntities(gridUid, _consoles);
         DockingInterfaceState? dockState = null;
@@ -129,6 +140,24 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             UpdateState(entity, ref dockState);
         }
+
+        // DS14-start
+        var droneQuery = AllEntityQuery<DroneConsoleComponent>();
+
+        while (droneQuery.MoveNext(out var droneUid, out _))
+        {
+            var target = GetDroneConsole(droneUid);
+
+            if (target == null || target == droneUid)
+                continue;
+
+            if (_xformQuery.TryGetComponent(target.Value, out var targetXform) &&
+                targetXform.GridUid == gridUid)
+            {
+                UpdateState(droneUid, ref dockState);
+            }
+        }
+        // DS14-end
     }
 
     /// <summary>
@@ -145,6 +174,12 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             UpdateState(uid, ref dockState);
         }
+    }
+
+    public void RefreshShuttleConsole(EntityUid consoleUid)
+    {
+        DockingInterfaceState? dockState = null;
+        UpdateState(consoleUid, ref dockState);
     }
 
     /// <summary>
@@ -189,14 +224,6 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         {
             return false;
         }
-
-        // DS14-Soyuz-start
-        if (Transform(uid).GridUid is not { } gridUid ||
-            !_shuttleControl.CanControl(gridUid, ShuttleControlType.Pilot, user))
-        {
-            return false;
-        }
-        // DS14-Soyuz-end
 
         var pilotComponent = EnsureComp<PilotComponent>(user);
         var console = pilotComponent.Console;
@@ -289,6 +316,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             if (TryComp<RadarConsoleComponent>(consoleUid, out var radar))
                 navState.Blips = _radarBlips.CollectSpaceBlips(consoleUid, radar, navState.MaxRange); // DS14
             mapState = GetMapState(shuttleGridUid.Value);
+            mapState.FTLAllowedMaps = GetAllowedFTLMaps(shuttleGridUid.Value, entity.Value); // DS14
         }
         else
         {
@@ -363,6 +391,8 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
     public void RemovePilot(EntityUid pilotUid, PilotComponent pilotComponent)
     {
+        EndShuttleControl(pilotUid); //DS-14
+
         var console = pilotComponent.Console;
 
         if (!TryComp<ShuttleConsoleComponent>(console, out var helm))
@@ -467,6 +497,40 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             beacons ?? new List<ShuttleBeaconObject>(),
             exclusions ?? new List<ShuttleExclusionObject>());
     }
+
+    //DS-14 start
+    public void NoteShuttleControl(EntityUid user, EntityUid console)
+    {
+        if (_shuttleControl.ContainsKey(user))
+            return;
+
+        var resolved = GetDroneConsole(console) ?? console;
+        if (!_xformQuery.TryGetComponent(resolved, out var xform) ||
+            xform.GridUid is not { } shuttle ||
+            !HasComp<ShuttleComponent>(shuttle))
+        {
+            return;
+        }
+
+        _shuttleControl[user] = shuttle;
+        _adminLogger.Add(LogType.ShuttlePilot, LogImpact.Low,
+            $"{ToPrettyString(user):player} started controlling shuttle {ToPrettyString(shuttle):shuttle}");
+    }
+
+    private void OnPilotUnbuckled(Entity<PilotComponent> ent, ref UnbuckledEvent args)
+    {
+        EndShuttleControl(ent);
+    }
+
+    public void EndShuttleControl(EntityUid user)
+    {
+        if (!_shuttleControl.Remove(user, out var shuttle))
+            return;
+
+        _adminLogger.Add(LogType.ShuttlePilot, LogImpact.Low,
+            $"{ToPrettyString(user):player} finished controlling shuttle {ToPrettyString(shuttle):shuttle}");
+    }
+    //DS-14 end
 
     // DS14-start
     private void OnSignalButton(EntityUid uid, ShuttleConsoleComponent component, ShuttleConsoleSignalButtonPressedMessage args)

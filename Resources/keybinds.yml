@@ -1,4 +1,4 @@
-﻿version: 1 # Not used right now, whatever.
+version: 1 # Not used right now, whatever.
 binds:
 - function: UIClick
   type: State
@@ -661,6 +661,13 @@ binds:
   key: MouseRight
   canFocus: true
 - function: UseWorldTargetAction # DS14
+  type: State
+  key: MouseMiddle
+  canFocus: true
+- function: SwitchComponentMode
+  type: State
+  key: F
+- function: SwitchGunAmmoMode # DS14
   type: State
   key: MouseMiddle
   canFocus: true

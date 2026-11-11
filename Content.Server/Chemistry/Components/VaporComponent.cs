@@ -13,6 +13,10 @@ namespace Content.Server.Chemistry.Components
         [DataField]
         public TileRef? PreviousTileRef;
 
+        // DS14-Soyuz-start: retry cleaning on the same tile without reapplying other chemical effects.
+        public TimeSpan NextCleaningReaction;
+        // DS14-Soyuz-end
+
         /// <summary>
         /// Percentage of the reagent that is reacted with the TileReaction.
         /// <example>

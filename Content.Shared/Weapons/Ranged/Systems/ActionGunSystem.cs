@@ -15,6 +15,7 @@ public sealed partial class ActionGunSystem : EntitySystem // ds14
         SubscribeLocalEvent<ActionGunComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<ActionGunComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ActionGunComponent, ActionGunShootEvent>(OnShoot);
+        SubscribeActionAvailability(); //DS-14
     }
 
     private void OnMapInit(Entity<ActionGunComponent> ent, ref MapInitEvent args)

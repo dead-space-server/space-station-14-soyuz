@@ -12,6 +12,9 @@ public sealed class LavalandBossHudUpdateEvent : EntityEventArgs
     public float MaxHealth;
     public int Participants;
 
+    /// <summary>An OOC tip under the health bar (how to fight this boss); null for none.</summary>
+    public string? Hint;
+
     public LavalandBossHudUpdateEvent()
     {
     }
@@ -44,6 +47,9 @@ public sealed class LavalandBossHudHideEvent : EntityEventArgs
 [Serializable, NetSerializable]
 public sealed class LavalandBossMusicStartEvent : EntityEventArgs
 {
+    /// <summary>The fauna raid's music goes through the boss music too (its volume and switch); a boss fight wins over it.</summary>
+    public const int RaidMusicId = int.MinValue;
+
     public int ArenaId;
     public ResolvedSoundSpecifier Specifier = default!;
     public AudioParams? AudioParams;

@@ -77,8 +77,10 @@ public sealed partial class GatherableSystem : EntitySystem
             _audio.PlayPvs(soundComp.Sound, Transform(gatheredUid).Coordinates);
         }
 
-        // Complete the gathering process
-        _destructible.DestroyEntity(gatheredUid);
+        // DS14-Soyuz-start: a cancelled destruction is not a successful harvest.
+        if (!_destructible.DestroyEntity(gatheredUid))
+            return;
+        // DS14-Soyuz-end
 
         // Spawn the loot!
         if (component.Loot == null)

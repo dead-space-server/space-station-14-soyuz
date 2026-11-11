@@ -23,20 +23,10 @@
     pocket1: SpiderCharge
     pocket2: PinpointerStation
     belt: ClothingBeltNinjaSheath #DS14
-  inhand:
-    - JetpackBlackFilled
   storage:
-    back: # belt holds katana so satchel has the tools for sabotaging things
-    - Crowbar
-    - Wrench
-    - Screwdriver
-    - Wirecutter
-    - Welder
-    - Multitool
-    - EmergencyMedipen
-    - Flare
-    - FoodSnackNutribrick
-    - DrinkWaterBottleFull
+    back:
+    - BoxMRE
+    - NinjaHackBeacon
 
 - type: chameleonOutfit
   id: NinjaChameleonOutfit
@@ -44,4 +34,4 @@
   icon: "JobIconNinja"
   startingGear: SpaceNinjaGear
   equipment:
-    neck: ClothingNeckGoldmedal
+    neck: ClothingNeckScarfNinja

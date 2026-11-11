@@ -5,7 +5,7 @@
   description: Используется для создания самых продвинутых оружейных технологий СССП.
   components:
   - type: Sprite
-    sprite: Structures/Machines/techfab.rsi
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/arm_fab.rsi
     layers:
     - state: icon
       map: ["enum.LatheVisualLayers.IsRunning"]

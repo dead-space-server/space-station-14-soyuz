@@ -111,8 +111,7 @@ public sealed class RadioSystem : EntitySystem
 
             // DS14-TTS-Start
             if (uid != args.MessageSource &&
-                !args.Receivers.Contains(uid) &&
-                HasComp<TTSComponent>(args.MessageSource))
+                !args.Receivers.Contains(uid)) // DS14: route radio cues even when the sender has no TTS voice.
             {
                 args.Receivers.Add(uid);
             }
@@ -286,8 +285,8 @@ public sealed class RadioSystem : EntitySystem
                 chatMsgLexicon = new MsgChatMessage { Message = chatLexicon };
             }
 
-            var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId, sound, soundParams, frequency); // DS14-Soyuz
             // DS14-Languages-end
+            var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, chatMsgLexicon, [], languageId, sound, soundParams, frequency); // DS14-Soyuz
 
             var sendAttemptEv = new RadioSendAttemptEvent(messageSource, channel, radioSource, frequency); // DS14-Soyuz
             RaiseLocalEvent(ref sendAttemptEv);
@@ -330,7 +329,7 @@ public sealed class RadioSystem : EntitySystem
             var selectedLanguage = language != null ? language.SelectedLanguage : string.Empty; // DS14-Languages
 
             // DS14-Soyuz start
-            if (canSend && sound == null) // DS14-Soyuz
+            if (canSend && sound == null)
                 RaiseLocalEvent(new RadioSpokeEvent(messageSource, message, lexiconMessage, selectedLanguage, ev.Receivers.ToArray()));
             // DS14-Soyuz end
 

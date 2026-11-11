@@ -77,34 +77,40 @@ public sealed class SatiationTest : InteractionTest // DS14 - current branch use
         "Verifies the basic operations of 'SatiationSystem.SetValue', 'SatiationSystem.ModifyValue', and 'SatiationSystem.GetValueOrNull'")]
     public async Task SatiationBasicTest()
     {
-        var entity = await SpawnSatiationEntity();
-
-        // Verify the starting value is in the starting range.
-        using (Assert.EnterMultipleScope())
+        // DS14-Soyuz-start: check initialization and mutations before any simulation ticks can advance.
+        await Server.WaitPost(() =>
         {
-            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType),
-                Is.LessThanOrEqualTo(StartingMax).And.GreaterThanOrEqualTo(StartingMin));
-            Assert.That(_satiation.IsValueInRange(entity, TestSatiationType, above: StartingMin, below: StartingMax),
-                Is.True);
-        }
+            var uid = SEntMan.SpawnAtPosition(TestProto, SEntMan.GetCoordinates(TargetCoords));
+            var entity = new Entity<SatiationComponent>(uid, SEntMan.GetComponent<SatiationComponent>(uid));
 
-        // The rest of this modifies the value and verifies the numeric value is what's expected
+            // Verify the starting value is in the starting range.
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType),
+                    Is.LessThanOrEqualTo(StartingMax).And.GreaterThanOrEqualTo(StartingMin));
+                Assert.That(_satiation.IsValueInRange(entity, TestSatiationType, above: StartingMin, below: StartingMax),
+                    Is.True);
+            }
 
-        _satiation.SetValue(entity, TestSatiationType, MiddleKey);
-        Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MiddleValue));
+            // The rest of this modifies the value and verifies the numeric value is what's expected
 
-        _satiation.ModifyValue(entity, TestSatiationType, -20);
-        Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MiddleValue - 20));
+            _satiation.SetValue(entity, TestSatiationType, MiddleKey);
+            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MiddleValue));
 
-        _satiation.ModifyValue(entity, TestSatiationType, -int.MaxValue);
-        Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.Zero);
+            _satiation.ModifyValue(entity, TestSatiationType, -20);
+            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MiddleValue - 20));
 
-        _satiation.ModifyValue(entity, TestSatiationType, int.MaxValue);
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MaxValue));
-            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType + NotRealKey), Is.Null);
-        }
+            _satiation.ModifyValue(entity, TestSatiationType, -int.MaxValue);
+            Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.Zero);
+
+            _satiation.ModifyValue(entity, TestSatiationType, int.MaxValue);
+            using (Assert.EnterMultipleScope())
+            {
+                Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType), Is.EqualTo(MaxValue));
+                Assert.That(_satiation.GetValueOrNull(entity, TestSatiationType + NotRealKey), Is.Null);
+            }
+        });
+        // DS14-Soyuz-end
     }
 
     [Test]

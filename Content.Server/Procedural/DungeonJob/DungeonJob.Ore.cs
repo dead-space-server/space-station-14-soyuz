@@ -125,7 +125,11 @@ public sealed partial class DungeonJob
 
                         if (replaceEntities.TryGetValue(node, out var existingEnt))
                         {
-                            var existingProto = _entManager.GetComponent<MetaDataComponent>(existingEnt).EntityPrototype;
+                            // DS14-Soyuz-start
+                            if (!_entManager.TryGetComponent(existingEnt, out MetaDataComponent? metadata))
+                                continue;
+                            var existingProto = metadata.EntityPrototype;
+                            // DS14-Soyuz-end
                             _entManager.DeleteEntity(existingEnt);
 
                             if (existingProto != null && remapping.TryGetValue(existingProto.ID, out var remapped))

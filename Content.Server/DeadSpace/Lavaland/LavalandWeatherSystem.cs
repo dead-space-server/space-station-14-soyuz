@@ -1,5 +1,7 @@
 using Content.Server.DeadSpace.Lavaland.Components;
 using Content.Server.Chat.Systems;
+using Content.Server.Temperature.Systems;
+using Content.Shared.Temperature.Components;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
@@ -21,6 +23,7 @@ namespace Content.Server.DeadSpace.Lavaland;
 public sealed class LavalandWeatherSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly LavalandStrongStormSystem _strongStorm = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
@@ -30,6 +33,7 @@ public sealed class LavalandWeatherSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedWeatherSystem _weather = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private readonly TemperatureSystem _temperature = default!;
 
     private EntityQuery<LavalandWeatherImmuneComponent> _immuneQuery;
     private EntityQuery<MapGridComponent> _gridQuery;
@@ -53,7 +57,7 @@ public sealed class LavalandWeatherSystem : EntitySystem
         var query = EntityQueryEnumerator<LavalandMapComponent>();
         while (query.MoveNext(out var uid, out var lavaland))
         {
-            if (!_prototype.TryIndex(lavaland.Planet, out var planet))
+            if (lavaland.Planet.Id == null || !_prototype.TryIndex(lavaland.Planet, out var planet))
                 continue;
 
             if (!planet.AshStormEnabled)
@@ -91,13 +95,64 @@ public sealed class LavalandWeatherSystem : EntitySystem
         }
     }
 
+    /// <summary>
+    /// Out in the open on the planet itself: on its land (not on a grid of its own), under the sky (no roof), and not
+    /// a creature the weather does not touch. Clothes do not count: the strong storm's wind throws everyone.
+    /// </summary>
+    public bool IsUnderOpenSky(EntityUid uid, TransformComponent xform)
+    {
+        if (xform.MapUid is not { } mapUid ||
+            xform.GridUid != mapUid ||
+            !_gridQuery.TryGetComponent(mapUid, out var grid) ||
+            !_map.TryGetTileRef(mapUid, grid, xform.Coordinates, out var tile) ||
+            tile.Tile.IsEmpty ||
+            _immuneQuery.HasComponent(uid))
+        {
+            return false;
+        }
+
+        return _weather.CanWeatherAffect(mapUid, grid, tile);
+    }
+
+    public bool IsStormActive(EntityUid mapUid)
+    {
+        return TryComp<LavalandMapComponent>(mapUid, out var lavaland) &&
+               lavaland.WeatherStage == LavalandWeatherStage.Active;
+    }
+
+    /// <summary>
+    /// Ends an ongoing or upcoming ash storm on the map. Returns false if there is nothing to dispel.
+    /// </summary>
+    public bool TryDispelStorm(EntityUid mapUid)
+    {
+        if (!TryComp<LavalandMapComponent>(mapUid, out var lavaland) ||
+            lavaland.WeatherStage == LavalandWeatherStage.Calm ||
+            lavaland.Planet.Id == null || !_prototype.TryIndex(lavaland.Planet, out var planet))
+        {
+            return false;
+        }
+
+        EndStorm(mapUid, lavaland, planet, _timing.CurTime);
+        return true;
+    }
+
     private void StartWarning(
         EntityUid mapUid,
         LavalandMapComponent lavaland,
         LavalandPlanetPrototype planet,
         TimeSpan curTime)
     {
+        // Now and then the strong storm comes in its place; the next ash storm is due after it.
+        if (_strongStorm.TryReplaceAshStorm(mapUid, lavaland))
+        {
+            ScheduleNextStorm(lavaland, planet, curTime);
+            return;
+        }
+
         var duration = ClampDuration(planet.AshStormWarningDuration);
+        lavaland.SnowStorm = planet.SnowStormChance > 0f && _random.Prob(Math.Clamp(planet.SnowStormChance, 0f, 1f));
+        if (lavaland.SnowStorm)
+            StartSnowCover(mapUid, planet, curTime);
 
         if (duration == TimeSpan.Zero)
         {
@@ -105,10 +160,11 @@ public sealed class LavalandWeatherSystem : EntitySystem
             return;
         }
 
-        if (_prototype.Resolve(planet.AshStormWarningWeather, out var weather))
+        var warningWeather = lavaland.SnowStorm ? planet.SnowStormWarningWeather : planet.AshStormWarningWeather;
+        if (_prototype.Resolve(warningWeather, out var weather))
             _weather.SetWeather(Transform(mapUid).MapID, weather, curTime + duration);
 
-        WarnPlayers(mapUid);
+        WarnPlayers(mapUid, lavaland.SnowStorm ? planet : null);
 
         lavaland.WeatherStage = LavalandWeatherStage.Warning;
         lavaland.WeatherStageEndTime = curTime + duration;
@@ -122,7 +178,8 @@ public sealed class LavalandWeatherSystem : EntitySystem
     {
         var duration = PickDuration(planet.AshStormDurationMin, planet.AshStormDurationMax);
 
-        if (_prototype.Resolve(planet.AshStormWeather, out var weather))
+        var stormWeather = lavaland.SnowStorm ? planet.SnowStormWeather : planet.AshStormWeather;
+        if (_prototype.Resolve(stormWeather, out var weather))
             _weather.SetWeather(Transform(mapUid).MapID, weather, curTime + duration);
 
         lavaland.WeatherStage = LavalandWeatherStage.Active;
@@ -139,18 +196,35 @@ public sealed class LavalandWeatherSystem : EntitySystem
         lavaland.WeatherStage = LavalandWeatherStage.Calm;
         lavaland.WeatherStageEndTime = TimeSpan.Zero;
         lavaland.NextWeatherDamageTime = TimeSpan.Zero;
+        lavaland.SnowStorm = false;
+        RemComp<LavalandSnowCoverComponent>(mapUid);
+        // Ended early (the staff of storms): the ash, the snow and their sound go with it, not when they were due.
+        _weather.SetWeather(Transform(mapUid).MapID, null, null);
         ScheduleNextStorm(lavaland, planet, curTime);
     }
 
-    private void WarnPlayers(EntityUid mapUid)
+    /// <summary>The blizzard starts whitening the map from its borders inward.</summary>
+    private void StartSnowCover(EntityUid mapUid, LavalandPlanetPrototype planet, TimeSpan curTime)
+    {
+        var cover = EnsureComp<LavalandSnowCoverComponent>(mapUid);
+        cover.Start = curTime;
+        cover.GrowSeconds = (float) Math.Max(1, planet.SnowCoverGrowTime.TotalSeconds);
+        cover.Depth = Math.Max(0f, planet.SnowCoverDepth);
+        cover.HalfSize = Math.Max(1, planet.MapHalfSize);
+        cover.Color = planet.SnowCoverColor;
+        Dirty(mapUid, cover);
+    }
+
+    /// <param name="snow">The planet when the coming storm is a blizzard (blue warning), null for ash (red).</param>
+    private void WarnPlayers(EntityUid mapUid, LavalandPlanetPrototype? snow = null)
     {
         var filter = Filter.Empty().AddInMap(Transform(mapUid).MapID);
         _chat.DispatchFilteredAnnouncement(
             filter,
-            Loc.GetString("lavaland-ash-storm-warning"),
+            Loc.GetString(snow?.SnowStormWarning ?? "lavaland-ash-storm-warning"),
             sender: Loc.GetString("lavaland-ash-storm-sender"),
             playSound: false,
-            colorOverride: Color.OrangeRed);
+            colorOverride: snow?.SnowStormWarningColor ?? Color.OrangeRed);
     }
 
     private void ResetWeatherState(EntityUid mapUid, LavalandMapComponent lavaland)
@@ -160,6 +234,8 @@ public sealed class LavalandWeatherSystem : EntitySystem
 
         lavaland.WeatherStage = LavalandWeatherStage.Calm;
         lavaland.WeatherInitialized = false;
+        lavaland.SnowStorm = false;
+        RemComp<LavalandSnowCoverComponent>(mapUid);
         lavaland.NextWeatherTime = TimeSpan.Zero;
         lavaland.WeatherStageEndTime = TimeSpan.Zero;
         lavaland.NextWeatherDamageTime = TimeSpan.Zero;
@@ -183,10 +259,12 @@ public sealed class LavalandWeatherSystem : EntitySystem
     {
         lavaland.NextWeatherDamageTime = curTime + ClampDamageInterval(planet);
 
-        if (planet.AshStormDamage.Empty)
+        var stormDamage = lavaland.SnowStorm ? planet.SnowStormDamage : planet.AshStormDamage;
+        var cooling = lavaland.SnowStorm ? planet.SnowStormCooling : 0f;
+        if (stormDamage.Empty && cooling <= 0f)
             return;
 
-        var damage = new DamageSpecifier(planet.AshStormDamage);
+        var damage = new DamageSpecifier(stormDamage);
         var mapId = Transform(mapUid).MapID;
         var halfSize = GetWeatherLookupHalfSize(planet);
         var bounds = new Box2(-halfSize, -halfSize, halfSize, halfSize);
@@ -219,13 +297,26 @@ public sealed class LavalandWeatherSystem : EntitySystem
                 continue;
             }
 
-            _damageable.TryChangeDamage((uid, damageable), damage, interruptsDoAfters: false, origin: mapUid);
+            if (!stormDamage.Empty)
+                _damageable.TryChangeDamage((uid, damageable), damage, interruptsDoAfters: false, origin: mapUid);
+
+            // The blizzard chills the body; cold protection of the clothes takes its share off.
+            if (cooling > 0f &&
+                TryComp<TemperatureComponent>(uid, out var temperature) &&
+                temperature.CurrentTemperature > planet.SnowStormMinTemperature)
+            {
+                var heat = -cooling * _temperature.GetHeatCapacity(uid, temperature);
+                _temperature.ChangeHeat(uid, heat, false, temperature);
+            }
         }
 
         _weatherEntities.Clear();
     }
 
-    private bool IsWeatherImmune(EntityUid uid, TransformComponent xform)
+    /// <summary>
+    /// The mob, or whatever it sits in, is immune to the weather, or wears protection on both head and body.
+    /// </summary>
+    public bool IsWeatherImmune(EntityUid uid, TransformComponent xform)
     {
         while (true)
         {

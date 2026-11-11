@@ -33,12 +33,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -81,6 +75,7 @@
     - CriminalRecordsMonitor
     - HandheldCrewMonitor
     - MedkitCombatFilled
+    - EvacZoneTabletSobr # DS14-Soyuz    
 
 ## Red
 - type: job
@@ -114,12 +109,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -157,6 +146,7 @@
     - ERTloadoutRedSecondaryLeader
     - ERTloadoutRedSupport
     - UplinkERTRed
+    - EvacZoneTabletSobr
     # DS14-Soyuz-end
     - BoxCardboardERT
     - PinpointerNuclear
@@ -197,12 +187,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -240,6 +224,7 @@
     - ERTloadoutGammaSecondaryLeader
     - ERTloadoutGammaSupport
     - UplinkERTGamma
+    - EvacZoneTabletSobr
     # DS14-Soyuz-end
     - BoxCardboardERT
     - PinpointerNuclear
@@ -277,12 +262,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -356,12 +335,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -430,12 +403,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -508,12 +475,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -589,12 +550,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -668,12 +623,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -746,12 +695,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -827,12 +770,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -903,12 +840,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -979,12 +910,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -1053,12 +978,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -1126,12 +1045,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
-  - !type:AddComponentSpecial
-    components:
-      # DS14-Start
-      - type: Skill
-        group: ALL
-      # DS14-End
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:

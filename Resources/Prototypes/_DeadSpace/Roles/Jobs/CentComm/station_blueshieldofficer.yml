@@ -62,10 +62,6 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-  - !type:AddComponentSpecial
-    components:
-    - type: Skill
-      group: BlueShield
 #DS14-Soyuz-end
   ranks:
     SGMRankLieutenant:
@@ -100,7 +96,7 @@
     pocket1: PistolBlueShield
 
 - type: entity
-  parent: BasePDA
+  parent: SoyuzBasePDA # DS14-Soyuz
   id: BlueShieldOfficerPDA
   components:
   - type: Pda
@@ -131,6 +127,7 @@
   id: BlueShieldOfficerIDCard
   components:
     - type: Sprite
+      sprite: _DeadSpace/_Soyuz/Objects/Misc/id_cards.rsi
       layers:
         - state: NKVBCard
         - state: idokgb

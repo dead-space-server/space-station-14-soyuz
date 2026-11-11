@@ -213,6 +213,7 @@
     - SalvageExpeditionsComputerCircuitboard # Corvax-Cringe
     - BorgModuleAdvancedMining # DS14
     - BluespaceHandHeldMassScannerEmpty # DS14
+    - BluespaceMinerMachineCircuitboard # DS14
 
 # Tier 3
 
@@ -230,6 +231,7 @@
   - ClothingBackpackSatchelHolding
   - ClothingBackpackDuffelHolding
   - StorageModuleItem #DS14
+  - BluespaceMinerMachineCircuitboard # DS14
 
 - type: technology
   id: OptimizedMicrogalvanism

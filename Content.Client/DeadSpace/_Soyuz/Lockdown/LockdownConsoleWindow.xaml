@@ -1,0 +1,87 @@
+<!-- Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT -->
+<controls:FancyWindow xmlns="https://spacestation14.io"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      x:Class="Content.Client.DeadSpace._Soyuz.Lockdown.LockdownConsoleWindow"
+                      xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+                      xmlns:gfx="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
+                      Title="{Loc 'lockdown-ui-title'}"
+                      MinSize="800 520"
+                      SetSize="880 580">
+    <BoxContainer Orientation="Horizontal" HorizontalExpand="True" VerticalExpand="True">
+
+        <!-- Боковая панель -->
+        <PanelContainer MinWidth="220">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#111925" BorderColor="#24364d" BorderThickness="0 0 1 0" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" Margin="10 12 10 10" SeparationOverride="6">
+                <Label Text="{Loc 'lockdown-ui-menu'}" FontColorOverride="#7fa8d6" />
+                <BoxContainer Name="SidebarList" Orientation="Vertical" SeparationOverride="5" />
+                <Control VerticalExpand="True" />
+                <Label Text="{Loc 'lockdown-ui-footer'}" FontColorOverride="#56708f" HorizontalAlignment="Center" />
+            </BoxContainer>
+        </PanelContainer>
+
+        <!-- Содержимое -->
+        <PanelContainer HorizontalExpand="True" VerticalExpand="True">
+            <PanelContainer.PanelOverride>
+                <gfx:StyleBoxFlat BackgroundColor="#0b1119" />
+            </PanelContainer.PanelOverride>
+            <BoxContainer Orientation="Vertical" Margin="16 12 16 12" SeparationOverride="10">
+
+                <!-- Заголовок и статус консоли -->
+                <BoxContainer Orientation="Horizontal" SeparationOverride="10">
+                    <Label Text="{Loc 'lockdown-ui-header'}"
+                           StyleClasses="LabelHeading"
+                           HorizontalExpand="True"
+                           VerticalAlignment="Center" />
+                    <PanelContainer Name="StatusBadge" VerticalAlignment="Center">
+                        <Label Name="StatusLabel" Margin="10 3 10 3" />
+                    </PanelContainer>
+                </BoxContainer>
+
+                <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="10">
+
+                        <!-- Нет допуска -->
+                        <PanelContainer Name="NoAccessPanel" Visible="False" HorizontalExpand="True">
+                            <PanelContainer.PanelOverride>
+                                <gfx:StyleBoxFlat BackgroundColor="#1b1417" BorderColor="#6b2f36" BorderThickness="1" />
+                            </PanelContainer.PanelOverride>
+                            <BoxContainer Orientation="Vertical" Margin="20 24 20 24" SeparationOverride="8">
+                                <Label Text="{Loc 'lockdown-ui-no-access-title'}"
+                                       StyleClasses="LabelHeading"
+                                       FontColorOverride="#e06a6a"
+                                       HorizontalAlignment="Center" />
+                                <Label Text="{Loc 'lockdown-ui-no-access-text'}" HorizontalAlignment="Center" />
+                            </BoxContainer>
+                        </PanelContainer>
+
+                        <!-- LOCKDOWN -->
+                        <BoxContainer Name="LockdownPanel" Orientation="Vertical" HorizontalExpand="True" SeparationOverride="8">
+                            <Label Text="{Loc 'lockdown-ui-departments'}" FontColorOverride="#7fa8d6" />
+                            <BoxContainer Name="DepartmentList" Orientation="Vertical" SeparationOverride="6" />
+
+                            <Label Text="{Loc 'lockdown-ui-station'}" FontColorOverride="#7fa8d6" Margin="0 8 0 0" />
+                            <PanelContainer Name="StationCard" HorizontalExpand="True">
+                                <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+                                    <Label Name="StationStatus" />
+                                    <BoxContainer Name="KeyList" Orientation="Vertical" SeparationOverride="2" />
+                                    <BoxContainer Orientation="Horizontal" SeparationOverride="6" Margin="0 4 0 0">
+                                        <Button Name="ConfirmStationButton"
+                                                Text="{Loc 'lockdown-ui-confirm-station'}"
+                                                HorizontalExpand="True" />
+                                        <Button Name="CancelStationButton"
+                                                Text="{Loc 'lockdown-ui-cancel'}"
+                                                HorizontalExpand="True" />
+                                    </BoxContainer>
+                                </BoxContainer>
+                            </PanelContainer>
+                        </BoxContainer>
+
+                    </BoxContainer>
+                </ScrollContainer>
+            </BoxContainer>
+        </PanelContainer>
+    </BoxContainer>
+</controls:FancyWindow>

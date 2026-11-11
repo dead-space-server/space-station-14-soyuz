@@ -22,6 +22,7 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly CloningSystem _cloning = default!;
     [Dependency] private readonly SuitSensorSystem _sensor = default!;
+    [Dependency] private readonly SharedRankSystem _rankSystem = default!; // DS14-Soyuz
     // DS14-start
     internal const int MaxCloneTargetAttempts = 3;
 
@@ -77,6 +78,18 @@ public sealed class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxCloneRuleComp
             return;
         }
         // DS14-end
+
+
+        // DS14-Soyuz start
+        if (ent.Comp.OriginalBody is { } originalBody)
+        {
+            var rankProto = _rankSystem.GetRank(originalBody);
+            if (rankProto != null)
+            {
+                _rankSystem.SetRank(cloneUid, rankProto);
+            }
+        }
+        // DS14-Soyuz end
 
         var targetComp = EnsureComp<TargetOverrideComponent>(cloneUid);
         targetComp.Target = ent.Comp.OriginalMind; // set the kill target

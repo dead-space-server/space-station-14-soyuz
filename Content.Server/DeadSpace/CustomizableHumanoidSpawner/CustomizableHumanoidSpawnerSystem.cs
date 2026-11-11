@@ -22,6 +22,11 @@ using Robust.Shared.Serialization.Manager;
 using Content.Server.Traits;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
+// DS14-Soyuz-start
+using Content.Shared._RMC14.Marines.Roles.Ranks;
+using Content.Shared.Roles;
+using System.Linq;
+// DS14-Soyuz-end
 
 namespace Content.Server.DeadSpace.CustomizableHumanoidSpawner;
 
@@ -42,6 +47,9 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
     [Dependency] private readonly TraitSystem _trait = default!;
     [Dependency] private readonly JobSystem _jobs = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
+    // DS14-Soyuz-start
+    [Dependency] private readonly SharedRankSystem _rankSystem = default!;
+    // DS14-Soyuz-end
 
     /// <summary>The random name the menu offered, where the name may not be changed: the client's own is ignored.</summary>
     private readonly Dictionary<EntityUid, string> _offeredNames = new();
@@ -198,6 +206,14 @@ public sealed class CustomizableHumanoidSpawnerSystem : EntitySystem
 
         var newEntity = _spawning.SpawnPlayerMob(coords.Value, comp.JobPrototype, profile, null);
         _trait.ApplyTraits(newEntity, comp.JobPrototype, profile);
+
+        // DS14-Soyuz-start
+        if (_prototypeManager.TryIndex(comp.JobPrototype, out var jobProto) && jobProto.Ranks != null && jobProto.Ranks.Count > 0)
+        {
+            var rankId = jobProto.Ranks.Keys.First();
+            _rankSystem.SetRank(newEntity, rankId);
+        }
+        // DS14-Soyuz-end
 
         if (comp.Tags != null)
             _tagSystem.AddTags(newEntity, comp.Tags);

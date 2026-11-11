@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.CombatMode;
+using Content.Client.DeadSpace.Psychiatry; //DS-14
 using Content.Client.Examine;
 using Content.Client.Gameplay;
 using Content.Client.Verbs;
@@ -174,7 +175,15 @@ namespace Content.Client.ContextMenu.UI
             var coords = _xform.ToMapCoordinates(args.Coordinates);
 
             if (_verbSystem.TryGetEntityMenuEntities(coords, out var entities))
+            {
+                //DS-14 start
+                var psychiatry = _entityManager.System<PsychiatryClientSystem>();
+                entities.RemoveAll(psychiatry.HidesFromMenu);
+                if (entities.Count == 0)
+                    return true;
+                //DS-14 end
                 OpenRootMenu(entities);
+            }
 
             return true;
         }

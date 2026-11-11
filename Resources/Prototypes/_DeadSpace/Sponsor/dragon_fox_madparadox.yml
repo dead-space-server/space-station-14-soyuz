@@ -2,7 +2,7 @@
 
 # Backpack
 - type: entity
-  parent: ClothingBackpack
+  parent: ClothingBackpack 
   id: ClothingBackpackDragonFoxMadParadox
   name: рюкзак KUMA
   description: Вместительный и стильный рюкзак для удобного хранения всех необходимых вещей.
@@ -46,6 +46,7 @@
     - id: WeaponCrusherDragonFoxMadParadox
     - id: PDADragonFoxMadParadox
     - id: PaperDragonFoxMadParadox
+    - id: WeaponProtoKineticAcceleratorDragonFoxMadParadox
 
 # Belt
 - type: entity
@@ -530,7 +531,7 @@
 
 #Gasmask
 - type: entity
-  parent: ClothingMaskGasSecurity
+  parent: ClothingMaskGasSponsor
   id: ClothingMaskDragonFoxMadParadox
   name: шлем с противогазом «Бездна Смотрит»
   description: Шлем «Бездна Смотрит» — высокотехнологичное защитное снаряжение, вдохновлённое физикой чёрных дыр. Его визор имитирует горизонт событий, а встроенные системы используют принципы гравитационного искажения для защиты носителя. Предназначен для работы в экстремальных условиях - от заражённых зон до областей с гравитационными аномалиями.
@@ -915,6 +916,71 @@
   - type: EmitSoundOnLand
     sound:
       collection: DemonScreams
+
+# kinetic_accelerator.rsi
+- type: entity
+  parent: WeaponProtoKineticAccelerator
+  id: WeaponProtoKineticAcceleratorDragonFoxMadParadox
+  categories: [ HideSpawnMenu ]
+  name: «Искривитель»
+  description: Это не просто винтовка, а портативный генератор гравитационных аномалий, построенный на протокинетной технологии. Название отражает её суть - она не столько стреляет, сколько искривляет ткань пространства‑времени, заставляя снаряд двигаться по неестественно эффективной траектории.
+  components:
+  - type: AttachmentHolder
+    slotOverlays:
+      bayonet_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: bayonet
+        offset: 0.84375,0.375
+      light_slot:
+        sprite: _DeadSpace/Lavaland/Objects/Weapons/pka_attachments.rsi
+        state: flight
+        stateOn: flight_on
+        offset: 0.4375,0.25
+  - type: Gun
+    fireRate: 2
+    selectedMode: SemiAuto
+    angleDecay: 45
+    minAngle: 44
+    maxAngle: 45
+    availableModes:
+    - SemiAuto
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2
+  - type: BasicEntityAmmoProvider
+    proto: BulletKineticDragonFoxMadParadox
+    capacity: 3
+    count: 3
+  - type: Sprite
+    sprite: _DeadSpace/Sponsor/DragonFox/MadParadox/kinetic_accelerator.rsi
+    layers:
+    - state: icon
+    - state: animation-icon
+      visible: false
+      map: [ "empty-icon" ]
+  - type: Item
+    sprite: _DeadSpace/Sponsor/DragonFox/MadParadox/kinetic_accelerator.rsi
+    size: Normal
+  - type: Clothing
+    sprite: _DeadSpace/Sponsor/DragonFox/MadParadox/kinetic_accelerator.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+  - type: UpgradeableGun
+    maxUpgradeCount: 3
+
+- type: entity
+  id: BulletKineticDragonFoxMadParadox
+  name: kinetic bolt
+  parent: BulletKinetic
+  categories: [ HideSpawnMenu ]
+  description: Not too bad, but you still don't want to get hit by it.
+  components:
+  - type: Sprite
+    noRot: false
+    sprite: _DeadSpace/Sponsor/DragonFox/MadParadox/p.rsi
+    layers:
+    - state: chronobolt
+      shader: unshaded
 
 - type: entity
   parent: PaperPrintedCentcomm

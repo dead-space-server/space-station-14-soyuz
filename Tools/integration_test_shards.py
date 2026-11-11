@@ -30,6 +30,7 @@ SLOW_TEST_UNIT_BALANCE_WEIGHTS = {
     "EntityTest": 160,
     "Pinpointer": 25,
     "PostMapInitTest": 260,
+    "_Soyuz": 400, # DS14-Soyuz
 }
 
 SLOW_TEST_METHOD_BALANCE_WEIGHTS = {
@@ -37,7 +38,7 @@ SLOW_TEST_METHOD_BALANCE_WEIGHTS = {
         "AllComponentsOneToOneDeleteTest": 30,
         "SpawnAndDeleteAllEntitiesInTheSameSpot": 80,
         "SpawnAndDeleteAllEntitiesOnDifferentMaps": 65,
-        "SpawnAndDeleteEntityCountTest": 260,  # DS14: Runs every entity prototype through server-client replication.
+        "SpawnAndDeleteEntityCountTest": 75,
         "SpawnAndDirtyAllEntities": 260,
     },
 }

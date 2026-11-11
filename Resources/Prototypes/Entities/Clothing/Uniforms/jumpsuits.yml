@@ -1244,24 +1244,24 @@
     layers:
     - state: icon-jumpsuit
     - state: icon-shirt
-      color: "#9c0dff"
+      color: "#79419b"
   - type: Item
     inhandVisuals:
       left:
       - state: inhand-left-jumpsuit
       - state: inhand-left-shirt
-        color: "#9c0dff"
+        color: "#79419b"
       right:
       - state: inhand-right-jumpsuit
       - state: inhand-right-shirt
-        color: "#9c0dff"
+        color: "#79419b"
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuit/casual.rsi
     clothingVisuals:
       jumpsuit:
       - state: equipped-INNERCLOTHING-jumpsuit
       - state: equipped-INNERCLOTHING-shirt
-        color: "#9c0dff"
+        color: "#79419b"
 
 - type: entity
   parent: ClothingUniformBase

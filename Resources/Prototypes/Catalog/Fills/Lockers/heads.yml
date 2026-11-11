@@ -17,6 +17,7 @@
     - id: ClothingHandsKnuckleDustersQM
     - id: ADTtelescopicBaton # ADT
     - id: BoxPhotocopierToners # DS14
+    - id: LavalandSensorTablet # DS14: the quartermaster keeps an eye on the miners down on lavaland
     - id: PlushieLizardJobQuartermaster
       prob: 0.02
 
@@ -150,6 +151,7 @@
     - id: ADTtelescopicBaton # ADT
     - id: PlushieLizardJobHeadofpersonnel
       prob: 0.02
+    - id: ClothingBackpackRIGEVA # DS14
 
 - type: entity
   id: LockerHeadOfPersonnelFilled

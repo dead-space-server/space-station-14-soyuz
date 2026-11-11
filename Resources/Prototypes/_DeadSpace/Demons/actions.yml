@@ -23,6 +23,20 @@
     event: !type:HeraldSpawnActionEvent
 
 - type: entity
+  id: ActionShadowSpawn
+  name: Материализоваться
+  description: Обретите плоть в выбранном месте. Помните — свет губителен для вас, материализуйтесь в тени!
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Action
+    useDelay: 1
+    icon:
+      sprite: _DeadSpace/Demons/demon_shadow.rsi
+      state: running
+  - type: InstantAction
+    event: !type:ShadowSpawnActionEvent
+
+- type: entity
   id: ActionStunAttack
   name: Оглушающая атака
   description: Ваша следующая атака собьёт жертву с ног.
@@ -67,21 +81,6 @@
     event: !type:DemonDashEvent
 
 - type: entity
-  id: ActionDemonShadowGrapple
-  name: Притянуть существо
-  description: Оглушает и притягивает выбранное существо.
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Action
-    useDelay: 30
-    icon: _DeadSpace/Demons/ability_icons/shadow_grapple.png
-  - type: TargetAction
-    checkCanAccess: false
-    range: 10
-  - type: EntityTargetAction
-    event: !type:ShadowGrappleEvent
-
-- type: entity
   id: ActionLockShadowCocoon
   name: Засунуть в кокон
   description: Помещает существо в теневой кокон.
@@ -100,13 +99,13 @@
 
 - type: entity
   id: ActionDemonShadowCrawl
-  name: Войти в астрал
-  description: Вы исчезаете из физического мира.
+  name: Теневая фаза
+  description: Вы становитесь бесплотным и можете проходить сквозь стены в течение 6 секунд.
   categories: [ HideSpawnMenu ]
   components:
   - type: Action
     icon: _DeadSpace/Demons/ability_icons/shadow_crawl.png
     itemIconStyle: NoItem
-    useDelay: 60
+    useDelay: 120
   - type: InstantAction
     event: !type:ShadowCrawlActionEvent

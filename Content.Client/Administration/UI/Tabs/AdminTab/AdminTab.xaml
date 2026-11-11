@@ -18,6 +18,9 @@
             <cc:CommandButton Command="achatwindow" Text="{Loc admin-player-actions-window-admin-chat}"/>
             <cc:CommandButton Command="votecallui" Text="{Loc administration-ui-round-tab-call-vote}" />
             <cc:CommandButton Command="gamerulesui" Text="{Loc admin-ui-manage-gamerules}" />
+            <!-- Soyuz-credits-start -->
+            <cc:CommandButton Command="credits_admin" Text="{Loc 'credits-admin-menu-open'}" />
+            <!-- Soyuz-credits-end -->
         </GridContainer>
     </BoxContainer>
 </Control>

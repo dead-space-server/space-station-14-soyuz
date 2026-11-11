@@ -1,0 +1,17 @@
+<PanelContainer xmlns="https://spacestation14.io"
+                Name="Root"
+                HorizontalExpand="True">
+    <BoxContainer Orientation="Horizontal" Margin="12 10 12 10" SeparationOverride="14">
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="4" MinWidth="200">
+            <Label Name="NameLabel" StyleClasses="LabelHeading" HorizontalExpand="True" />
+            <RichTextLabel Name="DescLabel" HorizontalExpand="True" />
+            <BoxContainer Name="Tags" Orientation="Horizontal" SeparationOverride="4" />
+            <RichTextLabel Name="JobsLabel" HorizontalExpand="True" Visible="False" />
+        </BoxContainer>
+        <BoxContainer Orientation="Vertical" VerticalAlignment="Center" SeparationOverride="4" MinWidth="120">
+            <Label Name="PriceLabel" HorizontalAlignment="Center" StyleClasses="LabelHeading" />
+            <Button Name="BuyButton" />
+            <Button Name="EquipButton" Visible="False" />
+        </BoxContainer>
+    </BoxContainer>
+</PanelContainer>

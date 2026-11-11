@@ -1,0 +1,53 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               MinSize="820 600"
+               SetSize="880 660">
+    <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="6 4 6 6">
+
+        <PanelContainer Name="PlayerPanel">
+            <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+                <Label Text="{Loc 'credits-admin-section-player'}" StyleClasses="LabelHeading" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <LineEdit Name="TargetInput" PlaceHolder="{Loc 'credits-admin-target'}" HorizontalExpand="True" />
+                    <Button Name="LookupButton" Text="{Loc 'credits-admin-lookup'}" MinWidth="100" />
+                </BoxContainer>
+                <Label Name="BalanceLabel" StyleClasses="LabelBig" />
+            </BoxContainer>
+        </PanelContainer>
+
+        <PanelContainer Name="GivePanel">
+            <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+                <Label Text="{Loc 'credits-admin-section-give'}" StyleClasses="LabelHeading" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <OptionButton Name="GiveType" MinWidth="200" />
+                    <LineEdit Name="AmountInput" PlaceHolder="{Loc 'credits-admin-amount'}" MinWidth="110" />
+                    <LineEdit Name="ReasonInput" PlaceHolder="{Loc 'credits-admin-reason'}" HorizontalExpand="True" />
+                    <Button Name="GiveButton" Text="{Loc 'credits-admin-give'}" MinWidth="100" />
+                </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+        <PanelContainer Name="NoticePanel" Visible="False">
+            <Label Name="NoticeLabel" Margin="10 6 10 6" />
+        </PanelContainer>
+
+        <PanelContainer Name="LogPanel" VerticalExpand="True">
+            <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+                <Label Name="LogTitle" StyleClasses="LabelHeading" />
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <OptionButton Name="FilterType" MinWidth="200" />
+                    <LineEdit Name="FilterActor" PlaceHolder="{Loc 'credits-admin-filter-actor'}" HorizontalExpand="True" />
+                    <LineEdit Name="FilterReason" PlaceHolder="{Loc 'credits-admin-filter-reason'}" HorizontalExpand="True" />
+                </BoxContainer>
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="HistoryList" Orientation="Vertical" SeparationOverride="4" Margin="0 0 8 0" />
+                </ScrollContainer>
+                <BoxContainer Name="NavRow" Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="10" Visible="False">
+                    <Button Name="PrevButton" Text="&lt;" MinWidth="40" />
+                    <Label Name="PageLabel" VerticalAlignment="Center" />
+                    <Button Name="NextButton" Text="&gt;" MinWidth="40" />
+                </BoxContainer>
+            </BoxContainer>
+        </PanelContainer>
+
+    </BoxContainer>
+</DefaultWindow>

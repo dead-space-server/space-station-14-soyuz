@@ -8,7 +8,7 @@
   },
   "states": [
     {
-    "name": "amber"
+    "name": "amber" 
     },
     {
       "name": "red"
@@ -24,15 +24,6 @@
     },
     {
       "name": "deathsquad"
-    },
-    {
-      "name": "lred"
-    },
-    {
-      "name": "lgamma"
-    },
-    {
-      "name": "kgb"
     },
     {
       "name": "ml"

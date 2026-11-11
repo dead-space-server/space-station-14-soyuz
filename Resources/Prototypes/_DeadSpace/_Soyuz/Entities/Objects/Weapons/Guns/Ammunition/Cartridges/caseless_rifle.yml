@@ -18,6 +18,21 @@
 
 - type: entity
   parent: BaseCartridgeCaselessRifle
+  id: CartridgeCaselessRiflePoisoned
+  name: cartridge (.25 caseless poisoned)
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRiflePoisonedTrace
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#B200FF"
+
+- type: entity
+  parent: BaseCartridgeCaselessRifle
   id: CartridgeCaselessRifleNavy
   name: патрон (█.██x██ Navy)
   description: Патрон засекреченного калибра, который не оставляет после себя гильзы. Дай бог мне здоровья.

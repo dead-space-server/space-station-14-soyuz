@@ -14,6 +14,7 @@
     CocoaSeeds: 3
     CornSeeds: 5
     CottonSeeds: 5
+    CucumberSeeds: 5 # DS14
     EggplantSeeds: 5
     GalaxythistleSeeds: 3
     GarlicSeeds: 3
@@ -26,7 +27,7 @@
     OnionSeeds: 5
     OnionRedSeeds: 5
     OrangeSeeds: 5
-    PearSeeds: 5 # Kofeecheks Pears: LicenseRef-Kofeecheks
+    PearSeeds: 5 # DS14-Soyuz
     PeaSeeds: 5
     PoppySeeds: 3
     PotatoSeeds: 5
@@ -67,7 +68,6 @@
     SpesosTreeSeeds: 2
     CoffeeSeeds: 3
     AvocadoSeeds: 5
-    CucumberSeeds: 5
     BeeSeeds: 2
     EveryspiceSeeds: 2
     MonkananaSeeds: 2

@@ -1,26 +1,26 @@
-loadout-group-chef-specialization = Шеф-повар, специализация
+loadout-group-chef-specialization = Повар, специализация
 loadout-group-lawyer-specialization = Юрист, специализация
 loadout-group-doctor-specialization = Врач, специализация
 loadout-group-service-specialization = Сервисный работник, специализация
 loadout-group-scientist-specialization = Научный Сотрудник, специализация
 loadout-group-engineer-specialization = Инженер, специализация
 loadout-group-cargo-specialization = Грузчик, специализация
-loadout-group-salvage-specialization = Шахтёр, специализация
-loadout-group-botanist-specialization = Агроном, специализация
-loadout-group-passenger-specialization = Разнорабочий, специализация
+loadout-group-janitor-specialization = Уборщик, специализация
+loadout-group-salvage-specialization = Утилизатор, специализация
+loadout-group-botanist-specialization = Ботаник, специализация
+loadout-group-passenger-specialization = Ассистент, специализация
 loadout-group-atmospheric-specialization = Атмосферный техник, специализация
-loadout-group-detective-specialization = Следователь, специализация
-loadout-group-psychologist-specialization = Психиатор, специализация
 loadout-group-librarian-specialization = Библиотекарь, специализация
+loadout-group-psychologist-specialization = Психолог, специализация
 loadout-group-clown-specialization = Клоун, специализация
+loadout-group-reporter-specialization = Репортёр, специализация
 
-
-# Шеф-повар
+# Повар
 job-title-chef-confectioner = Кондитер
 job-title-chef-baker = Пекарь
 job-title-chef-butcher = Мясник
 job-title-chef-sous-chef = Су-шеф
-job-title-chef-chief = Шеф-Повар
+job-title-chef-chief = Шеф-повар
 
 # Юрист
 job-title-lawyer-advocate = Адвокат
@@ -32,6 +32,14 @@ job-title-doctor-geneticist = Генетик
 job-title-doctor-cryotherapist = Криотерапевт
 job-title-doctor-surgeon = Хирург
 job-title-doctor-nurse = Медсестра
+job-title-doctor-male-nurse = Медбрат
+
+# уборщик
+job-title-janitor-exterminator = Дезинсектор
+job-title-janitor-cleaner = Клинер
+job-title-janitor-plumber = Сантехник
+job-title-janitor-housemaid = Горничная
+job-title-janitor-houseman = Горничный
 
 # Сервисный работник
 job-title-service-waiter = Официант
@@ -50,6 +58,7 @@ job-title-engineer-mechanic = Механик
 job-title-engineer-nuclear = Инженер-ядерщик
 job-title-engineer-welder = Сварщик
 job-title-engineer-architect = Архитектор
+job-title-engineer-shuttle-builder = Шаттлостроитель
 
 # Грузчик
 job-title-cargo-logistician = Логист
@@ -61,27 +70,30 @@ job-title-salvage-explorer = Исследователь
 
 # Ботаник
 job-title-botanist-agronomist = Ботаник
-job-title-botanist-Selectioner = Селекционер
+job-title-botanist-selectioner = Селекционер
 
 # Ассистент
 job-title-passenger-trainee = Стажёр
-job-title-passenger-handyman = Разнорабочий
+job-title-passenger-handyman = Ассистент
 
 # Атмосферный техник
 job-title-atmospheric-lifesupport = Специалист СЖО
 job-title-atmospheric-synthesis = Специалист по синтезу
-
-# Детектив
-job-title-detective-criminalist = Криминалист
-job-title-detective-operative = Оперуполномоченный
-
-# Психолог
-job-title-psychologist-psychotherapist = Психотерапевт
-job-title-psychologist-psychiatrist = Психолог
+job-title-atmospheric-thermodynamic = Термодинамик
 
 # Библиотекарь
 job-title-librarian-gamemaster = Гейм-мастер
 
+# Психолог
+job-title-psychologist-psychotherapist = Психотерапевт
+job-title-psychologist-psychiatrist = Психиатр
+
 # Клоун
 job-title-clown-comedian = Комик
 job-title-clown-prankster = Пранкер
+
+# Репортёр
+job-title-reporter-journalist = Журналист
+job-title-reporter-correspondent = Корреспондент
+job-title-reporter-radioshow = Радиоведущий
+job-title-reporter-tvshow = Телеведущий

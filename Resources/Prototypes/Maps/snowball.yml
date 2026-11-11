@@ -1,7 +1,8 @@
+#DS14-Soyuz map edit
 - type: gameMap
   id: Snowball
   mapName: 'Станция "Снежок"' #DS14-Soyuz local
-  mapPath: /Maps/_Soyuz/snowball.yml
+  mapPath: /Maps/_Soyuz/S1_Snowball.yml
   minPlayers: 15
   maxPlayers: 50
   stations:

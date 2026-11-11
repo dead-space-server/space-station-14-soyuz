@@ -1,2 +1,23 @@
 lavaland-ash-storm-warning = Кажется, погода меняется. Найдите укрытие.
 lavaland-ash-storm-sender = Датчики Лаваленда
+
+lavaland-day-cycle-sender = Датчики Лаваленда
+lavaland-day-cycle-day = Над Лавалендом встаёт день.
+lavaland-day-cycle-night = Солнце садится — на Лаваленде темнеет.
+lavaland-day-cycle-deep-night = Луна скрылась за пеплом — наступила глубокая ночь! Джаунтеры, ПНВ и трекеры уже не работают, свет гаснет, а тьма жжёт. Возвращайтесь на базу или держитесь света — только огонёк из фонаря некрополя светит ярко и ведёт домой.
+lavaland-day-cycle-morning = Небо светлеет — над Лавалендом утро.
+lavaland-jaunter-night = Джаунтер молчит: глубокой ночью он не может найти якорь.
+lavaland-wisp-guide-start = Огонёк срывается с места и зовёт вас за собой — к базе.
+lavaland-snow-storm-warning = Резко холодает, с неба валит снег. Надвигается метель - найдите укрытие.
+lavaland-day-cycle-deep-night-end = Луна вновь показалась из-за пепла. Оборудование снова работает, но ночь ещё не кончилась.
+lavaland-deep-night-nvg-blocked = ПНВ не включается — в глубокой ночи ему нечего усиливать.
+lavaland-deep-night-light-out = Тьма поглощает свет — он гаснет.
+lavaland-deep-night-light-cooldown = Свет не загорается. Попробуйте через { $seconds } с.
+lavaland-deep-night-battery-dead = Батарея фонаря садится — он гаснет.
+lavaland-deep-night-darkness-warning = Тьма подбирается к вам. Найдите свет!
+lavaland-deep-night-darkness = Тьма обжигает вас!
+lavaland-deep-night-bonfire-out = Тьма душит костёр - он гаснет и разваливается на дрова.
+
+lavaland-strong-storm-warning = ВНИМАНИЕ: с горизонта надвигается сильная буря! Через минуту поднимется ветер, что сбивает с ног и швыряет по сторонам. Её не развеять - укройтесь под крышей!
+lavaland-strong-storm-start = Сильная буря обрушилась на Лаваленд! Ветер швыряет всех, кто под открытым небом.
+lavaland-strong-storm-end = Сильная буря стихает.

@@ -80,6 +80,9 @@ public sealed partial class AutoInjectReagentOnAllowedStateSystem : SharedReagen
 
     private void OnState(EntityUid uid, AutoInjectReagentOnAllowedStateComponent component, MobStateChangedEvent args)
     {
+        if (!component.IsReady)
+            return;
+
         foreach (var allowedState in component.AllowedStates)
         {
             if (allowedState == args.NewMobState)

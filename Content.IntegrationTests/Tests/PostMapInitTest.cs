@@ -80,7 +80,7 @@ namespace Content.IntegrationTests.Tests
             "/Maps/centcomm.yml",
             "/Maps/Shuttles/AdminSpawn/**", // admin gaming
             // DS14-start
-            "/Maps/ds_taipan.yml", // Taipan // DS14-Soyuz path
+            "/Maps/ds_taipan.yml", // Taipan
             "/Maps/Shuttles/ERT/**", // ERT shuttle
             // DS14-end
             // DS14-Soyuz-start
@@ -152,9 +152,11 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMapsExcludedFromTests =
         {
-            // "Aspid", // DS14-Soyuz enabled
-            // "Cluster", // DS14-Soyuz enabled
-            // "Loop", // DS14-Soyuz enabled
+            // DS14-Soyuz-start
+            // "Aspid",
+            // "Cluster",
+            // "Loop",
+            // DS14-Soyuz-end
             "Gemini", // map load failure
         };
         /// <summary>
@@ -166,6 +168,7 @@ namespace Content.IntegrationTests.Tests
             "Boxer",
             "Zookeeper",
             "Lawyer",
+            "IAAOfficer",
         };
         // DS14-end
 

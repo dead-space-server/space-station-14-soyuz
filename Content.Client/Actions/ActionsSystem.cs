@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using Content.Shared.Actions;
 using Content.Shared.Actions.Components;
-using Content.Shared.Charges.Systems;
+using Content.Shared.DeadSpace.Actions; //DS-14
 using Content.Shared.Mapping;
 using Content.Shared.Maps;
 using JetBrains.Annotations;
@@ -28,7 +28,7 @@ namespace Content.Client.Actions
     {
         public delegate void OnActionReplaced(EntityUid actionId);
 
-        [Dependency] private readonly SharedChargesSystem _sharedCharges = default!;
+        [Dependency] private readonly ActionAvailabilitySystem _availability = default!; //DS-14
         [Dependency] private readonly IPlayerManager _playerManager = default!;
         [Dependency] private readonly IPrototypeManager _proto = default!;
         [Dependency] private readonly IResourceManager _resources = default!;
@@ -71,12 +71,13 @@ namespace Content.Client.Actions
         public override void UpdateAction(Entity<ActionComponent> ent)
         {
             // TODO: Decouple this.
-            ent.Comp.IconColor = _sharedCharges.GetCurrentCharges(ent.Owner) == 0 ? ent.Comp.DisabledIconColor : ent.Comp.OriginalIconColor;
+            ent.Comp.IconColor = _availability.IsAvailable(ent) ? ent.Comp.OriginalIconColor : ent.Comp.DisabledIconColor; //DS-14
             base.UpdateAction(ent);
             if (_playerManager.LocalEntity != ent.Comp.AttachedEntity)
                 return;
 
             ActionsUpdated?.Invoke();
+            OnActionAdded?.Invoke(ent.Owner);
         }
 
         private void OnHandleState(Entity<ActionsComponent> ent, ref ComponentHandleState args)

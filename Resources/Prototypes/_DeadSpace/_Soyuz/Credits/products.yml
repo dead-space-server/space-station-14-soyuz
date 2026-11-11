@@ -40,6 +40,7 @@
   description: Стильная чёрная униформа морской пехоты. Выглядит сурово и стильно.
   productType: Hat
   price: 35
+  durationDays: 15
   cosmeticEntity: SoyuzFatiguesBlackRMC
 
 - type: creditProduct
@@ -48,6 +49,7 @@
   description: Офицерская фуражка морской пехоты. Выглядит сурово и стильно.
   productType: Hat
   price: 35
+  durationDays: 15
   cosmeticEntity: SoyuzHeadCapOfficerRMC
 
 - type: creditProduct
@@ -56,6 +58,7 @@
   description: Служебная униформа морской пехоты. Выглядит сурово и стильно.
   productType: Hat
   price: 35
+  durationDays: 15
   cosmeticEntity: SoyuzFatiguesServiceRMC
 
 - type: creditProduct
@@ -64,6 +67,7 @@
   description: Миниатюрная фигурка начальника милиции. Серийный номер 1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineHos1
 
 - type: creditProduct
@@ -72,6 +76,7 @@
   description: Альтернативная миниатюрная фигурка начальника милиции. Серийный номер 2.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineHos2
 
 - type: creditProduct
@@ -80,6 +85,7 @@
   description: Миниатюрная фигурка учёного. Серийный номер 1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineScientist1
 
 - type: creditProduct
@@ -88,6 +94,7 @@
   description: Миниатюрная фигурка сотрудника ОКГБ. Серийный номер 1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineOKGB1
 
 - type: creditProduct
@@ -96,6 +103,7 @@
   description: Миниатюрная фигурка АГШ. Серийный номер 1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineAGSH1
 
 - type: creditProduct
@@ -104,6 +112,7 @@
   description: Миниатюрная фигурка пилота. Серийный номер PAU-L1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurinePilot1
 
 - type: creditProduct
@@ -112,6 +121,7 @@
   description: Миниатюрная фигурка милиционера. Серийный номер 1.
   productType: Hat
   price: 25
+  durationDays: 15
   cosmeticEntity: FigurineOfficer1
 
 - type: creditProduct
@@ -120,6 +130,7 @@
   description: Мягкая игрушка рыжей лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieRedFox
 
 - type: creditProduct
@@ -128,6 +139,7 @@
   description: Мягкая игрушка чёрной лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieBlackFox
 
 - type: creditProduct
@@ -136,6 +148,7 @@
   description: Мягкая игрушка синей лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieBlueFox
 
 - type: creditProduct
@@ -144,6 +157,7 @@
   description: Мягкая игрушка кофейной лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieCoffeFox
 
 - type: creditProduct
@@ -152,6 +166,7 @@
   description: Мягкая игрушка багровой лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieCrimsonFox
 
 - type: creditProduct
@@ -160,6 +175,7 @@
   description: Мягкая игрушка мраморной лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieMarbleFox
 
 - type: creditProduct
@@ -168,6 +184,7 @@
   description: Мягкая игрушка оранжевой лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieOrangeFox
 
 - type: creditProduct
@@ -176,6 +193,7 @@
   description: Мягкая игрушка розовой лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushiePinkFox
 
 - type: creditProduct
@@ -184,6 +202,7 @@
   description: Мягкая игрушка фиолетовой лисы.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushiePurpleFox
 
 - type: creditProduct
@@ -192,6 +211,7 @@
   description: Мягкая игрушка начальник милиции. Серийный номер 1.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieHoS1
 
 - type: creditProduct
@@ -200,6 +220,7 @@
   description: Мягкая игрушка капитана. Серийный номер 1.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieCaptain1
 
 - type: creditProduct
@@ -208,6 +229,7 @@
   description: Мягкая игрушка начальника отдела кадров. Серийный номер 1.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieHoP1
 
 - type: creditProduct
@@ -216,6 +238,7 @@
   description: Мягкая игрушка искусственного интеллекта.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieIPS1
 
 - type: creditProduct
@@ -224,6 +247,7 @@
   description: Мягкая игрушка джаггернаута.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieJuggenraut1
 
 - type: creditProduct
@@ -232,6 +256,7 @@
   description: Мягкая игрушка милиционера. Серийный номер 1.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieOfficer1
 
 - type: creditProduct
@@ -240,6 +265,7 @@
   description: Мягкая игрушка милиционера. Серийный номер 2.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieOfficer2
 
 - type: creditProduct
@@ -248,6 +274,7 @@
   description: Мягкая игрушка милиционера. Серийный номер 3.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieOfficer3
 
 - type: creditProduct
@@ -256,6 +283,7 @@
   description: Мягкая игрушка сотрудника ОКГБ.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieOKGB1
 
 - type: creditProduct
@@ -264,14 +292,16 @@
   description: Мягкая игрушка загадочного медведя.
   productType: Hat
   price: 20
+  durationDays: 15
   cosmeticEntity: PlushieMonokuma
 
 - type: creditProduct
   id: SoyuzCreditPen
   name: Ручка
-  description: Ручка появляется у вас в руке в начале раунда.
+  description: Ручка появляется у вас в руке в начале раунда. Просто ручка. 
   productType: Hat
   price: 200
+  durationDays: 15
   cosmeticEntity: Pen
   # Пример ограничения по профессиям (подставьте id ваших профессий):
   # jobs:
@@ -281,9 +311,9 @@
 - type: creditProduct
   id: SoyuzCreditPenCaptain
   name: Ручка капитана
-  description: Какая она ахуенная.
+  description: Она просто ахуенная.
   productType: Hat
-  price: 250
+  price: 250000
   cosmeticEntity: PenCap
   jobs:
   - Captain

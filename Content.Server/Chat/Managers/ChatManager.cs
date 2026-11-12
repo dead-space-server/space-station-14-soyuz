@@ -21,6 +21,7 @@ using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 using Robust.Server.Console;
 using Content.DeadSpace.Interfaces.Server;
+using Content.Server.DeadSpace._Soyuz.Credits; // DS14-Soyuz
 
 namespace Content.Server.Chat.Managers;
 
@@ -50,6 +51,7 @@ internal sealed partial class ChatManager : IChatManager
     [Dependency] private readonly DiscordChatLink _discordLink = default!;
     [Dependency] private readonly DiscordChatWebhook _discordChatWebhook = default!;
     [Dependency] private readonly ILogManager _logManager = default!;
+    [Dependency] private readonly ICreditCosmetics _creditCosmetics = default!; // DS14-Soyuz
 
     private ISawmill _sawmill = default!;
     private IServerSponsorsManager? _sponsorsManager; // DS14-sponsors
@@ -97,10 +99,10 @@ internal sealed partial class ChatManager : IChatManager
         DispatchServerAnnouncement(Loc.GetString(val ? "chat-manager-admin-ooc-chat-enabled-message" : "chat-manager-admin-ooc-chat-disabled-message"));
     }
 
-        public void DeleteMessagesBy(NetUserId uid)
-        {
-            if (!_players.TryGetValue(uid, out var user))
-                return;
+    public void DeleteMessagesBy(NetUserId uid)
+    {
+        if (!_players.TryGetValue(uid, out var user))
+            return;
 
         var msg = new MsgDeleteChatMessagesBy { Key = user.Key, Entities = user.Entities };
         _netManager.ServerSendToAll(msg);
@@ -328,6 +330,19 @@ internal sealed partial class ChatManager : IChatManager
         {
             wrappedMessage = Loc.GetString("chat-manager-send-ooc-wrap-message", ("playerName", "[color=#ff3C00]A[/color][color=#ff8040]i[/color][color=#ffff80]n[/color][color=#80ff80]n[/color][color=#0077ff]e[/color][color=#00A2ff]t[/color][color=#a533f0]e[/color][color=#df4ae3]l[/color]"), ("message", FormattedMessage.EscapeText(message)));
         }
+        // DS14-Soyuz-start
+        var oocColor = _creditCosmetics.GetOocColor(player.UserId.UserId);
+        if (oocColor != null)
+        {
+            var index = wrappedMessage.IndexOf(player.Name, StringComparison.Ordinal);
+            if (index >= 0)
+            {
+                wrappedMessage = wrappedMessage[..index]
+                                 + $"[color={oocColor}]{player.Name}[/color]"
+                                 + wrappedMessage[(index + player.Name.Length)..];
+            }
+        }
+        // DS14-Soyuz-end
 
         //TODO: player.Name color, this will need to change the structure of the MsgChatMessage
         ChatMessageToAll(ChatChannel.OOC, message, wrappedMessage, EntityUid.Invalid, hideChat: false, recordReplay: true, colorOverride: colorOverride, author: player.UserId);

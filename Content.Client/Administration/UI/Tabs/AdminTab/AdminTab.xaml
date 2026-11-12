@@ -20,6 +20,9 @@
             <cc:CommandButton Command="votecallui" Text="{Loc administration-ui-round-tab-call-vote}" />
             <cc:CommandButton Command="gamerulesui" Text="{Loc admin-ui-manage-gamerules}" />
             <cc:CommandButton Command="timetransferui" Text="{Loc time-transfer-window-title}" />
+            <!-- DS14-Soyuz-start -->
+            <cc:CommandButton Command="credits_admin" Text="{Loc 'credits-admin-menu-open'}" />
+            <!-- DS14-Soyuz-end -->
         </GridContainer>
     </BoxContainer>
 </Control>

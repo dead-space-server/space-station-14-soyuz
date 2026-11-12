@@ -1,0 +1,319 @@
+# durationDays    — срок в днях (не задан = навсегда). Повторная покупка действующего товара продлевает срок.
+# cosmeticEntity  — предмет, который выдаётся в руку при появлении в раунде (если товар надет).
+# jobs            — выдавать предмет только этим профессиям (не задано = всем).
+# exclusiveGroup  — товары одной группы нельзя надеть одновременно.
+# color           — hex-цвет для товаров типа OocColor.
+# permanent       — true: товар всегда надет и не снимается (пример: permanent: true).
+# Цвет OOC всегда один: товары типа OocColor взаимоисключающие, даже без exclusiveGroup.
+
+- type: creditProduct
+  id: SoyuzCreditOocColorRed
+  name: Красный цвет OOC
+  description: Цвет вашего ника в OOC будет красным.
+  productType: OocColor
+  price: 150
+  durationDays: 30
+  exclusiveGroup: ooc-color
+  color: "#ff4040"
+
+- type: creditProduct
+  id: SoyuzCreditOocColorGold
+  name: Золотой цвет OOC
+  description: Цвет вашего ника в OOC будет золотым. Действует 30 дней.
+  productType: OocColor
+  price: 250
+  durationDays: 30
+  exclusiveGroup: ooc-color
+  color: "#ffd700"
+
+- type: creditProduct
+  id: SoyuzCreditDiscordTitles
+  name: Своя роль в дискорде
+  description: Роль в дискорд сервере союза. После покупки пинганите роль "Выдача доступа" и дождитесь сообщения в ЛС от проверяющего. После вам выдадут роль.
+  productType: DiscordTitle
+  price: 400
+  permanent: true
+
+- type: creditProduct
+  id: SoyuzCreditFatiguesBlackRMC
+  name: Чёрная униформа Королевской Пехоты
+  description: Стильная чёрная униформа морской пехоты. Выглядит сурово и стильно.
+  productType: Hat
+  price: 35
+  durationDays: 15
+  cosmeticEntity: SoyuzFatiguesBlackRMC
+
+- type: creditProduct
+  id: SoyuzCreditHeadCapOfficerRMC
+  name: Фуражка офицера Королевской Пехоты
+  description: Офицерская фуражка морской пехоты. Выглядит сурово и стильно.
+  productType: Hat
+  price: 35
+  durationDays: 15
+  cosmeticEntity: SoyuzHeadCapOfficerRMC
+
+- type: creditProduct
+  id: SoyuzCreditFatiguesServiceRMC
+  name: Униформа Королевской Пехоты
+  description: Служебная униформа морской пехоты. Выглядит сурово и стильно.
+  productType: Hat
+  price: 35
+  durationDays: 15
+  cosmeticEntity: SoyuzFatiguesServiceRMC
+
+- type: creditProduct
+  id: SoyuzCreditFigurineHos1
+  name: Фигурка Начальника Милиции
+  description: Миниатюрная фигурка начальника милиции. Серийный номер 1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineHos1
+
+- type: creditProduct
+  id: SoyuzCreditFigurineHos2
+  name: Фигурка Начальника Милиции
+  description: Альтернативная миниатюрная фигурка начальника милиции. Серийный номер 2.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineHos2
+
+- type: creditProduct
+  id: SoyuzCreditFigurineScientist1
+  name: Фигурка Учёного
+  description: Миниатюрная фигурка учёного. Серийный номер 1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineScientist1
+
+- type: creditProduct
+  id: SoyuzCreditFigurineOKGB1
+  name: Фигурка ОКГБ
+  description: Миниатюрная фигурка сотрудника ОКГБ. Серийный номер 1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineOKGB1
+
+- type: creditProduct
+  id: SoyuzCreditFigurineAGSH1
+  name: Фигурка АГШ
+  description: Миниатюрная фигурка АГШ. Серийный номер 1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineAGSH1
+
+- type: creditProduct
+  id: SoyuzCreditFigurinePilot1
+  name: Фигурка Пилота милиции
+  description: Миниатюрная фигурка пилота. Серийный номер PAU-L1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurinePilot1
+
+- type: creditProduct
+  id: SoyuzCreditFigurineOfficer1
+  name: Фигурка милиционера
+  description: Миниатюрная фигурка милиционера. Серийный номер 1.
+  productType: Hat
+  price: 25
+  durationDays: 15
+  cosmeticEntity: FigurineOfficer1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieRedFox
+  name: Плюшевая рыжая лиса
+  description: Мягкая игрушка рыжей лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieRedFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieBlackFox
+  name: Плюшевая чёрная лиса
+  description: Мягкая игрушка чёрной лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieBlackFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieBlueFox
+  name: Плюшевая синяя лиса
+  description: Мягкая игрушка синей лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieBlueFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieCoffeFox
+  name: Плюшевая кофейная лиса
+  description: Мягкая игрушка кофейной лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieCoffeFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieCrimsonFox
+  name: Плюшевая багровая лиса
+  description: Мягкая игрушка багровой лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieCrimsonFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieMarbleFox
+  name: Плюшевая мраморная лиса
+  description: Мягкая игрушка мраморной лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieMarbleFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieOrangeFox
+  name: Плюшевая оранжевая лиса
+  description: Мягкая игрушка оранжевой лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieOrangeFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushiePinkFox
+  name: Плюшевая розовая лиса
+  description: Мягкая игрушка розовой лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushiePinkFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushiePurpleFox
+  name: Плюшевая фиолетовая лиса
+  description: Мягкая игрушка фиолетовой лисы.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushiePurpleFox
+
+- type: creditProduct
+  id: SoyuzCreditPlushieHoS1
+  name: Плюшевый Начальник Милиции
+  description: Мягкая игрушка начальник милиции. Серийный номер 1.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieHoS1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieCaptain1
+  name: Плюшевый Капитан
+  description: Мягкая игрушка капитана. Серийный номер 1.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieCaptain1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieHoP1
+  name: Плюшевый НОК
+  description: Мягкая игрушка начальника отдела кадров. Серийный номер 1.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieHoP1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieIPS1
+  name: Плюшевый КПБ
+  description: Мягкая игрушка искусственного интеллекта.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieIPS1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieJuggenraut1
+  name: Плюшевый Джаггернаут
+  description: Мягкая игрушка джаггернаута.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieJuggenraut1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieOfficer1
+  name: Плюшевый Милиционер
+  description: Мягкая игрушка милиционера. Серийный номер 1.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieOfficer1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieOfficer2
+  name: Плюшевый Милиционер
+  description: Мягкая игрушка милиционера. Серийный номер 2.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieOfficer2
+
+- type: creditProduct
+  id: SoyuzCreditPlushieOfficer3
+  name: Плюшевый Милиционер
+  description: Мягкая игрушка милиционера. Серийный номер 3.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieOfficer3
+
+- type: creditProduct
+  id: SoyuzCreditPlushieOKGB1
+  name: Плюшевый ОКГБ
+  description: Мягкая игрушка сотрудника ОКГБ.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieOKGB1
+
+- type: creditProduct
+  id: SoyuzCreditPlushieMonokuma
+  name: Плюшевый Монокума
+  description: Мягкая игрушка загадочного медведя.
+  productType: Hat
+  price: 20
+  durationDays: 15
+  cosmeticEntity: PlushieMonokuma
+
+- type: creditProduct
+  id: SoyuzCreditPen
+  name: Ручка
+  description: Ручка появляется у вас в руке в начале раунда. Просто ручка. 
+  productType: Hat
+  price: 200
+  durationDays: 15
+  cosmeticEntity: Pen
+  # Пример ограничения по профессиям (подставьте id ваших профессий):
+  # jobs:
+  # - Doctor
+  # - Chemist
+
+- type: creditProduct
+  id: SoyuzCreditPenCaptain
+  name: Ручка капитана
+  description: Она просто ахуенная.
+  productType: Hat
+  price: 250000
+  cosmeticEntity: PenCap
+  jobs:
+  - Captain

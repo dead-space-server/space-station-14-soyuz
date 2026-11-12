@@ -29,6 +29,7 @@ using Content.Server.ServerInfo;
 using Content.Server.ServerUpdates;
 using Content.Server.Voting.Managers;
 using Content.Server.Worldgen.Tools;
+using Content.Server.DeadSpace._Soyuz.Credits;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Administration.Managers;
 using Content.Shared.Chat;
@@ -98,5 +99,17 @@ internal static class ServerContentIoC
         deps.Register<ServerJukeboxSongsSyncManager>();
         // Jukebox-port-edit
         deps.Register<WhitelistManager>();
+        // DS14-Soyuz-start
+        deps.Register<ICreditServerIdProvider, CreditServerIdProvider>();
+        deps.Register<ICreditsDbFactory, CreditsDbFactory>();
+        deps.Register<ICreditRepository, CreditRepository>();
+        deps.Register<ICreditService, CreditService>();
+        deps.Register<IReferralService, ReferralService>();
+        deps.Register<IShopService, ShopService>();
+        deps.Register<ICreditPerkCache, CreditPerkCache>();
+        deps.Register<ICreditNotifier, CreditNotifier>();
+        deps.Register<ICreditWebhook, CreditWebhook>();
+        deps.Register<ICreditCosmetics, CreditCosmetics>();
+        // DS14-Soyuz-end
     }
 }

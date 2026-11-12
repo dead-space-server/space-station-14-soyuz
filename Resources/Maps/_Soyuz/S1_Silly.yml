@@ -66924,14 +66924,6 @@ entities:
           ent: 19511
     - type: Fixtures
       fixtures: {}
-- proto: DeployableBarrier
-  entities:
-  - uid: 3916
-    components:
-    - type: Transform
-      pos: -10.5,12.5
-      parent: 2
-    - type: ViewSubscriber
   - uid: 3917
     components:
     - type: Transform

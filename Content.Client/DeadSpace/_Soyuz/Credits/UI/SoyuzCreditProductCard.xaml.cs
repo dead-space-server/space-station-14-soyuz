@@ -16,9 +16,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.DeadSpace._Soyuz.Credits.UI;
 
-/// <summary>
-/// Карточка товара: название, описание, теги (срок, предмет, профессии), цена и кнопки
-/// </summary>
+/// <summary>Карточка товара: название, описание, теги (срок, предмет, профессии), цена и кнопки</summary>
 [GenerateTypedNameReferences]
 public sealed partial class SoyuzCreditProductCard : PanelContainer
 {
@@ -85,8 +83,10 @@ public sealed partial class SoyuzCreditProductCard : PanelContainer
         var permanentOwned = foreverOwned;
         BuyButton.Text = permanentOwned
             ? Loc.GetString("credits-shop-owned")
-            : p.Owned ? Loc.GetString("credits-shop-extend") : Loc.GetString("credits-shop-buy");
-        BuyButton.Disabled = permanentOwned || balance < p.Price;
+            : p.Owned
+                ? Loc.GetString("credits-shop-extend")
+                : p.LimitReached ? Loc.GetString("credits-shop-limit-reached") : Loc.GetString("credits-shop-buy");
+        BuyButton.Disabled = permanentOwned || p.LimitReached || balance < p.Price;
         BuyButton.OnPressed += _ => BuyPressed?.Invoke();
 
         if (p.Owned && !p.Permanent)

@@ -11,9 +11,7 @@ using Robust.Shared.Maths;
 
 namespace Content.Client.DeadSpace._Soyuz.Credits.UI;
 
-/// <summary>
-/// Окно администратора (флаг Server): поиск игрока, выдача с выбором типа, журнал с фильтрами
-/// </summary>
+/// <summary>Окно администратора (флаг Server): поиск игрока, выдача с выбором типа, журнал с фильтрами</summary>
 [GenerateTypedNameReferences]
 public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
 {
@@ -25,6 +23,8 @@ public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
         CreditTransactionType.EventReward,
         CreditTransactionType.ModeratorReward,
         CreditTransactionType.DeveloperReward,
+        CreditTransactionType.RolePlayReward,
+        CreditTransactionType.OtherReward,
     };
 
     public event Action<string, int, int, string, string>? OnLookup;

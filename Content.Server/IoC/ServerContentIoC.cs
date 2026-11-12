@@ -110,6 +110,9 @@ internal static class ServerContentIoC
         deps.Register<ICreditNotifier, CreditNotifier>();
         deps.Register<ICreditWebhook, CreditWebhook>();
         deps.Register<ICreditCosmetics, CreditCosmetics>();
+        deps.Register<ICreditRateLimiter, CreditRateLimiter>();
+        deps.Register<IPromoService, CreditPromoService>();
+        deps.Register<ICreditDiscordLinks, CreditDiscordLinks>();
         // DS14-Soyuz-end
     }
 }

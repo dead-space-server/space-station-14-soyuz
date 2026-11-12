@@ -10,20 +10,26 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.Credits;
 
-public enum PurchaseResult { Ok, UnknownProduct, InvalidProduct, AlreadyOwned, Insufficient, BlockedByPermanent }
+public enum PurchaseResult { Ok, UnknownProduct, InvalidProduct, AlreadyOwned, Insufficient, BlockedByPermanent, CategoryLimit }
 
 public enum EquipResult { Ok, UnknownProduct, NotOwned, Permanent, BlockedByPermanent }
 
+/// <summary>
+/// Всё, что нужно для бесплатной выдачи товара (промокод): срок, товары той же группы, лимит категории.
+/// BlockedByPermanent = у игрока есть постоянный товар той же группы, новый надеть нельзя.
+/// </summary>
+public sealed record ProductGrantPlan(int? DurationDays, IReadOnlyCollection<string> Siblings,
+    CategoryLimit? Limit, bool BlockedByPermanent);
+
 public interface IShopService
 {
-    /// <summary>
-    /// Покупка. Действующий товар со сроком продлевается, бессрочный повторно не покупается
-    /// </summary>
+    /// <summary>План выдачи товара игроку без оплаты. null = такого товара нет или он недоступен.</summary>
+    Task<ProductGrantPlan?> GetGrantPlanAsync(Guid userId, string productId);
+
+    /// <summary>Покупка. Действующий товар со сроком продлевается, бессрочный повторно не покупается.</summary>
     Task<PurchaseResult> PurchaseAsync(Guid userId, string productId);
 
-    /// <summary>
-    /// Надеть/снять купленный товар. Постоянные (permanent) товары снять нельзя
-    /// </summary>
+    /// <summary>Надеть/снять купленный товар. Постоянные (permanent) товары снять нельзя.</summary>
     Task<EquipResult> SetEquippedAsync(Guid userId, string productId, bool equip);
 }
 
@@ -42,16 +48,18 @@ public sealed class ShopService : IShopService
         if (product.Price <= 0 || product.DurationDays is <= 0)
             return PurchaseResult.InvalidProduct;
 
+        // Не даём потратить кредиты на товар, который нельзя будет надеть из-за постоянного товара той же группы.
         var owned = await _repo.GetOwnedAsync(userId);
         if (!owned.ContainsKey(product.ID) && HasPermanentSibling(owned, product))
             return PurchaseResult.BlockedByPermanent;
 
         var siblings = SiblingPrototypes(product).Select(p => p.ID).ToList();
-        var result = await _repo.TryPurchaseAsync(userId, product.ID, product.Price, product.DurationDays, siblings);
+        var result = await _repo.TryPurchaseAsync(userId, product.ID, product.Price, product.DurationDays, siblings,
+            GetCategoryLimit(product));
         switch (result)
         {
             case PurchaseDbResult.Ok:
-                await _perks.RefreshAsync(userId);
+                await _perks.RefreshAsync(userId); // чтобы предмет и цвет заработали сразу
 
                 if (product.ProductType == CreditProductType.DiscordTitle)
                 {
@@ -62,6 +70,8 @@ public sealed class ShopService : IShopService
                 return PurchaseResult.Ok;
             case PurchaseDbResult.AlreadyOwned:
                 return PurchaseResult.AlreadyOwned;
+            case PurchaseDbResult.CategoryLimit:
+                return PurchaseResult.CategoryLimit;
             default:
                 return PurchaseResult.Insufficient;
         }
@@ -72,6 +82,7 @@ public sealed class ShopService : IShopService
         if (!_proto.TryIndex<CreditProductPrototype>(productId, out var product))
             return EquipResult.UnknownProduct;
 
+        // Постоянный товар всегда надет.
         if (!equip && product.Permanent)
             return EquipResult.Permanent;
 
@@ -94,9 +105,42 @@ public sealed class ShopService : IShopService
         return EquipResult.Ok;
     }
 
+    public async Task<ProductGrantPlan?> GetGrantPlanAsync(Guid userId, string productId)
+    {
+        if (!_proto.TryIndex<CreditProductPrototype>(productId, out var product))
+            return null;
+
+        if (product.DurationDays is <= 0)
+            return null;
+
+        var owned = await _repo.GetOwnedAsync(userId);
+        var blocked = !owned.ContainsKey(product.ID) && HasPermanentSibling(owned, product);
+        var siblings = SiblingPrototypes(product).Select(p => p.ID).ToList();
+
+        return new ProductGrantPlan(product.DurationDays, siblings, GetCategoryLimit(product), blocked);
+    }
+
     /// <summary>
-    /// У игрока есть действующий постоянный товар из той же группы (он блокирует остальные)
+    /// Лимит категории товара: сколько товаров из неё можно иметь одновременно.
+    /// null = у товара нет категории или у категории нет лимита.
     /// </summary>
+    private CategoryLimit? GetCategoryLimit(CreditProductPrototype product)
+    {
+        if (product.Category is not { } categoryId || !_proto.TryIndex(categoryId, out var category))
+            return null;
+
+        if (category.MaxOwned is not { } max || max <= 0)
+            return null;
+
+        var ids = _proto.EnumeratePrototypes<CreditProductPrototype>()
+            .Where(p => p.Category is { } c && c.Id == categoryId.Id)
+            .Select(p => p.ID)
+            .ToList();
+
+        return new CategoryLimit(ids, max);
+    }
+
+    /// <summary>У игрока есть действующий постоянный товар из той же группы (он блокирует остальные).</summary>
     private bool HasPermanentSibling(Dictionary<string, OwnedProduct> owned, CreditProductPrototype product)
     {
         return SiblingPrototypes(product).Any(s => s.Permanent && owned.ContainsKey(s.ID));
@@ -104,7 +148,7 @@ public sealed class ShopService : IShopService
 
     /// <summary>
     /// Товары, которые нельзя носить одновременно с данным: та же exclusiveGroup,
-    /// а также любые два цвета OOC (цвет ника всегда один)
+    /// а также любые два цвета OOC (цвет ника всегда один).
     /// </summary>
     private IEnumerable<CreditProductPrototype> SiblingPrototypes(CreditProductPrototype product)
     {

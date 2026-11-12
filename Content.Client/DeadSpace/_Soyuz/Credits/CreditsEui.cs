@@ -25,6 +25,7 @@ public sealed class CreditsEui : BaseEui
         _window.OnEquip += (id, equip) => SendMessage(new CreditsEquipMessage { ProductId = id, Equip = equip });
         _window.OnPage += page => SendMessage(new CreditsPageMessage { Page = page });
         _window.OnApplyReferral += code => SendMessage(new CreditsReferralApplyMessage { Code = code });
+        _window.OnRedeemPromo += code => SendMessage(new CreditsPromoRedeemMessage { Code = code });
     }
 
     public override void Opened()

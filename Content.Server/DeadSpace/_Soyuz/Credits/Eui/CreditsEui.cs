@@ -1,5 +1,6 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Server.EUI;
@@ -21,6 +22,8 @@ public sealed class CreditsEui : BaseEui
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly ILogManager _log = default!;
+    [Dependency] private readonly ICreditRateLimiter _limiter = default!;
+    [Dependency] private readonly IPromoService _promos = default!;
 
     private const int PageSize = 10;
 
@@ -53,9 +56,21 @@ public sealed class CreditsEui : BaseEui
     {
         base.HandleMessage(msg);
 
+        if (msg is CloseEuiMessage)
+            return;
+
         try
         {
             var user = Player.UserId.UserId;
+
+            // Ограничение частоты: при исчерпанном лимите база не трогается, игрок видит только сообщение.
+            if (!_limiter.TryAcquire(user, KindOf(msg)))
+            {
+                _state.Notice = Loc.GetString("credits-notice-ratelimit");
+                StateDirty();
+                return;
+            }
+
             _notice = "";
 
             switch (msg)
@@ -78,6 +93,11 @@ public sealed class CreditsEui : BaseEui
                     var applied = await _referrals.ApplyAsync(user, r.Code);
                     _notice = Loc.GetString($"credits-notice-ref-{applied.ToString().ToLowerInvariant()}");
                     break;
+
+                case CreditsPromoRedeemMessage promo:
+                    var redeemed = await _promos.RedeemAsync(user, promo.Code);
+                    _notice = Loc.GetString($"credits-notice-promo-{redeemed.Result.ToString().ToLowerInvariant()}");
+                    break;
             }
 
             await RefreshAsync();
@@ -88,6 +108,13 @@ public sealed class CreditsEui : BaseEui
         }
     }
 
+    private static CreditRateKind KindOf(EuiMessageBase msg) => msg switch
+    {
+        CreditsBuyMessage or CreditsEquipMessage => CreditRateKind.Shop,
+        CreditsReferralApplyMessage or CreditsPromoRedeemMessage => CreditRateKind.Code,
+        _ => CreditRateKind.Browse,
+    };
+
     private async Task RefreshAsync()
     {
         var user = Player.UserId.UserId;
@@ -97,7 +124,7 @@ public sealed class CreditsEui : BaseEui
         var owned = await _repo.GetOwnedAsync(user);
         var (log, hasMore) = await _repo.GetLogAsync(user, _page, PageSize);
         var code = await _referrals.GetCodeAsync(user);
-        var (applied, rewarded) = await _repo.GetReferralStatusAsync(user);
+        var referral = await _repo.GetReferralStatusAsync(user);
         var stats = await _repo.GetReferralStatsAsync(user);
 
         var state = new CreditsEuiState
@@ -107,8 +134,9 @@ public sealed class CreditsEui : BaseEui
             Page = _page,
             HasMore = hasMore,
             ReferralCode = code,
-            ReferralApplied = applied,
-            ReferralRewarded = rewarded,
+            ReferralApplied = referral.Applied,
+            ReferralRewarded = referral.Rewarded,
+            ReferralRejected = referral.Rejected,
             ReferralMinHours = _cfg.GetCVar(SoyuzCreditsCCVars.ReferralMinHours),
             InviterReward = _cfg.GetCVar(SoyuzCreditsCCVars.ReferralInviterReward),
             InviteeReward = _cfg.GetCVar(SoyuzCreditsCCVars.ReferralInviteeReward),
@@ -122,9 +150,43 @@ public sealed class CreditsEui : BaseEui
         foreach (var l in log)
             state.History.Add(new CreditLogEntryDto(l.Amount, l.Type, l.Reason, l.CreatedAtUtc));
 
-        foreach (var p in _proto.EnumeratePrototypes<CreditProductPrototype>().OrderBy(p => p.Price))
+        var products = _proto.EnumeratePrototypes<CreditProductPrototype>().OrderBy(p => p.Price).ToList();
+
+        // Сколько товаров каждой категории сейчас действует у игрока (owned содержит только действующие).
+        var ownedInCategory = new Dictionary<string, int>();
+        foreach (var p in products)
+        {
+            if (p.Category is { } cat && owned.ContainsKey(p.ID))
+                ownedInCategory[cat.Id] = ownedInCategory.GetValueOrDefault(cat.Id) + 1;
+        }
+
+        var limits = new Dictionary<string, int>();
+        foreach (var c in _proto.EnumeratePrototypes<CreditCategoryPrototype>().OrderBy(c => c.Priority).ThenBy(c => c.ID))
+        {
+            var max = Math.Max(0, c.MaxOwned ?? 0);
+            limits[c.ID] = max;
+
+            state.Categories.Add(new CreditCategoryDto
+            {
+                Id = c.ID,
+                Name = c.Name,
+                Description = c.Description,
+                MaxOwned = max,
+                OwnedCount = ownedInCategory.GetValueOrDefault(c.ID),
+            });
+        }
+
+        foreach (var p in products)
         {
             var isOwned = owned.TryGetValue(p.ID, out var ownedInfo);
+            var categoryId = p.Category?.Id;
+
+            // Лимит категории: новый товар купить нельзя, а уже действующий можно продлить.
+            var limit = categoryId == null ? 0 : limits.GetValueOrDefault(categoryId);
+            var limitReached = !isOwned
+                               && limit > 0
+                               && ownedInCategory.GetValueOrDefault(categoryId!) >= limit;
+
             var dto = new CreditProductDto
             {
                 Id = p.ID,
@@ -137,6 +199,8 @@ public sealed class CreditsEui : BaseEui
                 DurationDays = p.DurationDays,
                 GivesItem = p.CosmeticEntity != null,
                 Permanent = p.Permanent,
+                Category = categoryId,
+                LimitReached = limitReached,
             };
 
             foreach (var job in p.Jobs)

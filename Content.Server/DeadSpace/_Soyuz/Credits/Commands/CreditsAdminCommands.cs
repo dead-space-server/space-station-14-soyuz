@@ -186,3 +186,292 @@ public sealed class CreditsAdminCommand : IConsoleCommand
         _eui.OpenEui(new Eui.CreditsAdminEui(), session);
     }
 }
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsTakeCommand : IConsoleCommand
+{
+    [Dependency] private readonly ICreditService _credits = default!;
+    [Dependency] private readonly IPlayerLocator _locator = default!;
+
+    public string Command => "credits_take";
+    public string Description => "Списать Советские кредиты у игрока с указанием причины (только флаг Server).";
+    public string Help => "credits_take <userId|username> <amount> <reason>";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            if (args.Length < 3 || !long.TryParse(args[1], out var amount))
+            {
+                shell.WriteError($"Использование: {Help}");
+                return;
+            }
+
+            var located = await _locator.LookupIdByNameOrIdAsync(args[0]);
+            if (located == null)
+            {
+                shell.WriteError("Игрок не найден.");
+                return;
+            }
+
+            var reason = string.Join(' ', args.Skip(2));
+            var result = await _credits.TakeAsync(located.UserId.UserId, amount, reason, shell.Player);
+
+            switch (result)
+            {
+                case CreditResult.Ok:
+                    shell.WriteLine($"Списано {amount} кр. у игрока {located.Username}. В журнале добавлена запись.");
+                    break;
+                case CreditResult.InvalidAmount:
+                    shell.WriteError($"Сумма должна быть больше 0 и не больше {CreditService.MaxGrant}. Операция отклонена.");
+                    break;
+                case CreditResult.InvalidReason:
+                    shell.WriteError($"Причина обязательна (до {CreditService.MaxReasonLength} символов).");
+                    break;
+                case CreditResult.Insufficient:
+                    shell.WriteError("У игрока недостаточно кредитов, баланс не может стать отрицательным. Операция отклонена.");
+                    break;
+                case CreditResult.Forbidden:
+                    shell.WriteError("Недостаточно прав.");
+                    break;
+                default:
+                    shell.WriteError("Не удалось выполнить операцию.");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsRefundCommand : IConsoleCommand
+{
+    [Dependency] private readonly ICreditService _credits = default!;
+    [Dependency] private readonly IPlayerLocator _locator = default!;
+
+    public string Command => "credits_refund";
+    public string Description => "Вернуть кредиты за покупку и забрать товар (только флаг Server).";
+    public string Help => "credits_refund <userId|username> <productId> <reason>";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            if (args.Length < 3)
+            {
+                shell.WriteError($"Использование: {Help}");
+                return;
+            }
+
+            var located = await _locator.LookupIdByNameOrIdAsync(args[0]);
+            if (located == null)
+            {
+                shell.WriteError("Игрок не найден.");
+                return;
+            }
+
+            var reason = string.Join(' ', args.Skip(2));
+            var refund = await _credits.RefundAsync(located.UserId.UserId, args[1], reason, shell.Player);
+
+            switch (refund.Result)
+            {
+                case CreditResult.Ok:
+                    shell.WriteLine($"Возвращено {refund.Amount} кр. игроку {located.Username}, товар {args[1]} забран. В журнале добавлена обратная запись.");
+                    break;
+                case CreditResult.InvalidReason:
+                    shell.WriteError($"Причина обязательна (до {CreditService.MaxReasonLength} символов).");
+                    break;
+                case CreditResult.NotFound:
+                    shell.WriteError("У игрока нет невозвращённых покупок этого товара.");
+                    break;
+                case CreditResult.Forbidden:
+                    shell.WriteError("Недостаточно прав.");
+                    break;
+                default:
+                    shell.WriteError("Не удалось выполнить операцию.");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsPromoCreateCommand : IConsoleCommand
+{
+    [Dependency] private readonly IPromoService _promos = default!;
+
+    public string Command => "credits_promo_create";
+    public string Description => "Создать промокод на кредиты и/или товар (только флаг Server).";
+    public string Help => "credits_promo_create <code> <credits> <productId|-> <maxUses|0> <days|0>\n" +
+                          "  credits: сколько кредитов даёт код (0, если только товар)\n" +
+                          "  productId: id товара или «-», если код только на кредиты\n" +
+                          "  maxUses: сколько раз можно использовать (0 = без лимита)\n" +
+                          "  days: сколько дней действует код (0 = бессрочно)";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            if (args.Length != 5
+                || !long.TryParse(args[1], out var credits)
+                || !int.TryParse(args[3], out var maxUses)
+                || !int.TryParse(args[4], out var days))
+            {
+                shell.WriteError($"Использование: {Help}");
+                return;
+            }
+
+            var productId = args[2] == "-" ? null : args[2];
+            var result = await _promos.CreateAsync(args[0], credits, productId,
+                maxUses == 0 ? null : maxUses, days == 0 ? null : days, shell.Player);
+
+            switch (result)
+            {
+                case PromoResult.Ok:
+                    shell.WriteLine($"Промокод {args[0].ToUpperInvariant()} создан.");
+                    break;
+                case PromoResult.InvalidCode:
+                    shell.WriteError($"Код: латинские буквы, цифры, «-» и «_», от {CreditPromoService.MinCodeLength} до {CreditPromoService.MaxCodeLength} символов.");
+                    break;
+                case PromoResult.InvalidAmount:
+                    shell.WriteError($"Сумма от 0 до {CreditService.MaxGrant}; если товара нет, она должна быть больше 0.");
+                    break;
+                case PromoResult.InvalidProduct:
+                    shell.WriteError("Такого товара нет.");
+                    break;
+                case PromoResult.InvalidUses:
+                    shell.WriteError("Число использований должно быть положительным (0 = без лимита).");
+                    break;
+                case PromoResult.InvalidDuration:
+                    shell.WriteError("Срок в днях: от 1 до 3650 (0 = бессрочно).");
+                    break;
+                case PromoResult.AlreadyExists:
+                    shell.WriteError("Такой промокод уже есть.");
+                    break;
+                case PromoResult.Forbidden:
+                    shell.WriteError("Недостаточно прав.");
+                    break;
+                default:
+                    shell.WriteError("Не удалось выполнить операцию.");
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsPromoListCommand : IConsoleCommand
+{
+    [Dependency] private readonly IPromoService _promos = default!;
+
+    private const int Count = 20;
+
+    public string Command => "credits_promo_list";
+    public string Description => "Последние промокоды: использования, срок, состояние.";
+    public string Help => "credits_promo_list";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            var list = await _promos.ListAsync(Count);
+            if (list.Count == 0)
+            {
+                shell.WriteLine("Промокодов нет.");
+                return;
+            }
+
+            var now = DateTime.UtcNow;
+            foreach (var p in list)
+            {
+                var uses = p.MaxUses is { } max ? $"{p.Uses}/{max}" : $"{p.Uses}/без лимита";
+                var until = p.ExpiresAt is { } e ? $"до {e:yyyy-MM-dd HH:mm} UTC" : "бессрочно";
+                var state = p.Disabled ? "ОТКЛЮЧЁН" : p.ExpiresAt is { } ex && ex <= now ? "истёк" : "активен";
+                shell.WriteLine($"{p.Code} | {p.Credits} кр. | товар: {p.ProductId ?? "-"} | использовано {uses} | {until} | {state}");
+            }
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsPromoDisableCommand : IConsoleCommand
+{
+    [Dependency] private readonly IPromoService _promos = default!;
+
+    public string Command => "credits_promo_disable";
+    public string Description => "Отключить промокод. Чтобы включить обратно: credits_promo_enable.";
+    public string Help => "credits_promo_disable <code>";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            if (args.Length != 1)
+            {
+                shell.WriteError($"Использование: {Help}");
+                return;
+            }
+
+            var result = await _promos.SetDisabledAsync(args[0], true, shell.Player);
+            shell.WriteLine(result switch
+            {
+                PromoResult.Ok => "Промокод отключён.",
+                PromoResult.Forbidden => "Недостаточно прав.",
+                _ => "Такого промокода нет.",
+            });
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}
+
+[AdminCommand(AdminFlags.Server)]
+public sealed class CreditsPromoEnableCommand : IConsoleCommand
+{
+    [Dependency] private readonly IPromoService _promos = default!;
+
+    public string Command => "credits_promo_enable";
+    public string Description => "Снова включить отключённый промокод.";
+    public string Help => "credits_promo_enable <code>";
+
+    public async void Execute(IConsoleShell shell, string argStr, string[] args)
+    {
+        try
+        {
+            if (args.Length != 1)
+            {
+                shell.WriteError($"Использование: {Help}");
+                return;
+            }
+
+            var result = await _promos.SetDisabledAsync(args[0], false, shell.Player);
+            shell.WriteLine(result switch
+            {
+                PromoResult.Ok => "Промокод включён.",
+                PromoResult.Forbidden => "Недостаточно прав.",
+                _ => "Такого промокода нет.",
+            });
+        }
+        catch (Exception e)
+        {
+            shell.WriteError($"Ошибка: {e.Message}");
+        }
+    }
+}

@@ -23,9 +23,15 @@
 
         <TabContainer Name="MainTabs" VerticalExpand="True">
 
-            <ScrollContainer Name="ShopTab" HScrollEnabled="False" VerticalExpand="True">
-                <BoxContainer Name="ShopList" Orientation="Vertical" SeparationOverride="6" Margin="4 4 8 4" />
-            </ScrollContainer>
+            <BoxContainer Name="ShopTab" Orientation="Vertical" SeparationOverride="6" Margin="4 4 4 4">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <LineEdit Name="SearchInput" PlaceHolder="{Loc 'credits-shop-search-hint'}" HorizontalExpand="True" />
+                    <OptionButton Name="CategoryFilter" MinWidth="220" />
+                </BoxContainer>
+                <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
+                    <BoxContainer Name="ShopList" Orientation="Vertical" SeparationOverride="6" Margin="0 0 8 0" />
+                </ScrollContainer>
+            </BoxContainer>
 
             <BoxContainer Name="HistoryTab" Orientation="Vertical" SeparationOverride="6" Margin="4 4 4 4">
                 <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
@@ -84,6 +90,21 @@
                         </BoxContainer>
                     </PanelContainer>
 
+                </BoxContainer>
+            </ScrollContainer>
+
+            <ScrollContainer Name="PromoTab" HScrollEnabled="False" VerticalExpand="True">
+                <BoxContainer Orientation="Vertical" SeparationOverride="8" Margin="4 4 8 4">
+                    <PanelContainer Name="PromoPanel">
+                        <BoxContainer Orientation="Vertical" Margin="12 10 12 10" SeparationOverride="6">
+                            <Label Text="{Loc 'credits-promo-section'}" StyleClasses="LabelSubText" />
+                            <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                                <LineEdit Name="PromoInput" PlaceHolder="{Loc 'credits-promo-hint'}" HorizontalExpand="True" />
+                                <Button Name="PromoButton" Text="{Loc 'credits-promo-button'}" />
+                            </BoxContainer>
+                            <RichTextLabel Name="PromoInfo" HorizontalExpand="True" />
+                        </BoxContainer>
+                    </PanelContainer>
                 </BoxContainer>
             </ScrollContainer>
 

@@ -468,7 +468,7 @@
 - type: repairReward
   id: RepairOrderReconstructionCartridgeReward
   entity: RepairReconstructionCartridge
-  cost: 15
+  cost: 25
   maxCount: 10
   minimumShopLevel: 6
 
@@ -481,13 +481,6 @@
   emagOnly: true
 
 - type: repairReward
-  id: RepairOrderReconstructionTabletReward
-  entity: RepairReconstructionTablet
-  cost: 500
-  maxCount: 5
-  minimumShopLevel: 6
-
-- type: repairReward
   id: RepairOrderNitriatiumCanisterReward
   entity: NitriatiumCanister
   cost: 500
@@ -498,6 +491,13 @@
   id: RepairOrderHyperNobliumCanisterReward
   entity: HyperNobliumCanister
   cost: 750
+  maxCount: 5
+  minimumShopLevel: 6
+
+- type: repairReward
+  id: RepairOrderReconstructionTabletReward
+  entity: RepairReconstructionTablet
+  cost: 2000
   maxCount: 5
   minimumShopLevel: 6
 
@@ -755,9 +755,9 @@
   - RepairOrderFrezonCanisterReward
   - RepairOrderReconstructionCartridgeReward
   - RepairOrderClothingBackpackRIGERTEngineerReward
-  - RepairOrderReconstructionTabletReward
   - RepairOrderNitriatiumCanisterReward
   - RepairOrderHyperNobliumCanisterReward
+  - RepairOrderReconstructionTabletReward
   - RepairOrderClothingNeckCloakCeReward
   - RepairOrderClothingNeckCloakCatReward
   - RepairOrderClothingNeckCloakSrReward

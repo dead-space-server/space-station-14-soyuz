@@ -32,7 +32,7 @@
   parent: BaseItem
   id: RepairReconstructionCartridge
   name: reconstruction matrix cartridge
-  description: A dedicated compressed-matter matrix for reconstruction tablets. Contains 50 charges.
+  description: A dedicated compressed-matter matrix for reconstruction tablets. Contains 100 charges.
   components:
   - type: Sprite
     sprite: _DeadSpace/_Soyuz/Objects/Tools/RepairOrders/reconstruction_matrix.rsi
@@ -43,4 +43,4 @@
     heldPrefix: ammo
   - type: RepairReconstructionCartridge
   - type: LimitedCharges
-    maxCharges: 50
+    maxCharges: 100

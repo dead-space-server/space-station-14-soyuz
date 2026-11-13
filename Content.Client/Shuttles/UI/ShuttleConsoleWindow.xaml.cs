@@ -23,6 +23,7 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
     public event Action<NetEntity, NetEntity>? DockRequest;
     public event Action<NetEntity>? UndockRequest;
     public event Action<NetEntity, float, float>? ThrustersRestartRequest;
+    public Content.Client.DeadSpace._Soyuz.Shuttles.ShuttleCollisionSafetyControl CollisionSafety => NavContainer.CollisionSafety; // DS14-Soyuz
 
     public ShuttleConsoleWindow()
     {
@@ -142,6 +143,7 @@ public sealed partial class ShuttleConsoleWindow : FancyWindow,
 
     public void UpdateState(EntityUid owner, ShuttleBoundUserInterfaceState cState)
     {
+        CollisionSafety.UpdateStatus(cState.CollisionSafety); // DS14-Soyuz
         var coordinates = _entManager.GetCoordinates(cState.NavState.Coordinates);
         NavContainer.SetShuttle(coordinates?.EntityId);
         NavContainer.SetConsole(owner);

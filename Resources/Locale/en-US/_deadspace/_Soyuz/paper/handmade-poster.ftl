@@ -1,0 +1,16 @@
+ent-HandmadePoster = Poster
+    .desc = A white homemade paper poster.
+construction-recipe-handmade-poster = poster blank
+handmade-poster-drawing-verb = Open drawing
+handmade-poster-drawing-title = Poster drawing
+handmade-poster-drawing-brush = Brush:
+handmade-poster-drawing-eraser = Eraser
+handmade-poster-drawing-undo = Undo
+handmade-poster-drawing-clear = Clear
+handmade-poster-drawing-save = Save drawing
+handmade-poster-drawing-reload = Discard new changes
+handmade-poster-drawing-readonly = Editing unavailable.
+handmade-poster-drawing-conflict = Another player changed the drawing. Version conflict.
+handmade-poster-drawing-wait = Wait briefly before saving again.
+handmade-poster-drawing-invalid = Could not save: invalid drawing format.
+handmade-poster-drawing-saving = Saving drawing…

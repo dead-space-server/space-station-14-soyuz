@@ -214,6 +214,37 @@
     position: Stand
     buckleOffset: "0.01,0.15"
     lockBuckleOffset: true
+  # DS14-Soyuz-start: janitorial supplies compartment, 4 columns by 4 rows.
+  - type: Storage
+    grid:
+    - 0,0,3,3
+    maxItemSize: Large
+    whitelist:
+      tags:
+      - Bucket
+      - Mop
+      - Wrench
+      - Bottle
+      - Spray
+      - Soap
+      - SoapSyndie
+      - Flashlight
+      - TrashBag
+      - TrashBagBlue
+      - WetFloorSign
+      - HolosignProjector
+      - Plunger
+      - GoldenPlunger
+      - WireBrush
+      - CleanerGrenade
+      components:
+      - LightReplacer
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: Appearance
+  # DS14-Soyuz-end
   - type: ItemSlots
     slots:
       key_slot:
@@ -234,7 +265,12 @@
     containers:
       key_slot: !type:ContainerSlot
       trashbag_slot: !type:ContainerSlot
+      # DS14-Soyuz-start
+      storagebase: !type:Container
+        ents: []
+      # DS14-Soyuz-end
   - type: ItemMapper
+    containerWhitelist: [trashbag_slot] # DS14-Soyuz: stored bags are not attached bags.
     mapLayers:
       storage:
         whitelist:

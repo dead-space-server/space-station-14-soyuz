@@ -1069,6 +1069,7 @@
   reason: Temporary construction stages are not completed repair structures.
   entities:
   - SoyuzDugSoilMound
+  - HandmadePoster
   - SoyuzStoneGraveFrame
   - SoyuzWoodenGraveFrame
 

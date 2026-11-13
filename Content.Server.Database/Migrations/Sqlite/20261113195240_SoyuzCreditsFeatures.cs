@@ -1,5 +1,4 @@
-﻿// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Content.Server.Database.Migrations.Sqlite
 {
     /// <inheritdoc />
-    public partial class SoyuzCreditsInit : Migration
+    public partial class SoyuzCreditsFeatures : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,6 +24,20 @@ namespace Content.Server.Database.Migrations.Sqlite
                 {
                     table.PrimaryKey("PK_soyuz_credit_balance", x => new { x.server_id, x.user_id });
                     table.CheckConstraint("ck_soyuz_credit_balance_nonneg", "balance >= 0");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_discord_link",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "TEXT", nullable: false),
+                    user_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    discord_id = table.Column<string>(type: "TEXT", nullable: false),
+                    linked_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_discord_link", x => new { x.server_id, x.user_id });
                 });
 
             migrationBuilder.CreateTable(
@@ -54,7 +67,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                     server_id = table.Column<string>(type: "TEXT", nullable: false),
                     user_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     product_id = table.Column<string>(type: "TEXT", nullable: false),
-                    equipped = table.Column<bool>(type: "INTEGER", nullable: false)
+                    equipped = table.Column<bool>(type: "INTEGER", nullable: false),
+                    expires_at = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,11 +81,46 @@ namespace Content.Server.Database.Migrations.Sqlite
                 {
                     server_id = table.Column<string>(type: "TEXT", nullable: false),
                     user_id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    seconds = table.Column<long>(type: "INTEGER", nullable: false)
+                    seconds = table.Column<long>(type: "INTEGER", nullable: false),
+                    hours_rewarded = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_soyuz_credit_playtime", x => new { x.server_id, x.user_id });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_promo",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "TEXT", nullable: false),
+                    code = table.Column<string>(type: "TEXT", nullable: false),
+                    credits = table.Column<long>(type: "INTEGER", nullable: false),
+                    product_id = table.Column<string>(type: "TEXT", nullable: true),
+                    max_uses = table.Column<int>(type: "INTEGER", nullable: true),
+                    uses = table.Column<int>(type: "INTEGER", nullable: false),
+                    expires_at = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    disabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    created_by = table.Column<Guid>(type: "TEXT", nullable: true),
+                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_promo", x => new { x.server_id, x.code });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_promo_use",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "TEXT", nullable: false),
+                    code = table.Column<string>(type: "TEXT", nullable: false),
+                    user_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    used_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_promo_use", x => new { x.server_id, x.code, x.user_id });
                 });
 
             migrationBuilder.CreateTable(
@@ -84,7 +133,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                     user_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     product_id = table.Column<string>(type: "TEXT", nullable: false),
                     price = table.Column<long>(type: "INTEGER", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    refunded_at = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -100,7 +150,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                     inviter_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     code = table.Column<string>(type: "TEXT", nullable: false),
                     applied_at = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    rewarded_at = table.Column<DateTime>(type: "TEXT", nullable: true)
+                    rewarded_at = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    rejected_at = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,6 +170,12 @@ namespace Content.Server.Database.Migrations.Sqlite
                 {
                     table.PrimaryKey("PK_soyuz_credit_referral_code", x => new { x.server_id, x.user_id });
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_soyuz_credit_discord_link_server_id_discord_id",
+                table: "soyuz_credit_discord_link",
+                columns: new[] { "server_id", "discord_id" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_soyuz_credit_log_server_id_user_id_id",
@@ -149,6 +206,9 @@ namespace Content.Server.Database.Migrations.Sqlite
                 name: "soyuz_credit_balance");
 
             migrationBuilder.DropTable(
+                name: "soyuz_credit_discord_link");
+
+            migrationBuilder.DropTable(
                 name: "soyuz_credit_log");
 
             migrationBuilder.DropTable(
@@ -156,6 +216,12 @@ namespace Content.Server.Database.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "soyuz_credit_playtime");
+
+            migrationBuilder.DropTable(
+                name: "soyuz_credit_promo");
+
+            migrationBuilder.DropTable(
+                name: "soyuz_credit_promo_use");
 
             migrationBuilder.DropTable(
                 name: "soyuz_credit_purchase");

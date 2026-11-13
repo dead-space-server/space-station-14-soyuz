@@ -12,10 +12,10 @@ public sealed partial class CreditCategoryPrototype : IPrototype
     public string ID { get; private set; } = default!;
 
     [DataField(required: true)]
-    public LocId Name;
+    public string Name = string.Empty;
 
     [DataField]
-    public LocId? Description;
+    public string? Description;
 
     /// <summary>
     /// Сколько товаров этой категории игрок может иметь одновременно (купленных и действующих).

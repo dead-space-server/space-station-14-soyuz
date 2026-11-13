@@ -1,0 +1,121 @@
+- type: entity
+  parent: FoodMeat
+  id: FoodSoyMeat
+  name: soy meat
+  description: A plant-based meat substitute made from soybeans.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - soy
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/soy_meat.rsi
+    state: plain
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/soy_meat.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 10
+        - ReagentId: SoyProtein
+          Quantity: 5
+  - type: SliceableFood
+    slice: FoodSoyMeatCutlet
+  - type: RotInto
+    entity: FoodSoyMeatRotten
+  - type: SoyFood
+    ingredient: FoodMeat
+
+- type: entity
+  parent: FoodMeatCutlet
+  id: FoodSoyMeatCutlet
+  name: soy meat cutlet
+  description: A slice of plant-based soy meat.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - soy
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/soy_meat.rsi
+    state: cutlet
+  - type: Item
+    sprite: _DeadSpace/_Soyuz/Objects/Consumable/Food/soy_meat.rsi
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: SoyProtein
+          Quantity: 2
+  - type: SoyFood
+    ingredient: FoodMeatCutlet
+
+- type: entity
+  parent: FoodMeatRotten
+  id: FoodSoyMeatRotten
+  name: rotten soy meat
+  description: Even plant-based meat does not keep forever.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - soy
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: SoyProtein
+          Quantity: 5
+        - ReagentId: GastroToxin
+          Quantity: 4
+        - ReagentId: Fat
+          Quantity: 4
+  - type: SoyFood
+    ingredient: FoodMeatRotten
+
+- type: entity
+  parent: FoodMeatMeatball
+  id: FoodSoyMeatMeatball
+  name: soy meatball
+  description: A ball of soy mince, ready for further cooking.
+  components:
+  - type: FlavorProfile
+    flavors:
+    - soy
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 5
+        - ReagentId: SoyProtein
+          Quantity: 1
+        - ReagentId: Fat
+          Quantity: 5
+  - type: SoyFood
+    ingredient: FoodMeatMeatball
+
+- type: reagent
+  parent: Protein
+  id: SoyProtein
+  name: reagent-name-soy-protein
+  desc: reagent-desc-soy-protein
+  flavor: soy
+
+- type: reaction
+  id: CreateSoyMeatball
+  impact: Low
+  quantized: true
+  conserveEnergy: false
+  guidebookFoodCategory: Savory
+  reactants:
+    SoyProtein:
+      amount: 5
+    Flour:
+      amount: 5
+    Egg:
+      amount: 6
+  effects:
+  - !type:SpawnEntity
+    entity: FoodSoyMeatMeatball

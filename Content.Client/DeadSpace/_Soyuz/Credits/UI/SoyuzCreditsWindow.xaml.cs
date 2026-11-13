@@ -26,9 +26,15 @@ public sealed partial class SoyuzCreditsWindow : DefaultWindow
 
     private static readonly Color Muted = Color.FromHex("#9aa0b4");
 
+    private const int SortPriceAsc = 0;
+    private const int SortPriceDesc = 1;
+    private const int SortName = 2;
+    private const int SortPopular = 3;
+
+    private int _sortId = SortPriceAsc;
+
     private const int AllCategories = 0;
     private const int Uncategorized = 1000;
-
     private readonly Dictionary<int, string> _categoryById = new();
     private string? _selectedCategory;
     private CreditsEuiState? _state;
@@ -55,6 +61,18 @@ public sealed partial class SoyuzCreditsWindow : DefaultWindow
 
         PromoInfo.SetMessage(FormattedMessage.FromUnformatted(Loc.GetString("credits-promo-info")));
         PromoInfo.Modulate = Muted;
+
+        SortSelect.AddItem(Loc.GetString("credits-sort-price-asc"), SortPriceAsc);
+        SortSelect.AddItem(Loc.GetString("credits-sort-price-desc"), SortPriceDesc);
+        SortSelect.AddItem(Loc.GetString("credits-sort-name"), SortName);
+        SortSelect.AddItem(Loc.GetString("credits-sort-popular"), SortPopular);
+        SortSelect.SelectId(SortPriceAsc);
+        SortSelect.OnItemSelected += a =>
+        {
+            SortSelect.SelectId(a.Id);
+            _sortId = a.Id;
+            RebuildShop();
+        };
 
         SearchInput.OnTextChanged += _ => RebuildShop();
         CategoryFilter.OnItemSelected += a =>
@@ -167,7 +185,7 @@ public sealed partial class SoyuzCreditsWindow : DefaultWindow
         }
 
         var shown = 0;
-        foreach (var p in _state.Products)
+        foreach (var p in Sorted(_state.Products))
         {
             if (!MatchesFilter(p))
                 continue;
@@ -184,7 +202,14 @@ public sealed partial class SoyuzCreditsWindow : DefaultWindow
             ShopList.AddChild(new Label { Text = Loc.GetString("credits-shop-nothing-found"), Modulate = Muted });
     }
 
-    /// <summary>Фильтр магазина: выбранная категория и поиск по названию товара (без учёта регистра)</summary>
+    private IEnumerable<CreditProductDto> Sorted(IEnumerable<CreditProductDto> products) => _sortId switch
+    {
+        SortPriceDesc => products.OrderByDescending(p => p.Price),
+        SortName => products.OrderBy(p => Loc.GetString(p.Name), StringComparer.CurrentCultureIgnoreCase),
+        SortPopular => products.OrderByDescending(p => p.Sold).ThenBy(p => p.Price),
+        _ => products.OrderBy(p => p.Price),
+    };
+
     private bool MatchesFilter(CreditProductDto p)
     {
         if (_selectedCategory != null && (p.Category ?? "") != _selectedCategory)

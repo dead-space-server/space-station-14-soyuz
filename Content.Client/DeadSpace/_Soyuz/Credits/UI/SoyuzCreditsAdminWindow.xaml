@@ -23,11 +23,21 @@
                     <LineEdit Name="ReasonInput" PlaceHolder="{Loc 'credits-admin-reason'}" HorizontalExpand="True" />
                     <Button Name="GiveButton" Text="{Loc 'credits-admin-give'}" MinWidth="100" />
                 </BoxContainer>
+                <BoxContainer Orientation="Horizontal" SeparationOverride="6">
+                    <Button Name="TakeButton" Text="{Loc 'credits-admin-take'}" MinWidth="100" />
+                    <LineEdit Name="RefundProductInput" PlaceHolder="{Loc 'credits-admin-refund-product'}" HorizontalExpand="True" />
+                    <Button Name="RefundButton" Text="{Loc 'credits-admin-refund'}" MinWidth="100" />
+                    <Button Name="StatsButton" Text="{Loc 'credits-admin-stats-button'}" MinWidth="120" />
+                </BoxContainer>
             </BoxContainer>
         </PanelContainer>
 
         <PanelContainer Name="NoticePanel" Visible="False">
             <Label Name="NoticeLabel" Margin="10 6 10 6" />
+        </PanelContainer>
+
+        <PanelContainer Name="StatsPanel" Visible="False">
+            <Label Name="StatsLabel" Margin="10 6 10 6" />
         </PanelContainer>
 
         <PanelContainer Name="LogPanel" VerticalExpand="True">

@@ -35,7 +35,7 @@ public sealed class CreditRepository : ICreditRepository
         await using var db = _factory.Create();
 
         if (delta > 0)
-            await EnsureBalanceRowAsync(db, userId); // вне транзакции: гонка создания строки безопасна
+            await EnsureBalanceRowAsync(db, userId);
 
         await using var tx = await db.Database.BeginTransactionAsync();
         if (!await ApplyInternalAsync(db, userId, delta, type, reason, actor, refId))
@@ -120,7 +120,7 @@ public sealed class CreditRepository : ICreditRepository
             }
             catch (DbUpdateException)
             {
-                db.ChangeTracker.Clear(); // строку создали параллельно — не критично
+                db.ChangeTracker.Clear();
             }
         }
     }
@@ -151,8 +151,6 @@ public sealed class CreditRepository : ICreditRepository
             await EnsureBalanceRowAsync(db, user);
 
             await using var tx = await db.Database.BeginTransactionAsync();
-
-            // Оптимистичная отметка: награду за эти часы получит только один вызов.
             var oldRewarded = row.HoursRewarded;
             var newRewarded = oldRewarded + hours;
             var marked = await db.Playtimes
@@ -198,7 +196,7 @@ public sealed class CreditRepository : ICreditRepository
             }
             catch (DbUpdateException)
             {
-                db.ChangeTracker.Clear(); // коллизия кода или гонка — пробуем снова
+                db.ChangeTracker.Clear();
             }
         }
 
@@ -212,7 +210,6 @@ public sealed class CreditRepository : ICreditRepository
         await using var db = _factory.Create();
         var sid = db.CurrentServerId;
 
-        // Код ищется только среди кодов ЭТОГО сервера.
         var inviter = await db.ReferralCodes
             .Where(c => c.ServerId == sid && c.Code == code)
             .Select(c => (Guid?) c.UserId)
@@ -242,7 +239,7 @@ public sealed class CreditRepository : ICreditRepository
         }
         catch (DbUpdateException)
         {
-            return ReferralApplyResult.AlreadyApplied; // PK (server_id, invitee_id): активировать можно только один раз
+            return ReferralApplyResult.AlreadyApplied;
         }
 
         return ReferralApplyResult.Ok;
@@ -331,7 +328,6 @@ public sealed class CreditRepository : ICreditRepository
 
         await using var tx = await db.Database.BeginTransactionAsync();
 
-        // «Ровно один раз»: условное обновление затронет строку только у первого вызова.
         var now = DateTime.UtcNow;
         var marked = await db.Referrals
             .Where(r => r.ServerId == sid && r.InviteeId == invitee && r.RewardedAt == null && r.RejectedAt == null)
@@ -384,7 +380,6 @@ public sealed class CreditRepository : ICreditRepository
         {
             await using var tx = await db.Database.BeginTransactionAsync();
 
-            // Списание атомарно: UPDATE ... WHERE balance - price >= 0.
             if (!await ApplyInternalAsync(db, userId, -price, CreditTransactionType.Purchase,
                     $"Покупка: {productId}", userId, productId))
             {
@@ -392,7 +387,6 @@ public sealed class CreditRepository : ICreditRepository
                 return PurchaseDbResult.Insufficient;
             }
 
-            // Продление, новая строка или отказ (бессрочный уже куплен / лимит категории). При отказе откатывается и списание.
             var (grant, hadRow) = await GrantOwnedAsync(db, userId, productId, durationDays, exclusiveSiblings.ToList(), limit, now);
             hasRow = hadRow;
             if (grant != PurchaseDbResult.Ok)
@@ -416,7 +410,6 @@ public sealed class CreditRepository : ICreditRepository
         }
         catch (DbUpdateException) when (!hasRow)
         {
-            // Двойная параллельная первая покупка: PK (server_id, user_id, product_id) отбросил вторую, транзакция откатилась.
             return PurchaseDbResult.AlreadyOwned;
         }
     }
@@ -459,7 +452,6 @@ public sealed class CreditRepository : ICreditRepository
         var sid = db.CurrentServerId;
         var manual = ManualGrantTypes;
 
-        // Только ручные выдачи: покупки, возвраты, промокоды и автоматические награды не считаются.
         return await db.Log
             .Where(l => l.ServerId == sid && l.ActorUserId == actor && l.Amount > 0
                         && l.CreatedAt >= sinceUtc && manual.Contains(l.Type))
@@ -509,7 +501,6 @@ public sealed class CreditRepository : ICreditRepository
             return new RefundDbResult(RefundDbStatus.NothingToRefund, 0);
         }
 
-        // Покупки помечаются условным UPDATE: параллельный второй возврат не найдёт невозвращённых строк.
         var ids = purchases.Select(p => p.Id).ToList();
         var now = DateTime.UtcNow;
         var marked = await db.Purchases
@@ -524,7 +515,6 @@ public sealed class CreditRepository : ICreditRepository
 
         var total = purchases.Sum(p => p.Price);
 
-        // Журнал неизменен: к покупке добавляется обратная запись.
         await ApplyInternalAsync(db, userId, total, CreditTransactionType.Refund, reason, actor, productId);
 
         await db.Owned
@@ -534,8 +524,6 @@ public sealed class CreditRepository : ICreditRepository
         await tx.CommitAsync();
         return new RefundDbResult(RefundDbStatus.Ok, total);
     }
-
-    // ---------- Промокоды ----------
 
     public async Task<PromoCreateResult> CreatePromoAsync(string code, long credits, string? productId, int? maxUses,
         DateTime? expiresAtUtc, Guid? createdBy)
@@ -635,18 +623,17 @@ public sealed class CreditRepository : ICreditRepository
         if (promo.ExpiresAt != null && promo.ExpiresAt <= now)
             return new PromoRedeemDbResult(PromoRedeemStatus.Expired);
         if (promo.ProductId != productId)
-            return new PromoRedeemDbResult(PromoRedeemStatus.Unknown); // сервис передал не тот товар
+            return new PromoRedeemDbResult(PromoRedeemStatus.Unknown);
 
         if (await db.PromoUses.AnyAsync(u => u.ServerId == sid && u.Code == code && u.UserId == userId))
             return new PromoRedeemDbResult(PromoRedeemStatus.AlreadyUsed);
 
-        await EnsureBalanceRowAsync(db, userId); // запись в журнал нужна и для кодов на товар
+        await EnsureBalanceRowAsync(db, userId);
 
         try
         {
             await using var tx = await db.Database.BeginTransactionAsync();
 
-            // Лимит использований занимается условным UPDATE: двое не займут последнее место одновременно.
             var taken = await db.Promos
                 .Where(p => p.ServerId == sid && p.Code == code && !p.Disabled && (p.MaxUses == null || p.Uses < p.MaxUses))
                 .ExecuteUpdateAsync(s => s.SetProperty(p => p.Uses, p => p.Uses + 1));
@@ -657,7 +644,6 @@ public sealed class CreditRepository : ICreditRepository
                 return new PromoRedeemDbResult(PromoRedeemStatus.Exhausted);
             }
 
-            // PK (server_id, code, user_id): один игрок — одно использование.
             db.PromoUses.Add(new CreditPromoUseRow { ServerId = sid, Code = code, UserId = userId, UsedAt = now });
             await db.SaveChangesAsync();
 
@@ -666,7 +652,7 @@ public sealed class CreditRepository : ICreditRepository
                 var (grant, _) = await GrantOwnedAsync(db, userId, promo.ProductId, durationDays, siblings.ToList(), limit, now);
                 if (grant != PurchaseDbResult.Ok)
                 {
-                    await tx.RollbackAsync(); // использование кода не засчитывается
+                    await tx.RollbackAsync();
                     return new PromoRedeemDbResult(grant == PurchaseDbResult.CategoryLimit
                         ? PromoRedeemStatus.CategoryLimit
                         : PromoRedeemStatus.AlreadyOwned);
@@ -679,7 +665,6 @@ public sealed class CreditRepository : ICreditRepository
                     ? $"Промокод {code} (и товар {promo.ProductId})"
                     : $"Промокод {code}: товар {promo.ProductId}";
 
-            // Запись есть всегда (для кода на товар сумма 0): так выдача видна в журнале. Заодно сохраняется новая строка товара.
             await ApplyInternalAsync(db, userId, promo.Credits, CreditTransactionType.PromoCode, reason, null, code);
 
             await tx.CommitAsync();
@@ -690,9 +675,97 @@ public sealed class CreditRepository : ICreditRepository
             return new PromoRedeemDbResult(PromoRedeemStatus.AlreadyUsed);
         }
     }
+    public async Task<Dictionary<string, int>> GetSoldCountsAsync()
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
 
-    // ---------- Discord ----------
+        var rows = await db.Purchases
+            .Where(p => p.ServerId == sid && p.RefundedAt == null)
+            .GroupBy(p => p.ProductId)
+            .Select(g => new { ProductId = g.Key, Count = g.Count() })
+            .ToListAsync();
 
+        return rows.ToDictionary(r => r.ProductId, r => r.Count);
+    }
+
+    public async Task<int> GetSoldCountAsync(string productId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        return await db.Purchases.CountAsync(p => p.ServerId == sid && p.ProductId == productId && p.RefundedAt == null);
+    }
+
+    public async Task<EconomyStats> GetEconomyStatsAsync(DateTime sinceUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var inCirculation = await db.Balances.Where(b => b.ServerId == sid).SumAsync(b => b.Balance);
+        var players = await db.Balances.CountAsync(b => b.ServerId == sid && b.Balance > 0);
+
+        var refundType = (int) CreditTransactionType.Refund;
+        var purchaseType = (int) CreditTransactionType.Purchase;
+        var takeType = (int) CreditTransactionType.AdminTake;
+
+        var log = db.Log.Where(l => l.ServerId == sid && l.CreatedAt >= sinceUtc);
+
+        var issued = await log.Where(l => l.Amount > 0 && l.Type != refundType).SumAsync(l => l.Amount);
+        var spent = -await log.Where(l => l.Type == purchaseType).SumAsync(l => l.Amount);
+        var taken = -await log.Where(l => l.Type == takeType).SumAsync(l => l.Amount);
+        var refunded = await log.Where(l => l.Type == refundType).SumAsync(l => l.Amount);
+
+        var top = await db.Purchases
+            .Where(p => p.ServerId == sid && p.RefundedAt == null && p.CreatedAt >= sinceUtc)
+            .GroupBy(p => p.ProductId)
+            .Select(g => new { ProductId = g.Key, Count = g.Count(), Revenue = g.Sum(p => p.Price) })
+            .OrderByDescending(x => x.Count)
+            .Take(5)
+            .ToListAsync();
+
+        return new EconomyStats(inCirculation, players, issued, spent, taken, refunded,
+            top.Select(t => new ProductSales(t.ProductId, t.Count, t.Revenue)).ToList());
+    }
+
+    public async Task<IReadOnlyList<ActiveOwned>> GetActiveOwnedAsync(IReadOnlyCollection<string>? productIds, DateTime? expiringBeforeUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var now = DateTime.UtcNow;
+
+        var query = db.Owned.Where(o => o.ServerId == sid && (o.ExpiresAt == null || o.ExpiresAt > now));
+
+        if (productIds != null)
+        {
+            var ids = productIds.ToList();
+            query = query.Where(o => ids.Contains(o.ProductId));
+        }
+
+        if (expiringBeforeUtc is { } before)
+            query = query.Where(o => o.ExpiresAt != null && o.ExpiresAt <= before);
+
+        var rows = await query.Select(o => new { o.UserId, o.ProductId, o.ExpiresAt }).ToListAsync();
+        return rows.Select(r => new ActiveOwned(r.UserId, r.ProductId,
+            r.ExpiresAt == null ? null : DateTime.SpecifyKind(r.ExpiresAt.Value, DateTimeKind.Utc))).ToList();
+    }
+
+    public async Task<Dictionary<Guid, string>> GetDiscordIdsAsync(IReadOnlyCollection<Guid> userIds)
+    {
+        if (userIds.Count == 0)
+            return new Dictionary<Guid, string>();
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var ids = userIds.ToList();
+
+        var rows = await db.DiscordLinks
+            .Where(l => l.ServerId == sid && ids.Contains(l.UserId))
+            .Select(l => new { l.UserId, l.DiscordId })
+            .ToListAsync();
+
+        return rows.ToDictionary(r => r.UserId, r => r.DiscordId);
+    }
     public async Task<IReadOnlyList<BalanceEntry>> GetTopBalancesAsync(int take)
     {
         await using var db = _factory.Create();
@@ -734,7 +807,7 @@ public sealed class CreditRepository : ICreditRepository
         }
         catch (DbUpdateException)
         {
-            return DiscordLinkDbResult.DiscordAlreadyLinked; // гонка: уникальный индекс не дал создать дубль
+            return DiscordLinkDbResult.DiscordAlreadyLinked;
         }
 
         return DiscordLinkDbResult.Ok;
@@ -774,8 +847,6 @@ public sealed class CreditRepository : ICreditRepository
         return rows != 0;
     }
 
-    // ---------- Очистка ----------
-
     public async Task<CleanupResult> CleanupAsync(DateTime cutoffUtc)
     {
         await using var db = _factory.Create();
@@ -785,8 +856,6 @@ public sealed class CreditRepository : ICreditRepository
             .Where(o => o.ServerId == sid && o.ExpiresAt != null && o.ExpiresAt < cutoffUtc)
             .ExecuteDeleteAsync();
 
-        // Подтверждённые рефералы (награда выдана) не удаляются: иначе приглашённый смог бы активировать код второй раз,
-        // а пригласивший потерял бы статистику.
         var referrals = await db.Referrals
             .Where(r => r.ServerId == sid && r.RewardedAt == null && r.AppliedAt < cutoffUtc)
             .ExecuteDeleteAsync();
@@ -810,9 +879,6 @@ public sealed class CreditRepository : ICreditRepository
 
         return new CleanupResult(owned, referrals, promos);
     }
-
-    // ------------------------------------------------------------------
-
     private static async Task<bool> ApplyInternalAsync(SoyuzCreditsDbContext db, Guid userId, long delta,
         CreditTransactionType type, string reason, Guid? actor, string? refId)
     {
@@ -844,8 +910,8 @@ public sealed class CreditRepository : ICreditRepository
     }
 
     /// <summary>
-    /// Выдаёт товар: действующий со сроком продлевает, иначе добавляет надетую строку (товары той же группы снимаются).
-    /// Лимит категории проверяется только для нового или истёкшего товара. Новую строку сохраняет вызывающий (SaveChangesAsync).
+    /// Выдаёт товар: действующий со сроком продлевает, иначе добавляет надетую строку (товары той же группы снимаются)
+    /// Лимит категории проверяется только для нового или истёкшего товара. Новую строку сохраняет вызывающий (SaveChangesAsync)
     /// </summary>
     private static async Task<(PurchaseDbResult Result, bool HadRow)> GrantOwnedAsync(SoyuzCreditsDbContext db, Guid userId,
         string productId, int? durationDays, IReadOnlyCollection<string> exclusiveSiblings, CategoryLimit? limit, DateTime now)
@@ -873,8 +939,6 @@ public sealed class CreditRepository : ICreditRepository
 
         if (hadRow)
         {
-            // Только товары со сроком можно продлевать (строка permanent имеет ExpiresAt == null и сюда не попадёт).
-            // Арифметика выполняется в самом UPDATE, поэтому параллельные покупки складываются корректно.
             var timed = db.Owned.Where(o => o.ServerId == sid && o.UserId == userId
                                             && o.ProductId == productId && o.ExpiresAt != null);
             int changed;
@@ -887,14 +951,12 @@ public sealed class CreditRepository : ICreditRepository
             }
             else
             {
-                // Товар стал «навсегда»: покупка превращает срок в бессрочный.
                 changed = await timed.ExecuteUpdateAsync(s => s.SetProperty(o => o.ExpiresAt, (DateTime?) null));
             }
 
             return (changed == 0 ? PurchaseDbResult.AlreadyOwned : PurchaseDbResult.Ok, hadRow);
         }
 
-        // Новая покупка сразу надевается, а товары той же группы снимаются.
         if (siblings.Count > 0)
         {
             await db.Owned
@@ -943,7 +1005,7 @@ public sealed class CreditRepository : ICreditRepository
         }
         catch (DbUpdateException)
         {
-            db.ChangeTracker.Clear(); // создали параллельно
+            db.ChangeTracker.Clear();
         }
     }
 

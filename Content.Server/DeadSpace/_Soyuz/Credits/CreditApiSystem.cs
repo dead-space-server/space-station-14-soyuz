@@ -16,12 +16,15 @@ using Robust.Shared.Asynchronous;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
+using Robust.Shared.Localization;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.Credits;
 
 /// <summary>
 /// HTTP API для Discord-бота (на порту статуса сервера, пути /soyuz/credits/...)
+/// </summary>
 public sealed class CreditApiSystem : EntitySystem
 {
     [Dependency] private readonly IStatusHost _status = default!;
@@ -32,11 +35,14 @@ public sealed class CreditApiSystem : EntitySystem
     [Dependency] private readonly ICreditDiscordLinks _links = default!;
     [Dependency] private readonly IPromoService _promos = default!;
     [Dependency] private readonly ICreditRateLimiter _limiter = default!;
+    [Dependency] private readonly ICreditService _credits = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
 
     private const string Prefix = "/soyuz/credits/";
     private const int TopMax = 25;
     private static readonly TimeSpan TopCacheTime = TimeSpan.FromMinutes(1);
 
+    private readonly Queue<(DateTime At, long Amount)> _apiGrants = new();
     private DateTime _topAt = DateTime.MinValue;
     private List<TopRow> _top = new();
 
@@ -90,6 +96,22 @@ public sealed class CreditApiSystem : EntitySystem
             await RedeemAsync(context);
         else if (method == HttpMethod.Post && route == "promo/create")
             await CreatePromoAsync(context);
+        else if (method == HttpMethod.Get && route == "history")
+            await HistoryAsync(context);
+        else if (method == HttpMethod.Get && route == "shop")
+            await ShopAsync(context);
+        else if (method == HttpMethod.Get && route == "roles")
+            await RolesAsync(context);
+        else if (method == HttpMethod.Get && route == "expiring")
+            await ExpiringAsync(context);
+        else if (method == HttpMethod.Get && route == "stats")
+            await StatsAsync(context);
+        else if (method == HttpMethod.Post && route == "give")
+            await GiveAsync(context);
+        else if (method == HttpMethod.Post && route == "take")
+            await TakeAsync(context);
+        else if (method == HttpMethod.Post && route == "refund")
+            await RefundAsync(context);
         else
             await context.RespondJsonAsync(new { error = "not_found" }, HttpStatusCode.NotFound);
     }
@@ -214,6 +236,18 @@ public sealed class CreditApiSystem : EntitySystem
             return;
         }
 
+        if (req.MaxUses is not > 0)
+        {
+            await context.RespondJsonAsync(new { error = "max_uses_required" }, HttpStatusCode.BadRequest);
+            return;
+        }
+
+        if (req.Credits > 0 && !TryReserveApiGrant(req.Credits * req.MaxUses.Value))
+        {
+            await context.RespondJsonAsync(new { error = "api_limit" }, (HttpStatusCode) 429);
+            return;
+        }
+
         var explicitCode = string.IsNullOrWhiteSpace(req.Code) ? null : req.Code.Trim();
         string code;
         PromoResult result;
@@ -243,6 +277,253 @@ public sealed class CreditApiSystem : EntitySystem
 
         Log.Info($"API: промокод {code.ToUpperInvariant()} создан ({req.CreatedBy ?? "не указано"})");
         await context.RespondJsonAsync(new { code = code.ToUpperInvariant() });
+    }
+
+    private async Task HistoryAsync(IStatusHandlerContext context)
+    {
+        var query = HttpUtility.ParseQueryString(context.Url.Query);
+        var discordId = query["discordId"] ?? "";
+        var page = int.TryParse(query["page"], out var p) ? Math.Max(0, p) : 0;
+
+        if (!ValidDiscordId(discordId))
+        {
+            await context.RespondJsonAsync(new { error = "bad_request" }, HttpStatusCode.BadRequest);
+            return;
+        }
+
+        if (await _links.FindUserAsync(discordId) is not { } user)
+        {
+            await context.RespondJsonAsync(new { error = "not_linked" }, HttpStatusCode.NotFound);
+            return;
+        }
+
+        if (!_limiter.TryAcquire(user, CreditRateKind.Browse))
+        {
+            await context.RespondJsonAsync(new { error = "rate_limited" }, (HttpStatusCode) 429);
+            return;
+        }
+
+        var (entries, hasMore) = await _repo.GetLogAsync(user, page, 10);
+        await context.RespondJsonAsync(new
+        {
+            page,
+            hasMore,
+            entries = entries.Select(e => new
+            {
+                amount = e.Amount,
+                type = e.Type.ToString(),
+                reason = e.Reason,
+                createdAt = e.CreatedAtUtc.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'"),
+            }).ToList(),
+        });
+    }
+
+    private async Task ShopAsync(IStatusHandlerContext context)
+    {
+        var text = (HttpUtility.ParseQueryString(context.Url.Query)["query"] ?? "").Trim();
+        var now = DateTime.UtcNow;
+        var sold = await _repo.GetSoldCountsAsync();
+
+        var items = new List<object>();
+        foreach (var product in _proto.EnumeratePrototypes<CreditProductPrototype>().OrderBy(p => p.Price))
+        {
+            if (!CreditShopRules.IsAvailable(product, now))
+                continue;
+
+            var name = Loc.GetString(product.Name);
+            if (text.Length > 0 && !name.Contains(text, StringComparison.CurrentCultureIgnoreCase))
+                continue;
+
+            var category = product.Category is { } c && _proto.TryIndex(c, out var cat) ? Loc.GetString(cat.Name) : null;
+            items.Add(new
+            {
+                id = product.ID,
+                name,
+                category,
+                price = CreditShopRules.EffectivePrice(product, now),
+                originalPrice = product.Price,
+                discountPercent = CreditShopRules.ActiveDiscount(product, now),
+                durationDays = product.DurationDays,
+                stockLeft = product.Stock is { } stock ? Math.Max(0, stock - sold.GetValueOrDefault(product.ID)) : -1,
+            });
+
+            if (items.Count >= 25)
+                break;
+        }
+
+        await context.RespondJsonAsync(new { products = items });
+    }
+
+    private async Task RolesAsync(IStatusHandlerContext context)
+    {
+        var productIds = _proto.EnumeratePrototypes<CreditProductPrototype>()
+            .Where(p => p.ProductType == CreditProductType.DiscordTitle)
+            .Select(p => p.ID)
+            .ToList();
+
+        var owned = await _repo.GetActiveOwnedAsync(productIds, null);
+        var discord = await _repo.GetDiscordIdsAsync(owned.Select(o => o.UserId).Distinct().ToList());
+
+        await context.RespondJsonAsync(new
+        {
+            productIds,
+            holders = owned
+                .Where(o => discord.ContainsKey(o.UserId))
+                .Select(o => new { discordId = discord[o.UserId], productId = o.ProductId, expiresAt = o.ExpiresAt?.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'") })
+                .ToList(),
+        });
+    }
+
+    private async Task ExpiringAsync(IStatusHandlerContext context)
+    {
+        var days = int.TryParse(HttpUtility.ParseQueryString(context.Url.Query)["days"], out var d) ? Math.Clamp(d, 1, 14) : 3;
+
+        var owned = await _repo.GetActiveOwnedAsync(null, DateTime.UtcNow.AddDays(days));
+        var discord = await _repo.GetDiscordIdsAsync(owned.Select(o => o.UserId).Distinct().ToList());
+
+        await context.RespondJsonAsync(new
+        {
+            items = owned
+                .Where(o => discord.ContainsKey(o.UserId))
+                .Select(o => new
+                {
+                    discordId = discord[o.UserId],
+                    productId = o.ProductId,
+                    name = _proto.TryIndex<CreditProductPrototype>(o.ProductId, out var product) ? Loc.GetString(product.Name) : o.ProductId,
+                    expiresAt = o.ExpiresAt?.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'"),
+                })
+                .ToList(),
+        });
+    }
+
+    private async Task StatsAsync(IStatusHandlerContext context)
+    {
+        var days = int.TryParse(HttpUtility.ParseQueryString(context.Url.Query)["days"], out var d) ? Math.Clamp(d, 1, 90) : 7;
+        var s = await _repo.GetEconomyStatsAsync(DateTime.UtcNow.AddDays(-days));
+
+        await context.RespondJsonAsync(new
+        {
+            days,
+            inCirculation = s.InCirculation,
+            playersWithBalance = s.PlayersWithBalance,
+            issued = s.Issued,
+            spent = s.Spent,
+            taken = s.Taken,
+            refunded = s.Refunded,
+            topProducts = s.TopProducts.Select(t => new
+            {
+                name = _proto.TryIndex<CreditProductPrototype>(t.ProductId, out var product) ? Loc.GetString(product.Name) : t.ProductId,
+                count = t.Count,
+                revenue = t.Revenue,
+            }).ToList(),
+        });
+    }
+
+    private async Task GiveAsync(IStatusHandlerContext context)
+    {
+        var req = await context.RequestBodyJsonAsync<AmountRequest>();
+        if (req == null || !ValidDiscordId(req.DiscordId) || string.IsNullOrWhiteSpace(req.Reason))
+        {
+            await context.RespondJsonAsync(new { error = "bad_request" }, HttpStatusCode.BadRequest);
+            return;
+        }
+
+        if (await _links.FindUserAsync(req.DiscordId) is not { } user)
+        {
+            await context.RespondJsonAsync(new { error = "not_linked" }, HttpStatusCode.NotFound);
+            return;
+        }
+
+        if (req.Amount <= 0 || !TryReserveApiGrant(req.Amount))
+        {
+            await context.RespondJsonAsync(new { error = req.Amount <= 0 ? "bad_request" : "api_limit" },
+                req.Amount <= 0 ? HttpStatusCode.BadRequest : (HttpStatusCode) 429);
+            return;
+        }
+
+        var result = await _credits.GiveAsync(user, req.Amount, WithActor(req), null);
+        if (result != CreditResult.Ok)
+            _apiGrants.Enqueue((DateTime.UtcNow, -req.Amount));
+
+        await RespondResultAsync(context, result);
+    }
+
+    private async Task TakeAsync(IStatusHandlerContext context)
+    {
+        var req = await context.RequestBodyJsonAsync<AmountRequest>();
+        if (req == null || !ValidDiscordId(req.DiscordId) || string.IsNullOrWhiteSpace(req.Reason))
+        {
+            await context.RespondJsonAsync(new { error = "bad_request" }, HttpStatusCode.BadRequest);
+            return;
+        }
+
+        if (await _links.FindUserAsync(req.DiscordId) is not { } user)
+        {
+            await context.RespondJsonAsync(new { error = "not_linked" }, HttpStatusCode.NotFound);
+            return;
+        }
+
+        await RespondResultAsync(context, await _credits.TakeAsync(user, req.Amount, WithActor(req), null));
+    }
+
+    private async Task RefundAsync(IStatusHandlerContext context)
+    {
+        var req = await context.RequestBodyJsonAsync<AmountRequest>();
+        if (req == null || !ValidDiscordId(req.DiscordId) || string.IsNullOrWhiteSpace(req.Reason)
+            || string.IsNullOrWhiteSpace(req.ProductId))
+        {
+            await context.RespondJsonAsync(new { error = "bad_request" }, HttpStatusCode.BadRequest);
+            return;
+        }
+
+        if (await _links.FindUserAsync(req.DiscordId) is not { } user)
+        {
+            await context.RespondJsonAsync(new { error = "not_linked" }, HttpStatusCode.NotFound);
+            return;
+        }
+
+        var refund = await _credits.RefundAsync(user, req.ProductId, WithActor(req), null);
+        if (refund.Result == CreditResult.Ok)
+            await context.RespondJsonAsync(new { result = "Ok", amount = refund.Amount });
+        else
+            await RespondResultAsync(context, refund.Result);
+    }
+
+    private static async Task RespondResultAsync(IStatusHandlerContext context, CreditResult result)
+    {
+        if (result == CreditResult.Ok)
+            await context.RespondJsonAsync(new { result = "Ok" });
+        else
+            await context.RespondJsonAsync(new { result = result.ToString() }, HttpStatusCode.BadRequest);
+    }
+
+    private static string WithActor(AmountRequest req)
+    {
+        var reason = req.Reason.Trim();
+        if (reason.Length > 150)
+            reason = reason[..150];
+
+        return $"{reason} (Discord: {Trim(req.Actor, 60)})";
+    }
+
+    private static string Trim(string? s, int max) => string.IsNullOrEmpty(s) ? "?" : s.Length <= max ? s : s[..max];
+
+    /// <summary>Резервирует сумму в суточном лимите выдачи через API. false = лимит исчерпан или выдача выключена</summary>
+    private bool TryReserveApiGrant(long amount)
+    {
+        var limit = _cfg.GetCVar(SoyuzCreditsCCVars.ApiGrantDailyLimit);
+        if (limit <= 0)
+            return false;
+
+        var cutoff = DateTime.UtcNow.AddHours(-24);
+        while (_apiGrants.Count > 0 && _apiGrants.Peek().At < cutoff)
+            _apiGrants.Dequeue();
+
+        if (_apiGrants.Sum(g => g.Amount) + amount > limit)
+            return false;
+
+        _apiGrants.Enqueue((DateTime.UtcNow, amount));
+        return true;
     }
 
     private static bool IsAuthorized(IStatusHandlerContext context, string token)
@@ -316,6 +597,15 @@ public sealed class CreditApiSystem : EntitySystem
     {
         [JsonPropertyName("discordId")] public string DiscordId { get; set; } = "";
         [JsonPropertyName("code")] public string Code { get; set; } = "";
+    }
+
+    private sealed class AmountRequest
+    {
+        [JsonPropertyName("discordId")] public string DiscordId { get; set; } = "";
+        [JsonPropertyName("amount")] public long Amount { get; set; }
+        [JsonPropertyName("reason")] public string Reason { get; set; } = "";
+        [JsonPropertyName("productId")] public string ProductId { get; set; } = "";
+        [JsonPropertyName("actor")] public string? Actor { get; set; }
     }
 
     private sealed class CreatePromoRequest

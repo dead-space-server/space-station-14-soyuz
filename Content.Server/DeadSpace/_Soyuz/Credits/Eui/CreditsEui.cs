@@ -24,6 +24,7 @@ public sealed class CreditsEui : BaseEui
     [Dependency] private readonly ILogManager _log = default!;
     [Dependency] private readonly ICreditRateLimiter _limiter = default!;
     [Dependency] private readonly IPromoService _promos = default!;
+    [Dependency] private readonly ICreditDiscordLinks _links = default!;
 
     private const int PageSize = 10;
 
@@ -63,7 +64,6 @@ public sealed class CreditsEui : BaseEui
         {
             var user = Player.UserId.UserId;
 
-            // Ограничение частоты: при исчерпанном лимите база не трогается, игрок видит только сообщение.
             if (!_limiter.TryAcquire(user, KindOf(msg)))
             {
                 _state.Notice = Loc.GetString("credits-notice-ratelimit");
@@ -152,7 +152,10 @@ public sealed class CreditsEui : BaseEui
 
         var products = _proto.EnumeratePrototypes<CreditProductPrototype>().OrderBy(p => p.Price).ToList();
 
-        // Сколько товаров каждой категории сейчас действует у игрока (owned содержит только действующие).
+        var now = DateTime.UtcNow;
+        var sold = await _repo.GetSoldCountsAsync();
+        var hasDiscord = await _links.GetDiscordIdAsync(user) != null;
+
         var ownedInCategory = new Dictionary<string, int>();
         foreach (var p in products)
         {
@@ -179,9 +182,13 @@ public sealed class CreditsEui : BaseEui
         foreach (var p in products)
         {
             var isOwned = owned.TryGetValue(p.ID, out var ownedInfo);
-            var categoryId = p.Category?.Id;
 
-            // Лимит категории: новый товар купить нельзя, а уже действующий можно продлить.
+            if (!isOwned && !CreditShopRules.IsAvailable(p, now))
+                continue;
+
+            var categoryId = p.Category?.Id;
+            var discount = CreditShopRules.ActiveDiscount(p, now);
+
             var limit = categoryId == null ? 0 : limits.GetValueOrDefault(categoryId);
             var limitReached = !isOwned
                                && limit > 0
@@ -192,7 +199,14 @@ public sealed class CreditsEui : BaseEui
                 Id = p.ID,
                 Name = p.Name,
                 Description = p.Description,
-                Price = p.Price,
+                Price = CreditShopRules.EffectivePrice(p, now),
+                OriginalPrice = p.Price,
+                DiscountPercent = discount,
+                SaleUntilUtc = discount > 0 ? CreditShopRules.ParseUtc(p.SaleUntil) : null,
+                StockLeft = p.Stock is { } stock ? Math.Max(0, stock - sold.GetValueOrDefault(p.ID)) : -1,
+                Sold = sold.GetValueOrDefault(p.ID),
+                AvailableUntilUtc = CreditShopRules.ParseUtc(p.AvailableUntil),
+                LockReason = CreditShopRules.LockReason(p, (int) (seconds / 3600), hasDiscord) ?? "",
                 Owned = isOwned,
                 Equipped = isOwned && (ownedInfo!.Equipped || p.Permanent),
                 ExpiresAtUtc = isOwned ? ownedInfo!.ExpiresAt : null,

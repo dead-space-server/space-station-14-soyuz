@@ -15,9 +15,7 @@ namespace Content.Client.DeadSpace._Soyuz.Credits.UI;
 [GenerateTypedNameReferences]
 public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
 {
-    private const int AnyType = 100;
-
-    private static readonly CreditTransactionType[] GiveTypes =
+    private const int AnyType = 100;    private static readonly CreditTransactionType[] GiveTypes =
     {
         CreditTransactionType.AdminGive,
         CreditTransactionType.EventReward,
@@ -29,6 +27,9 @@ public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
 
     public event Action<string, int, int, string, string>? OnLookup;
     public event Action<string, long, string, CreditTransactionType>? OnGive;
+    public event Action<string, long, string>? OnTake;
+    public event Action<string, string, string>? OnRefund;
+    public event Action? OnStats;
 
     private int _page;
 
@@ -42,6 +43,7 @@ public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
         GivePanel.PanelOverride = Box("#1c1f2b", "#383d52");
         LogPanel.PanelOverride = Box("#1c1f2b", "#383d52");
         NoticePanel.PanelOverride = Box("#3a331a", "#6b5a14");
+        StatsPanel.PanelOverride = Box("#1c1f2b", "#383d52");
         BalanceLabel.Modulate = Color.FromHex("#ffd34d");
 
         FilterType.AddItem(Loc.GetString("credits-admin-filter-any-type"), AnyType);
@@ -58,6 +60,20 @@ public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
         LookupButton.OnPressed += _ => Lookup(0);
         PrevButton.OnPressed += _ => Lookup(_page - 1);
         NextButton.OnPressed += _ => Lookup(_page + 1);
+
+        TakeButton.OnPressed += _ =>
+        {
+            if (!long.TryParse(AmountInput.Text, out var amount))
+            {
+                ShowNotice(Loc.GetString("credits-admin-notice-invalidamount"));
+                return;
+            }
+
+            OnTake?.Invoke(TargetInput.Text, amount, ReasonInput.Text);
+        };
+
+        RefundButton.OnPressed += _ => OnRefund?.Invoke(TargetInput.Text, RefundProductInput.Text, ReasonInput.Text);
+        StatsButton.OnPressed += _ => OnStats?.Invoke();
 
         GiveButton.OnPressed += _ =>
         {
@@ -88,6 +104,9 @@ public sealed partial class SoyuzCreditsAdminWindow : DefaultWindow
     {
         _page = s.Page;
         ShowNotice(s.Notice);
+
+        StatsPanel.Visible = !string.IsNullOrEmpty(s.Stats);
+        StatsLabel.Text = s.Stats;
 
         BalanceLabel.Text = s.Resolved
             ? Loc.GetString("credits-admin-balance-of", ("name", s.Target), ("amount", s.Balance))

@@ -29,6 +29,11 @@ public sealed class CreditsAdminEui : BaseEui
             ActorFilter = actor,
             ReasonFilter = reason,
         });
+        _window.OnTake += (target, amount, reason) =>
+            SendMessage(new CreditsAdminTakeMessage { Target = target, Amount = amount, Reason = reason });
+        _window.OnRefund += (target, productId, reason) =>
+            SendMessage(new CreditsAdminRefundMessage { Target = target, ProductId = productId, Reason = reason });
+        _window.OnStats += () => SendMessage(new CreditsAdminStatsMessage());
         _window.OnGive += (target, amount, reason, type) =>
             SendMessage(new CreditsAdminGiveMessage { Target = target, Amount = amount, Reason = reason, Type = type });
     }

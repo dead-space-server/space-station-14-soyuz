@@ -32,7 +32,7 @@ public sealed partial class SoyuzCreditProductCard : PanelContainer
         RobustXamlLoader.Load(this);
 
         var border = p.Equipped ? Gold : p.Owned ? Color.FromHex("#3f7a56") : Color.FromHex("#383d52");
-        CardPanel.PanelOverride = new StyleBoxFlat
+        Root.PanelOverride = new StyleBoxFlat
         {
             BackgroundColor = p.Owned ? Color.FromHex("#1b2420") : Color.FromHex("#1c1f2b"),
             BorderColor = border,
@@ -67,6 +67,27 @@ public sealed partial class SoyuzCreditProductCard : PanelContainer
         else if (p.Owned)
             Tags.AddChild(Tag(Loc.GetString("credits-tag-owned"), "#2c3a52"));
 
+        if (p.DiscountPercent > 0)
+        {
+            var sale = p.SaleUntilUtc is { } saleUntil
+                ? Loc.GetString("credits-product-discount-until",
+                    ("percent", p.DiscountPercent), ("date", saleUntil.ToString("yyyy-MM-dd HH:mm") + " UTC"))
+                : Loc.GetString("credits-product-discount", ("percent", p.DiscountPercent));
+            Tags.AddChild(Tag(sale, "#6b1f3a"));
+        }
+
+        if (p.StockLeft >= 0)
+            Tags.AddChild(Tag(Loc.GetString("credits-product-stock", ("left", p.StockLeft)), p.StockLeft == 0 ? "#5a1f1f" : "#1f3a5a"));
+
+        if (p.AvailableUntilUtc is { } availableUntil)
+        {
+            Tags.AddChild(Tag(Loc.GetString("credits-product-available-until",
+                ("date", availableUntil.ToString("yyyy-MM-dd HH:mm") + " UTC")), "#4a3a1f"));
+        }
+
+        if (p.LockReason != "")
+            Tags.AddChild(Tag(p.LockReason, "#5a1f1f"));
+
         if (p.Jobs.Count > 0)
         {
             var protos = IoCManager.Resolve<IPrototypeManager>();
@@ -77,16 +98,21 @@ public sealed partial class SoyuzCreditProductCard : PanelContainer
             JobsLabel.Visible = true;
         }
 
-        PriceLabel.Text = Loc.GetString("credits-price", ("price", p.Price));
+        PriceLabel.Text = p.DiscountPercent > 0
+            ? Loc.GetString("credits-price-discount", ("price", p.Price), ("old", p.OriginalPrice))
+            : Loc.GetString("credits-price", ("price", p.Price));
         PriceLabel.Modulate = balance >= p.Price ? Gold : Red;
 
         var permanentOwned = foreverOwned;
+        var soldOut = p.StockLeft == 0;
         BuyButton.Text = permanentOwned
             ? Loc.GetString("credits-shop-owned")
             : p.Owned
                 ? Loc.GetString("credits-shop-extend")
-                : p.LimitReached ? Loc.GetString("credits-shop-limit-reached") : Loc.GetString("credits-shop-buy");
-        BuyButton.Disabled = permanentOwned || p.LimitReached || balance < p.Price;
+                : soldOut
+                    ? Loc.GetString("credits-shop-sold-out")
+                    : p.LimitReached ? Loc.GetString("credits-shop-limit-reached") : Loc.GetString("credits-shop-buy");
+        BuyButton.Disabled = permanentOwned || p.LimitReached || soldOut || p.LockReason != "" || balance < p.Price;
         BuyButton.OnPressed += _ => BuyPressed?.Invoke();
 
         if (p.Owned && !p.Permanent)

@@ -1,3 +1,4 @@
+// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 using System;
 using System.Collections.Generic;
 using Content.Shared.Roles;
@@ -65,7 +66,6 @@ public sealed partial class CreditProductPrototype : IPrototype
     [DataField]
     public string? Color;
 
-    // ---------- Скидки, доступность, тираж, требования ----------
     // Даты задаются строкой в UTC: "2026-12-01" или "2026-12-01 18:00".
 
     /// <summary>Скидка в процентах (1-90). Действует всегда, если не заданы SaleFrom/SaleUntil.</summary>

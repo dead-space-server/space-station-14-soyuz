@@ -27,6 +27,7 @@
                 <BoxContainer Orientation="Horizontal" SeparationOverride="6">
                     <LineEdit Name="SearchInput" PlaceHolder="{Loc 'credits-shop-search-hint'}" HorizontalExpand="True" />
                     <OptionButton Name="CategoryFilter" MinWidth="220" />
+                    <OptionButton Name="SortSelect" MinWidth="190" />
                 </BoxContainer>
                 <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
                     <BoxContainer Name="ShopList" Orientation="Vertical" SeparationOverride="6" Margin="0 0 8 0" />

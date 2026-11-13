@@ -32,7 +32,7 @@ public sealed partial class SoyuzCreditProductCard : PanelContainer
         RobustXamlLoader.Load(this);
 
         var border = p.Equipped ? Gold : p.Owned ? Color.FromHex("#3f7a56") : Color.FromHex("#383d52");
-        Root.PanelOverride = new StyleBoxFlat
+        CardPanel.PanelOverride = new StyleBoxFlat
         {
             BackgroundColor = p.Owned ? Color.FromHex("#1b2420") : Color.FromHex("#1c1f2b"),
             BorderColor = border,

@@ -9,6 +9,7 @@ using Robust.Server.Containers;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using System.Linq;
+using Content.Shared.DeadSpace._Soyuz.Nutrition; // DS14-Soyuz
 
 namespace Content.Server.Construction
 {
@@ -406,6 +407,10 @@ namespace Content.Server.Construction
             }
 
             EntityManager.InitializeAndStartEntity(newUid);
+
+            // DS14-Soyuz-start
+            EntityManager.System<SoyFoodSystem>().Inherit(uid, newUid, true);
+            // DS14-Soyuz-end
 
             QueueDel(uid);
 

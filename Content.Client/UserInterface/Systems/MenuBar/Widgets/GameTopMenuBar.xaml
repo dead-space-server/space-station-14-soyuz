@@ -85,6 +85,17 @@
         HorizontalExpand="True"
         AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
         />
+    <!-- Soyuz-start -->
+    <ui:MenuButton
+        Name="CreditsButton"
+        Access="Internal"
+        Icon="{xe:Tex '/Textures/_DeadSpace/_Soyuz/Interface/credits.png'}"
+        ToolTip="{Loc 'credits-menu-button-tooltip'}"
+        MinSize="42 64"
+        HorizontalExpand="True"
+        AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
+        />
+    <!-- Soyuz-end -->
     <ui:MenuButton
         Name="AdminButton"
         Access="Internal"

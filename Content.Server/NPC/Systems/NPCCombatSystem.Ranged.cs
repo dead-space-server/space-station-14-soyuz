@@ -234,6 +234,7 @@ public sealed partial class NPCCombatSystem
 
     private bool UsesHitscanAmmo(Entity<GunComponent> gun)
     {
+        if (TryGetNextHitscanAmmo(gun, out var hitscan)) return hitscan; // DS14-Soyuz
         if (TryComp<BatteryAmmoProviderComponent>(gun.Owner, out var battery))
             return IsHitscanAmmoPrototype(battery.Prototype);
 

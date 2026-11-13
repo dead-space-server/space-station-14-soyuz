@@ -1,4 +1,5 @@
 using Content.Shared.Shuttles.Components;
+using Content.Shared.DeadSpace._Soyuz.MilitiaOperations; // DS14-Soyuz
 using JetBrains.Annotations;
 
 namespace Content.Shared.Shuttles.Systems;
@@ -75,6 +76,10 @@ public abstract partial class SharedShuttleSystem
     [PublicAPI]
     public void RemoveIFFFlag(EntityUid gridUid, IFFFlags flags, IFFComponent? component = null)
     {
+        // DS14-Soyuz-start
+        if (HasComp<MilitiaOperationTargetComponent>(gridUid))
+            flags &= ~(IFFFlags.Hide | IFFFlags.HideLabel);
+        // DS14-Soyuz-end
         if (!Resolve(gridUid, ref component, false))
             return;
 

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Client.DeadSpace.Stylesheets;
 using Content.Client.Shuttles.Systems;
+using Content.Shared.DeadSpace._Soyuz.MilitiaOperations; // DS14-Soyuz
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
@@ -144,14 +145,19 @@ public sealed partial class ShuttleDockControl : BaseShuttleControl
 
             EntManager.TryGetComponent(grid.Owner, out IFFComponent? iffComp);
 
-            if (grid.Owner != GridEntity && !_shuttles.CanDraw(grid.Owner, iffComp: iffComp))
+            // DS14-Soyuz-start
+            var hidden = grid.Owner != GridEntity && !_shuttles.CanDraw(grid.Owner, iffComp: iffComp);
+            var operation = EntManager.HasComponent<MilitiaOperationTargetComponent>(grid.Owner);
+            if (hidden && !operation)
                 continue;
+            // DS14-Soyuz-end
 
             var curGridToWorld = _xformSystem.GetWorldMatrix(grid.Owner);
             var curGridToView = curGridToWorld * worldToSelectedDock * selectedDockToView;
             var color = _shuttles.GetIFFColor(grid.Owner, grid.Owner == GridEntity, component: iffComp);
 
-            DrawGrid(handle, curGridToView, grid, color);
+            if (!hidden) // DS14-Soyuz
+                DrawGrid(handle, curGridToView, grid, color);
 
             // Draw any docks on that grid
             if (!DockState.Docks.TryGetValue(EntManager.GetNetEntity(grid), out var gridDocks))
@@ -159,6 +165,11 @@ public sealed partial class ShuttleDockControl : BaseShuttleControl
 
             foreach (var dock in gridDocks)
             {
+                // DS14-Soyuz-start
+                if (hidden && Vector2.DistanceSquared(mapPos.Position,
+                        Vector2.Transform(dock.Coordinates.Position, curGridToWorld)) > 400f)
+                    continue;
+                // DS14-Soyuz-end
                 if (ViewedDock == dock.Entity)
                     continue;
 

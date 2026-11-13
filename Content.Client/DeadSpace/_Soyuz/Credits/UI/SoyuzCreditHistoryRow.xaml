@@ -1,0 +1,13 @@
+<PanelContainer xmlns="https://spacestation14.io"
+                Name="RowPanel"
+                HorizontalExpand="True">
+    <BoxContainer Orientation="Horizontal" Margin="10 6 10 6" SeparationOverride="12">
+        <Label Name="AmountLabel" MinWidth="72" VerticalAlignment="Center" StyleClasses="LabelHeading" />
+        <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="1">
+            <Label Name="TypeLabel" />
+            <Label Name="ReasonLabel" StyleClasses="LabelSubText" ClipText="True" HorizontalExpand="True" />
+            <Label Name="WhoLabel" StyleClasses="LabelSubText" Visible="False" ClipText="True" HorizontalExpand="True" />
+        </BoxContainer>
+        <Label Name="DateLabel" StyleClasses="LabelSubText" VerticalAlignment="Center" />
+    </BoxContainer>
+</PanelContainer>

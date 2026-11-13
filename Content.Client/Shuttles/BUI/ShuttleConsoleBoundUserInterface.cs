@@ -28,6 +28,7 @@ public sealed class ShuttleConsoleBoundUserInterface : BoundUserInterface
         _window.DockRequest += OnDockRequest;
         _window.UndockRequest += OnUndockRequest;
         _window.ThrustersRestartRequest += OnThrustersRestartRequest;
+        _window.CollisionSafety.OnModeSelected += (mode, enabled) => SendMessage(new Content.Shared.DeadSpace._Soyuz.Shuttles.ShuttleCollisionModeMessage(mode, enabled)); // DS14-Soyuz
 
         // DS14-start
         var navScreen = FindChildByType<NavScreen>(_window);

@@ -1,0 +1,14 @@
+ent-TimerCartridge = картридж таймера
+    .desc = Таймер обратного отсчёта с уведомлениями КПК.
+timer-cartridge-program-name = Таймер
+timer-cartridge-hours = Часы
+timer-cartridge-minutes = Минуты
+timer-cartridge-seconds = Секунды
+timer-cartridge-name-placeholder = Название напоминания (необязательно)
+timer-cartridge-start = Запустить
+timer-cartridge-pause = Пауза
+timer-cartridge-resume = Продолжить
+timer-cartridge-reset = Сбросить
+timer-cartridge-status-idle = Установите время и запустите таймер.
+timer-cartridge-notification = Время таймера вышло!
+timer-cartridge-notification-named = Время таймера «{ $name }» вышло!

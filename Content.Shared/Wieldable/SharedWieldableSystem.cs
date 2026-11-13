@@ -278,12 +278,12 @@ public abstract class SharedWieldableSystem : EntitySystem
     ///     Attempts to wield an item, starting a UseDelay after.
     /// </summary>
     /// <returns>True if the attempt wasn't blocked.</returns>
-    public bool TryWield(EntityUid used, WieldableComponent component, EntityUid user)
+    public bool TryWield(EntityUid used, WieldableComponent component, EntityUid user, bool force = false) // DS14-Soyuz
     {
         if (!CanWield(used, component, user))
             return false;
 
-        if (TryComp(used, out UseDelayComponent? useDelay) && component.UseDelayOnWield)
+        if (!force && TryComp(used, out UseDelayComponent? useDelay) && component.UseDelayOnWield) // DS14-Soyuz
         {
             if (!_delay.TryResetDelay((used, useDelay), true))
                 return false;
@@ -292,7 +292,7 @@ public abstract class SharedWieldableSystem : EntitySystem
         var attemptEv = new WieldAttemptEvent(user, used);
         RaiseLocalEvent(user, ref attemptEv);
 
-        if (attemptEv.Cancelled)
+        if (attemptEv.Cancelled && !force) // DS14-Soyuz
         {
             if (attemptEv.Message != null)
                 _popup.PopupClient(attemptEv.Message, user, user);

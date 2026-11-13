@@ -1,0 +1,111 @@
+- type: repairReward
+  id: MilitiaSupplyCuffs
+  entity: Handcuffs
+  cost: 20
+  maxCount: 4
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: MilitiaSupplyZipties
+  entity: BoxZiptie
+  cost: 40
+  maxCount: 2
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: MilitiaSupplyMedipen
+  entity: EmergencyMedipen
+  cost: 30
+  maxCount: 4
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: MilitiaSupplyFlash
+  entity: Flash
+  cost: 50
+  maxCount: 2
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: MilitiaSupplyPistolAmmo
+  entity: MagazinePistol
+  cost: 30
+  maxCount: 6
+  minimumShopLevel: 1
+
+- type: repairReward
+  id: MilitiaSupplyDisabler
+  entity: WeaponDisabler
+  cost: 180
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyFlashbang
+  entity: GrenadeFlashBang
+  cost: 80
+  maxCount: 3
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplySecurityBelt
+  entity: ClothingBeltSecurityFilled
+  cost: 150
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyRiotHelmet
+  entity: ClothingHeadHelmetRiot
+  cost: 120
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyRiotArmor
+  entity: ClothingOuterArmorRiot
+  cost: 250
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyCombatMedkit
+  entity: MedkitCombatFilled
+  cost: 200
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairRewardPool
+  id: MilitiaOperationSupplyPool
+  deliveryContainer: MilitiaOperationSupplyCrate
+  shopLevelThresholds:
+  - 0
+  - 200
+  - 600
+  baseReputationByDifficulty:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  qualityBands:
+  - minPercent: 0
+    maxPercent: 100
+    multiplierPercent: 100
+  rewards:
+  - MilitiaSupplyCuffs
+  - MilitiaSupplyZipties
+  - MilitiaSupplyMedipen
+  - MilitiaSupplyFlash
+  - MilitiaSupplyPistolAmmo
+  - MilitiaSupplyDisabler
+  - MilitiaSupplyFlashbang
+  - MilitiaSupplySecurityBelt
+  - MilitiaSupplyRiotHelmet
+  - MilitiaSupplyRiotArmor
+  - MilitiaSupplyCombatMedkit

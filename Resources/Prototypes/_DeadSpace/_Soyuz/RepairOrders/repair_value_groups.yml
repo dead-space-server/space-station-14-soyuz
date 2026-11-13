@@ -1682,6 +1682,7 @@
   id: RepairValueMachine
   tag: RepairMachine
   entities:
+  - ShuttleCollisionSensor
   - ATM
   - ATMFrame
   - ATMFrameWired
@@ -3048,6 +3049,7 @@
   id: RepairValueStructure
   tag: RepairStructure
   entities:
+  - ShuttleCollisionSensorAssembly
   - APCFrame
   - AdvancedCargoTechMag
   - AirCanisterBroken

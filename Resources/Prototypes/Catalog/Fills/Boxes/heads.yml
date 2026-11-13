@@ -79,6 +79,7 @@
       storagebase: !type:AllSelector
         children:
         - id: SecurityTechFabCircuitboard
+        - id: MilitiaOperationComputerCircuitboard # DS14-Soyuz
         - id: CargoRequestSecurityComputerCircuitboard
 
 - type: entity

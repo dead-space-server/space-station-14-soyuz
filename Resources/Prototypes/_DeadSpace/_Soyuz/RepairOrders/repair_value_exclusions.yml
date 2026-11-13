@@ -1071,6 +1071,8 @@
   - SoyuzDugSoilMound
   - HandmadePoster
   - SoyuzStoneGraveFrame
+  - MilitiaOperationConsole
+  - MilitiaOperationSupplyCrate
   - SoyuzWoodenGraveFrame
 
 - type: repairValueExclusion

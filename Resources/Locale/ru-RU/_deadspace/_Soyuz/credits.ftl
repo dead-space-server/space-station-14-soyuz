@@ -2,7 +2,7 @@ credits-window-title = Советский кредит
 credits-admin-title = Советский кредит: управление
 credits-menu-button-tooltip = Советский кредит
 credits-admin-menu-tab = Кредиты
-credits-admin-menu-open = Управление СокКредами
+credits-admin-menu-open = Управление СовКредами
 
 credits-tab-shop = Магазин
 credits-tab-history = История

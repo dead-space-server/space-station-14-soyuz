@@ -24,7 +24,7 @@
   name: Форма и одежда
   description: Униформа и головные уборы.
   priority: 30
-  maxOwned: 2
+#  maxOwned: 2
 
 - type: creditCategory
   id: SoyuzCreditCategoryFigurines

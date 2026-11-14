@@ -1,5 +1,5 @@
 - type: gameMap
-  id: CorvaxSilly
+  id: S1Silly
   mapName: 'Остров "Силли"' #DS14-Soyuz local
   mapPath: /Maps/_Soyuz/S1_Silly.yml
   maxRandomOffset: 0

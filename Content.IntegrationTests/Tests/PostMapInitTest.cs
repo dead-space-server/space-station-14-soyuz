@@ -126,7 +126,7 @@ namespace Content.IntegrationTests.Tests
             "CorvaxPaper",
             "CorvaxPearl",
             // "CorvaxGlacier", // DS14-Soyuz disabled
-            "CorvaxSilly",
+            "SoyuzSilly",
             // "CorvaxSpectrum", // DS14-Soyuz disabled
             "Elkridge",
             "Fland",

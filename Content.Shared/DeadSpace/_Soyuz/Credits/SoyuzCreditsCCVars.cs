@@ -11,6 +11,16 @@ public sealed class SoyuzCreditsCCVars
     public static readonly CVarDef<string> ServerId =
         CVarDef.Create("soyuz.credits.server_id", "soyuz-1", CVar.SERVERONLY);
 
+    // ---------- Аварийная заморозка ----------
+
+    /// <summary>
+    /// Аварийная заморозка: пока true, блокируются покупки, любые выдачи и списания (команды, промокоды, награды,
+    /// автопродление, призы недели) и весь HTTP API (включая публичный). Включается одной командой: cvar soyuz.credits.frozen true.
+    /// Время игры при заморозке продолжает копиться, а отложенные награды выдаются после снятия заморозки.
+    /// </summary>
+    public static readonly CVarDef<bool> Frozen =
+        CVarDef.Create("soyuz.credits.frozen", false, CVar.SERVERONLY);
+
     // ---------- Рефералы ----------
 
     /// <summary>Сколько часов приглашённый должен наиграть на этом сервере.</summary>
@@ -37,11 +47,11 @@ public sealed class SoyuzCreditsCCVars
 
     /// <summary>Вебхук для журнала всех выдач (без пингов).</summary>
     public static readonly CVarDef<string> DiscordLogWebhook =
-        CVarDef.Create("soyuz.credits.discord_log_webhook", string.Empty, CVar.SERVERONLY);
+        CVarDef.Create("soyuz.credits.discord_log_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     /// <summary>Вебхук для покупок Discord-ролей (с пингом роли).</summary>
     public static readonly CVarDef<string> DiscordRoleWebhook =
-        CVarDef.Create("soyuz.credits.discord_role_webhook", string.Empty, CVar.SERVERONLY);
+        CVarDef.Create("soyuz.credits.discord_role_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     /// <summary>Id Discord-роли, которую пингуют при покупке Discord-титула.</summary>
     public static readonly CVarDef<string> DiscordRoleId =
@@ -93,7 +103,7 @@ public sealed class SoyuzCreditsCCVars
 
     /// <summary>Вебхук для оповещений о превышении лимита выдачи. Пусто = используется вебхук журнала выдач.</summary>
     public static readonly CVarDef<string> DiscordLimitWebhook =
-        CVarDef.Create("soyuz.credits.discord_limit_webhook", string.Empty, CVar.SERVERONLY);
+        CVarDef.Create("soyuz.credits.discord_limit_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     // ---------- API для Discord-бота ----------
 
@@ -102,7 +112,7 @@ public sealed class SoyuzCreditsCCVars
     /// Задавайте длинный случайный токен и держите порт статуса за HTTPS-прокси или во внутренней сети.
     /// </summary>
     public static readonly CVarDef<string> ApiToken =
-        CVarDef.Create("soyuz.credits.api_token", string.Empty, CVar.SERVERONLY);
+        CVarDef.Create("soyuz.credits.api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     /// <summary>
     /// Сколько кредитов за сутки можно выдать через API бота (выдача, промокоды по сумме использований). 0 = выдача через API выключена.

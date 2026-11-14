@@ -9,6 +9,7 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.ActionBlocker;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.Body.Systems;
 using Content.Shared.Clothing;
 using Content.Shared.Damage.Systems;
@@ -68,6 +69,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
         SubscribeLocalEvent<MilitiaOperationTargetComponent, EntityTerminatingEvent>(OnTargetTerminating);
         SubscribeLocalEvent<MilitiaOperationActorComponent, DamageChangedEvent>(OnActorDamaged);
+        SubscribeLocalEvent<MilitiaOperationActorComponent, TryingToSleepEvent>(OnActorSleepAttempt);
         SubscribeLocalEvent<MilitiaOperationActorComponent, ComponentShutdown>(OnActorShutdown);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MobStateChangedEvent>(OnActorMobStateChanged);
         SubscribeLocalEvent<MilitiaOperationConsoleComponent, EntInsertedIntoContainerMessage>(OnDocumentInserted);

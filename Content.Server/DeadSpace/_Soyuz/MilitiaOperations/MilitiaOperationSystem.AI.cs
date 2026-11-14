@@ -17,6 +17,7 @@ using Content.Shared.Atmos.Components;
 using Content.Shared.Body.Components;
 using Content.Shared.Armor;
 using Content.Shared.CombatMode;
+using Content.Shared.Bed.Sleep;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
@@ -261,6 +262,11 @@ public sealed partial class MilitiaOperationSystem
         if (TryComp<MilitiaOperationActorComponent>(uid, out var actor) && TryComp<GunComponent>(actor.Weapon, out var gun))
             _guns.StopExecutionShooting((actor.Weapon, gun));
         _combat.SetInCombatMode(uid, false);
+    }
+
+    private void OnActorSleepAttempt(Entity<MilitiaOperationActorComponent> actor, ref TryingToSleepEvent args)
+    {
+        args.Cancelled = true;
     }
 
     private void OnActorShutdown(Entity<MilitiaOperationActorComponent> actor, ref ComponentShutdown args)

@@ -1,5 +1,4 @@
-﻿// Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -8,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Content.Server.Database.Migrations.Postgres
 {
     /// <inheritdoc />
-    public partial class SoyuzCreditsInit : Migration
+    public partial class SoyuzCreditsFeatures : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +25,20 @@ namespace Content.Server.Database.Migrations.Postgres
                 {
                     table.PrimaryKey("PK_soyuz_credit_balance", x => new { x.server_id, x.user_id });
                     table.CheckConstraint("ck_soyuz_credit_balance_nonneg", "balance >= 0");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_discord_link",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    discord_id = table.Column<string>(type: "text", nullable: false),
+                    linked_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_discord_link", x => new { x.server_id, x.user_id });
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +68,8 @@ namespace Content.Server.Database.Migrations.Postgres
                     server_id = table.Column<string>(type: "text", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_id = table.Column<string>(type: "text", nullable: false),
-                    equipped = table.Column<bool>(type: "boolean", nullable: false)
+                    equipped = table.Column<bool>(type: "boolean", nullable: false),
+                    expires_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,11 +82,46 @@ namespace Content.Server.Database.Migrations.Postgres
                 {
                     server_id = table.Column<string>(type: "text", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    seconds = table.Column<long>(type: "bigint", nullable: false)
+                    seconds = table.Column<long>(type: "bigint", nullable: false),
+                    hours_rewarded = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_soyuz_credit_playtime", x => new { x.server_id, x.user_id });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_promo",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "text", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false),
+                    credits = table.Column<long>(type: "bigint", nullable: false),
+                    product_id = table.Column<string>(type: "text", nullable: true),
+                    max_uses = table.Column<int>(type: "integer", nullable: true),
+                    uses = table.Column<int>(type: "integer", nullable: false),
+                    expires_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    disabled = table.Column<bool>(type: "boolean", nullable: false),
+                    created_by = table.Column<Guid>(type: "uuid", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_promo", x => new { x.server_id, x.code });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "soyuz_credit_promo_use",
+                columns: table => new
+                {
+                    server_id = table.Column<string>(type: "text", nullable: false),
+                    code = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    used_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_soyuz_credit_promo_use", x => new { x.server_id, x.code, x.user_id });
                 });
 
             migrationBuilder.CreateTable(
@@ -85,7 +134,8 @@ namespace Content.Server.Database.Migrations.Postgres
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_id = table.Column<string>(type: "text", nullable: false),
                     price = table.Column<long>(type: "bigint", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    refunded_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +151,8 @@ namespace Content.Server.Database.Migrations.Postgres
                     inviter_id = table.Column<Guid>(type: "uuid", nullable: false),
                     code = table.Column<string>(type: "text", nullable: false),
                     applied_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    rewarded_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    rewarded_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    rejected_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -120,6 +171,12 @@ namespace Content.Server.Database.Migrations.Postgres
                 {
                     table.PrimaryKey("PK_soyuz_credit_referral_code", x => new { x.server_id, x.user_id });
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_soyuz_credit_discord_link_server_id_discord_id",
+                table: "soyuz_credit_discord_link",
+                columns: new[] { "server_id", "discord_id" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_soyuz_credit_log_server_id_user_id_id",
@@ -141,26 +198,16 @@ namespace Content.Server.Database.Migrations.Postgres
                 table: "soyuz_credit_referral_code",
                 columns: new[] { "server_id", "code" },
                 unique: true);
-
-            migrationBuilder.Sql(@"
-ALTER TABLE soyuz_credit_balance ADD CONSTRAINT fk_credit_balance_player FOREIGN KEY (user_id) REFERENCES player (user_id) ON DELETE CASCADE;
-ALTER TABLE soyuz_credit_playtime ADD CONSTRAINT fk_credit_playtime_player FOREIGN KEY (user_id) REFERENCES player (user_id) ON DELETE CASCADE;
-ALTER TABLE soyuz_credit_referral_code ADD CONSTRAINT fk_credit_refcode_player FOREIGN KEY (user_id) REFERENCES player (user_id) ON DELETE CASCADE;
-ALTER TABLE soyuz_credit_owned ADD CONSTRAINT fk_credit_owned_player FOREIGN KEY (user_id) REFERENCES player (user_id) ON DELETE CASCADE;
-ALTER TABLE soyuz_credit_referral ADD CONSTRAINT fk_credit_ref_invitee FOREIGN KEY (invitee_id) REFERENCES player (user_id) ON DELETE CASCADE;
-ALTER TABLE soyuz_credit_referral ADD CONSTRAINT fk_credit_ref_inviter FOREIGN KEY (inviter_id) REFERENCES player (user_id) ON DELETE CASCADE;
-CREATE FUNCTION soyuz_credit_log_immutable() RETURNS trigger AS $$ BEGIN RAISE EXCEPTION 'soyuz_credit_log is append-only'; END; $$ LANGUAGE plpgsql;
-CREATE TRIGGER soyuz_credit_log_guard BEFORE UPDATE OR DELETE ON soyuz_credit_log FOR EACH ROW EXECUTE FUNCTION soyuz_credit_log_immutable();
-");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-             migrationBuilder.Sql("DROP TRIGGER IF EXISTS soyuz_credit_log_guard ON soyuz_credit_log; DROP FUNCTION IF EXISTS soyuz_credit_log_immutable();");
-
             migrationBuilder.DropTable(
                 name: "soyuz_credit_balance");
+
+            migrationBuilder.DropTable(
+                name: "soyuz_credit_discord_link");
 
             migrationBuilder.DropTable(
                 name: "soyuz_credit_log");
@@ -170,6 +217,12 @@ CREATE TRIGGER soyuz_credit_log_guard BEFORE UPDATE OR DELETE ON soyuz_credit_lo
 
             migrationBuilder.DropTable(
                 name: "soyuz_credit_playtime");
+
+            migrationBuilder.DropTable(
+                name: "soyuz_credit_promo");
+
+            migrationBuilder.DropTable(
+                name: "soyuz_credit_promo_use");
 
             migrationBuilder.DropTable(
                 name: "soyuz_credit_purchase");

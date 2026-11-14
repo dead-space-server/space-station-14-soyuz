@@ -14,13 +14,13 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.DeadSpace._Soyuz.Credits;
 
 /// <summary>
-/// Выдаёт купленные предметы в руку при появлении игрока в раунде
-/// и следит за кэшем покупок онлайн-игроков
+/// Выдаёт купленные предметы в руку при появлении игрока в раунде и следит за кэшем покупок онлайн-игроков
 /// </summary>
 public sealed class CreditPerksSystem : EntitySystem
 {
     [Dependency] private readonly IPlayerManager _players = default!;
     [Dependency] private readonly ICreditPerkCache _cache = default!;
+    [Dependency] private readonly ICreditRateLimiter _limiter = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
 
@@ -56,6 +56,7 @@ public sealed class CreditPerksSystem : EntitySystem
                     break;
                 case SessionStatus.Disconnected:
                     _cache.Remove(user);
+                    _limiter.Forget(user);
                     break;
             }
         }

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Content.Server.Database.Migrations.Sqlite
+namespace Content.Server.Database.Database.Migrations.Sqlite
 {
     [DbContext(typeof(SoyuzCreditsSqliteDbContext))]
-    [Migration("20261111034325_SoyuzCreditsFeatures")]
-    partial class SoyuzCreditsFeatures
+    [Migration("20261113195433_SoyuzCreditsPromoRefunds")]
+    partial class SoyuzCreditsPromoRefunds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,33 @@ namespace Content.Server.Database.Migrations.Sqlite
                         {
                             t.HasCheckConstraint("ck_soyuz_credit_balance_nonneg", "balance >= 0");
                         });
+                });
+
+            modelBuilder.Entity("Content.Server.Database.DeadSpace._Soyuz.Credits.CreditDiscordLinkRow", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("server_id");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("DiscordId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("discord_id");
+
+                    b.Property<DateTime>("LinkedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("linked_at");
+
+                    b.HasKey("ServerId", "UserId");
+
+                    b.HasIndex("ServerId", "DiscordId")
+                        .IsUnique();
+
+                    b.ToTable("soyuz_credit_discord_link", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.DeadSpace._Soyuz.Credits.CreditLogRow", b =>
@@ -144,6 +171,76 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.ToTable("soyuz_credit_playtime", (string)null);
                 });
 
+            modelBuilder.Entity("Content.Server.Database.DeadSpace._Soyuz.Credits.CreditPromoRow", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_by");
+
+                    b.Property<long>("Credits")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("credits");
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("disabled");
+
+                    b.Property<DateTime?>("ExpiresAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("expires_at");
+
+                    b.Property<int?>("MaxUses")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("max_uses");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("product_id");
+
+                    b.Property<int>("Uses")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("uses");
+
+                    b.HasKey("ServerId", "Code");
+
+                    b.ToTable("soyuz_credit_promo", (string)null);
+                });
+
+            modelBuilder.Entity("Content.Server.Database.DeadSpace._Soyuz.Credits.CreditPromoUseRow", b =>
+                {
+                    b.Property<string>("ServerId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("code");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("user_id");
+
+                    b.Property<DateTime>("UsedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("used_at");
+
+                    b.HasKey("ServerId", "Code", "UserId");
+
+                    b.ToTable("soyuz_credit_promo_use", (string)null);
+                });
+
             modelBuilder.Entity("Content.Server.Database.DeadSpace._Soyuz.Credits.CreditPurchaseRow", b =>
                 {
                     b.Property<long>("Id")
@@ -163,6 +260,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("product_id");
+
+                    b.Property<DateTime?>("RefundedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("refunded_at");
 
                     b.Property<string>("ServerId")
                         .IsRequired()
@@ -225,6 +326,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<Guid>("InviterId")
                         .HasColumnType("TEXT")
                         .HasColumnName("inviter_id");
+
+                    b.Property<DateTime?>("RejectedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("rejected_at");
 
                     b.Property<DateTime?>("RewardedAt")
                         .HasColumnType("TEXT")

@@ -1,6 +1,7 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Content.Server.Administration;
 using Content.Server.Administration.Managers;
@@ -12,6 +13,7 @@ using Robust.Shared.IoC;
 using Robust.Shared.Localization;
 using Robust.Shared.Log;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.Credits.Eui;
 
@@ -21,6 +23,8 @@ public sealed class CreditsAdminEui : BaseEui
     [Dependency] private readonly ICreditService _credits = default!;
     [Dependency] private readonly IPlayerLocator _locator = default!;
     [Dependency] private readonly ILogManager _log = default!;
+    [Dependency] private readonly ICreditRepository _repo = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
 
     private const int PageSize = 12;
 
@@ -57,6 +61,48 @@ public sealed class CreditsAdminEui : BaseEui
             {
                 case CreditsAdminLookupMessage lookup:
                     await LookupAsync(lookup.Target, lookup.Page, lookup.TypeFilter, lookup.ActorFilter, lookup.ReasonFilter, "");
+                    break;
+
+                case CreditsAdminTakeMessage take:
+                    var takeTarget = await _locator.LookupIdByNameOrIdAsync(take.Target);
+                    if (takeTarget == null)
+                    {
+                        await LookupAsync(take.Target, 0, _state.TypeFilter, _state.ActorFilter, _state.ReasonFilter,
+                            Loc.GetString("credits-admin-notice-notfound"));
+                        break;
+                    }
+
+                    var takeResult = await _credits.TakeAsync(takeTarget.UserId.UserId, take.Amount, take.Reason, Player);
+                    await LookupAsync(take.Target, 0, _state.TypeFilter, _state.ActorFilter, _state.ReasonFilter,
+                        takeResult == CreditResult.Ok
+                            ? Loc.GetString("credits-admin-notice-take-ok")
+                            : Loc.GetString($"credits-admin-notice-{takeResult.ToString().ToLowerInvariant()}"));
+                    break;
+
+                case CreditsAdminRefundMessage refund:
+                    var refundTarget = await _locator.LookupIdByNameOrIdAsync(refund.Target);
+                    if (refundTarget == null)
+                    {
+                        await LookupAsync(refund.Target, 0, _state.TypeFilter, _state.ActorFilter, _state.ReasonFilter,
+                            Loc.GetString("credits-admin-notice-notfound"));
+                        break;
+                    }
+
+                    var refunded = await _credits.RefundAsync(refundTarget.UserId.UserId, refund.ProductId, refund.Reason, Player);
+                    await LookupAsync(refund.Target, 0, _state.TypeFilter, _state.ActorFilter, _state.ReasonFilter,
+                        refunded.Result switch
+                        {
+                            CreditResult.Ok => Loc.GetString("credits-admin-notice-refund-ok", ("amount", refunded.Amount)),
+                            CreditResult.NotFound => Loc.GetString("credits-admin-notice-refund-notfound"),
+                            _ => Loc.GetString($"credits-admin-notice-{refunded.Result.ToString().ToLowerInvariant()}"),
+                        });
+                    break;
+
+                case CreditsAdminStatsMessage:
+                    var stats = await BuildStatsAsync();
+                    _state.Stats = stats;
+                    _state.Notice = "";
+                    StateDirty();
                     break;
 
                 case CreditsAdminGiveMessage give:
@@ -139,6 +185,35 @@ public sealed class CreditsAdminEui : BaseEui
         }
 
         Publish(state);
+    }
+
+    private async Task<string> BuildStatsAsync()
+    {
+        const int days = 7;
+        var s = await _repo.GetEconomyStatsAsync(DateTime.UtcNow.AddDays(-days));
+
+        var lines = new List<string>
+        {
+            Loc.GetString("credits-admin-stats-circulation", ("amount", s.InCirculation), ("players", s.PlayersWithBalance)),
+            Loc.GetString("credits-admin-stats-issued", ("days", days), ("amount", s.Issued)),
+            Loc.GetString("credits-admin-stats-spent", ("amount", s.Spent)),
+            Loc.GetString("credits-admin-stats-taken", ("amount", s.Taken)),
+            Loc.GetString("credits-admin-stats-refunded", ("amount", s.Refunded)),
+        };
+
+        if (s.TopProducts.Count > 0)
+        {
+            lines.Add(Loc.GetString("credits-admin-stats-top-title", ("days", days)));
+            foreach (var t in s.TopProducts)
+            {
+                var name = _proto.TryIndex<CreditProductPrototype>(t.ProductId, out var product)
+                    ? Loc.GetString(product.Name)
+                    : t.ProductId;
+                lines.Add(Loc.GetString("credits-admin-stats-top-row", ("name", name), ("count", t.Count), ("revenue", t.Revenue)));
+            }
+        }
+
+        return string.Join('\n', lines);
     }
 
     private void Publish(CreditsAdminState state)

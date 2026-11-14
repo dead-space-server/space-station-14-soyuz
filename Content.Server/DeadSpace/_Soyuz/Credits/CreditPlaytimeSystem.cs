@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Content.Server.Afk;
 using Content.Shared.DeadSpace._Soyuz.Credits;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -14,7 +15,9 @@ namespace Content.Server.DeadSpace._Soyuz.Credits;
 
 /// <summary>
 /// Считает время игры именно на этом сервере (по server_id), выдаёт реферальные награды
-/// и награду за каждый час игры. Считаются игроки в игре с прикреплённой сущностью (лобби не считается)
+/// и награду за каждый час игры. Считаются игроки в игре с прикреплённой сущностью (лобби не считается).
+/// Игроки в AFK (IAfkManager, порог задаётся стандартным CVar afk.time) не считаются: им не идёт ни время игры,
+/// ни награда за него, ни прогресс по реферальному порогу. Отключается CVar soyuz.credits.afk_check.
 /// </summary>
 public sealed class CreditPlaytimeSystem : EntitySystem
 {
@@ -25,6 +28,7 @@ public sealed class CreditPlaytimeSystem : EntitySystem
     [Dependency] private readonly ICreditNotifier _notifier = default!;
     [Dependency] private readonly ICreditWebhook _webhook = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IAfkManager _afk = default!;
 
     private const float TickSeconds = 60f;
     private float _accum;
@@ -32,7 +36,7 @@ public sealed class CreditPlaytimeSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        _db.Migrate();
+        _db.Migrate(); // применяет миграции Кредитов; при пустом server_id сервер не запустится
     }
 
     public override void Update(float frameTime)
@@ -43,11 +47,18 @@ public sealed class CreditPlaytimeSystem : EntitySystem
 
         _accum -= TickSeconds;
 
+        var checkAfk = _cfg.GetCVar(SoyuzCreditsCCVars.AfkCheck);
+
         var users = new List<Guid>();
         foreach (var session in _players.Sessions)
         {
-            if (session.Status == SessionStatus.InGame && session.AttachedEntity != null)
-                users.Add(session.UserId.UserId);
+            if (session.Status != SessionStatus.InGame || session.AttachedEntity == null)
+                continue;
+
+            if (checkAfk && _afk.IsAfk(session))
+                continue;
+
+            users.Add(session.UserId.UserId);
         }
 
         if (users.Count > 0)

@@ -777,6 +777,7 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public bool ExposedToThreat;
     public TimeSpan ThreatScanValidUntil;
     public TimeSpan NextFireReposition;
+    public TimeSpan FireBlockedUntil;
     public TimeSpan SquadHoldUntil;
     public MilitiaSquadOrder? SquadOrder;
     public MilitiaSquadOrder? RunningSquadOrder;

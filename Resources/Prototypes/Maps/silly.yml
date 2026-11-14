@@ -7,7 +7,7 @@
   minPlayers: 5 #DS14-Soyuz
   maxPlayers: 20
   stations:
-    Silly:
+    SoyuzSilly:
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup

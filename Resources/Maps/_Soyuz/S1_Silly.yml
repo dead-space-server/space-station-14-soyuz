@@ -14551,7 +14551,7 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: BecomesStation
-      id: Silly
+      id: SoyuzSilly
     - type: NavMap
     - type: FTLDestination
     - type: GravityShake

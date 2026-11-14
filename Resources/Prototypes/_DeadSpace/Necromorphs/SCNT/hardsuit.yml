@@ -1,8 +1,8 @@
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetCBURNNECROLeader
   name: шлем лидера ОПНУ
-  description: Устойчивый к давлению и ударостойкий шлем ОПНУ.
+  description: Устойчивый к давлению и ударостойкий шлем ОПНУ. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: BreathMask
   - type: Sprite
@@ -84,10 +84,10 @@
       Omnizine: 5
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetCBURNNECROSoldier
   name: шлем солдата ОПНУ
-  description: Устойчивый к давлению и ударостойкий шлем ОПНУ.
+  description: Устойчивый к давлению и ударостойкий шлем ОПНУ. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: BreathMask
   - type: Sprite

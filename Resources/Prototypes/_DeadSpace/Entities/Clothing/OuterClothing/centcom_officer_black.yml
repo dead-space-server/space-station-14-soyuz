@@ -34,11 +34,11 @@
     size: Huge
 
 - type: entity
-  parent: [ClothingHeadHelmetHardsuitSecurityRed]
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetHardsuitCentcomBlack
   categories: [ HideSpawnMenu, DoNotMap ]
   name: шлем скафандра Полевого Офицера
-  description: Предназначен для элитного офицера КСО.
+  description: Предназначен для элитного офицера КСО. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/centcom_officer_black.rsi

@@ -35,7 +35,6 @@ public sealed class MedicalOrderTest
         {
             Reagent = "Bicaridine",
             BasePrice = 1m,
-            MinimumPrice = 0.1m,
             ReputationPerUnit = 0.2m,
             SaturationVolume = 100m,
             RecoveryPerMinute = 10m,

@@ -9,6 +9,7 @@ using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Ghost;
 using Content.Shared.Mind.Components;
+using Content.Shared.Station.Components;
 using Robust.Server.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Prototypes;
@@ -40,6 +41,8 @@ public sealed class RepairOrderSystem : EntitySystem
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly DockingSystem _docking = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
@@ -56,6 +59,7 @@ public sealed class RepairOrderSystem : EntitySystem
         SubscribeLocalEvent<RepairOrderConsoleComponent, GotEmaggedEvent>(OnConsoleEmagged);
         SubscribeLocalEvent<RepairOrderStationComponent, ComponentShutdown>(OnStationShutdown);
         SubscribeLocalEvent<RepairOrderCleanupComponent, GridSplitEvent>(OnCleanupGridSplit);
+        SubscribeLocalEvent<RepairRetainedGridComponent, GridSplitEvent>(OnRetainedGridSplit);
         SubscribeLocalEvent<RepairOrderConsoleComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt);
         Subs.BuiEvents<RepairOrderConsoleComponent>(RepairOrderUiKey.Key, subs =>
         {
@@ -68,6 +72,7 @@ public sealed class RepairOrderSystem : EntitySystem
     {
         base.Update(frameTime);
 
+        ProcessRetainedGrids();
         ProcessCleanupGrids();
 
         var now = _timing.CurTime;
@@ -391,8 +396,9 @@ public sealed class RepairOrderSystem : EntitySystem
         UpdateStationUis(station);
     }
 
-    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.</summary>
-    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false)
+    /// <summary>Prepare a weighted batch without replacement, then publish it atomically.
+    /// A full refresh can preserve the existing timer when triggered by order completion.</summary>
+    public void GenerateOffer(Entity<RepairOrderStationComponent> station, bool refresh = false, bool resetTimer = true)
     {
         if (station.Comp.Accepting || station.Comp.Completing)
             return;
@@ -409,7 +415,7 @@ public sealed class RepairOrderSystem : EntitySystem
             .OrderBy(order => order.ID, StringComparer.Ordinal).ToList();
         var seeds = available.Values.Select(offer => offer.DamageSeed).ToHashSet();
         var nextRuntimeId = station.Comp.NextRuntimeId;
-        var nextOffer = refresh ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
+        var nextOffer = refresh && resetTimer ? _timing.CurTime + station.Comp.OfferInterval : station.Comp.NextOffer;
         while (available.Count < limit && candidates.Count > 0)
         {
             // Prefer different offers; a small catalog can still fill the remaining slots.
@@ -457,10 +463,19 @@ public sealed class RepairOrderSystem : EntitySystem
         out EntityUid repairGrid)
     {
         repairGrid = EntityUid.Invalid;
+        var retaining = completed.Result == RepairOrderResult.Retained;
+        var retentionCost = retaining ? expectedActive.MaxPoints : 0;
+        if (retaining && (!_prototype.TryIndex<RepairOrderPrototype>(expectedActive.Prototype, out var order) ||
+            order.Difficulty < 7 || order.Difficulty > 10 || retentionCost <= 0 || completed.RewardBudget != 0 ||
+            completed.RetentionCost != retentionCost ||
+            !TryComp<RepairRetainedGridComponent>(expectedActive.GridUid, out var retained) ||
+            retained.Station != stationUid || retained.OwnershipRegistered))
+            return false;
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
             !ReferenceEquals(state.Active, expectedActive) ||
             completed.RuntimeId != expectedActive.RuntimeId ||
             completed.Prototype != expectedActive.Prototype ||
+            state.RepairPoints < retentionCost ||
             completed.RewardBudget < 0 ||
             completed.EarnedReputation < 0 ||
             state.RepairPoints > long.MaxValue - completed.RewardBudget ||
@@ -472,7 +487,7 @@ public sealed class RepairOrderSystem : EntitySystem
         repairGrid = expectedActive.GridUid;
         completed.DamageGeneration = expectedActive.DamageGeneration;
         completed.Exclusions = expectedActive.Exclusions;
-        state.RepairPoints += completed.RewardBudget;
+        state.RepairPoints = state.RepairPoints - retentionCost + completed.RewardBudget;
         state.EngineeringReputation += completed.EarnedReputation;
         state.Completed = completed;
         state.Active = null;
@@ -632,9 +647,81 @@ public sealed class RepairOrderSystem : EntitySystem
         return false;
     }
 
+    /// <summary>Disposes a childless rollback entity, isolating an unfinished engine deletion without re-entering it.</summary>
+    public bool TryDisposeRepairEntity(EntityUid entity)
+    {
+        if (!Exists(entity))
+            return true;
+        if (TryFindPlayerInRepairEntity(entity, out _) ||
+            !TryComp(entity, out TransformComponent? transform) || transform.ChildCount != 0 ||
+            !TryComp(entity, out MetaDataComponent? metadata))
+            return false;
+
+        try
+        {
+            _lookup.RemoveFromEntityTree(entity, transform);
+            TryComp(transform.ParentUid, out TransformComponent? parent);
+            _transform.DetachEntity(entity, transform, metadata, parent,
+                terminating: metadata.EntityLifeStage >= EntityLifeStage.Terminating);
+            _metaData.SetEntityPaused(entity, true, metadata);
+            if (!IsRollbackEntityIsolated(entity))
+                return false;
+            if (metadata.EntityLifeStage < EntityLifeStage.Terminating)
+                Del(entity);
+        }
+        catch (Exception exception)
+        {
+            RunPostCommitEffect("rollback disposal log", () =>
+                _sawmill.Error($"Failed to dispose repair-owned entity {entity}: {exception}"));
+        }
+
+        return !Exists(entity) || TryComp(entity, out metadata) &&
+            metadata.EntityLifeStage == EntityLifeStage.Terminating && IsRollbackEntityIsolated(entity);
+    }
+
+    private bool IsRollbackEntityIsolated(EntityUid entity)
+        => TryComp(entity, out MetaDataComponent? metadata) && metadata.EntityPaused &&
+           TryComp(entity, out TransformComponent? transform) &&
+           !transform.ParentUid.IsValid() && transform.MapID == MapId.Nullspace && transform.GridUid == null &&
+           !transform.Anchored && transform.ChildCount == 0 && !_lookup.TryGetCurrentBroadphase(transform, out _);
+
     private void ProcessPendingGridCleanup(Entity<RepairOrderStationComponent> station)
     {
         station.Comp.PendingCleanupGrids.RemoveWhere(grid => !Exists(grid));
+    }
+
+    private void ProcessRetainedGrids()
+    {
+        var pending = new List<EntityUid>();
+        var query = EntityQueryEnumerator<RepairRetainedGridComponent>();
+        while (query.MoveNext(out var grid, out var retained))
+        {
+            if (retained.OwnershipRegistered || retained.NextAttempt > _timing.CurTime)
+                continue;
+            retained.NextAttempt = _timing.CurTime + TimeSpan.FromSeconds(5);
+            pending.Add(grid);
+        }
+        foreach (var grid in pending)
+            RunPostCommitEffect("retained object registration", () => RegisterRetainedGrid(grid));
+    }
+
+    public void RegisterRetainedGrid(EntityUid grid)
+    {
+        if (!TryComp<RepairRetainedGridComponent>(grid, out var retained) || retained.OwnershipRegistered ||
+            !Exists(retained.Station) || !HasComp<StationDataComponent>(retained.Station))
+            return;
+
+        // Register ownership before removing the blueprint; any split inherits the marker below.
+        if (_station.GetOwningStation(grid) != retained.Station)
+            _station.AddGridToStation(retained.Station, grid);
+        _validation.DiscardPreparedSession(grid);
+        retained.OwnershipRegistered = true;
+    }
+
+    private void OnRetainedGridSplit(Entity<RepairRetainedGridComponent> grid, ref GridSplitEvent args)
+    {
+        foreach (var fragment in args.NewGrids)
+            EnsureComp<RepairRetainedGridComponent>(fragment).Station = grid.Comp.Station;
     }
 
     private void ProcessCleanupGrids()
@@ -726,7 +813,11 @@ public sealed class RepairOrderSystem : EntitySystem
                 maxPoints: activeOrder.MaxPoints,
                 damageEvents: activeOrder.DamageGeneration?.SelectedEvents.ToArray(),
                 exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints),
-                earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay);
+                earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay,
+                retentionCost: _prototype.TryIndex<RepairOrderPrototype>(activeOrder.Prototype, out var activePrototype) &&
+                               activePrototype.Difficulty is >= 7 and <= 10
+                    ? activeOrder.MaxPoints
+                    : null);
         }
 
         RepairOrderCompletedBuiEntry? completed = null;
@@ -744,7 +835,8 @@ public sealed class RepairOrderSystem : EntitySystem
                 completedOrder.EarnedReputation,
                 completedOrder.Result,
                 completedOrder.DamageGeneration?.SelectedEvents.ToArray(),
-                completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints));
+                completedOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(completedOrder.MaxPoints), completedOrder.FinalPoints),
+                completedOrder.RetentionCost);
         }
 
         var shopPoolId = Comp<RepairOrderConsoleComponent>(console).ShopRewardPool;

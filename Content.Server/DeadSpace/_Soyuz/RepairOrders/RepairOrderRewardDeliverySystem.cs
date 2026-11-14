@@ -12,6 +12,7 @@ using Content.Shared.Storage.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
 namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 
@@ -30,8 +31,11 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly RepairOrderSystem _repairOrders = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private readonly Dictionary<RepairOrderDeliveryKey, RepairOrderDelivery> _deliveries = new();
+    private readonly HashSet<RepairOrderDelivery> _rollbacks = new();
     private List<Entity<MapGridComponent>> _intersectingGrids = new();
     private ISawmill _sawmill = default!;
 
@@ -39,7 +43,21 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     {
         base.Initialize();
         _sawmill = _logManager.GetSawmill("repair_orders");
-        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _deliveries.Clear());
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
+        {
+            _deliveries.Clear();
+            _rollbacks.Clear();
+        });
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+        foreach (var delivery in _rollbacks.ToArray())
+        {
+            if (_timing.CurTime >= delivery.NextRollbackAttempt)
+                Rollback(delivery);
+        }
     }
 
     /// <summary>
@@ -227,10 +245,10 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         var key = new RepairOrderDeliveryKey(station, RepairOrderDeliveryKind.ShopPurchase, purchaseId);
         if (_deliveries.TryGetValue(key, out var existingDelivery))
         {
-            if (existingDelivery.Committed)
+            if (existingDelivery.Committed || _rollbacks.Contains(existingDelivery))
             {
                 delivery = default!;
-                _sawmill.Warning($"Shop delivery {purchaseId} on station {station} was already committed.");
+                _sawmill.Warning($"Shop delivery {purchaseId} on station {station} is committed or awaiting rollback.");
                 return false;
             }
 
@@ -358,31 +376,73 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
     }
 
     /// <summary>
-    /// Idempotently removes an uncommitted physical delivery. Rewards are deleted before their containers so
-    /// destroying an EntityStorage cannot spill items from a failed purchase into the world.
+    /// Disposes an uncommitted delivery and its descendants, keeping ownership until deletion or safe isolation.
     /// </summary>
     public void Rollback(RepairOrderDelivery? delivery)
     {
-        if (delivery == null || delivery.Committed)
+        if (delivery == null || delivery.Committed || delivery.RollingBack)
             return;
 
-        if (_deliveries.TryGetValue(delivery.Key, out var tracked) && ReferenceEquals(tracked, delivery))
-            _deliveries.Remove(delivery.Key);
-
-        for (var i = delivery.RewardEntities.Count - 1; i >= 0; i--)
+        _rollbacks.Add(delivery);
+        delivery.RollingBack = true;
+        delivery.NextRollbackAttempt = _timing.CurTime + TimeSpan.FromSeconds(1);
+        try
         {
-            if (Exists(delivery.RewardEntities[i]))
-                QueueDel(delivery.RewardEntities[i]);
-        }
+            CollectRollbackEntities(delivery);
+            foreach (var entity in delivery.RollbackEntities.AsEnumerable().Reverse().ToArray())
+            {
+                if (delivery.DisposedEntities.Contains(entity))
+                    continue;
+                try
+                {
+                    if (!_repairOrders.TryDisposeRepairEntity(entity))
+                        continue;
+                    delivery.DisposedEntities.Add(entity);
+                    if (Exists(entity))
+                        _repairOrders.RunPostCommitEffect("delivery quarantine log", () =>
+                            _sawmill.Error($"Delivery entity {entity} could not finish engine deletion and was isolated in nullspace."));
+                }
+                catch (Exception exception)
+                {
+                    _repairOrders.RunPostCommitEffect("delivery rollback log", () =>
+                        _sawmill.Error($"Delivery rollback could not dispose {entity}: {exception}"));
+                }
+            }
+            if (delivery.RollbackEntities.Any(entity => !delivery.DisposedEntities.Contains(entity)))
+                return;
 
-        for (var i = delivery.ContainersInternal.Count - 1; i >= 0; i--)
+            if (_deliveries.TryGetValue(delivery.Key, out var tracked) && ReferenceEquals(tracked, delivery))
+                _deliveries.Remove(delivery.Key);
+            _rollbacks.Remove(delivery);
+            delivery.RewardEntities.Clear();
+            delivery.ContainersInternal.Clear();
+            delivery.RollbackEntities.Clear();
+            delivery.DisposedEntities.Clear();
+        }
+        finally
         {
-            if (Exists(delivery.ContainersInternal[i]))
-                QueueDel(delivery.ContainersInternal[i]);
+            delivery.RollingBack = false;
         }
+    }
 
-        delivery.RewardEntities.Clear();
-        delivery.ContainersInternal.Clear();
+    private void CollectRollbackEntities(RepairOrderDelivery delivery)
+    {
+        var known = delivery.RollbackEntities.ToHashSet();
+        var visited = new HashSet<EntityUid>();
+        var pending = new Queue<EntityUid>(delivery.ContainersInternal.Concat(delivery.RewardEntities).Concat(delivery.RollbackEntities));
+        while (pending.TryDequeue(out var entity))
+        {
+            if (!visited.Add(entity) || delivery.DisposedEntities.Contains(entity))
+                continue;
+            if (known.Add(entity))
+                delivery.RollbackEntities.Add(entity);
+            if (!Exists(entity) || _repairOrders.TryFindPlayerInRepairEntity(entity, out _) ||
+                !TryComp(entity, out TransformComponent? transform))
+                continue;
+            var children = transform.ChildEnumerator;
+            while (children.MoveNext(out var child))
+                pending.Enqueue(child);
+        }
     }
 
     /// <summary>
@@ -477,15 +537,14 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
                 anchor,
                 attempt,
                 out var coordinates,
-                out var usedDropFallback,
-                out _))
+                out _,
+                out _,
+                allowFallback: false))
         {
             return false;
         }
 
         _transform.SetCoordinates(reward, coordinates);
-        if (usedDropFallback)
-            _transform.DropNextTo(reward, anchor.DropFallbackEntity!.Value);
 
         return TryRememberDeliveryPlacement(reward, attempt, rememberAsFirstContainer: false);
     }
@@ -500,7 +559,8 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
         RepairOrderDelivery attempt,
         out EntityCoordinates coordinates,
         out bool usedDropFallback,
-        out bool reusedFirstPosition)
+        out bool reusedFirstPosition,
+        bool allowFallback = true)
     {
         coordinates = EntityCoordinates.Invalid;
         usedDropFallback = false;
@@ -545,6 +605,10 @@ public sealed class RepairOrderRewardDeliverySystem : EntitySystem
             coordinates = candidate;
             return true;
         }
+
+        // Only protected containers may reuse a position; oversized rewards require a clear tile.
+        if (!allowFallback)
+            return false;
 
         if (attempt.FirstContainerCoordinates is { } firstContainerCoordinates)
         {
@@ -657,9 +721,13 @@ public sealed class RepairOrderDelivery
     internal readonly RepairOrderDeliveryKey Key;
     internal readonly List<EntityUid> ContainersInternal = new();
     internal readonly List<EntityUid> RewardEntities = new();
+    internal readonly List<EntityUid> RollbackEntities = new();
+    internal readonly HashSet<EntityUid> DisposedEntities = new();
     internal readonly HashSet<RepairOrderDeliveryCell> ReservedGridCells = new();
     internal EntityCoordinates? FirstContainerCoordinates;
     internal bool Committed;
+    internal bool RollingBack;
+    internal TimeSpan NextRollbackAttempt;
 
     public IReadOnlyList<EntityUid> Containers => ContainersInternal;
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Recolored by Ezio50. Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/09b7fc77d34f521e51f94127d389213bfefcf148",
+  "copyright": "Based on the chief engineer's toolbelt from tgstation at commit https://github.com/tgstation/tgstation/commit/09b7fc77d34f521e51f94127d389213bfefcf148. Previous Soyuz recolor by Ezio50. Repair crew recolor with Aseprite MCP using the exact dark grey, grey, silver and orange colors of the repair crew hardsuit. Original chief engineer belt geometry and tool attachment positions preserved.",
   "size": {
     "x": 32,
     "y": 32

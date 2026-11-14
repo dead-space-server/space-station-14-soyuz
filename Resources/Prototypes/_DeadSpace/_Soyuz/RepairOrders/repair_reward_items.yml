@@ -152,6 +152,21 @@
 
 - type: entity
   parent: BaseFlatpack
+  id: RepairOrderAutolatheFlatpack
+  name: autolathe flatpack
+  description: A flatpack used for constructing an autolathe.
+  components:
+  - type: Flatpack
+    entity: Autolathe
+  - type: Sprite
+    layers:
+    - state: base
+    - state: overlay
+      color: "#EFB341"
+    - state: icon-default
+
+- type: entity
+  parent: BaseFlatpack
   id: RepairOrderThrusterMediumFlatpack
   name: large rocket thruster flatpack
   description: A flatpack used for constructing a large rocket thruster.
@@ -378,6 +393,9 @@
     state: icon
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/Shoes/Boots/repair_crew_magboots.rsi
+  - type: HideLayerClothing
+    hiddenBy:
+      outerClothing: [ClothingOuterHardsuitRepairOrderEngineer]
   - type: ClothingSpeedModifier
     walkModifier: 1.05
     sprintModifier: 1.05

@@ -23,6 +23,12 @@ DEFAULT_NAMESPACE_PREFIX = "Content.IntegrationTests.Tests"
 DEFAULT_SHARD_COUNT = 10
 MAX_SHARD_NAME_LENGTH = 96
 
+# DS14-Soyuz-start
+ISOLATED_TEST_DIRECTORIES = (
+    Path("_Soyuz"),
+)
+# DS14-Soyuz-end
+
 # Keep marker counts for display; these local-runtime weights keep expensive units from sharing one CI shard.
 SLOW_TEST_UNIT_BALANCE_WEIGHTS = {
     "Actions": 80,
@@ -85,17 +91,29 @@ def main() -> int:
         description="Generate balanced GitHub Actions shards for Content.IntegrationTests.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument("--shards", type=int, default=DEFAULT_SHARD_COUNT)
+    # DS14-Soyuz-start
+    parser.add_argument(
+        "--shards", type=int, default=DEFAULT_SHARD_COUNT,
+        help="Number of balanced shards, excluding isolated test directories",
+    )
+    # DS14-Soyuz-end
     parser.add_argument("--tests-root", type=Path, default=DEFAULT_TESTS_ROOT)
     parser.add_argument("--namespace-prefix", default=DEFAULT_NAMESPACE_PREFIX)
     parser.add_argument("--pretty", action="store_true")
     args = parser.parse_args()
 
     units = discover_units(args.tests_root, args.namespace_prefix)
-    if not units:
-        raise SystemExit("No integration test units discovered.")
-
     shards = balance_units(units, args.shards)
+    # DS14-Soyuz-start
+    for relative_path in ISOLATED_TEST_DIRECTORIES:
+        unit = build_directory_unit(args.tests_root / relative_path, args.namespace_prefix)
+        if unit is not None:
+            shard = Shard(index=len(shards))
+            shard.add(unit)
+            shards.append(shard)
+    if not shards:
+        raise SystemExit("No integration test units discovered.")
+    # DS14-Soyuz-end
     matrix = {"include": [shard.to_matrix_entry() for shard in shards if shard.units]}
 
     if args.pretty:
@@ -122,7 +140,13 @@ def discover_units(tests_root: Path, namespace_prefix: str) -> list[TestUnit]:
             units.extend(split_file_unit(file_path, unit))
 
     for directory in sorted(path for path in tests_root.iterdir() if path.is_dir()):
-        unit = build_directory_unit(directory, namespace_prefix)
+        # DS14-Soyuz-start
+        unit = build_directory_unit(
+            directory,
+            namespace_prefix,
+            excluded_directories=tuple(tests_root / path for path in ISOLATED_TEST_DIRECTORIES),
+        )
+        # DS14-Soyuz-end
         if unit is not None:
             units.append(unit)
 
@@ -143,12 +167,22 @@ def build_file_unit(file_path: Path, namespace_prefix: str) -> TestUnit | None:
     )
 
 
-def build_directory_unit(directory: Path, namespace_prefix: str) -> TestUnit | None:
+# DS14-Soyuz-start
+def build_directory_unit(
+    directory: Path,
+    namespace_prefix: str,
+    excluded_directories: tuple[Path, ...] = (),
+) -> TestUnit | None:
     test_files = [
         test_file
-        for test_file in (read_test_file(file_path, namespace_prefix) for file_path in sorted(directory.rglob("*.cs")))
+        for test_file in (
+            read_test_file(file_path, namespace_prefix)
+            for file_path in sorted(directory.rglob("*.cs"))
+            if not any(file_path.is_relative_to(excluded) for excluded in excluded_directories)
+        )
         if test_file.weight > 0
     ]
+    # DS14-Soyuz-end
 
     if not test_files:
         return None

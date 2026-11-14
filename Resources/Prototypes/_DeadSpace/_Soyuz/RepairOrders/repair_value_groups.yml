@@ -144,6 +144,7 @@
   - TegCenter
   - TritiumCanister
   - TungstenGasCanister
+  - TungstenTlecCanister
   - WaterVaporCanister
   - ZaukerCanister
 - type: repairValueGroup
@@ -3439,10 +3440,14 @@
   - AirlockExternalGlassShuttleCentcommERTGammaLocked
   - AirlockExternalGlassShuttleCentcommERTLocked
   - AirlockExternalGlassShuttleCentcommERTOfficialLocked
+  - AirlockExternalGlassShuttleDeathSquad
   - AirlockExternalGlassShuttleEmergencyLocked
   - AirlockExternalGlassShuttleEscape
+  - AirlockExternalGlassShuttleGeneralStaff
   - AirlockExternalGlassShuttleLocked
   - AirlockExternalGlassShuttleNukeopLocked
+  - AirlockExternalGlassShuttleSecurity
+  - AirlockExternalGlassShuttleSecurityRandom
   - AirlockExternalGlassShuttleSyndicateLocked
   - AirlockExternalGlassShuttleTaipanLocked
   - AirlockExternalShuttleLocked

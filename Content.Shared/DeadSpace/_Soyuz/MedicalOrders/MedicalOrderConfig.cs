@@ -33,6 +33,17 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField] public decimal? MarketBaseReputationMin;
     [DataField] public decimal? MarketBaseReputationMax;
     [DataField] public Dictionary<MedicalReagentDifficulty, MedicalReagentMarketTier> MarketDifficulties = new();
+    [DataField] public TimeSpan MarketFluctuationInterval = TimeSpan.FromSeconds(45);
+    [DataField] public int MarketPriceStepPercent = 8;
+    [DataField] public TimeSpan MarketNewsMinInterval = TimeSpan.FromMinutes(4);
+    [DataField] public TimeSpan MarketNewsMaxInterval = TimeSpan.FromMinutes(7);
+    [DataField] public TimeSpan MarketNewsDuration = TimeSpan.FromMinutes(10);
+    [DataField] public int MarketNewsMinVolume = 150;
+    [DataField] public int MarketNewsMaxVolume = 300;
+    [DataField] public List<int> MarketNewsBonuses = new() { 50, 75, 100 };
+    [DataField] public List<string> MarketNewsHeadlines = new();
+    [DataField] public List<string> MarketNewsBodies = new();
+    [DataField] public List<string> MarketNewsSources = new();
     [DataField(required: true)] public List<MedicalReagentMarketEntry> MarketReagents = new();
     [DataField(required: true)] public List<MedicalOrderDamage> Damages = new();
     [DataField(required: true)] public List<MedicalOrderDifficulty> Difficulties = new();
@@ -53,18 +64,27 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
         if (!MarketReagents.Any(r => r.Enabled) ||
             MarketReagents.GroupBy(r => r.Reagent).Any(g => g.Count() != 1) ||
             MarketReagents.Any(r => r.BasePrice <= 0 || r.BasePrice > 1000000 ||
-                r.MinimumPrice <= 0 || r.MinimumPrice > r.BasePrice ||
                 r.ReputationPerUnit < 0 || r.ReputationPerUnit > 1000000 ||
                 r.SaturationVolume <= 0 || r.SaturationVolume > 1000000 ||
                 r.RecoveryPerMinute <= 0 || r.RecoveryPerMinute > 1000000))
             throw new InvalidDataException($"Medical orders config {ID} has an invalid reagent market.");
 
+        if (MarketFluctuationInterval < TimeSpan.FromSeconds(5) || MarketFluctuationInterval > TimeSpan.FromMinutes(10) ||
+            MarketPriceStepPercent is < 1 or > 25 ||
+            MarketNewsMinInterval < TimeSpan.FromMinutes(1) || MarketNewsMaxInterval < MarketNewsMinInterval ||
+            MarketNewsMaxInterval > TimeSpan.FromHours(1) || MarketNewsDuration <= TimeSpan.Zero ||
+            MarketNewsDuration > TimeSpan.FromMinutes(30) || MarketNewsMinVolume <= 0 ||
+            MarketNewsMaxVolume < MarketNewsMinVolume || MarketNewsMaxVolume > 10000 ||
+            MarketNewsBonuses.Count == 0 || MarketNewsBonuses.Any(b => b is <= 0 or > 500) ||
+            MarketNewsHeadlines.Count == 0 || MarketNewsBodies.Count == 0 || MarketNewsSources.Count == 0 ||
+            MarketNewsHeadlines.Concat(MarketNewsBodies).Concat(MarketNewsSources).Any(string.IsNullOrWhiteSpace))
+            throw new InvalidDataException($"Medical orders config {ID} has invalid market news or fluctuation settings.");
+
         if (MarketBasePriceMin != null || MarketBasePriceMax != null)
         {
             if (MarketBasePriceMin is not { } minimum || MarketBasePriceMax is not { } maximum ||
                 minimum <= 0 || maximum > 1000000 || minimum > maximum ||
-                decimal.Ceiling(minimum * 100m) > decimal.Floor(maximum * 100m) ||
-                MarketReagents.Any(r => r.MinimumPrice > minimum))
+                decimal.Ceiling(minimum * 100m) > decimal.Floor(maximum * 100m))
                 throw new InvalidDataException($"Medical orders config {ID} has an invalid market base price range.");
         }
 
@@ -87,7 +107,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
         }
 
         if (MarketDifficulties.Count > 0 && MarketReagents.Any(r =>
-                !MarketDifficulties.TryGetValue(r.Difficulty, out var tier) || r.MinimumPrice > tier.BasePriceMin))
+                !MarketDifficulties.ContainsKey(r.Difficulty)))
             throw new InvalidDataException($"Medical orders config {ID} has a missing or incompatible market difficulty.");
 
         if (Damages.Count(d => d.CanGenerate) < MinDamageEntries ||
@@ -152,7 +172,6 @@ public sealed partial class MedicalReagentMarketEntry
     [DataField] public bool Enabled = true;
     [DataField] public MedicalReagentDifficulty Difficulty;
     [DataField(required: true)] public decimal BasePrice;
-    [DataField(required: true)] public decimal MinimumPrice;
     [DataField(required: true)] public decimal ReputationPerUnit;
     [DataField(required: true)] public decimal SaturationVolume;
     [DataField(required: true)] public decimal RecoveryPerMinute;

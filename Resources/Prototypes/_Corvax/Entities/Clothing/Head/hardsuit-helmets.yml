@@ -1,9 +1,9 @@
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetCBURNLeader
   categories: [ HideSpawnMenu ]
   name: cburn commander helmet
-  description: A pressure resistant and fireproof hood worn by special cleanup units.
+  description: A pressure resistant and fireproof hood worn by special cleanup units. Includes a built-in bluespace mass scanner. # DS14-Soyuz
   components:
   - type: Sprite
     netsync: false

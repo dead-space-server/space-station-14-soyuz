@@ -3,7 +3,7 @@
   parent: [ BaseCentcommContraband, ClothingHeadHelmetHardsuitERTLeader, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetHardsuitNavyBase
   name: базовый шлем ВКФ СССП
-  description: Глядя на его фонарик вам хочется рыдать.
+  description: Глядя на его фонарик вам хочется рыдать. Оснащён встроенным блюспейс-сканером масс.
   abstract: true
   categories: [ HideSpawnMenu ]
   components:

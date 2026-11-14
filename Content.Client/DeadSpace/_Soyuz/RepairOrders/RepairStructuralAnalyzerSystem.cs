@@ -125,6 +125,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         _settings = null;
         _settingsDevice = null;
         _overlay.NavigationTarget = null;
+        _overlay.ReconstructionSelection = null;
     }
 
     public override void Update(float frameTime)
@@ -134,6 +135,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         var player = _player.LocalEntity;
         var range = 0f;
         _activeAnalyzer = null;
+        _overlay.ReconstructionSelection = null;
         if (player is { } playerUid)
         {
             if (_inventory.TryGetContainerSlotEnumerator(playerUid, out var enumerator))
@@ -148,7 +150,13 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             foreach (var hand in _hands.EnumerateHands(playerUid))
             {
                 if (_hands.TryGetHeldItem(playerUid, hand, out var held))
+                {
                     ConsiderAnalyzer(held.Value, ref range);
+                    if (TryComp<RepairReconstructorComponent>(held, out var tablet) &&
+                        tablet.SelectionUser == GetNetEntity(playerUid) && tablet.SelectionGrid is { } grid &&
+                        tablet.SelectionStart is { } start)
+                        _overlay.ReconstructionSelection = (GetEntity(grid), start, tablet.SelectionEnd ?? start, tablet.BlockedCells);
+                }
             }
         }
 
@@ -269,8 +277,6 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             _overlay.NavigationTarget = null;
             return;
         }
-        if (_overlay.NavigationTarget is { } previousTarget && previousTarget.Grid != Transform(viewer).GridUid)
-            _navigationDirty = true;
         _navigationRefresh += frameTime;
         if (!_navigationDirty && _navigationRefresh < 0.25f)
             return;
@@ -280,11 +286,10 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         _overlay.NavigationTarget = null;
 
         var coordinates = _transform.GetMapCoordinates(viewer);
-        var currentGrid = Transform(viewer).GridUid;
         var layer = GetLayer(glasses);
         foreach (var (grid, tasks) in _navigationSnapshots)
         {
-            if (grid != currentGrid || !Exists(grid))
+            if (!Exists(grid) || _transform.GetMapCoordinates(grid).MapId != coordinates.MapId)
                 continue;
             foreach (var task in tasks)
             {

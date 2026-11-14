@@ -14,6 +14,30 @@ public sealed partial class MedicalOrderSystem
     private readonly Dictionary<string, Dictionary<string, decimal>> _marketBasePrices = new();
     private readonly Dictionary<string, Dictionary<string, decimal>> _marketBaseReputations = new();
 
+    private bool RefreshMarketConfiguration(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
+    {
+        if (ReferenceEquals(state.MarketConfiguration, config))
+            return false;
+        var enabled = config.MarketReagents.Where(r => r.Enabled).Select(r => r.Reagent.Id).ToHashSet();
+        var news = state.MarketNews.Where(n => n.Remaining <= FixedPoint2.Zero ||
+            n.ExpiresAt <= _timing.CurTime || enabled.Contains(n.Reagent)).ToList();
+        state.MarketNews = news;
+        state.MarketConfiguration = config;
+        return true;
+    }
+
+    private bool TryFluctuateMarket(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
+    {
+        if (_timing.CurTime < state.NextMarketFluctuation)
+            return false;
+        var trends = config.MarketReagents.ToDictionary(r => r.Reagent.Id, r =>
+            Math.Clamp(state.MarketTrends.GetValueOrDefault(r.Reagent.Id) * 0.95m +
+                _random.Next(-config.MarketPriceStepPercent, config.MarketPriceStepPercent + 1) / 100m, -0.9m, 0.25m));
+        state.MarketTrends = trends;
+        state.NextMarketFluctuation = _timing.CurTime + config.MarketFluctuationInterval;
+        return true;
+    }
+
     private bool TryGetMedicalBeaker(EntityUid terminal,
         [NotNullWhen(true)] out Entity<SolutionComponent>? entity,
         [NotNullWhen(true)] out Solution? solution)
@@ -25,51 +49,31 @@ public sealed partial class MedicalOrderSystem
     }
 
     private decimal GetMarketBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
-    {
-        if (config.MarketDifficulties.Count == 0 &&
-            (config.MarketBasePriceMin == null || config.MarketBasePriceMax == null))
-            return entry.BasePrice;
-
-        if (!_marketBasePrices.TryGetValue(config.ID, out var prices))
-        {
-            prices = new Dictionary<string, decimal>();
-            foreach (var reagent in config.MarketReagents)
-            {
-                config.MarketDifficulties.TryGetValue(reagent.Difficulty, out var tier);
-                var minimum = tier?.BasePriceMin ?? config.MarketBasePriceMin!.Value;
-                var maximum = tier?.BasePriceMax ?? config.MarketBasePriceMax!.Value;
-                var minimumCents = (int) decimal.Ceiling(minimum * 100m);
-                var maximumCents = (int) decimal.Floor(maximum * 100m);
-                prices.Add(reagent.Reagent.Id, _random.Next(minimumCents, maximumCents + 1) / 100m);
-            }
-            _marketBasePrices.Add(config.ID, prices);
-        }
-
-        return prices[entry.Reagent.Id];
-    }
+        => GetMarketBaseValue(config, entry, reputation: false);
 
     private decimal GetMarketBaseReputation(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
+        => GetMarketBaseValue(config, entry, reputation: true);
+
+    private decimal GetMarketBaseValue(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry, bool reputation)
     {
-        if (config.MarketDifficulties.Count == 0 &&
-            (config.MarketBaseReputationMin == null || config.MarketBaseReputationMax == null))
-            return entry.ReputationPerUnit;
+        config.MarketDifficulties.TryGetValue(entry.Difficulty, out var tier);
+        var minimum = reputation ? tier?.BaseReputationMin ?? config.MarketBaseReputationMin
+            : tier?.BasePriceMin ?? config.MarketBasePriceMin;
+        var maximum = reputation ? tier?.BaseReputationMax ?? config.MarketBaseReputationMax
+            : tier?.BasePriceMax ?? config.MarketBasePriceMax;
+        if (minimum == null || maximum == null)
+            return reputation ? entry.ReputationPerUnit : entry.BasePrice;
 
-        if (!_marketBaseReputations.TryGetValue(config.ID, out var reputations))
-        {
-            reputations = new Dictionary<string, decimal>();
-            foreach (var reagent in config.MarketReagents)
-            {
-                config.MarketDifficulties.TryGetValue(reagent.Difficulty, out var tier);
-                var minimum = tier?.BaseReputationMin ?? config.MarketBaseReputationMin!.Value;
-                var maximum = tier?.BaseReputationMax ?? config.MarketBaseReputationMax!.Value;
-                var minimumCents = (int) decimal.Ceiling(minimum * 100m);
-                var maximumCents = (int) decimal.Floor(maximum * 100m);
-                reputations.Add(reagent.Reagent.Id, _random.Next(minimumCents, maximumCents + 1) / 100m);
-            }
-            _marketBaseReputations.Add(config.ID, reputations);
-        }
-
-        return reputations[entry.Reagent.Id];
+        var cache = reputation ? _marketBaseReputations : _marketBasePrices;
+        if (!cache.TryGetValue(config.ID, out var values))
+            cache.Add(config.ID, values = new Dictionary<string, decimal>());
+        var minimumCents = (int) decimal.Ceiling(minimum.Value * 100m);
+        var maximumCents = (int) decimal.Floor(maximum.Value * 100m);
+        var value = values.TryGetValue(entry.Reagent.Id, out var previous)
+            ? Math.Clamp(previous, minimumCents / 100m, maximumCents / 100m)
+            : _random.Next(minimumCents, maximumCents + 1) / 100m;
+        values[entry.Reagent.Id] = value;
+        return value;
     }
 
     /// <summary>
@@ -78,21 +82,27 @@ public sealed partial class MedicalOrderSystem
     /// </summary>
     public static (decimal Points, decimal Reputation) GetMarketReturn(
         MedicalReagentMarketEntry entry, decimal pressure, decimal volume, decimal? basePrice = null,
-        decimal? reputationPerUnit = null)
+        decimal? reputationPerUnit = null, decimal trend = 0m)
     {
-        var openingPrice = basePrice ?? entry.BasePrice;
-        var remainingDemand = Math.Max(0m, entry.SaturationVolume - pressure);
-        var decliningVolume = Math.Min(volume, remainingDemand);
-        var points = entry.MinimumPrice * volume + (openingPrice - entry.MinimumPrice) *
-            decliningVolume * (remainingDemand - decliningVolume / 2m) / entry.SaturationVolume;
-        return (points, points * (reputationPerUnit ?? entry.ReputationPerUnit) / openingPrice);
+        pressure = Math.Clamp(pressure, 0m, entry.SaturationVolume);
+        volume = Math.Max(0m, volume);
+        var declining = Math.Min(volume, entry.SaturationVolume - pressure);
+        var weighted = declining * (MarketMultiplier(entry, pressure, trend) + MarketMultiplier(entry, pressure + declining, trend)) / 2m
+            + (volume - declining) * 0.1m;
+        return (weighted * (basePrice ?? entry.BasePrice), weighted * (reputationPerUnit ?? entry.ReputationPerUnit));
+    }
+
+    private static decimal MarketMultiplier(MedicalReagentMarketEntry entry, decimal pressure, decimal trend = 0m)
+    {
+        var baseline = Math.Clamp(1m + trend, 0.1m, 1.25m);
+        return baseline - (baseline - 0.1m) * Math.Clamp(pressure / entry.SaturationVolume, 0m, 1m);
     }
 
     public static decimal RecoverMarketPressure(MedicalReagentMarketEntry entry,
         decimal pressure, TimeSpan elapsed)
     {
         var minutes = Math.Max(0m, elapsed.Ticks / (decimal) TimeSpan.TicksPerMinute);
-        return Math.Max(0m, pressure - minutes * entry.RecoveryPerMinute);
+        return Math.Max(0m, Math.Min(pressure, entry.SaturationVolume) - minutes * entry.RecoveryPerMinute);
     }
 
     private decimal GetMarketPressure(MedicalOrderStationComponent state,
@@ -101,6 +111,59 @@ public sealed partial class MedicalOrderSystem
         return state.MarketDemand.TryGetValue(entry.Reagent.Id, out var demand)
             ? RecoverMarketPressure(entry, demand.Pressure, _timing.CurTime - demand.UpdatedAt)
             : 0m;
+    }
+
+    private MedicalMarketNews? ActiveMarketNews(IEnumerable<MedicalMarketNews> news, string reagent) =>
+        news.FirstOrDefault(n => n.Reagent == reagent && n.Remaining > FixedPoint2.Zero && n.ExpiresAt > _timing.CurTime);
+
+    private static (decimal Points, decimal Reputation) MarketQuote(MedicalReagentMarketEntry entry,
+        decimal pressure, FixedPoint2 volume, decimal price, decimal reputation, decimal trend, MedicalMarketNews? news)
+    {
+        var premiumVolume = news == null ? 0m : Math.Min(volume.Value, news.Remaining.Value) / 100m;
+        var reward = GetMarketReturn(entry, pressure, volume.Value / 100m - premiumVolume, price, reputation, trend);
+        var premium = premiumVolume * MarketMultiplier(entry, pressure, trend) * (1m + (news?.BonusPercent ?? 0) / 100m);
+        return (reward.Points + premium * price, reward.Reputation + premium * reputation);
+    }
+
+    private TimeSpan NextMarketNewsAt(MedicalOrderConfigPrototype config) => _timing.CurTime +
+        TimeSpan.FromSeconds(_random.Next((int) config.MarketNewsMinInterval.TotalSeconds,
+            (int) config.MarketNewsMaxInterval.TotalSeconds + 1));
+
+    private bool TryPublishMarketNews(MedicalOrderStationComponent state, MedicalOrderConfigPrototype config)
+    {
+        if (state.Busy || _timing.CurTime < state.NextMarketNews)
+            return false;
+        var now = _timing.CurTime;
+        var active = state.MarketNews.Where(n => n.Remaining > FixedPoint2.Zero && n.ExpiresAt > now).ToArray();
+        var candidates = config.MarketReagents.Where(r => r.Enabled && active.All(n => n.Reagent != r.Reagent.Id)).ToArray();
+        var next = NextMarketNewsAt(config);
+        if (active.Length >= 3 || candidates.Length == 0)
+        {
+            state.NextMarketNews = next;
+            return true;
+        }
+
+        var bodies = state.MarketNewsBodyPool.Where(config.MarketNewsBodies.Contains).Distinct().ToList();
+        if (bodies.Count == 0)
+            bodies = config.MarketNewsBodies.Distinct().ToList();
+        var lastBody = state.MarketNews.LastOrDefault()?.Body;
+        var eligible = bodies.Where(b => bodies.Count == 1 || b != lastBody).ToArray();
+        var body = eligible[_random.Next(eligible.Length)];
+        bodies.Remove(body);
+        var reagent = candidates[_random.Next(candidates.Length)].Reagent.Id;
+        var volume = FixedPoint2.New(_random.Next(config.MarketNewsMinVolume, config.MarketNewsMaxVolume + 1));
+        var news = new MedicalMarketNews(state.NextMarketNewsId, reagent,
+            config.MarketNewsHeadlines[_random.Next(config.MarketNewsHeadlines.Count)], body,
+            config.MarketNewsSources[_random.Next(config.MarketNewsSources.Count)],
+            config.MarketNewsBonuses[_random.Next(config.MarketNewsBonuses.Count)], volume, volume, now,
+            now + config.MarketNewsDuration);
+        var archive = state.MarketNews.Except(active).TakeLast(12);
+        var updated = archive.Concat(active).Append(news).OrderBy(n => n.Id).ToList();
+        state.MarketNews = updated;
+        state.MarketNewsBodyPool = bodies;
+        state.NextMarketNewsId++;
+        state.NextMarketNews = next;
+        return true;
     }
 
     private MedicalReagentMarketView[] BuildMarketView(EntityUid terminal,
@@ -120,15 +183,18 @@ public sealed partial class MedicalOrderSystem
             var basePrice = GetMarketBasePrice(config, entry);
             var baseReputation = GetMarketBaseReputation(config, entry);
             var pressure = GetMarketPressure(state, entry);
-            var price = basePrice - (basePrice - entry.MinimumPrice) *
-                Math.Min(pressure / entry.SaturationVolume, 1m);
+            var trend = state.MarketTrends.GetValueOrDefault(entry.Reagent.Id);
+            var multiplier = MarketMultiplier(entry, pressure, trend);
+            var news = ActiveMarketNews(state.MarketNews, entry.Reagent.Id);
+            var price = basePrice * multiplier * (1m + (news?.BonusPercent ?? 0) / 100m);
             var amount = solution?.GetTotalPrototypeQuantity(entry.Reagent) ?? FixedPoint2.Zero;
-            var reward = GetMarketReturn(entry, pressure, amount.Value / 100m, basePrice, baseReputation);
+            var reward = MarketQuote(entry, pressure, amount, basePrice, baseReputation, trend, news);
             totalPoints += reward.Points;
             totalReputation += reward.Reputation;
             accepted += amount;
             views.Add(new MedicalReagentMarketView(entry.Reagent.Id, (double) price,
-                (double) (price * baseReputation / basePrice), amount.Float()));
+                (double) (price * baseReputation / basePrice), amount.Float(), (double) multiplier,
+                (double) basePrice, news?.BonusPercent ?? 0, news?.Remaining.Float() ?? 0));
         }
 
         points = (long) Math.Min(decimal.Floor(totalPoints), long.MaxValue - state.Points);
@@ -160,6 +226,7 @@ public sealed partial class MedicalOrderSystem
             var remaining = solution.Clone();
             remaining.Name = solution.Name;
             var demand = new Dictionary<string, MedicalReagentMarketDemand>(state.MarketDemand);
+            var news = new List<MedicalMarketNews>(state.MarketNews);
             var sold = false;
             decimal totalPoints = state.MarketPointRemainder;
             decimal totalReputation = state.MarketReputationRemainder;
@@ -171,16 +238,26 @@ public sealed partial class MedicalOrderSystem
                     continue;
                 sold = true;
                 var pressure = GetMarketPressure(state, entry);
-                var volume = removed.Value / 100m;
-                var reward = GetMarketReturn(entry, pressure, volume, GetMarketBasePrice(config, entry),
-                    GetMarketBaseReputation(config, entry));
+                var bulletin = ActiveMarketNews(news, entry.Reagent.Id);
+                var newsVolume = bulletin == null ? FixedPoint2.Zero : FixedPoint2.Min(removed, bulletin.Remaining);
+                var ordinaryVolume = (removed - newsVolume).Value / 100m;
+                var reward = MarketQuote(entry, pressure, removed, GetMarketBasePrice(config, entry),
+                    GetMarketBaseReputation(config, entry), state.MarketTrends.GetValueOrDefault(entry.Reagent.Id), bulletin);
+                if (bulletin != null)
+                    news[news.IndexOf(bulletin)] = bulletin with
+                    {
+                        Remaining = FixedPoint2.Max(FixedPoint2.Zero, bulletin.Remaining - removed),
+                    };
                 totalPoints += reward.Points;
                 totalReputation += reward.Reputation;
-                demand[entry.Reagent.Id] = new MedicalReagentMarketDemand
+                if (ordinaryVolume > 0m)
                 {
-                    Pressure = pressure + volume,
-                    UpdatedAt = _timing.CurTime,
-                };
+                    demand[entry.Reagent.Id] = new MedicalReagentMarketDemand
+                    {
+                        Pressure = Math.Min(entry.SaturationVolume, pressure + ordinaryVolume),
+                        UpdatedAt = _timing.CurTime,
+                    };
+                }
             }
 
             if (!sold)
@@ -199,6 +276,7 @@ public sealed partial class MedicalOrderSystem
             var reputation = (long) decimal.Floor(totalReputation);
             solutionEntity.Value.Comp.Solution = remaining;
             state.MarketDemand = demand;
+            state.MarketNews = news;
             state.MarketPointRemainder = totalPoints - points;
             state.MarketReputationRemainder = totalReputation - reputation;
             state.Points += points;
@@ -222,4 +300,5 @@ public sealed partial class MedicalOrderSystem
             state.Busy = false;
         }
     }
+
 }

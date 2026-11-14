@@ -6,7 +6,9 @@ using Content.Server.Power.Components;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Power;
 using Content.Shared.Access.Systems;
+using Content.Shared.ActionBlocker;
 using Content.Server.Popups;
+using Content.Server.Station.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
 using Content.Shared.Hands;
 using Content.Shared.Hands.EntitySystems;
@@ -14,6 +16,7 @@ using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.GameTicking;
 using Robust.Server.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Map.Components;
@@ -30,8 +33,11 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 {
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly RepairOrderValidationSystem _validation = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly StationSystem _station = default!;
+    private readonly Dictionary<NetUserId, EntityUid> _navigationGrids = new();
     private const float SnapshotInterval = 0.25f;
 
     [Dependency] private readonly SharedHandsSystem _hands = default!;
@@ -57,6 +63,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
 
         SubscribeNetworkEvent<RepairAnalyzerWaiverRequest>(OnWaiverRequest);
         _player.PlayerStatusChanged += OnPlayerStatusChanged;
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(_ => _navigationGrids.Clear());
     }
 
     public override void Shutdown()
@@ -64,6 +71,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         _player.PlayerStatusChanged -= OnPlayerStatusChanged;
         _sentSnapshots.Clear();
         _sentNavigationSnapshots.Clear();
+        _navigationGrids.Clear();
         base.Shutdown();
     }
 
@@ -86,6 +94,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
     private void OnWaiverRequest(RepairAnalyzerWaiverRequest message, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } user || !Exists(user) ||
+            !_blocker.CanInteract(user, null) || !_blocker.CanComplexInteract(user) ||
             !TryGetEnabledAnalyzerRange(user, out var range)) return;
         if (!_access.FindAccessTags(user).Any(tag => tag.Id == "Engineering"))
         {
@@ -156,6 +165,8 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
             return;
         }
 
+        // Keep the selected repair grid across a disconnect, including reconnects in deep space.
+        // Availability is checked before every reuse and round cleanup clears the bindings.
         var hadLocal = _sentSnapshots.Remove(args.Session.UserId, out var snapshots) && snapshots.Count > 0;
         var hadNavigation = _sentNavigationSnapshots.Remove(args.Session.UserId, out var navigation) && navigation.Count > 0;
         if (hadLocal || hadNavigation)
@@ -185,7 +196,16 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         }
 
         if (session.AttachedEntity is { Valid: true } wearer && Exists(wearer) && HasNavigationGlasses(wearer))
-            BuildAuthorizedSnapshots(wearer, float.PositiveInfinity, navigationSnapshots, navigation: true);
+        {
+            var navigationGrid = GetNavigationGrid(wearer, session.UserId);
+            if (navigationGrid != null)
+                BuildAuthorizedSnapshots(wearer, float.PositiveInfinity, navigationSnapshots, navigation: true,
+                    navigationGrid: navigationGrid);
+        }
+        else if (session.AttachedEntity is { } attached && Exists(attached))
+        {
+            _navigationGrids.Remove(session.UserId);
+        }
 
         var localChanged = !_sentSnapshots.TryGetValue(session.UserId, out var previous) ||
                            !SnapshotsEqual(previous, snapshots);
@@ -258,6 +278,45 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         return MathF.Max(0f, component.Range);
     }
 
+    private EntityUid? GetNavigationGrid(EntityUid wearer, NetUserId user)
+    {
+        var viewer = _transform.GetMapCoordinates(wearer);
+        bool Available(EntityUid grid) =>
+            TryComp<RepairBlueprintComponent>(grid, out var blueprint) && blueprint.Ready &&
+            Transform(grid).MapID == viewer.MapId &&
+            TryComp<RepairOrderStationComponent>(blueprint.Station, out var state) && state.Active?.GridUid == grid;
+
+        // Boarding another order explicitly changes the selection. Leaving its hull does not.
+        if (Transform(wearer).GridUid is { } current && Available(current))
+            return _navigationGrids[user] = current;
+        if (_navigationGrids.TryGetValue(user, out var selected) && Available(selected))
+            return selected;
+        _navigationGrids.Remove(user);
+
+        if (_station.GetOwningStation(wearer) is { } station &&
+            TryComp<RepairOrderStationComponent>(station, out var state) &&
+            state.Active is { } active && Available(active.GridUid))
+            return _navigationGrids[user] = active.GridUid;
+
+        // A wearer already outside any grid may still select a nearby repair object.
+        var nearestDistance = 342f * 342f;
+        EntityUid? nearest = null;
+        var query = EntityQueryEnumerator<RepairBlueprintComponent, TransformComponent>();
+        while (query.MoveNext(out var grid, out _, out _))
+        {
+            if (!Available(grid))
+                continue;
+            var distance = Vector2.DistanceSquared(viewer.Position, _transform.GetWorldPosition(grid));
+            if (distance >= nearestDistance)
+                continue;
+            nearestDistance = distance;
+            nearest = grid;
+        }
+        if (nearest is { } found)
+            _navigationGrids[user] = found;
+        return nearest;
+    }
+
     private bool HasNavigationGlasses(EntityUid user)
         => _inventory.TryGetSlotEntity(user, "eyes", out var glasses) &&
            TryComp<RepairStructuralAnalyzerComponent>(glasses, out var analyzer) && analyzer.Navigation &&
@@ -267,7 +326,8 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         EntityUid user,
         float range,
         Dictionary<EntityUid, RepairAnalyzerTaskData[]> snapshots,
-        bool navigation = false)
+        bool navigation = false,
+        EntityUid? navigationGrid = null)
     {
         var viewerCoordinates = _transform.GetMapCoordinates(user);
         var rangeSquared = range * range;
@@ -276,7 +336,7 @@ public sealed class RepairStructuralAnalyzerSystem : EntitySystem
         while (query.MoveNext(out var gridUid, out var blueprint, out var grid, out var gridTransform))
         {
             if (!blueprint.Ready ||
-                (navigation && Transform(user).GridUid != gridUid) ||
+                (navigation && navigationGrid != gridUid) ||
                 gridTransform.MapID != viewerCoordinates.MapId ||
                 !TryComp<RepairOrderStationComponent>(blueprint.Station, out var station) ||
                 station.Active is not { } active ||

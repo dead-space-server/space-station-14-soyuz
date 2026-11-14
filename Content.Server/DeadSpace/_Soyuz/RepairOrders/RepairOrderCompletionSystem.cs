@@ -80,7 +80,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             return;
         }
 
-        if (_repairOrders.TryFindPlayerOnRepairGrid(active.GridUid, out var player))
+        if (!args.Retain && _repairOrders.TryFindPlayerOnRepairGrid(active.GridUid, out var player))
         {
             Fail(
                 console.Owner,
@@ -90,10 +90,18 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             return;
         }
 
+        if (args.Retain && (order.Difficulty is < 7 or > 10 || active.MaxPoints <= 0 ||
+            HasComp<RepairOrderCleanupComponent>(active.GridUid) || HasComp<RepairRetainedGridComponent>(active.GridUid)))
+        {
+            Fail(console.Owner, args.Actor, "repair-orders-retain-unavailable", "order cannot be retained");
+            return;
+        }
+
         state.Completing = true;
 
         var committed = false;
         var actor = args.Actor;
+        var preparedRetention = false;
         try
         {
             _repairOrders.RefreshStationUis(stationUid.Value);
@@ -126,7 +134,18 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 return;
             }
 
-            var rewardBudget = RepairOrderRewardBudget.ForSuccessfulCompletion(active.FinalPoints);
+            var quotedReward = RepairOrderRewardBudget.ForSuccessfulCompletion(active.FinalPoints);
+            if (args.Retain && args.ExpectedRetentionCost != active.MaxPoints)
+            {
+                Fail(console.Owner, args.Actor, "repair-orders-retain-price-changed", "retention quote is stale");
+                return;
+            }
+            if (args.Retain && state.RepairPoints < active.MaxPoints)
+            {
+                Fail(console.Owner, args.Actor, "repair-orders-shop-error-points", "insufficient retention balance");
+                return;
+            }
+            var rewardBudget = args.Retain ? 0 : quotedReward;
             var repairPercent = RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks);
             if (!_rewards.TryCalculateReputation(order, repairPercent, out var earnedReputation))
             {
@@ -144,9 +163,18 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 active.MaxPoints,
                 rewardBudget,
                 earnedReputation,
-                RepairOrderResult.Completed);
+                args.Retain ? RepairOrderResult.Retained : RepairOrderResult.Completed)
+            {
+                RetentionCost = args.Retain ? active.MaxPoints : 0,
+            };
 
             _repairOrders.RememberRepairConsole(stationUid.Value, console.Owner);
+
+            if (args.Retain)
+            {
+                EnsureComp<RepairRetainedGridComponent>(active.GridUid).Station = stationUid.Value;
+                preparedRetention = true;
+            }
 
             if (!_repairOrders.TryCommitCompletion(stationUid.Value, active, completed, out var repairGrid))
             {
@@ -161,15 +189,18 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             committed = true;
 
             // The completed snapshot contains every persistent result; runtime cleanup remains player-safe.
-            _repairOrders.CleanupTerminalGrid(stationUid.Value, repairGrid);
+            if (!args.Retain)
+                _repairOrders.CleanupTerminalGrid(stationUid.Value, repairGrid);
+            else
+                _repairOrders.RunPostCommitEffect("retained object registration", () => _repairOrders.RegisterRetainedGrid(repairGrid));
 
             _repairOrders.RunPostCommitEffect("completion log", () => _sawmill.Info(
                 $"Completed repair order {completed.RuntimeId} ({completed.Prototype}) for station {stationUid}: " +
                 $"{completed.CompletedTasks}/{completed.TotalTasks} tasks, {completed.FinalPoints}/{completed.MaxPoints} points, " +
                 $"earned {completed.RewardBudget} repair points and {completed.EarnedReputation} reputation; " +
-                $"queued grid {repairGrid} for deletion."));
+                $"grid {repairGrid}: {completed.Result}."));
             _repairOrders.RunPostCommitEffect("completion popup", () => _popup.PopupEntity(
-                Loc.GetString("repair-orders-complete-success"),
+                Loc.GetString(completed.Result == RepairOrderResult.Retained ? "repair-orders-retain-success" : "repair-orders-complete-success"),
                 console.Owner,
                 actor,
                 PopupType.Medium));
@@ -194,9 +225,15 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
         }
         finally
         {
+            if (!committed && preparedRetention && Exists(active.GridUid))
+                RemComp<RepairRetainedGridComponent>(active.GridUid);
             state.Completing = false;
             if (committed)
+            {
+                _repairOrders.RunPostCommitEffect("completion offer refresh", () =>
+                    _repairOrders.GenerateOffer((stationUid.Value, state), refresh: true, resetTimer: false));
                 _repairOrders.RunPostCommitEffect("completion UI refresh", () => _repairOrders.RefreshStationUis(stationUid.Value));
+            }
             else
                 _repairOrders.RefreshStationUis(stationUid.Value);
         }

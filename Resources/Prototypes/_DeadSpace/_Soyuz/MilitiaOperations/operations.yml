@@ -91,6 +91,7 @@
   suffix: Враждебный
   description: Вооружённый участник нелегальной группы.
   components:
+  - type: StunImmune
   - type: MovementIgnoreGravity
     weightless: false
   - type: CanMoveInAir

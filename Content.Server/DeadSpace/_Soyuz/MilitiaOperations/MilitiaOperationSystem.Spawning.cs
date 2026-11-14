@@ -71,7 +71,7 @@ public sealed partial class MilitiaOperationSystem
             {
                 if (tileRef is not { } tile)
                     continue;
-                if (!tile.Tile.IsEmpty && !_turf.IsTileBlocked(tile, CollisionGroup.MobMask) &&
+                if (!tile.Tile.IsEmpty && !_turf.IsSpace(tile.Tile) && !_turf.IsTileBlocked(tile, CollisionGroup.MobMask) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(1, 0)) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(-1, 0)) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(0, 1)) &&
@@ -232,7 +232,7 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private bool HasFloor(EntityUid uid, MapGridComponent grid, Vector2i indices)
-        => _maps.TryGetTileRef(uid, grid, indices, out var tile) && !tile.Tile.IsEmpty;
+        => _maps.TryGetTileRef(uid, grid, indices, out var tile) && !tile.Tile.IsEmpty && !_turf.IsSpace(tile.Tile);
 
     private static EntityCoordinates TileCoordinates(EntityUid uid, MapGridComponent grid, Vector2i indices)
         => new(uid, new Vector2((indices.X + 0.5f) * grid.TileSize, (indices.Y + 0.5f) * grid.TileSize));

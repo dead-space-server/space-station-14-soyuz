@@ -1106,7 +1106,7 @@
     - type: RemoveAnchoredEntity
       chance: 0.7
     - type: RemoveTile
-      chance: 0.05
+      chance: 0.07
       maxTargets: 12
 - type: repairDamageEvent
   id: RepairDamageMeteorShower
@@ -1128,7 +1128,7 @@
     - type: RemoveAnchoredEntity
       chance: 0.8
     - type: RemoveTile
-      chance: 0.08
+      chance: 0.1
       maxTargets: 12
 
 - type: repairDamageEvent

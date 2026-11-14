@@ -50,22 +50,30 @@ ent-ClothingHeadHelmetHardsuitPirateEVA = deep space EVA helmet
 ent-ClothingHeadHelmetHardsuitPirateCap = pirate captain's hardsuit helmet
     .desc = A special hardsuit helmet, made for the captain of a pirate ship.
     .suffix = Pirate
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTLeader = ERT leader hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTChaplain = ERT chaplain hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTEngineer = ERT engineer hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTMedical = ERT medic hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTSecurity = ERT security hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitERTJanitor = ERT janitor hardsuit helmet
-    .desc = A special hardsuit helmet worn by members of an emergency response team.
+    .desc = A special hardsuit helmet worn by members of an emergency response team. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetCBURN = CBURN exosuit helmet
-    .desc = A pressure resistant and fireproof hood worn by special cleanup units.
+    .desc = A pressure resistant and fireproof hood worn by special cleanup units. Includes a built-in bluespace mass scanner.
+# DS14-Soyuz
 ent-ClothingHeadHelmetHardsuitDeathsquad = deathsquad hardsuit helmet
-    .desc = A robust helmet for special operations.
+    .desc = A robust helmet for special operations. Includes a built-in bluespace mass scanner.
 ent-ClothingHeadHelmetHardsuitClown = clown hardsuit helmet
     .desc = A clown hardsuit helmet.
 ent-ClothingHeadHelmetHardsuitMime = mime hardsuit helmet

@@ -25,8 +25,7 @@ MAX_SHARD_NAME_LENGTH = 96
 
 # DS14-Soyuz-start
 ISOLATED_TEST_DIRECTORIES = (
-    Path("_Soyuz/RepairOrders"),
-    Path("_Soyuz/MedicalOrders"),
+    Path("_Soyuz"),
 )
 # DS14-Soyuz-end
 

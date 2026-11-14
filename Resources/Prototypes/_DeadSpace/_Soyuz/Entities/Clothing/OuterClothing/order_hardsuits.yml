@@ -1,7 +1,7 @@
 # Скафандры
 
 - type: entity
-  parent: [ BaseCentcommContraband, ClothingOuterHardsuitBase ]
+  parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitRepairOrderEngineer
   name: скафандр ремонтной бригады
   description: Защитный скафандр ремонтной службы СССП для восстановления аварийных станций и повреждённых шаттлов. Оснащён креплением для дыхательного баллона. Усиленная радиационная и взрывная защита помогает работать там, где обычный ремонт заканчивается эвакуацией.
@@ -48,7 +48,7 @@
       - GasTank
 
 - type: entity
-  parent: [ BaseCentcommContraband, ClothingOuterHardsuitBase ]
+  parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitMedicalOrderMedic
   name: скафандр медицинской эвакуации
   description: Скафандр медицинской эвакуационной службы СССП для оказания помощи и перевозки пострадавших из опасных зон. Внутренние отделения вмещают лекарства и медицинские инструменты. Лёгкие приводы и химическая защита позволяют быстро добраться до пациента и вынести его к спасательному шаттлу.

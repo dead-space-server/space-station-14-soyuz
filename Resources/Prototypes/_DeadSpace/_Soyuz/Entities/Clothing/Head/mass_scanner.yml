@@ -3,6 +3,25 @@
   abstract: true
   components:
   - type: RadarConsole
+    maxRange: 256
+    followEntity: true
+  - type: UserInterface
+    interfaces:
+      enum.RadarConsoleUiKey.Key:
+        type: RadarConsoleBoundUserInterface
+  - type: ActionGrant
+    actions:
+    - ActionHardsuitHelmetMassScanner
+  - type: ItemActionGrant
+    actions:
+    - ActionHardsuitHelmetMassScanner
+    activeIfWorn: true
+
+- type: entity
+  id: BaseHardsuitHelmetBluespaceMassScanner
+  abstract: true
+  components:
+  - type: RadarConsole
     maxRange: 342
     followEntity: true
     advanced: true
@@ -25,14 +44,20 @@
         type: RadarConsoleBoundUserInterface
   - type: ActionGrant
     actions:
-    - ActionHardsuitHelmetMassScanner
+    - ActionHardsuitHelmetBluespaceMassScanner
   - type: ItemActionGrant
     actions:
-    - ActionHardsuitHelmetMassScanner
+    - ActionHardsuitHelmetBluespaceMassScanner
     activeIfWorn: true
 
 - type: entity
   parent: ActionPAIMassScanner
   id: ActionHardsuitHelmetMassScanner
+  name: Встроенный сканер масс
+  description: Открыть обычный сканер масс, встроенный в шлем скафандра.
+
+- type: entity
+  parent: ActionPAIMassScanner
+  id: ActionHardsuitHelmetBluespaceMassScanner
   name: Встроенный блюспейс-сканер масс
   description: Открыть блюспейс-сканер масс, встроенный в шлем скафандра.

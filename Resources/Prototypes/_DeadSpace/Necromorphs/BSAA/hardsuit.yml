@@ -57,11 +57,11 @@
     voice: Glados
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: BSAALeaderHelmet
   categories: [ HideSpawnMenu ]
   name: шлем лидера АПБТ
-  description: Позволяет в пылу битву быстро найти командира за счёт опознавательного окраса.
+  description: Позволяет в пылу битву быстро найти командира за счёт опознавательного окраса. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/helmets/bsaa-leader.rsi
@@ -140,11 +140,11 @@
     voice: Glados
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: BSAAFighterHelmet
   categories: [ HideSpawnMenu ]
   name: шлем скафандра бойца АПБТ
-  description: В строгой формы визоре можно разглядеть своё напуганное отражение.
+  description: В строгой формы визоре можно разглядеть своё напуганное отражение. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/helmets/bsaa-fighter.rsi
@@ -223,11 +223,11 @@
     voice: Glados
     
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: BSAAMedicHelmet
   categories: [ HideSpawnMenu ]
   name: шлем скафандра медика АПБТ
-  description: В отблеске визора можно разглядеть свои раны.
+  description: В отблеске визора можно разглядеть свои раны. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/helmets/bsaa-medic.rsi
@@ -293,11 +293,11 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: BSAASpecialistHelmet
   categories: [ HideSpawnMenu ]
   name: шлем скафандра специалиста АПБТ
-  description: Герметичный шлем с мощным красным фонарём.
+  description: Герметичный шлем с мощным красным фонарём. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/helmets/bsaa-spec.rsi
@@ -362,11 +362,11 @@
   - type: HardsuitIdentification
 
 - type: entity
-  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: BSAAFlamerHelmet
   categories: [ HideSpawnMenu ]
   name: шлем скафандра флеймера АПБТ
-  description: Герметичный шлем с мощным красным фонарём.
+  description: Герметичный шлем с мощным красным фонарём. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Necromorfs/BSAA/helmets/bsaa-flame.rsi

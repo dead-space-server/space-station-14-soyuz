@@ -33,11 +33,11 @@
     - BlueShieldHatUpdateArmor
 
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetHardsuitRedSword
   categories: [ HideSpawnMenu, DoNotMap ]
   name: шлем скафандра офицера "Красный Меч"
-  description: Предназначен для спасателя.
+  description: Предназначен для спасателя. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/redsword.rsi
@@ -53,11 +53,11 @@
     - HeadSide
     
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHelmetHardsuitSecurityRed, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetHardsuitGreenBeret
   categories: [ HideSpawnMenu, DoNotMap ]
   name: шлем скафандра офицера "Зелёный Берет"
-  description: Предназначен для спасателя.
+  description: Предназначен для спасателя. Оснащён встроенным блюспейс-сканером масс. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/greenberet.rsi

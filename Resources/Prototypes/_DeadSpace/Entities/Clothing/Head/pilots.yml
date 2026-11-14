@@ -13,11 +13,11 @@
     color: white
 
 - type: entity
-  parent: [ ClothingHeadHelmetHardsuitSecurity, BaseHardsuitHelmetMassScanner ] # DS14-Soyuz
+  parent: [ ClothingHeadHelmetHardsuitSecurity, BaseHardsuitHelmetBluespaceMassScanner ] # DS14-Soyuz
   id: ClothingHeadHelmetHardsuitSecurityPilot
   categories: [ HideSpawnMenu ]
   name: security pilot hardsuit helmet
-  description: Looks like something that inspires order.
+  description: Looks like something that inspires order. Includes a built-in bluespace mass scanner. # DS14-Soyuz
   components:
   - type: Sprite
     sprite: _DeadSpace/Clothing/Head/Hardsuits/pilotsuithelmsec.rsi

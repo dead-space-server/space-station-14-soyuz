@@ -867,6 +867,7 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public readonly List<EntityUid> Magazines = new();
     public readonly List<EntityUid> Treatments = new();
     public readonly List<EntityUid> MedicineBottles = new();
+    public readonly Dictionary<EntityUid, TimeSpan> UnreachableMedics = new();
     public MilitiaMedicalRefill? MedicalRefill;
     public TimeSpan NextRefill;
 }
@@ -883,7 +884,7 @@ public sealed record MilitiaEquipmentRollback(
     public readonly Dictionary<EntityUid, EntityCoordinates> Loose = new();
 }
 
-public enum MilitiaSupportKind : byte { SelectTreatment, Treat, Reload, Arm, Squad, Retreat, Hold, WaitForTreatment, Evade, Guard, ApproachTreatment, RefillMedicine }
+public enum MilitiaSupportKind : byte { SelectTreatment, Treat, Reload, Arm, Squad, Retreat, Hold, WaitForTreatment, Evade, Guard, ApproachTreatment, RefillMedicine, Uncuff }
 
 public sealed partial class MilitiaSupportOperator : HTNOperator
 {
@@ -906,6 +907,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
     public override async Task<(bool Valid, Dictionary<string, object>? Effects)> Plan(NPCBlackboard blackboard, CancellationToken cancelToken)
     {
         var owner = blackboard.GetValue<EntityUid>(NPCBlackboard.Owner);
+        if (Kind == MilitiaSupportKind.Uncuff)
+            return (_operations.NeedsUncuff(owner), null);
         if (Kind == MilitiaSupportKind.WaitForTreatment)
             return (_operations.ReceivingTreatment(owner), null);
         if (_operations.ReceivingTreatment(owner))
@@ -928,6 +931,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
                 if (path.Result == PathResult.Path && _operations.PrepareSquadPath(owner, order, position, path.Path) is { } plan)
                     return (true, new Dictionary<string, object> { [SquadPlanKey] = plan });
             }
+            cancelToken.ThrowIfCancellationRequested();
+            _operations.RejectUnreachableMedic(owner, order);
             return (false, null);
         }
         if (Kind == MilitiaSupportKind.SelectTreatment)
@@ -993,6 +998,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             MilitiaSupportKind.ApproachTreatment => _operations.ApproachTreatment(owner),
             MilitiaSupportKind.Treat => _operations.TreatActor(owner),
             MilitiaSupportKind.Reload => _operations.ReloadActor(owner),
+            MilitiaSupportKind.Uncuff => _operations.UncuffActor(owner),
             MilitiaSupportKind.Arm => _operations.UpdateArming(owner),
             MilitiaSupportKind.Squad or MilitiaSupportKind.Retreat or MilitiaSupportKind.Evade => _operations.RunSquadOrder(owner),
             MilitiaSupportKind.Guard => _operations.GuardPosition(owner),

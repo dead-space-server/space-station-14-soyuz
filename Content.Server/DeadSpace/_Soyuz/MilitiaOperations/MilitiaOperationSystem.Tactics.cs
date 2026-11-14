@@ -10,6 +10,8 @@ using Content.Shared.Prying.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Doors.Components;
 using Content.Shared.Physics;
+using Content.Shared.Cuffs;
+using Content.Shared.Cuffs.Components;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Robust.Shared.Map;
@@ -23,7 +25,28 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly ThrownItemSystem _thrownItems = default!;
     [Dependency] private readonly TriggerSystem _trigger = default!;
     [Dependency] private readonly PryingSystem _prying = default!;
+    [Dependency] private readonly SharedCuffableSystem _restraints = default!;
     private TimeSpan _nextSquadGrenade;
+
+    private bool IsRestrained(EntityUid uid)
+        => TryComp<CuffableComponent>(uid, out var cuffs) && _restraints.IsCuffed((uid, cuffs), requireFullyCuffed: false);
+
+    public bool NeedsUncuff(EntityUid uid)
+        => AvailableActor(uid, out _) && IsRestrained(uid);
+
+    public HTNOperatorStatus UncuffActor(EntityUid uid)
+    {
+        if (!AvailableActor(uid, out _))
+            return HTNOperatorStatus.Failed;
+        if (!IsRestrained(uid))
+            return HTNOperatorStatus.Finished;
+        _steering.Unregister(uid);
+        EndGuard(uid);
+        IReadOnlyDictionary<ushort, DoAfter> running = Comp<DoAfterComponent>(uid).DoAfters;
+        if (!running.Values.Any(action => action.Args.Event is UnCuffDoAfterEvent && _doAfter.IsRunning(action.Id)))
+            _restraints.TryUncuff(uid, uid);
+        return HTNOperatorStatus.Continuing;
+    }
 
     private bool OnDefensiveGrid(EntityUid uid, EntityCoordinates coordinates)
     {

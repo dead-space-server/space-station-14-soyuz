@@ -21,6 +21,7 @@ using Content.Shared.Movement.Components;
 using Content.Shared.Physics;
 using Content.Shared.Tag;
 using Content.Shared.Sticky.Components;
+using Content.Shared.Storage.Components;
 using Content.Shared.Trigger.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Components;
@@ -52,7 +53,11 @@ public sealed partial class MilitiaOperationSystem
 
     private bool SquadMember(EntityUid uid)
         => AvailableActor(uid, out _) && HasComp<ActiveNPCComponent>(uid) && !MetaData(uid).EntityPaused &&
+           !_equipmentContainers.IsEntityInContainer(uid) && !IsRestrained(uid) &&
            TryComp<HTNComponent>(uid, out var htn) && htn.Enabled;
+
+    private float CombatVision(MilitiaOperationActorComponent actor)
+        => actor.AlertUntil > _timing.CurTime ? MathF.Max(actor.SquadVision, actor.ThreatRange) : actor.SquadVision;
 
     private bool SquadThreat(EntityUid uid, EntityUid target)
     {
@@ -66,8 +71,11 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private bool SquadVisible(EntityUid uid, EntityUid target, float range)
-        => SquadThreat(uid, target) && _interaction.InRangeUnobstructed(uid, target, range, SquadSight,
-            predicate: entity => HasComp<SharedCanBuildWindowOnTopComponent>(entity));
+        => SquadThreat(uid, target) && _interaction.InRangeUnobstructed(uid, target, range, CollisionGroup.Opaque,
+            predicate: entity => HasComp<SharedCanBuildWindowOnTopComponent>(entity) ||
+                                 HasComp<NpcFactionMemberComponent>(entity) ||
+                                 CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
+                                 TryComp<EntityStorageComponent>(entity, out var storage) && storage.Open);
 
     private bool CoverExposed(MapCoordinates origin, MapCoordinates target, float range = 0f)
         => _interaction.InRangeUnobstructed(origin, target, range, CollisionGroup.Opaque,
@@ -94,8 +102,8 @@ public sealed partial class MilitiaOperationSystem
                     !actor.Contacts[target].Position.IsValid(EntityManager) || !SquadThreat(uid, target))
                     actor.Contacts.Remove(target);
             }
-            foreach (var target in _factions.GetNearbyHostiles(uid, actor.SquadVision)
-                         .Where(target => SquadVisible(uid, target, actor.SquadVision))
+            foreach (var target in _factions.GetNearbyHostiles(uid, CombatVision(actor))
+                         .Where(target => SquadVisible(uid, target, CombatVision(actor)))
                          .OrderBy(target => Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)))
                          .Take(16))
             {
@@ -206,7 +214,7 @@ public sealed partial class MilitiaOperationSystem
         if (!actor.PeekHome.IsValid(EntityManager) || !actor.PeekEnemyPosition.IsValid(EntityManager))
             return true;
         if (CoverExposed(_transform.ToMapCoordinates(actor.PeekHome),
-                _transform.GetMapCoordinates(actor.DirectTarget), actor.SquadVision))
+                _transform.GetMapCoordinates(actor.DirectTarget), CombatVision(actor)))
             return true;
         var origin = _transform.GetWorldPosition(uid);
         return Vector2.Distance(origin, _transform.GetWorldPosition(actor.DirectTarget)) + 1f <
@@ -771,7 +779,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void FireAtTarget(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
     {
-        if (!SquadVisible(uid, target, actor.SquadVision) || MedicSupportPriority(uid, actor) ||
+        if (!SquadVisible(uid, target, CombatVision(actor)) || MedicSupportPriority(uid, actor) ||
             actor.Medic && actor.AlertUntil <= _timing.CurTime)
         {
             EndGuard(uid);
@@ -801,6 +809,8 @@ public sealed partial class MilitiaOperationSystem
         {
             var ranged = EnsureComp<NPCRangedCombatComponent>(uid);
             ranged.Target = target;
+            ranged.TargetInLOS = true;
+            ranged.LOSAccumulator = 0.5f;
             ranged.Status = CombatStatus.Normal;
             return;
         }
@@ -870,7 +880,10 @@ public sealed partial class MilitiaOperationSystem
             return HTNOperatorStatus.Failed;
         var movement = AdvanceRoute(uid, actor.SquadRoute, actor.RetreatDoors, ref actor.SquadRouteIndex);
         if (movement == HTNOperatorStatus.Failed)
+        {
+            RejectUnreachableMedic(uid, order);
             return movement;
+        }
         var arrived = movement == HTNOperatorStatus.Finished;
         if (actor.DoorPry != null)
             return HTNOperatorStatus.Continuing;
@@ -982,6 +995,15 @@ public sealed partial class MilitiaOperationSystem
         {
             if (actor.ControlsFacing && !SquadMember(uid))
                 ClearSquadFacing((uid, actor));
+            if (!HasPlayerMind(uid) && (_equipmentContainers.IsEntityInContainer(uid) || IsRestrained(uid)))
+            {
+                actor.DirectTarget = EntityUid.Invalid;
+                actor.SquadOrder = null;
+                RemComp<NPCRangedCombatComponent>(uid);
+                if (actor.RunningSquadOrder != null || actor.Patient.IsValid() || actor.MedicalRefill != null || actor.ReloadUntil != null)
+                    interrupt.Add(uid);
+                continue;
+            }
             if (scan && actor.EquipmentReady && !MetaData(uid).EntityPaused && !TerminatingOrDeleted(uid) &&
                 !HasPlayerMind(uid) && !_mobs.IsDead(uid) && (HasComp<ActiveNPCComponent>(uid) || _mobs.IsIncapacitated(uid)))
             {
@@ -995,7 +1017,7 @@ public sealed partial class MilitiaOperationSystem
                 actor.DirectTarget = visible.FirstOrDefault(target => target == actor.MeleeCounterTarget && NeedsMeleeCounter(uid, actor, target));
                 if (!actor.DirectTarget.IsValid())
                     actor.DirectTarget = visible.FirstOrDefault(target =>
-                        Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)) <= actor.SquadVision * actor.SquadVision);
+                        Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)) <= CombatVision(actor) * CombatVision(actor));
                 if (actor.DirectTarget.IsValid())
                 {
                     actor.LastDirectTarget = actor.DirectTarget;
@@ -1014,7 +1036,8 @@ public sealed partial class MilitiaOperationSystem
                             predicate: entity => TryComp<StickyComponent>(grenade.Owner, out var sticky) && sticky.StuckTo == entity))
                     .Select(grenade => grenade.Owner).Concat(actor.Grenades.Where(grenade =>
                         Exists(grenade) && !TerminatingOrDeleted(grenade) && !EntityManager.IsQueuedForDeletion(grenade) &&
-                        HasComp<ActiveTimerTriggerComponent>(grenade) && Transform(grenade).MapID == Transform(uid).MapID))
+                        HasComp<ActiveTimerTriggerComponent>(grenade) && Transform(grenade).MapID == Transform(uid).MapID &&
+                        Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(grenade)) <= 64f))
                     .Distinct().ToArray();
                 if (grenades.Any(grenade => !actor.Grenades.Contains(grenade)))
                 {
@@ -1104,7 +1127,7 @@ public sealed partial class MilitiaOperationSystem
             MedicSupportPriority(actor.Owner, actor.Comp) || actor.Comp.Medic && actor.Comp.AlertUntil <= _timing.CurTime ||
             !TryComp<NPCRangedCombatComponent>(actor.Owner, out var ranged) ||
             NeedsMeleeCounter(actor.Owner, actor.Comp, ranged.Target) ||
-            !SquadVisible(actor.Owner, ranged.Target, actor.Comp.SquadVision) ||
+            !SquadVisible(actor.Owner, ranged.Target, CombatVision(actor.Comp)) ||
             args.Used.Comp.ShootCoordinates is not { } aim || !aim.IsValid(EntityManager))
         {
             args.Cancel();

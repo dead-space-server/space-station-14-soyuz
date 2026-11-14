@@ -264,7 +264,7 @@ public sealed partial class MilitiaOperationSystem
 
     private EntityUid FindMedic(EntityUid uid)
     {
-        if (!TryComp<DamageableComponent>(uid, out var damage))
+        if (!TryComp<DamageableComponent>(uid, out var damage) || !TryComp<MilitiaOperationActorComponent>(uid, out var actor))
             return EntityUid.Invalid;
         var nearest = EntityUid.Invalid;
         var distance = float.PositiveInfinity;
@@ -272,6 +272,7 @@ public sealed partial class MilitiaOperationSystem
         while (medics.MoveNext(out var other, out var medic))
         {
             if (other == uid || !medic.Medic || !SquadMember(other) || EntityManager.IsQueuedForDeletion(other) || !_mobs.IsAlive(other) ||
+                actor.UnreachableMedics.TryGetValue(other, out var retry) && retry > _timing.CurTime ||
                 TryComp<StaminaComponent>(other, out var stamina) && stamina.Critical ||
                 !_blocker.CanMove(other) || !_blocker.CanInteract(other, uid) ||
                 !SameOperation(uid, other) || Transform(uid).MapID != Transform(other).MapID ||
@@ -285,6 +286,16 @@ public sealed partial class MilitiaOperationSystem
             distance = squared;
         }
         return nearest;
+    }
+
+    public void RejectUnreachableMedic(EntityUid uid, MilitiaSquadOrder order)
+    {
+        if (order.Task != MilitiaSquadTask.SeekMedic || !AvailableActor(uid, out var actor) ||
+            !ReferenceEquals(actor.SquadOrder, order))
+            return;
+        actor.UnreachableMedics[order.Target] = _timing.CurTime + TimeSpan.FromSeconds(10);
+        actor.SquadOrder = null;
+        _nextSquadUpdate = _timing.CurTime;
     }
 
     private bool InTreatmentArea(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor)

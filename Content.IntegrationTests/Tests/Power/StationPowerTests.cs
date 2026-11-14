@@ -38,7 +38,7 @@ public sealed class StationPowerTests
         // "CorvaxDelta",
         // DS14-Soyuz-end
         // "CorvaxPaper", // APC overloaded
-        "CorvaxSilly",
+        "SoyuzSilly",
         // "CorvaxSpectrum", // DS14-Soyuz
         "Elkridge",
         // "Exo", // map removed

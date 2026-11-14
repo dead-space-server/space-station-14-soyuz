@@ -167,6 +167,10 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
 
     public void Enable(EntityUid uid, FixturesComponent? manager = null, PhysicsComponent? component = null, ShuttleComponent? shuttle = null)
     {
+        // DS14-Soyuz-start
+        if (HasComp<Content.Shared.DeadSpace._Soyuz.MilitiaOperations.MilitiaOperationTargetComponent>(uid))
+            return;
+        // DS14-Soyuz-end
         if (!Resolve(uid, ref manager, ref component, ref shuttle, false))
             return;
 

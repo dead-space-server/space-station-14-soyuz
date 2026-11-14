@@ -5,6 +5,7 @@ using System.Linq;
 using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Shuttles.Events;
+using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
@@ -458,7 +459,11 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         marker.Station = station;
         marker.Operation = operation;
         EnsureComp<MilitiaOperationTargetComponent>(grid);
-        _shuttles.AddIFFFlag(grid, IFFFlags.Hide | IFFFlags.HideLabel);
+        if (TryComp<ShuttleComponent>(grid, out var shuttle))
+            shuttle.Enabled = false;
+        _shuttles.Disable(grid);
+        _shuttles.RemoveIFFFlag(grid, IFFFlags.Hide);
+        _shuttles.AddIFFFlag(grid, IFFFlags.HideLabel);
     }
 
     private void UpdateUi(EntityUid console, MilitiaOperationConsoleComponent component, MilitiaOperationStationComponent state)

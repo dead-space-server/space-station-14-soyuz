@@ -30,6 +30,7 @@ using Content.Shared.Roles;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Storage;
+using Content.Shared.SSDIndicator;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -66,6 +67,8 @@ public sealed partial class MilitiaOperationSystem
         actor.Comp.EquipmentSeed = _random.Next();
         try
         {
+            RemComp<SSDIndicatorComponent>(actor.Owner);
+            RemComp<MindExaminableComponent>(actor.Owner);
             RemComp<RespiratorComponent>(actor.Owner);
             RemComp<BarotraumaComponent>(actor.Owner);
             RemComp<MovedByPressureComponent>(actor.Owner);

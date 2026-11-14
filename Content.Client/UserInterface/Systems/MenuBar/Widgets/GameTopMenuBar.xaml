@@ -89,7 +89,7 @@
     <ui:MenuButton
         Name="CreditsButton"
         Access="Internal"
-        Icon="{xe:Tex '/Textures/_DeadSpace/_Soyuz/Interface/credits.png'}"
+        Icon="{xe:Tex '/Textures/_DeadSpace/_Soyuz/interface/credits.png'}"
         ToolTip="{Loc 'credits-menu-button-tooltip'}"
         MinSize="42 64"
         HorizontalExpand="True"

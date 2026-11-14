@@ -37,11 +37,11 @@ public sealed class SoyuzCreditsCCVars
 
     /// <summary>Вебхук для журнала всех выдач (без пингов).</summary>
     public static readonly CVarDef<string> DiscordLogWebhook =
-        CVarDef.Create("soyuz.credits.discord_log_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        CVarDef.Create("soyuz.credits.discord_log_webhook", string.Empty, CVar.SERVERONLY);
 
     /// <summary>Вебхук для покупок Discord-ролей (с пингом роли).</summary>
     public static readonly CVarDef<string> DiscordRoleWebhook =
-        CVarDef.Create("soyuz.credits.discord_role_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        CVarDef.Create("soyuz.credits.discord_role_webhook", string.Empty, CVar.SERVERONLY);
 
     /// <summary>Id Discord-роли, которую пингуют при покупке Discord-титула.</summary>
     public static readonly CVarDef<string> DiscordRoleId =
@@ -93,7 +93,7 @@ public sealed class SoyuzCreditsCCVars
 
     /// <summary>Вебхук для оповещений о превышении лимита выдачи. Пусто = используется вебхук журнала выдач.</summary>
     public static readonly CVarDef<string> DiscordLimitWebhook =
-        CVarDef.Create("soyuz.credits.discord_limit_webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        CVarDef.Create("soyuz.credits.discord_limit_webhook", string.Empty, CVar.SERVERONLY);
 
     // ---------- API для Discord-бота ----------
 
@@ -102,7 +102,7 @@ public sealed class SoyuzCreditsCCVars
     /// Задавайте длинный случайный токен и держите порт статуса за HTTPS-прокси или во внутренней сети.
     /// </summary>
     public static readonly CVarDef<string> ApiToken =
-        CVarDef.Create("soyuz.credits.api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        CVarDef.Create("soyuz.credits.api_token", string.Empty, CVar.SERVERONLY);
 
     /// <summary>
     /// Сколько кредитов за сутки можно выдать через API бота (выдача, промокоды по сумме использований). 0 = выдача через API выключена.

@@ -42,7 +42,7 @@ public sealed partial class MilitiaOperationSystem
             return HTNOperatorStatus.Finished;
         _steering.Unregister(uid);
         EndGuard(uid);
-        IReadOnlyDictionary<ushort, DoAfter> running = Comp<DoAfterComponent>(uid).DoAfters;
+        IReadOnlyDictionary<ushort, Content.Shared.DoAfter.DoAfter> running = Comp<DoAfterComponent>(uid).DoAfters;
         if (!running.Values.Any(action => action.Args.Event is UnCuffDoAfterEvent && _doAfter.IsRunning(action.Id)))
             _restraints.TryUncuff(uid, uid);
         return HTNOperatorStatus.Continuing;

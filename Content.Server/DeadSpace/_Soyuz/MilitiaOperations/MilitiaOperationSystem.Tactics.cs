@@ -9,6 +9,7 @@ using Content.Shared.Prying.Systems;
 using Content.Shared.Prying.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Doors.Components;
+using Content.Shared.Physics;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Robust.Shared.Map;
@@ -106,22 +107,25 @@ public sealed partial class MilitiaOperationSystem
             actor.DoorPry != null || actor.Patient.IsValid() || ReceivingTreatment(uid) || actor.ReloadUntil != null || actor.Grenades.Length > 0 ||
             !DirectContact(uid, actor) || _timing.CurTime < actor.NextGrenade || _timing.CurTime < _nextSquadGrenade)
             return;
-        actor.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(8 + _random.NextDouble() * 8);
-        if (_random.NextDouble() > 0.35)
-            return;
+        actor.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(2);
         var grenade = actor.PersonalGrenades.FirstOrDefault(item => OwnsItem(uid, item) && !HasComp<ActiveTimerTriggerComponent>(item));
         if (!grenade.IsValid())
             return;
         var target = _transform.GetMapCoordinates(actor.DirectTarget);
-        var origin = _transform.GetWorldPosition(uid);
-        var distance = Vector2.Distance(origin, target.Position);
-        var axis = distance > 0 ? (target.Position - origin) / distance : Vector2.Zero;
-        if (distance < 7f || distance > 11f || !_interaction.InRangeUnobstructed(uid, actor.DirectTarget, 11f, SquadSight) ||
-            !OnDefensiveGrid(uid, Transform(actor.DirectTarget).Coordinates) ||
-            _factions.GetNearbyFriendlies(uid, 24f).Any(ally => !_mobs.IsDead(ally) &&
-                (Vector2.DistanceSquared(_transform.GetWorldPosition(ally), target.Position) < 36f ||
-                 BlocksFireLane(_transform.GetWorldPosition(ally) - origin, axis) &&
-                 Vector2.Dot(_transform.GetWorldPosition(ally) - origin, axis) < distance)))
+        var origin = _transform.GetMapCoordinates(uid);
+        var distance = Vector2.Distance(origin.Position, target.Position);
+        var axis = distance > 0 ? (target.Position - origin.Position) / distance : Vector2.Zero;
+        if (origin.MapId != target.MapId || distance < 7f || distance > 11f ||
+            !_interaction.InRangeUnobstructed(uid, actor.DirectTarget, 11f, CollisionGroup.ThrownItem) ||
+            _factions.GetNearbyFriendlies(uid, 24f).Any(ally => !TerminatingOrDeleted(ally) && !_mobs.IsDead(ally) &&
+                (Vector2.DistanceSquared(_transform.GetWorldPosition(ally), target.Position) < 49f &&
+                 CoverExposed(target, _transform.GetMapCoordinates(ally), 7f) ||
+                 BlocksFireLane(_transform.GetWorldPosition(ally) - origin.Position, axis) &&
+                 Vector2.Dot(_transform.GetWorldPosition(ally) - origin.Position, axis) < distance &&
+                 _interaction.InRangeUnobstructed(uid, ally, 11f, SquadSight))))
+            return;
+        actor.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(4 + _random.NextDouble() * 4);
+        if (_random.NextDouble() > 0.35)
             return;
         if (CaptureEquipment(uid, grenade) is not { } equipment)
             return;
@@ -163,7 +167,7 @@ public sealed partial class MilitiaOperationSystem
                             _squadPhysics.SetLinearVelocity(grenade, Vector2.Zero, body: physics);
                             _squadPhysics.SetAngularVelocity(grenade, 0f, body: physics);
                         }
-                        RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded);
+                        RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded, activated: equipment.Activated);
                     }
                 }
             }

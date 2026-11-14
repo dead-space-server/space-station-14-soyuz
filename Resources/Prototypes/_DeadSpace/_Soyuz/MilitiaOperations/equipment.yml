@@ -37,14 +37,20 @@
     - SyndiPDA
     eyes:
     - ClothingEyesHudSyndicate
-  supplies:
+  meleeWeapons:
   - CombatKnife
+  - EnergySword
+  supplies:
   - Crowbar
   - MedicatedSuture
+  - MedicatedSuture
+  - RegenerativeMesh
   - RegenerativeMesh
   reloadTime: 2.5s
   grenades:
   - GrenadeFlashBang
+  minimumGrenades: 3
+  maximumGrenades: 4
 
 - type: militiaEquipment
   id: MilitiaEquipmentScout
@@ -271,7 +277,6 @@
     minimumMagazines: 3
     maximumMagazines: 3
   supplies:
-  - CombatKnife
   - Crowbar
   - SyndiHypo
   - ChemistryBottleOmnizine
@@ -280,3 +285,7 @@
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
+  - MedicatedSuture
+  - MedicatedSuture
+  - RegenerativeMesh
+  - RegenerativeMesh

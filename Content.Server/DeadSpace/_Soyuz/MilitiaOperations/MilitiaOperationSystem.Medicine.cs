@@ -111,7 +111,7 @@ public sealed partial class MilitiaOperationSystem
             if (!committed)
             {
                 actor.NextRefill = _timing.CurTime + TimeSpan.FromSeconds(2);
-                RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded);
+                RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded, activated: equipment.Activated);
             }
         }
     }
@@ -165,7 +165,8 @@ public sealed partial class MilitiaOperationSystem
             var items = refill.Equipment.Items.Where(item => OwnsItem(uid, item.Item) &&
                 (item.Container.Owner == uid || OwnsItem(uid, item.Container.Owner))).ToList();
             RestoreEquipment(uid, items, refill.Equipment.ActiveHand,
-                refill.Equipment.Wielded.Where(item => items.Any(snapshot => snapshot.Item == item)).ToArray());
+                refill.Equipment.Wielded.Where(item => items.Any(snapshot => snapshot.Item == item)).ToArray(),
+                activated: refill.Equipment.Activated);
         }
     }
 

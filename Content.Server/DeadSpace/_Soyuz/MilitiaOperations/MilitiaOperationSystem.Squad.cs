@@ -13,6 +13,7 @@ using Content.Shared.Construction;
 using Content.Shared.Doors.Components;
 using Content.Shared.Doors.Systems;
 using Content.Shared.Interaction;
+using Content.Shared.Weapons.Melee.EnergySword;
 using Content.Shared.Explosion.Components;
 using Content.Shared.NPC;
 using Content.Shared.NPC.Components;
@@ -26,6 +27,8 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Systems;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
@@ -41,6 +44,7 @@ public sealed partial class MilitiaOperationSystem
     private static readonly ProtoId<TagPrototype> GrenadeTag = "Grenade";
     private static readonly ProtoId<TagPrototype> HandGrenadeTag = "HandGrenade";
     private static readonly ProtoId<TagPrototype> FlashGrenadeTag = "GrenadeFlashBang";
+    private static readonly ProtoId<TagPrototype> DoubleSwordTag = "EnergySwordDouble";
     private static readonly Vector2i[] SquadAdjacent = [new(1, 0), new(-1, 0), new(0, 1), new(0, -1)];
     private TimeSpan _nextSquadUpdate;
     private TimeSpan _nextSquadSafety;
@@ -66,8 +70,11 @@ public sealed partial class MilitiaOperationSystem
             predicate: entity => HasComp<SharedCanBuildWindowOnTopComponent>(entity));
 
     private bool CoverExposed(MapCoordinates origin, MapCoordinates target, float range = 0f)
-        => _interaction.InRangeUnobstructed(origin, target, range, SquadSight,
-            predicate: entity => HasComp<DoorComponent>(entity) || HasComp<SharedCanBuildWindowOnTopComponent>(entity));
+        => _interaction.InRangeUnobstructed(origin, target, range, CollisionGroup.Opaque,
+            predicate: entity => HasComp<DoorComponent>(entity) || HasComp<SharedCanBuildWindowOnTopComponent>(entity) ||
+                                 HasComp<NpcFactionMemberComponent>(entity) ||
+                                 CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
+                                 !TryComp<PhysicsComponent>(entity, out var body) || body.BodyType != BodyType.Static);
 
     private void UpdateSquads()
     {
@@ -770,8 +777,27 @@ public sealed partial class MilitiaOperationSystem
             EndGuard(uid);
             return;
         }
+        var desired = DesiredWeapon(uid, actor);
+        if (!desired.IsValid())
+        {
+            EndGuard(uid);
+            return;
+        }
+        var counter = NeedsMeleeCounter(uid, actor, target);
+        if (_hands.GetActiveItem(uid) != desired || HasComp<EnergySwordComponent>(desired) && !IsActiveEnergySword(desired))
+        {
+            EndGuard(uid);
+            if (!EquipOwnedItem(uid, actor, desired, true) && !AvailableActor(uid, out _))
+                return;
+        }
+        if (counter && _hands.GetActiveItem(uid) == actor.Backup &&
+            (actor.MeleeCounterTarget != target || actor.MeleeCounterUntil <= _timing.CurTime))
+        {
+            actor.MeleeCounterTarget = target;
+            actor.MeleeCounterUntil = _timing.CurTime + TimeSpan.FromSeconds(2);
+        }
         _combat.SetInCombatMode(uid, true);
-        if (_guns.TryGetGun(uid, out var gun) && WeaponReady(gun.Owner))
+        if (!counter && _guns.TryGetGun(uid, out var gun) && WeaponReady(gun.Owner))
         {
             var ranged = EnsureComp<NPCRangedCombatComponent>(uid);
             ranged.Target = target;
@@ -966,14 +992,18 @@ public sealed partial class MilitiaOperationSystem
                 actor.ExposedToThreat = nearby.Any(target =>
                     CoverExposed(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(target), actor.ThreatRange));
                 var previous = actor.DirectTarget;
-                actor.DirectTarget = visible.FirstOrDefault(target =>
-                    Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)) <= actor.SquadVision * actor.SquadVision);
+                actor.DirectTarget = visible.FirstOrDefault(target => target == actor.MeleeCounterTarget && NeedsMeleeCounter(uid, actor, target));
+                if (!actor.DirectTarget.IsValid())
+                    actor.DirectTarget = visible.FirstOrDefault(target =>
+                        Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)) <= actor.SquadVision * actor.SquadVision);
                 if (actor.DirectTarget.IsValid())
                 {
                     actor.LastDirectTarget = actor.DirectTarget;
                     actor.LastDirectAt = _timing.CurTime;
                 }
                 actor.ThreatScanValidUntil = _timing.CurTime + TimeSpan.FromSeconds(0.5);
+                if (actor.ReloadUntil != null && NeedsMeleeCounter(uid, actor, actor.DirectTarget))
+                    EndReload(uid);
                 var grenades = _squadLookup.GetEntitiesInRange<ActiveTimerTriggerComponent>(_transform.GetMapCoordinates(uid), 6f)
                     .Where(grenade => !TerminatingOrDeleted(grenade.Owner) && !EntityManager.IsQueuedForDeletion(grenade.Owner) &&
                         (HasComp<ExplosiveComponent>(grenade.Owner) || _squadTags.HasTag(grenade.Owner, GrenadeTag) || _squadTags.HasTag(grenade.Owner, HandGrenadeTag) ||
@@ -1073,6 +1103,7 @@ public sealed partial class MilitiaOperationSystem
         if (!SquadMember(actor.Owner) || actor.Comp.MedicalRefill != null || actor.Comp.DoorPry != null || actor.Comp.ReloadUntil != null || actor.Comp.Patient.IsValid() || ReceivingTreatment(actor.Owner) ||
             MedicSupportPriority(actor.Owner, actor.Comp) || actor.Comp.Medic && actor.Comp.AlertUntil <= _timing.CurTime ||
             !TryComp<NPCRangedCombatComponent>(actor.Owner, out var ranged) ||
+            NeedsMeleeCounter(actor.Owner, actor.Comp, ranged.Target) ||
             !SquadVisible(actor.Owner, ranged.Target, actor.Comp.SquadVision) ||
             args.Used.Comp.ShootCoordinates is not { } aim || !aim.IsValid(EntityManager))
         {

@@ -46,8 +46,11 @@ public sealed partial class MilitiaEquipmentPrototype : IPrototype, IInheritingP
     [DataField, AlwaysPushInheritance] public Dictionary<string, List<EntProtoId>> Equipment = new();
     [DataField] public List<MilitiaProtectionSet> Protection = new();
     [DataField] public List<MilitiaWeaponSet> Weapons = new();
+    [DataField] public List<EntProtoId> MeleeWeapons = new();
     [DataField] public List<EntProtoId> Supplies = new();
     [DataField] public List<EntProtoId> Grenades = new();
+    [DataField] public int MinimumGrenades = 1;
+    [DataField] public int MaximumGrenades = 1;
     [DataField] public TimeSpan ReloadTime = TimeSpan.FromSeconds(2.5);
 }
 

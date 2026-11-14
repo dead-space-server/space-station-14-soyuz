@@ -556,6 +556,8 @@ public sealed partial class MilitiaOperationSystem
             return false;
         if (actor.MedicalRefill != null || actor.ReloadUntil != null || actor.DoorPry != null || actor.Patient.IsValid())
             return false;
+        if (CanRecoverDroppedWeapon(uid, actor))
+            return true;
         var weapon = DesiredWeapon(uid, actor);
         return CanEquipOwnedItem(uid, actor, weapon, true, out _) && (_hands.GetActiveItem(uid) != weapon ||
             TryComp<WieldableComponent>(weapon, out var wieldable) && !wieldable.Wielded);
@@ -569,6 +571,49 @@ public sealed partial class MilitiaOperationSystem
         => !HasPlayerMind(uid) && !_mobs.IsIncapacitated(uid) && TryComp<MilitiaOperationActorComponent>(uid, out var actor) &&
            actor.EquipmentRollback == null && actor.MedicalRefill == null &&
            EquipOwnedItem(uid, actor, DesiredWeapon(uid, actor), true);
+
+    private bool CanRecoverDroppedWeapon(EntityUid uid, MilitiaOperationActorComponent actor)
+        => !MetaData(uid).EntityPaused && actor.Grenades.Length == 0 &&
+           Exists(actor.Weapon) && !TerminatingOrDeleted(actor.Weapon) && !EntityManager.IsQueuedForDeletion(actor.Weapon) &&
+           !MetaData(actor.Weapon).EntityPaused && HasComp<GunComponent>(actor.Weapon) &&
+           !_equipmentContainers.TryGetContainingContainer(actor.Weapon, out _) &&
+           TryComp(actor.Weapon, out TransformComponent? transform) && !transform.Anchored &&
+           transform.MapID == Transform(uid).MapID && OnDefensiveGrid(uid, transform.Coordinates) &&
+           _hands.CanPickupAnyHand(uid, actor.Weapon) &&
+           _interaction.InRangeUnobstructed(uid, actor.Weapon, 6f, SquadSight) &&
+           (_interaction.InRangeUnobstructed(uid, actor.Weapon) || SafeForTreatment(uid) && _blocker.CanMove(uid));
+
+    public HTNOperatorStatus UpdateArming(EntityUid uid)
+    {
+        if (!AvailableActor(uid, out var actor) || actor.MedicalRefill != null || actor.ReloadUntil != null ||
+            actor.DoorPry != null || actor.Patient.IsValid() || ReceivingTreatment(uid))
+            return HTNOperatorStatus.Failed;
+        if (!CanRecoverDroppedWeapon(uid, actor))
+            return ArmActor(uid) ? HTNOperatorStatus.Finished : HTNOperatorStatus.Failed;
+        EndGuard(uid);
+        if (_interaction.InRangeUnobstructed(uid, actor.Weapon))
+        {
+            if (!_hands.TryPickupAnyHand(uid, actor.Weapon) || !OwnsItem(uid, actor.Weapon))
+                return HTNOperatorStatus.Failed;
+            ArmActor(uid);
+            return HTNOperatorStatus.Finished;
+        }
+        var origin = _transform.GetMapCoordinates(uid);
+        var target = _transform.GetMapCoordinates(actor.Weapon);
+        var threats = _factions.GetNearbyHostiles(uid, actor.ThreatRange + 6f).Where(other => SquadThreat(uid, other))
+            .Select(other => _transform.GetMapCoordinates(other)).ToArray();
+        var covered = false;
+        if (!SquadSegment(uid, origin, target, origin, threats, Array.Empty<EntityUid>(), ref covered,
+                MilitiaSquadTask.Treat, Array.Empty<MapCoordinates>()))
+            return HTNOperatorStatus.Failed;
+        var steering = _steering.Register(uid, Transform(actor.Weapon).Coordinates);
+        steering.Range = SharedInteractionSystem.InteractionRange - 0.5f;
+        steering.ArriveOnLineOfSight = false;
+        return steering.Status == SteeringStatus.NoPath ? HTNOperatorStatus.Failed : HTNOperatorStatus.Continuing;
+    }
+
+    public void EndArming(EntityUid uid)
+        => _steering.Unregister(uid);
 
     private EntityUid FindMagazine(EntityUid uid, MilitiaOperationActorComponent actor)
         => actor.Magazines.FirstOrDefault(item => MagazineInWebbing(uid, actor, item) && _guns.GetAmmoCount(item) > 0);
@@ -881,6 +926,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             MilitiaSupportKind.ApproachTreatment => _operations.ApproachTreatment(owner),
             MilitiaSupportKind.Treat => _operations.TreatActor(owner),
             MilitiaSupportKind.Reload => _operations.ReloadActor(owner),
+            MilitiaSupportKind.Arm => _operations.UpdateArming(owner),
             MilitiaSupportKind.Squad or MilitiaSupportKind.Retreat or MilitiaSupportKind.Evade => _operations.RunSquadOrder(owner),
             MilitiaSupportKind.Guard => _operations.GuardPosition(owner),
             MilitiaSupportKind.Hold => _operations.HoldSquadPosition(owner),
@@ -899,6 +945,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             _operations.EndTreatment(owner);
         if (Kind == MilitiaSupportKind.Reload)
             _operations.EndReload(owner);
+        if (Kind == MilitiaSupportKind.Arm)
+            _operations.EndArming(owner);
         if (Kind is MilitiaSupportKind.Squad or MilitiaSupportKind.Retreat or MilitiaSupportKind.Evade)
             _operations.EndSquadOrder(owner);
         if (Kind == MilitiaSupportKind.Guard)
@@ -915,6 +963,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             _operations.EndMedicalRefill(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
         if (Kind == MilitiaSupportKind.SelectTreatment)
             _operations.EndTreatment(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
+        if (Kind == MilitiaSupportKind.Arm)
+            _operations.EndArming(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
         if (Kind is MilitiaSupportKind.Squad or MilitiaSupportKind.Retreat or MilitiaSupportKind.Evade)
             _operations.EndSquadOrder(blackboard.GetValue<EntityUid>(NPCBlackboard.Owner));
         if (Kind == MilitiaSupportKind.Guard)

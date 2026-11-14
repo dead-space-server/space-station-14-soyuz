@@ -1,0 +1,222 @@
+# Cookware drawn for the Soyuz cooking system. Food and liquid insertion use
+# a dedicated ingredient container and solution interactions.
+- type: entity
+  id: KitchenCookwareBase
+  abstract: true
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/pan.rsi
+    state: icon
+  - type: Item
+    size: Normal
+  - type: UserInterface
+    interfaces:
+      enum.CookingUiKey.Key:
+        type: CookingBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      cooking: !type:Container
+  - type: Temperature
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 300
+  - type: RefillableSolution
+    solution: cooker
+  - type: DrainableSolution
+    solution: cooker
+  - type: Spillable
+    solution: cooker
+  - type: ExaminableSolution
+    solution: cooker
+
+- type: entity
+  id: KitchenCookingPan
+  parent: KitchenCookwareBase
+  name: frying pan
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/pan.rsi
+    state: icon
+  - type: CookingVessel
+    method: Pan
+    maxPortions: 2
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 120
+
+- type: entity
+  id: KitchenSautePan
+  parent: KitchenCookwareBase
+  name: sauté pan
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/saute_pan.rsi
+    state: icon
+  - type: CookingVessel
+    method: SautePan
+    maxPortions: 4
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 180
+
+- type: entity
+  id: KitchenCookingPot
+  parent: KitchenCookwareBase
+  name: cooking pot
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/pot.rsi
+    state: icon
+  - type: CookingVessel
+    method: Pot
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 300
+
+- type: entity
+  id: KitchenSaucepan
+  parent: KitchenCookwareBase
+  name: small saucepan
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/saucepan.rsi
+    state: icon
+  - type: CookingVessel
+    method: Saucepan
+    maxPortions: 2
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 80
+
+- type: entity
+  id: KitchenWok
+  parent: KitchenCookwareBase
+  name: wok
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/wok.rsi
+    state: icon
+  - type: CookingVessel
+    method: Wok
+    maxPortions: 2
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 140
+
+- type: entity
+  id: KitchenKettle
+  parent: KitchenCookwareBase
+  name: kettle
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/kettle.rsi
+    state: icon
+  - type: CookingVessel
+    method: Kettle
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 120
+
+- type: entity
+  id: KitchenCoffeePot
+  parent: KitchenCookwareBase
+  name: coffee pot
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/coffee_pot.rsi
+    state: icon
+  - type: CookingVessel
+    method: Kettle
+  - type: SolutionContainerManager
+    solutions:
+      cooker:
+        maxVol: 120
+
+- type: entity
+  id: KitchenBakingSheet
+  parent: KitchenCookwareBase
+  name: baking sheet
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/baking_sheet.rsi
+    state: icon
+  - type: CookingVessel
+    method: BakingSheet
+
+- type: entity
+  id: KitchenBreadTin
+  parent: KitchenCookwareBase
+  name: bread tin
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/bread_tin.rsi
+    state: icon
+  - type: CookingVessel
+    method: BreadTin
+    maxPortions: 1
+
+- type: entity
+  id: KitchenPieTin
+  parent: KitchenCookwareBase
+  name: pie tin
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/pie_tin.rsi
+    state: icon
+  - type: CookingVessel
+    method: PieTin
+    maxPortions: 1
+
+- type: entity
+  id: KitchenMuffinTin
+  parent: KitchenCookwareBase
+  name: muffin tin
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/muffin_tin.rsi
+    state: icon
+  - type: CookingVessel
+    method: MuffinTin
+
+- type: entity
+  id: KitchenDeepDish
+  parent: KitchenCookwareBase
+  name: deep baking dish
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/deep_dish.rsi
+    state: icon
+  - type: CookingVessel
+    method: DeepDish
+    maxPortions: 4
+
+- type: entity
+  id: KitchenPizzaTray
+  parent: KitchenCookwareBase
+  name: pizza tray
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/pizza_tray.rsi
+    state: icon
+  - type: CookingVessel
+    method: PizzaTray
+    maxPortions: 2
+
+- type: entity
+  id: KitchenClayPot
+  parent: KitchenCookwareBase
+  name: clay roasting pot
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Kitchen/clay_pot.rsi
+    state: icon
+  - type: CookingVessel
+    method: Roaster

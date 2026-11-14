@@ -11,9 +11,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Content.Server.Database.DeadSpace._Soyuz.Credits;
 
-/// <summary>
-/// Любая запись Кредитов принадлежит конкретному серверу
-/// </summary>
+/// <summary>Любая запись Кредитов принадлежит конкретному серверу.</summary>
 public interface IServerScoped
 {
     string ServerId { get; }
@@ -45,9 +43,7 @@ public sealed class CreditPlaytimeRow : IServerScoped
     public string ServerId { get; set; } = default!;
     public Guid UserId { get; set; }
     public long Seconds { get; set; }
-    /// <summary>
-    /// Сколько полных часов игры уже оплачено наградой
-    /// </summary>
+    /// <summary>Сколько полных часов игры уже оплачено наградой.</summary>
     public long HoursRewarded { get; set; }
 }
 
@@ -66,6 +62,8 @@ public sealed class CreditReferralRow : IServerScoped
     public string Code { get; set; } = default!;
     public DateTime AppliedAt { get; set; }
     public DateTime? RewardedAt { get; set; }
+    /// <summary>Реферал отклонён (совпали IP/HWID): награда не выдаётся.</summary>
+    public DateTime? RejectedAt { get; set; }
 }
 
 public sealed class CreditPurchaseRow : IServerScoped
@@ -76,6 +74,8 @@ public sealed class CreditPurchaseRow : IServerScoped
     public string ProductId { get; set; } = default!;
     public long Price { get; set; }
     public DateTime CreatedAt { get; set; }
+    /// <summary>Когда покупка была возвращена. Сама запись и запись журнала остаются неизменными.</summary>
+    public DateTime? RefundedAt { get; set; }
 }
 
 public sealed class CreditOwnedRow : IServerScoped
@@ -84,11 +84,49 @@ public sealed class CreditOwnedRow : IServerScoped
     public Guid UserId { get; set; }
     public string ProductId { get; set; } = default!;
     public bool Equipped { get; set; }
+    /// <summary>null = навсегда.</summary>
     public DateTime? ExpiresAt { get; set; }
+}
+
+public sealed class CreditPromoRow : IServerScoped
+{
+    public string ServerId { get; set; } = default!;
+    public string Code { get; set; } = default!;
+    /// <summary>Сколько кредитов даёт код (0, если код только на товар).</summary>
+    public long Credits { get; set; }
+    /// <summary>Товар, который выдаёт код (null, если код только на кредиты).</summary>
+    public string? ProductId { get; set; }
+    /// <summary>null = без ограничения числа использований.</summary>
+    public int? MaxUses { get; set; }
+    public int Uses { get; set; }
+    /// <summary>null = бессрочно.</summary>
+    public DateTime? ExpiresAt { get; set; }
+    public bool Disabled { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+
+public sealed class CreditPromoUseRow : IServerScoped
+{
+    public string ServerId { get; set; } = default!;
+    public string Code { get; set; } = default!;
+    public Guid UserId { get; set; }
+    public DateTime UsedAt { get; set; }
+}
+
+/// <summary>Привязка Discord-аккаунта к игроку. Один игрок — один Discord, один Discord — один игрок (на сервер).</summary>
+public sealed class CreditDiscordLinkRow : IServerScoped
+{
+    public string ServerId { get; set; } = default!;
+    public Guid UserId { get; set; }
+    /// <summary>Discord snowflake строкой: так не теряется точность и не мешает ulong в SQLite.</summary>
+    public string DiscordId { get; set; } = default!;
+    public DateTime LinkedAt { get; set; }
 }
 
 public abstract class SoyuzCreditsDbContext : DbContext
 {
+    /// <summary>Выставляется фабрикой. Используется глобальными фильтрами запросов.</summary>
     public string CurrentServerId { get; set; } = "design-time";
 
     protected SoyuzCreditsDbContext(DbContextOptions options) : base(options)
@@ -102,6 +140,9 @@ public abstract class SoyuzCreditsDbContext : DbContext
     public DbSet<CreditReferralRow> Referrals => Set<CreditReferralRow>();
     public DbSet<CreditPurchaseRow> Purchases => Set<CreditPurchaseRow>();
     public DbSet<CreditOwnedRow> Owned => Set<CreditOwnedRow>();
+    public DbSet<CreditPromoRow> Promos => Set<CreditPromoRow>();
+    public DbSet<CreditPromoUseRow> PromoUses => Set<CreditPromoUseRow>();
+    public DbSet<CreditDiscordLinkRow> DiscordLinks => Set<CreditDiscordLinkRow>();
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
@@ -140,7 +181,7 @@ public abstract class SoyuzCreditsDbContext : DbContext
         mb.Entity<CreditReferralRow>(e =>
         {
             e.ToTable("soyuz_credit_referral");
-            e.HasKey(x => new { x.ServerId, x.InviteeId });
+            e.HasKey(x => new { x.ServerId, x.InviteeId }); // приглашённый привязан к одному пригласившему
             e.HasIndex(x => new { x.ServerId, x.InviterId });
             e.HasQueryFilter(x => x.ServerId == CurrentServerId);
         });
@@ -161,6 +202,31 @@ public abstract class SoyuzCreditsDbContext : DbContext
             e.HasQueryFilter(x => x.ServerId == CurrentServerId);
         });
 
+        mb.Entity<CreditPromoRow>(e =>
+        {
+            e.ToTable("soyuz_credit_promo");
+            e.HasKey(x => new { x.ServerId, x.Code });
+            e.Property(x => x.Code).IsRequired();
+            e.HasQueryFilter(x => x.ServerId == CurrentServerId);
+        });
+
+        mb.Entity<CreditPromoUseRow>(e =>
+        {
+            e.ToTable("soyuz_credit_promo_use");
+            e.HasKey(x => new { x.ServerId, x.Code, x.UserId }); // один игрок использует код один раз
+            e.HasQueryFilter(x => x.ServerId == CurrentServerId);
+        });
+
+        mb.Entity<CreditDiscordLinkRow>(e =>
+        {
+            e.ToTable("soyuz_credit_discord_link");
+            e.HasKey(x => new { x.ServerId, x.UserId });
+            e.Property(x => x.DiscordId).IsRequired();
+            e.HasIndex(x => new { x.ServerId, x.DiscordId }).IsUnique();
+            e.HasQueryFilter(x => x.ServerId == CurrentServerId);
+        });
+
+        // snake_case для колонок, как в остальной БД проекта.
         foreach (var et in mb.Model.GetEntityTypes())
         {
             foreach (var p in et.GetProperties())
@@ -168,6 +234,7 @@ public abstract class SoyuzCreditsDbContext : DbContext
         }
     }
 
+    // Второй рубеж: нельзя записать/изменить/удалить строку чужого сервера.
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
         GuardServerId();
@@ -230,6 +297,7 @@ public sealed class SoyuzCreditsSqliteDbContext : SoyuzCreditsDbContext
 
 public static class SoyuzCreditsDbOptions
 {
+    // Отдельная таблица истории миграций, чтобы не мешать миграциям апстрима.
     public const string HistoryTable = "__soyuz_credits_migrations";
 
     public static DbContextOptions<SoyuzCreditsPostgresDbContext> Postgres(string connectionString)
@@ -247,6 +315,7 @@ public static class SoyuzCreditsDbOptions
     }
 }
 
+// Нужны только для `dotnet ef migrations add` (подключение к реальной БД не требуется).
 public sealed class SoyuzCreditsPostgresDesignFactory : IDesignTimeDbContextFactory<SoyuzCreditsPostgresDbContext>
 {
     public SoyuzCreditsPostgresDbContext CreateDbContext(string[] args)

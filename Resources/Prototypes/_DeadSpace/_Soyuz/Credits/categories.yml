@@ -1,0 +1,45 @@
+# Категории магазина Советских кредитов (type: creditCategory). Добавляются прототипом, в коде не зашиты.
+# Чтобы товар попал в категорию, в его прототипе (creditProduct) укажите: category: <id категории>.
+# name        — название категории в фильтре магазина.
+# maxOwned    — максимальный лимит: сколько товаров категории игрок может иметь ОДНОВРЕМЕННО (купленных и действующих).
+#               Не задано или 0 = без лимита. Продление уже действующего товара лимит не затрагивает.
+#               Лимит проверяется и при покупке, и при выдаче товара по промокоду.
+# priority    — порядок в списке категорий (меньше = выше).
+# Пример лимита: maxOwned: 5 — не больше пяти товаров этой категории одновременно.
+
+- type: creditCategory
+  id: SoyuzCreditCategoryOocColor
+  name: Цвет ника
+  description: Цвет вашего ника в OOC.
+  priority: 10
+
+- type: creditCategory
+  id: SoyuzCreditCategoryDiscord
+  name: Роль в Discord
+  description: Роли на Discord-сервере Союза.
+  priority: 20
+
+- type: creditCategory
+  id: SoyuzCreditCategoryUniform
+  name: Форма и одежда
+  description: Униформа и головные уборы.
+  priority: 30
+#  maxOwned: 2
+
+- type: creditCategory
+  id: SoyuzCreditCategoryFigurines
+  name: Статуэтки
+  description: Миниатюрные статуэтки.
+  priority: 40
+
+- type: creditCategory
+  id: SoyuzCreditCategoryPlushies
+  name: Плюшевые игрушки
+  description: Мягкие игрушки.
+  priority: 50
+
+- type: creditCategory
+  id: SoyuzCreditCategoryPens
+  name: Ручки
+  description: Ручки, которые выдаются в начале раунда.
+  priority: 60

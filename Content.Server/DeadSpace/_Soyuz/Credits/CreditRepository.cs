@@ -151,7 +151,6 @@ public sealed class CreditRepository : ICreditRepository
             await EnsureBalanceRowAsync(db, user);
 
             await using var tx = await db.Database.BeginTransactionAsync();
-
             var oldRewarded = row.HoursRewarded;
             var newRewarded = oldRewarded + hours;
             var marked = await db.Playtimes
@@ -246,17 +245,19 @@ public sealed class CreditRepository : ICreditRepository
         return ReferralApplyResult.Ok;
     }
 
-    public async Task<(bool Applied, bool Rewarded)> GetReferralStatusAsync(Guid invitee)
+    public async Task<ReferralStatus> GetReferralStatusAsync(Guid invitee)
     {
         await using var db = _factory.Create();
         var sid = db.CurrentServerId;
 
         var row = await db.Referrals
             .Where(r => r.ServerId == sid && r.InviteeId == invitee)
-            .Select(r => new { r.RewardedAt })
+            .Select(r => new { r.RewardedAt, r.RejectedAt })
             .FirstOrDefaultAsync();
 
-        return row == null ? (false, false) : (true, row.RewardedAt != null);
+        return row == null
+            ? new ReferralStatus(false, false, false)
+            : new ReferralStatus(true, row.RewardedAt != null, row.RejectedAt != null);
     }
 
     public async Task<ReferralStats> GetReferralStatsAsync(Guid inviter)
@@ -266,7 +267,7 @@ public sealed class CreditRepository : ICreditRepository
 
         var invitees = await db.Referrals
             .Where(r => r.ServerId == sid && r.InviterId == inviter)
-            .Select(r => new { r.InviteeId, r.RewardedAt })
+            .Select(r => new { r.InviteeId, r.RewardedAt, r.RejectedAt })
             .ToListAsync();
 
         var rewardedIds = invitees
@@ -284,7 +285,8 @@ public sealed class CreditRepository : ICreditRepository
                 .SumAsync(l => l.Amount);
         }
 
-        return new ReferralStats(invitees.Count, rewardedIds.Count, invitees.Count - rewardedIds.Count, earned);
+        var pending = invitees.Count(i => i.RewardedAt == null && i.RejectedAt == null);
+        return new ReferralStats(invitees.Count, rewardedIds.Count, pending, earned);
     }
 
     public async Task<IReadOnlyList<PendingReferral>> GetPendingReferralsAsync(IReadOnlyCollection<Guid> invitees)
@@ -297,7 +299,7 @@ public sealed class CreditRepository : ICreditRepository
         var sid = db.CurrentServerId;
 
         var pending = await db.Referrals
-            .Where(r => r.ServerId == sid && r.RewardedAt == null && list.Contains(r.InviteeId))
+            .Where(r => r.ServerId == sid && r.RewardedAt == null && r.RejectedAt == null && list.Contains(r.InviteeId))
             .Select(r => new { r.InviteeId, r.InviterId })
             .ToListAsync();
 
@@ -328,7 +330,7 @@ public sealed class CreditRepository : ICreditRepository
 
         var now = DateTime.UtcNow;
         var marked = await db.Referrals
-            .Where(r => r.ServerId == sid && r.InviteeId == invitee && r.RewardedAt == null)
+            .Where(r => r.ServerId == sid && r.InviteeId == invitee && r.RewardedAt == null && r.RejectedAt == null)
             .ExecuteUpdateAsync(s => s.SetProperty(r => r.RewardedAt, (DateTime?) now));
 
         if (marked == 0)
@@ -368,39 +370,15 @@ public sealed class CreditRepository : ICreditRepository
     }
 
     public async Task<PurchaseDbResult> TryPurchaseAsync(Guid userId, string productId, long price, int? durationDays,
-        IReadOnlyCollection<string> exclusiveSiblings)
+        IReadOnlyCollection<string> exclusiveSiblings, CategoryLimit? limit = null)
     {
         await using var db = _factory.Create();
-        var sid = db.CurrentServerId;
         var now = DateTime.UtcNow;
-        var siblings = exclusiveSiblings.ToList();
         var hasRow = false;
 
         try
         {
             await using var tx = await db.Database.BeginTransactionAsync();
-
-            hasRow = await db.Owned.AnyAsync(o => o.ServerId == sid && o.UserId == userId && o.ProductId == productId);
-            if (hasRow)
-            {
-                var timed = db.Owned.Where(o => o.ServerId == sid && o.UserId == userId
-                                                && o.ProductId == productId && o.ExpiresAt != null);
-                int changed;
-                if (durationDays is { } days)
-                {
-                    var fromNow = now.AddDays(days);
-                    changed = await timed.ExecuteUpdateAsync(s => s.SetProperty(
-                        o => o.ExpiresAt,
-                        o => (DateTime?) (o.ExpiresAt > now ? o.ExpiresAt!.Value.AddDays(days) : fromNow)));
-                }
-                else
-                {
-                    changed = await timed.ExecuteUpdateAsync(s => s.SetProperty(o => o.ExpiresAt, (DateTime?) null));
-                }
-
-                if (changed == 0)
-                    return PurchaseDbResult.AlreadyOwned;
-            }
 
             if (!await ApplyInternalAsync(db, userId, -price, CreditTransactionType.Purchase,
                     $"Покупка: {productId}", userId, productId))
@@ -409,28 +387,17 @@ public sealed class CreditRepository : ICreditRepository
                 return PurchaseDbResult.Insufficient;
             }
 
-            if (!hasRow)
+            var (grant, hadRow) = await GrantOwnedAsync(db, userId, productId, durationDays, exclusiveSiblings.ToList(), limit, now);
+            hasRow = hadRow;
+            if (grant != PurchaseDbResult.Ok)
             {
-                if (siblings.Count > 0)
-                {
-                    await db.Owned
-                        .Where(o => o.ServerId == sid && o.UserId == userId && siblings.Contains(o.ProductId))
-                        .ExecuteUpdateAsync(s => s.SetProperty(o => o.Equipped, false));
-                }
-
-                db.Owned.Add(new CreditOwnedRow
-                {
-                    ServerId = sid,
-                    UserId = userId,
-                    ProductId = productId,
-                    Equipped = true,
-                    ExpiresAt = durationDays is { } d ? now.AddDays(d) : null,
-                });
+                await tx.RollbackAsync();
+                return grant;
             }
 
             db.Purchases.Add(new CreditPurchaseRow
             {
-                ServerId = sid,
+                ServerId = db.CurrentServerId,
                 UserId = userId,
                 ProductId = productId,
                 Price = price,
@@ -479,6 +446,439 @@ public sealed class CreditRepository : ICreditRepository
         return EquipDbResult.Ok;
     }
 
+    public async Task<long> GetGrantedByActorSinceAsync(Guid actor, DateTime sinceUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var manual = ManualGrantTypes;
+
+        return await db.Log
+            .Where(l => l.ServerId == sid && l.ActorUserId == actor && l.Amount > 0
+                        && l.CreatedAt >= sinceUtc && manual.Contains(l.Type))
+            .SumAsync(l => l.Amount);
+    }
+
+    public async Task<Guid?> FindReferralCodeOwnerAsync(string code)
+    {
+        code = code.Trim().ToUpperInvariant();
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        return await db.ReferralCodes
+            .Where(c => c.ServerId == sid && c.Code == code)
+            .Select(c => (Guid?) c.UserId)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task RejectReferralAsync(Guid invitee)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var now = DateTime.UtcNow;
+
+        await db.Referrals
+            .Where(r => r.ServerId == sid && r.InviteeId == invitee && r.RewardedAt == null && r.RejectedAt == null)
+            .ExecuteUpdateAsync(s => s.SetProperty(r => r.RejectedAt, (DateTime?) now));
+    }
+
+    public async Task<RefundDbResult> TryRefundAsync(Guid userId, string productId, Guid? actor, string reason)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        await EnsureBalanceRowAsync(db, userId);
+        await using var tx = await db.Database.BeginTransactionAsync();
+
+        var purchases = await db.Purchases
+            .Where(p => p.ServerId == sid && p.UserId == userId && p.ProductId == productId && p.RefundedAt == null)
+            .Select(p => new { p.Id, p.Price })
+            .ToListAsync();
+
+        if (purchases.Count == 0)
+        {
+            await tx.RollbackAsync();
+            return new RefundDbResult(RefundDbStatus.NothingToRefund, 0);
+        }
+
+        var ids = purchases.Select(p => p.Id).ToList();
+        var now = DateTime.UtcNow;
+        var marked = await db.Purchases
+            .Where(p => p.ServerId == sid && ids.Contains(p.Id) && p.RefundedAt == null)
+            .ExecuteUpdateAsync(s => s.SetProperty(p => p.RefundedAt, (DateTime?) now));
+
+        if (marked != ids.Count)
+        {
+            await tx.RollbackAsync();
+            return new RefundDbResult(RefundDbStatus.NothingToRefund, 0);
+        }
+
+        var total = purchases.Sum(p => p.Price);
+
+        await ApplyInternalAsync(db, userId, total, CreditTransactionType.Refund, reason, actor, productId);
+
+        await db.Owned
+            .Where(o => o.ServerId == sid && o.UserId == userId && o.ProductId == productId)
+            .ExecuteDeleteAsync();
+
+        await tx.CommitAsync();
+        return new RefundDbResult(RefundDbStatus.Ok, total);
+    }
+
+    public async Task<PromoCreateResult> CreatePromoAsync(string code, long credits, string? productId, int? maxUses,
+        DateTime? expiresAtUtc, Guid? createdBy)
+    {
+        code = NormalizePromoCode(code);
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        if (await db.Promos.AnyAsync(p => p.ServerId == sid && p.Code == code))
+            return PromoCreateResult.AlreadyExists;
+
+        db.Promos.Add(new CreditPromoRow
+        {
+            ServerId = sid,
+            Code = code,
+            Credits = credits,
+            ProductId = productId,
+            MaxUses = maxUses,
+            ExpiresAt = expiresAtUtc,
+            CreatedBy = createdBy,
+            CreatedAt = DateTime.UtcNow,
+        });
+
+        try
+        {
+            await db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            return PromoCreateResult.AlreadyExists;
+        }
+
+        return PromoCreateResult.Ok;
+    }
+
+    public async Task<PromoInfo?> GetPromoAsync(string code)
+    {
+        code = NormalizePromoCode(code);
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var row = await db.Promos
+            .Where(p => p.ServerId == sid && p.Code == code)
+            .FirstOrDefaultAsync();
+
+        return row == null ? null : ToInfo(row);
+    }
+
+    public async Task<IReadOnlyList<PromoInfo>> ListPromosAsync(int take)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var rows = await db.Promos
+            .Where(p => p.ServerId == sid)
+            .OrderByDescending(p => p.CreatedAt)
+            .Take(Math.Max(1, take))
+            .ToListAsync();
+
+        return rows.Select(ToInfo).ToList();
+    }
+
+    public async Task<bool> SetPromoDisabledAsync(string code, bool disabled)
+    {
+        code = NormalizePromoCode(code);
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var rows = await db.Promos
+            .Where(p => p.ServerId == sid && p.Code == code)
+            .ExecuteUpdateAsync(s => s.SetProperty(p => p.Disabled, disabled));
+
+        return rows != 0;
+    }
+
+    public async Task<PromoRedeemDbResult> TryRedeemPromoAsync(Guid userId, string code, string? productId, int? durationDays,
+        IReadOnlyCollection<string> siblings, CategoryLimit? limit)
+    {
+        code = NormalizePromoCode(code);
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var now = DateTime.UtcNow;
+
+        var promo = await db.Promos
+            .Where(p => p.ServerId == sid && p.Code == code)
+            .Select(p => new { p.Credits, p.ProductId, p.ExpiresAt, p.Disabled })
+            .FirstOrDefaultAsync();
+
+        if (promo == null)
+            return new PromoRedeemDbResult(PromoRedeemStatus.Unknown);
+        if (promo.Disabled)
+            return new PromoRedeemDbResult(PromoRedeemStatus.Disabled);
+        if (promo.ExpiresAt != null && promo.ExpiresAt <= now)
+            return new PromoRedeemDbResult(PromoRedeemStatus.Expired);
+        if (promo.ProductId != productId)
+            return new PromoRedeemDbResult(PromoRedeemStatus.Unknown);
+
+        if (await db.PromoUses.AnyAsync(u => u.ServerId == sid && u.Code == code && u.UserId == userId))
+            return new PromoRedeemDbResult(PromoRedeemStatus.AlreadyUsed);
+
+        await EnsureBalanceRowAsync(db, userId);
+
+        try
+        {
+            await using var tx = await db.Database.BeginTransactionAsync();
+
+            var taken = await db.Promos
+                .Where(p => p.ServerId == sid && p.Code == code && !p.Disabled && (p.MaxUses == null || p.Uses < p.MaxUses))
+                .ExecuteUpdateAsync(s => s.SetProperty(p => p.Uses, p => p.Uses + 1));
+
+            if (taken == 0)
+            {
+                await tx.RollbackAsync();
+                return new PromoRedeemDbResult(PromoRedeemStatus.Exhausted);
+            }
+
+            db.PromoUses.Add(new CreditPromoUseRow { ServerId = sid, Code = code, UserId = userId, UsedAt = now });
+            await db.SaveChangesAsync();
+
+            if (promo.ProductId != null)
+            {
+                var (grant, _) = await GrantOwnedAsync(db, userId, promo.ProductId, durationDays, siblings.ToList(), limit, now);
+                if (grant != PurchaseDbResult.Ok)
+                {
+                    await tx.RollbackAsync();
+                    return new PromoRedeemDbResult(grant == PurchaseDbResult.CategoryLimit
+                        ? PromoRedeemStatus.CategoryLimit
+                        : PromoRedeemStatus.AlreadyOwned);
+                }
+            }
+
+            var reason = promo.ProductId == null
+                ? $"Промокод {code}"
+                : promo.Credits > 0
+                    ? $"Промокод {code} (и товар {promo.ProductId})"
+                    : $"Промокод {code}: товар {promo.ProductId}";
+
+            await ApplyInternalAsync(db, userId, promo.Credits, CreditTransactionType.PromoCode, reason, null, code);
+
+            await tx.CommitAsync();
+            return new PromoRedeemDbResult(PromoRedeemStatus.Ok, promo.Credits, promo.ProductId);
+        }
+        catch (DbUpdateException)
+        {
+            return new PromoRedeemDbResult(PromoRedeemStatus.AlreadyUsed);
+        }
+    }
+    public async Task<Dictionary<string, int>> GetSoldCountsAsync()
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var rows = await db.Purchases
+            .Where(p => p.ServerId == sid && p.RefundedAt == null)
+            .GroupBy(p => p.ProductId)
+            .Select(g => new { ProductId = g.Key, Count = g.Count() })
+            .ToListAsync();
+
+        return rows.ToDictionary(r => r.ProductId, r => r.Count);
+    }
+
+    public async Task<int> GetSoldCountAsync(string productId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        return await db.Purchases.CountAsync(p => p.ServerId == sid && p.ProductId == productId && p.RefundedAt == null);
+    }
+
+    public async Task<EconomyStats> GetEconomyStatsAsync(DateTime sinceUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var inCirculation = await db.Balances.Where(b => b.ServerId == sid).SumAsync(b => b.Balance);
+        var players = await db.Balances.CountAsync(b => b.ServerId == sid && b.Balance > 0);
+
+        var refundType = (int) CreditTransactionType.Refund;
+        var purchaseType = (int) CreditTransactionType.Purchase;
+        var takeType = (int) CreditTransactionType.AdminTake;
+
+        var log = db.Log.Where(l => l.ServerId == sid && l.CreatedAt >= sinceUtc);
+
+        var issued = await log.Where(l => l.Amount > 0 && l.Type != refundType).SumAsync(l => l.Amount);
+        var spent = -await log.Where(l => l.Type == purchaseType).SumAsync(l => l.Amount);
+        var taken = -await log.Where(l => l.Type == takeType).SumAsync(l => l.Amount);
+        var refunded = await log.Where(l => l.Type == refundType).SumAsync(l => l.Amount);
+
+        var top = await db.Purchases
+            .Where(p => p.ServerId == sid && p.RefundedAt == null && p.CreatedAt >= sinceUtc)
+            .GroupBy(p => p.ProductId)
+            .Select(g => new { ProductId = g.Key, Count = g.Count(), Revenue = g.Sum(p => p.Price) })
+            .OrderByDescending(x => x.Count)
+            .Take(5)
+            .ToListAsync();
+
+        return new EconomyStats(inCirculation, players, issued, spent, taken, refunded,
+            top.Select(t => new ProductSales(t.ProductId, t.Count, t.Revenue)).ToList());
+    }
+
+    public async Task<IReadOnlyList<ActiveOwned>> GetActiveOwnedAsync(IReadOnlyCollection<string>? productIds, DateTime? expiringBeforeUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var now = DateTime.UtcNow;
+
+        var query = db.Owned.Where(o => o.ServerId == sid && (o.ExpiresAt == null || o.ExpiresAt > now));
+
+        if (productIds != null)
+        {
+            var ids = productIds.ToList();
+            query = query.Where(o => ids.Contains(o.ProductId));
+        }
+
+        if (expiringBeforeUtc is { } before)
+            query = query.Where(o => o.ExpiresAt != null && o.ExpiresAt <= before);
+
+        var rows = await query.Select(o => new { o.UserId, o.ProductId, o.ExpiresAt }).ToListAsync();
+        return rows.Select(r => new ActiveOwned(r.UserId, r.ProductId,
+            r.ExpiresAt == null ? null : DateTime.SpecifyKind(r.ExpiresAt.Value, DateTimeKind.Utc))).ToList();
+    }
+
+    public async Task<Dictionary<Guid, string>> GetDiscordIdsAsync(IReadOnlyCollection<Guid> userIds)
+    {
+        if (userIds.Count == 0)
+            return new Dictionary<Guid, string>();
+
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+        var ids = userIds.ToList();
+
+        var rows = await db.DiscordLinks
+            .Where(l => l.ServerId == sid && ids.Contains(l.UserId))
+            .Select(l => new { l.UserId, l.DiscordId })
+            .ToListAsync();
+
+        return rows.ToDictionary(r => r.UserId, r => r.DiscordId);
+    }
+    public async Task<IReadOnlyList<BalanceEntry>> GetTopBalancesAsync(int take)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var rows = await db.Balances
+            .Where(b => b.ServerId == sid && b.Balance > 0)
+            .OrderByDescending(b => b.Balance)
+            .ThenBy(b => b.UserId)
+            .Take(Math.Max(1, take))
+            .Select(b => new { b.UserId, b.Balance })
+            .ToListAsync();
+
+        return rows.Select(r => new BalanceEntry(r.UserId, r.Balance)).ToList();
+    }
+
+    public async Task<DiscordLinkDbResult> TryLinkDiscordAsync(Guid userId, string discordId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        if (await db.DiscordLinks.AnyAsync(l => l.ServerId == sid && l.DiscordId == discordId))
+            return DiscordLinkDbResult.DiscordAlreadyLinked;
+
+        if (await db.DiscordLinks.AnyAsync(l => l.ServerId == sid && l.UserId == userId))
+            return DiscordLinkDbResult.UserAlreadyLinked;
+
+        db.DiscordLinks.Add(new CreditDiscordLinkRow
+        {
+            ServerId = sid,
+            UserId = userId,
+            DiscordId = discordId,
+            LinkedAt = DateTime.UtcNow,
+        });
+
+        try
+        {
+            await db.SaveChangesAsync();
+        }
+        catch (DbUpdateException)
+        {
+            return DiscordLinkDbResult.DiscordAlreadyLinked;
+        }
+
+        return DiscordLinkDbResult.Ok;
+    }
+
+    public async Task<Guid?> FindUserByDiscordAsync(string discordId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        return await db.DiscordLinks
+            .Where(l => l.ServerId == sid && l.DiscordId == discordId)
+            .Select(l => (Guid?) l.UserId)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<string?> GetDiscordIdAsync(Guid userId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        return await db.DiscordLinks
+            .Where(l => l.ServerId == sid && l.UserId == userId)
+            .Select(l => l.DiscordId)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> UnlinkDiscordAsync(Guid userId)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var rows = await db.DiscordLinks
+            .Where(l => l.ServerId == sid && l.UserId == userId)
+            .ExecuteDeleteAsync();
+
+        return rows != 0;
+    }
+
+    public async Task<CleanupResult> CleanupAsync(DateTime cutoffUtc)
+    {
+        await using var db = _factory.Create();
+        var sid = db.CurrentServerId;
+
+        var owned = await db.Owned
+            .Where(o => o.ServerId == sid && o.ExpiresAt != null && o.ExpiresAt < cutoffUtc)
+            .ExecuteDeleteAsync();
+
+        var referrals = await db.Referrals
+            .Where(r => r.ServerId == sid && r.RewardedAt == null && r.AppliedAt < cutoffUtc)
+            .ExecuteDeleteAsync();
+
+        var oldCodes = await db.Promos
+            .Where(p => p.ServerId == sid && p.ExpiresAt != null && p.ExpiresAt < cutoffUtc)
+            .Select(p => p.Code)
+            .ToListAsync();
+
+        var promos = 0;
+        if (oldCodes.Count > 0)
+        {
+            await db.PromoUses
+                .Where(u => u.ServerId == sid && oldCodes.Contains(u.Code))
+                .ExecuteDeleteAsync();
+
+            promos = await db.Promos
+                .Where(p => p.ServerId == sid && oldCodes.Contains(p.Code))
+                .ExecuteDeleteAsync();
+        }
+
+        return new CleanupResult(owned, referrals, promos);
+    }
     private static async Task<bool> ApplyInternalAsync(SoyuzCreditsDbContext db, Guid userId, long delta,
         CreditTransactionType type, string reason, Guid? actor, string? refId)
     {
@@ -508,6 +908,89 @@ public sealed class CreditRepository : ICreditRepository
         await db.SaveChangesAsync();
         return true;
     }
+
+    /// <summary>
+    /// Выдаёт товар: действующий со сроком продлевает, иначе добавляет надетую строку (товары той же группы снимаются)
+    /// Лимит категории проверяется только для нового или истёкшего товара. Новую строку сохраняет вызывающий (SaveChangesAsync)
+    /// </summary>
+    private static async Task<(PurchaseDbResult Result, bool HadRow)> GrantOwnedAsync(SoyuzCreditsDbContext db, Guid userId,
+        string productId, int? durationDays, IReadOnlyCollection<string> exclusiveSiblings, CategoryLimit? limit, DateTime now)
+    {
+        var sid = db.CurrentServerId;
+        var siblings = exclusiveSiblings.ToList();
+
+        var existing = await db.Owned
+            .Where(o => o.ServerId == sid && o.UserId == userId && o.ProductId == productId)
+            .Select(o => new { o.ExpiresAt })
+            .FirstOrDefaultAsync();
+
+        var hadRow = existing != null;
+        var active = existing != null && (existing.ExpiresAt == null || existing.ExpiresAt > now);
+
+        if (!active && limit != null)
+        {
+            var ids = limit.ProductIds.ToList();
+            var count = await db.Owned.CountAsync(o => o.ServerId == sid && o.UserId == userId
+                                                       && o.ProductId != productId && ids.Contains(o.ProductId)
+                                                       && (o.ExpiresAt == null || o.ExpiresAt > now));
+            if (count >= limit.Max)
+                return (PurchaseDbResult.CategoryLimit, hadRow);
+        }
+
+        if (hadRow)
+        {
+            var timed = db.Owned.Where(o => o.ServerId == sid && o.UserId == userId
+                                            && o.ProductId == productId && o.ExpiresAt != null);
+            int changed;
+            if (durationDays is { } days)
+            {
+                var fromNow = now.AddDays(days);
+                changed = await timed.ExecuteUpdateAsync(s => s.SetProperty(
+                    o => o.ExpiresAt,
+                    o => (DateTime?) (o.ExpiresAt > now ? o.ExpiresAt!.Value.AddDays(days) : fromNow)));
+            }
+            else
+            {
+                changed = await timed.ExecuteUpdateAsync(s => s.SetProperty(o => o.ExpiresAt, (DateTime?) null));
+            }
+
+            return (changed == 0 ? PurchaseDbResult.AlreadyOwned : PurchaseDbResult.Ok, hadRow);
+        }
+
+        if (siblings.Count > 0)
+        {
+            await db.Owned
+                .Where(o => o.ServerId == sid && o.UserId == userId && siblings.Contains(o.ProductId))
+                .ExecuteUpdateAsync(s => s.SetProperty(o => o.Equipped, false));
+        }
+
+        db.Owned.Add(new CreditOwnedRow
+        {
+            ServerId = sid,
+            UserId = userId,
+            ProductId = productId,
+            Equipped = true,
+            ExpiresAt = durationDays is { } d ? now.AddDays(d) : null,
+        });
+
+        return (PurchaseDbResult.Ok, hadRow);
+    }
+
+    private static string NormalizePromoCode(string code) => code.Trim().ToUpperInvariant();
+
+    private static PromoInfo ToInfo(CreditPromoRow p) => new(p.Code, p.Credits, p.ProductId, p.MaxUses, p.Uses,
+        p.ExpiresAt == null ? null : DateTime.SpecifyKind(p.ExpiresAt.Value, DateTimeKind.Utc),
+        p.Disabled, p.CreatedBy, DateTime.SpecifyKind(p.CreatedAt, DateTimeKind.Utc));
+
+    private static readonly int[] ManualGrantTypes =
+    {
+        (int) CreditTransactionType.AdminGive,
+        (int) CreditTransactionType.DeveloperReward,
+        (int) CreditTransactionType.EventReward,
+        (int) CreditTransactionType.ModeratorReward,
+        (int) CreditTransactionType.RolePlayReward,
+        (int) CreditTransactionType.OtherReward,
+    };
 
     private static async Task EnsureBalanceRowAsync(SoyuzCreditsDbContext db, Guid userId)
     {

@@ -1,4 +1,15 @@
 # durationDays    — срок в днях (не задан = навсегда). Повторная покупка действующего товара продлевает срок.
+# category        — категория магазина (creditCategory, см. categories.yml). У категории можно задать лимит maxOwned.
+# discountPercent — скидка в процентах (1-90). saleFrom / saleUntil — когда скидка действует (UTC, "2026-12-01" или "2026-12-01 18:00").
+# availableFrom / availableUntil — окно продажи для сезонных товаров (UTC). Вне окна товар не показывается, купленный продолжает действовать.
+# stock           — тираж на весь сервер: сколько раз товар можно купить (возвращённые покупки не считаются, продление считается).
+# minPlaytimeHours — сколько часов нужно наиграть на сервере, чтобы купить.
+# requiresDiscord — true: покупка только для игроков с привязанным Discord.
+# Пример скидки и тиража:
+#   discountPercent: 20
+#   saleUntil: "2026-12-31 23:59"
+#   stock: 50
+#   minPlaytimeHours: 10
 # cosmeticEntity  — предмет, который выдаётся в руку при появлении в раунде (если товар надет).
 # jobs            — выдавать предмет только этим профессиям (не задано = всем).
 # exclusiveGroup  — товары одной группы нельзя надеть одновременно.
@@ -15,6 +26,7 @@
   durationDays: 30
   exclusiveGroup: ooc-color
   color: "#ff4040"
+  category: SoyuzCreditCategoryOocColor
 
 - type: creditProduct
   id: SoyuzCreditOocColorGold
@@ -25,6 +37,7 @@
   durationDays: 30
   exclusiveGroup: ooc-color
   color: "#ffd700"
+  category: SoyuzCreditCategoryOocColor
 
 - type: creditProduct
   id: SoyuzCreditDiscordTitles
@@ -33,6 +46,7 @@
   productType: DiscordTitle
   price: 400
   permanent: true
+  category: SoyuzCreditCategoryDiscord
 
 - type: creditProduct
   id: SoyuzCreditFatiguesBlackRMC
@@ -42,6 +56,7 @@
   price: 35
   durationDays: 15
   cosmeticEntity: SoyuzFatiguesBlackRMC
+  category: SoyuzCreditCategoryUniform
 
 - type: creditProduct
   id: SoyuzCreditHeadCapOfficerRMC
@@ -51,6 +66,7 @@
   price: 35
   durationDays: 15
   cosmeticEntity: SoyuzHeadCapOfficerRMC
+  category: SoyuzCreditCategoryUniform
 
 - type: creditProduct
   id: SoyuzCreditFatiguesServiceRMC
@@ -60,6 +76,7 @@
   price: 35
   durationDays: 15
   cosmeticEntity: SoyuzFatiguesServiceRMC
+  category: SoyuzCreditCategoryUniform
 
 - type: creditProduct
   id: SoyuzCreditFigurineHos1
@@ -69,6 +86,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineHos1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurineHos2
@@ -78,6 +96,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineHos2
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurineScientist1
@@ -87,6 +106,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineScientist1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurineOKGB1
@@ -96,6 +116,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineOKGB1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurineAGSH1
@@ -105,6 +126,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineAGSH1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurinePilot1
@@ -114,6 +136,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurinePilot1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditFigurineOfficer1
@@ -123,6 +146,7 @@
   price: 25
   durationDays: 15
   cosmeticEntity: FigurineOfficer1
+  category: SoyuzCreditCategoryFigurines
 
 - type: creditProduct
   id: SoyuzCreditPlushieRedFox
@@ -132,6 +156,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieRedFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieBlackFox
@@ -141,6 +166,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieBlackFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieBlueFox
@@ -150,6 +176,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieBlueFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieCoffeFox
@@ -159,6 +186,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieCoffeFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieCrimsonFox
@@ -168,6 +196,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieCrimsonFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieMarbleFox
@@ -177,6 +206,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieMarbleFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieOrangeFox
@@ -186,6 +216,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieOrangeFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushiePinkFox
@@ -195,6 +226,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushiePinkFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushiePurpleFox
@@ -204,6 +236,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushiePurpleFox
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieHoS1
@@ -213,6 +246,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieHoS1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieCaptain1
@@ -222,6 +256,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieCaptain1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieHoP1
@@ -231,6 +266,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieHoP1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieIPS1
@@ -240,6 +276,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieIPS1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieJuggenraut1
@@ -249,6 +286,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieJuggenraut1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieOfficer1
@@ -258,6 +296,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieOfficer1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieOfficer2
@@ -267,6 +306,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieOfficer2
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieOfficer3
@@ -276,6 +316,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieOfficer3
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieOKGB1
@@ -285,6 +326,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieOKGB1
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPlushieMonokuma
@@ -294,6 +336,7 @@
   price: 20
   durationDays: 15
   cosmeticEntity: PlushieMonokuma
+  category: SoyuzCreditCategoryPlushies
 
 - type: creditProduct
   id: SoyuzCreditPen
@@ -303,6 +346,7 @@
   price: 200
   durationDays: 15
   cosmeticEntity: Pen
+  category: SoyuzCreditCategoryPens
   # Пример ограничения по профессиям (подставьте id ваших профессий):
   # jobs:
   # - Doctor
@@ -317,3 +361,4 @@
   cosmeticEntity: PenCap
   jobs:
   - Captain
+  category: SoyuzCreditCategoryPens

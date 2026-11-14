@@ -16,20 +16,19 @@ namespace Content.Server.DeadSpace._Soyuz.Credits;
 
 public interface ICreditWebhook
 {
-    /// <summary>
-    /// Запись о выдаче в журнал Discord
-    /// </summary>
+    /// <summary>Запись о выдаче в журнал Discord. Без пингов.</summary>
     Task LogGrantAsync(Guid target, Guid? actor, string? actorName, long amount, CreditTransactionType type, string reason);
 
-    /// <summary>
-    /// Покупка Discord-роли: сообщение с пингом роли из CVar
-    /// </summary>
+    /// <summary>Покупка Discord-роли: сообщение с пингом роли из CVar.</summary>
     Task NotifyRolePurchaseAsync(Guid buyer, string productName, DateTime? expiresAtUtc);
+
+    /// <summary>Отдельное оповещение: администратор выдал за сутки больше лимита. Без пингов.</summary>
+    Task NotifyGrantLimitAsync(Guid actor, string? actorName, long total, long limit);
 }
 
 /// <summary>
 /// Отправка в Discord через вебхуки. Сообщения идут через очередь с паузами и повтором при лимите Discord (429),
-/// ошибки отправки никогда не влияют на игру
+/// ошибки отправки никогда не влияют на игру.
 /// </summary>
 public sealed class CreditWebhook : ICreditWebhook
 {
@@ -58,6 +57,7 @@ public sealed class CreditWebhook : ICreditWebhook
             var text = $"**Выдача кредитов** | Кому: {targetName} (`{target}`) | Сумма: **{amount:+#;-#;0}** | " +
                        $"Тип: {type} | Кто: {who} | Причина: {Trim(reason, 300)}";
 
+            // parse: [] — Discord не будет пинговать ни пользователей, ни роли, ни @everyone.
             var json = JsonSerializer.Serialize(new
             {
                 content = Trim(text, 1900),
@@ -100,6 +100,35 @@ public sealed class CreditWebhook : ICreditWebhook
         }
     }
 
+    public async Task NotifyGrantLimitAsync(Guid actor, string? actorName, long total, long limit)
+    {
+        try
+        {
+            // Отдельный вебхук для оповещений; если он не задан, используется вебхук журнала выдач.
+            var url = _cfg.GetCVar(SoyuzCreditsCCVars.DiscordLimitWebhook);
+            if (!IsValidUrl(url))
+                url = _cfg.GetCVar(SoyuzCreditsCCVars.DiscordLogWebhook);
+            if (!IsValidUrl(url))
+                return;
+
+            var name = actorName ?? await NameOfAsync(actor);
+            var text = $"**Превышен суточный лимит выдачи кредитов** | Администратор: {Trim(name, 100)} (`{actor}`) | " +
+                       $"Выдано за 24 ч: **{total}** | Лимит: {limit}";
+
+            var json = JsonSerializer.Serialize(new
+            {
+                content = Trim(text, 1900),
+                allowed_mentions = new { parse = Array.Empty<string>() },
+            });
+
+            Enqueue(url, json);
+        }
+        catch (Exception e)
+        {
+            Sawmill.Error($"NotifyGrantLimit: {e}");
+        }
+    }
+
     private async Task<string> NameOfAsync(Guid id)
     {
         try
@@ -110,7 +139,7 @@ public sealed class CreditWebhook : ICreditWebhook
         }
         catch
         {
-
+            // имя не нашли — покажем только Id
         }
 
         return id.ToString();
@@ -168,7 +197,7 @@ public sealed class CreditWebhook : ICreditWebhook
                 }
             }
 
-            await Task.Delay(300);
+            await Task.Delay(300); // не упираемся в лимиты Discord
         }
     }
 }

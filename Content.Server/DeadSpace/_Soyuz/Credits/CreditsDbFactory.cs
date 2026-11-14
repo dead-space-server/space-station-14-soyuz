@@ -1,4 +1,5 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSE-SOYUZ.TXT
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Threading;
@@ -21,14 +22,15 @@ public interface ICreditsDbFactory
     void Migrate();
 }
 
-/// <summary>
-/// Создаёт контекст Кредитов на тех же настройках БД, что и основной сервер
-/// </summary>
+/// <summary>Создаёт контекст Кредитов на тех же настройках БД, что и основной сервер</summary>
 public sealed class CreditsDbFactory : ICreditsDbFactory
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly ICreditServerIdProvider _server = default!;
     [Dependency] private readonly IResourceManager _res = default!;
+    private readonly string _memoryName = $"soyuz_credits_{Guid.NewGuid():N}";
+    private readonly object _memoryLock = new();
+    private SqliteConnection? _memoryKeeper;
 
     public SoyuzCreditsDbContext Create()
     {
@@ -37,7 +39,7 @@ public sealed class CreditsDbFactory : ICreditsDbFactory
         SoyuzCreditsDbContext ctx = engine switch
         {
             "postgres" => new SoyuzCreditsPostgresDbContext(SoyuzCreditsDbOptions.Postgres(PostgresConnection())),
-            "sqlite" => new SoyuzCreditsSqliteDbContext(SoyuzCreditsDbOptions.Sqlite(SqliteConnection())),
+            "sqlite" => new SoyuzCreditsSqliteDbContext(SoyuzCreditsDbOptions.Sqlite(SqliteConnectionString())),
             _ => throw new InvalidOperationException($"Неизвестный database.engine: {engine}"),
         };
 
@@ -50,6 +52,10 @@ public sealed class CreditsDbFactory : ICreditsDbFactory
         _ = _server.ServerId;
         using var db = Create();
         db.Database.Migrate();
+
+        var pending = db.Database.GetPendingMigrations().ToList();
+        if (pending.Count > 0)
+            throw new InvalidOperationException($"Миграции Советских кредитов не применены: {string.Join(", ", pending)}.");
     }
 
     private string PostgresConnection()
@@ -64,10 +70,25 @@ public sealed class CreditsDbFactory : ICreditsDbFactory
         }.ConnectionString;
     }
 
-    private string SqliteConnection()
+    private string SqliteConnectionString()
     {
+        var root = _res.UserData.RootDir;
+        if (root == null)
+        {
+            var memory = $"Data Source={_memoryName};Mode=Memory;Cache=Shared";
+            lock (_memoryLock)
+            {
+                if (_memoryKeeper == null)
+                {
+                    _memoryKeeper = new SqliteConnection(memory);
+                    _memoryKeeper.Open();
+                }
+            }
+
+            return memory;
+        }
+
         var path = _cfg.GetCVar(CCVars.DatabaseSqliteDbPath);
-        var full = Path.Combine(_res.UserData.RootDir ?? "", path);
-        return $"Data Source={full}";
+        return $"Data Source={Path.Combine(root, path)}";
     }
 }

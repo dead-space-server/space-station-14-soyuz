@@ -112,7 +112,7 @@ public sealed class SoyuzCreditsCCVars
     /// Задавайте длинный случайный токен и держите порт статуса за HTTPS-прокси или во внутренней сети.
     /// </summary>
     public static readonly CVarDef<string> ApiToken =
-        CVarDef.Create("soyuz.credits.api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+        CVarDef.Create("soyuz.credits.soyuz_api_token", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
     /// <summary>
     /// Сколько кредитов за сутки можно выдать через API бота (выдача, промокоды по сумме использований). 0 = выдача через API выключена.

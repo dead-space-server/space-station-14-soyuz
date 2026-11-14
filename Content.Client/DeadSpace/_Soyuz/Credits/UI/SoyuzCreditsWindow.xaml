@@ -5,7 +5,7 @@
 
         <PanelContainer Name="HeaderPanel">
             <BoxContainer Orientation="Horizontal" Margin="14 10 14 10" SeparationOverride="14">
-                <TextureRect TexturePath="Resources/Textures/_DeadSpace/_Soyuz/Interface/credits.png"
+                <TextureRect TexturePath="/Textures/_DeadSpace/_Soyuz/Interface/credits.png"
                              Modulate="#ffd34d"
                              MinSize="44 44"
                              Stretch="KeepAspectCentered"

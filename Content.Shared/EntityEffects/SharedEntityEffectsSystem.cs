@@ -1,6 +1,7 @@
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Reaction;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Content.Shared.EntityConditions;
 using Content.Shared.FixedPoint;
 using Content.Shared.Random.Helpers;
@@ -57,6 +58,14 @@ public sealed partial class SharedEntityEffectsSystem : EntitySystem, IEntityEff
                     ApplyEffects(entity, entry.Effects, scale);
             }
         }
+
+        // DS14-Soyuz start
+        if (args.Reagent.ID == PharmaceuticalData.PrototypeId && !Deleted(entity) && !Terminating(entity))
+        {
+            var ev = new PharmaceuticalReactionEvent(entity.Owner, args);
+            RaiseLocalEvent(ref ev);
+        }
+        // DS14-Soyuz end
     }
 
     private void OnMapInit(Entity<EntityEffectOnMapInitComponent> entity, ref MapInitEvent args)

@@ -283,7 +283,7 @@ namespace Content.Client.Chemistry.UI
                 }).MinBy(r => r.Quantity)
                 .Reagent;
             _prototypeManager.TryIndex(reagent.Prototype, out ReagentPrototype? proto);
-            return proto?.LocalizedName ?? "";
+            return proto != null ? reagent.GetLocalizedName(proto) : ""; // DS14-Soyuz
         }
 
         /// <summary>
@@ -344,8 +344,8 @@ namespace Content.Client.Chemistry.UI
             {
                 var reagentId = reagent;
                 _prototypeManager.TryIndex(reagentId.Prototype, out ReagentPrototype? proto);
-                var name = proto?.LocalizedName ?? Loc.GetString("chem-master-window-unknown-reagent-text");
-                var reagentColor = proto?.SubstanceColor ?? default(Color);
+                var name = proto != null ? reagentId.GetLocalizedName(proto) : Loc.GetString("chem-master-window-unknown-reagent-text"); // DS14-Soyuz
+                var reagentColor = reagentId.GetColor(proto); // DS14-Soyuz
                 reagentList.Add(new (reagentId, name, reagentColor, quantity));
             }
 
@@ -434,8 +434,8 @@ namespace Content.Client.Chemistry.UI
                 foreach (var reagent in info.Reagents)
                 {
                     _prototypeManager.TryIndex(reagent.Reagent.Prototype, out ReagentPrototype? proto);
-                    var name = proto?.LocalizedName ?? Loc.GetString("chem-master-window-unknown-reagent-text");
-                    var reagentColor = proto?.SubstanceColor ?? default(Color);
+                    var name = proto != null ? reagent.Reagent.GetLocalizedName(proto) : Loc.GetString("chem-master-window-unknown-reagent-text"); // DS14-Soyuz
+                    var reagentColor = reagent.Reagent.GetColor(proto); // DS14-Soyuz
 
                     control.Children.Add(BuildReagentRow(reagentColor, rowCount++, name, reagent.Reagent, reagent.Quantity, false, addReagentButtons));
                 }

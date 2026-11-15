@@ -13,6 +13,7 @@ ghost-bar-join-error = Произошла ошибка при попытке в�
 
 ghost-bar-costume-select = Надеть
 ghost-bar-costume-remove = Снять
+ghost-bar-costume-status-selected = Выбрано
 
 ghost-bar-costume-category-head = Головной Убор
 ghost-bar-costume-category-jumpsuit = Комбинезоны

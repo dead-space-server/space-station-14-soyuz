@@ -16,6 +16,7 @@ public sealed class SoyuzImpulseSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<PowerSupplierComponent, ComponentStartup>(OnStartup);
+        SubscribeLocalEvent<PowerSupplierComponent, ComponentShutdown>(OnShutdown);
     }
 
     private void OnStartup(EntityUid uid, PowerSupplierComponent component, ComponentStartup args)
@@ -23,8 +24,7 @@ public sealed class SoyuzImpulseSystem : EntitySystem
         _suppliers[uid] = component;
     }
 
-    // Called by PowerNetSystem's existing shutdown subscription, before freeing the network supply.
-    public void RemoveSupplier(EntityUid uid, PowerSupplierComponent component)
+    private void OnShutdown(EntityUid uid, PowerSupplierComponent component, ComponentShutdown args)
     {
         _suppliers.Remove(uid);
         if (component.SoyuzOutputMultiplier != 1f)

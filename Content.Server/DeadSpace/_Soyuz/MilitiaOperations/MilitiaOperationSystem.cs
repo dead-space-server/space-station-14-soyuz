@@ -70,6 +70,8 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
         SubscribeLocalEvent<MilitiaOperationTargetComponent, EntityTerminatingEvent>(OnTargetTerminating);
         SubscribeLocalEvent<MilitiaOperationActorComponent, DamageChangedEvent>(OnActorDamaged);
+        SubscribeLocalEvent<Content.Shared.Projectiles.ProjectileComponent, Content.Shared.Projectiles.ProjectileHitEvent>(OnActorProjectileHit);
+        SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Hitscan.Events.HitscanRaycastStrikeEvent>(OnActorHitscanHit);
         SubscribeLocalEvent<MilitiaOperationActorComponent, TryingToSleepEvent>(OnActorSleepAttempt);
         SubscribeLocalEvent<MilitiaOperationActorComponent, ComponentShutdown>(OnActorShutdown);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MobStateChangedEvent>(OnActorMobStateChanged);

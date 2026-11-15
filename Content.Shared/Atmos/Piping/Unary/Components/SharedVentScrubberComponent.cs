@@ -1,5 +1,6 @@
 using Content.Shared.Atmos.Monitor.Components;
 using Robust.Shared.Serialization;
+using System.Linq; // DS14-Soyuz
 
 namespace Content.Shared.Atmos.Piping.Unary.Components
 {
@@ -15,31 +16,8 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
         public bool WideNet { get; set; } = false;
         public bool AirAlarmPanicWireCut { get; set; }
 
-        public static HashSet<Gas> DefaultFilterGases = new()
-        {
-            Gas.CarbonDioxide,
-            Gas.Plasma,
-            Gas.Tritium,
-            Gas.WaterVapor,
-            Gas.Ammonia,
-            Gas.NitrousOxide,
-            Gas.Frezon,
-            // DS14-start
-            Gas.InfectionDeadSpace,
-            Gas.Nitriatium,
-            Gas.Hilium,
-            Gas.Brizidium,
-            Gas.Iprit,
-            Gas.Hydrogen,
-            Gas.HyperNoblium,
-            Gas.ProtoNitrate,
-            Gas.Helium,
-            Gas.Halon,
-            Gas.Zauker,
-            Gas.Antinoblium,
-            Gas.Psychogen,
-            // DS14-end
-        };
+        public static HashSet<Gas> DefaultFilterGases = new(
+            Enum.GetValues<Gas>().Where(gas => gas is not (Gas.Oxygen or Gas.Nitrogen))); // DS14-Soyuz
 
         // Presets for 'dumb' air alarm modes
 

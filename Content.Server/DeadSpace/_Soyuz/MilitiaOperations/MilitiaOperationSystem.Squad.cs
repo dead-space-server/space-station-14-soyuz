@@ -370,7 +370,8 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private bool NeedsSquadRetreat(EntityUid uid, MilitiaOperationActorComponent actor)
-        => actor.WindowExposed || (!DirectContact(uid, actor) || actor.TriageRequired) && !SafeForTreatment(uid) &&
+        => actor.WindowExposed || !DirectContact(uid, actor) && actor.DamageThreatUntil > _timing.CurTime ||
+           (!DirectContact(uid, actor) || actor.TriageRequired) && !SafeForTreatment(uid) &&
            (NeedsRecovery(uid, actor) || actor.Medic && actor.DamageThreatUntil > _timing.CurTime);
 
     public void RejectUnreachableRetreat(EntityUid uid, MilitiaSquadOrder order)

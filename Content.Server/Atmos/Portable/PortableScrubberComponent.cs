@@ -22,31 +22,7 @@ namespace Content.Server.Atmos.Portable
         /// this can't be changed in game.
         /// </summary>
         [DataField("filterGases")]
-        public HashSet<Gas> FilterGases = new()
-        {
-            Gas.CarbonDioxide,
-            Gas.Plasma,
-            Gas.Tritium,
-            Gas.WaterVapor,
-            Gas.Ammonia,
-            Gas.NitrousOxide,
-            Gas.Frezon,
-            // DS14-start
-            Gas.InfectionDeadSpace,
-            Gas.Nitriatium,
-            Gas.Hilium,
-            Gas.Brizidium,
-            Gas.Iprit,
-            Gas.Hydrogen,
-            Gas.HyperNoblium,
-            Gas.ProtoNitrate,
-            Gas.Helium,
-            Gas.Halon,
-            Gas.Zauker,
-            Gas.Antinoblium,
-            Gas.Psychogen,
-            // DS14-end
-        };
+        public HashSet<Gas> FilterGases = new(GasVentScrubberData.DefaultFilterGases); // DS14-Soyuz
 
         [ViewVariables(VVAccess.ReadWrite)]
         public bool Enabled = true;

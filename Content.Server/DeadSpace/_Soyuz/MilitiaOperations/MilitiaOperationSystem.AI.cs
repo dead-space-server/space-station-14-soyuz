@@ -234,14 +234,27 @@ public sealed partial class MilitiaOperationSystem
 
     private void OnActorDamaged(Entity<MilitiaOperationActorComponent> actor, ref DamageChangedEvent args)
     {
-        if (!args.DamageIncreased || !args.InterruptsDoAfters)
+        if (!args.DamageIncreased)
+            return;
+        var source = DamageSourcePosition(actor.Owner, args.Origin);
+        if (!args.InterruptsDoAfters && source == null &&
+            args.DamageDelta?.DamageDict.Any(damage => damage.Value > 0 &&
+                damage.Key is "Blunt" or "Slash" or "Piercing" or "Heat" or "Cold" or "Shock") != true)
+            return;
+        AlertActor(actor, source);
+    }
+
+    private void AlertActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat)
+    {
+        if (HasPlayerMind(actor.Owner) || TerminatingOrDeleted(actor.Owner) || _mobs.IsIncapacitated(actor.Owner))
             return;
         actor.Comp.SafeAfter = _timing.CurTime + actor.Comp.TreatmentSafetyDelay;
         actor.Comp.AlertUntil = _timing.CurTime + TimeSpan.FromSeconds(12);
+        var previousThreat = RecentDamageThreat(actor.Owner, actor.Comp);
         actor.Comp.DamageThreatUntil = _timing.CurTime + actor.Comp.ContactMemory;
-        actor.Comp.DamageThreat = args.Origin is { } source && source != actor.Owner && Exists(source) &&
-            !TerminatingOrDeleted(source) && Transform(source).MapID == Transform(actor.Owner).MapID
-                ? _transform.GetMapCoordinates(source) : null;
+        actor.Comp.DamageThreat = threat ?? previousThreat;
+        actor.Comp.ThreatScanValidUntil = TimeSpan.Zero;
+        _actorNpcs.KeepMilitiaCombatActive(actor.Owner);
         _nextSquadUpdate = _timing.CurTime;
         _nextSquadSafety = _timing.CurTime;
         var medics = EntityQueryEnumerator<MilitiaOperationActorComponent>();
@@ -333,9 +346,13 @@ public sealed partial class MilitiaOperationSystem
         var stop = new List<EntityUid>();
         while (query.MoveNext(out var uid, out var actor))
         {
+            if (actor.DamageThreatUntil > _timing.CurTime)
+                _actorNpcs.KeepMilitiaCombatActive(uid);
             if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) || !ValidPatient(uid, actor.Patient, actor) ||
                 checkRoute && actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
-                actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)))
+                actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)) ||
+                actor.ReloadUntil != null && actor.DamageThreatUntil > _timing.CurTime &&
+                (actor.WindowExposed || !DirectContact(uid, actor)))
                 stop.Add(uid);
         }
         foreach (var uid in stop)
@@ -343,6 +360,7 @@ public sealed partial class MilitiaOperationSystem
             InterruptActor(uid);
             EndTreatment(uid);
             EndMedicalRefill(uid);
+            EndReload(uid);
         }
     }
 

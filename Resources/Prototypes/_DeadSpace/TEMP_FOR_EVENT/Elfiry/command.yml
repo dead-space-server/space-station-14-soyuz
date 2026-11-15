@@ -1,0 +1,353 @@
+- type: entity
+  id: ElfiryEventCommandTablet
+  parent: BaseItem
+  name: планшет командования «Рассвета»
+  description: Полевой терминал управления отрядами. Принимает распоряжения назначенного командира.
+  suffix: Обратный путь
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/tablets.rsi
+    state: syndie
+  - type: Item
+    size: Small
+    sprite: Objects/Devices/tablets.rsi
+    inhandVisuals:
+      left:
+      - state: inhand-left-syndie
+      right:
+      - state: inhand-right-syndie
+  - type: EventCommandTablet
+  - type: ActivatableUI
+    key: enum.EventCommandUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.EventCommandUiKey.Key:
+        type: EventCommandBoundUserInterface
+
+- type: entity
+  id: ElfiryEventCommander
+  parent: BaseMobHuman
+  name: командир «Рассвета»
+  description: Командир передового отряда «Рассвета».
+  suffix: Обратный путь, роль игрока
+  components:
+  - type: EventCommander
+  - type: NpcFactionMember
+    factions: [Syndicate]
+  - type: Loadout
+    prototypes: [ElfiryEventCommanderGear]
+  - type: GhostRole
+    name: elfiry-command-ghost-name
+    description: elfiry-command-ghost-description
+    rules: elfiry-command-ghost-rules
+  - type: GhostTakeoverAvailable
+
+- type: startingGear
+  id: ElfiryEventCommanderGear
+  parent: SyndicateFootsoldierGearRuin
+  equipment:
+    pocket2: ElfiryEventCommandTablet
+
+- type: entity
+  id: ElfiryEventRassvetScout
+  parent: MilitiaOperationRaiderScout
+  suffix: Обратный путь, злой ИИ, управляемый отряд
+  components:
+  - type: EventSquadUnit
+  - type: MilitiaOperationActor
+    equipment: ElfiryEventEquipmentScout
+  - type: HTN
+    rootTask:
+      task: ElfiryEventCombatCompound
+
+- type: entity
+  id: ElfiryEventRassvetAssault
+  parent: MilitiaOperationRaiderAssault
+  suffix: Обратный путь, злой ИИ, управляемый отряд
+  components:
+  - type: EventSquadUnit
+  - type: MilitiaOperationActor
+    equipment: ElfiryEventEquipmentAssault
+  - type: HTN
+    rootTask:
+      task: ElfiryEventCombatCompound
+
+- type: entity
+  id: ElfiryEventRassvetGuard
+  parent: MilitiaOperationRaiderGuard
+  suffix: Обратный путь, злой ИИ, управляемый отряд
+  components:
+  - type: EventSquadUnit
+  - type: MilitiaOperationActor
+    equipment: ElfiryEventEquipmentGuard
+  - type: HTN
+    rootTask:
+      task: ElfiryEventCombatCompound
+
+- type: entity
+  id: ElfiryEventRassvetMedic
+  parent: MilitiaOperationRaiderMedic
+  suffix: Обратный путь, злой ИИ, управляемый отряд
+  components:
+  - type: EventSquadUnit
+  - type: MilitiaOperationActor
+    equipment: ElfiryEventEquipmentMedic
+  - type: HTN
+    rootTask:
+      task: ElfiryEventCombatCompound
+
+- type: entity
+  id: ElfiryEventCommandWaypoint
+  parent: MarkerBase
+  name: ориентир отряда
+  suffix: Обратный путь
+  components:
+  - type: EventCommandWaypoint
+  - type: Sprite
+    layers:
+    - state: green
+
+- type: entity
+  id: ElfiryEventWebbing
+  parent: ClothingBeltMilitaryWebbing
+  categories: [HideSpawnMenu]
+  components:
+  - type: Storage
+    grid:
+    - 0,0,15,3
+
+- type: entity
+  id: ElfiryEventMedicalWebbing
+  parent: ClothingBeltMilitaryWebbingMed
+  categories: [HideSpawnMenu]
+  components:
+  - type: Storage
+    grid:
+    - 0,0,15,3
+
+- type: militiaEquipment
+  id: ElfiryEventEquipmentScout
+  parent: MilitiaEquipmentScout
+  weapons:
+  - weapon: WeaponPistolViper
+    magazine: MagazinePistolHighCapacity
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolCobra
+    magazine: MagazinePistolCaselessRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolGurza
+    magazine: MagazineGurza
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolDesertEagle
+    magazine: MagazineEagle
+    minimumMagazines: 0
+    maximumMagazines: 2
+  - weapon: WeaponPistolGoldDesertEagle
+    magazine: MagazineEagleGold
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponRifleEstoc
+    magazine: MagazineRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponCarbineSKS
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSniperR17
+    magazine: MagazineR17
+    minimumMagazines: 6
+    maximumMagazines: 6
+  equipment:
+    belt: [ElfiryEventWebbing]
+  supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
+
+- type: militiaEquipment
+  id: ElfiryEventEquipmentAssault
+  parent: MilitiaEquipmentAssault
+  weapons:
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponRifleM90GrenadeLauncher
+    magazine: MagazineRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponRifleAk
+    magazine: MagazineLightRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponRifleXC67
+    magazine: ADTExtMagazineRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponRifleEstoc
+    magazine: MagazineRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponCarbineSKS
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 6
+    maximumMagazines: 6
+  equipment:
+    belt: [ElfiryEventWebbing]
+  supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
+
+- type: militiaEquipment
+  id: ElfiryEventEquipmentGuard
+  parent: MilitiaEquipmentGuard
+  weapons:
+  - weapon: WeaponShotgunBulldog
+    magazine: MagazineShotgun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponShotgunHammerhead
+    magazine: ADTMagazineShotgunXL
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponLightMachineGunL6
+    magazine: MagazineLightRifleBox
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSniperR17
+    magazine: MagazineR17
+    minimumMagazines: 6
+    maximumMagazines: 6
+  equipment:
+    belt: [ElfiryEventWebbing]
+  supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
+
+- type: militiaEquipment
+  id: ElfiryEventEquipmentMedic
+  parent: MilitiaEquipmentMedic
+  weapons:
+  - weapon: WeaponPistolViper
+    magazine: MagazinePistolHighCapacity
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolCobra
+    magazine: MagazinePistolCaselessRifle
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolGurza
+    magazine: MagazineGurza
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponPistolDesertEagle
+    magazine: MagazineEagle
+    minimumMagazines: 0
+    maximumMagazines: 2
+  - weapon: WeaponSubMachineGunC20r
+    magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  - weapon: WeaponSMGTommyGun
+    magazine: MagazineTommyGun
+    minimumMagazines: 6
+    maximumMagazines: 6
+  equipment:
+    belt: [ElfiryEventMedicalWebbing]
+  supplies:
+  - SyndicateJawsOfLife
+  - SyndiHypo
+  - ChemistryBottleOmnizine
+  - ChemistryBottleOmnizine
+  - ChemistryBottleOmnizine
+  - MilitiaOperationCombatMedicineBottle
+  - MilitiaOperationCombatMedicineBottle
+  - MilitiaOperationCombatMedicineBottle
+  - MedicatedSuture
+  - MedicatedSuture
+  - RegenerativeMesh
+  - RegenerativeMesh
+
+- type: htnCompound
+  id: ElfiryEventCombatCompound
+  branches:
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:EventUncuffOperator
+  - preconditions:
+    - !type:BuckledPrecondition
+      isBuckled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnbuckleOperator
+  - preconditions:
+    - !type:PulledPrecondition
+      isPulled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnPullOperator
+  - preconditions:
+    - !type:InContainerPrecondition
+      isInContainer: true
+    tasks:
+    - !type:HTNCompoundTask
+      task: EscapeCompound
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Evade
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: WaitForTreatment
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: RefillMedicine
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: SelectTreatment
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: ApproachTreatment
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Treat
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Retreat
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Hold
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Reload
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Arm
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:EventCommandOperator {}
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Squad
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
+        kind: Guard

@@ -235,3 +235,4 @@
     treatmentThreshold: 15
     treatmentRange: 14
     treatmentCooldown: 2s
+    treatmentSafetyDelay: 3s

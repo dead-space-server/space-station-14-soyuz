@@ -181,7 +181,8 @@ public sealed partial class MilitiaOperationSystem
         var query = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (query.MoveNext(out var patient, out _))
             patients.Add(patient);
-        foreach (var patient in patients.OrderByDescending(p => TryComp<DamageableComponent>(p, out var damage) ? damage.TotalDamage : 0))
+        foreach (var patient in patients.OrderByDescending(p => p == uid && NeedsMedic(uid, actor))
+                     .ThenByDescending(p => TryComp<DamageableComponent>(p, out var damage) ? damage.TotalDamage : 0))
         {
             if ((!actor.Medic && patient != uid) || !ValidPatient(uid, patient, actor) ||
                 !TryComp<DamageableComponent>(patient, out var damage) ||

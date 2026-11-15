@@ -238,6 +238,12 @@ public sealed partial class MilitiaOperationSystem
             return;
         actor.Comp.SafeAfter = _timing.CurTime + actor.Comp.TreatmentSafetyDelay;
         actor.Comp.AlertUntil = _timing.CurTime + TimeSpan.FromSeconds(12);
+        actor.Comp.DamageThreatUntil = _timing.CurTime + actor.Comp.ContactMemory;
+        actor.Comp.DamageThreat = args.Origin is { } source && source != actor.Owner && Exists(source) &&
+            !TerminatingOrDeleted(source) && Transform(source).MapID == Transform(actor.Owner).MapID
+                ? _transform.GetMapCoordinates(source) : null;
+        _nextSquadUpdate = _timing.CurTime;
+        _nextSquadSafety = _timing.CurTime;
         var medics = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (medics.MoveNext(out var uid, out var medic))
         {
@@ -257,6 +263,10 @@ public sealed partial class MilitiaOperationSystem
                _timing.CurTime >= actor.SafeAfter &&
                _timing.CurTime < actor.ThreatScanValidUntil && !actor.ExposedToThreat;
     }
+
+    private MapCoordinates? RecentDamageThreat(EntityUid uid, MilitiaOperationActorComponent actor)
+        => actor.DamageThreatUntil > _timing.CurTime && actor.DamageThreat is { } threat && threat.MapId == Transform(uid).MapID
+            ? threat : null;
 
     public bool ReceivingTreatment(EntityUid uid)
         => !TerminatingOrDeleted(uid) && !HasPlayerMind(uid) && !MetaData(uid).EntityPaused && !_mobs.IsDead(uid) &&
@@ -624,9 +634,27 @@ public sealed partial class MilitiaOperationSystem
             return false;
         if (actor.MeleeCounterTarget == target && actor.MeleeCounterUntil > _timing.CurTime)
             return true;
-        return _hands.EnumerateHeld(target).Any(item => _squadTags.HasTag(item, DoubleSwordTag) &&
-            TryComp<ItemToggleComponent>(item, out var toggle) && toggle.Activated &&
-            TryComp<ReflectComponent>(item, out var reflect) && reflect.ReflectingInHands && reflect.ReflectProb > 0);
+        return _hands.EnumerateHeld(target).Any(IsMeleeCounterItem);
+    }
+
+    private bool IsMeleeCounterItem(EntityUid item)
+    {
+        if (!TryComp<ItemToggleComponent>(item, out var toggle) || !toggle.Activated ||
+            !TryComp<ReflectComponent>(item, out var reflect) || !reflect.ReflectingInHands || reflect.ReflectProb <= 0)
+            return false;
+        return _squadTags.HasTag(item, DoubleSwordTag) || MetaData(item).EntityPrototype is { } prototype &&
+            _prototypes.EnumerateParents(prototype, includeSelf: true).Any(parent => parent.ID == EnergyShieldPrototype.Id);
+    }
+
+    private bool HasActiveDoubleSword(EntityUid uid)
+        => Exists(uid) && !TerminatingOrDeleted(uid) &&
+           _hands.EnumerateHeld(uid).Any(item => _squadTags.HasTag(item, DoubleSwordTag) && IsMeleeCounterItem(item));
+
+    private bool UnsafeRangedTarget(MilitiaOperationActorComponent actor, EntityUid target)
+    {
+        if (HasActiveDoubleSword(target))
+            actor.UnsafeRangedTargets[target] = _timing.CurTime + TimeSpan.FromSeconds(1);
+        return actor.UnsafeRangedTargets.TryGetValue(target, out var retry) && retry > _timing.CurTime;
     }
 
     public bool ArmActor(EntityUid uid)
@@ -835,6 +863,9 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates RetreatOrigin;
     public bool RetreatCovered;
     public bool ExposedToThreat;
+    public bool WindowExposed;
+    public EntityCoordinates WindowSafePosition;
+    public TimeSpan WindowHoldUntil;
     public TimeSpan ThreatScanValidUntil;
     public TimeSpan NextFireReposition;
     public TimeSpan FireBlockedUntil;
@@ -847,12 +878,16 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public int EquipmentSeed;
     public readonly HashSet<EntityUid> CreatedEquipment = new();
     public TimeSpan SafeAfter;
+    public MapCoordinates? DamageThreat;
+    public TimeSpan DamageThreatUntil;
+    public TimeSpan RetreatRetryAfter;
     public EntityUid Weapon;
     public EntityUid Backpack;
     public EntityUid Webbing;
     public EntityUid Backup;
     public EntityUid MeleeCounterTarget;
     public TimeSpan MeleeCounterUntil;
+    public readonly Dictionary<EntityUid, TimeSpan> UnsafeRangedTargets = new();
     public EntityUid PryTool;
     public DoAfterId? DoorPry;
     public EntityUid Patient;
@@ -933,6 +968,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             }
             cancelToken.ThrowIfCancellationRequested();
             _operations.RejectUnreachableMedic(owner, order);
+            _operations.RejectUnreachableRetreat(owner, order);
             return (false, null);
         }
         if (Kind == MilitiaSupportKind.SelectTreatment)

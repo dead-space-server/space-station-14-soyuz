@@ -13905,8 +13905,6 @@ entities:
       pos: 50.5,-11.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 44
   - uid: 379
@@ -13915,8 +13913,6 @@ entities:
       pos: 56.5,-11.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 44
   - uid: 380
@@ -14461,8 +14457,6 @@ entities:
       pos: 51.5,-4.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
       deviceLists:
       - 44
   - uid: 446
@@ -47515,8 +47509,6 @@ entities:
       pos: 25.5,-25.5
       parent: 2
     - type: DeviceNetwork
-      configurators:
-      - invalid
     - type: Pullable
       prevFixedRotation: True
 - proto: DisposalBend

@@ -173,3 +173,25 @@
   category: neck
   clothingProto: ClothingNeckGhostBarVioletMantleShoulder
   slot: neck
+
+#region Слот: Shoes
+- type: ghostBarCostume
+  id: BlueBoots
+  name: ghost-bar-costume-ClothingShoesBootsGhostBarBlue
+  category: shoes
+  clothingProto: ClothingShoesBootsGhostBarBlue
+  slot: shoes
+
+- type: ghostBarCostume
+  id: OrangeBoots
+  name: ghost-bar-costume-ClothingShoesBootsGhostBarOrange
+  category: shoes
+  clothingProto: ClothingShoesBootsGhostBarOrange
+  slot: shoes
+
+- type: ghostBarCostume
+  id: VioletBoots
+  name: ghost-bar-costume-ClothingShoesBootsGhostBarViolet
+  category: shoes
+  clothingProto: ClothingShoesBootsGhostBarViolet
+  slot: shoes

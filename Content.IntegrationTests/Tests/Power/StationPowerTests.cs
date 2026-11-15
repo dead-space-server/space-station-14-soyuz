@@ -38,7 +38,7 @@ public sealed class StationPowerTests
         // "CorvaxDelta",
         // DS14-Soyuz-end
         // "CorvaxPaper", // APC overloaded
-        "SoyuzSilly",
+        "SoyuzSilly", // DS14-Soyuz
         // "CorvaxSpectrum", // DS14-Soyuz
         "Elkridge",
         // "Exo", // map removed
@@ -58,7 +58,7 @@ public sealed class StationPowerTests
         // "Relic", // map removed
         "Snowball",
         "Reach",
-        "Saltern",
+        "SoyuzSaltern", // DS14-Soyuz
         "Train",
         "DsTram2", // guess what? DS14
         "GeneralStaff" // DS14-Soyuz

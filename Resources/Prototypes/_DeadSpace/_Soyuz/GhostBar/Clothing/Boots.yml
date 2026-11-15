@@ -1,0 +1,35 @@
+- type: entity
+  parent: ClothingShoesBootsGhostBarDefault
+  id: ClothingShoesBootsGhostBarBlue
+  name: голубые космо-сапоги
+  suffix: Гост-бар, Неснимаемая
+  description: Сапоги, которые легально получить на станции, вряд-ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/blue.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/blue.rsi
+
+- type: entity
+  parent: ClothingShoesBootsGhostBarDefault
+  id: ClothingShoesBootsGhostBarOrange
+  name: оранжевые космо-сапоги
+  suffix: Гост-бар, Неснимаемая
+  description: Сапоги, которые легально получить на станции, вряд-ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/orange.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/orange.rsi
+
+- type: entity
+  parent: ClothingShoesBootsGhostBarDefault
+  id: ClothingShoesBootsGhostBarViolet
+  name: фиолетовые космо-сапоги
+  suffix: Гост-бар, Неснимаемая
+  description: Сапоги, которые легально получить на станции, вряд-ли получится.
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/violet.rsi
+  - type: Clothing
+    sprite: _DeadSpace/_Soyuz/GhostBar/Boots/violet.rsi

@@ -1,11 +1,11 @@
 - type: gameMap
-  id: Saltern
+  id: SoyuzSaltern
   mapName: 'Салтерн' #DS14-Soyuz local
-  mapPath: /Maps/_Soyuz/saltern.yml
+  mapPath: /Maps/_Soyuz/S1_Saltern.yml
   minPlayers: 7
   maxPlayers: 35
   stations:
-    Saltern:
+    SoyuzSaltern:
       stationProto: StandardNanotrasenStation
       components:
         - type: StationNameSetup

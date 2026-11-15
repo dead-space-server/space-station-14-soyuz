@@ -62,3 +62,8 @@ ghost-bar-costume-ClothingNeckGhostBarWhiteScarf = Белоснежный кос
 ghost-bar-costume-ClothingNeckGhostBarBlueMantleShoulder = Голубая наплечная космо-мантия
 ghost-bar-costume-ClothingNeckGhostBarOrangeMantleShoulder = Оранжевая наплечная космо-мантия
 ghost-bar-costume-ClothingNeckGhostBarVioletMantleShoulder = Фиолетовая наплечная космо-мантия
+
+# Ботинки
+ghost-bar-costume-ClothingShoesBootsGhostBarBlue = Голубые космо-сапоги
+ghost-bar-costume-ClothingShoesBootsGhostBarOrange = Оранжевые космо-сапоги
+ghost-bar-costume-ClothingShoesBootsGhostBarViolet = Фиолетовые космо-сапоги

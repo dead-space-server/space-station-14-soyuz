@@ -9648,3 +9648,16 @@ Entries:
     message: 'Несогласованности снаряжения и описаний после PR #529.'
   - type: Fix
     message: Баги операций милиции.
+- id: 927
+  author: Genes1us
+  time: '2026-11-15T17:40:37.151967+00:00'
+  pr: 556
+  changes:
+  - type: Add
+    message: Ботинки для гост-бара
+  - type: Tweak
+    message: Загружен ремап салтерна. Ремапом занималась kainse
+  - type: Tweak
+    message: Интерфейс для входа в гост-бар
+  - type: Fix
+    message: Планетоид теперь спавнится в секторе станции

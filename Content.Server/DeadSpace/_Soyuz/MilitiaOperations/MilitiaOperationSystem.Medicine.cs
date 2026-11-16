@@ -3,6 +3,7 @@
 using System.Linq;
 using Content.Server.NPC.HTN;
 using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Events;
@@ -24,19 +25,50 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly SharedSolutionContainerSystem _medicalSolutions = default!;
     [Dependency] private readonly MobThresholdSystem _medicalThresholds = default!;
     [Dependency] private readonly InjectorSystem _medicalInjectors = default!;
+    [Dependency] private readonly BloodstreamSystem _medicalBloodstream = default!;
     private static readonly ProtoId<ReagentPrototype> MilitiaMedicine = "Omnizine";
     private static readonly ProtoId<ReagentPrototype> MilitiaCombatMedicine = "Derytracine";
-    private static readonly ProtoId<ReagentPrototype>[] MilitiaMedicines = { MilitiaMedicine, MilitiaCombatMedicine };
+    private static readonly ProtoId<ReagentPrototype> MilitiaClottingMedicine = "TranexamicAcid";
+    private static readonly ProtoId<ReagentPrototype> MilitiaBloodMedicine = "Saline";
+    private static readonly ProtoId<ReagentPrototype>[] MilitiaMedicines =
+        { MilitiaMedicine, MilitiaCombatMedicine, MilitiaClottingMedicine, MilitiaBloodMedicine };
     private static readonly ProtoId<InjectorModePrototype> MilitiaInjectionMode = "HyposprayInjectMode";
     private static readonly ProtoId<InjectorModePrototype> MilitiaRefillMode = "HyposprayDynamicMode";
 
     private static bool IsMedicineSolution(Solution solution)
-        => solution.Volume > 0 && solution.GetTotalPrototypeQuantity(MilitiaMedicine) +
-            solution.GetTotalPrototypeQuantity(MilitiaCombatMedicine) == solution.Volume;
+    {
+        var recognized = FixedPoint2.Zero;
+        foreach (var reagent in MilitiaMedicines)
+            recognized += solution.GetTotalPrototypeQuantity(reagent);
+        return solution.Volume > 0 && recognized == solution.Volume;
+    }
 
-    private static bool MedicineUseful(ProtoId<ReagentPrototype> reagent, DamageableComponent damage)
-        => damage.TotalDamage > 0 && (reagent == MilitiaMedicine ||
+    private bool BloodDeficit(EntityUid patient)
+        => TryComp<BloodstreamComponent>(patient, out var blood) &&
+           _medicalBloodstream.GetBloodLevel((patient, blood)) < 1f;
+
+    private bool NeedsBloodMedicine(EntityUid patient)
+        => BloodDeficit(patient) || TryComp<BloodstreamComponent>(patient, out var blood) && blood.BleedAmount > 0;
+
+    private bool MedicineUseful(ProtoId<ReagentPrototype> reagent, EntityUid patient, DamageableComponent damage)
+    {
+        if (reagent == MilitiaClottingMedicine)
+            return TryComp<BloodstreamComponent>(patient, out var blood) && blood.BleedAmount > 0;
+        if (reagent == MilitiaBloodMedicine)
+            return BloodDeficit(patient);
+        return damage.TotalDamage > 0 && (reagent == MilitiaMedicine ||
             new[] { "Piercing", "Heat", "Cold", "Shock" }.Any(type => damage.Damage.DamageDict.TryGetValue(type, out var amount) && amount > 0));
+    }
+
+    private static bool InjectorAcceptsMedicine(InjectorComponent injector, Solution solution)
+    {
+        if (injector.ReagentWhitelist == null)
+            return true;
+        var allowed = FixedPoint2.Zero;
+        foreach (var reagent in injector.ReagentWhitelist)
+            allowed += solution.GetTotalPrototypeQuantity(reagent);
+        return allowed == solution.Volume;
+    }
 
     private static bool SupportsMedicalRefill(InjectorComponent injector)
     {
@@ -51,17 +83,18 @@ public sealed partial class MilitiaOperationSystem
     private bool FindMedicalRefill(EntityUid uid, MilitiaOperationActorComponent actor, out EntityUid injector, out EntityUid bottle)
     {
         injector = bottle = EntityUid.Invalid;
+        var pending = actor.Medic ? HasTriageWork(uid, actor) : NeedsBloodMedicine(uid);
         foreach (var item in actor.Treatments)
         {
             if (!OwnsItem(uid, item) || !TryComp<InjectorComponent>(item, out var component) ||
                 !SupportsMedicalRefill(component) ||
                 !_medicalSolutions.TryGetSolution(item, component.SolutionName, out _, out var solution) || solution.AvailableVolume < 5 ||
-                solution.Volume > 0 && !IsMedicineSolution(solution))
+                solution.Volume > 0 && !IsMedicineSolution(solution) || pending && solution.Volume >= 5)
                 continue;
             foreach (var supply in actor.MedicineBottles)
             {
                 if (!OwnsItem(uid, supply) || !_medicalSolutions.TryGetDrawableSolution(supply, out _, out var stock) || stock.Volume < 5 ||
-                    !IsMedicineSolution(stock))
+                    !IsMedicineSolution(stock) || !InjectorAcceptsMedicine(component, stock))
                     continue;
                 injector = item;
                 bottle = supply;
@@ -134,11 +167,12 @@ public sealed partial class MilitiaOperationSystem
             if (status != DoAfterStatus.Finished || solution.Volume <= refill.Volume)
                 return HTNOperatorStatus.Failed;
         }
-        if (solution.Volume >= 5 && HasTriageWork(uid, actor))
+        if (solution.Volume >= 5 && (HasTriageWork(uid, actor) || NeedsBloodMedicine(uid)))
             return HTNOperatorStatus.Finished;
         if (solution.AvailableVolume < 5 || !_medicalSolutions.TryGetDrawableSolution(refill.Bottle, out _, out var stock) || stock.Volume < 5)
             return solution.Volume >= 5 ? HTNOperatorStatus.Finished : HTNOperatorStatus.Failed;
-        if (!IsMedicineSolution(stock) || solution.Volume > 0 && !IsMedicineSolution(solution) ||
+        if (!IsMedicineSolution(stock) || !InjectorAcceptsMedicine(injector, stock) ||
+            solution.Volume > 0 && !IsMedicineSolution(solution) ||
             !TryComp<DoAfterComponent>(uid, out var doAfter))
             return HTNOperatorStatus.Failed;
         var next = doAfter.NextId;
@@ -170,13 +204,20 @@ public sealed partial class MilitiaOperationSystem
         }
     }
 
+    private bool NeedsTreatment(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid patient, DamageableComponent damage)
+        => damage.TotalDamage >= actor.TreatmentThreshold || NeedsBloodMedicine(patient) ||
+           actor.Treatments.Any(item => OwnsItem(uid, item) && HasComp<HealingComponent>(item) && CanTreat(uid, item, patient, damage));
+
     public List<(EntityUid Patient, EntityUid Item)> TreatmentCandidates(EntityUid uid)
     {
         var result = new List<(EntityUid, EntityUid)>();
         if (!AvailableActor(uid, out var actor) || actor.MedicalRefill != null || actor.Patient.IsValid() || actor.DoorPry != null || ReceivingTreatment(uid) || _timing.CurTime < actor.NextTreatment)
             return result;
-        if (!actor.Medic && NeedsMedic(uid, actor) && FindMedic(uid).IsValid())
-            return result;
+        foreach (var patient in actor.UnreachablePatients.Keys.ToArray())
+        {
+            if (actor.UnreachablePatients[patient] <= _timing.CurTime || !Exists(patient))
+                actor.UnreachablePatients.Remove(patient);
+        }
         var patients = new List<EntityUid>();
         var query = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (query.MoveNext(out var patient, out _))
@@ -186,11 +227,11 @@ public sealed partial class MilitiaOperationSystem
         {
             if ((!actor.Medic && patient != uid) || !ValidPatient(uid, patient, actor) ||
                 !TryComp<DamageableComponent>(patient, out var damage) ||
-                damage.TotalDamage < actor.TreatmentThreshold &&
-                (!TryComp<BloodstreamComponent>(patient, out var blood) || blood.BleedAmount <= 0))
+                actor.UnreachablePatients.TryGetValue(patient, out var retry) && retry > _timing.CurTime ||
+                !NeedsTreatment(uid, actor, patient, damage))
                 continue;
-            var bleeding = TryComp<BloodstreamComponent>(patient, out var bloodstream) && bloodstream.BleedAmount > 0;
-            foreach (var item in actor.Treatments.OrderBy(item => bleeding && HasComp<InjectorComponent>(item) ? 1 : 0))
+            var bleeding = NeedsBloodMedicine(patient);
+            foreach (var item in actor.Treatments.OrderBy(item => bleeding && HasComp<InjectorComponent>(item) ? 0 : 1))
             {
                 if (CanTreat(uid, item, patient, damage) && CanEquipOwnedItem(uid, actor, item, false, out _))
                 {
@@ -234,7 +275,7 @@ public sealed partial class MilitiaOperationSystem
             var current = chemicals.GetTotalPrototypeQuantity(reagent);
             if (current + quantity * 5 / medicine.Volume > (reagent == MilitiaCombatMedicine ? 15 : 10))
                 return false;
-            useful |= current < 2 && MedicineUseful(reagent, damage);
+            useful |= current < 2 && MedicineUseful(reagent, patient, damage);
         }
         if (!useful)
             return false;
@@ -247,10 +288,12 @@ public sealed partial class MilitiaOperationSystem
     {
         if (actor.Treatments.Any(item => OwnsItem(uid, item) && CanTreat(uid, item, patient, damage)))
             return true;
-        var injector = actor.Treatments.FirstOrDefault(item => OwnsItem(uid, item) && HasComp<InjectorComponent>(item));
-        return actor.Medic && injector.IsValid() && actor.MedicineBottles.Any(item => OwnsItem(uid, item) &&
-            _medicalSolutions.TryGetDrawableSolution(item, out _, out var stock) && stock.Volume >= 5 &&
-            IsMedicineSolution(stock) && CanReceiveMedicine(uid, injector, patient, stock, damage));
+        return actor.Medic && actor.Treatments.Any(injector => OwnsItem(uid, injector) &&
+            TryComp<InjectorComponent>(injector, out var component) && SupportsMedicalRefill(component) &&
+            actor.MedicineBottles.Any(item => OwnsItem(uid, item) &&
+                _medicalSolutions.TryGetDrawableSolution(item, out _, out var stock) && stock.Volume >= 5 &&
+                IsMedicineSolution(stock) && InjectorAcceptsMedicine(component, stock) &&
+                CanReceiveMedicine(uid, injector, patient, stock, damage)));
     }
 
     private bool NeedsMedic(EntityUid uid, MilitiaOperationActorComponent actor)
@@ -350,6 +393,7 @@ public sealed partial class MilitiaOperationSystem
         try
         {
             EndGuard(uid);
+            _steering.Unregister(uid);
             if (patient != uid)
             {
                 Comp<MilitiaOperationActorComponent>(patient).TreatingMedic = uid;

@@ -881,6 +881,9 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates[] SquadRoute = Array.Empty<EntityCoordinates>();
     public EntityUid[] RetreatDoors = Array.Empty<EntityUid>();
     public int SquadRouteIndex;
+    public EntityCoordinates RouteProgressTarget;
+    public float RouteProgressDistance;
+    public TimeSpan RouteProgressAt;
     public EntityCoordinates RetreatOrigin;
     public bool RetreatCovered;
     public bool ExposedToThreat;
@@ -926,6 +929,7 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public readonly List<EntityUid> Treatments = new();
     public readonly List<EntityUid> MedicineBottles = new();
     public readonly Dictionary<EntityUid, TimeSpan> UnreachableMedics = new();
+    public readonly Dictionary<EntityUid, TimeSpan> UnreachablePatients = new();
     public MilitiaMedicalRefill? MedicalRefill;
     public TimeSpan NextRefill;
 }
@@ -988,6 +992,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
                     cancelToken, _pathfinding.GetFlags(blackboard));
                 if (path.Result == PathResult.Path && _operations.PrepareSquadPath(owner, order, position, path.Path) is { } plan)
                     return (true, new Dictionary<string, object> { [SquadPlanKey] = plan });
+                cancelToken.ThrowIfCancellationRequested();
+                _operations.RejectSquadPath(owner, order, position);
             }
             cancelToken.ThrowIfCancellationRequested();
             _operations.RejectUnreachableMedic(owner, order);

@@ -41,6 +41,7 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly NPCSteeringSystem _steering = default!;
     [Dependency] private readonly EntityLookupSystem _squadLookup = default!;
     [Dependency] private readonly SharedPhysicsSystem _squadPhysics = default!;
+    [Dependency] private readonly RayCastSystem _squadRayCast = default!;
     [Dependency] private readonly SharedDoorSystem _squadDoors = default!;
     [Dependency] private readonly MeleeWeaponSystem _squadMelee = default!;
     [Dependency] private readonly TagSystem _squadTags = default!;
@@ -215,7 +216,7 @@ public sealed partial class MilitiaOperationSystem
         while (patients.MoveNext(out var other, out _, out var damage))
         {
             if (!_mobs.IsDead(other) && !HasPlayerMind(other) && SameOperation(uid, other) && InTreatmentArea(uid, other, actor) &&
-                (damage.TotalDamage >= actor.TreatmentThreshold || TryComp<BloodstreamComponent>(other, out var blood) && blood.BleedAmount > 0) &&
+                NeedsTreatment(uid, actor, other, damage) &&
                 HasTreatment(uid, actor, other, damage))
                 return true;
         }
@@ -274,7 +275,7 @@ public sealed partial class MilitiaOperationSystem
             var underFire = actor.DamageThreatUntil > _timing.CurTime;
             var holdingWindowCover = actor.WindowHoldUntil > _timing.CurTime && actor.WindowSafePosition.IsValid(EntityManager) &&
                                      OnDefensiveGrid(uid, actor.WindowSafePosition);
-            var selfTreatment = actor.Medic && TryComp<DamageableComponent>(uid, out var injury) && HasTreatment(uid, actor, uid, injury);
+            var selfTreatment = TryComp<DamageableComponent>(uid, out var injury) && HasTreatment(uid, actor, uid, injury);
             var medic = !selfTreatment && NeedsMedic(uid, actor) ? FindMedic(uid) : EntityUid.Invalid;
             var seekingMedic = medic.IsValid();
             if (!danger && !direct && actor.Medic && actor.TriageRequired && SafeForTreatment(uid))
@@ -455,8 +456,8 @@ public sealed partial class MilitiaOperationSystem
                 if (clearFire && firingAxis.LengthSquared() > 0.01f &&
                     !friends.Any(friend => BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     score -= 4f;
-                if (travel < fallbackTravel && _interaction.InRangeUnobstructed(_transform.GetMapCoordinates(uid), position,
-                        0, CollisionGroup.MobMask, predicate: entity => entity == uid))
+                if (travel < fallbackTravel && SquadRouteClear(uid, _transform.GetMapCoordinates(uid), position,
+                        entity => CanCrossHolographicBarrier(uid, entity)))
                 {
                     fallback = coordinates;
                     fallbackTravel = travel;
@@ -507,8 +508,8 @@ public sealed partial class MilitiaOperationSystem
                 if (firingAxis.LengthSquared() > 0.01f && friends.Concat(occupied.Select(p => p.Position)).Any(friend =>
                         BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     continue;
-                if (task != MilitiaSquadTask.Peek && !_interaction.InRangeUnobstructed(_transform.GetMapCoordinates(uid), position,
-                        0, CollisionGroup.MobMask, predicate: entity => entity == uid || CanCrossHolographicBarrier(uid, entity)))
+                if (task != MilitiaSquadTask.Peek && !SquadRouteClear(uid, _transform.GetMapCoordinates(uid), position,
+                        entity => CanCrossHolographicBarrier(uid, entity)))
                     continue;
             }
             candidates.Add((coordinates, score));
@@ -572,11 +573,51 @@ public sealed partial class MilitiaOperationSystem
         => !TerminatingOrDeleted(obstacle) && TryComp<DoorComponent>(obstacle, out var door) &&
            (_squadDoors.CanOpen(obstacle, door, DoorUser(uid, obstacle)) || CanPryRouteDoor(uid, obstacle));
 
+    private bool SquadRouteClear(EntityUid uid, MapCoordinates from, MapCoordinates to, Func<EntityUid, bool> ignored)
+    {
+        if (from.MapId != to.MapId || !TryComp<FixturesComponent>(uid, out var fixtures))
+            return false;
+        var origin = _squadPhysics.GetPhysicsTransform(uid);
+        origin.Position = from.Position;
+        var translation = to.Position - from.Position;
+        if (translation.LengthSquared() < 0.0001f)
+            return true;
+        foreach (var fixture in fixtures.Fixtures.Values)
+        {
+            if (!fixture.Hard)
+                continue;
+            var filter = new QueryFilter
+            {
+                LayerBits = fixture.CollisionLayer,
+                MaskBits = fixture.CollisionMask,
+                IsIgnored = entity => entity == uid || ignored(entity),
+            };
+            if (_squadRayCast.CastShape(from.MapId, fixture.Shape, origin, translation, filter,
+                    RayCastSystem.RayCastClosestCallback).Hit)
+                return false;
+        }
+        return true;
+    }
+
+    private bool RouteMakesProgress(EntityUid uid, MilitiaOperationActorComponent actor, EntityCoordinates target)
+    {
+        if (!target.IsValid(EntityManager))
+            return false;
+        var distance = Vector2.Distance(_transform.GetWorldPosition(uid), _transform.ToMapCoordinates(target).Position);
+        if (actor.RouteProgressTarget != target || distance < actor.RouteProgressDistance - 0.15f)
+        {
+            actor.RouteProgressTarget = target;
+            actor.RouteProgressDistance = distance;
+            actor.RouteProgressAt = _timing.CurTime;
+        }
+        return _timing.CurTime < actor.RouteProgressAt + TimeSpan.FromSeconds(3);
+    }
+
     private bool SquadSegment(EntityUid uid, MapCoordinates from, MapCoordinates to, MapCoordinates origin,
         MapCoordinates[] threats, EntityUid[] doors, ref bool covered, MilitiaSquadTask task, MapCoordinates[] grenades)
     {
-        if (from.MapId != to.MapId || !_interaction.InRangeUnobstructed(from, to, 0, CollisionGroup.MobMask,
-                predicate: entity => entity == uid || CanCrossHolographicBarrier(uid, entity) ||
+        if (!SquadRouteClear(uid, from, to,
+                entity => CanCrossHolographicBarrier(uid, entity) ||
                     doors.Contains(entity) && RetreatDoor(uid, entity)))
             return false;
         var actor = Comp<MilitiaOperationActorComponent>(uid);
@@ -617,6 +658,12 @@ public sealed partial class MilitiaOperationSystem
                 return false;
         }
         return true;
+    }
+
+    public void RejectSquadPath(EntityUid uid, MilitiaSquadOrder order, EntityCoordinates position)
+    {
+        if (AvailableActor(uid, out var actor) && ReferenceEquals(actor.SquadOrder, order))
+            actor.RejectedSquadPositions[position] = _timing.CurTime + TimeSpan.FromSeconds(5);
     }
 
     public MilitiaSquadPlan? PrepareSquadPath(EntityUid uid, MilitiaSquadOrder order, EntityCoordinates position, List<PathPoly> path)
@@ -671,7 +718,7 @@ public sealed partial class MilitiaOperationSystem
         foreach (var point in route)
         {
             var to = _transform.ToMapCoordinates(point);
-            if (!_interaction.InRangeUnobstructed(from, to, 0, CollisionGroup.MobMask, predicate: entity =>
+            if (!SquadRouteClear(uid, from, to, entity =>
                 {
                     if (entity == uid || CanCrossHolographicBarrier(uid, entity))
                         return true;
@@ -717,8 +764,11 @@ public sealed partial class MilitiaOperationSystem
 
     public MilitiaTreatmentPath? PrepareTreatmentPath(EntityUid uid, EntityUid patient, List<PathPoly> path)
     {
-        if (!AvailableActor(uid, out var actor) || !ValidPatient(uid, patient, actor) ||
-            !PrepareRoute(uid, Transform(patient).Coordinates, path, out var route, out var doors,
+        if (!AvailableActor(uid, out var actor) || !ValidPatient(uid, patient, actor))
+            return null;
+        if (uid == patient)
+            return new MilitiaTreatmentPath(Array.Empty<EntityCoordinates>(), Array.Empty<EntityUid>());
+        if (!PrepareRoute(uid, Transform(patient).Coordinates, path, out var route, out var doors,
                 SharedInteractionSystem.InteractionRange - 1f))
             return null;
         var plan = new MilitiaTreatmentPath(route, doors);
@@ -728,8 +778,12 @@ public sealed partial class MilitiaOperationSystem
     private bool TreatmentPathSafe(EntityUid uid, EntityUid patient, MilitiaTreatmentPath path, int index = 0)
     {
         if (!AvailableActor(uid, out var actor) || !ValidPatient(uid, patient, actor) ||
-            !actor.DefensivePosition.IsValid(EntityManager) || index < 0 || index > path.Route.Length ||
+            index < 0 || index > path.Route.Length ||
             path.Route.Any(point => !point.IsValid(EntityManager)))
+            return false;
+        if (uid == patient)
+            return path.Route.Length == 0;
+        if (!actor.DefensivePosition.IsValid(EntityManager))
             return false;
         var from = _transform.GetMapCoordinates(uid);
         var end = path.Route.Length > 0 ? _transform.ToMapCoordinates(path.Route[^1]) : from;
@@ -766,6 +820,8 @@ public sealed partial class MilitiaOperationSystem
             return;
         }
         actor.SquadRouteIndex = 0;
+        actor.RouteProgressTarget = default;
+        _steering.Unregister(uid);
         if (path.Route.Length == 0)
             return;
         var steering = _steering.Register(uid, path.Route[0]);
@@ -778,7 +834,10 @@ public sealed partial class MilitiaOperationSystem
     {
         if (!AvailableActor(uid, out var actor) || actor.TreatmentPath is not { } path || !ValidPatient(uid, actor.Patient, actor))
             return HTNOperatorStatus.Failed;
-        return AdvanceRoute(uid, path.Route, path.Doors, ref actor.SquadRouteIndex);
+        var status = AdvanceRoute(uid, path.Route, path.Doors, ref actor.SquadRouteIndex);
+        if (status == HTNOperatorStatus.Failed && actor.Patient != uid)
+            actor.UnreachablePatients[actor.Patient] = _timing.CurTime + TimeSpan.FromSeconds(5);
+        return status;
     }
 
     public void EndTreatmentApproach(EntityUid uid)
@@ -819,6 +878,7 @@ public sealed partial class MilitiaOperationSystem
             actor.SquadRoute = plan.Route;
             actor.RetreatDoors = plan.Doors;
             actor.SquadRouteIndex = 0;
+            actor.RouteProgressTarget = default;
             actor.RetreatCovered = false;
             actor.RetreatOrigin = _transform.ToCoordinates(plan.Position.EntityId, _transform.GetMapCoordinates(uid));
             actor.RunningSquadOrder = order;
@@ -1006,11 +1066,13 @@ public sealed partial class MilitiaOperationSystem
         var actor = Comp<MilitiaOperationActorComponent>(uid);
         if (BarrierClimbBusy(uid))
         {
+            actor.RouteProgressTarget = default;
             EndGuard(uid);
             return HTNOperatorStatus.Continuing;
         }
         if (StartBarrierClimb(uid, route, ref index, out var blocked))
         {
+            actor.RouteProgressTarget = default;
             EndGuard(uid);
             return HTNOperatorStatus.Continuing;
         }
@@ -1029,6 +1091,7 @@ public sealed partial class MilitiaOperationSystem
             resume.Range = 0.2f;
             resume.ArriveOnLineOfSight = false;
             resume.Status = SteeringStatus.Moving;
+            actor.RouteProgressTarget = default;
         }
         if (index >= route.Length)
             return HTNOperatorStatus.Finished;
@@ -1041,6 +1104,7 @@ public sealed partial class MilitiaOperationSystem
             steering.Range = 0.2f;
             steering.ArriveOnLineOfSight = false;
             steering.Status = SteeringStatus.Moving;
+            actor.RouteProgressTarget = default;
         }
         foreach (var doorUid in doors)
         {
@@ -1050,6 +1114,12 @@ public sealed partial class MilitiaOperationSystem
                 if (!_squadDoors.TryOpen(doorUid, door, DoorUser(uid, doorUid), quiet: true) && CanPryRouteDoor(uid, doorUid))
                     return PryRouteDoor(uid, doorUid);
             }
+        }
+        if (!RouteMakesProgress(uid, actor, route[index]))
+        {
+            if (actor.SquadPosition.IsValid(EntityManager))
+                actor.RejectedSquadPositions[actor.SquadPosition] = _timing.CurTime + TimeSpan.FromSeconds(5);
+            return HTNOperatorStatus.Failed;
         }
         if (steering.Status == SteeringStatus.InRange && ++index < route.Length)
         {

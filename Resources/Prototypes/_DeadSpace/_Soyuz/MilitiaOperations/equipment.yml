@@ -15,6 +15,31 @@
         - ReagentId: Derytracine
           Quantity: 30
 
+- type: entity
+  id: MilitiaOperationHemostaticBottle
+  parent: [BaseChemistryBottleFilled, BaseSyndicateContraband]
+  name: флакон кровезамещающей смеси
+  description: Полевая смесь для остановки кровотечения и восполнения крови. На этикетке указано - 10 единиц транексамовой кислоты и 20 единиц физраствора.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: TranexamicAcid
+          Quantity: 10
+        - ReagentId: Saline
+          Quantity: 20
+
+- type: entity
+  id: MilitiaOperationHemostaticHypospray
+  parent: SyndiHypo
+  name: кровоостанавливающий гипоспрей
+  description: Полевой гипоспрей с фильтром для физраствора и транексамовой кислоты.
+  components:
+  - type: Injector
+    reagentWhitelist: [TranexamicAcid, Saline]
+
 - type: militiaEquipment
   id: MilitiaEquipmentBase
   abstract: true
@@ -278,6 +303,7 @@
     maximumMagazines: 3
   supplies:
   - Crowbar
+  - MilitiaOperationHemostaticHypospray
   - SyndiHypo
   - ChemistryBottleOmnizine
   - ChemistryBottleOmnizine
@@ -285,6 +311,8 @@
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
+  - MilitiaOperationHemostaticBottle
+  - MilitiaOperationHemostaticBottle
   - MedicatedSuture
   - MedicatedSuture
   - RegenerativeMesh

@@ -258,6 +258,7 @@ public sealed partial class MilitiaOperationSystem
         _actorNpcs.KeepMilitiaCombatActive(actor.Owner);
         _nextSquadUpdate = _timing.CurTime;
         _nextSquadSafety = _timing.CurTime;
+        SuppressBarrierClimb(actor);
         var medics = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (medics.MoveNext(out var uid, out var medic))
         {
@@ -319,6 +320,7 @@ public sealed partial class MilitiaOperationSystem
     {
         EndMedicalRefill(actor.Owner);
         EndRoutePry(actor.Owner);
+        CancelBarrierClimb(actor.Owner);
         ClearSquadFacing(actor);
         var medic = actor.Comp.TreatingMedic;
         EndTreatment(actor.Owner);
@@ -909,6 +911,8 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public readonly Dictionary<EntityUid, TimeSpan> UnsafeRangedTargets = new();
     public EntityUid PryTool;
     public DoAfterId? DoorPry;
+    public DoAfterId? BarrierClimbAction;
+    public TimeSpan BarrierClimbRetryAfter;
     public EntityUid Patient;
     public EntityUid TreatingMedic;
     public EntityUid Treatment;

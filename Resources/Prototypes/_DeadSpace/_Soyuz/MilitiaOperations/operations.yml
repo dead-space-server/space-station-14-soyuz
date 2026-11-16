@@ -109,6 +109,7 @@
       AggroVisionRadius: !type:Single 12
       NavInteract: !type:Bool true
       NavPry: !type:Bool true
+      NavClimb: !type:Bool true
 
 - type: entity
   id: MilitiaOperationRaiderScout

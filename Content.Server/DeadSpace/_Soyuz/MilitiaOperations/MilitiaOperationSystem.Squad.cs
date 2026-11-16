@@ -414,6 +414,8 @@ public sealed partial class MilitiaOperationSystem
         var threats = actor.SquadContacts.Where(c => c.Position.IsValid(EntityManager)).Select(c => _transform.ToMapCoordinates(c.Position)).ToArray();
         if (RecentDamageThreat(uid, actor) is { } incoming)
             threats = threats.Append(incoming).ToArray();
+        var shotSpread = HolographicFireSpread(actor);
+        var holographicBlock = actor.DirectTarget.IsValid() && HolographicShotBlocked(_transform.GetMapCoordinates(uid), target, shotSpread);
         var radius = actor.WindowExposed ? 8 : task == MilitiaSquadTask.Separate ? 6 : 4;
         EntityCoordinates? fallback = null;
         var fallbackTravel = float.PositiveInfinity;
@@ -432,12 +434,13 @@ public sealed partial class MilitiaOperationSystem
                 continue;
             var visible = _interaction.InRangeUnobstructed(position, target, 0, SquadSight,
                 predicate: entity => group.Contains(entity) || HasComp<SharedCanBuildWindowOnTopComponent>(entity));
+            var clearFire = visible && !HolographicShotBlocked(position, target, shotSpread);
             var score = travel * 0.3f;
             if (actor.WindowExposed && threats.Any(threat => CoverExposed(position, threat)))
                 score += 100f;
             if (task == MilitiaSquadTask.Separate)
             {
-                if (travel < 0.9f || travel > 6f || friends.Any(friend => Vector2.DistanceSquared(friend, position.Position) < 0.81f) ||
+                if (holographicBlock && !clearFire || travel < 0.9f || travel > 6f || friends.Any(friend => Vector2.DistanceSquared(friend, position.Position) < 0.81f) ||
                     threats.Any(threat => Vector2.Distance(position.Position, threat.Position) + 0.1f < Vector2.Distance(origin, threat.Position)))
                     continue;
                 var openings = 0;
@@ -449,7 +452,7 @@ public sealed partial class MilitiaOperationSystem
                 }
                 score += travel - openings * 8f;
                 var firingAxis = target.Position - position.Position;
-                if (visible && firingAxis.LengthSquared() > 0.01f &&
+                if (clearFire && firingAxis.LengthSquared() > 0.01f &&
                     !friends.Any(friend => BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     score -= 4f;
                 if (travel < fallbackTravel && _interaction.InRangeUnobstructed(_transform.GetMapCoordinates(uid), position,
@@ -487,7 +490,7 @@ public sealed partial class MilitiaOperationSystem
             }
             else
             {
-                if (!visible || travel > (task == MilitiaSquadTask.Peek ? 2.75f : 2.25f) ||
+                if (!clearFire || travel > (task == MilitiaSquadTask.Peek ? 2.75f : 2.25f) ||
                     Vector2.Distance(position.Position, target.Position) + 0.4f < Vector2.Distance(origin, target.Position))
                     continue;
                 var axis = target.Position - origin;
@@ -505,7 +508,7 @@ public sealed partial class MilitiaOperationSystem
                         BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     continue;
                 if (task != MilitiaSquadTask.Peek && !_interaction.InRangeUnobstructed(_transform.GetMapCoordinates(uid), position,
-                        0, CollisionGroup.MobMask, predicate: entity => entity == uid))
+                        0, CollisionGroup.MobMask, predicate: entity => entity == uid || CanCrossHolographicBarrier(uid, entity)))
                     continue;
             }
             candidates.Add((coordinates, score));
@@ -573,7 +576,8 @@ public sealed partial class MilitiaOperationSystem
         MapCoordinates[] threats, EntityUid[] doors, ref bool covered, MilitiaSquadTask task, MapCoordinates[] grenades)
     {
         if (from.MapId != to.MapId || !_interaction.InRangeUnobstructed(from, to, 0, CollisionGroup.MobMask,
-                predicate: entity => entity == uid || doors.Contains(entity) && RetreatDoor(uid, entity)))
+                predicate: entity => entity == uid || CanCrossHolographicBarrier(uid, entity) ||
+                    doors.Contains(entity) && RetreatDoor(uid, entity)))
             return false;
         var actor = Comp<MilitiaOperationActorComponent>(uid);
         var home = _transform.ToMapCoordinates(actor.DefensivePosition);
@@ -669,7 +673,7 @@ public sealed partial class MilitiaOperationSystem
             var to = _transform.ToMapCoordinates(point);
             if (!_interaction.InRangeUnobstructed(from, to, 0, CollisionGroup.MobMask, predicate: entity =>
                 {
-                    if (entity == uid)
+                    if (entity == uid || CanCrossHolographicBarrier(uid, entity))
                         return true;
                     if (!RetreatDoor(uid, entity))
                         return false;
@@ -780,6 +784,7 @@ public sealed partial class MilitiaOperationSystem
     public void EndTreatmentApproach(EntityUid uid)
     {
         EndRoutePry(uid);
+        CancelBarrierClimb(uid);
         _steering.Unregister(uid);
     }
 
@@ -835,7 +840,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void FireAtTarget(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
     {
-        if (!SquadVisible(uid, target, CombatVision(actor)) || MedicSupportPriority(uid, actor) ||
+        if (BarrierClimbBusy(uid) || !SquadVisible(uid, target, CombatVision(actor)) || MedicSupportPriority(uid, actor) ||
             actor.Medic && actor.AlertUntil <= _timing.CurTime)
         {
             EndGuard(uid);
@@ -844,6 +849,15 @@ public sealed partial class MilitiaOperationSystem
         var counter = NeedsMeleeCounter(uid, actor, target);
         if (UnsafeRangedTarget(actor, target) && !counter)
         {
+            EndGuard(uid);
+            return;
+        }
+        var origin = _transform.GetMapCoordinates(uid);
+        var targetPosition = _transform.GetMapCoordinates(target);
+        var attackMatrix = BlockingBulletMatrix(origin, targetPosition) != null;
+        if (!counter && HolographicShotBlocked(origin, targetPosition, HolographicFireSpread(actor), attackMatrix))
+        {
+            RepositionFromHologram(uid, actor);
             EndGuard(uid);
             return;
         }
@@ -990,6 +1004,19 @@ public sealed partial class MilitiaOperationSystem
     private HTNOperatorStatus AdvanceRoute(EntityUid uid, EntityCoordinates[] route, EntityUid[] doors, ref int index)
     {
         var actor = Comp<MilitiaOperationActorComponent>(uid);
+        if (BarrierClimbBusy(uid))
+        {
+            EndGuard(uid);
+            return HTNOperatorStatus.Continuing;
+        }
+        if (StartBarrierClimb(uid, route, ref index, out var blocked))
+        {
+            EndGuard(uid);
+            return HTNOperatorStatus.Continuing;
+        }
+        if (blocked)
+            return HTNOperatorStatus.Failed;
+        actor.BarrierClimbAction = null;
         if (actor.DoorPry is { } id)
         {
             var status = _doAfter.GetStatus(id);
@@ -1006,7 +1033,15 @@ public sealed partial class MilitiaOperationSystem
         if (index >= route.Length)
             return HTNOperatorStatus.Finished;
         if (!TryComp<NPCSteeringComponent>(uid, out var steering) || steering.Status == SteeringStatus.NoPath)
-            return HTNOperatorStatus.Failed;
+        {
+            if (!TryComp<Content.Shared.Climbing.Components.ClimbingComponent>(uid, out var climbing) || !climbing.IsClimbing ||
+                !route[index].IsValid(EntityManager))
+                return HTNOperatorStatus.Failed;
+            steering = _steering.Register(uid, route[index]);
+            steering.Range = 0.2f;
+            steering.ArriveOnLineOfSight = false;
+            steering.Status = SteeringStatus.Moving;
+        }
         foreach (var doorUid in doors)
         {
             if (TryComp<DoorComponent>(doorUid, out var door) && door.State is DoorState.Closed or DoorState.Closing &&
@@ -1034,6 +1069,7 @@ public sealed partial class MilitiaOperationSystem
             return;
         actor.RunningSquadOrder = null;
         EndRoutePry(uid);
+        CancelBarrierClimb(uid);
         if (ReferenceEquals(actor.SquadOrder, order))
             actor.SquadOrder = null;
         actor.SquadPosition = default;
@@ -1086,12 +1122,14 @@ public sealed partial class MilitiaOperationSystem
                     CoverExposed(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(target), actor.ThreatRange)) ||
                     RecentDamageThreat(uid, actor) is { } incoming && CoverExposed(_transform.GetMapCoordinates(uid), incoming);
                 var origin = _transform.GetMapCoordinates(uid);
+                var shotSpread = HolographicFireSpread(actor);
                 var previous = actor.DirectTarget;
                 actor.DirectTarget = visible.FirstOrDefault(target => target == actor.MeleeCounterTarget && NeedsMeleeCounter(uid, actor, target));
                 if (!actor.DirectTarget.IsValid())
                     actor.DirectTarget = visible.Where(target =>
                             Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(target)) <= CombatVision(actor) * CombatVision(actor))
-                        .OrderBy(target => UnsafeRangedTarget(actor, target) && !NeedsMeleeCounter(uid, actor, target)).FirstOrDefault();
+                        .OrderBy(target => UnsafeRangedTarget(actor, target) && !NeedsMeleeCounter(uid, actor, target) ||
+                            HolographicShotBlocked(origin, _transform.GetMapCoordinates(target), shotSpread)).FirstOrDefault();
                 actor.WindowExposed = actor.DirectTarget.IsValid() && ThroughWindow(origin, _transform.GetMapCoordinates(actor.DirectTarget)) ||
                     RecentDamageThreat(uid, actor) is { } damageSource && CoverExposed(origin, damageSource) && ThroughWindow(origin, damageSource);
                 if (actor.WindowExposed)
@@ -1201,7 +1239,7 @@ public sealed partial class MilitiaOperationSystem
     {
         if (HasPlayerMind(actor.Owner))
             return;
-        if (!SquadMember(actor.Owner) || actor.Comp.MedicalRefill != null || actor.Comp.DoorPry != null || actor.Comp.ReloadUntil != null || actor.Comp.Patient.IsValid() || ReceivingTreatment(actor.Owner) ||
+        if (!SquadMember(actor.Owner) || BarrierClimbBusy(actor.Owner) || actor.Comp.MedicalRefill != null || actor.Comp.DoorPry != null || actor.Comp.ReloadUntil != null || actor.Comp.Patient.IsValid() || ReceivingTreatment(actor.Owner) ||
             MedicSupportPriority(actor.Owner, actor.Comp) || actor.Comp.Medic && actor.Comp.AlertUntil <= _timing.CurTime ||
             !TryComp<NPCRangedCombatComponent>(actor.Owner, out var ranged) ||
             args.Used.Comp.Target != ranged.Target || UnsafeRangedTarget(actor.Comp, ranged.Target) ||
@@ -1209,6 +1247,17 @@ public sealed partial class MilitiaOperationSystem
             !SquadVisible(actor.Owner, ranged.Target, CombatVision(actor.Comp)) ||
             args.Used.Comp.ShootCoordinates is not { } aim || !aim.IsValid(EntityManager))
         {
+            args.Cancel();
+            _guns.StopExecutionShooting(args.Used);
+            RemComp<NPCRangedCombatComponent>(actor.Owner);
+            return;
+        }
+        var shotOrigin = _transform.GetMapCoordinates(actor.Owner);
+        var shotTarget = _transform.ToMapCoordinates(aim);
+        var attackMatrix = BlockingBulletMatrix(shotOrigin, shotTarget) != null;
+        if (HolographicShotBlocked(shotOrigin, shotTarget, ReflectionShotSpread(args.Used), attackMatrix))
+        {
+            RepositionFromHologram(actor.Owner, actor.Comp);
             args.Cancel();
             _guns.StopExecutionShooting(args.Used);
             RemComp<NPCRangedCombatComponent>(actor.Owner);

@@ -574,6 +574,7 @@
     - item: Wirecutter
     - item: WelderIndustrial
     - item: Multitool
+    - item: RepairStructuralAnalyzer # DS14-Soyuz
     - item: WeaponPlasmaCutter # DS14
   - type: BorgModuleIcon
     icon: { sprite: Interface/Actions/actions_borg.rsi, state: tool-module }
@@ -710,6 +711,7 @@
     - item: PowerDrill
     - item: WelderExperimental
     - item: Multitool
+    - item: RepairStructuralAnalyzer # DS14-Soyuz
     - item: RemoteSignallerAdvanced
     - item: WeaponPlasmaCutter # DS14
   - type: BorgModuleIcon

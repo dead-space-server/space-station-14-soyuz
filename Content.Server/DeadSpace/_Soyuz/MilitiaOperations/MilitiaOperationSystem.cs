@@ -168,12 +168,16 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
     {
         if (!CanUseConsole(console.Owner, args.Actor) ||
             _stations.GetOwningStation(console.Owner) is not { } station ||
-            EnsureStation(console.Owner, console.Comp) is not { } state || state.Busy ||
-            args.Action == MilitiaOperationAction.Purchase && _timing.CurTime < state.Requests.GetValueOrDefault(args.Actor) || args.Token == Guid.Empty ||
+            EnsureStation(console.Owner, console.Comp) is not { } state || args.Token == Guid.Empty ||
             !_prototypes.TryIndex(console.Comp.Config, out var config))
         {
-            _ui.ServerSendUiMessage(console.Owner, MilitiaOperationUiKey.Key,
-                new MilitiaOperationResult(false, "militia-operation-unavailable", args.Token), args.Actor);
+            SendOperationResult(console.Owner, args.Actor, false, "militia-operation-unavailable", args.Token);
+            return;
+        }
+        if (state.Busy || args.Action == MilitiaOperationAction.Purchase &&
+            _timing.CurTime < state.Requests.GetValueOrDefault(args.Actor))
+        {
+            SendOperationResult(console.Owner, args.Actor, false, "militia-operation-busy", args.Token);
             return;
         }
 
@@ -217,13 +221,20 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         {
             state.Busy = false;
         }
-        _ui.ServerSendUiMessage(console.Owner, MilitiaOperationUiKey.Key,
-            new MilitiaOperationResult(success, message, args.Token), args.Actor);
+        SendOperationResult(console.Owner, args.Actor, success, message, args.Token);
         UpdateUi(console.Owner, console.Comp, state);
     }
 
+    private void SendOperationResult(EntityUid console, EntityUid actor, bool success, string message, Guid token)
+    {
+        if (Exists(console) && !TerminatingOrDeleted(console) && !EntityManager.IsQueuedForDeletion(console) &&
+            _ui.HasUi(console, MilitiaOperationUiKey.Key))
+            _ui.ServerSendUiMessage(console, MilitiaOperationUiKey.Key, new MilitiaOperationResult(success, message, token), actor);
+    }
+
     private bool CanUseConsole(EntityUid console, EntityUid actor)
-        => Exists(console) && !Terminating(console) && this.IsPowered(console, EntityManager) &&
+        => Exists(console) && !TerminatingOrDeleted(console) && !EntityManager.IsQueuedForDeletion(console) &&
+           Exists(actor) && !TerminatingOrDeleted(actor) && this.IsPowered(console, EntityManager) &&
            !HasComp<GhostComponent>(actor) && _blocker.CanInteract(actor, console) &&
            _ui.IsUiOpen(console, MilitiaOperationUiKey.Key, actor) &&
            _interaction.InRangeUnobstructed(actor, console) && _access.IsAllowed(actor, console);
@@ -232,13 +243,22 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         MilitiaOperationConfigPrototype config, Guid token)
     {
         state.Cleanup.RemoveWhere(uid => !Exists(uid));
-        if (state.Active != null || state.Cleanup.Count != 0 || _timing.CurTime < state.AvailableAt)
+        if (state.Active is { } existing)
+            return existing.OfferToken == token;
+        if (state.Cleanup.Count != 0 || _timing.CurTime < state.AvailableAt)
             return false;
         var offer = state.Offers.FirstOrDefault(o => o.Token == token);
         if (offer == null || !_prototypes.TryIndex<MilitiaOperationPrototype>(offer.Prototype, out var prototype) ||
             !TryPrepareOperation(station, console, config, prototype, out var active))
             return false;
 
+        if (!Exists(console) || TerminatingOrDeleted(console) || EntityManager.IsQueuedForDeletion(console) ||
+            _stations.GetOwningStation(console) != station || !HasComp<MilitiaOperationConsoleComponent>(console))
+        {
+            state.Cleanup.UnionWith(active.Grids);
+            return false;
+        }
+        active.OfferToken = token;
         state.Active = active;
         RegisterContraband(station, state, active.Id);
         state.Status = "militia-operation-in-progress";
@@ -476,7 +496,9 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private void UpdateUi(EntityUid console, MilitiaOperationConsoleComponent component, MilitiaOperationStationComponent state)
     {
-        if (!_prototypes.TryIndex(component.Config, out var config) || !_prototypes.TryIndex(config.Shop, out var pool))
+        if (!Exists(console) || TerminatingOrDeleted(console) || EntityManager.IsQueuedForDeletion(console) ||
+            !_ui.HasUi(console, MilitiaOperationUiKey.Key) ||
+            !_prototypes.TryIndex(component.Config, out var config) || !_prototypes.TryIndex(config.Shop, out var pool))
             return;
         var active = state.Active;
         var position = string.Empty;
@@ -526,6 +548,7 @@ public sealed class MilitiaActiveOperation
     public required int Reputation;
     public required TimeSpan Cooldown;
     public required Guid Id;
+    public Guid OfferToken;
     public required EntityUid Document;
     public required TimeSpan Deadline;
     public required int Seed;

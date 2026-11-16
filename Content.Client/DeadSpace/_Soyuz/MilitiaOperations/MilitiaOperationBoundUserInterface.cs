@@ -24,12 +24,14 @@ public sealed class MilitiaOperationBoundUserInterface : BoundUserInterface
 
     protected override void Open()
     {
+        if (IsOpened)
+            return;
         base.Open();
-        _window = new MilitiaOperationWindow();
+        _window = this.CreateWindow<MilitiaOperationWindow>();
         _window.OnRequest += request => SendMessage(request);
         _window.OnDocumentSlot += () => SendMessage(new ItemSlotButtonPressedEvent("operationDocument"));
-        _window.OnClose += Close;
-        _window.OpenCentered();
+        if (State is MilitiaOperationUiState state)
+            _window.UpdateState(state);
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
@@ -46,12 +48,6 @@ public sealed class MilitiaOperationBoundUserInterface : BoundUserInterface
             _window?.ShowResult(result);
     }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        if (disposing)
-            _window?.Dispose();
-    }
 }
 
 public sealed class MilitiaOperationWindow : FancyWindow
@@ -97,6 +93,8 @@ public sealed class MilitiaOperationWindow : FancyWindow
     private Guid? _selected;
     private Guid? _abortConfirmation;
     private Guid? _purchase;
+    private Guid? _accepting;
+    private TimeSpan _acceptTimeout;
     private Button? _accept;
     public event Action<MilitiaOperationRequest>? OnRequest;
     public event Action? OnDocumentSlot;
@@ -328,6 +326,8 @@ public sealed class MilitiaOperationWindow : FancyWindow
         if (_state?.Status != state.Status)
             _notice.Visible = false;
         _state = state;
+        if (_accepting is { } pending && (state.Active != null || state.Offers.All(offer => offer.Token != pending)))
+            _accepting = null;
         _shopContent.Visible = state.ShopEnabled;
         _shopMaintenance.Visible = !state.ShopEnabled;
         _balance.Text = state.Points.ToString();
@@ -428,8 +428,22 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _details.AddChild(Paragraph(Loc.GetString("militia-operation-objectives")));
         _details.AddChild(Surface(Paragraph(Loc.GetString("militia-operation-reward", ("points", prototype.Points),
             ("reputation", prototype.Reputation))), accent: true));
-        _accept = Button("militia-operation-accept", () => OnRequest?.Invoke(new(MilitiaOperationAction.Accept, offer.Token)));
-        _accept.Disabled = _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
+        _accept = Button("militia-operation-accept", () =>
+        {
+            var state = _state;
+            if (_accepting != null || state == null || state.Active != null || state.CleanupPending ||
+                _timing.CurTime < state.AvailableAt)
+                return;
+            _accepting = offer.Token;
+            _acceptTimeout = _timing.RealTime + TimeSpan.FromSeconds(30);
+            if (_accept != null)
+                _accept.Disabled = true;
+            _notice.Text = Loc.GetString("militia-operation-preparing");
+            _notice.FontColorOverride = Muted;
+            _notice.Visible = true;
+            OnRequest?.Invoke(new(MilitiaOperationAction.Accept, offer.Token));
+        });
+        _accept.Disabled = _accepting != null || _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
         _details.AddChild(_accept);
     }
 
@@ -546,6 +560,8 @@ public sealed class MilitiaOperationWindow : FancyWindow
 
     public void ShowResult(MilitiaOperationResult result)
     {
+        if (_accepting == result.Token)
+            _accepting = null;
         _notice.Text = Loc.GetString(result.Message);
         _notice.FontColorOverride = result.Success ? Accent : Warning;
         _notice.Visible = true;
@@ -561,6 +577,13 @@ public sealed class MilitiaOperationWindow : FancyWindow
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
+        if (_accepting != null && _timing.RealTime >= _acceptTimeout)
+        {
+            _accepting = null;
+            _notice.Text = Loc.GetString("militia-operation-request-timeout");
+            _notice.FontColorOverride = Warning;
+            _notice.Visible = true;
+        }
         var deadline = _state?.Deadline ?? _state?.AvailableAt;
         var remaining = deadline - _timing.CurTime;
         _timer.Text = remaining is { } time && time > TimeSpan.Zero
@@ -569,6 +592,6 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _availability.Visible = _state?.Active == null && _state?.AvailableAt > _timing.CurTime;
         _availability.Text = _timer.Text;
         if (_accept != null && _state != null)
-            _accept.Disabled = _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
+            _accept.Disabled = _accepting != null || _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
     }
 }

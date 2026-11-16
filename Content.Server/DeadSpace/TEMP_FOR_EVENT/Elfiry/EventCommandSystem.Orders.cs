@@ -48,6 +48,99 @@ public sealed partial class EventCommandSystem
         return accepted;
     }
 
+    private Dictionary<int, string> Squads(string team)
+    {
+        if (!_squads.TryGetValue(team, out var squads))
+            _squads[team] = squads = new Dictionary<int, string>();
+        return squads;
+    }
+
+    private Dictionary<int, int> SquadCounts(string team)
+    {
+        var counts = new Dictionary<int, int>();
+        var query = EntityQueryEnumerator<EventSquadUnitComponent>();
+        while (query.MoveNext(out var uid, out var unit))
+        {
+            if (unit.Team == team && unit.Squad > 0 && !TerminatingOrDeleted(uid) &&
+                !EntityManager.IsQueuedForDeletion(uid) && !_mobs.IsDead(uid))
+                counts[unit.Squad] = counts.GetValueOrDefault(unit.Squad) + 1;
+        }
+        return counts;
+    }
+
+    private int SquadMembers(string team, int squad) => SquadCounts(team).GetValueOrDefault(squad);
+
+    private EventCommandSquadState[] SquadStates(string team)
+    {
+        var counts = SquadCounts(team);
+        return Squads(team).Select(squad => new EventCommandSquadState(squad.Key, squad.Value,
+            counts.GetValueOrDefault(squad.Key))).ToArray();
+    }
+
+    private void OnUnitMobStateChanged(Entity<EventSquadUnitComponent> unit, ref Content.Shared.Mobs.MobStateChangedEvent args)
+    {
+        if (args.NewMobState == Content.Shared.Mobs.MobState.Dead || unit.Comp.Squad <= 0 ||
+            SquadMembers(unit.Comp.Team, unit.Comp.Squad) <= EventSquadLimits.Members)
+            return;
+        _combat.EndEventCommandPath(unit);
+        unit.Comp.Squad = 0;
+        unit.Comp.Ordered = false;
+        unit.Comp.Commander = EntityUid.Invalid;
+        unit.Comp.Revision++;
+        Replan(unit);
+    }
+
+    private void OnManageSquad(Entity<EventCommandTabletComponent> tablet, ref EventSquadManageRequest args)
+    {
+        if (!AcceptRequest(tablet, args.Actor, args.Token))
+            return;
+        var squads = Squads(tablet.Comp.Team);
+        if (!Enum.IsDefined(args.Action) || args.Action != EventSquadManagement.Create && !squads.ContainsKey(args.Squad))
+        {
+            Reply(tablet, args.Actor, "elfiry-command-invalid-squad");
+            return;
+        }
+        if (args.Action == EventSquadManagement.Delete)
+        {
+            if (SquadMembers(tablet.Comp.Team, args.Squad) != 0)
+            {
+                Reply(tablet, args.Actor, "elfiry-command-squad-not-empty");
+                return;
+            }
+            squads.Remove(args.Squad);
+            var units = EntityQueryEnumerator<EventSquadUnitComponent>();
+            while (units.MoveNext(out _, out var unit))
+            {
+                if (unit.Team == tablet.Comp.Team && unit.Squad == args.Squad)
+                    unit.Squad = 0;
+            }
+            Reply(tablet, args.Actor, "elfiry-command-squad-deleted");
+            return;
+        }
+        var action = args.Action;
+        var selected = args.Squad;
+        var name = args.Name?.Trim() ?? string.Empty;
+        if (name.Length == 0 || name.Length > EventSquadLimits.NameLength || name.Any(char.IsControl) ||
+            squads.Any(squad => squad.Key != (action == EventSquadManagement.Rename ? selected : 0) &&
+                string.Equals(squad.Value, name, StringComparison.OrdinalIgnoreCase)))
+        {
+            Reply(tablet, args.Actor, "elfiry-command-invalid-squad-name");
+            return;
+        }
+        if (args.Action == EventSquadManagement.Create)
+        {
+            if (_nextSquadId == int.MaxValue)
+            {
+                Reply(tablet, args.Actor, "elfiry-command-invalid-squad");
+                return;
+            }
+            squads.Add(++_nextSquadId, name);
+        }
+        else
+            squads[args.Squad] = name;
+        Reply(tablet, args.Actor, "elfiry-command-squad-saved");
+    }
+
     private void UpdateFollowers()
     {
         if (_timing.CurTime < _nextFollow)

@@ -10,6 +10,7 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.DeadSpace.TEMP_FOR_EVENT.Elfiry;
 using Content.Shared.GameTicking;
 using Content.Shared.Maps;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Pinpointer;
@@ -36,6 +37,8 @@ public sealed partial class EventCommandSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     private TimeSpan _nextUpdate;
     private TimeSpan _nextUi;
+    private readonly Dictionary<string, Dictionary<int, string>> _squads = new();
+    private int _nextSquadId;
 
     public override void Initialize()
     {
@@ -44,6 +47,7 @@ public sealed partial class EventCommandSystem : EntitySystem
         UpdatesBefore.Add(typeof(MilitiaOperationSystem));
         SubscribeLocalEvent<EventSquadUnitComponent, MapInitEvent>(OnUnitInit, after: [typeof(MilitiaOperationSystem)]);
         SubscribeLocalEvent<EventSquadUnitComponent, ComponentShutdown>(OnUnitShutdown);
+        SubscribeLocalEvent<EventSquadUnitComponent, MobStateChangedEvent>(OnUnitMobStateChanged);
         SubscribeLocalEvent<EventSquadUnitComponent, DamageChangedEvent>(OnUnitDamaged);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
         {
@@ -52,18 +56,21 @@ public sealed partial class EventCommandSystem : EntitySystem
             _nextFollow = TimeSpan.Zero;
             ClearBoarding();
             _mapViews.Clear();
+            _squads.Clear();
+            _nextSquadId = 0;
         });
         Subs.BuiEvents<EventCommandTabletComponent>(EventCommandUiKey.Key, subs =>
         {
             subs.Event<BoundUIOpenedEvent>(OnOpened);
             subs.Event<EventSquadRequest>(OnOrder);
             subs.Event<EventSquadAssignRequest>(OnAssign);
+            subs.Event<EventSquadManageRequest>(OnManageSquad);
         });
     }
 
     private void OnUnitInit(Entity<EventSquadUnitComponent> unit, ref MapInitEvent args)
     {
-        unit.Comp.Squad = Math.Clamp(unit.Comp.Squad, 1, 4);
+        unit.Comp.Squad = 0;
         unit.Comp.Destination = Transform(unit).Coordinates;
         unit.Comp.DefensiveGrid = Transform(unit).GridUid;
         unit.Comp.Status = Loc.GetString("elfiry-command-unit-ready");
@@ -130,20 +137,31 @@ public sealed partial class EventCommandSystem : EntitySystem
                 _factions.IsEntityFriendly(commander, uid))
                 result.Add((uid, unit));
         }
-        return result.OrderBy(unit => unit.Owner.GetHashCode()).Take(48).ToList();
+        return result.OrderBy(unit => unit.Owner.GetHashCode()).ToList();
     }
 
     private void OnAssign(Entity<EventCommandTabletComponent> tablet, ref EventSquadAssignRequest args)
     {
         if (!AcceptRequest(tablet, args.Actor, args.Token))
             return;
-        if (args.Squad is < 1 or > 4 || !TryGetEntity(args.Unit, out var uid) ||
+        if (args.Squad < 0 || args.Squad != 0 && !Squads(tablet.Comp.Team).ContainsKey(args.Squad) ||
+            !TryGetEntity(args.Unit, out var uid) ||
             !Units(args.Actor, tablet.Comp.Team).Any(unit => unit.Owner == uid.Value))
         {
             Reply(tablet, args.Actor, "elfiry-command-invalid-unit");
             return;
         }
         var unit = Comp<EventSquadUnitComponent>(uid.Value);
+        if (!_combat.EventUnitAvailable(uid.Value))
+        {
+            Reply(tablet, args.Actor, "elfiry-command-invalid-unit");
+            return;
+        }
+        if (args.Squad != 0 && unit.Squad != args.Squad && SquadMembers(tablet.Comp.Team, args.Squad) >= EventSquadLimits.Members)
+        {
+            Reply(tablet, args.Actor, "elfiry-command-squad-full");
+            return;
+        }
         var before = EventOrderState.Capture(unit);
         var after = before with
         {
@@ -151,7 +169,9 @@ public sealed partial class EventCommandSystem : EntitySystem
             Ordered = false, Arrived = true, Status = Loc.GetString("elfiry-command-unit-ready"),
         };
         var user = args.Actor;
-        var applied = TryApplyOrders([new EventOrderChange((uid.Value, unit), before, after)], () => CanUse(tablet, user));
+        var targetSquad = args.Squad;
+        var applied = TryApplyOrders([new EventOrderChange((uid.Value, unit), before, after)], () => CanUse(tablet, user) && (targetSquad == 0 || Squads(tablet.Comp.Team).ContainsKey(targetSquad) &&
+            (unit.Squad == targetSquad || SquadMembers(tablet.Comp.Team, targetSquad) < EventSquadLimits.Members)));
         Reply(tablet, user, applied ? "elfiry-command-assigned" : "elfiry-command-order-failed");
     }
 
@@ -161,7 +181,7 @@ public sealed partial class EventCommandSystem : EntitySystem
             return;
         var origin = _transform.GetMapCoordinates(args.Actor);
         var limit = Math.Clamp(tablet.Comp.CommandRange, 8f, 512f);
-        if (args.Squad is < 0 or > 4 || !Enum.IsDefined(args.Order) || args.MapId != (int) origin.MapId ||
+        if (args.Squad < -1 || args.Squad == 0 || args.Squad > 0 && !Squads(tablet.Comp.Team).ContainsKey(args.Squad) || !Enum.IsDefined(args.Order) || args.MapId != (int) origin.MapId ||
             !float.IsFinite(args.Position.X) || !float.IsFinite(args.Position.Y) ||
             args.Order != EventSquadOrder.Follow && Vector2.DistanceSquared(origin.Position, args.Position) > limit * limit)
         {
@@ -169,8 +189,13 @@ public sealed partial class EventCommandSystem : EntitySystem
             return;
         }
         var squad = args.Squad;
-        var selected = Units(args.Actor, tablet.Comp.Team).Where(unit => (squad == 0 || unit.Comp.Squad == squad) &&
+        var selected = Units(args.Actor, tablet.Comp.Team).Where(unit => (squad == -1 ? unit.Comp.Squad > 0 : unit.Comp.Squad == squad) &&
             _combat.EventUnitAvailable(unit)).ToArray();
+        if (selected.GroupBy(unit => unit.Comp.Squad).Any(group => group.Count() > EventSquadLimits.Members))
+        {
+            Reply(tablet, args.Actor, "elfiry-command-squad-full");
+            return;
+        }
         if (selected.Length == 0)
         {
             Reply(tablet, args.Actor, "elfiry-command-no-units");
@@ -342,6 +367,7 @@ public sealed partial class EventCommandSystem : EntitySystem
                 points.Add(new EventCommandPointState(name, position));
         }
         _ui.SetUiState(tablet.Owner, EventCommandUiKey.Key, new EventCommandUiState(tablet.Comp.Token, true,
-            (int) origin.MapId, origin.Position, units, points.ToArray(), MapView(origin, tablet.Comp.CommandRange), tablet.Comp.Status));
+            (int) origin.MapId, origin.Position, units, points.ToArray(), MapView(origin, tablet.Comp.CommandRange), tablet.Comp.Status,
+            SquadStates(tablet.Comp.Team)));
     }
 }

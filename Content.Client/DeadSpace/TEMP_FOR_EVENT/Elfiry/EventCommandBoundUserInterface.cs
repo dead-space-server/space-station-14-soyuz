@@ -11,6 +11,7 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Input;
+using Robust.Shared.Timing;
 
 namespace Content.Client.DeadSpace.TEMP_FOR_EVENT.Elfiry;
 
@@ -20,11 +21,11 @@ public sealed class EventCommandBoundUserInterface(EntityUid owner, Enum uiKey) 
 
     protected override void Open()
     {
+        if (IsOpened)
+            return;
         base.Open();
-        _window = new EventCommandWindow();
+        _window = this.CreateWindow<EventCommandWindow>();
         _window.OnMessage += message => SendMessage(message);
-        _window.OnClose += Close;
-        _window.OpenCentered();
         if (State is EventCommandUiState state)
             _window.UpdateState(state);
     }
@@ -36,106 +37,95 @@ public sealed class EventCommandBoundUserInterface(EntityUid owner, Enum uiKey) 
             _window?.UpdateState(command);
     }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        if (disposing)
-            _window?.Dispose();
-    }
 }
 
 public sealed class EventCommandWindow : FancyWindow
 {
+    [Dependency] private readonly IGameTiming _timing = default!;
     private readonly EventCommandMap _map = new();
     private readonly BoxContainer _roster = Column();
     private readonly BoxContainer _points = Column();
     private readonly Label _position = new() { ClipText = true };
     private readonly Label _status = new() { ClipText = true, HorizontalExpand = true };
     private readonly Label _summary = new() { ClipText = true };
-    private readonly Label _squadTitle = new();
-    private readonly Label _empty = new() { Text = Loc.GetString("elfiry-command-empty-squad") };
+    private readonly Label _empty = new() { Text = Loc.GetString("elfiry-command-empty-squad"), ClipText = true };
+    private readonly OptionButton _squads = new() { HorizontalExpand = true, Filterable = true, MinHeight = 32 };
+    private readonly LineEdit _squadName = new() { HorizontalExpand = true };
+    private readonly Button _create;
+    private readonly Button _rename;
+    private readonly Button _delete;
     private readonly Dictionary<NetEntity, UnitRow> _rows = new();
     private readonly List<(EventSquadOrder Order, Button Button)> _orders = new();
-    private readonly List<Button> _squads = new();
     private EventCommandUiState? _state;
     private Vector2? _selected;
     private int _mapId;
-    private int _squad = 1;
+    private int _squad = -1;
+    private string _squadKey = string.Empty;
     private string _pointKey = string.Empty;
+    private string? _creating;
     private bool _updating;
     private bool _pending;
+    private TimeSpan _pendingUntil;
     public event Action<BoundUserInterfaceMessage>? OnMessage;
 
     public EventCommandWindow()
     {
+        IoCManager.InjectDependencies(this);
         Title = Loc.GetString("elfiry-command-title");
-        MinSize = new Vector2(900, 620);
-        SetSize = new Vector2(1120, 740);
-        var root = Column(10);
-        root.Margin = new Thickness(12);
-        var heading = Row(12);
-        heading.AddChild(new Label
-        {
-            Text = Loc.GetString("elfiry-command-heading"),
-            FontColorOverride = Color.FromHex("#efa28b"),
-            HorizontalExpand = true,
-        });
-        heading.AddChild(_summary);
-        root.AddChild(Card(heading, "#38262a", 10));
-
-        var body = Row(12);
+        MinSize = new Vector2(900, 600);
+        SetSize = new Vector2(1120, 720);
+        var root = Column(8);
+        root.Margin = new Thickness(10);
+        var body = Row(10);
         body.VerticalExpand = true;
         var mapColumn = Column(6);
         mapColumn.HorizontalExpand = true;
         mapColumn.VerticalExpand = true;
         var toolbar = Row(5);
-        toolbar.AddChild(new Label { Text = Loc.GetString("elfiry-command-map"), HorizontalExpand = true });
         AddToolbar(toolbar, "elfiry-command-center", () => _map.CenterCommander());
         AddToolbar(toolbar, "elfiry-command-fit", () => _map.FocusSquad());
         AddToolbar(toolbar, "elfiry-command-zoom-out", () => _map.Zoom(1.25f));
         AddToolbar(toolbar, "elfiry-command-zoom-in", () => _map.Zoom(0.8f));
+        toolbar.AddChild(new Control { HorizontalExpand = true });
+        _summary.FontColorOverride = Color.FromHex("#bea7aa");
+        toolbar.AddChild(_summary);
         mapColumn.AddChild(toolbar);
         _map.MinSize = new Vector2(420, 300);
         _map.HorizontalExpand = true;
         _map.VerticalExpand = true;
         _map.OnPositionSelected += SelectPosition;
         _map.OnSquadSelected += SelectSquad;
-        mapColumn.AddChild(Card(_map, "#111b22", 1, true));
-        mapColumn.AddChild(new Label
-        {
-            Text = Loc.GetString("elfiry-command-map-help"),
-            FontColorOverride = Color.FromHex("#94a5af"),
-            ClipText = true,
-        });
-        mapColumn.AddChild(new Label
-        {
-            Text = Loc.GetString("elfiry-command-legend"),
-            FontColorOverride = Color.FromHex("#b5c1c8"),
-            ClipText = true,
-        });
+        mapColumn.AddChild(Card(_map, "#19191c", 1, true));
 
-        var sidebar = Column(10);
-        sidebar.SetWidth = 292;
+        var sidebar = Column(8);
+        sidebar.SetWidth = 320;
         sidebar.VerticalExpand = true;
-        var squadHeader = Column(6);
-        squadHeader.AddChild(_squadTitle);
-        var selectors = Row(3);
-        for (var i = 0; i <= 4; i++)
+        _squads.OnItemSelected += args =>
         {
-            var id = i;
-            var button = new Button
-            {
-                Text = i == 0 ? Loc.GetString("elfiry-command-all-short") : i.ToString(),
-                ToggleMode = true,
-                HorizontalExpand = true,
-                MinHeight = 32,
-            };
-            button.OnPressed += _ => SelectSquad(id);
-            _squads.Add(button);
-            selectors.AddChild(button);
-        }
-        squadHeader.AddChild(selectors);
-        sidebar.AddChild(Card(squadHeader, "#222e38", 8));
+            if (!_updating)
+                SelectSquad(args.Id);
+        };
+        _squads.AddItem(Loc.GetString("elfiry-command-all-squads"), -1);
+        _squads.AddItem(Loc.GetString("elfiry-command-unassigned"), 0);
+        sidebar.AddChild(_squads);
+        _squadName.PlaceHolder = Loc.GetString("elfiry-command-squad-name-placeholder");
+        _squadName.OnTextChanged += _ =>
+        {
+            if (_squadName.Text.Length > EventSquadLimits.NameLength)
+                _squadName.Text = _squadName.Text[..EventSquadLimits.NameLength];
+            UpdateSelection();
+        };
+        sidebar.AddChild(_squadName);
+        var management = Row(4);
+        _create = ManageButton("elfiry-command-create", EventSquadManagement.Create);
+        _rename = ManageButton("elfiry-command-rename", EventSquadManagement.Rename);
+        _delete = ManageButton("elfiry-command-delete", EventSquadManagement.Delete);
+        _delete.ToolTip = Loc.GetString("elfiry-command-delete-help");
+        management.AddChild(_create);
+        management.AddChild(_rename);
+        management.AddChild(_delete);
+        sidebar.AddChild(management);
+
         var tabs = new TabContainer { VerticalExpand = true, HorizontalExpand = true };
         var rosterScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true, HorizontalExpand = true };
         _roster.AddChild(_empty);
@@ -148,10 +138,10 @@ public sealed class EventCommandWindow : FancyWindow
         TabContainer.SetTabTitle(pointScroll, Loc.GetString("elfiry-command-waypoints"));
         sidebar.AddChild(tabs);
 
-        var destination = Column(4);
-        destination.AddChild(new Label { Text = Loc.GetString("elfiry-command-destination"), FontColorOverride = Color.FromHex("#e3b67e") });
+        var destination = Column(2);
+        destination.AddChild(new Label { Text = Loc.GetString("elfiry-command-destination"), FontColorOverride = Color.FromHex("#d59691") });
         destination.AddChild(_position);
-        sidebar.AddChild(Card(destination, "#2d2c30", 8));
+        sidebar.AddChild(Card(destination, "#302124", 6));
         var buttons = new GridContainer { Columns = 2, HorizontalExpand = true };
         foreach (var order in Enum.GetValues<EventSquadOrder>())
         {
@@ -159,14 +149,14 @@ public sealed class EventCommandWindow : FancyWindow
             {
                 Text = Loc.GetString("elfiry-command-order-" + order.ToString().ToLowerInvariant()),
                 ToolTip = Loc.GetString("elfiry-command-help-" + order.ToString().ToLowerInvariant()),
-                MinHeight = 38,
+                MinHeight = 34,
                 HorizontalExpand = true,
             };
             button.OnPressed += _ => SendOrder(order);
             _orders.Add((order, button));
             buttons.AddChild(button);
         }
-        var clear = new Button { Text = Loc.GetString("elfiry-command-clear"), MinHeight = 38, HorizontalExpand = true };
+        var clear = new Button { Text = Loc.GetString("elfiry-command-clear"), MinHeight = 34, HorizontalExpand = true };
         clear.OnPressed += _ =>
         {
             _selected = null;
@@ -178,10 +168,11 @@ public sealed class EventCommandWindow : FancyWindow
         body.AddChild(mapColumn);
         body.AddChild(sidebar);
         root.AddChild(body);
-        root.AddChild(Card(_status, "#222e38", 8));
-        ContentsContainer.AddChild(root);
-        SelectSquad(1);
-        UpdateSelection();
+        _status.FontColorOverride = Color.FromHex("#d9a29b");
+        _status.Visible = false;
+        root.AddChild(_status);
+        ContentsContainer.AddChild(Card(root, "#221b1e", 0, true));
+        SelectSquad(-1);
     }
 
     private static BoxContainer Column(int spacing = 6)
@@ -210,16 +201,32 @@ public sealed class EventCommandWindow : FancyWindow
         row.AddChild(button);
     }
 
+    private Button ManageButton(string text, EventSquadManagement action)
+    {
+        var button = new Button { Text = Loc.GetString(text), HorizontalExpand = true, MinHeight = 30 };
+        button.OnPressed += _ =>
+        {
+            if (_pending || _state is not { Authorized: true } state)
+                return;
+            var name = _squadName.Text.Trim();
+            if (action == EventSquadManagement.Create)
+                _creating = name;
+            Send(new EventSquadManageRequest(state.Token, action, _squad, name));
+        };
+        return button;
+    }
+
     private void SelectSquad(int squad)
     {
+        if (squad > 0 && _state?.Squads.All(item => item.Id != squad) != false)
+            squad = -1;
         _squad = squad;
         _map.Squad = squad;
-        _squadTitle.Text = squad == 0 ? Loc.GetString("elfiry-command-all-squads")
-            : Loc.GetString("elfiry-command-squad", ("number", squad));
-        for (var i = 0; i < _squads.Count; i++)
-            _squads[i].Pressed = i == squad;
+        _squads.SelectId(squad);
+        _squads.ToolTip = _state?.Squads.FirstOrDefault(item => item.Id == squad)?.Name;
+        _squadName.Text = _state?.Squads.FirstOrDefault(item => item.Id == squad)?.Name ?? string.Empty;
         foreach (var row in _rows.Values)
-            row.Control.Visible = squad == 0 || row.Squad.SelectedId == squad;
+            row.Control.Visible = squad < 0 || row.Assigned == squad;
         _empty.Visible = !_rows.Values.Any(row => row.Control.Visible);
         UpdateSelection();
     }
@@ -237,10 +244,20 @@ public sealed class EventCommandWindow : FancyWindow
             ? Loc.GetString("elfiry-command-position", ("x", point.X.ToString("0.0", CultureInfo.InvariantCulture)),
                 ("y", point.Y.ToString("0.0", CultureInfo.InvariantCulture)))
             : Loc.GetString("elfiry-command-select-position");
-        var available = _state?.Units.Any(unit => unit.Alive && (_squad == 0 || unit.Squad == _squad)) == true;
+        var available = _state?.Units.Any(unit => unit.Alive && (_squad < 0 ? unit.Squad > 0 : _squad > 0 && unit.Squad == _squad)) == true;
         foreach (var (order, button) in _orders)
             button.Disabled = _state?.Authorized != true || _pending || !available ||
                               _selected == null && order != EventSquadOrder.Follow;
+        var squad = _state?.Squads.FirstOrDefault(item => item.Id == _squad);
+        var name = _squadName.Text.Trim();
+        var allowed = _state?.Authorized == true && !_pending;
+        var validName = name.Length > 0 && name.Length <= EventSquadLimits.NameLength && !name.Any(char.IsControl);
+        _create.Disabled = !allowed || !validName || _state!.Squads.Any(item => string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+        _rename.Disabled = !allowed || squad == null || !validName || _state!.Squads.Any(item => item.Id != _squad &&
+            string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+        _delete.Disabled = !allowed || squad == null || squad.Members != 0;
+        foreach (var row in _rows.Values)
+            row.Squad.Disabled = !allowed || !row.Available;
     }
 
     private void SendOrder(EventSquadOrder order)
@@ -253,15 +270,29 @@ public sealed class EventCommandWindow : FancyWindow
     private void Send(BoundUserInterfaceMessage message)
     {
         _pending = true;
+        _pendingUntil = _timing.RealTime + TimeSpan.FromSeconds(10);
         _status.Text = Loc.GetString("elfiry-command-sending");
+        _status.Visible = true;
         UpdateSelection();
         OnMessage?.Invoke(message);
     }
 
     public void UpdateState(EventCommandUiState state)
     {
+        var previous = _state;
         _state = state;
         _pending = false;
+        if (_creating is { } name && state.Squads.FirstOrDefault(squad => squad.Name == name) is { } created)
+        {
+            _squad = created.Id;
+            _squadName.Text = name;
+            _creating = null;
+        }
+        if (_squad > 0 && state.Squads.All(squad => squad.Id != _squad))
+        {
+            _squad = -1;
+            _squadName.Text = string.Empty;
+        }
         if (_mapId != state.MapId)
         {
             _mapId = state.MapId;
@@ -269,9 +300,21 @@ public sealed class EventCommandWindow : FancyWindow
             _map.Selection = null;
         }
         _map.UpdateState(state);
-        _status.Text = string.IsNullOrEmpty(state.Status) ? Loc.GetString("elfiry-command-ready") : state.Status;
+        _status.Text = state.Status;
+        _status.Visible = !string.IsNullOrEmpty(state.Status);
         _summary.Text = Loc.GetString("elfiry-command-count", ("ready", state.Units.Count(unit => unit.Alive)), ("total", state.Units.Length));
+        var key = string.Join("|", state.Squads.Select(squad => $"{squad.Id}:{squad.Name}:{squad.Members}"));
+        var squadsChanged = key != _squadKey || previous == null;
         _updating = true;
+        if (squadsChanged)
+        {
+            _squadKey = key;
+            _squads.Clear();
+            _squads.AddItem(Loc.GetString("elfiry-command-all-squads"), -1);
+            _squads.AddItem(Loc.GetString("elfiry-command-unassigned"), 0);
+            foreach (var squad in state.Squads)
+                _squads.AddItem(SquadLabel(squad), squad.Id);
+        }
         foreach (var removed in _rows.Keys.Except(state.Units.Select(unit => unit.Entity)).ToArray())
         {
             _roster.RemoveChild(_rows[removed].Control);
@@ -281,40 +324,47 @@ public sealed class EventCommandWindow : FancyWindow
         {
             if (!_rows.TryGetValue(unit.Entity, out var row))
             {
-                var column = Column(2);
+                var column = Column(3);
                 column.HorizontalExpand = true;
-                var name = new Label { ClipText = true, HorizontalExpand = true };
-                var status = new Label { ClipText = true, FontColorOverride = Color.FromHex("#a2b0ba") };
-                column.AddChild(name);
+                var label = new Label { ClipText = true, HorizontalExpand = true };
+                var status = new Label { ClipText = true, FontColorOverride = Color.FromHex("#baa8ab") };
+                column.AddChild(label);
                 column.AddChild(status);
-                var squad = new OptionButton { SetWidth = 62, VerticalAlignment = VAlignment.Center };
-                for (var i = 1; i <= 4; i++)
-                    squad.AddItem(i.ToString(), i);
-                squad.ToolTip = Loc.GetString("elfiry-command-assign");
-                squad.OnItemSelected += args =>
+                var selector = new OptionButton { HorizontalExpand = true, MinHeight = 28, Filterable = true };
+                selector.ToolTip = Loc.GetString("elfiry-command-assign");
+                selector.OnItemSelected += args =>
                 {
                     if (!_updating && !_pending && _state is { Authorized: true } current)
                         Send(new EventSquadAssignRequest(current.Token, unit.Entity, args.Id));
                 };
-                var content = Row(6);
-                content.AddChild(column);
-                content.AddChild(squad);
-                var control = Card(content, unit.Medic ? "#203a38" : "#2b3039", 7);
+                column.AddChild(selector);
+                var control = Card(column, unit.Medic ? "#302c2b" : "#312429", 7);
                 _roster.AddChild(control);
-                row = new UnitRow(control, name, status, squad);
+                row = new UnitRow(control, label, status, selector);
                 _rows.Add(unit.Entity, row);
+                FillUnitSquads(row, state);
             }
+            else if (squadsChanged)
+                FillUnitSquads(row, state);
             row.Name.Text = unit.Medic ? Loc.GetString("elfiry-command-medic-name", ("name", unit.Name)) : unit.Name;
             row.Name.ToolTip = unit.Name;
             row.Status.Text = unit.Alive ? unit.Status : Loc.GetString("elfiry-command-unit-unavailable");
-            row.Squad.SelectId(Math.Clamp(unit.Squad, 1, 4));
-            row.Squad.Disabled = !state.Authorized || !unit.Alive;
+            row.Assigned = state.Squads.Any(squad => squad.Id == unit.Squad) ? unit.Squad : 0;
+            row.Available = unit.Alive;
+            row.Squad.SelectId(row.Assigned);
+            row.Squad.ToolTip = state.Squads.FirstOrDefault(squad => squad.Id == row.Assigned)?.Name ?? Loc.GetString("elfiry-command-assign");
+            foreach (var squad in state.Squads)
+                row.Squad.SetItemDisabled(row.Squad.GetIdx(squad.Id), squad.Members >= EventSquadLimits.Members && squad.Id != row.Assigned);
+            row.Control.Visible = _squad < 0 || row.Assigned == _squad;
         }
+        _squads.SelectId(_squad);
+        _map.Squad = _squad;
         _updating = false;
-        var key = string.Join("|", state.Points.Select(point => $"{point.Name}/{point.Position}"));
-        if (_pointKey != key || _points.ChildCount == 0)
+        _empty.Visible = !_rows.Values.Any(row => row.Control.Visible);
+        var pointKey = string.Join("|", state.Points.Select(point => $"{point.Name}/{point.Position}"));
+        if (_pointKey != pointKey || _points.ChildCount == 0)
         {
-            _pointKey = key;
+            _pointKey = pointKey;
             _points.RemoveAllChildren();
             foreach (var point in state.Points)
             {
@@ -329,10 +379,42 @@ public sealed class EventCommandWindow : FancyWindow
             if (state.Points.Length == 0)
                 _points.AddChild(new Label { Text = Loc.GetString("elfiry-command-no-waypoints"), ClipText = true });
         }
-        SelectSquad(_squad);
+        UpdateSelection();
     }
 
-    private sealed record UnitRow(PanelContainer Control, Label Name, Label Status, OptionButton Squad);
+    private static string SquadLabel(EventCommandSquadState squad)
+        => Loc.GetString("elfiry-command-squad-label", ("name", squad.Name.Length > 22 ? squad.Name[..22] + "…" : squad.Name),
+            ("count", squad.Members), ("limit", EventSquadLimits.Members));
+
+    private static void FillUnitSquads(UnitRow row, EventCommandUiState state)
+    {
+        row.Squad.Clear();
+        row.Squad.AddItem(Loc.GetString("elfiry-command-unassigned"), 0);
+        foreach (var squad in state.Squads)
+            row.Squad.AddItem(SquadLabel(squad), squad.Id);
+    }
+
+    protected override void FrameUpdate(FrameEventArgs args)
+    {
+        base.FrameUpdate(args);
+        if (!_pending || _timing.RealTime < _pendingUntil)
+            return;
+        _pending = false;
+        _creating = null;
+        _status.Text = Loc.GetString("elfiry-command-request-timeout");
+        _status.Visible = true;
+        UpdateSelection();
+    }
+
+    private sealed class UnitRow(PanelContainer control, Label name, Label status, OptionButton squad)
+    {
+        public readonly PanelContainer Control = control;
+        public readonly Label Name = name;
+        public readonly Label Status = status;
+        public readonly OptionButton Squad = squad;
+        public int Assigned;
+        public bool Available;
+    }
 }
 
 public sealed class EventCommandMap : Control
@@ -385,7 +467,7 @@ public sealed class EventCommandMap : Control
     {
         if (_state == null)
             return;
-        var positions = _state.Units.Where(unit => unit.Alive && (Squad == 0 || unit.Squad == Squad))
+        var positions = _state.Units.Where(unit => unit.Alive && (Squad < 0 || unit.Squad == Squad))
             .Select(unit => unit.Position).ToArray();
         if (positions.Length == 0)
         {
@@ -491,7 +573,7 @@ public sealed class EventCommandMap : Control
     protected override void Draw(DrawingHandleScreen handle)
     {
         base.Draw(handle);
-        handle.DrawRect(PixelSizeBox, Color.FromHex("#101921"));
+        handle.DrawRect(PixelSizeBox, Color.FromHex("#17171b"));
         if (_state == null)
             return;
         DrawGrid(handle);
@@ -548,18 +630,20 @@ public sealed class EventCommandMap : Control
             handle.DrawCircle(position, 4f * UIScale, Color.FromHex("#e7b578"), false);
             handle.DrawString(_font, position + new Vector2(7, -5) * UIScale, point.Name, UIScale, Color.FromHex("#ddc6a0"));
         }
+        var labelledSquads = new HashSet<int>();
         foreach (var unit in _state.Units)
         {
             var position = Project(unit.Position);
-            var selected = Squad == 0 || Squad == unit.Squad;
+            var selected = Squad < 0 || Squad == unit.Squad;
             var color = !unit.Alive ? Color.Gray : unit.Medic ? Color.FromHex("#7de3b9") : Color.FromHex("#ee8d7c");
             if (!selected)
                 color = color.WithAlpha(0.45f);
             if (selected && unit.Alive)
                 handle.DrawCircle(position, 7f * UIScale, color.WithAlpha(0.15f));
             handle.DrawCircle(position, (selected ? 3.5f : 2f) * UIScale, color);
-            if (selected && unit.Alive)
-                handle.DrawString(_font, position + new Vector2(6, -4) * UIScale, unit.Squad.ToString(), UIScale, color);
+            if (selected && unit.Alive && unit.Squad > 0 && labelledSquads.Add(unit.Squad) &&
+                _state.Squads.FirstOrDefault(candidate => candidate.Id == unit.Squad) is { } labelledSquad)
+                handle.DrawString(_font, position + new Vector2(6, -4) * UIScale, labelledSquad.Name, UIScale, color);
         }
         handle.DrawCircle(Project(_state.Commander), 6f * UIScale, Color.White, false);
         if (Selection is { } target)
@@ -582,7 +666,7 @@ public sealed class EventCommandMap : Control
         var spacing = MathF.Pow(2f, MathF.Ceiling(MathF.Log2(_range / 8f)));
         var min = Unproject(new Vector2(0, PixelHeight));
         var max = Unproject(new Vector2(PixelWidth, 0));
-        var color = Color.FromHex("#21313c");
+        var color = Color.FromHex("#30262c");
         for (var x = MathF.Ceiling(min.X / spacing) * spacing; x <= max.X; x += spacing)
             handle.DrawLine(Project(new Vector2(x, min.Y)), Project(new Vector2(x, max.Y)), color);
         for (var y = MathF.Ceiling(min.Y / spacing) * spacing; y <= max.Y; y += spacing)

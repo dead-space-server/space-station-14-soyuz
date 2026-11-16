@@ -35,6 +35,32 @@ public enum EventCommandUiKey : byte { Key }
 [Serializable, NetSerializable]
 public enum EventSquadOrder : byte { Move, Defend, Assault, Retreat, Follow }
 
+public static class EventSquadLimits
+{
+    public const int Members = 5;
+    public const int NameLength = 40;
+}
+
+[Serializable, NetSerializable]
+public enum EventSquadManagement : byte { Create, Rename, Delete }
+
+[Serializable, NetSerializable]
+public sealed class EventSquadManageRequest(Guid token, EventSquadManagement action, int squad, string name) : BoundUserInterfaceMessage
+{
+    public readonly Guid Token = token;
+    public readonly EventSquadManagement Action = action;
+    public readonly int Squad = squad;
+    public readonly string Name = name;
+}
+
+[Serializable, NetSerializable]
+public sealed class EventCommandSquadState(int id, string name, int members)
+{
+    public readonly int Id = id;
+    public readonly string Name = name;
+    public readonly int Members = members;
+}
+
 [Serializable, NetSerializable]
 public sealed class EventSquadRequest(Guid token, int squad, EventSquadOrder order, int mapId, Vector2 position) : BoundUserInterfaceMessage
 {
@@ -95,7 +121,8 @@ public sealed class EventCommandGridState(Vector2 position, float rotation, bool
 
 [Serializable, NetSerializable]
 public sealed class EventCommandUiState(Guid token, bool authorized, int mapId, Vector2 commander,
-    EventCommandUnitState[] units, EventCommandPointState[] points, EventCommandGridState[] grids, string status) : BoundUserInterfaceState
+    EventCommandUnitState[] units, EventCommandPointState[] points, EventCommandGridState[] grids, string status,
+    EventCommandSquadState[] squads) : BoundUserInterfaceState
 {
     public readonly Guid Token = token;
     public readonly bool Authorized = authorized;
@@ -105,4 +132,5 @@ public sealed class EventCommandUiState(Guid token, bool authorized, int mapId, 
     public readonly EventCommandPointState[] Points = points;
     public readonly EventCommandGridState[] Grids = grids;
     public readonly string Status = status;
+    public readonly EventCommandSquadState[] Squads = squads;
 }

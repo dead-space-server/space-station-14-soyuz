@@ -10,7 +10,7 @@ namespace Content.Server.DeadSpace.TEMP_FOR_EVENT.Elfiry;
 public sealed partial class EventSquadUnitComponent : Component
 {
     [DataField] public string Team = "HomewardRassvet";
-    [DataField] public int Squad = 1;
+    [DataField] public int Squad;
     public EntityUid Commander;
     public EntityCoordinates Destination;
     public EventSquadOrder Order = EventSquadOrder.Defend;

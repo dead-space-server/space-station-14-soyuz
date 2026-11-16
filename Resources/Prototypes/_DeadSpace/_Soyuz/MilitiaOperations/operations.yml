@@ -92,6 +92,7 @@
   description: Вооружённый участник нелегальной группы.
   components:
   - type: StunImmune
+  - type: MilitiaOperative
   - type: MovementIgnoreGravity
     weightless: false
   - type: CanMoveInAir
@@ -164,6 +165,12 @@
   - MilitiaOperationFlagship
   shop: MilitiaOperationSupplyPool
   shopEnabled: false
+  contrabandRewards:
+    Firearm: { points: 4, reputation: 2 }
+    Melee: { points: 2, reputation: 1 }
+    Armor: { points: 3, reputation: 1 }
+    Helmet: { points: 2, reputation: 1 }
+    Boots: { points: 1, reputation: 1 }
   cooldown: 5m
   medic: MilitiaOperationRaiderMedic
 

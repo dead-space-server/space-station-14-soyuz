@@ -65,6 +65,9 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _nextSquadUpdate = TimeSpan.Zero;
             _nextSquadSafety = TimeSpan.Zero;
             _nextSquadGrenade = TimeSpan.Zero;
+            _nextCustodyUpdate = TimeSpan.Zero;
+            _custodyUiCache.Clear();
+            _custodyRequests.Clear();
             _preparationMaps.Clear();
         });
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
@@ -79,6 +82,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.ShotAttemptedEvent>(OnSquadShot);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MapInitEvent>(OnActorMapInit,
             after: [typeof(SharedBodySystem), typeof(LoadoutSystem)]);
+        InitializeCustody();
         SubscribeLocalEvent<ShuttleControlAttemptEvent>(OnControl);
         Subs.BuiEvents<MilitiaOperationConsoleComponent>(MilitiaOperationUiKey.Key, subs =>
         {
@@ -90,6 +94,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+        UpdateCustody();
         var scan = UpdateSquadSafety();
         UpdateSupportSafety(scan);
         UpdateSquads();
@@ -235,6 +240,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             return false;
 
         state.Active = active;
+        RegisterContraband(station, state, active.Id);
         state.Status = "militia-operation-in-progress";
         state.Offers.Remove(offer);
         _log.Info($"Operation activated: Station={station}, Operation={active.Id}, Prototype={prototype.ID}, Seed={active.Seed}, Crew={active.Crew.Count}");
@@ -506,6 +512,8 @@ public sealed partial class MilitiaOperationStationComponent : Component
     public readonly List<MilitiaOperationOffer> Offers = new();
     public readonly List<string> History = new();
     public readonly HashSet<Guid> Purchases = new();
+    public readonly Dictionary<Guid, EntityUid> IssuedContraband = new();
+    public HashSet<Guid> RedeemedContraband = new();
     public readonly HashSet<EntityUid> Cleanup = new();
     public string Status = "militia-operation-ready";
 }

@@ -33,6 +33,7 @@ public sealed partial class MilitiaOperationConfigPrototype : IPrototype
     [DataField(required: true)] public EntProtoId Document;
     [DataField(required: true)] public ProtoId<RepairRewardPoolPrototype> Shop;
     [DataField] public bool ShopEnabled;
+    [DataField] public Dictionary<MilitiaContrabandKind, MilitiaContrabandPrice> ContrabandRewards = new();
     [DataField] public TimeSpan Cooldown = TimeSpan.FromMinutes(5);
 }
 
@@ -68,4 +69,11 @@ public sealed partial class MilitiaWeaponSet
     [DataField(required: true)] public EntProtoId Magazine;
     [DataField] public int MinimumMagazines = 3;
     [DataField] public int MaximumMagazines = 3;
+}
+
+[DataDefinition]
+public sealed partial class MilitiaContrabandPrice
+{
+    [DataField] public int Points;
+    [DataField] public int Reputation;
 }

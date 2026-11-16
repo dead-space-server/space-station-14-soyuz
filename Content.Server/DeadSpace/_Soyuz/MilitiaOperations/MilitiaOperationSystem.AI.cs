@@ -203,6 +203,7 @@ public sealed partial class MilitiaOperationSystem
         if (actor.Medic && !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false))
             throw new InvalidOperationException($"Cannot restore militia medic weapon in {profile.ID}.");
         PrimeWeapon(uid, actor.Weapon);
+        RestrictActorEquipment(uid, actor);
         if (actor.Treatments.Count == 0 || !WeaponReady(actor.Weapon) || !ArmActor(uid))
             throw new InvalidOperationException($"Militia equipment is not combat ready: {profile.ID}.");
         actor.EquipmentReady = true;

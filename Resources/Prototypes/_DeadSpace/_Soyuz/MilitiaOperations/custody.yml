@@ -1,0 +1,57 @@
+- type: entity
+  id: MilitiaCustodyCabinet
+  parent: [BaseMachinePowered, ConstructibleMachine]
+  name: шкаф приёма изъятого вооружения
+  description: Ведомственный шкаф милиции для учёта и опечатанной пересылки изъятого вооружения в хранилище следственного управления.
+  components:
+  - type: MilitiaCustodyCabinet
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    sprite: _DeadSpace/_Soyuz/Structures/Machines/militia_custody.rsi
+    offset: 0, 0.25
+    layers:
+    - state: idle
+      map: ["enum.MilitiaCustodyVisuals.State"]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.MilitiaCustodyVisuals.State:
+        enum.MilitiaCustodyVisuals.State:
+          0: { state: off }
+          1: { state: idle }
+          2: { state: busy }
+  - type: ApcPowerReceiver
+    powerLoad: 500
+  - type: AccessReader
+    access:
+    - - Security
+    - - HeadOfSecurity
+  - type: ActivatableUI
+    key: enum.MilitiaCustodyUiKey.Key
+  - type: ActivatableUIRequiresAccess
+  - type: UserInterface
+    interfaces:
+      enum.MilitiaCustodyUiKey.Key:
+        type: MilitiaCustodyBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      machine_board: !type:Container {}
+      machine_parts: !type:Container {}
+      custody_input: !type:Container {}
+  - type: Machine
+    board: MilitiaCustodyMachineCircuitboard
+
+- type: entity
+  id: MilitiaCustodyMachineCircuitboard
+  parent: BaseMachineCircuitboard
+  name: плата шкафа приёма изъятого вооружения
+  description: Печатная плата ведомственного шкафа милиции.
+  components:
+  - type: Sprite
+    state: security
+  - type: MachineBoard
+    prototype: MilitiaCustodyCabinet
+    stackRequirements:
+      Manipulator: 2
+      Glass: 2

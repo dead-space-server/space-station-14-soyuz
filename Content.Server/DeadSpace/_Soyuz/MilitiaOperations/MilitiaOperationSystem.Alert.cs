@@ -3,6 +3,7 @@
 using System.Numerics;
 using Content.Server.NPC.Systems;
 using Content.Shared.Projectiles;
+using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
 using Robust.Shared.Map;
 
@@ -31,17 +32,79 @@ public sealed partial class MilitiaOperationSystem
                 threat = new MapCoordinates(position.Position - Vector2.Normalize(velocity) * actor.ThreatRange, position.MapId);
             }
         }
-        AlertActor((args.Target, actor), threat);
+        AlertRangedActor((args.Target, actor), threat);
     }
 
     private void OnActorHitscanHit(Entity<MilitiaOperationActorComponent> actor, ref HitscanRaycastStrikeEvent args)
     {
-        var threat = DamageSourcePosition(actor.Owner, args.Data.Gun) ?? DamageSourcePosition(actor.Owner, args.Data.Shooter);
+        var threat = HitscanPath(args.Data, out var origin, out _) ? origin
+            : DamageSourcePosition(actor.Owner, args.Data.Gun) ?? DamageSourcePosition(actor.Owner, args.Data.Shooter);
         if (threat == null && args.Data.ShotDirection.LengthSquared() > 0.01f)
         {
             var position = _transform.GetMapCoordinates(actor.Owner);
             threat = new MapCoordinates(position.Position - Vector2.Normalize(args.Data.ShotDirection) * actor.Comp.ThreatRange, position.MapId);
         }
+        AlertRangedActor(actor, threat);
+    }
+
+    private bool HitscanPath(HitscanRaycastFiredData data, out MapCoordinates origin, out MapCoordinates end)
+    {
+        origin = end = default;
+        if (data.OutputTrace is not { Count: > 0 } traces || data.ShotDirection.LengthSquared() < 0.001f)
+            return false;
+        var trace = traces[^1];
+        var coordinates = GetCoordinates(trace.ImpactCoordinates);
+        if (!coordinates.IsValid(EntityManager))
+            return false;
+        end = _transform.ToMapCoordinates(coordinates);
+        origin = new MapCoordinates(end.Position - Vector2.Normalize(data.ShotDirection) * trace.Distance, end.MapId);
+        return true;
+    }
+
+    private void AlertRangedActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat)
+    {
         AlertActor(actor, threat);
+        if (!AvailableActor(actor.Owner, out _) || threat is not { } source)
+            return;
+        var position = _transform.GetMapCoordinates(actor.Owner);
+        if (position.MapId != source.MapId)
+            return;
+        var sameGrid = Transform(actor.Owner).GridUid is { } grid &&
+            _turf.GetTileRef(_transform.ToCoordinates(source))?.GridUid == grid;
+        if (Vector2.DistanceSquared(position.Position, source.Position) <= actor.Comp.SquadVision * actor.Comp.SquadVision &&
+            sameGrid && !ThroughWindow(position, source) &&
+            !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, ShotCollisionMask(actor.Comp.Weapon), 0f))
+            return;
+        RememberWindowThreat(actor.Owner, actor.Comp, source);
+        actor.Comp.RangedDangerPosition = Transform(actor.Owner).Coordinates;
+        actor.Comp.RangedDangerUntil = actor.Comp.WindowHoldUntil;
+        actor.Comp.WindowExposed = true;
+        actor.Comp.ExposedToThreat = true;
+    }
+
+    private void OnThreateningHitscan(ref HitscanRaycastFiredEvent args)
+    {
+        if (!TryComp<HitscanBasicDamageComponent>(args.Data.Hitscan, out var damage) || !damage.Damage.AnyPositive() ||
+            !HitscanPath(args.Data, out var origin, out var end))
+            return;
+        var delta = end.Position - origin.Position;
+        var lengthSquared = delta.LengthSquared();
+        if (lengthSquared < 0.001f)
+            return;
+        var center = new MapCoordinates((origin.Position + end.Position) / 2f, origin.MapId);
+        foreach (var actor in _squadLookup.GetEntitiesInRange<MilitiaOperationActorComponent>(center, MathF.Sqrt(lengthSquared) / 2f + 1.25f))
+        {
+            if (actor.Owner == args.Data.HitEntity || actor.Owner == args.Data.Shooter ||
+                !AvailableActor(actor.Owner, out _) || MetaData(actor.Owner).EntityPaused ||
+                _factions.IsEntityFriendly(actor.Owner, args.Data.Shooter ?? args.Data.Gun))
+                continue;
+            var position = _transform.GetMapCoordinates(actor.Owner);
+            var along = Vector2.Dot(position.Position - origin.Position, delta) / lengthSquared;
+            if (along < 0f || along > 1f)
+                continue;
+            var closest = new MapCoordinates(origin.Position + delta * along, origin.MapId);
+            if (Vector2.DistanceSquared(position.Position, closest.Position) <= 1.5625f && CoverExposed(position, closest))
+                AlertRangedActor(actor, origin);
+        }
     }
 }

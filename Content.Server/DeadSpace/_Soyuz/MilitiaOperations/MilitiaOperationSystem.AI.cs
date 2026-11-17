@@ -254,6 +254,11 @@ public sealed partial class MilitiaOperationSystem
         var previousThreat = RecentDamageThreat(actor.Owner, actor.Comp);
         actor.Comp.DamageThreatUntil = _timing.CurTime + actor.Comp.ContactMemory;
         actor.Comp.DamageThreat = threat ?? previousThreat;
+        if (actor.Comp.DamageThreat is { } incoming &&
+            (ThroughWindow(_transform.GetMapCoordinates(actor.Owner), incoming) ||
+             RememberedWindowThreats(actor.Comp).Any(known => known.MapId == incoming.MapId &&
+                 System.Numerics.Vector2.DistanceSquared(known.Position, incoming.Position) <= 4f)))
+            RememberWindowThreat(actor.Owner, actor.Comp, incoming);
         actor.Comp.ThreatScanValidUntil = TimeSpan.Zero;
         _actorNpcs.KeepMilitiaCombatActive(actor.Owner);
         _nextSquadUpdate = _timing.CurTime;
@@ -650,7 +655,7 @@ public sealed partial class MilitiaOperationSystem
     private bool NeedsMeleeCounter(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
     {
         if (!OwnsItem(uid, actor.Backup) || !TryComp<MeleeWeaponComponent>(actor.Backup, out var melee) ||
-            !SquadVisible(uid, target, melee.Range) ||
+            !SquadVisible(uid, target, melee.Range) || !_interaction.InRangeUnobstructed(uid, target, melee.Range) ||
             !Transform(uid).Coordinates.TryDistance(EntityManager, Transform(target).Coordinates, out var distance) || distance > melee.Range)
             return false;
         if (actor.MeleeCounterTarget == target && actor.MeleeCounterUntil > _timing.CurTime)
@@ -890,6 +895,9 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public bool WindowExposed;
     public EntityCoordinates WindowSafePosition;
     public TimeSpan WindowHoldUntil;
+    public readonly Dictionary<EntityCoordinates, TimeSpan> WindowThreats = new();
+    public EntityCoordinates RangedDangerPosition;
+    public TimeSpan RangedDangerUntil;
     public TimeSpan ThreatScanValidUntil;
     public TimeSpan NextFireReposition;
     public TimeSpan FireBlockedUntil;
@@ -984,12 +992,17 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             foreach (var position in order.Positions)
             {
                 cancelToken.ThrowIfCancellationRequested();
+                if (!ReferenceEquals(_operations.GetSquadOrder(owner, Kind == MilitiaSupportKind.Retreat, Kind == MilitiaSupportKind.Evade), order))
+                    return (false, null);
                 if (!_operations.SquadPositionAvailable(owner, position))
                     continue;
                 if (!_entities.TryGetComponent(owner, out TransformComponent? transform))
                     return (false, null);
                 var path = await _pathfinding.GetPath(owner, transform.Coordinates, position, 0.6f,
                     cancelToken, _pathfinding.GetFlags(blackboard));
+                cancelToken.ThrowIfCancellationRequested();
+                if (!ReferenceEquals(_operations.GetSquadOrder(owner, Kind == MilitiaSupportKind.Retreat, Kind == MilitiaSupportKind.Evade), order))
+                    return (false, null);
                 if (path.Result == PathResult.Path && _operations.PrepareSquadPath(owner, order, position, path.Path) is { } plan)
                     return (true, new Dictionary<string, object> { [SquadPlanKey] = plan });
                 cancelToken.ThrowIfCancellationRequested();

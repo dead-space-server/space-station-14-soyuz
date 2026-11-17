@@ -4,19 +4,28 @@ using System.Linq;
 using System.Numerics;
 using Content.Shared.Climbing.Components;
 using Content.Shared.Climbing.Systems;
+using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.NPC.Components;
 using Content.Shared.Physics;
+using Content.Shared.Projectiles;
+using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Reflect;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
     [Dependency] private readonly ClimbSystem _barrierClimb = default!;
+    private static readonly PhysShapeCircle ShotPathShape = new(0.01f);
 
     private bool HologramPrototype(EntityUid uid, string id)
         => !TerminatingOrDeleted(uid) && !EntityManager.IsQueuedForDeletion(uid) &&
@@ -129,18 +138,6 @@ public sealed partial class MilitiaOperationSystem
         => TryComp<PhysicsComponent>(uid, out var body) && body.CanCollide &&
            (HologramPrototype(uid, "HolosignBulletShield") || HologramPrototype(uid, "XenoborgDeflectorField"));
 
-    private EntityUid? BlockingBulletMatrix(MapCoordinates origin, MapCoordinates target)
-    {
-        var delta = target.Position - origin.Position;
-        if (origin.MapId != target.MapId || delta.LengthSquared() < 0.001f)
-            return null;
-        var ray = new CollisionRay(origin.Position, Vector2.Normalize(delta), (int) CollisionGroup.BulletImpassable);
-        foreach (var hit in _squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, delta.Length(),
-                     predicate: entity => !HolographicProjectileBarrier(entity)).OrderBy(hit => hit.Distance))
-            return HologramPrototype(hit.HitEntity, "HolosignBulletShield") ? hit.HitEntity : null;
-        return null;
-    }
-
     private bool HolographicShotBlocked(MapCoordinates origin, MapCoordinates target, float spread = 0f, bool attackMatrices = false)
     {
         var delta = target.Position - origin.Position;
@@ -170,11 +167,64 @@ public sealed partial class MilitiaOperationSystem
         return false;
     }
 
-    private void RepositionFromHologram(EntityUid uid, MilitiaOperationActorComponent actor)
+    private long ShotCollisionMask(EntityUid weapon)
+    {
+        const long fallback = (long) (CollisionGroup.Impassable | CollisionGroup.BulletImpassable);
+        if (!HasComp<GunComponent>(weapon))
+            return fallback;
+        var ammo = new GetAmmoCountEvent();
+        RaiseLocalEvent(weapon, ref ammo);
+        EntityPrototype? prototype = null;
+        if (ammo.NextAmmoEntity is { } entity)
+        {
+            if (TryComp<CartridgeAmmoComponent>(entity, out var cartridge))
+                _prototypes.TryIndex(cartridge.Prototype, out prototype);
+            else if (TryComp<HitscanBasicRaycastComponent>(entity, out var hitscan))
+                return (long) hitscan.CollisionMask;
+            else if (TryComp<FixturesComponent>(entity, out var fixtures))
+                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | fixture.CollisionMask);
+        }
+        else if (ammo.NextAmmoPrototype is { } id)
+            _prototypes.TryIndex(id, out prototype);
+        for (var depth = 0; prototype != null && depth < 8; depth++)
+        {
+            if (prototype.TryGetComponent<CartridgeAmmoComponent>(out var cartridge, _squadComponents) &&
+                _prototypes.TryIndex(cartridge.Prototype, out prototype))
+                continue;
+            if (prototype != null && prototype.TryGetComponent<HitscanBasicRaycastComponent>(out var hitscan, _squadComponents))
+                return (long) hitscan.CollisionMask;
+            if (prototype != null && prototype.TryGetComponent<FixturesComponent>(out var fixtures, _squadComponents))
+                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | fixture.CollisionMask);
+            break;
+        }
+        return fallback;
+    }
+
+    private bool SquadShotBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,
+        long collisionMask, float spread)
+    {
+        var delta = destination.Position - origin.Position;
+        if (origin.MapId != destination.MapId || delta.LengthSquared() < 0.001f)
+            return true;
+        var start = _squadPhysics.GetPhysicsTransform(uid);
+        start.Position = origin.Position;
+        if (_squadRayCast.CastShape(origin.MapId, ShotPathShape, start, delta, new QueryFilter
+            {
+                MaskBits = collisionMask,
+                IsIgnored = entity => entity == uid || entity == target || HasComp<NpcFactionMemberComponent>(entity) ||
+                    CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
+                    HologramPrototype(entity, "HolosignBulletShield"),
+            }, RayCastSystem.RayCastClosestCallback).Hit)
+            return true;
+        return HolographicShotBlocked(origin, destination, spread, attackMatrices: true);
+    }
+
+    private void RepositionBlockedFire(EntityUid uid, MilitiaOperationActorComponent actor)
     {
         actor.FireBlockedUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
         if (_timing.CurTime < actor.NextFireReposition ||
-            actor.RunningSquadOrder?.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate)
+            actor.SquadOrder is { } order && order.Until > _timing.CurTime &&
+            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate)
             return;
         actor.NextFireReposition = _timing.CurTime + TimeSpan.FromSeconds(1);
         if (actor.SquadPosition.IsValid(EntityManager))

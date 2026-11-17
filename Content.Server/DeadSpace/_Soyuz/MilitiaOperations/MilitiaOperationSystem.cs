@@ -59,6 +59,11 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         base.Initialize();
         UpdatesBefore.Add(typeof(Content.Server.NPC.Systems.NPCSteeringSystem));
         _log = _logs.GetSawmill("militia_operations");
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(_ =>
+        {
+            _hologramAncestors.Clear();
+            _projectileMasks.Clear();
+        });
         SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
         {
             _nextUpdate = TimeSpan.Zero;
@@ -66,6 +71,11 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _nextSquadSafety = TimeSpan.Zero;
             _nextSquadGrenade = TimeSpan.Zero;
             _nextCustodyUpdate = TimeSpan.Zero;
+            _squadStops.Clear();
+            _squadInterrupts.Clear();
+            _squadThrowers.Clear();
+            _hologramAncestors.Clear();
+            _projectileMasks.Clear();
             _custodyUiCache.Clear();
             _custodyRequests.Clear();
             _issuedContraband.Clear();

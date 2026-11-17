@@ -26,11 +26,19 @@ public sealed partial class MilitiaOperationSystem
 {
     [Dependency] private readonly ClimbSystem _barrierClimb = default!;
     private static readonly PhysShapeCircle ShotPathShape = new(0.01f);
+    private readonly Dictionary<(EntityPrototype Prototype, string Ancestor), bool> _hologramAncestors = new();
+    private readonly Dictionary<EntityPrototype, long> _projectileMasks = new();
 
     private bool HologramPrototype(EntityUid uid, string id)
-        => !TerminatingOrDeleted(uid) && !EntityManager.IsQueuedForDeletion(uid) &&
-           MetaData(uid).EntityPrototype is { } prototype &&
-           _prototypes.EnumerateParents(prototype, includeSelf: true).Any(parent => parent.ID == id);
+    {
+        if (TerminatingOrDeleted(uid) || EntityManager.IsQueuedForDeletion(uid) ||
+            MetaData(uid).EntityPrototype is not { } prototype)
+            return false;
+        var key = (prototype, id);
+        if (!_hologramAncestors.TryGetValue(key, out var matches))
+            _hologramAncestors[key] = matches = _prototypes.EnumerateParents(prototype, includeSelf: true).Any(parent => parent.ID == id);
+        return matches;
+    }
 
     private bool CanCrossHolographicBarrier(EntityUid uid, EntityUid barrier)
         => HologramPrototype(barrier, "HolosignSecurity") &&
@@ -186,18 +194,28 @@ public sealed partial class MilitiaOperationSystem
         }
         else if (ammo.NextAmmoPrototype is { } id)
             _prototypes.TryIndex(id, out prototype);
+        if (prototype == null)
+            return fallback;
+        var ammoPrototype = prototype;
+        if (_projectileMasks.TryGetValue(ammoPrototype, out var cached))
+            return cached;
+        var result = fallback;
         for (var depth = 0; prototype != null && depth < 8; depth++)
         {
             if (prototype.TryGetComponent<CartridgeAmmoComponent>(out var cartridge, _squadComponents) &&
                 _prototypes.TryIndex(cartridge.Prototype, out prototype))
                 continue;
             if (prototype != null && prototype.TryGetComponent<HitscanBasicRaycastComponent>(out var hitscan, _squadComponents))
-                return (long) hitscan.CollisionMask;
+            {
+                result = (long) hitscan.CollisionMask;
+                break;
+            }
             if (prototype != null && prototype.TryGetComponent<FixturesComponent>(out var fixtures, _squadComponents))
-                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
+                result = fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
             break;
         }
-        return fallback;
+        _projectileMasks[ammoPrototype] = result;
+        return result;
     }
 
     private bool SquadShotBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,

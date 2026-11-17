@@ -74,8 +74,8 @@
   reloadTime: 2.5s
   grenades:
   - GrenadeFlashBang
-  minimumGrenades: 3
-  maximumGrenades: 4
+  minimumGrenades: 2
+  maximumGrenades: 3
 
 - type: militiaEquipment
   id: MilitiaEquipmentScout

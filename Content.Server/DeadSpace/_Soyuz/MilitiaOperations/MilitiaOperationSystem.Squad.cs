@@ -55,6 +55,9 @@ public sealed partial class MilitiaOperationSystem
     private static readonly Vector2i[] SquadAdjacent = [new(1, 0), new(-1, 0), new(0, 1), new(0, -1)];
     private TimeSpan _nextSquadUpdate;
     private TimeSpan _nextSquadSafety;
+    private readonly HashSet<EntityUid> _squadStops = new();
+    private readonly HashSet<EntityUid> _squadInterrupts = new();
+    private readonly List<EntityUid> _squadThrowers = new();
     private const CollisionGroup SquadSight = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
 
     private bool SquadMember(EntityUid uid)
@@ -109,11 +112,21 @@ public sealed partial class MilitiaOperationSystem
             .Select(threat => _transform.ToMapCoordinates(threat.Key));
 
     private bool WindowThreatExposed(MilitiaOperationActorComponent actor, MapCoordinates position)
-        => actor.WindowHoldUntil > _timing.CurTime &&
-           (actor.RangedDangerUntil > _timing.CurTime && actor.RangedDangerPosition.IsValid(EntityManager) &&
+    {
+        if (actor.WindowHoldUntil <= _timing.CurTime)
+            return false;
+        if (actor.RangedDangerUntil > _timing.CurTime && actor.RangedDangerPosition.IsValid(EntityManager) &&
             _transform.ToMapCoordinates(actor.RangedDangerPosition) is var hit && hit.MapId == position.MapId &&
-            Vector2.DistanceSquared(hit.Position, position.Position) < 0.81f ||
-            RememberedWindowThreats(actor).Any(threat => CoverExposed(position, threat)));
+            Vector2.DistanceSquared(hit.Position, position.Position) < 0.81f)
+            return true;
+        foreach (var (threat, expires) in actor.WindowThreats)
+        {
+            if (expires > _timing.CurTime && threat.IsValid(EntityManager) &&
+                CoverExposed(position, _transform.ToMapCoordinates(threat)))
+                return true;
+        }
+        return false;
+    }
 
     private void RememberWindowThreat(EntityUid uid, MilitiaOperationActorComponent actor, MapCoordinates threat)
     {
@@ -190,6 +203,7 @@ public sealed partial class MilitiaOperationSystem
             }
         }
         var remaining = members.OrderBy(uid => uid.GetHashCode()).ToHashSet();
+        var neighbors = new List<EntityUid>();
         while (remaining.Count > 0)
         {
             var group = new List<EntityUid>();
@@ -200,7 +214,8 @@ public sealed partial class MilitiaOperationSystem
             while (pending.TryDequeue(out var member))
             {
                 group.Add(member);
-                foreach (var other in remaining.ToArray())
+                neighbors.Clear();
+                foreach (var other in remaining)
                 {
                     var range = MathF.Min(Comp<MilitiaOperationActorComponent>(member).SquadRange,
                         Comp<MilitiaOperationActorComponent>(other).SquadRange);
@@ -208,6 +223,10 @@ public sealed partial class MilitiaOperationSystem
                         Vector2.DistanceSquared(_transform.GetWorldPosition(member), _transform.GetWorldPosition(other)) > range * range &&
                         (!TryComp<MilitiaOperationEnemyComponent>(member, out var radio) || radio.Operation == Guid.Empty))
                         continue;
+                    neighbors.Add(other);
+                }
+                foreach (var other in neighbors)
+                {
                     remaining.Remove(other);
                     pending.Enqueue(other);
                 }
@@ -301,6 +320,7 @@ public sealed partial class MilitiaOperationSystem
             .OrderByDescending(contact => contact.SeenAt).ToArray();
         var orders = new List<(EntityUid Uid, MilitiaSquadOrder? Order)>();
         var occupied = new List<MapCoordinates>();
+        var alertUntil = group.Select(uid => Comp<MilitiaOperationActorComponent>(uid).AlertUntil).Max();
         var peeking = group.Any(uid => Comp<MilitiaOperationActorComponent>(uid).SquadOrder is { Task: MilitiaSquadTask.Peek } order &&
             order.Until > _timing.CurTime);
         foreach (var uid in group.OrderBy(uid => Comp<MilitiaOperationActorComponent>(uid).Medic ? 0 : 1))
@@ -308,7 +328,7 @@ public sealed partial class MilitiaOperationSystem
             var actor = Comp<MilitiaOperationActorComponent>(uid);
             actor.SquadContacts = contacts;
             RefreshWindowThreats(uid, actor, contacts);
-            actor.AlertUntil = group.Select(other => Comp<MilitiaOperationActorComponent>(other).AlertUntil).Max();
+            actor.AlertUntil = alertUntil;
             actor.TriageRequired = HasTriageWork(uid, actor);
             var transform = Transform(uid);
             if (!actor.DefensivePosition.IsValid(EntityManager))
@@ -466,12 +486,25 @@ public sealed partial class MilitiaOperationSystem
         var origin = _transform.GetWorldPosition(uid);
         var target = _transform.ToMapCoordinates(reference);
         var home = _transform.ToMapCoordinates(actor.DefensivePosition);
-        var candidates = new List<(EntityCoordinates Position, float Score)>();
+        var maxPositions = task == MilitiaSquadTask.Separate ? 5 : 6;
+        var candidates = new List<(EntityCoordinates Position, float Score)>(maxPositions + 1);
         var transform = Transform(uid);
-        if (transform.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
+        if (!SquadMember(uid) || transform.GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
             return Array.Empty<EntityCoordinates>();
+        var originMap = _transform.GetMapCoordinates(uid);
+        var reservations = new List<MapCoordinates>();
+        var allies = EntityQueryEnumerator<MilitiaOperationActorComponent>();
+        while (allies.MoveNext(out var other, out var ally))
+        {
+            if (other == uid || !SquadMember(other) || !SameOperation(uid, other))
+                continue;
+            reservations.Add(_transform.GetMapCoordinates(other));
+            if ((ally.RunningSquadOrder != null || ally.ReloadUntil != null) && ally.SquadPosition.IsValid(EntityManager))
+                reservations.Add(_transform.ToMapCoordinates(ally.SquadPosition));
+        }
         var center = _maps.CoordinatesToTile(grid, gridComp, task is MilitiaSquadTask.Reinforce or MilitiaSquadTask.SeekMedic ? reference : transform.Coordinates);
         var friends = group.Where(other => other != uid).Select(other => _transform.GetWorldPosition(other)).ToArray();
+        var fireLanePositions = friends.Concat(occupied.Select(position => position.Position)).ToArray();
         var grenades = GrenadePositions(actor);
         var threats = actor.SquadContacts.Where(c => c.Position.IsValid(EntityManager)).Select(c => _transform.ToMapCoordinates(c.Position))
             .Concat(RememberedWindowThreats(actor)).ToArray();
@@ -482,23 +515,37 @@ public sealed partial class MilitiaOperationSystem
         var shotSpread = needsFirePosition ? HolographicFireSpread(actor) : 0f;
         var shotMask = needsFirePosition ? ShotCollisionMask(actor.Weapon) : 0L;
         var blockedFire = task == MilitiaSquadTask.Separate && actor.DirectTarget.IsValid() &&
-            SquadShotBlocked(uid, actor.DirectTarget, _transform.GetMapCoordinates(uid), target, shotMask, shotSpread);
+            SquadShotBlocked(uid, actor.DirectTarget, originMap, target, shotMask, shotSpread);
         var radius = (actor.WindowExposed ? 8 : task == MilitiaSquadTask.Separate ? 6 : 4) + extraRadius;
         var rangedEscape = actor.RangedDangerUntil > _timing.CurTime && actor.WindowExposed;
         EntityCoordinates? fallback = null;
         var fallbackTravel = float.PositiveInfinity;
-        var keepWindowCover = !WindowThreatExposed(actor, _transform.GetMapCoordinates(uid));
+        var keepWindowCover = !WindowThreatExposed(actor, originMap);
+        var targetDistance = Vector2.Distance(origin, target.Position);
+        var axis = target.Position - origin;
+        var hasAxis = axis.LengthSquared() >= 0.01f;
+        if (hasAxis)
+            axis = Vector2.Normalize(axis);
+        var escapeAxis = target.Position - origin;
+        var hasEscapeAxis = rangedEscape && escapeAxis.LengthSquared() > 0.01f;
+        if (hasEscapeAxis)
+            escapeAxis = Vector2.Normalize(escapeAxis);
+        var strafe = actor.Medic ? 0.75f : actor.SquadRole == MilitiaSquadRole.Support ? 0.9f
+            : actor.SquadRole == MilitiaSquadRole.Flanker ? 1.75f : 1.25f;
         for (var x = -radius; x <= radius; x++)
         for (var y = -radius; y <= radius; y++)
         {
             var tile = _maps.GetTileRef(grid, gridComp, center + new Vector2i(x, y));
-            if (tile.Tile.IsEmpty || _turf.IsSpace(tile.Tile) || _turf.IsTileBlocked(tile, CollisionGroup.MobMask) || !OnDefensiveGrid(uid, coordinates: _maps.GridTileToLocal(grid, gridComp, tile.GridIndices)))
+            if (tile.Tile.IsEmpty || _turf.IsSpace(tile.Tile) || _turf.IsTileBlocked(tile, CollisionGroup.MobMask))
                 continue;
             var coordinates = _maps.GridTileToLocal(grid, gridComp, tile.GridIndices);
+            if (!OnDefensiveGrid(uid, coordinates))
+                continue;
             var position = _transform.ToMapCoordinates(coordinates);
             var travel = Vector2.Distance(origin, position.Position);
             if (Vector2.Distance(position.Position, home.Position) > actor.DefensiveRange + (task == MilitiaSquadTask.Evade ? 4f : 0f) ||
-                !SquadPositionAvailable(uid, coordinates) ||
+                actor.RejectedSquadPositions.GetValueOrDefault(coordinates) > _timing.CurTime ||
+                reservations.Any(other => other.MapId == position.MapId && Vector2.DistanceSquared(other.Position, position.Position) < 0.81f) ||
                 occupied.Any(other => other.MapId == position.MapId && Vector2.DistanceSquared(other.Position, position.Position) < 0.81f))
                 continue;
             if (task == MilitiaSquadTask.Separate &&
@@ -507,13 +554,17 @@ public sealed partial class MilitiaOperationSystem
                 continue;
             if (needsFirePosition && task != MilitiaSquadTask.Separate &&
                 (travel > (task == MilitiaSquadTask.Peek ? 2.75f : 2.25f) ||
-                 Vector2.Distance(position.Position, target.Position) + 0.4f < Vector2.Distance(origin, target.Position)))
+                 Vector2.Distance(position.Position, target.Position) + 0.4f < targetDistance))
                 continue;
-            if (task != MilitiaSquadTask.Evade && keepWindowCover && WindowThreatExposed(actor, position))
+            var windowExposed = (task == MilitiaSquadTask.Retreat || task != MilitiaSquadTask.Evade && keepWindowCover) &&
+                WindowThreatExposed(actor, position);
+            if (task != MilitiaSquadTask.Evade && keepWindowCover && windowExposed)
                 continue;
             var clearFire = needsFirePosition && !SquadShotBlocked(uid, actor.DirectTarget, position, target, shotMask, shotSpread);
             var score = travel * 0.3f;
-            if (actor.WindowExposed && threats.Any(threat => CoverExposed(position, threat)))
+            bool? exposedToThreats = null;
+            bool ThreatsExposed() => exposedToThreats ??= threats.Any(threat => CoverExposed(position, threat));
+            if (actor.WindowExposed && ThreatsExposed())
                 score += 100f;
             if (task == MilitiaSquadTask.Separate)
             {
@@ -525,10 +576,8 @@ public sealed partial class MilitiaOperationSystem
                         openings++;
                 }
                 score += travel - openings * 8f;
-                var escapeAxis = target.Position - origin;
-                if (rangedEscape && escapeAxis.LengthSquared() > 0.01f)
+                if (hasEscapeAxis)
                 {
-                    escapeAxis = Vector2.Normalize(escapeAxis);
                     var step = position.Position - origin;
                     score -= MathF.Min(MathF.Abs(step.X * escapeAxis.Y - step.Y * escapeAxis.X), 3f) * 4f;
                 }
@@ -538,7 +587,7 @@ public sealed partial class MilitiaOperationSystem
                 if (clearFire && firingAxis.LengthSquared() > 0.01f &&
                     !friends.Any(friend => BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     score -= 4f;
-                if (travel < fallbackTravel && SquadRouteClear(uid, _transform.GetMapCoordinates(uid), position,
+                if (travel < fallbackTravel && SquadRouteClear(uid, originMap, position,
                         entity => CanCrossHolographicBarrier(uid, entity)))
                 {
                     fallback = coordinates;
@@ -556,12 +605,12 @@ public sealed partial class MilitiaOperationSystem
                         predicate: entity => group.Contains(entity) || HasComp<SharedCanBuildWindowOnTopComponent>(entity)))
                     continue;
                 score += Vector2.Distance(position.Position, target.Position) * 5f;
-                if (threats.Any(threat => CoverExposed(position, threat)))
+                if (ThreatsExposed())
                     score += 12f;
             }
             else if (task == MilitiaSquadTask.Retreat)
             {
-                if (travel < 0.9f || WindowThreatExposed(actor, position) || CoverExposed(position, target) || threats.Any(threat => CoverExposed(position, threat)))
+                if (travel < 0.9f || windowExposed || CoverExposed(position, target) || ThreatsExposed())
                     continue;
                 score += Vector2.Distance(position.Position, home.Position) * 0.3f;
             }
@@ -577,28 +626,31 @@ public sealed partial class MilitiaOperationSystem
             {
                 if (!clearFire)
                     continue;
-                var axis = target.Position - origin;
-                if (axis.LengthSquared() < 0.01f)
+                if (!hasAxis)
                     continue;
-                axis = Vector2.Normalize(axis);
                 var offset = position.Position - origin;
                 var lateral = offset.X * axis.Y - offset.Y * axis.X;
-                var strafe = actor.Medic ? 0.75f : actor.SquadRole == MilitiaSquadRole.Support ? 0.9f
-                    : actor.SquadRole == MilitiaSquadRole.Flanker ? 1.75f : 1.25f;
                 score += MathF.Abs(Vector2.Dot(offset, axis)) * 5f + MathF.Abs(MathF.Abs(lateral) - strafe) * 3f;
                 score -= lateral * actor.StrafeSide;
                 var firingAxis = target.Position - position.Position;
-                if (firingAxis.LengthSquared() > 0.01f && friends.Concat(occupied.Select(p => p.Position)).Any(friend =>
+                if (firingAxis.LengthSquared() > 0.01f && fireLanePositions.Any(friend =>
                         BlocksFireLane(friend - position.Position, Vector2.Normalize(firingAxis))))
                     continue;
-                if (task != MilitiaSquadTask.Peek && !SquadRouteClear(uid, _transform.GetMapCoordinates(uid), position,
+                if (task != MilitiaSquadTask.Peek && !SquadRouteClear(uid, originMap, position,
                         entity => CanCrossHolographicBarrier(uid, entity)))
                     continue;
             }
-            candidates.Add((coordinates, score));
+            var index = candidates.Count;
+            while (index > 0 && score.CompareTo(candidates[index - 1].Score) < 0)
+                index--;
+            if (index < maxPositions)
+            {
+                candidates.Insert(index, (coordinates, score));
+                if (candidates.Count > maxPositions)
+                    candidates.RemoveAt(maxPositions);
+            }
         }
-        var selected = candidates.OrderBy(entry => entry.Score).Take(task == MilitiaSquadTask.Separate ? 5 : 6)
-            .Select(entry => entry.Position);
+        var selected = candidates.Select(entry => entry.Position);
         return task == MilitiaSquadTask.Separate && fallback is { } nearby
             ? selected.Append(nearby).Distinct().ToArray() : selected.ToArray();
     }
@@ -1250,9 +1302,12 @@ public sealed partial class MilitiaOperationSystem
         var scan = _timing.CurTime >= _nextSquadSafety;
         if (scan)
             _nextSquadSafety = _timing.CurTime + TimeSpan.FromSeconds(0.25);
-        var stop = new HashSet<EntityUid>();
-        var interrupt = new HashSet<EntityUid>();
-        var throwers = new List<EntityUid>();
+        var stop = _squadStops;
+        var interrupt = _squadInterrupts;
+        var throwers = _squadThrowers;
+        stop.Clear();
+        interrupt.Clear();
+        throwers.Clear();
         var query = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (query.MoveNext(out var uid, out var actor))
         {

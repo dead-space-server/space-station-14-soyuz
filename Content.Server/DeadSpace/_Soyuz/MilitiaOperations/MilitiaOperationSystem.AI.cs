@@ -67,6 +67,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void OnActorMapInit(Entity<MilitiaOperationActorComponent> actor, ref MapInitEvent args)
     {
+        _squadHostileQueries.Clear();
         if (actor.Comp.EquipmentReady)
             return;
         actor.Comp.EquipmentSeed = _random.Next();
@@ -237,6 +238,7 @@ public sealed partial class MilitiaOperationSystem
     {
         if (!args.DamageIncreased)
             return;
+        _squadHostileQueries.Clear();
         var source = DamageSourcePosition(actor.Owner, args.Origin);
         if (!args.InterruptsDoAfters && source == null &&
             args.DamageDelta?.DamageDict.Any(damage => damage.Value > 0 &&
@@ -296,6 +298,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void InterruptActor(EntityUid uid)
     {
+        _squadHostileQueries.Clear();
         if (TryComp<HTNComponent>(uid, out var htn))
         {
             _htn.CancelPlanning(htn);
@@ -323,6 +326,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void OnActorShutdown(Entity<MilitiaOperationActorComponent> actor, ref ComponentShutdown args)
     {
+        _squadHostileQueries.Clear();
         EndMedicalRefill(actor.Owner);
         EndRoutePry(actor.Owner);
         CancelBarrierClimb(actor.Owner);
@@ -356,7 +360,10 @@ public sealed partial class MilitiaOperationSystem
         {
             if (actor.DamageThreatUntil > _timing.CurTime)
                 _actorNpcs.KeepMilitiaCombatActive(uid);
-            if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) || !ValidPatient(uid, actor.Patient, actor) ||
+            if (actor.Patient.IsValid() && actor.HealingDoAfter == null && AvailableActor(uid, out _))
+                TrackMedicalExposure(uid, actor);
+            if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) ||
+                !ValidPatient(uid, actor.Patient, actor, allowCombatDash: actor.HealingDoAfter == null) ||
                 checkRoute && actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
                 actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)) ||
                 actor.ReloadUntil != null && ReloadExposedToFire(uid, actor))
@@ -390,6 +397,7 @@ public sealed partial class MilitiaOperationSystem
 
     private bool EquipOwnedItem(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid item, bool wield, bool freeHands = false)
     {
+        _squadHostileQueries.Clear();
         if (!CanEquipOwnedItem(uid, actor, item, wield, out var stow, freeHands))
             return false;
         if (stow.Length == 0 && _hands.GetActiveItem(uid) == item &&
@@ -530,6 +538,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void RestorePendingEquipment(EntityUid uid, MilitiaOperationActorComponent actor)
     {
+        _squadHostileQueries.Clear();
         if (actor.EquipmentRollback is not { } rollback || rollback.Restoring || TerminatingOrDeleted(uid))
             return;
         rollback.Restoring = true;
@@ -889,6 +898,7 @@ public sealed partial class MilitiaOperationSystem
 
     public void EndReload(EntityUid uid)
     {
+        _squadHostileQueries.Clear();
         if (TryComp<MilitiaOperationActorComponent>(uid, out var actor))
         {
             var moving = actor.ReloadUntil != null;
@@ -985,6 +995,9 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityUid TreatingMedic;
     public EntityUid Treatment;
     public MilitiaTreatmentPath? TreatmentPath;
+    public float MedicalDashExposure;
+    public EntityCoordinates MedicalDashPosition;
+    public bool MedicalDashExposed;
     public ushort? HealingDoAfter;
     public TimeSpan NextTreatment;
     public TimeSpan ReloadTime;
@@ -1080,12 +1093,48 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
                 {
                     var path = await _pathfinding.GetPath(owner, patient, SharedInteractionSystem.InteractionRange - 1f,
                         cancelToken, _pathfinding.GetFlags(blackboard));
+                    cancelToken.ThrowIfCancellationRequested();
                     if (path.Result != PathResult.Path)
+                    {
+                        _operations.RejectTreatmentPath(owner, patient);
                         continue;
+                    }
                     route = path.Path;
                 }
-                if (_operations.PrepareTreatmentPath(owner, patient, route) is not { } treatmentPath)
+                var treatmentPath = _operations.PrepareTreatmentPath(owner, patient, route);
+                if (treatmentPath == null && owner != patient)
+                {
+                    foreach (var waypoint in _operations.TreatmentDetours(owner, patient))
+                    {
+                        cancelToken.ThrowIfCancellationRequested();
+                        if (!_entities.TryGetComponent(owner, out TransformComponent? transform) ||
+                            !_entities.TryGetComponent(patient, out TransformComponent? target))
+                            break;
+                        var first = await _pathfinding.GetPath(owner, transform.Coordinates, waypoint, 0.4f,
+                            cancelToken, _pathfinding.GetFlags(blackboard));
+                        cancelToken.ThrowIfCancellationRequested();
+                        if (first.Result != PathResult.Path)
+                            continue;
+                        if (!_entities.TryGetComponent(patient, out target) || !target.Coordinates.IsValid(_entities))
+                            break;
+                        var second = await _pathfinding.GetPath(owner, waypoint, target.Coordinates,
+                            SharedInteractionSystem.InteractionRange - 1f, cancelToken, _pathfinding.GetFlags(blackboard));
+                        cancelToken.ThrowIfCancellationRequested();
+                        if (second.Result != PathResult.Path)
+                            continue;
+                        var detour = new List<PathPoly>(first.Path);
+                        detour.AddRange(second.Path);
+                        treatmentPath = _operations.PrepareTreatmentPath(owner, patient, detour);
+                        if (treatmentPath != null)
+                            break;
+                    }
+                }
+                if (treatmentPath == null)
+                {
+                    if (owner != patient)
+                        _operations.RejectTreatmentPath(owner, patient);
                     continue;
+                }
                 return (true, new Dictionary<string, object>
                 {
                     [PatientKey] = patient, [TreatmentKey] = item,

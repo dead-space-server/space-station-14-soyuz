@@ -91,8 +91,12 @@ public sealed partial class MilitiaOperationSystem
         var lengthSquared = delta.LengthSquared();
         if (lengthSquared < 0.001f)
             return;
-        var center = new MapCoordinates((origin.Position + end.Position) / 2f, origin.MapId);
-        foreach (var actor in _squadLookup.GetEntitiesInRange<MilitiaOperationActorComponent>(center, MathF.Sqrt(lengthSquared) / 2f + 1.25f))
+        var center = (origin.Position + end.Position) / 2f;
+        var bounds = new Box2Rotated(Box2.CenteredAround(center, new Vector2(MathF.Sqrt(lengthSquared) + 4.5f, 4.5f)),
+            delta.ToAngle(), center);
+        var candidates = new HashSet<Entity<MilitiaOperationActorComponent>>();
+        _squadLookup.GetEntitiesIntersecting(origin.MapId, bounds, candidates);
+        foreach (var actor in candidates)
         {
             if (actor.Owner == args.Data.HitEntity || actor.Owner == args.Data.Shooter ||
                 !AvailableActor(actor.Owner, out _) || MetaData(actor.Owner).EntityPaused ||

@@ -146,7 +146,25 @@ public sealed partial class MilitiaOperationSystem
         => TryComp<PhysicsComponent>(uid, out var body) && body.CanCollide &&
            (HologramPrototype(uid, "HolosignBulletShield") || HologramPrototype(uid, "XenoborgDeflectorField"));
 
-    private bool HolographicShotBlocked(MapCoordinates origin, MapCoordinates target, float spread = 0f, bool attackMatrices = false)
+    private Box2[] ReflectingFieldBounds(MapCoordinates origin, float range)
+    {
+        var area = Box2.CenteredAround(origin.Position, new Vector2(range * 2f));
+        var bounds = new List<Box2>();
+        var query = AllEntityQuery<ReflectComponent, TransformComponent>();
+        while (query.MoveNext(out var uid, out var reflect, out var transform))
+        {
+            if (transform.MapID != origin.MapId || reflect.ReflectProb <= 0f || !HolographicProjectileBarrier(uid))
+                continue;
+            var position = _transform.GetWorldPosition(transform);
+            var field = _squadPhysics.GetWorldAABB(uid).Union(new Box2(position, position));
+            if (field.Intersects(area))
+                bounds.Add(field);
+        }
+        return bounds.ToArray();
+    }
+
+    private bool HolographicShotBlocked(MapCoordinates origin, MapCoordinates target, float spread = 0f, bool attackMatrices = false,
+        Box2[]? reflectingFields = null)
     {
         var delta = target.Position - origin.Position;
         if (origin.MapId != target.MapId || delta.LengthSquared() < 0.001f)
@@ -158,6 +176,8 @@ public sealed partial class MilitiaOperationSystem
                     attackMatrices && HologramPrototype(entity, "HolosignBulletShield")).Any())
             return true;
         if (spread <= 0f)
+            return false;
+        if (reflectingFields != null && !reflectingFields.Any(bounds => bounds.Intersects(Box2.CenteredAround(origin.Position, new Vector2(48f)))))
             return false;
         foreach (var field in _squadLookup.GetEntitiesInRange<ReflectComponent>(origin, 24f))
         {
@@ -219,7 +239,7 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private bool SquadShotBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,
-        long collisionMask, float spread)
+        long collisionMask, float spread, Box2[]? reflectingFields = null)
     {
         var delta = destination.Position - origin.Position;
         if (origin.MapId != destination.MapId || delta.LengthSquared() < 0.001f)
@@ -234,7 +254,7 @@ public sealed partial class MilitiaOperationSystem
                     HologramPrototype(entity, "HolosignBulletShield"),
             }, RayCastSystem.RayCastClosestCallback).Hit)
             return true;
-        return HolographicShotBlocked(origin, destination, spread, attackMatrices: true);
+        return HolographicShotBlocked(origin, destination, spread, attackMatrices: true, reflectingFields: reflectingFields);
     }
 
     private void RepositionBlockedFire(EntityUid uid, MilitiaOperationActorComponent actor)

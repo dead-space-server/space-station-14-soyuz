@@ -86,7 +86,7 @@ public sealed partial class MilitiaOperationSystem
             actor.Comp.DefensivePosition = Transform(actor.Owner).Coordinates;
             actor.Comp.StrafeSide = (actor.Comp.EquipmentSeed & 1) == 0 ? 1f : -1f;
             actor.Comp.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(6 + _random.NextDouble() * 6);
-            var items = EntityQueryEnumerator<Content.Shared.Item.ItemComponent, TransformComponent>();
+            var items = AllEntityQuery<Content.Shared.Item.ItemComponent, TransformComponent>();
             while (items.MoveNext(out var item, out _, out var transform))
             {
                 if (!_transform.ContainsEntity(actor.Owner, (item, transform)))

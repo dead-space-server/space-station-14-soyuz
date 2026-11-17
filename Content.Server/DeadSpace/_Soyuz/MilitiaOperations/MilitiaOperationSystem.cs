@@ -68,6 +68,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _nextCustodyUpdate = TimeSpan.Zero;
             _custodyUiCache.Clear();
             _custodyRequests.Clear();
+            _issuedContraband.Clear();
             _preparationMaps.Clear();
         });
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
@@ -261,7 +262,6 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         }
         active.OfferToken = token;
         state.Active = active;
-        RegisterContraband(station, state, active.Id);
         state.Status = "militia-operation-in-progress";
         state.Offers.Remove(offer);
         _log.Info($"Operation activated: Station={station}, Operation={active.Id}, Prototype={prototype.ID}, Seed={active.Seed}, Crew={active.Crew.Count}");
@@ -535,7 +535,6 @@ public sealed partial class MilitiaOperationStationComponent : Component
     public readonly List<MilitiaOperationOffer> Offers = new();
     public readonly List<string> History = new();
     public readonly HashSet<Guid> Purchases = new();
-    public readonly Dictionary<Guid, EntityUid> IssuedContraband = new();
     public HashSet<Guid> RedeemedContraband = new();
     public readonly HashSet<EntityUid> Cleanup = new();
     public string Status = "militia-operation-ready";

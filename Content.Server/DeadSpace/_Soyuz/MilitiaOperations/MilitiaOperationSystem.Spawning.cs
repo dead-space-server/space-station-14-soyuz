@@ -147,7 +147,7 @@ public sealed partial class MilitiaOperationSystem
                 prepared.Crew.Add(enemy);
             }
 
-            var items = EntityQueryEnumerator<ItemComponent, TransformComponent>();
+            var items = AllEntityQuery<ItemComponent, TransformComponent>();
             while (items.MoveNext(out var item, out _, out var itemXform))
             {
                 if (item == documentUid)

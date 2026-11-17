@@ -4,16 +4,22 @@ using Content.Shared.Examine;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.Popups;
 using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Containers;
+using Robust.Shared.Network;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed class MilitiaRestrictedGearSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly INetManager _net = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     public override void Initialize()
     {
@@ -41,8 +47,10 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
 
     private void OnShoot(Entity<MilitiaRestrictedGearComponent> gear, ref ShotAttemptedEvent args)
     {
-        if (!Allowed(args.User, gear.Comp))
-            args.Cancel();
+        if (Allowed(args.User, gear.Comp))
+            return;
+        args.Cancel();
+        ShowDeniedPopup(gear, args.User);
     }
 
     private void OnMelee(Entity<MilitiaRestrictedGearComponent> gear, ref AttemptMeleeEvent args)
@@ -58,8 +66,18 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
 
     private void OnUse(Entity<MilitiaRestrictedGearComponent> gear, ref GettingUsedAttemptEvent args)
     {
-        if (!Allowed(args.User, gear.Comp))
-            args.Cancel();
+        if (Allowed(args.User, gear.Comp))
+            return;
+        args.Cancel();
+        ShowDeniedPopup(gear, args.User);
+    }
+
+    private void ShowDeniedPopup(Entity<MilitiaRestrictedGearComponent> gear, EntityUid user)
+    {
+        if (!_net.IsServer || _timing.CurTime < gear.Comp.NextDeniedPopup || !Exists(user))
+            return;
+        gear.Comp.NextDeniedPopup = _timing.CurTime + TimeSpan.FromSeconds(1);
+        _popup.PopupEntity(Loc.GetString("militia-gear-locked"), gear.Owner, user);
     }
 
     private void OnActivate(Entity<MilitiaRestrictedGearComponent> gear, ref ItemToggleActivateAttemptEvent args)

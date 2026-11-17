@@ -1021,7 +1021,7 @@ public sealed partial class MilitiaOperationSystem
         if (_hands.GetActiveItem(uid) != desired || HasComp<EnergySwordComponent>(desired) && !IsActiveEnergySword(desired))
         {
             EndGuard(uid);
-            if (!EquipOwnedItem(uid, actor, desired, true) && !AvailableActor(uid, out _))
+            if (!EquipOwnedItem(uid, actor, desired, true))
                 return;
         }
         if (counter && _hands.GetActiveItem(uid) == actor.Backup &&

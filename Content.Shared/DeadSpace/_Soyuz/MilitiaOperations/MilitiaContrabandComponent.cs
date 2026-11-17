@@ -18,6 +18,7 @@ public sealed partial class MilitiaRestrictedGearComponent : Component
     [DataField, AutoNetworkedField] public MilitiaContrabandKind Kind;
     [DataField, AutoNetworkedField] public bool Surrendered;
     [DataField] public Guid Serial;
+    public TimeSpan NextDeniedPopup;
 }
 
 [RegisterComponent, NetworkedComponent]

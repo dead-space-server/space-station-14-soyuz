@@ -359,8 +359,7 @@ public sealed partial class MilitiaOperationSystem
             if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) || !ValidPatient(uid, actor.Patient, actor) ||
                 checkRoute && actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
                 actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)) ||
-                actor.ReloadUntil != null && actor.DamageThreatUntil > _timing.CurTime &&
-                (actor.WindowExposed || !DirectContact(uid, actor)))
+                actor.ReloadUntil != null && ReloadExposedToFire(uid, actor))
                 stop.Add(uid);
         }
         foreach (var uid in stop)
@@ -397,6 +396,12 @@ public sealed partial class MilitiaOperationSystem
             (!wield || !TryComp<WieldableComponent>(item, out var ready) || ready.Wielded) &&
             (item != actor.Backup || !HasComp<EnergySwordComponent>(item) || IsActiveEnergySword(item)))
             return true;
+        if (wield && actor.WeaponRetries.GetValueOrDefault(item) > _timing.CurTime)
+            return false;
+        if (stow.Length == 0 && _hands.GetActiveItem(uid) == item && wield &&
+            TryComp<WieldableComponent>(item, out var grip) && !grip.Wielded &&
+            (item != actor.Backup || !HasComp<EnergySwordComponent>(item) || IsActiveEnergySword(item)))
+            return TryArmWield(uid, actor, item, grip);
         if (CaptureEquipment(uid, item) is not { } snapshot)
             return false;
         var committed = false;
@@ -419,7 +424,9 @@ public sealed partial class MilitiaOperationSystem
                 !_equipmentToggle.TryActivate(item, uid, showPopup: false))
                 return false;
             committed = (!wield || !TryComp<WieldableComponent>(item, out var wieldable) || wieldable.Wielded ||
-                _wield.TryWield(item, wieldable, uid)) && OwnsItem(uid, item) && _hands.GetActiveItem(uid) == item;
+                TryArmWield(uid, actor, item, wieldable)) && OwnsItem(uid, item) && _hands.GetActiveItem(uid) == item;
+            if (committed)
+                actor.WeaponRetries.Remove(item);
             return committed;
         }
         catch (Exception exception)
@@ -430,7 +437,42 @@ public sealed partial class MilitiaOperationSystem
         finally
         {
             if (!committed)
+            {
+                if (wield)
+                    actor.WeaponRetries[item] = _timing.CurTime + TimeSpan.FromSeconds(2);
                 RestoreEquipment(uid, snapshot.Items, snapshot.ActiveHand, snapshot.Wielded, activated: snapshot.Activated);
+            }
+        }
+    }
+
+    private bool TryArmWield(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid item, WieldableComponent grip)
+    {
+        var wielded = false;
+        var activeHand = _hands.GetActiveHand(uid);
+        try
+        {
+            wielded = _wield.CanWield(item, grip, uid, quiet: true) && _wield.TryWield(item, grip, uid) &&
+                grip.Wielded && OwnsItem(uid, item) && _hands.GetActiveItem(uid) == item;
+            return wielded;
+        }
+        catch (Exception exception)
+        {
+            _log.Error($"Militia weapon wield failed for {uid}: {exception}");
+            return false;
+        }
+        finally
+        {
+            if (wielded)
+                actor.WeaponRetries.Remove(item);
+            else
+            {
+                actor.WeaponRetries[item] = _timing.CurTime + TimeSpan.FromSeconds(2);
+                if (OwnsItem(uid, item) && _hands.IsHolding(uid, item, out _) && grip.Wielded)
+                    _wield.TryUnwield(item, grip, uid, force: true);
+                ClearQueuedWieldItems(uid);
+                if (activeHand != null && _hands.TryGetHand(uid, activeHand, out _) && _hands.GetActiveHand(uid) != activeHand)
+                    _hands.SetActiveHand(uid, activeHand);
+            }
         }
     }
 
@@ -625,6 +667,11 @@ public sealed partial class MilitiaOperationSystem
     private void UnwieldForEquipment(EntityUid uid, bool force = false)
     {
         _wield.UnwieldAll(uid, force);
+        ClearQueuedWieldItems(uid);
+    }
+
+    private void ClearQueuedWieldItems(EntityUid uid)
+    {
         foreach (var item in _hands.EnumerateHeld(uid).ToArray())
         {
             if (HasComp<VirtualItemComponent>(item) && EntityManager.IsQueuedForDeletion(item) &&
@@ -642,7 +689,8 @@ public sealed partial class MilitiaOperationSystem
         if (!NeedsMeleeCounter(uid, actor, actor.DirectTarget) && CanRecoverDroppedWeapon(uid, actor))
             return true;
         var weapon = DesiredWeapon(uid, actor);
-        return CanEquipOwnedItem(uid, actor, weapon, true, out _) && (_hands.GetActiveItem(uid) != weapon ||
+        return actor.WeaponRetries.GetValueOrDefault(weapon) <= _timing.CurTime &&
+            CanEquipOwnedItem(uid, actor, weapon, true, out _) && (_hands.GetActiveItem(uid) != weapon ||
             HasComp<EnergySwordComponent>(weapon) && !IsActiveEnergySword(weapon) ||
             TryComp<WieldableComponent>(weapon, out var wieldable) && !wieldable.Wielded);
     }
@@ -685,7 +733,8 @@ public sealed partial class MilitiaOperationSystem
 
     public bool ArmActor(EntityUid uid)
         => !HasPlayerMind(uid) && !_mobs.IsIncapacitated(uid) && TryComp<MilitiaOperationActorComponent>(uid, out var actor) &&
-           actor.EquipmentRollback == null && actor.MedicalRefill == null &&
+           actor.EquipmentRollback == null && actor.MedicalRefill == null && actor.ReloadUntil == null &&
+           actor.DoorPry == null && !actor.Patient.IsValid() && !ReceivingTreatment(uid) &&
            EquipOwnedItem(uid, actor, DesiredWeapon(uid, actor), true);
 
     private bool CanRecoverDroppedWeapon(EntityUid uid, MilitiaOperationActorComponent actor)
@@ -744,9 +793,16 @@ public sealed partial class MilitiaOperationSystem
            CanEquipOwnedItem(uid, actor, actor.Weapon, false, out _) &&
            _guns.GetAmmoCount(actor.Weapon) == 0 && FindMagazine(uid, actor).IsValid();
 
+    private bool ReloadExposedToFire(EntityUid uid, MilitiaOperationActorComponent actor)
+        => actor.DamageThreatUntil > _timing.CurTime && actor.ExposedToThreat &&
+           (actor.WindowExposed || !DirectContact(uid, actor));
+
+    public bool CanBeginReload(EntityUid uid)
+        => AvailableActor(uid, out var actor) && NeedsReload(uid) && !ReloadExposedToFire(uid, actor);
+
     public void BeginReload(EntityUid uid)
     {
-        if (!AvailableActor(uid, out var actor) || !NeedsReload(uid))
+        if (!AvailableActor(uid, out var actor) || !CanBeginReload(uid))
             return;
         if (!EquipOwnedItem(uid, actor, actor.Weapon, false))
             return;
@@ -909,6 +965,7 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public MilitiaEquipmentRollback? EquipmentRollback;
     public int EquipmentSeed;
     public readonly HashSet<EntityUid> CreatedEquipment = new();
+    public readonly Dictionary<EntityUid, TimeSpan> WeaponRetries = new();
     public TimeSpan SafeAfter;
     public MapCoordinates? DamageThreat;
     public TimeSpan DamageThreatUntil;
@@ -1040,7 +1097,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
         var valid = Kind switch
         {
             MilitiaSupportKind.RefillMedicine => _operations.NeedsMedicalRefill(owner),
-            MilitiaSupportKind.Reload => _operations.NeedsReload(owner),
+            MilitiaSupportKind.Reload => _operations.CanBeginReload(owner),
             MilitiaSupportKind.Arm => _operations.NeedsWeapon(owner),
             MilitiaSupportKind.Hold => _operations.NeedsSquadHold(owner),
             _ => true,

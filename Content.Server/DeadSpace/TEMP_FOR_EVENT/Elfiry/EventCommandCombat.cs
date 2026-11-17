@@ -8,7 +8,9 @@ using Content.Server.NPC.HTN;
 using Content.Server.NPC.Pathfinding;
 using Content.Server.NPC.Components;
 using Content.Shared.Damage.Components;
+using Content.Shared.Construction;
 using Content.Shared.DeadSpace.TEMP_FOR_EVENT.Elfiry;
+using Content.Shared.NPC.Components;
 using Content.Shared.Physics;
 using Content.Shared.Standing;
 using Content.Shared.Doors.Components;
@@ -33,6 +35,26 @@ public sealed partial class MilitiaOperationSystem
     public bool EventCommandInteractionBusy(EntityUid uid)
         => TryComp<MilitiaOperationActorComponent>(uid, out var actor) && actor.DoorPry != null;
 
+    private float EventCombatVision(MilitiaOperationActorComponent actor)
+        => actor.AlertUntil > _timing.CurTime ? MathF.Max(actor.SquadVision, actor.ThreatRange) : actor.SquadVision;
+
+    private bool EventThreatVisible(EntityUid uid, EntityUid target, float range)
+        => SquadThreat(uid, target) && _interaction.InRangeUnobstructed(uid, target, range, CollisionGroup.Opaque,
+            predicate: entity => HasComp<NpcFactionMemberComponent>(entity) ||
+                                 HasComp<SharedCanBuildWindowOnTopComponent>(entity) ||
+                                 CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true);
+
+    private bool EventThroughWindow(MapCoordinates origin, MapCoordinates target)
+    {
+        var delta = target.Position - origin.Position;
+        if (origin.MapId != target.MapId || delta.LengthSquared() < 0.01f)
+            return false;
+        var ray = new CollisionRay(origin.Position, Vector2.Normalize(delta), (int) SquadSight);
+        return _squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, delta.Length(),
+            predicate: entity => !_squadTags.HasTag(entity, "Window") &&
+                !(TryComp<DoorComponent>(entity, out var door) && door.State is DoorState.Closed or DoorState.Closing)).Any();
+    }
+
     public bool EventDestinationReached(EntityUid uid, EntityCoordinates destination, float range)
         => destination.IsValid(EntityManager) && Transform(uid).MapID == _transform.ToMapCoordinates(destination).MapId &&
            _turf.GetTileRef(destination) is { } tile && (Transform(uid).GridUid ?? Transform(uid).MapUid) == tile.GridUid &&
@@ -48,12 +70,15 @@ public sealed partial class MilitiaOperationSystem
         if (unit.Ordered && unit.Order == EventSquadOrder.Retreat || unit.AssaultUntil <= _timing.CurTime ||
             unit.AssaultTarget.IsValid() && !SquadThreat(uid, unit.AssaultTarget))
             unit.AssaultTarget = EntityUid.Invalid;
-        if ((!unit.Ordered || unit.Order != EventSquadOrder.Retreat) && DirectContact(uid, actor) &&
-            SquadVisible(uid, actor.DirectTarget, CombatVision(actor)) &&
-            (unit.AssaultTarget == actor.DirectTarget || ThroughWindow(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(actor.DirectTarget))))
+        var target = _factions.GetNearbyHostiles(uid, EventCombatVision(actor))
+            .Where(enemy => EventThreatVisible(uid, enemy, EventCombatVision(actor)) &&
+                (enemy == unit.AssaultTarget || EventThroughWindow(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(enemy))))
+            .OrderBy(enemy => enemy == unit.AssaultTarget ? 0 : 1)
+            .ThenBy(enemy => Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(enemy))).FirstOrDefault();
+        if ((!unit.Ordered || unit.Order != EventSquadOrder.Retreat) && target.IsValid())
         {
-            unit.AssaultTarget = actor.DirectTarget;
-            unit.AssaultPosition = Transform(actor.DirectTarget).Coordinates;
+            unit.AssaultTarget = target;
+            unit.AssaultPosition = Transform(target).Coordinates;
             unit.AssaultUntil = _timing.CurTime + TimeSpan.FromSeconds(15);
         }
         if (unit.DamageSource is { } source && Exists(source) && _mobs.IsIncapacitated(source) && !DirectContact(uid, actor))
@@ -447,6 +472,9 @@ public sealed partial class MilitiaOperationSystem
             .Select(c => _transform.ToMapCoordinates(c.Position)).ToList();
         if (DirectContact(uid, actor))
             threats.Add(_transform.GetMapCoordinates(actor.DirectTarget));
+        if (Comp<EventSquadUnitComponent>(uid) is var advancing && advancing.AssaultUntil > _timing.CurTime &&
+            advancing.AssaultPosition.IsValid(EntityManager) && SquadThreat(uid, advancing.AssaultTarget))
+            threats.Add(_transform.ToMapCoordinates(advancing.AssaultPosition));
         if (TryComp<EventSquadUnitComponent>(uid, out var unit) && unit.DamageUntil > _timing.CurTime &&
             unit.DamagePosition is { } incoming && incoming.MapId == origin.MapId)
             threats.Add(incoming);
@@ -479,6 +507,8 @@ public sealed partial class MilitiaOperationSystem
                 .Select(contact => _transform.ToMapCoordinates(contact.Position).Position).ToList();
             if (DirectContact(uid, actor))
                 threats.Add(_transform.GetWorldPosition(actor.DirectTarget));
+            if (unit.AssaultUntil > _timing.CurTime && unit.AssaultPosition.IsValid(EntityManager) && SquadThreat(uid, unit.AssaultTarget))
+                threats.Add(_transform.ToMapCoordinates(unit.AssaultPosition).Position);
             var count = 0;
             foreach (var point in route)
             {

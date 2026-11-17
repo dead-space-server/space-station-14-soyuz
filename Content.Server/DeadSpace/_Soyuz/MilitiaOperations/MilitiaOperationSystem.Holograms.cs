@@ -182,7 +182,7 @@ public sealed partial class MilitiaOperationSystem
             else if (TryComp<HitscanBasicRaycastComponent>(entity, out var hitscan))
                 return (long) hitscan.CollisionMask;
             else if (TryComp<FixturesComponent>(entity, out var fixtures))
-                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | fixture.CollisionMask);
+                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
         }
         else if (ammo.NextAmmoPrototype is { } id)
             _prototypes.TryIndex(id, out prototype);
@@ -194,7 +194,7 @@ public sealed partial class MilitiaOperationSystem
             if (prototype != null && prototype.TryGetComponent<HitscanBasicRaycastComponent>(out var hitscan, _squadComponents))
                 return (long) hitscan.CollisionMask;
             if (prototype != null && prototype.TryGetComponent<FixturesComponent>(out var fixtures, _squadComponents))
-                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | fixture.CollisionMask);
+                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
             break;
         }
         return fallback;

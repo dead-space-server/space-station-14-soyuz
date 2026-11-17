@@ -326,6 +326,9 @@
         kind: Treat
   - tasks:
     - !type:HTNPrimitiveTask
+      operator: !type:EventCommandOperator {}
+  - tasks:
+    - !type:HTNPrimitiveTask
       operator: !type:MilitiaSupportOperator
         kind: Retreat
   - tasks:
@@ -340,9 +343,6 @@
     - !type:HTNPrimitiveTask
       operator: !type:MilitiaSupportOperator
         kind: Arm
-  - tasks:
-    - !type:HTNPrimitiveTask
-      operator: !type:EventCommandOperator {}
   - tasks:
     - !type:HTNPrimitiveTask
       operator: !type:MilitiaSupportOperator

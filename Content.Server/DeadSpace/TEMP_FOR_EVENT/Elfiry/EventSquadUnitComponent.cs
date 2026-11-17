@@ -40,15 +40,19 @@ public sealed partial class EventSquadUnitComponent : Component
     public EntityUid? DamageSource;
     public MapCoordinates? DamagePosition;
     public TimeSpan DamageUntil;
+    public EntityUid AssaultTarget;
+    public EntityCoordinates AssaultPosition;
+    public TimeSpan AssaultUntil;
     public EventWalkSearch? WalkSearch;
 }
 
 public sealed record EventCommandPath(uint Revision, EntityCoordinates Destination, EntityCoordinates[] Route, EntityUid[] Doors)
 {
     public EventMovementTarget? Target { get; init; }
+    public EntityUid? EngagementDoor { get; init; }
 }
 
-public enum EventMovementKind : byte { Command, Passage, Medicine }
+public enum EventMovementKind : byte { Command, Passage, Medicine, Combat }
 
 public sealed record EventMovementTarget(EventMovementKind Kind, EntityCoordinates Destination, EntityUid? Subject = null,
     EventPassageYield? Passage = null)
@@ -56,7 +60,8 @@ public sealed record EventMovementTarget(EventMovementKind Kind, EntityCoordinat
     public bool Matches(EventMovementTarget other)
         => Kind == other.Kind && Subject == other.Subject && ReferenceEquals(Passage, other.Passage) &&
            Destination.EntityId == other.Destination.EntityId &&
-           Vector2.DistanceSquared(Destination.Position, other.Destination.Position) <= (Kind == EventMovementKind.Medicine ? 0.25f : 0.0001f);
+           Vector2.DistanceSquared(Destination.Position, other.Destination.Position) <=
+               (Kind == EventMovementKind.Combat ? 1f : Kind == EventMovementKind.Medicine ? 0.25f : 0.0001f);
 }
 
 public sealed record EventPassageYield(EntityUid Passer, uint Revision, uint PasserRevision,

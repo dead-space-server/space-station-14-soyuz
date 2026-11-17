@@ -324,15 +324,19 @@ public sealed partial class EventCommandSystem : EntitySystem
         if (unit.Passage is { } passage && passage.Revision == unit.Revision && passage.Until > _timing.CurTime &&
             passage.Destination.IsValid(EntityManager))
             return new EventMovementTarget(EventMovementKind.Passage, passage.Destination, passage.Passer, passage);
-        if (!unit.Ordered || unit.Arrived || !unit.Destination.IsValid(EntityManager) ||
-            _transform.ToMapCoordinates(unit.Destination).MapId != Transform(uid).MapID)
-            return null;
-        return new EventMovementTarget(EventMovementKind.Command, unit.Destination);
+        if (unit.Ordered && !unit.Arrived && unit.Destination.IsValid(EntityManager) &&
+            _transform.ToMapCoordinates(unit.Destination).MapId == Transform(uid).MapID)
+            return new EventMovementTarget(EventMovementKind.Command, unit.Destination);
+        return _combat.EventCombatDestination(uid) is { } enemy
+            ? new EventMovementTarget(EventMovementKind.Combat, enemy.Position, enemy.Subject) : null;
     }
 
     public bool PathCurrent(EntityUid uid, EventCommandPath path)
         => TryComp<EventSquadUnitComponent>(uid, out var unit) && unit.Revision == path.Revision &&
-           MovementTarget(uid) is { } target && path.Target is { } planned && planned.Matches(target) &&
+           MovementTarget(uid) is { } target && path.Target is { } planned &&
+           (planned.Matches(target) || planned.Kind == target.Kind &&
+            planned.Kind is EventMovementKind.Combat or EventMovementKind.Medicine && planned.Subject == target.Subject &&
+            planned.Destination.EntityId == target.Destination.EntityId && _combat.EventCommandInteractionBusy(uid)) &&
            path.Destination.IsValid(EntityManager);
 
     public void PathFailed(EntityUid uid, uint revision)

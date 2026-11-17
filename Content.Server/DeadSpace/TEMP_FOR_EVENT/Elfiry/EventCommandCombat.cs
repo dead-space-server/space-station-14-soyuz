@@ -30,6 +30,9 @@ public sealed partial class MilitiaOperationSystem
 
     public bool EventUnitHasMind(EntityUid uid) => HasPlayerMind(uid);
 
+    public bool EventCommandInteractionBusy(EntityUid uid)
+        => TryComp<MilitiaOperationActorComponent>(uid, out var actor) && actor.DoorPry != null;
+
     public bool EventDestinationReached(EntityUid uid, EntityCoordinates destination, float range)
         => destination.IsValid(EntityManager) && Transform(uid).MapID == _transform.ToMapCoordinates(destination).MapId &&
            _turf.GetTileRef(destination) is { } tile && (Transform(uid).GridUid ?? Transform(uid).MapUid) == tile.GridUid &&
@@ -42,6 +45,17 @@ public sealed partial class MilitiaOperationSystem
         if (!TryComp<EventSquadUnitComponent>(uid, out var unit) || !AvailableActor(uid, out var actor))
             return;
         var transform = Transform(uid);
+        if (unit.Ordered && unit.Order == EventSquadOrder.Retreat || unit.AssaultUntil <= _timing.CurTime ||
+            unit.AssaultTarget.IsValid() && !SquadThreat(uid, unit.AssaultTarget))
+            unit.AssaultTarget = EntityUid.Invalid;
+        if ((!unit.Ordered || unit.Order != EventSquadOrder.Retreat) && DirectContact(uid, actor) &&
+            SquadVisible(uid, actor.DirectTarget, CombatVision(actor)) &&
+            (unit.AssaultTarget == actor.DirectTarget || ThroughWindow(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(actor.DirectTarget))))
+        {
+            unit.AssaultTarget = actor.DirectTarget;
+            unit.AssaultPosition = Transform(actor.DirectTarget).Coordinates;
+            unit.AssaultUntil = _timing.CurTime + TimeSpan.FromSeconds(15);
+        }
         if (unit.DamageSource is { } source && Exists(source) && _mobs.IsIncapacitated(source) && !DirectContact(uid, actor))
         {
             unit.DamagePosition = null;
@@ -63,10 +77,27 @@ public sealed partial class MilitiaOperationSystem
         if (!TryComp<EventSquadUnitComponent>(uid, out var unit) || !SquadMember(uid) || !_blocker.CanMove(uid) ||
             !TryComp<MilitiaOperationActorComponent>(uid, out var actor) ||
             actor.Patient.IsValid() || ReceivingTreatment(uid) || actor.MedicalRefill != null ||
-            actor.ReloadUntil != null || actor.Grenades.Length > 0 ||
-            GetSquadOrder(uid, true) != null || _timing.CurTime < unit.RetryAfter)
+            actor.ReloadUntil != null || actor.DoorPry == null && (NeedsWeapon(uid) || NeedsReload(uid)) ||
+            actor.Grenades.Length > 0 ||
+            GetSquadOrder(uid, true) != null && !EventAdvancePriority(uid) || _timing.CurTime < unit.RetryAfter)
             return false;
-        return unit.Order is EventSquadOrder.Assault or EventSquadOrder.Retreat || !DirectContact(uid, actor);
+        return unit.Order is EventSquadOrder.Assault or EventSquadOrder.Retreat || EventAdvancePriority(uid) || !DirectContact(uid, actor);
+    }
+
+    public bool EventAdvancePriority(EntityUid uid)
+        => TryComp<EventSquadUnitComponent>(uid, out var unit) && AvailableActor(uid, out var actor) &&
+           !NeedsRecovery(uid, actor) && (unit.Ordered && !unit.Arrived || EventCombatDestination(uid) != null);
+
+    public (EntityUid Subject, EntityCoordinates Position)? EventCombatDestination(EntityUid uid)
+    {
+        if (!TryComp<EventSquadUnitComponent>(uid, out var unit) || !AvailableActor(uid, out var actor) ||
+            unit.Ordered && unit.Order == EventSquadOrder.Retreat || NeedsRecovery(uid, actor) ||
+            unit.AssaultUntil <= _timing.CurTime || !SquadThreat(uid, unit.AssaultTarget) ||
+            !unit.AssaultPosition.IsValid(EntityManager) || _transform.ToMapCoordinates(unit.AssaultPosition).MapId != Transform(uid).MapID ||
+            _turf.GetTileRef(unit.AssaultPosition) is not { } tile ||
+            tile.Tile.IsEmpty || _turf.IsSpace(tile.Tile))
+            return null;
+        return (unit.AssaultTarget, unit.AssaultPosition);
     }
 
     public (EntityUid Subject, EntityCoordinates Position)? EventMedicalDestination(EntityUid uid)
@@ -128,9 +159,9 @@ public sealed partial class MilitiaOperationSystem
             length += distance;
             from = to;
         }
-        if (!PrepareEventRoute(uid, endpoint, segment.Select(poly => poly.Coordinates), out var route, out var doors) || !EventRouteSafe(uid, route, unit.Order))
+        if (!PrepareEventRoute(uid, endpoint, segment.Select(poly => poly.Coordinates), out var route, out var doors))
             return null;
-        return new EventCommandPath(revision, destination, route, doors);
+        return EventAdvancePath(uid, revision, destination, route, doors);
     }
 
     public EventCommandPath? DirectEventCommandPath(EntityUid uid, uint revision, EntityCoordinates destination)
@@ -146,8 +177,8 @@ public sealed partial class MilitiaOperationSystem
         var endpoint = distance > 24f
             ? _transform.ToCoordinates(new MapCoordinates(Vector2.Lerp(from.Position, to.Position, 24f / distance), from.MapId))
             : destination;
-        return PrepareEventRoute(uid, endpoint, Array.Empty<EntityCoordinates>(), out var route, out var doors) && EventRouteSafe(uid, route, unit.Order)
-            ? new EventCommandPath(revision, destination, route, doors) : null;
+        return PrepareEventRoute(uid, endpoint, Array.Empty<EntityCoordinates>(), out var route, out var doors)
+            ? EventAdvancePath(uid, revision, destination, route, doors) : null;
     }
 
     private bool PrepareEventRoute(EntityUid uid, EntityCoordinates destination, IEnumerable<EntityCoordinates> path,
@@ -332,13 +363,12 @@ public sealed partial class MilitiaOperationSystem
             length += distance;
             last = point;
         }
-        if (segment.Count == 0 || !PrepareEventRoute(uid, segment[^1], segment.SkipLast(1), out var route, out var doors) ||
-            !EventRouteSafe(uid, route, unit.Order))
+        if (segment.Count == 0 || !PrepareEventRoute(uid, segment[^1], segment.SkipLast(1), out var route, out var doors))
         {
             unit.WalkSearch = null;
             return null;
         }
-        return new EventCommandPath(revision, destination, route, doors);
+        return EventAdvancePath(uid, revision, destination, route, doors);
     }
     private void StartEventRoutePoint(EntityUid uid, EntityCoordinates point)
     {
@@ -367,9 +397,16 @@ public sealed partial class MilitiaOperationSystem
             unit.LastProgress = _timing.CurTime;
         }
         if (unit.RouteIndex >= path.Route.Length)
+        {
+            if (EventAdvancePriority(uid) && path.EngagementDoor is { } engagement &&
+                TryComp<DoorComponent>(engagement, out var passage) && passage.State != DoorState.Open)
+                return OpenEventRouteDoor(uid, unit, engagement, passage);
             return HTNOperatorStatus.Finished;
+        }
         var origin = _transform.GetMapCoordinates(uid);
         var next = _transform.ToMapCoordinates(path.Route[unit.RouteIndex]);
+        if (!EventRouteSafe(uid, new[] { path.Route[unit.RouteIndex] }, unit.Order))
+            return HTNOperatorStatus.Finished;
         EntityUid? blockedDoor = null;
         if (!_interaction.InRangeUnobstructed(origin, next, 0f, CollisionGroup.MobMask, predicate: entity =>
             {
@@ -384,19 +421,22 @@ public sealed partial class MilitiaOperationSystem
             }))
             return HTNOperatorStatus.Failed;
         if (blockedDoor is { } doorUid && TryComp<DoorComponent>(doorUid, out var door) && door.State != DoorState.Open)
-        {
-            unit.LastProgress = _timing.CurTime;
-            _steering.Unregister(uid);
-            if (door.State == DoorState.Opening)
-                return HTNOperatorStatus.Continuing;
-            if (!_interaction.InRangeUnobstructed(uid, doorUid))
-                return HTNOperatorStatus.Failed;
-            if (_squadDoors.TryOpen(doorUid, door, DoorUser(uid, doorUid), quiet: true))
-                return HTNOperatorStatus.Continuing;
-            return CanPryRouteDoor(uid, doorUid) ? PryRouteDoor(uid, doorUid) : HTNOperatorStatus.Failed;
-        }
+            return OpenEventRouteDoor(uid, unit, doorUid, door);
         StartEventRoutePoint(uid, path.Route[unit.RouteIndex]);
         return HTNOperatorStatus.Continuing;
+    }
+
+    private HTNOperatorStatus OpenEventRouteDoor(EntityUid uid, EventSquadUnitComponent unit, EntityUid doorUid, DoorComponent door)
+    {
+        unit.LastProgress = _timing.CurTime;
+        _steering.Unregister(uid);
+        if (door.State is DoorState.Opening or DoorState.Closing)
+            return HTNOperatorStatus.Continuing;
+        if (!_interaction.InRangeUnobstructed(uid, doorUid))
+            return HTNOperatorStatus.Failed;
+        if (_squadDoors.TryOpen(doorUid, door, DoorUser(uid, doorUid), quiet: true))
+            return HTNOperatorStatus.Continuing;
+        return CanPryRouteDoor(uid, doorUid) ? PryRouteDoor(uid, doorUid) : HTNOperatorStatus.Failed;
     }
 
     private bool EventRouteSafe(EntityUid uid, EntityCoordinates[] route, EventSquadOrder order)
@@ -405,6 +445,8 @@ public sealed partial class MilitiaOperationSystem
         var origin = _transform.GetMapCoordinates(uid);
         var threats = actor.SquadContacts.Where(c => c.Expires > _timing.CurTime && c.Position.IsValid(EntityManager) && SquadThreat(uid, c.Target))
             .Select(c => _transform.ToMapCoordinates(c.Position)).ToList();
+        if (DirectContact(uid, actor))
+            threats.Add(_transform.GetMapCoordinates(actor.DirectTarget));
         if (TryComp<EventSquadUnitComponent>(uid, out var unit) && unit.DamageUntil > _timing.CurTime &&
             unit.DamagePosition is { } incoming && incoming.MapId == origin.MapId)
             threats.Add(incoming);
@@ -421,6 +463,44 @@ public sealed partial class MilitiaOperationSystem
                 return false;
         }
         return true;
+    }
+
+    private EventCommandPath? EventAdvancePath(EntityUid uid, uint revision, EntityCoordinates destination,
+        EntityCoordinates[] route, EntityUid[] doors)
+    {
+        var unit = Comp<EventSquadUnitComponent>(uid);
+        var actor = Comp<MilitiaOperationActorComponent>(uid);
+        EntityUid? engagementDoor = null;
+        if (unit.Order != EventSquadOrder.Retreat)
+        {
+            var origin = _transform.GetWorldPosition(uid);
+            var threats = actor.SquadContacts.Where(contact => contact.Expires > _timing.CurTime &&
+                    contact.Position.IsValid(EntityManager) && SquadThreat(uid, contact.Target))
+                .Select(contact => _transform.ToMapCoordinates(contact.Position).Position).ToList();
+            if (DirectContact(uid, actor))
+                threats.Add(_transform.GetWorldPosition(actor.DirectTarget));
+            var count = 0;
+            foreach (var point in route)
+            {
+                var position = _transform.ToMapCoordinates(point).Position;
+                if (threats.Any(threat => Vector2.Distance(position, threat) + 0.1f < MathF.Min(1.5f, Vector2.Distance(origin, threat))))
+                    break;
+                count++;
+            }
+            if (count < route.Length)
+            {
+                var edge = count == 0 ? _transform.GetMapCoordinates(uid) : _transform.ToMapCoordinates(route[count - 1]);
+                var blocked = new HashSet<EntityUid>();
+                if (EventSegmentClear(uid, edge, _transform.ToMapCoordinates(route[count]), blocked))
+                    engagementDoor = blocked.OrderBy(door => Vector2.DistanceSquared(edge.Position, _transform.GetWorldPosition(door)))
+                        .Select(door => (EntityUid?) door).FirstOrDefault();
+                if (count == 0 && engagementDoor == null)
+                    return null;
+                route = route.Take(count).ToArray();
+            }
+        }
+        return EventRouteSafe(uid, route, unit.Order)
+            ? new EventCommandPath(revision, destination, route, doors) { EngagementDoor = engagementDoor } : null;
     }
 
     public void BeginEventCommandPath(EntityUid uid, EventCommandPath path)

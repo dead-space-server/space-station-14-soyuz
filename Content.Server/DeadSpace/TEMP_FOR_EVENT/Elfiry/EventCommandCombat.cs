@@ -12,18 +12,21 @@ using Content.Shared.Construction;
 using Content.Shared.DeadSpace.TEMP_FOR_EVENT.Elfiry;
 using Content.Shared.NPC.Components;
 using Content.Shared.Physics;
+using Content.Shared.Tag;
 using Content.Shared.Standing;
 using Content.Shared.Doors.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
     private TimeSpan _nextEventWalkSearch;
+    private static readonly ProtoId<TagPrototype> EventWindowTag = "Window";
     public bool EventUnitAvailable(EntityUid uid)
         => HasComp<EventSquadUnitComponent>(uid) && AvailableActor(uid, out _);
 
@@ -51,7 +54,7 @@ public sealed partial class MilitiaOperationSystem
             return false;
         var ray = new CollisionRay(origin.Position, Vector2.Normalize(delta), (int) SquadSight);
         return _squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, delta.Length(),
-            predicate: entity => !_squadTags.HasTag(entity, "Window") &&
+            predicate: entity => !_squadTags.HasTag(entity, EventWindowTag) &&
                 !(TryComp<DoorComponent>(entity, out var door) && door.State is DoorState.Closed or DoorState.Closing)).Any();
     }
 

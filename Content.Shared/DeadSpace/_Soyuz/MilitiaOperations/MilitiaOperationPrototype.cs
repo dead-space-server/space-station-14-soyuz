@@ -47,6 +47,7 @@ public sealed partial class MilitiaEquipmentPrototype : IPrototype, IInheritingP
     [DataField, AlwaysPushInheritance] public Dictionary<string, List<EntProtoId>> Equipment = new();
     [DataField] public List<MilitiaProtectionSet> Protection = new();
     [DataField] public List<MilitiaWeaponSet> Weapons = new();
+    [DataField, AlwaysPushInheritance] public Dictionary<EntProtoId, List<EntProtoId>> MagazineVariants = new();
     [DataField] public List<EntProtoId> MeleeWeapons = new();
     [DataField] public List<EntProtoId> Supplies = new();
     [DataField] public List<EntProtoId> Grenades = new();
@@ -67,8 +68,8 @@ public sealed partial class MilitiaWeaponSet
 {
     [DataField(required: true)] public EntProtoId Weapon;
     [DataField(required: true)] public EntProtoId Magazine;
-    [DataField] public int MinimumMagazines = 3;
-    [DataField] public int MaximumMagazines = 3;
+    [DataField] public int MinimumMagazines = 4;
+    [DataField] public int MaximumMagazines = 4;
 }
 
 [DataDefinition]

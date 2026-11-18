@@ -160,13 +160,25 @@ public sealed partial class MilitiaOperationSystem
         if (!HasComp<GunComponent>(actor.Weapon) || !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false) ||
             !_slots.TryGetSlot(actor.Weapon, SharedGunSystem.MagazineSlot, out var magazineSlot))
             throw new InvalidOperationException($"Unsupported militia weapon {weapon.Weapon}.");
+        var loaded = Spawn(RandomMagazine(profile, weapon, random), Transform(uid).Coordinates);
+        actor.CreatedEquipment.Add(loaded);
+        if (!CompatibleMagazine(uid, actor, loaded))
+            throw new InvalidOperationException($"Incompatible militia starting magazine in {profile.ID}.");
+        if (magazineSlot.Item is { } original)
+        {
+            actor.CreatedEquipment.Add(original);
+            if (!_slots.TryEject(actor.Weapon, magazineSlot, uid, out _))
+                throw new InvalidOperationException($"Cannot eject militia starting magazine in {profile.ID}.");
+            QueueDel(original);
+        }
+        if (!_slots.TryInsert(actor.Weapon, magazineSlot, loaded, uid) || magazineSlot.Item != loaded)
+            throw new InvalidOperationException($"Cannot load militia starting magazine in {profile.ID}.");
         var count = random.Next(weapon.MinimumMagazines, weapon.MaximumMagazines + 1);
         for (var i = 0; i < count; i++)
         {
-            var magazine = PackItem(uid, actor, weapon.Magazine, actor.Webbing);
-            if (_guns.GetAmmoCount(magazine) <= 0 || !_slots.CanInsert(actor.Weapon, magazine, uid, magazineSlot, swap: true))
-                throw new InvalidOperationException($"Incompatible or empty magazine {weapon.Magazine} for {weapon.Weapon}.");
-            actor.Magazines.Add(magazine);
+            var magazine = PackItem(uid, actor, RandomMagazine(profile, weapon, random), actor.Webbing);
+            if (!CompatibleMagazine(uid, actor, magazine))
+                throw new InvalidOperationException($"Incompatible or empty militia magazine for {weapon.Weapon}.");
         }
         if (actor.Medic && !_storage.Insert(actor.Backpack, actor.Weapon, out _, playSound: false, stackAutomatically: false))
             throw new InvalidOperationException($"Cannot reserve militia medic weapon storage in {profile.ID}.");
@@ -193,10 +205,11 @@ public sealed partial class MilitiaOperationSystem
                 actor.Backup = supply;
         }
         var grenadeCount = profile.Grenades.Count == 0 ? 0 : random.Next(profile.MinimumGrenades, profile.MaximumGrenades + 1);
+        var grenadeOffset = profile.Grenades.Count == 0 ? 0 : random.Next(profile.Grenades.Count);
         for (var i = 0; i < grenadeCount; i++)
         {
-            var id = profile.Grenades[random.Next(profile.Grenades.Count)];
-            var grenade = PackItem(uid, actor, id);
+            var id = profile.Grenades[(grenadeOffset + i) % profile.Grenades.Count];
+            var grenade = PackItem(uid, actor, id, actor.Webbing);
             if (!HasComp<Content.Shared.Trigger.Components.TimerTriggerComponent>(grenade))
                 throw new InvalidOperationException($"Militia grenade has no timer: {id}.");
             actor.PersonalGrenades.Add(grenade);
@@ -293,6 +306,7 @@ public sealed partial class MilitiaOperationSystem
     public bool ReceivingTreatment(EntityUid uid)
         => !TerminatingOrDeleted(uid) && !HasPlayerMind(uid) && !MetaData(uid).EntityPaused && !_mobs.IsDead(uid) &&
            TryComp<MilitiaOperationActorComponent>(uid, out var patient) &&
+           patient.Patient != uid &&
            patient.TreatingMedic.IsValid() && SquadMember(patient.TreatingMedic) &&
            TryComp<MilitiaOperationActorComponent>(patient.TreatingMedic, out var medic) && medic.Patient == uid;
 
@@ -789,9 +803,6 @@ public sealed partial class MilitiaOperationSystem
     public void EndArming(EntityUid uid)
         => _steering.Unregister(uid);
 
-    private EntityUid FindMagazine(EntityUid uid, MilitiaOperationActorComponent actor)
-        => actor.Magazines.FirstOrDefault(item => MagazineInWebbing(uid, actor, item) && _guns.GetAmmoCount(item) > 0);
-
     private bool MagazineInWebbing(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid item)
         => OwnsItem(uid, actor.Webbing) && OwnsItem(uid, item) &&
            _equipmentContainers.TryGetContainingContainer(item, out var container) && container.Owner == actor.Webbing;
@@ -803,7 +814,7 @@ public sealed partial class MilitiaOperationSystem
            _guns.GetAmmoCount(actor.Weapon) == 0 && FindMagazine(uid, actor).IsValid();
 
     private bool ReloadExposedToFire(EntityUid uid, MilitiaOperationActorComponent actor)
-        => actor.DamageThreatUntil > _timing.CurTime && actor.ExposedToThreat &&
+        => actor.EmergencyReloadUntil <= _timing.CurTime && actor.DamageThreatUntil > _timing.CurTime && actor.ExposedToThreat &&
            (actor.WindowExposed || !DirectContact(uid, actor));
 
     public bool CanBeginReload(EntityUid uid)
@@ -815,8 +826,11 @@ public sealed partial class MilitiaOperationSystem
             return;
         if (!EquipOwnedItem(uid, actor, actor.Weapon, false))
             return;
+        var magazine = FindMagazine(uid, actor);
+        if (!magazine.IsValid() || !MoveMagazineToWebbing(uid, actor, magazine))
+            return;
         UnwieldForEquipment(uid);
-        actor.ReloadMagazine = FindMagazine(uid, actor);
+        actor.ReloadMagazine = magazine;
         actor.ReloadUntil = _timing.CurTime + actor.ReloadTime;
         StartReloadStep(uid, actor);
     }
@@ -844,7 +858,8 @@ public sealed partial class MilitiaOperationSystem
     public HTNOperatorStatus ReloadActor(EntityUid uid)
     {
         if (!AvailableActor(uid, out var actor) || actor.ReloadUntil == null ||
-            !MagazineInWebbing(uid, actor, actor.ReloadMagazine) || _hands.GetActiveItem(uid) != actor.Weapon)
+            !MagazineInWebbing(uid, actor, actor.ReloadMagazine) || !CompatibleMagazine(uid, actor, actor.ReloadMagazine) ||
+            _hands.GetActiveItem(uid) != actor.Weapon)
             return HTNOperatorStatus.Failed;
         if (_timing.CurTime < actor.ReloadUntil.Value)
             return HTNOperatorStatus.Continuing;
@@ -980,6 +995,8 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public MapCoordinates? DamageThreat;
     public TimeSpan DamageThreatUntil;
     public TimeSpan RetreatRetryAfter;
+    public TimeSpan NextBreakoutAttempt;
+    public TimeSpan EmergencyReloadUntil;
     public EntityUid Weapon;
     public EntityUid Backpack;
     public EntityUid Webbing;
@@ -1003,7 +1020,6 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public TimeSpan ReloadTime;
     public TimeSpan? ReloadUntil;
     public EntityUid ReloadMagazine;
-    public readonly List<EntityUid> Magazines = new();
     public readonly List<EntityUid> Treatments = new();
     public readonly List<EntityUid> MedicineBottles = new();
     public readonly Dictionary<EntityUid, TimeSpan> UnreachableMedics = new();
@@ -1081,6 +1097,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             cancelToken.ThrowIfCancellationRequested();
             _operations.RejectUnreachableMedic(owner, order);
             _operations.RejectUnreachableRetreat(owner, order);
+            _operations.RejectUnreachableBreakout(owner, order);
             return (false, null);
         }
         if (Kind == MilitiaSupportKind.SelectTreatment)

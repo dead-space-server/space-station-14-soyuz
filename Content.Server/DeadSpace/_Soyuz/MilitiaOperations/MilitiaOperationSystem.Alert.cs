@@ -37,8 +37,8 @@ public sealed partial class MilitiaOperationSystem
 
     private void OnActorHitscanHit(Entity<MilitiaOperationActorComponent> actor, ref HitscanRaycastStrikeEvent args)
     {
-        var threat = HitscanPath(args.Data, out var origin, out _) ? origin
-            : DamageSourcePosition(actor.Owner, args.Data.Gun) ?? DamageSourcePosition(actor.Owner, args.Data.Shooter);
+        var threat = DamageSourcePosition(actor.Owner, args.Data.Shooter) ?? DamageSourcePosition(actor.Owner, args.Data.Gun) ??
+            (HitscanPath(args.Data, out var origin, out _) ? origin : (MapCoordinates?) null);
         if (threat == null && args.Data.ShotDirection.LengthSquared() > 0.01f)
         {
             var position = _transform.GetMapCoordinates(actor.Owner);
@@ -53,6 +53,14 @@ public sealed partial class MilitiaOperationSystem
         if (data.OutputTrace is not { Count: > 0 } traces || data.ShotDirection.LengthSquared() < 0.001f)
             return false;
         var trace = traces[^1];
+        var hit = GetNetEntity(data.HitEntity);
+        for (var index = traces.Count - 1; index >= 0; index--)
+        {
+            if (traces[index].ImpactedEnt != hit)
+                continue;
+            trace = traces[index];
+            break;
+        }
         var coordinates = GetCoordinates(trace.ImpactCoordinates);
         if (!coordinates.IsValid(EntityManager))
             return false;
@@ -108,7 +116,8 @@ public sealed partial class MilitiaOperationSystem
                 continue;
             var closest = new MapCoordinates(origin.Position + delta * along, origin.MapId);
             if (Vector2.DistanceSquared(position.Position, closest.Position) <= 1.5625f && CoverExposed(position, closest))
-                AlertRangedActor(actor, origin);
+                AlertRangedActor(actor, DamageSourcePosition(actor.Owner, args.Data.Shooter) ??
+                    DamageSourcePosition(actor.Owner, args.Data.Gun) ?? origin);
         }
     }
 }

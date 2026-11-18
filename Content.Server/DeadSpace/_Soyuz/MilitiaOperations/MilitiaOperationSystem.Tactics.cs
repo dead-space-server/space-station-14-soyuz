@@ -14,8 +14,12 @@ using Content.Shared.Cuffs;
 using Content.Shared.Cuffs.Components;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
+using Content.Shared.NPC.Components;
 using Robust.Shared.Map;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics.Systems;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
@@ -27,6 +31,7 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly PryingSystem _prying = default!;
     [Dependency] private readonly SharedCuffableSystem _restraints = default!;
     private TimeSpan _nextSquadGrenade;
+    private static readonly PhysShapeCircle GrenadeFlightShape = new(0.25f);
 
     private bool IsRestrained(EntityUid uid)
         => TryComp<CuffableComponent>(uid, out var cuffs) && _restraints.IsCuffed((uid, cuffs), requireFullyCuffed: false);
@@ -126,12 +131,15 @@ public sealed partial class MilitiaOperationSystem
 
     private void TrySquadGrenade(EntityUid uid)
     {
-        if (!SquadMember(uid) || !TryComp<MilitiaOperationActorComponent>(uid, out var actor) || actor.Medic ||
+        if (!SquadMember(uid) || !TryComp<MilitiaOperationActorComponent>(uid, out var actor) ||
+            actor.Medic && (actor.DamageThreatUntil <= _timing.CurTime || actor.TriageRequired) || !OwnsItem(uid, actor.Webbing) ||
             actor.DoorPry != null || actor.Patient.IsValid() || ReceivingTreatment(uid) || actor.ReloadUntil != null || actor.Grenades.Length > 0 ||
             !DirectContact(uid, actor) || _timing.CurTime < actor.NextGrenade || _timing.CurTime < _nextSquadGrenade)
             return;
         actor.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(2);
-        var grenade = actor.PersonalGrenades.FirstOrDefault(item => OwnsItem(uid, item) && !HasComp<ActiveTimerTriggerComponent>(item));
+        var grenade = actor.PersonalGrenades.FirstOrDefault(item => OwnsItem(uid, item) &&
+            _equipmentContainers.TryGetContainingContainer(item, out var container) && container.Owner == actor.Webbing &&
+            !HasComp<ActiveTimerTriggerComponent>(item));
         if (!grenade.IsValid())
             return;
         var target = _transform.GetMapCoordinates(actor.DirectTarget);
@@ -139,13 +147,19 @@ public sealed partial class MilitiaOperationSystem
         var distance = Vector2.Distance(origin.Position, target.Position);
         var axis = distance > 0 ? (target.Position - origin.Position) / distance : Vector2.Zero;
         if (origin.MapId != target.MapId || distance < 7f || distance > 11f ||
-            !_interaction.InRangeUnobstructed(uid, actor.DirectTarget, 11f, CollisionGroup.ThrownItem) ||
+            !SquadLineClear(uid, actor.DirectTarget, 11f, CollisionGroup.ThrownItem) ||
+            _squadRayCast.CastShape(origin.MapId, GrenadeFlightShape, _squadPhysics.GetPhysicsTransform(uid), target.Position - origin.Position,
+                new QueryFilter
+                {
+                    MaskBits = (long) CollisionGroup.ThrownItem,
+                    IsIgnored = entity => entity == uid || entity == grenade || entity == actor.DirectTarget || HasComp<NpcFactionMemberComponent>(entity),
+                }, RayCastSystem.RayCastClosestCallback).Hit ||
             _factions.GetNearbyFriendlies(uid, 24f).Any(ally => !TerminatingOrDeleted(ally) && !_mobs.IsDead(ally) &&
                 (Vector2.DistanceSquared(_transform.GetWorldPosition(ally), target.Position) < 49f &&
                  CoverExposed(target, _transform.GetMapCoordinates(ally), 7f) ||
                  BlocksFireLane(_transform.GetWorldPosition(ally) - origin.Position, axis) &&
                  Vector2.Dot(_transform.GetWorldPosition(ally) - origin.Position, axis) < distance &&
-                 _interaction.InRangeUnobstructed(uid, ally, 11f, SquadSight))))
+                 SquadLineClear(uid, ally, 11f, SquadSight))))
             return;
         actor.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(4 + _random.NextDouble() * 4);
         if (_random.NextDouble() > 0.35)

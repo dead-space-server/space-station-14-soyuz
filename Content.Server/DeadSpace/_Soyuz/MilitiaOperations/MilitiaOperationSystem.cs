@@ -174,12 +174,26 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private void InitializeOffers(MilitiaOperationStationComponent state, MilitiaOperationConfigPrototype config)
     {
+        if (state.Active != null)
+            return;
+        var offers = ReplenishOffers(state.Offers, config);
         state.Offers.Clear();
-        foreach (var id in config.Operations.Distinct())
+        state.Offers.AddRange(offers);
+    }
+
+    private List<MilitiaOperationOffer> ReplenishOffers(IEnumerable<MilitiaOperationOffer> current,
+        MilitiaOperationConfigPrototype config)
+    {
+        var offers = current.ToList();
+        var candidates = config.Operations.Distinct()
+            .Where(id => _prototypes.TryIndex(id, out _) && offers.All(offer => offer.Prototype != id.Id)).ToList();
+        while (offers.Count < 2 && candidates.Count > 0)
         {
-            if (_prototypes.TryIndex(id, out _))
-                state.Offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), id.Id));
+            var index = _random.Next(candidates.Count);
+            offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), candidates[index].Id));
+            candidates.RemoveAt(index);
         }
+        return offers;
     }
 
     private void OnOpened(Entity<MilitiaOperationConsoleComponent> console, ref BoundUIOpenedEvent args)
@@ -232,8 +246,8 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
                     message = success ? "militia-operation-aborted" : message;
                     break;
                 case MilitiaOperationAction.Purchase:
-                    success = config.ShopEnabled && Purchase(station, console.Owner, state, config, args);
-                    message = !config.ShopEnabled ? "militia-operation-shop-maintenance" : success ? "militia-operation-purchased" : "militia-operation-purchase-failed";
+                    success = Purchase(station, console.Owner, state, config, args);
+                    message = success ? "militia-operation-purchased" : !config.ShopEnabled ? "militia-operation-shop-maintenance" : "militia-operation-purchase-failed";
                     break;
             }
         }
@@ -356,6 +370,9 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var reputation = success ? checked(state.Reputation + active.Reputation) : state.Reputation;
         var history = Loc.GetString("militia-operation-history-entry", ("name", Loc.GetString(active.Name)),
             ("result", Loc.GetString(status)), ("points", success ? active.Points : 0));
+        // Prepare replacement offers before committing completion or rewards.
+        var offers = _prototypes.TryIndex<MilitiaOperationConfigPrototype>(state.Config, out var config)
+            ? ReplenishOffers(state.Offers, config) : state.Offers.ToList();
         state.Cleanup.UnionWith(active.Grids);
         state.History.Insert(0, history);
         if (state.History.Count > 30)
@@ -365,25 +382,31 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         state.Status = status;
         state.AvailableAt = _timing.CurTime + active.Cooldown;
         state.Active = null;
+        state.Offers.Clear();
+        state.Offers.AddRange(offers);
     }
 
     private bool Purchase(EntityUid station, EntityUid console, MilitiaOperationStationComponent state,
         MilitiaOperationConfigPrototype config, MilitiaOperationRequest request)
     {
-        if (!config.ShopEnabled || state.Purchases.Count >= 2048 || state.Purchases.Contains(request.Token) ||
+        if (state.Purchases.TryGetValue(request.Token, out var receipt))
+            return receipt.Actor == request.Actor && receipt.Lines.SequenceEqual(
+                request.Lines.Select(line => (line.RewardPrototypeId, line.Count)));
+        if (!config.ShopEnabled || state.Purchases.Count >= 2048 ||
             !_prototypes.TryIndex(config.Shop, out var pool) ||
             !_rewards.TryBuildPurchase(pool, request.Lines, RepairOrderRewardSystem.GetShopLevel(pool, state.Reputation),
                 out var rewards, out var cost, out _) || state.SupplyPoints < cost)
             return false;
+        var purchasedLines = request.Lines.Select(line => (line.RewardPrototypeId, line.Count)).ToArray();
         RepairOrderDelivery? delivery = null;
         var committed = false;
         try
         {
             if (!_delivery.TryDeliver(station, request.Token, console, pool, rewards, out delivery) ||
-                state.SupplyPoints < cost || state.Purchases.Contains(request.Token) ||
+                state.SupplyPoints < cost || state.Purchases.ContainsKey(request.Token) ||
                 !CanUseConsole(console, request.Actor) || _stations.GetOwningStation(console) != station)
                 return false;
-            state.Purchases.Add(request.Token);
+            state.Purchases.Add(request.Token, (request.Actor, purchasedLines));
             state.SupplyPoints -= cost;
             _delivery.Commit(delivery);
             committed = true;
@@ -556,7 +579,7 @@ public sealed partial class MilitiaOperationStationComponent : Component
     public MilitiaActiveOperation? Active;
     public readonly List<MilitiaOperationOffer> Offers = new();
     public readonly List<string> History = new();
-    public readonly HashSet<Guid> Purchases = new();
+    public readonly Dictionary<Guid, (EntityUid Actor, (string Reward, int Count)[] Lines)> Purchases = new();
     public HashSet<Guid> RedeemedContraband = new();
     public readonly HashSet<EntityUid> Cleanup = new();
     public string Status = "militia-operation-ready";

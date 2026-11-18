@@ -165,13 +165,13 @@
   - MilitiaOperationCargo
   - MilitiaOperationFlagship
   shop: MilitiaOperationSupplyPool
-  shopEnabled: false
+  shopEnabled: true
   contrabandRewards:
-    Firearm: { points: 4, reputation: 2 }
-    Melee: { points: 2, reputation: 1 }
-    Armor: { points: 3, reputation: 1 }
-    Helmet: { points: 2, reputation: 1 }
-    Boots: { points: 1, reputation: 1 }
+    Firearm: { points: 400, reputation: 20 }
+    Melee: { points: 200, reputation: 10 }
+    Armor: { points: 300, reputation: 10 }
+    Helmet: { points: 200, reputation: 10 }
+    Boots: { points: 100, reputation: 10 }
   cooldown: 5m
   medic: MilitiaOperationRaiderMedic
 
@@ -187,7 +187,7 @@
   name: militia-operation-desant-name
   description: militia-operation-desant-description
   map: /Maps/_Soyuz/MilitiaOperations/desantrassvet.yml
-  points: 250
+  points: 500
   reputation: 100
   minimumCrew: 5
   maximumCrew: 7
@@ -199,7 +199,7 @@
   name: militia-operation-science-name
   description: militia-operation-science-description
   map: /Maps/_Soyuz/MilitiaOperations/ksenirassvet.yml
-  points: 400
+  points: 800
   reputation: 150
   minimumCrew: 7
   maximumCrew: 10
@@ -211,7 +211,7 @@
   name: militia-operation-cargo-name
   description: militia-operation-cargo-description
   map: /Maps/_Soyuz/MilitiaOperations/cargorassvet.yml
-  points: 300
+  points: 600
   reputation: 100
   minimumCrew: 7
   maximumCrew: 10
@@ -223,7 +223,7 @@
   name: militia-operation-flagship-name
   description: militia-operation-flagship-description
   map: /Maps/_Soyuz/MilitiaOperations/bigshiprassvet.yml
-  points: 900
+  points: 1800
   reputation: 300
   minimumCrew: 10
   maximumCrew: 15

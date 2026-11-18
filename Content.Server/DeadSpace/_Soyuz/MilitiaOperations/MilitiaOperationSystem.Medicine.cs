@@ -417,7 +417,9 @@ public sealed partial class MilitiaOperationSystem
         {
             foreach (var other in medics)
             {
-                if (other != uid && AvailableActor(other, out var otherActor) && !MetaData(other).EntityPaused && otherActor.Patient == patient)
+                if (other != uid && AvailableActor(other, out var otherActor) && !MetaData(other).EntityPaused && otherActor.Patient == patient &&
+                    !(actor.Medic && other == patient) &&
+                    !(uid == patient && actor.Patient == uid && otherActor.Medic))
                     return false;
             }
         }
@@ -456,8 +458,10 @@ public sealed partial class MilitiaOperationSystem
             _steering.Unregister(uid);
             if (patient != uid)
             {
-                Comp<MilitiaOperationActorComponent>(patient).TreatingMedic = uid;
-                InterruptActor(patient);
+                var target = Comp<MilitiaOperationActorComponent>(patient);
+                target.TreatingMedic = uid;
+                if (target.Patient != patient)
+                    InterruptActor(patient);
             }
             committed = AvailableActor(uid, out _) && TreatmentPathSafe(uid, patient, path) && OwnsItem(uid, item);
             return committed;
@@ -473,6 +477,10 @@ public sealed partial class MilitiaOperationSystem
     {
         if (!AvailableActor(uid, out var actor))
             return HTNOperatorStatus.Failed;
+        if (actor.Patient != uid && !HasComp<InjectorComponent>(actor.Treatment) &&
+            TryComp<MilitiaOperationActorComponent>(actor.Patient, out var target) && target.Patient == actor.Patient)
+            return ValidPatient(uid, actor.Patient, actor) && _interaction.InRangeUnobstructed(uid, actor.Patient)
+                ? HTNOperatorStatus.Continuing : HTNOperatorStatus.Failed;
         if (actor.HealingDoAfter is { } current)
         {
             var status = _doAfter.GetStatus(uid, current, null);
@@ -542,7 +550,7 @@ public sealed partial class MilitiaOperationSystem
             if (patient != uid && TryComp<MilitiaOperationActorComponent>(patient, out var target) && target.TreatingMedic == uid)
             {
                 target.TreatingMedic = EntityUid.Invalid;
-                if (!TerminatingOrDeleted(patient))
+                if (!TerminatingOrDeleted(patient) && target.Patient != patient)
                     InterruptActor(patient);
             }
             if (!TerminatingOrDeleted(uid) && !MetaData(uid).EntityPaused)

@@ -62,22 +62,24 @@ public sealed partial class MilitiaOperationSystem
         if (origin.MapId != target.MapId || delta.LengthSquared() < 0.001f)
             return false;
         var direction = Vector2.Normalize(delta);
-        var ray = new CollisionRay(origin.Position, direction, (int) CollisionGroup.MobMask);
-        foreach (var hit in _squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, delta.Length() + 0.45f,
-                     predicate: entity => entity == uid).OrderBy(hit => hit.Distance))
+        var hits = _squadRayCast.CastShape(origin.MapId, SightPathShape,
+            _squadPhysics.GetPhysicsTransform(uid), direction * (delta.Length() + 0.45f),
+            new QueryFilter { MaskBits = (uint) CollisionGroup.MobMask, IsIgnored = entity => entity == uid },
+            RayCastSystem.RayCastAllCallback);
+        foreach (var hit in hits.Results.OrderBy(hit => hit.Fraction))
         {
             var actor = Comp<MilitiaOperationActorComponent>(uid);
-            if (HologramPrototype(hit.HitEntity, "HolosignSecurity") && actor.BarrierClimbRetryAfter > _timing.CurTime)
+            if (HologramPrototype(hit.Entity, "HolosignSecurity") && actor.BarrierClimbRetryAfter > _timing.CurTime)
             {
                 blocked = true;
                 return false;
             }
-            if (!CanCrossHolographicBarrier(uid, hit.HitEntity))
+            if (!CanCrossHolographicBarrier(uid, hit.Entity))
                 return false;
-            var surface = Comp<ClimbableComponent>(hit.HitEntity);
-            if (!_barrierClimb.CanVault(surface, uid, hit.HitEntity, out _))
+            var surface = Comp<ClimbableComponent>(hit.Entity);
+            if (!_barrierClimb.CanVault(surface, uid, hit.Entity, out _))
                 return false;
-            var center = _transform.GetMapCoordinates(hit.HitEntity);
+            var center = _transform.GetMapCoordinates(hit.Entity);
             var resume = index;
             while (resume < route.Length && resume <= index + 4 && route[resume].IsValid(EntityManager) &&
                    Vector2.Dot(_transform.ToMapCoordinates(route[resume]).Position - center.Position, direction) < 0f)
@@ -88,7 +90,7 @@ public sealed partial class MilitiaOperationSystem
             EndGuard(uid);
             if (TryComp<PhysicsComponent>(uid, out var body) && body.LinearVelocity.LengthSquared() > 0.01f)
                 return true;
-            if (!_barrierClimb.TryClimb(uid, uid, hit.HitEntity, out var action, surface, climbing))
+            if (!_barrierClimb.TryClimb(uid, uid, hit.Entity, out var action, surface, climbing))
                 return false;
             index = resume;
             actor.BarrierClimbAction = action;
@@ -170,10 +172,9 @@ public sealed partial class MilitiaOperationSystem
         if (origin.MapId != target.MapId || delta.LengthSquared() < 0.001f)
             return false;
         var direction = Vector2.Normalize(delta);
-        var ray = new CollisionRay(origin.Position, direction, (int) CollisionGroup.BulletImpassable);
-        if (_squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, delta.Length(),
-                predicate: entity => !HolographicProjectileBarrier(entity) ||
-                    attackMatrices && HologramPrototype(entity, "HolosignBulletShield")).Any())
+        if (!SquadLineClear(origin, target, mask: CollisionGroup.BulletImpassable,
+                ignored: entity => !HolographicProjectileBarrier(entity) ||
+                    attackMatrices && HologramPrototype(entity, "HolosignBulletShield")))
             return true;
         if (spread <= 0f)
             return false;
@@ -182,7 +183,7 @@ public sealed partial class MilitiaOperationSystem
         foreach (var field in _squadLookup.GetEntitiesInRange<ReflectComponent>(origin, 24f))
         {
             if (!HolographicProjectileBarrier(field.Owner) || field.Comp.ReflectProb <= 0f ||
-                !_interaction.InRangeUnobstructed(origin, _transform.GetMapCoordinates(field.Owner), 0, CollisionGroup.Opaque))
+                !SquadLineClear(origin, _transform.GetMapCoordinates(field.Owner), 0, CollisionGroup.Opaque))
                 continue;
             var bounds = _squadPhysics.GetWorldAABB(field.Owner);
             var offset = bounds.Center - origin.Position;
@@ -262,7 +263,7 @@ public sealed partial class MilitiaOperationSystem
         actor.FireBlockedUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
         if (_timing.CurTime < actor.NextFireReposition ||
             actor.SquadOrder is { } order && order.Until > _timing.CurTime &&
-            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate)
+            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout)
             return;
         actor.NextFireReposition = _timing.CurTime + TimeSpan.FromSeconds(1);
         if (actor.SquadPosition.IsValid(EntityManager))

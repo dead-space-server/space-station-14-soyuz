@@ -520,7 +520,9 @@
         priority: 1
         whitelist:
           tags:
-          - CartridgePistol
+          # DS14-Soyuz-start
+          - CartridgeBulletVSK
+          # DS14-Soyuz-end
   - type: Appearance
   - type: CursorOffsetRequiresWield
   - type: EyeCursorOffset

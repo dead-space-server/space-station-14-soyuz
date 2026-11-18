@@ -225,15 +225,7 @@ public sealed class MilitiaOperationWindow : FancyWindow
         cart.AddChild(Section(1, "militia-operation-cart"));
         cart.AddChild(Scroll(_cartLines));
         cart.AddChild(_cartTotal);
-        _buy = Button("militia-operation-buy", () =>
-        {
-            if (_buy.Disabled || _state?.ShopEnabled != true || _purchase != null || Cart.Count == 0)
-                return;
-            _purchase = Guid.NewGuid();
-            _draft.PendingLines = Cart.Select(p => new RepairOrderRewardBuiEntry(p.Key, p.Value)).ToList();
-            SendPurchase();
-            UpdateCart();
-        });
+        _buy = Button("militia-operation-buy", BeginPurchase);
         cart.AddChild(_buy);
         _clearCart = Button("militia-operation-cart-clear", () =>
         {
@@ -666,6 +658,16 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _buy.Disabled = !valid || total == 0 || _state?.ShopEnabled != true || total > _state.Points || _purchase != null;
         _clearCart.Disabled = Cart.Count == 0 || _purchase != null;
         UpdateQuantities();
+    }
+
+    private void BeginPurchase()
+    {
+        if (_buy.Disabled || _state?.ShopEnabled != true || _purchase != null || Cart.Count == 0)
+            return;
+        _purchase = Guid.NewGuid();
+        _draft.PendingLines = Cart.Select(p => new RepairOrderRewardBuiEntry(p.Key, p.Value)).ToList();
+        SendPurchase();
+        UpdateCart();
     }
 
     private void SendPurchase()

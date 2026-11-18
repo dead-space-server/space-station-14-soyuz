@@ -11,20 +11,6 @@
     state: cassette
   - type: Item
     size: Small
+  - type: ShuttleDestinationCoordinates
+    destination: null
   - type: Godmode
-- type: entity
-  id: EventHomewardNavigationCassetteSpawner
-  parent: MarkerBase
-  name: подготовка навигационной кассеты НАВ-17
-  suffix: Обратный путь, поставить на карте ГШ
-  categories:
-  - Spawner
-  components:
-  - type: Sprite
-    layers:
-    - state: green
-    - sprite: _DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/navigation.rsi
-      state: cassette
-  - type: FTLDiskSpawner
-    diskPrototype: EventHomewardNavigationCassette
-    casePrototype: DiskCase

@@ -390,7 +390,7 @@ public sealed partial class MilitiaOperationSystem
             return;
         actor.UnreachableMedics[order.Target] = _timing.CurTime + TimeSpan.FromSeconds(10);
         actor.SquadOrder = null;
-        _nextSquadUpdate = _timing.CurTime;
+        _urgentSquadOrders.Add(uid);
     }
 
     private bool InTreatmentArea(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor)

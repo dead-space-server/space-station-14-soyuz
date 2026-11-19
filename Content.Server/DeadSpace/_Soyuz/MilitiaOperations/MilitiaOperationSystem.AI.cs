@@ -151,7 +151,7 @@ public sealed partial class MilitiaOperationSystem
             throw new InvalidOperationException("Militia actor has no backpack or body armor.");
         actor.Backpack = backpack.Value;
         actor.Webbing = webbing.Value;
-        var weapon = profile.Weapons[random.Next(profile.Weapons.Count)];
+        var weapon = RandomWeapon(profile, random);
         if (weapon.MinimumMagazines < 0 || weapon.MaximumMagazines < weapon.MinimumMagazines || weapon.MaximumMagazines > 6)
             throw new InvalidOperationException($"Invalid militia ammunition allowance in {profile.ID}.");
         actor.Weapon = Spawn(weapon.Weapon, Transform(uid).Coordinates);
@@ -276,8 +276,8 @@ public sealed partial class MilitiaOperationSystem
             RememberWindowThreat(actor.Owner, actor.Comp, incoming);
         actor.Comp.ThreatScanValidUntil = TimeSpan.Zero;
         _actorNpcs.KeepMilitiaCombatActive(actor.Owner);
-        _nextSquadUpdate = _timing.CurTime;
-        _nextSquadSafety = _timing.CurTime;
+        _urgentSquadOrders.Add(actor.Owner);
+        _urgentThreatScans.Add(actor.Owner);
         SuppressBarrierClimb(actor);
         var medics = EntityQueryEnumerator<MilitiaOperationActorComponent>();
         while (medics.MoveNext(out var uid, out var medic))
@@ -341,6 +341,10 @@ public sealed partial class MilitiaOperationSystem
     private void OnActorShutdown(Entity<MilitiaOperationActorComponent> actor, ref ComponentShutdown args)
     {
         _squadHostileQueries.Clear();
+        _urgentThreatScans.Remove(actor.Owner);
+        _urgentSquadOrders.Remove(actor.Owner);
+        _scannedThreats.Remove(actor.Owner);
+        _squadCoverRadii.Remove(actor.Owner);
         EndMedicalRefill(actor.Owner);
         EndRoutePry(actor.Owner);
         CancelBarrierClimb(actor.Owner);
@@ -378,7 +382,8 @@ public sealed partial class MilitiaOperationSystem
                 TrackMedicalExposure(uid, actor);
             if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) ||
                 !ValidPatient(uid, actor.Patient, actor, allowCombatDash: actor.HealingDoAfter == null) ||
-                checkRoute && actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
+                (checkRoute || _scannedThreats.Contains(uid) || _scannedThreats.Contains(actor.Patient)) &&
+                    actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
                 actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)) ||
                 actor.ReloadUntil != null && ReloadExposedToFire(uid, actor))
                 stop.Add(uid);
@@ -724,14 +729,19 @@ public sealed partial class MilitiaOperationSystem
             ? actor.Weapon : OwnsItem(uid, actor.Backup) ? actor.Backup : EntityUid.Invalid;
 
     private bool NeedsMeleeCounter(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
+        => NeedsMeleeCounter(uid, actor, target, out _);
+
+    private bool NeedsMeleeCounter(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target, out bool armedThreat)
     {
-        if (!OwnsItem(uid, actor.Backup) || !TryComp<MeleeWeaponComponent>(actor.Backup, out var melee) ||
-            !SquadVisible(uid, target, melee.Range) || !_interaction.InRangeUnobstructed(uid, target, melee.Range) ||
-            !Transform(uid).Coordinates.TryDistance(EntityManager, Transform(target).Coordinates, out var distance) || distance > melee.Range)
+        armedThreat = false;
+        var active = actor.MeleeCounterTarget == target && actor.MeleeCounterUntil > _timing.CurTime;
+        var range = active ? 4.5f : 3f;
+        if (!OwnsItem(uid, actor.Backup) || !HasComp<MeleeWeaponComponent>(actor.Backup) ||
+            !SquadVisible(uid, target, range) || !SquadLineClear(uid, target, range) ||
+            !OnDefensiveGrid(uid, Transform(target).Coordinates))
             return false;
-        if (actor.MeleeCounterTarget == target && actor.MeleeCounterUntil > _timing.CurTime)
-            return true;
-        return _hands.EnumerateHeld(target).Any(IsMeleeCounterItem);
+        armedThreat = _hands.EnumerateHeld(target).Any(IsMeleeCounterItem);
+        return active || armedThreat;
     }
 
     private bool IsMeleeCounterItem(EntityUid item)
@@ -970,6 +980,8 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates RouteProgressTarget;
     public float RouteProgressDistance;
     public TimeSpan RouteProgressAt;
+    public EntityUid? OpeningRouteDoor;
+    public TimeSpan OpeningRouteDoorUntil;
     public EntityCoordinates RetreatOrigin;
     public bool RetreatCovered;
     public bool ExposedToThreat;

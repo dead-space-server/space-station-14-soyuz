@@ -67,7 +67,6 @@
     - MagazineGurza
     - MagazinePistolHighCapacityincendiary
     - MagazinePistolHighCapacityUranium
-    - MagazinePistolSilver
     - MagazinePistolTungsten
     MagazineEagle:
     - MagazineEagle
@@ -79,7 +78,6 @@
     - MagazinePistolSubMachineGun
     - MagazinePistolSubMachineGunIncendiary
     - MagazinePistolSubMachineGunUranium
-    - MagazinePistolSubMachineGunSilver
     - MagazinePistolSubMachineGunTungsten
     - MagazinePistolSubMachineGunExtended
     - MagazinePistolSubMachineGunExtendedIncendiary
@@ -88,7 +86,6 @@
     - MagazineRifle
     - MagazineRifleIncendiary
     - MagazineRifleUranium
-    - MagazineRifleSilver
     - MagazineRifleTungsten
     - ADTExtMagazineRifle
     - ADTExtMagazineRifleIncendiary
@@ -100,7 +97,6 @@
     - MagazineRifle
     - MagazineRifleIncendiary
     - MagazineRifleUranium
-    - MagazineRifleSilver
     - MagazineRifleTungsten
     MagazineCarbineSKS:
     - MagazineCarbineSKS
@@ -114,7 +110,6 @@
     - MagazineLightRifle
     - MagazineLightRifleIncendiary
     - MagazineLightRifleUranium
-    - MagazineLightRifleSilver
     - MagazineLightRifleTungsten
     - MagazineLightRifleExtended
     MagazineHristov:
@@ -123,6 +118,16 @@
     MagazineRifleASH:
     - MagazineRifleASH
     - MagazineRifleASHMagnumAP
+    MagazineLightRifleAsVal:
+    - MagazineLightRifleAsVal
+    - MagazineLightRifleAsValIncendiary
+    - MagazineLightRifleAsValUranium
+    - MagazineLightRifleAsValTungsten
+    MagazineLightRifleVSS:
+    - MagazineLightRifleVSS
+    - MagazineLightRifleVSSIncendiary
+    - MagazineLightRifleVSSUranium
+    - MagazineLightRifleVSSTungsten
   meleeWeapons:
   - CombatKnife
   - EnergySword
@@ -151,8 +156,6 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   weapons:
@@ -161,10 +164,12 @@
     minimumMagazines: 4
     maximumMagazines: 4
   - weapon: WeaponPistolDesertEagle
+    weight: 0.35
     magazine: MagazineEagle
     minimumMagazines: 1
     maximumMagazines: 1
   - weapon: WeaponPistolGoldDesertEagle
+    weight: 0.15
     magazine: MagazineEagleGold
     minimumMagazines: 1
     maximumMagazines: 1
@@ -192,6 +197,22 @@
     magazine: MagazineCarbineSKS
     minimumMagazines: 4
     maximumMagazines: 4
+  - weapon: WeaponRifleAsValSoyuz
+    magazine: MagazineLightRifleAsVal
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleVSS
+    magazine: MagazineLightRifleVSS
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleSG336
+    magazine: MagazineLightRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleAEK
+    magazine: MagazineLightRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
 
 - type: militiaEquipment
   id: MilitiaEquipmentAssault
@@ -205,8 +226,6 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   - suit: ADTClothingOuterHardsuitCybersunBodyGuard
@@ -294,8 +313,6 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   weapons:

@@ -1,7 +1,6 @@
 militia-gear-locked = Система идентификации пользователя заблокировала снаряжение.
 militia-gear-examine = Оснащено системой идентификации оперативников «Рассвета». Подлежит передаче в хранилище изъятого вооружения.
 militia-custody-title = Приём изъятого вооружения
-militia-custody-subtitle = Милиция СССП / Следственное управление
 militia-custody-balance = Баланс подразделения: { $points } баллов. Репутация: { $reputation }
 militia-custody-count = Приёмный отсек: { $count } / { $capacity }
 militia-custody-total = Начисление: баллы - { $points }, репутация - { $reputation }

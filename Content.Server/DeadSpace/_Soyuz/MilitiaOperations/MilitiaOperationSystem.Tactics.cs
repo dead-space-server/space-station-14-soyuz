@@ -113,7 +113,10 @@ public sealed partial class MilitiaOperationSystem
 
     private void EndRoutePry(EntityUid uid)
     {
-        if (!TryComp<MilitiaOperationActorComponent>(uid, out var actor) || actor.DoorPry is not { } id)
+        if (!TryComp<MilitiaOperationActorComponent>(uid, out var actor))
+            return;
+        actor.OpeningRouteDoor = null;
+        if (actor.DoorPry is not { } id)
             return;
         actor.DoorPry = null;
         if (_doAfter.GetStatus(id) == DoAfterStatus.Running)

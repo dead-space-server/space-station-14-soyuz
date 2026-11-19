@@ -74,8 +74,12 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _squadStops.Clear();
             _squadInterrupts.Clear();
             _squadThrowers.Clear();
+            _urgentThreatScans.Clear();
+            _urgentSquadOrders.Clear();
+            _scannedThreats.Clear();
+            _squadCoverRadii.Clear();
             _squadHostileQueries.Clear();
-            _reuseSquadHostiles = false;
+            _reuseSquadQueries = false;
             _treatmentReservations.Clear();
             _hologramAncestors.Clear();
             _projectileMasks.Clear();
@@ -110,7 +114,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
     {
         base.Update(frameTime);
         UpdateCustody();
-        _reuseSquadHostiles = true;
+        _reuseSquadQueries = true;
         try
         {
             var scan = UpdateSquadSafety();
@@ -119,7 +123,9 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         }
         finally
         {
-            _reuseSquadHostiles = false;
+            _reuseSquadQueries = false;
+            _scannedThreats.Clear();
+            _squadCoverRadii.Clear();
             _squadHostileQueries.Clear();
         }
         if (_timing.CurTime < _nextUpdate)

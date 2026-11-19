@@ -16,6 +16,25 @@ public sealed partial class MilitiaOperationSystem
 {
     [Dependency] private readonly EntityWhitelistSystem _magazineWhitelist = default!;
 
+    private static MilitiaWeaponSet RandomWeapon(MilitiaEquipmentPrototype profile, Random random)
+    {
+        double total = 0;
+        foreach (var weapon in profile.Weapons)
+        {
+            if (!float.IsFinite(weapon.Weight) || weapon.Weight <= 0)
+                throw new InvalidOperationException($"Invalid weapon weight in {profile.ID}.");
+            total += weapon.Weight;
+        }
+        var roll = random.NextDouble() * total;
+        foreach (var weapon in profile.Weapons)
+        {
+            roll -= weapon.Weight;
+            if (roll < 0)
+                return weapon;
+        }
+        return profile.Weapons[^1];
+    }
+
     private static EntProtoId RandomMagazine(MilitiaEquipmentPrototype profile, MilitiaWeaponSet weapon, Random random)
         => profile.MagazineVariants.TryGetValue(weapon.Magazine, out var choices) && choices.Count > 0
             ? choices[random.Next(choices.Count)] : weapon.Magazine;

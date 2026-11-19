@@ -263,12 +263,12 @@ public sealed partial class MilitiaOperationSystem
         actor.FireBlockedUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
         if (_timing.CurTime < actor.NextFireReposition ||
             actor.SquadOrder is { } order && order.Until > _timing.CurTime &&
-            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout)
+            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout or MilitiaSquadTask.Melee)
             return;
         actor.NextFireReposition = _timing.CurTime + TimeSpan.FromSeconds(1);
         if (actor.SquadPosition.IsValid(EntityManager))
             actor.RejectedSquadPositions[actor.SquadPosition] = _timing.CurTime + TimeSpan.FromSeconds(2);
         actor.SquadOrder = null;
-        _nextSquadUpdate = _timing.CurTime;
+        _urgentSquadOrders.Add(uid);
     }
 }

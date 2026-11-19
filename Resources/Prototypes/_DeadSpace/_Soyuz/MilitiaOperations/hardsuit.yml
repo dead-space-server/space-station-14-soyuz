@@ -1,5 +1,5 @@
 - type: entity
-  parent: ClothingOuterHardsuitPoliceBeta1
+  parent: ClothingOuterHardsuitBase
   id: ClothingOuterHardsuitMilitiaOperation
   name: скафандр оперативной группы «Рубеж»
   description: Штурмовой скафандр милиции СССП. Усиленная броня защищает при досмотре опасных судов, а фиксаторы перчаток удерживают предметы в руках при падении и оглушении. Фиксаторы не мешают добровольно отпустить оружие и отключаются при критическом состоянии владельца.
@@ -8,8 +8,10 @@
     sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/militia_operation.rsi
   - type: Clothing
     sprite: _DeadSpace/_Soyuz/Clothing/OuterClothing/Hardsuits/militia_operation.rsi
-  - type: Construction
-    remove: true
+  - type: Item
+    size: Huge
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
   - type: MilitiaWeaponRetention
   - type: ClothingSpeedModifier
     walkModifier: 0.90

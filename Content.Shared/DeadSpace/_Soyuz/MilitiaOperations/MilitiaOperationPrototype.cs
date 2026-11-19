@@ -68,6 +68,7 @@ public sealed partial class MilitiaWeaponSet
 {
     [DataField(required: true)] public EntProtoId Weapon;
     [DataField(required: true)] public EntProtoId Magazine;
+    [DataField] public float Weight = 1f;
     [DataField] public int MinimumMagazines = 4;
     [DataField] public int MaximumMagazines = 4;
 }

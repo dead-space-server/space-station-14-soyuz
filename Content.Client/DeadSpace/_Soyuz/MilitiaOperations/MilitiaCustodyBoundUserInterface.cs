@@ -68,7 +68,6 @@ public sealed class MilitiaCustodyWindow : FancyWindow
         var title = Text(Loc.GetString("militia-custody-title"), Accent);
         title.StyleClasses.Add("LabelHeading");
         heading.AddChild(title);
-        heading.AddChild(Text(Loc.GetString("militia-custody-subtitle"), Muted));
         header.AddChild(heading);
         root.AddChild(Surface(header));
         _balance.FontColorOverride = Ink;

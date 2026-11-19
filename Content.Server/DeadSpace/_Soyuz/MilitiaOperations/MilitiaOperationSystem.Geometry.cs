@@ -16,6 +16,27 @@ public sealed partial class MilitiaOperationSystem
     private static readonly PhysShapeCircle SightPathShape = new(0.001f);
     private static readonly Vector2[] DiagonalPositionOffsets =
         [new(-0.3f, 0.3f), new(0.3f, -0.3f), new(-0.3f, -0.3f), new(0.3f, 0.3f)];
+    private readonly Dictionary<EntityUid, float> _squadCoverRadii = new();
+
+    private bool SquadCoverExposed(EntityUid uid, MapCoordinates position, MapCoordinates threat, float range = 0f)
+    {
+        if (CoverExposed(position, threat, range))
+            return true;
+        var delta = threat.Position - position.Position;
+        if (position.MapId != threat.MapId || delta.LengthSquared() < 0.0001f ||
+            range > 0f && delta.LengthSquared() > range * range)
+            return false;
+        if (!_reuseSquadQueries || !_squadCoverRadii.TryGetValue(uid, out var radius))
+        {
+            var bounds = _squadPhysics.GetWorldAABB(uid);
+            radius = MathF.Max(bounds.Width, bounds.Height) * 0.5f;
+            if (_reuseSquadQueries)
+                _squadCoverRadii[uid] = radius;
+        }
+        var side = Vector2.Normalize(new Vector2(-delta.Y, delta.X)) * radius;
+        return CoverExposed(new MapCoordinates(position.Position + side, position.MapId), threat) ||
+               CoverExposed(new MapCoordinates(position.Position - side, position.MapId), threat);
+    }
 
     private bool SquadLineClear(MapCoordinates origin, MapCoordinates target, float range = 0f,
         CollisionGroup mask = SquadSight, Func<EntityUid, bool>? ignored = null)

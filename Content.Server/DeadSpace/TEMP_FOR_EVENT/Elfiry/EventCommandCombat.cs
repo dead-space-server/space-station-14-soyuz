@@ -12,6 +12,7 @@ using Content.Shared.DeadSpace.TEMP_FOR_EVENT.Elfiry;
 using Content.Shared.Physics;
 using Content.Shared.Standing;
 using Content.Shared.Doors.Components;
+using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;

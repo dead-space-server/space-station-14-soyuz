@@ -32,7 +32,6 @@ namespace Content.IntegrationTests.Tests
     {
         private const bool SkipTestMaps = true;
         private const string TestMapsPath = "/Maps/Test/";
-        private const string TemporaryEventMapsPath = "/Maps/_DeadSpace/TEMP_FOR_EVENT/"; // DS14-Soyuz
 
         private static readonly string[] NoSpawnMaps =
         {
@@ -425,9 +424,7 @@ namespace Content.IntegrationTests.Tests
         }
 
         [Test, TestCaseSource(nameof(GameMaps))]
-        public Task GameMapsLoadableTest(string mapProto) => CheckGameMap(mapProto); // DS14-Soyuz
-
-        private static async Task CheckGameMap(string mapProto) // DS14-Soyuz
+        public async Task GameMapsLoadableTest(string mapProto)
         {
             await using var pair = await PoolManager.GetServerClient(new PoolSettings
             {
@@ -444,7 +441,6 @@ namespace Content.IntegrationTests.Tests
             var shuttleSystem = entManager.EntitySysManager.GetEntitySystem<ShuttleSystem>();
             var cfg = server.ResolveDependency<IConfigurationManager>();
             Assert.That(cfg.GetCVar(CCVars.GridFill), Is.False);
-            var gameMap = protoManager.Index<GameMapPrototype>(mapProto); // DS14-Soyuz
 
             await server.WaitPost(() =>
             {
@@ -452,7 +448,7 @@ namespace Content.IntegrationTests.Tests
                 try
                 {
                     var opts = DeserializationOptions.Default with { InitializeMaps = true };
-                    ticker.LoadGameMap(gameMap, out mapId, opts); // DS14-Soyuz
+                    ticker.LoadGameMap(protoManager.Index<GameMapPrototype>(mapProto), out mapId, opts);
                 }
                 catch (Exception ex)
                 {
@@ -540,16 +536,7 @@ namespace Content.IntegrationTests.Tests
 
                     jobs.ExceptWith(spawnPoints);
 
-                    // DS14-Soyuz-start
-                    var hasUniversalSpawn = jobs.Count > 0 && IsTemporaryEventMap(gameMap) &&
-                        entManager.EntityQuery<SpawnPointComponent, TransformComponent>().Any(point =>
-                            point.Item1.SpawnType == SpawnPointType.Job && point.Item1.Job == null &&
-                            !point.Item1.GeneralStaffRole &&
-                            memberQuery.TryComp(point.Item2.GridUid, out var member) && member.Station == station);
-
-                    if (!hasUniversalSpawn)
-                        Assert.That(jobs, Is.Empty, $"There is no spawnpoints for {string.Join(", ", jobs)} on {mapProto}.");
-                    // DS14-Soyuz-end
+                    Assert.That(jobs, Is.Empty, $"There is no spawnpoints for {string.Join(", ", jobs)} on {mapProto}.");
                 }
 
                 try
@@ -597,33 +584,17 @@ namespace Content.IntegrationTests.Tests
             var server = pair.Server;
             var protoMan = server.ResolveDependency<IPrototypeManager>();
 
-            // DS14-Soyuz-start
-            var maps = protoMan.EnumeratePrototypes<GameMapPrototype>()
+            var gameMaps = protoMan.EnumeratePrototypes<GameMapPrototype>()
                 .Where(x => !pair.IsTestPrototype(x) && !GameMapsExcludedFromTests.Contains(x.ID)) // DS14: temp exclude broken map file's
-                .ToArray();
-            var temporaryMaps = maps.Where(IsTemporaryEventMap).Select(map => map.ID).ToArray();
-            var gameMaps = maps
                 .Select(x => x.ID)
                 .ToHashSet();
-            gameMaps.ExceptWith(temporaryMaps);
-            // DS14-Soyuz-end
 
             Assert.That(gameMaps.Remove(PoolManager.TestMap));
 
             Assert.That(gameMaps, Is.EquivalentTo(GameMaps.ToHashSet()), "Game map prototype missing from test cases.");
 
             await pair.CleanReturnAsync();
-
-            // DS14-Soyuz-start
-            foreach (var map in temporaryMaps)
-                await CheckGameMap(map);
-            // DS14-Soyuz-end
         }
-
-        // DS14-Soyuz-start
-        private static bool IsTemporaryEventMap(GameMapPrototype map)
-            => map.MapPath.ToString().StartsWith(TemporaryEventMapsPath, StringComparison.Ordinal);
-        // DS14-Soyuz-end
 
         [Test]
         public async Task NonGameMapsLoadableTest()

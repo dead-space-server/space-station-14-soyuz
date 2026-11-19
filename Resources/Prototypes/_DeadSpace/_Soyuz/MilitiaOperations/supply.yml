@@ -27,13 +27,6 @@
   minimumShopLevel: 3
 
 - type: repairReward
-  id: MilitiaSupplyWeaponRifleAEK
-  entity: WeaponRifleAEK
-  cost: 1000
-  maxCount: 2
-  minimumShopLevel: 3
-
-- type: repairReward
   id: MilitiaSupplyWeaponRiflehkg3a1
   entity: WeaponRiflehkg3a1
   cost: 750
@@ -41,23 +34,9 @@
   minimumShopLevel: 3
 
 - type: repairReward
-  id: MilitiaSupplyWeaponRifleM41Navy
-  entity: WeaponRifleM41Navy
-  cost: 650
-  maxCount: 2
-  minimumShopLevel: 1
-
-- type: repairReward
   id: MilitiaSupplyWeaponRifleScarL
   entity: WeaponRifleScarL
   cost: 750
-  maxCount: 2
-  minimumShopLevel: 2
-
-- type: repairReward
-  id: MilitiaSupplyWeaponRifleSCARAB
-  entity: WeaponRifleSCARAB
-  cost: 850
   maxCount: 2
   minimumShopLevel: 2
 
@@ -169,14 +148,6 @@
   minimumShopLevel: 3
 
 - type: repairReward
-  id: MilitiaSupplySoyuzMagazineRifleNavy
-  entity: SoyuzMagazineRifleNavy
-  shopName: militia-supply-soyuzmagazineriflenavy
-  cost: 80
-  maxCount: 10
-  minimumShopLevel: 1
-
-- type: repairReward
   id: MilitiaSupplyMagazineRifle
   entity: MagazineRifle
   shopName: militia-supply-magazinerifle
@@ -280,13 +251,6 @@
   minimumShopLevel: 3
 
 - type: repairReward
-  id: MilitiaSupplyMilitiaMagazineBoxNavy
-  entity: MilitiaMagazineBoxNavy
-  cost: 70
-  maxCount: 6
-  minimumShopLevel: 1
-
-- type: repairReward
   id: MilitiaSupplyMagazineBoxRifle
   entity: MagazineBoxRifle
   cost: 75
@@ -350,11 +314,8 @@
   - MilitiaSupplyPistolAmmo
   - MilitiaSupplyFlashbang
   - MilitiaSupplyCombatMedkit
-  - MilitiaSupplyWeaponRifleAEK
   - MilitiaSupplyWeaponRiflehkg3a1
-  - MilitiaSupplyWeaponRifleM41Navy
   - MilitiaSupplyWeaponRifleScarL
-  - MilitiaSupplyWeaponRifleSCARAB
   - MilitiaSupplyWeaponRifleSG336
   - MilitiaSupplyWeaponRifleLecterXL8
   - MilitiaSupplyWeaponRifleAk305
@@ -370,7 +331,6 @@
   - MilitiaSupplyWeaponSniperSVD
   - MilitiaSupplyMagazineLightRifle
   - MilitiaSupplyMagazineCarbineSKS
-  - MilitiaSupplySoyuzMagazineRifleNavy
   - MilitiaSupplyMagazineRifle
   - MilitiaSupplyMagazineRifleSCARAB
   - MilitiaSupplyMagazineLightRifleExtended
@@ -384,7 +344,6 @@
   - MilitiaSupplyMagazineAntiMaterielSV
   - MilitiaSupplyMagazineMagnumSVD
   - MilitiaSupplyMagazineBoxLightRifle
-  - MilitiaSupplyMilitiaMagazineBoxNavy
   - MilitiaSupplyMagazineBoxRifle
   - MilitiaSupplyMilitiaMagazineBoxSCARAB
   - MilitiaSupplyMagazineBoxMagnum

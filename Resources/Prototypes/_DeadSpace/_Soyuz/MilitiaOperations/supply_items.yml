@@ -1,17 +1,4 @@
 - type: entity
-  parent: MagazineBoxCaselessRifle
-  id: MilitiaMagazineBoxNavy
-  name: коробка патронов Navy
-  description: Коробка с 60 штатными безгильзовыми патронами для M41 Navy.
-  components:
-  - type: BallisticAmmoProvider
-    proto: CartridgeCaselessRifleNavy
-    capacity: 60
-    whitelist:
-      tags:
-      - CartridgeCaselessRifleNavy
-
-- type: entity
   parent: MagazineBoxRifle
   id: MilitiaMagazineBoxSCARAB
   name: коробка патронов SCARAB (6,8х51 мм)

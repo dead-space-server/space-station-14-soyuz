@@ -57,6 +57,7 @@
   - type: EventSquadUnit
   - type: MilitiaOperationActor
     equipment: ElfiryEventEquipmentScout
+    defensiveRange: 48
   - type: HTN
     rootTask:
       task: ElfiryEventCombatCompound
@@ -69,6 +70,7 @@
   - type: EventSquadUnit
   - type: MilitiaOperationActor
     equipment: ElfiryEventEquipmentAssault
+    defensiveRange: 48
   - type: HTN
     rootTask:
       task: ElfiryEventCombatCompound
@@ -81,6 +83,7 @@
   - type: EventSquadUnit
   - type: MilitiaOperationActor
     equipment: ElfiryEventEquipmentGuard
+    defensiveRange: 48
   - type: HTN
     rootTask:
       task: ElfiryEventCombatCompound
@@ -93,6 +96,7 @@
   - type: EventSquadUnit
   - type: MilitiaOperationActor
     equipment: ElfiryEventEquipmentMedic
+    defensiveRange: 48
   - type: HTN
     rootTask:
       task: ElfiryEventCombatCompound

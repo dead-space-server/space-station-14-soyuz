@@ -11,6 +11,7 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
+    private const float RangedResponseRange = 40f;
     [Dependency] private readonly NPCSystem _actorNpcs = default!;
 
     private MapCoordinates? DamageSourcePosition(EntityUid uid, EntityUid? source)
@@ -32,19 +33,19 @@ public sealed partial class MilitiaOperationSystem
                 threat = new MapCoordinates(position.Position - Vector2.Normalize(velocity) * actor.ThreatRange, position.MapId);
             }
         }
-        AlertRangedActor((args.Target, actor), threat);
+        AlertRangedActor((args.Target, actor), threat, args.Shooter ?? projectile.Comp.Weapon, hit: true);
     }
 
     private void OnActorHitscanHit(Entity<MilitiaOperationActorComponent> actor, ref HitscanRaycastStrikeEvent args)
     {
-        var threat = DamageSourcePosition(actor.Owner, args.Data.Shooter) ?? DamageSourcePosition(actor.Owner, args.Data.Gun) ??
-            (HitscanPath(args.Data, out var origin, out _) ? origin : (MapCoordinates?) null);
+        var threat = HitscanPath(args.Data, out var origin, out _) ? origin :
+            DamageSourcePosition(actor.Owner, args.Data.Shooter) ?? DamageSourcePosition(actor.Owner, args.Data.Gun);
         if (threat == null && args.Data.ShotDirection.LengthSquared() > 0.01f)
         {
             var position = _transform.GetMapCoordinates(actor.Owner);
             threat = new MapCoordinates(position.Position - Vector2.Normalize(args.Data.ShotDirection) * actor.Comp.ThreatRange, position.MapId);
         }
-        AlertRangedActor(actor, threat);
+        AlertRangedActor(actor, threat, args.Data.Shooter ?? args.Data.Gun, hit: true);
     }
 
     private bool HitscanPath(HitscanRaycastFiredData data, out MapCoordinates origin, out MapCoordinates end)
@@ -69,7 +70,7 @@ public sealed partial class MilitiaOperationSystem
         return true;
     }
 
-    private void AlertRangedActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat)
+    private void AlertRangedActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat, EntityUid? attacker, bool hit = false)
     {
         AlertActor(actor, threat);
         if (!AvailableActor(actor.Owner, out _) || threat is not { } source)
@@ -77,6 +78,11 @@ public sealed partial class MilitiaOperationSystem
         var position = _transform.GetMapCoordinates(actor.Owner);
         if (position.MapId != source.MapId)
             return;
+        if (attacker is { } hostile && SquadThreat(actor.Owner, hostile))
+        {
+            actor.Comp.RangedAttacker = hostile;
+            actor.Comp.RangedAttackerUntil = _timing.CurTime + actor.Comp.ContactMemory;
+        }
         var sameGrid = Transform(actor.Owner).GridUid is { } grid &&
             _turf.GetTileRef(_transform.ToCoordinates(source))?.GridUid == grid;
         if (Vector2.DistanceSquared(position.Position, source.Position) <= actor.Comp.SquadVision * actor.Comp.SquadVision &&
@@ -84,7 +90,11 @@ public sealed partial class MilitiaOperationSystem
             !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, ShotCollisionMask(actor.Comp.Weapon), 0f))
             return;
         RememberWindowThreat(actor.Owner, actor.Comp, source);
-        actor.Comp.RangedDangerPosition = Transform(actor.Owner).Coordinates;
+        if (hit)
+        {
+            actor.Comp.LastRangedImpact = Transform(actor.Owner).Coordinates;
+            actor.Comp.LastRangedImpactUntil = _timing.CurTime + TimeSpan.FromSeconds(0.75);
+        }
         actor.Comp.RangedDangerUntil = actor.Comp.WindowHoldUntil;
         actor.Comp.WindowExposed = true;
         actor.Comp.ExposedToThreat = true;
@@ -116,8 +126,7 @@ public sealed partial class MilitiaOperationSystem
                 continue;
             var closest = new MapCoordinates(origin.Position + delta * along, origin.MapId);
             if (Vector2.DistanceSquared(position.Position, closest.Position) <= 1.5625f && CoverExposed(position, closest))
-                AlertRangedActor(actor, DamageSourcePosition(actor.Owner, args.Data.Shooter) ??
-                    DamageSourcePosition(actor.Owner, args.Data.Gun) ?? origin);
+                AlertRangedActor(actor, origin, args.Data.Shooter ?? args.Data.Gun);
         }
     }
 }

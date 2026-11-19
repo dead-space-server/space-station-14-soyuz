@@ -10,7 +10,7 @@ namespace Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 public sealed partial class MilitiaOperativeComponent : Component;
 
 [Serializable, NetSerializable]
-public enum MilitiaContrabandKind : byte { Armor, Helmet, Boots, Firearm, Melee }
+public enum MilitiaContrabandKind : byte { Armor, Helmet, Boots, Firearm, Melee, Hypospray }
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class MilitiaRestrictedGearComponent : Component

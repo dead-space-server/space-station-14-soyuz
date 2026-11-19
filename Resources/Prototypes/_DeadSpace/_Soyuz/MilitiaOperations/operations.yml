@@ -172,6 +172,7 @@
     Armor: { points: 300, reputation: 10 }
     Helmet: { points: 200, reputation: 10 }
     Boots: { points: 100, reputation: 10 }
+    Hypospray: { points: 150, reputation: 10 }
   cooldown: 5m
   medic: MilitiaOperationRaiderMedic
 
@@ -225,8 +226,8 @@
   map: /Maps/_Soyuz/MilitiaOperations/bigshiprassvet.yml
   points: 1800
   reputation: 300
-  minimumCrew: 10
-  maximumCrew: 15
+  minimumCrew: 15
+  maximumCrew: 20
   duration: 90m
   medics: 3
 

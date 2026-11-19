@@ -8,6 +8,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Clothing.Components;
 using Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
+using Content.Shared.Fluids.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Interaction;
 using Content.Shared.Item;
@@ -58,6 +59,11 @@ public sealed partial class MilitiaOperationSystem
                 : item == actor.Backup ? MilitiaContrabandKind.Melee : null;
             if (HasComp<MagbootsComponent>(item))
                 kind = MilitiaContrabandKind.Boots;
+            else if (actor.Medic && HasComp<InjectorComponent>(item) && actor.Treatments.Contains(item))
+            {
+                kind = MilitiaContrabandKind.Hypospray;
+                RemComp<SpillableComponent>(item);
+            }
             else if (TryComp<ClothingComponent>(item, out var clothing) && HasComp<ArmorComponent>(item))
             {
                 if ((clothing.Slots & SlotFlags.HEAD) != 0)

@@ -1,15 +1,20 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Events;
 using Content.Shared.Examine;
+using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item.ItemToggle.Components;
+using Content.Shared.Mind;
 using Content.Shared.Popups;
 using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
+using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
@@ -17,6 +22,7 @@ namespace Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 public sealed class MilitiaRestrictedGearSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly SharedMindSystem _minds = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -30,10 +36,15 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ItemToggleActivateAttemptEvent>(OnActivate);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ThrowItemAttemptEvent>(OnThrow);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<MilitiaRestrictedGearComponent, UseInHandEvent>(OnUseHypospray, before: [typeof(InjectorSystem)]);
+        SubscribeLocalEvent<MilitiaRestrictedGearComponent, AfterInteractEvent>(OnInteractHypospray, before: [typeof(InjectorSystem)]);
+        SubscribeLocalEvent<MilitiaRestrictedGearComponent, InjectorDoAfterEvent>(OnHyposprayDoAfter, before: [typeof(InjectorSystem)]);
     }
 
     private bool Allowed(EntityUid? user, MilitiaRestrictedGearComponent gear)
-        => !gear.Surrendered && user is { } uid && HasComp<MilitiaOperativeComponent>(uid);
+        => !gear.Surrendered && user is { } uid && HasComp<MilitiaOperativeComponent>(uid) &&
+           (gear.Kind != MilitiaContrabandKind.Hypospray ||
+            !HasComp<ActorComponent>(uid) && !_minds.TryGetMind(uid, out _, out _));
 
     private void OnEquip(Entity<MilitiaRestrictedGearComponent> gear, ref BeingEquippedAttemptEvent args)
     {
@@ -66,10 +77,40 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
 
     private void OnUse(Entity<MilitiaRestrictedGearComponent> gear, ref GettingUsedAttemptEvent args)
     {
-        if (Allowed(args.User, gear.Comp))
+        // A hypospray can still be handed to the cabinet. Block its injector actions instead.
+        if (gear.Comp.Kind == MilitiaContrabandKind.Hypospray || Allowed(args.User, gear.Comp))
             return;
         args.Cancel();
         ShowDeniedPopup(gear, args.User);
+    }
+
+    private bool BlockHypospray(Entity<MilitiaRestrictedGearComponent> gear, EntityUid user)
+    {
+        if (gear.Comp.Kind != MilitiaContrabandKind.Hypospray || Allowed(user, gear.Comp))
+            return false;
+        ShowDeniedPopup(gear, user);
+        return true;
+    }
+
+    private void OnUseHypospray(Entity<MilitiaRestrictedGearComponent> gear, ref UseInHandEvent args)
+    {
+        if (!args.Handled && BlockHypospray(gear, args.User))
+        {
+            args.Handled = true;
+            args.ApplyDelay = false;
+        }
+    }
+
+    private void OnInteractHypospray(Entity<MilitiaRestrictedGearComponent> gear, ref AfterInteractEvent args)
+    {
+        if (!args.Handled && BlockHypospray(gear, args.User))
+            args.Handled = true;
+    }
+
+    private void OnHyposprayDoAfter(Entity<MilitiaRestrictedGearComponent> gear, ref InjectorDoAfterEvent args)
+    {
+        if (!args.Cancelled && !args.Handled && BlockHypospray(gear, args.Args.User))
+            args.Handled = true;
     }
 
     private void ShowDeniedPopup(Entity<MilitiaRestrictedGearComponent> gear, EntityUid user)

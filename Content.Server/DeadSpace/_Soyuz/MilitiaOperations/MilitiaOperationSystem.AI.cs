@@ -989,8 +989,9 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates WindowSafePosition;
     public TimeSpan WindowHoldUntil;
     public readonly Dictionary<EntityCoordinates, TimeSpan> WindowThreats = new();
-    public EntityCoordinates RangedDangerPosition;
     public TimeSpan RangedDangerUntil;
+    public EntityUid RangedAttacker;
+    public TimeSpan RangedAttackerUntil;
     public TimeSpan ThreatScanValidUntil;
     public TimeSpan NextFireReposition;
     public TimeSpan FireBlockedUntil;
@@ -1008,6 +1009,10 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public TimeSpan DamageThreatUntil;
     public TimeSpan RetreatRetryAfter;
     public TimeSpan NextBreakoutAttempt;
+    public TimeSpan NextRangedRetreatSearch;
+    public EntityCoordinates LastRangedImpact;
+    public TimeSpan LastRangedImpactUntil;
+    public int BreakoutDoorOffset;
     public TimeSpan EmergencyReloadUntil;
     public EntityUid Weapon;
     public EntityUid Backpack;

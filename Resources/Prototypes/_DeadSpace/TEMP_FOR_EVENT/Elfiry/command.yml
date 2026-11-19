@@ -129,47 +129,6 @@
 - type: militiaEquipment
   id: ElfiryEventEquipmentScout
   parent: MilitiaEquipmentScout
-  weapons:
-  - weapon: WeaponPistolViper
-    magazine: MagazinePistolHighCapacity
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolCobra
-    magazine: MagazinePistolCaselessRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolGurza
-    magazine: MagazineGurza
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolDesertEagle
-    magazine: MagazineEagle
-    minimumMagazines: 0
-    maximumMagazines: 2
-  - weapon: WeaponPistolGoldDesertEagle
-    magazine: MagazineEagleGold
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSubMachineGunC20r
-    magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponRifleEstoc
-    magazine: MagazineRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponCarbineSKS
-    magazine: MagazineCarbineSKS
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSniperR17
-    magazine: MagazineR17
-    minimumMagazines: 6
-    maximumMagazines: 6
   equipment:
     belt: [ElfiryEventWebbing]
   supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
@@ -177,35 +136,6 @@
 - type: militiaEquipment
   id: ElfiryEventEquipmentAssault
   parent: MilitiaEquipmentAssault
-  weapons:
-  - weapon: WeaponSubMachineGunC20r
-    magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponRifleM90GrenadeLauncher
-    magazine: MagazineRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponRifleAk
-    magazine: MagazineLightRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponRifleXC67
-    magazine: ADTExtMagazineRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponRifleEstoc
-    magazine: MagazineRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponCarbineSKS
-    magazine: MagazineCarbineSKS
-    minimumMagazines: 6
-    maximumMagazines: 6
   equipment:
     belt: [ElfiryEventWebbing]
   supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
@@ -213,23 +143,6 @@
 - type: militiaEquipment
   id: ElfiryEventEquipmentGuard
   parent: MilitiaEquipmentGuard
-  weapons:
-  - weapon: WeaponShotgunBulldog
-    magazine: MagazineShotgun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponShotgunHammerhead
-    magazine: ADTMagazineShotgunXL
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponLightMachineGunL6
-    magazine: MagazineLightRifleBox
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSniperR17
-    magazine: MagazineR17
-    minimumMagazines: 6
-    maximumMagazines: 6
   equipment:
     belt: [ElfiryEventWebbing]
   supplies: [SyndicateJawsOfLife, MedicatedSuture, MedicatedSuture, RegenerativeMesh, RegenerativeMesh]
@@ -237,31 +150,6 @@
 - type: militiaEquipment
   id: ElfiryEventEquipmentMedic
   parent: MilitiaEquipmentMedic
-  weapons:
-  - weapon: WeaponPistolViper
-    magazine: MagazinePistolHighCapacity
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolCobra
-    magazine: MagazinePistolCaselessRifle
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolGurza
-    magazine: MagazineGurza
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponPistolDesertEagle
-    magazine: MagazineEagle
-    minimumMagazines: 0
-    maximumMagazines: 2
-  - weapon: WeaponSubMachineGunC20r
-    magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 6
-    maximumMagazines: 6
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 6
-    maximumMagazines: 6
   equipment:
     belt: [ElfiryEventMedicalWebbing]
   supplies:

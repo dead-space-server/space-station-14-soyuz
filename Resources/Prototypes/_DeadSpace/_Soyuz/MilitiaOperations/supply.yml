@@ -156,14 +156,6 @@
   minimumShopLevel: 2
 
 - type: repairReward
-  id: MilitiaSupplyMagazineRifleSCARAB
-  entity: MagazineRifleSCARAB
-  shopName: militia-supply-magazineriflescarab
-  cost: 65
-  maxCount: 10
-  minimumShopLevel: 2
-
-- type: repairReward
   id: MilitiaSupplyMagazineLightRifleExtended
   entity: MagazineLightRifleExtended
   shopName: militia-supply-magazinelightrifleextended
@@ -258,13 +250,6 @@
   minimumShopLevel: 2
 
 - type: repairReward
-  id: MilitiaSupplyMilitiaMagazineBoxSCARAB
-  entity: MilitiaMagazineBoxSCARAB
-  cost: 85
-  maxCount: 6
-  minimumShopLevel: 2
-
-- type: repairReward
   id: MilitiaSupplyMagazineBoxMagnum
   entity: MagazineBoxMagnum
   cost: 35
@@ -332,7 +317,6 @@
   - MilitiaSupplyMagazineLightRifle
   - MilitiaSupplyMagazineCarbineSKS
   - MilitiaSupplyMagazineRifle
-  - MilitiaSupplyMagazineRifleSCARAB
   - MilitiaSupplyMagazineLightRifleExtended
   - MilitiaSupplyMagazineLightRifleAMD
   - MilitiaSupplyADTExtMagazineRifle
@@ -345,7 +329,6 @@
   - MilitiaSupplyMagazineMagnumSVD
   - MilitiaSupplyMagazineBoxLightRifle
   - MilitiaSupplyMagazineBoxRifle
-  - MilitiaSupplyMilitiaMagazineBoxSCARAB
   - MilitiaSupplyMagazineBoxMagnum
   - MilitiaSupplyMagazineBoxAntiMateriel
   - MilitiaSupplyAdrenalImplanter

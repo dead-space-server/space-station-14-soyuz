@@ -9685,3 +9685,14 @@ Entries:
     message: Командирский планшет с отрядами (ивент)
   - type: Add
     message: Возможность интеграции в операции милиции
+- id: 930
+  author: Genes1us
+  time: '2026-11-20T16:09:26.286205+00:00'
+  pr: 558
+  changes:
+  - type: Remove
+    message: Вайтлист рас для ролей
+  - type: Fix
+    message: Шапки документов
+  - type: Fix
+    message: Лодаут КГБ

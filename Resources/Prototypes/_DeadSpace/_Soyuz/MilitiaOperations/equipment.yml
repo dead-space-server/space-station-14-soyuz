@@ -15,6 +15,31 @@
         - ReagentId: Derytracine
           Quantity: 30
 
+- type: entity
+  id: MilitiaOperationHemostaticBottle
+  parent: [BaseChemistryBottleFilled, BaseSyndicateContraband]
+  name: флакон кровезамещающей смеси
+  description: Полевая смесь для остановки кровотечения и восполнения крови. На этикетке указано - 10 единиц транексамовой кислоты и 20 единиц физраствора.
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: TranexamicAcid
+          Quantity: 10
+        - ReagentId: Saline
+          Quantity: 20
+
+- type: entity
+  id: MilitiaOperationHemostaticHypospray
+  parent: SyndiHypo
+  name: кровоостанавливающий гипоспрей
+  description: Полевой гипоспрей с фильтром для физраствора и транексамовой кислоты.
+  components:
+  - type: Injector
+    reagentWhitelist: [TranexamicAcid, Saline]
+
 - type: militiaEquipment
   id: MilitiaEquipmentBase
   abstract: true
@@ -37,14 +62,87 @@
     - SyndiPDA
     eyes:
     - ClothingEyesHudSyndicate
-  supplies:
+  magazineVariants:
+    MagazineGurza:
+    - MagazineGurza
+    - MagazinePistolHighCapacityincendiary
+    - MagazinePistolHighCapacityUranium
+    - MagazinePistolTungsten
+    MagazineEagle:
+    - MagazineEagle
+    - MagazineEagleAP
+    MagazineEagleGold:
+    - MagazineEagleGold
+    - MagazineEagleAP
+    MagazinePistolSubMachineGun:
+    - MagazinePistolSubMachineGun
+    - MagazinePistolSubMachineGunIncendiary
+    - MagazinePistolSubMachineGunUranium
+    - MagazinePistolSubMachineGunTungsten
+    - MagazinePistolSubMachineGunExtended
+    - MagazinePistolSubMachineGunExtendedIncendiary
+    - MagazinePistolSubMachineGunExtendedUranium
+    MagazineRifle:
+    - MagazineRifle
+    - MagazineRifleIncendiary
+    - MagazineRifleUranium
+    - MagazineRifleTungsten
+    - ADTExtMagazineRifle
+    - ADTExtMagazineRifleIncendiary
+    - ADTExtMagazineRifleUranium
+    ADTExtMagazineRifle:
+    - ADTExtMagazineRifle
+    - ADTExtMagazineRifleIncendiary
+    - ADTExtMagazineRifleUranium
+    - MagazineRifle
+    - MagazineRifleIncendiary
+    - MagazineRifleUranium
+    - MagazineRifleTungsten
+    MagazineCarbineSKS:
+    - MagazineCarbineSKS
+    - MagazineCarbineSKSIncendiary
+    - MagazineCarbineSKSUranium
+    MagazineR17:
+    - MagazineR17
+    - MagazineR17Incendiary
+    - MagazineR17Uranium
+    MagazineLightRifle:
+    - MagazineLightRifle
+    - MagazineLightRifleIncendiary
+    - MagazineLightRifleUranium
+    - MagazineLightRifleTungsten
+    - MagazineLightRifleExtended
+    MagazineHristov:
+    - MagazineHristov
+    - MagazineHristovAP
+    MagazineRifleASH:
+    - MagazineRifleASH
+    - MagazineRifleASHMagnumAP
+    MagazineLightRifleAsVal:
+    - MagazineLightRifleAsVal
+    - MagazineLightRifleAsValIncendiary
+    - MagazineLightRifleAsValUranium
+    - MagazineLightRifleAsValTungsten
+    MagazineLightRifleVSS:
+    - MagazineLightRifleVSS
+    - MagazineLightRifleVSSIncendiary
+    - MagazineLightRifleVSSUranium
+    - MagazineLightRifleVSSTungsten
+  meleeWeapons:
   - CombatKnife
+  - EnergySword
+  supplies:
   - Crowbar
   - MedicatedSuture
+  - MedicatedSuture
+  - RegenerativeMesh
   - RegenerativeMesh
   reloadTime: 2.5s
   grenades:
+  - ExGrenade
   - GrenadeFlashBang
+  minimumGrenades: 2
+  maximumGrenades: 3
 
 - type: militiaEquipment
   id: MilitiaEquipmentScout
@@ -58,51 +156,63 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   weapons:
-  - weapon: WeaponPistolViper
-    magazine: MagazinePistolHighCapacity
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponPistolCobra
-    magazine: MagazinePistolCaselessRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
   - weapon: WeaponPistolGurza
     magazine: MagazineGurza
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponPistolDesertEagle
+    weight: 0.35
     magazine: MagazineEagle
-    minimumMagazines: 0
+    minimumMagazines: 1
     maximumMagazines: 1
   - weapon: WeaponPistolGoldDesertEagle
+    weight: 0.15
     magazine: MagazineEagleGold
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 1
+    maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleEstoc
     magazine: MagazineRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponCarbineSKS
     magazine: MagazineCarbineSKS
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponSniperR17
     magazine: MagazineR17
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponVSK
+    magazine: MagazineVSK
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRiflehkg3a1
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleAsValSoyuz
+    magazine: MagazineLightRifleAsVal
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleVSS
+    magazine: MagazineLightRifleVSS
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleSG336
+    magazine: MagazineLightRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleAEK
+    magazine: MagazineLightRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
 
 - type: militiaEquipment
   id: MilitiaEquipmentAssault
@@ -116,8 +226,6 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   - suit: ADTClothingOuterHardsuitCybersunBodyGuard
@@ -125,32 +233,36 @@
   weapons:
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleM90GrenadeLauncher
     magazine: MagazineRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleAk
     magazine: MagazineLightRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleXC67
     magazine: ADTExtMagazineRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleEstoc
     magazine: MagazineRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponCarbineSKS
     magazine: MagazineCarbineSKS
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRiflehkg3a1
+    magazine: MagazineCarbineSKS
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleASH12
+    magazine: MagazineRifleASH
+    minimumMagazines: 4
+    maximumMagazines: 4
 
 - type: militiaEquipment
   id: MilitiaEquipmentGuard
@@ -167,22 +279,26 @@
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
   weapons:
-  - weapon: WeaponShotgunBulldog
-    magazine: MagazineShotgun
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponShotgunHammerhead
-    magazine: ADTMagazineShotgunXL
-    minimumMagazines: 3
-    maximumMagazines: 3
   - weapon: WeaponLightMachineGunL6
     magazine: MagazineLightRifleBox
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponSniperR17
     magazine: MagazineR17
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponSniperHristov
+    magazine: MagazineHristov
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleASH12
+    magazine: MagazineRifleASH
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponLightMachineGunRPL20
+    magazine: MagazineRPL20
+    minimumMagazines: 4
+    maximumMagazines: 4
   reloadTime: 3.5s
 
 - type: militiaEquipment
@@ -197,43 +313,41 @@
     helmet: ClothingHeadHelmetHardsuitAgentForestGhost
   - suit: ClothingOuterArmorRaid
     helmet: ClothingHeadHelmetRaid
-  - suit: ClothingOuterVestWebMerc
-    helmet: ClothingHeadHelmetMerc
   - suit: ClothingOuterHardsuitTaipanRecruit
     helmet: ClothingHeadHelmetHardsuitTaipanRecruit
   weapons:
-  - weapon: WeaponPistolCobra
-    magazine: MagazinePistolCaselessRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
   - weapon: WeaponPistolGurza
     magazine: MagazineGurza
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponPistolDesertEagle
     magazine: MagazineEagle
-    minimumMagazines: 0
+    minimumMagazines: 1
     maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleXC67
     magazine: ADTExtMagazineRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponCarbineSKS
     magazine: MagazineCarbineSKS
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponSniperR17
     magazine: MagazineR17
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponRifleM90GrenadeLauncher
+    magazine: MagazineRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponVSK
+    magazine: MagazineVSK
+    minimumMagazines: 4
+    maximumMagazines: 4
 
 - type: militiaEquipment
   id: MilitiaEquipmentMedic
@@ -246,33 +360,21 @@
   - suit: ClothingOuterHardsuitSyndieElite
     helmet: ClothingHeadHelmetHardsuitSyndieElite
   weapons:
-  - weapon: WeaponPistolViper
-    magazine: MagazinePistolHighCapacity
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponPistolCobra
-    magazine: MagazinePistolCaselessRifle
-    minimumMagazines: 3
-    maximumMagazines: 3
   - weapon: WeaponPistolGurza
     magazine: MagazineGurza
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponPistolDesertEagle
     magazine: MagazineEagle
-    minimumMagazines: 0
+    minimumMagazines: 1
     maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
-    minimumMagazines: 3
-    maximumMagazines: 3
-  - weapon: WeaponSMGTommyGun
-    magazine: MagazineTommyGun
-    minimumMagazines: 3
-    maximumMagazines: 3
+    minimumMagazines: 4
+    maximumMagazines: 4
   supplies:
-  - CombatKnife
   - Crowbar
+  - MilitiaOperationHemostaticHypospray
   - SyndiHypo
   - ChemistryBottleOmnizine
   - ChemistryBottleOmnizine
@@ -280,3 +382,9 @@
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
   - MilitiaOperationCombatMedicineBottle
+  - MilitiaOperationHemostaticBottle
+  - MilitiaOperationHemostaticBottle
+  - MedicatedSuture
+  - MedicatedSuture
+  - RegenerativeMesh
+  - RegenerativeMesh

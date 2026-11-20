@@ -55,7 +55,7 @@
         priority: 2
         whitelist:
           tags:
-            - MagazineLightRifleBox
+            - MagazineRifleBox
       gun_chamber:
         name: Chamber
         startingItem: CartridgeLightRifle

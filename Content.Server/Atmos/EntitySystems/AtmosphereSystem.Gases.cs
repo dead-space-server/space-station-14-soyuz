@@ -578,8 +578,14 @@ namespace Content.Server.Atmos.EntitySystems
         public ReactionResult React(GasMixture mixture, IGasMixtureHolder? holder)
         {
             var reaction = ReactionResult.NoReaction;
+            // DS14-Soyuz-start
             if (_useReactionFastPath && !HasPossibleReactionOnlyGas(mixture)) // DS14
+            {
+                if (holder is TileAtmosphere inactiveTile)
+                    ProcessSoyuzTile(inactiveTile); // DS14-Soyuz
                 return reaction;
+            }
+            // DS14-Soyuz-end
 
             var temperature = mixture.Temperature;
             var energy = GetThermalEnergy(mixture);
@@ -611,6 +617,10 @@ namespace Content.Server.Atmos.EntitySystems
                     break;
             }
 
+            // DS14-Soyuz-start
+            if (holder is TileAtmosphere tile)
+                ProcessSoyuzTile(tile); // DS14-Soyuz
+            // DS14-Soyuz-end
             return reaction;
         }
 

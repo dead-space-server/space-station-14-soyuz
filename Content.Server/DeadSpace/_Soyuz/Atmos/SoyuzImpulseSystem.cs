@@ -23,7 +23,6 @@ public sealed class SoyuzImpulseSystem : EntitySystem
         _suppliers[uid] = component;
     }
 
-    // Called by PowerNetSystem's existing shutdown subscription, before freeing the network supply.
     public void RemoveSupplier(EntityUid uid, PowerSupplierComponent component)
     {
         _suppliers.Remove(uid);

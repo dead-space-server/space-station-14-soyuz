@@ -1,29 +1,8 @@
 - type: repairReward
-  id: MilitiaSupplyCuffs
-  entity: Handcuffs
-  cost: 20
-  maxCount: 4
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: MilitiaSupplyZipties
-  entity: BoxZiptie
-  cost: 40
-  maxCount: 2
-  minimumShopLevel: 1
-
-- type: repairReward
   id: MilitiaSupplyMedipen
   entity: EmergencyMedipen
   cost: 30
   maxCount: 4
-  minimumShopLevel: 1
-
-- type: repairReward
-  id: MilitiaSupplyFlash
-  entity: Flash
-  cost: 50
-  maxCount: 2
   minimumShopLevel: 1
 
 - type: repairReward
@@ -34,39 +13,11 @@
   minimumShopLevel: 1
 
 - type: repairReward
-  id: MilitiaSupplyDisabler
-  entity: WeaponDisabler
-  cost: 180
-  maxCount: 2
-  minimumShopLevel: 2
-
-- type: repairReward
   id: MilitiaSupplyFlashbang
   entity: GrenadeFlashBang
   cost: 80
   maxCount: 3
   minimumShopLevel: 2
-
-- type: repairReward
-  id: MilitiaSupplySecurityBelt
-  entity: ClothingBeltSecurityFilled
-  cost: 150
-  maxCount: 2
-  minimumShopLevel: 2
-
-- type: repairReward
-  id: MilitiaSupplyRiotHelmet
-  entity: ClothingHeadHelmetRiot
-  cost: 120
-  maxCount: 2
-  minimumShopLevel: 3
-
-- type: repairReward
-  id: MilitiaSupplyRiotArmor
-  entity: ClothingOuterArmorRiot
-  cost: 250
-  maxCount: 2
-  minimumShopLevel: 3
 
 - type: repairReward
   id: MilitiaSupplyCombatMedkit
@@ -75,37 +26,311 @@
   maxCount: 2
   minimumShopLevel: 3
 
+- type: repairReward
+  id: MilitiaSupplyWeaponRiflehkg3a1
+  entity: WeaponRiflehkg3a1
+  cost: 750
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleScarL
+  entity: WeaponRifleScarL
+  cost: 750
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleSG336
+  entity: WeaponRifleSG336
+  cost: 900
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleLecterXL8
+  entity: WeaponRifleLecterXL8
+  cost: 850
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleAk305
+  entity: WeaponRifleAk305
+  cost: 950
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleAk
+  entity: WeaponRifleAk
+  cost: 700
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleAMD76
+  entity: WeaponRifleAMD76
+  cost: 850
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleAbakan
+  entity: WeaponRifleAbakan
+  cost: 900
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleAsValSoyuz
+  entity: WeaponRifleAsValSoyuz
+  cost: 950
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleASH12
+  entity: WeaponRifleASH12
+  cost: 1400
+  maxCount: 2
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyWeaponLightMachineGunRPK
+  entity: WeaponLightMachineGunRPK
+  cost: 1400
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponLightMachineGunRPL20Soyuz
+  entity: WeaponLightMachineGunRPL20Soyuz
+  cost: 1500
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponRifleVSS
+  entity: WeaponRifleVSS
+  cost: 900
+  maxCount: 2
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyWeaponSniperSV98
+  entity: WeaponSniperSV98
+  cost: 2200
+  maxCount: 2
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyWeaponSniperSVD
+  entity: WeaponSniperSVD
+  cost: 1500
+  maxCount: 2
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifle
+  entity: MagazineLightRifle
+  shopName: militia-supply-magazinelightrifle
+  cost: 75
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineCarbineSKS
+  entity: MagazineCarbineSKS
+  shopName: militia-supply-magazinecarbinesks
+  cost: 50
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineRifle
+  entity: MagazineRifle
+  shopName: militia-supply-magazinerifle
+  cost: 55
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifleExtended
+  entity: MagazineLightRifleExtended
+  shopName: militia-supply-magazinelightrifleextended
+  cost: 115
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifleAMD
+  entity: MagazineLightRifleAMD
+  shopName: militia-supply-magazinelightrifleamd
+  cost: 50
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyADTExtMagazineRifle
+  entity: ADTExtMagazineRifle
+  shopName: militia-supply-adtextmagazinerifle
+  cost: 105
+  maxCount: 10
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifleAsVal
+  entity: MagazineLightRifleAsVal
+  shopName: militia-supply-magazinelightrifleasval
+  cost: 50
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineRifleASH
+  entity: MagazineRifleASH
+  shopName: militia-supply-magazinerifleash
+  cost: 85
+  maxCount: 10
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyDrumMagazineLightRifle
+  entity: DrumMagazineLightRifle
+  shopName: militia-supply-drummagazinelightrifle
+  cost: 190
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifleBox
+  entity: MagazineLightRifleBox
+  shopName: militia-supply-magazinelightriflebox
+  cost: 250
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineLightRifleVSS
+  entity: MagazineLightRifleVSS
+  shopName: militia-supply-magazinelightriflevss
+  cost: 25
+  maxCount: 10
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineAntiMaterielSV
+  entity: MagazineAntiMaterielSV
+  shopName: militia-supply-magazineantimaterielsv
+  cost: 40
+  maxCount: 10
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineMagnumSVD
+  entity: MagazineMagnumSVD
+  shopName: militia-supply-magazinemagnumsvd
+  cost: 40
+  maxCount: 10
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyMagazineBoxLightRifle
+  entity: MagazineBoxLightRifle
+  cost: 100
+  maxCount: 6
+  minimumShopLevel: 3
+
+- type: repairReward
+  id: MilitiaSupplyMagazineBoxRifle
+  entity: MagazineBoxRifle
+  cost: 75
+  maxCount: 6
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyMagazineBoxMagnum
+  entity: MagazineBoxMagnum
+  cost: 35
+  maxCount: 6
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyMagazineBoxAntiMateriel
+  entity: MagazineBoxAntiMateriel
+  cost: 55
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyAdrenalImplanter
+  entity: AdrenalImplanter
+  shopName: militia-supply-adrenal-implanter
+  cost: 1200
+  maxCount: 2
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyPoliceBeta
+  entity: ClothingOuterHardsuitPoliceBeta1
+  cost: 1600
+  maxCount: 2
+  minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyOperationHardsuit
+  entity: ClothingOuterHardsuitMilitiaOperation
+  cost: 2400
+  maxCount: 2
+  minimumShopLevel: 5
+
 - type: repairRewardPool
   id: MilitiaOperationSupplyPool
   deliveryContainer: MilitiaOperationSupplyCrate
-  shopLevelThresholds:
-  - 0
-  - 200
-  - 600
-  baseReputationByDifficulty:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  shopLevelThresholds: [0, 200, 600, 1200, 2000]
+  baseReputationByDifficulty: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   qualityBands:
   - minPercent: 0
     maxPercent: 100
     multiplierPercent: 100
   rewards:
-  - MilitiaSupplyCuffs
-  - MilitiaSupplyZipties
   - MilitiaSupplyMedipen
-  - MilitiaSupplyFlash
   - MilitiaSupplyPistolAmmo
-  - MilitiaSupplyDisabler
   - MilitiaSupplyFlashbang
-  - MilitiaSupplySecurityBelt
-  - MilitiaSupplyRiotHelmet
-  - MilitiaSupplyRiotArmor
   - MilitiaSupplyCombatMedkit
+  - MilitiaSupplyWeaponRiflehkg3a1
+  - MilitiaSupplyWeaponRifleScarL
+  - MilitiaSupplyWeaponRifleSG336
+  - MilitiaSupplyWeaponRifleLecterXL8
+  - MilitiaSupplyWeaponRifleAk305
+  - MilitiaSupplyWeaponRifleAk
+  - MilitiaSupplyWeaponRifleAMD76
+  - MilitiaSupplyWeaponRifleAbakan
+  - MilitiaSupplyWeaponRifleAsValSoyuz
+  - MilitiaSupplyWeaponRifleASH12
+  - MilitiaSupplyWeaponLightMachineGunRPK
+  - MilitiaSupplyWeaponLightMachineGunRPL20Soyuz
+  - MilitiaSupplyWeaponRifleVSS
+  - MilitiaSupplyWeaponSniperSV98
+  - MilitiaSupplyWeaponSniperSVD
+  - MilitiaSupplyMagazineLightRifle
+  - MilitiaSupplyMagazineCarbineSKS
+  - MilitiaSupplyMagazineRifle
+  - MilitiaSupplyMagazineLightRifleExtended
+  - MilitiaSupplyMagazineLightRifleAMD
+  - MilitiaSupplyADTExtMagazineRifle
+  - MilitiaSupplyMagazineLightRifleAsVal
+  - MilitiaSupplyMagazineRifleASH
+  - MilitiaSupplyDrumMagazineLightRifle
+  - MilitiaSupplyMagazineLightRifleBox
+  - MilitiaSupplyMagazineLightRifleVSS
+  - MilitiaSupplyMagazineAntiMaterielSV
+  - MilitiaSupplyMagazineMagnumSVD
+  - MilitiaSupplyMagazineBoxLightRifle
+  - MilitiaSupplyMagazineBoxRifle
+  - MilitiaSupplyMagazineBoxMagnum
+  - MilitiaSupplyMagazineBoxAntiMateriel
+  - MilitiaSupplyAdrenalImplanter
+  - MilitiaSupplyPoliceBeta
+  - MilitiaSupplyOperationHardsuit

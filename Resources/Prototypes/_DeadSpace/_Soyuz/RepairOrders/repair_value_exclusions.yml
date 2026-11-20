@@ -1043,6 +1043,8 @@
   - SoyuzStoneGraveFrame
   - MilitiaOperationConsole
   - MilitiaOperationSupplyCrate
+  - MilitiaCustodyCabinet
+  - MilitiaCustodyMachineCircuitboard
   - SoyuzWoodenGraveFrame
   - Acidifier
   - AluminiumMetalFoam

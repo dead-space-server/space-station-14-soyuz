@@ -14,7 +14,7 @@
   - type: PressureProtection
     highPressureMultiplier: 0.08
   - type: FlashbangProtection
-    reduction: 2
+    reduction: 1
   - type: Tag
     tags: []
   - type: Armor

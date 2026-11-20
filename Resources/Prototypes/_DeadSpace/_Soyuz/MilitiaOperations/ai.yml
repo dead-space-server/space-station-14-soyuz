@@ -4,6 +4,28 @@
   - tasks:
     - !type:HTNPrimitiveTask
       operator: !type:MilitiaSupportOperator
+        kind: Uncuff
+  - preconditions:
+    - !type:BuckledPrecondition
+      isBuckled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnbuckleOperator
+  - preconditions:
+    - !type:PulledPrecondition
+      isPulled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnPullOperator
+  - preconditions:
+    - !type:InContainerPrecondition
+      isInContainer: true
+    tasks:
+    - !type:HTNCompoundTask
+      task: EscapeCompound
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:MilitiaSupportOperator
         kind: Evade
   - tasks:
     - !type:HTNPrimitiveTask

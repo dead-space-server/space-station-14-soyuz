@@ -3,6 +3,7 @@
 using System.Linq;
 using Content.Server.NPC.HTN;
 using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Events;
@@ -15,6 +16,7 @@ using Content.Shared.Medical.Healing;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Stacks;
+using System.Numerics;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
@@ -24,19 +26,52 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly SharedSolutionContainerSystem _medicalSolutions = default!;
     [Dependency] private readonly MobThresholdSystem _medicalThresholds = default!;
     [Dependency] private readonly InjectorSystem _medicalInjectors = default!;
+    [Dependency] private readonly BloodstreamSystem _medicalBloodstream = default!;
+    private readonly Dictionary<EntityUid, HashSet<EntityUid>> _treatmentReservations = new();
+    private const float MedicalDashLimit = 11f;
     private static readonly ProtoId<ReagentPrototype> MilitiaMedicine = "Omnizine";
     private static readonly ProtoId<ReagentPrototype> MilitiaCombatMedicine = "Derytracine";
-    private static readonly ProtoId<ReagentPrototype>[] MilitiaMedicines = { MilitiaMedicine, MilitiaCombatMedicine };
+    private static readonly ProtoId<ReagentPrototype> MilitiaClottingMedicine = "TranexamicAcid";
+    private static readonly ProtoId<ReagentPrototype> MilitiaBloodMedicine = "Saline";
+    private static readonly ProtoId<ReagentPrototype>[] MilitiaMedicines =
+        { MilitiaMedicine, MilitiaCombatMedicine, MilitiaClottingMedicine, MilitiaBloodMedicine };
     private static readonly ProtoId<InjectorModePrototype> MilitiaInjectionMode = "HyposprayInjectMode";
     private static readonly ProtoId<InjectorModePrototype> MilitiaRefillMode = "HyposprayDynamicMode";
 
     private static bool IsMedicineSolution(Solution solution)
-        => solution.Volume > 0 && solution.GetTotalPrototypeQuantity(MilitiaMedicine) +
-            solution.GetTotalPrototypeQuantity(MilitiaCombatMedicine) == solution.Volume;
+    {
+        var recognized = FixedPoint2.Zero;
+        foreach (var reagent in MilitiaMedicines)
+            recognized += solution.GetTotalPrototypeQuantity(reagent);
+        return solution.Volume > 0 && recognized == solution.Volume;
+    }
 
-    private static bool MedicineUseful(ProtoId<ReagentPrototype> reagent, DamageableComponent damage)
-        => damage.TotalDamage > 0 && (reagent == MilitiaMedicine ||
+    private bool BloodDeficit(EntityUid patient)
+        => TryComp<BloodstreamComponent>(patient, out var blood) &&
+           _medicalBloodstream.GetBloodLevel((patient, blood)) < 1f;
+
+    private bool NeedsBloodMedicine(EntityUid patient)
+        => BloodDeficit(patient) || TryComp<BloodstreamComponent>(patient, out var blood) && blood.BleedAmount > 0;
+
+    private bool MedicineUseful(ProtoId<ReagentPrototype> reagent, EntityUid patient, DamageableComponent damage)
+    {
+        if (reagent == MilitiaClottingMedicine)
+            return TryComp<BloodstreamComponent>(patient, out var blood) && blood.BleedAmount > 0;
+        if (reagent == MilitiaBloodMedicine)
+            return BloodDeficit(patient);
+        return damage.TotalDamage > 0 && (reagent == MilitiaMedicine ||
             new[] { "Piercing", "Heat", "Cold", "Shock" }.Any(type => damage.Damage.DamageDict.TryGetValue(type, out var amount) && amount > 0));
+    }
+
+    private static bool InjectorAcceptsMedicine(InjectorComponent injector, Solution solution)
+    {
+        if (injector.ReagentWhitelist == null)
+            return true;
+        var allowed = FixedPoint2.Zero;
+        foreach (var reagent in injector.ReagentWhitelist)
+            allowed += solution.GetTotalPrototypeQuantity(reagent);
+        return allowed == solution.Volume;
+    }
 
     private static bool SupportsMedicalRefill(InjectorComponent injector)
     {
@@ -51,17 +86,18 @@ public sealed partial class MilitiaOperationSystem
     private bool FindMedicalRefill(EntityUid uid, MilitiaOperationActorComponent actor, out EntityUid injector, out EntityUid bottle)
     {
         injector = bottle = EntityUid.Invalid;
+        var pending = actor.Medic ? HasTriageWork(uid, actor) : NeedsBloodMedicine(uid);
         foreach (var item in actor.Treatments)
         {
             if (!OwnsItem(uid, item) || !TryComp<InjectorComponent>(item, out var component) ||
                 !SupportsMedicalRefill(component) ||
                 !_medicalSolutions.TryGetSolution(item, component.SolutionName, out _, out var solution) || solution.AvailableVolume < 5 ||
-                solution.Volume > 0 && !IsMedicineSolution(solution))
+                solution.Volume > 0 && !IsMedicineSolution(solution) || pending && solution.Volume >= 5)
                 continue;
             foreach (var supply in actor.MedicineBottles)
             {
                 if (!OwnsItem(uid, supply) || !_medicalSolutions.TryGetDrawableSolution(supply, out _, out var stock) || stock.Volume < 5 ||
-                    !IsMedicineSolution(stock))
+                    !IsMedicineSolution(stock) || !InjectorAcceptsMedicine(component, stock))
                     continue;
                 injector = item;
                 bottle = supply;
@@ -111,7 +147,7 @@ public sealed partial class MilitiaOperationSystem
             if (!committed)
             {
                 actor.NextRefill = _timing.CurTime + TimeSpan.FromSeconds(2);
-                RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded);
+                RestoreEquipment(uid, equipment.Items, equipment.ActiveHand, equipment.Wielded, activated: equipment.Activated);
             }
         }
     }
@@ -134,11 +170,12 @@ public sealed partial class MilitiaOperationSystem
             if (status != DoAfterStatus.Finished || solution.Volume <= refill.Volume)
                 return HTNOperatorStatus.Failed;
         }
-        if (solution.Volume >= 5 && HasTriageWork(uid, actor))
+        if (solution.Volume >= 5 && (HasTriageWork(uid, actor) || NeedsBloodMedicine(uid)))
             return HTNOperatorStatus.Finished;
         if (solution.AvailableVolume < 5 || !_medicalSolutions.TryGetDrawableSolution(refill.Bottle, out _, out var stock) || stock.Volume < 5)
             return solution.Volume >= 5 ? HTNOperatorStatus.Finished : HTNOperatorStatus.Failed;
-        if (!IsMedicineSolution(stock) || solution.Volume > 0 && !IsMedicineSolution(solution) ||
+        if (!IsMedicineSolution(stock) || !InjectorAcceptsMedicine(injector, stock) ||
+            solution.Volume > 0 && !IsMedicineSolution(solution) ||
             !TryComp<DoAfterComponent>(uid, out var doAfter))
             return HTNOperatorStatus.Failed;
         var next = doAfter.NextId;
@@ -165,30 +202,51 @@ public sealed partial class MilitiaOperationSystem
             var items = refill.Equipment.Items.Where(item => OwnsItem(uid, item.Item) &&
                 (item.Container.Owner == uid || OwnsItem(uid, item.Container.Owner))).ToList();
             RestoreEquipment(uid, items, refill.Equipment.ActiveHand,
-                refill.Equipment.Wielded.Where(item => items.Any(snapshot => snapshot.Item == item)).ToArray());
+                refill.Equipment.Wielded.Where(item => items.Any(snapshot => snapshot.Item == item)).ToArray(),
+                activated: refill.Equipment.Activated);
         }
     }
+
+    private bool NeedsTreatment(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid patient, DamageableComponent damage)
+        => damage.TotalDamage >= actor.TreatmentThreshold || NeedsBloodMedicine(patient) ||
+           actor.Treatments.Any(item => OwnsItem(uid, item) && HasComp<HealingComponent>(item) && CanTreat(uid, item, patient, damage));
 
     public List<(EntityUid Patient, EntityUid Item)> TreatmentCandidates(EntityUid uid)
     {
         var result = new List<(EntityUid, EntityUid)>();
         if (!AvailableActor(uid, out var actor) || actor.MedicalRefill != null || actor.Patient.IsValid() || actor.DoorPry != null || ReceivingTreatment(uid) || _timing.CurTime < actor.NextTreatment)
             return result;
-        if (!actor.Medic && NeedsMedic(uid, actor) && FindMedic(uid).IsValid())
-            return result;
-        var patients = new List<EntityUid>();
-        var query = EntityQueryEnumerator<MilitiaOperationActorComponent>();
-        while (query.MoveNext(out var patient, out _))
-            patients.Add(patient);
-        foreach (var patient in patients.OrderByDescending(p => TryComp<DamageableComponent>(p, out var damage) ? damage.TotalDamage : 0))
+        foreach (var patient in actor.UnreachablePatients.Keys.ToArray())
         {
-            if ((!actor.Medic && patient != uid) || !ValidPatient(uid, patient, actor) ||
+            if (actor.UnreachablePatients[patient] <= _timing.CurTime || !Exists(patient))
+                actor.UnreachablePatients.Remove(patient);
+        }
+        var patients = new List<EntityUid>();
+        if (!actor.Medic)
+            patients.Add(uid);
+        else
+        {
+            var query = EntityQueryEnumerator<MilitiaOperationActorComponent>();
+            while (query.MoveNext(out var patient, out _))
+            {
+                if (TerminatingOrDeleted(patient) || !TryComp<DamageableComponent>(patient, out _) ||
+                    _mobs.IsDead(patient) || HasPlayerMind(patient) || !SameOperation(uid, patient) ||
+                    !InTreatmentArea(uid, patient, actor) ||
+                    actor.UnreachablePatients.TryGetValue(patient, out var retry) && retry > _timing.CurTime)
+                    continue;
+                patients.Add(patient);
+            }
+        }
+        foreach (var patient in patients.OrderByDescending(p => p == uid && NeedsMedic(uid, actor))
+                     .ThenByDescending(p => TryComp<DamageableComponent>(p, out var damage) ? damage.TotalDamage : 0))
+        {
+            if ((!actor.Medic && patient != uid) || !ValidPatient(uid, patient, actor, allowCombatDash: true) ||
                 !TryComp<DamageableComponent>(patient, out var damage) ||
-                damage.TotalDamage < actor.TreatmentThreshold &&
-                (!TryComp<BloodstreamComponent>(patient, out var blood) || blood.BleedAmount <= 0))
+                actor.UnreachablePatients.TryGetValue(patient, out var retry) && retry > _timing.CurTime ||
+                !NeedsTreatment(uid, actor, patient, damage))
                 continue;
-            var bleeding = TryComp<BloodstreamComponent>(patient, out var bloodstream) && bloodstream.BleedAmount > 0;
-            foreach (var item in actor.Treatments.OrderBy(item => bleeding && HasComp<InjectorComponent>(item) ? 1 : 0))
+            var bleeding = NeedsBloodMedicine(patient);
+            foreach (var item in actor.Treatments.OrderBy(item => bleeding && HasComp<InjectorComponent>(item) ? 0 : 1))
             {
                 if (CanTreat(uid, item, patient, damage) && CanEquipOwnedItem(uid, actor, item, false, out _))
                 {
@@ -232,7 +290,7 @@ public sealed partial class MilitiaOperationSystem
             var current = chemicals.GetTotalPrototypeQuantity(reagent);
             if (current + quantity * 5 / medicine.Volume > (reagent == MilitiaCombatMedicine ? 15 : 10))
                 return false;
-            useful |= current < 2 && MedicineUseful(reagent, damage);
+            useful |= current < 2 && MedicineUseful(reagent, patient, damage);
         }
         if (!useful)
             return false;
@@ -245,10 +303,12 @@ public sealed partial class MilitiaOperationSystem
     {
         if (actor.Treatments.Any(item => OwnsItem(uid, item) && CanTreat(uid, item, patient, damage)))
             return true;
-        var injector = actor.Treatments.FirstOrDefault(item => OwnsItem(uid, item) && HasComp<InjectorComponent>(item));
-        return actor.Medic && injector.IsValid() && actor.MedicineBottles.Any(item => OwnsItem(uid, item) &&
-            _medicalSolutions.TryGetDrawableSolution(item, out _, out var stock) && stock.Volume >= 5 &&
-            IsMedicineSolution(stock) && CanReceiveMedicine(uid, injector, patient, stock, damage));
+        return actor.Medic && actor.Treatments.Any(injector => OwnsItem(uid, injector) &&
+            TryComp<InjectorComponent>(injector, out var component) && SupportsMedicalRefill(component) &&
+            actor.MedicineBottles.Any(item => OwnsItem(uid, item) &&
+                _medicalSolutions.TryGetDrawableSolution(item, out _, out var stock) && stock.Volume >= 5 &&
+                IsMedicineSolution(stock) && InjectorAcceptsMedicine(component, stock) &&
+                CanReceiveMedicine(uid, injector, patient, stock, damage)));
     }
 
     private bool NeedsMedic(EntityUid uid, MilitiaOperationActorComponent actor)
@@ -261,9 +321,46 @@ public sealed partial class MilitiaOperationSystem
         return damage.TotalDamage >= actor.TreatmentThreshold;
     }
 
+    private bool CanMedicalDash(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor)
+    {
+        if (!actor.Medic || uid == patient || actor.Grenades.Length != 0 || !_mobs.IsAlive(uid) || !_blocker.CanMove(uid) ||
+            TryComp<StaminaComponent>(uid, out var stamina) && stamina.Critical ||
+            !TryComp<DamageableComponent>(uid, out var injury) || !TryComp<DamageableComponent>(patient, out var wounds) ||
+            !_medicalThresholds.TryGetIncapThreshold(uid, out var medicThreshold) ||
+            injury.TotalDamage.Float() > medicThreshold.Value.Float() * 0.3f ||
+            !TryComp<BloodstreamComponent>(uid, out var blood) || blood.BleedAmount > 0 ||
+            _medicalBloodstream.GetBloodLevel((uid, blood)) < 0.75f)
+            return false;
+        return _mobs.IsIncapacitated(patient) ||
+               _medicalThresholds.TryGetIncapThreshold(patient, out var threshold) &&
+               wounds.TotalDamage.Float() >= threshold.Value.Float() * 0.5f;
+    }
+
+    private void TrackMedicalExposure(EntityUid uid, MilitiaOperationActorComponent actor)
+    {
+        var position = _transform.GetMapCoordinates(uid);
+        var exposed = actor.ExposedToThreat;
+        if (actor.MedicalDashPosition.IsValid(EntityManager))
+        {
+            var previous = _transform.ToMapCoordinates(actor.MedicalDashPosition);
+            if (previous.MapId != position.MapId)
+                actor.MedicalDashExposure = float.PositiveInfinity;
+            else if (exposed || actor.MedicalDashExposed)
+                actor.MedicalDashExposure += Vector2.Distance(previous.Position, position.Position);
+        }
+        actor.MedicalDashPosition = Transform(uid).Coordinates;
+        actor.MedicalDashExposed = exposed;
+    }
+
+    public void RejectTreatmentPath(EntityUid uid, EntityUid patient)
+    {
+        if (TryComp<MilitiaOperationActorComponent>(uid, out var actor))
+            actor.UnreachablePatients[patient] = _timing.CurTime + TimeSpan.FromSeconds(5);
+    }
+
     private EntityUid FindMedic(EntityUid uid)
     {
-        if (!TryComp<DamageableComponent>(uid, out var damage))
+        if (!TryComp<DamageableComponent>(uid, out var damage) || !TryComp<MilitiaOperationActorComponent>(uid, out var actor))
             return EntityUid.Invalid;
         var nearest = EntityUid.Invalid;
         var distance = float.PositiveInfinity;
@@ -271,19 +368,29 @@ public sealed partial class MilitiaOperationSystem
         while (medics.MoveNext(out var other, out var medic))
         {
             if (other == uid || !medic.Medic || !SquadMember(other) || EntityManager.IsQueuedForDeletion(other) || !_mobs.IsAlive(other) ||
+                actor.UnreachableMedics.TryGetValue(other, out var retry) && retry > _timing.CurTime ||
                 TryComp<StaminaComponent>(other, out var stamina) && stamina.Critical ||
                 !_blocker.CanMove(other) || !_blocker.CanInteract(other, uid) ||
                 !SameOperation(uid, other) || Transform(uid).MapID != Transform(other).MapID ||
-                !OnDefensiveGrid(uid, Transform(other).Coordinates) ||
-                !HasTreatment(other, medic, uid, damage))
+                !OnDefensiveGrid(uid, Transform(other).Coordinates))
                 continue;
             var squared = System.Numerics.Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(other));
-            if (squared >= distance)
+            if (squared >= distance || !HasTreatment(other, medic, uid, damage))
                 continue;
             nearest = other;
             distance = squared;
         }
         return nearest;
+    }
+
+    public void RejectUnreachableMedic(EntityUid uid, MilitiaSquadOrder order)
+    {
+        if (order.Task != MilitiaSquadTask.SeekMedic || !AvailableActor(uid, out var actor) ||
+            !ReferenceEquals(actor.SquadOrder, order))
+            return;
+        actor.UnreachableMedics[order.Target] = _timing.CurTime + TimeSpan.FromSeconds(10);
+        actor.SquadOrder = null;
+        _urgentSquadOrders.Add(uid);
     }
 
     private bool InTreatmentArea(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor)
@@ -294,22 +401,27 @@ public sealed partial class MilitiaOperationSystem
             System.Numerics.Vector2.DistanceSquared(_transform.ToMapCoordinates(actor.DefensivePosition).Position,
                 _transform.GetWorldPosition(patient)) <= actor.DefensiveRange * actor.DefensiveRange);
 
-    private bool ValidPatient(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor)
+    private bool ValidPatient(EntityUid uid, EntityUid patient, MilitiaOperationActorComponent actor, bool allowCombatDash = false)
     {
         if (!Exists(patient) || TerminatingOrDeleted(patient) || _mobs.IsDead(patient) || HasPlayerMind(patient) ||
             MetaData(uid).EntityPaused || MetaData(patient).EntityPaused ||
             !TryComp<HTNComponent>(uid, out var medicHtn) || !medicHtn.Enabled ||
             !TryComp<HTNComponent>(patient, out var patientHtn) || !patientHtn.Enabled ||
-            !SafeForTreatment(uid) || !SafeForTreatment(patient) ||
+            (!SafeForTreatment(uid) && (!allowCombatDash || !CanMedicalDash(uid, patient, actor))) || !SafeForTreatment(patient) ||
+            actor.Patient == patient && actor.MedicalDashExposure > MedicalDashLimit ||
             !HasComp<MilitiaOperationActorComponent>(patient) ||
             !SameOperation(uid, patient) ||
             (!actor.Medic && patient != uid) || !InTreatmentArea(uid, patient, actor))
             return false;
-        var medics = EntityQueryEnumerator<MilitiaOperationActorComponent>();
-        while (medics.MoveNext(out var other, out var otherActor))
+        if (_treatmentReservations.TryGetValue(patient, out var medics))
         {
-            if (other != uid && otherActor.Patient == patient && AvailableActor(other, out _))
-                return false;
+            foreach (var other in medics)
+            {
+                if (other != uid && AvailableActor(other, out var otherActor) && !MetaData(other).EntityPaused && otherActor.Patient == patient &&
+                    !(actor.Medic && other == patient) &&
+                    !(uid == patient && actor.Patient == uid && otherActor.Medic))
+                    return false;
+            }
         }
         return true;
     }
@@ -325,7 +437,7 @@ public sealed partial class MilitiaOperationSystem
 
     public bool SelectTreatment(EntityUid uid, EntityUid patient, EntityUid item, MilitiaTreatmentPath path)
     {
-        if (!AvailableActor(uid, out var actor) || ReceivingTreatment(uid) || !ValidPatient(uid, patient, actor) ||
+        if (!AvailableActor(uid, out var actor) || ReceivingTreatment(uid) || !ValidPatient(uid, patient, actor, allowCombatDash: true) ||
             !TreatmentPathSafe(uid, patient, path) || !OwnsItem(uid, item) || !TryComp<DamageableComponent>(patient, out var damage) ||
             !CanTreat(uid, item, patient, damage) || !EquipOwnedItem(uid, actor, item, false))
             return false;
@@ -333,14 +445,23 @@ public sealed partial class MilitiaOperationSystem
         actor.Treatment = item;
         actor.TreatmentPath = path;
         actor.SquadRouteIndex = 0;
+        actor.MedicalDashExposure = 0f;
+        actor.MedicalDashPosition = Transform(uid).Coordinates;
+        actor.MedicalDashExposed = actor.ExposedToThreat;
         var committed = false;
         try
         {
+            if (!_treatmentReservations.TryGetValue(patient, out var medics))
+                _treatmentReservations[patient] = medics = new HashSet<EntityUid>();
+            medics.Add(uid);
             EndGuard(uid);
+            _steering.Unregister(uid);
             if (patient != uid)
             {
-                Comp<MilitiaOperationActorComponent>(patient).TreatingMedic = uid;
-                InterruptActor(patient);
+                var target = Comp<MilitiaOperationActorComponent>(patient);
+                target.TreatingMedic = uid;
+                if (target.Patient != patient)
+                    InterruptActor(patient);
             }
             committed = AvailableActor(uid, out _) && TreatmentPathSafe(uid, patient, path) && OwnsItem(uid, item);
             return committed;
@@ -356,6 +477,10 @@ public sealed partial class MilitiaOperationSystem
     {
         if (!AvailableActor(uid, out var actor))
             return HTNOperatorStatus.Failed;
+        if (actor.Patient != uid && !HasComp<InjectorComponent>(actor.Treatment) &&
+            TryComp<MilitiaOperationActorComponent>(actor.Patient, out var target) && target.Patient == actor.Patient)
+            return ValidPatient(uid, actor.Patient, actor) && _interaction.InRangeUnobstructed(uid, actor.Patient)
+                ? HTNOperatorStatus.Continuing : HTNOperatorStatus.Failed;
         if (actor.HealingDoAfter is { } current)
         {
             var status = _doAfter.GetStatus(uid, current, null);
@@ -395,12 +520,22 @@ public sealed partial class MilitiaOperationSystem
         if (!TryComp<MilitiaOperationActorComponent>(uid, out var actor) ||
             !actor.Patient.IsValid() && !actor.Treatment.IsValid() && actor.HealingDoAfter == null)
             return;
+        _squadHostileQueries.Clear();
         var patient = actor.Patient;
+        if (_treatmentReservations.TryGetValue(patient, out var medics))
+        {
+            medics.Remove(uid);
+            if (medics.Count == 0)
+                _treatmentReservations.Remove(patient);
+        }
         var healing = actor.HealingDoAfter;
         actor.HealingDoAfter = null;
         actor.Patient = EntityUid.Invalid;
         actor.Treatment = EntityUid.Invalid;
         actor.TreatmentPath = null;
+        actor.MedicalDashExposure = 0f;
+        actor.MedicalDashPosition = default;
+        actor.MedicalDashExposed = false;
         actor.SquadRouteIndex = 0;
         EndRoutePry(uid);
         _steering.Unregister(uid);
@@ -415,7 +550,7 @@ public sealed partial class MilitiaOperationSystem
             if (patient != uid && TryComp<MilitiaOperationActorComponent>(patient, out var target) && target.TreatingMedic == uid)
             {
                 target.TreatingMedic = EntityUid.Invalid;
-                if (!TerminatingOrDeleted(patient))
+                if (!TerminatingOrDeleted(patient) && target.Patient != patient)
                     InterruptActor(patient);
             }
             if (!TerminatingOrDeleted(uid) && !MetaData(uid).EntityPaused)

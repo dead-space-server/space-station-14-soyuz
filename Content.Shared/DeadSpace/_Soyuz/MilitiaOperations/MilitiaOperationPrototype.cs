@@ -33,6 +33,7 @@ public sealed partial class MilitiaOperationConfigPrototype : IPrototype
     [DataField(required: true)] public EntProtoId Document;
     [DataField(required: true)] public ProtoId<RepairRewardPoolPrototype> Shop;
     [DataField] public bool ShopEnabled;
+    [DataField] public Dictionary<MilitiaContrabandKind, MilitiaContrabandPrice> ContrabandRewards = new();
     [DataField] public TimeSpan Cooldown = TimeSpan.FromMinutes(5);
 }
 
@@ -46,8 +47,12 @@ public sealed partial class MilitiaEquipmentPrototype : IPrototype, IInheritingP
     [DataField, AlwaysPushInheritance] public Dictionary<string, List<EntProtoId>> Equipment = new();
     [DataField] public List<MilitiaProtectionSet> Protection = new();
     [DataField] public List<MilitiaWeaponSet> Weapons = new();
+    [DataField, AlwaysPushInheritance] public Dictionary<EntProtoId, List<EntProtoId>> MagazineVariants = new();
+    [DataField] public List<EntProtoId> MeleeWeapons = new();
     [DataField] public List<EntProtoId> Supplies = new();
     [DataField] public List<EntProtoId> Grenades = new();
+    [DataField] public int MinimumGrenades = 1;
+    [DataField] public int MaximumGrenades = 1;
     [DataField] public TimeSpan ReloadTime = TimeSpan.FromSeconds(2.5);
 }
 
@@ -63,6 +68,14 @@ public sealed partial class MilitiaWeaponSet
 {
     [DataField(required: true)] public EntProtoId Weapon;
     [DataField(required: true)] public EntProtoId Magazine;
-    [DataField] public int MinimumMagazines = 3;
-    [DataField] public int MaximumMagazines = 3;
+    [DataField] public float Weight = 1f;
+    [DataField] public int MinimumMagazines = 4;
+    [DataField] public int MaximumMagazines = 4;
+}
+
+[DataDefinition]
+public sealed partial class MilitiaContrabandPrice
+{
+    [DataField] public int Points;
+    [DataField] public int Reputation;
 }

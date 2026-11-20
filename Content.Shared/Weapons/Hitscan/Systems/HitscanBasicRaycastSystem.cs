@@ -104,7 +104,7 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
         }
 
         var hitEvent = new HitscanRaycastFiredEvent { Data = data };
-        RaiseLocalEvent(ent, ref hitEvent);
+        RaiseLocalEvent(ent, ref hitEvent, broadcast: true); // DS14-Soyuz
 
         if (data.HitEntity != null)
         {

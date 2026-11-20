@@ -92,6 +92,7 @@
   description: Вооружённый участник нелегальной группы.
   components:
   - type: StunImmune
+  - type: MilitiaOperative
   - type: MovementIgnoreGravity
     weightless: false
   - type: CanMoveInAir
@@ -108,6 +109,7 @@
       AggroVisionRadius: !type:Single 12
       NavInteract: !type:Bool true
       NavPry: !type:Bool true
+      NavClimb: !type:Bool true
 
 - type: entity
   id: MilitiaOperationRaiderScout
@@ -163,7 +165,14 @@
   - MilitiaOperationCargo
   - MilitiaOperationFlagship
   shop: MilitiaOperationSupplyPool
-  shopEnabled: false
+  shopEnabled: true
+  contrabandRewards:
+    Firearm: { points: 400, reputation: 20 }
+    Melee: { points: 200, reputation: 10 }
+    Armor: { points: 300, reputation: 10 }
+    Helmet: { points: 200, reputation: 10 }
+    Boots: { points: 100, reputation: 10 }
+    Hypospray: { points: 150, reputation: 10 }
   cooldown: 5m
   medic: MilitiaOperationRaiderMedic
 
@@ -179,7 +188,7 @@
   name: militia-operation-desant-name
   description: militia-operation-desant-description
   map: /Maps/_Soyuz/MilitiaOperations/desantrassvet.yml
-  points: 250
+  points: 500
   reputation: 100
   minimumCrew: 5
   maximumCrew: 7
@@ -191,7 +200,7 @@
   name: militia-operation-science-name
   description: militia-operation-science-description
   map: /Maps/_Soyuz/MilitiaOperations/ksenirassvet.yml
-  points: 400
+  points: 800
   reputation: 150
   minimumCrew: 7
   maximumCrew: 10
@@ -203,7 +212,7 @@
   name: militia-operation-cargo-name
   description: militia-operation-cargo-description
   map: /Maps/_Soyuz/MilitiaOperations/cargorassvet.yml
-  points: 300
+  points: 600
   reputation: 100
   minimumCrew: 7
   maximumCrew: 10
@@ -215,10 +224,10 @@
   name: militia-operation-flagship-name
   description: militia-operation-flagship-description
   map: /Maps/_Soyuz/MilitiaOperations/bigshiprassvet.yml
-  points: 900
+  points: 1800
   reputation: 300
-  minimumCrew: 10
-  maximumCrew: 15
+  minimumCrew: 15
+  maximumCrew: 20
   duration: 90m
   medics: 3
 
@@ -235,3 +244,4 @@
     treatmentThreshold: 15
     treatmentRange: 14
     treatmentCooldown: 2s
+    treatmentSafetyDelay: 3s

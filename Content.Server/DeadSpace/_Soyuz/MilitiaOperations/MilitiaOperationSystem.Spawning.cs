@@ -2,10 +2,13 @@
 
 using System.Linq;
 using System.Numerics;
+using Content.Server.Atmos.Components;
 using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Content.Server.NPC.HTN;
 using Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 using Content.Shared.Maps;
+using Content.Shared.Atmos;
+using Content.Shared.Doors.Components;
 using Content.Shared.Item;
 using Content.Shared.Physics;
 using Content.Shared.Weapons.Ranged.Components;
@@ -66,12 +69,13 @@ public sealed partial class MilitiaOperationSystem
                 return false;
 
             var free = new List<Vector2i>();
+            var interior = FindInteriorTiles(gridUid, grid.Comp);
             var tiles = _maps.GetAllTilesEnumerator(gridUid, grid.Comp);
             while (tiles.MoveNext(out var tileRef))
             {
                 if (tileRef is not { } tile)
                     continue;
-                if (!tile.Tile.IsEmpty && !_turf.IsSpace(tile.Tile) && !_turf.IsTileBlocked(tile, CollisionGroup.MobMask) &&
+                if (interior.Contains(tile.GridIndices) && !_turf.IsTileBlocked(tile, CollisionGroup.MobMask) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(1, 0)) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(-1, 0)) &&
                     HasFloor(gridUid, grid.Comp, tile.GridIndices + new Vector2i(0, 1)) &&
@@ -143,7 +147,7 @@ public sealed partial class MilitiaOperationSystem
                 prepared.Crew.Add(enemy);
             }
 
-            var items = EntityQueryEnumerator<ItemComponent, TransformComponent>();
+            var items = AllEntityQuery<ItemComponent, TransformComponent>();
             while (items.MoveNext(out var item, out _, out var itemXform))
             {
                 if (item == documentUid)
@@ -233,6 +237,65 @@ public sealed partial class MilitiaOperationSystem
 
     private bool HasFloor(EntityUid uid, MapGridComponent grid, Vector2i indices)
         => _maps.TryGetTileRef(uid, grid, indices, out var tile) && !tile.Tile.IsEmpty && !_turf.IsSpace(tile.Tile);
+
+    private HashSet<Vector2i> FindInteriorTiles(EntityUid gridUid, MapGridComponent grid)
+    {
+        var floors = new HashSet<Vector2i>();
+        var barriers = new Dictionary<Vector2i, AtmosDirection>();
+        var tiles = _maps.GetAllTilesEnumerator(gridUid, grid);
+        while (tiles.MoveNext(out var tileRef))
+        {
+            if (tileRef is not { } tile)
+                continue;
+            if (!tile.Tile.IsEmpty && !_turf.IsSpace(tile.Tile))
+                floors.Add(tile.GridIndices);
+            var entities = _maps.GetAnchoredEntitiesEnumerator(gridUid, grid, tile.GridIndices);
+            var blocked = AtmosDirection.Invalid;
+            while (entities.MoveNext(out var entity))
+            {
+                if (HasComp<DoorComponent>(entity))
+                    blocked |= AtmosDirection.All;
+                else if (TryComp<AirtightComponent>(entity, out var airtight) && airtight.AirBlocked)
+                    blocked |= airtight.AirBlockedDirection;
+            }
+            barriers[tile.GridIndices] = blocked;
+        }
+
+        var remaining = new HashSet<Vector2i>(floors.Where(tile => barriers.GetValueOrDefault(tile) != AtmosDirection.All));
+        var interior = new HashSet<Vector2i>();
+        var directions = new (Vector2i Offset, AtmosDirection Direction)[]
+        {
+            (new(1, 0), AtmosDirection.East), (new(-1, 0), AtmosDirection.West),
+            (new(0, 1), AtmosDirection.North), (new(0, -1), AtmosDirection.South),
+        };
+        var pending = new Queue<Vector2i>();
+        while (remaining.Count > 0)
+        {
+            var start = remaining.First();
+            remaining.Remove(start);
+            pending.Enqueue(start);
+            var room = new List<Vector2i>();
+            var enclosed = true;
+            while (pending.TryDequeue(out var tile))
+            {
+                room.Add(tile);
+                foreach (var (offset, direction) in directions)
+                {
+                    var adjacent = tile + offset;
+                    if ((barriers.GetValueOrDefault(tile) & direction) != 0 ||
+                        (barriers.GetValueOrDefault(adjacent) & direction.GetOpposite()) != 0)
+                        continue;
+                    if (!floors.Contains(adjacent))
+                        enclosed = false;
+                    else if (remaining.Remove(adjacent))
+                        pending.Enqueue(adjacent);
+                }
+            }
+            if (enclosed)
+                interior.UnionWith(room);
+        }
+        return interior;
+    }
 
     private static EntityCoordinates TileCoordinates(EntityUid uid, MapGridComponent grid, Vector2i indices)
         => new(uid, new Vector2((indices.X + 0.5f) * grid.TileSize, (indices.Y + 0.5f) * grid.TileSize));

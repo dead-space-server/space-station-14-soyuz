@@ -64,8 +64,6 @@ public sealed partial class AtmosphereSystem
             _soyuzTiles.Add(tile, state = new SoyuzTileState());
         if (air.GetMoles(Gas.Tlec) > Atmospherics.GasMinMoles)
             state.Detonation ??= _gameTiming.CurTime + TimeSpan.FromSeconds(12);
-
-        ProcessSoyuzCondensates(tile, air);
     }
 
     private void ProcessSoyuzCondensates(TileAtmosphere tile, GasMixture air)
@@ -76,6 +74,8 @@ public sealed partial class AtmosphereSystem
             var converted = frost < 0.01f ? frost : frost * 0.5f;
             air.AdjustMoles(Gas.Iney, -converted);
             air.AdjustMoles(Gas.WaterVapor, converted);
+            if (TryComp<GridAtmosphereComponent>(tile.GridIndex, out var atmos))
+                AddActiveTile(atmos, tile);
             var tileRef = _map.GetTileRef(tile.GridIndex, grid, tile.GridIndices);
             var reagent = _protoMan.Index(SoyuzIneyReagent);
             var volume = FixedPoint2.New(Math.Clamp(converted * 50f, 5f, 100f));
@@ -123,6 +123,7 @@ public sealed partial class AtmosphereSystem
             }
 
             GetTileMixture(tile.GridIndex, null, tile.GridIndices, true);
+            ProcessSoyuzCondensates(tile, air);
             var radion = air.GetMoles(Gas.Radion);
             var lumin = air.GetMoles(Gas.Lumin);
             if (radion > Atmospherics.GasMinMoles || lumin > Atmospherics.GasMinMoles)

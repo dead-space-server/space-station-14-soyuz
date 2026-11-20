@@ -20,6 +20,7 @@ using Robust.Shared.Threading;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Runtime.CompilerServices;
+using Content.Shared.DeadSpace._Soyuz.Atmos; // DS14-Soyuz
 
 // ReSharper disable once RedundantUsingDirective
 
@@ -183,7 +184,8 @@ namespace Content.Server.Atmos.EntitySystems
             else
                 byteTemp = new(mixture.Temperature);
 
-            var data = new GasOverlayData(0, new byte[VisibleGasId.Length], byteTemp, AtmosphericAudio.EncodePressure(mixture?.Pressure ?? 0f)); // DS14
+            var data = new GasOverlayData(0, new byte[VisibleGasId.Length], byteTemp, AtmosphericAudio.EncodePressure(mixture?.Pressure ?? 0f),
+                soyuzFireColor: SoyuzGasVisuals.GetFireColor(mixture), soyuzDarkness: SoyuzGasVisuals.Darkness(mixture)); // DS14-Soyuz
 
             for (var i = 0; i < VisibleGasId.Length; i++)
             {
@@ -255,6 +257,18 @@ namespace Content.Server.Atmos.EntitySystems
                 oldData = new GasOverlayData(oldData.FireState, oldData.Opacity, oldData.ByteGasTemperature, pressure);
             }
             // DS14-end
+
+            // DS14-Soyuz-start
+            var tlecStage = _atmosphereSystem.GetSoyuzTlecStage(tile);
+            var fireColor = SoyuzGasVisuals.GetFireColor(tile.Air);
+            var darkness = SoyuzGasVisuals.Darkness(tile.Air);
+            if (oldData.SoyuzTlecStage != tlecStage || oldData.SoyuzFireColor != fireColor || oldData.SoyuzDarkness != darkness)
+            {
+                changed = true;
+                oldData = new GasOverlayData(oldData.FireState, oldData.Opacity, oldData.ByteGasTemperature, pressure,
+                    tlecStage, fireColor, darkness);
+            }
+            // DS14-Soyuz-end
 
             if (tile is {Air: not null, NoGridTile: false})
             {

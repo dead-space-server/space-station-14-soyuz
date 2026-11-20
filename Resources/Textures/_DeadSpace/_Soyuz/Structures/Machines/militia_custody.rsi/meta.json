@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Created by Ezio50",
+  "size": { "x": 32, "y": 48 },
+  "states": [
+    { "name": "idle" },
+    { "name": "busy" },
+    { "name": "off" }
+  ]
+}

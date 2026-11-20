@@ -3,6 +3,7 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client.Message;
+using Content.Client.DeadSpace._Soyuz.RepairOrders;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
@@ -24,12 +25,17 @@ public sealed class MilitiaOperationBoundUserInterface : BoundUserInterface
 
     protected override void Open()
     {
+        if (IsOpened)
+            return;
         base.Open();
-        _window = new MilitiaOperationWindow();
+        _window = this.CreateWindow<MilitiaOperationWindow>();
         _window.OnRequest += request => SendMessage(request);
         _window.OnDocumentSlot += () => SendMessage(new ItemSlotButtonPressedEvent("operationDocument"));
-        _window.OnClose += Close;
-        _window.OpenCentered();
+        _window.SetShopDraft(PlayerManager.LocalEntity is { } actor
+            ? EntMan.System<RepairOrderShopSystem>().GetDraft(Owner, actor)
+            : new RepairOrderShopDraft());
+        if (State is MilitiaOperationUiState state)
+            _window.UpdateState(state);
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
@@ -46,12 +52,6 @@ public sealed class MilitiaOperationBoundUserInterface : BoundUserInterface
             _window?.ShowResult(result);
     }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        if (disposing)
-            _window?.Dispose();
-    }
 }
 
 public sealed class MilitiaOperationWindow : FancyWindow
@@ -86,17 +86,31 @@ public sealed class MilitiaOperationWindow : FancyWindow
     private readonly BoxContainer _cartLines = Column();
     private readonly Label _cartTotal = new();
     private readonly Button _buy;
-    private readonly Dictionary<string, int> _cart = new();
+    private readonly LineEdit _search = new() { HorizontalExpand = true };
+    private readonly OptionButton _category = new() { MinWidth = 150 };
+    private readonly CheckBox _availableOnly = new();
+    private readonly Button _clearCart;
+    private readonly Dictionary<string, (Button Remove, Button Add, Label Count, RepairRewardPrototype Reward)> _quantities = new();
+    private RepairOrderShopDraft _draft = new();
+    private Dictionary<string, int> Cart => _draft.Cart;
     private readonly Dictionary<Guid, ContainerButton> _offerCards = new();
     private readonly List<ContainerButton> _navigation = new();
     private MilitiaOperationUiState? _state;
     private string _catalog = string.Empty;
+    private string _shopKey = string.Empty;
     private string _activeKey = string.Empty;
     private string _historyKey = "\0";
     private string _cartKey = string.Empty;
     private Guid? _selected;
     private Guid? _abortConfirmation;
-    private Guid? _purchase;
+    private Guid? _purchase
+    {
+        get => Guid.TryParse(_draft.PendingRequestId, out var id) ? id : null;
+        set => _draft.PendingRequestId = value?.ToString();
+    }
+    private TimeSpan _purchaseRetry;
+    private Guid? _accepting;
+    private TimeSpan _acceptTimeout;
     private Button? _accept;
     public event Action<MilitiaOperationRequest>? OnRequest;
     public event Action? OnDocumentSlot;
@@ -120,7 +134,6 @@ public sealed class MilitiaOperationWindow : FancyWindow
         var title = Text(Loc.GetString("militia-operation-title"));
         title.StyleClasses.Add("LabelHeading");
         heading.AddChild(title);
-        heading.AddChild(Text(Loc.GetString("militia-operation-subtitle"), Muted));
         header.AddChild(heading);
         root.AddChild(Surface(header, accent: true));
         var account = new BoxContainer { SeparationOverride = 8 };
@@ -192,6 +205,18 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _shopContent = shopRow;
         var catalog = Column();
         catalog.AddChild(Section(3, "militia-operation-shop"));
+        _search.PlaceHolder = Loc.GetString("militia-operation-shop-search");
+        _search.OnTextChanged += args => { _draft.Search = args.Text; RenderShop(); };
+        catalog.AddChild(_search);
+        var filters = new BoxContainer { SeparationOverride = 8 };
+        foreach (var key in new[] { "all", "weapons", "ammo", "equipment" })
+            _category.AddItem(Loc.GetString($"militia-operation-shop-{key}"));
+        _category.OnItemSelected += args => { _category.SelectId(args.Id); RenderShop(); };
+        filters.AddChild(_category);
+        _availableOnly.Text = Loc.GetString("militia-operation-shop-available");
+        _availableOnly.OnToggled += _ => RenderShop();
+        filters.AddChild(_availableOnly);
+        catalog.AddChild(filters);
         catalog.AddChild(Scroll(_shop));
         var catalogPanel = Surface(catalog, expand: true);
         catalogPanel.SizeFlagsStretchRatio = 3;
@@ -200,16 +225,16 @@ public sealed class MilitiaOperationWindow : FancyWindow
         cart.AddChild(Section(1, "militia-operation-cart"));
         cart.AddChild(Scroll(_cartLines));
         cart.AddChild(_cartTotal);
-        _buy = Button("militia-operation-buy", () =>
+        _buy = Button("militia-operation-buy", BeginPurchase);
+        cart.AddChild(_buy);
+        _clearCart = Button("militia-operation-cart-clear", () =>
         {
-            if (_state?.ShopEnabled != true || _purchase != null || _cart.Count == 0)
+            if (_purchase != null)
                 return;
-            _purchase = Guid.NewGuid();
-            OnRequest?.Invoke(new MilitiaOperationRequest(MilitiaOperationAction.Purchase, _purchase.Value,
-                _cart.Select(p => new RepairOrderRewardBuiEntry(p.Key, p.Value)).ToList()));
+            Cart.Clear();
             UpdateCart();
         });
-        cart.AddChild(_buy);
+        cart.AddChild(_clearCart);
         var cartPanel = Surface(cart, expand: true);
         cartPanel.MinWidth = 280;
         cartPanel.SizeFlagsStretchRatio = 2;
@@ -328,6 +353,8 @@ public sealed class MilitiaOperationWindow : FancyWindow
         if (_state?.Status != state.Status)
             _notice.Visible = false;
         _state = state;
+        if (_accepting is { } pending && (state.Active != null || state.Offers.All(offer => offer.Token != pending)))
+            _accepting = null;
         _shopContent.Visible = state.ShopEnabled;
         _shopMaintenance.Visible = !state.ShopEnabled;
         _balance.Text = state.Points.ToString();
@@ -350,6 +377,14 @@ public sealed class MilitiaOperationWindow : FancyWindow
         {
             _catalog = catalog;
             RenderOffers();
+        }
+        var shopKey = $"{state.Shop}:{state.ShopEnabled}:{state.Level}";
+        if (shopKey != _shopKey)
+        {
+            if (_draft.RewardPoolId != state.Shop && _purchase == null)
+                Cart.Clear();
+            _draft.RewardPoolId = state.Shop;
+            _shopKey = shopKey;
             RenderShop();
         }
         var activeKey = $"{state.Active?.Token}:{state.CleanupPending}";
@@ -428,8 +463,22 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _details.AddChild(Paragraph(Loc.GetString("militia-operation-objectives")));
         _details.AddChild(Surface(Paragraph(Loc.GetString("militia-operation-reward", ("points", prototype.Points),
             ("reputation", prototype.Reputation))), accent: true));
-        _accept = Button("militia-operation-accept", () => OnRequest?.Invoke(new(MilitiaOperationAction.Accept, offer.Token)));
-        _accept.Disabled = _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
+        _accept = Button("militia-operation-accept", () =>
+        {
+            var state = _state;
+            if (_accepting != null || state == null || state.Active != null || state.CleanupPending ||
+                _timing.CurTime < state.AvailableAt)
+                return;
+            _accepting = offer.Token;
+            _acceptTimeout = _timing.RealTime + TimeSpan.FromSeconds(30);
+            if (_accept != null)
+                _accept.Disabled = true;
+            _notice.Text = Loc.GetString("militia-operation-preparing");
+            _notice.FontColorOverride = Muted;
+            _notice.Visible = true;
+            OnRequest?.Invoke(new(MilitiaOperationAction.Accept, offer.Token));
+        });
+        _accept.Disabled = _accepting != null || _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
         _details.AddChild(_accept);
     }
 
@@ -475,85 +524,173 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _active.AddChild(abort);
     }
 
+    public void SetShopDraft(RepairOrderShopDraft draft)
+    {
+        _draft = draft;
+        _search.Text = draft.Search;
+    }
+
+    private string ProductName(RepairRewardPrototype reward, EntityPrototype entity)
+        => reward.ShopName is { } name ? Loc.GetString(name) : entity.Name;
+
+    private static int ProductCategory(EntityPrototype entity)
+        => entity.Components.ContainsKey("Gun") ? 1 : entity.Components.ContainsKey("BallisticAmmoProvider") ? 2 : 3;
+
     private void RenderShop()
     {
         _shop.RemoveAllChildren();
+        _quantities.Clear();
         if (_state?.ShopEnabled != true || !_prototypes.TryIndex<RepairRewardPoolPrototype>(_state.Shop, out var pool))
             return;
+        var search = _search.Text.Trim();
         foreach (var id in pool.Rewards.OrderBy(id => _prototypes.TryIndex(id, out var r) ? r.MinimumShopLevel : int.MaxValue))
         {
             if (!_prototypes.TryIndex(id, out var reward) || !_prototypes.TryIndex(reward.Entity, out var entity) ||
-                reward.Classified && _state.Level < reward.MinimumShopLevel)
+                reward.EmagOnly || reward.Classified && _state.Level < reward.MinimumShopLevel)
+                continue;
+            var name = ProductName(reward, entity);
+            if (search.Length > 0 && !name.Contains(search, StringComparison.CurrentCultureIgnoreCase) &&
+                !entity.ID.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                _category.SelectedId != 0 && ProductCategory(entity) != _category.SelectedId ||
+                _availableOnly.Pressed && _state.Level < reward.MinimumShopLevel)
                 continue;
             var row = new BoxContainer { SeparationOverride = 8, HorizontalExpand = true };
             var icon = new EntityPrototypeView { SetSize = new Vector2(40), Stretch = SpriteView.StretchMode.Fit };
             icon.SetPrototype(entity.ID);
             row.AddChild(icon);
             var description = Column();
-            description.AddChild(Paragraph(entity.Name));
-            description.AddChild(Text(Loc.GetString("militia-operation-price", ("cost", reward.Cost), ("level", reward.MinimumShopLevel))));
+            description.ToolTip = entity.Description;
+            description.AddChild(Paragraph(name));
+            description.AddChild(Text(Loc.GetString("militia-operation-price", ("cost", reward.Cost), ("level", reward.MinimumShopLevel)),
+                _state.Level < reward.MinimumShopLevel ? Muted : Accent));
             row.AddChild(description);
-            var add = Button("militia-operation-add", () =>
-            {
-                if (_purchase != null)
-                    return;
-                _cart.TryGetValue(reward.ID, out var count);
-                _cart[reward.ID] = Math.Min(count + 1, reward.MaxCount);
-                UpdateCart();
-            });
-            add.HorizontalExpand = false;
-            add.MinWidth = 90;
-            add.VerticalAlignment = VAlignment.Center;
-            add.Disabled = _state.Level < reward.MinimumShopLevel;
-            row.AddChild(add);
-            var panel = Surface(row);
-            panel.VerticalExpand = false;
-            _shop.AddChild(panel);
+            var controls = QuantityControls(reward);
+            controls.VerticalAlignment = VAlignment.Center;
+            row.AddChild(controls);
+            _shop.AddChild(Surface(row));
+        }
+        if (_shop.ChildCount == 0)
+            _shop.AddChild(Paragraph(Loc.GetString("militia-operation-shop-no-results")));
+        UpdateQuantities();
+    }
+
+    private BoxContainer QuantityControls(RepairRewardPrototype reward)
+    {
+        var row = new BoxContainer { SeparationOverride = 4 };
+        var remove = new Button { Text = "-", MinWidth = 28, ToolTip = Loc.GetString("militia-operation-remove") };
+        var count = new Label { MinWidth = 24, HorizontalAlignment = HAlignment.Center, VerticalAlignment = VAlignment.Center };
+        var add = new Button { Text = "+", MinWidth = 28, ToolTip = Loc.GetString("militia-operation-add") };
+        remove.OnPressed += _ => ChangeQuantity(reward, -1);
+        add.OnPressed += _ => ChangeQuantity(reward, 1);
+        row.AddChild(remove);
+        row.AddChild(count);
+        row.AddChild(add);
+        _quantities[reward.ID] = (remove, add, count, reward);
+        return row;
+    }
+
+    private void ChangeQuantity(RepairRewardPrototype reward, int change)
+    {
+        if (_purchase != null || _state?.ShopEnabled != true || _state.Level < reward.MinimumShopLevel)
+            return;
+        var count = Math.Clamp(Cart.GetValueOrDefault(reward.ID) + change, 0, reward.MaxCount);
+        if (count == 0)
+            Cart.Remove(reward.ID);
+        else
+            Cart[reward.ID] = count;
+        UpdateCart();
+    }
+
+    private void UpdateQuantities()
+    {
+        foreach (var (id, controls) in _quantities)
+        {
+            var count = Cart.GetValueOrDefault(id);
+            controls.Count.Text = count.ToString();
+            controls.Remove.Disabled = _purchase != null || count == 0;
+            controls.Add.Disabled = _purchase != null || _state?.ShopEnabled != true ||
+                                    _state.Level < controls.Reward.MinimumShopLevel || count >= controls.Reward.MaxCount;
         }
     }
 
     private void UpdateCart()
     {
-        var key = $"{_state?.Points}:{_state?.Level}:{_purchase}:{string.Join(';', _cart.Select(p => $"{p.Key}:{p.Value}"))}";
+        UpdateQuantities();
+        var key = $"{_state?.Shop}:{_state?.ShopEnabled}:{_state?.Points}:{_state?.Level}:{_purchase}:{string.Join(';', Cart.Select(p => $"{p.Key}:{p.Value}"))}";
         if (_cartKey == key)
             return;
         _cartKey = key;
         _cartLines.RemoveAllChildren();
-        if (_cart.Count == 0)
-            _cartLines.AddChild(Paragraph(Loc.GetString("militia-operation-cart-empty")));
+        _prototypes.TryIndex<RepairRewardPoolPrototype>(_state?.Shop ?? string.Empty, out var pool);
         long total = 0;
-        foreach (var (id, count) in _cart.ToArray())
+        var valid = pool != null;
+        foreach (var (id, count) in Cart.ToArray())
         {
-            if (!_prototypes.TryIndex<RepairRewardPrototype>(id, out var reward) || !_prototypes.TryIndex(reward.Entity, out var entity))
+            if (pool == null || !pool.Rewards.Any(entry => entry.Id == id) ||
+                !_prototypes.TryIndex<RepairRewardPrototype>(id, out var reward) ||
+                !_prototypes.TryIndex(reward.Entity, out var entity) || reward.EmagOnly ||
+                count <= 0 || count > reward.MaxCount || _state!.Level < reward.MinimumShopLevel)
+            {
+                if (_purchase == null)
+                    Cart.Remove(id);
+                else
+                    valid = false;
                 continue;
+            }
             total += (long) count * reward.Cost;
             var row = Column();
-            row.AddChild(Paragraph($"{entity.Name} × {count}"));
+            row.AddChild(Paragraph($"{ProductName(reward, entity)} × {count}"));
             row.AddChild(Text(Loc.GetString("militia-operation-total", ("cost", (long) count * reward.Cost)), Muted));
-            var remove = Button("militia-operation-remove", () =>
-            {
-                if (count > 1) _cart[id] = count - 1;
-                else _cart.Remove(id);
-                UpdateCart();
-            });
-            remove.Disabled = _purchase != null;
-            row.AddChild(remove);
+            var controls = new BoxContainer { SeparationOverride = 6 };
+            var remove = new Button { Text = "-", MinWidth = 32, Disabled = _purchase != null };
+            remove.OnPressed += _ => ChangeQuantity(reward, -1);
+            var add = new Button { Text = "+", MinWidth = 32, Disabled = _purchase != null || count >= reward.MaxCount };
+            add.OnPressed += _ => ChangeQuantity(reward, 1);
+            controls.AddChild(remove);
+            controls.AddChild(add);
+            row.AddChild(controls);
             _cartLines.AddChild(Surface(row));
         }
+        if (Cart.Count == 0)
+            _cartLines.AddChild(Paragraph(Loc.GetString("militia-operation-cart-empty")));
         _cartTotal.Text = Loc.GetString("militia-operation-total", ("cost", total));
-        _buy.Disabled = total == 0 || _state?.ShopEnabled != true || total > _state.Points || _purchase != null;
+        _buy.Text = Loc.GetString(_purchase != null ? "militia-operation-purchase-pending" : "militia-operation-buy");
+        _buy.Disabled = !valid || total == 0 || _state?.ShopEnabled != true || total > _state.Points || _purchase != null;
+        _clearCart.Disabled = Cart.Count == 0 || _purchase != null;
+        UpdateQuantities();
+    }
+
+    private void BeginPurchase()
+    {
+        if (_buy.Disabled || _state?.ShopEnabled != true || _purchase != null || Cart.Count == 0)
+            return;
+        _purchase = Guid.NewGuid();
+        _draft.PendingLines = Cart.Select(p => new RepairOrderRewardBuiEntry(p.Key, p.Value)).ToList();
+        SendPurchase();
+        UpdateCart();
+    }
+
+    private void SendPurchase()
+    {
+        if (_purchase is not { } id || _draft.PendingLines is not { } lines)
+            return;
+        _purchaseRetry = _timing.RealTime + TimeSpan.FromSeconds(5);
+        OnRequest?.Invoke(new MilitiaOperationRequest(MilitiaOperationAction.Purchase, id, lines));
     }
 
     public void ShowResult(MilitiaOperationResult result)
     {
+        if (_accepting == result.Token)
+            _accepting = null;
         _notice.Text = Loc.GetString(result.Message);
         _notice.FontColorOverride = result.Success ? Accent : Warning;
         _notice.Visible = true;
-        if (_purchase == result.Token)
+        if (_purchase == result.Token && result.Message != "militia-operation-busy")
         {
             if (result.Success)
-                _cart.Clear();
+                Cart.Clear();
             _purchase = null;
+            _draft.PendingLines = null;
         }
         UpdateCart();
     }
@@ -561,6 +698,15 @@ public sealed class MilitiaOperationWindow : FancyWindow
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
+        if (_state != null && _purchase != null && _timing.RealTime >= _purchaseRetry)
+            SendPurchase();
+        if (_accepting != null && _timing.RealTime >= _acceptTimeout)
+        {
+            _accepting = null;
+            _notice.Text = Loc.GetString("militia-operation-request-timeout");
+            _notice.FontColorOverride = Warning;
+            _notice.Visible = true;
+        }
         var deadline = _state?.Deadline ?? _state?.AvailableAt;
         var remaining = deadline - _timing.CurTime;
         _timer.Text = remaining is { } time && time > TimeSpan.Zero
@@ -569,6 +715,6 @@ public sealed class MilitiaOperationWindow : FancyWindow
         _availability.Visible = _state?.Active == null && _state?.AvailableAt > _timing.CurTime;
         _availability.Text = _timer.Text;
         if (_accept != null && _state != null)
-            _accept.Disabled = _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
+            _accept.Disabled = _accepting != null || _state.Active != null || _state.CleanupPending || _timing.CurTime < _state.AvailableAt;
     }
 }

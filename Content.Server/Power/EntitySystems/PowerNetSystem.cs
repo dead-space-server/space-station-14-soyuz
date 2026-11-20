@@ -25,6 +25,7 @@ namespace Content.Server.Power.EntitySystems
         [Dependency] private readonly IConfigurationManager _cfg = default!;
         [Dependency] private readonly IParallelManager _parMan = default!;
         [Dependency] private readonly BatterySystem _battery = default!;
+        [Dependency] private readonly Content.Server.DeadSpace._Soyuz.Atmos.SoyuzImpulseSystem _soyuzImpulse = default!; // DS14-Soyuz
 
         private readonly PowerState _powerState = new();
         private readonly HashSet<PowerNet> _powerNetReconnectQueue = new();
@@ -218,6 +219,7 @@ namespace Content.Server.Power.EntitySystems
 
         private void PowerSupplierShutdown(EntityUid uid, PowerSupplierComponent component, ComponentShutdown args)
         {
+            _soyuzImpulse.RemoveSupplier(uid, component); // DS14-Soyuz
             _powerState.DetachSupply(component.NetworkSupply); // DS14
             _powerState.Supplies.Free(component.NetworkSupply.Id);
         }

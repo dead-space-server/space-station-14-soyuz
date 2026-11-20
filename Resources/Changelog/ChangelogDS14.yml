@@ -9648,3 +9648,51 @@ Entries:
     message: 'Несогласованности снаряжения и описаний после PR #529.'
   - type: Fix
     message: Баги операций милиции.
+- id: 927
+  author: Genes1us
+  time: '2026-11-15T17:40:37.151967+00:00'
+  pr: 556
+  changes:
+  - type: Add
+    message: Ботинки для гост-бара
+  - type: Tweak
+    message: Загружен ремап салтерна. Ремапом занималась kainse
+  - type: Tweak
+    message: Интерфейс для входа в гост-бар
+  - type: Fix
+    message: Планетоид теперь спавнится в секторе станции
+- id: 928
+  author: Ezio50
+  time: '2026-11-20T11:13:53.677726+00:00'
+  pr: 555
+  changes:
+  - type: Add
+    message: Случайное ближнее оружие оперативников.
+  - type: Tweak
+    message: Оперативники «Рассвета» получают больше расходников.
+  - type: Fix
+    message: Выбор укрытий.
+  - type: Fix
+    message: Поломанные газы Союза после апстрима.
+- id: 929
+  author: Ezio50
+  time: '2026-11-20T13:44:14.737968+00:00'
+  pr: 557
+  changes:
+  - type: Add
+    message: Ивентовые бойцы.
+  - type: Add
+    message: Командирский планшет с отрядами (ивент)
+  - type: Add
+    message: Возможность интеграции в операции милиции
+- id: 930
+  author: Genes1us
+  time: '2026-11-20T16:09:26.286205+00:00'
+  pr: 558
+  changes:
+  - type: Remove
+    message: Вайтлист рас для ролей
+  - type: Fix
+    message: Шапки документов
+  - type: Fix
+    message: Лодаут КГБ

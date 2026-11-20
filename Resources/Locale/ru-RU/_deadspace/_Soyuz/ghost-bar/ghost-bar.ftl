@@ -13,6 +13,7 @@ ghost-bar-join-error = Произошла ошибка при попытке в�
 
 ghost-bar-costume-select = Надеть
 ghost-bar-costume-remove = Снять
+ghost-bar-costume-status-selected = Выбрано
 
 ghost-bar-costume-category-head = Головной Убор
 ghost-bar-costume-category-jumpsuit = Комбинезоны
@@ -62,3 +63,8 @@ ghost-bar-costume-ClothingNeckGhostBarWhiteScarf = Белоснежный кос
 ghost-bar-costume-ClothingNeckGhostBarBlueMantleShoulder = Голубая наплечная космо-мантия
 ghost-bar-costume-ClothingNeckGhostBarOrangeMantleShoulder = Оранжевая наплечная космо-мантия
 ghost-bar-costume-ClothingNeckGhostBarVioletMantleShoulder = Фиолетовая наплечная космо-мантия
+
+# Ботинки
+ghost-bar-costume-ClothingShoesBootsGhostBarBlue = Голубые космо-сапоги
+ghost-bar-costume-ClothingShoesBootsGhostBarOrange = Оранжевые космо-сапоги
+ghost-bar-costume-ClothingShoesBootsGhostBarViolet = Фиолетовые космо-сапоги

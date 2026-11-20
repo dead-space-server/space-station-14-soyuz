@@ -1,0 +1,101 @@
+- type: entity
+  id: EventHomewardDocumentBase
+  parent: BaseItem
+  abstract: true
+  suffix: Обратный путь
+  description: Полевой документ со следами сгибов и служебными пометками.
+  components:
+  - type: Item
+    size: Tiny
+    sprite: Objects/Misc/bureaucracy.rsi
+    inhandVisuals:
+      left:
+      - state: paper-inhand-left
+      right:
+      - state: paper-inhand-right
+  - type: Tag
+    tags:
+    - Document
+    - HighRiskItem
+  - type: Godmode
+  - type: Paper
+    editingDisabled: true
+    contentSize: 0
+    signatures:
+    - ' '
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov01.png
+    backgroundModulate: '#e8e3d5'
+    maxWritableArea: 500, 680
+  - type: ActivatableUI
+    key: enum.PaperUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.PaperUiKey.Key:
+        type: PaperBoundUserInterface
+  - type: Appearance
+  - type: Sprite
+    sprite: _DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/documents.rsi
+    layers:
+    - state: worn
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_words
+      map:
+      - enum.PaperVisualLayers.Writing
+      color: '#FFFFFF00'
+      visible: false
+    - sprite: Objects/Misc/bureaucracy.rsi
+      state: paper_stamp-generic
+      map:
+      - enum.PaperVisualLayers.Stamp
+      color: '#FFFFFF00'
+      visible: false
+- type: entity
+  id: EventHomewardDocument01
+  parent: EventHomewardDocumentBase
+  name: ОВ-01. Последняя передача Генерального штаба
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov01.png
+    backgroundModulate: '#E8E3D5'
+- type: entity
+  id: EventHomewardDocument02
+  parent: EventHomewardDocumentBase
+  name: ОВ-02. Полевая схема района посадки
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov02.png
+    backgroundModulate: '#E3DFCD'
+- type: entity
+  id: EventHomewardDocument03
+  parent: EventHomewardDocumentBase
+  name: ОВ-03. Приказ начальнику аванпоста Рассвета
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov03.png
+    backgroundModulate: '#E2DCCE'
+- type: entity
+  id: EventHomewardDocument04
+  parent: EventHomewardDocumentBase
+  name: ОВ-04. Журнал дежурного Рассвета
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov04.png
+    backgroundModulate: '#E9E4D2'
+- type: entity
+  id: EventHomewardDocument05
+  parent: EventHomewardDocumentBase
+  name: ОВ-05. Карточка обслуживания узла связи
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov05.png
+    backgroundModulate: '#DBDDCF'
+- type: entity
+  id: EventHomewardDocument06
+  parent: EventHomewardDocumentBase
+  name: ОВ-06. Схема перехвата и резервного коридора
+  components:
+  - type: PaperVisuals
+    headerImagePath: /Textures/_DeadSpace/TEMP_FOR_EVENT/Elfiry/Homeward/pages/ov06.png
+    backgroundModulate: '#D9E1DC'

@@ -250,9 +250,10 @@ public sealed partial class EventCommandSystem : EntitySystem
         return null;
     }
 
-    private void Replan(EntityUid uid)
+    private void Replan(Entity<EventSquadUnitComponent> unit)
     {
-        if (TryComp<HTNComponent>(uid, out var htn))
+        unit.Comp.NeedsOrderReplan = false;
+        if (TryComp<HTNComponent>(unit, out var htn))
         {
             _htn.CancelPlanning(htn);
             _htn.Replan(htn);
@@ -283,6 +284,11 @@ public sealed partial class EventCommandSystem : EntitySystem
                 continue;
             _combat.SyncEventDefense(uid);
             _npcs.KeepEventCommandActive(uid);
+            if (unit.NeedsOrderReplan)
+            {
+                try { Replan((uid, unit)); }
+                catch (Exception exception) { Log.Error($"Event order recovery failed for {uid}: {exception}"); }
+            }
             _combat.UpdateEventPassage(uid);
             if (unit.Ordered && unit.Destination.IsValid(EntityManager) &&
                 _transform.ToMapCoordinates(unit.Destination).MapId == Transform(uid).MapID)

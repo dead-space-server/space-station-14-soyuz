@@ -48,12 +48,7 @@ public sealed partial class MilitiaOperationSystem
         if (unit.Ordered && unit.Order == EventSquadOrder.Retreat || unit.AssaultUntil <= _timing.CurTime ||
             unit.AssaultTarget.IsValid() && !SquadThreat(uid, unit.AssaultTarget))
             unit.AssaultTarget = EntityUid.Invalid;
-        var target = _factions.GetNearbyHostiles(uid, CombatVision(actor))
-            .Where(enemy => SquadVisible(uid, enemy, CombatVision(actor)) &&
-                (enemy == unit.AssaultTarget || ThroughWindow(_transform.GetMapCoordinates(uid), _transform.GetMapCoordinates(enemy))))
-            .OrderBy(enemy => enemy == unit.AssaultTarget ? 0 : 1)
-            .ThenBy(enemy => Vector2.DistanceSquared(_transform.GetWorldPosition(uid), _transform.GetWorldPosition(enemy))).FirstOrDefault();
-        if ((!unit.Ordered || unit.Order != EventSquadOrder.Retreat) && target.IsValid())
+        if ((!unit.Ordered || unit.Order != EventSquadOrder.Retreat) && FindEventAssaultTarget(uid, actor, unit.AssaultTarget) is { } target)
         {
             unit.AssaultTarget = target;
             unit.AssaultPosition = Transform(target).Coordinates;
@@ -73,6 +68,32 @@ public sealed partial class MilitiaOperationSystem
             actor.SquadOrder = null;
             unit.DefensiveGrid = transform.GridUid;
         }
+    }
+
+    private EntityUid? FindEventAssaultTarget(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid current)
+    {
+        var vision = CombatVision(actor);
+        var origin = _transform.GetMapCoordinates(uid);
+        EntityUid? nearest = null;
+        var nearestDistance = float.PositiveInfinity;
+        foreach (var enemy in _factions.GetNearbyHostiles(uid, vision))
+        {
+            if (!SquadThreat(uid, enemy))
+                continue;
+            if (enemy == current)
+            {
+                if (SquadSightClear(uid, enemy, vision))
+                    return enemy;
+                continue;
+            }
+            var position = _transform.GetMapCoordinates(enemy);
+            var distance = Vector2.DistanceSquared(origin.Position, position.Position);
+            if (distance >= nearestDistance || !SquadSightClear(uid, enemy, vision) || !ThroughWindow(origin, position))
+                continue;
+            nearest = enemy;
+            nearestDistance = distance;
+        }
+        return nearest;
     }
 
     public bool EventMovementAllowed(EntityUid uid)
@@ -408,7 +429,7 @@ public sealed partial class MilitiaOperationSystem
         }
         var origin = _transform.GetMapCoordinates(uid);
         var next = _transform.ToMapCoordinates(path.Route[unit.RouteIndex]);
-        if (!EventRouteSafe(uid, new[] { path.Route[unit.RouteIndex] }, unit.Order))
+        if (!EventRouteSafe(uid, path.Route.AsSpan(unit.RouteIndex, 1), unit.Order))
             return HTNOperatorStatus.Finished;
         EntityUid? blockedDoor = null;
         if (!_interaction.InRangeUnobstructed(origin, next, 0f, CollisionGroup.MobMask, predicate: entity =>
@@ -442,73 +463,79 @@ public sealed partial class MilitiaOperationSystem
         return CanPryRouteDoor(uid, doorUid) ? PryRouteDoor(uid, doorUid) : HTNOperatorStatus.Failed;
     }
 
-    private bool EventRouteSafe(EntityUid uid, EntityCoordinates[] route, EventSquadOrder order)
+    private bool EventRouteSafe(EntityUid uid, ReadOnlySpan<EntityCoordinates> route, EventSquadOrder order)
+        => GetEventRouteLength(uid, route, order) != null;
+
+    private int? GetEventRouteLength(EntityUid uid, ReadOnlySpan<EntityCoordinates> route, EventSquadOrder order,
+        bool stopAtThreat = false)
     {
         var actor = Comp<MilitiaOperationActorComponent>(uid);
+        var unit = Comp<EventSquadUnitComponent>(uid);
         var origin = _transform.GetMapCoordinates(uid);
-        var threats = actor.SquadContacts.Where(c => c.Expires > _timing.CurTime && c.Position.IsValid(EntityManager) && SquadThreat(uid, c.Target))
-            .Select(c => _transform.ToMapCoordinates(c.Position)).ToList();
-        if (DirectContact(uid, actor))
-            threats.Add(_transform.GetMapCoordinates(actor.DirectTarget));
-        if (Comp<EventSquadUnitComponent>(uid) is var advancing && advancing.AssaultUntil > _timing.CurTime &&
-            advancing.AssaultPosition.IsValid(EntityManager) && SquadThreat(uid, advancing.AssaultTarget))
-            threats.Add(_transform.ToMapCoordinates(advancing.AssaultPosition));
-        if (TryComp<EventSquadUnitComponent>(uid, out var unit) && unit.DamageUntil > _timing.CurTime &&
-            unit.DamagePosition is { } incoming && incoming.MapId == origin.MapId)
-            threats.Add(incoming);
-        foreach (var coordinates in route)
+        var retreat = order == EventSquadOrder.Retreat;
+        var threats = new List<(Vector2 Position, float Distance)>();
+        foreach (var contact in actor.SquadContacts)
         {
-            var point = _transform.ToMapCoordinates(coordinates);
-            if (point.MapId != origin.MapId || _turf.GetTileRef(coordinates) is not { } tile || tile.Tile.IsEmpty || _turf.IsSpace(tile.Tile))
-                return false;
-            if (threats.Any(threat => Vector2.Distance(point.Position, threat.Position) + 0.1f <
-                    MathF.Min(1.5f, Vector2.Distance(origin.Position, threat.Position))))
-                return false;
-            if (order == EventSquadOrder.Retreat && threats.Any(threat =>
-                    Vector2.Distance(point.Position, threat.Position) + 0.5f < Vector2.Distance(origin.Position, threat.Position)))
-                return false;
+            if (contact.Expires > _timing.CurTime && contact.Position.IsValid(EntityManager) && SquadThreat(uid, contact.Target))
+                threats.Add(ThreatAt(_transform.ToMapCoordinates(contact.Position).Position));
         }
-        return true;
+        if (DirectContact(uid, actor))
+            threats.Add(ThreatAt(_transform.GetWorldPosition(actor.DirectTarget)));
+        if (unit.AssaultUntil > _timing.CurTime && unit.AssaultPosition.IsValid(EntityManager) && SquadThreat(uid, unit.AssaultTarget))
+            threats.Add(ThreatAt(_transform.ToMapCoordinates(unit.AssaultPosition).Position));
+        (Vector2 Position, float Distance)? damageThreat = unit.DamageUntil > _timing.CurTime &&
+            unit.DamagePosition is { } incoming && incoming.MapId == origin.MapId ? ThreatAt(incoming.Position) : null;
+        for (var i = 0; i < route.Length; i++)
+        {
+            var coordinates = route[i];
+            var point = _transform.ToMapCoordinates(coordinates);
+            // A contact can end an advance here. Only the retained points must be safe from incoming fire.
+            if (BlockedByContact(point.Position))
+                return stopAtThreat && !retreat ? i : null;
+            if (point.MapId != origin.MapId || _turf.GetTileRef(coordinates) is not { } tile || tile.Tile.IsEmpty ||
+                _turf.IsSpace(tile.Tile) || damageThreat is { } damage && Blocks(point.Position, damage, retreat))
+                return null;
+        }
+        return route.Length;
+
+        (Vector2 Position, float Distance) ThreatAt(Vector2 position) => (position, Vector2.Distance(origin.Position, position));
+
+        bool BlockedByContact(Vector2 point)
+        {
+            foreach (var threat in threats)
+            {
+                if (Blocks(point, threat, retreat))
+                    return true;
+            }
+            return false;
+        }
+
+        static bool Blocks(Vector2 point, (Vector2 Position, float Distance) threat, bool retreat)
+        {
+            var distance = Vector2.Distance(point, threat.Position);
+            return distance + 0.1f < MathF.Min(1.5f, threat.Distance) || retreat && distance + 0.5f < threat.Distance;
+        }
     }
 
     private EventCommandPath? EventAdvancePath(EntityUid uid, uint revision, EntityCoordinates destination,
         EntityCoordinates[] route, EntityUid[] doors)
     {
         var unit = Comp<EventSquadUnitComponent>(uid);
-        var actor = Comp<MilitiaOperationActorComponent>(uid);
+        if (GetEventRouteLength(uid, route, unit.Order, stopAtThreat: true) is not { } length)
+            return null;
         EntityUid? engagementDoor = null;
-        if (unit.Order != EventSquadOrder.Retreat)
+        if (length < route.Length)
         {
-            var origin = _transform.GetWorldPosition(uid);
-            var threats = actor.SquadContacts.Where(contact => contact.Expires > _timing.CurTime &&
-                    contact.Position.IsValid(EntityManager) && SquadThreat(uid, contact.Target))
-                .Select(contact => _transform.ToMapCoordinates(contact.Position).Position).ToList();
-            if (DirectContact(uid, actor))
-                threats.Add(_transform.GetWorldPosition(actor.DirectTarget));
-            if (unit.AssaultUntil > _timing.CurTime && unit.AssaultPosition.IsValid(EntityManager) && SquadThreat(uid, unit.AssaultTarget))
-                threats.Add(_transform.ToMapCoordinates(unit.AssaultPosition).Position);
-            var count = 0;
-            foreach (var point in route)
-            {
-                var position = _transform.ToMapCoordinates(point).Position;
-                if (threats.Any(threat => Vector2.Distance(position, threat) + 0.1f < MathF.Min(1.5f, Vector2.Distance(origin, threat))))
-                    break;
-                count++;
-            }
-            if (count < route.Length)
-            {
-                var edge = count == 0 ? _transform.GetMapCoordinates(uid) : _transform.ToMapCoordinates(route[count - 1]);
-                var blocked = new HashSet<EntityUid>();
-                if (EventSegmentClear(uid, edge, _transform.ToMapCoordinates(route[count]), blocked))
-                    engagementDoor = blocked.OrderBy(door => Vector2.DistanceSquared(edge.Position, _transform.GetWorldPosition(door)))
-                        .Select(door => (EntityUid?) door).FirstOrDefault();
-                if (count == 0 && engagementDoor == null)
-                    return null;
-                route = route.Take(count).ToArray();
-            }
+            var edge = length == 0 ? _transform.GetMapCoordinates(uid) : _transform.ToMapCoordinates(route[length - 1]);
+            var blocked = new HashSet<EntityUid>();
+            if (EventSegmentClear(uid, edge, _transform.ToMapCoordinates(route[length]), blocked))
+                engagementDoor = blocked.OrderBy(door => Vector2.DistanceSquared(edge.Position, _transform.GetWorldPosition(door)))
+                    .Select(door => (EntityUid?) door).FirstOrDefault();
+            if (length == 0 && engagementDoor == null)
+                return null;
+            route = route[..length];
         }
-        return EventRouteSafe(uid, route, unit.Order)
-            ? new EventCommandPath(revision, destination, route, doors) { EngagementDoor = engagementDoor } : null;
+        return new EventCommandPath(revision, destination, route, doors) { EngagementDoor = engagementDoor };
     }
 
     public void BeginEventCommandPath(EntityUid uid, EventCommandPath path)

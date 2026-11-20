@@ -40,7 +40,11 @@ public sealed partial class EventCommandSystem
             change =>
             {
                 if (TryComp<EventSquadUnitComponent>(change.Unit, out var current) && ReferenceEquals(current, change.Unit.Comp))
+                {
                     change.Before.Apply(current);
+                    // Replan after all participants have their previous orders back.
+                    current.NeedsOrderReplan = true;
+                }
             },
             exception => Log.Error($"Event order recovery failed: {exception}"), out var error);
         if (!accepted)
@@ -61,14 +65,26 @@ public sealed partial class EventCommandSystem
         var query = EntityQueryEnumerator<EventSquadUnitComponent>();
         while (query.MoveNext(out var uid, out var unit))
         {
-            if (unit.Team == team && unit.Squad > 0 && !TerminatingOrDeleted(uid) &&
-                !EntityManager.IsQueuedForDeletion(uid) && !_mobs.IsDead(uid))
+            if (unit.Team == team && unit.Squad > 0 && CountsForSquad(uid))
                 counts[unit.Squad] = counts.GetValueOrDefault(unit.Squad) + 1;
         }
         return counts;
     }
 
-    private int SquadMembers(string team, int squad) => SquadCounts(team).GetValueOrDefault(squad);
+    private int SquadMembers(string team, int squad)
+    {
+        var count = 0;
+        var query = EntityQueryEnumerator<EventSquadUnitComponent>();
+        while (query.MoveNext(out var uid, out var unit))
+        {
+            if (unit.Team == team && unit.Squad == squad && CountsForSquad(uid))
+                count++;
+        }
+        return count;
+    }
+
+    private bool CountsForSquad(EntityUid uid)
+        => !TerminatingOrDeleted(uid) && !EntityManager.IsQueuedForDeletion(uid) && !_mobs.IsDead(uid);
 
     private EventCommandSquadState[] SquadStates(string team)
     {
@@ -153,14 +169,21 @@ public sealed partial class EventCommandSystem
             if (unit.Ordered && unit.Order == EventSquadOrder.Follow && _combat.EventUnitAvailable(uid))
                 followers.Add((uid, unit));
         }
+        if (followers.Count == 0)
+            return;
+
         foreach (var group in followers.GroupBy(unit => (unit.Comp.Commander, unit.Comp.Team, Transform(unit).MapID)))
         {
-            var selected = group.OrderBy(unit => unit.Comp.FormationSlot).ThenBy(unit => unit.Owner.GetHashCode()).ToArray();
             var commander = group.Key.Commander;
             var present = CommanderAvailable(commander, group.Key.Team) && Transform(commander).MapID == group.Key.MapID;
-            if (present && !selected.Any(unit => !unit.Comp.FollowPosition.IsValid(EntityManager) ||
-                Vector2.DistanceSquared(_transform.GetWorldPosition(commander), _transform.ToMapCoordinates(unit.Comp.FollowPosition).Position) > 16f))
-                continue;
+            if (present)
+            {
+                var origin = _transform.GetWorldPosition(commander);
+                if (!group.Any(unit => !unit.Comp.FollowPosition.IsValid(EntityManager) ||
+                    Vector2.DistanceSquared(origin, _transform.ToMapCoordinates(unit.Comp.FollowPosition).Position) > 16f))
+                    continue;
+            }
+            var selected = group.OrderBy(unit => unit.Comp.FormationSlot).ThenBy(unit => unit.Owner.GetHashCode()).ToArray();
             var occupied = new List<EntityCoordinates>();
             var changes = new List<EventOrderChange>();
             for (var i = 0; i < selected.Length; i++)
@@ -244,11 +267,6 @@ public static class EventOrderTransaction
             foreach (var change in changes)
             {
                 try { rollback(change); }
-                catch (Exception recovery) { recoveryError(recovery); }
-            }
-            foreach (var change in changes)
-            {
-                try { activate(change); }
                 catch (Exception recovery) { recoveryError(recovery); }
             }
             return false;

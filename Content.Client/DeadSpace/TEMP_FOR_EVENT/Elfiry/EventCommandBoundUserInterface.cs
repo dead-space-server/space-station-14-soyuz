@@ -428,6 +428,7 @@ public sealed class EventCommandMap : Control
         Color.FromHex("#63bdca"), Color.FromHex("#e7b578"), Color.FromHex("#75b5a3"), Color.FromHex("#657688"),
     ];
     private EventCommandUiState? _state;
+    private EventCommandGridState[] _drawGrids = [];
     private Vector2 _center;
     private Vector2 _pressPosition;
     private Vector2 _pressCenter;
@@ -453,6 +454,8 @@ public sealed class EventCommandMap : Control
             _center = state.Commander;
             _pressed = false;
         }
+        if (!ReferenceEquals(_state?.Grids, state.Grids))
+            _drawGrids = state.Grids.OrderByDescending(grid => grid.Planet).ToArray();
         _state = state;
     }
 
@@ -577,7 +580,7 @@ public sealed class EventCommandMap : Control
         if (_state == null)
             return;
         DrawGrid(handle);
-        foreach (var grid in _state.Grids.OrderByDescending(grid => grid.Planet))
+        foreach (var grid in _drawGrids)
         {
             foreach (var batch in _surfaces)
                 batch.Clear();

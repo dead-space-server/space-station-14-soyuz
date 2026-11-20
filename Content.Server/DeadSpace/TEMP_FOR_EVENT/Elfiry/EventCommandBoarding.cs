@@ -45,6 +45,8 @@ public sealed partial class EventCommandSystem
         var units = EntityQueryEnumerator<EventSquadUnitComponent, TransformComponent>();
         while (units.MoveNext(out _, out _, out var transform))
             maps.Add(transform.MapID);
+        if (maps.Count == 0 && _boarding.Count == 0)
+            return;
         var retained = new HashSet<EntityUid>();
         var doors = EntityQueryEnumerator<DoorComponent, TransformComponent>();
         while (doors.MoveNext(out var uid, out _, out var transform))

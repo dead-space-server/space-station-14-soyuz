@@ -73,21 +73,27 @@ public sealed partial class MilitiaOperationSystem
         var direction = EventTravelDirection(uid, unit);
         if (direction == Vector2.Zero)
             return null;
-        var allies = _squadLookup.GetEntitiesInRange<EventSquadUnitComponent>(origin, 1.4f);
-        var blocker = allies.Where(other => other.Owner != uid && other.Comp.Team == unit.Team &&
-                AvailableActor(other.Owner, out _) && !PassableEventBody(other.Owner) &&
-                _interaction.InRangeUnobstructed(origin, _transform.GetMapCoordinates(other.Owner), 0f, CollisionGroup.MobMask,
+        Entity<EventSquadUnitComponent>? nearest = null;
+        var blockingPosition = Vector2.Zero;
+        var nearestDistance = float.PositiveInfinity;
+        foreach (var other in _squadLookup.GetEntitiesInRange<EventSquadUnitComponent>(origin, 1.4f))
+        {
+            if (other.Owner == uid || other.Comp.Team != unit.Team || !AvailableActor(other.Owner, out _) || PassableEventBody(other.Owner))
+                continue;
+            var position = _transform.GetMapCoordinates(other.Owner);
+            var offset = position.Position - origin.Position;
+            var distance = offset.LengthSquared();
+            if (distance >= nearestDistance || EventTrafficPolicy.OverlapPriority(uid.GetHashCode(), other.Owner.GetHashCode(), distance) ||
+                !EventTrafficPolicy.Blocks(Vector2.Dot(offset, direction), offset.X * direction.Y - offset.Y * direction.X,
+                    unit.WaitingFor == other.Owner) ||
+                !_interaction.InRangeUnobstructed(origin, position, 0f, CollisionGroup.MobMask,
                     predicate: entity => IgnoreEventObstacle(uid, entity) || HasComp<Content.Shared.Mobs.Components.MobStateComponent>(entity)))
-            .Where(other =>
-            {
-                var offset = _transform.GetWorldPosition(other.Owner) - origin.Position;
-                if (EventTrafficPolicy.OverlapPriority(uid.GetHashCode(), other.Owner.GetHashCode(), offset.LengthSquared()))
-                    return false;
-                return EventTrafficPolicy.Blocks(Vector2.Dot(offset, direction),
-                    offset.X * direction.Y - offset.Y * direction.X, unit.WaitingFor == other.Owner);
-            }).OrderBy(other => Vector2.DistanceSquared(origin.Position, _transform.GetWorldPosition(other.Owner)))
-            .FirstOrDefault();
-        if (!blocker.Owner.IsValid())
+                continue;
+            nearest = other;
+            blockingPosition = position.Position;
+            nearestDistance = distance;
+        }
+        if (nearest is not { } blocker)
         {
             unit.WaitingFor = null;
             unit.WaitingStarted = null;
@@ -99,7 +105,6 @@ public sealed partial class MilitiaOperationSystem
             }
             return null;
         }
-        var blockingPosition = _transform.GetWorldPosition(blocker.Owner);
         unit.WaitingStarted ??= _timing.CurTime;
         if (unit.WaitingFor != blocker.Owner || Vector2.DistanceSquared(unit.WaitingPosition, blockingPosition) > 0.25f)
         {

@@ -87,7 +87,8 @@ public sealed class EventNavigationTest
     {
         var values = new[] { 11, 22, 33 };
         var original = values.ToArray();
-        var moving = new[] { true, true, true };
+        var activated = new List<int>();
+        var restored = new List<int>();
         var thrown = false;
         void Fail(string stage, int index)
         {
@@ -99,17 +100,18 @@ public sealed class EventNavigationTest
         }
         var recovered = new List<Exception>();
         var result = EventOrderTransaction.Execute(new[] { 0, 1, 2 },
-            i => { moving[i] = false; Fail("prepare", i); },
+            i => Fail("prepare", i),
             () => Fail("verify", 1),
             i => { values[i] = 100 + i; Fail("commit", i); },
-            i => { Fail("activate", i); moving[i] = true; },
-            i => values[i] = original[i], recovered.Add, out var error);
+            i => { activated.Add(i); Fail("activate", i); },
+            i => { values[i] = original[i]; restored.Add(i); }, recovered.Add, out var error);
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.False);
             Assert.That(error, Is.TypeOf<InvalidOperationException>());
             Assert.That(values, Is.EqualTo(original));
-            Assert.That(moving.All(value => value), Is.True);
+            Assert.That(restored, Is.EqualTo(new[] { 0, 1, 2 }));
+            Assert.That(activated, Is.EqualTo(failureStage == "activate" ? new[] { 0, 1 } : Array.Empty<int>()));
             Assert.That(recovered, Is.Empty);
         });
     }

@@ -15,6 +15,7 @@ public sealed partial class EventSquadUnitComponent : Component
     public EntityCoordinates Destination;
     public EventSquadOrder Order = EventSquadOrder.Defend;
     public uint Revision;
+    public bool NeedsOrderReplan;
     public bool Ordered;
     public bool Arrived;
     public TimeSpan RetryAfter;

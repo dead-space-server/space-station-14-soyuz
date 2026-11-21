@@ -313,6 +313,21 @@
 
 - type: latheRecipe
   parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: KitchenRangeOvenMachineCircuitboard
+  result: KitchenRangeOvenMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: KitchenWaffleIronMachineCircuitboard
+  result: KitchenWaffleIronMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
+  id: KitchenTabletopGrillMachineCircuitboard
+  result: KitchenTabletopGrillMachineCircuitboard
+
+- type: latheRecipe
+  parent: [ BaseCircuitboardRecipe, BaseServiceMachineRecipeCategory ]
   id: MicrowaveMachineCircuitboard
   result: MicrowaveMachineCircuitboard
 

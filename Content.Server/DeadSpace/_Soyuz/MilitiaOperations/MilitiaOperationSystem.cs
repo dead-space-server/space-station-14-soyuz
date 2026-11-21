@@ -539,13 +539,12 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var preserve = new List<EntityUid>();
         while (equipment.MoveNext(out var uid, out var owner))
         {
-            if (Exists(owner.Enemy) && _mobs.IsDead(owner.Enemy))
+            if (!Exists(owner.Enemy) || _mobs.IsDead(owner.Enemy))
             {
                 preserve.Add(uid);
                 continue;
             }
-            if (owner.Operation != Guid.Empty && !IsActive(owner.Controller, owner.Operation) ||
-                !Exists(owner.Enemy))
+            if (owner.Operation != Guid.Empty && !IsActive(owner.Controller, owner.Operation))
                 remove.Add(uid);
         }
         foreach (var uid in preserve)

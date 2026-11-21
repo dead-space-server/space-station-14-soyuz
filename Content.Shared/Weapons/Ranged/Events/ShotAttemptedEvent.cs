@@ -37,3 +37,9 @@ public record struct ShotAttemptedEvent
         Cancelled = false;
     }
 }
+
+// DS14-Soyuz-start
+/// <summary>Raised on the intended target when a gun fires a round at it.</summary>
+[ByRefEvent]
+public readonly record struct GunShotAtTargetEvent(EntityUid Shooter);
+// DS14-Soyuz-end

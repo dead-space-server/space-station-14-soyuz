@@ -19,7 +19,7 @@ public sealed partial class MilitiaOperationTargetComponent : Component;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class MilitiaOperationDocumentComponent : Component
 {
-    public EntityUid Station;
+    public EntityUid Controller;
     public Guid Operation;
 }
 

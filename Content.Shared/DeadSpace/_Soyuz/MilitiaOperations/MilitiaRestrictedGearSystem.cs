@@ -77,8 +77,9 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
 
     private void OnUse(Entity<MilitiaRestrictedGearComponent> gear, ref GettingUsedAttemptEvent args)
     {
-        // A hypospray can still be handed to the cabinet. Block its injector actions instead.
-        if (gear.Comp.Kind == MilitiaContrabandKind.Hypospray || Allowed(args.User, gear.Comp))
+        // The cabinet handles the transfer and validates custody independently.
+        if (gear.Comp.Kind == MilitiaContrabandKind.Hypospray || Allowed(args.User, gear.Comp) ||
+            !gear.Comp.Surrendered && HasComp<MilitiaCustodyCabinetComponent>(args.Target))
             return;
         args.Cancel();
         ShowDeniedPopup(gear, args.User);

@@ -6,9 +6,11 @@ using Content.Shared.Climbing.Components;
 using Content.Shared.Climbing.Systems;
 using Content.Shared.Damage.Components;
 using Content.Shared.DoAfter;
+using Content.Shared.Doors.Components;
 using Content.Shared.NPC.Components;
 using Content.Shared.Physics;
 using Content.Shared.Projectiles;
+using Content.Shared.Wall;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -26,8 +28,9 @@ public sealed partial class MilitiaOperationSystem
 {
     [Dependency] private readonly ClimbSystem _barrierClimb = default!;
     private static readonly PhysShapeCircle ShotPathShape = new(0.01f);
+    private static readonly ShotCollision DefaultShotCollision = new((int) (CollisionGroup.Impassable | CollisionGroup.BulletImpassable));
     private readonly Dictionary<(EntityPrototype Prototype, string Ancestor), bool> _hologramAncestors = new();
-    private readonly Dictionary<EntityPrototype, long> _projectileMasks = new();
+    private readonly Dictionary<EntityPrototype, ShotCollision> _projectileCollisions = new();
 
     private bool HologramPrototype(EntityUid uid, string id)
     {
@@ -182,45 +185,49 @@ public sealed partial class MilitiaOperationSystem
             return false;
         foreach (var field in _squadLookup.GetEntitiesInRange<ReflectComponent>(origin, 24f))
         {
-            if (!HolographicProjectileBarrier(field.Owner) || field.Comp.ReflectProb <= 0f ||
-                !SquadLineClear(origin, _transform.GetMapCoordinates(field.Owner), 0, CollisionGroup.Opaque))
+            if (!HolographicProjectileBarrier(field.Owner) || field.Comp.ReflectProb <= 0f)
                 continue;
             var bounds = _squadPhysics.GetWorldAABB(field.Owner);
             var offset = bounds.Center - origin.Position;
             var along = Vector2.Dot(offset, direction);
             var radius = bounds.Size.Length() / 2f + 0.15f;
             if (along + radius > 0f && along - radius < 24f &&
-                MathF.Abs(offset.X * direction.Y - offset.Y * direction.X) < radius + MathF.Max(0f, along) * spread)
+                MathF.Abs(offset.X * direction.Y - offset.Y * direction.X) < radius + MathF.Max(0f, along) * spread &&
+                SquadLineClear(origin, _transform.GetMapCoordinates(field.Owner), 0, CollisionGroup.Opaque))
                 return true;
         }
         return false;
     }
 
-    private long ShotCollisionMask(EntityUid weapon)
+    private ShotCollision GetShotCollision(EntityUid weapon)
     {
-        const long fallback = (long) (CollisionGroup.Impassable | CollisionGroup.BulletImpassable);
         if (!HasComp<GunComponent>(weapon))
-            return fallback;
+            return DefaultShotCollision;
         var ammo = new GetAmmoCountEvent();
         RaiseLocalEvent(weapon, ref ammo);
+        return GetShotCollision(in ammo);
+    }
+
+    private ShotCollision GetShotCollision(in GetAmmoCountEvent ammo)
+    {
         EntityPrototype? prototype = null;
         if (ammo.NextAmmoEntity is { } entity)
         {
             if (TryComp<CartridgeAmmoComponent>(entity, out var cartridge))
                 _prototypes.TryIndex(cartridge.Prototype, out prototype);
             else if (TryComp<HitscanBasicRaycastComponent>(entity, out var hitscan))
-                return (long) hitscan.CollisionMask;
+                return new ShotCollision((int) hitscan.CollisionMask, Hitscan: true);
             else if (TryComp<FixturesComponent>(entity, out var fixtures))
-                return fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
+                return new ShotCollision(fixtures.Fixtures.Values.Aggregate(0, (mask, fixture) => mask | fixture.CollisionMask));
         }
         else if (ammo.NextAmmoPrototype is { } id)
             _prototypes.TryIndex(id, out prototype);
         if (prototype == null)
-            return fallback;
+            return DefaultShotCollision;
         var ammoPrototype = prototype;
-        if (_projectileMasks.TryGetValue(ammoPrototype, out var cached))
+        if (_projectileCollisions.TryGetValue(ammoPrototype, out var cached))
             return cached;
-        var result = fallback;
+        var result = DefaultShotCollision;
         for (var depth = 0; prototype != null && depth < 8; depth++)
         {
             if (prototype.TryGetComponent<CartridgeAmmoComponent>(out var cartridge, _squadComponents) &&
@@ -228,34 +235,111 @@ public sealed partial class MilitiaOperationSystem
                 continue;
             if (prototype != null && prototype.TryGetComponent<HitscanBasicRaycastComponent>(out var hitscan, _squadComponents))
             {
-                result = (long) hitscan.CollisionMask;
+                result = new ShotCollision((int) hitscan.CollisionMask, Hitscan: true);
                 break;
             }
             if (prototype != null && prototype.TryGetComponent<FixturesComponent>(out var fixtures, _squadComponents))
-                result = fixtures.Fixtures.Values.Aggregate(0L, (mask, fixture) => mask | (uint) fixture.CollisionMask);
+                result = new ShotCollision(fixtures.Fixtures.Values.Aggregate(0, (mask, fixture) => mask | fixture.CollisionMask));
             break;
         }
-        _projectileMasks[ammoPrototype] = result;
+        _projectileCollisions[ammoPrototype] = result;
         return result;
     }
 
+    private readonly record struct ShotCollision(int Mask, bool Hitscan = false);
+
     private bool SquadShotBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,
-        long collisionMask, float spread, Box2[]? reflectingFields = null)
+        ShotCollision collision, float spread, Box2[]? reflectingFields = null)
     {
         var delta = destination.Position - origin.Position;
         if (origin.MapId != destination.MapId || delta.LengthSquared() < 0.001f)
             return true;
-        var start = _squadPhysics.GetPhysicsTransform(uid);
-        start.Position = origin.Position;
-        if (_squadRayCast.CastShape(origin.MapId, ShotPathShape, start, delta, new QueryFilter
-            {
-                MaskBits = collisionMask,
-                IsIgnored = entity => entity == uid || entity == target || HasComp<NpcFactionMemberComponent>(entity) ||
-                    CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
-                    HologramPrototype(entity, "HolosignBulletShield"),
-            }, RayCastSystem.RayCastClosestCallback).Hit)
-            return true;
+        var length = delta.Length();
+        if (collision.Hitscan)
+        {
+            // Hitscan damage uses the fixture bounds, including the bounds of angled walls.
+            var ray = new CollisionRay(origin.Position, delta / length, collision.Mask);
+            if (_squadPhysics.IntersectRayWithPredicate(origin.MapId, ray, length, IgnoreShotObstacle).Any())
+                return true;
+        }
+        else
+        {
+            var start = _squadPhysics.GetPhysicsTransform(uid);
+            start.Position = origin.Position;
+            if (_squadRayCast.CastShape(origin.MapId, ShotPathShape, start, delta, new QueryFilter
+                {
+                    MaskBits = (uint) collision.Mask,
+                    IsIgnored = IgnoreShotObstacle,
+                }, RayCastSystem.RayCastClosestCallback).Hit)
+                return true;
+
+            // Shape casts omit initial overlaps. Use the fixture bounds to find nearby structural
+            // obstructions, then clip against the fixture itself so the open half of a diagonal stays open.
+            var structuralMask = collision.Mask | (int) CollisionGroup.Opaque;
+            var ray = new CollisionRay(origin.Position, delta / length, structuralMask);
+            if (_squadPhysics.IntersectRayWithPredicate(origin.MapId, ray,
+                    (System: this, Origin: origin.Position, Delta: delta, Mask: structuralMask),
+                    static (entity, line) => !line.System.ShotIntersectsStructure(entity, line.Origin, line.Delta, line.Mask), length).Any())
+                return true;
+        }
         return HolographicShotBlocked(origin, destination, spread, attackMatrices: true, reflectingFields: reflectingFields);
+
+        bool IgnoreShotObstacle(EntityUid entity)
+            => entity == uid || entity == target || HasComp<NpcFactionMemberComponent>(entity) ||
+               CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
+               HologramPrototype(entity, "HolosignBulletShield");
+    }
+
+    private bool ShotIntersectsStructure(EntityUid entity, Vector2 origin, Vector2 delta, int mask)
+    {
+        if (!(HasComp<WallComponent>(entity) ||
+              TryComp<DoorComponent>(entity, out var door) && door.State is DoorState.Closed or DoorState.Closing ||
+              SquadLocker(entity)) || !TryComp<FixturesComponent>(entity, out var fixtures))
+            return false;
+
+        var transform = _squadPhysics.GetPhysicsTransform(entity);
+        var start = Robust.Shared.Physics.Transform.InvTransformPoint(transform, origin);
+        var direction = Quaternion2D.InvRotateVector(transform.Quaternion2D, delta);
+        foreach (var fixture in fixtures.Fixtures.Values)
+        {
+            if (!fixture.Hard || (fixture.CollisionLayer & mask) == 0)
+                continue;
+            if (fixture.Shape is PolygonShape polygon && ShotIntersectsPolygon(start, direction, polygon))
+                return true;
+            if (fixture.Shape is PhysShapeCircle circle)
+            {
+                var fraction = Math.Clamp(Vector2.Dot(circle.Position - start, direction) / direction.LengthSquared(), 0f, 1f);
+                if (Vector2.DistanceSquared(start + direction * fraction, circle.Position) <= circle.Radius * circle.Radius)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private static bool ShotIntersectsPolygon(Vector2 origin, Vector2 direction, PolygonShape polygon)
+    {
+        var enter = 0f;
+        var exit = 1f;
+        for (var i = 0; i < polygon.VertexCount; i++)
+        {
+            var normal = polygon.Normals[i];
+            var distance = Vector2.Dot(normal, origin - polygon.Vertices[i]) - polygon.Radius;
+            var travel = Vector2.Dot(normal, direction);
+            if (MathF.Abs(travel) < 0.00001f)
+            {
+                if (distance > 0f)
+                    return false;
+                continue;
+            }
+            var crossing = -distance / travel;
+            if (travel < 0f)
+                enter = MathF.Max(enter, crossing);
+            else
+                exit = MathF.Min(exit, crossing);
+            if (enter > exit)
+                return false;
+        }
+        return true;
     }
 
     private void RepositionBlockedFire(EntityUid uid, MilitiaOperationActorComponent actor)
@@ -263,7 +347,7 @@ public sealed partial class MilitiaOperationSystem
         actor.FireBlockedUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
         if (_timing.CurTime < actor.NextFireReposition ||
             actor.SquadOrder is { } order && order.Until > _timing.CurTime &&
-            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout or MilitiaSquadTask.Melee)
+            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout or MilitiaSquadTask.Melee or MilitiaSquadTask.MedicWithdraw)
             return;
         actor.NextFireReposition = _timing.CurTime + TimeSpan.FromSeconds(1);
         if (actor.SquadPosition.IsValid(EntityManager))

@@ -295,18 +295,24 @@ public abstract partial class SharedGunSystem : EntitySystem
     }
     // DS14-end
 
+    // DS14-Soyuz-start
     /// <summary>
-    /// Attempts to shoot at the target coordinates. Resets the shot counter after every shot.
+    /// Attempts to shoot at the target coordinates. Can keep the trigger held in full-auto mode.
     /// </summary>
-    public bool AttemptShoot(EntityUid user, Entity<GunComponent> gun, EntityCoordinates toCoordinates, EntityUid? target = null)
+    public bool AttemptShoot(EntityUid user, Entity<GunComponent> gun, EntityCoordinates toCoordinates, EntityUid? target = null,
+        bool holdTrigger = false)
     {
         gun.Comp.ShootCoordinates = toCoordinates;
         gun.Comp.Target = target;
         var result = AttemptShoot(user, gun);
-        gun.Comp.ShotCounter = 0;
-        DirtyField(gun.AsNullable(), nameof(GunComponent.ShotCounter));
+        if (!holdTrigger || gun.Comp.SelectedMode != SelectiveFire.FullAuto)
+        {
+            gun.Comp.ShotCounter = 0;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.ShotCounter));
+        }
         return result;
     }
+    // DS14-Soyuz-end
 
     /// <summary>
     /// Shoots by assuming the gun is the user at default coordinates.
@@ -486,6 +492,13 @@ public abstract partial class SharedGunSystem : EntitySystem
         Shoot(gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems);
         var shotEv = new GunShotEvent(user, ev.Ammo, toCoordinates.Value);
         RaiseLocalEvent(gun, ref shotEv);
+        // DS14-Soyuz-start
+        if (gun.Comp.Target is { } target && target != user && !TerminatingOrDeleted(target))
+        {
+            var targetedShot = new GunShotAtTargetEvent(user);
+            RaiseLocalEvent(target, ref targetedShot);
+        }
+        // DS14-Soyuz-end
 
         if (!userImpulse || !TryComp<PhysicsComponent>(user, out var userPhysics))
             return true;

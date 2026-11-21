@@ -53,6 +53,8 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
+    private readonly HashSet<EntityUid> _supportWork = new();
+    private readonly List<EntityUid> _supportWorkSnapshot = new();
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly HandsSystem _hands = default!;
     [Dependency] private readonly SharedStorageSystem _storage = default!;
@@ -86,7 +88,7 @@ public sealed partial class MilitiaOperationSystem
             EquipActor(actor.Owner, new Random(actor.Comp.EquipmentSeed));
             actor.Comp.DefensivePosition = Transform(actor.Owner).Coordinates;
             actor.Comp.StrafeSide = (actor.Comp.EquipmentSeed & 1) == 0 ? 1f : -1f;
-            actor.Comp.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(6 + _random.NextDouble() * 6);
+            actor.Comp.NextGrenade = _timing.CurTime + TimeSpan.FromSeconds(3 + _random.NextDouble() * 3);
             var items = AllEntityQuery<Content.Shared.Item.ItemComponent, TransformComponent>();
             while (items.MoveNext(out var item, out _, out var transform))
             {
@@ -216,6 +218,8 @@ public sealed partial class MilitiaOperationSystem
         }
         if (actor.Medic && !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false))
             throw new InvalidOperationException($"Cannot restore militia medic weapon in {profile.ID}.");
+        if (TryComp<GunComponent>(actor.Weapon, out var primary))
+            _guns.TrySelectFireMode((actor.Weapon, primary), SelectiveFire.FullAuto);
         PrimeWeapon(uid, actor.Weapon);
         RestrictActorEquipment(uid, actor);
         if (actor.Treatments.Count == 0 || !WeaponReady(actor.Weapon) || !ArmActor(uid))
@@ -240,7 +244,7 @@ public sealed partial class MilitiaOperationSystem
     {
         actor = null;
         return Exists(uid) && !TerminatingOrDeleted(uid) && TryComp(uid, out actor) && actor.EquipmentReady && actor.EquipmentRollback == null &&
-               (!TryComp<MilitiaOperationEnemyComponent>(uid, out var owner) || owner.Operation == Guid.Empty || IsActive(owner.Station, owner.Operation)) &&
+               (!TryComp<MilitiaOperationEnemyComponent>(uid, out var owner) || owner.Operation == Guid.Empty || IsActive(owner.Controller, owner.Operation)) &&
                !_mobs.IsIncapacitated(uid) && !HasPlayerMind(uid);
     }
 
@@ -268,13 +272,16 @@ public sealed partial class MilitiaOperationSystem
         actor.Comp.AlertUntil = _timing.CurTime + TimeSpan.FromSeconds(12);
         var previousThreat = RecentDamageThreat(actor.Owner, actor.Comp);
         actor.Comp.DamageThreatUntil = _timing.CurTime + actor.Comp.ContactMemory;
+        _supportWork.Add(actor.Owner);
         actor.Comp.DamageThreat = threat ?? previousThreat;
         if (actor.Comp.DamageThreat is { } incoming &&
             (ThroughWindow(_transform.GetMapCoordinates(actor.Owner), incoming) ||
              RememberedWindowThreats(actor.Comp).Any(known => known.MapId == incoming.MapId &&
                  System.Numerics.Vector2.DistanceSquared(known.Position, incoming.Position) <= 4f)))
             RememberWindowThreat(actor.Owner, actor.Comp, incoming);
-        actor.Comp.ThreatScanValidUntil = TimeSpan.Zero;
+        // Refresh threats urgently without dropping the current pursuit between AI updates.
+        if (actor.Comp.SquadOrder is not { Task: MilitiaSquadTask.Melee } pursuit || pursuit.Target != actor.Comp.DirectTarget)
+            actor.Comp.ThreatScanValidUntil = TimeSpan.Zero;
         _actorNpcs.KeepMilitiaCombatActive(actor.Owner);
         _urgentSquadOrders.Add(actor.Owner);
         _urgentThreatScans.Add(actor.Owner);
@@ -306,9 +313,9 @@ public sealed partial class MilitiaOperationSystem
     public bool ReceivingTreatment(EntityUid uid)
         => !TerminatingOrDeleted(uid) && !HasPlayerMind(uid) && !MetaData(uid).EntityPaused && !_mobs.IsDead(uid) &&
            TryComp<MilitiaOperationActorComponent>(uid, out var patient) &&
-           patient.Patient != uid &&
+           patient.Patient != uid && patient.Grenades.Length == 0 &&
            patient.TreatingMedic.IsValid() && SquadMember(patient.TreatingMedic) &&
-           TryComp<MilitiaOperationActorComponent>(patient.TreatingMedic, out var medic) && medic.Patient == uid;
+           TryComp<MilitiaOperationActorComponent>(patient.TreatingMedic, out var medic) && medic.Patient == uid && medic.HealingDoAfter != null;
 
     private void InterruptActor(EntityUid uid)
     {
@@ -344,6 +351,7 @@ public sealed partial class MilitiaOperationSystem
         _urgentThreatScans.Remove(actor.Owner);
         _urgentSquadOrders.Remove(actor.Owner);
         _scannedThreats.Remove(actor.Owner);
+        _breakoutDoorSnapshots.Remove(actor.Owner);
         _squadCoverRadii.Remove(actor.Owner);
         EndMedicalRefill(actor.Owner);
         EndRoutePry(actor.Owner);
@@ -353,48 +361,47 @@ public sealed partial class MilitiaOperationSystem
         EndTreatment(actor.Owner);
         if (medic.IsValid())
             EndTreatment(medic);
+        _supportWork.Remove(actor.Owner);
     }
 
     private void UpdateSupportSafety(bool checkRoute)
     {
-        if (checkRoute)
+        if (_supportWork.Count == 0)
+            return;
+
+        var pending = _supportWorkSnapshot;
+        pending.Clear();
+        pending.AddRange(_supportWork);
+        foreach (var uid in pending)
         {
-            var pending = new List<EntityUid>();
-            var recovery = EntityQueryEnumerator<MilitiaOperationActorComponent>();
-            while (recovery.MoveNext(out var uid, out var actor))
+            if (!TryComp<MilitiaOperationActorComponent>(uid, out var actor))
             {
-                if (actor.EquipmentRollback != null && !MetaData(uid).EntityPaused && !HasPlayerMind(uid) && !_mobs.IsDead(uid))
-                    pending.Add(uid);
+                _supportWork.Remove(uid);
+                continue;
             }
-            foreach (var uid in pending)
+            if (checkRoute && actor.EquipmentRollback != null && !MetaData(uid).EntityPaused && !HasPlayerMind(uid) && !_mobs.IsDead(uid))
+                RestorePendingEquipment(uid, actor);
+            if (actor.DamageThreatUntil <= _timing.CurTime && !actor.Patient.IsValid() &&
+                actor.MedicalRefill == null && actor.ReloadUntil == null && actor.EquipmentRollback == null)
             {
-                if (TryComp<MilitiaOperationActorComponent>(uid, out var actor))
-                    RestorePendingEquipment(uid, actor);
+                _supportWork.Remove(uid);
+                continue;
             }
-        }
-        var query = AllEntityQuery<MilitiaOperationActorComponent>();
-        var stop = new List<EntityUid>();
-        while (query.MoveNext(out var uid, out var actor))
-        {
             if (actor.DamageThreatUntil > _timing.CurTime)
                 _actorNpcs.KeepMilitiaCombatActive(uid);
-            if (actor.Patient.IsValid() && actor.HealingDoAfter == null && AvailableActor(uid, out _))
-                TrackMedicalExposure(uid, actor);
-            if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) ||
-                !ValidPatient(uid, actor.Patient, actor, allowCombatDash: actor.HealingDoAfter == null) ||
+            if (actor.Patient.IsValid() && (!AvailableActor(uid, out _) || !ValidPatient(uid, actor.Patient, actor) ||
                 (checkRoute || _scannedThreats.Contains(uid) || _scannedThreats.Contains(actor.Patient)) &&
                     actor.TreatmentPath is { } path && !TreatmentPathSafe(uid, actor.Patient, path, actor.SquadRouteIndex)) ||
-                actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForTreatment(uid)) ||
+                actor.MedicalRefill != null && (!AvailableActor(uid, out _) || !SafeForMedicalRefill(uid, actor)) ||
                 actor.ReloadUntil != null && ReloadExposedToFire(uid, actor))
-                stop.Add(uid);
+            {
+                InterruptActor(uid);
+                EndTreatment(uid);
+                EndMedicalRefill(uid);
+                EndReload(uid);
+            }
         }
-        foreach (var uid in stop)
-        {
-            InterruptActor(uid);
-            EndTreatment(uid);
-            EndMedicalRefill(uid);
-            EndReload(uid);
-        }
+        pending.Clear();
     }
 
     private bool CanEquipOwnedItem(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid item, bool wield,
@@ -536,6 +543,7 @@ public sealed partial class MilitiaOperationSystem
             foreach (var snapshot in snapshots)
                 RememberLooseEquipment(uid, rollback, snapshot.Item);
             actor.EquipmentRollback = rollback;
+            _supportWork.Add(uid);
         }
         RestorePendingEquipment(uid, actor);
     }
@@ -710,13 +718,17 @@ public sealed partial class MilitiaOperationSystem
 
     public bool NeedsWeapon(EntityUid uid)
     {
-        if (!AvailableActor(uid, out var actor))
-            return false;
+        EntityUid? magazine = null;
+        return AvailableActor(uid, out var actor) && NeedsWeapon(uid, actor, ref magazine);
+    }
+
+    private bool NeedsWeapon(EntityUid uid, MilitiaOperationActorComponent actor, ref EntityUid? magazine)
+    {
         if (actor.MedicalRefill != null || actor.ReloadUntil != null || actor.DoorPry != null || actor.Patient.IsValid())
             return false;
         if (!NeedsMeleeCounter(uid, actor, actor.DirectTarget) && CanRecoverDroppedWeapon(uid, actor))
             return true;
-        var weapon = DesiredWeapon(uid, actor);
+        var weapon = DesiredWeapon(uid, actor, ref magazine);
         return actor.WeaponRetries.GetValueOrDefault(weapon) <= _timing.CurTime &&
             CanEquipOwnedItem(uid, actor, weapon, true, out _) && (_hands.GetActiveItem(uid) != weapon ||
             HasComp<EnergySwordComponent>(weapon) && !IsActiveEnergySword(weapon) ||
@@ -724,8 +736,14 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private EntityUid DesiredWeapon(EntityUid uid, MilitiaOperationActorComponent actor)
+    {
+        EntityUid? magazine = null;
+        return DesiredWeapon(uid, actor, ref magazine);
+    }
+
+    private EntityUid DesiredWeapon(EntityUid uid, MilitiaOperationActorComponent actor, ref EntityUid? magazine)
         => !NeedsMeleeCounter(uid, actor, actor.DirectTarget) && OwnsItem(uid, actor.Weapon) &&
-           (_guns.GetAmmoCount(actor.Weapon) > 0 || FindMagazine(uid, actor).IsValid())
+           (_guns.GetAmmoCount(actor.Weapon) > 0 || (magazine ??= FindMagazine(uid, actor)).IsValid())
             ? actor.Weapon : OwnsItem(uid, actor.Backup) ? actor.Backup : EntityUid.Invalid;
 
     private bool NeedsMeleeCounter(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
@@ -818,21 +836,31 @@ public sealed partial class MilitiaOperationSystem
            _equipmentContainers.TryGetContainingContainer(item, out var container) && container.Owner == actor.Webbing;
 
     public bool NeedsReload(EntityUid uid)
-        => AvailableActor(uid, out var actor) && actor.MedicalRefill == null && actor.DoorPry == null && actor.Grenades.Length == 0 &&
+    {
+        EntityUid? magazine = null;
+        return AvailableActor(uid, out var actor) && NeedsReload(uid, actor, ref magazine);
+    }
+
+    private bool NeedsReload(EntityUid uid, MilitiaOperationActorComponent actor, ref EntityUid? magazine)
+        => actor.MedicalRefill == null && actor.DoorPry == null && actor.Grenades.Length == 0 &&
            !NeedsMeleeCounter(uid, actor, actor.DirectTarget) &&
            CanEquipOwnedItem(uid, actor, actor.Weapon, false, out _) &&
-           _guns.GetAmmoCount(actor.Weapon) == 0 && FindMagazine(uid, actor).IsValid();
+           _guns.GetAmmoCount(actor.Weapon) == 0 && (magazine ??= FindMagazine(uid, actor)).IsValid();
 
     private bool ReloadExposedToFire(EntityUid uid, MilitiaOperationActorComponent actor)
-        => actor.EmergencyReloadUntil <= _timing.CurTime && actor.DamageThreatUntil > _timing.CurTime && actor.ExposedToThreat &&
+        => actor.MedicWithdrawUntil > _timing.CurTime ||
+           actor.EmergencyReloadUntil <= _timing.CurTime && actor.DamageThreatUntil > _timing.CurTime && actor.ExposedToThreat &&
            (actor.WindowExposed || !DirectContact(uid, actor));
 
     public bool CanBeginReload(EntityUid uid)
-        => AvailableActor(uid, out var actor) && NeedsReload(uid) && !ReloadExposedToFire(uid, actor);
+    {
+        EntityUid? magazine = null;
+        return AvailableActor(uid, out var actor) && NeedsReload(uid, actor, ref magazine) && !ReloadExposedToFire(uid, actor);
+    }
 
     public void BeginReload(EntityUid uid)
     {
-        if (!AvailableActor(uid, out var actor) || !CanBeginReload(uid))
+        if (!CanBeginReload(uid) || !AvailableActor(uid, out var actor))
             return;
         if (!EquipOwnedItem(uid, actor, actor.Weapon, false))
             return;
@@ -842,6 +870,7 @@ public sealed partial class MilitiaOperationSystem
         UnwieldForEquipment(uid);
         actor.ReloadMagazine = magazine;
         actor.ReloadUntil = _timing.CurTime + actor.ReloadTime;
+        _supportWork.Add(uid);
         StartReloadStep(uid, actor);
     }
 
@@ -995,6 +1024,11 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public TimeSpan ThreatScanValidUntil;
     public TimeSpan NextFireReposition;
     public TimeSpan FireBlockedUntil;
+    public bool InLockerFootprint;
+    public TimeSpan LockerDetourUntil;
+    public TimeSpan NextLockerInteraction;
+    public EntityUid LockerGrenadeTarget;
+    public TimeSpan LockerGrenadeUntil;
     public TimeSpan SquadHoldUntil;
     public MilitiaSquadOrder? SquadOrder;
     public MilitiaSquadOrder? RunningSquadOrder;
@@ -1029,9 +1063,7 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityUid TreatingMedic;
     public EntityUid Treatment;
     public MilitiaTreatmentPath? TreatmentPath;
-    public float MedicalDashExposure;
-    public EntityCoordinates MedicalDashPosition;
-    public bool MedicalDashExposed;
+    public TimeSpan MedicWithdrawUntil;
     public ushort? HealingDoAfter;
     public TimeSpan NextTreatment;
     public TimeSpan ReloadTime;
@@ -1122,20 +1154,15 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             foreach (var (patient, item) in _operations.TreatmentCandidates(owner))
             {
                 cancelToken.ThrowIfCancellationRequested();
-                var route = new List<PathPoly>();
-                if (owner != patient)
+                var treatmentPath = _operations.PrepareTreatmentPath(owner, patient, []);
+                if (treatmentPath == null && owner != patient)
                 {
                     var path = await _pathfinding.GetPath(owner, patient, SharedInteractionSystem.InteractionRange - 1f,
                         cancelToken, _pathfinding.GetFlags(blackboard));
                     cancelToken.ThrowIfCancellationRequested();
-                    if (path.Result != PathResult.Path)
-                    {
-                        _operations.RejectTreatmentPath(owner, patient);
-                        continue;
-                    }
-                    route = path.Path;
+                    if (path.Result == PathResult.Path)
+                        treatmentPath = _operations.PrepareTreatmentPath(owner, patient, path.Path);
                 }
-                var treatmentPath = _operations.PrepareTreatmentPath(owner, patient, route);
                 if (treatmentPath == null && owner != patient)
                 {
                     foreach (var waypoint in _operations.TreatmentDetours(owner, patient))

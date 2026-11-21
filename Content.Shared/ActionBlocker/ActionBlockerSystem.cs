@@ -105,7 +105,7 @@ namespace Content.Shared.ActionBlocker
         ///     involve using a held entity. In the majority of cases, systems that provide interactions will not need
         ///     to check this themselves.
         /// </remarks>
-        public bool CanUseHeldEntity(EntityUid user, EntityUid used)
+        public bool CanUseHeldEntity(EntityUid user, EntityUid used, EntityUid? target = null) // DS14-Soyuz
         {
             var useEv = new UseAttemptEvent(user, used);
             RaiseLocalEvent(user, useEv);
@@ -113,7 +113,7 @@ namespace Content.Shared.ActionBlocker
             if (useEv.Cancelled)
                 return false;
 
-            var usedEv = new GettingUsedAttemptEvent(user);
+            var usedEv = new GettingUsedAttemptEvent(user, target); // DS14-Soyuz
             RaiseLocalEvent(used, usedEv);
 
             return !usedEv.Cancelled;

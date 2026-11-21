@@ -12,8 +12,7 @@ public sealed partial class MilitiaOperationSystem
     private static readonly float[] MeleeApproachAngles = [0.65f, 1.15f, 0f, -0.65f, -1.15f];
 
     private bool MeleePursuit(EntityUid uid, MilitiaOperationActorComponent actor)
-        => DirectContact(uid, actor) && !MedicSupportPriority(uid, actor) &&
-           (!actor.Medic || actor.DamageThreatUntil > _timing.CurTime) &&
+        => DirectContact(uid, actor) && !MedicSupportPriority(actor) &&
            OwnsItem(uid, actor.Backup) && HasComp<MeleeWeaponComponent>(actor.Backup) &&
            DesiredWeapon(uid, actor) == actor.Backup &&
            OnDefensiveGrid(uid, Transform(actor.DirectTarget).Coordinates) &&

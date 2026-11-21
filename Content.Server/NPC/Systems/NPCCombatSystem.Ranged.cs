@@ -211,12 +211,7 @@ public sealed partial class NPCCombatSystem
 
             comp.Status = CombatStatus.Normal;
 
-            if (gun.Comp.NextFire > _timing.CurTime)
-            {
-                return;
-            }
-
-            _gun.AttemptShoot(uid, gun, targetCordinates, comp.Target);
+            _gun.AttemptShoot(uid, gun, targetCordinates, comp.Target, holdTrigger: comp.HoldAutomaticTrigger); // DS14-Soyuz
         }
     }
 

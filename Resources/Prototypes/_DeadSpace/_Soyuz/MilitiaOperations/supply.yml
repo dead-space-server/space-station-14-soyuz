@@ -288,7 +288,7 @@
 - type: repairRewardPool
   id: MilitiaOperationSupplyPool
   deliveryContainer: MilitiaOperationSupplyCrate
-  shopLevelThresholds: [0, 200, 600, 1200, 2000]
+  shopLevelThresholds: [0, 100, 400, 800, 1200]
   baseReputationByDifficulty: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   qualityBands:
   - minPercent: 0

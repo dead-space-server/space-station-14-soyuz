@@ -1,4 +1,5 @@
 using Content.Shared.FixedPoint;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using System.Linq;
@@ -34,6 +35,23 @@ public partial struct ReagentId : IEquatable<ReagentId>
         Prototype = default!;
         Data = new();
     }
+
+    // DS14-Soyuz start
+    public string GetLocalizedName(ReagentPrototype? prototype)
+    {
+        if (Prototype == PharmaceuticalData.PrototypeId && Data?.OfType<PharmaceuticalData>().FirstOrDefault() is { Registered: true } medicine &&
+            !string.IsNullOrEmpty(medicine.Label))
+            return medicine.Label;
+        return prototype?.LocalizedName ?? Prototype;
+    }
+
+    public Color GetColor(ReagentPrototype? prototype)
+    {
+        if (Prototype == PharmaceuticalData.PrototypeId && Data?.OfType<PharmaceuticalData>().FirstOrDefault() is { Registered: true, Tint: { } tint })
+            return tint;
+        return prototype?.SubstanceColor ?? Color.Transparent;
+    }
+    // DS14-Soyuz end
 
     public List<ReagentData> EnsureReagentData()
     {

@@ -76,13 +76,7 @@ public sealed partial class MilitiaOperationSystem
                     kind = MilitiaContrabandKind.Armor;
             }
             if (kind is { } category)
-            {
-                var restricted = EnsureComp<MilitiaRestrictedGearComponent>(item);
-                restricted.Kind = category;
-                restricted.Serial = Guid.NewGuid();
-                _issuedContraband.Add(restricted.Serial, item);
-                Dirty(item, restricted);
-            }
+                RegisterRestrictedGear(item, category);
             if (!TryComp<ContainerManagerComponent>(item, out var manager))
                 continue;
             foreach (var container in _equipmentContainers.GetAllContainers(item, manager))

@@ -44,6 +44,10 @@
   id: MilitiaEquipmentBase
   abstract: true
   equipment:
+    ears:
+    - ClothingHeadsetAltSyndicate
+    underwearb:
+    - ClothingUnderwearBottomBoxersSyndicateAgent
     jumpsuit:
     - ClothingUniformJumpsuitOperative
     - ClothingUniformJumpsuitSyndieFormal
@@ -129,7 +133,6 @@
     - MagazineLightRifleVSSUranium
     - MagazineLightRifleVSSTungsten
   meleeWeapons:
-  - CombatKnife
   - EnergySword
   supplies:
   - Crowbar

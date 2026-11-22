@@ -65,6 +65,7 @@ public sealed partial class MilitiaOperationSystem
                 return false;
             gridUid = grid.Owner;
             MarkGrid(gridUid, controller.Owner, idOperation);
+            RestrictOperationLoot(gridUid, config);
             if (!FindPlacement(sourceGrid, consoleXform.MapID, grid.Comp.LocalAABB, random, out var position, out var rotation))
                 return false;
 

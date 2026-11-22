@@ -1921,10 +1921,18 @@ entities:
           hard: False
           restitution: 0
           friction: 0.4
-- proto: CrateSyndicateSurplusBundle
+- proto: CrateSyndicateSecure
   entities:
   - uid: 551
     components:
+    # UplinkL6SawBundle (30) + UplinkC20RBundle (12) + UplinkHardsuitSyndie (8) = 50 TC.
+    - type: EntityTableContainerFill
+      containers:
+        entity_storage: !type:AllSelector
+          children:
+          - id: ClothingBackpackDuffelSyndicateFilledLMG
+          - id: ClothingBackpackDuffelSyndicateFilledSMG
+          - id: ClothingBackpackDuffelSyndicateHardsuitBundle
     - type: Transform
       pos: 3.5,-3.5
       parent: 2

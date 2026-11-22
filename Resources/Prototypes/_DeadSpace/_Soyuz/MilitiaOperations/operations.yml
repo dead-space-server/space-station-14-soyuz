@@ -173,6 +173,29 @@
     Helmet: { points: 200, reputation: 10 }
     Boots: { points: 100, reputation: 10 }
     Hypospray: { points: 150, reputation: 10 }
+  mapContraband:
+    EnergySword: Melee
+    EnergySwordDouble: Melee
+    EnergyCutlass: Melee
+    EnergyDagger: Melee
+    SyndieSabre: Melee
+    CombatKnife: Melee
+    FireAxe: Melee
+    Claymore: Melee
+    Machete: Melee
+    Spear: Melee
+    Shiv: Melee
+    BaseBallBat: Melee
+    Bola: Melee
+    CyberPen: Melee
+    ClothingHandsKnuckleDusters: Melee
+    ClothingHandsKnuckleDustersSyndicate: Melee
+    EnergyShield: Melee
+    ClothingHeadHelmetHardsuitSyndie: Helmet
+    ClothingHeadHelmetHardsuitCybersun: Helmet
+    ClothingHeadHelmetHardsuitTaipanCargotech: Helmet
+    ClothingHeadHelmetHardsuitTaipanTechnician: Helmet
+    ADTCyberHypospray: Hypospray
   cooldown: 5m
   medic: MilitiaOperationRaiderMedic
 

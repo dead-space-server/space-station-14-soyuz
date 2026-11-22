@@ -34,6 +34,8 @@ public sealed partial class MilitiaOperationConfigPrototype : IPrototype
     [DataField(required: true)] public ProtoId<RepairRewardPoolPrototype> Shop;
     [DataField] public bool ShopEnabled;
     [DataField] public Dictionary<MilitiaContrabandKind, MilitiaContrabandPrice> ContrabandRewards = new();
+    /// <summary>Map weapons and suit pieces that cannot be identified by their gun or hardsuit components.</summary>
+    [DataField] public Dictionary<EntProtoId, MilitiaContrabandKind> MapContraband = new();
     [DataField] public TimeSpan Cooldown = TimeSpan.FromMinutes(5);
 }
 

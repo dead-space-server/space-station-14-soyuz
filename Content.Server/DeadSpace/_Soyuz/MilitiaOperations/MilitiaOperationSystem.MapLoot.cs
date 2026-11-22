@@ -40,7 +40,7 @@ public sealed partial class MilitiaOperationSystem
         pending.Push(root);
         while (pending.TryPop(out var item))
         {
-            if (TerminatingOrDeleted(item) || !TryComp<TransformComponent>(item, out var xform))
+            if (TerminatingOrDeleted(item) || !TryComp(item, out TransformComponent? xform))
                 continue;
             if (MapContrabandKind(item, config) is { } kind)
                 RegisterRestrictedGear(item, kind);

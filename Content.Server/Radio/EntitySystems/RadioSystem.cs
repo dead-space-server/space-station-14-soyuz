@@ -27,6 +27,7 @@ using Content.Shared.DeadSpace.Languages.Components;
 using Content.Server.DeadSpace.Languages;
 using Content.Shared.DeadSpace.Languages.Prototypes;
 using Content.Shared.DeadSpace._Soyuz.Radio; // DS14-Soyuz
+using Content.Shared.DeadSpace._Soyuz.StationSpecialization; // DS14-Soyuz
 using Robust.Shared.Audio; // DS14-Soyuz
 
 namespace Content.Server.Radio.EntitySystems;
@@ -185,6 +186,14 @@ public sealed class RadioSystem : EntitySystem
             RaiseLocalEvent(messageSource, evt);
 
             var name = evt.VoiceName;
+
+            // DS14-Soyuz-start
+            var radioNameEv = new RadioSpeakerNameEvent(name);
+            RaiseLocalEvent(messageSource, ref radioNameEv);
+            name = radioNameEv.Name;
+            var useCallsignFormat = radioNameEv.IsCallsign;
+            // DS14-Soyuz-end
+
             name = FormattedMessage.EscapeText(name);
 
             SpeechVerbPrototype speech;
@@ -227,7 +236,11 @@ public sealed class RadioSystem : EntitySystem
 
             string langName = _language.GetLangName(languageId);
 
-            var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold-lang" : "chat-radio-message-wrap-lang",
+            // DS14-Soyuz-start
+            var wrappedMessage = useCallsignFormat
+                ? CallsignWrap(speech, channel, name, content, headsetColor)
+                : Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold-lang" : "chat-radio-message-wrap-lang",
+            // DS14-Soyuz-end    
                 ("channel-color", channel.Color),
                 ("fontType", speech.FontId),
                 ("fontSize", speech.FontSize),
@@ -264,7 +277,11 @@ public sealed class RadioSystem : EntitySystem
 
                 lexiconContent = Highlight(lexiconContent);
 
-                var wrappedLexiconMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
+                // DS14-Soyuz-start
+                var wrappedLexiconMessage = useCallsignFormat
+                ? CallsignWrap(speech, channel, name, lexiconContent, headsetColor)
+                : Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
+                // DS14-Soyuz-end
                 ("channel-color", channel.Color),
                 ("fontType", speech.FontId),
                 ("fontSize", speech.FontSize),
@@ -350,6 +367,20 @@ public sealed class RadioSystem : EntitySystem
         }
         // DS14-Soyuz end
     }
+
+    // DS14-Soyuz-start
+    private string CallsignWrap(SpeechVerbPrototype speech, RadioChannelPrototype channel, string name, string content, object headsetColor)
+    {
+        return Loc.GetString(speech.Bold ? "chat-radio-message-wrap-callsign-bold" : "chat-radio-message-wrap-callsign",
+            ("channel-color", channel.Color),
+            ("fontType", speech.FontId),
+            ("fontSize", speech.FontSize),
+            ("channel", $"\\[{channel.LocalizedName}\\]"),
+            ("name", name),
+            ("message", content),
+            ("headset-color", headsetColor));
+    }
+    // DS14-Soyuz-end
 
     /// <inheritdoc cref="TelecomServerComponent"/>
     private bool HasActiveServer(MapId mapId, string channelId)

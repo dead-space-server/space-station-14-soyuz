@@ -11,6 +11,7 @@ using Content.Shared.Cargo.Prototypes;
 using Content.Shared.Power.EntitySystems;
 using Content.Server.Power.Components;
 using Robust.Server.GameObjects;
+using Content.Shared.DeadSpace._Soyuz.StationSpecialization; // DS14-Soyuz
 
 namespace Content.Server.DeadSpace.EnergySeller;
 
@@ -22,6 +23,7 @@ public sealed partial class EnergySellerSystem : EntitySystem
     [Dependency] private readonly CargoSystem _cargo = default!;
     [Dependency] private readonly SharedBatterySystem _battery = default!;
     [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
+    [Dependency] private readonly SharedStationSpecializationSystem _specialization = default!; // DS14-Soyuz
 
     public override void Initialize()
     {
@@ -54,7 +56,11 @@ public sealed partial class EnergySellerSystem : EntitySystem
 
         if (!TryGetStationBank(uid, out var stationBank))
             return;
-        _cargo.UpdateBankAccount(stationBank, GetEnergyPrice(comp, compSell, compNetBatt), compSell.Distribution, false);
+
+        // DS14-Soyuz-start
+        var price = (int)Math.Round(GetEnergyPrice(comp, compSell, compNetBatt) * _specialization.GetBeaconMultiplier(uid));
+        _cargo.UpdateBankAccount(stationBank, price, compSell.Distribution, false);
+        // DS14-Soyuz-end
         compSell.LastSell = DateTime.Now;
         _battery.SetCharge((uid, comp), 0);
         Dirty(stationBank);

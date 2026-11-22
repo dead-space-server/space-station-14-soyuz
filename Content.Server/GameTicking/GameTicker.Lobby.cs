@@ -1,6 +1,7 @@
 using System.Linq;
 using Content.Shared.GameTicking;
 using Content.Server.Station.Components;
+using Content.Server.DeadSpace._Soyuz.StationSpecialization; // DS14-Soyuz
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Content.Server.GameTicking
 {
     public sealed partial class GameTicker
     {
+        [Dependency] private readonly StationSpecializationSystem _stationSpecialization = default!; // DS14-Soyuz
+
         [ViewVariables]
         private readonly Dictionary<NetUserId, PlayerGameStatus> _playerGameStatuses = new();
 
@@ -71,6 +74,16 @@ namespace Content.Server.GameTicking
                 stationNames.Append(_gameMapManager.GetSelectedMap()?.MapName ??
                                     Loc.GetString("game-ticker-no-map-selected"));
             }
+
+            // DS14-Soyuz-start
+            var specializationComponents = _gameMapManager.GetSelectedMap()?.Stations.Values.Select(config =>
+                config.StationComponentOverrides.TryGetValue(_stationSpecialization.SpecializationComponentName, out var entry)
+                    ? entry.Component
+                    : null);
+            var specializationText = _stationSpecialization.GetLobbyText(specializationComponents);
+            if (specializationText != null)
+                stationNames.Append('\n').Append(specializationText);
+            // DS14-Soyuz-end
 
             var gmTitle = (Decoy == null) ? Loc.GetString(preset.ModeTitle) : Loc.GetString(Decoy.ModeTitle);
             var desc = (Decoy == null) ? Loc.GetString(preset.Description) : Loc.GetString(Decoy.Description);

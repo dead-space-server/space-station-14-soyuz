@@ -40,9 +40,34 @@
   - type: Injector
     reagentWhitelist: [TranexamicAcid, Saline]
 
+- type: entity
+  id: MilitiaOperationLaserRay
+  parent: RedMediumLaser
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicRaycast
+    maxDistance: 12
+
+- type: entity
+  id: ClothingBackpackSatchelMilitiaOperations
+  parent: ClothingBackpackSatchelTaipan
+  name: полевая сумка «Рассвета»
+  description: Сумка с удлинённым оружейным отделением и карманом для запасного лазера.
+  components:
+  - type: Storage
+    grid:
+    - 0,0,1,3
+    - 2,1,2,3
+    - 4,0,10,3
+    - 12,1,12,3
+    - 13,0,14,3
+    - 16,0,17,1
+
 - type: militiaEquipment
   id: MilitiaEquipmentBase
   abstract: true
+  secondaryWeapon: WeaponAdvancedLaser
+  secondaryAmmo: MilitiaOperationLaserRay
   equipment:
     ears:
     - ClothingHeadsetAltSyndicate
@@ -56,7 +81,7 @@
     gloves:
     - ClothingHandsGlovesCombat
     back:
-    - ClothingBackpackSatchelTaipan
+    - ClothingBackpackSatchelMilitiaOperations
     belt:
     - ClothingBeltMilitaryWebbing
     shoes:

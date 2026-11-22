@@ -95,10 +95,14 @@ public sealed partial class MilitiaOperationSystem
 
         if (goal != MilitiaBreakoutGoal.Fight)
         {
+            // A last-resort escape is allowed to cross remembered firing lanes. Its route still
+            // goes through the normal floor, collision, door and defensive-area checks.
+            if (goal == MilitiaBreakoutGoal.Escape)
+                return !RecentlyHitAt(actor, position);
             var source = BreakoutSource(uid, actor) ?? _transform.ToMapCoordinates(order.BreakoutThreat);
             if (goal == MilitiaBreakoutGoal.Withdraw && start.IsValid(EntityManager) &&
-                ImprovesWithdrawal(_transform.ToMapCoordinates(start), position, source))
-                return true;
+                ImprovesWithdrawal(_transform.ToMapCoordinates(start), position, _transform.ToMapCoordinates(order.BreakoutThreat)))
+                return !RecentlyHitAt(actor, position);
             return !RecentlyHitAt(actor, position) && !SquadCoverExposed(uid, position, source) &&
                    !RetreatThreats(uid, order).Any(threat => threat != source && SquadCoverExposed(uid, position, threat));
         }
@@ -114,6 +118,22 @@ public sealed partial class MilitiaOperationSystem
     private static bool ImprovesWithdrawal(MapCoordinates origin, MapCoordinates destination, MapCoordinates source)
         => origin.MapId == destination.MapId && origin.MapId == source.MapId &&
            Vector2.Distance(destination.Position, source.Position) > Vector2.Distance(origin.Position, source.Position) + 0.5f;
+
+    private static float WithdrawalPressure(MapCoordinates position, MapCoordinates[] sources)
+    {
+        var pressure = 0f;
+        // At most four remembered firing origins plus the current attacker. This is only a cheap
+        // distance estimate for fallback ranking; it never performs visibility or path queries.
+        foreach (var source in sources)
+        {
+            if (source.MapId == position.MapId)
+                pressure += 1f / MathF.Max(1f, Vector2.DistanceSquared(position.Position, source.Position));
+        }
+        return pressure;
+    }
+
+    private static MilitiaBreakoutGoal BreakoutPriority(MilitiaBreakoutGoal goal)
+        => goal == MilitiaBreakoutGoal.Escape ? MilitiaBreakoutGoal.Withdraw : goal;
 
     private bool BreakoutCanFight(EntityUid uid, EntityUid target,
         MapCoordinates position, MapCoordinates enemy, MeleeWeaponComponent? melee, ShotCollision collision, float spread, Box2[]? fields = null)
@@ -146,8 +166,11 @@ public sealed partial class MilitiaOperationSystem
         }
         var origin = _transform.GetMapCoordinates(uid);
         var home = _transform.ToMapCoordinates(actor.DefensivePosition);
+        var remembered = RememberedWindowThreats(actor).ToArray();
         var threats = actor.SquadContacts.Where(contact => contact.Expires > _timing.CurTime && contact.Position.IsValid(EntityManager))
-            .Select(contact => _transform.ToMapCoordinates(contact.Position)).Concat(RememberedWindowThreats(actor)).Append(incoming).Distinct().ToArray();
+            .Select(contact => _transform.ToMapCoordinates(contact.Position)).Concat(remembered).Append(incoming).Distinct().ToArray();
+        var withdrawalSources = allowCover ? remembered.Append(incoming).Distinct().ToArray() : Array.Empty<MapCoordinates>();
+        var originPressure = withdrawalSources.Length > 1 ? WithdrawalPressure(origin, withdrawalSources) : 0f;
         var candidates = new List<(EntityCoordinates Position, MilitiaBreakoutGoal Goal, float Score)>();
         var enemyPosition = target.IsValid() ? _transform.GetMapCoordinates(target) : default;
         MeleeWeaponComponent? melee = null;
@@ -170,21 +193,48 @@ public sealed partial class MilitiaOperationSystem
                 !positionChecked && !SquadPositionClear(uid, position))
                 return;
             MilitiaBreakoutGoal goal;
+            var pressure = 0f;
+            var lastResort = false;
             if (allowCover && !RecentlyHitAt(actor, position) && !threats.Any(threat => SquadCoverExposed(uid, position, threat)))
                 goal = MilitiaBreakoutGoal.Cover;
             else if ((melee != null || canShoot) &&
                 BreakoutCanFight(uid, target, position, enemyPosition, melee, collision, spread, fields))
                 goal = MilitiaBreakoutGoal.Fight;
-            else if (allowCover && ImprovesWithdrawal(origin, position, incoming))
-                goal = MilitiaBreakoutGoal.Withdraw;
+            else if (allowCover && !RecentlyHitAt(actor, position))
+            {
+                // With crossfire, moving away from just the last shooter can move straight towards
+                // another. Prefer reducing their combined pressure, without requiring perfect cover.
+                var improvesPressure = withdrawalSources.Length <= 1 ||
+                    (pressure = WithdrawalPressure(position, withdrawalSources)) < originPressure * 0.98f;
+                if (improvesPressure && ImprovesWithdrawal(origin, position, incoming))
+                    goal = MilitiaBreakoutGoal.Withdraw;
+                else if (exit || withdrawalSources.Length > 1)
+                {
+                    goal = MilitiaBreakoutGoal.Escape;
+                    // An enclosing crossfire can make every nearby point look worse. Keep a
+                    // reachable movement fallback, ranked below exits and improving withdrawals.
+                    lastResort = !exit && !improvesPressure;
+                }
+                else
+                    return;
+            }
             else
                 return;
             var score = travel;
-            if (goal == MilitiaBreakoutGoal.Withdraw)
-                score -= 2f * (Vector2.Distance(position.Position, incoming.Position) - Vector2.Distance(origin.Position, incoming.Position));
+            if (goal is MilitiaBreakoutGoal.Withdraw or MilitiaBreakoutGoal.Escape)
+            {
+                if (withdrawalSources.Length > 1)
+                    score += 8f * pressure / MathF.Max(0.0001f, originPressure);
+                else
+                    score -= 2f * (Vector2.Distance(position.Position, incoming.Position) - Vector2.Distance(origin.Position, incoming.Position));
+            }
             if (exit)
                 score -= 4f;
-            var index = candidates.FindIndex(candidate => goal < candidate.Goal || goal == candidate.Goal && score < candidate.Score);
+            if (lastResort)
+                score += 1000f;
+            var priority = BreakoutPriority(goal);
+            var index = candidates.FindIndex(candidate => priority < BreakoutPriority(candidate.Goal) ||
+                priority == BreakoutPriority(candidate.Goal) && score < candidate.Score);
             if (index < 0)
                 index = candidates.Count;
             if (index >= 8 || candidates.Any(candidate => candidate.Position == coordinates))

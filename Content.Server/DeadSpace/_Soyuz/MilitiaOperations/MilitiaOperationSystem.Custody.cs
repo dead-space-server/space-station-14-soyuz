@@ -59,7 +59,7 @@ public sealed partial class MilitiaOperationSystem
         {
             if (!seen.Add(item) || !Exists(item) || TerminatingOrDeleted(item))
                 continue;
-            MilitiaContrabandKind? kind = item == actor.Weapon ? MilitiaContrabandKind.Firearm
+            MilitiaContrabandKind? kind = item == actor.Weapon || item == actor.PrimaryWeapon || item == actor.LaserWeapon ? MilitiaContrabandKind.Firearm
                 : item == actor.Backup ? MilitiaContrabandKind.Melee : null;
             if (HasComp<MagbootsComponent>(item))
                 kind = MilitiaContrabandKind.Boots;

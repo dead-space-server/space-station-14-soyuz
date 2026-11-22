@@ -18,6 +18,7 @@ using Content.Shared.Body.Components;
 using Content.Shared.Armor;
 using Content.Shared.CombatMode;
 using Content.Shared.Bed.Sleep;
+using Content.Shared.Stunnable;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
@@ -157,6 +158,7 @@ public sealed partial class MilitiaOperationSystem
         if (weapon.MinimumMagazines < 0 || weapon.MaximumMagazines < weapon.MinimumMagazines || weapon.MaximumMagazines > 6)
             throw new InvalidOperationException($"Invalid militia ammunition allowance in {profile.ID}.");
         actor.Weapon = Spawn(weapon.Weapon, Transform(uid).Coordinates);
+        actor.PrimaryWeapon = actor.Weapon;
         actor.CreatedEquipment.Add(actor.Weapon);
         actor.ReloadTime = profile.ReloadTime;
         if (!HasComp<GunComponent>(actor.Weapon) || !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false) ||
@@ -182,8 +184,24 @@ public sealed partial class MilitiaOperationSystem
             if (!CompatibleMagazine(uid, actor, magazine))
                 throw new InvalidOperationException($"Incompatible or empty militia magazine for {weapon.Weapon}.");
         }
-        if (actor.Medic && !_storage.Insert(actor.Backpack, actor.Weapon, out _, playSound: false, stackAutomatically: false))
-            throw new InvalidOperationException($"Cannot reserve militia medic weapon storage in {profile.ID}.");
+        var reservePrimary = actor.Medic || profile.SecondaryWeapon != null;
+        if (reservePrimary && !_storage.Insert(actor.Backpack, actor.Weapon, out _, playSound: false, stackAutomatically: false))
+            throw new InvalidOperationException($"Cannot reserve militia primary weapon storage in {profile.ID}.");
+        if (profile.SecondaryWeapon is { } secondary)
+        {
+            actor.LaserWeapon = PackItem(uid, actor, secondary);
+            if (profile.SecondaryAmmo is { } ammo)
+            {
+                if (!TryComp<BatteryAmmoProviderComponent>(actor.LaserWeapon, out var provider))
+                    throw new InvalidOperationException($"Militia secondary ammo requires a battery weapon in {profile.ID}.");
+                provider.Prototype = ammo;
+                Dirty(actor.LaserWeapon, provider);
+            }
+            if (!TryComp<GunComponent>(actor.LaserWeapon, out var secondaryGun) || !WeaponReady(actor.LaserWeapon))
+                throw new InvalidOperationException($"Invalid militia secondary weapon in {profile.ID}.");
+            EnsureComp<MilitiaOperationEquipmentComponent>(actor.LaserWeapon).Enemy = uid;
+            _guns.RefreshModifiers((actor.LaserWeapon, secondaryGun));
+        }
         if (profile.MeleeWeapons.Count > 0)
         {
             actor.Backup = PackItem(uid, actor, profile.MeleeWeapons[random.Next(profile.MeleeWeapons.Count)]);
@@ -216,8 +234,8 @@ public sealed partial class MilitiaOperationSystem
                 throw new InvalidOperationException($"Militia grenade has no timer: {id}.");
             actor.PersonalGrenades.Add(grenade);
         }
-        if (actor.Medic && !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false))
-            throw new InvalidOperationException($"Cannot restore militia medic weapon in {profile.ID}.");
+        if (reservePrimary && !_hands.TryPickupAnyHand(uid, actor.Weapon, animate: false))
+            throw new InvalidOperationException($"Cannot restore militia primary weapon in {profile.ID}.");
         if (TryComp<GunComponent>(actor.Weapon, out var primary))
             _guns.TrySelectFireMode((actor.Weapon, primary), SelectiveFire.FullAuto);
         PrimeWeapon(uid, actor.Weapon);
@@ -245,7 +263,8 @@ public sealed partial class MilitiaOperationSystem
         actor = null;
         return Exists(uid) && !TerminatingOrDeleted(uid) && TryComp(uid, out actor) && actor.EquipmentReady && actor.EquipmentRollback == null &&
                (!TryComp<MilitiaOperationEnemyComponent>(uid, out var owner) || owner.Operation == Guid.Empty || IsActive(owner.Controller, owner.Operation)) &&
-               !_mobs.IsIncapacitated(uid) && !HasPlayerMind(uid);
+               !_mobs.IsIncapacitated(uid) && !HasComp<StunnedComponent>(uid) &&
+               !HasComp<KnockedDownComponent>(uid) && !HasPlayerMind(uid);
     }
 
     private bool HasPlayerMind(EntityUid uid)
@@ -343,6 +362,14 @@ public sealed partial class MilitiaOperationSystem
     private void OnActorSleepAttempt(Entity<MilitiaOperationActorComponent> actor, ref TryingToSleepEvent args)
     {
         args.Cancelled = true;
+    }
+
+    private void OnActorKnockDownAttempt(Entity<MilitiaOperationActorComponent> actor, ref KnockDownAttemptEvent args)
+    {
+        // Allow stamina knockouts while preserving protection against shuttle impacts and tackles.
+        if (!HasPlayerMind(actor.Owner) &&
+            (!TryComp<StaminaComponent>(actor.Owner, out var stamina) || !stamina.Critical))
+            args.Cancelled = true;
     }
 
     private void OnActorShutdown(Entity<MilitiaOperationActorComponent> actor, ref ComponentShutdown args)
@@ -771,13 +798,14 @@ public sealed partial class MilitiaOperationSystem
             _prototypes.EnumerateParents(prototype, includeSelf: true).Any(parent => parent.ID == EnergyShieldPrototype.Id);
     }
 
-    private bool HasActiveDoubleSword(EntityUid uid)
+    private bool HasRangedReflector(EntityUid uid, bool energyShot)
         => Exists(uid) && !TerminatingOrDeleted(uid) &&
-           _hands.EnumerateHeld(uid).Any(item => _squadTags.HasTag(item, DoubleSwordTag) && IsMeleeCounterItem(item));
+           _hands.EnumerateHeld(uid).Any(item => energyShot ? IsEnergyReflector(item)
+               : _squadTags.HasTag(item, DoubleSwordTag) && IsMeleeCounterItem(item));
 
     private bool UnsafeRangedTarget(MilitiaOperationActorComponent actor, EntityUid target)
     {
-        if (HasActiveDoubleSword(target))
+        if (HasRangedReflector(target, UsingSecondary(actor)))
             actor.UnsafeRangedTargets[target] = _timing.CurTime + TimeSpan.FromSeconds(1);
         return actor.UnsafeRangedTargets.TryGetValue(target, out var retry) && retry > _timing.CurTime;
     }
@@ -1057,6 +1085,11 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public int BreakoutDoorOffset;
     public TimeSpan EmergencyReloadUntil;
     public EntityUid Weapon;
+    public EntityUid PrimaryWeapon;
+    public EntityUid LaserWeapon;
+    public bool SecondaryDepleted;
+    public TimeSpan NextSecondaryCheck;
+    public TimeSpan NextRangedWeaponSwitch;
     public EntityUid Backpack;
     public EntityUid Webbing;
     public EntityUid Backup;

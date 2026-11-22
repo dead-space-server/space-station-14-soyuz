@@ -91,11 +91,8 @@
   suffix: Враждебный
   description: Вооружённый участник нелегальной группы.
   components:
-  - type: StunImmune
+  - type: WeaponRetention
   - type: MilitiaOperative
-  - type: MovementIgnoreGravity
-    weightless: false
-  - type: CanMoveInAir
   - type: Loadout
     prototypes: []
   - type: AutoImplant
@@ -164,15 +161,67 @@
   - MilitiaOperationScience
   - MilitiaOperationCargo
   - MilitiaOperationFlagship
+  offerNames:
+  - militia-operation-random-name-01
+  - militia-operation-random-name-02
+  - militia-operation-random-name-03
+  - militia-operation-random-name-04
+  - militia-operation-random-name-05
+  - militia-operation-random-name-06
+  - militia-operation-random-name-07
+  - militia-operation-random-name-08
+  - militia-operation-random-name-09
+  - militia-operation-random-name-10
+  - militia-operation-random-name-11
+  - militia-operation-random-name-12
+  - militia-operation-random-name-13
+  - militia-operation-random-name-14
+  - militia-operation-random-name-15
+  - militia-operation-random-name-16
+  - militia-operation-random-name-17
+  - militia-operation-random-name-18
+  - militia-operation-random-name-19
+  - militia-operation-random-name-20
+  - militia-operation-random-name-21
+  - militia-operation-random-name-22
+  - militia-operation-random-name-23
+  - militia-operation-random-name-24
+  - militia-operation-random-name-25
+  offerDescriptions:
+  - militia-operation-random-description-01
+  - militia-operation-random-description-02
+  - militia-operation-random-description-03
+  - militia-operation-random-description-04
+  - militia-operation-random-description-05
+  - militia-operation-random-description-06
+  - militia-operation-random-description-07
+  - militia-operation-random-description-08
+  - militia-operation-random-description-09
+  - militia-operation-random-description-10
+  - militia-operation-random-description-11
+  - militia-operation-random-description-12
+  - militia-operation-random-description-13
+  - militia-operation-random-description-14
+  - militia-operation-random-description-15
+  - militia-operation-random-description-16
+  - militia-operation-random-description-17
+  - militia-operation-random-description-18
+  - militia-operation-random-description-19
+  - militia-operation-random-description-20
+  - militia-operation-random-description-21
+  - militia-operation-random-description-22
+  - militia-operation-random-description-23
+  - militia-operation-random-description-24
+  - militia-operation-random-description-25
   shop: MilitiaOperationSupplyPool
   shopEnabled: true
   contrabandRewards:
-    Firearm: { points: 400, reputation: 20 }
-    Melee: { points: 200, reputation: 10 }
-    Armor: { points: 300, reputation: 10 }
-    Helmet: { points: 200, reputation: 10 }
-    Boots: { points: 100, reputation: 10 }
-    Hypospray: { points: 150, reputation: 10 }
+    Firearm: { points: 400, reputation: 120 }
+    Melee: { points: 200, reputation: 60 }
+    Armor: { points: 300, reputation: 60 }
+    Helmet: { points: 200, reputation: 60 }
+    Boots: { points: 100, reputation: 60 }
+    Hypospray: { points: 150, reputation: 60 }
   mapContraband:
     EnergySword: Melee
     EnergySwordDouble: Melee

@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Server.DeadSpace._Soyuz.MilitiaOperations; // DS14-Soyuz
 using Content.Server.NPC.Components;
 using Content.Shared.Prototypes;
 using Content.Shared.CombatMode;
@@ -81,12 +82,15 @@ public sealed partial class NPCCombatSystem
             }
             // DS14-Soyuz-end
 
-            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
+            // DS14-Soyuz-start: militia validates every shot independently of its movement path.
+            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath &&
+                !HasComp<MilitiaOperationActorComponent>(uid))
             {
                 comp.Status = CombatStatus.TargetUnreachable;
                 comp.ShootAccumulator = 0f;
                 continue;
             }
+            // DS14-Soyuz-end
 
             if (!_xformQuery.TryGetComponent(comp.Target, out var targetXform) ||
                 !_physicsQuery.TryGetComponent(comp.Target, out var targetBody))

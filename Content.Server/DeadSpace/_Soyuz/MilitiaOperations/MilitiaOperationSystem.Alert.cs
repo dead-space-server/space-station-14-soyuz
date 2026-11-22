@@ -112,7 +112,8 @@ public sealed partial class MilitiaOperationSystem
         if (hit)
         {
             actor.Comp.LastRangedImpact = Transform(actor.Owner).Coordinates;
-            actor.Comp.LastRangedImpactUntil = _timing.CurTime + TimeSpan.FromSeconds(0.75);
+            // Keep a confirmed impact unsafe beyond the movement-stall timeout (1.5 seconds).
+            actor.Comp.LastRangedImpactUntil = _timing.CurTime + TimeSpan.FromSeconds(2);
         }
         actor.Comp.RangedDangerUntil = actor.Comp.WindowHoldUntil;
         actor.Comp.WindowExposed = true;

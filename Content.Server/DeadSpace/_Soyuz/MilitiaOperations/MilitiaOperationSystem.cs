@@ -109,10 +109,12 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Hitscan.Events.HitscanRaycastStrikeEvent>(OnActorHitscanHit);
         SubscribeLocalEvent<Content.Shared.Weapons.Hitscan.Events.HitscanRaycastFiredEvent>(OnThreateningHitscan);
         SubscribeLocalEvent<MilitiaOperationActorComponent, TryingToSleepEvent>(OnActorSleepAttempt);
+        SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Stunnable.KnockDownAttemptEvent>(OnActorKnockDownAttempt);
         SubscribeLocalEvent<MilitiaOperationActorComponent, ComponentShutdown>(OnActorShutdown);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MobStateChangedEvent>(OnActorMobStateChanged);
         SubscribeLocalEvent<MilitiaOperationConsoleComponent, EntInsertedIntoContainerMessage>(OnDocumentInserted);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.ShotAttemptedEvent>(OnSquadShot);
+        SubscribeLocalEvent<MilitiaOperationEquipmentComponent, Content.Shared.Weapons.Ranged.Events.GunRefreshModifiersEvent>(OnSecondaryGunModifiers);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.GunShotAtTargetEvent>(OnActorTargetedShot);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MapInitEvent>(OnActorMapInit,
             after: [typeof(SharedBodySystem), typeof(LoadoutSystem)]);
@@ -202,10 +204,22 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var offers = current.ToList();
         var candidates = config.Operations.Distinct()
             .Where(id => _prototypes.TryIndex(id, out _) && offers.All(offer => offer.Prototype != id.Id)).ToList();
+        var names = config.OfferNames.Except(offers.Where(offer => offer.Name.HasValue)
+            .Select(offer => offer.Name!.Value)).ToList();
+        var descriptions = config.OfferDescriptions.Except(offers.Where(offer => offer.Description.HasValue)
+            .Select(offer => offer.Description!.Value)).ToList();
         while (offers.Count < 2 && candidates.Count > 0)
         {
             var index = _random.Next(candidates.Count);
-            offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), candidates[index].Id));
+            var nameIndex = names.Count > 0 ? _random.Next(names.Count) : -1;
+            var descriptionIndex = descriptions.Count > 0 ? _random.Next(descriptions.Count) : -1;
+            offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), candidates[index].Id,
+                nameIndex >= 0 ? (LocId?) names[nameIndex] : null,
+                descriptionIndex >= 0 ? (LocId?) descriptions[descriptionIndex] : null));
+            if (nameIndex >= 0)
+                names.RemoveAt(nameIndex);
+            if (descriptionIndex >= 0)
+                descriptions.RemoveAt(descriptionIndex);
             candidates.RemoveAt(index);
         }
         return offers;
@@ -321,6 +335,8 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             return false;
         }
         active.OfferToken = token;
+        active.Name = offer.Name ?? active.Name;
+        active.Description = offer.Description ?? active.Description;
         state.Active = active;
         state.Status = "militia-operation-in-progress";
         state.Offers.Remove(offer);
@@ -593,7 +609,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             }
         }
         _ui.SetUiState(console, MilitiaOperationUiKey.Key, new MilitiaOperationUiState(
-            state.Offers.ToList(), active == null ? null : new MilitiaOperationOffer(active.Id, active.Prototype.Id),
+            state.Offers.ToList(), active == null ? null : new MilitiaOperationOffer(active.Id, active.Prototype.Id, active.Name, active.Description),
             position, active == null ? 0 : Remaining(active), active?.Deadline, state.AvailableAt,
             _supplyPoints, _reputation, RepairOrderRewardSystem.GetShopLevel(pool, _reputation),
             pool.ID, state.Status, state.History.ToArray(),
@@ -620,6 +636,7 @@ public sealed class MilitiaActiveOperation
 {
     public required ProtoId<MilitiaOperationPrototype> Prototype;
     public required LocId Name;
+    public required LocId Description;
     public required int Points;
     public required int Reputation;
     public required TimeSpan Cooldown;

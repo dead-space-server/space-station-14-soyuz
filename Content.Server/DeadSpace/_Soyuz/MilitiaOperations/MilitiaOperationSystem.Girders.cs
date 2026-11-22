@@ -99,18 +99,21 @@ public sealed partial class MilitiaOperationSystem
                 IsIgnored = entity => entity == uid || entity == enemy ||
                     !TryComp<PhysicsComponent>(entity, out var body) || !body.CanCollide,
             }, RayCastSystem.RayCastClosestCallback);
-        if (!hit.Hit || !BreachableGirder(uid, hit.Entity))
+        if (!hit.Hit)
             return false;
-        var position = _transform.GetMapCoordinates(hit.Entity);
+        var obstacle = hit.Results[0].Entity;
+        if (!BreachableGirder(uid, obstacle))
+            return false;
+        var position = _transform.GetMapCoordinates(obstacle);
         var spread = HolographicFireSpread(actor);
-        if (SquadShotBlocked(uid, hit.Entity, origin, position, collision, spread) ||
-            SquadFireLaneBlocked(uid, hit.Entity, origin, position, spread, out _))
+        if (SquadShotBlocked(uid, obstacle, origin, position, collision, spread) ||
+            SquadFireLaneBlocked(uid, obstacle, origin, position, spread, out _))
             return false;
-        actor.GirderTarget = hit.Entity;
+        actor.GirderTarget = obstacle;
         actor.GirderEnemy = enemy;
         actor.GirderBreachUntil = _timing.CurTime + TimeSpan.FromSeconds(5);
         actor.GirderPushUntil = TimeSpan.Zero;
-        girder = hit.Entity;
+        girder = obstacle;
         return true;
     }
 }

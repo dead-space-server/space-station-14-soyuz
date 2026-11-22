@@ -117,6 +117,7 @@ public sealed partial class MilitiaOperationSystem
             {
                 Prototype = prototype.ID, Id = idOperation, Document = documentUid,
                 Seed = seed, Deadline = _timing.CurTime + prototype.Duration, Name = prototype.Name,
+                Description = prototype.Description,
                 Points = prototype.Points, Reputation = prototype.Reputation, Cooldown = config.Cooldown,
             };
             prepared.Grids.Add(gridUid);

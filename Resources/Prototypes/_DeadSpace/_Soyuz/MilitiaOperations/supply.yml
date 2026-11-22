@@ -272,23 +272,30 @@
   minimumShopLevel: 4
 
 - type: repairReward
+  id: MilitiaSupplyBallisticShield
+  entity: RiotBulletShield
+  cost: 500
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
   id: MilitiaSupplyPoliceBeta
   entity: ClothingOuterHardsuitPoliceBeta1
-  cost: 1600
+  cost: 700
   maxCount: 2
-  minimumShopLevel: 4
+  minimumShopLevel: 1
 
 - type: repairReward
   id: MilitiaSupplyOperationHardsuit
   entity: ClothingOuterHardsuitMilitiaOperation
-  cost: 2400
+  cost: 1400
   maxCount: 2
-  minimumShopLevel: 5
+  minimumShopLevel: 2
 
 - type: repairRewardPool
   id: MilitiaOperationSupplyPool
   deliveryContainer: MilitiaOperationSupplyCrate
-  shopLevelThresholds: [0, 100, 400, 800, 1200]
+  shopLevelThresholds: [0, 200, 400, 800, 1200, 1600]
   baseReputationByDifficulty: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   qualityBands:
   - minPercent: 0
@@ -333,4 +340,5 @@
   - MilitiaSupplyMagazineBoxAntiMateriel
   - MilitiaSupplyAdrenalImplanter
   - MilitiaSupplyPoliceBeta
+  - MilitiaSupplyBallisticShield
   - MilitiaSupplyOperationHardsuit

@@ -32,10 +32,12 @@ public sealed partial class GunSystem
             else if (gun.BurstActivated)
             {
                 var parent = TransformSystem.GetParentUid(uid);
+                // DS14-Soyuz-start: retain the target when continuing a burst, including NPC safety checks.
                 if (HasComp<DamageableComponent>(parent))
-                    AttemptShoot(parent, (uid, gun), gun.ShootCoordinates ?? new EntityCoordinates(uid, gun.DefaultDirection));
+                    AttemptShoot(parent, (uid, gun), gun.ShootCoordinates ?? new EntityCoordinates(uid, gun.DefaultDirection), gun.Target);
                 else
                     AttemptShoot((uid, gun));
+                // DS14-Soyuz-end
             }
         }
     }

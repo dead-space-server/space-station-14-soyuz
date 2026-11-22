@@ -1009,6 +1009,14 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates RouteProgressTarget;
     public float RouteProgressDistance;
     public TimeSpan RouteProgressAt;
+    public EntityCoordinates RouteMotionOrigin;
+    public TimeSpan RouteMotionAt;
+    public TimeSpan RouteMotionObservedAt;
+    public EntityUid GirderTarget;
+    public EntityUid GirderEnemy;
+    public TimeSpan GirderBreachUntil;
+    public TimeSpan GirderPushUntil;
+    public TimeSpan NextGirderScan;
     public EntityUid? OpeningRouteDoor;
     public TimeSpan OpeningRouteDoorUntil;
     public EntityCoordinates RetreatOrigin;
@@ -1131,6 +1139,8 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
                     return (false, null);
                 if (!_operations.SquadPositionAvailable(owner, position))
                     continue;
+                if (_operations.PrepareDirectSquadPath(owner, order, position) is { } directPlan)
+                    return (true, new Dictionary<string, object> { [SquadPlanKey] = directPlan });
                 if (!_entities.TryGetComponent(owner, out TransformComponent? transform))
                     return (false, null);
                 var path = await _pathfinding.GetPath(owner, transform.Coordinates, position, 0.6f,

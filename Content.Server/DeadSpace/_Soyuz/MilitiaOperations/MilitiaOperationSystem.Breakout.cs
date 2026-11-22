@@ -46,8 +46,9 @@ public sealed partial class MilitiaOperationSystem
         var seen = SquadSightClear(uid, target, CombatVision(actor, target));
         var knownShooter = actor.WindowExposed && RecentDamageThreat(uid, actor) is { } incoming &&
             incoming.MapId == position.MapId && Vector2.DistanceSquared(position.Position, incoming.Position) <= 9f;
-        return (seen || knownShooter) && SquadShotBlocked(uid, target, _transform.GetMapCoordinates(uid), position,
-            GetShotCollision(actor.Weapon), HolographicFireSpread(actor));
+        return (seen || knownShooter) && (GirderAssault(actor, target) ||
+            SquadShotBlocked(uid, target, _transform.GetMapCoordinates(uid), position,
+                GetShotCollision(actor.Weapon), HolographicFireSpread(actor)));
     }
 
     private bool ProactiveBreakout(EntityUid uid, MilitiaOperationActorComponent actor)

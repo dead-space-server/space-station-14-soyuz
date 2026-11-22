@@ -86,6 +86,7 @@ public sealed partial class MilitiaOperationSystem
 
     private void AlertRangedActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat, EntityUid? attacker, bool hit = false)
     {
+        var wasEscaping = actor.Comp.RangedDangerUntil > _timing.CurTime;
         AlertActor(actor, threat);
         if (!AvailableActor(actor.Owner, out _))
             return;
@@ -116,6 +117,14 @@ public sealed partial class MilitiaOperationSystem
         actor.Comp.RangedDangerUntil = actor.Comp.WindowHoldUntil;
         actor.Comp.WindowExposed = true;
         actor.Comp.ExposedToThreat = true;
+        if (!wasEscaping)
+        {
+            // Interrupt an idle/combat plan once on entering danger, not on every incoming laser tick.
+            actor.Comp.NextRangedRetreatSearch = TimeSpan.Zero;
+            actor.Comp.RetreatRetryAfter = TimeSpan.Zero;
+            actor.Comp.NextBreakoutAttempt = TimeSpan.Zero;
+            InterruptActor(actor.Owner);
+        }
     }
 
     private void OnThreateningHitscan(ref HitscanRaycastFiredEvent args)

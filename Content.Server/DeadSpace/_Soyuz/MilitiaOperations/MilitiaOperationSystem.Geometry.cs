@@ -125,6 +125,7 @@ public sealed partial class MilitiaOperationSystem
         {
             if (!fixture.Hard)
                 continue;
+            var bounds = fixture.Shape.ComputeAABB(transform, 0);
             intersecting.Clear();
             _squadLookup.GetEntitiesIntersecting(position.MapId, fixture.Shape, transform, intersecting,
                 LookupFlags.Static | LookupFlags.Dynamic);
@@ -138,7 +139,9 @@ public sealed partial class MilitiaOperationSystem
                     if (other.Hard && ((fixture.CollisionMask & other.CollisionLayer) != 0 ||
                                        (other.CollisionMask & fixture.CollisionLayer) != 0 ||
                                        (other.CollisionLayer & (int) CollisionGroup.BulletImpassable) != 0 &&
-                                       HasComp<EntityStorageComponent>(obstacle)))
+                                       HasComp<EntityStorageComponent>(obstacle)) &&
+                        (other.Shape.ChildCount > 1 ||
+                         other.Shape.ComputeAABB(_squadPhysics.GetPhysicsTransform(obstacle), 0).Intersects(bounds)))
                         return false;
                 }
             }

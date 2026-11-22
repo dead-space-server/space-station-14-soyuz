@@ -8,6 +8,10 @@
     Reach:
       stationProto: StandardNanotrasenStation
       components:
+# DS14-Soyuz-start
+        - type: StationSpecialization
+          specialization: SoyuzSpecMilitia
+# DS14-Soyuz-end
         - type: StationNameSetup
           mapNameTemplate: '{0} Транспортёр "Достигатель" {1}' #DS14-Soyuz local
           nameGenerator:

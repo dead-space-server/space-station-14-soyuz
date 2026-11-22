@@ -41,6 +41,11 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Закон
+      isHead: True
+# DS14-Soyuz-end
 
 # Униформа, мантия и парик выдаются через меню снаряжения роли (JobMagistrat).
 - type: startingGear

@@ -25,7 +25,10 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
-#DS14-Soyuz-end
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Око
+      isHead: True
   ranks:
     NKVBRankLieutenantColonel:
     - !type:OverallPlaytimeRequirement

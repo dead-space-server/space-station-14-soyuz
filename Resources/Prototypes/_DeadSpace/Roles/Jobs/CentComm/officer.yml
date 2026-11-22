@@ -27,6 +27,10 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Зенит
+# DS14-Soyuz-end
 
 - type: startingGear
   id: CentcomOfficerGear

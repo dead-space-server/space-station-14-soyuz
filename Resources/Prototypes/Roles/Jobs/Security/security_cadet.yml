@@ -32,6 +32,10 @@
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
 #DS14-Soyuz-end
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Бастион
   ranks:
     SGMRankPidoras: []
 #DS14-Soyuz-end

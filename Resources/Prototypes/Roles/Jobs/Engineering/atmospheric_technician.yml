@@ -16,6 +16,12 @@
   - External
   - Atmospherics
   special:
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Огонь
+# DS14-Soyuz-end
   - !type:GiveItemOnHolidaySpecial
     holiday: FirefighterDay
     prototype: FireAxe

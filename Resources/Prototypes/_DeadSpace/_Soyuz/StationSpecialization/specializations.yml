@@ -1,0 +1,94 @@
+# Числовые значения бонусов лежат в CVar soyuz.station_spec.* (см. StationSpecializationCVars.cs).
+# Здесь только список включённых эффектов и отделы, получающие сообщение о навыке.
+# name, description, namePrefix и skillMessage принимают и ключ локализации, и просто готовый текст.
+- type: stationSpecialization
+  id: SoyuzSpecEngineering
+  name: station-specialization-engineering-name
+  description: station-specialization-engineering-desc
+  namePrefix: Инженерное предприятие
+  wikiSuffix: инженерный
+  bonuses:
+  - BeaconPayout
+  skillMessage: station-specialization-engineering-skill
+  skillDepartments:
+  - Engineering
+
+- type: stationSpecialization
+  id: SoyuzSpecEngineeringAlt
+  name: station-specialization-engineering-alt-name
+  description: station-specialization-engineering-alt-desc
+  namePrefix: Верфь
+  wikiSuffix: инженерный
+  bonuses:
+  - BeaconPayout
+  skillMessage: station-specialization-engineering-skill
+  skillDepartments:
+  - Engineering
+
+- type: stationSpecialization
+  id: SoyuzSpecMilitia
+  name: station-specialization-militia-name
+  description: station-specialization-militia-desc
+  namePrefix: Военизированный объект
+  wikiSuffix: милицейский
+  bonuses:
+  - Callsigns
+  skillMessage: station-specialization-militia-skill
+  skillDepartments:
+  - Security
+
+- type: stationSpecialization
+  id: SoyuzSpecScience
+  name: station-specialization-science-name
+  description: station-specialization-science-desc
+  namePrefix: Научно-исследовательское предприятие
+  wikiSuffix: научный
+  bonuses:
+  - PassiveResearch
+  skillMessage: station-specialization-science-skill
+  skillDepartments:
+  - Science
+
+- type: stationSpecialization
+  id: SoyuzSpecMail
+  name: station-specialization-mail-name
+  description: station-specialization-mail-desc
+  namePrefix: Торгово-снабженческое предприятие
+  wikiSuffix: почтовый
+  bonuses:
+  - PassiveCargoMoney
+  - CargoDiscount
+  skillMessage: station-specialization-mail-skill
+  skillDepartments:
+  - Cargo
+
+- type: stationSpecialization
+  id: SoyuzSpecService
+  name: station-specialization-service-name
+  description: station-specialization-service-desc
+  namePrefix: Обслуживающее предприятие
+  wikiSuffix: сервисный
+  bonuses:
+  - PlantGrowth
+  skillMessage: station-specialization-service-skill
+  skillDepartments:
+  - Civilian
+
+- type: stationSpecialization
+  id: SoyuzSpecMedical
+  name: station-specialization-medical-name
+  description: station-specialization-medical-desc
+  namePrefix: Медицинское предприятие
+  wikiSuffix: медицинский
+  bonuses:
+  - ChemVend
+  chemVendMachines:
+  - VendingMachineChemicals
+  skillMessage: station-specialization-medical-skill
+  skillDepartments:
+  - Medical
+
+- type: stationSpecialization
+  id: SoyuzSpecUniversal
+  name: station-specialization-universal-name
+  description: station-specialization-universal-desc

@@ -17,6 +17,10 @@
     components:
     # - type: CustomNameOnSpawn
     # - type: ClownBibleUser #Lets them honk with bibles
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Природа
+# DS14-Soyuz-end
     - type: PermanentStatusEffects
       statusEffects:
       - StatusEffectClumsyClown

@@ -35,6 +35,10 @@
   - !type:AddComponentSpecial
     components:
       - type: CommandStaff
+# DS14-Soyuz-start
+      - type: Callsign
+        base: Атом
+# DS14-Soyuz-end
 
 - type: startingGear
   id: ResearchDirectorGear

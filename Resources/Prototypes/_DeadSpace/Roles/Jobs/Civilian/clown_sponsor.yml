@@ -21,6 +21,12 @@
     - type: SleepEmitSound
       snore: /Audio/Voice/Misc/silly_snore.ogg
       interval: 10
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Природа
+# DS14-Soyuz-end
   - !type:AddImplantSpecial
     implants: [ SadTromboneImplant ]
   #start-backmen: currency

@@ -23,6 +23,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, RadioImplantDeathSquad, DeathRattleImplantDeathSquad, RezervImplant ]
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Смерть
+# DS14-Soyuz-end
 
 # - type: startingGear
 #   id: DeathSquadGear

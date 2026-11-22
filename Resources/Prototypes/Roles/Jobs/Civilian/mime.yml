@@ -19,6 +19,10 @@
     - type: MimePowers
       preventWriting: true
     - type: FrenchAccent
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Природа
+# DS14-Soyuz-end
   #start-backmen: currency
   minBankBalance: 250 # DS14-value
   maxBankBalance: 350 # DS14-value

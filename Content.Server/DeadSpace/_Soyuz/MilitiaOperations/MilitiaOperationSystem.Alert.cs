@@ -105,7 +105,7 @@ public sealed partial class MilitiaOperationSystem
         var sameGrid = Transform(actor.Owner).GridUid is { } grid &&
             _turf.GetTileRef(_transform.ToCoordinates(source))?.GridUid == grid;
         if (Vector2.DistanceSquared(position.Position, source.Position) <= actor.Comp.SquadVision * actor.Comp.SquadVision &&
-            sameGrid && !ThroughWindow(position, source) &&
+            sameGrid && !ThroughWindowOrGrille(position, source) &&
             !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, GetShotCollision(actor.Comp.Weapon), 0f))
             return;
         RememberWindowThreat(actor.Owner, actor.Comp, source);

@@ -133,6 +133,8 @@ public sealed partial class AtmosphereSystem
                 var source = state.Source.Value;
                 var radiation = Comp<RadiationSourceComponent>(source);
                 radiation.Intensity = MathF.Min(radion * 0.02f, 20f);
+                // Weak Radion clouds should still irradiate their own tile away from its center.
+                radiation.Slope = MathF.Min(2f, radiation.Intensity * 0.5f);
                 radiation.Enabled = radion > Atmospherics.GasMinMoles;
                 _soyuzLights.SetEnabled(source, lumin > Atmospherics.GasMinMoles);
                 _soyuzLights.SetEnergy(source, Math.Clamp(lumin / 10f, 0f, 4f));

@@ -23,6 +23,8 @@ using Content.Shared.Ghost;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Shuttles.Components;
+using Content.Shared.StepTrigger.Systems;
+using Content.Shared.Trigger.Components.Effects;
 using Robust.Server.GameObjects;
 using Robust.Server.Physics;
 using Robust.Shared.Map;
@@ -68,7 +70,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         _log = _logs.GetSawmill("militia_operations");
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(_ =>
         {
-            _hologramAncestors.Clear();
+            _prototypeAncestors.Clear();
             _projectileCollisions.Clear();
         });
         SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
@@ -90,7 +92,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _squadHostileQueries.Clear();
             _reuseSquadQueries = false;
             _treatmentReservations.Clear();
-            _hologramAncestors.Clear();
+            _prototypeAncestors.Clear();
             _projectileCollisions.Clear();
             _custodyUiCache.Clear();
             _custodyRequests.Clear();
@@ -105,6 +107,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
         SubscribeLocalEvent<MilitiaOperationTargetComponent, EntityTerminatingEvent>(OnTargetTerminating);
         SubscribeLocalEvent<MilitiaOperationActorComponent, DamageChangedEvent>(OnActorDamaged);
+        SubscribeLocalEvent<DamageOnTriggerComponent, StepTriggerAttemptEvent>(OnActorShardStep);
         SubscribeLocalEvent<Content.Shared.Projectiles.ProjectileComponent, Content.Shared.Projectiles.ProjectileHitEvent>(OnActorProjectileHit);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Hitscan.Events.HitscanRaycastStrikeEvent>(OnActorHitscanHit);
         SubscribeLocalEvent<Content.Shared.Weapons.Hitscan.Events.HitscanRaycastFiredEvent>(OnThreateningHitscan);

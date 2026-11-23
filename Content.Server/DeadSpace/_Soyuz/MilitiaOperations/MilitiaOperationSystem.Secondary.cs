@@ -29,9 +29,9 @@ public sealed partial class MilitiaOperationSystem
                Vector2.DistanceSquared(origin.Position, target.Position) <= range * range;
     }
 
-    private void UpdateSecondaryWeapon(EntityUid uid, MilitiaOperationActorComponent actor, bool throughWindow, bool meleeCounter)
+    private void UpdateSecondaryWeapon(EntityUid uid, MilitiaOperationActorComponent actor, bool throughBarrier, bool meleeCounter)
     {
-        // Reuse the safety scan's target and window query. No separate enemy scan or planner is needed.
+        // Reuse the safety scan's target and barrier query. No separate enemy scan or planner is needed.
         if (_timing.CurTime < actor.NextSecondaryCheck || !SquadMember(uid) ||
             actor.MedicalRefill != null || actor.Patient.IsValid() || ReceivingTreatment(uid) ||
             actor.ReloadUntil != null || actor.DoorPry != null || BarrierClimbBusy(uid) ||
@@ -40,7 +40,7 @@ public sealed partial class MilitiaOperationSystem
         actor.NextSecondaryCheck = _timing.CurTime + TimeSpan.FromSeconds(0.5);
 
         var usingLaser = UsingSecondary(actor);
-        if (!usingLaser && (!throughWindow || _timing.CurTime < actor.NextRangedWeaponSwitch))
+        if (!usingLaser && (!throughBarrier || _timing.CurTime < actor.NextRangedWeaponSwitch))
             return;
         var origin = _transform.GetMapCoordinates(uid);
         var target = actor.DirectTarget;
@@ -54,13 +54,13 @@ public sealed partial class MilitiaOperationSystem
         else if (ammo.Count >= 5)
             actor.SecondaryDepleted = false;
         var laserReady = ammo.Count > 0 && (ammo.NextAmmoEntity != null || ammo.NextAmmoPrototype != null);
-        var primaryCanFire = throughWindow && inRange && laserReady && OwnsItem(uid, actor.PrimaryWeapon) &&
+        var primaryCanFire = throughBarrier && inRange && laserReady && OwnsItem(uid, actor.PrimaryWeapon) &&
             WeaponReady(actor.PrimaryWeapon) &&
             !ShotPathBlocked(uid, target, origin, targetPosition, GetShotCollision(actor.PrimaryWeapon));
-        if (_timing.CurTime < actor.NextRangedWeaponSwitch && throughWindow && laserReady && inRange &&
+        if (_timing.CurTime < actor.NextRangedWeaponSwitch && throughBarrier && laserReady && inRange &&
             !actor.SecondaryDepleted && !primaryCanFire)
             return;
-        var wantLaser = throughWindow && inRange && laserReady && !actor.SecondaryDepleted && !primaryCanFire &&
+        var wantLaser = throughBarrier && inRange && laserReady && !actor.SecondaryDepleted && !primaryCanFire &&
             // After full depletion, wait for five shots; a partially used sidearm needs no full recharge.
             (usingLaser || ammo.Count >= 2) &&
             !ShotPathBlocked(uid, target, origin, targetPosition, GetShotCollision(in ammo));

@@ -210,9 +210,7 @@ public sealed partial class NPCSteeringSystem
         foreach (var ent in _mapSystem.GetLocalAnchoredEntities(poly.GraphUid, grid, poly.Box))
         {
             if (!_physicsQuery.TryGetComponent(ent, out var body) ||
-                !body.Hard ||
-                !body.CanCollide ||
-                (body.CollisionMask & layer) == 0x0 && (body.CollisionLayer & mask) == 0x0)
+                !HasSteeringCollision(ent, body, layer, mask)) // DS14-Soyuz
             {
                 continue;
             }
@@ -220,6 +218,28 @@ public sealed partial class NPCSteeringSystem
             ents.Add(ent);
         }
     }
+
+    // DS14-Soyuz start: body collision bits also include sensors, such as the foot trigger on glass shards.
+    private bool HasSteeringCollision(EntityUid obstacle, PhysicsComponent body, int layer, int mask)
+    {
+        if (!body.CanCollide || !body.Hard ||
+            ((body.CollisionMask & layer) == 0 && (body.CollisionLayer & mask) == 0) ||
+            !_fixturesQuery.TryGetComponent(obstacle, out var fixtures))
+            return false;
+
+        // With one fixture the body's cached values already describe that fixture exactly.
+        if (fixtures.FixtureCount == 1)
+            return true;
+
+        foreach (var fixture in fixtures.Fixtures.Values)
+        {
+            if (fixture.Hard && ((fixture.CollisionMask & layer) != 0 || (fixture.CollisionLayer & mask) != 0))
+                return true;
+        }
+
+        return false;
+    }
+    // DS14-Soyuz end
 
     private enum SteeringObstacleStatus : byte
     {

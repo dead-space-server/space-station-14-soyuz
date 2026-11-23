@@ -32,6 +32,8 @@ using Content.Shared.Temperature.Components;
 using Content.Shared.Storage.EntitySystems;
 using Content.Shared.Storage;
 using Content.Shared.SSDIndicator;
+using Content.Shared.StepTrigger.Systems;
+using Content.Shared.Trigger.Components.Effects;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
@@ -270,6 +272,13 @@ public sealed partial class MilitiaOperationSystem
     private bool HasPlayerMind(EntityUid uid)
         => TryComp<MindContainerComponent>(uid, out var mind) && mind.Mind != null;
 
+    private void OnActorShardStep(Entity<DamageOnTriggerComponent> shard, ref StepTriggerAttemptEvent args)
+    {
+        if (!args.Cancelled && HasComp<MilitiaOperationActorComponent>(args.Tripper) && !HasPlayerMind(args.Tripper) &&
+            HasPrototypeAncestor(shard.Owner, "ShardBase"))
+            args.Cancelled = true;
+    }
+
     private void OnActorDamaged(Entity<MilitiaOperationActorComponent> actor, ref DamageChangedEvent args)
     {
         if (!args.DamageIncreased)
@@ -294,7 +303,7 @@ public sealed partial class MilitiaOperationSystem
         _supportWork.Add(actor.Owner);
         actor.Comp.DamageThreat = threat ?? previousThreat;
         if (actor.Comp.DamageThreat is { } incoming &&
-            (ThroughWindow(_transform.GetMapCoordinates(actor.Owner), incoming) ||
+            (ThroughWindowOrGrille(_transform.GetMapCoordinates(actor.Owner), incoming) ||
              RememberedWindowThreats(actor.Comp).Any(known => known.MapId == incoming.MapId &&
                  System.Numerics.Vector2.DistanceSquared(known.Position, incoming.Position) <= 4f)))
             RememberWindowThreat(actor.Owner, actor.Comp, incoming);
@@ -1015,6 +1024,8 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityUid DirectTarget;
     public EntityUid LastDirectTarget;
     public TimeSpan LastDirectAt;
+    public TimeSpan NextRecentTargetCheck;
+    public (EntityUid Target, EntityUid Weapon, TimeSpan Until) RecentPrimaryAim;
     public EntityUid[] Grenades = Array.Empty<EntityUid>();
     public readonly List<EntityUid> PersonalGrenades = new();
     public TimeSpan NextGrenade;

@@ -29,22 +29,23 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly ClimbSystem _barrierClimb = default!;
     private static readonly PhysShapeCircle ShotPathShape = new(0.01f);
     private static readonly ShotCollision DefaultShotCollision = new((int) (CollisionGroup.Impassable | CollisionGroup.BulletImpassable));
-    private readonly Dictionary<(EntityPrototype Prototype, string Ancestor), bool> _hologramAncestors = new();
+    private readonly Dictionary<(EntityPrototype Prototype, string Ancestor), bool> _prototypeAncestors = new();
     private readonly Dictionary<EntityPrototype, ShotCollision> _projectileCollisions = new();
 
-    private bool HologramPrototype(EntityUid uid, string id)
+    private bool HasPrototypeAncestor(EntityUid uid, string id)
     {
         if (TerminatingOrDeleted(uid) || EntityManager.IsQueuedForDeletion(uid) ||
             MetaData(uid).EntityPrototype is not { } prototype)
             return false;
         var key = (prototype, id);
-        if (!_hologramAncestors.TryGetValue(key, out var matches))
-            _hologramAncestors[key] = matches = _prototypes.EnumerateParents(prototype, includeSelf: true).Any(parent => parent.ID == id);
+        if (!_prototypeAncestors.TryGetValue(key, out var matches))
+            _prototypeAncestors[key] = matches = _prototypes.EnumerateAllParents<EntityPrototype>(prototype.ID, includeSelf: true)
+                .Any(parent => parent.id == id);
         return matches;
     }
 
     private bool CanCrossHolographicBarrier(EntityUid uid, EntityUid barrier)
-        => HologramPrototype(barrier, "HolosignSecurity") &&
+        => HasPrototypeAncestor(barrier, "HolosignSecurity") &&
            TryComp<ClimbableComponent>(barrier, out var surface) && surface.Vaultable &&
            TryComp<ClimbingComponent>(uid, out var climbing) && climbing.CanClimb &&
            (climbing.IsClimbing || Comp<MilitiaOperationActorComponent>(uid).BarrierClimbRetryAfter <= _timing.CurTime);
@@ -72,7 +73,7 @@ public sealed partial class MilitiaOperationSystem
         foreach (var hit in hits.Results.OrderBy(hit => hit.Fraction))
         {
             var actor = Comp<MilitiaOperationActorComponent>(uid);
-            if (HologramPrototype(hit.Entity, "HolosignSecurity") && actor.BarrierClimbRetryAfter > _timing.CurTime)
+            if (HasPrototypeAncestor(hit.Entity, "HolosignSecurity") && actor.BarrierClimbRetryAfter > _timing.CurTime)
             {
                 blocked = true;
                 return false;
@@ -122,7 +123,7 @@ public sealed partial class MilitiaOperationSystem
             return;
         IReadOnlyDictionary<ushort, Content.Shared.DoAfter.DoAfter> running = actions.DoAfters;
         if (running.TryGetValue(current.Index, out var native) && native.Args.Target is { } target &&
-            HologramPrototype(target, "HolosignSecurity"))
+            HasPrototypeAncestor(target, "HolosignSecurity"))
             _doAfter.Cancel(uid, current.Index, actions);
     }
 
@@ -136,7 +137,7 @@ public sealed partial class MilitiaOperationSystem
         {
             IReadOnlyDictionary<ushort, Content.Shared.DoAfter.DoAfter> running = actions.DoAfters;
             interrupted = running.TryGetValue(current.Index, out var native) && native.Args.Target is { } target &&
-                HologramPrototype(target, "HolosignSecurity");
+                HasPrototypeAncestor(target, "HolosignSecurity");
         }
         if (!interrupted)
             return;
@@ -149,7 +150,7 @@ public sealed partial class MilitiaOperationSystem
 
     private bool HolographicProjectileBarrier(EntityUid uid)
         => TryComp<PhysicsComponent>(uid, out var body) && body.CanCollide &&
-           (HologramPrototype(uid, "HolosignBulletShield") || HologramPrototype(uid, "XenoborgDeflectorField"));
+           (HasPrototypeAncestor(uid, "HolosignBulletShield") || HasPrototypeAncestor(uid, "XenoborgDeflectorField"));
 
     private Box2[] ReflectingFieldBounds(MapCoordinates origin, float range)
     {
@@ -177,7 +178,7 @@ public sealed partial class MilitiaOperationSystem
         var direction = Vector2.Normalize(delta);
         if (!SquadLineClear(origin, target, mask: CollisionGroup.BulletImpassable,
                 ignored: entity => !HolographicProjectileBarrier(entity) ||
-                    attackMatrices && HologramPrototype(entity, "HolosignBulletShield")))
+                    attackMatrices && HasPrototypeAncestor(entity, "HolosignBulletShield")))
             return true;
         if (spread <= 0f)
             return false;
@@ -308,7 +309,7 @@ public sealed partial class MilitiaOperationSystem
     private bool IgnoreShotEntity(EntityUid entity, EntityUid shooter, EntityUid target)
         => entity == shooter || entity == target || HasComp<NpcFactionMemberComponent>(entity) ||
            CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
-           HologramPrototype(entity, "HolosignBulletShield");
+           HasPrototypeAncestor(entity, "HolosignBulletShield");
 
     private bool ShotLineBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,
         ShotCollision collision)

@@ -5,7 +5,7 @@ meta:
   forkId: dspublicfobos
   forkVersion: 1157d1798d3d4f9a644d7d9b40076663b7db9eea
   time: 10/20/2026 11:56:02
-  entityCount: 844
+  entityCount: 843
 maps: []
 grids:
 - 2
@@ -524,13 +524,6 @@ entities:
     components:
     - type: Transform
       pos: 3.5,-5.5
-      parent: 2
-- proto: BarrelChemFilledLube
-  entities:
-  - uid: 840
-    components:
-    - type: Transform
-      pos: -1.5,-5.5
       parent: 2
 - proto: BenchRedComfy
   entities:

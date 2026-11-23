@@ -67,6 +67,8 @@ public sealed partial class MilitiaOperationSystem
     private readonly Dictionary<(EntityUid Actor, float Range), EntityUid[]> _squadHostileQueries = new();
     private bool _reuseSquadQueries;
     private const CollisionGroup SquadSight = CollisionGroup.Impassable | CollisionGroup.InteractImpassable;
+    private static readonly TimeSpan RecentTargetCheckInterval = TimeSpan.FromSeconds(0.1);
+    private static readonly TimeSpan RecentContactDuration = TimeSpan.FromSeconds(1.5);
 
     private bool SquadMember(EntityUid uid)
         => AvailableActor(uid, out _) && HasComp<ActiveNPCComponent>(uid) && !MetaData(uid).EntityPaused &&
@@ -136,13 +138,14 @@ public sealed partial class MilitiaOperationSystem
                                  CompOrNull<RequireProjectileTargetComponent>(entity)?.Active == true ||
                                  !TryComp<PhysicsComponent>(entity, out var body) || body.BodyType != BodyType.Static);
 
-    private bool ThroughWindow(MapCoordinates origin, MapCoordinates target)
+    private bool ThroughWindowOrGrille(MapCoordinates origin, MapCoordinates target)
     {
         var delta = target.Position - origin.Position;
         if (origin.MapId != target.MapId || delta.LengthSquared() < 0.01f)
             return false;
         return !SquadLineClear(origin, target, mask: SquadSight,
             ignored: entity => !_squadTags.HasTag(entity, WindowTag) &&
+                !HasComp<SharedCanBuildWindowOnTopComponent>(entity) &&
                 !(TryComp<DoorComponent>(entity, out var door) && door.State is DoorState.Closed or DoorState.Closing));
     }
 
@@ -330,7 +333,7 @@ public sealed partial class MilitiaOperationSystem
         => actor.ThreatScanValidUntil > _timing.CurTime && actor.DirectTarget.IsValid() && SquadThreat(uid, actor.DirectTarget);
 
     private bool RecentContact(MilitiaOperationActorComponent actor, EntityUid target)
-        => target.IsValid() && actor.LastDirectTarget == target && _timing.CurTime < actor.LastDirectAt + TimeSpan.FromSeconds(1.5);
+        => target.IsValid() && actor.LastDirectTarget == target && _timing.CurTime < actor.LastDirectAt + RecentContactDuration;
 
     private void ClearSquadFacing(Entity<MilitiaOperationActorComponent> actor)
     {
@@ -1421,15 +1424,7 @@ public sealed partial class MilitiaOperationSystem
         _combat.SetInCombatMode(uid, true);
         if (!meleeMode && _guns.TryGetGun(uid, out var gun) && WeaponReady(gun.Owner))
         {
-            if ((gun.Comp.AvailableModes & SelectiveFire.FullAuto) != 0)
-                _guns.TrySelectFireMode(gun, SelectiveFire.FullAuto);
-            var ranged = EnsureComp<NPCRangedCombatComponent>(uid);
-            ranged.HoldAutomaticTrigger = gun.Comp.SelectedMode == SelectiveFire.FullAuto;
-            ranged.ShootDelay = ranged.HoldAutomaticTrigger ? 0f : 0.1f;
-            ranged.Target = target;
-            ranged.TargetInLOS = true;
-            ranged.LOSAccumulator = 0.5f;
-            ranged.Status = CombatStatus.Normal;
+            AimRangedGuard(uid, actor, target, gun);
             return;
         }
         RemComp<NPCRangedCombatComponent>(uid);
@@ -1443,6 +1438,59 @@ public sealed partial class MilitiaOperationSystem
             _squadMelee.AttemptLightAttack(uid, weaponUid, weapon, target);
             actor.AlertUntil = _timing.CurTime + TimeSpan.FromSeconds(12);
         }
+    }
+
+    private void AimRangedGuard(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target, Entity<GunComponent> gun)
+    {
+        if ((gun.Comp.AvailableModes & SelectiveFire.FullAuto) != 0)
+            _guns.TrySelectFireMode(gun, SelectiveFire.FullAuto);
+
+        var ranged = EnsureComp<NPCRangedCombatComponent>(uid);
+        ranged.HoldAutomaticTrigger = gun.Comp.SelectedMode == SelectiveFire.FullAuto;
+        ranged.ShootDelay = ranged.HoldAutomaticTrigger ? 0f : 0.1f;
+        if (HasRecentPrimaryAim(actor, target, gun.Owner))
+            ranged.ShootAccumulator = MathF.Max(ranged.ShootAccumulator, ranged.ShootDelay);
+        ranged.Target = target;
+        ranged.TargetInLOS = true;
+        ranged.LOSAccumulator = 0.5f;
+        ranged.Status = CombatStatus.Normal;
+    }
+
+    private bool HasRecentPrimaryAim(MilitiaOperationActorComponent actor, EntityUid target, EntityUid weapon)
+        => weapon == actor.PrimaryWeapon && actor.RecentPrimaryAim.Target == target &&
+           actor.RecentPrimaryAim.Weapon == weapon && actor.RecentPrimaryAim.Until > _timing.CurTime;
+
+    private void TryResumePrimaryFire(EntityUid uid, MilitiaOperationActorComponent actor)
+    {
+        var now = _timing.CurTime;
+        var target = actor.LastDirectTarget;
+        if (now < actor.NextRecentTargetCheck || now >= actor.ThreatScanValidUntil ||
+            !RecentContact(actor, target) || !HasRecentPrimaryAim(actor, target, actor.Weapon) ||
+            actor.DirectTarget.IsValid() && actor.DirectTarget != target ||
+            TryComp<NPCRangedCombatComponent>(uid, out var ranged) && (ranged.Target != target || ranged.TargetInLOS))
+            return;
+
+        actor.NextRecentTargetCheck = now + RecentTargetCheckInterval;
+        if (actor.Grenades.Length != 0 || actor.WindowExposed || actor.InLockerFootprint || actor.MedicalRefill != null ||
+            actor.DoorPry != null || actor.ReloadUntil != null || actor.Patient.IsValid() ||
+            actor.RunningSquadOrder?.Task is MilitiaSquadTask.Melee or MilitiaSquadTask.SweepLocker ||
+            !SquadMember(uid) || BarrierClimbBusy(uid) || ReceivingTreatment(uid) ||
+            !_guns.TryGetGun(uid, out var gun) || gun.Owner != actor.PrimaryWeapon || !_guns.CanShoot(gun) ||
+            !WeaponReady(gun.Owner) || !SquadVisible(uid, target, CombatVision(actor, target)) ||
+            UnsafeRangedTarget(actor, target) || NeedsMeleeCounter(uid, actor, target))
+            return;
+
+        var origin = _transform.GetMapCoordinates(uid);
+        var destination = _transform.GetMapCoordinates(target);
+        if (SquadLockerAt(origin) || SquadShotBlocked(uid, target, origin, destination, GetShotCollision(gun.Owner), HolographicFireSpread(actor)))
+            return;
+
+        // Refresh only this contact. Retreat, grenade and target selection still use the full scan.
+        actor.DirectTarget = target;
+        actor.LastDirectAt = now;
+        actor.ExposedToThreat = true;
+        _combat.SetInCombatMode(uid, true);
+        AimRangedGuard(uid, actor, target, gun);
     }
 
     private void StartReloadStep(EntityUid uid, MilitiaOperationActorComponent actor)
@@ -1743,6 +1791,7 @@ public sealed partial class MilitiaOperationSystem
             if (scanActor && actor.EquipmentReady && !MetaData(uid).EntityPaused && !TerminatingOrDeleted(uid) &&
                 !HasPlayerMind(uid) && !_mobs.IsDead(uid) && (HasComp<ActiveNPCComponent>(uid) || _mobs.IsIncapacitated(uid)))
             {
+                actor.NextRecentTargetCheck = _timing.CurTime + RecentTargetCheckInterval;
                 actor.Hostility.Clear();
                 foreach (var target in actor.UnsafeRangedTargets.Keys.ToArray())
                 {
@@ -1789,12 +1838,13 @@ public sealed partial class MilitiaOperationSystem
                         }
                     }
                 }
-                var targetBehindWindow = actor.DirectTarget.IsValid() && ThroughWindow(origin, _transform.GetMapCoordinates(actor.DirectTarget));
-                if (targetBehindWindow)
+                var targetBehindBarrier = actor.DirectTarget.IsValid() &&
+                    ThroughWindowOrGrille(origin, _transform.GetMapCoordinates(actor.DirectTarget));
+                if (targetBehindBarrier)
                 {
                     var startWithdrawal = actor.RangedDangerUntil <= _timing.CurTime;
                     RememberWindowThreat(uid, actor, _transform.GetMapCoordinates(actor.DirectTarget));
-                    // A visible target behind glass already requires covering fire and withdrawal.
+                    // A visible target behind glass or a grille already requires covering fire and withdrawal.
                     // Drawing a laser must not leave the escape disabled until a damage event arrives.
                     actor.RangedDangerUntil = actor.WindowHoldUntil;
                     if (startWithdrawal)
@@ -1808,7 +1858,7 @@ public sealed partial class MilitiaOperationSystem
                     }
                 }
                 var counter = NeedsMeleeCounter(uid, actor, actor.DirectTarget, out var armedThreat);
-                UpdateSecondaryWeapon(uid, actor, targetBehindWindow, counter);
+                UpdateSecondaryWeapon(uid, actor, targetBehindBarrier, counter);
                 actor.WindowExposed = WindowThreatExposed(actor, origin);
                 actor.ExposedToThreat |= actor.WindowExposed;
                 if (actor.DirectTarget.IsValid())
@@ -1855,6 +1905,9 @@ public sealed partial class MilitiaOperationSystem
                         EndGuard(uid);
                 }
             }
+            else if (!scanActor)
+                TryResumePrimaryFire(uid, actor);
+
             if (scanActor && actor.ReloadUntil != null && actor.SquadPosition.IsValid(EntityManager))
             {
                 var covered = false;
@@ -2008,6 +2061,8 @@ public sealed partial class MilitiaOperationSystem
         }
         actor.Comp.FireBlockedUntil = TimeSpan.Zero;
         actor.Comp.AlertUntil = _timing.CurTime + TimeSpan.FromSeconds(12);
+        if (args.Used.Owner == actor.Comp.PrimaryWeapon && ranged.Target != actor.Comp.GirderTarget)
+            actor.Comp.RecentPrimaryAim = (ranged.Target, args.Used.Owner, _timing.CurTime + RecentContactDuration);
     }
 
     private bool SquadFireLaneBlocked(EntityUid uid, EntityUid target, MapCoordinates origin, MapCoordinates destination,

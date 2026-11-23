@@ -22,9 +22,9 @@
 - type: repairReward
   id: MilitiaSupplyCombatMedkit
   entity: MedkitCombatFilled
-  cost: 200
+  cost: 100
   maxCount: 2
-  minimumShopLevel: 3
+  minimumShopLevel: 1
 
 - type: repairReward
   id: MilitiaSupplyWeaponRiflehkg3a1
@@ -272,6 +272,13 @@
   minimumShopLevel: 4
 
 - type: repairReward
+  id: MilitiaSupplyAdvancedNightVision
+  entity: ClothingEyesPNVAdv
+  cost: 450
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
   id: MilitiaSupplyBallisticShield
   entity: RiotBulletShield
   cost: 500
@@ -340,5 +347,6 @@
   - MilitiaSupplyMagazineBoxAntiMateriel
   - MilitiaSupplyAdrenalImplanter
   - MilitiaSupplyPoliceBeta
+  - MilitiaSupplyAdvancedNightVision
   - MilitiaSupplyBallisticShield
   - MilitiaSupplyOperationHardsuit

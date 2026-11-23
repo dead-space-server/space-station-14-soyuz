@@ -513,11 +513,8 @@ public sealed partial class NPCSteeringSystem
         {
             // TODO: If we can access the door or smth.
             if (!_physicsQuery.TryGetComponent(ent, out var otherBody) ||
-                !otherBody.Hard ||
-                !otherBody.CanCollide ||
                 otherBody.BodyType == BodyType.KinematicController ||
-                (mask & otherBody.CollisionLayer) == 0x0 &&
-                (layer & otherBody.CollisionMask) == 0x0)
+                !HasSteeringCollision(ent, otherBody, layer, mask)) // DS14-Soyuz
             {
                 continue;
             }
@@ -592,10 +589,7 @@ public sealed partial class NPCSteeringSystem
         {
             // TODO: If we can access the door or smth.
             if (!_physicsQuery.TryGetComponent(ent, out var otherBody) ||
-                !otherBody.Hard ||
-                !otherBody.CanCollide ||
-                (mask & otherBody.CollisionLayer) == 0x0 &&
-                (layer & otherBody.CollisionMask) == 0x0 ||
+                !HasSteeringCollision(ent, otherBody, layer, mask) || // DS14-Soyuz
                 !_factionQuery.TryGetComponent(ent, out var otherFaction) ||
                 !_npcFaction.IsEntityFriendly((uid, ourFaction), (ent, otherFaction)) ||
                 // Use <= 0 so we ignore stationary friends in case.

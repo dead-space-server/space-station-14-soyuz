@@ -262,8 +262,8 @@
   map: /Maps/_Soyuz/MilitiaOperations/desantrassvet.yml
   points: 500
   reputation: 100
-  minimumCrew: 5
-  maximumCrew: 7
+  minimumCrew: 3
+  maximumCrew: 5
   medics: 1
   duration: 60m
 
@@ -274,8 +274,8 @@
   map: /Maps/_Soyuz/MilitiaOperations/ksenirassvet.yml
   points: 800
   reputation: 150
-  minimumCrew: 7
-  maximumCrew: 10
+  minimumCrew: 5
+  maximumCrew: 8
   medics: 2
   duration: 75m
 
@@ -286,8 +286,8 @@
   map: /Maps/_Soyuz/MilitiaOperations/cargorassvet.yml
   points: 600
   reputation: 100
-  minimumCrew: 7
-  maximumCrew: 10
+  minimumCrew: 5
+  maximumCrew: 8
   medics: 2
   duration: 60m
 
@@ -298,8 +298,8 @@
   map: /Maps/_Soyuz/MilitiaOperations/bigshiprassvet.yml
   points: 1800
   reputation: 300
-  minimumCrew: 15
-  maximumCrew: 20
+  minimumCrew: 12
+  maximumCrew: 17
   duration: 90m
   medics: 3
 

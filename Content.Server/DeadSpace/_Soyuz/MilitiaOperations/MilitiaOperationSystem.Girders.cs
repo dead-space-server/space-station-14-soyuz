@@ -12,7 +12,7 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 public sealed partial class MilitiaOperationSystem
 {
     private bool BreachableGirder(EntityUid uid, EntityUid girder)
-        => HologramPrototype(girder, "Girder") && HasComp<DestructibleComponent>(girder) &&
+        => HasPrototypeAncestor(girder, "Girder") && HasComp<DestructibleComponent>(girder) &&
            HasComp<DamageableComponent>(girder) && _squadPhysics.IsCurrentlyHardCollidable(uid, girder) &&
            OnDefensiveGrid(uid, Transform(girder).Coordinates);
 

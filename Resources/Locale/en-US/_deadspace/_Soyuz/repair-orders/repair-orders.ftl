@@ -60,7 +60,7 @@ repair-orders-nav-offers = Orders
 repair-orders-offer-count = Offers
 repair-orders-offer-meta = Class { $level }  /  { $minutes } min
 repair-orders-offer-duration = Time limit: { $minutes } min after delivery
-repair-orders-offer-retention = Buyout available: keep the object for the value of a full repair. The same completion conditions apply; no repair points are awarded for a buyout.
+repair-orders-offer-retention = The station can buy this object under the same conditions as a regular submission. Buyouts award no repair points.
 repair-orders-reference-title = Object reference plan
 repair-orders-reference-open = Open reference plan
 repair-orders-offer-busy = Complete the active order first.
@@ -324,8 +324,8 @@ repair-reconstructor-success = Patch restored to its blueprint.
 repair-orders-retain = Keep object
 repair-orders-retain-cost = Keep object — { $points } points
 repair-orders-retain-confirm = Purchase this object for { $points } repair points?
-    The price equals its original full repair value and does not decrease for an early purchase. This order will award no repair points. The object remains with the station and its control restrictions are lifted.
-repair-orders-retain-unavailable = Only difficulty 7–10 orders can be purchased.
+    Early buyouts cost the same. This order will award no repair points. The object remains with the station and its control restrictions are lifted.
+repair-orders-retain-unavailable = Buyouts are available for class 4–10 orders with a calculated repair value.
 repair-orders-retain-price-changed = The purchase price differs from the confirmed quote. Open confirmation again.
 repair-orders-retain-success = Object purchased and retained by the station.
 repair-orders-status-retained = Status: purchased by the station

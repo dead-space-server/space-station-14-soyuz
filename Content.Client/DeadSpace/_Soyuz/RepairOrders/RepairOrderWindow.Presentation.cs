@@ -186,7 +186,7 @@ public sealed partial class RepairOrderWindow
         var description = new RichTextLabel { HorizontalExpand = true };
         description.SetMessage(Loc.GetString(order.Description));
         content.AddChild(description);
-        if (order.Difficulty >= 7)
+        if (RepairOrderDifficulty.CanRetain(order.Difficulty))
         {
             var retention = new RichTextLabel { HorizontalExpand = true };
             retention.SetMessage(Loc.GetString("repair-orders-offer-retention"), Amber);

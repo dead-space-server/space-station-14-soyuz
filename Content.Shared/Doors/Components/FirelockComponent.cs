@@ -43,6 +43,14 @@ namespace Content.Shared.Doors.Components
         [DataField("alarmAutoClose"), ViewVariables(VVAccess.ReadWrite)]
         public bool AlarmAutoClose = true;
 
+        // DS14-Soyuz-start
+        /// <summary>
+        /// Whether environmental hazards can trigger warnings and automatic operation.
+        /// </summary>
+        [DataField]
+        public bool SensorsEnabled = true;
+        // DS14-Soyuz-end
+
         /// <summary>
         /// The cooldown duration before a firelock can automatically close due to a hazardous environment after it has
         /// been pried open. Measured in seconds.

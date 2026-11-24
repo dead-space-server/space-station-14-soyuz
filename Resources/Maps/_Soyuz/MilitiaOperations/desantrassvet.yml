@@ -1643,7 +1643,11 @@ entities:
 - proto: FirelockTaipanEdge
   entities:
   - uid: 579
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 2.5,-9.5
       parent: 2
@@ -1651,7 +1655,11 @@ entities:
       deviceLists:
       - 578
   - uid: 580
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 3.5,-9.5
       parent: 2
@@ -1659,7 +1667,11 @@ entities:
       deviceLists:
       - 578
   - uid: 581
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,-9.5
       parent: 2
@@ -1667,7 +1679,11 @@ entities:
       deviceLists:
       - 578
   - uid: 582
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 1.5,-0.5
@@ -1676,7 +1692,11 @@ entities:
       deviceLists:
       - 577
   - uid: 583
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 5.5,-0.5

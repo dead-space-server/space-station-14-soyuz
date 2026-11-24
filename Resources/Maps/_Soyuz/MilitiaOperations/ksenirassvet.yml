@@ -2530,7 +2530,11 @@ entities:
 - proto: FirelockTaipanEdge
   entities:
   - uid: 182
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 0.5,-5.5
@@ -2539,7 +2543,11 @@ entities:
       deviceLists:
       - 564
   - uid: 183
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -4.5,-5.5
@@ -2548,7 +2556,11 @@ entities:
       deviceLists:
       - 565
   - uid: 184
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 3.5,-2.5
@@ -2557,7 +2569,11 @@ entities:
       deviceLists:
       - 564
   - uid: 185
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 3.5,-8.5
       parent: 2
@@ -2565,7 +2581,11 @@ entities:
       deviceLists:
       - 564
   - uid: 186
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 6.5,-5.5
@@ -2574,7 +2594,11 @@ entities:
       deviceLists:
       - 564
   - uid: 187
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 3.5,1.5
       parent: 2
@@ -2582,7 +2606,11 @@ entities:
       deviceLists:
       - 566
   - uid: 188
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 3.5,-12.5
@@ -2591,7 +2619,11 @@ entities:
       deviceLists:
       - 567
   - uid: 189
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -8.5,-4.5
@@ -2600,7 +2632,11 @@ entities:
       deviceLists:
       - 565
   - uid: 190
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -8.5,-6.5
@@ -2609,7 +2645,11 @@ entities:
       deviceLists:
       - 565
   - uid: 568
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 8.5,-5.5
@@ -2618,7 +2658,11 @@ entities:
       deviceLists:
       - 563
   - uid: 569
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 11.5,-5.5

@@ -36,6 +36,11 @@ public sealed class WormSystem : EntitySystem
 
     private void OnStartup(Entity<WormComponent> ent, ref ComponentStartup args) // DS14
     {
+        // DS14-Soyuz-start: networked knockdown and posture already come from the server.
+        if (_timing.ApplyingState)
+            return;
+        // DS14-Soyuz-end
+
         EnsureComp<KnockedDownComponent>(ent, out var knocked);
         _alerts.ShowAlert(ent.Owner, SharedStunSystem.KnockdownAlert);
         _stun.SetAutoStand((ent, knocked));
@@ -91,6 +96,11 @@ public sealed class WormSystem : EntitySystem
 
     private void OnShutdown(Entity<WormComponent> ent, ref ComponentShutdown args)
     {
+        // DS14-Soyuz-start: state application and entity deletion manage component removal themselves.
+        if (_timing.ApplyingState || TerminatingOrDeleted(ent))
+            return;
+        // DS14-Soyuz-end
+
         RemComp<KnockedDownComponent>(ent.Owner);
         _alerts.ClearAlert(ent.Owner, SharedStunSystem.KnockdownAlert);
     }

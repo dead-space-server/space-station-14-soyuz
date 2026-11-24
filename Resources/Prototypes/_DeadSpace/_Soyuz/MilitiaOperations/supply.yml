@@ -281,7 +281,7 @@
 - type: repairReward
   id: MilitiaSupplyBallisticShield
   entity: RiotBulletShield
-  cost: 500
+  cost: 1000
   maxCount: 2
   minimumShopLevel: 2
 

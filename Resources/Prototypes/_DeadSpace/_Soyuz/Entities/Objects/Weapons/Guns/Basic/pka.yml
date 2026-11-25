@@ -1,0 +1,150 @@
+- type: entity
+  id: WeaponProtoKineticAcceleratorClassicBase
+  abstract: true
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+  - type: Item
+    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    size: Large
+    shape:
+    - 0,0,2,1
+  - type: GunWieldBonus
+    minAngle: -43
+    maxAngle: -43
+  - type: Wieldable
+  - type: Gun
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    angleDecay: 45
+    minAngle: 44
+    maxAngle: 45
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg
+    projectileSpeed: 25
+  - type: AmmoCounter
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.AmmoVisuals.HasAmmo:
+        empty-icon:
+          True: { visible: false }
+          False: { visible: true }
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.75
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+  - type: BasicEntityAmmoProvider
+    proto: BulletKinetic
+    capacity: 1
+    count: 1
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Basic/kinetic_accelerator.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt
+  - type: UpgradeableGun
+    maxUpgradeCount: 2
+    whitelist:
+      requireAll: true
+      tags:
+      - PKAUpgrade
+      - PKAClassicUpgrade
+  - type: ContainerContainer
+    containers:
+      upgrades: !type:Container
+  - type: UseDelay
+    delay: 1
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_pickup.ogg
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_drop.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_DeadSpace/Items/Handing/gun/gun_drop.ogg
+
+- type: entity
+  id: WeaponProtoKineticAcceleratorClassic
+  parent: [WeaponProtoKineticAcceleratorClassicBase, BaseCargoContraband]
+  name: proto-kinetic accelerator (old model)
+  description: An old model of the proto-kinetic accelerator. Fires low-damage kinetic bolts at a short range.
+  components:
+  - type: Akimbo
+  - type: Sprite
+    layers:
+    - state: icon
+    - state: animation-icon
+      visible: false
+      map: ["empty-icon"]
+  - type: Construction
+    graph: ShotgunSawnKinetik
+    node: startkinetik
+    deconstructionTarget: null
+
+- type: entity
+  id: WeaponProtoKineticAcceleratorRepeaterClassic
+  parent: [WeaponProtoKineticAcceleratorClassicBase, BaseCargoContraband]
+  name: proto-kinetic repeater (old model)
+  description: An old model of the proto-kinetic repeater. Can store up to three charges.
+  components:
+  - type: Akimbo
+  - type: BasicEntityAmmoProvider
+    capacity: 3
+    count: 3
+  - type: Gun
+    fireRate: 1.5
+    availableModes:
+    - FullAuto
+    - SemiAuto
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/reapeterpka.rsi
+    layers:
+    - state: icon
+    - state: animation-icon
+      visible: false
+      map: ["empty-icon"]
+  - type: Item
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/reapeterpka.rsi
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2.5
+  - type: Clothing
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/reapeterpka.rsi
+
+- type: entity
+  id: WeaponProtoKineticAcceleratorShotgunClassic
+  parent: [WeaponProtoKineticAcceleratorClassicBase, BaseGunWieldable, BaseCargoContraband]
+  name: proto-kinetic shotgun (old model)
+  description: An old model of the proto-kinetic accelerator that fires a spread of kinetic bolts.
+  components:
+  - type: GunSpreadModifier
+    spread: 0.85
+  - type: BasicEntityAmmoProvider
+    proto: BulletKineticShotgunSpread
+  - type: Gun
+    fireRate: 1
+    minAngle: 44
+    maxAngle: 45
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/shotgunpka.rsi
+    layers:
+    - state: icon
+      scale: 1.2, 1.2
+    - state: animation-icon
+      visible: false
+      map: ["empty-icon"]
+  - type: Item
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/shotgunpkahand64.rsi
+    shape:
+    - 0,0,3,1
+    heldPrefix: energy
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2
+  - type: Clothing
+    sprite: _DeadSpace/Objects/Weapons/Guns/Basic/shotgunpka.rsi
+  - type: GunRequiresWield

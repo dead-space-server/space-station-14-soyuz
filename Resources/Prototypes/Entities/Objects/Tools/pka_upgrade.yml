@@ -32,6 +32,10 @@
   parent: BasePKAUpgrade
   name: PKA modkit (damage)
   components:
+  #DS14-Soyuz-Start
+  - type: Tag
+    tags: [ PKAUpgrade, PKAClassicUpgrade ]
+  #DS14-Soyuz-End
   - type: Sprite
     layers:
     - state: base
@@ -55,6 +59,10 @@
   parent: BasePKAUpgrade
   name: PKA modkit (range)
   components:
+  #DS14-Soyuz-Start
+  - type: Tag
+    tags: [ PKAUpgrade, PKAClassicUpgrade ]
+  #DS14-Soyuz-End
   - type: Sprite
     layers:
     - state: base
@@ -78,6 +86,10 @@
   parent: BasePKAUpgrade
   name: PKA modkit (fire rate)
   components:
+  #DS14-Soyuz-Start
+  - type: Tag
+    tags: [ PKAUpgrade, PKAClassicUpgrade ]
+  #DS14-Soyuz-End
   - type: Sprite
     layers:
     - state: base

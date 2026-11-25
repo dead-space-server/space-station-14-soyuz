@@ -104,9 +104,11 @@ public sealed partial class MilitiaOperationSystem
         }
         var sameGrid = Transform(actor.Owner).GridUid is { } grid &&
             _turf.GetTileRef(_transform.ToCoordinates(source))?.GridUid == grid;
+        // Being able to answer with a laser does not make a blocked primary firing lane safe.
+        var weapon = UsingSecondary(actor.Comp) ? actor.Comp.PrimaryWeapon : actor.Comp.Weapon;
         if (Vector2.DistanceSquared(position.Position, source.Position) <= actor.Comp.SquadVision * actor.Comp.SquadVision &&
-            sameGrid && !ThroughWindowOrGrille(position, source) &&
-            !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, GetShotCollision(actor.Comp.Weapon), 0f))
+            sameGrid && !FindTransparentBarrier(position, source, includeGirders: true).IsValid() &&
+            !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, GetShotCollision(weapon), 0f))
             return;
         RememberWindowThreat(actor.Owner, actor.Comp, source);
         if (hit)

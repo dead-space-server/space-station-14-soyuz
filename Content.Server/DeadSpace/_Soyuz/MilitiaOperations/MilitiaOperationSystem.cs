@@ -117,7 +117,6 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         SubscribeLocalEvent<MilitiaOperationActorComponent, MobStateChangedEvent>(OnActorMobStateChanged);
         SubscribeLocalEvent<MilitiaOperationConsoleComponent, EntInsertedIntoContainerMessage>(OnDocumentInserted);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.ShotAttemptedEvent>(OnSquadShot);
-        SubscribeLocalEvent<MilitiaOperationEquipmentComponent, Content.Shared.Weapons.Ranged.Events.GunRefreshModifiersEvent>(OnSecondaryGunModifiers);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.GunShotAtTargetEvent>(OnActorTargetedShot);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MapInitEvent>(OnActorMapInit,
             after: [typeof(SharedBodySystem), typeof(LoadoutSystem)]);

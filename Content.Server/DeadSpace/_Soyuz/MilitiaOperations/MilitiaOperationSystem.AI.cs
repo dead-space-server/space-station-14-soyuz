@@ -760,7 +760,8 @@ public sealed partial class MilitiaOperationSystem
 
     private bool NeedsWeapon(EntityUid uid, MilitiaOperationActorComponent actor, ref EntityUid? magazine)
     {
-        if (actor.MedicalRefill != null || actor.ReloadUntil != null || actor.DoorPry != null || actor.Patient.IsValid())
+        if (actor.MedicalRefill != null || actor.ReloadUntil != null || actor.DoorPry != null || actor.Patient.IsValid() ||
+            actor.SquadOrder?.Task == MilitiaSquadTask.BreachGirder)
             return false;
         if (!NeedsMeleeCounter(uid, actor, actor.DirectTarget) && CanRecoverDroppedWeapon(uid, actor))
             return true;
@@ -880,6 +881,7 @@ public sealed partial class MilitiaOperationSystem
 
     private bool NeedsReload(EntityUid uid, MilitiaOperationActorComponent actor, ref EntityUid? magazine)
         => actor.MedicalRefill == null && actor.DoorPry == null && actor.Grenades.Length == 0 &&
+           actor.SquadOrder?.Task != MilitiaSquadTask.BreachGirder &&
            !NeedsMeleeCounter(uid, actor, actor.DirectTarget) &&
            CanEquipOwnedItem(uid, actor, actor.Weapon, false, out _) &&
            _guns.GetAmmoCount(actor.Weapon) == 0 && (magazine ??= FindMagazine(uid, actor)).IsValid();
@@ -1051,11 +1053,11 @@ public sealed partial class MilitiaOperationActorComponent : Component
     public EntityCoordinates RouteMotionOrigin;
     public TimeSpan RouteMotionAt;
     public TimeSpan RouteMotionObservedAt;
-    public EntityUid GirderTarget;
+    public EntityUid TransparentBarrier;
     public EntityUid GirderEnemy;
-    public TimeSpan GirderBreachUntil;
     public TimeSpan GirderPushUntil;
-    public TimeSpan NextGirderScan;
+    public EntityCoordinates GirderPushExit;
+    public TimeSpan NextGirderBreach;
     public EntityUid? OpeningRouteDoor;
     public TimeSpan OpeningRouteDoorUntil;
     public EntityCoordinates RetreatOrigin;
@@ -1201,6 +1203,7 @@ public sealed partial class MilitiaSupportOperator : HTNOperator
             _operations.RejectUnreachableMedic(owner, order);
             _operations.RejectUnreachableRetreat(owner, order);
             _operations.RejectUnreachableBreakout(owner, order);
+            _operations.RejectUnreachableGirder(owner, order);
             return (false, null);
         }
         if (Kind == MilitiaSupportKind.SelectTreatment)

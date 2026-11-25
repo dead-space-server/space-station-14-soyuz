@@ -10,14 +10,8 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
-    private void OnSecondaryGunModifiers(Entity<MilitiaOperationEquipmentComponent> item, ref GunRefreshModifiersEvent args)
-    {
-        if (TryComp<MilitiaOperationActorComponent>(item.Comp.Enemy, out var actor) && item.Owner == actor.LaserWeapon)
-            args.FireRate = MathF.Min(args.FireRate, 1f / 0.7f);
-    }
-
     private float SecondaryRange(MilitiaOperationActorComponent actor)
-        => MathF.Min(12f, CombatVision(actor));
+        => MathF.Min(18f, CombatVision(actor));
 
     private bool UsingSecondary(MilitiaOperationActorComponent actor)
         => actor.LaserWeapon.IsValid() && actor.Weapon == actor.LaserWeapon;
@@ -32,7 +26,7 @@ public sealed partial class MilitiaOperationSystem
     private void UpdateSecondaryWeapon(EntityUid uid, MilitiaOperationActorComponent actor, bool throughBarrier, bool meleeCounter)
     {
         // Reuse the safety scan's target and barrier query. No separate enemy scan or planner is needed.
-        if (_timing.CurTime < actor.NextSecondaryCheck || !SquadMember(uid) ||
+        if (_timing.CurTime < actor.NextSecondaryCheck || actor.SquadOrder?.Task == MilitiaSquadTask.BreachGirder || !SquadMember(uid) ||
             actor.MedicalRefill != null || actor.Patient.IsValid() || ReceivingTreatment(uid) ||
             actor.ReloadUntil != null || actor.DoorPry != null || BarrierClimbBusy(uid) ||
             meleeCounter || !actor.LaserWeapon.IsValid() || !actor.PrimaryWeapon.IsValid())
@@ -76,7 +70,6 @@ public sealed partial class MilitiaOperationSystem
         if (EquipOwnedItem(uid, actor, next, wield: true, freeHands: true))
         {
             actor.Weapon = next;
-            actor.GirderTarget = EntityUid.Invalid;
             _urgentSquadOrders.Add(uid);
         }
         actor.NextRangedWeaponSwitch = _timing.CurTime + TimeSpan.FromSeconds(2);

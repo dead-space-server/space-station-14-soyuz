@@ -88,7 +88,7 @@ public sealed partial class MilitiaOperationSystem
             }
             var position = _transform.GetMapCoordinates(enemy);
             var distance = Vector2.DistanceSquared(origin.Position, position.Position);
-            if (distance >= nearestDistance || !SquadSightClear(uid, enemy, vision) || !ThroughWindow(origin, position))
+            if (distance >= nearestDistance || !SquadSightClear(uid, enemy, vision) || !ThroughWindowOrGrille(origin, position))
                 continue;
             nearest = enemy;
             nearestDistance = distance;

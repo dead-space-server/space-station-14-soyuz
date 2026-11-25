@@ -46,7 +46,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: HitscanBasicRaycast
-    maxDistance: 12
+    maxDistance: 18
 
 - type: entity
   id: ClothingBackpackSatchelMilitiaOperations
@@ -111,6 +111,10 @@
     - MagazinePistolSubMachineGunExtended
     - MagazinePistolSubMachineGunExtendedIncendiary
     - MagazinePistolSubMachineGunExtendedUranium
+    MagazineCaselessRifle:
+    - MagazineCaselessRifleIncendiary
+    - MagazineCaselessRifleUranium
+    - MagazineCaselessRifleBurn
     MagazineRifle:
     - MagazineRifle
     - MagazineRifleIncendiary
@@ -356,6 +360,10 @@
     magazine: MagazinePistolSubMachineGun
     minimumMagazines: 4
     maximumMagazines: 4
+  - weapon: WeaponVeresk
+    magazine: MagazineCaselessRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleXC67
     magazine: ADTExtMagazineRifle
     minimumMagazines: 4
@@ -398,6 +406,10 @@
     maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponVeresk
+    magazine: MagazineCaselessRifle
     minimumMagazines: 4
     maximumMagazines: 4
   supplies:

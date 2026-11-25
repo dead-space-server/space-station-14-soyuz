@@ -146,7 +146,10 @@ public sealed partial class MilitiaOperationSystem
     }
 
     private float HolographicFireSpread(MilitiaOperationActorComponent actor)
-        => TryComp<GunComponent>(actor.Weapon, out var gun) ? ReflectionShotSpread((actor.Weapon, gun)) : 0f;
+        => HolographicFireSpread(actor.Weapon);
+
+    private float HolographicFireSpread(EntityUid weapon)
+        => TryComp<GunComponent>(weapon, out var gun) ? ReflectionShotSpread((weapon, gun)) : 0f;
 
     private bool HolographicProjectileBarrier(EntityUid uid)
         => TryComp<PhysicsComponent>(uid, out var body) && body.CanCollide &&
@@ -404,7 +407,7 @@ public sealed partial class MilitiaOperationSystem
         actor.FireBlockedUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
         if (_timing.CurTime < actor.NextFireReposition ||
             actor.SquadOrder is { } order && order.Until > _timing.CurTime &&
-            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout or MilitiaSquadTask.Melee or MilitiaSquadTask.MedicWithdraw)
+            order.Task is MilitiaSquadTask.Retreat or MilitiaSquadTask.Evade or MilitiaSquadTask.SeekMedic or MilitiaSquadTask.Separate or MilitiaSquadTask.Breakout or MilitiaSquadTask.Melee or MilitiaSquadTask.MedicWithdraw or MilitiaSquadTask.BreachGirder)
             return;
         actor.NextFireReposition = _timing.CurTime + TimeSpan.FromSeconds(1);
         if (actor.SquadPosition.IsValid(EntityManager))

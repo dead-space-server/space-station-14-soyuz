@@ -216,12 +216,12 @@
   shop: MilitiaOperationSupplyPool
   shopEnabled: true
   contrabandRewards:
-    Firearm: { points: 300, reputation: 90 }
-    Melee: { points: 150, reputation: 45 }
-    Armor: { points: 225, reputation: 45 }
-    Helmet: { points: 150, reputation: 45 }
-    Boots: { points: 75, reputation: 45 }
-    Hypospray: { points: 113, reputation: 45 }
+    Firearm: { points: 200, reputation: 90 }
+    Melee: { points: 100, reputation: 45 }
+    Armor: { points: 150, reputation: 45 }
+    Helmet: { points: 100, reputation: 45 }
+    Boots: { points: 50, reputation: 45 }
+    Hypospray: { points: 75, reputation: 45 }
   mapContraband:
     EnergySword: Melee
     EnergySwordDouble: Melee

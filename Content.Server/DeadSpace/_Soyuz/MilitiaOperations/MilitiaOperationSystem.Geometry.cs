@@ -96,10 +96,14 @@ public sealed partial class MilitiaOperationSystem
             return false;
         if (delta.LengthSquared() < 0.000001f)
             return true;
-        return !_squadRayCast.CastShape(origin.MapId, SightPathShape,
-            new Robust.Shared.Physics.Transform(origin.Position, 0f), delta,
-            new QueryFilter { MaskBits = (uint) mask, IsIgnored = ignored }, RayCastSystem.RayCastClosestCallback).Hit;
+        return !CastSquadLine(origin, delta, mask, ignored).Hit;
     }
+
+    private RayResult CastSquadLine(MapCoordinates origin, Vector2 delta, CollisionGroup mask,
+        Func<EntityUid, bool>? ignored)
+        => _squadRayCast.CastShape(origin.MapId, SightPathShape,
+            new Robust.Shared.Physics.Transform(origin.Position, 0f), delta,
+            new QueryFilter { MaskBits = (uint) mask, IsIgnored = ignored }, RayCastSystem.RayCastClosestCallback);
 
     private bool SquadLineClear(EntityUid uid, EntityUid target, float range = 0f,
         CollisionGroup mask = SquadSight, Func<EntityUid, bool>? ignored = null)

@@ -51,6 +51,9 @@ public sealed partial class MedicalOrderSystem
     private decimal GetMarketBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
         => GetMarketBaseValue(config, entry, reputation: false);
 
+    private decimal GetMarketSaleBasePrice(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
+        => GetMarketBasePrice(config, entry) * config.MarketPointMultiplier;
+
     private decimal GetMarketBaseReputation(MedicalOrderConfigPrototype config, MedicalReagentMarketEntry entry)
         => GetMarketBaseValue(config, entry, reputation: true);
 
@@ -180,7 +183,7 @@ public sealed partial class MedicalOrderSystem
         var accepted = FixedPoint2.Zero;
         foreach (var entry in config.MarketReagents.Where(r => r.Enabled))
         {
-            var basePrice = GetMarketBasePrice(config, entry);
+            var basePrice = GetMarketSaleBasePrice(config, entry);
             var baseReputation = GetMarketBaseReputation(config, entry);
             var pressure = GetMarketPressure(state, entry);
             var trend = state.MarketTrends.GetValueOrDefault(entry.Reagent.Id);
@@ -241,7 +244,7 @@ public sealed partial class MedicalOrderSystem
                 var bulletin = ActiveMarketNews(news, entry.Reagent.Id);
                 var newsVolume = bulletin == null ? FixedPoint2.Zero : FixedPoint2.Min(removed, bulletin.Remaining);
                 var ordinaryVolume = (removed - newsVolume).Value / 100m;
-                var reward = MarketQuote(entry, pressure, removed, GetMarketBasePrice(config, entry),
+                var reward = MarketQuote(entry, pressure, removed, GetMarketSaleBasePrice(config, entry),
                     GetMarketBaseReputation(config, entry), state.MarketTrends.GetValueOrDefault(entry.Reagent.Id), bulletin);
                 if (bulletin != null)
                     news[news.IndexOf(bulletin)] = bulletin with

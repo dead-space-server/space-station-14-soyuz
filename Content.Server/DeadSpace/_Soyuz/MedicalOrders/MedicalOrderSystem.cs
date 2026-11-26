@@ -120,7 +120,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 UpdateStationUis(state, config);
             }
             if (state.SpecialActive is { } special &&
-                FinalizeSpecial(state, special, expired: now >= special.Deadline))
+                FinalizeSpecial(state, special, config, expired: now >= special.Deadline))
                 UpdateStationUis(state, config);
 
             if (state.PatientActive is { } patient)
@@ -350,7 +350,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
 
         RefreshMarketConfiguration(state, config);
         if (state.SpecialActive is { } special && _timing.CurTime >= special.Deadline)
-            FinalizeSpecial(state, special, expired: true);
+            FinalizeSpecial(state, special, config, expired: true);
 
         switch (args.Action)
         {
@@ -386,7 +386,7 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 break;
             case MedicalOrderAction.SupplySpecialReagents:
                 if (machine.Comp.Kind == MedicalOrderMachineKind.Reagent)
-                    TrySupplySpecialReagents(station, machine.Owner, args.Actor, state, args.RuntimeId);
+                    TrySupplySpecialReagents(station, machine.Owner, args.Actor, state, config, args.RuntimeId);
                 break;
         }
 
@@ -532,6 +532,9 @@ public sealed partial class MedicalOrderSystem : EntitySystem
             FixedPoint2.New(config.PointsPerDamage)).Int();
     }
 
+    private static int RoundPatientPoints(decimal points)
+        => (int) Math.Clamp(decimal.Round(points, MidpointRounding.AwayFromZero), int.MinValue, int.MaxValue);
+
     private bool FinalizeOrder(EntityUid station, MedicalOrderStationComponent state,
         MedicalOrderConfigPrototype config, MedicalOrderActive active, bool expired)
     {
@@ -550,8 +553,8 @@ public sealed partial class MedicalOrderSystem : EntitySystem
                 expired |= patientLost || _timing.CurTime >= active.Deadline;
                 var score = GetScore(active, config);
                 var effective = Math.Max(0, score);
-                var points = (int) Math.Min(int.MaxValue,
-                    ((long) effective * (expired ? config.ExpiredRewardMultiplierPercent : 100) + 50) / 100);
+                var points = RoundPatientPoints(effective * config.PatientPointMultiplier *
+                    (expired ? config.ExpiredRewardMultiplierPercent : 100) / 100m);
                 var maximum = active.Offer.MaximumScore;
                 var quality = maximum <= 0 ? 0 : Math.Clamp((int) ((long) effective * 100 / maximum), 0, 100);
                 var band = config.QualityBands.First(b => quality >= b.MinPercent && quality <= b.MaxPercent);
@@ -868,7 +871,9 @@ public sealed partial class MedicalOrderSystem : EntitySystem
         var lines = offer.Lines.Select(line => new MedicalOrderLineView(line.ID, line.Amount,
             active != null && active.Submitted.TryGetValue(line.ID, out var submitted) ? submitted.Float() : 0,
             line.PointsPerUnit)).ToArray();
-        return new MedicalOrderView(offer.RuntimeId, offer.Title, lines, offer.MaximumScore, score,
+        var maximumPoints = RoundPatientPoints(offer.MaximumScore * config.PatientPointMultiplier);
+        var currentPoints = RoundPatientPoints(score * config.PatientPointMultiplier);
+        return new MedicalOrderView(offer.RuntimeId, offer.Title, lines, maximumPoints, currentPoints,
             offer.Difficulty, offer.TimeLimit, config.Difficulties[offer.Difficulty].BaseReputation,
             active?.Deadline);
     }

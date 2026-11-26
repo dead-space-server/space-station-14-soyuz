@@ -78,13 +78,13 @@ public sealed partial class MedicalOrderSystem
     }
 
     private MedicalSpecialActive? GetActiveSpecial(EntityUid machine, EntityUid actor,
-        MedicalOrderStationComponent state, int runtimeId)
+        MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, int runtimeId)
     {
         if (!state.Busy && state.SpecialActive is { } active && active.Offer.RuntimeId == runtimeId)
         {
             if (_timing.CurTime < active.Deadline)
                 return active;
-            FinalizeSpecial(state, active, expired: true);
+            FinalizeSpecial(state, active, config, expired: true);
         }
         Reject(machine, actor, "medical-orders-error-unavailable");
         return null;
@@ -135,7 +135,7 @@ public sealed partial class MedicalOrderSystem
     private void TryIssueSpecialPatient(EntityUid station, EntityUid receiver, EntityUid actor,
         MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, int runtimeId)
     {
-        var active = GetActiveSpecial(receiver, actor, state, runtimeId);
+        var active = GetActiveSpecial(receiver, actor, state, config, runtimeId);
         if (active == null)
             return;
         var index = active.Patients.FindIndex(p => p.Active == null);
@@ -172,7 +172,7 @@ public sealed partial class MedicalOrderSystem
     private void TrySubmitSpecialPatient(EntityUid station, EntityUid sender, EntityUid actor,
         MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, int runtimeId)
     {
-        var active = GetActiveSpecial(sender, actor, state, runtimeId);
+        var active = GetActiveSpecial(sender, actor, state, config, runtimeId);
         if (active == null)
             return;
         var error = "medical-orders-error-no-patient";
@@ -199,13 +199,13 @@ public sealed partial class MedicalOrderSystem
         {
             state.Busy = false;
         }
-        FinalizeSpecial(state, active);
+        FinalizeSpecial(state, active, config);
     }
 
     private void TrySupplySpecialReagents(EntityUid station, EntityUid terminal, EntityUid actor,
-        MedicalOrderStationComponent state, int runtimeId)
+        MedicalOrderStationComponent state, MedicalOrderConfigPrototype config, int runtimeId)
     {
-        var active = GetActiveSpecial(terminal, actor, state, runtimeId);
+        var active = GetActiveSpecial(terminal, actor, state, config, runtimeId);
         if (active == null)
             return;
         state.Busy = true;
@@ -259,7 +259,7 @@ public sealed partial class MedicalOrderSystem
             state.Busy = false;
         }
         if (committed)
-            FinalizeSpecial(state, active);
+            FinalizeSpecial(state, active, config);
     }
 
     private static bool IsSpecialComplete(MedicalSpecialActive active)
@@ -268,7 +268,8 @@ public sealed partial class MedicalOrderSystem
             active.Submitted.TryGetValue(r.ID, out var amount) && amount >= FixedPoint2.New(r.Amount));
     }
 
-    private bool FinalizeSpecial(MedicalOrderStationComponent state, MedicalSpecialActive active, bool expired = false)
+    private bool FinalizeSpecial(MedicalOrderStationComponent state, MedicalSpecialActive active,
+        MedicalOrderConfigPrototype config, bool expired = false)
     {
         if (state.Busy || state.SpecialActive != active)
             return false;
@@ -294,7 +295,8 @@ public sealed partial class MedicalOrderSystem
             }
             else
             {
-                var totalPoints = offer.ChemicalPoints + active.Patients.Sum(p => (long) p.Score) +
+                var patientPoints = active.Patients.Sum(p => (long) p.Score) * config.PatientPointMultiplier;
+                var totalPoints = offer.ChemicalPoints + patientPoints +
                     terms.PointBonus + pointRemainder;
                 var totalReputation = offer.Reputation + reputationRemainder;
                 points = (long) Math.Min(decimal.Floor(totalPoints), long.MaxValue - state.Points);
@@ -361,8 +363,8 @@ public sealed partial class MedicalOrderSystem
         }
         var reagents = offer.Reagents.Select(r => new MedicalOrderLineView(r.ID, r.Amount,
             active != null && active.Submitted.TryGetValue(r.ID, out var amount) ? amount.Float() : 0, 0)).ToArray();
-        var maximum = (long) decimal.Floor(offer.ChemicalPoints + offer.Patients.Sum(p => (long) p.MaximumScore) +
-            offer.Terms.PointBonus);
+        var patientPoints = offer.Patients.Sum(p => (long) p.MaximumScore) * config.PatientPointMultiplier;
+        var maximum = (long) decimal.Floor(offer.ChemicalPoints + patientPoints + offer.Terms.PointBonus);
         return new MedicalSpecialContractView(offer.RuntimeId, offer.Difficulty, offer.Title, offer.Description,
             offer.Site, offer.Terms.TimeLimit, active?.Deadline, maximum, (int) decimal.Floor(offer.Reputation),
             offer.Terms.PenaltyPercent, reagents, patients,

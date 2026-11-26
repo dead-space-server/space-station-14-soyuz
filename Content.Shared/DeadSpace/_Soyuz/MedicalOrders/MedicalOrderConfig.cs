@@ -23,6 +23,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField(required: true)] public int MinDamageEntries;
     [DataField(required: true)] public int MaxDamageEntries;
     [DataField(required: true)] public int PointsPerDamage;
+    [DataField] public decimal PatientPointMultiplier = 1m;
     [DataField(required: true)] public int ExpiredRewardMultiplierPercent;
     [DataField(required: true)] public int PatientCompletionDamageThreshold;
     [DataField(required: true)] public ProtoId<RandomHumanoidSettingsPrototype> PatientRandomHumanoidSettings;
@@ -32,6 +33,7 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
     [DataField] public decimal? MarketBasePriceMax;
     [DataField] public decimal? MarketBaseReputationMin;
     [DataField] public decimal? MarketBaseReputationMax;
+    [DataField] public decimal MarketPointMultiplier = 1m;
     [DataField] public Dictionary<MedicalReagentDifficulty, MedicalReagentMarketTier> MarketDifficulties = new();
     [DataField] public TimeSpan MarketFluctuationInterval = TimeSpan.FromSeconds(45);
     [DataField] public int MarketPriceStepPercent = 8;
@@ -57,11 +59,12 @@ public sealed partial class MedicalOrderConfigPrototype : IPrototype, ISerializa
             PatientOrderTitles.Distinct().Count() < PatientOfferCount ||
             PatientOrderTitles.Any(string.IsNullOrWhiteSpace) ||
             MinDamageEntries < 1 || MaxDamageEntries < MinDamageEntries ||
-            PointsPerDamage < 1 || ExpiredRewardMultiplierPercent is < 0 or > 100 ||
+            PointsPerDamage < 1 || PatientPointMultiplier is <= 0m or > 100m ||
+            ExpiredRewardMultiplierPercent is < 0 or > 100 ||
             PatientCompletionDamageThreshold < 0)
             throw new InvalidDataException($"Medical orders config {ID} has invalid generation limits.");
 
-        if (!MarketReagents.Any(r => r.Enabled) ||
+        if (MarketPointMultiplier is <= 0m or > 100m || !MarketReagents.Any(r => r.Enabled) ||
             MarketReagents.GroupBy(r => r.Reagent).Any(g => g.Count() != 1) ||
             MarketReagents.Any(r => r.BasePrice <= 0 || r.BasePrice > 1000000 ||
                 r.ReputationPerUnit < 0 || r.ReputationPerUnit > 1000000 ||

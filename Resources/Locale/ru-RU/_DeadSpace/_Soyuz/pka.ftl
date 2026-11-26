@@ -1,6 +1,6 @@
-ent-WeaponProtoKineticAcceleratorClassic = протокинетический ускоритель (старая модель)
+ent-WeaponProtoKineticAcceleratorClassic = старая модель протокинетического ускорителя
     .desc = Старая модель протокинетического ускорителя. Стреляет кинетическими зарядами с низким уроном на короткое расстояние.
-ent-WeaponProtoKineticAcceleratorRepeaterClassic = протокинетический повторитель (старая модель)
+ent-WeaponProtoKineticAcceleratorRepeaterClassic = старая модель протокинетического повторителя
     .desc = Старая модель протокинетического повторителя. Позволяет накапливать до трёх зарядов.
-ent-WeaponProtoKineticAcceleratorShotgunClassic = протокинетический дробовик (старая модель)
+ent-WeaponProtoKineticAcceleratorShotgunClassic = старая модель протокинетического дробовика
     .desc = Старая модель протокинетического ускорителя, работающая как дробовик.

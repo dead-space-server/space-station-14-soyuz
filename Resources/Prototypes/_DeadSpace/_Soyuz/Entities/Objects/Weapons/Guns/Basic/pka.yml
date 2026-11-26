@@ -48,12 +48,10 @@
     - suitStorage
     - Belt
   - type: UpgradeableGun
-    maxUpgradeCount: 2
+    maxUpgradeCount: 1
     whitelist:
-      requireAll: true
       tags:
       - PKAUpgrade
-      - PKAClassicUpgrade
   - type: ContainerContainer
     containers:
       upgrades: !type:Container
@@ -72,7 +70,7 @@
 - type: entity
   id: WeaponProtoKineticAcceleratorClassic
   parent: [WeaponProtoKineticAcceleratorClassicBase, BaseCargoContraband]
-  name: proto-kinetic accelerator (old model)
+  name: old model of the proto-kinetic accelerator
   description: An old model of the proto-kinetic accelerator. Fires low-damage kinetic bolts at a short range.
   components:
   - type: Akimbo
@@ -90,7 +88,7 @@
 - type: entity
   id: WeaponProtoKineticAcceleratorRepeaterClassic
   parent: [WeaponProtoKineticAcceleratorClassicBase, BaseCargoContraband]
-  name: proto-kinetic repeater (old model)
+  name: old model of the proto-kinetic repeater
   description: An old model of the proto-kinetic repeater. Can store up to three charges.
   components:
   - type: Akimbo
@@ -119,7 +117,7 @@
 - type: entity
   id: WeaponProtoKineticAcceleratorShotgunClassic
   parent: [WeaponProtoKineticAcceleratorClassicBase, BaseGunWieldable, BaseCargoContraband]
-  name: proto-kinetic shotgun (old model)
+  name: old model of the proto-kinetic shotgun
   description: An old model of the proto-kinetic accelerator that fires a spread of kinetic bolts.
   components:
   - type: GunSpreadModifier

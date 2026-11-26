@@ -120,9 +120,6 @@
 
 # P
 - type: Tag
-  id: PKAClassicUpgrade
-
-- type: Tag
   id: PoliceBetaBody
 
 - type: Tag

@@ -132,6 +132,13 @@
   minimumShopLevel: 4
 
 - type: repairReward
+  id: MilitiaSupplyWeaponLauncherMGL
+  entity: WeaponLauncherMGL
+  cost: 5000
+  maxCount: 2
+  minimumShopLevel: 5
+
+- type: repairReward
   id: MilitiaSupplyMagazineLightRifle
   entity: MagazineLightRifle
   shopName: militia-supply-magazinelightrifle
@@ -264,6 +271,41 @@
   minimumShopLevel: 5
 
 - type: repairReward
+  id: MilitiaSupplyMagazineGrenadeBaton
+  entity: MagazineGrenadeBaton
+  cost: 750
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeFlash
+  entity: MagazineGrenadeFlash
+  cost: 1000
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeEMP
+  entity: MagazineGrenadeEMP
+  cost: 1500
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeFrag
+  entity: MagazineGrenadeFrag
+  cost: 2125
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeBlast
+  entity: MagazineGrenadeBlast
+  cost: 3000
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
   id: MilitiaSupplyAdrenalImplanter
   entity: AdrenalImplanter
   shopName: militia-supply-adrenal-implanter
@@ -328,6 +370,7 @@
   - MilitiaSupplyWeaponRifleVSS
   - MilitiaSupplyWeaponSniperSV98
   - MilitiaSupplyWeaponSniperSVD
+  - MilitiaSupplyWeaponLauncherMGL
   - MilitiaSupplyMagazineLightRifle
   - MilitiaSupplyMagazineCarbineSKS
   - MilitiaSupplyMagazineRifle
@@ -345,6 +388,11 @@
   - MilitiaSupplyMagazineBoxRifle
   - MilitiaSupplyMagazineBoxMagnum
   - MilitiaSupplyMagazineBoxAntiMateriel
+  - MilitiaSupplyMagazineGrenadeBaton
+  - MilitiaSupplyMagazineGrenadeFlash
+  - MilitiaSupplyMagazineGrenadeEMP
+  - MilitiaSupplyMagazineGrenadeFrag
+  - MilitiaSupplyMagazineGrenadeBlast
   - MilitiaSupplyAdrenalImplanter
   - MilitiaSupplyPoliceBeta
   - MilitiaSupplyAdvancedNightVision

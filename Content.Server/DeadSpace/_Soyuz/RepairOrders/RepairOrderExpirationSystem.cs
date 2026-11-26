@@ -77,8 +77,7 @@ public sealed class RepairOrderExpirationSystem : EntitySystem
                     return false;
                 }
 
-                var repairPercent = RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks);
-                if (!_rewards.TryCalculateReputation(order, repairPercent, out var earnedReputation))
+                if (!_rewards.TryCalculateReputation(order, active, out var earnedReputation))
                 {
                     _sawmill.Error($"Cannot expire repair order {active.RuntimeId}: invalid reputation configuration.");
                     return false;

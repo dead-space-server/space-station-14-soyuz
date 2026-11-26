@@ -29,6 +29,8 @@ namespace Content.Server.DeadSpace._Soyuz.RepairOrders;
 /// </summary>
 public sealed class RepairReconstructionSystem : EntitySystem
 {
+    private static readonly Vector2i[] CardinalOffsets = [new(1, 0), new(-1, 0), new(0, 1), new(0, -1)];
+
     [Dependency] private readonly AccessReaderSystem _access = default!;
     [Dependency] private readonly SharedChargesSystem _charges = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
@@ -47,7 +49,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<RepairReconstructorComponent, AfterInteractEvent>(OnInteract);
+        SubscribeLocalEvent<RepairReconstructorComponent, AfterInteractEvent>(OnSelectArea);
         SubscribeLocalEvent<RepairReconstructorComponent, InteractUsingEvent>(OnReload);
         SubscribeLocalEvent<RepairReconstructorComponent, UseInHandEvent>(OnUse);
         SubscribeLocalEvent<RepairReconstructorComponent, GotUnequippedHandEvent>(OnDropped);
@@ -107,20 +109,26 @@ public sealed class RepairReconstructionSystem : EntitySystem
         Notify(args.User, "repair-reconstructor-refilled", ("charges", amount));
     }
 
-    private void OnInteract(Entity<RepairReconstructorComponent> tablet, ref AfterInteractEvent args)
+    private void OnSelectArea(Entity<RepairReconstructorComponent> tablet, ref AfterInteractEvent args)
     {
         if (args.Handled || IsBusy(tablet) || !_hands.IsHolding(args.User, tablet.Owner, out _) || !HasAccess(args.User))
             return;
         args.Handled = true;
         var click = _transform.ToMapCoordinates(args.ClickLocation);
+        var outOfReach = false;
         var query = EntityQueryEnumerator<RepairBlueprintComponent, MapGridComponent, TransformComponent>();
         while (query.MoveNext(out var grid, out _, out var mapGrid, out var xform))
         {
             if (xform.MapID != click.MapId || !TrySession(grid, out var blueprint, out var active, out _))
                 continue;
             var cell = _map.TileIndicesFor(grid, mapGrid, _transform.ToCoordinates(grid, click));
-            if (!blueprint.ExpectedCells.ContainsKey(cell) || !CanReachCell(args.User, (grid, mapGrid), cell, tablet.Comp.Range))
+            if (!blueprint.ExpectedCells.ContainsKey(cell))
                 continue;
+            if (!CanReachCell(args.User, (grid, mapGrid), cell, tablet.Comp.Range))
+            {
+                outOfReach = true;
+                continue;
+            }
 
             if (tablet.Comp.SelectionGrid != GetNetEntity(grid) || tablet.Comp.SelectionUser != GetNetEntity(args.User) ||
                 tablet.Comp.SelectionRuntimeId != active.RuntimeId || tablet.Comp.SelectionStart is not { } start)
@@ -150,7 +158,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
             }
             return;
         }
-        Notify(args.User, "repair-reconstructor-no-order");
+        Notify(args.User, outOfReach ? "repair-reconstructor-out-of-reach" : "repair-reconstructor-no-order");
     }
 
     private static bool ValidArea(Vector2i start, Vector2i end)
@@ -180,7 +188,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
         if (plan.Count == 0)
         {
             SetQuote(tablet, plan, blocked);
-            Notify(args.User, "repair-reconstructor-no-work");
+            ShowQuote(tablet, args.User);
             return;
         }
         var cost = plan.Sum(operation => operation.Cost);
@@ -218,7 +226,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
         if (_doAfter.TryStartDoAfter(delay, out var id) && _doAfter.IsRunning(id))
         {
             tablet.Comp.DoAfter = id;
-            Notify(args.User, "repair-reconstructor-start", ("count", plan.Count), ("charges", cost));
+            Notify(args.User, "repair-reconstructor-start");
         }
     }
 
@@ -241,7 +249,7 @@ public sealed class RepairReconstructionSystem : EntitySystem
             return;
         args.PushMarkup(Loc.GetString("repair-reconstructor-quote", ("charges", cost),
             ("available", _charges.GetCurrentCharges(tablet.Owner)),
-            ("max", Comp<LimitedChargesComponent>(tablet.Owner).MaxCharges), ("blocked", tablet.Comp.BlockedCells.Length)));
+            ("blocked", tablet.Comp.BlockedCells.Length)));
     }
 
     private void SetQuote(Entity<RepairReconstructorComponent> tablet, List<Operation> plan, HashSet<Vector2i> blocked)
@@ -253,9 +261,18 @@ public sealed class RepairReconstructionSystem : EntitySystem
     }
 
     private void ShowQuote(Entity<RepairReconstructorComponent> tablet, EntityUid user, bool changed = false)
-        => Notify(user, changed ? "repair-reconstructor-price-changed" : "repair-reconstructor-quote",
-            ("charges", tablet.Comp.QuotedCost ?? 0), ("available", _charges.GetCurrentCharges(tablet.Owner)),
-            ("max", Comp<LimitedChargesComponent>(tablet.Owner).MaxCharges), ("blocked", tablet.Comp.BlockedCells.Length));
+    {
+        var cost = tablet.Comp.QuotedCost ?? 0;
+        var blocked = tablet.Comp.BlockedCells.Length;
+        if (cost == 0)
+        {
+            Notify(user, blocked == 0 ? "repair-reconstructor-no-work" : "repair-reconstructor-blocked");
+            return;
+        }
+
+        Notify(user, changed ? "repair-reconstructor-price-changed" : "repair-reconstructor-quote",
+            ("charges", cost), ("available", _charges.GetCurrentCharges(tablet.Owner)), ("blocked", blocked));
+    }
 
     private void ClearSelection(Entity<RepairReconstructorComponent> tablet)
     {
@@ -323,7 +340,10 @@ public sealed class RepairReconstructionSystem : EntitySystem
             var cell = minimum + new Vector2i(dx, dy);
             if (!blueprint.TasksByCell.TryGetValue(cell, out var tasks))
                 continue;
+            // Removal tasks are manual work. They must not mark a neighboring restoration as blocked.
             var missingTasks = tasks.Where(task => !task.Waived && task.State != RepairTaskState.Correct && task.Points > 0 &&
+                (task.Type == RepairTaskType.AnchoredEntity ||
+                    (task.Type == RepairTaskType.Tile && task.ExpectedTileId != Tile.Empty.TypeId)) &&
                 (requirements == null || requirements.Contains(task.RequirementId))).ToArray();
             if (missingTasks.Length == 0)
                 continue;
@@ -334,18 +354,17 @@ public sealed class RepairReconstructionSystem : EntitySystem
             }
             foreach (var task in missingTasks)
             {
-                // Wrong anchored requirements are also absent: an unrelated object at the same
-                // position must not prevent restoring the blueprint's own required multiplicity.
-                if (task.State != RepairTaskState.Missing && task.Type != RepairTaskType.AnchoredEntity)
+                if (task.Type == RepairTaskType.Tile)
                 {
-                    blocked.Add(cell);
-                    continue;
-                }
-                if (task.Type == RepairTaskType.Tile && task.ExpectedTileId != Tile.Empty.TypeId &&
-                    _floors.CanPlaceTile(grid, grid.Comp, cell, out _))
-                {
-                    result.Add(new Operation(task.RequirementId, cell, task.TileLayer, task.ExpectedTileId, null,
-                        default, Angle.Zero, task.Points));
+                    if (_floors.CanPlaceTile(grid, grid.Comp, cell, out _))
+                    {
+                        result.Add(new Operation(task.RequirementId, cell, task.TileLayer, task.ExpectedTileId, null,
+                            default, Angle.Zero, task.Points));
+                    }
+                    else
+                    {
+                        blocked.Add(cell);
+                    }
                 }
                 else if (_validation.TryGetReconstructionPrototype(grid, task, out var prototype))
                 {
@@ -362,17 +381,16 @@ public sealed class RepairReconstructionSystem : EntitySystem
             .Select(operation => operation.Cell).ToHashSet();
         var depth = new Dictionary<Vector2i, int>();
         var pending = new Queue<Vector2i>();
-        var offsets = new[] { new Vector2i(1, 0), new Vector2i(-1, 0), new Vector2i(0, 1), new Vector2i(0, -1) };
         foreach (var cell in newCells)
         {
-            if (!offsets.Any(offset => !_map.GetTileRef(grid, grid.Comp, cell + offset).Tile.IsEmpty))
+            if (!CardinalOffsets.Any(offset => !_map.GetTileRef(grid, grid.Comp, cell + offset).Tile.IsEmpty))
                 continue;
             depth[cell] = 1;
             pending.Enqueue(cell);
         }
         while (pending.TryDequeue(out var cell))
         {
-            foreach (var offset in offsets)
+            foreach (var offset in CardinalOffsets)
             {
                 var next = cell + offset;
                 if (newCells.Contains(next) && depth.TryAdd(next, depth[cell] + 1))
@@ -391,11 +409,23 @@ public sealed class RepairReconstructionSystem : EntitySystem
 
     private bool CanReachCell(EntityUid user, Entity<MapGridComponent> grid, Vector2i cell, float range)
     {
-        // Occupancy of the destination cell is irrelevant to blueprint reconstruction. Walls
-        // between the user and that cell still obstruct access; stacks and wallmounts at it do not.
-        return _interaction.InRangeUnobstructed(user, _map.GridTileToWorld(grid, grid.Comp, cell), range,
-            predicate: entity => TryComp(entity, out TransformComponent? transform) && transform.Anchored &&
-                transform.ParentUid == grid.Owner && _map.TileIndicesFor(grid, grid.Comp, transform.Coordinates) == cell);
+        SharedInteractionSystem.Ignored atDestination = entity =>
+            TryComp(entity, out TransformComponent? transform) && transform.ParentUid == grid.Owner &&
+            _map.TileIndicesFor(grid, grid.Comp, transform.Coordinates) == cell;
+        var center = _map.GridTileToLocal(grid, grid.Comp, cell);
+        if (_interaction.InRangeUnobstructed(user, center, range, predicate: atDestination))
+            return true;
+
+        // An obstruction can hide the center while leaving part of the destination tile accessible.
+        var inset = grid.Comp.TileSize * 0.4f;
+        foreach (var offset in CardinalOffsets)
+        {
+            var edge = new EntityCoordinates(grid, center.Position + (Vector2) offset * inset);
+            if (_interaction.InRangeUnobstructed(user, edge, range, predicate: atDestination))
+                return true;
+        }
+
+        return false;
     }
 
     private void OnComplete(Entity<RepairReconstructorComponent> tablet, ref RepairReconstructionDoAfterEvent args)

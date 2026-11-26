@@ -42,6 +42,14 @@ public static class RepairOrderProgress
     {
         return (int) MathF.Round(CalculateFraction(completedTasks, totalTasks) * 100f);
     }
+
+    public static int CalculateReputationPercent(int finalPoints, int maxPoints)
+    {
+        if (maxPoints <= 0)
+            return 0;
+
+        return (int) ((long) Math.Clamp(finalPoints, 0, maxPoints) * 100 / maxPoints);
+    }
 }
 
 [Serializable, NetSerializable]

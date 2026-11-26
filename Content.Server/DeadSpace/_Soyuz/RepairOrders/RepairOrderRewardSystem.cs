@@ -162,15 +162,15 @@ public sealed class RepairOrderRewardSystem : EntitySystem
         return level;
     }
 
-    public bool TryCalculateReputation(RepairOrderPrototype order, int repairPercent, out int reputation)
+    public bool TryCalculateReputation(RepairOrderPrototype order, ActiveRepairOrder active, out int reputation)
     {
         reputation = 0;
         if (!_prototype.TryIndex<RepairRewardPoolPrototype>(order.RewardPool, out var pool) ||
             order.Difficulty < RepairOrderDifficulty.Minimum ||
-            order.Difficulty > pool.BaseReputationByDifficulty.Count ||
-            repairPercent is < 0 or > 100)
+            order.Difficulty > pool.BaseReputationByDifficulty.Count)
             return false;
 
+        var repairPercent = RepairOrderProgress.CalculateReputationPercent(active.FinalPoints, active.MaxPoints);
         foreach (var band in pool.QualityBands)
         {
             if (repairPercent < band.MinPercent || repairPercent > band.MaxPercent)

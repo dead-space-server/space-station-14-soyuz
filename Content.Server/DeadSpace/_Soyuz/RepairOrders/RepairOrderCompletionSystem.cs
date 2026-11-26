@@ -156,8 +156,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 retentionCost = price;
             }
             var rewardBudget = args.Retain ? 0 : quotedReward;
-            var repairPercent = RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks);
-            if (!_rewards.TryCalculateReputation(order, repairPercent, out var earnedReputation))
+            if (!_rewards.TryCalculateReputation(order, active, out var earnedReputation))
             {
                 Fail(console.Owner, args.Actor, "repair-orders-error-complete-unavailable",
                     $"invalid reputation configuration for order {active.Prototype}");

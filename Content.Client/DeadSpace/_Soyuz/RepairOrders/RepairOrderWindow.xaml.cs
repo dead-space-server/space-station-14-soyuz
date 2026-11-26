@@ -872,9 +872,12 @@ public sealed partial class RepairOrderWindow : FancyWindow
             Margin = new Thickness(8),
         };
         var summary = new RichTextLabel { MaxWidth = 460 };
-        summary.SetMessage(Loc.GetString(retain ? "repair-orders-retain-confirm" : "repair-orders-submit-early-confirm",
-            ("percent", RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks)),
-            ("points", retain ? retentionCost : active.Exclusions.FinalPoints)));
+        var finalPoints = active.Exclusions.FinalPoints;
+        summary.SetMessage(retain
+            ? Loc.GetString("repair-orders-retain-confirm", ("points", retentionCost))
+            : Loc.GetString("repair-orders-submit-early-confirm",
+                ("percent", RepairOrderProgress.CalculateReputationPercent(finalPoints, active.MaxPoints)),
+                ("points", finalPoints)));
         content.AddChild(summary);
         var confirm = new Button { Text = Loc.GetString(retain ? "repair-orders-retain" : "repair-orders-submit-early-button") };
         confirm.OnPressed += _ =>
@@ -966,6 +969,14 @@ public sealed partial class RepairOrderWindow : FancyWindow
                 ("percent", RepairOrderProgress.CalculatePercent(entry.CompletedTasks, entry.TotalTasks)))
             : Loc.GetString("repair-orders-blueprint-unavailable"), entry.BlueprintReady ? Muted : Color.Orange);
         progress.AddChild(percent);
+        if (entry.BlueprintReady)
+        {
+            progress.AddChild(new Label
+            {
+                Text = Loc.GetString("repair-orders-reputation-progress", ("percent",
+                    RepairOrderProgress.CalculateReputationPercent(entry.Exclusions.FinalPoints, entry.MaxPoints))),
+            });
+        }
         progress.AddChild(new Label
         {
             Text = Loc.GetString("repair-orders-points", ("current", entry.CurrentPoints), ("max", entry.MaxPoints)),
@@ -1072,8 +1083,15 @@ public sealed partial class RepairOrderWindow : FancyWindow
         {
             Text = Loc.GetString(
                 "repair-orders-final-tasks",
+                ("percent", entry.RepairPercent),
                 ("completed", entry.CompletedTasks),
                 ("total", entry.TotalTasks)),
+            FontColorOverride = Color.LightGray,
+        });
+        content.AddChild(new Label
+        {
+            Text = Loc.GetString("repair-orders-reputation-progress", ("percent",
+                RepairOrderProgress.CalculateReputationPercent(entry.FinalPoints, entry.MaxPoints))),
             FontColorOverride = Color.LightGray,
         });
         content.AddChild(new Label

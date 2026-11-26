@@ -164,6 +164,10 @@ public sealed partial class RepairOrderRegressionTest
                     generatedGrid = active.GridUid;
                     Assert.That(active.DamageSeed, Is.EqualTo(seed));
                     Assert.That(active.DamageGeneration!.SelectedEvents, Is.Not.Empty);
+                    Assert.That(active.CompletedTasks, Is.GreaterThan(0));
+                    Assert.That(active.MaxPoints, Is.GreaterThan(0));
+                    Assert.That(server.System<RepairOrderRewardSystem>().TryCalculateReputation(prototype, active, out var reputation), Is.True);
+                    Assert.That(reputation, Is.Zero, "Intact components present at delivery must not earn reputation.");
                     foreach (var retained in available.Skip(1))
                         Assert.That(station.Comp.Available[retained.RuntimeId], Is.SameAs(retained));
                     Assert.That(station.Comp.Available.Count, Is.EqualTo(available.Length - 1));

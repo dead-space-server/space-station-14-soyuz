@@ -40,10 +40,39 @@
   - type: Injector
     reagentWhitelist: [TranexamicAcid, Saline]
 
+- type: entity
+  id: MilitiaOperationLaserRay
+  parent: RedMediumLaser
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicRaycast
+    maxDistance: 18
+
+- type: entity
+  id: ClothingBackpackSatchelMilitiaOperations
+  parent: ClothingBackpackSatchelTaipan
+  name: полевая сумка «Рассвета»
+  description: Сумка с удлинённым оружейным отделением и карманом для запасного лазера.
+  components:
+  - type: Storage
+    grid:
+    - 0,0,1,3
+    - 2,1,2,3
+    - 4,0,10,3
+    - 12,1,12,3
+    - 13,0,14,3
+    - 16,0,17,1
+
 - type: militiaEquipment
   id: MilitiaEquipmentBase
   abstract: true
+  secondaryWeapon: WeaponAdvancedLaser
+  secondaryAmmo: MilitiaOperationLaserRay
   equipment:
+    ears:
+    - ClothingHeadsetAltSyndicate
+    underwearb:
+    - ClothingUnderwearBottomBoxersSyndicateAgent
     jumpsuit:
     - ClothingUniformJumpsuitOperative
     - ClothingUniformJumpsuitSyndieFormal
@@ -52,7 +81,7 @@
     gloves:
     - ClothingHandsGlovesCombat
     back:
-    - ClothingBackpackSatchelTaipan
+    - ClothingBackpackSatchelMilitiaOperations
     belt:
     - ClothingBeltMilitaryWebbing
     shoes:
@@ -82,6 +111,10 @@
     - MagazinePistolSubMachineGunExtended
     - MagazinePistolSubMachineGunExtendedIncendiary
     - MagazinePistolSubMachineGunExtendedUranium
+    MagazineCaselessRifle:
+    - MagazineCaselessRifleIncendiary
+    - MagazineCaselessRifleUranium
+    - MagazineCaselessRifleBurn
     MagazineRifle:
     - MagazineRifle
     - MagazineRifleIncendiary
@@ -129,7 +162,6 @@
     - MagazineLightRifleVSSUranium
     - MagazineLightRifleVSSTungsten
   meleeWeapons:
-  - CombatKnife
   - EnergySword
   supplies:
   - Crowbar
@@ -328,6 +360,10 @@
     magazine: MagazinePistolSubMachineGun
     minimumMagazines: 4
     maximumMagazines: 4
+  - weapon: WeaponVeresk
+    magazine: MagazineCaselessRifle
+    minimumMagazines: 4
+    maximumMagazines: 4
   - weapon: WeaponRifleXC67
     magazine: ADTExtMagazineRifle
     minimumMagazines: 4
@@ -370,6 +406,10 @@
     maximumMagazines: 1
   - weapon: WeaponSubMachineGunC20r
     magazine: MagazinePistolSubMachineGun
+    minimumMagazines: 4
+    maximumMagazines: 4
+  - weapon: WeaponVeresk
+    magazine: MagazineCaselessRifle
     minimumMagazines: 4
     maximumMagazines: 4
   supplies:

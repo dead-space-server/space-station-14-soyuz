@@ -31,7 +31,7 @@ public sealed partial class MilitiaOperationSystem
     [Dependency] private readonly HTNSystem _htn = default!;
     private readonly HashSet<MapId> _preparationMaps = new();
 
-    private bool TryPrepareOperation(EntityUid station, EntityUid console, MilitiaOperationConfigPrototype config,
+    private bool TryPrepareOperation(Entity<MilitiaOperationStateComponent> controller, EntityUid console, MilitiaOperationConfigPrototype config,
         MilitiaOperationPrototype prototype, out MilitiaActiveOperation active)
     {
         active = default!;
@@ -40,8 +40,8 @@ public sealed partial class MilitiaOperationSystem
             prototype.Medics < 1 || prototype.Medics >= prototype.MinimumCrew || !_prototypes.HasIndex(config.Medic) || !_prototypes.HasIndex(config.DocumentGuard) ||
             prototype.Duration <= TimeSpan.Zero || config.Crew.Count == 0 || config.Crew.Count > 32 ||
             config.Cooldown < TimeSpan.Zero ||
-            !TryComp(console, out TransformComponent? consoleXform) || consoleXform.GridUid == null ||
-            consoleXform.MapUid == null || consoleXform.MapID == MapId.Nullspace)
+            !TryComp(console, out TransformComponent? consoleXform) || consoleXform.GridUid is not { } sourceGrid ||
+            consoleXform.MapUid is not { } sourceMap || consoleXform.MapID == MapId.Nullspace)
             return false;
         foreach (var id in config.Crew)
         {
@@ -64,8 +64,9 @@ public sealed partial class MilitiaOperationSystem
             if (!_loader.TryLoadGrid(mapId, prototype.Map, out var loaded) || loaded is not { } grid)
                 return false;
             gridUid = grid.Owner;
-            MarkGrid(gridUid, station, idOperation);
-            if (!FindPlacement(station, consoleXform.MapID, grid.Comp.LocalAABB, random, out var position, out var rotation))
+            MarkGrid(gridUid, controller.Owner, idOperation);
+            RestrictOperationLoot(gridUid, config);
+            if (!FindPlacement(sourceGrid, consoleXform.MapID, grid.Comp.LocalAABB, random, out var position, out var rotation))
                 return false;
 
             var free = new List<Vector2i>();
@@ -110,12 +111,13 @@ public sealed partial class MilitiaOperationSystem
             }
             var documentUid = Spawn(config.Document, TileCoordinates(gridUid, grid.Comp, documentPosition));
             var document = EnsureComp<MilitiaOperationDocumentComponent>(documentUid);
-            document.Station = station;
+            document.Controller = controller.Owner;
             document.Operation = idOperation;
             var prepared = new MilitiaActiveOperation
             {
                 Prototype = prototype.ID, Id = idOperation, Document = documentUid,
                 Seed = seed, Deadline = _timing.CurTime + prototype.Duration, Name = prototype.Name,
+                Description = prototype.Description,
                 Points = prototype.Points, Reputation = prototype.Reputation, Cooldown = config.Cooldown,
             };
             prepared.Grids.Add(gridUid);
@@ -129,7 +131,7 @@ public sealed partial class MilitiaOperationSystem
                 assigned[role.Id] = assigned.GetValueOrDefault(role.Id) + 1;
                 var enemy = Spawn(role, TileCoordinates(gridUid, grid.Comp, free[i]));
                 var marker = EnsureComp<MilitiaOperationEnemyComponent>(enemy);
-                marker.Station = station;
+                marker.Controller = controller.Owner;
                 marker.Operation = idOperation;
                 if (!TryComp<HTNComponent>(enemy, out var htn))
                     throw new InvalidOperationException($"Operation enemy {enemy} has no HTN.");
@@ -158,7 +160,7 @@ public sealed partial class MilitiaOperationSystem
                         continue;
                     var equipment = EnsureComp<MilitiaOperationEquipmentComponent>(item);
                     equipment.Enemy = enemy;
-                    equipment.Station = station;
+                    equipment.Controller = controller.Owner;
                     equipment.Operation = idOperation;
                     break;
                 }
@@ -173,7 +175,7 @@ public sealed partial class MilitiaOperationSystem
             }
 
             var xform = Transform(gridUid);
-            _transform.SetParent(gridUid, xform, consoleXform.MapUid.Value);
+            _transform.SetParent(gridUid, xform, sourceMap);
             _transform.SetWorldPositionRotation(gridUid, position, rotation, xform);
             foreach (var enemy in prepared.Crew)
                 _htn.SetHTNEnabled((enemy, Comp<HTNComponent>(enemy)), true);
@@ -183,7 +185,7 @@ public sealed partial class MilitiaOperationSystem
                 if (defenseXform.GridUid != gridUid || prepared.Crew.Contains(defense))
                     continue;
                 var owner = EnsureComp<MilitiaOperationEnemyComponent>(defense);
-                owner.Station = station;
+                owner.Controller = controller.Owner;
                 owner.Operation = idOperation;
             }
             _maps.DeleteMap(mapId);
@@ -195,7 +197,7 @@ public sealed partial class MilitiaOperationSystem
         }
         catch (Exception exception)
         {
-            _log.Error($"Operation preparation failed: Station={station}, Prototype={prototype.ID}, Seed={seed}: {exception}");
+            _log.Error($"Operation preparation failed: Console={console}, Prototype={prototype.ID}, Seed={seed}: {exception}");
             return false;
         }
         finally
@@ -204,9 +206,8 @@ public sealed partial class MilitiaOperationSystem
             {
                 if (!committed && Exists(gridUid))
                 {
-                    if (TryComp<MilitiaOperationStationComponent>(station, out var state))
-                        state.Cleanup.Add(gridUid);
-                    EnsureComp<RepairOrderCleanupComponent>(gridUid).Station = station;
+                    controller.Comp.Cleanup.Add(gridUid);
+                    EnsureComp<RepairOrderCleanupComponent>(gridUid).Station = controller.Owner;
                     if (!_repair.TryFindPlayerOnRepairGrid(gridUid, out _))
                         Del(gridUid);
                 }
@@ -300,34 +301,34 @@ public sealed partial class MilitiaOperationSystem
     private static EntityCoordinates TileCoordinates(EntityUid uid, MapGridComponent grid, Vector2i indices)
         => new(uid, new Vector2((indices.X + 0.5f) * grid.TileSize, (indices.Y + 0.5f) * grid.TileSize));
 
-    private bool FindPlacement(EntityUid station, MapId map, Box2 localBounds, Random random,
+    private bool FindPlacement(EntityUid anchor, MapId map, Box2 localBounds, Random random,
         out Vector2 position, out Angle rotation)
     {
         position = default;
         rotation = Angle.Zero;
-        if (_stations.GetLargestGrid(station) is not { } anchor ||
-            !TryComp<MapGridComponent>(anchor, out var anchorGrid) || Transform(anchor).MapID != map)
+        if (!TryComp<MapGridComponent>(anchor, out var anchorGrid) || Transform(anchor).MapID != map)
             return false;
+        var station = _stations.GetOwningStation(anchor);
         var center = _transform.GetWorldPosition(anchor);
         var bounds = new List<Box2>();
         var query = EntityQueryEnumerator<MapGridComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var grid, out var xform))
         {
-            if (xform.MapID != map || _stations.GetOwningStation(uid) != station)
+            if (xform.MapID != map || uid != anchor && (station == null || _stations.GetOwningStation(uid) != station))
                 continue;
             bounds.Add(new Box2Rotated(grid.LocalAABB.Translated(_transform.GetWorldPosition(xform)),
                 _transform.GetWorldRotation(xform), _transform.GetWorldPosition(xform)).CalcBoundingBox());
         }
         if (bounds.Count == 0)
             return false;
-        var stationRadius = anchorGrid.LocalAABB.MaxDimension;
+        var anchorRadius = anchorGrid.LocalAABB.MaxDimension;
         var targetRadius = localBounds.Size.Length() / 2f;
         for (var attempt = 0; attempt < 96; attempt++)
         {
             var angle = random.NextDouble() * Math.Tau;
             var direction = new Vector2((float) Math.Cos(angle), (float) Math.Sin(angle));
             var clearance = MinimumSpawnDistance + (float) random.NextDouble() * (MaximumSpawnDistance - MinimumSpawnDistance);
-            var candidate = center + direction * (stationRadius + targetRadius + clearance);
+            var candidate = center + direction * (anchorRadius + targetRadius + clearance);
             var candidateRotation = new Angle(random.NextDouble() * Math.Tau);
             for (var step = 0; step < 8; step++)
             {

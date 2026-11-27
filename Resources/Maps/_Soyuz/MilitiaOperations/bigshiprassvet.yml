@@ -5,7 +5,7 @@ meta:
   forkId: dspublicfobos
   forkVersion: 1157d1798d3d4f9a644d7d9b40076663b7db9eea
   time: 10/23/2026 09:46:06
-  entityCount: 1861
+  entityCount: 1859
 maps: []
 grids:
 - 2
@@ -4560,20 +4560,44 @@ entities:
     - type: Transform
       pos: 11.5,0.5
       parent: 2
-- proto: CrateSyndicateSurplusBundle
+- proto: CrateSyndicateSecure
   entities:
   - uid: 1705
     components:
+    # UplinkL6SawBundle (30) + UplinkC20RBundle (12) + UplinkHardsuitSyndie (8) = 50 TC.
+    - type: EntityTableContainerFill
+      containers:
+        entity_storage: !type:AllSelector
+          children:
+          - id: ClothingBackpackDuffelSyndicateFilledLMG
+          - id: ClothingBackpackDuffelSyndicateFilledSMG
+          - id: ClothingBackpackDuffelSyndicateHardsuitBundle
     - type: Transform
       pos: 9.5,-1.5
       parent: 2
   - uid: 1707
     components:
+    # UplinkL6SawBundle (30) + UplinkC20RBundle (12) + UplinkHardsuitSyndie (8) = 50 TC.
+    - type: EntityTableContainerFill
+      containers:
+        entity_storage: !type:AllSelector
+          children:
+          - id: ClothingBackpackDuffelSyndicateFilledLMG
+          - id: ClothingBackpackDuffelSyndicateFilledSMG
+          - id: ClothingBackpackDuffelSyndicateHardsuitBundle
     - type: Transform
       pos: 9.5,-0.5
       parent: 2
   - uid: 1709
     components:
+    # UplinkL6SawBundle (30) + UplinkC20RBundle (12) + UplinkHardsuitSyndie (8) = 50 TC.
+    - type: EntityTableContainerFill
+      containers:
+        entity_storage: !type:AllSelector
+          children:
+          - id: ClothingBackpackDuffelSyndicateFilledLMG
+          - id: ClothingBackpackDuffelSyndicateFilledSMG
+          - id: ClothingBackpackDuffelSyndicateHardsuitBundle
     - type: Transform
       pos: 10.5,-1.5
       parent: 2
@@ -4654,251 +4678,427 @@ entities:
 - proto: FirelockEdge
   entities:
   - uid: 1585
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 7.5,-7.5
       parent: 2
   - uid: 1586
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 4.5,-7.5
       parent: 2
   - uid: 1587
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,-14.5
       parent: 2
   - uid: 1588
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 7.5,-14.5
       parent: 2
   - uid: 1589
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 7.5,-16.5
       parent: 2
   - uid: 1590
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 4.5,-16.5
       parent: 2
   - uid: 1591
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,-5.5
       parent: 2
   - uid: 1592
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 7.5,-5.5
       parent: 2
   - uid: 1593
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 3.5,-3.5
       parent: 2
   - uid: 1594
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 3.5,-4.5
       parent: 2
   - uid: 1595
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 3.5,-5.5
       parent: 2
   - uid: 1596
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 8.5,-3.5
       parent: 2
   - uid: 1597
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 8.5,-5.5
       parent: 2
   - uid: 1598
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 8.5,-4.5
       parent: 2
   - uid: 1599
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,-2.5
       parent: 2
   - uid: 1600
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 5.5,-2.5
       parent: 2
   - uid: 1601
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 6.5,-2.5
       parent: 2
   - uid: 1602
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 7.5,-2.5
       parent: 2
   - uid: 1603
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 4.5,2.5
       parent: 2
   - uid: 1604
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 5.5,2.5
       parent: 2
   - uid: 1605
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 6.5,2.5
       parent: 2
   - uid: 1606
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 7.5,2.5
       parent: 2
   - uid: 1607
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,4.5
       parent: 2
   - uid: 1608
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 5.5,4.5
       parent: 2
   - uid: 1609
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 6.5,4.5
       parent: 2
   - uid: 1610
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 7.5,4.5
       parent: 2
   - uid: 1611
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 7.5,7.5
       parent: 2
   - uid: 1612
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 4.5,7.5
       parent: 2
   - uid: 1613
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 4.5,9.5
       parent: 2
   - uid: 1614
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       pos: 7.5,9.5
       parent: 2
   - uid: 1615
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 3.5,9.5
       parent: 2
   - uid: 1616
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 8.5,9.5
       parent: 2
   - uid: 1617
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 14.5,-3.5
       parent: 2
   - uid: 1618
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 14.5,-4.5
       parent: 2
   - uid: 1619
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 14.5,-5.5
       parent: 2
   - uid: 1620
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -2.5,-3.5
       parent: 2
   - uid: 1621
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -2.5,-4.5
       parent: 2
   - uid: 1622
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -2.5,-5.5
       parent: 2
   - uid: 1623
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -3.5,-18.5
       parent: 2
   - uid: 1624
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: -1.5,-16.5
       parent: 2
   - uid: 1625
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: -1.5,-18.5
       parent: 2
   - uid: 1626
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 13.5,-16.5
       parent: 2
   - uid: 1627
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 13.5,-18.5
       parent: 2
   - uid: 1628
+    missingComponents:
+    - AtmosAlarmable
     components:
+    - type: Firelock
+      sensorsEnabled: false
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 15.5,-18.5
@@ -4919,18 +5119,6 @@ entities:
       parent: 2
     - type: Fixtures
       fixtures: {}
-- proto: FoolboxFilled
-  entities:
-  - uid: 1848
-    components:
-    - type: Transform
-      pos: 7.332855,13.239306
-      parent: 2
-  - uid: 1849
-    components:
-    - type: Transform
-      pos: 4.59848,13.286181
-      parent: 2
 - proto: FuelDispenser
   entities:
   - uid: 1759

@@ -46,6 +46,11 @@ public sealed partial class BlockingSystem
         if (args.Damage.GetTotal() <= 0)
             return;
 
+        // DS14-Soyuz-start: a locked shield cannot provide passive protection either.
+        if (!CanUseShield(item, entity.Owner))
+            return;
+        // DS14-Soyuz-end
+
         var blockFraction = blocking.IsBlocking ? blocking.ActiveBlockFraction : blocking.PassiveBlockFraction;
         blockFraction = Math.Clamp(blockFraction, 0, 1);
 

@@ -54,6 +54,7 @@ public abstract partial class SharedStunSystem
         // Startup and Shutdown
         SubscribeLocalEvent<KnockedDownComponent, ComponentInit>(OnKnockInit);
         SubscribeLocalEvent<KnockedDownComponent, ComponentShutdown>(OnKnockShutdown);
+        SubscribeLocalEvent<DeferredKnockdownRemovalEvent>(OnDeferredKnockdownRemoval); // DS14-Soyuz
 
         // Action blockers
         SubscribeLocalEvent<KnockedDownComponent, BuckleAttemptEvent>(OnBuckleAttempt);
@@ -116,7 +117,10 @@ public abstract partial class SharedStunSystem
     {
         if (HasComp<StunImmuneComponent>(entity.Owner))
         {
-            RemCompDeferred<KnockedDownComponent>(entity);
+            // DS14-Soyuz-start: let component initialization finish before requesting removal.
+            if (!GameTiming.ApplyingState)
+                QueueLocalEvent(new DeferredKnockdownRemovalEvent(entity));
+            // DS14-Soyuz-end
             return;
         }
 
@@ -561,15 +565,41 @@ public abstract partial class SharedStunSystem
 
     private void OnWeightlessnessChanged(Entity<KnockedDownComponent> entity, ref WeightlessnessChangedEvent args)
     {
-        // I probably don't need this check since weightless -> non-weightless you shouldn't be knocked down
-        // But you never know.
-        if (!args.Weightless)
+        // DS14-Soyuz-start: gravity can change while a component is starting or being synchronized.
+        if (!args.Weightless || GameTiming.ApplyingState || entity.Comp.LifeStage >= ComponentLifeStage.Stopping ||
+            TerminatingOrDeleted(entity))
             return;
 
-        // Targeted moth attack
-        CancelKnockdownDoAfter((entity, entity.Comp));
-        RemCompDeferred<KnockedDownComponent>(entity);
+        if (entity.Comp.LifeStage < ComponentLifeStage.Running)
+        {
+            QueueLocalEvent(new DeferredKnockdownRemovalEvent(entity));
+            return;
+        }
+
+        ClearInvalidKnockdown(entity);
     }
+
+    private void OnDeferredKnockdownRemoval(DeferredKnockdownRemovalEvent args)
+    {
+        var target = args.Target;
+        if (target.Comp.LifeStage != ComponentLifeStage.Running || TerminatingOrDeleted(target))
+            return;
+
+        if (HasComp<StunImmuneComponent>(target) || TryComp<GravityAffectedComponent>(target, out var gravity) && gravity.Weightless)
+            ClearInvalidKnockdown(target);
+    }
+
+    private void ClearInvalidKnockdown(Entity<KnockedDownComponent> entity)
+    {
+        CancelKnockdownDoAfter((entity, entity.Comp));
+        RemCompDeferred(entity.Owner, entity.Comp);
+    }
+
+    private sealed class DeferredKnockdownRemovalEvent(Entity<KnockedDownComponent> target) : EntityEventArgs
+    {
+        public readonly Entity<KnockedDownComponent> Target = target;
+    }
+    // DS14-Soyuz-end
 
     private void OnHandEquipped(Entity<KnockedDownComponent> entity, ref DidEquipHandEvent args)
     {

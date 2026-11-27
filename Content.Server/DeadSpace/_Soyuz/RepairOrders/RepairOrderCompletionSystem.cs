@@ -90,7 +90,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             return;
         }
 
-        if (args.Retain && (order.Difficulty is < 7 or > 10 || active.MaxPoints <= 0 ||
+        if (args.Retain && (!RepairOrderDifficulty.CanRetain(order.Difficulty) ||
             HasComp<RepairOrderCleanupComponent>(active.GridUid) || HasComp<RepairRetainedGridComponent>(active.GridUid)))
         {
             Fail(console.Owner, args.Actor, "repair-orders-retain-unavailable", "order cannot be retained");
@@ -135,19 +135,28 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
             }
 
             var quotedReward = RepairOrderRewardBudget.ForSuccessfulCompletion(active.FinalPoints);
-            if (args.Retain && args.ExpectedRetentionCost != active.MaxPoints)
+            var retentionCost = 0L;
+            if (args.Retain)
             {
-                Fail(console.Owner, args.Actor, "repair-orders-retain-price-changed", "retention quote is stale");
-                return;
-            }
-            if (args.Retain && state.RepairPoints < active.MaxPoints)
-            {
-                Fail(console.Owner, args.Actor, "repair-orders-shop-error-points", "insufficient retention balance");
-                return;
+                if (RepairOrderDifficulty.GetRetentionCost(order.Difficulty, active.MaxPoints) is not { } price)
+                {
+                    Fail(console.Owner, args.Actor, "repair-orders-retain-unavailable", "order has no valid retention price");
+                    return;
+                }
+                if (args.ExpectedRetentionCost != price)
+                {
+                    Fail(console.Owner, args.Actor, "repair-orders-retain-price-changed", "retention quote is stale");
+                    return;
+                }
+                if (state.RepairPoints < price)
+                {
+                    Fail(console.Owner, args.Actor, "repair-orders-shop-error-points", "insufficient retention balance");
+                    return;
+                }
+                retentionCost = price;
             }
             var rewardBudget = args.Retain ? 0 : quotedReward;
-            var repairPercent = RepairOrderProgress.CalculatePercent(active.CompletedTasks, active.TotalTasks);
-            if (!_rewards.TryCalculateReputation(order, repairPercent, out var earnedReputation))
+            if (!_rewards.TryCalculateReputation(order, active, out var earnedReputation))
             {
                 Fail(console.Owner, args.Actor, "repair-orders-error-complete-unavailable",
                     $"invalid reputation configuration for order {active.Prototype}");
@@ -165,7 +174,7 @@ public sealed class RepairOrderCompletionSystem : EntitySystem
                 earnedReputation,
                 args.Retain ? RepairOrderResult.Retained : RepairOrderResult.Completed)
             {
-                RetentionCost = args.Retain ? active.MaxPoints : 0,
+                RetentionCost = retentionCost,
             };
 
             _repairOrders.RememberRepairConsole(stationUid.Value, console.Owner);

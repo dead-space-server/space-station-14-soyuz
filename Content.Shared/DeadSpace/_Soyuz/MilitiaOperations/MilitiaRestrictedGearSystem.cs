@@ -3,9 +3,12 @@
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Events;
 using Content.Shared.Examine;
+using Content.Shared.Hands;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
+using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Mind;
 using Content.Shared.Popups;
@@ -22,6 +25,7 @@ namespace Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 public sealed class MilitiaRestrictedGearSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _containers = default!;
+    [Dependency] private readonly ItemToggleSystem _toggle = default!;
     [Dependency] private readonly SharedMindSystem _minds = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly INetManager _net = default!;
@@ -36,6 +40,7 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ItemToggleActivateAttemptEvent>(OnActivate);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ThrowItemAttemptEvent>(OnThrow);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<MilitiaRestrictedGearComponent, GotEquippedHandEvent>(OnPickedUp);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, UseInHandEvent>(OnUseHypospray, before: [typeof(InjectorSystem)]);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, AfterInteractEvent>(OnInteractHypospray, before: [typeof(InjectorSystem)]);
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, InjectorDoAfterEvent>(OnHyposprayDoAfter, before: [typeof(InjectorSystem)]);
@@ -46,9 +51,17 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
            (gear.Kind != MilitiaContrabandKind.Hypospray ||
             !HasComp<ActorComponent>(uid) && !_minds.TryGetMind(uid, out _, out _));
 
+    private void OnPickedUp(Entity<MilitiaRestrictedGearComponent> gear, ref GotEquippedHandEvent args)
+    {
+        // An already activated stolen sword or shield must not retain its defensive effects.
+        if (_net.IsServer && !Allowed(args.User, gear.Comp) && TryComp<ItemToggleComponent>(gear, out var toggle))
+            _toggle.TryDeactivate((gear.Owner, toggle), predicted: false);
+    }
+
     private void OnEquip(Entity<MilitiaRestrictedGearComponent> gear, ref BeingEquippedAttemptEvent args)
     {
-        if (gear.Comp.Kind is MilitiaContrabandKind.Firearm or MilitiaContrabandKind.Melee ||
+        if (gear.Comp.Kind == MilitiaContrabandKind.Firearm ||
+            gear.Comp.Kind == MilitiaContrabandKind.Melee && (args.SlotFlags & SlotFlags.GLOVES) == 0 ||
             !TryComp<Content.Shared.Clothing.Components.ClothingComponent>(gear, out var clothing) ||
             (args.SlotFlags & clothing.Slots) == 0 || Allowed(args.EquipTarget, gear.Comp))
             return;
@@ -77,8 +90,9 @@ public sealed class MilitiaRestrictedGearSystem : EntitySystem
 
     private void OnUse(Entity<MilitiaRestrictedGearComponent> gear, ref GettingUsedAttemptEvent args)
     {
-        // A hypospray can still be handed to the cabinet. Block its injector actions instead.
-        if (gear.Comp.Kind == MilitiaContrabandKind.Hypospray || Allowed(args.User, gear.Comp))
+        // The cabinet handles the transfer and validates custody independently.
+        if (gear.Comp.Kind == MilitiaContrabandKind.Hypospray || Allowed(args.User, gear.Comp) ||
+            !gear.Comp.Surrendered && HasComp<MilitiaCustodyCabinetComponent>(args.Target))
             return;
         args.Cancel();
         ShowDeniedPopup(gear, args.User);

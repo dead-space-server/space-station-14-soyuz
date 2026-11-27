@@ -60,6 +60,9 @@ namespace Content.Server.Doors.Systems
             var query = EntityQueryEnumerator<FirelockComponent, DoorComponent>();
             while (query.MoveNext(out var uid, out var firelock, out var door))
             {
+                if (!firelock.SensorsEnabled) // DS14-Soyuz
+                    continue;
+
                 if (_atmosAlarmQuery.TryComp(uid, out var alarmable)
                     && alarmable.LastAlarmState == AtmosAlarmType.Danger
                     && this.IsPowered(uid, EntityManager)
@@ -98,6 +101,9 @@ namespace Content.Server.Doors.Systems
 
         private void OnAtmosAlarm(EntityUid uid, FirelockComponent component, AtmosAlarmEvent args)
         {
+            if (!component.SensorsEnabled) // DS14-Soyuz
+                return;
+
             if (!this.IsPowered(uid, EntityManager))
                 return;
 

@@ -29,7 +29,6 @@
   - type: RadiationSource
     enabled: false
     intensity: 0
-    slope: 2
   - type: PointLight
     enabled: false
     radius: 3

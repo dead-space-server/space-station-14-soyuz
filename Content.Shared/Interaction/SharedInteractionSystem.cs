@@ -449,7 +449,7 @@ namespace Content.Shared.Interaction
             // empty-hand interactions
             // combat mode hand interactions will always be true here -- since
             // they check this earlier before returning in
-            if (!TryGetUsedEntity(user, out var used, checkCanUse))
+            if (!TryGetUsedEntity(user, out var used, checkCanUse, inRangeUnobstructed ? target : null)) // DS14-Soyuz
             {
                 if (inRangeUnobstructed && target != null)
                     InteractHand(user, target.Value);
@@ -1060,7 +1060,7 @@ namespace Content.Shared.Interaction
             if (checkCanInteract && !_actionBlockerSystem.CanInteract(user, target))
                 return false;
 
-            if (checkCanUse && !_actionBlockerSystem.CanUseHeldEntity(user, used))
+            if (checkCanUse && !_actionBlockerSystem.CanUseHeldEntity(user, used, target)) // DS14-Soyuz
                 return false;
 
             _adminLogger.Add(
@@ -1475,7 +1475,8 @@ namespace Content.Shared.Interaction
         /// In most cases, this refers to the entity in the character's active hand.
         /// </summary>
         /// <returns>If there is an entity being used.</returns>
-        public bool TryGetUsedEntity(EntityUid user, [NotNullWhen(true)] out EntityUid? used, bool checkCanUse = true)
+        public bool TryGetUsedEntity(EntityUid user, [NotNullWhen(true)] out EntityUid? used, bool checkCanUse = true,
+            EntityUid? target = null) // DS14-Soyuz
         {
             var ev = new GetUsedEntityEvent(user);
             RaiseLocalEvent(user, ref ev);
@@ -1485,7 +1486,7 @@ namespace Content.Shared.Interaction
                 return false;
 
             // Can the user use the held entity?
-            if (checkCanUse && !_actionBlockerSystem.CanUseHeldEntity(user, ev.Used!.Value))
+            if (checkCanUse && !_actionBlockerSystem.CanUseHeldEntity(user, ev.Used!.Value, target)) // DS14-Soyuz
             {
                 used = null;
                 return false;

@@ -179,6 +179,11 @@ public sealed partial class BlockingSystem : EntitySystem
         if (component.IsBlocking)
             return false;
 
+        // DS14-Soyuz-start: respect item usage locks, including militia biocoding.
+        if (!CanUseShield(item, user))
+            return false;
+        // DS14-Soyuz-end
+
         var xform = Transform(user);
 
         var shieldName = Name(item);
@@ -336,6 +341,15 @@ public sealed partial class BlockingSystem : EntitySystem
     {
         return entity.Comp.IsBlocking ? entity.Comp.ActiveBlockModifier ?? entity.Comp.PassiveBlockModifier : entity.Comp.PassiveBlockModifier;
     }
+
+    // DS14-Soyuz-start
+    private bool CanUseShield(EntityUid item, EntityUid user)
+    {
+        var attempt = new GettingUsedAttemptEvent(user);
+        RaiseLocalEvent(item, attempt);
+        return !attempt.Cancelled;
+    }
+    // DS14-Soyuz-end
 
     private void OnVerbExamine(EntityUid uid, BlockingComponent component, GetVerbsEvent<ExamineVerb> args)
     {

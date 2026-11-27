@@ -61,6 +61,17 @@ public abstract partial class SharedGunSystem
         return modes[(index + 1) % modes.Count];
     }
 
+    // DS14-Soyuz-start
+    public bool TrySelectFireMode(Entity<GunComponent> gun, SelectiveFire fire)
+    {
+        if ((gun.Comp.AvailableModes & fire) == 0)
+            return false;
+
+        SelectFire(gun, gun.Comp, fire);
+        return true;
+    }
+    // DS14-Soyuz-end
+
     private void SelectFire(EntityUid uid, GunComponent component, SelectiveFire fire, EntityUid? user = null)
     {
         if (component.SelectedMode == fire)

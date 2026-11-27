@@ -463,14 +463,18 @@ public sealed class RepairOrderSystem : EntitySystem
         out EntityUid repairGrid)
     {
         repairGrid = EntityUid.Invalid;
-        var retaining = completed.Result == RepairOrderResult.Retained;
-        var retentionCost = retaining ? expectedActive.MaxPoints : 0;
-        if (retaining && (!_prototype.TryIndex<RepairOrderPrototype>(expectedActive.Prototype, out var order) ||
-            order.Difficulty < 7 || order.Difficulty > 10 || retentionCost <= 0 || completed.RewardBudget != 0 ||
-            completed.RetentionCost != retentionCost ||
-            !TryComp<RepairRetainedGridComponent>(expectedActive.GridUid, out var retained) ||
-            retained.Station != stationUid || retained.OwnershipRegistered))
-            return false;
+        var retentionCost = 0L;
+        if (completed.Result == RepairOrderResult.Retained)
+        {
+            if (!_prototype.TryIndex<RepairOrderPrototype>(expectedActive.Prototype, out var order) ||
+                RepairOrderDifficulty.GetRetentionCost(order.Difficulty, expectedActive.MaxPoints) is not { } price ||
+                completed.RewardBudget != 0 || completed.RetentionCost != price ||
+                !TryComp<RepairRetainedGridComponent>(expectedActive.GridUid, out var retained) ||
+                retained.Station != stationUid || retained.OwnershipRegistered)
+                return false;
+
+            retentionCost = price;
+        }
         if (!TryComp<RepairOrderStationComponent>(stationUid, out var state) ||
             !ReferenceEquals(state.Active, expectedActive) ||
             completed.RuntimeId != expectedActive.RuntimeId ||
@@ -814,9 +818,8 @@ public sealed class RepairOrderSystem : EntitySystem
                 damageEvents: activeOrder.DamageGeneration?.SelectedEvents.ToArray(),
                 exclusions: activeOrder.Exclusions?.Totals ?? new RepairExclusionTotals(0, 0, RepairTechnicalExclusion.MaxWaivedPoints(activeOrder.MaxPoints), activeOrder.CurrentPoints),
                 earlySubmissionAvailableAt: activeOrder.StartedAt + RepairOrderProgress.EarlySubmissionDelay,
-                retentionCost: _prototype.TryIndex<RepairOrderPrototype>(activeOrder.Prototype, out var activePrototype) &&
-                               activePrototype.Difficulty is >= 7 and <= 10
-                    ? activeOrder.MaxPoints
+                retentionCost: _prototype.TryIndex<RepairOrderPrototype>(activeOrder.Prototype, out var activePrototype)
+                    ? RepairOrderDifficulty.GetRetentionCost(activePrototype.Difficulty, activeOrder.MaxPoints)
                     : null);
         }
 

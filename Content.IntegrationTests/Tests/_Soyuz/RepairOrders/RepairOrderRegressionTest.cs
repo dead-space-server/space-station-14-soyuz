@@ -3,13 +3,18 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Content.Server.DeadSpace._Soyuz.RepairOrders;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Components;
+using Content.Shared.Charges.Systems;
 using Content.Shared.DeadSpace._Soyuz.RepairOrders;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Interaction;
+using Content.Shared.Inventory;
 using Content.Shared.Station.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
@@ -221,6 +226,71 @@ public sealed partial class RepairOrderRegressionTest
             }
         });
 
+        await pair.CleanReturnAsync();
+    }
+
+    [Test]
+    public async Task EngineerCanReconstructThrusterOnOccupiedBlueprintCell()
+    {
+        await using var pair = await PoolManager.GetServerClient();
+        var server = pair.Server;
+        var entMan = server.EntMan;
+        var maps = server.System<SharedMapSystem>();
+        var validation = server.System<RepairOrderValidationSystem>();
+        await server.WaitPost(() =>
+        {
+            var station = CreateStation(entMan);
+            maps.CreateMap(out var mapId);
+            try
+            {
+                ProtoId<RepairOrderPrototype> orderId = "RepairOrderHephaestusLevel10";
+                var prototype = server.ProtoMan.Index(orderId);
+                Assert.That(server.System<MapLoaderSystem>().TryLoadGrid(mapId, prototype.TargetGridPath, out var loaded), Is.True);
+                var grid = loaded!.Value;
+                var thruster = entMan.EntityQuery<ThrusterComponent, TransformComponent>()
+                    .First(entry => entry.Item2.ParentUid == grid.Owner && entry.Item2.Anchored &&
+                        entMan.GetComponent<MetaDataComponent>(entry.Item2.Owner).EntityPrototype?.ID == "Thruster");
+                var coordinates = thruster.Item2.Coordinates;
+                var cell = maps.TileIndicesFor(grid.Owner, grid.Comp, coordinates);
+                entMan.DeleteEntity(thruster.Item2.Owner);
+
+                Assert.That(validation.TryPrepareSession(station.Owner, 1, prototype.ID, grid.Owner, out var active), Is.True);
+                active.ExpiresAt = TimeSpan.MaxValue;
+                station.Comp.Active = active;
+                var railing = entMan.SpawnEntity("Railing", coordinates);
+                var table = entMan.SpawnEntity("Table", coordinates);
+                var playerCoordinates = new EntityCoordinates(grid.Owner, coordinates.Position + new Vector2(0, -0.2f));
+                var player = entMan.SpawnEntity("MobHuman", playerCoordinates);
+                var pda = entMan.SpawnEntity("EngineerPDA", playerCoordinates);
+                Assert.That(server.System<InventorySystem>().TryEquip(player, pda, "id", silent: true, force: true), Is.True);
+                var tablet = entMan.SpawnEntity("RepairReconstructionTablet", playerCoordinates);
+                var reconstructor = entMan.GetComponent<RepairReconstructorComponent>(tablet);
+                reconstructor.Delay = 0;
+                Assert.That(server.System<SharedHandsSystem>().TryPickup(player, tablet), Is.True);
+                var charges = server.System<SharedChargesSystem>();
+                charges.SetCharges(tablet, 1000);
+
+                var interaction = server.System<SharedInteractionSystem>();
+                interaction.UserInteraction(player, coordinates, railing);
+                interaction.UserInteraction(player, coordinates, railing);
+                Assert.That(reconstructor.SelectionEnd, Is.EqualTo(cell));
+                Assert.That(reconstructor.BlockedCells, Is.Empty, "Unrelated structures must not mark the thruster repair as skipped.");
+                Assert.That(reconstructor.QuotedCost, Is.GreaterThan(0));
+                var cost = reconstructor.QuotedCost!.Value;
+                Assert.That(interaction.UseInHandInteraction(player, tablet), Is.True);
+                Assert.That(charges.GetCurrentCharges(tablet), Is.EqualTo(1000 - cost));
+                Assert.That(maps.GetAnchoredEntities(grid.Owner, grid.Comp, cell), Does.Contain(railing));
+                Assert.That(maps.GetAnchoredEntities(grid.Owner, grid.Comp, cell), Does.Contain(table));
+                Assert.That(maps.GetAnchoredEntities(grid.Owner, grid.Comp, cell).Any(entity =>
+                    entMan.GetComponent<MetaDataComponent>(entity).EntityPrototype?.ID == "Thruster"), Is.True);
+            }
+            finally
+            {
+                station.Comp.Active = null;
+                maps.DeleteMap(mapId);
+                entMan.DeleteEntity(station.Owner);
+            }
+        });
         await pair.CleanReturnAsync();
     }
 

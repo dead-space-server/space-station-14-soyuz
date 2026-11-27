@@ -431,7 +431,7 @@ public sealed class MilitiaOperationWindow : FancyWindow
             var button = new ContainerButton { HorizontalExpand = true };
             var card = Column();
             card.MouseFilter = MouseFilterMode.Ignore;
-            card.AddChild(Paragraph(Loc.GetString(prototype.Name)));
+            card.AddChild(Paragraph(Loc.GetString(offer.Name ?? prototype.Name)));
             card.AddChild(Text(Loc.GetString("militia-operation-case-meta", ("points", prototype.Points),
                 ("minutes", (int) prototype.Duration.TotalMinutes)), Muted));
             button.AddChild(card);
@@ -455,10 +455,10 @@ public sealed class MilitiaOperationWindow : FancyWindow
         foreach (var (id, card) in _offerCards)
             card.StyleBoxOverride = PanelStyle(id == offer.Token);
         _details.AddChild(Section(1, "militia-operation-dossier"));
-        var title = Paragraph(Loc.GetString(prototype.Name));
+        var title = Paragraph(Loc.GetString(offer.Name ?? prototype.Name));
         title.StyleClasses.Add("LabelHeading");
         _details.AddChild(title);
-        _details.AddChild(Paragraph(Loc.GetString(prototype.Description)));
+        _details.AddChild(Paragraph(Loc.GetString(offer.Description ?? prototype.Description)));
         _details.AddChild(Section(2, "militia-operation-assignment"));
         _details.AddChild(Paragraph(Loc.GetString("militia-operation-objectives")));
         _details.AddChild(Surface(Paragraph(Loc.GetString("militia-operation-reward", ("points", prototype.Points),
@@ -496,7 +496,7 @@ public sealed class MilitiaOperationWindow : FancyWindow
             return;
         }
         if (_prototypes.TryIndex<MilitiaOperationPrototype>(active.Prototype, out var prototype))
-            _active.AddChild(Surface(Paragraph(Loc.GetString(prototype.Name))));
+            _active.AddChild(Surface(Paragraph(Loc.GetString(active.Name ?? prototype.Name))));
         var contact = Column();
         contact.AddChild(Section(2, "militia-operation-target-position"));
         _coordinates.FontColorOverride = Accent;

@@ -6,6 +6,13 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: MilitiaSupplyCombatMedipen
+  entity: CombatMedipen
+  cost: 100
+  maxCount: 4
+  minimumShopLevel: 1
+
+- type: repairReward
   id: MilitiaSupplyPistolAmmo
   entity: MagazinePistol
   cost: 30
@@ -22,9 +29,9 @@
 - type: repairReward
   id: MilitiaSupplyCombatMedkit
   entity: MedkitCombatFilled
-  cost: 200
+  cost: 100
   maxCount: 2
-  minimumShopLevel: 3
+  minimumShopLevel: 1
 
 - type: repairReward
   id: MilitiaSupplyWeaponRiflehkg3a1
@@ -130,6 +137,13 @@
   cost: 1500
   maxCount: 2
   minimumShopLevel: 4
+
+- type: repairReward
+  id: MilitiaSupplyWeaponLauncherMGL
+  entity: WeaponLauncherMGL
+  cost: 5000
+  maxCount: 2
+  minimumShopLevel: 5
 
 - type: repairReward
   id: MilitiaSupplyMagazineLightRifle
@@ -264,6 +278,41 @@
   minimumShopLevel: 5
 
 - type: repairReward
+  id: MilitiaSupplyMagazineGrenadeBaton
+  entity: MagazineGrenadeBaton
+  cost: 750
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeFlash
+  entity: MagazineGrenadeFlash
+  cost: 1000
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeEMP
+  entity: MagazineGrenadeEMP
+  cost: 1500
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeFrag
+  entity: MagazineGrenadeFrag
+  cost: 2125
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
+  id: MilitiaSupplyMagazineGrenadeBlast
+  entity: MagazineGrenadeBlast
+  cost: 3000
+  maxCount: 6
+  minimumShopLevel: 5
+
+- type: repairReward
   id: MilitiaSupplyAdrenalImplanter
   entity: AdrenalImplanter
   shopName: militia-supply-adrenal-implanter
@@ -272,23 +321,37 @@
   minimumShopLevel: 4
 
 - type: repairReward
+  id: MilitiaSupplyAdvancedNightVision
+  entity: ClothingEyesPNVAdv
+  cost: 450
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
+  id: MilitiaSupplyBallisticShield
+  entity: RiotBulletShield
+  cost: 1000
+  maxCount: 2
+  minimumShopLevel: 2
+
+- type: repairReward
   id: MilitiaSupplyPoliceBeta
   entity: ClothingOuterHardsuitPoliceBeta1
-  cost: 1600
+  cost: 700
   maxCount: 2
-  minimumShopLevel: 4
+  minimumShopLevel: 1
 
 - type: repairReward
   id: MilitiaSupplyOperationHardsuit
   entity: ClothingOuterHardsuitMilitiaOperation
-  cost: 2400
+  cost: 1400
   maxCount: 2
-  minimumShopLevel: 5
+  minimumShopLevel: 2
 
 - type: repairRewardPool
   id: MilitiaOperationSupplyPool
   deliveryContainer: MilitiaOperationSupplyCrate
-  shopLevelThresholds: [0, 200, 600, 1200, 2000]
+  shopLevelThresholds: [0, 200, 400, 800, 1200, 1600]
   baseReputationByDifficulty: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   qualityBands:
   - minPercent: 0
@@ -296,6 +359,7 @@
     multiplierPercent: 100
   rewards:
   - MilitiaSupplyMedipen
+  - MilitiaSupplyCombatMedipen
   - MilitiaSupplyPistolAmmo
   - MilitiaSupplyFlashbang
   - MilitiaSupplyCombatMedkit
@@ -314,6 +378,7 @@
   - MilitiaSupplyWeaponRifleVSS
   - MilitiaSupplyWeaponSniperSV98
   - MilitiaSupplyWeaponSniperSVD
+  - MilitiaSupplyWeaponLauncherMGL
   - MilitiaSupplyMagazineLightRifle
   - MilitiaSupplyMagazineCarbineSKS
   - MilitiaSupplyMagazineRifle
@@ -331,6 +396,13 @@
   - MilitiaSupplyMagazineBoxRifle
   - MilitiaSupplyMagazineBoxMagnum
   - MilitiaSupplyMagazineBoxAntiMateriel
+  - MilitiaSupplyMagazineGrenadeBaton
+  - MilitiaSupplyMagazineGrenadeFlash
+  - MilitiaSupplyMagazineGrenadeEMP
+  - MilitiaSupplyMagazineGrenadeFrag
+  - MilitiaSupplyMagazineGrenadeBlast
   - MilitiaSupplyAdrenalImplanter
   - MilitiaSupplyPoliceBeta
+  - MilitiaSupplyAdvancedNightVision
+  - MilitiaSupplyBallisticShield
   - MilitiaSupplyOperationHardsuit

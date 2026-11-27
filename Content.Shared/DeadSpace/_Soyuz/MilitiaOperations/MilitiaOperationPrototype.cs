@@ -27,6 +27,8 @@ public sealed partial class MilitiaOperationConfigPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;
     [DataField(required: true)] public List<ProtoId<MilitiaOperationPrototype>> Operations = new();
+    [DataField] public List<LocId> OfferNames = new();
+    [DataField] public List<LocId> OfferDescriptions = new();
     [DataField(required: true)] public List<EntProtoId> Crew = new();
     [DataField(required: true)] public EntProtoId Medic;
     [DataField] public EntProtoId DocumentGuard = "MilitiaOperationRaiderCustodian";
@@ -34,6 +36,8 @@ public sealed partial class MilitiaOperationConfigPrototype : IPrototype
     [DataField(required: true)] public ProtoId<RepairRewardPoolPrototype> Shop;
     [DataField] public bool ShopEnabled;
     [DataField] public Dictionary<MilitiaContrabandKind, MilitiaContrabandPrice> ContrabandRewards = new();
+    /// <summary>Map weapons and suit pieces that cannot be identified by their gun or hardsuit components.</summary>
+    [DataField] public Dictionary<EntProtoId, MilitiaContrabandKind> MapContraband = new();
     [DataField] public TimeSpan Cooldown = TimeSpan.FromMinutes(5);
 }
 
@@ -47,6 +51,8 @@ public sealed partial class MilitiaEquipmentPrototype : IPrototype, IInheritingP
     [DataField, AlwaysPushInheritance] public Dictionary<string, List<EntProtoId>> Equipment = new();
     [DataField] public List<MilitiaProtectionSet> Protection = new();
     [DataField] public List<MilitiaWeaponSet> Weapons = new();
+    [DataField] public EntProtoId? SecondaryWeapon;
+    [DataField] public EntProtoId? SecondaryAmmo;
     [DataField, AlwaysPushInheritance] public Dictionary<EntProtoId, List<EntProtoId>> MagazineVariants = new();
     [DataField] public List<EntProtoId> MeleeWeapons = new();
     [DataField] public List<EntProtoId> Supplies = new();

@@ -14,6 +14,17 @@ public static class RepairOrderDifficulty
     public const int Minimum = 1;
     public const int Maximum = 10;
 
+    public static bool CanRetain(int difficulty) => difficulty is >= 4 and <= Maximum;
+
+    public static long? GetRetentionCost(int difficulty, int maxPoints)
+    {
+        if (!CanRetain(difficulty) || maxPoints <= 0)
+            return null;
+
+        var markup = difficulty <= 6 ? (maxPoints + 5L) / 10 : 0L;
+        return maxPoints + markup;
+    }
+
     public static void Validate(int difficulty)
     {
         if (difficulty < Minimum || difficulty > Maximum)

@@ -1,7 +1,9 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using System.Linq;
 using System.Numerics;
 using Content.Shared.Physics;
+using Content.Shared.Storage.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
@@ -17,6 +19,52 @@ public sealed partial class MilitiaOperationSystem
     private static readonly Vector2[] DiagonalPositionOffsets =
         [new(-0.3f, 0.3f), new(0.3f, -0.3f), new(-0.3f, -0.3f), new(0.3f, 0.3f)];
     private readonly Dictionary<EntityUid, float> _squadCoverRadii = new();
+    private readonly HashSet<Entity<EntityStorageComponent>> _squadLockersAtPosition = new();
+
+    private bool SquadLockerAt(MapCoordinates position)
+    {
+        _squadLockersAtPosition.Clear();
+        _squadLookup.GetEntitiesIntersecting(position.MapId,
+            Box2.CenteredAround(position.Position, new Vector2(0.12f)), _squadLockersAtPosition,
+            LookupFlags.Static | LookupFlags.Dynamic);
+        return _squadLockersAtPosition.Any(locker => SquadLocker(locker.Owner));
+    }
+
+    private bool SquadLocker(EntityUid entity)
+        => HasComp<EntityStorageComponent>(entity) && TryComp<PhysicsComponent>(entity, out var body) && body.CanCollide &&
+           TryComp<FixturesComponent>(entity, out var fixtures) && fixtures.Fixtures.Values.Any(fixture =>
+               fixture.Hard && (fixture.CollisionLayer & (int) CollisionGroup.BulletImpassable) != 0);
+
+    private bool SquadLockerOnRoute(EntityUid uid, MapCoordinates from, MapCoordinates to)
+    {
+        if (from.MapId != to.MapId || !TryComp<FixturesComponent>(uid, out var fixtures))
+            return false;
+        var delta = to.Position - from.Position;
+        if (delta.LengthSquared() < 0.0001f)
+            return false;
+        var start = _squadPhysics.GetPhysicsTransform(uid);
+        start.Position = from.Position;
+        var filter = new QueryFilter
+        {
+            MaskBits = (uint) CollisionGroup.BulletImpassable,
+            IsIgnored = entity => entity == uid || !SquadLocker(entity),
+        };
+        foreach (var fixture in fixtures.Fixtures.Values)
+        {
+            if (fixture.Hard && _squadRayCast.CastShape(from.MapId, fixture.Shape, start, delta, filter,
+                    RayCastSystem.RayCastClosestCallback).Hit)
+                return true;
+        }
+        return SquadLockerAt(from) || SquadLockerAt(to);
+    }
+
+    private void RequestLockerDetour(EntityUid uid, MilitiaOperationActorComponent actor)
+    {
+        if (actor.LockerDetourUntil > _timing.CurTime)
+            return;
+        actor.LockerDetourUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
+        _urgentSquadOrders.Add(uid);
+    }
 
     private bool SquadCoverExposed(EntityUid uid, MapCoordinates position, MapCoordinates threat, float range = 0f)
     {
@@ -48,10 +96,14 @@ public sealed partial class MilitiaOperationSystem
             return false;
         if (delta.LengthSquared() < 0.000001f)
             return true;
-        return !_squadRayCast.CastShape(origin.MapId, SightPathShape,
-            new Robust.Shared.Physics.Transform(origin.Position, 0f), delta,
-            new QueryFilter { MaskBits = (uint) mask, IsIgnored = ignored }, RayCastSystem.RayCastClosestCallback).Hit;
+        return !CastSquadLine(origin, delta, mask, ignored).Hit;
     }
+
+    private RayResult CastSquadLine(MapCoordinates origin, Vector2 delta, CollisionGroup mask,
+        Func<EntityUid, bool>? ignored)
+        => _squadRayCast.CastShape(origin.MapId, SightPathShape,
+            new Robust.Shared.Physics.Transform(origin.Position, 0f), delta,
+            new QueryFilter { MaskBits = (uint) mask, IsIgnored = ignored }, RayCastSystem.RayCastClosestCallback);
 
     private bool SquadLineClear(EntityUid uid, EntityUid target, float range = 0f,
         CollisionGroup mask = SquadSight, Func<EntityUid, bool>? ignored = null)
@@ -77,6 +129,7 @@ public sealed partial class MilitiaOperationSystem
         {
             if (!fixture.Hard)
                 continue;
+            var bounds = fixture.Shape.ComputeAABB(transform, 0);
             intersecting.Clear();
             _squadLookup.GetEntitiesIntersecting(position.MapId, fixture.Shape, transform, intersecting,
                 LookupFlags.Static | LookupFlags.Dynamic);
@@ -88,7 +141,11 @@ public sealed partial class MilitiaOperationSystem
                 foreach (var other in otherFixtures.Fixtures.Values)
                 {
                     if (other.Hard && ((fixture.CollisionMask & other.CollisionLayer) != 0 ||
-                                       (other.CollisionMask & fixture.CollisionLayer) != 0))
+                                       (other.CollisionMask & fixture.CollisionLayer) != 0 ||
+                                       (other.CollisionLayer & (int) CollisionGroup.BulletImpassable) != 0 &&
+                                       HasComp<EntityStorageComponent>(obstacle)) &&
+                        (other.Shape.ChildCount > 1 ||
+                         other.Shape.ComputeAABB(_squadPhysics.GetPhysicsTransform(obstacle), 0).Intersects(bounds)))
                         return false;
                 }
             }

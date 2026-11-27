@@ -23,8 +23,12 @@ using Content.Shared.Ghost;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Shuttles.Components;
+using Content.Shared.StepTrigger.Systems;
+using Content.Shared.Trigger.Components.Effects;
 using Robust.Server.GameObjects;
 using Robust.Server.Physics;
+using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -53,6 +57,11 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private ISawmill _log = default!;
     private TimeSpan _nextUpdate;
+    // Shop purchases, operation rewards and contraband handovers share one account per round.
+    private long _supplyPoints;
+    private long _reputation;
+    private readonly Dictionary<Guid, (EntityUid Actor, (string Reward, int Count)[] Lines)> _purchases = new();
+    private readonly Dictionary<ProtoId<MilitiaOperationConfigPrototype>, EntityUid> _operationControllers = new();
 
     public override void Initialize()
     {
@@ -61,8 +70,8 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         _log = _logs.GetSawmill("militia_operations");
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(_ =>
         {
-            _hologramAncestors.Clear();
-            _projectileMasks.Clear();
+            _prototypeAncestors.Clear();
+            _projectileCollisions.Clear();
         });
         SubscribeLocalEvent<RoundRestartCleanupEvent>(_ =>
         {
@@ -77,28 +86,38 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             _urgentThreatScans.Clear();
             _urgentSquadOrders.Clear();
             _scannedThreats.Clear();
+            _supportWork.Clear();
+            _breakoutDoorSnapshots.Clear();
             _squadCoverRadii.Clear();
             _squadHostileQueries.Clear();
             _reuseSquadQueries = false;
             _treatmentReservations.Clear();
-            _hologramAncestors.Clear();
-            _projectileMasks.Clear();
+            _prototypeAncestors.Clear();
+            _projectileCollisions.Clear();
             _custodyUiCache.Clear();
             _custodyRequests.Clear();
             _issuedContraband.Clear();
+            _redeemedContraband.Clear();
+            _supplyPoints = 0;
+            _reputation = 0;
+            _purchases.Clear();
+            _operationControllers.Clear();
             _preparationMaps.Clear();
         });
         SubscribeLocalEvent<MilitiaOperationGridComponent, GridSplitEvent>(OnSplit);
         SubscribeLocalEvent<MilitiaOperationTargetComponent, EntityTerminatingEvent>(OnTargetTerminating);
         SubscribeLocalEvent<MilitiaOperationActorComponent, DamageChangedEvent>(OnActorDamaged);
+        SubscribeLocalEvent<DamageOnTriggerComponent, StepTriggerAttemptEvent>(OnActorShardStep);
         SubscribeLocalEvent<Content.Shared.Projectiles.ProjectileComponent, Content.Shared.Projectiles.ProjectileHitEvent>(OnActorProjectileHit);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Hitscan.Events.HitscanRaycastStrikeEvent>(OnActorHitscanHit);
         SubscribeLocalEvent<Content.Shared.Weapons.Hitscan.Events.HitscanRaycastFiredEvent>(OnThreateningHitscan);
         SubscribeLocalEvent<MilitiaOperationActorComponent, TryingToSleepEvent>(OnActorSleepAttempt);
+        SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Stunnable.KnockDownAttemptEvent>(OnActorKnockDownAttempt);
         SubscribeLocalEvent<MilitiaOperationActorComponent, ComponentShutdown>(OnActorShutdown);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MobStateChangedEvent>(OnActorMobStateChanged);
         SubscribeLocalEvent<MilitiaOperationConsoleComponent, EntInsertedIntoContainerMessage>(OnDocumentInserted);
         SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.ShotAttemptedEvent>(OnSquadShot);
+        SubscribeLocalEvent<MilitiaOperationActorComponent, Content.Shared.Weapons.Ranged.Events.GunShotAtTargetEvent>(OnActorTargetedShot);
         SubscribeLocalEvent<MilitiaOperationActorComponent, MapInitEvent>(OnActorMapInit,
             after: [typeof(SharedBodySystem), typeof(LoadoutSystem)]);
         InitializeCustody();
@@ -132,25 +151,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             return;
         _nextUpdate = _timing.CurTime + TimeSpan.FromSeconds(1);
 
-        var consoles = EntityQueryEnumerator<MilitiaOperationConsoleComponent>();
-        while (consoles.MoveNext(out var uid, out var console))
-        {
-            if (EnsureStation(uid, console) is not { } state || state.Busy)
-                continue;
-            try
-            {
-                if (_slots.TryGetSlot(uid, DocumentSlot, out var evidenceSlot) && evidenceSlot.Item is { } evidence)
-                    TryReceiveEvidence(uid, state, evidence);
-                CheckActive(state);
-                UpdateUi(uid, console, state);
-            }
-            catch (Exception exception)
-            {
-                _log.Error($"Operation maintenance at {uid} failed: {exception}");
-            }
-        }
-
-        var states = EntityQueryEnumerator<MilitiaOperationStationComponent>();
+        var states = EntityQueryEnumerator<MilitiaOperationStateComponent>();
         while (states.MoveNext(out _, out var state))
         {
             if (!state.Busy)
@@ -159,32 +160,44 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
                 catch (Exception exception) { _log.Error($"Operation lifecycle failed: {exception}"); }
             }
         }
+
+        var consoles = EntityQueryEnumerator<MilitiaOperationConsoleComponent>();
+        while (consoles.MoveNext(out var uid, out var console))
+        {
+            if (EnsureOperationState(console.Config) is not { } state || state.Comp.Busy)
+                continue;
+            try
+            {
+                if (_slots.TryGetSlot(uid, DocumentSlot, out var evidenceSlot) && evidenceSlot.Item is { } evidence)
+                    TryReceiveEvidence(uid, state, evidence);
+                UpdateUi(uid, console, state.Comp);
+            }
+            catch (Exception exception)
+            {
+                _log.Error($"Operation maintenance at {uid} failed: {exception}");
+            }
+        }
+
         MaintainOwnedEntities();
         foreach (var map in _preparationMaps.ToArray())
             CleanupPreparationMap(map);
     }
 
-    private MilitiaOperationStationComponent? EnsureStation(EntityUid console, MilitiaOperationConsoleComponent component)
+    private Entity<MilitiaOperationStateComponent>? EnsureOperationState(ProtoId<MilitiaOperationConfigPrototype> configId)
     {
-        if (_stations.GetOwningStation(console) is not { } station || Terminating(station) ||
-            !_prototypes.TryIndex(component.Config, out var config))
+        if (!_prototypes.TryIndex(configId, out var config))
             return null;
-        var state = EnsureComp<MilitiaOperationStationComponent>(station);
-        if (state.Config.Length == 0)
-        {
-            state.Config = config.ID;
-            InitializeOffers(state, config);
-        }
-        return state.Config == config.ID ? state : null;
-    }
+        if (_operationControllers.TryGetValue(configId, out var owner) && !TerminatingOrDeleted(owner) &&
+            !EntityManager.IsQueuedForDeletion(owner) && TryComp<MilitiaOperationStateComponent>(owner, out var existing))
+            return (owner, existing);
 
-    private void InitializeOffers(MilitiaOperationStationComponent state, MilitiaOperationConfigPrototype config)
-    {
-        if (state.Active != null)
-            return;
-        var offers = ReplenishOffers(state.Offers, config);
-        state.Offers.Clear();
+        var offers = ReplenishOffers(Array.Empty<MilitiaOperationOffer>(), config);
+        owner = Spawn(null, MapCoordinates.Nullspace);
+        var state = EnsureComp<MilitiaOperationStateComponent>(owner);
+        state.Config = configId;
         state.Offers.AddRange(offers);
+        _operationControllers[configId] = owner;
+        return (owner, state);
     }
 
     private List<MilitiaOperationOffer> ReplenishOffers(IEnumerable<MilitiaOperationOffer> current,
@@ -193,10 +206,22 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var offers = current.ToList();
         var candidates = config.Operations.Distinct()
             .Where(id => _prototypes.TryIndex(id, out _) && offers.All(offer => offer.Prototype != id.Id)).ToList();
+        var names = config.OfferNames.Except(offers.Where(offer => offer.Name.HasValue)
+            .Select(offer => offer.Name!.Value)).ToList();
+        var descriptions = config.OfferDescriptions.Except(offers.Where(offer => offer.Description.HasValue)
+            .Select(offer => offer.Description!.Value)).ToList();
         while (offers.Count < 2 && candidates.Count > 0)
         {
             var index = _random.Next(candidates.Count);
-            offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), candidates[index].Id));
+            var nameIndex = names.Count > 0 ? _random.Next(names.Count) : -1;
+            var descriptionIndex = descriptions.Count > 0 ? _random.Next(descriptions.Count) : -1;
+            offers.Add(new MilitiaOperationOffer(Guid.NewGuid(), candidates[index].Id,
+                nameIndex >= 0 ? (LocId?) names[nameIndex] : null,
+                descriptionIndex >= 0 ? (LocId?) descriptions[descriptionIndex] : null));
+            if (nameIndex >= 0)
+                names.RemoveAt(nameIndex);
+            if (descriptionIndex >= 0)
+                descriptions.RemoveAt(descriptionIndex);
             candidates.RemoveAt(index);
         }
         return offers;
@@ -204,20 +229,24 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private void OnOpened(Entity<MilitiaOperationConsoleComponent> console, ref BoundUIOpenedEvent args)
     {
-        if (EnsureStation(console.Owner, console.Comp) is { } state)
-            UpdateUi(console.Owner, console.Comp, state);
+        if (EnsureOperationState(console.Comp.Config) is { } state)
+        {
+            if (!state.Comp.Busy)
+                CheckActive(state.Comp);
+            UpdateUi(console.Owner, console.Comp, state.Comp);
+        }
     }
 
     private void OnRequest(Entity<MilitiaOperationConsoleComponent> console, ref MilitiaOperationRequest args)
     {
         if (!CanUseConsole(console.Owner, args.Actor) ||
-            _stations.GetOwningStation(console.Owner) is not { } station ||
-            EnsureStation(console.Owner, console.Comp) is not { } state || args.Token == Guid.Empty ||
+            EnsureOperationState(console.Comp.Config) is not { } controller || args.Token == Guid.Empty ||
             !_prototypes.TryIndex(console.Comp.Config, out var config))
         {
             SendOperationResult(console.Owner, args.Actor, false, "militia-operation-unavailable", args.Token);
             return;
         }
+        var state = controller.Comp;
         if (state.Busy || args.Action == MilitiaOperationAction.Purchase &&
             _timing.CurTime < state.Requests.GetValueOrDefault(args.Actor))
         {
@@ -236,11 +265,11 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
             switch (args.Action)
             {
                 case MilitiaOperationAction.Accept:
-                    success = Accept(station, console.Owner, state, config, args.Token);
+                    success = Accept(controller, console.Owner, config, args.Token);
                     message = success ? "militia-operation-accepted" : "militia-operation-spawn-failed";
                     break;
                 case MilitiaOperationAction.Submit:
-                    success = Submit(console.Owner, state, args.Token);
+                    success = Submit(console.Owner, controller, args.Token);
                     message = success ? "militia-operation-success" : "militia-operation-submit-failed";
                     break;
                 case MilitiaOperationAction.Abort:
@@ -252,7 +281,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
                     message = success ? "militia-operation-aborted" : message;
                     break;
                 case MilitiaOperationAction.Purchase:
-                    success = Purchase(station, console.Owner, state, config, args);
+                    success = Purchase(controller.Owner, console.Owner, config, args);
                     message = success ? "militia-operation-purchased" : !config.ShopEnabled ? "militia-operation-shop-maintenance" : "militia-operation-purchase-failed";
                     break;
             }
@@ -278,35 +307,42 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private bool CanUseConsole(EntityUid console, EntityUid actor)
         => Exists(console) && !TerminatingOrDeleted(console) && !EntityManager.IsQueuedForDeletion(console) &&
+           Transform(console) is { GridUid: not null } xform && xform.MapID != MapId.Nullspace &&
            Exists(actor) && !TerminatingOrDeleted(actor) && this.IsPowered(console, EntityManager) &&
            !HasComp<GhostComponent>(actor) && _blocker.CanInteract(actor, console) &&
            _ui.IsUiOpen(console, MilitiaOperationUiKey.Key, actor) &&
            _interaction.InRangeUnobstructed(actor, console) && _access.IsAllowed(actor, console);
 
-    private bool Accept(EntityUid station, EntityUid console, MilitiaOperationStationComponent state,
-        MilitiaOperationConfigPrototype config, Guid token)
+    private bool Accept(Entity<MilitiaOperationStateComponent> controller, EntityUid console, MilitiaOperationConfigPrototype config, Guid token)
     {
+        var state = controller.Comp;
         state.Cleanup.RemoveWhere(uid => !Exists(uid));
         if (state.Active is { } existing)
             return existing.OfferToken == token;
         if (state.Cleanup.Count != 0 || _timing.CurTime < state.AvailableAt)
             return false;
+        var source = Transform(console);
+        var sourceGrid = source.GridUid;
+        var sourceMap = source.MapID;
         var offer = state.Offers.FirstOrDefault(o => o.Token == token);
         if (offer == null || !_prototypes.TryIndex<MilitiaOperationPrototype>(offer.Prototype, out var prototype) ||
-            !TryPrepareOperation(station, console, config, prototype, out var active))
+            !TryPrepareOperation(controller, console, config, prototype, out var active))
             return false;
 
         if (!Exists(console) || TerminatingOrDeleted(console) || EntityManager.IsQueuedForDeletion(console) ||
-            _stations.GetOwningStation(console) != station || !HasComp<MilitiaOperationConsoleComponent>(console))
+            !HasComp<MilitiaOperationConsoleComponent>(console) || Transform(console).GridUid != sourceGrid ||
+            Transform(console).MapID != sourceMap)
         {
             state.Cleanup.UnionWith(active.Grids);
             return false;
         }
         active.OfferToken = token;
+        active.Name = offer.Name ?? active.Name;
+        active.Description = offer.Description ?? active.Description;
         state.Active = active;
         state.Status = "militia-operation-in-progress";
         state.Offers.Remove(offer);
-        _log.Info($"Operation activated: Station={station}, Operation={active.Id}, Prototype={prototype.ID}, Seed={active.Seed}, Crew={active.Crew.Count}");
+        _log.Info($"Operation activated: Console={console}, Operation={active.Id}, Prototype={prototype.ID}, Seed={active.Seed}, Crew={active.Crew.Count}");
         return true;
     }
 
@@ -314,13 +350,18 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         => active.Crew.Count(uid => Exists(uid) && !Terminating(uid) && !EntityManager.IsQueuedForDeletion(uid) &&
             HasComp<MilitiaOperationActorComponent>(uid) && !_mobs.IsDead(uid));
 
-    private void CheckActive(MilitiaOperationStationComponent state)
+    private bool OperationGridExists(EntityUid grid)
+        => HasComp<MapGridComponent>(grid) && !TerminatingOrDeleted(grid) && !EntityManager.IsQueuedForDeletion(grid);
+
+    private void CheckActive(MilitiaOperationStateComponent state)
     {
         state.Cleanup.RemoveWhere(uid => !Exists(uid));
         if (state.Active is not { } active)
             return;
         if (_timing.CurTime >= active.Deadline)
             Finish(state, active, false, "militia-operation-expired");
+        else if (!active.Grids.Any(OperationGridExists))
+            Finish(state, active, false, "militia-operation-target-lost");
         else if (active.EvidenceReceived && Remaining(active) == 0)
             Finish(state, active, true, "militia-operation-success");
         else if (!active.EvidenceReceived && (!Exists(active.Document) || Terminating(active.Document) || EntityManager.IsQueuedForDeletion(active.Document)))
@@ -329,15 +370,16 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 
     private void OnDocumentInserted(Entity<MilitiaOperationConsoleComponent> console, ref EntInsertedIntoContainerMessage args)
     {
-        if (args.Container.ID == DocumentSlot && EnsureStation(console.Owner, console.Comp) is { } state)
+        if (args.Container.ID == DocumentSlot && EnsureOperationState(console.Comp.Config) is { } state)
             TryReceiveEvidence(console.Owner, state, args.Entity);
     }
 
-    private void TryReceiveEvidence(EntityUid console, MilitiaOperationStationComponent state, EntityUid evidence)
+    private void TryReceiveEvidence(EntityUid console, Entity<MilitiaOperationStateComponent> controller, EntityUid evidence)
     {
+        var state = controller.Comp;
         if (state.Busy || !this.IsPowered(console, EntityManager) || state.Active is not { } active || active.EvidenceReceived ||
             evidence != active.Document || !TryComp<MilitiaOperationDocumentComponent>(evidence, out var document) ||
-            document.Operation != active.Id || document.Station != _stations.GetOwningStation(console) ||
+            document.Operation != active.Id || document.Controller != controller.Owner ||
             _timing.CurTime >= active.Deadline || TerminatingOrDeleted(evidence) || EntityManager.IsQueuedForDeletion(evidence))
             return;
         state.Busy = true;
@@ -356,35 +398,36 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         finally { state.Busy = false; }
     }
 
-    private bool Submit(EntityUid console, MilitiaOperationStationComponent state, Guid token)
+    private bool Submit(EntityUid console, Entity<MilitiaOperationStateComponent> controller, Guid token)
     {
+        var state = controller.Comp;
         if (state.Active is not { } active || active.Id != token || Remaining(active) != 0 ||
             !_slots.TryGetSlot(console, DocumentSlot, out var slot) || slot.Item != active.Document ||
             !TryComp<MilitiaOperationDocumentComponent>(active.Document, out var document) ||
-            document.Operation != active.Id || document.Station != _stations.GetOwningStation(console) ||
+            document.Operation != active.Id || document.Controller != controller.Owner ||
             Terminating(active.Document) || EntityManager.IsQueuedForDeletion(active.Document))
             return false;
         Finish(state, active, true, "militia-operation-success");
         return true;
     }
 
-    private void Finish(MilitiaOperationStationComponent state, MilitiaActiveOperation active, bool success, string status)
+    private void Finish(MilitiaOperationStateComponent state, MilitiaActiveOperation active, bool success, string status)
     {
         if (!ReferenceEquals(state.Active, active))
             return;
-        var points = success ? checked(state.SupplyPoints + active.Points) : state.SupplyPoints;
-        var reputation = success ? checked(state.Reputation + active.Reputation) : state.Reputation;
+        var points = success ? checked(_supplyPoints + active.Points) : _supplyPoints;
+        var reputation = success ? checked(_reputation + active.Reputation) : _reputation;
         var history = Loc.GetString("militia-operation-history-entry", ("name", Loc.GetString(active.Name)),
             ("result", Loc.GetString(status)), ("points", success ? active.Points : 0));
         // Prepare replacement offers before committing completion or rewards.
-        var offers = _prototypes.TryIndex<MilitiaOperationConfigPrototype>(state.Config, out var config)
+        var offers = _prototypes.TryIndex(state.Config, out var config)
             ? ReplenishOffers(state.Offers, config) : state.Offers.ToList();
         state.Cleanup.UnionWith(active.Grids);
         state.History.Insert(0, history);
         if (state.History.Count > 30)
             state.History.RemoveAt(state.History.Count - 1);
-        state.SupplyPoints = points;
-        state.Reputation = reputation;
+        _supplyPoints = points;
+        _reputation = reputation;
         state.Status = status;
         state.AvailableAt = _timing.CurTime + active.Cooldown;
         state.Active = null;
@@ -392,28 +435,31 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         state.Offers.AddRange(offers);
     }
 
-    private bool Purchase(EntityUid station, EntityUid console, MilitiaOperationStationComponent state,
-        MilitiaOperationConfigPrototype config, MilitiaOperationRequest request)
+    private bool Purchase(EntityUid controller, EntityUid console, MilitiaOperationConfigPrototype config,
+        MilitiaOperationRequest request)
     {
-        if (state.Purchases.TryGetValue(request.Token, out var receipt))
+        if (_purchases.TryGetValue(request.Token, out var receipt))
             return receipt.Actor == request.Actor && receipt.Lines.SequenceEqual(
                 request.Lines.Select(line => (line.RewardPrototypeId, line.Count)));
-        if (!config.ShopEnabled || state.Purchases.Count >= 2048 ||
+        if (!config.ShopEnabled || _purchases.Count >= 2048 ||
             !_prototypes.TryIndex(config.Shop, out var pool) ||
-            !_rewards.TryBuildPurchase(pool, request.Lines, RepairOrderRewardSystem.GetShopLevel(pool, state.Reputation),
-                out var rewards, out var cost, out _) || state.SupplyPoints < cost)
+            !_rewards.TryBuildPurchase(pool, request.Lines, RepairOrderRewardSystem.GetShopLevel(pool, _reputation),
+                out var rewards, out var cost, out _) || _supplyPoints < cost)
             return false;
         var purchasedLines = request.Lines.Select(line => (line.RewardPrototypeId, line.Count)).ToArray();
+        var source = Transform(console);
+        var sourceGrid = source.GridUid;
+        var sourceMap = source.MapID;
         RepairOrderDelivery? delivery = null;
         var committed = false;
         try
         {
-            if (!_delivery.TryDeliver(station, request.Token, console, pool, rewards, out delivery) ||
-                state.SupplyPoints < cost || state.Purchases.ContainsKey(request.Token) ||
-                !CanUseConsole(console, request.Actor) || _stations.GetOwningStation(console) != station)
+            if (!_delivery.TryDeliver(controller, request.Token, console, pool, rewards, out delivery) ||
+                !CanUseConsole(console, request.Actor) || Transform(console).GridUid != sourceGrid || Transform(console).MapID != sourceMap ||
+                _supplyPoints < cost || _purchases.Count >= 2048 || _purchases.ContainsKey(request.Token))
                 return false;
-            state.Purchases.Add(request.Token, (request.Actor, purchasedLines));
-            state.SupplyPoints -= cost;
+            _purchases.Add(request.Token, (request.Actor, purchasedLines));
+            _supplyPoints -= cost;
             _delivery.Commit(delivery);
             committed = true;
             return true;
@@ -437,13 +483,13 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
     {
         foreach (var fragment in args.NewGrids)
         {
-            MarkGrid(fragment, grid.Comp.Station, grid.Comp.Operation);
-            if (TryComp<MilitiaOperationStationComponent>(grid.Comp.Station, out var station))
+            MarkGrid(fragment, grid.Comp.Controller, grid.Comp.Operation);
+            if (TryComp<MilitiaOperationStateComponent>(grid.Comp.Controller, out var state))
             {
-                if (station.Active is { } active && active.Id == grid.Comp.Operation)
+                if (state.Active is { } active && active.Id == grid.Comp.Operation)
                     active.Grids.Add(fragment);
                 else
-                    station.Cleanup.Add(fragment);
+                    state.Cleanup.Add(fragment);
             }
         }
     }
@@ -467,9 +513,9 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         }
     }
 
-    private bool IsActive(EntityUid station, Guid operation)
-        => TryComp<MilitiaOperationStationComponent>(station, out var state) &&
-           !Terminating(station) && state.Active?.Id == operation;
+    private bool IsActive(EntityUid controller, Guid operation)
+        => TryComp<MilitiaOperationStateComponent>(controller, out var state) &&
+           !Terminating(controller) && state.Active?.Id == operation;
 
     private void OnActorMobStateChanged(EntityUid uid, MilitiaOperationActorComponent component, MobStateChangedEvent args)
     {
@@ -491,33 +537,32 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var grids = EntityQueryEnumerator<MilitiaOperationGridComponent>();
         while (grids.MoveNext(out var grid, out var owner))
         {
-            if (!IsActive(owner.Station, owner.Operation))
-                EnsureComp<RepairOrderCleanupComponent>(grid).Station = owner.Station;
+            if (!IsActive(owner.Controller, owner.Operation))
+                EnsureComp<RepairOrderCleanupComponent>(grid).Station = owner.Controller;
         }
         var documents = EntityQueryEnumerator<MilitiaOperationDocumentComponent>();
         while (documents.MoveNext(out var uid, out var owner))
         {
-            if (owner.Operation != Guid.Empty && !IsActive(owner.Station, owner.Operation))
+            if (owner.Operation != Guid.Empty && !IsActive(owner.Controller, owner.Operation))
                 QueueDel(uid);
         }
         var enemies = EntityQueryEnumerator<MilitiaOperationEnemyComponent>();
         var remove = new HashSet<EntityUid>();
         while (enemies.MoveNext(out var uid, out var owner))
         {
-            if (!IsActive(owner.Station, owner.Operation))
+            if (!IsActive(owner.Controller, owner.Operation))
                 remove.Add(uid);
         }
         var equipment = EntityQueryEnumerator<MilitiaOperationEquipmentComponent>();
         var preserve = new List<EntityUid>();
         while (equipment.MoveNext(out var uid, out var owner))
         {
-            if (Exists(owner.Enemy) && _mobs.IsDead(owner.Enemy))
+            if (!Exists(owner.Enemy) || _mobs.IsDead(owner.Enemy))
             {
                 preserve.Add(uid);
                 continue;
             }
-            if (owner.Operation != Guid.Empty && !IsActive(owner.Station, owner.Operation) ||
-                !Exists(owner.Enemy))
+            if (owner.Operation != Guid.Empty && !IsActive(owner.Controller, owner.Operation))
                 remove.Add(uid);
         }
         foreach (var uid in preserve)
@@ -533,10 +578,10 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         }
     }
 
-    private void MarkGrid(EntityUid grid, EntityUid station, Guid operation)
+    private void MarkGrid(EntityUid grid, EntityUid controller, Guid operation)
     {
         var marker = EnsureComp<MilitiaOperationGridComponent>(grid);
-        marker.Station = station;
+        marker.Controller = controller;
         marker.Operation = operation;
         EnsureComp<MilitiaOperationTargetComponent>(grid);
         if (TryComp<ShuttleComponent>(grid, out var shuttle))
@@ -546,7 +591,7 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         _shuttles.AddIFFFlag(grid, IFFFlags.HideLabel);
     }
 
-    private void UpdateUi(EntityUid console, MilitiaOperationConsoleComponent component, MilitiaOperationStationComponent state)
+    private void UpdateUi(EntityUid console, MilitiaOperationConsoleComponent component, MilitiaOperationStateComponent state)
     {
         if (!Exists(console) || TerminatingOrDeleted(console) || EntityManager.IsQueuedForDeletion(console) ||
             !_ui.HasUi(console, MilitiaOperationUiKey.Key) ||
@@ -556,17 +601,19 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
         var position = string.Empty;
         if (active != null)
         {
-            var grid = active.Grids.FirstOrDefault(uid => Exists(uid) && !Terminating(uid));
+            var grid = active.Grids.FirstOrDefault(OperationGridExists);
             if (grid.IsValid())
             {
                 var p = _transform.GetWorldPosition(grid);
                 position = string.Create(CultureInfo.InvariantCulture, $"X: {p.X:F0}   Y: {p.Y:F0}");
+                if (Transform(grid).MapID != Transform(console).MapID)
+                    position = Loc.GetString("militia-operation-remote-position", ("map", (int) Transform(grid).MapID), ("position", position));
             }
         }
         _ui.SetUiState(console, MilitiaOperationUiKey.Key, new MilitiaOperationUiState(
-            state.Offers.ToList(), active == null ? null : new MilitiaOperationOffer(active.Id, active.Prototype.Id),
+            state.Offers.ToList(), active == null ? null : new MilitiaOperationOffer(active.Id, active.Prototype.Id, active.Name, active.Description),
             position, active == null ? 0 : Remaining(active), active?.Deadline, state.AvailableAt,
-            state.SupplyPoints, state.Reputation, RepairOrderRewardSystem.GetShopLevel(pool, state.Reputation),
+            _supplyPoints, _reputation, RepairOrderRewardSystem.GetShopLevel(pool, _reputation),
             pool.ID, state.Status, state.History.ToArray(),
             _slots.TryGetSlot(console, DocumentSlot, out var slot) && slot.Item != null, state.Cleanup.Count != 0,
             active?.EvidenceReceived == true, config.ShopEnabled));
@@ -574,19 +621,15 @@ public sealed partial class MilitiaOperationSystem : EntitySystem
 }
 
 [RegisterComponent]
-public sealed partial class MilitiaOperationStationComponent : Component
+public sealed partial class MilitiaOperationStateComponent : Component
 {
-    public string Config = string.Empty;
-    [DataField] public long SupplyPoints;
-    [DataField] public long Reputation;
+    public ProtoId<MilitiaOperationConfigPrototype> Config;
     public bool Busy;
     public TimeSpan AvailableAt;
     public readonly Dictionary<EntityUid, TimeSpan> Requests = new();
     public MilitiaActiveOperation? Active;
     public readonly List<MilitiaOperationOffer> Offers = new();
     public readonly List<string> History = new();
-    public readonly Dictionary<Guid, (EntityUid Actor, (string Reward, int Count)[] Lines)> Purchases = new();
-    public HashSet<Guid> RedeemedContraband = new();
     public readonly HashSet<EntityUid> Cleanup = new();
     public string Status = "militia-operation-ready";
 }
@@ -595,6 +638,7 @@ public sealed class MilitiaActiveOperation
 {
     public required ProtoId<MilitiaOperationPrototype> Prototype;
     public required LocId Name;
+    public required LocId Description;
     public required int Points;
     public required int Reputation;
     public required TimeSpan Cooldown;
@@ -611,14 +655,14 @@ public sealed class MilitiaActiveOperation
 [RegisterComponent]
 public sealed partial class MilitiaOperationGridComponent : Component
 {
-    public EntityUid Station;
+    public EntityUid Controller;
     public Guid Operation;
 }
 
 [RegisterComponent]
 public sealed partial class MilitiaOperationEnemyComponent : Component
 {
-    public EntityUid Station;
+    public EntityUid Controller;
     public Guid Operation;
 }
 
@@ -626,6 +670,6 @@ public sealed partial class MilitiaOperationEnemyComponent : Component
 public sealed partial class MilitiaOperationEquipmentComponent : Component
 {
     public EntityUid Enemy;
-    public EntityUid Station;
+    public EntityUid Controller;
     public Guid Operation;
 }

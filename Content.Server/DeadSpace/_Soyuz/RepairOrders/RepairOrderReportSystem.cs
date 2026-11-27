@@ -183,6 +183,8 @@ public sealed class RepairOrderReportSystem : EntitySystem
         AddLine(report, "repair-orders-report-progress", ("percent", RepairOrderProgress.CalculatePercent(
             active.CompletedTasks,
             active.TotalTasks)));
+        AddLine(report, "repair-orders-reputation-progress", ("percent",
+            RepairOrderProgress.CalculateReputationPercent(active.FinalPoints, active.MaxPoints)));
         AddLine(report, "repair-orders-report-tasks", ("completed", active.CompletedTasks), ("total", active.TotalTasks));
         AddLine(report, "repair-orders-report-points", ("current", active.CurrentPoints), ("max", active.MaxPoints));
         AddLine(report, "repair-orders-report-remaining", ("time", FormatRemaining(active.ExpiresAt - _timing.CurTime)));
@@ -198,6 +200,8 @@ public sealed class RepairOrderReportSystem : EntitySystem
         AddLine(report, "repair-orders-report-final-progress", ("percent", RepairOrderProgress.CalculatePercent(
             active.CompletedTasks,
             active.TotalTasks)));
+        AddLine(report, "repair-orders-reputation-progress", ("percent",
+            RepairOrderProgress.CalculateReputationPercent(active.FinalPoints, active.MaxPoints)));
         AddLine(report, "repair-orders-report-tasks", ("completed", active.CompletedTasks), ("total", active.TotalTasks));
         AddLine(report, "repair-orders-report-final-points", ("current", active.FinalPoints), ("max", active.MaxPoints));
         AddLine(report, "repair-orders-report-reward-budget", ("budget", active.ExpiredRewardBudget));
@@ -219,6 +223,8 @@ public sealed class RepairOrderReportSystem : EntitySystem
         AddDamageSummary(report, completed.DamageGeneration);
         AddExclusions(report, completed.Exclusions, completed.FinalPoints, completed.MaxPoints);
         AddLine(report, "repair-orders-report-final-progress", ("percent", completed.RepairPercent));
+        AddLine(report, "repair-orders-reputation-progress", ("percent",
+            RepairOrderProgress.CalculateReputationPercent(completed.FinalPoints, completed.MaxPoints)));
         AddLine(
             report,
             "repair-orders-report-tasks",

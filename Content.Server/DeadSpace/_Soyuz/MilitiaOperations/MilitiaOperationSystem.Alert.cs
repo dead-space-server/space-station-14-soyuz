@@ -5,7 +5,10 @@ using Content.Server.NPC.Systems;
 using Content.Shared.Projectiles;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
+using Content.Shared.Weapons.Ranged.Events;
+using Microsoft.Extensions.ObjectPool;
 using Robust.Shared.Map;
+using Robust.Shared.Utility;
 
 namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
@@ -13,6 +16,8 @@ public sealed partial class MilitiaOperationSystem
 {
     private const float RangedResponseRange = 40f;
     [Dependency] private readonly NPCSystem _actorNpcs = default!;
+    private readonly ObjectPool<HashSet<Entity<MilitiaOperationActorComponent>>> _hitscanActors =
+        new DefaultObjectPool<HashSet<Entity<MilitiaOperationActorComponent>>>(new SetPolicy<Entity<MilitiaOperationActorComponent>>());
 
     private MapCoordinates? DamageSourcePosition(EntityUid uid, EntityUid? source)
         => source is { } other && other != uid && Exists(other) && !TerminatingOrDeleted(other) &&
@@ -48,6 +53,15 @@ public sealed partial class MilitiaOperationSystem
         AlertRangedActor(actor, threat, args.Data.Shooter ?? args.Data.Gun, hit: true);
     }
 
+    private void OnActorTargetedShot(Entity<MilitiaOperationActorComponent> actor, ref GunShotAtTargetEvent args)
+    {
+        if (!actor.Comp.Medic || actor.Comp.MedicWithdrawUntil > _timing.CurTime + TimeSpan.FromSeconds(3.75) ||
+            !AvailableActor(actor.Owner, out _) || _factions.IsEntityFriendly(actor.Owner, args.Shooter) ||
+            DamageSourcePosition(actor.Owner, args.Shooter) is not { } source)
+            return;
+        AlertRangedActor(actor, source, args.Shooter);
+    }
+
     private bool HitscanPath(HitscanRaycastFiredData data, out MapCoordinates origin, out MapCoordinates end)
     {
         origin = end = default;
@@ -72,8 +86,13 @@ public sealed partial class MilitiaOperationSystem
 
     private void AlertRangedActor(Entity<MilitiaOperationActorComponent> actor, MapCoordinates? threat, EntityUid? attacker, bool hit = false)
     {
+        var wasEscaping = actor.Comp.RangedDangerUntil > _timing.CurTime;
         AlertActor(actor, threat);
-        if (!AvailableActor(actor.Owner, out _) || threat is not { } source)
+        if (!AvailableActor(actor.Owner, out _))
+            return;
+        if (actor.Comp.Medic && (hit || threat != null))
+            actor.Comp.MedicWithdrawUntil = _timing.CurTime + TimeSpan.FromSeconds(4);
+        if (threat is not { } source)
             return;
         var position = _transform.GetMapCoordinates(actor.Owner);
         if (position.MapId != source.MapId)
@@ -85,24 +104,36 @@ public sealed partial class MilitiaOperationSystem
         }
         var sameGrid = Transform(actor.Owner).GridUid is { } grid &&
             _turf.GetTileRef(_transform.ToCoordinates(source))?.GridUid == grid;
+        // Being able to answer with a laser does not make a blocked primary firing lane safe.
+        var weapon = UsingSecondary(actor.Comp) ? actor.Comp.PrimaryWeapon : actor.Comp.Weapon;
         if (Vector2.DistanceSquared(position.Position, source.Position) <= actor.Comp.SquadVision * actor.Comp.SquadVision &&
-            sameGrid && !ThroughWindow(position, source) &&
-            !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, ShotCollisionMask(actor.Comp.Weapon), 0f))
+            sameGrid && !FindTransparentBarrier(position, source, includeGirders: true).IsValid() &&
+            !SquadShotBlocked(actor.Owner, EntityUid.Invalid, position, source, GetShotCollision(weapon), 0f))
             return;
         RememberWindowThreat(actor.Owner, actor.Comp, source);
         if (hit)
         {
             actor.Comp.LastRangedImpact = Transform(actor.Owner).Coordinates;
-            actor.Comp.LastRangedImpactUntil = _timing.CurTime + TimeSpan.FromSeconds(0.75);
+            // Keep a confirmed impact unsafe beyond the movement-stall timeout (1.5 seconds).
+            actor.Comp.LastRangedImpactUntil = _timing.CurTime + TimeSpan.FromSeconds(2);
         }
         actor.Comp.RangedDangerUntil = actor.Comp.WindowHoldUntil;
         actor.Comp.WindowExposed = true;
         actor.Comp.ExposedToThreat = true;
+        if (!wasEscaping)
+        {
+            // Interrupt an idle/combat plan once on entering danger, not on every incoming laser tick.
+            actor.Comp.NextRangedRetreatSearch = TimeSpan.Zero;
+            actor.Comp.RetreatRetryAfter = TimeSpan.Zero;
+            actor.Comp.NextBreakoutAttempt = TimeSpan.Zero;
+            InterruptActor(actor.Owner);
+        }
     }
 
     private void OnThreateningHitscan(ref HitscanRaycastFiredEvent args)
     {
-        if (!TryComp<HitscanBasicDamageComponent>(args.Data.Hitscan, out var damage) || !damage.Damage.AnyPositive() ||
+        if (!EntityQueryEnumerator<MilitiaOperationActorComponent>().MoveNext(out _) ||
+            !TryComp<HitscanBasicDamageComponent>(args.Data.Hitscan, out var damage) || !damage.Damage.AnyPositive() ||
             !HitscanPath(args.Data, out var origin, out var end))
             return;
         var delta = end.Position - origin.Position;
@@ -112,21 +143,30 @@ public sealed partial class MilitiaOperationSystem
         var center = (origin.Position + end.Position) / 2f;
         var bounds = new Box2Rotated(Box2.CenteredAround(center, new Vector2(MathF.Sqrt(lengthSquared) + 4.5f, 4.5f)),
             delta.ToAngle(), center);
-        var candidates = new HashSet<Entity<MilitiaOperationActorComponent>>();
-        _squadLookup.GetEntitiesIntersecting(origin.MapId, bounds, candidates);
-        foreach (var actor in candidates)
+        var candidates = _hitscanActors.Get();
+        try
         {
-            if (actor.Owner == args.Data.HitEntity || actor.Owner == args.Data.Shooter ||
-                !AvailableActor(actor.Owner, out _) || MetaData(actor.Owner).EntityPaused ||
-                _factions.IsEntityFriendly(actor.Owner, args.Data.Shooter ?? args.Data.Gun))
-                continue;
-            var position = _transform.GetMapCoordinates(actor.Owner);
-            var along = Vector2.Dot(position.Position - origin.Position, delta) / lengthSquared;
-            if (along < 0f || along > 1f)
-                continue;
-            var closest = new MapCoordinates(origin.Position + delta * along, origin.MapId);
-            if (Vector2.DistanceSquared(position.Position, closest.Position) <= 1.5625f && CoverExposed(position, closest))
-                AlertRangedActor(actor, origin, args.Data.Shooter ?? args.Data.Gun);
+            _squadLookup.GetEntitiesIntersecting(origin.MapId, bounds, candidates);
+            var attacker = args.Data.Shooter ?? args.Data.Gun;
+            foreach (var actor in candidates)
+            {
+                if (actor.Owner == args.Data.HitEntity || actor.Owner == args.Data.Shooter ||
+                    TerminatingOrDeleted(actor.Owner) || MetaData(actor.Owner).EntityPaused)
+                    continue;
+                var position = _transform.GetMapCoordinates(actor.Owner);
+                var along = Vector2.Dot(position.Position - origin.Position, delta) / lengthSquared;
+                if (along < 0f || along > 1f)
+                    continue;
+                var closest = new MapCoordinates(origin.Position + delta * along, origin.MapId);
+                if (Vector2.DistanceSquared(position.Position, closest.Position) <= 1.5625f &&
+                    AvailableActor(actor.Owner, out _) && !_factions.IsEntityFriendly(actor.Owner, attacker) &&
+                    CoverExposed(position, closest))
+                    AlertRangedActor(actor, origin, attacker);
+            }
+        }
+        finally
+        {
+            _hitscanActors.Return(candidates);
         }
     }
 }

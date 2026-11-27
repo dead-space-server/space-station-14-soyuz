@@ -500,23 +500,17 @@ public sealed class RepairDamageTest
                     server.ProtoMan.Index(engineFailure)),
                 Is.False);
 
+            ProtoId<RepairDamageEventPrototype> microMeteorImpact = "RepairDamageMicroMeteorImpact";
+            var eventName = Loc.GetString(server.ProtoMan.Index(microMeteorImpact).Name);
             var duplicate =
                 RepairDamageSummary.Format(
                     server.ProtoMan,
-                    new[]
-                    {
-                        "RepairDamageMicroMeteorImpact",
-                        "RepairDamageMicroMeteorImpact"
-                    },
+                    new[] { microMeteorImpact.Id, microMeteorImpact.Id },
                     detailed: false);
 
             Assert.That(
                 duplicate,
-                Does.Contain("2"));
-
-            Assert.That(
-                duplicate.Split('•').Length,
-                Is.EqualTo(2),
+                Is.EqualTo(Loc.GetString("repair-orders-damage-event-count", ("event", eventName), ("count", 2))),
                 "Only one grouped entry should be shown.");
 
             Assert.That(

@@ -29,8 +29,6 @@ public sealed partial class MilitiaCustodyCabinetComponent : Component
     [DataField] public TimeSpan SealDuration = TimeSpan.FromSeconds(3);
     public Guid Token = Guid.NewGuid();
     public TimeSpan? Deadline;
-    public TimeSpan RetryUntil;
-    public EntityUid Station;
     public bool Paid;
     public readonly List<MilitiaCustodyQuote> Pending = new();
     public readonly HashSet<EntityUid> Delivery = new();

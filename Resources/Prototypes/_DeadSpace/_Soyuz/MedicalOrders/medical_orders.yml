@@ -82,6 +82,7 @@
   minDamageEntries: 1
   maxDamageEntries: 8
   pointsPerDamage: 1
+  patientPointMultiplier: 3.75
   expiredRewardMultiplierPercent: 50
   patientCompletionDamageThreshold: 20
   patientRandomHumanoidSettings: SoyuzMedicalOrderPatient
@@ -163,6 +164,7 @@
   - medical-special-site-outpost
   - medical-special-site-expedition
   - medical-special-site-convoy
+  marketPointMultiplier: 1.1
   marketDifficulties:
     Easy:
       basePriceMin: 0.75

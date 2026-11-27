@@ -87,6 +87,9 @@ public sealed partial class MilitiaOperationSystem
 
     private EntityUid FindMagazine(EntityUid uid, MilitiaOperationActorComponent actor)
     {
+        // The self-charging sidearm has no magazine slot; do not search every storage for it.
+        if (UsingSecondary(actor))
+            return EntityUid.Invalid;
         if (!OwnsItem(uid, actor.Webbing) || !TryComp<StorageComponent>(actor.Webbing, out var webbing))
             return EntityUid.Invalid;
         foreach (var item in webbing.Container.ContainedEntities)

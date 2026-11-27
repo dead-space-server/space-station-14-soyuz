@@ -12,6 +12,8 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 
 public sealed partial class MilitiaOperationSystem
 {
+    private readonly Dictionary<EntityUid, BreakoutDoorSnapshot> _breakoutDoorSnapshots = new();
+
     private bool CanReturnFire(EntityUid uid, MilitiaOperationActorComponent actor)
     {
         if (!DirectContact(uid, actor) || !OwnsItem(uid, actor.Weapon) || !WeaponReady(actor.Weapon) || UnsafeRangedTarget(actor, actor.DirectTarget))
@@ -27,7 +29,7 @@ public sealed partial class MilitiaOperationSystem
             return false;
         var origin = _transform.GetMapCoordinates(uid);
         var spread = HolographicFireSpread(actor);
-        return !SquadShotBlocked(uid, actor.DirectTarget, origin, target, ShotCollisionMask(actor.Weapon), spread) &&
+        return !SquadShotBlocked(uid, actor.DirectTarget, origin, target, GetShotCollision(actor.Weapon), spread) &&
                !SquadFireLaneBlocked(uid, actor.DirectTarget, origin, target, spread, out _);
     }
 
@@ -36,7 +38,11 @@ public sealed partial class MilitiaOperationSystem
             ? _transform.GetMapCoordinates(actor.DirectTarget)
             : RememberedWindowThreats(actor).Select(point => (MapCoordinates?) point).FirstOrDefault());
 
-    private bool BreakoutNeeded(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target)
+    private EntityUid BreakoutWeapon(EntityUid uid, MilitiaOperationActorComponent actor)
+        => UsingSecondary(actor) && OwnsItem(uid, actor.PrimaryWeapon) && WeaponReady(actor.PrimaryWeapon)
+            ? actor.PrimaryWeapon : actor.Weapon;
+
+    private bool BreakoutNeeded(EntityUid uid, MilitiaOperationActorComponent actor, EntityUid target, EntityUid weapon)
     {
         if (actor.Grenades.Length > 0 || !BreakoutTargetInArea(uid, actor, target))
             return false;
@@ -44,13 +50,14 @@ public sealed partial class MilitiaOperationSystem
         var seen = SquadSightClear(uid, target, CombatVision(actor, target));
         var knownShooter = actor.WindowExposed && RecentDamageThreat(uid, actor) is { } incoming &&
             incoming.MapId == position.MapId && Vector2.DistanceSquared(position.Position, incoming.Position) <= 9f;
-        return (seen || knownShooter) && SquadShotBlocked(uid, target, _transform.GetMapCoordinates(uid), position,
-            ShotCollisionMask(actor.Weapon), HolographicFireSpread(actor));
+        return (seen || knownShooter) && (GirderAssault(actor, target) ||
+            SquadShotBlocked(uid, target, _transform.GetMapCoordinates(uid), position,
+                GetShotCollision(weapon), HolographicFireSpread(weapon)));
     }
 
     private bool ProactiveBreakout(EntityUid uid, MilitiaOperationActorComponent actor)
-        => DirectContact(uid, actor) && (!actor.Medic || actor.DamageThreatUntil > _timing.CurTime && !actor.TriageRequired) &&
-           BreakoutNeeded(uid, actor, actor.DirectTarget);
+        => DirectContact(uid, actor) && !MedicSupportPriority(actor) &&
+           BreakoutNeeded(uid, actor, actor.DirectTarget, BreakoutWeapon(uid, actor));
 
     private bool ValidBreakoutOrder(EntityUid uid, MilitiaOperationActorComponent actor, MilitiaSquadOrder order)
     {
@@ -92,10 +99,14 @@ public sealed partial class MilitiaOperationSystem
 
         if (goal != MilitiaBreakoutGoal.Fight)
         {
+            // A last-resort escape is allowed to cross remembered firing lanes. Its route still
+            // goes through the normal floor, collision, door and defensive-area checks.
+            if (goal == MilitiaBreakoutGoal.Escape)
+                return !RecentlyHitAt(actor, position);
             var source = BreakoutSource(uid, actor) ?? _transform.ToMapCoordinates(order.BreakoutThreat);
             if (goal == MilitiaBreakoutGoal.Withdraw && start.IsValid(EntityManager) &&
-                ImprovesWithdrawal(_transform.ToMapCoordinates(start), position, source))
-                return true;
+                ImprovesWithdrawal(_transform.ToMapCoordinates(start), position, _transform.ToMapCoordinates(order.BreakoutThreat)))
+                return !RecentlyHitAt(actor, position);
             return !RecentlyHitAt(actor, position) && !SquadCoverExposed(uid, position, source) &&
                    !RetreatThreats(uid, order).Any(threat => threat != source && SquadCoverExposed(uid, position, threat));
         }
@@ -103,65 +114,83 @@ public sealed partial class MilitiaOperationSystem
             return false;
         var enemy = _transform.GetMapCoordinates(order.Target);
         if (DesiredWeapon(uid, actor) == actor.Backup && TryComp<MeleeWeaponComponent>(actor.Backup, out var melee))
-            return BreakoutCanFight(uid, order.Target, position, enemy, melee, 0L, 0f);
-        return OwnsItem(uid, actor.Weapon) && !UnsafeRangedTarget(actor, order.Target) &&
-               BreakoutCanFight(uid, order.Target, position, enemy, null, ShotCollisionMask(actor.Weapon), HolographicFireSpread(actor));
+            return BreakoutCanFight(uid, order.Target, position, enemy, melee, default, 0f);
+        var weapon = BreakoutWeapon(uid, actor);
+        return OwnsItem(uid, weapon) && !UnsafeRangedTarget(actor, order.Target) &&
+               BreakoutCanFight(uid, order.Target, position, enemy, null, GetShotCollision(weapon), HolographicFireSpread(weapon));
     }
 
     private static bool ImprovesWithdrawal(MapCoordinates origin, MapCoordinates destination, MapCoordinates source)
         => origin.MapId == destination.MapId && origin.MapId == source.MapId &&
            Vector2.Distance(destination.Position, source.Position) > Vector2.Distance(origin.Position, source.Position) + 0.5f;
 
+    private static float WithdrawalPressure(MapCoordinates position, MapCoordinates[] sources)
+    {
+        var pressure = 0f;
+        // At most four remembered firing origins plus the current attacker. This is only a cheap
+        // distance estimate for fallback ranking; it never performs visibility or path queries.
+        foreach (var source in sources)
+        {
+            if (source.MapId == position.MapId)
+                pressure += 1f / MathF.Max(1f, Vector2.DistanceSquared(position.Position, source.Position));
+        }
+        return pressure;
+    }
+
+    private static MilitiaBreakoutGoal BreakoutPriority(MilitiaBreakoutGoal goal)
+        => goal == MilitiaBreakoutGoal.Escape ? MilitiaBreakoutGoal.Withdraw : goal;
+
     private bool BreakoutCanFight(EntityUid uid, EntityUid target,
-        MapCoordinates position, MapCoordinates enemy, MeleeWeaponComponent? melee, long mask, float spread, Box2[]? fields = null)
+        MapCoordinates position, MapCoordinates enemy, MeleeWeaponComponent? melee, ShotCollision collision, float spread, Box2[]? fields = null)
     {
         if (melee != null)
             return Vector2.DistanceSquared(position.Position, enemy.Position) <= melee.Range * melee.Range &&
                    SquadLineClear(position, enemy, mask: SquadSight);
-        return !SquadShotBlocked(uid, target, position, enemy, mask, spread, fields);
+        return !SquadShotBlocked(uid, target, position, enemy, collision, spread, fields);
     }
 
     private MilitiaSquadOrder? FindBreakoutOrder(EntityUid uid, MilitiaOperationActorComponent actor,
-        List<MapCoordinates> occupied, bool allowCover, MilitiaSquadContact[] contacts)
+        List<MapCoordinates> occupied, bool allowCover, MilitiaSquadContact[] contacts,
+        List<(EntityUid Owner, MapCoordinates Position)> reservations)
     {
         if (_timing.CurTime < actor.NextBreakoutAttempt || !actor.DefensivePosition.IsValid(EntityManager) ||
             BreakoutSource(uid, actor) is not { } incoming ||
             Transform(uid).GridUid is not { } grid || !TryComp<MapGridComponent>(grid, out var gridComp))
             return null;
         actor.NextBreakoutAttempt = _timing.CurTime + TimeSpan.FromSeconds(2);
-        var target = EntityUid.Invalid;
-        foreach (var enemy in SquadCombatHostiles(uid, actor, actor.ThreatRange)
-                     .Where(enemy => SquadThreat(uid, enemy))
-                     .OrderBy(enemy => Vector2.DistanceSquared(_transform.GetWorldPosition(enemy), incoming.Position)))
+        var weapon = BreakoutWeapon(uid, actor);
+        var target = actor.DirectTarget;
+        if (!target.IsValid() || !GirderAssault(actor, target) || !BreakoutNeeded(uid, actor, target, weapon))
         {
-            if (BreakoutNeeded(uid, actor, enemy))
+            target = EntityUid.Invalid;
+            foreach (var enemy in SquadCombatHostiles(uid, actor, actor.ThreatRange)
+                         .Where(enemy => SquadThreat(uid, enemy))
+                         .OrderBy(enemy => Vector2.DistanceSquared(_transform.GetWorldPosition(enemy), incoming.Position)))
             {
+                if (!BreakoutNeeded(uid, actor, enemy, weapon))
+                    continue;
                 target = enemy;
                 break;
             }
         }
         var origin = _transform.GetMapCoordinates(uid);
         var home = _transform.ToMapCoordinates(actor.DefensivePosition);
-        var reservations = new List<MapCoordinates>(occupied);
-        var allies = EntityQueryEnumerator<MilitiaOperationActorComponent>();
-        while (allies.MoveNext(out var other, out var ally))
-        {
-            if (other == uid || !SquadMember(other) || !SameOperation(uid, other))
-                continue;
-            reservations.Add(_transform.GetMapCoordinates(other));
-            if ((ally.RunningSquadOrder != null || ally.ReloadUntil != null) && ally.SquadPosition.IsValid(EntityManager))
-                reservations.Add(_transform.ToMapCoordinates(ally.SquadPosition));
-        }
+        var remembered = RememberedWindowThreats(actor).ToArray();
         var threats = actor.SquadContacts.Where(contact => contact.Expires > _timing.CurTime && contact.Position.IsValid(EntityManager))
-            .Select(contact => _transform.ToMapCoordinates(contact.Position)).Concat(RememberedWindowThreats(actor)).Append(incoming).Distinct().ToArray();
+            .Select(contact => _transform.ToMapCoordinates(contact.Position)).Concat(remembered).Append(incoming).Distinct().ToArray();
+        var withdrawalSources = allowCover ? remembered.Append(incoming).Distinct().ToArray() : Array.Empty<MapCoordinates>();
+        var originPressure = withdrawalSources.Length > 1 ? WithdrawalPressure(origin, withdrawalSources) : 0f;
         var candidates = new List<(EntityCoordinates Position, MilitiaBreakoutGoal Goal, float Score)>();
         var enemyPosition = target.IsValid() ? _transform.GetMapCoordinates(target) : default;
+        var girderAssault = target.IsValid() && GirderAssault(actor, target);
+        var approachDistance = girderAssault ? MathF.Max(0f, Vector2.Distance(origin.Position, enemyPosition.Position) - 0.25f) : 0f;
+        var approachDistanceSquared = approachDistance * approachDistance;
         MeleeWeaponComponent? melee = null;
         if (target.IsValid() && DesiredWeapon(uid, actor) == actor.Backup)
             TryComp(actor.Backup, out melee);
-        var canShoot = target.IsValid() && melee == null && OwnsItem(uid, actor.Weapon) && !UnsafeRangedTarget(actor, target);
-        var mask = canShoot ? ShotCollisionMask(actor.Weapon) : 0L;
-        var spread = canShoot ? HolographicFireSpread(actor) : 0f;
+        var canShoot = target.IsValid() && melee == null && OwnsItem(uid, weapon) && !UnsafeRangedTarget(actor, target);
+        var collision = canShoot ? GetShotCollision(weapon) : default;
+        var spread = canShoot ? HolographicFireSpread(weapon) : 0f;
         var fields = spread > 0f ? ReflectingFieldBounds(origin, 48f) : Array.Empty<Box2>();
 
         void AddPosition(EntityCoordinates coordinates, bool exit, bool positionChecked = false)
@@ -172,25 +201,55 @@ public sealed partial class MilitiaOperationSystem
                 _turf.GetTileRef(coordinates) is not { } tile || tile.Tile.IsEmpty || _turf.IsSpace(tile.Tile) ||
                 Vector2.DistanceSquared(position.Position, home.Position) > actor.DefensiveRange * actor.DefensiveRange ||
                 actor.RejectedSquadPositions.GetValueOrDefault(coordinates) > _timing.CurTime ||
-                reservations.Any(ally => ally.MapId == position.MapId && Vector2.DistanceSquared(ally.Position, position.Position) < 0.81f) ||
+                SquadPositionReserved(uid, position, reservations, occupied) ||
                 !positionChecked && !SquadPositionClear(uid, position))
                 return;
             MilitiaBreakoutGoal goal;
+            var pressure = 0f;
+            var lastResort = false;
             if (allowCover && !RecentlyHitAt(actor, position) && !threats.Any(threat => SquadCoverExposed(uid, position, threat)))
                 goal = MilitiaBreakoutGoal.Cover;
             else if ((melee != null || canShoot) &&
-                BreakoutCanFight(uid, target, position, enemyPosition, melee, mask, spread, fields))
+                (!girderAssault || Vector2.DistanceSquared(position.Position, enemyPosition.Position) < approachDistanceSquared) &&
+                BreakoutCanFight(uid, target, position, enemyPosition, melee, collision, spread, fields))
                 goal = MilitiaBreakoutGoal.Fight;
-            else if (allowCover && ImprovesWithdrawal(origin, position, incoming))
-                goal = MilitiaBreakoutGoal.Withdraw;
+            else if (allowCover && !RecentlyHitAt(actor, position))
+            {
+                // With crossfire, moving away from just the last shooter can move straight towards
+                // another. Prefer reducing their combined pressure, without requiring perfect cover.
+                var improvesPressure = withdrawalSources.Length <= 1 ||
+                    (pressure = WithdrawalPressure(position, withdrawalSources)) < originPressure * 0.98f;
+                if (improvesPressure && ImprovesWithdrawal(origin, position, incoming))
+                    goal = MilitiaBreakoutGoal.Withdraw;
+                else if (exit || withdrawalSources.Length > 1)
+                {
+                    goal = MilitiaBreakoutGoal.Escape;
+                    // An enclosing crossfire can make every nearby point look worse. Keep a
+                    // reachable movement fallback, ranked below exits and improving withdrawals.
+                    lastResort = !exit && !improvesPressure;
+                }
+                else
+                    return;
+            }
             else
                 return;
             var score = travel;
-            if (goal == MilitiaBreakoutGoal.Withdraw)
-                score -= 2f * (Vector2.Distance(position.Position, incoming.Position) - Vector2.Distance(origin.Position, incoming.Position));
+            if (girderAssault && goal == MilitiaBreakoutGoal.Fight)
+                score += Vector2.Distance(position.Position, enemyPosition.Position) * 2.5f;
+            if (goal is MilitiaBreakoutGoal.Withdraw or MilitiaBreakoutGoal.Escape)
+            {
+                if (withdrawalSources.Length > 1)
+                    score += 8f * pressure / MathF.Max(0.0001f, originPressure);
+                else
+                    score -= 2f * (Vector2.Distance(position.Position, incoming.Position) - Vector2.Distance(origin.Position, incoming.Position));
+            }
             if (exit)
                 score -= 4f;
-            var index = candidates.FindIndex(candidate => goal < candidate.Goal || goal == candidate.Goal && score < candidate.Score);
+            if (lastResort)
+                score += 1000f;
+            var priority = BreakoutPriority(goal);
+            var index = candidates.FindIndex(candidate => priority < BreakoutPriority(candidate.Goal) ||
+                priority == BreakoutPriority(candidate.Goal) && score < candidate.Score);
             if (index < 0)
                 index = candidates.Count;
             if (index >= 8 || candidates.Any(candidate => candidate.Position == coordinates))
@@ -200,25 +259,28 @@ public sealed partial class MilitiaOperationSystem
                 candidates.RemoveAt(8);
         }
 
+        if (girderAssault && actor.GirderPushExit.IsValid(EntityManager))
+            AddPosition(actor.GirderPushExit, exit: true);
+
         const int doorBudget = 8;
-        var doors = _squadLookup.GetEntitiesInRange<DoorComponent>(origin, 24f)
-            .Where(door => !TerminatingOrDeleted(door.Owner) && Transform(door.Owner).GridUid == grid)
-            .OrderBy(door => Vector2.DistanceSquared(origin.Position, _transform.GetWorldPosition(door.Owner)))
-            .ThenBy(door => door.Owner.GetHashCode())
-            .ToArray();
+        var doors = BreakoutDoors(uid, grid, origin);
         var rotation = _transform.GetWorldRotation(grid);
+        Span<Vector2> doorOffsets = stackalloc Vector2[SquadAdjacent.Length];
+        for (var i = 0; i < SquadAdjacent.Length; i++)
+        {
+            var direction = SquadAdjacent[i];
+            doorOffsets[i] = rotation.RotateVec(new Vector2(direction.X, direction.Y)) * gridComp.TileSize * 1.25f;
+        }
         var checkedDoors = Math.Min(doorBudget, doors.Length);
         // Advance the search after each attempt so nearer blocked doors cannot starve further exits.
         for (var i = 0; i < checkedDoors; i++)
         {
-            var door = doors[(actor.BreakoutDoorOffset + i) % doors.Length];
+            var (door, doorPosition) = doors[(actor.BreakoutDoorOffset + i) % doors.Length];
             if (!RetreatDoor(uid, door.Owner))
                 continue;
-            var doorPosition = _transform.GetMapCoordinates(door.Owner);
             var approach = doorPosition.Position - origin.Position;
-            foreach (var direction in SquadAdjacent)
+            foreach (var offset in doorOffsets)
             {
-                var offset = rotation.RotateVec(new Vector2(direction.X, direction.Y)) * gridComp.TileSize * 1.25f;
                 if (Vector2.Dot(offset, approach) <= 0.1f)
                     continue;
                 var position = new MapCoordinates(doorPosition.Position + offset, origin.MapId);
@@ -274,6 +336,26 @@ public sealed partial class MilitiaOperationSystem
             BreakoutGoals = candidates.ToDictionary(candidate => candidate.Position, candidate => candidate.Goal),
         };
     }
+
+    private (Entity<DoorComponent> Door, MapCoordinates Position)[] BreakoutDoors(EntityUid uid, EntityUid grid, MapCoordinates origin)
+    {
+        var nearby = _squadLookup.GetEntitiesInRange<DoorComponent>(origin, 24f);
+        nearby.RemoveWhere(door => TerminatingOrDeleted(door.Owner) || Transform(door.Owner).GridUid != grid);
+        if (_breakoutDoorSnapshots.TryGetValue(uid, out var cached) && cached.Grid == grid && cached.Origin == origin &&
+            cached.Doors.Length == nearby.Count &&
+            cached.Doors.All(door => nearby.Contains(door.Door) && _transform.GetMapCoordinates(door.Door.Owner) == door.Position))
+            return cached.Doors;
+
+        var ordered = nearby.Select(door => (Door: door, Position: _transform.GetMapCoordinates(door.Owner)))
+            .OrderBy(door => Vector2.DistanceSquared(origin.Position, door.Position.Position))
+            .ThenBy(door => door.Door.Owner.GetHashCode())
+            .ToArray();
+        _breakoutDoorSnapshots[uid] = new BreakoutDoorSnapshot(grid, origin, ordered);
+        return ordered;
+    }
+
+    private sealed record BreakoutDoorSnapshot(EntityUid Grid, MapCoordinates Origin,
+        (Entity<DoorComponent> Door, MapCoordinates Position)[] Doors);
 
     private void AllowTrappedReload(EntityUid uid, MilitiaOperationActorComponent actor)
     {

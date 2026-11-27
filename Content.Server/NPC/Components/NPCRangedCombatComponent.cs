@@ -56,6 +56,11 @@ public sealed partial class NPCRangedCombatComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     public float ShootAccumulator;
 
+    // DS14-Soyuz-start
+    /// <summary>Keep the trigger held for sustained automatic fire.</summary>
+    public bool HoldAutomaticTrigger;
+    // DS14-Soyuz-end
+
     /// <summary>
     /// Sound to play if the target enters line of sight.
     /// </summary>

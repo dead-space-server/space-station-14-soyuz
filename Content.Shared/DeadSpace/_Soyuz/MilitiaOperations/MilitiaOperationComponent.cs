@@ -19,7 +19,7 @@ public sealed partial class MilitiaOperationTargetComponent : Component;
 [RegisterComponent, NetworkedComponent]
 public sealed partial class MilitiaOperationDocumentComponent : Component
 {
-    public EntityUid Station;
+    public EntityUid Controller;
     public Guid Operation;
 }
 
@@ -49,7 +49,16 @@ public sealed class MilitiaOperationOffer
 {
     public readonly Guid Token;
     public readonly string Prototype;
-    public MilitiaOperationOffer(Guid token, string prototype) { Token = token; Prototype = prototype; }
+    public readonly LocId? Name;
+    public readonly LocId? Description;
+
+    public MilitiaOperationOffer(Guid token, string prototype, LocId? name = null, LocId? description = null)
+    {
+        Token = token;
+        Prototype = prototype;
+        Name = name;
+        Description = description;
+    }
 }
 
 [Serializable, NetSerializable]

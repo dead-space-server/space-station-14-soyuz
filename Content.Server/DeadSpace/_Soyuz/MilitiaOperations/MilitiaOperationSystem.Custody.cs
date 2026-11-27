@@ -1,5 +1,6 @@
 // Мёртвый Космос, Союз-1, Licensed under custom terms with restrictions on public hosting and commercial use, full text: https://raw.githubusercontent.com/dead-space-server/space-station-14-soyuz/master/LICENSES/LICENSE.TXT
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Armor;
@@ -7,6 +8,7 @@ using Content.Shared.Actions.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Construction.EntitySystems;
 using Content.Shared.DeadSpace._Soyuz.MilitiaOperations;
 using Content.Shared.Fluids.Components;
 using Content.Shared.Inventory;
@@ -26,11 +28,13 @@ public sealed partial class MilitiaOperationSystem
     private readonly Dictionary<EntityUid, MilitiaCustodyState> _custodyUiCache = new();
     private readonly Dictionary<(EntityUid Cabinet, EntityUid User), TimeSpan> _custodyRequests = new();
     private Dictionary<Guid, EntityUid> _issuedContraband = new();
+    private HashSet<Guid> _redeemedContraband = new();
 
     private void InitializeCustody()
     {
         SubscribeLocalEvent<MilitiaRestrictedGearComponent, EntityTerminatingEvent>(OnContrabandTerminating);
-        SubscribeLocalEvent<MilitiaCustodyCabinetComponent, InteractUsingEvent>(OnCustodyInteractUsing);
+        SubscribeLocalEvent<MilitiaCustodyCabinetComponent, InteractUsingEvent>(OnCustodyInteractUsing,
+            after: [typeof(AnchorableSystem)]);
         SubscribeLocalEvent<MilitiaCustodyCabinetComponent, ContainerIsInsertingAttemptEvent>(OnCustodyInsertAttempt);
         SubscribeLocalEvent<MilitiaCustodyCabinetComponent, ContainerIsRemovingAttemptEvent>(OnCustodyRemoveAttempt);
         SubscribeLocalEvent<MilitiaCustodyCabinetComponent, EntInsertedIntoContainerMessage>(OnCustodyContentsChanged);
@@ -55,7 +59,7 @@ public sealed partial class MilitiaOperationSystem
         {
             if (!seen.Add(item) || !Exists(item) || TerminatingOrDeleted(item))
                 continue;
-            MilitiaContrabandKind? kind = item == actor.Weapon ? MilitiaContrabandKind.Firearm
+            MilitiaContrabandKind? kind = item == actor.Weapon || item == actor.PrimaryWeapon || item == actor.LaserWeapon ? MilitiaContrabandKind.Firearm
                 : item == actor.Backup ? MilitiaContrabandKind.Melee : null;
             if (HasComp<MagbootsComponent>(item))
                 kind = MilitiaContrabandKind.Boots;
@@ -72,13 +76,7 @@ public sealed partial class MilitiaOperationSystem
                     kind = MilitiaContrabandKind.Armor;
             }
             if (kind is { } category)
-            {
-                var restricted = EnsureComp<MilitiaRestrictedGearComponent>(item);
-                restricted.Kind = category;
-                restricted.Serial = Guid.NewGuid();
-                _issuedContraband.Add(restricted.Serial, item);
-                Dirty(item, restricted);
-            }
+                RegisterRestrictedGear(item, category);
             if (!TryComp<ContainerManagerComponent>(item, out var manager))
                 continue;
             foreach (var container in _equipmentContainers.GetAllContainers(item, manager))
@@ -91,22 +89,6 @@ public sealed partial class MilitiaOperationSystem
     {
         if (_issuedContraband.TryGetValue(gear.Comp.Serial, out var issued) && issued == gear.Owner)
             _issuedContraband.Remove(gear.Comp.Serial);
-    }
-
-    private MilitiaOperationStationComponent? CustodyStation(EntityUid cabinet, MilitiaCustodyCabinetComponent component, out EntityUid station)
-    {
-        station = EntityUid.Invalid;
-        if (_stations.GetOwningStation(cabinet) is not { } owner || TerminatingOrDeleted(owner) ||
-            !_prototypes.TryIndex(component.Config, out var config))
-            return null;
-        station = owner;
-        var state = EnsureComp<MilitiaOperationStationComponent>(owner);
-        if (state.Config.Length == 0)
-        {
-            state.Config = config.ID;
-            InitializeOffers(state, config);
-        }
-        return state.Config == config.ID ? state : null;
     }
 
     private bool CustodyPowered(EntityUid uid)
@@ -147,14 +129,10 @@ public sealed partial class MilitiaOperationSystem
         return seen;
     }
 
-    private MilitiaCustodyQuote? QuoteContraband(EntityUid item, EntityUid station, MilitiaOperationStationComponent? state,
-        MilitiaOperationConfigPrototype config, out string reason)
+    private MilitiaCustodyQuote? QuoteContraband(EntityUid item, MilitiaOperationConfigPrototype config, out string reason)
     {
         reason = "militia-custody-unregistered";
-        if (state == null || !Exists(item) || TerminatingOrDeleted(item) || EntityManager.IsQueuedForDeletion(item) ||
-            !TryComp<MilitiaRestrictedGearComponent>(item, out var restricted) || restricted.Surrendered ||
-            restricted.Serial == Guid.Empty || state.RedeemedContraband.Contains(restricted.Serial) ||
-            !_issuedContraband.TryGetValue(restricted.Serial, out var issued) || issued != item ||
+        if (!TryGetIssuedContraband(item, out var restricted) || _redeemedContraband.Contains(restricted.Serial) ||
             !config.ContrabandRewards.TryGetValue(restricted.Kind, out var price) || price.Points < 0 || price.Reputation < 0 ||
             price.Points == 0 && price.Reputation == 0)
             return null;
@@ -162,10 +140,14 @@ public sealed partial class MilitiaOperationSystem
         return new MilitiaCustodyQuote(item, item, restricted.Serial, restricted.Kind, price.Points, price.Reputation);
     }
 
-    private List<MilitiaCustodyQuote>? QuoteCustodyTree(EntityUid root, EntityUid station, MilitiaOperationStationComponent? state,
-        MilitiaOperationConfigPrototype config, out string reason)
+    private bool TryGetIssuedContraband(EntityUid item, [NotNullWhen(true)] out MilitiaRestrictedGearComponent? restricted)
+        => TryComp(item, out restricted) && !TerminatingOrDeleted(item) && !EntityManager.IsQueuedForDeletion(item) &&
+           !restricted.Surrendered && restricted.Serial != Guid.Empty &&
+           _issuedContraband.TryGetValue(restricted.Serial, out var issued) && issued == item;
+
+    private List<MilitiaCustodyQuote>? QuoteCustodyTree(EntityUid root, MilitiaOperationConfigPrototype config, out string reason)
     {
-        if (QuoteContraband(root, station, state, config, out reason) == null)
+        if (QuoteContraband(root, config, out reason) == null)
             return null;
         var payload = CustodyPayload(root);
         if (payload == null)
@@ -178,7 +160,7 @@ public sealed partial class MilitiaOperationSystem
         {
             if (!HasComp<MilitiaRestrictedGearComponent>(item))
                 continue;
-            if (QuoteContraband(item, station, state, config, out reason) is not { } quote)
+            if (QuoteContraband(item, config, out reason) is not { } quote)
                 return null;
             quotes.Add(quote with { Root = root });
         }
@@ -188,7 +170,8 @@ public sealed partial class MilitiaOperationSystem
     private void OnCustodyInsertAttempt(Entity<MilitiaCustodyCabinetComponent> cabinet, ref ContainerIsInsertingAttemptEvent args)
     {
         if (args.Container.ID == CustodyInput && (cabinet.Comp.Deadline != null || cabinet.Comp.Paid ||
-            args.Container.ContainedEntities.Count >= cabinet.Comp.Capacity || !HasComp<ItemComponent>(args.EntityUid)))
+            args.Container.ContainedEntities.Count >= cabinet.Comp.Capacity || !HasComp<ItemComponent>(args.EntityUid) ||
+            !TryGetIssuedContraband(args.EntityUid, out _)))
             args.Cancel();
     }
 
@@ -227,10 +210,12 @@ public sealed partial class MilitiaOperationSystem
 
     private void OnCustodyInteractUsing(Entity<MilitiaCustodyCabinetComponent> cabinet, ref InteractUsingEvent args)
     {
-        if (args.Handled || !CanUseCustody(cabinet, args.User) || _hands.GetActiveItem(args.User) != args.Used ||
-            !_equipmentContainers.TryGetContainer(cabinet, CustodyInput, out var input))
+        if (args.Handled || !HasComp<MilitiaRestrictedGearComponent>(args.Used))
             return;
         args.Handled = true;
+        if (!CanUseCustody(cabinet, args.User) || _hands.GetActiveItem(args.User) != args.Used ||
+            !_equipmentContainers.TryGetContainer(cabinet, CustodyInput, out var input))
+            return;
         InsertCustody(cabinet, args.User, input);
         UpdateCustodyUi(cabinet);
     }
@@ -239,6 +224,8 @@ public sealed partial class MilitiaOperationSystem
     {
         if (_hands.GetActiveItem(user) is not { } held)
             cabinet.Comp.Status = "militia-custody-hold-item";
+        else if (!TryGetIssuedContraband(held, out _))
+            cabinet.Comp.Status = "militia-custody-unregistered";
         else if (!HasComp<ItemComponent>(held) || !_hands.TryDropIntoContainer(user, held, input))
             cabinet.Comp.Status = "militia-custody-cannot-insert";
     }
@@ -269,16 +256,13 @@ public sealed partial class MilitiaOperationSystem
                 }
                 break;
             case MilitiaCustodyAction.Submit:
-                if (!CustodyPowered(cabinet))
-                    break;
-                var state = CustodyStation(cabinet, cabinet.Comp, out var station);
-                if (state == null || !_prototypes.TryIndex(cabinet.Comp.Config, out var config))
+                if (!CustodyPowered(cabinet) || !_prototypes.TryIndex(cabinet.Comp.Config, out var config))
                     break;
                 var serials = new HashSet<Guid>();
                 var pending = new List<MilitiaCustodyQuote>();
                 foreach (var uid in input.ContainedEntities)
                 {
-                    if (QuoteCustodyTree(uid, station, state, config, out _) is not { } quotes)
+                    if (QuoteCustodyTree(uid, config, out _) is not { } quotes)
                         continue;
                     foreach (var quote in quotes)
                     {
@@ -290,9 +274,7 @@ public sealed partial class MilitiaOperationSystem
                     break;
                 cabinet.Comp.Pending.Clear();
                 cabinet.Comp.Pending.AddRange(pending);
-                cabinet.Comp.Station = station;
                 cabinet.Comp.Deadline = _timing.CurTime + cabinet.Comp.SealDuration;
-                cabinet.Comp.RetryUntil = cabinet.Comp.Deadline.Value + TimeSpan.FromSeconds(5);
                 cabinet.Comp.Status = "militia-custody-sealing";
                 cabinet.Comp.Token = Guid.NewGuid();
                 break;
@@ -321,7 +303,7 @@ public sealed partial class MilitiaOperationSystem
                 PurgeCustody((uid, cabinet));
             else if (cabinet.Deadline != null)
             {
-                if (!CustodyPowered(uid) || _stations.GetOwningStation(uid) != cabinet.Station)
+                if (!CustodyPowered(uid))
                     CancelCustody((uid, cabinet));
                 else if (cabinet.Deadline <= _timing.CurTime)
                     CommitCustody((uid, cabinet));
@@ -332,24 +314,19 @@ public sealed partial class MilitiaOperationSystem
 
     private void CommitCustody(Entity<MilitiaCustodyCabinetComponent> cabinet)
     {
-        var state = CustodyStation(cabinet, cabinet.Comp, out var station);
-        if (state?.Busy == true && _timing.CurTime < cabinet.Comp.RetryUntil)
-            return;
-        if (state == null || state.Busy || station != cabinet.Comp.Station ||
-            !_prototypes.TryIndex(cabinet.Comp.Config, out var config) ||
+        if (!_prototypes.TryIndex(cabinet.Comp.Config, out var config) ||
             !_equipmentContainers.TryGetContainer(cabinet, CustodyInput, out var input))
         {
             CancelCustody(cabinet);
             return;
         }
-        state.Busy = true;
         try
         {
             var current = new HashSet<MilitiaCustodyQuote>();
             var delivery = new HashSet<EntityUid>();
             foreach (var root in cabinet.Comp.Pending.Select(quote => quote.Root).Distinct())
             {
-                if (!input.Contains(root) || QuoteCustodyTree(root, station, state, config, out _) is not { } quotes ||
+                if (!input.Contains(root) || QuoteCustodyTree(root, config, out _) is not { } quotes ||
                     CustodyPayload(root) is not { } payload)
                     throw new InvalidOperationException("Custody contents changed.");
                 current.UnionWith(quotes);
@@ -357,7 +334,7 @@ public sealed partial class MilitiaOperationSystem
             }
             if (current.Count != cabinet.Comp.Pending.Count || !current.SetEquals(cabinet.Comp.Pending))
                 throw new InvalidOperationException("Custody quote changed.");
-            var redeemed = new HashSet<Guid>(state.RedeemedContraband);
+            var redeemed = new HashSet<Guid>(_redeemedContraband);
             var issued = new Dictionary<Guid, EntityUid>(_issuedContraband);
             long points = 0;
             long reputation = 0;
@@ -370,14 +347,14 @@ public sealed partial class MilitiaOperationSystem
                 points = checked(points + quote.Points);
                 reputation = checked(reputation + quote.Reputation);
             }
-            points = checked(state.SupplyPoints + points);
-            reputation = checked(state.Reputation + reputation);
+            points = checked(_supplyPoints + points);
+            reputation = checked(_reputation + reputation);
             cabinet.Comp.Delivery.Clear();
             cabinet.Comp.Delivery.UnionWith(delivery);
             _issuedContraband = issued;
-            state.RedeemedContraband = redeemed;
-            state.SupplyPoints = points;
-            state.Reputation = reputation;
+            _redeemedContraband = redeemed;
+            _supplyPoints = points;
+            _reputation = reputation;
             cabinet.Comp.Paid = true;
             cabinet.Comp.Deadline = null;
             cabinet.Comp.Status = "militia-custody-complete";
@@ -389,17 +366,13 @@ public sealed partial class MilitiaOperationSystem
                     Dirty(quote.Item, gear);
                 }
             }
-            _log.Info($"Contraband surrendered: Station={station}, Cabinet={cabinet.Owner}, Count={cabinet.Comp.Pending.Count}");
+            _log.Info($"Contraband surrendered: Cabinet={cabinet.Owner}, Count={cabinet.Comp.Pending.Count}");
         }
         catch (Exception exception)
         {
             _log.Error($"Contraband handover failed at {cabinet.Owner}: {exception}");
             if (!cabinet.Comp.Paid)
                 CancelCustody(cabinet);
-        }
-        finally
-        {
-            state.Busy = false;
         }
         if (cabinet.Comp.Paid)
             PurgeCustody(cabinet);
@@ -441,33 +414,36 @@ public sealed partial class MilitiaOperationSystem
     {
         if (TerminatingOrDeleted(cabinet))
             return;
-        var state = CustodyStation(cabinet, cabinet.Comp, out var station);
         var entries = new List<MilitiaCustodyEntry>();
-        if (_prototypes.TryIndex(cabinet.Comp.Config, out var config) &&
+        var hasConfig = _prototypes.TryIndex(cabinet.Comp.Config, out var config);
+        if (hasConfig && config != null &&
             _equipmentContainers.TryGetContainer(cabinet, CustodyInput, out var input))
         {
             foreach (var item in input.ContainedEntities)
             {
                 if (!Exists(item) || TerminatingOrDeleted(item))
                     continue;
-                var quotes = QuoteCustodyTree(item, station, state, config, out var reason);
+                var quotes = QuoteCustodyTree(item, config, out var reason);
                 var name = quotes?.Count > 1 ? Loc.GetString("militia-custody-kit-name", ("name", Name(item)), ("count", quotes.Count)) : Name(item);
                 entries.Add(new MilitiaCustodyEntry(GetNetEntity(item), name, MetaData(item).EntityPrototype?.ID ?? string.Empty,
                     quotes?.Sum(quote => (long) quote.Points) ?? 0, quotes?.Sum(quote => (long) quote.Reputation) ?? 0, reason));
             }
         }
         var busy = cabinet.Comp.Deadline != null || cabinet.Comp.Paid;
-        var online = CustodyPowered(cabinet) && state != null;
+        var powered = CustodyPowered(cabinet);
+        var online = powered && hasConfig;
         var signature = string.Join(";", entries.Select(entry => $"{entry.Item}:{entry.Name}:{entry.Prototype}:{entry.Points}:{entry.Reputation}:{entry.Reason}"));
         if (signature != cabinet.Comp.QuoteSignature)
         {
             cabinet.Comp.QuoteSignature = signature;
             cabinet.Comp.Token = Guid.NewGuid();
         }
+        var status = cabinet.Comp.Status;
+        if (!busy && !powered)
+            status = "militia-custody-no-power";
         var view = new MilitiaCustodyState(cabinet.Comp.Token, entries,
-            state?.SupplyPoints ?? 0, state?.Reputation ?? 0, busy, online, cabinet.Comp.Deadline,
-            !busy && !online ? "militia-custody-no-power" : cabinet.Comp.Status, cabinet.Comp.Capacity);
-        _custodyAppearance.SetData(cabinet.Owner, MilitiaCustodyVisuals.State, busy ? 2 : CustodyPowered(cabinet) ? 1 : 0);
+            _supplyPoints, _reputation, busy, online, cabinet.Comp.Deadline, status, cabinet.Comp.Capacity);
+        _custodyAppearance.SetData(cabinet.Owner, MilitiaCustodyVisuals.State, busy ? 2 : powered ? 1 : 0);
         if (_custodyUiCache.TryGetValue(cabinet.Owner, out var previous) && previous.Token == view.Token &&
             previous.Points == view.Points && previous.Reputation == view.Reputation && previous.Busy == view.Busy &&
             previous.Online == view.Online && previous.Deadline == view.Deadline && previous.Status == view.Status && previous.Capacity == view.Capacity)

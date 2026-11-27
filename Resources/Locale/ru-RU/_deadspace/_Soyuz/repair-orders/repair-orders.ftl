@@ -86,7 +86,7 @@ repair-orders-nav-offers = Заказы
 repair-orders-offer-count = Предложения
 repair-orders-offer-meta = Класс { $level }  /  { $minutes } мин
 repair-orders-offer-duration = Срок выполнения: { $minutes } мин после доставки
-repair-orders-offer-retention = Доступен выкуп: объект можно оставить станции за стоимость полного ремонта. Условия готовности те же, что при сдаче; ремонтные очки за выкуп не начисляются.
+repair-orders-offer-retention = Объект можно выкупить для станции на тех же условиях готовности, что и при сдаче. Ремонтные очки за выкуп не начисляются.
 repair-orders-reference-title = Эталонная схема объекта
 repair-orders-reference-open = Открыть схему
 repair-orders-offer-busy = Сначала завершите активный заказ.
@@ -112,7 +112,7 @@ repair-orders-briefing-text =
     Служебный скафандр рассчитан на работу в вакууме и аварийных отсеках, оснащён усиленной радиационной, взрывной защитой и креплением для дыхательного баллона. Шлем защищает глаза при сварке и освещает рабочую зону. Перед выходом за пределы герметичного отсека проверьте запас дыхательной смеси. Скафандр и диагностические очки доступны в магазине ремонтной службы.
 
     Сдача объекта
-    После ремонта вернитесь к консоли, сдайте объект и распечатайте отчёт. Если завершить все работы невозможно, досрочная сдача доступна через десять минут после принятия заказа. Невыполненные работы и нарушения уменьшают вознаграждение. Объекты заказов 7–10 класса можно оставить станции: выкуп стоит исходную стоимость полного ремонта, не приносит ремонтных очков и доступен при тех же условиях готовности или досрочной сдачи.
+    После ремонта вернитесь к консоли, сдайте объект и распечатайте отчёт. Если завершить все работы невозможно, досрочная сдача доступна через десять минут после принятия заказа. Невыполненные работы и нарушения уменьшают вознаграждение. Объекты заказов 4–10 класса можно выкупить для станции. Цену выкупа показывает консоль. Условия готовности и досрочной сдачи применяются и к выкупу. Ремонтные очки за выкуп не начисляются.
 repair-orders-next-offer = Следующие предложения:
 repair-orders-activation-in-progress = Идёт поиск безопасного места и перенос повреждённого шаттла...
 repair-orders-completion-in-progress = Идёт завершение ремонтного заказа...
@@ -126,8 +126,9 @@ repair-orders-missing-prototype = Неизвестный заказ ({ $prototyp
 repair-orders-difficulty = Класс работ: { $class } ({ $difficulty }/{ $max })
 repair-orders-status-active = Статус: активен
 repair-orders-time-remaining = Осталось: { $time }
-repair-orders-progress-tasks = Восстановлено: { $completed } / { $total }
-repair-orders-progress-percent = { $percent }%
+repair-orders-progress-tasks = Исправных элементов: { $completed } из { $total }
+repair-orders-progress-percent = Готовность объекта: { $percent }%
+repair-orders-reputation-progress = Ремонт для репутации: { $percent }%
 repair-orders-blueprint-unavailable = Эталонный чертёж недоступен.
 repair-orders-worklist-heading = Список работ
 repair-orders-worklist-target = Что требуется
@@ -141,13 +142,12 @@ repair-orders-submit-early = Сдать заказ досрочно
 repair-orders-submit-early-wait = Досрочная сдача через { $time }
 repair-orders-error-submit-early-delay = Досрочная сдача доступна через 10 минут после принятия заказа.
 repair-orders-submit-early-button = Сдать с текущим результатом
-repair-orders-submit-early-confirm = Ремонт выполнен на { $percent }%. Текущая награда с учётом штрафов: { $points } очков.
-    Репутация зависит от процента ремонта. Невыполненные работы не оплачиваются, дополнительные повреждения и исключения уменьшают награду.
+repair-orders-submit-early-confirm = Для начисления репутации засчитано { $percent }% ремонта. За сдачу сейчас вы получите { $points } ремонтных очков.
     После сдачи ремонтный объект будет удалён. Сдать заказ в текущем состоянии?
 repair-orders-expires-in = Истекает через: { $time }
 repair-orders-status-completed = Статус: завершён
 repair-orders-status-expired = Статус: срок истёк
-repair-orders-final-tasks = Итог ремонта: { $completed } / { $total }
+repair-orders-final-tasks = Готовность объекта: { $percent }% ({ $completed } из { $total })
 repair-orders-final-points = Итоговые баллы: { $current } / { $max }
 repair-orders-earned-points = Получено ремонтных очков: { $points }
 repair-orders-earned-reputation = Получено репутации инженерного отдела: { $reputation }
@@ -218,8 +218,8 @@ repair-orders-report-object-name = [bold]Наименование объекта
 repair-orders-report-object-type = [bold]Тип объекта:[/bold] { $value }
 repair-orders-report-order-name = [bold]Заказ:[/bold] { $value }
 repair-orders-report-difficulty = [bold]Класс работ:[/bold] { $class } ({ $difficulty }/{ $max })
-repair-orders-report-progress = [bold]Состояние ремонта:[/bold] { $percent }%
-repair-orders-report-final-progress = [bold]Итоговый прогресс:[/bold] { $percent }%
+repair-orders-report-progress = [bold]Готовность объекта:[/bold] { $percent }%
+repair-orders-report-final-progress = [bold]Итоговая готовность объекта:[/bold] { $percent }%
 repair-orders-report-tasks = [bold]Выполнено задач:[/bold] { $completed } / { $total }
 repair-orders-report-points = [bold]Набрано баллов:[/bold] { $current } / { $max }
 repair-orders-report-final-points = [bold]Итоговые баллы:[/bold] { $current } / { $max }
@@ -242,8 +242,8 @@ repair-orders-error-report-terminal-pending = Результат по истеч
 repair-orders-object = { $type }: { $name }
 repair-orders-damage-heading = Характер повреждений:
 repair-orders-damage-unknown = Неуточнённые структурные повреждения
-repair-orders-damage-event = • { $event }
-repair-orders-damage-event-count = • { $event } ×{ $count }
+repair-orders-damage-event = { $event }
+repair-orders-damage-event-count = { $event } ({ $count })
 repair-orders-error-damage = Не удалось подготовить повреждения объекта. Предложение сохранено.
 
 repair-orders-waiver-heading = Технические исключения
@@ -269,7 +269,7 @@ repair-orders-waiver-report = Технических исключений: { $co
     Фактически заработано: { $raw }
     Штраф за технические исключения: { $percent }% ({ $penalty } очков)
     Итоговые баллы: { $final }
-repair-orders-waiver-report-entry = • { $name }, клетка ({ $x }, { $y }) - { $points } очков
+repair-orders-waiver-report-entry = { $name }, клетка ({ $x }, { $y }), { $points } очков
 
 repair-orders-difficulty-class-1 = Текущий ремонт
 repair-orders-difficulty-class-2 = Плановый ремонт
@@ -358,30 +358,32 @@ ent-ConstructionBagOfHoldingRandomFilled = блюспейс-сумка со сл
     .desc = Блюспейс-сумка для материалов, полностью заполненная пятьюдесятью случайными полными стаками ресурсов. Проводки внутри нет.
 
 ent-RepairReconstructionTablet = планшет реконструкции ремонтной бригады
-    .desc = Восстанавливает выбранный участок размером до 5×5 по эталонному чертежу активного ремонтного заказа. Выберите два противоположных угла, проверьте стоимость и используйте планшет в руке для запуска. Восстанавливает полы и все оцениваемые конструкции и оборудование из чертежа. Расход - один заряд за один балл стоимости ремонта. Вмещает 1000 зарядов реконструкционной матрицы. Требуется инженерный доступ.
+    .desc = Восстанавливает участок до 5×5 по чертежу заказа. Отметьте два угла и используйте планшет в руке. Требуется инженерный доступ.
 ent-RepairReconstructionCartridge = картридж реконструкционной матрицы
     .desc = Бело-серый картридж с уплотнённым строительным веществом для планшета реконструкции. Содержит 100 зарядов.
-repair-reconstructor-refilled = Загружено зарядов матрицы: { $charges }.
-repair-reconstructor-no-work = На участке нет доступных для реконструкции работ. Выберите участок с недостающими элементами чертежа.
-repair-reconstructor-no-charge = Требуется { $charges } зарядов, в планшете - { $available }. Реконструкция не началась. Загрузите картридж или уменьшите область.
-repair-reconstructor-start = Реконструкция выбранного участка: { $count } работ, { $charges } зарядов. Не двигайтесь и держите планшет в руке.
-repair-reconstructor-select-start = Выберите два противоположных угла области нажатием на ремонтный объект. Максимальный размер - 5×5.
-repair-reconstructor-select-end = Первый угол выбран. Нажмите на противоположный угол области размером до 5×5.
-repair-reconstructor-area-limit = Максимальный размер области - 5×5. Выберите второй угол ближе к первому или сбросьте область.
-repair-reconstructor-quote = Требуется зарядов: { $charges }. В планшете: { $available }. Клеток с пропущенными работами: { $blocked } (отмечены красным). Для запуска используйте планшет в руке. Если требуется больше { $max } зарядов, уменьшите область.
-repair-reconstructor-price-changed = Расчёт изменился: требуется { $charges } зарядов, в планшете - { $available }. Клеток с пропущенными работами: { $blocked } (отмечены красным). Проверьте область и используйте планшет ещё раз для подтверждения. Вместимость - { $max } зарядов.
-repair-reconstructor-recovery = Реконструкция отменена. Идёт восстановление исходного состояния; планшет временно занят. Заряд будет возвращён после завершения отката.
-repair-reconstructor-over-capacity = Требуется { $charges } зарядов, но планшет вмещает только { $max }. Реконструкция не началась. Уменьшите область.
-repair-reconstructor-clear-selection = Сбросить область реконструкции
-repair-reconstructor-no-order = Здесь нет активного ремонтного объекта с эталонным чертежом.
-repair-reconstructor-changed = Выбранные работы больше недоступны или расчёт изменился. Выберите область заново. Заряды не потрачены.
-repair-reconstructor-failed = Не удалось восстановить участок по чертежу. Изменения отменены, заряды возвращены.
-repair-reconstructor-success = Участок восстановлен по чертежу.
+repair-reconstructor-refilled = Загружено зарядов: { $charges }.
+repair-reconstructor-no-work = На участке нечего восстанавливать.
+repair-reconstructor-blocked = Работы на участке недоступны. Проверьте красные клетки.
+repair-reconstructor-out-of-reach = Клетка вне досягаемости.
+repair-reconstructor-no-charge = Заряды: { $available } из { $charges }. Загрузите картридж.
+repair-reconstructor-start = Идёт ремонт. Стойте на месте.
+repair-reconstructor-select-start = Отметьте два угла участка до 5×5.
+repair-reconstructor-select-end = Отметьте второй угол.
+repair-reconstructor-area-limit = Участок слишком большой. Предел 5×5.
+repair-reconstructor-quote = Нужно зарядов: { $charges }. Есть: { $available }. Пропусков: { $blocked }. Используйте планшет.
+repair-reconstructor-price-changed = Расчёт изменился. Нужно: { $charges }, есть: { $available }. Пропусков: { $blocked }. Подтвердите ещё раз.
+repair-reconstructor-recovery = Идёт откат. Заряды вернутся после него.
+repair-reconstructor-over-capacity = Нужно { $charges }, предел { $max }. Уменьшите участок.
+repair-reconstructor-clear-selection = Сбросить область
+repair-reconstructor-no-order = Активный заказ не найден.
+repair-reconstructor-changed = Участок изменился. Выберите его заново.
+repair-reconstructor-failed = Ремонт отменён. Заряды возвращены.
+repair-reconstructor-success = Участок восстановлен.
 repair-orders-retain = Оставить себе
 repair-orders-retain-cost = Оставить себе - { $points } очков
 repair-orders-retain-confirm = Выкупить объект за { $points } ремонтных очков?
-    Цена равна исходной стоимости полного ремонта и не уменьшается при досрочном выкупе. Награда ремонтными очками за этот заказ не начисляется. Объект останется у станции, ограничения управления будут сняты.
-repair-orders-retain-unavailable = Выкуп доступен только для заказов 7–10 класса.
+    При досрочном выкупе действует та же цена. Награда ремонтными очками за этот заказ не начисляется. Объект останется у станции, ограничения управления будут сняты.
+repair-orders-retain-unavailable = Выкуп доступен для заказов 4–10 класса с рассчитанной стоимостью ремонта.
 repair-orders-retain-price-changed = Цена выкупа не совпадает с подтверждённой. Откройте подтверждение заново.
 repair-orders-retain-success = Объект выкуплен и оставлен станции.
 repair-orders-status-retained = Статус: объект выкуплен станцией

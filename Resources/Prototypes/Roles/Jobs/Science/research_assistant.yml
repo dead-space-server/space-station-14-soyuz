@@ -22,6 +22,13 @@
   wageDepartment: Science
   wage: 100
   #end-backmen: currency
+# DS14-Soyuz-start
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Атом
+# DS14-Soyuz-end
 
 - type: startingGear
   id: ResearchAssistantGear

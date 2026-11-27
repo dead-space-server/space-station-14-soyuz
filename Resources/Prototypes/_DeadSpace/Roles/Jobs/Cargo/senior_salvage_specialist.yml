@@ -24,6 +24,13 @@
   wageDepartment: Cargo
   wage: 200 # DS14-value
   #end-backmen: currency
+# DS14-Soyuz-start
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Мост
+# DS14-Soyuz-end
 
 - type: startingGear
   id: SeniorSalvageSpecialistGear

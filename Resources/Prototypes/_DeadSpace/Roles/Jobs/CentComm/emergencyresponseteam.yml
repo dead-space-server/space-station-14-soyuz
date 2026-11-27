@@ -1,5 +1,3 @@
-# DS14 ERT
-
 # Leader
 ## Amber
 - type: job
@@ -33,6 +31,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
+      isHead: true
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -109,6 +113,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
+      isHead: true
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -187,6 +197,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
+      isHead: true
 #DS14-Soyuz-end
   ranks:
     NKVBRankCaptain:
@@ -262,6 +278,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -335,6 +356,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -403,6 +429,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -475,6 +506,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -550,6 +586,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -623,6 +664,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -695,6 +741,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -770,6 +821,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -840,6 +896,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -910,6 +971,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -978,6 +1044,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:
@@ -1045,6 +1116,11 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
 #DS14-Soyuz-end
   ranks:
     NKVBRankSeniorOfficer:

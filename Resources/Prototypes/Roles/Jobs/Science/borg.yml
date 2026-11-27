@@ -20,6 +20,13 @@
   jobEntity: StationAiBrain
   jobPreviewEntity: PlayerStationAiPreview
   applyTraits: false
+# DS14-Soyuz-start
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: ИИ
+# DS14-Soyuz-end
 
 - type: job
   id: Borg
@@ -34,3 +41,10 @@
   supervisors: job-supervisors-crew
   jobEntity: PlayerBorgBattery
   applyTraits: false
+# DS14-Soyuz-start
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Синт
+# DS14-Soyuz-end

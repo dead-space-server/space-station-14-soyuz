@@ -1,0 +1,14 @@
+- type: entity
+  parent: BookBase
+  id: SoyuzWikiBook
+  name: руководство
+  description: Интерактивное руководство. Содержимое синхронизируется с вики.
+  components:
+  - type: WikiBook
+    page: Шаблон:СРП-Капитан-Союз
+  - type: ActivatableUI
+    key: enum.WikiBookUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.WikiBookUiKey.Key:
+        type: WikiBookBoundUserInterface

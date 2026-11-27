@@ -33,6 +33,12 @@
     - type: NpcFactionMember
       factions:
       - CentralCommand
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Око
+# DS14-Soyuz-end
 
 - type: entity
   parent: BasePDA

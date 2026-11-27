@@ -20,6 +20,12 @@
   - !type:GiveItemOnHolidaySpecial
     holiday: DoctorDay
     prototype: WehMedipen
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Ангел
+# DS14-Soyuz-end
   #start-backmen: currency
   minBankBalance: 200 # DS14-value
   maxBankBalance: 300 # DS14-value

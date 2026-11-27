@@ -31,6 +31,10 @@
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
   # DS14-Soyuz start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Бастион
   ranks:
     SGMRankChiefSergeant:
     - !type:RoleTimeRequirement

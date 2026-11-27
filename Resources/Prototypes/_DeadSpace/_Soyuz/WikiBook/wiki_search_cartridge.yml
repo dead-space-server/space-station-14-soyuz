@@ -1,0 +1,18 @@
+- type: entity
+  parent: BasePDACartridge
+  id: SoyuzWikiSearchCartridge
+  name: картридж «Руководства»
+  description: Программа для КПК поиск по руководствам и статьям вики.
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:WikiSearchUi
+  - type: Cartridge
+    programName: wiki-search-program-name
+    icon:
+      sprite: Objects/Misc/books.rsi
+      state: book_icon
+  - type: WikiSearchCartridge
+    # Какие списки статей доступны. Пусто = все списки.
+    articleLists: []

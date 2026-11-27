@@ -61,7 +61,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
-#DS14-Soyuz-end
+# DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Хаос
+      isHead: True
   ranks:
     CMDRankCaptain: []
 #DS14-Soyuz-end

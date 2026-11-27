@@ -14,3 +14,10 @@
   supervisors: job-supervisors-security-borg
   jobEntity: PlayerBorgChassisSecurity
   applyTraits: false
+# DS14-Soyuz-start
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Бастион
+# DS14-Soyuz-end

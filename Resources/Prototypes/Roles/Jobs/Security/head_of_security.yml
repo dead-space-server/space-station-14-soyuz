@@ -43,8 +43,10 @@
   - !type:AddComponentSpecial
     components:
       - type: CommandStaff
-  - !type:AddComponentSpecial
-#DS14-Soyuz-end
+#DS14-Soyuz-start
+      - type: Callsign
+        base: Бастион
+        isHead: true
   ranks:
     RMCRankMarineCommandant:
     - !type:RoleTimeRequirement

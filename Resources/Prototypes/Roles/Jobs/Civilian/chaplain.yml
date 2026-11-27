@@ -24,6 +24,10 @@
     components:
     - type: BibleUser #Lets them heal with bibles
     - type: MindCaptureDefence #DS14
+# DS14-Soyuz-start
+    - type: Callsign
+      base: Природа
+# DS14-Soyuz-end
 
 - type: startingGear
   id: ChaplainGear

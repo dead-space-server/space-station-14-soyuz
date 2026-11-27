@@ -33,6 +33,13 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: РХБЗЗ
+      isHead: true
+#DS14-Soyuz-end
 
 - type: startingGear
   id: CBURNLeaderGear
@@ -85,6 +92,13 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: АПБТ
+      isHead: true
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SCSTLeaderGear
@@ -137,6 +151,13 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: АПБТ
+      isHead: true
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SCNTLeaderGear
@@ -188,6 +209,13 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Рысь
+      isHead: true
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SierraLeaderGear
@@ -237,6 +265,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: РХБЗЗ
+#DS14-Soyuz-end
 
 - type: startingGear
   id: CBURNAgentGear
@@ -283,6 +317,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: АПБТ
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SCSTAgentGear
@@ -329,6 +369,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: АПБТ
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SCNTAgentGear
@@ -375,6 +421,12 @@
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Рысь
+#DS14-Soyuz-end
 
 - type: startingGear
   id: SierraAgentGear

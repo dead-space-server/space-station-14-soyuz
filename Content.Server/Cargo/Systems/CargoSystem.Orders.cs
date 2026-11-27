@@ -8,6 +8,7 @@ using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Events;
 using Content.Shared.Cargo.Prototypes;
 using Content.Shared.Database;
+using Content.Shared.DeadSpace._Soyuz.StationSpecialization; // DS14-Soyuz
 using Content.Shared.Emag.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction;
@@ -27,6 +28,7 @@ namespace Content.Server.Cargo.Systems
         [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
         [Dependency] private readonly EmagSystem _emag = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency] private readonly SharedStationSpecializationSystem _specialization = default!; // DS14-Soyuz
 
         private void InitializeConsole()
         {
@@ -238,7 +240,10 @@ namespace Content.Server.Cargo.Systems
                 PlayDenySound(uid, component);
             }
 
-            var cost = order.Price * order.OrderQuantity;
+            // DS14-Soyuz-start
+            var priceMultiplier = component.IsTaipan ? 1f : _specialization.GetCargoPriceMultiplier(station.Value);
+            var cost = (int)Math.Round(order.Price * order.OrderQuantity * priceMultiplier);
+            // DS14-Soyuz-end
             var accountBalance = GetBalanceFromAccount((station.Value, bank), order.Account);
 
             // Not enough balance

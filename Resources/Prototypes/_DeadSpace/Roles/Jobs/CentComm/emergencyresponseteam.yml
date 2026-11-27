@@ -702,3 +702,465 @@
     - ERTloadoutGammaPrimary
     - ERTloadoutGammaSecondary
     - ERTloadoutGammaSupport
+    - UplinkERTGamma # DS14-Soyuz
+    - BoxCardboardERT
+    - DefibrillatorCompact
+    - PinpointerNuclear
+    - JugTheCircleOmnizine
+    - JugDexPlusSaline
+    - CrowbarRed
+    - BSAACombatKitFilled
+    - InjectorCaseERTFilled
+
+# Engineer
+## Amber
+- type: job
+  id: ERTEngineerAmber
+  name: job-name-ertengineer-amber
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 144000 # 40 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTEngineerGearAmber
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTEngineerGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackRIGERTEngineer
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudAdvanced
+    ears: ClothingHeadsetAltAERT
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    suitstorage: JetpackMiniFilled
+    shoes: ClothingShoesBootsMagSecurity
+    head: ClothingHeadHelmetERTEngineer
+    id: ERTEngineerPDA
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - PinpointerNuclear
+    - BoxCardboardERT
+    - PortableCameraMonitor
+    - CriminalRecordsMonitor
+    - HandheldCrewMonitor
+    - Omnitool
+    - WelderIndustrialAdvanced
+    - RCD
+    - RCDAmmo
+    - RCDAmmo
+    - MedkitCombatFilled
+
+## Red
+- type: job
+  id: ERTEngineerRed
+  name: job-name-ertengineer-red
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 144000 # 40 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTEngineerGearRed
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTEngineerGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackERTEngineer
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetAltAERT
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTEngineer
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTEngineerRedPDA
+    belt: ClothingBeltChiefEngineerFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - ERTloadoutMelee
+    - BoxCardboardERT
+    - BoxC4ERT
+    - RCDAmmo
+    - RCDAmmo
+    - RCDAmmo
+    - MedkitCombatFilled
+    - InjectorCaseERTFilled
+    - UplinkERTRed #DS14-Soyuz
+
+## Gamma
+- type: job
+  id: ERTEngineerGamma
+  name: job-name-ertengineer-gamma
+  description: job-description-ertengineer
+  playTimeTracker: JobERTEngineerGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 144000 # 40 hours
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTEngineerGearGamma
+  icon: "JobIconERTEngineer"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTEngineerGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTEngineerGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    back: ClothingBackpackERTEngineer
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetAltAERT
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTEngineer
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTEngineerGammaPDA
+    belt: ClothingBeltChiefEngineerFilled
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - ERTloadoutMelee
+    - BoxCardboardERTGamma
+    - BoxC4ERT
+    - RCDRecharging
+    - RCDAmmo
+    - RCDAmmo
+    - RCDAmmo
+    - BSAACombatKitFilled
+    - InjectorCaseERTFilled
+    - PinpointerNuclear
+    - UplinkERTGamma #DS14-Soyuz
+
+# Janitor
+## Amber
+- type: job
+  id: ERTJanitorAmber
+  name: job-name-ertjanitor-amber
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorAmber
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTJanitorGearAmber
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Эмбер
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorAmber
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorAmber
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTJanitorGearAmber
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackRIGERTJanitor
+    mask: ClothingMaskGasERT
+    eyes: ClothingEyesHudERT
+    ears: ClothingHeadsetAltAERT
+    neck: ClothingNeckBodyCamera
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterArmorBulletproof
+    shoes: ClothingShoesGaloshes
+    head: ClothingHeadHelmetERTJanitor
+    id: ERTJanitorPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - ERTloadoutAmberPrimary
+    - ERTloadoutAmberSecondary
+    - BoxCardboardERT
+    - BoxLightMixed
+    - JawsOfLife
+    - BoxCleanerGrenades
+    - PinpointerNuclear
+    - MedkitCombatFilled
+  inhand:
+   - MopItem
+
+## Red
+- type: job
+  id: ERTJanitorRed
+  name: job-name-ertjanitor-red
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorRed
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTJanitorGearRed
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Вымпел
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorRed
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorRed
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTJanitorGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackERTJanitor
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetAltAERT
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTJanitor
+    suitstorage: JetpackSecurityFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTJanitorRedPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutRedPrimary
+    - ERTloadoutRedSecondary
+    - ERTloadoutMelee
+    - BoxCardboardERT
+    - BoxLightMixed
+    - AdvMopItem
+    - BoxCleanerGrenades
+    - CrowbarRed
+    - PinpointerNuclear
+    - MedkitCombatFilled
+    - InjectorCaseERTFilled
+
+## Gamma
+- type: job
+  id: ERTJanitorGamma
+  name: job-name-ertjanitor-gamma
+  description: job-description-ertjanitor
+  playTimeTracker: JobERTJanitorGamma
+  setPreference: false
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 144000 # 40 hours
+    - !type:OverallPlaytimeRequirement
+      time: 1944000 # 540 hours
+  startingGear: ERTJanitorGearGamma
+  icon: "JobIconERTJanitor"
+  supervisors: job-supervisors-centcom
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - NKVB # DS14-Soyuz
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, TrackingImplant ]
+#DS14-Soyuz-start
+  - !type:AddComponentSpecial
+    components:
+    - type: Callsign
+      base: Альфа
+#DS14-Soyuz-end
+  ranks:
+    NKVBRankSeniorOfficer:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorGamma
+      time: 108000 # 30 hours
+    NKVBRankSeniorSergeant:
+    - !type:RoleTimeRequirement
+      role: JobERTJanitorGamma
+      time: 54000 # 15 hours
+    NKVBRankSergeant: []
+#DS14-Soyuz-end
+
+- type: startingGear
+  id: ERTJanitorGearGamma
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTJanitor
+    back: ClothingBackpackERTJanitor
+    eyes: ClothingEyesHudERTGamma
+    ears: ClothingHeadsetAltAERT
+    gloves: ClothingHandsGlovesCombat
+    outerClothing: ClothingOuterHardsuitERTJanitor
+    suitstorage: JetpackVoidFilled
+    shoes: ADTClothingShoesBootsMagERT
+    id: ERTJanitorGammaPDA
+    belt: ClothingBeltJanitorFilledERT
+    pocket1: DoubleEmergencyOxygenTankFilled
+    pocket2: WeaponDisabler
+  storage:
+    back:
+    - ERTloadoutGammaPrimary
+    - ERTloadoutGammaSecondary
+    - ERTloadoutMelee
+    - BoxCardboardERTGamma
+    - BoxLightMixed
+    - BoxGrenadeCleanade
+    - AdvMopItem
+    - CrowbarRed
+    - PinpointerNuclear
+    - BSAACombatKitFilled
+    - InjectorCaseERTFilled
+  inhand:
+   - WeaponLauncherHydra

@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-4.0",
+  "copyright": "Original pixel art for Space Station 14 Soyuz (2026)",
+  "states": [
+    {
+      "name": "icon"
+    },
+    {
+      "name": "state_0"
+    },
+    {
+      "name": "state_1"
+    },
+    {
+      "name": "state_2"
+    },
+    {
+      "name": "state_3"
+    },
+    {
+      "name": "state_4"
+    },
+    {
+      "name": "state_5"
+    },
+    {
+      "name": "state_6"
+    },
+    {
+      "name": "state_7"
+    },
+    {
+      "name": "state_8"
+    },
+    {
+      "name": "state_9"
+    },
+    {
+      "name": "state_10"
+    },
+    {
+      "name": "state_11"
+    },
+    {
+      "name": "state_12"
+    },
+    {
+      "name": "state_13"
+    },
+    {
+      "name": "state_14"
+    },
+    {
+      "name": "state_15"
+    }
+  ]
+}

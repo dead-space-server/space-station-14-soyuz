@@ -6,6 +6,13 @@
   minimumShopLevel: 1
 
 - type: repairReward
+  id: MilitiaSupplyCombatMedipen
+  entity: CombatMedipen
+  cost: 100
+  maxCount: 4
+  minimumShopLevel: 1
+
+- type: repairReward
   id: MilitiaSupplyPistolAmmo
   entity: MagazinePistol
   cost: 30
@@ -352,6 +359,7 @@
     multiplierPercent: 100
   rewards:
   - MilitiaSupplyMedipen
+  - MilitiaSupplyCombatMedipen
   - MilitiaSupplyPistolAmmo
   - MilitiaSupplyFlashbang
   - MilitiaSupplyCombatMedkit

@@ -243,7 +243,8 @@ public sealed partial class RepairOrderRegressionTest
             maps.CreateMap(out var mapId);
             try
             {
-                var prototype = server.ProtoMan.Index<RepairOrderPrototype>("RepairOrderHephaestusLevel10");
+                ProtoId<RepairOrderPrototype> orderId = "RepairOrderHephaestusLevel10";
+                var prototype = server.ProtoMan.Index(orderId);
                 Assert.That(server.System<MapLoaderSystem>().TryLoadGrid(mapId, prototype.TargetGridPath, out var loaded), Is.True);
                 var grid = loaded!.Value;
                 var thruster = entMan.EntityQuery<ThrusterComponent, TransformComponent>()

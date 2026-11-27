@@ -11,7 +11,7 @@ namespace Content.Server.DeadSpace._Soyuz.MilitiaOperations;
 public sealed partial class MilitiaOperationSystem
 {
     private float SecondaryRange(MilitiaOperationActorComponent actor)
-        => MathF.Min(18f, CombatVision(actor));
+        => MathF.Min(13f, CombatVision(actor));
 
     private bool UsingSecondary(MilitiaOperationActorComponent actor)
         => actor.LaserWeapon.IsValid() && actor.Weapon == actor.LaserWeapon;

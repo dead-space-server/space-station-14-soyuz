@@ -10,6 +10,7 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DeadSpace._Soyuz.PharmaceuticalResearch; // DS14-Soyuz
 using Content.Shared.EntityConditions;
 using Content.Shared.EntityConditions.Conditions;
 using Content.Shared.EntityConditions.Conditions.Body;
@@ -250,6 +251,17 @@ public sealed class MetabolizerSystem : SharedMetabolizerSystem
             {
                 if (!proto.Metabolisms.TryGetValue(group.Id, out var entry))
                     continue;
+
+                // DS14-Soyuz start
+                if (reagent.Data?.Exists(data => data is PharmaceuticalData) == true || HasComp<PharmaceuticalBiomodelComponent>(actualEntity))
+                {
+                    var resolve = new ResolveReagentMetabolismEvent(actualEntity, ent, soln.Value, isDead, reagent, group.Id.Id, _reagentScratch, solution, entry);
+                    RaiseLocalEvent(ref resolve);
+                    if (resolve.Skip)
+                        continue;
+                    entry = resolve.Entry;
+                }
+                // DS14-Soyuz end
 
                 var rate = entry.MetabolismRate * group.MetabolismRateModifier;
 
